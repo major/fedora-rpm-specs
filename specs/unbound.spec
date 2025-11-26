@@ -80,6 +80,8 @@ Source30: tmpfiles-unbound-libs.conf
 Patch1:   unbound-fedora-config.patch
 # https://github.com/NLnetLabs/unbound/pull/1331
 Patch2:   unbound-1.24-swig-function.patch
+# https://github.com/NLnetLabs/unbound/pull/1381
+Patch3:   unbound-1.24-quic-on-demand-only.patch
 
 BuildRequires: gcc, make
 BuildRequires: openssl-devel

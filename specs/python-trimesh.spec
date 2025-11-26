@@ -2,16 +2,16 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.9.0
+Version:        4.10.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
 # The entire source is (SPDX) MIT, except:
 #   - trimesh/transformations.py is BSD-3-Clause
-#   - trimesh/exchange/openctm.py is Zlib
 # Additionally, the following are under the same (SPDX) MIT license as the
 # overall source, but with a different copyright statement:
-License:        MIT AND BSD-3-Clause AND Zlib
+#   - trimesh/viewer/trackball.py
+License:        MIT AND BSD-3-Clause
 URL:            https://trimsh.org
 Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
@@ -67,6 +67,10 @@ BuildArch:      noarch
 Recommends:     python3-trimesh+easy = %{version}-%{release}
 Recommends:     python3-trimesh+recommend = %{version}-%{release}
 
+# The source trimesh-4.10.0/trimesh/viewer/trackball.py is copied from an
+# unspecified version of pyrender.
+Provides:       bundled(python3dist(pyrender))
+
 # The [recommends] extra was renamed to [recommend] for v4.
 Obsoletes:      python3-trimesh+recommends < 4.0.0~~dev0-1
 # In v4, the [all] extra became the same as [easy,recommend,test]. Since we
@@ -89,8 +93,9 @@ Obsoletes:      python3-trimesh+all < 4.0.0~~dev0-1
 #Recommends:     /usr/bin/binvox
 %if %{with blender}
 # trimesh.interfaces.blender
-BuildRequires:  /usr/bin/blender
-Recommends:     /usr/bin/blender
+# Since 5.0.0, Blender doesn’t support big-endian architectures.
+BuildRequires:  (/usr/bin/blender or python3(s390-64))
+Recommends:     (/usr/bin/blender or python3(s390-64))
 %endif
 # trimesh.graph
 BuildRequires:  /usr/bin/dot
@@ -196,8 +201,9 @@ tomcli set pyproject.toml lists delitem \
 # recommend extra:
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
+#   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.recommend' 'pyglet\b.*'
+    'project.optional-dependencies.recommend' '(pyglet|manifold3d)\b.*'
 %if %{without skimage}
 tomcli set pyproject.toml lists delitem \
     'project.optional-dependencies.recommend' 'scikit-image\b.*'

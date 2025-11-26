@@ -48,6 +48,8 @@ developing applications that use %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380520)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

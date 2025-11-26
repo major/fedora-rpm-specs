@@ -1,6 +1,6 @@
 Name:       perl-Net-Amazon-S3
-Version:    0.991
-Release:    11%{?dist}
+Version:    0.992
+Release:    1%{?dist}
 Summary:    Use the Amazon Simple Storage Service (S3)
 # README.md reports the code is derived from an ADSL-licensed code.
 License:    (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ADSL
@@ -8,18 +8,13 @@ URL:        https://metacpan.org/release/Net-Amazon-S3
 Source0:    https://cpan.metacpan.org/authors/id/B/BA/BARNEY/Net-Amazon-S3-%{version}.tar.gz
 # Fix shebang
 Patch0:     Net-Amazon-S3-0.86-Normalize-shellbang.patch
-# Fix a content type check in multi-part upload, in upstream after 0.991,
-# <https://github.com/rustyconover/net-amazon-s3/issues/124>
-Patch1:     Net-Amazon-S3-0.991-Fix-initiate_multipart_upload-content-type-check.patch
-# Fix a Net::Amazon::S3::Request::Role::HTTP::Header role constructor, in upstream
-# after 0.991, <https://github.com/rustyconover/net-amazon-s3/pull/130>
-Patch2:     Net-Amazon-S3-0.991-Fix-precedence-error-vs.patch
 BuildArch:  noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
@@ -66,7 +61,6 @@ BuildRequires:  perl(Ref::Util)
 BuildRequires:  perl(Regexp::Common)
 BuildRequires:  perl(Safe::Isa)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(sort)
 BuildRequires:  perl(Sub::Override)
 # Term::Encoding is optional
 # Term::ProgressBar::Simple not used at tests
@@ -198,6 +192,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 24 2025 Petr Pisar <ppisar@redhat.com> - 0.992-1
+- 0.992 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

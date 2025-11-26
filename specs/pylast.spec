@@ -1,7 +1,7 @@
 %global pypi_name pylast
 
 Name:		%{pypi_name}
-Version:	6.0.0
+Version:	7.0.0
 Release:	%autorelease
 Summary:	Python interface to Last.fm API compatible social networks
 License:	Apache-2.0

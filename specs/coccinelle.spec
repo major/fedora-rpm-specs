@@ -2,10 +2,10 @@
 ExcludeArch: %{ix86}
 
 %global forgeurl https://github.com/coccinelle/coccinelle
-%global tag 1.3
-#global commit 0afff7fab0dde3d100f078ce8fd9688693ec3237
-#global date   20230624
-Version:       1.3
+%global tag 1.3.1
+#global commit 09b475bb3dd2b29c6bd904cc455d4c25c6641649
+#global date   20251118
+Version:       1.3.1
 %forgemeta
 
 # Build the documentation on Fedora only.
@@ -22,7 +22,7 @@ Version:       1.3
 %endif
 
 Name:           coccinelle
-Release:        13%{?dist}
+Release:        1%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -208,6 +208,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/python/coccilib
 rm -f $RPM_BUILD_ROOT%{_bindir}/spatch.byte
 rm -f $RPM_BUILD_ROOT%{_bindir}/spatch.opt
 
+# Some sort of package metadata that we don't need.
+rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/io.github.coccinelle.coccinelle.metainfo.xml
+
 # Move the libdir stuff into a subdirectory.
 pushd $RPM_BUILD_ROOT%{_libdir}
 mkdir coccinelle
@@ -285,6 +288,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Mon Nov 24 2025 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-1
+- New version 1.3.1 (RHBZ#2416094)
+
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1.3-13
 - OCaml 5.4.0 rebuild
 

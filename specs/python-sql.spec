@@ -3,8 +3,8 @@
 %global srcname python_sql
 
 Name:           python-%{module_name}
-Version:        1.6.0
-Release:        5%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -56,6 +56,9 @@ rm -rf */*.egg-info
 
 
 %changelog
+* Mon Nov 24 2025 Dan Horák <dan[at]danny.cz> - 1.7.0-1
+- updated to 1.7.0 (rhbz#2416744)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

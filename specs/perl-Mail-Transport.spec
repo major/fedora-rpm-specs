@@ -1,5 +1,5 @@
 Name:		perl-Mail-Transport
-Version:	3.007
+Version:	3.008
 Release:	1%{?dist}
 Summary:	Email message exchange
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,8 +26,8 @@ BuildRequires:	perl(Mail::Reporter) >= 3
 BuildRequires:	perl(Net::Config)
 BuildRequires:	perl(Net::Domain)
 BuildRequires:	perl(Net::SMTP)
+BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
-BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Mail::Transport::Sendmail.3*
 
 %changelog
+* Mon Nov 24 2025 Paul Howarth <paul@city-fan.org> - 3.008-1
+- Update to 3.008
+
 * Wed Sep  3 2025 Paul Howarth <paul@city-fan.org> - 3.007-1
 - Update to 3.007 (rhbz#2392855)
 

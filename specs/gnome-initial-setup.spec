@@ -21,6 +21,11 @@ Summary:        Bootstrapping your OS
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+# Fix geolocation
+# https://bugzilla.redhat.com/show_bug.cgi?id=2237530
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/issues/211
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/299
+Patch:          0001-timezone-Enable-geolocation-for-timezone-page.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

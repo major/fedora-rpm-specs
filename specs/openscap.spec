@@ -1,16 +1,12 @@
 Name:           openscap
-Version:        1.4.2
-Release:        7%{?dist}
+Version:        1.4.3
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
 URL:            http://www.open-scap.org/
 VCS:            git:https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/openscap/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/OpenSCAP/openscap/pull/2227
-# Inherit OpenSCAP environment when executing Bash remediations with --remediate option
-Patch0:         2227.patch
 
 %global         common_description %{expand:
 OpenSCAP is a set of open source libraries providing an easier path
@@ -323,6 +319,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Mon Nov 24 2025 Evgenii Kolesnikov <ekolesni@redhat.com> - 1:1.4.3-1
+- Upgrade to the latest upstream release
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:1.4.2-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,8 +2,8 @@
 # EPEL7 not possible because libgcrypt version is 1.5
 
 Name:           keepassxc
-Version:        2.7.10
-Release:        6%{?dist}
+Version:        2.7.11
+Release:        1%{?dist}
 Summary:        Cross-platform password manager
 # Automatically converted from old format: Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain - review is highly recommended.
 License:        BSL-1.0 AND LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain
@@ -38,7 +38,11 @@ Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 # https://bugzilla.redhat.com/show_bug.cgi?id=2186217
 # disabling the patch fixes the problem, therefore it has been disabled on
 # Fedora >= 38
+# Apply xcb.patch only for EPEL <= 9
+%if (%{defined rhel} && 0%{?rhel} <= 9)
 Patch0:         xcb.patch
+%endif
+Patch1:         org.keepassxc.KeePassXC.appdata.xml.patch
 
 %if (%{defined fedora} && 0%{?fedora} >= 44) || (%{defined rhel} && 0%{?rhel} >= 10)
 BuildRequires:  botan3-devel
@@ -141,11 +145,7 @@ information can be considered as quite safe.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %setup -q
-
-# Apply xcb.patch only for EPEL and Fedora <38
-%if (%{defined rhel} || (%{defined fedora} && 0%{?fedora} < 38))
 %autopatch -p1
-%endif
 
 # Older version of appstream-util can't parse some url types
 %if (%{defined rhel} && 0%{?rhel} <= 9)
@@ -219,6 +219,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Nov 24 2025 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 2.7.11-1
+- 2.7.11 release
+- Add org.keepassxc.KeePassXC.appdata.xml.patch
+
 * Sun Nov 16 2025 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 2.7.10-6
 - Replace botan2 with botan3 on EPEL>=10
 

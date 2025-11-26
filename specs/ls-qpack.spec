@@ -1,6 +1,6 @@
 Name:           ls-qpack
 Version:        2.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QPACK compression library for use with HTTP/3
 
 License:        MIT
@@ -55,6 +55,10 @@ sed -i 's/PRIVATE ls-qpack/PUBLIC ls-qpack/g' bin/CMakeLists.txt
 rm -r deps/xxhash
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380786)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+export CFLAGS="%{optflags} -lm"
+export LDFLAGS="%{__global_ldflags} -lm"
 %cmake -DLSQPACK_TESTS=ON \
        -DLSQPACK_XXH=OFF \
        -DLSQPACK_BIN=ON \
@@ -94,6 +98,10 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/interop-encode
 %{_libdir}/cmake/ls-qpack/
 
 %changelog
+* Mon Nov 24 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.6.2-2
+- Set missing math library flag (rhbz#2413628)
+- Set CMAKE_POLICY_VERSION_MINIMUM for CMake-4.0
+
 * Thu Nov 20 2025 Benson Muite <fed500@fedoraproject.org> - 2.6.2-1
 - Update to latest release 2.6.2
 

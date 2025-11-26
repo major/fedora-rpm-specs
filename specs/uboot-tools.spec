@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -9,8 +9,8 @@
 %global opensbi opensbi
 
 Name:     uboot-tools
-Version:  2025.10
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Version:  2026.01
+Release:  0.1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -42,7 +42,6 @@ Patch8:   uefi-enable-https-boot-by-default.patch
 Patch10:  USB-PD-TCPM-improvements.patch
 # Rockchips improvements
 Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
-Patch13:  Initial-MNT-Reform2-support.patch
 # Jetson fixes
 Patch14:  p3450-fix-board.patch
 Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
@@ -279,6 +278,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Mon Nov 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.01-0.1.rc3
+- Update to 2026.01 RC3
+
 * Thu Oct 16 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-2
 - Drop residual Rockchip firmware (saves ~150Mb)
 

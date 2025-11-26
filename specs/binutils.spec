@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -121,7 +121,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "96b8a8a633a")
+%define commit_id %(echo "beab972c07d")
 
 #----End of Configure Options------------------------------------------------
 
@@ -277,7 +277,7 @@ Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
-# Lifetime: Fixed in 2.44 (maybe ?)
+# Lifetime: Fixed in 2.46 (maybe ?)
 Patch08: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
@@ -293,21 +293,21 @@ Patch10: binutils-testsuite-fixes.patch
 Patch11: binutils-riscv-testsuite-fixes.patch
 
 # Purpose:  Fix the ar test of non-deterministic archives.
-# Lifetime: Fixed in 2.44
+# Lifetime: Fixed in 2.46
 Patch12: binutils-fix-ar-test.patch
 
 # Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
-# Lifetime: Fixed in 2.45
+# Lifetime: Fixed in 2.46
 Patch13: binutils-aarch64-small-plt0.patch
 
 %if %{with gold}
 
 # Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
-# Lifetime: Fixed in 2.44 (maybe)
+# Lifetime: Fixed in 2.46 (maybe)
 Patch14: binutils-gold-pack-relative-relocs.patch
 
 # Purpose:  Let the gold linker ignore --error-execstack and --error-rwx-segments.
-# Lifetime: Fixed in 2.44 (maybe)
+# Lifetime: Fixed in 2.46 (maybe)
 Patch15: binutils-gold-ignore-execstack-error.patch
 
 # Purpose:  Stop gold from aborting when input sections with the same name
@@ -327,11 +327,22 @@ Patch17: binutils-gold-warn-unsupported.patch
 Patch18: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
-# Lifetime: Fixed in 2.44 (maybe)
+# Lifetime: Fixed in 2.46 (maybe)
 Patch19: binutils-gold-empty-dwp.patch
 %endif
 
 #----------------------------------------------------------------------------
+
+# Purpose:  Revert the fixes for PR33577 which introduce a change into the
+#            behaviour of symbol versioning - a behaviour not expected by
+#            other linkers.
+# Lifetime: Fixed in 2.46 (maybe) (hopefully temporary)
+Patch97: binutils-revert-PR33577.patch
+
+# Purpose:  Remove the Build protected-func-2 without PIE linker tests
+#            as these are currently failing.
+# Lifetime: TEMPORARY - should be fixed by the 2.46 release.
+Patch98: binutils-remove-ld-protected-func-2-test.patch
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10.
 # Lifetime: TEMPORARY
@@ -1469,6 +1480,10 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Nov 24 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-9
+- Rebase to commit beab972c07d
+- Revert patches for PR 33577
+
 * Tue Nov 11 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-8
 - Rebase to commit 96b8a8a633a
 

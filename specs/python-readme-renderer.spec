@@ -13,6 +13,8 @@ Source:         %{pypi_source %{pypi_name}}
 # Fix tests with pygments >= 2.19.0
 # Backport of https://github.com/pypa/readme_renderer/pull/325
 Patch:          fix-tests-pygments-2.19.0.patch
+# Support docutils 0.22+
+Patch:          https://github.com/pypa/readme_renderer/pull/332.patch
 
 BuildArch:      noarch
 

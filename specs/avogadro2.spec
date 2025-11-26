@@ -1,5 +1,5 @@
 # Qt6 builds for testing
-%bcond_with qt6
+%bcond_without qt6
 
 # Package language files
 %bcond_without lang
@@ -24,7 +24,6 @@ BuildRequires:  chrpath
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  avogadro2-libs-devel >= 0:%{version}
-BuildRequires:  molequeue-devel
 BuildRequires:  spglib-devel
 BuildRequires:  python3-devel
 BuildRequires:  gcc
@@ -33,15 +32,16 @@ BuildRequires:  doxygen
 BuildRequires:  eigen3-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  glew-devel
-BuildRequires:  JKQtPlotter-qt5-devel
 %if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  JKQtPlotter-devel
 %else
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  JKQtPlotter-qt5-devel
 %endif
 %if 0%{?fedora}
 BuildRequires:  libappstream-glib
@@ -164,6 +164,12 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %endif
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -Wno-dev \
+ -DAvogadro_ENABLE_RPC:BOOL=OFF \
+%if %{with qt6}
+ -DQT_VERSION:STRING=6 \
+%else
+ -DQT_VERSION:STRING=5 \
+%endif
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DENABLE_RPATH:BOOL=ON \
  -DENABLE_TESTING:BOOL=OFF \

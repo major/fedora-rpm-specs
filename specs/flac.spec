@@ -1,11 +1,12 @@
 Name:           flac
 Version:        1.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An encoder/decoder for the Free Lossless Audio Codec
 
 License:        BSD-3-Clause AND GPL-2.0-or-later AND GFDL-1.3-or-later
 URL:            https://www.xiph.org/flac/
 Source:         https://downloads.xiph.org/releases/flac/flac-%{version}.tar.xz
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -55,7 +56,7 @@ will use the Free Lossless Audio Codec.
 sed -i 's|FLAC__TEST_LEVEL=1|FLAC__TEST_LEVEL=0|' test/CMakeLists.txt
 
 %build
-%cmake
+%cmake -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
 %install
@@ -93,6 +94,10 @@ install src/libFLAC++/libFLAC++.m4 %{buildroot}%{_datadir}/aclocal/
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Nov 24 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.5.0-5
+- add back version-specific requirement on libs subpackage
+- set cmake build type to release (#2416751)
+
 * Mon Oct 06 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.5.0-4
 - cleanup the spec (Robert-André Mauchin)
 - convert to cmake (Robert-André Mauchin, Gwyn Ciesla)

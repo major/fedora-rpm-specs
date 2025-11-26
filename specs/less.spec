@@ -1,13 +1,13 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 685
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-Source1: lesspipe.sh
+%global lesspipe_version 2.20
+Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
 Source2: less.sh
 Source3: less.csh
-Source4: lesspipe.sh.1
 Patch4: less-394-time.patch
 Patch5: less-475-fsync.patch
 Patch6: less-436-manpage-add-old-bot-option.patch
@@ -20,6 +20,13 @@ URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
 BuildRequires: make
+# for lesspipe make test
+BuildRequires: perl-Archive-Tar
+# for lesspipe
+Recommends: (less-color = %{version}-%{release} if perl-interpreter)
+Recommends: unzip
+Recommends: html2text
+Recommends: 7zip
 
 %description
 The less utility is a text file browser that resembles more, but has
@@ -31,8 +38,17 @@ example, vi).
 You should install less because it is a basic utility for viewing text
 files, and you'll use it frequently.
 
+%package color
+Summary: Colorizers for less
+Requires: %{name} = %{version}-%{release}
+Conflicts: less < 685-5
+
+%description color
+Syntax highlighting modes for the less pager.
+
+
 %prep
-%setup -q
+%setup -q -a 1
 %patch -P 4 -p1 -b .time
 %patch -P 5 -p2 -b .fsync
 %patch -P 6 -p1 -b .manpage-add-old-bot-option
@@ -49,22 +65,54 @@ autoreconf -fiv
 %configure
 %make_build CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
+pushd lesspipe-%{lesspipe_version}
+#fix shebangs
+sed -i "s|^#!/usr/bin/env bash|^#!/usr/bin/bash|" lesspipe.sh
+
+./configure --prefix=%{_prefix}
+%make_build
+popd
+
 %install
 %make_install
 mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-install -p        %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
 install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d
 install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
-install -p -m 644 %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1/lesspipe.sh.1
+
+pushd lesspipe-%{lesspipe_version}
+%make_install
+rm -f $RPM_BUILD_ROOT/usr/share/bash-completion/less_completion
+popd
+
+%check
+pushd lesspipe-%{lesspipe_version}
+# we dont have all required components to pass full test, but it is still
+# useful to run for debug purposes
+make test ||:
+popd
 
 %files
 %doc README NEWS INSTALL
 %license LICENSE COPYING
 /etc/profile.d/*
-%{_bindir}/*
+%{_bindir}/less
+%{_bindir}/lesscomplete
+%{_bindir}/lessecho
+%{_bindir}/lesskey
+%{_bindir}/lesspipe.sh
 %{_mandir}/man1/*
 
+%files color
+%{_bindir}/archive_color
+%{_bindir}/code2color
+%{_bindir}/sxw2txt
+%{_bindir}/vimcolor
+
 %changelog
+* Mon Nov 24 2025 Michal Hlavinka <mhlavink@redhat.com> - 685-6
+- reintroduce use more feature rich lesspipe filter, but separate
+  perl dependent colorizer into subpackage, credits Yaakov Selkowitz 
+
 * Fri Nov 14 2025 Adam Williamson <awilliam@redhat.com> - 685-5
 - Revert new lesspipe filter due to hard perl dependency
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-500-gc7d699b55b
+%global glibcsrcdir glibc-2.42.9000-554-g0f7b73f2ed
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 12
+%global baserelease 13
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2259,7 +2259,7 @@ update_gconv_modules_cache ()
 %attr(0644,root,root) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) /etc/gai.conf
 # If rpm doesn't support %license, then use %doc instead.
 %{!?_licensedir:%global license %%doc}
-%license COPYING COPYING.LIB LICENSES
+%license COPYINGv2 COPYINGv3 COPYING.LESSERv2 COPYING.LIB LICENSES
 
 %files common
 %{_bindir}/gencat
@@ -2397,6 +2397,64 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Nov 24 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-13
+- Auto-sync with upstream branch master,
+  commit 0f7b73f2ed70e783cd02ab77503645b03ee1d332:
+- htl: Fix conditions for thread list variables (Samuel Thibault)
+- pthread: Simplify condition for hidden proto (Samuel Thibault)
+- htl: move c11 symbols into libc. (gfleury)
+- htl: Also use __libc_thread_freeres to clean TLS state (Samuel Thibault)
+- benchtests: Fix bench-build after cd748a63ab (Adhemerval Zanella)
+- linux: Handle EINVAL as unsupported on tst-pidfd_getinfo (Adhemerval Zanella)
+- bench-malloc-thread: Add libm for powf (Adhemerval Zanella)
+- benchtests: Remove clang warnings (Adhemerval Zanella)
+- benchtests: Add attribute_optimize (Adhemerval Zanella)
+- benchtests: Use __f128 on ilogbf128-inputs constants (Adhemerval Zanella)
+- Enable --enable-fortify-source with clang (Adhemerval Zanella)
+- configure: Only use -fno-fp-int-builtin-inexact if compiler supports it (Adhemerval Zanella)
+- benchtests: Add fmaf benchtests (Adhemerval Zanella)
+- math: Remove ldbl-96 fma implementation (Adhemerval Zanella)
+- benchtests: Add fma benchtests (Adhemerval Zanella)
+- htl: Move pthread_atfork compatibility symbol to libc (Samuel Thibault)
+- htl: move pthread_spin_{destroy, lock, init, trylock, unlock) and remove _pthread_spin_lock, into libc. (gfleury)
+- Implement C23 const-preserving standard library macros (Joseph Myers)
+- Check if linker supports -Wl,--undefined-version (Adhemerval Zanella)
+- nptl: Replace FALLTHROUGH with [[fallthrough]] (Adhemerval Zanella)
+- hurd: Add missing free_sized and free_aligned_sized (Samuel Thibault)
+- Use __fstat64_time64 in __fts64_children_time64 (bug 33653) (Andreas Schwab)
+- malloc: Use _int_free_chunk in tcache_thread_shutdown (Wilco Dijkstra)
+- math: Sync atanh from CORE-MATH (Adhemerval Zanella)
+- malloc: add free_sized and free_aligned_sized from C23 (Justin King)
+- math: Sync acosh from CORE-MATH (Adhemerval Zanella)
+- linux/termios: test the kernel-side termios canonicalization (H. Peter Anvin)
+- nss: Remove effectively unused __nss_*_database variables (Florian Weimer)
+- AArch64: Remove WANT_SIMD_EXCEPT from aarch64 AdvSIMD math routines (Dylan Fleming)
+- AArch64: Fix and improve SVE pow(f) special cases (Pierre Blanchard)
+- AArch64: fix SVE tanpi(f) [BZ #33642] (Pierre Blanchard)
+- htl: move pthread_hurd_cond_timedwait_np, pthread_hurd_cond_wait_np into libc. (gfleury)
+- htl: move pthread_getname_np/setname_np into libc. (gfleury)
+- htl: fix compatibility (gfleury)
+- Add new AArch64 HWCAP3 definitions from Linux 6.17 to bits/hwcap.h (Adhemerval Zanella)
+- malloc: Simplify tst-free-errno munmap failure test (Arjun Shankar)
+- Remove support for lock elision. (Stefan Liebler)
+- nss: Remove effectively unused struct nss_database_default_cache (Florian Weimer)
+- nss: Clean up function pointer/void * unions (Florian Weimer)
+- linux/termios: factor out the kernel interface from termios_internal.h (H. Peter Anvin)
+- linux/termios: clear k_termios.c_cflag & CIBAUD for non-split speed [BZ 33340] (H. Peter Anvin)
+- manual: don't use the FSF's old address in license text. (Collin Funk)
+- posix: execvpe: fix UMR with file > NAME_MAX [BZ #33627] (Pádraig Brady)
+- configure: Remove for redirection of built-in functions (Adhemerval Zanella)
+- math: Handle fabsf128 !__USE_EXTERN_INLINES (Adhemerval Zanella)
+- x86: Fix strstr ifunc on clang (Adhemerval Zanella)
+- x86: Use -mavx instead of -msse2avx (Adhemerval Zanella)
+- math: Don't redirect inlined builtin math functions (Adhemerval Zanella)
+- Update COPYING, COPYING.LIB from gnulib, using gnulib file names (Florian Weimer)
+- Add COPYINGv3 with the GPL version 3 text (Florian Weimer)
+- Reference COPYING.LIB in <sframe.h> copyright header (Florian Weimer)
+- htl: move pthread_create to into libc (Samuel Thibault)
+- htl: Move __pthread_enable/disable_asynccancel into libc (Samuel Thibault)
+- hurd: Fix getting rlimit in _hurd_alloc_fd (Samuel Thibault)
+
 * Mon Nov 17 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-12
 - Auto-sync with upstream branch master,
   commit c7d699b55b4e2f5644495a156b0d778105a5e4e3:

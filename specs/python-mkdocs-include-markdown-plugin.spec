@@ -1,5 +1,5 @@
 Name:           python-mkdocs-include-markdown-plugin
-Version:        7.1.2
+Version:        7.2.0
 Release:        %autorelease
 Summary:        Mkdocs Markdown includer plugin
 
@@ -51,6 +51,10 @@ Summary:        %{summary}
   --deselect='tests/test_unit/test_include.py::test_include[url]' \
   --deselect='tests/test_unit/test_include_markdown.py::test_include_markdown[url]' \
   --deselect='tests/test_unit/test_process.py::test_read_url_cached_content' \
+  --deselect='tests/test_unit/test_order.py::test_natural_order_by_extension[directive=include]' \
+  --deselect='tests/test_unit/test_order.py::test_natural_order_by_extension[directive=include-markdown]' \
+  --deselect='tests/test_unit/test_order.py::test_natural_order_by_extension_reverse[directive=include]' \
+  --deselect='tests/test_unit/test_order.py::test_natural_order_by_extension_reverse[directive=include-markdown]' \
   %{nil}
 
 %files -n python3-mkdocs-include-markdown-plugin -f %{pyproject_files}

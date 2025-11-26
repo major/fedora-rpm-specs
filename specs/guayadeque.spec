@@ -11,8 +11,8 @@ Name:           guayadeque
 Version:        0.6.2
 Release:        0.5.beta6.git%{shortcommit0}%{dist}
 %else
-Version:        0.7.2
-Release:        3%{?dist}
+Version:        0.7.3
+Release:        1%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
@@ -173,6 +173,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Mon Nov 24 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.3-1
+- Update to 0.7.3
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 0.7.2-3
 - Rebuilt for icu 77.1
 

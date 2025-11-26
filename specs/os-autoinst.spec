@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -53,10 +53,13 @@ Patch:          0001-testapi-allow-passing-max_interval-through-assert_-s.patch
 # https://github.com/os-autoinst/os-autoinst/pull/2751
 # Fix tests with IPC::Run 20250809.0
 Patch:          0001-t-consoles-s3270.t-fix-with-IPC-Run-20250809.0.patch
-
 # https://github.com/os-autoinst/os-autoinst/pull/2772
 # Add a usb_disconnect function (bet you can't guess what it does)
 Patch:          0001-Add-disconnect_usb-qemu-only-for-now.patch
+# https://github.com/os-autoinst/os-autoinst/pull/2776
+# https://bugzilla.redhat.com/show_bug.cgi?id=2392684
+# VNC: cap the delay on key down events (rediffed)
+Patch:          0001-VNC-cap-the-delay-on-key-down-events.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -279,6 +282,9 @@ fi
 %files devel
 
 %changelog
+* Mon Nov 24 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-6
+- Backport PR #2776 to fix aarch64 encryption entry bug (#2392684)
+
 * Fri Nov 14 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-5
 - Backport PR #2772 to add disconnect_usb function
 

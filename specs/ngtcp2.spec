@@ -1,7 +1,7 @@
 %bcond CHECK 1
 
 Name:           ngtcp2
-Version:        1.16.0
+Version:        1.18.0
 Release:        %autorelease
 Summary:        Implementation of RFC 9000 QUIC protocol
 

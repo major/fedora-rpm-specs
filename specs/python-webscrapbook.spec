@@ -21,8 +21,8 @@
 
 
 Name:           python-%{pypi_name}
-Version:        2.7.1
-Release:        2%{?dist}
+Version:        2.7.2
+Release:        1%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
@@ -82,6 +82,9 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Mon Nov 24 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.7.2-1
+- New upstream release
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.1-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -33,8 +33,8 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.6.2
-%global obsbrowser_commit bdabf8300ecefeb566b81f4a7ff75f8a8e21f62b
+%global obswebsocket_version 5.6.3
+%global obsbrowser_commit a776dd6a1a0ded4a8a723f2f572f3f8a9707f5a8
 
 # Upstream does not declare this yet. Arbitrarily pick 137.0 since it works
 # and it works around a CEF versioning teething issue:
@@ -46,8 +46,8 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.1.1
-Release:        4%{?dist}
+Version:        32.0.2
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -63,7 +63,6 @@ Source1:        https://github.com/obsproject/obs-websocket/archive/%{obswebsock
 Source2:        https://github.com/obsproject/obs-browser/archive/%{obsbrowser_commit}/obs-browser-%{obsbrowser_commit}.tar.gz
 
 # Backports from upstream
-Patch0001:      https://github.com/obsproject/obs-studio/commit/69162b12ecadb3edaca0529b34da93b4df606c11.patch#/%{name}-ffmpeg8.patch
 
 # Proposed upstream
 ## From: https://github.com/obsproject/obs-studio/pull/12326
@@ -71,6 +70,17 @@ Patch0101:      0101-frontend-Consider-settings-changed-if-an-output-sett.patch
 Patch0102:      0102-frontend-Allow-invalid-recording-encoder-if-quality-.patch
 ## From: https://github.com/obsproject/obs-studio/pull/8529
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
+## From: https://github.com/obsproject/obs-studio/pull/12507
+Patch0105:      0105-libobs-opengl-Reject-external-only-modifiers.patch
+
+# WIP code to improve new CEF support (based on upstream dev tree)
+## From: https://github.com/asahilina/obs-browser/tree/lockdown
+Patch0201:      0201-WIP-Lock-down-Chrome-Runtime-dummy-Browser-Client.patch
+Patch0202:      0202-WIP-Lock-down-Chrome-Runtime-Disable-various-setting.patch
+Patch0203:      0203-WIP-Lock-down-Chrome-Runtime-Lock-down-URLs-and-comm.patch
+Patch0204:      0204-WIP-Enable-Chrome-Runtime.patch
+Patch0205:      0205-WIP-Chrome-Runtime-Data-migration.patch
+Patch0206:      0206-WIP-Lock-down-Chrome-Runtime-Misc-changes.patch
 
 # Downstream Fedora patches
 ## Use fdk-aac by default
@@ -129,6 +139,7 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  qt6-qtwayland-devel
 BuildRequires:  rnnoise-devel
+BuildRequires:  simde-devel
 BuildRequires:  speexdsp-devel
 BuildRequires:  swig
 BuildRequires:  systemd-devel
@@ -153,10 +164,6 @@ Requires:      (qt6-qtwayland%{?_isa} if libwayland-client%{?_isa})
 Requires:      hicolor-icon-theme
 
 # These are modified sources that can't be easily unbundled
-## License: MIT and CC0-1.0
-## Newer version in Fedora with the same licensing
-## Request filed upstream for fixing it: https://github.com/simd-everywhere/simde/issues/999
-Provides:      bundled(simde) = 0.7.1
 ## License: BSL-1.0
 Provides:      bundled(decklink-sdk)
 ## License: CC0-1.0 or OpenSSL or Apache-2.0
@@ -299,7 +306,11 @@ as an overlay in a video stream or recording.
 # Prepare plugins/obs-websocket
 tar -xf %{SOURCE1} -C plugins/obs-websocket --strip-components=1
 tar -xf %{SOURCE2} -C plugins/obs-browser --strip-components=1
-%autopatch -p1
+%autopatch -p1 -M 199
+cd plugins/obs-browser
+%autopatch -p1 -m 200 -M 999
+cd ../..
+%autopatch -p1 -m 1000
 
 # This is provided by cef-devel systemwide
 rm cmake/finders/FindCEF.cmake
@@ -339,7 +350,6 @@ cp deps/libcaption/LICENSE.txt .fedora-rpm/licenses/deps/libcaption-LICENSE.txt
 cp plugins/obs-qsv11/QSV11-License-Clarification-Email.txt .fedora-rpm/licenses/plugins/QSV11-License-Clarification-Email.txt
 cp deps/blake2/LICENSE.blake2 .fedora-rpm/licenses/deps/
 cp libobs/graphics/libnsgif/LICENSE.libnsgif .fedora-rpm/licenses/deps/
-cp libobs/util/simde/LICENSE.simde .fedora-rpm/licenses/deps/
 cp plugins/decklink/LICENSE.decklink-sdk .fedora-rpm/licenses/deps
 cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
 
@@ -388,6 +398,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sat Nov 22 2025 Asahi Lina <lina@lina.yt> - 32.0.2-1
+- Update to 32.0.2
+- Add prerelease obs-browser patches for CEF lockdown
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 31.1.1-4
 - Fixed build with FFmpeg 8
 

@@ -13,7 +13,7 @@
 %global __node_deps_path ^%{_bindir}/%{name}$
 
 Name:           forgejo
-Version:        13.0.2
+Version:        13.0.3
 Release:        %autorelease
 Summary:        A lightweight software forge
 

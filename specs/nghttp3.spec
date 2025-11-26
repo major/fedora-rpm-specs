@@ -1,7 +1,7 @@
 %global abi_ver 9
 
 Name:           nghttp3
-Version:        1.12.0
+Version:        1.13.1
 Release:        %autorelease
 Summary:        HTTP/3 library written in C
 
@@ -44,7 +44,7 @@ developing applications that use libnghttp3.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 
 %build

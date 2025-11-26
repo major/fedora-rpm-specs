@@ -9,10 +9,6 @@ Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar
 URL: https://rt.wiki.kernel.org/index.php/Tuna
 BuildArch: noarch
 BuildRequires: python3-devel, gettext
-BuildRequires: pyproject-rpm-macros
-BuildRequires: python3-pip
-BuildRequires: python3-setuptools
-BuildRequires: python3-wheel
 Requires: python3-linux-procfs >= 0.6
 # This really should be a Suggests...
 # Requires: python-inet_diag
@@ -77,6 +73,10 @@ install -p -m644 help/kthreads/* %{buildroot}/%{_datadir}/tuna/help/kthreads/
 install -p -m644 etc/tuna/example.conf %{buildroot}/%{_sysconfdir}/tuna/
 install -p -m644 etc/tuna.conf %{buildroot}/%{_sysconfdir}/
 install -p -m644 org.tuna.policy %{buildroot}/%{_datadir}/polkit-1/actions/
+
+%if %{without oscilloscope}
+rm %{buildroot}%{_bindir}/oscilloscope
+%endif
 
 # l10n-ed message catalogues
 for lng in `cat po/LINGUAS`; do

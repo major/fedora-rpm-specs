@@ -1,6 +1,6 @@
 Summary: A tool for monitoring the progress of data through a pipeline
 Name: pv
-Version: 1.10.0
+Version: 1.10.2
 Release: %autorelease
 License: GPL-3.0-or-later
 URL: https://www.ivarch.com/programs/pv.shtml
@@ -28,8 +28,7 @@ will be until completion.
 %autosetup -p1
 
 %build
-%configure \
-    --enable-year2038
+%configure
 %make_build
 
 

@@ -18,7 +18,7 @@
 
 Name:           SDL3
 Version:        3.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -33,7 +33,8 @@ BuildRequires:  git-core
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gcc-c++
+# Technically, there are a few C++ files in SDL3, but none are used for the Linux build
+# BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
@@ -75,6 +76,7 @@ BuildRequires:  vulkan-devel
 # KMS
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  libdrm-devel
+BuildRequires:	libXtst-devel
 
 # Ensure libdecor is pulled in when libwayland-client is (rhbz#1992804)
 Requires:       (libdecor-%{libdecor_majver}.so.%{libdecor_majver}%{libsymbolsuffix} if libwayland-client)
@@ -190,6 +192,11 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Mon Nov 24 2025 Tom Callaway <spot@fedoraproject.org> - 3.3.2-2
+- drop BR: gcc-c++
+- add BR: libXtst-devel
+- thanks to "anotheruser" (bz2416555)
+
 * Sun Oct 26 2025 Ding-Yi Chen  <dchen@fedoraproject.org> - 3.3.2-1
 - update to 3.3.2
 

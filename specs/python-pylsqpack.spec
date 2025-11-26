@@ -9,6 +9,9 @@
 
 %global pypi_name pylsqpack
 
+# -Wl,--as-needed flag breaks the link to `ls-qpack` library
+%undefine _ld_as_needed
+
 Name:           python-%{pypi_name}
 Version:        0.3.23
 Release:        %autorelease
@@ -53,6 +56,7 @@ rm -rf src/%{pypi_name}.egg-info
 %endif
 
 %build
+export LDFLAGS="%{__global_ldflags} -lls-qpack"
 %if %{with pyproject}
 %pyproject_wheel
 %else
@@ -69,7 +73,6 @@ rm -rf src/%{pypi_name}.egg-info
 %endif
 
 %check
-export LD_PRELOAD=%{_libdir}/libls-qpack.so
 %pytest -v
 
 %if %{with pyproject}

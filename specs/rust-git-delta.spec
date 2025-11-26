@@ -20,6 +20,7 @@ Source:         %{crates_source}
 # * bump rstest dev-dependency from 0.21.0 to 0.26.0:
 #   https://github.com/dandavison/delta/pull/1970#issuecomment-3153268557
 # * relax console dependency from 0.15.0 to >=0.15.0,<0.17.0
+# * allow dirs 6: https://github.com/dandavison/delta/pull/2063
 Patch:          git-delta-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

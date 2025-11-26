@@ -1,19 +1,15 @@
 %global forgeurl https://github.com/elParaguayo/qtile-extras
-%global commit 7a54fbf1f5d867c33f4b7f73daa58bfab2863c4e
-%forgemeta
+%global tag v0.34.0
 
 Name: qtile-extras
-Version: 0.33.0
-Release: 2%{?dist}
+Version: 0.34.0
+Release: 1%{?dist}
 Summary: A collection of mods for Qtile
+%forgemeta
 
 License: MIT
 URL: https://github.com/elParaguayo/qtile-extras
 Source0: %{forgesource}
-
-# Upstream is not ready for Python 3.14 yet, so we need to apply PR #5466
-# https://github.com/elParaguayo/qtile-extras/pull/449
-Patch: PR-449.patch
 
 BuildArch: noarch
 
@@ -29,6 +25,8 @@ BuildRequires: python3-dbus-next
 BuildRequires: python3-gobject
 BuildRequires: python3-gobject-base
 BuildRequires: python3-dbus-fast
+BuildRequires: cairo-devel
+BuildRequires: gobject-introspection-devel
 
 # Test dependencies
 # In the ideal world, we would generate the Python dependencies dynamically
@@ -68,7 +66,6 @@ Qtile. For more, please read https://qtile-extras.readthedocs.io
 
 %prep
 %forgesetup
-%patch -P0 -p1
 
 git init
 
@@ -134,6 +131,9 @@ pytest_expressions+=" and not test_syncthing_http_error"
 
 
 %changelog
+* Mon Nov 24 2025 Jakub Kadlcik <frostyx@email.cz> - 0.34.0-1
+- New upstream version
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.33.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

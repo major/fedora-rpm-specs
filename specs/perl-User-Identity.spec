@@ -1,5 +1,5 @@
 Name:           perl-User-Identity
-Version:        1.03
+Version:        3.00
 Release:        1%{?dist}
 Summary:        Maintains info about a physical person
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,12 @@ make test
 %{_mandir}/man3/User::Identity::System.3*
 
 %changelog
+* Mon Nov 24 2025 Paul Howarth <paul@city-fan.org> - 3.00-1
+- Update to 3.00
+  - Maintenance release with Mail::Box version 3 compatibility
+  - Bump version to indicate it is not compatible with MailBox 4
+  - Add bugtracker to metadata
+
 * Mon Sep 15 2025 Paul Howarth <paul@city-fan.org> - 1.03-1
 - Update perl-User-Identity to 1.03 (#2395190)
 

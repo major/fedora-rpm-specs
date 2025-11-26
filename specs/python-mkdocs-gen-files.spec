@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-mkdocs-gen-files
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        MkDocs plugin to generate documentation pages during the build
 

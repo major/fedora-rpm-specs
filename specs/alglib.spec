@@ -35,8 +35,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        API documentation for %{name}
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        ALGLIB-Documentation
 BuildArch:      noarch
 
 %description    doc

@@ -13,8 +13,12 @@ Patch:          0001-Add-fPIE-compiler-flag.patch
 # Fixes incorrect error handling
 # https://github.com/nolanderc/glsl_analyzer/pull/84
 Patch:          0002-re-add-missing-logic-to-stringify-Enums-as-Ints.patch
+# Updates to 0.15.2
+# https://github.com/nolanderc/glsl_analyzer/pull/83
+Patch:          0003-update-to-zig-0.15.2.patch
 
-BuildRequires:  (zig >= 0.14 with zig < 0.15)
+# 0.15.2 introduced changes incompatible with 0.15.1
+BuildRequires:  (zig >= 0.15.2 with zig < 0.16)
 BuildRequires:  zig-rpm-macros
 # testing
 BuildRequires:  pytest

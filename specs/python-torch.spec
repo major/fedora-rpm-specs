@@ -104,10 +104,8 @@ Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
 %endif
 
-%if %{without onnx}
 %global ox_ver 1.18.0
 Source90:       https://github.com/onnx/onnx/archive/refs/tags/v%{ox_ver}.tar.gz
-%endif
 
 %if 0%{?fedora} >= 45
 # drop aarch64 in 45

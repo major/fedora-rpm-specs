@@ -26,6 +26,8 @@ Source:         %{crates_source}
 #   https://github.com/gitui-org/gitui/commit/aa513b40e191da181174836aac27545bd952a613)
 # * update struct-patch from 0.8 to 0.9
 #   https://github.com/gitui-org/gitui/commit/369ea6a140438fdbaf29ff31f3fea8195603b5e8
+# * allow dirs 6:
+#   https://github.com/gitui-org/gitui/commit/9781608584151ae4932515b8d356f77110e24a0a
 Patch:          gitui-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -38,8 +38,8 @@ ExcludeArch: %{ix86}
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	49.0
-Release:	2%{?dist}
+Version:	49.1
+Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 # Sources are under LGPL-2.0-or-later, AppData is CC0-1.0 and help is
@@ -160,6 +160,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Boxe
 %{_metainfodir}/org.gnome.Boxes.metainfo.xml
 
 %changelog
+* Mon Nov  24 2025 Packit <hello@packit.dev> - 49.1-1
+- Update to version 49.1
+- Resolves: rhbz#2416732
+
 * Thu Oct  2 2025 Daniel P. Berrange <berrange@redhat.com> - 49.0-2
 - Exclude build on i686 arch
 

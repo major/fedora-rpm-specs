@@ -297,7 +297,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 #FIXME %%patch -P 416 -p1 -b .SIOCGSTAMP
 %patch -P36 -p1 -b .build-botan
 %if 0%{?fedora} > 43
-%patch -P37 -p1 -b .build-c11-threads-avail
+#%patch -P37 -p1 -b .build-c11-threads-avail
 %endif
 %patch -P 418 -p1 -b .mozbz-1512162
 # most likely fixed

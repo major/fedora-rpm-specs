@@ -12,7 +12,7 @@
 %global giturl  https://github.com/networkx/networkx
 
 Name:           python-networkx
-Version:        3.5
+Version:        3.6
 Release:        %autorelease
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
@@ -27,12 +27,14 @@ Source4:        https://pandas.pydata.org/pandas-docs/stable/objects.inv#/object
 Source5:        https://geopandas.org/en/stable/objects.inv#/objects-geopandas.inv
 Source6:        https://sphinx-gallery.github.io/stable/objects.inv#/objects-sphinx-gallery.inv
 Source7:        https://networkx.org/nx-guides/objects.inv#/objects-nx-guides.inv
+# Predownloaded graphs for the examples
+Source8:        https://snap.stanford.edu/data/facebook_combined.txt.gz
+Source9:        https://www-personal.umich.edu/~mejn/netdata/football.zip
 
 # Some examples cannot be executed, so expect them to fail.
-# Examples that require network access:
-# - football
 # Examples that require packages not available from Fedora:
 # - osmnx requires osmnx
+# - plot_iplotx requires iplotx
 # - plot_lines requires momepy
 Patch:          %{name}-doc.patch
 # Undo upstream change to use intersphinx_registry.  Fedora does not have it,
@@ -134,6 +136,12 @@ sed -e 's|\("https://numpy.org/neps/", \)None|\1"%{SOURCE1}"|' \
     -e 's|\("https://sphinx-gallery.github.io/stable/", \)None|\1"%{SOURCE6}"|' \
     -e 's|\("https://networkx.org/nx-guides/", \)None|\1"%{SOURCE7}"|' \
     -i doc/conf.py
+
+# Do not try to download the SNAP database from the web during the build
+sed -i 's,https:.*\.gz,%{SOURCE8},' examples/3d_drawing/plot_facebook_3d.py
+
+# Do not try to download the football database from the web during the build
+sed -i 's,http:.*\.zip,file://%{SOURCE9},' examples/graph/plot_football.py
 
 # Point to the local switcher instead of the inaccessible one on the web
 sed -i 's,https://networkx.org/documentation/latest/,,' doc/conf.py

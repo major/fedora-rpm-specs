@@ -264,7 +264,7 @@ License:       GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND BSD-3-Cl
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      /usr/bin/readlink
-Requires:      %{name}-filesystem
+Requires:      %{name}-filesystem >= 1:30.1
 Requires:      emacsclient
 Requires:      libgccjit
 Recommends:    emacs = %{epoch}:%{version}-%{release}
@@ -464,11 +464,37 @@ cat > macros.emacs << EOF
 %%_emacs_version %{version}
 %%_emacs_ev %{?epoch:%{epoch}:}%{version}
 %%_emacs_evr %{?epoch:%{epoch}:}%{version}-%{release}
+%%_emacs_archsitelispdir %%{_libdir}/emacs/site-lisp
 %%_emacs_sitelispdir %{site_lisp}
 %%_emacs_sitestartdir %{site_start_d}
 %%_emacs_bytecompile(W) /usr/bin/emacs -batch --no-init-file --no-site-file --eval '(push nil load-path)' %%{-W:--eval '(setq byte-compile-error-on-warn t)' }-f batch-byte-compile %%*
 EOF
 
+cat > 00-dynamic-module-dir.el << 'EOF'
+;;; 00-dynamic-module-dir.el --- Add arch-specifc dir to load-path -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; This directory is for installing Emacs dynamic modules into.  See
+;; also RPM macro %%_emacs_archsitelispdir.
+
+(add-to-list 'load-path "%{_libdir}/emacs/site-lisp")
+
+;;; 00-dynamic-module-dir.el ends here
+EOF
+
+cat > 10-source-directory.el << 'EOF'
+;;; 10-source-directory.el --- Set source-directory -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; This solves rhbz#474958; Function `update-directory-autoloads' now
+;; finally works.
+
+(setq source-directory "%{_datadir}/emacs/%{version}/")
+
+;;; 10-source-directory.el ends here
+EOF
 
 %install
 %if %{with nw}
@@ -523,22 +549,17 @@ ln -s emacs-%{version}-nw %{buildroot}%{_bindir}/emacs-nox
 # Make sure movemail isn't setgid
 chmod 755 %{buildroot}%{emacs_libexecdir}/movemail
 
-mkdir -p %{buildroot}%{site_lisp}
+mkdir -p %{buildroot}%{site_lisp} %{buildroot}%{site_start_d}
 install -p -m 0644 %SOURCE5 %{buildroot}%{site_lisp}/site-start.el
 install -p -m 0644 %SOURCE6 %{buildroot}%{site_lisp}
-
-# This solves bz#474958, "update-directory-autoloads" now finally
-# works the path is different each version, so we'll generate it here
-echo "(setq source-directory \"%{_datadir}/emacs/%{version}/\")" \
- >> %{buildroot}%{site_lisp}/site-start.el
+install -p -m 0644 00-dynamic-module-dir.el %{buildroot}%{site_start_d}/
+install -p -m 0644 10-source-directory.el %{buildroot}%{site_start_d}/
 
 mv %{buildroot}%{_mandir}/man1/{ctags.1.gz,gctags.1.gz}
 mv %{buildroot}%{_bindir}/{ctags,gctags}
 
 # BZ 927996
 mv %{buildroot}%{_infodir}/{info.info.gz,info.gz}
-
-mkdir -p %{buildroot}%{site_lisp}/site-start.d
 
 # Default initialization file
 mkdir -p %{buildroot}%{_sysconfdir}/skel
@@ -800,6 +821,8 @@ fi
 %{_userunitdir}/emacs.service
 %attr(0644,root,root) %config(noreplace) %{site_lisp}/default.el
 %attr(0644,root,root) %config %{site_lisp}/site-start.el
+%{site_start_d}/00-dynamic-module-dir.el
+%{site_start_d}/10-source-directory.el
 %{pkgconfig}/emacs.pc
 
 

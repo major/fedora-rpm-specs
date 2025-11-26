@@ -9,6 +9,13 @@
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
 
+# enable|disble use_custom_libcxx
+%global use_custom_libcxx 0
+%if 0%{?rhel}
+# no libcxx in el
+%global use_custom_libcxx 1
+%endif
+
 # enable|disble bootstrap
 %global bootstrap 0
 # workaround for old gn on el9, it causes build error: unknown function filter_labels_include()
@@ -125,9 +132,6 @@
 
 # enable|disable control flow integrity support
 %global cfi 0
-%ifarch x86_64
-%global cfi 0
-%endif
 
 # enable qt backend
 %global enable_qt 1
@@ -245,7 +249,7 @@
 
 Name:	chromium
 Version: 142.0.7444.175
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -261,6 +265,9 @@ Patch8: chromium-117-widevine-other-locations.patch
 Patch20: chromium-disable-font-tests.patch
 # don't download binary blob
 Patch21: chromium-123-screen-ai-service.patch
+
+# Fix link error when building with system libcxx
+Patch22: chromium-131-fix-qt-ui.pach
 
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
@@ -355,6 +362,8 @@ Patch316: chromium-122-clang-build-flags.patch
 # unknown warning option -Wno-nontrivial-memcall
 Patch317: chromium-142-clang++-unknown-argument.patch
 
+Patch318: memory-allocator-dcheck-assert-fix.patch
+
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
@@ -422,7 +431,6 @@ Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
 Patch404: fix-partition-alloc-compile.patch
 Patch405: fix-study-crash.patch
-Patch406: memory-allocator-dcheck-assert-fix.patch
 Patch407: fix-different-data-layouts.patch
 Patch408: 0002-Add-ppc64-trap-instructions.patch
 
@@ -495,6 +503,10 @@ BuildRequires: clang
 BuildRequires: clang-tools-extra
 BuildRequires: llvm
 BuildRequires: lld
+
+%if ! %{use_custom_libcxx}
+BuildRequires: libcxx-devel
+%endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 BuildRequires: gcc-toolset-14-libatomic-devel
@@ -972,6 +984,9 @@ Qt6 UI for chromium.
 
 %patch -P20 -p1 -b .disable-font-test
 %patch -P21 -p1 -b .screen-ai-service
+%if ! %{use_custom_libcxx}
+%patch -P22 -p1 -b .fix-qt-ui
+%endif
 
 %patch -P82 -p1 -b .remoting-no-tests
 
@@ -1050,6 +1065,8 @@ Qt6 UI for chromium.
 %patch -P317 -p1 -b .clang++-unsupported-argument
 %endif
 
+%patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
+
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
@@ -1096,7 +1113,6 @@ Qt6 UI for chromium.
 %patch -P403 -p1 -b .fix-breakpad-compile
 %patch -P404 -p1 -b .fix-partition-alloc-compile
 %patch -P405 -p1 -b .fix-study-crash
-%patch -P406 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P407 -p1 -b .fix-different-data-layouts
 %patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
 %patch -P409 -p1 -b .fix-page-allocator-overflow
@@ -1199,6 +1215,11 @@ CXXFLAGS="$FLAGS"
 CXXFLAGS+=' -faltivec-src-compat=mixed -Wno-deprecated-altivec-src-compat'
 %endif
 
+%if ! %{use_custom_libcxx}
+LDFLAGS="${LDFLAGS} -stdlib=libc++"
+CXXFLAGS="${CXXFLAGS} -stdlib=libc++"
+%endif
+
 export CC=clang
 export CXX=clang++
 export AR=llvm-ar
@@ -1206,6 +1227,7 @@ export NM=llvm-nm
 export READELF=llvm-readelf
 export CFLAGS
 export CXXFLAGS
+export LDFLAGS
 
 # need for error: the option `Z` is only accepted on the nightly compiler
 export RUSTC_BOOTSTRAP=1
@@ -1229,6 +1251,9 @@ CHROMIUM_CORE_GN_DEFINES=""
 # using system toolchain
 CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
+%if ! %{use_custom_libcxx}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_custom_libcxx=false'
+%endif
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_enterprise_companion=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
@@ -1286,10 +1311,7 @@ CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level} blink_symbol_level=%{deb
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
-# Disable --warning-suppression-mappings as it causes FTBFS on el/f40/f41 due to old llvm
-%if 0%{?rhel} || 0%{?fedora} == 40 || 0%{?fedora} == 41
-CHROMIUM_CORE_GN_DEFINES+=' clang_warning_suppression_file=""'
-%endif
+CHROMIUM_CORE_GN_DEFINES+=' v8_enable_backtrace=true'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1749,6 +1771,11 @@ fi
 %endif
 
 %changelog
+* Mon Nov 24 2025 Than Ngo <than@redhat.com> - 142.0.7444.175-4
+- Enable system libcxx
+- Fix link error when building with system libcxx
+- Apply memory-allocator-dcheck-assert-fix for aarch64
+
 * Thu Nov 20 2025 LuK1337 <priv.luk@gmail.com> - 142.0.7444.175-3
 - Backport Wayland DnD bug fix from upstream
 

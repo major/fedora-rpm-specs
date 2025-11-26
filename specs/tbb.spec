@@ -5,8 +5,8 @@
 
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
-Version: 2022.2.0
-Release: 2%{?dist}
+Version: 2022.3.0
+Release: 1%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
@@ -18,9 +18,6 @@ Source8: tbbmalloc_proxy.pc
 
 # Fix failure to link with GCC 15
 Patch:   tbb-c++-linkage.patch
-
-# Do not use -fcf-protection=full on non-x86 architectures
-Patch:   %{giturl}/pull/1768.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -154,6 +151,10 @@ ctest --output-on-failure --force-new-ctest-process
 %doc python/README.md
 
 %changelog
+* Sat Nov 22 2025 Jerry James  <loganjerry@gmail.com> - 2022.3.0-1
+- Version 2022.3.0
+- Drop upstreamed fcf-protection patch
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2022.2.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

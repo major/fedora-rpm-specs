@@ -1,6 +1,6 @@
 Name:           rpkg
-Version:        1.68
-Release:        9%{?dist}
+Version:        1.69
+Release:        1%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -46,14 +46,7 @@ Patch0:         remove-koji-and-rpm-py-installer-from-requires.patch
 %if 0%{?with_python2}
 Patch1:         0001-Remove-Environment-Markers-syntax.patch
 %endif
-Patch2:         0002-pre-push-check-bogus-error-file-wasn-t-listed.patch
-Patch3:         0003-Fix-mockbuild-srpm-mock-specfile_path.patch
-Patch4:         0004-patch-Execute-subprocess-in-text-mode.patch
-Patch5:         0005-type-fix-typo-in-requirements-README.patch
-Patch6:         0006-install-add-rpmbuild-arguments-with-and-without.patch
-Patch7:         0007-srpm-man-page-generation-fixed.patch
-Patch8:         0008-Add-mock-configuration-option-to-build-and-srpm.patch
-Patch9:         https://pagure.io/rpkg/pull-request/757.patch
+Patch2:         0002-Execute-shell-command-Non-interactive-stdin.patch
 
 %description
 Python library for interacting with rpm+git
@@ -284,6 +277,28 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Nov 25 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-1
+- Only update the progress bar when meaningfully changed (code)
+- Don’t set up upload progress when stdout isn’t a tty (code)
+- Fix unittests for Python 3.14 (onosek)
+- `sources`: set "Accept-Encoding: identity" header on HTTP requests
+  (decathorpe)
+- Accept auto-generated sources in pre-push checks (fweimer)
+- Add mock configuration option to build and srpm commands for use along with
+  the srpm mock option, same as in mockbuild command. (abobrov)
+- `srpm`: man page generation fixed (onosek)
+- `install`: add rpmbuild arguments `--with` and `--without` - 541 (gleiro)
+- type: fix typo in requirements README. (gleiro)
+- `patch`: Execute subprocess in text mode (ferdnyc)
+- Fix mockbuild --srpm-mock specfile_path (wngtk)
+- `pre-push-check`: bogus error - file wasn't listed - #747 (onosek)
+- Switch to %pyproject_* macros (onosek)
+- Use the spec name to assemble src.rpm name (sergio)
+- Jenkinsfile: use local declaration instead the global (onosek)
+- `srpm`: --offline arg to prevent connecting to Koji - 600 (onosek)
+- `mockbuild`: -r argument as shortcut of --root (sergio)
+- `rhpkg mockbuild` won't show a hint with '--target' (onosek)
+
 * Fri Oct 17 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.68-9
 - Accept auto-generated sources in pre-push checks
 

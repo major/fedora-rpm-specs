@@ -1,23 +1,27 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit 69c6007b5ad8d045c93c15ab56ca6bd25dac9c77
+%global commit 180844bd28bca8e4c5c6ed99786a2718386ac323
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20250906
+%global date 20251123
 
-%global fullname kde-initial-system-setup
-%global orgname org.kde.initialsystemsetup
+%global orgname org.kde.plasmasetup
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
 %global _hardened_build 1
 
-Name:           kiss
+Name:           plasma-setup
 Version:        0.1.0~%{date}git%{shortcommit}
 Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
-License:        GPL-2.0-or-later
-URL:            https://invent.kde.org/system/%{name}
-Source:         %{url}/-/archive/%{commit}/kiss-%{shortcommit}.tar.bz2
+License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
+URL:            https://invent.kde.org/plasma/%{name}
+Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
+
+# Proposed upstream
+Patch:          https://invent.kde.org/plasma/plasma-setup/-/merge_requests/52.patch
+Patch:          https://invent.kde.org/plasma/plasma-setup/-/merge_requests/53.patch
+
 BuildRequires:  cmake(Qt6Core) >= %{qt6_minver}
 BuildRequires:  cmake(Qt6Gui) >= %{qt6_minver}
 BuildRequires:  cmake(Qt6Qml) >= %{qt6_minver}
@@ -35,6 +39,7 @@ BuildRequires:  cmake(LibKWorkspace)
 BuildRequires:  cracklib-devel
 BuildRequires:  extra-cmake-modules >= %{kf6_minver}
 BuildRequires:  gcc-c++
+BuildRequires:  git-core
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
@@ -42,11 +47,20 @@ BuildRequires:  qt6qml(org.kde.plasma.private.kcm_keyboard)
 
 Requires:       qt6qml(org.kde.plasma.private.kcm_keyboard)
 
+Requires:       dbus-common
+Requires:       kf6-filesystem
+Requires:       kf6-kauth
+
+# Renamed from KDE Initial System Setup / kiss
+Obsoletes:      kiss < %{version}-%{release}
+Provides:       kiss = %{version}-%{release}
+Provides:       kiss%{?_isa} = %{version}-%{release}
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 # Do not check .so files in an application-specific library directory
-%global __provides_exclude_from ^%{_kf6_qmldir}/org/kde/initialsystemsetup/.*\\.so.*$
+%global __provides_exclude_from ^%{_kf6_qmldir}/org/kde/plasmasetup/.*\\.so.*$
 
 
 %description
@@ -54,7 +68,7 @@ ExcludeArch:    %{ix86}
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n %{name}-%{commit} -S git_am
 
 
 %build
@@ -65,33 +79,51 @@ ExcludeArch:    %{ix86}
 %install
 %cmake_install
 
-%find_lang %{orgname}
+%find_lang %{orgname} --all-name
 rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
-%check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}.*.xml
+%preun
+%systemd_preun %{name}.service
+
+
+%post
+%systemd_post %{name}.service
+
+
+%postun
+%systemd_postun %{name}.service
 
 
 %files -f %{orgname}.lang
 %license LICENSES/*
-%{_libexecdir}/%{fullname}*
-%{_kf6_libexecdir}/kauth/%{fullname}*
-%{_kf6_qmldir}/org/kde/initialsystemsetup/
-%{_kf6_plugindir}/packagestructure/kde_initialsystemsetup.so
-%{_kf6_metainfodir}/%{orgname}.*.xml
-%{_kf6_datadir}/plasma/packages/org.kde.initialsystemsetup.*/
-%{_unitdir}/%{fullname}*
-%{_sysusersdir}/%{fullname}*
-%{_tmpfilesdir}/%{fullname}*
+%{_libexecdir}/%{name}*
+%{_kf6_libexecdir}/kauth/%{name}*
+%{_kf6_qmldir}/org/kde/plasmasetup/
+%{_kf6_plugindir}/packagestructure/plasmasetup.so
+%{_kf6_datadir}/plasma/packages/%{orgname}.*/
+%license %{_kf6_datadir}/plasma/packages/%{orgname}.finished/contents/ui/konqi-calling.png.license
+%{_unitdir}/%{name}*
+%{_sysusersdir}/%{name}*
+%{_tmpfilesdir}/%{name}*
 %{_datadir}/dbus-1/*/%{orgname}.*
 %{_datadir}/polkit-1/actions/%{orgname}.*
-%{_datadir}/polkit-1/rules.d/%{fullname}*
-%{_datadir}/qlogging-categories6/initialsystemsetup.categories
-%{_datadir}/%{fullname}/
+%{_datadir}/polkit-1/rules.d/%{name}*
+%{_datadir}/qlogging-categories6/plasmasetup.categories
+%{_datadir}/%{name}/
 
 
 %changelog
+* Tue Nov 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251123git180844b-2
+- Add patch to change self-disable behavior to use a flag file
+
+* Mon Nov 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251123git180844b-1
+- Bump to new git snapshot
+
+* Sat Sep 27 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250926giteeeb5a1-1
+- Bump to new git snapshot
+- Rename to plasma-setup
+
 * Sun Sep 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250906git69c6007-2
 - Drop i686 support as required dependencies are no longer available
 
@@ -131,6 +163,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0~20211207git22cf331-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Tue Dec 07 2021 Marc Deop marcdeop@fedoraproject.org - 0~20211207git22cf331-1
+* Tue Dec 07 2021 Marc Deop <marcdeop@fedoraproject.org> - 0~20211207git22cf331-1
 - Initial Release
 

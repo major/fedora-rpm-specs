@@ -2,17 +2,24 @@
 # FileNotFoundError: [Errno 2] No such file or directory: '/opt/mailman/web/logs/mailmanweb.log'           
 %bcond tests 0
 
+%global date    20251122
+%global commit  66cd0f7633af64b61a6c1c23291847500fd80ad5
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           python-mailman-web
-Version:        0.0.9
+Version:        0.0.10~^%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        Mailman 3 Web interface
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.com/mailman/mailman-web
-Source:         %{pypi_source mailman_web}
+# Source:         %%{pypi_source mailman_web}
+Source:         %{url}/-/archive/%{commit}/mailman_web-%{version}.tar.gz
 
 BuildArch:      noarch
+
 BuildRequires:  python3-devel
+BuildRequires:  sed
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-django)
@@ -35,16 +42,16 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n mailman_web-%{version}
+#autosetup -p1 -n mailman_web-%{version}
+%autosetup -p1 -n mailman-web-%{commit}
+
+# needed because we're building from a Git snapshot
+echo "fallback_version = \"0.0.10\"" >> pyproject.toml
 
 # Remove shebang from Python files
 for file in mailman_web/manage.py; do
- sed '1{\@^#!/usr/bin/env python@d}' $file > $file.new &&
- touch -r $file $file.new &&
- mv $file.new $file
+ sed -i '1{\@^#!/usr/bin/env python@d}' $file
 done
-
-
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -56,7 +63,7 @@ done
 
 %install
 %pyproject_install
-%pyproject_save_files mailman_web
+%pyproject_save_files -L mailman_web
 mkdir -p %{buildroot}%{_sysconfdir}/mailman3
 
 

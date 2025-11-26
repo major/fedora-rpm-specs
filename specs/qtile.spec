@@ -1,16 +1,13 @@
 %global forgeurl https://github.com/qtile/qtile
-%global commit 26bd74757edeb5a0057f9bdc1c66c1836fa272d6
-%forgemeta
+%global tag v0.34.0
 
 Name: qtile
-Version: 0.33.0
-Release: 2%{?dist}
+Version: 0.34.0
+Release: 1%{?dist}
 Summary: A pure-Python tiling window manager
+%forgemeta
 Source: %{forgesource}
-# Upstream is not ready for Python 3.14 yet, so we need to apply PR #5466
-# https://github.com/qtile/qtile/pull/5466
-Patch: PR-5466.patch
-BuildArch: noarch
+#ExclusiveArch: x86_64 aarch64
 
 # Everything licensed under MIT except for the following files.
 # GPL-3.0-or-later:
@@ -32,7 +29,10 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
 BuildRequires:  xterm
 BuildRequires:  rsvg-pixbuf-loader
-BuildRequires: (pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18)
+BuildRequires:  wlroots >= 0.19.0
+BuildRequires:  wlroots < 0.20.0
+BuildRequires:  wlroots-devel >= 0.19.0
+BuildRequires:  wlroots-devel < 0.20.0
 
 # Some dependencies are loaded with ffi.dlopen, and to declare them properly
 # we'll need this suffix.
@@ -82,22 +82,20 @@ Summary: Qtile's python library
 
 %package wayland
 Summary: Qtile wayland session
+Requires: qtile = %{version}-%{release}
 BuildRequires: xorg-x11-server-Xwayland
 BuildRequires: python3-pywlroots
-Requires: qtile = %{version}-%{release}
-Requires: python3-libqtile+wayland = %{version}-%{release}
+BuildRequires: cairo-devel
+BuildRequires: gobject-introspection-devel
+BuildRequires: wayland-protocols-devel
 
 
 %description wayland
 %{summary}.
 
 
-%pyproject_extras_subpkg -n python3-libqtile wayland
-
-
 %prep
 %forgesetup
-%patch -P0 -p1
 
 # These are not packaged for Fedora yet
 sed -i '/check-manifest/d' ./pyproject.toml
@@ -136,27 +134,13 @@ desktop-file-install \
 # solves the issue. Please see the upstream issue:
 # https://github.com/qtile/qtile/issues/4573
 %ifnarch s390x ppc64le
-# test_chord_widget is broken on Rawhide (F41)
-# See: https://github.com/qtile/qtile/issues/4930
-#
-# test_vertical_clock
-# See: https://github.com/qtile/qtile/issues/5283
-#
-# Some tests are expecting to fail because PR #5466 is not finished
-# See: https://github.com/qtile/qtile/pull/5466
+# Tests in test/widgets/test_generic_poll_text.py require network
 %pytest -vv --backend x11 --backend wayland \
-    --deselect test/widgets/test_chord.py::test_chord_widget \
-    --deselect test/core/test_exitcode.py::test_exitcode_default[1-wayland] \
-    --deselect test/core/test_exitcode.py::test_exitcode_explicit[1-wayland] \
-    --deselect test/test_fakescreen.py::test_float_change_screens[1-x11-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_float_change_screens[1-wayland-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_hammer_tile[1-x11-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_hammer_tile[1-wayland-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_hammer_ratio_tile[1-x11-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_hammer_ratio_tile[1-wayland-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_ratio_to_fourth_screen[1-x11-FakeScreenConfig] \
-    --deselect test/test_fakescreen.py::test_ratio_to_fourth_screen[1-wayland-FakeScreenConfig] \
-    --deselect test/widgets/test_base.py::test_threadpolltext_force_update[1-wayland]
+    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_text \
+    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_json_with_data \
+    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_custom_headers
+
+
 %endif
 
 
@@ -174,6 +158,10 @@ desktop-file-install \
 
 
 %changelog
+* Sun Nov 23 2025 Jakub Kadlcik <frostyx@email.cz> - 0.34.0-1
+- New upstream version
+- Drop python3-libqtile+wayland because this extra is not in the upstream anymore
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.33.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

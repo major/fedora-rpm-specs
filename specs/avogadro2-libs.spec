@@ -1,5 +1,5 @@
 # Qt6 builds for testing
-%bcond qt6 0
+%bcond qt6 1
 
 Name:           avogadro2-libs
 Version:        1.102.1
@@ -18,9 +18,10 @@ Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/%{version}/
 Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/%{version}/fragments-%{version}.tar.gz
 
 BuildRequires:  boost-devel
-BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python3-devel
 BuildRequires:  cmake
 BuildRequires:  chrpath
+BuildRequires:  cups-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(eigen3)
@@ -28,23 +29,25 @@ BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(openbabel-3)
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  hdf5-devel
-BuildRequires:  mmtf-cpp-devel, jsoncpp-devel
+BuildRequires:  mmtf-cpp-devel
+BuildRequires:  jsoncpp-devel
 BuildRequires:  spglib-devel
-BuildRequires:  JKQtPlotter-qt5-devel
 %if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  JKQtPlotter-devel
 %else
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  JKQtPlotter-qt5-devel
 %endif
 %if 0%{?fedora}
 BuildRequires:  libarchive-devel >= 3.4.0
 %endif
 Provides: %{name}-static = 0:%{version}-%{release}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%{?python_provide:%python_provide python3-%{name}}
 
 %description
 Avogadro libraries provide 3D rendering, visualization, analysis
@@ -81,7 +84,8 @@ HTML documentation of %{name}.
 %prep
 %autosetup -n avogadrolibs-%{version}
 
-tar -xf %{SOURCE1} && mv avogenerators-%{version} avogadrogenerators
+tar -xf %{SOURCE1} && mv avogenerators-%{version} avogenerators
+ln -sr avogenerators ../avogenerators
 tar -xf %{SOURCE2} && mv molecules-%{version} molecules
 tar -xf %{SOURCE3} && mv crystals-%{version} crystals
 tar -xf %{SOURCE4} && mv fragments-%{version} fragments
@@ -89,7 +93,7 @@ tar -xf %{SOURCE4} && mv fragments-%{version} fragments
 # Rename LICENSE file
 mv molecules/LICENSE molecules/LICENSE-molecules
 mv fragments/LICENSE fragments/LICENSE-fragments
-mv avogadrogenerators/README.md avogadrogenerators/README-avogenerators.md
+mv avogenerators/README.md avogenerators/README-avogenerators.md
 sed -e 's|${AvogadroLibs_SOURCEDATA_DIR}/|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/insertfragment/CMakeLists.txt
 sed -e 's|${AvogadroLibs_SOURCEDATA_DIR}/|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/quantuminput/CMakeLists.txt
 sed -e 's|${AvogadroLibs_SOURCEDATA_DIR}/|${AvogadroLibs_SOURCE_DIR}/|g' -i avogadro/qtplugins/templatetool/CMakeLists.txt
@@ -120,7 +124,7 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DUSE_MMTF:BOOL=ON \
  -DUSE_QT:BOOL=ON \
  -DQT_VERSION:STRING=%{?with_qt6:6}%{!?with_qt6:5} \
- -DUSE_MOLEQUEUE:BOOL=ON \
+ -DUSE_MOLEQUEUE:BOOL=OFF \
  -DUSE_VTK:BOOL=OFF \
  -DUSE_HDF5:BOOL=ON \
  -DUSE_SPGLIB:BOOL=ON \
@@ -144,7 +148,7 @@ cp -a %_vpath_builddir/docs/html %{buildroot}%_pkgdocdir/html
 
 
 %files
-%doc README.md thirdparty/libgwavi/README-libgwavi.md avogadrogenerators/README-avogenerators.md
+%doc README.md thirdparty/libgwavi/README-libgwavi.md avogenerators/README-avogenerators.md
 %doc fragments/README-fragments.md
 %license LICENSE molecules/LICENSE-molecules fragments/LICENSE-fragments
 %{_libdir}/libAvogadro*.so.1

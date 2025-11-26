@@ -3,7 +3,6 @@
 BuildArch:      noarch
 BuildRequires:  meson
 BuildRequires:  fonts-rpm-macros
-BuildRequires:  fonts-rpm-templates
 
 Version: 49.0
 Release: %autorelease

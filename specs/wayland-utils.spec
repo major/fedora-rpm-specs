@@ -1,6 +1,6 @@
 Name:           wayland-utils
-Version:        1.2.0
-Release:        7%{?dist}
+Version:        1.3.0
+Release:        2%{?dist}
 Summary:        Wayland utilities
 
 License:        MIT
@@ -10,7 +10,7 @@ Source0:        https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(wayland-client) >= 1.20
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.44
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.109
 
@@ -39,6 +39,14 @@ XDG output protocols.
 %{_mandir}/man1/wayland-info.1*
 
 %changelog
+* Mon Nov 24 2025 Olivier Fourdan <ofourdan@redhat.com> - 1.3.0-2
+- Bump wayland-protocol dependency to 1.44
+  Related: #2416752
+
+* Mon Nov 24 2025 Olivier Fourdan <ofourdan@redhat.com> - 1.3.0-1
+- wayland-utils 1.3.0
+  Resolves: #2416752
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

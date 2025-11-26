@@ -111,7 +111,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
 License:        MIT
@@ -279,12 +279,15 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %files test
 %{_bindir}/rocsparse*
 %{_datadir}/rocsparse/test/rocsparse_*
-%{_libdir}/rocsparse/
 %{_datadir}/rocsparse/
-
+%{_libdir}/rocsparse/
+%{_libexecdir}/rocsparse/
 %endif
 
 %changelog
+* Mon Nov 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Fix -test subpackage
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove dir tags
 

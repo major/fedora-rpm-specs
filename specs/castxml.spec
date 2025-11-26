@@ -2,7 +2,7 @@
 
 Name:		castxml
 Version:	0.6.13
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
@@ -60,6 +60,10 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.13-2
+- Rebuild for llvm/clang 20 (EPEL 8/9)
+- Rebuild for llvm/clang 21 (fedora 43/44)
+
 * Fri Aug 29 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.13-1
 - Update to version 0.6.13
 

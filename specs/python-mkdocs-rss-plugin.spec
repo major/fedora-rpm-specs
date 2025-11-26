@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/Guts/mkdocs-rss-plugin
 
 Name:           python-mkdocs-rss-plugin
-Version:        1.17.4
+Version:        1.17.7
 Release:        %autorelease
 Summary:        MkDocs plugin which generates a static RSS feed
 
@@ -29,17 +29,12 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n mkdocs-rss-plugin-%{version}
 
-# Relax GitPython dependency on f41 as our version is too old
-%if 0%{?fc41}
-sed -i 's/GitPython>=3.1.43,<3.2/GitPython>=3.1,<3.2/' requirements/base.txt
-%endif
-
-# Relax version pins for test dependencies
-sed -i 's/>=.*$//g' requirements/testing.txt
+# Fix version
+sed -i "s|fallback_version = .*|fallback_version = \"%{version}\"|" pyproject.toml
 
 # and disable coverage tests
-sed -i 's/pytest-cov/pytest/' requirements/testing.txt
-sed -i '/--cov/d' setup.cfg
+sed -i 's/"pytest-cov>=.*"/"pytest"/' pyproject.toml
+sed -i '/--cov/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

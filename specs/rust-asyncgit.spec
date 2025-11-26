@@ -15,9 +15,11 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump gix dependency to 0.73
 # * remove feature for building / statically linking vendored OpenSSL sources
+# * allow dirs 6:
+#   https://github.com/gitui-org/gitui/commit/9781608584151ae4932515b8d356f77110e24a0a
 Patch:          asyncgit-fix-metadata.diff
-# Backport PR 2567 (https://github.com/gitui-org/gitui/pull/2567)
-Patch:          pr-2567.diff
+# * Backport PR 2567 (https://github.com/gitui-org/gitui/pull/2567
+Patch10:        pr-2567.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
