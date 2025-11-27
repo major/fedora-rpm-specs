@@ -5,7 +5,7 @@
 %global with_suggests 0
 
 Name:             R-%{packname}
-Version:          1.0.3
+Version:          1.0.5
 Release:          %autorelease
 Summary:          Parsing and Evaluation Tools that Provide More Details than the Default
 
@@ -16,20 +16,22 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-methods
-# Suggests:  R-ggplot2, R-lattice, R-rlang, R-testthat >= 3.0.0, R-withr
+# Suggests:  R=callr, R-covr, R-ggplot2 >= 3.3.6, R-lattice, R-methods, R-pkgload, R-ragg >= 1.4.0, R-rlang >= 1.1.5, R-knitr, R-testthat >= 3.0.0, R-withr
 # LinkingTo:
 # Enhances:
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-methods
 %if %{with_suggests}
 BuildRequires:    R-callr
 BuildRequires:    R-ggplot2 >= 3.3.6
 BuildRequires:    R-lattice
+BuildRequires:    R-methods
 BuildRequires:    R-pkgload
-BuildRequires:    R-rlang
+BuildRequires:    R-ragg >= 1.4.0
+BuildRequires:    R-rlang >= 1.1.5
+BuildRequires:    R-knitr
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr
 %endif

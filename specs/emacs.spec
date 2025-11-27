@@ -264,7 +264,7 @@ License:       GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND BSD-3-Cl
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      /usr/bin/readlink
-Requires:      %{name}-filesystem >= 1:30.1
+Requires:      %{name}-filesystem >= 1:30.2
 Requires:      emacsclient
 Requires:      libgccjit
 Recommends:    emacs = %{epoch}:%{version}-%{release}
@@ -809,7 +809,6 @@ fi
 %dir %{_datadir}/emacs/%{version}
 %{_datadir}/emacs/%{version}/etc
 %{_datadir}/emacs/%{version}/site-lisp
-%dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/%{version}
 %dir %{native_lisp}
 %dir %{_libexecdir}/emacs

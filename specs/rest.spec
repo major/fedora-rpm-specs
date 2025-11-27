@@ -20,16 +20,20 @@ BuildRequires: pkgconfig(gi-docgen)
 
 %description
 This library was designed to make it easier to access web services that
-claim to be "RESTful". A RESTful service should have urls that represent 
-remote objects, which methods can then be called on. The majority of services 
-don't actually adhere to this strict definition. Instead, their RESTful end 
-point usually has an API that is just simpler to use compared to other types 
-of APIs they may support (XML-RPC, for instance). It is this kind of API that 
+claim to be "RESTful". A RESTful service should have urls that represent
+remote objects, which methods can then be called on. The majority of services
+don't actually adhere to this strict definition. Instead, their RESTful end
+point usually has an API that is just simpler to use compared to other types
+of APIs they may support (XML-RPC, for instance). It is this kind of API that
 this library is attempting to support.
 
 %package devel
 Summary: Development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends: gi-docgen-fonts
 
 %description devel
 Files for development with %{name}.

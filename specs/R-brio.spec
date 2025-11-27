@@ -1,12 +1,12 @@
 %bcond_with check
 
 %global packname brio
-%global packver  1.1.3
+%global packver  1.1.5
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.1.3
-Release:          13%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Basic R Input Output
 
 License:          MIT
@@ -23,7 +23,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 %if %{with check}
-BuildRequires:    R-testthat >= 2.1.0
+BuildRequires:    R-testthat >= 3.0.0
 %endif
 
 %description
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Nov 25 2025 Tom Callaway <spot@fedoraproject.org> - 1.1.5-1
+- update to 1.1.5
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

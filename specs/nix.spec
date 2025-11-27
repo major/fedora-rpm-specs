@@ -84,10 +84,10 @@ BuildRequires:  sqlite-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  toml11-devel
 BuildRequires:  xz-devel
-Requires:       %{name}-core = %{version}-%{release}
-Recommends:     (%{name}-daemon = %{version}-%{release} if systemd)
-Recommends:     %{name}-legacy = %{version}-%{release}
-Recommends:     %{name}-system = %{version}-%{release}
+Requires:       nix-core = %{version}-%{release}
+Recommends:     (nix-daemon = %{version}-%{release} if systemd)
+Recommends:     nix-legacy = %{version}-%{release}
+Recommends:     nix-system = %{version}-%{release}
 
 %description
 Nix is a purely functional package manager. It allows multiple
@@ -102,7 +102,7 @@ See the README.fedora.md file for setup instructions.
 
 %package        core
 Summary:        Core nix tool
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       nix-libs%{?_isa} = %{version}-%{release}
 %ifarch x86_64 aarch64 ppc64le
 Recommends:     busybox
 %endif
@@ -117,34 +117,34 @@ or also nix-legacy if you need the older pre-flake nix-* commands.
 %package daemon
 Summary:        The nix daemon for multiuser mode
 BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-system = %{version}-%{release}
+Requires:       nix = %{version}-%{release}
+Requires:       nix-system = %{version}-%{release}
 
 %description daemon
 This package provides nix-daemon and associated files.
 
 
 %package devel
-Summary:        Development files for %{name}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Summary:        Development files for nix
+Requires:       nix-libs%{?_isa} = %{version}-%{release}
 
 %description devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+This package contains libraries and header files for
+developing applications that use nix.
 
 
 %if %{with docs}
 %package doc
-Summary:        Documentation files for %{name}
+Summary:        Documentation files for nix
 BuildArch:      noarch
 
 %description doc
-The %{name}-doc package contains documentation files for %{name}.
+This package contains documentation files for nix.
 %endif
 
 
 %package        filesystem
-Summary:        Filesystem for %{name}
+Summary:        Filesystem for nix
 BuildArch:      noarch
 # added at f43
 Obsoletes:      nix-singleuser < %{version}-%{release}
@@ -163,16 +163,16 @@ This package provides the symlinks for the older nix-* commands.
 
 
 %package libs
-Summary:        Runtime libraries for %{name}
+Summary:        Runtime libraries for nix
 
 %description libs
-The package provides the the runtime libraries for %{name}.
+The package provides the the runtime libraries for nix.
 
 
 %if %{with tests}
 %package test
 Summary:        Nix test programs
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       nix%{?_isa} = %{version}-%{release}
 
 %description test
 This package provides the nix-test programs.
@@ -182,8 +182,7 @@ This package provides the nix-test programs.
 %package        system
 Summary:        Nix directories and sysusers setup
 BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-filesystem = %{version}-%{release}
+Requires:       nix-filesystem = %{version}-%{release}
 
 %description    system
 This package sets up the nix directories and sysusers.
@@ -325,7 +324,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 
 %if %{with docs}
 %files doc
-%{_defaultdocdir}/%{name}
+%{_defaultdocdir}/nix
 %endif
 
 

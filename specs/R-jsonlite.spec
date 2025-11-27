@@ -1,5 +1,5 @@
 %global packname jsonlite
-%global packver  1.8.8
+%global packver  2.0.0
 %global rlibdir  %{_libdir}/R/library
 
 # Several hard-require this package or are not yet available.

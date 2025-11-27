@@ -1,5 +1,5 @@
-%global git_date 20250714
-%global git_commit cd6043a774abf6e4d17116f1497a2032f5351d49
+%global git_date 20251125
+%global git_commit d04d33162a32ba99eeaef142e5113dc2feb78239
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        5.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -289,6 +289,12 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Tue Nov 25 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20251125-1.gitd04d331
+- sequoia: register "eddsa" as an alias to EDDSA-ED25519
+- sequoia: revert "Do not include EdDSA in FIPS policy"
+- openssl: let TLS 1.3 brainpool groups get used for key shares
+- openssh: support mlkem768nistp256-sha256 and mlkem1024nistp384-sha384
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 20250714-5.gitcd6043a
 - Rebuilt for Python 3.14.0rc3 bytecode
 

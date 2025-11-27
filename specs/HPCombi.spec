@@ -7,7 +7,7 @@
 %global giturl  https://github.com/libsemigroups/HPCombi
 
 Name:           HPCombi
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        High Performance Combinatorics in C++ using vector instructions
 
@@ -19,7 +19,7 @@ Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch:          %{name}-unbundle-simde.patch
 
 # Limited support for architectures.  Recheck this on each release.
-ExclusiveArch:  x86_64 %{arm64}
+ExclusiveArch:  %{x86_64} %{arm64}
 
 BuildRequires:  cmake
 BuildRequires:  cmake(Catch2)
@@ -28,22 +28,22 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libsparsehash)
 BuildRequires:  simde-static
 
-%global _desc %{expand:
-HPCombi is a C++17 header-only library using the SSE and AVX instruction
-sets, and some equivalents, for very fast manipulation of combinatorial
-objects such as transformations, permutations, and boolean matrices of
-small size.  The goal of this project is to implement various new
-algorithms and benchmark them on various compiler and architectures.
+%global _desc %{expand:HPCombi is a C++17 header-only library using the SSE and AVX instruction sets,
+and some equivalents, for very fast manipulation of combinatorial objects such
+as transformations, permutations, and boolean matrices of small size.  The
+goal of this project is to implement various new algorithms and benchmark them
+on various compiler and architectures.
 
-HPCombi was initially designed using the SSE and AVX instruction sets,
-and did not work on machines without these instructions (such as ARM).
-From v1.0.0 HPCombi supports processors with other instruction sets
-also, via SIMD Everywhere.  It might be the case that the greatest
-performance gains are achieved on processors supporting the SSE and AVX
-instruction sets, but the HPCombi benchmarks indicate that there are
-also still significant gains on other processors too.}
+HPCombi was initially designed using the SSE and AVX instruction sets, and did
+not work on machines without these instructions (such as ARM).  From v1.0.0
+HPCombi supports processors with other instruction sets also, via SIMD
+Everywhere.  It might be the case that the greatest performance gains are
+achieved on processors supporting the SSE and AVX instruction sets, but the
+HPCombi benchmarks indicate that there are also still significant gains on
+other processors too.}
 
-%description %_desc
+%description
+%_desc
 
 %package        devel
 Summary:        High Performance Combinatorics in C++ using vector instructions
@@ -51,7 +51,8 @@ BuildArch:      noarch
 Requires:       simde-static
 Provides:       %{name}-static = %{version}-%{release}
 
-%description    devel %_desc
+%description    devel
+%_desc
 
 %package        doc
 # Doxygen adds files with licenses other than GPL-3.0-or-later.
@@ -74,10 +75,10 @@ API documentation for HPCombi.
 rm -fr third_party
 
 # Install the pkgconfig file in the noarch directory
-sed -i 's/lib/share/' CMakeLists.txt
+sed -i 's,lib/,share/,' CMakeLists.txt
 
 %build
-%cmake
+%cmake -DBUILD_TESTING:BOOL=ON
 %cmake_build
 
 %install
@@ -104,8 +105,13 @@ for f in %{buildroot}%{_includedir}/hpcombi/*.hpp; do
 done
 
 # There are currently no tests.  Uncomment this when there are.
-#%%check
-#%%ctest
+%check
+%ifarch %{arm64}
+# Skip the EPU8 test; see https://github.com/libsemigroups/HPCombi/issues/70
+%ctest -E EPU8
+%else
+%ctest
+%endif
 
 %files devel
 %doc README.md

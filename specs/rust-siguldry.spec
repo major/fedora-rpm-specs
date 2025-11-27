@@ -5,7 +5,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.3.1
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Implementation of the Sigul protocol
 
@@ -14,10 +14,18 @@ URL:            https://crates.io/crates/siguldry
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * The binary is incomplete and may change its interface significantly
-# * Relax base64ct dev-dependency to allow all 1.x versions
 Patch:          siguldry-fix-metadata.diff
 
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cargo-rpm-macros >= 24
+%if %{with check}
+BuildRequires:  opensc
+BuildRequires:  openssl
+BuildRequires:  pkcs11-provider
+BuildRequires:  sequoia-sq
+BuildRequires:  softhsm
+%endif
 
 %global _description %{expand:
 An implementation of the Sigul protocol.}
@@ -52,6 +60,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+sigul-client-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sigul-client-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sigul-client" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sigul-client-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -69,7 +89,6 @@ use the "default" feature of the "%{crate}" crate.
 %check
 # * Integration tests require the network
 %cargo_test -- --lib
-%cargo_test -- --doc
 %cargo_test -- --bins
 %endif
 

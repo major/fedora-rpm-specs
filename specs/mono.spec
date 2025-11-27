@@ -23,7 +23,7 @@
 
 Name:           mono
 Version:        6.14.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -378,6 +378,8 @@ cd external/binary-reference-assemblies && mv v4.7.1 v4.7.1.tobuild && ln -s %{_
 %endif
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380917)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # This package fails to build with LTO on ppc64le.  Root cause analysis has not been
 # done.  For now disable LTO
 %ifarch ppc64le
@@ -944,6 +946,9 @@ rm %{buildroot}%{_bindir}/mono-find-provides
 %files complete
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 6.14.1-2
+- Allow to build with CMake 4.0 (rhbz#2380917)
+
 * Sat Nov 08 2025 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 6.14.1-1
 - Upgrade to Mono 6.14.1
 

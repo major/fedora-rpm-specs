@@ -2,12 +2,12 @@
 %bcond_with bootstrap
 
 %global packname ps
-%global packver  1.7.5
+%global packver  1.9.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          11%{?dist}
+Release:          1%{?dist}
 Summary:          List, Query, Manipulate System Processes
 
 License:          MIT
@@ -19,7 +19,7 @@ Patch0001:        0001-Don-t-run-example-that-uses-the-network.patch
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-utils
-# Suggests:  R-callr, R-covr, R-curl, R-pillar, R-pingr, R-processx >= 3.1.0, R-R6, R-rlang, R-testthat >= 3.0.0, R-webfakes
+# Suggests:  R-callr, R-covr, R-curl, R-pillar, R-pingr, R-processx >= 3.1.0, R-R6, R-rlang, R-testthat >= 3.0.0, R-webfakes. R-withr
 # LinkingTo:
 # Enhances:
 
@@ -36,6 +36,7 @@ BuildRequires:    R-R6
 BuildRequires:    R-rlang
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-webfakes
+BuildRequires:    R-withr
 %endif
 
 %description
@@ -95,6 +96,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no
 
 
 %changelog
+* Tue Nov 25 2025 Tom Callaway <spot@fedoraproject.org> - 1.9.1-1
+- update to 1.9.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

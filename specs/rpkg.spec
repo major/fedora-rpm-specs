@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.69
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -47,6 +47,7 @@ Patch0:         remove-koji-and-rpm-py-installer-from-requires.patch
 Patch1:         0001-Remove-Environment-Markers-syntax.patch
 %endif
 Patch2:         0002-Execute-shell-command-Non-interactive-stdin.patch
+Patch3:         0003-Use-ruff-code-checker-instead-of-bandit.patch
 
 %description
 Python library for interacting with rpm+git
@@ -277,6 +278,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Nov 25 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-2
+- Patch: Use ruff code checker instead of bandit
+
 * Tue Nov 25 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-1
 - Only update the progress bar when meaningfully changed (code)
 - Don’t set up upload progress when stdout isn’t a tty (code)

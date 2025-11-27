@@ -1,8 +1,8 @@
-%global cpan_version 0.997024
+%global cpan_version 0.998001
 
 Name:           perl-App-cpm
-Version:        0.997.024
-Release:        2%{?dist}
+Version:        0.998.1
+Release:        1%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpm
@@ -36,15 +36,19 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(Darwin::InitObjC)
 # BuildRequires:  perl(Digest::MD5)
 # BuildRequires:  perl(Exporter)
+# BuildRequires:  perl(ExtUtils::Config)
+# BuildRequires:  perl(ExtUtils::Helpers)
 # BuildRequires:  perl(ExtUtils::Install) >= 2.20
 # BuildRequires:  perl(ExtUtils::InstallPaths) >= 0.002
 # BuildRequires:  perl(File::Basename)
 # BuildRequires:  perl(File::Copy)
 # BuildRequires:  perl(File::Copy::Recursive)
+# BuildRequires:  perl(File::Find)
 # BuildRequires:  perl(File::HomeDir)
 # BuildRequires:  perl(File::Path)
 # BuildRequires:  perl(File::pushd)
 # BuildRequires:  perl(File::Spec)
+# BuildRequires:  perl(File::Spec::Functions)
 # BuildRequires:  perl(File::Temp)
 # BuildRequires:  perl(File::Which)
 # BuildRequires:  perl(Getopt::Long)
@@ -53,13 +57,11 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(IPC::Run3)
 # BuildRequires:  perl(JSON::PP) >= 2.27300
 # BuildRequires:  perl(List::Util)
-# BuildRequires:  perl(local::lib)
-# BuildRequires:  perl(Menlo::Builder::Static)
-# BuildRequires:  perl(Menlo::CLI::Compat) >= 1.9021
 # BuildRequires:  perl(Module::CoreList)
 # BuildRequires:  perl(Module::CPANfile)
 # BuildRequires:  perl(Module::cpmfile) >= 0.001
 # BuildRequires:  perl(Module::Metadata)
+# BuildRequires:  perl(Parse::LocalDistribution)
 # BuildRequires:  perl(Parallel::Pipes::App) >= 0.100
 # BuildRequires:  perl(parent)
 # BuildRequires:  perl(Pod::Text)
@@ -79,11 +81,12 @@ Requires:       perl(ExtUtils::InstallPaths) >= 0.002
 Requires:       perl(File::HomeDir)
 Requires:       perl(HTTP::Tinyish) >= 0.12
 Requires:       perl(JSON::PP) >= 2.27300
-Requires:       perl(Menlo::CLI::Compat) >= 1.9021
 Requires:       perl(Module::CoreList)
 Requires:       perl(Module::cpmfile) >= 0.001
 Requires:       perl(Parallel::Pipes::App) >= 0.100
 Requires:       perl(Parse::PMFile) >= 0.43
+Requires:       perl(Pod::Man)
+Requires:       perl(TAP::Harness::Env)
 Requires:       perl(YAML::PP) >= 0.026
 Suggests:       perl(Carton::Snapshot)
 
@@ -92,14 +95,12 @@ Suggests:       perl(Carton::Snapshot)
 %global __requires_exclude %__requires_exclude|^perl\\(ExtUtils::Install\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(ExtUtils::InstallPaths\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(HTTP::Tinyish\\)$
-%global __requires_exclude %__requires_exclude|^perl\\(Menlo::CLI::Compat\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Module::cpmfile\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Parallel::Pipes::App\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(YAML::PP\\)$
 
 %description
-cpm is a fast CPAN module installer, which uses Menlo::CLI::Compat in
-parallel.
+cpm is a fast CPAN module installer.
 
 %package tests
 Summary:        Tests for %{name}
@@ -156,6 +157,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 25 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.998.1-1
+- 0.998001 bump (rhbz#2413485)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.997.024-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

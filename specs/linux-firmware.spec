@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20251111
+Version:	20251125
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -569,6 +569,8 @@ end
 %{_firmwarepath}/iwlwifi-gl-c0*1??.ucode*
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-gl-c0*9[7-9].ucode*
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-gl-c0*1??.ucode*
+%{_firmwarepath}/iwlwifi-sc-a0-wh-b0-1??.ucode*
+%{_firmwarepath}/intel/iwlwifi/iwlwifi-sc-a0-wh-b0-1??.ucode*
 
 %files -n libertas-firmware
 %license LICENCE.Marvell LICENCE.OLPC
@@ -721,6 +723,32 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Nov 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251125-1
+- Update to 20251125
+- Revert "amdgpu: update GC 11.0.1 firmware"
+- QCA: Add Bluetooth firmware for WCN685x uart interface
+- qcom: Add ADSP firmware for qcs6490-thundercomm-rubikpi3
+- qcom: venus-5.4: update firmware binary for v5.4
+- qcom: venus-5.4: remove unused firmware file
+- iwlwifi: add Sc/Wh FW for core98-181 release
+- amdgpu: DMCUB updates for various ASICs
+- rtl_bt: Update RTL8852B BT USB FW to 0x42D3_4E04
+- ASoC: tas2781: Add more symbol links on SPI devices
+- amdgpu: update numerous firmware
+- amdgpu: add vce1 firmware
+- mediatek MT7922: update bluetooth firmware to 20251118163447
+- update firmware for MT7922 WiFi device
+- qcom: update ADSP, CDSP firmware for kaanapali platform, change the license
+- qcom: add ADSP, CDSP firmware for sm8750 platform
+- rtl_nic: add firmware rtl9151a-1
+- qcom: Update aic100 firmware files
+- mt76: add firmware for MT7990
+- mt76: update firmware for MT7992/MT7996
+- cirrus: cs35l57: Add firmware for a few Dell products
+- cirrus: cs42l45: Add firmware for Cirrus Logic CS42L45 SDCA codec
+- qcom: Add sdx35 Foxconn vendor firmware image file
+- Update AMD cpu microcode
+
 * Wed Nov 12 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251111-1
 - Update to 20251111
 - rtl_bt: Update RTL8922A BT USB firmware to 0x41C0_C905

@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname desc
-%global packver  1.4.2
+%global packver  1.4.3
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          13%{?dist}
+Release:          1%{?dist}
 Summary:          Manipulate DESCRIPTION Files
 
 License:          MIT
@@ -15,8 +15,8 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-utils, R-R6, R-crayon, R-rprojroot
-# Suggests:  R-covr, R-testthat, R-whoami, R-withr, R-spelling, R-gh
+# Imports:   R-utils, R-R6, R-cli
+# Suggests:  R-callr, R-covr, R-testthat, R-whoami, R-withr, R-spelling, R-gh
 # LinkingTo:
 # Enhances:
 
@@ -26,7 +26,6 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-utils
 BuildRequires:    R-R6
 BuildRequires:    R-cli
-BuildRequires:    R-rprojroot
 %if %{without bootstrap}
 BuildRequires:    R-callr
 BuildRequires:    R-testthat
@@ -80,6 +79,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Tue Nov 25 2025 Tom Callaway <spot@fedoraproject.org> - 1.4.3-1
+- update to 1.4.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       System performance benchmark
 Name:          sysbench
 Version:       1.0.20
-Release:       18%{?dist}
+Release:       19%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/akopytov/sysbench/
 Source0:       https://github.com/akopytov/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -25,13 +25,12 @@ BuildRequires: libpq-devel
 BuildRequires: /usr/bin/cram
 BuildRequires: python3
 
-# luajit is needed and is not available for ppc64le and s390x
+# luajit is needed but is not available for all arches.
 # Use the same arches as luajit.
-# On F35+ and EL9+, luajit doesn't support s390x and ppc64le anymore
-%if 0%{?fedora} >= 35 || 0%{?rhel} >= 9
-ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips} aarch64
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+ExcludeArch:    riscv64 ppc64 ppc64le
 %else
-ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips} aarch64 ppc64le s390x
+ExcludeArch:    riscv64 ppc64 ppc64le s390x
 %endif
 
 
@@ -91,6 +90,9 @@ cd tests
 
 
 %changelog
+* Tue Nov 25 2025 Xavier Bachelot <xavier@bachelot.org> 1.0.20-19
+- Fix luajit arches (RHBZ#2416811)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

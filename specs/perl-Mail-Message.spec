@@ -1,6 +1,6 @@
 Name:		perl-Mail-Message
-Version:	3.017
-Release:	2%{?dist}
+Version:	3.019
+Release:	1%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Message
@@ -16,13 +16,13 @@ BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
-BuildRequires:	perl(Cwd)
 BuildRequires:	perl(Date::Format)
 BuildRequires:	perl(Date::Parse)
 BuildRequires:	perl(Email::Simple)
 BuildRequires:	perl(Encode) >= 2.26
 BuildRequires:	perl(Encode::Alias)
 BuildRequires:	perl(Exporter)
+BuildRequires:	perl(Fcntl)
 BuildRequires:	perl(File::Basename)
 BuildRequires:	perl(File::Copy)
 BuildRequires:	perl(File::Spec) >= 0.7
@@ -55,7 +55,7 @@ BuildRequires:	perl(Scalar::Util) >= 1.13
 BuildRequires:	perl(Storable)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Sys::Hostname)
-BuildRequires:	perl(Test::More) >= 0.47
+BuildRequires:	perl(Test::More) >= 1.00
 BuildRequires:	perl(Text::Autoformat)
 BuildRequires:	perl(Time::HiRes) >= 1.51
 BuildRequires:	perl(Time::Zone)
@@ -65,7 +65,7 @@ BuildRequires:	perl(User::Identity::Collection::Emails)
 BuildRequires:	perl(utf8)
 BuildRequires:	perl(warnings)
 # Test Suite
-BuildRequires:	perl(Data::Dumper)
+# (no additional dependencies)
 # Optional Tests
 %if !%{defined perl_bootstrap}
 BuildRequires:	perl(Email::Abstract)
@@ -119,11 +119,14 @@ yes y |perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-%doc ChangeLog README README.md
+%doc ChangeLog README.md
 %{perl_vendorlib}/Mail/
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Tue Nov 25 2025 Paul Howarth <paul@city-fan.org> - 3.019-1
+- Update to 3.019 (rhbz#2416829)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.017-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

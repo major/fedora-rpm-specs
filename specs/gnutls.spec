@@ -140,10 +140,6 @@ Source101:	gmp-6.2.1-intel-cet.patch
 Source102:	gmp-6.2.1-c23.patch
 %endif
 
-%if 0%{?rhel} >= 10
-Source201:	gnutls-3.8.8-tests-rsa-default.patch
-%endif
-
 %if %{with leancrypto}
 Provides:	bundled(leancrypto) = 1.6.0
 Source300:	leancrypto-1.6.0.tar.gz
@@ -281,10 +277,6 @@ patch -p1 < %{SOURCE102}
 popd
 %endif
 
-%if 0%{?rhel} >= 10
-patch -p1 < %{SOURCE201}
-%endif
-
 %build
 %define _lto_cflags %{nil}
 
@@ -328,7 +320,10 @@ meson setup -Dprefix="$PWD/install" -Dlibdir="$PWD/install/lib" \
         -Dhotp=disabled -Dtotp=disabled \
         -Daes_block=disabled -Daes_cbc=disabled -Daes_ctr=disabled \
         -Daes_kw=disabled -Dapps=disabled \
+        -Ddisable-asm=true \
         _build
+# the reason for -Ddisable-asm=true being bz2416812
+# revert once the root cause is fixed
 meson compile -C _build
 meson install -C _build
 

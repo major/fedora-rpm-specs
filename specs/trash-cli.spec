@@ -6,6 +6,9 @@ License:        GPL-2.0-or-later
 URL  :          https://github.com/andreafrancia/trash-cli
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:		virtualenv-versionlift.patch
+# Replace parameterized with built-in pytest functionality
+# https://github.com/andreafrancia/trash-cli/pull/373
+Patch2:         trash-cli-0.24.5.26-no-parameterized.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -16,7 +19,7 @@ freedesktop.org compatible trash implementation. The command line interface is
 compatible with rm and you can use trash-put as an alias to rm.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -t

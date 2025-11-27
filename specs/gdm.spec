@@ -79,6 +79,10 @@ Requires: systemd >= 186
 Requires: system-logos
 Requires: python3-pam
 
+%if %{with x11}
+Requires: xorg-x11-xinit
+%endif
+
 Provides: gdm-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description

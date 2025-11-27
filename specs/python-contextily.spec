@@ -4,13 +4,15 @@
 %bcond network 0
 
 Name:           python-%{srcname}
-Version:        1.6.2
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Context geo-tiles in Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/geopandas/contextily
-Source0:        %pypi_source %{srcname}
+Source:         %pypi_source %{srcname}
+# https://github.com/geopandas/contextily/pull/273
+Patch:          0001-Mark-another-test-as-using-the-network.patch
 
 BuildArch:      noarch
 

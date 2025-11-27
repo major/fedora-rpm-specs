@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname testthat
-%global packver 3.2.3
+%global packver 3.3.1
 
 Name:             R-%{packname}
 Version:          %{packver}
@@ -13,25 +13,24 @@ URL:              https://cran.r-project.org/package=%{packname}
 Source0:          %{url}&version=%{packver}#/%{packname}_%{packver}.tar.gz
 
 BuildRequires:    R-devel >= 3.6.0, tetex-latex
-BuildRequires:    R-brio >= 1.1.3
-BuildRequires:    R-callr >= 3.7.3
-BuildRequires:    R-cli >= 3.6.1
-BuildRequires:    R-desc >= 1.4.2
+BuildRequires:    R-brio >= 1.1.5
+BuildRequires:    R-callr >= 3.7.6
+BuildRequires:    R-cli >= 3.6.5
+BuildRequires:    R-desc >= 1.4.3
 BuildRequires:    R-digest >= 0.6.33
-BuildRequires:    R-ellipsis >= 0.3.2
-BuildRequires:    R-evaluate >= 1.0.1
-BuildRequires:    R-jsonlite >= 1.8.7
-BuildRequires:    R-lifecycle >= 1.0.3
+BuildRequires:    R-evaluate >= 1.0.4
+BuildRequires:    R-jsonlite >= 2.0.0
+BuildRequires:    R-lifecycle >= 1.0.4
 BuildRequires:    R-magrittr >= 2.0.3
 BuildRequires:    R-methods
-BuildRequires:    R-pkgload >= 1.3.2.1
+BuildRequires:    R-pkgload >= 1.4.0
 BuildRequires:    R-praise >= 1.0.0
-BuildRequires:    R-processx >= 3.8.2
-BuildRequires:    R-ps >= 1.7.5
-BuildRequires:    R-R6 >= 2.5.1
-BuildRequires:    R-rlang >= 1.1.1
+BuildRequires:    R-processx >= 3.8.6
+BuildRequires:    R-ps >= 1.9.1
+BuildRequires:    R-R6 >= 2.6.1
+BuildRequires:    R-rlang >= 1.1.6
 BuildRequires:    R-utils
-BuildRequires:    R-waldo >= 0.6.0
+BuildRequires:    R-waldo >= 0.6.2
 BuildRequires:    R-withr >= 3.0.2
 
 BuildRequires:    R-curl >= 0.9.5

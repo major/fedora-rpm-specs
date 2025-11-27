@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global packname cli
-%global packver  3.6.1
+%global packver  3.6.5
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -41,7 +41,7 @@ BuildRequires:    R-rlang >= 1.0.2.9003
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rprojroot
 BuildRequires:    R-rstudioapi
-BuildRequires:    R-testthat
+BuildRequires:    R-testthat >= 3.2.0
 BuildRequires:    R-tibble
 BuildRequires:    R-whoami
 BuildRequires:    R-withr
@@ -91,8 +91,8 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/examples
+%{rlibdir}/%{packname}/exec
 %{rlibdir}/%{packname}/logo.txt
-%{rlibdir}/%{packname}/scripts
 %{rlibdir}/%{packname}/include
 %{rlibdir}/%{packname}/libs
 %{rlibdir}/%{packname}/shiny

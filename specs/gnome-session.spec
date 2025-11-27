@@ -3,7 +3,7 @@
 %define po_package gnome-session-%{major_version}
 
 Name:           gnome-session
-Version:        49.1
+Version:        49.2
 Release:        %autorelease
 Summary:        GNOME session manager
 
@@ -43,7 +43,7 @@ Requires: dconf
 
 Requires: system-logos
 # Needed for gnome-settings-daemon
-Requires: control-center-filesystem
+Requires: gnome-control-center-filesystem
 
 Requires: gsettings-desktop-schemas >= 0.1.7
 

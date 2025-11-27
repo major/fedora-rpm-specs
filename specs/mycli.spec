@@ -1,7 +1,7 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.41.1
+Version:        1.41.2
 Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -60,6 +60,9 @@ syntax highlighting.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Tue Nov 25 2025 Terje Rosten <terjeros@gmail.com> - 1.41.2-1
+- 1.41.2
+
 * Mon Nov 17 2025 Terje Rosten <terjeros@gmail.com> - 1.41.1-1
 - 1.41.1
 

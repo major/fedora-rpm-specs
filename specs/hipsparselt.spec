@@ -98,13 +98,21 @@
 %global cmake_generator %{nil}
 %endif
 
+# Request for python-nanobind on EPEL
+# https://bugzilla.redhat.com/show_bug.cgi?id=2402409
+%if 0%{?fedora}
+%bcond_without nanobind
+%else
+%bcond_with nanobind
+%endif
+
 Name:           %{hipsparselt_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -122,6 +130,16 @@ Source1:        https://github.com/ROCm/hipBLASLt/archive/%{hipblaslt_commit}/hi
 # This are patches from the hiblaslt package for patching tensile
 Source2:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 Source3:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
+# do not try to fetch, point to the nanobind tarball
+Source4:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
+
+%global nanobind_version 2.9.2
+%global nanobind_giturl https://github.com/wjakob/nanobind
+Source10:       %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanobind_version}.tar.gz
+%global robinmap_version 1.3.0
+%global robinmap_giturl https://github.com/Tessil/robin-map
+Source11:       %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
+
 
 %if %{with ninja}
 BuildRequires:  ninja-build
@@ -162,7 +180,9 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(joblib)
 BuildRequires:  python3dist(msgpack)
+%if %{with nanobind}
 BuildRequires:  python3dist(nanobind)
+%endif
 BuildRequires:  msgpack-devel
 %global tensile_library_format msgpack
 %global tensile_verbose 1
@@ -179,6 +199,12 @@ BuildRequires:  rocm-omp-devel
 
 Provides:       hipsparselt = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
+
+%if %{without nanobind}
+# BSD-3-Clause
+Provides:       bundled(nanobind) = %{nanobind_version}
+Provides:       bundled(robin-map) = %{robinmap_version}
+%endif
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -223,12 +249,24 @@ cd hipBLASLt
 
 patch -p1 < %{SOURCE2}
 patch -p1 < %{SOURCE3}
+patch -p1 < %{SOURCE4}
 
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
 
+%if %{with nanobind}
 # Disable download of nanobind
 sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
+%else
+# Use bundled nanobind
+tar xf %{SOURCE10}
+mv nanobind-* nanobind
+cd nanobind
+tar xf %{SOURCE11}
+cp -r robin-map-*/* ext/robin_map/
+cd ..
+tar czf nanobind.tar.gz nanobind
+%endif
 
 cd ..
 
@@ -345,6 +383,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Tue Nov 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Bundle nanobind for EPEL
+
 * Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-3
 - Remove dir tags
 

@@ -3,12 +3,14 @@
 Summary:    Tools for building live CDs
 Name:       livecd-tools
 Version:    31.0
-Release:    18%{?dist}
+Release:    19%{?dist}
 %if 0%{?fedora}
 Epoch:      1
 %endif
 License:    GPL-2.0-only
 URL:        https://github.com/livecd-tools/livecd-tools
+# lorax dependency is not available, due to qemu removal
+ExcludeArch: %{ix86}
 
 Source0:    %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Patch0:     livecd-tools-31.0-py312-distutils-removal.patch
@@ -144,6 +146,9 @@ rm -rfv %{buildroot}%{_mandir}/man8/livecd-iso-to-*
 %endif
 
 %changelog
+* Fri Nov 14 2025 Daniel P. Berrangé <berrange@redhat.com> - 1:31.0-19
+- Add ExcludeArch for i686 to remove the indirect dep on QEMU
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:31.0-18
 - Rebuilt for Python 3.14.0rc3 bytecode
 

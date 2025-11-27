@@ -9,13 +9,13 @@
 
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    165460c7b51948ce55f07b2a32670aa97aa06282
+%global gh_commit    56d3215bcf8acb2e822fc9ce21fa934cd6129637
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-10-09
+%global gh_date      2025-11-23
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.2.4
+%global upstream_version  7.2.5
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
@@ -38,20 +38,16 @@ Patch0:         %{name}-7.2.3-rpm.patch
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-cli
-BuildRequires:  php-json
 BuildRequires:  composer-generators
 
 Requires:       php(language) >= 8.1
 Requires:       php-cli
 Requires:       php-dom
-Requires:       php-json
 Requires:       php-libxml
-Requires:       php-pcre
 Requires:       php-phar
 Requires:       php-pdo
 Requires:       php-pdo_sqlite
 Requires:       php-simplexml
-Requires:       php-spl
 Requires:       php-xmlreader
 
 Provides: phpcompatinfo = %{version}
@@ -124,6 +120,10 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Tue Nov 25 2025 Remi Collet <remi@remirepo.net> - 7.2.5-1
+- update to 7.2.5
+- update bundled bartlett/php-compatinfo-db to 6.26.0
+
 * Thu Oct  9 2025 Remi Collet <remi@remirepo.net> - 7.2.4-1
 - update to 7.2.4
 - update bundled bartlett/php-compatinfo-db to 6.24.1

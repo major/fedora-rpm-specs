@@ -1,5 +1,5 @@
 Name:           python-pytest-localserver
-Version:        0.9.0.post0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        pytest plugin to test server connections locally
 

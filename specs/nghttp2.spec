@@ -1,4 +1,10 @@
+%global with_http3 0
 %global with_mingw 0
+
+%if 0%{?fedora} >= 43
+# Enable HTTP/3 support in nghttpx and h2load
+%global with_http3 1
+%endif
 
 %if 0%{?fedora}
 %global with_mingw 1
@@ -7,7 +13,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.68.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -34,6 +40,11 @@ BuildRequires: gnupg2
 
 Requires: libnghttp2%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
+
+%if %{with_http3}
+BuildRequires: libnghttp3-devel
+BuildRequires: ngtcp2-crypto-ossl-devel
+%endif
 
 %if %{with_mingw}
 BuildRequires: mingw32-filesystem >= 107
@@ -110,6 +121,9 @@ pushd build
     --disable-hpack-tools                   \
     --disable-python-bindings               \
     --disable-static                        \
+%if %{with_http3}
+    --enable-http3                          \
+%endif
     --with-libxml2
 
 # avoid using rpath
@@ -209,6 +223,9 @@ popd
 
 
 %changelog
+* Tue Nov 25 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.68.0-2
+- Enable HTTP/3 support in nghttpx and h2load
+
 * Fri Oct 31 2025 Jan Macku <jamacku@redhat.com> - 1.68.0-1
 - update to the latest upstream release
 

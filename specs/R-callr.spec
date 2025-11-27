@@ -2,12 +2,12 @@
 %bcond_with suggests
 
 %global packname callr
-%global packver  3.7.3
+%global packver  3.7.6
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          1%{?dist}
 Summary:          Call R from R
 
 License:          MIT
@@ -28,13 +28,13 @@ BuildRequires:    R-processx >= 3.6.1
 BuildRequires:    R-R6
 BuildRequires:    R-utils
 %if %{with suggests}
-BuildRequires:    R-asciicast
+BuildRequires:    R-asciicast >= 2.3.1
 BuildRequires:    R-cli >= 1.1.0
 BuildRequires:    R-mockery
 BuildRequires:    R-ps
 BuildRequires:    R-rprojroot
 BuildRequires:    R-spelling
-BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-testthat >= 3.2.0
 BuildRequires:    R-withr >= 2.3.0
 %endif
 
@@ -70,6 +70,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %files
 %dir %{rlibdir}/%{packname}
 %doc %{rlibdir}/%{packname}/html
+%doc %{rlibdir}/%{packname}/COPYRIGHTS
 %{rlibdir}/%{packname}/DESCRIPTION
 %doc %{rlibdir}/%{packname}/NEWS.md
 %doc %{rlibdir}/%{packname}/developer-notes.md
@@ -83,6 +84,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Nov 25 2025 Tom Callaway <spot@fedoraproject.org> - 3.7.6-1
+- update to 3.7.6
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

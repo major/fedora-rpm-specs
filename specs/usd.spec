@@ -237,12 +237,11 @@ BuildRequires:  pkgconfig(ptex)
 # CVE-2023-45664
 # CVE-2023-45666
 # CVE-2023-45667
-BuildRequires:  stb_image-devel >= 2.28^20231011gitbeebb24-12
-BuildRequires:  stb_image-static
-BuildRequires:  stb_image_write-devel >= 1.16
-BuildRequires:  stb_image_write-static
-BuildRequires:  stb_image_resize-devel >= 0.97
-BuildRequires:  stb_image_resize-static
+# https://github.com/nothings/stb/issues/1860
+# https://github.com/nothings/stb/issues/1861
+BuildRequires:  stb_image-static >= 2.30^20251025gitf1c79c0-2
+BuildRequires:  stb_image_write-static >= 1.16
+BuildRequires:  stb_image_resize-static >= 0.97
 
 Requires:       usd-libs%{?_isa} = %{version}-%{release}
 Requires:       python3-usd%{?_isa} = %{version}-%{release}
@@ -253,7 +252,7 @@ Requires:       python3-usd%{?_isa} = %{version}-%{release}
 #
 # Note that pxr/base/arch/assumptions.cpp explicitly tests the machine is not
 # big-endian, and pxr/base/arch/defines.h explicitly enforces x86_64 or ARM64.
-ExclusiveArch:  aarch64 x86_64
+ExclusiveArch:  %{arm64} %{x86_64}
 
 %description
 Universal Scene Description (USD) is a time-sampled scene

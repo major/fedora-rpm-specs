@@ -302,6 +302,12 @@ test_data_model
 # parallel with other tests tends to slow it down too much. We exclude it here,
 # then run it serially on its own.
 test_obb_mesh_large
+
+# Hangs flakily since 4.10.0; cannot reproduce in a git checkout
+# tests/test_primitives.py::test_primitives
+# (Unfortunately, there are other test called test_primitives that this will
+# also skip.)
+test_primitives
 EOF
 )
 

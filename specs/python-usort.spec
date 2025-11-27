@@ -12,19 +12,24 @@ without altering formatting. Code style is left as an exercise for linters and
 formatters.}
 
 Name:           python-%{pypi_name}
-Version:        1.0.8.post1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        A small, safe import sorter
 
 License:        MIT
-URL:            https://github.com/facebookexperimental/usort
+URL:            https://github.com/facebook/usort
 Source:         %{pypi_source}
+# Drop python-toml dependency
+# https://github.com/facebook/usort/pull/320
+Patch:          %{url}/commit/6736c7a79153c53d05ccabd9e3f10a24d4e8e1a4.patch#/usort-convert-toml-dep.diff
+
 BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  sed
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(volatile)
 %if %{with docs}
 BuildRequires:  python3-docs
 # upstream bundles this with unrelated dependencies in
@@ -53,7 +58,7 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 sed -e 's/python/python3/g' -i Makefile
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info

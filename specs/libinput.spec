@@ -4,8 +4,8 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.29.902
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.30.0
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -161,6 +161,9 @@ intended to be run by users.
 
 
 %changelog
+* Tue Nov 25 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.30.0-1
+- libinput 1.30.0
+
 * Mon Nov 24 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.902-2
 - Re-enable plugins on RHEL - lua 5.4 is available
 

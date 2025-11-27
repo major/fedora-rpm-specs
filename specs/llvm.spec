@@ -254,7 +254,9 @@ end
 %global __cxx /usr/bin/clang++-%{host_clang_maj_ver}
 %endif
 
-%if %{defined rhel}
+# The upper bound must remain and never exceed the latest RHEL version with GTS,
+# so that this does not apply to ELN or a brand new RHEL version.
+%if %{defined rhel} && 0%{?rhel} <= 10
 %global gts_version 15
 %endif
 

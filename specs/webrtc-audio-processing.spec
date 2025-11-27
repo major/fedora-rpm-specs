@@ -1,20 +1,30 @@
+%bcond bundled_absl %{defined rhel}
+%global absl_ver 20250814.1
+
 Name:           webrtc-audio-processing
 Version:        2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
-URL:            http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
-Source:         http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
+URL:            https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+Source:         https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
+Source:         https://github.com/abseil/abseil-cpp/releases/download/%{absl_ver}/abseil-cpp-%{absl_ver}.tar.gz
+Source:         https://github.com/mesonbuild/wrapdb/releases/download/abseil-cpp_%{absl_ver}-1/abseil-cpp_%{absl_ver}-1_patch.zip
 
 # Backports from upstream
 Patch:         0001-Fix-compilation-with-gcc-15.patch
 Patch:         0001-arch.h-Add-s390x-support.patch
 Patch:         0001-Fix-build-with-abseil-cpp-202508.patch
 
+# Downstream patches
+Patch:         abseil-cpp-wrap.patch
+
 BuildRequires: meson
 BuildRequires: gcc gcc-c++
+%if %{without bundled_absl}
 BuildRequires: abseil-cpp-devel
+%endif
 
 %description
 %{name} is a library derived from Google WebRTC project that
@@ -31,6 +41,11 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+%if %{with bundled_absl}
+mkdir -p subprojects/packagefiles
+cp %{S:1} subprojects/packagefiles
+cp %{S:2} subprojects/packagefiles
+%endif
 
 
 %conf
@@ -47,6 +62,9 @@ files for developing applications that use %{name}.
 
 %install
 %meson_install
+%if %{with bundled_absl}
+mv %{buildroot}%{_includedir}/absl %{buildroot}%{_includedir}/webrtc-audio-processing-2/
+%endif
 
 
 %files
@@ -61,6 +79,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Wed Nov 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1-3
+- Bundle abseil-cpp on RHEL
+
 * Wed Nov 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1-2
 - Drop unused neon dependency
 

@@ -7,7 +7,7 @@
 %global _fortify_level 2
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.3.2
+Version:        3.3.3
 Release:        %autorelease
 Summary:        ANU p-Quotient for GAP
 

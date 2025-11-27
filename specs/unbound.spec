@@ -49,7 +49,7 @@ Source: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
 Source1: unbound.service
 Source3: unbound.munin
 Source4: unbound_munin_
-Source5: root.key
+Source5: mkroot.sh
 Source7: unbound-keygen.service
 Source8: tmpfiles-unbound.conf
 Source9: example.com.key
@@ -93,6 +93,7 @@ BuildRequires: automake autoconf libtool
 BuildRequires: autoconf-archive
 # Regenerate config parser too
 BuildRequires: bison flex byacc
+BuildRequires: dns-root-data
 
 %if 0%{?fedora}
 BuildRequires: gnupg2
@@ -164,6 +165,7 @@ The devel package contains the unbound library and the include files
 %package libs
 Summary: Libraries used by the unbound server and client applications
 Recommends: %{name}-anchor
+Requires: dns-root-data
 %if ! 0%{with_python2}
 # Make explicit conflict with no longer provided python package
 Obsoletes: python2-unbound < 1.9.3
@@ -367,13 +369,10 @@ install -p -m 0644 %{SOURCE30} %{buildroot}%{_tmpfilesdir}/unbound-libs.conf
 
 # install root - we keep a copy of the root key in old location,
 # in case user has changed the configuration and we wouldn't update it there
-install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/unbound/
-install -p -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/unbound/dnssec-root.key
-# make initial key static
-pushd %{buildroot}%{_sharedstatedir}/unbound
-  KEYPATH=$(realpath --relative-to="%{buildroot}%{_sharedstatedir}/unbound" "%{buildroot}%{_sysconfdir}/unbound/dnssec-root.key")
-  ln -s "$KEYPATH" root.key
-popd
+sh %{SOURCE5} root.key
+install -m 0644 root.key %{buildroot}%{_sysconfdir}/unbound/
+ln -sr "%{buildroot}%{_sysconfdir}/unbound/dnssec-root.key" "%{buildroot}%{_sharedstatedir}/unbound/root.key"
+ln -sr "%{buildroot}%{_datadir}/dns-root-data/root.key" "%{buildroot}%{_sysconfdir}/unbound/dnssec-root.key"
 
 # remove static library from install (fedora packaging guidelines)
 rm %{buildroot}%{_libdir}/*.la

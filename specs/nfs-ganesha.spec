@@ -133,8 +133,8 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	8.1
-Release:	3%{?dev:%{dev}}%{?dist}
+Version:	9.2
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -142,6 +142,7 @@ Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
 Patch:		0002-src-scripts-python.patch
+Patch:		0003-src-monitoring-dynamic_metrics.cc.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -962,9 +963,17 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %{_bindir}/ganesha_conf
 %{_bindir}/ganesha-top
 %{_mandir}/*/ganesha_conf.8.gz
+%if %{with gpfs}
+%{_libexecdir}/ganesha/gpfs-epoch
+%else
+%exclude %{_libexecdir}/ganesha/gpfs-epoch
+%endif
 %endif
 
 %changelog
+* Tue Nov 25 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.2-1
+- NFS-Ganesha 9.2 GA
+
 * Wed Nov 19 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 8.1-3
 - NFS-Ganesha 8.1, rpc-statd in unitdir, rhbz#2415128
 

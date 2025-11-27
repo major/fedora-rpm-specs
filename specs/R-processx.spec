@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname processx
-%global packver  3.8.2
+%global packver  3.8.6
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -76,6 +76,7 @@ install -pm 0644 %{packname}/README.md %{buildroot}%{rlibdir}/%{packname}/
 %files
 %dir %{rlibdir}/%{packname}
 %doc %{rlibdir}/%{packname}/html
+%doc %{rlibdir}/%{packname}/COPYRIGHTS
 %{rlibdir}/%{packname}/DESCRIPTION
 %doc %{rlibdir}/%{packname}/NEWS.md
 %doc %{rlibdir}/%{packname}/README.md

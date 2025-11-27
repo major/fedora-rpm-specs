@@ -7,13 +7,15 @@
 %global crate sigul-pesign-bridge
 
 Name:           rust-sigul-pesign-bridge
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Bridge pesign-client requests to a Sigul signing server
 
 License:        MIT
 URL:            https://crates.io/crates/sigul-pesign-bridge
 Source:         %{crates_source}
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  systemd-rpm-macros

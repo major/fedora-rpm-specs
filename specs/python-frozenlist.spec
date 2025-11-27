@@ -15,6 +15,16 @@ Source:         %{pypi_source frozenlist}
 # an unbounded recursion of nested temporary directories.
 Patch:          0001-Downstream-only-Build-normal-wheels-in-place.patch
 
+# Adjust interface test SKIP_METHODS for Python 3.15.0a2
+# https://github.com/aio-libs/frozenlist/pull/723
+#
+# Fixes:
+#
+# python-frozenlist fails to build with Python 3.15: test_iface:
+# AssertionError: assert hasattr(self.FrozenList, name)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2416992
+Patch:          %{url}/pull/723.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l frozenlist
 

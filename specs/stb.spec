@@ -200,6 +200,27 @@ Patch:          %{url}/pull/1559.patch
 # https://github.com/nothings/stb/pull/1736
 Patch:          %{url}/pull/1736.patch
 
+# Add fix for https://github.com/nothings/stb/issues/1860 by checking malloc
+# multiplication before allocating
+# https://github.com/nothings/stb/pull/1862
+#
+# Fixes:
+#
+# Heap Buffer overflow in stbi__convert_format16
+# https://github.com/nothings/stb/issues/1860
+#
+# Re-crated on top of all of the above patches.
+Patch:          pr-1862.patch
+
+#  Fixes issue #1861 by zero-initializing palette.
+# https://github.com/nothings/stb/pull/1863
+#
+# Fixes:
+#
+# Out-of-bounds read in PNG palette expansion
+# https://github.com/nothings/stb/issues/1861
+Patch:          %{url}/pull/1863.patch
+
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
 %global stb_divide_version 0.94

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.2
+Version: 44.4
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -286,9 +286,15 @@ Requires: skopeo
 Requires: nvme-cli
 # Needed for bootc
 Requires: podman
+Requires: bootc
+Requires: bootupd
 # needed for encrypted DNS
 Requires: dnsconfd
 Requires: dnsconfd-dracut
+Requires: selinux-policy
+Requires: libselinux-utils
+Requires: selinux-policy-targeted
+Requires: policycoreutils-python-utils
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
@@ -512,6 +518,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 25 2025 Packit <hello@packit.dev> - 44.4-1
+- bootc: Collect kernel arguments before installation to pass to bootc
+  (k.koukiou)
+- bootc: Bind mount /boot into sysroot for %%post scripts (k.koukiou)
+- pyanaconda: bootc: specify the bootloader to grub for bootc (k.koukiou)
+- storage: stop creating /etc/mtab symlink during installation (k.koukiou)
+
 * Tue Nov 11 2025 Packit <hello@packit.dev> - 44.2-1
 - fix: remove the unused file 'a' (lonicerae)
 

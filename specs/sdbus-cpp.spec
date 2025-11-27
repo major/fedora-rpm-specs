@@ -1,7 +1,7 @@
 %global libso_major 2
 
 Name:           sdbus-cpp
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        High-level C++ D-Bus library
 
@@ -118,6 +118,10 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Fri Nov 21 2025 Packit <hello@packit.dev> - 2.2.1-1
+- Update to version 2.2.1
+- Resolves: rhbz#2277126
+
 * Fri Nov 21 2025 Marek Blaha <mblaha@redhat.com> - 2.2.0-1
 - Update to version 2.2.0
 
