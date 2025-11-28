@@ -84,6 +84,8 @@ install -p -m 0644 %{crate}.1 %{buildroot}%{_mandir}/man1
 %check
 # * Skip online tests, online_check_version_reqs needs connectivity. Not working
 #   in mock.
+# * Update dirs to version 6:
+#   https://github.com/dmorawetz/cargo-rpmstatus/pull/6
 %cargo_test -- -- --skip db::tests::online_check_version_reqs
 %endif
 

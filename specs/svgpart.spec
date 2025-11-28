@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:    svgpart 
 Summary: SVG KPart
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ BuildRequires: cmake(KF6XmlGui)
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

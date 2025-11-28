@@ -1,5 +1,5 @@
 Name:    kpkpass
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
@@ -11,6 +11,8 @@ Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
+
+BuildRequires:  cmake(Qt6Qml)
 
 BuildRequires:  cmake(KF6Archive)
 
@@ -58,6 +60,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_datadir}/mime/packages/application-vnd-apple-pkpass.xml
 %endif
 %{_kf6_libdir}/libKPim6PkPass.so.*
+%{_kf6_qmldir}/org/kde/pkpass/
+%{_datadir}/mime/packages/application-vnd-apple-pkpasses.xml
 
 %files devel
 %{_includedir}/KPim6/KPkPass/
@@ -70,6 +74,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

@@ -3,7 +3,7 @@
 %global obs_ver 16.03
  
 Name:           7zip
-Version:        24.09
+Version:        25.01
 Release:        %autorelease
 Summary:        A file archiver
 
@@ -22,6 +22,7 @@ URL:            https://7-zip.org
 # Source:         https://github.com/ip7z/7zip/archive/%%{version}/%%{name}-%%{version}.tar.gz
 Source:         %{name}-%{version}.tar.zst
 Source:         strip-rar-support.sh
+Patch:          https://github.com/ip7z/7zip/pull/33.patch#/7z-dont-echo-password.diff
 # patch where 7z.so is loaded from so we don't need to do shenanigans like having the 7z binary
 # there and invoking via a wrapper
 Patch:          7zip-find-so-in-libexec.diff

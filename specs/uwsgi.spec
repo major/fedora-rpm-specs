@@ -148,7 +148,7 @@
 %if %{with python3_alternate1}
 %global python3_alternate1_pkgname python3.11
 %global __python3_alternate1 python3.11
-%global python3_alternate1_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate1} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")}
+%global python3_alternate1_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate1} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")
 %global python3_alternate1_version 3.11
 %global python3_alternate1_version_nodots 311
 %endif
@@ -156,7 +156,7 @@
 %if %{with python3_alternate2}
 %global python3_alternate2_pkgname python3.12
 %global __python3_alternate2 python3.12
-%global python3_alternate2_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate2} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")}
+%global python3_alternate2_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate2} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")
 %global python3_alternate2_version 3.12
 %global python3_alternate2_version_nodots 312
 %endif
@@ -164,7 +164,7 @@
 %if %{with python3_alternate3}
 %global python3_alternate3_pkgname python3.13
 %global __python3_alternate3 python3.13
-%global python3_alternate3_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate3} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")}
+%global python3_alternate3_sitelib %(RPM_BUILD_ROOT= %{__python3_alternate3} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")
 %global python3_alternate3_version 3.13
 %global python3_alternate3_version_nodots 313
 %endif
@@ -262,7 +262,7 @@
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2030,6 +2030,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Wed Nov 26 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-3
+- Fix path errors for EPEL9 uwsgidecorator packages
+
 * Wed Oct 15 2025 Remi Collet <remi@remirepo.net> - 2.0.31-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

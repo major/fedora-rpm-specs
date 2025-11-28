@@ -1,27 +1,24 @@
 Name:           gnome-2048
-Version:        3.38.2
-Release:        13%{?dist}
+Version:        50.alpha
+Release:        1%{?dist}
 Summary:        A 2048 clone for GNOME
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/2048
-Source0:        https://download.gnome.org/sources/gnome-2048/3.38/gnome-2048-%{version}.tar.xz
-
-Patch1:         0001-meson-drop-unused-argument-for-i18n.merge_file.patch
+Source0:        https://download.gnome.org/sources/gnome-2048/50/gnome-2048-%{version}.tar.xz
 
 BuildRequires:  gcc
-BuildRequires:  intltool itstool
+BuildRequires:  itstool
 BuildRequires:  desktop-file-utils
 BuildRequires:  meson
 BuildRequires:  vala
 
-BuildRequires:  pkgconfig(glib-2.0) >= 2.42
-BuildRequires:  pkgconfig(clutter-1.0)
-BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(gee-0.8)
-BuildRequires:  pkgconfig(appstream-glib)
-BuildRequires:  pkgconfig(libgnome-games-support-1)
+BuildRequires:  pkgconfig(glib-2.0) >= 2.42
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
 
+Provides:       bundled(libgnome-games-support)
 
 %description
 A GNOME clone of the popular game 2048
@@ -40,24 +37,29 @@ http://en.wikipedia.org/wiki/2048_(video_game)
 %install
 %meson_install
 %find_lang %{name} --with-gnome
+%find_lang gnome-2048_libgnome-games-support --with-gnome
 
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.TwentyFortyEight.desktop
 
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f gnome-2048_libgnome-games-support.lang
 %doc README.md code-of-conduct.md
 %license COPYING
 %{_bindir}/gnome-2048
 %{_datadir}/applications/org.gnome.TwentyFortyEight.desktop
+%{_datadir}/dbus-1/services/org.gnome.TwentyFortyEight.service
 %{_datadir}/glib-2.0/schemas/org.gnome.TwentyFortyEight.gschema.xml
-%{_datadir}/metainfo/org.gnome.TwentyFortyEight.appdata.xml
+%{_datadir}/metainfo/org.gnome.TwentyFortyEight.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.TwentyFortyEight*
 %{_mandir}/man6/gnome-2048*
 
 
 %changelog
+* Wed Nov 26 2025 Yanko Kaneti <yaneti@declera.com> -  50.alpha-1
+- Upgrade to new WIP version ported to gtk4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

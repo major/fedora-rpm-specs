@@ -6,9 +6,9 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.14
+Version: 3.6.2.15
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 2%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 Patch0: ags-use-system-libraries.patch
 Patch1: ags-build-tests-with-cxx17.patch
@@ -131,9 +131,7 @@ mv Changes.txt.utf-8 Changes.txt
 %cmake_install
 
 %check
-# some tests fail randomly when run in parallel:
-# https://github.com/adventuregamestudio/ags/issues/2906
-%ctest -j1
+%ctest
 
 %files
 %license License.txt
@@ -152,6 +150,11 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Wed Nov 26 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.15-1
+- update to 3.6.2.15 (resolves rhbz#2416531)
+- drop serial ctest call work-around, fixed upstream
+  (https://github.com/adventuregamestudio/ags/pull/2910)
+
 * Mon Nov 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.2.14-2
 - Build tests as C++17; required for gtest 1.17
 

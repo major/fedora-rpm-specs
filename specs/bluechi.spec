@@ -10,7 +10,7 @@
 
 
 Name:		bluechi
-Version:	1.2.0
+Version:	1.2.1
 Release:	1%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
@@ -356,6 +356,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Wed Nov 26 2025 Packit <hello@packit.dev> - 1.2.1-1
+- Update to version 1.2.1
+
 * Tue Nov 18 2025 Packit <hello@packit.dev> - 1.2.0-1
 - Update to version 1.2.0
 

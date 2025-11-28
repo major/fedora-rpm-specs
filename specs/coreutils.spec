@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.8
-Release: 3%{?dist}
+Version: 9.9
+Release: 1%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -32,9 +32,9 @@ Patch103: coreutils-python3.patch
 # df --direct
 Patch104: coreutils-df-direct.patch
 
-# tail: fix tailing larger number of lines in regular files (rhbz#2398008)
-# https://github.com/coreutils/coreutils/commit/914972e80dbf82aac9ffe3ff1f67f1028e1a788b
-Patch105: coreutils-v9.8-tail-n-broken-for-regular-files.patch
+# gnulib C23 support
+# https://github.com/coreutils/gnulib/commit/df17f4f37ed3ca373d23ad42eae51122bdb96626
+Patch105: coreutils-9.9-gnulib-c23.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -160,7 +160,7 @@ find tests -name '*.sh' -perm 0644 -print -exec chmod 0755 '{}' '+'
 
 # FIXME: Force a newer gettext version to workaround `autoreconf -i` errors
 # with coreutils 9.6 and bundled gettext 0.19.2 from gettext-common-devel.
-sed -i 's/0.19.2/0.22.5/' bootstrap.conf configure.ac
+sed -i "s/0.19.2/$(rpm -q --queryformat '%%{VERSION}\n' gettext-devel)/" bootstrap.conf configure.ac
 
 autoreconf -fiv
 
@@ -282,6 +282,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Wed Nov 26 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.9-1
+- rebase to latest upstream release (rhbz#2413803)
+
 * Mon Sep 29 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.8-3
 - require gnulib-l10n for translations of gnulib messages (rhbz#2393892)
 

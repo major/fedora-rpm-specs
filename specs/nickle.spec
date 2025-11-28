@@ -5,8 +5,12 @@
 %bcond_with docs
 %endif
 
+%if ! %{defined conf}
+%global conf %nil
+%endif
+
 Name:           nickle
-Version:        2.103
+Version:        2.107
 Release:        %autorelease
 Summary:        A programming language-based prototyping environment
 
@@ -14,13 +18,12 @@ License:        MIT
 URL:            https://nickle.org
 Source0:        https://nickle.org/release/nickle-%{version}.tar.xz
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  bc
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  gcc
-BuildRequires:  make
+BuildRequires:  gmp-devel
+BuildRequires:  meson >= 1.0
 BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel
 %if %{with docs}
@@ -58,30 +61,20 @@ function interface) libraries (e.g. the Cairo interface for Nickle).
 %autosetup -p1
 
 
+%conf
+%meson
+
+
 %build
-autoreconf -fiv
-
-%if 0%{?fedora} >= 42
-# gram.y has Bool bool, bool is a reserved keyword in C23
-# https://gcc.gnu.org/gcc-15/porting_to.html
-export CFLAGS="%{optflags} -std=gnu17"
-%endif
-
-# we will install documentation ourselves,
-# but this saves having to delete the ones installed by 'make install'
-%configure --docdir=%{_pkgdocdir}
-%make_build
+%meson_build
 
 
 %check
-cd test
-make check
+%meson_test
 
 
 %install
-%make_install DESTDIR=$RPM_BUILD_ROOT
-rm `find examples -name 'Makefile*'`
-rm examples/COPYING
+%meson_install
 
 
 %files

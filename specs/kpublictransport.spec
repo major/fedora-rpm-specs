@@ -1,5 +1,5 @@
 Name:           kpublictransport
-Version:        25.08.3
+Version:        25.11.80
 Release:        1%{?dist}
 License:        CC0-1.0 AND ODbL-1.0 AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT AND LGPL-2.0-or-later AND BSD-3-Clause
 Summary:        Library to assist with accessing public transport timetables and other data
@@ -13,13 +13,19 @@ BuildRequires: zlib-devel
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Location)
 
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6NetworkManagerQt)
 BuildRequires: cmake(KF6KirigamiAddons)
 BuildRequires: qt6-qtbase-private-devel
 
+BuildRequires: pkgconfig(polyclipping)
+BuildRequires: pkgconfig(protobuf)
+
 BuildRequires: gettext
+
+Requires: qt6qml(org.kde.kitemmodels)
 
 %description
 %{summary}.
@@ -68,6 +74,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

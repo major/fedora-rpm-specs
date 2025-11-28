@@ -1,11 +1,22 @@
 Name:           python-cron-converter
-Version:        1.2.2
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Cron string parser and scheduler for Python
 
 License:        MIT
 URL:            https://github.com/Sonic0/cron-converter
 Source:         %{url}/archive/v%{version}/cron-converter-%{version}.tar.gz
+
+# fix: test_timezone should not compare utcoffset across DST boundaries #33
+# https://github.com/Sonic0/cron-converter/pull/33
+#
+# Fixes:
+#
+# test_timezone started failing when Europe/Rome entered DST
+# https://github.com/Sonic0/cron-converter/issues/32
+#
+# Rebased on v1.3.0.
+Patch:          0001-fix-test_timezone-should-not-compare-utcoffset-acros.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l cron_converter

@@ -78,10 +78,13 @@ License: Python-2.0.1
 
 # PEP 744: JIT Compilation
 # Whether to build with the experimental JIT compiler
-# We can only have this on Fedora 41+, where clang 19+ is available
-# And only on certain architectures: https://peps.python.org/pep-0744/#support
+# Only possible on certain architectures: https://peps.python.org/pep-0744/#support
 # The freethreading build (when enabled) does not support JIT yet
-%bcond jit %[(0%{?fedora} >= 41) && ("%{_arch}" == "x86_64" || "%{_arch}" == "aarch64")]
+%bcond jit %["%{_arch}" == "x86_64" || "%{_arch}" == "aarch64"]
+# Whether to build the JIT stencils (or else use the prebuilt ones)
+# We can only do this on Fedora 41+, where clang 19 is available
+# We don't do it in RHEL, see https://github.com/fedora-eln/eln/issues/207
+%bcond jit_build_stencils %[%{with jit} && 0%{?fedora} >= 41]
 %if %{with jit}
 # When built with JIT, it still needs to be enabled on runtime via PYTHON_JIT=1
 %global jit_flag --enable-experimental-jit=yes-off
@@ -293,7 +296,7 @@ BuildRequires: glibc-all-langpacks
 BuildRequires: tzdata
 %endif
 
-%if %{with jit}
+%if %{with jit_build_stencils}
 BuildRequires: clang(major) = 19
 BuildRequires: llvm(major) = 19
 %endif
@@ -346,6 +349,24 @@ Source10: idle3.desktop
 
 # AppData file for idle3
 Source11: idle3.appdata.xml
+
+# Pre-generated JIT stencils (see PEP 774)
+# As the PEP was deferred, we use stencils we built for ourselves.
+# Only used on platforms without the required LLVM version.
+#
+# When updating Python:
+#  1. touch the .h files (create them empty)
+#  2. scratch build Python on platform with required LLVM version (usually rawhide)
+#  3. download the files from Koji:
+#    $ bash download-jit-stencils-from-koji.sh KOJI_TASK_URL|KOJI_TASK_ID
+#  4. add the files to lookaside cache with fedpkg new-sources
+Source30: download-jit-stencils-from-koji.sh
+Source31: Python-%{upstream_version}-aarch64-debug-jit_stencils.h
+Source32: Python-%{upstream_version}-aarch64-optimized-jit_stencils.h
+Source33: Python-%{upstream_version}-x86_64-debug-jit_stencils.h
+Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
+%global jit_stencils_source %{_sourcedir}/Python-%{upstream_version}-%{_arch}-${ConfName}-jit_stencils.h
+%global jit_stencils_filename jit_stencils-%{_arch}-redhat-linux-gnu.h
 
 # (Patches taken from github.com/fedora-python/cpython)
 
@@ -1045,6 +1066,16 @@ BuildPython() {
   $ExtraConfigArgs \
   %{nil}
 
+%if %{with jit} && %{without jit_build_stencils}
+  if [[ ! "$ConfName" =~ ^freethreading ]]; then
+    cp -a %{jit_stencils_source} %{jit_stencils_filename}
+    # Hackish way of preventing PGO task to delete the stencils.
+    # Upstream issue: https://github.com/python/cpython/issues/141808
+    # Upstream PR: https://github.com/python/cpython/pull/141809
+    sed -i '/rm -f jit_stencils.h/d' Makefile
+  fi
+%endif
+
 %global flags_override EXTRA_CFLAGS="$MoreCFlags" CFLAGS_NODIST="$CFLAGS_NODIST $MoreCFlags"
 
 %if %{without bootstrap}
@@ -1397,6 +1428,16 @@ for Module in %{buildroot}/%{dynload_dir}/*.so ; do
     esac
 done
 
+# Assert the pre-generated JIT stencils are up to date
+%if %{with jit_build_stencils}
+for ConfName in %{?with_debug_build:debug} optimized; do
+  if [ -s %{jit_stencils_source} ]; then
+    diff -u %{jit_stencils_source} build/${ConfName}/%{jit_stencils_filename}
+  else
+    echo "%{jit_stencils_source} is empty, not checking if it is up to date"
+  fi
+done
+%endif
 
 # ======================================================
 # Running the upstream test suite

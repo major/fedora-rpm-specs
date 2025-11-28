@@ -28,7 +28,7 @@ A tool that:
 %make_install PREFIX="%{_prefix}"
 
 %check
-%ifarch i686 aarch64 s390x
+%ifarch i686 aarch64 s390x riscv64
 # tests/05_32_bits fail after https://fedoraproject.org/wiki/Changes/glibc32_Build_Adjustments
 rm -rf tests/05_32_bits
 %endif

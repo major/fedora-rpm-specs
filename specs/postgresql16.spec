@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.10
-Release: 2%{?dist}
+Version: %{majorversion}.11
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 15
-%global prevversion %{prevmajorversion}.14
+%global prevversion %{prevmajorversion}.15
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1345,6 +1345,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Thu Nov 13 2025 Packit <hello@packit.dev> - 16.11-1
+- Update to version 16.11
+- Resolves: rhbz#2414832
+
 * Tue Sep 09 2025 Filip Janus <fjanus@redhat.com> - 16.10-2
 - Add OpenSSL support to upgrade_configure function
 - This ensures upgrade server is compiled with OpenSSL support

@@ -5,7 +5,7 @@
 %global crate vhost-device-sound
 
 Name:           rust-vhost-device-sound
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Virtio-sound device using the vhost-user protocol
 
@@ -37,7 +37,6 @@ Source1: rust-vhost-device-sound-%{version}-vendor.tar.xz
 # * update rstest to 0.26:
 #   https://github.com/rust-vmm/vhost-device/commit/5e74f370be3d9c5092b88208586e12347573b68c
 Patch:          vhost-device-sound-fix-metadata.diff
-Patch:          vhost-device-sound-code-fix.diff
 %endif
 
 # Upstream doesn't provide man pages
@@ -137,6 +136,18 @@ use the "alsa-backend" feature of the "%{crate}" crate.
 %files       -n %{name}+alsa-backend-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+gst-backend-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gst-backend-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gst-backend" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gst-backend-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+pw-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -202,7 +213,7 @@ install -p -m 644 vhost-device-sound.1 %{buildroot}/%{_mandir}/man1/
 %check
 # * skip pipewire tests that fail because it requires test utility to launch a temporary dbus daemon for pipewire.
 # * skip alsa tests that fail because of unwrapping the result of PCM::new(), which lead to a runtime panic
-%cargo_test -- -- --skip audio_backends::pipewire::tests::test_pipewire_backend_invalid_stream --skip audio_backends::pipewire::tests::test_pipewire_backend_success --skip audio_backends::tests::test_alloc_audio_backend --skip audio_backends::alsa::tests::test_alsa_invalid_fmt --skip audio_backends::alsa::tests::test_alsa_valid_parameters --skip audio_backends::alsa::tests::test_alsa_ops --skip audio_backends::alsa::tests::test_alsa_invalid_rate --skip audio_backends::alsa::tests::test_alsa_invalid_state_transitions --skip audio_backends::alsa::tests::test_alsa_invalid_stream_id
+%cargo_test -- -- --skip audio_backends::pipewire::tests::test_pipewire_backend_invalid_stream --skip audio_backends::pipewire::tests::test_pipewire_backend_success --skip audio_backends::tests::test_alloc_audio_backend --skip audio_backends::alsa::tests::test_alsa_invalid_fmt --skip audio_backends::alsa::tests::test_alsa_valid_parameters --skip audio_backends::alsa::tests::test_alsa_ops --skip audio_backends::alsa::tests::test_alsa_invalid_rate --skip audio_backends::alsa::tests::test_alsa_invalid_state_transitions --skip audio_backends::alsa::tests::test_alsa_invalid_stream_id --skip audio_backends::gstreamer::tests::test_gstreamer_backend_success --skip audio_backends::gstreamer::tests::test_gstreamer_multiple_prepare_release_cycles --skip audio_backends::gstreamer::tests::test_gstreamer_invalid_state_transitions
 %endif
 
 %changelog

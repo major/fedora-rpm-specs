@@ -12,7 +12,7 @@ Version:        0.6.2
 Release:        0.5.beta6.git%{shortcommit0}%{dist}
 %else
 Version:        0.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
@@ -33,6 +33,7 @@ BuildRequires:  pkgconfig(jsoncpp)
 BuildRequires:  taglib-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libgpod-devel
+BuildRequires:  pkgconfig(icu-io)
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  desktop-file-utils
@@ -173,6 +174,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Wed Nov 26 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.3-2
+- Rebuild package with new tar archive
+- Add BR pkgconfig(icu-io)
+
 * Mon Nov 24 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.3-1
 - Update to 0.7.3
 

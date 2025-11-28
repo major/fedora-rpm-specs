@@ -1,11 +1,11 @@
 Name:           gnome-radio
-Version:        59.0
+Version:        60.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
 License:        GPL-3.0-or-later
 URL:            http://gnomeradio.org
-Source0:        http://www.gnomeradio.org/src/gnome-radio-59.0.tar.xz
+Source0:        http://www.gnomeradio.org/src/gnome-radio-60.0.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake

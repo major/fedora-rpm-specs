@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/vkohaupt/vokoscreenNG
 
 Name:           vokoscreenNG
-Version:        4.6.0
+Version:        4.7.1
 %forgemeta
 Release:        %autorelease
 Summary:        Powerful screencast creator to record the screen
@@ -35,6 +35,9 @@ BuildRequires:  pkgconfig(gstreamer-video-1.0)
 %if 0%{?fedora} >= 38
 Requires:       gstreamer1-plugin-gif
 %endif
+
+#For wayland
+Recommends:      pipewire-gstreamer
 
 %description
 vokoscreenNG for Windows and Linux is a powerful screencast creator in many

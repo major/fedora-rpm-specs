@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kdesdk-thumbnailers
 Summary: Thumbnailers for KDE
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -21,12 +21,12 @@ Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{nam
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
-BuildRequires:  gettext-devel
 BuildRequires:  kf6-kconfig-devel
 BuildRequires:  kf6-ki18n-devel
 BuildRequires:  kf6-kio-devel
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  pkgconfig(Qt6Widgets)
+BuildRequires:  gettext-devel
 
 # translations moved here
 Conflicts: kde-l10n < 17.03
@@ -57,17 +57,16 @@ gettext translation templates
 %install
 %cmake_install
 
-%find_lang %{name} --all-name
 
-
-%files -f %{name}.lang
+%files
 %license LICENSES/*
 %dir %{_qt6_plugindir}/kf6/thumbcreator
 %{_qt6_plugindir}/kf6/thumbcreator/pothumbnail.so
-%{_kf6_datadir}/config.kcfg/pocreatorsettings.kcfg
-
 
 %changelog	
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

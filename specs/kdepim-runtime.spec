@@ -1,7 +1,7 @@
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 License: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -13,11 +13,6 @@ Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream patches
-# Don't register to job tracker
-# (Removes the annoying Akonadi update notification toast)
-# https://invent.kde.org/pim/kdepim-runtime/-/merge_requests/262
-Patch0:         262.patch
-
 
 # nuke ill-advised -devel pkg
 Obsoletes:      kdepim-runtime-devel < 1:4.7.90-3
@@ -85,6 +80,10 @@ BuildRequires:  cmake(Qt6WebEngineWidgets)
 BuildRequires:  cmake(Qt6TextToSpeech)
 BuildRequires:  cmake(Libkolabxml)
 
+# Trying to make it work --farchord
+BuildRequires:  boost-devel
+BuildRequires:  boost-system
+
 %description
 %{summary}.
 
@@ -151,6 +150,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 1:25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.3-1
 - 25.08.3
 

@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          hf-hub-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * Allow dirs 6:
+#   https://github.com/huggingface/hf-hub/commit/86f85179527d52d71c9999ee3527432091db248c
 Patch:          hf-hub-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

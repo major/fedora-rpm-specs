@@ -4,7 +4,7 @@
 #global tests 1
 
 Name:    konqueror
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
@@ -181,10 +181,8 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_qtplugindir}/dolphinpart/kpartplugins/dirfilterplugin.so
 %{_kf6_qtplugindir}/dolphinpart/kpartplugins/kimgallery.so
 %{_kf6_qtplugindir}/dolphinpart/kpartplugins/konq_shellcmdplugin.so
-%{_kf6_qtplugindir}/khtml/kpartplugins/
 %{_kf6_qtplugindir}/konqueror/kpartplugins/
 %{_kf6_qtplugindir}/konqueror/sidebar/
-%{_kf6_qtplugindir}/kwebkitpart/kpartplugins/
 %{_kf6_qtplugindir}/webenginepart/kpartplugins/*
 %{_kf6_plugindir}/kfileitemaction/akregatorplugin.so
 %{_kf6_plugindir}/kio/bookmarks.so
@@ -211,6 +209,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

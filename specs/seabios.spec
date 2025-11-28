@@ -34,7 +34,6 @@ Source23:       config.seabios-microvm
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: python3
-BuildRequires: /usr/bin/igvm-wrap
 %if 0%{?cross:1}
 BuildRequires: binutils-x86_64-linux-gnu gcc-x86_64-linux-gnu
 Buildarch:     noarch
@@ -127,7 +126,6 @@ build_bios %{_sourcedir}/config.csm Csm16.bin bios-csm.bin
 build_bios %{_sourcedir}/config.coreboot bios.bin.elf bios-coreboot.bin
 build_bios %{_sourcedir}/config.seabios-microvm bios.bin bios-microvm.bin
 %endif
-igvm-wrap --input binaries/bios-256k.bin --output binaries/seabios.igvm
 
 # seavgabios
 %global vgaconfigs bochs-display cirrus isavga qxl stdvga ramfb vmware virtio ati
@@ -142,7 +140,6 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/seabios
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/seavgabios
 install -m 0644 binaries/bios.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios.bin
 install -m 0644 binaries/bios-256k.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios-256k.bin
-install -m 0644 binaries/seabios.igvm $RPM_BUILD_ROOT%{_datadir}/seabios/seabios.igvm
 %if 0%{?fedora:1}
 install -m 0644 binaries/bios-csm.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios-csm.bin
 install -m 0644 binaries/bios-coreboot.bin $RPM_BUILD_ROOT%{_datadir}/seabios/bios-coreboot.bin
@@ -159,7 +156,6 @@ install -m 0644 binaries/vgabios*.bin $RPM_BUILD_ROOT%{_datadir}/seavgabios
 %doc COPYING COPYING.LESSER README
 %dir %{_datadir}/seabios/
 %{_datadir}/seabios/bios*.bin
-%{_datadir}/seabios/seabios.igvm
 
 %files -n seavgabios-bin
 %doc COPYING COPYING.LESSER README

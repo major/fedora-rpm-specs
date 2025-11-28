@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:           kclock
-Version:        25.08.3
+Version:        25.11.80
 Release:        1%{?dist}
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-4.0 AND GPL-2.0-or-later
 Summary:        Clock app for Plasma Mobile
@@ -31,6 +31,8 @@ BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6WaylandClientPrivate)
+BuildRequires:  cmake(Qt6CorePrivate)
 
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6I18n)
@@ -46,7 +48,8 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6JobWidgets)
 
 BuildRequires:  cmake(Plasma)
-
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols)
  
 Requires:       hicolor-icon-theme
 # QML module dependencies
@@ -110,6 +113,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_qt6_plugindir}/plasma/applets/org.kde.plasma.%{name}_1x2.so
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

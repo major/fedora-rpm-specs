@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: HTTP server toolkit
 License: Ruby AND BSD-2-Clause
 URL: https://github.com/ruby/webrick
@@ -12,7 +12,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ruby/webrick
 # cd webrick && git archive -v -o webrick-1.9.1-tests.txz v1.9.1 test
 Source1: %{gem_name}-%{version}-tests.txz
-
+# https://github.com/ruby/webrick/pull/181
+# https://github.com/ruby/webrick/issues/179
+# ruby4_0 removes IO#nread
+Patch0:  webrick-pr181-ruby40-IO-nread-removal.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.4.0
@@ -35,6 +38,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -76,6 +80,9 @@ popd
 %{gem_instdir}/webrick.gemspec
 
 %changelog
+* Wed Nov 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.1-2
+- Backport upstream fix for rubu4_0 IO#nread removal
+
 * Tue Sep 16 2025 Jarek Prokop <jprokop@redhat.com> - 1.9.1-1
 - Upgrade to webrick 1.9.1.
   Resolves: rhbz#2329813

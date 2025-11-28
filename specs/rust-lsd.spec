@@ -19,6 +19,8 @@ Patch:          lsd-fix-metadata-auto.diff
 # * bump lscolors dependency from 0.16 to 0.20:
 #   https://github.com/lsd-rs/lsd/pull/1137
 # * bump unicode-width dependency from 0.1.13 to 0.2.0
+# * allow dirs 6:
+#   https://github.com/lsd-rs/lsd/commit/d635fac39dba905aed2c7c36945b9b8c97b1ce21
 Patch:          lsd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

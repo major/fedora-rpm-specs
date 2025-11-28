@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kdebugsettings
 Summary: Configure debug output from Qt6 applications
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -29,6 +29,7 @@ BuildRequires:  cmake(KF6Completion)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6WindowSystem)
 
 %description
 An application to enable/disable qCDebug
@@ -72,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

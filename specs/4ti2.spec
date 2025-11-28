@@ -1,7 +1,7 @@
 %global giturl  https://github.com/4ti2/4ti2
 
 Name:           4ti2
-Version:        1.6.13
+Version:        1.6.14
 Release:        %autorelease
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
@@ -33,6 +33,8 @@ URL:            https://4ti2.github.io/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/releases/download/Release_%{relver}/%{name}-%{version}.tar.gz
 Source1:        4ti2.module.in
+# Do not discard const qualifiers
+Patch:          %{giturl}/pull/58.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
@@ -78,7 +80,7 @@ A library for algebraic, geometric and combinatorial problems on linear
 spaces.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %conf
 # Fix encodings
@@ -100,12 +102,12 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 # Build the manual
 export LD_LIBRARY_PATH=$PWD/src/4ti2/.libs:$PWD/src/fiber/.libs:$PWD/src/groebner/.libs:$PWD/src/ppi/.libs:$PWD/src/util/.libs:$PWD/src/zsolve/.libs
-pushd doc
+cd doc
 make update-manual
 bibtex 4ti2_manual
 pdflatex 4ti2_manual
 pdflatex 4ti2_manual
-popd
+cd -
 
 %install
 %make_install
@@ -124,9 +126,6 @@ mv %{buildroot}%{_bindir} %{buildroot}%{_libdir}/4ti2
 mkdir -p %{buildroot}%{_modulesdir}
 # Since we're doing our own substitution here, use our own definitions.
 sed 's#@LIBDIR@#'%{_libdir}/4ti2'#g;' < %SOURCE1 >%{buildroot}%{_modulesdir}/4ti2-%{_arch}
-
-# We don't need or want libtool files
-rm -f %{buildroot}%{_libdir}/*.la
 
 # We don't want documentation in _datadir
 rm -fr %{buildroot}%{_datadir}/4ti2/doc

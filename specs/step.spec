@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    step
 Summary: Interactive Physics Simulator 
-Version: 25.08.2
+Version: 25.11.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Nov 27 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

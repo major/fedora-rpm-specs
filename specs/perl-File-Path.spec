@@ -1,6 +1,6 @@
 Name:           perl-File-Path
 Version:        2.18
-Release:        520%{?dist}
+Release:        521%{?dist}
 Summary:        Create or remove directory trees
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Path
@@ -70,8 +70,15 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -88,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 26 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.18-521
+- Update tests
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-520
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

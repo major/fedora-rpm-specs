@@ -1,5 +1,5 @@
 Name:    kio-extras
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -12,9 +12,6 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 ## upstramable patches
 
 ## upstream patches
-# Remove dependancy on Qt6GuiPrivate
-# https://invent.kde.org/network/kio-extras/-/commit/eb7a44f144aec72c578804587a61da3f1a02a7fb
-Patch0: eb7a44f144aec72c578804587a61da3f1a02a7fb.patch
 
 BuildRequires:  bzip2-devel
 BuildRequires:  gperf
@@ -120,7 +117,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/libkioarchive6.so.6{,.*}
 %{_kf6_libexecdir}/smbnotifier
 %{_libexecdir}/wpad-detector-helper
-%{_kf6_qtplugindir}/kfileaudiopreview.so
 %{_kf6_qtplugindir}/kcm_trash.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_*.so
 
@@ -136,6 +132,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

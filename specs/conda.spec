@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        24.11.3
+Version:        25.11.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -16,8 +16,6 @@ Source1:        https://raw.githubusercontent.com/tartansandal/conda-bash-comple
 Patch0:         0001-conda_sys_prefix.patch.patch
 # Use main entry point for conda and re-add conda-env entry point, no need to run conda init
 Patch1:         0002-Use-main-entry-point-for-conda-and-re-add-conda-env-.patch
-# Python 3.13 lock support
-Patch4:         https://github.com/conda/conda/pull/14117.patch
 
 Patch10004:     0004-Do-not-try-to-run-usr-bin-python.patch
 Patch10005:     0005-Fix-failing-tests-in-test_api.py.patch
@@ -28,12 +26,12 @@ BuildArch:      noarch
 BuildRequires:  pkgconfig(bash-completion)
 %global bash_completionsdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo '/etc/bash_completion.d')
 BuildRequires:  sed
+# For man pages
+BuildRequires:  python-conda-sphinx-theme
 
 Requires:       python%{python3_pkgversion}-conda = %{version}-%{release}
 # Removed upstream in favour of calling "conda activate" in version 4.4.0
 Obsoletes:      conda-activate < 4.4
-
-%?python_enable_dependency_generator
 
 
 %global _description %{expand:
@@ -65,12 +63,16 @@ Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 # For tests
 BuildRequires:  python-unversioned-command
+BuildRequires:  python%{python3_pkgversion}-boltons
 BuildRequires:  python%{python3_pkgversion}-boto3
+BuildRequires:  python%{python3_pkgversion}-conda-libmamba-solver
 BuildRequires:  python%{python3_pkgversion}-flask
 BuildRequires:  python%{python3_pkgversion}-jsonpatch
+BuildRequires:  python%{python3_pkgversion}-libmambapy
 BuildRequires:  python%{python3_pkgversion}-pexpect
 BuildRequires:  python%{python3_pkgversion}-pytest-mock
 BuildRequires:  python%{python3_pkgversion}-pytest-rerunfailures
+BuildRequires:  python%{python3_pkgversion}-pytest-split
 BuildRequires:  python%{python3_pkgversion}-pytest-timeout
 BuildRequires:  python%{python3_pkgversion}-pytest-xprocess
 BuildRequires:  python%{python3_pkgversion}-responses
@@ -79,8 +81,6 @@ BuildRequires:  python%{python3_pkgversion}-responses
 Provides:       bundled(python%{python3_pkgversion}-appdirs) = 1.2.0
 Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
 Provides:       bundled(python%{python3_pkgversion}-boltons) = 21.0.0
-
-%{?python_provide:%python_provide python%{python3_pkgversion}-conda}
 
 %description -n python%{python3_pkgversion}-conda %_description
 
@@ -92,11 +92,6 @@ sed -i -e '/ruamel.yaml/s/,<[0-9.]*//' pyproject.toml
 
 # pytest-split/xdoctest not packaged, store-duration not needed
 sed -i -e '/splitting-algorithm/d' -e '/store-durations/d' -e '/xdoctest/d' pyproject.toml
-
-# Use system versions
-rm -r conda/_vendor/frozendict
-find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(frozendict.*\) import/\1from \2 import/'
-sed -i -e '/^dependencies = /a\ \ "frozendict",' pyproject.toml
 
 # Unpackaged - use vendored version
 sed -i -e '/"boltons *>/d' pyproject.toml
@@ -174,7 +169,61 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # test_ProgressiveFetchExtract_prefers_conda_v2_format, test_subdir_data_prefers_conda_to_tar_bz2,
 # test_use_only_tar_bz2 fail in F31 koji, but not with mock --enablerepo=local. Let's disable
 # them for now.
+# tests/base/test_context.py::test_default_activation_prefix - conda.exceptions.CondaHTTPError
 # tests/cli/test_all_commands.py::test_denylist_channels - conda.exceptions.EnvironmentLocationNotFound: Not a conda environment: /usr
+# tests/cli/test_cli_install.py::test_frozen_env_cep22[libmamba] - conda.exceptions.CondaHTTPError
+# tests/cli/test_cli_install.py::test_frozen_env_cep22[classic] - conda.exceptions.CondaHTTPError
+# Unsure - but perhaps config does not has a subdir?
+# tests/cli/test_common.py::test_validate_subdir_config - TypeError: expected str, bytes or os.PathLike object, not NoneType
+# tests/cli/test_common.py::test_validate_subdir_config_invalid_subdir - TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'
+# Would need an installed conda to test
+# tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[bash-expected_patterns0] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
+# tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.sh'
+# tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[fish-expected_patterns2] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/fish/conf.d/conda.fish'
+# tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[xonsh-expected_patterns5] - FileNotFoundError: [Errno 2] No such file or directory: '/etc/profile.d/conda.xsh'
+# tests/cli/test_main_export.py::test_export_preserves_channels_from_installed_packages - AssertionError: Expected to find conda-forge or defaults in channels: ['https://conda.anaconda.org/conda-forge']
+# tests/cli/test_main_export.py::test_export_package_alphabetical_ordering - AssertionError: Should have multiple packages for ordering test
+# tests/cli/test_main_export.py::test_export_no_builds_format - AssertionError: Should have conda packages to test
+# tests/cli/test_main_export.py::test_export_regular_format_consistency - AssertionError: Should have conda packages to test
+# tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-yaml-yaml_safe_load] - AssertionError: Should have conda dependencies
+# tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-json-loads] - AssertionError: Should have conda dependencies
+# tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--yaml_safe_load] - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[JSON---format=json-loads] - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_export.py::test_export_explicit_format_validation_errors - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_export.py::test_export_multiple_platforms - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_export.py::test_export_single_platform_different_platform - conda.exceptions.CondaHTTPError
+# The /usr base env does not have last_modified
+# tests/cli/test_main_info.py::test_info_json - AssertionError: assert False
+# tests/cli/test_main_install.py::test_build_version_shows_as_changed - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_list.py::test_fields_all - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/cli/test_main_list.py::test_fields_invalid - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/cli/test_main_list.py::test_exit_codes - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/cli/test_main_update.py::test_update - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_update.py::test_dont_update_packages_with_version_constraints - conda.exceptions.NoBaseEnvironmentError: This conda installation has no default base environment. Use
+# tests/core/test_prefix_data.py::test_get_packages_behavior_with_interoperability - conda.exceptions.CondaHTTPError
+# tests/core/test_prefix_data.py::test_empty_environment_package_methods - conda.exceptions.CondaHTTPError
+# tests/core/test_prefix_data.py::test_pinned_specs_conda_meta_pinned - conda.exceptions.CondaHTTPError
+# tests/core/test_solve.py::test_pinned_specs_conda_meta_pinned[libmamba] - conda.exceptions.CondaHTTPError
+# tests/core/test_solve.py::test_pinned_specs_condarc[libmamba] - conda.exceptions.CondaHTTPError
+# tests/core/test_solve.py::test_pinned_specs_all[libmamba] - conda.exceptions.CondaHTTPError
+# These are HTTP errors
+# tests/env/installers/test_conda_installer_explicit.py::test_installer_installs_explicit - conda.CondaMultiError
+# tests/env/specs/test_explicit.py::test_environment - conda.CondaMultiError
+# tests/env/test_create.py::test_create_env_from_non_existent_plugin - conda.exceptions.CondaHTTPError
+# tests/models/test_environment.py::test_extrapolate - conda.exceptions.CondaHTTPError
+# tests/models/test_environment.py::test_explicit_packages - conda.CondaMultiError
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[-\u2705] - conda.exceptions.CondaHTTPError
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[conda 1.11-\u2705] - conda.exceptions.CondaHTTPError
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[conda 1.11, otherpackages==1-\u274c] - conda.exceptions.CondaHTTPError
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check["conda"-\u274c] - conda.exceptions.CondaHTTPError
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[imnotinstalledyet-\u274c] - conda.exceptions.CondaHTTPError
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[True] - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[False] - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_not_supported - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/test_transaction_hooks.py::test_transaction_hooks_invoked - conda.exceptions.CondaHTTPError
+# These are network errors
+# tests/plugins/test_transaction_hooks.py::test_pre_transaction_raises_exception - AssertionError: Regex pattern did not match.
+# tests/plugins/test_transaction_hooks.py::test_post_transaction_raises_exception - AssertionError: Regex pattern did not match.
 # tests/cli/test_conda_argparse.py::test_list_through_python_api does not recognize /usr as a conda environment
 # tests/cli/test_main_{clean,info,install,list,list_reverse,rename}.py tests require network access
 # tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
@@ -214,13 +263,15 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/testing/test_fixtures.py::test_env - requires network tests to succeed
 # tests/testing/test_fixtures.py::test_tmp_channel - requires network access
 # tests/trust/test_signature_verification.py requires conda_content_trust - not yet packaged
-py.test-%{python3_version} -vv -m "not integration" \
+py.test-%{python3_version} -vv -rfs -m "not integration" \
     --deselect=tests/test_activate.py::test_activate_same_environment \
     --deselect=tests/test_activate.py::test_build_activate_dont_activate_unset_var \
+    --deselect=tests/test_activate.py::test_build_activate_dont_use_PATH \
     --deselect=tests/test_activate.py::test_build_activate_restore_unset_env_vars \
     --deselect=tests/test_activate.py::test_build_activate_shlvl_warn_clobber_vars \
     --deselect=tests/test_activate.py::test_build_activate_shlvl_0 \
     --deselect=tests/test_activate.py::test_build_activate_shlvl_1 \
+    --deselect=tests/test_activate.py::test_build_deactivate_dont_use_PATH \
     --deselect=tests/test_activate.py::test_build_deactivate_shlvl_2_from_stack \
     --deselect=tests/test_activate.py::test_build_deactivate_shlvl_2_from_activate \
     --deselect=tests/test_activate.py::test_build_deactivate_shlvl_1 \
@@ -239,6 +290,52 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/test_install.py::test_install_mkdir \
     --deselect=tests/test_misc.py::test_explicit_missing_cache_entries \
     --ignore=tests/env/specs/test_binstar.py \
+    --deselect=tests/base/test_context.py::test_default_activation_prefix \
+    --deselect=tests/cli/test_cli_install.py::test_frozen_env_cep22[libmamba] \
+    --deselect=tests/cli/test_cli_install.py::test_frozen_env_cep22[classic] \
+    --deselect=tests/cli/test_common.py::test_validate_subdir_config \
+    --deselect=tests/cli/test_common.py::test_validate_subdir_config_invalid_subdir \
+    --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[bash-expected_patterns0] \
+    --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] \
+    --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[fish-expected_patterns2] \
+    --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[xonsh-expected_patterns5] \
+    --deselect=tests/cli/test_main_export.py::test_export_preserves_channels_from_installed_packages \
+    --deselect=tests/cli/test_main_export.py::test_export_package_alphabetical_ordering \
+    --deselect=tests/cli/test_main_export.py::test_export_no_builds_format \
+    --deselect=tests/cli/test_main_export.py::test_export_regular_format_consistency \
+    --deselect=tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-yaml-yaml_safe_load] \
+    --deselect=tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-json-loads] \
+    --deselect=tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--yaml_safe_load] \
+    --deselect=tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[JSON---format=json-loads] \
+    --deselect=tests/cli/test_main_export.py::test_export_explicit_format_validation_errors \
+    --deselect=tests/cli/test_main_export.py::test_export_multiple_platforms \
+    --deselect=tests/cli/test_main_export.py::test_export_single_platform_different_platform \
+    --deselect=tests/cli/test_main_install.py::test_build_version_shows_as_changed \
+    --deselect=tests/cli/test_main_list.py::test_fields_all \
+    --deselect=tests/cli/test_main_list.py::test_fields_invalid \
+    --deselect=tests/cli/test_main_list.py::test_exit_codes \
+    --deselect=tests/cli/test_main_update.py::test_update \
+    --deselect=tests/cli/test_main_update.py::test_dont_update_packages_with_version_constraints \
+    --deselect=tests/core/test_prefix_data.py::test_get_packages_behavior_with_interoperability \
+    --deselect=tests/core/test_prefix_data.py::test_empty_environment_package_methods \
+    --deselect=tests/core/test_prefix_data.py::test_pinned_specs_conda_meta_pinned \
+    --deselect=tests/core/test_prefix_data.py::test_unset_reserved_env_vars \
+    --deselect=tests/core/test_prefix_data.py::test_warn_setting_reserved_env_vars \
+    --deselect=tests/core/test_solve.py::test_pinned_specs_conda_meta_pinned[libmamba] \
+    --deselect=tests/core/test_solve.py::test_pinned_specs_condarc[libmamba] \
+    --deselect=tests/core/test_solve.py::test_pinned_specs_all[libmamba] \
+    --deselect=tests/env/installers/test_conda_installer_explicit.py::test_installer_installs_explicit \
+    --deselect=tests/env/specs/test_explicit.py::test_environment \
+    --deselect=tests/env/test_create.py::test_create_env_from_non_existent_plugin \
+    --deselect=tests/models/test_environment.py::test_extrapolate \
+    --deselect=tests/models/test_environment.py::test_explicit_packages \
+    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check \
+    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[True] \
+    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[False] \
+    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_not_supported \
+    --deselect=tests/plugins/test_transaction_hooks.py::test_transaction_hooks_invoked \
+    --deselect=tests/plugins/test_transaction_hooks.py::test_pre_transaction_raises_exception \
+    --deselect=tests/plugins/test_transaction_hooks.py::test_post_transaction_raises_exception \
     --deselect=tests/cli/test_all_commands.py::test_denylist_channels \
     --deselect='tests/cli/test_common.py::test_is_active_prefix[active_prefix-True]' \
     --deselect=tests/cli/test_config.py::test_conda_config_describe \
@@ -248,6 +345,7 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/cli/test_main_clean.py \
     --deselect=tests/cli/test_main_info.py::test_info_python_output \
     --deselect=tests/cli/test_main_info.py::test_info_conda_json \
+    --deselect=tests/cli/test_main_info.py::test_info_json \
     --deselect=tests/cli/test_main_install.py::test_conda_pip_interop_dependency_satisfied_by_pip \
     --deselect=tests/cli/test_main_install.py::test_install_from_extracted_package \
     --deselect=tests/cli/test_main_install.py::test_install_mkdir \

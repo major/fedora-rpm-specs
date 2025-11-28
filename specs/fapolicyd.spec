@@ -4,8 +4,8 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.4.1
-Release: 2%{?dist}
+Version: 1.4.2
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
@@ -229,6 +229,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed Nov 26 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4.2-1
+- fapolicyd-1.4.2
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.2
+
 * Fri Nov 07 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4.1-2
 - Install SELinux policy hardening module
 

@@ -1,20 +1,16 @@
 Name:		rteval
 Version:	3.10
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
 License:	GPL-2.0-only AND GPL-2.0-or-later
 URL:		https://git.kernel.org/pub/scm/utils/rteval/rteval.git
 Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.xz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+# https://lore.kernel.org/linux-rt-users/20251126231223.100316-1-yselkowi@redhat.com/T/#u
+Patch0:         0001-rteval-do-not-require-wheel-for-building.patch
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools >= 61.0
-BuildRequires:	python3-wheel
-BuildRequires:	python3-pip
-BuildRequires:	pyproject-rpm-macros
-Requires:	python3-lxml
 Requires:	python3-libxml2
 Requires:	realtime-tests
 Requires:	rteval-loads >= 6.17.7-1
@@ -49,6 +45,9 @@ to the screen.
 # Delete setup.py so pyproject.toml build doesn't use it
 rm -f setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -82,6 +81,9 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 %{_bindir}/rteval
 
 %changelog
+* Wed Nov 26 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.10-4
+- Use pyproject dynamic BuildRequires
+
 * Fri Nov 14 2025 John Kacur <jkacur@redhat.com> - 3.10-3
 - Add BuildRequires python3-pip
 

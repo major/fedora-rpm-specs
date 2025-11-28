@@ -1,14 +1,13 @@
-%global __provides_exclude %{python3_sitearch}/.*\.so$
-
 Name:           libfreenect
-Version:        0.7.0
-Release:        16%{?dist}
+Version:        0.7.5
+Release:        2%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
-#
 # OpenNI driver is available as Apache-2.0
-License:        Apache-2.0 AND (GPL-2.0-only OR Apache-2.0)
-URL:            http://www.openkinect.org/
+# fakenect/parson.{c,h} is MIT
+# fwfetcher.py is BSD-2-Clause
+License:        Apache-2.0 AND (GPL-2.0-only OR Apache-2.0) AND MIT AND BSD-2-Clause
+URL:            https://github.com/OpenKinect/
 
 Source0:        https://github.com/OpenKinect/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Edit udev rule to only allow access to the device from the video group
@@ -20,10 +19,12 @@ Patch3:         %{name}-0.4.2-libdir.patch
 # BZ: https://bugzilla.redhat.com/show_bug.cgi?id=1143912
 Patch4:         secarch.patch
 # Fix the installation path for python libs
-Patch5:         %{name}-0.7.0-py3.patch
-# Fix for cython3
-Patch6:         %{name}-0.7.0-cython3.patch
-Patch7: libfreenect-c99.patch
+Patch5:         %{name}-0.7.5-py3.patch
+# Avoid timestamps in generated docs
+Patch6:         %{name}-0.7.5-notimestamp.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -64,6 +65,8 @@ developing applications that use %{name}.
 %package        fakenect
 Summary:        Library to play back recorded data for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# upstream commit f1bb6e7fbe347754fbfc4613bf43000ef0b0c2b2
+Provides:       bundled(parson)
 
 %description    fakenect
 Fakenect consists of a "record" program to save dumps from the kinect sensor 
@@ -83,7 +86,6 @@ library for OpenCV development.
 Summary:        Python 3 bindings for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       python3-numpy
-%{?python_provide:%python_provide python3-%{name}}
 
 %description -n  python3-%{name}
 The %{name}-python package contains python 3 bindings for %{name}
@@ -97,19 +99,18 @@ OpenNI2 driver. It allows OpenNI2 to use Kinect hardware on Linux and OSX.
 It was originally a separate project but is now distributed with libfreenect.
 
 %prep
-%setup -qn %{name}-%{version}
-rm -rf platform/windows
+%setup -q
+rm -rv platform/windows
 
 %patch -P 0 -p0 -b .videogroup
 %patch -P 1 -p1 -b .openni2
 %patch -P 3 -p0 -b .libdir
 %patch -P 4 -p1 -b .secarch
 %patch -P 5 -p1 -b .py3
-%patch -P 6 -p1 -b .cython3
-%patch -P 7 -p1
+%patch -P 6 -p1 -b .tstamp
 
 %build
-%cmake3 \
+%cmake \
   -DBUILD_AUDIO=ON \
   -DBUILD_C_SYNC=ON \
   -DBUILD_CV=ON \
@@ -121,26 +122,27 @@ rm -rf platform/windows
   -DBUILD_PYTHON3=ON \
   -DBUILD_OPENNI2_DRIVER=ON
 
-%cmake3_build
+%cmake_build
 
 pushd doc
 doxygen Doxyfile
 popd
 
 %install
-%cmake3_install
+%cmake_install
 
 # Install the kinect udev rule
-mkdir -p %{buildroot}/lib/udev/rules.d
+mkdir -p %{buildroot}%{_udevrulesdir}
 mkdir -p %{buildroot}%{_libdir}/openni2
-install -p -m 0644 platform/linux/udev/51-kinect.rules %{buildroot}/lib/udev/rules.d
+install -p -m 0644 platform/linux/udev/51-kinect.rules %{buildroot}%{_udevrulesdir}
 
 # Delete libtool archives
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # Move the fwfetcher script to the correct datadir
 mkdir -p %{buildroot}%{_datadir}/%{name}
-mv %{buildroot}%{_datadir}/fwfetcher.py   %{buildroot}%{_datadir}/%{name}
+mv %{buildroot}%{_datadir}/fwfetcher.py %{buildroot}%{_datadir}/%{name}
+chmod +x %{buildroot}%{_datadir}/%{name}/fwfetcher.py
 
 # Move openni plugin: rhbz#1094787
 mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/Drivers
@@ -148,43 +150,70 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %files
 %license APACHE20 GPL2
 %doc README.md CONTRIB
-/lib/udev/rules.d/*
-%{_libdir}/libfreenect.so.0*
-%{_libdir}/libfreenect_sync.so.0*
-%exclude %{_bindir}/freenect-cvdemo
-%exclude %{_bindir}/fakenect
-%{_bindir}/freenect-*
+%{_udevrulesdir}/51-kinect.rules
+%{_libdir}/libfreenect.so.0{,.*}
+%{_libdir}/libfreenect_sync.so.0{,.*}
+%{_bindir}/freenect-camtest
+%{_bindir}/freenect-chunkview
+%{_bindir}/freenect-cpp_pcview
+%{_bindir}/freenect-cppview
+%{_bindir}/freenect-glpclview
+%{_bindir}/freenect-glview
+%{_bindir}/freenect-hiview
+%{_bindir}/freenect-micview
+%{_bindir}/freenect-regtest
+%{_bindir}/freenect-regview
+%{_bindir}/freenect-tiltdemo
+%{_bindir}/freenect-wavrecord
 %{_datadir}/%{name}
 
 %files opencv
 %{_bindir}/freenect-cvdemo
-%{_libdir}/libfreenect_cv.so.*
+%{_libdir}/libfreenect_cv.so.0{,.*}
 
 %files devel
 %doc doc/html
 %doc examples/*.c wrappers/cpp/cppview.cpp
 %{_includedir}/libfreenect
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*
-%{_libdir}/fakenect/*.so
+%{_libdir}/libfreenect.so
+%{_libdir}/libfreenect_cv.so
+%{_libdir}/libfreenect_sync.so
+%{_libdir}/pkgconfig/libfreenect.pc
+%{_libdir}/fakenect/libfakenect.so
 
 %files static
-%{_libdir}/*.a
+%{_libdir}/libfreenect.a
+%{_libdir}/libfreenect_sync.a
 
 %files -n python3-%{name}
-%{python3_sitearch}/*.so
+%{python3_sitearch}/freenect.so
 
 %files fakenect
 %dir %{_libdir}/fakenect
 %{_bindir}/fakenect-record
-%{_libdir}/fakenect/*.so.*
+%{_libdir}/fakenect/libfakenect.so.0{,.*}
 %{_bindir}/fakenect
-%{_mandir}/man1/fakenect*1.*
+%{_mandir}/man1/fakenect-record.1.*
+%{_mandir}/man1/fakenect.1.*
 
 %files openni
+%license APACHE20 GPL2
 %{_libdir}/openni2
 
 %changelog
+* Mon Nov 24 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.7.5-2
+- fixed duplicate files warning
+- made file lists more explicit
+- corrected License tag
+- added missing Provides: for bundled parson
+- added executable bit to fwfetcher.py script and fixed shebang
+- avoid timestamps in generated docs for reproducibility
+
+* Tue Nov 11 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.7.5-1
+- Updated to 0.7.5
+- Dropped obsolete patches
+- Updated URL
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           kweather
-Version:        25.08.3
+Version:        25.11.80
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -89,14 +89,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/dbus-1/services/org.kde.%{name}.service
 
 %files plasma-applet
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/LocationSelector.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/WeatherContainer.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/main.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.json
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.json.license
-%{_kf6_qtplugindir}/plasma/applets/plasma_applet_%{name}_1x4.so
+%{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.%{name}_1x4.so
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

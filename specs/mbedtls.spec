@@ -1,7 +1,3 @@
-%if 0%{?fedora} || 0%{?rhel} >= 7
-%global _docdir_fmt %{name}
-%endif
-
 Name: mbedtls
 Version: 3.6.5
 Release: 1%{?dist}
@@ -83,7 +79,6 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 
 %files
 %doc ChangeLog
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %{_libdir}/*.so.*
 

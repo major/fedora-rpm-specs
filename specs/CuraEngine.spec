@@ -48,7 +48,8 @@ BuildRequires:  spdlog-devel
 # CVE-2023-45664
 # CVE-2023-45666
 # CVE-2023-45667
-BuildRequires:  stb_image-static >= 2.28^20231011gitbeebb24-12
+# Upstream issues #1860, #1861
+BuildRequires:  stb_image-static >= 2.30^20251025gitf1c79c0-2
 
 Patch0:         %{name}-static-libstdcpp.patch
 # Patch for fmtlib 10, from https://github.com/Ultimaker/CuraEngine/commit/5a4ca90594f965b6a5e6af626a5c508185277162

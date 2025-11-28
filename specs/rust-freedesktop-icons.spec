@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/freedesktop-icons
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop unneeded criterion dependency
+# * Allow dirs 6; see “Update dirs dependency to version 6”,
+#   https://github.com/oknozor/freedesktop-icons/pull/29
 Patch:          freedesktop-icons-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

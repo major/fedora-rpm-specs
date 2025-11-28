@@ -1,13 +1,6 @@
-# EPEL10 does not have kf5
-%if 0%{?rhel} && 0%{?rhel} >= 10
-%bcond_with kf5
-%else
-%bcond_without kf5
-%endif
-
 Name:    libkexiv2
 Summary: A wrapper around Exiv2 library
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -21,10 +14,6 @@ BuildRequires: kf6-rpm-macros
 BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6Core5Compat)
 BuildRequires: pkgconfig(exiv2)
-%if %{with kf5}
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Qt5Gui)
-%endif
 
 
 %global _description %{expand:
@@ -32,26 +21,6 @@ Libkexiv2 is a wrapper around Exiv2 library to manipulate pictures metadata
 as EXIF IPTC and XMP.}
 
 %description %{_description}
-
-%if %{with kf5}
-%package qt5
-Summary: Qt5 version of %{name}
-Requires: kf5-filesystem
-# Renamed from kf5-libkexiv2
-Obsoletes: kf5-libkexiv2 < %{version}-%{release}
-Provides:  kf5-libkexiv2 = %{version}-%{release}
-%description qt5
-%{_description}
-
-%package qt5-devel
-Summary:  Development files for %{name}-qt5
-Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
-Requires: cmake(Qt5Gui)
-Obsoletes: kf5-libkexiv2-devel < %{version}-%{release}
-Provides:  kf5-libkexiv2-devel = %{version}-%{release}
-%description qt5-devel
-%{summary}.
-%endif
 
 %package qt6
 Summary: Qt6 version of %{name}
@@ -71,23 +40,10 @@ Requires: cmake(Qt6Gui)
 
 
 %build
-%if %{with kf5}
-%global _vpath_builddir %{_target_platform}-qt5
-%cmake_kf5 -DBUILD_WITH_QT6=OFF
-%cmake_build
-%endif
-
-%global _vpath_builddir %{_target_platform}-qt6
-%cmake_kf6 -DBUILD_WITH_QT6=ON
+%cmake_kf6
 %cmake_build
 
 %install
-%if %{with kf5}
-%global _vpath_builddir %{_target_platform}-qt5
-%cmake_install
-%endif
-
-%global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
 
 
@@ -103,20 +59,10 @@ Requires: cmake(Qt6Gui)
 %{_includedir}/KExiv2Qt6/
 %{_libdir}/cmake/KExiv2Qt6/
 
-%if %{with kf5}
-%files qt5
-%{_kf5_datadir}/qlogging-categories5/*%{name}.*
-%{_kf5_libdir}/libKF5KExiv2.so.15.0.0
-%{_kf5_libdir}/libKF5KExiv2.so.5.1.0
-
-%files qt5-devel
-%{_kf5_libdir}/libKF5KExiv2.so
-%{_kf5_includedir}/KExiv2/
-%{_kf5_libdir}/cmake/KF5KExiv2/
-%endif
-
-
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

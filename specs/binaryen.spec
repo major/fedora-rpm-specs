@@ -1,10 +1,10 @@
 %bcond_without check
-%global wats_commit e05365077e13a1d86ffe77acfb1a835b7aa78422
+%global wats_commit 4b24564c844e3d34bf46dfcb3c774ee5163e31cc
 %global wats_shortcommit %(c=%{wats_commit}; echo ${c:0:7})
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       124
+Version:       125
 Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
@@ -110,6 +110,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Wed Nov 26 2025 Dominik Mierzejewski <dominik@greysector.net> - 125-1
+- update to 125 (resolves rhbz#2416026)
+
 * Sat Sep 27 2025 Dominik Mierzejewski <dominik@greysector.net> - 124-1
 - update to 124 (resolves rhbz#2392739)
 

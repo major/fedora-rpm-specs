@@ -30,8 +30,10 @@ BuildRequires:  pandoc
 BuildRequires:  pkg-config
 BuildRequires:  poppler-glib-devel
 BuildRequires:  qoi-devel
-BuildRequires:  stb_image-devel
-BuildRequires:  stb_image_resize-devel
+# Dependencies on -static virtual Provides per:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+BuildRequires:  stb_image-static >= 2.30^20251025gitf1c79c0-2
+BuildRequires:  stb_image_resize-static
 BuildRequires:  turbojpeg-devel
 
 %description

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
@@ -11,6 +11,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # compatibility.
 # https://github.com/thoughtbot/shoulda-context/pull/70
 Patch0: rubygem-shoulda-context-2.0.0-Use-File-exist.patch
+# Avoid Bundler re-resolving dependencies test suite issues.
+# https://github.com/thoughtbot/shoulda-context/pull/111
+Patch1: rubygem-shoulda-context-3.0.0.rc1-Ignore-Resolving-dependencies.-message-by-Bundler.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -45,6 +48,7 @@ sed -i 's|#!/usr/bin/env ruby|#!/usr/bin/ruby|' exe/convert_to_should_syntax
 %gemspec_remove_file "test/fake_rails_root/vendor/plugins/.keep"
 
 %patch 0 -p1
+%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -130,6 +134,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Wed Nov 26 2025 Vít Ondruch <vondruch@redhat.com> - 2.0.0-6
+- Fix possible test suite issues with Bundler 4.0.0.beta1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

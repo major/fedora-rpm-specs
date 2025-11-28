@@ -61,7 +61,7 @@ BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(xcb-image)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  stb_image-devel >= 2.27-0.7
+BuildRequires:  stb_image-devel >= 2.30^20251025gitf1c79c0-2
 BuildRequires:  stb_image_write-devel
 # BuildRequires:  vulkan-headers
 

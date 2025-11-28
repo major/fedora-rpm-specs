@@ -8,8 +8,8 @@
 %endif
 
 Name:           fedpkg
-Version:        1.46
-Release:        7%{?dist}
+Version:        1.47
+Release:        1%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -31,7 +31,7 @@ Requires:       redhat-rpm-config
 %global __python %{__python3}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-rpkg >= 1.68-1
+BuildRequires:  python3-rpkg >= 1.69-2
 BuildRequires:  python3-distro
 %if 0%{?with_hatchling}
 BuildRequires:  pyproject-rpm-macros
@@ -47,7 +47,7 @@ BuildRequires:  python3-bodhi-client
 
 
 Requires:       python3-bugzilla
-Requires:       python3-rpkg >= 1.68-1
+Requires:       python3-rpkg >= 1.69-2
 Requires:       python3-distro
 Requires:       python3-openidc-client >= 0.6.0
 Requires:       python3-bodhi-client
@@ -57,6 +57,7 @@ Requires:       python3-setuptools
 Recommends:     fedora-packager
 Recommends:     fedpkg-completion
 
+Patch0:         0001-request-unretirement-fix-unittests.patch
 
 %description
 Provides the fedpkg command for working with dist-git
@@ -140,6 +141,18 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Wed Nov 26 2025 Ondřej Nosek <onosek@redhat.com> - 1.47-1
+- Use ruff code checker instead of bandit (onosek)
+- Clone the API key info into all help messages (mpospisi)
+- README: Documentation link change, and new Jenkins link – `#606`_ (gleiro)
+- `update`: Add unspecified update type (priv.luk@gmail.com)
+- `request-unretirement`: Added a new command (amedvede)
+- `request-repo`: creating project and package in Anitya (amedvede)
+- Switch to %pyproject_* macros (onosek)
+- `retire`: extend the command's console help - `rhbz#2189969`_ (onosek)
+- Jenkinsfile: use local declaration instead of global (onosek)
+- `srpm`: --offline arg to prevent connecting to Koji – `#600`_ (onosek)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.46-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

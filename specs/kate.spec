@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -132,10 +132,6 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf6_datadir}/applications/org.kde.kate.desktop
 %{_kf6_datadir}/icons/hicolor/*/apps/kate.*
 %{_kf6_metainfodir}/org.kde.kate.appdata.xml
-%{_kf6_plugindir}/ktexteditor/cmaketoolsplugin.so
-%{_kf6_plugindir}/ktexteditor/eslintplugin.so
-%{_kf6_plugindir}/ktexteditor/formatplugin.so
-%{_kf6_plugindir}/ktexteditor/rbqlplugin.so
 %{_mandir}/man1/kate.1*
 
 
@@ -176,6 +172,13 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf6_plugindir}/ktexteditor/textfilterplugin.so
 %{_kf6_plugindir}/ktexteditor/templateplugin.so
 %{_kf6_plugindir}/ktexteditor/bookmarksplugin.so
+%{_kf6_plugindir}/ktexteditor/cmaketoolsplugin.so
+%{_kf6_plugindir}/ktexteditor/eslintplugin.so
+%{_kf6_plugindir}/ktexteditor/formatplugin.so
+%{_kf6_plugindir}/ktexteditor/rbqlplugin.so
+%{_kf6_plugindir}/kio/kio_kateexec.so
+# Needed for the kateexec tool
+%{_bindir}/exec_inspect.sh
 
 %files -n kwrite -f kwrite.lang
 %{_kf6_bindir}/kwrite
@@ -185,6 +188,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

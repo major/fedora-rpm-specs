@@ -7,7 +7,7 @@
 
 Summary:         A small text editor
 Name:            nano
-Version:         8.6
+Version:         8.7
 Release:         1%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
@@ -26,10 +26,14 @@ Source11:        nano-default-editor.sh
 Source12:        nano-default-editor.csh
 Source13:        nano-default-editor.fish
 
+# gnulib C23 support
+# https://github.com/coreutils/gnulib/commit/df17f4f37ed3ca373d23ad42eae51122bdb96626
+Patch: nano-8.7-gnulib-c23.patch
+
 BuildRequires:   file-devel
 BuildRequires:   gettext-devel
 BuildRequires:   gcc
-BuildRequires:   git
+BuildRequires:   git-core
 BuildRequires:   gnupg2
 BuildRequires:   groff
 BuildRequires:   make
@@ -68,7 +72,7 @@ who don't have nano as a default editor during upgrade.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -S git
+%autosetup -S git_am
 
 %build
 mkdir build
@@ -133,6 +137,10 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Wed Nov 26 2025 Lukáš Zaoral <lzaoral@redhat.com> - 8.7-1
+- require only git-core which is already sufficient for %%autosetup -S git_am
+- rebase to latest upstream release (rhbz#2414527)
+
 * Thu Aug 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 8.6-1
 - rebase to the latest upstream release (rhbz#2390027)
 

@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:           kalm
-Version:        25.08.3
+Version:        25.11.80
 Release:        1%{?dist}
 Summary:        Breathing techniques app
 # LGPL: code
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

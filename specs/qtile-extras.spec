@@ -3,7 +3,7 @@
 
 Name: qtile-extras
 Version: 0.34.0
-Release: 1%{?dist}
+Release: %{autorelease}
 Summary: A collection of mods for Qtile
 %forgemeta
 
@@ -130,59 +130,4 @@ pytest_expressions+=" and not test_syncthing_http_error"
 %doc README.md
 
 
-%changelog
-* Mon Nov 24 2025 Jakub Kadlcik <frostyx@email.cz> - 0.34.0-1
-- New upstream version
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.33.0-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 29 2025 Jakub Kadlcik <frostyx@email.cz> - 0.33.0-1
-- New upstream version
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jul 13 2025 Jakub Kadlcik <frostyx@email.cz> - 0.32.0-1
-- New upstream version
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Nov 05 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-5
-- Exclude one more test
-- Add todo about dynamic BuildRequires
-- Drop the python3-pytest-cov dependency
-
-* Sun Nov 03 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-4
-- Run tests in the check phase
-
-* Fri Nov 01 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-3
-- Remove empty fixtures file
-- Remove shebang from the cava_draw.py file
-
-* Wed Oct 30 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-2
-- Small fixes to the specfile formatting
-- Add some build dependencies for tests
-- Don't depend on deprecated python3-pytest7
-
-* Wed Oct 30 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-1
-- New upstream version
-
-* Wed Aug 21 2024 Jakub Kadlcik <frostyx@email.cz> - 0.28.1-1
-- New upstream version
-
-* Sat Jul 13 2024 Jakub Kadlcik <frostyx@email.cz> - 0.27.0-1
-- New upstream version
-
-* Thu May 23 2024 Jakub Kadlcik <frostyx@email.cz> - 0.26.0-1
-- New upstream version
-
-* Sun Nov 05 2023 Jakub Kadlcik <frostyx@email.cz> - 0.23.0-1
-- New upstream version
-
-* Thu Sep 22 2022 Jakub Kadlcik <frostyx@email.cz> - 0.22.1-1
-- Upgrade to the new upstream version
-
-* Wed Jan 05 2022 Jakub Kadlcik <frostyx@email.cz>
-- Initial package
+%autochangelog

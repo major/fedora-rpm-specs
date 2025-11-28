@@ -1,6 +1,6 @@
 Summary:        Power Management Service
 Name:           upower
-Version:        1.90.10
+Version:        1.91.0
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            https://upower.freedesktop.org/
@@ -102,7 +102,8 @@ mv $RPM_BUILD_ROOT%{_libexecdir}/upower $RPM_BUILD_ROOT%{_libexecdir}/installed-
 %ghost %dir %{_localstatedir}/lib/upower
 %dir %{_sysconfdir}/UPower
 %config %{_sysconfdir}/UPower/UPower.conf
-%{_bindir}/*
+%{_sysconfdir}/UPower/UPower.conf.d/README.md
+%{_bindir}/upower
 %{_libexecdir}/upowerd
 %{_mandir}/man1/*
 %{_mandir}/man7/*

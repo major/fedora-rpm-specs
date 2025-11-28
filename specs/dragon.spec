@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    dragon
 Summary: Media player
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -23,6 +23,7 @@ BuildRequires: extra-cmake-modules
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6CorePrivate)
 
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6ConfigWidgets)
@@ -80,6 +81,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

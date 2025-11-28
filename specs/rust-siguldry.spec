@@ -60,6 +60,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+cli-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+cli-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "cli" feature of the "%{crate}" crate.
+
+%files       -n %{name}+cli-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+server-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+server-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "server" feature of the "%{crate}" crate.
+
+%files       -n %{name}+server-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+sigul-client-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -88,8 +112,8 @@ use the "sigul-client" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * Integration tests require the network
-%cargo_test -- --lib
-%cargo_test -- --bins
+%cargo_test -- --lib -- --test-threads 1
+%cargo_test -- --bins -- --test-threads 1
 %endif
 
 %changelog

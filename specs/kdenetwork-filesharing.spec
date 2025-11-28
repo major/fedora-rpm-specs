@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

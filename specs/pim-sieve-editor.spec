@@ -9,7 +9,7 @@
 
 Name:    pim-sieve-editor
 Summary: Sieve Editor
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -22,9 +22,7 @@ Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## Upstream patches
-# Only find Qt6GuiPrivate when built with KDSingleApplication
-# https://invent.kde.org/pim/pim-sieve-editor/-/merge_requests/31
-Patch0:        31.patch
+
 
 ## upstreamable patches
 
@@ -97,6 +95,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.sieveedit
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

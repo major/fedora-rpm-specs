@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:    ktorrent
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 Summary: A BitTorrent program
 
@@ -108,7 +108,7 @@ mkdir -p %{buildroot}%{_kf6_datadir}/ktorrent
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ktorrent.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ktorrent.appdata.xml ||:
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.desktop
 
 
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

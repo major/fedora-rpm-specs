@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    granatier
 Summary: Place bombs to kill enemies and remove obstacles
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

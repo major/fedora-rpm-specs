@@ -1,5 +1,5 @@
 Name:    grantleetheme
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 Summary: KDE PIM library for Grantlee template system
 
@@ -73,6 +73,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
 - 25.08.3
 

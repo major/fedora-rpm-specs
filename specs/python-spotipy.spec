@@ -1,7 +1,7 @@
 %global pypi_name spotipy
 
 Name:           python-%{pypi_name}
-Version:        2.25.1
+Version:        2.25.2
 Release:        %autorelease
 Summary:        A light weight Python library for the Spotify Web API
 License:        MIT

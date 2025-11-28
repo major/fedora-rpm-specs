@@ -5,7 +5,7 @@ Summary: Help Alex catch the bus on time!
 License: GPL-3.0-or-later
 
 Version: 2025.06.16.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/M374LX/alexvsbus
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -22,7 +22,7 @@ BuildRequires: make
 
 BuildRequires: raylib-devel
 BuildRequires: SDL2-devel
-BuildRequires: stb_image-devel
+BuildRequires: stb_image-devel >= 2.30^20251025gitf1c79c0-2
 
 Requires: %{name}-data = %{version}-%{release}
 
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Wed Nov 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2025.06.16.0-3
+- Rebuilt with latest patched stb_image: memory-safety fixes
+
 * Fri Aug 22 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2025.06.16.0-2
 - Move documentation to -doc subpackage
 - Remove pre-built .pdf manual from docs

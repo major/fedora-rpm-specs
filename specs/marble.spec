@@ -1,7 +1,7 @@
 Name:    marble
 Summary: Virtual globe and world atlas
 Epoch:   1
-Version: 25.08.3
+Version: 25.11.80
 Release: 1%{?dist}
 
 License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
@@ -184,11 +184,11 @@ cat marble_qt.lang >> %{name}.lang
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.marble.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.marble.behaim.appdata.xml ||:
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.marble.maps.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.marble.behaim.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.marble.maps.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.desktop
-
+desktop-file-validate %{buildroot}%{_datadir}/applications/{marble_geojson,marble_gpx,marble_kml,marble_kmz,marble_shp}.desktop
 
 %files
 %{_bindir}/marble
@@ -201,19 +201,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 %{_datadir}/applications/org.kde.marble.desktop
 %{_datadir}/applications/org.kde.marble.behaim.desktop
 %{_datadir}/applications/org.kde.marble.maps.desktop
-%{_datadir}/applications/marble_geo.desktop
 %{_datadir}/applications/marble_geojson.desktop
 %{_datadir}/applications/marble_gpx.desktop
 %{_datadir}/applications/marble_kml.desktop
 %{_datadir}/applications/marble_kmz.desktop
 %{_datadir}/applications/marble_shp.desktop
-%{_datadir}/applications/marble_thumbnail_kml.desktop
-%{_datadir}/applications/marble_thumbnail_kmz.desktop
-%{_datadir}/applications/marble_thumbnail_osm.desktop
-%{_datadir}/applications/marble_thumbnail_shp.desktop
-%{_datadir}/applications/marble_worldwind.desktop
 %{_datadir}/config.kcfg/marble.kcfg
 %{_datadir}/qlogging-categories6/marble.categories
+%{_kf6_plugindir}/thumbcreator/marble_thumbnail_*.so
 
 %files common -f %{name}.lang
 %license LICENSE.txt
@@ -248,7 +243,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 %{_libdir}/libmarblewidget-qt6.so.*
 %dir %{_libdir}/marble
 %{_libdir}/marble/plugins/
-%{_qt6_plugindir}/marblethumbnail.so
 # include part here too
 %{_qt6_plugindir}/libmarble_part.so
 %{_kf6_qmldir}/org/kde/marble/
@@ -262,6 +256,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 1:25.11.80-1
+- 25.11.80
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.3-1
 - 25.08.3
 

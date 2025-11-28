@@ -73,7 +73,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:259~rc1}
+Version:        %{?version_override}%{!?version_override:259~rc2}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -149,6 +149,10 @@ Patch:          0001-Revert-units-drop-runlevel-0-6-.target.patch
 # userdb: create userdb root directory with correct label
 # We can drop this after SELinux policy is updated to handle the transition.
 Patch:          https://github.com/systemd/systemd/pull/38769.patch
+
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2415701
+Patch:          0001-machined-add-description-to-varlink-server-unify-err.patch
+Patch:          0002-machined-continue-without-resolve.hook-socket.patch
 %endif
 
 %ifarch %{ix86} x86_64 aarch64 riscv64
@@ -766,7 +770,7 @@ mv %{_sourcedir}/%{name}.fedora/* %{_sourcedir}
 # Automatically figure out the name of the top-level directory.
 # TODO: Use %%autosetup -C once we can depend on rpm >= 4.20.
 %if %{undefined _build_in_place}
-%autosetup -n %(tar -tf %{SOURCE0} | head -n1) -p1
+%autosetup -n %(tar -tf %{SOURCE0} 2>/dev/null | head -n1) -p1
 %endif
 
 # Disable user lockdown until rpm implements it natively.
