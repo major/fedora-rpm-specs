@@ -3,12 +3,12 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag %{version}
 
-%global cinnamon_desktop_version 6.4.0
+%global cinnamon_desktop_version 6.6.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 6.4.0
-Release: 4%{?dist}
+Version: 6.6.0
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -17,7 +17,6 @@ Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
 %else
 Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
-Patch0:  %url/commit/8042c7f4756773b32e30f902d2cb05c865b9f6d7.patch
 
 ExcludeArch: %{ix86}
 
@@ -93,6 +92,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Sep 03 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-4
 - Fix systemd inhibitor issue
 

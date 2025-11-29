@@ -1,6 +1,6 @@
 Name:           catimg
-Version:        2.7.0
-Release:        14%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Print images in a terminal with 256 colors support
 
 License:        MIT
@@ -8,7 +8,7 @@ URL:            https://github.com/posva/catimg
 Source0:        %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0: catimg-c99.patch
 
-BuildRequires:  cmake >= 2.8
+BuildRequires:  cmake >= 3
 BuildRequires:  gcc-c++
 
 %description
@@ -36,6 +36,12 @@ install -D --preserve-timestamps --mode 644 completion/_catimg %{buildroot}%{_da
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Nov 27 2025 K. de Jong <keesdejong@fedoraproject.org> - 2.8.0-1
+- New upstream release
+
+* Wed Aug 13 2025 K. de Jong <keesdejong@fedoraproject.org> - 2.7.0-15
+- Update CMake to version 3.x
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

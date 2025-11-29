@@ -1,7 +1,7 @@
 # NOTE: en/English is in the main package
 # LANGUAGES: bg,Bulgarian ca,Catalan cs,Czech da,Danish de,German el,Greek en_GB,British_English es,Spanish fa,Farsi fi,Finnish fr,French hr,Croatian hu,Hungarian it,Italian ja,Japanese ko,Korean lt,Lithuanian nl,Dutch nn,Norwegian_Nynorsk pl,Polish pt,Portuguese pt_BR,Brazilian_Portuguese ro,Romanian ru,Russian sl,Slovenian sv,Swedish tr,Turkish uk,Ukrainian zh_CN,Simplified_Chinese
 
-%constrain_build -m 6144
+%global _smp_tasksize_proc 6144
 
 %global gimpsubver 3.0
 

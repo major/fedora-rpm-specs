@@ -34,7 +34,7 @@ Patch: 3939-rediffed.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7
-%define glib2_version 2.79.2
+%define glib2_version 2.86.0
 %define gobject_introspection_version 1.49.1
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0

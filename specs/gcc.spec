@@ -26,6 +26,13 @@
 %if 0%{?__brp_strip_lto:1}
 %global __brp_strip_lto %{__brp_strip_lto} || :
 %endif
+%if 0%{?rhel} > 0
+%define bugurl https://issues.redhat.com
+%else
+%define bugurl https://bugzilla.redhat.com/bugzilla
+%endif
+%{!?dist_bug_report_url: %global dist_bug_report_url %bugurl}
+
 %if 0%{?fedora} < 32 && 0%{?rhel} < 8
 %global multilib_64_archs sparc64 ppc64 ppc64p7 s390x x86_64
 %else
@@ -1042,7 +1049,7 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 	--target nvptx-none --enable-as-accelerator-for=%{gcc_target_platform} \
 	--enable-languages=c,c++,fortran,lto \
 	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} \
-	--with-bugurl=http://bugzilla.redhat.com/bugzilla \
+	--with-bugurl=%dist_bug_report_url \
 	--enable-checking=release --with-system-zlib \
 	--with-gcc-major-version-only --without-isl
 make %{?_smp_mflags}
@@ -1078,7 +1085,7 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 	--target amdgcn-amdhsa --enable-as-accelerator-for=%{gcc_target_platform} \
 	--enable-languages=c,c++,fortran,lto \
 	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} \
-	--with-bugurl=http://bugzilla.redhat.com/bugzilla \
+	--with-bugurl=%dist_bug_report_url \
 	--enable-checking=release --with-system-zlib \
 	--with-gcc-major-version-only --without-isl --disable-libquadmath
 make %{?_smp_mflags}
@@ -1152,7 +1159,7 @@ offloadtgts=${offloadtgts:+${offloadtgts},}amdgcn-amdhsa
 %endif
 CONFIGURE_OPTS="\
 	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} \
-	--with-bugurl=http://bugzilla.redhat.com/bugzilla \
+	--with-bugurl=%dist_bug_report_url \
 	--enable-shared --enable-threads=posix --enable-checking=release \
 %ifarch ppc64le
 	--enable-targets=powerpcle-linux \

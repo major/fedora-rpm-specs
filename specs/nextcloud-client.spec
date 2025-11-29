@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.16.3
+Version:        3.17.4
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -57,6 +57,7 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  inkscape
 BuildRequires:  kf6-kio-devel
 BuildRequires:  kf6-kbookmarks-devel
+BuildRequires:  systemd-rpm-macros
 
 # Dolphin integration
 %if 0%{?fedora} >= 24 || 0%{?rhel} > 7
@@ -212,6 +213,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/metainfo/com.nextcloud.desktopclient.nextcloud.metainfo.xml
 %{_datadir}/dbus-1/services/com.nextcloudgmbh.Nextcloud.service
+%{_userunitdir}/com.nextcloud.desktopclient.nextcloud.service
 
 %files libs
 %{_libdir}/libnextcloudsync.so.0

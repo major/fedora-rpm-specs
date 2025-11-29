@@ -9,7 +9,10 @@ Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/edu/%{name}
-Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Patch:   https://invent.kde.org/education/step/-/merge_requests/38.patch
+Patch:   https://invent.kde.org/education/step/-/merge_requests/40.patch
+Patch:   https://invent.kde.org/education/step/-/merge_requests/41.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

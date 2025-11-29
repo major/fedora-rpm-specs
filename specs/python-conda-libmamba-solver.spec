@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        25.4.0
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        The libmamba based solver for conda
 
 License:        BSD-3-Clause
@@ -41,6 +41,8 @@ Summary:        %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 sed -i -e '/tool.hatch.version/afallback-version = "%{version}"' pyproject.toml
 sed -i -e '/doctest/d' -e '/reruns/d' pyproject.toml
+# Re-enable libmambapy dependency removed in https://github.com/conda/conda-libmamba-solver/pull/641
+sed -i -e '/libmambapy/s/#//' pyproject.toml
 
 
 %generate_buildrequires
@@ -148,45 +150,4 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
 %doc README.*
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 25.4.0-3
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 25.4.0-2
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Aug 08 2025 Orion Poplawski <orion@nwra.com> - 25.4.0-1
-- Update to 25.4.0
-- Disable tests for libmamba/conda major update bootstrap
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.9.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 24.9.0-4
-- Bootstrap for Python 3.14.0b3 bytecode
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 24.9.0-3
-- Bootstrap for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Oct 18 2024 Orion Poplawski <orion@nwra.com> - 24.9.0-1
-- Update to 24.9.0
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 23.11.1-5
-- Bootstrap for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Dec 20 2023 Karolina Surma <ksurma@redhat.com> - 23.11.1-2
-- Conditionalize test run to avoid circular dependency on conda
-
-* Sat Dec 02 2023 Orion Poplawski <orion@nwra.com> - 23.11.1-1
-- Initial Fedora package
+%autochangelog

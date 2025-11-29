@@ -1,5 +1,5 @@
 Name:           perl-Mail-Box-POP3
-Version:        3.007
+Version:        3.008
 Release:        2%{?dist}
 Summary:        Handle POP3 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -11,8 +11,10 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(:VERSION) >= 5.10
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -31,9 +33,7 @@ BuildRequires:  perl(Mail::Box::Parser::Perl) >= 3
 BuildRequires:  perl(Mail::Transport::Receive) >= 3
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Mail::Box::Test) >= 3
 BuildRequires:  perl(Test::More)
@@ -54,8 +54,22 @@ using the POP3 protocol. This class uses Mail::Transport::POP3 to hide the
 transport of information, and focuses solely on the correct handling of
 messages within a POP3 folder.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %autosetup -p1 -n Mail-Box-POP3-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -65,18 +79,44 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_install}
 %{_fixperms} %{buildroot}/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+MARKOV_DEVEL=1 prove -I .
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
 MARKOV_DEVEL=1 make test
 
 %files
-%doc ChangeLog README
+%doc ChangeLog README.md
 %dir %{perl_vendorlib}/Mail
 %{perl_vendorlib}/Mail/Box
 %{perl_vendorlib}/Mail/Transport
 %{_mandir}/man3/Mail::Box*
 %{_mandir}/man3/Mail::Transport*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Nov 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.008-2
+- Update tests
+
+* Thu Nov 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.008-1
+- 3.008 bump (rhbz#2416740)
+- Package tests
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.007-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

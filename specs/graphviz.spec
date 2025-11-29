@@ -14,11 +14,20 @@
 # has to be rebuilt, we can break the circular dependency by building with --with bootstrap.
 %bcond_with bootstrap
 
+# Temporarily disable gtk & gdkpixbuf in Fedora 43 due to issues
+# with GDKPixbuf 2.44
+# see: https://bugzilla.redhat.com/show_bug.cgi?id=2395533
+%if 0%{?fedora} >= 43
+%bcond_with gtk2
+%bcond_with gdkpixbuf
+%else
+%bcond_without gdkpixbuf
 %if 0%{?rhel} >= 10
 %bcond_with gtk2
 %else
 %bcond_without gtk2
-%endif
+%endif  # rhel >= 10
+%endif  # fedora >= 43
 
 # Necessary conditionals
 %ifarch %{mono_arches}
@@ -97,7 +106,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		14.0.2
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -136,6 +145,9 @@ BuildRequires:		libXext-devel
 %if %{JAVA}
 BuildRequires:		java-devel
 BuildRequires:		javapackages-tools
+%endif
+%if %{with gdkpixbuf}
+BuildRequires:		gdk-pixbuf2-devel
 %endif
 BuildRequires:		cairo-devel >= 1.1.10
 BuildRequires:		pango-devel
@@ -201,6 +213,9 @@ Patch0:			graphviz-12.0.0-gvpack-neato-static.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
+%endif
+%if %{without gtk2}
+Obsoletes:		graphviz-gtk2 < %{version}-%{release}
 %endif
 
 %description
@@ -416,9 +431,14 @@ export CPPFLAGS=-I`ruby -e "puts File.join(RbConfig::CONFIG['includedir'], RbCon
 --enable-java=no \
 %endif
 	--without-mylibgd --with-ipsepcola --with-pangocairo \
-	--with-gdk-pixbuf --with-visio --disable-silent-rules --enable-lefty \
+	--with-visio --disable-silent-rules --enable-lefty \
 %if ! %{LASI}
 	--without-lasi \
+%endif
+%if %{without gdkpixbuf}
+	--without-gdk-pixbuf \
+%else
+	--with-gdk-pixbuf \
 %endif
 %if %{without gtk2}
 	--without-gtk \
@@ -715,6 +735,14 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Nov 13 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 14.0.2-2
+- Temporarily disable gdk plugin in Fedora 43 (and later),
+  due to undiagnosed issues with GDKPixbuf 2.44.
+  Ref: rhbz#2395533
+- Also disable GTK2 with GDKPixbuf, and obsolete graphviz-gtk2
+  to provide up/downgrade paths.
+- Add GDKPixbuf as an explicit build dependency (when enabled)
+
 * Thu Oct 23 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 14.0.2-1
 - New version
   Resolves: rhbz#2405038

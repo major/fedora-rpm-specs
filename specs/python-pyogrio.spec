@@ -4,7 +4,7 @@
 %global srcname pyogrio
 
 Name:           python-%{srcname}
-Version:        0.11.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Vectorized spatial vector file format I/O using GDAL/OGR
 
@@ -56,7 +56,16 @@ Summary:        %{summary}
 %check
 mkdir empty
 cd empty
-%pytest --pyargs %{srcname} -m "not network" -ra
+
+# Skip any tests with libarrow data as it doesn't work on big-endian.
+%ifarch s390x
+k="${k-}${k+ and }not test_read_list_types[False-.parquet]"
+k="${k-}${k+ and }not test_read_list_types[True-.parquet]"
+k="${k-}${k+ and }not test_read_list_nested_struct_parquet_file[True]"
+k="${k-}${k+ and }not test_parquet_driver[False]"
+%endif
+
+%pytest --pyargs %{srcname} -ra -m "not network" "${k+-k ${k}}"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md

@@ -21,7 +21,7 @@ i.e. only references for actually used functionality will be presented back if
 software provides multiple citeable implementations.}
 
 Name:           python-duecredit
-Version:        0.10.2
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Automated collection and reporting of citations
 

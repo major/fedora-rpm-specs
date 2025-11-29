@@ -1,19 +1,19 @@
-%global commit0 8f1dd1e6b1791f639af78652294e60030835cb0e
-%global date 20241114
+%global commit0 883800fbcf38ef671e837b7b26858ec86b8b9f13
+%global date 20251026
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag %{version}
 
 %global _artwork_version 1.7.5
 
-%global cinnamon_desktop_version 6.4.0
-%global csd_version 6.4.0
-%global cinnamon_menus_version 6.4.0
+%global cinnamon_desktop_version 6.6.0
+%global csd_version 6.6.0
+%global cinnamon_menus_version 6.6.0
 %global redhat_menus_version 1.8
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.4.1
-Release: 3%{?dist}
+Version: 6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -52,15 +52,11 @@ BuildRequires: pkgconfig(libcinnamon-menu-3.0) >= %{cinnamon_menus_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= 3.16.0
 BuildRequires: pkgconfig(glib-2.0) >= 2.44.0
 BuildRequires: pkgconfig(gio-unix-2.0) >= 2.44.0
-BuildRequires: pkgconfig(libgnomekbd) >= 3.0.0
-BuildRequires: pkgconfig(libgnomekbdui) >= 3.0.0
 BuildRequires: pkgconfig(libnotify) >= 0.7.3
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(polkit-gobject-1) >= 0.103
-BuildRequires: pkgconfig(libxklavier) >= 5.1
 BuildRequires: pkgconfig(upower-glib) >= 0.99.8
 BuildRequires: pkgconfig(xproto)
-BuildRequires: pkgconfig(iso-codes)
 BuildRequires: pkgconfig(libnm) >= 1.2.0
 BuildRequires: pkgconfig(libnma) >= 1.2.0
 BuildRequires: pkgconfig(mm-glib) >= 0.7
@@ -138,7 +134,6 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 %{_libdir}/cinnamon-control-center-1/panels/libcolor.so
 %{_libdir}/cinnamon-control-center-1/panels/libdisplay.so
 %{_libdir}/cinnamon-control-center-1/panels/libnetwork.so
-%{_libdir}/cinnamon-control-center-1/panels/libregion.so
 %{_libdir}/cinnamon-control-center-1/panels/libwacom-properties.so
 
 
@@ -154,6 +149,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

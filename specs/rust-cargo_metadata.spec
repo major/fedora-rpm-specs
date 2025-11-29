@@ -13,6 +13,9 @@ License:        MIT
 URL:            https://crates.io/crates/cargo_metadata
 Source:         %{crates_source}
 
+# upstream patch to adapt tests for new error message format with Rust 1.91+
+Patch:          https://github.com/oli-obk/cargo_metadata/commit/aae754b.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:

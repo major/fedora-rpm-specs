@@ -47,7 +47,7 @@
 Summary: SIP - Python/C++ Bindings Generator
 Name: sip
 Version: 4.19.25
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
 # Automatically converted from old format: GPLv2 or GPLv3 and (GPLv3+ with exceptions) - review is highly recommended.
@@ -73,6 +73,8 @@ Patch53: sip-4.19.18-no_hardcode_sip_so.patch
 Patch54: sip-4.19.25-py_ssize_t_clean.patch
 # Fix error: invalid use of undefined type 'struct _frame' 
 Patch55: sip-4.19.25-pyframe_getback.patch
+# Fix error: implicit declaration of function ‘PyWeakref_GetObject’
+Patch56: sip-4.19.25-ftbfs-python-3.15.patch
 
 # extracted from sip.h, SIP_API_MAJOR_NR SIP_API_MINOR_NR defines
 Source1: macros.sip
@@ -227,6 +229,7 @@ This is the Python 3 build of wx-siplib.
 %patch -P53 -p1 -b .no_sip_so
 %patch -P54 -p1 -b .py_ssize_t_clean
 %patch -P55 -p1 -b .pyframe_getback
+%patch -P56 -p1 -b .pyweekref_getobject
 
 
 %build
@@ -481,6 +484,9 @@ popd
 
 
 %changelog
+* Thu Nov 27 2025 Than Ngo <than@redhat.com> - 4.19.25-19
+- Fix rhbz#2414555 - error: implicit declaration of function ‘PyWeakref_GetObject’
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.19.25-18
 - Rebuilt for Python 3.14.0rc3 bytecode
 

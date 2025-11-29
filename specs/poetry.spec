@@ -8,7 +8,7 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        2.1.4
+Version:        2.2.1
 Release:        %autorelease
 
 # SPDX
@@ -86,8 +86,7 @@ done
 %check
 # test_isolated_env_install_discards_requirements_not_needed_by_env fails with python3.14
 # upstream issue: https://github.com/python-poetry/poetry/issues/10306
-%pytest -m "not network" \
-        -k "not test_isolated_env_install_discards_requirements_not_needed_by_env"
+%pytest -m "not network"
 %endif
 
 

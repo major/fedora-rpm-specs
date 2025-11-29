@@ -77,10 +77,8 @@ BuildRequires:  python%{python3_pkgversion}-pytest-timeout
 BuildRequires:  python%{python3_pkgversion}-pytest-xprocess
 BuildRequires:  python%{python3_pkgversion}-responses
 
-# Some versions in conda/_vendor/vendor.txt
-Provides:       bundled(python%{python3_pkgversion}-appdirs) = 1.2.0
+# conda uses a modified version of auxlib
 Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
-Provides:       bundled(python%{python3_pkgversion}-boltons) = 21.0.0
 
 %description -n python%{python3_pkgversion}-conda %_description
 
@@ -92,9 +90,6 @@ sed -i -e '/ruamel.yaml/s/,<[0-9.]*//' pyproject.toml
 
 # pytest-split/xdoctest not packaged, store-duration not needed
 sed -i -e '/splitting-algorithm/d' -e '/store-durations/d' -e '/xdoctest/d' pyproject.toml
-
-# Unpackaged - use vendored version
-sed -i -e '/"boltons *>/d' pyproject.toml
 
 # Unpackaged - really only applicable for macOS/Windows?
 sed -i -e '/"truststore *>/d' pyproject.toml

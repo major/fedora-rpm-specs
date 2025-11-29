@@ -1,5 +1,5 @@
 %global image_version 43
-%global image_release 20251122.0
+%global image_release 20251127.0
 # These are published to the mirror network as well, but we use koji as that
 # makes it easier to fetch the corresponding metadata files
 %global baseurl https://kojipkgs.fedoraproject.org/packages/Fedora-FEX-RootFS/%{image_version}/%{image_release}/images
@@ -25,8 +25,8 @@ Requires:       fex-emu-filesystem
 Provides:       fex-emu-rootfs(fedora) = %{version}-%{release}
 
 BuildArch:      noarch
-# build only on arm64 as the dependency fex-emu uses `ExclusiveArch: arm64`
-ExclusiveArch:  arm64
+# build only on aarch64 as the dependency fex-emu uses `ExclusiveArch: arm64`
+ExclusiveArch:  aarch64
 
 %description
 This package provides a RootFS based on Fedora Linux to be used by the FEX

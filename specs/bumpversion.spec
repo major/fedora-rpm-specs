@@ -7,12 +7,14 @@
 
 Name:           bumpversion
 Version:        1.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
 URL:            https://github.com/c4urself/bump2version
 Source0:        %{url}/archive/v%{version}/bump2version-%{version}.tar.gz
+# sre_constants was removed in Python 3.15 (rhbz#2414558), use more modern re exception
+Patch0:         0001-Python_3.15_compat_sre_constants.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -34,7 +36,7 @@ commits and tags:
 
 
 %prep
-%autosetup -n bump2version-%{version}
+%autosetup -p1 -n bump2version-%{version}
 
 
 %generate_buildrequires
@@ -63,6 +65,9 @@ commits and tags:
 
 
 %changelog
+* Mon Nov 24 2025 Federico Pellegrin <fede@evolware.org> - 1.0.1-17
+- Fix compatibility for Python 3.15 (rhbz#2414558)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -9,7 +9,7 @@
 TinyGLTF is a header only C++11 glTF 2.0 library.}
 
 Name:           tinygltf
-Version:        2.9.6
+Version:        2.9.7
 Release:        %autorelease
 Summary:        Header only C++11 tiny glTF 2.0 library
 
@@ -24,7 +24,10 @@ BuildRequires:  sed
 
 BuildRequires:  catch1-devel
 BuildRequires:  json-devel
-BuildRequires:  stb_image-devel
+# Minimum version to contain fixes for upstream issues
+# https://github.com/nothings/stb/issues/1860
+# https://github.com/nothings/stb/issues/1861
+BuildRequires:  stb_image-devel >= 2.30^20251025gitf1c79c0-2
 BuildRequires:  stb_image_write-devel
 
 %description    %{common_description}
@@ -33,6 +36,9 @@ BuildRequires:  stb_image_write-devel
 Summary:        %{summary}
 Provides:       %{name}-static = %{version}-%{release}
 Requires:       cmake-filesystem
+Requires:       json-devel
+Requires:       stb_image-devel >= 2.30^20251025gitf1c79c0-2
+Requires:       stb_image_write-devel
 
 %description    devel %{common_description}
 

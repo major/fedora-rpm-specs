@@ -78,11 +78,8 @@ BuildRequires:  cmake(KF6TextTemplate)
 # --- Optional
 BuildRequires:  cmake(Qt6WebEngineWidgets)
 BuildRequires:  cmake(Qt6TextToSpeech)
-BuildRequires:  cmake(Libkolabxml)
-
-# Trying to make it work --farchord
-BuildRequires:  boost-devel
-BuildRequires:  boost-system
+# Disabling for now, it makes kdepim-runtime fail building
+# BuildRequires:  cmake(Libkolabxml)
 
 %description
 %{summary}.

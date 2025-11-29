@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 5
-%global microversion 83
+%global microversion 84
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -72,6 +72,8 @@ Name:           pipewire
 Summary:        Media Sharing Server
 Version:        %{majorversion}.%{minorversion}.%{microversion}
 Release:        %{baserelease}%{?snapdate:.%{snapdate}git%{shortcommit}}%{?dist}
+# PipeWire is generally MIT but includes plugins using libraries under other licenses.
+# See the module specific License for details.
 License:        MIT
 URL:            https://pipewire.org/
 %if 0%{?snapdate}
@@ -153,7 +155,8 @@ systems.
 
 %package libs
 Summary:        Libraries for PipeWire clients
-License:        MIT
+# fftw is GPL-2.0-or later, ladpsa is LGPL-2.0-or-later and used in filter-graph.
+License:        MIT AND GPL-2.0-or-later AND BSD-2-Clause AND LGPL-2.0-or-later
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Obsoletes:      %{name}-libpulse < %{version}-%{release}
 
@@ -365,7 +368,7 @@ This package contains X11 bell support for PipeWire.
 %if %{with ffado}
 %package module-ffado
 Summary:        PipeWire media server ffado support
-License:        MIT
+License:        MIT AND GPL-2.0-only OR GPL-3.0-only
 BuildRequires:  libffado-devel
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -377,7 +380,7 @@ This package contains the FFADO support for PipeWire.
 %if %{with roc}
 %package module-roc
 Summary:        PipeWire media server ROC support
-License:        MIT
+License:        MIT AND MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 BuildRequires:  roc-toolkit-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  openfec-devel
@@ -392,7 +395,7 @@ This package contains the ROC support for PipeWire.
 %if %{with libmysofa}
 %package module-filter-chain-sofa
 Summary:        PipeWire media server sofa filter-chain support
-License:        MIT
+License:        MIT AND BSD-3-Clause
 BuildRequires:  libmysofa-devel
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -416,7 +419,7 @@ This package contains the mysofa support for PipeWire filter-chain.
 %if %{with onnx}
 %package module-filter-chain-onnx
 Summary:        PipeWire media server ONNX filter-chain support
-License:        MIT
+License:        MIT and ASL 2.0 and Boost and BSD
 BuildRequires:  onnxruntime-devel
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -930,6 +933,12 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Thu Nov 27 2025 Wim Taymans <wtaymans@redhat.com> - 1.5.84-1
+- Update version to 1.5.84
+
+* Thu Nov 27 2025 Than Ngo <than@redhat.com> - 1.5.83-3
+- Rebuilt with new binutils in rawhide due to rhbz#2415824
+
 * Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.5.83-2
 - Use webrtc-audio-processing-2 with Fedora 44+ and RHEL 11+
 

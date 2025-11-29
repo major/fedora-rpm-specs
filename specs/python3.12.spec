@@ -1150,6 +1150,11 @@ for file in %{buildroot}%{pylibdir}/pydoc_data/topics.py $(grep --include='*.py'
     rm ${directory}/{__pycache__/${module}.cpython-%{pyshortver}.opt-?.pyc,${module}.py}
 done
 
+%if %{without rpmwheels}
+# Inject SBOM into the installed wheels (if the macro is available)
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pylibdir}/ensurepip/_bundled/*.whl}
+%endif
+
 # ======================================================
 # Checks for packaging issues
 # ======================================================

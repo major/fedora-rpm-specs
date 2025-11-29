@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda-build
-Version:        24.11.2
+Version:        25.11.0
 Release:        %autorelease
 Summary:        Commands and tools for building conda packages
 # version.py is BSD-2-Clause
@@ -46,12 +46,15 @@ add).}
 Summary:        %{summary}
 
 BuildRequires:  python%{python3_pkgversion}-devel
+# For tests
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-mock
+BuildRequires:  python%{python3_pkgversion}-conda-index
 BuildRequires:  python%{python3_pkgversion}-flaky
 # For docs
 BuildRequires:  python%{python3_pkgversion}-myst-parser
 BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python%{python3_pkgversion}-conda-sphinx-theme
 BuildRequires:  conda
 BuildRequires:  /usr/bin/hostname
 BuildRequires:  /usr/bin/git
@@ -63,6 +66,10 @@ BuildRequires:  /usr/bin/python
 %autosetup -p1
 # lief is not yet packaged and is not a hard dependency
 sed -i -e '/lief/d' pyproject.toml
+# Unpackaged and unneeded test deps
+sed -i -E -e '/^(py-lief|python|python-libarchive-c|ripgrep)( .*)?$/d' tests/requirements.txt
+# pytz isn't used but referenced in deps
+sed -i -e '/pytz/d' recipe/meta.yaml pyproject.toml tests/requirements.txt
 # do not run coverage/xdoctest in pytest
 sed -i -E -e '/--(no-)?cov/d' -e '/xdoctest/d' pyproject.toml
 # Not needed for man pages
@@ -70,7 +77,7 @@ sed -i -E -e '/linkify/d' -e '/sphinx_(design|sitemap)/d' docs/source/conf.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_tests:tests/requirements.txt}
 
 
 %build
@@ -93,7 +100,8 @@ export PATH=%{buildroot}%{_bindir}:$PATH
 # tests/test_post.py::test_menuinst_* - conda_build.environ.InvalidEnvironment: Unable to load environment /usr
 # tests/test_api_render.py::test_get_output_file_paths_jinja2 - Requires GIT/CI env
 # tests/test_api_render.py::test_noarch_with_no_platform_deps - fails in koji for an unknown reason
-py.test-%{python3_version} -vv -W ignore::DeprecationWarning -W ignore::PendingDeprecationWarning \
+# tests/test_api_render.py::test_transitive_subpackage_dependency - nettwork
+py.test-%{python3_version} -rs -vv -W ignore::DeprecationWarning -W ignore::PendingDeprecationWarning \
   --ignore tests/test_api_build.py --ignore tests/cli/test_main_skeleton.py \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[None-.tar.bz2]' \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[2-.conda]' \
@@ -154,6 +162,7 @@ py.test-%{python3_version} -vv -W ignore::DeprecationWarning -W ignore::PendingD
   --deselect='tests/test_api_render.py::test_render_yaml_output' \
   --deselect='tests/test_api_render.py::test_resolved_packages_recipe' \
   --deselect='tests/test_api_render.py::test_run_exports_with_pin_compatible_in_subpackages' \
+  --deselect='tests/test_api_render.py::test_transitive_subpackage_dependency' \
   --deselect='tests/test_api_skeleton_cpan.py::test_xs_needs_c_compiler' \
   --deselect='tests/test_api_skeleton_cran.py::test_cran_no_comments' \
   --deselect='tests/test_api_skeleton.py::test_sympy[with version]' \

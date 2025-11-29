@@ -1,13 +1,13 @@
-%global commit0 57b8a0a742a876d51403ad27613fe84b228d1081
-%global date 20241114
+%global commit0 11aaa5580fa0cf9abdc6fe62e9f93badec43f6ca
+%global date 20251023
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag %{version}
 
-%global cinnamon_desktop_version 6.4.0
+%global cinnamon_desktop_version 6.6.0
 
 Name:           cinnamon-settings-daemon
-Version:        6.4.2
-Release:        3%{?dist}
+Version:        6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Release:        1%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -39,8 +39,6 @@ BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(gio-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.40.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
-BuildRequires:  pkgconfig(libgnomekbd) >= 3.6.0
-BuildRequires:  pkgconfig(libgnomekbdui) >= 3.6.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.14.0
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(libnotify)
@@ -55,23 +53,13 @@ BuildRequires:  pkgconfig(librsvg-2.0) >= 2.36.2
 %endif
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xi)
-BuildRequires:  pkgconfig(libxklavier) >= 5.0
 BuildRequires:  pkgconfig(lcms2) >= 2.2
 BuildRequires:  pkgconfig(libsystemd)
 
 %description
 A daemon to share settings from CINNAMON to other applications. It also
 handles global keybindings, and many of desktop-wide settings.
-
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    devel
-This package contains libraries and header files for
-developing applications that use %{name}.
 
 %prep
 %if 0%{?tag:1}
@@ -101,8 +89,8 @@ desktop-file-install --delete-original           \
   --dir %{buildroot}%{_datadir}/applications/  \
   %{buildroot}%{_datadir}/applications/csd-automount.desktop
   
-# Fix non-executable script
-chmod a+x %{buildroot}%{_datadir}/cinnamon-settings-daemon-3.0/input-device-example.sh
+# Remove script
+rm -rf %{buildroot}%{_datadir}/cinnamon-settings-daemon-3.0/
 
 # Delete csd symlinks
 rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
@@ -137,20 +125,16 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_libexecdir}/csd-wacom
 %endif
 %{_datadir}/applications/csd-automount.desktop
-%{_datadir}/cinnamon-settings-daemon/
 %{_datadir}/dbus-1/system.d/org.cinnamon.SettingsDaemon.DateTimeMechanism.conf
 %{_datadir}/dbus-1/system-services/org.cinnamon.SettingsDaemon.DateTimeMechanism.service
 %{_datadir}/glib-2.0/schemas/org.cinnamon.settings-daemon*.xml
 %{_datadir}/icons/hicolor/*/apps/csd-*
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
-%files devel
-%{_includedir}/cinnamon-settings-daemon-3.0/
-%{_libdir}/pkgconfig/cinnamon-settings-daemon.pc
-%{_datadir}/cinnamon-settings-daemon-3.0/
-
-
 %changelog
+* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

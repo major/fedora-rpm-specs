@@ -66,8 +66,8 @@ Requires: dbus-common
 Requires: dconf
 # since we use it, and pam spams the log if the module is missing
 Requires: gnome-keyring-pam
-Requires: gnome-session
-Requires: gnome-session-wayland-session
+Requires: gnome-session >= 49~beta
+Requires: gnome-session-wayland-session >= 49~beta
 Requires: gnome-settings-daemon >= 3.27.90
 Requires: gnome-shell
 Requires: iso-codes

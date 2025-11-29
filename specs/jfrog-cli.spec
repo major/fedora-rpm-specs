@@ -38,6 +38,7 @@ rm -v \
   buildinfo_test.go \
   distribution_test.go \
   docker_test.go \
+  evidence_test.go \
   go_test.go \
   gradle_test.go \
   ide_test.go \

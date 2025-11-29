@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           9.0.0
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -68,6 +68,10 @@ Provides:          bundled(hdr_histogram) = 0.11.9
 # no version
 Provides:          bundled(fpconv)
 
+# sub-package was dropped
+Obsoletes:         valkey-tls  < %{version}-%{release}
+Provides:          valkey-tls  = %{version}-%{release}
+
 %global valkey_modules_abi 1
 %global valkey_modules_dir %{_libdir}/%{name}/modules
 %global valkey_modules_cfg %{_sysconfdir}/%{name}/modules
@@ -121,15 +125,6 @@ Supplements:       %{name}
 
 See https://valkey.io/topics/RDMA/
 
-%package           tls
-Summary:           TLS module for %{name}
-Requires:          %{name}%{?_isa} = %{version}-%{release}
-Supplements:       %{name}
-
-%description       tls
-%summary.
-
-See https://valkey.io/topics/encryption/
 
 %package           compat-redis
 Summary:           Conversion script and compatibility symlinks for Redis
@@ -228,18 +223,12 @@ echo '# valkey_rpm_conf' >> valkey.conf
 echo '# valkey-sentinel_rpm_conf' >> sentinel.conf
 %endif
 
-%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=module BUILD_RDMA=module
+%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=yes BUILD_RDMA=module
 
 : RDMA configuration file
 cat << EOF | tee rdma.conf
 # RDMA module
 loadmodule %{valkey_modules_dir}/rdma.so
-EOF
-
-: TLS configuration file
-cat << EOF | tee tls.conf
-# TLS module
-loadmodule %{valkey_modules_dir}/tls.so
 EOF
 
 
@@ -324,10 +313,6 @@ ln -sr %{buildroot}/usr/lib/systemd/system/valkey-sentinel.service %{buildroot}/
 # RDMA module
 install -pm755 src/valkey-rdma.so %{buildroot}%{valkey_modules_dir}/rdma.so
 install -pm640 rdma.conf          %{buildroot}%{valkey_modules_cfg}/rdma.conf
-
-# TLS module
-install -pm755 src/valkey-tls.so %{buildroot}%{valkey_modules_dir}/tls.so
-install -pm640 tls.conf          %{buildroot}%{valkey_modules_cfg}/tls.conf
 
 
 %check
@@ -440,10 +425,6 @@ fi
 %attr(0640, valkey, root) %config(noreplace) %{valkey_modules_cfg}/rdma.conf
 %{valkey_modules_dir}/rdma.so
 
-%files tls
-%attr(0640, valkey, root) %config(noreplace) %{valkey_modules_cfg}/tls.conf
-%{valkey_modules_dir}/tls.so
-
 %files devel
 # main package is not required
 %license COPYING
@@ -462,6 +443,10 @@ fi
 
 
 %changelog
+* Thu Nov 27 2025 Remi Collet <remi@fedoraproject.org> - 9.0.0-2
+- build TLS statically as module not supported by sentinel
+- drop sub-package for TLS module
+
 * Wed Oct 22 2025 Remi Collet <remi@fedoraproject.org> - 9.0.0-1
 - Valkey 9.0.0 GA - October 21, 2025
 - bundled hiredis replaced by libvalkey

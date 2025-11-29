@@ -21,8 +21,11 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# gsetting overrides for RHEL in general
+Source1:    	org.gnome.settings-daemon.plugins.housekeeping.gschema.override
+
 # gsetting overrides for the "Server with GUI" installation
-Source1:    	org.gnome.settings-daemon.plugins.power.gschema.override
+Source100:    	org.gnome.settings-daemon.plugins.power.gschema.override
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -108,7 +111,7 @@ for the default behavior of Workstation in the Server with GUI product.
 %meson_install
 
 %if 0%{?rhel}
-cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
+cp %{SOURCE1} %{SOURCE100} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 %endif
 
 %find_lang %{name} --with-gnome
@@ -129,6 +132,9 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 
 %{_libexecdir}/gsd-housekeeping
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml
+%if 0%{?rhel}
+%{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.housekeeping.gschema.override
+%endif
 
 %{_libexecdir}/gsd-keyboard
 

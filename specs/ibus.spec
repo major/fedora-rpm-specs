@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.34~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,6 +72,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -638,6 +639,19 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Nov 26 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-2
+- Resolves: #2237664 Fix mouse position in Emojier category list
+- Resolves: #2326455 Free IBusInputContext in input_method_activate()
+- Resolves: #2346033 Fix SEGV with allocation fail in _Xi18nChangeIC()
+- Resolves: #2392358 Refer QT_IM_MODULES to check Wayland
+- don't build in parallel in ui/gtk3
+- Fix GCC `-Wunused-but-set-variable` flag
+- '--enable-wayland-im' option without daemon
+- Fix memory leaks with fail safe
+- Fix memory leaks #2
+- Set MessageDialog at input cursor
+- Move group name detection to ibus_get_group_name()
+
 * Sat Nov 22 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-1
 - Bump to 1.5.34-alpha1
 - Delete gnome-themes-extra from Fedora CI

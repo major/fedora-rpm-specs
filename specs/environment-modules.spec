@@ -1,12 +1,12 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           environment-modules
-Version:        5.6.0
+Version:        5.6.1
 Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
-URL:            http://modules.sourceforge.net/
+URL:            https://envmodules.io
 Source0:        http://downloads.sourceforge.net/modules/modules-%{version}.tar.bz2
 
 BuildRequires:  tcl
@@ -31,8 +31,8 @@ Requires:       emacs-filesystem%{?_emacs_version: >= %{_emacs_version}}
 Requires:       procps-ng
 Requires:       man-db
 Requires(post): coreutils
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
+Requires(post): %{_bindir}/update-alternatives
+Requires(postun): %{_bindir}/update-alternatives
 Provides:       environment(modules)
 Obsoletes:      environment-modules-compat <= 4.8.99
 
@@ -57,7 +57,7 @@ clean fashion. All popular shells are supported, including bash, ksh,
 zsh, sh, csh, tcsh, as well as some scripting languages such as perl.
 
 Modules are useful in managing different versions of applications.
-Modules can also be bundled into metamodules that will load an entire
+Modules can also be bundled into meta-modules that will load an entire
 suite of different applications.
 
 NOTE: You will need to get a new shell after installing this package to
@@ -89,6 +89,9 @@ have access to the module alias.
            --with-quarantine-vars='LD_LIBRARY_PATH LD_PRELOAD'
 
 %make_build
+
+# compile Elisp file
+%{_emacs_bytecompile} share/emacs/lisp/modulefile-mode.el
 
 
 %install
@@ -136,18 +139,18 @@ make test QUICKTEST=1
 
 # Migration from version 3.x to 4
 if [ "$(readlink /etc/alternatives/modules.sh)" = '%{_datadir}/Modules/init/modules.sh' ]; then
-  %{_sbindir}/update-alternatives --remove modules.sh %{_datadir}/Modules/init/modules.sh
+  update-alternatives --remove modules.sh %{_datadir}/Modules/init/modules.sh
 fi
 
-%{_sbindir}/update-alternatives \
+update-alternatives \
   --install %{_sysconfdir}/profile.d/modules.sh modules.sh %{_datadir}/Modules/init/profile.sh 40 \
-  --slave %{_sysconfdir}/profile.d/modules.csh modules.csh %{_datadir}/Modules/init/profile.csh \
-  --slave %{_datadir}/fish/vendor_conf.d/modules.fish modules.fish %{_datadir}/Modules/init/fish \
-  --slave %{_bindir}/modulecmd modulecmd %{_datadir}/Modules/libexec/modulecmd.tcl
+  --follower %{_sysconfdir}/profile.d/modules.csh modules.csh %{_datadir}/Modules/init/profile.csh \
+  --follower %{_datadir}/fish/vendor_conf.d/modules.fish modules.fish %{_datadir}/Modules/init/fish \
+  --follower %{_bindir}/modulecmd modulecmd %{_datadir}/Modules/libexec/modulecmd.tcl
 
 %postun
 if [ $1 -eq 0 ] ; then
-  %{_sbindir}/update-alternatives --remove modules.sh %{_datadir}/Modules/init/profile.sh
+  update-alternatives --remove modules.sh %{_datadir}/Modules/init/profile.sh
 fi
 
 
@@ -199,6 +202,12 @@ fi
 
 
 %changelog
+* Thu Nov 27 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.6.1-1
+- Update to 5.6.1 (#2417160)
+- Update-alternatives is now available from _bindir
+- Update URL to https://envmodules.io
+- Add missing command to byte compile Elisp file
+
 * Thu Jul 31 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.6.0-1
 - Update to 5.6.0 (#2385838)
 - Add envml(1) man page

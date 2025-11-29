@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        41
+Version:        42
 
 %gometa
 
@@ -144,8 +144,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.216.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.18.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.223.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -157,8 +157,8 @@ Provides: bundled(golang(github.com/sigstore/protobuf-specs)) = 0.4.1
 Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.9.5
 Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
 Provides: bundled(golang(github.com/smallstep/pkcs7)) = 0.1.1
-Provides: bundled(golang(github.com/spf13/cobra)) = 1.9.1
-Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.7
+Provides: bundled(golang(github.com/spf13/cobra)) = 1.10.1
+Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.9
 Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
 Provides: bundled(golang(github.com/stretchr/testify)) = 1.11.1
 Provides: bundled(golang(github.com/sylabs/sif/v2)) = 2.21.1
@@ -175,7 +175,7 @@ Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.36.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.2
-Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.3
+Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.4
 Provides: bundled(golang(golang.org/x/crypto)) = 0.41.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
 Provides: bundled(golang(golang.org/x/net)) = 0.43.0
@@ -190,7 +190,7 @@ Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.7
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.11006.0
-Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.5.0
+Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.6.0
 # BUNDLE_END
 %endif
 
@@ -259,6 +259,39 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Nov 26 2025 Packit <hello@packit.dev> - 42-1
+Changes with 42
+----------------
+  - Fix release action (#368)
+    - Author: Simon Steinbeiß, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Michael Vogt
+  - build(deps): bump actions/checkout from 5 to 6 (#381)
+    - Author: dependabot[bot], Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - chore: bump dependencies via gobump (#382)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - ci: split gobump into two PRs (#371)
+    - Author: Lukáš Zapletal, Reviewers: Michael Vogt, Simon de Vlieger
+  - cmd: modify success message to include image path (#377)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Michael Vogt
+  - doc/installation: mention RHEL 9.7 and 10.1 (#378)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal, Tomáš Hozza
+  - doc: additional information on `ostree` (HMS-9741) (#373)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - doc: document `bootc` specifics (HMS-9740) (#375)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Michael Vogt, Tomáš Hozza
+  - github: disable gomod updates with dependabot (#372)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - go.mod: move to images v0.218 (#370)
+    - Author: Michael Vogt, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - go.mod: move to images v0.223 (#383)
+    - Author: Ondřej Budai, Reviewers: Michael Vogt, Simon de Vlieger
+  - main: add `--bootc-defaultfs` option (#324)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger
+  - many: metrics option for stage durations (#317)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-11-26
+
+
 * Wed Nov 12 2025 Packit <hello@packit.dev> - 41-1
 Changes with 41
 ----------------

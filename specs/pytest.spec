@@ -1,29 +1,11 @@
 Name:           pytest
-Version:        8.3.5
+Version:        8.4.2
 Release:        %autorelease
 Summary:        Simple powerful testing with Python
 # SPDX
 License:        MIT
 URL:            https://pytest.org
 Source:         %{pypi_source pytest %{version}}
-
-# Compatibility fix for attrs 25.2+
-Patch:          https://github.com/pytest-dev/pytest/pull/13291.patch
-
-# Officially support Python 3.14
-# This fixes/xfails Python 3.14 test failures
-# Rebased from https://github.com/pytest-dev/pytest/pull/13440
-Patch:          13440.patch
-
-# Fix compatibility with Twisted 25
-# Rebased from https://github.com/pytest-dev/pytest/pull/13502
-Patch:          13502.patch
-
-# Fix test_doctest_unexpected_exception on Python 3.14
-Patch:          https://github.com/pytest-dev/pytest/pull/13548.patch
-
-# testing: skip pkg_resources tests if modern setuptools
-Patch:          https://github.com/pytest-dev/pytest/pull/13446.patch
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable

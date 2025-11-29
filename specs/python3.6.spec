@@ -302,6 +302,9 @@ BuildRequires: /usr/sbin/ifconfig
 %if %{with rpmwheels}
 BuildRequires: python-setuptools-wheel
 BuildRequires: python-pip-wheel
+%else
+# For %%python_wheel_inject_sbom
+BuildRequires: python-rpm-macros
 %endif
 
 
@@ -1561,6 +1564,11 @@ find %{buildroot} -perm 555 -exec chmod 755 {} \;
 ln -s \
   %{_bindir}/python%{LDVERSION_debug} \
   %{buildroot}%{_bindir}/python3-debug
+%endif
+
+%if %{without rpmwheels}
+# Inject SBOM into the installed wheels (if the macro is available)
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pylibdir}/ensurepip/_bundled/*.whl}
 %endif
 
 %if %{with flatpackage}

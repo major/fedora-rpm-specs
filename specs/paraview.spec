@@ -164,6 +164,8 @@ BuildRequires:  utf8cpp-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  glibc-langpack-en
+# Test dependencies
+BuildRequires:  mesa-libEGL
 
 Requires: hdf5%{?_hdf5_version: = %{_hdf5_version}}
 Requires: %{name}-data = %{version}-%{release}

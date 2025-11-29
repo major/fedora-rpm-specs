@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Manipulate images with minimal use of memory via ImageMagick
 License: MIT
 URL: https://github.com/minimagick/minimagick
@@ -16,6 +16,7 @@ Requires: ImageMagick
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem(rspec)
 BuildRequires: ImageMagick
 BuildArch: noarch
@@ -74,6 +75,9 @@ env -u SOURCE_DATE_EPOCH rspec spec
 %{gem_instdir}/Rakefile
 
 %changelog
+* Thu Nov 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.3.1-2
+- Add BuildRequires: rubygem(logger) dep for ruby4_0 explicitly
+
 * Fri Aug 29 2025 Vít Ondruch <vondruch@redhat.com> - 5.3.1-1
 - Update to MiniMagick 5.3.1.
   Resolves: rhbz#2389591

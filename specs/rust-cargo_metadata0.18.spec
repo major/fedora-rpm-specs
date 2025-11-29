@@ -16,6 +16,9 @@ Source:         %{crates_source}
 # * bump derive_builder dependency from 0.12 to 0.20
 Patch:          cargo_metadata-fix-metadata.diff
 
+# upstream patch to adapt tests for new error message format with Rust 1.91+
+Patch:          https://github.com/oli-obk/cargo_metadata/commit/aae754b.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:

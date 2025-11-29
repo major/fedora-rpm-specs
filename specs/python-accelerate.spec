@@ -10,7 +10,6 @@ Source:         %{pypi_source accelerate}
 BuildRequires:  python3-devel
 # For passing the import test
 # For passing the test suites
-BuildRequires:  python3dist(parameterized)
 BuildRequires:  python3dist(pytest)
 #BuildRequires:  python3dist(pytest-order) # Not packaged
 BuildRequires:  python3dist(pytest-subtests)
@@ -111,7 +110,12 @@ unset ACCELERATE_ENABLE_RICH
 # - multiprocess gives an error inside PyTorch
 # - In the enivronment test, it fails if AA BB or CC is defined. Seriously? TODO: report
 # - Doesn't work with PyTorch 2.8 (torch.compile not supported, multiprocess issue, etc.)
+# - Test needs the orphaned parameterized module
 %pytest -s -v ./tests/ \
+        --ignore=./tests/test_accelerator.py \
+        --ignore=./tests/test_data_loader.py \
+        --ignore=./tests/test_hooks.py \
+        --ignore=./tests/test_state_checkpointing.py \
         --ignore=./tests/test_big_modeling.py \
         --ignore=./tests/test_modeling_utils.py \
         --ignore=./tests/test_examples.py \
@@ -119,9 +123,6 @@ unset ACCELERATE_ENABLE_RICH
         --ignore=./tests/deepspeed \
         --ignore=./tests/fsdp \
         --ignore=./tests/tp \
-        --deselect="tests/test_accelerator.py::AcceleratorTester::test_can_unwrap_distributed_compiled_model_keep_torch_compile" \
-        --deselect="tests/test_accelerator.py::AcceleratorTester::test_can_unwrap_distributed_compiled_model_remove_torch_compile" \
-        --deselect="tests/test_accelerator.py::AcceleratorTester::test_free_memory_dereferences_prepared_components" \
         --deselect="tests/test_compile.py::RegionalCompilationTester::test_extract_model_keep_torch_compile" \
         --deselect="tests/test_compile.py::RegionalCompilationTester::test_extract_model_remove_torch_compile" \
         --deselect="tests/test_compile.py::RegionalCompilationTester::test_regions_are_compiled" \

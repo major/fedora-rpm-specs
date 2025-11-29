@@ -1,6 +1,6 @@
 Name:           gnome-pkg-tools
-Version:        0.22.10
-Release:        2%{?dist}
+Version:        0.22.13
+Release:        1%{?dist}
 Summary:        Tools for the Debian GNOME Packaging Team
 
 BuildArch:      noarch
@@ -23,38 +23,33 @@ via pbuilder.
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -C
 
 
 %build
 # Nothing to build
 
 %install
-install -d %{buildroot}%{_datadir}/%{name}
-install -pm 0644 pkg-gnome.team %{buildroot}%{_datadir}/%{name}/pkg-gnome.team
-install -pm 0644 control.header  %{buildroot}%{_datadir}/%{name}/control.header
-cp -a 1 %{buildroot}%{_datadir}/%{name}/1
-install -Dpm 0755 desktop-check-mime-types %{buildroot}%{_bindir}/desktop-check-mime-types
 install -Dpm 0755 dh/dh_gnome %{buildroot}%{_bindir}/dh_gnome
-install -Dpm 0755 dh/dh_gnome_clean %{buildroot}%{_bindir}/dh_gnome_clean
-install -Dpm 0755 dh/gnome.pm %{buildroot}%{perl_vendorlib}/Debian/Debhelper/Sequence/gnome.pm
+install -d %{buildroot}%{_datadir}/%{name}
+cp -a 1 %{buildroot}%{_datadir}/%{name}/1
 install -Dpm 0644 dh/dh_gnome.1 %{buildroot}%{_mandir}/man1/dh_gnome.1
-install -Dpm 0644 dh/dh_gnome_clean.1 %{buildroot}%{_mandir}/man1/dh_gnome_clean.1
-install -Dpm 0644 debian/desktop-check-mime-types.1 %{buildroot}%{_mandir}/man1/desktop-check-mime-types.1
+install -Dpm 0755 dh/gnome.pm %{buildroot}%{perl_vendorlib}/Debian/Debhelper/Sequence/gnome.pm
+
 
 %files
+%doc debian/README.Debian
 %license debian/copyright
-%{_bindir}/desktop-check-mime-types
 %{_bindir}/dh_gnome
-%{_bindir}/dh_gnome_clean
 %{_datadir}/%{name}/
-%{perl_vendorlib}/Debian/Debhelper/Sequence/gnome.pm
 %{_mandir}/man1/dh_gnome.1*
-%{_mandir}/man1/dh_gnome_clean.1*
-%{_mandir}/man1/desktop-check-mime-types.1*
+%{perl_vendorlib}/Debian/Debhelper/Sequence/gnome.pm
 
 
 %changelog
+* Thu Nov 27 2025 Sandro Mani <manisandro@gmail.com> - 0.22.13-1
+- Update to 0.22.13
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

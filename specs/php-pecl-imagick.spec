@@ -6,14 +6,12 @@
 
 Summary:        Provides a wrapper to the ImageMagick library
 Name:           php-pecl-%pecl_name
-Version:        3.8.0
-Release:        3%{?dist}
+Version:        3.8.1
+Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%pecl_name
 
 Source0:        https://pecl.php.net/get/%{sources}.tgz
-
-Patch0:         741.patch
 
 ExcludeArch:    %{ix86}
 
@@ -24,10 +22,13 @@ BuildRequires:  pkgconfig(ImageMagick)
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
+# Extension
 Provides:       php-%pecl_name                   = %{version}
 Provides:       php-%pecl_name%{?_isa}           = %{version}
+# PECL
 Provides:       php-pecl(%pecl_name)             = %{version}
 Provides:       php-pecl(%pecl_name)%{?_isa}     = %{version}
+# PIE
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
@@ -65,8 +66,6 @@ then : "Font files detected!"
 fi
 
 cd %{sources}
-%patch -P0 -p1 -b .pr741
-
 : Avoid arginfo to be regenerated
 rm *.stub.php
 
@@ -173,6 +172,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Nov 27 2025 Remi Collet <remi@remirepo.net> - 3.8.1-1
+- update to 3.8.1
+- drop patch merged upstream
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 3.8.0-3
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - fix for PHP 8.5.0alpha3 using patch from

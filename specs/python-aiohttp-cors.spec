@@ -12,6 +12,10 @@ License:        Apache-2.0
 URL:            https://github.com/aio-libs/aiohttp-cors
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Compatibility with pytest 8.4+
+# Upstream PR: https://github.com/aio-libs/aiohttp-cors/pull/557
+Patch:          Set-asyncio_mode-auto-for-compatibility-with-pytest-.patch
+
 BuildArch:      noarch
 
 %description
@@ -27,7 +31,9 @@ BuildRequires: python3-setuptools
 # For tes suite
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-aiohttp
+BuildRequires: python3-pytest-asyncio
 BuildRequires: python3-aiohttp >= 1.1
+BuildRequires: python3-anyio
 
 # Browser tests not possible yet
 # BuildRequires: python3-selenium
@@ -54,7 +60,7 @@ sed -i '/pytest-pylint/d' setup.py
 
 # Don't treat warnings as errors, that's what upstream testing is for
 # In 0.7.0, nothing else is in this config
-rm pytest.ini
+sed -i 's/error/default/' pytest.ini
 
 # Don't add --cov options to pytest
 # In 0.7.0, nothing else is in this config

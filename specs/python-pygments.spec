@@ -60,6 +60,12 @@ Provides:       pygmentize = %{?epoch:%{epoch}:}%{version}-%{release}
 %prep
 %autosetup -p1 -n pygments-%{version}
 
+# Create pytest configuration to fix path resolution issues in pytest 8.4
+# Upstream issue: https://github.com/pygments/pygments/issues/2992
+cat > pytest.ini << EOF
+[pytest]
+collect_imported_tests = false
+EOF
 
 %generate_buildrequires
 %pyproject_buildrequires

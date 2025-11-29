@@ -1,8 +1,8 @@
 %global srcname          pydoctor
 %global forgeurl         https://github.com/twisted/%{srcname}
-%global pydoctor_version 24.11.1
+%global pydoctor_version 25.10.1
 %global tag              %{pydoctor_version}
-%global date             20241208
+%global date             20250929
 %forgemeta
 
 %global desc \
@@ -101,6 +101,8 @@ k="${k-}${k+ and }not (test_htmlbaseurl_option_all_pages)"
 # Requires network
 k="${k-}${k+ and }not (test_main_project_name_option)"
 k="${k-}${k+ and }not (test_unquote_naughty_quoted_strings)"
+# We don't run tests in dev mode
+k="${k-}${k+ and }not (test_mode)"
 
 %pytest -k "${k-}"
 

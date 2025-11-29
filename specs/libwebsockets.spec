@@ -7,7 +7,7 @@
 
 Name:           libwebsockets
 Version:        4.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight C library for Websockets
 
 # base64-decode.c and ssl-http2.c is under MIT license with FPC exception.
@@ -20,6 +20,7 @@ Source0:        https://github.com/warmcat/libwebsockets/archive/v%{version}/%{n
 
 BuildRequires:  cmake
 BuildRequires:  gcc-g++
+BuildRequires:  glib2-devel
 BuildRequires:  libev-devel
 %if %{with libuv}
 BuildRequires:  libuv-devel
@@ -59,6 +60,7 @@ This package contains the header files needed for developing
     -D LWS_WITH_SOCKS5=ON \
     -D LWS_WITH_RANGES=ON \
     -D LWS_WITH_ACME=ON \
+    -D LWS_WITH_GLIB=ON \
 %if %{with libuv}
     -D LWS_WITH_LIBUV=ON \
 %endif
@@ -101,6 +103,7 @@ find %{buildroot} -name '*_static.pc' -delete
 %doc README.md changelog
 %{_libdir}/%{name}.so.20
 %{_libdir}/%{name}-evlib_ev.so
+%{_libdir}/%{name}-evlib_glib.so
 %if %{with libuv}
 %{_libdir}/%{name}-evlib_uv.so
 %endif
@@ -115,6 +118,9 @@ find %{buildroot} -name '*_static.pc' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Nov 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.4.1-3
+- Enable glib event loop support
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:       tor
 Version:    0.4.8.21
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -34,6 +34,7 @@ Source20:   README
 Source30:   tor.sysusers
 
 Patch0:     tor-0.4.8.4-torrc-ControlSocket-and-CookieAuthFile.patch
+Patch1:     tor-0.4.8.21-fix-glibc-seccomp-enum.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -168,6 +169,10 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Thu Nov 27 2025 Marcel Härry <mh+fedora@scrit.ch>- 0.4.8.21-2
+- Fix build issue on newer glibc - https://gitlab.torproject.org/tpo/core/tor/-/issues/41170
+- Include /etc/torrc.d/*.conf by default to avoid modifications from the core package (bz#2338912)
+
 * Wed Nov 19 2025 Marcel Härry <mh+fedora@scrit.ch>- 0.4.8.21-1
 - Update to latest upstream release https://forum.torproject.org/t/stable-release-0-4-8-21/20817
 

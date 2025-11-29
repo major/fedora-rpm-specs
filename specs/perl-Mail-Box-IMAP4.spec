@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-IMAP4
-Version:        3.009
-Release:        2%{?dist}
+Version:        3.010
+Release:        1%{?dist}
 Summary:        Handle IMAP4 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-IMAP4
@@ -14,7 +14,8 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Date::Parse)
@@ -33,10 +34,9 @@ BuildRequires:  perl(Mail::Message::Head)
 BuildRequires:  perl(Mail::Message::Head::Complete) >= 3
 BuildRequires:  perl(Mail::Message::Head::Delayed) >= 3
 BuildRequires:  perl(Mail::Transport::Receive) >= 3
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Mail::Box::Identity)
@@ -126,7 +126,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc ChangeLog README
+%doc ChangeLog README.md
 %dir %{perl_vendorlib}/Mail
 %{perl_vendorlib}/Mail/Box
 %{perl_vendorlib}/Mail/Transport
@@ -143,6 +143,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.010-1
+- 3.010 bump (rhbz#2416762)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.009-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

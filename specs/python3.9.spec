@@ -272,6 +272,9 @@ BuildRequires: /usr/sbin/ifconfig
 %if %{with rpmwheels}
 BuildRequires: python-setuptools-wheel
 BuildRequires: python-pip-wheel
+%else
+# For %%python_wheel_inject_sbom
+BuildRequires: python-rpm-macros
 %endif
 
 %if %{without bootstrap}
@@ -1258,6 +1261,11 @@ for file in %{buildroot}%{pylibdir}/pydoc_data/topics.py $(grep --include='*.py'
     mv ${directory}/{__pycache__/${module}.cpython-%{pyshortver}.pyc,${module}.pyc}
     rm ${directory}/{__pycache__/${module}.cpython-%{pyshortver}.opt-?.pyc,${module}.py}
 done
+
+%if %{without rpmwheels}
+# Inject SBOM into the installed wheels (if the macro is available)
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pylibdir}/ensurepip/_bundled/*.whl}
+%endif
 
 # ======================================================
 # Checks for packaging issues

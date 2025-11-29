@@ -1,17 +1,17 @@
-%global commit0 4ff8433fcaccd420afadd7199d54ea5d30893512
-%global date 20241114
+%global commit0 25db5284443c81b2336f37cfa5a35de1c5cd242a
+%global date 20251031
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag %{version}
 
-%global gtk3_version                      3.16.0
-%global glib2_version                     2.37.3
-%global gtk_doc_version                   1.9
-%global po_package                        cinnamon-desktop-3.0
+%global gtk3_version     3.16.0
+%global glib2_version    2.37.3
+%global gtk_doc_version  1.9
+%global po_package       cinnamon-desktop-3.0
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.4.1
-Release: 4%{?dist}
+Version: 6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -79,7 +79,7 @@ libcinnamon-desktop.
 %endif
 
 %build
-%meson -Dpnp_ids=/usr/share/hwdata/pnp.ids -Ddeprecation_warnings=false
+%meson -Ddeprecation_warnings=false
 %meson_build
 
 %install
@@ -109,6 +109,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Mon Aug 18 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-4
 - Drop require gnome-themes-standard, gtk2 apps can handle their own theme
   requires

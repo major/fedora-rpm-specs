@@ -1,12 +1,12 @@
-%global commit0 32ab5b1c7893054b266afaa6c88b45c43e8ebd25
-%global date 20231109
+%global commit0 032ce13a5a5f1edca811b367a27e8dcf31892afa
+%global date 20251023
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag %{version}
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.4.5
-Release:        2%{?dist}
+Version:        6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -26,7 +26,7 @@ Requires:       gvfs-fuse%{?_isa}
 Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
-Requires:       adwaita-icon-theme
+Recommends:     xapp-symbolic-icons
 Recommends:     cinnamon-translations >= 6.4.0
 Recommends:     nemo-search-helpers
 Recommends:     folder-color-switcher-nemo
@@ -46,7 +46,7 @@ BuildRequires:  pkgconfig(gmodule-no-export-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(cinnamon-desktop) >= 6.4.0
+BuildRequires:  pkgconfig(cinnamon-desktop) >= 6.6.0
 BuildRequires:  pkgconfig(gail-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(x11)
@@ -188,6 +188,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

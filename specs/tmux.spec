@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           tmux
-Version:        3.5a
-Release:        7%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -73,6 +73,9 @@ fi
 %{_unitdir}/tmux@.service
 
 %changelog
+* Thu Nov 27 2025 Filipe Rosset <rosset.filipe@gmail.com> - 3.6-1
+- Update tmux to 3.6
+
 * Mon Nov 17 2025 Filipe Rosset <rosset.filipe@gmail.com> - 3.5a-7
 - Bump rawhide build to avoid older Fedora with newer builds
 

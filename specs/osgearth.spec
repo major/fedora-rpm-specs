@@ -19,6 +19,8 @@ Patch1:        osgearth_fastdxt.patch
 Patch2:        osgearth_unbundle.patch
 # Link against liblerct
 Patch3:        osgearth_link-lerc.patch
+# Fix ambiguous namespace with gdal-3.12
+Patch4:        osgearth-gdal-ns.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

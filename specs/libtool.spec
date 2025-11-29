@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.5.4
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -68,6 +68,10 @@ Patch: libtool-2.4.6-disable_non-pic_arm.patch
 # Patch was already sent in 2022:
 # https://lists.gnu.org/archive/html/libtool-patches/2022-02/msg00000.html
 Patch: libtool-2.4.6-keep-compiler-deps.patch
+
+# Patch sent upstream
+# https://lists.gnu.org/archive/html/libtool-patches/2024-02/msg00002.html
+Patch: riscv-non-PIC-into-shared-objects.patch
 
 %if ! 0%{?_module_build}
 Patch: libtool-nodocs.patch
@@ -195,6 +199,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Fri Sep 19 2025 David Abdurachmanov <davidlt@rivosinc.com> - 2.5.4-8
+- RISC-V doesn't allow linking non-PIC into shared objects
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

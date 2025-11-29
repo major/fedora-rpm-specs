@@ -2,7 +2,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-poetry-core
-Version:        2.1.3
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Poetry PEP 517 Build Backend
 # SPDX
@@ -13,7 +13,7 @@ Source0:        %{url}/archive/%{version}/poetry-core-%{version}.tar.gz
 # This patch moves the vendored requires definition
 # from vendors/pyproject.toml to pyproject.toml
 # Intentionally contains the removed hunk to prevent patch aging
-Patch:          poetry-core-2.1.1-devendor.patch
+Patch:          poetry-core-2.2.1-devendor.patch
 
 
 BuildArch:      noarch

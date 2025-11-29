@@ -1,6 +1,5 @@
 %global somajor 1
-# this is used for breaking a self-dependency on build, via
-# two paths, first:
+# this is used for breaking a self-dependency on build:
 # libheif BuildRequires: pkgconfig(sdl2) == sdl2-compat-devel
 # sdl2-compat-devel -> sdl2-compat
 # sdl2-compat -> SDL3
@@ -8,12 +7,6 @@
 # libdecor -> gtk3
 # gtk3 -> gtk-update-icon-cache
 # gtk-update-icon-cache -> gdk-pixbuf2
-# gdk-pixbuf2 -> glycin-libs
-# glycin-libs -> glycin-loaders
-# glycin-loaders -> libheif
-# second:
-# heif-pixbuf-loader BuildRequires: pkgconfig(gdk-pixbuf-2.0) == gdk-pixbuf2-devel
-# gdk-pixbuf2-devel -> gdk-pixbuf2
 # gdk-pixbuf2 -> glycin-libs
 # glycin-libs -> glycin-loaders
 # glycin-loaders -> libheif
@@ -38,6 +31,7 @@ BuildRequires:  pkgconfig(libbrotlidec)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(openjph) >= 0.18.0
 %if !%{with bootstrap}
 BuildRequires:  pkgconfig(sdl2)
 %endif
@@ -46,7 +40,6 @@ BuildRequires:  pkgconfig(zlib)
 # openh264 is not available for i686, see:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2393742
 BuildRequires:  pkgconfig(openh264)
-BuildRequires:  pkgconfig(openjph) >= 0.18.0
 %endif
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
 BuildRequires:  pkgconfig(libsharpyuv)

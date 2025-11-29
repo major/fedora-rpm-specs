@@ -13,6 +13,8 @@ Summary:        Sphinx-doc extensions for sophisticated C developer
 License:        AGPL-3.0-or-later
 URL:            https://return42.github.io/linuxdoc/
 Source0:        %{pypi_source linuxdoc}
+# https://github.com/return42/linuxdoc/pull/40
+Patch:          Fix-compatibility-with-docutils-0.22.patch
 
 BuildArch:      noarch
 
@@ -26,7 +28,7 @@ BuildRequires:  help2man
 %description -n python3-linuxdoc %_description
 
 %prep
-%autosetup -n linuxdoc-%{version}
+%autosetup -n linuxdoc-%{version} -p1
 
 # nothing here, empty package that gets installed in %%{python3_sitelib}
 rm -rf tests
