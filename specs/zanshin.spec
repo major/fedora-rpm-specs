@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           zanshin
-Version:        25.11.80
+Version:        25.11.90
 Release:        1%{?dist}
 Summary:        Todo/action management software
 
@@ -97,6 +97,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_plugindir}/krunner/org.kde.%{name}.so
 
 %changelog
+* Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
+- 25.11.90
+
 * Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
 - 25.11.80
 

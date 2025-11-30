@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           alligator
-Version:        25.11.80
+Version:        25.11.90
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/qlogging-categories6/alligator.categories
 
 %changelog
+* Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
+- 25.11.90
+
 * Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
 - 25.11.80
 

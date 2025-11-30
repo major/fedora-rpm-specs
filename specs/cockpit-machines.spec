@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        344
+Version:        345
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 26 2025 Packit <hello@packit.dev> - 345-1
+- New virtual machines don't get SPICE graphics anymore
+- Support for network port forwarding
+- Bug fixes and translation updates
+
+
 * Wed Nov 12 2025 Packit <hello@packit.dev> - 344-1
 - Port forwarding for user session VMs
 - "Shutdown and restart" action

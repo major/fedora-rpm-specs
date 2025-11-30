@@ -4,7 +4,7 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 25.11.80
+Version: 25.11.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 1:25.11.90-1
+- 25.11.90
+
 * Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 1:25.11.80-1
 - 25.11.80
 

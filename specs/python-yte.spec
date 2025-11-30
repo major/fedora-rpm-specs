@@ -1,5 +1,5 @@
 Name:           python-yte
-Version:        1.9.0
+Version:        1.9.4
 Release:        %autorelease
 Summary:        YAML template engine with Python expressions
 
@@ -10,10 +10,6 @@ URL:            https://github.com/yte-template-engine/yte
 Source0:        %{url}/archive/v%{version}/yte-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        yte.1
-
-# Add project.license-files to pyproject.toml
-# https://github.com/yte-template-engine/yte/pull/65
-Patch:          %{url}/pull/65.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l yte

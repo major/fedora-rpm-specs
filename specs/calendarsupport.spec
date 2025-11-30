@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    calendarsupport
-Version: 25.11.80
+Version: 25.11.90
 Release: 1%{?dist}
 Summary: KDE PIM library for calendar and event handling
 
@@ -87,6 +87,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
+- 25.11.90
+
 * Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
 - 25.11.80
 

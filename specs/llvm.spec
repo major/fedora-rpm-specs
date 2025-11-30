@@ -868,7 +868,11 @@ Requires: gcc-toolset-%{gts_version}-gcc-c++
 Recommends: %{pkg_name_compiler_rt}%{?_isa} = %{version}-%{release}
 Requires: %{pkg_name_llvm}-libs = %{version}-%{release}
 # atomic support is not part of compiler-rt
+%if %{defined gts_version}
+Recommends: gcc-toolset-%{gts_version}-libatomic-devel
+%else
 Recommends: libatomic%{?_isa}
+%endif
 # libomp-devel is required, so clang can find the omp.h header when compiling
 # with -fopenmp.
 Recommends: %{pkg_name_libomp}-devel%{_isa} = %{version}-%{release}
@@ -2504,6 +2508,17 @@ install -m 0755 ../llvm-compat-libs/lib/liblldb.so.%{compat_maj_ver}* %{buildroo
 # TODO(kkleine): Instead of deleting test files we should mark them as expected
 # to fail. See https://llvm.org/docs/CommandGuide/lit.html#cmdoption-lit-xfail
 
+# Tell if the GTS version used by the newly built clang is equal to the
+# expected version.
+function is_gts_equal {
+    local gts_used=$(`pwd`/%{_vpath_builddir}/bin/clang -v 2>&1 | grep "Selected GCC installation" | sed 's|.*/\([0-9]\+\)$|\1|')
+    if [[ -z "%{gts_version}" ]]; then
+      return 0
+    fi
+    test "x$gts_used" = "x%{gts_version}"
+    return $?
+}
+
 # Increase open file limit while running tests.
 if [[ $(ulimit -n) -lt 10000 ]]; then
   ulimit -n 10000
@@ -2805,7 +2820,16 @@ export LD_LIBRARY_PATH=%{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_tr
 %if 0%{?rhel}
 # libomp tests are often very slow on s390x brew builders
 %ifnarch s390x riscv64
-%cmake_build --target check-openmp
+# Rarely, the system clang uses a GCC installation directory that is
+# different from what we'd like to build with.
+# Our newly built clang ends up using that old GCC because of the config
+# files under /etc/clang pointing to the old GCC. We won't be able to run all
+# tests because the installed libatomic cannot be found due to our newly built
+# clang using the wrong GCC directory, e.g. we installed the libatomic from
+# the latest GTS, but the installed GCC is 1 version earlier.
+if is_gts_equal; then
+    %cmake_build --target check-openmp
+fi
 %endif
 %else
 %cmake_build --target check-openmp

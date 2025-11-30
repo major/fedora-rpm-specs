@@ -1,10 +1,10 @@
 # Circular test dependency on conda-build
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 %global srcname conda_index
 
 Name:           python-conda-index
-Version:        0.6.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause
@@ -74,7 +74,8 @@ install -m644 build/man/conda-index.1 %{buildroot}%{_mandir}/man1/
 
 %check
 %if %{without bootstrap}
-%pytest -v -W ignore::DeprecationWarning
+# test_psql requires a postgresql database
+%pytest -rs -v -W ignore::DeprecationWarning --deselect=tests/test_psql.py
 %else
 # Basic smoke test
 %py3_check_import conda_index

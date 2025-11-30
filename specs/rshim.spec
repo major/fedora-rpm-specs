@@ -15,7 +15,7 @@ Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-
 Patch0: 0001-remove-wrong-use-of-struct-termio.patch
 
 BuildRequires: gcc, autoconf, automake, make
-BuildRequires: pkgconfig(libpci), pkgconfig(libusb-1.0), pkgconfig(fuse)
+BuildRequires: pkgconfig(libpci), pkgconfig(libusb-1.0), pkgconfig(fuse3)
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 

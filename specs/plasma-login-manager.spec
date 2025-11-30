@@ -1,9 +1,9 @@
 # Disable X11 for RHEL
 %bcond x11 %[%{undefined rhel}]
 
-%global commit 6972b55edda56b6af877777646a48a2cfec990b3
+%global commit 146250b351e418ec942f57963cf9829b596329f3
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20251125
+%global commitdate 20251128
 %global gititer 1
 
 
@@ -30,9 +30,6 @@ Source12:       plasmalogin.sysusers
 
 
 # upstream patches
-
-# upstreamable patches
-Patch0101:      https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/31.patch
 
 # downstream patches
 ## plasmalogin.service: +EnvironmentFile=-/etc/sysconfig/plasmalogin
@@ -176,7 +173,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 %dir %{_sysconfdir}/plasmalogin/
 %config(noreplace) %{_sysconfdir}/plasmalogin/*
 %config(noreplace) %{_sysconfdir}/sysconfig/plasmalogin
-%config(noreplace) %{_sysconfdir}/pam.d/plasmalogin*
+%{_prefix}/lib/pam.d/plasmalogin*
 %{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-plasmalogin.conf
 %{_bindir}/plasmalogin
 %{_bindir}/startplasma-login-wayland
@@ -207,6 +204,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Fri Nov 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251128.146250b-1
+- Bump to new git snapshot
+
 * Tue Nov 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251125.6972b55-1
 - Initial package (partly forked from sddm)
 

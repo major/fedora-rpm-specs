@@ -10,6 +10,8 @@ URL:            https://sonicvisualiser.org/
 Source:         %{forgeurl}/releases/download/sv_v%{version}/%{name}-%{version}.tar.gz
 # Fix build with GCC 15.1 and Qt 6.9
 Patch:          svcore-atomic-qt-fix.patch
+# Fix build with Qt 6.10
+Patch:          svgui-qt-fix.patch
 
 BuildRequires:  meson
 BuildRequires:  alsa-lib-devel

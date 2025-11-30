@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 4
+%global baserelease 5
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -134,6 +134,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Fri Nov 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 5.9.0-5
+- Rebuild for capnproto 1.2.0
+
 * Mon Aug 11 2025 Aaron Merey <amerey@redhat.com> - 5.9.0-4
 - Add remove-termio.patch
 - Add update-cmake-ver.patch

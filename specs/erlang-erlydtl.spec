@@ -1,7 +1,7 @@
 %global realname erlydtl
 
 Name:		erlang-%{realname}
-Version:	0.14.0
+Version:	0.15.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Erlang implementation of the Django Template Language
@@ -9,10 +9,7 @@ License:	MIT
 URL:		https://github.com/erlydtl/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-erlydtl-0001-No-such-function-exported-gettext_compile-write_pret.patch
-Patch2:		erlang-erlydtl-0002-No-such-function-exported-gettext_compile-fmt_filein.patch
-Patch3:		erlang-erlydtl-0003-No-such-fun-gettext_compile-open_po_file-3.patch
-Patch4:		erlang-erlydtl-0004-No-such-fun-gettext_compile-close_file-0.patch
+Patch:		erlang-erlydtl-0001-FIXME-disable-slex-for-now.patch
 Provides:	ErlyDTL = %{version}-%{release}
 BuildRequires:	erlang-gettext
 BuildRequires:	erlang-rebar3

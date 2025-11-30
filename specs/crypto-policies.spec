@@ -1,5 +1,5 @@
-%global git_date 20251125
-%global git_commit d04d33162a32ba99eeaef142e5113dc2feb78239
+%global git_date 20251128
+%global git_commit 19878fea4c5f62208655e32269842bce55c819b2
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -289,6 +289,11 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Nov 28 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20251128-1.git19878fe
+- openssl: allow disabling all TLS / DTLS protocols
+- gnutls: do enabled-curve for hybrids with said curve
+- nss: enable ML-DSA
+
 * Tue Nov 25 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20251125-1.gitd04d331
 - sequoia: register "eddsa" as an alias to EDDSA-ED25519
 - sequoia: revert "Do not include EdDSA in FIPS policy"

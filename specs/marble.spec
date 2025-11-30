@@ -1,7 +1,7 @@
 Name:    marble
 Summary: Virtual globe and world atlas
 Epoch:   1
-Version: 25.11.80
+Version: 25.11.90
 Release: 1%{?dist}
 
 License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
@@ -256,6 +256,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/{marble_geojson,marbl
 
 
 %changelog
+* Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 1:25.11.90-1
+- 25.11.90
+
 * Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 1:25.11.80-1
 - 25.11.80
 

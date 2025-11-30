@@ -1,6 +1,6 @@
 Name:           librime
-Version:        1.14.0
-Release:        2%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -11,6 +11,8 @@ Source0:        https://github.com/rime/librime/archive/%{version}.tar.gz#/%{nam
 Source1:        https://github.com/hchunhui/librime-lua/archive/refs/heads/master.tar.gz#/librime-lua.tar.gz
 # For the librime octagram plugin
 Source2:        https://github.com/lotem/librime-octagram/archive/refs/heads/master.tar.gz#/librime-octagram.tar.gz
+# For the librime predict plugin
+Source3:        https://github.com/lotem/librime-predict/archive/refs/heads/master.tar.gz#/librime-predict.tar.gz
 
 Patch0:         librime-fixes-setup-log.patch
 
@@ -65,6 +67,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    octagram
 The %{name}-octagram package contains the octagram plugin from the community.
 
+%package        predict
+Summary:        Predict plugin for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    predict
+The %{name}-predict package contains the predict plugin from the community.
+
 %prep
 %autosetup -p1
 
@@ -73,6 +82,8 @@ tar xvf %{SOURCE1}
 mv librime-lua-master lua
 tar xvf %{SOURCE2}
 mv librime-octagram-master octagram
+tar xvf %{SOURCE3}
+mv librime-predict-master predict
 popd
 
 %build
@@ -118,8 +129,16 @@ popd
 %files octagram
 %{_libdir}/rime-plugins/librime-octagram.so
 
+%files predict
+%{_libdir}/rime-plugins/librime-predict.so
+
 
 %changelog
+* Fri Nov 28 2025 Peng Wu <pwu@redhat.com> - 1.15.0-1
+- Update to 1.15.0
+- Add the librime predict plugin
+- Resolves: RHBZ#2416707
+
 * Sat Oct 11 2025 Peng Wu <pwu@redhat.com> - 1.14.0-2
 - Add the librime octagram plugin
 

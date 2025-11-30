@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.01
-Release:  0.1%{?candidate:.%{candidate}}%{?dist}
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -48,7 +48,7 @@ Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 # Fix AllWinner
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
-Patch17:  Improve-RaspBerry-Pi-5-support-part1-Fixes.patch
+Patch17:  RPi-fixes.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -278,6 +278,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Fri Nov 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.01-0.2.rc3
+- Updates for RPi
+
 * Mon Nov 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.01-0.1.rc3
 - Update to 2026.01 RC3
 

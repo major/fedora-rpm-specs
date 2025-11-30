@@ -10,6 +10,11 @@ License:        BSL-1.0
 URL:            https://github.com/BenHanson/parsertl17
 Source:         %{url}/archive/%{version}/parsertl17-%{version}.tar.gz
 
+%if %{undefined fc43} && %{undefined fc42}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
+
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
 
@@ -24,9 +29,6 @@ BuildRequires:  dos2unix
 # Header-only library:
 # (Technically, dependent packages should have this BuildRequires too.)
 BuildRequires:  lexertl17-static >= %{min_lexertl17}
-
-# No compiled binaries are installed, so this would be empty.
-%global debug_package %{nil}
 
 %global common_description %{expand:
 %{summary}.}

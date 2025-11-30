@@ -14,8 +14,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.14
-Release: 3%{?dist}
+Version: 2.4.15
+Release: 1%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -71,7 +71,6 @@ Patch100: cups-lspp.patch
 %endif
 
 #### UPSTREAM PATCHES (starts with 1000) ####
-Patch1000: cups-raster-evince-default.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -299,7 +298,6 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %endif
 
 # UPSTREAM PATCHES
-%patch -P 1000 -p1 -b .raster-evince-default
 
 
 # Log to the system journal by default (bug #1078781, bug #1519331).
@@ -551,8 +549,6 @@ rm -f %{cups_serverbin}/backend/smb
 %{_sbindir}/lpadmin
 %{_sbindir}/lpinfo
 %{_sbindir}/lpmove
-# remove upgrade-get-document once C10S is released and Fedora 40 EOL
-%{_sbindir}/upgrade_get_document
 %dir %{cups_serverbin}/daemon
 %{cups_serverbin}/daemon/cups-deviced
 %{cups_serverbin}/daemon/cups-driverd
@@ -789,6 +785,12 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Nov 28 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.15-1
+- 2.4.15 - fixes for CVE-2025-61915 and CVE-2025-58436
+
+* Fri Nov 28 2025 Than Ngo <than@redhat.com> - 1:2.4.14-4
+- Rebuilt with new binutils in rawhide due to rhbz#2415824
+
 * Fri Nov 14 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.14-3
 - install /var/log/cups via systemd-tmpfiles
 

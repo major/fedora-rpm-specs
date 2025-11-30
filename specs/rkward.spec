@@ -1,17 +1,13 @@
-%global commit bee78f2bf042dbc4a0cad59d7ecd9b32f12ffca3
-%global commit_short bee78f2b
-
 Name:           rkward
-Version:        0.8.2~pre^3.git%{commit_short}
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://%{name}.kde.org/
-Source:         https://invent.kde.org/education/%{name}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
-#Source:         https://download.kde.org/stable/%%{name}/%%{version}/%%{name}-%%{version}.tar.gz
-#Source:         https://download.kde.org/stable/%%{name}/%%{version}/%%{name}-%%{version}.tar.gz.sig
-#Source:         https://invent.kde.org/sysadmin/release-keyring/-/raw/master/keys/tfry@key1.asc?ref_type=heads#/signing-key.pgp
+Source:         https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz
+Source:         https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz.sig
+Source:         https://invent.kde.org/sysadmin/release-keyring/-/raw/master/keys/tfry@key1.asc?ref_type=heads#/signing-key.pgp
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -60,8 +56,8 @@ R-project. RKWard tries to combine the power of the R-language with the
 include integration with office suites
 
 %prep
-#%%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
-%autosetup -p1 -n %{name}-%{commit}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1
 rm -rf 3rdparty
 
 %build
@@ -93,6 +89,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Fri Nov 28 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.2-1
+- Update to 0.8.2
+
 * Fri Aug 08 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.2~pre^3.gitbee78f2b-1
 - Update to prerelease version (rhbz#2386761)
 

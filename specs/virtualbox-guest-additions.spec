@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
-Version:    7.1.8
-Release:    2%{?dist}
+Version:    7.2.4
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -56,13 +56,13 @@ Obsoletes:  %{name}-ogl < 6.0.14-2
 
 %description
 This package replaces the application of Virtualbox's own methodology to
-install Guest Additions (in menu: Devices | Insert Guest Additions CD-image file).
+install Guest Additions (in menu: Devices -> Insert Guest Additions CD Image).
 VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for
 enterprise as well as home use. This package contains the VirtualBox
 Guest Additions which support better integration of VirtualBox guests
 with the Host, including file sharing, clipboard sharing and Seamless mode.
-Aditional note: this package can be installed on an non-guest system, because it is
-harmless and services would not run anyway.
+Additional note: this package can be installed on an non-guest system, because
+it is harmless and services would not run anyway.
 
 
 %prep
@@ -75,7 +75,7 @@ rm -r kBuild/
 rm -r tools/
 # Remove bundle X11 sources and some lib sources, before patching.
 rm -r src/VBox/Additions/x11/x11include/
-rm -r src/VBox/Additions/3D/mesa/mesa-21.3.8/
+rm -r src/VBox/Additions/3D/mesa/mesa-24.0.2/
 rm -r src/VBox/Runtime/r3/darwin
 rm -r src/VBox/Runtime/r0drv/darwin
 rm -r src/VBox/Runtime/darwin
@@ -88,7 +88,7 @@ rm -r src/libs/curl-8.*/
 rm -r src/libs/libvorbis-1.3.*/
 rm -r src/libs/libogg-1.3.*/
 rm -r src/libs/liblzma-5.*/
-rm -r src/libs/libtpms-0.9.*/
+rm -r src/libs/libtpms-0.10.*/
 
 # Create a sysusers.d config file
 cat >virtualbox-guest-additions.sysusers.conf <<EOF
@@ -198,6 +198,16 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Tue Nov 11 2025 Sérgio Basto <sergio@serjux.com> - 7.2.4-1
+- Update virtualbox-guest-additions to 7.2.4
+- Fix rpmlint warnings (Alex Tereschenko)
+
+* Thu Sep 11 2025 Sérgio Basto <sergio@serjux.com> - 7.2.2-1
+- Update virtualbox-guest-additions to 7.2.2
+
+* Sun Aug 31 2025 Sérgio Basto <sergio@serjux.com> - 7.2.0-1
+- Update virtualbox-guest-additions to 7.2.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

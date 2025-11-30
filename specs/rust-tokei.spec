@@ -6,16 +6,15 @@
 %global cargo_install_bin 0
 
 %global crate tokei
-%global crate_version 13.0.0-alpha.9
 
 Name:           rust-tokei
-Version:        13.0.0~alpha.9
+Version:        13.0.0
 Release:        %autorelease
 Summary:        Count your code, quickly
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tokei
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove the upper bound on the git2 dev-dependency. Because this is only used
 #   to create git repositories for testing using git2::Repository::init(…),
@@ -24,6 +23,8 @@ Source:         %{crates_source %{crate} %{crate_version}}
 # * Update etcetera to 0.10, https://github.com/XAMPPRocky/tokei/pull/1253, and
 #   allow 0.11,
 #   https://github.com/XAMPPRocky/tokei/pull/1253#issuecomment-3471595554
+# * Update clap-cargo from 0.13 to 0.18:
+#   https://github.com/XAMPPRocky/tokei/pull/1298
 Patch:          tokei-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -84,6 +85,18 @@ use the "cbor" feature of the "%{crate}" crate.
 %files       -n %{name}+cbor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+cli-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+cli-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "cli" feature of the "%{crate}" crate.
+
+%files       -n %{name}+cli-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+yaml-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -97,7 +110,7 @@ use the "yaml" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

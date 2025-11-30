@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 49%{?dist}
+Release: 50%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -59,12 +59,22 @@ License: LicenseRef-Callaway-Python AND LicenseRef-Callaway-MIT AND Apache-2.0 A
 # Note that the bcond macros are named for the CLI option they create.
 # "%%bcond_without" means "ENABLE by default and create a --without option"
 
+# Main Python, i.e. whether this is the main Python version in the distribution
+# that owns /usr/bin/python3 and other unique paths
+# This also means the built subpackages are called python3 rather than python3X
+# WARNING: This also influences the flatpackage bcond below.
+# By default, this is disabled.
+%bcond_with main_python
+
 # Flat package, i.e. python36, python37, python38 for tox etc.
-# warning: changes some other defaults
-# in Fedora, never turn this on for the python3 package
-# and always keep it on for python36 etc.
-# WARNING: This does not change the package name and summary above
+# Default (in Fedora >= 44): disabled
+# Default (in Fedora < 44): enabled when this is not the main Python
+# Not supported: Combination of flatpackage enabled and main_python enabled
+%if %{with main_python} || 0%{?fedora} >= 44
+%bcond_with flatpackage
+%else
 %bcond_without flatpackage
+%endif
 
 # Whether to use RPM build wheels from the python-{pip,setuptools}-wheel package
 # Uses upstream bundled prebuilt wheels otherwise
@@ -875,12 +885,16 @@ Patch467: 00467-tarfile-cve-2025-8194.patch
 Provides:  python%{pyshortver} = %{version}-%{release}
 Obsoletes: python%{pyshortver} < %{version}-%{release}
 
-%if %{without flatpackage}
-
 # Packages with Python modules in standard locations automatically
-# depend on python(abi). Provide that here.
+# depend on python(abi). Provide that here only for the main Python.
+%if %{with main_python}
 Provides: python(abi) = %{pybasever}
+%else
+%global __requires_exclude ^python\\(abi\\) = 3\\..+
+%global __provides_exclude ^python\\(abi\\) = 3\\..+
+%endif
 
+%if %{without flatpackage}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 # In order to support multiple Python interpreters for development purposes,
@@ -895,18 +909,16 @@ Provides: python%{pyshortver} = %{version}-%{release}
 # replace python36-3.6.2.
 Obsoletes: python%{pyshortver}
 
-# Shall be removed in Fedora 31
-# The release is bumped to 20, so we can do f27 platform-python updates
-# If the release in f27 ever goes >= 20, raise it here
-# If platform-python is ever reintroduced, make it higher version than this:
-%global platpyver 3.6.2-20
-Obsoletes: platform-python < %{platpyver}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{name} < 3.6.15-50
 
+%if %{with main_python}
 # Previously, this was required for our rewheel patch to work.
 # This is technically no longer needed, but we keep it recommended
 # for the developer experience.
 Recommends: python3-setuptools
 Recommends: python3-pip
+%endif
 
 # This prevents ALL subpackages built from this spec to require
 # /usr/bin/python3*. Granularity per subpackage is impossible.
@@ -989,9 +1001,8 @@ Provides: bundled(libmpdec) = %{libmpdec_version}
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1547131
 Recommends: %{name}%{?_isa} = %{version}-%{release}
 
-# Shall be removed in Fedora 31
-Obsoletes: platform-python-libs < %{platpyver}
-Obsoletes: platform-python-libs-devel < %{platpyver}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{name} < 3.6.15-50
 
 %description libs
 This package contains runtime libraries for use by Python:
@@ -1005,17 +1016,21 @@ Summary: Libraries and header files needed for Python development
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: python-rpm-macros
-Requires: python-rpm-macros
-Requires: python3-rpm-macros
-Requires: python3-rpm-generators
+# The RPM related dependencies bring nothing to a non-RPM Python developer
+# But we want them when packages BuildRequire python3-devel
+Requires: (python-rpm-macros if rpm-build)
+Requires: (python3-rpm-macros if rpm-build)
+Requires: (python3-rpm-generators if rpm-build)
 
 Provides: %{name}-2to3 = %{version}-%{release}
+%if %{with main_python}
 Provides: 2to3 = %{version}-%{release}
+%endif
 
 Conflicts: %{name} < %{version}-%{release}
 
-# Shall be removed in Fedora 31
-Obsoletes: platform-python-devel < %{platpyver}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{name} < 3.6.15-50
 
 %description devel
 This package contains the header files and configuration needed to compile
@@ -1031,14 +1046,16 @@ Summary: A basic graphical development environment for Python
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-tkinter = %{version}-%{release}
 
+%if %{with main_python}
 Provides: idle3 = %{version}-%{release}
+%endif
 
 Provides: %{name}-tools = %{version}-%{release}
 Provides: %{name}-tools%{?_isa} = %{version}-%{release}
 Obsoletes: %{name}-tools < %{version}-%{release}
 
-# Shall be removed in Fedora 31
-Obsoletes: platform-python-tools < %{platpyver}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{name} < 3.6.15-50
 
 %description idle
 IDLE is Python’s Integrated Development and Learning Environment.
@@ -1057,8 +1074,8 @@ configuration, browsers, and other dialogs.
 Summary: A GUI toolkit for Python
 Requires: %{name} = %{version}-%{release}
 
-# Shall be removed in Fedora 31
-Obsoletes: platform-python-tkinter < %{platpyver}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{name} < 3.6.15-50
 
 %description tkinter
 The Tkinter (Tk interface) library is a graphical user interface toolkit for
@@ -1069,8 +1086,8 @@ the Python programming language.
 Summary: The self-test suite for the main python3 package
 Requires: %{name} = %{version}-%{release}
 
-# Shall be removed in Fedora 31
-Obsoletes: platform-python-test < %{platpyver}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{name} < 3.6.15-50
 
 %description test
 The self-test suite for the Python interpreter.
@@ -1114,11 +1131,6 @@ so extensions for both versions can co-exist in the same directory.
 %endif # with debug_build
 
 %else  # with flatpackage
-
-# We'll not provide this, on purpose
-# No package in Fedora shall ever depend on flatpackage via this
-%global __requires_exclude ^python\\(abi\\) = 3\\..$
-%global __provides_exclude ^python\\(abi\\) = 3\\..$
 
 %if %{with rpmwheels}
 Requires: python-setuptools-wheel
@@ -1470,7 +1482,7 @@ install -d -m 0755 %{buildroot}%{pylibdir}/site-packages/__pycache__
 install -d -m 0755 %{buildroot}%{_prefix}/lib/python%{pybasever}/site-packages/__pycache__
 %endif
 
-%if %{without flatpackage}
+%if %{with main_python}
 # add idle3 to menu
 install -D -m 0644 Lib/idlelib/Icons/idle_16.png %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/idle3.png
 install -D -m 0644 Lib/idlelib/Icons/idle_32.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/idle3.png
@@ -1560,7 +1572,7 @@ find %{buildroot} -perm 555 -exec chmod 755 {} \;
 # Create "/usr/bin/python3-debug", a symlink to the python3 debug binary, to
 # avoid the user having to know the precise version and ABI flags.
 # See e.g. https://bugzilla.redhat.com/show_bug.cgi?id=676748
-%if %{with debug_build} && %{without flatpackage}
+%if %{with debug_build} && %{with main_python}
 ln -s \
   %{_bindir}/python%{LDVERSION_debug} \
   %{buildroot}%{_bindir}/python3-debug
@@ -1571,7 +1583,7 @@ ln -s \
 %{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pylibdir}/ensurepip/_bundled/*.whl}
 %endif
 
-%if %{with flatpackage}
+%if %{without main_python}
 # Remove stuff that would conflict with python3 package
 rm %{buildroot}%{_bindir}/python3
 rm %{buildroot}%{_bindir}/pydoc3
@@ -1688,11 +1700,15 @@ CheckPython optimized
 %doc README.rst
 
 %if %{without flatpackage}
+%if %{with main_python}
 %{_bindir}/pydoc*
 %{_bindir}/python3
 %{_bindir}/pyvenv
 %{_mandir}/*/*
-%{_bindir}/pyvenv
+%else
+%{_bindir}/pydoc%{pybasever}
+%{_mandir}/*/python%{pybasever}*
+%endif
 %else
 %{_bindir}/pydoc%{pybasever}
 %{_mandir}/*/python%{pybasever}*
@@ -1837,6 +1853,10 @@ CheckPython optimized
 %dir %{pylibdir}/site-packages/
 %dir %{pylibdir}/site-packages/__pycache__/
 %{pylibdir}/site-packages/README.txt
+
+%exclude %{pylibdir}/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}.py
+%exclude %{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
+
 %{pylibdir}/*.py
 %dir %{pylibdir}/__pycache__/
 %{pylibdir}/__pycache__/*%{bytecode_suffixes}
@@ -1920,15 +1940,17 @@ CheckPython optimized
 %{_includedir}/python%{LDVERSION_optimized}/%{_pyconfig_h}
 
 %{_libdir}/%{py_INSTSONAME_optimized}
-%if %{without flatpackage}
+%if %{with main_python}
 %{_libdir}/libpython3.so
 %endif
 
 %if %{without flatpackage}
 %files devel
+%if %{with main_python}
 %{_bindir}/2to3
 # TODO: Remove 2to3-3.7 once rebased to 3.7
 %{_bindir}/2to3-%{pybasever}
+%endif
 %endif
 
 %{pylibdir}/config-%{LDVERSION_optimized}-%{platform_triplet}/*
@@ -1936,11 +1958,11 @@ CheckPython optimized
 %exclude %{pylibdir}/config-%{LDVERSION_optimized}-%{platform_triplet}/Makefile
 %exclude %{_includedir}/python%{LDVERSION_optimized}/%{_pyconfig_h}
 %endif
-%{pylibdir}/distutils/command/wininst-*.exe
+%exclude %{pylibdir}/distutils/command/wininst-*.exe
 %{_includedir}/python%{LDVERSION_optimized}/*.h
 %doc Misc/README.valgrind Misc/valgrind-python.supp Misc/gdbinit
 
-%if %{without flatpackage}
+%if %{with main_python}
 %{_bindir}/python3-config
 %{_libdir}/pkgconfig/python3.pc
 %{_bindir}/pathfix.py
@@ -1968,7 +1990,7 @@ CheckPython optimized
 
 %{pylibdir}/idlelib
 
-%if %{without flatpackage}
+%if %{with main_python}
 %{_metainfodir}/idle3.appdata.xml
 %{_datadir}/applications/idle3.desktop
 %{_datadir}/icons/hicolor/*/apps/idle3.*
@@ -2016,7 +2038,9 @@ CheckPython optimized
 %if %{with debug_build}
 %if %{without flatpackage}
 %files debug
+%if %{with main_python}
 %{_bindir}/python3-debug
+%endif
 %endif
 
 # Analog of the core subpackage's files:
@@ -2090,6 +2114,9 @@ CheckPython optimized
 %{dynload_dir}/unicodedata.%{SOABI_debug}.so
 %{dynload_dir}/zlib.%{SOABI_debug}.so
 
+%{pylibdir}/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}.py
+%{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
+
 # No need to split things out the "Makefile" and the config-32/64.h file as we
 # do for the regular build above (bug 531901), since they're all in one package
 # now; they're listed below, under "-devel":
@@ -2141,6 +2168,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Nov 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-50
+- On Fedora 44+, split this package into multiple subpackages
+- This mimics newer Python versions
+
 * Mon Aug 11 2025 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-49
 - Security fix for CVE-2025-8194
 

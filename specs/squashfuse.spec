@@ -8,7 +8,7 @@ URL:      https://github.com/vasi/squashfuse
 Source0:  https://github.com/vasi/squashfuse/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires: autoconf, automake, fuse-devel, gcc, libattr-devel, libtool, libzstd-devel, lz4-devel, xz-devel, zlib-devel
+BuildRequires: autoconf, automake, fuse3-devel, gcc, libattr-devel, libtool, libzstd-devel, lz4-devel, xz-devel, zlib-devel
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description

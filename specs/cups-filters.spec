@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -42,6 +42,8 @@ Patch003: foomatic-ripdie-error.patch
 # rejecting the unknown values in foomatic-rip
 # https://github.com/OpenPrinting/cups-filters/pull/648
 Patch004: foomaticrip-reject-unknown-values.patch
+# CVE-2025-64524 fix
+Patch005: 0001-rastertopclx.c-Fix-infinite-loop-caused-by-crafted-f.patch
 
 
 # driverless backend/driver was moved into a separate package to
@@ -362,6 +364,9 @@ fi
 
 
 %changelog
+* Fri Nov 28 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-12
+- fix CVE-2025-64524
+
 * Mon Nov 10 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-11
 - change return value of foomatic-hash if built without libppd
 

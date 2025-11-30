@@ -5,7 +5,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -18,6 +18,10 @@ Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 # Patches
 # https://github.com/OpenPrinting/libcupsfilters/pull/96
 Patch001: 0001-configure.ac-Make-CJK-fonts-name-configurable.patch
+# CVE-2025-57812
+Patch002: lcf-CVE-2025-57812.patch
+# CVE-2025-64503
+Patch003: 0001-Fix-out-of-bounds-write-in-cfFilterPDFToRaster.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -196,6 +200,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Fri Nov 28 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-5
+- fix low CVEs - CVE-2025-64503, CVE-2025-57812
+
 * Tue Aug 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-4
 - use Droid Sans Fallback fonts for CJK fonts
 

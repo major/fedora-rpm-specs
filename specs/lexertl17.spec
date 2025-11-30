@@ -3,7 +3,7 @@ Summary:        The Modular Lexical Analyser Generator
 # Upstream switched away from calendar-based versioning, and the new version
 # scheme sorts older than the calendar-based one, so we cannot avoid an Epoch.
 Epoch:          1
-Version:        1.2.10
+Version:        1.2.11
 Release:        %autorelease
 
 # The entire source is BSL-1.0, except that the following are Unicode-3.0:
@@ -17,12 +17,17 @@ License:        BSL-1.0 AND Unicode-3.0
 URL:            https://github.com/BenHanson/lexertl17
 Source:         %{url}/archive/%{version}/lexertl17-%{version}.tar.gz
 
-BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  dos2unix
+%if %{undefined fc43} && %{undefined fc42}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
+
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  dos2unix
 
 %global common_description %{expand:
 lexertl is a header-only library for writing lexical analyzers. With lexertl

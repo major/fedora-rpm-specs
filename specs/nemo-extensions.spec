@@ -3,14 +3,13 @@
 %global cjs_version 6.4.0
 
 Name:           nemo-extensions
-Version:        6.4.0
-Release:        8%{?dist}
+Version:        6.6.0
+Release:        1%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1:         %{url}/pull/553.patch#/fix-building-w-gpgme2.patch
 
 ExcludeArch:    %{ix86}
 
@@ -19,7 +18,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(cryptui-0.0) 
 BuildRequires:  pkgconfig(gcr-3)
-BuildRequires:  pkgconfig(libnemo-extension) >= 6.4.0
+BuildRequires:  pkgconfig(libnemo-extension) >= 6.6.0
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  gnome-common
@@ -79,7 +78,7 @@ License:     GPL-2.0-or-later
 Obsoletes:   python2-nemo < %{version}-%{release}
 Obsoletes:   python3-nemo < %{version}-%{release}
 Provides:    python3-nemo = %{version}-%{release}
-Requires:    nemo >= 6.4.0
+Requires:    nemo >= 6.6.0
 Requires:    python3-gobject-base
 
 %description -n nemo-python
@@ -266,7 +265,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %files -n nemo-audio-tab
 %license nemo-audio-tab/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-audio-tab.py
-%{_datadir}/nemo-audio-tab/nemo-audio-tab.glade
+%{_datadir}/nemo-audio-tab/
 %{python3_sitelib}/nemo_audio_tab-%{version}.dist-info/
 
 
@@ -341,6 +340,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Fri Nov 28 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.4.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

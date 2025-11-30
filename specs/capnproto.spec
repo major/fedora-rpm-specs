@@ -4,8 +4,8 @@
 %global modulename %{name}-c++
 
 Name:           capnproto
-Version:        1.0.1
-Release:        6%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
@@ -88,6 +88,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Fri Nov 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.2.0-1
+- Update to 1.2.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -4,15 +4,12 @@ ExcludeArch: %{ix86}
 
 Name:    step
 Summary: Interactive Physics Simulator 
-Version: 25.11.80
+Version: 25.11.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/edu/%{name}
 Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-Patch:   https://invent.kde.org/education/step/-/merge_requests/38.patch
-Patch:   https://invent.kde.org/education/step/-/merge_requests/40.patch
-Patch:   https://invent.kde.org/education/step/-/merge_requests/41.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -86,6 +83,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Nov 29 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
+- 25.11.90
+
 * Thu Nov 27 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
 - 25.11.80
 

@@ -1,7 +1,7 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0 and partially v3.1
-Version: 3.25.0
-Release: 4%{?dist}
+Version: 3.26.0
+Release: 1%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -19,13 +19,6 @@ Patch2: opencryptoki-3.24.0-tmpfiles-image-mode.patch
 # everything using /var/lock should be fixed in the end to use /run/lock
 # https://gitlab.com/fedora/bootc/base-images/-/issues/48
 Patch3: opencryptoki-lockdir-image-mode.patch
-
-# upstream patches
-# Fix detection of EC curve not supported by OpenSSL-3.5.x
-Patch10: opencryptoki-openssl-3.5.x.patch
-
-# Fix covscan findings, https://github.com/opencryptoki/opencryptoki/pull/880
-Patch11: opencryptoki-3.25.0-covscan-findings.patch
 
 Requires(pre): coreutils
 Requires: (selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -413,6 +406,9 @@ fi
 
 
 %changelog
+* Fri Nov 28 2025 Than Ngo <than@redhat.com> - 3.26.0-1
+- Update to 3.26.0
+
 * Tue Jul 29 2025 Than Ngo <than@redhat.com> - 3.25.0-4
 - Require openssl >= 3.5.1
 - Fix incorrect effective group id of pkcsslotd daemon

@@ -1,5 +1,5 @@
 Name:    kidentitymanagement
-Version: 25.11.80
+Version: 25.11.90
 Release: 1%{?dist}
 Summary: The KIdentityManagement Library
 
@@ -84,6 +84,9 @@ find ./po -type f -name libkpimidentities5.po -execdir mv {} libkpimidentities6.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
+- 25.11.90
+
 * Sat Nov 15 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
 - 25.11.80
 

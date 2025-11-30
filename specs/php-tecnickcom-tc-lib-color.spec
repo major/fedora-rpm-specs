@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    85d1366fb33813aa521d30e3d7c7d7d82a8103a6
+%global gh_commit    c8867f928dc76cf907861f1d55dda17752131112
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.2.13
-Release:        2%{?dist}
+Version:        2.2.15
+Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
 License:        LGPL-3.0-or-later
@@ -27,7 +27,7 @@ BuildArch:      noarch
 %if %{with_tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.5.40
+BuildRequires:  phpunit10 >= 10.5.58
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-pcre
 %endif
@@ -86,7 +86,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in php php81 php82 php83 php84; do
+for cmdarg in php php81 php82 php83 php84 php85; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Fri Nov 28 2025 Remi Collet <remi@remirepo.net> - 2.2.15-1
+- update to 2.2.15 (no change)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

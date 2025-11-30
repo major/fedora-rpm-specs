@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f238ffd120d98a34df6573590e7ed02f766a91c4
+%global gh_commit    6bc3c378cbc9940fb5039a26d3ffe3d46076c507
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.8
-Release:        2%{?dist}
+Version:        2.4.10
+Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPL-3.0-or-later
@@ -27,7 +27,7 @@ BuildArch:      noarch
 %if %{with tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.5.10
+BuildRequires:  phpunit10 >= 10.5.58
 BuildRequires:  php(language) >= 8.1
 BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.2    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 BuildRequires:  php-bcmath
@@ -113,7 +113,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Fri Nov 28 2025 Remi Collet <remi@remirepo.net> - 2.4.10-1
+- update to 2.4.10
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

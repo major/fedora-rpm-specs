@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           pdfcrack
-Version:        0.20
+Version:        0.21
 Release:        %autorelease
 Summary:        A Password Recovery Tool for PDF files
 

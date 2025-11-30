@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc7.251127g765e56e41a5a.61
+%define pkgrelease 0.rc7.251128ge538109ac71d.62
 %define kversion 6
-%define tarfile_release 6.18-rc7-41-g765e56e41a5a
+%define tarfile_release 6.18-rc7-129-ge538109ac71d
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.251127g765e56e41a5a.61%{?buildid}%{?dist}
+%define specrelease 0.rc7.251128ge538109ac71d.62%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4512,12 +4512,13 @@ fi\
 #
 #
 %changelog
-* Thu Nov 27 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc7.251127g765e56e41a5a.61]
+* Fri Nov 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc7.e538109ac71d.62]
 - disable a compiler warning for libbpf (Thorsten Leemhuis)
-
-* Thu Nov 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc7.765e56e41a5a.61]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Nov 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc7.e538109ac71d.61]
+- Linux v6.18.0-0.rc7.e538109ac71d
 
 * Thu Nov 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc7.765e56e41a5a.60]
 - redhat/configs: make CONFIG_DRM_CLIENT_LIB=y (Jocelyn Falempe)

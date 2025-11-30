@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.19
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -109,9 +109,13 @@ Patch73: python3.12-six.patch
 # https://gitlab.archlinux.org/archlinux/packaging/packages/qt5-webengine/-/blob/97c4d298f/qt5-webengine-icu-75.patch
 Patch80: qtwebengine-icu75.patch
 
-# riscv64 support patch from https://github.com/felixonmars/archriscv-packages/tree/master/qt5-webengine
-Patch100: v8.patch
+# riscv64 support patches taken from Opensuse:
+# https://build.opensuse.org/package/show/openSUSE:Factory:RISCV/libqt5-qtwebengine?rev=110
+Patch100: riscv-v8.patch
 Patch101: riscv.patch
+Patch102: riscv-breakpad.patch
+Patch103: riscv-crashpad.patch
+Patch104: riscv-sandbox.patch
 
 ## Upstream patches:
 
@@ -400,10 +404,12 @@ popd
 
 %patch -P80 -p1
 
-%ifarch riscv64
+# RISC-V support patches
 %patch -P100 -p1 -b .riscv64-v8
 %patch -P101 -p1 -b .riscv64
-%endif
+%patch -P102 -p1 -b .riscv64-breakpad
+%patch -P103 -p1 -b .riscv64-crashpad
+%patch -P104 -p1 -b .riscv64-sandbox
 
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS
@@ -580,6 +586,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Thu Nov 27 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 5.15.19-5
+- Update RISC-V patches
+
 * Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.15.19-4
 - Rebuilt for Qt5 5.15.18
 

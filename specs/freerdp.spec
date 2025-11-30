@@ -184,6 +184,11 @@ developing applications that use %{name}-libwinpr.
 %prep
 %autosetup -p1 -n FreeRDP-%{version}
 
+%if ! (0%{?_with_ffmpeg} || 0%{?_with_openh264})
+# TestClientRdpFile results differ when built without H.264 support
+sed -i -r '/FreeRDP_Gfx(H264|AVC444)/s/true/false/' client/common/test/testRdpFile*.json
+%endif
+
 # Rpmlint fixes
 find . -name "*.h" -exec chmod 664 {} \;
 find . -name "*.c" -exec chmod 664 {} \;
