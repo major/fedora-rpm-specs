@@ -26,7 +26,7 @@ BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qttools-devel
 BuildRequires: qt6-doctools
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: libappstream-glib
 BuildRequires: openjpeg2-devel
 BuildRequires: poppler-qt6-devel
@@ -152,7 +152,7 @@ find . -type f -name "*.cpp" -exec chmod 0644 '{}' \;
 
 %build
 export ENGAUGE_RELEASE=1
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
 export OPENJPEG_INCLUDE=`pkg-config --cflags libopenjp2 | sed 's/-I//'`
 export OPENJPEG_LIB=%{_libdir}
 export POPPLER_INCLUDE=`pkg-config --cflags poppler-qt6 | sed 's/-I//'`

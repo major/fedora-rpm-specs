@@ -1,15 +1,13 @@
-%global sover 1.7
+%global sover 2.4
 
 Name:           kddockwidgets
-Version:        1.7.0
-Release:        30%{?dist}
+Version:        2.4.0
+Release:        2%{?dist}
 Summary:        Qt dock widget library
 
 License:        GPL-3.0-only AND GPL-2.0-only AND BSD-3-Clause
 URL:            https://github.com/KDAB/KDDockWidgets
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         kddockwidgets-fix-build-with-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -22,12 +20,26 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  libxkbcommon-devel
+BuildRequires:  cmake(spdlog)
+BuildRequires:  cmake(fmt)
+BuildRequires:  cmake(nlohmann_json)
+
+# .qch generation
+BuildRequires:  doxygen
+BuildRequires:  cmake(Qt6ToolsTools)
 
 %{?_qt5:Requires:       %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
 Qt dock widget library written by KDAB, suitable for replacing QDockWidget
 and implementing advanced functionalities missing in Qt.
+
+%package        doc
+Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -62,14 +74,18 @@ developing applications that use %{name}-qt6.
 %global _vpath_builddir %{_target_platform}-qt5
 %cmake \
     -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDDockWidgets_QT6=OFF
 %cmake_build
 
 %global _vpath_builddir %{_target_platform}-qt6
+# qhelpgenerator needs to be in $PATH to be detected
+export PATH=%{_qt6_libexecdir}:$PATH
 %cmake \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DKDDockWidgets_QT6=ON
+    -DKDDockWidgets_QT6=ON \
+    -DKDDockWidgets_DOCS=ON
 %cmake_build
 
 %install
@@ -79,12 +95,16 @@ rm -r %{buildroot}%{_datadir}/doc
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
+mkdir -p %{buildroot}%{_qt6_docdir}
+mv %{buildroot}%{_docdir}/KDDockWidgets-qt6/*.qch %{buildroot}%{_qt6_docdir}/
+mv %{buildroot}%{_docdir}/KDDockWidgets-qt6/*.tags %{buildroot}%{_qt6_docdir}/
 rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 
 %files
 %license LICENSES/* LICENSE.txt
 %doc CONTRIBUTORS.txt Changelog README.md
 %{_libdir}/libkddockwidgets.so.%{sover}*
+%{_libdir}/libkddockwidgets.so.3
 
 %files devel
 %{_includedir}/kddockwidgets
@@ -96,6 +116,11 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 %license LICENSES/* LICENSE.txt
 %doc CONTRIBUTORS.txt Changelog README.md
 %{_libdir}/libkddockwidgets-qt6.so.%{sover}*
+%{_libdir}/libkddockwidgets-qt6.so.3
+%{_qt6_docdir}/kddockwidgets.tags
+
+%files doc
+%{_qt6_docdir}/kddockwidgets-api.qch
 
 %files qt6-devel
 %{_includedir}/kddockwidgets-qt6
@@ -103,9 +128,14 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 %{_libdir}/libkddockwidgets-qt6.so
 %{_libdir}/qt6/mkspecs/modules/qt_KDDockWidgets.pri
 
+
+
 %changelog
-* Fri Nov 21 2025 Jan Grulich <jgrulich@redhat.com> - 1.7.0-30
-- Rebuild (qt6)
+* Sat Nov 29 2025 Marie Loise Nolden <loise@kde.org> - 2.4.0-2
+- add qch docs for Qt Creator/KDevelop
+
+* Sun Nov 16 2025 Steve Cossette <farchord@gmail.com> - 2.4.0-1
+- 2.4.0
 
 * Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 1.7.0-29
 - Rebuild (qt5)

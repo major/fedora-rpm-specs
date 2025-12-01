@@ -29,9 +29,9 @@
 %global date0 20250926
 %endif
 
-%global upstreamname composable_kernel
+%global upstreamname composablekernel
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -129,17 +129,16 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
+URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm
-Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 Patch1:         0001-composable_kernel-per-dir-build.patch
@@ -197,7 +196,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 cd projects/composablekernel
 %patch -P1 -p1
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 # do not error on warnings
@@ -350,6 +349,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Fri Nov 28 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Tue Nov 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Rework to use generic targets
 - Selectively disable parts of build

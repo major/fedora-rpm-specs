@@ -17,6 +17,9 @@ Source2: https://github.com/OpenChemistry/molecules/archive/refs/tags/%{version}
 Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/%{version}/crystals-%{version}.tar.gz
 Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/%{version}/fragments-%{version}.tar.gz
 
+# AvogadroLibsConfig.cmake: Find JKQTPlotter6
+Patch0:  https://github.com/OpenChemistry/avogadrolibs/pull/2357.patch
+
 BuildRequires:  boost-devel
 BuildRequires:  python3-devel
 BuildRequires:  cmake
@@ -58,8 +61,10 @@ bioinformatics, materials science, and related areas.
 Summary:  Development files of %{name}
 %if %{with qt6}
 Requires: qt6-qtbase-devel%{?_isa}
+Requires: JKQtPlotter-devel
 %else
 Requires: qt5-qtbase-devel%{?_isa}
+Requires: JKQtPlotter-qt5-devel
 %endif
 Requires: glew-devel%{?_isa}
 Requires: libGL-devel%{?_isa}
@@ -82,7 +87,7 @@ BuildRequires: make
 HTML documentation of %{name}.
 
 %prep
-%autosetup -n avogadrolibs-%{version}
+%autosetup -n avogadrolibs-%{version} -p1
 
 tar -xf %{SOURCE1} && mv avogenerators-%{version} avogenerators
 ln -sr avogenerators ../avogenerators

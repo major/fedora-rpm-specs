@@ -37,9 +37,9 @@
 %global date0 20250926
 %endif
 
-%global upstreamname hipBLASLt
+%global upstreamname hipblaslt
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -108,17 +108,16 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
+URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 %global nanobind_version 2.9.2
@@ -261,7 +260,7 @@ cd projects/hipblaslt
 %patch -P1 -p1
 %patch -P2 -p1
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 # Use PATH to find where TensileGetPath and other tensile bins are
@@ -406,6 +405,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Sun Nov 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Bundle nanobind for EPEL
 

@@ -1,17 +1,18 @@
+# No matplot yet in EPEL10
+%if 0%{?rhel} >= 10
+%bcond_with matplotlib
+%else
+%bcond_without matplotlib
+%endif
+
 Name:           python-numpydoc
-Version:        1.8.0
-Release:        6%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Sphinx extension to support docstrings in NumPy format
 
 License:        BSD-2-Clause
 URL:            https://pypi.python.org/pypi/numpydoc
 Source:         %pypi_source numpydoc
-
-# Compatibility with sphinx 8
-Patch:          https://github.com/numpy/numpydoc/commit/1338660.patch
-# Upstream's already fixed it, but the fix is mixed with other changes that
-# don't apply cleanly: https://github.com/numpy/numpydoc/pull/611
-Patch:          Add-compatibility-with-sphinx-8.patch
 
 BuildArch:      noarch
 
@@ -34,14 +35,17 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n numpydoc-%{version}
 # let's not measure coverage:
-sed -i '/pytest-cov/d' requirements/test.txt pyproject.toml
+sed -i '/pytest-cov/d' pyproject.toml
 sed -Ei 's/\s+--cov\S+//g' pyproject.toml
+%if %{without matplotlib}
+sed -i '/matplotlib/d' pyproject.toml
+%endif
 
 # Remove a useless shebang
 sed -i '\,#!/usr/bin/env python,d' numpydoc/validate.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -g test
 
 %build
 %pyproject_wheel
@@ -60,6 +64,9 @@ sed -i '\,#!/usr/bin/env python,d' numpydoc/validate.py
 %{_bindir}/numpydoc
 
 %changelog
+* Sat Nov 29 2025 Orion Poplawski <orion@nwra.com> - 1.9.0-1
+- Update to 1.9.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

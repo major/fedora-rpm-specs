@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        49.1
+Version:        49.2
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -22,15 +22,6 @@ Patch: gnome-shell-favourite-apps-firefox.patch
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
-
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3939
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/8738#note_2589102
-# https://discussion.fedoraproject.org/t/169999
-# Reverts some xkb changes that turned out to cause way more problems
-# than they solved
-# Rediffed on 49.1 - we include only the first revert, as the second
-# commit was post-49.1 so there's nothing to revert
-Patch: 3939-rediffed.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7

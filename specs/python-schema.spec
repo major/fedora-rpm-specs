@@ -1,8 +1,8 @@
 %global modname schema
 
 Name:           python-%{modname}
-Version:        0.7.7
-Release:        8%{?dist}
+Version:        0.7.8
+Release:        1%{?dist}
 Summary:        Simple data validation library
 
 License:        MIT
@@ -49,6 +49,9 @@ py.test-%{python3_version} -v
 %doc README.rst
 
 %changelog
+* Sat Nov 29 2025 Orion Poplawski <orion@nwra.com> - 0.7.8-1
+- Update to 0.7.8
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.7-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

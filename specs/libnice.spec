@@ -1,6 +1,6 @@
 Name:           libnice
-Version:        0.1.22
-Release:        8%{?dist}
+Version:        0.1.23
+Release:        1%{?dist}
 Summary:        GLib ICE implementation
 
 License:        LGPL-2.1-or-later OR MPL-1.1
@@ -14,8 +14,6 @@ Source2: olivier.pgp
 
 # Build against the new gupnp-igd
 Patch0:         libnice-gupnp-1.6.patch
-Patch1:         libnice-0.1.22-fix-test-new-trickle-for-glib-2.83.patch
-Patch2:         libnice-0.1.22-fix-openscanhub-findings.patch
 
 BuildRequires:  glib2-devel
 BuildRequires:  gnupg2
@@ -63,7 +61,8 @@ developing applications that use %{name}.
 
 # disable tests that don't work in koji environment
 sed \
-    -e "s/^  'test-set-port-range'/#&/" \
+    -e "s/^ *'test-set-port-range'/#&/" \
+    -e "s/^ *'test-slow-resolving'/#&/" \
     -i tests/meson.build
 
 %build
@@ -109,6 +108,9 @@ sed \
 
 
 %changelog
+* Sat Nov 29 2025 Stefan Becker <chemobejk@gmail.com> - 0.1.23-1
+- Update to 0.1.23 (#2417506)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.22-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

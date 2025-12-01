@@ -5,13 +5,17 @@
 %global crate ironrdp-pdu
 
 Name:           rust-ironrdp-pdu
-Version:        0.6.0
-Release:        %autorelease
+Version:        0.5.0
+Release:        %autorelease -b 2
 Summary:        RDP PDU encoding and decoding
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-pdu
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow der-parser 10:
+#   https://github.com/Devolutions/IronRDP/commit/03cac54ada50fae13d085b855a9b8db37d615ba8
+Patch:          ironrdp-pdu-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -58,30 +62,6 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+qoi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+qoi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "qoi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+qoi-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+qoiz-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+qoiz-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "qoiz" feature of the "%{crate}" crate.
-
-%files       -n %{name}+qoiz-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -1,37 +1,25 @@
 # needed for test content
 %{?perl_default_filter}
 %global __provides_exclude_from %{?_provides_exclude_from:%_provides_exclude_from|}%{_datadir}/fedora-review/
+%global __requires_exclude_from %{?_requires_exclude_from:%_requires_exclude_from|}%{_datadir}/fedora-review/test/
 
 #invoke with "--with tests" to enable tests
 %bcond_with tests
 
 # See notes in make_release which patches this.
-## global     git_tag  .e79b66b
+## global     git_tag  .05c5b26
 
 # Support jenkins build number if available.
 %global     build_nr %(echo "${BUILD_NUMBER:+.}${BUILD_NUMBER:-%%{nil\\}}")
 
 Name:       fedora-review
-Version:    0.10.0
-Release:    17%{?build_nr}%{?git_tag}%{?dist}
+Version:    0.11.0
+Release:    1%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
 URL:        https://pagure.io/FedoraReview
-Source0:    https://releases.pagure.org/FedoraReview/%{name}-%{version}%{?git_tag}.tar.gz
-
-# adapted from https://pagure.io/FedoraReview/c/c9aa1122cd046ea3c6f43be4bb352c383c2e56ad.patch
-Patch0:     %{name}-shebang-fix.diff
-
-# https://pagure.io/FedoraReview/pull-request/513
-Patch1:     %{name}-dnf-from-bootstrap-buildroot.patch
-
-# https://pagure.io/FedoraReview/pull-request/521
-Patch2:     %{name}-deps-use-mock-shell-not-pm-cmd.patch
-
-# https://pagure.io/FedoraReview/pull-request/522
-Patch3:     %{name}-tmpfs-keep-mounted.patch
-
+Source0:    https://releases.pagure.org/FedoraReview/fedora_review-%{version}%{?git_tag}.tar.gz
 
 BuildArch:  noarch
 
@@ -64,13 +52,14 @@ Requires:       dnf
 Requires:       dnf-command(repoquery)
 # Ugh, we now require mock since we import modules from it...
 Requires:       mock >= 3.0
+# Used by check-large-docs
+Requires:       bc
 
 # Let's be consistent with the name used on pagure.io
 Provides:       FedoraReview = %{version}-%{release}
 
 Provides:       %{name}-php-phpci = %{version}-%{release}
 Obsoletes:      %{name}-php-phpci < %{version}-%{release}
-Obsoletes:      %{name}-tests < 0.10.0-12
 
 
 %description
@@ -99,8 +88,17 @@ Requires: %{name} = %{version}-%{release}
 fedora-review ruby-specific tests, not installed by default.
 
 
+%package tests
+Summary: Test and test data files for fedora-review
+Requires: %{name} = %{version}-%{release}
+Requires: python3-nose
+
+%description tests
+Tests are packaged separately due to space concerns.
+
+
 %prep
-%autosetup -p1
+%autosetup -p1 -n fedora_review-%{version}
 
 
 %build
@@ -112,10 +110,12 @@ fedora-review ruby-specific tests, not installed by default.
 pkg_dir="%{buildroot}/%{python3_sitelib}/FedoraReview"
 ln -s %{_datadir}/%{name}/scripts $pkg_dir/scripts
 ln -s %{_datadir}/%{name}/plugins $pkg_dir/plugins
+cd test
+bash < restore-links.sh
+rm restore-links.sh remember-links
+cd ..
+cp -ar test "%{buildroot}%{_datadir}/%{name}"
 cp -a pycodestyle.conf pylint.conf "%{buildroot}%{_datadir}/%{name}"
-
-# Delete test files
-rm -rf %{buildroot}%{_datadir}/%{name}/test
 
 
 %check
@@ -149,110 +149,37 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 %files plugin-ruby
 %{_datadir}/%{name}/plugins/ruby.py
 
+%files tests
+%doc test/README.test
+%{_datadir}/%{name}/test
+
+
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.0-17
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.0-16
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.10.0-14
-- Rebuilt for Python 3.14
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Dec 09 2024 Miro Hrončok <mhroncok@redhat.com> - 0.10.0-12
-- Drop the fedora-review-tests package, it does not work and depends on deprecated nose
-
-* Tue Aug 06 2024 Jakub Kadlcik <frostyx@email.cz> - 0.10.0-11
-- Apply https://pagure.io/FedoraReview/pull-request/522
-
-* Sun Aug 04 2024 Jakub Kadlcik <frostyx@email.cz> - 0.10.0-10
-- Apply https://pagure.io/FedoraReview/pull-request/521
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jun 24 2024 Python Maint <python-maint@redhat.com> - 0.10.0-8
-- Rebuilt for Python 3.13
-
-* Sun Mar 10 2024 Jakub Kadlcik <frostyx@email.cz> - 0.10.0-7
-- The PR#513 was updated, format new patch
-
-* Sat Mar 09 2024 Jakub Kadlcik <frostyx@email.cz> - 0.10.0-6
-- Apply https://pagure.io/FedoraReview/pull-request/513
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Sun Nov 16 2025 Jakub Kadlcik <frostyx@email.cz> - 0.11.0-1
+- New upstream version
 
 * Thu Aug 03 2023 Benson Muite <benson_muite@emailplus.org> - 0.10.0-3
 - Add bc as a required dependency
 
 * Wed Jul 26 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.10.0-2
-- Properly fix shebangs to invoke Python 3
+- Fix shebangs to properly invoke python3
+- Use Fedora 38 mock chroot instead of the EOLed and unavailable Fedora 36
 
 * Mon Jul 24 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.10.0-1
 - New upstream release 0.10.0
 - Use SPDX license identifier
 
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.9.0-3
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 * Tue Aug 23 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.9.0-1
 - New upstream release 0.9.0
 
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.8.0-2
-- Rebuilt for Python 3.11
-
-* Thu Apr 07 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.8.0-1
+* Thu Apr 07 2022 Neal Gompa <ngompa13@gmail.com> - 0.8.0-1
 - New upstream release 0.8.0
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.7.6-4
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 21 2020 Neal Gompa <ngompa13@gmail.com> - 0.7.6-2
-- Backport fix for fedora-create-review to make rhbz settings optional
-- Backport fix for fedora-review crashing on package reviews (rhbz#1903589)
 
 * Tue Nov 10 2020 Neal Gompa <ngompa13@gmail.com> - 0.7.6-1
 - New upstream release 0.7.6
 
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.7.5-2
-- Rebuilt for Python 3.9
-
 * Sun Feb 16 2020 Neal Gompa <ngompa13@gmail.com> - 0.7.5-1
 - New upstream release 0.7.5
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
 * Sat Dec 07 2019 Neal Gompa <ngompa13@gmail.com> - 0.7.4-1
 - New upstream release 0.7.4
@@ -260,17 +187,8 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 * Wed Sep 18 2019 Neal Gompa <ngompa13@gmail.com> - 0.7.3-1
 - New upstream release 0.7.3
 
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.7.2-3
-- Rebuilt for Python 3.8
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
 * Tue Apr 09 2019 Neal Gompa <ngompa13@gmail.com> - 0.7.2-1
 - New upstream release 0.7.2
-
-* Sun Mar 24 2019 Neal Gompa <ngompa13@gmail.com> - 0.7.1-2
-- Backport fix to add missing logging import
 
 * Thu Mar 21 2019 Neal Gompa <ngompa13@gmail.com> - 0.7.1-1
 - New upstream release 0.7.1

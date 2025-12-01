@@ -12,8 +12,8 @@ for typical Sphinx themes.}
 
 
 Name:           python-%{pypi_name}
-Version:        1.4.2
-Release:        7%{?dist}
+Version:        1.4.6
+Release:        1%{?dist}
 Summary:        A minimal pure-CSS theme for Sphinx
 License:        ISC
 URL:            https://gitlab.com/lv2/%{pypi_name}
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Nov 29 2025 Guido Aulisi <guido.aulisi@gmail.com> - 1.4.6-1
+- Update to 1.4.6
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.2-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

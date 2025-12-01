@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           hatch
-Version:        1.15.1
+Version:        1.16.1
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -63,10 +63,6 @@ BuildOption(install):   -l hatch
 %if %{with tests}
 BuildOption(generate_buildrequires): _envs.hatch-test.extra-dependencies.txt
 %endif
-
-# Add pytest.mark.requires_internet to a few more tests
-# https://github.com/pypa/hatch/pull/1665
-Patch:          %{url}/pull/1665.patch
 
 BuildArch:      noarch
 
@@ -174,6 +170,22 @@ done
 # Also, for ppc64le and s390x:
 k="${k-}${k+ and }not (TestDistributionPaths and test_pypy_custom)"
 k="${k-}${k+ and }not (TestDistributionVersions and test_pypy_custom)"
+
+# Trivial whitespace differences in TOML
+k="${k-}${k+ and }not test_project_location_basic_set_first_project"
+k="${k-}${k+ and }not test_project_location_complex_set_first_project"
+
+# Nearly all of these require network access:
+ignore="${ignore-} --ignore=tests/cli/build/test_build.py"
+ignore="${ignore-} --ignore=tests/cli/project/test_metadata.py"
+ignore="${ignore-} --ignore=tests/workspaces/test_config.py"
+ignore="${ignore-} --ignore=tests/cli/clean/test_clean.py"
+# These require network access, from tests/cli/version/test_version.py:
+k="${k-}${k+ and }not test_other_backend_show"
+k="${k-}${k+ and }not test_set_dynamic"
+k="${k-}${k+ and }not test_show_dynamic"
+k="${k-}${k+ and }not test_plugin_dependencies_unmet"
+k="${k-}${k+ and }not test_set_dynamic_downgrade"
 
 %pytest -k "${k-}" ${ignore-} -vv
 %endif

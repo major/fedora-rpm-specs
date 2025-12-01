@@ -32,9 +32,9 @@
 %global date0 20251015
 %endif
 
-%global upstreamname rocBLAS
+%global upstreamname rocblas
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -143,26 +143,20 @@
 %endif
 
 Name:           rocblas
+Summary:        BLAS implementation for ROCm
+License:        MIT AND BSD-3-Clause
+URL:            https://github.com/ROCm/rocm-libraries
+
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
-%else
-Version:        %{rocm_version}
-Release:        4%{?dist}
-%endif
-Summary:        BLAS implementation for ROCm
-%if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
-%else
-Url:            https://github.com/ROCm/%{upstreamname}
-%endif
-License:        MIT AND BSD-3-Clause
-
-%if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Version:        %{rocm_version}
+Release:        1%{?dist}
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
+
 Patch1:         0001-fixup-install-of-tensile-output.patch
 
 BuildRequires:  cmake
@@ -281,7 +275,7 @@ Requires:       diffutils
 cd projects/rocblas
 %patch -P1 -p1 
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
 sed -i -e 's@target_link_libraries( rocblas-test PRIVATE ${BLAS_LIBRARY} ${GTEST_BOTH_LIBRARIES} roc::rocblas )@target_link_libraries( rocblas-test PRIVATE %blaslib ${GTEST_BOTH_LIBRARIES} roc::rocblas )@' clients/gtest/CMakeLists.txt
@@ -387,6 +381,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Remove dir tags
 - Fix build on SUSE 15.6

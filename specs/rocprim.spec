@@ -27,9 +27,9 @@
 %global date0 20250926
 %endif
 
-%global upstreamname rocPRIM
+%global upstreamname rocprim
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
@@ -63,18 +63,18 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
+URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-URL:            https://github.com/ROCm/%{name}
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+URL:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 # ROCm only working on x86_64
@@ -134,7 +134,7 @@ tests for the rocPRIM package
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/rocprim
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -n %{upstreamname} -p1
 %endif
 
 # In file included from rocPRIM-rocm-6.4.2/test/rocprim/test_texture_cache_iterator.cpp:26: 
@@ -201,6 +201,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

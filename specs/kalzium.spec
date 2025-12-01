@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:    kalzium
 Summary: Periodic Table of Elements
-Version: 25.11.80
+Version: 25.11.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -66,8 +66,6 @@ BuildRequires: pkgconfig(openbabel-3)
 # Eigen is only used for the Avogadro-based compound viewer.
 BuildRequires: pkgconfig(eigen3)
 BuildRequires: cmake(AvogadroLibs)
-# New Avogadro requires it.
-BuildRequires: cmake(JKQTPlotter6)
 # workaround missing dep in avogadro2-libs-devel for now
 BuildRequires: glew-devel
 BuildRequires: spglib-devel
@@ -155,6 +153,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_c
 
 
 %changelog
+* Sat Nov 29 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
+- 25.11.90
+
 * Thu Nov 27 2025 Steve Cossette <farchord@gmail.com> - 25.11.80-1
 - 25.11.80
 

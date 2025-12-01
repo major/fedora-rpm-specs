@@ -2,7 +2,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:       suil
-Version:    0.10.20
+Version:    0.10.24
 Release:    %autorelease
 Summary:    A lightweight C library for loading and wrapping LV2 plugin UIs
 
@@ -25,6 +25,8 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(Qt5Core) >= 5.1.0
 BuildRequires:  pkgconfig(Qt5Widgets) >= 5.1.0
 BuildRequires:  pkgconfig(Qt5X11Extras) >= 5.1.0
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Widgets)
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_lv2_theme
 BuildRequires:  python-sphinxygen
@@ -70,6 +72,7 @@ mv -f "%{buildroot}%{_docdir}/%{name}-%{maj}" "%{buildroot}%{_pkgdocdir}/"
 %{_libdir}/%{name}-%{maj}/lib%{name}_x11_in_qt5.so
 %{_libdir}/%{name}-%{maj}/lib%{name}_x11.so
 %{_libdir}/%{name}-%{maj}/lib%{name}_x11_in_gtk3.so
+%{_libdir}/%{name}-%{maj}/lib%{name}_x11_in_qt6.so
 
 %files devel
 %{_libdir}/lib%{name}-%{maj}.so

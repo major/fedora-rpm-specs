@@ -42,7 +42,7 @@
 %global comgr_maj_api_ver 3
 # Upstream tags are based on rocm releases:
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
 
@@ -99,7 +99,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        7.rocm%{rocm_version}%{?dist}
+Release:        8.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1129,6 +1129,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %endif
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 20-8.rocm7.1.1
+- Update to 7.1.1
+
 * Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 20-7.rocm7.1.0
 - Workaround broken .gnu.version 
 - Add --with gold to remove use of binutils-devel

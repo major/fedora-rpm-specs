@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 282
+%global baseversion 283
 
 %undefine _auto_set_build_flags
 
@@ -22,7 +22,7 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         %{name}-fortify.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
-Patch2:         cd541486e1c45ec727f258469e6c749f332c34ae.patch
+Patch2:         0001-Add-missing-operation-validation-passes-now.patch
 
 # %%{arm}:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1627625
@@ -325,10 +325,8 @@ rm -rf docs/build/html/_sources
 find $RPM_BUILD_ROOT%{_datadir}/%{name} -name LICENSE -exec rm {} \;
 
 
-%ifnarch %power64
 %check
 ./%{name} -validate
-%endif
 
 
 %files

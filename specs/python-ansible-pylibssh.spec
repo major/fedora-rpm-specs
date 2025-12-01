@@ -2,7 +2,7 @@
 %global _summary Python bindings specific to Ansible use case for libssh
 
 Name:           python-%{srcname}
-Version:        1.2.2
+Version:        1.3.0
 Release:        %autorelease
 Summary:        %{_summary}
 

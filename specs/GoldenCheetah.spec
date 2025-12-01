@@ -12,10 +12,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.34.RC4%{?dist}
+Release:        0.34.RC4%%{?dist}
 %else
-Version:        3.7
-Release:        4%{?dist}
+Version:        3.7.1
+Release:        1%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -24,7 +24,8 @@ URL:            http://www.goldencheetah.org/
 %if 0%{?usesnapshot}
 Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/refs/tags/v3.6%{?gc_rc}.tar.gz#/%{name}-%{version}%{?gc_rc}.tar.gz
 %else
-Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/refs/tags/v%%{version}.tar.gz#/%%{name}-%%{version}.tar.gz
+Source0:        https://github.com/GoldenCheetah/GoldenCheetah/archive/refs/tags/v3.7-SP1.tar.gz#/%{name}-%{version}.tar.gz
 %endif
 Source1:        %{name}.desktop
 # https://github.com/GoldenCheetah/GoldenCheetah/issues/2690
@@ -110,7 +111,7 @@ that use %{name}.
 %if 0%{?usesnapshot}
 %autosetup -p1 -n %{name}-%{version}%{?gc_rc}
 %else
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-3.7-SP1
 %endif
 
 # fixes W: spurious-executable-perm
@@ -163,6 +164,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Sat Nov 29 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7.1-1
+- This is a patch release update for v3.7 to include high priority fixes for
+  stability and security and to make new planning and calendar functionality
+  available to a wider audience
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 1:3.7-4
 - Rebuild (qt6)
 

@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname origami
 
@@ -31,14 +31,7 @@ Summary:    Analytical GEMM Solution Selection
 
 License:    MIT
 URL:        https://github.com/ROCm/rocm-libraries
-Source0:    %{upstreamname}-rocm-%{version}.tar.gz
-# Use fetch.sh to extract origami from rocm-libraries
-# There is no upstream origami project, it is part of the new ROCm
-# monorepo rocm-libraries.  This monorepo is expected to replace the upstream
-# locations its libraries. At this time there is only a single tarball
-# This PR starts the process to address that
-# https://github.com/ROCm/rocm-libraries/pull/2494
-Source1:    fetch.sh
+Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # License file is not in the 7.1.0 tag, but is here
 Source2:    https://github.com/ROCm/rocm-libraries/tree/develop/shared/origami/LICENSE.md
 
@@ -80,7 +73,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%autosetup -p3 -n %{upstreamname}-rocm-%{version}
+%autosetup -p3 -n %{upstreamname}
 
 # The license file
 cp %{SOURCE2} .
@@ -110,5 +103,8 @@ rm -f %{buildroot}%{_prefix}/share/doc/origami/LICENSE.md
 %{_libdir}/liborigami.so
 
 %changelog
+* Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Sun Nov 2 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Initial package

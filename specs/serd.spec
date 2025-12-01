@@ -1,8 +1,8 @@
 %global maj 0
 
 Name:           serd
-Version:        0.32.4
-Release:        2%{?dist}
+Version:        0.32.6
+Release:        1%{?dist}
 Summary:        A lightweight C library for RDF syntax
 
 License:        ISC
@@ -70,6 +70,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Sat Nov 29 2025 Guido Aulisi <guido.aulisi@gmail.com> - 0.32.6-1
+- Update to 0.32.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

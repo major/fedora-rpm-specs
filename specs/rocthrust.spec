@@ -27,9 +27,9 @@
 %global date0 20250926
 %endif
 
-%global upstreamname rocThrust
+%global upstreamname rocthrust
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -83,11 +83,11 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 # ./thrust/detail/complex contains BSD 2 clause licensed headers
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
+URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+URL:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 BuildRequires:  cmake
@@ -130,7 +130,7 @@ The %{upstreamname} development package.
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/rocthrust
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -n %{upstreamname} -p1
 %endif
 
 #
@@ -194,6 +194,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -21,7 +21,7 @@
 #
 %global upstreamname hip-tests
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -66,8 +66,8 @@ License:    MIT AND BSL-1.0 AND Apache-2.0
 #  catch/unit/memory/hipSVMTestFineGrainSyncBuffers.cpp
 #  catch/unit/memory/hipSVMTestSharedAddressSpaceFineGrain.cp
 
-URL:        https://github.com/ROCm/%{upstreamname}
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch1:     0001-hip-tests-build-on-fedora.patch
 Patch2:     0001-hip-tests-link-with-libamd64.patch
 
@@ -105,7 +105,7 @@ Requires:       rocminfo
 This repository provides unit tests for HIP implementation.
 
 %prep
-%autosetup -n %{name}-rocm-%{version} -p1
+%autosetup -n %{upstreamname} -p1
 
 # Change path to clang-cpp
 sed -i -e 's@${ROCM_PATH}/llvm/bin/clang-cpp@%{rocmllvm_bindir}/clang-cpp@' catch/CMakeLists.txt
@@ -180,6 +180,9 @@ rm -rf %{buildroot}%{_libexecdir}/hip-tests/catch_tests/saxpy.h
 %{_libexecdir}/hip-tests/
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -28,9 +28,10 @@
 
 %global rocm_major 7
 %global rocm_minor 1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
+%global upstreamname clr
 
 %global toolchain clang
 
@@ -82,13 +83,13 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
-Url:            https://github.com/ROCm/clr
 License:        MIT
-Source0:        %{url}/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # TODO: it would be nice to separate this into its own package:
-Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/rocm-%{version}.tar.gz#/HIP-%{version}.tar.gz
+Source1:        %{url}/releases/download/rocm-%{version}/hip.tar.gz#/hip-%{version}.tar.gz
 
 # a fix for building blender
 Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
@@ -246,7 +247,7 @@ This package contains documentation for the hip package
 %endif
 
 %prep
-%autosetup -N -a 1 -n clr-rocm-%{version}
+%autosetup -N -a 1 -n %{upstreamname}
 
 # ROCclr patches
 %autopatch -p1
@@ -281,7 +282,7 @@ sed -i "/install(PROGRAMS.*{[Hh][Ii][Pp][Cc]/d" hipamd/CMakeLists.txt
 %if %{with docs}
 # Disable doxygen timestamps:
 sed -i 's/^\(HTML_TIMESTAMP.*\)YES/\1NO/' \
-    HIP-rocm-%{version}/docs/doxygen-input/doxy.cfg
+    hip/docs/doxygen-input/doxy.cfg
 %endif
 
 # Use cpack is not needed when we are doing the packaging here
@@ -306,7 +307,7 @@ export PATH=%{rocmllvm_bindir}:$PATH
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-    -DHIP_COMMON_DIR=$p/hip-rocm-%{version} \
+    -DHIP_COMMON_DIR=$p/hip \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DHIPCC_BIN_DIR=%{_bindir} \
     -DHIP_COMPILER=%rocmllvm_bindir/clang++ \
@@ -401,11 +402,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.md
 
 %if %{with docs}
 %files -n hip-doc
-%license HIP-rocm-%{version}/LICENSE.md
+%license hip/LICENSE.md
 %{_docdir}/hip
 %endif
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Fix building on SUSE 15.6
 

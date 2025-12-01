@@ -20,9 +20,9 @@
 # THE SOFTWARE.
 #
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
-%global upstreamname rocm_smi_lib
+%global upstreamname rocm-smi-lib
 
 %bcond_with test
 %if %{with test}
@@ -39,8 +39,8 @@ Release:    1%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
-URL:        https://github.com/ROCm/%{upstreamname}
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 %if 0%{?rhel} || 0%{?suse_version}
 ExclusiveArch:  x86_64
@@ -89,7 +89,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -n %{upstreamname}-rocm-%{version} -p1
+%autosetup -n %{upstreamname} -p1
 
 # Don't change default C FLAGS and CXX FLAGS:
 sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
@@ -149,6 +149,9 @@ rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -1,7 +1,7 @@
 #global candidate rc1
 
 Name:     libcoap
-Version:  4.3.5
+Version:  4.3.5a
 Release:  %autorelease
 Summary:  C library implementation of CoAP
 URL:      https://libcoap.net/

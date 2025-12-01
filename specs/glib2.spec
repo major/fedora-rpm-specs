@@ -190,7 +190,8 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %files devel
 %{_libdir}/lib*.so
 %{_libdir}/glib-2.0
-%{_includedir}/*
+%{_includedir}/gio-unix-2.0/
+%{_includedir}/glib-2.0/
 %{_datadir}/aclocal/*
 %{_libdir}/pkgconfig/*
 %{_datadir}/glib-2.0/dtds

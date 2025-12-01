@@ -28,14 +28,14 @@
 %else
 %global runtime_name rocm-runtime
 %endif
-%global forge_name rocm-runtime
+%global upstreamname rocr-runtime
 
 #Image support is x86 only
 %ifarch x86_64
 %global enableimage 1
 %endif
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_without kfdtest
@@ -46,8 +46,8 @@ Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
-URL:        https://github.com/ROCm/ROCR-Runtime
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{forge_name}-%{version}.tar.gz
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 ExclusiveArch:  x86_64
 
@@ -107,7 +107,7 @@ excluded tests for each ASIC, and a convenience script to run the test suite.
 %endif
 
 %prep
-%autosetup -n ROCR-Runtime-rocm-%{version} -p1
+%autosetup -n %{upstreamname} -p1
 
 # Use llvm's static libs kfdtest
 sed -i -e 's@LLVM_LINK_LLVM_DYLIB@0@' libhsakmt/tests/kfdtest/CMakeLists.txt
@@ -178,6 +178,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

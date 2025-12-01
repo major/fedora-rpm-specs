@@ -22,7 +22,7 @@
 
 # Upstream tags are based on rocm releases:
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
@@ -218,6 +218,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

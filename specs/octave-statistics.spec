@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.7.6
+Version:        1.7.7
 Release:        %autorelease
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain

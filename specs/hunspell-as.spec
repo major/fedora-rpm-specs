@@ -8,12 +8,12 @@ Name: hunspell-as
 Summary: Assamese hunspell dictionaries
 Epoch: 1
 Version: 1.0.1.2resigned1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://addons.mozilla.org/firefox/downloads/file/4270589/assamese_spell_checker-1.0.1.2resigned1.xpi
 Source1: https://github.com/LibreOffice/dictionaries/raw/refs/heads/master/as_IN/README_as_IN.txt
 URL: https://addons.mozilla.org/en-US/firefox/addon/assamese-spell-checker/
 # license tag explicitly mentioned on website
-License: GPL-3.0
+License: GPL-3.0-only
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -38,6 +38,9 @@ cp -p dictionaries/as-IN.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/as_IN.a
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Nov 29 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.0.1.2resigned1-2
+- Use the correct SPDX format for license tag
+
 * Mon Nov 24 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.0.1.2resigned1-1
 - Move to new upstream Firefox add-ons website
 
