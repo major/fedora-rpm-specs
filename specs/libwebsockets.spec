@@ -6,8 +6,8 @@
 %endif
 
 Name:           libwebsockets
-Version:        4.4.1
-Release:        3%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        Lightweight C library for Websockets
 
 # base64-decode.c and ssl-http2.c is under MIT license with FPC exception.
@@ -53,6 +53,7 @@ This package contains the header files needed for developing
 %autosetup -p1
 
 %build
+CFLAGS="$RPM_OPT_FLAGS -Wno-discarded-qualifiers"
 %cmake \
     -D LWS_WITH_HTTP2=ON \
     -D LWS_IPV6=ON \
@@ -101,7 +102,7 @@ find %{buildroot} -name '*_static.pc' -delete
 %files
 %license LICENSE
 %doc README.md changelog
-%{_libdir}/%{name}.so.20
+%{_libdir}/%{name}.so.21
 %{_libdir}/%{name}-evlib_ev.so
 %{_libdir}/%{name}-evlib_glib.so
 %if %{with libuv}
@@ -118,6 +119,12 @@ find %{buildroot} -name '*_static.pc' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Nov 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.0-1
+- Update to 4.5.0
+
+* Sun Nov 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.4.2-1
+- Update to 4.4.2
+
 * Thu Nov 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.4.1-3
 - Enable glib event loop support
 

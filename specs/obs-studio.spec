@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -238,6 +238,7 @@ Library files for Open Broadcaster Software
 %package devel
 Summary: Open Broadcaster Software Studio header files
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: simde-devel
 
 %description devel
 Header files for Open Broadcaster Software
@@ -398,6 +399,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sun Nov 30 2025 Asahi Lina <lina@lina.yt> - 32.0.2-2
+- Add missing simde-devel dep to devel package
+
 * Sat Nov 22 2025 Asahi Lina <lina@lina.yt> - 32.0.2-1
 - Update to 32.0.2
 - Add prerelease obs-browser patches for CEF lockdown

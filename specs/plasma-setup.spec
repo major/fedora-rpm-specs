@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit 180844bd28bca8e4c5c6ed99786a2718386ac323
+%global commit 84b5d3c79ca1043d4d1d9b9fc8eb1ce349c18214
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20251123
+%global date 20251130
 
 %global orgname org.kde.plasmasetup
 
@@ -12,15 +12,11 @@
 
 Name:           plasma-setup
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
-
-# Proposed upstream
-Patch:          https://invent.kde.org/plasma/plasma-setup/-/merge_requests/52.patch
-Patch:          https://invent.kde.org/plasma/plasma-setup/-/merge_requests/53.patch
 
 BuildRequires:  cmake(Qt6Core) >= %{qt6_minver}
 BuildRequires:  cmake(Qt6Gui) >= %{qt6_minver}
@@ -97,6 +93,7 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 %files -f %{orgname}.lang
 %license LICENSES/*
+%config(noreplace) %{_sysconfdir}/xdg/plasmasetuprc
 %{_libexecdir}/%{name}*
 %{_kf6_libexecdir}/kauth/%{name}*
 %{_kf6_qmldir}/org/kde/plasmasetup/
@@ -114,6 +111,9 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Sun Nov 30 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251130git84b5d3c-1
+- Bump to new git snapshot
+
 * Tue Nov 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251123git180844b-2
 - Add patch to change self-disable behavior to use a flag file
 

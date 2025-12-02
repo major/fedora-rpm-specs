@@ -1,12 +1,10 @@
 Name:           dtk6core
-Version:        6.0.27
+Version:        6.0.47
 Release:        %autorelease
 Summary:        Deepin tool kit core modules
 License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dtk6core
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         dtk6core-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -14,11 +12,10 @@ BuildRequires:  ninja-build
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6CorePrivate)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6ToolsTools)
 BuildRequires:  cmake(Qt6Concurrent)
-BuildRequires:  qt6-qtbase-private-devel
-%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
 BuildRequires:  cmake(Dtk6Log)
 BuildRequires:  cmake(DtkBuildHelper)
@@ -27,8 +24,6 @@ BuildRequires:  cmake(spdlog)
 BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(libsystemd)
-
-BuildRequires:  libasan
 
 Requires:       deepin-desktop-base
 

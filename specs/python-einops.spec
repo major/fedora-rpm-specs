@@ -18,7 +18,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(nbformat)
 BuildRequires:  python3dist(nbconvert)
-BuildRequires:  python3dist(parameterized)
 BuildRequires:  python3dist(pillow)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(torch)

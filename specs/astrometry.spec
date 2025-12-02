@@ -7,7 +7,7 @@ ExcludeArch:    %{ix86}
 
 
 Name:           astrometry
-Version:        0.97
+Version:        0.98
 Release:        %autorelease
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 

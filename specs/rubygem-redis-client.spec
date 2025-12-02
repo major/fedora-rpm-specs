@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.22.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Simple low-level client for Redis 6+
 License: MIT
 URL: https://github.com/redis-rb/redis-client
@@ -13,9 +13,13 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/redis-rb/redis-client.git && cd redis-client
 # git archive -v -o redis-client-0.22.2-tests.txz v0.22.2 test/
 Source1: %{gem_name}-%{version}-tests.txz
+# https://github.com/redis-rb/redis-client/commit/95c96666868fb60286b473abbef1daa18d827b52
+# ruby4_0 removes Ractor#take
+Patch0:  redis-client-GH95c9666-Ractor-ruby4_0.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
+BuildRequires: rubygem(benchmark)
 BuildRequires: rubygem(connection_pool)
 BuildRequires: rubygem(minitest)
 %{?with_regenerate_certs:BuildRequires: %{_bindir}/openssl}
@@ -36,6 +40,11 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+cp -a test test_orig
+%patch -P0 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -104,6 +113,10 @@ popd
 %{gem_instdir}/redis-client.gemspec
 
 %changelog
+* Sun Nov 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.2-4
+- Add BR: rubygem(benchmark) for testsuite for ruby4_0 explicitly
+- Backport upstream patch to support ruby4_0 Ractor change
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

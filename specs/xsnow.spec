@@ -1,5 +1,5 @@
 Name:           xsnow
-Version:        3.8.5
+Version:        3.8.6
 Release:        %autorelease
 Summary:        Let it snow on your desktop
 License:        GPL-3.0-or-later

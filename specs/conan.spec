@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name: conan
-Version: 2.22.2
+Version: 2.23.0
 Release: %autorelease
 
 License: MIT
@@ -21,8 +21,6 @@ BuildRequires: python3-jwt
 BuildRequires: python3-pluginbase
 BuildRequires: python3-parameterized
 BuildRequires: git
-# Hopefully soon to be removed: https://github.com/conan-io/conan/pull/19264
-BuildRequires: python3-mock
 %endif
 
 Requires: cmake

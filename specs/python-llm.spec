@@ -1,22 +1,23 @@
-# Disable tests/docs until llm-echo (circular dependency)/markdown-builder
-# are available
-
-%bcond_with     tests
+%bcond_without  tests
 %bcond_without  docs
 
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
 Version:        0.27.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
 Patch:          python-llm-0.27.1-format-fix.patch
 Patch:          python-llm-0.27.1-disable-tests.patch
+Patch:          python-llm-0.27.1-sqlite-3.51.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}
+BuildRequires:  python3dist(llm-echo)
+BuildRequires:  python3dist(numpy)
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-pytest-httpx
 BuildRequires:  python3-pytest-vcr
 %endif
@@ -85,5 +86,8 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Sat Nov 29 2025 Terje Røsten <terjeros@gmail.com> - 0.27.1-2
+- Enable tests
+
 * Mon Aug 25 2025 Terje Røsten <terjeros@gmail.com> - 0.27.1-1
 - Initial package

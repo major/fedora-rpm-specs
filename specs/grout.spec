@@ -14,6 +14,7 @@ Group: System Environment/Daemons
 URL: %{forgeurl}
 Release: %{autorelease}
 Source: %{forgesource}
+Patch01: 0001-subprojects-update-to-libecoli-v0.9.1.patch
 
 BuildRequires: dpdk-devel >= 24.11.1-2
 BuildRequires: gcc

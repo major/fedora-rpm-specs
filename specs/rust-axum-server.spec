@@ -5,7 +5,7 @@
 %global crate axum-server
 
 Name:           rust-axum-server
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        High level server designed to be used with axum framework
 
@@ -73,6 +73,18 @@ This package contains library source intended for building other packages which
 use the "openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+openssl-sys-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+openssl-sys-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "openssl-sys" feature of the "%{crate}" crate.
+
+%files       -n %{name}+openssl-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rustls-devel

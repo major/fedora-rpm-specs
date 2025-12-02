@@ -1,20 +1,16 @@
 Name:           dtk6log
-Version:        0.0.2
+Version:        0.0.6
 Release:        %autorelease
 Summary:        Simple, convenient and thread safe logger for Qt-based C++ apps
 License:        LGPL-2.1-or-later
 URL:            https://github.com/linuxdeepin/dtk6log
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         dtk6log-fix-qt6.9-build.patch
-Patch1:         dtk6log-fix-build-against-qt-6-10.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
 BuildRequires:  cmake(Qt6Core)
-BuildRequires:  qt6-qtbase-private-devel
-%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+BuildRequires:  cmake(Qt6CorePrivate)
 BuildRequires:  cmake(spdlog)
 BuildRequires:  pkgconfig(libsystemd)
 

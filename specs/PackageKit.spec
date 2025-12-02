@@ -3,28 +3,27 @@
 
 Summary:   Package management service
 Name:      PackageKit
-Version:   1.3.1
+Version:   1.3.3
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later AND FSFAP
 URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 
-%if 0%{?fedora}
-Patch0:    PackageKit-0.3.8-Fedora-Vendor.conf.patch
-%elif 0%{?rhel}
-Patch0:    PackageKit-0.3.8-RHEL-Vendor.conf.patch
-%endif
+# Backports from upstream (1~500)
 
-# https://pagure.io/fedora-workstation/issue/233
-# https://github.com/PackageKit/PackageKit/pull/404
-Patch1:    package-remove-password-prompt.patch
+# Patches proposed upstream (501~1000)
 
-# Fixes for sdbus-cpp v2
-Patch2:    https://github.com/PackageKit/PackageKit/pull/896.patch
-# Fixes to avoid crashes when PK is not running
-Patch3:    https://github.com/PackageKit/PackageKit/pull/902.patch
-# Fix building and linking dnf5 plugin
-Patch4:    https://github.com/PackageKit/PackageKit/pull/903.patch
+
+# Downstream only patches (1001+)
+## https://pagure.io/fedora-workstation/issue/233
+## https://github.com/PackageKit/PackageKit/pull/404
+Patch1001:    package-inst+rem-password-prompt.patch
+
+## Fedora patches (2001~3000)
+Patch2001:    PackageKit-0.3.8-Fedora-Vendor.conf.patch
+
+## RHEL patches (3001~4000)
+Patch3001:    PackageKit-0.3.8-RHEL-Vendor.conf.patch
 
 BuildRequires: docbook-utils
 BuildRequires: gcc
@@ -41,10 +40,12 @@ BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(jansson)
 BuildRequires: pkgconfig(libdnf) >= %{libdnf_version}
 BuildRequires: pkgconfig(libdnf5)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(pangoft2)
+BuildRequires: pkgconfig(ply-boot-client)
 BuildRequires: pkgconfig(polkit-gobject-1) >= 0.114
 BuildRequires: pkgconfig(sdbus-c++)
 BuildRequires: pkgconfig(sqlite3)
@@ -174,13 +175,22 @@ A simple helper that offers to install new packages on the command line
 using PackageKit.
 
 %prep
-%autosetup -p1
+%autosetup -N
+
+# Fun patching times :)
+%autopatch -p1 -M 2000
+%if 0%{?fedora}
+%autopatch -p1 -m 2001 -M 3000
+%elif 0%{?rhel}
+%autopatch -p1 -m 3001 -M 4000
+%endif
 
 %build
 %meson \
         -Dgtk_doc=true \
         -Dpython_backend=false \
         -Dpackaging_backend=dnf \
+        -Dpkgctl=true \
         -Dlocal_checkout=false
 %meson_build
 
@@ -234,6 +244,7 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_libexecdir}/packagekit-direct
 %{_bindir}/pkmon
 %{_bindir}/pkcon
+%{_bindir}/pkgctl
 %exclude %{_libdir}/libpackagekit*.so.*
 %{_libdir}/packagekit-backend/libpk_backend_dummy.so
 %{_libdir}/packagekit-backend/libpk_backend_test_*.so

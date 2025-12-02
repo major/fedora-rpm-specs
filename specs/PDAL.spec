@@ -39,6 +39,10 @@ Source:		https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}
 
 # Unbundle some bundled libraries
 Patch0:		PDAL_unbundle.patch
+# Read GDAL_INCLUDE_DIR from interface
+Patch1:         PDAL_gdalinc.patch
+# Add missing cstdint include
+Patch2:         PDAL_cstdint.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake

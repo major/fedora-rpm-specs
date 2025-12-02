@@ -1,5 +1,5 @@
 Name:           kaichat
-Version:        0.5.0
+Version:        0.5.1
 Release:        1%{?dist}
 Summary:        Chat interface for AI models such as ollama
 
@@ -39,6 +39,7 @@ BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Sonnet)
 BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Purpose)
 
 # KDE Libraries
 BuildRequires:  cmake(KF6TextAutoGenerateText) >= 1.7.0
@@ -79,9 +80,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_libdir}/libkaichatwidgets.so.0
 %{_kf6_qtplugindir}/autogeneratetext/textplugins/kaichat_webshortcuttextplugin.so
 %{_kf6_qtplugindir}/autogeneratetext/toolplugins/textautogeneratetext_currentdatetimeplugin.so
+%{_kf6_qtplugindir}/autogeneratetext/textplugins/kaichat_sharetextplugin.so
 %{_kf6_datadir}/knotifications6/kaichat.notifyrc
 
 %changelog
+* Mon Dec 01 2025 Steve Cossette <farchord@gmail.com> - 0.5.1-1
+- 0.5.1
+
 * Mon Oct 13 2025 Steve Cossette <farchord@gmail.com> - 0.5.0-1
 - 0.5.0
 

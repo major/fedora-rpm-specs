@@ -1,5 +1,5 @@
 Name:          libfm-qt
-Version:       2.3.0
+Version:       2.3.1
 Release:       1%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
@@ -83,6 +83,9 @@ This package provides translations for the libfm-qt package.
 %dir %{_datadir}/libfm-qt6/translations
 
 %changelog
+* Sun Nov 30 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.1-1
+- Update to 2.3.1
+
 * Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
 - Update to 2.3.0
 

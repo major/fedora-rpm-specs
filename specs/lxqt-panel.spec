@@ -1,6 +1,6 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.3.0
+Version:       2.3.1
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
@@ -129,6 +129,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Sun Nov 30 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.1-1
+- Update to 2.3.1
+
 * Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
 - Update to 2.3.0
 

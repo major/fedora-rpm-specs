@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 472db4233083e8c6dabc24b0589183d0fd4e2b61
 %global commitdatestring 2025-10-29 18:11:57 -0700
-%global cosmic_minver 1.0.0~beta.7
+%global cosmic_minver 1.0.0~beta.8
 
 Name:           cosmic-session
-Version: 1.0.0~beta.7
+Version: 1.0.0~beta.8
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 
@@ -64,7 +64,7 @@ Requires:       cosmic-term >= %{cosmic_minver}
 Requires:       cosmic-workspaces >= %{cosmic_minver}
 Requires:       xdg-desktop-portal-cosmic >= %{cosmic_minver}
 Requires:       open-sans-fonts
-Requires:       google-noto-sans-mono-fonts
+Requires:       font(notosansmono)
 Requires:       xdg-user-dirs
 Recommends:     cosmic-wallpapers >= %{cosmic_minver}
 

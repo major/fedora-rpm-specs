@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20250428
-%global	gitcommit		ea4503585b90105e7e938557122cbc43bcd8c815
+%global	gitdate		20251120
+%global	gitcommit		c2fb4d63da1071046795d60f395ba791cfeced89
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		6efa8bdfb69a0a945d7f434a81d24f9c97a658e7
+%global	gitcommit_free		b219d482d0bf5ba1247c71c804b595d4bbd14e57
 %else
 # currently 41.0 branch
 %global	gitdate		20250313
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20250430
-%global	tarballtime	1705
+%global	tarballdate	20251120
+%global	tarballtime	1101
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainver		52.1
+%global	mainver		53.0
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	3%{?dist}
+Release:	1%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -72,7 +72,7 @@ Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
 Patch1:	ugene-49.1-narrowing-for-unsigned-char.patch
-Patch2:	ugene-51.0-c23-function-proto.patch
+Patch3:	ugene-52.1.x-RegionSelectorController-overload.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
@@ -80,8 +80,8 @@ Patch104:	ugene-47.x-plugins_3rdparty-hmm2-nosse-arch.patch
 Patch105:	ugene-40.1-libs_3rdparty-breakpad-arch-port.patch
 Patch106:	ugene-47.x-git-plgins-smith_waterman-nonsse2-arch.patch
 Patch107:	ugene-40.1-qbswap-bigendian-workaround.patch
-Patch108:	ugene-47.x-has-sse-i686.patch
 Patch109:	ugene-50.x-aarch64-neon-impl-not-yet.patch
+Patch110:	ugene-52.x-s390x-platform-macro.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -93,6 +93,7 @@ BuildRequires:	%{_bindir}/git
 
 BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Gui)
+BuildRequires:	cmake(Qt5LinguistTools)
 BuildRequires:	cmake(Qt5Network)
 BuildRequires:	cmake(Qt5NetworkAuth)
 BuildRequires:	cmake(Qt5PrintSupport)
@@ -123,8 +124,6 @@ is a designer for custom bioinformatics workflows.
 %prep
 %if		0%{?use_release} >= 1
 %setup -q
-# Umm...
-sed -i.desktop ugene.pri -e '\@desktop@s|etc/share/|etc/shared/|'
 %endif
 
 %if		0%{?use_gitbare} >= 1
@@ -139,8 +138,8 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
 %patch -P1 -p1 -b .narrow
 	%GIT commit -m "Fix narrowing on arch where default char is unsigned" -a
-%patch -P2 -p1 -b .c23
-	%GIT commit -m "Fix for C23 strict function prototype" -a
+%patch -P3 -p1 -b .include
+	%GIT commit -m "RegionSelectorController: specify overloaded function" -a
 %patch -P102 -p1 -b .sys_mmap -Z
 	%GIT commit -m "libs_3rdparty/breakpad: use C function instead of directly using syscall assemble code" -a
 %patch -P103 -p1 -b .unwind -Z
@@ -153,85 +152,111 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 	%GIT	commit -m "plugins/smith_waterman: support architecture not supporting SSE2" -a
 %patch -P107 -p1 -b .char_bigen -Z
 	%GIT	commit -m "src/corelibs/U2Core et al.: Workaround for Qt qbswap issue on Q_BIG_ENDIAN" -a
-%patch -P108 -p1 -b .sse_i686 -Z
-	%GIT commit -m "ugene_globals.pri: tell sse2 available also on i686" -a
 %if 1
 %patch -P109 -p1 -b .neon -Z
 	%GIT commit -m "neon impl not yet available" -a
 %endif
+%patch -P110 -p1 -b .s390x_macro -Z
+	%GIT commit -m "define s390x related macro" -a
+
+# Kill system-provided 3rd-party libs
+sed -i CMakeLists.txt \
+	-e '\@add_subdirectory.*libs_3rdparty/sqlite3@d' \
+	-e '\@add_subdirectory.*libs_3rdparty/zlib@d' \
+	%{nil}
+rm -rf src/libs_3rdparty/{sqlite3,zlib}
+rm -rf src/include/3rdparty/{sqlite3,zlib}
+	%GIT rm -r -f src/libs_3rdparty/{sqlite3,zlib} || true
+	%GIT rm -r -f src/include/3rdparty/{sqlite3,zlib} || true
+	%GIT commit -m "kill system-provided 3rd-party libs" -a
+grep -rl --exclude-dir=.git 3rdparty/zlib/zlib.h . | \
+	xargs sed -i 's|3rdparty/zlib/zlib.h|zlib.h|'
+grep -rl --exclude-dir=.git 3rdparty/sqlite3/sqlite3.h . | \
+	xargs sed -i 's|3rdparty/sqlite3/sqlite3.h|sqlite3.h|'
+find . -name CMakeLists.txt | \
+	xargs sed -i \
+		-e 's|zlib|z|' \
+		-e 's|ugenedb|sqlite3|' \
+		%{nil}
+	%GIT commit -m "fix system provided header path" -a
 
 sed -i.nonfree CMakeLists.txt -e '\@add_subdirectory.*plugins_3rdparty/psipred@d'
-sed -i.nonfree ugene.pro -e '\@plugins_3rdparty/psipred@d'
 	%GIT commit -m "remove nonfree code" -a
 
-# Workaround
-sed -i src/ugene_globals.pri \
-	-e '\@DEFINES.=UGENE_VERSION=@i DEFINES+=U2_APP_VERSION=\$\${UGENE_VERSION}'
-	%GIT commit -m "set U2_APP_VERSION as a workaround" -a
+# Remove -Werror
+sed -i CMakeLists.txt -e '\@" -Werror=@d'
+	%GIT commit -m "remove -Werror" -a
+
+# Enable some deprecated API
+sed -i CMakeLists.txt -e '\@QT_DISABLE_DEPRECATED_BEFORE=@s|0x050F00|0x050000|'
+	%GIT commit -m "enable some deprecated API" -a
 
 %build
 %if		0%{?use_gitbare} >= 1
 cd %{name}
 %endif
 
-%{qmake_qt5} -r \
-	PREFIX=%{_libdir}/%{name} \
-	UGENE_EXCLUDE_LIST_ENABLED=1 \
-	UGENE_USE_SYSTEM_SQLITE=1 \
-	UGENE_USE_BUNDLED_ZLIB=0 \
-	UGENE_WITHOUT_NON_FREE=1 \
-	%{nil}
+export QT_DIR=%{_libdir}/qt5
+export LD_LIBRARY_PATH=$(pwd)/%{_vpath_builddir}/dist
 
-%make_build -k
+%cmake \
+	-DCMAKE_SKIP_RPATH=TRUE \
+	%{nil}
+%cmake_build
 
 %install
-LIBAPPDIR=%{_libdir}/%{name}
-
 %if		0%{?use_gitbare} >= 1
 cd %{name}
 %endif
-make install \
-	INSTALL_ROOT=%{buildroot} \
-	INSTALL="install -p" \
-	%{nil}
 
-# Some needed files are not installed.....
-mkdir -p %{buildroot}$LIBAPPDIR
-cp -a src/_release/* %{buildroot}$LIBAPPDIR
-rm -f %{buildroot}$LIBAPPDIR/*.a
+%cmake_install
 
-# 1. manually move files...
-pushd %{buildroot}
-rm -f ./$LIBAPPDIR/LICENSE*
+# Install all files manually...
+# 0. Documents
+cp -a \
+	LICENSE.3rd_party.txt \
+	LICENSE.txt \
+	..
+
+pushd %_vpath_builddir
 
 # 1-0 bindir
-mkdir -p ./%{_bindir}
-install -cpm 0755 %{SOURCE10} ./%{_bindir}/%{name}
+mkdir -p %{buildroot}%{_bindir}
+install -cpm 0755 %{SOURCE10} %{buildroot}%{_bindir}/%{name}
 
-# 1-1 data files
-mkdir -p ./%{_datadir}/%{name}/
-mv ./$LIBAPPDIR/data ./%{_datadir}/%{name}
-ln -sf ../../..%{_datadir}/%{name}/data ./$LIBAPPDIR/data
+# 1-1 libraries
+mkdir -p %{buildroot}%{_libdir}/%{name}
+cp -a dist/* %{buildroot}%{_libdir}/%{name}/
+rm -f  %{buildroot}%{_libdir}/%{name}/*.a
 
+# Back to the top directory
+popd
+
+# 1-2 data files
+mkdir -p %{buildroot}%{_datadir}/%{name}/
+cp -a data %{buildroot}%{_datadir}/%{name}
+ln -sf ../../../%{_datadir}/%{name}/data %{buildroot}%{_libdir}/%{name}/data
+
+pushd ./etc/shared
 # 1-11 hicolor
-mkdir -p ./%{_datadir}/icons/hicolor/32x32/mimetypes/
-mv ./$LIBAPPDIR/application-x-ugene-ext.png ./%{_datadir}/icons/hicolor/32x32/mimetypes/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/mimetypes/
+cp -p application-x-ugene-ext.png %{buildroot}/%{_datadir}/icons/hicolor/32x32/mimetypes/
 
 # 1-12 mime
-mkdir -p ./%{_datadir}/mime/packages
-mv ./$LIBAPPDIR/application-x-ugene.xml ./%{_datadir}/mime/packages
+mkdir -p %{buildroot}%{_datadir}/mime/packages
+cp -p application-x-ugene.xml %{buildroot}/%{_datadir}/mime/packages
 
 # 1-13 man file
-mkdir -p ./%{_mandir}/man1
-mv ./$LIBAPPDIR/%{name}.1* ./%{_mandir}/man1
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -p %{name}.1* %{buildroot}/%{_mandir}/man1
 
 # 1-14 desktop files
-mkdir -p ./%{_datadir}/applications/
-mv ./$LIBAPPDIR/%{name}.desktop ./%{_datadir}/applications/
+mkdir -p %{buildroot}%{_datadir}/applications/
+cp -p %{name}.desktop %{buildroot}/%{_datadir}/applications/
 
 # 1-15 icons
-mkdir -p ./%{_datadir}/pixmaps
-mv ./$LIBAPPDIR/%{name}.{png,xpm} ./%{_datadir}/pixmaps
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+cp -p %{name}.{png,xpm} %{buildroot}%{_datadir}/pixmaps
 popd
 
 %check
@@ -251,6 +276,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/%{name}/plugins/*.plugin
 %{_libdir}/%{name}/plugins/lib*.so
 
+%{_libdir}/%{name}/transl_*.qm
+
 %{_libdir}/%{name}/%{name}
 %{_libdir}/%{name}/%{name}cl
 %{_libdir}/%{name}/%{name}m
@@ -269,6 +296,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Nov 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 53.0-1
+- 53.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 52.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

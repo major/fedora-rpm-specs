@@ -129,7 +129,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -321,6 +321,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_reduction}
 %{_libdir}/libdevice_reduction_operations.so.*
 %endif
+%if %{with ck_contraction}
+%{_libdir}/libdevice_contraction_operations.so.*
+%endif
 
 %files devel
 %dir %{_includedir}/ck
@@ -342,6 +345,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_reduction}
 %{_libdir}/libdevice_reduction_operations.so
 %endif
+%if %{with ck_contraction}
+%{_libdir}/libdevice_contraction_operations.so
+%endif
 
 %if %{with test}
 %files test
@@ -349,6 +355,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Sun Nov 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Fix missing contraction libs
+
 * Fri Nov 28 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 
