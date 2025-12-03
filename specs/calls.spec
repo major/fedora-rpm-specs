@@ -2,13 +2,15 @@
 
 Name:       calls
 Version:    49.1.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/calls
 Source0:    https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:    https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
+# https://gitlab.gnome.org/GNOME/calls/-/merge_requests/807
+Patch0:     807.patch
 
 ExcludeArch:    %{ix86}
 

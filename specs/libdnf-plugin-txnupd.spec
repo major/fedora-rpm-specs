@@ -4,14 +4,12 @@
 
 Name:           libdnf-plugin-txnupd
 Version:        0.1.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        libdnf plugin to implement transactional updates
 
 License:        LGPL-2.1-or-later
-URL:            https://code.opensuse.org/microos/libdnf-plugin-txnupd
-#Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Use pagure.io mirror as code.opensuse.org doesn't have on-demand archives yet
-Source0:        https://pagure.io/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://gitlab.com/VelocityLimitless/Projects/libdnf-plugin-txnupd
+Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  gcc-c++
@@ -64,6 +62,10 @@ echo "%{name}" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd.conf
 
 
 %changelog
+* Mon Dec 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.3-15
+- Rebuild for transactional-update 5.5.1
+- Switch to new upstream source
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

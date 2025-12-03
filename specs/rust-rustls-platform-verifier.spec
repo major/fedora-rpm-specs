@@ -5,7 +5,7 @@
 %global crate rustls-platform-verifier
 
 Name:           rust-rustls-platform-verifier
-Version:        0.5.3
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Supports verifying TLS certificates in rustls with the operating system verifier
 
@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          rustls-platform-verifier-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop support for building as a JNI module
+# * drop webpki-root-certs dev-dependency and the one example that uses it
 Patch:          rustls-platform-verifier-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -104,8 +105,6 @@ use the "ffi-testing" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop executable bit from a "cargo script"
-chmod -x src/tests/verification_real_world/update_valid_ee_certs.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

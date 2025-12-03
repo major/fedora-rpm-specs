@@ -1,16 +1,24 @@
+%global commit e8082035dafe0241739d7f7d16f7ecfd2ce06172
+%global shortcommit %{sub %{commit} 1 7}
+%global commitdate 20251124
+
 Name:           wl-clipboard
-Version:        2.2.1
-Release:        5%{?dist}
+Version:        2.2.1%{?commitdate:^git%{commitdate}.%{shortcommit}}
+Release:        1%{?dist}
 Summary:        Command-line copy/paste utilities for Wayland
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/bugaevc/wl-clipboard
-Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
+%if %{defined commitdate}
+Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%else
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%endif
 
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  wayland-devel
-BuildRequires:  wayland-protocols-devel
+BuildRequires:  wayland-protocols-devel >= 1.39
 
 Recommends:     xdg-utils
 Recommends:     mailcap
@@ -21,7 +29,7 @@ that let you easily copy data between the clipboard and Unix pipes,
 sockets, files and so on.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -C
 
 %build
 %meson
@@ -46,6 +54,9 @@ sockets, files and so on.
 %{_datadir}/zsh/site-functions/_wl-*
 
 %changelog
+* Sun Nov 30 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.2.1^git20251124.e808203-1
+- Bump to new git snapshot to support KDE Plasma properly
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

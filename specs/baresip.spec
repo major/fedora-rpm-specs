@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        4.1.0
-Release:        3%{?dist}
+Version:        4.3.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -13,7 +13,7 @@ Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/C
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 4.1.0
+BuildRequires:  libre-devel >= 4.3.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -31,6 +31,7 @@ Obsoletes:      %{name}-x11grab < 2.0.0-1
 Obsoletes:      %{name}-gsm < 2.6.0-1
 Obsoletes:      %{name}-gst_video < 2.6.0-1
 Obsoletes:      %{name}-omx < 2.7.0-1
+Obsoletes:      %{name}-mpa < 4.3.0-1
 
 %description
 A modular SIP user-agent with support for audio and video, and many IETF
@@ -230,19 +231,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Baresip is a modular SIP user-agent with audio and video support.
 
 This module provides the JACK Audio Connection Kit audio driver.
-
-%package mpa
-Summary:        MPA speech and audio codec module for baresip
-BuildRequires:  twolame-devel
-BuildRequires:  lame-devel
-BuildRequires:  mpg123-devel
-BuildRequires:  speexdsp-devel
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description mpa
-Baresip is a modular SIP user-agent with audio and video support.
-
-This module provides the MPA speech and audio codec.
 
 %package mqtt
 Summary:        MQTT management module for baresip
@@ -474,7 +462,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.22*
+%{_libdir}/lib%{name}.so.23*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -576,9 +564,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %files jack
 %{_libdir}/%{name}/modules/jack.so
 
-%files mpa
-%{_libdir}/%{name}/modules/mpa.so
-
 %files mqtt
 %{_libdir}/%{name}/modules/mqtt.so
 
@@ -630,6 +615,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Nov 29 2025 Robert Scheck <robert@fedoraproject.org> 4.3.0-1
+- Upgrade to 4.3.0 (#2404130)
+
 * Tue Nov 11 2025 Adam Williamson <awilliam@redhat.com> - 4.1.0-3
 - rebuild against libre with fixed thread detection
 

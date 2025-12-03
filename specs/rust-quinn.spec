@@ -5,7 +5,7 @@
 %global crate quinn
 
 Name:           rust-quinn
-Version:        0.11.7
+Version:        0.11.9
 Release:        %autorelease
 Summary:        Versatile QUIC transport protocol implementation
 
@@ -76,6 +76,18 @@ use the "async-std" feature of the "%{crate}" crate.
 %files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bloom-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bloom-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bloom" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bloom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+futures-io-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -122,6 +134,18 @@ This package contains library source intended for building other packages which
 use the "platform-verifier" feature of the "%{crate}" crate.
 
 %files       -n %{name}+platform-verifier-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+qlog-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+qlog-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "qlog" feature of the "%{crate}" crate.
+
+%files       -n %{name}+qlog-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+ring-devel

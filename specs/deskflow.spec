@@ -2,14 +2,14 @@
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.24.0
-Release:	2%{?dist}
+Version:	1.25.0
+Release:	1%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
 URL:		https://github.com/%{name}/%{name}
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-ExcludeArch:    i686
+ExcludeArch:	i686
 
 BuildRequires:	cmake >= 3.24
 BuildRequires:	desktop-file-utils
@@ -18,11 +18,7 @@ BuildRequires:	gmock-devel
 BuildRequires:	gtest-devel
 BuildRequires:	openssl-devel >= 3.0
 BuildRequires:	cmake(Qt6Core) >= %{qt6ver}
-BuildRequires:	cmake(Qt6Widgets) >= %{qt6ver}
-BuildRequires:	cmake(Qt6Network) >= %{qt6ver}
-BuildRequires:	cmake(CLI11)
-BuildRequires:	cmake(pugixml)
-BuildRequires:	cmake(tomlplusplus)
+BuildRequires:	cmake(Qt6LinguistTools) >= %{qt6ver}
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
@@ -73,7 +69,7 @@ chmod 755 %{buildroot}/%{_bindir}/%{name}-server  %{buildroot}/%{_bindir}/%{name
 cp %{buildroot}%{_datadir}/licenses/deskflow/LICENSE_EXCEPTION .
 
 # remove the html because koji does not build it
-rm -fr  %{buildroot}%{_docdir}/%{name}/html
+rm -fr %{buildroot}%{_docdir}/%{name}/html
 
 %check
 export QT_QPA_PLATFORM=minimal
@@ -96,12 +92,21 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 %{_bindir}/%{name}-core
 %{_bindir}/%{name}-client
 %{_bindir}/%{name}-server
-%{_datadir}/icons/hicolor/*/apps/%{rdnn_name}.png
 %{_datadir}/applications/%{rdnn_name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{rdnn_name}.png
+%{_datadir}/icons/hicolor/*/apps/%{rdnn_name}*.svg
+%{_datadir}/%{name}/translations/*.qm
 %{_metainfodir}/%{rdnn_name}.metainfo.xml
 
 
 %changelog
+* Mon Dec 01 2025 Ding-Yi Chen <dingyichen@gmail.com> - 1.25.0-1
+- Update to version 1.25.0
+  + Resolves: 2416455
+  + New BuildRequires: cmake(Qt6LinguistTools)
+  + Add translations
+  + Add svg icons
+
 * Thu Nov 20 2025 Ding-Yi Chen <dingyichen@gmail.com> - 1.24.0-2
 - ExcludeArch: i686
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-554-g0f7b73f2ed
+%global glibcsrcdir glibc-2.42.9000-570-gf9e61cd446
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 13
+%global baserelease 14
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2397,6 +2397,26 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Dec 01 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-14
+- Auto-sync with upstream branch master,
+  commit f9e61cd446d45016e20b6fe85ab87364ebdbec1b:
+- NEWS: Add new generic fma/fmaf note (Adhemerval Zanella)
+- iconvdata: Fix invalid pointer arithmetic in ANSI_X3.110 module (Florian Weimer)
+- Define C23 header version macros (Joseph Myers)
+- math: New generic fmaf implementation (Adhemerval Zanella)
+- Linux: Ignore PIDFD_GET_INFO in tst-pidfd-consts (Florian Weimer)
+- math: Sync atanh from CORE-MATH (Adhemerval Zanella)
+- aarch64: make GCS configure checks aarch64-only (Yury Khrustalev)
+- math: New generic fma implementation (Adhemerval Zanella)
+- stdlib: Remove longlong.h (Adhemerval Zanella)
+- Add umul_ppmm to gmp-arch.hdoc (Adhemerval Zanella)
+- Add add_ssaaaa and sub_ssaaaa to gmp-arch.h (Adhemerval Zanella)
+- Add gmp-arch and udiv_qrnnd (Adhemerval Zanella)
+- Add new math improvemenst to NEWS (Adhemerval Zanella)
+- scripts: Fix minor lint warnings in build-many-glibcs.py (Yury Khrustalev)
+- malloc: Add threaded variants of single-threaded malloc tests (Arjun Shankar)
+- support: Add support for running tests in a multi-threaded environment (Arjun Shankar)
+
 * Mon Nov 24 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-13
 - Auto-sync with upstream branch master,
   commit 0f7b73f2ed70e783cd02ab77503645b03ee1d332:

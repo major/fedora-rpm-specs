@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-billiard
-Version:        4.2.2
+Version:        4.2.3
 Release:        %autorelease
 Epoch:          1
 Summary:        Python multiprocessing fork with improvements and bugfixes

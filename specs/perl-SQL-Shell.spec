@@ -3,17 +3,20 @@
 
 Name:       perl-SQL-Shell 
 Version:    1.17
-Release:    20%{?dist}
-# lib/SQL/Shell.pm: GPLv2+
-# bin/sqlsh:        GPLv2+
-# README:           GPLv2+
-# COPYING:          GPLv2 text (old FSF address, see CPAN RT#112335)
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Release:    21%{?dist}
+# lib/SQL/Shell.pm: GPL-2.0-or-later
+# bin/sqlsh:        GPL-2.0-or-later
+# README:           GPL-2.0-or-later
+# COPYING:          GPL-2.0 text (old FSF address, see CPAN RT#112335)
 License:    GPL-2.0-or-later
 Summary:    Command interpreter for DBI shells 
 Url:        https://metacpan.org/release/SQL-Shell
 Source:     https://cpan.metacpan.org/authors/id/M/MG/MGUALDRON/SQL-Shell-%{version}.tar.gz
+# Fix running tests from a read-only location, proposed upstream,
+# <https://github.com/mgualdron/SQL-Shell/pull/1>
+Patch0:     0001-Use-File-Temp-for-handling-temporary-files.patch
 BuildArch:  noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -43,6 +46,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(vars)
 # Tests:
+BuildRequires:  perl(File::Temp) >= 0.14
 BuildRequires:  perl(IO::CaptureOutput)
 BuildRequires:  perl(Test::Assertions::TestScript)
 BuildRequires:  perl(Test::More)
@@ -80,8 +84,18 @@ sql*plus client programs but is database independent.
 
 See the SQL::Shell::Manual manual page for a user guide.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::Assertions::TestScript)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n SQL-Shell-%{version}
+%autosetup -p1 -n SQL-Shell-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -90,9 +104,19 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod{,_coverage}.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset ORACLE_HOME PERL_READLINE_MODE
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 export UNIT_TEST_DSN='DBI:SQLite:dbname=test.db'
 export UNIT_TEST_USER='anything'
 export UNIT_TEST_PASS=''
@@ -101,14 +125,24 @@ make test
 %files
 %license COPYING
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/SQL
+%{perl_vendorlib}/SQL/Shell
+%{perl_vendorlib}/SQL/Shell.pm
+%{_mandir}/man3/SQL::Shell.*
+%{_mandir}/man3/SQL::Shell::*
 
 %files -n sqlsh
 %{_bindir}/sqlsh
-%{_mandir}/man1/sqlsh.1.gz
+%{_mandir}/man1/sqlsh.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 01 2025 Petr Pisar <ppisar@redhat.com> - 1.17-21
+- Modernize a spec file
+- Package the tests
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

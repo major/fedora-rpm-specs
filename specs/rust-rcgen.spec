@@ -5,7 +5,7 @@
 %global crate rcgen
 
 Name:           rust-rcgen
-Version:        0.13.2
+Version:        0.14.5
 Release:        %autorelease
 Summary:        Rust X.509 certificate generator
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/rcgen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused support for the aws-lc-rs crypto backend
-# * drop botan dev-dependency (Rust bindings for botan are not packaged)
 Patch:          rcgen-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -116,17 +115,17 @@ use the "zeroize" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f x509-parser
 
 %build
-%cargo_build
+%cargo_build -f x509-parser
 
 %install
-%cargo_install
+%cargo_install -f x509-parser
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f x509-parser
 %endif
 
 %changelog

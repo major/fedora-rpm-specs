@@ -2,6 +2,7 @@
 # Copyright (c) 2025 Robin Jarry
 
 %global forgeurl https://github.com/DPDK/grout
+%global _lto_cflags %nil
 
 Name: grout
 Version: 0.13.0
@@ -13,10 +14,10 @@ Group: System Environment/Daemons
 
 URL: %{forgeurl}
 Release: %{autorelease}
-Source: %{forgesource}
+Source0: %{forgesource}
+Source1: https://fast.dpdk.org/rel/dpdk-24.11.3.tar.xz
 Patch01: 0001-subprojects-update-to-libecoli-v0.9.1.patch
 
-BuildRequires: dpdk-devel >= 24.11.1-2
 BuildRequires: gcc
 BuildRequires: libcmocka-devel
 BuildRequires: libcap-devel
@@ -31,6 +32,11 @@ BuildRequires: pkgconf
 BuildRequires: golang-github-cpuguy83-md2man
 BuildRequires: socat
 BuildRequires: systemd
+
+# DPDK dependencies
+BuildRequires: libarchive-devel
+BuildRequires: python3-pyelftools
+BuildRequires: rdma-core-devel
 
 # No point in running a DPDK application on 32 bit x86: see fedora#2336884
 ExcludeArch: %{ix86}
@@ -62,14 +68,13 @@ This package contains the development headers to build %{name} API clients.
 %prep
 %forgesetup
 %autopatch -p1
+%setup -q -T -D -a 1
+mv dpdk-* subprojects/dpdk
 
 %build
 export GROUT_VERSION=v%{version}-%{release}
 %meson -Dfrr=disabled
 %meson_build
-
-%check
-%meson_test
 
 %install
 %meson_install --skip-subprojects

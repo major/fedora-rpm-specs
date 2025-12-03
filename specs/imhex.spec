@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.37.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -206,6 +206,9 @@ done
 
 
 %changelog
+* Mon Dec 01 2025 Simone Caronni <negativo17@gmail.com> - 1.37.4-3
+- Rebuild for updated build requirements.
+
 * Wed Jul 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.37.4-2
 - backport metainfo updates
 

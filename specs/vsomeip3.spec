@@ -1,7 +1,7 @@
 %global _lto_cflags %{nil}
 
 Name:    vsomeip3
-Version: 3.5.7
+Version: 3.5.11
 Release: 2%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 # remove from i686 as not needed.
@@ -71,6 +71,7 @@ This package contains the SELinux policy module for %{name}.
 Summary: Routingmanager daemon %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: systemd
+Requires: dlt-daemon
 
 %description routingmanager
 %{summary}.
@@ -243,6 +244,13 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Mon Dec  1 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.11-2
+- Try to fix the selinux problem seen with CS10
+- Try to fix problem with socket creation and systemd
+
+* Mon Dec  1 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.11-1
+- Update to newest version of vsomeip3.
+
 * Wed Aug 27 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.7-2
 - Remove i686 as it no longer builds and is not needed.
 

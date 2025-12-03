@@ -5,15 +5,19 @@
 %global crate der-parser
 
 Name:           rust-der-parser
-Version:        9.0.0
+Version:        10.0.0
 Release:        %autorelease
 Summary:        Parser/encoder for ASN.1 BER/DER data
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/der-parser
 Source:         %{crates_source}
-Patch:          0001-Drop-deny-warnings-from-doctests.patch
+# Manually created patch for downstream crate metadata changes
+# * Don’t include .gitignore in published crates:
+#   https://github.com/rusticata/der-parser/pull/88
+Patch:          der-parser-fix-metadata.diff
+# * Downstream-only: Drop deny(warnings) from doctests
+Patch10:        0001-Drop-deny-warnings-from-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,6 +55,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+as_bitvec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+as_bitvec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "as_bitvec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+as_bitvec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+bigint-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -61,6 +77,18 @@ This package contains library source intended for building other packages which
 use the "bigint" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bigint-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bitvec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bitvec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bitvec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bitvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+cookie-factory-devel

@@ -5,21 +5,15 @@
 %global gem_name mysql2
 
 Name: rubygem-%{gem_name}
-Version: 0.5.5
-Release: 10%{?dist}
+Version: 0.5.7
+Release: 1%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/brianmario/mysql2.git
-# cd mysql2 && git archive -v -o mysql2-0.5.5-tests.txz 0.5.5 spec/
-Source1: %{gem_name}-%{version}-tests.txz
-# Use the SSL pem files in the upstream repositry for the SSL tests.
-# https://github.com/brianmario/mysql2/pull/1293
-Patch0: rubygem-mysql2-0.5.4-use-ssl-pem-files-in-repo.patch
-# openssl 3.2 requires CA:TRUE
-# https://github.com/brianmario/mysql2/pull/1357
-Patch1: rubygem-mysql2-0.5.5-openssl-CA-TRUE.patch
+# cd mysql2 && git archive -v -o mysql2-0.5.7-tests.tar.gz 0.5.7 spec/
+Source1: %{gem_name}-%{version}-tests.tar.gz
 
 # Required in lib/mysql2.rb
 Requires: rubygem(bigdecimal)
@@ -61,11 +55,6 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-pushd %{_builddir}/spec
-%patch -P0 -p2
-%patch -P1 -p2
-popd
-
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 
@@ -94,11 +83,11 @@ ln -s %{_builddir}/spec spec
 
 TOP_DIR=$(pwd)
 
-# Regenerate the SSL certification files from the localhost, as we cannot set
-# the host mysql2gem.example.com required for the SSL tests.
-# https://github.com/brianmario/mysql2/pull/1296
-sed -i '/host/ s/mysql2gem\.example\.com/localhost/' spec/mysql2/client_spec.rb
-sed -i '/commonName_default/ s/mysql2gem\.example\.com/localhost/' spec/ssl/gen_certs.sh
+# Added in https://github.com/brianmario/mysql2/pull/1293
+export TEST_RUBY_MYSQL2_SSL_CERT_DIR="${TOP_DIR}/spec/ssl"
+# Added in https://github.com/brianmario/mysql2/pull/1310
+export TEST_RUBY_MYSQL2_SSL_CERT_HOST=localhost
+
 pushd spec/ssl
 bash gen_certs.sh
 popd
@@ -200,6 +189,10 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Mon Dec 01 2025 Jarek Prokop <jprokop@redhat.com> - 0.5.7-1
+- Upgrade to mysql2 0.5.7.
+  Resolves: rhbz#2263447
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

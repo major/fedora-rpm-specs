@@ -6,11 +6,11 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.9.2
+%global qt6ver 6.10.1
 
 Name:           python-%{pypi_name}
-Version:        6.9.2
-Release:        4%{?dist}
+Version:        6.10.1
+Release:        1%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -23,18 +23,10 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 %global  majmin %(echo %{version} | cut -d. -f1-2)
 #Source1:	https://download.qt.io/official_releases/qt/%{majmin}/%{qt6ver}/submodules/%{qt_module}-everywhere-src-%{qt6ver}.tar.xz
 
-#https://bugreports.qt.io/browse/PYSIDE-2491
-Patch:          147389_fix-build.patch
-
-## Python 3.14 build failures
-# https://bugzilla.redhat.com/2325444
-# https://codereview.qt-project.org/c/pyside/pyside-setup/+/647510 (revision 1)
-Patch:          ec06c75.patch
-
-# FIXME: Remove with 6.10
-Patch:          pyside-fix-build-against-qt-6-10.patch
-Patch:          pyside-adapt-to-qt-6-10.patch
-Patch:          pyside-quiloader-move-q-import-plugin-to-file-scope.patch
+# OpenSuse patches
+Patch:          0001-Revert-Modify-headers-installation-for-CMake-builds.patch
+Patch:          0001-Always-link-to-python-libraries.patch
+Patch:          0001-Fix-installation.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -243,13 +235,13 @@ tar xf %{SOURCE1}
 %build
 # https://src.fedoraproject.org/rpms/polyclipping/c/02c70e17ef9e9fcdfbc65021418a3e332e465b20?branch=rawhide
 # Prior to Fedora 43, %%cmake set the nonstandard -DLIB_SUFFIX=... variable.
-# cmake %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""] 
+# cmake %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""]
 %cmake_qt6 %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""] \
     -DCMAKE_BUILD_TYPE=None \
     -DSHIBOKEN_PYTHON_LIBRARIES=`pkgconf python3-embed --libs` \
     -DBUILD_TESTS=OFF \
     -DCMAKE_BUILD_RPATH_USE_ORIGIN:BOOL=ON \
-    -DCMAKE_SKIP_RPATH:BOOL=ON \
+    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
     -DFORCE_LIMITED_API=no \
 %if 0%{?docs}
     -DBUILD_DOCS:BOOL=ON \
@@ -330,7 +322,7 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libpyside6*.so.6.9*
+%{_libdir}/libpyside6*.so.6.10*
 %{python3_sitelib}/%{camel_name}/
 %{python3_sitearch}/%{camel_name}-%{version}-py%{python3_version}.egg-info/
 
@@ -356,7 +348,7 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %files -n python%{python3_pkgversion}-shiboken6
 %doc README.shiboken6.md
 %license LICENSES/*
-%{_libdir}/libshiboken6*.so.6.9*
+%{_libdir}/libshiboken6*.so.6.10*
 %{python3_sitelib}/shiboken6/
 %{python3_sitearch}/shiboken6-%{version}-py%{python3_version}.egg-info/
 
@@ -375,6 +367,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Mon Dec 01 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
+- 6.10.1
+
 * Sat Nov 22 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-4
 - Rebuild (qt6)
 

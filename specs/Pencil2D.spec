@@ -123,6 +123,9 @@ Patch:          0001-Ensure-QDebug-is-included-for-all-qDebug-uses.patch
 # https://github.com/pencil2d/pencil/pull/1914
 # OK to patch license text downstream since the PR was merged upstream.
 Patch:          %{forgeurl}/pull/1914.patch
+# Fix Qt 6.10.1 compatibility
+# https://github.com/pencil2d/pencil/pull/1952
+Patch:          %{forgeurl}/pull/1952.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

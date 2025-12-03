@@ -1,7 +1,7 @@
-%global somajor 4
+%global somajor 8
 
 Name:           transactional-update
-Version:        5.1.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
@@ -183,6 +183,13 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Mon Dec 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.0.0-1
+- Update to 6.0.0
+
+* Wed Nov 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 5.5.1-1
+- Update to version 5.5.1 (through Packit)
+- Resolves: rhbz#2400376
+
 * Mon Aug 18 2025 Packit <hello@packit.dev> - 5.1.0-1
 - Update to version 5.1.0
 - Resolves: rhbz#2382301

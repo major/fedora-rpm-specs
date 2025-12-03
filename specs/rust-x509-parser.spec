@@ -6,7 +6,7 @@
 %global crate x509-parser
 
 Name:           rust-x509-parser
-Version:        0.16.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Parser for the X.509 v3 format (RFC 5280 certificates)
 

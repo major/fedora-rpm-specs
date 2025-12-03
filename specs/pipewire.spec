@@ -419,7 +419,7 @@ This package contains the mysofa support for PipeWire filter-chain.
 %if %{with onnx}
 %package module-filter-chain-onnx
 Summary:        PipeWire media server ONNX filter-chain support
-License:        MIT and ASL 2.0 and Boost and BSD
+License:        MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
 BuildRequires:  onnxruntime-devel
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}

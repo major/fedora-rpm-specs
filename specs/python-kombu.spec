@@ -2,7 +2,7 @@
 %global srcname kombu
 # Packaging unstable?
 # %%global prerel b3
-%global general_version 5.3.7
+%global general_version 5.6.1
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-%{srcname}
@@ -16,12 +16,6 @@ Summary:        An AMQP Messaging Framework for Python
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Python
 URL:            http://kombu.readthedocs.org/
 Source0:        https://github.com/celery/kombu/archive/v%{upstream_version}/%{srcname}-%{upstream_version}.tar.gz
-# https://docs.python.org/3.13/whatsnew/3.13.html#logging
-# Upstream PRs:
-# https://github.com/celery/kombu/pull/2052
-# https://github.com/celery/kombu/pull/2058
-Patch0:         0001-logger.warn-logger.warning-Python-3.13.patch
-
 
 BuildArch: noarch
 
@@ -41,7 +35,6 @@ Requires:       python3-amqp
 Requires:       python3-vine
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-amqp
 BuildRequires:  python3-pymongo
@@ -71,23 +64,26 @@ also provide proven and tested solutions to common messaging problems.
 
 %prep
 %autosetup -n %{srcname}-%{upstream_version} -p1
+# Fedora has tzdata present, and doesn't need nor package this fallback
+sed -i 's/tzdata.*$//' requirements/default.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
 %if %{with tests}
-%pytest
+%pytest --ignore=t/unit/transport/test_gcpubsub.py
 %endif
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS FAQ READ* THANKS TODO examples/
-%license LICENSE
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
 %autochangelog

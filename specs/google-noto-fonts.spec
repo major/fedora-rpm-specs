@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.11.01
+%global srcver	2025.12.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -33,7 +33,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        %{rpmver}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -684,7 +684,7 @@ local subpackages = {
       fcconfexfile=rpm.expand('%{SOURCE3}'),
       default=true
     },
-    { alias="sytem-ui",   variable=true, family="Naskh Arabic UI",
+    { alias="system-ui",  variable=true, family="Naskh Arabic UI",
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="serif",      variable=true, family="Serif",
@@ -1223,6 +1223,9 @@ done
 
 
 %changelog
+* Mon Dec  1 2025 Akira TAGOH <tagoh@redhat.com> - 20251201-1
+- Updates to monthly release of 2025.12.01.
+
 * Mon Nov 17 2025 Akira TAGOH <tagoh@redhat.com> - 20251101-3
 - Change the generic alias for UI fonts to system-ui.
   Resolves: rhbz#2402101

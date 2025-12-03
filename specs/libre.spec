@@ -1,15 +1,10 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        4.1.0
-Release:        2%{?dist}
+Version:        4.3.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
 Source0:        https://github.com/baresip/re/archive/v%{version}/re-%{version}.tar.gz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2413097
-# https://github.com/baresip/re/pull/1466
-# Fix HAVE_THREADS discovery, which avoids a build failure due to
-# once_flag redefinition
-Patch:          1466.patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -102,7 +97,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.37*
+%{_libdir}/%{name}.so.39*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -112,6 +107,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Nov 29 2025 Robert Scheck <robert@fedoraproject.org> 4.3.0-1
+- Upgrade to 4.3.0 (#2404092)
+
 * Tue Nov 11 2025 Adam Williamson <awilliam@redhat.com> - 4.1.0-2
 - Backport PR #1466 to fix threading detection
 

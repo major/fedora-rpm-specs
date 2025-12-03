@@ -5,7 +5,7 @@
 %global crate quinn-proto
 
 Name:           rust-quinn-proto
-Version:        0.11.11
+Version:        0.11.13
 Release:        %autorelease
 Summary:        State machine for the QUIC transport protocol
 
@@ -16,6 +16,9 @@ Source:         %{crates_source}
 Patch:          quinn-proto-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop WASM-specific wasm-bindgen-test dev-dependency
+# * Temporarily allow hex-literal 0.4 until we update to 1.0; see
+#   https://src.fedoraproject.org/rpms/rust-hex-literal/pull-request/2,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2347108
 Patch:          quinn-proto-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -63,6 +66,18 @@ use the "arbitrary" feature of the "%{crate}" crate.
 %files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bloom-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bloom-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bloom" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bloom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -85,6 +100,18 @@ This package contains library source intended for building other packages which
 use the "platform-verifier" feature of the "%{crate}" crate.
 
 %files       -n %{name}+platform-verifier-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+qlog-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+qlog-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "qlog" feature of the "%{crate}" crate.
+
+%files       -n %{name}+qlog-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+ring-devel

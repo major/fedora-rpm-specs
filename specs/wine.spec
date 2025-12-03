@@ -46,7 +46,7 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.19
+Version:        10.20
 Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -422,7 +422,6 @@ handler service.
 %package -n ntsync-autoload
 Summary:       Kernel module load file for ntsync
 BuildArch:     noarch
-Conflicts:     steam
 Provides:      wine-ntsync = %{version}-%{release}
 Obsoletes:     wine-ntsync < %{version}-%{release}
 
@@ -1437,6 +1436,9 @@ fi
 %{_libdir}/wine/%{winepedirs}/icinfo.exe
 %{_libdir}/wine/%{winepedirs}/icmp.dll
 %{_libdir}/wine/%{winepedirs}/icmui.dll
+%{_libdir}/wine/%{winepedirs}/icu.dll
+%{_libdir}/wine/%{winepedirs}/icuin.dll
+%{_libdir}/wine/%{winepedirs}/icuuc.dll
 %{_libdir}/wine/%{winepedirs}/ieframe.dll
 %{_libdir}/wine/%{winepedirs}/ieproxy.dll
 %{_libdir}/wine/%{winepedirs}/iertutil.dll
@@ -1580,6 +1582,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/msvcrt20.dll
 %{_libdir}/wine/%{winepedirs}/msvcrt40.dll
 %{_libdir}/wine/%{winepedirs}/msvcrtd.dll
+%{_libdir}/wine/%{winepedirs}/msvdsp.dll
 %{_libdir}/wine/%{winepedirs}/msvfw32.dll
 %{_libdir}/wine/%{winepedirs}/msvidc32.dll
 %{_libdir}/wine/%{winepedirs}/msvproc.dll
@@ -1760,6 +1763,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/vdmdbg.dll
 %{_libdir}/wine/%{winepedirs}/version.dll
 %{_libdir}/wine/%{winepedirs}/vga.dll
+%{_libdir}/wine/%{winepedirs}/vidreszr.dll
 %{_libdir}/wine/%{winepedirs}/virtdisk.dll
 %{_libdir}/wine/%{winepedirs}/vssapi.dll
 %{_libdir}/wine/%{winepedirs}/vulkan-1.dll
@@ -2305,6 +2309,12 @@ fi
 %endif
 
 %changelog
+* Mon Dec 01 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-2
+- remove Conflicts
+
+* Mon Dec 01 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-1
+- version update
+
 * Fri Nov 21 2025 Michael Cronenworth <mike@cchtml.com> - 10.19-2
 - wine-ntsync rename to ntsync-autoload
 

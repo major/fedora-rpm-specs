@@ -17,7 +17,9 @@ Source:         %{giturl}/archive/%{version}.%{prerel}/sphinx-basic-ng-%{version
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{!?with_bootstrap:-x docs}
+%if %{without bootstrap}
+BuildOption(generate_buildrequires): -x docs
+%endif
 BuildOption(install): -l sphinx_basic_ng
 
 %if %{without bootstrap}

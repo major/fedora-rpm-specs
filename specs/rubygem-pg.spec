@@ -2,21 +2,18 @@
 %global gem_name pg
 
 Name: rubygem-%{gem_name}
-Version: 1.6.1
-Release: 2%{?dist}
+Version: 1.6.2
+Release: 1%{?dist}
 Summary: Pg is the Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ged/ruby-pg.git
-# git archive -v -o pg-1.6.1-spec.tar.gz v1.6.1 spec/
+# git archive -v -o pg-1.6.2-spec.tar.gz v1.6.2 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 # Disable RPATH.
 # https://github.com/ged/ruby-pg/issues/183
 Patch0: rubygem-pg-1.3.0-remove-rpath.patch
-# https://github.com/ged/ruby-pg/commit/124e4fccfb701059c5cccb592e33e544574cd049
-# Fix invalid Ractor usage for ruby4_0
-Patch1: rubygem-pg-124e4fc-fix-invalid-ractor-usage.patch
 # lib/pg/text_{de,en}coder.rb
 Requires: rubygem(json)
 # This is optional dependency now.
@@ -52,11 +49,6 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 %patch 0 -p1
-(
-cd %{_builddir}
-%patch 1 -p1
-)
-
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -127,6 +119,10 @@ popd
 %{gem_instdir}/sample
 
 %changelog
+* Mon Dec 01 2025 Jarek Prokop <jprokop@redhat.com> - 1.6.2-1
+- Upgrade to pg 1.6.2.
+  Resolves: rhbz#2392514
+
 * Mon Nov 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.1-2
 - Backport upstream commit to fix invalid Ractor usage for ruby4_0
 

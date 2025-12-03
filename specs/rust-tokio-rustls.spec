@@ -5,7 +5,7 @@
 %global crate tokio-rustls
 
 Name:           rust-tokio-rustls
-Version:        0.26.2
+Version:        0.26.4
 Release:        %autorelease
 Summary:        Asynchronous TLS/SSL streams for Tokio using Rustls
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+brotli-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+brotli-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "brotli" feature of the "%{crate}" crate.
+
+%files       -n %{name}+brotli-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+early-data-devel
@@ -98,6 +110,18 @@ use the "tls12" feature of the "%{crate}" crate.
 %files       -n %{name}+tls12-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+zlib-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zlib-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zlib" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zlib-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -114,21 +138,12 @@ use the "tls12" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests that require internet access
-# * skip tests that fail due to expired certificates
 %{cargo_test -- -- --exact %{shrink:
     --skip common::test_stream::stream_handshake_regression_issues_77
     --skip test_modern
     --skip test_tls12
     --skip test_tls12_vectored
     --skip test_modern_vectored
-    --skip common::test_stream::stream_bad
-    --skip common::test_stream::stream_buffered_handshake
-    --skip common::test_stream::stream_eof
-    --skip common::test_stream::stream_good
-    --skip common::test_stream::stream_good_vectored
-    --skip common::test_stream::stream_handshake
-    --skip pass
-    --skip test_lazy_config_acceptor
 }}
 %endif
 

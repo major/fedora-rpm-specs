@@ -1,5 +1,3 @@
-%define bash_completion_dir %{_datadir}/bash-completion/completions
-
 # hatchling is not supported in Python 3.6 releases (epel8)
 %if 0%{?rhel} == 8
 %global with_hatchling 0
@@ -9,7 +7,7 @@
 
 Name:           fedpkg
 Version:        1.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -92,6 +90,11 @@ via the python-argcomplete framework.
 %py_build
 %endif
 %{python3} doc/fedpkg_man_page.py > fedpkg.1
+register-python-argcomplete --shell bash fedpkg > fedpkg.bash
+%if 0%{?with_hatchling}
+# argcomplete version in EPEL8 does not have support for fish
+register-python-argcomplete --shell fish fedpkg > fedpkg.fish
+%endif
 
 %install
 %if 0%{?with_hatchling}
@@ -102,10 +105,9 @@ via the python-argcomplete framework.
 %endif
 %{__install} -d %{buildroot}%{_mandir}/man1
 %{__install} -p -m 0644 fedpkg.1 %{buildroot}%{_mandir}/man1
-echo "register-python-argcomplete fedpkg" > fedpkg.bash
-%{__install} -d %{buildroot}%{bash_completion_dir}
-%{__install} -p -m 0644 fedpkg.bash %{buildroot}%{bash_completion_dir}
+%{__install} -D -p -m 0644 fedpkg.bash -t %{buildroot}%{bash_completions_dir}
 %if 0%{?with_hatchling}
+%{__install} -D -p -m 0644 fedpkg.fish -t %{buildroot}%{fish_completions_dir}
 # config file /etc/rpkg/fedpkg.conf is extracted to %{buildroot}/usr/etc/... by pyproject_install
 %{__install} -d %{buildroot}%{_sysconfdir}
 mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
@@ -137,10 +139,17 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/rpkg/fedpkg-stage.conf
 
 %files -n fedpkg-completion
-%config(noreplace) %{bash_completion_dir}/fedpkg.bash
+%config(noreplace) %{bash_completions_dir}/fedpkg.bash
+%if 0%{?with_hatchling}
+%config(noreplace) %{fish_completions_dir}/fedpkg.fish
+%endif
 
 
 %changelog
+* Mon Dec 01 2025 Sandro <devel@penguinpee.nl> - 1.47-2
+- Fix bash auto completion
+- Add fish auto completion
+
 * Wed Nov 26 2025 Ondřej Nosek <onosek@redhat.com> - 1.47-1
 - Use ruff code checker instead of bandit (onosek)
 - Clone the API key info into all help messages (mpospisi)

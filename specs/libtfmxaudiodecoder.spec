@@ -1,15 +1,11 @@
-%global commit 9634c9486f483f899ee97e703cec6887d6ad55b5
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name: libtfmxaudiodecoder
 Version: 1.0.0
-Release: 0.2.20251114git%{shortcommit}%{?dist}
+Release: 1%{?dist}
 
 Summary: C wrapper library for TFMX & FC music files
 License: GPL-2.0-or-later
 URL: https://github.com/mschwendt/libtfmxaudiodecoder
-#Source0: https://github.com/mschwendt/%%{name}/releases/download/%%{name}-%%{version}/%%{name}-%%{version}.tar.bz2
-Source0: https://github.com/mschwendt/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0: https://github.com/mschwendt/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -32,11 +28,9 @@ software that uses %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1
 
 %build
-# Snapshots don't include pregenerated Autotools files.
-autoreconf -f -i
 %configure --disable-static
 %make_build
 
@@ -57,7 +51,10 @@ autoreconf -f -i
 
 
 %changelog
-* Fri Nov 14 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 1.0.0-0.2.20251114git9634c94
+* Mon Dec 01 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.0-1
+- update to 1.0.0 release
+
+* Fri Nov 14 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.0-0.2.20251114git9634c94
 - latest snapshot, also for Audacious plugin
 
 * Sun Nov 09 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.0-0.2.20251109gitcdd9b3a

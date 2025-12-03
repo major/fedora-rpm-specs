@@ -19,7 +19,7 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_versi
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
 
-ExcludeArch:    i686
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  meson

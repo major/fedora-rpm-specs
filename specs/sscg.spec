@@ -9,7 +9,7 @@
 %{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Simple Signed Certificate Generator
 

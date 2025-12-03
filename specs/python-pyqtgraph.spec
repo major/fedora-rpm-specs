@@ -4,17 +4,13 @@
 %bcond_without docs
 
 Name:           python-pyqtgraph
-Version:        0.13.7
-Release:        13%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
 Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgraph-%{version}.tar.gz
-Patch0:         no-sphinx-qt-doc.patch
-# sphinxext-rediraffe has been retired
-Patch1:         drop-rediraffe.patch
-# Support numpy 2.3.0+
-Patch2:         https://github.com/pyqtgraph/pyqtgraph/commit/eb440f50c3255df8da30adb4e3b59d768ef0f142.patch
+Patch0:         drop-unpackaged-sphinx-extensions.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -84,6 +80,9 @@ rm -f doc/build/html/objects.inv
 %endif
 
 %changelog
+* Mon Dec 01 2025 Scott Talbert <swt@techie.net> - 0.14.0-1
+- Update to new upstream release 0.14.0 (#2415292)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.13.7-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -63,7 +63,7 @@ Patch28: additional-man-pages.patch
 A large collection of manual pages from the Linux Documentation Project (LDP).
 
 %prep
-%setup -q -a 0
+%setup -q
 
 %patch -P 21 -p1
 %patch -P 28 -p1

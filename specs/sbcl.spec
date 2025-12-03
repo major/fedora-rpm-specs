@@ -26,7 +26,7 @@
 
 Name:	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.5.10
+Version: 2.5.11
 Release: %autorelease
 
 # See COPYING for a license breakdown
@@ -111,6 +111,7 @@ export SBCL_HOME=%{_prefix}/lib/sbcl
 %{?sbcl_arch:export SBCL_ARCH=%{sbcl_arch}}
 %{?sbcl_shell} \
 ./make.sh \
+  --fancy \
   --prefix=%{_prefix} \
   --with-sb-core-compression \
   %{?sbcl_bootstrap_dir:--xc-host='clisp -on-error exit'}

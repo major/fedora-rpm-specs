@@ -31,7 +31,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.65
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -847,7 +847,7 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
-* Thu Nov 27 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.65-4
+* Thu Nov 27 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.65-5
 - Improve default httpd LogFormats for better support diagnostics
 
 * Wed Nov 12 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.65-3

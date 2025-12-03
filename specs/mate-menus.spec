@@ -6,6 +6,10 @@ Summary:       Displays menus for MATE Desktop
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
+# >= f43 , see rhbz (#2411809)
+%if 0%{?fedora} && 0%{?fedora} >= 43
+Patch1:        mate-menus_glib2-2.86.patch
+%endif
 
 BuildRequires: make
 BuildRequires: gobject-introspection-devel
@@ -45,6 +49,9 @@ Development files for mate-menus
 sed -i -e '/<!-- End Other -->/ a\  <MergeFile>applications-merged/multimedia-categories.menu</MergeFile>' layout/mate-applications.menu
 sed -i -e '/<MergeFile>applications-merged\/multimedia-categories.menu<\/MergeFile>/ a\  <MergeFile>applications-merged/games-categories.menu</MergeFile>' layout/mate-applications.menu
 sed -i -e '/<MergeFile>applications-merged\/games-categories.menu<\/MergeFile>/ a\  <MergeFile>applications-merged/wine.menu</MergeFile>' layout/mate-applications.menu
+
+#Patch1
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
