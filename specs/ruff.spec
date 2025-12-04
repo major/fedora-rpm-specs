@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.14.6
+Version:        0.14.7
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -189,7 +189,7 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev a885bb4c4c192741b8a17418fef81a71e33d111e
+%global salsa_rev 17bc55d699565e5a1cb1bd42363b905af2f9f3e7
 %global salsa_baseversion 0.24.0
 %global salsa_snapdate 20251113
 Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
@@ -536,6 +536,12 @@ skip="${skip-} --skip python_environment::ty_environment_and_discovered_venv"
 skip="${skip-} --skip python_environment::ty_environment_is_only_environment"
 # Not confirmed flaky, but the other ty_environment_* ones are, so…
 skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
+
+# This panics consistenly on s390x only; not reported upstream since it
+# couldn’t be reproduced in a git checkout under qemu-user-static emulation.
+%ifarch s390x
+skip="${skip-} --skip mdtest__generics_specialize_constrained"
+%endif
 
 %cargo_test -- -- ${skip-}
 %endif

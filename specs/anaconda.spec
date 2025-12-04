@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.4
+Version: 44.5
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -518,6 +518,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 02 2025 Packit <hello@packit.dev> - 44.5-1
+- storage: add minimum recommended size for /boot/efi partition (k.koukiou)
+- storage: update minimum recommended /boot partition size to 1 GB (k.koukiou)
+- Fix parsing of du output when errors are present (k.koukiou)
+
 * Tue Nov 25 2025 Packit <hello@packit.dev> - 44.4-1
 - bootc: Collect kernel arguments before installation to pass to bootc
   (k.koukiou)

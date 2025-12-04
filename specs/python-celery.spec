@@ -1,7 +1,7 @@
 %bcond_without tests
 # Packaging unstable?
 #%%global prerel rc1
-%global general_version 5.3.6
+%global general_version 5.6.0
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-celery
@@ -17,9 +17,6 @@ Source0:        https://github.com/celery/celery/archive/v%{upstream_version}/%{
 Source1:        pytest.ini
 Summary:        Distributed Task Queue
 
-# Fix tests with click >= 8.2
-# Resolved upstream: https://github.com/celery/celery/pull/9590
-Patch:          fix-click-8.2.1-tests.patch
 
 %description
 An open source asynchronous task queue/job queue based on
@@ -56,10 +53,10 @@ Summary:        Distributed Task Queue
 # Requires are auto-generated from setup.py (and then from requirements/default.txt)
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %if %{with tests}
 BuildRequires:  python3-amqp
+BuildRequires:  python3-azure-core
 BuildRequires:  python3-billiard
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-click
@@ -74,8 +71,10 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-click
 BuildRequires:  python3-pytest-timeout
 BuildRequires:  python3-pytest-subtests
+BuildRequires:  python3-pydantic
 BuildRequires:  python3-pyyaml
 BuildRequires:  python3-redis
+BuildRequires:  python3-requests
 BuildRequires:  python3-simplejson
 %endif
 
@@ -86,10 +85,13 @@ BuildRequires:  python3-simplejson
 %autosetup -p1 -n celery-%{upstream_version}
 
 # Drop python tzdata requirement which doesn't make sense on Fedora
-sed -i 's/tzdata>=2022.7//g' requirements/default.txt
+sed -i 's/tzdata.*$//' requirements/default.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 #pushd docs
 # missing python-sphinx_celery (for the moment)
@@ -100,7 +102,8 @@ sed -i 's/tzdata>=2022.7//g' requirements/default.txt
 cp %{SOURCE1} .
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l celery
 pushd %{buildroot}%{_bindir}
 mv celery celery-%{python3_version}
 ln -s celery-%{python3_version} celery-3
@@ -115,29 +118,50 @@ popd
 # cache tests
 export TEST_BROKER=redis://
 export TEST_BACKEND=cache+pylibmc://
-%pytest --ignore=t/unit/backends/test_s3.py --ignore=t/unit/backends/test_mongodb.py --ignore=t/distro/test_CI_reqs.py --ignore=t/integration/test_worker.py
+%pytest \
+  --ignore=t/smoke \
+  --ignore=t/integration \
+  --ignore=t/unit/backends/test_s3.py \
+  --ignore=t/unit/backends/test_mongodb.py \
+  --ignore=t/distro/test_CI_reqs.py \
+  --ignore=t/unit/backends/test_azureblockblob.py \
+  --ignore=t/unit/backends/test_gcs.py \
+  --ignore=t/unit/utils/test_annotations.py
 
 # redis tests
 export TEST_BROKER=redis://
 export TEST_BACKEND=redis://
-%pytest --ignore=t/unit/backends/test_s3.py --ignore=t/unit/backends/test_mongodb.py --ignore=t/distro/test_CI_reqs.py --ignore=t/integration/test_worker.py
+%pytest \
+  --ignore=t/smoke \
+  --ignore=t/integration \
+  --ignore=t/unit/backends/test_s3.py \
+  --ignore=t/unit/backends/test_mongodb.py \
+  --ignore=t/distro/test_CI_reqs.py \
+  --ignore=t/unit/backends/test_azureblockblob.py \
+  --ignore=t/unit/backends/test_gcs.py \
+  --ignore=t/unit/utils/test_annotations.py
 
 # rabbitmq tests
 export TEST_BROKER=pyamqp://
 export TEST_BACKEND=rpc
-%pytest --ignore=t/unit/backends/test_s3.py --ignore=t/unit/backends/test_mongodb.py --ignore=t/distro/test_CI_reqs.py --ignore=t/integration/test_worker.py
+%pytest \
+  --ignore=t/smoke \
+  --ignore=t/integration \
+  --ignore=t/unit/backends/test_s3.py \
+  --ignore=t/unit/backends/test_mongodb.py \
+  --ignore=t/distro/test_CI_reqs.py \
+  --ignore=t/unit/backends/test_azureblockblob.py \
+  --ignore=t/unit/backends/test_gcs.py \
+  --ignore=t/unit/utils/test_annotations.py
 %endif
 
 %files doc
 %license LICENSE
 
-%files -n python3-celery
-%license LICENSE
+%files -n python3-celery -f %{pyproject_files}
 %doc README.rst TODO CONTRIBUTORS.txt examples
 %{_bindir}/celery
 %{_bindir}/celery-3*
-%{python3_sitelib}/celery-*.egg-info
-%{python3_sitelib}/celery
 
 %changelog
 %autochangelog

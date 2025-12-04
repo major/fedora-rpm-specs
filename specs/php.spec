@@ -69,8 +69,8 @@
 # use bundled library instead for now
 %bcond_with          liburiparser
 
-%global upver        8.5.0
-#global rcver        RC5
+%global upver        8.5.1
+%global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -1644,6 +1644,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Dec  2 2025 Remi Collet <remi@remirepo.net> - 8.5.1~RC1-1
+- update to 8.5.1RC1
+
 * Wed Nov 19 2025 Remi Collet <remi@remirepo.net> - 8.5.0-1
 - Update to 8.5.0 GA
 - move httpd/nginx drop-ins back to /usr/lib/systemd/system #2415127

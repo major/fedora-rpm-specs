@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit 84b5d3c79ca1043d4d1d9b9fc8eb1ce349c18214
+%global commit b8bc62355f0169aca6c1facfc73eb3b54207897c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20251130
+%global date 20251201
 
 %global orgname org.kde.plasmasetup
 
@@ -17,6 +17,8 @@ Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
+
+Patch:          https://invent.kde.org/plasma/plasma-setup/-/merge_requests/55.patch
 
 BuildRequires:  cmake(Qt6Core) >= %{qt6_minver}
 BuildRequires:  cmake(Qt6Gui) >= %{qt6_minver}
@@ -111,6 +113,10 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Tue Dec 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251201gitb8bc623-1
+- Bump to new git snapshot
+- Add patch to handle existing users on firstboot setup
+
 * Sun Nov 30 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251130git84b5d3c-1
 - Bump to new git snapshot
 

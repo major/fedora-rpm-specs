@@ -2,7 +2,7 @@
 %bcond_with     tests
 
 Name:           python-azure-mgmt-containerservice
-Version:        40.0.0
+Version:        40.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Container Service Management Client Library for Python
 License:        MIT

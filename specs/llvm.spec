@@ -3773,6 +3773,7 @@ fi
     flang/iso_fortran_env_impl.mod
     flang/omp_lib.mod
     flang/omp_lib_kinds.mod
+    flang/flang_debug.mod
 }}
 %{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg
 %ifarch x86_64

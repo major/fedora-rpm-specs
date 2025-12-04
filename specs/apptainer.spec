@@ -31,7 +31,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.4.4
+%global package_version 1.4.5
 
 %global gocryptfs_version 2.5.1
 %global squashfuse_version 0.6.0
@@ -44,8 +44,8 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.4.4
-Release: 2%{?dist}
+Version: 1.4.5
+Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -145,7 +145,7 @@ Provides: bundled(golang(github.com/coreos/go_systemd/v22)) = v22.5.0
 Provides: bundled(golang(github.com/cpuguy83/go_md2man/v2)) = v2.0.6
 Provides: bundled(golang(github.com/creack/pty)) = v1.1.24
 Provides: bundled(golang(github.com/cyberphone/json_canonicalization)) = v0.0.0_20231217050601_ba74d44ecf5f
-Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.4.1
+Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.5.1
 Provides: bundled(golang(github.com/d2g/dhcp4)) = v0.0.0_20170904100407_a1d1b6c41b1c
 Provides: bundled(golang(github.com/d2g/dhcp4client)) = v1.0.0
 Provides: bundled(golang(github.com/distribution/reference)) = v0.6.0
@@ -216,10 +216,10 @@ Provides: bundled(golang(github.com/networkplumbing/go_nft)) = v0.4.0
 Provides: bundled(golang(github.com/oklog/ulid)) = v1.3.1
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.1
-Provides: bundled(golang(github.com/opencontainers/runc)) = v1.2.5
+Provides: bundled(golang(github.com/opencontainers/runc)) = v1.2.8
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.2.1
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20221107090550_2e043c6bd626
-Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.11.1
+Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.13.1
 Provides: bundled(golang(github.com/opencontainers/umoci)) = v0.4.7
 Provides: bundled(golang(github.com/pelletier/go_toml/v2)) = v2.2.3
 Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
@@ -489,10 +489,13 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Dec  1 2025 Dave Dykstra <dwd@cern.ch> - 1.4.5
+- Update to upstream 1.4.5
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 1.4.4-2
 - rebuild for new fuse3
 
-* Wed Oct 29 2025 Dave Dykstra <dwd@cern.ch> - 1.4.4-1
+* Wed Oct 29 2025 Dave Dykstra <dwd@cern.ch> - 1.4.4
 - Update to upstream 1.4.4
 
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.4.3-3

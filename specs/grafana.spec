@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          20%{?dist}
+Release:          21%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1025,6 +1025,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Tue Dec 2 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-21
+- Fix grafana-selinux cgroups denials
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 10.2.6-20
 - rebuild
 

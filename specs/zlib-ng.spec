@@ -98,7 +98,20 @@ cat <<_EOF_
 _EOF_
 
 # zlib-ng uses a different macro for library directory.
-%global cmake_param %{?with_sanitizers:-DWITH_SANITIZER=ON} -DWITH_RVV=OFF
+%global cmake_param %{?with_sanitizers:-DWITH_SANITIZER=ON}
+
+%ifarch riscv64
+%global cmake_param %cmake_param -DWITH_RVV=OFF
+%endif
+
+%if 0%{?rhel} >= 10
+%ifarch x86_64
+# RHEL 10 has x86_64-v3 as baseline, turning the CRC32 Chorba optimization
+# unnecessary.
+# More info: https://github.com/zlib-ng/zlib-ng/releases/tag/2.3.1
+%global cmake_param %cmake_param -DWITH_CRC32_CHORBA=OFF
+%endif
+%endif
 
 # Setting __cmake_builddir is not necessary in this step, but do it anyway for symmetry.
 %global __cmake_builddir %{_vpath_builddir}

@@ -1,7 +1,7 @@
-%global sdkver 1.4.321.0
+%global sdkver 1.4.328.1
 
 Name:           glslang
-Version:        15.4.0
+Version:        16.0.0
 Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 
@@ -54,16 +54,14 @@ popd
 %endif
 
 %files
-%doc README.md README-spirv-remap.txt
+%doc README.md
 %{_bindir}/glslang
 %{_bindir}/glslangValidator
-%{_bindir}/spirv-remap
 
 %files devel
 %{_includedir}/glslang/
 %{_libdir}/libOSDependent.a
 %{_libdir}/libSPIRV.a
-%{_libdir}/libSPVRemapper.a
 %{_libdir}/libglslang.a
 %{_libdir}/libGenericCodeGen.a
 %{_libdir}/libMachineIndependent.a

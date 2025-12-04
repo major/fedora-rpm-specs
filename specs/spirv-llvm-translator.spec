@@ -1,8 +1,8 @@
-%global commit acb023b63a4bafd53d0ba6a1a452b1f0e5671458
+%global commit a79c852b36785588032a2dd7c39aa15ec4d24b20
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        21.1.0
+Version:        21.1.3
 Release:        %autorelease
 Summary:        LLVM to SPIRV Translator
 
@@ -13,6 +13,7 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  libffi-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  llvm-devel
 BuildRequires:  llvm-static

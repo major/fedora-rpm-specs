@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -304,6 +304,12 @@ mv %{buildroot}%{_bindir}/shiboken_tool.py %{buildroot}%{python3_sitelib}/shibok
 # Install shiboken6
 mv redhat-linux-build/sources/shiboken6/generator/shiboken6 %{buildroot}%{python3_sitelib}/shiboken6_generator
 
+# Fix CMake config files to use correct absolute paths (OpenSUSE solution)
+# The upstream build is designed for wheel installation with relative paths,
+# but for system installation we need absolute paths
+sed -i 's#/typesystems#/share/PySide6/typesystems#g' %{buildroot}%{_libdir}/cmake/PySide6/*.cmake
+sed -i 's#/glue#/share/PySide6/glue#g' %{buildroot}%{_libdir}/cmake/PySide6/*.cmake
+
 # Fix all Python shebangs recursively
 # -p preserves timestamps
 # -n prevents creating ~backup files
@@ -367,6 +373,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Tue Dec 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-2
+- Fix cmake config files
+
 * Mon Dec 01 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
 - 6.10.1
 

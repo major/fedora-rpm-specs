@@ -2,7 +2,7 @@
 
 Name:       calls
 Version:    49.1.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -45,6 +45,8 @@ BuildRequires:  python3-docutils
 
 Requires:  hicolor-icon-theme
 
+Recommends: feedbackd
+
 Provides: gnome-calls = %{version}-%{release}
 Provides: gnome-calls%{?_isa} = %{version}-%{release}
 
@@ -66,38 +68,7 @@ mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 %meson_install
 
 # Remove call-ui translations
-rm %{buildroot}%{_datadir}/locale/ca/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/de/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/pt_BR/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/ro/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/uk/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/fa/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/fur/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/nl/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/pt/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/sv/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/gl/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/it/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/sl/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/es/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/fi/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/he/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/ka/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/oc/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/pl/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/sr/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/tr/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/el/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/fr/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/ru/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/hr/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/cs/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/eu/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/hi/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/hu/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/be/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/ht/LC_MESSAGES/call-ui.mo
-rm %{buildroot}%{_datadir}/locale/zh_CN/LC_MESSAGES/call-ui.mo
+rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/call-ui.mo
 
 # We do not support the ofono backend
 rm -rf %{buildroot}%{_libdir}/calls/plugins/provider/ofono/

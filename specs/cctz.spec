@@ -1,5 +1,5 @@
 Name:           cctz
-Version:        2.4
+Version:        2.5
 %global sover   2
 Release:        %autorelease
 License:        Apache-2.0

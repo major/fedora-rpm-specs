@@ -19,6 +19,13 @@
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
 
+# enable|disble use_custom_libcxx
+%global use_custom_libcxx 0
+%if 0%{?rhel}
+# no libcxx in el
+%global use_custom_libcxx 1
+%endif
+
 # enable|disble bootstrap
 %global bootstrap 0
 # workaround for old gn on el9, it causes build error: unknown function filter_labels_include()
@@ -141,9 +148,6 @@
 
 # enable|disable control flow integrity support
 %global cfi 0
-%ifarch x86_64
-%global cfi 0
-%endif
 
 ## CEF: QT builds are not relevant
 %global use_qt6 0
@@ -220,12 +224,12 @@
 %global chromium_major 142
 %global chromium_branch 7444
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 162
+%global chromium_minor 175
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit ceaf5788b9ccc1ca17973231a33f181d77c01006
+%global cef_commit 60aac241478a4495bc7fd7d56160d3e378e7decd
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 14
+%global cef_patch 17
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -256,6 +260,9 @@ Patch20: chromium-disable-font-tests.patch
 # don't download binary blob
 Patch21: chromium-123-screen-ai-service.patch
 
+# Fix link error when building with system libcxx
+Patch22: chromium-131-fix-qt-ui.pach
+
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
@@ -276,9 +283,6 @@ Patch93: chromium-141-csss_style_sheet.patch
 
 # Revert due to incorrect display of links on startpage in Darkmode
 Patch94: chromium-141-revert-remove-darkmode-image-policy.patch
-
-# FTBFS - fatal error: 'gpu/webgpu/dawn_commit_hash.h' file not found
-Patch95: chromium-142-dawn-commit-hash.patch
 
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
@@ -352,6 +356,8 @@ Patch316: chromium-122-clang-build-flags.patch
 # unknown warning option -Wno-nontrivial-memcall
 Patch317: chromium-142-clang++-unknown-argument.patch
 
+Patch318: memory-allocator-dcheck-assert-fix.patch
+
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
@@ -419,7 +425,6 @@ Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
 Patch404: fix-partition-alloc-compile.patch
 Patch405: fix-study-crash.patch
-Patch406: memory-allocator-dcheck-assert-fix.patch
 Patch407: fix-different-data-layouts.patch
 Patch408: 0002-Add-ppc64-trap-instructions.patch
 
@@ -453,6 +458,9 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 # ../../base/containers/span.h:1387:63: error: arithmetic on a pointer to an incomplete type 'element_type' (aka 'const autofill::FormFieldData')
 # 1387 |         typename iterator::AssumeValid(data(), data(), data() + size())));
 Patch1000: chromium-142-missing-include-for-form_field_data.patch
+# Fix Wayland URI DnD issues
+Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
+Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
@@ -496,6 +504,10 @@ BuildRequires: clang
 BuildRequires: clang-tools-extra
 BuildRequires: llvm
 BuildRequires: lld
+
+%if ! %{use_custom_libcxx}
+BuildRequires: libcxx-devel
+%endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 BuildRequires: gcc-toolset-14-libatomic-devel
@@ -940,6 +952,9 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P20 -p1 -b .disable-font-test
 %patch -P21 -p1 -b .screen-ai-service
+%if ! %{use_custom_libcxx}
+%patch -P22 -p1 -b .fix-qt-ui
+%endif
 
 %patch -P82 -p1 -b .remoting-no-tests
 
@@ -960,7 +975,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
 %patch -P94 -p1 -R -b .revert-remove-darkmode-image-policy
-%patch -P95 -p1 -b .dawn-commit-hash
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if 0%{?fedora} > 43
@@ -1019,6 +1033,8 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P317 -p1 -b .clang++-unsupported-argument
 %endif
 
+%patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
+
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
@@ -1065,7 +1081,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P403 -p1 -b .fix-breakpad-compile
 %patch -P404 -p1 -b .fix-partition-alloc-compile
 %patch -P405 -p1 -b .fix-study-crash
-%patch -P406 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P407 -p1 -b .fix-different-data-layouts
 %patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
 %patch -P409 -p1 -b .fix-page-allocator-overflow
@@ -1086,6 +1101,8 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 # Upstream patches
 %patch -P1000 -p1 -b .missing-include-for-form_field_data.patch
+%patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
+%patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot
@@ -1230,6 +1247,11 @@ CXXFLAGS="$FLAGS"
 CXXFLAGS+=' -faltivec-src-compat=mixed -Wno-deprecated-altivec-src-compat'
 %endif
 
+%if ! %{use_custom_libcxx}
+LDFLAGS="${LDFLAGS} -stdlib=libc++"
+CXXFLAGS="${CXXFLAGS} -stdlib=libc++"
+%endif
+
 export CC=clang
 export CXX=clang++
 export AR=llvm-ar
@@ -1237,6 +1259,7 @@ export NM=llvm-nm
 export READELF=llvm-readelf
 export CFLAGS
 export CXXFLAGS
+export LDFLAGS
 
 # need for error: the option `Z` is only accepted on the nightly compiler
 export RUSTC_BOOTSTRAP=1
@@ -1260,6 +1283,9 @@ CHROMIUM_CORE_GN_DEFINES=""
 # using system toolchain
 CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
+%if ! %{use_custom_libcxx}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_custom_libcxx=false'
+%endif
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_enterprise_companion=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
@@ -1308,10 +1334,7 @@ CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level} blink_symbol_level=%{deb
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
-# Disable --warning-suppression-mappings as it causes FTBFS on el/f40/f41 due to old llvm
-%if 0%{?rhel} || 0%{?fedora} == 40 || 0%{?fedora} == 41
-CHROMIUM_CORE_GN_DEFINES+=' clang_warning_suppression_file=""'
-%endif
+CHROMIUM_CORE_GN_DEFINES+=' v8_enable_backtrace=true'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines

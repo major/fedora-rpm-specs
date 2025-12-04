@@ -25,7 +25,7 @@ Patch:          0001-Avoid-ast.Str-for-python-3.14-compatibility.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{!?with_bootstrap:-x cli tests/requirements.txt}
+%{!?with_bootstrap:BuildOption(generate_buildrequires): -x cli tests/requirements.txt}
 BuildOption(install): -l sphinx_theme_builder
 
 BuildRequires:  help2man

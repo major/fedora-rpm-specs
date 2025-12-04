@@ -4,7 +4,7 @@
 
 Name:           %{hyphen}
 Version:        0.1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Loadouts for Genshin Impact
 
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{identity}.me
 %{_datadir}/icons/hicolor/scalable/apps/%{identity}.svg
 
 %changelog
+* Tue Dec 02 2025 Jan Grulich <jgrulich@redhat.com> - 0.1.11-2
+- Rebuild (python-pyside6)
+
 * Fri Oct 10 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.1.11-1
 - Version 0.1.11 release of Loadouts for Genshin Impact
 - Announcement - https://gridhead.net/loadouts-for-genshin-impact-v0-1-11-released/

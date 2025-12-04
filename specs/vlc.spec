@@ -17,7 +17,7 @@
 %bcond projectm 0
 
 # some dependencies are not yet in EPEL 10
-%bcond daala %{undefined el10}
+%bcond daala 1
 %bcond lirc 1
 %bcond schro %[!(0%{?rhel} >= 10)]
 %bcond sdl %[!(0%{?rhel} >= 10)]
@@ -32,32 +32,31 @@
 %bcond vpl 1
 %endif
 
+#global commit f9020c4df073c861a28f0cda5c6c5dccb58a49ef
+#global gitdate 20251124
+
+%global app_id  org.videolan.vlc
+
 Name:		vlc
 Epoch:		1
-Version:	3.0.21
+Version:	3.0.22
 Release:	%autorelease
 Summary:	The cross-platform open-source multimedia framework, player and server
 License:	GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause
 URL:		https://www.videolan.org
+%if 0%{?commit:1}
+Source:		https://code.videolan.org/videolan/vlc/-/archive/%{commit}/vlc-%{commit}.tar.bz2
+%else
 Source:		https://get.videolan.org/vlc/%{version}/vlc-%{version}.tar.xz
+%endif
 Source:		macros.vlc
 
 ## upstream patches
-# opus_header: fix channel mapping family 1 parsing (rhbz#2307919)
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/5590.patch
-# add support for ffmpeg 7.0 (without VAAPI)
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/5574.patch
-# mux: avformat: fix avio callbacks signature with ffmpeg 6.1
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6168.patch
-# ffmpeg: backport more channel checks
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6273.patch
-# avcodec: vaapi: support VAAPI with latest FFmpeg
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6606.patch
-# nfs: fix libnfs API v2 support (rhbz#2341791)
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6527.patch
+
+## backported patches from master
+# freerdp: update to freerdp 2.0 api (#2278)
+Patch:		freerdp2.patch
 # port to FFmpeg 8
-# https://code.videolan.org/videolan/vlc/-/merge_requests/6656
-# https://code.videolan.org/videolan/vlc/-/merge_requests/6657
 # https://code.videolan.org/videolan/vlc/-/merge_requests/6659
 # https://code.videolan.org/videolan/vlc/-/issues/29278
 Patch:		ffmpeg8.patch
@@ -77,10 +76,6 @@ Patch:		appdata.patch
 Patch:		libidn2.patch
 # fix deprecated lua math functions (rhbz#2280091)
 Patch:		lua-math.patch
-# update to freerdp2 api; backport from master
-Patch:		freerdp2.patch
-# fix build with live555-2024.11.28
-Patch:		live555.patch
 # avoid "stale plugin cache" warnings in flatpaks
 Patch:		flatpak-cache.patch
 
@@ -95,7 +90,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	desktop-file-utils
 BuildRequires:	libappstream-glib
 
-BuildRequires:	a52dec-devel
+#BuildRequires:	a52dec-devel
 BuildRequires:	aalib-devel
 BuildRequires:	faad2-devel
 BuildRequires:	hostname
@@ -160,7 +155,7 @@ BuildRequires:	pkgconfig(libchromaprint)
 %if %{with ieee1394}
 BuildRequires:	pkgconfig(libdc1394-2) >= 2.1.0
 %endif
-BuildRequires:	pkgconfig(libdca) >= 0.0.5
+#BuildRequires:	pkgconfig(libdca) >= 0.0.5
 #BuildRequires:	pkgconfig(libdsm) >= 0.2.0
 BuildRequires:	pkgconfig(libdvbpsi)
 BuildRequires:	pkgconfig(libebml) >= 1.3.6
@@ -169,7 +164,7 @@ BuildRequires:	pkgconfig(libgme)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libmatroska)
 BuildRequires:	pkgconfig(libmodplug) >= 0.8.9.0
-BuildRequires:	pkgconfig(libmpeg2) >= 0.3.2
+#BuildRequires:	pkgconfig(libmpeg2) >= 0.3.2
 BuildRequires:	pkgconfig(libmpg123)
 BuildRequires:	pkgconfig(libmtp) >= 1.0.0
 BuildRequires:	pkgconfig(libnfs) >= 1.10.0
@@ -580,7 +575,7 @@ developing applications and plugins that use %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 %{?commit:-n %{name}-%{commit}}
 
 rm -f aclocal.m4 m4/lib*.m4 m4/lt*.m4
 ./bootstrap
@@ -588,18 +583,16 @@ rm -f aclocal.m4 m4/lib*.m4 m4/lt*.m4
 # switch "Allow automatic icon change" to opt-in
 sed -i -e 's|\("qt-icon-change",\) true|\1 false|' modules/gui/qt/qt.cpp
 
-# sync appstream app-id with Flathub
 # fill in release date from appstream.patch
 # https: https://code.videolan.org/videolan/vlc/-/merge_requests/1555 (4.0)
-sed -e 's|org\.videolan\.vlc|org.videolan.VLC|' \
-    -e 's|@DATE@|%(date +%F -r %{S:0})|' \
+sed -e 's|@DATE@|%(date +%F -r %{S:0})|' \
     -e 's|http:|https:|g' \
-    -i share/vlc.appdata.xml.in.in
+    -i share/%{app_id}.appdata.xml.in.in
 
 %if 0%{?flatpak}
 # icons are renamed in order to be exported
-sed -i -e '/icon_theme_load/s|"vlc"|"org.videolan.VLC"|' modules/notify/notify.c
-sed -i -e '/fromTheme/s|"vlc"|"org.videolan.VLC"|' \
+sed -i -e '/icon_theme_load/s|"vlc"|"%{app_id}"|' modules/notify/notify.c
+sed -i -e '/fromTheme/s|"vlc"|"%{app_id}"|' \
 	modules/gui/qt/main_interface.cpp modules/gui/qt/qt.cpp
 %endif
 
@@ -669,10 +662,10 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-vpx						\
 	--enable-twolame					\
 	--enable-fdkaac						\
-	--enable-a52						\
-	--enable-dca						\
+	--disable-a52						\
+	--disable-dca						\
 	--enable-flac						\
-	--enable-libmpeg2					\
+	--disable-libmpeg2					\
 	--enable-vorbis						\
 	--enable-tremor						\
 	--enable-speex						\
@@ -799,7 +792,7 @@ rm -rf %{buildroot}%{_docdir}/vlc
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/vlc.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/vlc.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{app_id}.appdata.xml
 
 # chroma_copy_test fails on s390x (big endian?)
 %ifnarch s390x
@@ -821,7 +814,7 @@ make check
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/solid/actions/%{name}-*.desktop
 %{_datadir}/vlc/utils/
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/%{app_id}.appdata.xml
 
 %files libs -f %{name}.lang
 %license COPYING.LIB
@@ -945,7 +938,6 @@ make check
 %{vlc_plugindir}/audio_output/libafile_plugin.so
 %{vlc_plugindir}/audio_output/libalsa_plugin.so
 %{vlc_plugindir}/audio_output/libamem_plugin.so
-%{vlc_plugindir}/codec/liba52_plugin.so
 %{vlc_plugindir}/codec/libadpcm_plugin.so
 %{vlc_plugindir}/codec/libaes3_plugin.so
 %{vlc_plugindir}/codec/libaraw_plugin.so
@@ -1007,6 +999,7 @@ make check
 %{vlc_plugindir}/demux/libdemuxdump_plugin.so
 %{vlc_plugindir}/demux/libdiracsys_plugin.so
 %{vlc_plugindir}/demux/libdirectory_demux_plugin.so
+%{vlc_plugindir}/demux/libdmxmus_plugin.so
 %{vlc_plugindir}/demux/libes_plugin.so
 %{vlc_plugindir}/demux/libflacsys_plugin.so
 %{vlc_plugindir}/demux/libh26x_plugin.so
@@ -1157,10 +1150,8 @@ make check
 %if %{with daala}
 %{vlc_plugindir}/codec/libdaala_plugin.so
 %endif
-%{vlc_plugindir}/codec/libdca_plugin.so
 %{vlc_plugindir}/codec/libkate_plugin.so
 %{vlc_plugindir}/codec/liblibass_plugin.so
-%{vlc_plugindir}/codec/liblibmpeg2_plugin.so
 %if %{with vpl}
 %{vlc_plugindir}/codec/libqsv_plugin.so
 %endif

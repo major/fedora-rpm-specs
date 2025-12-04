@@ -1,13 +1,11 @@
 Name:           perl-CGI-Simple
 Epoch:          1
-Version:        1.281
-Release:        4%{?dist}
+Version:        1.282
+Release:        1%{?dist}
 Summary:        Simple totally OO CGI interface that is CGI.pm compliant
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CGI-Simple
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MANWAR/CGI-Simple-%{version}.tar.gz
-# https://github.com/markstos/CGI--Simple/commit/e811ab874a5e0ac8a99e76b645a0e537d8f714da
-Patch0:         perl-CGI-Simple-CVE-2010-4411.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -40,7 +38,6 @@ BuildRequires:  perl(HTTP::Request::Common)
 
 %prep
 %setup -q -n CGI-Simple-%{version}
-%patch -P0 -p1
 perldoc -t perlartistic > Artistic
 perldoc -t perlgpl > COPYING
 
@@ -62,6 +59,9 @@ make test
 %{_mandir}/man3/CGI::Simple*.3*
 
 %changelog
+* Tue Dec 02 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.282-1
+- 1.282 bump (rhbz#2392359)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.281-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

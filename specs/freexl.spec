@@ -1,10 +1,3 @@
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We can enable the Doxygen PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 %bcond autoreconf 1
 
 # Not (yet) in EPEL10:
@@ -49,6 +42,8 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  minizip-ng-compat-devel
 
+BuildRequires:  doxygen
+
 %if %{with mingw}
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
@@ -77,11 +72,19 @@ Design goals:
 
 %package doc
 Summary:        Documentation and examples for FreeXL
+
+# We unbundle Doxygen-inserted JavaScript assets from the HTML documentation
+# as much as possible, as prescribed in
+# https://src.fedoraproject.org/rpms/doxygen/blob/f42/f/README.rpm-packaging.
+#
+# Some files originating in Doxygen are still bundled or are generated from
+# templates specifically for this package; where these have explicitly
+# documented licenses, they are MIT.
+License:        %{license} AND MIT
+
 BuildArch:      noarch
-%if %{with doc_pdf}
-BuildRequires:  doxygen
-BuildRequires:  doxygen-latex
-%endif
+
+%{?doxygen_js_requires}
 
 %description doc
 %{summary}.
@@ -127,19 +130,6 @@ cp -rp examples clean/
 # them.
 rm -vf clean/examples/Makefile.*
 
-%if %{with doc_pdf}
-# We enable the Doxygen PDF documentation as a substitute. We must enable
-# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
-# already be set as we like them. We also disable GENERATE_HTML, since we will
-# not use it.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    Doxyfile.in
-%endif
-
 # Prepare native build dir with testdata
 mkdir build_native
 cp -a tests build_native
@@ -163,11 +153,9 @@ popd
 %build
 pushd build_native
 %make_build
-%if %{with doc_pdf}
+
 doxygen Doxyfile
-%make_build -C latex
-mv latex/refman.pdf latex/FreeXL.pdf
-%endif
+%{doxygen_unbundle html}
 popd
 
 %if %{with mingw}
@@ -204,9 +192,7 @@ popd
 %doc AUTHORS
 %doc README
 %doc clean/examples/
-%if %{with doc_pdf}
-%doc build_native/latex/FreeXL.pdf
-%endif
+%doc build_native/html/
 
 
 %if %{with mingw}

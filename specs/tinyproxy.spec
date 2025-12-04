@@ -3,12 +3,15 @@
 
 Name:           tinyproxy
 Version:        1.11.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 License:        GPL-2.0-or-later
 URL:            https://tinyproxy.github.io/
 Source0:        https://github.com/tinyproxy/tinyproxy/releases/download/%{version}/tinyproxy-%{version}.tar.xz
 Source1:        tinyproxy.service
+# CVE-2025-63938
+# https://github.com/tinyproxy/tinyproxy/commit/3c0fde94981b025271ffa1788ae425257841bf5a
+Patch0:         0001-reqs-fix-integer-overflow-in-port-number-processing.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -23,7 +26,7 @@ resource intensive, or a security risk.
 
 
 %prep
-%setup -q
+%autosetup -p 1
 sed -e '/^User / s/nobody/tinyproxy/' \
     -e '/^Group / s/nobody/tinyproxy/' \
     -i etc/tinyproxy.conf.in
@@ -75,6 +78,9 @@ exit 0
 
 
 %changelog
+* Tue Dec 02 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.11.2-5
+- Add upstream patch to fix CVE-2025-63938
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

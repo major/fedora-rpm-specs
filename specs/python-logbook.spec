@@ -1,6 +1,6 @@
 Name:		python-logbook
-Version:	1.8.2
-Release:	4%{?dist}
+Version:	1.9.1
+Release:	1%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
@@ -25,6 +25,11 @@ BuildRequires:	python3-redis
 BuildRequires:	python3-zmq
 BuildRequires:	python3-brotli
 BuildRequires:  python3-Cython
+BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-pyo3-devel
+BuildRequires:  rust-pyo3-macros-devel
+BuildRequires:  rust-indoc-devel
+BuildRequires:  rust-unindent-devel
 
 %description -n python3-logbook
 Logbook is a logging system for Python that replaces the standard library's
@@ -36,23 +41,30 @@ Logbook can do that.
 %prep
 %autosetup -n logbook-%{version}
 
+%cargo_prep
+%cargo_generate_buildrequires
 %generate_buildrequires
 %pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
+%cargo_license
+
 %install
 %pyproject_install
 %pyproject_save_files -l logbook
 
 %check
-%pytest -k "not test_redis_handler"
+%pytest -k "not test_redis_handler and not test_logged_if_slow and not test_logged_if_slow_reached and not test_logged_if_slow_did_not_reached and not test_logged_if_slow_logger and not test_logged_if_slow_level and not test_logged_if_slow_deprecated and not test_redis_handler"
 
 %files -n python3-logbook -f %{pyproject_files}
 %doc CHANGES README.md
 
 %changelog
+* Thu Nov 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.9.1-1
+- 1.9.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.2-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

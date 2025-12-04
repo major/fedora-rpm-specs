@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	1
+%global	baserelease	2
 
 %global	gem_name	rspec-core
 
@@ -36,6 +36,9 @@ Source2:	rspec-related-create-full-tarball.sh
 # Adjust backtrace filter for Fedora placement of StdLib.
 # https://github.com/rspec/rspec-core/pull/2881
 Patch0:		rubygem-rspec-core-3.10.1-Filter-content-of-usr-share-ruby.patch
+# https://github.com/rspec/rspec/pull/282/commits/1c20fa80772ca7a1ed0512056ce7cd6a94f8e68d
+# Support ruby4_0 source_location behavior change
+Patch1:	rspec-core-pr282-ruby4_0-source_location.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -90,6 +93,7 @@ This package contains documentation for %{name}.
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
 %patch -P0 -p1
+%patch -P1 -p2
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %build
@@ -209,6 +213,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Tue Dec 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.6-2
+- Backport upstream patch to support ruby4_0 source_location behavior change
+
 * Mon Oct 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.6-1
 - 3.13.6
 

@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A shared storage lock manager
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -58,15 +58,16 @@ install -D -m 0644 init.d/wdmd.service $RPM_BUILD_ROOT%{_unitdir}/wdmd.service
 install -p -D -m 0644 src/sanlock.sysusers $RPM_BUILD_ROOT/%{_sysusersdir}/sanlock.conf
 
 install -D -m 0644 src/logrotate.sanlock \
-    $RPM_BUILD_ROOT/etc/logrotate.d/sanlock
+    $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/sanlock
 
 install -D -m 0644 src/sanlock.conf \
-    $RPM_BUILD_ROOT/etc/sanlock/sanlock.conf
+    $RPM_BUILD_ROOT%{_sysconfdir}/sanlock/sanlock.conf
 
 install -D -m 0644 init.d/wdmd.sysconfig \
-    $RPM_BUILD_ROOT/etc/sysconfig/wdmd
+    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/wdmd
 
-install -Dd -m 0755 $RPM_BUILD_ROOT/etc/wdmd.d
+install -Dd -m 0755 $RPM_BUILD_ROOT%{_sysconfdir}/wdmd.d
+install -Dd -m 0755 $RPM_BUILD_ROOT%{_sharedstatedir}/sanlock
 
 %if 0%{?fedora} < 42
 %pre
@@ -98,6 +99,7 @@ getent passwd sanlock > /dev/null || /usr/sbin/useradd \
 %{_sbindir}/wdmd
 %dir %{_sysconfdir}/wdmd.d
 %dir %{_sysconfdir}/sanlock
+%dir %{_sharedstatedir}/sanlock
 %{_mandir}/man8/wdmd*
 %{_mandir}/man8/sanlock*
 %config(noreplace) %{_sysconfdir}/logrotate.d/sanlock
@@ -157,6 +159,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Tue Dec 02 2025 Marian Csontos <mcsontos@redhat.com> - 4.2.0-2
+- Make and install /var/lib/sanlock directory
+
 * Wed Nov 19 2025 Marian Csontos <mcsontos@redhat.com> - 4.2.0-1
 - new upstream release
 

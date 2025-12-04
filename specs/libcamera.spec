@@ -3,7 +3,7 @@
 
 Name:    libcamera
 Version: 0.5.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -156,9 +156,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
 
 # Build and include the virtual and vimc pipelines. This also builds tests but
 # those do not get included in any packages.
-%meson -Dtest=true %{!?with_docs:-Ddocumentation=disabled}
-
-%meson -Dv4l2=enabled
+%meson -Dv4l2=enabled -Dlc-compliance=disabled -Dtest=true %{!?with_docs:-Ddocumentation=disabled}
 %meson_build
 
 # Stripping requires the re-signing of IPA libraries, manually
@@ -224,7 +222,6 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %files tools
 %license LICENSES/GPL-2.0-only.txt
 %{_bindir}/cam
-%{_bindir}/lc-compliance
 
 %files v4l2
 %{_bindir}/libcamerify
@@ -234,6 +231,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Thu Nov 20 2025 Kate Hsuan <hpa@redhat.com> - 0.5.2-6
+- Drop lc-compliance from the libcamera-tools package
+
 * Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.2-5
 - Rebuilt for gtest 1.17.0
 

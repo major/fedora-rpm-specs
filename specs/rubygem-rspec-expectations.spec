@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	3
 
 %global	gem_name	rspec-expectations
 
@@ -26,6 +26,9 @@ Source2:	rspec-related-create-full-tarball.sh
 # Workaround tests wrt diff/lcs diff format
 # Partially revert 3.13.3 -> 3.13.4 change
 Patch0:	rubygem-rspec-expectations-3.13.4-diff_spec-format-revert.patch
+# https://github.com/rspec/rspec/pull/282/commits/1c20fa80772ca7a1ed0512056ce7cd6a94f8e68d
+# Support ruby4_0 source_location behavior change
+Patch1:	rspec-expectations-pr282-ruby4_0-source_location.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -59,6 +62,7 @@ This package contains documentation for %{name}.
 %setup -q -T -n %{gem_name}-%{version} -b 1
 
 %patch -P0 -p1
+%patch -P1 -p2
 
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -114,6 +118,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Tue Dec 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.5-3
+- Backport upstream patch to support ruby4_0 source_location behavior change
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

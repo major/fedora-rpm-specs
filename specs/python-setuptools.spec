@@ -206,9 +206,12 @@ test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 
 %if %{with tests}
 # Upstream tests
+# PIP_NO_BUILD_ISOLATION allows us to run more tests offline with pip 25.3+,
+# or else they fecth setuptools from the internet,
+# see https://bugzilla.redhat.com/2417963.
 # --ignore=setuptools/tests/integration/
 # --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py
-# -k "not test_pip_upgrade_from_source and not test_equivalent_output and not test_namespace_package_importable"
+# -k "not not test_equivalent_output"
 #   the tests require internet connection
 # --ignore=setuptools/tests/test_editable_install.py
 #   the tests require pip-run which we don't have in Fedora
@@ -217,12 +220,13 @@ test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 # --ignore=tools
 #   the tests test various upstream release tools we don't use/ship
 PRE_BUILT_SETUPTOOLS_WHEEL=%{_pyproject_wheeldir}/%{python_wheel_name} \
+PIP_NO_BUILD_ISOLATION=0 \
 PYTHONPATH=$(pwd) %pytest \
  --ignore=setuptools/tests/integration/ \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \
  --ignore=tools \
- -k "not test_pip_upgrade_from_source and not test_wheel_includes_cli_scripts and not test_equivalent_output and not test_namespace_package_importable"
+ -k "not test_wheel_includes_cli_scripts and not test_equivalent_output"
 %endif # with tests
 
 

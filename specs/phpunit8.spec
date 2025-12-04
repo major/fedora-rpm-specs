@@ -8,8 +8,8 @@
 #
 
 
-%global gh_commit    75f469c1948b91aa566206f88412c88f08090b32
-%global gh_date      2025-09-24
+%global gh_commit    2605ccb4744dbcc20e00a12b7082c86ab3431071
+%global gh_date      2025-12-01
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -22,7 +22,7 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.48
+%global upstream_version 8.5.49
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -239,6 +239,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  2 2025 Remi Collet <remi@remirepo.net> - 8.5.49-1
+- update to 8.5.49 (no change)
+
 * Wed Sep 24 2025 Remi Collet <remi@remirepo.net> - 8.5.48-1
 - update to 8.5.48 (no change)
 - raise dependency on sebastian/exporter 3.1.8

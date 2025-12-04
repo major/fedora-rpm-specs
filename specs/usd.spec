@@ -149,6 +149,10 @@ Patch:          0005-Downstream-only-use-the-system-libdeflate.patch
 # Downstream-only: use the system libavif library
 Patch:          0006-Downstream-only-use-the-system-libavif.patch
 
+# Backport fixes for CVE-2025-64181 etc. in OpenEXRCore
+# https://github.com/PixarAnimationStudios/OpenUSD/pull/3903
+Patch:          %{forgeurl}/pull/3903.patch
+
 # Base
 BuildRequires:  gcc-c++
 

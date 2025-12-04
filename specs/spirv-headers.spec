@@ -1,4 +1,4 @@
-%global commit a8637796c28386c3cf3b4e8107020fbb52c46f3f
+%global commit 01e0577914a75a2569c846778c2f93aa8e6feddd
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 
@@ -10,8 +10,6 @@ Summary:        Header files from the SPIR-V registry
 License:        MIT
 URL:            https://github.com/KhronosGroup/SPIRV-Headers/
 Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-# build: Update SPV_INTEL_variable_length_array to rev 3
-Patch0:         %url/commit/3397e1e4fe0a9964e1837c2934b81835093494b8.patch
 
 BuildArch:      noarch
 

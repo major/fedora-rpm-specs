@@ -12,7 +12,7 @@ License:    GPL-2.0-or-later
 Summary:    Command interpreter for DBI shells 
 Url:        https://metacpan.org/release/SQL-Shell
 Source:     https://cpan.metacpan.org/authors/id/M/MG/MGUALDRON/SQL-Shell-%{version}.tar.gz
-# Fix running tests from a read-only location, proposed upstream,
+# Fix running tests from a read-only location, in upstream after 1.17,
 # <https://github.com/mgualdron/SQL-Shell/pull/1>
 Patch0:     0001-Use-File-Temp-for-handling-temporary-files.patch
 BuildArch:  noarch

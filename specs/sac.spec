@@ -12,8 +12,13 @@ Source2: %{name}-MANIFEST.MF
 Source3: https://repo1.maven.org/maven2/org/w3c/css/sac/1.3/sac-1.3.pom
 URL: http://www.w3.org/Style/CSS/SAC/
 
+%if 0%{?fedora}
 BuildRequires: ant-openjdk25 
 BuildRequires: javapackages-local-openjdk25
+%else
+BuildRequires: ant-openjdk21
+BuildRequires: javapackages-local-openjdk21
+%endif
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch

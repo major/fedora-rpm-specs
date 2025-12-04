@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.4.321.0
+%global sdkver 1.4.328.1
 
 Name:           spirv-tools
-Version:        2025.3
+Version:        2025.4
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 
@@ -12,8 +12,6 @@ URL:            https://github.com/KhronosGroup/SPIRV-Tools
 Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 
 Patch0: fix-gcc12-build.patch
-# SPV_INTEL_function_variants: basic asm, dis support
-Patch1: https://github.com/KhronosGroup/SPIRV-Tools/pull/6195.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -69,6 +67,7 @@ Development files for %{name}
 %{_bindir}/spirv-as
 %{_bindir}/spirv-cfg
 %{_bindir}/spirv-dis
+%{_bindir}/spirv-diff
 %{_bindir}/spirv-lesspipe.sh
 %{_bindir}/spirv-link
 %{_bindir}/spirv-lint

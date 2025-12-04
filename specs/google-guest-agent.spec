@@ -59,11 +59,12 @@ install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/default
 install -m 0755 -vd                     %{buildroot}%{_unitdir}
 
-install -m 0755 -vp %{gobuilddir}/bin/*             %{buildroot}%{_bindir}
-install -m 0644 -vp instance_configs.cfg            %{buildroot}%{_sysconfdir}/default
-install -m 0644 -vp google-guest-agent.service      %{buildroot}%{_unitdir}
-install -m 0644 -vp google-startup-scripts.service  %{buildroot}%{_unitdir}
-install -m 0644 -vp google-shutdown-scripts.service %{buildroot}%{_unitdir}
+install -m 0755 -vp %{gobuilddir}/bin/*                 %{buildroot}%{_bindir}
+install -m 0755 -vp google_metadata_script_runner_adapt %{buildroot}%{_bindir}
+install -m 0644 -vp instance_configs.cfg                %{buildroot}%{_sysconfdir}/default
+install -m 0644 -vp google-guest-agent.service          %{buildroot}%{_unitdir}
+install -m 0644 -vp google-startup-scripts.service      %{buildroot}%{_unitdir}
+install -m 0644 -vp google-shutdown-scripts.service     %{buildroot}%{_unitdir}
 
 %check
 %go_vendor_license_check -c %{S:2}
@@ -81,6 +82,7 @@ done
 %config(noreplace) %{_sysconfdir}/default/instance_configs.cfg
 %{_bindir}/google_guest_agent
 %{_bindir}/google_metadata_script_runner
+%{_bindir}/google_metadata_script_runner_adapt
 %{_unitdir}/google-guest-agent.service
 %{_unitdir}/google-startup-scripts.service
 %{_unitdir}/google-shutdown-scripts.service

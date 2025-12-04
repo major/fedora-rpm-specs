@@ -10,7 +10,7 @@ connections.}
 
 Name:           ubertooth
 Version:        %{POSTYEAR}.%{POSTMONTH}.R%{POSTNUM}
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Bluetooth wireless development platform for experimentation
 # This package is only includes host part of the Ubertooth project, which is licensed under GPLv2.
 # But parts of the firmware, which is running on the board, licensed under BSD (3 clause): lpcusb,
@@ -121,6 +121,9 @@ sed -i "s/version\s*=.*/version = '%{version}',/" \
 
 
 %changelog
+* Tue Dec 02 2025 Jan Grulich <jgrulich@redhat.com> - 2020.12.R1-24
+- Rebuild (python-pyside6)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2020.12.R1-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,7 +1,7 @@
 %global branch 1.28
 
 Name:          mate-notification-daemon
-Version:       %{branch}.3
+Version:       %{branch}.5
 Release:       %autorelease
 Summary:       Notification daemon for MATE Desktop
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

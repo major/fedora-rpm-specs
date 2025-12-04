@@ -29,7 +29,7 @@ Release:    %autorelease
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
 # some protobuf helper files files are BSD (protobuf_function.cmake, pb_helper.*)
-License:    MIT and ASL 2.0 and Boost and BSD
+License:    MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
 URL:        https://github.com/microsoft/onnxruntime
 Source0:    https://github.com/microsoft/onnxruntime/archive/v%{version}/%{name}-%{version}.tar.gz
 # Bundled utf8_range until they get propperly exposed from the protobuff package

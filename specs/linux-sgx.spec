@@ -384,6 +384,7 @@ BuildRequires: sgx-rpm-macros
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: binutils
+BuildRequires: chrpath
 BuildRequires: libtool
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -394,7 +395,6 @@ BuildRequires: ocaml-ocamlbuild
 BuildRequires: openssl
 BuildRequires: openssl-devel
 BuildRequires: libcurl-devel
-BuildRequires: patchelf
 BuildRequires: python3-devel
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
@@ -941,7 +941,7 @@ LDFLAGS="%{build_ldflags}" \
     # Keep brp-mangle-shebangs happy
     find node_modules -type f -exec chmod -x {} \;
 
-    patchelf --remove-rpath node_modules/sqlite3/build/Release/node_sqlite3.node
+    chrpath --delete node_modules/sqlite3/build/Release/node_sqlite3.node
 
     tar zxvf %{SOURCE55}
     (

@@ -494,8 +494,7 @@ mkdir -p "${VERSIONED_MANDIR}"
 mv    -t "${VERSIONED_MANDIR}" "${RPM_BUILD_ROOT}%{_mandir}"/man?
 # - compress the man-pages manually so that rpm will (re-)create valid symlinks
 # FIXME: This should probably be replaced with ading /usr/share/node-*/man dir to /usr/lib/rpm/brp-compress
-readonly COMPRESS=${COMPRESS:-gzip -9 -n}
-find "${VERSIONED_MANDIR}" -type f -name '*.[123456789]' -execdir ${COMPRESS} '{}' +
+find "${VERSIONED_MANDIR}" -type f -name '*.[123456789]' -execdir %{_man_info_compress} '{}' +
 # – update npm man symlink
 ln -srfn "${VERSIONED_MANDIR}" "${NPM_DIR}/man"
 # - create symlinks for the versioned binaries

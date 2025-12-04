@@ -6,7 +6,7 @@
 %bcond man 1
 
 %global srcname pip
-%global base_version 25.2
+%global base_version 25.3
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -57,12 +57,16 @@ Source1:        https://files.pythonhosted.org/packages/0d/6d/b4752b044bf94cb802
 # See https://github.com/pypa/pip/pull/13382 as an attempt to drop the requirement from pip tests.
 Source2:        https://files.pythonhosted.org/packages/0b/2c/87f3254fd8ffd29e4c02732eee68a83a1d3c346ae39bc6822dcbcb697f2b/wheel-0.45.1-py3-none-any.whl
 
+# flit_core.whl
+# This is not built as RPM-packaged wheel in Fedora at all.
+Source3:        https://files.pythonhosted.org/packages/f2/65/b6ba90634c984a4fcc02c7e3afe523fef500c4980fec67cc27536ee50acf/flit_core-3.12.0-py3-none-any.whl
+
 # coverage.whl
 # There is no RPM-packaged python-coverage-wheel, the package is archful.
 # Upstream uses this to measure coverage, which we don't.
 # This is a dummy placeholder package that only contains empty coverage.process_startup().
 # That way, we don't need to patch the usage out of conftest.py.
-Source3:        coverage-0-py3-none-any.whl
+Source4:        coverage-0-py3-none-any.whl
 
 BuildArch:      noarch
 
@@ -93,10 +97,6 @@ Patch:          remove-existing-dist-only-if-path-conflicts.patch
 # The same patch is a part of the RPM-packaged python-certifi
 Patch:          dummy-certifi.patch
 
-# https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
-# https://github.com/sethmlarson/truststore/pull/183
-Patch:          truststore-pem-path.patch
-
 # pytest-subket has been introduced to intercept network calls
 # https://github.com/pypa/pip/commit/a4b40f62332ccb3228b12cc5ae1493c75177247a
 # We don't need a layer to check that, as we're by default in an offline environment
@@ -124,23 +124,23 @@ Packages" or "Pip Installs Python".
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.3
-Provides: bundled(python%{1}dist(certifi)) = 2025.7.14
+Provides: bundled(python%{1}dist(certifi)) = 2025.10.5
 Provides: bundled(python%{1}dist(dependency-groups)) = 1.3.1
 Provides: bundled(python%{1}dist(distlib)) = 0.4
 Provides: bundled(python%{1}dist(distro)) = 1.9
 Provides: bundled(python%{1}dist(idna)) = 3.10
-Provides: bundled(python%{1}dist(msgpack)) = 1.1.1
+Provides: bundled(python%{1}dist(msgpack)) = 1.1.2
 Provides: bundled(python%{1}dist(packaging)) = 25
-Provides: bundled(python%{1}dist(platformdirs)) = 4.3.8
+Provides: bundled(python%{1}dist(platformdirs)) = 4.5
 Provides: bundled(python%{1}dist(pygments)) = 2.19.2
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
-Provides: bundled(python%{1}dist(requests)) = 2.32.4
-Provides: bundled(python%{1}dist(resolvelib)) = 1.2
-Provides: bundled(python%{1}dist(rich)) = 14.1
+Provides: bundled(python%{1}dist(requests)) = 2.32.5
+Provides: bundled(python%{1}dist(resolvelib)) = 1.2.1
+Provides: bundled(python%{1}dist(rich)) = 14.2
 Provides: bundled(python%{1}dist(setuptools)) = 70.3
-Provides: bundled(python%{1}dist(tomli)) = 2.2.1
+Provides: bundled(python%{1}dist(tomli)) = 2.3
 Provides: bundled(python%{1}dist(tomli-w)) = 1.2
-Provides: bundled(python%{1}dist(truststore)) = 0.10.1
+Provides: bundled(python%{1}dist(truststore)) = 0.10.4
 Provides: bundled(python%{1}dist(urllib3)) = 1.26.20
 }
 
@@ -175,7 +175,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 # The minimal version is for bundled provides verification script
 BuildRequires:  python3-rpm-generators >= 11-8
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-flit-core
 BuildRequires:  bash-completion
 BuildRequires:  ca-certificates
 Requires:       ca-certificates
@@ -229,7 +229,7 @@ sed -Ei '/(--disable-socket|--allow-unix-socket|--allow-hosts=localhost)/d' pypr
 %if %{with tests}
 # tests expect wheels in here
 mkdir tests/data/common_wheels
-cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} tests/data/common_wheels
+cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} tests/data/common_wheels
 %endif
 
 

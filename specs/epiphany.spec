@@ -1,13 +1,13 @@
 %global glib2_version 2.74.0
 %global gtk4_version 4.13.3
-%global libadwaita_version 1.6
+%global libadwaita_version 1.8~alpha
 %global webkitgtk_version 2.43.4
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           epiphany
 Epoch:          1
-Version:        49.1
+Version:        49.2
 Release:        %autorelease
 Summary:        Web browser for GNOME
 

@@ -159,6 +159,7 @@ queues.
 install -p -m 0755 %{SOURCE2} %{buildroot}%{_cups_serverbin}/filter/lftocrlf
 install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.ppd
 
+# remove this once F43 is EOL
 %if 0%{?fedora} >= 43 || 0%{?rhel} >=9
 
 mkdir -p %{buildroot}%{_libexecdir}/%{name}

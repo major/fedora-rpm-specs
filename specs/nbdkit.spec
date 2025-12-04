@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.13
+Version:        1.45.15
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1504,7 +1504,7 @@ fi
 
 
 %files devel
-%doc BENCHMARKING OTHER_PLUGINS README.md SECURITY TODO
+%doc BENCHMARKING OTHER_PLUGINS README.md SECURITY.md TODO.md
 %license LICENSE
 # Include the source of the example plugins in the documentation.
 %doc plugins/example*/*.c
@@ -1582,6 +1582,9 @@ fi
 
 
 %changelog
+* Tue Dec 02 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.15-1
+- New upstream version 1.45.15
+
 * Fri Nov 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.13-1
 - New upstream version 1.45.13
 
