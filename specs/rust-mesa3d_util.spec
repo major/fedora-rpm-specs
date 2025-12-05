@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate crypto-auditing
+%global crate mesa3d_util
 
-Name:           rust-crypto-auditing
-Version:        0.2.4
+Name:           rust-mesa3d_util
+Version:        0.1.75
 Release:        %autorelease
-Summary:        Client library for crypto-auditing project
+Summary:        Utility crate part of Mesa3D project
 
-License:        GPL-3.0-or-later
-URL:            https://crates.io/crates/crypto-auditing
+License:        MIT
+URL:            https://crates.io/crates/mesa3d_util
 Source:         %{crates_source}
-Patch:          rust-crypto-auditing-0.2.4-types32.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Client library for crypto-auditing project.}
+Utility crate part of Mesa3D project.}
 
 %description %{_description}
 
@@ -31,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE-MIT
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,7 +46,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p2
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

@@ -5,7 +5,7 @@
 %global _lto_cflags %nil
 
 Name: grout
-Version: 0.13.0
+Version: 0.14.0
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -15,21 +15,21 @@ Group: System Environment/Daemons
 URL: %{forgeurl}
 Release: %{autorelease}
 Source0: %{forgesource}
-Source1: https://fast.dpdk.org/rel/dpdk-24.11.3.tar.xz
-Patch01: 0001-subprojects-update-to-libecoli-v0.9.1.patch
+Source1: https://fast.dpdk.org/rel/dpdk-25.11.tar.xz
 
 BuildRequires: gcc
-BuildRequires: libcmocka-devel
 BuildRequires: libcap-devel
+BuildRequires: libcmocka-devel
 BuildRequires: libecoli-devel >= 0.8.0
 BuildRequires: libevent-devel
+BuildRequires: libmnl-devel
 BuildRequires: libsmartcols-devel
 BuildRequires: make
 BuildRequires: meson
 BuildRequires: ninja-build
 BuildRequires: numactl-devel
 BuildRequires: pkgconf
-BuildRequires: golang-github-cpuguy83-md2man
+BuildRequires: scdoc
 BuildRequires: socat
 BuildRequires: systemd
 
@@ -73,7 +73,7 @@ mv dpdk-* subprojects/dpdk
 
 %build
 export GROUT_VERSION=v%{version}-%{release}
-%meson -Dfrr=disabled
+%meson -Dfrr=disabled -Ddpdk_static=true
 %meson_build
 
 %install
@@ -101,7 +101,7 @@ install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-comple
 %attr(755, root, root) %{_datadir}/bash-completion/completions/grcli
 %attr(755, root, root) %{_bindir}/grcli
 %attr(755, root, root) %{_bindir}/grout
-%attr(644, root, root) %{_mandir}/man1/grcli.1*
+%attr(644, root, root) %{_mandir}/man1/grcli*
 %attr(644, root, root) %{_mandir}/man7/grout-frr.7*
 %attr(644, root, root) %{_mandir}/man8/grout.8*
 

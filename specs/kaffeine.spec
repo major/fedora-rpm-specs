@@ -1,10 +1,11 @@
 Name:          kaffeine
-Version:       2.0.18
-Release:       %autorelease -b 9
+Version:       2.0.19
+Release:       %autorelease
 License:       GPL-2.0-or-later AND GFDL-1.3-or-later
 Summary:       KDE media player based on VLC
 URL:           https://apps.kde.org/kaffeine/
-Source:        https://download.kde.org/%{stable_kf5}/%{name}/%{name}-%{version}.tar.xz
+#Source:        https://download.kde.org/%{stable_kf5}/%{name}/%{name}-%{version}.tar.xz
+Source:        https://invent.kde.org/multimedia/kaffeine/-/archive/v%{version}/kaffeine-v%{version}.tar.bz2
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -57,7 +58,7 @@ from DVD (including DVD menus, titles, chapters, etc.), VCD, or a file.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
 %cmake_kf5
@@ -82,7 +83,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ka
 %{_kf5_datadir}/kaffeine/
 %{_kf5_datadir}/applications/org.kde.kaffeine.desktop
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/profiles/kaffeine.profile.xml
 %{_kf5_datadir}/solid/actions/*.desktop
 %{_kf5_mandir}/man1/kaffeine.1.*
 %{_kf5_metainfodir}/org.kde.kaffeine.appdata.xml

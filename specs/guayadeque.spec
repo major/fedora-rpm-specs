@@ -11,8 +11,8 @@ Name:           guayadeque
 Version:        0.6.2
 Release:        0.5.beta6.git%{shortcommit0}%{dist}
 %else
-Version:        0.7.3
-Release:        2%{?dist}
+Version:        0.7.4
+Release:        1%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
@@ -174,6 +174,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Wed Dec 03 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.4-1
+- Update to 0.7.4
+- Fix wxWidgets compatibility
+
 * Wed Nov 26 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.3-2
 - Rebuild package with new tar archive
 - Add BR pkgconfig(icu-io)

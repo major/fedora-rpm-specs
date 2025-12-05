@@ -33,9 +33,9 @@ BuildRequires:  pkgconfig(flint)
 # available in Fedora.
 
 %description
-E-ANTIC is a C/C++ library to deal with real embedded number fields,
-built on top of ANTIC.  Its aim is to have as fast as possible exact
-arithmetic operations and comparisons.
+E-ANTIC is a C/C++ library to deal with real embedded number fields, built on
+top of ANTIC.  Its aim is to have as fast as possible exact arithmetic
+operations and comparisons.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -45,8 +45,8 @@ Requires:       cereal-devel%{?_isa}
 Requires:       flint-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and header files for developing
+applications that use %{name}.
 
 %prep
 %autosetup -p1
@@ -81,9 +81,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %make_install
-
-# We do not want the libtool archives
-rm %{buildroot}%{_libdir}/*.la
 
 # Documentation is installed below
 rm -fr %{buildroot}%{_docdir}

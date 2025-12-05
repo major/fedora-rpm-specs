@@ -102,6 +102,9 @@ Patch2:         vtk-ppc64-no-always-inline.patch
 Patch3:         paraview-freetype.patch
 # Fix location of resources
 Patch4:         paraview-resources.patch
+# Fix build with Qt 6.10.1
+# https://gitlab.kitware.com/paraview/qttesting/-/commit/c11a762df71d9f44698b93a0aab5dceb59c90e63
+Patch5:         c11a762df71d9f44698b93a0aab5dceb59c90e63.diff
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make

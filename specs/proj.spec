@@ -4,10 +4,10 @@
 %bcond_with mingw
 %endif
 
-%global data_version 1.23
+%global data_version 1.24
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.7.0
+Version:        9.7.1
 Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
@@ -364,6 +364,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion
 
 
 %changelog
+* Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 9.7.1-1
+- Update to 9.7.1
+
 * Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 9.7.0-1
 - Update to 9.7.0
 

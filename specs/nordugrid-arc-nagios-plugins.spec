@@ -10,7 +10,7 @@
 
 Name:		nordugrid-arc-nagios-plugins
 Version:	3.2.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Nagios plugins for ARC
 
 License:	Apache-2.0
@@ -56,6 +56,7 @@ This package provides HTML documentation for the ARC Nagios plugins.
 Summary:	EGI configuration and dependencies for the ARC Nagios plugins
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
+Requires:	nordugrid-arc-plugins-gridftp >= 6.5.0
 
 %description egi
 This package provides EGI configuration and dependencies for the ARC Nagios
@@ -108,6 +109,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py
 
 %changelog
+* Wed Dec 03 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.3-2
+- Add dependecy on nordugrid-arc-plugins-gridftp to EGI configuration
+
 * Wed Oct 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.3-1
 - Version 3.2.3
 

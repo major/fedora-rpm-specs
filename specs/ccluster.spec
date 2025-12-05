@@ -22,25 +22,24 @@ BuildRequires:  gcc
 BuildRequires:  make
 
 %description
-Ccluster is a C library implementing an algorithm for local clustering
-of the complex roots of a univariate polynomial whose coefficients are
-complex numbers.
+Ccluster is a C library implementing an algorithm for local clustering of the
+complex roots of a univariate polynomial whose coefficients are complex
+numbers.
 
-The inputs of the clustering algorithm are a polynomial P, a square
-complex box B and a rational number eps.
+The inputs of the clustering algorithm are a polynomial P, a square complex
+box B and a rational number eps.
 
-It outputs a set of eps-natural clusters of roots together with the sum
-of multiplicities of the roots in each cluster.  An eps-cluster is a
-complex disc D of radius at most eps containing at least one root, and
-it is natural when 3D contains the same roots as D.  Each root of P in B
-is in exactly one cluster of the output, and clusters may contain roots
-of P in 2B.
+It outputs a set of eps-natural clusters of roots together with the sum of
+multiplicities of the roots in each cluster.  An eps-cluster is a complex disc
+D of radius at most eps containing at least one root, and it is natural when
+3D contains the same roots as D.  Each root of P in B is in exactly one
+cluster of the output, and clusters may contain roots of P in 2B.
 
 The implemented algorithm is described here:
 https://dl.acm.org/citation.cfm?id=2930939.
 
-Please cite https://link.springer.com/chapter/10.1007/978-3-319-96418-8_28
-if you use it in your research.
+Please cite https://link.springer.com/chapter/10.1007/978-3-319-96418-8_28 if
+you use it in your research.
 
 %package        devel
 Summary:        Development files for %{name}

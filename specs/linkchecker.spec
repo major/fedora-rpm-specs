@@ -1,6 +1,6 @@
 Name:           linkchecker
 
-Version:        10.5.0
+Version:        10.6.0
 Release:        %autorelease
 Summary:        Check HTML documents for broken links
 License:        GPL-2.0-or-later

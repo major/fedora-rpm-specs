@@ -39,6 +39,9 @@ Source1:        %{name}.appdata.xml
 # https://bodhi.fedoraproject.org/updates/FEDORA-2025-0882918c25#comment-4407961
 Patch0:         %{name}-fix_audio.patch
 
+# Fix rhbz#2417964
+Patch1:         %{name}-bug4724.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libXtst-devel
@@ -150,6 +153,7 @@ This package contains the GTK3 xpra client.
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %patch -P 0 -p1 -b .backup
 %endif
+%patch -P 1 -p1
 
 rm -rf *.egg-info
 

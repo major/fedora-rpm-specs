@@ -13,15 +13,15 @@
 %global giturl  https://github.com/scipopt/papilo/
 
 Name:           papilo
-Version:        2.4.4
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Parallel presolve for integer and linear optimization
 
-# LGPL-3.0-or-later: the project as a whole
+# Apache-2.0: the project as a whole
 # BSL-1.0: src/papilo/misc/extended_euclidean.hpp
 # Zlib: the header-only pdqsort project
 # MIT: the bundled fmt project
-License:        LGPL-3.0-or-later AND BSL-1.0 AND Zlib AND MIT
+License:        Apache-2.0 AND BSL-1.0 AND Zlib AND MIT
 URL:            https://www.scipopt.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -98,11 +98,6 @@ that use libpapilo.
 # Ensure none of the bundled code but fmt can be used
 rm -fr src/papilo/external/{catch,lusol,pdqsort,ska}
 
-# Fix installation directories
-if [ '%{_lib}' != 'lib' ]; then
-    sed -i 's,\(DESTINATION \)lib,\1%{_lib},g' CMakeLists.txt
-fi
-
 %build
 %cmake -DQUADMATH:BOOL=%{?quadmath:ON}%{!?quadmath:OFF}
 %cmake_build
@@ -122,9 +117,11 @@ cd -
 # Fix up the man page a little
 sed -i 's,\./\(papilo\),\1,' %{buildroot}%{_mandir}/man1/papilo.1
 
+# We install license files elsewhere
+rm -fr %{buildroot}%{_defaultlicensedir}
+
 %check
-# Temporarily skip a test that is broken in the 2.3.1 release
-%ctest -E 'q-solve-rgn\.mps-default\.set'
+%ctest
 
 %files
 %doc CHANGELOG README.md parameters.txt
@@ -132,7 +129,7 @@ sed -i 's,\./\(papilo\),\1,' %{buildroot}%{_mandir}/man1/papilo.1
 %{_mandir}/man1/papilo.1*
 
 %files -n libpapilo
-%license COPYING COPYING.LESSER
+%license LICENSE src/papilo/external/fmt/LICENSE.rst
 %{_libdir}/libpapilo-core.so.0*
 
 %files -n libpapilo-devel

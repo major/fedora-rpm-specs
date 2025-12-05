@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 201d8a1bc408f4b92ecc9da074ace26a3098463d
 %global commitdatestring 2025-11-24 15:24:05 -0700
-%global cosmic_minver 1.0.0~beta.8
+%global cosmic_minver 1.0.0~beta.9
 
 Name:           cosmic-greeter
-Version: 1.0.0~beta.8
+Version: 1.0.0~beta.9
 Release:        %autorelease
 # Release:        %%autorelease
 Summary:        Login and display manager for the COSMIC Desktop Environment

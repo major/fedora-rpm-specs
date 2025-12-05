@@ -17,7 +17,7 @@
 
 # https://github.com/gdamore/tcell
 %global goipath         github.com/gdamore/tcell/v2
-Version:                2.9.0
+Version:                2.13.1
 
 %gometa
 

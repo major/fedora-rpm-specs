@@ -1,7 +1,7 @@
 %global giturl  https://github.com/flintlib/flint
 
 Name:           flint
-Version:        3.3.1
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Fast Library for Number Theory
 
@@ -18,6 +18,8 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # Defeat upstream's attempt to optimize for the builder's CPU
 Patch:          %{name}-arch.patch
+# Do not discard const qualifiers
+Patch:          %{giturl}/pull/2506.patch
 
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
@@ -43,8 +45,8 @@ Provides:       arb-doc = %{version}-%{release}
 Provides:       flint-static = %{version}-%{release}
 
 %description
-FLINT is a C library for doing number theory, written by William Hart
-and David Harvey.
+FLINT is a C library for doing number theory, written by William Hart and
+David Harvey.
 
 
 %package        devel
@@ -58,8 +60,8 @@ Obsoletes:      arb-devel < 3.0.0
 Provides:       arb-devel = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and header files for developing
+applications that use %{name}.
 
 
 %prep
@@ -122,7 +124,7 @@ make check
 %doc AUTHORS
 %doc README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/libflint.so.21*
+%{_libdir}/libflint.so.22{,.*}
 
 
 %files devel

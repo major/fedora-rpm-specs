@@ -5,10 +5,10 @@
 %endif
 
 #global pre rc1
-%global podofo_resources_commit a5d78b823e9b902d89b06b2d4d81a2e801cd96c4
+%global podofo_resources_commit 394fcb3ea4c8e89bbabafbc1aa6caf20f801620c
 
 Name:           podofo
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
@@ -42,7 +42,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  google-noto-sans-fonts
 
 %if %{with mingw}
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-fontconfig
 BuildRequires: mingw32-freetype
@@ -54,7 +54,7 @@ BuildRequires: mingw32-libxml2
 BuildRequires: mingw32-openssl
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-fontconfig
 BuildRequires: mingw64-freetype
@@ -185,7 +185,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_libdir}/*.so.1.0.2
+%{_libdir}/*.so.1.0.3
 %{_libdir}/*.so.3
 
 %files devel
@@ -215,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 1.0.3-1
+- Update to 1.0.3
+
 * Sat Aug 30 2025 Sandro Mani <manisandro@gmail.com> - 1.0.2-1
 - Update to 1.0.2
 

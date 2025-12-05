@@ -43,7 +43,7 @@ Summary: Qt toolkit
 Name:    qt
 Epoch:   1
 Version: 4.8.7
-Release: 81%{?dist}
+Release: 82%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: (LGPLv2 with exceptions or GPLv3 with exceptions) and ASL 2.0 and BSD and FTL and MIT - review is highly recommended.
@@ -281,7 +281,7 @@ Source31: hi48-app-qt4-logo.png
 %define gtkstyle -gtkstyle
 %if 0%{?fedora} || 0%{?rhel} > 7
 # FIXME/TODO: use system webkit for assistant, examples/webkit, demos/browser
-%define webkit -webkit
+# %%define webkit -webkit
 %define ibase -plugin-sql-ibase
 %define tds -plugin-sql-tds
 %endif
@@ -1419,6 +1419,9 @@ fi
 
 
 %changelog
+* Wed Dec 03 2025 Than Ngo <than@redhat.com> - 1:4.8.7-82
+- Fix rhbz#2398098, F44FailsToInstall
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.7-81
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

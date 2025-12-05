@@ -29,8 +29,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.17.2
-Release:        3%{?dist}
+Version:        3.18.0
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -47,15 +47,9 @@ URL:            http://www.freerdp.com/
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
 
-# Fix aarch64, ppc64le, s390x builds
-# https://github.com/FreeRDP/FreeRDP/issues/11874
-Patch:          11877.patch
-Patch:          11878.patch
-Patch:          11880.patch
-
-# Fix cmake/pkg-config requires fields
-# https://github.com/FreeRDP/FreeRDP/pull/11876
-Patch:          11876.patch
+# Fix TestClientRdpFile without H264 support
+# https://github.com/FreeRDP/FreeRDP/pull/12020
+Patch:          12020.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -183,11 +177,6 @@ developing applications that use %{name}-libwinpr.
 
 %prep
 %autosetup -p1 -n FreeRDP-%{version}
-
-%if ! (0%{?_with_ffmpeg} || 0%{?_with_openh264})
-# TestClientRdpFile results differ when built without H.264 support
-sed -i -r '/FreeRDP_Gfx(H264|AVC444)/s/true/false/' client/common/test/testRdpFile*.json
-%endif
 
 # Rpmlint fixes
 find . -name "*.h" -exec chmod 664 {} \;
@@ -388,6 +377,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Dec 03 2025 Ondrej Holy <oholy@redhat.com> - 2:3.18.0-1
+- Update to 3.18.0 (#2414568)
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 2:3.17.2-3
 - apply upstream commit to properly set requires fields in cmake/pkgconfig files
 

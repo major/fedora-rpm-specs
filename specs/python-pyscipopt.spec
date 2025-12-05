@@ -1,5 +1,5 @@
 Name:           python-pyscipopt
-Version:        5.7.1
+Version:        6.0.0
 Release:        %autorelease
 Summary:        Python interface and modeling environment for SCIP
 
@@ -18,7 +18,7 @@ BuildOption(install):   -l pyscipopt
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  libscip-devel
+BuildRequires:  libscip-devel >= 10.0.0
 
 BuildRequires:  %{py3_dist pytest}
 

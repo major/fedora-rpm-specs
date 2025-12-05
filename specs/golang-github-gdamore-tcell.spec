@@ -3,7 +3,7 @@
 
 # https://github.com/gdamore/tcell
 %global goipath         github.com/gdamore/tcell
-Version:                1.4.0
+Version:                1.4.1
 
 %gometa
 
@@ -15,7 +15,7 @@ xterm. It was inspired by termbox, but includes many additional improvements.}
 %global godocs          AUTHORS README.adoc
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        %autorelease
 Summary:        Alternate terminal package
 
 # Upstream license specification: Apache-2.0
@@ -41,6 +41,12 @@ BuildRequires:  ncurses
 BuildRequires:  ncurses-base
 BuildRequires:  ncurses-term
 BuildRequires:  rxvt-unicode
+
+# As of 1.4.1, this package is deprecated upstream.
+Provides: deprecated()
+%global godevelheader   %{shrink:
+Provides: deprecated()
+}
 
 %description
 %{common_description}
@@ -80,117 +86,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.4.0-18
-- rebuild
-
-* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.4.0-17
-- Rebuild for golang-1.25.0
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 1.4.0-13
-- Rebuild for golang 1.22.0
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.4.0-9
-- Switch to SPDX license
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 1.4.0-6
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 1.4.0-5
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Aug 27 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.4.0-1
-- Update to latest version
-- Fix regeneration of terminfo
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Sep 23 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.0-1
-- Update to latest version
-
-* Sun Aug 18 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.0-1
-- Update to latest version
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jul 10 04:28:28 EDT 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1.4-1
-- Update to latest version
-
-* Sun Jun 02 17:25:48 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 1.1.2-1
-- Release 1.1.2
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Jan 14 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1.1-1
-- Update to latest version
-
-* Tue Oct 23 2018 Nicolas Mailhot <nim@fedoraproject.org> - 1.1.0-2
-- redhat-rpm-config-123 triggers bugs in gosetup, remove it from Go spec files as it’s just an alias
-- https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/RWD5YATAYAFWKIDZBB7EB6N5DAO4ZKFM/
-
-* Wed Oct 10 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1.0-1
-- Update to latest version
-- Rebuild terminfo from Fedora information
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Jun 07 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.0-2
-- Re-template against More Go Packaging guidelines
-
-* Fri Mar 16 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.0-1
-- Update to first released version
-- Check build of demos
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.2.20170807gitd55f61c
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Aug 19 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0-0.1.20170807gitd55f61c
-- Add commit date to revision
-
-* Fri Aug 18 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0-0.1.gitd55f61c
-- Initial package for Fedora
+%autochangelog

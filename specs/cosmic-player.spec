@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 7c9ec8b423df1a73059bf8317a39831c6ae1f7ef
 %global commitdatestring 2025-11-25 07:56:46 -0700
-%global cosmic_minver 1.0.0~beta.8
+%global cosmic_minver 1.0.0~beta.9
 
 Name:           cosmic-player
-Version: 1.0.0~beta.8
+Version: 1.0.0~beta.9
 Release:        %autorelease
 Summary:        COSMIC media player
 

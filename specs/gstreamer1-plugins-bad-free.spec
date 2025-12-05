@@ -29,8 +29,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.26.8
-Release:        3%{?dist}
+Version:        1.26.9
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -899,6 +899,9 @@ EOF
 
 
 %changelog
+* Wed Dec 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.9-1
+- 1.26.9
+
 * Wed Nov 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.8-3
 - Disable isac on F44+/EL11+
 

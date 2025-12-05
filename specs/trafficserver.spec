@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -26,6 +26,7 @@ Patch0:         trafficserver-crypto-policy.patch
 Patch1:         fix-rpath.patch
 Patch2:         remove-openssl-engine.patch
 Patch3:         config-path-fix.patch
+Patch4:         convert-ip-to-bind.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
@@ -280,6 +281,9 @@ fi
 
 
 %changelog
+* Wed Dec 3 2025 Jered Floyd <jered@redhat.com> 10.1.0-3
+- Upstream convert2yaml patch backport for #12711, BZ#2417957
+
 * Mon Aug 11 2025 Jered Floyd <jered@redhat.com> 10.1.0-2
 - Fix spec to not Require bundled libswoc
 

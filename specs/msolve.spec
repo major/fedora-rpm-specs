@@ -35,19 +35,19 @@ BuildRequires:  pkgconfig(mpfr)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-msolve is an open source C library implementing computer algebra
-algorithms for solving polynomial systems (with rational coefficients or
-coefficients in a prime field).
+%global _desc %{expand:msolve is an open source C library implementing computer algebra algorithms
+for solving polynomial systems (with rational coefficients or coefficients in
+a prime field).
 
 Currently, with msolve, you can basically solve multivariate polynomial
 systems.  This encompasses:
 - the computation of Groebner bases
 - real root isolation of the solutions to polynomial systems
-- the computation of the dimension and the degree of the solution set
-  and many other things you can do using msolve.}
+- the computation of the dimension and the degree of the solution set and many
+  other things you can do using msolve.}
 
-%description %_desc
+%description
+%_desc
 
 This package contains a command line tool to access the msolve
 functionality.
@@ -55,7 +55,8 @@ functionality.
 %package        libs
 Summary:        Library for Polynomial System Solving through Algebraic Methods
 
-%description    libs %_desc
+%description    libs
+%_desc
 
 %package        devel
 Summary:        Development files for %{name}

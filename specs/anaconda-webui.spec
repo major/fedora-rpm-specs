@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        57
+Version:        58
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -38,13 +38,13 @@ Requires: fedora-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
@@ -61,7 +61,7 @@ Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.2.0
+Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -120,6 +120,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Dec 03 2025 Packit <hello@packit.dev> - 58-1
+- components: mount-point-mapping: filter requests before applying storage (rhbz#2394554)
+- components: keyboards: stop setting vconsole manually (rhbz#2404635)
+- use $NAME for name of distribution (Thanks to madomado)
+
 * Tue Nov 11 2025 Packit <hello@packit.dev> - 57-1
 - localization: scroll selected item in menu into view only once on
   mount (rhbz#2404634)

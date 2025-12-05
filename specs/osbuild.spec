@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        164
+Version:        166
 
 %forgemeta
 
@@ -191,9 +191,7 @@ Recommends: python3-license-expression
 # supports this since 116
 Conflicts: osbuild-composer <= 115
 
-# This version needs to get bumped every time the osbuild-dnf-json
-# version changes in an incompatible way. Packages like osbuild-composer
-# can depend on the exact API version this way
+# XXX: remove this once the osbuild-dnf-json V1 API is removed (osbuild/solver/api/v1.py)
 Provides: osbuild-dnf-json-api = 8
 
 %description    depsolve-dnf
@@ -294,10 +292,11 @@ install -p -m 0644 tools/solver-dnf.json %{buildroot}%{pkgdir}/solver.json
 # but that's an acceptable tradeoff.
 # x86_64-specific tests:
 # test/mod/test_util_sbom_spdx.py, test/mod/test_util_sbom_dnf.py, test/mod/test_testutil_dnf4.py
+# test/mod/test_solver_implementations.py
 # test_ioctl_toggle_immutable and test_rmtree_immutable fail on s390x
 # test_cache_full_behavior fails on ppc64le
 # tools/test/test_depsolve.py fails on C9S and EPEL9
-ignore="--ignore test/mod/test_util_sbom_spdx.py --ignore test/mod/test_util_sbom_dnf.py --ignore test/mod/test_testutil_dnf4.py"
+ignore="--ignore test/mod/test_util_sbom_spdx.py --ignore test/mod/test_util_sbom_dnf.py --ignore test/mod/test_testutil_dnf4.py --ignore test/mod/test_solver_implementations.py"
 skip="not test_ioctl_toggle_immutable and not test_rmtree_immutable and not test_cache_full_behavior"
 %if 0%{?rhel}
 ignore="$ignore --ignore tools/test/test_depsolve.py"
@@ -390,6 +389,33 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Dec 03 2025 Packit <hello@packit.dev> - 166-1
+Changes with 166
+----------------
+  - Refactor Solver API to Support Versioning (HMS-9062) (#2246)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Stage changes to help support bootc PXE images (#2251)
+    - Author: Brian C. Lane, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Update images dependency ref to latest (#2255)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - Update images dependency ref to latest (#2262)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - github: free disk space before running unit tests (#2256)
+    - Author: Ondřej Budai, Reviewers: Simon Steinbeiß, Tomáš Hozza
+  - manifest-tests-install-deps: make unzip quiet (#2254)
+    - Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Sanne Raymaekers, Simon Steinbeiß, Simon de Vlieger
+  - monitor: add module options to JSON logger (#2244)
+    - Author: Albert Esteve, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - org.osbuild.kickstart: add bootc support (HMS-9732) (#2242)
+    - Author: Ondřej Budai, Reviewers: Michael Vogt, Simon de Vlieger
+  - runner: add new `minimal_passwd()` helper and use in linux (#2260)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  - sources: add quoting to librepos "path" component (#2253)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+
+— Somewhere on the Internet, 2025-12-03
+
+
 * Wed Nov 05 2025 Packit <hello@packit.dev> - 164-1
 Changes with 164
 ----------------

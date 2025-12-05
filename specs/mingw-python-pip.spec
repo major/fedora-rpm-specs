@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       25.2
+Version:       25.3
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -43,13 +43,15 @@ License:       MIT AND Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Cl
 URL:           https://pypi.python.org/pypi/%{pypi_name}
 Source0:       %{pypi_source}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
@@ -117,6 +119,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 25.3-1
+- Update to 25.3
+
 * Sat Aug 30 2025 Sandro Mani <manisandro@gmail.com> - 25.2-1
 - Update to 25.2
 

@@ -41,14 +41,14 @@ Recommends:     TOPCOM
 %global _docdir_fmt %{name}
 
 %description
-The software computes all marked reduced Gröbner bases of an ideal.
-Their union is a universal Gröbner basis. Gfan contains algorithms for
-computing this complex for general ideals and specialized algorithms
-for tropical curves, tropical hypersurfaces and tropical varieties of
-prime ideals. In addition to the above core functions the package
-contains many tools which are useful in the study of Gröbner bases,
-initial ideals and tropical geometry. Among these are an interactive
-traversal program for Gröbner fans and programs for graphical renderings.
+The software computes all marked reduced Gröbner bases of an ideal.  Their
+union is a universal Gröbner basis. Gfan contains algorithms for computing
+this complex for general ideals and specialized algorithms for tropical
+curves, tropical hypersurfaces and tropical varieties of prime ideals.  In
+addition to the above core functions the package contains many tools which are
+useful in the study of Gröbner bases, initial ideals and tropical geometry.
+Among these are an interactive traversal program for Gröbner fans and programs
+for graphical renderings.
 
 %package        doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -80,8 +80,8 @@ Requires:       libgfan%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 
 %description    -n libgfan-devel
-The libgfan-devel package contains libraries and header files for
-developing applications that use libgfan.
+The libgfan-devel package contains libraries and header files for developing
+applications that use libgfan.
 
 %prep
 %autosetup -n %{name}%{version} -p1

@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 6.8.3
+%global upstream_version 6.9
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -33,8 +33,6 @@ Source5:    wordpress-minify.php
 # Patch out copyrighted text of Hello, Dolly
 # (and replace it with Free Software Song)
 Patch0: wordpress-6.8-hello.patch
-# Drop swfupload: not built from source, not reasonably possible to do
-Patch2: wordpress-6.4-no_swfupload.patch
 # Adjust tinymce's media plugin not to use its SWF plugin. This changes
 # 'p.getParam("flash_video_player_url",u.convertUrl(u.url+"/moxieplayer.swf"))'
 # to 'false'
@@ -73,22 +71,18 @@ Requires: php-mysqli
 
 # From phpcompatinfo report for version 4.5.3
 Requires: php-curl
-Requires: php-date
 Requires: php-dom
 Requires: php-exif
 Requires: php-fileinfo
 Requires: php-gd
 Requires: php-gettext
-Requires: php-hash
 Requires: php-iconv
 Requires: php-intl
 Requires: php-json
 Requires: php-libxml
 Requires: php-mbstring
 Requires: php-openssl
-Requires: php-pcre
 Requires: php-simplexml
-Requires: php-spl
 Requires: php-xml
 Requires: php-xmlreader
 Requires: php-zip
@@ -98,11 +92,11 @@ Requires: httpd
 Requires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 # Bundled
 # grep "SIMPLEPIE_VERSION'" wordpress/wp-includes/class-simplepie.php
-Provides: bundled(php-simplepie) = 1.8.0
+Provides: bundled(php-simplepie) = 1.9.0
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
-Provides: bundled(php-getid3) = 1.9.23
+Provides: bundled(php-getid3) = 1.9.24
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 6.9.3
+Provides: bundled(php-phpmailer)  = 7.0.0
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -129,7 +123,6 @@ rm -rf wp-includes/random_compat
 rm -rf wp-includes/sodium_compat
 
 %patch -P0 -p1 -b .dolly
-%patch -P2 -p1
 %patch -P3 -p1
 # Adjust mediaelement not to use its SWF
 %patch -P4 -p1
@@ -252,6 +245,9 @@ end
 
 
 %changelog
+* Wed Dec  3 2025 Remi Collet <remi@remirepo.net> - 6.9-1
+- WordPress 6.9 “Gene”
+
 * Wed Oct  1 2025 Remi Collet <remi@remirepo.net> - 6.8.3-1
 - WordPress 6.8.3 Security Release
 

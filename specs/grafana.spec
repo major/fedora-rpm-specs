@@ -19,13 +19,14 @@
 end}
 
 %global gomodulesmode GO111MODULE=auto
-%global gotestflags   %{gotestflags} -tags=integration
+%global _gotestflags_save %{?gotestflags}
+%global gotestflags %{?_gotestflags_save} -tags=integration
 
 %global selinux_variants mls targeted
 
 Name:             grafana
 Version:          10.2.6
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1025,6 +1026,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Wed Dec 3 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-22
+- Fix recursive macro definition causing rpminspect failure
+
 * Tue Dec 2 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-21
 - Fix grafana-selinux cgroups denials
 

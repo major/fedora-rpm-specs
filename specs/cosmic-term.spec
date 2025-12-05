@@ -11,10 +11,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit ff5fb1ac31fd15630f13bfeeb2b62c2935c35c2f
 %global commitdatestring 2025-11-24 07:40:45 -0700
-%global cosmic_minver 1.0.0~beta.8
+%global cosmic_minver 1.0.0~beta.9
 
 Name:           cosmic-term
-Version: 1.0.0~beta.8
+Version: 1.0.0~beta.9
 Release:        %autorelease
 Summary:        Terminal emulator built with alacritty and Libcosmic
 

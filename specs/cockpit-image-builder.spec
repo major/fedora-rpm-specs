@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        83
+Version:        85
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,31 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Nov 28 2025 Packit <hello@packit.dev> - 85-1
+Changes with 85
+----------------
+  - Remove build_deploy.sh script (HMS-9806) (#3860)
+    - Author: Klara Simickova, Reviewers: Anna Vítová
+  - Wizard: add AAP documentation (HMS-9757) (#3848)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - Wizard: edit Security review step according to mocks (HMS-9597) (#3850)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - Wizard: refactor ManageButton since it became widely used (#3859)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - actions/BootTests: Add a second Slack notification to frontend (#3867)
+    - Author: Tomáš Koscielniak, Reviewers: Klara Simickova, Simon Steinbeiß
+  - blueprints: default to host distro when importing in cockpit (RHEL-123840) (#3831)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  - build(deps): bump the minor-and-patch group across 1 directory with 17 updates (#3869)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - src: Bump smol-toml to 1.5.2 and update export mocks (HMS-9807) (#3865)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - src: Fix rendering validation for `ValidatedInput` (HMS-9797) (#3855)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+
+— Somewhere on the Internet, 2025-11-28
+
+
 * Fri Nov 21 2025 Packit <hello@packit.dev> - 83-1
 Changes with 83
 ----------------

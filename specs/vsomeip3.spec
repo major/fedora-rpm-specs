@@ -2,7 +2,7 @@
 
 Name:    vsomeip3
 Version: 3.5.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 # remove from i686 as not needed.
 ExcludeArch: %{ix86}
@@ -11,12 +11,12 @@ License: MPL-2.0
 URL:     https://github.com/COVESA/vsomeip
 Source0: %{URL}/archive/%{VERSION}/vsomeip-%{VERSION}.tar.gz
 Source1: routingmanagerd.service
-Source2: routingmanagerd.socket
 Source3: tmpfiles-vsomeip.conf
 Source4: etc-vsomeip.json
 Source5: vsomeip.fc
 Source6: vsomeip.if
 Source7: vsomeip.te
+Source8: vsomeip3.sysusers.conf
 
 # Build/Install tools and examples
 Patch1: 01-vsomeip-build-extra.patch
@@ -74,7 +74,8 @@ Requires: systemd
 Requires: dlt-daemon
 
 %description routingmanager
-%{summary}.
+%{summary}. Also requires dlt-daemon running.
+
 
 %package examples
 Summary: Examples for %{name}
@@ -108,11 +109,6 @@ cp %{SOURCE5} %{SOURCE6} %{SOURCE7} vsomeip-selinux/
 # For some reasons, some source files are executable, which messes
 # with debuginfo
 find -name "*.[ch]pp" | xargs chmod a-x
-
-# Create a sysusers.d config file
-cat >vsomeip3.sysusers.conf <<EOF
-u routingmanagerd - 'User for routingmanagerd' /var/lib/routingmanagerd -
-EOF
 
 %ldconfig_scriptlets
 
@@ -155,7 +151,6 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/routingmanagerd
 
 mkdir -p %{buildroot}%{_unitdir}
 install %{SOURCE1} %{buildroot}%{_unitdir}/ # service
-install %{SOURCE2} %{buildroot}%{_unitdir}/ # socket
 
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
@@ -167,7 +162,7 @@ mkdir -p %{buildroot}%{_datadir}/selinux/packages/ %{buildroot}%{_datadir}/selin
 install -m 0644 vsomeip-selinux/vsomeip.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/
 install -m 0644 vsomeip-selinux/vsomeip.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/
 
-install -m0644 -D vsomeip3.sysusers.conf %{buildroot}%{_sysusersdir}/vsomeip3.conf
+install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/vsomeip3.conf
 
 %post selinux
 %selinux_modules_install %{_datadir}/selinux/packages/vsomeip.pp.bz2
@@ -177,15 +172,17 @@ if [ $1 -eq 0 ]; then
     %selinux_modules_uninstall %{_datadir}/selinux/packages/vsomeip.pp.bz2
 fi
 
+%pre routingmanager
+%sysusers_create_compat vsomeip3.conf
 
 %post routingmanager
-%systemd_post routingmanagerd.socket routingmanagerd.service
+%systemd_post routingmanagerd.service
 
 %preun routingmanager
-%systemd_preun routingmanagerd.socket routingmanagerd.service
+%systemd_preun routingmanagerd.service
 
 %postun routingmanager
-%systemd_postun_with_restart routingmanagerd.socket routingmanagerd.service
+%systemd_postun_with_restart routingmanagerd.service
 
 %files
 %doc AUTHORS CHANGES README.md
@@ -207,11 +204,10 @@ fi
 %files routingmanager
 %doc AUTHORS CHANGES README.md
 %license LICENSE
+%{_sysusersdir}/vsomeip3.conf
 %attr(755,routingmanagerd,routingmanagerd) %dir /var/lib/routingmanagerd
 %{_bindir}/routingmanagerd
 %{_unitdir}/routingmanagerd.service
-%{_unitdir}/routingmanagerd.socket
-%{_sysusersdir}/vsomeip3.conf
 
 %files tools
 %doc AUTHORS CHANGES README.md
@@ -244,6 +240,10 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Wed Dec  3 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.11-3
+- Rewrite the selinux policy from scratch with sepolgen
+- Remove the socket creation as systemd as vsomeip will not work with it.
+
 * Mon Dec  1 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.11-2
 - Try to fix the selinux problem seen with CS10
 - Try to fix problem with socket creation and systemd

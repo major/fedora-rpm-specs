@@ -2,17 +2,14 @@
 %global pypi_name pydyf
 
 Name:           python-pydyf
-Version:        0.11.0
-Release:        7%{?dist}
+Version:        0.12.1
+Release:        1%{?dist}
 Summary:        Low-level PDF creator
 # The test suite is released under the AGPL but we are not shipping any test
 # code in the "binary" (noarch) RPM so we can just use the 3-clause BSD.
 License:        BSD-3-Clause
 URL:            https://www.courtbouillon.org/pydyf
 Source0:        %{pypi_source}
-# remove some dependency/pytest options which are mostly useful for developers
-# (e.g. style checks) but may cause unnecessary issues for distro-level testing
-Patch0:         %{name}-no-developer-testing-options.patch
 
 BuildArch:      noarch
 
@@ -65,6 +62,9 @@ specification 1.7.
 
 
 %changelog
+* Wed Dec 03 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.12.1-1
+- update to 0.12.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1583,7 +1583,9 @@ ln -sf ../bin/cpp %{buildroot}/%{_prefix}/lib/cpp
 ln -sf gfortran %{buildroot}%{_prefix}/bin/f95
 rm -f %{buildroot}%{_infodir}/dir
 gzip -9 %{buildroot}%{_infodir}/*.info*
+%if %{build_ada}
 ln -sf gcc %{buildroot}%{_prefix}/bin/gnatgcc
+%endif
 mkdir -p %{buildroot}%{_fmoddir}
 
 %if %{build_go}
@@ -3776,6 +3778,8 @@ end
 %endif
 
 %changelog
+- Create gnatgcc symlink only when building ada.
+
 * Tue Nov 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-4
 - update from releases/gcc-15 branch
   - PRs ada/81087, ada/118208, ada/118782, c++/122192, c++/122253, c++/122310,

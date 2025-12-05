@@ -1,13 +1,11 @@
 Name:           vulkan-tools
-Version:        1.4.321.0
+Version:        1.4.328.1
 Release:        %autorelease
 Summary:        Vulkan tools
 
 License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/Vulkan-Tools
 Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz       
-#build: Remove pkg-config provided library names
-Patch0:         %url/commit/105d6c1fede00c3a9055e5a531ebf3d99bac406e.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

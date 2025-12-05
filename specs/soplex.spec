@@ -5,21 +5,19 @@
 %global quadmath 0
 %endif
 
+%global giturl  https://github.com/scipopt/soplex
+
 Name:           soplex
-Version:        7.1.6
+Version:        8.0.0
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 
-%global upver   %(sed 's/\\.//g' <<< %{version})
-%global giturl  https://github.com/scipopt/soplex
-
 # Apache-2.0: the project as a whole
-# LGPL-2.1-or-later: src/soplex/gzstream.{cpp,h}
 # MIT: the bundled fmt project
-License:        Apache-2.0 AND LGPL-2.1-or-later AND MIT
+License:        Apache-2.0 AND MIT
 URL:            https://soplex.zib.de/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/release-%{upver}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Elevate the shared library from second-class status to first-class
 Patch:          %{name}-shared.patch
 # Unbundle zstr
@@ -117,7 +115,7 @@ BuildArch:      noarch
 API documentation for libsoplex.
 
 %prep
-%autosetup -n %{name}-release-%{upver} -p1
+%autosetup -p1
 
 %conf
 # We want to know about overflow errors, as the compiler can do surprising
@@ -150,6 +148,13 @@ cd ..
 %install
 %cmake_install
 
+# We install license files elsewhere
+rm -fr %{buildroot}%{_defaultlicensedir}
+
+# Fix the papilo dependency
+sed -i 's/papilo;/papilo-core;/' \
+    %{buildroot}%{_libdir}/cmake/soplex/soplex-targets.cmake
+
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %ctest
@@ -159,8 +164,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files -n libsoplex
 %doc CHANGELOG README.md
-%license LICENSE
-%{_libdir}/libsoplex.so.7.1*
+%license LICENSE src/soplex/external/fmt/LICENSE.rst
+%{_libdir}/libsoplex.so.8.0*
 
 %files -n libsoplex-devel
 %{_includedir}/soplex*

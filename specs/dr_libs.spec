@@ -1,5 +1,5 @@
-%global commit 80bc8919291e4751edfb4e541363c0f30a7cc6a6
-%global snapdate 20250722
+%global commit 877b0967ce679148f60d69bb2d9173487717d8de
+%global snapdate 20251201
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -7,7 +7,7 @@ Name:           dr_libs
 # general practices of stb, so see also:
 #   https://github.com/nothings/stb/issues/359
 #   https://github.com/nothings/stb/issues/1101
-%global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
+%global snapinfo ^%{snapdate}.%{sub %{commit} 1 7}
 Version:        0%{snapinfo}
 Release:        %autorelease
 Summary:        Single-file audio decoding libraries for C/C++
@@ -16,9 +16,9 @@ URL:            https://github.com/mackron/dr_libs
 # See LICENSE.
 License:        Unlicense OR MIT-0
 
-%global dr_flac_version 0.13.0
-%global dr_mp3_version 0.7.0
-%global dr_wav_version 0.14.0
+%global dr_flac_version 0.13.2
+%global dr_mp3_version 0.7.2
+%global dr_wav_version 0.14.2
 
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 

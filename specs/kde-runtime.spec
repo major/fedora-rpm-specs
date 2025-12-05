@@ -1,6 +1,6 @@
 %if 0%{?fedora} || 0%{?epel}
 %global flags 1
-%global webkit 1
+%global webkit 0
 %endif
 
 # newer libsmbclient incompatible?
@@ -33,7 +33,7 @@
 Name:    kde-runtime
 Summary: KDE Runtime
 Version: 17.08.3
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
@@ -182,7 +182,7 @@ BuildRequires: pkgconfig(libnm)
 %else
 BuildRequires: pkgconfig(libnm-glib) pkgconfig(libnm-util)
 %endif
-BuildRequires: pkgconfig(qca2)
+# BuildRequires: pkgconfig(qca2)
 BuildRequires: pkgconfig(soprano) >= 2.6.50
 BuildRequires: pkgconfig(xproto)
 BuildRequires: pkgconfig(xscrnsaver)
@@ -601,6 +601,9 @@ fi
 
 
 %changelog
+* Wed Dec 03 2025 Than Ngo <than@redhat.com> - 1:17.08.3-35
+- Fixed rhbz#2398079, F44FailsToInstall
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

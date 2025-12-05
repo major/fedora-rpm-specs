@@ -1,22 +1,22 @@
+%global giturl  https://github.com/scipopt/scip
+
 Name:           scip
-Version:        9.2.4
+Version:        10.0.0
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
-
-%global upver   %(sed 's/\\.//g' <<< %{version})
-%global giturl  https://github.com/scipopt/scip
 
 # Apache-2.0: the project as a whole
 # EPL-1.0: the bundled cppad project
 # MIT: the bundled fmt project and the header-only sassy package
 # SMLNJ: bundled headers from the mp package
-License:        Apache-2.0 AND EPL-1.0 AND MIT AND SMLNJ
+# dtoa: src/amplmp/src/dtoa.cpp
+License:        Apache-2.0 AND EPL-1.0 AND MIT AND SMLNJ AND dtoa
 URL:            https://scipopt.org/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{upver}/%{name}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Do not add an rpath
 Patch:          %{name}-no-rpath.patch
-# Unbundle nauty and tinycthread
+# Unbundle nauty
 Patch:          %{name}-unbundle.patch
 # Install the header files in a private directory
 Patch:          %{name}-headers.patch
@@ -24,6 +24,10 @@ Patch:          %{name}-headers.patch
 Patch:          %{name}-uninitialized-memory.patch
 # Use zlib-ng directly rather than via the compatibility interface
 Patch:          %{name}-zlib-ng.patch
+# Fix two bugs in SCIPcreateConsBasicSOCNonlinear
+Patch:          https://github.com/scipopt/scip/pull/181.patch
+# The dtoa code needs to know if the CPU is big endian
+Patch:          https://github.com/scipopt/scip/pull/184.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -71,13 +75,13 @@ Provides:       bundled(cppad) = 20180000
 
 # SCIP bundles a few header files from mp.  We don't want to make it depend on
 # mp, however, since mp depends on SCIP, thus leading to a circular dependency.
-Provides:       bundled(mp) = 20231229
+Provides:       bundled(mp) = 4.0.3
 
 # The bundled version of fmt is incompatible with version 10 in Rawhide.
 Provides:       bundled(fmt) = 3.0.1
 
 # We bundle sassy temporarily until it can be included as a Fedora package
-Provides:       bundled(sassy) = 1.1
+Provides:       bundled(sassy) = 2.0
 
 %description -n libscip
 %_desc
@@ -88,7 +92,9 @@ This package contains a library for solving constraint integer programs.
 Summary:        Headers and library links for libscip
 Requires:       scip%{?_isa} = %{version}-%{release}
 Requires:       libscip%{?_isa} = %{version}-%{release}
+Requires:       gmp-devel%{?_isa}
 Requires:       libnauty-devel%{?_isa}
+Requires:       mpfr-devel%{?_isa}
 Requires:       zlib-devel%{?_isa}
 
 %description -n libscip-devel
@@ -109,7 +115,7 @@ Provides:       bundled(jquery) = 3.6.0
 API documentation for libscip.
 
 %prep
-%autosetup -n %{name}-%{upver} -p1
+%autosetup -p1
 
 %conf
 # We want to know about overflow errors, as the compiler can do surprising
@@ -123,18 +129,26 @@ sed -i 's/ on \$date//' doc/scipfooter.html
 # Use a fixed 'linux' value in OSTYPE for repeatable builds
 sed -i 's/OSTYPE=@.*@/OSTYPE=linux/' src/scipbuildflags.c.in
 
-# Ensure we cannot use the bundled bliss, nauty, or tinycthreads
-rm -fr src/{bliss,nauty,tinycthread}
+# Ensure we cannot use the bundled bliss or nauty
+rm -fr src/{bliss,nauty}
 
 %build
-CFLAGS='%{build_cflags} -D_Thread_local=thread_local'
-CXXFLAGS='%{build_cxxflags} -D_Thread_local=thread_local'
-%cmake -DNAUTY_DIR=%{_prefix} -DSYM=snauty
+%ifarch %{power64}
+# Avoid error due to clashing "long double" and "float128" definitions
+export CFLAGS='%{build_cflags} -DBOOST_MP_BITS_OF_FLOAT128_DEFINED'
+export CXXFLAGS='%{build_cxxflags} -DBOOST_MP_BITS_OF_FLOAT128_DEFINED'
+%endif
+%cmake \
+    -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
+    -DNAUTY_DIR:PATH=%{_prefix} \
+    -DSYM:STRING=snauty \
+    -DTPI:STRING=omp
 %cmake_build
 
 # Build documentation
 cd doc
 ln -s %{_datadir}/javascript/mathjax MathJax
+ln -s ../check .
 ../%{_vpath_builddir}/bin/scip < inc/shelltutorial/commands \
   > inc/shelltutorial/shelltutorialraw.tmp
 python3 inc/shelltutorial/insertsnippetstutorial.py
@@ -151,6 +165,9 @@ cd ..
 %install
 %cmake_install
 
+# We install license files elsewhere
+rm -fr %{buildroot}%{_defaultlicensedir}
+
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 # The BendersQP-benders-qp-classical_20_0.mps test often triggers a timeout.
@@ -164,7 +181,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libscip
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libscip.so.9.2*
+%{_libdir}/libscip.so.10.0*
 
 %files -n libscip-devel
 %{_includedir}/scip/

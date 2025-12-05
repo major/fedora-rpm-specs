@@ -5,7 +5,7 @@
 %global crate crypto-auditing-agent
 
 Name:           rust-crypto-auditing-agent
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Event collector agent for crypto-auditing project
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 Source1:        agent.conf
 Source2:        crypto-auditing-agent.service
 Source3:	crypto-auditing.sysusers
-Patch:		rust-crypto-auditing-agent-0.2.1-no-probe.patch
+Patch:		rust-crypto-auditing-agent-0.2.4-no-probe.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  kernel-devel
@@ -56,7 +56,6 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND MIT AND Uni
 
 %files       -n %{crate}
 %license LICENSE
-%license LICENSE.BSD-2-Clause
 %license LICENSE.GPL-2.0
 %license LICENSE.LGPL-2.1
 %license LICENSE.dependencies
@@ -70,7 +69,7 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND MIT AND Uni
 %attr(0755,crypto-auditing,crypto-auditing) %dir %{_localstatedir}/log/crypto-auditing
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{version} -p2
 %cargo_prep
 
 %generate_buildrequires

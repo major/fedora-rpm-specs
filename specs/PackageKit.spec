@@ -1,4 +1,4 @@
-%global glib2_version 2.62.0
+%global glib2_version 2.80
 %global libdnf_version 0.43.1
 
 Summary:   Package management service
@@ -50,7 +50,6 @@ BuildRequires: pkgconfig(polkit-gobject-1) >= 0.114
 BuildRequires: pkgconfig(sdbus-c++)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: systemd
-BuildRequires: gobject-introspection-devel
 BuildRequires: python3-devel
 
 # Validate metainfo
@@ -108,7 +107,7 @@ DNF5 plugin to notify PackageKit of DNF5 actions.
 %package glib
 Summary: GLib libraries for accessing PackageKit
 Requires: dbus >= 1.1.1
-Requires: gobject-introspection
+Requires: glib2 >= %{glib2_version}
 Obsoletes: PackageKit-libs < %{version}-%{release}
 Provides: PackageKit-libs = %{version}-%{release}
 

@@ -1,6 +1,6 @@
 Name:           TOPCOM
 Version:        1.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
@@ -15,6 +15,8 @@ Source1:        %{name}-Makefile
 Patch:          %{name}-pessimizing-move.patch
 # Add virtual destructors where needed
 Patch:          %{name}-virtual-destructor.patch
+# Adapt to SoPlex 8.0.0
+Patch:          %{name}-soplex.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -154,6 +156,9 @@ LD_LIBRARY_PATH=$PWD src/check
 %doc examples
 
 %changelog
+* Wed Dec 03 2025 Jerry James  <loganjerry@gmail.com> - 1.1.2-10
+- Rebuild for soplex 8.0.0
+
 * Tue Aug 19 2025 Jerry James <loganjerry@gmail.com> - 1.1.2-9
 - Rebuild for tbb 2022.2.0
 

@@ -1,7 +1,7 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.4.2
+Version:        1.4.3
 Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
@@ -137,6 +137,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Wed Dec 03 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.3-1
+- update to 1.4.3
+
 * Fri Oct 31 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.2-1
 - update to 1.4.2
 

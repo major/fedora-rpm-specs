@@ -14,7 +14,7 @@
 %endif
 %endif
 %if 0%{?epel} || 0%{?fedora}
-%define webkit 1
+%define webkit 0
 %endif
 %if 0%{?fedora} && 0%{?fedora} < 40
 %define herqq 1
@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 49%{?dist}
+Release: 50%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -269,7 +269,7 @@ BuildRequires: pkgconfig(QtWebKit)
 Requires: xdg-utils
 Requires: redhat-menus
 
-BuildRequires: automoc4 >= 0.9.88
+BuildRequires: automoc >= 0.9.88
 BuildRequires: bison flex
 BuildRequires: bzip2-devel
 BuildRequires: cmake >= 2.8.9
@@ -277,7 +277,7 @@ BuildRequires: cups-devel cups
 BuildRequires: gcc-c++
 BuildRequires: gettext-devel
 BuildRequires: giflib-devel
-BuildRequires: grantlee-devel
+#BuildRequires: grantlee-devel
 %if 0%{?herqq}
 BuildRequires: herqq-devel
 %endif
@@ -315,7 +315,7 @@ BuildRequires: openssl-devel
 BuildRequires: perl(Getopt::Long)
 BuildRequires: pkgconfig(phonon) >= %{phonon_ver} 
 BuildRequires: pkgconfig(polkit-qt-1)
-BuildRequires: pkgconfig(qca2)
+# BuildRequires: pkgconfig(qca2)
 BuildRequires: pkgconfig(shared-mime-info)
 BuildRequires: pkgconfig(zlib)
 # extra X deps (seemingly needed and/or checked-for by most kde4 buildscripts)
@@ -391,7 +391,7 @@ Obsoletes: kdelibs-devel < 6:4.14.17-5
 %else
 Obsoletes: kdelibs-nepomuk-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 %endif
-Requires: automoc4 >= 0.9.88
+Requires: automoc >= 0.9.88
 Requires: cmake >= 2.8.9
 Requires: gcc-c++
 Requires: pkgconfig(libattica) >= %{attica_ver} 
@@ -440,9 +440,6 @@ Requires: pkgconfig(soprano)
 %package ktexteditor
 Summary: KDE4 Text Editor component library
 Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-%if ! 0%{?bootstrap}
-Requires: kate4-part%{?_isa}
-%endif
 %description ktexteditor
 %{summary}
 
@@ -910,6 +907,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Wed Dec 03 2025 Than Ngo <than@redhat.com> - 6:4.14.38-50
+- Fix rhbz#2398082, F44FailsToInstall
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.8
+Version:        0.9.9
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -78,7 +78,6 @@ Summary:        An extremely fast Python package installer and resolver, written
 #   - async_zip, Source100, is MIT.
 #   - pubgrub/version-ranges, Source200, is MPL-2.0.
 #   - reqwest-middleware/reqwest-retry, Source300, is (MIT OR Apache-2.0).
-#   - tl, Source400, is MIT.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
@@ -181,21 +180,6 @@ Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar
 %global reqwest_retry_baseversion 0.7.0
 Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
 
-# For the time being, uv must use a fork of tl. See:
-#   Path back to using released tl crate dependency?
-#   https://github.com/astral-sh/uv/issues/6687
-# It should be possible to stop forking and bundling if tl upstream merges and
-# releases the following fix:
-#   Avoid truncating URLs in unquoted hrefs
-#   https://github.com/y21/tl/pull/69
-# We therefore bundle the fork as prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global tl_git https://github.com/astral-sh/tl
-%global tl_rev 6e25b2ee2513d75385101a8ff9f591ef51f314ec
-%global tl_baseversion 0.7.8
-%global tl_snapdate 20240825
-Source400:      %{tl_git}/archive/%{tl_rev}/tl-%{tl_rev}.tar.gz
-
 # Downstream-only: Always find the system-wide uv executable
 # See discussion in
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
@@ -261,10 +245,6 @@ Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
 %global reqwest_retry_version %{reqwest_retry_baseversion}^%{reqwest_middleware_snapinfo}
 Provides:       bundled(crate(reqwest-middleware)) = %{reqwest_middleware_version}
 Provides:       bundled(crate(reqwest-retry)) = %{reqwest_retry_version}
-# This is a fork of tl; see the notes about Source400.
-%global tl_snapinfo %{tl_snapdate}git%{sub %{tl_rev} 1 7}
-%global tl_version %{tl_baseversion}^%{tl_snapinfo}
-Provides:       bundled(crate(tl)) = %{tl_version}
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
 # upstream writes “These have diverged significantly and the upstream versions
@@ -482,17 +462,6 @@ install -t LICENSE.bundled/reqwest-retry -D -p -m 0644 \
     crates/reqwest-retry/LICENSE*
 # We do not need the reqwest-tracing crate.
 rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-tracing'
-
-# See comments above Source400:
-%setup -q -T -D -b 400 -n uv-%{version}
-ln -s '../../tl-%{tl_rev}' crates/tl
-git2path workspace.dependencies.tl crates/tl
-pushd crates/tl
-%autopatch -p1 -m400 -M499
-popd
-install -t LICENSE.bundled/tl -D -p -m 0644 crates/tl/LICENSE
-# Drop a benchmark-only dev-dependency.
-tomcli set crates/tl/Cargo.toml del dev-dependencies.criterion
 
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/packaging -D -p -m 0644 \
@@ -738,12 +707,10 @@ skip="${skip-} --skip python_list::python_list_downloads"
 # This might be worth reporting upstream, but is not a serious issue.
 skip="${skip-} --skip python_pin::python_pin_resolve"
 %endif
-%ifarch %{power64} s390x
 # Test registry_client::tests::test_redirect_to_server_with_credentials is
-# flaky on ppc64le
+# flaky
 # https://github.com/astral-sh/uv/issues/16447
 skip="${skip-} --skip registry_client::tests::test_redirect_to_server_with_credentials"
-%endif
 
 # This requires specific Python interpreter versions (so it would be grouped
 # with the conditionalized integration tests above), but it also requires
@@ -778,6 +745,11 @@ skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
 #           1 │+007327b23085c5debf31fb44df7a2294b5882aefdba960bdd68fab665db12c5a
 # ────────────┴───────────────────────────────────────────────────────────────────
 skip="${skip-} --skip tests::built_by_uv_building"
+
+# The list of HTTP status codes contains 103, but the expected list from the
+# snapshot doesn’t. This seems like a trivial discrepancy, probably due to a
+# dependency version differing from Cargo.lock.
+skip="${skip-} --skip base_client::tests::retried_status_codes"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

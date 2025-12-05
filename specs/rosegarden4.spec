@@ -1,13 +1,13 @@
-%global major 21.12
+%global major 25.06
 
 Name:          rosegarden4
 Version:       %{major}
-Release:       11%{?dist}
+Release:       1%{?dist}
 Summary:       MIDI, audio and notation editor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://www.rosegardenmusic.com/
-Source0:       https://downloads.sourceforge.net/project/rosegarden/rosegarden/%{major}/rosegarden-%{version}.tar.bz2
+Source0:       https://downloads.sourceforge.net/project/rosegarden/rosegarden/%{major}/rosegarden-%{version}.tar.xz
 
 BuildRequires: alsa-lib-devel
 BuildRequires: desktop-file-utils
@@ -73,7 +73,7 @@ desktop-file-install \
   %{buildroot}%{_datadir}/applications/com.rosegardenmusic.rosegarden.desktop
 
 %files
-%doc AUTHORS CONTRIBUTING README
+%doc AUTHORS CONTRIBUTING README.md
 %license COPYING
 %{_bindir}/rosegarden
 %{_datadir}/applications/*rosegarden.desktop
@@ -83,6 +83,9 @@ desktop-file-install \
 %{_datadir}/metainfo/rosegarden.appdata.xml
 
 %changelog
+* Wed Dec 03 2025 Guido Aulisi <guido.aulisi@gmail.com> - 25.06-1
+- Update to 25.06
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 21.12-11
 - Allow to build with CMake 4.0 (rhbz#2381409)
 

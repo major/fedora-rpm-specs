@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-expat
-Version:        2.7.2
+Version:        2.7.3
 Release:        1%{?dist}
 Summary:        MinGW Windows port of expat XML parser library
 
@@ -125,6 +125,9 @@ rm -r %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 2.7.3-1
+- Update to 2.7.3
+
 * Wed Sep 17 2025 Sandro Mani <manisandro@gmail.com> - 2.7.2-1
 - Update to 2.7.2
 

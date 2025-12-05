@@ -2,7 +2,7 @@
 
 Name:		nvidia-texture-tools
 Version:	2.1.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Collection of image processing and texture manipulation tools
 # Automatically converted from old format: MIT and ASL 2.0 and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND Apache-2.0 AND LicenseRef-Callaway-BSD
@@ -35,6 +35,8 @@ Patch7:		%{name}-simd.patch
 Patch8:		%{name}-flags.patch
 # Only implemented for x86
 Patch9:		%{name}-debug.patch
+# add riscv64
+Patch10:	%{name}-riscv64.patch
 
 %description
 The NVIDIA Texture Tools is a collection of image processing and texture
@@ -69,6 +71,7 @@ Headers and libraries for development with %{name}.
 %ifnarch %{ix86} x86_64
 %patch -P9 -p0
 %endif
+%patch -P10 -p1
 
 %build
 %cmake -DNVTT_SHARED=1 -DCMAKE_SKIP_RPATH=1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5	\
@@ -124,6 +127,9 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}:
 %{_libdir}/lib*.so
 
 %changelog
+* Wed Dec 03 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.1.2-15
+- Add support for RISC-V (riscv64)
+
 * Tue Nov 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.1.2-14
 - CMake fixes
 

@@ -1,9 +1,9 @@
 # Disable X11 for RHEL
 %bcond x11 %[%{undefined rhel}]
 
-%global commit 146250b351e418ec942f57963cf9829b596329f3
+%global commit 68b01223669541ad5bee9dc57ba05f0359aaec09
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20251128
+%global commitdate 20251203
 %global gititer 1
 
 
@@ -27,7 +27,8 @@ Source11:       plasmalogin.sysconfig
 # this is an ugly hack that should be removed if it becomes possible.
 # see https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/TFDMAU7KLMSQTKPJELHSM6PFVXIZ56GK/
 Source12:       plasmalogin.sysusers
-
+# sample plasma-login.conf generated with plasmalogin --example-config, and entries commented-out
+Source13:       plasma-login.conf
 
 # upstream patches
 
@@ -36,7 +37,6 @@ Source12:       plasmalogin.sysusers
 Patch1001:      plasmalogin-environment_file.patch
 ## Workaround for https://pagure.io/fedora-kde/SIG/issue/87
 Patch1002:      plasmalogin-rpmostree-tmpfiles-hack.patch
-
 
 Provides:       service(graphical-login) = plasmalogin
 
@@ -86,6 +86,8 @@ Requires:      kf6-filesystem
 Requires:      kf6-kauth
 Requires(pre): shadow-utils
 
+Requires:      kde-settings-plasma
+
 # Requires kwin-wayland
 Requires:      kwin-wayland%{?_isa}
 Requires:      (kcm-plasmalogin%{?_isa} if plasma-systemsettings%{?_isa})
@@ -128,8 +130,13 @@ Requires: qt6-filesystem
 %find_lang plasma_login
 %find_lang kcm_plasmalogin
 
+
+mkdir -p %{buildroot}%{_sysconfdir}/plasmalogin.conf.d
+mkdir -p %{buildroot}%{_prefix}/lib/plasmalogin/plasmalogin.conf.d
+
 install -Dpm 644 %{SOURCE10} %{buildroot}%{_datadir}/plasmalogin/scripts/README.scripts
 install -Dpm 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/sysconfig/plasmalogin
+install -Dpm 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/plasma-login.conf
 
 mkdir -p %{buildroot}/run/plasmalogin
 mkdir -p %{buildroot}%{_localstatedir}/lib/plasmalogin
@@ -168,10 +175,14 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %files -f plasma_login.lang
-%license LICENSE* LICENSES/*
+%license LICENSE LICENSE.* LICENSES/*
 %doc README.md
 %dir %{_sysconfdir}/plasmalogin/
+%dir %{_sysconfdir}/plasmalogin.conf.d
+%dir %{_prefix}/lib/plasmalogin
+%dir %{_prefix}/lib/plasmalogin/plasmalogin.conf.d
 %config(noreplace) %{_sysconfdir}/plasmalogin/*
+%config(noreplace) %{_sysconfdir}/plasma-login.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/plasmalogin
 %{_prefix}/lib/pam.d/plasmalogin*
 %{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-plasmalogin.conf
@@ -204,6 +215,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Wed Dec 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251203.68b0122-1
+- Bump to new git snapshot
+- Add sample plasmalogin.conf
+
 * Fri Nov 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251128.146250b-1
 - Bump to new git snapshot
 

@@ -14,7 +14,7 @@
 
 Summary:   NetworkManager VPN plug-in for IPsec VPN
 Name:      NetworkManager-libreswan
-Version:   1.2.28
+Version:   1.2.29
 Release:   1%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/NetworkManager-libreswan
@@ -95,6 +95,9 @@ the libreswan server with NetworkManager (GNOME files).
 %make_build
 
 
+%check
+make check
+
 
 %install
 %make_install
@@ -130,6 +133,9 @@ mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 
 
 %changelog
+* Wed Dec 03 2025 Vladimír Beneš <vbenes@redhat.com> - 1.2.29-1
+- Update to version 1.2.29
+
 * Mon Oct 20 2025 Íñigo Huguet <ihuguet@riseup.net> - 1.2.28-1
 - Update to 1.2.28 release
 

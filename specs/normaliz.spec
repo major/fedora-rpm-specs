@@ -43,10 +43,10 @@ BuildRequires:  pkgconfig(libnauty)
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 
 %description
-Normaliz is a tool for computations in affine monoids, vector
-configurations, rational polyhedra, and rational cones.  Normaliz now
-computes rational and algebraic polyhedra, i.e., polyhedra defined over
-real algebraic extensions of QQ.
+Normaliz is a tool for computations in affine monoids, vector configurations,
+rational polyhedra, and rational cones.  Normaliz now computes rational and
+algebraic polyhedra, i.e., polyhedra defined over real algebraic extensions of
+QQ.
 
 Documentation and examples can be found in %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}},
 in particular you may find Normaliz%{version}Documentation.pdf useful.  
@@ -69,8 +69,8 @@ Requires:       flint-devel%{?_isa}
 Requires:       gmp-devel%{?_isa}
 
 %description -n libnormaliz-devel
-Header files and library links to develop applications that use the
-Normaliz internals as a library (libnormaliz).
+Header files and library links to develop applications that use the Normaliz
+internals as a library (libnormaliz).
 
 %prep
 %autosetup -p0 -n Normaliz-%{version}

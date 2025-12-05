@@ -248,8 +248,8 @@
 %endif
 
 Name:	chromium
-Version: 142.0.7444.175
-Release: 5%{?dist}
+Version: 143.0.7499.40
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -269,6 +269,11 @@ Patch21: chromium-123-screen-ai-service.patch
 # Fix link error when building with system libcxx
 Patch22: chromium-131-fix-qt-ui.pach
 
+# Workaround for build error: ERROR Unresolved dependencies.
+#//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
+#  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
+Patch23: chromium-143-revert-libpng_for_testonly.patch
+
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
@@ -286,9 +291,6 @@ Patch92: chromium-138-checkversion-nodejs.patch
 
 # fix build error
 Patch93: chromium-141-csss_style_sheet.patch
-
-# Revert due to incorrect display of links on startpage in Darkmode
-Patch94: chromium-141-revert-remove-darkmode-image-policy.patch
 
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
@@ -320,7 +322,7 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 #  fix ftbfs caused by old python-3.9 on el8
-Patch142: chromium-142-python-3.9-ftbfs.patch
+Patch142: chromium-143-python-3.9-ftbfs.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -363,6 +365,9 @@ Patch316: chromium-122-clang-build-flags.patch
 Patch317: chromium-142-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
+
+# compile swiftshader against llvm-16.0
+Patch319: chromium-143-swiftshader-llvm-16.0.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -460,10 +465,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
-# Fix FTBFS
-# ../../base/containers/span.h:1387:63: error: arithmetic on a pointer to an incomplete type 'element_type' (aka 'const autofill::FormFieldData')
-# 1387 |         typename iterator::AssumeValid(data(), data(), data() + size())));
-Patch1000: chromium-142-missing-include-for-form_field_data.patch
 # Fix Wayland URI DnD issues
 Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
 Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
@@ -989,6 +990,8 @@ Qt6 UI for chromium.
 %patch -P22 -p1 -b .fix-qt-ui
 %endif
 
+%patch -P23 -p1 -R -b .revert-libpng_for_testonly
+
 %patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
@@ -1007,7 +1010,6 @@ Qt6 UI for chromium.
 
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
-%patch -P94 -p1 -R -b .revert-remove-darkmode-image-policy
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if 0%{?fedora} > 43
@@ -1133,7 +1135,6 @@ Qt6 UI for chromium.
 %endif
 
 # Upstream patches
-%patch -P1000 -p1 -b .missing-include-for-form_field_data.patch
 %patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
 %patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
 
@@ -1773,6 +1774,22 @@ fi
 %endif
 
 %changelog
+* Tue Dec 02 2025 Than Ngo <than@redhat.com> - 143.0.7499.40-1
+- Update to 143.0.7499.40
+  * High CVE-2025-13630: Type Confusion in V8
+  * High CVE-2025-13631: Inappropriate implementation in Google Updater
+  * High CVE-2025-13632: Inappropriate implementation in DevTools
+  * High CVE-2025-13633: Use after free in Digital Credentials
+  * Medium CVE-2025-13634: Inappropriate implementation in Downloads
+  * Medium CVE-2025-13720: Bad cast in Loader
+  * Medium CVE-2025-13721: Race in v8
+  * Low CVE-2025-13635: Inappropriate implementation in Downloads
+  * Low CVE-2025-13636: Inappropriate implementation in Split View
+  * Low CVE-2025-13637: Inappropriate implementation in Downloads
+  * Low CVE-2025-13638: Use after free in Media Stream
+  * Low CVE-2025-13639: Inappropriate implementation in WebRTC
+  * Low CVE-2025-13640: Inappropriate implementation in Passwords
+
 * Mon Dec 01 2025 LuK1337 <priv.luk@gmail.com> - 142.0.7444.175-5
 - Backport one more Wayland DnD bug fix from upstream
 
