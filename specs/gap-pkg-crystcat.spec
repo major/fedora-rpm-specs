@@ -1,7 +1,7 @@
 %global gap_pkgname crystcat
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1.10
+Version:        1.1.11
 Release:        %autorelease
 Summary:        Crystallographic groups catalog
 

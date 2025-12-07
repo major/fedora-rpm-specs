@@ -348,11 +348,13 @@ Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 Patch311: chromium-123-fstack-protector-strong.patch
 
 # Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable on EL9
-Patch312: chromium-142-el9-rust-no-alloc-shim-is-unstable.patch
+# Error: unsafe attribute used without unsafe
+#    --> ../../build/rust/allocator/lib.rs:107:7
+Patch312: chromium-143-el9-rust-no-alloc-shim-is-unstable.patch
 
 # Fix FTBFS on EL9
 # - error: undefined symbol: __rust_alloc_error_handler_should_panic
-Patch313: chromium-142-el9-rust_alloc_error_handler_should_panic.patch
+Patch313: chromium-143-el9-rust_alloc_error_handler_should_panic.patch
 
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
@@ -1069,6 +1071,7 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
+%patch -P319 -p1 -b .swiftshader-llvm-16.0
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system

@@ -78,7 +78,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 25.3.0
+%global ver 25.3.1
 Version:        %{gsub %ver - ~}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0

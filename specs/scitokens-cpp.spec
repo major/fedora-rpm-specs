@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 1.1.3
-Release: 3%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -75,6 +75,22 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Fri Dec 05 2025 Derek Weitzel <dweitzel@unl.edu> - 1.2.0-1
+- Fix segfault if the JSON parser cannot parse the JWKS
+- Fix float time claims issue and improve error handling
+- Fix security issue with malicious issuer handling in error messages
+- Improve JWTVerificationException message to include the invalid issuer
+- Update usage on verify command to make the TOKENFILE explicit
+- Read token for scitokens-verify from stdin
+- Set CURLOPT_NOSIGNAL option in SimpleCurlGet to prevent signal interruptions
+- Adding asan value to the job name
+- Turn off building unit tests by default.
+- Add cmake option SCITOKENS_WITH_ASAN which enables memory checking with the address sanitizer.  Also enable this in CI, so that tests fail if they hit a memory leak or other memory problem.
+- Fix memory leak in store_public_ec_key
+- Fix memory leaks in the unit tests
+- Fix memory leak in rs256_from_coords
+- Fix memory leak in scitokens_verify
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

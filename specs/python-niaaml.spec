@@ -8,52 +8,30 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
-%global pypi_name niaaml
-%global pretty_name NiaAML
-
-%global _description %{expand:
-NiaAML is a framework for Automated Machine Learning based on nature-inspired
-algorithms for optimization. The framework is written fully in Python. The
-name NiaAML comes from the Automated Machine Learning method of the same name.
-Its goal is to compose the best possible classification pipeline for the given
-task efficiently using components on the input. The components are divided
-into three groups: feature selection algorithms, feature transformation
-algorithms and classifiers. The framework uses nature-inspired algorithms
-for optimization to choose the best set of components for the
-classification pipeline, and optimize their hyperparameters.}
-
-Name:           python-%{pypi_name}
-Version:        2.1.2
+Name:           python-niaaml
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Python automated machine learning framework
 
 License:        MIT
-URL:            https://github.com/firefly-cpp/%{pretty_name}
-Source:         %{url}/archive/%{version}/%{pretty_name}-%{version}.tar.gz
+URL:            https://github.com/firefly-cpp/NiaAML
+Source:         %{url}/archive/%{version}/NiaAML-%{version}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
-Source1:        niaaml.1
-Source2:        niaaml-infer.1
-Source3:        niaaml-optimize.1
+Source10:       niaaml.1
+Source11:       niaaml-infer.1
+Source12:       niaaml-optimize.1
+
+BuildSystem:            pyproject
+BuildOption(install):   -l niaaml
+# There exists a docs/requirements.txt, but it seems to be inaccurate, with
+# many unnecessary dependencies, so we do not use it to generate BR’s.
 
 BuildArch:      noarch
-
-%description %_description
-
-%package -n python3-%{pypi_name}
-Summary:        %{summary}
-
-BuildRequires:  python3-devel
-BuildRequires:  tomcli
 
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
 %endif
-
-%description -n python3-%{pypi_name} %_description
-
-%package doc
-Summary:        %{summary}
 
 BuildRequires:  dos2unix
 %if %{with doc_pdf}
@@ -66,18 +44,40 @@ BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
 %endif
 
+%global _description %{expand:
+NiaAML is a framework for Automated Machine Learning based on nature-inspired
+algorithms for optimization. The framework is written fully in Python. The name
+NiaAML comes from the Automated Machine Learning method of the same name. Its
+goal is to compose the best possible classification pipeline for the given task
+efficiently using components on the input. The components are divided into
+three groups: feature selection algorithms, feature transformation algorithms
+and classifiers. The framework uses nature-inspired algorithms for optimization
+to choose the best set of components for the classification pipeline, and
+optimize their hyperparameters.}
+
+%description %_description
+
+
+%package -n python3-niaaml
+Summary:        %{summary}
+
+%description -n python3-niaaml %_description
+
+
+%package doc
+Summary:        Documentation for NiaAML
+
 %description doc
-Documentation for %{name}.
+%{summary}.
+
 
 %prep
-%autosetup -n %{pretty_name}-%{version}
-rm -fv poetry.lock
+%autosetup -n NiaAML-%{version} -p1
 
-# Drop version pinning (we use the versions available in Fedora)
-for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
-do
-    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
-done
+# - Don’t bound the version of Python. We must use the system interpreter.
+# - Convert SemVer pins to minimum versions, since we can’t generally respect
+#   the upper bounds in Fedora.
+sed -r -i -e 's/^python ?=/# &/' -e 's/([^#]+ ?= ?")\^/\1>=/' pyproject.toml
 
 # Ensure the Python interpreter path is correct in the example runner script:
 sed -r -i 's|\bpython3\b|%{python3}|' examples/run_all.sh
@@ -88,24 +88,15 @@ dos2unix --keepdate paper/paper.bib
 # Since pdflatex cannot handle Unicode inputs in general:
 echo "latex_engine = 'xelatex'" >> docs/conf.py
 
-%generate_buildrequires
-# There exists a docs/requirements.txt, but it seems to be inaccurate, with a
-# large number of unnecessary dependencies, so we do not use it to generate
-# BR’s.
-%pyproject_buildrequires
 
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doc_pdf}
 %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
-%install
-%pyproject_install
-%pyproject_save_files niaaml
 
+%install -a
 install -d \
     '%{buildroot}%{bash_completions_dir}' \
     '%{buildroot}%{zsh_completions_dir}' \
@@ -119,7 +110,11 @@ export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
 '%{buildroot}%{_bindir}/niaaml' --show-completion fish \
     > '%{buildroot}%{fish_completions_dir}/niaaml.fish'
 
-%check
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
+
+
+%check -a
 %if %{with tests}
 %pytest
 %endif
@@ -130,23 +125,27 @@ find examples -type f -name '*.py' |
       '%{python3}' '{}'
 %endif
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
+
+%files -n python3-niaaml -f %{pyproject_files}
 %doc README.md CHANGELOG.md COMPONENTS.md CITATION.cff
 %{_bindir}/niaaml
 %{bash_completions_dir}/niaaml
 %{zsh_completions_dir}/_niaaml
 %{fish_completions_dir}/niaaml.fish
+%{_mandir}/man1/niaaml.1*
+%{_mandir}/man1/niaaml-*.1*
+
 
 %files doc
 %license LICENSE
 %doc README.md CHANGELOG.md COMPONENTS.md CITATION.cff
 %if %{with doc_pdf}
-%doc docs/_build/latex/%{pypi_name}.pdf
+%doc docs/_build/latex/niaaml.pdf
 %endif
 %doc examples/
 %doc paper/
 %doc docs/paper/10.21105.joss.02949.pdf
+
 
 %changelog
 %autochangelog

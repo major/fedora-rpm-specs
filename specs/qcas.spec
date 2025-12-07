@@ -6,10 +6,9 @@ ExcludeArch: aarch64 %{ix86} %{power64} s390x
 Name:          qcas
 Summary:       Qt5 GUI application for Giac
 Version:       0.5.3
-Release:       28%{?dist}
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
+Release:       30%{?dist}
 License:       GPL-3.0-or-later
-URL:           http://webusers.imj-prg.fr/~frederic.han/qcas
+URL:           https://webusers.imj-prg.fr/~frederic.han/qcas/
 Source0:       https://git.tuxfamily.org/qcas/qcas.git/snapshot/%{name}-%{version}.zip
 Source1:       %{name}.desktop
 Source2:       %{name}.appdata.xml
@@ -17,7 +16,8 @@ Source3:       %{name}-qt4.desktop
 
 BuildRequires: make
 BuildRequires: gcc-c++
-BuildRequires: qt5-qtbase-devel, qt5-qtsvg-devel
+BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-qtsvg-devel
 BuildRequires: gmp-devel
 BuildRequires: giac-devel
 BuildRequires: desktop-file-utils
@@ -137,11 +137,9 @@ desktop-file-install %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.des
 desktop-file-install %{SOURCE3} %{buildroot}%{_datadir}/applications/%{name}-qt4.desktop
 
 # Install appdata file
-mkdir -p %{buildroot}%{_datadir}/metainfo
-install -pm 644 %{SOURCE2} %{buildroot}%{_datadir}/metainfo/
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
-
-%ldconfig_scriptlets -n libqcas
+mkdir -p %{buildroot}%{_metainfodir}
+install -pm 644 %{SOURCE2} %{buildroot}%{_metainfodir}/
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files
 %{_bindir}/%{name}
@@ -153,7 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 %files -n libqcas
 %license COPYING
-%{_libdir}/libqcas.so.*
+%{_libdir}/libqcas.so.1
+%{_libdir}/libqcas.so.1.0
+%{_libdir}/libqcas.so.1.0.0
 
 %files -n libqcas-devel
 %{_libdir}/libqcas.so
@@ -163,9 +163,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license COPYING
 %{_datadir}/%{name}/
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Thu Dec 04 2025 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-30
+- Fix appdata file
+
+* Thu Dec 04 2025 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-29
+- Rebuild for giac-2.0.0*
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

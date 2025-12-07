@@ -1,5 +1,5 @@
 Name:           python-openslide
-Version:        1.4.2
+Version:        1.4.3
 Release:        %autorelease
 Summary:        Python bindings for the OpenSlide library
 
@@ -9,8 +9,8 @@ Source0:        https://github.com/openslide/openslide-python/releases/download/
 
 # Disable Intersphinx so it won't download inventories at build time
 Patch0:         disable-intersphinx.patch
-# Allow older setuptools and pytest 6
-Patch1:         widen-versions.patch
+# Allow older setuptools for EL 10
+Patch1:         setuptools-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  openslide
@@ -57,12 +57,7 @@ rm -r build/html/.buildinfo build/html/.doctrees
 
 
 %check
-%if 0%{?rhel} == 9
-# pytest 6; no support for pythonpath setting
-%pytest --import-mode append
-%else
 %pytest
-%endif
 
 
 %files -n python3-openslide -f %{pyproject_files}

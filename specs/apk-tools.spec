@@ -1,10 +1,10 @@
-%global basever 3.0.0
-%global prerel rc8
+%global basever 3.0.1
+%dnl %global prerel rc8
 %dnl %global commit 225e3ebd25c4bcd821b49369fd7c328a8ed09b43
 %dnl %global shortcommit %{sub %{commit} 1 7}
 %dnl %global snapdate 20250830
 
-%global somajor 3.0
+%global soversion 3.0.0
 
 %global luaver 5.4
 
@@ -104,7 +104,7 @@ the Alpine Package Keeper system.
 
 %files -n libapk
 %license LICENSE
-%{_libdir}/libapk.so.%{somajor}{,.*}
+%{_libdir}/libapk.so.%{soversion}
 
 %dnl --------------------------------------------------------------------
 
@@ -158,14 +158,23 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %check
-# Enable SHA1 signature support since Alpine requires it for now
-# Cf. https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/11139
-OPENSSL_ENABLE_SHA1_SIGNATURES=1
-export OPENSSL_ENABLE_SHA1_SIGNATURES
+# Purge the mkpkg test as it breaks with SELinux-based host environments
+# Cf. https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/11165
+rm test/user/mkpkg.sh
+touch test/user/mkpkg.sh
+cat > test/user/mkpkg.sh << MKPKGSTUBTEST
+#!/bin/sh
+exit 0
+MKPKGSTUBTEST
+chmod +x test/user/mkpkg.sh
+
 %meson_test
 
 
 %changelog
+* Thu Dec 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.1-1
+- Update to 3.0.1 final
+
 * Tue Nov 18 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.0~rc8-1
 - Bump to new upstream release
 

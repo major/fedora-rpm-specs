@@ -4,8 +4,8 @@
 %{!?_httpd_statedir: %global _httpd_statedir %{_localstatedir}/lib/httpd}
 
 Name:           mod_md
-Version:        2.6.2
-Release:        1%{?dist}
+Version:        2.6.6
+Release:        %autorelease
 Summary:        Certificate provisioning using ACME for the Apache HTTP Server
 License:        Apache-2.0
 URL:            https://icing.github.io/mod_md/
@@ -59,114 +59,4 @@ echo "LoadModule md_module modules/mod_md.so" > %{buildroot}%{_httpd_modconfdir}
 %dir %{_httpd_statedir}/md
 
 %changelog
-* Mon Sep 29 2025 Joe Orton  <jorton@redhat.com> - 1:2.6.2-1
-- update to 2.6.2
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.26-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.26-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Oct 22 2024 Richard W.M. Jones <rjones@redhat.com> - 1:2.4.26-3
-- Rebuild for Jansson 2.14
-  (https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/3PYINSQGKQ4BB25NQUI2A2UCGGLAG5ND/)
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.26-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Joe Orton <jorton@redhat.com> - 1:2.4.26-1
-- update to 2.4.26
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.25-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.25-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Nov 28 2023 Joe Orton <jorton@redhat.com> - 1:2.4.25-1
-- update to 2.4.25
-
-* Mon Sep 11 2023 Luboš Uhliarik <luhliari@redhat.com> - 1:2.4.24-1
-- new version 2.4.24
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.21-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 01 2023 Luboš Uhliarik <luhliari@redhat.com> - 1:2.4.21-1
-- new version 2.4.21
-- SPDX migration
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.19-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 19 2022 Joe Orton <jorton@redhat.com> - 1:2.4.19-2
-- package the "md" directory (#2154348)
-
-* Thu Oct  6 2022 Joe Orton <jorton@redhat.com> - 1:2.4.19-1
-- update to 2.4.19
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Dec  3 2021 Joe Orton <jorton@redhat.com> - 1:2.4.10-1
-- update to 2.4.10
-
-* Fri Sep 17 2021 Joe Orton <jorton@redhat.com> - 1:2.4.7-1
-- update to 2.4.7
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 1:2.4.0-3
-- Rebuilt with OpenSSL 3.0.0
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar  9 2021 Joe Orton <jorton@redhat.com> - 1:2.4.0-1
-- update to 2.4.0
-
-* Tue Feb  2 2021 Joe Orton <jorton@redhat.com> - 1:2.3.7-1
-- update to 2.3.7 (beta)
-- use autosetup macro
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 22 2021 Joe Orton <jorton@redhat.com> - 1:2.2.8-4
-- update to 2.2.8
-
-* Fri Aug 28 2020 Joe Orton <jorton@redhat.com> - 1:2.2.7-4
-- use _httpd_apxs macro
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jun 23 2020 Alexander Bokovoy <abokovoy@redhat.com> - 1:2.2.7-2
-- mod_md does not work with ACME server that does not provide revokeCert or
-  keyChange resource (#1832841)
-
-* Tue Feb 11 2020 Joe Orton <jorton@redhat.com> - 1:2.2.7-1
-- update to 2.2.7
-
-* Fri Feb  7 2020 Joe Orton <jorton@redhat.com> - 1:2.2.6-1
-- update to 2.2.6 (#1799660)
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Aug 30 2019 Joe Orton <jorton@redhat.com> - 1:2.0.8-4
-- require mod_ssl, update package description
-
-* Fri Aug 30 2019 Joe Orton <jorton@redhat.com> - 1:2.0.8-3
-- rebuild against 2.4.41
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jul 12 2019 Joe Orton <jorton@redhat.com> - 1:2.0.8-1
-- update to 2.0.8
-
-* Tue Jun 11 2019 Lubos Uhliarik <luhliari@redhat.com> - 2.0.3-1
-- Initial import (#1719248).
+%autochangelog

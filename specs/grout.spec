@@ -3,9 +3,13 @@
 
 %global forgeurl https://github.com/DPDK/grout
 %global _lto_cflags %nil
+%if %{defined el9}
+%global toolset gcc-toolset-13
+%global __meson /usr/bin/scl run %toolset -- /usr/bin/meson
+%endif
 
 Name: grout
-Version: 0.14.0
+Version: 0.14.1
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -17,7 +21,12 @@ Release: %{autorelease}
 Source0: %{forgesource}
 Source1: https://fast.dpdk.org/rel/dpdk-25.11.tar.xz
 
-BuildRequires: gcc
+%if %{defined toolset}
+BuildRequires: %toolset
+BuildRequires: scl-utils
+%else
+BuildRequires: gcc >= 13
+%endif
 BuildRequires: libcap-devel
 BuildRequires: libcmocka-devel
 BuildRequires: libecoli-devel >= 0.8.0

@@ -1,7 +1,7 @@
 %global		framework kitemmodels
 
 Name:		kf6-%{framework}
-Version:	6.20.0
+Version:	6.21.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with item models
 
@@ -79,6 +79,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
+- 6.21.0
+
 * Thu Nov 13 2025 Steve Cossette <farchord@gmail.com> - 6.20.0-1
 - 6.20.0
 

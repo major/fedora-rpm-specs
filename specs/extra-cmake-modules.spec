@@ -9,7 +9,7 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 6.20.0
+Version: 6.21.0
 Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -85,6 +85,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
+- 6.21.0
+
 * Thu Nov 13 2025 Steve Cossette <farchord@gmail.com> - 6.20.0-1
 - 6.20.0
 

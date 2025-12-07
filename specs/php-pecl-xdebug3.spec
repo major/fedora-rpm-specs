@@ -16,13 +16,13 @@
 %global pie_vend   xdebug
 %global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  02e2f164bc5133e93041c6da90b465a50a784eb2
+%global gh_commit  32dcc3da7bbff171f67e803f28ef4c098f8e2caf
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
 %global upstream_version 3.5.0
-%global upstream_prever  alpha3
-%global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
+#global upstream_prever  alpha3
+#global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
 
 # XDebug should be loaded after opcache
@@ -216,6 +216,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Thu Dec  4 2025 Remi Collet <remi@remirepo.net> - 3.5.0-1
+- update to 3.5.0
+
 * Thu Nov 13 2025 Remi Collet <remi@remirepo.net> - 3.5.0~alpha3-1
 - update to 3.5.0alpha3
 

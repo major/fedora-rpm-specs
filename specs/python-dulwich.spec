@@ -1,6 +1,5 @@
 %global srcname dulwich
 %global __provides_exclude_from ^(%{python3_sitearch}/.*\\.so)$
-%global debug_package %{nil}
 
 Name:           python-%{srcname}
 Version:        0.24.10
@@ -11,45 +10,50 @@ License:        GPL-2.0-or-later OR Apache-2.0
 URL:            https://www.dulwich.io/
 Source0:        %{pypi_source}
 
-BuildRequires:  gcc
-BuildRequires:  crate(pyo3-build-config/default)
+BuildRequires:  python3-devel
+BuildRequires:  cargo-rpm-macros
+
+BuildRequires:  python3-docutils
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx-epytext
 
 %description
-Dulwich is a pure-Python implementation of the Git file formats and
+Dulwich is a Python implementation of the Git file formats and
 protocols. The project is named after the village in which Mr. and
 Mrs. Git live in the Monty Python sketch.
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools-rust
+# Apache-2.0
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        (GPL-2.0-or-later OR Apache-2.0) AND Apache-2.0 AND MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT)
 
 %description -n python3-%{srcname}
-Dulwich is a pure-Python implementation of the Git file formats and
+Dulwich is a Python implementation of the Git file formats and
 protocols. The project is named after the village in which Mr. and
 Mrs. Git live in the Monty Python sketch.
 
 %package -n %{name}-doc
 Summary:        The %{name} documentation
 
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-docutils
-BuildRequires:  python3-sphinx-epytext
-
 %description -n %{name}-doc
 Documentation for %{name}.
 
 %prep
 %autosetup -n %{srcname}-%{version}
+%cargo_prep
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%cargo_generate_buildrequires -a -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 PYTHONPATH=${PWD} sphinx-build-3 docs html
 rm -rf html/.{doctrees,buildinfo}
 
@@ -68,6 +72,7 @@ rm -rf %{buildroot}%{python3_sitearch}/docs/tutorial/
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license COPYING
+%license LICENSE.dependencies
 %{_bindir}/dul-*
 %{_bindir}/%{srcname}
 %exclude %{python3_sitearch}/%{srcname}/tests*

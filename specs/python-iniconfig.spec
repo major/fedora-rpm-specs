@@ -1,10 +1,10 @@
 Name:               python-iniconfig
-Version:            2.1.0
+Version:            2.3.0
 Release:            %autorelease
 Summary:            Brain-dead simple parsing of ini files
 # SPDX
 License:            MIT
-URL:                http://github.com/RonnyPfannschmidt/iniconfig
+URL:                http://github.com/pytest-dev/iniconfig
 BuildArch:          noarch
 BuildRequires:      python3-devel
 

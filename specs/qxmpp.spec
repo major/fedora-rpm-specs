@@ -1,10 +1,10 @@
-%global sover   5
+%global sover 7
 
 %bcond_without check
 %bcond_with all_tests
 
 Name:           qxmpp
-Version:        1.10.3
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Cross-platform C++ XMPP client and server library
 
@@ -88,7 +88,6 @@ This package contains documentation for %{name}.
 %build
 OPTIONS=(
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTS=ON \
     -DBUILD_DOCUMENTATION=ON \
     -DBUILD_OMEMO=ON \

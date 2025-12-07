@@ -1,9 +1,10 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2025.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
+Patch0: hugin-2025.0.0_create_pano_fix.patch
 URL: http://hugin.sourceforge.net/
 Requires: shared-mime-info
 Requires: webclient
@@ -188,6 +189,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Thu Dec 04 2025 Bruno Postle <bruno@postle.net> - 2025.0.0-2
+- Bugfix for preview create panorama button not working
+
 * Sun Nov 16 2025 Bruno Postle <bruno@postle.net> - 2025.0.0-1
 - stable release
 

@@ -4,8 +4,8 @@
 %global modname vcrpy
 
 Name:               python-%{modname}
-Version:            7.0.0
-Release:            6%{?dist}
+Version:            8.0.0
+Release:            1%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -88,6 +88,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Fri Dec 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 8.0.0-1
+- 8.0.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

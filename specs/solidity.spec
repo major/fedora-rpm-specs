@@ -1,10 +1,8 @@
-%global git_hash 73712a01b2de56d9ad91e3b6936f85c90cb7de36
-# Not enough memory in our builders since ver. 0.8.30
-%global _smp_mflags -j1
+%global git_hash fd3a22656ebe9c91a96ebd846ab7699b5f2e053c
 
 Summary:	Object-oriented, high-level language for implementing smart contracts
 Name:		solidity
-Version:	0.8.30
+Version:	0.8.31
 Release:	%autorelease
 # Not enough deps on x86 and does not work on big-endian arches
 ExcludeArch:	%{ix86} s390x
@@ -16,15 +14,14 @@ License:	GPL-3.0-only
 # Fedora-specific patches
 Patch:		solidity-0001-Use-static-linking-for-internal-libs.patch
 Patch:		solidity-0002-Don-t-override-Fedora-specific-CXXFLAGS.patch
-BuildRequires:	boost-devel
+BuildRequires:	boost-devel >= 1.83.0
 BuildRequires:	cmake >= 3.0
-# only for Fedora 40+
 BuildRequires:	cmake(fmt) >= 10.1.1
 BuildRequires:	cmake(nlohmann_json)
 BuildRequires:	cmake(range-v3)
 BuildRequires:	cmake(z3)
 BuildRequires:	cvc5
-BuildRequires:	gcc-c++
+BuildRequires:	gcc-c++ >= 13.3.0
 BuildRequires:	help2man
 # for /usr/bin/cvc5
 Requires:	cvc5
@@ -39,10 +36,6 @@ within the Ethereum state.
 echo %{git_hash} > commit_hash.txt
 
 %build
-%if 0%{?fedora} < 42
-export CFLAGS="%{optflags} -Wno-error=array-bounds"
-export CXXFLAGS="%{optflags} -Wno-error=array-bounds"
-%endif
 %{cmake} \
 	-DIGNORE_VENDORED_DEPENDENCIES:BOOL=ON \
 	-DBoost_USE_STATIC_LIBS:BOOL=OFF \

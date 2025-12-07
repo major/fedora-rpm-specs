@@ -1,12 +1,12 @@
 %global plugin_name googlechat
 
-%global commit0 c02af37450150a2cc77367b8e03172196748f52c
+%global commit0 35a075f7170a5cd276bbbac06175f0b3817a5245
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date 20251020
+%global date 20251204
 
 Name: purple-%{plugin_name}
 Version: 0
-Release: 7.%{date}git%{shortcommit0}%{?dist}
+Release: 8.%{date}git%{shortcommit0}%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Google Chat plugin for libpurple
@@ -64,6 +64,9 @@ chmod 755 %{buildroot}%{_libdir}/purple-2/lib%{plugin_name}.so
 %{_datadir}/pixmaps/pidgin/protocols/*/%{plugin_name}.png
 
 %changelog
+* Thu Dec  4 2025 Jan Kratochvil <jan@jankratochvil.net> - 0-8.20251204git35a075f
+- Update to the latest snapshot.
+
 * Sun Nov  2 2025 Jan Kratochvil <jan@jankratochvil.net> - 0-7.20251020gitc02af37
 - Update to the latest snapshot.
 

@@ -2,22 +2,15 @@
 
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
-%global forgeurl https://github.com/Mellanox/%{name}
-%global version0 4.32.0
-# 4.32.0 has several build bugs, so use a later snapshot.
-# top of master_devel branch as of 2025-05-17:
-%global commit 48a145409b058b275cbcc1fe8edd5581932c5eb0
-%global date 20250517
-%forgemeta
-Version:	%forgeversion
+Version:	4.34.0
 Release:	%autorelease
 # COPYING says the license is your choice of OpenIB.org BSD or GPLv2.
 # kernel/Makefile has the 3-clause BSD.
 # ext_libs/{iniParser,json,muparser}/ have MIT.
 # ext_libs/sqlite/ has the SQLite blessing.
 License:	(GPL-2.0-only OR Linux-OpenIB) AND BSD-3-Clause AND MIT AND blessing
-Url:		%{forgeurl}
-Source0: 	%{forgesource}
+Url:		https://github.com/Mellanox/%{name}
+Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-2/%{name}-%{version}-2.tar.gz
 
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
@@ -36,7 +29,7 @@ This package contains firmware update tool, vpd dump and register dump tools
 for network adapters based on Mellanox Technologies chips.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n %{name}-%{version}
 
 find . -type f -perm /a+x \( -name '*.[ch]' -o -name '*.cpp' \) -exec chmod a-x '{}' '+'
 

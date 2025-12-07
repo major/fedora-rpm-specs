@@ -1,7 +1,7 @@
 %global framework syntax-highlighting
 
 Name:           kf6-%{framework}
-Version:        6.20.0
+Version:        6.21.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Syntax highlighting engine for Kate syntax definitions
 License:        MIT AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later
@@ -91,6 +91,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
+- 6.21.0
+
 * Thu Nov 13 2025 Steve Cossette <farchord@gmail.com> - 6.20.0-1
 - 6.20.0
 

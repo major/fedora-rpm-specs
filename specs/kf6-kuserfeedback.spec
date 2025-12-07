@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
-Version: 6.20.0
+Version: 6.21.0
 Release: 1%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
@@ -130,6 +130,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
+- 6.21.0
+
 * Thu Nov 13 2025 Steve Cossette <farchord@gmail.com> - 6.20.0-1
 - 6.20.0
 

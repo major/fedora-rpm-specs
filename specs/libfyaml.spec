@@ -4,7 +4,7 @@ Release:        8%{?dist}
 Summary:        Complete YAML parser and emitter
 
 # All files MIT except
-# GPL-2.0-only 
+# GPL-2.0-only
 # src/lib/fy-list.h
 # BSD-2-clause
 # src/xxhash/xxhash.c
@@ -44,6 +44,13 @@ It is designed to be very efficient, avoiding copies of data,
 and has no artificial limits like the 1024 character limit for
 implicit keys.
 
+%package -n fyaml-utils
+Summary:  Utility tools for libfyaml
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description -n fyaml-utils
+Utility tools for libfyaml
+
 %package devel
 Summary:  Complete YAML parser and emitter
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -76,6 +83,10 @@ make check
 %license LICENSE-BSD-2-Clause
 %doc README.md
 %doc AUTHORS
+%{_libdir}/libfyaml.so.0
+%{_libdir}/libfyaml.so.0.0.0
+
+%files -n fyaml-utils
 %{_bindir}/fy-compose
 %{_bindir}/fy-dump
 %{_bindir}/fy-filter
@@ -83,8 +94,6 @@ make check
 %{_bindir}/fy-testsuite
 %{_bindir}/fy-tool
 %{_bindir}/fy-ypath
-%{_libdir}/libfyaml.so.0
-%{_libdir}/libfyaml.so.0.0.0
 %{_mandir}/man1/fy-compose.1.gz
 %{_mandir}/man1/fy-dump.1.gz
 %{_mandir}/man1/fy-filter.1.gz
@@ -124,4 +133,3 @@ make check
 
 * Sat Jul 08 2023 Benson Muite <benson_muite@emailplus.org> - 0.8-1
 - Initial packaging
-

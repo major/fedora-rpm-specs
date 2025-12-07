@@ -3,18 +3,18 @@
 %ifarch s390x
 %bcond_with check
 %else
-%bcond_without check
+%bcond_with check
 %endif
 
 %bcond_without flexiblas
 
 %global _lto_cflags %{nil}
 
-%global subversion .999
+%global subversion .18
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
-Version:       1.9.0%{subversion}
+Version:       2.0.0%{subversion}
 Release:       %autorelease
 # GPL-3.0-or-later: the project as a whole
 # GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*
@@ -26,9 +26,9 @@ Release:       %autorelease
 # MIT: micropython-1.12/, src/cutils.*, src/js.c, src/libbf.*, src/libregexp*,
 #   src/libunicode.*, src/list.h, src/qjs*, src/quickjs*
 License:       GPL-3.0-or-later AND GPL-3.0-only AND GPL-2.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LGPL-3.0-or-later AND LGPL-2.0-or-later AND MIT
-URL:           http://www-fourier.ujf-grenoble.fr/~parisse/giac.html
+URL:           https://www-fourier.univ-grenoble-alpes.fr/~parisse/giac.html
 ## Source package is downloaded from
-## http://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/
+## https://www-fourier.univ-grenoble-alpes.fr/~parisse/debian/dists/stable/main/source
 ## and re-packed without non-free FR documentation by giac-makesrc script.
 Source0:       %{name}-%{version}.tar.gz
 Source1:       %{name}-makesrc.sh
@@ -64,7 +64,7 @@ ExcludeArch:   %{ix86}
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
 BuildRequires: readline-devel
-BuildRequires: gettext-devel
+BuildRequires: gettext
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: cliquer-devel
@@ -142,6 +142,7 @@ BuildArch: noarch
 BuildRequires: hevea
 %endif
 BuildRequires: tex(latex), texinfo, texinfo-tex, texlive-stmaryrd
+Requires: %{name} = %{version}-%{release}
 
 # Javascript provided
 Provides: bundled(CodeMirror)
@@ -237,9 +238,9 @@ autoreconf -ivf
 %build
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-export CXXFLAGS="$OPT_FLAGS -std=gnu++17"
+export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
 export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
-%configure --enable-static=yes --with-included-gettext=no --enable-nls=yes \
+%configure --enable-static=yes --with-included-gettext=no --enable-nls=no \
  --enable-tommath=no --enable-debug=no --enable-gc=no --enable-sscl=no \
  --enable-dl=yes --enable-gsl=yes --enable-lapack=yes --enable-pari=yes \
  --enable-ntl=yes --enable-gmpxx=yes --enable-cocoa=autodetect \
@@ -255,12 +256,12 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # Compile 'mkjs' executable
 # See patch7's comment
 export OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-g++ $OPT_FLAGS -std=gnu++17 src/mkjs.cc -o src/mkjs
+g++ $OPT_FLAGS -fpermissive -std=gnu++17 src/mkjs.cc -o src/mkjs
 #
 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-export CXXFLAGS="$OPT_FLAGS -std=gnu++17"
+export CXXFLAGS="$OPT_FLAGS -fpermissive -std=gnu++17"
 export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
 export LDFLAGS_FEDORA="$OPT_FLAGS"
 %make_build
@@ -322,12 +323,14 @@ install -pm 644 -t %{buildroot}%{_datadir}/giac/doc/en doc/en/*.pdf
 install -pm 644 -t %{buildroot}%{_datadir}/giac/doc/el doc/el/*.pdf
 install -pm 644 -t %{buildroot}%{_datadir}/giac/doc/es doc/es/*.pdf
 
+find %{buildroot}%{_datadir}/giac -name 'Makefile*' -exec rm {} \;
+
 # Symlinks used by QCAS and giacpy
 mkdir -p %{buildroot}%{_datadir}/giac/doc/fr
-ln -srf -T %{_datadir}/giac/doc/aide_cas %{buildroot}%{_datadir}/giac/doc/fr/aide_cas
-ln -srf -T %{_datadir}/giac/doc/aide_cas %{buildroot}%{_datadir}/giac/doc/en/aide_cas
-ln -srf -T %{_datadir}/giac/doc/en/casinter/index.html %{buildroot}%{_datadir}/giac/doc/en/casinter/casinter.html
-ln -srf -T %{_datadir}/giac/doc/en/cascmd_en/index.html %{buildroot}%{_datadir}/giac/doc/en/cascmd_en/cascmd_en.html
+ln -sf -T %{_datadir}/giac/doc/aide_cas %{buildroot}%{_datadir}/giac/doc/fr/aide_cas
+ln -sf -T %{_datadir}/giac/doc/aide_cas %{buildroot}%{_datadir}/giac/doc/en/aide_cas
+ln -sf -T %{_datadir}/giac/doc/en/casinter/index.html %{buildroot}%{_datadir}/giac/doc/en/casinter/casinter.html
+ln -sf -T %{_datadir}/giac/doc/en/cascmd_en/index.html %{buildroot}%{_datadir}/giac/doc/en/cascmd_en/cascmd_en.html
 
 #
 # DOC Files (1-4):
@@ -340,10 +343,17 @@ install -pm 644 debian/pgiac.1 %{buildroot}%{_mandir}/man1
 
 #      Add a link for FR env users to have the english help instead of a page 
 #      not found.
-mkdir -p %{buildroot}%{_datadir}/giac/doc/fr
-(cd %{buildroot}%{_datadir}/giac/doc/fr ; ln -s ../en/cascmd_en cascmd_fr )
+pushd %{buildroot}%{_datadir}/giac/doc/fr
+ln -s ../en/cascmd_en cascmd_fr
+popd
 
-%find_lang %{name} 
+# khicas.nwa is an arch-dependent executable file (ELF 32-bit LSB relocatable, ARM, EABI5 version 1)
+# I moving it from noarch giac-doc to giac package
+mkdir -p %{buildroot}%{_libexecdir}/giac
+cp -p %{buildroot}%{_datadir}/giac/doc/khicas.nwa %{buildroot}%{_libexecdir}/giac/
+ln -sfv %{_libexecdir}/giac/khicas.nwa %{buildroot}%{_datadir}/giac/doc/khicas.nwa
+
+#find_lang %%{name} 
 desktop-file-install --vendor="" --remove-key=Encoding \
                      --set-key=Version --set-value=1.0 \
                      --dir=%{buildroot}%{_datadir}/applications/ \
@@ -381,16 +391,20 @@ find  %{buildroot}%{_datadir}/giac/doc -maxdepth 2 -type l| \
              grep  -v -E "%{_datadir}/giac/doc/aide_cas$" | \
              sed -e "s:%{buildroot}::" >>giacdoclist
 
+# Change permissions to following files
+chmod a+x %{buildroot}%{_datadir}/giac/doc/send18
+chmod a+x %{buildroot}%{_datadir}/giac/doc/send19
+
 %if %{with check}
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 make -C check check
 # This is for debugging purpose only
-#make -C check check && exit 1
-#cat check/test-suite.log && exit 1
+#make -j1 -C check check
+#cat check/test-suite.log
 %endif
 
-%files -f %{name}.lang
+%files
 %license COPYING micropython-1.12/micropython-LICENSE
 %license LICENSE.tinymt32
 %{_bindir}/icas
@@ -399,7 +413,10 @@ make -C check check
 %{_bindir}/*_help
 %{_libdir}/libgiac.so.0.0.0
 %{_libdir}/libgiac.so.0
+%{_libdir}/libxcas.so.0.0.0
+%{_libdir}/libxcas.so.0
 %{_libdir}/libgiac.a
+%{_libexecdir}/giac/khicas.nwa
 %ifnarch %{power64}
 %{_libdir}/libmicropython.a
 %endif
@@ -430,6 +447,7 @@ make -C check check
 # The gui files
 %files xcas
 %{_bindir}/xcas
+%{_datadir}/giac/xcas.html
 # The dirs shared
 %dir %{_datadir}/giac
 %dir %{_datadir}/giac/doc
@@ -461,6 +479,7 @@ make -C check check
 %files devel
 %{_includedir}/giac/
 %{_libdir}/libgiac.so
+%{_libdir}/libxcas.so
 
 # DOC Files
 %files doc -f giacdoclist
@@ -476,9 +495,9 @@ make -C check check
 #       character encoding.
 #     - The .cas and .cxx files are giac code and function. They are text files
 #
-#   NB: %%{_docdir}/giac is in  the -filsystem package 
+#   NB: _docdir/giac is in  the -filsystem package 
 %{_docdir}/giac/*
-#     Add all the files that are in %%{_datadir}/giac but not giac/aide_cas 
+#     Add all the files that are in _datadir/giac but not giac/aide_cas 
 #     and not those in giac/doc/
 %dir %{_datadir}/giac
 %dir %{_docdir}/giac

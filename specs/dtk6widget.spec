@@ -1,13 +1,10 @@
 Name:           dtk6widget
-Version:        6.0.27
+Version:        6.0.47
 Release:        %autorelease
 Summary:        Deepin base graphical widgets library
 License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dtk6widget
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         dtk6widget-fix-qt6.9-build.patch
-Patch1:         dtk6widget-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -21,8 +18,9 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6ToolsTools)
-BuildRequires:  qt6-qtbase-private-devel
-%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+BuildRequires:  cmake(Qt6GuiPrivate)
+BuildRequires:  cmake(Qt6WidgetsPrivate)
+BuildRequires:  cmake(Qt6PrintSupportPrivate)
 
 BuildRequires:  cmake(Dtk6Core) >= %{version}
 BuildRequires:  cmake(Dtk6Gui) >= %{version}

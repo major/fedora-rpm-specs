@@ -16,7 +16,6 @@ BuildRequires: git-core
 BuildRequires: libbpf-devel
 BuildRequires: libcmocka-devel
 BuildRequires: libnl3-devel
-BuildRequires: make
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 BuildRequires: vim-common
@@ -47,10 +46,10 @@ developing applications that use %{name}.
 
 %build
 %cmake -DNO_DOCS=1 -DNO_BENCHMARKS=1 -DNO_CHECKS=1 -DDEFAULT_PROJECT_VERSION=%{version}
-%cmake_build -- bpfilter libbpfilter bfcli
+%cmake_build -t bpfilter libbpfilter bfcli
 
 %check
-make -C %__cmake_builddir unit
+%cmake_build -t unit
 
 %install
 %cmake_install

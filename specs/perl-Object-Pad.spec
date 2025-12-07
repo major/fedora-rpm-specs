@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-Object-Pad
-Version:        0.821
-Release:        2%{dist}
+Version:        0.822
+Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -56,8 +56,11 @@ BuildRequires:  perl(attributes)
 BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(if)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Scalar::Util)
+# Sub::Util since perl 5.22
+BuildRequires:  perl(Sub::Util)
 BuildRequires:  perl(Test2::V0) >= 0.000148
 BuildRequires:  perl(Test2::IPC)
 BuildRequires:  perl(threads)
@@ -120,6 +123,8 @@ Requires:       %{name}-ExtensionBuilder = %{?epoch:%{epoch}:}%{version}-%{relea
 Requires:       perl-Test-Harness
 Requires:       perl(Config)
 Requires:       perl(strict)
+# Sub::Util since perl 5.22
+Requires:       perl(Sub::Util)
 %if %{with perl_Object_Pad_enables_optional_test} && !%{defined perl_bootstrap}
 Requires:       perl(Future) >= %{future_min_ver}
 Requires:       perl(Future::AsyncAwait) >= %{future_asyncawait_min_ver}
@@ -223,6 +228,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 0.822-1
+- 0.822 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.821-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

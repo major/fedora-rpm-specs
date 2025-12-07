@@ -31,6 +31,8 @@ Summary:        %{summary}
 %autosetup -n %{pypi_name}-%{version} -p1
 # Disable coverage
 sed -r -e 's/(-.*cov.*$)/#\1/g' -i pytest.ini
+# Remove Cython's upper version pin
+sed -i 's/Cython ~= 3\.1\.0/Cython >= 3.1.0/g' packaging/pep517_backend/_backend.py
 
 %generate_buildrequires
 %pyproject_buildrequires

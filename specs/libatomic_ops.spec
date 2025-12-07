@@ -1,6 +1,6 @@
 Name:    libatomic_ops
 Summary: Atomic memory update operations
-Version: 7.8.4
+Version: 7.10.0
 Release: 1%{?dist}
 
 # libatomic_ops MIT, libatomic_ops_gpl GPLv2+
@@ -89,6 +89,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/src/.libs/
 
 
 %changelog
+* Fri Dec 05 2025 Dan Horák <dan[at]danny.cz> - 7.10.0-1
+- Update to 7.10.0 (rhbz#2419349)
+
 * Fri Sep 05 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.8.4-1
 - Update to 7.8.4 (rhbz#2393592)
 

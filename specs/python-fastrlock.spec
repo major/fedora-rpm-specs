@@ -11,7 +11,6 @@ BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(wheel)
 
 %global _description %{expand:
 This is a C-level implementation of a fast, re-entrant, optimistic
@@ -34,14 +33,14 @@ Summary:        %{summary}
 rm appveyor_env.cmd
 
 # Adjust cython's upper bound limit
-sed -i -e 's@Cython>=3.0.11, <3.1@Cython>=3.0.11, <3.2@' requirements.txt
+sed -i -e 's@Cython>=3.0.11, <3.1@Cython>=3.0.11, <3.3@' requirements.txt
 grep Cython requirements.txt
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
-%pyproject_wheel
+%pyproject_wheel -C=--global-option=--with-cython
 
 
 %install
@@ -50,7 +49,13 @@ grep Cython requirements.txt
 
 %check
 %pyproject_check_import
-%tox
+
+# The tests are imported from $pwd/fastrlock and the extension module is not there.
+# To avoid that, we rename the package temporarily.
+# Upstream builds the extension module in place via tox to avoid this problem.
+# However, that leads to https://bugzilla.redhat.com/2417962
+mv fastrlock fastrlock_
+%pytest
 
 %files -n python3-fastrlock -f %{pyproject_files}
 %doc README.rst

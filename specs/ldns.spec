@@ -39,8 +39,8 @@
 
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
-Version: 1.8.4
-Release: 8%{?dist}
+Version: 1.9.0
+Release: 1%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -50,9 +50,8 @@ Source1: %{downloadurl}/%{name}-%{version}.tar.gz.asc
 # Willem Toorop, https://www.nlnetlabs.nl/people/
 Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/DC34EE5DB2417BCC151E5100E5F8F8212F77A498#/wtoorop.asc
 Patch1: ldns-1.7.0-multilib.patch
-# Fix for SWIG 4.3.0
-# https://github.com/NLnetLabs/ldns/pull/257
-Patch7: ldns-1.8.3-swig-4.3.patch
+# https://github.com/NLnetLabs/ldns/pull/288
+Patch8: ldns-1.9-std23-bool.patch
 
 BuildRequires: libtool
 BuildRequires: autoconf
@@ -362,6 +361,12 @@ rm -rf doc/man
 %doc doc/*.dox
 
 %changelog
+* Thu Dec 04 2025 Petr Menšík <pemensik@redhat.com> - 1.9.0-1
+- Update 1.9.0 (rhbz#2416980)
+
+* Thu Dec 04 2025 Petr Menšík <pemensik@redhat.com> - 1.8.4-9
+- Fix gcc std23 error in bool definition (rhbz#2416980)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.4-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

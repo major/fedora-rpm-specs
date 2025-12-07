@@ -63,11 +63,6 @@
     %global modulename ipa
 %endif
 
-# Remove NIS support for f42+
-%if 0%{?fedora} <= 41
-    %global with_nis 1
-%endif
-
 %if 0%{?rhel}
 %global package_name ipa
 %global alt_name freeipa
@@ -201,8 +196,8 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.12.5
-%global TARBALL_IPA_VERSION 4.12.2
+%define IPA_VERSION 4.13.0
+%global TARBALL_IPA_VERSION 4.13.0
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
 %define AT_SIGN @
@@ -215,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        3%{?rc_version:.%rc_version}%{?dist}
+Release:        2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -234,16 +229,7 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSIO
 Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
 
-Source3:        FreeIPA-eDNS-version3.jpg
-
-Patch0001:      freeipa-4-12-2-post-updates-1.patch
-Patch0002:      freeipa-4-12-2-post-updates-edns.patch
-# This one includes CVE-2025-4404 fixes as well
-Patch0003:      freeipa-4-12-2-post-updates-2.patch
-Patch0004:      freeipa-4-12-2-post-updates-3.patch
-Patch0005:      freeipa-4-12-5-cve-2025-7493-patchset-1.patch
-Patch0006:      freeipa-4-12-5-cve-2025-7493-patchset-2.patch
-Patch0007:      freeipa-4-12-5-cve-2025-7493-patchset-3.patch
+Patch1:         freeipa-4.13.0-fix-trust-within-forest.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1061,12 +1047,12 @@ for i in *.po ; do
 done
 popd
 
-%autopatch -p1
-
-# patch utility does not support GIT binary format, we have to copy manually
-# until there is an upstream release with the jpg in it
-mkdir -p doc/designs/edns
-cp %{SOURCE3} doc/designs/edns/FreeIPA-eDNS-version3.jpg
+%if 0%{?fedora}>=41
+    %global autopatch_options -q -p1
+%else
+    %global autopatch_options -p1
+%endif
+%autopatch %{autopatch_options}
 
 %build
 # PATH is workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1005235
@@ -1195,17 +1181,6 @@ touch %{buildroot}%{_libdir}/krb5/plugins/libkrb5/winbind_krb5_locator.so
 %if ! %{ONLY_CLIENT}
 mkdir -p %{buildroot}%{_sysconfdir}/cron.d
 # ONLY_CLIENT
-%endif
-
-%if ! %{with nis}
-%if ! %{ONLY_CLIENT}
-rm %{buildroot}/%{_sbindir}/ipa-nis-manage
-rm %{buildroot}/%{_mandir}/man1/ipa-nis-manage.1*
-rm %{buildroot}%{python3_sitelib}/ipaserver/install/plugins/update_nis.py
-rm %{buildroot}%{_usr}/share/ipa/nis.uldif
-rm %{buildroot}%{_usr}/share/ipa/nis-update.uldif
-rm %{buildroot}%{_usr}/share/ipa/updates/50-nis.update
-%endif
 %endif
 
 %if ! %{ONLY_CLIENT}
@@ -1371,7 +1346,9 @@ if [ $1 -gt 1 ] ; then
         chmod 0600 /var/log/ipaupgrade.log
         SSH_CLIENT_SYSTEM_CONF="/etc/ssh/ssh_config"
         if [ -f "$SSH_CLIENT_SYSTEM_CONF" ]; then
-            sed -E --in-place=.orig 's/^(HostKeyAlgorithms ssh-rsa,ssh-dss)$/# disabled by ipa-client update\n# \1/' "$SSH_CLIENT_SYSTEM_CONF"
+            if grep -E -q '^HostKeyAlgorithms ssh-rsa,ssh-dss' $SSH_CLIENT_SYSTEM_CONF 2>/dev/null; then
+                sed -E --in-place=.orig 's/^(HostKeyAlgorithms ssh-rsa,ssh-dss)$/# disabled by ipa-client update\n# \1/' "$SSH_CLIENT_SYSTEM_CONF"
+            fi
             # https://pagure.io/freeipa/issue/9536
             # replace sss_ssh_knownhostsproxy with sss_ssh_knownhosts
             if [ -f '/usr/bin/sss_ssh_knownhosts' ]; then
@@ -1382,9 +1359,19 @@ if [ $1 -gt 1 ] ; then
                 sed -E --in-place=.orig 's/(ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h)/# replaced by ipa-client update\n    KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H/' $SSH_CLIENT_SYSTEM_CONF
             fi
         fi
+
+        UNBOUND_CFG=/etc/unbound/conf.d/zzz-ipa.conf
+        if [ -f "$UNBOUND_CFG" ]; then
+            # The client has been configured for Dot
+            # replace the line tls-cert-bundle: /etc/pki/tls/certs/ca-bundle.crt
+            # with tls-system-cert: yes
+            # See https://fedoraproject.org/wiki/Changes/droppingOfCertPemFile
+            if grep -E -q 'tls-cert-bundle: \/etc\/pki\/tls\/certs\/ca-bundle.crt'  $UNBOUND_CFG 2>/dev/null; then
+                sed -E --in-place=.orig 's/tls-cert-bundle: \/etc\/pki\/tls\/certs\/ca-bundle.crt/tls-system-cert: yes/' $UNBOUND_CFG
+            fi
+        fi
     fi
 fi
-
 
 %if %{with selinux}
 # SELinux contexts are saved so that only affected files can be
@@ -1554,9 +1541,6 @@ fi
 %{_sbindir}/ipa-ldap-updater
 %{_sbindir}/ipa-otptoken-import
 %{_sbindir}/ipa-compat-manage
-%if %{with nis}
-%{_sbindir}/ipa-nis-manage
-%endif
 %{_sbindir}/ipa-managed-entries
 %{_sbindir}/ipactl
 %{_sbindir}/ipa-advise
@@ -1632,9 +1616,6 @@ fi
 %{_mandir}/man1/ipa-ca-install.1*
 %{_mandir}/man1/ipa-kra-install.1*
 %{_mandir}/man1/ipa-compat-manage.1*
-%if %{with nis}
-%{_mandir}/man1/ipa-nis-manage.1*
-%endif
 %{_mandir}/man1/ipa-managed-entries.1*
 %{_mandir}/man1/ipa-ldap-updater.1*
 %{_mandir}/man8/ipactl.8*
@@ -1662,6 +1643,7 @@ fi
 %files server-common
 %doc README.md Contributors.txt
 %license COPYING
+%license %{_defaultlicensedir}/%{package_name}-server-common/modern-ui/COPYING
 %ghost %verify(not owner group) %dir %{_sharedstatedir}/kdcproxy
 %dir %attr(0755,root,root) %{_sysconfdir}/ipa/kdcproxy
 %config(noreplace) %{_sysconfdir}/ipa/kdcproxy/kdcproxy.conf
@@ -1670,6 +1652,7 @@ fi
 %attr(644,root,root) %{_unitdir}/ipa-custodia.service
 %ghost %attr(644,root,root) %{etc_systemd_dir}/httpd.d/ipa.conf
 # END
+%dir %{_usr}/share/ipa
 %{_usr}/share/ipa/wsgi.py*
 %{_usr}/share/ipa/kdcproxy.wsgi
 %{_usr}/share/ipa/ipaca*.ini
@@ -1689,6 +1672,7 @@ fi
 %dir %{_usr}/share/ipa/migration
 %{_usr}/share/ipa/migration/index.html
 %{_usr}/share/ipa/migration/migration.py*
+%{_usr}/share/ipa/modern-ui
 %dir %{_usr}/share/ipa/ui
 %{_usr}/share/ipa/ui/index.html
 %{_usr}/share/ipa/ui/reset_password.html
@@ -1945,6 +1929,14 @@ fi
 %endif
 
 %changelog
+* Fri Dec 05 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.0-2
+- Fix upgrade to Samba 4.23 when there is already established trust
+- Upstream PR: https://github.com/freeipa/freeipa/pull/8046
+
+* Thu Dec 04 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.0-1
+- Upstream release 4.13.0
+- Release notes: https://www.freeipa.org/release-notes/4-13-0.html
+
 * Fri Oct 03 2025 Adam Williamson <awilliam@redhat.com> - 4.12.5-3
 - Rebuild with no changes to keep version ahead of F41
 

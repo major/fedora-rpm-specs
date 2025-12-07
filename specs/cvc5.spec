@@ -28,6 +28,10 @@ Patch:          %{name}-flags.patch
 Patch:          %{name}-skip-himem-tests.patch
 # Adapt to cocoalib 0.99850
 Patch:          %{name}-cocoalib.patch
+# Adapt to libpoly 0.2.1
+Patch:          %{name}-libpoly.patch
+# Adapt to cadical 2.2.0
+Patch:          %{name}-cadical.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -5,7 +5,7 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.4.321.0
+Version:       1.4.328.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -69,6 +69,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Thu Dec 04 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.328.1-1
+- Update to 1.4.328.1
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.321.0-1
 - Update to 1.4.321.0
 

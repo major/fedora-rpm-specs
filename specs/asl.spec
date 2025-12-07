@@ -1,21 +1,18 @@
 # ASL upstream has not tagged any releases, so we use a git checkout
-%global commit     ae937db9bd1169ec2c4cb8d75196f67cdcb8041b
-%global date       20241212
-%global forgeurl   https://github.com/ampl/asl
+%global commit     3d477ba78a3392b8b7b05a2fd843ae7f9df70252
 
 Name:           asl
-Version:        20241122
+Version:        20251122
+Release:        %autorelease
 Summary:        AMPL Solver Library
-
-%forgemeta
 
 # AMPL files are licensed with BSD-3-Clause.
 # NETLIB files are licensed with SMLNJ.
-License:        BSD-3-Clause AND SMLNJ
-Release:        %autorelease
-URL:            %{forgeurl}
-VCS:            git:%{forgeurl}.git
-Source:         %{forgesource}
+# src/solvers{,2}/dtoa.c is licensed with dtoa
+License:        BSD-3-Clause AND SMLNJ AND dtoa
+URL:            https://github.com/ampl/asl
+VCS:            git:%{url}.git
+Source:         %{url}/archive/%{commit}/%{name}-%{version}.tar.gz
 # Build the C++ interface as a shared library instead of a static library
 Patch:          %{name}-shared.patch
 # Do not override Fedora architecture flags
@@ -39,7 +36,7 @@ Header files and library links for building projects that use
 %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n %{name}-%{commit}
 
 %conf
 # Fix install location of ampl-asl-config

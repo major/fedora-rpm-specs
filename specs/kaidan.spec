@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           kaidan
-Version:        0.12.2
+Version:        0.13.0
 Release:        %autorelease
 Summary:        A XMPP client based on KDE Framework
 License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGPL-2.0-or-later
@@ -32,8 +32,8 @@ BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  cmake(Qt6Positioning)
 BuildRequires:  cmake(Qt6Location)
+BuildRequires:  cmake(Qt6GuiPrivate)
 BuildRequires:  cmake(Qt6Test)
-BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Kirigami2)
@@ -46,6 +46,7 @@ BuildRequires:  cmake(KF6QQC2DesktopStyle)
 BuildRequires:  cmake(QXmppQt6)
 BuildRequires:  cmake(KDSingleApplication-qt6)
 BuildRequires:  libicu-devel
+BuildRequires:  cmake(Qt6Keychain)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -61,6 +62,7 @@ Provides:       bundled(SingleApplication)
 Requires:       kf6-kirigami2%{?_isa}
 Requires:       kf6-kirigami2-addons%{?_isa}
 Requires:       kf6-kquickcharts%{?_isa}
+Requires:       kf6-qqc2-desktop-style%{?_isa}
 Requires:       qt6-qtwebchannel%{?_isa}
 Requires:       qt6-qtwebengine%{?_isa}
 Requires:       qt6-qtlocation%{?_isa}
@@ -75,6 +77,8 @@ and the Qt-based XMPP library QXmpp.
 
 %prep
 %autosetup -p1 -n %{name}-v%{version}
+
+sed -i 's|Qt6Keychain 0.15|Qt6Keychain|' CMakeLists.txt
 
 %build
 %cmake \

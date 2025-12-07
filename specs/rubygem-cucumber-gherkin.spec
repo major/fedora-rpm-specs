@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 22.0.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Fast Gherkin lexer/parser
 License: MIT
 URL: https://github.com/cucumber/gherkin
@@ -11,6 +11,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/cucumber/gherkin-ruby
 # git -C gherkin-ruby archive -v -o rubygem-gherkin-22.0.0-testdata.txz v22.0.0 testdata/
 Source1: %{name}-%{version}-testdata.txz
+# Fix compatibility with cucumber-messages 25+. Roughly equivalent to:
+# https://github.com/cucumber/cucumber-ruby-core/pull/285/files
+Patch0: rubygem-cucumber-gherkin-29.0.0-Fix-compatibility-with-cucumber-messages-25.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.3
@@ -36,6 +39,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+%patch 0 -p2
 
 %gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
 %gemspec_add_dep -g cucumber-messages ">= 17.0"
@@ -82,6 +87,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Dec 05 2025 Vít Ondruch <vondruch@redhat.com> - 22.0.0-11
+- Fix compatibilty with cucumber-messages 25+
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

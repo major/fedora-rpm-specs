@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        25.11
+Version:        25.12
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -64,7 +64,7 @@ firmware.  This package has EFI applications for %{efiarch}.
 %autosetup -n %{name}-v%{version} -p1
 %cargo_prep
 # drop unused packages from workspace to reduce dependencies.
-sed -i Cargo.toml -e '/bios-64/d'
+sed -i Cargo.toml -e '/mefisto/d'
 %if %{without efi_apps}
 sed -i Cargo.toml -e '/efi-apps/d'
 %endif

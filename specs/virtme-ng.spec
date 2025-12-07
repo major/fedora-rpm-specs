@@ -7,9 +7,12 @@
 %bcond optimized_init 1
 %endif
 
+# https://pypi.org/project/mcp/ not yet packaged for Fedora
+%bcond mcp 0
+
 %global forgeurl https://github.com/arighi/virtme-ng
 
-Version:        1.38
+Version:        1.40
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease
@@ -79,7 +82,7 @@ cd virtme_ng_init
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_mcp:-x mcp}
 %if %{with optimized_init}
 cd virtme_ng_init
 %cargo_generate_buildrequires
@@ -109,7 +112,7 @@ rm -rf %{buildroot}%{python3_sitelib}/usr
 %pyproject_save_files virtme virtme_ng
 
 %check
-%pyproject_check_import
+%pyproject_check_import %{!?with_mcp:-e virtme_ng.mcp}
 
 %files -f %{pyproject_files}
 %license LICENSE
@@ -127,6 +130,14 @@ rm -rf %{buildroot}%{python3_sitelib}/usr
 %{_bindir}/virtme-ssh-proxy
 %{bash_completions_dir}/{virtme-ng,vng}-prompt
 %{_mandir}/man1/vng.1*
+%if !%{with mcp}
+%exclude %{_bindir}/vng-mcp
+%endif
+
+%if %{with mcp}
+%pyproject_extras_subpkg -n %{name} mcp
+%{_bindir}/vng-mcp
+%endif
 
 %changelog
 %autochangelog

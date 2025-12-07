@@ -2,8 +2,8 @@ Name:    We10X-icon-theme
 Summary: Colorful icon theme inspired by Microsoft Windows 10 aesthetic
 License: GPL-3.0-only
 
-%global git_date    20250826
-%global git_commit  46487020da48ff8da702a2597b7b76143cffd9b0
+%global git_date    20251114
+%global git_commit  0f52ff2dce554146f8f76ab2c7a5968fd773400d
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 Version: 0^%{git_date}.git%{git_commit_short}
@@ -32,16 +32,6 @@ Comes in a regular and dark variant.
 # Remove spurious executable bits found on some files
 chmod 644 ./AUTHORS ./COPYING
 find links/ src/ -executable -type f -exec chmod -v -- a-x '{}' '+'
-
-# Remove broken links
-find links/ -follow -type l -printf 'deleted broken symlink "%p" -> "%l"\n' -delete
-
-# Remove empty directories
-for FILE in $(find ./ -name '.directory'); do
-	DIR="$(dirname "${FILE}")"
-	rm "${FILE}"
-	rmdir "${DIR}" || true
-done
 
 # Do not call gtk-update-icon-cache during install
 sed  \
@@ -78,11 +68,17 @@ for CATEGORY in status/16 status/22 status/24; do
 done
 
 for VARIANT in '' '-dark'; do
-	THEME="%{buildroot}%{_datadir}/icons/We10X${VARIANT}"
-	touch "${THEME}/icon-theme.cache"
+	pushd "%{buildroot}%{_datadir}/icons/We10X${VARIANT}"
 
-	rm "${THEME}/AUTHORS"
-	rm "${THEME}/COPYING"
+	# Remove broken symlinks
+	find ./ -follow -type l -printf 'deleted broken symlink "%p" -> "%l"\n' -delete
+
+	# Create empty file for the cache
+	touch icon-theme.cache
+
+	# Remove these files (we will include them via %%doc/%%license macros)
+	rm AUTHORS COPYING
+	popd
 done
 
 
@@ -157,6 +153,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Fri Dec 05 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20251114.git0f52ff2-1
+- Update to latest git snapshot (2025-11-14)
+- Fix missing symlinks (dangling symlinks were deleted too early)
+
 * Fri Aug 29 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250826.git4648702-1
 - Update to latest git snapshot (2025-08-26)
 

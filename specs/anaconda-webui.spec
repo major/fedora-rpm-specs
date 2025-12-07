@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        58
+Version:        59
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Dec 04 2025 Packit <hello@packit.dev> - 59-1
+- components: storage: show validation warnings for automatic partitioning
+- components: localization: account for undefined xlayouts and vconsole
+
 * Wed Dec 03 2025 Packit <hello@packit.dev> - 58-1
 - components: mount-point-mapping: filter requests before applying storage (rhbz#2394554)
 - components: keyboards: stop setting vconsole manually (rhbz#2404635)

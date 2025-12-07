@@ -6,7 +6,7 @@
 %endif
 
 Name:           libwebsockets
-Version:        4.5.0
+Version:        4.5.2
 Release:        1%{?dist}
 Summary:        Lightweight C library for Websockets
 
@@ -119,6 +119,9 @@ find %{buildroot} -name '*_static.pc' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Dec 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.2-1
+- Update to 4.5.2
+
 * Sun Nov 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.0-1
 - Update to 4.5.0
 

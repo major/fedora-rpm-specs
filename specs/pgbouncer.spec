@@ -6,7 +6,7 @@
 %endif
 
 Name:       pgbouncer
-Version:    1.25.0
+Version:    1.25.1
 Release:    %autorelease
 Summary:    Lightweight connection pooler for PostgreSQL
 License:    ISC and BSD-2-Clause
@@ -18,7 +18,6 @@ Source4:    %{name}.service
 Source6:    %{name}.pam
 
 Patch0:     %{name}-ini.patch
-Patch1:     https://github.com/pgbouncer/pgbouncer/commit/fa3286799c9aea6236e13e8ad1ba04eaa1f6c800.patch
 
 BuildRequires:  c-ares-devel >= 1.11
 BuildRequires:  make

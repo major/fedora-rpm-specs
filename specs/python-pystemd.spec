@@ -5,7 +5,7 @@
 %global pypi_name pystemd
 
 Name:           python-%{pypi_name}
-Version:        0.13.4
+Version:        0.14.0
 Release:        %autorelease
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
@@ -59,12 +59,14 @@ sed -i '/pystemd\/.*\.c$/d' %{pyproject_files}
 
 
 %check
-# This test fails in mock because systemd isn't running
-rm -f tests/test_daemon.py
-# This test requires additional dependencies (cstq)
-rm -f tests/test_version.py
-
-%pytest -v
+# tests/test_daemon.py: This test fails in mock because systemd isn't running
+# tests/test_version.py: This test requires additional dependencies (cstq)
+# test_pickle.py::test_loaded_unit: no DBUS
+%pytest -v \
+  --ignore tests/test_daemon.py \
+  --ignore tests/test_version.py \
+  --deselect=tests/test_pickle.py::test_loaded_unit \
+%{nil}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

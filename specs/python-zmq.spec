@@ -151,7 +151,7 @@ ln -s ../tests/ ../pytest.ini ./
 # do. Adding the working directory to PYTHONPATH is a workaround.
 export PYTHONPATH="%{buildroot}%{python3_sitearch}:${PWD}"
 
-%ifarch %{power64}
+%ifarch %{power64} riscv64
 # Several of the green/gevent tests fail with segmentation faults, so we
 # disable all of them for simplicity.
 #

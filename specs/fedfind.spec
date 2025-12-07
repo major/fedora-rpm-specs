@@ -1,7 +1,7 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        6.1.1
+Version:        6.1.2
 Release:        %autorelease
 Summary:        Fedora compose and image finder
 

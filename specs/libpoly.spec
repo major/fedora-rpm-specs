@@ -1,7 +1,7 @@
 %global giturl  https://github.com/SRI-CSL/libpoly
 
 Name:           libpoly
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
 Summary:        C library for manipulating polynomials
 

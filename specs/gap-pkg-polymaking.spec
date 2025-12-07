@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/polymaking
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.8.7
+Version:        0.8.8
 Release:        %autorelease
 Summary:        GAP interface to polymake
 
@@ -42,10 +42,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %autosetup -n %{gap_upname}-%{version} -p1
-
-%conf
-# Fix an undefined LaTeX command in the BibTeX file
-sed -i 's/URL/url/' doc/polymaking.bib
 
 %check -p
 # Produce less chatter while running the test

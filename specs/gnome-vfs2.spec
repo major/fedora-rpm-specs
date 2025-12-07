@@ -13,7 +13,7 @@
 Summary: The GNOME virtual file-system libraries
 Name: gnome-vfs2
 Version: 2.24.4
-Release: 48%{?dist}
+Release: 49%{?dist}
 License: LGPL-2.0-or-later and GPL-2.0-or-later
 # the daemon and the library are LGPLv2+
 # the modules are LGPLv2+ and GPLv2+
@@ -204,6 +204,9 @@ unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
+mv %{buildroot}%{_datadir}/dbus-1/services/gnome-vfs-daemon.service %{buildroot}%{_datadir}/dbus-1/services/org.gnome.GnomeVFS.Daemon.service
+
+
 %find_lang %{po_package}
 
 
@@ -213,7 +216,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %doc AUTHORS COPYING COPYING.LIB NEWS README
 %{_bindir}/gnomevfs-*
 %{_libexecdir}/gnome-vfs-daemon
-%{_datadir}/dbus-1/services/gnome-vfs-daemon.service
+%{_datadir}/dbus-1/services/org.gnome.GnomeVFS.Daemon.service
 %{_libdir}/libgnomevfs-2.so.0*
 %dir %{_libdir}/gnome-vfs-2.0
 %dir %{_libdir}/gnome-vfs-2.0/modules
@@ -260,6 +263,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %config %{_sysconfdir}/gnome-vfs-2.0/modules/smb-module.conf
 
 %changelog
+* Fri Dec 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.24.4-49
+- Fix service file name #2419079
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.4-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

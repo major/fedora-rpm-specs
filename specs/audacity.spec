@@ -12,8 +12,8 @@
 
 Name: audacity
 
-Version: 3.7.5
-Release: 2%{?dist}
+Version: 3.7.6
+Release: 1%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -291,6 +291,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Thu Dec 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.7.6-1
+- 3.7.6
+
 * Thu Oct 02 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.7.5-2
 - rebuild for FFmpeg 8
 

@@ -3,15 +3,11 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.15
-Release: 4%{?dist}
+Version: 1.16.1
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# https://github.com/linux-nvme/libnvme/pull/1046
-# https://bugzilla.redhat.com/show_bug.cgi?id=2385228
-Patch0:  libnvme-1.16-tree-NULL_strdup.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -63,7 +59,7 @@ This package contains Python bindings for libnvme.
 %autosetup -p1 -n %{name}-%{version_no_tilde}
 
 %build
-%meson -Dpython=enabled -Dlibdbus=enabled -Dliburing=disabled -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
+%meson -Dpython=enabled -Dlibdbus=enabled -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir} -Dliburing=disabled
 %meson_build
 
 %install
@@ -80,9 +76,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.15.0
+%{_libdir}/libnvme.so.1.16.1
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.15.0
+%{_libdir}/libnvme-mi.so.1.16.1
 
 %files devel
 %{_libdir}/libnvme.so
@@ -102,6 +98,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Thu Dec 04 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.16.1-1
+- Upstream v1.16.1 release
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

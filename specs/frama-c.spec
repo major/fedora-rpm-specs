@@ -5,11 +5,11 @@ ExclusiveArch: %{ocaml_native_compiler}
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        31.0
+Version:        32.0
 Release:        %autorelease
 Summary:        Framework for source code analysis of C software
 
-%global pkgversion %{version}-Gallium
+%global pkgversion %{version}-Germanium
 
 # Licensing breakdown in source file frama-c.licensing
 License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception
@@ -41,9 +41,6 @@ Patch:          %{name}-bytes.patch
 # Expose use of math library symbols to RPM
 Patch:          %{name}-mathlib.patch
 
-# Adapt to changes in C23
-Patch:          %{name}-c23.patch
-
 BuildRequires:  alt-ergo
 BuildRequires:  clang
 BuildRequires:  desktop-file-utils
@@ -67,15 +64,19 @@ BuildRequires:  ocaml-ocamlgraph-devel >= 2.2.0
 BuildRequires:  ocaml-ppx-deriving-devel
 BuildRequires:  ocaml-ppx-deriving-yaml-devel >= 0.2.0
 BuildRequires:  ocaml-ppx-deriving-yojson-devel
-BuildRequires:  ocaml-unionfind-devel >= 20220107
-BuildRequires:  ocaml-why3-devel >= 1.8.0
+BuildRequires:  ocaml-ppx-inline-test-devel
+BuildRequires:  ocaml-ppxlib-devel >= 0.33.0
+BuildRequires:  ocaml-unionfind-devel >= 20220109
+BuildRequires:  ocaml-why3-devel >= 1.8.2
 BuildRequires:  ocaml-yaml-devel >= 3.0.0
 BuildRequires:  ocaml-yojson-devel >= 2.0.1
-BuildRequires:  ocaml-zarith-devel >= 1.9
+BuildRequires:  ocaml-zarith-devel >= 1.13
 BuildRequires:  ocaml-zip-devel
 BuildRequires:  ocaml-zmq-devel
 BuildRequires:  pandoc
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist jsonschema}
+BuildRequires:  %{py3_dist pyyaml}
 BuildRequires:  time
 BuildRequires:  unix2dos
 BuildRequires:  why3
@@ -217,7 +218,7 @@ ln -s %{_bindir}/flamegraph.pl \
 
 # Fix a path in e-acsl-gcc.sh
 if [ "%{_lib}" != "lib" ]; then
-    sed -i '/EACSL_LIB/s,/lib/,/%{_lib}/,' %{buildroot}%{_bindir}/e-acsl-gcc.sh
+    sed -i '/EACSL_LIB/s,/lib/,/%{_lib}/,' %{buildroot}%{_bindir}/e-acsl-gcc
 fi
 
 # Link duplicate files
@@ -227,19 +228,22 @@ fi
 
 # FIXME: tests fail on ppc6le due to redefinition of bool
 # FIXME: test issue-eacsl-40.1.exec.wtests fails on aarch64
-# FIXME: C23 has wreaked havoc on the test suite
-#%%ifarch %{x86_64}
-#%%check
-#export PYTHONPATH=%%{buildroot}%%{ocamldir}/frama-c/lib/analysis-scripts
-#why3 config detect
-## Parallel testing sometimes fails
-#make default-tests PTESTS_OPTS=-error-code
-#%%endif
+%ifarch %{x86_64}
+%check
+# Skip a broken test for now
+rm -fr tests/fc_script/make-machdep.t
+sed -i '10,+4d' tests/fc_script/dune
+
+export PYTHONPATH=%{buildroot}%{ocamldir}/frama-c/lib/analysis-scripts
+why3 config detect
+# Parallel testing sometimes fails
+make default-tests PTESTS_OPTS=-error-code
+%endif
 
 %files
 %doc README.md VERSION
 %license licenses/*
-%{_bindir}/e-acsl-gcc.sh
+%{_bindir}/e-acsl-gcc
 %{_bindir}/frama-c*
 %{ocamldir}/frama-c*
 %{ocamldir}/qed/
@@ -252,7 +256,7 @@ fi
 %{_datadir}/applications/com.%{name}.%{name}-gui.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_metainfodir}/com.%{name}.%{name}-gui.metainfo.xml
-%{_mandir}/man1/e-acsl-gcc.sh.1*
+%{_mandir}/man1/e-acsl-gcc.1*
 %{_mandir}/man1/frama-c.1*
 %{_mandir}/man1/frama-c-gui.1*
 

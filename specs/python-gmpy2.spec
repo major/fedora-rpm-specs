@@ -5,7 +5,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-gmpy2
-Version:        2.2.1
+Version:        2.2.2
 Release:        %autorelease
 Summary:        Python interface to GMP, MPFR, and MPC
 
@@ -13,8 +13,6 @@ License:        LGPL-3.0-or-later
 URL:            https://gmpy2.readthedocs.io/
 VCS:            git:https://github.com/aleaxit/gmpy.git
 Source:         %pypi_source gmpy2
-# Adapt to changes in to_bytes
-Patch:          https://github.com/aleaxit/gmpy/pull/593.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): -x docs%{?with_tests:,tests}
@@ -32,22 +30,22 @@ BuildRequires:  %{py3_dist sphinx}
 
 %global _docdir_fmt %{name}
 
-%global common_desc %{expand:
-This package contains a C-coded Python extension module that supports
-multiple-precision arithmetic.  It is the successor to the original
-gmpy module.  The gmpy module only supported the GMP multiple-precision
-library.  Gmpy2 adds support for the MPFR (correctly rounded real
-floating-point arithmetic) and MPC (correctly rounded complex
-floating-point arithmetic) libraries.  It also updates the API and
-naming conventions to be more consistent and support the additional
-functionality.}
+%global common_desc %{expand:This package contains a C-coded Python extension module that supports
+multiple-precision arithmetic.  It is the successor to the original gmpy
+module.  The gmpy module only supported the GMP multiple-precision library.
+Gmpy2 adds support for the MPFR (correctly rounded real floating-point
+arithmetic) and MPC (correctly rounded complex floating-point arithmetic)
+libraries.  It also updates the API and naming conventions to be more
+consistent and support the additional functionality.}
 
-%description %common_desc
+%description
+%common_desc
 
 %package -n python3-gmpy2
 Summary:        Python 3 interface to GMP, MPFR, and MPC
 
-%description -n python3-gmpy2 %common_desc
+%description -n python3-gmpy2
+%common_desc
 
 %package doc
 # The content is LGPL-3.0-or-later.  Files added by Sphinx have the following

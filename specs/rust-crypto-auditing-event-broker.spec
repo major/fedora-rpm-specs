@@ -4,7 +4,7 @@
 %global crate crypto-auditing-event-broker
 
 Name:           rust-crypto-auditing-event-broker
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Event broker for crypto-auditing project
 
@@ -14,10 +14,6 @@ Source:         %{crates_source}
 Source1:        event-broker.conf
 Source2:        crypto-auditing-event-broker.service
 Source3:        crypto-auditing-event-broker.socket
-# Manually created patch for downstream crate metadata changes
-# * Update inotify from 0.10.2 to 0.11.0:
-#   https://github.com/latchset/crypto-auditing/pull/152
-Patch:          crypto-auditing-event-broker-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

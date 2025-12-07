@@ -5,7 +5,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.5.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -16,6 +16,8 @@ Source1: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_
 
 Source11:       startkderc
 Source15:       fedora-lookandfeel.json
+Source16:       fedoradark-lookandfeel.json
+Source17:       fedoralight-lookandfeel.json
 
 Source100:      kde
 Source101:      kde-fingerprint
@@ -424,11 +426,20 @@ BuildArch: noarch
 
 # Populate initial lookandfeel package
 cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedora
+cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedoradark
+cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedoralight
 # Overwrite settings to configure twilight mode
 cp -a lookandfeel/org.kde.breezetwilight/* lookandfeel/org.fedoraproject.fedora
+# Overwrite settings to configure dark mode
+cp -a lookandfeel/org.kde.breezedark/* lookandfeel/org.fedoraproject.fedoradark
+# Write the correct lookandfeel package names
 install -m 0644 %{SOURCE15} lookandfeel/org.fedoraproject.fedora/metadata.json
+install -m 0644 %{SOURCE16} lookandfeel/org.fedoraproject.fedoradark/metadata.json
+install -m 0644 %{SOURCE17} lookandfeel/org.fedoraproject.fedoralight/metadata.json
 cat >> lookandfeel/CMakeLists.txt <<EOL
 plasma_install_package(org.fedoraproject.fedora org.fedoraproject.fedora.desktop look-and-feel lookandfeel)
+plasma_install_package(org.fedoraproject.fedoradark org.fedoraproject.fedoradark.desktop look-and-feel lookandfeel)
+plasma_install_package(org.fedoraproject.fedoralight org.fedoraproject.fedoralight.desktop look-and-feel lookandfeel)
 EOL
 
 
@@ -465,7 +476,7 @@ mv %{buildroot}%{_sysconfdir}/sddm.conf.d %{buildroot}%{_prefix}/lib/sddm
 ## customize plasma-lookandfeel-fedora defaults
 # from [Wallpaper] Image=Next to Image=Fedora
 sed -i -e 's|^Image=.*$|Image=Fedora|g' \
-  %{buildroot}%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/defaults
+  %{buildroot}%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/defaults
 
 # PAM
 # https://invent.kde.org/plasma/kscreenlocker/-/merge_requests/163#less-simple-method-for-redhat-and-redhat-adjacent-fedora-opensuse-etc-systems
@@ -690,10 +701,13 @@ fi
 %endif
 
 %files -n plasma-lookandfeel-fedora
-%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/
+%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/
 
 
 %changelog
+* Fri Dec 05 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.5.3-3
+- Install light/dark variants of Fedora look and feel theme
+
 * Sun Nov 23 2025 Steve Cossette <farchord@gmail.com> - 6.5.3-2
 - Rebuild
 

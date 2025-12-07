@@ -40,7 +40,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -246,7 +246,10 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
-* Wed Dec 03 2025 Jerry James  <loganjerry@gmail.com> - 20240319-16
+* Thu Dec 04 2025 Jerry James <loganjerry@gmail.com> - 20240319-17
+- Rebuild for asl 20251122
+
+* Wed Dec 03 2025 Jerry James <loganjerry@gmail.com> - 20240319-16
 - Rebuild for scip 10.0.0
 
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 20240319-15

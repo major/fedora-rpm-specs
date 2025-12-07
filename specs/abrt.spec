@@ -56,7 +56,7 @@
 
 Summary: Automatic bug detection and reporting tool
 Name: abrt
-Version: 2.17.7
+Version: 2.17.8
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -994,6 +994,10 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Thu Dec 04 2025 Michal Srb <michal@redhat.com> - 2.17.8-1
+- a-a-save-container-data: validate input
+- Resolves: CVE-2025-12744
+
 * Thu Oct 02 2025 Michal Srb <michal@redhat.com> - 2.17.7-1
 - Update to upstream release 2.17.7
 - Fix reading gpg keys with RPM 6.0.0 (rhbz#2396899)

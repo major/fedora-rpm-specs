@@ -17,6 +17,12 @@ Source:         %{crates_source}
 # * Relax libsqlite3 dependency
 # * Drop unpackaged libsqlite3 features
 Patch:          sqlx-sqlite-fix-metadata.diff
+# * Gate (de)serealize interface by feature.
+# * The Cargo.toml is not patched to use this feature for now because there are
+#   no users right now.
+# * Partially cherry-picked from:
+# * https://github.com/launchbadge/sqlx/commit/21598cfec607092f5322c42890b301acc570352a
+Patch2:         rust-sqlx-sqlite-0.8.6-Gate_deserealize.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

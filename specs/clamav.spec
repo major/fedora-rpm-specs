@@ -26,7 +26,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.4.3
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -75,8 +75,12 @@ Patch5:     clamav-clamonacc-service.patch
 Patch6:     clamav-freshclam.service.patch
 # Debian patch to fix big-endian
 Patch7:     https://salsa.debian.org/clamav-team/clamav/-/raw/unstable/debian/patches/libclamav-pe-Use-endian-wrapper-in-more-places.patch
-# Update the image crate dependency to 0.25, the current release
-Patch8:     https://github.com/Cisco-Talos/clamav/pull/1366/commits/24d1341e8e34aa325ac03718121e33a3b4e5b75e.patch
+# - Update the image crate dependency to 0.25, the current release,
+#   https://github.com/Cisco-Talos/clamav/pull/1366/commits/24d1341e8e34aa325ac03718121e33a3b4e5b75e,
+#   allowing 0.24 for backwards-compatibility with vendored dependencies in EPEL8
+# - Allow version 1.0 of the hex-literal crate dependency; not suitable for
+#   upstream yet due to MSRV
+Patch8:     clamav-rust-dependency-versions.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gettext-devel
@@ -343,11 +347,7 @@ cd ..
 %patch -P5 -p1 -b .clamonacc-service
 %patch -P6 -p1 -b .freshclam-service
 %patch -P7 -p1 -b .big-endian
-# This patch is not made to be backwards-compatible (even though it could have
-# been), and the vendored dependencies in EPEL8 include image 0.24, not 0.25.
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%patch -P8 -p1 -b .image-0.25
-%endif
+%patch -P8 -p1 -b .rust-dependencies
 
 install -p -m0644 %{SOURCE300} clamav-milter/
 
@@ -665,6 +665,9 @@ done
 
 
 %changelog
+* Thu Dec 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.3-3
+- Bump EVR, hex-literal patches.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

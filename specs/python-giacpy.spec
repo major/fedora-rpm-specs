@@ -1,4 +1,4 @@
-%global giacver 1.9.0.59
+%global giacver 2.0.0.17
 %global pypi_name  giacpy
 
 %global with_check  1
@@ -9,32 +9,26 @@
 ExcludeArch: aarch64 %{ix86} %{power64} s390x
 
 Name:           python-%{pypi_name}
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Python binding for Giac
 License:        GPL-2.0-or-later
-URL:            http://webusers.imj-prg.fr/~frederic.han/xcas/giacpy/
+URL:            https://gitlab.math.univ-paris-diderot.fr/han/giacpy/
 Source0:        %pypi_source
 BuildRequires:  giac-devel >= %{giacver}
 BuildRequires:  giac-doc   >= %{giacver}
-BuildRequires:  gmp-devel, qt5-qtsvg-devel
-
-# https://gitlab.math.univ-paris-diderot.fr/han/giacpy/-/commit/0e2875ceef9b2f4eb6883252c89dec66193b21c4
-Patch0:         %{name}-fix_doctest.patch
-# Fix build with Cython >= 3.1
-# Downstream only as of now
-Patch1:         %{name}-fix-cython-3.1-build.patch
+BuildRequires:  gmp-devel
+BuildRequires:  qt5-qtsvg-devel
 
 # Fix build with Cython >= 3.2
-Patch2:         %{name}-fix_cython-3.2-build.patch
-
+Patch0:         %{name}-fix_cython-3.2-build.patch
 
 %description
 A Cython frontend to the c++ library Giac (Computer Algebra System).
 
 %package -n     python3-%{pypi_name}
 Summary:        Python3 binding for Giac
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%py_provides    python3-%{pypi_name}
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -60,13 +54,9 @@ Development libraries of Python3 %{pypi_name}.
 
 rm -rf *.egg-info
 
-%patch -P 0 -p1 -b .backup
-
 %global cythonversion %(rpm -qi python3-cython | awk -F': ' '/Version/ {print $2}')
 %if 0%{!?cythonversion:3.2.0}
-%patch -P 2 -p1 -b .backup
-%else
-%patch -P 1 -p1 -b .backup
+%patch -P 0 -p1 -b .backup
 %endif
 
 # Remove the cythonized files in order to regenerate them during build.
@@ -89,7 +79,9 @@ rm -f $RPM_BUILD_ROOT%{python3_sitearch}/%{pypi_name}/giacpy.cpp
 %check
 pushd build/lib.linux-*
 export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
-%{py3_test_envvars} %{python3} -m doctest ../../%{pypi_name}/%{pypi_name}.pyx -v
+export PYTEST_XDIST_AUTO_NUM_WORKERS=1
+export PYTHONDONTWRITEBYTECODE=1
+%{python3} -m doctest ../../%{pypi_name}/%{pypi_name}.pyx -vv
 popd
 %endif
 

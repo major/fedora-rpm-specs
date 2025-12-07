@@ -5,7 +5,7 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.4.321.0
+Version:       1.4.328.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -79,6 +79,7 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 %{mingw32_bindir}/libSPIRV-Tools.dll
 %{mingw32_bindir}/spirv-as.exe
 %{mingw32_bindir}/spirv-cfg.exe
+%{mingw32_bindir}/spirv-diff.exe
 %{mingw32_bindir}/spirv-dis.exe
 %{mingw32_bindir}/spirv-lesspipe.sh
 %{mingw32_bindir}/spirv-link.exe
@@ -109,6 +110,7 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 %{mingw64_bindir}/libSPIRV-Tools.dll
 %{mingw64_bindir}/spirv-as.exe
 %{mingw64_bindir}/spirv-cfg.exe
+%{mingw64_bindir}/spirv-diff.exe
 %{mingw64_bindir}/spirv-dis.exe
 %{mingw64_bindir}/spirv-lesspipe.sh
 %{mingw64_bindir}/spirv-link.exe
@@ -131,6 +133,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Thu Dec 04 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.328.1-1
+- Update to 1.4.328.1
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.321.0-1
 - Update to 1.4.321.0
 

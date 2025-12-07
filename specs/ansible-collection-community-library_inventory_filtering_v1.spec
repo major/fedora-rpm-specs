@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           ansible-collection-community-library_inventory_filtering_v1
-Version:        1.1.1
+Version:        1.1.5
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease

@@ -88,7 +88,7 @@
 %bcond_with lua_packages
 %endif
 %endif
-%bcond_with crimson
+%bcond_without crimson
 %if 0%{?suse_version}
 %bcond_with jaeger
 %else
@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.0
-Release:	1%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -219,6 +219,7 @@ Patch:		0056-libarrow-20.0.0.patch
 Patch:		0057-src-json_spirit-json_spirit_reader_template.h.patch
 Patch:		0058-src-CMakeLists.txt.patch
 Patch:		0059-iso646.patch
+Patch:		0060-src-crimson-common-smp_helpers.h.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -1588,6 +1589,7 @@ rm -f %{buildroot}/%{_sysconfdir}/init.d/ceph
 %if 0%{with crimson}
 # package crimson-osd with the name of ceph-osd
 install -m 0755 %{buildroot}%{_bindir}/crimson-osd %{buildroot}%{_bindir}/ceph-osd
+install -m 0755 %{__cmake_builddir}/lib/libseastar.so %{buildroot}%{_libdir}
 %endif
 
 install -m 0644 -D src/etc-rbdmap %{buildroot}%{_sysconfdir}/ceph/rbdmap
@@ -2299,6 +2301,9 @@ fi
 %{_bindir}/ceph-erasure-code-tool
 %{_bindir}/ceph-objectstore-tool
 %{_bindir}/ceph-osd
+%if 0%{with crimson}
+%{_libdir}/libseastar.so
+%endif
 %{_libexecdir}/ceph/ceph-osd-prestart.sh
 %{_mandir}/man8/ceph-clsinfo.8*
 %{_mandir}/man8/ceph-osd.8*
@@ -2742,6 +2747,12 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Dec 5 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-3
+- ceph-20.2.0, rhbz#2419150
+
+* Thu Dec 4 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-2
+- ceph-20.2.0, enable crimson
+
 * Tue Nov 18 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-1
 - ceph-20.2.0 GA
 

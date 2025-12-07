@@ -1,7 +1,7 @@
 %global giturl  https://github.com/algebraic-solving/msolve
 
 Name:           msolve
-Version:        0.9.2
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Polynomial System Solving through Algebraic Methods
 
@@ -16,9 +16,6 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Detect AVX2 support at runtime instead of compile time
 Patch:          %{name}-avx2.patch
-# Fix a function return type
-# https://github.com/algebraic-solving/msolve/pull/237
-Patch:          %{name}-return-type.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

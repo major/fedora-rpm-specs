@@ -4,7 +4,7 @@ ExcludeArch:    %{ix86}
 
 Name:    kstars
 Summary: Desktop Planetarium
-Version: 3.7.8
+Version: 3.8.0
 Release: 1%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
@@ -19,7 +19,10 @@ Source0: https://download.kde.org/%{stable_kf5}/%{name}/%{version}/%{name}-%{ver
 
 ## upstream patches
 
+
 ## Fedora specific patches
+# https://bugs.kde.org/show_bug.cgi?id=512890
+Patch102: a0a11a9250d8072f0d7dd083dad90cdd8a459020.patch
 Patch101: kstars-2.9.6-fix-compilerflag-exceptions.patch
 
 BuildRequires: desktop-file-utils
@@ -118,7 +121,7 @@ sed -i 's/${DATA_INSTALL_DIR}/${KSTARS_DATADIR}/'  kstars/data/nds/CMakeLists.tx
 
 %build
 %{cmake_kf6} \
-   -DBUILD_QT5:BOOL=OFF
+   -DBUILD_WITH_QT6:BOOL=ON
 %cmake_build
 
 
@@ -167,6 +170,9 @@ fi
 
 
 %changelog
+* Thu Dec 04 2025 Steve Cossette <farchord@gmail.com> - 1:3.8.0-1
+- 3.8.0
+
 * Tue Aug 12 2025 Steve Cossette <farchord@gmail.com> - 1:3.7.8-1
 - 3.7.8
 
@@ -175,6 +181,9 @@ fi
 
 * Sat May 31 2025 Mattia Verga <mattia.verga@proton.me> - 3.7.5-2
 - Rebuilt for stellarsolver 2.7
+
+* Sat Apr 26 2025 Steve Cossette <farchord@gmail.com> - 1:3.7.6-1
+- 3.7.6
 
 * Tue Feb 04 2025 Steve Cossette - 1:3.7.5-1
 - 3.7.5

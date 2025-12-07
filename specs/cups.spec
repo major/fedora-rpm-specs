@@ -14,8 +14,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.15
-Release: 1%{?dist}
+Version: 2.4.16
+Release: 3%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -31,6 +31,8 @@ Source0: https://github.com/OpenPrinting/cups/releases/download/v%{VERSION}/cups
 Source1: cupsprinter.png
 # cups_serverbin macro definition for use during builds
 Source2: macros.cups
+# GPG signature for validating tarball
+Source3: https://github.com/OpenPrinting/cups/releases/download/v%{VERSION}/cups-%{VERSION}-source.tar.gz.sig
 
 # cups-config from devel package conflicted on multilib arches,
 # fixed hack with pkg-config calling for gnutls' libdir variable
@@ -785,6 +787,14 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Dec 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.16-3
+- rebuilt without reverted commit (upgrade script for PeerCred is not needed)
+
+* Thu Dec 04 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.16-1
+- 2.4.16 (fedora#2417970)
+- rebuild due binutils bug (fedora#2418285)
+- fix division by zero crash in pstops (fedora#2415396)
+
 * Fri Nov 28 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.15-1
 - 2.4.15 - fixes for CVE-2025-61915 and CVE-2025-58436
 

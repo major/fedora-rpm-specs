@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
@@ -13,6 +13,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/sinatra/sinatra.git && cd sinatra
 # git archive -v -o sinatra-4.2.1-test.tar.gz v4.2.1 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# Fix test failures caused by RDoc 6.16+
+# https://github.com/sinatra/sinatra/pull/2132
+Patch0: rubygem-sinatra-4.2.1-Fix-RDoc-6-16-compatibility-by-relaxing-the-check.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -57,6 +60,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+( cd %{builddir}
+%patch 0 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -120,6 +127,9 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Thu Dec 04 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.2.1-2
+- Fix test suite compatibility with RDoc 6.16+
+
 * Mon Oct 20 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.2.1-1
 - Update to Sinatra 4.2.1.
   Resolves: rhbz#2402534

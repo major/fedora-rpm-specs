@@ -1,5 +1,5 @@
 Name:           pari
-Version:        2.17.2
+Version:        2.17.3
 Release:        %autorelease
 Summary:        Number Theory-oriented Computer Algebra System
 

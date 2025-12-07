@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 10.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Core library for the Cucumber BDD app
 License: MIT
 URL: https://cucumber.io
@@ -15,6 +15,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/ruby/ruby/pull/12539
 Patch0:  cucumber-ruby-core-pr299-default-source-location-fix.patch
 Patch1:  cucumber-ruby-core-pr302-remove-source_location-extra-args.patch
+# Fix compatibilty with cucumber-messages 25+. Roughly equivalent to:
+# https://github.com/cucumber/gherkin/pull/259
+Patch2: rubygem-cucumber-core-15.0.0-Fix-compatibility-with-cucumber-messages-25.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -42,6 +45,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
 %gemspec_add_dep -g cucumber-messages ">= 17.0"
@@ -84,6 +88,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Dec 05 2025 Vít Ondruch <vondruch@redhat.com> - 10.1.0-12
+- Fix compatibilty with cucumber-messages 25+.
+
 * Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 10.1.0-11
 - Backport upstream patch for ruby3_5 source_location behavior change
 

@@ -47,11 +47,10 @@
 
 %global with_aesm 0
 %global with_host_tinyxml2 0
-%global with_pccsadmin 0
+%global with_pccsadmin 1
 %if 0%{?fedora}
 %global with_aesm 1
 %global with_host_tinyxml2 1
-%global with_pccsadmin 1
 %endif
 
 %global with_sysusers_scripts 0
@@ -351,7 +350,7 @@ Patch0102: 0102-Support-build-time-setting-of-enclave-load-directory.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/434
 Patch0103: 0103-Look-for-versioned-sgx_urts-library-in-PCKRetrievalT.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/429
-Patch0104: 0104-Don-t-import-pypac-in-pccsadmin.patch
+Patch0104: 0104-pccsadmin-only-import-pypac-module-on-Windows.patch
 Patch0105: 0105-Look-for-PCKRetrievalTool-config-file-in-etc.patch
 Patch0106: 0106-Honour-CFLAGS-CXXFLAGS-LDFLAGS-for-various-tools-and.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/428
@@ -369,6 +368,10 @@ Patch0117: 0117-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
 Patch0118: 0118-Switch-default-PCCS-port-number-from-8081-to-10801.patch
 Patch0119: 0119-Sanitize-paths-to-all-resources-in-PCCS-server.patch
 Patch0120: 0120-pccs-only-pass-ApiKey-if-it-is-set.patch
+Patch0121: 0121-pccsadmin-make-keyring-module-optional.patch
+Patch0122: 0122-pccsadmin-convert-from-asn1-to-pyasn1-python-module.patch
+Patch0123: 0123-pccsadmin-fully-port-to-pycryptography.patch
+Patch0124: 0124-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
 
 # 0200-0299 -> against intel-sgx-ssl.git
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
@@ -517,7 +520,6 @@ This package contains the  Architectural Enclave Service Manager
 %package -n sgx-pccs
 Summary: SGX Provisioning Certificate Caching Service
 Requires: nodejs
-Requires: sgx-mpa = %{version}-%{release}
 
 %description -n sgx-pccs
 SGX Provisioning Certificate Caching Service
@@ -525,12 +527,14 @@ SGX Provisioning Certificate Caching Service
 
 %package -n sgx-pccs-admin
 Summary: SGX Provisioning Certificate Caching Service Admin Tool
-Requires: python3-asn1
-Requires: python3-pyOpenSSL
+Requires: python3-pyasn1
 Requires: python3-cryptography
+%if 0%{?fedora}
 Requires: python3-keyring
+%endif
 Requires: python3-requests
 Requires: python3-urllib3
+Requires: python3-setuptools
 Requires: sgx-libs = %{version}-%{release}
 # pccs admin tool can be used against a remote pccs
 # so don't force a hard dep
@@ -1395,6 +1399,21 @@ fi
 
 %postun -n sgx-mpa
 %systemd_postun_with_restart mpa_registration.service
+
+
+%if %{with_sysusers_scripts}
+%pre -n sgx-pccs
+%sysusers_create_compat %{SOURCE50}
+%endif
+
+%post -n sgx-pccs
+%systemd_post pccs.service
+
+%preun -n sgx-pccs
+%systemd_preun pccs.service
+
+%postun -n sgx-pccs
+%systemd_postun_with_restart pccs.service
 
 
 %if %{with_sysusers_scripts}

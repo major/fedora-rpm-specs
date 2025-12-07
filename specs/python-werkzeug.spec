@@ -8,7 +8,7 @@
 %bcond tests 1
 
 Name:           python-%{modname}
-Version:        3.1.3
+Version:        3.1.4
 Release:        %autorelease
 Summary:        Comprehensive WSGI web application library
 
@@ -60,18 +60,13 @@ Documentation and examples for python3-werkzeug.
 %generate_buildrequires
 %if %{with tests}
 # -t picks test.txt by default which contains too tight pins
-%pyproject_buildrequires requirements/tests.in requirements/docs.in
+%pyproject_buildrequires -g docs,tests
 %else
-%pyproject_buildrequires -r requirements/docs.in
+%pyproject_buildrequires -g docs
 %endif
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-# Relax xprocess requirement
-sed -i 's/pytest-xprocess<1/pytest-xprocess/g' requirements/tests.in
-# Relax forgotten rc1 in pin
-sed -i 's/cffi==1.17.0rc1/cffi/g' requirements/tests.in
-
 find examples/ -type f -name '*.png' -executable -print -exec chmod -x "{}" +
 
 %build

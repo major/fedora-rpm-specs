@@ -2,8 +2,8 @@
 %bcond_without perl_Log_Report_enables_optional_test
 
 Name:           perl-Log-Report
-Version:        1.42
-Release:        2%{?dist}
+Version:        1.43
+Release:        1%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -42,7 +42,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
-# String::Print 0.91 is not used
+# String::Print 1.00 is not used
 BuildRequires:  perl(Sys::Syslog) >= 0.27
 # Time::HiRes not used at tests
 BuildRequires:  perl(version)
@@ -237,6 +237,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 1.43-1
+- 1.43 bump
+
 * Thu Nov 06 2025 Petr Pisar <ppisar@redhat.com> - 1.42-2
 - Obsolete removed perl-Log-Report-Dancer and perl-Log-Report-Dancer2 packages
   (bug #2412310)

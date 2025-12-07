@@ -5,7 +5,7 @@
 %global crate tokenizers
 
 Name:           rust-tokenizers
-Version:        0.22.1
+Version:        0.22.2
 Release:        %autorelease
 Summary:        Implementation of today's most used tokenizers in Rust
 

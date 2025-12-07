@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc0.251203g3f9f0252130e7.4
+%define pkgrelease 0.rc0.251205g2061f18ad76ec.7
 %define kversion 6
-%define tarfile_release 6.18-1522-g3f9f0252130e7
+%define tarfile_release 6.18-8691-g2061f18ad76ec
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251203g3f9f0252130e7.4%{?buildid}%{?dist}
+%define specrelease 0.rc0.251205g2061f18ad76ec.7%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4283,9 +4283,10 @@ fi\
 %{_bindir}/page_owner_sort
 %{_bindir}/slabinfo
 %if %{with_ynl}
-%{_bindir}/ynl*
+%{_bindir}/*ynl*
 %{_docdir}/ynl
 %{_datadir}/ynl
+%{_datadir}/kselftest
 %{python3_sitelib}/pyynl*
 %endif
 
@@ -4518,12 +4519,22 @@ fi\
 #
 #
 %changelog
-* Wed Dec 03 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc0.251203g3f9f0252130e7.4]
-- Linux v6.19.0-0.rc0.251203g3f9f0252130e7
+* Fri Dec 05 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc0.251205g2061f18ad76ec.7]
+- Linux v6.19.0-0.rc0.251205g2061f18ad76ec
 
-* Wed Dec 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.3f9f0252130e.4]
+* Fri Dec 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.2061f18ad76e.7]
+- package YNL test framework files (Thorsten Leemhuis)
 - disable a compiler warning for libbpf (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
+
+* Fri Dec 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.2061f18ad76e.6]
+- Linux v6.19.0-0.rc0.2061f18ad76e
+
+* Fri Dec 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.559e608c4655.5]
+- redhat/configs: enable NXP S32 on aarch64 autmotive (Alessandro Carminati)
+
+* Thu Dec 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.559e608c4655.4]
+- Linux v6.19.0-0.rc0.559e608c4655
 
 * Wed Dec 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.3f9f0252130e.3]
 - Linux v6.19.0-0.rc0.3f9f0252130e

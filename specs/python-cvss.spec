@@ -1,8 +1,8 @@
 %global srcname cvss
 
 Name:           python-%{srcname}
-Version:        3.3
-Release:        6%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 Summary:        CVSS2/3 library with interactive calculator
 
 # The entire source code is LGPL-3.0+ except cvss/cvss4.py which is BSD-2-Clause
@@ -47,6 +47,12 @@ BuildRequires:  python3-devel
 %{_bindir}/cvss_calculator
 
 %changelog
+* Fri Dec 05 2025 Viliam Krizan <vkrizan@redhat.com> - 3.6-1
+- new version
+
+* Fri Dec 05 2025 Viliam Krizan <vkrizan@redhat.com> - 3.4-1
+- new version (#2345039)
+
 * Mon Sep 22 2025 Viliam Krizan <vkrizan@redhat.com> - 3.3-6
 - Drop Python2 package support
 - Migration to %pyproject macros

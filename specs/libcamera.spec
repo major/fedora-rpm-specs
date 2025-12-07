@@ -1,9 +1,6 @@
-# RHEL does not include all documentation dependencies (e.g. sphinxcontrib-doxylink)
-%bcond docs %{undefined rhel}
-
 Name:    libcamera
-Version: 0.5.2
-Release: 6%{?dist}
+Version: 0.6.0
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -15,24 +12,6 @@ Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
 Patch01: 0001-disable-rpi-pisp.patch
-# Upstream 473e2dc89323 ("pipeline: simple: Enable simple pipelinehandler with SoftISP on Intel IPU7")
-Patch02: 0002-pipeline-simple-Enable-simple-pipelinehandler-with-S.patch
-# Posted upstream: https://lists.libcamera.org/pipermail/libcamera-devel/2025-September/053346.html
-Patch03: 0003-ipa-software_isp-Fix-context_.configuration.agc.agai.patch
-Patch04: 0004-ipa-software_isp-AGC-Do-not-lower-gain-below-1.0.patch
-Patch05: 0005-ipa-software_isp-AGC-Raise-exposure-or-gain-not-both.patch
-Patch06: 0006-ipa-software_isp-AGC-Only-use-integers-for-exposure-.patch
-Patch07: 0007-libcamera-software_isp-Add-valid-flag-to-struct-SwIs.patch
-Patch08: 0008-libcamera-software_isp-Run-sw-statistics-once-every-.patch
-# Posted upstream: https://lists.libcamera.org/pipermail/libcamera-devel/2025-September/053307.html
-Patch09: 0009-libcamera-software_isp-Fix-width-adjustment-in-SwSta.patch
-Patch10: 0010-libcamera-software_isp-Clarify-SwStatsCpu-setWindow-.patch
-Patch11: 0011-libcamera-software_isp-Pass-correct-y-coordinate-to-.patch
-Patch12: 0012-libcamera-simple-Avoid-incorrect-arithmetic-in-AWB.patch
-Patch13: 0013-ipa-simple-blc-Prevent-division-by-zero-in-BLC.patch
-Patch14: 0014-ipa-simple-agc-Prevent-division-by-zero-in-AGC.patch
-# Posted upstream: https://lists.libcamera.org/pipermail/libcamera-devel/2025-September/053388.html
-Patch15: 0015-ipa-simple-blc-Use-16-as-starting-blacklevel-when-th.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -66,13 +45,9 @@ BuildRequires: python3-ply
 BuildRequires: python3-pyyaml
 BuildRequires: SDL2-devel
 BuildRequires: systemd-devel
-%if %{with docs}
-BuildRequires: doxygen
-BuildRequires: python3-sphinx
-BuildRequires: python3-sphinxcontrib-doxylink
-%endif
 # libcamera is not really usable without its IPA plugins
 Recommends: %{name}-ipa%{?_isa}
+Obsoletes: libcamera-doc < 0.6.0
 
 %description
 libcamera is a library that deals with heavy hardware image processing
@@ -89,15 +64,6 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Files for development with %{name}.
-
-%if %{with docs}
-%package     doc
-Summary:     Documentation for %{name}
-License:     LGPL-2.1-or-later AND CC-BY-4.0
-
-%description doc
-HTML based documentation for %{name} including getting started and API.
-%endif
 
 %package     ipa
 Summary:     ISP Image Processing Algorithm Plugins for %{name}
@@ -156,7 +122,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
 
 # Build and include the virtual and vimc pipelines. This also builds tests but
 # those do not get included in any packages.
-%meson -Dv4l2=enabled -Dlc-compliance=disabled -Dtest=true %{!?with_docs:-Ddocumentation=disabled}
+%meson -Dv4l2=enabled -Dlc-compliance=disabled -Dtest=true -Ddocumentation=disabled
 %meson_build
 
 # Stripping requires the re-signing of IPA libraries, manually
@@ -183,14 +149,10 @@ cp -a %SOURCE2 %{buildroot}/%{_metainfodir}/
 mkdir -p %{buildroot}/%{_udevrulesdir}/
 install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 
-# Remove the Sphinx build leftovers
-rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.buildinfo
-rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
-
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
 # We leave the version here explicitly to know when it bumps
-%{_libdir}/libcamera*.so.0.5
+%{_libdir}/libcamera*.so.0.6
 %{_libdir}/libcamera*.so.%{version}
 %{_udevrulesdir}/70-libcamera.rules
 
@@ -199,11 +161,6 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libdir}/libcamera*.so
 %{_libdir}/pkgconfig/libcamera-base.pc
 %{_libdir}/pkgconfig/libcamera.pc
-
-%if %{with docs}
-%files doc
-%doc %{_docdir}/%{name}-*/
-%endif
 
 %files ipa
 %{_datadir}/libcamera/
@@ -231,6 +188,11 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Thu Dec 04 2025 Milan Zamazal <mzamazal@redhat.com> - 0.6.0-1
+- Update to version 0.6.0
+- Remove the doc package
+- Resolves: rhbz#2417571
+
 * Thu Nov 20 2025 Kate Hsuan <hpa@redhat.com> - 0.5.2-6
 - Drop lc-compliance from the libcamera-tools package
 

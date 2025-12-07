@@ -1,4 +1,4 @@
-%{!?octave_api:%global octave_api %(octave-c onfig -p API_VERSION || echo 0)}
+%{!?octave_api:%global octave_api %(octave-config -p API_VERSION || echo 0)}
 # Set to bcond_with or use --without doc to disable doc build
 %bcond_without doc
 # Set to bcond_with or use --without octave to disable octave support

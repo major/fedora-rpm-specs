@@ -2,7 +2,6 @@
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
 %global cadicommit  7a4ac38119883bf198dcfb646ddee9e755e136a8
-%global shortcommit %(c=%{cadicommit}; echo ${c:0:7})
 %global giturl      https://github.com/msoos/cryptominisat
 
 Name:           cryptominisat
@@ -14,7 +13,7 @@ License:        MIT
 URL:            https://www.msoos.org/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/release/%{version}/%{name}-%{version}.tar.gz
-Source1:        %{cadiurl}/archive/%{cadicommit}/cadiback-%{shortcommit}.tar.gz
+Source1:        %{cadiurl}/archive/%{cadicommit}/cadiback-%{sub %{cadicommit} 1 7}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch:          %{name}-cmake.patch
 # Unbundle picosat
@@ -118,6 +117,7 @@ sed -e 's|@COMPILE@|g++ %{build_cxxflags} -fPIC -std=c++17 -DNDEBUG -I%{_include
     -e 's|@LINK@|ar|' \
     -e 's| \.\./cadical/build/libcadical\.a||' \
     -e 's|\.\./cadical/build/libcadical\.so|%{_libdir}/libcadical.so|' \
+    -e 's|-lcadical cadiback\.o|cadiback.o -lcadical|' \
     -e 's|\.\./cadical/src/cadical\.hpp|%{_includedir}/cadical/cadical.hpp|' \
     makefile.in > makefile
 %make_build

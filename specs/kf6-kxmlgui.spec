@@ -1,8 +1,8 @@
 %global framework kxmlgui
 
 Name:    kf6-%{framework}
-Version: 6.20.0
-Release: 2%{?dist}
+Version: 6.21.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for user-configurable main windows
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -114,6 +114,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
+- 6.21.0
+
 * Tue Dec 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.20.0-2
 - Rebuild (python-pyside6)
 

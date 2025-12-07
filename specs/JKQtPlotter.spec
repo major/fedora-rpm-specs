@@ -82,7 +82,7 @@ cp -p %{name}-%{gitcommit}/lib/jkqtmathtext/resources/firaMath/LICENSE \
 %build
 pushd %{name}-%{gitcommit}
 %cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Release \
-       -DCMAKE_PREFIX_PATH:PATH=%{_libdir}/cmake/Qt6 \
+       -DCMAKE_PREFIX_PATH:PATH=/usr/%{_lib}/cmake/Qt6 \
        -DJKQtPlotter_BUILD_DECORATE_LIBNAMES_WITH_BUILDTYPE:BOOL=OFF
 %cmake_build
 popd
@@ -90,7 +90,7 @@ popd
 %if %{with qt5}
 pushd %{name}-qt5-%{gitcommit}
 %cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Release \
-       -DCMAKE_PREFIX_PATH:PATH=%{_libdir}/cmake/Qt5 \
+       -DCMAKE_PREFIX_PATH:PATH=/usr/%{_lib}/cmake/Qt5 \
        -DJKQtPlotter_BUILD_DECORATE_LIBNAMES_WITH_BUILDTYPE:BOOL=OFF
 %cmake_build
 popd

@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.4.321.0
+Version:       1.4.328.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -64,13 +64,11 @@ MinGW Windows %{pkgname} library.
 %files -n mingw32-%{pkgname}
 %{mingw32_bindir}/glslang.exe
 %{mingw32_bindir}/glslangValidator.exe
-%{mingw32_bindir}/spirv-remap.exe
 %{mingw32_includedir}/glslang/
 %{mingw32_libdir}/libGenericCodeGen.a
 %{mingw32_libdir}/libMachineIndependent.a
 %{mingw32_libdir}/libOSDependent.a
 %{mingw32_libdir}/libSPIRV.a
-%{mingw32_libdir}/libSPVRemapper.a
 %{mingw32_libdir}/libglslang.a
 %{mingw32_libdir}/libglslang-default-resource-limits.a
 %{mingw32_libdir}/cmake/*
@@ -78,19 +76,20 @@ MinGW Windows %{pkgname} library.
 %files -n mingw64-%{pkgname}
 %{mingw64_bindir}/glslang.exe
 %{mingw64_bindir}/glslangValidator.exe
-%{mingw64_bindir}/spirv-remap.exe
 %{mingw64_includedir}/glslang/
 %{mingw64_libdir}/libGenericCodeGen.a
 %{mingw64_libdir}/libMachineIndependent.a
 %{mingw64_libdir}/libOSDependent.a
 %{mingw64_libdir}/libSPIRV.a
-%{mingw64_libdir}/libSPVRemapper.a
 %{mingw64_libdir}/libglslang.a
 %{mingw64_libdir}/libglslang-default-resource-limits.a
 %{mingw64_libdir}/cmake/*
 
 
 %changelog
+* Thu Dec 04 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.328.1-1
+- Update to 1.4.328.1
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.321.0-1
 - Update to 1.4.321.0
 

@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/deepin-aiassistant/.*\\.so$
 
 Name:           deepin-calendar
-Version:        6.5.1
+Version:        6.5.31
 Release:        %autorelease
 Summary:        Calendar for Deepin Desktop Environment
 License:        GPL-3.0-or-later
@@ -51,13 +51,10 @@ sed -i 's|lib/deepin-aiassistant/|${CMAKE_INSTALL_LIBDIR}/deepin-aiassistant/|' 
 install -pDm644 calendar-client/assets/dde-calendar/calendar/common/dde-calendar.svg \
     %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/dde-calendar.svg
 
-%find_lang dde-calendar-service --with-qt --all-name
-%find_lang dde-calendar --with-qt --all-name
-
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%files -f dde-calendar-service.lang -f dde-calendar.lang
+%files
 %doc README.md
 %license LICENSE
 %{_bindir}/dde-calendar
@@ -72,8 +69,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libexecdir}/deepin-daemon/dde-calendar-service
 %dir %{_datadir}/dde-calendar
 %dir %{_datadir}/dde-calendar/data
+%{_datadir}/dde-calendar/translations/
 %{_datadir}/dde-calendar/data/huangli.db
-%{_datadir}/deepin-log-viewer/deepin-log.conf.d/org.deepin.calendar.json
+%{_datadir}/deepin-debug-config/deepin-debug-config.d/
+%{_datadir}/deepin-log-viewer/deepin-log.conf.d/
+%{_datadir}/dsg/configs/org.deepin.dde.calendar/
 %{_datadir}/metainfo/org.deepin.calendar.metainfo.xml
 
 %changelog

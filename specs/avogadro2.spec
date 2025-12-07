@@ -84,8 +84,8 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %{2} language data for %{name}.\
 \
 %files          langpack-%{1}\
-/usr/share/%{name}/i18n/avogadroapp-%{1}.qm \
-/usr/share/%{name}/i18n/avogadrolibs-%{1}.qm
+%{_datadir}/%{name}/i18n/avogadroapp-%{1}.qm \
+%{_datadir}/%{name}/i18n/avogadrolibs-%{1}.qm
 
 %lang_subpkg af Afrikaans
 %lang_subpkg ar Arabic

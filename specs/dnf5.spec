@@ -7,13 +7,14 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch0:         0001-test_conf.cpp-make-comparing-size_type-cross-platfor.patch
-Patch1:         0002-python_plugins_loader-disable-sign-compare-check-err.patch
+Patch1:         0001-test_conf.cpp-make-comparing-size_type-cross-platfor.patch
+Patch2:         0002-python_plugins_loader-disable-sign-compare-check-err.patch
+Patch3:         0003-Move-libdnf5-conf-config.h-creation-after-feature-de.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1084,6 +1085,10 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Dec 04 2025 Petr Pisar <ppisar@redhat.com> - 5.3.0.0-3
+- Fix overriding RPM signature verification policy with --no-gpgchecks option
+  (upstream GH #2479)
+
 * Wed Nov 05 2025 Ales Matej <amatej@redhat.com> - 5.3.0.0-2
 - Fix build for various architectures other than x86_64
 

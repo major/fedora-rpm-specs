@@ -45,26 +45,26 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 25.09.0
-Release: 42%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 25.09.2
+Release: 2%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit 8890abf5a25b7b67f08aca8917c1d00cf2296a56
+%define ovncommit e3e0587865d8f02d0a8f72de53b82e464c5029d8
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit 852f07e5251c6a0c0d5c43dc980d12a4f1bcd370
-%define ovsshortcommit 852f07e
+%define ovscommit 296465ccd16e431dce703c9e7537d04ff0992b08
+%define ovsshortcommit 296465c
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
 
-# ovn-patches
-Patch:     ovn.patch
+# ovn-patches: Uncomment when new patches are added.
+# Patch:     ovn.patch
 
 # OpenvSwitch backports (400-) if required.
 # Address crpto policy for fedora
@@ -437,6 +437,13 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Fri Dec 5 2025 Dumitru Ceara <dceara@redhat.com> - 25.09.2-2
+- Corrected the version field, stripped extra 'v'.
+
+* Fri Dec 5 2025 Dumitru Ceara <dceara@redhat.com> - 25.09.2-1
+- Updated the OVN sources to the upstream release v25.09.2 with the
+  commit e3e0587865d8f02d0a8f72de53b82e464c5029d8.
+
 * Thu Oct 23 2025 Numan Siddique <numans@ovn.org> - 25.09.0-1
 - Updated the OVN sources to upstream release v25.09.0 with the
   commit 8890abf5a25b7b67f08aca8917c1d00cf2296a56 and picked up

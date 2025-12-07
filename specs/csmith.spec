@@ -1,6 +1,6 @@
 Name:    csmith
 Version: 2.4.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Tool to generate random C programs for compiler testing
 
 # Most of the source code is under BSD while few header files are GPLv2+ and LGPLv2+
@@ -37,6 +37,8 @@ and libraries for use with the Csmith package.
 sed -i 's:/lib:/%{_lib}:' runtime/CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380529)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -61,6 +63,9 @@ rm -v %{buildroot}%{_includedir}/{custom,stdint}_*
 %{_libdir}/libcsmith.so
 
 %changelog
+* Mon Nov  10 2025 Cristian Le <git@lecris.dev> - 2.4.0-13
+- Allow to build with CMake 4.0 (rhbz#2380529)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

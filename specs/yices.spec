@@ -40,15 +40,15 @@ BuildRequires:  tex(latex)
 Provides:       bundled(cudd) = 3.0.0
 
 %description
-Yices 2 is an efficient SMT solver that decides the satisfiability of
-formulas containing uninterpreted function symbols with equality, linear
-real and integer arithmetic, bitvectors, scalar types, and tuples.
+Yices 2 is an efficient SMT solver that decides the satisfiability of formulas
+containing uninterpreted function symbols with equality, linear real and
+integer arithmetic, bitvectors, scalar types, and tuples.
 
-Yices 2 can process input written in the SMT-LIB notation (both versions
-2.0 and 1.2 are supported).
+Yices 2 can process input written in the SMT-LIB notation (both versions 2.0
+and 1.2 are supported).
 
-Alternatively, you can write specifications using the Yices 2
-specification language, which includes tuples and scalar types.
+Alternatively, you can write specifications using the Yices 2 specification
+language, which includes tuples and scalar types.
 
 Yices 2 can also be used as a library in other software.
 
@@ -58,8 +58,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 
 %description devel
-This package contains the header files necessary for developing programs
-which use yices.
+This package contains the header files necessary for developing programs which
+use yices.
 
 %package tools
 Summary:        Command line tools that use the yices library

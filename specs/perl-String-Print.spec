@@ -1,5 +1,5 @@
 Name:           perl-String-Print
-Version:        0.96
+Version:        1.01
 Release:        1%{?dist}
 Summary:        Alternative for Perl printf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -14,6 +14,7 @@ BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Date::Parse) >= 2.30
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(HTML::Entities)
@@ -22,11 +23,12 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Unicode::GCString)
+BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(constant)
+# DateTime 1.00 not used
 BuildRequires:  perl(Test::More) >= 0.86
-BuildRequires:  perl(utf8)
 Requires:       perl(Date::Parse) >= 2.30
 
 # Remove under-specifed dependencies
@@ -68,11 +70,13 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+unset MARKOV_DEVEL
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset MARKOV_DEVEL
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
@@ -86,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 1.01-1
+- 1.01 bump
+
 * Tue Sep 16 2025 Petr Pisar <ppisar@redhat.com> - 0.96-1
 - 0.96 bump
 

@@ -1,13 +1,13 @@
 Name:           kmscon
-Version:        9.1.0
+Version:        9.2.1
 Release:        1%{?dist}
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
-URL:            https://github.com/Aetf/kmscon/
+URL:            https://github.com/kmscon/kmscon/
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  check-devel
 BuildRequires:  docbook-style-xsl
-BuildRequires:  libtsm-devel >= 4.1.0
+BuildRequires:  libtsm-devel >= 4.3.0
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  pkg-config
@@ -22,7 +22,6 @@ BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libudev) >= 172
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pangoft2)
-BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 
@@ -31,6 +30,14 @@ Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
 It is an attempt to replace the in-kernel VT implementation with a userspace
 console.
 
+%package gl
+Summary: This adds opengl support to kmscon
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description gl
+This package provides 2 plugins for kmscon:
+mod-drm3d
+mod-gltex
 
 %prep
 %autosetup -p1
@@ -62,14 +69,26 @@ console.
 %files
 %license COPYING
 %{_bindir}/%{name}
-%{_libdir}/kmscon/
+%{_bindir}/kmscon-launch-gui
+%{_libdir}/kmscon/mod-unifont.so
+%{_libdir}/kmscon/mod-pango.so
 %dir %{_libexecdir}/kmscon
 %{_libexecdir}/kmscon/kmscon
 %{_mandir}/man1/kmscon.1*
+%{_mandir}/man1/kmscon.conf.1*
 %{_unitdir}/kmscon.service
 %{_unitdir}/kmsconvt@.service
+%config(noreplace) /etc/kmscon/kmscon.conf
+
+%files gl
+%{_libdir}/kmscon/mod-drm3d.so
+%{_libdir}/kmscon/mod-gltex.so
 
 %changelog
+* Fri Nov 28 2025 Jocelyn Falempe <jfalempe@redhat.com> - 9.2.1
+- Bump version to 9.2.1
+  * split the package into kmscon and kmscon-gl
+
 * Tue Aug 12 2025 Jocelyn Falempe <jfalempe@redhat.com>
 - Remove selinux rules, as they are now part of the global policies.
 - Add systemd scriptlets

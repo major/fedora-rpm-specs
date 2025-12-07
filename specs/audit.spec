@@ -1,4 +1,3 @@
-
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.1.2
@@ -197,7 +196,7 @@ fi
 %{!?_licensedir:%global license %%doc}
 %license lgpl-2.1.txt
 %{_libdir}/libaudit.so.1*
-%{_libdir}/libauparse.*
+%{_libdir}/libauparse.so.0*
 %{_libdir}/libauplugin.so.1*
 %config(noreplace) %attr(640,root,root) /etc/libaudit.conf
 %{_mandir}/man5/libaudit.conf.5.gz

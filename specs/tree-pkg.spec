@@ -1,14 +1,14 @@
 Summary: File system tree viewer
 Name: tree-pkg
 Version: 2.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The entire source code is LGPL-2.1-or-later except strverscmp.c
 # which is LGPL-2.1-or-later.
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 
 URL: https://oldmanprogrammer.net/source.php?dir=projects/tree
-Source: https://github.com/Old-Man-Programmer/tree/archive/refs/tags/%{version}.tar.gz/tree-%{version}.tar.gz
+Source: https://github.com/Old-Man-Programmer/tree/archive/%{version}/tree-%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: git-core
@@ -63,6 +63,9 @@ sed -e 's/LINUX/__linux__/' -i tree.c
 %doc README
 
 %changelog
+* Thu Dec 04 2025 Stewart Smith <trawets@amazon.com> - 2.2.1-3
+- Fix Source URL
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

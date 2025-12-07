@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.5.4
+Version:        1.6.0
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -23,9 +23,6 @@ Patch1:         mount-secontext.patch
 
 # Fedora LXC is compiled without AppArmor support and fails to parse lxc.apparmor.profile config
 Patch2:         no-apparmor.patch
-
-# Hotfix for Python 3.14; can be dropped with upstream versions > 1.5.4
-Patch3:         py3.14-multiprocessing-fork.patch
 
 BuildArch:      noarch
 
@@ -152,6 +149,26 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Thu Dec 04 2025 Alessandro Astone <ales.astone@gmail.com> - 1.6.0-1
+- Toggle ADB secure mode by default
+  + ADB will no longer auto-connect on session start
+  + You may use the new waydroid adb connect command to connect ADB
+  + To connect ADB, you will need to provide authorization on the Android side
+- Rotate and trim waydroid.log file at 5MB
+- Hide system apps from the desktop applications menu
+  + To make a system app visible in your apps menu, switch NoDisplay=false in its desktop file
+- Do not hide the main Waydroid launcher after enabling multi-windows mode
+- Add desktop action to stop Waydroid session
+  + Right-click the Waydroid entry in your desktop application launcher, then Stop Waydroid
+- Add desktop action to re-initialize Waydroid
+  + Right-click the Waydroid entry in your desktop application launcher, then Initialize Waydroid
+  + This allows switching between VANILLA and GAPPS
+- Make sure to stop waydroid session on user log-out
+- Add new waydroid command with no arguments, alias for waydroid show-full-ui
+- Add new waydroid bugreport command to gather logs for a bug report
+- Forward Android notifications to the desktop
+  + Requires updating the Android system image to a compatible version
+
 * Thu Nov 13 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.4-6
 - sepolicy: Further silence audit for /usr/bin/systemctl (rhbz#2412288)
 

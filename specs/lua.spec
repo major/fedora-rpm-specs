@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -185,15 +185,15 @@ popd
 %endif
 
 %files
-%{!?_licensedir:%global license %%doc}
-%license mit.txt
-
 %doc README doc/*.html doc/*.css doc/*.gif doc/*.png
 %{_bindir}/lua
 %{_bindir}/luac
 %{_mandir}/man1/lua*.1*
 
 %files libs
+%{!?_licensedir:%global license %%doc}
+%license mit.txt
+
 %dir %{_libdir}/lua
 %dir %{_libdir}/lua/%{major_version}
 %{_libdir}/liblua-%{major_version}.so
@@ -216,6 +216,10 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Thu Dec 04 2025 Miro Hrončok <mhroncok@redhat.com> - 5.4.8-4
+- Move the license file to lua-libs, so it is always present if any combination of subpackages is installed
+- Fixes: rhbz#2418960
+
 * Tue Nov 11 2025 Tom Callaway <spot@fedoraproject.org> - 5.4.8-3
 - apply fixes for upstream bug1, bug2, bug3
 

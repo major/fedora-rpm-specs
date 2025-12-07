@@ -4,10 +4,10 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.54.0
-%global git_tag_version 1.54.0
+%global real_version 1.55.90
+%global git_tag_version 1.56-rc1
 %global rpm_version %{real_version}
-%global release_version 2
+%global release_version 1
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -1074,6 +1074,9 @@ fi
 
 
 %changelog
+* Thu Dec 04 2025 Íñigo Huguet <ihuguet@riseup.net> - 1:1.55.90-1
+- Update to 1.56-rc1 release
+
 * Mon Aug 25 2025 Beniamino Galvani <bgalvani@redhat.com> - 1:1.54.0-2
 - Change the system CA path (rh #2380436)
 

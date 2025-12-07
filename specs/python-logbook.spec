@@ -1,5 +1,5 @@
 Name:		python-logbook
-Version:	1.9.1
+Version:	1.9.2
 Release:	1%{?dist}
 Summary:	A logging replacement for Python
 
@@ -62,6 +62,9 @@ Logbook can do that.
 %doc CHANGES README.md
 
 %changelog
+* Fri Dec 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.9.2-1
+- 1.9.2
+
 * Thu Nov 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.9.1-1
 - 1.9.1
 

@@ -16,6 +16,10 @@ License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
 
+# Fix compatibility with scikit-learn 1.8+
+# Sent upstream: https://github.com/scikit-learn-contrib/imbalanced-learn/pull/1152
+Patch:          fix-scikit-learn-1.8-compat.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

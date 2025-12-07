@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit b8bc62355f0169aca6c1facfc73eb3b54207897c
+%global commit d520c0e5f24b2ade761f5679d3601de837a33546
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20251201
+%global date 20251205
 
 %global orgname org.kde.plasmasetup
 
@@ -18,7 +18,8 @@ License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and 
 URL:            https://invent.kde.org/plasma/%{name}
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
 
-Patch:          https://invent.kde.org/plasma/plasma-setup/-/merge_requests/55.patch
+Patch1001:      plasma-setup-load-fedora-wallpaper.patch
+Patch1002:      plasma-setup-select-fedora-lookandfeel.patch
 
 BuildRequires:  cmake(Qt6Core) >= %{qt6_minver}
 BuildRequires:  cmake(Qt6Gui) >= %{qt6_minver}
@@ -48,6 +49,9 @@ Requires:       qt6qml(org.kde.plasma.private.kcm_keyboard)
 Requires:       dbus-common
 Requires:       kf6-filesystem
 Requires:       kf6-kauth
+
+# Require plasma-lookandfeel-fedora with light/dark themes
+Requires:       plasma-lookandfeel-fedora >= 6.5.3-3
 
 # Renamed from KDE Initial System Setup / kiss
 Obsoletes:      kiss < %{version}-%{release}
@@ -113,6 +117,10 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Fri Dec 05 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251205gitd520c0e-1
+- Bump to new git snapshot
+- Add patches to correctly handle fedora look and feel setup
+
 * Tue Dec 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251201gitb8bc623-1
 - Bump to new git snapshot
 - Add patch to handle existing users on firstboot setup

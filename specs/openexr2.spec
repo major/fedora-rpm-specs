@@ -5,7 +5,7 @@
 
 Name:           %{pkgname}
 Version:        2.5.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -113,7 +113,7 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 %check
 # Test 4 currently fails on aarch64 and sometimes times out on armv7hl
 # https://github.com/AcademySoftwareFoundation/openexr/issues/876
-%ifnarch armv7hl aarch64 s390x i686 ppc64le
+%ifnarch armv7hl aarch64 s390x i686 ppc64le riscv64
 %ctest
 %endif
 
@@ -146,6 +146,9 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Thu Dec 04 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.5.8-11
+- disable tests on riscv64
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

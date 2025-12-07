@@ -2,8 +2,8 @@
 %bcond_without perl_SQL_Shell_enables_optional_test
 
 Name:       perl-SQL-Shell 
-Version:    1.17
-Release:    21%{?dist}
+Version:    1.18
+Release:    1%{?dist}
 # lib/SQL/Shell.pm: GPL-2.0-or-later
 # bin/sqlsh:        GPL-2.0-or-later
 # README:           GPL-2.0-or-later
@@ -12,22 +12,19 @@ License:    GPL-2.0-or-later
 Summary:    Command interpreter for DBI shells 
 Url:        https://metacpan.org/release/SQL-Shell
 Source:     https://cpan.metacpan.org/authors/id/M/MG/MGUALDRON/SQL-Shell-%{version}.tar.gz
-# Fix running tests from a read-only location, in upstream after 1.17,
-# <https://github.com/mgualdron/SQL-Shell/pull/1>
-Patch0:     0001-Use-File-Temp-for-handling-temporary-files.patch
 BuildArch:  noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.4
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
 %if %{with perl_SQL_Shell_enables_optional_test}
 BuildRequires:  perl(CGI)
 %endif
-# Config not used at tests
 BuildRequires:  perl(constant)
 BuildRequires:  perl(DBI)
 BuildRequires:  perl(File::Path)
@@ -96,6 +93,11 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n SQL-Shell-%{version}
+# Correct shebangs
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -139,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 1.18-1
+- 1.18 bump
+
 * Mon Dec 01 2025 Petr Pisar <ppisar@redhat.com> - 1.17-21
 - Modernize a spec file
 - Package the tests

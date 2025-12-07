@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.0.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Produce the meta message for Cucumber Ruby
 License: MIT
 URL: https://github.com/cucumber/create-meta-ruby
@@ -31,6 +31,9 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
+%gemspec_remove_dep -g cucumber-messages "~> 17.0", ">= 17.0.1"
+%gemspec_add_dep -g cucumber-messages ">= 17.0"
+
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -57,6 +60,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Dec 05 2025 Vít Ondruch <vondruch@redhat.com> - 6.0.1-11
+- Relax cucumber-messages dependency.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
