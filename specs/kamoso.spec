@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
-Version: 25.11.90
+Version: 25.12.0
 Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later
@@ -103,6 +103,9 @@ xvfb-run -a bash -c "%ctest"
 
 
 %changelog
+* Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

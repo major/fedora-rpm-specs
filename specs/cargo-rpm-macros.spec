@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           cargo-rpm-macros
-Version:        28.0
+Version:        28.1
 Release:        %autorelease
 Summary:        RPM macros and generators for building Rust packages with cargo
 License:        MIT
@@ -25,7 +25,7 @@ BuildRequires:  python3-pytest
 Obsoletes:      rust-packaging < 24
 Provides:       rust-packaging = %{version}-%{release}
 
-Requires:       cargo2rpm >= 0.3.0
+Requires:       cargo2rpm >= 0.3.2
 
 Requires:       cargo
 Requires:       gawk
@@ -58,6 +58,7 @@ RPM macros for building source packages for Rust projects.
 
 %install
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.cargo
+install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.cargo-buildsys
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust
 %if ! 0%{?rhel}
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust-srpm
@@ -74,6 +75,7 @@ pytest -vv
 %files
 %license LICENSE
 %{_rpmmacrodir}/macros.cargo
+%{_rpmmacrodir}/macros.cargo-buildsys
 %if 0%{?rhel}
 %{_rpmmacrodir}/macros.rust
 %endif

@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of gio-2.0.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.3
-Release:	2%{?dist}
+Version:	4.3.4
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -73,7 +73,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.3|>= 4.3.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.4|>= 4.3.4|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -183,6 +183,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.4-1
+- 4.3.4
+
 * Sun Oct 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-2
 - Add fiddle for BR for ruby3_5
 

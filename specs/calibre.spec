@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        8.15.0
+Version:        8.16.2
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -371,6 +371,8 @@ TEST_ARGS=(
     --exclude-test-name test_qt
     # only local ??
     --exclude-test-name test_recipe_browser_webengine
+    # tzdata is not packaged in fedora and zoneinfo should be used anyhow
+    --exclude-test-name test_tzdata
     # fails on ppc64le
 %ifarch ppc64le
     --exclude-test-name test_fts_pool

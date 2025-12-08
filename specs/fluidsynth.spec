@@ -1,10 +1,11 @@
 
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
-Version:      2.4.8
-Release:      2%{?dist}
+Version:      2.5.1
+Release:      1%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
+Source1:      https://github.com/kthohr/gcem/archive/refs/tags/gcem-1.18.0.tar.gz
 License:      LGPL-2.1-or-later
 Requires:     fluidsynth-libs%{?_isa} = %{version}-%{release}
 Recommends:   fluid-soundfont-gm
@@ -77,6 +78,8 @@ for building programs that link against fluidsynth.
 
 %prep
 %autosetup -p1
+%setup -q -a 1
+cp -r gcem-1.18.0/include gcem/
 
 %build
 
@@ -135,6 +138,9 @@ install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsy
 
 
 %changelog
+* Sat Dec  6 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.5.1-1
+- Update to 2.5.1
+
 * Mon Oct 20 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.8-2
 - Fix world writeable /run/lock/fluidsynth
 

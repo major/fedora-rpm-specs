@@ -1,5 +1,5 @@
 Name:           deepin-calculator
-Version:        6.5.8
+Version:        6.5.30
 Release:        %autorelease
 Summary:        An easy to use calculator for ordinary users
 License:        GPL-3.0-or-later
@@ -17,7 +17,7 @@ BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Test)
-BuildRequires:  qt6-linguist
+BuildRequires:  cmake(Qt6LinguistTools)
 
 BuildRequires:  cmake(Dtk6Widget)
 BuildRequires:  cmake(Dtk6Gui)
@@ -33,7 +33,6 @@ Recommends:     deepin-manual
 
 %prep
 %autosetup -p1
-sed -i 's|lrelease|lrelease-qt6|g' translate_generation.sh
 
 %build
 %cmake -GNinja
@@ -41,19 +40,19 @@ sed -i 's|lrelease|lrelease-qt6|g' translate_generation.sh
 
 %install
 %cmake_install
-%find_lang deepin-calculator --with-qt
-rm %{buildroot}%{_datadir}/deepin-calculator/translations/deepin-calculator.qm
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%files -f deepin-calculator.lang
+%files
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/deepin-manual/
+%{_datadir}/deepin-manual/manual-assets/application/deepin-calculator/
+%{_datadir}/deepin-calculator/
+%{_datadir}/dbus-1/services/com.deepin.Calculator.service
 
 %changelog
 %autochangelog

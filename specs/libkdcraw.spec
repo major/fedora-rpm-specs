@@ -1,6 +1,6 @@
 Name:    libkdcraw
 Summary: A C++ interface around LibRaw library
-Version: 25.11.90
+Version: 25.12.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -61,6 +61,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

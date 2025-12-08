@@ -2,7 +2,7 @@ Summary:	Library and frontend for decoding MPEG2/4 AAC
 Name:		faad2
 Epoch:		1
 Version:	2.11.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://github.com/knik0/faad2/
 Source:		https://github.com/knik0/faad2/archive/%{version}/%{name}-%{version}.tar.gz
@@ -51,11 +51,11 @@ install -D -m 644 docs/libfaad.3 -t %{buildroot}%{_mandir}/man3/
 
 %files
 %doc AUTHORS ChangeLog README
-%license COPYING
 %{_bindir}/faad
 %{_mandir}/man1/faad.1*
 
 %files libs
+%license COPYING
 %{_libdir}/libfaad.so.2{,.*}
 %{_libdir}/libfaad_drm.so.2{,.*}
 
@@ -68,6 +68,9 @@ install -D -m 644 docs/libfaad.3 -t %{buildroot}%{_mandir}/man3/
 %{_mandir}/man3/libfaad.3*
 
 %changelog
+* Sat Dec 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 1:2.11.2-5
+- move license to -libs subpackage (resolves rhbz#2418957)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

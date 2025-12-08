@@ -1,7 +1,7 @@
 Summary:        Very fast network log-on cracker
 Name:           hydra
-Version:        9.5
-Release:        10%{?dist}
+Version:        9.6
+Release:        1%{?dist}
 License:        AGPL-3.0-only
 URL:            https://github.com/vanhauser-thc/thc-hydra
 VCS:            git:https://github.com/vanhauser-thc/thc-hydra
@@ -12,14 +12,19 @@ Source0:        https://github.com/vanhauser-thc/thc-hydra/archive/v%{version}/%
 Patch0:         hydra-use-system-libpq-fe.patch
 Patch1:         hydra-fix-dpl4hydra-dir.patch
 
+# Upstream fixes for gtk3 support
+Patch100:       0000-port-xhydra-gtk3.patch
+Patch101:       0000-more-hydra-gtk.patch
+Patch102:       0000-hydra-gtk-last.patch
+
 BuildRequires:  afpfs-ng-devel
 BuildRequires:  apr-devel
+BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  firebird-devel
 BuildRequires:  freerdp2-devel
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  libbson-devel
 BuildRequires:  libfbclient2-devel
 BuildRequires:  libgcrypt-devel
@@ -92,6 +97,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xhydra.desktop
 %{_mandir}/man1/xhydra.1*
 
 %changelog
+* Sun Dec 07 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 9.6-1
+- Update to 9.6
+- Update xhydra to use gtk3
+- Fix FTBFS rhbz#2385063
+
 * Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 9.5-10
 - Firebird 5 rebuild
 

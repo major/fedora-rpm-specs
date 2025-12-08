@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 25.11.90
+Version: 25.12.0
 Release: 1%{?dist}
 
 License: LGPL-2.0-only AND LGPL-3.0-only
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

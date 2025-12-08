@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.12
+%define mainversion   6.13
 %dnl %define extratarver   1
 %dnl %define beta_ver      b2
 
@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    5
+%define baserelease    1
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -104,10 +104,8 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
-# demo-Gtk.c/server_current_hack: read hack number when really available
-Patch5201:       xscreensaver-6.12-0001-server_current_hack-read-hack-number-when-really-ava.patch
-# Fix build with FFmpeg 8
-Patch5202:       xscreensaver-6.12-0002-ffmpeg_out_init-support-ffmpeg-8.patch
+# driver/demo-Gtk.c: Initialize locking_supported_p for X11 session
+Patch5301:       xscreensaver-6.13-0001-driver-demo-Gtk.c-Initialize-locking_supported_p-for.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -416,8 +414,7 @@ done
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
-%__cat %PATCH5201 | %__git am
-%__cat %PATCH5202 | %__git am
+%__cat %PATCH5301 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -560,6 +557,11 @@ sed -i.rpmlint -n -e '1,5p' driver/xscreensaver.pam
 sed -i.auth driver/xscreensaver.pam.in \
 	-e '\@auth.*include.*system-auth@s|^#||'
 %__git commit -m "Use system-auth for auth again" -a
+# xscreensaver 6.13
+# and don't override xscreensaver.pam by system-wide /etc/pam.d/login or so
+sed -i.nooverride driver/Makefile.in \
+	-e '\@src2.*PAM_DIR@s|src2=.*$|src2= ;\\|'
+%__git commit -m "Don't override xscreensaver.pam by system-wide /etc/pam.d/login or so" -a
 
 if [ -x %{_datadir}/libtool/config.guess ]; then
   # use system-wide copy
@@ -593,6 +595,10 @@ sed -i Makefile.in.in \
 	%{nil}
 popd
 %__git commit -m "Manually fix po files entry" -a
+
+# xscreensaver 6.13: test-wayland-lock: no rule for wayland-lock.o
+sed -i driver/Makefile.in -e 's|test-wayland-lock$||'
+%__git commit -m "Skip test-wayland-lock for now" -a
 
 # %%configure adds --disable-dependency-tracking, don't fail with that for now
 sed -i configure.ac \
@@ -834,7 +840,7 @@ rm -rf ${RPM_BUILD_ROOT}
 #
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
 
-make install_prefix=$RPM_BUILD_ROOT INSTALL="install -c -p" install
+make DESTDIR=$RPM_BUILD_ROOT INSTALL="install -c -p" install
 
 # Kill OnlyShowIn=GNOME; on F-11+ (bug 483495)
 desktop-file-install --vendor "" --delete-original    \
@@ -857,7 +863,7 @@ desktop-file-install --vendor "" --delete-original    \
 # It does this by parsing the output of a dummy run of "make install".
 list_files() {
    echo "%%defattr(-,root,root,-)"
-   make -s install_prefix=${RPM_BUILD_ROOT} INSTALL=true "$@"  \
+   make -s DESTDIR=${RPM_BUILD_ROOT} INSTALL=true "$@"  \
       | sed -e '\@gtk-update-icon-cache@d' \
       | sed -n -e 's@.* \(/[^ ]*\)$@\1@p'                      \
       | sed    -e "s@^${RPM_BUILD_ROOT}@@"                     \
@@ -1213,6 +1219,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.13-1
+- Update to 6.13
+
 * Thu Nov 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 1:6.12-5
 - Rebuilt for FFmpeg 8
 

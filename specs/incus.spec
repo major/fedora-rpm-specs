@@ -18,7 +18,7 @@ Version:        6.18
 %global golicenses COPYING
 
 Name:           incus
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -64,6 +64,7 @@ Patch1002:      incus-0.2-doc-Remove-downloads-from-sphinx-build.patch
 %global selinuxtype targeted
 
 BuildRequires:  gettext
+BuildRequires:  glibc-static
 BuildRequires:  help2man
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  pkgconfig(cowsql)
@@ -348,7 +349,11 @@ done
 
 #export CGO_ENABLED=0
 BUILDTAGS="netgo" %gobuild -o %{gobuilddir}/bin/incus-migrate %{goipath}/cmd/incus-migrate
+
+# Build incus-agent statically (cf. rhbz#2419661)
+%define __golang_extldflags -static
 BUILDTAGS="agent netgo" %gobuild -o %{gobuilddir}/bin/incus-agent %{goipath}/cmd/incus-agent
+%undefine __golang_extldflags
 #unset CGO_ENABLED
 
 # build shell completions
@@ -456,6 +461,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Sat Dec 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.18-2
+- Build incus-agent as a fully statically linked binary (rhbz#2419661)
+
 * Mon Nov 03 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.18-1
 - Updated to incus-6.18
 

@@ -1321,6 +1321,16 @@ CONFIGURE_OPTS="\
 %if 0%{?rhel:1}
 	--enable-host-pie --enable-host-bind-now \
 %endif
+	--disable-libssp \
+%if %{build_libquadmath} == 0
+	--disable-libquadmath \
+%endif
+%if %{build_libatomic} == 0
+	--disable-libatomic \
+%endif
+%if %{build_libitm} == 0
+	--disable-libitm \
+%endif
 	"
 
 CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
@@ -2380,7 +2390,6 @@ cd ..
 rm -f %{buildroot}%{_prefix}/%{_lib}/{libffi*,libiberty.a} || :
 rm -f $FULLEPATH/install-tools/{mkheaders,fixincl}
 rm -f %{buildroot}%{_prefix}/lib/{32,64}/libiberty.a
-rm -f %{buildroot}%{_prefix}/%{_lib}/libssp*
 rm -f %{buildroot}%{_prefix}/%{_lib}/libvtv* || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gfortran || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gccgo || :
@@ -3779,6 +3788,7 @@ end
 
 %changelog
 - Create gnatgcc symlink only when building ada.
+- Avoid building libssp and disabled libraries.
 
 * Tue Nov 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-4
 - update from releases/gcc-15 branch

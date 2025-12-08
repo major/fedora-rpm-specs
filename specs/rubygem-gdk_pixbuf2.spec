@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of GdkPixbuf-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.3
-Release:	2%{?dist}
+Version:	4.3.4
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -61,7 +61,7 @@ This package contains documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.3|>= 4.3.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.4|>= 4.3.4|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -101,12 +101,6 @@ popd
 %check
 pushd .%{gem_instdir}
 
-# ref: https://github.com/ruby-gnome/ruby-gnome/commit/4c36c2d13569d91588f5b415edd6c14a1245c315
-# Fedora 43 i686 gdk-pixbuf does NOT use glycin
-# And looks like gdk-pixbuf 2.44 restored the previous behavior
-sed -i test/test-animation.rb \
-	-e 's@if GdkPixbuf.*@if false@'
-
 # Kill unneeded make process
 mkdir -p TMPBINDIR
 pushd TMPBINDIR
@@ -141,6 +135,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.4-1
+- 4.3.4
+
 * Fri Sep 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-2
 - F-43+: update dependency with gdk-pixbuf2 changes
 

@@ -12,7 +12,7 @@
 #global snapdate YYYYMMDD
 
 Name:           openshadinglanguage
-Version:        1.14.7.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
+Version:        1.14.8.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
 # This is based on the first two components of the version, so we could produce
 # it automatically, but we rewrite it manually here as a reminder, to reduce
 # the likelihood of undetected SONAME version bumps.

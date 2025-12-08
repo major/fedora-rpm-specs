@@ -15,7 +15,7 @@ information and access to the image data is made available via NumPy arrays.
 }
 
 Name:           python-nibabel
-Version:        5.3.2
+Version:        5.3.3
 Release:        %autorelease
 Summary:        Python package to access a cacophony of neuro-imaging file formats
 %global tag %{version}
@@ -24,14 +24,6 @@ License:        MIT and PDDL-1.0
 URL:            http://nipy.org/nibabel/
 Source0:        %forgesource
 
-# TEST: Replace dict literal with set()
-# https://github.com/nipy/nibabel/pull/1383
-#
-# Fixes:
-#
-# Two test failures and one test error in 5.3.2
-# https://github.com/nipy/nibabel/issues/1382
-Patch:          %{forgeurl}/pull/1383.patch
 # Adapt to functools.partial becoming a method descriptor in Python 3.14
 # https://github.com/nipy/nibabel/pull/1391
 #
@@ -45,6 +37,15 @@ Patch:          %{forgeurl}/pull/1383.patch
 # got multiple values for argument 'warn_class'
 # https://bugzilla.redhat.com/show_bug.cgi?id=2328709
 Patch:          %{forgeurl}/pull/1391.patch
+
+# fix: Ignore warning that may not be emitted
+# https://github.com/nipy/nibabel/commit/ac0b38851ad9505c863b56e64c2c4131cf97847c
+#
+# Fixes:
+#
+# test_resample fails with scipy 1.16
+# https://github.com/nipy/nibabel/issues/1428
+Patch:          %{forgeurl}/commit/ac0b38851ad9505c863b56e64c2c4131cf97847c.patch
 
 BuildArch:      noarch
 

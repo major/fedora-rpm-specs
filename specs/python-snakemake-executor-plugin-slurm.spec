@@ -1,8 +1,7 @@
-# Tests need to run in an environment with Slurm
-%bcond tests 0
+%bcond tests 1
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -20,6 +19,13 @@ BuildArch:      noarch
 
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  snakemake >= 8
+# If slurm is not installed, importing snakemake_executor_plugin_slurm
+# produces:
+#
+# snakemake_interface_common.exceptions.WorkflowError: Neither 'sacct' nor
+# 'squeue' commands are available on this system. At least one of these
+# commands is required for job status queries.
+BuildRequires:  slurm
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
 %endif
@@ -33,12 +39,31 @@ BuildRequires:  %{py3_dist pytest}
 %package -n python3-snakemake-executor-plugin-slurm
 Summary:        %{summary}
 
+# The plugin cannot even be imported without slurm; see the note above the
+# corresponding BuildRequires.
+Requires:       slurm
+
 %description -n python3-snakemake-executor-plugin-slurm %{common_description}
 
 
 %check -a
 %if %{with tests}
-%pytest -v tests/tests.py
+# These tests seem to want to talk to a real cluster controller:
+#
+# tests/tests.py::TestEfficiencyReport::test_group_workflow
+# tests/tests.py::TestEfficiencyReport::test_simple_workflow
+# tests/tests.py::TestSLURMResources::test_group_workflow
+# tests/tests.py::TestSLURMResources::test_simple_workflow
+# tests/tests.py::TestWildcardsWithSlashes::test_group_workflow
+# tests/tests.py::TestWildcardsWithSlashes::test_simple_workflow
+# tests/tests.py::TestWorkflows::test_group_workflow
+# tests/tests.py::TestWorkflows::test_simple_workflow
+# tests/tests.py::TestWorkflowsRequeue::test_group_workflow
+# tests/tests.py::TestWorkflowsRequeue::test_simple_workflow
+k="${k-}${k+ and }not test_group_workflow"
+k="${k-}${k+ and }not test_simple_workflow"
+
+%pytest -k "${k-}" -v tests/tests.py
 %endif
 
 

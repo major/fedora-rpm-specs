@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ArthurSonzogni/FTXUI
-Version:        5.0.0
+Version:        6.1.9
 %forgemeta
 
 Name:           ftxui
@@ -35,7 +35,6 @@ The %{name}-devel package contains development files for %{name}.
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
 %if 0%{?fedora}
     -DFTXUI_BUILD_TESTS=ON \
 %else

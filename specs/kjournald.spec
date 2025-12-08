@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:          kjournald
-Version:       25.11.90
+Version:       25.12.0
 Release:       1%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kj
 %{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

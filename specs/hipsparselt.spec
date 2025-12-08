@@ -79,7 +79,10 @@
 %global tensile_version 4.33.0
 %global tensile_verbose 1
 
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;;gfx1101;gfx1200;gfx1201"
+# match hipblaslt
+%global amdgpu_targets %{rocm_gpu_list_hipblaslt}
+# For testing
+%global _amdgpu_targets "gfx1100"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -112,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -310,7 +313,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 
 %cmake %{cmake_generator} \
        -DTensile_TEST_LOCAL_PATH=${TL} \
-       -DAMDGPU_TARGETS=%{amdgpu_targets} \
+       -DGPU_TARGETS=%{amdgpu_targets} \
        -DBLAS_INCLUDE_DIR=%{_includedir}/flexiblas \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -383,6 +386,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Sat Dec 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Use hipblaslt gpu list
+
 * Tue Nov 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Bundle nanobind for EPEL
 

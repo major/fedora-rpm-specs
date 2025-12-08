@@ -1,31 +1,35 @@
-# Run tests with uvloop?
-# F43FailsToInstall: python3-uvloop
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372190
+# Run tests with uvloop? It was retired due to RHBZ#2372190.
 %bcond uvloop 0
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
-Version:        0.30.0
+Version:        0.31.0
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except:
 #
+# 0BSD:
+# - asyncpg/protocol/record/pythoncapi_compat.h (unbundled in %%prep, but
+#   header-only libraries are treated like static libraries, so this still
+#   affects the License expression)
 # PSF-2.0:
-#   asyncpg/protocol/record/recordobj.c
-#   asyncpg/_asyncio_compat.py
-License:        Apache-2.0 AND PSF-2.0
+# - asyncpg/protocol/record/recordobj.c
+# - asyncpg/_asyncio_compat.py
+License:        Apache-2.0 AND 0BSD AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
 Source:         %{pypi_source asyncpg}
 
 BuildSystem:            pyproject
 BuildOption(install):   -l asyncpg
-BuildOption(generate_buildrequires): -x gssauth,test
+BuildOption(generate_buildrequires): -x gssauth -g test
 
 BuildRequires:  gcc
 BuildRequires:  tomcli
 
-# For tests:
-BuildRequires:  %{py3_dist pytest}
+# Unbundled header-only library. Dependency on -static per guidelines,
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries.
+BuildRequires:  pythoncapi-compat-static
+
 # For krb5-config binary
 BuildRequires:  krb5-devel
 # For /usr/sbin/kdb5_util binary
@@ -74,8 +78,8 @@ Obsoletes:      %{name}-doc < 0.27.0-5
 find asyncpg -type f -name '*.c' ! -name 'recordobj.c' -print -delete
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem --no-first --type regex \
-    'project.optional-dependencies.test' '(flake8|mypy)\b.*'
+tomcli set pyproject.toml lists delitem \
+    'dependency-groups.test' '(flake8|mypy)\b.*'
 
 # Do not upper-bound the Python interpreter version for the uvloop test
 # dependency. First, a missing uvloop breaks the test if we do not adjust the
@@ -84,9 +88,12 @@ tomcli set pyproject.toml lists delitem --no-first --type regex \
 # ... lists replace ..." only supports a fixed replacement string.
 sed -r -i "s/('uvloop\\b.*);.*'/\\1'/" pyproject.toml
 %if %{without uvloop}
-tomcli set pyproject.toml lists delitem \
-    'project.optional-dependencies.test' '(uvloop)\b.*'
+tomcli set pyproject.toml lists delitem 'dependency-groups.test' '(uvloop)\b.*'
 %endif
+
+# Unbundle pythoncapi-compat.
+ln -svf /usr/include/pythoncapi_compat.h \
+    asyncpg/protocol/record/pythoncapi_compat.h
 
 
 %generate_buildrequires -p

@@ -14,7 +14,7 @@
 
 Name:       fedora-review
 Version:    0.11.0
-Release:    1%{?build_nr}%{?git_tag}%{?dist}
+Release:    2%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
@@ -91,7 +91,6 @@ fedora-review ruby-specific tests, not installed by default.
 %package tests
 Summary: Test and test data files for fedora-review
 Requires: %{name} = %{version}-%{release}
-Requires: python3-nose
 
 %description tests
 Tests are packaged separately due to space concerns.
@@ -155,6 +154,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Sat Dec 06 2025 Jakub Kadlcik <frostyx@email.cz> - 0.11.0-2
+- Drop leftover dependency on python3-nose
+
 * Sun Nov 16 2025 Jakub Kadlcik <frostyx@email.cz> - 0.11.0-1
 - New upstream version
 

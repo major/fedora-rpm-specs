@@ -12,7 +12,7 @@ Name:           flowblade
 Version:        2.14.0.2
 Release:        7%{?dist}
 %else
-Version:        2.22.1.1
+Version:        2.24
 Release:        3%{?dist}
 %endif
 License:        GPL-3.0-only
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Sat Dec 06 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.24-1
+- Update to 2.24
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.22.1.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -70,10 +70,9 @@
 # https://github.com/ROCm/hipBLASLt/issues/908
 
 # hipblaslt does not support our default set
-#
-# build is timing out, remove some of the ISA targets
-# gfx942;gfx1102
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1103;gfx1150;gfx1151;gfx1200;gfx1201"
+%global amdgpu_targets %{rocm_gpu_list_hipblaslt}
+# For testing
+%global _amdgpu_targets "gfx1100"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -108,7 +107,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -185,25 +184,16 @@ BuildRequires:  msgpack-devel
 %endif
 
 %if %{with test}
-BuildRequires:  rocm-omp-devel
+BuildRequires:  blis-devel
+BuildRequires:  lapack-devel
 %if 0%{?suse_version}
 BuildRequires:  gcc-fortran
 BuildRequires:  gmock
 BuildRequires:  gtest
-BuildRequires:  openblas-devel
-%global blaslib openblas
 %else
 BuildRequires:  gcc-gfortran
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
-%if 0%{?rhel}
-BuildRequires:  flexiblas-devel
-%global blaslib flexiblas
-%else
-BuildRequires:  blas-static
-BuildRequires:  lapack-static
-%global blaslib cblas
-%endif
 %endif
 %endif
 
@@ -308,7 +298,14 @@ fi
 if [ "$GPUS" -lt "$HIP_JOBS" ]; then
     HIP_JOBS=$GPUS
 fi
-# sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
+
+# HIPBLASLT_ENABLE_OPENMP is OFF yet it is still being used
+# https://github.com/ROCm/rocm-libraries/issues/3201
+sed -i -e '/OpenMP::OpenMP_CXX/d' clients/CMakeLists.txt
+sed -i -e '/omp/d'                clients/common/src/blis_interface.cpp
+sed -i -e '/#include <omp.h>/d'   clients/common/include/testing_matmul.hpp
+sed -i -e '/#include <omp.h>/d'   clients/common/include/hipblaslt_init.hpp
+sed -i -e '/#include <omp.h>/d'   clients/common/src/cblas_interface.cpp
 
 %build
 %if %{with gitcommit}
@@ -343,9 +340,9 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # TensileGetPath
 
 %cmake %{cmake_generator} \
-       -DAMDGPU_TARGETS=%{amdgpu_targets} \
-       -DBLAS_INCLUDE_DIR=%{_includedir}/%{blaslib} \
-       -DBLAS_LIBRARY=%{blaslib} \
+       -DGPU_TARGETS=%{amdgpu_targets} \
+       -DBLIS_INCLUDE_DIR=%{_includedir}/blis \
+       -DBLIS_LIB=%{_libdir}/libblis.so \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DBUILD_VERBOSE=ON \
@@ -360,6 +357,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DHIPBLASLT_ENABLE_MARKER=OFF \
        -DHIPBLASLT_ENABLE_OPENMP=OFF \
        -DHIPBLASLT_ENABLE_ROCROLLER=OFF \
+       -DHIPBLASLT_ENABLE_SAMPLES=OFF \
        -DROCM_SYMLINK_LIBS=OFF \
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
@@ -402,9 +400,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %if %{with test}
 %files test
 %{_bindir}/hipblaslt*
+%{_bindir}/sequence.yaml
 %endif
 
 %changelog
+* Sat Dec 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Use blis-devel for testing
+- Use GPU_TARGETS
+
 * Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

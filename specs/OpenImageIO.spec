@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
-%global sover 3.0
+%global sover 3.1
 
 Name:           OpenImageIO
-Version:        3.0.11.0
-Release:        3%{?dist}
+Version:        3.1.8.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -202,6 +202,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Dec 06 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.8.0-1
+- Update to 3.1.8.0.
+
 * Sun Nov 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:3.0.11.0-3
 - Rebuilt for OpenVDB 13.0.0
 

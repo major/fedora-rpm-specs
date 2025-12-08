@@ -3,7 +3,7 @@
 
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
-Version:    2.3.2
+Version:    2.3.3
 Release:    1%{?dist}
 
 # SPDX confirmed
@@ -164,6 +164,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.3-1
+- 2.3.3
+
 * Sun Sep 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.2-1
 - 2.3.2
 

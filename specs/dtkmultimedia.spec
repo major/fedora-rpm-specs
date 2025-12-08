@@ -1,7 +1,7 @@
 %global sover 1
 
 Name:           dtkmultimedia
-Version:        6.0.1
+Version:        6.0.4
 Release:        %autorelease
 Summary:        Development Tool Kit Multimedia
 
@@ -17,14 +17,9 @@ Summary:        Development Tool Kit Multimedia
 License:        Apache-2.0 AND BSL-1.0 AND GPL-2.0-or-later AND LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dtkmultimedia
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Port to FFmpeg 7
-# https://github.com/linuxdeepin/dtkmultimedia/pull/61
-Patch0:         dtkmultimedia-ffmpeg7.patch
-Patch1:         https://github.com/linuxdeepin/dtkmultimedia/pull/67.patch
-
-Patch2:         dtkmultimedia-fix-build-against-qt-6-10.patch
-# Port to FFmpeg 8
-Patch3:         dtkmultimedia-ffmpeg8.patch
+Patch0:         drop-set_vulkan_compute.patch
+Patch1:         https://github.com/linuxdeepin/dtkmultimedia/pull/72.patch
+Patch2:         https://github.com/linuxdeepin/dtkmultimedia/pull/78.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -38,7 +33,8 @@ BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6MultimediaWidgets)
-BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  cmake(Qt6GuiPrivate)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
 
 BuildRequires:  cmake(Dtk6Core)
 BuildRequires:  cmake(Dtk6Widget)
@@ -106,14 +102,17 @@ This package contains development files for dtkmultimedia.
 
 %prep
 %autosetup -p1
+
 # '-Wl,--as-needed' already included in LDFLAGS when building on Fedora
 sed -i '/-Wl,--as-needed/d' CMakeLists.txt
-sed -i 's/opencv_mobile/opencv4/g' src/ocr/CMakeLists.txt
+
+sed -i 's/opencv_mobile/opencv4/' src/ocr/CMakeLists.txt
 
 %build
 # fix build with gcc 15
 export CFLAGS="%{build_cflags} -std=gnu17"
-%cmake -DENABLE_Qt6=ON -DQCH_INSTALL_DESTINATION=%{_qt6_docdir}
+%cmake -DENABLE_Qt6=ON \
+    -DQCH_INSTALL_DESTINATION=%{_qt6_docdir}
 %cmake_build
 
 %install

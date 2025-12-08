@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
-Version:	4.3.3
-Release:	2%{?dist}
+Version:	4.3.4
+Release:	1%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -64,7 +64,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.3|>= 4.3.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.4|>= 4.3.4|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -153,6 +153,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.4-1
+- 4.3.4
+
 * Fri Aug 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-2
 - F-43+ replace deprecated g_type_class_ref to g_type_class_get in testsuite
 

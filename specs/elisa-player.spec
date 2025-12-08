@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:       elisa-player
-Version:    25.11.90
+Version:    25.12.0
 Release:    1%{?dist}
 Summary:    Elisa music player
 
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.el
 %{_kf6_libdir}/elisa/
 
 %changelog
+* Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

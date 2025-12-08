@@ -2,7 +2,7 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.1.52
+Version:        1.1.54
 Release:        %autorelease
 Summary:        Cross-platform VR/AR runtime and API
 License:        Apache-2.0
@@ -58,7 +58,6 @@ Headers and development files for building applications using OpenXR XR API.
     -DBUILD_STATIC_LIBS=OFF \
     -DBUILD_TESTS=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_CXX_STANDARD=17 \
     -DDYNAMIC_LOADER=ON \
     -DFILESYSTEM_USE_STD=ON \
     -DGLSLANG_VALIDATOR=$(which glslangValidator)

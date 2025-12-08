@@ -45,11 +45,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.0
+%global general_version %{pybasever}.2
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -112,30 +112,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 25.2
+%global pip_version 25.3
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.3
-Provides: bundled(python3dist(certifi)) = 2025.7.14
+Provides: bundled(python3dist(certifi)) = 2025.10.5
 Provides: bundled(python3dist(dependency-groups)) = 1.3.1
 Provides: bundled(python3dist(distlib)) = 0.4
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.10
-Provides: bundled(python3dist(msgpack)) = 1.1.1
+Provides: bundled(python3dist(msgpack)) = 1.1.2
 Provides: bundled(python3dist(packaging)) = 25
-Provides: bundled(python3dist(platformdirs)) = 4.3.8
+Provides: bundled(python3dist(platformdirs)) = 4.5
 Provides: bundled(python3dist(pygments)) = 2.19.2
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.32.4
-Provides: bundled(python3dist(resolvelib)) = 1.2
-Provides: bundled(python3dist(rich)) = 14.1
+Provides: bundled(python3dist(requests)) = 2.32.5
+Provides: bundled(python3dist(resolvelib)) = 1.2.1
+Provides: bundled(python3dist(rich)) = 14.2
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.2.1
+Provides: bundled(python3dist(tomli)) = 2.3
 Provides: bundled(python3dist(tomli-w)) = 1.2
-Provides: bundled(python3dist(truststore)) = 0.10.1
+Provides: bundled(python3dist(truststore)) = 0.10.4
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
@@ -386,12 +386,6 @@ Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
-
-# 00461 # 920175020b21c0aff5edcc4c28d688b5061f591c
-# Downstream only: Install wheel in test venvs when setuptools < 71
-#
-# This can be removed when Fedora 41 goes EOL (or updates setuptools).
-Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
 
 # 00464 # 292acffec7a379cb6d1f3c47b9e5a2f170bbadb6
 # Enable PAC and BTI protections for aarch64
@@ -1475,6 +1469,8 @@ CheckPython() {
   # see: https://github.com/python/cpython/issues/121719
   # test_interrupt and test_interrupt_no_handler
   # reported in https://github.com/python/cpython/issues/133651
+  # test_margin_is_sufficient
+  # reported in https://github.com/python/cpython/issues/140222
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1486,6 +1482,7 @@ CheckPython() {
     -i test_check_probes \
     -i test_interrupt \
     -i test_interrupt_no_handler \
+    -i test_margin_is_sufficient \
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
@@ -1982,6 +1979,12 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Fri Dec 05 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.2-1
+- Update to Python 3.14.2
+
+* Wed Dec 03 2025 Karolina Surma <ksurma@redhat.com> - 3.14.1-1
+- Update to Python 3.14.1
+
 * Fri Oct 17 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0-2
 - Split -freethreading package into analogs of the main Python
 

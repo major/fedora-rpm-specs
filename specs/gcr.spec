@@ -64,6 +64,10 @@ The %{name}-libs package contains the gcr and gck shared libraries.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 # Dropped in F37
 Obsoletes:      %{name}-gtk3-devel < 3.92.0-1
 Obsoletes:      %{name}-gtk4-devel < 3.92.0-1

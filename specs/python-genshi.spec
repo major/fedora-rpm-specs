@@ -1,12 +1,12 @@
 Name:           python-genshi
-Version:        0.7.9
-Release:        9%{?dist}
+Version:        0.7.10
+Release:        1%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD-3-Clause
 URL:            https://genshi.edgewall.org/
 
-Source0:        %{pypi_source Genshi}
+Source0:        %{pypi_source genshi}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -30,7 +30,7 @@ a template language, which is heavily inspired by Kid.
 
 
 %prep
-%autosetup -p1 -n Genshi-%{version}
+%autosetup -p1 -n genshi-%{version}
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
@@ -66,6 +66,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Sat Dec 06 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.10-1
+- update to 0.7.10
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.9-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 
