@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           hatch
-Version:        1.16.1
+Version:        1.16.2
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -182,10 +182,11 @@ ignore="${ignore-} --ignore=tests/workspaces/test_config.py"
 ignore="${ignore-} --ignore=tests/cli/clean/test_clean.py"
 # These require network access, from tests/cli/version/test_version.py:
 k="${k-}${k+ and }not test_other_backend_show"
-k="${k-}${k+ and }not test_set_dynamic"
-k="${k-}${k+ and }not test_show_dynamic"
 k="${k-}${k+ and }not test_plugin_dependencies_unmet"
+k="${k-}${k+ and }not test_set_dynamic"
 k="${k-}${k+ and }not test_set_dynamic_downgrade"
+k="${k-}${k+ and }not test_show_dynamic"
+k="${k-}${k+ and }not test_verbose_output_to_stderr"
 
 %pytest -k "${k-}" ${ignore-} -vv
 %endif

@@ -12,12 +12,19 @@
 
 Name:           plasma-setup
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
 
+# Backported changes
+
+# Proposed changes
+## Fix uidcheck so existing users check works properly
+Patch0101:      https://invent.kde.org/plasma/plasma-setup/-/merge_requests/59.patch
+
+# Downstream only changes
 Patch1001:      plasma-setup-load-fedora-wallpaper.patch
 Patch1002:      plasma-setup-select-fedora-lookandfeel.patch
 
@@ -117,6 +124,9 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Sun Dec 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251205gitd520c0e-2
+- Add patch to fix uid check to correctly detect existing users
+
 * Fri Dec 05 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251205gitd520c0e-1
 - Bump to new git snapshot
 - Add patches to correctly handle fedora look and feel setup

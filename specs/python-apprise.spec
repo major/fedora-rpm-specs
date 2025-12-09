@@ -47,38 +47,41 @@
 # - Prevent warnings:
 #    en_US ntfy -> notify
 #    en_US httpSMS -> HTTP
+#
 # rpmlint: ignore-spelling httpSMS ntfy
 
 # - RHEL9 does not recognize: BSD-2-Clause which is correct
+#
 # rpmlint: ignore invalid-license
 
 %global common_description %{expand: \
 Apprise is a Python package that simplifies access to many popular \
 notification services. It supports sending alerts to platforms such as: \
 \
-`AfricasTalking`, `Apprise API`, `APRS`, `AWS SES`, `AWS SNS`, `Bark`, \
-`BlueSky`, `Burst SMS`, `BulkSMS`, `BulkVS`, `Chanify`, `Clickatell`, \
-`ClickSend`, `DAPNET`, `DingTalk`, `Discord`, `E-Mail`, `Emby`, `FCM`, \
-`Feishu`, `Flock`, `Free Mobile`, `Google Chat`, `Gotify`, `Growl`, \
-`Guilded`, `Home Assistant`, `httpSMS`, `IFTTT`, `Join`, `Kavenegar`, `KODI`, \
-`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, `Mastodon`, \
-`Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
+`46elks`, `AfricasTalking`, `Apprise API`, `APRS`, `AWS SES`, `AWS SNS`, \
+`Bark`, `BlueSky`, `Brevo`, `Burst SMS`, `BulkSMS`, `BulkVS`, `Chanify`, \
+`Clickatell`, `ClickSend`, `DAPNET`, `DingTalk`, `Discord`, \
+`Dot. (Quote/0)`, `E-Mail`, `Emby`, `FCM`, `Feishu`, `Flock`, \
+`Free Mobile`, `Google Chat`, `Gotify`, `Growl`, `Guilded`, \
+`Home Assistant`, `httpSMS`, `IFTTT`, `Join`, `Kavenegar`, `KODI`, \
+`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, \
+`Mastodon`, `Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
 `Microsoft Teams`, `Misskey`, `MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, \
-`Nextcloud`, `NextcloudTalk`, `Notica`, `Notifiarr`, `Notifico`, `ntfy`, \
-`Office365`, `OneSignal`, `Opsgenie`, `PagerDuty`, `PagerTree`, \
-`ParsePlatform`, `Plivo`, `PopcornNotify`, `Prowl`, `Pushalot`, \
+`Nextcloud`, `NextcloudTalk`, `Notica`, `NotificationAPI`, `Notifiarr`, \
+`Notifico`, `ntfy`, `Office365`, `OneSignal`, `Opsgenie`, `PagerDuty`, \
+`PagerTree`, `ParsePlatform`, `Plivo`, `PopcornNotify`, `Prowl`, `Pushalot`, \
 `PushBullet`, `Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, \
-`Pushy`, `PushDeer`, `QQ Push`, `Revolt`, `Reddit`, `Resend`, `Rocket.Chat`, \
-`RSyslog`, `SendGrid`, `SendPulse`, `ServerChan`, `Seven`, `SFR`, `Signal`, \
-`SIGNL4`, `SimplePush`, `Sinch`, `Slack`, `SMPP`, `SMSEagle`, `SMS Manager`, \
-`SMTP2Go`, `SparkPost`, `Splunk`, `Spike`, `Spug Push`, `Super Toasty`, \
-`Streamlabs`, `Stride`, `Synology Chat`, `Syslog`, `Techulus Push`, \
-`Telegram`, `Threema Gateway`, `Twilio`, `Twitter`, `Twist`, `Vapid`, \
-`VictorOps`, `Voipms`, `Vonage`, `WebPush`, `WeCom Bot`, `WhatsApp`, \
-`Webex Teams`, `Workflows`, `WxPusher`, and `XBMC`.}
+`Pushy`, `PushDeer`, `QQ Push`, `Revolt`, `Reddit`, `Resend`, \
+`Rocket.Chat`, `RSyslog`, `SendGrid`, `SendPulse`, `ServerChan`, `Seven`, \
+`SFR`, `Signal`, `SIGNL4`, `SimplePush`, `Sinch`, `Slack`, `SMPP`, \
+`SMSEagle`, `SMS Manager`, `SMTP2Go`, `SparkPost`, `Splunk`, `Spike`, \
+`Spug Push`, `Super Toasty`, `Streamlabs`, `Stride`, `Synology Chat`, \
+`Syslog`, `Techulus Push`, `Telegram`, `Threema Gateway`, `Twilio`, \
+`Twitter`, `Twist`, `Vapid`, `VictorOps`, `Voipms`, `Vonage`, `WebPush`, \
+`WeCom Bot`, `WhatsApp`, `Webex Teams`, `Workflows`, `WxPusher`, and `XBMC`.}
 
 Name:           python-%{pypi_name}
-Version:        1.9.5
+Version:        1.9.6
 Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
@@ -86,15 +89,15 @@ URL:            https://github.com/caronc/%{pypi_name}
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Obsoletes: python%{python3_pkgversion}-%{pypi_name} < %{version}-%{release}
-Provides: python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
-
 %description %{common_description}
 
 %package -n %{pypi_name}
 Summary: Notify messaging platforms from the command line
 
-Requires: python%{python3_pkgversion}-click >= 5.0
+Obsoletes: %{pypi_name} < %{version}-%{release}
+Provides: %{pypi_name} = %{version}-%{release}
+
+Requires: python3dist(click) >= 5.0
 Requires: python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
 
 %description -n %{pypi_name}
@@ -104,39 +107,43 @@ services.
 
 %package -n python%{python3_pkgversion}-%{pypi_name}
 Summary: A simple wrapper to many popular notification services used today
+
+Obsoletes: python%{python3_pkgversion}-%{pypi_name} < %{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 BuildRequires: gettext
 BuildRequires: python%{python3_pkgversion}-devel
+
 %if %{legacy_python_build}
-# backwards compatible
-BuildRequires: python%{python3_pkgversion}-setuptools
+BuildRequires: python3dist(setuptools)
 %endif
-BuildRequires: python%{python3_pkgversion}-wheel
-BuildRequires: python%{python3_pkgversion}-requests
-BuildRequires: python%{python3_pkgversion}-requests-oauthlib
-BuildRequires: python%{python3_pkgversion}-click >= 5.0
-BuildRequires: python%{python3_pkgversion}-markdown
-BuildRequires: python%{python3_pkgversion}-yaml
-BuildRequires: python%{python3_pkgversion}-babel
-BuildRequires: python%{python3_pkgversion}-cryptography
-BuildRequires: python%{python3_pkgversion}-certifi
-BuildRequires: python%{python3_pkgversion}-paho-mqtt
-BuildRequires: python%{python3_pkgversion}-tox
-Requires: python%{python3_pkgversion}-requests
-Requires: python%{python3_pkgversion}-requests-oauthlib
-Requires: python%{python3_pkgversion}-markdown
-Requires: python%{python3_pkgversion}-cryptography
-Requires: python%{python3_pkgversion}-certifi
-Requires: python%{python3_pkgversion}-yaml
-Recommends: python%{python3_pkgversion}-paho-mqtt
+
+BuildRequires: python3dist(wheel)
+BuildRequires: python3dist(requests)
+BuildRequires: python3dist(requests-oauthlib)
+BuildRequires: python3dist(click) >= 5.0
+BuildRequires: python3dist(markdown)
+BuildRequires: python3dist(pyyaml)
+BuildRequires: python3dist(babel)
+BuildRequires: python3dist(cryptography)
+BuildRequires: python3dist(certifi)
+BuildRequires: python3dist(tox)
 
 %if %{with tests}
-BuildRequires: python%{python3_pkgversion}-pytest
-BuildRequires: python%{python3_pkgversion}-pytest-mock
-BuildRequires: python%{python3_pkgversion}-pytest-runner
-BuildRequires: python%{python3_pkgversion}-pytest-cov
+BuildRequires: python3dist(pytest)
+BuildRequires: python3dist(pytest-mock)
+BuildRequires: python3dist(pytest-runner)
+BuildRequires: python3dist(pytest-cov)
 %endif
+
+Requires: python3dist(requests)
+Requires: python3dist(requests-oauthlib)
+Requires: python3dist(markdown)
+Requires: python3dist(cryptography)
+Requires: python3dist(certifi)
+Requires: python3dist(pyyaml)
+
+Recommends: python3dist(paho-mqtt)
 
 %if 0%{?legacy_python_build} == 0
 # Logic for non-RHEL ≤ 9 systems
@@ -199,22 +206,20 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
-%doc README.md ACKNOWLEDGEMENTS.md CONTRIBUTING.md
+%doc SECURITY.md README.md ACKNOWLEDGEMENTS.md CONTRIBUTING.md
 %{python3_sitelib}/%{pypi_name}/
 # Exclude i18n as it is handled below with the lang(spoken) tag below
 %exclude %{python3_sitelib}/%{pypi_name}/cli.*
-
-# Handle egg-info to dist-info transfer
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-%{python3_sitelib}/apprise-*.dist-info/
-%else
-%{python3_sitelib}/apprise-*.egg-info
-%endif
+%exclude %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %if %{legacy_python_build}
+# Handle egg-info vs. dist-info based on build backend
+%{python3_sitelib}/apprise-*.egg-info
 # Legacy: include all compiled locales that we produced under the package tree
-%{python3_sitelib}/%{pypi_name}/i18n/*/LC_MESSAGES/apprise.mo
+%lang(en) %{python3_sitelib}/%{pypi_name}/i18n/en/LC_MESSAGES/apprise.mo
 %else
+# Handle egg-info vs. dist-info based on build backend
+%{python3_sitelib}/apprise-*.dist-info/
 # Localised Files
 %exclude %{python3_sitelib}/%{pypi_name}/i18n/
 %lang(en) %{python3_sitelib}/%{pypi_name}/i18n/en/LC_MESSAGES/apprise.mo
@@ -223,10 +228,13 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %files -n %{pypi_name}
 %{_bindir}/%{pypi_name}
 %{_mandir}/man1/%{pypi_name}.1*
-%{python3_sitelib}/%{pypi_name}/cli.*
+%{python3_sitelib}/%{pypi_name}/cli.py
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Sun Dec  7 2025 Chris Caron <lead2gold@gmail.com> - 1.9.6-1
+- Updated to v1.9.6
+
 * Tue Sep 30 2025 Chris Caron <lead2gold@gmail.com> - 1.9.5-1
 - Updated to v1.9.5
 

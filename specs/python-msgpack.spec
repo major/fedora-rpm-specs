@@ -1,8 +1,8 @@
 %global srcname msgpack
 
 Name:           python-%{srcname}
-Version:        1.1.0
-Release:        6%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Python MessagePack (de)serializer
 
 License:        Apache-2.0
@@ -59,6 +59,9 @@ make cython
 %license COPYING
 
 %changelog
+* Thu Nov 27 2025 Orion Poplawski <orion@nwra.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

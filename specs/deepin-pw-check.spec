@@ -8,7 +8,7 @@
 Version:                6.0.6
 %global tag             6.0.6
 
-%gometa -L -f
+%gometa -L
 
 Name:           deepin-pw-check
 Release:        %autorelease

@@ -1,6 +1,6 @@
 Name: plug
-Version: 1.4.5
-Release: 6%{?dist}
+Version: 1.5.0
+Release: 1%{?dist}
 Summary: Linux software for Fender Mustang amplifiers
 License: GPL-3.0-or-later
 Url: https://github.com/offa/plug
@@ -9,9 +9,9 @@ Source0: https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar
 
 BuildRequires: cmake
 BuildRequires: systemd-rpm-macros
-BuildRequires: pkgconfig(Qt5Gui)
-BuildRequires: pkgconfig(Qt5Widgets)
-BuildRequires: pkgconfig(Qt5Network)
+BuildRequires: pkgconfig(Qt6Gui)
+BuildRequires: pkgconfig(Qt6Widgets)
+BuildRequires: pkgconfig(Qt6Network)
 BuildRequires: pkgconfig(libusb-1.0)
 BuildRequires: desktop-file-utils
 # For unittests.
@@ -56,6 +56,9 @@ make unittest -C %__cmake_builddir
 
 
 %changelog
+* Sun Dec 07 2025 Dan Horák <dan[at]danny.cz> - 1.5.0-1
+- Updated to 1.5.0 (rhbz#2419374)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

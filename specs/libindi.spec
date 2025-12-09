@@ -3,8 +3,8 @@
 ExcludeArch:    %{ix86}
 
 # Define boolean to quickly set option and dependencies for
-# building QT5 client
-%global build_qt5_client 1
+# building QT5/6 client
+%global build_qt_client 1
 
 # Define boolean to quickly set option and dependencies for
 # building with system libraries
@@ -20,7 +20,7 @@ ExcludeArch:    %{ix86}
 %global build_tests 1
 
 Name:       libindi
-Version:    2.1.6
+Version:    2.1.7
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -46,9 +46,12 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: cpp-httplib-static
 %global system_jsonlib ON
 BuildRequires: json-static
+%global system_hidlib ON
+BuildRequires: pkgconfig(hidapi-libusb)
 %else
 %global system_httplib OFF
 %global system_jsonlib OFF
+%global system_hidlib OFF
 %endif
 
 BuildRequires: pkgconfig(cfitsio)
@@ -59,11 +62,11 @@ BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libusb-1.0)
 BuildRequires: pkgconfig(zlib)
 
-%if 0%{?build_qt5_client}
-BuildRequires: pkgconfig(Qt5Network)
-%global qt5_client ON
+%if 0%{?build_qt_client}
+BuildRequires: pkgconfig(Qt6Network)
+%global qt_client ON
 %else
-%global qt5_client OFF
+%global qt_client OFF
 %endif
 
 %if 0%{?build_tests}
@@ -77,10 +80,10 @@ BuildRequires: pkgconfig(gmock)
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 Provides: bundled(fpack) = 1.7.0
-Provides: bundled(hidapi)
 %if %{without system_libs}
 Provides: bundled(httplib) = 0.12.4
 Provides: bundled(json) = 3.10.5
+Provides: bundled(hidapi)
 %endif
 
 # indi-3rdparty-* have been orphaned and no more provided in Fedora repos
@@ -142,14 +145,17 @@ chmod -x drivers/telescope/pmc8driver.cpp
 rm -rf libs/httplib
 # Remove bundled json library
 rm -rf libs/nlohmann
+# Remove bundled hidapi library
+rm -rf libs/hid
 %endif
 
 %build
 %cmake \
-    -DINDI_BUILD_QT5_CLIENT="%{qt5_client}" \
+    -DINDI_BUILD_QT_CLIENT="%{qt_client}" \
     -DINDI_BUILD_UNITTESTS="%{tests}" \
     -DINDI_SYSTEM_HTTPLIB="%{system_httplib}" \
-    -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}"
+    -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}" \
+    -DINDI_SYSTEM_HIDAPILIB="%{system_hidlib}"
 
 %cmake_build
 

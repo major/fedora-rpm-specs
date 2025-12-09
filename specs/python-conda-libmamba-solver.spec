@@ -3,7 +3,7 @@
 %bcond tests 0
 
 Name:           python-%{srcname}
-Version:        25.4.0
+Version:        25.11.0
 Release:        %autorelease
 Summary:        The libmamba based solver for conda
 

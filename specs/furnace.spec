@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/tildearrow/furnace
-Version:        0.6.7
+Version:        0.6.8.3
 %forgemeta
 
 Name:           furnace
@@ -25,8 +25,14 @@ Source0:        %{forgesource}
 # download adpcm bundled library from the specfic commit
 Source1:        https://github.com/superctr/adpcm/archive/ef7a217154badc3b99978ac481b268c8aab67bd8.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  ninja-build
+
+BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(freetype2)
@@ -35,7 +41,7 @@ BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(rtmidi)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(jack)
+
 BuildRequires:  desktop-file-utils
 
 Requires:       hicolor-icon-theme
@@ -57,7 +63,7 @@ This package contains documentation for %{name}.
 tar xf %{SOURCE1} -C extern/adpcm --strip-components=1
 
 %build
-%cmake \
+%cmake -GNinja \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DUSE_FREETYPE=ON \
     -DSYSTEM_FFTW=ON \
@@ -86,13 +92,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/furnace.desktop
 %{_datadir}/icons/hicolor/*/apps/furnace.png
 %dir %{_datadir}/furnace
-%{_datadir}/furnace/demos/
 %{_datadir}/furnace/instruments/
 %{_datadir}/furnace/wavetables/
 %{_datadir}/mime/packages/furnace.xml
 
 %files doc
-%license LICENSE
 %{_datadir}/doc/furnace/
 
 %changelog

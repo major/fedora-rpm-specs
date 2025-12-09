@@ -1,26 +1,27 @@
 Name:           python3-mypy
 Version:        1.18.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A static type checker for Python
-%{?python_provide:%python_provide python3-mypy}
 
 # The files under lib-python and lib-typing/3.2 are Python-licensed, but this
 # package does not include those files
 # mypy/typeshed is ASL 2.0
-License:        MIT and Apache-2.0 
+License:        MIT and Apache-2.0
 URL:            https://github.com/python/mypy
 Source0:        https://github.com/python/mypy/archive/v%{version}/mypy-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-typing-extensions
 BuildRequires:  (python3-tomli if python3 < 3.11)
 BuildRequires:  python3-pathspec
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-cov
+BuildRequires:  python3-pytest-xdist
+BuildRequires:  python3-attrs
+BuildRequires:  python3-filelock
+BuildRequires:  python3-lxml
+BuildRequires:  python3-psutil
 Requires:  python3-typing-extensions
-
-# Remove for f38+
-Obsoletes: python-typeshed < 1:0.1-1
-Provides: python-typeshed = 1:0.1-0.20191011git2
 
 # Needed to generate the man pages
 BuildRequires:  help2man
@@ -35,17 +36,20 @@ annotations introduced in Python 3.5 beta 1 (PEP 484), and use mypy to
 type check them statically. Find bugs in your programs without even
 running them!
 
-%python_extras_subpkg -n %{name} -i %{python3_sitelib}/mypy-*.egg-info dmypy,mypyc,reports,install-types,faster-cache
+%python_extras_subpkg -n %{name} -i %{python3_sitelib}/mypy-*.dist-info dmypy,mypyc,reports,install-types,faster-cache
 
 %prep
 %autosetup -n mypy-%{version} -p1
-rm -vrf *.egg-info/
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mypy mypyc
 
 # Generate man pages
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -59,21 +63,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
         --no-discard-stderr -o %{buildroot}%{_mandir}/man1/stubgen.1 \
         %{buildroot}%{_bindir}/stubgen
 
-%pre
-# Remove for f38+
-%pretrans -p <lua>
-path = "%{python3_sitelib}/mypy/typeshed"
-st = posix.stat(path)
-if st and st.type == "link" then
-  os.remove(path)
-end
 
-%files
-%license LICENSE
+%check
+%pyproject_check_import
+#%%pytest -k "not testI64BasicOps and not testI64ErrorValuesAndUndefined and not testI64DefaultArgValues and not testI64GlueMethodsAndInheritance and not testBoolOps"
+
+%files -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/mypy
-%{python3_sitelib}/mypy-*.egg-info
-%{python3_sitelib}/mypyc
 %{_bindir}/mypy
 %{_bindir}/mypyc
 %{_bindir}/dmypy
@@ -83,6 +79,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Fri Dec 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.18.2-3
+- Use modern macros
+
 * Thu Oct 09 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.2-2
 - Package the Python extras
 

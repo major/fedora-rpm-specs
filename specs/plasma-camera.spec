@@ -1,5 +1,5 @@
 Name:          plasma-camera
-Version:       2.1.0
+Version:       2.1.1
 Release:       1%{?dist}
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-later
 Summary:       Camera application for Plasma Mobile
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.plasma.camera.appdata.xml
 
 %changelog
+* Mon Dec 08 2025 Steve Cossette <farchord@gmail.com> - 2.1.1-1
+- 2.1.1
+
 * Fri Nov 07 2025 Steve Cossette <farchord@gmail.com> - 2.1.0-1
 - 2.1.0
 

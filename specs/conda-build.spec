@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda-build
-Version:        25.11.0
+Version:        25.11.1
 Release:        %autorelease
 Summary:        Commands and tools for building conda packages
 # version.py is BSD-2-Clause

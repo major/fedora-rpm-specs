@@ -2,7 +2,7 @@
 %bcond adblock 1
 
 Name:    kdepim-addons
-Version: 25.11.90
+Version: 25.12.0
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
@@ -23,11 +23,6 @@ ExcludeArch:   %{ix86}
 %endif
 
 ## upstream patches
-# package fails to build. 3 Patches have been made upstream to fix it. Should be unneeded
-# by the time 25.12 final releases.
-Patch0: 1652378ade7b093a39dffb86dbc5367362649fee.patch
-Patch1: 12f7239bc425aa4354c29d28e4dda133e553b447.patch
-Patch2: f737f945c4de1dd12a112b94f7ca723fbe708d67.patch
 
 ## upstream patches (master)
 
@@ -205,6 +200,9 @@ popd
 
 
 %changelog
+* Sun Dec 07 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Fri Nov 28 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

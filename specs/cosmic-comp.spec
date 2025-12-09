@@ -43,7 +43,8 @@ BuildRequires:  pixman-devel
 BuildRequires:  libdisplay-info-devel
 BuildRequires:  make
 
-Requires:       libseat
+Requires:       libseat%{?_isa}
+Requires:       libwayland-server%{?_isa}
 Requires:       xorg-x11-server-Xwayland
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 

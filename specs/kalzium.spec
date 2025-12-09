@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:    kalzium
 Summary: Periodic Table of Elements
-Version: 25.11.90
+Version: 25.12.0
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -153,6 +153,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_c
 
 
 %changelog
+* Sun Dec 07 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
+- 25.12.0
+
 * Sat Nov 29 2025 Steve Cossette <farchord@gmail.com> - 25.11.90-1
 - 25.11.90
 

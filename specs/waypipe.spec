@@ -4,14 +4,11 @@
 # prevent library files from being installed
 %global cargo_install_lib 0
 
-# Default features in Cargo.toml, except:
-# video: requires ffmpeg (not included in RHEL)
-# test_proto: only needed in %%check
-%global features %{!?rhel:video,}dmabuf,lz4,zstd,gbmfallback
+# test_proto is only needed in %%check
 %global test_features test_proto
 
 Name:           waypipe
-Version:        0.10.5
+Version:        0.10.6
 Release:        %autorelease
 Summary:        Wayland forwarding proxy
 
@@ -27,8 +24,10 @@ License:        GPL-3.0-or-later AND (Apache-2.0 OR MIT) AND ISC AND MIT
 URL:            https://gitlab.freedesktop.org/mstoeckl/waypipe
 Source0:        https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:        waypipe.1
-Patch1:         license.patch
-Patch2:         cargo-workspace.patch
+Patch1:         0001-Cargo.toml-features-remove-test_proto-from-defaults.patch
+%if 0%{?rhel}
+Patch2:         0002-Cargo.toml-features-remove-video-from-defaults-for-r.patch
+%endif
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  bindgen-cli
@@ -65,10 +64,10 @@ BuildRequires:  pkgconfig(wayland-server)
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -n -f %{features},%{test_features}
+%cargo_generate_buildrequires -f %{test_features}
 
 %build
-%cargo_build -n -f %{features}
+%cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %if !0%{?rhel}
@@ -76,7 +75,7 @@ scdoc < waypipe.scd > waypipe.1
 %endif
 
 %install
-%cargo_install -n -f %{features}
+%cargo_install
 %if !0%{?rhel}
 install -D -p -m 0644 waypipe.1 %{buildroot}%{_mandir}/man1/waypipe.1
 %else
@@ -85,7 +84,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/waypipe.1
 
 %if %{with check}
 %check
-%cargo_test -n -f %{features},%{test_features}
+%cargo_test -f %{test_features}
 %endif
 
 %files

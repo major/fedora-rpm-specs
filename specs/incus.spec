@@ -17,8 +17,20 @@ Version:        6.18
 %global godocs AUTHORS CODE_OF_CONDUCT.md CONTRIBUTING.md README.md SECURITY.md
 %global golicenses COPYING
 
+
+# Set build macro for static builds
+%define gocompilerflags_static -compiler gc
+%define gobuild_baseflags_static %{gocompilerflags_static} -tags="rpm_crashtraceback ${GO_BUILDTAGS-${BUILDTAGS-}}" -a -v
+%define gobuild_ldflags_static ${GO_LDFLAGS-${LDFLAGS-}} %{?currentgoldflags} -B 0x$(echo "%{name}-%{version}-%{release}-${SOURCE_DATE_EPOCH:-}" | sha1sum | cut -d ' ' -f1) -compressdwarf=false
+%define gobuildflags_static() %{expand:%{gobuild_baseflags_static} -ldflags "%{gobuild_ldflags_static}"}
+%define gobuild_static(-) %{expand:
+  %{?gobuilddir:GOPATH="%{gobuilddir}:${GOPATH:+${GOPATH}:}%{?gopath}"} %{?gomodulesmode} \\
+  CGO_ENABLED=0 go build %{gobuildflags_static} %{?**};
+}
+
+
 Name:           incus
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -347,14 +359,9 @@ for cmd in incus fuidshift incus-benchmark lxc-to-incus lxd-to-incus; do
     BUILDTAGS="libsqlite3" %gobuild -o %{gobuilddir}/bin/$cmd %{goipath}/cmd/$cmd
 done
 
-#export CGO_ENABLED=0
-BUILDTAGS="netgo" %gobuild -o %{gobuilddir}/bin/incus-migrate %{goipath}/cmd/incus-migrate
-
-# Build incus-agent statically (cf. rhbz#2419661)
-%define __golang_extldflags -static
-BUILDTAGS="agent netgo" %gobuild -o %{gobuilddir}/bin/incus-agent %{goipath}/cmd/incus-agent
-%undefine __golang_extldflags
-#unset CGO_ENABLED
+# Build incus-migrate and incus-agent statically (cf. rhbz#2419661)
+BUILDTAGS="netgo" %gobuild_static -o %{gobuilddir}/bin/incus-migrate %{goipath}/cmd/incus-migrate
+BUILDTAGS="agent netgo" %gobuild_static -o %{gobuilddir}/bin/incus-agent %{goipath}/cmd/incus-agent
 
 # build shell completions
 mkdir %{gobuilddir}/completions
@@ -461,6 +468,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Sun Dec 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.18-3
+- Build incus-migrate and incus-migrate with cgo disabled
+
 * Sat Dec 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.18-2
 - Build incus-agent as a fully statically linked binary (rhbz#2419661)
 

@@ -1,6 +1,8 @@
 # epel 8 need this other already have it
 %undefine __cmake_in_source_build
 
+# developper recommendation
+%global toolchain clang
 
 # Uncomment for special build to rebuild aom on bumped soname.
 #global new_soname 1
@@ -37,7 +39,7 @@ Source2:        testdata-%{version}.tar.gz
 BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  doxygen
-BuildRequires:  gcc-c++
+BuildRequires:  clang
 BuildRequires:  giflib-devel
 %if %{with tcmalloc}
 BuildRequires:  gperftools-devel
@@ -146,6 +148,7 @@ rm -rf testdata/ third_party/
 %setup -q -T -D -a 1 -a 2 -n libjxl-%{version}
 
 %build
+export CC=clang CXX=clang++
 %cmake  -DENABLE_CCACHE=1 \
         -DBUILD_TESTING=ON \
         -DINSTALL_GTEST:BOOL=OFF \

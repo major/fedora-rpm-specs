@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -147,6 +147,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Sun Dec 07 2025 Richard Shaw <hobbes1069@gmail.com> - 0.2.0^20240825git617ff87-13
+- Rebuild for OpenImageIO 3.1.
+
 * Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 0.2.0^20240825git617ff87-12
 - Rebuild (qt6)
 

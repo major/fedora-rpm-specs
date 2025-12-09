@@ -1,5 +1,5 @@
 Name:           xdg-desktop-portal-wlr
-Version:        0.8.0
+Version:        0.8.1
 Release:        1%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
@@ -83,6 +83,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Thu Dec 04 2025 Tomasz Hołubowicz <mail@alternateved.com> - 0.8.1-1
+- Update to 0.8.1
+
 * Tue Oct 21 2025 Tomasz Hołubowicz <mail@alternateved.com> - 0.8.0-1
 - Update to 0.8.0
 

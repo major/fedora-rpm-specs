@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           cargo-rpm-macros
-Version:        28.1
+Version:        28.2
 Release:        %autorelease
 Summary:        RPM macros and generators for building Rust packages with cargo
 License:        MIT
@@ -57,6 +57,7 @@ RPM macros for building source packages for Rust projects.
 # nothing to do
 
 %install
+install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.aaa-cargo-srpm
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.cargo
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.cargo-buildsys
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust
@@ -85,6 +86,7 @@ pytest -vv
 %if ! 0%{?rhel}
 %files -n rust-srpm-macros
 %license LICENSE
+%{_rpmmacrodir}/macros.aaa-cargo-srpm
 %{_rpmmacrodir}/macros.rust
 %{_rpmmacrodir}/macros.rust-srpm
 %endif

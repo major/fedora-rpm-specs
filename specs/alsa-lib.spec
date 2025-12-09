@@ -2,14 +2,14 @@
 #define  prever_dot .rc3
 #define  postver    a
 
-%define version_alsa_lib  1.2.14
-%define version_alsa_ucm  1.2.14
+%define version_alsa_lib  1.2.15
+%define version_alsa_ucm  1.2.15
 %define version_alsa_tplg 1.2.5
 
 Summary:  The Advanced Linux Sound Architecture (ALSA) library
 Name:     alsa-lib
 Version:  %{version_alsa_lib}
-Release:  4%{?prever_dot}%{?dist}
+Release:  1%{?prever_dot}%{?dist}
 License:  LGPL-2.1-or-later
 URL:      http://www.alsa-project.org/
 
@@ -19,8 +19,8 @@ Source2:  ftp://ftp.alsa-project.org/pub/lib/alsa-topology-conf-%{version_alsa_t
 Source10: asound.conf
 Source11: modprobe-dist-alsa.conf
 Source12: modprobe-dist-oss.conf
-Source40: alsa-ucm-conf.patch
-Patch0:   alsa-git.patch
+#Source40: alsa-ucm-conf.patch
+#Patch0:   alsa-git.patch
 Patch1:   alsa-lib-1.2.3.1-config.patch
 Patch2:   alsa-lib-1.2.10-glibc-open.patch
 
@@ -70,7 +70,7 @@ contains alsa-lib configuration of SoC topology
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}%{?postver}
-%patch -P0 -p1 -b .alsa-git
+#patch -P0 -p1 -b .alsa-git
 %patch -P1 -p1 -b .config
 %patch -P2 -p1 -b .glibc-open
 
@@ -116,7 +116,7 @@ mkdir -p %{buildroot}/%{_datadir}/alsa/ucm2
 
 # Unpack UCMs
 tar xvjf %{SOURCE1} -C %{buildroot}/%{_datadir}/alsa --strip-components=1 "*/ucm" "*/ucm2"
-patch -d %{buildroot}/%{_datadir}/alsa -p1 < %{SOURCE40}
+#patch -d %{buildroot}/%{_datadir}/alsa -p1 < %{SOURCE40}
 
 # Create topology directory
 mkdir -p %{buildroot}/%{_datadir}/alsa/topology
@@ -167,10 +167,13 @@ rm %{buildroot}/%{_includedir}/asoundlib.h
 %{_datadir}/alsa/topology
 
 %changelog
+* Sun Dec  7 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15-1
+- update to 1.2.15
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Tue Jan 24 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-3
+* Tue Jun 24 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-3
 - update to latest alsa-ucm-conf files
 
 * Mon Apr 14 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-2

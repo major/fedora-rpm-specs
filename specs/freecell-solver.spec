@@ -3,8 +3,8 @@
 %global develname lib%{name}-devel
 
 Name: freecell-solver
-Version: 6.14.0
-Release: 5%{?dist}
+Version: 6.16.0
+Release: 1%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
 URL: https://fc-solve.shlomifish.org/
@@ -190,6 +190,9 @@ done
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Sun Dec 07 2025 Shlomi Fish <shlomif@shlomifish.org> 6.16.0-1
+- New upstream version.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.14.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

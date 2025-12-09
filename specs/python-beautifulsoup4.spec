@@ -8,15 +8,16 @@
 %endif
 
 Name:           python-beautifulsoup4
-Version:        4.14.2
+Version:        4.14.3
 Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
+# Patch from upstream
+Patch0:         0001-Skip-the-lxml-tree-builder-s-test_surrogate_in_chara.patch
 # https://git.launchpad.net/beautifulsoup/commit/?id=9786a62726de5a8caba10021c4d4a58c8a3e9e3f
 Patch11:        beautifulsoup4-4.13-disable-soupsieve.patch
-
 BuildArch:      noarch
 # html5lib BR just for test coverage
 %if %{with tests}
@@ -63,13 +64,11 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %description -n python3-beautifulsoup4 %_description
 
 %prep
-%autosetup -p1 -N -n beautifulsoup4-%{version}
+%autosetup -N -n beautifulsoup4-%{version}
+%autopatch -p1 -M 10
 %if %{without soupsieve}
 %autopatch -p1 -m 10
 %endif
-# Fix compatibility with lxml 5.3.0
-# Reported upstream: https://bugs.launchpad.net/beautifulsoup/+bug/2076897
-sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests: -t}
@@ -93,6 +92,9 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Fri Dec 05 2025 Terje Rosten <terjeros@gmail.com> - 4.14.3-1
+- 4.14.3
+
 * Mon Sep 29 2025 Terje Rosten <terjeros@gmail.com> - 4.14.2-1
 - 4.14.2
 

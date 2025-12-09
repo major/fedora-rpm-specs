@@ -11,25 +11,27 @@ URL:            https://coin-or.github.io/pulp/
 %global forgeurl https://github.com/coin-or/pulp
 Source:         %{forgeurl}/archive/%{version}/pulp-%{version}.tar.gz
 
-# Do not install bundled cbc; downstream-only, as upstream obviously wants to
-# keep bundling.
-Patch:          0001-Remove-bundled-cbc.patch
 # Downstream-only: handle system cbc renamed to Cbc
 #
 # Beginning with Fedora 42, the cbc executable in coin-or-Cbc is renamed to Cbc
 # due to a file conflict with libcouchbase-tools (RHBZ#2335063).
-Patch:          0002-Downstream-only-handle-system-cbc-renamed-to-Cbc.patch
+Patch:          0001-Downstream-only-handle-system-cbc-renamed-to-Cbc.patch
 # Skip HiGHS_CMDTest.test_time_limit_no_solution
 #
 # A temporary downstream workaround for
 # https://github.com/coin-or/pulp/issues/832.
-Patch:          0003-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
+Patch:          0002-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
 # Expect SCIP_PY to report unbounded problems the same way as SCIP_CMD
 #
 # This seems to have changed from scip 9.2.0 to 9.2.2; we cannot usefully
 # report it upstream until PySCIPOpt releases binary PyPI wheels based on
 # scip 9.2.2 or later.
-Patch:          0004-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
+Patch:          0003-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
+# Skip HiGHS_CMDTest.test_relaxed_mip
+#
+# A temporary downstream workaround for
+# https://github.com/coin-or/pulp/issues/887#issuecomment-3621838359
+Patch:          0004-Skip-HiGHS_CMDTest.test_relaxed_mip.patch
 
 # These alternative solvers appear to be free software, but are not packaged.
 # - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
@@ -78,13 +80,15 @@ BuildOption(generate_buildrequires): %{shrink:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  symlinks
+
 # let tests run on all arches
 %global debug_package %{nil}
 
 %global _description %{expand:
 PuLP is an linear and mixed integer programming modeler written in Python.
 
-With PuLP, it is simple to create MILP optimisation problems and solve them
+With PuLP, it is simple to create MILP optimization problems and solve them
 with the latest open-source (or proprietary) solvers. PuLP can generate MPS or
 LP files and call solvers such as GLPK, COIN-OR CLP/CBC, CPLEX, GUROBI, MOSEK,
 XPRESS, CHOCO, MIPCL, HiGHS, SCIP/FSCIP.}
@@ -98,12 +102,10 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 # Normally bundled with pulp, but we do not ship the bundled copy (both to
-# avoid bundling, and because it is a precompiled executable). We could fake it
-# using the system coin-or-Cbc, but we would rather not do so unless something
-# really needs PULP_CBC_CMD in particular.
+# avoid bundling, and because it is a precompiled executable). Instead, we fake
+# it using the system coin-or-Cbc, making it equivalent to COIN_CMD. Therefore,
+# coin-or-Cbc is a hard dependency, and COIN_CMD is always available.
 # - PULP_CBC_CMD
-# Since we removed PULP_CBC_CMD, we make COIN_CMD (the closest equivalent) a
-# hard dependency.
 # - COIN_CMD
 BuildRequires:  coin-or-Cbc
 Requires:       coin-or-Cbc
@@ -131,21 +133,38 @@ Recommends:     python3-pulp+scip = %{version}-%{release}
 %description -n python3-pulp %_description
 
 
-%pyproject_extras_subpkg -n python3-pulp highs scip
+%pyproject_extras_subpkg -n python3-pulp -a highs scip
 
 
 %prep -a
-# remove bundled/precompiled cbc
-rm -rf pulp/solverdir/cbc
-# remove bundled/precompiled libraries/executables: currently, CoinMP.dll
+# For architectures that may be covered by our noarch package, replace the
+# bundled cbc executables with symbolic links to the system one. Basically, we
+# are “faking” the PULP_CBC_CMD by making it equivalent to COIN_CMD.
+#
+# Note that beginning with Fedora 42, the cbc executable in coin-or-Cbc is
+# renamed to Cbc due to a file conflict with libcouchbase-tools (RHBZ#2335063).
+#
+# We link into /usr/bin rather than %%{_bindir} because these will be
+# dereferenced in the build environment during %%build; we form relative
+# symbolic links in the buildroot using %%{_bindir} in %%install.
+find pulp/solverdir/cbc/linux -type f -executable \
+    -exec ln -s -v -f '/usr/bin/Cbc' '{}' ';'
+# Remove remaining bundled cbc executables
+find pulp/solverdir/cbc -type f \
+    \( -executable -o -name '*.exe' \) -print -delete
+# Remove EPL-1.0 license files for bundled cbc executables, since they are no
+# longer present.
+find pulp/solverdir/cbc -type f -name coin-license.txt -print -delete
+
+# Remove other bundled/precompiled libraries/executables: currently, CoinMP.dll.
+# We have tried to make this heuristic broad enough to be a useful backstop in
+# case we miss something in manual auditing.
 find pulp/solverdir -type f \
-    \( -name '*.dll' -o -name '*.so' -o -executable \) \
+    \( -executable -o -name '*.dll' -o -name '*.so' -o -name '*.so.*' \) \
     -print -delete
 
 # Increase test verbosity
-sed -r \
-    -e 's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' \
-    -i pulp/tests/run_tests.py
+sed -r -i 's/(runner.*TestRunner)\(\)/\1(verbosity=2)/' pulp/tests/run_tests.py
 
 
 %install -a
@@ -156,9 +175,28 @@ sed -r -i '1{/^#!/d}' '%{buildroot}%{python3_sitelib}/pulp/pulp.py'
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_shebangs
 %py3_shebang_fix '%{buildroot}%{python3_sitelib}/pulp'
 
+# The symbolic links to the system cbc solver will have been dereferenced
+# during “wheelification,” and the system executable will have been bundled.
+# Restore the symbolic links, now within the buildroot, and make them relative.
+#
+# Begin by temporarily making absolute symlinks within the buildroot *not*
+# dangle, so that symlinks will convert them. Ensure that we clean them up
+# afterward so they don’t affect %%fils.
+install -d '%{buildroot}%{_bindir}'
+ln -s '/usr/bin/Cbc' '%{buildroot}%{_bindir}/Cbc'
+trap 'rm -v %{buildroot}%{_bindir}/Cbc' INT TERM EXIT
+# Now recreate the symlinks and convert to relative.
+find '%{buildroot}%{python3_sitelib}/pulp/solverdir/cbc/linux' \
+    -type f -executable \
+    -exec ln -s -v -f '%{buildroot}%{_bindir}/Cbc' '{}' ';' \
+    -exec symlinks -c '{}' ';'
+
 
 %check -a
 %if %{with tests}
+# Work around dangling relative symlinks in the buildroot.
+ln -s '/usr/bin/Cbc' '%{buildroot}%{_bindir}/Cbc'
+trap 'rm -v %{buildroot}%{_bindir}/Cbc' INT TERM EXIT
 # Using pulptest binary to test the package
 %{py3_test_envvars} pulptest
 %endif

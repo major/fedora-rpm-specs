@@ -4,7 +4,7 @@
 %global srcname pyogrio
 
 Name:           python-%{srcname}
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Vectorized spatial vector file format I/O using GDAL/OGR
 
@@ -61,6 +61,9 @@ cd empty
 %ifarch s390x
 k="${k-}${k+ and }not test_read_list_types[False-.parquet]"
 k="${k-}${k+ and }not test_read_list_types[True-.parquet]"
+k="${k-}${k+ and }not test_read_list_types_columns[False-.parquet-None]"
+k="${k-}${k+ and }not test_read_list_types_columns[False-.parquet-columns1]"
+k="${k-}${k+ and }not test_read_list_types_columns[False-.parquet-columns2]"
 k="${k-}${k+ and }not test_read_list_nested_struct_parquet_file[True]"
 k="${k-}${k+ and }not test_parquet_driver[False]"
 %endif

@@ -1,14 +1,14 @@
-%global repo dde-session-shell
+%global repo dde-session-shell-snipe
 
 Name:           deepin-session-shell
 Version:        6.0.21
 Release:        %autorelease
 Summary:        Deepin Desktop Environment - session-shell module
 License:        GPL-3.0-or-later
-URL:            https://github.com/linuxdeepin/dde-session-shell
+URL:            https://github.com/linuxdeepin/dde-session-shell-snipe
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 # Use registered OnlyShowIn value
-Patch0:         https://github.com/linuxdeepin/dde-session-shell/pull/376.patch
+Patch0:         https://github.com/linuxdeepin/dde-session-shell-snipe/pull/376.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -48,8 +48,6 @@ BuildRequires:  deepin-pw-check-devel
 
 BuildRequires:  desktop-file-utils
 
-Requires:       deepin-network-core
-Requires:       deepin-qt5integration
 # provides needed directories
 Requires:       dbus-common
 Requires:       %{_bindir}/qdbus-qt5

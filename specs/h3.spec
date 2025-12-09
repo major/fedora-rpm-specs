@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/uber/h3
-Version:        4.3.0
+Version:        4.4.1
 %forgemeta
 
 Name:           h3
@@ -23,7 +23,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains development files for %{name}.
+This package contains development files for %{name}.
 
 %prep
 %forgeautosetup -p1
@@ -42,7 +42,7 @@ The %{name}-devel package contains development files for %{name}.
 %check
 %ifarch s390x
 # https://github.com/uber/h3/issues/1019
-%ctest -E testPolygonToCellsReportedExperimental_test103
+%ctest -E 'testPolygonToCellsReportedExperimental_test103|testPolygonToCellsReportedExperimental_test105'
 %else
 %ctest
 %endif

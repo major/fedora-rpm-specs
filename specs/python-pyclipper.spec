@@ -1,7 +1,7 @@
 %global srcname pyclipper
 
 Name:           python-%{srcname}
-Version:        1.3.0.post6
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Cython wrapper for the C++ translation of the Angus Johnson's Clipper library
 
@@ -34,11 +34,6 @@ translation of the Angus Johnson's Clipper library.
 
 # Remove bundled polyclipping.
 rm src/clipper.{cpp,hpp}
-# Remove pre-generated Cython files.
-rm src/pyclipper/*.cpp
-
-# Make setup.py build Cython from source.
-touch dev
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

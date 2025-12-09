@@ -1,10 +1,11 @@
-%bcond_without cppunit
-%bcond_without gtest
-%bcond_without profiling
+%bcond cppunit  1
+%bcond gtest 1
+%bcond profiling 1
+%bcond qpdf 1
 %global forgeurl https://github.com/xournalpp/xournalpp
 
 Name:           xournalpp
-Version:        1.2.8
+Version:        1.2.10
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:        GPL-2.0-or-later
@@ -33,6 +34,9 @@ BuildRequires:  pkgconfig(librsvg-2.0)
 %if %{with profiling}
 BuildRequires:  pkgconfig(libprofiler) >= 2.5
 BuildRequires:  pkgconfig(libtcmalloc) >= 2.5
+%endif
+%if %{with qpdf}
+BuildRequires:  pkgconfig(libqpdf) >= 10.6.0
 %endif
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.0
 BuildRequires:  pkgconfig(libzip) >= 1.0.1

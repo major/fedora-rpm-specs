@@ -4,7 +4,7 @@
 %bcond_with     opencv
 %else
 %bcond_without  ruby
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} <= 43
 %ifarch %{ix86}
 %bcond_with     php
 %else
@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.32.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -33,6 +33,11 @@ Source0:        https://github.com/mltframework/mlt/releases/download/v%{version
 # Fix build with FFmpeg 8
 # https://github.com/mltframework/mlt/pull/1142
 Patch0:         mlt-ffmpeg8.patch
+
+%if 0%{?fedora} > 43
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -284,6 +289,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Thu Dec 04 2025 Jerry James <loganjerry@gmail.com> - 7.32.0-8
+- Do not build for 32-bit x86 in Fedora > 43
+
 * Tue Oct 21 2025 Dominik Mierzejewski <dominik@greysector.net> - 7.32.0-7
 - Fixed build with FFmpeg 8
 

@@ -4,8 +4,8 @@
 %global ver_under %{major}_%{minor}_%{patch}
 
 Name:           opencascade
-Version:        7.9.1
-Release:        5%{?dist}
+Version:        7.9.3
+Release:        1%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 # https://dev.opencascade.org/resources/licensing
@@ -329,6 +329,9 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 
 %changelog
+* Sun Dec 07 2025 Richard Shaw <hobbes1069@gmail.com> - 7.9.3-1
+- Update to 7.9.3.
+
 * Thu Nov 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 7.9.1-5
 - Rebuilt with bootstrapped VTK
 

@@ -85,6 +85,9 @@ Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
 %prep
 %autosetup -p1
 
+# Re-enable dep on conda-libmamba-solver
+sed -i -e '/"conda-libmamba-solver/s/# *//' pyproject.toml
+
 # Do not restrict upper bound of ruamel-yaml
 sed -i -e '/ruamel.yaml/s/,<[0-9.]*//' pyproject.toml
 
