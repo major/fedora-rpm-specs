@@ -1,9 +1,9 @@
 #For git snapshots, set to 0 to use release instead:
 %global usesnapshot 1
 %if 0%{?usesnapshot}
-%global commit 617ff8761250aa4c9f1dd8fde6dec45e0b96639a
+%global commit 8ac191ceb64476b50cd8e16dce7c971fb791af95
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20240825
+%global gitdate 20241204
 %global core_commit 277792824801495e868580ca86f6e7a1b53e4779
 %global core_shortcommit %(c=%{core_commit}; echo ${c:0:7})
 %global kddw_commit 8d2d0a5764f8393cc148a2296d511276a8ffe559
@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        13%{?dist}
+Release:        2%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -40,6 +40,8 @@ Patch2:         %{name}-ffmpeg-7.patch
 Patch3:         %{name}-oiio-3.0.patch
 # fix build with FFmpeg 8.0+
 Patch4:         %{name}-ffmpeg-8.patch
+Patch5:         0001-fix-qt6-arg-format.patch
+Patch6:         0002-fix-qt6-arg-sampleformat.patch
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
@@ -147,6 +149,14 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Tue Dec 09 2025 Richard Shaw <hobbes1069@gmail.com> - 0.2.0^20241204git8ac191c-2
+- Rebuild for OpenImageIO 3.1.
+
+* Mon Dec 08 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.2.0^20241204git8ac191c-1
+- Update to last git commit
+- Add 0001-fix-qt6-arg-format.patch
+- Add 0002-fix-qt6-arg-sampleformat.patch
+
 * Sun Dec 07 2025 Richard Shaw <hobbes1069@gmail.com> - 0.2.0^20240825git617ff87-13
 - Rebuild for OpenImageIO 3.1.
 

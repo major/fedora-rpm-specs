@@ -8,7 +8,7 @@
 %endif
 
 Name:           perl-Object-Pad
-Version:        0.822
+Version:        0.823
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -228,6 +228,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 08 2025 Petr Pisar <ppisar@redhat.com> - 0.823-1
+- 0.823 bump
+
 * Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 0.822-1
 - 0.822 bump
 

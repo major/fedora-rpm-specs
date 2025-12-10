@@ -20,6 +20,8 @@ Patch:     fix_range_parsing.patch
 Patch:     move_parsing_code.patch
 # https://github.com/cronie-crond/cronie/pull/206
 Patch:     crontab-fix-backup-failure.patch
+# https://github.com/cronie-crond/cronie/pull/210
+Patch:     forward-XDG_SESSION_CLASS-to-PAM-for-session-classification.patch
 
 Requires:  dailyjobs
 

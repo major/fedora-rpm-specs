@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -121,7 +121,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "beab972c07d")
+%define commit_id %(echo "8e992ccb1e4")
 
 #----End of Configure Options------------------------------------------------
 
@@ -333,11 +333,16 @@ Patch19: binutils-gold-empty-dwp.patch
 
 #----------------------------------------------------------------------------
 
+# Purpose:  Fix a recently added check to readelf for local symbols that point
+#            beyond the end of a mergeable section.
+# Lifetime: Fixed in 2.46
+Patch96: binutils-readelf-local-syms.patch
+
 # Purpose:  Revert the fixes for PR33577 which introduce a change into the
 #            behaviour of symbol versioning - a behaviour not expected by
 #            other linkers.
 # Lifetime: Fixed in 2.46 (maybe) (hopefully temporary)
-Patch97: binutils-revert-PR33577.patch
+# Patch97: binutils-revert-PR33577.patch
 
 # Purpose:  Remove the Build protected-func-2 without PIE linker tests
 #            as these are currently failing.
@@ -1480,6 +1485,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Dec 08 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-11
+- Rebase to commit 8e992ccb1e4
+
 * Thu Dec 04 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-10
 - Fix testsuite failures for Risc-V target.
 

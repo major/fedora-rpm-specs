@@ -9,6 +9,7 @@ License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
 Source0:        https://download.gnome.org/sources/pyatspi/2.58/%{name}-%{version}.tar.xz
 
+BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(atk) >= 2.11.2
 BuildRequires:  pkgconfig(atspi-2) >= 2.46

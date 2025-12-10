@@ -4,9 +4,9 @@
 
 %global tracker_obsoletes_version 3.8
 
-%if 0%{?rhel}           
-%bcond libstemmer 0           
-%else            
+%if 0%{?rhel}
+%bcond libstemmer 0
+%else
 %bcond libstemmer 1
 %endif
 
@@ -20,7 +20,7 @@ URL:            https://gnome.pages.gitlab.gnome.org/tinysparql/
 Source0:        https://download.gnome.org/sources/tinysparql/3.10/tinysparql-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
-BuildRequires:	gcc
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 %if %{with libstemmer}
@@ -151,7 +151,6 @@ This package contains the documentation for %{name}.
 %{_libdir}/libtinysparql-3.0.so.0*
 %{_libdir}/libtracker-sparql-3.0.so.0*
 %{_libdir}/tinysparql-3.0/
-%{_datadir}/gir-1.0/Tracker-3.0.gir
 
 %files devel
 %license COPYING COPYING.LGPL
@@ -162,6 +161,7 @@ This package contains the documentation for %{name}.
 %{_libdir}/pkgconfig/tracker-sparql-3.0.pc
 %{_datadir}/vala/vapi/tinysparql-3.0.deps
 %{_datadir}/vala/vapi/tinysparql-3.0.vapi
+%{_datadir}/gir-1.0/Tracker-3.0.gir
 %{_datadir}/gir-1.0/Tsparql-3.0.gir
 %{_datadir}/vala/vapi/tracker-sparql-3.0.deps
 %{_datadir}/vala/vapi/tracker-sparql-3.0.vapi

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-570-gf9e61cd446
+%global glibcsrcdir glibc-2.42.9000-601-g866fa41ef8
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 14
+%global baserelease 15
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2397,6 +2397,41 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Dec 08 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-15
+- Auto-sync with upstream branch master,
+  commit 866fa41ef8521ce94ffdacfd6f1f67737899d5c9:
+- libio: null terminate the buffer upon initial allocation in getdelim (Collin Funk)
+- aarch64: Implement AdvSIMD and SVE rsqrt(f) routines (James Chesterman)
+- benchtests: Add benchtests for rsqrt (James Chesterman)
+- benchtests: Add benchtests for rsqrtf (James Chesterman)
+- i386: Fix fmod/fmodf/remainder/remainderf for gcc-12 (Adhemerval Zanella)
+- nptl: Check alignment of pthread structs (Wilco Dijkstra)
+- aarch64: Optimise AdvSIMD atanhf (James Chesterman)
+- aarch64: Optimise AdvSIMD asinhf (James Chesterman)
+- aarch64: Optimise AdvSIMD acoshf (James Chesterman)
+- aarch64: Add tests for glibc.cpu.aarch64_bti behaviour (Yury Khrustalev)
+- aarch64: Support enforcing BTI on dependencies (Yury Khrustalev)
+- aarch64: Add configure checks for BTI support (Yury Khrustalev)
+- aarch64: fix makefile formatting (Yury Khrustalev)
+- aarch64: Optimise AdvSIMD log10 (James Chesterman)
+- aarch64: Optimise AdvSIMD log2 (James Chesterman)
+- aarch64: Optimise AdvSIMD log (James Chesterman)
+- aarch64: Optimise AdvSIMD log1p (James Chesterman)
+- aarch64: Optimise AdvSIMD log10f (James Chesterman)
+- aarch64: Optimise AdvSIMD log2f (James Chesterman)
+- aarch64: Optimise AdvSIMD logf (James Chesterman)
+- aarch64: Optimise AdvSIMD log1pf (James Chesterman)
+- int128: Check BITS_PER_MP_LIMB == 32 instead of __WORDSIZE == 32 (H.J. Lu)
+- time: Add TIME_MONOTONIC, TIME_ACTIVE, and TIME_THREAD_ACTIVE (Adhemerval Zanella)
+- Use Linux 6.18 in build-many-glibcs.py (Joseph Myers)
+- misc: fix some typos (Yury Khrustalev)
+- Use 64-bit atomic on sem_t with 8-byte alignment [BZ #33632] (H.J. Lu)
+- scripts: Support custom Git URLs in build-many-glibcs.py (Yury Khrustalev)
+- scripts: Support custom FTP mirror URL in build-many-glibcs.py (Yury Khrustalev)
+- strops: use strlen instead of strchr for string length (Kacper Piwiński)
+- nptl: tests: Fix test-wrapper use in tst-dl-debug-tid.sh (Yury Khrustalev)
+- Fix allocation_index increment in malloc_internal (Osama Abdelkader)
+
 * Mon Dec 01 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-14
 - Auto-sync with upstream branch master,
   commit f9e61cd446d45016e20b6fe85ab87364ebdbec1b:

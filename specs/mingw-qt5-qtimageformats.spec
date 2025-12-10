@@ -17,7 +17,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtImageFormats component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -136,6 +136,9 @@ mkdir .git
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 5.15.18-2
+- Rebuild (libtiff)
+
 * Sat Nov 08 2025 Sandro Mani <manisandro@gmail.com> - 5.15.18-1
 - Update to 5.15.18
 

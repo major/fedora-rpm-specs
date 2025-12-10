@@ -6,7 +6,7 @@
 
 Name:           mingw-gtk4
 Version:        4.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPLv2+
@@ -217,6 +217,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 4.21.0-2
+- Rebuild (libtiff)
+
 * Tue Sep 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.21.0-1
 - new version
 

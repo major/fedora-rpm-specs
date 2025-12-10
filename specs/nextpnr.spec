@@ -1,11 +1,11 @@
-%global commit 69facd7c9aed3d803b06e86ec99d692777af7680
+%global commit c46f2bbd86e73f9254051dabc573380a7dc157fd
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20251111
+%global snapdate 20251205
 
 Name:		nextpnr
 Version:	1
-Release:	60.%{snapdate}git%{shortcommit}%{?dist}
+Release:	61.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 # Automatically converted from old format: ISC and BSD and MIT and (MIT or Public Domain) - review is highly recommended.
@@ -88,7 +88,7 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
-* Tue Nov 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-60.20251111git69facd7
+* Fri Dec 05 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-61.20251111gitc46f2bb
 - update to newer snapshot
 
 * Fri Oct 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-59.20251010git35810c9

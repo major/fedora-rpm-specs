@@ -2,22 +2,28 @@
 # that owns /usr/bin/django-admin and other unique paths
 # based on Python packaging, see e.g. python3.13
 %if 0%{?fedora} >= 42
-%bcond_without main_django
+%bcond main_django 1
 %else
-%bcond_with main_django
+%bcond main_django 0
 %endif
 
 %if 0%{?python3_version_nodots} >= 314
 # some tests currently fail
-%bcond_with all_tests
+%bcond all_tests 0
 %else
-%bcond_without all_tests
+%bcond all_tests 1
 %endif
 
-%global major_ver 5
+%if %{defined fedora} && 0%{?fedora} == 42
+%bcond old_setuptools 1
+%else
+%bcond old_setuptools 0
+%endif
 
+Version:        5.2.9
+%global major_ver %(echo %{version} | cut -d. -f1)
 Name:           python-django%{major_ver}
-Version:        5.2.4
+
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 
@@ -33,8 +39,6 @@ URL:            https://www.djangoproject.com/
 Source:         %{pypi_source django}
 Source:         %{name}.rpmlintrc
 
-Patch:          django-allow-setuptools-ge-61.diff
-
 # conditional patches: >= 1000
 # test_strip_tags() failing with Python 3.14
 # https://code.djangoproject.com/ticket/36499
@@ -48,7 +52,8 @@ Patch:          django-allow-setuptools-ge-61.diff
 # - &lt; div&gt;   
 # + <div>
 Patch1000:      django-py314-skip-failing-tests.diff
-
+# setuptools 77 is only needed to support the new license metadata
+Patch1001:      django-allow-setuptools-ge-69.diff
 # This allows to build the package without tests, e.g. when bootstrapping new Python version
 %bcond tests    1
 
@@ -122,7 +127,10 @@ Conflicts:      python-django-impl
 %autosetup -N -n django-%{version}
 %autopatch -p1 -M 999
 %if %{without all_tests}
-%autopatch -p1 -m 1000
+%autopatch -p1 1000
+%endif
+%if %{with old_setuptools}
+%autopatch -p1 1001
 %endif
 
 # hard-code python3 in django-admin

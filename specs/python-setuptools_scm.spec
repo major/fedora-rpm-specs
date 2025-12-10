@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-setuptools_scm
-Version:        8.3.1
+Version:        9.2.2
 Release:        %autorelease
 Summary:        Blessed package to manage your versions by SCM tags
 
@@ -40,6 +40,9 @@ It also handles file finders for the supported SCMs.
 
 %prep
 %autosetup -p1 -n setuptools_scm-%{version}
+# Remove flake8, mypy, ruff, … from the test dependencies
+sed -Ei '/^test = \[/,/^\]/ { /"(griffe|mypy|ruff|flake8).*"/d }' pyproject.toml
+
 %if %{defined rhel}
 # Remove unnecessary test dependencies:
 # rich is listed in both [rich] and [test] extras, so we need to be more careful
@@ -53,7 +56,7 @@ sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 # Note: We only pull in the [rich] extra when running tests.
 # This is to make the new Python version bootstrapping simpler
 # as setuptools_scm is an early package and rich is a late one.
-%pyproject_buildrequires %{?with_tests:-x test %{!?rhel:-x rich}}
+%pyproject_buildrequires %{?with_tests:-g test %{!?rhel:-x rich}}
 
 
 %build
@@ -67,14 +70,15 @@ sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 
 %if %{with tests}
 %check
-# test_pip_download tries to download from the internet
+# test_pip_download, test_xmlsec_download_regression try to download from the internet
 # test_pyproject_missing_setup_hook_works requires build
-%pytest -v -k 'not test_pip_download%{?rhel: and not test_pyproject_missing_setup_hook_works}'
+%pytest -v -k 'not test_pip_download and not test_xmlsec_download_regression %{?rhel: and not test_pyproject_missing_setup_hook_works}'
 %endif
 
 
 %files -n python%{python3_pkgversion}-setuptools_scm -f %{pyproject_files}
 %doc README.md
+%{_bindir}/setuptools-scm
 
 
 %changelog

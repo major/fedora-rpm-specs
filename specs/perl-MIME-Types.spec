@@ -13,7 +13,7 @@
 %endif
 
 Name:           perl-MIME-Types
-Version:        2.29
+Version:        2.30
 Release:        1%{?dist}
 Summary:        MIME types module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -108,6 +108,14 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %changelog
+* Mon Dec  8 2025 Paul Howarth <paul@city-fan.org> - 2.30-1
+- Update to 2.30
+  Fixes:
+  - No undef when simplifying illegal type (GH#15)
+  Improvements:
+  - Add bugtracker to meta
+  - Better OO use of attributes
+
 * Mon Sep 15 2025 Paul Howarth <paul@city-fan.org> - 2.29-1
 - Update to 2.29
   - Require 5.16 (2012)

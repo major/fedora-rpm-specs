@@ -1,5 +1,5 @@
 Name:		perl-Mail-Message
-Version:	3.019
+Version:	3.020
 Release:	1%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -124,6 +124,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Mon Dec  8 2025 Paul Howarth <paul@city-fan.org> - 3.020-1
+- Update to 3.020 (rhbz#2419653)
+
 * Tue Nov 25 2025 Paul Howarth <paul@city-fan.org> - 3.019-1
 - Update to 3.019 (rhbz#2416829)
 

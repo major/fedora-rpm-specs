@@ -9,7 +9,7 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.12.4
+Version:        6.12.5
 Release:        %autorelease
 Summary:        A bridge from Glyphs source files to UFOs
 

@@ -1,6 +1,6 @@
 Name:    libcamera-apps
 Version: 1.5.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/libcamera-apps
@@ -80,6 +80,9 @@ sed -i 's/qt5/qt6/' preview/meson.build
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Mon Dec 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5.0-10
+- Rebuild for libcamera 0.6
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.5.0-9
 - Fixed build with FFmpeg 8
 

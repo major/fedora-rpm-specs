@@ -42,12 +42,18 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+# Depends on
+# https://github.com/torvalds/linux/commit/15bd4958fe38e763bc17b607ba55155254a01f55
+# Look for 'queue cwsr size 0x%x not sufficient for node cwsr size' in
+# drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+Patch:      0001-hsakmt-bump-vgpr-count-for-gfx1151-1807-1986.patch
 
 ExclusiveArch:  x86_64
 
@@ -107,7 +113,7 @@ excluded tests for each ASIC, and a convenience script to run the test suite.
 %endif
 
 %prep
-%autosetup -n %{upstreamname} -p1
+%autosetup -n %{upstreamname} -p3
 
 # Use llvm's static libs kfdtest
 sed -i -e 's@LLVM_LINK_LLVM_DYLIB@0@' libhsakmt/tests/kfdtest/CMakeLists.txt
@@ -178,6 +184,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Mon Dec 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Fix misreported gfx1151 memory size
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

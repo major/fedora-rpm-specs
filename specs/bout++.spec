@@ -1,5 +1,5 @@
 Name:           bout++
-Version:        5.1.1
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Library for the BOUndary Turbulence simulation framework
 
@@ -7,10 +7,9 @@ Summary:        Library for the BOUndary Turbulence simulation framework
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://boutproject.github.io/
-Source0:        https://github.com/boutproject/BOUT-dev/releases/download/v%{version}/BOUT++-v%{version}.tar.xz
+Source0:        https://github.com/boutproject/BOUT-dev/releases/download/v%{version}/BOUT++-v%{version}.tar.gz
 
-Patch0:  test-timeout.patch
-Patch1:  https://patch-diff.githubusercontent.com/raw/boutproject/BOUT-dev/pull/3141.patch
+Patch:          https://github.com/boutproject/BOUT-dev/pull/3188.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -27,11 +26,13 @@ ExcludeArch: %{ix86}
 %bcond_with test
 %bcond_with sundials
 %bcond_with petsc
+%bcond_with 3dmetrics
 %else
 %bcond_without manual
 %bcond_without test
 %bcond_without sundials
 %bcond_without petsc
+%bcond_with 3dmetrics
 %endif
 
 # Enable both mpi every where
@@ -306,7 +307,7 @@ MPI-independent files for BOUT++, namely localisation files.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary: BOUT++ python library
-Requires: python%{python3_pkgversion}-netcdf4
+Requires: netcdf4-python%{python3_pkgversion}
 Requires: python%{python3_pkgversion}-numpy
 Recommends: python%{python3_pkgversion}-scipy
 Recommends: python%{python3_pkgversion}-matplotlib
@@ -409,6 +410,9 @@ do
       -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir} \
       -DCMAKE_INSTALL_PYTHON_SITEARCH=${MPI_PYTHON3_SITEARCH} \
       -DBOUT_TEST_TIMEOUT=900 \
+%if %{with 3dmetrics}
+      -DBOUT_USE_METRIC_3D=ON \
+%endif
 %if %{with manual}
       -DBOUT_BUILD_DOCS=ON \
 %endif
@@ -507,7 +511,7 @@ done
 %if %{with test}
 for mpi in %{mpi_list}
 do
-    fail=0
+    fail=1
     if [ $mpi = mpich ] ; then
         %_mpich_load
 	%ifarch s390x
@@ -545,7 +549,7 @@ done
 
 %if %{with mpich}
 %files mpich
-%{_libdir}/mpich/lib/libbout++.so.5.1.0
+%{_libdir}/mpich/lib/libbout++.so.5.2.0
 %{_libdir}/mpich/lib/*.so.1.0.0
 %{_libdir}/mpich/bin/*
 %doc README.md

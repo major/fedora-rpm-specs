@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit d520c0e5f24b2ade761f5679d3601de837a33546
+%global commit 9ee33221806c9e1807c421a5a88a01475afed6c5
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20251205
+%global date 20251208
 
 %global orgname org.kde.plasmasetup
 
@@ -12,7 +12,7 @@
 
 Name:           plasma-setup
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -21,8 +21,6 @@ Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
 # Backported changes
 
 # Proposed changes
-## Fix uidcheck so existing users check works properly
-Patch0101:      https://invent.kde.org/plasma/plasma-setup/-/merge_requests/59.patch
 
 # Downstream only changes
 Patch1001:      plasma-setup-load-fedora-wallpaper.patch
@@ -124,6 +122,16 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Mon Dec 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251208git9ee3322-1
+- Bump to new git snapshot
+- Drop merged patch for existing users check
+
+* Mon Dec 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251205gitd520c0e-4
+- Refresh patch again for existing users check
+
+* Mon Dec 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251205gitd520c0e-3
+- Refresh patch for existing users check
+
 * Sun Dec 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251205gitd520c0e-2
 - Add patch to fix uid check to correctly detect existing users
 

@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302216
+Version:        1.302218
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -49,6 +49,7 @@ BuildRequires:  perl(Module::Pluggable) >= 2.7
 # mro used since Perl 5.010
 BuildRequires:  perl(mro)
 BuildRequires:  perl(overload)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(PerlIO) >= 1.02
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util) >= 1.13
@@ -297,6 +298,7 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::EventFacet::Trace.3*
 %{_mandir}/man3/Test2::Formatter.3*
 %{_mandir}/man3/Test2::Formatter::TAP.3*
+%{_mandir}/man3/Test2::Handle.3*
 %{_mandir}/man3/Test2::Hub.3*
 %{_mandir}/man3/Test2::Hub::Interceptor.3*
 %{_mandir}/man3/Test2::Hub::Interceptor::Terminator.3*
@@ -392,6 +394,9 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Times.3*
 %{_mandir}/man3/Test2::Util::Trace.3*
 %{_mandir}/man3/Test2::V0.3*
+%{_mandir}/man3/Test2::V1.3*
+%{_mandir}/man3/Test2::V1::Base.3*
+%{_mandir}/man3/Test2::V1::Handle.3*
 %{_mandir}/man3/Test2::Workflow.3*
 %{_mandir}/man3/Test2::Workflow::BlockBase.3*
 %{_mandir}/man3/Test2::Workflow::Build.3*
@@ -404,6 +409,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec  8 2025 Paul Howarth <paul@city-fan.org> - 3:1.302218-1
+- Update to 1.302218
+  - Add Test2::V1 bundle
+
 * Sun Nov 16 2025 Paul Howarth <paul@city-fan.org> - 3:1.302216-1
 - Update to 1.302216
   - Fix typos

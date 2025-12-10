@@ -9,7 +9,7 @@
 
 Name:           podofo
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        LGPL-2.0-or-later
@@ -215,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 1.0.3-2
+- Rebuild (libtiff)
+
 * Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 1.0.3-1
 - Update to 1.0.3
 

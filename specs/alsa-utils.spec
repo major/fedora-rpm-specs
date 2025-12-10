@@ -1,4 +1,4 @@
-%define   baseversion     1.2.14
+%define   baseversion     1.2.15
 #define   fixversion      .2
 %global   _hardened_build 1
 
@@ -117,9 +117,11 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 #{_unitdir}/sound.target.wants/*
 %{alsacfgdir}/init/*
 %{_bindir}/aconnect
+%{_sbindir}/alsactl
 %{_bindir}/alsaloop
 %{_bindir}/alsamixer
 %{_bindir}/alsaunmute
+%{_sbindir}/alsa-info.sh
 %{_bindir}/amidi
 %{_bindir}/amixer
 %{_bindir}/aplay
@@ -133,10 +135,8 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 %{_bindir}/aseqsend
 %{_bindir}/axfer
 %{_bindir}/iecset
-%{_bindir}/speaker-test
 %{_bindir}/nhlt-dmic-info
-%{_sbindir}/*
-%exclude %{_sbindir}/alsabat-test.sh
+%{_bindir}/speaker-test
 %{_datadir}/alsa/
 %{_datadir}/sounds/*
 %{_mandir}/man7/*
@@ -206,6 +206,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Mon Dec  8 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15-2
+* Updated to 1.2.15
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

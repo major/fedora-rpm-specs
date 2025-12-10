@@ -3,16 +3,13 @@
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
-Version:        8.6.1
+Version:        8.6.3
 Release:        %autorelease
 Summary:        Jupyter protocol implementation and client libraries
 
 License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %{pypi_source jupyter_client}
-
-# Avoid a DeprecationWarning on Python 3.13+
-Patch:          https://github.com/jupyter/jupyter_client/pull/1027.patch
 
 BuildArch:      noarch
 
@@ -55,6 +52,8 @@ for use with Jupyter frontends.
 %autosetup -p1 -n jupyter_client-%{version}
 # Drop dependencies on coverage, linters etc.
 sed -Ei '/"\b(codecov|coverage|mypy|pre-commit|pytest-cov)\b",/d' pyproject.toml
+# Remove upper version limit for pytest
+sed -i 's/"pytest<[^"]*"/"pytest"/' pyproject.toml
 # Increase test timeout -- Koji builds can be slower
 # Fixes https://bugzilla.redhat.com/2389378
 sed -i 's/TIMEOUT = 30/TIMEOUT = 300/' tests/test_client.py

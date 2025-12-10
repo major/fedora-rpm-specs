@@ -41,18 +41,6 @@ monitoring with threads, or within the event loops of Qt, Glib or wxPython.
 The binding supports CPython 3 and PyPy.
 
 %if %{with qt}
-%package -n python3-%{srcname}-qt4
-Summary:          Qt4 integration for pyudev
-
-Requires:         python3-PyQt4
-Requires:         python3-%{srcname} = %{version}-%{release}
-
-%description -n python3-%{srcname}-qt4
-Qt4 integration for pyudev.
-
-This package provides a module pyudev.pyqt4 that contains classes for
-integrating a pyudev monitor with the Qt4 main loop.
-
 %package -n python3-%{srcname}-qt5
 Summary:          Qt5 integration for pyudev
 
@@ -95,11 +83,6 @@ integrating a pyudev monitor with the Qt5 main loop.
 %exclude %{python3_sitelib}/pyudev/__pycache__/wx.*
 
 %if %{with qt}
-%files -n python3-%{srcname}-qt4
-%license COPYING
-%{python3_sitelib}/pyudev/pyqt4.py
-%{python3_sitelib}/pyudev/__pycache__/pyqt4.*
-
 %files -n python3-%{srcname}-qt5
 %license COPYING
 %{python3_sitelib}/pyudev/pyqt5.py

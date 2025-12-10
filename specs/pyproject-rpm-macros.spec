@@ -5,8 +5,8 @@ License:        MIT
 
 %bcond tests 1
 # pytest-xdist and tox are not desired in RHEL
-%bcond pytest_xdist %{undefined rhel}
-%bcond tox_tests %{undefined rhel}
+%bcond pytest_xdist %[%{undefined rhel} || %{defined epel}]
+%bcond tox_tests %[%{undefined rhel} || %{defined epel}]
 
 # The idea is to follow the spirit of semver
 # Given version X.Y.Z:

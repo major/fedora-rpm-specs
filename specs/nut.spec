@@ -13,7 +13,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -277,8 +277,8 @@ install -m0644 -D nut.sysusers.conf %{buildroot}%{_sysusersdir}/nut.conf
 # phase 1: stop upsmon before upsd changes
 if [ "$1" = "2" ]; then
   rm -f %restart_flag
-  /bin/systemctl is-active nut-monitor.service >/dev/null 2>&1 && touch %restart_flag ||:
-  /bin/systemctl stop nut-monitor.service >/dev/null 2>&1
+  /bin/systemctl is-active nut-monitor.service >/dev/null 2>&1 && touch %restart_flag || :
+  /bin/systemctl stop nut-monitor.service >/dev/null 2>&1 || :
 fi
 
 
@@ -530,6 +530,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Sat Dec 06 2025 Orion Poplawski <orion@nwra.com> - 2.8.4-5
+- Add missing || : to preinstall scriptlet (rhbz#2419644)
+
 * Tue Sep 30 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.4-4
 - based on PR#18 by Orion Poplawski
 - Build NUT-Monitor and ship in separate nut-monitor package (rhbz#2359149)

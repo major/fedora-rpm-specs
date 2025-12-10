@@ -48,7 +48,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.10.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -98,6 +98,10 @@ Patch56: qtbase-mysql.patch
 Patch58: qtbase-libglvnd.patch
 
 # upstream patches
+Patch100: qtbase-wayland-convey-preference-for-server-side-decorations.patch
+Patch101: qtbase-wayland-compress-high-frequency-mouse-events.patch
+Patch102: qtbase-wayland-optimize-scroll-operations.patch
+Patch103: qtbase-wayland-enable-event-compression-and-fix-scroll-end-event.patch
 
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
@@ -963,6 +967,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Mon Dec 08 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-2
+- Re-add wayland fixes for mouse scrolling
+
 * Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
 - 6.10.1
 

@@ -24,8 +24,8 @@
 
 Summary:        Specialist tools for ALSA
 Name:           alsa-tools
-Version:        1.2.14
-Release:        2%{?dist}
+Version:        1.2.15
+Release:        1%{?dist}
 
 # Checked at least one source file from all the sub-projects contained in
 # the source tarball and they are consistent GPLv2+ - TJ 2007-11-15
@@ -42,6 +42,7 @@ BuildRequires:  alsa-lib-devel >= %{version}
 %if 0%{!?_without_tools:1}
 BuildRequires:  gtk2-devel
 BuildRequires:  gtk3-devel
+BuildRequires:  gtk4-devel
 BuildRequires:  fltk-devel
 BuildRequires: make
 Buildrequires:  desktop-file-utils
@@ -201,10 +202,13 @@ install -m 644 %{SOURCE1} %{buildroot}/usr/lib/udev/rules.d
 %endif
 
 %changelog
+* Mon Dec  8 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15-1
+- Updated to 1.2.15
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-- Mon Apr 14 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-1
+* Mon Apr 14 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.14-1
 - Updated to 1.2.14
 
 * Mon Jan 27 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.11-6

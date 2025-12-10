@@ -408,7 +408,11 @@ BuildRequires: perl(IPC::Cmd)
 BuildRequires: nasm
 BuildRequires: nodejs
 BuildRequires: nodejs-devel
+%if 0%{?rhel} == 9
+BuildRequires: npm
+%else
 BuildRequires: nodejs-npm
+%endif
 BuildRequires: nodejs-packaging
 BuildRequires: python-unversioned-command
 BuildRequires: sqlite-devel

@@ -6,7 +6,7 @@ Version:        1.6.0
 
 %forgemeta
 Name:           waydroid
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -35,7 +35,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-Requires:       python3dist(gbinder-python) >= 1.1.0
+Requires:       python3dist(gbinder-python) >= 1.3
 Requires:       python3dist(dbus-python)
 Requires:       python3-gobject
 Requires:       lxc
@@ -44,8 +44,6 @@ Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy-%{sel
 Requires:       nftables
 Requires:       iproute
 Requires:       dnsmasq
-Recommends:     python3-pyclip
-Recommends:     wl-clipboard
 
 %description
 Waydroid uses Linux namespaces to run a full Android system in a container
@@ -149,6 +147,13 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Mon Dec 08 2025 Alessandro Astone <ales.astone@gmail.com> - 1.6.0-3
+- Fix versioned dependency on gbinder-python (rhbz#2420131)
+
+* Mon Dec 08 2025 Alessandro Astone <ales.astone@gmail.com> - 1.6.0-2
+- Requires gbinder-python >= 1.3.0
+- Stop recommending pyclip
+
 * Thu Dec 04 2025 Alessandro Astone <ales.astone@gmail.com> - 1.6.0-1
 - Toggle ADB secure mode by default
   + ADB will no longer auto-connect on session start

@@ -4,7 +4,7 @@
 %{!?_httpd_statedir: %global _httpd_statedir %{_localstatedir}/lib/httpd}
 
 Name:           mod_md
-Version:        2.6.6
+Version:        2.6.7
 Release:        %autorelease
 Summary:        Certificate provisioning using ACME for the Apache HTTP Server
 License:        Apache-2.0

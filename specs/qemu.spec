@@ -467,6 +467,9 @@ License: %{shrink:
 }
 URL: http://www.qemu.org/
 
+# https://fedoraproject.org/wiki/Changes/DropQEMU32bitHostBuilds
+ExcludeArch: %{ix86} %{arm}
+
 %global dlurl https://download.qemu.org
 
 Source0: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz

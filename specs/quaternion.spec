@@ -1,9 +1,9 @@
-%global appid       com.github.quaternion
+%global appid       io.github.quotient_im.Quaternion
 %global forgeurl    https://github.com/quotient-im/Quaternion
 %global tag         %{version}
 
 Name:       quaternion
-Version:    0.0.97~beta1
+Version:    0.0.97.1
 Release:    %autorelease
 
 %forgemeta
@@ -11,8 +11,8 @@ Release:    %autorelease
 Summary:    A Qt-based IM client for Matrix
 License:    GPL-3.0-or-later
 URL:        %{forgeurl}
-#Source0:    %%{forgesource}
-Source0:    https://github.com/quotient-im/Quaternion/archive/refs/tags/0.0.97-beta1.tar.gz
+Source0:    %{forgesource}
+#Source0:    https://github.com/quotient-im/Quaternion/archive/refs/tags/0.0.97-beta1.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -39,8 +39,8 @@ Requires:       hicolor-icon-theme
 Quaternion is a cross-platform desktop IM client for the Matrix protocol.
 
 %prep
-#%%forgesetup
-%autosetup -n Quaternion-0.0.97-beta1
+%forgesetup
+#%%autosetup -n Quaternion-0.0.97-beta1
 
 %build
 %cmake \
@@ -51,26 +51,26 @@ Quaternion is a cross-platform desktop IM client for the Matrix protocol.
 %install
 %cmake_install
 %find_lang %{name} --with-qt
-#cp -p linux/%{appid}.appdata.xml %{buildroot}%{_metainfodir}
+cp -p linux/%{appid}.appdata.xml %{buildroot}%{_metainfodir}
 
 %check
-#desktop-file-validate %%{buildroot}/%%{_datadir}/applications/%%{appid}.desktop
-#appstream-util validate-relax --nonet %%{buildroot}%%{_metainfodir}/%%{appid}.appdata.xml
-desktop-file-validate %{buildroot}/%{_datadir}/applications/io.github.quotient_im.Quaternion.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.github.quotient_im.Quaternion.appdata.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{appid}.appdata.xml
+#desktop-file-validate %{buildroot}/%{_datadir}/applications/io.github.quotient_im.Quaternion.desktop
+#appstream-util validate-relax --nonet %%{buildroot}%%{_metainfodir}/io.github.quotient_im.Quaternion.appdata.xml
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
 %{_bindir}/%{name}
-#%%{_datadir}/applications/%%{appid}.desktop
+%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-#%%{_metainfodir}/%%{appid}.appdata.xml
+%{_metainfodir}/%{appid}.appdata.xml
 # Beta
-%{_datadir}/applications/io.github.quotient_im.Quaternion.desktop
-%{_metainfodir}/io.github.quotient_im.Quaternion.appdata.xml
+#%%{_datadir}/applications/io.github.quotient_im.Quaternion.desktop
+#%%{_metainfodir}/io.github.quotient_im.Quaternion.appdata.xml
 
 %changelog
 %autochangelog

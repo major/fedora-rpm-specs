@@ -1,7 +1,7 @@
 %global srcname enchant
 
 Name:           python-enchant
-Version:        3.2.2
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Python bindings for Enchant spellchecking library
 
@@ -34,6 +34,8 @@ library by Dom Lachowicz.
 
 %prep
 %autosetup -p1 -n py%{srcname}-%{version}
+# Workaround for https://github.com/pyenchant/pyenchant/issues/326
+sed -i "/size=wxSpellCheckerDialog\.sz/s/wxSpellCheckerDialog\.//" enchant/checker/wxSpellCheckerDialog.py
 
 %generate_buildrequires
 %pyproject_buildrequires

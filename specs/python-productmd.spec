@@ -1,6 +1,6 @@
 Name:           python-productmd
-Version:        1.48
-Release:        4%{?dist}
+Version:        1.49
+Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
 License:        LGPL-2.1-only
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Mon Dec 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.49-1
+- Improvements to networking calls
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.48-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

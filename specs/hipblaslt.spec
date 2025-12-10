@@ -50,6 +50,13 @@
 # clang and gfortran fedora toolchain args do not mix
 %global build_fflags %{nil}
 
+# Reduce link memory pressure
+%global _lto_cflags %{nil}
+
+# may run out of memory for both compile and link
+# Calculate a good -j number below
+%global _smp_mflags %{nil}
+
 # gfx90a: 10343 pass, 152 fail
 %bcond_with test
 # Disable rpatch checks for a local build
@@ -107,7 +114,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -135,6 +142,8 @@ Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
 Patch3:         0001-hipblaslt-find-origami-package.patch
 # do not try to fetch, point to the nanobind tarball
 Patch4:         0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
+# compile and link jobpools
+Patch5:         0001-hipblaslt-cmake-compile-and-link-pools.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -339,6 +348,40 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Uncomment and see if the path is sane
 # TensileGetPath
 
+cat /proc/cpuinfo
+cat /proc/meminfo
+lscpu
+
+# Real cores, No hyperthreading
+COMPILE_JOBS=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
+if [ ${COMPILE_JOBS}x = x ]; then
+    COMPILE_JOBS=1
+fi
+# Try again..
+if [ ${COMPILE_JOBS} = 1 ]; then
+    COMPILE_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    if [ ${COMPILE_JOBS}x = x ]; then
+        COMPILE_JOBS=4
+    fi
+fi
+
+# Take into account memmory usage per core, do not thrash real memory
+BUILD_MEM=8
+MEM_KB=0
+MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
+MEM_MB=`eval "expr ${MEM_KB} / 1024"`
+MEM_GB=`eval "expr ${MEM_MB} / 1024"`
+COMPILE_JOBS_MEM=`eval "expr 1 + ${MEM_GB} / ${BUILD_MEM}"`
+if [ "$COMPILE_JOBS_MEM" -lt "$COMPILE_JOBS" ]; then
+    COMPILE_JOBS=$COMPILE_JOBS_MEM
+fi
+LINK_MEM=32
+LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
+JOBS=${COMPILE_JOBS}
+if [ "$LINK_JOBS" -lt "$JOBS" ]; then
+    JOBS=$LINK_JOBS
+fi
+
 %cmake %{cmake_generator} \
        -DGPU_TARGETS=%{amdgpu_targets} \
        -DBLIS_INCLUDE_DIR=%{_includedir}/blis \
@@ -362,6 +405,8 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
+       -DHIPBLASLT_PARALLEL_COMPILE_JOBS=${COMPILE_JOBS} \
+       -DHIPBLASLT_PARALLEL_LINK_JOBS=${LINK_JOBS} \
        %{nil}
 
 %cmake_build
@@ -404,6 +449,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Sun Dec 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Add compile and link job pools
+
 * Sat Dec 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Use blis-devel for testing
 - Use GPU_TARGETS

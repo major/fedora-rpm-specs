@@ -42,7 +42,7 @@ License:        GPL-3.0-or-later
 URL:            https://radicale.org
 
 %if 0%{?gitcommit:1}
-Sourcea:        https://github.com/Kozea/Radicale/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
+Source0:        https://github.com/Kozea/Radicale/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 %else
 Source0:        https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif

@@ -1,6 +1,6 @@
 Name:		perl-Exporter-Tiny
-Version:	1.006002
-Release:	9%{?dist}
+Version:	1.006003
+Release:	1%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://exportertiny.github.io/
@@ -77,6 +77,15 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Mon Dec  8 2025 Paul Howarth <paul@city-fan.org> - 1.006003-1
+- Update to 1.006003
+  Bug Fixes:
+  - Support Perl versions >= 10, in theory
+  Documentation:
+  - Restore documentation about exporting to hashes, which was accidentally
+    removed
+  - Update copyright dates
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.006002-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

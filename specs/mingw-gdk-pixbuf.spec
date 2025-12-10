@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.44.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -140,6 +140,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 2.44.4-2
+- Rebuild (libtiff)
+
 * Fri Oct 24 2025 Sandro Mani <manisandro@gmail.com> - 2.44.4-1
 - Update to 2.44.4
 

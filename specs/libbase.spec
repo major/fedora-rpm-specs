@@ -8,8 +8,13 @@ License: LGPL-2.1-only
 #to simplify the licensing
 Source: %{name}-%{version}-jarsdeleted.zip
 URL: http://reporting.pentaho.org/
+%if 0%{?fedora} >= 43
 BuildRequires: ant-openjdk25 , java-25-devel, jpackage-utils
 Requires: java-25-headless, jpackage-utils
+%else
+BuildRequires: ant, java-devel, jpackage-utils
+Requires: java-headless, jpackage-utils
+%endif
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
 

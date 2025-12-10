@@ -5,11 +5,11 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 0641c5b
+%define gitshort 6bb0bae
 
 Name:          bcm283x-firmware
-Version:       20250820
-Release:       2.%{gitshort}%{?dist}
+Version:       20251127
+Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -108,6 +108,9 @@ install -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{buildro
 %{efi_esp_root}/start4*
 
 %changelog
+* Mon Dec 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251127-1.6bb0bae
+- Update to latest firmware
+
 * Fri Oct 17 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250820-2.0641c5b
 - Reorg config.txt to fix CMA on smaller devices (rhbz#2404622)
 - Re-sync the rpi4-series FW DTBs

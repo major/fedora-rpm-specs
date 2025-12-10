@@ -1,12 +1,12 @@
 %global proj_name gbinder-python
 
 Name:           python-gbinder
-Version:        1.1.2
-Release:        9%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Python bindings for libgbinder
 
 License:        GPL-3.0-only
-URL:            https://github.com/erfanoabdi/%{proj_name}
+URL:            https://github.com/waydroid/%{proj_name}
 Source:         %{url}/archive/%{version}/%{proj_name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -32,7 +32,6 @@ Requires:       libgbinder >= %{libgbinder_version}
 
 %prep
 %autosetup -p1 -n %{proj_name}-%{version}
-sed -i "/^USE_CYTHON =/s/False/True/" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -47,6 +46,9 @@ sed -i "/^USE_CYTHON =/s/False/True/" setup.py
 %files -n python3-gbinder -f %{pyproject_files}
 
 %changelog
+* Mon Dec 08 2025 Alessandro Astone <ales.astone@gmail.com> - 1.3.0-1
+- new version
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

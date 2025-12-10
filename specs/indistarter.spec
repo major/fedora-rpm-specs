@@ -1,11 +1,14 @@
-%global gittag v2.4.2
+# Disable parallel build
+%global _smp_build_ncpus 1
+
+%global gittag v2.5.1
 #%%global commit 1abc907b93a1ba402ca28652de42c81b90c80250
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20230125
 
 Name:           indistarter
 %if "%{?gittag}"
-Version:        2.4.2
+Version:        2.5.1
 %else
 Version:        2.3.1^%{date}%{shortcommit}
 %endif
@@ -30,14 +33,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  fpc
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-%if 0%{?fedora} >= 39
 BuildRequires:  fpc-src
 BuildRequires:  lazarus-lcl-nogui
-BuildRequires:  lazarus-lcl-qt5
+BuildRequires:  lazarus-lcl-qt6
 BuildRequires:  lazarus-tools
-%else
-BuildRequires:  lazarus >= 1.6.2
-%endif
 
 %description
 Indistarter is a user interface to run a INDI server.
@@ -57,18 +56,19 @@ In this last case a ssh tunnel is established to allow local client connection.
 # Configure script requires non standard parameters
 ./configure lazarus=%{_libdir}/lazarus prefix=%{_prefix}
 
-# Doesn't like parallel building so we can't use make macro
-make fpcopts="-O1 -gw3 -fPIC"
+%make_build fpcopts="-O1 -gw3 -fPIC" LCL_PLATFORM=qt6
 
 
 %install
-make install PREFIX=%{buildroot}%{_prefix}
+%make_install PREFIX=%{buildroot}%{_prefix}
 
+
+%check
 # Menu entry
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-
 # Appdata file check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
+
 
 %files
 %license gpl-3.0.txt LICENSE

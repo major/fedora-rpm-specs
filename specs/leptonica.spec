@@ -12,7 +12,7 @@
 
 Name:          leptonica
 Version:       1.86.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
@@ -189,6 +189,9 @@ MinGW Windows Leptonica library.
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 1.86.0-3
+- Rebuild (libtiff)
+
 * Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 1.86.0-2
 - Backport fix for broken pkgconfig file
 

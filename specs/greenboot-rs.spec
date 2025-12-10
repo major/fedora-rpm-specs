@@ -4,18 +4,25 @@
 # Tests are executed in external CI instead.
 %bcond check 0
 
+%bcond bundled_rust_deps %{defined rhel}
+
 Name:		greenboot-rs
-Version:	0.16.0
-Release:	6%{?dist}
+Version:	0.16.1
+Release:	0%{?dist}
 Summary:	Generic Health Check Framework for systemd
 # Aggregated license of statically linked dependencies as per %%cargo_license_summary
 License:	BSD-3-Clause AND ISC AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 URL:		https://github.com/fedora-iot/greenboot-rs
 Source0:	%{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:	%{name}-%{version}-vendor-patched.tar.xz
 
 ExcludeArch:	%{ix86}
 
+%if %{with bundled_rust_deps}
+BuildRequires:	rust-toolset
+%else
 BuildRequires:	cargo-rpm-macros
+%endif
 BuildRequires:	systemd-rpm-macros
 
 
@@ -36,7 +43,7 @@ Recommends:	openssh
 
 %description -n %{pkgname}
 
-%{description}
+%{description}.
 
 %package -n %{pkgname}-default-health-checks
 Summary:	Series of optional and curated health checks
@@ -46,21 +53,29 @@ Requires:	util-linux
 Requires:	jq
 
 %description -n %{pkgname}-default-health-checks
-%{description}
+%{description}.
 
 This package adds some default healthchecks for greenboot.
 
 %prep
+%if %{with bundled_rust_deps}
+%autosetup -p1 -a1 -n %{name}-%{version}
+%cargo_prep -v vendor
+%else
 %autosetup -n %{name}-%{version}
 %cargo_prep
-
 %generate_buildrequires
 %cargo_generate_buildrequires
+%endif
 
 %build
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
+
+%if %{with bundled_rust_deps}
+%cargo_vendor_manifest
+%endif
 
 %install
 mkdir -p %{buildroot}%{_libexecdir}
@@ -132,6 +147,12 @@ install -DpZm 0644 usr/lib/systemd/system/greenboot-healthcheck.service.d/10-net
 %{_unitdir}/greenboot-healthcheck.service.d/10-network-online.conf
 
 %changelog
+* Wed Dec 03 2025 Sayan Paul <saypaul@redhat.com> - 0.16.1
+- Ensure rollback trigger runs before systemd-update-done and only on updates
+- Log the correct system type when reporting rollback decisions
+- Fix CI/tests (Ansible callback config, GI deps) to keep gating green
+- Refresh Packit release config for Fedora delivery
+
 * Wed Oct 15 2025 Sayan Paul <saypaul@redhat.com> - 0.16.0-6
 - Fix OS type detection
 - Do not remount /boot superblock/filesystem readonly

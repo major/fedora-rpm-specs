@@ -88,6 +88,8 @@ Recommends:     python3-urllib3+socks
 # Unpin hatch-vcs version
 # See https://github.com/urllib3/urllib3/issues/3612
 sed -i 's/hatch-vcs==/hatch-vcs>=/' pyproject.toml
+# Allow setuptools_scm 9, https://github.com/urllib3/urllib3/commit/1ce1b59ec6
+sed -i 's/setuptools-scm>=8,<9/setuptools-scm>=8,<10/' pyproject.toml
 
 # Make sure that the RECENT_DATE value doesn't get too far behind what the current date is.
 # RECENT_DATE must not be older that 2 years from the build time, or else test_recent_date

@@ -1,16 +1,11 @@
 Summary:        Library providing binary-decimal and decimal-binary routines for IEEE doubles
 Name:           double-conversion
-Version:        3.3.1
-Release:        4%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 
 License:        BSD-3-Clause
 URL:            https://github.com/google/double-conversion
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# CMake: Raised required version to 3.5
-# https://github.com/google/double-conversion/pull/240
-# Fixes CMake 4 compatibility (without CMAKE_POLICY_VERSION_MINIMUM workaround)
-Patch:          %{url}/pull/240.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -54,10 +49,14 @@ examples can be found in test/cctest/test-conversions.cc.
 
 %files devel
 %{_libdir}/libdouble-conversion.so
+%{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}/
 %{_includedir}/%{name}/
 
 %changelog
+* Mon Dec 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.4.0-1
+- Update to 3.4.0 (close RHBZ#2420014)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    vsomeip3
 Version: 3.5.11
-Release: 3%{?dist}
+Release: 6%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 # remove from i686 as not needed.
 ExcludeArch: %{ix86}
@@ -37,9 +37,6 @@ BuildRequires: gtest-devel
 BuildRequires: asciidoc
 %endif
 
-# https://fedoraproject.org/wiki/SELinux/IndependentPolicy
-Requires:       (vsomeip3-selinux = %{?epoch:%{epoch}:}%{version}-%{release} if selinux-policy-targeted)
-
 %description
 
 The vsomeip stack implements the http://some-ip.com/ (Scalable
@@ -58,20 +55,32 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %package selinux
 Summary:        SELinux policy module for %{name}
-BuildRequires:  selinux-policy
+BuildArch:      noarch
+
 BuildRequires:  selinux-policy-devel
 BuildRequires:  make
-BuildArch:      noarch
-%{?selinux_requires}
+BuildRequires:  checkpolicy
+%if "%{_selinux_policy_version}" != ""
+Requires:	selinux-policy >= %{_selinux_policy_version}
+%endif
+
+Requires(post):	policycoreutils
+%if "%{_selinux_policy_version}" != ""
+Requires(post): selinux-policy-base >= %_selinux_policy_version
+Requires(post): selinux-policy-any >= %_selinux_policy_version
+%endif
 
 %description selinux
 This package contains the SELinux policy module for %{name}.
 
+
+## routing manager
 %package routingmanager
 Summary: Routingmanager daemon %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: systemd
 Requires: dlt-daemon
+Recommends: vsomeip3-selinux
 
 %description routingmanager
 %{summary}. Also requires dlt-daemon running.
@@ -165,11 +174,21 @@ install -m 0644 vsomeip-selinux/vsomeip.if %{buildroot}%{_datadir}/selinux/devel
 install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/vsomeip3.conf
 
 %post selinux
-%selinux_modules_install %{_datadir}/selinux/packages/vsomeip.pp.bz2
+. %{_sysconfdir}/selinux/config
+%selinux_modules_install -s ${SELINUXTYPE} %{_datadir}/selinux/packages/vsomeip.pp.bz2
+restorecon -R %{_bindir}/routingmanagerd &> /dev/null || :
+restorecon -R %{_rundir}/vsomeip/ &> /dev/null || :
+restorecon -R %{_localstatedir}/%{_rundir}/vsomeip/ &> /dev/null || :
+restorecon -R /var/lib/routingmanagerd/ &> /dev/null || :
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall %{_datadir}/selinux/packages/vsomeip.pp.bz2
+   . %{_sysconfdir}/selinux/config
+   %selinux_modules_uninstall -s ${SELINUXTYPE} vsomeip
+   restorecon -R %{_bindir}/routingmanagerd &> /dev/null || :
+   restorecon -R %{_rundir}/vsomeip/ &> /dev/null || :
+   restorecon -R %{_localstatedir}/%{_rundir}/vsomeip/ &> /dev/null || :
+   restorecon -R /var/lib/routingmanagerd/ &> /dev/null || :
 fi
 
 %pre routingmanager
@@ -240,6 +259,12 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Mon Dec 08 2025 Stephen Smoogen  <smooge@fedoraproject.org> - 3.5.11-6
+- Find a couple of small changes needed to allow for selinux to be applied to non-standard policies
+
+* Sun Dec 07 2025 Stephen Smoogen  <smooge@fedoraproject.org> - 3.5.11-4
+- Use bluechi selinux to fix problem with non-default targets
+
 * Wed Dec  3 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.11-3
 - Rewrite the selinux policy from scratch with sepolgen
 - Remove the socket creation as systemd as vsomeip will not work with it.

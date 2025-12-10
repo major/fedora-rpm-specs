@@ -1,5 +1,5 @@
 %global vips_version_base 8.17
-%global vips_version %{vips_version_base}.2
+%global vips_version %{vips_version_base}.3
 %global vips_soname_major 42
 
 Name:		vips

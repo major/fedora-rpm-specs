@@ -13,7 +13,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with advanced configuration system
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -75,7 +75,7 @@ developing applications that use %{name}.
 
 %package        core
 Summary:        Non-GUI part of KConfig framework
-Requires:       kde-settings
+Requires:       (kde-settings if plasma-workspace)
 %description    core
 KConfigCore provides access to the configuration files themselves. It features
 centralized definition and lock-down (kiosk) support.
@@ -179,6 +179,9 @@ make test %{?_smp_mflags} -C redhat-linux-build ARGS="--output-on-failure --time
 
 
 %changelog
+* Mon Dec 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 5.116.0-5
+- Condition kde-settings dependency on plasma-workspace (rhbz#2320048)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

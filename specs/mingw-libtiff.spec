@@ -1,26 +1,26 @@
-%?mingw_package_header
+%{?mingw_package_header}
 
 Summary:        MinGW Windows port of the LibTIFF library
 Name:           mingw-libtiff
-Version:        4.4.0
-Release:        8%{?dist}
+Version:        4.7.1
+Release:        1%{?dist}
 License:        libtiff
 URL:            http://www.simplesystems.org/libtiff/
 Source:         https://download.osgeo.org/libtiff/tiff-%{version}.tar.xz
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  mingw32-zlib
 BuildRequires:  mingw32-libjpeg-turbo
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 
 BuildRequires:  mingw64-zlib
 BuildRequires:  mingw64-libjpeg-turbo
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
@@ -77,11 +77,11 @@ Requires:       mingw64-libtiff = %{version}-%{release}
 Static version of the MinGW Windows LibTIFF library.
 
 
-%?mingw_debug_package
+%{?mingw_debug_package}
 
 
 %prep
-%setup -q -n tiff-%{version}
+%autosetup -p1 -n tiff-%{version}
 
 
 %build
@@ -92,27 +92,28 @@ export MINGW64_CFLAGS="%{mingw64_cflags} -fno-strict-aliasing"
 
 
 %install
-%mingw_make_install DESTDIR=$RPM_BUILD_ROOT
+%mingw_make_install DESTDIR=%{buildroot}
 
 # remove docs
-rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/doc
-rm -rf $RPM_BUILD_ROOT%{mingw32_mandir}
-rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/doc
-rm -rf $RPM_BUILD_ROOT%{mingw64_mandir}
+rm -rf %{buildroot}%{mingw32_datadir}/doc
+rm -rf %{buildroot}%{mingw32_mandir}
+rm -rf %{buildroot}%{mingw64_datadir}/doc
+rm -rf %{buildroot}%{mingw64_mandir}
 
 # remove binaries
-rm -f $RPM_BUILD_ROOT%{mingw32_bindir}/*.exe
-rm -f $RPM_BUILD_ROOT%{mingw64_bindir}/*.exe
+rm -f %{buildroot}%{mingw32_bindir}/*.exe
+rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 # Drop all .la files
-find $RPM_BUILD_ROOT -name "*.la" -delete
+find %{buildroot} -name "*.la" -delete
 
 
 # Win32
 %files -n mingw32-libtiff
-%doc COPYRIGHT README.md RELEASE-DATE VERSION TODO ChangeLog
-%{mingw32_bindir}/libtiff-5.dll
-%{mingw32_bindir}/libtiffxx-5.dll
+%doc README.md RELEASE-DATE VERSION TODO ChangeLog
+%license LICENSE.md
+%{mingw32_bindir}/libtiff-6.dll
+%{mingw32_bindir}/libtiffxx-6.dll
 %{mingw32_includedir}/*
 %{mingw32_libdir}/libtiff.dll.a
 %{mingw32_libdir}/libtiffxx.dll.a
@@ -124,9 +125,10 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 # Win64
 %files -n mingw64-libtiff
-%doc COPYRIGHT README.md RELEASE-DATE VERSION TODO ChangeLog
-%{mingw64_bindir}/libtiff-5.dll
-%{mingw64_bindir}/libtiffxx-5.dll
+%doc README.md RELEASE-DATE VERSION TODO ChangeLog
+%license LICENSE.md
+%{mingw64_bindir}/libtiff-6.dll
+%{mingw64_bindir}/libtiffxx-6.dll
 %{mingw64_includedir}/*
 %{mingw64_libdir}/libtiff.dll.a
 %{mingw64_libdir}/libtiffxx.dll.a
@@ -138,6 +140,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 4.7.1-1
+- Update to 4.7.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

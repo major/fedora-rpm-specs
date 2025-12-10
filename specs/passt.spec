@@ -7,12 +7,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 623dbf6f16d8dedac5a361a0d1daadc772ac842b
+%global git_hash c3f1ba70237a9e66822aff3aa5765d0adf6f6307
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20250919.g623dbf6
+Version:	0^20251209.gc3f1ba7
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -34,19 +34,21 @@ for network namespaces: traffic is forwarded using a tap interface inside the
 namespace, without the need to create further interfaces on the host, hence not
 requiring any capabilities or privileges.
 
-%package		selinux
-BuildArch:		noarch
-Summary:		SELinux support for passt and pasta
-Requires:		selinux-policy-%{selinuxtype}
-Requires:		container-selinux
-Requires(post):		selinux-policy-%{selinuxtype}
+%package		    selinux
+BuildArch:		    noarch
+Summary:		    SELinux support for passt and pasta
+%if 0%{?fedora} > 43
+BuildRequires:      selinux-policy-devel
+%selinux_requires_min
+%else
+BuildRequires:      pkgconfig(systemd)
+Requires(post):     libselinux-utils
+Requires(post):     policycoreutils
+%endif
+Requires:		    container-selinux
+Requires:		    selinux-policy-%{selinuxtype}
 Requires(post):		container-selinux
-Requires(post):		policycoreutils
-Requires(post):		libselinux-utils
-Requires(preun):	policycoreutils
-BuildRequires:		selinux-policy-devel
-BuildRequires:		pkgconfig(systemd)
-Recommends:		selinux-policy-%{selinuxtype} >= %{selinux_policy_version}
+Requires(post):		selinux-policy-%{selinuxtype}
 
 %description selinux
 This package adds SELinux enforcement to passt(1), pasta(1), passt-repair(1).
@@ -103,17 +105,6 @@ fi
 
 %posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
-# %selinux_relabel_post calls fixfiles(8) with the previous file_contexts file
-# (see selabel_file(5)) in order to restore only the file contexts which
-# actually changed. However, as file_contexts doesn't support %{USERID}
-# substitutions, this will not work for specific file contexts that pasta needs
-# to have under /run/user.
-#
-# Restore those explicitly, hiding errors from restorecon(8): we can't pass a
-# path that's more specific than this, but at the same time /run/user often
-# contains FUSE mountpoints that can't be accessed as root, leading to
-# "Permission denied" messages, but not failures.
-restorecon -R /run/user 2>/dev/null
 
 %files
 %license LICENSES/{GPL-2.0-or-later.txt,BSD-3-Clause.txt}
@@ -142,6 +133,12 @@ restorecon -R /run/user 2>/dev/null
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Tue Dec  9 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20251209.gc3f1ba7-1
+- Fix build on Fedora 43, selinux_requires_min not available on Copr builders
+- use %%selinux_requires_min macro, drop overlapping dependencies
+- use regex instead of SELinux template
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_09_19.623dbf6..2025_12_09.c3f1ba7
+
 * Fri Sep 19 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250919.g623dbf6-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_09_11.6cbcccc..2025_09_19.623dbf6
 

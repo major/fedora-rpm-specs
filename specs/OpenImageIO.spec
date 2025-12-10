@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -53,6 +53,7 @@ BuildRequires:  libwebp-devel
 BuildRequires:  opencv-devel
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(OpenColorIO)
+BuildRequires:  cmake(openjph)
 BuildRequires:  openjpeg2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  openvdb-devel
@@ -202,6 +203,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Dec 08 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.8.0-2
+- Add OpenJPH.
+
 * Sat Dec 06 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.8.0-1
 - Update to 3.1.8.0.
 

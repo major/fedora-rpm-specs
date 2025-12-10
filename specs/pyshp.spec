@@ -1,5 +1,5 @@
 Name:           pyshp
-Version:        3.0.2.post1
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
@@ -38,6 +38,8 @@ Source25:       %{data_url}/raw/%{data_commit}/gis_osm_natural_a_free_1.zip
 
 BuildSystem:            pyproject
 BuildOption(install):   -l shapefile
+# We do not package the “stubs” extra because we do not need or wish to package
+# python-pyshp-stubs.
 BuildOption(generate_buildrequires): -x test
 
 BuildArch:      noarch

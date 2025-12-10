@@ -1,15 +1,11 @@
-%if 0%{?rhel} >= 10
-%bcond_with compat_libs
-%bcond_with gpm
-%else
-%bcond_without compat_libs
-%bcond_without gpm
-%endif
+%bcond compat_libs %[!(0%{?rhel} >= 10) || %{defined eln}]
+%bcond gpm %[!(0%{?rhel} >= 10)]
 %global revision 20250614
+
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.5
-Release: 7.%{revision}%{?dist}
+Release: 8.%{revision}%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -122,11 +118,6 @@ The ncurses-static package includes static libraries of the ncurses library.
 %patch -P8 -p1 -b .config
 %patch -P9 -p1 -b .libs
 %patch -P11 -p1 -b .urxvt
-
-for f in ANNOUNCE; do
-    iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
-        touch -r ${f}{,_} && mv -f ${f}{_,}
-done
 
 %build
 common_options="\
@@ -301,6 +292,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Fri Nov 28 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5-8.20250614
+- Build compat-libs for ELN
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-7.20250614
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

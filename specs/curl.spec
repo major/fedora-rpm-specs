@@ -4,10 +4,15 @@
 # Change the bcond to 0 to turn off ENGINE support by default
 %bcond openssl_engine_support %[%{defined fedora} || 0%{?rhel} < 10]
 
+# HTTP/3 support
+# This is using ngtcp2 with OpenSSL 3.5 QUIC support instead of curl's
+# experimental native OpenSSL 3.5 support.
+%bcond http3 %[0%{?fedora} >= 43]
+
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.17.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -50,10 +55,16 @@ BuildRequires: groff
 BuildRequires: krb5-devel
 BuildRequires: libidn2-devel
 BuildRequires: libnghttp2-devel
+%if %{with http3}
+BuildRequires: libnghttp3-devel
+%endif
 BuildRequires: libpsl-devel
 BuildRequires: libssh-devel
 BuildRequires: libtool
 BuildRequires: make
+%if %{with http3}
+BuildRequires: ngtcp2-crypto-ossl-devel
+%endif
 BuildRequires: openldap-devel
 BuildRequires: openssh-clients
 BuildRequires: openssh-server
@@ -148,6 +159,10 @@ Requires: libcurl%{?_isa} >= %{version}-%{release}
 # to ensure that we have the necessary symbols available (#2144277)
 %global libnghttp2_version %(pkg-config --modversion libnghttp2 2>/dev/null || echo 0)
 
+# require at least the version of libnghttp3 that we were built against,
+# to ensure that we have the necessary symbols available
+%global libnghttp3_version %(pkg-config --modversion libnghttp3 2>/dev/null || echo 0)
+
 # require at least the version of libpsl that we were built against,
 # to ensure that we have the necessary symbols available (#1631804)
 %global libpsl_version %(pkg-config --modversion libpsl 2>/dev/null || echo 0)
@@ -155,6 +170,10 @@ Requires: libcurl%{?_isa} >= %{version}-%{release}
 # require at least the version of libssh that we were built against,
 # to ensure that we have the necessary symbols available (#525002, #642796)
 %global libssh_version %(pkg-config --modversion libssh 2>/dev/null || echo 0)
+
+# require at least the version of ngtcp2 that we were built against,
+# to ensure that we have the necessary symbols available
+%global ngtcp2_version %(pkg-config --modversion libngtcp2 2>/dev/null || echo 0)
 
 # require at least the version of openssl-libs that we were built against,
 # to ensure that we have the necessary symbols available (#1462184, #1462211)
@@ -172,8 +191,14 @@ resume, proxy tunneling and a busload of other useful tricks.
 %package -n libcurl
 Summary: A library for getting files from web servers
 Requires: libnghttp2%{?_isa} >= %{libnghttp2_version}
+%if %{with http3}
+Requires: libnghttp3%{?_isa} >= %{libnghttp3_version}
+%endif
 Requires: libpsl%{?_isa} >= %{libpsl_version}
 Requires: libssh%{?_isa} >= %{libssh_version}
+%if %{with http3}
+Requires: ngtcp2%{?_isa} >= %{ngtcp2_version}
+%endif
 Requires: openssl-libs%{?_isa} >= 1:%{openssl_version}
 Provides: libcurl-full = %{version}-%{release}
 Provides: libcurl-full%{?_isa} = %{version}-%{release}
@@ -313,7 +338,11 @@ export common_configure_opts="          \
         --enable-websockets             \
         --with-brotli                   \
         --with-libpsl                   \
-        --with-libssh
+        --with-libssh                   \
+%if %{with http3}
+        --with-nghttp3                  \
+        --with-ngtcp2                   \
+%endif
 )
 
 # avoid using rpath
@@ -419,6 +448,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Sun Dec 07 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 8.17.0-5
+- Enable HTTP/3 support with ngtcp2
+
 * Thu Dec 04 2025 Jan Macku <jamacku@redhat.com> - 8.17.0-4
 - apply upstream patches for valgrind issues in HTTP/3 (#2408809)
 

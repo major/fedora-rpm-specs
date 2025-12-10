@@ -14,7 +14,7 @@
 
 Name:           openjpeg
 Version:        2.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
@@ -454,6 +454,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 2.5.4-2
+- Rebuild (libtiff)
+
 * Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 2.5.4-1
 - Update to 2.5.4
 

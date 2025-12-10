@@ -3,7 +3,7 @@
 %bcond tests %{without bootstrap}
 
 Name:       python-SecretStorage
-Version:    3.4.0
+Version:    3.5.0
 Release:    %autorelease
 Summary:    Python bindings to FreeDesktop.org Secret Service API
 URL:        https://github.com/mitya57/secretstorage

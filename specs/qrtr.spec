@@ -1,5 +1,5 @@
 Name:           qrtr
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        Service listing daemon for Qualcomm IPC Router
 
@@ -7,7 +7,6 @@ Summary:        Service listing daemon for Qualcomm IPC Router
 License:        BSD-3-Clause AND BSD-2-Clause
 URL:            https://github.com/linux-msm/qrtr
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1:         qrtr-restore-soname.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson

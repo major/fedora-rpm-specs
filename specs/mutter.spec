@@ -30,10 +30,6 @@ Source0:       http://download.gnome.org/sources/%{name}/%{major_version}/%{name
 # https://pagure.io/fedora-workstation/issue/357
 Source1:       org.gnome.mutter.fedora.gschema.override
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=1936991
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4786
-Patch:         mutter-42.alpha-disable-tegra.patch
-
 BuildRequires: cvt
 BuildRequires: desktop-file-utils
 BuildRequires: mesa-libEGL-devel

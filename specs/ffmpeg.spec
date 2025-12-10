@@ -35,7 +35,7 @@
 %bcond vmaf 0
 %endif
 
-%ifarch s390 s390x
+%ifarch s390 s390x riscv64
 %bcond dc1394 0
 %bcond ffnvcodec 0
 %else
@@ -105,7 +105,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -971,6 +971,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Dec 04 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 8.0.1-2
+- disable dc1394 and ffnvcodec on risc-v
+
 * Fri Nov 21 2025 Dominik Mierzejewski <dominik@greysector.net> - 8.0.1-1
 - Update to 8.0.1 (resolves rhbz#2416044)
 - Split configure step to conf stage

@@ -138,6 +138,9 @@ framework to translate between arbitrary protocols and the Guacamole protocol.
 %autosetup -p1
 
 %build
+# https://issues.apache.org/jira/browse/GUACAMOLE-2182
+export CFLAGS="%{optflags} -Wno-error"
+
 autoreconf -vif
 %configure \
   --disable-silent-rules \

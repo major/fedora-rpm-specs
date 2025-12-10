@@ -2,7 +2,7 @@
 Name:           python-nltk
 Epoch:          1
 Version:        3.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Natural Language Toolkit
 
 # The entire source code is ASL 2.0 except nltk/stem/porter.py is
@@ -28,10 +28,7 @@ research projects.
 
 %package -n python3-%{mod_name}
 Summary:        Natural Language Toolkit (Python 3)
-BuildRequires:  python3-devel >= 2.5
-BuildRequires:  python3-setuptools
-Requires:       python3-PyYAML >= 3.09
-Requires:       python3-numpy python3-matplotlib python3-tkinter
+BuildRequires:  python3-devel
 
 %description -n python3-%{mod_name}
 NLTK is a Python package that simplifies the construction of programs
@@ -46,16 +43,16 @@ This package provides the Python 3 build of NLTK.
 %prep
 %autosetup -p1 -n %{mod_name}-%{version}
 
-for f in $(grep -Frl '/usr/bin/env' %{mod_name}); do
-  sed -i -e "s|^#!/usr/bin/env python$|#!%{__python3}|g" $f
-done
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{mod_name}
 
 
 %check
@@ -64,15 +61,15 @@ done
 #%%{__python3} %%{mod_name}/test/runtests.py
 
 
-%files -n python3-%{mod_name}
+%files -n python3-%{mod_name} -f %{pyproject_files}
 %{_bindir}/%{mod_name}
-%license LICENSE.txt
 %doc AUTHORS.md CONTRIBUTING.md ChangeLog README.md
-%{python3_sitelib}/%{mod_name}/
-%{python3_sitelib}/%{mod_name}-*.egg-info/
 
 
 %changelog
+* Mon Dec 08 2025 Romain Geissler <romain.geissler@amadeus.com> - 1:3.9.1-6
+- Migrate to pyproject macros (rhbz#2377930)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:3.9.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 
