@@ -1,6 +1,6 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
-Version: 6.5.3
+Version: 6.5.4
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -110,6 +110,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
+- 6.5.4
+
 * Tue Nov 18 2025 Steve Cossette <farchord@gmail.com> - 6.5.3-1
 - 6.5.3
 

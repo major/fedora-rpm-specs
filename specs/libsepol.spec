@@ -89,7 +89,7 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_libdir}/libsepol.so
 %{_libdir}/pkgconfig/libsepol.pc
 %{_includedir}/sepol/*.h
-%{_mandir}/man3/*.3.gz
+%{_mandir}/man3/*.3*
 %dir %{_includedir}/sepol
 %dir %{_includedir}/sepol/policydb
 %{_includedir}/sepol/policydb/*.h
@@ -107,10 +107,7 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_bindir}/sepol_compute_member
 %{_bindir}/sepol_compute_relabel
 %{_bindir}/sepol_validate_transition
-%{_mandir}/man8/chkcon.8.gz
+%{_mandir}/man8/chkcon.8*
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

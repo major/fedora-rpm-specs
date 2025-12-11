@@ -321,7 +321,7 @@ or level of a logged in user.
 
 %files newrole
 %attr(0755,root,root) %caps(cap_dac_read_search,cap_setpcap,cap_audit_write,cap_sys_admin,cap_fowner,cap_chown,cap_dac_override=pe) %{_bindir}/newrole
-%{_mandir}/man1/newrole.1.gz
+%{_mandir}/man1/newrole.1*
 %config(noreplace) %{_sysconfdir}/pam.d/newrole
 
 %package gui
@@ -386,8 +386,8 @@ system-config-selinux is a utility for managing the SELinux environment
 %{_unitdir}/selinux-autorelabel.target
 %{generatorsdir}/selinux-autorelabel-generator.sh
 %config(noreplace) %{_sysconfdir}/sestatus.conf
-%{_mandir}/man5/selinux_config.5.gz
-%{_mandir}/man5/sestatus.conf.5.gz
+%{_mandir}/man5/selinux_config.5*
+%{_mandir}/man5/sestatus.conf.5*
 %{_mandir}/man8/fixfiles.8*
 %{_mandir}/man8/load_policy.8*
 %{_mandir}/man8/restorecon.8*
@@ -445,10 +445,4 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.9-5
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.9-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
 %autochangelog

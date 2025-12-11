@@ -37,9 +37,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.36.04
+Version:	6.38.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -64,7 +64,7 @@ Source7:	JupyROOT-on-EPEL
 Source8:	%{name}-get-src.sh
 #		Clad is a source-transformation automatic differentiation (AD)
 #		library for C++, implemented as a plugin for the Clang compiler
-Source9:	https://github.com/vgvassilev/clad/archive/v1.9/clad-1.9.tar.gz
+Source9:	https://github.com/vgvassilev/clad/archive/v2.2/clad-2.2.tar.gz
 #		Use system fonts
 Patch0:		%{name}-fontconfig.patch
 #		Reduce memory usage during linking on ARM and x86 by generating
@@ -78,31 +78,22 @@ Patch3:		%{name}-no-export-python-modules.patch
 #		Run some test on 32 bit that upstream has disabled
 Patch4:		%{name}-32bit-tests.patch
 #		Adjust test/stressGraphics.ref
-#		https://github.com/root-project/root/pull/18989
+#		https://github.com/root-project/root/pull/30667
 Patch5:		%{name}-Adjust-test-stressGraphics.ref.patch
 #		Revert test change that breaks the test
 Patch6:		%{name}-Revert-test-Fetch-the-geometries-from-EOS-and-not-fr.patch
-#		Ignore warnings from uring IO
-#		https://github.com/root-project/root/pull/18994
-Patch7:		%{name}-Ignore-warnings-from-uring-IO.patch
 #		Preserve memory during parallel build
 #		https://github.com/root-project/root/pull/18991
-Patch8:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
-#		Fix Big Endian test failure
-#		https://github.com/root-project/root/pull/18992
-Patch9:		%{name}-Use-size_t-for-offset.patch
-#		Fix 32 bit test failure
-#		https://github.com/root-project/root/pull/18993
-Patch10:	%{name}-Fix-test-for-32-bit-architectures.patch
-#		https://github.com/root-project/root/issues/18988
-#		https://github.com/root-project/root/pull/19014
-#		https://github.com/root-project/root/pull/19107
-Patch11:	%{name}-Python-Update-reference-refcount-values-for-Python-3.patch
-Patch12:	%{name}-Python-Update-reference-refcount-values-for-Python-3x.patch
-#		https://github.com/root-project/root/pull/19689
-Patch13:	%{name}-df-Support-libarrow-21.patch
-#		https://github.com/root-project/root/pull/19764
-Patch14:	%{name}-Avoid-OverflowError-from-RDF-pythonization.patch
+Patch7:		%{name}-Save-memory-Do-not-link-to-LLVM-libraries-in-parallel.patch
+#		Add missing includes of TMath.h
+#		https://github.com/root-project/root/pull/20601
+Patch8:		%{name}-Geom-Add-missing-includes-of-TMath.h.patch
+#		Fix numpy vs dataframe type mismatch om ix86
+#		https://github.com/root-project/root/pull/20668
+Patch9:		%{name}-Fix-a-numpy-test-for-32-bit-archs.patch
+#		Backport a test fix from upstream
+Patch10:	%{name}-VecOps-Remove-outdated-IsSmall-helper-function-in-te.patch
+Patch11:	%{name}-vecops-Adaptive-size-of-long-RVec-instances-in-RVec-.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -133,12 +124,9 @@ BuildRequires:	libxml2-devel
 BuildRequires:	fftw-devel
 BuildRequires:	gsl-devel
 BuildRequires:	unuran-devel
-BuildRequires:	mariadb-connector-c-devel
 BuildRequires:	sqlite-devel
-BuildRequires:	unixODBC-devel
 BuildRequires:	libGL-devel
 BuildRequires:	libGLU-devel
-BuildRequires:	libpq-devel
 BuildRequires:	libxcrypt-devel
 BuildRequires:	python%{python3_pkgversion}-devel >= 3.7
 BuildRequires:	python%{python3_pkgversion}-setuptools
@@ -148,10 +136,6 @@ BuildRequires:	qt6-qtbase-devel
 BuildRequires:	qt6-qtwebengine-devel
 %endif
 BuildRequires:	openssl-devel
-%if %{?fedora}%{!?fedora:0} >= 41
-#		Needed by civetweb.c in root-net-http
-BuildRequires:	openssl-devel-engine
-%endif
 BuildRequires:	libtool-ltdl-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	dcap-devel
@@ -191,8 +175,6 @@ BuildRequires:	cppzmq-devel
 %if %{pandas}
 BuildRequires:	python%{python3_pkgversion}-pandas
 %endif
-BuildRequires:	python%{python3_pkgversion}-rcssmin
-BuildRequires:	uglify-js3
 BuildRequires:	perl-generators
 BuildRequires:	gtest-devel
 BuildRequires:	gmock-devel
@@ -214,6 +196,7 @@ Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-multiproc%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
 Requires:	hicolor-icon-theme
 Obsoletes:	emacs-%{name} < 5.34.28
@@ -229,9 +212,7 @@ the bulk of the data. Included are histogramming methods in an
 arbitrary number of dimensions, curve fitting, function evaluation,
 minimization, graphics and visualization classes to allow the easy
 setup of an analysis system that can query and process the data
-interactively or in batch mode, as well as a general parallel
-processing framework, PROOF, that can considerably speed up an
-analysis.
+interactively or in batch mode.
 
 Thanks to the built-in C++ interpreter cling, the command, the
 scripting and the programming language are all C++. The interpreter
@@ -305,9 +286,7 @@ Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-dataframe%{?_isa} = %{version}-%{release}
 %endif
 Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
-%if %{root7}
 Requires:	%{name}-tree-ntuple-utils%{?_isa} = %{version}-%{release}
-%endif
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
 Requires:	%{name}-vecops%{?_isa} = %{version}-%{release}
 #		To resolve dependency in installed ROOTConfig.cmake
@@ -328,6 +307,7 @@ Requires:	font(droidsansfallback)
 Obsoletes:	%{name}-ruby < 6.00.00
 Obsoletes:	%{name}-vdt < 6.10.00
 Obsoletes:	%{name}-proof-pq2 < 6.16.00
+Obsoletes:	%{name}-proofd < 6.16.00
 Obsoletes:	%{name}-rootd < 6.16.00
 Obsoletes:	%{name}-geocad < 6.18.00
 Obsoletes:	%{name}-graf-qt < 6.18.00
@@ -340,6 +320,7 @@ Obsoletes:	%{name}-net-globus < 6.18.00
 Obsoletes:	%{name}-net-ldap < 6.18.00
 Obsoletes:	%{name}-net-krb5 < 6.18.00
 Obsoletes:	%{name}-table < 6.18.00
+Obsoletes:	%{name}-xproof < 6.22.08-2
 Obsoletes:	%{name}-memstat < 6.26.00
 Obsoletes:	%{name}-montecarlo-vmc < 6.26.00
 Obsoletes:	%{name}-doc < 6.26.00
@@ -347,8 +328,14 @@ Obsoletes:	%{name}-io-gfal < 6.30.00
 Obsoletes:	%{name}-roofit-common < 6.30.00
 Obsoletes:	%{name}-gui-qt5webdisplay < 6.36.00
 Obsoletes:	%{name}-hist-draw < 6.36.00
-Obsoletes:	%{name}-histv7 < 6.36.00
 Obsoletes:	%{name}-html < 6.36.00
+Obsoletes:	%{name}-proof < 6.38.00
+Obsoletes:	%{name}-proof-bench < 6.38.00
+Obsoletes:	%{name}-proof-player < 6.38.00
+Obsoletes:	%{name}-proof-sessionviewer < 6.38.00
+Obsoletes:	%{name}-sql-mysql < 6.38.00
+Obsoletes:	%{name}-sql-odbc < 6.38.00
+Obsoletes:	%{name}-sql-pgsql < 6.38.00
 
 %description core
 This package contains the core libraries used by ROOT: libCore, libNew,
@@ -414,8 +401,6 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 #		Package split (tpython from Python bindings)
 Obsoletes:	python%{python3_pkgversion}-%{name} < 6.22.00
-#		JsMVA python module is now a submodule of ROOT python module
-Provides:	python%{python3_pkgversion}-jsmva = %{version}-%{release}
 Obsoletes:	python%{python3_pkgversion}-jsmva < 6.32.00
 
 %description -n python%{python3_pkgversion}-%{name}
@@ -431,7 +416,7 @@ Requires:	%{name}-core = %{version}-%{release}
 #		notebook package was merged with JupyROOT package
 Provides:	%{name}-notebook = %{version}-%{release}
 Obsoletes:	%{name}-notebook < 6.32.00
-Requires:	js-jsroot >= 7.9
+Requires:	js-jsroot >= 7.10
 %if %{?fedora}%{!?fedora:0} || ( %{?rhel}%{!?rhel:0} >= 10 && "%{?dist}" != ".el10_0" )
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
@@ -521,8 +506,8 @@ Obsoletes:	%{name}-geom < 6.28.00
 %description geom-builder
 This package contains a library for building geometries in ROOT.
 
-%package geom-painter
-Summary:	Geometry painter library for ROOT
+%package geom-checker
+Summary:	Geometry checker library for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-geom%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
@@ -531,6 +516,17 @@ Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
+
+%description geom-checker
+This package contains a library for checking geometries in ROOT.
+
+%package geom-painter
+Summary:	Geometry painter library for ROOT
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-geom%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 #		Package split (geom-builder and geom-painter from geom)
 Obsoletes:	%{name}-geom < 6.28.00
 
@@ -716,6 +712,8 @@ Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple-browse%{?_isa} = %{version}-%{release}
 #		Dynamic dependencies
 Requires:	%{name}-graf-x11%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-ged%{?_isa} = %{version}-%{release}
@@ -796,6 +794,14 @@ Recorded events are:
  - GUI events (mouse movement, button clicks, ...)
 All the recorded events from one session are stored in one TFile
 and can be replayed again anytime.
+
+%package gui-treemap
+Summary:	GUI element for tree maps in ROOT
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
+
+%description gui-treemap
+This package contains a library to show tree maps in the ROOT GUI.
 
 %package hbook
 Summary:	Hbook library for ROOT
@@ -940,7 +946,6 @@ Summary:	Core mathematics library for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 #		Dynamic dependencies
 Requires:	%{name}-mathmore%{?_isa} = %{version}-%{release}
-Requires:	%{name}-minuit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-minuit2%{?_isa} = %{version}-%{release}
 
 %description mathcore
@@ -1127,17 +1132,16 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 This package contains the ROOT networking library.
 
 %package net-rpdutils
-Summary:	Authentication utilities used by xproofd
+Summary:	Authentication utilities used by rootd
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 
 %description net-rpdutils
-This package contains authentication utilities used by xproofd.
+This package contains authentication utilities used by rootd.
 
 %package net-auth
 Summary:	Authentication extension for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 
 %description net-auth
@@ -1155,9 +1159,11 @@ access to http based storage such as webdav and S3.
 
 %package net-http
 Summary:	HTTP server extension for ROOT
+#		The system civetweb is not compiled with websocket support
+Provides:	bundled(civetweb)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	js-jsroot >= 7.9
+Requires:	js-jsroot >= 7.10
 #		Library split (net-httpsniff from net-http)
 Obsoletes:	%{name}-net-http < 6.14.00
 
@@ -1190,71 +1196,6 @@ Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 %description netx
 This package contains the NetX extension for ROOT, i.e. a client for
 the xrootd server. Only the new (NetXNG) version is provided.
-
-%package proof
-Summary:	PROOF extension for ROOT
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-Obsoletes:	%{name}-clarens < 5.34.01
-Obsoletes:	%{name}-peac < 5.34.01
-#		Package split (proof-player from proof)
-Obsoletes:	%{name}-proof < 6.14.00
-Obsoletes:	%{name}-proofd < 6.16.00
-Obsoletes:	%{name}-xproof < 6.22.08-2
-
-%description proof
-This package contains the proof extension for ROOT. This provides a
-client to use in a PROOF environment.
-
-%package proof-bench
-Summary:	PROOF benchmarking
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
-Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	%{name}-proof%{?_isa} = %{version}-%{release}
-Requires:	%{name}-proof-player%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-
-%description proof-bench
-This package contains the steering class for PROOF benchmarks.
-
-%package proof-player
-Summary:	PROOF player extension for ROOT
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
-Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net%{?_isa} = %{version}-%{release}
-Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
-Requires:	%{name}-proof%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
-#		Package split (proof-player from proof)
-Obsoletes:	%{name}-proof < 6.14.00
-
-%description proof-player
-This package contains the proof player extension for ROOT.
-
-%package proof-sessionviewer
-Summary:	GUI to browse an interactive PROOF session
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
-Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
-Requires:	%{name}-gui%{?_isa} = %{version}-%{release}
-Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
-Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
-Requires:	%{name}-proof%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-
-%description proof-sessionviewer
-This package contains a library for browsing an interactive PROOF
-session in ROOT.
 
 %if %{roofit}
 %package roofit
@@ -1507,31 +1448,6 @@ suitable for adoption in different disciplines as well.
 This package contains extra tools for RooFit projects.
 %endif
 
-%package sql-mysql
-Summary:	MySQL client plugin for ROOT
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net%{?_isa} = %{version}-%{release}
-
-%description sql-mysql
-This package contains the MySQL plugin for ROOT. This plugin
-provides a thin client (interface) to MySQL servers. Using this
-client, one can obtain information from a MySQL database into the
-ROOT environment.
-
-This package is deprecated and will be removed in the next release of ROOT.
-
-%package sql-odbc
-Summary:	ODBC plugin for ROOT
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net%{?_isa} = %{version}-%{release}
-
-%description sql-odbc
-This package contains the ODBC (Open DataBase Connectivity) plugin
-for ROOT, that allows transparent access to any kind of database that
-supports the ODBC protocol.
-
-This package is deprecated and will be removed in the next release of ROOT.
-
 %package sql-sqlite
 Summary:	Sqlite client plugin for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -1542,19 +1458,6 @@ This package contains the sqlite plugin for ROOT. This plugin
 provides a thin client (interface) to sqlite servers. Using this
 client, one can obtain information from a sqlite database into the
 ROOT environment.
-
-%package sql-pgsql
-Summary:	PostgreSQL client plugin for ROOT
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net%{?_isa} = %{version}-%{release}
-
-%description sql-pgsql
-This package contains the PostGreSQL plugin for ROOT. This plugin
-provides a thin client (interface) to PostGreSQL servers. Using this
-client, one can obtain information from a PostGreSQL database into the
-ROOT environment.
-
-This package is deprecated and will be removed in the next release of ROOT.
 
 %package tmva
 Summary:	Toolkit for multivariate data analysis
@@ -1615,6 +1518,7 @@ License:	BSD-3-Clause
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tmva%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tmva-sofie%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_pkgversion}-numpy
 
 %description tmva-python
@@ -1805,9 +1709,12 @@ This package provides a Web based GUI for ROOT.
 Summary:	ROOT GUI browsable providers
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-geom%{?_isa} = %{version}-%{release}
+Requires:	%{name}-gui-treemap%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple-browse%{?_isa} = %{version}-%{release}
 #		Package split (gui-browsable-v7 from gui-browsable)
 Obsoletes:	%{name}-gui-browsable < 6.32.06
 
@@ -1852,6 +1759,31 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 %description tree-ntuple
 This package contains the new ROOT n-tuple class (RNTuple).
 
+%package tree-ntuple-browse
+Summary:	N-Tuple browsing library for ROOT
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
+Requires:	%{name}-gui-treemap%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple-utils%{?_isa} = %{version}-%{release}
+
+%description tree-ntuple-browse
+This package contains a library for browsing n-tuples.
+
+%package tree-ntuple-utils
+Summary:	Ntuple utility library
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
+
+%description tree-ntuple-utils
+This package contains utility functions for ntuples.
+
 %if %{root7}
 %package graf-gpadv7
 Summary:	Canvas and pad library for ROOT (ROOT 7)
@@ -1894,9 +1826,11 @@ Summary:	Additional ROOT GUI browsable providers (ROOT 7)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpadv7%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-browsable%{?_isa} = %{version}-%{release}
+Requires:	%{name}-gui-treemap%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree-ntuple-browse%{?_isa} = %{version}-%{release}
 #		Package split (gui-browsable-v7 from gui-browsable)
 Obsoletes:	%{name}-gui-browsable < 6.32.06
 
@@ -1939,16 +1873,12 @@ Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 This package contains a library to show a pop-up dialog when fitting
 various kinds of data.
 
-%package tree-ntuple-utils
-Summary:	Ntuple utility library (ROOT 7)
+%package histv7
+Summary:	Histogram library for ROOT 7
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
-Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
 
-%description tree-ntuple-utils
-This package contains utility functions for ntuples.
+%description histv7
+This package contains a library for histogramming in ROOT 7.
 %endif
 
 %prep
@@ -1966,9 +1896,6 @@ This package contains utility functions for ntuples.
 %patch -P9 -p1
 %patch -P10 -p1
 %patch -P11 -p1
-%patch -P12 -p1
-%patch -P13 -p1
-%patch -P14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -1994,19 +1921,10 @@ rm core/lzma/src/*.tar.gz
 rm graf3d/gl/src/gl2ps.cxx graf3d/gl/src/gl2ps/gl2ps.h
 #  * unuran
 rm math/unuran/src/*.tar.gz
-#  * xrootd-private-devel headers
-rm -rf proof/xrdinc/*
 #  * x11 extension headers
 rm -rf graf2d/x11/inc/X11
 #  * jsroot
 rm -rf js/[^f]* js/files/draw.htm js/files/online.htm
-
-# Remove pre-minified script and style files
-rm etc/notebook/JsMVA/js/*.min.js
-rm etc/notebook/JsMVA/css/*.min.css
-
-# Remove executable permissions from source file
-chmod -x interpreter/CppInterOp/lib/Interpreter/CppInterOp.cpp
 
 # Additional documentation
 install -p -m 644 %{SOURCE7} bindings/jupyroot
@@ -2022,14 +1940,6 @@ unset QTDIR
 unset QTLIB
 unset QTINC
 
-# Minify script and style files
-for s in etc/notebook/JsMVA/js/*.js ; do
-    uglifyjs-3 ${s} -c -m -o ${s%.js}.min.js
-done
-for s in etc/notebook/JsMVA/css/*.css ; do
-    python3 -m rcssmin < ${s} > ${s%.css}.min.css
-done
-
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
        -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir}/%{name} \
@@ -2039,6 +1949,7 @@ done
        -DPython3_EXECUTABLE:PATH=%{__python3} \
        -Dgnuinstall:BOOL=ON \
        -Dbuiltin_cfitsio:BOOL=OFF \
+       -Dbuiltin_civetweb:BOOL=ON \
        -Dbuiltin_clang:BOOL=ON \
        -Dbuiltin_cling:BOOL=ON \
        -Dbuiltin_cppzmq:BOOL=OFF \
@@ -2084,8 +1995,9 @@ done
        -Dccache:BOOL=OFF \
        -Ddistcc:BOOL=OFF \
        -Dcefweb:BOOL=OFF \
+       -Dcheck_connection:BOOL=OFF \
        -Dclad:BOOL=ON \
-       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-1.9 \
+       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-2.2 \
        -Dcocoa:BOOL=OFF \
        -Dcuda:BOOL=OFF \
        -Ddaos:BOOL=OFF \
@@ -2097,6 +2009,8 @@ done
        -Ddavix:BOOL=ON \
        -Ddcache:BOOL=ON \
        -Ddev:BOOL=OFF \
+       -Dexperimental_adaptivecpp=OFF \
+       -Dexperimental_genvectorx=OFF \
        -Dfcgi:BOOL=ON \
        -Dfftw3:BOOL=ON \
        -DFIREFOX_EXECUTABLE:PATH=/usr/bin/firefox \
@@ -2112,13 +2026,9 @@ done
        -Dmathmore:BOOL=ON \
        -Dmemory_termination:BOOL=OFF \
        -Dminuit2_mpi:BOOL=OFF \
-       -Dminuit2_omp:BOOL=OFF \
+       -Dminuit2_omp:BOOL=ON \
        -Dmpi:BOOL=OFF \
-       -Dmysql:BOOL=ON \
-       -Dodbc:BOOL=ON \
        -Dopengl:BOOL=ON \
-       -Dpgsql:BOOL=ON \
-       -Dproof:BOOL=ON \
        -Dpyroot:BOOL=ON \
        -Dpythia8:BOOL=ON \
 %ifarch %{qt6_qtwebengine_arches}
@@ -2148,7 +2058,6 @@ done
 %else
        -Droot7:BOOL=OFF \
 %endif
-       -Drpath:BOOL=OFF \
        -Druby:BOOL=OFF \
        -Druntime_cxxmodules:BOOL=OFF \
        -Dshadowpw:BOOL=ON \
@@ -2157,6 +2066,7 @@ done
        -Dspectrum:BOOL=ON \
        -Dsqlite:BOOL=ON \
        -Dssl:BOOL=ON \
+       -Dthisroot_scripts:BOOL=OFF \
        -Dtmva:BOOL=ON \
        -Dtmva-cpu:BOOL=ON \
        -Dtmva-cudnn:BOOL=OFF \
@@ -2227,8 +2137,8 @@ mv %{buildroot}%{_libdir}/%{name}/*-gdb.py \
    %{buildroot}%{_datadir}/gdb/auto-load%{_libdir}/%{name}
 
 # Fix python extension suffix
-mv %{buildroot}%{python3_sitearch}/libROOTPythonizations.so \
-   %{buildroot}%{python3_sitearch}/libROOTPythonizations%{python3_ext_suffix}
+mv %{buildroot}%{python3_sitearch}/ROOT/libROOTPythonizations.so \
+   %{buildroot}%{python3_sitearch}/ROOT/libROOTPythonizations%{python3_ext_suffix}
 
 # Move noarch python modules to sitelib
 if [ "%{python3_sitelib}" != "%{python3_sitearch}" ] ; then
@@ -2273,6 +2183,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/notebook/custom
 rm -rf %{buildroot}%{_datadir}/%{name}/notebook/html
 rm -rf %{buildroot}%{_datadir}/%{name}/notebook/kernels
 rm     %{buildroot}%{_datadir}/%{name}/notebook/jupyter_notebook_config.py
+rmdir  %{buildroot}%{_datadir}/%{name}/notebook
 
 # Replace the rootnb.exe wrapper with a simpler one
 cat > %{buildroot}%{_bindir}/rootnb.exe << EOF
@@ -2313,17 +2224,9 @@ sed -e 's!/usr/bin/python!%{__python3}!' \
     -i %{buildroot}%{_datadir}/%{name}/pdg_table_update.py
 
 # Remove some junk
-rm %{buildroot}%{_datadir}/%{name}/proof/*.sample
-rm -rf %{buildroot}%{_datadir}/%{name}/proof/utils
 rm %{buildroot}%{_datadir}/%{name}/root.desktop
-rm %{buildroot}%{_bindir}/setxrd*
-rm %{buildroot}%{_bindir}/thisroot*
 rm %{buildroot}%{_pkgdocdir}/INSTALL
 rm %{buildroot}%{_pkgdocdir}/README.CXXMODULES.md
-rm -rf %{buildroot}%{_includedir}/clang
-rm -rf %{buildroot}%{_includedir}/clang-c
-rm -rf %{buildroot}/usr/lib/cmake/CppInterOp
-rm %{buildroot}/usr/lib/libclangCppInterOp.a
 rm -rf %{buildroot}%{_datadir}/%{name}/html
 
 # Only used on Windows
@@ -2336,17 +2239,10 @@ rm ROOT@@Math@@Minimizer/P090_RMinimizer.C
 %endif
 rm TGLManager/P020_TGWin32GLManager.C
 rm TGLManager/P030_TGOSXGLManager.C
-rm TProofMgr/P010_TXProofMgr.C
-rm TProofServ/P010_TXProofServ.C
-rm TSlave/P010_TXSlave.C
-rm TSQLServer/P040_TOracleServer.C
 rm TVirtualGeoConverter/P010_TGeoVGConverter.C
 rm TVirtualGLImp/P020_TGWin32GL.C
 rm TVirtualX/P030_TGWin32.C
 rm TVirtualX/P050_TGQuartz.C
-rmdir TProofMgr
-rmdir TProofServ
-rmdir TSlave
 rmdir TVirtualGeoConverter
 popd
 
@@ -2435,8 +2331,8 @@ popd
 # - tutorial-analysis-dataframe-df105_WBosonAnalysis-py
 # - tutorial-analysis-dataframe-df106_HiggsToFourLeptons(-py)
 # - tutorial-analysis-dataframe-df107_SingleTopAnalysis-py
-# - tutorial-experimental-rcanvas-df104-py
-# - tutorial-experimental-rcanvas-df105-py
+# - tutorial-visualisation-rcanvas-df104-py
+# - tutorial-visualisation-rcanvas-df105-py
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/opendata/atlas/OutreachDatasets/2020-01-22/
 #
@@ -2465,7 +2361,7 @@ popd
 #   reads input file over network
 #   root://eospublic.cern.ch/eos/root-eos/h1/dstarmb.root
 #
-# - tutorial-tmva-tmva103_Application
+# - tutorial-machine_learning-tmva100_DataPreparation-py
 #   reads input data over network
 #   root://eospublic.cern.ch/eos/root-eos/cms_opendata_2012_nanoaod/SMHiggsToZZTo4L.root
 #
@@ -2474,6 +2370,9 @@ popd
 #
 # - test-stressgraphics-firefox-skip3d:
 #   requires firefox...
+#
+# - test-stressgraphics-svg
+#   Font metric differences
 #
 # - tutorial-visualisation-webcanv-fonts_ttf.cxx:
 #   Requires web graphics
@@ -2492,8 +2391,8 @@ tutorial-analysis-dataframe-df104_HiggsToTwoPhotons-py|\
 tutorial-analysis-dataframe-df105_WBosonAnalysis-py|\
 tutorial-analysis-dataframe-df106_HiggsToFourLeptons|\
 tutorial-analysis-dataframe-df107_SingleTopAnalysis-py|\
-tutorial-experimental-rcanvas-df104-py|\
-tutorial-experimental-rcanvas-df105-py|\
+tutorial-visualisation-rcanvas-df104-py|\
+tutorial-visualisation-rcanvas-df105-py|\
 tutorial-io-ntuple-ntpl004_dimuon|\
 tutorial-io-ntuple-ntpl008_import|\
 tutorial-io-ntuple-ntpl011_global_temperatures|\
@@ -2501,20 +2400,11 @@ gtest-net-davix-RRawFileDavix|\
 gtest-net-netxng-RRawFileNetXNG|\
 gtest-net-netxng-TNetXNGFileTest|\
 tutorial-analysis-parallel-mp_processSelector|\
-tutorial-tmva-tmva103_Application|\
+tutorial-machine_learning-tmva100_DataPreparation-py|\
 test-webgui-ping|\
 test-stressgraphics-firefox-skip3d|\
+test-stressgraphics-svg|\
 tutorial-visualisation-webcanv-fonts_ttf.cxx"
-
-# Duplicated tests
-# https://github.com/root-project/root/issues/19346
-# - gtest-tree-treeplayer-ttreeindex-clone
-# - gtest-tree-treeplayer-ttreeindex-getlistoffriends
-# - gtest-tree-treeplayer-ttreereader-friends
-excluded="${excluded}|\
-gtest-tree-treeplayer-ttreeindex-clone|\
-gtest-tree-treeplayer-ttreeindex-getlistoffriends|\
-gtest-tree-treeplayer-ttreereader-friends"
 
 %ifarch %{ix86}
 # - gtest-hist-hist-TFormulaGradientTests
@@ -2522,31 +2412,27 @@ gtest-tree-treeplayer-ttreereader-friends"
 #
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views
 #   ValueError: buffer is smaller than requested size
+#
+# - tmva-sofie-test-TestCustomModelsFromONNX
+#   Expected equality of these values:
+#     output.size()
+#       Which is: 1000
+#     sizeof(Slice_Neg::output) / sizeof(float)
+#       Which is: 900
 excluded="${excluded}|\
 gtest-hist-hist-TFormulaGradientTests|\
-pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views"
+pyunittests-bindings-pyroot-pythonizations-pyroot-array-numpy-views|\
+tmva-sofie-test-TestCustomModelsFromONNX\$\$"
 %endif
 
 %ifarch %{power64}
-# - tutorial-roofit-roostats-IntervalExamples-py
-#   *** Break *** segmentation violation
-excluded="${excluded}|\
-tutorial-roofit-roostats-IntervalExamples-py"
-
 %if %{?fedora}%{!?fedora:0} >= 42
 # - gtest-tree-ntuple-ntuple-emulated
-# - gtest-tree-ntuple-ntuple-evolution
+# - gtest-tree-ntuple-ntuple-evolution-shape
 #   waitpid() failed
 excluded="${excluded}|\
 gtest-tree-ntuple-ntuple-emulated|\
-gtest-tree-ntuple-ntuple-evolution"
-%endif
-
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
-# tutorial-roofit-roostats-StandardBayesianMCMCDemo-py
-# - ZeroDivisionError: float division by zero
-excluded="${excluded}|\
-tutorial-roofit-roostats-StandardBayesianMCMCDemo-py"
+gtest-tree-ntuple-ntuple-evolution-shape"
 %endif
 %endif
 
@@ -2559,13 +2445,16 @@ gtest-roofit-roofitcore-testNaNPacker|\
 gtest-roofit-roofitcore-testLikelihoodGradientJob"
 
 # - gtest-core-dictgen-dictgen-base
-# - gtest-tmva-sofie-TestCustomModelsFromONNX
+# - gtest-tree-dataframe-dataframe-concurrency
+# - gtest-tree-dataframe-dataframe-snapshot-ntuple
 # - gtest-tree-dataframe-dataframe-unified-constructor
-#
+# - gtest-tree-dataframe-dataframe-vary
+# - gtest-tree-dataframe-datasource-ntuple
 # - gtest-tree-ntuple-ntuple-basics
 # - gtest-tree-ntuple-ntuple-bulk
 # - gtest-tree-ntuple-ntuple-cast
 # - gtest-tree-ntuple-ntuple-compat
+# - gtest-tree-ntuple-ntuple-evolution-type
 # - gtest-tree-ntuple-ntuple-extended
 # - gtest-tree-ntuple-ntuple-join-table
 # - gtest-tree-ntuple-ntuple-largefile2
@@ -2588,19 +2477,22 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - gtest-tree-ntuple-rfield-streamer
 # - gtest-tree-ntuple-rfield-variant
 # - gtest-tree-ntuple-rfield-vector
-# - gtest-tree-ntupleutil-v7-ntuple-importer
-# - gtest-tree-ntupleutil-v7-ntuple-inspector
+# - gtest-tree-ntupleutil-ntuple-importer
+# - gtest-tree-ntupleutil-ntuple-inspector
+# - gtest-tree-tree-testTTreeRegressions
 #   https://github.com/root-project/root/issues/12426
 #
 # - pyunittests-bindings-distrdf-backend-distrdf-unit-backend-graph-caching
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor
 # - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector
+# - pyunittests-io-io-rfile-py
+# - tmva-sofie-test-TestCustomModelsFromONNX
 # - tutorial-analysis-dataframe-df006_ranges-py
-# - tutorial-experimental-rcanvas-rbox-py
 # - tutorial-hist-hist007_TH1_liveupdate-py
 # - tutorial-math-exampleFunction-py
 # - tutorial-math-fit-combinedFit-py
 # - tutorial-math-fit-NumericalMinimization-py
+# - tutorial-visualisation-rcanvas-rbox-py
 #   https://github.com/root-project/root/issues/12429
 #
 # - test-stresshistofit
@@ -2609,14 +2501,16 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - test-stresshistogram-interpreted
 excluded="${excluded}|\
 gtest-core-dictgen-dictgen-base|\
-gtest-tmva-sofie-TestCustomModelsFromONNX|\
+gtest-tree-dataframe-dataframe-concurrency|\
 gtest-tree-dataframe-dataframe-snapshot-ntuple|\
 gtest-tree-dataframe-dataframe-unified-constructor|\
+gtest-tree-dataframe-dataframe-vary|\
 gtest-tree-dataframe-datasource-ntuple|\
 gtest-tree-ntuple-ntuple-basics|\
 gtest-tree-ntuple-ntuple-bulk|\
 gtest-tree-ntuple-ntuple-cast|\
 gtest-tree-ntuple-ntuple-compat|\
+gtest-tree-ntuple-ntuple-evolution-type|\
 gtest-tree-ntuple-ntuple-extended|\
 gtest-tree-ntuple-ntuple-join-table|\
 gtest-tree-ntuple-ntuple-largefile2|\
@@ -2639,17 +2533,20 @@ gtest-tree-ntuple-rfield-class|\
 gtest-tree-ntuple-rfield-streamer|\
 gtest-tree-ntuple-rfield-variant|\
 gtest-tree-ntuple-rfield-vector|\
-gtest-tree-ntupleutil-v7-ntuple-importer|\
-gtest-tree-ntupleutil-v7-ntuple-inspector|\
+gtest-tree-ntupleutil-ntuple-importer|\
+gtest-tree-ntupleutil-ntuple-inspector|\
+gtest-tree-tree-testTTreeRegressions|\
 pyunittests-bindings-distrdf-backend-distrdf-unit-backend-graph-caching|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor|\
 pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector|\
+pyunittests-io-io-rfile-py|\
+tmva-sofie-test-TestCustomModelsFromONNX|\
 tutorial-analysis-dataframe-df006_ranges-py|\
-tutorial-experimental-rcanvas-rbox-py|\
 tutorial-hist-hist007_TH1_liveupdate-py|\
 tutorial-math-exampleFunction-py|\
 tutorial-math-fit-combinedFit-py|\
 tutorial-math-fit-NumericalMinimization-py|\
+tutorial-visualisation-rcanvas-rbox-py|\
 test-stresshistofit\$\$|\
 test-stresshistofit-interpreted|\
 test-stresshistogram\$\$|\
@@ -2670,17 +2567,14 @@ excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
 %endif
 
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
-# - https://github.com/root-project/root/issues/18995
-excluded="${excluded}|\
-gtest-tree-tree-testTTreeRegressions"
-%endif
-
 # Filter out parts of tests that require remote network access
 # RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
 # InterpreterTest.Evaluate fails on s390x
 # TClingDataMemberInfo.Offset fails on s390x
 # https://github.com/root-project/root/issues/14512
+# TTreeRegressions.PrintClustersRounding
+# relies on specific versions of compression libraries
+# https://github.com/root-project/root/issues/18995
 export GTEST_FILTER=-\
 %ifarch %{ix86}
 RNTuple.StdAtomic:\
@@ -2691,13 +2585,15 @@ TClingDataMemberInfo.Offset:\
 TTreeReaderBasic.LorentzVector32:\
 %endif
 RCsvDS.Remote:\
+RFile.RemoteRead:\
 RNTuple.OpenHTTP:\
 RRawFile.Remote:\
 RSqliteDS.Davix:\
 TChainParsing.DoubleSlash:\
 TChainParsing.RemoteGlob:\
 TFile.ReadWithoutGlobalRegistrationNet:\
-TFile.ReadWithoutGlobalRegistrationWeb
+TFile.ReadWithoutGlobalRegistrationWeb:\
+TTreeRegressions.PrintClustersRounding
 %ctest -- -E "${excluded}"
 
 %pretrans net-http -p <lua>
@@ -2764,6 +2660,8 @@ fi
 %{_bindir}/hadd
 %{_bindir}/root
 %{_bindir}/root.exe
+%{_bindir}/rootbrowse
+%{_bindir}/rootls
 %{_bindir}/rootn.exe
 %{_bindir}/rootreadspeed
 %{_bindir}/roots
@@ -2846,6 +2744,7 @@ fi
 %{_pkgdocdir}/LICENSE
 %doc %{_pkgdocdir}/DEVELOPMENT.md
 %doc %{_pkgdocdir}/ReleaseNotes
+%doc %{_pkgdocdir}/root_citation.bib
 %license LICENSE LGPL2_1.txt
 
 %files multiproc -f includelist-core-multiproc
@@ -2874,14 +2773,9 @@ fi
 
 %files -n python%{python3_pkgversion}-%{name} -f includelist-bindings-pyroot
 %{python3_sitearch}/cppyy
-%{python3_sitearch}/cppyy_backend
 %{python3_sitearch}/ROOT
 %{python3_sitearch}/ROOT-*.dist-info
-%{python3_sitearch}/libcppyy.so
-%{python3_sitearch}/libcppyy_backend.so
-%{python3_sitearch}/libROOTPythonizations%{python3_ext_suffix}
-%{_libdir}/%{name}/libcppyy.*
-%{_libdir}/%{name}/libcppyy_backend.*
+%{_libdir}/%{name}/libCPyCppyy.*
 %dir %{_includedir}/%{name}/CPyCppyy
 
 %files -n python%{python3_pkgversion}-jupyroot
@@ -2889,7 +2783,6 @@ fi
 %{python3_sitelib}/JupyROOT-*.dist-info
 %{_datadir}/jupyter/kernels/python%{python3_pkgversion}-jupyroot
 %{_bindir}/rootnb.exe
-%{_datadir}/%{name}/notebook
 %doc bindings/jupyroot/README.md
 %doc bindings/jupyroot/JupyROOT-on-EPEL
 
@@ -3044,6 +2937,10 @@ fi
 %{_libdir}/%{name}/libRecorder.*
 %{_libdir}/%{name}/libRecorder_rdict.pcm
 
+%files gui-treemap -f includelist-gui-treemap
+%{_libdir}/%{name}/libROOTTreeMap.*
+%{_libdir}/%{name}/libROOTTreeMap_rdict.pcm
+
 %files hbook -f includelist-hist-hbook
 %{_bindir}/g2root
 %{_bindir}/h2root
@@ -3085,7 +2982,6 @@ fi
 %files io-sql -f includelist-io-sql
 %{_libdir}/%{name}/libSQLIO.*
 %{_libdir}/%{name}/libSQLIO_rdict.pcm
-%{_datadir}/%{name}/plugins/TFile/P090_TSQLFile.C
 
 %files io-xml -f includelist-io-xml
 %{_libdir}/%{name}/libXMLIO.*
@@ -3260,44 +3156,6 @@ fi
 %{_datadir}/%{name}/plugins/TSystem/P040_TXNetSystem.C
 %{_datadir}/%{name}/plugins/ROOT@@Internal@@RRawFile/P020_RRawFileNetXNG.C
 
-%files proof -f includelist-proof-proof
-%{_bindir}/proofserv
-%{_bindir}/proofserv.exe
-%{_mandir}/man1/proofserv.1*
-%{_libdir}/%{name}/libProof.*
-%{_libdir}/%{name}/libProof_rdict.pcm
-%{_datadir}/%{name}/plugins/TChain/P010_TProofChain.C
-%{_datadir}/%{name}/plugins/TDataSetManager/P010_TDataSetManagerFile.C
-%{_datadir}/%{name}/plugins/TProof/P010_TProofCondor.C
-%{_datadir}/%{name}/plugins/TProof/P020_TProofSuperMaster.C
-%{_datadir}/%{name}/plugins/TProof/P030_TProofLite.C
-%{_datadir}/%{name}/plugins/TProof/P040_TProof.C
-
-%files proof-bench -f includelist-proof-proofbench
-%{_libdir}/%{name}/libProofBench.*
-%{_libdir}/%{name}/libProofBench_rdict.pcm
-%{_datadir}/%{name}/proof
-
-%files proof-player -f includelist-proof-proofplayer
-%{_libdir}/%{name}/libProofDraw.*
-%{_libdir}/%{name}/libProofDraw_rdict.pcm
-%{_libdir}/%{name}/libProofPlayer.*
-%{_libdir}/%{name}/libProofPlayer_rdict.pcm
-%{_datadir}/%{name}/plugins/TProofMonSender/P020_TProofMonSenderSQL.C
-%{_datadir}/%{name}/plugins/TVirtualProofPlayer/P010_TProofPlayer.C
-%{_datadir}/%{name}/plugins/TVirtualProofPlayer/P020_TProofPlayerRemote.C
-%{_datadir}/%{name}/plugins/TVirtualProofPlayer/P030_TProofPlayerLocal.C
-%{_datadir}/%{name}/plugins/TVirtualProofPlayer/P040_TProofPlayerSlave.C
-%{_datadir}/%{name}/plugins/TVirtualProofPlayer/P050_TProofPlayerSuperMaster.C
-%{_datadir}/%{name}/plugins/TVirtualProofPlayer/P060_TProofPlayerLite.C
-
-%files proof-sessionviewer -f includelist-gui-sessionviewer
-%{_libdir}/%{name}/libSessionViewer.*
-%{_libdir}/%{name}/libSessionViewer_rdict.pcm
-%{_datadir}/%{name}/plugins/TProofProgressDialog/P010_TProofProgressDialog.C
-%{_datadir}/%{name}/plugins/TProofProgressLog/P010_TProofProgressLog.C
-%{_datadir}/%{name}/plugins/TSessionViewer/P010_TSessionViewer.C
-
 %if %{roofit}
 %files roofit -f includelist-roofit-roofit
 %{_libdir}/%{name}/libRooFit.*
@@ -3368,25 +3226,10 @@ fi
 %dir %{_includedir}/%{name}/RooFit/xRooFit
 %endif
 
-%files sql-mysql -f includelist-sql-mysql
-%{_libdir}/%{name}/libRMySQL.*
-%{_libdir}/%{name}/libRMySQL_rdict.pcm
-%{_datadir}/%{name}/plugins/TSQLServer/P010_TMySQLServer.C
-
-%files sql-odbc -f includelist-sql-odbc
-%{_libdir}/%{name}/libRODBC.*
-%{_libdir}/%{name}/libRODBC_rdict.pcm
-%{_datadir}/%{name}/plugins/TSQLServer/P050_TODBCServer.C
-
 %files sql-sqlite -f includelist-sql-sqlite
 %{_libdir}/%{name}/libRSQLite.*
 %{_libdir}/%{name}/libRSQLite_rdict.pcm
 %{_datadir}/%{name}/plugins/TSQLServer/P060_TSQLiteServer.C
-
-%files sql-pgsql -f includelist-sql-pgsql
-%{_libdir}/%{name}/libPgSQL.*
-%{_libdir}/%{name}/libPgSQL_rdict.pcm
-%{_datadir}/%{name}/plugins/TSQLServer/P020_TPgSQLServer.C
 
 %files tmva -f includelist-tmva-tmva
 %{_libdir}/%{name}/libTMVA.*
@@ -3407,6 +3250,7 @@ fi
 %exclude %{_includedir}/%{name}/TMVA/RTensorUtils.hxx
 %exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchGenerator.hxx
 %exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchLoader.hxx
+%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RChunkConstructor.hxx
 %exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RChunkLoader.hxx
 
 %if %{dataframe}
@@ -3423,6 +3267,7 @@ fi
 %dir %{_includedir}/%{name}/TMVA/BatchGenerator
 %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchGenerator.hxx
 %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchLoader.hxx
+%{_includedir}/%{name}/TMVA/BatchGenerator/RChunkConstructor.hxx
 %{_includedir}/%{name}/TMVA/BatchGenerator/RChunkLoader.hxx
 %endif
 
@@ -3483,11 +3328,9 @@ fi
 %{_libdir}/%{name}/libUnfold_rdict.pcm
 
 %files cli
-%{_bindir}/rootbrowse
 %{_bindir}/rootcp
 %{_bindir}/rootdrawtree
 %{_bindir}/rooteventselector
-%{_bindir}/rootls
 %{_bindir}/rootmkdir
 %{_bindir}/rootmv
 %{_bindir}/rootprint
@@ -3518,6 +3361,8 @@ fi
 %{_libdir}/%{name}/libROOTBranchBrowseProvider.*
 %{_libdir}/%{name}/libROOTGeoBrowseProvider.*
 %{_libdir}/%{name}/libROOTLeafDraw6Provider.*
+%{_libdir}/%{name}/libROOTNTupleBrowseProvider.*
+%{_libdir}/%{name}/libROOTNTupleDraw6Provider.*
 %{_libdir}/%{name}/libROOTObjectDraw6Provider.*
 
 %files gui-browserv7 -f includelist-gui-browserv7
@@ -3529,6 +3374,11 @@ fi
 %{_libdir}/%{name}/libROOTBrowserWidgets.*
 %{_datadir}/%{name}/plugins/TBrowserImp/P030_RWebBrowserImp.C
 
+%files geom-checker -f includelist-geom-geomchecker
+%{_libdir}/%{name}/libGeomChecker.*
+%{_libdir}/%{name}/libGeomChecker_rdict.pcm
+%{_datadir}/%{name}/plugins/TVirtualGeoChecker/P010_TGeoChecker.C
+
 %files geom-webviewer -f includelist-geom-webviewer
 %{_libdir}/%{name}/libROOTGeomViewer.*
 %{_libdir}/%{name}/libROOTGeomViewer_rdict.pcm
@@ -3538,6 +3388,14 @@ fi
 %{_libdir}/%{name}/libROOTNTuple.*
 %{_libdir}/%{name}/libROOTNTuple_rdict.pcm
 %dir %{_includedir}/%{name}/ROOT/libdaos_mock
+
+%files tree-ntuple-browse -f includelist-tree-ntuplebrowse
+%{_libdir}/%{name}/libROOTNTupleBrowse.*
+%{_libdir}/%{name}/libROOTNTupleBrowse_rdict.pcm
+
+%files tree-ntuple-utils -f includelist-tree-ntupleutil
+%{_libdir}/%{name}/libROOTNTupleUtil.*
+%{_libdir}/%{name}/libROOTNTupleUtil_rdict.pcm
 
 %if %{root7}
 %files graf-gpadv7 -f includelist-graf2d-gpadv7
@@ -3554,8 +3412,6 @@ fi
 
 %files gui-browsable-v7
 %{_libdir}/%{name}/libROOTLeafDraw7Provider.*
-%{_libdir}/%{name}/libROOTNTupleBrowseProvider.*
-%{_libdir}/%{name}/libROOTNTupleDraw6Provider.*
 %{_libdir}/%{name}/libROOTNTupleDraw7Provider.*
 %{_libdir}/%{name}/libROOTObjectDraw7Provider.*
 
@@ -3569,12 +3425,23 @@ fi
 %{_libdir}/%{name}/libROOTFitPanelv7.*
 %{_libdir}/%{name}/libROOTFitPanelv7_rdict.pcm
 
-%files tree-ntuple-utils -f includelist-tree-ntupleutil
-%{_libdir}/%{name}/libROOTNTupleUtil.*
-%{_libdir}/%{name}/libROOTNTupleUtil_rdict.pcm
+%files histv7 -f includelist-hist-histv7
+%{_libdir}/%{name}/libROOTHist.*
+%{_libdir}/%{name}/libROOTHist_rdict.pcm
 %endif
 
 %changelog
+* Tue Dec 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-1
+- Update to 6.38.00
+- Removed subpackages: root-proof, root-proof-bench, root-proof-player,
+    root-proof-sessionviewer, root-sql-mysql, root-sql-odbc, root-sql-pgsql
+- New subpackages: root-geom-checker, root-gui-treemap,
+    root-tree-ntuple-browse, root-histv7
+- JsMVA python (sub)module dropped from python3-root package
+- Compile minuit2 with Open MP support
+- Dropped patches: 7
+- New patches: 4
+
 * Wed Oct 29 2025 Stephen Gallagher <sgallagh@redhat.com> - 6.36.04-4
 - Rebuild for libarrow 22
 

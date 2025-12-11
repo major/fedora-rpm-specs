@@ -2,7 +2,7 @@
 
 Name:           plasma-dialer
 Epoch:          1
-Version:        6.5.3
+Version:        6.5.4
 Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
@@ -33,6 +33,7 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ModemManagerQt)
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
@@ -85,6 +86,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{kde_name}.deskt
 
 %files -f %{name}.lang
 %license LICENSES/*
+%{_kf6_bindir}/plasma-dialer-fakeserver
 %{_kf6_bindir}/plasma-dialer
 %{_kf6_metainfodir}/%{kde_name}.appdata.xml
 %{_kf6_datadir}/applications/%{kde_name}.desktop
@@ -104,6 +106,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{kde_name}.deskt
 %{_kf6_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 1:6.5.4-1
+- 6.5.4
+
 * Tue Nov 18 2025 Steve Cossette <farchord@gmail.com> - 1:6.5.3-1
 - 6.5.3
 

@@ -28,7 +28,7 @@ an XML text format, which is also called TTX. It supports TrueType, OpenType,
 AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
-Version:        4.60.1
+Version:        4.61.0
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 
@@ -197,6 +197,9 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Tue Dec 09 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.61.0-1
+- Update to 4.61.0 version (#2419183)
+
 * Thu Oct 02 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.60.1-1
 - Update to 4.60.1 version (#2400374)
 

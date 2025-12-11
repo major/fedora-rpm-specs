@@ -47,7 +47,7 @@
 }
 
 Name:       copr-frontend
-Version:    2.5
+Version:    2.6
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -102,7 +102,6 @@ BuildRequires: python3dist(netaddr)
 BuildRequires: python3dist(pygments)
 BuildRequires: python3dist(pylibravatar)
 BuildRequires: python3dist(pytest)
-BuildRequires: python3dist(pytz)
 BuildRequires: python3dist(redis)
 BuildRequires: python3dist(requests)
 BuildRequires: python3dist(sphinx)
@@ -158,7 +157,6 @@ Requires: python3dist(netaddr)
 Requires: python3dist(psycopg2)
 Requires: python3dist(pygments)
 Requires: python3dist(pylibravatar)
-Requires: python3dist(pytz)
 Requires: python3dist(redis)
 Requires: python3dist(requests)
 Requires: python3dist(templated-dictionary)
@@ -375,6 +373,13 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Tue Dec 09 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.6-1
+- Migrate from pytz to zoneinfo
+- Add API endpoint for generating a new token
+- Fix swapped canceled and ended builds
+- Add option to migrate all projects for an owner
+- Add wildcard support for 'Packit allowed forge projects'
+
 * Mon Sep 29 2025 Jakub Kadlcik <frostyx@email.cz> 2.5-1
 - Don't run builds or actions in projects that are migrated to Pulp
 - Drop support for building modules

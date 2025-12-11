@@ -1,6 +1,6 @@
 Name:    kdecoration
 Summary: A plugin-based library to create window decorations
-Version: 6.5.3
+Version: 6.5.4
 Release: 1%{?dist}
 
 License: LGPL-3.0-only AND LGPL-2.1-only AND CC0-1.0
@@ -58,6 +58,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/org.kde.kdecoration2/
 %{_includedir}/KDecoration3
 
 %changelog
+* Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
+- 6.5.4
+
 * Tue Nov 18 2025 Steve Cossette <farchord@gmail.com> - 6.5.3-1
 - 6.5.3
 

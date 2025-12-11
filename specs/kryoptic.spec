@@ -9,7 +9,7 @@
 %global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic
 
 Name:           kryoptic
-Version:        1.3.1
+Version:        1.4.0
 Release:        %autorelease
 Summary:        PKCS #11 software token written in Rust
 
@@ -36,7 +36,6 @@ Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 # Relax asn1 requirement versions
 Patch:          kryoptic-fix-metadata.diff
-Patch:          kryoptic-simplekdf.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel

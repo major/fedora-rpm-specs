@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    7faeded20731bc0ca0776c0f52052f4ba422549d
+%global gh_commit    b076af33e3cf5b12fef559992ecd36dccd768102
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.14
+Version:        2.4.15
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -29,7 +29,7 @@ BuildArch:      noarch
 %global phpunit %{_bindir}/phpunit10
 BuildRequires:  phpunit10 >= 10.5.58
 BuildRequires:  php(language) >= 8.1
-BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.2    with php-composer(%{c_vendor}/tc-lib-color) < 3)
+BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.3    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 BuildRequires:  php-bcmath
 BuildRequires:  php-ctype
 BuildRequires:  php-date
@@ -46,14 +46,14 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "ext-date": "*",
 #        "ext-gd": "*",
 #        "ext-pcre": "*",
-#        "tecnickcom/tc-lib-color": "^2.2"
+#        "tecnickcom/tc-lib-color": "^2.3"
 Requires:       php(language) >= 8.1
 Requires:       php-bcmath
 Requires:       php-ctype
 Requires:       php-date
 Requires:       php-gd
 Requires:       php-pcre
-Requires:      (php-composer(%{c_vendor}/tc-lib-color) >= 2.2    with php-composer(%{c_vendor}/tc-lib-color) < 3)
+Requires:      (php-composer(%{c_vendor}/tc-lib-color) >= 2.3    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 # From phpcompatinfo report for version 1.15.5
 # none
 Requires:       php-composer(fedora/autoloader)
@@ -137,6 +137,10 @@ exit $ret
 
 
 %changelog
+* Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 2.4.15-1
+- update to 2.4.15 (no change)
+- raise dependency on tc-lib-color 2.3
+
 * Fri Dec  5 2025 Remi Collet <remi@remirepo.net> - 2.4.14-1
 - update to 2.4.14
 

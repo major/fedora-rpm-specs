@@ -1,5 +1,5 @@
 Name:           perl-Test-Unit
-Version:        0.27
+Version:        0.29
 Release:        1%{?dist}
 Summary:        The PerlUnit testing framework
 
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Tue Dec 09 2025 Xavier Bachelot <xavier@bachelot.org> - 0.29-1
+- Update to 0.29 (RHBZ#2419320)
+
 * Mon Jul 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-1
 - 0.27 bump (rhbz#2295397)
 
@@ -231,7 +234,7 @@ make test
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
 * Thu Mar 06 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.25-4
-Rebuild for new perl
+- Rebuild for new perl
 
 * Fri Dec 21 2007 Xavier Bachelot <xavier@bachelot.org> - 0.25-3
 - Mangle Summary.

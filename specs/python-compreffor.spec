@@ -1,11 +1,11 @@
 Name:           python-compreffor
-Version:        0.5.6
+Version:        0.6.0
 Release:        %autorelease
 Summary:        CFF table subroutinizer for FontTools
 
 License:        Apache-2.0
 URL:            https://github.com/googlefonts/compreffor
-Source0:        %{url}/archive/%{version}/compreffor-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/compreffor-%{version}.tar.gz
 # Man page written by hand for Fedora in groff_man(7) format using the
 # command’s --help output
 Source1:        compreffor.1
@@ -17,10 +17,9 @@ BuildOption(generate_buildrequires): -t
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  tomcli
 BuildRequires:  make
 BuildRequires:  gcc-c++
-# From setup.py: cython_min_version = '3.0.11'
-BuildRequires:  %{py3_dist cython} >= 3.0.11
 
 %global common_description %{expand:
 A CFF (Compact Font Format) table subroutinizer for FontTools.}
@@ -39,8 +38,8 @@ Summary:        %{summary}
 #
 # This dependency makes sense upstream, but we do not need it (and it is
 # not packaged) in Fedora.
-sed -r -i '/setuptools_git_ls_files/d' pyproject.toml
-sed -r -i 's/, "setuptools_git_ls_files"//' setup.py
+tomcli set pyproject.toml lists delitem 'build-system.requires' \
+    'setuptools_git_ls_files\b.*'
 
 # Remove shebangs from non-script sources. The find-then-modify pattern
 # preserves mtimes on sources that did not need to be modified.

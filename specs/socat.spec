@@ -2,11 +2,13 @@
 
 Summary: Bidirectional data relay between two data channels ('netcat++')
 Name: socat
-Version: 1.8.0.3
+Version: 1.8.1.0
 Release: %autorelease
 License: GPL-2.0-only
 Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
+
+Patch1: socat-1.8.1.0-printtime.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -76,4 +78,5 @@ make test
 %{_bindir}/procan
 %doc %{_mandir}/man1/*
 
+%changelog
 %autochangelog

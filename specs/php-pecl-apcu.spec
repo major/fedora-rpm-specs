@@ -17,8 +17,8 @@
 
 Name:           %{php_base}-pecl-apcu
 Summary:        APC User Cache
-Version:        5.1.27
-Release:        3%{?dist}
+Version:        5.1.28
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
@@ -203,6 +203,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 5.1.28-1
+- update to 5.1.28
+
 * Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 5.1.27-3
 - add %%php_base option to create namespaced packages
 

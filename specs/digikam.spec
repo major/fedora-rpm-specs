@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.8.0
-Release: 3%{?beta}%{?dist}
+Release: 4%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -32,6 +32,9 @@ Source0: http://download.kde.org/stable/digikam/%{version}/digiKam-%{version}.ta
 Source10: digikam-import.desktop
 
 ## upstream patches
+# Use Eigen3 cmake configuration shared on the system
+Patch0: https://invent.kde.org/graphics/digikam/-/commit/e7d4be62f8a523cf9a07fa7af39f439df3d93ea5.patch
+Patch1: https://invent.kde.org/graphics/digikam/-/commit/8b4ef501680251f5f295b5d1d4061c625c2aea16.patch
 
 ## upstreamable patches
 
@@ -334,6 +337,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Wed Dec 10 2025 Alexey Kurov <nucleo@fedoraproject.org> - 8.8.0-4
+- Use Eigen3 cmake configuration shared on the system
+
 * Fri Oct 31 2025 Dominik Mierzejewski <dominik@greysector.net> - 8.8.0-3
 - Rebuilt for FFmpeg 8
 

@@ -59,9 +59,9 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %{_bindir}/secilc
 %{_bindir}/secil2conf
 %{_bindir}/secil2tree
-%{_mandir}/man8/secilc.8.gz
-%{_mandir}/man8/secil2conf.8.gz
-%{_mandir}/man8/secil2tree.8.gz
+%{_mandir}/man8/secilc.8*
+%{_mandir}/man8/secil2conf.8*
+%{_mandir}/man8/secil2tree.8*
 %license LICENSE
 
 %files doc
@@ -70,7 +70,4 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

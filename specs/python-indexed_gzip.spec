@@ -6,7 +6,7 @@
 %bcond nibabel 1
 
 Name:           python-indexed_gzip
-Version:        1.10.1
+Version:        1.10.3
 Release:        %autorelease
 Summary:        Fast random access of gzip files in Python
 

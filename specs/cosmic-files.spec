@@ -44,8 +44,8 @@ BuildRequires:  desktop-file-utils
 Requires:       gvfs
 # GVFS backends
 Requires:       gvfs-fuse
-Requires:       gvfs-nfs
-Requires:       gvfs-smb
+Recommends:     gvfs-nfs
+Recommends:     gvfs-smb
 
 Requires:       xdg-utils
 Requires:       cosmic-icon-theme >= %{cosmic_minver}

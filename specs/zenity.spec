@@ -1,5 +1,5 @@
 Name:          zenity
-Version:       4.2.0
+Version:       4.2.1
 Release:       1%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
@@ -58,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desk
 
 
 %changelog
+* Wed Dec 10 2025 Adrian Vovk <adrianvovk@gmail.com> - 4.2.1-1
+- Update to 4.2.1
+
 * Fri Sep 26 2025 Petr Schindler <pschindl@redhat.com> - 4.2.0-1
 - Update to 4.2.0
 

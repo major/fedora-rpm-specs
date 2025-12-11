@@ -46,7 +46,7 @@ BuildRequires:  nodejs-devel
 BuildRequires:  nodejs-npm
 BuildRequires:  yarnpkg
 
-Provides:       bundled(js-bootstrap) = 5.3.3
+Provides:       bundled(js-bootstrap) = 5.3.8
 
 %if %{without docs}
 Obsoletes:      %{name}-doc < 0.13.0-1
@@ -107,6 +107,7 @@ sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.p
 %endif
 
 # Substitute the installed nodejs version for the requested version
+%global nodejs_version %(%{_bindir}/node -v | sed s/v//)
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
 %generate_buildrequires -p

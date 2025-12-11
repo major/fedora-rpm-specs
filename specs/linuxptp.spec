@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -20,6 +20,8 @@ Source4:	timemaster.conf
 Source5:	ptp4l.conf
 Source6:	ts2phc.service
 Source7:	ts2phc.conf
+Source8:	linuxptp.sysusers
+Source9:	linuxptp.tmpfiles
 # external test suite
 Source10:	https://github.com/mlichvar/linuxptp-testsuite/archive/%{testsuite_ver}/linuxptp-testsuite-%{testsuite_ver}.tar.gz
 # simulator for test suite
@@ -29,9 +31,16 @@ Source20:	linuxptp.fc
 Source21:	linuxptp.if
 Source22:	linuxptp.te
 
+# add support for dropping root privileges
+Patch1:		linuxptp-droproot.patch
+
 BuildRequires:	gcc gcc-c++ gnutls-devel make systemd
 
+# require the clock group to be defined
+Requires(pre):	setup >= 2.15.0-11
+
 %{?systemd_requires}
+%{?sysusers_requires_compat}
 
 %if 0%{?with_selinux}
 Requires:	(%{name}-selinux if selinux-policy-%{selinuxtype})
@@ -59,7 +68,12 @@ linuxptp SELinux policy module
 %endif
 
 %prep
-%setup -q -a 10 -a 11 -n %{name}-%{!?gitfullver:%{version}}%{?gitfullver}
+%autosetup -N
+# autosetup doesn't accept multiple -a options
+%__rpmuncompress -x %{SOURCE10}
+%__rpmuncompress -x %{SOURCE11}
+%autopatch -p1
+
 # disable nettle support in favor of gnutls
 sed -i 's|find .*"nettle"|true|' incdefs.sh
 
@@ -86,10 +100,13 @@ bzip2 -9 selinux/linuxptp.pp
 %makeinstall
 
 mkdir -p $RPM_BUILD_ROOT{%{_sysconfdir}/sysconfig,%{_unitdir},%{_mandir}/man5}
+mkdir -p $RPM_BUILD_ROOT{%{_sysusersdir},%{_tmpfilesdir}}
 install -m 644 -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE6} \
 	$RPM_BUILD_ROOT%{_unitdir}
 install -m 644 -p %{SOURCE4} %{SOURCE5} %{SOURCE7} \
 	$RPM_BUILD_ROOT%{_sysconfdir}
+install -m 644 -p %{SOURCE8} $RPM_BUILD_ROOT%{_sysusersdir}/linuxptp.conf
+install -m 644 -p %{SOURCE9} $RPM_BUILD_ROOT%{_tmpfilesdir}/linuxptp.conf
 
 echo 'OPTIONS="-f /etc/ptp4l.conf"' > \
 	$RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/ptp4l
@@ -115,7 +132,11 @@ export CLKNETSIM_RANDOM_SEED=26743
 %{make_build} -C clknetsim
 PATH=..:$PATH ./run
 
+%pre
+%sysusers_create_package linuxptp %{SOURCE8}
+
 %post
+%tmpfiles_create_package linuxptp %{SOURCE9}
 %systemd_post phc2sys.service ptp4l.service timemaster.service ts2phc.service
 
 %preun
@@ -158,6 +179,8 @@ fi
 %{_unitdir}/ptp4l.service
 %{_unitdir}/timemaster.service
 %{_unitdir}/ts2phc.service
+%{_sysusersdir}/linuxptp.conf
+%{_tmpfilesdir}/linuxptp.conf
 %{_sbindir}/hwstamp_ctl
 %{_sbindir}/nsm
 %{_sbindir}/phc2sys
@@ -171,6 +194,11 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Tue Dec 09 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-8
+- add support for dropping root privileges
+- create linuxptp user and /run/ptp directory
+- modify default ptp4l.conf to drop root privileges
+
 * Mon Jul 28 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-7
 - add timemaster service interfaces to selinux policy (Zdenek Pytela)
 

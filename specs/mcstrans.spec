@@ -75,10 +75,10 @@ install -m644 %{SOURCE3} %{buildroot}%{_mandir}/man8/
 %systemd_postun mcstransd.service
 
 %files
-%{_mandir}/man8/mcs.8.gz
-%{_mandir}/man8/mcstransd.8.gz
-%{_mandir}/man5/setrans.conf.5.gz
-%{_mandir}/man8/secolor.conf.8.gz
+%{_mandir}/man8/mcs.8*
+%{_mandir}/man8/mcstransd.8*
+%{_mandir}/man5/setrans.conf.5*
+%{_mandir}/man8/secolor.conf.8*
 %{_sbindir}/mcstransd
 %{_unitdir}/mcstrans.service
 %{_unitdir}/mcstransd.service
@@ -95,7 +95,4 @@ install -m644 %{SOURCE3} %{buildroot}%{_mandir}/man8/
 %{_usr}/share/mcstrans/util/*
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

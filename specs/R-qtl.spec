@@ -3,7 +3,7 @@
 %global __suggests_exclude ^R\\(testthat\\)
 
 Name:		R-%{packname}
-Version:	1.72
+Version:	1.74
 Release:	1%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPL-3.0-only
@@ -86,6 +86,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Tue Dec 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.74-1
+- Update to 1.74
+
 * Mon Nov 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.72-1
 - Update to 1.72
 

@@ -3,7 +3,7 @@
 
 Name:           setools
 Version:        4.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only AND LGPL-2.1-only
@@ -14,6 +14,8 @@ Source2:        apol.desktop
 
 # Remove redundant runtime requirement on setuptools
 Patch:          https://github.com/SELinuxProject/setools/pull/156.patch
+# Fix seinfo argument parsing when policy path follows query
+Patch:          https://github.com/SELinuxProject/setools/pull/157.patch
 
 Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
 BuildRequires:  flex,  bison
@@ -148,6 +150,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Mon Dec 01 2025 Veronika Syncakova <vsyncako@redhat.com> - 4.6.0-4
+- Fix seinfo argument parsing when policy path follows query options
+
 * Thu Oct 02 2025 Miro Hrončok <mhroncok@redhat.com> - 4.6.0-3
 - Drop redundant runtime requirement on python3-setuptools (redux)
 

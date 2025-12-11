@@ -9,7 +9,7 @@ calendars in one place, like Google Calendar, Outlook and CalDAV.}
 
 Name:           elementary-calendar
 Summary:        Desktop calendar app designed for elementary
-Version:        8.0.0
+Version:        8.0.1
 Release:        %autorelease
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 
@@ -29,27 +29,19 @@ BuildRequires:  pkgconfig(clutter-1.0)
 BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(gee-0.8)
+BuildRequires:  pkgconfig(geocode-glib-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(granite) >= 6.2.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
 BuildRequires:  pkgconfig(libecal-2.0)
 BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.8.0
-BuildRequires:  pkgconfig(libedataserverui-1.2) >= 3.8.0
+BuildRequires:  pkgconfig(libedataserverui-1.2) >= 3.46
 BuildRequires:  pkgconfig(libgeoclue-2.0)
 BuildRequires:  pkgconfig(libhandy-1) >= 0.90.0
 BuildRequires:  pkgconfig(libical-glib)
 BuildRequires:  pkgconfig(libportal)
 BuildRequires:  pkgconfig(libportal-gtk3)
-
-%if 0%{?fedora} >= 39
-BuildRequires:  pkgconfig(geocode-glib-2.0)
-%endif
-
-%if 0%{?fedora} == 38
-BuildRequires:  pkgconfig(geocode-glib-1.0)
-BuildRequires:  pkgconfig(libsoup-2.4)
-%endif
 
 Requires:       hicolor-icon-theme
 
@@ -100,6 +92,7 @@ appstream-util validate-relax --nonet \
 %{_datadir}/applications/%{appname}.desktop
 %{_datadir}/glib-2.0/schemas/%{appname}.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{appname}.svg
+%{_datadir}/icons/hicolor/*/actions/%{appname}.event-new{,-symbolic}.svg
 %{_datadir}/metainfo/%{appname}.metainfo.xml
 
 %files devel

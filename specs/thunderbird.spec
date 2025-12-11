@@ -134,6 +134,8 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 # PROTOBUF_MUSTTAIL return ...  error: cannot tail-call: target is not able to optimize the call into a sibling call
 Patch82:        build-s390x-protobuf-musttail.patch
+# Build failure on rawhide of wrongly defined SYS_SECCOMP
+Patch83:        build-seccomp.patch
 
 # PPC fix
 
@@ -315,6 +317,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P82 -p1 -b .build-s390x-protobuf-musttail
+%patch -P83 -p1 -b .build-seccomp
 
 #patch -P 1200 -p1 -b .rustflags-commasplit
 

@@ -157,13 +157,4 @@ cp %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.9-4
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.9-3
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

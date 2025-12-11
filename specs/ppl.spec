@@ -1,6 +1,6 @@
 Name:			ppl
 Version:		1.2
-Release:		37%{?dist}
+Release:		38%{?dist}
 Summary:		The Parma Polyhedra Library: a library of numerical abstractions
 License:		GPL-3.0-or-later
 URL:			http://www.bugseng.com/ppl
@@ -156,7 +156,7 @@ if [ ! -e %{_bindir}/javah ]; then
       -e '/^java_cxx_headers\.stamp$/d' \
       -i interfaces/Java/parma_polyhedra_library/Makefile.in
 fi
-CPPFLAGS="$CPPFLAGS -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux"
+CPPFLAGS="$CPPFLAGS -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -DNDEBUG"
 %endif
 %configure --docdir=%{_datadir}/doc/%{name} --enable-shared --disable-rpath \
 %ifarch %{java_arches}
@@ -298,6 +298,9 @@ mv \
 %endif
 
 %changelog
+* Tue Dec 09 2025 Jerry James <loganjerry@gmail.com> - 1.2-38
+- Rebuild for pl 10.0.0
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.2-37
 - Rebuilt for java-25-openjdk as preffered jdk
 

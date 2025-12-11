@@ -2,7 +2,7 @@
 %global appname io.elementary.notifications
 
 Name:           elementary-notifications
-Version:        8.1.0
+Version:        8.1.2
 Release:        %autorelease
 Summary:        GTK Notifications Server
 License:        GPL-3.0-or-later
@@ -17,10 +17,14 @@ BuildRequires:  meson
 BuildRequires:  vala
 
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(granite) >= 5.4.0
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(granite-7) >= 7.7.0
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtk4-wayland)
+BuildRequires:  pkgconfig(gtk4-x11)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libcanberra)
-BuildRequires:  pkgconfig(libhandy-1)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-scanner)
 
 %description
 elementary Notifications is a GTK notification server for Pantheon.

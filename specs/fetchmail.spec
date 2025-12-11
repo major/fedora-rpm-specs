@@ -1,6 +1,6 @@
 Summary: A remote mail retrieval and forwarding utility
 Name: fetchmail
-Version: 6.6.0
+Version: 6.6.1
 Release: 1%{?dist}
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
@@ -48,6 +48,10 @@ rm -f $RPM_BUILD_ROOT%{python3_sitelib}/__pycache__/fetchmailconf*
 %{_mandir}/man1/fetchmail.1*
 
 %changelog
+* Tue Dec 09 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 6.6.1-1
+- Update to fetchmail-6.6.1
+  Resolves: #2414624
+
 * Mon Nov 03 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 6.6.0-1
 - Update to fetchmail-6.6.0
   Resolves: #2404915

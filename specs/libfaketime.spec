@@ -30,6 +30,9 @@ system time a program sees without having to change the time system-wide.
 %ifarch ppc64le
   export FAKETIME_COMPILE_CFLAGS="-DFORCE_PTHREAD_NONVER"
 %endif
+%ifarch riscv64
+  export FAKETIME_COMPILE_CFLAGS="-DFORCE_MONOTONIC_FIX -DFORCE_PTHREAD_NONVER"
+%endif
 
 %set_build_flags
 %make_build PREFIX=%{_prefix} LIBDIRNAME=/%{_lib} all
@@ -37,6 +40,9 @@ system time a program sees without having to change the time system-wide.
 %check
 %ifarch ppc64le
   export FAKETIME_COMPILE_CFLAGS="-DFORCE_PTHREAD_NONVER"
+%endif
+%ifarch riscv64
+  export FAKETIME_COMPILE_CFLAGS="-DFORCE_MONOTONIC_FIX -DFORCE_PTHREAD_NONVER"
 %endif
 
 make PREFIX=%{_prefix} LIBDIRNAME=/%{_lib} -C test

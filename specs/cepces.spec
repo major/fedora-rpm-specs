@@ -7,7 +7,7 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.12
+Version:        0.3.13
 Release:        %autorelease
 Summary:        Certificate Enrollment through CEP/CES
 
@@ -40,6 +40,10 @@ have been tested.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:        Python part of %{name}
+# cepces/krb5/lib.py dynamically loads libgssapi_krb5.so.2
+Requires:       krb5-libs
+Requires(pre):  krb5-libs
+Requires(post): krb5-libs
 # Uses keyctl for keyring handling
 Recommends:     keyutils
 # Uses pinentry for username/password

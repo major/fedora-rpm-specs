@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.55
+Version:        2.2.57
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -24,7 +24,9 @@ BuildRequires:  rust-toolset
 BuildRequires:  rust-packaging
 BuildRequires:  (crate(clap/cargo) >= 3.1 with crate(clap/cargo) < 4.0)
 BuildRequires:  (crate(clap/default) >= 3.1 with crate(clap/default) < 4.0)
-BuildRequires:  (crate(chrono/default) >= 0.4 with crate(chrono/default) < 0.5)
+BuildRequires:  (crate(time/std) >= 0.3 with crate(time/std) < 0.4)
+BuildRequires:  (crate(time/formatting) >= 0.3 with crate(time/formatting) < 0.4)
+BuildRequires:  (crate(time/parsing) >= 0.3 with crate(time/parsing) < 0.4)
 BuildRequires:  (crate(env_logger/default) >= 0.11 with crate(env_logger/default) < 0.12)
 BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)

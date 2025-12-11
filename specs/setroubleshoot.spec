@@ -176,10 +176,10 @@ to user preference. The same tools can be run on existing log files.
 %attr(0700,setroubleshoot,setroubleshoot) %dir %{pkgvardatadir}
 %ghost %attr(0600,setroubleshoot,setroubleshoot) %{pkgdatabase}
 %ghost %attr(0600,setroubleshoot,setroubleshoot) %{pkgvardatadir}/email_alert_recipients
-%{_mandir}/man1/seapplet.1.gz
-%{_mandir}/man8/sealert.8.gz
-%{_mandir}/man8/sedispatch.8.gz
-%{_mandir}/man8/setroubleshootd.8.gz
+%{_mandir}/man1/seapplet.1*
+%{_mandir}/man8/sealert.8*
+%{_mandir}/man8/sedispatch.8*
+%{_mandir}/man8/setroubleshootd.8*
 %config /etc/audit/plugins.d/sedispatch.conf
 %{_unitdir}/setroubleshootd.service
 %{_datadir}/dbus-1/system-services/org.fedoraproject.Setroubleshootd.service

@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.194
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -99,6 +99,9 @@ Patch1: elfutils-0.186-fdo-swap.patch
 
 # Prevent assert failure in readelf for some -ggdb3 binaries.
 Patch2: elfutils-0.194-alloc-jobs.patch
+
+# Fix const warning from newer GCC.
+Patch3: elfutils-0.194-fix-const.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -522,6 +525,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Tue Dec 09 2025 Aaron Merey <amerey@redhat.com> - 0.194-2
+- Add elfutils-0.194-fix-const.patch
+
 * Tue Oct 28 2025 Aaron Merey <amerey@redhat.com> - 0.194-1
 - Upgrade to upstream elfutils 0.194
 - Add elfutils-0.194-alloc-jobs.patch

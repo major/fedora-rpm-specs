@@ -14,7 +14,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    3a454ca033b9e06b63282ce19562e892747449bb
+%global gh_commit    dca41cd15c2ac9d055ad70dbfd011130757d1f82
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -23,7 +23,7 @@
 %global ns_project   PhpParser
 %global major        5
 
-%global upstream_version 5.6.2
+%global upstream_version 5.7.0
 #global upstream_prever  rc1
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
@@ -146,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 5.7.0-1
+- update to 5.7.0
+
 * Wed Oct 22 2025 Remi Collet <remi@remirepo.net> - 5.6.2-1
 - update to 5.6.2
 

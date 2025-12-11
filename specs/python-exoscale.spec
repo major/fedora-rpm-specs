@@ -1,5 +1,5 @@
 Name:           python-exoscale
-Version:        0.15.0
+Version:        0.16.0
 Release:        1%{?dist}
 Summary:        Python bindings for Exoscale API
 
@@ -56,6 +56,10 @@ BuildRequires:  python3dist(setuptools)
 
 
 %changelog
+* Fri Dec 05 2025 Packit <hello@packit.dev> - 0.16.0-1
+- Update to version 0.16.0
+- Resolves: rhbz#2419178
+
 * Tue Oct 28 2025 Packit <hello@packit.dev> - 0.15.0-1
 - Update to version 0.15.0
 - Resolves: rhbz#2406939

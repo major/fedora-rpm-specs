@@ -1,16 +1,11 @@
 Name:           mass-prebuild
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        A set of tools to massively pre-build reverse dependencies for an RPM package
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/fedora/packager-tools/mass-prebuild
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
-
-Patch:          0001-refactor-centos-stream-Use-metalink-for-repo-definit.patch
-Patch:          0002-feat-epel-config-Add-CentOS-stream-repositories.patch
-Patch:          0003-fix-whatrequires-Handle-unknown-distribution-gracefu.patch
-Patch:          0004-refactor-whatrequires-Improve-DNF-query-distribution.patch
 
 BuildArch:      noarch
 

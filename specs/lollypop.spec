@@ -3,8 +3,8 @@
 %global provider org.gnome.Lollypop
 
 Name:           lollypop
-Version:        1.4.44
-Release:        2%{?dist}
+Version:        1.4.45
+Release:        1%{?dist}
 Summary:        Music player for GNOME
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/lollypop
@@ -67,7 +67,7 @@ chmod +x %{buildroot}%{_bindir}/*%{name}*
 #meson_test failed on koji build server with
 #url-not-found : <screenshot> failed to connect: Cannot resolve hostname
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{provider}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 %files -f %{name}.lang
 %doc AUTHORS README.md
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Dec 09 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.4.45-1
+- Update to 1.4.45
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.44-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

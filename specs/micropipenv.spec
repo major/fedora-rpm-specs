@@ -6,7 +6,7 @@
 %endif
 
 Name:           micropipenv
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        A simple wrapper around pip to support Pipenv and Poetry files
 
@@ -31,6 +31,10 @@ converting them to pip-tools compatible output.
 %autosetup
 # Remove shebang line from the module
 sed -i '1{\@^#!/usr/bin/env python@d}' %{name}.py
+# Remove virtualenv requirement from tox.ini
+sed -i '/requires = virtualenv/d' tox.ini
+# Do not install wheel in testing venvs
+sed -i 's/[^ ]*wheel==0.45.1.*/pass/' tests/conftest.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:-t} -x toml

@@ -1,11 +1,6 @@
 %global _hardened_build 1
 
 %bcond_without python3
-%if 0%{?rhel} > 7 || 0%{?fedora} > 29
-%bcond_with    python2
-%else
-%bcond_without python2
-%endif
 %bcond_without  perl
 %bcond_without  ecdsa
 %if 0%{?fedora} >= 26 || 0%{?rhel} > 7
@@ -18,7 +13,7 @@
 # GOST is not allowed in Fedora/RHEL due to legal reasons (not NIST ECC)
 %bcond_with     gost
 
-%if %{with python2} || %{with python3}
+%if %{with python3}
 %{?filter_setup:
 %global _ldns_internal_filter /^_ldns[.]so.*/d;
 %filter_from_requires %{_ldns_internal_filter}
@@ -69,9 +64,6 @@ BuildRequires: gcc-c++
 BuildRequires: doxygen
 BuildRequires: gnupg2
 
-%if %{with python2}
-BuildRequires: python2-devel, swig
-%endif
 %if %{with python3}
 BuildRequires: python3-devel, swig
 %endif
@@ -107,17 +99,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Collection of tools to get, check or alter DNS(SEC) data.
 
 
-%if %{with python2}
-%package -n python2-ldns
-Summary: Python2 extensions for ldns
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%{?python_provide:%python_provide python2-ldns}
-
-%description -n python2-ldns
-Python2 extensions for ldns
-%endif
-
-
 %if %{with python3}
 %package -n python3-ldns
 Summary: Python3 extensions for ldns
@@ -151,10 +132,7 @@ This package contains documentation for the ldns library
 %gpgverify -d 0 -s 1 -k 2
 %endif
 
-%autosetup -cn %{pkgname} -N
-pushd %{pkgname}
-
-%autopatch -p2
+%autosetup -n %{pkgname} -p1
 
 rm -f config.guess config.sub ltmain.sh
 # Use ax_python_devel from autoconf-archive
@@ -164,18 +142,8 @@ libtoolize -c --install
 autoreconf --install
 
 # copy common doc files - after here, since it may be patched
-cp -pr doc LICENSE README* Changelog ../
-cp -p contrib/ldnsx/LICENSE ../LICENSE.ldnsx
-cp -p contrib/ldnsx/README ../README.ldnsx
-popd
-
-%if %{with python3}
-cp -a %{pkgname} %{pkgname}_python3
-%endif
-
-%if %{with python2}
-cp -a %{pkgname} %{pkgname}_python2
-%endif
+cp -p contrib/ldnsx/LICENSE LICENSE.ldnsx
+cp -p contrib/ldnsx/README README.ldnsx
 
 
 %build
@@ -214,12 +182,6 @@ export CFLAGS CXXFLAGS LDFLAGS
   --with-trust-anchor=%{_sharedstatedir}/unbound/root.key \\\
   --disable-static \\\
 
-%if 0%{with python3}
-pushd %{pkgname}_python3
-%else
-pushd %{pkgname}
-%endif
-
 %configure \
   %{common_args} \
   --with-examples \
@@ -246,31 +208,10 @@ sed -e "s,-L%{_libdir},," -i packaging/ldns-config
 
 # specfic hardening options should not end up in ldns-config
 sed -i "s~$RPM_LD_FLAGS~~" packaging/ldns-config
-mv doc/html ../doc
-popd
-
-%if %{with python2}
-  pushd %{pkgname}_python2
-  %configure \
-    %{common_args} \
-    --with-pyldns PYTHON=%{__python2}
-
-  %make_build
-  sed -e "s,-L%{_libdir},," -i packaging/ldns-config
-  popd
-%endif
 
 
 
 %install
-rm -rf %{buildroot}
-
-%if %{with python3}
-pushd %{pkgname}_python3
-%else
-pushd %{pkgname}
-%endif
-
 mkdir -p %{buildroot}%{_libdir}/pkgconfig
 %make_install
 
@@ -285,14 +226,6 @@ rm -rf %{buildroot}%{python3_sitearch}/*.la
   chmod 755 %{buildroot}%{perl_vendorarch}/auto/DNS/LDNS/LDNS.so
   rm -f %{buildroot}%{perl_vendorarch}/auto/DNS/LDNS/{.packlist,LDNS.bs}
   rm -f %{buildroot}%{perl_archlib}/perllocal.pod
-%endif
-popd
-
-%if %{with python2}
-  pushd %{pkgname}_python2
-  %make_install install-pyldns install-pyldnsx
-  rm -rf %{buildroot}%{_libdir}/*.la %{buildroot}%{python2_sitearch}/*.la
-  popd
 %endif
 
 # don't package xml files
@@ -327,18 +260,9 @@ rm -rf doc/man
 %{_includedir}/%{name}/*.h
 %{_mandir}/man3/%{name}*.3*
 
-%if %{with python2}
-%files -n python2-ldns
-%doc %{pkgname}_python2/contrib/python/Changelog README.ldnsx
-%license LICENSE.ldnsx
-%{python2_sitearch}/%{name}.py*
-%{python2_sitearch}/%{name}x.py*
-%{python2_sitearch}/_%{name}.so*
-%endif
-
 %if %{with python3}
 %files -n python3-ldns
-%doc %{pkgname}_python3/contrib/python/Changelog README.ldnsx
+%doc contrib/python/Changelog README.ldnsx
 %license LICENSE.ldnsx
 %pycached %{python3_sitearch}/%{name}.py
 %pycached %{python3_sitearch}/%{name}x.py
@@ -363,6 +287,8 @@ rm -rf doc/man
 %changelog
 * Thu Dec 04 2025 Petr Menšík <pemensik@redhat.com> - 1.9.0-1
 - Update 1.9.0 (rhbz#2416980)
+- Dropped python2 support
+- Fix documentation building
 
 * Thu Dec 04 2025 Petr Menšík <pemensik@redhat.com> - 1.8.4-9
 - Fix gcc std23 error in bool definition (rhbz#2416980)

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    sddm-kcm
-Version: 6.5.3
+Version: 6.5.4
 Release: 1%{?dist}
 Summary: SDDM KDE configuration module
 
@@ -69,6 +69,9 @@ SDDM Display Manager
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
+- 6.5.4
+
 * Tue Nov 18 2025 Steve Cossette <farchord@gmail.com> - 6.5.3-1
 - 6.5.3
 

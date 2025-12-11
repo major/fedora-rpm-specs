@@ -1,8 +1,8 @@
 %global py_setup_args --with-system-hidapi --with-libusb
 
 Name:     python-hidapi
-Version:  0.14.0.post4
-Release:  3%{?dist}
+Version:  0.15.0
+Release:  1%{?dist}
 Summary:  Interface to the hidapi library
 
 # Automatically converted from old format: GPLv3+ or BSD or Public Domain - review is highly recommended.
@@ -62,6 +62,9 @@ sed -i -e 's|/usr/include/hidapi|%{_includedir}/hidapi|' setup.py
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Dec 09 2025 Jonny Heggheim <hegjon@gmail.com> - 0.15.0-1
+- Updated to version 0.15.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0.post4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

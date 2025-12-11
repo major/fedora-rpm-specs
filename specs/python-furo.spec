@@ -89,6 +89,7 @@ cp -p %{SOURCE2} .
 find . -name .gitignore -delete
 
 # Substitute the installed nodejs version for the requested version
+%global nodejs_version %(%{_bindir}/node -v | sed s/v//)
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
 # Use local objects.inv for intersphinx

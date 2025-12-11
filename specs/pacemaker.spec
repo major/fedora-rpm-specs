@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global baserelease 12
+%global baserelease 13
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
@@ -191,6 +191,9 @@ Url:           https://www.clusterlabs.org/
 # You can use "spectool -s 0 pacemaker.spec" (rpmdevtools) to show final URL.
 Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{archive_github_url}
 Source1:       pacemaker.sysusers
+
+# upstream commits
+Patch0:        0001-Low-various-Use-const-for-a-few-string-pointer-varia.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -762,6 +765,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Tue Dec 9 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-13
+- take care of more strict const checking
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.1-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

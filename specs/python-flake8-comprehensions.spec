@@ -1,8 +1,8 @@
 %global srcname flake8-comprehensions
 
 Name:           python-%{srcname}
-Version:        3.16.0
-Release:        3%{?dist}
+Version:        3.17.0
+Release:        1%{?dist}
 Summary:        Flake8 plugin that helps you write better list/set/dict comprehensions
 
 License:        MIT
@@ -73,6 +73,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Tue Dec 09 2025 Scott K Logan <logans@cottsay.net> - 3.17.0-1
+- Update to 3.17.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.16.0-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

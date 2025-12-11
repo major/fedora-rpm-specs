@@ -1,5 +1,5 @@
 Name:           socket_wrapper
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 
 License:        BSD-3-Clause
@@ -9,8 +9,6 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        socket_wrapper.keyring
-
-Patch0:         swrap-fix-tests.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -73,7 +71,7 @@ ls -l %{__cmake_builddir}/src/libsocket_wrapper.so
 LD_PRELOAD=%{__cmake_builddir}/src/libsocket_wrapper.so bash -c '>/dev/null'
 
 %files
-%doc AUTHORS README.md CHANGELOG
+%doc AUTHORS README.md CHANGELOG.md
 %license LICENSE
 %{_libdir}/libsocket_wrapper.so*
 %dir %{_libdir}/cmake/socket_wrapper

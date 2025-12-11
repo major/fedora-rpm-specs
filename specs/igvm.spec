@@ -69,6 +69,8 @@ developing applications that use %{name}
 %{igvm_makeenv} %make_install -C igvm_c PREFIX=/usr DESTDIR=%{buildroot} %{igvm_makeflags}
 
 %files libs
+%license LICENSE
+%license LICENSE.dependencies
 %{_libdir}/libigvm.so.*
 
 %files devel
@@ -83,6 +85,8 @@ developing applications that use %{name}
 %files tools
 %{_bindir}/dump_igvm
 %doc README.md
+%license LICENSE
+%license LICENSE.dependencies
 
 %changelog
 %autochangelog

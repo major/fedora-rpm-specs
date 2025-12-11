@@ -13,6 +13,7 @@ BuildArch:      noarch
 
 BuildRequires:  pkgconfig(atk-bridge-2.0)
 BuildRequires:  pkgconfig(atspi-2)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(liblouis)
 BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  brlapi-devel

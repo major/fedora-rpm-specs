@@ -57,13 +57,10 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %license LICENSE
 %{_bindir}/checkpolicy
 %{_bindir}/checkmodule
-%{_mandir}/man8/checkpolicy.8.gz
-%{_mandir}/man8/checkmodule.8.gz
+%{_mandir}/man8/checkpolicy.8*
+%{_mandir}/man8/checkmodule.8*
 %{_bindir}/sedismod
 %{_bindir}/sedispol
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

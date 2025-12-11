@@ -4,15 +4,15 @@
 %global __provides_exclude_from ^(%{_privatelibs}|%{_priv_debuginfo})$
 %global __requires_exclude_from ^(%{_privatelibs}|%{_priv_debuginfo})$
 
-%global latestversion 1.6.1
-%global commit r12890
-%global commitdate 20250110
-%global postrelease .p5
+%global latestversion 1.6.3
+%global commit r12987
+%global commitdate 20251209
+%global postrelease .p1
 %global namesuffix src
 
 Name:           aubit4gl
 Version:        %{latestversion}%{postrelease} 
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        IBM Informix 4GL compatible compiler
 
 # The entire source code is GPL-2.0-or-later except
@@ -36,7 +36,7 @@ Source1:        https://downloads.sourceforge.net/aubit4gl/Aubit4gl-manual/aubit
 #Source3:        https://aubit.com/aubit4gl/manuals/aubitqref.pdf
 # Patch the latest release to the post release
 # Changes made by the patch are listed in the commit log
-# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12890/log/?path=
+# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12987/log/?path=
 # https://sourceforge.net/p/aubit4gl/aubit4gl_code/commit_browser
 Patch0:         https://downloads.sourceforge.net/aubit4gl/SRPM/%{name}-%{version}.patch
 
@@ -76,7 +76,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
            --disable-prefix-check \
            --with-smtp=no \
            %if "%{getenv:INFORMIXDIR}" != ""
-           --with-informix=%{getenv:INFORMIXDIR} \
+           --with-informix="%{getenv:INFORMIXDIR}" \
+           %endif
+           %if "%{getenv:INFORMIXC}" != ""
+           --with-informixc="%{getenv:INFORMIXC}" \
            %endif
            --without-zlib \
            --enable-minimal=yes
@@ -183,11 +186,10 @@ make -C tools/test
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1.p5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1.p5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Dec 09 2025 Chad Lemmen <rpm@stansoft.org> - 1.6.3.p1-1
+- updated version
+- added quotes to INFORMIXDIR variable
+- added variable INFORMIXC
 
 * Fri Jan 10 2025 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p5-1
 - updated to 1.6.1.p5

@@ -29,7 +29,9 @@ Patch0007:        0007-Skip-shiny-tests.patch
 # Enhances:
 
 BuildArch:        noarch
+%if %{undefined flatpak}
 Requires:         pandoc >= 1.14
+%endif
 
 BuildRequires:    git-core
 BuildRequires:    R-devel

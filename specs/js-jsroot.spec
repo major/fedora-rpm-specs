@@ -1,8 +1,8 @@
 %global jsname jsroot
 
 Name:		js-%{jsname}
-Version:	7.9.1
-Release:	2%{?dist}
+Version:	7.10.1
+Release:	1%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
 #		Most files are MIT, d3.mjs is BSD, dat.gui.mjs is Apache-2.0
@@ -13,6 +13,7 @@ Source0:	https://github.com/root-project/%{jsname}/archive/%{version}/%{jsname}-
 Patch0:		%{name}-mathjax.patch
 
 BuildArch:	noarch
+BuildRequires:	dos2unix
 BuildRequires:	web-assets-devel
 Requires:	web-assets-filesystem
 Requires:	mathjax3
@@ -24,6 +25,8 @@ Data can be read and displayed from binary and JSON ROOT files.
 %prep
 %setup -q -n %{jsname}-%{version}
 %patch -P0 -p1
+
+dos2unix -k modules/base/jspdf.mjs modules/base/svg2pdf.mjs
 
 %build
 # nothing to do
@@ -87,6 +90,9 @@ end
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Tue Dec 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.10.1-1
+- Update to version 7.10.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,3 +1,5 @@
+%bcond_without tests
+
 %global git_commit ee3f4d841d1ba7d5b1b57544c5068822ca92b1af
 %global git_short_commit %(echo %{git_commit} | cut -c -7)
 
@@ -11,6 +13,8 @@ URL:            https://sourceforge.net/projects/mcj/
 #Source0:        https://downloads.sourceforge.net/mcj/fig2dev-%{version}.tar.xz
 Source0:        https://sourceforge.net/code-snapshots/git/m/mc/mcj/fig2dev.git/mcj-fig2dev-%{git_commit}.zip
 
+Patch:          0001-Avoid-integer-overflow.patch
+
 Requires:       ghostscript
 Requires:       bc
 Requires:       netpbm-progs
@@ -23,6 +27,12 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  libXpm-devel
 BuildRequires:  ghostscript
 
+%if %{with tests}
+BuildRequires:  GraphicsMagick
+BuildRequires:  ImageMagick
+BuildRequires:  netpbm-progs
+%endif
+
 %description
 The transfig utility creates a makefile which translates FIG (created by xfig)
 or PIC figures into a specified LaTeX graphics language (for example,
@@ -33,9 +43,9 @@ Install transfig if you need a utility for translating FIG or PIC figures into
 certain graphics languages.
 
 %prep
-#autosetup -p1 -n fig2dev-%{version}
-%autosetup -p1 -n mcj-fig2dev-%{git_commit}
+%autosetup -p1 -C
 autoreconf -i
+
 # Fix the manpage not being in UTF-8
 iconv -f ISO-8859-15 -t UTF-8 man/fig2dev.1.in -o fig2dev.1.in.new
 touch -r man/fig2dev.1.in fig2dev.1.in.new
@@ -47,6 +57,11 @@ mv fig2dev.1.in.new man/fig2dev.1.in
 
 %install
 %make_install
+
+%if %{with tests}
+%check
+%make_build check
+%endif
 
 %files
 %doc CHANGES transfig/doc/manual.pdf

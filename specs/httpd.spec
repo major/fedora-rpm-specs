@@ -30,8 +30,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.65
-Release: 5%{?dist}
+Version: 2.4.66
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -99,7 +99,6 @@ Patch27: httpd-2.4.64-sslprotdefault.patch
 Patch28: httpd-2.4.43-logjournal.patch
 Patch29: httpd-2.4.63-r1912477+.patch
 Patch30: httpd-2.4.64-separate-systemd-fns.patch
-Patch31: httpd-2.4.65-sslvhostsnipolicy.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -847,6 +846,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Dec 09 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.66-1
+- new version 2.4.66
+
 * Thu Nov 27 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.65-5
 - Improve default httpd LogFormats for better support diagnostics
 

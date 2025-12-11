@@ -1074,6 +1074,9 @@ fi
 
 
 %changelog
+* Mon Dec 08 2025 Cristian Le <git@lecris.dev>
+- Convert STI tests to TMT (rhbz#2382851)
+
 * Thu Dec 04 2025 Íñigo Huguet <ihuguet@riseup.net> - 1:1.55.90-1
 - Update to 1.56-rc1 release
 

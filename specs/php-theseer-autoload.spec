@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-theseer-autoload
 #
-# Copyright (c) 2014-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    68a4b8d27342a61611078abb23c292216937daea
+%global gh_commit    c3a22a88ae6bdadbe0c8274a51d29998eb152983
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     theseer
 %global gh_project   Autoload
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-theseer-autoload
-Version:        1.29.3
-Release:        3%{?dist}
+Version:        1.29.4
+Release:        1%{?dist}
 Summary:        A tool and library to generate autoload code
 
 License:        BSD-3-Clause
@@ -122,7 +122,7 @@ require '%{buildroot}%{_datadir}/php/TheSeer/Autoload/autoload.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php80 php81 php82 php83 php84; do
+for cmd in "php %{phpunit}" php81 php82 php83 php84 php85; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -147,6 +147,10 @@ fi
 
 
 %changelog
+* Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 1.29.4-1
+- update to 1.29.4
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -90,18 +90,6 @@ use the "virgl_renderer" feature of the "%{crate}" crate.
 %files       -n %{name}+virgl_renderer-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vulkano-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vulkano-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vulkano" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vulkano-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

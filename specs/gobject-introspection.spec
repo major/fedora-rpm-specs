@@ -22,6 +22,7 @@ BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  python3-mako
 BuildRequires:  python3-markdown
+BuildRequires:  python3-setuptools
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(libffi)

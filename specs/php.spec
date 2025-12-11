@@ -70,7 +70,7 @@
 %bcond_with          liburiparser
 
 %global upver        8.5.1
-%global rcver        RC1
+%global rcver        RC2
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -1644,6 +1644,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 8.5.1~RC2-1
+- update to 8.5.1RC2
+
 * Tue Dec  2 2025 Remi Collet <remi@remirepo.net> - 8.5.1~RC1-1
 - update to 8.5.1RC1
 

@@ -2,11 +2,12 @@
 %global groupId     org.clojure
 %global artifactId  clojure
 %global archivename %{project}-%{artifactId}
+%define add_determinism_options --handler=-jar
 
 Name:           clojure
 Epoch:          1
 Version:        1.12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A dynamic programming language that targets the Java Virtual Machine
 
 License:        EPL-1.0
@@ -61,6 +62,9 @@ can avoid reflection.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Dec 09 2025 Markku Korkeala <markku.korkeala@iki.fi> - 1:1.12.3-2
+- Remove timestamp modifications from jar, closes to rhbz#2355949
+
 * Sun Nov 23 2025 Markku Korkeala <markku.korkeala@iki.fi> - 1:1.12.3-1
 - Update to upstream release 1.12.3, closes rhbz#2186974
 - Remove central-publishing-maven-plugin from pom

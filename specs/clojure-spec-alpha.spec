@@ -2,11 +2,12 @@
 %global artifactId  spec.alpha
 %global archivename %{artifactId}-%{artifactId}
 %global full_version %{version}
+%define add_determinism_options --handler=-jar
 
 Name:           clojure-spec-alpha
 Epoch:          1
 Version:        0.5.238
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Spec is a Clojure library to describe the structure of data and functions
 
 Group:          Development/Languages
@@ -96,6 +97,9 @@ use generative testing to test functions.
 %license LICENSE
 %doc CHANGES.md README.md CONTRIBUTING.md
 %changelog
+* Tue Dec 09 2025 Markku Korkeala <markku.korkeala@iki.fi> - 1:0.5.238-5
+- Remove timestamp modifications from jar, relates to rhbz#2355949
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:0.5.238-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

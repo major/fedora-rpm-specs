@@ -1,68 +1,47 @@
 Name:           brotli
-Version:        1.1.0
-Release:        10%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Lossless compression algorithm
 
 License:        MIT
 URL:            https://github.com/google/brotli
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/brotli-%{version}.tar.gz
 
-
-%if 0%{?rhel} == 7
-BuildRequires:  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
-BuildRequires:  cmake3
-%else
 BuildRequires:  cmake
-%endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-Requires: lib%{name}%{?_isa} = %{version}-%{release}
 
-%description
-Brotli is a generic-purpose lossless compression algorithm that compresses
-data using a combination of a modern variant of the LZ77 algorithm, Huffman
-coding and 2nd order context modeling, with a compression ratio comparable
-to the best currently available general-purpose compression methods.
-It is similar in speed with deflate but offers more dense compression.
+Requires: libbrotli%{?_isa} = %{version}-%{release}
+
+%global _description %{expand:
+Brotli is a generic-purpose lossless compression algorithm that compresses data
+using a combination of a modern variant of the LZ77 algorithm, Huffman coding
+and 2nd order context modeling, with a compression ratio comparable to the best
+currently available general-purpose compression methods. It is similar in speed
+with deflate but offers more dense compression.}
+
+%description %{_description}
 
 %package -n libbrotli
 Summary:        Library for brotli lossless compression algorithm
 
-%description -n libbrotli
-Brotli is a generic-purpose lossless compression algorithm that compresses
-data using a combination of a modern variant of the LZ77 algorithm, Huffman
-coding and 2nd order context modeling, with a compression ratio comparable
-to the best currently available general-purpose compression methods.
-It is similar in speed with deflate but offers more dense compression.
+%description -n libbrotli %{_description}
 
-
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-brotli
 Summary:        Lossless compression algorithm (python 3)
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 
-%description -n python%{python3_pkgversion}-%{name}
-Brotli is a generic-purpose lossless compression algorithm that compresses
-data using a combination of a modern variant of the LZ77 algorithm, Huffman
-coding and 2nd order context modeling, with a compression ratio comparable
-to the best currently available general-purpose compression methods.
-It is similar in speed with deflate but offers more dense compression.
+%description -n python3-brotli %{_description}
+
 This package installs a Python 3 module.
-
 
 %package devel
 Summary:        Lossless compression algorithm (development files)
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: lib%{name}%{?_isa} = %{version}-%{release}
+Requires: brotli%{?_isa} = %{version}-%{release}
+Requires: libbrotli%{?_isa} = %{version}-%{release}
 
-%description devel
-Brotli is a generic-purpose lossless compression algorithm that compresses
-data using a combination of a modern variant of the LZ77 algorithm, Huffman
-coding and 2nd order context modeling, with a compression ratio comparable
-to the best currently available general-purpose compression methods.
-It is similar in speed with deflate but offers more dense compression.
-This package installs the development files
+%description devel %{_description}
+
+This package installs the development files.
 
 %prep
 %autosetup -p1
@@ -73,51 +52,37 @@ chmod 644 c/enc/*.[ch]
 chmod 644 c/include/brotli/*.h
 chmod 644 c/tools/brotli.c
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%cmake3 \
-    -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
-    -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
-%cmake3_build
-%else
 %cmake \
     -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
     -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
 %cmake_build
-%endif
-%py3_build
+%pyproject_wheel
 
 %install
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%cmake3_install
-%else
 %cmake_install
-%endif
-
-# I couldn't find the option to not build the static libraries
-#rm "%{buildroot}%{_libdir}/"*.a
-
-%py3_install
-install -dm755 "%{buildroot}%{_mandir}/man3"
-cd docs
-for i in *.3;do
-install -m644 "$i" "%{buildroot}%{_mandir}/man3/${i}brotli"
-done
-
-%ldconfig_scriptlets
+# Names of C API (section 3) man pages are too generic; rename them from .3 to
+# .3brotli (which is how they were manually installed in the past anyway)
+find %{buildroot}%{_mandir}/man3 -name '*.3' -exec mv -v '{}' '{}brotli' ';'
+%pyproject_install
+%pyproject_save_files -l brotli _brotli
 
 %check
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%ctest3
-%else
 %ctest
-%endif
+%pyproject_check_import
+cd python
+%{py3_test_envvars} %{python3} -m tests.bro_test
+%{py3_test_envvars} %{python3} -m tests.compress_test
+%{py3_test_envvars} %{python3} -m tests.compressor_test
+%{py3_test_envvars} %{python3} -m tests.decompress_test
+%{py3_test_envvars} %{python3} -m tests.decompressor_test
 
 %files
 %{_bindir}/brotli
+%{_mandir}/man1/brotli.1*
 
 %files -n libbrotli
 %license LICENSE
@@ -125,14 +90,7 @@ done
 %{_libdir}/libbrotlidec.so.1*
 %{_libdir}/libbrotlienc.so.1*
 
-# Note that there is no %%files section for the unversioned python module
-# if we are building for several python runtimes
-%files -n python%{python3_pkgversion}-%{name}
-%license LICENSE
-%{python3_sitearch}/brotli.py
-%{python3_sitearch}/_brotli.cpython-%{python3_version_nodots}*.so
-%{python3_sitearch}/__pycache__/brotli.cpython-%{python3_version_nodots}*.py*
-%{python3_sitearch}/Brotli-1.1.0-py%{python3_version}.egg-info/
+%files -n python3-brotli -f %{pyproject_files}
 
 %files devel
 %{_includedir}/brotli
@@ -147,8 +105,13 @@ done
 %{_mandir}/man3/encode.h.3brotli*
 %{_mandir}/man3/types.h.3brotli*
 
-
 %changelog
+* Mon Dec 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.0-1
+- Update to 1.2.0 (close RHBZ#2401888)
+- Stop trying to support EPEL7, which is end-of-life
+- Port to pyproject-rpm-macros (close RHBZ#2377212)
+- Test the Python extension
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

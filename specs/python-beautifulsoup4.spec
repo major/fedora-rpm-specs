@@ -14,8 +14,9 @@ Summary:        HTML/XML parser for quick-turnaround applications like screen-sc
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
-# Patch from upstream
+# Patches from upstream
 Patch0:         0001-Skip-the-lxml-tree-builder-s-test_surrogate_in_chara.patch
+Patch1:         0001-Change-the-html.parser-tree-builder-s-code-for-handl.patch
 # https://git.launchpad.net/beautifulsoup/commit/?id=9786a62726de5a8caba10021c4d4a58c8a3e9e3f
 Patch11:        beautifulsoup4-4.13-disable-soupsieve.patch
 BuildArch:      noarch

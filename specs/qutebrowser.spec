@@ -1,7 +1,7 @@
 %global srcname qutebrowser
 
 Name:		%{srcname}
-Version:	3.6.1
+Version:	3.6.3
 Release:	%autorelease
 Summary:	A keyboard-driven, vim-like browser based on PyQt5 and QtWebEngine
 # Automatically converted from old format: GPLv3 - review is highly recommended.

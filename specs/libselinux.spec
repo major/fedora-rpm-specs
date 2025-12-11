@@ -221,10 +221,4 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.9-5
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.9-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
 %autochangelog

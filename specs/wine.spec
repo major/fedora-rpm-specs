@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        10.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -728,9 +728,15 @@ sed -i 's/-Wl,-WX//g' configure
 # required so that both Linux and Windows development files can be found
 unset PKG_CONFIG_PATH
 
+# _libdir was restructured and must use a new prefix until at least Fedora 45
+%global _x_libdir %{_libdir}
+%if %{with new_wow64}
+%global _libdir %{_libdir}/wine-wow64
+%endif
+
 %configure \
  --sysconfdir=%{_sysconfdir}/wine \
- --x-includes=%{_includedir} --x-libraries=%{_libdir} \
+ --x-includes=%{_includedir} --x-libraries=%{_x_libdir} \
  --with-dbus \
  --with-x \
 %ifarch x86_64 aarch64
@@ -1011,34 +1017,6 @@ if [ $1 -eq 0 ]; then
 fi
 
 %ldconfig_post core
-
-%pretrans -p <lua> core
-%if %{with new_wow64}
-%ifarch %{ix86}
-pathA = "%{_libdir}/wine/x86_64-unix"
-pathB = "%{_libdir}/wine/x86_64-windows"
-stA = posix.stat(pathA)
-stB = posix.stat(pathB)
-if stA and stA.type == "link" then
-  os.remove(pathA)
-end
-if stB and stB.type == "link" then
-  os.remove(pathB)
-end
-%endif
-%ifarch x86_64
-pathA = "%{_libdir}/wine/i386-unix"
-pathB = "%{_libdir}/wine/i386-windows"
-stA = posix.stat(pathA)
-stB = posix.stat(pathB)
-if stA and stA.type == "link" then
-  os.remove(pathA)
-end
-if stB and stB.type == "link" then
-  os.remove(pathB)
-end
-%endif
-%endif
 
 %posttrans core
 # handle upgrades for a few package updates
@@ -2309,6 +2287,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 09 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-3
+- Bring sanity to the upgrade path, credit Gordon Messmer (RHBZ#2401666)
+
 * Mon Dec 01 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-2
 - remove Conflicts
 

@@ -1,10 +1,11 @@
 Name:           rpkg
 Version:        1.69
-Release:        2%{?dist}
+Release:        4%{?dist}
 
 Summary:        Python library for interacting with rpm+git
-# Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2
+# Automatically converted from old format: GPLv2+ and LGPLv2 - reviewed
+# and converted to SPDX license expression
+License:        GPL-2.0-or-later AND LGPL-2.1-only
 URL:            https://pagure.io/rpkg
 BuildArch:      noarch
 Source0:        https://pagure.io/releases/rpkg/%{name}-%{version}.tar.gz
@@ -48,6 +49,9 @@ Patch1:         0001-Remove-Environment-Markers-syntax.patch
 %endif
 Patch2:         0002-Execute-shell-command-Non-interactive-stdin.patch
 Patch3:         0003-Use-ruff-code-checker-instead-of-bandit.patch
+Patch4:         0004-update-interactive-editor-is-broken.patch
+Patch5:         0005-Check-the-correct-sorting-of-imports-from-now-on.patch
+Patch6:         0006-_run_command-timeout-is-not-supported-in-Python-2.patch
 
 %description
 Python library for interacting with rpm+git
@@ -278,6 +282,13 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Dec 09 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-4
+- Patch: _run_command: timeout is not supported in Python 2
+
+* Tue Dec 09 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-3
+- Patch: Check the correct sorting of imports from now on
+- Patch: `update`: interactive editor is broken
+
 * Tue Nov 25 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-2
 - Patch: Use ruff code checker instead of bandit
 

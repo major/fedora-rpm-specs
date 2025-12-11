@@ -4,7 +4,7 @@
 %global projectname guest-components
 
 Name:           trustee-guest-components
-Version:        0.14.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Tools that run in confidential VMs, attest and get secrets from Trustee
 
@@ -16,7 +16,6 @@ Summary:        Tools that run in confidential VMs, attest and get secrets from 
 #BSD-2-Clause OR Apache-2.0 OR MIT
 #ISC
 #MIT
-#MIT OR Apache-2.0
 #(MIT OR Apache-2.0) AND Unicode-DFS-2016
 #MPL-2.0
 #Unicode-3.0
@@ -29,14 +28,13 @@ Summary:        Tools that run in confidential VMs, attest and get secrets from 
 #Apache-2.0 OR BSL-1.0
 #Apache-2.0 OR MIT
 #(Apache-2.0 OR MIT) AND Unicode-DFS-2016
-#BSD-2-Clause OR Apache-2.0 OR MIT
 #ISC
 #MIT
 #MIT OR Unlicense
 #MPL-2.0
 #Unicode-3.0
 
-License:        Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND Unicode-DFS-2016) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0
+License:        Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND Unicode-DFS-2016) AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0
 
 # LICENSE.dependencies contains a full license breakdown
 
@@ -57,26 +55,22 @@ Patch5:         0005-Fedora-remove-ttrpc-dependency.patch
 Patch6:         0006-Fedora-remove-jwt-simple-dependency.patch
 # * remove dependency testcontainers - not in Fedora
 Patch7:         0007-Fedora-remove-testcontainers-dependency.patch
-# * rstest version is 0.26
-Patch8:         0008-Fedora-rstest-0.26.patch
-# * tempfile version is 3.21
-Patch9:         0009-Fedora-tempfile-3.21.patch
-# * tokio version is 1.47
-Patch10:         0010-Fedora-tokio-1.47.patch
-# * zeroize version is 1.8.1
-Patch11:         0011-Fedora-zeroize-1.8.1.patch
-# * Use clap ^4.2.7
-Patch12:         0012-Fedora-use-clap-4.2.7.patch
-# * az-snp-vtpm/az-tdx-vtpm 0.7.4
-Patch13:         0013-Fedora-az-snp-vtpm-az-tdx-vtpm-0.7.4.patch
+# * tempfile version is 3.23
+Patch8:         0008-Fedora-tempfile-3.23.patch
+# * tokio version is 1.48
+Patch9:         0009-Fedora-tokio-1.48.patch
+# * zeroize version is 1.8.2
+Patch10:        0010-Fedora-zeroize-1.8.2.patch
 # * kbs-types 0.13.0
-Patch14:         0014-Fedora-kbs-types-0.13.0.patch
+Patch11:        0011-Fedora-kbs-types-0.13.0.patch
 # * serde_version is 3.12.0
-Patch15:         0015-Fedora-serde_with-3.12.0.patch
+Patch12:        0012-Fedora-serde_with-3.12.0.patch
+# * picky-asn1-x509 is 0.14.5
+Patch13:        0013-Fedora-picky-asn1-x509-0.14.5.patch
 # * refactor: adapt to kbs-types InitData/RuntimeData type changes
-Patch16:         0016-Fedora-refactor-adapt-to-kbs-types-InitData-RuntimeD.patch
+Patch14:        0014-Fedora-refactor-adapt-to-kbs-types-InitData-RuntimeD.patch
 # * resolve Tee serialization mismatch with kbs-types
-Patch17:         0017-Fedora-resolve-Tee-serialization-mismatch-with-kbs-t.patch
+Patch15:        0015-Fedora-resolve-Tee-serialization-mismatch-with-kbs-t.patch
 
 ExclusiveArch:  x86_64
 BuildRequires:  cargo-rpm-macros >= 24

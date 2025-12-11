@@ -2,11 +2,12 @@
 %global artifactId  core.specs.alpha
 %global archivename %{artifactId}-%{artifactId}
 %global full_version %{version}
+%define add_determinism_options --handler=-jar
 
 Name:           clojure-core-specs-alpha
 Epoch:          1
 Version:        0.4.74
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Clojure library containing specs to describe Clojure core macros and functions
 
 Group:          Development/Languages
@@ -94,6 +95,9 @@ core macros and functions.
 %doc epl-v10.html CHANGES.md README.md CONTRIBUTING.md
 
 %changelog
+* Tue Dec 09 2025 Markku Korkeala <markku.korkeala@iki.fi> - 1:0.4.74-5
+- Remove timestamp modifications from jar, relates to rhbz#2355949
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:0.4.74-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

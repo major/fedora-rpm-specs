@@ -2,18 +2,19 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:           pl
-Version:        9.2.9
+Version:        10.0.0
 Release:        %autorelease
 Summary:        ISO/Edinburgh-style Prolog interpreter
 
+# For the license breakdown, see licenses.txt, Source2
 License:        BSD-2-Clause
 URL:            https://www.swi-prolog.org/
 VCS:            git:https://github.com/SWI-Prolog/swipl.git
 # Source0: %%{url}download/stable/src/swipl-%%{version}.tar.gz
 # To create the repackaged archive, use ./repackage.sh %%{version}
 Source0:        swipl-%{version}_repackaged.tar.gz
-Source1:        %{url}download/xpce/doc/userguide/userguide.html.tgz
-Source2:        repackage.sh
+Source1:        repackage.sh
+Source2:        licenses.txt
 # Use JNI for Java binding
 Patch0:         swipl-8.2.1-Fix-JNI.patch
 # Upstream installation paths differ from distribution ones
@@ -24,9 +25,8 @@ Patch2:         swipl-8.2.0-unbundle-libstemmer.patch
 Patch3:         swipl-9.2.7-inclpr-math.patch
 # Use zlib-ng directly rather than via the zlib compatibility interface
 Patch4:         swipl-9.2.9-zlib-ng.patch
-# Adapt to changed semantics of "type f();" in C23
-# https://github.com/SWI-Prolog/swipl/pull/33
-Patch5:         swipl-9.2.9-c23.patch
+# Fix detection of the secure_getenv function
+Patch5:         swipl-10.0.0-secure-getenv.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -37,59 +37,56 @@ BuildRequires:  findutils
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 # Base
-BuildRequires:  gmp-devel
+BuildRequires:  cmake(zlib-ng)
 BuildRequires:  libatomic
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(libedit)
+BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(libpcre2-posix)
 BuildRequires:  pkgconfig(libtcmalloc)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(readline)
 # archive
 BuildRequires:  pkgconfig(libarchive)
-# http
-BuildRequires:  js-jquery
-# XPCE
-BuildRequires:  pkgconfig(fontconfig)
-BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xft)
-BuildRequires:  pkgconfig(xinerama)
-BuildRequires:  pkgconfig(xpm)
-BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  pkgconfig(xt)
-BuildRequires:  texinfo-tex
 # bdb
 BuildRequires:  libdb-devel
-# mqi / swiplserver
-BuildRequires:  python3-devel
-# ODBC
-BuildRequires:  pkgconfig(odbc)
-# SSL
-BuildRequires:  openssl
-BuildRequires:  pkgconfig(openssl)
+# crypt
+BuildRequires:  libxcrypt-devel
+# http
+BuildRequires:  js-jquery
 # jpl
 %ifarch %{java_arches}
 BuildRequires:  java-25-devel
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.hamcrest:hamcrest)
 %endif
+# mqi / swiplserver
+BuildRequires:  python3-devel
 # nlp
 BuildRequires:  libstemmer-devel
+# ODBC
+BuildRequires:  pkgconfig(odbc)
+# SSL
+BuildRequires:  openssl
+BuildRequires:  pkgconfig(openssl)
 # sweep
 BuildRequires:  emacs-devel
+# term
+BuildRequires:  pkgconfig(libedit)
 # uuid
 BuildRequires:  pkgconfig(ossp-uuid)
 # win
-BuildRequires:  pkgconfig(Qt6)
+BuildRequires:  cmake(Qt6)
+# XPCE
+BuildRequires:  cmake(SDL3)
+BuildRequires:  cmake(SDL3_image)
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(xpm)
+BuildRequires:  texinfo-tex
 # yaml
 BuildRequires:  pkgconfig(yaml-0.1)
-# zlib
-BuildRequires:  pkgconfig(zlib-ng)
-# crypt
-BuildRequires:  libxcrypt-devel
 
 # Doc building
 # Gated to Fedora as EL is currently missing tex(a4wide.sty)
@@ -99,8 +96,7 @@ BuildRequires:  tex(a4wide.sty)
 BuildRequires:  tex(tabulary.sty)
 %endif
 
-%global _desc %{expand:
-SWI-Prolog is a fast and powerful ISO/Edinburgh-style Prolog compiler with a
+%global _desc %{expand:SWI-Prolog is a fast and powerful ISO/Edinburgh-style Prolog compiler with a
 rich set of built-in predicates.  It offers a fast, robust and small
 environment which enables substantial applications to be developed with it.
 
@@ -112,57 +108,17 @@ SWI-Prolog additionally offers:
 * Unbounted integer and rational number arithmetic
 * Multithreading support
 * A powerful C/C++ interface
-* GNU Readline interface
-}
+* GNU Readline interface}
 
-%description %_desc
-
-# Not compiled into a binary package:
-#External: repackage.sh                 GPL-2.0-or-later
-#bench/                                 Various licenses
-#packages/RDF/configure                 FSFUL
-#packages/clib/configure                FSFUL
-#packagfes/clib/demo/                   Public Domain
-#packages/clpqr/.fileheader             GPL-2.0-or-later with SWI exception
-#packages/clpqr/configure               FSFUL
-#packages/cpp/configure                 FSFUL
-#packages/http/examples/                LicenseRef-Fedora-Public-Domain
-#packages/http/web/js/jquery*           MIT
-#packages/nlp/configure                 FSFUL
-#packages/pcre/cmake/FindPCRE.cmake     MIT
-#packages/protobufs/configure           FSFUL
-#packages/sgml/configure                FSFUL
-#packages/ssl/configure                 FSFUL
-#packages/ssl/https.pl                  LicenseRef-Fedora-Public-Domain
-#packages/stomp/examples/               LicenseRef-Fedora-Public-Domain
-#packages/swipy/tests/                  LicenseRef-Fedora-Public-Domain
-#packages/utf8proc/LICENSE              MIT AND Unicode-DFS-2015
-#packages/utf8proc/data_generator.rb    MIT AND Unicode-DFS-2015
-#packages/utf8proc/ruby/gem/LICENSE     MIT AND Unicode-DFS-2015
-#packages/xpce/TeX/name.bst             LicenseRef-Bibtex
-#packages/xpce/deps/xpm/                X11
-#packages/xpce/src/configure            FSFUL
-#packages/xpce/src/msw/simx.h           SGI-B-2.0
-#packages/xpce/src/msw/xpm.h            SGI-B-2.0
-#packages/zlib/configure                FSFUL
-#scripts/swipl-bt                       LicenseRef-Fedora-Public-Domain
-#src/libbf/cutils.c                     MIT
-#src/libbf/cutils.h                     MIT
-#src/libbf/libbf.c                      MIT
-#src/libbf/libbf.h                      MIT
-#src/tools/functions.pm                 LicenseRef-Fedora-Public-Domain
-#src/tools/update-deps                  LicenseRef-Fedora-Public-Domain
-# Removed from repackaged tar ball, see
-# <https://github.com/SWI-Prolog/issues/issues/16>:
-#bench/unify.pl                         Free for non-commercial
-#bench/simple_analyzer.pl               Free for non-commercial
+%description
+%_desc
 
 %package     -n swi-prolog
 Summary:        ISO/Edinburgh-style Prolog interpreter
 BuildArch:      noarch
 Requires:       swi-prolog-doc = %{version}-%{release}
-Requires:       swi-prolog-nox = %{version}-%{release}
-Requires:       swi-prolog-x = %{version}-%{release}
+Requires:       swi-prolog-cli = %{version}-%{release}
+Requires:       swi-prolog-win = %{version}-%{release}
 
 # This can be removed when F45 reaches EOL
 Obsoletes:      pl < 9.2.9-2
@@ -172,7 +128,9 @@ Provides:       pl-devel = %{version}-%{release}
 Obsoletes:      pl-compat-yap-devel < 9.2.9-2
 Provides:       pl-compat-yap-devel = %{version}-%{release}
 
-%description -n swi-prolog %_desc
+%description -n swi-prolog
+%_desc
+
 This is a metapackage, which installs the SWI-Prolog suite, except Java, ODBC,
 Berkeley DB support and tests.
 
@@ -185,26 +143,25 @@ Requires:       swi-prolog-java = %{version}-%{release}
 Requires:       swi-prolog-odbc = %{version}-%{release}
 Requires:       swi-prolog-win = %{version}-%{release}
 
-%description -n swi-prolog-full %_desc
+%description -n swi-prolog-full
+%_desc
+
 This is a metapackage, which installs the full SWI-Prolog suite, except tests.
 
 %package     -n swi-prolog-core
 # NOTE: There is no swi-prolog-core-devel package.  Instead, the header files
 # and other development files are included in this package.  It is a Prolog
 # compiler, and therefore is a development package itself.
-#
-# The project as a whole is distributed under the BSD-2-Clause license.
-# These files carry different licenses:
-# library/aggregate.pl                   BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
-# library/dialect/bim.pl                 LicenseRef-Fedora-Public-Domain
-# library/unicode/blocks.pl              BSD-2-Clause AND Unicode-DFS-2016
-# src/libbf/mersenne-twister.c           BSD-3-Clause
-# src/libbf/mersenne-twister.h           BSD-3-Clause
-# src/libtai/                            LicenseRef-Fedora-Public-Domain
-# src/minizip/                           Zlib
-# src/os/dtoa.c                          dtoa
-# src/pl-hash.{c,h}                      LicenseRef-Fedora-Public-Domain
-License:        BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Unicode-DFS-2016 AND Zlib AND dtoa
+License:        %{shrink:
+                  BSD-2-Clause AND
+                  (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND
+                  BSD-3-Clause AND
+                  dtoa AND
+                  LicenseRef-Fedora-Public-Domain AND
+                  MIT AND
+                  Unicode-DFS-2016 AND
+                  Zlib
+                }
 Summary:        ISO/Edinburgh-style Prolog interpreter - core system
 Recommends:     swi-prolog-bdb%{?_isa} = %{version}-%{release}
 Recommends:     swi-prolog-core-packages%{?_isa} = %{version}-%{release}
@@ -215,35 +172,29 @@ Recommends:     swi-prolog-odbc%{?_isa} = %{version}-%{release}
 # Old version of minizip is bundled
 Provides:       bundled(minizip) = 1.3.1
 
-%description -n swi-prolog-core %_desc
+%description -n swi-prolog-core
+%_desc
+
 This package contains the core SWI-Prolog system.
 
 %package     -n swi-prolog-core-packages
-# The project as a whole is distributed under the BSD-2-Clause license.
-# These files carry different licenses:
-# library/ugraphs.pl                     BSD-2-Clause OR Artistic-2.0
-# packages/clib/bsd-crypt.c              BSD-3-Clause
-# packages/clib/md5.{c,h}                Zlib
-# packages/clib/md5passwd.c              Beerware
-# packages/clib/sha1/                    Brian-Gladman-3-Clause OR GPL-1.0+
-# packages/clpqr/                        GPL-2.0-or-later with SWI-exception
-# packages/http/http_server_health.pl    GPL-2.0-or-later with SWI-exception
-# packages/http/http_stream.pl           BSD-2-Clause AND MIT
-# packages/http/multipart.c              BSD-2-Clause AND MIT
-# packages/mqi/python/                   MIT
-# packages/nlp/double_metaphone.c        GPL-1.0-or-later OR Artistic-1.0-Perl
-# packages/nlp/isub.c                    LGPL-2.0-or-later
-# packages/protobufs/interop/google/     BSD-3-Clause
-# packages/semweb/md5.{c,h}              Zlib
-# packages/semweb/murmur.{c,h}           LicenseRef-Fedora-Public-Domain
-# packages/sgml/DTD/                     W3C
-# packages/sweep/emacs-module.h          GPL-3.0-or-later
-# packages/sweep/sweep.texi              GFDL-1.3-no-invariants-or-later
-# packages/utf8proc/                     MIT AND Unicode-DFS-2015
-#
-# Note that packages/redis/redis.pl was relicensed.  It contains a note about
-# the former license (MIT), but is no longer distributed under that license.
-License:        BSD-2-Clause AND (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND (BSD-2-Clause OR Artistic-2.0) AND BSD-3-Clause AND Beerware AND GFDL-1.3-no-invariants-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later with SWI-exception AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND MIT AND Unicode-DFS-2015 AND W3C AND Zlib
+License:        %{shrink:
+                  BSD-2-Clause AND
+                  Beerware AND
+                  (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND
+                  (BSD-2-Clause OR Artistic-2.0) AND
+                  BSD-3-Clause AND
+                  GFDL-1.3-no-invariants-or-later AND
+                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND
+                  GPL-2.0-or-later WITH SWI-exception AND
+                  GPL-3.0-or-later AND
+                  LGPL-2.0-or-later AND
+                  LicenseRef-Fedora-Public-Domain AND
+                  MIT AND
+                  Unicode-DFS-2016 AND
+                  W3C AND
+                  Zlib
+                }
 Summary:        ISO/Edinburgh-style Prolog interpreter - core packages
 Requires:       swi-prolog-core%{?_isa} = %{version}-%{release}
 Requires:       js-jquery
@@ -257,16 +208,18 @@ Recommends:     swi-prolog-odbc%{?_isa} = %{version}-%{release}
 # See https://fedoraproject.org/wiki/Bundled_Libraries_Virtual_Provides
 Provides:       bundled(md5-deutsch)
 
-%description -n swi-prolog-core-packages %_desc
+# An old version of ut8proc is bundled, not fully compatible with the 2.x
+# versions available in Fedora
+Provides:       bundled(utf8proc) = 1.1.6
+
+%description -n swi-prolog-core-packages
+%_desc
+
 This package contains the core SWI-Prolog packages.
 
-%package     -n swi-prolog-nox
-# The project as a whole is distributed under the BSD-2-Clause license.
-# These files carry different licenses:
-# packages/ssl/crypt_blowfish.{c,h}      bcrypt-Solar-Designer
-# packages/tipc/tipcutils/tipc-config.c  BSD-3-Clause
+%package     -n swi-prolog-cli
 License:        BSD-2-Clause AND BSD-3-Clause AND bcrypt-Solar-Designer
-Summary:        ISO/Edinburgh-style Prolog interpreter - without X support
+Summary:        ISO/Edinburgh-style Prolog interpreter - command line interface
 Requires:       swi-prolog-core%{?_isa} = %{version}-%{release}
 Requires:       swi-prolog-core-packages%{?_isa} = %{version}-%{release}
 Recommends:     swi-prolog-bdb%{?_isa} = %{version}-%{release}
@@ -274,31 +227,46 @@ Recommends:     swi-prolog-doc = %{version}-%{release}
 Recommends:     swi-prolog-java%{?_isa} = %{version}-%{release}
 Recommends:     swi-prolog-odbc%{?_isa} = %{version}-%{release}
 
-%description -n swi-prolog-nox %_desc
-This package contains a SWI-Prolog installation without GUI components.
+# This can be removed when F47 reaches EOL
+Obsoletes:      swi-prolog-nox < 10.0.0
+Provides:       swi-prolog-nox = %{version}-%{release}
 
-%package     -n swi-prolog-x
-# The project as a whole is distributed under the BSD-2-Clause license.
-# These files carry different licenses:
-# packages/xpce/man/course               CC-BY-SA-3.0
-# packages/xpce/man/info                 CC-BY-SA-3.0
-# packages/xpce/src/gnu/getdate.c        LicenseRef-Fedora-Public-Domain AND
-#                                      GPL-2.0-or-later WITH Bison-exception-2.2
-# packages/xpce/src/gnu/getdate-source.y LicenseRef-Fedora-Public-Domain
-# packages/xpce/src/gnu/y.tab            LicenseRef-Fedora-Public-Domain
-# packages/xpce/src/img/gifwrite.c       BSD-2-Clause AND FBM AND HPND-Pbmplus
-# packages/xpce/src/img/jdatadst.c       BSD-2-Clause AND IJG
-# packages/xpce/src/rgx/                 Spencer-99 AND TCL AND PostgreSQL
-# packages/xpce/src/x11/xdnd.{c,h}       LGPL-2.0-or-later
-License:        BSD-2-Clause AND CC-BY-SA-3.0 AND FBM AND GPL-2.0-or-later WITH Bison-exception-2.2 AND HPND-Pbmplus AND IJG AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND PostgreSQL AND Spencer-99 AND TCL
-Summary:        ISO/Edinburgh-style Prolog interpreter - with X support
-Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
+%description -n swi-prolog-cli
+%_desc
+
+This package contains a SWI-Prolog installation with a command line interface
+but no GUI components.
+
+%package     -n swi-prolog-win
+License:        %{shrink:
+                  BSD-2-Clause AND
+                  CC-BY-SA-3.0 AND
+                  FBM AND
+                  GPL-2.0-or-later WITH Bison-exception-2.2 AND
+                  HPND-Pbmplus AND
+                  IJG AND
+                  Knuth-CTAN AND
+                  LicenseRef-Fedora-Public-Domain AND
+                  PostgreSQL AND
+                  Spencer-99 AND
+                  TCL
+                }
+Summary:        ISO/Edinburgh-style Prolog interpreter - with GUI support
+Requires:       swi-prolog-cli%{?_isa} = %{version}-%{release}
+Requires:       hicolor-icon-theme
+Requires:       shared-mime-info%{?_isa}
 
 # This can be removed when F45 reaches EOL
 Obsoletes:      pl-xpce < 9.2.9-2
 Provides:       pl-xpce = %{version}-%{release}
 
-%description -n swi-prolog-x %_desc
+# This can be removed when F47 reaches EOL
+Obsoletes:      swi-prolog-x < 10.0.0
+Provides:       swi-prolog-x = %{version}-%{release}
+
+%description -n swi-prolog-win
+%_desc
+
 This package contains XPCE, an object-oriented symbolic programming
 environment for user interfaces.  Although XPCE was designed to be
 language-independent, it has gained the most popularity with Prolog.  XPCE
@@ -312,7 +280,7 @@ follows a rather unique approach for developing GUI applications, as follows:
 %ifarch %{java_arches}
 %package     -n swi-prolog-java
 Summary:        Bidirectional interface between SWI-Prolog and Java
-Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
+Requires:       swi-prolog-cli%{?_isa} = %{version}-%{release}
 Requires:       java-25-headless
 Requires:       javapackages-tools
 
@@ -320,7 +288,9 @@ Requires:       javapackages-tools
 Obsoletes:      pl-jpl < 9.2.9-2
 Provides:       pl-jpl = %{version}-%{release}
 
-%description -n swi-prolog-java %_desc
+%description -n swi-prolog-java
+%_desc
+
 This package provides JPL, a library using the SWI-Prolog foreign interface
 and the Java Native Interface to provide a bidirectional interface between
 Java and Prolog.  Prolog can be embedded in Java, and Java can be embedded in
@@ -329,13 +299,15 @@ Prolog.  It provides a reentrant bidirectional interface in both cases.
 
 %package     -n swi-prolog-odbc
 Summary:        SWI-Prolog ODBC interface
-Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
+Requires:       swi-prolog-cli%{?_isa} = %{version}-%{release}
 
 # This can be removed when F45 reaches EOL
 Obsoletes:      pl-odbc < 9.2.9-2
 Provides:       pl-odbc = %{version}-%{release}
 
-%description -n swi-prolog-odbc %_desc
+%description -n swi-prolog-odbc
+%_desc
+
 The value of RDMS for Prolog is often overestimated, as Prolog itself can
 manage substantial amounts of data.  Nevertheless a Prolog/RDMS interface
 provides advantages if data is already provided in an RDMS, data must be
@@ -352,23 +324,21 @@ constraint.
 
 %package     -n swi-prolog-bdb
 Summary:        SWI-Prolog Berkeley DB interface
-Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
+Requires:       swi-prolog-cli%{?_isa} = %{version}-%{release}
 
-%description -n swi-prolog-bdb %_desc
+%description -n swi-prolog-bdb
+%_desc
+
 This package provides a foreign language extension to the Berkeley DB (libdb)
 embedded database.
 
 %package     -n swi-prolog-doc
-# The project as a whole is distributed under the BSD-2-Clause license.
-# These files carry different licenses:
-# man/bk9.co                             LPPL-1.3a+
-# man/main.doc                           CC-BY-SA-3.0
-# man/name.bst                           Knuth-CTAN
-# man/swipl.cls                          LPPL-1.3a+
-# The PDF of the manual contains embedded fonts with these licenses:
-# CM: Knuth-CTAN
-# Nimbus: AGPL-3.0-only
-License:        BSD-2-Clause AND AGPL-3.0-only AND CC-BY-SA-3.0 AND Knuth-CTAN AND LPPL-1.3a+
+License:        %{shrink:
+                  BSD-2-Clause AND
+                  CC-BY-SA-3.0 AND
+                  Knuth-CTAN AND
+                  LPPL-1.3c
+                }
 Summary:        Documentation and examples for SWI-Prolog
 BuildArch:      noarch
 Requires:       swi-prolog-core = %{version}-%{release}
@@ -377,38 +347,36 @@ Requires:       swi-prolog-core = %{version}-%{release}
 Obsoletes:      pl-doc < 9.2.9-2
 Provides:       pl-doc = %{version}-%{release}
 
-%description -n swi-prolog-doc %_desc
+%description -n swi-prolog-doc
+%_desc
+
 This package provides documentation and examples.
 
 %package     -n swi-prolog-test
-# The project as a whole is distributed under the BSD-2-Clause license.
-# These files carry different licenses:
-# src/Tests/compile/test_autoload.pl     GPL-2.0-or-later WITH SWI-exception
-# src/Tests/core/test_arith.pl           LGPL-2.1-or-later
-# src/Tests/core/test_coroutining.pl     BSD-2-Clause AND GPL-2.0-or-later
-License:        BSD-2-Clause AND GPL-2.0-or-later AND GPL-2.0-or-later WITH SWI-exception AND LGPL-2.1-or-later
+License:        %{shrink:
+                  BSD-2-Clause AND
+                  GPL-2.0-or-later AND
+                  GPL-2.0-or-later WITH SWI-exception AND
+                  LGPL-2.1-or-later
+                }
 Summary:        Tests and checks for SWI-Prolog
 BuildArch:      noarch
-Requires:       swi-prolog-nox = %{version}-%{release}
+Requires:       swi-prolog-cli = %{version}-%{release}
 
-%description -n swi-prolog-test %_desc
+%description -n swi-prolog-test
+%_desc
+
 This package provides a set of prepared tests and checks for installed
 SWI-Prolog systems.  This package is intended for SWI-Prolog development and
 is of no use for ordinary users.  If you are not sure if you need this
 package, you do not.
-
-%package     -n swi-prolog-win
-Summary:        SWI-Prolog GUI interface
-Requires:       swi-prolog-core%{?_isa} = %{version}-%{release}
-
-%description -n swi-prolog-win %_desc
-This package provides a Qt-based GUI for SWI-Prolog.
 
 %prep
 %global docdir doc-install
 %autosetup -N -n swipl-%{version}
 %patch -P0 -p1 -b .jni
 %autopatch -p1 -m1
+cp -p %{SOURCE2} .
 
 %conf
 # Fix the installation path on 64-bit systems
@@ -417,16 +385,6 @@ if [ "%{_lib}" = "lib64" ]; then
       -e '/SWIPL_INSTALL_CMAKE_CONFIG_DIR/s/lib/&64/' \
       -i cmake/LocationsPostPorts.cmake
 fi
-
-# Unpack the XPCE user guide
-mkdir %{docdir}-xpce
-pushd %{docdir}-xpce
-tar -xzf %{SOURCE1}
-mv UserGuide xpce-UserGuide
-popd
-
-# Get the Java config sources
-cp -p %{SOURCE2} .
 
 # Adjustments to take into account the new location of JNI stuff
 sed -i 's#LIBDIR#%{_libdir}#g' packages/jpl/jpl.pl
@@ -437,12 +395,15 @@ sed -i.jni -e 's#LIBDIR#"%{_libdir}/swipl-jpl"#g' packages/jpl/src/main/java/org
 cp -p packages/jpl/jpl.pl packages/jpl/jpl.pl.install
 cp -p packages/jpl/jpl.pl.jni packages/jpl/jpl.pl
 
+# Do not use the bundled libedit
+rm -fr packages/libedit/libedit
+
 # Do not use the bundled libstemmer
 rm -fr packages/nlp/libstemmer_c
 
 # Do not use the bundled texinfo.tex
 rm packages/xpce/man/info/texinfo.tex
-ln -s %{_texmf}/tex/texinfo/texinfo.tex packages/xpce/man/info
+ln -s %{_texmf_main}/tex/texinfo/texinfo.tex packages/xpce/man/info
 
 # Avoid a clash on doc names
 cp -p customize/README.md README-customize.md
@@ -471,6 +432,7 @@ export DISABLE_PKGS="jpl"
   -DSWIPL_INSTALL_IN_LIB:BOOL=ON \
   -DSWIPL_INSTALL_IN_SHARE:BOOL=ON \
   -DSWIPL_VERSIONED_DIR:BOOL=OFF \
+  -DSYSTEM_LIBEDIT:BOOL=ON \
   -DUSE_TCMALLOC:BOOL=ON \
   -G Ninja
 
@@ -500,19 +462,18 @@ chmod 0755 \
   %{buildroot}%{_datadir}/swipl/doc/packages/examples/protobufs/interop/test_write.py \
   %{buildroot}%{_datadir}/swipl/doc/packages/examples/stomp/server-loop.sh \
   %{buildroot}%{_libdir}/swipl/customize/edit \
-  %{buildroot}%{_libdir}/swipl/library/dialect/sicstus/swipl-lfr.pl \
-  %{buildroot}%{_libdir}/swipl/test/Tests/xsb/delay_tests/*.sh \
-  %{buildroot}%{_libdir}/swipl/test/Tests/xsb/ptq/*.sh \
-  %{buildroot}%{_libdir}/swipl/test/Tests/xsb/wfs_tests/*.sh
+  %{buildroot}%{_libdir}/swipl/test/xsb/delay_tests/*.sh \
+  %{buildroot}%{_libdir}/swipl/test/xsb/ptq/*.sh \
+  %{buildroot}%{_libdir}/swipl/test/xsb/wfs_tests/*.sh
 
 # Some XPCE files do not get installed
 cp -p packages/xpce/man/*.1 %{buildroot}%{_mandir}/man1
 cp -a packages/xpce/man/course %{buildroot}%{_libdir}/swipl/xpce/man
 
 # Let LaTeX know about the style file
-mkdir -p %{buildroot}%{_texmf}/tex/latex/swi-prolog
+mkdir -p %{buildroot}%{_texmf_main}/tex/latex/swi-prolog
 ln -s %{_libdir}/swipl/library/ext/pldoc/pldoc/pldoc.sty \
-      %{buildroot}%{_texmf}/tex/latex/swi-prolog/pldoc.sty
+      %{buildroot}%{_texmf_main}/tex/latex/swi-prolog/pldoc.sty
 
 # Install the sweep info file
 mkdir -p %{buildroot}%{_infodir}
@@ -548,8 +509,22 @@ cd -
 rm %{buildroot}%{_libdir}/swipl/{LICENSE,README.md}
 rm %{buildroot}%{_libdir}/swipl/customize/README.md
 rm %{buildroot}%{_libdir}/swipl/lib/swiplserver/LICENSE
-rm %{buildroot}%{_libdir}/swipl/test/Tests/xsb/.gitignore
-rm %{buildroot}%{_libdir}/swipl/xpce/man/course/.gitignore
+find %{buildroot}%{_libdir} -name .gitignore -delete
+
+# Move the desktop files to where we really want them
+mkdir -p %{buildroot}%{_datadir}/applications
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/64x64/apps
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/96x96/apps
+mkdir -p %{buildroot}%{_datadir}/mime/packages
+mv %{buildroot}%{_libdir}/swipl/desktop/*.desktop \
+   %{buildroot}%{_datadir}/applications
+mv %{buildroot}%{_libdir}/swipl/desktop/swipl.png \
+   %{buildroot}%{_datadir}/icons/hicolor/64x64/apps
+mv %{buildroot}%{_libdir}/swipl/desktop/swipl-cli.png \
+   %{buildroot}%{_datadir}/icons/hicolor/96x96/apps
+mv %{buildroot}%{_libdir}/swipl/desktop/prolog-mime.xml \
+   %{buildroot}%{_datadir}/mime/packages
+rmdir %{buildroot}%{_libdir}/swipl/desktop
 
 # Link duplicates
 %fdupes %{buildroot}%{_datadir}/swipl
@@ -567,12 +542,13 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %files -n swi-prolog-full
 
 %files -n swi-prolog-core
-%license LICENSE
+%license LICENSE licenses.txt
 %doc README.md README-customize.md
 %{_bindir}/swipl
 %{_bindir}/swipl-ld
 %{_libdir}/cmake/swipl/
 %dir %{_libdir}/swipl/
+%{_libdir}/swipl/ABI
 %dir %{_libdir}/swipl/bin/
 %{_libdir}/swipl/bin/swipl.home
 %dir %{_libdir}/swipl/bin/%{swipl_arch}/
@@ -600,7 +576,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_libdir}/swipl/library/theme/
 %{_libdir}/swipl/library/unicode/
 %{_libdir}/swipl/swipl.home
-%{_libdir}/libswipl.so.9*
+%{_libdir}/libswipl.so.10{,.*}
 %{_libdir}/libswipl.so
 %{_mandir}/man1/swipl*
 %{_datadir}/pkgconfig/swipl.pc
@@ -665,6 +641,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_libdir}/swipl/library/ext/clpqr
 %{_libdir}/swipl/library/ext/http/
 %{_libdir}/swipl/library/ext/inclpr/
+%{_libdir}/swipl/library/ext/json/
 %{_libdir}/swipl/library/ext/ltx2htm/
 %{_libdir}/swipl/library/ext/mqi/
 %{_libdir}/swipl/library/ext/nlp/
@@ -685,30 +662,36 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_libdir}/swipl/library/http/
 %{_libdir}/swipl/library/protobufs/
 %{_libdir}/swipl/library/semweb/
-%{_texmf}/tex/latex/swi-prolog/
+%{_texmf_main}/tex/latex/swi-prolog/
 
-%files -n swi-prolog-nox
+%files -n swi-prolog-cli
 %{_libdir}/swipl/app/
 %{_libdir}/swipl/lib/%{swipl_arch}/archive4pl.so
 %{_libdir}/swipl/lib/%{swipl_arch}/crypto4pl.so
 %{_libdir}/swipl/lib/%{swipl_arch}/libedit4pl.so
 %{_libdir}/swipl/lib/%{swipl_arch}/pcre4pl.so
-%{_libdir}/swipl/lib/%{swipl_arch}/readline4pl.so
 %{_libdir}/swipl/lib/%{swipl_arch}/ssl4pl.so
 %{_libdir}/swipl/lib/%{swipl_arch}/tipc.so
 %{_libdir}/swipl/lib/%{swipl_arch}/yaml4pl.so
 %{_libdir}/swipl/library/ext/archive/
 %{_libdir}/swipl/library/ext/libedit/
 %{_libdir}/swipl/library/ext/pcre/
-%{_libdir}/swipl/library/ext/readline/
 %{_libdir}/swipl/library/ext/ssl/
 %{_libdir}/swipl/library/ext/tipc/
 %{_libdir}/swipl/library/ext/yaml/
 
-%files -n swi-prolog-x
+%files -n swi-prolog-win
 %doc packages/xpce/{CUSTOMISE,EXTENDING,README}.md
+%{_bindir}/swipl-win
+%{_datadir}/applications/swipl.desktop
+%{_datadir}/applications/swipl-win.desktop
+%{_datadir}/icons/hicolor/64x64/apps/swipl.png
+%{_datadir}/icons/hicolor/96x96/apps/swipl-cli.png
+%{_datadir}/mime/packages/prolog-mime.xml
+%{_libdir}/swipl/bin/%{swipl_arch}/swipl-win
 %{_libdir}/swipl/lib/%{swipl_arch}/pl2xpce.so
 %{_libdir}/swipl/swipl.rc
+%{_libdir}/swipl/swipl-win.rc
 %{_libdir}/swipl/xpce/
 %{_mandir}/man1/xpce-client.1*
 
@@ -741,12 +724,6 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 %files -n swi-prolog-test
 %{_libdir}/swipl/test/
-
-%files -n swi-prolog-win
-%doc packages/swipl-win/README.md
-%{_bindir}/swipl-win
-%{_libdir}/swipl/bin/%{swipl_arch}/swipl-win
-%{_libdir}/swipl/swipl-win.rc
 
 %changelog
 %autochangelog

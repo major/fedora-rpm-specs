@@ -11,8 +11,8 @@ systems with a native look and feel and requiring very little (if any) platform\
 specific code.
 
 Name:           python-wxpython4
-Version:        4.2.3
-Release:        5%{?dist}
+Version:        4.2.4
+Release:        1%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -22,7 +22,7 @@ Summary:        %{sum}
 # and the doxygen build scripts.
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1 AND BSD-2-Clause
 URL:            https://www.wxpython.org/
-Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/wxpython-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -156,6 +156,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Mon Dec 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.4-1
+- 4.2.4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.3-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

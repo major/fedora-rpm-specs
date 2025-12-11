@@ -80,6 +80,10 @@ sed -i -e 's|bundle install|#bundle install|' Makefile
 # Add the whatweb shared directory
 sed -i -e "s|expand_path(__dir__)), '.')|expand_path(__dir__)), '%{_datadir}/%{name}')|" whatweb
 
+# Load from shared library and not relative
+# https://github.com/urbanadventurer/WhatWeb/pull/432
+sed -i -e "s|require_relative |require |" whatweb
+
 %build
 echo "Nothing to build."
 

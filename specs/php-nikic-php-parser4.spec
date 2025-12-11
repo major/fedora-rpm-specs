@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-nikic-php-parser4
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -15,7 +15,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    715f4d25e225bc47b293a8b997fe6ce99bf987d2
+%global gh_commit    51bd93cc741b7fc3d63d20b6bdcd99fdaa359837
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -25,8 +25,8 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.19.4
-Release:        3%{?dist}
+Version:        4.19.5
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -126,7 +126,7 @@ AUTOLOAD
 FILTER="--filter '^((?!(testLexNewFeatures)).)*$'"
 
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
@@ -149,6 +149,10 @@ exit $ret
 
 
 %changelog
+* Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 4.19.5-1
+- update to 4.19.5
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

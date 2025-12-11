@@ -1,5 +1,5 @@
 Name:           geoclue2
-Version:        2.7.2
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Geolocation service
 
@@ -7,10 +7,6 @@ License:        GPL-2.0-or-later
 URL:            http://www.freedesktop.org/wiki/Software/GeoClue/
 Source0:        https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/%{version}/geoclue-%{version}.tar.bz2
 Source1:        geoclue2.sysusers
-
-# Backport from upstream
-## Generated with: git format-patch -N --stdout 2.7.2...master > geoclue-2.7.2-git41-backports.patch
-Patch0:         geoclue-2.7.2-git41-backports.patch
 
 BuildRequires:  avahi-glib-devel
 BuildRequires:  gettext
@@ -80,8 +76,6 @@ The %{name}-demos package contains demo applications that use %{name}.
 %conf
 %meson \
        -Ddbus-srv-user=geoclue \
-       -Ddefault-wifi-url="https://api.beacondb.net/v1/geolocate" \
-       -Ddefault-wifi-submit-url="https://api.beacondb.net/v2/geosubmit" \
        %{nil}
 
 
@@ -91,7 +85,6 @@ The %{name}-demos package contains demo applications that use %{name}.
 
 %install
 %meson_install
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/geoclue2.conf
 
 # Home directory for the 'geoclue' user
 mkdir -p $RPM_BUILD_ROOT/var/lib/geoclue
@@ -127,7 +120,7 @@ exit 0
 %{_mandir}/man5/geoclue.5*
 %{_unitdir}/geoclue.service
 %{_libexecdir}/geoclue-2.0/demos/agent
-%{_sysusersdir}/geoclue2.conf
+%{_sysusersdir}/geoclue-sysusers.conf
 %attr(755,geoclue,geoclue) %dir /var/lib/geoclue
 
 %files libs

@@ -1,8 +1,8 @@
 %global srcname flake8-deprecated
 
 Name:           python-%{srcname}
-Version:        2.2.1
-Release:        7%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Flake8 plugin that warns about deprecated method calls
 
 License:        GPL-2.0-only
@@ -57,6 +57,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Tue Dec 09 2025 Scott K Logan <logans@cottsay.net> - 2.3.0-1
+- Update to 2.3.0 (rhbz#2406328)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.1-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.5.3
+Version: 6.5.4
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -274,6 +274,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
+- 6.5.4
+
 * Tue Nov 18 2025 Steve Cossette <farchord@gmail.com> - 6.5.3-1
 - 6.5.3
 
