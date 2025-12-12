@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        59
+Version:        60
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -113,6 +113,7 @@ exit 0
 %{_datadir}/anaconda/firefox-theme/extlink/user.js
 %{_libexecdir}/anaconda/webui-desktop
 %{_libexecdir}/anaconda/browser-ext
+%{_libexecdir}/anaconda/gnome-control-center-ext
 %{_datadir}/applications/extlinks.desktop
 %{_datadir}/applications/anaconda-gnome-control-center.desktop
 %{_unitdir}/webui-cockpit-ws.service
@@ -120,6 +121,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Dec 09 2025 Packit <hello@packit.dev> - 60-1
+ - components: implement new Software selection page
+ - components: payload: software selection: implement package group selection
+ - Bring gnome-control-center window to front when already open (rhbz#2415043)
+
 * Thu Dec 04 2025 Packit <hello@packit.dev> - 59-1
 - components: storage: show validation warnings for automatic partitioning
 - components: localization: account for undefined xlayouts and vconsole

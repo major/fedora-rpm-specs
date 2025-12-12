@@ -15,6 +15,8 @@
 %bcond symfont_extra %{undefined rhel}
 # Requires python-fs:
 %bcond ufo_extra %[ %{undefined rhel} || %{defined epel} ]
+# Requires python-unicodedata2 (depending on python version):
+%bcond unicode_extra %[ %{undefined rhel} || %{defined epel} ]
 # Requires python-brotli, python-zopfli:
 %bcond woff_extra %[ %{undefined rhel} || %{defined epel} ]
 # Requires scipy, munkres, pycairo
@@ -29,7 +31,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.61.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -110,7 +112,9 @@ Obsoletes: python3-ufolib <= 2.1.1-11
 %if %{with ufo_extra}
 %pyproject_extras_subpkg -n python3-fonttools ufo
 %endif
+%if %{with unicode_extra}
 %pyproject_extras_subpkg -n python3-fonttools unicode
+%endif
 %if %{with woff_extra}
 %pyproject_extras_subpkg -n python3-fonttools woff
 %endif
@@ -136,7 +140,7 @@ export FONTTOOLS_WITH_CYTHON=1
     %{?with_symfont_extra:-x symfont} \
     -x type1 \
     %{?with_ufo_extra:-x ufo} \
-    -x unicode \
+    %{?with_unicode_extra:-x unicode} \
     %{?with_woff_extra:-x woff} \
     }
 
@@ -197,6 +201,9 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Wed Dec 10 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.61.0-2
+- Conditionalize unicode extra
+
 * Tue Dec 09 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.61.0-1
 - Update to 4.61.0 version (#2419183)
 

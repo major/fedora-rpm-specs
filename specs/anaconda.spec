@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.7
+Version: 44.8
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -518,6 +518,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 10 2025 Packit <hello@packit.dev> - 44.8-1
+- ui: gui: fix IndexError when editing NTP servers with empty list (k.koukiou)
+
 * Tue Dec 09 2025 Packit <hello@packit.dev> - 44.7-1
 - storage: add logging in set_default_class (jbock-java)
 - storage: in get_class_by_name, check for X86EFI (jbock-java)

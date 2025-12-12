@@ -5,7 +5,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-urllib3
-Version:        2.5.0
+Version:        2.6.1
 Release:        %autorelease
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
@@ -84,12 +84,6 @@ Recommends:     python3-urllib3+socks
 %prep
 %autosetup -n urllib3-%{version}
 %setup -q -n urllib3-%{version} -T -D -b 1
-
-# Unpin hatch-vcs version
-# See https://github.com/urllib3/urllib3/issues/3612
-sed -i 's/hatch-vcs==/hatch-vcs>=/' pyproject.toml
-# Allow setuptools_scm 9, https://github.com/urllib3/urllib3/commit/1ce1b59ec6
-sed -i 's/setuptools-scm>=8,<9/setuptools-scm>=8,<10/' pyproject.toml
 
 # Make sure that the RECENT_DATE value doesn't get too far behind what the current date is.
 # RECENT_DATE must not be older that 2 years from the build time, or else test_recent_date

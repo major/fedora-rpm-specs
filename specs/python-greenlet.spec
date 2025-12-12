@@ -1,20 +1,12 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        3.1.1
-Release:        8%{?dist}
+Version:        3.2.4
+Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
 URL:            https://github.com/python-greenlet/greenlet
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
-
-# Python 3.14.0a7 fixes
-# https://github.com/python-greenlet/greenlet/commit/cf7f854d31
-# Removed .github/workflows/tests.yml changes (did not apply)
-Patch:          cf7f854d31.patch
-
-# Python 3.14.0b1 fixes
-Patch:          https://github.com/python-greenlet/greenlet/commit/36626882b0.patch
 
 # Skip leak checking to avoid a missing dependency, `objgraph`
 Patch:          skip-leak-checks.patch
@@ -75,6 +67,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Sat Nov 29 2025 Orion Poplawski <orion@nwra.com> - 3.2.4-1
+- Update to 3.2.4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.1-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

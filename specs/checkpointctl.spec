@@ -2,7 +2,7 @@
 
 # https://github.com/checkpoint-restore/checkpointctl
 %global goipath         github.com/checkpoint-restore/checkpointctl
-Version:                1.4.0
+Version:                1.4.1
 
 %gometa -L -f
 
@@ -76,19 +76,11 @@ install -Dpm 0644 ./docs/%{name}*.1 -t %{buildroot}%{_mandir}/man1/
 %endif
 
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc README.md
 %{_bindir}/checkpointctl
 %{_mandir}/man1/%{name}*.1*
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}.fish
 %{zsh_completions_dir}/_%{name}
-
-%changelog
-* Sun Sep 14 2025 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 1.4.0-3
-- Rebuilding
-
-* Sun Sep 14 2025 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 1.4.0-2
-- Bump epoch to 1 to fix the upgrade path.
 
 %autochangelog

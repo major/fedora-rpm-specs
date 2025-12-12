@@ -77,6 +77,10 @@ An SVG library based on cairo.
 %package devel
 Summary:        Libraries and include files for developing with librsvg
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 
 %description devel
 This package provides the necessary development libraries and include

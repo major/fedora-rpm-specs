@@ -10,6 +10,9 @@ License:        MIT
 URL:            https://github.com/executablebooks/MyST-Parser
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
+# https://github.com/executablebooks/MyST-Parser/issues/1057
+Patch:          Adjust-test-output-to-docutils-0.22.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -45,6 +48,7 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n MyST-Parser-%{version}
+sed -i 's/docutils>=0\.19,<0\.22/docutils>=0.19/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

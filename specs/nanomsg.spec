@@ -1,13 +1,13 @@
 Name:           nanomsg
-Version:        1.2.1
-Release:        3%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        Socket library that provides several common communication patterns
 
 License:        MIT
 URL:            https://nanomsg.org/
 Source0:        https://github.com/nanomsg/nanomsg/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc
 # For docs only, can be skipped
 BuildRequires:  rubygem-asciidoctor
@@ -40,21 +40,21 @@ This package contains documentation for %{name}.
 
 %prep
 %autosetup -p1
+# Fix the version number, wrong in version 1.2.2
+sed -i 's/1\.2\.1/%{version}/' .version
 
 
 %build
-%cmake3 \
-  -DTHREADSAFE=ON \
-  %{nil}
-%cmake3_build
+%cmake
+%cmake_build
 
 
 %install
-%cmake3_install
+%cmake_install
 
 
 %check
-%ctest3
+%ctest
 
 
 %files
@@ -79,6 +79,10 @@ This package contains documentation for %{name}.
 
 
 %changelog
+* Thu Nov 27 2025 Jerry James  <loganjerry@gmail.com> - 1.2.2-1
+- Update to 1.2.2 (rhbz#2401721)
+- Adds support for cmake 4.0 (rhbz#2380925)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

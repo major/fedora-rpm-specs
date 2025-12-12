@@ -1,8 +1,3 @@
-%global commit0 25db5284443c81b2336f37cfa5a35de1c5cd242a
-%global date 20251031
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 %global gtk3_version     3.16.0
 %global glib2_version    2.37.3
 %global gtk_doc_version  1.9
@@ -10,16 +5,12 @@
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Version: 6.6.0
 Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 Source1: x-cinnamon-mimeapps.list
 
 ExcludeArch: %{ix86}
@@ -72,11 +63,7 @@ Libraries and header files for the CINNAMON-internal private library
 libcinnamon-desktop.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
 %meson -Ddeprecation_warnings=false

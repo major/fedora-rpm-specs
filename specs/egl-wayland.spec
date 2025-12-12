@@ -4,7 +4,7 @@
 %global tag %{version}
 
 Name:           egl-wayland
-Version:        1.1.20%{!?tag:~%{date}git%{shortcommit0}}
+Version:        1.1.21%{!?tag:~%{date}git%{shortcommit0}}
 Release:        %autorelease
 Summary:        EGLStream-based Wayland external platform
 License:        MIT

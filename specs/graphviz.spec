@@ -105,8 +105,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		14.0.2
-Release:		2%{?dist}
+Version:		14.0.4
+Release:		1%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -735,6 +735,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Dec 10 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 14.0.4-1
+- New version
+  Resolves: rhbz#2415204
+
 * Thu Nov 13 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 14.0.2-2
 - Temporarily disable gdk plugin in Fedora 43 (and later),
   due to undiagnosed issues with GDKPixbuf 2.44.

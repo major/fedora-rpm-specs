@@ -5,8 +5,8 @@
 
 Name:          cjs
 Epoch:         1
-Version:       128.0
-Release:       3%{?dist}
+Version:       128.1
+Release:       1%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 # Automatically converted from old format: MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) - review is highly recommended.
@@ -16,8 +16,7 @@ License:       LicenseRef-Callaway-MIT AND (LicenseRef-Callaway-MPLv1.1 OR GPL-2
 # The console module (modules/console.c)
 # Stack printer (gjs/stack.c)
 URL:           https://github.com/linuxmint/%{name}
-Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:        %{url}/pull/131.patch
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 ExcludeArch:   %{ix86}
 
@@ -72,15 +71,12 @@ the functionality of the installed cjs package.
 %prep
 %autosetup -p1
 
-
 %build
 %meson
 %meson_build
 
-
 %install
 %meson_install
-
 
 %check
 %{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5}
@@ -109,6 +105,9 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.1-1
+- Update to 128.1
+
 * Fri Sep 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.0-3
 - Backport fixes to support GLib 2.86.0 typelibs
 

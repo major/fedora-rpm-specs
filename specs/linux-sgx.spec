@@ -365,13 +365,15 @@ Patch0114: 0114-Delete-broken-checks-for-GCC-version-that-break-fsta.patch
 #Patch0115: 0115-Use-distro-provided-rapidjson-package.patch
 Patch0116: 0116-Don-t-stomp-on-VERBOSE-variable.patch
 Patch0117: 0117-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
-Patch0118: 0118-Switch-default-PCCS-port-number-from-8081-to-10801.patch
-Patch0119: 0119-Sanitize-paths-to-all-resources-in-PCCS-server.patch
-Patch0120: 0120-pccs-only-pass-ApiKey-if-it-is-set.patch
-Patch0121: 0121-pccsadmin-make-keyring-module-optional.patch
-Patch0122: 0122-pccsadmin-convert-from-asn1-to-pyasn1-python-module.patch
-Patch0123: 0123-pccsadmin-fully-port-to-pycryptography.patch
-Patch0124: 0124-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
+Patch0118: 0118-pccs-sanitize-paths-to-all-resources.patch
+Patch0119: 0119-pccs-only-pass-ApiKey-if-it-is-set.patch
+Patch0120: 0120-pccsadmin-make-keyring-module-optional.patch
+Patch0121: 0121-pccsadmin-convert-from-asn1-to-pyasn1-python-module.patch
+Patch0122: 0122-pccsadmin-fully-switch-to-pycryptography-for-CRL-ver.patch
+Patch0123: 0123-pccsadmin-use-more-of-pycryptography-instead-of-pyop.patch
+Patch0124: 0124-pccsadmin-prefer-pycryptography-over-pyopenssl.patch
+Patch0125: 0125-pccsadmin-add-fallback-for-when-pyopenssl-is-not-ava.patch
+Patch0126: 0126-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
 
 # 0200-0299 -> against intel-sgx-ssl.git
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
@@ -524,6 +526,7 @@ This package contains the  Architectural Enclave Service Manager
 %package -n sgx-pccs
 Summary: SGX Provisioning Certificate Caching Service
 Requires: nodejs
+Requires: sgx-common = %{version}-%{release}
 
 %description -n sgx-pccs
 SGX Provisioning Certificate Caching Service
@@ -539,6 +542,9 @@ Requires: python3-keyring
 Requires: python3-requests
 Requires: python3-urllib3
 Requires: python3-setuptools
+%if 0%{?rhel}
+Requires: openssl
+%endif
 Requires: sgx-libs = %{version}-%{release}
 # pccs admin tool can be used against a remote pccs
 # so don't force a hard dep

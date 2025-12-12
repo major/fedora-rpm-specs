@@ -1,5 +1,5 @@
 Name:           fabtests
-Version:        2.1.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Test suite for libfabric API
 # COPYING says the license is your choice of BSD or GPLv2.

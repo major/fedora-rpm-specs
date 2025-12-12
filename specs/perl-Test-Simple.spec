@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302218
+Version:        1.302219
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -409,6 +409,11 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 10 2025 Paul Howarth <paul@city-fan.org> - 3:1.302219-1
+- Update to 1.302219
+  - Fix downstream test not to install Test2::Suite
+  - Fix documentation mistakes
+
 * Mon Dec  8 2025 Paul Howarth <paul@city-fan.org> - 3:1.302218-1
 - Update to 1.302218
   - Add Test2::V1 bundle

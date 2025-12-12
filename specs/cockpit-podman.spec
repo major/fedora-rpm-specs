@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        118
+Version:        119.1
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -27,10 +27,8 @@ URL:            https://github.com/cockpit-project/cockpit-podman
 %define rebuild_bundle 1
 %endif
 
-Source0:        https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-%if %{defined rebuild_bundle}
+Source0: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-node-%{version}.tar.xz
-%endif
 
 BuildArch:      noarch
 %if 0%{?suse_version}
@@ -68,13 +66,11 @@ Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(ipaddr.js)) = 2.2.0
+Provides: bundled(npm(ipaddr.js)) = 2.3.0
 Provides: bundled(npm(lodash)) = 4.17.21
-Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
@@ -110,6 +106,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Dec 10 2025 Packit <hello@packit.dev> - 119.1-1
+- Release automation bugfix
+
+
 * Wed Nov 26 2025 Packit <hello@packit.dev> - 118-1
 - Bug fixes and translation updates
 

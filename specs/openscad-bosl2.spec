@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/BelfrySCAD/BOSL2
-%global commit c031658d3e873c00229a23cfdc4c03624b020acf
-%global date 20250601
+%global commit 961ed6d8ff70da10861d873b06df628554fa1e8f
+%global date 20251210
 %global version 0
 
 %forgemeta

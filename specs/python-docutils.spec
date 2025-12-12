@@ -1,5 +1,5 @@
 Name:           python-docutils
-Version:        0.21.2
+Version:        0.22.3
 Release:        %autorelease
 Summary:        System for processing plaintext documentation
 
@@ -65,8 +65,8 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %files -n python%{python3_pkgversion}-docutils -f %{pyproject_files}
-%license COPYING.txt licenses/*
-%doc BUGS.txt FAQ.txt HISTORY.txt README.txt RELEASE-NOTES.txt THANKS.txt
+%license COPYING.rst licenses/*
+%doc BUGS.rst FAQ.rst HISTORY.rst README.rst RELEASE-NOTES.rst THANKS.rst
 %{_bindir}/rst*
 %{_bindir}/docutils
 

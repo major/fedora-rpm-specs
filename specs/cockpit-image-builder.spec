@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        85
+Version:        86
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,39 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Dec 10 2025 Packit <hello@packit.dev> - 86-1
+Changes with 86
+----------------
+  - ActivationKeysList: add a proxy on stage (#3907)
+    - Author: Ondřej Budai, Reviewers: Michal Gold, Sanne Raymaekers
+  - Update API (HMS-9824) (#3881)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Update build-tools digest to ded5385 (#3894)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - Update dependency @types/react to v18.3.27 (#3897)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - Wizard/GCP: Accept domains as well as email addresses (HMS-4988) (#3868)
+    - Author: Simon Steinbeiß, Reviewers: Klara Simickova
+  - Wizard: Add safeguards to disk customization and fix min_size (HMS-9664) (#3835)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard: Update date format in default blueprint name (HMS-9854) (#3888)
+    - Author: Klara Simickova, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  - Wizard: add information about firstboot and registration ordering (HMS-8555) (#3906)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - build(deps-dev): bump express from 4.21.2 to 4.22.1 (#3879)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump vitest-canvas-mock from 0.3.3 to 1.1.3 (#3901)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - docstrings: Drop references to RPM-DNF (#3873)
+    - Author: Simon Steinbeiß, Reviewers: Klara Simickova
+  - playwright: Fix tests after OpenSCAP configs regeneration (HMS-9862) (#3899)
+    - Author: Klara Simickova, Reviewers: Michal Gold
+  - playwright: re-enable the compliance test (#3905)
+    - Author: Ondřej Budai, Reviewers: Gianluca Zuccarelli, Klara Simickova
+
+— Somewhere on the Internet, 2025-12-10
+
+
 * Fri Nov 28 2025 Packit <hello@packit.dev> - 85-1
 Changes with 85
 ----------------

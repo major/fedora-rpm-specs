@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.32.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -289,6 +289,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 7.32.0-9
+- Rebuilt for OpenCV-4.12
+
 * Thu Dec 04 2025 Jerry James <loganjerry@gmail.com> - 7.32.0-8
 - Do not build for 32-bit x86 in Fedora > 43
 

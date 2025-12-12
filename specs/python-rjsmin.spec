@@ -10,7 +10,7 @@ runtime (rather than during a preprocessing step). Usually it produces the
 same results as the original jsmin.c.}
 
 Name:           python-%{pypi_name}
-Version:        1.2.3
+Version:        1.2.5
 Release:        %autorelease
 Summary:        Javascript Minifier
 
@@ -22,8 +22,8 @@ BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 %if %{with docs}
+BuildRequires:  python3-furo
 BuildRequires:	python3-sphinx
-BuildRequires:  python3-cloud-sptheme
 %endif
 
 %description %{desc}
@@ -53,14 +53,14 @@ sed -i '1d' rjsmin.py
 %pyproject_wheel
 
 %if %{with docs}
-sphinx-build -b html docs/_userdoc docs/_userdoc/html
+PYTHONPATH=. sphinx-build -b html docs/_userdoc docs/_userdoc/html
 # Remove the sphinx-build leftovers.
 rm -rf docs/_userdoc/html/.{doctrees,buildinfo}
 %endif
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 	
 %check
 %pytest -v

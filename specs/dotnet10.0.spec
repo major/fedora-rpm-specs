@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.100
+%global upstream_tag v10.0.101
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.0
-%global aspnetcore_runtime_version 10.0.0
-%global sdk_version 10.0.100
+%global runtime_version 10.0.1
+%global aspnetcore_runtime_version 10.0.1
+%global sdk_version 10.0.101
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -809,7 +809,7 @@ test -f %{buildroot}%{_libdir}/dotnet/sdk/%{sdk_version}*/Sdks/Microsoft.NET.Sdk
 echo "Testing build results for debug symbols..."
 %{SOURCE101} -v %{buildroot}%{_libdir}/dotnet/
 
-%if %{include_macros}
+%if %{is_latest_dotnet} && %{include_macros}
 install -dm 0755 %{buildroot}%{_rpmmacrodir}/
 install -m 0644 %{SOURCE100} %{buildroot}%{_rpmmacrodir}/
 %endif
@@ -822,7 +822,7 @@ find %{buildroot}%{_libdir}/dotnet/sdk -type d | tail -n +2 | sed -E 's|%{buildr
 find %{buildroot}%{_libdir}/dotnet/sdk -type f -and -not -name '*.pdb' | sed -E 's|%{buildroot}||' >> dotnet-sdk-non-dbg-files
 find %{buildroot}%{_libdir}/dotnet/sdk -type f -name '*.pdb'  | sed -E 's|%{buildroot}||' > dotnet-sdk-dbg-files
 
-%if %{is_latest_dotnet} == 0
+%if ! %{is_latest_dotnet}
 # If this is an older version, self-test now, before we delete files. After we
 # delete files, we will not have everything we need to self-test in %%check.
 %{buildroot}%{_libdir}/dotnet/dotnet --info
@@ -936,6 +936,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Dec 10 2025 Omair Majid <omajid@redhat.com> - 10.0.101-1
+- Update to .NET SDK 10.0.101 and Runtime 10.0.1
+
 * Tue Nov 11 2025 Omair Majid <omajid@redhat.com> - 10.0.100-1
 - Update to .NET SDK 10.0.100 and Runtime 10.0.0
 

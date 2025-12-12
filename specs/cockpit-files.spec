@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 33
+Version: 34
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -10,9 +10,7 @@ License: LGPL-2.1-or-later
 %endif
 
 Source0: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-%if %{defined rebuild_bundle}
 Source1: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-node-%{version}.tar.xz
-%endif
 
 BuildArch: noarch
 BuildRequires: make
@@ -42,11 +40,9 @@ Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(lodash)) = 4.17.21
-Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
@@ -90,6 +86,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Dec 10 2025 Packit <hello@packit.dev> - 34-1
+- Bug fixes and translation updates
+
+
 * Thu Nov 27 2025 Packit <hello@packit.dev> - 33-1
 - Bug fixes and translation updates
 

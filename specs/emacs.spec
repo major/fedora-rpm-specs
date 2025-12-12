@@ -57,6 +57,11 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 
+# Don't wait for Emacs 31 before updating to Tree-sitter 0.26.
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=63555
+# https://bugzilla.redhat.com/show_bug.cgi?id=2420305
+Patch:         0001-Support-Tree-sitter-version-0.26-and-later.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf
@@ -820,8 +825,6 @@ fi
 %{_userunitdir}/emacs.service
 %attr(0644,root,root) %config(noreplace) %{site_lisp}/default.el
 %attr(0644,root,root) %config %{site_lisp}/site-start.el
-%{site_start_d}/00-dynamic-module-dir.el
-%{site_start_d}/10-source-directory.el
 %{pkgconfig}/emacs.pc
 
 

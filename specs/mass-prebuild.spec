@@ -7,6 +7,8 @@ License:        GPL-2.0-or-later
 URL:            https://gitlab.com/fedora/packager-tools/mass-prebuild
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+Patch:          0001-fix-Improve-package-committish-resolution-logic.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

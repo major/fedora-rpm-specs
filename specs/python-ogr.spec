@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.57.0
+Version:        0.58.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,11 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Dec 08 2025 Packit <hello@packit.dev> - 0.58.0-1
+- `PagureService` now accepts an optional `user_agent` argument to set a custom User-Agent header. (#953)
+- It is now possible to pass a `headers` argument in `PagureProject.get_file_content`. The default header is set to `Accept: text/plain`. (#954)
+- Resolves: rhbz#2420049
+
 * Fri Oct 31 2025 Packit <hello@packit.dev> - 0.57.0-1
 - We have fixed an issue with the new Forgejo version preventing ogr from working. (#949)
 - Resolves: rhbz#2401236

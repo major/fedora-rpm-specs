@@ -221,15 +221,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 142
-%global chromium_branch 7444
+%global chromium_major 143
+%global chromium_branch 7499
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 175
+%global chromium_minor 40
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 60aac241478a4495bc7fd7d56160d3e378e7decd
+%global cef_commit e88e818df19df90196739f07b39a0a40bb6d7209
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 17
+%global cef_patch 9
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -263,6 +263,11 @@ Patch21: chromium-123-screen-ai-service.patch
 # Fix link error when building with system libcxx
 Patch22: chromium-131-fix-qt-ui.pach
 
+# Workaround for build error: ERROR Unresolved dependencies.
+#//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
+#  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
+Patch23: chromium-143-revert-libpng_for_testonly.patch
+
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
@@ -280,9 +285,6 @@ Patch92: chromium-138-checkversion-nodejs.patch
 
 # fix build error
 Patch93: chromium-141-csss_style_sheet.patch
-
-# Revert due to incorrect display of links on startpage in Darkmode
-Patch94: chromium-141-revert-remove-darkmode-image-policy.patch
 
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
@@ -314,7 +316,7 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 #  fix ftbfs caused by old python-3.9 on el8
-Patch142: chromium-142-python-3.9-ftbfs.patch
+Patch142: chromium-143-python-3.9-ftbfs.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -340,11 +342,13 @@ Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 Patch311: chromium-123-fstack-protector-strong.patch
 
 # Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable on EL9
-Patch312: chromium-142-el9-rust-no-alloc-shim-is-unstable.patch
+# Error: unsafe attribute used without unsafe
+#    --> ../../build/rust/allocator/lib.rs:107:7
+Patch312: chromium-143-el9-rust-no-alloc-shim-is-unstable.patch
 
 # Fix FTBFS on EL9
 # - error: undefined symbol: __rust_alloc_error_handler_should_panic
-Patch313: chromium-142-el9-rust_alloc_error_handler_should_panic.patch
+Patch313: chromium-143-el9-rust_alloc_error_handler_should_panic.patch
 
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
@@ -357,6 +361,9 @@ Patch316: chromium-122-clang-build-flags.patch
 Patch317: chromium-142-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
+
+# compile swiftshader against llvm-16.0
+Patch319: chromium-143-swiftshader-llvm-16.0.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -454,13 +461,11 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
-# Fix FTBFS
-# ../../base/containers/span.h:1387:63: error: arithmetic on a pointer to an incomplete type 'element_type' (aka 'const autofill::FormFieldData')
-# 1387 |         typename iterator::AssumeValid(data(), data(), data() + size())));
-Patch1000: chromium-142-missing-include-for-form_field_data.patch
 # Fix Wayland URI DnD issues
 Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
 Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
+# Fix Wayland Omnibox issue
+Patch1003: chromium-143-omnibox-next-Improve-cutout-mouse-handling-for-Wayla.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
@@ -956,6 +961,8 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P22 -p1 -b .fix-qt-ui
 %endif
 
+%patch -P23 -p1 -R -b .revert-libpng_for_testonly
+
 %patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
@@ -974,7 +981,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
-%patch -P94 -p1 -R -b .revert-remove-darkmode-image-policy
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if 0%{?fedora} > 43
@@ -1034,6 +1040,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
+%patch -P319 -p1 -b .swiftshader-llvm-16.0
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
@@ -1100,9 +1107,9 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 # Upstream patches
-%patch -P1000 -p1 -b .missing-include-for-form_field_data.patch
 %patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
 %patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
+%patch -P1003 -p1 -b .Improve-cutout-mouse-handling-for-Wayla.patch
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot

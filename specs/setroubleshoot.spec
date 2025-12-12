@@ -5,15 +5,15 @@
 
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
-Version: 3.3.35
-Release: 10%{?dist}
+Version: 3.3.36
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
-Source0: https://gitlab.com/-/project/24478376/uploads/eade7bc68ab559b9afc00d59644bdee0/setroubleshoot-3.3.35.tar.gz
+Source0: https://gitlab.com/-/project/24478376/uploads/51a9cda747130f92860720841a7fd9c9/setroubleshoot-3.3.36.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
-# git format-patch -N 3.3.34
-# i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
+# git format-patch -N 3.3.36
+# for j in 00*patch; do printf "Patch: %s\n" $j; done
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -59,7 +59,7 @@ to user preference. The same tools can be run on existing log files.
 %{pkgguidir}
 %config(noreplace) %{_sysconfdir}/xdg/autostart/*
 %{_datadir}/applications/*.desktop
-%{_metainfodir}/*.appdata.xml
+%{_metainfodir}/*.metainfo.xml
 %{_datadir}/dbus-1/services/org.fedoraproject.sealert.service
 %{_datadir}/icons/hicolor/*/*/*
 %dir %attr(0755,root,root) %{pkgpythondir}
@@ -107,7 +107,7 @@ BuildRequires: python3-devel
 Requires: systemd-python3 >= 206-1
 Requires: python3-gobject-base >= 3.11
 Requires: dbus
-Requires: python3-dbus python3-dasbus python3-six
+Requires: python3-dbus python3-dasbus
 Requires: polkit
 
 %description server
@@ -193,6 +193,11 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Wed Dec 10 2025 Petr Lautrbach <lautrbach@redhat.com> - 3.3.36-1
+- audit_data: include syslog when needed
+- Rename appdata to metainfo
+- Replace python-six with python 3 only code
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.35-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

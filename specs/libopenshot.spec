@@ -5,7 +5,7 @@
 
 Name:           libopenshot
 Version:        0.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -142,6 +142,9 @@ ImageWriter:Gif"
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 0.4.0-8
+- Rebuilt for OpenCV-4.12
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.4.0-7
 - Fixed build with FFmpeg 8
 - Skip only known test failures instead of ignoring all

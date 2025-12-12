@@ -2,7 +2,7 @@
 
 Name: gtk-doc
 Version: 1.35.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
@@ -27,7 +27,7 @@ BuildRequires: glib2-devel
 BuildRequires: meson
 BuildRequires: python3-devel
 BuildRequires: python3-pygments
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} <= 43
 BuildRequires: python3-parameterized
 %endif
 BuildRequires: python3-lxml
@@ -61,7 +61,7 @@ mv doc/README doc/README.docs
 
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/gtk-doc/
 
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} <= 43
 %check
 %meson_test
 %endif
@@ -77,6 +77,9 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/GtkDoc/
 
 %changelog
+* Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 1.35.1-2
+- Disable checks for F44 due to python3-parameterized retirement
+
 * Thu Oct 23 2025 Matthias Clasen <mclasen@redhat.com> - 1.35.1-1
 - Update to 1.35.1
 

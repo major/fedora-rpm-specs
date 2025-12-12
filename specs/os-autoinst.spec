@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -282,6 +282,9 @@ fi
 %files devel
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 5^20250707gitd55ec72-7
+- Rebuilt for OpenCV-4.12
+
 * Mon Nov 24 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-6
 - Backport PR #2776 to fix aarch64 encryption entry bug (#2392684)
 

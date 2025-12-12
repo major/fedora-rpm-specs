@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.18
+Version:        6.19.1
 
 %gometa
 
@@ -30,7 +30,7 @@ Version:        6.18
 
 
 Name:           incus
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -468,6 +468,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Wed Dec 10 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.19.1-1
+- Update to 6.19.1
+
 * Sun Dec 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.18-3
 - Build incus-migrate and incus-migrate with cgo disabled
 

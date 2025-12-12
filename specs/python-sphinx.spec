@@ -61,6 +61,9 @@ Patch:      Make-the-first-party-extensions-optional.patch
 Patch:      https://github.com/sphinx-doc/sphinx/commit/8962398b761c3d85a.patch
 Patch:      https://github.com/sphinx-doc/sphinx/commit/e01e42f5fc738815b.patch
 Patch:      https://github.com/sphinx-doc/sphinx/pull/13527.patch
+# Compatibility with docutils 0.22+
+Patch:      https://github.com/sphinx-doc/sphinx/pull/13610.patch
+Patch:      https://github.com/sphinx-doc/sphinx/pull/13883.patch
 
 BuildArch:     noarch
 
@@ -360,6 +363,9 @@ This package contains documentation in the HTML format.
 %if 0%{?rhel}
 sed -i -e '/pytest-xdist/d' pyproject.toml
 %endif
+
+# Support for docutils 0.22+
+sed -i -e 's/docutils>=0.20,<0.22/docutils>=0.20,<0.23/' pyproject.toml
 
 # Drop test-dependency on defusedxml,
 # use xml from the standard library instead.

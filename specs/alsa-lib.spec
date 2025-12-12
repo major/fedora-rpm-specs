@@ -9,7 +9,7 @@
 Summary:  The Advanced Linux Sound Architecture (ALSA) library
 Name:     alsa-lib
 Version:  %{version_alsa_lib}
-Release:  2%{?prever_dot}%{?dist}
+Release:  4%{?prever_dot}%{?dist}
 License:  LGPL-2.1-or-later
 URL:      http://www.alsa-project.org/
 
@@ -167,7 +167,7 @@ rm %{buildroot}/%{_includedir}/asoundlib.h
 %{_datadir}/alsa/topology
 
 %changelog
-* Sun Dec  7 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15-1
+* Wed Dec 10 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15-4
 - update to 1.2.15
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-4

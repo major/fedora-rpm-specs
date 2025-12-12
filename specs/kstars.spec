@@ -5,7 +5,7 @@ ExcludeArch:    %{ix86}
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 1:3.8.0-2
+- Rebuilt for OpenCV-4.12
+
 * Thu Dec 04 2025 Steve Cossette <farchord@gmail.com> - 1:3.8.0-1
 - 3.8.0
 

@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc0.251205g2061f18ad76ec.7
+%define pkgrelease 0.rc0.251209gcb015814f8b6e.9
 %define kversion 6
-%define tarfile_release 6.18-8691-g2061f18ad76ec
+%define tarfile_release 6.18-12692-gcb015814f8b6e
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251205g2061f18ad76ec.7%{?buildid}%{?dist}
+%define specrelease 0.rc0.251209gcb015814f8b6e.9%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4519,13 +4519,22 @@ fi\
 #
 #
 %changelog
-* Fri Dec 05 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc0.251205g2061f18ad76ec.7]
-- Linux v6.19.0-0.rc0.251205g2061f18ad76ec
+* Wed Dec 10 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc0.251209gcb015814f8b6e.9]
+- Linux v6.19.0-0.rc0.251209gcb015814f8b6e
 
-* Fri Dec 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.2061f18ad76e.7]
+* Tue Dec 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.cb015814f8b6.9]
 - package YNL test framework files (Thorsten Leemhuis)
 - disable a compiler warning for libbpf (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
+
+* Tue Dec 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.cb015814f8b6.8]
+- restore HYPERV configs to 6.17 state (Paolo Bonzini)
+- redhat/configs: automotive: enable NXP_STM_TIMER (Jared Kangas)
+- redhat/configs: automotive: enable S32G_WDT (Jared Kangas)
+- Linux v6.19.0-0.rc0.cb015814f8b6
+
+* Mon Dec 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.c2f2b01b74be.7]
+- Linux v6.19.0-0.rc0.c2f2b01b74be
 
 * Fri Dec 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.2061f18ad76e.6]
 - Linux v6.19.0-0.rc0.2061f18ad76e

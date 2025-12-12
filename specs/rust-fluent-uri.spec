@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate libz-rs-sys
+%global crate fluent-uri
 
-Name:           rust-libz-rs-sys
-Version:        0.5.4
+Name:           rust-fluent-uri
+Version:        0.4.1
 Release:        %autorelease
-Summary:        Memory-safe zlib implementation written in rust
+Summary:        Generic URI/IRI handling library compliant with RFC 3986/3987
 
-License:        Zlib
-URL:            https://crates.io/crates/libz-rs-sys
+License:        MIT
+URL:            https://crates.io/crates/fluent-uri
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A memory-safe zlib implementation written in rust.}
+A generic URI/IRI handling library compliant with RFC 3986/3987.}
 
 %description %{_description}
 
@@ -46,64 +46,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+c-allocator-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+c-allocator-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "c-allocator" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+c-allocator-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+custom-prefix-devel
+%package     -n %{name}+impl-error-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+custom-prefix-devel %{_description}
+%description -n %{name}+impl-error-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "custom-prefix" feature of the "%{crate}" crate.
+use the "impl-error" feature of the "%{crate}" crate.
 
-%files       -n %{name}+custom-prefix-devel
+%files       -n %{name}+impl-error-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+export-symbols-devel
+%package     -n %{name}+net-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+export-symbols-devel %{_description}
+%description -n %{name}+net-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "export-symbols" feature of the "%{crate}" crate.
+use the "net" feature of the "%{crate}" crate.
 
-%files       -n %{name}+export-symbols-devel
+%files       -n %{name}+net-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rust-allocator-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rust-allocator-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rust-allocator" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rust-allocator-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+semver-prefix-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+semver-prefix-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "semver-prefix" feature of the "%{crate}" crate.
-
-%files       -n %{name}+semver-prefix-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -116,18 +104,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+testing-prefix-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+testing-prefix-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "testing-prefix" feature of the "%{crate}" crate.
-
-%files       -n %{name}+testing-prefix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

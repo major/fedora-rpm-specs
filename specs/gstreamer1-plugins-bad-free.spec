@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.26.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -899,6 +899,9 @@ EOF
 
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 1.26.9-2
+- Rebuilt for OpenCV-4.12
+
 * Wed Dec 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.9-1
 - 1.26.9
 

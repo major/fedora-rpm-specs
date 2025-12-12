@@ -249,7 +249,7 @@
 
 Name:	chromium
 Version: 143.0.7499.40
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -470,6 +470,8 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 # Fix Wayland URI DnD issues
 Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
 Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
+# Fix Wayland Omnibox issue
+Patch1003: chromium-143-omnibox-next-Improve-cutout-mouse-handling-for-Wayla.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1140,6 +1142,7 @@ Qt6 UI for chromium.
 # Upstream patches
 %patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
 %patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
+%patch -P1003 -p1 -b .Improve-cutout-mouse-handling-for-Wayla.patch
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1777,6 +1780,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 09 2025 LuK1337 <priv.luk@gmail.com> - 143.0.7499.40-2
+- Backport Wayland Omnibox bug fix from upstream
+
 * Tue Dec 02 2025 Than Ngo <than@redhat.com> - 143.0.7499.40-1
 - Update to 143.0.7499.40
   * High CVE-2025-13630: Type Confusion in V8

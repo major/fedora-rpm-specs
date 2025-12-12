@@ -1,7 +1,7 @@
 %global srcname hatch-nodejs-version
 
 Name:           python-%{srcname}
-Version:        0.3.2
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Hatch plugin for versioning from a package.json file
 

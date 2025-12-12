@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.8.0
-Release: 4%{?beta}%{?dist}
+Release: 5%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -337,6 +337,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 8.8.0-5
+- Rebuilt for OpenCV-4.12
+
 * Wed Dec 10 2025 Alexey Kurov <nucleo@fedoraproject.org> - 8.8.0-4
 - Use Eigen3 cmake configuration shared on the system
 

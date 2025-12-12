@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-nanobind
-Version:        2.9.2
+Version:        2.10.2
 Release:        %autorelease
 Summary:        Tiny and efficient C++/Python bindings
 
@@ -78,7 +78,7 @@ Obsoletes:      python%{python3_pkgversion}-nanobind-devel < 2.6.1-4
 # Test files are not installed, hence we need
 # to enter the build directory manually.
 pushd %{__cmake_builddir}
-%pytest
+%py3_test_envvars PYTHONPATH="$PYTHONPATH:$PWD/tests" %pytest
 popd
 
 

@@ -3,7 +3,7 @@
 %bcond check 1
 
 Name:           meson
-Version:        1.9.1
+Version:        1.10.0
 Release:        %autorelease
 Summary:        High productivity build system
 
@@ -12,8 +12,6 @@ URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
 
 BuildArch:      noarch
-
-Patch0001:      0001-mdist-fix-failure-to-create-tar-files.patch
 
 BuildRequires:  python3-devel
 Requires:       ninja-build

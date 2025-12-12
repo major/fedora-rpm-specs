@@ -7,6 +7,8 @@ URL:      https://gitlab.gnome.org/World/Phosh/stevia
 Source:   %{url}/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 
 ExcludeArch:  %{ix86}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2420908
+ExcludeArch:  s390x
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -30,7 +32,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(hunspell)
 BuildRequires:  /usr/bin/fzf
 BuildRequires:  /usr/bin/rst2man
-BuildRequires:  /usr/bin/xvfb-run
+BuildRequires:  /usr/bin/xwfb-run
+BuildRequires:  mutter
 BuildRequires:  gettext
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  libappstream-glib
@@ -73,12 +76,10 @@ Conflicts: squeekboard-phosh-osk-provider
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/sm.puri.OSK0.desktop
-# test-emoji-db fails on s390x
-%ifnarch s390x
-LC_ALL=C.UTF-8 xvfb-run sh <<'SH'
+# Using mutter because https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/issues/12
+LC_ALL=C.UTF-8 xwfb-run -c mutter -- sh <<'SH'
 %meson_test
 SH
-%endif
 
 %files -f phosh-osk-%{name}.lang
 %doc README.md

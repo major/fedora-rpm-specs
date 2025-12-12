@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          polari
-Version:       46.0
+Version:       49.0
 Release:       %autorelease
 Summary:       Internet Relay Chat client for GNOME
 
@@ -11,9 +11,6 @@ Summary:       Internet Relay Chat client for GNOME
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           https://wiki.gnome.org/Apps/Polari
 Source0:       http://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
-
-# Port to gjs-1.85/girepository-2.0 for GNOME 49
-Patch0:        0001-Port-to-girepository-2.0.patch
 
 BuildRequires: meson
 BuildRequires: pkgconfig(gtk4)
@@ -70,7 +67,7 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/gir-1.0
 %meson_test
 
 %files -f %{name}.lang
-%doc AUTHORS NEWS
+%doc NEWS
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/%{bus_name}.desktop

@@ -9,18 +9,13 @@ parsed and searched for CSS or JS. These styles and scripts are subsequently\
 processed with optional, configurable compilers and filters.
 
 Name:		python-django-compressor
-Version:	4.5.1
+Version:	4.6.0
 Release:	%autorelease
 Summary:	Compresses linked and inline JavaScript or CSS into single cached files
 
 License:	MIT
 URL:		https://github.com/django-compressor/django-compressor
 Source0:	%{pypi_source django_compressor}
-
-Patch:		rdep-version.patch
-# Fix for https://github.com/django-compressor/django-compressor/issues/1270
-# https://github.com/django-compressor/django-compressor/pull/1271
-Patch:		django-compressor-py314-ast.diff
 
 BuildArch:	noarch
 

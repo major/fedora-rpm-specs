@@ -69,10 +69,10 @@
 
 %global major_version 3
 %global minor_version 31
-%global patch_version 6
+%global patch_version 10
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -117,9 +117,6 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
-# Fix build with latest curl
-# https://gitlab.kitware.com/cmake/cmake/-/merge_requests/10449
-Patch101:       %{name}-curl-fix.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -591,6 +588,9 @@ popd
 
 
 %changelog
+* Tue Dec 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.31.10-1
+- Update to 3.31.10
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.31.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

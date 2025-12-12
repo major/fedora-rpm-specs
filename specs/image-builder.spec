@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        42
+Version:        43
 
 %gometa
 
@@ -145,7 +145,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.18.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.223.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.228.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -157,8 +157,8 @@ Provides: bundled(golang(github.com/sigstore/protobuf-specs)) = 0.4.1
 Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.9.5
 Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
 Provides: bundled(golang(github.com/smallstep/pkcs7)) = 0.1.1
-Provides: bundled(golang(github.com/spf13/cobra)) = 1.10.1
-Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.9
+Provides: bundled(golang(github.com/spf13/cobra)) = 1.10.2
+Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.10
 Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
 Provides: bundled(golang(github.com/stretchr/testify)) = 1.11.1
 Provides: bundled(golang(github.com/sylabs/sif/v2)) = 2.21.1
@@ -259,6 +259,41 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Dec 10 2025 Packit <hello@packit.dev> - 43-1
+Changes with 43
+----------------
+  - Containerfile: add subscription-manager (#390)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  - bib: drop inContainerOrUnknown() and use setup.IsContainer() (#395)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - chore: bump dependencies via gobump (#389)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - chore: bump dependencies via gobump (#394)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - cmd: make bootc-image-builder a multi-call binary of ibcli (HMS-9808) (#374)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - cmd: move the "upload" comand from bib here (#396)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - deps: update images to 0.228.0 (#393)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - docs: add a note about satellite (#385)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - go.mod: move to images v0.226.0 (#384)
+    - Author: Michael Vogt, Reviewers: Anna Vítová, Simon de Vlieger
+  - main: add `{supported,required}` bp options to describe-image (#376)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - main: rename `data-dir` to `force-data-dir` (#386)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - readme: new `--force-data-dir` (#387)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Michael Vogt
+  - repos: force data is an override (#388)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt, Tomáš Hozza
+  - test: add test for subscribed content (#391)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-12-10
+
+
 * Wed Nov 26 2025 Packit <hello@packit.dev> - 42-1
 Changes with 42
 ----------------

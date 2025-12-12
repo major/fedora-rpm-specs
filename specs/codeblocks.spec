@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	25.03
-Release:	2%{?svnrelease}%{?dist}
+Release:	3%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -21,6 +21,8 @@ Source0:	https://sourceforge.net/projects/%{name}/files/Sources/%{version}/%{nam
 Patch0:		codeblocks-autorev.patch
 # use distro compiler standards
 Patch1:		codeblocks-flags.patch
+# backported fixes
+Patch2:		codeblocks-fedora.patch
 
 BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	boost-devel
@@ -45,6 +47,7 @@ BuildRequires:	autoconf2.7x
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	shared-mime-info
 Requires:	xterm
+Recommends:	%{name}-contrib
 Provides:	bundled(wxScintilla) = 3.53.0
 # patched with https://github.com/albertodemichelis/squirrel/issues/230 (svn rev 12365)
 Provides:	bundled(squirrel) = 3.1
@@ -114,6 +117,7 @@ Additional Code::Blocks plug-ins.
 %setup -q -n %{name}_%{version}
 %endif
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 
 %if %{snapshot}
@@ -351,6 +355,10 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Wed Dec 10 2025 Dan Horák <dan[at]danny.cz> - 25.03-3
+- rebuilt for astyle 3.6.13
+- drop dependency on boost-system
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

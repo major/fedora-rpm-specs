@@ -3,7 +3,7 @@
 
 Name:           perl-Alien-Brotli
 Version:        0.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Find and install the Brotli compressor
 License:        MIT
 URL:            http://metacpan.org/dist/Alien-Brotli
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 10 2025 Miro Hrončok <mhroncok@redhat.com> - 0.2.2-11
+- Rebuilt for brotli 1.2.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        345
+Version:        346
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -82,7 +82,7 @@ Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(ipaddr.js)) = 2.2.0
+Provides: bundled(npm(ipaddr.js)) = 2.3.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
@@ -120,6 +120,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Dec 10 2025 Packit <hello@packit.dev> - 346-1
+- Performance improvements
+- Translation updates
+
+
 * Wed Nov 26 2025 Packit <hello@packit.dev> - 345-1
 - New virtual machines don't get SPICE graphics anymore
 - Support for network port forwarding

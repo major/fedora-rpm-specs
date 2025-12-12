@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -203,6 +203,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 1:3.1.8.0-3
+- Rebuilt for OpenCV-4.12
+
 * Mon Dec 08 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.8.0-2
 - Add OpenJPH.
 

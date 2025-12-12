@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
@@ -35,7 +35,6 @@ BuildRequires: rubygem(builder)
 BuildRequires: rubygem(erubi)
 BuildRequires: rubygem(haml)
 BuildRequires: rubygem(kramdown)
-BuildRequires: rubygem(liquid)
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(rdiscount)
 BuildRequires: rubygem(redcarpet)
@@ -127,6 +126,9 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Wed Dec 10 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.2.1-3
+- Drop dependency on rubygem(liquid), which was retired from Fedora.
+
 * Thu Dec 04 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.2.1-2
 - Fix test suite compatibility with RDoc 6.16+
 

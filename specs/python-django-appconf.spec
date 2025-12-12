@@ -1,13 +1,13 @@
 %global pypi_name django-appconf
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        An app to handle configuration defaults of packaged Django apps gracefully
 
 License:        BSD-3-Clause
 URL:            http://pypi.python.org/pypi/django-appconf/
-Source:         %pypi_source
+Source:         %{pypi_source django_appconf}
 
 BuildArch:      noarch
 
@@ -35,7 +35,7 @@ BuildRequires:  python3dist(pytest)
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n django_appconf-%{version} -p1
 
 
 %generate_buildrequires

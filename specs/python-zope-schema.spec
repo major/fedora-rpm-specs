@@ -24,6 +24,8 @@ This package is a zope.interface extension for defining data schemas.
 
 %prep
 %autosetup -p1 -n zope_schema-%{version}
+# we don't have specific versions of setuptools available
+sed -i -r 's/("| )setuptools == /\1setuptools >= /' pyproject.toml tox.ini
 
 %generate_buildrequires
 %pyproject_buildrequires -t

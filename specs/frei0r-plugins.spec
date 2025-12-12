@@ -1,6 +1,6 @@
 Name:           frei0r-plugins
 Version:        2.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 2.5.1-2
+- Rebuilt for OpenCV-4.12
+
 * Mon Dec 08 2025 Nicolas Chauvet <kwizart@gmail.com> - 2.5.1-1
 - Update to 2.5.1
 

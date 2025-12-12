@@ -65,7 +65,7 @@ readthedocs.org.
 %autosetup -p1 -n %{srcname}-%{version}
 
 # Unpin docutils
-sed -i "s/docutils <0\.21/docutils <0\.22/" setup.cfg
+sed -i "s/docutils >0.18,<0\.22/docutils >0.18/" setup.cfg
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.readthedocs\.io/en/stable/', \)None|\1'%{SOURCE1}'|" \

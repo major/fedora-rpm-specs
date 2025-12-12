@@ -1,6 +1,6 @@
 Name:           libfreenect
 Version:        0.7.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 # OpenNI driver is available as Apache-2.0
@@ -201,6 +201,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 0.7.5-3
+- Rebuilt for OpenCV-4.12
+
 * Mon Nov 24 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.7.5-2
 - fixed duplicate files warning
 - made file lists more explicit

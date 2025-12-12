@@ -2,7 +2,7 @@
 %global _cmake_shared_libs %{nil}
 
 Name:           warzone2100
-Version:        4.6.1
+Version:        4.6.2
 Release:        1%{?dist}
 Summary:        Innovative 3D real-time strategy
 
@@ -22,6 +22,7 @@ ExcludeArch:    s390x
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  freetype-devel
+BuildREquires:  fribidi-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -34,6 +35,7 @@ BuildRequires:  libsodium-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  libzip-devel
+BuildRequires:  miniupnpc-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  openssl-devel
 BuildRequires:  opus-devel
@@ -41,7 +43,7 @@ BuildRequires:  p7zip
 BuildRequires:  physfs-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  rubygem-asciidoctor
-BuildRequires:  SDL2-devel
+BuildRequires:  SDL3-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  vulkan-devel
 
@@ -99,6 +101,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Tue Dec 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.6.2-1
+- 4.6.2
+
 * Tue Sep 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.6.1-1
 - 4.6.1
 

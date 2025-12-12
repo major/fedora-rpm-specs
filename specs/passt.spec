@@ -7,12 +7,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash c3f1ba70237a9e66822aff3aa5765d0adf6f6307
+%global git_hash d04c48032bcf724550d0b8f652fd00efcd2dfad0
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20251209.gc3f1ba7
+Version:	0^20251210.gd04c480
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -133,6 +133,9 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Wed Dec 10 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20251210.gd04c480-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_12_09.c3f1ba7..2025_12_10.d04c480
+
 * Tue Dec  9 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20251209.gc3f1ba7-1
 - Fix build on Fedora 43, selinux_requires_min not available on Copr builders
 - use %%selinux_requires_min macro, drop overlapping dependencies

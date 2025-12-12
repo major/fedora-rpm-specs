@@ -1,16 +1,25 @@
 Name: kover
 Summary: WYSIWYG CD cover printer with CDDB support
-Version: 6
-Release: 39%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version: 7
+Release: 1%{?dist}
 License: GPL-2.0-or-later
-Source0: http://lisas.de/kover/kover-6.tar.bz2
-URL: http://lisas.de/kover/
+Source0: https://github.com/adrianreber/kover/releases/download/v%{version}/kover-%{version}.tar.bz2
+URL: https://github.com/adrianreber/kover
 BuildRequires: desktop-file-utils
-BuildRequires: libcdio-devel >= 0.90, libcddb-devel
-BuildRequires: kdelibs4-devel >= 4
-BuildRequires: cmake, gettext
+BuildRequires: libcdio-devel >= 0.90
+BuildRequires: libcddb-devel
+BuildRequires: cmake >= 3.16
+BuildRequires: gettext
 BuildRequires: make
+BuildRequires: gcc-c++
+BuildRequires: extra-cmake-modules >= 6.0.0
+BuildRequires: qt6-qtbase-devel >= 6.4.0
+BuildRequires: kf6-kcoreaddons-devel >= 6.0.0
+BuildRequires: kf6-ki18n-devel >= 6.0.0
+BuildRequires: kf6-kxmlgui-devel >= 6.0.0
+BuildRequires: kf6-kio-devel >= 6.0.0
+BuildRequires: kf6-kconfigwidgets-devel >= 6.0.0
+BuildRequires: kf6-kiconthemes-devel >= 6.0.0
 
 %description
 Kover is an easy to use WYSIWYG CD cover printer with CDDB support.
@@ -19,54 +28,38 @@ Kover is an easy to use WYSIWYG CD cover printer with CDDB support.
 %setup -q
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380686)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
-mkdir -p %{_target_platform}
-pushd %{_target_platform}
-%{cmake_kde4} ..
-popd
-
-%{__make} %{?_smp_mflags} -C %{_target_platform}
+%cmake
+%cmake_build
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 desktop-file-install \
-%if 0%{?fedora} && 0%{?fedora} < 21
   --dir %{buildroot}%{_datadir}/applications \
-  --delete-original \
-%else
-  --dir %{buildroot}%{_datadir}/applications/kde4 \
-%endif
   --add-category Utility \
   --add-category AudioVideo \
-  %{buildroot}%{_datadir}/applications/kde4/%{name}.desktop
+  %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %{__install} -p -D %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png \
 	%{buildroot}%{_datadir}/icons/hicolor/48x48/mimetypes/application-x-%{name}.png
 
 %find_lang %{name} --with-kde
 
-## unpackaged files
-rm -rfv %{buildroot}%{_datadir}/icons/locolor
-
-
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS README NEWS THANKS ChangeLog
-%{_kde4_appsdir}/kover/
-%{_kde4_iconsdir}/kover*
-%{_kde4_iconsdir}/hicolor/*/*/*
-%{_datadir}/mime/packages/*
-%{_mandir}/man1/*
-%if 0%{?fedora} && 0%{?fedora} < 21
+%doc README.md
+%{_bindir}/kover
 %{_datadir}/applications/%{name}.desktop
-%else
-%{_datadir}/applications/kde4/%{name}.desktop
-%endif
-%{_kde4_bindir}/kover
+%{_datadir}/kxmlgui5/kover/
+%{_datadir}/mime/packages/*
+%{_datadir}/icons/hicolor/*/*/*
+%{_datadir}/icons/kover_*.png
+%{_mandir}/man1/*
 
 %changelog
+* Wed Dec 10 2025 Adrian Reber <adrian@lisas.de> - 7-1
+- Port to Qt6 and KDE Frameworks 6
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 6-39
 - Allow to build with CMake 4.0 (rhbz#2380686)
 

@@ -34,6 +34,7 @@
 %global rocm_patch 0
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
+%global llvm_version_suffix .rocm
 
 %else
 # Normal release
@@ -45,6 +46,7 @@
 %global rocm_patch 1
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
+%global llvm_version_suffix .rocm
 
 %endif
 # local, fedora
@@ -99,7 +101,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        8.rocm%{rocm_version}%{?dist}
+Release:        9.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -402,7 +404,6 @@ sed -i "s/TARGET clangFrontendTool/true/" amd/comgr/CMakeLists.txt
 sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 14@' clang/lib/Headers/cuda_wrappers/array
 %endif
 
-
 install -pm 755 %{SOURCE1} prep.sh
 sed -i -e 's@%%{_prefix}@%{_prefix}@' prep.sh
 sed -i -e 's@%%{_lib}@%{_lib}@' prep.sh
@@ -498,6 +499,7 @@ p=$PWD
  -DLLVM_TOOL_LLVM_YAML_NUMERIC_PARSER_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_YAML_PARSER_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_VFABI_DEMANGLE_FUZZER_BUILD=OFF \\\
+ -DLLVM_VERSION_SUFFIX=%{llvm_version_suffix} \\\
  -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \\\
  -DLLVM_BUILD_LLVM_DYLIB=ON \\\
  -DLLVM_LINK_LLVM_DYLIB=ON \\\
@@ -585,7 +587,7 @@ export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
        -DLLVM_TOOL_LIBCXX_BUILD=%{build_libcxx} \
        -DLLVM_ENABLE_PROJECTS=%{llvm_projects} \
        -DLLVM_ENABLE_RUNTIMES=%{llvm_runtimes}
-       
+
 %cmake_build -j ${JOBS}
 popd
 
@@ -673,11 +675,11 @@ pushd .
 
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
 %if 0%{?suse_version}
-sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0git@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' CMakeFiles/amd_comgr.dir/link.txt
 %else
-sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0git@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
@@ -791,6 +793,8 @@ find %{buildroot}%{_libdir}           -type f -name '*.so*' -exec strip {} \;
 rm -rf %{buildroot}%{bundle_prefix}/include/lld
 rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/lld
 rm -rf %{buildroot}%{bundle_prefix}/lib/liblld*
+# rm wasm-ld
+rm -rf %{buildroot}%{bundle_prefix}/bin/wasm-ld
 
 # Remove exec perm
 chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/optpmap.py
@@ -1081,10 +1085,7 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/bin/ld64.lld
 %{bundle_prefix}/bin/lld
 %{bundle_prefix}/bin/lld-link
-%{bundle_prefix}/bin/wasm-ld
-#%if %{with gitcommit}
 %{bundle_prefix}/bin/amdlld
-#%endif
 
 # ROCM LIBC++
 %files -n rocm-libc++
@@ -1129,6 +1130,10 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %endif
 
 %changelog
+* Tue Dec 9 2025 Tom Rix <Tom.Rix@amd.com> - 20-9.rocm7.1.1
+- Change llvm_version_suffix to .rocm
+- Remove lld-wasm
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 20-8.rocm7.1.1
 - Update to 7.1.1
 

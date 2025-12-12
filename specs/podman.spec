@@ -63,7 +63,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.7.0
+Version: 5.7.1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -254,7 +254,7 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="0370128fc8dcae93533334324ef838db8f8da8cb"
+GIT_COMMIT="f845d14e941889ba4c071f35233d09b29d363c75"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first

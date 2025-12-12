@@ -2,8 +2,8 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        0.32.13
-Release:        3%{?dist}
+Version:        0.32.14
+Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -11,8 +11,6 @@ Summary:        A photo organizer for the GNOME desktop
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
 Source0:        https://download.gnome.org/sources/shotwell/0.32/shotwell-%{version}.tar.xz
-# data: fix duplicate versions in appdata
-Patch0:         https://gitlab.gnome.org/GNOME/shotwell/-/merge_requests/97.patch
 
 BuildRequires:  vala
 BuildRequires:  desktop-file-utils
@@ -135,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shot
 
 
 %changelog
+* Wed Dec 10 2025 Adrian Vovk <adrianvovk@gmail.com> - 0.32.14-1
+- Update to 0.32.14
+
 * Fri Sep 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.32.13-3
 - Fix and verify appdata
 

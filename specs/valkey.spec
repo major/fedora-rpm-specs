@@ -5,13 +5,13 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.0.0
+%global doc_version 9.0.1
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 Name:              valkey
-Version:           9.0.0
-Release:           2%{?dist}
+Version:           9.0.1
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -443,6 +443,10 @@ fi
 
 
 %changelog
+* Wed Dec 10 2025 Remi Collet <remi@remirepo.net> - 9.0.1-1
+- Valkey 9.0.1 - December 9, 2025
+- Upgrade urgency MODERATE
+
 * Thu Nov 27 2025 Remi Collet <remi@fedoraproject.org> - 9.0.0-2
 - build TLS statically as module not supported by sentinel
 - drop sub-package for TLS module

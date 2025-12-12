@@ -8,8 +8,8 @@
 %bcond selinux 1
 
 Name:           frr
-Version:        10.4.1
-Release:        3%{?dist}
+Version:        10.5.0
+Release:        2%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -69,6 +69,8 @@ BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  texinfo
 BuildRequires:  protobuf-c-devel
+# RPKI support
+BuildRequires:  rtrlib-devel
 
 Requires:       ncurses
 Requires:       net-snmp
@@ -93,6 +95,24 @@ FRRouting supports BGP4, OSPFv2, OSPFv3, ISIS, RIP, RIPng, PIM, NHRP, PBR,
 EIGRP and BFD.
 
 FRRouting is a fork of Quagga.
+
+%package headers
+Summary: Build headers for FRR
+%description headers
+Build headers for FRR required to generate out of tree dplane plugins
+
+%package rpki
+Summary: BGP RPKI support (rtrlib)
+Group: System Environment/Daemons
+BuildRequires:  rtrlib-devel >= 0.8
+Requires: %{name}%{_isa} = %{version}-%{release}
+
+%description rpki
+Adds RPKI support to FRR's bgpd, allowing validation of BGP routes
+against cryptographic information stored in WHOIS databases.  This is
+used to prevent hijacking of networks on the wider internet.  It is only
+relevant to internet service providers using their own autonomous system
+number.
 
 %if 0%{?with_selinux}
 %package selinux
@@ -130,8 +150,8 @@ autoreconf -ivf
     --localstatedir=/var \
     --enable-multipath=64 \
     --enable-vtysh=yes \
-    --disable-ospfclient \
-    --disable-ospfapi \
+    --enable-ospfclient \
+    --enable-ospfapi \
     --enable-snmp=agentx \
     --enable-user=frr \
     --enable-group=frr \
@@ -140,11 +160,14 @@ autoreconf -ivf
     --enable-static=no \
     --disable-ldpd \
     --disable-babeld \
+    --with-pkgconfigdir=%{_libdir}/pkgconfig \
     --with-moduledir=%{_libdir}/frr/modules \
     --with-yangmodelsdir=%{_datadir}/frr-yang/ \
     --with-crypto=openssl \
     --enable-fpm \
     --enable-pcre2posix \
+    --enable-rpki \
+    --enable-sharpd \
     %{?with_grpc:--enable-grpc}
 
 %make_build MAKEINFO="makeinfo --no-split" PYTHON=%{__python3}
@@ -195,7 +218,6 @@ find %{buildroot} -type f -name "*.la" -delete -print
 
 #Upstream does not maintain a stable API, these headers from -devel subpackage are no longer needed
 rm %{buildroot}%{_libdir}/frr/*.so
-rm -r %{buildroot}%{_includedir}/frr/
 
 
 %post
@@ -277,6 +299,14 @@ rm tests/lib/*grpc*
 %{_tmpfilesdir}/%{name}.conf
 %{_sysusersdir}/%{name}.conf
 
+%files headers
+%dir %{_includedir}/frr/
+%{_includedir}/frr/*
+%{_libdir}/pkgconfig/frr.pc
+
+%files rpki
+%{_libdir}/frr/modules/bgpd_rpki.so
+
 %if 0%{?with_selinux}
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.*
@@ -285,6 +315,11 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Wed Nov 19 2025 Michal Ruprich <mruprich@redhat.com> - 10.5.0-1
+- New version 10.5.0
+- Enabling RPKI, sharpd ospfapi and ospfclient
+- Adding frr-headers subpackage
+
 * Tue Oct 21 2025 Michal Ruprich <mruprich@redhat.com> - 10.4.1-3
 - Rebuilt for libyang-3.13.5
 

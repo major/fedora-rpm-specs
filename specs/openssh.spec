@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -583,6 +583,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Dec 10 2025 Pavol Žáčik <pzacik@redhat.com> - 10.0p1-10
+- Update gssapi-keyex patch to not abort KEX without hostkey
+
 * Mon Dec 01 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-9
 - rebuilt
 

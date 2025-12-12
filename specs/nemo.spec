@@ -1,20 +1,11 @@
-%global commit0 032ce13a5a5f1edca811b367a27e8dcf31892afa
-%global date 20251023
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Version:        6.6.1
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
@@ -27,7 +18,7 @@ Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
 Recommends:     xapp-symbolic-icons
-Recommends:     cinnamon-translations >= 6.4.0
+Recommends:     cinnamon-translations >= 6.6.0
 Recommends:     nemo-search-helpers
 Recommends:     folder-color-switcher-nemo
 
@@ -105,11 +96,7 @@ This package provides libraries and header files needed
 for developing nemo extensions.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
 %meson \
@@ -188,6 +175,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
 * Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 
