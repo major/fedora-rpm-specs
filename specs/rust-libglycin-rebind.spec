@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rustfix
+%global crate libglycin-rebind
 
-Name:           rust-rustfix
-Version:        0.9.2
+Name:           rust-libglycin-rebind
+Version:        0.0.1
 Release:        %autorelease
-Summary:        Automatically apply the suggestions made by rustc
+Summary:        Safe bindings for libglycin
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/rustfix
+License:        MIT
+URL:            https://crates.io/crates/libglycin-rebind
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Automatically apply the suggestions made by rustc.}
+Safe bindings for libglycin.}
 
 %description %{_description}
 
@@ -30,9 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -94,13 +94,13 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.5.0
+Version: 140.6.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
 License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later AND MIT AND BSD-4-Clause-UC AND ISC AND Apache-2.0 AND MPL-2.0
-URL:   http://www.gnu.org/software/gnuzilla/
+URL:     http://www.gnu.org/software/gnuzilla/
 
 ## Source archive created by scripts based on Gnuzilla files.
 ## All modified files are hosted in a dedicated fork repository:

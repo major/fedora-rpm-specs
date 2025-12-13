@@ -32,7 +32,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        11.12.0
+Version:        13.1.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
@@ -63,7 +63,6 @@ BuildArch:      noarch
 
 BuildRequires:  dos2unix
 BuildRequires:  findutils
-BuildRequires:  hardlink
 BuildRequires:  python%{python3_pkgversion}-devel
 
 %if %{with tests}
@@ -139,13 +138,6 @@ mkdir -p %{buildroot}%{_licensedir}/ansible %{buildroot}%{_docdir}/ansible
 mv licenses %{buildroot}%{_licensedir}/ansible/ansible_collections
 mv docs %{buildroot}%{_pkgdocdir}/ansible_collections
 
-hardlink --reflink=never -v %{buildroot}%{python3_sitelib}/ansible_collections
-hardlink --reflink=never -v %{buildroot}%{_licensedir}/ansible
-
-# XXX: One of the build steps is messing with the permission.
-# XXX: The file is 0755 in the source tarball.
-chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstack/scripts/inventory/cloudstack.py
-
 
 %check
 %if %{with tests}
@@ -169,6 +161,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Tue Dec 09 2025 Maxwell G <maxwell@gtmx.me> - 13.1.0-1
+- Update to 13.1.0. Fixes rhbz#2354912.
+
 * Mon Nov 17 2025 Packit <hello@packit.dev> - 11.12.0-1
 - Update to version 11.12.0
 

@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        146.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -256,6 +256,8 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
+Patch82:        build-c11-threads-avail.patch
+Patch83:        build-seccomp.patch
 
 
 # Fedora specific patches
@@ -272,6 +274,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
+Patch402:        D275955.1765540580.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -567,6 +570,10 @@ This package contains results of tests executed during build.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
+%if 0%{?fedora} >= 44
+%patch -P82 -p1 -b .build-c11-threads-avail
+%patch -P83 -p1 -b .build-seccomp
+%endif
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
@@ -587,6 +594,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
+%patch -P402 -p1 -b .D275955.1765540580
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1260,6 +1268,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Dec 11 2025 Martin Stransky <stransky@redhat.com> - 146.0-3
+- Added aarch64 crash fix
+- Fixed rawhide gcc build (kudos to jhorak who hacked it! He's just awesome.)
+
 * Mon Dec 08 2025 Martin Stransky <stransky@redhat.com> - 146.0-2
 - Updated to 146.0 build 2
 

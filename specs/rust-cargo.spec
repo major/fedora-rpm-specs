@@ -12,7 +12,7 @@
 %global crate cargo
 
 Name:           rust-cargo
-Version:        0.90.0
+Version:        0.91.0
 Release:        %autorelease
 Summary:        Package manager for Rust
 
@@ -23,9 +23,8 @@ Source:         %{crates_source}
 Patch:          cargo-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop features for statically linking cURL, libgit2, OpenSSL, and SQLite
-# * relax exact openssl and openssl-sys dependencies
-# * relax rusqlite dependency to allow building with both v0.31..v0.35
-# * bump gix dependency from 0.72 to 0.73
+# * relax opener dependency to allow building with v0.7..v0.8
+# * relax rusqlite dependency to allow building with v0.31..v0.37
 Patch:          cargo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -68,6 +67,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http-transport-curl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http-transport-curl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http-transport-curl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http-transport-curl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http-transport-reqwest-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http-transport-reqwest-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http-transport-reqwest" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http-transport-reqwest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+openssl-devel

@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 472db4233083e8c6dabc24b0589183d0fd4e2b61
-%global commitdatestring 2025-10-29 18:11:57 -0700
-%global cosmic_minver 1.0.0~beta.9
+%global commit f4093070be2813787fbfd1a1ff43b213c1396343
+%global commitdatestring 2025-12-09 09:21:00 -0700
+%global cosmic_minver 1.0.0
 
 Name:           cosmic-session
-Version: 1.0.0~beta.9
+Version: 1.0.0
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 

@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           file-roller
-Version:        44.5
-Release:        2%{?dist}
+Version:        44.6
+Release:        1%{?dist}
 Summary:        Tool for viewing and creating archives
 
 License:        GPL-2.0-or-later
@@ -64,7 +64,7 @@ or directories.
 %find_lang %{name} --with-gnome
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.FileRoller.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.FileRoller.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.FileRoller.desktop
 
 %files -f %{name}.lang
@@ -79,7 +79,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.FileRoller.
 %{_datadir}/glib-2.0/schemas/org.gnome.FileRoller.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.FileRoller*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.FileRoller-symbolic.svg
-%{_metainfodir}/org.gnome.FileRoller.appdata.xml
+%{_metainfodir}/org.gnome.FileRoller.metainfo.xml
 
 %if 0%{?flatpak}
 %else
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.FileRoller.
 %endif
 
 %changelog
+* Wed Dec 10 2025 Adrian Vovk <adrianvovk@gmail.com> - 44.6-1
+- Update to 44.6
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

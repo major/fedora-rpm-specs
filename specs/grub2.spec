@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	49%{?dist}
+Release:	50%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -446,7 +446,6 @@ fi
 %dir /boot/grub2/themes/system
 %attr(0700,root,root) %dir /boot/grub2
 %exclude /boot/grub2/*
-%dir %attr(0700,root,root) %{grub_efi_dir}
 %exclude %{grub_efi_dir}/*
 %ghost %config(noreplace) %verify(not size mode md5 mtime) /boot/grub2/grubenv
 %license COPYING
@@ -609,6 +608,10 @@ fi
 %endif
 
 %changelog
+* Wed Dec 10 2025 Joel Capitao <jcapitao@redhat.com> - 2.12-50
+- Do not include EFI dir in common subpackage
+- Resolves: rhbz#2420430
+
 * Thu Nov 27 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-49
 - Increase EFI max allocation to max usable address
 - Resolves: #2263643

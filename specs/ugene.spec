@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20251120
-%global	gitcommit		c2fb4d63da1071046795d60f395ba791cfeced89
+%global	gitdate		20251211
+%global	gitcommit		b50ca792f254939978f0ffd3126e3d9ab770a10a
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		b219d482d0bf5ba1247c71c804b595d4bbd14e57
+%global	gitcommit_free		7e674061492924b3dfbc884c4c9503ecab9887b2
 %else
 # currently 41.0 branch
 %global	gitdate		20250313
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20251120
-%global	tarballtime	1101
+%global	tarballdate	20251211
+%global	tarballtime	2210
 
 %global	use_release	1
 %global	use_gitbare	0

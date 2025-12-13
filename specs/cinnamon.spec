@@ -1,31 +1,22 @@
-%global commit0 66ad76e3d5ad00f5768bd6340c614fb2e2bafaa1
-%global date 20241127
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
-%global cjs_version 6.4.0
-%global cinnamon_desktop_version 6.4.0
-%global cinnamon_translations_version 6.4.0
+%global cjs_version 128.1
+%global cinnamon_desktop_version 6.6.0
+%global cinnamon_translations_version 6.6.0
 %global gobject_introspection_version 1.38.0
-%global muffin_version 6.4.0
+%global muffin_version 6.6.0
 %global json_glib_version 0.13.2
 
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.4.12
-Release:        3%{?dist}
+Version:        6.6.0
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:        %{url}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 Source1:        10_cinnamon-common.gschema.override
 Source2:        10_cinnamon-apps.gschema.override.in
 Source3:        22_fedora.styles
@@ -34,9 +25,7 @@ Patch0:         set_wheel.patch
 #Patch1:         revert_25aef37.patch
 Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
-Patch4:         Add_nightlight_applet.patch
-Patch5:         %{url}/pull/13091.patch#/Use_DesktopAppInfo_from_GioUnix.patch
-Patch6:         %{url}/commit/9ed70641a1f63d2b2b44e08a84033cbf912e0c2b.patch#/fix_mount_applet.patch
+Patch4:         set_menu_defaults.patch
 
 ExcludeArch:    %{ix86}
 
@@ -72,10 +61,6 @@ BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libmuffin-0) >= %{muffin_version}
 BuildRequires:  pkgconfig(libpulse)
 
-# Bootstrap requirements
-BuildRequires:  pkgconfig(gtk-doc)
-BuildRequires:  gnome-common
-
 # media keys
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(lcms2)
@@ -109,9 +94,6 @@ Requires:       %{name}-session%{?_isa}
 
 # needed for schemas
 Requires:       at-spi2-atk%{?_isa}
-
-# needed for on-screen keyboard
-Requires:       caribou%{?_isa}
 
 # needed for the user menu
 Requires:       accountsservice-libs%{?_isa}
@@ -147,6 +129,7 @@ Requires:       system-logos
 Requires:       google-noto-sans-fonts
 Requires:       google-noto-sans-mono-fonts
 Requires:       %{name}-themes >= 1:1.7.4-0.2.20181112gitb94b890
+Requires:       xapp-symbolic-icons
 
 # RequiredComponents in the session files
 Requires:       nemo%{?_isa}
@@ -158,6 +141,10 @@ Recommends:     mate-panel%{?_isa}
 
 # required for keyboard applet
 Requires:       gucharmap%{?_isa}
+Requires:       ibus%{?_isa}
+Requires:       ibus-gtk3%{?_isa}
+Requires:       gtk3-immodules%{?_isa}
+
 Requires:       xapps%{?_isa}
 Requires:       python3-xapps-overrides%{?_isa}
 
@@ -188,6 +175,9 @@ Requires:       gettext
 
 # required for gesture support
 Recommends:     touchegg
+
+# required to fix system-info
+Recommends:     bluez-deprecated
 
 # required for flatpak support
 Recommends:     xdg-desktop-portal-xapp
@@ -227,11 +217,7 @@ This package contains the code documentation for various Cinnamon components.
 %endif
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %{__sed} -i -e 's@gksu@pkexec@g' files%{_bindir}/%{name}-settings-users
 %{__sed} -i -e 's@gnome-orca@orca@g' files%{_datadir}/%{name}/%{name}-settings/modules/cs_accessibility.py
@@ -253,14 +239,9 @@ chmod a-x files%{_datadir}/%{name}/%{name}-settings/bin/__init__.py
  --libexecdir=%{_libexecdir}/cinnamon/ \
  -Ddeprecated_warnings=false \
  -Dpy3modules_dir=%{python3_sitelib} \
-%if 0%{?fedora} && 0%{?fedora} < 40
- -Ddocs=true
-%else
  -Ddocs=false
-%endif
 
 %meson_build
-
 
 %install
 %meson_install
@@ -352,6 +333,9 @@ EOF
 %endif
 
 %changelog
+* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Sun Sep 21 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.12-3
 - Fix mount applet
 
@@ -915,4 +899,3 @@ EOF
 
 * Sat Nov 03 2018 Leigh Scott <leigh123linux@googlemail.com> - 4.0.0-1
 - Update to 4.0.0 release
-

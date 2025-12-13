@@ -82,8 +82,8 @@ is not fully compatible with LGPL.
 #
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/gstreamer-ugly-free.appdata.xml <<EOF
+mkdir -p $RPM_BUILD_ROOT%{_metainfodir}
+cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-ugly-free.metainfo.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
 <component type="codec">
@@ -128,7 +128,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %license COPYING
 %doc AUTHORS NEWS README.md README.static-linking RELEASE REQUIREMENTS
 
-%{_datadir}/appdata/*.appdata.xml
+%{_metainfodir}/*.metainfo.xml
 
 # Plugins without external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstasf.so

@@ -3,7 +3,7 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        3.12.8.1
+Version:        3.12.8.2
 Release:        %autorelease
 Summary:        Image viewer, editor, organizer
 
@@ -40,6 +40,7 @@ BuildRequires:  itstool
 BuildRequires:  libjpeg-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  meson
+BuildRequires:  desktop-file-utils
 # For Web albums extension
 BuildRequires:  bison flex
 

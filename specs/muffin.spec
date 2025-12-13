@@ -1,22 +1,12 @@
-%global commit0 4b87bf9e647f26136a86b7cf15c9a8db0d313226
-%global date 20231107
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 Name:          muffin
-Version:       6.4.1
-Release:       3%{?dist}
+Version:       6.6.0
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:       %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
-Patch0:        libinput.patch
 
 ExcludeArch:   %{ix86}
 
@@ -37,7 +27,7 @@ BuildRequires: pkgconfig(gobject-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gmodule-no-export-2.0)
 BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(cinnamon-desktop) >= 6.2.0
+BuildRequires: pkgconfig(cinnamon-desktop) >= 6.6.0
 BuildRequires: pkgconfig(xcomposite)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(xdamage)
@@ -104,15 +94,10 @@ Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
-%meson \
- -Degl_device=true
+%meson
 %meson_build
 
 %install
@@ -142,6 +127,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com>
+- Update to 6.6.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -400,4 +388,3 @@ rm -rf %{buildroot}%{_datadir}/applications/
 * Sat Nov 03 2018 Leigh Scott <leigh123linux@googlemail.com> - 4.0.0-1
 - Update to 4.0.0 release
 - Readd muffin binary, useful for debug only
-

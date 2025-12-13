@@ -1,6 +1,6 @@
 Name:           kommit
-Version:        1.7.1
-Release:        2%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        Graphical Git Client
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -15,9 +15,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(libgit2)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Concurrent)
-BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(Qt6Charts)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
@@ -27,6 +27,7 @@ BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  cmake(KF6TextEditor)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
@@ -75,17 +76,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_bindir}/%{name}merge
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.1.6.43
+%{_libdir}/lib%{name}.so.1.8.0
 %{_libdir}/lib%{name}diff.so.0
-%{_libdir}/lib%{name}diff.so.1.6.43
+%{_libdir}/lib%{name}diff.so.1.8.0
 %{_libdir}/lib%{name}gui.so.0
-%{_libdir}/lib%{name}gui.so.1.6.43
+%{_libdir}/lib%{name}gui.so.1.8.0
 %{_libdir}/lib%{name}widgets.so.0
-%{_libdir}/lib%{name}widgets.so.1.6.43
+%{_libdir}/lib%{name}widgets.so.1.8.0
 %{_kf6_qtplugindir}/dolphin/vcs/%{name}dolphinplugin.so
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/scalable/actions/*.svg
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/qlogging-categories6/kommit.categories
 
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed Dec 10 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.1-1
+- 1.8.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.69
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - reviewed
@@ -52,6 +52,7 @@ Patch3:         0003-Use-ruff-code-checker-instead-of-bandit.patch
 Patch4:         0004-update-interactive-editor-is-broken.patch
 Patch5:         0005-Check-the-correct-sorting-of-imports-from-now-on.patch
 Patch6:         0006-_run_command-timeout-is-not-supported-in-Python-2.patch
+Patch7:         0007-Submitting-the-module-build-duplicate-timeout.patch
 
 %description
 Python library for interacting with rpm+git
@@ -282,6 +283,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Thu Dec 11 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-5
+- Patch: Submitting the module build - duplicate timeout
+
 * Tue Dec 09 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-4
 - Patch: _run_command: timeout is not supported in Python 2
 

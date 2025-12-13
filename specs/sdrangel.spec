@@ -1,12 +1,14 @@
 Name:		sdrangel
 Version:	7.22.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPL-3.0-or-later
 URL:		https://github.com/f4exb/sdrangel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	org.sdrangel.SDRangel.metainfo.xml
 ExclusiveArch:	%{qt5_qtwebengine_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 Provides:	bundled(jrtplib) = 3.11.1
 Provides:	bundled(qthid)
@@ -108,6 +110,9 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Wed Dec 10 2025 Jerry James <loganjerry@gmail.com> - 7.22.9-3
+- Stop building for 32-bit x86
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 7.22.9-2
 - Rebuilt for OpenCV-4.12
 

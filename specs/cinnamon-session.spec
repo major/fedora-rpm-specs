@@ -1,22 +1,13 @@
-%global commit0 829519b1d36668e4a178f15900bd49af55548926
-%global date 20231109
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 %global cinnamon_desktop_version 6.6.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 6.6.0
+Version: 6.6.1
 Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 
 ExcludeArch: %{ix86}
 
@@ -60,12 +51,7 @@ Cinnamon-session manages a Cinnamon desktop or GDM login session. It starts up
 the other core components and handles logout and saving the session.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
-
 
 %build
 %meson
@@ -74,9 +60,7 @@ the other core components and handles logout and saving the session.
 %install
 %meson_install
 
-
 %ldconfig_scriptlets
-
 
 %files
 %doc AUTHORS README
@@ -92,6 +76,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
 * Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 

@@ -1,10 +1,10 @@
-%global DATE 20251111
-%global gitrev 43c569d5324a7f22a16fb0d245a2373e8a85473e
+%global DATE 20251211
+%global gitrev 3c2c408e5ef993f208fbdcbd39b01717ab15be80
 %global gcc_version 15.2.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 4
+%global gcc_release 5
 %global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -312,6 +312,7 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
+Patch13: gcc15-libgomp-strchr.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -2258,7 +2259,8 @@ ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/adalib
 
 # If we are building a debug package then copy all of the static archives
 # into the debug directory to keep them as unstripped copies.
-%if 0%{?_enable_debug_packages}
+# if 0%{?_enable_debug_packages}
+%if 0
 for d in . $FULLLSUBDIR; do
   mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/debug%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/$d
   for f in `find $d -maxdepth 1 -a \
@@ -2399,6 +2401,8 @@ rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gcc-nm || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gcc-ranlib || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gdc || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gm2 || :
+rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gcobc || :
+rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gcobol || :
 
 %ifarch %{multilib_64_archs}
 # Remove libraries for the other arch on multilib arches
@@ -2422,11 +2426,25 @@ rm -rf %{buildroot}%{_prefix}/lib64/go/%{gcc_major}/%{gcc_target_platform}
 %endif
 %endif
 
+rm -f %{buildroot}%{_prefix}/lib*/lib*.spec || :
+rm -f %{buildroot}%{_prefix}/lib*/libstdc++.modules.json || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/lib{asan,atomic,gcc_s,gcobol,gdruntime,gfortran,go,gomp-plugin-*,gomp,gphobos,hwasan}.so || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/lib{itm,lsan,m2{cor,iso,log,min,pim},objc,quadmath,tsan,ubsan}.so || :
+rm -f %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/install-tools/{fixinc.sh,mkinstalldirs} || :
+rm -f %{buildroot}%{_prefix}/share/locale/*/LC_MESSAGES/libstdc++.mo || :
+rm -f %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include-fixed/README || :
+rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/ssp || :
+rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/install-tools || :
+
 %if %{build_offload_nvptx}
 rm -f %{buildroot}%{_mandir}/man1/*-accel-*nvptx*
+find %{buildroot}%{_prefix}/nvptx-none/lib -name libstdc++.a-gdb.py | xargs rm -f || :
+find %{buildroot}%{_prefix}/nvptx-none/lib -name libstdc++.modules.json | xargs rm -f || :
 %endif
 %if %{build_offload_amdgcn}
 rm -f %{buildroot}%{_mandir}/man1/*-accel-*amdgcn*
+find %{buildroot}%{_prefix}/amdgcn-amdhsa/lib -name libstdc++.a-gdb.py | xargs rm -f || :
+find %{buildroot}%{_prefix}/amdgcn-amdhsa/lib -name libstdc++.modules.json | xargs rm -f || :
 %endif
 rm -f %{buildroot}%{_mandir}/man7/{gpl,gfdl,fsf-funding}.7*
 
@@ -3787,8 +3805,23 @@ end
 %endif
 
 %changelog
-- Create gnatgcc symlink only when building ada.
-- Avoid building libssp and disabled libraries.
+* Thu Dec 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-5
+- update from releases/gcc-15 branch
+  - PRs ada/111433, ada/115305, ada/122640, ada/123037, c/121506, c/123018,
+	c++/119580, c++/120529, c++/120876, c++/121325, c++/121445,
+	c++/122625, c++/122658, c++/122677, c++/122789, fortran/122709,
+	fortran/122977, libstdc++/122661, libstdc++/122726, libstdc++/122743,
+	libstdc++/122842, libstdc++/122921, lto/122515, middle-end/120052,
+	middle-end/120564, middle-end/121581, middle-end/122624,
+	rtl-optimization/122627, target/110796, target/118446, target/119275,
+	target/121853, target/122175, target/122189, target/122216,
+	target/122446, target/122539, target/122652, target/122656,
+	target/122692, target/122695, target/122858, target/122867,
+	target/122991, tree-optimization/121776, tree-optimization/122126,
+	tree-optimization/122225, tree-optimization/122943
+- create gnatgcc symlink only when building Ada
+- avoid building libssp and disabled libraries
+- remove various unpackaged files from the buildroot
 
 * Tue Nov 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-4
 - update from releases/gcc-15 branch

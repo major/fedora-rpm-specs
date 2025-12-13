@@ -1,5 +1,5 @@
 Name:           sslscan
-Version:        2.2.0
+Version:        2.2.1
 %global         bundled_openssl_version    3.5.4
 Release:        %autorelease
 Summary:        Security assessment tool for SSL/TLS

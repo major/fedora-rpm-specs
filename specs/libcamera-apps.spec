@@ -1,13 +1,12 @@
 Name:    libcamera-apps
-Version: 1.5.0
-Release: 10%{?dist}
+Version: 1.10.1
+Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
-URL:     https://github.com/raspberrypi/libcamera-apps
-Source0: https://github.com/raspberrypi/libcamera-apps/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:     https://github.com/raspberrypi/rpicam-apps
+Source0: https://github.com/raspberrypi/rpicam-apps/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch0: %{name}-ffmpeg8.patch
-Patch1: 0001-remove-aelocked.patch
+Patch1: 0001-rpi-namespace.patch
 
 ExcludeArch:   %{power64} s390x
 BuildRequires: meson
@@ -56,7 +55,7 @@ sed -i 's/qt5/qt6/' preview/meson.build
     -Denable_qt=enabled \
     -Denable_libav=enabled \
     -Denable_hailo=disabled \
-    -Dwerror=false
+    -Ddisable_rpi_features=true
 
 %meson_build
 
@@ -68,18 +67,23 @@ sed -i 's/qt5/qt6/' preview/meson.build
 %files
 %license license.txt
 %{_bindir}/camera-bug-report
-%{_bindir}/libcamera-*
 %{_bindir}/rpicam-*
-%{_libdir}/rpicam_app.so.*
-%{_libdir}/rpicam-apps-postproc/
+%{_libdir}/librpicam_app.so.*
+%{_libdir}/rpicam-apps-*/
+%{_datadir}/rpi-camera-assets/
 
 %files devel
-%{_libdir}/rpicam_app.so
-%{_libdir}/libcamera_app.so
-%{_includedir}/libcamera-apps
+%{_libdir}/librpicam_app.so
+%{_libdir}/pkgconfig/rpicam_app.pc
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Thu Dec 11 2025 Milan Zamazal <mzamazal@redhat.com> - 1.10.1-1
+- Update to 1.10.1
+- -Werror no longer disabled.
+- RPi features disabled to get it compiled, as libcamera package doesn't enable
+  RPi pipelines.
+
 * Mon Dec 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5.0-10
 - Rebuild for libcamera 0.6
 

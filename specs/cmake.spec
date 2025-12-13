@@ -58,9 +58,6 @@
 %global build_fflags   %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
 %global build_fcflags  %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
 
-# Place rpm-macros into proper location
-%global rpm_macros_dir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
-
 # Setup _pkgdocdir if not defined already
 %{!?_pkgdocdir:%global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
@@ -72,7 +69,7 @@
 %global patch_version 10
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -104,10 +101,11 @@ URL:            http://www.cmake.org
 Source0:        http://www.cmake.org/files/v%{major_version}.%{minor_version}/%{orig_name}-%{tar_version}.tar.gz
 Source1:        %{name}-init.el
 Source2:        macros.%{name}.in
+Source3:        macros.aaa-%{name}-srpm
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1202899
-Source3:        %{name}.attr
-Source4:        %{name}.prov
-Source5:        %{name}.req
+Source4:        %{name}.attr
+Source5:        %{name}.prov
+Source6:        %{name}.req
 
 # Always start regular patches with numbers >= 100.
 # We need lower numbers for patches in compat package.
@@ -288,6 +286,16 @@ BuildArch:      noarch
 This package contains common RPM macros for %{name}.
 
 
+%package        srpm-macros
+Summary:        Common SRPM macros for %{name}
+Requires:       rpm
+
+BuildArch:      noarch
+
+%description    srpm-macros
+This package contains common SRPM macros for %{name}.
+
+
 %package -n python3-cmake
 Summary:        Python metadata for packages depending on %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -310,8 +318,8 @@ echo '#!%{__python3}' > %{name}.req
 echo '#!%{__python2}' > %{name}.prov
 echo '#!%{__python2}' > %{name}.req
 %endif
-tail -n +2 %{SOURCE4} >> %{name}.prov
-tail -n +2 %{SOURCE5} >> %{name}.req
+tail -n +2 %{SOURCE5} >> %{name}.prov
+tail -n +2 %{SOURCE6} >> %{name}.req
 %endif
 
 
@@ -387,12 +395,13 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}
 rm -f %{buildroot}%{_emacs_sitelispdir}
 %endif
 # RPM macros
-install -p -m0644 -D %{SOURCE2} %{buildroot}%{rpm_macros_dir}/macros.%{name}
-sed -i -e "s|@@CMAKE_VERSION@@|%{version}|" -e "s|@@CMAKE_MAJOR_VERSION@@|%{major_version}|" %{buildroot}%{rpm_macros_dir}/macros.%{name}
-touch -r %{SOURCE2} %{buildroot}%{rpm_macros_dir}/macros.%{name}
+install -p -m0644 -D %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
+install -p -m0644 -D %{SOURCE3} %{buildroot}%{_rpmmacrodir}/macros.aaa-%{name}-srpm
+sed -i -e "s|@@CMAKE_VERSION@@|%{version}|" -e "s|@@CMAKE_MAJOR_VERSION@@|%{major_version}|" %{buildroot}%{_rpmmacrodir}/macros.%{name}
+touch -r %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %if %{with rpm} && 0%{?_rpmconfigdir:1}
 # RPM auto provides
-install -p -m0644 -D %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/fileattrs/%{name}.attr
+install -p -m0644 -D %{SOURCE4} %{buildroot}%{_prefix}/lib/rpm/fileattrs/%{name}.attr
 install -p -m0755 -D %{name}.prov %{buildroot}%{_prefix}/lib/rpm/%{name}.prov
 install -p -m0755 -D %{name}.req %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 %endif
@@ -575,12 +584,15 @@ popd
 
 
 %files rpm-macros
-%{rpm_macros_dir}/macros.%{name}
+%{_rpmmacrodir}/macros.%{name}
 %if %{with rpm} && 0%{?_rpmconfigdir:1}
 %{_rpmconfigdir}/fileattrs/%{name}.attr
 %{_rpmconfigdir}/%{name}.prov
 %{_rpmconfigdir}/%{name}.req
 %endif
+
+%files srpm-macros
+%{_rpmmacrodir}/macros.aaa-%{name}-srpm
 
 
 %files -n python3-cmake
@@ -588,6 +600,9 @@ popd
 
 
 %changelog
+* Thu Dec 11 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.31.10-2
+- macros: Enable support for RPM 4.20+ declarative buildsystem feature
+
 * Tue Dec 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.31.10-1
 - Update to 3.31.10
 

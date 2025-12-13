@@ -117,7 +117,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -249,12 +249,20 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
 %license LICENSE.md
 %endif
 
+%if %{with debug}
+%{_libdir}/librocrand-d.so.1{,.*}
+%else
 %{_libdir}/librocrand.so.1{,.*}
+%endif
 
 %files devel 
 %{_includedir}/rocrand/
 %{_libdir}/cmake/rocrand/
+%if %{with debug}
+%{_libdir}/librocrand-d.so
+%else
 %{_libdir}/librocrand.so
+%endif
 
 %if %{with test}
 %files test
@@ -263,6 +271,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Wed Dec 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Fix debug install
+
 * Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Remove dir tags
 - -test fails fedora-review, turn off

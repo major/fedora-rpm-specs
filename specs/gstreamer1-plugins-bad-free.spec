@@ -441,7 +441,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libgstopencv-%{majorminor}.so
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
 mkdir -p $RPM_BUILD_ROOT%{_metainfodir}
-cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-bad-free.appdata.xml <<EOF
+cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-bad-free.metainfo.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
 <component type="codec">
@@ -484,7 +484,7 @@ cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-bad-free.appdata.xml <<EOF
 EOF
 
 %if %{with openh264}
-cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-openh264.appdata.xml <<EOF
+cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-openh264.metainfo.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2015 Kalev Lember <klember@redhat.com> -->
 <component type="codec">
@@ -524,7 +524,7 @@ EOF
 %license COPYING
 %doc AUTHORS NEWS README.md README.static-linking RELEASE REQUIREMENTS
 
-%{_metainfodir}/gstreamer-bad-free.appdata.xml
+%{_metainfodir}/gstreamer-bad-free.metainfo.xml
 %{_bindir}/gst-transcoder-%{majorminor}
 
 # presets
@@ -756,7 +756,7 @@ EOF
 %files -n gstreamer1-plugin-openh264
 %license COPYING
 %license ext/openh264/LICENSE
-%{_metainfodir}/gstreamer-openh264.appdata.xml
+%{_metainfodir}/gstreamer-openh264.metainfo.xml
 %{_libdir}/gstreamer-1.0/libgstopenh264.so
 %endif
 

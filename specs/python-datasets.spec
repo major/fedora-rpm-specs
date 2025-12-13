@@ -80,7 +80,7 @@ sed -i "s/dill>=0.4.1,<0.3.9/dill>=0.4.1/" setup.py
 # Relax multiprocess version bound for distro purposes
 sed -i "s/multiprocess<0.70.19/multiprocess/" setup.py
 # Relax fsspec version bound for distro purposes
-sed -i "s/fsspec\[http\]>=2023.1.0,<=2025.9.0/fsspec\[http\]>=2023.1.0/" setup.py
+sed -i "s/fsspec\[http\]>=2023.1.0,<=2025.10.0/fsspec\[http\]>=2023.1.0/" setup.py
 # Drop shebangs from files that are not executable
 # TODO: report this issue upstream
 sed -i "1d" src/datasets/commands/datasets_cli.py

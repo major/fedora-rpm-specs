@@ -8,6 +8,13 @@ or CSS in a Django templates into cacheable static files by using the\
 parsed and searched for CSS or JS. These styles and scripts are subsequently\
 processed with optional, configurable compilers and filters.
 
+# setuptools < 77.0.3
+%if (%{defined fedora} && 0%{?fedora} <= 42) || (%{defined rhel} && 0%{?rhel} <= 10)
+%bcond old_setuptools 1
+%else
+%bcond old_setuptools 0
+%endif
+
 Name:		python-django-compressor
 Version:	4.6.0
 Release:	%autorelease
@@ -16,6 +23,8 @@ Summary:	Compresses linked and inline JavaScript or CSS into single cached files
 License:	MIT
 URL:		https://github.com/django-compressor/django-compressor
 Source0:	%{pypi_source django_compressor}
+# deleted in 4e543307 - migration to pyproject.toml
+Source1:        setup.py
 
 BuildArch:	noarch
 
@@ -34,6 +43,10 @@ Obsoletes: python-%{srcname} < 2.1-6
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+%if %{with old_setuptools}
+rm pyproject.toml
+cp -p %{SOURCE1} setup.py
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires

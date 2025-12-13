@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.9
-Release: 5%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
@@ -38,6 +38,14 @@ Source23: selinux-sandbox.zip
 # $ git format-patch -N 3.9 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
+Patch0001: 0001-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
+Patch0002: 0002-sepolicy-generate-Handle-more-reserved-port-types.patch
+Patch0003: 0003-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
+Patch0004: 0004-Use-SHA-2-instead-of-SHA-1.patch
+Patch0005: 0005-python-sepolicy-Fix-spec-file-dependencies.patch
+Patch0006: 0006-sepolicy-Fix-detection-of-writeable-locations.patch
+Patch0007: 0007-setfiles-Add-A-option-to-disable-SELINUX_RESTORECON_.patch
+Patch0008: 0008-semanage-Reset-active-value-when-deleting-boolean-cu.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2

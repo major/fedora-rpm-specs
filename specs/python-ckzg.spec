@@ -1,16 +1,18 @@
 %global pypi_name ckzg
 
 Name:          python-%{pypi_name}
-Version:       2.1.1
+Version:       2.1.5
 Release:       %autorelease
 Summary:       An implementation of the Polynomial Commitments API for EIP-4844/7594
 License:       Apache-2.0
 URL:           https://github.com/ethereum/c-kzg-4844
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
-# Fedora-specific
+# Fedora-specific, rejected upstream
+# https://github.com/ethereum/c-kzg-4844/pull/587
 Patch:         python-ckzg-0001-Let-override-CC.patch
-# Fedora-specific
+# Fedora-specific, rejected upstream
+# https://github.com/ethereum/c-kzg-4844/pull/587
 Patch:         python-ckzg-0002-Disable-Werror.patch
 # https://github.com/supranational/blst/pull/109
 Patch:         blst-0001-Support-64-bit-limbs-on-no-asm-platforms.patch

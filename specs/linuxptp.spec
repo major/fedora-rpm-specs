@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -34,7 +34,7 @@ Source22:	linuxptp.te
 # add support for dropping root privileges
 Patch1:		linuxptp-droproot.patch
 
-BuildRequires:	gcc gcc-c++ gnutls-devel make systemd
+BuildRequires:	gcc gcc-c++ gnutls-devel libcap-devel make systemd
 
 # require the clock group to be defined
 Requires(pre):	setup >= 2.15.0-11
@@ -194,6 +194,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Dec 11 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-9
+- add missing build requirement on libcap-devel
+
 * Tue Dec 09 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-8
 - add support for dropping root privileges
 - create linuxptp user and /run/ptp directory

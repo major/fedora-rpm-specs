@@ -18,8 +18,8 @@ Requires:         gawk                       \
 
 Name:             initscripts
 Summary:          Basic support for legacy System V init scripts
-Version:          10.26
-Release:          4%{?dist}
+Version:          10.27
+Release:          1%{?dist}
 
 License:          GPL-2.0-only
 
@@ -260,6 +260,7 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # =============================================================================
 
 %files -n initscripts-rename-device
+%license COPYING
 
 %{_prefix}/lib/udev/rename_device
 
@@ -268,6 +269,7 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # ---------------
 
 %files -n initscripts-service
+%license COPYING
 
 %dir %{_libexecdir}/%{name}
 %dir %{_libexecdir}/%{name}/legacy-actions
@@ -279,6 +281,7 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # ---------------
 
 %files -n netconsole-service
+%license COPYING
 %config(noreplace) %{_sysconfdir}/sysconfig/netconsole
 
 %{_libexecdir}/netconsole
@@ -287,6 +290,8 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # ---------------
 
 %files -n readonly-root
+%license COPYING
+
 %dir %{_sharedstatedir}/stateless
 %dir %{_sharedstatedir}/stateless/state
 %dir %{_sharedstatedir}/stateless/writable
@@ -301,14 +306,37 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # =============================================================================
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.26-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.26-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 10.26-2
-- Rebuilt for the bin-sbin merge (2nd attempt)
+* Thu Dec 11 2025 Jan Macku <jamacku@redhat.com> - 10.27-1
+- spec: add missing license files
+- build(deps): bump actions/checkout from 5 to 6
+- build(deps): bump actions/upload-artifact from 4 to 5
+- build(deps): bump github/codeql-action from 3 to 4
+- ci: fix issues with missing base commit
+- Translated using Weblate (Georgian)
+- Translated using Weblate (Indonesian)
+- Translated using Weblate (English (United Kingdom))
+- Translated using Weblate (Korean)
+- Translated using Weblate (Turkish)
+- man: add ifdown.8
+- build(deps): bump actions/checkout from 4 to 5
+- Translated using Weblate (Spanish)
+- Translated using Weblate (Georgian)
+- Translated using Weblate (Korean)
+- Translated using Weblate (Portuguese (Brazil))
+- Translated using Weblate (Polish)
+- Translated using Weblate (Greek)
+- Translated using Weblate (Greek)
+- Translated using Weblate (Spanish)
+- Translated using Weblate (Georgian)
+- Translated using Weblate (Greek)
+- Translated using Weblate (Italian)
+- Translated using Weblate (Chinese (Traditional) (zh_TW))
+- Translated using Weblate (Spanish)
+- Translated using Weblate (Finnish)
+- retry arping one more time in ifup-eth when sendto failed
+- Translated using Weblate (French)
+- ci: add dependency glib-2.0
+- network-functions: Fix a bug in is_nm_handling()
 
 * Tue Aug 27 2024 Jan Macku <jamacku@redhat.com> - 10.26-1
 - Translated using Weblate (Turkish)
@@ -317,12 +345,6 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 - netconsole: remove unused variables
 - netconsole: remove trailing whitespaces
 - Translated using Weblate (Turkish)
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.25-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jul 09 2024 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 10.25-2
-- Rebuilt for the bin-sbin merge
 
 * Tue Jun 25 2024 Jan Macku <jamacku@redhat.com> - 10.25-1
 - Revert "fix: return support for network-scripts for Fedora 40"

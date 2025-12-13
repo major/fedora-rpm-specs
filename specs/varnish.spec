@@ -4,12 +4,12 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 2e8180f788715e5bc44df08479d60c9435d79bdd
-%global vrt 21.0
+%global abi 71d4d75665f4d1949f7eeca28092a12df7037f3a
+%global vrt 22.0
 
 # Package scripts are now external
 # https://github.com/varnishcache/pkg-varnish-cache
-%global commit1 7d90347be31891b338dededb318594cebb668ba7
+%global commit1 1f0d212dc45065f38bd80ac57fe22773a20a0595
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 # Default: Use jemalloc, as adviced by upstream project
@@ -31,8 +31,8 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 7.7.3
-Release: 2%{?dist}
+Version: 8.0.0
+Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -153,7 +153,7 @@ Documentation files for %name
 
 %prep
 %setup -q
-%patch 0 -p1
+#patch 0 -p1
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
 ln -s pkg-varnish-cache-%{commit1}/debian debian
@@ -413,6 +413,10 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu Dec 11 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 8.0.0-1
+- New upstream release
+- New pkg-varnish-cache checkout
+
 * Wed Oct 29 2025 Luboš Uhliarik <luhliari@redhat.com> - 7.7.3-2
 - Add tmpfiles.d rules for /var directories (bootc compatibility)
 

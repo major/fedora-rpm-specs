@@ -1,8 +1,3 @@
-%global commit0 883800fbcf38ef671e837b7b26858ec86b8b9f13
-%global date 20251026
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 %global _artwork_version 1.7.5
 
 %global cinnamon_desktop_version 6.6.0
@@ -12,7 +7,7 @@
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Version: 6.6.0
 Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
@@ -24,11 +19,7 @@ Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT and ISC - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND ISC
 URL:     https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
 
 ExcludeArch: %{ix86}
@@ -81,7 +72,6 @@ for applications. This package contains directories where applications
 can install configuration files that are picked up by the control-center
 utilities.
 
-
 %package devel
 Summary: Development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -90,19 +80,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
-
 %prep
-%if 0%{?tag:1}
 %autosetup -a1 -p1
-%else
-%autosetup -a1 -p1 -n %{name}-%{commit0}
-%endif
-
 
 %build
 %meson
 %meson_build
-
 
 %install
 %meson_install
@@ -112,11 +95,9 @@ desktop-file-install                                  \
   --dir %{buildroot}/%{_datadir}/applications/        \
   %{buildroot}/%{_datadir}/applications/*.desktop
 
-
 # install sound files
 mkdir -p %{buildroot}/%{_datadir}/cinnamon-control-center/sounds/
 install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_datadir}/cinnamon-control-center/sounds/
-
 
 %files
 %doc AUTHORS README

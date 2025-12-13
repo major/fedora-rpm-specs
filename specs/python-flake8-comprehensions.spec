@@ -2,12 +2,15 @@
 
 Name:           python-%{srcname}
 Version:        3.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Flake8 plugin that helps you write better list/set/dict comprehensions
 
 License:        MIT
 URL:            https://github.com/adamchainz/flake8-comprehensions
 Source0:        https://github.com/adamchainz/flake8-comprehensions/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Revert upstream change for better setuptools compatibility
+Patch100:       pep639.patch
 
 BuildArch:      noarch
 
@@ -48,7 +51,11 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -N -n %{srcname}-%{version}
+
+%if 0%{?rhel}
+%patch 100 -p1 -R
+%endif
 
 
 %generate_buildrequires
@@ -73,6 +80,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Wed Dec 10 2025 Scott K Logan <logans@cottsay.net> - 3.17.0-2
+- Revert an upstream patch for better setuptools compatibility
+
 * Tue Dec 09 2025 Scott K Logan <logans@cottsay.net> - 3.17.0-1
 - Update to 3.17.0
 

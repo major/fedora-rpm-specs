@@ -3,7 +3,7 @@
 %bcond_with network_tests
 
 Name:           python-aiodns
-Version:        3.6.0
+Version:        3.6.1
 Release:        1%{?dist}
 Summary:        Simple DNS resolver for asyncio
 
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Dec 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.6.1-1
+- 3.6.1
+
 * Fri Dec 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.6.0-1
 - 3.6.0
 

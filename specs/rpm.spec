@@ -22,7 +22,7 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 6.0.0
+%global rpmver 6.0.1
 #global snapver rc1
 %global baserelease 1
 %global sover 10
@@ -624,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Dec 11 2025 Michal Domonkos <mdomonko@redhat.com> - 6.0.1-1
+- Rebase to 6.0.1 (https://rpm.org/releases/6.0.1)
+
 * Mon Sep 22 2025 Panu Matilainen <pmatilai@redhat.com> - 6.0.0-1
 - Rebase to 6.0 final  (https://rpm.org/releases/6.0.0)
 

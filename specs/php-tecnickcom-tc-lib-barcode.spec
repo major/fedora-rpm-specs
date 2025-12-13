@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    b076af33e3cf5b12fef559992ecd36dccd768102
+%global gh_commit    7d2daf1bafc1579860b0958b945636a5b178c885
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.15
+Version:        2.4.17
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec 11 2025 Remi Collet <remi@remirepo.net> - 2.4.17-1
+- update to 2.4.17 (no change)
+
 * Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 2.4.15-1
 - update to 2.4.15 (no change)
 - raise dependency on tc-lib-color 2.3

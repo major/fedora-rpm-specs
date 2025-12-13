@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2025.10.22
+Version:        2025.12.08
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -15,20 +15,10 @@ License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
 
-# https://github.com/yt-dlp/yt-dlp/commit/6f9e6537434562d513d0c9b68ced8a61ade94a64
-# [rh:websockets] Upgrade websockets to 13.0 (#10815)
-# Revert this patch for compatibility with older Fedora versions
-# This patch is applied conditionally to Fedora <= 41
-Patch1000:      0001-Revert-rh-websockets-Upgrade-websockets-to-13.0-1081.patch
-# https://github.com/yt-dlp/yt-dlp/commit/c2ff2dbaec7929015373fe002e9bd4849931a4ce
-# [rh:requests] Work around partial read dropping data (#13599)
-# Revert this patch for compatibility with older Fedora versions
-# This patch is applied conditionally to Fedora <= 41
-Patch1001:      0001-Revert-rh-requests-Work-around-partial-read-dropping.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 %if %{with tests}
 # Needed for %%check
@@ -65,12 +55,15 @@ additional features and fixes.
 
 
 %prep
-%autosetup -N
-%autopatch -M 999 -p1
-%if %{defined fedora} && 0%{?fedora} <= 41
-# Revert patch for compatibility with older websockets
-%autopatch -m 1000 -p1
-%endif
+%autosetup -p1
+
+# TODO: Figure out https://bugzilla.redhat.com/show_bug.cgi?id=2405578
+# Users can configure JS challenges manually for now.
+tomcli set pyproject.toml arrays delitem \
+    project.optional-dependencies.default 'yt-dlp-ejs.*'
+
+# Remove -s from shebang so users can install extra deps or plugins (or yt-dlp-ejs) using pip.
+%undefine _py3_shebang_s
 
 # Remove unnecessary shebangs
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +

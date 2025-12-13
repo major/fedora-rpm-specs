@@ -1,36 +1,27 @@
 %global srcname rasterio
 
 Name:           python-%{srcname}
-Version:        1.4.3
+Version:        1.4.4~rc1
+%global pversion 1.4.4rc1
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
 License:        BSD-3-Clause
 URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
-Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/rasterio/rasterio/archive/%{pversion}/%{srcname}-%{pversion}.tar.gz
 # Fedora-specific.
 Patch:          0001-Loosen-up-build-requirements.patch
-# https://github.com/rasterio/rasterio/pull/3360
-Patch:          0002-TST-Fix-test-fixture-for-test_reproject_error_propag.patch
-# https://github.com/rasterio/rasterio/pull/3389
-Patch:          0003-Set-INIT_DEST-to-0-instead-of-NO_DATA-if-it-s-unset.patch
-# https://github.com/rasterio/rasterio/pull/3330
-Patch:          0004-Change-nearest-neighbor-warp-expectations-at-GDAL-3..patch
-# https://github.com/rasterio/rasterio/pull/3293
-Patch:          0005-test_reproject_resampling-Add-another-value-for-mode.patch
-# https://github.com/rasterio/rasterio/pull/3394
-Patch:          0006-Update-warp-test-results-for-GDAL-3.11.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 3.5
 BuildRequires:  gdal-devel >= 3.5
 
-%global _description \
-Rasterio reads and writes geospatial raster data. Geographic information \
-systems use GeoTIFF and other formats to organize and store gridded, or raster, \
-datasets. Rasterio reads and writes these formats and provides a Python API \
-based on ND arrays.
+%global _description %{expand:
+Rasterio reads and writes geospatial raster data. Geographic information
+systems use GeoTIFF and other formats to organize and store gridded, or raster,
+datasets. Rasterio reads and writes these formats and provides a Python API
+based on ND arrays.}
 
 %description %{_description}
 
@@ -46,10 +37,7 @@ BuildRequires:  python3-devel
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
-
-# Remove upper bound version restriction for Cython
-sed -i -E 's/cython~=([0-9.]+)/cython>=\1/' pyproject.toml
+%autosetup -n %{srcname}-%{pversion} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x ipython,plot,test

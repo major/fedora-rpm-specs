@@ -1,23 +1,14 @@
-%global commit0 11aaa5580fa0cf9abdc6fe62e9f93badec43f6ca
-%global date 20251023
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 %global cinnamon_desktop_version 6.6.0
 
 Name:           cinnamon-settings-daemon
-Version:        6.6.0%{!?tag:~%{date}git%{shortcommit0}}
+Version:        6.6.1
 Release:        1%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-%if 0%{?tag:1}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:        %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 
 ExcludeArch:   %{ix86}
 
@@ -62,11 +53,7 @@ A daemon to share settings from CINNAMON to other applications. It also
 handles global keybindings, and many of desktop-wide settings.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
 %meson \
@@ -76,7 +63,6 @@ handles global keybindings, and many of desktop-wide settings.
 %endif
 
 %meson_build
-
 
 %install
 %meson_install
@@ -132,6 +118,9 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
 %changelog
+* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
 * Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 

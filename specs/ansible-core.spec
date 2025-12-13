@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.18.11
+Version:        2.20.1
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -21,20 +21,12 @@ Summary:        A radically simple IT automation system
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
-License:        GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
+# The ssh-agent helper code is BSD-3-Clause.
+License:        GPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND PSF-2.0 AND MIT AND Apache-2.0
 URL:            https://ansible.com
 
 Source0:        https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1:        https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
-
-# dnf5,apt: add auto_install_module_deps option (#84292)
-# https://github.com/ansible/ansible/pull/84292.patch
-# https://bugzilla.redhat.com/2322751
-Patch:          0001-dnf5-apt-add-auto_install_module_deps-option-84292.patch
-# Initial support for Python 3.14
-# Downstream patch. See comments in patch file.
-# https://bugzilla.redhat.com/2366307
-Patch:          0002-Initial-support-for-Python-3.14.patch
 
 BuildArch:      noarch
 
@@ -47,14 +39,11 @@ Provides:       bundled(python3dist(distro)) = 1.9.0
 
 # lib/ansible/module_utils/six/*
 # SPDX-License-Identifier: MIT
-Provides:       bundled(python3dist(six)) = 1.16.0
+Provides:       bundled(python3dist(six)) = 1.17.0
 
-Conflicts:      ansible <= 2.9.99
-#
-# obsoletes/provides for ansible-base
-#
-Provides:       ansible-base = %{version}-%{release}
-Obsoletes:      ansible-base < 2.10.6-1
+# lib/ansible/_internal/_wrapt.py
+# SPDX-License-Identifier: BSD-2-Clause
+Provides:       bundled(python3dist(wrapt)) = 1.17.2
 
 BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -245,8 +234,8 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 %files -f %{pyproject_files}
 %license COPYING
-%license %{_pkglicensedir}/{Apache-License,MIT-license,PSF-license,simplified_bsd}.txt
-%doc README.md changelogs/CHANGELOG-v2.1?.rst
+%license %{_pkglicensedir}/{Apache-License,MIT-license,PSF-license,simplified_bsd,BSD-3-Clause}.txt
+%doc README.md changelogs/CHANGELOG-v2.2?.rst
 %dir %{_sysconfdir}/ansible/
 %config(noreplace) %{_sysconfdir}/ansible/*
 %{_bindir}/ansible*
@@ -265,6 +254,12 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Dec 09 2025 Maxwell G <maxwell@gtmx.me> - 2.20.1-1
+- Update to 2.20.1. Fixes rhbz#2382388.
+- Update bundled() Provides
+- Remove upstreamed patches
+- Remove old Provides and Obsoletes for ansible-base and Ansible <= 2.9
+
 * Mon Nov 17 2025 Packit <hello@packit.dev> - 2.18.11-1
 - Update to version 2.18.11
 

@@ -2,7 +2,7 @@
 %undefine       __cmake_in_source_build
 
 %global         upstream_version 3_7_0
-%global         prerelease RC1
+#%%global         prerelease RC1
 
 Name:           opensubdiv
 Version:        3.7.0

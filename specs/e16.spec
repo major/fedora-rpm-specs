@@ -1,30 +1,31 @@
 Summary:       The Enlightenment window manager, DR16
 Name:          e16
 Version:       1.0.31
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: MIT with advertising and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-MIT-with-advertising AND GPL-2.0-or-later
 URL:           http://www.enlightenment.org/
 Source0:       http://downloads.sourceforge.net/enlightenment/e16-%{version}.tar.xz
-BuildRequires: gcc
-BuildRequires: imlib2-devel
-BuildRequires: freetype-devel
-BuildRequires: xorg-x11-xbitmaps
-BuildRequires: libsndfile-devel
-BuildRequires: pulseaudio-libs-devel
-BuildRequires: libXrandr-devel
-BuildRequires: libSM-devel
-BuildRequires: xorg-x11-proto-devel
-BuildRequires: libXfixes-devel
-BuildRequires: libXrender-devel
-BuildRequires: libXdamage-devel
-BuildRequires: libXcomposite-devel
-BuildRequires: libXft-devel
-BuildRequires: libXxf86vm-devel
-BuildRequires: pango-devel
+Patch:         0001-backgrounds-Save-backgrounds-after-modifying-one-in-.patch
 BuildRequires: dbus-devel
 BuildRequires: desktop-file-utils
+BuildRequires: freetype-devel
+BuildRequires: gcc
+BuildRequires: imlib2-devel
+BuildRequires: libSM-devel
+BuildRequires: libXcomposite-devel
+BuildRequires: libXdamage-devel
+BuildRequires: libXfixes-devel
+BuildRequires: libXft-devel
+BuildRequires: libXrandr-devel
+BuildRequires: libXrender-devel
+BuildRequires: libXxf86vm-devel
+BuildRequires: libsndfile-devel
 BuildRequires: make
+BuildRequires: pango-devel
+BuildRequires: pulseaudio-libs-devel
+BuildRequires: xorg-x11-proto-devel
+BuildRequires: xorg-x11-xbitmaps
 Requires:      dejavu-sans-fonts
 
 %description
@@ -42,24 +43,24 @@ This package will install the Enlightenment window manager, development
 release 16.
 
 %prep
-%autosetup
-
-%build
-%configure --enable-pango   \
-           --enable-mans    \
-           --enable-modules \
-           --enable-dbus \
-           --enable-visibility-hiding
-make %{?_smp_mflags} V=1
+%autosetup -p1
 for f in ChangeLog AUTHORS ; do
     mv $f $f.iso88591
     iconv -o $f -f iso88591 -t utf8 $f.iso88591
     rm -f $f.iso88591
 done
 
+%build
+%configure \
+    --enable-pango   \
+    --enable-mans    \
+    --enable-modules \
+    --enable-dbus    \
+    --enable-visibility-hiding
+%make_build
+
 %install
-make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
-rm -f %{buildroot}%{_libdir}/%{name}/libhack*.{a,la}
+%make_install
 chmod 0644 %{buildroot}%{_datadir}/%{name}/themes/winter/ABOUT/MAIN
 
 # Vera -> DejaVu
@@ -72,12 +73,13 @@ ln -s ../../fonts/dejavu/DejaVuSans-Bold.ttf %{buildroot}%{_datadir}/%{name}/fon
 find %{buildroot}%{_libdir}/e16 -name lib*.la -delete
 rm -rf %{buildroot}%{_datadir}/doc/%{name}
 
-# Desktop file
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 # Fix absolute symlink
 rm %{buildroot}/%{_bindir}/starte16
 ln -s ../share/e16/misc/starte16 %{buildroot}/%{_bindir}/starte16
+
+%check
+# Desktop file
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
 %files -f %{name}.lang
@@ -95,6 +97,9 @@ ln -s ../share/e16/misc/starte16 %{buildroot}/%{_bindir}/starte16
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Dec 11 2025 Terje Rosten <terjeros@gmail.com> - 1.0.31-2
+- Add patch from upstream to fix bg color issue (rhbz#2419828)
+
 * Sun Aug 10 2025 Terje Rosten <terjeros@gmail.com> - 1.0.31-1
 - 1.0.31
 

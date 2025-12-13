@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}.tar.gz
@@ -43,8 +43,13 @@ Patch61: 0004-Xm-DropDown-Use-Xinerama-for-placement.patch
 Patch62: 0005-Xm-RCMenu-Use-Xinerama-for-placement.patch
 Patch63: 0006-Xm-Tooltip-Use-Xinerama-for-placement.patch
 Patch64: 0007-Xm-ComboBox-Use-Xinerama-for-placement.patch
+# https://sourceforge.net/p/motif/code/merge-requests/10/
+Patch65: 0001-Xm-String-Fix-memory-leak.patch
+# https://sourceforge.net/p/motif/code/merge-requests/11/
+Patch66:  0001-Xm-Screen-Add-_NET_WORKAREA-support.patch
+Patch67:  0002-Xm-Screen-Add-_GTK_WORKAREAS-support-for-multi-monit.patch
 
-Patch65: includes.patch
+Patch68: includes.patch
 
 Conflicts: lesstif <= 0.92.32-6
 
@@ -96,8 +101,11 @@ This package contains the static Motif libraries.
 %patch -P 62 -p1 -b .xinerama
 %patch -P 63 -p1 -b .xinerama
 %patch -P 64 -p1 -b .xinerama
+%patch -P 65 -p1 -b .utf8-memleak
+%patch -P 66 -p1 -b .net-workarea
+%patch -P 67 -p1 -b .gtk-workareas
 
-%patch -P 65 -p1 -b .includes
+%patch -P 68 -p1 -b .includes
 
 %build
 export CFLAGS="$CFLAGS -std=gnu17"
@@ -149,6 +157,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Dec 11 2025 Olivier Fourdan <ofourdan@redhat.com> - 2.3.8-2
+- Fix memleak in XmString from:
+  https://sourceforge.net/p/motif/code/merge-requests/10/
+- Add NET_WORKAREA and GTK_WORKAREAS support from:
+  https://sourceforge.net/p/motif/code/merge-requests/11/
+
 * Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.8-1
 - 2.3.8
 
