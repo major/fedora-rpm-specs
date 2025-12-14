@@ -1,6 +1,6 @@
 Name:           mint-y-icons
-Version:        1.8.3
-Release:        2%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -20,10 +20,8 @@ Requires:       hicolor-icon-theme
 %description
 %{summary}.
 
-
 %prep
 %autosetup
-
 
 %build
 
@@ -31,18 +29,15 @@ Requires:       hicolor-icon-theme
 %{__cp} -pr ${PWD}%{_prefix} %{buildroot}
 %fdupes -s %{buildroot}
 
-
 %transfiletriggerin -- %{_datadir}/icons/Mint-Y
 for _dir in %{_datadir}/icons/Mint-Y*/ ; do
   %{_bindir}/gtk-update-icon-cache --force ${_dir} &>/dev/null || :
 done
 
-
 %transfiletriggerpostun -- %{_datadir}/icons/Mint-Y
 for _dir in %{_datadir}/icons/Mint-Y*/ ; do
   %{_bindir}/gtk-update-icon-cache --force ${_dir} &>/dev/null || :
 done
-
 
 %files
 %license debian/copyright
@@ -51,8 +46,10 @@ done
 %{_datadir}/icons/Mint-*/
 %{_datadir}/folder-color-switcher/
 
-
 %changelog
+* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1.9.0-1
+- Update to 1.9.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

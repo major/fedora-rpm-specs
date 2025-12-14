@@ -9,7 +9,7 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.26.1
+Version:        1.27.0
 Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
@@ -28,12 +28,12 @@ Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_com
 %global mbedtls_commit 107ea89daaefb9867ea9121002fbbdf926780e98
 Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-%global micropython_lib_commit 34c4ee1647ac4b177ae40adf0ec514660e433dc0
+%global micropython_lib_commit 6ae440a8a144233e6e703f6759b7e7a0afaa37a4
 Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
 
 # Other arches need active porting, i686 removed via:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExclusiveArch:  %{arm} x86_64 riscv64
+ExclusiveArch:  %{arm} aarch64 x86_64 riscv64
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -49,7 +49,7 @@ BuildRequires:  openssl-devel
 # MICROPY_CPYTHON3 environment variable.
 # Normal %%{python3} is used anywhere else.
 # There is no runtime dependency on this CPython (or any other).
-%global cpython_version_tests 3.12
+%global cpython_version_tests 3.13
 BuildRequires:  %{_bindir}/python%{cpython_version_tests}
 
 Provides:       bundled(mbedtls) = 3.6.2
@@ -116,6 +116,11 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Wed Dec 10 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.27.0-1
+- Update to 1.27.0
+- Enable aarch64 builds
+Resolves: rhbz#2420519
+
 * Tue Sep 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.26.1-1
 - Update to 1.26.1
 Resolves: rhbz#2394487

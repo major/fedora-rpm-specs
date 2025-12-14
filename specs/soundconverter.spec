@@ -1,6 +1,6 @@
 Name:           soundconverter
 Version:        4.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple sound converter application for GNOME
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -27,7 +27,6 @@ Requires:       python3-gobject-base
 Requires:       gtk3
 Requires:       gstreamer1-plugins-base
 Requires:       gstreamer1-plugins-good
-Requires:       gstreamer1-plugins-ugly-free
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -84,6 +83,9 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Fri Dec 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.1-4
+- Drop gstreamer1-plugins-ugly-free dependency
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

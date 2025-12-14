@@ -6,7 +6,7 @@
 
 Name:           CImg
 Epoch:          1
-Version:        3.6.4
+Version:        3.6.5
 Release:        1%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
@@ -79,6 +79,9 @@ make -C examples linux %{?_smp_mflags}
 %{_includedir}/%{name}/
 
 %changelog
+* Fri Dec 12 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.5-1
+- bump version
+
 * Mon Nov 24 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.4-1
 - bump version
 

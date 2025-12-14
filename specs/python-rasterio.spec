@@ -1,21 +1,23 @@
 %global srcname rasterio
 
 Name:           python-%{srcname}
-Version:        1.4.4~rc1
-%global pversion 1.4.4rc1
+Version:        1.4.4
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
 License:        BSD-3-Clause
 URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
-Source0:        https://github.com/rasterio/rasterio/archive/%{pversion}/%{srcname}-%{pversion}.tar.gz
+Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Fedora-specific.
 Patch:          0001-Loosen-up-build-requirements.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 3.5
 BuildRequires:  gdal-devel >= 3.5
+
+# This is licensed as BSD-3-Clause, same as rasterio
+Provides: bundled(python3dist(click-plugins)) = 2
 
 %global _description %{expand:
 Rasterio reads and writes geospatial raster data. Geographic information
@@ -37,7 +39,7 @@ BuildRequires:  python3-devel
 
 
 %prep
-%autosetup -n %{srcname}-%{pversion} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x ipython,plot,test

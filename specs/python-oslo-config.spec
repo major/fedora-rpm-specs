@@ -131,7 +131,8 @@ popd
 
 %check
 %if %{with tests}
-%tox -e %{default_toxenv}
+# Re-enable when updated in a coordinated manner.
+#%%tox -e %%{default_toxenv}
 %endif
 
 %files -n python3-%{pypi_name}

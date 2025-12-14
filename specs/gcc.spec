@@ -2429,12 +2429,15 @@ rm -rf %{buildroot}%{_prefix}/lib64/go/%{gcc_major}/%{gcc_target_platform}
 rm -f %{buildroot}%{_prefix}/lib*/lib*.spec || :
 rm -f %{buildroot}%{_prefix}/lib*/libstdc++.modules.json || :
 rm -f %{buildroot}%{_prefix}/%{_lib}/lib{asan,atomic,gcc_s,gcobol,gdruntime,gfortran,go,gomp-plugin-*,gomp,gphobos,hwasan}.so || :
-rm -f %{buildroot}%{_prefix}/%{_lib}/lib{itm,lsan,m2{cor,iso,log,min,pim},objc,quadmath,tsan,ubsan}.so || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/lib{itm,lsan,m2{cor,iso,log,min,pim},objc,quadmath,stdc++,tsan,ubsan}.so || :
 rm -f %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/install-tools/{fixinc.sh,mkinstalldirs} || :
 rm -f %{buildroot}%{_prefix}/share/locale/*/LC_MESSAGES/libstdc++.mo || :
 rm -f %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include-fixed/README || :
 rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/ssp || :
 rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/install-tools || :
+%ifarch ppc ppc64 ppc64le ppc64p7
+rm -f %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/{e,n}crt{i,n}.o || :
+%endif
 
 %if %{build_offload_nvptx}
 rm -f %{buildroot}%{_mandir}/man1/*-accel-*nvptx*
@@ -3653,7 +3656,8 @@ end
 %doc rpm.doc/go/*
 
 %files -n libgo
-%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.24*
+%{_prefix}/%{_lib}/libgo.so.24
+%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.24.*
 %doc rpm.doc/libgo/*
 
 %files -n libgo-devel

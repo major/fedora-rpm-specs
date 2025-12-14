@@ -89,6 +89,7 @@ BuildRequires: perl-generators
 Requires: coreutils
 
 Requires: efi-srpm-macros
+Requires: cmake-srpm-macros
 Requires: fonts-srpm-macros
 # ↓ Provides macros.forge and forge.lua originally shipped by us
 Requires: forge-srpm-macros
@@ -119,6 +120,7 @@ Requires: tree-sitter-srpm-macros
 Requires: qt5-srpm-macros
 Requires: zig-srpm-macros
 Requires: build-reproducibility-srpm-macros
+Requires: R-srpm-macros
 %endif
 
 Requires: rpm >= 4.19.91

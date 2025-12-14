@@ -18,7 +18,7 @@
 
 Summary:    A dynamic, any to any, pixel format conversion library
 Name:       babl
-Version:    0.1.116
+Version:    0.1.118
 Release:    %autorelease
 
 # Compute some version related macros
@@ -49,6 +49,7 @@ Release:    %autorelease
 License:    LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:        https://www.gegl.org/babl/
 Source0:    https://download.gimp.org/pub/babl/%{apiver}/%{name}-%{plain_version}.tar.xz
+Patch:      https://gitlab.gnome.org/GNOME/babl/-/commit/4efc8b827e008417c4995a93ae3310697318cfab.patch
 %if %defined git_rev
 Patch:      babl-%{plain_version}-git%{git_rev}.patch
 %endif

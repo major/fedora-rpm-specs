@@ -1,5 +1,5 @@
 # debug_package %%{nil} is portable-jdks specific
-%define  debug_package %{nil}
+%define debug_package %{nil}
 
 # RPM conditionals so as to be able to dynamically produce
 # slowdebug/release builds. See:
@@ -59,6 +59,10 @@
 # This fixes detailed NMT and other tools which need minimal debug info.
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=1520879
 %global _find_debuginfo_opts -g
+
+# Disable LTO as this causes build failures at the moment.
+# See RHBZ#1861401
+%define _lto_cflags %{nil}
 
 # note: parametrized macros are order-sensitive (unlike not-parametrized) even with normal macros
 # also necessary when passing it as parameter to other macros. If not macro, then it is considered a switch
@@ -155,6 +159,8 @@
 %else
 %global gdb_arches %{jit_arches} %{zero_arches}
 %endif
+# Architecture on which we run Java only tests
+%global jdk_test_arch x86_64
 
 # By default, we build a slowdebug build during main build on JIT architectures
 %if %{with slowdebug}
@@ -238,29 +244,83 @@
 # Target to use to just build HotSpot
 %global hotspot_target hotspot
 
-# When building on older systems, we need system, or self build legacy toolchains of explicit version
-%if ((0%{?rhel} > 0 && 0%{?rhel} < 8)) || ((0%{?epel} > 0 && 0%{?epel} < 9))
-%global is_dtstoolchain 1
+
+# Individual build frameworks this specfile supports
+# if elif ... elif ... elif ... else  is unluckily buggy
+# On rhel7 we need software collection
+%if (0%{?rhel} == 7)
+%global is_dtstoolchain  collection
+%global dtsversion       10
+%global dtsname          devtoolset-%{dtsversion}
+%global dts_command      scl enable %{dtsname} --
+%global exclusive_arches %{nil}
+%define dts_brs # Brs for collection\
+BuildRequires: %{dtsname}-gcc \
+BuildRequires: %{dtsname}-gcc-c++
 %else
-%global is_dtstoolchain 0
+# On rhel8 we have self built custom devkit
+%if ((0%{?rhel} == 8) && (0%{?epel} == 0))
+%global is_dtstoolchain  devkit
+%global dtsversion       1.0-9
+%global dtsname          %{origin}-devkit
+%global dts_command      %{nil}
+%if 0%{?centos} == 0
+# centos had originally smaller set of devkit arches
+%global exclusive_arches %{aarch64} %{ppc64le} s390x x86_64 riscv64
+%else
+%global exclusive_arches %{aarch64} %{ppc64le} s390x x86_64 riscv64
 %endif
-%if ((0%{?rhel} > 0 && 0%{?rhel} < 8))
-# DTS toolset to use to provide gcc & binutils
-%global dtsversion 10
-%global dtsname devtoolset
+%define dts_brs # Brs for devkit\
+BuildRequires: %{dtsname} >= %{dtsversion}
+%else
+# On newest systems we use system gcc and friens
+%if ((0%{?fedora} > 0) || (0%{?rhel} >= 9) || (0%{?epel} >= 9))
+%global is_dtstoolchain  system
+%global dtsversion       %{nil}
+%global dtsname          %{nil}
+%global exclusive_arches %{java_arches}
+%define dts_brs # Brs for system\
+BuildRequires: gcc >= 4.8.3-8 \
+BuildRequires: gcc-c++ \
+# We link statically against libstdc++ to increase portability \
+BuildRequires: libstdc++-static
+# When building on epel8, we need system, legacy toolchain of explicit version
+%else
+%if ((0%{?epel}) > 0 && (0%{?epel} <= 8))
+%global is_dtstoolchain  toolset
+%global dtsversion       14
+%global dtsname          gcc-toolset-%{dtsversion}
+%global exclusive_arches %{java_arches}
+%define dts_brs # Brs for toolset\
+BuildRequires: %{dtsname}-gcc \
+BuildRequires: %{dtsname}-gcc-c++ \
+BuildRequires: %{dtsname}-annobin-annocheck \
+BuildRequires: %{dtsname}-annobin-plugin-gcc \
+BuildRequires: %{dtsname}-binutils \
+BuildRequires: %{dtsname}-gcc-plugin-annobin \
+# We link statically against libstdc++ to increase portability \
+BuildRequires: libstdc++-static
+# no go
+%else
+"Unsupported system: fedora=0%{?fedora} rhel=0%{?rhel} epel=0%{?epel} centos=0%{?centos}"
+exit 1
 %endif
-%if ((0%{?epel} > 0 && 0%{?epel} < 9))
-# GCC toolset to use to provide gcc & binutils
-%global dtsversion 14
-%global dtsname gcc-toolset
 %endif
-%if %{is_dtstoolchain}
-%global dtsid %{dtsname}-%{dtsversion}
+%endif
 %endif
 
-# Disable LTO as this causes build failures at the moment.
-# See RHBZ#1861401
-%define _lto_cflags %{nil}
+%if ((0%{?epel}) > 0 || (0%{?fedora} > 8))
+%global use_portable_bootjdk 0
+%else
+%global use_portable_bootjdk 1
+%endif
+
+# Check if pandoc is available to generate docs (including man pages)
+%if 0%{?rhel} == 8 || 0%{?epel} > 0 || 0%{?fedora} > 0
+%global pandoc_available 1
+%else
+%global pandoc_available 0
+%endif
 
 # Filter out flags from the optflags macro that cause problems with the OpenJDK build
 # We filter out -O flags so that the optimization of HotSpot is not lowered from O3 to O2
@@ -335,12 +395,10 @@
 %global stapinstall %{nil}
 %endif
 
+# on fedora and epel, we build systemtap in repacking to rpms
+# thus having it disabled, and keeping the lines just for sync reasons
 %ifarch %{systemtap_arches}
-%if (0%{?rhel} > 0 && !0%{?epel})
-%global with_systemtap 1
-%else
 %global with_systemtap 0
-%endif
 %else
 %global with_systemtap 0
 %endif
@@ -353,7 +411,7 @@
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver %{featurever}
+%global buildjdkver 21
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -362,16 +420,6 @@
 %else
   %global lts_designator ""
   %global lts_designator_zip ""
-%endif
-# JDK to use for bootstrapping
-%global bootjdk /usr/lib/jvm/java-%{buildjdkver}-openjdk
-# Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
-# This will only work where the bootstrap JDK is the same major version
-# as the JDK being built
-%if %{with fresh_libjvm} && %{buildjdkver} == %{featurever}
-%global build_hotspot_first 1
-%else
-%global build_hotspot_first 0
 %endif
 
 # Define vendor information used by OpenJDK
@@ -413,7 +461,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        10
-%global rpmrelease      1
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -465,11 +513,16 @@
 %define uniquesuffix()        %{expand:%{fullversion}.%{_arch}%{?1}}
 # portable only declarations
 %global jreimage                jre
-%define jreportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.jre;g" | sed "s;openjdkportable;el;g")
-%define jdkportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.jdk;g" | sed "s;openjdkportable;el;g")
-%define jdkportablesourcesnameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.sources;g" | sed "s;openjdkportable;el;g" | sed "s;.%{_arch};.noarch;g")
-%define staticlibsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.static-libs;g" | sed "s;openjdkportable;el;g")
-%define jmodsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable%{1}.jmods;g" | sed "s;openjdkportable;el;g")
+%if ((0%{?fedora} > 0) || (0%{?epel} > 0))
+%define regexBase %{version}-%{release}
+%else
+%define regexBase el%{rhel}\\(_[0-9]\\)*
+%endif
+%define jreportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable%{1}.jre;g" | sed "s;openjdkportable;el;g")
+%define jdkportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable%{1}.jdk;g" | sed "s;openjdkportable;el;g")
+%define jdkportablesourcesnameimpl() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable%{1}.sources;g" | sed "s;openjdkportable;el;g" | sed "s;.%{_arch};.noarch;g")
+%define staticlibsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable%{1}.static-libs;g" | sed "s;openjdkportable;el;g")
+%define jmodsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable%{1}.jmods;g" | sed "s;openjdkportable;el;g")
 %define jreportablearchive()  %{expand:%{jreportablenameimpl -- %%{1}}.tar.xz}
 %define jdkportablearchive()  %{expand:%{jdkportablenameimpl -- %%{1}}.tar.xz}
 %define jdkportablesourcesarchive()  %{expand:%{jdkportablesourcesnameimpl -- %%{1}}.tar.xz}
@@ -481,9 +534,9 @@
 # Intentionally use jdkportablenameimpl here since we want to have static-libs files overlayed on
 # top of the JDK archive
 %define staticlibsportablename()     %{expand:%{jdkportablenameimpl -- %%{1}}}
-%define docportablename() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable.docs;g" | sed "s;openjdkportable;el;g")
+%define docportablename() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable.docs;g" | sed "s;openjdkportable;el;g")
 %define docportablearchive()  %{docportablename}.tar.xz
-%define miscportablename() %(echo %{uniquesuffix ""} | sed "s;%{version}-%{release};\\0.portable.misc;g" | sed "s;openjdkportable;el;g")
+%define miscportablename() %(echo %{uniquesuffix ""} | sed "s;%{regexBase};\\0.portable.misc;g" | sed "s;openjdkportable;el;g")
 %define miscportablearchive()  %{miscportablename}.tar.xz
 
 # RPM 4.19 no longer accept our double percentaged %%{nil} passed to %%{1}
@@ -493,6 +546,29 @@
 %define jdkportablesourcesarchiveForFiles()  %(echo %{jdkportablesourcesarchive -- ""})
 %define staticlibsportablearchiveForFiles()  %(echo %{staticlibsportablearchive -- ""})
 %define jmodsportablearchiveForFiles()  %(echo %{jmodsportablearchive -- ""})
+
+# JDK to use for bootstrapping
+%ifarch %{fastdebug_arches}
+%global bootdebugpkg fastdebug
+%endif
+%if %{use_portable_bootjdk}
+%global bootjdkpkg_name java-%{featurever}-%{origin}
+%global bootjdkpkg %{bootjdkpkg_name}-portable-devel%{?bootdebugpkg:-%{bootdebugpkg}} >= %{buildjdkver}
+%global bootjdkzip %{_jvmdir}/%{bootjdkpkg_name}-*.portable%{?bootdebugpkg:.%{bootdebugpkg}}.jdk.%{_arch}.tar.xz
+%global bootjdk %{_builddir}/%{uniquesuffix -- ""}/%{bootjdkpkg_name}.boot
+%else
+%global bootjdkpkg_name java-%{buildjdkver}-openjdk
+%global bootjdkpkg %{bootjdkpkg_name}-devel%{?bootdebugpkg:-%{bootdebugpkg}}
+%global bootjdk /usr/lib/jvm/%{bootjdkpkg_name}%{?bootdebugpkg:-%{bootdebugpkg}}
+%endif
+# Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
+# This will only work where the bootstrap JDK is the same major version
+# as the JDK being built
+%if %{with fresh_libjvm} && %{buildjdkver} == %{featurever}
+%global build_hotspot_first 1
+%else
+%global build_hotspot_first 0
+%endif
 
 #################################################################
 # fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349
@@ -543,13 +619,6 @@
 %global alternatives_requires %{_sbindir}/alternatives
 %endif
 
-# x86 is no longer supported
-%if 0%{?java_arches:1}
-ExclusiveArch:  %{java_arches}
-%else
-ExcludeArch: %{ix86}
-%endif
-
 # Portables have no repo (requires/provides), but these are awesome for orientation in spec
 # Also scriptlets are happily missing and files are handled old fashion
 # not-duplicated requires/provides/obsoletes for normal/debug packages
@@ -575,7 +644,16 @@ ExcludeArch: %{ix86}
 # this expression, when declared as global, filled component with java-x-vendor portable
 %define component %(echo %{name} | sed "s;-portable%{?pkgos:-%{pkgos}};;g")
 
-Name:    java-%{javaver}-%{origin}-portable%{?pkgos:-%{pkgos}}
+# Define the architectures on which we build
+# On RHEL, this should be the architectures with a devkit
+%if "%{?exclusive_arches}" == "%{nil}"
+# x86 is no longer supported
+ExcludeArch: %{ix86}
+%else
+ExclusiveArch:  %{exclusive_arches}
+%endif
+
+Name:    java-21-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
 Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
@@ -701,6 +779,8 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 #
 #############################################
 
+# Currently empty
+
 #############################################
 #
 # OpenJDK patches which missed last update
@@ -727,27 +807,8 @@ BuildRequires: desktop-file-utils
 BuildRequires: elfutils-devel
 BuildRequires: file
 BuildRequires: fontconfig-devel
-%if %{is_dtstoolchain}
-BuildRequires: %{dtsid}-gcc
-BuildRequires: %{dtsid}-gcc-c++
-%endif
-%if %{is_dtstoolchain} && "%{?dtsname}" == "gcc-toolset"
-# wee need slightly more for gcc-toolset
-BuildRequires: %{dtsid}-annobin-annocheck
-BuildRequires: %{dtsid}-annobin-plugin-gcc
-BuildRequires: %{dtsid}-binutils
-BuildRequires: %{dtsid}-gcc-plugin-annobin
-%endif
-%if ! %{is_dtstoolchain}
-# Earlier versions have a bug in tree vectorization on PPC
-BuildRequires: gcc >= 4.8.3-8
-BuildRequires: gcc-c++
-%endif
+%{dts_brs}
 BuildRequires: gdb
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-# rhel7 only, portables only. Rhel8 have gtk3, rpms have runtime recommends of gtk
-BuildRequires: gtk2-devel
-%endif
 BuildRequires: libxslt
 BuildRequires: libX11-devel
 BuildRequires: libXi-devel
@@ -759,7 +820,7 @@ BuildRequires: libXtst-devel
 # Requirement for setting up nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
-# N/A for portable. RHEL7 doesn't provide them
+# N/A for portable as we don't enable support for them
 #BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: xorg-x11-proto-devel
@@ -767,22 +828,18 @@ BuildRequires: zip
 # to pack portable tarballs
 BuildRequires: tar
 BuildRequires: unzip
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-BuildRequires: javapackages-tools
-BuildRequires: java-%{buildjdkver}-%{origin}%{?pkgos:-%{pkgos}}-devel
-%else
 BuildRequires: javapackages-filesystem
-BuildRequires: java-%{buildjdkver}-openjdk-devel
-%endif
+BuildRequires: %{bootjdkpkg}
 # Zero-assembler build requirement
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
 # Full documentation build requirements
+# pandoc is only available on RHEL/CentOS 8, epels, and fedoras
+%if %{pandoc_available}
 BuildRequires: graphviz
 BuildRequires: pandoc
-# 2023c required as of JDK-8305113
-BuildRequires: tzdata-java >= 2023c
+%endif
 # cacerts build requirement in portable mode
 BuildRequires: ca-certificates
 
@@ -814,8 +871,6 @@ Provides: bundled(libjpeg) = 6b
 Provides: bundled(libpng) = 1.6.47
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.1
-# We link statically against libstdc++ to increase portability
-BuildRequires: libstdc++-static
 %endif
 
 # this is always built, also during debug-only build
@@ -955,13 +1010,15 @@ The %{origin_nice} %{featurever} full patched sources of portable JDK to build, 
 
 %prep
 
-echo "Preparing %{oj_vendor_version}"
-
 # Using the echo macro breaks rpmdev-bumpspec, as it parses the first line of stdout :-(
+echo "Preparing %{oj_vendor_version}"
+echo "System is RHEL=%{?rhel}%{!?rhel:0}, CentOS=%{?centos}%{!?centos:0}, EPEL=%{?epel}%{!?epel:0}, Fedora=%{?fedora}%{!?fedora:0}"
+echo "Build JDK version is %{buildjdkver}, bootstrap JDK package is %{bootjdkpkg}"
+
 %if 0%{?_build_cpu:1}
   echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{_build_cpu}"
 %else
-  %{error:Unrecognised architecture %{_build_cpu}}
+  %{error:Unrecognised architecture %{_target_cpu}}
 %endif
 
 if [ %{include_normal_build} -eq 0 -o  %{include_normal_build} -eq 1 ] ; then
@@ -988,8 +1045,8 @@ if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{includ
 fi
 
 %if %{with fresh_libjvm} && ! %{build_hotspot_first}
-echo "WARNING: The build of a fresh libjvm has been disabled due to a JDK version mismatch"
-echo "Build JDK version is %{buildjdkver}, feature JDK version is %{featurever}"
+%{warn: The build of a fresh libjvm has been disabled due to a JDK version mismatch}
+%{warn: Build JDK version is %{buildjdkver}, feature JDK version is %{featurever}}
 %endif
 
 export XZ_OPT="-T0"
@@ -1008,12 +1065,30 @@ sh %{SOURCE12} %{top_level_dir_name}
 %endif
 
 # Patch the JDK
+# This syntax is deprecated:
+#    %%patchN [...]
+# and should be replaced with:
+#    %%patch -PN [...]
+# For example:
+#    %%patch1001 -p1
+# becomes:
+#    %%patch -P1001 -p1
+# The replacement format suggested by recent (circa Fedora 38) RPM
+# deprecation messages:
+#    %%patch N [...]
+# is not backward-compatible with prior (circa RHEL-8) versions of
+# rpmbuild.
 pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
-# Patches in need of upstreaming
 popd # openjdk
 
+echo "Generating %{alt_java_name} man page"
+altjavamanpage=%{top_level_dir_name}/src/java.base/share/man/%{alt_java_name}.md
+altjavatext="Hardened java binary recommended for launching untrusted code from the Web e.g. javaws"
+sed -r -e 's|([^/.])java([^./])|\1alt-java\2|g' %{top_level_dir_name}/src/java.base/share/man/java.md | \
+    sed -e 's|JAVA(|ALT-JAVA(|' | \
+    sed -e "s|java - launch a Java application|alt-java - ${altjavatext}|" >> ${altjavamanpage}
 
 # The OpenJDK version file includes the current
 # upstream version information. For some reason,
@@ -1035,13 +1110,41 @@ if [ "x${UPSTREAM_EA_DESIGNATOR}" != "x%{ea_designator}" ] ; then
     exit 17
 fi
 
-# Systemtap is processed in rpms
+# Systemtap is processed in rpms on fedoras and epels
 
 # Prepare desktop files
 # Portables do not have desktop integration
 
-%build
+# Extract devkit
+%if "%{is_dtstoolchain}" ==  "devkit"
+  devkittarball=%{_datadir}/%{dtsname}/sdk-%{_target_cpu}-%{_target_os}-gnu*.tar.gz
+  echo "Extracting devkit ${devkittarball}";
+  mkdir devkit;
+  tar -C devkit --strip-components=1 -xzf ${devkittarball}
+  DEVKIT_ROOT=$(pwd)/devkit
+  source ${DEVKIT_ROOT}/devkit.info
+  echo "Installed ${DEVKIT_NAME} devkit"
+%else
+%if 0%{?centos} > 0
+  echo "No devkit for CentOS %{?centos}"
+%else
+  echo "No devkit for %{_target_cpu} on RHEL %{?rhel}";
+%endif
+%endif
 
+%if %{use_portable_bootjdk}
+  # Extract build JDK
+  pushd %{_jvmdir}
+  sha256sum --check %{bootjdkzip}.sha256sum
+  popd
+  tar -xJf %{bootjdkzip}
+  mv java-%{featurever}-openjdk-%{buildjdkver}* %{bootjdk}
+  # Print release information
+  echo "Installed boot JDK:"
+  cat %{bootjdk}/release
+%endif
+
+%build
 # How many CPU's do we have?
 export NUM_PROC=%(/usr/bin/getconf _NPROCESSORS_ONLN 2> /dev/null || :)
 export NUM_PROC=${NUM_PROC:-1}
@@ -1049,6 +1152,7 @@ export NUM_PROC=${NUM_PROC:-1}
 # Honor %%_smp_ncpus_max
 [ ${NUM_PROC} -gt %{?_smp_ncpus_max} ] && export NUM_PROC=%{?_smp_ncpus_max}
 %endif
+export XZ_OPT="-T0"
 
 %ifarch s390x sparc64 alpha %{power64} %{aarch64} riscv64
 export ARCH_DATA_MODEL=64
@@ -1072,14 +1176,61 @@ EXTRA_CFLAGS="$EXTRA_CFLAGS -fno-strict-aliasing"
 EXTRA_CFLAGS="$(echo ${EXTRA_CFLAGS} | sed -e 's|-mstackrealign|-mincoming-stack-boundary=2 -mpreferred-stack-boundary=4|')"
 EXTRA_CPP_FLAGS="$(echo ${EXTRA_CPP_FLAGS} | sed -e 's|-mstackrealign|-mincoming-stack-boundary=2 -mpreferred-stack-boundary=4|')"
 %endif
+%if "%{is_dtstoolchain}" ==  "devkit"
+# Remove annobin plugin reference which isn't available in the devkit
+EXTRA_CFLAGS="$(echo ${EXTRA_CFLAGS} | sed -e 's|-specs=/usr/lib/rpm/redhat/redhat-annobin-cc1||')"
+EXTRA_CPP_FLAGS="$(echo ${EXTRA_CPP_FLAGS} | sed -e 's|-specs=/usr/lib/rpm/redhat/redhat-annobin-cc1||')"
+# Force DWARF 4 for compatibility
+EXTRA_CFLAGS="${EXTRA_CFLAGS} -gdwarf-4"
+EXTRA_CPP_FLAGS="${EXTRA_CPP_FLAGS} -gdwarf-4"
+%endif
+
 export EXTRA_CFLAGS EXTRA_CPP_FLAGS
 
-echo "Building %{SOURCE11}"
-mkdir %{miscinstalloutputdir}
-mkdir %{altjavaoutputdir}
-gcc ${EXTRA_CFLAGS} -o %{altjavaoutputdir}/%{alt_java_name} %{SOURCE11}
-
-echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
+# Set modification times (mtimes) of files within JAR files generated
+# by the OpenJDK build to a timestamp that is constant across RPM
+# rebuilds.  OpenJDK provides the --with-source-date configure option
+# for this purpose.  Potential arguments in the RPM build context are:
+#
+# A) --with-source-date="${SOURCE_DATE_EPOCH}"
+# B) --with-source-date=version
+# C) --with-source-date="${OPENJDK_UPSTREAM_TAG_EPOCH}"
+#
+# Consider Option A.  Fedora 38 (rpm-4.18.2) and RHEL-8 (rpm-4.14.3)
+# have different support for SOURCE_DATE_EPOCH.  To keep
+# SOURCE_DATE_EPOCH constant across RPM rebuilds, one could set the
+# source_date_epoch_from_changelog macro to 1 on both Fedora 38 and
+# RHEL-8.  However, on RHEL-8, this results in the RPM build times
+# being set to the timestamp of the most recent changelog.  This is
+# bad for tracing when RPMs were actually built.  Fedora 38 supports a
+# better behaviour via the introduction of the
+# use_source_date_epoch_as_buildtime macro, set to 0 by default.
+# There is no way to make this work on RHEL-8 as well though, so
+# option A is suboptimal.
+#
+# Option B uses the value of the DEFAULT_VERSION_DATE field from
+# make/conf/version-numbers.conf.  DEFAULT_VERSION_DATE represents the
+# aspirational eventual JDK general availability (GA) release date.
+# When the RPM build occurs prior to GA, generated JAR files will have
+# payload mtimes in the future relative to the RPM build time.
+# Whereas for tarballs some tools will issue warnings about future
+# mtimes, per OPENJDK-2583 apparently this is no problem for Java and
+# JAR files.
+#
+# Option C uses the modification timestamp of files in the source
+# tarball. The reproducibility logic in generate_source_tarball.sh
+# sets them all to the commit time of the release-tagged OpenJDK
+# commit, as archived in the tarball.  This timestamp is deterministic
+# across RPM rebuilds and is reliably in the past.  Any file's mtime
+# will do, so use version-numbers.conf's.
+#
+# Use option B for JAR files, based on the discussion in OPENJDK-2583.
+#
+# For portable tarballs, use option C (OPENJDK_UPSTREAM_TAG_EPOCH) for
+# the modification times of all files in the portable tarballs.  Doing
+# so eliminates one source of variability across RPM rebuilds.
+VERSION_FILE="$(pwd)"/"%{top_level_dir_name}"/make/conf/version-numbers.conf
+OPENJDK_UPSTREAM_TAG_EPOCH="$(stat --format=%Y "${VERSION_FILE}")"
 
 function buildjdk() {
     local outputdir=${1}
@@ -1088,6 +1239,7 @@ function buildjdk() {
     local debuglevel=${4}
     local link_opt=${5}
     local debug_symbols=${6}
+    local devkit=${7}
 
     local top_dir_abs_src_path=$(pwd)/%{top_level_dir_name}
     local top_dir_abs_build_path=$(pwd)/${outputdir}
@@ -1109,6 +1261,20 @@ function buildjdk() {
     echo "Using debug_symbols: ${debug_symbols}"
     echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
 
+%if "%{is_dtstoolchain}" ==  "devkit"
+    LIBPATH="${devkit}/lib:${devkit}/lib64"
+    echo "Setting library path to ${LIBPATH}"
+%else
+%if "%{is_dtstoolchain}" ==  "toolset"
+    toolset=/opt/rh/%{dtsname}/root/
+    LIBPATH="${toolset}/lib:${toolset}/lib64"
+    echo "Setting library path to ${LIBPATH}"
+%else
+    LIBPATH=${LD_LIBRARY_PATH}
+    echo "Keeping library path as ${LIBPATH}"
+%endif
+%endif
+
     mkdir -p ${outputdir}
     pushd ${outputdir}
 
@@ -1116,16 +1282,17 @@ function buildjdk() {
     # rather than ${link_opt} as the system versions
     # are always used in a system_libs build, even
     # for the static library build
-%if %{is_dtstoolchain}
-    scl enable %{dtsid} -- bash ${top_dir_abs_src_path}/configure \
-%else
-    bash ${top_dir_abs_src_path}/configure \
-%endif
+    LD_LIBRARY_PATH=${LIBPATH} \
+    %{?dts_command} bash ${top_dir_abs_src_path}/configure \
 %ifarch %{zero_arches}
     --with-jvm-variants=zero \
 %endif
-%ifarch %{ppc64le}
-    --with-jobs=1 \
+%if "%{is_dtstoolchain}" ==  "devkit"
+    --with-devkit=${devkit} \
+%endif
+%if "%{is_dtstoolchain}" ==  "toolset"
+    --with-extra-path="/opt/rh/%{dtsname}/root/bin:/opt/rh/%{dtsname}/root/usr/bin" \
+    --with-toolchain-path="/opt/rh/%{dtsname}/root/bin:/opt/rh/%{dtsname}/root/usr/bin" \
 %endif
     --with-version-build=%{buildver} \
     --with-version-pre="%{ea_designator}" \
@@ -1141,6 +1308,7 @@ function buildjdk() {
     --disable-absolute-paths-in-output \
     --disable-sysconf-nss \
     --enable-unlimited-crypto \
+    --enable-keep-packaged-modules \
     --with-zlib=%{link_type} \
     --with-freetype=%{link_type} \
     --with-libjpeg=${link_opt} \
@@ -1153,7 +1321,7 @@ function buildjdk() {
     --with-extra-cflags="$EXTRA_CFLAGS" \
     --with-extra-ldflags="%{ourldflags}" \
     --with-num-cores="$NUM_PROC" \
-    --with-source-date="${SOURCE_DATE_EPOCH}" \
+    --with-source-date="version" \
     --disable-javac-server \
 %ifarch %{zgc_arches}
     --with-jvm-features=zgc \
@@ -1162,15 +1330,11 @@ function buildjdk() {
     || ( pwd; cat $(find | grep config.log) && false )
 
     cat spec.gmk
-%if %{is_dtstoolchain}
-    scl enable %{dtsid} -- make \
-%else
-    make \
-%endif
-      LOG=trace \
+    LD_LIBRARY_PATH=${LIBPATH} \
+    %{?dts_command} make LOG=trace \
       WARNINGS_ARE_ERRORS="-Wno-error" \
-      CFLAGS_WARNINGS_ARE_ERRORS="-Wno-error" \
-      $maketargets || ( pwd; find ${top_dir_abs_src_path} ${top_dir_abs_build_path} -name "hs_err_pid*.log" | xargs cat && false )
+      CFLAGS_WARNINGS_ARE_ERRORS="-Wno-error" $maketargets ||\
+        ( pwd; find ${top_dir_abs_src_path} ${top_dir_abs_build_path} -name \"hs_err_pid*.log\" | xargs cat && false )
     popd
 }
 
@@ -1197,6 +1361,7 @@ function installjdk() {
     # legacy-jre-image target does not install any man pages for the JRE
     # We copy the jdk man directory and then remove pages for binaries that
     # don't exist in the JRE
+%if %{pandoc_available}
     cp -a ${jdkimagepath}/man ${jreimagepath}
     for manpage in $(find ${jreimagepath}/man -name '*.1'); do
         filename=$(basename ${manpage});
@@ -1206,6 +1371,7 @@ function installjdk() {
             rm -f ${manpage};
         fi;
     done
+%endif
 
     for imagepath in ${jdkimagepath} ${jreimagepath}; do
 
@@ -1222,13 +1388,6 @@ function installjdk() {
 
             # Install local files which are distributed with the JDK
             install -m 644 %{SOURCE10} ${imagepath}
-
-            # Create fake alt-java as a placeholder for future alt-java
-            pushd ${imagepath}
-            # add alt-java man page
-            echo "Hardened java binary recommended for launching untrusted code from the Web e.g. javaws" > man/man1/%{alt_java_name}.1
-            cat man/man1/java.1 >> man/man1/%{alt_java_name}.1
-            popd
 
             # Print release information
             cat ${imagepath}/release
@@ -1251,7 +1410,7 @@ function genchecksum() {
 
 function packFullPatchedSources() {
   srcpackagesdir=`pwd`
-  tar -cJf ${srcpackagesdir}/%{jdkportablesourcesarchive -- ""} --transform "s|^|%{jdkportablesourcesname -- ""}/|" %{top_level_dir_name}
+  createtar ${srcpackagesdir}/%{jdkportablesourcesarchive -- ""} --transform "s|^|%{jdkportablesourcesname -- ""}/|" %{top_level_dir_name}
   genchecksum ${srcpackagesdir}/%{jdkportablesourcesarchive -- ""}
 }
 
@@ -1275,6 +1434,13 @@ function findgeneratedsources() {
     mkdir -p ${target}/${sourcesName}
     cp --parents $(find make | grep -e ".$suffixes" -e "NONE$") ${target}/${sourcesName}
   popd
+}
+
+# Create a reproducible tarball in an appropriate way for
+# the version of tar in use
+function createtar() {
+  #FIXME, not finished
+  tar -cJf  "$@"
 }
 
 function packagejdk() {
@@ -1320,13 +1486,13 @@ function packagejdk() {
 
     # Release images have external debug symbols
     if [ "x$suffix" = "x" ] ; then
-        tar -cJf ${debugarchive} $(find ${jdkname} -name \*.debuginfo)
+        createtar ${debugarchive} $(find ${jdkname} -name \*.debuginfo)
         genchecksum ${debugarchive}
 
         mkdir ${docname}
         mv ${docdir} ${docname}
         mv ${bundledir}/${built_doc_archive} ${docname}
-        tar -cJf ${docarchive} ${docname}
+        createtar ${docarchive} ${docname}
         genchecksum ${docarchive}
 
         mkdir ${miscname}
@@ -1338,25 +1504,25 @@ function packagejdk() {
 %endif
         cp -av ${altjavadir}/%{alt_java_name} ${miscname}
         cp -avr ${gensources} ${miscname}
-        tar -cJf ${miscarchive} ${miscname}
+        createtar ${miscarchive} ${miscname}
         genchecksum ${miscarchive}
     fi
 
-    tar -cJf ${jmodsarchive} --exclude='**.debuginfo' ${jdkname}/jmods
+    createtar ${jmodsarchive} --exclude='**.debuginfo' ${jdkname}/jmods
     genchecksum ${jmodsarchive}
     rm -rv ${jdkname}/jmods
 
-    tar -cJf ${jdkarchive} --exclude='**.debuginfo' ${jdkname}
+    createtar ${jdkarchive} --exclude='**.debuginfo' ${jdkname}
     genchecksum ${jdkarchive}
 
-    tar -cJf ${jrearchive}  --exclude='**.debuginfo' ${jrename}
+    createtar ${jrearchive}  --exclude='**.debuginfo' ${jrename}
     genchecksum ${jrearchive}
 
 %if %{include_staticlibs}
     # Static libraries (needed for building graal vm with native image)
     # Tar as overlay. Transform to the JDK name, since we just want to "add"
     # static libraries to that folder
-    tar -cJf ${staticarchive} \
+    createtar ${staticarchive} \
         --transform "s|^%{static_libs_image}/lib/*|${staticname}/lib/static/linux-%{archinstall}/glibc/|" "%{static_libs_image}/lib"
     genchecksum ${staticarchive}
 %endif
@@ -1372,12 +1538,34 @@ function packagejdk() {
 
 packFullPatchedSources
 
+%if "%{is_dtstoolchain}" ==  "devkit"
+  DEVKIT_ROOT=$(pwd)/devkit
+  source ${DEVKIT_ROOT}/devkit.info
+  GCC="${DEVKIT_TOOLCHAIN_PATH}/gcc --sysroot=${DEVKIT_SYSROOT}"
+  LIBPATH="${DEVKIT_ROOT}/lib:${DEVKIT_ROOT}/lib64"
+%else
+%if "%{is_dtstoolchain}" ==  "toolset"
+    toolset=/opt/rh/%{dtsname}/root/
+    GCC="${toolset}/usr/bin/gcc"
+    LIBPATH="${toolset}/lib:${toolset}/lib64"
+%else
+  GCC=$(which gcc)
+%endif
+%endif
+
+echo "Building %{SOURCE11}"
+mkdir %{miscinstalloutputdir}
+mkdir %{altjavaoutputdir}
+LD_LIBRARY_PATH="${LIBPATH}" ${GCC} ${EXTRA_CFLAGS} -o %{altjavaoutputdir}/%{alt_java_name} %{SOURCE11}
+
+echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
+
 %if %{build_hotspot_first}
   # Build a fresh libjvm.so first and use it to bootstrap
   echo "Building HotSpot only for the latest libjvm.so"
   cp -LR --preserve=mode,timestamps %{bootjdk} newboot
   systemjdk=$(pwd)/newboot
-  buildjdk build/newboot ${systemjdk} %{hotspot_target} "release" "bundled" "internal"
+  buildjdk build/newboot ${systemjdk} %{hotspot_target} "release" "bundled" "internal" ${DEVKIT_ROOT}
   mv build/newboot/jdk/lib/%{vm_variant}/libjvm.so newboot/lib/%{vm_variant}
 %else
   systemjdk=%{bootjdk}
@@ -1423,14 +1611,14 @@ for suffix in %{build_loop} ; do
       run_bootstrap=%{bootstrap_build}
   fi
   if ${run_bootstrap} ; then
-      buildjdk ${bootbuilddir} ${systemjdk} "%{bootstrap_targets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      buildjdk ${bootbuilddir} ${systemjdk} "%{bootstrap_targets}" ${debugbuild} ${link_opt} ${debug_symbols} ${DEVKIT_ROOT}
       installjdk ${bootbuilddir} ${bootinstalldir}
-      buildjdk ${builddir} $(pwd)/${bootinstalldir}/images/%{jdkimage} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      buildjdk ${builddir} $(pwd)/${bootinstalldir}/images/%{jdkimage} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols} ${DEVKIT_ROOT}
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       installjdk ${builddir} ${installdir}
       %{!?with_artifacts:rm -rf ${bootinstalldir}}
   else
-      buildjdk ${builddir} ${systemjdk} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      buildjdk ${builddir} ${systemjdk} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols} ${DEVKIT_ROOT}
       findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       installjdk ${builddir} ${installdir}
   fi
@@ -1450,7 +1638,7 @@ done # end of release / debug cycle loop
 # We test debug first as it will give better diagnostics on a crash
 for suffix in %{build_loop} ; do
 
-# portable builds have static_libs embedded, thus top_dir_abs_main_build_path is same as  top_dir_abs_staticlibs_build_path
+# portable builds have static_libs embedded, thus top_dir_abs_main_build_path is same as top_dir_abs_staticlibs_build_path
 top_dir_abs_main_build_path=$(pwd)/%{installoutputdir -- ${suffix}}
 %if %{include_staticlibs}
 top_dir_abs_staticlibs_build_path=${top_dir_abs_main_build_path}
@@ -1465,51 +1653,91 @@ export JAVA_HOME=${top_dir_abs_main_build_path}/images/%{jdkimage}
 #sed -i -e "s:^security.useSystemPropertiesFile=.*:security.useSystemPropertiesFile=true:" \
 #${JAVA_HOME}/conf/security/java.security
 
+# Set up tools
+%if "%{is_dtstoolchain}" ==  "devkit"
+  DEVKIT_ROOT=$(pwd)/devkit
+  source ${DEVKIT_ROOT}/devkit.info
+  NM="${DEVKIT_TOOLCHAIN_PATH}/nm"
+%else
+  NM=$(which nm)
+%endif
+# elfutils readelf supports more binaries than binutils version on RHEL 8
+# and debug symbols tests below were designed around this version
+READELF=$(which eu-readelf)
+# Only native gdb seems to work
+# The devkit gdb needs the devkit stdc++ library but then the JVM
+# segfaults when this is on the LD_LIBRARY_PATH
+GDB=$(which gdb)
+
 # Check Shenandoah is enabled
 %if %{use_shenandoah_hotspot}
 $JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
 %endif
 
-# Check unlimited policy has been used
-$JAVA_HOME/bin/javac -d . %{SOURCE13}
-$JAVA_HOME/bin/java --add-opens java.base/javax.crypto=ALL-UNNAMED TestCryptoLevel
+# Only test on one architecture (the fastest) for Java only tests
+%ifarch %{jdk_test_arch}
 
-# Check ECC is working
-$JAVA_HOME/bin/javac -d . %{SOURCE14}
-$JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
+  # Check unlimited policy has been used
+  $JAVA_HOME/bin/javac -d . %{SOURCE13}
+  $JAVA_HOME/bin/java --add-opens java.base/javax.crypto=ALL-UNNAMED TestCryptoLevel
 
-# Check system crypto (policy) is deactive and can not be enabled
-# Test takes a single argument - true or false - to state whether system
-# security properties are enabled or not.
-$JAVA_HOME/bin/javac -d . %{SOURCE15}
-export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
-export SEC_DEBUG="-Djava.security.debug=properties"
-# Specific to portable:System security properties to be off by default
-$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} false
-$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=false ${PROG} false
+  # Check ECC is working
+  $JAVA_HOME/bin/javac -d . %{SOURCE14}
+  $JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 
-# Check correct vendor values have been set
-$JAVA_HOME/bin/javac -d . %{SOURCE16}
-$JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}" "%{oj_vendor_version}"
+  # Check system crypto (policy) is deactive and can not be enabled
+  # Test takes a single argument - true or false - to state whether system
+  # security properties are enabled or not.
+  $JAVA_HOME/bin/javac -d . %{SOURCE15}
+  export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
+  export SEC_DEBUG="-Djava.security.debug=properties"
+  # Specific to portable:System security properties to be off by default
+  $JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} false
+  $JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=false ${PROG} false
+
+  # Check correct vendor values have been set
+  $JAVA_HOME/bin/javac -d . %{SOURCE16}
+  $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}" "%{oj_vendor_version}"
+
+%if ! 0%{?flatpak}
+  # Check translations are available for new timezones (during flatpak builds, the
+  # tzdb.dat used by this test is not where the test expects it, so this is
+  # disabled for flatpak builds)
+  # Disable test until we are on the latest JDK
+  $JAVA_HOME/bin/javac -d . %{SOURCE18}
+  $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE || echo "Fedora is often ahead in timezones, ignoring"
+  $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR || echo "Fedora is often ahead in timezones, ignoring"
+%endif
+
+  # Check src.zip has all sources. See RHBZ#1130490
+  unzip -l $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'
+
+  # Check class files include useful debugging information
+  $JAVA_HOME/bin/javap -c -l java.lang.Object | grep "Compiled from"
+  $JAVA_HOME/bin/javap -c -l java.lang.Object | grep LineNumberTable
+  $JAVA_HOME/bin/javap -c -l java.lang.Object | grep LocalVariableTable
+
+  # Check generated class files include useful debugging information
+  $JAVA_HOME/bin/javap -c -l java.nio.ByteBuffer | grep "Compiled from"
+  $JAVA_HOME/bin/javap -c -l java.nio.ByteBuffer | grep LineNumberTable
+  $JAVA_HOME/bin/javap -c -l java.nio.ByteBuffer | grep LocalVariableTable
+
+%else
+
+  # Just run a basic java -version test on other architectures
+  $JAVA_HOME/bin/java -version
+
+%endif
 
 # Check java launcher has no SSB mitigation
-if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
+if ! ${NM} $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
 
 # Check alt-java launcher has SSB mitigation on supported architectures
 # set_speculation function exists in both cases, so check for prctl call
 %ifarch %{ssbd_arches}
-nm %{altjavaoutputdir}/%{alt_java_name} | grep prctl
+${NM} %{altjavaoutputdir}/%{alt_java_name} | grep prctl
 %else
-if ! nm %{altjavaoutputdir}/%{alt_java_name} | grep prctl ; then true ; else false; fi
-%endif
-
-%if ! 0%{?flatpak}
-# Check translations are available for new timezones (during flatpak builds, the
-# tzdb.dat used by this test is not where the test expects it, so this is
-# disabled for flatpak builds)
-$JAVA_HOME/bin/javac -d . %{SOURCE18}
-$JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
-$JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
+if ! ${NM} %{altjavaoutputdir}/%{alt_java_name} | grep prctl ; then true ; else false; fi
 %endif
 
 %if %{include_staticlibs}
@@ -1517,8 +1745,8 @@ $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|
 export STATIC_LIBS_HOME=${top_dir_abs_staticlibs_build_path}/images/%{static_libs_image}
 ls -l $STATIC_LIBS_HOME
 ls -l $STATIC_LIBS_HOME/lib
-readelf --debug-dump $STATIC_LIBS_HOME/lib/libnet.a | grep Inet4AddressImpl.c
-readelf --debug-dump $STATIC_LIBS_HOME/lib/libnet.a | grep Inet6AddressImpl.c
+${READELF} --debug-dump $STATIC_LIBS_HOME/lib/libnet.a | grep Inet4AddressImpl.c
+${READELF} --debug-dump $STATIC_LIBS_HOME/lib/libnet.a | grep Inet6AddressImpl.c
 %endif
 
 # Release builds strip the debug symbols into external .debuginfo files
@@ -1537,15 +1765,15 @@ do
 
     # Test for .debug_* sections in the shared object. This is the main test
     # Stripped objects will not contain these
-    eu-readelf -S "$lib" | grep "] .debug_"
-    test $(eu-readelf -S "$lib" | grep -E "\]\ .debug_(info|abbrev)" | wc --lines) == 2
+    ${READELF} -S "$lib" | grep "] .debug_"
+    test $(${READELF} -S "$lib" | grep -E "\]\ .debug_(info|abbrev)" | wc --lines) == 2
 
     # Test FILE symbols. These will most likely be removed by anything that
     # manipulates symbol tables because it's generally useless. So a nice test
     # that nothing has messed with symbols
     old_IFS="$IFS"
     IFS=$'\n'
-    for line in $(eu-readelf -s "$lib" | grep "00000000      0 FILE    LOCAL  DEFAULT")
+    for line in $(${READELF} -s "$lib" | grep "00000000      0 FILE    LOCAL  DEFAULT")
     do
      # We expect to see .cpp and .S files, except for architectures like aarch64 and
      # s390 where we expect .o and .oS files
@@ -1555,17 +1783,17 @@ do
 
     # If this is the JVM, look for javaCalls.(cpp|o) in FILEs, for extra sanity checking
     if [ "`basename $lib`" = "libjvm.so" ]; then
-      eu-readelf -s "$lib" | \
+      ${READELF} -s "$lib" | \
         grep -E "00000000      0 FILE    LOCAL  DEFAULT      ABS javaCalls.(cpp|o)$"
     fi
 
     # Test that there are no .gnu_debuglink sections pointing to another
     # debuginfo file. There shouldn't be any debuginfo files, so the link makes
     # no sense either
-    eu-readelf -S "$lib" | grep 'gnu'
-    if eu-readelf -S "$lib" | grep '] .gnu_debuglink' | grep PROGBITS; then
+    ${READELF} -S "$lib" | grep 'gnu'
+    if ${READELF} -S "$lib" | grep '] .gnu_debuglink' | grep PROGBITS; then
       echo "bad .gnu_debuglink section."
-      eu-readelf -x .gnu_debuglink "$lib"
+      ${READELF} -x .gnu_debuglink "$lib"
       false
     fi
   fi
@@ -1577,7 +1805,7 @@ done
 # Using line number 1 might cause build problems. See:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1539664
 # https://bugzilla.redhat.com/show_bug.cgi?id=1538767
-gdb -q "$JAVA_HOME/bin/java" <<EOF | tee gdb.out
+${GDB} -q "$JAVA_HOME/bin/java" <<EOF | tee gdb.out
 handle SIGSEGV pass nostop noprint
 handle SIGILL pass nostop noprint
 set breakpoint pending on
@@ -1591,19 +1819,6 @@ EOF
 %ifarch %{gdb_arches}
 grep 'JavaCallWrapper::JavaCallWrapper' gdb.out
 %endif
-
-# Check src.zip has all sources. See RHBZ#1130490
-$JAVA_HOME/bin/jar -tf $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'
-
-# Check class files include useful debugging information
-$JAVA_HOME/bin/javap -l -c java.lang.Object | grep "Compiled from"
-$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LineNumberTable
-$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LocalVariableTable
-
-# Check generated class files include useful debugging information
-$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep "Compiled from"
-$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LineNumberTable
-$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LocalVariableTable
 
 # build cycles check
 done
@@ -1624,7 +1839,7 @@ for suffix in %{build_loop} ; do
         nameSuffix=`echo "$suffix"| sed s/-/./`
     fi
 
-    # These definitions should match those in installjdk
+    # These definitions should match those in packagejdk
     jdkarchive=${packagesdir}/%{jdkportablearchive -- "$nameSuffix"}
     jmodsarchive=${packagesdir}/%{jmodsportablearchive -- "$nameSuffix"}
     jrearchive=${packagesdir}/%{jreportablearchive -- "$nameSuffix"}
@@ -1743,12 +1958,5 @@ done
 %{_jvmdir}/%{miscportablearchive}
 %{_jvmdir}/%{miscportablearchive}.sha256sum
 %endif
-
-%changelog
-* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:21.0.8.0.9-1.2
-- Rebuilt for java-25-openjdk as preffered jdk
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:21.0.8.0.9-1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 %autochangelog

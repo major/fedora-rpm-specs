@@ -1,15 +1,15 @@
 # remirepo/fedora spec file for php-zumba-json-serializer
 #
-# Copyright (c) 2021-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2021-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_without       tests
 
-%global gh_commit    c869bcb7f934f785d69c978f7d0479b54bbe0cfa
+%global gh_commit    1b1b2302d46692f317021ee4b9cc06b1311b7333
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
@@ -18,8 +18,8 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.2.1
-Release:        6%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
 License:        MIT
@@ -29,31 +29,30 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  php(language) >= 7.0
-BuildRequires:  php-date
+# as we use phpunit10 by default
+BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-json
 BuildRequires:  php-mbstring
-BuildRequires:  php-pcre
-BuildRequires:  php-reflection
-BuildRequires:  php-spl
 # For tests, from composer.json "require-dev": {
-#        "phpunit/phpunit": ">=6.0 <11.0"
+#        "phpunit/phpunit": ">=8.0 <12.0"
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires:  phpunit11
+%global phpunit %{_bindir}/phpunit11
+%else
 BuildRequires:  phpunit10
 %global phpunit %{_bindir}/phpunit10
+%endif
 %endif
 # For autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": "^7.0 || ^8.0",
+#        "php": "^7.2 || ^8.0",
 #        "ext-mbstring": "*"
-Requires:       php(language) >= 7.0
+Requires:       php(language) >= 7.2
 Requires:       php-mbstring
 # From phpcompatinfo report for 3.0.1
 Requires:       php-json
-Requires:       php-pcre
-Requires:       php-reflection
-Requires:       php-spl
 # For generated autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -95,11 +94,11 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload
 EOF
 
 ret=0
-# ignore testS relying on SuperClosure (deprecated and removed from repo)
-for cmdarg in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
+# ignore tests relying on SuperClosure (deprecated and removed from repo)
+for cmdarg in "php %{phpunit}" "php81 %{_bindir}/phpunit10" php82 php83 php84; do
    if which $cmdarg; then
       set $cmdarg
-      $1 ${2:-%{_bindir}/phpunit10} \
+      $1 ${2:-%{_bindir}/phpunit11} \
           --bootstrap vendor/autoload.php \
           --filter '^((?!(testAddSerializer|testGetPreferredSerializer|testSerialize|testUnserialize)).)*$' \
           --no-coverage || ret=1
@@ -120,6 +119,12 @@ exit $ret
 
 
 %changelog
+* Fri Dec 12 2025 Remi Collet <remi@remirepo.net> - 3.2.2-1
+- update to 3.2.2
+- re-license spec file to CECILL-2.1
+- raise dependency on php 7.2
+- switch to phpunit11
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

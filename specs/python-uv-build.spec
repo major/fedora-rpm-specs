@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.9.9
+Version:        0.9.17
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -13,10 +13,7 @@ Summary:        The uv build backend
 #
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
-# output of %%{cargo_license_summary}. This should automatically include the
-# licenses of the following bundled forks:
-#   - pubgrub/version-ranges, Source200, is MPL-2.0.
-#   - reqwest-middleware/reqwest-retry, Source300, is (MIT OR Apache-2.0).
+# output of %%{cargo_license_summary}.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
@@ -29,7 +26,6 @@ Summary:        The uv build backend
 # Apache-2.0 OR MIT
 # Apache-2.0 OR MIT OR Zlib
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
@@ -47,7 +43,6 @@ License:        %{shrink:
                 0BSD AND
                 (0BSD OR MIT OR Apache-2.0) AND
                 Apache-2.0 AND
-                (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR MIT OR Zlib) AND
                 (Apache-2.0 OR MIT-0) AND
@@ -77,33 +72,6 @@ Source:         %{pypi_source uv_build}
 # keep updating uv (primarily a developer tool) while holding uv-build
 # (primarily used for building packages) at an older version for compatibility.
 
-# For the foreseeable future, uv must use a fork of pubgrub (and the
-# version-ranges crate, which belongs to the same project), as explained in:
-#   Plans for eventually using published pubgrub?
-#   https://github.com/astral-sh/uv/issues/3794
-# We therefore bundle the fork as prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-# Note that uv-build currently only uses version-ranges, not pubgrub.
-%global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev d8efd77673c9a90792da9da31b6c0da7ea8a324b
-%global pubgrub_snapdate 20250810
-%global version_ranges_baseversion 0.1.1
-Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
-
-# Until “Report retry count on Ok results,”
-# https://github.com/TrueLayer/reqwest-middleware/pull/235, is reviewed,
-# merged, and released, uv must use a fork of reqwest-middleware/reqwest-retry
-# to support the changes in “Show retries for HTTP status code errors,”
-# https://github.com/astral-sh/uv/pull/13897. We therefore bundle the fork as
-# prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
-%global reqwest_middleware_rev 7650ed76215a962a96d94a79be71c27bffde7ab2
-%global reqwest_middleware_snapdate 20250828
-%global reqwest_middleware_baseversion 0.4.2
-%global reqwest_retry_baseversion 0.7.0
-Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
-
 BuildSystem:            pyproject
 BuildOption(install):   -l uv_build
 
@@ -128,18 +96,6 @@ Summary:        %{summary}
 License:        %{license} AND %{extra_crate_licenses}
 # LICENSE.dependencies contains a full license breakdown
 
-# This is a fork of pubgrub/version-ranges; see the notes about Source200.
-%global pubgrub_snapinfo %{pubgrub_snapdate}git%{sub %{pubgrub_rev} 1 7}
-%global version_ranges_version %{version_ranges_baseversion}^%{pubgrub_snapinfo}
-Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
-# This is a fork of reqwest-middleware/reqwest-retry; see the notes about
-# Source300.
-%global reqwest_middleware_snapinfo %{reqwest_middleware_snapdate}git%{sub %{reqwest_middleware_rev} 1 7}
-%global reqwest_middleware_version %{reqwest_middleware_baseversion}^%{reqwest_middleware_snapinfo}
-%global reqwest_retry_version %{reqwest_retry_baseversion}^%{reqwest_middleware_snapinfo}
-Provides:       bundled(crate(reqwest-middleware)) = %{reqwest_middleware_version}
-Provides:       bundled(crate(reqwest-retry)) = %{reqwest_retry_version}
-
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
 # upstream writes “These have diverged significantly and the upstream versions
 # are only passively maintained, uv requires these custom versions and can't
@@ -158,59 +114,7 @@ Provides:       bundled(crate(pep508_rs)) = 0.7.0
 
 
 %prep
-%autosetup -n uv_build-%{version} -N
-%autopatch -p1 -M99
-
-# Usage: git2path SELECTOR PATH
-# Replace a git dependency with a path dependency in Cargo.toml
-git2path() {
-  tomcli set Cargo.toml del "${1}.git"
-  tomcli set Cargo.toml del "${1}.rev"
-  tomcli set Cargo.toml str "${1}.path" "${2}"
-}
-
-# See comments above Source200:
-%setup -q -T -D -b 200 -n uv_build-%{version}
-pushd '../pubgrub-%{pubgrub_rev}/'
-%autopatch -p1 -m200 -M299
-popd
-ln -s '../../pubgrub-%{pubgrub_rev}/version-ranges' crates/version-ranges
-# Convert the symlinked LICENSE in version-ranges to a regular file, since we
-# will be removing top-level files from pubgrub.
-rm -v crates/version-ranges/LICENSE
-cp -p '../pubgrub-%{pubgrub_rev}/LICENSE' crates/version-ranges/
-# Prove that we do not use the pubgrub crate by removing everything except the
-# version-ranges subdirectory.
-find '../pubgrub-%{pubgrub_rev}/' -mindepth 1 -maxdepth 1 \
-    ! -name 'version-ranges' -execdir rm -rv '{}' '+'
-# Note that install does always dereference symlinks, which is what we want:
-install -t LICENSE.bundled/version-ranges -D -p -m 0644 \
-    crates/version-ranges/LICENSE
-git2path workspace.dependencies.version-ranges crates/version-ranges
-
-# See comments above Source300:
-%setup -q -T -D -b 300 -n uv_build-%{version}
-pushd '../reqwest-middleware-%{reqwest_middleware_rev}'
-%autopatch -p1 -m300 -M399
-# The (path-based) dev-dependency on reqwest-tracing is required only for an
-# example in README.md; avoid it.
-tomcli set reqwest-middleware/Cargo.toml del dev-dependencies.reqwest-tracing
-sed -r -i 's/^```rust$/&,ignore/' README.md
-popd
-ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware' \
-    crates/reqwest-middleware
-git2path workspace.dependencies.reqwest-middleware crates/reqwest-middleware
-git2path patch.crates-io.reqwest-middleware crates/reqwest-middleware
-install -t LICENSE.bundled/reqwest-middleware -D -p -m 0644 \
-    crates/reqwest-middleware/LICENSE*
-ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-retry' \
-    crates/reqwest-retry
-git2path workspace.dependencies.reqwest-retry crates/reqwest-retry
-git2path patch.crates-io.reqwest-retry crates/reqwest-retry
-install -t LICENSE.bundled/reqwest-retry -D -p -m 0644 \
-    crates/reqwest-retry/LICENSE*
-# We do not need the reqwest-tracing crate.
-rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-tracing'
+%autosetup -n uv_build-%{version} -p1
 
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/pep440_rs -D -p -m 0644 crates/uv-pep440/License-*

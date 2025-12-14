@@ -5,7 +5,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-urllib3
-Version:        2.6.1
+Version:        2.6.2
 Release:        %autorelease
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 

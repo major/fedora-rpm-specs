@@ -12,7 +12,7 @@
 %global giturl  https://github.com/networkx/networkx
 
 Name:           python-networkx
-Version:        3.6
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
@@ -34,7 +34,6 @@ Source9:        https://www-personal.umich.edu/~mejn/netdata/football.zip
 # Some examples cannot be executed, so expect them to fail.
 # Examples that require packages not available from Fedora:
 # - osmnx requires osmnx
-# - plot_iplotx requires iplotx
 # - plot_lines requires momepy
 Patch:          %{name}-doc.patch
 # Undo upstream change to use intersphinx_registry.  Fedora does not have it,

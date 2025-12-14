@@ -3,7 +3,7 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Signing utility for UEFI secure boot
 # Most source code is GPL-3.0-or-later, except:
 # LicenseRef-Fedora-Public-Domain:
@@ -44,7 +44,7 @@ Patch3:        %{name}-no-openssl-engines.patch
 # avoid wrong --target option usage that's been fixed in recent binutils
 Patch4:        %{name}-binutils.patch
 # same as gnu-efi
-ExclusiveArch: x86_64 aarch64 %{arm} %{ix86}
+ExclusiveArch: x86_64 aarch64 %{arm} %{ix86} riscv64
 BuildRequires: make
 BuildRequires: automake
 BuildRequires: binutils-devel
@@ -122,6 +122,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Fri Dec 12 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.9.5-13
+- enable RISC-V 64-bit architecture
+
 * Fri Oct 03 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.9.5-12
 - avoid wrong --target option usage that was fixed in recent binutils
 

@@ -2,8 +2,8 @@
 
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
-Version:	2.0.9
-Release:	5%{?dist}
+Version:	2.2.4
+Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -13,11 +13,10 @@ Source3:	%{name}.conf
 
 ExcludeArch:    %{ix86}
 
-BuildRequires:	make
+BuildRequires:	meson
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
-#BuildRequires:	gnome-common
 BuildRequires:	pkgconfig(liblightdm-gobject-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libcanberra)
@@ -69,19 +68,14 @@ Slick-greeter customisation for the MATE desktop.
 %autosetup -p1
 
 %{__install} -pm 0644 %{SOURCE2} %{name}.conf.example
-%{__mkdir} -p m4
-
-export ACLOCAL_PATH=/usr/share/gettext/m4/
-NOCONFIGURE=1 ./autogen.sh
 
 %build
-%configure	\
-	--disable-silent-rules
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 %{__mkdir} -p %{buildroot}%{_datadir}/lightdm/lightdm.conf.d	\
 	%{buildroot}%{_datadir}/glib-2.0/schemas	\
@@ -137,6 +131,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 2.2.4-1
+- Update to 2.2.4
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -51,6 +51,12 @@
 %global system_nodejs 0
 %endif
 
+# enable gtk4 for fedora and el>9
+%global gtk_version 4
+%if 0%{?rhel} == 9
+%global gtk_version 3
+%endif
+
 %if 0%{?rhel} == 8
 %global chromium_pybin /usr/bin/python3.9
 %else
@@ -761,8 +767,28 @@ BuildRequires:	opus-devel
 %endif
 
 BuildRequires: %{chromium_pybin}
-BuildRequires:	gtk4-devel
-
+%if %{gtk_version} == 4
+BuildRequires: pkgconfig(gtk4)
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: pkgconfig(atspi-2)
+BuildRequires: pkgconfig(atk-bridge-2.0)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xi)
+BuildRequires: pkgconfig(xrender)
+BuildRequires: pkgconfig(xscrnsaver)
+BuildRequires: pkgconfig(xshmfence)
+BuildRequires: pkgconfig(xt)
+BuildRequires: pkgconfig(xtst)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xcb-dri3)
+BuildRequires: pkgconfig(xcb-proto)
+Requires: gtk4
+%else
+BuildRequires: pkgconfig(gtk+-3.0)
+# GTK modules it expects to find for some reason.
+Requires: libcanberra-gtk3%{_isa}
+%endif
 %if ! %{bundlepylibs}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: python3-jinja2
@@ -804,8 +830,6 @@ BuildRequires: simdutf-devel
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
-
-Requires: gtk4
 
 %if 0%{?fedora} && %{undefined flatpak}
 # This enables support for u2f tokens
@@ -1358,7 +1382,7 @@ CHROMIUM_BROWSER_GN_DEFINES+=" use_qt6=true moc_qt6_path=\"$(%{_qt6_qmake} -quer
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=false'
 %endif
-CHROMIUM_BROWSER_GN_DEFINES+=' use_gtk=true gtk_version=4'
+CHROMIUM_BROWSER_GN_DEFINES+=' use_gtk=true gtk_version=%{gtk_version}'
 
 CHROMIUM_BROWSER_GN_DEFINES+=' use_gio=true use_pulseaudio=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_hangout_services_extension=true'

@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.3.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -51,7 +51,6 @@ Requires: glib2
 Requires: libadwaita >= %{req_adwaita}
 Requires: gstreamer1-plugins-bad-free
 Requires: gstreamer1-plugins-good
-Requires: gstreamer1-plugins-ugly-free
 Requires: hicolor-icon-theme
 
 # For whatever reason, the Python dependency generator doesn't seem to work
@@ -146,6 +145,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Fri Dec 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-11
+- Drop gstreamer1-plugins-ugly-free dependency
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.0-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

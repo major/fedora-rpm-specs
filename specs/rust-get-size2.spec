@@ -146,6 +146,18 @@ use the "indexmap" feature of the "%{crate}" crate.
 %files       -n %{name}+indexmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+ordermap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ordermap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ordermap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ordermap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+smallvec-devel
 Summary:        %{summary}
 BuildArch:      noarch

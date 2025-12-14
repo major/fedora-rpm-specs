@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-justinrainbow-json-schema5
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -14,7 +14,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8
+%global gh_commit    b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     justinrainbow
 %global gh_project   json-schema
@@ -34,8 +34,8 @@
 %global eolv2        0
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.3.0
-Release:        4%{?dist}
+Version:        5.3.1
+Release:        1%{?dist}
 Summary:        A library to validate a json schema
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -54,12 +54,8 @@ BuildArch:      noarch
 # For tests
 BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-curl
-BuildRequires:  php-date
-BuildRequires:  php-filter
 BuildRequires:  php-json
 BuildRequires:  php-mbstring
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 # From composer.json, "require-dev": {
 #        "json-schema/json-schema-test-suite": "1.2.0",
 #        "friendsofphp/php-cs-fixer": "^2.1",
@@ -76,12 +72,8 @@ BuildRequires:  composer
 Requires:       php(language) >= 7.1
 # From phpcompatinfo report for version 4.0.1
 Requires:       php-curl
-Requires:       php-date
-Requires:       php-filter
 Requires:       php-json
 Requires:       php-mbstring
-Requires:       php-pcre
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 %if %{eolv1}
@@ -163,7 +155,7 @@ php bin/validate-json-test \
 
 : Upstream test suite
 ret=0
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
    $cmd -d memory_limit=1G %{_bindir}/phpunit -d memory_limit=1G --verbose || ret=1
   fi
@@ -184,6 +176,10 @@ exit $ret
 
 
 %changelog
+* Fri Dec 12 2025 Remi Collet <remi@remirepo.net> - 5.3.1-1
+- update to 5.3.1
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -330,6 +330,8 @@ sed -i 's/swift-tools-version:999.0.0/swift-tools-version:6.1.3/' wasmkit/Packag
 
 %global buildsubdir %{nil}
 %build
+# Work around broken symlink in BuildRequires swiftlang by ensuring PATH finds the versioned swift
+export PATH=%{_libexecdir}/swift/%{version}/bin:$PATH
 export VERBOSE=1
 %{builddir}/swift/utils/build-script --preset=buildbot_linux,no_test \
     skip-early-swiftsyntax=true \
@@ -349,12 +351,14 @@ ln -fs %{_libexecdir}/swift/%{version}/bin/sourcekit-lsp %{buildroot}%{_bindir}/
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
 mkdir -p %{buildroot}/usr/lib
-ln -fs %{_libexecdir}/swift/%{package_version}/lib/swift %{buildroot}/usr/lib/swift
+ln -fs %{_libexecdir}/swift/%{version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}%{_libdir}
 ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so %{buildroot}%{_libdir}/
 ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so.17 %{buildroot}%{_libdir}/
 ln -fs %{_libexecdir}/swift/%{version}/lib/libsourcekitdInProc.so %{buildroot}%{_libdir}/
 ln -fs %{_libexecdir}/swift/%{version}/lib/libswiftDemangle.so %{buildroot}%{_libdir}/
+mkdir -p %{buildroot}%{_includedir}/swift
+cp -r %{_builddir}/swift/include/swift/SwiftDemangle %{buildroot}%{_includedir}/swift/
 mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
 install -m 0644 %{SOURCE99} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
@@ -377,6 +381,7 @@ export QA_SKIP_RPATHS=1
 %{_libdir}/libIndexStore.so*
 %{_libdir}/libsourcekitdInProc.so
 %{_libdir}/libswiftDemangle.so
+%{_includedir}/swift/
 %{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 

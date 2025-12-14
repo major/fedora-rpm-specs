@@ -37,7 +37,7 @@ BuildRequires:	gnome-shell
 
 Requires:	filesystem
 Requires:	gtk-murrine-engine
-Requires:	gnome-themes-extra
+#Requires:	gnome-themes-extra
 
 %description
 %{common_desc}

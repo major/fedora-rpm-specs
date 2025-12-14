@@ -2,9 +2,9 @@
 
 Summary: A SAML 2.0 authentication module for the Apache Httpd Server
 Name: mod_auth_mellon
-Version: 0.19.0
-Release: 4%{?dist}
-Source0: https://github.com/latchset/mod_auth_mellon/releases/download/v%{version}/mod_auth_mellon-%{version}.tar.gz
+Version: 0.19.1
+Release: 1%{?dist}
+Source0: https://github.com/latchset/mod_auth_mellon/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: auth_mellon.conf
 Source2: 10-auth_mellon.conf
 Source3: mod_auth_mellon.conf
@@ -93,11 +93,7 @@ in the doc directory for instructions on using the diagnostics build.
 %{_httpd_moddir}/%{name}-diagnostics.so
 
 %files
-%if 0%{?rhel} && 0%{?rhel} < 7
-%doc COPYING
-%else
 %license COPYING
-%endif
 %doc README.md NEWS ECP.rst
 %doc %{_pkgdocdir}/README.redhat.rst
 %doc %{_pkgdocdir}/user_guide
@@ -109,6 +105,11 @@ in the doc directory for instructions on using the diagnostics build.
 %dir /run/%{name}/
 
 %changelog
+* Mon Dec 08 2025 Xavier Bachelot <xavier@bachelot.org> - 0.19.1-1
+- Update to 0.19.1
+- Fix bogus date in changelog
+- Drop support for EOL releases
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -118,7 +119,7 @@ in the doc directory for instructions on using the diagnostics build.
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
-* Tue Jan 25 2024  Tomas Halman <thalman@redhat.com> - 0.19.0-1
+* Thu Jan 25 2024  Tomas Halman <thalman@redhat.com> - 0.19.0-1
 - Resolves: rhbz#2258342 - new version is available
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-6

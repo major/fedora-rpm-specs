@@ -42,7 +42,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -102,6 +102,14 @@ Provides:  rocm-runtime-devel = %{version}-%{release}
 %description devel
 ROCm Runtime development files
 
+%package static
+Summary: ROCm Runtime hsakmt development files
+Requires: rocm-runtime-devel = %{version}-%{release}
+Provides:  rocm-runtime-static = %{version}-%{release}
+
+%description static
+%{summary}
+
 %if %{with kfdtest}
 %package -n kfdtest
 Summary: Test suite for ROCm's KFD kernel module
@@ -157,9 +165,6 @@ cd libhsakmt/tests/kfdtest
 
 rm -f %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md
 rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md
-rm -f %{buildroot}%{_libdir}/libhsakmt.*
-rm -rf %{buildroot}%{_libdir}/cmake/hsakmt
-rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 
 %ldconfig_scriptlets
 
@@ -174,6 +179,11 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %{_libdir}/libhsa-runtime64.so
 %{_libdir}/cmake/hsa-runtime64/
 
+%files static
+%{_libdir}/libhsakmt.a
+%{_libdir}/cmake/hsakmt/
+%{_libdir}/pkgconfig/libhsakmt.pc
+
 %if %{with kfdtest}
 %files -n kfdtest
 %doc libhsakmt/tests/kfdtest/README.txt
@@ -184,6 +194,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Fri Dec 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Enable hsakmt
+
 * Mon Dec 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Fix misreported gfx1151 memory size
 

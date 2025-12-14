@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           niri
-Version:        25.08
+Version:        25.11
 Release:        %autorelease
 Summary:        Scrollable-tiling Wayland compositor
 

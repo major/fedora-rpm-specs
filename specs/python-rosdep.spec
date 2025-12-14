@@ -2,15 +2,17 @@
 
 Name:           python-%{srcname}
 Version:        0.26.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD-3-Clause
 URL:            http://ros.org/wiki/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-# Submitted upstream as ros-infrastructure/rosdep#1012
+# Merged upstream as ros-infrastructure/rosdep#1012
 Patch0:         intersphinx-mapping.patch
+# Merged upstream as ros-infrastructure/rosdep/1020
+Patch1:         drop-aggressive-asserts.patch
 
 BuildArch:      noarch
 
@@ -109,6 +111,9 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 
 
 %changelog
+* Fri Dec 12 2025 Scott K Logan <logans@cottsay.net> - 0.26.0-4
+- Add upstream patch for platform alias compatibility in tests
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.26.0-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

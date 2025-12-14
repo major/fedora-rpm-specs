@@ -2,7 +2,7 @@
 
 Name:           autojump
 Version:        22.5.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 
 Summary:        A fast way to navigate your filesystem from the command line
 
@@ -12,14 +12,14 @@ URL:            https://github.com/%{owner}/%{name}
 Source:         https://github.com/%{owner}/%{name}/archive/release-v%{version}/%{name}-%{version}.tar.gz
 Patch0:         remove-homebrew-check.patch
 Patch1:         install-add-distribution-arg.patch
+Patch2:         use-unittest-mock.patch
 
 BuildArch:      noarch
 
 BuildRequires:  pandoc
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires: make
+BuildRequires:  make
 
 %description
 autojump is a faster way to navigate your filesystem. It works by maintaining 
@@ -91,6 +91,10 @@ mv %{buildroot}%{_bindir}/%{name}_*.py %{buildroot}%{python3_sitelib}/
 %config(noreplace) %{_datadir}/%{name}/%{name}.fish
 
 %changelog
+* Fri Dec 12 2025 Michel Lind <salimma@fedoraproject.org> - 22.5.3-24
+- Replace mock with unittest.mock
+  Resolves: RHBZ#2420920
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 22.5.3-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

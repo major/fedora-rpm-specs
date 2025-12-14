@@ -1,9 +1,3 @@
-%global basever 3.0.1
-%dnl %global prerel rc8
-%dnl %global commit 225e3ebd25c4bcd821b49369fd7c328a8ed09b43
-%dnl %global shortcommit %{sub %{commit} 1 7}
-%dnl %global snapdate 20250830
-
 %global soversion 3.0.0
 
 %global luaver 5.4
@@ -12,18 +6,14 @@
 %global optflags %optflags -DOPENSSL_NO_ENGINE
 
 Name:           apk-tools
-Version:        %{basever}%{?prerel:~%{prerel}}%{?snapdate:^git%{snapdate}.%{shortcommit}}
+Version:        3.0.2
 Release:        1%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
 License:        GPL-2.0-only
 URL:            https://gitlab.alpinelinux.org/alpine/apk-tools
-%if %{defined snapdate}
-Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
-%else
-Source0:        %{url}/-/archive/v%{basever}%{?prerel:_%{prerel}}/%{name}-v%{basever}%{?prerel:_%{prerel}}.tar.gz
-%endif
+Source:         %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  git-core
@@ -125,11 +115,7 @@ developing applications that use libapk.
 %dnl --------------------------------------------------------------------
 
 %prep
-%if %{defined snapdate}
-%autosetup -n %{name}-%{commit} -S git_am
-%else
-%autosetup -n %{name}-v%{basever}%{?prerel:_%{prerel}} -S git_am
-%endif
+%autosetup -n %{name}-v%{version} -S git_am
 
 
 %conf
@@ -158,20 +144,13 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %check
-# Purge the mkpkg test as it breaks with SELinux-based host environments
-# Cf. https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/11165
-rm test/user/mkpkg.sh
-touch test/user/mkpkg.sh
-cat > test/user/mkpkg.sh << MKPKGSTUBTEST
-#!/bin/sh
-exit 0
-MKPKGSTUBTEST
-chmod +x test/user/mkpkg.sh
-
 %meson_test
 
 
 %changelog
+* Fri Dec 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.2-1
+- Update to 3.0.2
+
 * Thu Dec 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.1-1
 - Update to 3.0.1 final
 

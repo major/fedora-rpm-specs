@@ -149,7 +149,6 @@ BuildRequires:  rubygem-asciidoctor
 BuildRequires:  asciidoc >= 8.4.1
 %endif
 # endif with asciidoctor
-BuildRequires:  perl(File::Compare)
 BuildRequires:  xmlto
 %if %{with linkcheck}
 BuildRequires:  linkchecker
@@ -179,7 +178,6 @@ BuildRequires:  openssl-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  perl(Error)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test)
 %if %{use_perl_generators}
 BuildRequires:  perl-generators
 %endif

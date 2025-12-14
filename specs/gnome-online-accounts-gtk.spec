@@ -1,11 +1,10 @@
 Name:           gnome-online-accounts-gtk
-Version:        3.50.3
-Release:        5%{?dist}
+Version:        3.50.8
+Release:        1%{?dist}
 Summary:        GUI Utility for logging into online accounts
 License:        GPL-3.0-or-later
 URL:            https://github.com/xapp-project/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{url}/pull/14.patch#/fix_gtk415_compile.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -18,7 +17,6 @@ BuildRequires:  pkgconfig(libadwaita-1)
 
 Requires:       gnome-online-accounts%{?_isa}
 
-
 %description
 GUI Utility for logging into online accounts for the
 purpose of syncing mail, contacts and remote filesystems.
@@ -29,7 +27,6 @@ purpose of syncing mail, contacts and remote filesystems.
 %build
 %meson
 %meson_build
-
 
 %install
 %meson_install
@@ -45,6 +42,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/gnome-online-accounts-gtk.svg
 
 %changelog
+* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 3.50.8-1
+- Update to 3.50.8
+
 * Wed Aug 13 2025 Leigh Scott <leigh123linux@gmail.com> - 3.50.3-5
 - Add requires gnome-online-accounts
 

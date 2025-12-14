@@ -3,6 +3,7 @@
 
 %global forgeurl https://github.com/DPDK/grout
 %global _lto_cflags %nil
+%global dpdk_version 25.11
 %if %{defined el9}
 %global toolset gcc-toolset-13
 %global __meson /usr/bin/scl run %toolset -- /usr/bin/meson
@@ -19,7 +20,7 @@ Group: System Environment/Daemons
 URL: %{forgeurl}
 Release: %{autorelease}
 Source0: %{forgesource}
-Source1: https://fast.dpdk.org/rel/dpdk-25.11.tar.xz
+Source1: https://fast.dpdk.org/rel/dpdk-%{dpdk_version}.tar.xz
 
 %if %{defined toolset}
 BuildRequires: %toolset
@@ -46,6 +47,8 @@ BuildRequires: systemd
 BuildRequires: libarchive-devel
 BuildRequires: python3-pyelftools
 BuildRequires: rdma-core-devel
+
+Provides: bundled(dpdk) = %{dpdk_version}
 
 # No point in running a DPDK application on 32 bit x86: see fedora#2336884
 ExcludeArch: %{ix86}
@@ -82,7 +85,7 @@ mv dpdk-* subprojects/dpdk
 
 %build
 export GROUT_VERSION=v%{version}-%{release}
-%meson -Dfrr=disabled -Ddpdk_static=true
+%meson -Dfrr=disabled -Ddpdk_static=true -Ddpdk:machine=generic
 %meson_build
 
 %install

@@ -47,6 +47,7 @@
 %bcond workstation %[%{undefined eln}]
 %bcond xfce %[%{undefined eln}]
 %bcond i3 %[%{undefined eln}]
+%bcond lxde %[%{undefined eln}]
 %bcond lxqt %[%{undefined eln}]
 %bcond budgie %[%{undefined eln}]
 %bcond budgie_atomic %[%{undefined eln}]
@@ -1092,6 +1093,43 @@ itself as Fedora i3.
 %endif
 
 
+%if %{with lxde}
+%package lxde
+Summary:        Base package for Fedora LXDE specific default configurations
+
+RemovePathPostfixes: .lxde
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-lxde if nothing else is already doing so.
+Recommends:     fedora-release-identity-lxde
+
+
+%description lxde
+Provides a base package for Fedora LXDE specific configuration files to
+depend on as well as LXDE system defaults.
+
+
+%package identity-lxde
+Summary:        Package providing the identity for Fedora LXDE Spin
+
+RemovePathPostfixes: .lxde
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-lxde = %{version}-%{release}
+
+
+%description identity-lxde
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora LXDE.
+%endif
+
+
 %if %{with lxqt}
 %package lxqt
 Summary:        Base package for Fedora LXQt specific default configurations
@@ -1903,6 +1941,16 @@ sed -i -e "s|(%{release_name}%{?prerelease})|(i3%{?prerelease})|g" %{buildroot}%
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/i3/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.i3
 %endif
 
+%if %{with lxde}
+# LXDE
+cp -p os-release \
+      %{buildroot}%{_prefix}/lib/os-release.lxde
+echo "VARIANT=\"LXDE\"" >> %{buildroot}%{_prefix}/lib/os-release.lxde
+echo "VARIANT_ID=lxde" >> %{buildroot}%{_prefix}/lib/os-release.lxde
+sed -i -e "s|(%{release_name}%{?prerelease})|(LXDE%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.lxde
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/LXDE/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.lxde
+%endif
+
 %if %{with lxqt}
 # LXQt
 cp -p os-release \
@@ -2314,6 +2362,15 @@ install -Dm0644 %{SOURCE31} -t %{buildroot}%{_prefix}/share/dnf5/libdnf.conf.d/
 %files identity-i3
 %{_prefix}/lib/os-release.i3
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.i3
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%endif
+
+
+%if %{with lxde}
+%files lxde
+%files identity-lxde
+%{_prefix}/lib/os-release.lxde
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.lxde
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 

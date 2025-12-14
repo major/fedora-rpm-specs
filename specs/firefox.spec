@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        146.0
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1018,6 +1018,7 @@ install -p -D -m 644 %{SOURCE23} %{buildroot}%{_mandir}/man1/firefox.1
 
 rm -f %{buildroot}/%{mozappdir}/firefox-config
 rm -f %{buildroot}/%{mozappdir}/update-settings.ini
+rm -f %{buildroot}/%{mozappdir}/firefox-bin
 
 for s in 16 22 24 32 48 256; do
     mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps
@@ -1200,7 +1201,6 @@ fi
 %endif
 %{_bindir}/firefox
 %{mozappdir}/firefox
-%{mozappdir}/firefox-bin
 %{mozappdir}/glxtest
 %doc %{_mandir}/man1/*
 %dir %{_sysconfdir}/%{name}
@@ -1268,6 +1268,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Dec 11 2025 Martin Stransky <stransky@redhat.com> - 146.0-4
+- Removed firefox-bin
+
 * Thu Dec 11 2025 Martin Stransky <stransky@redhat.com> - 146.0-3
 - Added aarch64 crash fix
 - Fixed rawhide gcc build (kudos to jhorak who hacked it! He's just awesome.)

@@ -224,12 +224,12 @@
 %global chromium_major 143
 %global chromium_branch 7499
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 40
+%global chromium_minor 109
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit e88e818df19df90196739f07b39a0a40bb6d7209
+%global cef_commit 8aed01b55e1b242b2b3df82a87f321a5cc2b6762
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 9
+%global cef_patch 10
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -267,6 +267,9 @@ Patch22: chromium-131-fix-qt-ui.pach
 #//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
 #  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
 Patch23: chromium-143-revert-libpng_for_testonly.patch
+
+# Get around the problem of auto darkmode webcontent inverting and making them unreadable
+Patch30: chromium-143-autodarkmode-workaround.patch
 
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
@@ -962,7 +965,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
-
+%patch -P30 -p1 -b .autodarkmode-workaround
 %patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}

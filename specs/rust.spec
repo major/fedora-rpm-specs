@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.91.1
+Version:        1.92.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.90.0
-%global bootstrap_channel 1.90.0
-%global bootstrap_date 2025-09-18
+%global bootstrap_version 1.91.0
+%global bootstrap_channel 1.91.0
+%global bootstrap_date 2025-10-30
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -45,7 +45,7 @@ ExclusiveArch:  %{rust_arches}
 # is insufficient. Rust currently requires LLVM 19.0+.
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 %global min_llvm_version 20.0.0
-%global bundled_llvm_version 21.1.1
+%global bundled_llvm_version 21.1.3
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -138,7 +138,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.91.0-unbundle-sqlite.patch
+Patch6:         rustc-1.92.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
@@ -1064,9 +1064,27 @@ rm -rf "$TMP_HELLO"
 %{__x} test --no-fail-fast --skip={src/bootstrap,tests/crashes} || :
 rm -rf "./build/%{rust_triple}/test/"
 
+# Cargo tests skip list
+# Every test skipped here must have a documented reason to be skipped.
+# Duplicates are safe to add.
+
+# This test relies on the DNS to fail to resolve the host. DNS is not enabled
+# in mock in koji so the DNS resolution doesn't take place to begin with.
+# We test this after packaging
+%global cargo_test_skip_list net_err_suggests_fetch_with_cli
+
 %ifarch aarch64
 # https://github.com/rust-lang/rust/issues/123733
-%define cargo_test_skip --test-args "--skip panic_abort_doc_tests"
+%global cargo_test_skip_list %{cargo_test_skip_list} panic_abort_doc_tests
+%endif
+%if %with disabled_libssh2
+# These tests need ssh - guaranteed to fail when libssh2 is disabled.
+%global cargo_test_skip_list  %{cargo_test_skip_list} \\\
+  net_err_suggests_fetch_with_cli \\\
+  ssh_something_happens
+%endif
+%if "%{cargo_test_skip_list}" != ""
+%define cargo_test_skip --test-args "%(printf -- '--skip %%s ' %{cargo_test_skip_list})"
 %endif
 %{__x} test --no-fail-fast cargo %{?cargo_test_skip} || :
 rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"

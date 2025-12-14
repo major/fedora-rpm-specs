@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.9
+Version:        0.9.17
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -33,12 +33,12 @@ Summary:        An extremely fast Python package installer and resolver, written
 #   - crates/uv-python/packaging/ is vendored and forked from
 #     python3dist(packaging)
 #
-# (Apache-2.0 OR MIT) AND BSD-3-CLause:
+# (Apache-2.0 OR MIT) AND BSD-3-Clause:
 #   - The function wheel_metadata_from_remote_zip in
 #     crates/uv-client/src/remote_metadata.rs is vendored and forked from the
 #     function lazy_read_wheel_metadata in src/index/lazy_metadata.rs in
 #     crate(rattler_installs_packages) and is BSD-3-Clause AND (Apache-2.0 OR
-#     MIT): the original routine is BSD-3-CLause, and subsequent modifications
+#     MIT): the original routine is BSD-3-Clause, and subsequent modifications
 #     are explicitly (Apache-2.0 OR MIT).
 #
 # MIT
@@ -51,33 +51,29 @@ Summary:        An extremely fast Python package installer and resolver, written
 #     forked from crate(ripunzip)
 #
 # The following are present in the source but believed not to contribute to the
-# licenses of the binary RPMs. Note that ecosystem/ contains only
+# licenses of the binary RPMs. Note that test/ecosystem/ contains only
 # pyproject.toml files used for testing, not complete bundled projects.
 #
 # Apache-2.0:
-#   - ecosystem/airflow/
-#   - ecosystem/home-assistant-core/
-#   - ecosystem/transformers/
-#   - ecosystem/warehouse/
+#   - test/ecosystem/airflow/
+#   - test/ecosystem/home-assistant-core/
+#   - test/ecosystem/transformers/
+#   - test/ecosystem/warehouse/
 # Apache-2.0 OR MIT:
-#   - ecosystem/packse/
+#   - test/ecosystem/packse/
 # BSD-2-Clause-Patent:
-#   - ecosystem/github-wikidata-bot/
+#   - test/ecosystem/github-wikidata-bot/
 # BSD-3-Clause:
-#   - ecosystem/saleor/
+#   - test/ecosystem/saleor/
 # MIT:
 #   - crates/uv-python/fetch-download-metadata.py is derived from
 #     https://github.com/mitsuhiko/rye/tree/f9822267a7f00332d15be8551f89a212e7bc9017
 #     which was MIT.
-#   - ecosystem/black/
+#   - test/ecosystem/black/
 #
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
-# output of %%{cargo_license_summary}. This should automatically include the
-# licenses of the following bundled forks:
-#   - async_zip, Source100, is MIT.
-#   - pubgrub/version-ranges, Source200, is MPL-2.0.
-#   - reqwest-middleware/reqwest-retry, Source300, is (MIT OR Apache-2.0).
+# output of %%{cargo_license_summary}.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
@@ -102,6 +98,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # MIT OR Apache-2.0
 # MIT OR LGPL-3.0-or-later
 # MIT OR Zlib OR Apache-2.0
+# MIT-0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
 # Unicode-3.0
@@ -126,6 +123,7 @@ License:        %{shrink:
                 (LGPL-3.0-or-later OR MIT) AND
                 (LGPL-3.0-or-later OR MPL-2.0) AND
                 MIT AND
+                MIT-0 AND
                 (MIT OR Unlicense) AND
                 MPL-2.0 AND
                 Unicode-3.0 AND
@@ -139,52 +137,25 @@ Source0:        %{url}/archive/%{version}/uv-%{version}.tar.gz
 # https://docs.astral.sh/uv/configuration/files
 Source1:        uv.toml
 
-# Currently, uv must use a fork of async_zip, as explained in:
-#   Restore central directory buffering
-#   https://github.com/astral-sh/rs-async-zip/pull/2
-# and further discussed in
-#   Please consider supporting the current release of async_zip
-#   https://github.com/prefix-dev/async_http_range_reader/issues/14
-# We therefore bundle the fork as prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global async_zip_git https://github.com/astral-sh/rs-async-zip
-%global async_zip_rev f6a41d32866003c868d03ed791a89c794f61b703
-%global async_zip_baseversion 0.0.17
-%global async_zip_snapdate 20251014
-Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_zip_rev}.tar.gz
-
-# For the foreseeable future, uv must use a fork of pubgrub (and the
-# version-ranges crate, which belongs to the same project), as explained in:
-#   Plans for eventually using published pubgrub?
-#   https://github.com/astral-sh/uv/issues/3794
-# We therefore bundle the fork as prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev d8efd77673c9a90792da9da31b6c0da7ea8a324b
-%global pubgrub_baseversion 0.3.0
-%global pubgrub_snapdate 20250810
-%global version_ranges_baseversion 0.1.1
-Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
-
-# Until “Report retry count on Ok results,”
-# https://github.com/TrueLayer/reqwest-middleware/pull/235, is reviewed,
-# merged, and released, uv must use a fork of reqwest-middleware/reqwest-retry
-# to support the changes in “Show retries for HTTP status code errors,”
-# https://github.com/astral-sh/uv/pull/13897. We therefore bundle the fork as
-# prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
-%global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
-%global reqwest_middleware_rev 7650ed76215a962a96d94a79be71c27bffde7ab2
-%global reqwest_middleware_snapdate 20250828
-%global reqwest_middleware_baseversion 0.4.2
-%global reqwest_retry_baseversion 0.7.0
-Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
-
 # Downstream-only: Always find the system-wide uv executable
 # See discussion in
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+
+# Gate a few more tests on the pypi feature
+# https://github.com/astral-sh/uv/pull/17059
+Patch:          %{url}/pull/17059.patch
+
+# Drop some non-integration exclude-newer tests
+# https://github.com/astral-sh/uv/pull/17071
+#
+# Fixes:
+#
+# New test failure in 0.9.17: uv-resolver
+# exclude_newer::tests::test_exclude_newer_timestamp_absolute
+# https://github.com/astral-sh/uv/issues/17070
+Patch:          %{url}/pull/17071.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -215,7 +186,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
-BuildRequires:  python3-devel
 %if %{with check} && %{with it}
 # See trove classifiers in pyproject.toml for supported Pythons.
 BuildRequires:  /usr/bin/python3.9
@@ -227,24 +197,6 @@ BuildRequires:  /usr/bin/python3.13t
 BuildRequires:  /usr/bin/python3.14
 BuildRequires:  /usr/bin/python3.14t
 %endif
-
-# This is a fork of async_zip; see the notes about Source100.
-%global async_zip_snapinfo %{async_zip_snapdate}git%{sub %{async_zip_rev} 1 7}
-%global async_zip_version %{async_zip_baseversion}^%{async_zip_snapinfo}
-Provides:       bundled(crate(async_zip)) = %{async_zip_version}
-# This is a fork of pubgrub/version-ranges; see the notes about Source200.
-%global pubgrub_snapinfo %{pubgrub_snapdate}git%{sub %{pubgrub_rev} 1 7}
-%global pubgrub_version %{pubgrub_baseversion}^%{pubgrub_snapinfo}
-%global version_ranges_version %{version_ranges_baseversion}^%{pubgrub_snapinfo}
-Provides:       bundled(crate(pubgrub)) = %{pubgrub_version}
-Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
-# This is a fork of reqwest-middleware/reqwest-retry; see the notes about
-# Source300.
-%global reqwest_middleware_snapinfo %{reqwest_middleware_snapdate}git%{sub %{reqwest_middleware_rev} 1 7}
-%global reqwest_middleware_version %{reqwest_middleware_baseversion}^%{reqwest_middleware_snapinfo}
-%global reqwest_retry_version %{reqwest_retry_baseversion}^%{reqwest_middleware_snapinfo}
-Provides:       bundled(crate(reqwest-middleware)) = %{reqwest_middleware_version}
-Provides:       bundled(crate(reqwest-retry)) = %{reqwest_retry_version}
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
 # upstream writes “These have diverged significantly and the upstream versions
@@ -395,73 +347,7 @@ This package provides an importable Python module for uv.
 
 
 %prep
-%autosetup -N
-%autopatch -p1 -M99
-
-# Usage: git2path SELECTOR PATH
-# Replace a git dependency with a path dependency in Cargo.toml
-git2path() {
-  tomcli set Cargo.toml del "${1}.git"
-  tomcli set Cargo.toml del "${1}.rev"
-  tomcli set Cargo.toml str "${1}.path" "${2}"
-}
-
-# See comments above Source100:
-%setup -q -T -D -b 100 -n uv-%{version}
-# Adding the crate to the workspace (in this case implicitly, by linking it
-# under crates/) means %%cargo_generate_buildrequires can handle it correctly.
-ln -s '../../rs-async-zip-%{async_zip_rev}' crates/async_zip
-git2path workspace.dependencies.async_zip crates/async_zip
-pushd crates/async_zip
-%autopatch -p1 -m100 -M199
-popd
-install -t LICENSE.bundled/async_zip -D -p -m 0644 crates/async_zip/LICENSE
-
-# See comments above Source200:
-%setup -q -T -D -b 200 -n uv-%{version}
-ln -s '../../pubgrub-%{pubgrub_rev}' crates/pubgrub
-git2path workspace.dependencies.pubgrub crates/pubgrub
-pushd crates/pubgrub
-%autopatch -p1 -m200 -M299
-popd
-install -t LICENSE.bundled/pubgrub -D -p -m 0644 crates/pubgrub/LICENSE
-# Drop a benchmark-only dev-dependency.
-tomcli set crates/pubgrub/Cargo.toml del dev-dependencies.criterion
-# Omit tests requiring varisat; it is not packaged and has significant
-# dependencies of its own.
-tomcli set crates/pubgrub/Cargo.toml del dev-dependencies.varisat
-mv crates/pubgrub/tests/proptest.rs{,.disabled}
-mv crates/pubgrub/tests/sat_dependency_provider.rs{,.disabled}
-# We can’t have two workspaces!
-tomcli set crates/pubgrub/Cargo.toml del workspace
-# Note that install does always dereference symlinks, which is what we want:
-install -t LICENSE.bundled/version-ranges -D -p -m 0644 \
-    crates/pubgrub/version-ranges/LICENSE
-git2path workspace.dependencies.version-ranges crates/pubgrub/version-ranges
-
-# See comments above Source300:
-%setup -q -T -D -b 300 -n uv-%{version}
-pushd '../reqwest-middleware-%{reqwest_middleware_rev}'
-%autopatch -p1 -m300 -M399
-# The (path-based) dev-dependency on reqwest-tracing is required only for an
-# example in README.md; avoid it.
-tomcli set reqwest-middleware/Cargo.toml del dev-dependencies.reqwest-tracing
-sed -r -i 's/^```rust$/&,ignore/' README.md
-popd
-ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware' \
-    crates/reqwest-middleware
-git2path workspace.dependencies.reqwest-middleware crates/reqwest-middleware
-git2path patch.crates-io.reqwest-middleware crates/reqwest-middleware
-install -t LICENSE.bundled/reqwest-middleware -D -p -m 0644 \
-    crates/reqwest-middleware/LICENSE*
-ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-retry' \
-    crates/reqwest-retry
-git2path workspace.dependencies.reqwest-retry crates/reqwest-retry
-git2path patch.crates-io.reqwest-retry crates/reqwest-retry
-install -t LICENSE.bundled/reqwest-retry -D -p -m 0644 \
-    crates/reqwest-retry/LICENSE*
-# We do not need the reqwest-tracing crate.
-rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-tracing'
+%autosetup -p1
 
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/packaging -D -p -m 0644 \
@@ -494,15 +380,27 @@ find -L . -type f -name Cargo.toml -print \
     -execdir rust2rpm-helper strip-foreign -o '{}' '{}' ';'
 
 # The uv-trampoline crate (a fork of posy trampolines, from
-# https://github.com/njsmith/posy) contains a set of trampoline Windows
-# executables for launching Python scripts. We must remove these to prove they
-# are not used in the build (and since they are only used on Windows, nothing
-# is lost by doing so).
-rm -v crates/uv-trampoline/trampolines/*.exe
-# Per Cargo.toml, uv-trampoline is excluded from the workspace and not
-# compiled because it still requires a nightly compiler. For now, we remove it
-# entirely to show that we do not need to document bundling from posy.
+# https://github.com/njsmith/posy) uses a set of trampoline Windows executables
+# for launching Python scripts. These precompiled executables are funished by
+# the uv-trampoline-builder crate. We must remove them to prove they are not
+# used in the build. Since they are used only on Windows, nothing is lost by
+# doing so.
+rm -v crates/uv-trampoline-builder/trampolines/*.exe
+# Per Cargo.toml, uv-trampoline is excluded from the workspace and not compiled
+# because it still requires a nightly compiler. For now, we remove it entirely
+# to show that we do not need to document bundling from posy. Note that we
+# *cannot* cleanly remove uv-trampoline-builder, only the precompiled
+# trampolines themselves.
 rm -rv crates/uv-trampoline
+
+# Remove the dependency on embed-manifest, which applies only when (cross-?)
+# compiling for Windows.
+tomcli set Cargo.toml del workspace.dependencies.embed-manifest
+# We may have to do something more sophisticated if this build script ever
+# starts to do anything other than just embedding a manifest on Windows.
+rm -v crates/uv/build.rs
+tomcli set crates/uv/Cargo.toml del build-dependencies.embed-manifest
+# The embed-manifest depenency is also used in uv-trampoline, which we removed.
 
 # Do not strip the compiled executable; we need useful debuginfo. Upstream set
 # this intentionally, so this change makes sense to keep downstream-only.
@@ -513,8 +411,7 @@ tomcli set Cargo.toml false profile.release.strip
 # benchmarks, and it brings in unwanted additional dev dependencies.
 tomcli set Cargo.toml append workspace.exclude crates/uv-bench
 # The uv-dev crate provides “development utilities for uv,” which should not be
-# needed here, and it also brings in extra dependencies that we would prefer to
-# do without.
+# needed here. It also brings extra dependencies that we would prefer to avoid.
 tomcli set Cargo.toml append workspace.exclude crates/uv-dev
 
 # Do not request static linking of anything (particularly, liblzma)
@@ -530,6 +427,8 @@ tomcli set crates/uv-extract/Cargo.toml del features.static
 # - git: Introduces a testing dependency on Git. This sounds innocuous – we
 #   have git! – but in fact, it controls tests of git dependencies, which
 #   implies accessing remote repositories, e.g. on GitHub.
+# - git-lfs: as for git, but also require Git Large File Storage; again, this
+#   implies accessing remote repositories
 # - pypi: Introduces a testing dependency on PyPI.
 # - python-managed: Introduces a testing dependency on managed Python
 #   installations. (These are pre-compiled Pythons downloaded from the
@@ -545,7 +444,7 @@ tomcli set crates/uv-extract/Cargo.toml del features.static
 # Python installation with specific patch versions,” is already not among the
 # default features.
 tomcli set crates/uv/Cargo.toml lists delitem features.default-tests \
-    '(crates-io|git|pypi|python-managed|r2)'
+    '(crates-io|git(-lfs)?|pypi|python-managed|r2)'
 
 %if %{without it}
 # Integration tests (it crate) nearly all require specific Python interpreter
@@ -584,13 +483,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
-# etcetera
-#   wanted: 0.11.0
-#   currently packaged: 0.10.0
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2406801
-tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
-    '>=0.10.0, <0.12.0'
-
 # spdx
 #   wanted: 0.12.0
 #   currently packaged: 0.10.9 (but we want to update to 0.12)
@@ -615,18 +507,6 @@ tomcli set Cargo.toml str workspace.dependencies.spdx.version \
 # Since maturin always checks for dev-dependencies, we need -t so that they are
 # generated even when the “check” bcond is disabled.
 %cargo_generate_buildrequires -a -t
-# These crates are excluded from the workspace – upstream writes:
-#   Only used to pull in features, allocators, etc. — we specifically don't
-#   want them to be part of a workspace-wide cargo check, cargo clippy, etc.
-#   – but they are still needed to support features, and the build will fail if
-#   we do not generate their dependencies, too:
-for cratedir in \
-    crates/uv-performance-memory-allocator
-do
-  pushd "${cratedir}" >/dev/null
-  %cargo_generate_buildrequires -a -t
-  popd >/dev/null
-done
 %pyproject_buildrequires
 
 
@@ -639,7 +519,7 @@ done
 
 %install
 %pyproject_install
-%pyproject_save_files uv
+%pyproject_save_files -L uv
 
 if [ '%{python3_sitearch}' != '%{python3_sitelib}' ]
 then

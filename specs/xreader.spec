@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	4.4.0
+Version:	4.6.0
 Release:	1%{?dist}
 Summary:	Simple document viewer
 
@@ -170,6 +170,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 4.6.0-1
+- Update to 4.6.0
+
 * Mon Sep 15 2025 Leigh Scott <leigh123linux@gmail.com> - 4.4.0-1
 - Update to 4.4.0
 - Add recommends xreader-thumbnailer to main package

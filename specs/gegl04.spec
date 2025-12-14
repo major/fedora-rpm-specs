@@ -10,7 +10,7 @@
 %bcond docs 1
 
 Name:           gegl04
-Version:        0.4.64
+Version:        0.4.66
 Release:        %autorelease
 Summary:        Graph based image processing framework
 
@@ -77,6 +77,9 @@ BuildRequires:  pkgconfig(libtiff-4) >= 4.0.0
 #     CURRENT REVISION: b27c5b79df2ffa4e2cb37f9e5536831f16afb11b
 #     CACHED ON: August 11th, 2012
 Provides:       bundled(poly2tri-c)
+# This has a (dormant) upstream, but can’t be built from the tarball as it needs the rest of the
+# NetSurf browser build system.
+Provides:       bundled(libnsgif) = 1.0.0
 Obsoletes:      gegl03 < 0.3.31
 # This is optional as it's large and can cause issues with some HW.
 Recommends: %{name}-matting-levin%{?_isa}

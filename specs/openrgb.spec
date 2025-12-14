@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/CalcProgrammer1/%{upstream_package_name}
-%global commit 28e97cf2d972d34ee8bf53116fe3fc8480221281
+%global commit cff3a400a4778e907921b72777ecd876d23f3709
 #%%global tag release_%%{version}
 # Workaround for incorrect package suffix name with forge macros
 # (.20231017gitrelease.0.9 for example)
@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 %global upstream_package_name OpenRGB
 
 Name:           openrgb
-Version:        0.9
+Version:        1.0~rc1
 %forgemeta
 Release:        %autorelease
 Summary:        Open source RGB lighting control
@@ -22,12 +22,7 @@ Summary:        Open source RGB lighting control
 #     - libcmmk
 License:        GPL-2.0-only AND GPL-3.0-or-later
 URL:            https://openrgb.org
-Source0:        %{forgesource}
-
-# Attempt to support some Gigabyte boards (like x870e aorus pro ice)
-# Not accepted upstream yet as there are a few things to sort out but this is
-# usable as it is
-Patch:          dd633e46370659e275fb7a0a16dcd1c3986d7b6e.patch
+Source:         %{forgesource}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -45,12 +40,10 @@ BuildRequires:  cmake(Qt5LinguistTools)
 Requires:       %{name}-udev-rules = %{version}-%{release}
 Requires:       hicolor-icon-theme
 
-Provides:       bundled(hueplusplus) = 1.0.0
+Provides:       bundled(hueplusplus) = 1.2.0
 Provides:       bundled(libcmmk)
 
 %description
-Visit our website at https://openrgb.org!
-
 One of the biggest complaints about RGB is the software ecosystem surrounding
 it.  Every manufacturer has their own app, their own brand, their own style.
 If you want to mix and match devices, you end up with a ton of conflicting,
@@ -124,12 +117,25 @@ if [ -S /run/udev/control ]; then
 fi
 
 
+%post
+%systemd_post %{name}.service
+
+%preun
+%systemd_preun %{name}.service
+
+%postun
+%systemd_postun_with_restart %{name}.service
+
+
 %files
 %doc README.md
 %{_bindir}/%{name}
-%{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/*/apps/*.png
 %{_metainfodir}/*.metainfo.xml
+%{_tmpfilesdir}/%{name}.conf
+%{_unitdir}/*.service
+
 
 %files udev-rules
 %license LICENSE

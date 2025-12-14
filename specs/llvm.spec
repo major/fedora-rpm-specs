@@ -3537,6 +3537,11 @@ fi
 %ifnarch %{ix86} s390x riscv64
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
 %endif
+%ifarch s390x
+%if %{maj_ver} >= 22
+%{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
+%endif
+%endif
 
 # Additional symlink if two triples are in use.
 %if "%{llvm_triple}" != "%{compiler_rt_triple}"

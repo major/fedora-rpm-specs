@@ -2,7 +2,7 @@
 %global uuid com.github.phase1geo.%{name}
 
 Name:           minder
-Version:        1.17.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Mind-mapping application
 
@@ -10,25 +10,25 @@ Summary:        Mind-mapping application
 
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
-Source0:        %{url}/archive/%{version}/Minder-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/Minder-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  libmarkdown-devel
 BuildRequires:  meson
-BuildRequires:  vala >= 0.48
+BuildRequires:  vala
 
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(granite) >= 6.0
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gtksourceview-4)
+BuildRequires:  pkgconfig(granite-7) >= 7.0
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libarchive)
-BuildRequires:  pkgconfig(libhandy-1)
+BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libxml-2.0)
 
 Requires:       hicolor-icon-theme

@@ -29,7 +29,7 @@
     %bcond hip   1    # AMD HIP support
     %bcond hiprt 1    # HIP ray tracing (requires Fedora 42+)
     %bcond oidn  1    # OpenImageDenoise
-    %bcond oneapi 0   # Intel OneAPI support
+    %bcond oneapi 1   # Intel OneAPI support
     %bcond openshading 1  # OpenShadingLanguage support
     %bcond opgl  1    # OpenPGL
     %global llvm_compat 18
@@ -76,6 +76,7 @@ BuildRequires:  boost-devel
 BuildRequires:  ccache
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
+BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  git-core
@@ -326,10 +327,11 @@ BuildRequires:  rocm-runtime-devel
 
 # OneAPI stuff
 %if %{with oneapi}
-BuildRequires:	intel-compute-runtime
-BuildRequires:	intel-level-zero-devel
-BuildRequires:	intel-level-zero-gpu-raytracing
+BuildRequires:  intel-level-zero-devel
+BuildRequires:  intel-level-zero-gpu-raytracing
+BuildRequires:  intel-ocloc-devel
 BuildRequires:  pkgconfig(level-zero)
+BuildRequires:  pkgconfig(vpl)
 %endif
 
 Requires:       hicolor-icon-theme
@@ -401,7 +403,10 @@ export PATH=${PATH}:${HIP_CLANG_PATH}
     -DWITH_CYCLES_HIP_BINARIES=ON \
     %{?with_hiprt:-DWITH_CYCLES_DEVICE_HIPRT=ON} \
 %endif
-    %{?with_oneapi:-DWITH_CYCLES_DEVICE_ONEAPI=ON} \
+%if %{with oneapi}
+    -DWITH_CYCLES_DEVICE_ONEAPI=ON \
+    -DWITH_CYCLES_ONEAPI_BINARIES=ON \
+%endif
     -DWITH_OPENCOLLADA=OFF \
     -DWITH_LIBS_PRECOMPILED=OFF \
     -W no-dev
@@ -436,6 +441,7 @@ install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \
 %find_lang %{name}
 find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec chmod 755 {} \;
 rm -rf %{buildroot}%{_docdir}/%{name}/*
+%fdupes %{_datadir}/%{name}/%{blender_api}/datafiles
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
