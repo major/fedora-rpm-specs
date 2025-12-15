@@ -5,7 +5,7 @@
 %global crate gdk4-wayland
 
 Name:           rust-gdk4-wayland
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Rust bindings of the GDK 4 Wayland library
 

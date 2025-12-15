@@ -3,8 +3,8 @@
 # - release build (disable for quick build)
 %ifarch s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=2329744
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25536
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25541
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25536
 %bcond releasebuild 0
 %else
 %bcond releasebuild 1
@@ -61,6 +61,11 @@
 %define _find_debuginfo_opts --no-ar-files
 %endif
 
+# linker
+# only really has a big effect on ppc64le for prof
+# https://bugzilla.redhat.com/show_bug.cgi?id=2411712
+%bcond use_lld 0
+
 # make sure ghc libraries' ABI hashes unchanged
 %bcond abicheck 0
 
@@ -75,16 +80,20 @@
 %if %{defined el9}
 %global llvm_major 12
 %else
+%if %{defined fc41}
 %global llvm_major 18
+%else
+%global llvm_major 19
+%endif
 %endif
 %global ghc_llvm_archs s390x
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}.20250919
+Version: %{ghc_major}.%{ghc_patchlevel}.20251110
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -101,9 +110,6 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# should be in 9.14 and enabled by default for release flavor
-#Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -162,6 +168,9 @@ BuildRequires: perl-interpreter
 BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
+%endif
+%if %{with use_lld}
+BuildRequires: lld%{llvm_major}
 %endif
 BuildRequires: llvm%{llvm_major}
 BuildRequires: clang%{llvm_major}
@@ -254,6 +263,9 @@ Obsoletes: %{name}-ghc-internal-prof < 9.1202.0-6
 Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
 Requires: binutils
+%if %{with use_lld}
+Requires: lld%{llvm_major}
+%endif
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
 Requires: clang%{llvm_major}
@@ -281,6 +293,7 @@ Conflicts: ghc9.4-compiler-default
 Conflicts: ghc9.6-compiler-default
 Conflicts: ghc9.8-compiler-default
 Conflicts: ghc9.10-compiler-default
+Conflicts: ghc9.14-compiler-default
 
 %description compiler-default
 The package contains symlinks to make %{name} the default GHC compiler.
@@ -430,7 +443,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-#%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -463,6 +475,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 %build
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
+%if %{with use_lld}
+export LD=%{_bindir}/ld.lld-%{llvm_major}
+%endif
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
 
@@ -479,7 +494,8 @@ export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
   --datadir=%{_datadir} --includedir=%{_includedir} --libdir=%{_libdir} \
   --libexecdir=%{_libexecdir} --localstatedir=%{_localstatedir} \
   --sharedstatedir=%{_sharedstatedir} --mandir=%{_mandir} \
-  --docdir=%{_docdir}/%{name} --with-system-libffi --disable-ld-override \
+  --docdir=%{_docdir}/%{name} --with-system-libffi \
+  %{!?with_use_lld:--disable-ld-override} \
 %ifarch %{ghc_unregisterized_arches}
   --enable-unregisterised \
 %endif
@@ -505,7 +521,7 @@ ln -s ../libraries/ghc-platform ghc-platform-%{ghc_platform_ver}
 ln -s ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
 ln -s ../libraries/Cabal/Cabal-syntax Cabal-syntax-%{Cabal_ver}
 ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
-%ghc_libs_build -P -W file-io-%{file_io_ver} directory-%{directory_ver} ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver} Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver}
+%ghc_libs_build -H -P -W file-io-%{file_io_ver} directory-%{directory_ver} ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver} Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
@@ -542,9 +558,12 @@ cp -p LICENSE ../LICENSE.hadrian
 %endif
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
+%if %{with use_lld}
+export LD=%{_bindir}/ld.lld-%{llvm_major}
+%endif
 (
 cd _build/bindist/ghc-%{version}-*
-./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} --disable-ld-override
+./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} %{!?with_use_lld:--disable-ld-override}
 make install
 )
 
@@ -894,8 +913,12 @@ make test
 
 
 %changelog
+* Fri Nov 14 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20251110-10
+- update to 9.12.3 RC2
+- https://downloads.haskell.org/ghc/9.12.3-rc2/docs/users_guide/9.12.3-notes.html
+
 * Mon Sep 22 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20250919-9
-- update to 9.10.3 RC1
+- update to 9.12.3 RC1
 - https://downloads.haskell.org/ghc/9.12.3-rc1/docs/users_guide/9.12.3-notes.html
 - boot with ghc9.10
 

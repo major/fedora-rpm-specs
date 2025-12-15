@@ -3,8 +3,8 @@
 %global file_name pytest_mock
 
 Name:           python-%{package_name}
-Version:        3.14.1
-Release:        4%{?dist}
+Version:        3.15.1
+Release:        1%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -64,6 +64,9 @@ sed -i 's/\r$//' README.rst
 %license LICENSE
 
 %changelog
+* Sat Dec 13 2025 Julien Enselme <jujens@jujens.eu> - 3.15.1-1
+- Update to 3.15.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.14.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

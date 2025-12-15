@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.14
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python module and programs for SPF (Sender Policy Framework)
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -33,6 +33,9 @@ BuildRequires:  python3-devel
 Requires:       python3-py3dns
 %{?python_provide:%python_provide python3-%{srcname}}
 
+Requires(post):   alternatives
+Requires(postun): alternatives
+
 %description -n python3-%{srcname}
 SPF does email sender validation.  For more information about SPF,
 please see http://spf.pobox.com.
@@ -56,10 +59,18 @@ This package provides Python 3 build of %{srcname}.
 %check
 # Tests require unpackaged python-authres
 
+%post -n python3-%{srcname}
+update-alternatives --install %{_bindir}/spfquery spf %{_bindir}/spfquery.%{name} 10
+
+%postun -n python3-%{srcname}
+if [ $1 -eq 0 ] ; then
+  update-alternatives --remove spf %{_bindir}/spfquery.%{name}
+fi
+
 %install
 %pyproject_install
 mv %{buildroot}%{_bindir}/type99.py %{buildroot}%{_bindir}/type99
-mv %{buildroot}%{_bindir}/spfquery.py %{buildroot}%{_bindir}/spfquery
+mv %{buildroot}%{_bindir}/spfquery.py %{buildroot}%{_bindir}/spfquery.%{name}
 rm -f %{buildroot}%{_bindir}/*.py{o,c}
 # Remove shebang from python libraries
 sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/*.py
@@ -68,11 +79,15 @@ sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/*.py
 %doc CHANGELOG PKG-INFO README.md
 %{python3_sitelib}/__pycache__
 %{_bindir}/type99
-%{_bindir}/spfquery
+%{_bindir}/spfquery.%{name}
+%ghost %{_bindir}/spfquery
 %{python3_sitelib}/spf.py*
 %{python3_sitelib}/pyspf-%{version}.dist-info
 
 %changelog
+* Sun Dec 14 2025 Bojan Smojver <bojan@rexursive.com> - 2.0.14-28
+- Turn spfquery into an alternative BZ#2296986
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.14-27
 - Rebuilt for Python 3.14.0rc3 bytecode
 

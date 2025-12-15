@@ -2,7 +2,7 @@
 
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
-Version:	2.2.4
+Version:	2.2.5
 Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
@@ -131,6 +131,9 @@ Slick-greeter customisation for the MATE desktop.
 
 
 %changelog
+* Sat Dec 13 2025 Leigh Scott <leigh123linux@gmail.com> - 2.2.5-1
+- Update to 2.2.5
+
 * Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 2.2.4-1
 - Update to 2.2.4
 

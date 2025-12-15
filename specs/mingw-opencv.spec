@@ -3,8 +3,8 @@
 %global pkgname opencv
 
 Name:          mingw-%{pkgname}
-Version:       4.11.0
-Release:       7%{?dist}
+Version:       4.12.0
+Release:       1%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -23,8 +23,8 @@ Source2:       %{pkgname}-clean.sh
 Patch0:        opencv_unbundle.patch
 # Pass -mbig-obj to linker when linking python module, to prevent "too many sections" failure
 Patch1:        opencv_bigobj.patch
-# Backport fix for CVE-2025-53644
-Patch2:        https://github.com/opencv/opencv/commit/a39db41390de546d18962ee1278bd6dbb715f466.patch
+# Fix CV_CheckGlError calling undefined function checkError if _DEBUG is not defined
+Patch2:        opencv-fix-build.patch
 
 
 BuildRequires: make
@@ -209,9 +209,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw32-%{pkgname}
 %license install_licenses/*
-%{mingw32_bindir}/libopencv_*4110.dll
+%{mingw32_bindir}/libopencv_*4120.dll
 %{mingw32_includedir}/opencv4/
-%{mingw32_libdir}/libopencv_*4110.dll.a
+%{mingw32_libdir}/libopencv_*4120.dll.a
 %{mingw32_libdir}/cmake/OpenCV/
 %{mingw32_datadir}/opencv4
 
@@ -224,9 +224,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw64-%{pkgname}
 %license install_licenses/*
-%{mingw64_bindir}/libopencv_*4110.dll
+%{mingw64_bindir}/libopencv_*4120.dll
 %{mingw64_includedir}/opencv4/
-%{mingw64_libdir}/libopencv_*4110.dll.a
+%{mingw64_libdir}/libopencv_*4120.dll.a
 %{mingw64_libdir}/cmake/OpenCV/
 %{mingw64_datadir}/opencv4
 
@@ -238,6 +238,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 4.12.0-1
+- Update to 4.12.0
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 4.11.0-7
 - Rebuild (libtiff)
 

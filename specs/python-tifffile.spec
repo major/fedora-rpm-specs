@@ -2,7 +2,7 @@
 %global srcname tifffile
 
 Name: python-%{srcname}
-Version: 2025.10.16
+Version: 2025.12.12
 Release: %autorelease
 Summary: Read and write TIFF(r) files
 

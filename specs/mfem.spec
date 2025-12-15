@@ -1,8 +1,9 @@
 %bcond_without openmpi
 %bcond_without mpich
+%bcond_with check 0
 
 %global forgeurl https://github.com/mfem/mfem
-Version:        4.8
+Version:        4.9
 %global sover   %{version}.0
 %forgemeta
 
@@ -98,7 +99,11 @@ OPTIONS=(
     -GNinja \
     -DCMAKE_SKIP_BUILD_RPATH=OFF \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
+%if %{with check}
     -DMFEM_ENABLE_TESTING=ON \
+%else
+    -DMFEM_ENABLE_TESTING=OFF \
+%endif
     -DMFEM_ENABLE_EXAMPLES=OFF \
     -DMFEM_ENABLE_MINIAPPS=OFF \
     -DMFEM_ENABLE_GOOGLE_BENCHMARKS=OFF \
@@ -163,6 +168,8 @@ OPTIONS=(
 %{_mpich_unload}
 %endif
 
+%if %{with check}
+
 %check
 %global _vpath_builddir %{_target_platform}
 # SIGABRT - Abort (abnormal termination) signal
@@ -189,6 +196,8 @@ OPTIONS=(
 %endif
 
 %{_mpich_unload}
+%endif
+
 %endif
 
 %files

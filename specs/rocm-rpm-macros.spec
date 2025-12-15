@@ -21,7 +21,7 @@
 #
 Name:           rocm-rpm-macros
 Version:        7.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -47,6 +47,7 @@ Source16:       gfx1103
 Source17:       default.rhel
 Source18:       gfx12
 Source19:       gfx950
+Source30:       rocm-7.1
 
 # Just some files
 %global debug_package %{nil}
@@ -106,6 +107,8 @@ install -pm 644 %{SOURCE15} modules
 install -pm 644 %{SOURCE16} modules
 install -pm 644 %{SOURCE18} modules
 install -pm 644 %{SOURCE19} modules
+# compat modules
+install -pm 644 %{SOURCE30} modules
 
 %install
 mkdir -p %{buildroot}%{_rpmmacrodir}/
@@ -131,6 +134,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Wed Dec 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
+- Add rocm-7.1 compat module
+
 * Mon Dec 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Reduce hipblaslt list
 

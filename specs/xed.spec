@@ -1,17 +1,15 @@
 # Filter provides from plugins.
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*$
 
-
 Name:		xed
-Version:	3.8.4
-Release:	2%{?dist}
+Version:	3.8.7
+Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:     libpeas_libgirepository2.patch
 
 ExcludeArch:   %{ix86}
 
@@ -31,6 +29,7 @@ BuildRequires:	pkgconfig(gtksourceview-4)
 BuildRequires:	pkgconfig(libpeas-gtk-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(iso-codes)
+BuildRequires:	python3-gobject-devel
 BuildRequires:	python3-gobject-base
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(xapp) >= 1.4.0
@@ -52,14 +51,12 @@ Xed is extensible through a plugin system, which currently includes
 support for spell checking, comparing files, viewing CVS ChangeLogs, and
 adjusting indentation levels.
 
-
 %package devel
 Summary:	Files needed to develop plugins for %{name}
 Requires:	%{name}%{?_isa}	== %{version}-%{release}
 
 %description devel
 This package contains files needed to develop plugins for %{name}.
-
 
 %package doc
 Summary:	Documentation files for %{name}
@@ -68,12 +65,8 @@ BuildArch:	noarch
 %description doc
 This package contains the documentation files for %{name}.
 
-
 %prep
 %setup -q
-%if 0%{?fedora} > 42 || 0%{?rhel} > 10
-%patch -P0 -p1
-%endif
 
 # Use 'classic'-theme by default.
 %{__sed} -i -e 's!xed!classic!g' data/org.x.editor.gschema.xml.in
@@ -88,7 +81,6 @@ This package contains the documentation files for %{name}.
 	-Ddeprecated_warnings=false
 %meson_build
 
-
 %install
 %meson_install
 %{__sed} -i -e '/.*<project_group>.*/d'				\
@@ -101,7 +93,6 @@ This package contains the documentation files for %{name}.
 
 %find_lang %{name} --with-gnome 
 
-
 %check
 # Validate desktop-files.
 %{_bindir}/desktop-file-validate				\
@@ -110,7 +101,6 @@ This package contains the documentation files for %{name}.
 # Validate AppData-files.
 %{_bindir}/appstream-util validate-relax --nonet		\
 	%{buildroot}%{_metainfodir}/org.x.editor.metainfo.xml
-
 
 %files -f %{name}.lang
 %license AUTHORS COPYING debian/copyright
@@ -127,20 +117,23 @@ This package contains the documentation files for %{name}.
 %{_libdir}/%{name}/
 %{_mandir}/man1/%{name}.1*
 
-
 %files devel
 %{_datadir}/%{name}/gir-1.0
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
-
 
 %files doc
 %license %{_datadir}/licenses/%{name}*
 %doc %{_datadir}/doc/%{name}*
 %doc %{_datadir}/gtk-doc/*
 
-
 %changelog
+* Sat Dec 13 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.7-1
+- Update to 3.8.7
+
+* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.6-1
+- Update to 3.8.6
+
 * Wed Sep 10 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.4-2
 - Rebuild for libpeas1 changes
 

@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.38.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -94,6 +94,9 @@ Patch9:		%{name}-Fix-a-numpy-test-for-32-bit-archs.patch
 #		Backport a test fix from upstream
 Patch10:	%{name}-VecOps-Remove-outdated-IsSmall-helper-function-in-te.patch
 Patch11:	%{name}-vecops-Adaptive-size-of-long-RVec-instances-in-RVec-.patch
+#		Backport fixes to python module
+Patch12:	root-cppyy-Remove-now-irrelevant-load_cpp_backend-call.patch
+Patch13:	root-cppyy-Remove-code-related-to-finding-CPyCppyy-API-he.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1896,6 +1899,8 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P9 -p1
 %patch -P10 -p1
 %patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -1946,6 +1951,7 @@ unset QTINC
        -DCMAKE_INSTALL_PYTHONDIR:PATH=%{python3_sitearch} \
        -DCMAKE_INSTALL_SYSCONFDIR:PATH=%{_datadir}/%{name} \
        -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir} \
+       -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
        -DPython3_EXECUTABLE:PATH=%{__python3} \
        -Dgnuinstall:BOOL=ON \
        -Dbuiltin_cfitsio:BOOL=OFF \
@@ -3431,6 +3437,12 @@ fi
 %endif
 
 %changelog
+* Thu Dec 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-2
+- Skip RPATH using -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON (replaces
+  previously used root specific -Drpath:BOOL=OFF no longer available)
+- Backport fixes to python module
+- Rebuild for pythia8 8.3.16
+
 * Tue Dec 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-1
 - Update to 6.38.00
 - Removed subpackages: root-proof, root-proof-bench, root-proof-player,

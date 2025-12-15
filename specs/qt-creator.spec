@@ -1,12 +1,12 @@
-%define prerelease beta1
+#define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        18.0.0
-Release:        0.3%{?dist}
+Version:        18.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -60,6 +60,11 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  diffutils
 BuildRequires:  elfutils-devel
 BuildRequires:  elfutils-debuginfod-client-devel
+# TODO, to remove -DBUILD_EXECUTABLE_CMDBRIDGE=OFF below
+# BuildRequires:  golang-bin
+# BuildRequires:  golang(github.com/fsnotify/fsnotify)
+# BuildRequires:  golang(golang.org/x/sys)
+# BuildRequires:  golang(github.com/fxamacker/cbor/v2)
 BuildRequires:  libappstream-glib
 BuildRequires:  libffi-devel
 BuildRequires:  libxkbcommon-devel
@@ -148,6 +153,7 @@ rm -rf src/plugins/help/qlitehtml/litehtml
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
     -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \
+    -DBUILD_EXECUTABLE_CMDBRIDGE=OFF \
     -DWITH_DOCS=ON \
     -Djournald=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
@@ -211,6 +217,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 18.0.1-1
+- Update to 18.0.1
+
 * Fri Nov 21 2025 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 

@@ -1,6 +1,6 @@
 Name:           python-pam
 Version:        2.0.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Pure Python interface to the Pluggable Authentication Modules system on Linux
 License:        MIT
 URL:            https://github.com/FirefighterBlu3/python-pam
@@ -18,6 +18,13 @@ Patch:          0001-Don-t-ship-pam.py-in-the-module.patch
 # Modified to correct the indent issue and drop changes to pam.py
 # since the prior patch demotes it to an example
 Patch:          47-mod.patch
+# https://github.com/FirefighterBlu3/python-pam/pull/50
+# Do not require wheel for building
+# The dependency is not necessary and is undesired in RHEL;
+# upstream has closed the PR and switched to poetry-core instead,
+# but that change is more disruptive to backport (and also undesired in RHEL).
+Patch:          https://github.com/FirefighterBlu3/python-pam/pull/50.patch
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -52,6 +59,9 @@ authenticate a given username / password against the PAM system on Linux.
 %license LICENSE
 
 %changelog
+* Fri Dec 12 2025 Miro Hrončok <mhroncok@redhat.com> - 2.0.2-17
+- Drop an unnecessary BuildRequires on python3-wheel
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.2-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

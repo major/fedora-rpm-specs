@@ -1,5 +1,5 @@
 Name:           paho-cpp
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        Eclipse Paho MQTT C++ Client Library
 License:        EPL-2.0
@@ -41,8 +41,7 @@ sed -i 's|lib/cmake|%{_lib}/cmake|g' cmake/CMakeLists.txt
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DPAHO_WITH_SSL=ON \
     -DPAHO_BUILD_SAMPLES=OFF \
-    -DPAHO_BUILD_DOCUMENTATION=ON \
-
+    -DPAHO_BUILD_DOCUMENTATION=ON
 %cmake_build
 
 %install

@@ -3,7 +3,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
-Version:        8.6.3
+Version:        8.7.0
 Release:        %autorelease
 Summary:        Jupyter protocol implementation and client libraries
 

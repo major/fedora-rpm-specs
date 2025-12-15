@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 0.14.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -85,6 +85,9 @@ pushd statsmodels
  cp -a stats/libqsturng/LICENSE.txt ../LICENSE.libqsturng.txt
 popd
 
+# Allow setuptools_scm 9, already allowed upstream in main branch
+sed -i 's/setuptools_scm\[toml\]>=8,<9/setuptools_scm[toml]>=8,<10/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -115,6 +118,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Mon Dec 08 2025 Miro Hrončok <mhroncok@redhat.com> - 0.14.5-4
+- Allow building with setuptools_scm 9
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.14.5-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

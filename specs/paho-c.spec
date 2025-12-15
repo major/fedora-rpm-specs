@@ -1,5 +1,5 @@
 Name:           paho-c
-Version:        1.3.14
+Version:        1.3.15
 Release:        %autorelease
 Summary:        MQTT C Client
 License:        BSD-3-Clause AND EPL-2.0
@@ -35,13 +35,12 @@ Development documentation files for the the Paho MQTT C Client.
 %autosetup -n paho.mqtt.c-%{version}
 
 %build
-export CFLAGS="%{optflags} -std=gnu17"
 %cmake \
     -GNinja \
     -DPAHO_WITH_SSL=ON \
     -DPAHO_BUILD_DOCUMENTATION=ON \
     -DPAHO_BUILD_SAMPLES=ON \
-    -DPAHO_ENABLE_CPACK=OFF \
+    -DPAHO_ENABLE_CPACK=OFF
 %cmake_build
 
 %install

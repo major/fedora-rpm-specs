@@ -9,16 +9,14 @@ It reports errors and warning including:\
 
 
 Name:           python-%{pkg_name}
-Version:        1.4.0
-Release:        17%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        reStructuredText linter
 
 License:        Unlicense
 URL:            https://pypi.python.org/pypi/restructuredtext_lint
-Source0:        https://files.pythonhosted.org/packages/48/9c/6d8035cafa2d2d314f34e6cd9313a299de095b26e96f1c7312878f988eec/restructuredtext_lint-1.4.0.tar.gz
+Source0:        %{pypi_source}
 Source1:        pytest.ini
-
-Patch:          Fix-compatibility-with-docutils-0.22.patch
 
 BuildArch:      noarch
 
@@ -75,6 +73,9 @@ PYTHONPATH="$(pwd)" pytest-%{python3_version} -v
 
 
 %changelog
+* Sat Dec 13 2025 Julien Enselme <jujens@jujens.eu> - 2.0.2-1
+- Update to 2.0.2
+
 * Mon Nov 24 2025 Karolina Surma <ksurma@redhat.com> - 1.4.0-17
 - Fix compatibility with docutils 0.22+
 

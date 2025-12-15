@@ -1,7 +1,7 @@
 %global srcname pudb
 
 Name:          python-pudb
-Version:       2025.1.3
+Version:       2025.1.5
 Release:       %autorelease
 Summary:       A full-screen, console-based Python debugger
 License:       MIT

@@ -1,7 +1,7 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.37.1
+Version:          0.37.2
 Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
@@ -53,6 +53,10 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Sat Dec 13 2025 Packit <hello@packit.dev> - 0.37.2-1
+- tests: Adjust to NM 1.54.2 output change
+
+
 * Wed Oct 08 2025 Packit <hello@packit.dev> - 0.37.1-1
 - test: Skip test_notification_daemon with AppArmor profile (LP: #2121092)
 

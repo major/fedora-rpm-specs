@@ -29,6 +29,9 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
+# https://github.com/pop-os/cosmic-randr/pull/51
+Patch: https://patch-diff.githubusercontent.com/raw/pop-os/cosmic-randr/pull/51.patch
+
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc
 BuildRequires:  lld

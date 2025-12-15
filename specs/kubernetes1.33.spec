@@ -16,13 +16,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.33
-%global k8s_ver                 1.33.6
+%global k8s_ver                 1.33.7
 # major:minor version substring
 %global k8s_minver              1.33
 %global k8s_nextver             1.34
-%global k8s_tag                 v1.33.6
+%global k8s_tag                 v1.33.7
 # golang 'built with' version
-%global golangver               1.24.9
+%global golangver               1.24.10
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
@@ -91,7 +91,7 @@ Requires:       iptables >= 1.4.21
 Requires:       util-linux
 
 # used to be Requires containerd or cri-0; other choices now available
-Recommends:     (containerd or cri-o)
+Recommends:     (cri-o%{k8s_minver} or containerd)
 Conflicts:      cri-o < %{k8s_minver}
 Conflicts:      cri-o >= %{k8s_nextver}
 Recommends:     %{name}-client = %{version}-%{release}

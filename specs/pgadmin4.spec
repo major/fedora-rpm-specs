@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.10
+Version:        9.11
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -59,11 +59,11 @@ BuildRequires:  libtool
 # Printed by ./adjust_requirements.py (which also generates pgadmin4_requirements.patch)
 Requires: python3dist(authlib) >= 1.5.2
 Requires: python3dist(azure-identity) >= 1.17.1
-Requires: python3dist(azure-mgmt-rdbms) >= 10.1
+Requires: python3dist(azure-mgmt-rdbms) >= 10.1.1
 Requires: python3dist(azure-mgmt-resource) >= 24
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(bcrypt) >= 4.3
-Requires: python3dist(boto3) >= 1.40
+Requires: python3dist(boto3) >= 1.42
 Requires: python3dist(cryptography) >= 45.0.4
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
@@ -71,7 +71,7 @@ Requires: python3dist(flask-login) >= 0
 Requires: python3dist(flask-mail) >= 0
 Requires: python3dist(flask-migrate) >= 4
 Requires: python3dist(flask-paranoid) >= 0
-Requires: python3dist(flask-security-too) >= 5.6
+Requires: python3dist(flask-security-too) >= 5.6.2
 Requires: python3dist(flask-socketio) >= 5.5
 Requires: python3dist(flask-sqlalchemy) >= 3.0.5
 Requires: python3dist(flask-wtf) >= 1.2
@@ -86,7 +86,7 @@ Requires: python3dist(libgravatar) >= 1
 Requires: python3dist(paramiko) >= 3.5.1
 Requires: python3dist(passlib) >= 1
 Requires: python3dist(psutil) >= 7
-Requires: python3dist(psycopg) >= 3.2.12
+Requires: python3dist(psycopg) >= 3.3
 Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2025
@@ -258,6 +258,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 9.11-1
+- Update to 9.11
+
 * Sun Nov 16 2025 Sandro Mani <manisandro@gmail.com> - 9.10-1
 - Update to 9.10
 

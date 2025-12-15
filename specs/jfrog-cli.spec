@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.85.0
+Version:                2.87.0
 
 %gometa -L -f
 
@@ -41,6 +41,7 @@ rm -v \
   evidence_test.go \
   go_test.go \
   gradle_test.go \
+  helm_test.go \
   ide_test.go \
   lifecycle_test.go \
   main_test.go \

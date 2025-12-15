@@ -6,7 +6,7 @@
 %global crate gtk4
 
 Name:           rust-gtk4
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Rust bindings of the GTK 4 library
 

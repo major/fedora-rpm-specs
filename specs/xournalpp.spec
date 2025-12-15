@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/xournalpp/xournalpp
 
 Name:           xournalpp
-Version:        1.2.10
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:        GPL-2.0-or-later
@@ -18,8 +18,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
+BuildRequires:  git
 BuildRequires:  help2man
 BuildRequires:  libappstream-glib
+BuildRequires:  ninja-build
 
 %if %{with cppunit}
 BuildRequires:  pkgconfig(cppunit) >= 1.12
@@ -73,6 +75,7 @@ This package contains user interface resources for %{name}.
 
 %build
 %cmake \
+    -DCMAKE_BUILD_TYPE="Release" \
     -DDISTRO_CODENAME="Fedora Linux" \
     -DENABLE_GTEST=%{with gtest} \
     -DENABLE_PROFILING=%{with profiling}
@@ -82,6 +85,17 @@ This package contains user interface resources for %{name}.
 %install
 %cmake_install
 %find_lang %{name}
+
+# Generate and install man pages.
+install -d '%{buildroot}%{_mandir}/man1'
+for cmd in %{buildroot}%{_bindir}/*
+do
+  LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+      help2man \
+      --no-info --no-discard-stderr --version-string='%{version}' \
+      --output="%{buildroot}%{_mandir}/man1/$(basename "${cmd}").1" \
+      "${cmd}"
+done
 
 # Remove unnecessary scripts and duplicate files
 find %{buildroot} -name "*.sh" -delete
@@ -94,22 +108,24 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.github.%{n
 %files -f %{name}.lang
 %license LICENSE
 %doc README.md AUTHORS
-%{_bindir}/%{name}
-%{_bindir}/%{name}-thumbnailer
+%{_bindir}/%{name}{,-thumbnailer,-wrapper}
 %{_datadir}/applications/com.github.%{name}.%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/com.github.%{name}.%{name}.svg
 %{_datadir}/icons/hicolor/scalable/mimetypes/*
 %{_datadir}/mime/packages/com.github.%{name}.%{name}.xml
 %{_datadir}/thumbnailers/com.github.%{name}.%{name}.thumbnailer
 %dir %{_datadir}/%{name}
+%{_datadir}/%{name}/palettes/*.gpl
 %{_datadir}/%{name}/resources/*_template.tex
 %{_mandir}/man1/%{name}*.gz
 %{_metainfodir}/com.github.%{name}.%{name}.appdata.xml
 
 %files plugins
+%doc README.md
 %{_datadir}/%{name}/plugins
 
 %files ui
+%doc README.md
 %{_datadir}/%{name}/ui
 
 %changelog

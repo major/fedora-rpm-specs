@@ -5,7 +5,7 @@
 %global crate gstreamer
 
 Name:           rust-gstreamer
-Version:        0.24.3
+Version:        0.24.4
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer
 

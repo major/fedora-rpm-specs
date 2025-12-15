@@ -36,8 +36,8 @@ Source14: cyrus-imapd.cron-daily
 Source15: README.rpm
 Source16: cyrus-imapd.service
 Source17: cyrus-imapd-init.service
-Source18: cyrus-imapd.tmpfiles.conf
-Source19: cyrus-imapd.sysusers
+Source18: systemd-tmpfiles.conf
+Source19: systemd-sysusers.conf
 
 # A template config file for cassandane; we will substitute in varions values.
 Source81: cassandane.ini

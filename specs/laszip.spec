@@ -1,6 +1,6 @@
 Name:           laszip
-Version:        3.4.4
-Release:        5%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Quickly turns bulky LAS files into compant LAZ files
 License:        Apache-2.0
 Source0:        https://github.com/LASzip/LASzip/archive/%{version}/%{name}-%{version}.tar.gz
@@ -9,8 +9,6 @@ URL:            http://www.laszip.org/
 # Restore old API for libLAS
 # https://github.com/libLAS/libLAS/issues/144
 Patch0:         laszip_restoreapi.patch
-# Fix error: format not a string literal and no format arguments
-Patch1:         laszip_fprintf.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -45,8 +43,8 @@ cp -a src/mydefs.hpp %{buildroot}%{_includedir}/laszip/
 
 
 %files
-%doc AUTHORS
-%license COPYING
+%doc AUTHORS.txt CHANGES.txt NEWS.txt
+%license COPYING.txt
 %{_libdir}/liblaszip.so.8*
 %{_libdir}/liblaszip_api.so.8*
 
@@ -57,6 +55,9 @@ cp -a src/mydefs.hpp %{buildroot}%{_includedir}/laszip/
 
 
 %changelog
+* Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 3.5.0-1
+- Update to 3.5.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -769,10 +769,6 @@ BuildRequires:	opus-devel
 BuildRequires: %{chromium_pybin}
 %if %{gtk_version} == 4
 BuildRequires: pkgconfig(gtk4)
-BuildRequires: pkgconfig(xrandr)
-BuildRequires: pkgconfig(atspi-2)
-BuildRequires: pkgconfig(atk-bridge-2.0)
-BuildRequires: pkgconfig(xcomposite)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xrender)
@@ -789,6 +785,17 @@ BuildRequires: pkgconfig(gtk+-3.0)
 # GTK modules it expects to find for some reason.
 Requires: libcanberra-gtk3%{_isa}
 %endif
+
+# Build deps of Chromium proper which are often transitively pulled in by toolkits (GTK, Qt),
+# but are still required without them.
+BuildRequires: pkgconfig(atspi-2)
+BuildRequires: pkgconfig(atk-bridge-2.0)
+BuildRequires: pkgconfig(pangocairo)
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: wayland-devel
+
 %if ! %{bundlepylibs}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: python3-jinja2

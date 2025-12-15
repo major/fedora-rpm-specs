@@ -1,7 +1,7 @@
 %global somajor 1
 
 Name:           libucontext
-Version:        1.3.3
+Version:        1.5
 Release:        1%{?dist}
 Summary:        ucontext implementation featuring glibc-compatible ABI
 
@@ -32,7 +32,7 @@ developing applications that use %{name}.
 
 
 %build
-%meson -Ddefault_library=shared -Dexport_unprefixed=false
+%meson -Ddefault_library=shared -Dexport_unprefixed=false -Dfreestanding=true
 %meson_build
 
 
@@ -56,5 +56,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.5-1
+- Update to 1.5
+
 * Tue Nov 18 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.3.3-1
 - Initial package

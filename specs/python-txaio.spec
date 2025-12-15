@@ -1,13 +1,13 @@
 %global pypi_name txaio
 
 Name:           python-%{pypi_name}
-Version:        25.9.2
+Version:        25.12.2
 Release:        1%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
 URL:            https://txaio.readthedocs.io/
-Source0:        https://files.pythonhosted.org/packages/source/t/txaio/txaio-%{version}.tar.gz
+Source0:        %{pypi_source}
 Patch0:         remove-unpackaged-sphinx-ext.patch
 BuildArch:      noarch
 
@@ -35,9 +35,19 @@ Summary:        Documentation for txaio
 
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-furo
 BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-design)
+BuildRequires:  python3dist(sphinx-copybutton)
+BuildRequires:  python3dist(sphinxext-opengraph)
+BuildRequires:  python3dist(sphinxcontrib-spelling)
+BuildRequires:  python3dist(sphinx-autoapi)
 BuildRequires:  python3dist(myst-parser)
+BuildRequires:  python3dist(matplotlib)
+BuildRequires:  python3dist(linkify-it-py)
+BuildRequires:  google-roboto-fonts
 Requires:       js-jquery
+Requires:       google-roboto-fonts
 
 %description doc
 Helper library for writing code that runs unmodified on both Twisted and
@@ -66,7 +76,7 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %pyproject_save_files -l %{pypi_name}
 
 %check
-%pytest -v test
+%pytest -v tests
 # Checking import of twisted related code will fail because by testing imports of
 # asyncio code, txaio gets configured for asyncio and fails to start with twisted.
 %pyproject_check_import -e txaio.tx -e txaio.with_twisted
@@ -80,6 +90,9 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %doc docs/_build/html
 
 %changelog
+* Sat Dec 13 2025 Julien Enselme <jujens@jujens.eu> - 25.12.2-1
+- Update to 25.12.2
+
 * Tue Sep 30 2025 Julien Enselme <jujens@jujens.eu> - 25.9.2-1
 - Update to 25.9.2
 

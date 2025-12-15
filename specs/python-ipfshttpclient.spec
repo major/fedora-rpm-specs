@@ -15,11 +15,7 @@ Source0:       %{pypi_source %{pypi_name} %{version}%{prerelease}}
 Patch:         python-ipfshttpclient-0001-Relax-dependencies.patch
 # Likewise. Our pytest is a very recent.
 Patch:         python-ipfshttpclient-0002-Adjust-test-for-Pytest-7.patch
-# Some tests requires a working IPFS node which we don't have in Fedora. Even
-# if we have one it will require internet access to operate properly which is
-# not available while building.
-Patch:         python-ipfshttpclient-0003-Workaround-until-we-test-with-available-IPFS-node.patch
-Patch:         python-ipfshttpclient-0004-Adjust-to-Python-3.14.patch
+Patch:         python-ipfshttpclient-0003-Adjust-to-Python-3.14.patch
 BuildRequires: python3-httpcore
 BuildRequires: python3-httpx
 BuildRequires: python3-pytest
@@ -41,7 +37,10 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%pytest
+# This test requires a working IPFS node which we don't have in Fedora. Even if
+# we have one it will require internet access to operate properly which is not
+# available while building.
+%pytest -k 'not test_ipfs_node_available'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md RELEASE.md
