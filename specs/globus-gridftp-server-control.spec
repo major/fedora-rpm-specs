@@ -1,17 +1,13 @@
 Name:		globus-gridftp-server-control
 %global _name %(tr - _ <<< %{name})
-Version:	9.3
-Release:	10%{?dist}
+Version:	9.5
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-#		https://github.com/gridcf/gct/pull/223
-Patch0:		0001-Handle-64-bit-time_t-on-32-bit-systems.patch
-#		https://github.com/gridcf/gct/pull/226
-Patch1:		0001-Passing-argument-from-incompatible-pointer-type.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -53,8 +49,6 @@ Globus GridFTP Server Library Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -96,6 +90,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.5-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

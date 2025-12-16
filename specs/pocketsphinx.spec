@@ -1,20 +1,22 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
 URL:            https://cmusphinx.github.io/
 Source0:        https://github.com/cmusphinx/pocketsphinx/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch1:         pocketsphinx-5.0.4-no-sounddevice.patch
 
-BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
+BuildRequires:  python3-scikit-build-core
 
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-models
@@ -66,31 +68,30 @@ Python interface to pocketsphinx.
 %autosetup -p1
 
 %build
-# Build twice for Python and C (also below in install section).
+# Build twice for C and Python (also below in install section).
 # See https://github.com/cmusphinx/pocketsphinx/issues/342.
-# CMAKE_MODULE_PATH is to find FindPythonExtensions.cmake from python3-scikit-build.
-%cmake \
-	-DCMAKE_BUILD_TYPE="Release" \
-	-DCMAKE_MODULE_PATH="%{python3_sitelib}/skbuild/resources/cmake" \
-	-DSKBUILD="on" \
-%cmake_build
-mv redhat-linux-build redhat-linux-build-python
 %cmake \
 	-DCMAKE_BUILD_TYPE="Release" \
 	-DBUILD_GSTREAMER="on"
 %cmake_build
+mv redhat-linux-build redhat-linux-build-c
+%cmake \
+	-DCMAKE_BUILD_TYPE="Release" \
+	-DSKBUILD="on"
+%cmake_build
+%pyproject_wheel
 
 %install
-# Install twice for Python and C.
+# Install twice for C and Python.
 # See https://github.com/cmusphinx/pocketsphinx/issues/342.
+mv redhat-linux-build redhat-linux-build-python
+mv redhat-linux-build-c redhat-linux-build
 %cmake_install
 rm -rf redhat-linux-build
-mv redhat-linux-build-python redhat-linux-build
-%cmake_install
 
-# See https://github.com/cmusphinx/pocketsphinx/issues/341
-mkdir -p $RPM_BUILD_ROOT%{python3_sitearch}
-mv $RPM_BUILD_ROOT/%{_prefix}/%{name}/* $RPM_BUILD_ROOT%{python3_sitearch}
+mv redhat-linux-build-python redhat-linux-build
+%pyproject_install
+%pyproject_save_files pocketsphinx
 
 %ldconfig_scriptlets libs
 
@@ -115,10 +116,12 @@ mv $RPM_BUILD_ROOT/%{_prefix}/%{name}/* $RPM_BUILD_ROOT%{python3_sitearch}
 %files plugin
 %{_libdir}/gstreamer-1.0/*
 
-%files -n python3-pocketsphinx
-%{python3_sitearch}/*
+%files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Sun Dec 14 2025 W. Michael Petullo <mike@flyn.org> - 2:5.0.4-3
+- Use more Python macros (BZ #2295577)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:5.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

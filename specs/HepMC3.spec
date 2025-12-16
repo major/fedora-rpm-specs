@@ -13,6 +13,8 @@ URL:		https://hepmc.web.cern.ch/hepmc
 Source0:	%{url}/releases/%{name}-%{version}.tar.gz
 #		Valgrind suppression file for memory leak in dlopen (EPEL 10)
 Source1:	valgrind-epel10.supp
+#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/400
+Patch0:		0001-Drop-obsolete-work-around-for-ppc64le-on-EPEL-7.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -162,6 +164,7 @@ This package provides HepMC manuals and examples.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %if %{?rhel}%{!?rhel:0} == 10
 sed 's!MEMORYCHECK_COMMAND_OPTIONS "!&--suppressions=%{SOURCE1} !' \
@@ -353,6 +356,7 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %changelog
 * Thu Dec 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-7
 - Rebuild for root 6.38
+- Drop obsolete work-around for ppc64le on EPEL 7
 
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.1-6
 - Rebuilt for Python 3.14.0rc3 bytecode

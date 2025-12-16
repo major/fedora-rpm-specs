@@ -1,15 +1,13 @@
 Name:		globus-gsi-credential
 %global _name %(tr - _ <<< %{name})
-Version:	8.4
-Release:	5%{?dist}
+Version:	8.5
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Credential Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-#		https://github.com/gridcf/gct/pull/237
-Patch0:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -61,7 +59,6 @@ Globus GSI Credential Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
 
 %build
 # Reduce overlinking
@@ -110,6 +107,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.5-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

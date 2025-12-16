@@ -7,8 +7,8 @@
 %bcond_without checks
 
 Name:           myproxy
-Version:        6.2.16
-Release:        10%{?dist}
+Version:        6.2.20
+Release:        1%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -16,15 +16,6 @@ URL:            http://grid.ncsa.illinois.edu/myproxy/
 Source:         https://repo.gridcf.org/gct6/sources/%{name}-%{version}.tar.gz
 Source1:        myproxy-server-systemd-sysusers.conf
 Source8:        README
-#               Change private key cipher to aes-256-cbc
-#               https://github.com/gridcf/gct/pull/230
-Patch0:         0001-MyProxy-change-private-key-cipher-to-EVP_aes_256_cbc.patch
-#               https://github.com/gridcf/gct/pull/223
-Patch1:         0001-Handle-64-bit-time_t-on-32-bit-systems.patch
-#               https://github.com/gridcf/gct/pull/234
-Patch2:         0001-Make-OpenSSL-engine-optional.patch
-#               https://github.com/gridcf/gct/pull/237
-Patch3:         0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -46,7 +37,7 @@ BuildRequires:  openldap-devel >= 2.3
 BuildRequires:  pam-devel
 BuildRequires:  perl-generators
 BuildRequires:  voms-devel >= 1.9.12.1
-BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 %if %{with checks}
 BuildRequires:  globus-proxy-utils
 BuildRequires:  globus-gsi-cert-utils-progs
@@ -165,10 +156,6 @@ Package %{name}-doc contains the MyProxy documentation.
 
 %prep
 %setup -q
-%patch -P0 -p3
-%patch -P1 -p3
-%patch -P2 -p3
-%patch -P3 -p3
 
 %build
 # Reduce overlinking
@@ -330,6 +317,10 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.20-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.16-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

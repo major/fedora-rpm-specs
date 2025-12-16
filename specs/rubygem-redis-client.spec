@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.22.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Simple low-level client for Redis 6+
 License: MIT
 URL: https://github.com/redis-rb/redis-client
@@ -16,6 +16,10 @@ Source1: %{gem_name}-%{version}-tests.txz
 # https://github.com/redis-rb/redis-client/commit/95c96666868fb60286b473abbef1daa18d827b52
 # ruby4_0 removes Ractor#take
 Patch0:  redis-client-GH95c9666-Ractor-ruby4_0.patch
+# https://github.com/redis-rb/redis-client/issues/270
+# https://github.com/redis-rb/redis-client/commit/e5869bf151c2b922fbc52e87edba8f7d1efe8b93
+# Adjust to Ractor warning change
+Patch1:  redis-client-GHe5869bf-Ractor-warning-change.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
@@ -42,8 +46,8 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 (
 cd %{_builddir}
-cp -a test test_orig
 %patch -P0 -p1
+%patch -P1 -p1
 )
 
 %build
@@ -113,6 +117,9 @@ popd
 %{gem_instdir}/redis-client.gemspec
 
 %changelog
+* Sun Dec 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.2-5
+- Apply upstream patch for ruby4_0 Ractor warning change
+
 * Sun Nov 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.2-4
 - Add BR: rubygem(benchmark) for testsuite for ruby4_0 explicitly
 - Backport upstream patch to support ruby4_0 Ractor change

@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global forgeurl https://github.com/nanopb/nanopb
-Version:        0.4.9
+Version:        0.4.9.1
 %global tag %{version}
 %forgemeta
 

@@ -1,28 +1,22 @@
 Name:           pngcheck
-Version:        4.0.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Command-line utility to check PNG image files
 
-# Note that the main package contains only pngcheck, compiled from a single
-# source file, pngcheck.c, under a minimal MIT-style license that matches SPDX
-# HPND:
+# The source is under a minimal MIT-style license that matches SPDX HPND:
 #   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/85
 #   https://tools.spdx.org/app/license_requests/187/
 #   https://github.com/spdx/license-list-XML/issues/1725
-# For now, the source archive still contains a couple of utilities licensed
-# under GPL-2.0-or-later, in the gpl/ subdirectory. These were previously
-# packaged an the extras subpackage, but since they were removed upstream
-# immediately after the 4.0.0 release, we choose to stop packaging them now.
-%global extras_license GPL-2.0-or-later
+# …except that third_party/wildargs/ is BSL-1.0. Since it’s needed only on
+# non-“UNIX” platforms, we remove it in %%prep and it does not contribute to
+# the licenses of the binary RPMs.
 License:        HPND
-SourceLicense:  %{license} AND %{extras_license}
+SourceLicense:  %{license} AND BSL-1.0
 URL:            https://github.com/pnggroup/pngcheck
 Source:         %{url}/archive/v%{version}/pngcheck-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-
-BuildRequires:  dos2unix
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -40,8 +34,9 @@ from the actual image data).
 
 %prep
 %autosetup
-
-dos2unix --keepdate README.md
+# Remove bundled libraries (currently: wildargs) that are not needed on this
+# platform, in order to prove they do not contribute to the binary RPMs.
+rm -rv third_party/
 
 
 %conf

@@ -1,11 +1,12 @@
 # X11 session is not shipped anymore
 %bcond x11 0
 %bcond kf6_pim 1
+%bcond plasma_keyboard %[0%{?fedora} >= 44 || 0%{?rhel} >= 11]
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.5.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -41,6 +42,11 @@ Source41:       spice-vdagent.conf
 Patch106:       plasma-workspace-5.27.80-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
 Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
+
+%if %{with plasma_keyboard}
+# default to plasma-keyboard when using kwin for sddm
+Patch108:       sddm-plasma-keyboard.patch
+%endif
 
 # udev
 BuildRequires:  zlib-devel
@@ -372,7 +378,11 @@ Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
 Requires:       kwin-wayland
 Requires:       layer-shell-qt
+%if %{with plasma_keyboard}
+Requires:       plasma-keyboard
+%else
 Requires:       maliit-keyboard
+%endif
 Supplements:    (sddm and plasma-workspace)
 %if ! (0%{?fedora} && 0%{?fedora} < 38)
 # Replace sddm-x11 with sddm-wayland-plasma
@@ -705,6 +715,9 @@ fi
 
 
 %changelog
+* Sun Dec 14 2025 Alessandro Astone <ales.astone@gmail.com> - 6.5.4-2
+- Default to plasma-keyboard in sddm for f44
+
 * Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
 - 6.5.4
 

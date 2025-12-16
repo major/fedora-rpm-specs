@@ -1,13 +1,7 @@
-%if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
-%global use_systemd 1
-%else
-%global use_systemd 0
-%endif
-
 Name:		globus-gram-job-manager-sge
 %global _name %(tr - _ <<< %{name})
 Version:	3.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Grid Engine Job Manager Support
 
 #		The sge.pm file is LGPL-2.1, the rest is Apache-2.0
@@ -22,9 +16,7 @@ BuildRequires:	globus-common-devel >= 15
 BuildRequires:	globus-scheduler-event-generator-devel >= 4
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-%if %{use_systemd}
-BuildRequires:	systemd
-%endif
+BuildRequires:	systemd-rpm-macros
 
 Requires:	globus-gram-job-manager >= 13
 Requires:	globus-gram-job-manager-scripts >= 4
@@ -49,12 +41,7 @@ Requires:	globus-scheduler-event-generator-progs >= 4
 Requires(preun):	globus-gram-job-manager-scripts >= 4
 Requires(preun):	globus-scheduler-event-generator-progs >= 4
 Requires(postun):	globus-scheduler-event-generator-progs >= 4
-%if %{use_systemd}
 %{?systemd_requires}
-%else
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-%endif
 
 %description
 The Grid Community Toolkit (GCT) is an open source software toolkit used for
@@ -141,12 +128,8 @@ fi
 %preun setup-seg
 if [ $1 -eq 0 ]; then
     globus-gatekeeper-admin -d jobmanager-sge-seg > /dev/null 2>&1 || :
-%if %{use_systemd}
     systemctl --no-reload disable globus-scheduler-event-generator@sge > /dev/null 2>&1 || :
     systemctl stop globus-scheduler-event-generator@sge > /dev/null 2>&1 || :
-%else
-    /sbin/service globus-scheduler-event-generator stop sge > /dev/null 2>&1 || :
-%endif
     globus-scheduler-event-generator-admin -d sge > /dev/null 2>&1 || :
 fi
 
@@ -155,11 +138,7 @@ fi
 %postun setup-seg
 %{?ldconfig}
 if [ $1 -ge 1 ]; then
-%if %{use_systemd}
     systemctl try-restart globus-scheduler-event-generator@sge > /dev/null 2>&1 || :
-%else
-    /sbin/service globus-scheduler-event-generator condrestart sge > /dev/null 2>&1 || :
-%endif
 fi
 
 %files
@@ -185,6 +164,9 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/sge
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3-11
+- Drop old system V init scripts
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

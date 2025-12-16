@@ -1,7 +1,7 @@
 Name:		globus-common
 %global _name %(tr - _ <<< %{name})
-Version:	18.14
-Release:	4%{?dist}
+Version:	18.15
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Common Library
 
 License:	Apache-2.0
@@ -163,6 +163,9 @@ rm %{buildroot}%{_datadir}/globus-user-env.sh
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 18.15-1
+- New GCT release v6.2.20251212
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

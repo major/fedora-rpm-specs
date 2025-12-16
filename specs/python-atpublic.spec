@@ -8,7 +8,7 @@ Python 3.6.
 
 
 Name:           python-atpublic
-Version:        6.0.1
+Version:        7.0.0
 Release:        1%{?dist}
 Summary:        Decorator for populating a Python module's __all__
 
@@ -61,6 +61,9 @@ export ATPUBLIC_BUILD_EXTENSION=1
 
 
 %changelog
+* Fri Dec 05 2025 Federico Pellegrin <fede@evolware.org> - 7.0.0-1
+- Bump to 7.0.0 (rhbz#2397915)
+
 * Mon Sep 22 2025 Federico Pellegrin <fede@evolware.org> - 6.0.1-1
 - Bump to 6.0.1
 

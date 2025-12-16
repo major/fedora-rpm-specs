@@ -30,6 +30,7 @@ Summary:        %{summary}
 %pyproject_buildrequires
 
 %build
+sed -i 's|collections.MutableMapping|collections.abc.MutableMapping|g' cooldict.py
 %pyproject_wheel
 
 %install

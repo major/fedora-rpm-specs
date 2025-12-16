@@ -10,9 +10,10 @@ URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 
 # Backports from upstream (1~500)
+## Implement DependsOn and RequiredBy for dnf backend
+Patch0001:    https://github.com/PackageKit/PackageKit/commit/38c7cfbcd6f3202770685cd2439770523117d2bf.patch
 
 # Patches proposed upstream (501~1000)
-
 
 # Downstream only patches (1001+)
 ## https://pagure.io/fedora-workstation/issue/233

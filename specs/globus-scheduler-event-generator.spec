@@ -1,25 +1,16 @@
 %global _hardened_build 1
 
-%if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
-%global use_systemd 1
-%else
-%global use_systemd 0
-%endif
-
 Name:		globus-scheduler-event-generator
 %global _name %(tr - _ <<< %{name})
-Version:	6.5
-Release:	10%{?dist}
+Version:	6.6
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Scheduler Event Generator
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}@.service
-Source2:	%{name}
 Source8:	README
-#		https://github.com/gridcf/gct/pull/223
-Patch0:		0001-Handle-64-bit-time_t-on-32-bit-systems.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -29,9 +20,7 @@ BuildRequires:	globus-gram-protocol-devel >= 11
 BuildRequires:	globus-xio-gsi-driver-devel >= 2
 BuildRequires:	libtool-ltdl-devel
 BuildRequires:	doxygen
-%if %{use_systemd}
-BuildRequires:	systemd
-%endif
+BuildRequires:	systemd-rpm-macros
 #		Additional requirements for make check
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(File::Basename)
@@ -44,15 +33,7 @@ Requires:	globus-xio-gsi-driver%{?_isa} >= 2
 %package progs
 Summary:	Grid Community Toolkit - Scheduler Event Generator Programs
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%if %{use_systemd}
 %{?systemd_requires}
-%else
-Requires(post):		chkconfig
-Requires(preun):	chkconfig
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-%endif
 
 %package devel
 Summary:	Grid Community Toolkit - Scheduler Event Generator Development Files
@@ -104,7 +85,6 @@ Scheduler Event Generator Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p5
 
 %build
 # Reduce overlinking
@@ -132,13 +112,8 @@ rm %{buildroot}%{_libdir}/*.la
 rm -rf %{buildroot}%{_sysconfdir}/init.d
 
 # Install start-up scripts
-%if %{use_systemd}
 mkdir -p %{buildroot}%{_unitdir}
 install -m 644 -p %{SOURCE1} %{buildroot}%{_unitdir}
-%else
-mkdir -p %{buildroot}%{_initddir}
-install -p %{SOURCE2} %{buildroot}%{_initddir}
-%endif
 
 # Install README file
 install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
@@ -150,12 +125,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %make_build check
 
 %ldconfig_scriptlets
-
-%if %{use_systemd}
-
-%pre progs
-# Remove old init config when systemd is used
-/sbin/chkconfig --del %{name} > /dev/null 2>&1 || :
 
 %post progs
 if [ $1 -eq 1 ] ; then
@@ -178,26 +147,6 @@ if [ $1 -ge 1 ] ; then
     done
 fi
 
-%else
-
-%post progs
-if [ $1 -eq 1 ]; then
-    /sbin/chkconfig --add %{name}
-fi
-
-%preun progs
-if [ $1 -eq 0 ]; then
-    /sbin/chkconfig --del %{name}
-    /sbin/service %{name} stop > /dev/null 2>&1 || :
-fi
-
-%postun progs
-if [ $1 -ge 1 ]; then
-    /sbin/service %{name} condrestart > /dev/null 2>&1 || :
-fi
-
-%endif
-
 %files
 %{_libdir}/libglobus_scheduler_event_generator.so.*
 %dir %{_pkgdocdir}
@@ -210,11 +159,7 @@ fi
 %{_mandir}/man8/globus-scheduler-event-generator.8*
 %{_mandir}/man8/globus-scheduler-event-generator-admin.8*
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-%if %{use_systemd}
 %{_unitdir}/%{name}@.service
-%else
-%{_initddir}/%{name}
-%endif
 %dir %{_sysconfdir}/globus
 %dir %{_sysconfdir}/globus/scheduler-event-generator
 %dir %{_sysconfdir}/globus/scheduler-event-generator/available
@@ -232,6 +177,11 @@ fi
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.6-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+- Drop old system V init scripts
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

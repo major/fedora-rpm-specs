@@ -77,6 +77,10 @@ install -Dp -m0644 argcomplete/bash_completion.d/_%{name} %{buildroot}%{_sysconf
 
 %if %{with check}
 %check
+# Disable pip build isolation to make the tests work in offline environment
+# Fixes https://bugzilla.redhat.com/2417961
+export PIP_NO_BUILD_ISOLATION=0
+
 %if %{with all_tests}
 %{py3_test_envvars} %{python3} test/test.py -v
 %else

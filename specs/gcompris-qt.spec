@@ -6,6 +6,8 @@ Summary:        Educational software suite for children aged 2 to 10
 License:        AGPL-3.0-only
 URL:            http://gcompris.net
 Source0:        https://download.kde.org/stable/gcompris/qt/src/%{name}-%{version}.tar.xz
+# cmake, ignore private modules if they don't exist
+Patch0:         https://invent.kde.org/education/gcompris/-/commit/8494eeb53f5528f102813f03e57b6e4bec07ce38.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -70,7 +72,7 @@ More than 100 activities are available.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build

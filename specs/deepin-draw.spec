@@ -1,5 +1,5 @@
 Name:           deepin-draw
-Version:        6.5.8
+Version:        6.5.33
 Release:        %autorelease
 Summary:        A lightweight drawing tool for Linux Deepin
 License:        GPL-3.0-or-later
@@ -10,22 +10,26 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5PrintSupport)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6SvgWidgets)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Test)
 
-BuildRequires:  pkgconfig(dtkwidget)
-BuildRequires:  pkgconfig(dtkgui)
+BuildRequires:  cmake(Dtk6Core)
+BuildRequires:  cmake(Dtk6Gui)
+BuildRequires:  cmake(Dtk6Widget)
 
 BuildRequires:  desktop-file-utils
 
-Requires:       deepin-qt5integration
-Recommends:     deepin-manual
+#Requires:       deepin-qt6integration
+#Recommends:     deepin-manual
 
 %description
 A lightweight drawing tool for Linux Deepin.
@@ -39,13 +43,11 @@ A lightweight drawing tool for Linux Deepin.
 
 %install
 %cmake_install
-%find_lang deepin-draw --with-qt --all-name
-rm %{buildroot}%{_datadir}/deepin-draw/translations/deepin-draw.qm
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%files -f deepin-draw.lang
+%files
 %doc README.md
 %license LICENSE.txt
 %{_bindir}/deepin-draw
@@ -53,6 +55,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/deepin-draw.desktop
 %{_datadir}/mime/packages/deepin-draw.xml
 %{_datadir}/deepin-manual/manual-assets/application/deepin-draw/
+%{_datadir}/deepin-draw/
 %{_datadir}/icons/deepin/apps/scalable/deepin-draw.svg
 %{_datadir}/icons/hicolor/*/apps/*
 

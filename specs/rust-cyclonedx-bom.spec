@@ -17,18 +17,23 @@ Source:         %{crates_source}
 Source10:       https://github.com/CycloneDX/cyclonedx-rust-cargo/raw/refs/tags/cyclonedx-bom-%{version}/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * Update fluent-uri to 0.4.1:
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/811 (requires
-#   source-code change in cyclonedx-bom-0.8.0-fluent-uri-0.4.patch)
-# * Update base64 to 0.22, ordered-float to 5, strum to 0.27, and thiserror to
-#   2. Corresponds to “Update several dependencies across SemVer boundaries”,
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/812, which includes
-#   “Allow base64 0.22”,
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/687.
+#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/811; requires
+#   source-code change in cyclonedx-bom-0.8.0-fluent-uri-0.4.patch.
+# * Update base64 to 0.22, ordered-float to 5, strum to 0.27, thiserror to 2,
+#   and spdx to 0.13. Corresponds to “Update several dependencies across SemVer
+#   boundaries”, https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/812,
+#   which includes “Allow base64 0.22”,
+#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/687; requires
+#   source-code change in cyclonedx-bom-0.8.0-spdx-0.13.patch.
 Patch:          cyclonedx-bom-fix-metadata.diff
 # * Update fluent-uri to 0.4.1:
 #   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/811 (source-code
 #   change only)
 Patch10:        cyclonedx-bom-0.8.0-fluent-uri-0.4.patch
+# * Update spdx to 0.13, from
+#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/812 (source-code
+#   change only)
+Patch11:        cyclonedx-bom-0.8.0-spdx-0.13.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

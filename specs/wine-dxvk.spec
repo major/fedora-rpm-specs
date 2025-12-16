@@ -1,6 +1,9 @@
 %global debug_package %{nil}
 %{?mingw_package_header}
 
+# _libdir was restructured in F42 wine package to support a directory/symlink replacement
+%global _libdir %{_libdir}/wine-wow64
+
 %global libdisplay_commit 275e6459c7ab1ddd4b125f28d0440716e4888078
 %global libdisplay_shortcommit %(c=%{libdisplay_commit}; echo ${c:0:7})
 

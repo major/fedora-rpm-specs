@@ -1,5 +1,5 @@
 Name:     primesieve
-Version:  12.10
+Version:  12.11
 Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
@@ -9,7 +9,7 @@ Requires: primesieve-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  cmake >= 3.7
+BuildRequires:  cmake >= 3.9
 BuildRequires:  asciidoc
 
 %description
@@ -71,6 +71,15 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sun Dec 14 2025 Kim Walisch <walki@fedoraproject.org> - 12.11-1
+- calculator.hpp: Update to version 2.0 with improved error handling
+- test/calculator.cpp: Add much more tests for calculator.hpp
+- PreSieve.cpp: Simplify SIMD runtime dispatching
+- CountPrintPrimes.cpp: Faster printing of primes to stdout
+- CmdOptions.cpp: Prevent multiple different --print options
+- CMakeLists.txt: Set CMAKE_VISIBILITY_INLINES_HIDDEN=ON by default
+- BUILD.md: Update MSVC build instructions
+
 * Tue Nov 04 2025 Kim Walisch <walki@fedoraproject.org> - 12.10-1
 - Fix undefined behavior in Bucket allocation
 - Enable ARM SVE for Mingw-w64 on ARM64

@@ -1,5 +1,5 @@
 Name:           dtkgui
-Version:        5.7.7
+Version:        5.7.30
 Release:        %autorelease
 Summary:        Deepin dtkgui
 License:        LGPL-3.0-or-later
@@ -33,8 +33,6 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(wayland-client)
 
-BuildRequires:  doxygen
-
 %description
 Dtkgui is the GUI module for DDE look and feel.
 
@@ -51,6 +49,8 @@ This package contains development files for %{name}.
 %build
 %cmake -GNinja \
     -DDTK_VERSION=%{version} \
+    -DBUILD_DOCS=OFF \
+    -DDTK_DISABLE_LIBXDG=ON \
     -DQCH_INSTALL_DESTINATION=%{_qt5_docdir}
 %cmake_build
 
@@ -69,7 +69,6 @@ This package contains development files for %{name}.
 %{_libdir}/cmake/DtkGui/
 %{_libdir}/libdtkgui.so
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_dtkgui.pri
-%{_qt5_docdir}/dtkgui.qch
 
 %changelog
 %autochangelog

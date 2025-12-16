@@ -1,5 +1,5 @@
 Name: libopenmpt
-Version: 0.8.3
+Version: 0.8.4
 Release: 1%{?dist}
 
 %global tar_root %{name}-%{version}+release.autotools
@@ -93,6 +93,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_bindir}/openmpt123
 
 
 %changelog
+* Sun Dec 14 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.4-1
+- update to 0.8.4
+
 * Sat Sep 06 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.3-1
 - update to 0.8.3
 

@@ -1,4 +1,4 @@
-%global tag 0.7-3
+%global tag 0.7-4
 Version:        %(echo %{tag} | sed 's/-/./')
 
 Name:           foonathan-memory
@@ -8,11 +8,7 @@ License:        Zlib
 URL:            https://github.com/foonathan/memory
 Source0:        %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
 
-# Fix install location of CMake config files and header files
-# Add FOONATHAN_MEMORY_USE_SYSTEM_DOCTEST option to use system doctest package
-# Add soversion to shared library
-# Resolve the tool is not included in CMake exported target
-Patch0:         foonathan-memory-fix-cmake.patch
+Patch0:         https://github.com/foonathan/memory/pull/201.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -50,10 +46,8 @@ The %{name}-doc package contains the documentation for %{name}.
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DFOONATHAN_MEMORY_USE_SYSTEM_DOCTEST=ON \
-    -DFOONATHAN_MEMORY_BUILD_TESTS=ON \
-
+    -DFOONATHAN_MEMORY_BUILD_TESTS=ON
 %cmake_build
 
 %install

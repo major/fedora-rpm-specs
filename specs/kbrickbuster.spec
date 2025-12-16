@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.12.0
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.k
 
 
 %changelog
+* Sun Dec 14 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.0-1
+- 25.12.0
+
 * Mon Aug 18 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

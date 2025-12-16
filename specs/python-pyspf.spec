@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.14
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Python module and programs for SPF (Sender Policy Framework)
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -60,6 +60,9 @@ This package provides Python 3 build of %{srcname}.
 # Tests require unpackaged python-authres
 
 %post -n python3-%{srcname}
+[[ -f %{_bindir}/spfquery && \
+   $(sha256sum %{_bindir}/spfquery{,.%{name}} | sort -k 1,1 -u | wc -l) = 1 ]] \
+&& rm -f %{_bindir}/spfquery
 update-alternatives --install %{_bindir}/spfquery spf %{_bindir}/spfquery.%{name} 10
 
 %postun -n python3-%{srcname}
@@ -85,6 +88,9 @@ sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/*.py
 %{python3_sitelib}/pyspf-%{version}.dist-info
 
 %changelog
+* Sun Dec 14 2025 Bojan Smojver <bojan@rexursive.com> - 2.0.14-29
+- Remove spfquery if not symlink and same as spfquery.%%{name}
+
 * Sun Dec 14 2025 Bojan Smojver <bojan@rexursive.com> - 2.0.14-28
 - Turn spfquery into an alternative BZ#2296986
 

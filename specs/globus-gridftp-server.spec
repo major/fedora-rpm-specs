@@ -1,15 +1,9 @@
 %global _hardened_build 1
 
-%if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
-%global use_systemd 1
-%else
-%global use_systemd 0
-%endif
-
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
-Version:	13.25
-Release:	6%{?dist}
+Version:	13.28
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
 License:	Apache-2.0
@@ -17,15 +11,7 @@ URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}.service
 Source2:	globus-gridftp-sshftp.service
-Source3:	%{name}
-Source4:	globus-gridftp-sshftp
 Source8:	README
-#		https://github.com/gridcf/gct/pull/224
-Patch0:		0001-Correct-spelling-error-found-by-lintian.patch
-#		https://github.com/gridcf/gct/pull/223
-Patch1:		0001-Handle-64-bit-time_t-on-32-bit-systems.patch
-#		https://github.com/gridcf/gct/pull/237
-Patch2:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -44,22 +30,11 @@ BuildRequires:	globus-io-devel >= 9
 BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	perl-generators
-%if %{use_systemd}
-BuildRequires:	systemd
-%endif
+BuildRequires:	systemd-rpm-macros
 #		Additional requirements for make check
 BuildRequires:	openssl
 #		Optional test dependency
-%if %{?rhel}%{!?rhel:0} == 7
-%ifarch ppc64le
-#		Fakeroot in EPEL 7 is broken on ppc64le
-BuildConflicts:	fakeroot
-%else
 BuildRequires:	fakeroot
-%endif
-%else
-BuildRequires:	fakeroot
-%endif
 
 Requires:	globus-xio-gsi-driver%{?_isa} >= 2
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 8
@@ -75,14 +50,7 @@ Requires:	globus-ftp-control%{?_isa} >= 7
 %package progs
 Summary:	Grid Community Toolkit - Globus GridFTP Server Programs
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-%if %{use_systemd}
 %{?systemd_requires}
-%else
-Requires(post):		chkconfig
-Requires(preun):	chkconfig
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-%endif
 
 %package devel
 Summary:	Grid Community Toolkit - Globus GridFTP Server Development Files
@@ -120,9 +88,6 @@ Globus GridFTP Server Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
-%patch -P2 -p4
 
 %build
 # Reduce overlinking
@@ -162,13 +127,8 @@ sed '/^env /d' -i %{buildroot}%{_sysconfdir}/xinetd.d/gridftp
 rm -rf %{buildroot}%{_sysconfdir}/init.d
 
 # Install start-up scripts
-%if %{use_systemd}
 mkdir -p %{buildroot}%{_unitdir}
 install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}%{_unitdir}
-%else
-mkdir -p %{buildroot}%{_initddir}
-install -p %{SOURCE3} %{SOURCE4} %{buildroot}%{_initddir}
-%endif
 
 # Install README file
 install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
@@ -181,13 +141,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
 %ldconfig_scriptlets
 
-%if %{use_systemd}
-
-%pre progs
-# Remove old init config when systemd is used
-/sbin/chkconfig --del %{name} > /dev/null 2>&1 || :
-/sbin/chkconfig --del globus-gridftp-sshftp > /dev/null 2>&1 || :
-
 %post progs
 %systemd_post %{name}.service globus-gridftp-sshftp.service
 
@@ -196,30 +149,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
 %postun progs
 %systemd_postun_with_restart %{name}.service globus-gridftp-sshftp.service
-
-%else
-
-%post progs
-if [ $1 -eq 1 ]; then
-    /sbin/chkconfig --add %{name}
-    /sbin/chkconfig --add globus-gridftp-sshftp
-fi
-
-%preun progs
-if [ $1 -eq 0 ]; then
-    /sbin/service %{name} stop > /dev/null 2>&1 || :
-    /sbin/service globus-gridftp-sshftp stop > /dev/null 2>&1 || :
-    /sbin/chkconfig --del %{name}
-    /sbin/chkconfig --del globus-gridftp-sshftp
-fi
-
-%postun progs
-if [ $1 -ge 1 ]; then
-    /sbin/service %{name} condrestart > /dev/null 2>&1 || :
-    /sbin/service globus-gridftp-sshftp condrestart > /dev/null 2>&1 || :
-fi
-
-%endif
 
 %files
 %{_libdir}/libglobus_gridftp_server.so.*
@@ -237,13 +166,8 @@ fi
 %config(noreplace) %{_sysconfdir}/gridftp.conf
 %config(noreplace) %{_sysconfdir}/gridftp.gfork
 %config(noreplace) %{_sysconfdir}/xinetd.d/gridftp
-%if %{use_systemd}
 %{_unitdir}/%{name}.service
 %{_unitdir}/globus-gridftp-sshftp.service
-%else
-%{_initddir}/%{name}
-%{_initddir}/globus-gridftp-sshftp
-%endif
 %doc %{_mandir}/man8/globus-gridftp-password.8*
 %doc %{_mandir}/man8/globus-gridftp-server.8*
 %doc %{_mandir}/man8/globus-gridftp-server-setup-chroot.8*
@@ -254,6 +178,11 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.28-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+- Drop old system V init scripts
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.25-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

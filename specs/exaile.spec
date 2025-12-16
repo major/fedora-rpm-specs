@@ -1,5 +1,5 @@
 Name:           exaile
-Version:        4.2.0
+Version:        4.2.1
 Release:        1%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPL-2.0-or-later
@@ -20,6 +20,7 @@ BuildRequires:  gstreamer1-plugins-good >= 1.16
 BuildRequires:  gtk3 >= 3.24
 BuildRequires:  help2man
 BuildRequires:  libappstream-glib
+BuildRequires:  make
 BuildRequires:  python3-bsddb3
 BuildRequires:  python3-cairo
 BuildRequires:  python3-dbus
@@ -141,6 +142,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Sun Dec 14 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.2.1-1
+- Update to 4.2.1
+
 * Mon Oct 20 2025 Graham White <graham_alton@hotmail.com> - 4.2.0-1
 - Update to 4.2.0
 

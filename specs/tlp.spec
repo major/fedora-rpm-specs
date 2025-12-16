@@ -1,11 +1,12 @@
-%global gittag 1.8.0
+%global gittag 1.9.0
 Name:           tlp
-Version:        1.8.0
-Release:        2%{?dist}
+Version:        1.9.0
+Release:        6%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
 URL:            https://linrunner.de/tlp
 Source0:        https://github.com/linrunner/TLP/archive/%{gittag}.tar.gz#/%{name}-%{gittag}.tar.gz
+Patch0:         0000-license-wrong-address.patch
 
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -53,12 +54,12 @@ BuildArch:      noarch
 
 %description rdw
 Radio device wizard is an add-on to TLP. It provides event based
-switching of bluetooth, NFC, Wi-Fi and WWAN radio devices on:
+switching of Bluetooth, NFC, Wi-Fi and WWAN radio devices on:
  - network connect/disconnect
  - dock/undock
 
 %prep
-%autosetup -n TLP-%{gittag}
+%autosetup -p1 -n TLP-%{gittag}
 
 %build
 %make_build
@@ -85,7 +86,16 @@ appstream-util validate-relax --nonet \
 %config(noreplace) %{_sysconfdir}/tlp.d
 %license LICENSE
 %doc AUTHORS COPYING README.rst changelog
-%{_bindir}/*
+%{_bindir}/bluetooth
+%{_bindir}/nfc
+%{_bindir}/run-on-ac
+%{_bindir}/run-on-bat
+%{_bindir}/%{name}
+%{_bindir}/%{name}-pd
+%{_bindir}/%{name}-stat
+%{_bindir}/%{name}ctl
+%{_bindir}/wifi
+%{_bindir}/wwan
 %exclude %{_bindir}/tlp-rdw
 %{_mandir}/man*/*
 %exclude %{_mandir}/man*/tlp-rdw*
@@ -103,6 +113,11 @@ appstream-util validate-relax --nonet \
 %{_unitdir}/../system-sleep
 %{_datadir}/metainfo/*.metainfo.xml
 %{_sharedstatedir}/tlp
+%{_datadir}/polkit-1/actions/tlp-pd.policy
+%{_datadir}/dbus-1/system-services/net.hadess.PowerProfiles.service
+%{_datadir}/dbus-1/system-services/org.freedesktop.UPower.PowerProfiles.service
+%{_datadir}/dbus-1/system.d/net.hadess.PowerProfiles.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.UPower.PowerProfiles.conf
 
 %files rdw
 %doc AUTHORS COPYING README.rst changelog
@@ -130,179 +145,4 @@ fi
 %systemd_postun_with_restart tlp.service
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Feb 17 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 1.8.0-1
-- Bump version to 1.8.0
-- Closes RHBZ#2310404
-
-* Wed Feb 05 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 1.7.0-3
-- Fix RHBZ#2341445
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Sep 28 2024 Sergi Jimenez <tripledes@fedoraproject.org> - 1.7.0-1
-- Update to 1.7.0
-
-* Sun Aug 11 2024 Sergi Jimenez <tripledes@fedoraproject.org> - 1.6.1-1
-- Update to 1.6.1
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.0-4
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Aug 29 2023 Sergi Jimenez <tripledes@fedoraproject.org> - 1.6.0-1
-- Update to 1.6.0
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 10 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.5.0-2
-- More fixes for RHBZ#2028701
-
-* Fri Jan 7 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.5.0-1
-- Update to 1.5.0
-
-* Fri Jan 7 2022 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.4.0-3
-- Fix some minor issues based on upstream feedback
-- Fix fesco issue 2725, RHBZ#2028701
-
-* Tue Oct 5 2021 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.4.0-2
-- Drop lsb-release dependency (not needed)
-
-* Sat Oct 2 2021 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.4.0-1
-- Update to 1.4.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.1-4
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Mar 6 2020 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.3.1-1
-- Update to 1.3.1
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-0.3.beta.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jan 18 2020 Jeremy Newton <alexjnewt at hotmail dot com> - 1.3.0-0.2.beta.3
-- Drop sleep service scriptlets, as they were dropped in 1.3.0
-
-* Fri Jan 17 2020 Jeremy Newton <alexjnewt at hotmail dot com> - 1.3.0-0.1.beta.3
-- Update to 1.3.0 beta 3
-
-* Fri Jan 3 2020 Jeremy Newton <alexjnewt at hotmail dot com> - 1.2.2-4
-- Fix suspend issue, missing var directory creation
-
-* Thu Aug 22 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.2.2-3
-- Move the NetworkManager dispatcher script out of /etc
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jun 10 2019 Jeremy Newton <alexjnewt at hotmail dot com> - 1.2.2-1
-- Update to 1.2.2
-
-* Mon Mar 18 2019 Jeremy Newton <alexjnewt at hotmail dot com> - 1.2.1-1
-- Update to 1.2.1
-- Modernize SPEC file
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Feb 23 2018 Jeremy Newton <alexjnewt at hotmail dot com> - 1.1-1
-- Update to 1.1
-- Add weak require for kernel-tools
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sun Sep 03 2017 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0-3
-- Remove kernel-tools require, fixes s390x
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sun Jun 18 2017 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0-1
-- Update to 1.0
-
-* Mon Mar 20 2017 Jeremy Newton <alexjnewt at hotmail dot com> - 0.9-5
-- Cherry-pick upstream fix for mitigate slow shutdown
-
-* Thu Mar 02 2017 Jeremy Newton <alexjnewt at hotmail dot com> - 0.9-4
-- Cherry-pick upstream fix for tlp-stat
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sun Jan 15 2017 Jeremy Newton <alexjnewt at hotmail dot com> - 0.9-2
-- Fix rfkill service masking
-
-* Sun Aug 28 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 0.9-1
-- Update to 0.9
-
-* Wed Feb 24 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 0.8-3
-- Fix rpmlint warnings/errors
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Sat Aug 22 2015 Jeremy Newton <alexjnewt at hotmail dot com> - 0.8-1
-- Update to 0.8
-
-* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Mon May 11 2015 Jeremy Newton <alexjnewt at hotmail dot com> - 0.7-4
-- Use workaround to avoid conflict with systemd
-
-* Mon May 11 2015 Jeremy Newton <alexjnewt at hotmail dot com> - 0.7-3
-- Fix rfkill conflict
-
-* Tue Feb 3 2015 Jeremy Newton <alexjnewt at hotmail dot com> - 0.7-2
-- Fix a typo in the spec file
-
-* Sat Jan 31 2015 Jeremy Newton <alexjnewt at hotmail dot com> - 0.7-1
-- New Version
-
-* Mon Nov 17 2014 Jeremy Newton <alexjnewt at hotmail dot com> - 0.6-3
-- Wireless-tools removed as a dependency
-
-* Tue Nov 04 2014 Jeremy Newton <alexjnewt at hotmail dot com> - 0.6-2
-- Missing Dependancy
-
-* Mon Oct 27 2014 Jeremy Newton <alexjnewt at hotmail dot com> - 0.6-1
-- New Upstream Version
-
-* Mon Apr 21 2014 Jeremy Newton <alexjnewt at hotmail dot com> - 0.5-2
-- Various tweaking
-- Move bashcompletion file to silence rpmlint warning
-
-* Sun Apr 20 2014 Jeremy Newton <alexjnewt at hotmail dot com> - 0.5-1
-- Initial fedora package
+%autochangelog

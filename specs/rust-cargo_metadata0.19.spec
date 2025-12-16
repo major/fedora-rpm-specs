@@ -4,14 +4,16 @@
 
 %global crate cargo_metadata
 
-Name:           rust-cargo_metadata
-Version:        0.23.1
+Name:           rust-cargo_metadata0.19
+Version:        0.19.2
 Release:        %autorelease
 Summary:        Structured access to the output of cargo metadata
 
 License:        MIT
 URL:            https://crates.io/crates/cargo_metadata
 Source:         %{crates_source}
+# * upstream patch to adapt tests for new error message format with Rust 1.91+
+Patch10:        https://github.com/oli-obk/cargo_metadata/commit/aae754b.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -99,15 +101,11 @@ use the "unstable" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests that depend on data which is not included in published crates
-# * skip build_dir test: it wants the build directory to end in
-#   cargo_metadata/target, which makes a brittle assumption about the name of
-#   the source directory; we instead have cargo_metadata-%%{version}/target
 %{cargo_test -a -- -- %{shrink:
     --skip advanced_feature_configuration
     --skip all_the_fields
     --skip basic_workspace_root_package_exists
     --skip current_dir
-    --skip build_dir
 }}
 %endif
 

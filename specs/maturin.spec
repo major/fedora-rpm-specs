@@ -73,6 +73,12 @@ Patch:          0004-Bump-base64-from-0.21-to-0.22-and-itertools-from-0.1.patch
 # * revert to building maturin with setuptools instead of boostrapping maturin
 Patch:          0005-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
 
+# * Update cargo_metadata to 0.20.0: https://github.com/PyO3/maturin/pull/2864.
+#   Further widen the allowed versions to permit cargo_metadata 0.23, which was
+#   considered upstream in https://github.com/PyO3/maturin/pull/2817, but
+#   rejected for now due (solely) to MSRV.
+Patch:          0006-Update-cargo_metadata-to-0.20.0-2864.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
 

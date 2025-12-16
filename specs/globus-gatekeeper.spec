@@ -1,22 +1,15 @@
 %global _hardened_build 1
 
-%if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
-%global use_systemd 1
-%else
-%global use_systemd 0
-%endif
-
 Name:		globus-gatekeeper
 %global _name %(tr - _ <<< %{name})
 Version:	11.4
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Globus Gatekeeper
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}.service
-Source2:	%{name}
 Source3:	%{name}.README
 Source8:	README
 
@@ -26,20 +19,10 @@ BuildRequires:	globus-common-devel >= 15
 BuildRequires:	globus-gss-assist-devel >= 8
 BuildRequires:	globus-gssapi-gsi-devel >= 9
 BuildRequires:	openssl-devel
-%if %{use_systemd}
-BuildRequires:	systemd
-%endif
+BuildRequires:	systemd-rpm-macros
 
 Requires:	logrotate
-
-%if %{use_systemd}
 %{?systemd_requires}
-%else
-Requires(post):		chkconfig
-Requires(preun):	chkconfig
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-%endif
 
 %description
 The Grid Community Toolkit (GCT) is an open source software toolkit used for
@@ -77,13 +60,8 @@ sed 's!CC \(.*-shared\) !CC \\\${wl}--as-needed \1 !' -i libtool
 rm -rf %{buildroot}%{_sysconfdir}/init.d
 
 # Install start-up script
-%if %{use_systemd}
 mkdir -p %{buildroot}%{_unitdir}
 install -m 644 -p %{SOURCE1} %{buildroot}%{_unitdir}
-%else
-mkdir -p %{buildroot}%{_initddir}
-install -p %{SOURCE2} %{buildroot}%{_initddir}
-%endif
 
 # Install post installation instructions
 install -m 644 -p %{SOURCE3} %{buildroot}%{_pkgdocdir}/README.Fedora
@@ -97,12 +75,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 mkdir -p %{buildroot}%{_sysconfdir}/grid-services
 mkdir -p %{buildroot}%{_sysconfdir}/grid-services/available
 
-%if %{use_systemd}
-
-%pre
-# Remove old init config when systemd is used
-/sbin/chkconfig --del %{name} > /dev/null 2>&1 || :
-
 %post
 %systemd_post %{name}.service
 
@@ -112,34 +84,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-services/available
 %postun
 %systemd_postun_with_restart %{name}.service
 
-%else
-
-%post
-if [ $1 -eq 1 ]; then
-    /sbin/chkconfig --add %{name}
-fi
-
-%preun
-if [ $1 -eq 0 ]; then
-    /sbin/service %{name} stop > /dev/null 2>&1 || :
-    /sbin/chkconfig --del %{name}
-fi
-
-%postun
-if [ $1 -ge 1 ]; then
-    /sbin/service %{name} condrestart > /dev/null 2>&1 || :
-fi
-
-%endif
-
 %files
 %{_sbindir}/globus-gatekeeper
 %{_sbindir}/globus-k5
-%if %{use_systemd}
 %{_unitdir}/%{name}.service
-%else
-%{_initddir}/%{name}
-%endif
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %dir %{_sysconfdir}/grid-services
@@ -152,6 +100,9 @@ fi
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 11.4-10
+- Drop old system V init scripts
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

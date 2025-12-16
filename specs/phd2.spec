@@ -1,11 +1,11 @@
-%global gittag v2.6.13
+%global gittag v2.6.14
 #%%global commit a205f63238c8505cf641057d8d82734e51f9ab15
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20230212
 
 Name:           phd2
 %if "%{?gittag}"
-Version:        2.6.13
+Version:        2.6.14
 %else
 Version:        2.6.11^dev4^%{date}%{shortcommit}
 %endif
@@ -29,12 +29,9 @@ Source1:        generate-tarball.sh
 
 # Do not force c++ std
 Patch99:        phd2_2.9.10_std_cflags.patch
-Patch100:       phd2-2.6.13-include.patch
 
 # Fix eigen 5.0.0 detection
 Patch101:       phd2-eigen3.patch
-# Fix missing cassert include
-Patch102:       phd2-cassert.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -57,6 +54,7 @@ BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libindi) >= 1.5
 BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  pkgconfig(opencv)
 BuildRequires:  pkgconfig(zlib)
 
 Recommends:     libindi
@@ -77,7 +75,7 @@ or spectroscopy.
 
 # Remove spurious executable bit set on icons and docs
 find icons -type f -print0 |xargs -0 chmod -x
-chmod -x PHD_2.0_Architecture.docx
+chmod -x doc/PHD_2.0_Architecture.docx
 
 
 %build
@@ -107,7 +105,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.
 
 
 %files -f %{name}.lang
-%doc README.txt PHD_2.0_Architecture.docx
+%doc README.txt doc/PHD_2.0_Architecture.docx
 %license LICENSE.txt
 %{_bindir}/*
 %{_datadir}/metainfo/%{name}.appdata.xml

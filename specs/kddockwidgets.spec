@@ -75,15 +75,17 @@ developing applications that use %{name}-qt6.
 %cmake \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
+    -DECM_MKSPECS_INSTALL_DIR=%{_qt5_archdatadir}/mkspecs/modules \
     -DKDDockWidgets_QT6=OFF
 %cmake_build
 
 %global _vpath_builddir %{_target_platform}-qt6
 # qhelpgenerator needs to be in $PATH to be detected
-export PATH=%{_qt6_libexecdir}:$PATH
+export PATH=$(%{_qt6_qmake} -query QT_HOST_LIBEXECS):$PATH
 %cmake \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
+    -DECM_MKSPECS_INSTALL_DIR=%{_qt6_archdatadir}/mkspecs/modules \
     -DKDDockWidgets_QT6=ON \
     -DKDDockWidgets_DOCS=ON
 %cmake_build
@@ -110,7 +112,7 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 %{_includedir}/kddockwidgets
 %{_libdir}/cmake/KDDockWidgets
 %{_libdir}/libkddockwidgets.so
-%{_libdir}/qt5/mkspecs/modules/qt_KDDockWidgets.pri
+%{_qt5_archdatadir}/mkspecs/modules/qt_KDDockWidgets.pri
 
 %files qt6
 %license LICENSES/* LICENSE.txt
@@ -126,7 +128,7 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 %{_includedir}/kddockwidgets-qt6
 %{_libdir}/cmake/KDDockWidgets-qt6
 %{_libdir}/libkddockwidgets-qt6.so
-%{_libdir}/qt6/mkspecs/modules/qt_KDDockWidgets.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_KDDockWidgets.pri
 
 
 

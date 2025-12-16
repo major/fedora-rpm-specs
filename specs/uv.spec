@@ -76,6 +76,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # output of %%{cargo_license_summary}.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Apache-2.0 AND CC0-1.0
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
@@ -118,6 +119,7 @@ License:        %{shrink:
                 (Apache-2.0 WITH LLVM-exception) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
                 BSD-3-Clause AND
+                CC0-1.0 AND
                 CDLA-Permissive-2.0 AND
                 ISC AND
                 (LGPL-3.0-or-later OR MIT) AND
@@ -485,12 +487,10 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 
 # spdx
 #   wanted: 0.12.0
-#   currently packaged: 0.10.9 (but we want to update to 0.12)
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2387258
-#   Update the spdx dependency to version 0.12
-#   https://github.com/astral-sh/uv/pull/16552
-tomcli set Cargo.toml str workspace.dependencies.spdx.version \
-    '>=0.10.9, <0.13.0'
+#   currently packaged: 0.13.2
+#   Update spdx dependency to 0.13
+#   https://github.com/astral-sh/uv/pull/17129
+tomcli set Cargo.toml str workspace.dependencies.spdx.version '0.13.0'
 
 %cargo_prep
 

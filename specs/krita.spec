@@ -12,8 +12,8 @@
 %endif
 
 Name:           krita
-Version:        5.2.13
-Release:        2%{?dist}
+Version:        5.2.14
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -29,11 +29,6 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 Patch1: krita-5.2.13-appstream_validate.patch
 
 ## upstream patches
-# Fixes a crash with python 3.14
-# https://invent.kde.org/graphics/krita/-/merge_requests/2541
-Patch2:         2541.patch
-# Fix to work in Eigen5
-Patch3:         eigen-5-fix.patch
 
 %if 0%{?fedora} > 39
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -227,6 +222,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sun Dec 14 2025 Steve Cossette <farchord@gmail.com> - 5.2.14-1
+- 5.2.14
+
 * Thu Dec 04 2025 Steve Cossette <farchord@gmail.com> - 5.2.13-2
 - Fix for crashing with python3.14
 

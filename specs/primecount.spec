@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.20
-Release:        1%{?dist}
+Version:        8.0
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -95,7 +95,7 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 
 %files          libs
 %license COPYING
-%{_libdir}/libprimecount.so.7*
+%{_libdir}/libprimecount.so.8*
 
 %files          devel
 %doc ChangeLog doc/*.pdf doc/*.md
@@ -107,6 +107,27 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sun Dec 14 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-2
+- Fix flickering when using --status option
+
+* Sun Dec 14 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-1
+- api.cpp: Fix broken 128-bit nth prime function
+- util.cpp: Fix undefined behavior in to_string()
+- calculator.hpp: Add code to detect integer overflows
+- LoadBalancerP2.cpp: Faster critical section
+- LoadBalancerS2.cpp: Faster critical section
+- LoadBalancerAC.cpp: Faster critical section
+- nth_prime.cpp: Improve status output
+- AC.cpp: Improved instruction level parallelism
+- AC_libdivide.cpp: Improved instruction level parallelism
+- D.cpp: Refactor runtime dispatch to optimized SIMD algorithm
+- S2_hard.cpp: Refactor runtime dispatch to optimized SIMD algorithm
+- pi_lmo_parallel.cpp: Add support for runtime dispatch to optimized SIMD algorithm
+- Move S2_easy_libdivide.cpp code into S2_easy.cpp
+- Move AC_libdivide.cpp code into AC.cpp
+- src/app/test.cpp: Speed up tests
+- CMakeLists.txt: Set CMAKE_VISIBILITY_INLINES_HIDDEN = ON by default
+
 * Tue Nov 04 2025 Kim Walisch <walki@fedoraproject.org> - 7.20-1
 - pi_gourdon.cpp: Quickly verify pi(x) results
 - pi_deleglise_rivat.cpp: Quickly verify pi(x) results

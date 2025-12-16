@@ -5,7 +5,7 @@
 
 # note here at which Fedora or EL release we need to use compat LLVM packages
 %if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
-%define         llvm_compat 20
+%global         llvm_compat 20
 %endif
 
 %global         llvm_version 20.0.0
@@ -46,11 +46,13 @@ Name:           zig
 Version:        0.15.2
 Release:        1%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
+# The minisign file references a specific archive name so we store for ease of use
+%global         archive_name %{name}-%{version}.tar.xz
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
 URL:            https://ziglang.org
-Source0:        %{url}/download/%{version}/%{name}-%{version}.tar.xz
-Source1:        %{url}/download/%{version}/%{name}-%{version}.tar.xz.minisig
+Source0:        %{url}/download/%{version}/%{archive_name}
+Source1:        %{url}/download/%{version}/%{archive_name}.minisig
 Source2:        macros.%{name}
 # Remove native lib directories from rpath
 # this is unlikely to be upstreamed in its current state because upstream
@@ -136,7 +138,7 @@ This package contains common RPM macros for %{name}.
 %endif
 
 %prep
-/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key}
+/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key} -Q | grep "file:%{archive_name}"
 
 %autosetup -p1
 %if %{without bootstrap}

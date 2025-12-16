@@ -1,21 +1,13 @@
-%if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
-%global use_systemd 1
-%else
-%global use_systemd 0
-%endif
-
 Name:		globus-gram-job-manager-fork
 %global _name %(tr - _ <<< %{name})
-Version:	3.3
-Release:	11%{?dist}
+Version:	3.4
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Fork Job Manager Support
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-#		https://github.com/gridcf/gct/pull/223
-Patch0:		0001-Handle-64-bit-time_t-on-32-bit-systems.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -25,9 +17,7 @@ BuildRequires:	globus-scheduler-event-generator-devel >= 4
 BuildRequires:	globus-gram-protocol-devel >= 11
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-%if %{use_systemd}
-BuildRequires:	systemd
-%endif
+BuildRequires:	systemd-rpm-macros
 
 #		A requirement on globus-gram-job-manager would make sense.
 #		However, that would create a circular build dependency when
@@ -57,12 +47,7 @@ Requires:	globus-scheduler-event-generator-progs >= 4
 Requires(preun):	globus-gram-job-manager-scripts >= 4
 Requires(preun):	globus-scheduler-event-generator-progs >= 4
 Requires(postun):	globus-scheduler-event-generator-progs >= 4
-%if %{use_systemd}
 %{?systemd_requires}
-%else
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-%endif
 
 %description
 The Grid Community Toolkit (GCT) is an open source software toolkit used for
@@ -97,7 +82,6 @@ state
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p6
 
 %build
 # Reduce overlinking
@@ -140,12 +124,8 @@ fi
 %preun setup-seg
 if [ $1 -eq 0 ]; then
     globus-gatekeeper-admin -d jobmanager-fork-seg > /dev/null 2>&1 || :
-%if %{use_systemd}
     systemctl --no-reload disable globus-scheduler-event-generator@fork > /dev/null 2>&1 || :
     systemctl stop globus-scheduler-event-generator@fork > /dev/null 2>&1 || :
-%else
-    /sbin/service globus-scheduler-event-generator stop fork > /dev/null 2>&1 || :
-%endif
     globus-scheduler-event-generator-admin -d fork > /dev/null 2>&1 || :
 fi
 
@@ -154,11 +134,7 @@ fi
 %postun setup-seg
 %{?ldconfig}
 if [ $1 -ge 1 ]; then
-%if %{use_systemd}
     systemctl try-restart globus-scheduler-event-generator@fork > /dev/null 2>&1 || :
-%else
-    /sbin/service globus-scheduler-event-generator condrestart fork > /dev/null 2>&1 || :
-%endif
 fi
 
 %files
@@ -184,6 +160,11 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/fork
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.4-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+- Drop old system V init scripts
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

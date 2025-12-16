@@ -1,17 +1,13 @@
 Name:		globus-ftp-client
 %global _name %(tr - _ <<< %{name})
-Version:	9.8
-Release:	10%{?dist}
+Version:	9.9
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - GridFTP Client Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-#		https://github.com/gridcf/gct/pull/223
-Patch0:		0001-Fix-format-warnings-on-32-bit-systems.patch
-#		https://github.com/gridcf/gct/pull/223
-Patch1:		0002-Handle-64-bit-time_t-on-32-bit-systems.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -89,8 +85,6 @@ GridFTP Client Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -145,6 +139,10 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9-1
+- New GCT release v6.2.20251212
+- Drop patches included in the release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

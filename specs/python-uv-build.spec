@@ -140,12 +140,10 @@ tomcli set Cargo.toml false profile.release.strip
 
 # spdx
 #   wanted: 0.12.0
-#   currently packaged: 0.10.9 (but we want to update to 0.12)
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2387258
-#   Update the spdx dependency to version 0.12
-#   https://github.com/astral-sh/uv/pull/16552
-tomcli set Cargo.toml str workspace.dependencies.spdx.version \
-    '>=0.10.9, <0.13.0'
+#   currently packaged: 0.13.2
+#   Update spdx dependency to 0.13
+#   https://github.com/astral-sh/uv/pull/17129
+tomcli set Cargo.toml str workspace.dependencies.spdx.version '0.13.0'
 
 %cargo_prep
 

@@ -44,7 +44,7 @@
 %global ghc_version_for_lib %{ghc_major}0%{ghc_patchlevel}.0
 %global ghc_platform_ver 0.1.0.0
 %global ghc_toolchain_ver 0.1.0.0
-%global haddock_api_ver 2.30.0
+%global haddock_api_ver 2.32.0
 %global hpc_ver 0.7.0.2
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
@@ -90,10 +90,10 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}.20251110
+Version: %{ghc_major}.%{ghc_patchlevel}.20251209
 # Since library subpackages are versioned:
-# - release can only be reset if *all* library versions get bumped simultaneously
-Release: 10%{?dist}
+# - release can only be reset if *all* subpackage versions get bumped simultaneously
+Release: 11%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -913,6 +913,10 @@ make test
 
 
 %changelog
+* Sun Dec 14 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20251209-1
+- update to 9.12.3 RC3
+- https://downloads.haskell.org/ghc/9.12.3-rc3/docs/users_guide/9.12.3-notes.html
+
 * Fri Nov 14 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20251110-10
 - update to 9.12.3 RC2
 - https://downloads.haskell.org/ghc/9.12.3-rc2/docs/users_guide/9.12.3-notes.html

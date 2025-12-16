@@ -6,7 +6,7 @@
 %global adwaita_version 1.5.0
 
 Name:          gnome-extensions-app
-Version:       48~alpha
+Version:       49.1
 Release:       %autorelease
 Summary:       Manage GNOME Shell extensions
 
@@ -39,6 +39,7 @@ GNOME Shell extensions.
 
 %prep
 %setup -q -n %{source_name}-%{tarball_version}
+ln --symbolic ../../libshew subprojects/extensions-app/subprojects/libshew
 
 %{_vpath_srcdir}/generate-translations.sh
 

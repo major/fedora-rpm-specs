@@ -69,7 +69,7 @@
 %global patch_version 10
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -600,6 +600,9 @@ popd
 
 
 %changelog
+* Fri Dec 12 2025 Miro Hrončok <mhroncok@redhat.com> - 3.31.10-3
+- Declarative %%generate_buildrequires: Keep the BRs stable
+
 * Thu Dec 11 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.31.10-2
 - macros: Enable support for RPM 4.20+ declarative buildsystem feature
 

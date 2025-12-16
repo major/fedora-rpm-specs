@@ -19,6 +19,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+
+%if 0%{?suse_version}
+%global origami_name liborigami0
+%else
+%global origami_name rocm-origami
+%endif
+
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -26,7 +33,7 @@
 
 Name:       rocm-origami
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Analytical GEMM Solution Selection
 
 License:    MIT
@@ -65,9 +72,19 @@ mapping configurations and to make informed decisions on
 data and computation mapping for high-performance GEMM
 operations.
 
+%if 0%{?suse_version}
+%package -n %{origami_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{origami_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{origami_name}
+%endif
+
 %package devel
 Summary: Libraries and headers for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{origami_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -90,7 +107,7 @@ sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/dependencies.cmake
 
 rm -f %{buildroot}%{_prefix}/share/doc/origami/LICENSE.md
 
-%files
+%files -n %{origami_name}
 %doc README.md
 %license LICENSE.md
 %{_libdir}/liborigami.so.0{,.*}
@@ -103,6 +120,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/origami/LICENSE.md
 %{_libdir}/liborigami.so
 
 %changelog
+* Sat Dec 13 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Support SUSE
+
 * Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

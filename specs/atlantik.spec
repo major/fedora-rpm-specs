@@ -1,6 +1,6 @@
-%global commit f790e134bd71bf45a9fbfc23ef36b7ca30b55ec0
+%global commit f0f617cdb948b8788ea8bfd2c141d6cb46bf1b0e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20250313
+%global gitdate 20251213
 
 %global app_id  org.kde.atlantik
 

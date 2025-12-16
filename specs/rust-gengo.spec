@@ -5,7 +5,7 @@
 %global crate gengo
 
 Name:           rust-gengo
-Version:        0.13.3
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -14,7 +14,7 @@ URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Bump gix to 0.73
+# * Bump gix to 0.75: https://github.com/spenserblack/gengo/pull/621
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -49,18 +49,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+chromaterm-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+chromaterm-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "chromaterm" feature of the "%{crate}" crate.
-
-%files       -n %{name}+chromaterm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+directory-devel
@@ -109,18 +97,6 @@ This package contains library source intended for building other packages which
 use the "max-performance-safe" feature of the "%{crate}" crate.
 
 %files       -n %{name}+max-performance-safe-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+owo-colors-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+owo-colors-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "owo-colors" feature of the "%{crate}" crate.
-
-%files       -n %{name}+owo-colors-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

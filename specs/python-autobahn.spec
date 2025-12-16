@@ -1,13 +1,16 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        25.10.2
+Version:        25.12.1
 Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
 URL:            https://autobahn.readthedocs.io/en/latest/
-Source0:        https://github.com/crossbario/autobahn-python/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
+# Remove deps on ubjson: it's optionnal and not packaged yet.
+Patch0:         remove-ubjson.patch
+Patch1:         remove-unpackaged-sphinx-ext.patch
 
 BuildArch:      noarch
 
@@ -48,9 +51,21 @@ for Twisted and for writing servers and clients.
 %package -n python-%{pypi_name}-doc
 Summary:        Documentation for %{name}
 
-BuildRequires:  %py3_dist sphinx
-BuildRequires:  %py3_dist sphinx-rtd-theme
-#BuildRequires:  %%py3_dist sphinxcontrib.images
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-furo
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-design)
+BuildRequires:  python3dist(sphinx-copybutton)
+BuildRequires:  python3dist(sphinxext-opengraph)
+BuildRequires:  python3dist(sphinxcontrib-spelling)
+BuildRequires:  python3dist(sphinx-autoapi)
+BuildRequires:  python3dist(myst-parser)
+BuildRequires:  python3dist(matplotlib)
+BuildRequires:  python3dist(linkify-it-py)
+BuildRequires:  google-roboto-fonts
+Requires:       js-jquery
+Requires:       google-roboto-fonts
+
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
 
@@ -75,9 +90,10 @@ sed -i '\@autobahn/xbr/test/profile@d' MANIFEST.in
 %build
 # Disable in case local builder support NVX
 export AUTOBAHN_USE_NVX=false
+export PYUBJSON_NO_EXTENSION=1
 %pyproject_wheel
-#PYTHONPATH=${PWD} sphinx-build-3 docs html
-#rm -rf html/.{doctrees,buildinfo}
+PYTHONPATH=${PWD} sphinx-build-3 docs html
+rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
@@ -122,6 +138,9 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 %license LICENSE
 
 %changelog
+* Sat Dec 13 2025 Julien Enselme <jujens@jujens.eu> - 25.12.1
+- Update to 25.12.1
+
 * Sun Oct 26 2025 Julien Enselme <jujens@jujens.eu> - 25.10.2
 - Update to 25.10.2
 

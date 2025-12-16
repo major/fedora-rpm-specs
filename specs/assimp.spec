@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -33,6 +33,9 @@ Patch2:         %{name}-nozlib.patch
 Patch3:         %{name}-docs.patch
 # Enable ctest
 Patch4:         %{name}-tests.patch
+# Backport fix for CVE-2025-11277
+Patch5:         https://github.com/assimp/assimp/commit/0978918f7148fbcd3d05cc6573dae7859975a895.patch
+
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -170,6 +173,9 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 
 
 %changelog
+* Sun Dec 14 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-4
+- Backport fix for CVE-2025-11277
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0.2-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 
