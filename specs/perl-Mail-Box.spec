@@ -1,5 +1,5 @@
 Name:           perl-Mail-Box
-Version:        3.011
+Version:        4.01
 Release:        1%{?dist}
 Summary:        Manage a mailbox, a folder with messages
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,8 +10,6 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(base)
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Date::Parse)
 BuildRequires:  perl(Devel::GlobalDestruction) >= 0.09
@@ -26,16 +24,13 @@ BuildRequires:  perl(File::FcntlLock)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Remove) >= 0.20
 BuildRequires:  perl(File::Spec) >= 0.7
-BuildRequires:  perl(FileHandle)
-BuildRequires:  perl(filetest)
-BuildRequires:  perl(IO::File)
-BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IO::Scalar)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Log::Report) >= 1.42
 BuildRequires:  perl(Mail::Box::Parser::Perl)
 # Versions prior to 3.008 result in a failed test (prerequisite)
-BuildRequires:  perl(Mail::Message) >= 3.013
+BuildRequires:  perl(Mail::Message) >= 4.00
 BuildRequires:  perl(Mail::Message::Body)
 BuildRequires:  perl(Mail::Message::Body::File)
 BuildRequires:  perl(Mail::Message::Body::Lines)
@@ -44,8 +39,8 @@ BuildRequires:  perl(Mail::Message::Body::String)
 BuildRequires:  perl(Mail::Message::Construct)
 BuildRequires:  perl(Mail::Message::Head)
 BuildRequires:  perl(Mail::Reporter)
-BuildRequires:  perl(Mail::Transport) >= 3.0
-BuildRequires:  perl(Object::Realize::Later) >= 0.19
+BuildRequires:  perl(Mail::Transport) >= 4.00
+BuildRequires:  perl(Object::Realize::Later) >= 4.00
 BuildRequires:  perl(overload)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util) >= 1.13
@@ -56,6 +51,12 @@ BuildRequires:  perl(User::Identity::Collection)
 BuildRequires:  perl(User::Identity::Item)
 BuildRequires:  perl(warnings)
 BuildArch:      noarch
+Requires:       perl(Mail::Message) >= 4.00
+Requires:       perl(Object::Realize::Later) >= 4.00
+
+%{?perl_default_filter}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mail::Message\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Object::Realize::Later\\)
 
 %description
 The Mail::Box folder is a modern mail-folder manager -- at least at
@@ -65,8 +66,6 @@ although its interface is different.
 %prep
 %setup -q -n Mail-Box-%{version}
 
-%{?perl_default_filter}
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mail::SpamAssassin[:\\)]
 
 %build
 yes y |%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -91,6 +90,9 @@ make test
 %{_mandir}/man3/Mail::Server*.3*
 
 %changelog
+* Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-1
+- 4.01 bump (rhbz#2422232)
+
 * Mon Aug 18 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.011-1
 - 3.011 bump (rhbz#2362894)
 

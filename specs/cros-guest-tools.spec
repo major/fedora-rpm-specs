@@ -1,9 +1,9 @@
-%global hash 32512e41cc5dbb436b6f40274006138410d5ac5e
-%global snapshotdate 20240508
+%global hash 0c21bc336c59daac5bff257c8129140ee9d1da37
+%global snapshotdate 20251023
 
 Name: cros-guest-tools
-Version: 126
-Release: 5%{?dist}
+Version: 143
+Release: 1%{?dist}
 Summary: Chromium OS integration meta package
 
 License: BSD-3-Clause
@@ -101,7 +101,6 @@ correct location in the container.
 Summary: Chromium OS Garcon Bridge
 BuildRequires: desktop-file-utils
 Requires: PackageKit
-Requires: ansible
 Requires: mailcap
 Requires: systemd
 BuildArch: noarch
@@ -271,7 +270,6 @@ ln -sf /opt/google/cros-containers/cros-adapta %{buildroot}%{_datarootdir}/theme
 %endif
 
 install -m 644 cros-host-fonts/usr-share-fonts-chromeos.mount %{buildroot}%{_unitdir}
-install -m 644 cros-garcon/third_party/garcon.py %{buildroot}/usr/share/ansible/plugins/callback/garcon.py
 install -m 440 cros-sudo-config/10-cros-nopasswd %{buildroot}%{_sysconfdir}/sudoers.d/10-cros-nopasswd
 install -m 440 cros-sudo-config/10-cros-nopasswd.pkla %{buildroot}/var/lib/polkit-1/localauthority/10-vendor.d/10-cros-nopasswd.pkla
 install -m 644 cros-sommelier/sommelierrc  %{buildroot}%{_sysconfdir}/sommelierrc
@@ -334,7 +332,6 @@ echo "fi" >> %{buildroot}%{_sysconfdir}/profile.d/sommelier.sh
 %{_sysconfdir}/skel/.config/cros-garcon.conf
 %{_userunitdir}/cros-garcon.service
 %{_userunitdir}/cros-garcon.service.d
-/usr/share/ansible/plugins/callback/garcon.py
 %license LICENSE
 %doc README.md
 
@@ -399,6 +396,9 @@ echo "fi" >> %{buildroot}%{_sysconfdir}/profile.d/sommelier.sh
 %doc README.md
 
 %changelog
+* Mon Dec 15 2025 Nicolas Chauvet <kwizart@gmail.com> - 143-1
+- Update to 143
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 126-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box-Parser-C
-Version:        3.011
-Release:        8%{?dist}
+Version:        4.00
+Release:        1%{?dist}
 Summary:        Parsing folders for MailBox with C routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-Parser-C
@@ -15,17 +15,17 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
-BuildRequires:  perl(base)
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(DynaLoader)
-BuildRequires:  perl(Exporter)
+BuildRequires:  perl(Log::Report) >= 1.42
 BuildRequires:  perl(Mail::Box::Parser)
+BuildRequires:  perl(Mail::Message) >= 4.0
 BuildRequires:  perl(Mail::Message::Field)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More)
+Requires:       perl(Mail::Message) >= 4.0
 
 %{?perl_default_filter}
 
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Mail::Box::Parser::C*.3*
 
 %changelog
+* Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.00-1
+- 4.00 bump (rhbz#2422235)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.011-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

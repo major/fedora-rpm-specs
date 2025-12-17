@@ -1,10 +1,10 @@
 Name:           perl-User-Identity
-Version:        3.00
+Version:        4.00
 Release:        1%{?dist}
 Summary:        Maintains info about a physical person
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/User-Identity
-Source0:        https://cpan.metacpan.org/modules/by-module/User/User-Identity-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/User-Identity-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -14,11 +14,11 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
-BuildRequires:  perl(base)
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Geography::Countries)
 BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Log::Report) >= 1.42
 BuildRequires:  perl(overload)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 # Test Suite
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/User::Identity::System.3*
 
 %changelog
+* Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.00-1
+- 4.00 bump (rhbz#2421742)
+
 * Mon Nov 24 2025 Paul Howarth <paul@city-fan.org> - 3.00-1
 - Update to 3.00
   - Maintenance release with Mail::Box version 3 compatibility

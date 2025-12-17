@@ -1,5 +1,5 @@
 Name:           acpica-tools
-Version:        20250807
+Version:        20251212
 Release:        1%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
@@ -201,6 +201,9 @@ fi
 
 
 %changelog
+* Mon Dec 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 20251212-1
+- 20251212
+
 * Fri Aug 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 20250807-1
 - 20250807
 

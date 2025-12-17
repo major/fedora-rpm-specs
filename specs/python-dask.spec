@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2025.10.0
+Version:        2025.12.0
 %global tag     %{version}
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
@@ -28,8 +28,6 @@ Patch:          0002-XFAIL-test-if-NotImplementedError-is-raised.patch
 Patch:          0003-TST-Fall-back-to-cloudpickle-in-more-cases.patch
 # Allow an xfail to pass; may be due to the warning filter later.
 Patch:          0004-Mark-test_combine_first_all_nans-as-a-non-strict-xfa.patch
-# Partially revert https://github.com/dask/dask/pull/11977 by re-enabling an xfail.
-Patch:          0005-Restore-xfail-on-test_to_hdf_scheduler_distributed.patch
 
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -155,6 +153,11 @@ rm -rf html/.{doctrees,buildinfo}
 # test_development_guidelines_matches_ci fails from sdist
 # https://github.com/dask/dask/issues/8499
 k="${k-}${k+ and }not test_development_guidelines_matches_ci"
+
+# This test requires pickled values to be within a specific size, which depends
+# on which dependencies and Python version is used, and is thus too
+# restrictive.
+k="${k-}${k+ and }not test_serialization"
 
 # Fails with Python 3.14: https://github.com/dask/dask/issues/12042
 %if 0%{?fedora} >= 43

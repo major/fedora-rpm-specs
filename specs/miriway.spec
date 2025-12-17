@@ -1,6 +1,6 @@
 Name:           miriway
 Version:        25.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
@@ -45,6 +45,7 @@ Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
 Requires:       %{name} = %{version}-%{release}
 Requires:       layer-shell-qt
+Requires:       sddm
 Supplements:    (sddm and %{name})
 BuildArch:      noarch
 
@@ -124,6 +125,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 25.12-2
+- Add missing sddm requires on sddm miriway sub-package
+
 * Sat Nov 01 2025 Shawn W Dunn <sfalken@opensuse.org> - 25.12-1
 - Update to 25.12
 

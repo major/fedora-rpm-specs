@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-601-g866fa41ef8
+%global glibcsrcdir glibc-2.42.9000-618-gded9c1e525
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 15
+%global baserelease 16
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2397,6 +2397,27 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Dec 15 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-16
+- Auto-sync with upstream branch master,
+  commit ded9c1e525f2d69a81e61c34c29077fed7df658c:
+- benchtests: Add pthread mutex trylock throughput test (BZ #33704) (Sunil K Pandey)
+- posix: Fix getconf symbolic constants defined in limits.h (BZ# 29147) (Adhemerval Zanella Netto)
+- configure: use TEST_CC to check for --depaudit (Adhemerval Zanella)
+- configure: use TEST_CC to check for --no-error-execstack (Adhemerval Zanella)
+- manual: Fix madvise typo in mseal documentation (Florian Weimer)
+- malloc: Enable 2MB THP by default on Aarch64 (Dev Jain)
+- malloc: Enable 2MB THP by default on Aarch64 (Dev Jain)
+- malloc: Do not make out-of-bounds madvise call on non-aligned heap (Dev Jain)
+- linux: Add openat2 (BZ 31664) (Adhemerval Zanella)
+- malloc: Extend malloc function hiding to tst-reallocarray (BZ #32366) (Adhemerval Zanella)
+- malloc: Extend malloc function hiding to tst-pvalloc (BZ #32366) (Adhemerval Zanella)
+- configure: Enable experimental support for clang (Adhemerval Zanella)
+- configure: Only use -Wno-discarded-qualifiers iff compiler supports it (Adhemerval Zanella)
+- Handle clang -Wignored-attributes on weak aliases (Adhemerval Zanella)
+- build-many-glibcs.py: Include URL in download exception (Florian Weimer)
+- x32: Implement prctl in assembly (H.J. Lu)
+- build-many-glibcs.py: Switch Git URLs to https:// (Florian Weimer)
+
 * Mon Dec 08 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-15
 - Auto-sync with upstream branch master,
   commit 866fa41ef8521ce94ffdacfd6f1f67737899d5c9:

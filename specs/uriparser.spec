@@ -5,7 +5,7 @@
 %endif
 
 Name:           uriparser
-Version:        0.9.9
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        URI parsing library - RFC 3986
 
@@ -146,6 +146,9 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 
 
 %changelog
+* Mon Dec 15 2025 Sandro Mani <manisandro@gmail.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Sep 04 2025 Sandro Mani <manisandro@gmail.com> - 0.9.9-1
 - Update to 0.9.9
 

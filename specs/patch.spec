@@ -3,7 +3,7 @@
 Summary: Utility for modifying/upgrading files
 Name: patch
 Version: 2.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 URL: https://savannah.gnu.org/projects/patch/
 Source: https://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
@@ -49,6 +49,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Mon Dec 15 2025 Tim Waugh <twaugh@redhat.com> - 2.8-3
+- Rebuilt with TMT format tests (bug #2383018).
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

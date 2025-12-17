@@ -1,6 +1,6 @@
 %global srcname cma
 Name:           python-cma
-Version:        4.4.0
+Version:        4.4.1
 Release:        %autorelease
 Summary:        Covariance Matrix Adaptation Evolution Strategy numerical optimizer
 

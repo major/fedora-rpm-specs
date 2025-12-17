@@ -1,13 +1,15 @@
-%define po_package budgie-session-0
+%define po_package budgie-session-1
+
+%{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           budgie-session
-Version:        0.9.1
+Version:        1.0.0~preview.1
 Release:        %autorelease
 Summary:        Budgie Desktop session manager
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/BuddiesOfBudgie/budgie-session
-Source:         %{url}/releases/download/v{verson}/%{name}-v%{version}.tar.xz
+Source:         %{url}/releases/download/v{version_no_tilde}/%{name}-v%{version_no_tilde}.tar.xz
 
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gl)
@@ -46,7 +48,7 @@ Budgie Session is a softish fork of gnome-session, designed to
 provide a stable session manager for Budgie 10.x
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version_no_tilde}
 
 %build
 %meson -Dsystemd=true -Dsystemd_journal=true -Dsystemd_session="default"
@@ -65,6 +67,7 @@ provide a stable session manager for Budgie 10.x
 %{_libexecdir}/budgie-session-check-accelerated
 %{_libexecdir}/budgie-session-check-accelerated-gl-helper
 %{_libexecdir}/budgie-session-check-accelerated-gles-helper
+%{_libexecdir}/budgie-session-compositor-ready
 %{_libexecdir}/budgie-session-ctl
 %{_libexecdir}/budgie-session-failed
 %{_mandir}/man1/budgie-session*1.*

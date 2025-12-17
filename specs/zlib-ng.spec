@@ -104,6 +104,10 @@ _EOF_
 %global cmake_param %cmake_param -DWITH_RVV=OFF
 %endif
 
+%ifarch s390x
+%global cmake_param %cmake_param -DWITH_DFLTCC_DEFLATE=ON -DWITH_DFLTCC_INFLATE=ON
+%endif
+
 %if 0%{?rhel} >= 10
 %ifarch x86_64
 # RHEL 10 has x86_64-v3 as baseline, turning the CRC32 Chorba optimization

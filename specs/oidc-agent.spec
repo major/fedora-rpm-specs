@@ -5,15 +5,19 @@
 %endif
 
 Name:		oidc-agent
-Version:	5.3.3
+Version:	5.3.4
 Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:		https://github.com/indigo-dc/%{name}
-Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 #		clibs-list-devel not available for ix86....
 ExcludeArch:	%{ix86}
+#		Fix some compiler warnings:
+#		https://github.com/indigo-dc/oidc-agent/pull/644
+Patch0:		0001-Fix-different-return-type-in-.h-and-.c-file.patch
+Patch1:		0002-Fix-warnings-about-wrong-argument-types-when-calling.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	make
@@ -112,6 +116,8 @@ This package provides headers for the oidc-agent library.
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Remove bundled cJSON and clib-list (use system versions)
 rm -rf lib/cJSON lib/list
@@ -181,6 +187,9 @@ ln -s liboidc-agent.so.%{version} %{buildroot}%{_libdir}/liboidc-agent.so
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Mon Dec 15 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.4-1
+- Update to version 5.3.4
+
 * Fri Jul 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.3-1
 - Update to version 5.3.3
 

@@ -1,10 +1,10 @@
 %global forgeurl https://gitlab.com/armagetronad/armagetronad/
-%global tag v0.2.9.2.4
+%global tag v0.2.9.2.5
 
 %forgemeta
 
 Name: armacycles-ad
-Version: 0.2.9.2.4
+Version: 0.2.9.2.5
 Release: 1%{?dist}
 Summary: A lightcycle game in 3D
 
@@ -161,6 +161,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/armacyclesad-dedicated/language/update.py
 
 
 %changelog
+* Mon Dec 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9.2.5-1
+- 0.2.9.2.5
+
 * Tue Dec 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9.2.4-1
 - 0.2.9.2.4
 

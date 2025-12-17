@@ -4,8 +4,8 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.55.90
-%global git_tag_version 1.56-rc1
+%global real_version 1.55.91
+%global git_tag_version 1.56-rc2
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -667,7 +667,6 @@ Preferably use nmcli instead.
 	-Dselinux=true \
 	-Dpolkit=true  \
 	-Dconfig_auth_polkit_default=true \
-	-Dmodify_system=true \
 	-Dconcheck=true \
 %if 0%{?fedora}
 	-Dlibpsl=true \
@@ -887,6 +886,7 @@ fi
 %{_libexecdir}/nm-dispatcher
 %{_libexecdir}/nm-initrd-generator
 %{_libexecdir}/nm-daemon-helper
+%{_libexecdir}/nm-libnm-helper
 %{_libexecdir}/nm-priv-helper
 %dir %{_libdir}/%{name}
 %dir %{nmplugindir}
@@ -1074,6 +1074,10 @@ fi
 
 
 %changelog
+* Mon Dec 15 2025 Íñigo Huguet <ihuguet@riseup.net>
+- Update to 1.56-rc2 release
+- Fixes CVE-2025-9615. To achieve it, remove normal users' permission to modify system connections.
+
 * Mon Dec 08 2025 Cristian Le <git@lecris.dev>
 - Convert STI tests to TMT (rhbz#2382851)
 

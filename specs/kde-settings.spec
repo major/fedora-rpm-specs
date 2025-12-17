@@ -6,7 +6,7 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 43.97
+Version: 43.98
 Release: 1%{?dist}
 
 License: MIT
@@ -225,6 +225,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Mon Dec 15 2025 Alessandro Astone <ales.astone@gmail.com> - 43.98-1
+- Use plasma-keyboard as the virtual keyboard for initial-setup
+
 * Sun Dec 14 2025 Alessandro Astone <ales.astone@gmail.com> - 43.97-1
 - Set org.kde.plasma.keyboard as default virtual keyboard
 

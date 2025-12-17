@@ -1,15 +1,15 @@
 Name:           goverlay
-Version:        1.3
+Version:        1.6.4
 Release:        %autorelease
 Epoch:          1
-Summary:        Project that aims to create a Graphical UI to help manage Linux overlays
+Summary:        Graphical interface to configure MangoHud, vkBasalt, and OptiScaler
 ExclusiveArch:  %{fpc_arches}
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/benjamimgois/goverlay
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         goverlay-enable-debuginfo-generation.patch
+Patch:          goverlay-enable-debuginfo-generation.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  fpc-srpm-macros
@@ -20,25 +20,21 @@ BuildRequires:  libglvnd-devel
 BuildRequires:  make
 
 Requires:       hicolor-icon-theme
+# https://github.com/benjamimgois/goverlay?tab=readme-ov-file#prerequisites
 Requires:       mangohud%{?_isa}
 Requires:       mesa-libGLU
 Requires:       qt6pas%{?_isa}
 
-# git - Clone reshade repository
 Recommends:     git%{?_isa}
-
 Recommends:     mesa-demos%{?_isa}
 Recommends:     vkBasalt%{?_isa}
 Recommends:     vulkan-tools%{?_isa}
 
 %description
-GOverlay is an open source project aimed to create a Graphical UI to manage
-Vulkan/OpenGL overlays. It is still in early development, so it lacks a lot of
-features.
-
-This project was only possible thanks to the other maintainers and
-contributors that have done the hard work. I am just a Network Engineer that
-really likes Linux and Gaming.
+Goverlay helps Linux gamers get the most out of their system by offering an easy
+graphical interface to configure MangoHud, vkBasalt, and OptiScaler. Whether you
+want performance monitoring, visual enhancements, or smarter upscaling, Goverlay
+makes everything accessible in just a few clicks.
 
 
 %prep

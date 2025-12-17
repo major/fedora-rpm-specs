@@ -1,14 +1,14 @@
 %global glib2_version 2.64
-%global gnome_desktop_version 42.8
-%global gnome_settings_daemon_version 42.2
-%global gsettings_desktop_schemas_version 42.0
+%global gnome_desktop_version 44.4
+%global gnome_settings_daemon_version 49
+%global gsettings_desktop_schemas_version 49
 %global gtk3_version 3.24
 %global polkit_version 0.105
-%global vala_version 0.52.5
+%global vala_version 0.56.18
 
 Name:           budgie-desktop
-Version:        10.9.4
-Release:        1%{?dist}
+Version:        10.10.preview.2
+Release:        3%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -27,7 +27,7 @@ License:        GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.1-or-later AND CC0-
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
-Source2:        https://joshuastrobl.com/pubkey.gpg
+Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/branch/main/JoshuaStrobl.gpg
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -39,6 +39,7 @@ BuildRequires:  pkgconfig(girepository-2.0)
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_settings_daemon_version}
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
+BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.10
 BuildRequires:  pkgconfig(libcanberra) >= 0.30
@@ -46,40 +47,52 @@ BuildRequires:  pkgconfig(libnotify) >= 0.7
 BuildRequires:  pkgconfig(libpeas-2) >= 2.2.0
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libwacom)
-BuildRequires:  pkgconfig(libwnck-3.0) >= 3.36.0
 BuildRequires:  pkgconfig(libxfce4windowing-0)
 BuildRequires:  pkgconfig(polkit-agent-1) >= %{polkit_version}
 BuildRequires:  pkgconfig(upower-glib) >= 0.99.13
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(vapigen) >= %{vala_version}
 BuildRequires:  budgie-desktop-view
-BuildRequires:  budgie-screensaver
 BuildRequires:  desktop-file-utils
+BuildRequires:  gammastep
+BuildRequires:  grim
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  git
 BuildRequires:  gnupg2
 BuildRequires:  gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
 BuildRequires:  gtk-doc >= 1.33.0
+BuildRequires:  gtklock
 BuildRequires:  intltool
 BuildRequires:  magpie-devel
 BuildRequires:  meson
 BuildRequires:  sassc
-BuildRequires:  zenity >= 3.91.0
-Requires:       budgie-control-center
-Requires:       budgie-desktop-view
-Requires:       budgie-screensaver
+BuildRequires:  slurp
+BuildRequires:  swaybg
+BuildRequires:  swayidle
+BuildRequires:  wlopm
+Requires:       budgie-desktop-services
 Requires:       budgie-session
+Requires:       gammastep
+Requires:       grim
 Requires:       gnome-settings-daemon
 Requires:       gsettings-desktop-schemas
 Requires:       gnome-keyring-pam
 Requires:       hicolor-icon-theme
+Requires:       labwc
 Requires:       network-manager-applet
-Requires:       xdotool
-Requires:       papirus-icon-theme
+Requires:       python3-psutil
+Requires:       slurp
+Requires:       swaybg
+Requires:       swayidle
 Requires:       switcheroo-control
-Requires:       zenity
-Suggests:       slick-greeter
+Requires:       xdg-desktop-portal-gtk
+Requires:       xdg-desktop-portal-wlr
+Requires:       wlopm
+
+Suggests:       budgie-control-center
+Suggests:       budgie-display-configurator
+Suggests:       papirus-icon-theme
 
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gtk3%{?_isa} >= %{gtk3_version}
@@ -87,6 +100,8 @@ Requires:       gtk3%{?_isa} >= %{gtk3_version}
 # Deal with fixing the gir file installation
 Conflicts:      %{name} < 10.6.4-2
 Conflicts:      %{name}-devel < 10.6.4-2
+
+Obsoletes:      budgie-screensaver < 5.1.0-9
 
 %description
 A feature-rich, modern desktop designed to keep out the way of the user.
@@ -137,9 +152,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_libdir}/%{name}/plugins/*
 %{_bindir}/budgie-*
 %{_bindir}/org.buddiesofbudgie.*
+%{_bindir}/startbudgielabwc
 %{_datadir}/applications/org.buddiesofbudgie*.desktop
 %{_datadir}/backgrounds/budgie/default.jpg
 %{_datadir}/budgie/budgie-version.xml
+%{_datadir}/%{name}/gammastep.config
+%{_datadir}/%{name}/labwc/*
 %{_datadir}/glib-2.0/schemas/20_buddiesofbudgie.%{name}.notifications.gschema.override
 %{_datadir}/glib-2.0/schemas/20_solus-project.budgie.wm.gschema.override
 %{_datadir}/glib-2.0/schemas/com.solus-project.*.gschema.xml
@@ -150,20 +168,21 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/actions/*.svg
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/icons/hicolor/scalable/status/*.svg
-%{_datadir}/polkit-1/actions/org.buddiesofbudgie.settings-daemon.plugins.*.policy
+%{_datadir}/icons/hicolor/symbolic/emblems/*.svg
 %{_datadir}/xdg-desktop-portal/budgie-portals.conf
-%{_datadir}/xsessions/%{name}.desktop
-%{_libdir}/girepository-1.0/Budgie-2.0.typelib
-%{_libdir}/girepository-1.0/BudgieRaven-2.0.typelib
+%{_datadir}/wayland-sessions/%{name}.desktop
+%{_libdir}/libbudgie-windowing.so.0{,.*}
+%{_libdir}/girepository-1.0/Budgie-3.0.typelib
+%{_libdir}/girepository-1.0/BudgieRaven-3.0.typelib
 %{_libdir}/%{name}/libgvc.so
 %{_libdir}/%{name}/plugins/*/*.plugin
 %{_libdir}/%{name}/plugins/*/*.so*
 %{_libdir}/%{name}/raven-plugins/*/*.plugin
 %{_libdir}/%{name}/raven-plugins/*/*.so*
-%{_libexecdir}/bsd-*
 %{_libexecdir}/%{name}/budgie-polkit-dialog
 %{_libexecdir}/%{name}/budgie-power-dialog
-%{_libdir}/%{name}/libbsd.so
+%{_libexecdir}/%{name}/budgie-screenshot-dialog
+%{_libexecdir}/%{name}/labwc_bridge.py
 %{_libdir}/libbudgie-appindexer.so.0{,.*}
 %{_libdir}/libbudgie-plugin.so.0{,.*}
 %{_libdir}/libbudgie-private.so.0{,.*}
@@ -173,6 +192,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/budgie-*
 %{_mandir}/man1/org.buddiesofbudgie.BudgieScreenshot.*
 %{_mandir}/man1/org.buddiesofbudgie.sendto.*
+%{_mandir}/man1/startbudgielabwc.*
 %{_sysconfdir}/xdg/autostart/*.desktop
 
 %files devel
@@ -180,22 +200,22 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
 %dir %{_includedir}/%{name}
-%{_datadir}/gir-1.0/Budgie-2.0.gir
-%{_datadir}/gir-1.0/BudgieRaven-2.0.gir
+%{_datadir}/gir-1.0/Budgie-3.0.gir
+%{_datadir}/gir-1.0/BudgieRaven-3.0.gir
 %{_datadir}/vala/vapi/budgie-*.deps
 %{_datadir}/vala/vapi/budgie-*.vapi
-%{_includedir}/budgie-settings-daemon-48/budgie-settings-daemon/*.h
 %{_includedir}/%{name}/*.h
 %{_libdir}/libbudgie-appindexer.so
 %{_libdir}/libbudgie-plugin.so
 %{_libdir}/libbudgie-private.so
 %{_libdir}/libbudgie-raven-plugin.so
+%{_libdir}/libbudgie-windowing.so
 %{_libdir}/libbudgietheme.so
 %{_libdir}/libraven.so
-%{_libdir}/pkgconfig/budgie-2.0.pc
-%{_libdir}/pkgconfig/budgie-raven-plugin-2.0.pc
-%{_libdir}/pkgconfig/budgie-settings-daemon.pc
+%{_libdir}/pkgconfig/budgie-3.0.pc
+%{_libdir}/pkgconfig/budgie-raven-plugin-3.0.pc
 %{_libdir}/pkgconfig/budgie-theme-1.0.pc
+%{_libdir}/pkgconfig/budgie-windowing-1.0.pc
 
 %files docs
 %dir %{_datadir}/gtk-doc/html/
@@ -203,6 +223,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.preview.2-3
+- Add missing labwc requirement
+
+* Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.preview.2-2
+- Added obsolete to clean up budgie-screensaver automatically
+
+* Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.preview.2-1
+- Update to 10.10.preview.2
+
 * Sun Nov 09 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.4-1
 - Update to 10.9.4 for libpeas2 / girepository compat
 

@@ -1,6 +1,6 @@
 #
 Name:           stdair
-Version:        1.00.21
+Version:        1.00.22
 Release:        %autorelease
 
 Summary:        C++ Standard Airline IT Object Library
@@ -43,7 +43,10 @@ Summary:        HTML documentation for the %{name} library
 BuildRequires:  tex(latex)
 BuildRequires:  doxygen
 BuildRequires:  ghostscript
-BuildRequires:  texlive-epstopdf
+BuildRequires:  texlive-epstopdf texlive-ltablex texlive-xltabular
+BuildRequires:  texlive-tabularray texlive-multirow texlive-hanging
+BuildRequires:  texlive-adjustbox texlive-stackengine texlive-ulem
+BuildRequires:  texlive-wasysym texlive-newunicodechar texlive-ninecolors
 
 %description    doc
 This package contains HTML pages, as well as a PDF reference manual,

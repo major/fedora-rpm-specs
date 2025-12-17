@@ -1,5 +1,5 @@
 Name:      easy-rsa
-Version:   3.2.4
+Version:   3.2.5
 Release:   1%{?dist}
 
 Summary:   Simple shell based CA utility
@@ -47,6 +47,9 @@ cp -rp x509-types %{buildroot}%{_datadir}/easy-rsa/%{version}/
 
 
 %changelog
+* Mon Dec 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.2.5-1
+- 3.2.5
+
 * Wed Aug 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.2.4-1
 - 3.2.4
 

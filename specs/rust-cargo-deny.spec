@@ -85,6 +85,12 @@ License:        %{shrink:
 %doc SECURITY.md
 %{_bindir}/cargo-deny
 
+%if 0%{?__isa_bits} == 32
+# Avoid memory (address space) exhaustion on the final linking step.
+# https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
+%global rustflags_debuginfo 1
+%endif
+
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch

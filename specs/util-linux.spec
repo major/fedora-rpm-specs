@@ -1,7 +1,7 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.41.2
+Version: 2.41.3
 # -p -e rc1
 Release: %autorelease -b7
 License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
@@ -108,24 +108,6 @@ Patch1: 0001-login-add-run-motd.d-to-the-hardcoded-MOTD_FILE.patch
 
 ### Temporary dracut workaround
 Patch2: 0002-libmount-disable-EROFS-backing-file-support.patch
-
-### Upstream backports (mostly for gcc-15)
-Patch3: 0003-libblkid-use-snprintf-instead-of-sprintf.patch
-Patch4: 0004-lsfd-fix-bsearch-macro-usage-with-glibc-C23.patch
-Patch5: 0005-lib-lscpu-fix-const-qualifier-discarded-warnings-in-.patch
-Patch6: 0006-lsns-fix-const-qualifier-warnings-for-C23.patch
-Patch7: 0007-libmount-fix-const-qualifier-warnings-for-C23.patch
-Patch8: 0008-libmount-fix-const-qualifier-warning-in-mnt_parse_mo.patch
-Patch9: 0009-libblkid-fix-const-qualifier-warning-in-blkid_parse_.patch
-Patch10: 0010-dmesg-fix-const-qualifier-warnings-in-parse_callerid.patch
-Patch11: 0011-lsfd-fix-const-qualifier-warning-in-new_counter_spec.patch
-Patch12: 0012-lsfd-fix-const-qualifier-warning-in-strnrstr.patch
-Patch13: 0013-logger-fix-const-qualifier-warnings-for-C23.patch
-Patch14: 0014-namei-fix-const-qualifier-warning-in-readlink_to_nam.patch
-Patch15: 0015-whereis-fix-const-qualifier-warnings-for-C23.patch
-Patch16: 0016-enosys-fix-const-qualifier-warning-in-parse_block.patch
-Patch17: 0017-partx-fix-const-qualifier-warning-in-get_max_partno.patch
-Patch18: 0018-eject-fix-const-qualifier-warning-in-read_speed.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -737,7 +719,9 @@ fi
 %{_sbindir}/zramctl
 
 %{compldir}/addpart
+%{compldir}/bits
 %{compldir}/blkdiscard
+%{compldir}/blkpr
 %{compldir}/blkzone
 %{compldir}/cal
 %{compldir}/chcpu
@@ -776,6 +760,7 @@ fi
 %{compldir}/lsblk
 %{compldir}/lscpu
 %{compldir}/lsclocks
+%{compldir}/lsfd
 %{compldir}/lsipc
 %{compldir}/lsirq
 %{compldir}/lslocks

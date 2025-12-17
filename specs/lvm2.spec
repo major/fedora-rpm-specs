@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.211
+%global device_mapper_version 1.02.212
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,7 +49,7 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.37
+Version: 2.03.38
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
@@ -62,6 +62,7 @@ BuildRequires: gcc-c++
 %endif
 BuildRequires: libselinux-devel >= %{libselinux_version}, libsepol-devel
 BuildRequires: libblkid-devel >= %{util_linux_version}
+BuildRequires: xfsprogs-devel
 BuildRequires: ncurses-devel
 BuildRequires: libedit-devel
 BuildRequires: libaio-devel

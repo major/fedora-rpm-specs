@@ -1,5 +1,5 @@
-%global hash af97fd7
-%global date 20230126
+%global hash c3a19c1
+%global date 20240913
 
 # https://fedoraproject.org/wiki/Changes/SetBuildFlagsBuildCheck
 # breaks cross-building
@@ -10,7 +10,7 @@
 
 Name:           openbios
 Version:        %{date}
-Release:        6.git%{hash}%{?dist}
+Release:        1.git%{hash}%{?dist}
 Epoch:          1
 Summary:        OpenBIOS implementation of IEEE 1275-1994
 
@@ -97,6 +97,9 @@ cp -a obj-sparc64/openbios-builtin.elf $qemudir/openbios-sparc64
 
 
 %changelog
+* Mon Dec 15 2025 Daniel P. Berrangé <berrange@redhat.com> - 1:20240913-1.gitc3a19c1
+- Update to openbios c3a19c1 to match qemu
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:20230126-6.gitaf97fd7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

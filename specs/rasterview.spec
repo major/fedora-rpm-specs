@@ -1,7 +1,7 @@
 Name: rasterview
 Summary: CUPS raster file viewer
-Version: 1.7.1
-Release: 18%{?dist}
+Version: 1.9.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: https://www.msweet.org/files/project7/rasterview-%{version}.tar.gz
@@ -18,7 +18,7 @@ BuildRequires: zlib-devel
 BuildRequires: desktop-file-utils >= 0.2.92
 
 Patch1: rasterview-desktop-file.patch
-Patch2: rasterview-fltk.patch
+Patch2: rasterview-cxxflags.patch
 
 %description
 CUPS uses an intermediate format called raster for inkjet printers and
@@ -27,13 +27,13 @@ view this intermediate format and is mainly used for debugging printer
 drivers.
 
 %prep
-%setup -q -c %{name}-%{version}
+%setup -q
 
 # Fixes for desktop file.
 %patch -P1 -p1 -b .desktop-file
 
-# Don't include static libraries for fltk
-%patch -P2 -p1 -b .fltk
+# Fix CPPFLAGS/CXXFLAGS typo
+%patch -P2 -p1 -b .cxxflags
 
 %build
 %configure
@@ -54,13 +54,14 @@ desktop-file-install \
 %doc README.md LICENSE NOTICE
 %{_bindir}/rasterview
 %{_datadir}/icons/hicolor/*/apps/rasterview.png
-%{_datadir}/mimelnk/application/vnd.cups-raster.desktop
-%{_datadir}/mimelnk/image/pwg-raster.desktop
-%{_datadir}/mimelnk/image/urf.desktop
-%{_datadir}/applications/*.desktop
-%{_datadir}/applications/Development/rasterview.desktop
+%{_datadir}/mime/packages/rasterview.xml
+%{_datadir}/applications/rasterview.desktop
 
 %changelog
+* Mon Dec 15 2025 Tim Waugh <twaugh@redhat.com> - 1.9.1-1
+- Update to 1.9.1 (#1983346)
+- Fix CPPFLAGS/CXXFLAGS typo to enable hardening flags
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

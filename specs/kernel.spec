@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc0.251210g0048fbb4011ec.10
+%define pkgrelease 0.rc1.15
 %define kversion 6
-%define tarfile_release 6.18-12865-g0048fbb4011ec
+%define tarfile_release 6.19-rc1
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251210g0048fbb4011ec.10%{?buildid}%{?dist}
+%define specrelease 0.rc1.15%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -3951,7 +3951,9 @@ fi\
 %define kernel_modules_post() \
 %{expand:%%post %{?1:%{1}-}modules}\
 /sbin/depmod -a %{KVERREL}%{?1:+%{1}}\
-if [ ! -f %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{KVERREL}%{?1:+%{1}} ]; then\
+if [ -f /lib/modules/%{KVERREL}%{?1:+%{1}}/vmlinuz ] &&\
+[ -f /boot/initramfs-%{KVERREL}%{?1:+%{1}}.img ] &&\
+[ ! -f %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{KVERREL}%{?1:+%{1}} ]; then\
 	mkdir -p %{_localstatedir}/lib/rpm-state/%{name}\
 	touch %{_localstatedir}/lib/rpm-state/%{name}/need_to_run_dracut_%{KVERREL}%{?1:+%{1}}\
 fi\
@@ -3962,8 +3964,8 @@ fi\
 %{expand:%%posttrans %{?1:%{1}-}modules}\
 if [ -f %{_localstatedir}/lib/rpm-state/%{name}/need_to_run_dracut_%{KVERREL}%{?1:+%{1}} ]; then\
 	rm -f %{_localstatedir}/lib/rpm-state/%{name}/need_to_run_dracut_%{KVERREL}%{?1:+%{1}}\
-	echo "Running: dracut -f --kver %{KVERREL}%{?1:+%{1}}"\
-	dracut -f --kver "%{KVERREL}%{?1:+%{1}}" || exit $?\
+	echo "Running: dracut -f --kver %{KVERREL}%{?1:+%{1}} /boot/initramfs-%{KVERREL}%{?1:+%{1}}.img"\
+	dracut -f --kver "%{KVERREL}%{?1:+%{1}}" /boot/initramfs-%{KVERREL}%{?1:+%{1}}.img || exit $?\
 fi\
 %{nil}
 
@@ -4519,13 +4521,28 @@ fi\
 #
 #
 %changelog
-* Thu Dec 11 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc0.251210g0048fbb4011ec.10]
-- Linux v6.19.0-0.rc0.251210g0048fbb4011ec
-
-* Wed Dec 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.0048fbb4011e.10]
+* Mon Dec 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.15]
 - package YNL test framework files (Thorsten Leemhuis)
 - disable a compiler warning for libbpf (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
+
+* Mon Dec 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.14]
+- redhat/self-test: refresh with new variables (Scott Weaver)
+- gitlab-ci: enable c10s automotive package build (Scott Weaver)
+- automotive: add configurable package name and disttag variables (Scott Weaver)
+
+* Mon Dec 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.13]
+- Fix up zfcpdump mismatch (Justin M. Forbes)
+- Linux v6.19.0-0.rc1
+
+* Sun Dec 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.9d9c1cfec01c.12]
+- redhat/kernel.spec.template: Let kernel-modules installation rebuild initrd in UKI system (Li Tian) [RHEL-135256]
+
+* Sat Dec 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.9d9c1cfec01c.11]
+- Linux v6.19.0-0.rc0.9d9c1cfec01c
+
+* Thu Dec 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.d358e5254674.10]
+- Linux v6.19.0-0.rc0.d358e5254674
 
 * Wed Dec 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc0.0048fbb4011e.9]
 - Linux v6.19.0-0.rc0.0048fbb4011e

@@ -285,8 +285,11 @@ done
 %cmake_install
 
 # Move the OpenImageIO plugin into its default search path
+# and generate a symlink for compatibility
 mkdir %{buildroot}%{_libdir}/OpenImageIO-%{oiio_major_minor_ver}
 mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oiio_major_minor_ver}/
+ln -s %{_libdir}/OpenImageIO-%{oiio_major_minor_ver}/osl.imageio.so \
+    %{buildroot}%{_libdir}/osl.imageio.so
 
 # Install manual files
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
@@ -329,6 +332,7 @@ rm -fr %{buildroot}%{_prefix}/cmake/llvm_macros.cmake
 %license LICENSE.md
 %dir %{_libdir}/OpenImageIO-%{oiio_major_minor_ver}/
 %{_libdir}/OpenImageIO-%{oiio_major_minor_ver}/osl.imageio.so
+%{_libdir}/osl.imageio.so
    
 %files libs
 %license LICENSE.md THIRD-PARTY.md

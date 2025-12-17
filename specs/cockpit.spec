@@ -51,15 +51,21 @@
 %define pamdir %{_libdir}/security
 %endif
 
+# distributions which ship nodejs-esbuild can rebuild the bundle during package build
+%if 0%{?fedora} >= 42
+%define rebuild_bundle 1
+%endif
+
 Name:           cockpit
 Summary:        Web Console for Linux servers
 
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        351
+Version:        353.1
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
+Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
 ExcludeArch: %{ix86}
@@ -107,6 +113,11 @@ BuildRequires: docbook-style-xsl
 BuildRequires: krb5-server
 BuildRequires: gdb
 
+%if %{defined rebuild_bundle}
+BuildRequires: nodejs
+BuildRequires: nodejs-esbuild
+%endif
+
 # For documentation
 BuildRequires: xmlto
 
@@ -149,8 +160,20 @@ BuildRequires:  python3-pytest-timeout
 
 %prep
 %setup -q -n cockpit-%{version}
+%if %{defined rebuild_bundle}
+%setup -q -D -T -a 1 -n cockpit-%{version}
+%endif
 
 %build
+%if %{defined rebuild_bundle}
+rm -rf dist
+# HACK: node module packaging is currently broken in Fedora, should be in
+# common location, not major version specific one
+NODE_ENV=production NODE_PATH=$(echo /usr/lib/node_modules_*) ./build.js
+%else
+# Use pre-built bundle on distributions without nodejs-esbuild
+%endif
+
 %configure \
     %{?selinux_configure_arg} \
 %if 0%{?suse_version}
@@ -342,26 +365,16 @@ Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
-Provides: bundled(npm(argparse)) = 1.0.10
-Provides: bundled(npm(attr-accept)) = 2.2.5
-Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(dequal)) = 2.0.3
-Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(ipaddr.js)) = 2.2.0
-Provides: bundled(npm(js-tokens)) = 4.0.0
+Provides: bundled(npm(ipaddr.js)) = 2.3.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.17.21
-Provides: bundled(npm(loose-envify)) = 1.4.0
-Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
-Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.8
-Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
+Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
@@ -504,7 +517,7 @@ SELinux policy module for the cockpit-ws package.
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
 %{_mandir}/man8/%{name}_session_selinux.8cockpit.*
 %{_mandir}/man8/%{name}_ws_selinux.8cockpit.*
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+%ghost %{_selinux_store_path}/%{selinuxtype}/active/modules/200/%{name}
 
 %pre ws-selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -650,6 +663,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Dec 15 2025 Jelle van der Waa <jelle@vdwaa.nl> - 353.1-1
+- Release workflow fixes
+
+
 * Wed Nov 12 2025 Packit <hello@packit.dev> - 351-1
 - Firewall ports can be deleted individually
 

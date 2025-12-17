@@ -1,13 +1,13 @@
 Name:           budgie-desktop-defaults
-Version:        0.5.3
-Release:        2%{?dist}
+Version:        0.5.4
+Release:        1%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
 License:        CC-BY-SA-4.0
 URL:            https://forge.moderndesktop.dev/BuddiesOfBudgie/fedora-budgie-desktop-defaults
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
-Source2:        https://joshuastrobl.com/pubkey.gpg
+Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/branch/main/JoshuaStrobl.gpg
 
 BuildArch:      noarch
 BuildRequires:  gcc
@@ -39,6 +39,9 @@ Budgie Desktop Defaults for Fedora.
 %{_datadir}/glib-2.0/schemas/10_budgie_*.gschema.override
 
 %changelog
+* Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 0.5.4-1
+- Update to 0.5.4
+
 * Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 0.5.3-2
 - Add missing pubkey.gpg file
 

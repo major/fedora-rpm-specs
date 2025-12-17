@@ -1,8 +1,8 @@
 %global pypi_name aiosqlite
 
 Name:           python-%{pypi_name}
-Version:        0.21.0
-Release:        3%{?dist}
+Version:        0.22.0
+Release:        1%{?dist}
 Summary:        Asyncio bridge to the standard SQLite3 module
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %doc CHANGELOG.md README.rst
 
 %changelog
+* Mon Dec 15 2025 Federico Pellegrin <fede@evolware.org> - 0.22.0-1
+- Bump to 0.22.0 (rhbz#2421994)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.21.0-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

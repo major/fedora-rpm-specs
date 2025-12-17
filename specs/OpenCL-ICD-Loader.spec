@@ -1,5 +1,5 @@
-%global commit0 5907ac1114079de4383cecddf1c8640e3f52f92b
-%global date 20241023
+%global commit0 ad770a1b64c6b8d5f2ed4e153f22e4f45939f27f
+%global date 20250722
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           OpenCL-ICD-Loader

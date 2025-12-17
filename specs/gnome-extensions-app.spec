@@ -6,7 +6,7 @@
 %global adwaita_version 1.5.0
 
 Name:          gnome-extensions-app
-Version:       49.1
+Version:       49.2
 Release:       %autorelease
 Summary:       Manage GNOME Shell extensions
 

@@ -1,5 +1,12 @@
+%if (%{defined fedora} && 0%{?fedora} <= 42) || (%{defined rhel} && 0%{?rhel} <= 10)
+# setuptools < 77, can't use new license metadata
+%bcond old_setuptools 1
+%else
+%bcond old_setuptools 0
+%endif
+
 Name:           python-merge3
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Python implementation of 3-way merge
 License:        GPL-2.0-or-later
@@ -9,6 +16,8 @@ URL:            https://www.breezy-vcs.org
 Source:         https://github.com/breezy-team/merge3/archive/v%{version}/merge3-%{version}.tar.gz
 # pass -v in tox.ini to unittest invocation
 Patch:          merge3-verbose-testlog.diff
+# conditional patches (1000+)
+Patch1000:      merge3-revert-setuptools-bump.diff
 
 BuildArch:      noarch
 
@@ -31,7 +40,11 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n merge3-%{version}
+%autosetup -n merge3-%{version} -N
+%autopatch -p1 -M 999
+%if %{with old_setuptools}
+%autopatch -p1 1000
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t

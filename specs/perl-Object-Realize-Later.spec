@@ -1,5 +1,5 @@
 Name:           perl-Object-Realize-Later
-Version:        0.22
+Version:        4.00
 Release:        1%{?dist}
 Summary:        Delayed creation of objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -13,6 +13,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Run-time:
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Log::Report) >= 1.42
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -50,6 +51,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.00-1
+- 4.00 bump (rhbz#2422236)
+
 * Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 0.22-1
 - update to 0.22
 

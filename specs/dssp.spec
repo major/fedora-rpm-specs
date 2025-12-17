@@ -3,7 +3,7 @@
 
 Name:		dssp
 Version:	3.0.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Protein secondary structure assignment
 %{?el5:Group:		Applications/Engineering}
 License:	BSL-1.0
@@ -13,6 +13,8 @@ Source0:	ftp://ftp.cmbi.ru.nl/pub/software/dssp/dssp-%version.tgz
 Patch1:		dssp-make.patch
 # Fix build with boost 1.66 (#1537546)
 Patch2:		dssp-tuple.patch
+# Fix build with GCC 15 (#2384563)
+Patch3:         dssp-nullptr.patch
 BuildRequires:	zlib-devel bzip2-devel boost-devel gcc-c++
 BuildRequires: make
 
@@ -42,6 +44,7 @@ Biopolymers. 1983 22 2577-2637.
 %setup -q
 %patch -P1 -p1 -b .make
 %patch -P2 -p1 -b .tuple
+%patch -P3 -p1 -b .nullptr
 chmod -x src/buffer.h
 
 
@@ -77,6 +80,9 @@ chmod -x $RPM_BUILD_ROOT%_mandir/man1/*
 
 
 %changelog
+* Mon Dec 15 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 3.0.0-27
+- Fix build (#2384563)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

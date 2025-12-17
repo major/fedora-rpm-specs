@@ -1,5 +1,5 @@
 Name:           perl-Mail-Box-IMAP4
-Version:        3.010
+Version:        4.01
 Release:        1%{?dist}
 Summary:        Handle IMAP4 folders as client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,16 +24,17 @@ BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(IO::Socket::IP)
 BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(Mail::Box::Manage::User) >= 3
-BuildRequires:  perl(Mail::Box::Net) >= 3
+BuildRequires:  perl(Log::Report) >= 1.42
+BuildRequires:  perl(Mail::Box::Manage::User) >= 4
+BuildRequires:  perl(Mail::Box::Net) >= 4
 BuildRequires:  perl(Mail::Box::Net::Message)
 BuildRequires:  perl(Mail::Box::Parser::Perl)
-BuildRequires:  perl(Mail::Box::Search) >= 3
+BuildRequires:  perl(Mail::Box::Search) >= 4
 BuildRequires:  perl(Mail::IMAPClient)
 BuildRequires:  perl(Mail::Message::Head)
-BuildRequires:  perl(Mail::Message::Head::Complete) >= 3
-BuildRequires:  perl(Mail::Message::Head::Delayed) >= 3
-BuildRequires:  perl(Mail::Transport::Receive) >= 3
+BuildRequires:  perl(Mail::Message::Head::Complete) >= 4
+BuildRequires:  perl(Mail::Message::Head::Delayed) >= 4
+BuildRequires:  perl(Mail::Transport::Receive) >= 4
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(vars)
@@ -41,19 +42,19 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Mail::Box::Identity)
 BuildRequires:  perl(Mail::Box::MH)
-BuildRequires:  perl(Mail::Box::Test) >= 3
-BuildRequires:  perl(Mail::Message) >= 3.013
-BuildRequires:  perl(Mail::Message::Body::Lines) >= 3
+BuildRequires:  perl(Mail::Box::Test) >= 4
+BuildRequires:  perl(Mail::Message) >= 4
+BuildRequires:  perl(Mail::Message::Body::Lines) >= 4
 BuildRequires:  perl(Test::More)
-Requires:       perl(Mail::Box) >= 3.007
-Requires:       perl(Mail::Box::Net) >= 3
+Requires:       perl(Mail::Box) >= 4
+Requires:       perl(Mail::Box::Net) >= 4
 Requires:       perl(Mail::IMAPClient) >= 3.42
-Requires:       perl(Mail::Message::Body::Lines) >= 3
-Requires:       perl(Mail::Message::Head::Complete) >= 3
-Requires:       perl(Mail::Message::Head::Delayed) >= 3
-Requires:       perl(Mail::Transport::Receive) >= 3.004
+Requires:       perl(Mail::Message::Body::Lines) >= 4
+Requires:       perl(Mail::Message::Head::Complete) >= 4
+Requires:       perl(Mail::Message::Head::Delayed) >= 4
+Requires:       perl(Mail::Transport::Receive) >= 4
 
-Conflicts:      perl-Mail-Box < 3
+Conflicts:      perl-Mail-Box < 4
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mail::Box::Manage::User\\)$
@@ -70,9 +71,9 @@ using the IMAP4 protocol.
 %package -n perl-Mail-Server-IMAP4
 Summary:        IMAP4 server implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Requires:       perl(Mail::Box::Manage::User) >= 3
-Requires:       perl(Mail::Box::Search) >= 3
-Requires:       perl(Mail::Server) >= 3
+Requires:       perl(Mail::Box::Manage::User) >= 4
+Requires:       perl(Mail::Box::Search) >= 4
+Requires:       perl(Mail::Server) >= 4
 
 %description -n perl-Mail-Server-IMAP4
 This module is a place-holder, which can be used to grow code which is
@@ -84,9 +85,9 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Mail-Server-IMAP4 = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Mail::Box::Test) >= 3
-Requires:       perl(Mail::Message) >= 3.013
-Requires:       perl(Mail::Message::Body::Lines) >= 3
+Requires:       perl(Mail::Box::Test) >= 4
+Requires:       perl(Mail::Message) >= 4
+Requires:       perl(Mail::Message::Body::Lines) >= 4
 
 %description tests
 Tests from %{name}. Execute them
@@ -143,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-1
+- 4.01 bump (rhbz#2421437)
+
 * Thu Nov 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.010-1
 - 3.010 bump (rhbz#2416762)
 

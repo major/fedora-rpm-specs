@@ -8,7 +8,7 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2025.10.0
+Version:        2025.12.0
 %global tag     %{version}
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask
@@ -114,9 +114,11 @@ sed -r -i '/(dask)[<=> ]+[0-9]+/d' pyproject.toml
 %endif
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_DISTRIBUTED=%{version}
 %pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_DISTRIBUTED=%{version}
 %pyproject_wheel
 
 %install

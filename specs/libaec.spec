@@ -1,10 +1,12 @@
 Name:           libaec
 Version:        1.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Adaptive Entropy Coding library
 License:        LicenseRef-Callaway-BSD
 Url:            https://gitlab.dkrz.de/k202009/libaec
 Source0:        https://gitlab.dkrz.de/k202009/libaec/-/archive/v%{version}/libaec-v%{version}.tar.gz
+# Split static cmake targets into separate export
+Patch:          libaec-static.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.1
@@ -60,11 +62,16 @@ Static variant of libaec (Adaptive Entropy Coding library).
 %{_includedir}/*.h
 %{_libdir}/lib*.so
 %{_libdir}/cmake/%{name}
+%exclude %{_libdir}/cmake/%{name}/*_static*
 
 %files static
 %{_libdir}/lib*.a
+%{_libdir}/cmake/%{name}/*_static*
 
 %changelog
+* Sun Dec 14 2025 Orion Poplawski <orion@nwra.com> - 1.1.4-4
+- Split static cmake targets into separate export
+
 * Wed Aug 20 2025 Christoph Junghans <junghans@votca.org> - 1.1.4-3
 - Add static sub-package
 - Fixes: rhbz#2387206

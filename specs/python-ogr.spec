@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.58.0
+Version:        0.59.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,11 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Dec 15 2025 Packit <hello@packit.dev> - 0.59.0-1
+- Improved handling of retries after errors to avoid hitting rate limits if possible. (#958)
+- `GithubPullRequest.labels` property is now cached for better performance and to be consistent with other services. (#960, #961)
+- Resolves: rhbz#2422233
+
 * Mon Dec 08 2025 Packit <hello@packit.dev> - 0.58.0-1
 - `PagureService` now accepts an optional `user_agent` argument to set a custom User-Agent header. (#953)
 - It is now possible to pass a `headers` argument in `PagureProject.get_file_content`. The default header is set to `Accept: text/plain`. (#954)

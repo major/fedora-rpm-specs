@@ -13,7 +13,6 @@ BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
-BuildRequires:  libappstream-glib
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6DBus)
@@ -59,16 +58,12 @@ password manager.
 %cmake_install
 %find_lang plasma_applet_org.kde.plasma.pass
 
-%check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.plasma.pass.appdata.xml ||:
-
 %files -f plasma_applet_org.kde.plasma.pass.lang
 %license LICENSES/*
 %doc README.md
 %{_kf6_qmldir}/org/kde/plasma/private/plasmapass/
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.pass/
 %{_kf6_datadir}/qlogging-categories6/plasma-pass.categories
-%{_metainfodir}/org.kde.plasma.pass.appdata.xml
 
 
 %changelog

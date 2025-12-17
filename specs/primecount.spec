@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        8.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,12 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Mon Dec 15 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-4
+- Fix status output in --AC option
+
+* Mon Dec 15 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-3
+- Rebuild due to bodhi automated test failure (Fedora network down)
+
 * Sun Dec 14 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-2
 - Fix flickering when using --status option
 

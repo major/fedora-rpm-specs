@@ -12,7 +12,7 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 
 Name: pack
-Version: 0.38.2
+Version: 0.39.1
 Release: %autorelease
 Summary: Convert code into runnable images
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT

@@ -3,7 +3,7 @@
 
 # https://github.com/gopasspw/gopass-jsonapi
 %global goipath         github.com/gopasspw/gopass-jsonapi
-Version:                1.16.0
+Version:                1.16.1
 
 %gometa -L -f
 

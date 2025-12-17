@@ -23,7 +23,7 @@ ExcludeArch: %{ix86}
 # Disable tests and manual on epel < 8
 %if 0%{?rhel} && 0%{?rhel} < 8
 %bcond_with manual
-%bcond_with test
+%bcond_without test
 %bcond_with sundials
 %bcond_with petsc
 %bcond_with 3dmetrics
@@ -307,8 +307,8 @@ MPI-independent files for BOUT++, namely localisation files.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary: BOUT++ python library
-Requires: netcdf4-python%{python3_pkgversion}
-Requires: python%{python3_pkgversion}-numpy
+Requires:   python%{python3_pkgversion}-netcdf4
+Requires:   python%{python3_pkgversion}-numpy
 Recommends: python%{python3_pkgversion}-scipy
 Recommends: python%{python3_pkgversion}-matplotlib
 Recommends: python%{python3_pkgversion}-boututils
@@ -344,9 +344,7 @@ This package contains the documentation.
 #
 
 %prep
-%autosetup -n BOUT++-v%{version} -N
-%patch -P 0 -p1
-%patch -P 1 -p1 -b .backup
+%autosetup -n BOUT++-v%{version} -p1
 
 # Switch to standard theme
 # sphinx_book_theme is not packaged
@@ -411,7 +409,7 @@ do
       -DCMAKE_INSTALL_PYTHON_SITEARCH=${MPI_PYTHON3_SITEARCH} \
       -DBOUT_TEST_TIMEOUT=900 \
 %if %{with 3dmetrics}
-      -DBOUT_USE_METRIC_3D=ON \
+      -DBOUT_ENABLE_METRIC_3D=ON \
 %endif
 %if %{with manual}
       -DBOUT_BUILD_DOCS=ON \
@@ -573,7 +571,7 @@ done
 
 %if %{with openmpi}
 %files openmpi
-%{_libdir}/openmpi/lib/libbout++.so.5.1.0
+%{_libdir}/openmpi/lib/libbout++.so.5.2.0
 %{_libdir}/openmpi/lib/*.so.1.0.0
 %{_libdir}/openmpi/bin/*
 %doc README.md

@@ -1,10 +1,10 @@
 Name:		perl-Mail-Transport
-Version:	3.008
+Version:	4.01
 Release:	1%{?dist}
 Summary:	Email message exchange
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Transport
-Source0:	https://cpan.metacpan.org/modules/by-module/Mail/Mail-Transport-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Transport-%{version}.tar.gz
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
@@ -22,7 +22,8 @@ BuildRequires:	perl(Errno)
 BuildRequires:	perl(File::Spec) >= 0.7
 BuildRequires:	perl(IO::Socket)
 BuildRequires:	perl(List::Util)
-BuildRequires:	perl(Mail::Reporter) >= 3
+BuildRequires:	perl(Log::Report) >= 1.42
+BuildRequires:	perl(Mail::Reporter) >= 4.00
 BuildRequires:	perl(Net::Config)
 BuildRequires:	perl(Net::Domain)
 BuildRequires:	perl(Net::SMTP)
@@ -34,8 +35,13 @@ BuildRequires:	perl(Test::More)
 # Dependencies
 Requires:	perl(IO::Socket)
 Requires:	perl(List::Util)
+Requires:	perl(Log::Report) >= 1.42
+Requires:	perl(Mail::Reporter) >= 4.00
 Requires:	perl(Net::Config)
 Requires:	perl(Net::Domain)
+
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Log::Report\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Mail::Reporter\\)
 
 %description
 Email message exchange code, formerly part of the Mail::Box package.
@@ -67,6 +73,9 @@ make test
 %{_mandir}/man3/Mail::Transport::Sendmail.3*
 
 %changelog
+* Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-1
+- 4.01 bump (rhbz#2421439)
+
 * Mon Nov 24 2025 Paul Howarth <paul@city-fan.org> - 3.008-1
 - Update to 3.008
 

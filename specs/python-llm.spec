@@ -3,12 +3,12 @@
 
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
-Version:        0.27.1
-Release:        2%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
-Patch:          python-llm-0.27.1-format-fix.patch
+Patch:          python-llm-0.28-relax-click.patch
 Patch:          python-llm-0.27.1-disable-tests.patch
 Patch:          python-llm-0.27.1-sqlite-3.51.patch
 BuildArch:      noarch
@@ -86,6 +86,9 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Mon Dec 15 2025 Terje Røsten <terjeros@gmail.com> - 0.28-1
+- 0.28
+
 * Sat Nov 29 2025 Terje Røsten <terjeros@gmail.com> - 0.27.1-2
 - Enable tests
 

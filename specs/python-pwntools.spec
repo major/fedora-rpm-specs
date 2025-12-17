@@ -1,6 +1,6 @@
 Name:           python-pwntools
 Version:        4.14.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A CTF framework and exploit development library
 URL:            https://github.com/Gallopsled/pwntools/
 VCS:            https://github.com/Gallopsled/pwntools/
@@ -95,7 +95,7 @@ chmod -x docs/requirements.txt
 
 
 %build
-%py3_build
+%pyproject_wheel
 # Waiting on pwntools to support newer sphinx shipped by Fedora.
 # # Generate html documentation.
 # PYTHONPATH=${PWD} sphinx-build-2 docs/source html
@@ -103,7 +103,7 @@ chmod -x docs/requirements.txt
 # rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
 
 mv %{buildroot}%{_bindir}/checksec %{buildroot}%{_bindir}/checksec-pwntools
 
@@ -123,7 +123,7 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 %files -n python%{python3_pkgversion}-%{srcname}
 %doc CHANGELOG.md CONTRIBUTING.md README.md TESTING.md docs/requirements.txt
 %license LICENSE-pwntools.txt
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/%{srcname}-%{version}.dist-info/
 %{python3_sitelib}/pwn/
 %{python3_sitelib}/pwnlib/
 %{_bindir}/asm
@@ -156,6 +156,9 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Mon Dec 15 2025 Python Maint <python-maint@redhat.com> - 4.14.1-6
+- Use new packaging macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.14.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

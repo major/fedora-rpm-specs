@@ -11,7 +11,7 @@
 
 Name:           cinnamon
 Version:        6.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -141,8 +141,10 @@ Recommends:     mate-panel%{?_isa}
 
 # required for keyboard applet
 Requires:       gucharmap%{?_isa}
-Requires:       ibus%{?_isa}
+Requires:       ibus-libs%{?_isa}
 Requires:       ibus-gtk3%{?_isa}
+Recommends:     ibus%{?_isa}
+Recommends:     ibus-gtk4%{?_isa}
 Requires:       gtk3-immodules%{?_isa}
 
 Requires:       xapps%{?_isa}
@@ -333,6 +335,9 @@ EOF
 %endif
 
 %changelog
+* Mon Dec 15 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-2
+- Fix ibus requires and recommends
+
 * Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 
