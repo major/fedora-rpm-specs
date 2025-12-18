@@ -1,7 +1,7 @@
 %global srcname ansible-compat
 %global pkgname python-ansible-compat
 
-%bcond_with tests
+%bcond_without tests
 
 Name:    %{pkgname}
 Version: 25.12.0

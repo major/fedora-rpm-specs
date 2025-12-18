@@ -5,11 +5,11 @@ ExcludeArch: aarch64 %{ix86} %{power64} s390x
 
 Name:          qcas
 Summary:       Qt5 GUI application for Giac
-Version:       0.5.3
-Release:       30%{?dist}
+Version:       0.5.4
+Release:       %autorelease
 License:       GPL-3.0-or-later
 URL:           https://webusers.imj-prg.fr/~frederic.han/qcas/
-Source0:       https://git.tuxfamily.org/qcas/qcas.git/snapshot/%{name}-%{version}.zip
+Source0:       https://gitlab.math.univ-paris-diderot.fr/han/qcas/-/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:       %{name}.desktop
 Source2:       %{name}.appdata.xml
 Source3:       %{name}-qt4.desktop
@@ -19,11 +19,11 @@ BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtsvg-devel
 BuildRequires: gmp-devel
-BuildRequires: giac-devel
+BuildRequires: giac-devel >= 2.0.0
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 Requires:      %{name}-data = %{version}-%{release}
-Requires:       giac%{?_isa}
+Requires:       giac%{?_isa} >= 2.0.0
 
 %description
 Minimal Qt5 interface for Giac.
@@ -32,7 +32,7 @@ Minimal Qt5 interface for Giac.
 Summary:        Qt4 GUI application for Giac
 BuildRequires:  qt-devel
 Requires:      %{name}-data = %{version}-%{release}
-Requires:       giac%{?_isa}
+Requires:       giac%{?_isa} >= 2.0.0
 %description    qt4
 Minimal Qt4 interface for Giac.
 
@@ -40,7 +40,7 @@ Minimal Qt4 interface for Giac.
 %package        -n libqcas
 Summary:        Private library of Qcas
 Requires:       gcc-gfortran%{?_isa}
-BuildRequires:  giac-devel
+BuildRequires:  giac-devel >= 2.0.0
 
 %description    -n libqcas
 Private library of Qcas.
@@ -56,7 +56,7 @@ applications that use lib%{name}.
 
 %package        data
 Summary:        Data files of Qcas
-Requires:       giac-doc
+Requires:       giac-doc >= 2.0.0
 BuildArch:      noarch
 %description    data
 Data files of Qcas.
@@ -166,110 +166,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
-* Thu Dec 04 2025 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-30
-- Fix appdata file
-
-* Thu Dec 04 2025 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-29
-- Rebuild for giac-2.0.0*
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-28
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 0.5.3-27
-- Stop building for 32-bit x86
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-26
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.3-25
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-24
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-23
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jul 19 2020 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-14
-- Rebuild for giac-1.6.0.7
-
-* Wed Feb 05 2020 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-13
-- New rebuild for giac-1.5.0.85
-
-* Tue Feb 04 2020 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-12
-- Rebuild for giac-1.5.0.85
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Oct 10 2018 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-8
-- Rebuild for giac-1.5.0.3
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Feb 03 2018 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-5
-- Rebuild for giac-1.4.9.45
-- Use %%ldconfig_scriptlets
-
-* Wed Jan 17 2018 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-4
-- Reorganize header files
-
-* Sat Dec 23 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-3
-- Fix symbolic links
-
-* Sat Dec 23 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-2
-- Fix library permissions
-- Add ldconfig scripts
-
-* Fri Dec 22 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.3-1
-- Update to 0.5.3
-
-* Fri Dec 22 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.2-5
-- Fix dependencies
-
-* Wed Dec 20 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.2-4
-- Fix symbolic link
-
-* Mon Dec 18 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.2-3
-- Fix libqcas's dependencies
-
-* Sat Dec 16 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.2-2
-- Fix appdata file's path
-- Install libqcas
-
-* Fri Dec 01 2017 Antonio Trande <sagitter@fedoraproject.org> 0.5.2-1
-- First package
+%autochangelog

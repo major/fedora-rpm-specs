@@ -1,7 +1,7 @@
 %global srcname tblib
 
 Name:           python-%{srcname}
-Version:        3.1.0
+Version:        3.2.2
 Release:        %autorelease
 Summary:        Traceback serialization library
 

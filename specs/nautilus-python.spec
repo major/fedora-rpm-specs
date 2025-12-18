@@ -11,6 +11,7 @@ License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/NautilusPython
 Source0:        https://download.gnome.org/sources/%{name}/4.1/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires:  gcc
 BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(libnautilus-extension-4) >= %{nautilus_version}

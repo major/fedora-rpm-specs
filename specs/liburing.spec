@@ -1,5 +1,5 @@
 Name: liburing
-Version: 2.12
+Version: 2.13
 Release: 1%{?dist}
 Summary: Linux-native io_uring I/O access library
 License: (GPL-2.0-only WITH Linux-syscall-note OR MIT) AND (LGPL-2.0-or-later OR MIT)
@@ -53,6 +53,9 @@ for the Linux-native io_uring.
 %{_mandir}/man7/*
 
 %changelog
+* Tue Dec 16 2025 Richard W.M. Jones <rjones@redhat.com> - 2.13-1
+- Update to liburing 2.13 (RHBZ#2422592)
+
 * Tue Sep 16 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 2.12-1
 - Update to liburing 2.12 (RHBZ#2369233)
 

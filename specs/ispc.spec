@@ -1,8 +1,8 @@
 # Default to clang unless building with GCC explicitly
-%bcond_with gcc
+%bcond          gcc 0
 
 Name:           ispc
-Version:        1.28.2
+Version:        1.29.0
 Release:        %autorelease
 Summary:        C-based SPMD programming language compiler
 License:        BSD-3-Clause
@@ -13,7 +13,9 @@ Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%
 BuildRequires:  bison
 BuildRequires:  cmake
 BuildRequires:  flex
+BuildRequires:  help2man
 BuildRequires:  llvm-devel
+BuildRequires:  make
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  clang-devel
@@ -91,17 +93,30 @@ sed -i 's|-Wno-c99-extensions -Wno-deprecated-register||g' CMakeLists.txt
 %install
 %cmake_install
 
+# Generate and install man pages.
+install -d '%{buildroot}%{_mandir}/man1'
+for cmd in %{buildroot}%{_bindir}/*
+do
+  LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+      help2man \
+      --no-info --no-discard-stderr --version-string='%{version}' \
+      --output="%{buildroot}%{_mandir}/man1/$(basename "${cmd}").1" \
+      "${cmd}"
+done
+
 %check
 PATH="${PATH}:%{buildroot}%{_bindir}" %{python3} scripts/run_tests.py
 
 %files
 %license LICENSE.txt
 %doc docs/ReleaseNotes.txt
-%{_bindir}/%{name}
 %{_bindir}/check_isa
+%{_bindir}/%{name}
 %{_libdir}/lib%{name}.so.{1,%{version}}
 %{_libdir}/lib%{name}rt.so.{1,%{version}}
 %{_libdir}/lib%{name}rt_device_cpu.so.{1,%{version}}
+%{_mandir}/man1/check_isa.1.gz
+%{_mandir}/man1/%{name}.1.gz
 
 %files devel
 %doc docs/ReleaseNotes.txt
@@ -114,11 +129,12 @@ PATH="${PATH}:%{buildroot}%{_bindir}" %{python3} scripts/run_tests.py
 %{_libdir}/lib%{name}.so
 %{_libdir}/lib%{name}rt.so
 %{_libdir}/lib%{name}rt_device_cpu.so
+%{_libdir}/lib%{name}rt_device_gpu.so
 
 %ifarch x86_64
 %files gpu
+%doc docs/ReleaseNotes.txt
 %{_libdir}/lib%{name}rt_device_gpu.so.{1,%{version}}
-%{_libdir}/lib%{name}rt_device_gpu.so
 %endif
 
 %files static

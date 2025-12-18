@@ -2,6 +2,14 @@
 # as we need to package both wsgi_intercept and pytest-localserver
 # for them to work. Will also need BR: pystest once the two
 # above packages exist in Fedora
+%bcond tests 0
+
+%if (%{defined fedora} && 0%{?fedora} <= 42) || (%{defined rhel} && 0%{?rhel} <= 10)
+# setuptools < 77 does not support PEP 639
+%bcond old_setuptools 1
+%else
+%bcond old_setuptools 0
+%endif
 
 %global sum Synchronize calendars and contacts
 %global srcname vdirsyncer
@@ -10,12 +18,14 @@
 
 Name:       vdirsyncer
 Version:    0.20.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
 URL:        https://github.com/pimutils/%{name}
-Source0:    %{pypi_source}
+Source:     %{pypi_source}
+# conditional patches
+Patch1000:  vdirsyncer-revert-license-metadata-update.diff
 
 BuildArch:  noarch
 Obsoletes:  python2-%{srcname} <= 0.12.1
@@ -83,7 +93,11 @@ The vdirsyncer-doc package provides all the documentation
 for the vdirsyncer calendar/address-book synchronization utility.
 
 %prep
-%autosetup -p1
+%autosetup -N
+%autopatch -p1 -M 999
+%if %{with old_setuptools}
+%autopatch -p1 1000
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -146,6 +160,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Tue Dec 16 2025 Michel Lind <salimma@fedoraproject.org> - 0.20.0-3
+- Support building with old setuptools (pre-PEP 639)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.20.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

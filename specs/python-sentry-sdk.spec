@@ -12,13 +12,18 @@
 # no_cohere: cohere is not packaged.
 # no_dramatiq: dramatiq is not packaged.
 # no_fakeredis: fakeredis is not packaged.
+# no_fastmcp: fastmcp is not packaged.
+# no_google_genai: google-genai is not packaged.
 # no_gql: gql is not packaged.
 # no_huey: huey is not packaged.
 # no_huggingface_hub: huggingface_hub is not packaged.
 # no_langchain: langchain is not packaged.
+# no_langgraph: langgraph is not packaged.
 # no_launchdarkly: launchdarkly is not packaged.
+# no_litellm: litellm is not packaged.
 # no_litestar: litestar is not packaged.
 # no_loguru: loguru is not packaged.
+# no_mcp: mcp is not packaged.
 # no_mockupdb: mockupdb is not packaged. It is unmaintained: https://github.com/mongodb-labs/mongo-mockup-db.
 # no_newrelic: newrelic is not packaged.
 # no_openai: openai is not packaged.
@@ -26,6 +31,7 @@
 # no_openfeature: openfeature is not packaged.
 # no_opentelemetry: opentelemetry-distro is not packaged anymore.
 # no_potel: opentelemetry-experimental is not packaged.
+# no_pydantic_ai: pydantic-ai is not packaged.
 # no_pyspark: pyspark is not packaged.
 # no_quart: quart is not packaged.
 # no_ray: ray is not packaged.
@@ -44,7 +50,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.35.0
+Version:        2.47.0
 %global tag %{version}
 %forgemeta
 
@@ -128,15 +134,18 @@ Summary:        %{summary}
 # arq: no_arq
 # beam: no_beam
 # chalice: no_chalice
+# google_genai: no_google_genai
 # huey: no_huey
 # huggingface_hub: no_huggingface_hub
-# langchain: no_langchain
+# langgraph: no_langgraph
 # launchdarkly: no_launchdarkly
+# litellm: no_litellm
 # litestar: no_litestar
 # loguru: no_loguru
-# openai: no_openai
+# mcp: no_mcp
 # openfeature: no_openfeature
 # opentelemetry: no_opentelemetry
+# pydantic_ai: no_pydantic_ai
 # quart: no_quart
 # sanic: no_sanic
 # starlite: no_starlite
@@ -147,15 +156,18 @@ Summary:        %{summary}
   arq
   beam
   chalice
+  google_genai
   huey
   huggingface_hub
-  langchain
+  langgraph
   launchdarkly
-  loguru
+  litellm
   litestar
-  openai
+  loguru
+  mcp
   openfeature
   opentelemetry
+  pydantic_ai
   quart
   sanic
   starlite
@@ -178,14 +190,20 @@ Summary:        %{summary}
 # List of names of extras excluded (if not present in components_excluded)
 # celery-redbeat: no_celery_redbeat
 # clickhouse-driver: no_clickhouse_driver
+# langchain: no_langchain
+# openai: no_openai
 # pyspark: no_pyspark
 # opentelemetry-experimental: no_opentelemetry
+# opentelemetry-otlp: no_opentelemetry
 %global extras_excluded %{shrink:
   %{components_excluded}
   celery-redbeat
   clickhouse-driver
-  pyspark
+  langchain
+  openai
   opentelemetry-experimental
+  opentelemetry-otlp
+  pyspark
   %{nil}}
 
 %define toxenvs_by_components %{expand:%(echo %{components} | sed "s/^/%{toxenv}-/;s/ / %{toxenv}-/g")}
@@ -212,12 +230,23 @@ Summary:        %{summary}
 # clickhouse_driver: no_clickhouse_driver
 # cohere: no_cohere
 # dramatiq: no_dramatiq
+# fastmcp: no_fastmcp
 # flask: new_werkzeug
 # gcp: python 3.7 only
+# google_genai: no_google_genai
 # gql: no_gql
 # graphene: old_graphene
 # httpx: require network
+# integration_deactivation: no_anthropic, no_langchain, no_openai
+# langchain-base: no_langchain
+# langchain-notiktoken: no_langchain
+# langgraph: no_langgraph
+# litellm: no_litellm
+# mcp: no_mcp
+# openai-base: no_openai
+# openai-notiktoken: no_openai
 # openai_agents: no_openai_agents
+# otlp: no_opentelemetry
 # potel: no_potel
 # pymongo: no_mockupdb
 # pyramid: new_werkzeug
@@ -226,6 +255,7 @@ Summary:        %{summary}
 # redis_py_cluster_legacy: no_fakeredis
 # requests: require network
 # rq: no_fakeredis
+# shadowed_module: upstream uses this as a standalone tox env to validate behavior with shadowed modules
 # socket: require network
 # spark: no_pyspark
 # starberry: no_strawberry
@@ -240,20 +270,28 @@ Summary:        %{summary}
   %{toxenv}-clickhouse_driver
   %{toxenv}-cohere
   %{toxenv}-dramatiq
+  %{toxenv}-fastmcp
   %{toxenv}-flask
   %{toxenv}-gcp
   %{toxenv}-gql
   %{toxenv}-graphene
   %{toxenv}-httpx
+  %{toxenv}-integration_deactivation
+  %{toxenv}-langchain-base
+  %{toxenv}-langchain-notiktoken
+  %{toxenv}-openai-base
+  %{toxenv}-openai-notiktoken
   %{toxenv}-openai_agents
+  %{toxenv}-otlp
   %{toxenv}-potel
   %{toxenv}-pymongo
   %{toxenv}-pyramid
   %{toxenv}-ray
   %{toxenv}-redis
   %{toxenv}-redis_py_cluster_legacy
-  %{toxenv}-rq
   %{toxenv}-requests
+  %{toxenv}-rq
+  %{toxenv}-shadowed_module
   %{toxenv}-socket
   %{toxenv}-spark
   %{toxenv}-strawberry
@@ -273,7 +311,7 @@ Summary:        %{summary}
 # Verify that all extras are defined against setup.py.
 defined_extra=$(echo "%extras_excluded" "%extras" | xargs -n1 | sort -u)
 setup_py_extra=$(cat setup.py | sed -n '/extras_require/,/}/p' | sed 's/    //g' | sed '$ s/.$/\nprint("\\n".join(extras_require))/' | python3 -)
-diff <(echo "$defined_extra" | sed "s/_/-/g") <(echo "$setup_py_extra" | sed "s/_/-/g")
+diff <(echo "$defined_extra" | sed "s/_/-/g") <(echo "$setup_py_extra" | sed "s/_/-/g" | xargs -n1 | sort -u)
 
 sed -r -i 's/psycopg2-binary/psycopg2/' tox.ini
 
@@ -282,6 +320,7 @@ sed -r -i 's/(pytest)<7.*/\1/' tox.ini
 sed -r -i 's/(Werkzeug)<2\.1\.0/\1/' tox.ini
 sed -r -i 's/(gevent)>=22\.10\.0, <22\.11\.0/\1/' tox.ini
 sed -r -i 's/(anyio)<4.*/\1/' tox.ini
+sed -r -i 's/(coverage)==[0-9.]+/\1/' tox.ini
 
 # no_newrelic
 sed -r -i '/(newrelic)/d' tox.ini
@@ -319,18 +358,24 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.chalice"  # 
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.clickhouse_driver"  # no_clickhouse_driver
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.cohere"  # no_cohere
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.dramatiq"  # no_dramatiq
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.google_genai*"  # no_google_genai
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.gql"  # no_gql
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.graphene"  # old_graphene
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.huey"  # no_huey
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.huggingface_hub"  # no_huggingface_hub
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.langchain"  # no_langchain
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.langgraph"  # no_langgraph
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.launchdarkly"  # no_launchdarkly
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.litellm"  # no_litellm
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.litestar"  # no_litestar
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.loguru"  # no_loguru
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.mcp"  # no_mcp
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openai"  # no_openai
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openai_agents*"  # no_openai_agents
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openfeature"  # no_openfeature
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.opentelemetry*"  # no_opentelemetry
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.otlp"  # no_opentelemetry
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.pydantic_ai*"  # no_pydantic_ai
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.quart"  # no_quart
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.ray"  # no_ray
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.sanic"  # no_sanic
@@ -467,8 +512,15 @@ export SENTRY_PYTHON_TEST_POSTGRES_USER=sentry_test_user
 export SENTRY_PYTHON_TEST_POSTGRES_PASSWORD=sentry_test_password
 export SENTRY_PYTHON_TEST_POSTGRES_NAME=sentry_test_name
 export SENTRY_PYTHON_TEST_POSTGRES_PORT=$PGTESTS_PORT
+# Use `SELECT 1 ... | grep -q 1` guards to keep this block idempotent (useful when iterating locally or
+# re-running builds without a fully clean chroot), while still failing hard on real PostgreSQL errors.
+psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$SENTRY_PYTHON_TEST_POSTGRES_USER'" | grep -q 1 || \
 psql -c "CREATE ROLE $SENTRY_PYTHON_TEST_POSTGRES_USER WITH LOGIN SUPERUSER PASSWORD '$SENTRY_PYTHON_TEST_POSTGRES_PASSWORD';"
-createdb $SENTRY_PYTHON_TEST_POSTGRES_NAME --owner $SENTRY_PYTHON_TEST_POSTGRES_USER
+psql -tAc "SELECT 1 FROM pg_database WHERE datname='$SENTRY_PYTHON_TEST_POSTGRES_NAME'" | grep -q 1 || \
+createdb --owner "$SENTRY_PYTHON_TEST_POSTGRES_USER" "$SENTRY_PYTHON_TEST_POSTGRES_NAME"
+# asyncpg defaults dbname to username for bootstrap connections.
+psql -tAc "SELECT 1 FROM pg_database WHERE datname='$SENTRY_PYTHON_TEST_POSTGRES_USER'" | grep -q 1 || \
+createdb --owner "$SENTRY_PYTHON_TEST_POSTGRES_USER" "$SENTRY_PYTHON_TEST_POSTGRES_USER"
 
 # Run tests
 # Set `SENTRY_RELEASE` environmental variable, so that tests could set

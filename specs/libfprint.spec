@@ -8,7 +8,6 @@ Summary:        Toolkit for fingerprint scanner
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://www.freedesktop.org/wiki/Software/fprint/libfprint
 Source0:        https://gitlab.freedesktop.org/libfprint/libfprint/-/archive/v%{version}/libfprint-v%{version}.tar.gz
-ExcludeArch:    s390 s390x
 
 BuildRequires:  meson
 BuildRequires:  gcc

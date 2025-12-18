@@ -1,5 +1,5 @@
 Name:           pantheon-wayland
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Wayland integration library to the Pantheon Desktop
 # vala sources: LGPL-3.0-or-later, wayland protocol: LGPL-2.1-or-later
@@ -50,8 +50,7 @@ pantheon-wayland library.
 %license COPYING
 %doc README.md
 
-%{_libdir}/libpantheon-wayland.so.1
-%{_libdir}/libpantheon-wayland.so.1.0.0
+%{_libdir}/libpantheon-wayland.so.1{,.*}
 %{_libdir}/girepository-1.0/PantheonWayland-1.typelib
 
 %files devel

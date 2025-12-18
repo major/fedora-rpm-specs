@@ -126,7 +126,7 @@
 # See mariadb-libfmt.patch for detailed description.
 # As the breaking issues are no longer present in fedora 41
 # and higher, this issue only remains in rhel
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 11
 %bcond bundled_fmt 1
 %else
 %bcond bundled_fmt 0

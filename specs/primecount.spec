@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Dec 16 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-5
+- Use ANSI escape sequence to clear terminal text line
+
 * Mon Dec 15 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-4
 - Fix status output in --AC option
 

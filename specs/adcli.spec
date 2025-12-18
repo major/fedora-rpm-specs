@@ -4,7 +4,7 @@
 
 Name:    adcli
 Version: 0.9.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Active Directory enrollment
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/adcli
@@ -52,7 +52,7 @@ Summary:             The adcli SELinux policy
 BuildArch:           noarch
 Requires:            selinux-policy-%{selinuxtype}
 Requires(post):      selinux-policy-%{selinuxtype}
-%{?selinux_requires}
+%{?selinux_requires_min}
 
 %description selinux
 Custom SELinux policy module for adcli to make sure generated Kerberos keytab
@@ -126,6 +126,10 @@ documentation.
 %endif
 
 %changelog
+* Tue Dec 16 2025 Sumit Bose <sbose@redhat.com> - 0.9.3.1-2
+- Use selinux_requires_min to avoid policycoreutils-python-utils dependency
+  Resolves: rhbz#2422451
+
 * Tue Dec 09 2025 Sumit Bose <sbose@redhat.com> - 0.9.3.1-1
 - Rebase to latest upstream version
 

@@ -17,6 +17,8 @@ License: GPL-2.0-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
+Source3: changelog
+Source4: macros
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
@@ -47,6 +49,9 @@ Patch0006: 0006-sepolicy-Fix-detection-of-writeable-locations.patch
 Patch0007: 0007-setfiles-Add-A-option-to-disable-SELINUX_RESTORECON_.patch
 Patch0008: 0008-semanage-Reset-active-value-when-deleting-boolean-cu.patch
 # Patch list end
+
+# gen_changelog
+%{load:%{SOURCE4}}
 
 Obsoletes: policycoreutils < 2.0.61-2
 Conflicts: filesystem < 3, selinux-policy-base < 3.13.1-138
@@ -176,6 +181,9 @@ install -m 755 -p %{SOURCE15} %{buildroot}/%{_libexecdir}/selinux/
 %find_lang selinux-python
 %find_lang selinux-gui
 %find_lang selinux-sandbox
+
+# Install changelog to %{_docdir}/%{name}
+install -m 644 -p %{SOURCE3} %{buildroot}/%{_docdir}/%{name}
 
 %package python-utils
 Summary:    SELinux policy core python utilities
@@ -415,7 +423,7 @@ system-config-selinux is a utility for managing the SELinux environment
 %{_datadir}/bash-completion/completions/setsebool
 %{!?_licensedir:%global license %%doc}
 %license policycoreutils/LICENSE
-%doc %{_usr}/share/doc/%{name}
+%doc %{_docdir}/%{name}
 
 %package restorecond
 Summary: SELinux restorecond utilities
@@ -453,4 +461,4 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
-%autochangelog
+%add_changelog %SOURCE3

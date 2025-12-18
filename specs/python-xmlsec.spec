@@ -1,7 +1,7 @@
 %global srcname xmlsec
 
 Name:           python-%{srcname}
-Version:        1.3.16
+Version:        1.3.17
 Release:        %autorelease
 Summary:        Python bindings for the XML Security Library
 
@@ -39,6 +39,7 @@ Requires: xmlsec1-openssl
 %generate_buildrequires
 %pyproject_buildrequires
 
+
 %build
 %pyproject_wheel
 
@@ -46,13 +47,11 @@ Requires: xmlsec1-openssl
 %install
 %pyproject_install
 
+%pyproject_save_files -l %{srcname}
 
-%files -n python3-%{srcname}
-%license LICENSE
-%doc README.rst
-%{python3_sitearch}/xmlsec*.so
-%{python3_sitearch}/%{srcname}/
-%{python3_sitearch}/%{srcname}-%{version}.dist-info/
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.md
 
 
 %changelog

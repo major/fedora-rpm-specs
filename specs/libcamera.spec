@@ -30,6 +30,9 @@ BuildRequires: libatomic
 BuildRequires: libevent-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libtiff-devel
+%if ! 0%{?rhel}
+BuildRequires: libunwind-devel
+%endif
 BuildRequires: libyaml-devel
 BuildRequires: libyuv-devel
 BuildRequires: lttng-ust-devel
@@ -122,7 +125,13 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
 
 # Build and include the virtual and vimc pipelines. This also builds tests but
 # those do not get included in any packages.
-%meson -Dv4l2=enabled -Dlc-compliance=disabled -Dtest=true -Ddocumentation=disabled
+%meson \
+    -Dv4l2=enabled \
+    -Dlc-compliance=disabled \
+    %{?rhel:-Dlibunwind=disabled} \
+    -Dtest=true \
+    -Ddocumentation=disabled \
+    %{nil}
 %meson_build
 
 # Stripping requires the re-signing of IPA libraries, manually

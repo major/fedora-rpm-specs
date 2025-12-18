@@ -40,8 +40,8 @@
 %endif
 
 Name:           mixxx
-Version:        2.5.3
-Release:        4%{?dist}
+Version:        2.5.4
+Release:        1%{?dist}
 Summary:        Mixxx is open source software for DJ'ing
 # main sources are under GPL-2.0-or-later, except:
 # lib/fidlib LGPL-2.1
@@ -257,6 +257,9 @@ appstreamcli \
 %endif
 
 %changelog
+* Sun Dec 14 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.5.4-1
+- Update to 2.5.4
+
 * Sat Nov 08 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.5.3-4
 - Add missing Requires for icons dir ownership
 - Add co-ownership of udev rules directory

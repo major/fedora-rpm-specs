@@ -1,7 +1,7 @@
 Summary: Game data files for Fish Fillets Next Generation
 Name: fillets-ng-data
 Version: 1.0.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 # The GPLv2 is included and nothing indicates "any later version". Exceptions :
 # - images/menu/flags/ is Public Domain
 # - font/ is GPLv2+ (taken from "freefont")
@@ -15,6 +15,7 @@ Patch1: fillets-ng-data-1.0.1-lua-invalid-string.patch
 Patch2: fillets-ng-data-1.0.1-lua-cabin1-crash-fix.patch
 Patch3: fillets-ng-data-1.0.1-lua-electromagnet-crash-fix.patch
 Patch4: fillets-ng-data-1.0.1-lua-loadstring.patch
+Patch5: fillets-ng-data-1.0.1-lua-engine-room-crash-fix.patch
 # For the TTF file used, instead of duplicating it 3 times here
 Requires: gnu-free-sans-fonts
 Requires: fillets-ng >= 1.0.1-10
@@ -42,6 +43,7 @@ This package contains the data files required to run the game.
 %patch -P2 -p0
 %patch -P3 -p0
 %patch -P4 -p0
+%patch -P5 -p0
 
 
 %build
@@ -73,6 +75,9 @@ done
 
 
 %changelog
+* Tue Dec 16 2025 Nikolay Nikolov <nickysn@gmail.com> - 1.0.1-29
+- Fixed crash in the Engine room when pushing the key into the engine
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

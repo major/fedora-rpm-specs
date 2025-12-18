@@ -7,7 +7,7 @@
 
 Name:           fractal
 Version:        13~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -54,6 +54,8 @@ BuildRequires:  /usr/bin/desktop-file-validate
 
 # for image loading
 Requires:       glycin-loaders%{?_isa}
+# For video loading
+Requires:       gstreamer1-plugin-gtk4%{?_isa}
 
 %description
 Fractal is a Matrix messaging app for GNOME written in Rust. Its interface is
@@ -101,6 +103,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Dec 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 13~rc-2
+- Require gstreamer1-plugin-gtk4.
+
 * Thu Oct 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 13~rc-1
 - Update to 13.rc for GNOME 49 (rhbz#2405881)
 

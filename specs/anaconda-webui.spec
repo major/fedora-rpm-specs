@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        60
+Version:        61
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Dec 16 2025 Packit <hello@packit.dev> - 61-1
+- components: storage: fix form validation race condition in
+  InstallationMethod (rhbz#2418952)
+
 * Tue Dec 09 2025 Packit <hello@packit.dev> - 60-1
  - components: implement new Software selection page
  - components: payload: software selection: implement package group selection

@@ -1,6 +1,6 @@
 %global srcname level-zero
 %global lib_version 1.26
-%global patch_version 1
+%global patch_version 2
 
 Name:           oneapi-%{srcname}
 Version:        %{lib_version}.%{patch_version}
@@ -16,6 +16,7 @@ ExclusiveArch:  x86_64
 BuildRequires:  chrpath
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  help2man
 BuildRequires:  spdlog-devel
 
 # Useful for a quick oneAPI Level-Zero testing
@@ -61,6 +62,17 @@ mkdir -p %{buildroot}%{_bindir}/
 install -p -m 755 ./redhat-linux-build/bin/zello_world %{buildroot}%{_bindir}/zello_world
 chrpath --delete %{buildroot}%{_bindir}/zello_world
 
+# Generate and install man pages.
+install -d '%{buildroot}%{_mandir}/man1'
+for cmd in %{buildroot}%{_bindir}/*
+do
+  LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+      help2man \
+      --no-info --no-discard-stderr --version-string='%{version}' \
+      --output="%{buildroot}%{_mandir}/man1/$(basename "${cmd}").1" \
+      "${cmd}"
+done
+
 %files
 %license LICENSE
 %doc README.md SECURITY.md
@@ -73,6 +85,7 @@ chrpath --delete %{buildroot}%{_bindir}/zello_world
 
 %files zello_world
 %{_bindir}/zello_world
+%{_mandir}/man1/zello_world.1.gz
 
 %files devel
 %{_includedir}/level_zero

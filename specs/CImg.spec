@@ -81,6 +81,7 @@ make -C examples linux %{?_smp_mflags}
 %changelog
 * Fri Dec 12 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.5-1
 - bump version
+- compile error for i686 https://github.com/GreycLab/CImg/issues/471
 
 * Mon Nov 24 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.4-1
 - bump version

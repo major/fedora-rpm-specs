@@ -25,6 +25,12 @@ BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6NetworkPrivate)
+BuildRequires:  cmake(Qt6DBusPrivate)
+BuildRequires:  cmake(Qt6GuiPrivate)
+BuildRequires:  cmake(Qt6TestPrivate)
+BuildRequires:  cmake(Qt6CorePrivate)
+BuildRequires:  cmake(Qt6WidgetsPrivate)
 BuildRequires:  pkgconfig(libudev)
 
 # KF5
@@ -37,7 +43,6 @@ BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6Solid)
-
 
 %description
 The KDE ISO Image Writer is a tool to write a .iso file to a USB disk.

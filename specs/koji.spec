@@ -9,12 +9,17 @@
 
 Name: koji
 Version: 1.35.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
+
+# https://pagure.io/koji/pull-request/4342
+# download-build: allow fallback to unsigned with --key
+Patch0: 0001-download-build-allow-fallback-to-unsigned-with-key.patch
+Patch1: 0002-Fix-flake8-and-unit-test.patch
 
 # Not upstreamable
 Patch100: fedora-config.patch
@@ -362,6 +367,9 @@ install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 %systemd_postun kojira.service
 
 %changelog
+* Tue Dec 16 2025 Adam Williamson <awilliam@redhat.com> - 1.35.3-8
+- Backport PR #4342 (--fallback-unsigned feature) for Bodhi's benefit
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.35.3-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

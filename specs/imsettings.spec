@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.10
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -23,8 +23,8 @@ Patch2:		%{name}-xinput-xcompose.patch
 %if 0%{?rhel}
 Patch4:		%{name}-glib.patch
 %endif
-## Fedora specific: Force enable the IM management on imsettings for Cinnamon
-Patch7:		%{name}-force-enable-for-cinnamon.patch
+## Backport patch
+Patch7:		%{name}-disable-cinnamon.patch
 
 Summary:	Delivery framework for general Input Method configuration
 Requires:	xorg-x11-xinit >= 1.0.2-22.fc8
@@ -78,6 +78,8 @@ Provides:	%{name}-gnome = %{version}-%{release}
 Obsoletes:	%{name}-gnome < 1.5.1-3
 Provides:	%{name}-systemd = %{version}-%{release}
 Obsoletes:	%{name}-systemd < 1.8.3-6
+Provides:	%{name}-cinnamon = %{version}-%{release}
+Obsoletes:	%{name}-cinnamon < 1.8.10-4
 
 %description	gsettings
 IMSettings is a framework that delivers Input Method
@@ -183,23 +185,6 @@ immediately without any need to restart applications
 or the desktop.
 
 This package contains a module to get this working on LXDE.
-
-%package	cinnamon
-Summary:	Cinnamon support on imsettings
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-# need to keep more deps for similar reason to https://bugzilla.redhat.com/show_bug.cgi?id=693809
-Requires:	cinnamon
-Requires:	cinnamon-session
-Requires:	im-chooser
-Provides:	imsettings-desktop-module%{?_isa} = %{version}-%{release}
-
-%description	cinnamon
-IMSettings is a framework that delivers Input Method
-settings and applies the changes so they take effect
-immediately without any need to restart applications
-or the desktop.
-
-This package contains a module to get this working on Cinnamon.
 %endif
 
 %prep
@@ -229,9 +214,9 @@ ln -sf $(realpath --relative-to=$RPM_BUILD_ROOT%{_sysconfdir}/xdg/plasma-workspa
 # clean up the unnecessary files
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{gconf,mateconf,systemd-gtk,systemd-qt}.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{cinnamon-gsettings,gconf,mateconf,systemd-gtk,systemd-qt}.so
 %if 0%{?rhel}
-rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{lxde,xfce,xim,cinnamon-gsettings}.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{lxde,xfce,xim}.so
 %endif
 
 desktop-file-validate $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/imsettings-start.desktop
@@ -330,14 +315,14 @@ fi
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
 %{_libdir}/imsettings/libimsettings-lxde.so
-
-%files cinnamon
-%license COPYING
-%doc AUTHORS ChangeLog NEWS README
-%{_libdir}/imsettings/libimsettings-cinnamon-gsettings.so
 %endif
 
 %changelog
+* Tue Dec 16 2025 Akira TAGOH <tagoh@redhat.com> - 1.8.10-4
+- Disable imsettings on Cinnamon.
+  Relates: rhbz#2402664
+- Remove imsettings-cinnamon sub package.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

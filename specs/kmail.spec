@@ -78,6 +78,8 @@ BuildRequires: cmake(KF6TextUtils)
 BuildRequires: cmake(KF6TextCustomEditor)
 BuildRequires: cmake(KF6TextTemplate)
 BuildRequires: cmake(Qt6Keychain)
+BuildRequires: pkgconfig(cups)
+BuildRequires: cmake(KF6UserFeedback)
 
 Obsoletes: pim-storage-service-manager < 17.03
 

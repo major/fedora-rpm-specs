@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.22.0
+Version: 3.23.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com

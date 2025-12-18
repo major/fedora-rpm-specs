@@ -1,6 +1,6 @@
 Name:           deja-dup
 Version:        49.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -30,6 +30,7 @@ BuildRequires:  blueprint-compiler
 Requires:       duplicity >= 0.6.23
 Requires:       python3-gobject-base
 Requires:       rclone
+Requires:       fuse
 Recommends:     gvfs-fuse
 Recommends:     restic
 
@@ -79,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Tue Dec 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 49.2-3
+- Require fuse
+
 * Mon Oct 13 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 49.2-2
 - Disable PackageKit for flatpak builds
 

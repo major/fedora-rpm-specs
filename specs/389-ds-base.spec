@@ -75,7 +75,7 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (%{variant})
 Name:             389-ds-base
-Version:          3.1.3
+Version:          3.2.0
 Release:          %{autorelease -n %{?with_asan:-e asan}}%{?dist}
 License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
 URL:              https://www.port389.org
@@ -220,7 +220,7 @@ Provides:  bundled(npm(argparse)) = 2.0.1
 Provides:  bundled(npm(attr-accept)) = 2.2.4
 Provides:  bundled(npm(autolinker)) = 3.16.2
 Provides:  bundled(npm(balanced-match)) = 1.0.2
-Provides:  bundled(npm(brace-expansion)) = 1.1.11
+Provides:  bundled(npm(brace-expansion)) = 1.1.12
 Provides:  bundled(npm(callsites)) = 3.1.0
 Provides:  bundled(npm(chalk)) = 4.1.2
 Provides:  bundled(npm(color-convert)) = 2.0.1
@@ -289,7 +289,7 @@ Provides:  bundled(npm(isexe)) = 2.0.0
 Provides:  bundled(npm(js-sha1)) = 0.7.0
 Provides:  bundled(npm(js-sha256)) = 0.11.0
 Provides:  bundled(npm(js-tokens)) = 4.0.0
-Provides:  bundled(npm(js-yaml)) = 4.1.0
+Provides:  bundled(npm(js-yaml)) = 4.1.1
 Provides:  bundled(npm(json-buffer)) = 3.0.1
 Provides:  bundled(npm(json-schema-traverse)) = 0.4.1
 Provides:  bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
@@ -510,37 +510,6 @@ Source4:          389-ds-base.sysusers
 Source5:          https://fedorapeople.org/groups/389ds/libdb-5.3.28-59.tar.bz2
 %endif
 
-Patch:            0001-Issue-6782-Improve-paged-result-locking.patch
-Patch:            0002-Issue-6822-Backend-creation-cleanup-and-Database-UI-.patch
-Patch:            0003-Issue-6753-Add-add_exclude_subtree-and-remove_exclud.patch
-Patch:            0004-Issue-6857-uiduniq-allow-specifying-match-rules-in-t.patch
-Patch:            0005-Issue-6756-CLI-UI-Properly-handle-disabled-NDN-cache.patch
-Patch:            0006-Issue-6854-Refactor-for-improved-data-management-685.patch
-Patch:            0007-Issue-6850-AddressSanitizer-memory-leak-in-mdb_init.patch
-Patch:            0008-Issue-6848-AddressSanitizer-leak-in-do_search.patch
-Patch:            0009-Issue-6865-AddressSanitizer-leak-in-agmt_update_init.patch
-Patch:            0010-Issue-6868-UI-schema-attribute-table-expansion-break.patch
-Patch:            0011-Issue-6859-str2filter-is-not-fully-applying-matching.patch
-Patch:            0012-Issue-6872-compressed-log-rotation-creates-files-wit.patch
-Patch:            0013-Issue-6888-Missing-access-JSON-logging-for-TLS-Clien.patch
-Patch:            0014-Issue-6772-dsconf-Replicas-with-the-consumer-role-al.patch
-Patch:            0015-Issue-6893-Log-user-that-is-updated-during-password-.patch
-Patch:            0016-Issue-6901-Update-changelog-trimming-logging.patch
-Patch:            0017-Issue-6430-implement-read-only-bdb-6431.patch
-Patch:            0018-Issue-6663-Fix-NULL-subsystem-crash-in-JSON-error-lo.patch
-Patch:            0019-Issue-6895-Crash-if-repl-keep-alive-entry-can-not-be.patch
-Patch:            0020-Issue-6884-Mask-password-hashes-in-audit-logs-6885.patch
-Patch:            0021-Issue-6778-Memory-leak-in-roles_cache_create_object_.patch
-Patch:            0022-Issue-6901-Update-changelog-trimming-logging-fix-tes.patch
-Patch:            0023-Issue-6181-RFE-Allow-system-to-manage-uid-gid-at-sta.patch
-Patch:            0024-Issue-6468-CLI-Fix-default-error-log-level.patch
-Patch:            0025-Issue-6768-ns-slapd-crashes-when-a-referral-is-added.patch
-Patch:            0026-Issue-6430-Fix-build-with-bundled-libdb.patch
-
-# For ELN
-Patch:            0001-Issue-5120-Fix-compilation-error.patch
-Patch:            0001-Issue-6929-Compilation-failure-with-rust-1.89-on-Fed.patch
-
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes
 the LDAP server and command line utilities for server administration.
@@ -553,7 +522,8 @@ Please see http://seclists.org/oss-sec/2016/q1/363 for more information.
 %if %{with libbdb_ro}
 %package        robdb-libs
 Summary:        Read-only Berkeley Database Library
-License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
+# IMPORTANT - Check if it looks right. Additionally, compare with the original line. Then, remove this comment and # FIXME - part.
+# FIXME - License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
 
 %description    robdb-libs
 The %{name}-robdb-lib package contains a library derived from rpm
@@ -1113,4 +1083,174 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec 16 2025 Mark Reynolds <mreynolds@redhat.com> - 2.4.4
+- Issue 7147 - entrycache_eviction_test is failing (#7148)
+- Issue 1793 - RFE - Dynamic lists - UI and CLI updates
+- Issue 7119 - Fix DNA shared config replication test (#7143)
+- Issue 7081 - Repl Log Analysis - Implement data sampling with performance and timezone fixes (#7086)
+- Issue 1793 - RFE - Implement dynamic lists
+- Issue 7112 - dsctrl dblib bdb2mdb core dumps and won't allow conversion (#7144)
+- Issue 7053 - Remove memberof_del_dn_from_groups from MemberOf plugin (#7064)
+- Issue 7138 - test_cleanallruv_repl does not restart supplier3 (#7139)
+- Issue 6753 - Port ticket47921 test to indirect_cos_test using DSLdapObject (#7134)
+- Issue 7128 - memory corruption in alias entry plugin (#7131)
+- Issue 7091 - Duplicate local password policy entries listed (#7092)
+- Issue 7124 - BDB cursor race condition with transaction isolation (#7125)
+- Issue 6951 - Dynamic Certificate refresh phase 1 - Search support (#7117)
+- Issue 7132 - Keep alive entry updated too soon after an offline import (#7133)
+- Issue 7135 - Not enough space for tests on GH runner (#7136)
+- Issue 7121 - LeakSanitizer: various leaks during replication (#7122)
+- Issue 7115 - LeakSanitizer: leak in `slapd_bind_local_user()` (#7116)
+- Issue 7109 - AddressSanitizer: SEGV ldap/servers/slapd/csnset.c:302 in csnset_dup (#7114)
+- Issue 7119 - Harden DNA plugin locking for shared server list operations (#7120)
+- Issue 7084 - UI - schema - sorting attributes breaks expanded row
+- Issue 6753 - Port ticket47910 test to logconv_test using DSLdapObject (#7098)
+- Issue 6753 - Port ticket47920 test to ldap_controls_test using DSLdapObject (#7103)
+- Issue 7007 - Improve paged result search locking
+- Issue 7041 - Add WebUI test for group member management (#7111)
+- Issue 3555 - UI - Fix audit issue with npm - glob (#7107)
+- Issue 7089 - Fix dsconf certificate list (#7090)
+- Issue 7076, 6992, 6784, 6214 - Fix CI test failures (#7077)
+- Bump js-yaml from 4.1.0 to 4.1.1 in /src/cockpit/389-console (#7097)
+- Issue 7069 - Fix error reporting in HAProxy trusted IP parsing (#7094)
+- Issue 7049 - RetroCL plugin generates invalid LDIF
+- Issue 7055 - Online initialization of consumers fails with error -23 (#7075)
+- Issue 6753 - Remove ticket 47900 test (#7087)
+- Issue 6753 - Port ticket 49008 test (#7080)
+- Issue 7042 - Enable global_backend_lock when memberofallbackend is enabled (#7043)
+- Issue 7078 - audit json logging does not encode binary values
+- Issue 7069 - Add Subnet/CIDR Support for HAProxy Trusted IPs (#7070)
+- Issue 7056 - DSBLE0007 doesn't generate remediation steps for missing indexes
+- Issue 6660 - CLI, UI - Improve replication log analyzer usability (#7062)
+- Issue 7065 - A search filter containing a non normalized DN assertion does not return matching entries (#7068)
+- Issue 7071 - search filter (&(cn:dn:=groups)) no longer returns results
+- Issue 7073 - Add NDN cache size configuration and enforcement tests (#7074)
+- Issue 6753 - Removing ticket 47871 test and porting to DSLdapObject (#7045)
+- Issue 7041 - CLI/UI - memberOf - no way to add/remove specific group filters
+- Issue 6753 - Port ticket 48228 test (#7067)
+- Issue 7029 - Add test case to measure ndn cache performance impact (#7030)
+- Issue 7061 - CLI/UI - Improve error messages for dsconf localpwp list
+- Issue 7059 - UI - unable to upload pem file
+- Issue 7032 - The new ipahealthcheck test ipahealthcheck.ds.backends.BackendsCheck raises CRITICAL issue (#7036)
+- Issue 7047 - MemberOf plugin logs null attribute name on fixup task completion (#7048)
+- Issue 7044 - RFE - index sudoHost by default (#7046)
+- Issue 6846 - Attribute uniqueness is not enforced with modrdn (#7026)
+- Issue 6784 - Support of Entry cache pinned entries (#6785)
+- Issue 6979 - Improve the way to detect asynchronous operations in the access logs (#6980)
+- Issue 6753 - Port ticket 47931 test (#7038)
+- Issue 7035 - RFE - memberOf - adding scoping for specific groups
+- CLI/UI - Add option to delete all replication conflict entries
+- Issue 7033 - lib389 -  basic plugin status not in JSON
+- Issue 7023 - UI - if first instance that is loaded is stopped it breaks parts of the UI
+- Issue 6753 - Removing ticket 47714 test and porting to DSLdapObject (#6946)
+- Issue 7027 - 389-ds-base OpenScanHub Leaks Detected (#7028)
+- Issue 6753 - Removing ticket 47676 test and porting to DSLdapObject (#6938)
+- Issue 6966 - On large DB, unlimited IDL scan limit reduce the SRCH performance (#6967)
+- Issue 6660 - UI - Improve replication log analysis charts and usability (#6968)
+- Issue 6753 - Removing ticket 47653MMR test and porting to DSLdapObject (#6926)
+- Issue 7021 - Units for changing MDB max size are not consistent across different tools (#7022)
+- Issue 6753 - Removing ticket 49463 test and porting to DSLdapObject (#6899)
+- Issue 6954 - do not delete referrals on chain_on_update backend
+- Issue 6982 - UI - MemberOf shared config does not validate DN properly (#6983)
+- Issue 6740 - Fix FIPS mode test failures in syncrepl, mapping tree, and resource limits (#6993)
+- Issue 7018 - BUG - prevent stack depth being hit (#7019)
+- Issue 7014 - memberOf - ignored deferred updates with LMDB
+- Issue 7002 - restore is failing. (#7003)
+- Issue 6758 - Fix WebUI monitoring test failure due to FormSelect component deprecation (#7004)
+- Issue 6753 - Removing ticket 47869 test and porting to DSLdapObject (#7001)
+- Issue 6753 - Port ticket 49073 test (#7005)
+- Issue 7016 - fix NULL deref in send_referrals_from_entry() (#7017)
+- Issue 6753 - Port ticket 47815 test (#7000)
+- Issue 7010 - Fix certdir underflow in slapd_nss_init() (#7011)
+- Issue 7012 - improve dscrl dbverify result when backend does not exists (#7013)
+- Issue 6753 - Removing ticket 477828 test and porting to DSLdapObject (#6989)
+- Issue 6753 - Removing ticket 47721 test and porting to DSLdapObject (#6973)
+- Issue 6992 - Improve handling of mismatched ldif import (#6999)
+- Issue 6997 - Logic error in get_bdb_impl_status prevents bdb2mdb execution (#6998)
+- Issue 6810 - Deprecate PAM PTA plugin configuration attributes in base entry - fix memleak (#6988)
+- Issue 6971 - bundle-rust-npm.py: TypeError: argument of type 'NoneType' is not iterable (#6972)
+- Fix overflow in certmap filter/DN buffers (#6995)
+- Issue 6753 - Port ticket 49386 test (#6987)
+- Issue 6753 - Removing ticket 47787 test and porting to DSLdapObject (#6976)
+- Issue 6753 - Port ticket 49072 test (#6984)
+- Issue 6990 - UI - Replace deprecated Select components with new TypeaheadSelect (#6996)
+- Issue 6990 - UI - Fix typeahead Select fields losing values on Enter keypress (#6991)
+- Issue 6887 - Enhance logconv.py to add support for JSON access logs (#6889)
+- Issue 6985 - Some logconv CI tests fail with BDB (#6986)
+- Issue 6891 - JSON logging - add wrapper function that checks for NULL
+- Issue 4835 - dsconf display an incomplete help with changelog setting (#6769)
+- Issue 6753 - Port ticket 47963 & 49184 tests (#6970)
+- Issue 6753 - Port ticket 47829 & 47833 tests
+- Issue 6977 - UI - Show error message when trying to use unavailable ports (#6978)
+- Issue 6956 - More UI fixes
+- Issue 6626 - Fix version
+- Issue 6900 - Rename test files for proper pytest discovery (#6909)
+- Issue 6947 - Revise time skew check in healthcheck tool and add option to exclude checks
+- Issue 6805 - RFE - Multiple backend entry cache tuning
+- Issue 6753 - Port and fix ticket 47823 tests
+- Issue 6843 - Add CI tests for logconv.py (#6856)
+- Issue 6933 - When deferred memberof update is enabled after the server crashed it should not launch memberof fixup task by default (#6935)
+- UI - update Radio handlers and LDAP entries last modified time
+- Issue 6810 - Deprecate PAM PTA plugin configuration attributes in base entry (#6832)
+- Issue 6660 - UI - Fix minor typo (#6955)
+- Issue 6753 - Port ticket 47808 test
+- Issue 6910 - Fix latest coverity issues
+- Issue 6753 - Removing ticket 50232 test and porting to DSLdapObject (#6861)
+- Issue 6919 - numSubordinates/tombstoneNumSubordinates are inconsisten… (#6920)
+- Issue 6430 - Fix build with bundled libdb
+- Issue 6342 - buffer owerflow in the function parseVariant (#6927)
+- Issue 6940 - dsconf monitor server fails with ldapi:// due to absent server ID (#6941)
+- Issue 6936 - Make user/subtree policy creation idempotent (#6937)
+- Migrate from PR_Poll to epoll and timerfd. (#6924)
+- Issue 6928 - The parentId attribute is indexed with improper matching rule
+- Issue 6753 - Removing ticket 49540 test and porting to DSLdapObject (#6877)
+- Issue 6904 - Fix config_test.py::test_lmdb_config
+- Issue 5120 - Fix compilation error
+- Issue 6929 - Compilation failure with rust-1.89 on Fedora ELN
+- Issue 6922 - AddressSanitizer: leaks found by acl test suite
+- Issue 6519 - Add basic dsidm account tests
+- Issue 6753 - Port ticket test 47573
+- Issue 6875 - Fix dsidm tests
+- Issues 6913, 6886, 6250 - Adjust xfail marks (#6914)
+- Issue 6768 - ns-slapd crashes when a referral is added (#6780)
+- Issue 6468 - CLI - Fix default error log level
+- Issue 6181 - RFE - Allow system to manage uid/gid at startup
+- Issue 6901 - Update changelog trimming logging - fix tests
+- Issue 6778 - Memory leak in roles_cache_create_object_from_entry part 2
+- Issue 6897 - Fix disk monitoring test failures and improve test maintainability (#6898)
+- Issue 6884 - Mask password hashes in audit logs (#6885)
+- Issue 6594 - Add test for numSubordinates replication consistency with tombstones (#6862)
+- Issue 6250 - Add test for entryUSN overflow on failed add operations (#6821)
+- Issue 6895 - Crash if repl keep alive entry can not be created
+- Issue 6663 - Fix NULL subsystem crash in JSON error logging (#6883)
+- Issue 6430 - implement read-only bdb (#6431)
+- Issue 6901 - Update changelog trimming logging
+- Issue 6880 - Fix ds_logs test suite failure
+- Issue 6352 - Fix DeprecationWarning
+- Issue 6800 - Rerun the check in verbose mode on failure
+- Issue 6893 - Log user that is updated during password modify extended operation
+- Issue 6772 - dsconf - Replicas with the "consumer" role allow for viewing and modification of their changelog. (#6773)
+- Issue 6829 - Update parametrized docstring for tests
+- Issue 6888 - Missing access JSON logging for TLS/Client auth
+- Issue 6878 - Prevent repeated disconnect logs during shutdown (#6879)
+- Issue 6872 - compressed log rotation creates files with world readable permission
+- Issue 6859 - str2filter is not fully applying matching rules
+- Issue 5733 - Remove outdated Dockerfiles
+- Issue 6800 - Check for minimal supported Python version
+- Issue 6868 - UI - schema attribute table expansion break after moving to a new page
+- Issue 6865 - AddressSanitizer: leak in agmt_update_init_status
+- Issue 6848 - AddressSanitizer: leak in do_search
+- Issue 6850 - AddressSanitizer: memory leak in mdb_init
+- Issue 6854 - Refactor for improved data management (#6855)
+- Issue 6756 - CLI, UI - Properly handle disabled NDN cache (#6757)
+- Issue 6857 - uiduniq: allow specifying match rules in the filter
+- Issue 6852 - Move ds* CLI tools back to /sbin
+- Issue 6753 - Port ticket tests 48294 & 48295
+- Issue 6753 - Add 'add_exclude_subtree' and 'remove_exclude_subtree' methods to Attribute uniqueness plugin
+- Issue 6841 - Cancel Actions when PR is updated
+- Issue 6838 - lib389/replica.py is using nonexistent datetime.UTC in Python 3.9
+- Issue 6822 - Backend creation cleanup and Database UI tab error handling (#6823)
+- Issue 6782 - Improve paged result locking
+- Issue 6829 - Update parametrized docstring for tests
+
 %autochangelog

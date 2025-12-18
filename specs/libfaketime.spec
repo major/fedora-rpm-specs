@@ -17,6 +17,9 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-Time-HiRes
 
+# https://github.com/wolfcw/libfaketime/pull/525
+Patch0: libfaketime-0.9.12-isoc23.patch
+
 %description
 libfaketime intercepts various system calls that programs use to retrieve the
 current date and time. It then reports modified (faked) dates and times (as

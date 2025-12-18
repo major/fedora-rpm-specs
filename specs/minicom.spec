@@ -1,7 +1,7 @@
 Summary: A text-based modem control and terminal emulation program
 Name: minicom
-Version: 2.9
-Release: 5%{?dist}
+Version: 2.10
+Release: 1%{?dist}
 URL: https://salsa.debian.org/minicom-team/minicom
 # The file 'src/wildmat.c' is LicenseRef-Fedora-Public-Domain.
 # Some LGPL-2.0-or-later files (e.g., 'lib/getopt.c', 'lib/error.c')
@@ -14,11 +14,15 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Dom
 
 Source0: https://salsa.debian.org/minicom-team/minicom/-/archive/%{version}/%{name}-%{version}.tar.gz
 
+# src/sysdep.h: remove cfset{i,o}speed macros for glibc
+# https://salsa.debian.org/minicom-team/minicom/-/commit/964ae563cb5a78545ae1a4a3b6784c69ec73bc48
+Patch0: minicom-2.10-fix-baudrate-setting.patch
+
 BuildRequires: make
 BuildRequires: lockdev-devel ncurses-devel autoconf automake gettext-devel
 BuildRequires: gcc
 # For %%autosetup -S git:
-BuildRequires: git
+BuildRequires: git-core
 Requires: lockdev lrzsz
 
 
@@ -30,7 +34,7 @@ language, and other features.
 
 
 %prep
-%autosetup -S git
+%autosetup -S git_am
 
 cp -pr doc doc_
 rm -f doc_/Makefile*
@@ -67,6 +71,10 @@ mkdir -p %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Mon Nov 24 2025 Stefan Becker <chemobejk@gmail.com> - 2.10-1
+- Rebase to upstream version 2.10 (rhbz#2208236)
+- Add patch to fix baudrate setting on F43+ (rhbz#2407160)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

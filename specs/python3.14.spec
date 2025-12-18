@@ -1063,10 +1063,6 @@ BuildPython() {
 %if %{with jit} && %{without jit_build_stencils}
   if [[ ! "$ConfName" =~ ^freethreading ]]; then
     cp -a %{jit_stencils_source} %{jit_stencils_filename}
-    # Hackish way of preventing PGO task to delete the stencils.
-    # Upstream issue: https://github.com/python/cpython/issues/141808
-    # Upstream PR: https://github.com/python/cpython/pull/141809
-    sed -i '/rm -f jit_stencils.h/d' Makefile
   fi
 %endif
 

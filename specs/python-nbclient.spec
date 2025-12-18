@@ -19,6 +19,9 @@ License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %{pypi_source}
 
+# Makes tests compatible with ipython 9.8.0+
+Patch:          https://github.com/jupyter/nbclient/commit/b42ad03acc0bb1ed26db65ab72ac617679cbbb62.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

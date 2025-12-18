@@ -6,7 +6,7 @@
 
 #
 Name:           opentrep
-Version:        0.07.18
+Version:        0.07.19
 Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
@@ -23,8 +23,11 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  xapian-core-devel
 BuildRequires:  sqlite-devel
+BuildRequires:  mariadb-connector-c-devel
+BuildRequires:  libpq-devel
 BuildRequires:  libicu-devel
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  protobuf-devel
@@ -132,6 +135,10 @@ rm -f %{buildroot}%{_docdir}/%{name}/html/installdox
 # in the project top directory)
 rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
+# Temporary - Remove extra Shell scripts, up until they are also delivered
+rm -f %{buildroot}%{_datadir}/%{name}/data/por/mysql/opentrep-create-db-user.sh.in
+rm -f %{buildroot}%{_datadir}/%{name}/data/por/pg/opentrep-create-db-user.sh.in
+
 %if %{with python}
 # (Pure) Python OpenTREP executable
 chmod a-x %{buildroot}%{python3_sitearch}/py%{name}/Travel_pb2.py
@@ -155,6 +162,7 @@ rm -f %{_bindir}/py%{name}
 %{_bindir}/%{name}-indexer
 %{_bindir}/%{name}-searcher
 %{_bindir}/%{name}-dbmgr
+%{_bindir}/%{name}-create-db-user.sh
 %{_libdir}/lib%{name}.so.0.*
 %{_mandir}/man1/%{name}-indexer.1.*
 %{_mandir}/man1/%{name}-searcher.1.*
@@ -163,12 +171,18 @@ rm -f %{_bindir}/py%{name}
 %dir %{_datadir}/%{name}/data
 %dir %{_datadir}/%{name}/data/por
 %{_datadir}/%{name}/data/por/README.md
-%{_datadir}/%{name}/data/por/create_trep_user_and_db.sql
-%{_datadir}/%{name}/data/por/create_trep_tables_sqlite3.sql
-%{_datadir}/%{name}/data/por/create_trep_tables_mysql.sql
-%{_datadir}/%{name}/data/por/test_optd_por_public.csv
-%{_datadir}/%{name}/data/por/test_optd_por_public_schema.sql
-%{_datadir}/%{name}/data/por/test_world_schedule.csv
+%dir %{_datadir}/%{name}/data/por/sqlite
+%{_datadir}/%{name}/data/por/sqlite/create-trep-tables.sql
+%{_datadir}/%{name}/data/por/sqlite/test-optd-por-public-schema.sql
+%dir %{_datadir}/%{name}/data/por/mysql
+%{_datadir}/%{name}/data/por/mysql/create-trep-user-and-db.sql
+%{_datadir}/%{name}/data/por/mysql/create-trep-tables.sql
+%dir %{_datadir}/%{name}/data/por/pg
+%{_datadir}/%{name}/data/por/pg/create-trep-user-and-db.sql
+%{_datadir}/%{name}/data/por/pg/create-trep-tables.sql
+%dir %{_datadir}/%{name}/data/por/csv
+%{_datadir}/%{name}/data/por/csv/test-optd-por-public.csv
+%{_datadir}/%{name}/data/por/csv/test-world-schedule.csv
 
 %files devel
 %{_includedir}/%{name}/

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.8
+Version: 44.9
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -518,6 +518,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 16 2025 Packit <hello@packit.dev> - 44.9-1
+- data/profile.d: Add trivial Fedora KDE Plasma Mobile spin profile (neal)
+- data/profile.d/fedora-kde: Disable stages redundant with Plasma Setup (neal)
+- data/profile.d/fedora-kde: Update comment to indicate Edition status (neal)
+- docs: Add Fedora 43 release notes (k.koukiou)
+- bootloader: update GRUB2.check() threshold to match GRUB manual
+  recommendation (k.koukiou)
+- Add x-initrd.attach to /etc/crypttab device for / volumes (mkolman)
+- Handle RuntimeError in vtActivate() during interpreter shutdown (k.koukiou)
+
 * Wed Dec 10 2025 Packit <hello@packit.dev> - 44.8-1
 - ui: gui: fix IndexError when editing NTP servers with empty list (k.koukiou)
 

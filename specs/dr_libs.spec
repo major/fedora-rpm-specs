@@ -1,5 +1,5 @@
-%global commit 877b0967ce679148f60d69bb2d9173487717d8de
-%global snapdate 20251201
+%global commit d6e1d922fb7f5c2e0052da566a8a30f0e6b8f613
+%global snapdate 20251216
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -7,8 +7,8 @@ Name:           dr_libs
 # general practices of stb, so see also:
 #   https://github.com/nothings/stb/issues/359
 #   https://github.com/nothings/stb/issues/1101
-%global snapinfo ^%{snapdate}.%{sub %{commit} 1 7}
-Version:        0%{snapinfo}
+%global snapinfo %{snapdate}.%{sub %{commit} 1 7}
+Version:        0^%{snapinfo}
 Release:        %autorelease
 Summary:        Single-file audio decoding libraries for C/C++
 
@@ -16,9 +16,25 @@ URL:            https://github.com/mackron/dr_libs
 # See LICENSE.
 License:        Unlicense OR MIT-0
 
-%global dr_flac_version 0.13.2
-%global dr_mp3_version 0.7.2
-%global dr_wav_version 0.14.2
+%global dr_flac_version 0.13.2^%{snapinfo}
+# We package a pre-release of 0.7.3; this is the same as 0.7.2, plus:
+#   dr_mp3: Fix an error in drmp3_open_and_read_pcm_frames_s16() and family.
+#
+#   This fixes an issue where an invalid pointer can be returned when memory
+#   allocation fails.
+#
+#   https://github.com/mackron/dr_libs/commit/d6e1d922fb7f5c2e0052da566a8a30f0e6b8f613
+#
+# which fixes the issue reported in:
+#
+#   Fixed the issue of returning a wild pointer when MP3 memory allocation
+#   fails during reading.
+#
+#   https://github.com/mackron/dr_libs/pull/293
+#
+# TODO: change ~ to ^ once we are no longer packaging a pre-release
+%global dr_mp3_version 0.7.3~%{snapinfo}
+%global dr_wav_version 0.14.3^%{snapinfo}
 
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
@@ -45,12 +61,12 @@ BuildArch:      noarch
 # specific dr_libs libraries they use.
 Provides:       dr_libs-static = %{version}-%{release}
 
-Requires:       dr_flac-devel = %{dr_flac_version}%{snapinfo}-%{release}
-Requires:       dr_flac-static = %{dr_flac_version}%{snapinfo}-%{release}
-Requires:       dr_mp3-devel = %{dr_mp3_version}%{snapinfo}-%{release}
-Requires:       dr_mp3-static = %{dr_mp3_version}%{snapinfo}-%{release}
-Requires:       dr_wav-devel = %{dr_wav_version}%{snapinfo}-%{release}
-Requires:       dr_wav-static = %{dr_wav_version}%{snapinfo}-%{release}
+Requires:       dr_flac-devel = %{dr_flac_version}-%{release}
+Requires:       dr_flac-static = %{dr_flac_version}-%{release}
+Requires:       dr_mp3-devel = %{dr_mp3_version}-%{release}
+Requires:       dr_mp3-static = %{dr_mp3_version}-%{release}
+Requires:       dr_wav-devel = %{dr_wav_version}-%{release}
+Requires:       dr_wav-static = %{dr_wav_version}-%{release}
 
 %description devel
 The dr_libs-devel package contains libraries and header files for developing
@@ -62,11 +78,11 @@ libraries.
 
 %package -n dr_flac-devel
 Summary:        FLAC audio decoder
-Version:        %{dr_flac_version}%{snapinfo}
+Version:        %{dr_flac_version}
 
 BuildArch:      noarch
 
-Provides:       dr_flac-static = %{dr_flac_version}%{snapinfo}-%{release}
+Provides:       dr_flac-static = %{dr_flac_version}-%{release}
 
 %description -n dr_flac-devel
 FLAC audio decoder.
@@ -74,11 +90,11 @@ FLAC audio decoder.
 
 %package -n dr_mp3-devel
 Summary:        MP3 audio decoder
-Version:        %{dr_mp3_version}%{snapinfo}
+Version:        %{dr_mp3_version}
 
 BuildArch:      noarch
 
-Provides:       dr_mp3-static = %{dr_mp3_version}%{snapinfo}-%{release}
+Provides:       dr_mp3-static = %{dr_mp3_version}-%{release}
 
 %description -n dr_mp3-devel
 MP3 audio decoder. Based off minimp3 (https://github.com/lieff/minimp3).
@@ -86,11 +102,11 @@ MP3 audio decoder. Based off minimp3 (https://github.com/lieff/minimp3).
 
 %package -n dr_wav-devel
 Summary:        WAV audio loader and writer
-Version:        %{dr_wav_version}%{snapinfo}
+Version:        %{dr_wav_version}
 
 BuildArch:      noarch
 
-Provides:       dr_wav-static = %{dr_wav_version}%{snapinfo}-%{release}
+Provides:       dr_wav-static = %{dr_wav_version}-%{release}
 
 %description -n dr_wav-devel
 WAV audio loader and writer.
@@ -147,9 +163,9 @@ do
   grep -E "\\bv$(echo "${version}" | sed -r 's/\./\\./g')\\b" \
       "%{buildroot}%{_includedir}/${header}" >/dev/null
 done <<'EOF'
-%{dr_flac_version} dr_flac.h
-%{dr_mp3_version} dr_mp3.h
-%{dr_wav_version} dr_wav.h
+%(printf '%s\n' '%{dr_flac_version}' | sed -r 's/[~^].*//') dr_flac.h
+%(printf '%s\n' '%{dr_mp3_version}' | sed -r 's/[~^].*//') dr_mp3.h
+%(printf '%s\n' '%{dr_wav_version}' | sed -r 's/[~^].*//') dr_wav.h
 EOF
 
 

@@ -10,8 +10,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.6.0
-Release:        2%{?dist}
+Version:        6.6.2
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -335,6 +335,9 @@ EOF
 %endif
 
 %changelog
+* Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
+- Update to 6.6.2
+
 * Mon Dec 15 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-2
 - Fix ibus requires and recommends
 
