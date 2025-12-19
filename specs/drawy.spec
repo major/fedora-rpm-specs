@@ -1,8 +1,9 @@
-%define commit      4fec01b234a6aa909059a750ec654cc6a3136970
+%define rdnn        io.github.prayag2.Drawy
+%define commit      b12eca1ea772d8c5b458390a78f0ae6daec88e82
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           drawy
-Version:        1.0.0~^1.%{shortcommit}
+Version:        1.0.0~^2.%{shortcommit}
 Release:        %autorelease
 Summary:        Your handy, infinite, brainstorming tool
 # primary license: GPL-3.0-or-later
@@ -22,6 +23,8 @@ BuildRequires:  cmake(Qt6OpenGLWidgets)
 
 # for desktop-file-validate command
 BuildRequires:  desktop-file-utils
+# for appstream-util command
+BuildRequires:  libappstream-glib
 
 # for ownership of icon parent directories
 Requires:       hicolor-icon-theme
@@ -47,22 +50,18 @@ aims to be a native-desktop alternative to the amazing web-based Excalidraw.
 %install
 %cmake_install
 
-for size in 16 32 256 512; do
-    install -D -p -m 644 assets/logo-$size.png \
-        %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/drawy.png
-done
-install -D -p -m 644 assets/logo.svg \
-    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/drawy.svg
 
-desktop-file-install --dir %{buildroot}%{_datadir}/applications \
-    deploy/appimage/AppDir/usr/share/applications/drawy.desktop
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.metainfo.xml
 
 
 %files
 %license LICENSE
 %{_bindir}/drawy
-%{_datadir}/applications/drawy.desktop
-%{_datadir}/icons/hicolor/*/apps/drawy.*
+%{_datadir}/applications/%{rdnn}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/%{rdnn}.svg
+%{_metainfodir}/%{rdnn}.metainfo.xml
 
 
 %changelog

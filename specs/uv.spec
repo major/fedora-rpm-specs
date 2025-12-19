@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.17
+Version:        0.9.18
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -144,20 +144,6 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Gate a few more tests on the pypi feature
-# https://github.com/astral-sh/uv/pull/17059
-Patch:          %{url}/pull/17059.patch
-
-# Drop some non-integration exclude-newer tests
-# https://github.com/astral-sh/uv/pull/17071
-#
-# Fixes:
-#
-# New test failure in 0.9.17: uv-resolver
-# exclude_newer::tests::test_exclude_newer_timestamp_absolute
-# https://github.com/astral-sh/uv/issues/17070
-Patch:          %{url}/pull/17071.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -484,13 +470,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# spdx
-#   wanted: 0.12.0
-#   currently packaged: 0.13.2
-#   Update spdx dependency to 0.13
-#   https://github.com/astral-sh/uv/pull/17129
-tomcli set Cargo.toml str workspace.dependencies.spdx.version '0.13.0'
 
 %cargo_prep
 

@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.26.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD-3-Clause
@@ -239,6 +239,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Wed Dec 17 2025 Jakub Jelen <jjelen@redhat.com> - 0.26.1-4
+- Avoid const discard to unbreak eln build
+
 * Thu Jul 24 2025 Veronika Hanulikova <vhanulik@redhat.com> - 0.26.1-3
 - Rename bash-completion function (#2377088)
 

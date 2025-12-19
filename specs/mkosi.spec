@@ -1,5 +1,11 @@
+%bcond tests 1
+%bcond docs 1
+
+# Build with OBS-specific quirks
+%bcond obs 0
+
 Name:           mkosi
-Version:        25.3
+Version:        26
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
@@ -7,13 +13,12 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/mkosi
 Source:         https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Keep all patches inside this ifdef to avoid breaking builds from main
+%if %{without obs}
+Patch:          0001-verity-do-not-copy-signing-cert-in-addons-portables-.patch
+%endif
+
 BuildArch:      noarch
-
-%bcond tests 1
-%bcond docs 1
-
-# Build with OBS-specific quirks
-%bcond obs 0
 
 # mkosi wants the uncompressed man page to show via 'mkosi documentation'
 %global __brp_compress true

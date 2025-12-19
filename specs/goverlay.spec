@@ -1,3 +1,6 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:           goverlay
 Version:        1.6.4
 Release:        %autorelease

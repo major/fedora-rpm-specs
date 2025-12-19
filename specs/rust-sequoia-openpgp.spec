@@ -16,6 +16,8 @@ Source:         %{crates_source}
 Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
+# * Allow bzip2 0.6:
+#   https://gitlab.com/sequoia-pgp/sequoia/-/merge_requests/1806
 Patch:          sequoia-openpgp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

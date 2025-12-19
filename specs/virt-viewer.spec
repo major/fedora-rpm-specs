@@ -57,6 +57,15 @@ the display, and libvirt for looking up VNC/SPICE server details.
 
 %define buildid_opt -Dbuild-id=%{release}
 
+# Enable -Werror on RHEL which has stable GCC toolchain, and
+# disable on Fedora/ELN which frequently sees new warnings
+# from updated GCC versions
+%if 0%{?rhel} && !0%{?eln}
+%define werror_opt -Dwerror=true
+%else
+%define werror_opt -Dwerror=false -Dgit_werror=disabled
+%endif
+
 %if !%{with_govirt}
 %define ovirt_opt -Dovirt=disabled
 %endif
@@ -69,7 +78,7 @@ the display, and libvirt for looking up VNC/SPICE server details.
 %define osid_opt -Dos-id=rhel%{?rhel}
 %endif
 
-%meson %{buildid_opt} %{?ovirt_opt} %{?spice_opt} %{?osid_opt}
+%meson %{buildid_opt} %{werror_opt} %{?ovirt_opt} %{?spice_opt} %{?osid_opt}
 %meson_build
 
 %install

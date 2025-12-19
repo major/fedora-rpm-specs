@@ -132,6 +132,7 @@
   -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \\\
   -DTensile_VERBOSE=%{tensile_verbose} \\\
   -DTensile_DIR=${TP}/cmake \\\
+  -DTensile_ROOT=${TP} \\\
   -DBUILD_WITH_PIP=OFF
 
 %bcond_with generic
@@ -141,6 +142,8 @@
 %else
 %global gpu_list %{rocm_gpu_list_default}
 %endif
+
+%bcond_with bundled_tensile
 
 Name:           rocblas
 Summary:        BLAS implementation for ROCm
@@ -153,11 +156,20 @@ Release:        2%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 Patch1:         0001-fixup-install-of-tensile-output.patch
+
+# Bundled tensile
+Source1:        https://github.com/ROCmSoftwarePlatform/Tensile/archive/rocm-%{version}.tar.gz#/Tensile-%{version}.tar.gz
+Patch101:       0001-tensile-fedora-gpus.patch
+Patch102:       0001-tensile-gfx1153.patch
+Patch103:       0001-tensile-set-default-paths.patch
+Patch104:       0001-tensile-ignore-cache-check.patch
+Patch105:       0001-tensile-add-cmake-arches.patch
+Patch106:       0001-tensile-gfx1036.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -173,23 +185,59 @@ BuildRequires:  rocm-rpm-macros
 %if 0%{?suse_version} <= 1600
 %global tensile_library_format yaml
 %else
-BuildRequires:  msgpack-cxx-devel
 %global tensile_library_format msgpack
 %endif
 # OBS vm times out without console output
 %global tensile_verbose 2
+%else
+%global tensile_verbose 1
+%global tensile_library_format msgpack
+# suse_version
+%endif 
+%else
+%global tensile_verbose %{nil}
+%global tensile_library_format %{nil}
+# tensile
+%endif
+
+%if %{with tensile}
+%if %{with bundled_tensile}
+%if 0%{?suse_version}
+BuildRequires:  python-rpm-macros
+BuildRequires:  %{python_module setuptools}
+BuildRequires:  %{python_module joblib}
+BuildRequires:  %{python_module msgpack}
+BuildRequires:  %{python_module PyYAML}
+BuildRequires:  %{python_module setuptools}
+%else
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  msgpack-devel
+%if 0%{?fedora} || 0%{?rhel} > 9
+BuildRequires:  python3dist(joblib)
+%endif
+BuildRequires:  python3dist(msgpack)
+BuildRequires:  python3dist(pyyaml)
+# suse version
+%endif
+%else
+%if 0%{?suse_version}
+%if 0%{?suse_version} <= 1600
+%else
+BuildRequires:  msgpack-cxx-devel
+# suse version <= 1600
+%endif
 BuildRequires: %{python_module tensile-devel}
 BuildRequires: %{python_module joblib}
 %else
 BuildRequires:  python3dist(tensile)
 BuildRequires:  msgpack-devel
-%global tensile_verbose 1
-%global tensile_library_format msgpack
-%endif # suse_version
-%else
-%global tensile_verbose %{nil}
-%global tensile_library_format %{nil}
-%endif # tensile
+# suse_version
+%endif
+# bundled_tensile
+%endif
+# tensile
+%endif
 
 %if %{with compress}
 BuildRequires:  pkgconfig(libzstd)
@@ -275,10 +323,50 @@ Requires:       diffutils
 cd projects/rocblas
 %patch -P1 -p1 
 %else
-%autosetup -p1 -n %{upstreamname}
+%setup -n %{upstreamname}
+%patch -P1 -p1
 %endif
+
+tar xf %{SOURCE1}
+mv Tensile-* Tensile
+cd Tensile
+%patch -P101 -p1
+%patch -P102 -p1
+%patch -P103 -p1
+%patch -P104 -p1
+%patch -P105 -p1
+%patch -P106 -p1
+
+#Fix a few things:
+chmod 755 Tensile/Configs/miopen/convert_cfg.py
+sed -i -e 's@bin/python@bin/python3@' Tensile/Configs/miopen/convert_cfg.py
+sed -i -e 's@bin/python@bin/python3@' Tensile/Tests/create_tests.py
+sed -i -e 's@bin/env python3@bin/python3@' Tensile/bin/Tensile
+sed -i -e 's@bin/env python3@bin/python3@' Tensile/bin/TensileCreateLibrary
+
+# I'm assuming we don't need these:
+rm -r Tensile/Configs/miopen/archives
+
+# hack where TensileGetPath is located
+sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' Tensile/cmake/TensileConfig.cmake
+
+# Use /usr instead of /opt/rocm for prefix
+sed -i -e 's@opt/rocm@usr@g' Tensile/Common.py
+sed -i -e 's@opt/rocm@usr@g' Tensile/Tests/yaml_only/test_config.py
+
+# Ignora asm cap
+sed -i -e 's@globalParameters["IgnoreAsmCapCache"] = False@globalParameters["IgnoreAsmCapCache"] = True@' Tensile/Common.py
+sed -i -e 's@arguments["IgnoreAsmCapCache"] = args.IgnoreAsmCapCache@arguments["IgnoreAsmCapCache"] = True@' Tensile/TensileCreateLibrary.py
+sed -i -e 's@if not ignoreCacheCheck and derivedAsmCaps@if False and derivedAsmCaps@' Tensile/Common.py
+
+# Reduce requirements
+sed -i -e '/joblib/d' requirements.*
+sed -i -e '/rich/d' requirements.*
+sed -i -e '/msgpack/d' requirements.*
+
+cd ..
+
 sed -i -e 's@pkg_search_module(PKGBLAS cblas)@pkg_search_module(PKGBLAS %blaslib)@' clients/CMakeLists.txt
-    
 sed -i -e 's@target_link_libraries( rocblas-test PRIVATE ${BLAS_LIBRARY} ${GTEST_BOTH_LIBRARIES} roc::rocblas )@target_link_libraries( rocblas-test PRIVATE %blaslib ${GTEST_BOTH_LIBRARIES} roc::rocblas )@' clients/gtest/CMakeLists.txt
 
 # no git in this build
@@ -299,6 +387,18 @@ sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LI
 
 %build
 
+%if %{with tensile}
+%if %{with bundled_tensile}
+cd Tensile
+TL=$PWD
+python3 setup.py install --root $TL
+TP=${TL}/usr/lib/python3.14/site-packages/Tensile/
+cd ..
+%else
+TP=`/usr/bin/TensileGetPath`
+%endif
+%endif
+
 %if %{with gitcommit}
 cd projects/rocblas
 %endif
@@ -309,10 +409,6 @@ export TENSILE_ROCM_ASSEMBLER_PATH=${CLANG_PATH}/clang++
 export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
 # Work around problem with koji's ld
 export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
-
-%if %{with tensile}
-TP=`/usr/bin/TensileGetPath`
-%endif
 
 CORES=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
 if [ ${CORES}x = x ]; then
@@ -382,6 +478,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Dec 17 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Add --with bundled_tensile
+
 * Thu Dec 4 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Fix setting sw blas
 

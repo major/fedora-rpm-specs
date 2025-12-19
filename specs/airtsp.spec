@@ -1,6 +1,6 @@
 #
 Name:           airtsp
-Version:        1.01.14
+Version:        1.01.15
 Release:        %autorelease
 
 Summary:        C++ Simulated Airline Travel Solution Provider Library

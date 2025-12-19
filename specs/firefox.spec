@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        146.0
-Release:        4%{?pre_tag}%{?dist}
+Release:        6%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -275,6 +275,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
 Patch402:        D275955.1765540580.diff
+Patch403:        IWYU.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -595,6 +596,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
 %patch -P402 -p1 -b .D275955.1765540580
+%patch -P403 -p1 -b .IWYU
 
 # PGO patches
 %if %{build_with_pgo}
@@ -863,7 +865,7 @@ export MOZ_DEBUG_FLAGS=" "
 MOZ_LINK_FLAGS="%{build_ldflags}"
 %if !%{with build_with_clang}
 %ifarch aarch64 %{ix86} ppc64le x86_64
-MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
+MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -Wl,--no-keep-memory"
 %endif
 %endif
 %ifarch %{ix86} s390x ppc64le
@@ -1268,6 +1270,13 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Dec 17 2025 Martin Stransky <stransky@redhat.com> - 146.0-6
+- Added upstream patch IWYU (libwebrtc IWYU fixes for PipeWire)
+- Claude AI assisted editing (failed to do whole work, but it was close!)
+
+* Wed Dec 17 2025 Martin Stransky <stransky@redhat.com> - 146.0-5
+- Removed firefox-bin from man pages
+
 * Thu Dec 11 2025 Martin Stransky <stransky@redhat.com> - 146.0-4
 - Removed firefox-bin
 

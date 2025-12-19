@@ -56,6 +56,8 @@ EOF
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380770)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake} -DUNIT_TEST=TRUE
 %{cmake_build}
 

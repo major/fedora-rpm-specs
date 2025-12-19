@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.16.1
+Version:        3.17.4
 Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -16,6 +16,7 @@ Source7:        posplit.1
 Source8:        tmserver.1
 
 BuildArch:      noarch
+
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -23,6 +24,7 @@ BuildRequires:  python3-pip
 BuildRequires:	python3-setuptools_scm
 BuildRequires:  python3-wheel
 BuildRequires:	pyproject-rpm-macros
+
 BuildRequires: 	python3-sphinx
 BuildRequires: 	python3-sphinx-copybutton
 BuildRequires: 	python3-sphinxext-opengraph
@@ -41,9 +43,10 @@ BuildRequires:  python3-ruamel-yaml
 BuildRequires:  python3-simplejson
 BuildRequires:  python3-six
 BuildRequires:  python3-sphinx
-BuildRequires: python3-sphinx-copybutton
-BuildRequires: python3-sphinxext-opengraph
-BuildRequires: python3-furo
+BuildRequires:  python3-sphinx-copybutton
+BuildRequires:  python3-sphinxext-opengraph
+BuildRequires:  python3-furo
+BuildRequires:  python3-unicode-segmentation-rs
 BuildRequires:  python3-vobject
 
 Requires:       gettext
@@ -60,6 +63,7 @@ Requires:       python3-pycountry
 Requires:       python3-ruamel-yaml
 Requires:       python3-simplejson
 Requires:       python3-six
+Requires:       python3-unicode-segmentation-rs
 Requires:       python3-vobject
 
 %description
@@ -133,6 +137,9 @@ done
 %{python3_sitelib}/translate*
 
 %changelog
+* Wed Dec 17 2025 Sudip Shil <sshil@redhat.com> - 3.17.4-1
+- update to 3.17.4 (rhbz#2401389)
+
 * Mon Sep 22 2025 Sudip Shil <sshil@redhat.com> - 3.16.1-1
 - update to 3.16.1 (rhbz#2394036)
 

@@ -1,5 +1,5 @@
 Name:           python-cvelib
-Version:        1.4.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        A library and command line interface for the CVE Project services
 License:        MIT
@@ -37,7 +37,7 @@ sed -i 's:"collective.checkdocs",::' pyproject.toml
 %pyproject_install
 %pyproject_save_files cvelib
 mkdir -p %{buildroot}/%{_mandir}
-mv %{buildroot}%{python3_sitelib}/man %{buildroot}/%{_mandir}/man1
+cp -r --preserve=timestamps man %{buildroot}/%{_mandir}/man1
 rm -rf %{buildroot}%{python3_sitelib}/tests
 
 %check

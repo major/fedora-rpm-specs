@@ -9,7 +9,7 @@
 
 Name:    sslh
 Version: 1.21c
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Applicative protocol(SSL/SSH) multiplexer
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -154,6 +154,9 @@ make test
 
 
 %changelog
+* Wed Dec 17 2025 Tom Callaway <spot@fedoraproject.org> - 1.21c-14
+- rebuild for new libconfig
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21c-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

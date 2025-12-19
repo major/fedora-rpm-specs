@@ -10,8 +10,8 @@
 %endif
 
 Name:           duc
-Version:        1.4.5
-Release:        8%{?dist}
+Version:        1.4.6
+Release:        %autorelease
 Summary:        Disk usage tools
 
 # src/glad/KHR/khrplatform.h: Khronos
@@ -77,29 +77,4 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Sep  6 2024 Jens Petersen <petersen@redhat.com> - 1.4.5-6
-- epel8 only has glfw (vulkan-devel) for x86_64 (#2310132)
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jun  1 2024 Jens Petersen <petersen@redhat.com> - 1.4.5-4
-- update Khronos License license tag to MIT-Khronos-old
-
-* Tue Mar  5 2024 Jens Petersen <petersen@redhat.com> - 1.4.5-3
-- build with opengl (#2260290, Benson Muite)
-- check: run help command (#2260290, Benson Muite)
-- khrplatform.h is under Khronos License (#2260290, Benson Muite)
-
-* Thu Feb 22 2024 Jens Petersen <petersen@redhat.com> - 1.4.5-2
-- build with uthash-devel (#2260290, Benson Muite)
-- add desktop file (#2260290, Benson Muite)
-
-* Mon Jan 22 2024 Jens Petersen <petersen@redhat.com> - 1.4.5-1
-- initial package
+%autochangelog

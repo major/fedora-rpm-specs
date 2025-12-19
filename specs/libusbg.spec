@@ -1,6 +1,6 @@
 Name:          libusbg
 Version:       0.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Library for USB gadget-configfs userspace functionality
 License:       LGPL-2.1-or-later
 
@@ -72,6 +72,9 @@ make check
 %{_libdir}/cmake/LibUsbgx/
 
 %changelog
+* Wed Dec 17 2025 Tom Callaway <spot@fedoraproject.org> - 0.3.0-3
+- rebuild for new libconfig
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

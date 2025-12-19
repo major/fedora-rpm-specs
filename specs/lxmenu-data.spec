@@ -1,8 +1,8 @@
 # Review:       https://bugzilla.redhat.com/487973
 
 Name:           lxmenu-data
-Version:        0.1.6
-Release:        2%{?dist}
+Version:        0.1.7
+Release:        1%{?dist}
 Summary:        Data files for the LXDE menu
 
 # SPDX confirmed
@@ -46,13 +46,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 #FIXME: add changelog when there is one
-%doc AUTHORS README TODO
+%doc AUTHORS
+%doc README
+%doc TODO
 %license COPYING
 %config(noreplace) %{_sysconfdir}/xdg/menus/lxde-applications.menu
 %{_datadir}/desktop-directories/lxde-*.directory
 
 
 %changelog
+* Wed Dec 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.7-1
+- 0.1.7
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

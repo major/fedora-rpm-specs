@@ -1,7 +1,7 @@
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
 Version: 6.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -29,10 +29,10 @@ BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(pam)
 BuildRequires: python3-packaging
 
+Recommends: caribou%{?_isa}
 Requires: cinnamon-desktop%{?_isa} >= 6.6.0
 Requires: cinnamon-translations >= 6.6.0
 Requires: accountsservice-libs%{?_isa}
-Requires: caribou%{?_isa}
 Requires: libgnomekbd%{?_isa}
 Requires: python3-gobject%{?_isa}
 Requires: python3-setproctitle%{?_isa}
@@ -95,6 +95,9 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libexecdir}/cinnamon-screensaver/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Wed Dec 17 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-2
+- Change requires caribou to recommends
+
 * Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
 - Update to 6.6.1
 

@@ -68,6 +68,7 @@ BuildRequires: gettext
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: cliquer-devel
+BuildRequires: fdupes
 %ifnarch %{ix86}
 BuildRequires: cocoalib-devel
 %endif
@@ -136,13 +137,14 @@ Development files for libgiac.
 
 ####################
 %package doc
-Summary: Detailed html documentation for Giac/Xcas
+Summary: Detailed HTML documentation for Giac/Xcas
 BuildArch: noarch
 %ifnarch %{ix86}
 BuildRequires: hevea
 %endif
 BuildRequires: tex(latex), texinfo, texinfo-tex, texlive-stmaryrd
 Requires: %{name} = %{version}-%{release}
+Obsoletes: giac-doc < 0:2.0.0.18-8
 
 # Javascript provided
 Provides: bundled(CodeMirror)
@@ -150,7 +152,7 @@ Provides: bundled(FileSaver.js)
 
 License:   GPL-3.0-or-later AND GFDL-1.1-or-later
 %description doc
-The detailled html documentation and examples for giac and xcas. It is directly
+The detailed  documentation and examples for giac and xcas. It is directly
 accessible from xcas in many ways (browser, context search, thematic indexes).
 It is strongly recommended for xcas usage. Note that the french part has been 
 removed from the original source due to non free Licence.
@@ -168,7 +170,7 @@ Requires: hicolor-icon-theme
 Xcas is the Fltk graphic user interface to the computer algebra system giac. 
 It supports formal computations, interactive 2D geometry, 3D plotting, 
 spreadsheets with formal calculus and a Logo mode. There is also a programming 
-editor, and many ways to consult the html help.
+editor, and many ways to consult the HTML help.
 
 ####################
 %package -n pgiac
@@ -179,7 +181,7 @@ BuildRequires: perl-generators
 Requires:  %{name} = %{version}-%{release}
 
 %description -n pgiac
-The pgiac command is a perl script to mix Latex documents
+The pgiac command is a Perl script to mix Latex documents
 with Giac computations.
 
 %prep
@@ -341,12 +343,6 @@ install -pm 644 debian/giac.1 %{buildroot}%{_mandir}/man1
 install -pm 644 debian/cas_help.1 %{buildroot}%{_mandir}/man1
 install -pm 644 debian/pgiac.1 %{buildroot}%{_mandir}/man1
 
-#      Add a link for FR env users to have the english help instead of a page 
-#      not found.
-pushd %{buildroot}%{_datadir}/giac/doc/fr
-ln -s ../en/cascmd_en cascmd_fr
-popd
-
 # khicas.nwa is an arch-dependent executable file (ELF 32-bit LSB relocatable, ARM, EABI5 version 1)
 # I moving it from noarch giac-doc to giac package
 mkdir -p %{buildroot}%{_libexecdir}/giac
@@ -394,6 +390,9 @@ find  %{buildroot}%{_datadir}/giac/doc -maxdepth 2 -type l| \
 # Change permissions to following files
 chmod a+x %{buildroot}%{_datadir}/giac/doc/send18
 chmod a+x %{buildroot}%{_datadir}/giac/doc/send19
+
+# Symlink duplicated files
+%fdupes -s %{buildroot}%{_datadir}
 
 %if %{with check}
 %check

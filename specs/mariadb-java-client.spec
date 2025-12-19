@@ -1,8 +1,8 @@
 Name:           mariadb-java-client
-Version:        3.5.6
+Version:        3.5.7
 Release:        %autorelease
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
-License:        LGPL-2.1-only
+License:        LGPL-2.1-or-later
 URL:            https://mariadb.com/kb/en/mariadb/about-mariadb-connector-j/
 Source0:        https://github.com/mariadb-corporation/mariadb-connector-j/archive/refs/tags/%{version}.tar.gz#/mariadb-connector-j-%{version}.tar.gz
 # optional dependency not in Fedora
@@ -30,10 +30,10 @@ MariaDB Connector/J is a Type 4 JDBC driver, also known as the Direct to
 Database Pure Java Driver. It was developed specifically as a lightweight
 JDBC connector for use with MySQL and MariaDB database servers.
 
-%package        tests
-Summary:        Tests for %{name}
+%package tests
+Summary: Tests for %{name}
 
-%description    tests
+%description tests
 This package contains tests for %{name}.
 
 %prep

@@ -12,6 +12,13 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
 
+# fix: jobstep plugin with new functionality required
+# https://github.com/snakemake/snakemake-executor-plugin-slurm/pull/393
+#
+# This is a temporary backport until the upstream release of
+# snakemake-executor-plugin-slurm 2.1.0.
+Patch:          %{url}/pull/393.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_executor_plugin_slurm
 

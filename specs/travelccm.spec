@@ -1,6 +1,6 @@
 #
 Name:           travelccm
-Version:        1.00.11
+Version:        1.00.12
 Release:        %autorelease
 
 Summary:        C++ Travel Customer Choice Model (CCM) Library

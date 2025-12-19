@@ -11,28 +11,21 @@ License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-session
 Source:         https://download.gnome.org/sources/gnome-session/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# For https://fedoraproject.org/w/index.php?title=Changes/HiddenGrubMenu
+# This should go upstream once systemd has a generic interface for this
+Patch:          0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
+
+# https://gitlab.gnome.org/GNOME/gnome-session/-/commit/4a3734e2a14ba596b2bf8878573795c459f937be
+Patch:          0001-Drop-unused-dependencies.patch
+
+# https://gitlab.gnome.org/GNOME/gnome-session/-/commit/4a94cdde95808cce4c6a98252918367dda4a604b
+Patch:          0001-Bugfix-for-mimeapps.list.patch
+
 BuildRequires:  meson
 BuildRequires:  gcc
-BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(gl)
-BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(gnome-desktop-4)
-BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  pkgconfig(ice)
-BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(sm)
 BuildRequires:  pkgconfig(systemd)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xau)
-BuildRequires:  pkgconfig(xcomposite)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xrender)
-BuildRequires:  pkgconfig(xtrans)
-BuildRequires:  pkgconfig(xtst)
-
-# this is so the configure checks find /usr/bin/halt etc.
-BuildRequires:  usermode
 
 BuildRequires:  gettext
 BuildRequires:  xmlto
@@ -41,13 +34,13 @@ BuildRequires:  /usr/bin/xsltproc
 # an artificial requires to make sure we get dconf, for now
 Requires: dconf
 
-Requires: system-logos
-# Needed for gnome-settings-daemon
-Requires: gnome-control-center-filesystem
-
 Requires: gsettings-desktop-schemas >= 0.1.7
 
 Requires: dbus
+
+Conflicts: gnome-desktop3 < 44.4-2
+Conflicts: shared-mime-info < 2.0-4
+Requires: shared-mime-info
 
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
 %if 0%{?rhel} >= 10
@@ -79,8 +72,6 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %install
 %meson_install
 
-rm %{buildroot}%{_datadir}/applications/gnome-mimeapps.list
-
 %find_lang %{po_package}
 
 %ldconfig_scriptlets
@@ -96,10 +87,11 @@ rm %{buildroot}%{_datadir}/applications/gnome-mimeapps.list
 %{_libexecdir}/gnome-session-init-worker
 %{_libexecdir}/gnome-session-service
 %{_mandir}/man1/gnome-session*1.*
+%{_datadir}/applications/gnome-mimeapps.list
 %{_datadir}/gnome-session/
 %dir %{_datadir}/xdg-desktop-portal
 %{_datadir}/xdg-desktop-portal/gnome-portals.conf
-%{_datadir}/doc/gnome-session/
+%{_datadir}/doc/gnome-session/html
 %{_datadir}/glib-2.0/schemas/org.gnome.SessionManager.gschema.xml
 %{_userunitdir}/gnome-session*
 %{_userunitdir}/app-flatpak-.scope.d/override.conf

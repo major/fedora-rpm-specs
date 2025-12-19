@@ -31,12 +31,6 @@ Source:         %{crates_source}
 #       -Jcf rust-vhost-device-sound-%%{version}-vendor.tar.xz vendor
 #
 Source1: rust-vhost-device-sound-%{version}-vendor.tar.xz
-%else
-# When building without bundled deps, align with rust deps included in the distribution.
-# Manually created patch for downstream crate metadata changes
-# * update rstest to 0.26:
-#   https://github.com/rust-vmm/vhost-device/commit/5e74f370be3d9c5092b88208586e12347573b68c
-Patch:          vhost-device-sound-fix-metadata.diff
 %endif
 
 # Upstream doesn't provide man pages

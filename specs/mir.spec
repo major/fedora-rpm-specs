@@ -27,15 +27,15 @@
 %global mircommon_sover 11
 %global mircore_sover 2
 %global miroil_sover 8
-%global mirplatform_sover 32
-%global mirserver_sover 65
+%global mirplatform_sover 34
+%global mirserver_sover 66
 %global mirwayland_sover 5
 %global mirplatformgraphics_sover 23
 %global mirplatforminput_sover 10
 
 Name:           mir
-Version:        2.22.1
-Release:        2%{?dist}
+Version:        2.25.1
+Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -320,6 +320,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Wed Dec 17 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.25.1-1
+- Update to 2.25.1
+
 * Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.22.1-2
 - Rebuilt for gtest 1.17.0
 

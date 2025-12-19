@@ -14,21 +14,7 @@ Summary: Library with common API for various GNOME modules
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.1-or-later
 URL:     https://gitlab.gnome.org/GNOME/gnome-desktop
-Source0: https://download.gnome.org/sources/gnome-desktop/44/gnome-desktop-%{tarball_version}.tar.xz
-
-Source1: gnome-mimeapps.list
-# Generated with:
-# for i in `grep MimeType= /usr/share/applications/org.gnome.Showtime.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Showtime.desktop\; >> showtime-defaults.list ; done
-Source2: showtime-defaults.list
-# Generated with:
-# for i in `grep MimeType= /usr/share/applications/org.gnome.Decibels.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Decibels.desktop\; >> decibels-defaults.list ; done
-Source3: decibels-defaults.list
-# Generated with:
-# for i in `grep MimeType= /usr/share/applications/org.gnome.Loupe.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Loupe.desktop\; >> loupe-defaults.list ; done
-Source4: loupe-defaults.list
-# Generated with:
-# for i in `grep MimeType= /usr/share/applications/org.gnome.Papers.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Papers.desktop\; >> papers-defaults.list ; done
-Source5: papers-defaults.list
+Source:  https://download.gnome.org/sources/gnome-desktop/44/gnome-desktop-%{tarball_version}.tar.xz
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -48,9 +34,6 @@ BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: python3
 BuildRequires: python3dist(langtable)
-
-Conflicts: shared-mime-info < 2.0-4
-Requires: shared-mime-info
 
 %if !0%{?flatpak}
 Requires: bubblewrap
@@ -85,7 +68,7 @@ developing applications that use %{name}.
 %package -n gnome-desktop4
 Summary: Library with common API for various GNOME modules
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
-# Depend on base package for translations, help, version and mimeapps.
+# Depend on base package for translations, help, and version.
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description -n gnome-desktop4
@@ -123,19 +106,11 @@ the functionality of the installed %{name} package.
 %install
 %meson_install
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/applications
-install -m 644 %SOURCE1 $RPM_BUILD_ROOT/%{_datadir}/applications/gnome-mimeapps.list
-cat %SOURCE2 >> $RPM_BUILD_ROOT/%{_datadir}/applications/gnome-mimeapps.list
-cat %SOURCE3 >> $RPM_BUILD_ROOT/%{_datadir}/applications/gnome-mimeapps.list
-cat %SOURCE4 >> $RPM_BUILD_ROOT/%{_datadir}/applications/gnome-mimeapps.list
-cat %SOURCE5 >> $RPM_BUILD_ROOT/%{_datadir}/applications/gnome-mimeapps.list
-
 %find_lang %{po_package} --all-name --with-gnome
 
 %files -f %{po_package}.lang
 %doc AUTHORS NEWS README.md
 %license COPYING COPYING.LIB
-%{_datadir}/applications/gnome-mimeapps.list
 # LGPL
 %{_libdir}/libgnome-desktop-3.so.20{,.*}
 %{_libdir}/girepository-1.0/GnomeDesktop-3.0.typelib

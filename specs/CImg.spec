@@ -37,6 +37,9 @@ BuildRequires:  OpenEXR-devel
 BuildRequires:  zlib-devel
 BuildRequires:  make
 
+# to fix compile error on i686
+Patch1:         https://github.com/GreycLab/CImg/commit/94f00eb0302a9db7aa8ea4034fb48a8a4dbbbb8e.patch 
+
 %description
 The CImg Library is an open-source C++ toolkit for image processing. 
 It consists in a single header file 'CImg.h' providing a minimal set of C++ 
@@ -54,6 +57,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+%patch -P 1 -p1
 sed -i 's|$(X11PATH)/lib|$(X11PATH)/%{_lib}|g' examples/Makefile
 %if %{with flexiblas}
 sed -i 's|-lblas -llapack|-lflexiblas|g' examples/Makefile
@@ -81,7 +85,8 @@ make -C examples linux %{?_smp_mflags}
 %changelog
 * Fri Dec 12 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.5-1
 - bump version
-- compile error for i686 https://github.com/GreycLab/CImg/issues/471
+- add patch https://github.com/GreycLab/CImg/commit/94f00eb0302a9db7aa8ea4034fb48a8a4dbbbb8e.patch
+  to fix compile error for i686 https://github.com/GreycLab/CImg/issues/471
 
 * Mon Nov 24 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.4-1
 - bump version

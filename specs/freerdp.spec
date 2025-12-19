@@ -29,7 +29,7 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.18.0
+Version:        3.20.0
 Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
@@ -46,10 +46,6 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
-
-# Fix TestClientRdpFile without H264 support
-# https://github.com/FreeRDP/FreeRDP/pull/12020
-Patch:          12020.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -377,6 +373,12 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Dec 17 2025 Ondrej Holy <oholy@redhat.com> - 2:3.20.0-1
+- Update to 3.20.0 (rhbz#2423151)
+
+* Wed Dec 17 2025 Ondrej Holy <oholy@redhat.com> - 2:3.19.1-1
+- Update to 3.19.1 (#2414568)
+
 * Wed Dec 03 2025 Ondrej Holy <oholy@redhat.com> - 2:3.18.0-1
 - Update to 3.18.0 (#2414568)
 

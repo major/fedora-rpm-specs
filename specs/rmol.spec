@@ -3,7 +3,7 @@
 
 #
 Name:           rmol
-Version:        1.00.14
+Version:        1.00.15
 Release:        %autorelease
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions

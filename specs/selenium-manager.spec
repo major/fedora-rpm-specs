@@ -23,6 +23,7 @@ Summary:        Automated driver and browser management for Selenium
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
+# bzip2-1.0.6
 
 
 # The code in directory /rust is under the Apache-2.0 licence.
@@ -36,6 +37,7 @@ License:        %{shrink:
                 MPL-2.0 AND
                 Unicode-3.0 AND
                 Unicode-DFS-2016 AND
+                bzip2-1.0.6 AND
                 (0BSD OR MIT OR Apache-2.0) AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR ISC OR MIT) AND

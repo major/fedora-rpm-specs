@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
 Version: 25.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/development/umbrello/
@@ -20,49 +20,39 @@ BuildRequires: pkgconfig(libxslt)
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KDELibs4Support)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5TextEditor)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Xml)
-BuildRequires: cmake(Qt5WebKitWidgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
 
-# Disabled since 24.08: Pulling in kdevelop causes compile to fail
-# with foreign qml errors. Reenable when Umbrello is on Qt6.
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6TextEditor)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
 
-#%%ifnarch s390x
-#BuildRequires: cmake(KDevelop-PG-Qt)
-#BuildRequires: cmake(KDevPlatform)
-#%%endif
-
-BuildRequires: cmake(KF5ThreadWeaver)
-BuildRequires: cmake(KF5KCMUtils)
+%ifnarch s390x
+BuildRequires: cmake(KDevelop-PG-Qt)
+BuildRequires: cmake(KDevPlatform)
+%endif
 
 BuildRequires: cmake(LLVM)
 BuildRequires: cmake(Clang)
+BuildRequires: pkgconfig(cups)
 BuildRequires: llvm-devel
-
-# API doc generation - for later use
-#BuildRequires: doxygen
-#BuildRequires: cmake(Qt5Help)
 
 Conflicts:      kdesdk-common < 4.10.80
 Provides:       kdesdk-umbrello = %{version}-%{release}
@@ -80,7 +70,7 @@ GUI for diagramming Unified Modeling Language (UML)
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -90,22 +80,25 @@ GUI for diagramming Unified Modeling Language (UML)
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.umbrello.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.umbrello.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.umbrello.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.umbrello.desktop
 
 %files -f %{name}.lang
 %doc README
 %license COPYING
-%{_kf5_bindir}/umbrello5
-%{_kf5_bindir}/po2xmi5
-%{_kf5_bindir}/xmi2pot5
-%{_kf5_metainfodir}/org.kde.umbrello.appdata.xml
-%{_kf5_datadir}/applications/org.kde.umbrello.desktop
-%{_kf5_datadir}/umbrello5/
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_kf6_bindir}/umbrello6
+%{_kf6_bindir}/po2xmi6
+%{_kf6_bindir}/xmi2pot6
+%{_kf6_metainfodir}/org.kde.umbrello.appdata.xml
+%{_kf6_datadir}/applications/org.kde.umbrello.desktop
+%{_kf6_datadir}/umbrello6/
+%{_kf6_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
+* Wed Dec 17 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-2
+- Upgrade to Qt6
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

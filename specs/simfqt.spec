@@ -1,6 +1,6 @@
 #
 Name:           simfqt
-Version:        1.00.10
+Version:        1.00.11
 Release:        %autorelease
 
 Summary:        C++ Simulated Fare Quote System Library

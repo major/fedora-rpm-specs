@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        166
+Version:        167
 
 %forgemeta
 
@@ -217,6 +217,9 @@ bzip2 -9 osbuild-container.pp
 %install
 %py3_install
 
+# Ensure vm.py is executable which is needed to run in with init= in the vm
+chmod 0755 %{buildroot}%{python3_sitelib}/%{pypi_name}/vm.py
+
 mkdir -p %{buildroot}%{pkgdir}/stages
 install -p -m 0755 $(find stages -type f -not -name "test_*.py") %{buildroot}%{pkgdir}/stages/
 
@@ -389,6 +392,43 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Dec 17 2025 Packit <hello@packit.dev> - 167-1
+Changes with 167
+----------------
+  - Fix RHSM podman secrets and rhc configuration (HMS-9811 and HMS-9606) (#2265)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - GHA: update osbuild-ci* container images (#2286)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Move replace and rglob (#2267)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Solver: prepare for V2 API with per-transaction depsolve results (HMS-9062) (#2258)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update images dependency ref to latest (#2273)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - Update images dependency ref to latest (#2285)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - Various fixes for --in-vm (#2271)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - chroot: If we're unable to mount devtmpfs, bindmount host /dev (#2277)
+    - Author: Alexander Larsson, Reviewers: Michael Vogt, Simon de Vlieger
+  - osbuild/solver: replace request.RepositoryConfig with model.Repository (HMS-9062) (#2280)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  - osbuild/util/rhsm: make Subscriptions.get_secrets() take list of URLs (HMS-9062) (#2278)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  - ostree.config: Add some tests (#2268)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - ostree.grub2: ostree requires leading / (#2272)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - runners: set up sequoia on RHEL (#2288)
+    - Author: Simon de Vlieger, Reviewers: Ondřej Budai, Tomáš Hozza
+  - stages/ostree.{aleph,deploy.container}: support more imgref formats; make aleph stage more reliable (#2270)
+    - Author: Dusty Mabe, Reviewers: Michael Vogt, Simon de Vlieger
+  - stages/xorrisofs: allow setting more fields (#2269)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-12-17
+
+
 * Wed Dec 03 2025 Packit <hello@packit.dev> - 166-1
 Changes with 166
 ----------------

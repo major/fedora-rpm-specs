@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           ruby-build
-Version:        20251023
+Version:        20251217
 Release:        %autorelease
 Summary:        Compile and install Ruby
 

@@ -48,7 +48,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        5.0.0
+Version:        5.0.1
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -327,9 +327,7 @@ BuildRequires:  rocm-runtime-devel
 
 # OneAPI stuff
 %if %{with oneapi}
-BuildRequires:  intel-level-zero-devel
 BuildRequires:  intel-level-zero-gpu-raytracing
-BuildRequires:  intel-ocloc-devel
 BuildRequires:  pkgconfig(level-zero)
 BuildRequires:  pkgconfig(vpl)
 %endif
@@ -339,7 +337,7 @@ Requires:       rsms-inter-fonts
 Requires:       shared-mime-info
 Provides:       blender(ABI) = %{blender_api}
 
-# Starting from 2.90, Blender support only 64-bits architectures
+# Starting from 2.90, Blender supports only 64-bits architectures
 # Starting from 5.0.0, Blender dropped big endian support impacting s390x arch
 # https://projects.blender.org/blender/blender/commit/bc80ef136e8af0a355d234205ed6c7b0acaa84ab
 ExcludeArch:	%{ix86} %{arm} s390x
@@ -368,10 +366,6 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %if %{with hip}
 export HIP_PATH=`hipconfig -p`
 export HIP_CLANG_PATH=`hipconfig -l`
-# On F-41, hipcc wants llvm-objcopy
-%if 0%{?fedora} <= 41
-export PATH=${PATH}:${HIP_CLANG_PATH}
-%endif
 %endif
 
 %cmake \

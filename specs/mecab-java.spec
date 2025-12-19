@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	15
+%define		baserelease	16
 
 %define set_javaver() \
 %if 	0%{?fedora}%{?rhel} == %1 \
@@ -26,10 +26,10 @@ BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	mecab-devel = %{version}
 # java related macros
-%set_javaver	44	21
+%set_javaver	45	25
+%set_javaver	44	25
 %set_javaver	43	21
 %set_javaver	42	21
-%set_javaver	41	21
 
 BuildRequires:	javapackages-tools
 # %%check
@@ -37,7 +37,6 @@ BuildRequires:	mecab-jumandic
 BuildRequires:	glibc-langpack-ja
 
 Requires:	mecab = %{version}
-Requires:	java-25-headless
 
 ExclusiveArch:	%java_arches
 
@@ -85,6 +84,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Wed Dec 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-16
+- F-44: use JDK25
+
 * Fri Aug 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-15
 - Adjust java BuildRequires for F44
 

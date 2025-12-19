@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.22
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -10,7 +10,8 @@ URL:            https://mosquitto.org/
 Source0:        https://mosquitto.org/files/source/%{name}-%{version}.tar.gz
 Source1:        mosquitto-sysusers.conf
 # https://github.com/eclipse-mosquitto/mosquitto/pull/3150
-Patch1:         0001-Fix-the-libdir-location-in-the-pkgconf-files.patch
+Patch:          0001-Fix-the-libdir-location-in-the-pkgconf-files.patch
+Patch:          mosquitto-fix-service.patch
 
 BuildRequires:  c-ares-devel
 BuildRequires:  cjson-devel
@@ -74,6 +75,8 @@ sed -i "s/websockets_shared/websockets/" src/CMakeLists.txt
 mkdir -p %{buildroot}%{_unitdir}
 install -p -m 0644 service/systemd/%{name}.service.notify %{buildroot}%{_unitdir}/%{name}.service
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
+mkdir -p %{buildroot}%{_var}/log/%{name}
+mkdir -p %{buildroot}%{_rundir}/%{name}
 
 %if 0%{?with_tests}
 %check
@@ -83,16 +86,18 @@ make test
 %files
 %license LICENSE.txt 
 %doc ChangeLog.txt CONTRIBUTING.md README.md
+%dir %attr(750,mosquitto,mosquitto) %{_sysconfdir}/%{name}
+%dir %attr(750,mosquitto,mosquitto) %{_localstatedir}/log/%{name}
+%dir %attr(750,mosquitto,mosquitto) %{_rundir}/%{name}
+%config(noreplace) %attr(640,mosquitto,mosquitto) %{_sysconfdir}/%{name}/%{name}.conf
+%config %attr(640,mosquitto,mosquitto) %{_sysconfdir}/%{name}/*.example
 %{_bindir}/%{name}*
-%if 0%{?fedora} < 42 || 0%{?rhel}
+%if 0%{?rhel}
 %{_sbindir}/%{name}
 %endif
 %{_libdir}/libmosquitto*.so.1
 %{_libdir}/libmosquitto*.so.%{version}
 %{_libdir}/mosquitto_dynamic_security.so
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
-%config %{_sysconfdir}/%{name}/*.example
 %{_sysusersdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %{_mandir}/man*/%{name}*
@@ -106,6 +111,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Thu Dec 18 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-6
+- Fix service startup, mosquitto user to own dirs, package owns runtime dirs
+
 * Sun Nov 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-5
 - Rebuild against libwebsockets 4.5.0
 

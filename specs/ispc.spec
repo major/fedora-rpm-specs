@@ -129,7 +129,9 @@ PATH="${PATH}:%{buildroot}%{_bindir}" %{python3} scripts/run_tests.py
 %{_libdir}/lib%{name}.so
 %{_libdir}/lib%{name}rt.so
 %{_libdir}/lib%{name}rt_device_cpu.so
+%ifarch x86_64
 %{_libdir}/lib%{name}rt_device_gpu.so
+%endif
 
 %ifarch x86_64
 %files gpu

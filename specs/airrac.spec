@@ -1,6 +1,6 @@
 #
 Name:           airrac
-Version:        1.00.12
+Version:        1.00.13
 Release:        %autorelease
 
 Summary:        C++ Simulated Revenue Accounting (RAC) System Library

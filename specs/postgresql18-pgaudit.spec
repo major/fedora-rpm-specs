@@ -3,7 +3,7 @@
 %global majorname pgaudit
 %global pgversion 18
 Name:		postgresql%{pgversion}-%{majorname}
-Version:	17.1
+Version:	18.0
 Release:	1%{?dist}
 Summary:	PostgreSQL Audit Extension
 
@@ -13,7 +13,6 @@ URL:		http://pgaudit.org
 # Temporary source until postgresql18 support is released
 Source0:	https://github.com/%{majorname}/%{majorname}/archive/refs/heads/main.tar.gz
 # ExecutorStart_hook_type type was changed from void to bool in pg17
-Patch0:		fix_type.patch
 
 %if %?postgresql_default
 %global pkgname %{majorname}
@@ -93,5 +92,8 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
-* Wed Jul 29 2025 Nikola Davidova <ndavidov@redhat.com> - 17.1-1
+* Tue Dec 16 2025 Lukas Javorsky <ljavorsk@redhat.com> - 18.0-1
+- Rebase to version 18.0
+
+* Wed Jul 30 2025 Nikola Davidova <ndavidov@redhat.com> - 17.1-1
 - Initial packaging

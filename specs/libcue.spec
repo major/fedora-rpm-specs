@@ -7,6 +7,7 @@ License:	GPL-2.0-only AND BSD-2-Clause
 URL:		https://github.com/lipnitsk/%{name}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:		libcue-0001-Raise-minimum-CMake-version-up-to-3.5.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	flex

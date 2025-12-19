@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc1.15
+%define pkgrelease 0.rc1.251217gea1013c15392.17
 %define kversion 6
-%define tarfile_release 6.19-rc1
+%define tarfile_release 6.19-rc1-48-gea1013c15392
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.15%{?buildid}%{?dist}
+%define specrelease 0.rc1.251217gea1013c15392.17%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4521,10 +4521,16 @@ fi\
 #
 #
 %changelog
-* Mon Dec 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.15]
+* Wed Dec 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.ea1013c15392.17]
 - package YNL test framework files (Thorsten Leemhuis)
 - disable a compiler warning for libbpf (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
+
+* Wed Dec 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.ea1013c15392.16]
+- Linux v6.19.0-0.rc1.ea1013c15392
+
+* Tue Dec 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.40fbbd64bba6.15]
+- Linux v6.19.0-0.rc1.40fbbd64bba6
 
 * Mon Dec 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc1.14]
 - redhat/self-test: refresh with new variables (Scott Weaver)

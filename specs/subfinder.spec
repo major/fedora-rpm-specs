@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/subfinder
 %global goipath         github.com/projectdiscovery/subfinder/v2
-Version:                2.9.0
+Version:                2.10.1
 
 %gometa -L -f
 
@@ -38,6 +38,7 @@ safe for penetration testing.
 %build
 %global gomodulesmode GO111MODULE=on
 %gobuild -o %{gobuilddir}/bin/subfinder %{goipath}/cmd/subfinder/
+
 %install
 %go_vendor_license_install -c %{S:2}
 install -m 0755 -vd                     %{buildroot}%{_bindir}

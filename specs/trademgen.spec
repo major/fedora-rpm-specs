@@ -3,7 +3,7 @@
 
 #
 Name:           trademgen
-Version:        1.00.13
+Version:        1.00.14
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel Demand Generation Library

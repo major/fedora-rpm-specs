@@ -1,6 +1,6 @@
 #
 Name:           simcrs
-Version:        1.01.11
+Version:        1.01.12
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel-Oriented Distribution System library

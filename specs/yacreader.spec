@@ -2,7 +2,7 @@
 %global versuf %{nil}
 
 Name:           yacreader
-Version:        9.15.0
+Version:        9.16.2
 Release:        %autorelease
 Summary:        Cross platform comic reader and library manager
 
