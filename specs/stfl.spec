@@ -1,20 +1,25 @@
+%global commit bbb2404580e845df2556560112c8aefa27494d66
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           stfl
-Version:        0.22
-Release:        53%{?dist}
+Version:        0.24
+Release:        1.newsboat.git%{shortcommit}%{?dist}
 Summary:        The Structured Terminal Forms Language/Library
 
 License:        LGPL-3.0-or-later
-URL:            http://www.clifford.at/stfl/
-Source0:        http://www.clifford.at/stfl/%{name}-%{version}.tar.gz
+URL:            https://github.com/newsboat/stfl
+Source0:        https://github.com/newsboat/stfl/archive/%{commit}.tar.gz
+
+# STFL is unmaintained and the bindings are not used within Fedora. Obsolete
+# them to reduce the footprint of the package and avoid needing rebuilds for
+# language ecosystems unnecessarily.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2420468
+Obsoletes:      stfl-perl < 0.22-54
+Obsoletes:      stfl-ruby < 0.22-54
 
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
-BuildRequires:  perl-devel
-BuildRequires:  perl-generators
-BuildRequires:  ruby
-BuildRequires:  ruby-devel
-BuildRequires:  swig
 
 %description
 STFL is a library which implements a curses-based widget set for text
@@ -31,25 +36,8 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%package        perl
-Summary:        Perl binding for STFL
-Requires:       %{name} = %{version}-%{release}
-
-%description    perl
-Perl binding for STFL
-
-
-%package        ruby
-Summary:        Ruby binding for STFL
-Requires:       %{name} = %{version}-%{release}
-Requires:       ruby(release)
-
-%description    ruby
-Ruby binding for STFL.
-
-
 %prep
-%setup -q
+%setup -q -n %{name}-%{commit}
 ## ensures that _stfl.so doesn't end up in lib-dynload
 ## - http://www.rocklinux.net/pipermail/stfl/2009-June/000113.html
 sed -i.path \
@@ -77,9 +65,6 @@ sed -i.path -e 's|lib$|%{_lib}|' -e 's|/usr/local$|%{_prefix}|' Makefile.cfg
 export CFLAGS="%{optflags}"
 # test with explicit prefix and echo
 #make prefix=/usr libdir=%{_lib}
-#echo %ruby_sitearch
-#echo `ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"] '`
-sed -i 's|ruby extconf.rb|ruby extconf.rb --vendor|' ruby/Makefile.snippet
 
 # Parallel build is unstable :/
 #make  %{?_smp_mflags}
@@ -91,14 +76,8 @@ make
 # give the shared libraries executable permissions so they get stripped
 # also fixes the 0555 permissions on the perl bindings
 find %{buildroot} -name '*.so' -exec chmod 755 {} ';'
-# perl ignores empty .bs files
-find %{buildroot} -name '*.bs' -size 0c -exec rm -f {} ';'
 # fedora doesn't ship static libraries
 rm -f %{buildroot}%{_libdir}/libstfl.a
-## remove unneeded files
-rm -f %{buildroot}%{perl_vendorarch}/example.pl
-rm -f %{buildroot}%{perl_vendorarch}/auto/stfl/.packlist
-rm -f %{buildroot}%{perl_archlib}/perllocal.pod
 
 
 %ldconfig_scriptlets
@@ -113,16 +92,14 @@ rm -f %{buildroot}%{perl_archlib}/perllocal.pod
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/stfl.pc
 
-%files perl
-%dir %{perl_vendorarch}/auto/stfl
-%{perl_vendorarch}/*.pm
-%{perl_vendorarch}/auto/stfl/*
-
-%files ruby
-%{ruby_vendorarchdir}/stfl.so
-
 
 %changelog
+* Wed Dec 17 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.24-1.newsboat.gitbbb2404
+- Switch to newsboat fork (rhbz#2419779)
+
+* Wed Dec 17 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.22-54
+- Remove the Ruby and Perl subpackages (rhbz#2420468)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

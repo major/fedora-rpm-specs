@@ -51,8 +51,8 @@
 
 
 Name:          gdal
-Version:       3.12.0
-Release:       2%{?dist}
+Version:       3.12.1
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -619,7 +619,7 @@ done
 %{_mandir}/man1/gdal-vector-check-geometry.1.gz
 %{_mandir}/man1/gdal-vector-clean-coverage.1.gz
 %{_mandir}/man1/gdal-vector-clip.1*
-%{_mandir}/man1/gdal-vector_concat.1*
+%{_mandir}/man1/gdal-vector-concat.1*
 %{_mandir}/man1/gdal-vector-convert.1*
 %{_mandir}/man1/gdal-vector-edit.1*
 %{_mandir}/man1/gdal-vector-explode-collections.1.gz
@@ -879,6 +879,9 @@ done
 
 
 %changelog
+* Thu Dec 18 2025 Sandro Mani <manisandro@gmail.com> - 3.12.1-1
+- Update to 3.12.1
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 3.12.0-2
 - Rebuild (libtiff)
 

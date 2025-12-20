@@ -6,7 +6,7 @@
 %bcond clang      0   # Use Clang compiler
 %bcond draco      1   # Draco mesh compression support
 %bcond llvm       1   # Required for OSL support
-%bcond manifold   0   # Manifold support
+%bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
 %bcond materialx  0   # MaterialX support
 %bcond nanovdb    1   # NanoVDB support

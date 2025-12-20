@@ -34,12 +34,12 @@
 %endif
 
 # Do not generate autoprovides for Python modules
-%global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
+%global __provides_exclude_from ^%{python3_sitearch}/.*/lib.*\\.so$
 
 Name:		root
 Version:	6.38.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -95,8 +95,11 @@ Patch9:		%{name}-Fix-a-numpy-test-for-32-bit-archs.patch
 Patch10:	%{name}-VecOps-Remove-outdated-IsSmall-helper-function-in-te.patch
 Patch11:	%{name}-vecops-Adaptive-size-of-long-RVec-instances-in-RVec-.patch
 #		Backport fixes to python module
-Patch12:	root-cppyy-Remove-now-irrelevant-load_cpp_backend-call.patch
-Patch13:	root-cppyy-Remove-code-related-to-finding-CPyCppyy-API-he.patch
+Patch12:	%{name}-cppyy-Remove-now-irrelevant-load_cpp_backend-call.patch
+Patch13:	%{name}-cppyy-Remove-code-related-to-finding-CPyCppyy-API-he.patch
+#		Don't install the python modules twice
+#		https://github.com/root-project/root/pull/20753
+Patch14:	%{name}-PyROOT-Don-t-install-the-python-modules-twice.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1901,6 +1904,7 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2145,6 +2149,8 @@ mv %{buildroot}%{_libdir}/%{name}/*-gdb.py \
 # Fix python extension suffix
 mv %{buildroot}%{python3_sitearch}/ROOT/libROOTPythonizations.so \
    %{buildroot}%{python3_sitearch}/ROOT/libROOTPythonizations%{python3_ext_suffix}
+mv %{buildroot}%{python3_sitearch}/cppyy/libcppyy.so \
+   %{buildroot}%{python3_sitearch}/cppyy/libcppyy%{python3_ext_suffix}
 
 # Move noarch python modules to sitelib
 if [ "%{python3_sitelib}" != "%{python3_sitearch}" ] ; then
@@ -3437,6 +3443,10 @@ fi
 %endif
 
 %changelog
+* Thu Dec 18 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-3
+- Don't install the python modules twice
+- Fix Requires and Provides in the python3-root rpm
+
 * Thu Dec 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-2
 - Skip RPATH using -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON (replaces
   previously used root specific -Drpath:BOOL=OFF no longer available)

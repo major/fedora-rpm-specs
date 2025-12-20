@@ -3,15 +3,12 @@
 #
 Summary: An authorization framework
 Name: polkit
-Version: 126
-Release: 6%{?dist}
+Version: 127
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
 Source1: polkit.sysusers
-
-Patch1: loglevel-info-backport.patch
-Patch2: xml-nested-overflow.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -23,7 +20,7 @@ BuildRequires: gobject-introspection-devel
 BuildRequires: systemd, systemd-devel, systemd-rpm-macros
 BuildRequires: dbus-devel
 BuildRequires: pkgconfig(duktape)
-BuildRequires: meson
+BuildRequires: meson >= 1.4.0
 BuildRequires: git
 
 Requires: dbus
@@ -118,15 +115,19 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %files -f polkit-1.lang
 %doc COPYING NEWS.md README.md
 %{_datadir}/man/man1/*
+%{_datadir}/man/man5/*
 %{_datadir}/man/man8/*
 %{_datadir}/dbus-1/system.d/org.freedesktop.PolicyKit1.conf
 %{_datadir}/dbus-1/system-services/*
 %{_unitdir}/polkit.service
+%{_unitdir}/polkit-agent-helper.socket
+%{_unitdir}/polkit-agent-helper@.service
 %dir %{_datadir}/polkit-1/
 %dir %{_datadir}/polkit-1/actions
 %dir %{_datadir}/polkit-1/rules.d
 %{_datadir}/polkit-1/actions/org.freedesktop.policykit.policy
 %{_datadir}/polkit-1/policyconfig-1.dtd
+%{_datadir}/polkit-1/polkitd.conf
 %dir %{_sysconfdir}/polkit-1
 %{_datadir}/polkit-1/rules.d/50-default.rules
 %attr(0750,root,polkitd) %dir %{_sysconfdir}/polkit-1/rules.d

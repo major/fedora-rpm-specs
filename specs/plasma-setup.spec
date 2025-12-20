@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit 7f245167574fd4e644dc28f91373b3f615e5f826
+%global commit 359ce87477532065bf95d478f5d9270e8bd05c84
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20251215
+%global date 20251218
 
 %global orgname org.kde.plasmasetup
 
@@ -122,6 +122,9 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Thu Dec 18 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251218git359ce87-1
+- Bump to new git snapshot
+
 * Mon Dec 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251215git7f24516-1
 - Bump to new git snapshot
 

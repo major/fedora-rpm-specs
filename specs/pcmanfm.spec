@@ -18,12 +18,12 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare} >= 1
-%global		tarballdate	20250306
-%global		tarballtime	1455
-%define		use_gitcommit_as_rel		0
+%global		tarballdate	20251218
+%global		tarballtime	1224
+%define		use_gitcommit_as_rel		1
 
-%global		githeaddate	20250304
-%global		git_rev		50aa9435c49551993fcd3c20d18615795c8daedf
+%global		githeaddate	20251022
+%global		git_rev		09087446392d08c25412cade107bdec0a6e8ae7b
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{githeaddate}git%{git_short}
 %endif
@@ -51,7 +51,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	4%{?dist}%{flagrel}
+Release:	1%{?dist}%{flagrel}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -242,6 +242,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Thu Dec 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0^20251022git09087446-1
+- Update to the latest git
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

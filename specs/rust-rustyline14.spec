@@ -4,8 +4,8 @@
 
 %global crate rustyline
 
-Name:           rust-rustyline
-Version:        17.0.2
+Name:           rust-rustyline14
+Version:        14.0.0
 Release:        %autorelease
 Summary:        Readline implementation based on Antirez's Linenoise
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          rustyline-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax rusqlite dependency from ^0.31 to >=0.28,<0.38
+# * relax rusqlite dependency from ^0.31 to >=0.28,<0.32
 # * drop rusqlite/bundled feature for statically linking sqlite
 Patch:          rustyline-fix-metadata.diff
 

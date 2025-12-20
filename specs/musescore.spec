@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.6.4
+%global musescore_ver             4.6.5
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -29,7 +29,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        32%{?dist}
+Release:        33%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -795,6 +795,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Thu Dec 18 2025 Jerry James <loganjerry@gmail.com> - 4.6.5-33
+- Version 4.6.5
+
 * Thu Dec 04 2025 Jerry James  <loganjerry@gmail.com> - 4.6.4-32
 - Version 4.6.4
 

@@ -85,7 +85,7 @@ tar --strip-components=1 -xvf %{S:1} -C ext/libargparse
 %cmake \
      -DCMAKE_BUILD_TYPE=RelWithDebInfo           \
      -DAVIF_BUILD_APPS=1                         \
-     -DAVIF_BUILD_GDK_PIXBUF=1                   \
+     %{?with_check:-DAVIF_BUILD_TESTS=1 %{?with_gtest:-DAVIF_GTEST=SYSTEM}} \
      %{?with_aom:-DAVIF_CODEC_AOM=SYSTEM}        \
      -DAVIF_CODEC_DAV1D=SYSTEM                   \
      %{?with_rav1e:-DAVIF_CODEC_RAV1E=SYSTEM}    \

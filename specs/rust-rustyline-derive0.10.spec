@@ -2,23 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate reqwest-retry
+%global crate rustyline-derive
 
-Name:           rust-reqwest-retry
-Version:        0.8.0
+Name:           rust-rustyline-derive0.10
+Version:        0.10.0
 Release:        %autorelease
-Summary:        Retry middleware for reqwest
+Summary:        Rustyline derive macros (Completer, Helper, Hinter, Highlighter)
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/reqwest-retry
+License:        MIT
+URL:            https://crates.io/crates/rustyline-derive
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          reqwest-retry-fix-metadata-auto.diff
+Source2:        https://github.com/kkawakam/rustyline/raw/v14.0.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Retry middleware for reqwest.}
+Rustyline macros implementation of #[derive(Completer, Helper, Hinter,
+Highlighter)].}
 
 %description %{_description}
 
@@ -32,10 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -50,21 +47,10 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tracing-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tracing-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tracing-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

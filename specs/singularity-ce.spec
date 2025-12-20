@@ -3,7 +3,7 @@
 %undefine _debugsource_packages
 
 Name: singularity-ce
-Version: 4.3.5
+Version: 4.3.6
 Release: 1%{?dist}
 Summary: Application and environment virtualization
 
@@ -101,7 +101,7 @@ Provides: bundled(golang(github.com/containerd/stargz_snapshotter/estargz)) = v0
 Provides: bundled(golang(github.com/containerd/ttrpc)) = v1.2.7
 Provides: bundled(golang(github.com/containerd/typeurl/v2)) = v2.2.3
 Provides: bundled(golang(github.com/containernetworking/cni)) = v1.3.0
-Provides: bundled(golang(github.com/containernetworking/plugins)) = v1.8.0
+Provides: bundled(golang(github.com/containernetworking/plugins)) = v1.9.0
 Provides: bundled(golang(github.com/containers/image/v5)) = v5.36.2
 Provides: bundled(golang(github.com/containers/storage)) = v1.59.1
 Provides: bundled(golang(github.com/coreos/go_iptables)) = v0.8.0
@@ -114,7 +114,7 @@ Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.6.0
 Provides: bundled(golang(github.com/digitorus/pkcs7)) = v0.0.0_20230818184609_3a137a874352
 Provides: bundled(golang(github.com/digitorus/timestamp)) = v0.0.0_20231217203849_220c5c2851b7
 Provides: bundled(golang(github.com/distribution/reference)) = v0.6.0
-Provides: bundled(golang(github.com/docker/cli)) = v29.1.1+incompatible
+Provides: bundled(golang(github.com/docker/cli)) = v29.1.3+incompatible
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
 Provides: bundled(golang(github.com/docker/docker)) = v28.5.2+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.9.3
@@ -273,7 +273,7 @@ Provides: bundled(golang(github.com/sourcegraph/conc)) = v0.3.0
 Provides: bundled(golang(github.com/spdx/tools_golang)) = v0.5.5
 Provides: bundled(golang(github.com/spf13/afero)) = v1.12.0
 Provides: bundled(golang(github.com/spf13/cast)) = v1.7.1
-Provides: bundled(golang(github.com/spf13/cobra)) = v1.10.1
+Provides: bundled(golang(github.com/spf13/cobra)) = v1.10.2
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.10
 Provides: bundled(golang(github.com/spf13/viper)) = v1.20.1
 Provides: bundled(golang(github.com/spiffe/go_spiffe/v2)) = v2.6.0
@@ -392,6 +392,10 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Thu Dec 18 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.6-1
+- Upgrade to 4.3.6 upstream version.
+- Fixes CVE-2025-67499
+
 * Wed Dec 3 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.5-1
 - Upgrade to 4.3.5 upstream version.
 - Fixes CVE-2025-64750

@@ -1,13 +1,14 @@
-%global git_hash fd3a22656ebe9c91a96ebd846ab7699b5f2e053c
+%global git_hash ebbd65e568ccc79cfaaa5814a7d2a92b70ddd3ae
 
 Summary:	Object-oriented, high-level language for implementing smart contracts
 Name:		solidity
-Version:	0.8.31
+Version:	0.8.32
 Release:	%autorelease
 # Not enough deps on x86 and does not work on big-endian arches
 ExcludeArch:	%{ix86} s390x
 URL:		https://soliditylang.org/
-Source0:	https://github.com/ethereum/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+VCS:		git:https://github.com/argotorg/solidity.git
+Source0:	https://github.com/argotorg/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # libsolutil/picosha2.h licensed under MIT
 SourceLicense:	GPL-3.0-only and MIT
 License:	GPL-3.0-only

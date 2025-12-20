@@ -27,9 +27,20 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-Name:     rocm-cmake
+%bcond_with compat
+%if %{with compat}
+# install to /usr/lib64/rocm/<major>.<minor>
+%global pkg_prefix %{_prefix}/lib64/rocm/%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+%global pkg_name rocm-cmake%{pkg_suffix}
+
+Name:     %{pkg_name}
 Version:  %{rocm_version}
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  CMake modules for common build and development tasks for ROCm
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
@@ -57,24 +68,26 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' share/rocmcmak
 sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' share/rocmcmakebuildtools/cmake/ROCMInstallTargets.cmake
     
 %build
-%cmake
+%cmake -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
 %cmake_build
 
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocm-cmake/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-cmake/LICENSE
 
 %files
-%dir %{_datadir}/rocm
-%dir %{_datadir}/rocmcmakebuildtools
-
+%if %{without compat}
 %doc CHANGELOG.md
 %license LICENSE
-%{_datadir}/rocm/*
-%{_datadir}/rocmcmakebuildtools/*
+%endif
+%{pkg_prefix}/share/rocm/
+%{pkg_prefix}/share/rocmcmakebuildtools/
 
 %changelog
+* Mon Dec 15 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

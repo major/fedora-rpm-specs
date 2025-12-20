@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Subtitle file manipulation library
 
 License:        GPL-3.0-or-later
@@ -20,6 +20,8 @@ text-based subtitle files.
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
+Obsoletes:      gaupol < 1.16
+Conflicts:      gaupol < 1.16
 
 %description -n python3-%{pypi_name}
 Aeidon is a library for reading, writing and manipulating
@@ -54,6 +56,9 @@ rm -rf aeidon/data/{headers,patterns,ui}  # setup.py fails if this was already c
 %doc README.md
 
 %changelog
+* Thu Dec 18 2025 Sudip Shil <sshil@redhat.com> - 1.15-28
+- Add Obsoletes and Conflicts for gaupol to resolve upgrade deadlock (rhbz#2418575) 
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15-27
 - Rebuilt for Python 3.14.0rc3 bytecode
 

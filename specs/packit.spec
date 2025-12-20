@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.12.0
+Version:        1.13.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Tue Dec 09 2025 Packit <hello@packit.dev> - 1.13.0-1
+- `packit init` now automatically retrieves the latest version of the pre-commit hook to be added to the user's pre-commit configuration file. (#2651)
+- Resolves: rhbz#2420553
+
 * Fri Sep 19 2025 Packit <hello@packit.dev> - 1.12.0-1
 - Packit now automatically invokes an rpm build in mock when no rpm test is passed using `--rpm_paths` before running local tests with `packit test`. (#2636)
 - Fixed an issue where the upstream spec file was synchronized without applying packit's patches. (#2637)

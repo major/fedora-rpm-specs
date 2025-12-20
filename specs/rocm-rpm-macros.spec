@@ -19,9 +19,22 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-Name:           rocm-rpm-macros
-Version:        7.1.0
-Release:        7%{?dist}
+
+%global rocm_release 7.1
+%global rocm_patch 0
+%global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_suffix %{nil}
+%endif
+%global pkg_name rocm-rpm-macros%{pkg_suffix}
+
+Name:           %{pkg_name}
+Version:        %{rocm_version}
+Release:        8%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -134,6 +147,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-8
+- Add --with compat
+
 * Sun Dec 14 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-7
 - Fix rocm-7.1 libpath
 

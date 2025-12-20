@@ -2,8 +2,8 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:		tkimg
-Version:	1.4.16
-Release:	5%{?dist}
+Version:	2.1.0
+Release:	1%{?dist}
 Summary:	Image support library for Tk
 # The core tkimg code is TCL
 # tiff/ is libtiff
@@ -17,15 +17,10 @@ Summary:	Image support library for Tk
 License:	TCL AND libtiff AND HPND-Pbmplus AND URT-RLE AND IJG AND libpng-2.0 AND libpng-1.6.35 AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT AND Zlib
 # Try saying that three times fast.
 URL:		http://sourceforge.net/projects/tkimg
-Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/Img-%{version}-Source.tar.gz
+Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/2.1.0/Img-%{version}.tar.gz
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
-
-# CVE-2023-6277
-# https://gitlab.com/libtiff/libtiff/-/issues/614
-# https://gitlab.com/libtiff/libtiff/-/merge_requests/545
-Patch0:	tkimg-libtiff-CVE-2023-6277.patch
 
 # tkimg builds its own bundled copies of the zlib, libjpeg, libpng,
 # and libtiff libraries. From the README:
@@ -38,12 +33,24 @@ Patch0:	tkimg-libtiff-CVE-2023-6277.patch
 #  loading of shared libraries to load the support libraries at runtime.
 #  These have been abandoned in favor of the new approach.
 
-Provides: bundled(zlib) = 1.2.13
-Provides: bundled(libjpeg) = 9e
-Provides: bundled(libpng) = 1.6.39
-Provides: bundled(libtiff) = 4.5.0
-Requires: tcl(abi) = 8.6
-Requires: tk >= 8.6
+# Pulling in our own copy of libtiff 4.7.1 to fix a LOT of CVEs.
+Source1:	http://download.osgeo.org/libtiff/tiff-4.7.1.tar.gz
+
+# Patching things to apply to the libtiff 4.7.1 API
+Patch0:		tkimg-2.1.0-libtiff-4.7.1.patch
+
+# Pulling in our own copy of libpng 1.6.53 for some CVEs
+Source2:	https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.53.tar.gz
+
+# the tkimg copy of libpng disables some externs in a header
+Patch1:		tkimg-2.1.0-libpng-1.6.53.patch
+
+Provides: bundled(zlib) = 1.3.1
+Provides: bundled(libjpeg) = 9f
+Provides: bundled(libpng) = 1.6.53
+Provides: bundled(libtiff) = 4.7.1
+Requires: tcl(abi) = 9.0
+Requires: tk >= 9.0
 
 %description
 This package contains a collection of image format handlers for the Tk
@@ -59,9 +66,21 @@ These are the header files needed to develop a %{name} application
 
 %prep
 %setup -q -n Img-%{version}
-%patch -P 0 -p1 -b .CVE-2023-6277
+
+pushd compat
+rm -rf libtiff
+tar xf %{SOURCE1}
+mv tiff-4.7.1 libtiff
+rm -rf libpng
+tar xf %{SOURCE2}
+mv libpng-1.6.53 libpng
+popd
+
+%patch -P0 -p1 -b .tiff471
+%patch -P1 -p1 -b .libpng-1.6.53
 
 %build
+export CFLAGS="%{optflags} -fno-strict-aliasing"
 %configure --with-tcl=%{tcl_sitearch} --with-tk=%{_libdir} --libdir=%{tcl_sitearch} --disable-threads --enable-64bit
 
 make %{?_smp_mflags}
@@ -69,19 +88,28 @@ make %{?_smp_mflags}
 %install
 make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 
+# I have no idea why html files are getting installed into the mandir.
+rm -rf %{buildroot}%{_mandir}/html
+
 %files
-%doc README
+%doc README.md
 %{tcl_sitearch}/Img%{version}
 %{_mandir}/mann/img*
 %exclude %{tcl_sitearch}/Img%{version}/*.a
 
 %files devel
-%doc README
+%doc README.md
 %{_includedir}/*
 %{tcl_sitearch}/*.sh
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Thu Dec 18 2025 Tom Callaway <spot@fedoraproject.org> - 2.1.0-1
+- update to 2.1.0
+- update the bundled copy of libpng to 1.6.53
+- update the bundled copy of libtiff to 4.7.1
+- build for tcl/tk 9
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

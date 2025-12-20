@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.16
+Version:        1.45.17
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1582,6 +1582,9 @@ fi
 
 
 %changelog
+* Thu Dec 18 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.17-1
+- New upstream version 1.45.17
+
 * Mon Dec 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.16-1
 - New upstream version 1.45.16
 

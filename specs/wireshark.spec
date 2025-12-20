@@ -3,10 +3,12 @@
 %global with_maxminddb 1
 %global plugins_version 4.6
 
+%bcond http3 %[0%{?fedora} >= 43]
+
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.6.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -83,7 +85,9 @@ Buildrequires:	speexdsp-devel
 #needed for sdjournal external capture interface
 BuildRequires:	systemd-devel
 BuildRequires:	libnghttp2-devel
+%if %{with http3}
 BuildRequires:	libnghttp3-devel
+%endif
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	lz4-devel
 BuildRequires:	snappy-devel
@@ -277,6 +281,9 @@ fi
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Thu Dec 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:4.6.1-3
+- Enable HTTP/3 support on F43+ only
+
 * Tue Dec 09 2025 Alexey Kurov <nucleo@fedoraproject.org> - 1:4.6.1-2
 - BuildRequires: libnghttp3-devel - needed for HTTP3 support
 

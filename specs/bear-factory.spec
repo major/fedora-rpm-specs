@@ -5,7 +5,7 @@
 
 Name:           %{srcname}-factory
 Version:        0.7.0
-Release:        0.49.20200220git%{shortcommit0}%{?dist}
+Release:        0.50.20200220git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 # Automatically converted from old format: GPLv3+ and CC-BY-SA - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
@@ -19,6 +19,8 @@ Patch2:         0002-Fix-text_metric-issues.patch
 Patch3:         0003-gl_renderer-Protect-pause-unpause-against-unbalanced.patch
 Patch4:         0004-sound_manager-Fix-segmentation-fault-due-to-invalid-.patch
 Patch5:         0005-world-Fix-assertion-failure-in-physical_item-set_own.patch
+# Boost 1.90 support https://github.com/j-jorge/bear/issues/15
+Patch6:         bear-boost190.patch
 
 # Build is broken on ppc64le
 ExcludeArch:    ppc64le
@@ -137,6 +139,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/cmake/%{srcname}-engine
 
 %changelog
+* Tue Dec 16 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 0.7.0-0.50.20200220git2a78522
+- Patched for Boost 1.90
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.49.20200220git2a78522
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

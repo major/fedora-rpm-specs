@@ -4,12 +4,12 @@
 # The cvc5_pythonic_api project needs cvc5 to build, and cvc5 needs
 # cvc5_pythonic_api to build.  See cmake/FindCVC5PythonicAPI.cmake for the git
 # commit needed by this version of cvc5.
-%global pcommit 76b1acfb03c3548d5a471739dd28cd596872e426
+%global pcommit cdcac7cb2da79d922fc44628c1c3c5f60c2eeec4
 
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 

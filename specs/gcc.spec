@@ -1,10 +1,10 @@
-%global DATE 20251211
-%global gitrev 3c2c408e5ef993f208fbdcbd39b01717ab15be80
-%global gcc_version 15.2.1
-%global gcc_major 15
+%global DATE 20251218
+%global gitrev f73d23f06a1b8aa7cdce95a6092c0ce0f5650a00
+%global gcc_version 16.0.0
+%global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 5
+%global gcc_release 0
 %global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -45,6 +45,7 @@
 %global build_d 0
 %global build_m2 0
 %global build_cobol 0
+%global build_algol68 0
 %else
 %ifarch %{ix86} x86_64 ia64 ppc %{power64} alpha s390x %{arm} aarch64 riscv64
 %global build_ada 1
@@ -67,11 +68,12 @@
 %else
 %global build_m2 0
 %endif
-%ifarch x86_64 aarch64
+%ifarch x86_64 aarch64 ppc64le
 %global build_cobol 1
 %else
 %global build_cobol 0
 %endif
+%global build_algol68 1
 %endif
 %ifarch %{ix86} x86_64 ia64 ppc64le
 %global build_libquadmath 1
@@ -156,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}
+Release: %{gcc_release}.2%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -217,6 +219,9 @@ BuildRequires: python3-devel, /usr/bin/python
 BuildRequires: gcc, gcc-c++, make
 %if %{build_go}
 BuildRequires: hostname, procps
+%endif
+%if %{build_cobol}
+BuildRequires: libxml2-devel
 %endif
 # For VTA guality testing
 BuildRequires: gdb
@@ -300,23 +305,25 @@ Provides: bundled(libbacktrace)
 Provides: bundled(libffi)
 Provides: gcc(major) = %{gcc_major}
 
-Patch0: gcc15-hack.patch
-Patch2: gcc15-sparc-config-detection.patch
-Patch3: gcc15-libgomp-omp_h-multilib.patch
-Patch4: gcc15-libtool-no-rpath.patch
-Patch5: gcc15-isl-dl.patch
-Patch6: gcc15-isl-dl2.patch
-Patch7: gcc15-libstdc++-docs.patch
-Patch8: gcc15-no-add-needed.patch
-Patch9: gcc15-Wno-format-security.patch
-Patch10: gcc15-rh1574936.patch
-Patch11: gcc15-d-shared-libphobos.patch
-Patch12: gcc15-pr119006.patch
-Patch13: gcc15-libgomp-strchr.patch
+Patch0: gcc16-hack.patch
+Patch2: gcc16-sparc-config-detection.patch
+Patch3: gcc16-libgomp-omp_h-multilib.patch
+Patch4: gcc16-libtool-no-rpath.patch
+Patch5: gcc16-isl-dl.patch
+Patch6: gcc16-isl-dl2.patch
+Patch7: gcc16-libstdc++-docs.patch
+Patch8: gcc16-no-add-needed.patch
+Patch9: gcc16-Wno-format-security.patch
+Patch10: gcc16-rh1574936.patch
+Patch11: gcc16-d-shared-libphobos.patch
+Patch12: gcc16-pr119006.patch
+Patch13: gcc16-pr123152.patch
+Patch14: gcc16-pr123114.patch
+Patch15: gcc16-pr123115.patch
 
 Patch50: isl-rh2155127.patch
 
-Patch100: gcc15-fortran-fdec-duplicates.patch
+Patch100: gcc16-fortran-fdec-duplicates.patch
 
 # On ARM EABI systems, we do want -gnueabi to be part of the
 # target triple.
@@ -338,7 +345,7 @@ Patch100: gcc15-fortran-fdec-duplicates.patch
 %if %{build_go}
 # Avoid stripping these libraries and binaries.
 %global __os_install_post \
-chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.24.* \
+chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.25.* \
 chmod 644 %{buildroot}%{_prefix}/bin/go.gcc \
 chmod 644 %{buildroot}%{_prefix}/bin/gofmt.gcc \
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo \
@@ -346,7 +353,7 @@ chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/test2json \
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/vet \
 %__os_install_post \
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgo.so.24.* \
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgo.so.25.* \
 chmod 755 %{buildroot}%{_prefix}/bin/go.gcc \
 chmod 755 %{buildroot}%{_prefix}/bin/gofmt.gcc \
 chmod 755 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo \
@@ -588,15 +595,41 @@ Requires: gcc-gcobol = %{version}-%{release}
 %description -n libgcobol-static
 This package contains static COBOL libraries.
 
+%package algol68
+Summary: Algol 68 support
+Requires: gcc = %{version}-%{release}
+Requires: libga68 = %{version}-%{release}
+Autoreq: true
+
+%description algol68
+The gcc-algol68 package provides support for compiling Algol 68
+programs with the GNU Compiler Collection.
+
+%package -n libga68
+Summary: Algol 68 runtime
+Autoreq: true
+
+%description -n libga68
+This package contains Algol 68 shared libraries which are needed to run
+Algol 68 dynamically linked programs.
+
+%package -n libga68-static
+Summary: Static Algol 68 libraries
+Requires: libga68 = %{version}-%{release}
+Requires: gcc-algol68 = %{version}-%{release}
+
+%description -n libga68-static
+This package contains static Algol 68 libraries.
+
 %package -n libgomp
-Summary: GCC OpenMP v4.5 shared support library
+Summary: GCC OpenMP v5.2 shared support library
 
 %description -n libgomp
 This package contains GCC shared support library which is needed
-for OpenMP v4.5 support.
+for OpenMP v5.2 support.
 
 %package -n libgomp-offload-nvptx
-Summary: GCC OpenMP v4.5 plugin for offloading to NVPTX
+Summary: GCC OpenMP v5.2 plugin for offloading to NVPTX
 Requires: libgomp = %{version}-%{release}
 
 %description -n libgomp-offload-nvptx
@@ -605,7 +638,7 @@ PTX.  The plugin needs libcuda.so.1 shared library that has to be
 installed separately.
 
 %package -n libgomp-offload-amdgcn
-Summary: GCC OpenMP v4.5 plugin for offloading to AMD GCN
+Summary: GCC OpenMP v5.2 plugin for offloading to AMD GCN
 Requires: libgomp = %{version}-%{release}
 %if 0%{?fedora:1}
 Requires: rocm-runtime >= 6.0.0
@@ -963,14 +996,12 @@ rm -f libphobos/testsuite/libphobos.gc/forkgc2.d
 
 echo 'Red Hat %{version}-%{gcc_release}' > gcc/DEV-PHASE
 
-cp -a libstdc++-v3/config/cpu/i{4,3}86/atomicity.h
-
 ./contrib/gcc_update --touch
 
 LC_ALL=C sed -i -e 's/\xa0/ /' gcc/doc/options.texi
 
 sed -i -e 's/Common Driver Var(flag_report_bug)/& Init(1)/' gcc/common.opt
-sed -i -e 's/m_report_bug = false;/m_report_bug = true;/' gcc/diagnostic.cc
+sed -i -e 's/m_report_bug = false;/m_report_bug = true;/' gcc/diagnostics/context.cc
 
 %ifarch ppc
 if [ -d libstdc++-v3/config/abi/post/powerpc64-linux-gnu ]; then
@@ -1133,6 +1164,7 @@ enablelobjc=
 enableld=
 enablelm2=
 enablelcob=
+enablela68=
 %if %{build_objc}
 enablelobjc=,objc,obj-c++
 %endif
@@ -1150,6 +1182,9 @@ enablelm2=,m2
 %endif
 %if %{build_cobol}
 enablelcob=,cobol
+%endif
+%if %{build_algol68}
+enablela68=,algol68
 %endif
 offloadtgts=
 %if %{build_offload_nvptx}
@@ -1247,6 +1282,9 @@ CONFIGURE_OPTS="\
 %ifarch %{ix86} x86_64
 	--enable-cet \
 	--with-tune=generic \
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+	--with-tls=gnu2 \
+%endif
 %endif
 %if 0%{?rhel} >= 7
 %ifarch %{ix86}
@@ -1339,7 +1377,7 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 		  | sed 's/ -Wformat-security / -Wformat -Wformat-security /'`" \
 	XCFLAGS="$OPT_FLAGS" TCFLAGS="$OPT_FLAGS" \
 	../configure --enable-bootstrap \
-	--enable-languages=c,c++,fortran${enablelobjc}${enablelada}${enablelgo}${enableld}${enablelm2}${enablelcob},lto \
+	--enable-languages=c,c++,fortran${enablelobjc}${enablelada}${enablelgo}${enableld}${enablelm2}${enablelcob}${enablela68},lto \
 	$CONFIGURE_OPTS
 
 %ifarch sparc sparcv9 sparc64
@@ -1395,7 +1433,7 @@ cd ../..
 
 # Copy various doc files here and there
 cd ..
-mkdir -p rpm.doc/{gfortran,objc,gdc,libphobos,gm2,libgm2,libgdiagnostics-devel,gcobol,libgcobol}
+mkdir -p rpm.doc/{gfortran,objc,gdc,libphobos,gm2,libgm2,libgdiagnostics-devel,gcobol,libgcobol,algol68,libga68}
 mkdir -p rpm.doc/go rpm.doc/libgo rpm.doc/libquadmath rpm.doc/libitm
 mkdir -p rpm.doc/changelogs/{gcc/cp,gcc/ada,gcc/jit,libstdc++-v3,libobjc,libgomp,libcc1,libatomic,libsanitizer}
 
@@ -1437,6 +1475,14 @@ done)
 done)
 (cd libgcobol; for i in ChangeLog*; do
 	cp -p $i ../rpm.doc/libgcobol/$i.libgcobol
+done)
+%endif
+%if %{build_algol68}
+(cd gcc/algol68; for i in ChangeLog*; do
+	cp -p $i ../../rpm.doc/algol68/$i.algol68
+done)
+(cd libga68; for i in ChangeLog*; do
+	cp -p $i ../rpm.doc/libga68/$i.libga68
 done)
 %endif
 %if %{build_libquadmath}
@@ -1697,6 +1743,9 @@ mv %{buildroot}%{_prefix}/%{_lib}/libsanitizer.spec $FULLPATH/
 %if %{build_cobol}
 mv %{buildroot}%{_prefix}/%{_lib}/libgcobol.spec $FULLPATH/
 %endif
+%if %{build_algol68}
+mv %{buildroot}%{_prefix}/%{_lib}/libga68.spec $FULLPATH/
+%endif
 
 mkdir -p %{buildroot}/%{_lib}
 mv -f %{buildroot}%{_prefix}/%{_lib}/libgcc_s.so.1 %{buildroot}/%{_lib}/libgcc_s-%{gcc_major}-%{DATE}.so.1
@@ -1782,7 +1831,7 @@ ln -sf ../../../libstdc++.so.6.*[0-9] libstdc++.so
 ln -sf ../../../libgfortran.so.5.* libgfortran.so
 ln -sf ../../../libgomp.so.1.* libgomp.so
 %if %{build_go}
-ln -sf ../../../libgo.so.24.* libgo.so
+ln -sf ../../../libgo.so.25.* libgo.so
 %endif
 %if %{build_libquadmath}
 ln -sf ../../../libquadmath.so.0.* libquadmath.so
@@ -1793,11 +1842,14 @@ ln -sf ../../../libgphobos.so.6.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
-  ln -sf ../../../libm2$i.so.20.* libm2$i.so
+  ln -sf ../../../libm2$i.so.21.* libm2$i.so
 done
 %endif
 %if %{build_cobol}
-ln -sf ../../../libgcobol.so.1.* libgcobol.so
+ln -sf ../../../libgcobol.so.2.* libgcobol.so
+%endif
+%if %{build_algol68}
+ln -sf ../../../libga68.so.2.* libga68.so
 %endif
 %if %{build_libitm}
 ln -sf ../../../libitm.so.1.* libitm.so
@@ -1820,7 +1872,7 @@ ln -sf ../../../../%{_lib}/libstdc++.so.6.*[0-9] libstdc++.so
 ln -sf ../../../../%{_lib}/libgfortran.so.5.* libgfortran.so
 ln -sf ../../../../%{_lib}/libgomp.so.1.* libgomp.so
 %if %{build_go}
-ln -sf ../../../../%{_lib}/libgo.so.24.* libgo.so
+ln -sf ../../../../%{_lib}/libgo.so.25.* libgo.so
 %endif
 %if %{build_libquadmath}
 ln -sf ../../../../%{_lib}/libquadmath.so.0.* libquadmath.so
@@ -1831,11 +1883,14 @@ ln -sf ../../../../%{_lib}/libgphobos.so.6.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
-  ln -sf ../../../../%{_lib}/libm2$i.so.20.* libm2$i.so
+  ln -sf ../../../../%{_lib}/libm2$i.so.21.* libm2$i.so
 done
 %endif
 %if %{build_cobol}
-ln -sf ../../../../%{_lib}/libgcobol.so.1.* libgcobol.so
+ln -sf ../../../../%{_lib}/libgcobol.so.2.* libgcobol.so
+%endif
+%if %{build_algol68}
+ln -sf ../../../../%{_lib}/libga68.so.2.* libga68.so
 %endif
 %if %{build_libitm}
 ln -sf ../../../../%{_lib}/libitm.so.1.* libitm.so
@@ -1892,6 +1947,9 @@ done
 %endif
 %if %{build_cobol}
 mv -f %{buildroot}%{_prefix}/%{_lib}/libgcobol.*a $FULLLPATH/
+%endif
+%if %{build_algol68}
+mv -f %{buildroot}%{_prefix}/%{_lib}/libga68.*a $FULLLPATH/
 %endif
 %if %{build_libitm}
 mv -f %{buildroot}%{_prefix}/%{_lib}/libitm.*a $FULLLPATH/
@@ -1968,8 +2026,8 @@ ln -sf ../`echo ../../../../lib/libgfortran.so.5.* | sed s~/lib/~/lib64/~` 64/li
 ln -sf ../`echo ../../../../lib/libgomp.so.1.* | sed s~/lib/~/lib64/~` 64/libgomp.so
 %if %{build_go}
 rm -f libgo.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > libgo.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > 64/libgo.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgo.so.25.* | sed 's,^.*libg,libg,'`' )' > libgo.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgo.so.25.* | sed 's,^.*libg,libg,'`' )' > 64/libgo.so
 %endif
 %if %{build_libquadmath}
 rm -f libquadmath.so
@@ -1986,8 +2044,8 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgphobos.so.6.* | sed 's
 %if %{build_m2}
 for i in cor iso log min pim; do
   rm -f libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > 64/libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libm2$i.so.21.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libm2$i.so.21.* | sed 's,^.*libm,libm,'`' )' > 64/libm2$i.so
   rm -f 64/m2/m2$i/*.{a,la}
   ln -sf ../../libm2$i.so 64/m2/m2$i/
   ln -sf ../../libm2$i.a 64/m2/m2$i/
@@ -1995,8 +2053,13 @@ done
 %endif
 %if %{build_cobol}
 rm -f libgcobol.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > libgcobol.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > 64/libgcobol.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgcobol.so.2.* | sed 's,^.*libg,libg,'`' )' > libgcobol.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgcobol.so.2.* | sed 's,^.*libg,libg,'`' )' > 64/libgcobol.so
+%endif
+%if %{build_algol68}
+rm -f libga68.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > libga68.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > 64/libga68.so
 %endif
 %if %{build_libitm}
 rm -f libitm.so
@@ -2053,6 +2116,10 @@ done
 ln -sf lib32/libgcobol.a libgcobol.a
 ln -sf ../lib64/libgcobol.a 64/libgcobol.a
 %endif
+%if %{build_algol68}
+ln -sf lib32/libga68.a libga68.a
+ln -sf ../lib64/libga68.a 64/libga68.a
+%endif
 %if %{build_libitm}
 ln -sf lib32/libitm.a libitm.a
 ln -sf ../lib64/libitm.a 64/libitm.a
@@ -2094,8 +2161,8 @@ ln -sf ../`echo ../../../../lib64/libgfortran.so.5.* | sed s~/../lib64/~/~` 32/l
 ln -sf ../`echo ../../../../lib64/libgomp.so.1.* | sed s~/../lib64/~/~` 32/libgomp.so
 %if %{build_go}
 rm -f libgo.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > libgo.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > 32/libgo.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgo.so.25.* | sed 's,^.*libg,libg,'`' )' > libgo.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgo.so.25.* | sed 's,^.*libg,libg,'`' )' > 32/libgo.so
 %endif
 %if %{build_libquadmath}
 rm -f libquadmath.so
@@ -2112,8 +2179,8 @@ echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgphobos.so.6.* | sed 's
 %if %{build_m2}
 for i in cor iso log min pim; do
   rm -f libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > 32/libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libm2$i.so.21.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libm2$i.so.21.* | sed 's,^.*libm,libm,'`' )' > 32/libm2$i.so
   rm -f 32/m2/m2$i/*.{a,la}
   ln -sf ../../libm2$i.so 32/m2/m2$i/
   ln -sf ../../libm2$i.a 32/m2/m2$i/
@@ -2121,8 +2188,13 @@ done
 %endif
 %if %{build_cobol}
 rm -f libgcobol.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > libgcobol.so
-#echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgcobol.so.1.* | sed 's,^.*libg,libg,'`' )' > 32/libgcobol.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgcobol.so.2.* | sed 's,^.*libg,libg,'`' )' > libgcobol.so
+#echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgcobol.so.2.* | sed 's,^.*libg,libg,'`' )' > 32/libgcobol.so
+%endif
+%if %{build_algol68}
+rm -f libga68.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > libga68.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libga68.so.2.* | sed 's,^.*libg,libg,'`' )' > 32/libga68.so
 %endif
 %if %{build_libitm}
 rm -f libitm.so
@@ -2181,6 +2253,10 @@ done
 ln -sf ../lib32/libgcobol.a 32/libgcobol.a
 ln -sf lib64/libgcobol.a libgcobol.a
 %endif
+%if %{build_algol68}
+ln -sf ../lib32/libga68.a 32/libga68.a
+ln -sf lib64/libga68.a libga68.a
+%endif
 %if %{build_libitm}
 ln -sf ../lib32/libitm.a 32/libitm.a
 ln -sf lib64/libitm.a libitm.a
@@ -2232,6 +2308,9 @@ done
 %endif
 %if %{build_cobol}
 #ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libgcobol.a 32/libgcobol.a
+%endif
+%if %{build_algol68}
+ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libga68.a 32/libga68.a
 %endif
 %if %{build_libitm}
 ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libitm.a 32/libitm.a
@@ -2303,11 +2382,14 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.6.*
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
-  chmod 755 %{buildroot}%{_prefix}/%{_lib}/libm2$i.so.20.*
+  chmod 755 %{buildroot}%{_prefix}/%{_lib}/libm2$i.so.21.*
 done
 %endif
 %if %{build_cobol}
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgcobol.so.1.*
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgcobol.so.2.*
+%endif
+%if %{build_algol68}
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libga68.so.2.*
 %endif
 %if %{build_libitm}
 chmod 755 %{buildroot}%{_prefix}/%{_lib}/libitm.so.1.*
@@ -2332,7 +2414,7 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/liblsan.so.0.*
 %endif
 %if %{build_go}
 # Avoid stripping these libraries and binaries.
-chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.24.*
+chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.25.*
 chmod 644 %{buildroot}%{_prefix}/bin/go.gcc
 chmod 644 %{buildroot}%{_prefix}/bin/gofmt.gcc
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo
@@ -2403,6 +2485,7 @@ rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gdc || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gm2 || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gcobc || :
 rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-gcobol || :
+rm -f %{buildroot}%{_prefix}/bin/%{_target_platform}-ga68 || :
 
 %ifarch %{multilib_64_archs}
 # Remove libraries for the other arch on multilib arches
@@ -2428,7 +2511,7 @@ rm -rf %{buildroot}%{_prefix}/lib64/go/%{gcc_major}/%{gcc_target_platform}
 
 rm -f %{buildroot}%{_prefix}/lib*/lib*.spec || :
 rm -f %{buildroot}%{_prefix}/lib*/libstdc++.modules.json || :
-rm -f %{buildroot}%{_prefix}/%{_lib}/lib{asan,atomic,gcc_s,gcobol,gdruntime,gfortran,go,gomp-plugin-*,gomp,gphobos,hwasan}.so || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/lib{asan,atomic,gcc_s,gcobol,ga68,gdruntime,gfortran,go,gomp-plugin-*,gomp,gphobos,hwasan}.so || :
 rm -f %{buildroot}%{_prefix}/%{_lib}/lib{itm,lsan,m2{cor,iso,log,min,pim},objc,quadmath,stdc++,tsan,ubsan}.so || :
 rm -f %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/install-tools/{fixinc.sh,mkinstalldirs} || :
 rm -f %{buildroot}%{_prefix}/share/locale/*/LC_MESSAGES/libstdc++.mo || :
@@ -2648,6 +2731,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/stdatomic.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/gcov.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/stdckdint.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/stdcountof.h
 %ifarch %{ix86} x86_64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/mmintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/xmmintrin.h
@@ -2759,12 +2843,6 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxfp8intrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxmovrsintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxtf32intrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxtransposeintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512bf16intrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512convertintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512mediaintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512minmaxintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512satcvtintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2bf16intrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2convertintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2copyintrin.h
@@ -2772,6 +2850,8 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2minmaxintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2satcvtintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/movrsintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512bmmintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512bmmvlintrin.h
 %endif
 %ifarch ia64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/ia64intrin.h
@@ -2836,6 +2916,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_bitmanip.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_th_vector.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sifive_vector.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/andes_vector.h
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sanitizer
@@ -3294,7 +3375,7 @@ end
 %doc rpm.doc/gm2/*
 
 %files -n libgm2
-%{_prefix}/%{_lib}/libm2*.so.20*
+%{_prefix}/%{_lib}/libm2*.so.21*
 %doc rpm.doc/libgm2/*
 
 %files -n libgm2-static
@@ -3326,11 +3407,11 @@ end
 %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cobol1
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.spec
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.so
-%{_datadir}/gcobol
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/cobol
 %doc rpm.doc/gcobol/*
 
 %files -n libgcobol
-%{_prefix}/%{_lib}/libgcobol.so.1*
+%{_prefix}/%{_lib}/libgcobol.so.2*
 %doc rpm.doc/libgcobol/*
 
 %files -n libgcobol-static
@@ -3338,6 +3419,53 @@ end
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.a
+%endif
+
+%if %{build_algol68}
+%files algol68
+%{_prefix}/bin/ga68
+%{_mandir}/man1/ga68.1*
+%dir %{_prefix}/libexec/gcc
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
+%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/a681
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libga68.spec
+%ifarch sparcv9 sparc64 ppc ppc64 ppc64p7
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libga68.a
+%endif
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libga68.so
+%ifarch sparcv9 ppc
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libga68.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libga68.so
+%endif
+%ifarch %{multilib_64_archs}
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libga68.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libga68.so
+%endif
+%{_infodir}/ga68*
+%doc rpm.doc/algol68/*
+
+%files -n libga68
+%{_prefix}/%{_lib}/libga68.so.2*
+%doc rpm.doc/libga68/*
+
+%files -n libga68-static
+%dir %{_prefix}/lib/gcc
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
+%ifarch sparcv9 ppc
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib32
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib32/libga68.a
+%endif
+%ifarch sparc64 ppc64 ppc64p7
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib64
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib64/libga68.a
+%endif
+%ifnarch sparcv9 sparc64 ppc ppc64 ppc64p7
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libga68.a
+%endif
 %endif
 
 %if %{build_ada}
@@ -3656,8 +3784,8 @@ end
 %doc rpm.doc/go/*
 
 %files -n libgo
-%{_prefix}/%{_lib}/libgo.so.24
-%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.24.*
+%{_prefix}/%{_lib}/libgo.so.25
+%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.25.*
 %doc rpm.doc/libgo/*
 
 %files -n libgo-devel
@@ -3809,510 +3937,5 @@ end
 %endif
 
 %changelog
-* Thu Dec 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-5
-- update from releases/gcc-15 branch
-  - PRs ada/111433, ada/115305, ada/122640, ada/123037, c/121506, c/123018,
-	c++/119580, c++/120529, c++/120876, c++/121325, c++/121445,
-	c++/122625, c++/122658, c++/122677, c++/122789, fortran/122709,
-	fortran/122977, libstdc++/122661, libstdc++/122726, libstdc++/122743,
-	libstdc++/122842, libstdc++/122921, lto/122515, middle-end/120052,
-	middle-end/120564, middle-end/121581, middle-end/122624,
-	rtl-optimization/122627, target/110796, target/118446, target/119275,
-	target/121853, target/122175, target/122189, target/122216,
-	target/122446, target/122539, target/122652, target/122656,
-	target/122692, target/122695, target/122858, target/122867,
-	target/122991, tree-optimization/121776, tree-optimization/122126,
-	tree-optimization/122225, tree-optimization/122943
-- create gnatgcc symlink only when building Ada
-- avoid building libssp and disabled libraries
-- remove various unpackaged files from the buildroot
-
-* Tue Nov 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-4
-- update from releases/gcc-15 branch
-  - PRs ada/81087, ada/118208, ada/118782, c++/122192, c++/122253, c++/122310,
-	c++/122381, c++/122421, fortran/107968, fortran/114023,
-	fortran/122206, fortran/122386, rtl-optimization/122321,
-	target/99930, target/118460, target/119079, target/120674,
-	target/121604, target/122097, target/122270, target/122323,
-	target/122516, target/122527, tree-optimization/122012,
-	tree-optimization/122394, tree-optimization/122408,
-	tree-optimization/122505
-  - fix ICE while building firefox with LTO+PGO (#2395476, PR lto/122620)
-
-* Wed Oct 22 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-3
-- update from releases/gcc-15 branch
-  - PRs ada/107536, ada/113536, ada/117517, ada/118343, c/122188, c++/120757,
-	c++/121981, c++/122302, fortran/108581, fortran/121616,
-	fortran/121939, go/104290, libstdc++/122062, libstdc++/122322,
-	middle-end/121922, middle-end/122133, target/110812, target/121599,
-	target/121652, target/121742, target/121780, target/121781,
-	target/121845, target/121875, target/122119, target/122177,
-	target/122187, target/122210, target/122220, target/122222,
-	target/122223, tree-optimization/121772, tree-optimization/122104,
-	tree-optimization/122213
-- package libgcobol.spec (#2401679)
-
-* Wed Sep 24 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-2
-- update from releases/gcc-15 branch
-  - PRs ada/121968, bootstrap/118009, bootstrap/119089, c++/97740, c++/119859,
-	c++/120499, c++/120620, c++/121351, c++/121396, c++/121524,
-	c++/121724, c++/121795, c++/121801, c++/121977, c++/122015,
-	c++/122019, fortran/89092, fortran/121263, libfortran/121234,
-	libgcc/117600, libstdc++/110853, libstdc++/117276, libstdc++/119861,
-	libstdc++/120390, libstdc++/120698, libstdc++/121097,
-	libstdc++/121313, libstdc++/121374, libstdc++/121496,
-	libstdc++/121745, libstdc++/121827, middle-end/121453,
-	middle-end/121828, middle-end/121831, rtl-optimization/87600,
-	rtl-optimization/120718, rtl-optimization/120983,
-	rtl-optimization/121253, rtl-optimization/121757, target/49857,
-	target/81540, target/116445, target/118280, target/118885,
-	target/119830, target/120476, target/120691, target/120986,
-	target/121007, target/121118, target/121208, target/121294,
-	target/121414, target/121449, target/121464, target/121510,
-	target/121534, target/121542, target/121548, target/121602,
-	target/121608, target/121634, target/121749, target/121794,
-	target/121906, testsuite/118567, tree-optimization/107997,
-	tree-optimization/121370, tree-optimization/121527,
-	tree-optimization/121659, tree-optimization/121844,
-	tree-optimization/121870, tree-optimization/122016
-
-* Fri Aug  8 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-1
-- update from releases/gcc-15 branch
-  - GCC 15.2 release
-  - PRs ada/120440, ada/121184, c/119950, c/120055, c/120353, c/120354,
-	c++/95615, c++/108080, c++/109283, c++/115605, c++/115908, c++/116775,
-	c++/118074, c++/118903, c++/119916, c++/120224, c++/120243,
-	c++/120273, c++/120412, c++/120453, c++/120495, c++/120577,
-	c++/120756, c++/120800, c++/120845, c++/121055, c++/121133,
-	c++/121219, c++/121238, cobol/119231, cobol/119323, cobol/119335,
-	cobol/119337, cobol/119377, cobol/119524, cobol/119632, cobol/119695,
-	cobol/119770, cobol/119771, cobol/119772, cobol/119790, cobol/119810,
-	cobol/119885, cobol/119975, cobol/120251, cobol/120328, cobol/120402,
-	cobol/120621, cobol/120765, cobol/120772, cobol/120779, cobol/120790,
-	cobol/120791, cobol/120794, fortran/119106, fortran/121145,
-	fortran/121203, ipa/114790, libstdc++/119962, libstdc++/121373,
-	lto/120308, middle-end/119835, middle-end/121095, middle-end/121159,
-	middle-end/121322, middle-end/121389, rtl-optimization/121340,
-	target/118891, target/119692, target/119737, target/119853,
-	target/119854, target/120119, target/120351, target/120427,
-	target/120530, target/120645, target/120714, target/121027,
-	target/121028, target/121064, target/121121, target/121274,
-	target/121277, testsuite/121286, testsuite/121288,
-	tree-optimization/117423, tree-optimization/118891,
-	tree-optimization/119085, tree-optimization/121127,
-	tree-optimization/121130, tree-optimization/121190,
-	tree-optimization/121202, tree-optimization/121256,
-	tree-optimization/121264, tree-optimization/121320,
-	tree-optimization/121323, tree-optimization/121413
-
-* Sat Jul 19 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-5
-- update from releases/gcc-15 branch
-  - PRs cobol/119818, middle-end/120935, modula2/121164, testsuite/119508
-
-* Fri Jul 18 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-4
-- update from releases/gcc-15 branch
-  - PRs ada/121056, c++/87097, c++/120569, c++/120628, c++/120954,
-	fortran/104428, fortran/120637, fortran/120843, fortran/120847,
-	fortran/121060, ipa/121023, libstdc++/118681, libstdc++/119754,
-	libstdc++/120997, middle-end/120709, modula2/117203, modula2/119650,
-	modula2/120253, modula2/120389, modula2/120474, modula2/120497,
-	modula2/120542, modula2/120606, modula2/120673, modula2/120731,
-	modula2/120912, rtl-optimization/120242, rtl-optimization/120627,
-	rtl-optimization/120736, rtl-optimization/120813, target/118241,
-	target/120356, target/120807, target/120908, target/120995,
-	target/120999, tree-optimization/118669, tree-optimization/120358,
-	tree-optimization/120780, tree-optimization/120817,
-	tree-optimization/120924, tree-optimization/120944,
-	tree-optimization/121035, tree-optimization/121049,
-	tree-optimization/121059, tree-optimization/121131
-
-* Mon Jul  7 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-3
-- update from releases/gcc-15 branch
-  - PRs ada/120665, ada/120705, ada/120854, c/120180, c++/116064, c++/120123,
-	c++/120363, c++/120413, c++/120414, c++/120471, c++/120502,
-	c++/120555, c++/120575, c++/120684, c++/120940, fortran/51961,
-	fortran/85750, fortran/99838, fortran/101735, fortran/102599,
-	fortran/114022, fortran/119856, fortran/119948, fortran/120193,
-	fortran/120355, fortran/120483, fortran/120711, fortran/120784,
-	ipa/120295, libfortran/119856, libstdc++/99832, libstdc++/120367,
-	libstdc++/120432, libstdc++/120465, libstdc++/120548,
-	libstdc++/120625, libstdc++/120648, libstdc++/120650,
-	libstdc++/120931, libstdc++/120934, middle-end/118694,
-	middle-end/120369, middle-end/120547, middle-end/120608,
-	middle-end/120631, rtl-optimization/116389, rtl-optimization/120050,
-	rtl-optimization/120182, rtl-optimization/120347,
-	rtl-optimization/120423, rtl-optimization/120550,
-	rtl-optimization/120795, target/86772, target/119971, target/120042,
-	target/120441, target/120442, target/120480, target/120624,
-	testsuite/52641, testsuite/120082, testsuite/120919,
-	tree-optimization/116352, tree-optimization/119960,
-	tree-optimization/120003, tree-optimization/120341,
-	tree-optimization/120357, tree-optimization/120638,
-	tree-optimization/120654, tree-optimization/120677,
-	tree-optimization/120729, tree-optimization/120927
-- fix up FE lowering of pointer arith (PR c/120837)
-- perform %%check with -foffload=disable flag
-
-* Wed May 21 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-2
-- update from releases/gcc-15 branch
-  - PRs ada/112958, ada/120104, c/120057, c++/119863, c++/119864, c++/119938,
-	c++/119939, c++/119981, c++/119996, c++/120012, c++/120013,
-	c++/120023, c++/120125, c++/120161, c++/120350, fortran/102891,
-	fortran/102900, fortran/119928, fortran/119986, fortran/120049,
-	fortran/120107, fortran/120139, fortran/120163, fortran/120179,
-	fortran/120191, ipa/119852, ipa/119973, ipa/120006, ipa/120146,
-	libfortran/120152, libfortran/120153, libfortran/120158,
-	libfortran/120196, libstdc++/118260, libstdc++/119427,
-	libstdc++/119714, libstdc++/120029, libstdc++/120114,
-	libstdc++/120159, libstdc++/120187, libstdc++/120190,
-	libstdc++/120198, libstdc++/120293, modula2/115276, modula2/119914,
-	modula2/119915, modula2/120117, modula2/120188, preprocessor/116047,
-	preprocessor/120061, target/119610, testsuite/119909,
-	tree-optimization/111873, tree-optimization/119712,
-	tree-optimization/120043, tree-optimization/120048,
-	tree-optimization/120074, tree-optimization/120089,
-	tree-optimization/120143, tree-optimization/120211
-
-* Fri Apr 25 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-1
-- update from releases/gcc-15 branch
-  - GCC 15.1 release
-  - PRs fortran/119836, target/119327, target/119873, tree-optimization/118407
-
-* Fri Apr 18 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.14
-- update from releases/gcc-14 branch
-  - GCC 15.1.0-rc1
-  - PRs tree-optimization/119858
-
-* Thu Apr 17 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.13
-- update from trunk and releases/gcc-14 branch
-  - PRs ada/119643, c/88382, c/119717, c++/99214, c++/101180, c++/106618,
-	c++/111075, c++/112288, c++/113360, c++/113835, c++/114772,
-	c++/114970, c++/115639, c++/116416, c++/116954, c++/119175,
-	c++/119345, c++/119687, c++/119692, c++/119755, c++/119807,
-	cobol/119217, cobol/119302, cobol/119694, cobol/119759, cobol/119776,
-	cobol/119777, d/109023, d/119758, d/119761, d/119799, d/119817,
-	d/119826, driver/90465, driver/119727, fortran/106948, fortran/119669,
-	ipa/113203, ipa/119318, ipa/119803, libfortran/119502, libgcc/101075,
-	libgcc/119796, libgomp/119849, libstdc++/21334, libstdc++/119725,
-	libstdc++/119748, libstdc++/119840, lto/119792, middle-end/14708,
-	middle-end/105548, middle-end/119706, middle-end/119808,
-	modula2/119735, modula2/119779, rtl-optimization/118502,
-	rtl-optimization/119785, rust/119341, rust/119342, sanitizer/119801,
-	target/42683, target/97106, target/97585, target/106445,
-	target/108134, target/113633, target/116827, target/118794,
-	target/119298, target/119386, target/119533, target/119547,
-	target/119673, target/119784, target/119834, testsuite/117706,
-	translation/119684, tree-optimization/71094, tree-optimization/87909,
-	tree-optimization/112822, tree-optimization/116093,
-	tree-optimization/118476, tree-optimization/119351,
-	tree-optimization/119399, tree-optimization/119706,
-	tree-optimization/119707, tree-optimization/119718,
-	tree-optimization/119722, tree-optimization/119757,
-	tree-optimization/119778
-
-* Thu Apr 10 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.12
-- update from trunk
-  - PRs ada/119571, analyzer/113253, bootstrap/119680, c/78008, c/81831,
-	c/101440, c/114957, c/117689, c/118118, c/119173, c/119582, c/119612,
-	c++/60972, c++/64500, c++/90468, c++/99546, c++/106976, c++/109961,
-	c++/113925, c++/116285, c++/116960, c++/117336, c++/117530,
-	c++/117849, c++/118249, c++/118626, c++/118629, c++/118698,
-	c++/118982, c++/119303, c++/119383, c++/119387, c++/119401,
-	c++/119462, c++/119518, c++/119551, c++/119563, c++/119564,
-	c++/119574, c++/119608, c++/119652, cobol/119283, cobol/119295,
-	cobol/119364, cobol/119414, cobol/119521, cobol/119682, d/117002,
-	d/117832, d/118309, driver/58973, fortran/101602, fortran/119460,
-	fortran/119656, gcov-profile/119535, gcov-profile/119553,
-	gcov-profile/119618, ipa/119599, libfortran/119460, libstdc++/109162,
-	libstdc++/110498, libstdc++/114758, libstdc++/114945,
-	libstdc++/115046, libstdc++/119517, libstdc++/119545,
-	libstdc++/119550, libstdc++/119593, libstdc++/119620,
-	libstdc++/119642, libstdc++/119671, middle-end/78874,
-	middle-end/101018, middle-end/112589, middle-end/116595,
-	middle-end/118965, middle-end/119442, middle-end/119482,
-	middle-end/119537, middle-end/119541, middle-end/119559,
-	middle-end/119613, middle-end/119662, preprocessor/118674,
-	preprocessor/119391, rtl-optimization/119291, rtl-optimization/119594,
-	rtl-optimization/119672, rtl-optimization/119689, target/117759,
-	target/119308, target/119369, target/119473, target/119539,
-	target/119549, target/119556, target/119572, target/119573,
-	target/119645, target/119664, target/119678, testsuite/116398,
-	testsuite/118597, tree-optimization/80331, tree-optimization/87502,
-	tree-optimization/103827, tree-optimization/113281,
-	tree-optimization/118924, tree-optimization/119491,
-	tree-optimization/119493, tree-optimization/119532,
-	tree-optimization/119534, tree-optimization/119586,
-	tree-optimization/119614, tree-optimization/119616,
-	tree-optimization/119640, web/119227
-  - fix up LTO opts handling (##2356219, PR lto/119625)
-
-* Sat Mar 29 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.11
-- update from trunk
-  - PRs ada/119265, ada/119440, analyzer/119278, bootstrap/119513, c/116545,
-	c/118061, c/118765, c/119311, c/119350, c/119366, c++/101881,
-	c++/114525, c++/114992, c++/118104, c++/118920, c++/118961,
-	c++/119194, c++/119233, c++/119316, c++/119344, c++/119370,
-	c++/119378, c++/119379, cobol/119213, cobol/119214, cobol/119241,
-	cobol/119242, cobol/119244, cobol/119290, cobol/119301, cobol/119390,
-	d/117621, d/118545, debug/101533, driver/101544, fortran/60560,
-	fortran/85836, fortran/116706, fortran/118796, fortran/119272,
-	fortran/119338, fortran/119349, fortran/119380, fortran/119403,
-	fortran/119406, fortran/119419, gcov-profile/118442, ipa/98265,
-	ipa/116572, ipa/119147, ipa/119376, ipa/119484, libfortran/85836,
-	libgomp/96835, libitm/88319, libstdc++/101527, libstdc++/101587,
-	libstdc++/108487, libstdc++/111055, libstdc++/111138,
-	libstdc++/116440, libstdc++/117214, libstdc++/117983,
-	libstdc++/118699, libstdc++/119135, libstdc++/119282,
-	libstdc++/119358, libstdc++/119415, libstdc++/119429,
-	libstdc++/119469, libstdc++/119488, middle-end/93437,
-	middle-end/112938, middle-end/113546, middle-end/117811,
-	middle-end/118627, middle-end/118795, middle-end/119325,
-	modula2/115111, modula2/118045, modula2/118600, modula2/119449,
-	modula2/119504, other/42270, other/119218, other/119250, other/119510,
-	preprocessor/108900, rtl-optimization/118615, rtl-optimization/118914,
-	rtl-optimization/119285, rtl-optimization/119307, rust/119333,
-	target/55583, target/91614, target/92713, target/96226, target/98743,
-	target/101544, target/112980, target/117069, target/117092,
-	target/117452, target/118068, target/119010, target/119114,
-	target/119120, target/119172, target/119224, target/119235,
-	target/119270, target/119286, target/119355, target/119357,
-	target/119408, target/119421, target/119425, target/119428,
-	target/119450, target/119465, testsuite/113634, testsuite/113965,
-	testsuite/116163, testsuite/119220, testsuite/119382,
-	testsuite/119489, tree-optimization/37143, tree-optimization/105820,
-	tree-optimization/118616, tree-optimization/119155,
-	tree-optimization/119274, tree-optimization/119287,
-	tree-optimization/119389, tree-optimization/119417,
-	tree-optimization/119483
-- package gcc-gcobol on x86_64 and aarch64 so far
-- turn unversioned obsoletes into versioned ones
-
-* Thu Mar 13 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.10
-- update from trunk
-  - PRs analyzer/117262, c/60440, c/67301, c/112960, c/113515, c/117029,
-	c/117178, c/118579, c/119183, c++/98533, c++/100589, c++/109431,
-	c++/110584, c++/114795, c++/115580, c++/116740, c++/117364,
-	c++/117504, c++/117512, c++/118775, c++/118787, c++/118799,
-	c++/118874, c++/119073, c++/119076, c++/119102, c++/119123,
-	c++/119134, c++/119138, c++/119150, c++/119154, c++/119162,
-	cobol/119216, cobol/119229, d/119139, debug/119190, fortran/47928,
-	fortran/77872, fortran/98903, fortran/101577, fortran/103391,
-	fortran/104684, fortran/104826, fortran/107143, fortran/118747,
-	fortran/119049, fortran/119054, fortran/119074, fortran/119078,
-	fortran/119118, fortran/119157, fortran/119199, ipa/118318,
-	ipa/118785, ipa/119067, libgcc/119151, libstdc++/108053,
-	libstdc++/113310, libstdc++/115215, libstdc++/115218,
-	libstdc++/119081, libstdc++/119110, libstdc++/119121,
-	libstdc++/119144, lto/114501, middle-end/97323, middle-end/118457,
-	middle-end/118801, middle-end/119119, middle-end/119204,
-	middle-end/119219, middle-end/119226, modula2/118998, modula2/119088,
-	modula2/119192, other/38768, other/119052, preprocessor/119202,
-	rtl-optimization/114492, rtl-optimization/116564,
-	rtl-optimization/117477, rtl-optimization/118739,
-	rtl-optimization/119046, rtl-optimization/119071,
-	rtl-optimization/119099, sanitizer/56682, target/114222,
-	target/114991, target/115258, target/115439, target/115485,
-	target/115835, target/116708, target/116901, target/117931,
-	target/117955, target/118351, target/118892, target/118906,
-	target/118934, target/118942, target/118956, target/119084,
-	target/119115, target/119127, target/119131, target/119133,
-	target/119171, target/119238, testsuite/115248,
-	tree-optimization/116125, tree-optimization/116901,
-	tree-optimization/117919, tree-optimization/118922,
-	tree-optimization/118976, tree-optimization/119057,
-	tree-optimization/119096, tree-optimization/119145,
-	tree-optimization/119166
-- use %%autopatch in the spec file
-
-* Sat Mar  1 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.9
-- update from trunk
-  - PRs c/114870, c/119001, c++/110822, c++/114913, c++/118516, c++/118928,
-	c++/118986, c++/119038, c++/119045, d/116961, d/118654,
-	fortran/108233, fortran/108369, fortran/118730, fortran/118789,
-	ipa/111245, ipa/118243, jit/117047, libstdc++/93059, libstdc++/104606,
-	libstdc++/105609, libstdc++/106612, libstdc++/112490,
-	libstdc++/112803, libstdc++/118083, lto/91299, middle-end/66279,
-	middle-end/115871, middle-end/118819, middle-end/118860,
-	middle-end/119021, rtl-optimization/116336, rtl-optimization/117712,
-	rtl-optimization/119002, target/107635, target/109189, target/115458,
-	target/118931, target/118940, testsuite/115028, testsuite/116143,
-	translation/118991, tree-optimization/87984, tree-optimization/116855,
-	tree-optimization/118464, tree-optimization/119030
-- fix ranger related miscompilation (PR tree-optimization/118953)
-- fix miscompilation of floating point comparisons if NaNs can appear
-  (#2346233, PR rtl-optimization/119002)
-- fix ICF related miscompilation (PR ipa/119006)
-
-* Tue Feb 25 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.8
-- update from trunk
-  - PRs analyzer/118300, c/117023, c/119000, c++/66519, c++/66878, c++/70037,
-	c++/70536, c++/82794, c++/82936, c++/83144, c++/86769, c++/86933,
-	c++/94100, c++/96364, c++/101740, c++/102455, c++/107637, c++/110345,
-	c++/113800, c++/115586, c++/116379, c++/117106, c++/117324,
-	c++/118053, c++/118190, c++/118282, c++/118304, c++/118306,
-	c++/118319, c++/118574, c++/118661, c++/118763, c++/118773,
-	c++/118807, c++/118822, c++/118833, c++/118846, c++/118849,
-	c++/118856, c++/118876, c++/118923, c++/118981, c++/188574, d/111628,
-	debug/118790, driver/117739, fortran/24878, fortran/47485,
-	fortran/48958, fortran/56423, fortran/59252, fortran/107635,
-	fortran/115271, fortran/116829, fortran/117430, fortran/118080,
-	fortran/118159, fortran/118740, fortran/118745, fortran/118750,
-	fortran/118845, fortran/118862, go/118746, ipa/118097, jit/118780,
-	libfortran/114618, libstdc++/100612, libstdc++/111050,
-	libstdc++/115209, libstdc++/118160, libstdc++/118559,
-	libstdc++/118701, libstdc++/118811, libstdc++/118855,
-	libstdc++/118865, lto/118125, middle-end/107067, middle-end/113525,
-	middle-end/116351, middle-end/117263, middle-end/118288,
-	middle-end/118950, middle-end/118993, modula2/115112, modula2/118761,
-	modula2/118978, other/116613, other/118919, rtl-optimization/102150,
-	rtl-optimization/108840, rtl-optimization/115568,
-	rtl-optimization/115932, rtl-optimization/116028,
-	rtl-optimization/116244, rtl-optimization/117081,
-	rtl-optimization/117082, rtl-optimization/117239,
-	rtl-optimization/117506, rtl-optimization/117922,
-	rtl-optimization/118497, sarif-replay/118792, sarif-replay/118881,
-	target/69374, target/86660, target/94282, target/109093,
-	target/109780, target/113331, target/114516, target/114522,
-	target/115123, target/115478, target/115703, target/117674,
-	target/117991, target/118089, target/118146, target/118248,
-	target/118540, target/118561, target/118601, target/118623,
-	target/118685, target/118764, target/118768, target/118771,
-	target/118772, target/118776, target/118806, target/118813,
-	target/118815, target/118825, target/118828, target/118832,
-	target/118835, target/118843, target/118844, target/118872,
-	target/118878, target/118936, testsuite/116604, testsuite/116986,
-	testsuite/118754, tree-optimization/82142, tree-optimization/86270,
-	tree-optimization/90579, tree-optimization/98028,
-	tree-optimization/98845, tree-optimization/108357,
-	tree-optimization/110449, tree-optimization/115538,
-	tree-optimization/117790, tree-optimization/118521,
-	tree-optimization/118706, tree-optimization/118727,
-	tree-optimization/118749, tree-optimization/118756,
-	tree-optimization/118805, tree-optimization/118817,
-	tree-optimization/118852, tree-optimization/118895,
-	tree-optimization/118915, tree-optimization/118954,
-	tree-optimization/118973
-- drop on riscv riscv_cmo.h header from file list, add sifive_vector.h
-
-* Tue Feb  4 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.7
-- update from trunk
-  - PRs ada/118712, ada/118731, c/118742, c++/79786, c++/98893, c++/108205,
-	c++/109918, c++/114619, c++/116506, c++/116880, c++/116914,
-	c++/117114, c++/117778, c++/118265, c++/118470, c++/118491,
-	c++/118718, c++/118719, fortran/93289, lto/113207, middle-end/115913,
-	middle-end/116926, modula2/117411, modula2/118703,
-	rtl-optimization/111673, rtl-optimization/117248,
-	rtl-optimization/117611, target/116010, target/118713,
-	testsuite/116845, tree-optimization/117113, tree-optimization/118717
-
-* Sat Feb  1 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.6
-- update from trunk
-  - PRs c++/117501, c++/117516, debug/100530, fortran/108454, fortran/118714,
-	ipa/117432, libstdc++/118156, middle-end/117498, modula2/115032,
-	rtl-optimization/116234, target/113689, target/115673,
-	tree-optimization/114277
-- use rpm.execute instead of posix.fork, posix.exec and posix.wait in libgcc
-  scriptlets; guard them on ldconfig macro existence and use that macro instead
-  of explicit /sbin/ldconfig (#2291927)
-
-* Thu Jan 30 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.5
-- update from trunk
-  - PRs c/116357, c++/57533, c++/114292, c++/116524, c++/117855, c++/118239,
-	c++/118285, c++/118632, c++/118655, c++/118673, d/118477,
-	fortran/58857, fortran/110993, fortran/118640, fortran/118683,
-	libstdc++/98749, libstdc++/118413, libstdc++/118563,
-	middle-end/118643, middle-end/118684, middle-end/118692,
-	middle-end/118695, modula2/116073, modula2/117737, modula2/118183,
-	other/118675, preprocessor/118168, rtl-optimization/118320,
-	rtl-optimization/118429, rtl-optimization/118638,
-	rtl-optimization/118662, target/114085, target/116860, target/117173,
-	target/117688, target/118103, target/118490, target/118642,
-	target/118646, target/118663, target/118696, testsuite/118127,
-	tree-optimization/112859, tree-optimization/114052,
-	tree-optimization/115347, tree-optimization/117270,
-	tree-optimization/117424, tree-optimization/117892,
-	tree-optimization/118505, tree-optimization/118637,
-	tree-optimization/118653
-- fix up C++ list conversion for #embed or large series of comma
-  separated small constants (PR c++/118671)
-- punt in niters clz/ctz creation if internal function can't be used
-  and frontend didn't build __builtin_c{l,t}z{,l,ll} builtins
-  (PR tree-optimization/118689)
-
-* Sat Jan 25 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.4
-- update from trunk
-  - PRs c/118639, c++/105440, c++/107522, c++/107741, c++/115769, c++/116417,
-	c++/116568, c++/116756, c++/117153, c++/117397, c++/117602,
-	c++/117775, c++/117827, c++/118047, c++/118049, c++/118101,
-	c++/118124, c++/118139, c++/118147, c++/118199, c++/118214,
-	c++/118225, c++/118245, c++/118255, c++/118278, c++/118355,
-	c++/118390, c++/118396, c++/118454, c++/118486, c++/118509,
-	c++/118513, c++/118523, c++/118525, c++/118528, c++/118532,
-	c++/118534, c++/118582, c++/118590, c++/118604, d/114434, d/115249,
-	d/116373, d/117115, d/118438, d/118448, d/118449, d/118584,
-	fortran/71884, fortran/81978, fortran/96087, fortran/107122,
-	fortran/118321, fortran/118359, fortran/118441, fortran/118613,
-	gcov-profile/116743, ipa/116068, ipa/118400, jit/117886,
-	libfortran/118406, libfortran/118536, libfortran/118571,
-	libstdc++/99995, libstdc++/100249, libstdc++/109849, libstdc++/118158,
-	libstdc++/118185, lto/118238, middle-end/112779, middle-end/113904,
-	middle-end/114596, middle-end/114877, middle-end/118140,
-	middle-end/118273, middle-end/118472, modula2/118010, modula2/118589,
-	objc++/118586, rtl-optimization/109592, rtl-optimization/113994,
-	rtl-optimization/117868, rtl-optimization/118067,
-	rtl-optimization/118562, rtl-optimization/118591,
-	rtl-optimization/1180167, sarif-replay/117670, target/80813,
-	target/110901, target/113257, target/113560, target/114442,
-	target/116256, target/116308, target/116593, target/117079,
-	target/117726, target/118154, target/118170, target/118182,
-	target/118270, target/118329, target/118357, target/118489,
-	target/118497, target/118501, target/118510, target/118511,
-	target/118512, target/118531, target/118560, target/118609,
-	testsuite/116448, testsuite/117958, testsuite/118451,
-	tree-optimization/92539, tree-optimization/102705,
-	tree-optimization/115494, tree-optimization/115777,
-	tree-optimization/115895, tree-optimization/116010,
-	tree-optimization/117668, tree-optimization/117875,
-	tree-optimization/118012, tree-optimization/118077,
-	tree-optimization/118224, tree-optimization/118348,
-	tree-optimization/118360, tree-optimization/118384,
-	tree-optimization/118430, tree-optimization/118456,
-	tree-optimization/118483, tree-optimization/118487,
-	tree-optimization/118514, tree-optimization/118522,
-	tree-optimization/118529, tree-optimization/118552,
-	tree-optimization/118558, tree-optimization/118569,
-	tree-optimization/118572, tree-optimization/118605,
-	tree-optimization/118628, tree-optimization/118634
-- fix libstdc++.modules.json content after relocation
-
-* Tue Jan 14 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.3
-- temporary fix for coroutine range for handling (PR c++/117231)
-
-* Tue Jan 14 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.2
-- update from trunk
-  - PRs ada/118459, c/116871, c++/118445, modula2/116557, target/116030,
-	target/117682, tree-optimization/118405
-
-* Mon Jan 13 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.1
-- update from trunk
-  - PRs c/118112, c++/114630, d/117701, fortran/115788, fortran/118432,
-	lto/118181, middle-end/64242, middle-end/118303, middle-end/118411,
-	middle-end/118415, modula2/118453, rtl-optimization/107455,
-	target/115910, target/115921, target/118418, tree-optimization/117119,
-	tree-optimization/117997, tree-optimization/118409
-
-* Sat Jan 11 2025 Jakub Jelinek <jakub@redhat.com> 15.0.0-0.4
-- update from trunk
-  - PRs ada/18765, ada/118274, c/116060, c/117866, c/118376, c++/117792,
-	c++/117887, c++/117925, c++/117937, c++/117993, c++/118060,
-	c++/118277, c++/118387, c++/118391, fortran/108434, fortran/118337,
-	ipa/118138, rtl-optimization/117186, rtl-optimization/117467,
-	rtl-optimization/117934, rtl-optimization/118266, target/65181,
-	target/118017, target/118131, target/118188, target/118332,
-	target/118362, testsuite/118025, tree-optimization/88575,
-	tree-optimization/116126, tree-optimization/117927,
-	tree-optimization/118206, tree-optimization/118211,
-	tree-optimization/118344
-
-* Thu Jan  9 2025 Jakub Jelinek <jakub@redhat.com> 15.0.0-0.3
+* Thu Dec 18 2025 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.2
 - new package

@@ -2,21 +2,18 @@
 %global gem_name httparty
 
 Name: rubygem-%{gem_name}
-Version: 0.21.0
-Release: 7%{?dist}
+Version: 0.23.2
+Release: 1%{?dist}
 Summary: Makes http fun! Also, makes consuming restful web services dead easy
 License: MIT
 URL: https://github.com/jnunemaker/httparty
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/jnunemaker/httparty.git && cd httparty
-# git archive -v -o httparty-0.21.0-spec.tar.gz v0.21.0 spec/
+# git archive -v -o httparty-0.23.2-spec.tar.gz v0.23.2 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
-# https://github.com/jnunemaker/httparty/issues/807
-# support ruby3.4 hash inspect format change
-Patch0:  httparty-issue807-ruby34-inspect-format-change.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.3.0
+BuildRequires: ruby >= 2.7.0
 BuildRequires: rubygem(csv)
 BuildRequires: rubygem(mini_mime)
 BuildRequires: rubygem(multi_xml)
@@ -38,10 +35,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-(
-cd %{_builddir}
-%patch -P0 -p1
-)
 
 %build
 # lib/httparty.rb:require 'json'
@@ -106,6 +99,10 @@ popd
 %{gem_instdir}/website
 
 %changelog
+* Thu Dec 18 2025 Vít Ondruch <vondruch@redhat.com> - 0.23.2-1
+- Update to HTTParty 0.23.2.
+  Resolves: rhbz#2277777
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

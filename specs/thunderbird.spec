@@ -91,13 +91,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        146.0
+Version:        146.0.1
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20251215.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20251218.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -105,13 +105,13 @@ Source4:        cbindgen-vendor.tar.xz
 Source10:       thunderbird-mozconfig
 Source11:       thunderbird-mozconfig-branded
 Source12:       thunderbird-redhat-default-prefs.js
-Source20:       thunderbird.desktop
 Source21:       thunderbird.sh.in
 Source25:       thunderbird-symbolic.svg
 Source28:       thunderbird-wayland.sh.in
 Source29:       thunderbird-wayland.desktop
 Source32:       node-stdout-nonblocking-wrapper
 Source33:       net.thunderbird.Thunderbird.desktop
+Source34:       net.thunderbird.Thunderbird.appdata.xml
 
 #Patch416:       firefox-SIOCGSTAMP.patch
 Patch418:       mozilla-1512162.patch
@@ -170,6 +170,7 @@ BuildRequires:  nss-devel >= %{nss_version}
 Requires:       nspr >= %{nspr_build_version}
 Requires:       nss >= %{nss_build_version}
 %endif
+BuildRequires:  libappstream-glib
 BuildRequires:  libnotify-devel >= %{libnotify_version}
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
@@ -684,8 +685,13 @@ touch $RPM_BUILD_ROOT%{mozappdir}/components/xpti.dat
 
 # Register as an application to be visible in the software center
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/metainfo
-%{__cp} -p comm/mail/branding/%{name}/net.thunderbird.Thunderbird.appdata.xml $RPM_BUILD_ROOT%{_datadir}/metainfo/net.thunderbird.Thunderbird.appdata.xml
-sed -i -e 's|<icon .*|<icon type="stock">thunderbird</icon>|' "$RPM_BUILD_ROOT%{_datadir}/metainfo/net.thunderbird.Thunderbird.appdata.xml"
+%{__sed} -e "s/__VERSION__/%{version}/" \
+         -e "s/__DATE__/$(date '+%Y-%m-%d')/" \
+         %{SOURCE34} > %{buildroot}%{_datadir}/metainfo/net.thunderbird.Thunderbird.appdata.xml
+#===============================================================================
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
 
 #===============================================================================
 
@@ -708,11 +714,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %defattr(-,root,root,-)
 %attr(755,root,root) %{_bindir}/thunderbird
 %{_datadir}/metainfo/*.appdata.xml
-%if 0%{?fedora} < %{only_wayland}
-%attr(644,root,root) %{_datadir}/applications/mozilla-thunderbird.desktop
-%else
 %attr(644,root,root) %{_datadir}/applications/net.thunderbird.Thunderbird.desktop
-%endif
 %dir %{_sysconfdir}/%{name}
 %dir %{_sysconfdir}/%{name}/*
 %dir %{_datadir}/mozilla/extensions/%{thunderbird_app_id}
@@ -765,6 +767,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Thu Dec 18 2025 Jan Horak <jhorak@redhat.com> - 146.0.1-1
+- Update to 146.0.1
+
 * Mon Dec 15 2025 Jan Horak <jhorak@redhat.com> - 146.0-1
 - Update to 146.0
 

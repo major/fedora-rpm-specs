@@ -1,31 +1,25 @@
 %bcond check 1
 
 Name:           jq
-Version:        1.7.1
+Version:        1.8.1
 Release:        %autorelease
 Summary:        Command-line JSON processor
 
 License:        MIT AND ICU AND CC-BY-3.0
-URL:            https://jqlang.github.io/jq/
+URL:            https://jqlang.org/
 Source0:        https://github.com/jqlang/jq/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  flex
 BuildRequires:  bison
-BuildRequires:  chrpath
 BuildRequires:  oniguruma-devel
 
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind
 %endif
 BuildRequires:  make
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
+BuildRequires:  tzdata
 
-# https://github.com/jqlang/jq/pull/3099
-# fixes jq --version
-Patch:          fix-version-output.patch
 
 %description
 lightweight and flexible command-line JSON processor
@@ -52,14 +46,11 @@ Development files for %{name}
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version} -p1
+%autosetup -p1
 
 %build
-autoreconf -if
 %configure --disable-static
-# stud=gnu17 fixes ftbfs with gcc15
-# upstream fix for gcc 15 should be in > 1.7.1
-%make_build CFLAGS="%{optflags} -std=gnu17"
+%make_build
 # Docs already shipped in jq's tarball.
 # In order to build the manual page, it
 # is necessary to install rake, rubygem-ronn
@@ -76,11 +67,6 @@ autoreconf -if
 
 %install
 %make_install
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-# Delete build-time RPATH that is unnecessary on an installed
-# system - rhbz#1987608
-chrpath -d %{buildroot}%{_bindir}/%{name}
 
 %if %{with check}
 %check

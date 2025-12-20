@@ -5,13 +5,16 @@
 Name:           python-%{modname}
 Summary:        Python Lex-Yacc
 Version:        3.11
-Release:        30%{?dist}
+Release:        31%{?dist}
 License:        BSD-3-Clause
 URL:            http://www.dabeaz.com/ply/
 Source0:        http://www.dabeaz.com/ply/%{modname}-%{version}.tar.gz
 # Fix build against Python 3.11
 # https://github.com/dabeaz/ply/pull/262
 Patch0:		262.patch
+# Fix build against Python 3.15
+# https://github.com/dabeaz/ply/pull/318
+Patch1:		python-ply-py315-fix.patch
 BuildArch:      noarch
 
 %description
@@ -53,6 +56,7 @@ Python 3 version.
 %prep
 %setup -n %{modname}-%{version}
 %patch -P0 -p1 -b .262
+%patch -P1 -p1 -b .py315
 find example/ -type f -executable -exec chmod -x {} ';'
 find example/ -type f -name '*.py' -exec sed -i \
   -e '1{\@^#!/usr/bin/env python@d}' -e '1{\@^#!/usr/local/bin/python@d}' \
@@ -61,11 +65,16 @@ rm -rf *.egg-info
 # extract license block from beginning of README.md
 grep -B1000 "POSSIBILITY OF SUCH DAMAGE" README.md > LICENSE
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l %{modname}
 
 %if %{with tests}
 %check
@@ -76,13 +85,15 @@ pushd test
 popd
 %endif
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc CHANGES README.md
 %license LICENSE
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-*.egg-info/
 
 %changelog
+* Thu Dec 18 2025 Tom Callaway <spot@fedoraproject.org> - 3.11-31
+- fix build for Python 3.15
+- use modern macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.11-30
 - Rebuilt for Python 3.14.0rc3 bytecode
 

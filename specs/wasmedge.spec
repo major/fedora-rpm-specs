@@ -23,7 +23,7 @@ Requires:      lld18
 Requires:      llvm18
 Requires:      spdlog
 # Currently wasmedge could only be built on specific arches
-ExclusiveArch: x86_64 aarch64
+ExclusiveArch: x86_64 aarch64 riscv64
 Provides: %{reponame} = %{version}-%{release}
 Provides: bundled(blake3) = 1.2.0
 Provides: bundled(wasi-cpp-header) = 0.0.1

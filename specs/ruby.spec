@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 4
-%global teeny_version 7
+%global teeny_version 8
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -38,7 +38,7 @@
 %global rubygems_securerandom_version 0.4.1
 %global rubygems_timeout_version 0.4.3
 %global rubygems_tsort_version 0.2.0
-%global rubygems_uri_version 1.0.3
+%global rubygems_uri_version 1.0.4
 
 # Default gems.
 %global bundler_version 2.6.9
@@ -49,7 +49,7 @@
 %global bundler_securerandom_version 0.4.1
 %global bundler_thor_version 1.3.2
 %global bundler_tsort_version 0.2.0
-%global bundler_uri_version 1.0.3
+%global bundler_uri_version 1.0.4
 
 %global benchmark_version 0.4.0
 %global cgi_version 0.4.2
@@ -77,13 +77,13 @@
 %global net_protocol_version 0.2.2
 %global open_uri_version 0.5.0
 %global open3_version 0.2.1
-%global openssl_version 3.3.0
+%global openssl_version 3.3.1
 %global optparse_version 0.6.0
 %global ostruct_version 0.6.1
 %global pathname_version 0.4.0
 %global pp_version 0.6.2
 %global prettyprint_version 0.2.0
-%global prism_version 1.5.1
+%global prism_version 1.5.2
 %global pstore_version 0.1.4
 %global psych_version 5.2.2
 %global rdoc_version 6.14.0
@@ -178,7 +178,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -240,8 +240,6 @@ Source19: test_rubygems_con.rb
 # default RDoc gem as shipped in Ruby tarball. This should not be needed for
 # Ruby 3.5+.
 Source20: https://github.com/ruby/rdoc/blob/master/lib/rubygems_plugin.rb
-# rexml gem
-Source21: https://rubygems.org/gems/rexml-%{rexml_version}.gem
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -782,10 +780,6 @@ analysis result in RBS format, a standard type description format for Ruby
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
 
-rm -rf .bundle/gems/rexml-3.4.0
-rm .bundle/specifications/rexml-3.4.0.gemspec
-rm gems/rexml-3.4.0.gem
-
 %build
 autoconf
 
@@ -824,16 +818,6 @@ popd
 
 %install
 rm -rf %{buildroot}
-
-cp -p %{SOURCE21} gems/
-
-make -C %{_vpath_builddir} runruby \
-  TESTRUN_SCRIPT="%{_builddir}/%{buildsubdir}/bin/gem unpack %{SOURCE21} --target='%{_builddir}/%{buildsubdir}/.bundle/gems'"
-make --silent -C %{_vpath_builddir} runruby \
-  TESTRUN_SCRIPT="%{_builddir}/%{buildsubdir}/bin/gem spec '%{SOURCE21}' --ruby" \
-  > .bundle/specifications/rexml-%{rexml_version}.gemspec
-
-sed -i -e '/^rexml/ s/3.4.0/3.4.4/' gems/bundled_gems
 
 %make_install -C %{_vpath_builddir}
 
@@ -1897,6 +1881,11 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Wed Dec 17 2025 Vít Ondruch <vondruch@redhat.com> - 3.4.8-29
+- Update to Ruby 3.4.8.
+  Resolves: rhbz#2422963
+  Resolves: rhbz#2412227
+
 * Tue Oct 21 2025 Jun Aruga <jaruga@redhat.com> - 3.4.7-28
 - Upgrade to Ruby 3.4.7.
   Resolves: rhbz#2402422

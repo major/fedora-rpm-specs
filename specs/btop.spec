@@ -1,13 +1,21 @@
 %undefine _hardened_build
 
 Name:           btop
-Version:        1.4.4
-Release:        2%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
-# include/widechar_width.hpp - Public Domain
-License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
+# ISC:
+#  - src/openbsd/internal.h
+#  - src/openbsd/sysctlbyname.cpp
+#  - src/openbsd/sysctlbyname.h
+# MIT:
+#  - include/fmt/
+#  - src/linux/intel_gpu_top/
+# Public Domain
+#  - include/widechar_width.hpp
+License:        Apache-2.0 AND ISC AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/aristocratos/btop
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -36,6 +44,9 @@ Recommends: rocm-smi
 
 Requires:       hicolor-icon-theme
 
+# Include file from https://gitlab.freedesktop.org/drm/igt-gpu-tools
+# Snapshot from 0f02dc176959e6296866b1bafd3982e277a5e44b
+Provides:       bundled(igt-gpu-tools) = 1.28^20240731git0f02dc17-1
 # Bundling was chosen for widecharwidth as it is not versioned upstream
 # and doesn't appear to be a widely-used lib.
 Provides:       bundled(widecharwidth)
@@ -61,7 +72,7 @@ export CXXFLAGS="${CXXFLAGS} -g"
 
 %install
 %make_install PREFIX=%{_prefix}
-rm -f %{buildroot}%{_datadir}/btop/README.md
+rm -fv %{buildroot}%{_datadir}/btop/README.md
 desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 
 
@@ -72,9 +83,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/applications/btop.desktop
 %{_datadir}/btop
 %{_datadir}/icons/hicolor/*/apps/btop.*
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/%{name}.1.*
+
 
 %changelog
+* Sat Sep 27 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.4.5-1
+- Update to 1.4.5
+- Close: rhbz#2397033
+- Refresh license field (analysed with scancode-toolkit)
+
 * Sat Sep 27 2025 Timothée Ravier <tim@siosm.fr> - 1.4.4-2
 - Recommend rocm-smi for AMD GPU support.
 

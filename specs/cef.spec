@@ -61,6 +61,12 @@
 %global system_nodejs 0
 %endif
 
+# enable gtk4 for fedora and el>9
+%global gtk_version 4
+%if 0%{?rhel} == 9
+%global gtk_version 3
+%endif
+
 %if 0%{?rhel} == 8
 %global chromium_pybin /usr/bin/python3.9
 %else
@@ -224,7 +230,7 @@
 %global chromium_major 143
 %global chromium_branch 7499
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 109
+%global chromium_minor 146
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
 %global cef_commit 8aed01b55e1b242b2b3df82a87f321a5cc2b6762
 %global cef_branch %{chromium_branch}
@@ -467,13 +473,13 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 # Fix Wayland URI DnD issues
 Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
 Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
-# Fix Wayland Omnibox issue
-Patch1003: chromium-143-omnibox-next-Improve-cutout-mouse-handling-for-Wayla.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
 Patch902: cef-disable-broken-patches.patch
+# https://github.com/chromiumembedded/cef/pull/4059
+Patch903: cef-Fix-accelerated-paint-struct-size-init.patch
 ## END CEF
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -761,7 +767,41 @@ BuildRequires:	opus-devel
 %endif
 
 BuildRequires: %{chromium_pybin}
-BuildRequires:	pkgconfig(gtk+-3.0)
+
+## CEF: GTK is not used for CEF
+%if 0
+## END CEF
+%if %{gtk_version} == 4
+BuildRequires: pkgconfig(gtk4)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xi)
+BuildRequires: pkgconfig(xrender)
+BuildRequires: pkgconfig(xscrnsaver)
+BuildRequires: pkgconfig(xshmfence)
+BuildRequires: pkgconfig(xt)
+BuildRequires: pkgconfig(xtst)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xcb-dri3)
+BuildRequires: pkgconfig(xcb-proto)
+Requires: gtk4
+%else
+BuildRequires: pkgconfig(gtk+-3.0)
+# GTK modules it expects to find for some reason.
+Requires: libcanberra-gtk3%{_isa}
+%endif
+## CEF: GTK4 is not used for CEF
+%endif
+## END CEF
+
+# Build deps of Chromium proper which are often transitively pulled in by toolkits (GTK, Qt),
+# but are still required without them.
+BuildRequires: pkgconfig(atspi-2)
+BuildRequires: pkgconfig(atk-bridge-2.0)
+BuildRequires: pkgconfig(pangocairo)
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: wayland-devel
 
 %if ! %{bundlepylibs}
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -804,9 +844,6 @@ BuildRequires: simdutf-devel
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
-
-# GTK modules it expects to find for some reason.
-Requires: libcanberra-gtk3%{_isa}
 
 %if 0%{?fedora} && %{undefined flatpak}
 # This enables support for u2f tokens
@@ -1112,7 +1149,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 # Upstream patches
 %patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
 %patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
-%patch -P1003 -p1 -b .Improve-cutout-mouse-handling-for-Wayla.patch
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot
@@ -1120,6 +1156,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P901 -p1 -b .cef-no-libxml-visibility-patch
 %endif
 %patch -P902 -p1 -b .cef-disable-broken-patches
+%patch -P903 -p1 -b .cef-fix-accelerated-paint
 
 # Redirect the git version stuff to use the version file contents instead
 cat >>cef/VERSION.in <<EOF
@@ -1380,6 +1417,7 @@ CHROMIUM_BROWSER_GN_DEFINES+=" use_qt6=true moc_qt6_path=\"$(%{_qt6_qmake} -quer
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=false'
 %endif
+CHROMIUM_BROWSER_GN_DEFINES+=' use_gtk=true gtk_version=%{gtk_version}'
 
 CHROMIUM_BROWSER_GN_DEFINES+=' use_gio=true use_pulseaudio=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_hangout_services_extension=true'
@@ -1559,6 +1597,7 @@ CEF_GN_DEFINES=""
 CEF_GN_DEFINES+=' use_gtk=false use_qt5=false use_qt6=false enable_remoting=false'
 CEF_GN_DEFINES+=' use_cups=false use_gio=false use_kerberos=false'
 CEF_GN_DEFINES+=' use_libpci=false use_udev=false'
+CEF_GN_DEFINES+=' cef_use_gtk=false'
 
 GN_DEFINES="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES $CEF_GN_DEFINES" \
 GN_ARGUMENTS="--script-executable=%{chromium_pybin}" \

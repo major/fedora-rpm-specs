@@ -1,32 +1,24 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global gittag   c3acaf62b137c36aae5eb380f1d883bfa9095f60
-%global shorttag %(cut -b -7 <<< %{gittag})
-%global gitdate  20190517
+# Use the cvc5 branch.
+%global gittag   e6ac3af9c2c574498ea171c957425b407625448b
+%global shorttag %{sub %{gittag} 1 7}
+%global gitdate  20230627
+
+# There are no ELF objects in this package, so turn off debuginfo generation.
+%global debug_package %{nil}
 
 Name:           symfpu
 Version:        0
-Release:        0.19.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.20.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/cvc5/symfpu
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
-# Fedora-only patch: build a shared library instead of a static library
-Patch:          %{name}-shared.patch
-# Fix an infinite recursion
-# See https://github.com/martin-cs/symfpu/issues/3
-Patch:          %{name}-infinite-recursion.patch
-# Upstream PR to fix invalid creation of a zero-size bitvector
-Patch:          %{url}/pull/9.patch
-# CVC5 patch for symfpu (apparently authored by the symfpu maintainer)
-Patch:          %{name}-cvc5.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-
-BuildRequires:  gcc-c++
-BuildRequires:  make
 
 %description
 SymFPU is an implementation of the SMT-LIB / IEEE-754 operations in
@@ -41,63 +33,33 @@ be good).
 
 %package devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+BuildArch:      noarch
+Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
 This package contains header files and library links for developing
 applications that use %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{gittag}
-
-%conf
-# Use Fedora build flags
-sed -e 's/ -Wall -W//' \
-    -e 's/ -msse2 -mfpmath=sse//' \
-    -e 's|-mfma -mno-fma4|-I. %{build_cxxflags} -fno-strict-aliasing %{build_ldflags}|' \
-    -i flags
-
-# Fix header file include paths
-ln -s .. applications/symfpu
-ln -s .. baseTypes/symfpu
-ln -s .. core/symfpu
-ln -s .. utils/symfpu
+%autosetup -n %{name}-%{gittag}
 
 %build
-# Cannot use smp_mflags due to missing subdir dependencies
-make
+# Nothing to do
 
 %install
-# There is no install target.  Install by hand.
-# Install the library
-mkdir -p %{buildroot}%{_libdir}
-cp -p libsymfpu.so.0.0.0 %{buildroot}%{_libdir}
-ln -s libsymfpu.so.0.0.0 %{buildroot}%{_libdir}/libsymfpu.so.0
-ln -s libsymfpu.so.0 %{buildroot}%{_libdir}/libsymfpu.so
-
-# Install the header files
-mkdir -p %{buildroot}%{_includedir}/%{name}/baseTypes
-mkdir -p %{buildroot}%{_includedir}/%{name}/core
-mkdir -p %{buildroot}%{_includedir}/%{name}/utils
-cp -p baseTypes/*.h %{buildroot}%{_includedir}/%{name}/baseTypes
-cp -p core/*.h %{buildroot}%{_includedir}/%{name}/core
-cp -p utils/*.h %{buildroot}%{_includedir}/%{name}/utils
-
-%check
-export LD_LIBRARY_PATH=$PWD
-# The test return values are backwards: 0 is an error, 1 is test success
-! ./test --allTests
-
-%files
-%license LICENSE
-%doc README.md
-%{_libdir}/lib%{name}.so.0*
+mkdir -p %{buildroot}%{_includedir}/%{name}
+cp -a core utils %{buildroot}%{_includedir}/%{name}
 
 %files devel
+%license LICENSE
 %{_includedir}/%{name}/
-%{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Dec 18 2025 Jerry James <loganjerry@gmail.com> - 0-0.20.20230627gite6ac3af
+- Switch to the cvc5 git branch
+- Drop all patches
+- Package is now header-only and therefore noarch
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19.20190517gitc3acaf6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

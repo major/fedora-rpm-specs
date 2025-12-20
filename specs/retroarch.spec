@@ -22,7 +22,7 @@ ExcludeArch: s390x
 %global short_url https://github.com/libretro
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.19.0
+Version:        1.22.0
 Release:        %autorelease
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
@@ -118,17 +118,13 @@ Source5:        %{short_url}/libretro-database/archive/v%{version}/libretro-data
 Source10:       %{name}-enable-network-access.sh
 
 Source11:       README.fedora.md
-# https://github.com/libretro/RetroArch/commit/21776a2e59f5f5899ff2198c0df25a95b5020012
-Patch0:         %{name}-ffmpeg8.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
 BuildRequires:  glslang-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-%if 0%{?fedora} < 42
 BuildRequires:  mbedtls-devel
-%endif
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  spirv-tools-libs
 BuildRequires:  systemd-devel
@@ -141,7 +137,8 @@ BuildRequires:  stb_truetype-static
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca)
 BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:  pkgconfig(flac)
+# Since Flac 1.5.0 update RetroArch won't compile
+#BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
@@ -218,7 +215,7 @@ Recommends:     libretro-stella2014
 # * Dummy for future
 %endif
 
-Provides:       bundled(7zip) = 9.20
+Provides:       bundled(7zip) = 19.00
 Provides:       bundled(discord-rpc)
 Provides:       bundled(dr)
 Provides:       bundled(glslang)
@@ -227,14 +224,11 @@ Provides:       bundled(ibxm)
 # https://github.com/libretro/RetroArch/issues/8153
 Provides:       bundled(lua) = 5.3.6
 
-Provides:       bundled(rcheevos) = 10.7
+Provides:       bundled(flac) = 1.3.2
+Provides:       bundled(rcheevos) = 12.1
 Provides:       bundled(SPIRV-Cross)
 # Unbundling this in the manner of the other stb libraries does not work.
 Provides:       bundled(stb_vorbis)
-
-%if 0%{?fedora} >= 42
-Provides:       bundled(mbedtls) = 2.5.1
-%endif
 
 %global _description %{expand:
 libretro is an API that exposes generic audio/video/input callbacks. A frontend
@@ -246,8 +240,8 @@ While RetroArch is the reference frontend for libretro, several other projects
 have used the libretro interface to include support for emulators and/or game
 engines. libretro is completely open and free for anyone to use.
 
-For how to download and install more libretro cores please read included README.fedora.md
-file.}
+For how to download and install more libretro cores please read included
+README.fedora.md file.}
 
 %description %{_description}
 
@@ -290,8 +284,8 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    database
 RetroArch incoporates a ROM scanning system to automatically produce playlists.
-Each ROM that is scanned by the playlist generator is checked against a
-database of ROMs that are known to be good copies.
+Each ROM that is scanned by the playlist generator is checked against a database
+of ROMs that are known to be good copies.
 
 
 %prep
@@ -300,13 +294,13 @@ database of ROMs that are known to be good copies.
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
 %setup -n RetroArch-%{version} -q -D -T -a5
-%patch -P0 -p1 -b .ffmpeg8
 
 # Unbundling
 pushd deps
 rm -rf                      \
         libfat              \
-        libFLAC             \
+%dnl Since Flac 1.5.0 update RetroArch won't compile \
+%dnl        libFLAC         \
         libiosuhax          \
         libvita2d           \
         libz                \
@@ -320,10 +314,8 @@ do
   ln -svf /usr/include/stb/stb_${lib}.h deps/stb/stb_${lib}.h
 done
 
-%if 0%{?fedora} < 42
 # * Not part of the 'mbedtls' upstream source
 find deps/mbedtls/ ! -name 'cacert.h' -type f -exec rm -f {} +
-%endif
 
 # Use system assets, libretro cores, libretro's core info and audio/video,
 # filters, database files (cheatcode, content data, cursors)
@@ -368,12 +360,8 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
 %build
 ./configure                     \
     --prefix=%{_prefix}         \
-    --disable-builtinflac       \
-%if 0%{?fedora} < 42
+%dnl    --disable-builtinflac   \
     --disable-builtinmbedtls    \
-%else
-    --enable-builtinmbedtls    \
-%endif
     --disable-builtinzlib       \
     --enable-dbus               \
     --enable-libdecor           \
@@ -450,10 +438,6 @@ mv  %{buildroot}%{_datadir}/libretro/autoconfig/ \
 # Database files (cheatcode, content data, cursors)
 %make_install -C libretro-database-%{version} \
     INSTALLDIR=%{_datadir}/libretro/database%{?p_suffix}
-
-# Rename desktop file to UUID for compatibility
-mv  %{buildroot}%{_datadir}/applications/%{appname}.desktop \
-    %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 
 %if %{with freeworld}
 # Rename binary, desktop file, appdata manifest, manpage and config file

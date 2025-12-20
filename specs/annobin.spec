@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.03
+Version: 13.04
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,10 +536,13 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Wed Nov 05 2025 Nick Clifton  <nickc@redhat.com> - 13.01-3
+* Thu Dec 18 2025 Nick Clifton  <nickc@redhat.com> - 13.04-1
+- Annocheck: Fix compile time warnings from GCC-15 re: strchr returning a const char *.
+
+* Wed Nov 05 2025 Nick Clifton  <nickc@redhat.com> - 13.03-1
 - Annocheck: Skip production test for gcc libraries.  (RHEL-123175)
 
-* Fri Oct 31 2025 Nick Clifton  <nickc@redhat.com> - 13.01-2
+* Fri Oct 31 2025 Nick Clifton  <nickc@redhat.com> - 13.02-1
 - Annocheck: Update heuristic to detect gcc libraries.  (RHEL-124869)
 
 * Thu Oct 23 2025 Nick Clifton  <nickc@redhat.com> - 13.01-1

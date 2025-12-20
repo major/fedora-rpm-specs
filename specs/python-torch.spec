@@ -16,7 +16,7 @@
 %global pybind11_version 2.13.6
 %global rc_tag -rc9
 %else
-%global pypi_version 2.9.0
+%global pypi_version 2.9.1
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6

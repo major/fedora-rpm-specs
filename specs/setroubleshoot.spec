@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.36
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/-/project/24478376/uploads/51a9cda747130f92860720841a7fd9c9/setroubleshoot-3.3.36.tar.gz
@@ -14,6 +14,7 @@ Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
 # git format-patch -N 3.3.36
 # for j in 00*patch; do printf "Patch: %s\n" $j; done
+Patch: 0001-browser-Always-show-Report-Bug-button.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -28,7 +29,7 @@ BuildRequires: git-core
 Requires: %{name}-server = %{version}-%{release}
 Requires: gtk3, libnotify
 %if %{with libreport}
-Requires: libreport-gtk >= 2.2.1-2, python3-libreport
+Recommends: libreport-gtk >= 2.2.1-2, python3-libreport
 %endif
 Requires: python3-gobject, python3-dasbus
 Requires(post): desktop-file-utils
@@ -193,6 +194,10 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Thu Dec 11 2025 Vit Mojzis <vmojzis@redhat.com> - 3.3.36-2
+- browser: Always show "Report Bug" button
+- Switch libreport to a weak dependency
+
 * Wed Dec 10 2025 Petr Lautrbach <lautrbach@redhat.com> - 3.3.36-1
 - audit_data: include syslog when needed
 - Rename appdata to metainfo

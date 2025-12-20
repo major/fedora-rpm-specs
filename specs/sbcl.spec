@@ -45,7 +45,7 @@ Source0: https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version
 # - 32-bit PowerPC
 # - MIPS
 # - Sparc
-ExclusiveArch: %{ix86} x86_64 aarch64 %{power64}
+ExclusiveArch: %{ix86} x86_64 aarch64 %{power64} riscv64
 
 # Pre-generated html docs
 Source1: https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-documentation-html.tar.bz2

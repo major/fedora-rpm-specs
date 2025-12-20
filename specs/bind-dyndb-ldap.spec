@@ -19,13 +19,16 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPL-2.0-or-later
 URL:            https://releases.pagure.org/bind-dyndb-ldap
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2
 Source1:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2.asc
+
+# https://pagure.io/bind-dyndb-ldap/pull-request/244
+Patch1:         bind-dyndb-ldap-11.10-check-pr244.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
@@ -125,6 +128,10 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Wed Dec 17 2025 Petr Menšík <pemensik@redhat.com> - 11.11-9
+- Rebuilt for BIND 9.18.43  (rhbz#2415842)
+- Fix CHECK definition
+
 * Fri Oct 24 2025 Petr Menšík <pemensik@redhat.com> - 11.11-8
 - Rebuilt for BIND 9.18.41 (rhbz#2405786)
 

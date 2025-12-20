@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 Name:           python-ruamel-yaml
-Version:        0.18.16
+Version:        0.18.17
 Release:        %autorelease
 Summary:        YAML 1.2 loader/dumper package for Python
 

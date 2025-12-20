@@ -60,14 +60,43 @@
 
 %global _smp_mflags %{nil}
 %global _lto_cflags %{nil}
-%global bundle_prefix %{_libdir}/rocm/llvm
 %global llvm_triple %{_target_platform}
-%global amd_device_libs_prefix lib64/rocm/llvm/lib/clang/%{llvm_maj_ver}
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
+
+%bcond_with compat
+%if %{with compat}
+# install to /usr/lib64/rocm/<major>.<minor>
+%global bundle_prefix %{_libdir}/rocm/%{rocm_release}/llvm
+%global pkg_prefix %{_prefix}/lib64/rocm/%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global amd_device_libs_prefix llvm/lib/clang/%{llvm_maj_ver}
+%else
+%global bundle_prefix %{_libdir}/rocm/llvm
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global amd_device_libs_prefix lib64/rocm/llvm/lib/clang/%{llvm_maj_ver}
+%endif
+%global pkg_name rocm-compilersupport%{pkg_suffix}
+%global rocm_llvm_name rocm-llvm%{pkg_suffix}
+%global rocm_clang_name rocm-clang%{pkg_suffix}
+%global rocm_clang_tools_extra_name rocm-clang-tools-extra%{pkg_suffix}
+%global rocm_lld_name rocm-lld%{pkg_suffix}
+%global rocm_libcxx_name rocm-libc++%{pkg_suffix}
+%global rocm_clang_analyzer_name rocm-clang-analyzer%{pkg_suffix}
+%global device_libs_name rocm-device-libs%{pkg_suffix}
+%global hipcc_name hipcc%{pkg_suffix}
+%if 0%{?suse_version}
+# 15.6
+# rocm-comgr.x86_64: E: shlib-policy-name-error (Badness: 10000) libamd_comgr2
+# Your package contains a single shared library but is not named after its SONAME.
+%global comgr_name libamd_comgr3%{pkg_suffix}
+%else
+%global comgr_name rocm-comgr%{pkg_suffix}
+%endif
 
 %bcond_with debug
 %if %{with debug}
@@ -96,12 +125,12 @@
 %endif
 
 
-Name:           rocm-compilersupport
+Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        9.rocm%{rocm_version}%{?dist}
+Release:        10.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -116,7 +145,7 @@ License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
 %if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/llvm-project-%{shortcommit0}.tar.gz
 %else
-Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{name}-%{rocm_version}.tar.gz
+Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
 %endif
 Source1:        rocm-compilersupport.prep.in
 
@@ -139,7 +168,7 @@ BuildRequires:  fdupes
 %endif
 BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
-BuildRequires:  rocm-cmake
+BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  zlib-devel
 %if %{with gold}
 BuildRequires:  binutils-devel
@@ -178,13 +207,13 @@ BuildArch:      noarch
 %description macros
 This package contains ROCm compiler related RPM macros.
 
-%package -n rocm-device-libs
+%package -n %{device_libs_name}
 Summary:        AMD ROCm LLVM bit code libraries
-Requires:       rocm-clang-devel
-Requires:       rocm-llvm-static
-Requires:       rocm-lld
+Requires:       %{rocm_clang_name}-devel
+Requires:       %{rocm_llvm_name}-static
+Requires:       rocm-lld%{pkg_suffix}
 
-%description -n rocm-device-libs
+%description -n %{device_libs_name}
 This package contains a set of AMD specific device-side language runtime
 libraries in the form of bit code. Specifically:
  - Open Compute library controls
@@ -193,21 +222,11 @@ libraries in the form of bit code. Specifically:
  - OpenCL built-in library
  - HIP built-in library
  - Heterogeneous Compute built-in library
-
  
-%if 0%{?suse_version}
-# 15.6
-# rocm-comgr.x86_64: E: shlib-policy-name-error (Badness: 10000) libamd_comgr2
-# Your package contains a single shared library but is not named after its SONAME.
-%global comgr_name libamd_comgr3
-%else
-%global comgr_name rocm-comgr
-%endif
-
 %package -n %{comgr_name}
 Summary:        AMD ROCm LLVM Code Object Manager
-Provides:       comgr(major) = %{comgr_maj_api_ver}
-Provides:       rocm-comgr = %{comgr_full_api_ver}-%{release}
+Provides:       comgr%{pkg_suffix}(major) = %{comgr_maj_api_ver}
+Provides:       rocm-comgr%{pkg_suffix} = %{comgr_full_api_ver}-%{release}
 
 %description -n %{comgr_name}
 The AMD Code Object Manager (Comgr) is a shared library which provides
@@ -219,25 +238,24 @@ operations for creating and inspecting code objects.
 %package -n %{comgr_name}-devel
 Summary:        AMD ROCm LLVM Code Object Manager
 Requires:       %{comgr_name}%{?_isa} = %{version}-%{release}
-Requires:       rocm-device-libs
+Requires:       %{device_libs_name}
 %if 0%{?suse_version}
-Provides:       rocm-comgr-devel = %{version}-%{release}
+Provides:       rocm-comgr%{pkg_suffix}-devel = %{version}-%{release}
 %endif
 
 %description -n %{comgr_name}-devel
 The AMD Code Object Manager (Comgr) development package.
 
-
-%package -n hipcc
+%package -n %{hipcc_name}
 Summary:        HIP compiler driver
-Requires:       rocm-device-libs = %{version}-%{release}
-Suggests:       rocminfo
+Requires:       %{device_libs_name} = %{version}-%{release}
+Suggests:       rocminfo%{pkg_suffix}
 %if 0%{?suse_version}
 Provides:       hip = %{version}-%{release}
 Obsoletes:      hip <= %{version}-%{release}
 %endif
 
-%description -n hipcc
+%description -n %{hipcc_name}
 hipcc is a compiler driver utility that will call clang or nvcc, depending on
 target, and pass the appropriate include and library options for the target
 compiler and HIP infrastructure.
@@ -245,144 +263,136 @@ compiler and HIP infrastructure.
 hipcc will pass-through options to the target compiler. The tools calling hipcc
 must ensure the compiler options are appropriate for the target compiler.
 
-%package -n hipcc-libomp-devel
-Summary:        OpenMP header files for hipcc
-Requires:       hipcc = %{version}-%{release}
-Requires:       libomp-devel
-
-%description -n hipcc-libomp-devel
-OpenMP header files compatible with HIPCC.
-
 # ROCM LLVM
-%package -n rocm-llvm-filesystem
+%package -n %{rocm_llvm_name}-filesystem
 Summary: Filesystem package that owns the rocm llvm directory
 
-%description -n rocm-llvm-filesystem
+%description -n %{rocm_llvm_name}-filesystem
 This package owns the rocm llvm directory : %{bundle_prefix}
 
-%package -n rocm-llvm-libs
+%package -n %{rocm_llvm_name}-libs
 Summary: The ROCm LLVM lib
-Requires:      rocm-llvm-filesystem%{?_isa} = %{version}-%{release}
-Requires:      rocm-libc++%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_libcxx_name}%{?_isa} = %{version}-%{release}
 
-%description -n rocm-llvm-libs
+%description -n %{rocm_llvm_name}-libs
 %{summary}
 
-%package -n rocm-llvm
+%package -n %{rocm_llvm_name}
 Summary:       The ROCm LLVM
-Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2362780
 #  /usr/lib64/rocm/llvm/bin/amdgpu-arch 
 #  Failed to 'dlopen' libhsa-runtime64.so
-Recommends:      rocm-runtime-devel
+Recommends:      rocm-runtime%{pkg_suffix}-devel
 
-%description -n rocm-llvm
+%description -n %{rocm_llvm_name}
 %{summary}
 
-%package -n rocm-llvm-devel
+%package -n %{rocm_llvm_name}-devel
 Summary:       Libraries and header files for ROCm LLVM
-Requires:      rocm-llvm%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}%{?_isa} = %{version}-%{release}
 Requires:      zlib-devel
 
-%description -n rocm-llvm-devel
+%description -n %{rocm_llvm_name}-devel
 %{summary}
 
-%post -n rocm-llvm-devel -p /sbin/ldconfig
-%postun -n rocm-llvm-devel -p /sbin/ldconfig
+%post -n %{rocm_llvm_name}-devel -p /sbin/ldconfig
+%postun -n %{rocm_llvm_name}-devel -p /sbin/ldconfig
 
-%package -n rocm-llvm-static
+%package -n %{rocm_llvm_name}-static
 Summary:       Static libraries for ROCm LLVM
-Requires:      rocm-llvm-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-devel%{?_isa} = %{version}-%{release}
 
-%description -n rocm-llvm-static
+%description -n %{rocm_llvm_name}-static
 %{summary}
 
 # ROCM CLANG
-%package -n rocm-clang-libs
+%package -n %{rocm_clang_name}-libs
 Summary:       The ROCm compiler libs
-Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 
-%description -n rocm-clang-libs
+%description -n %{rocm_clang_name}-libs
 %{summary}
 
-%post -n rocm-clang-libs -p /sbin/ldconfig
-%postun -n rocm-clang-libs -p /sbin/ldconfig
+%post -n %{rocm_clang_name}-libs -p /sbin/ldconfig
+%postun -n %{rocm_clang_name}-libs -p /sbin/ldconfig
 
-%package -n rocm-clang-runtime-devel
+%package -n %{rocm_clang_name}-runtime-devel
 Summary:       The ROCm compiler runtime
 
-%description -n rocm-clang-runtime-devel
+%description -n %{rocm_clang_name}-runtime-devel
 %{summary}
 
-%package -n rocm-clang
+%package -n %{rocm_clang_name}
 Summary:       The ROCm compiler
 Requires:      git
 Requires:      python3
-Requires:      rocm-clang-libs%{?_isa} = %{version}-%{release}
-Requires:      rocm-clang-runtime-devel%{?_isa} = %{version}-%{release}
-Requires:      rocm-libc++-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_clang_name}-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_clang_name}-runtime-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 
-%description -n rocm-clang
+%description -n %{rocm_clang_name}
 %{summary}
 
-%package -n rocm-clang-devel
+%package -n %{rocm_clang_name}-devel
 Summary:       Libraries and header files for ROCm CLANG
-Requires:      rocm-clang%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_clang_name}%{?_isa} = %{version}-%{release}
 
-%description -n rocm-clang-devel
+%description -n %{rocm_clang_name}-devel
 %{summary}
 
 # CLANG TOOLS EXTRA
-%package -n rocm-clang-tools-extra
+%package -n %{rocm_clang_tools_extra_name}
 Summary:	Extra tools for clang
-Requires:	rocm-clang-libs%{?_isa} = %{version}-%{release}
+Requires:	rocm-clang%{pkg_suffix}-libs%{?_isa} = %{version}-%{release}
 
-%description -n rocm-clang-tools-extra
+%description -n %{rocm_clang_tools_extra_name}
 A set of extra tools built using Clang's tooling API.
 
-%package -n rocm-clang-tools-extra-devel
+%package -n %{rocm_clang_tools_extra_name}-devel
 Summary: Development header files for clang tools
-Requires: rocm-clang-tools-extra = %{version}-%{release}
+Requires: %{rocm_clang_tools_extra_name} = %{version}-%{release}
 
-%description -n rocm-clang-tools-extra-devel
+%description -n %{rocm_clang_tools_extra_name}-devel
 Development header files for clang tools.
 
 # ROCM LLD
-%package -n rocm-lld
+%package -n %{rocm_lld_name}
 Summary:        The ROCm Linker
-Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-libs%{?_isa} = %{version}-%{release}
 
-%description -n rocm-lld
+%description -n %{rocm_lld_name}
 %{summary}
 
 # ROCM LIBC++
-%package -n rocm-libc++
+%package -n %{rocm_libcxx_name}
 Summary:       The ROCm libc++
-Requires:      rocm-llvm-filesystem%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_llvm_name}-filesystem%{?_isa} = %{version}-%{release}
 
-%description -n rocm-libc++
+%description -n %{rocm_libcxx_name}
 %{summary}
 
-%package -n rocm-libc++-devel
+%package -n %{rocm_libcxx_name}-devel
 Summary:       The ROCm libc++ libraries and headers
-Requires:      rocm-libc++%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_libcxx_name}%{?_isa} = %{version}-%{release}
 
-%description -n rocm-libc++-devel
+%description -n %{rocm_libcxx_name}-devel
 %{summary}
 
-%package -n rocm-libc++-static
+%package -n %{rocm_libcxx_name}-static
 Summary:       The ROCm libc++ static libraries
-Requires:      rocm-libc++-devel%{?_isa} = %{version}-%{release}
+Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 
-%description -n rocm-libc++-static
+%description -n %{rocm_libcxx_name}-static
 %{summary}
 
 %if %{with sa}
-%package -n rocm-clang-analyzer
+%package -n %{rocm_clang_analyzer_name}
 Summary:       The ROCm code analysis framework
-Requires:      rocm-clang = %{version}-%{release}
+Requires:      %{rocm_clang_name} = %{version}-%{release}
 
-%description -n rocm-clang-analyzer
+%description -n %{rocm_clang_analyzer_name}
 %{summary}
 %endif
 
@@ -405,7 +415,7 @@ sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 14@' clang/lib/H
 %endif
 
 install -pm 755 %{SOURCE1} prep.sh
-sed -i -e 's@%%{_prefix}@%{_prefix}@' prep.sh
+sed -i -e 's@%%{pkg_prefix}@%{pkg_prefix}@' prep.sh
 sed -i -e 's@%%{_lib}@%{_lib}@' prep.sh
 sed -i -e 's@%%{amd_device_libs_prefix}@%{amd_device_libs_prefix}@' prep.sh
 sed -i -e 's@%%{bundle_prefix}@%{bundle_prefix}@' prep.sh
@@ -617,7 +627,7 @@ pushd .
 %cmake \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_tools_config} \
-       -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DROCM_DEVICE_LIBS_BITCODE_INSTALL_LOC_NEW="%{amd_device_libs_prefix}/amdgcn" \
        -DROCM_DEVICE_LIBS_BITCODE_INSTALL_LOC_OLD=""
@@ -646,7 +656,7 @@ pushd .
        %{llvmrocm_tools_config} \
        %{llvmrocm_devicelibs_config} \
        -DCMAKE_INSTALL_RPATH=%{bundle_prefix}/lib \
-       -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DCMAKE_SKIP_INSTALL_RPATH=OFF
 
@@ -670,7 +680,7 @@ pushd .
        %{llvmrocm_tools_config} \
        %{llvmrocm_devicelibs_config} \
        -DBUILD_SHARED_LIBS=ON \
-       -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DCMAKE_INSTALL_LIBDIR=%{_lib}
 
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
@@ -765,6 +775,7 @@ pushd .
 %cmake_install
 popd
 
+%if %{without compat}
 # Make directories users of rocm-rpm-modules will install to
 %global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx950 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103 gfx1150 gfx1151 gfx1152 gfx1153 gfx1200 gfx1201
 for gpu in %{modules_gpu_list}
@@ -776,17 +787,18 @@ done
 mkdir -p %{buildroot}%{_libdir}/rocm/lib/cmake
 mkdir -p %{buildroot}%{_libdir}/rocm/bin
 mkdir -p %{buildroot}%{_libdir}/rocm/include
+%endif
 
-rm -rf %{buildroot}%{_prefix}/hip
-rm -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.*
-rm -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/NOTICES.txt
-rm -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/README.md
+rm -rf %{buildroot}%{pkg_prefix}/hip
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.*
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocm-compilersupport/NOTICES.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocm-compilersupport/README.md
 
 %if 0%{?suse_version}
 find %{buildroot}%{bundle_prefix}/bin -type f -executable -exec strip {} \;
-find %{buildroot}%{_bindir}           -type f -executable -exec strip {} \;
+find %{buildroot}%{pkg_prefix}/bin -type f -executable -exec strip {} \;
 find %{buildroot}%{bundle_prefix}/lib -type f -name '*.so*' -exec strip {} \;
-find %{buildroot}%{_libdir}           -type f -name '*.so*' -exec strip {} \;
+find %{buildroot}%{pkg_prefix}/lib64 -type f -name '*.so*' -exec strip {} \;
 %endif
 
 # Remove lld's libs
@@ -801,7 +813,15 @@ chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/optpmap.py
 chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/style.css
 
 # Lingering perl
-rm -f %{buildroot}%{_bindir}/hipvars.pm
+rm -f %{buildroot}%{pkg_prefix}/bin/hipvars.pm
+
+# Extra docs
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/ROCm-Device-Libs/LICENSE.TXT
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/LICENSE.txt
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/NOTICES.txt
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/README.md
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/LICENSE.txt
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
@@ -811,48 +831,39 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %files macros
 %{_rpmmacrodir}/macros.rocmcompiler
 
-%files -n rocm-device-libs
-%dir %{_libdir}/cmake/AMDDeviceLibs
+%files -n %{device_libs_name}
+%if %{without compat}
 %license amd/device-libs/LICENSE.TXT
 %doc amd/device-libs/README.md amd/device-libs/doc/*.md
-%{_libdir}/cmake/AMDDeviceLibs/*.cmake
-%{_prefix}/%{amd_device_libs_prefix}/amdgcn
-%if 0%{?rhel} || 0%{?fedora}
-%exclude %{_docdir}/ROCm-Device-Libs
 %endif
+%{pkg_prefix}/lib64/cmake/AMDDeviceLibs/
+%{pkg_prefix}/%{amd_device_libs_prefix}/amdgcn
 
 
 %files -n %{comgr_name}
-%license amd/comgr/LICENSE.txt
-%license amd/comgr/NOTICES.txt
+%if %{without compat}
+%license amd/comgr/LICENSE.txt amd/comgr/NOTICES.txt
 %doc amd/comgr/README.md
-%{_libdir}/libamd_comgr.so.*
-%if 0%{?rhel} || 0%{?fedora}
-%exclude %{_docdir}/amd_comgr
 %endif
+%{pkg_prefix}/lib64/libamd_comgr.so.*
 
 %files -n %{comgr_name}-devel
-%dir %{_includedir}/amd_comgr
-%dir %{_libdir}/cmake/amd_comgr
-%{_includedir}/amd_comgr/amd_comgr.h
-%{_libdir}/libamd_comgr.so
-%{_libdir}/cmake/amd_comgr/*.cmake
+%{pkg_prefix}/include/amd_comgr/
+%{pkg_prefix}/lib64/cmake/amd_comgr/
+%{pkg_prefix}/lib64/libamd_comgr.so
 
-%files -n hipcc
+%files -n %{hipcc_name}
+%if %{without compat}
 %license amd/hipcc/LICENSE.txt
 %doc amd/hipcc/README.md
-%{_bindir}/hipcc
-%{_bindir}/hipconfig
-
-%if 0%{?rhel} || 0%{?fedora}
-%exclude %{_docdir}/hipcc
 %endif
-
-%files -n hipcc-libomp-devel
+%{pkg_prefix}/bin/hipcc
+%{pkg_prefix}/bin/hipconfig
 
 # ROCM LLVM
-%files -n rocm-llvm-filesystem
+%files -n %{rocm_llvm_name}-filesystem
 %dir %{_libdir}/rocm
+%if %{without compat}
 # For rocm-rpm-modules
 %dir %{_libdir}/rocm/bin
 %dir %{_libdir}/rocm/include
@@ -967,6 +978,7 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %dir %{_libdir}/rocm/gfx1201/include
 %dir %{_libdir}/rocm/gfx1201/lib
 %dir %{_libdir}/rocm/gfx1201/lib/cmake
+%endif
 # For llvm
 %dir %{bundle_prefix}
 %dir %{bundle_prefix}/bin
@@ -992,16 +1004,16 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %dir %{bundle_prefix}/share/clang
 %dir %{bundle_prefix}/share/opt-viewer
 
-%files -n rocm-llvm-libs
+%files -n %{rocm_llvm_name}-libs
 %{bundle_prefix}/lib/libLLVM-*.so
 %{bundle_prefix}/lib/libLLVM.so.*
 %{bundle_prefix}/lib/libLTO.so.*
 %{bundle_prefix}/lib/libRemarks.so.*
 
-%post -n rocm-llvm-libs -p /sbin/ldconfig
-%postun -n rocm-llvm-libs -p /sbin/ldconfig
+%post -n %{rocm_llvm_name}-libs -p /sbin/ldconfig
+%postun -n %{rocm_llvm_name}-libs -p /sbin/ldconfig
 
-%files -n rocm-llvm
+%files -n %{rocm_llvm_name}
 %license llvm/LICENSE.TXT
 %{bundle_prefix}/bin/bugpoint
 %{bundle_prefix}/bin/llc
@@ -1016,7 +1028,7 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/bin/verify-uselistorder
 %{bundle_prefix}/share/opt-viewer/*
 
-%files -n rocm-llvm-devel
+%files -n %{rocm_llvm_name}-devel
 %license llvm/LICENSE.TXT
 %{bundle_prefix}/include/llvm/*
 %{bundle_prefix}/include/llvm-c/*
@@ -1028,20 +1040,20 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/lib/LLVMgold.so
 %endif
 
-%files -n rocm-llvm-static
+%files -n %{rocm_llvm_name}-static
 %license llvm/LICENSE.TXT
 %{bundle_prefix}/lib/libLLVM*.a
 
 # ROCM CLANG
-%files -n rocm-clang-libs
+%files -n %{rocm_clang_name}-libs
 %{bundle_prefix}/lib/libclang*.so.*
 
-%files -n rocm-clang-runtime-devel
+%files -n %{rocm_clang_name}-runtime-devel
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/*
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/clang_rt.*
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/libclang_rt.*
 
-%files -n rocm-clang
+%files -n %{rocm_clang_name}
 %license clang/LICENSE.TXT
 %{bundle_prefix}/bin/c-index-test
 %{bundle_prefix}/bin/clang*
@@ -1055,13 +1067,11 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/share/clang/*
 %{bundle_prefix}/share/clang-doc
-#%if %{with gitcommit}
 %{bundle_prefix}/bin/amdclang*
 %{bundle_prefix}/bin/amdflang*
 %{bundle_prefix}/bin/amdllvm
-#%endif
 
-%files -n rocm-clang-devel
+%files -n %{rocm_clang_name}-devel
 %license clang/LICENSE.TXT
 %{bundle_prefix}/include/clang/*
 %{bundle_prefix}/include/clang-c/*
@@ -1069,17 +1079,17 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/lib/libclang*.so
 
 # ROCM CLANG TOOLS EXTRA
-%files -n rocm-clang-tools-extra
+%files -n %{rocm_clang_tools_extra_name}
 %license clang-tools-extra/LICENSE.TXT
 %{bundle_prefix}/bin/run-clang-tidy
 
-%files -n rocm-clang-tools-extra-devel
+%files -n %{rocm_clang_tools_extra_name}-devel
 %dir %{bundle_prefix}/include/clang-tidy
 %license clang-tools-extra/LICENSE.TXT
 %{bundle_prefix}/include/clang-tidy/*
 
 # ROCM LLD
-%files -n rocm-lld
+%files -n %{rocm_lld_name}
 %license lld/LICENSE.TXT
 %{bundle_prefix}/bin/ld.lld
 %{bundle_prefix}/bin/ld64.lld
@@ -1088,29 +1098,29 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/bin/amdlld
 
 # ROCM LIBC++
-%files -n rocm-libc++
+%files -n %{rocm_libcxx_name}
 %license libcxx/LICENSE.TXT
 %{bundle_prefix}/lib/libc++.so.*
 %{bundle_prefix}/lib/libc++abi.so.*
 %{bundle_prefix}/lib/libc++.modules.json
 
-%post -n rocm-libc++ -p /sbin/ldconfig
-%postun -n rocm-libc++ -p /sbin/ldconfig
+%post -n %{rocm_libcxx_name} -p /sbin/ldconfig
+%postun -n %{rocm_libcxx_name} -p /sbin/ldconfig
 
-%files -n rocm-libc++-devel
+%files -n %{rocm_libcxx_name}-devel
 %dir %{bundle_prefix}/share/libc++
 %{bundle_prefix}/include/c++/
 %{bundle_prefix}/share/libc++/
 %{bundle_prefix}/lib/libc++.so
 %{bundle_prefix}/lib/libc++abi.so
 
-%files -n rocm-libc++-static
+%files -n %{rocm_libcxx_name}-static
 %{bundle_prefix}/lib/libc++.a
 %{bundle_prefix}/lib/libc++abi.a
 %{bundle_prefix}/lib/libc++experimental.a
 
 %if %{with sa}
-%files -n rocm-clang-analyzer
+%files -n %{rocm_clang_analyzer_name}
 %{bundle_prefix}/bin/analyze-build
 %{bundle_prefix}/bin/intercept-build
 %{bundle_prefix}/bin/scan-build
@@ -1130,6 +1140,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %endif
 
 %changelog
+* Sun Dec 14 2025 Tom Rix <Tom.Rix@amd.com> - 20-10.rocm7.1.1
+- Add --with compat
+
 * Tue Dec 9 2025 Tom Rix <Tom.Rix@amd.com> - 20-9.rocm7.1.1
 - Change llvm_version_suffix to .rocm
 - Remove lld-wasm

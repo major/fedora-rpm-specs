@@ -2,29 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate reqwest-retry
+%global crate virglrenderer-sys
 
-Name:           rust-reqwest-retry
-Version:        0.8.0
+Name:           rust-virglrenderer-sys
+Version:        0.1.3
 Release:        %autorelease
-Summary:        Retry middleware for reqwest
+Summary:        Raw FFI bindings for the virglrenderer C library
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/reqwest-retry
+License:        MIT
+URL:            https://crates.io/crates/virglrenderer-sys
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          reqwest-retry-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(virglrenderer) >= 0.10
 
 %global _description %{expand:
-Retry middleware for reqwest.}
+Raw FFI bindings for the virglrenderer C library.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(virglrenderer) >= 0.10
 
 %description    devel %{_description}
 
@@ -32,9 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tracing-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tracing-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
