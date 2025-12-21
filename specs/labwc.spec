@@ -2,14 +2,14 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.9.2
+Version:    0.9.3
 %forgemeta
 Release:    %autorelease
 Summary:    A Wayland window-stacking compositor
 
 License:    GPL-2.0-only
 URL:        %{forgeurl}
-Source0:    %{forgesource}
+Source:     %{forgesource}
 
 BuildRequires: gcc
 BuildRequires: meson >= 0.59.0
@@ -41,19 +41,18 @@ Obsoletes:     %{name} < 0.8.2-3
 Labwc stands for Lab Wayland Compositor, where lab can mean any of the
 following:
 
+  * lightweight and *box-inspired
   * sense of experimentation and treading new ground
   * inspired by BunsenLabs and ArchLabs
   * your favorite pet
 
-Labwc is a wlroots-based window-stacking compositor for wayland, inspired by
-openbox.
+Labwc is a wlroots-based window-stacking compositor for Wayland, inspired by
+Openbox.
 
-It is light-weight and independent with a focus on simply stacking windows
-well and rendering some window decorations. It takes a no-bling/frills
-approach and says no to features such as icons (except window buttons),
-animations, decorative gradients and any other options not required to
-reasonably render common themes. It relies on clients for panels, screenshots,
-wallpapers and so on to create a full desktop environment.
+It is light-weight and independent with a focus on simply stacking windows well
+and rendering some window decorations. It takes a no-bling/frills approach and
+says no to features such as animations. It relies on clients for panels,
+screenshots, wallpapers and so on to create a full desktop environment.
 
 Labwc tries to stay in keeping with wlroots and sway in terms of general
 approach and coding style.
@@ -66,12 +65,12 @@ Summary:       A Wayland window-stacking compositor - session files
 Requires:      %{name} = %{version}-%{release}
 Requires:      hicolor-icon-theme
 # Upstream recommendations
-# https://github.com/labwc/labwc?tab=readme-ov-file#7-integration
+# https://github.com/labwc/labwc?tab=readme-ov-file#6-integration
 # See integration[1] for further details.
 # [1]: https://labwc.github.io/integration.html
 Recommends:    bemenu                                %dnl # Launchers
 Recommends:    swaylock                              %dnl # Screen locker
-Suggests:      alacritty                             %dnl # Terminal. See: https://github.com/labwc/labwc?tab=readme-ov-file#6-usage
+Suggests:      alacritty                             %dnl # Terminal
 Suggests:      fuzzel wofi                           %dnl # Launchers
 Suggests:      grim                                  %dnl # Screen-shooter
 Suggests:      swaybg                                %dnl # Background image

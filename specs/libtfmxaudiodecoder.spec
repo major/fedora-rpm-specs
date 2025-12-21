@@ -1,5 +1,5 @@
 Name: libtfmxaudiodecoder
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 
 Summary: C wrapper library for TFMX & FC music files
@@ -51,6 +51,9 @@ software that uses %{name}.
 
 
 %changelog
+* Fri Dec 19 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.1-1
+- update to 1.0.1
+
 * Mon Dec 01 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.0-1
 - update to 1.0.0 release
 

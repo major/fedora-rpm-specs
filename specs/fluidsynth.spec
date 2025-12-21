@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.5.1
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 Source1:      https://github.com/kthohr/gcem/archive/refs/tags/gcem-1.18.0.tar.gz
@@ -10,12 +10,8 @@ License:      LGPL-2.1-or-later
 Requires:     fluidsynth-libs%{?_isa} = %{version}-%{release}
 Recommends:   fluid-soundfont-gm
 
-# Set correct paths for sound fonts
-Patch0:        fluidsynth-fedora-defaults.patch
-# Make correct (user) service file
-Patch1:        fluidsynth-fedora-service.patch
-# Make not world writeable /run/log/fluidsynth
-Patch2:        fluidsynth-fedora-access-rights.patch
+# Make not world writeable /run/lock/fluidsynth
+Patch0:        fluidsynth-fedora-access-rights.patch
 
 BuildRequires: alsa-lib-devel
 %if 0%{?el7}
@@ -84,11 +80,12 @@ cp -r gcem-1.18.0/include gcem/
 %build
 
 %define enable_jack on
+%define fluidsynth_env %{_sysconfdir}/sysconfig/fluidsynth
 
 %if 0%{?el7}
-%{cmake3}  -Denable-ladspa=on -Denable-jack=%{enable_jack}
+%{cmake3} -Denable-ladspa=on -Denable-jack=%{enable_jack} -DFLUID_DAEMON_ENV_FILE=%{fluidsynth_env}
 %else
-%{cmake}  -Denable-ladspa=on -Denable-jack=%{enable_jack}
+%{cmake} -Denable-ladspa=on -Denable-jack=%{enable_jack} -DFLUID_DAEMON_ENV_FILE=%{fluidsynth_env}
 %endif
 
 # build fluidsynth
@@ -107,19 +104,17 @@ make doxygen -C doc
 %else
 %{cmake_install}
 %endif
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/
-install -m 644 fluidsynth.conf.in $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/fluidsynth
-mkdir -p $RPM_BUILD_ROOT/usr/lib/systemd/user/
-install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluidsynth.service
-mkdir -p $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/
-install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsynth.conf
+sed -i 's/^#SOUND_FONT/SOUND_FONT/' %{__cmake_builddir}/fluidsynth.conf
+install -Dm 644 %{__cmake_builddir}/fluidsynth.conf %{buildroot}%{fluidsynth_env}
+install -Dm 644 %{__cmake_builddir}/fluidsynth.service %{buildroot}%{_userunitdir}/fluidsynth.service
+install -Dm 644 %{__cmake_builddir}/fluidsynth.tmpfiles %{buildroot}%{_tmpfilesdir}/fluidsynth.conf
 
 %files
 %{_bindir}/fluid*
 %{_mandir}/man1/fluidsynth*
-%config(noreplace) %{_sysconfdir}/sysconfig/fluidsynth
-%attr(0644,root,root) /usr/lib/systemd/user/fluidsynth.service
-%attr(0644,root,root) /usr/lib/tmpfiles.d/fluidsynth.conf
+%config(noreplace) %{fluidsynth_env}
+%attr(0644,root,root) %{_userunitdir}/fluidsynth.service
+%attr(0644,root,root) %{_tmpfilesdir}/fluidsynth.conf
 
 %files libs
 %license LICENSE
@@ -138,6 +133,9 @@ install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsy
 
 
 %changelog
+* Sat Dec  6 2025 Robin Jarry <rjarry@redhat.com> - 2.5.1-2
+- Fix systemd user service
+
 * Sat Dec  6 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.5.1-1
 - Update to 2.5.1
 

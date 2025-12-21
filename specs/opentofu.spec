@@ -3,7 +3,7 @@
 
 # https://github.com/opentofu/opentofu
 %global goipath         github.com/opentofu/opentofu
-Version:                1.10.7
+Version:                1.11.2
 
 %gometa -L -f
 
@@ -60,7 +60,7 @@ done
 %files -f %{go_vendor_license_filelist}
 %license vendor/modules.txt
 %doc docs CODE_OF_CONDUCT.md SECURITY.md CHANGELOG.md CONTRIBUTING.md README.md
-%doc TSC_SUMMARY.md WEEKLY_UPDATES.md
+%doc WEEKLY_UPDATES.md
 %{_bindir}/tofu
 
 %changelog

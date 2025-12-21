@@ -472,7 +472,8 @@ done
 
 %if 0%{run_tests}
 %check
-%ifnarch s390x
+# FIXME Tests hang on s390x ppc64le
+%ifnarch s390x ppc64le
 %ctest || :
 %endif
 %endif

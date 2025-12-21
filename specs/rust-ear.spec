@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate libblkid-rs
+%global crate ear
 
-Name:           rust-libblkid-rs
-Version:        0.4.1
+Name:           rust-ear
+Version:        0.4.0
 Release:        %autorelease
-Summary:        High level bindings for libblkid
+Summary:        EAT Attestation Results implementation
 
-License:        MPL-2.0
-URL:            https://crates.io/crates/libblkid-rs
+License:        Apache-2.0
+URL:            https://crates.io/crates/ear
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-High level bindings for libblkid.}
+EAT Attestation Results implementation.}
 
 %description %{_description}
 
@@ -31,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGES.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -45,30 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+deprecated-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+deprecated-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "deprecated" feature of the "%{crate}" crate.
-
-%files       -n %{name}+deprecated-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+static-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+static-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "static" feature of the "%{crate}" crate.
-
-%files       -n %{name}+static-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

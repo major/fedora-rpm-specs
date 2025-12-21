@@ -436,10 +436,10 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 10.1.2
+Version: 10.2.0
 
 # Set for release candidate builds
-#global rcver rc4
+%global rcver rc4
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}
@@ -1725,6 +1725,7 @@ mkdir -p %{static_builddir}
   --disable-modules                \\\
   --disable-module-upgrades        \\\
   --disable-mpath                  \\\
+  --disable-mshv                   \\\
   --disable-multiprocess           \\\
   --disable-netmap                 \\\
   --disable-nettle                 \\\
@@ -3291,11 +3292,13 @@ popd
 %endif
 %{_datadir}/%{name}/dtb/bamboo.dtb
 %{_datadir}/%{name}/dtb/canyonlands.dtb
+%{_datadir}/%{name}/dtb/pegasos1.dtb
+%{_datadir}/%{name}/dtb/pegasos2.dtb
 %{_datadir}/%{name}/qemu_vga.ndrv
 %{_datadir}/%{name}/pnv-pnor.bin
 %{_datadir}/%{name}/skiboot.lid
 %{_datadir}/%{name}/u-boot.e500
-%{_datadir}/%{name}/u-boot-sam460-20100605.bin
+%{_datadir}/%{name}/u-boot-sam460.bin
 %{_datadir}/%{name}/vof*.bin
 %if %{have_memlock_limits}
 %{_sysconfdir}/security/limits.d/95-kvm-memlock.conf

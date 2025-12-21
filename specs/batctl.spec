@@ -1,5 +1,5 @@
 Name:           batctl
-Version:        2025.4
+Version:        2025.5
 Release:        %autorelease
 Summary:        B.A.T.M.A.N. advanced control and management tool
 

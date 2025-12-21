@@ -10,8 +10,8 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        1.2.14
-Release:        3%{?dist}
+Version:        1.2.15
+Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
@@ -25,6 +25,7 @@ ExcludeArch:    armv7hl
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
+BuildRequires:  gumbo-parser-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  jansson-devel
@@ -53,6 +54,9 @@ providing missing data for your favorite movies and series.
 %prep
 %autosetup -p1 -n vdr-plugin-%{pname}-%{version}
 
+# disable plugin examples
+sed -i -e 's|install: install-lib install-i18n install-conf install-plugins|install: install-lib install-i18n install-conf|g' Makefile
+
 %build
 %make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC"
 
@@ -76,6 +80,10 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Fri Dec 19 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-1
+- add BR gumbo-parser-devel
+- Update to 1.2.15
+
 * Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.2.14-3
 - Rebuilt for new VDR API version 2.7.7
 

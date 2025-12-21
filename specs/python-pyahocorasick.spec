@@ -1,7 +1,7 @@
 %global pypi_name pyahocorasick
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Python module (C extension and plain Python) implementing Aho-Corasick algorithm
 

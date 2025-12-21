@@ -1,17 +1,17 @@
 # Bundling request for bootstrap/patternfly: https://fedorahosted.org/fpc/ticket/483
 
-%global snapdate 20241202
-%global commit 01109c17e79c95ddf338dd1a64d88b89a43c1847
+%global snapdate 20241211
+%global commit 47dd9c5432da760e3b780a50ae339ae385b16b7c
 %global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 # post-release format...
 %global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 0.8
+%global baserelease 0.1
 
 Name:       ipsilon
-Version:    3.0.5
+Version:    3.1.1
 Release:    %{baserelease}%{?snaprel}%{?dist}
 Summary:    An Identity Provider Server
 
@@ -469,6 +469,9 @@ install -m0644 -D ipsilon.sysusers.conf %{buildroot}%{_sysusersdir}/ipsilon.conf
 
 
 %changelog
+* Fri Dec 19 2025 Aurelien Bompard <abompard@fedoraproject.org> - 3.1.1-0.1.git20241211.47dd9c5
+- Update to upstream commit 47dd9c5
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.5-0.8.git20241202.01109c1
 - Rebuilt for Python 3.14.0rc3 bytecode
 

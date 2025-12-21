@@ -1,6 +1,6 @@
 Name:           python-exabgp
-Version:        4.2.25
-Release:        5%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -10,6 +10,10 @@ Source1:        exabgp.sysusers.exabgp.conf
 Source2:        exabgp.tmpfiles.exabgp.conf
 Source3:        exabgp.systemd.exabgp.service
 Source4:        exabgp.systemd.exabgp@.service
+Patch0001:      0001-Fix-handle_connection-return-value-and-md5-parameter.patch
+Patch0002:      0002-Fix-inject_operational-afi_safi-bug-peer.py-api_shut.patch
+Patch0003:      0003-Fix-Duplicate-attribute-crash-attribute.ID-on-bytes.patch
+Patch0101:      0101-Support-python-3.14.patch
 
 BuildArch:      noarch
 
@@ -19,9 +23,15 @@ ExaBGP python module
 %package -n python3-exabgp
 Summary:        The BGP swiss army knife of networking
 BuildRequires:  python3-devel
-Requires:       python3 >= 3.7
+Requires:       python3 >= 3.8.1
 Obsoletes:      python2-exabgp <= %{version}
 %{?python_provide:%python_provide python3-exabgp}
+# Test dependencies:
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-cov)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(pygments)
+BuildRequires:  python3dist(psutil)
 
 %description -n python3-exabgp
 The BGP swiss army knife of networking
@@ -39,7 +49,7 @@ The BGP swiss army knife of networking (exabgp systemd unit)
 %autosetup -p1 -n exabgp-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -p
 
 %build
 %pyproject_wheel
@@ -56,7 +66,6 @@ install -p -m 0755 bin/exabgpcli %{buildroot}%{_bindir}/
 
 # Configure required directories for the exabgp service
 mkdir -p %{buildroot}%{_sysconfdir}/exabgp
-touch %{buildroot}%{_sysconfdir}/exabgp/exabgp.env
 
 # Install exabgp systemd unit files
 mkdir -p %{buildroot}%{_unitdir}
@@ -81,7 +90,8 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/exabgp.conf
 rm -rf %{buildroot}%{_usr}/etc
 
 %check
-%tox
+%pyproject_check_import -t
+%pytest --cov --cov-reset tests/unit
 
 %pre -n exabgp
 %sysusers_create_package exabgp %{SOURCE1}
@@ -89,8 +99,6 @@ rm -rf %{buildroot}%{_usr}/etc
 
 %post -n exabgp
 %systemd_post exabgp.service
-# Default env
-[ -f %{_sysconfdir}/exabgp/exabgp.env ] || %{_bindir}/exabgp --full-ini > %{_sysconfdir}/exabgp/exabgp.env
 
 %preun -n exabgp
 %systemd_preun exabgp.service
@@ -109,7 +117,6 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_bindir}/exabgp-healthcheck
 %{_bindir}/exabgphealthcheck
 %dir %{_sysconfdir}/exabgp
-%ghost %{_sysconfdir}/exabgp/exabgp.env
 %{_unitdir}/exabgp.service
 %{_unitdir}/exabgp@.service
 %{_mandir}/man1/exabgp.1{,.*}
@@ -118,6 +125,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Sat Nov 22 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.1-1
+- Update to version 5.0.1 release (resolves rhbz#2415530)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.25-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -55,6 +55,9 @@ Conflicts:      python%{python3_version}dist(poetry) < 1.1
 %prep
 %autosetup -p1 -n poetry-core-%{version}
 
+# Assert the tomli dependency from the devendor patch is conditional
+%{python3} -c "import tomllib; t = tomllib.load(open('pyproject.toml', 'rb')); assert t['tool']['poetry']['dependencies']['tomli']['python'] == '<3.11'"
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r

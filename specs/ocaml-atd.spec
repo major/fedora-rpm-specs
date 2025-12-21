@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
-Version:        2.16.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Adaptable Type Definitions for cross-language data types
 
@@ -20,7 +20,7 @@ BuildRequires:  ocaml-dune >= 2.8
 BuildRequires:  ocaml-easy-format-devel
 BuildRequires:  ocaml-menhir >= 20180523
 BuildRequires:  ocaml-re-devel
-BuildRequires:  ocaml-yojson-devel >= 2.0.2
+BuildRequires:  ocaml-yojson-devel >= 3.0.0
 BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist flake8}
@@ -40,8 +40,8 @@ languages are OCaml and Java.
 
 The following opam packages are provided by the atd project:
 
-* atdgen: executable that generates OCaml code dealing with json and
-  biniou data formats
+* atdgen: executable that generates OCaml code dealing with json and biniou
+  data formats
 * atdj: executable that generates Java code dealing with json
 * atd: library for parsing atd files used by code generators
 
@@ -64,13 +64,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-atdgen-runtime%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atdgen
-Atdgen is a command-line program that takes as input type definitions in the ATD
-syntax and produces OCaml code suitable for data serialization and
-deserialization. Two data formats are currently supported, these are biniou and
-JSON. Atdgen-biniou and Atdgen-json will refer to Atdgen used in one context or
-the other. Atdgen was designed with efficiency and durability in mind. Software
-authors are encouraged to use Atdgen directly and to write tools that may reuse
-part of Atdgen’s source code.
+Atdgen is a command-line program that takes as input type definitions in the
+ATD syntax and produces OCaml code suitable for data serialization and
+deserialization.  Two data formats are currently supported, these are biniou
+and JSON.  Atdgen-biniou and Atdgen-json will refer to Atdgen used in one
+context or the other.  Atdgen was designed with efficiency and durability in
+mind.  Software authors are encouraged to use Atdgen directly and to write
+tools that may reuse part of Atdgen’s source code.
 
 
 %package -n     ocaml-atdcpp
@@ -78,12 +78,12 @@ Summary:        C++ code generation for ATD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atdcpp
-Atdcpp takes type definitions in the ATD format and derives C++ classes
-that can read and write JSON data.  This saves the developer the labor
-writing boilerplate that converts between dicts and classes.
+Atdcpp takes type definitions in the ATD format and derives C++ classes that
+can read and write JSON data.  This saves the developer the labor writing
+boilerplate that converts between dicts and classes.
 
-This allows safe interoperability with other languages supported by ATD
-such as D, OCaml, Java, Python or Scala.
+This allows safe interoperability with other languages supported by ATD such
+as D, OCaml, Java, Python or Scala.
 
 
 %package -n     ocaml-atdd
@@ -91,12 +91,12 @@ Summary:        DLang code generation for ATD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atdd
-Atdd takes type definitions in the ATD format and derives `dlang`
-classes that can read and write JSON data.  This saves the developer the
-labor writing boilerplate that converts between dicts and classes.
+Atdd takes type definitions in the ATD format and derives `dlang` classes that
+can read and write JSON data.  This saves the developer the labor writing
+boilerplate that converts between dicts and classes.
 
-This allows safe interoperability with other languages supported by ATD
-such as C++, OCaml, Java, Python or Scala.
+This allows safe interoperability with other languages supported by ATD such
+as C++, OCaml, Java, Python or Scala.
 
 
 %package -n     ocaml-atdj
@@ -104,7 +104,7 @@ Summary:        Java code generation for ATD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atdj
-Atdj is a program that generates a Java interface from type definitions. In
+Atdj is a program that generates a Java interface from type definitions.  In
 particular, given a set of ATD type definitions, this tool generates a set of
 Java classes representing those types with built-in JSON serializers and
 deserializers.
@@ -113,8 +113,8 @@ The primary benefits of using the generated interface, over manually
 manipulating JSON strings from within Java, are safety and ease of use.
 Specifically, the generated interface offers the following features:
 
-- JSON strings are automatically checked for correctness with respect to the ATD
-  specification.
+- JSON strings are automatically checked for correctness with respect to the
+  ATD specification.
 
 - Details such as optional fields and their associated default values are
   automatically handled.
@@ -125,17 +125,17 @@ Summary:        Python/mypy code generation for ATD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atdpy
-Atdpy is a program that generates a Python interface from type definitions. In
-particular, given a set of ATD type definitions, this tool generates a set of
-Python classes representing those types with built-in JSON serializers and
+Atdpy is a program that generates a Python interface from type definitions.
+In particular, given a set of ATD type definitions, this tool generates a set
+of Python classes representing those types with built-in JSON serializers and
 deserializers.
 
 The primary benefits of using the generated interface, over manually
 manipulating JSON strings from within Python, are safety and ease of use.
 Specifically, the generated interface offers the following features:
 
-- JSON strings are automatically checked for correctness with respect to the ATD
-  specification.
+- JSON strings are automatically checked for correctness with respect to the
+  ATD specification.
 
 - Details such as optional fields and their associated default values are
   automatically handled.
@@ -146,7 +146,7 @@ Summary:        ATD Code generator for Scala
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atds
-Atds is a program that generates a Scala interface from type definitions. In
+Atds is a program that generates a Scala interface from type definitions.  In
 particular, given a set of ATD type definitions, this tool generates a set of
 Scala classes representing those types with built-in JSON serializers and
 deserializers.
@@ -155,8 +155,8 @@ The primary benefits of using the generated interface, over manually
 manipulating JSON strings from within Scala, are safety and ease of use.
 Specifically, the generated interface offers the following features:
 
-- JSON strings are automatically checked for correctness with respect to the ATD
-  specification.
+- JSON strings are automatically checked for correctness with respect to the
+  ATD specification.
 
 - Details such as optional fields and their associated default values are
   automatically handled.
@@ -167,12 +167,12 @@ Summary:        TypeScript code generation for ATD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-atdts
-Atdts takes type definitions in the ATD format and derives TypeScript
-classes that can read and write JSON data.  This saves the developer the
-labor writing boilerplate that converts between dicts and classes.
+Atdts takes type definitions in the ATD format and derives TypeScript classes
+that can read and write JSON data.  This saves the developer the labor writing
+boilerplate that converts between dicts and classes.
 
-This allows safe interoperability with other languages supported by
-ATD such as C++, OCaml, Java, Scala, or Python.
+This allows safe interoperability with other languages supported by ATD such
+as C++, OCaml, Java, Scala, or Python.
 
 
 %package -n     ocaml-atdgen-codec-runtime
@@ -197,7 +197,8 @@ Summary:        Runtime library for code generated by atdgen
 # Requires:
 
 %description -n ocaml-atdgen-runtime
-This package should be used only in conjunction with the atdgen code generator.
+This package should be used only in conjunction with the atdgen code
+generator.
 
 
 %package -n     ocaml-atdgen-runtime-devel

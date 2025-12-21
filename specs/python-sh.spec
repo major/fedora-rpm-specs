@@ -63,7 +63,7 @@ SH_TESTS_USE_SELECT=1 %{python3} sh_test.py
 
 
 %files -n python3-sh -f %{pyproject_files}
-%license %{python3_sitelib}/sh-%{version}.dist-info/LICENSE.txt
+%license %{python3_sitelib}/sh-%{version}.dist-info/licenses/LICENSE.txt
 %doc README.rst CHANGELOG.md MIGRATION.md
 
 

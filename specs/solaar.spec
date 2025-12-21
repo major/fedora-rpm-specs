@@ -3,13 +3,11 @@
 %global app_id io.github.pwr_solaar.solaar
 
 Name:           solaar
-Version:        1.1.16
+Version:        1.1.18
 Release:        %autorelease
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr-Solaar/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
-# https://github.com/rathann/Solaar/commit/bc41badff18d6075e97bb41f02c39a9946f96d22
-Patch:          %{name}-fix-appstream.patch
 
 BuildArch:      noarch
 License:        GPL-2.0-or-later
@@ -22,8 +20,12 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd-rpm-macros
 %if %{with check}
+# cairo-1.0.typelib and xlib-2.0.typelib
+BuildRequires:  gobject-introspection
 BuildRequires:  gtk3
 BuildRequires:  python3dist(pytest-xdist)
+# required to run gtk3 tests
+BuildRequires:  python3dist(pytest-xvfb)
 %endif
 
 Requires:       hicolor-icon-theme
@@ -137,8 +139,14 @@ fi
 %{_datadir}/icons/hicolor/32x32/apps/solaar-light_*.png
 %{_datadir}/icons/hicolor/scalable/apps/solaar.svg
 %{_datadir}/icons/hicolor/scalable/apps/solaar-attention.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-attention-dark-filled.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-filled.svg
 %{_datadir}/icons/hicolor/scalable/apps/solaar-init.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-init-dark-filled.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-init-dark-rotate-filled.svg
 %{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic-dark-filled.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic-filled.svg
 %{_metainfodir}/%{app_id}.metainfo.xml
 %config(noreplace) %{_sysconfdir}/xdg/autostart/solaar.desktop
 

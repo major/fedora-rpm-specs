@@ -12,7 +12,7 @@
 %global giturl         https://github.com/gap-packages/AutoDoc
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2025.10.16
+Version:        2025.12.19
 Release:        %autorelease
 Summary:        Generate documentation from GAP source code
 
@@ -24,7 +24,7 @@ Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}
 BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(build): --packagedirs .. --bare -c 'LoadPackage("GAPDoc");'
-BuildOption(install): gap makefile tst
+BuildOption(install): gap tst
 BuildOption(check): --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 
 BuildRequires:  gap-devel
@@ -71,7 +71,6 @@ cp -p doc/*.xml %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc
 %license COPYRIGHT LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g
-%{gap_libdir}/pkg/%{gap_upname}/makefile
 %{gap_libdir}/pkg/%{gap_upname}/gap/
 %{gap_libdir}/pkg/%{gap_upname}/tst/
 

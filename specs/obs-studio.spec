@@ -46,8 +46,8 @@
 #global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        32.0.2
-Release:        2%{?dist}
+Version:        32.0.4
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -399,6 +399,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Dec 19 2025 Hoshino Lina <lina@lina.yt> - 32.0.4-1
+- Update to 32.0.4
+
 * Sun Nov 30 2025 Asahi Lina <lina@lina.yt> - 32.0.2-2
 - Add missing simde-devel dep to devel package
 

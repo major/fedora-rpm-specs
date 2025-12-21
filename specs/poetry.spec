@@ -26,6 +26,13 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:          Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 
+# Update to dulwich 0.25
+# https://github.com/python-poetry/poetry/pull/10665
+# Rebased and lock file changes removed
+# WARNING: This version of the patch breaks mypy checks,
+#          but at least it makes poetry function and pass functional tests.
+Patch:          dulwich-0.25.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -59,7 +66,7 @@ Conflicts:      python3-virtualenv < 20.19.0-2
 %autosetup -p1
 # Drop upper bounds of some dependencies that release more frequently.
 # poetry pins bery agressibly with upper bounds for not yet released versions.
-sed -i -r 's/(keyring|virtualenv|fastjsonschema|dulwich) \(>=([^,]+),<.*\)/\1 >= \2/' pyproject.toml
+sed -i -r 's/(keyring|virtualenv|fastjsonschema) \(>=([^,]+),<.*\)/\1 >= \2/' pyproject.toml
 
 
 %generate_buildrequires

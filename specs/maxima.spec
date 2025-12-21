@@ -1,8 +1,8 @@
 Summary: Symbolic Computation Program
 Name:    maxima
-Version: 5.47.0
+Version: 5.49.0
 
-Release: 10%{?dist}
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     https://maxima.sourceforge.io/
@@ -28,9 +28,6 @@ Patch53: matrixexp.patch
 # https://gitlab.archlinux.org/archlinux/packaging/packages/maxima/-/raw/main/maxima-sbcl-gmp.patch
 Patch54: maxima-sbcl-gmp.patch
 
-# port xmaxima to Tcl 9.0 (rhbz#2337728)
-Patch55: maxima-tcl9.patch
-
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
 
@@ -45,8 +42,8 @@ Requires: emacs-filesystem >= %{_emacs_version}
 # available on all arches
 %define _enable_gcl --enable-gcl
 
-# not available for riscv64 or s390x
-%ifarch x86_64 aarch64 ppc64le
+# not available for s390x
+%ifarch x86_64 aarch64 ppc64le riscv64
 %define default_lisp sbcl
 %define _enable_sbcl --enable-sbcl-exec
 %endif
@@ -69,7 +66,6 @@ Obsoletes: %{name}-runtime-sbcl < %{version}-%{release}
 Obsoletes: %{name}-runtime-ecl < %{version}-%{release}
 %endif
 
-Source1: maxima.png
 Source6: maxima-modes.el
 
 ## Other maxima reference docs
@@ -85,8 +81,8 @@ Source11: http://maxima.sourceforge.net/docs/maximabook/maximabook-19-Sept-2004.
 %global _build_id_links none
 
 BuildRequires: desktop-file-utils
+BuildRequires: ImageMagick
 BuildRequires: pkgconfig(bash-completion)
-%global bash_completionsdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo '/etc/bash_completion.d')
 BuildRequires: perl-interpreter
 BuildRequires: perl(Getopt::Long)
 BuildRequires: python3
@@ -109,6 +105,7 @@ Suggests: %{name}-runtime%{?default_lisp:-%{default_lisp}} = %{version}-%{releas
 
 Requires: gnuplot
 Requires: rlwrap
+Requires: hicolor-icon-theme
 
 %description
 Maxima is a full symbolic computation program.  It is full featured
@@ -249,14 +246,24 @@ touch doc/info/maxima.info \
 
 
 %install
-%make_install bashcompletiondir=%{bash_completionsdir}
+%make_install bashcompletiondir=%{bash_completions_dir}
 
 %if "x%{?_enable_ecl:1}" == "x1"
 install -D -m755 src/binary-ecl/maxima.fas $RPM_BUILD_ROOT%{ecllib}/maxima.fas
 %endif
 
-# app icon
-install -p -D -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps/maxima.png
+# app icons
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/scalable/{apps,mimetypes}
+mv $RPM_BUILD_ROOT%{_datadir}/icons/text-x-maxima*.svg \
+   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/scalable/mimetypes/
+mv $RPM_BUILD_ROOT%{_datadir}/icons/xmaxima.svg \
+   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/scalable/apps/
+
+# icon is nonstandard size (135x135)
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps
+convert -resize 128x128 $RPM_BUILD_ROOT%{_datadir}/icons/xmaxima.png \
+       $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps/xmaxima.png
+rm -f $RPM_BUILD_ROOT%{_datadir}/icons/xmaxima.png
 
 install -D -m644 -p %{SOURCE6} $RPM_BUILD_ROOT%{_emacs_sitelispdir}/site_start.d/maxima-modes.el
 
@@ -279,7 +286,7 @@ touch debugfiles.list
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/net.sourceforge.maxima.xmaxima.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/Xmaxima.desktop
 make -k check || cat tests/test-suite.log
 
 %triggerin -- tetex-latex,texlive-latex
@@ -309,6 +316,7 @@ fi
 %dir %{_datadir}/maxima/%{maxima_ver}/doc/html/
 %{_datadir}/maxima/%{maxima_ver}/doc/html/figures/
 %doc %lang(en) %{_datadir}/maxima/%{maxima_ver}/doc/html/*.h*
+%doc %lang(en) %{_datadir}/maxima/%{maxima_ver}/doc/html/manual.css
 %doc %lang(en) %{_datadir}/maxima/%{maxima_ver}/doc/share/
 %doc %lang(es) %{_datadir}/maxima/%{maxima_ver}/doc/html/es/
 %doc %lang(pt) %{_datadir}/maxima/%{maxima_ver}/doc/html/pt/
@@ -316,9 +324,8 @@ fi
 %{_datadir}/maxima/%{maxima_ver}/share/
 %{_datadir}/mime/packages/x-mac.xml
 %{_datadir}/mime/packages/x-maxima-out.xml
-%{bash_completionsdir}/*maxima
-# FIXME, copy/move to %%_datadir/icons/hicolor/
-%{_datadir}/pixmaps/*maxima*
+%{bash_completions_dir}/*maxima
+%{_datadir}/icons/hicolor/scalable/mimetypes/*
 %dir %{_libdir}/maxima/
 %dir %{_libdir}/maxima/%{maxima_ver}/
 %{_libexecdir}/maxima
@@ -326,9 +333,12 @@ fi
 %{_infodir}/maxima*
 %{_infodir}/abs_integrate.info*
 %{_infodir}/drawutils.info*
+%{_infodir}/guess.info*
 %{_infodir}/kovacicODE.info*
 %{_infodir}/logic.info*
+%{_infodir}/mathml.info*
 %{_infodir}/nelder_mead.info
+%{_infodir}/raddenest.info*
 %{_infodir}/symplectic_ode.info
 %lang(es) %{_infodir}/es*
 %lang(pt) %{_infodir}/pt/
@@ -347,9 +357,9 @@ fi
 %files gui
 %{_bindir}/xmaxima
 %{_datadir}/maxima/%{maxima_ver}/xmaxima/
-%{_datadir}/applications/net.sourceforge.maxima.xmaxima.desktop
+%{_datadir}/applications/Xmaxima.desktop
 %{_metainfodir}/net.sourceforge.maxima.xmaxima.appdata.xml
-%{_datadir}/icons/hicolor/*/*/*
+%{_datadir}/icons/hicolor/*/apps/*
 %{_infodir}/xmaxima*
 
 %if "x%{?_enable_clisp:1}" == "x1"
@@ -380,6 +390,12 @@ fi
 
 
 %changelog
+* Fri Dec 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.49.0-1
+- Update to 5.49.0 (rhbz#2423521)
+
+* Mon Sep 15 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.48.1-1
+- Update to 5.48.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.47.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

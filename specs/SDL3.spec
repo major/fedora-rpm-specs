@@ -17,8 +17,8 @@
 
 
 Name:           SDL3
-Version:        3.3.2
-Release:        2%{?dist}
+Version:        3.3.6
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -36,6 +36,9 @@ BuildRequires:  gcc
 # Technically, there are a few C++ files in SDL3, but none are used for the Linux build
 # BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
+BuildRequires:  fribidi-devel
+BuildRequires:  libthai-devel
+BuildRequires:  liburing-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  mesa-libEGL-devel
@@ -45,10 +48,10 @@ BuildRequires:  libX11-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libXrender-devel
-# While SDL3 supports this, Xwayland does not expose XScrnSaver.
-# BuildRequires:  libXScrnSaver-devel
+BuildRequires:  libXScrnSaver-devel
 BuildRequires:  libXinerama-devel
 BuildRequires:  libXcursor-devel
+BuildRequires:  libXfixes-devel
 BuildRequires:  systemd-devel
 # For building man pages
 BuildRequires:  perl-interpreter
@@ -59,6 +62,7 @@ BuildRequires:  pkgconfig(libpulse-simple)
 BuildRequires:  pkgconfig(jack)
 # PipeWire
 BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  pipewire-jack-audio-connection-kit-devel
 # D-Bus
 BuildRequires:  pkgconfig(dbus-1)
 # IBus
@@ -192,6 +196,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Fri Dec 19 2025 Tom Callaway <spot@fedoraproject.org> - 3.3.6-1
+- update to 3.3.6
+
 * Mon Nov 24 2025 Tom Callaway <spot@fedoraproject.org> - 3.3.2-2
 - drop BR: gcc-c++
 - add BR: libXtst-devel

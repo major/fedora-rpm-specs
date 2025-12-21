@@ -140,7 +140,7 @@ Patch:          https://github.com/systemd/systemd/pull/26494.patch
 
 # Create user journals for users with high UIDs
 # https://bugzilla.redhat.com/show_bug.cgi?id=2251843
-Patch:          https://github.com/systemd/systemd/pull/30846.patch
+Patch:          30846.patch
 
 # Again create runlevelX.target. Dropping those files breaks upgrades.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2411195
@@ -148,7 +148,7 @@ Patch:          0001-Revert-units-drop-runlevel-0-6-.target.patch
 
 # userdb: create userdb root directory with correct label
 # We can drop this after SELinux policy is updated to handle the transition.
-Patch:          https://github.com/systemd/systemd/pull/38769.patch
+Patch:          38769.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2415701
 Patch:          0002-machined-continue-without-resolve.hook-socket.patch
@@ -163,7 +163,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  clang
 BuildRequires:  coreutils
 BuildRequires:  rpmdevtools
-BuildRequires:  libcap-devel
 BuildRequires:  libmount-devel
 BuildRequires:  libfdisk-devel
 BuildRequires:  libpwquality-devel
@@ -280,8 +279,8 @@ Requires(post): coreutils
 Requires(post): grep
 # systemd-machine-id-setup requires libssl
 Requires(post): openssl-libs
-Requires:       dbus >= 1.9.18
-Requires:       systemd-pam%{_isa} = %{version}-%{release}
+Recommends:     dbus >= 1.9.18
+Recommends:     systemd-pam%{_isa} = %{version}-%{release}
 Requires(meta): (systemd-rpm-macros = %{version}-%{release} if rpm-build)
 Requires:       systemd-libs%{_isa} = %{version}-%{release}
 %{?fedora:Recommends:     systemd-networkd = %{version}-%{release}}
@@ -805,7 +804,9 @@ VMLINUX_H_PATH=$(%python3 -c '%find_vmlinux_h')
 CONFIGURE_OPTS=(
         -Dmode=release
         -Dslow-tests=true
+%if %{without upstream}
         -Dsysvinit-path=/etc/rc.d/init.d
+%endif
         -Drc-local=/etc/rc.d/rc.local
         -Dntp-servers='0.%{ntpvendor}.pool.ntp.org 1.%{ntpvendor}.pool.ntp.org 2.%{ntpvendor}.pool.ntp.org 3.%{ntpvendor}.pool.ntp.org'
         -Ddns-servers=

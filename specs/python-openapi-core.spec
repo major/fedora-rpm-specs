@@ -4,7 +4,7 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.19.5
+Version:        0.21.0
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
@@ -12,29 +12,8 @@ License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
 
-# Allow Starlette 0.45 and 0.46
-# https://github.com/python-openapi/openapi-core/pull/977
-# (Without changes to poetry.lock)
-# https://github.com/python-openapi/openapi-core/pull/977/commits/6714b46bbc20933dad48d5907908166cde7fa0c0.
-#
-# Allow FastAPI 0.120 and Starlette 0.49
-# https://github.com/python-openapi/openapi-core/pull/1027
-# (Without changes to poetry.lock)
-#
-# Downstream-only: Allow Starlette 0.50. We can offer this upstream after a
-# released version of FastAPI supports Starlette 0.50.
-Patch:          openapi-core-0.19.5-starlette-0.50.patch
-
-# Downstream-only: remove werkzeug version pin
-#
-# Upstream added this to fix
-# https://github.com/python-openapi/openapi-core/issues/938, but we have no
-# choice: we must use the version that is packaged, even if this breaks things.
-Patch:          0001-Downstream-only-remove-werkzeug-version-pin.patch
-
-# Support aioitertools 0.13
-# https://github.com/python-openapi/openapi-core/pull/1039
-Patch:          0001-Support-aioitertools-0.13.patch
+# Allow Starlette 0.50
+Patch:          allow_starlette_0.50.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -107,15 +86,11 @@ tomcli set pyproject.toml lists delitem \
 
 
 %check
-# [Bug]: Regression in Python 3.14: TestImportModelCreate::test_dynamic_model
-# https://github.com/python-openapi/openapi-core/issues/1009
-k="${k-}${k+ and }not (TestImportModelCreate and test_dynamic_model)"
-
 %if %{without falcon}
 ignore="${ignore-} --ignore=tests/integration/contrib/falcon"
 %endif
 
-%pytest ${ignore-} -k "${k-}"
+%pytest ${ignore-}
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

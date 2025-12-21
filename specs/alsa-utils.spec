@@ -1,21 +1,24 @@
 %define   baseversion     1.2.15
-#define   fixversion      .2
+%define   fixversion      .1
 %global   _hardened_build 1
+
+%global   utils_patch     0
 
 Summary: Advanced Linux Sound Architecture (ALSA) utilities
 Name:    alsa-utils
 Version: %{baseversion}%{?fixversion}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://www.alsa-project.org/
 Source:  ftp://ftp.alsa-project.org/pub/utils/alsa-utils-%{version}.tar.bz2
-#Patch1:  alsa-utils-git.patch
 Source4: alsaunmute
 Source5: alsaunmute.1
 Source11: alsactl.conf
 Source20: alsa-restore.service
 Source22: alsa-state.service
-#Patch1:  alsa-git.patch
+%if %{utils_patch}
+Patch1:  alsa-git.patch
+%endif
 
 BuildRequires: gcc
 BuildRequires: autoconf automake libtool
@@ -63,7 +66,9 @@ Architecture (ALSA) framework and Fast Fourier Transform library.
 
 %prep
 %setup -q -n %{name}-%{version}
+%if %{utils_patch}
 %patch -P1 -p1 -b .alsa-git
+%endif
 
 %build
 autoreconf -vif
@@ -206,6 +211,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Fri Dec 19 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15.1-1
+* Updated to 1.2.15.1
+
 * Mon Dec  8 2025 Jaroslav Kysela <perex@perex.cz> - 1.2.15-2
 * Updated to 1.2.15
 

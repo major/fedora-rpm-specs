@@ -21,6 +21,8 @@
 %bcond_without release
 # Enable static library builds by default.
 %bcond_without staticlibs
+# Build with system libraries
+%bcond_with system_libs
 
 # Workaround for stripping of debug symbols from static libraries
 %if %{with staticlibs}
@@ -28,6 +30,16 @@
 %global include_staticlibs 1
 %else
 %global include_staticlibs 0
+%endif
+
+%if %{with system_libs}
+%global system_libs 1
+%global link_type system
+%global freetype_lib %{nil}
+%else
+%global system_libs 0
+%global link_type bundled
+%global freetype_lib |libfreetype[.]so.*
 %endif
 
 # Disable automatic debuginfo/debugsource package.
@@ -119,20 +131,21 @@
 %global aot_arches      x86_64 %{aarch64}
 # Set of architectures which support the serviceability agent
 %global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm} riscv64
+# Set of architectures which support class data sharing
 # As of JDK-8005165 in OpenJDK 10, class sharing is not arch-specific
 # However, it does segfault on the Zero assembler port, so currently JIT only
 %global share_arches    %{jit_arches}
 # Set of architectures for which we build the Shenandoah garbage collector
-%global shenandoah_arches x86_64 %{aarch64}
+%global shenandoah_arches x86_64 %{aarch64} riscv64
 # Set of architectures for which we build the Z garbage collector
 %global zgc_arches x86_64 riscv64
 # Set of architectures for which alt-java has SSB mitigation
 %global ssbd_arches x86_64
-# Set of architectures for which java has short vector math library (libsvml.so)
+# Set of architectures for which java has short vector math library (libjsvml.so)
 %global svml_arches x86_64
-# Set of architectures with  libsimdsort.so
+# Set of architectures for which java has intrinsics for Arrays.sort (libsimdsort.so)
 %global simdsort_arches x86_64
-# Set of architectures with  libsleef.so
+# Set of architectures for which SLEEF is used for vector math operations
 %global sleef_arches aarch64 riscv64
 # Set of architectures where we verify backtraces with gdb
 # s390x fails on RHEL 7 so we exclude it there
@@ -186,22 +199,6 @@
 # If you disable all builds, then the build fails
 # Build and test slowdebug first as it provides the best diagnostics
 %global build_loop %{slowdebug_build} %{fastdebug_build} %{normal_build}
-
-%if %{include_staticlibs}
-%global staticlibs_loop %{staticlibs_suffix}
-%else
-%global staticlibs_loop %{nil}
-%endif
-
-%if %{include_staticlibs}
-# Extra target for producing the static-libraries. Separate from
-# other targets since this target is configured to use in-tree
-# AWT dependencies: lcms, libjpeg, libpng, libharfbuzz, giflib
-# and possibly others
-%global static_libs_target static-libs-image
-%else
-%global static_libs_target %{nil}
-%endif
 
 # VM variant being built
 %ifarch %{zero_arches}
@@ -328,6 +325,13 @@
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
+# Define current Git revision for the crypto policy & FIPS support patches
+%global fipsver df044414ef4
+# Define nssadapter version
+%global nssadapter_version 0.1.0
+%global nssadapter_name nssadapter-%{nssadapter_version}
+# Define whether the crypto policy is expected to be active when testing
+%global crypto_policy_active true
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
 %global javaver         %{featurever}
@@ -342,7 +346,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        8
-%global rpmrelease      1
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -379,11 +383,10 @@
 %global compatiblename  %{name}
 # TODO think about renaming  tarball in portables so it matches and compatiblename and drop portable_compatiblename
 # It may be better to keep portables tarball as it is, as it nicely points out what is going from portables to rpms
-%global portable_compatiblename  java-%{featurever}-%{origin}
+%global portable_compatiblename java-%{featurever}-%{origin}
 %define fullversion()     %{expand:%{compatiblename}%{?1}-%{version}-%{release}}
-# images directories from upstream build
-%global jdkimage                jdk
-%global static_libs_image       static-libs
+# output dir stub for nssadapter and proeprties
+%define installoutputdir() %{expand:jdk%{featurever}.install-nsscp%{?1}}
 # installation directory for static libraries
 %global static_libs_root        lib/static
 %global static_libs_arch_dir    %{static_libs_root}/linux-%{archinstall}
@@ -398,7 +401,7 @@
 # fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349
 #         https://bugzilla.redhat.com/show_bug.cgi?id=1590796#c14
 #         https://bugzilla.redhat.com/show_bug.cgi?id=1655938
-%global _privatelibs libsplashscreen[.]so.*|libawt_xawt[.]so.*|libjli[.]so.*|libattach[.]so.*|libawt[.]so.*|libextnet[.]so.*|libawt_headless[.]so.*|libdt_socket[.]so.*|libfontmanager[.]so.*|libinstrument[.]so.*|libj2gss[.]so.*|libj2pcsc[.]so.*|libj2pkcs11[.]so.*|libjaas[.]so.*|libjavajpeg[.]so.*|libjdwp[.]so.*|libjimage[.]so.*|libjsound[.]so.*|liblcms[.]so.*|libmanagement[.]so.*|libmanagement_agent[.]so.*|libmanagement_ext[.]so.*|libmlib_image[.]so.*|libnet[.]so.*|libnio[.]so.*|libprefs[.]so.*|librmi[.]so.*|libsaproc[.]so.*|libsctp[.]so.*|libsystemconf[.]so.*|libzip[.]so.*%{freetype_lib}
+%global _privatelibs libsplashscreen[.]so.*|libawt_xawt[.]so.*|libjli[.]so.*|libattach[.]so.*|libawt[.]so.*|libextnet[.]so.*|libawt_headless[.]so.*|libdt_socket[.]so.*|libfontmanager[.]so.*|libinstrument[.]so.*|libj2gss[.]so.*|libj2pcsc[.]so.*|libj2pkcs11[.]so.*|libjaas[.]so.*|libjavajpeg[.]so.*|libjdwp[.]so.*|libjimage[.]so.*|libjsound[.]so.*|libjsvml[.]so.*|liblcms[.]so.*|libmanagement[.]so.*|libmanagement_agent[.]so.*|libmanagement_ext[.]so.*|libmlib_image[.]so.*|libnet[.]so.*|libnio[.]so.*|libprefs[.]so.*|librmi[.]so.*|libsaproc[.]so.*|libsctp[.]so.*|libsimdsort[.]so.*|libsleef[.]so.*|libsyslookup[.]so.*|libzip[.]so.*%{freetype_lib}
 %global _publiclibs libjawt[.]so.*|libjava[.]so.*|libjvm[.]so.*|libverify[.]so.*|libjsig[.]so.*
 %if %is_system_jdk
 %global __provides_exclude ^(%{_privatelibs})$
@@ -744,7 +747,9 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libawt_headless.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libdt_socket.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libfontmanager.so
+%if ! %{system_libs}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libfreetype.so
+%endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libinstrument.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2gss.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2pcsc.so
@@ -755,6 +760,9 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjdwp.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjimage.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsound.so
+%ifarch %{svml_arches}
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsvml.so
+%endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/liblcms.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libmanagement.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libmanagement_agent.so
@@ -773,9 +781,6 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsctp.so
 %ifarch %{simdsort_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsimdsort.so
-%endif
-%ifarch %{svml_arches}
-%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsvml.so
 %endif
 %ifarch %{sleef_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsleef.so
@@ -823,7 +828,21 @@ fi
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/policy/unlimited/default_US_export.policy
  %{etcjavadir -- %{?1}}/conf/security/policy/README.txt
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security
-%config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
+%dir %{etcjavadir -- %{?1}}/conf/security/redhat
+%dir %{etcjavadir -- %{?1}}/conf/security/redhat/false
+%dir %{etcjavadir -- %{?1}}/conf/security/redhat/true
+# config-noreplace in case the system administrator wants to adjust
+# the FIPS configuration
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/security/redhat/SunPKCS11-FIPS.cfg
+# config-noreplace in case the system administrator wants to change
+# the default for crypto-policies usage
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/security/redhat/crypto-policies.properties
+# The system administrator is never expected to change these files -- they
+# are implementation details -- so leave them as not config-noreplace
+%config %{etcjavadir -- %{?1}}/conf/security/redhat/false/crypto-policies.properties
+%config %{etcjavadir -- %{?1}}/conf/security/redhat/true/crypto-policies.properties
+%config %{etcjavadir -- %{?1}}/conf/security/redhat/false/fips.properties
+%config %{etcjavadir -- %{?1}}/conf/security/redhat/true/fips.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/jmxremote.access
 # This is a config template, thus not config-noreplace
 %config  %{etcjavadir -- %{?1}}/conf/management/jmxremote.password.template
@@ -831,6 +850,7 @@ fi
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/management.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp-strict.properties.template
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/net.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/sound.properties
 %{_jvmdir}/%{sdkdir -- %{?1}}/conf
@@ -983,8 +1003,6 @@ fi
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_arch_dir}
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}
 %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/lib*.a
-%{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/server/lib*.a
-%dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/server
 }
 
 %define files_javadoc() %{expand:
@@ -1011,6 +1029,11 @@ fi
 %ghost %{_javadocdir}/java-%{javaver}.zip
 %endif
 %endif
+}
+
+%define files_crypto_adapter() %{expand:
+%dir %{_libdir}/%{sdkdir -- %{?1}}
+%{_libdir}/%{sdkdir -- %{?1}}/libnssadapter.so
 }
 
 # not-duplicated requires/provides/obsoletes for normal/debug packages
@@ -1069,6 +1092,8 @@ Requires(postun): %{alternatives_requires}
 %if 0%{?rhel} >= 8 || 0%{?fedora} > 0
 Suggests: lksctp-tools%{?_isa}, pcsc-lite-libs%{?_isa}
 %endif
+# for libnssadapter.so
+Requires: %{name}-crypto-adapter%{?1}%{?_isa} = %{epoch}:%{version}-%{release}
 
 # Standard JPackage base provides
 Provides: jre-%{javaver}-%{origin}-headless%{?1} = %{epoch}:%{version}-%{release}
@@ -1233,6 +1258,13 @@ Source16: CheckVendor.java
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
+# FIPS support sources.
+# For libnssadapter.so (RHEL-128413)
+Source31: https://github.com/rh-openjdk/nss-native-fips-key-import-export-adapter/releases/download/%{nssadapter_version}/%{nssadapter_name}.tar.xz
+# Create OpenJDK's crypto-policies hierarchy (RHEL-128409)
+Source32: create-redhat-properties-files.bash
+
+
 BuildRequires: %{portable_name}-sources >= %{portable_version}
 BuildRequires: %{portable_name}-misc >= %{portable_version}
 BuildRequires: %{portable_name}-docs >= %{portable_version}
@@ -1272,27 +1304,49 @@ BuildRequires: pkgconfig
 BuildRequires: zip
 BuildRequires: unzip
 BuildRequires: javapackages-filesystem
-# ?
-BuildRequires: tzdata-java >= 2022g
+# 2025a required as of JDK-8347965
+BuildRequires: tzdata-java >= 2025a
+# Earlier versions have a bug in tree vectorization on PPC
+BuildRequires: gcc >= 4.8.3-8
 
 %if %{with_systemtap}
 BuildRequires: systemtap-sdt-devel
 %endif
+BuildRequires: make
 
+# libnssadapter.so build requirements
+BuildRequires: nss-devel
+BuildRequires: nss-softokn-devel
+
+%if %{system_libs}
+BuildRequires: freetype-devel
+BuildRequires: giflib-devel
+BuildRequires: harfbuzz-devel
+BuildRequires: lcms2-devel
+BuildRequires: libjpeg-devel
+BuildRequires: libpng-devel
+BuildRequires: zlib-devel
+%else
 # Version in src/java.desktop/share/legal/freetype.md
-Provides: bundled(freetype) = 2.13.2
+Provides: bundled(freetype) = 2.13.3
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
 Provides: bundled(giflib) = 5.2.2
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 8.2.2
+Provides: bundled(harfbuzz) = 10.4.0
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
-Provides: bundled(lcms2) = 2.16.0
+Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.43
+Provides: bundled(libpng) = 1.6.47
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.1
+%endif
+%ifarch %{sleef_arches}
+# SLEEF is always bundled
+# Version in src/jdk.incubator.vector/linux/native/libsleef/generated/sleefinline_advsimd.h
+Provides: bundled(sleef) = 3.6.1
+%endif
 
 # this is always built, also during debug-only build
 # when it is built in debug-only this package is just placeholder
@@ -1622,6 +1676,46 @@ Obsoletes: javadoc-zip-slowdebug < 1:13.0.0.33-1.rolling
 The %{origin_nice} %{featurever} API documentation compressed in a single archive.
 %endif
 
+# crypto-adapter
+%if %{include_normal_build}
+%package crypto-adapter
+Summary: %{origin_nice} %{featurever} Cryptography Adapter Library
+%if (0%{?rhel} > 0 && 0%{?rhel} <= 8) || (0%{?fedora} >= 0 && 0%{?fedora} < 30)
+Group:   Development/Languages
+%endif
+
+# crypto-adapter does not need an "rpo" function since
+# its specific nss and nss-softokn library requirements are
+# automatically generated by RPM.
+
+%description crypto-adapter
+The %{origin_nice} %{featurever} cryptography adapter library.
+%endif
+
+%if %{include_debug_build}
+%package crypto-adapter-slowdebug
+Summary: %{origin_nice} %{featurever} Cryptography Adapter Library %{debug_on}
+%if (0%{?rhel} > 0 && 0%{?rhel} <= 8) || (0%{?fedora} >= 0 && 0%{?fedora} < 30)
+Group:   Development/Languages
+%endif
+
+%description crypto-adapter-slowdebug
+The %{origin_nice} %{featurever} cryptography adapter library.
+%{debug_warning}
+%endif
+
+%if %{include_fastdebug_build}
+%package crypto-adapter-fastdebug
+Summary: %{origin_nice} %{featurever} Cryptography Adapter Library %{fastdebug_on}
+%if (0%{?rhel} > 0 && 0%{?rhel} <= 8) || (0%{?fedora} >= 0 && 0%{?fedora} < 30)
+Group:   Development/Languages
+%endif
+
+%description crypto-adapter-fastdebug
+The %{origin_nice} %{featurever} cryptography adapter library.
+%{fastdebug_warning}
+%endif
+
 %prep
 echo "Preparing %{oj_vendor_version}"
 
@@ -1648,7 +1742,11 @@ if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{includ
   exit 14
 fi
 
+export XZ_OPT="-T0"
+# do not add -a 0; will break build dirs
 %setup -q -c -n %{uniquesuffix ""} -T
+# Prepare libnssadapter.so source code
+tar -xJf %{SOURCE31}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
 if [ $prioritylength -ne 8 ] ; then
@@ -1767,9 +1865,54 @@ pushd build
 popd
 doc_image=`ls -d %{portable_compatiblename}*%{version}*portable.docs.%{_arch}`
 
+# it is used differently on fedora
+for suffix in %{build_loop} ; do
+  mkdir %{installoutputdir -- ${suffix}}
+  if [ "x$suffix" = "x" ] ; then
+      make -C %{nssadapter_name} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+  elif [ "x$suffix" = "x%{fastdebug_suffix_unquoted}" ] ; then
+      make -C %{nssadapter_name} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+  else # slowdebug
+      # Disable _FORTIFY_SOURCE to allow for no optimization
+      # -Wno-error<=error: -D_FORTIFY_SOURCE defined but value is too low [-Werror]
+      make -C %{nssadapter_name} CFLAGS="%{build_cflags} -O0 -Wp,-U_FORTIFY_SOURCE -Wno-error" LDFLAGS="%{build_ldflags}"
+  fi
+
+  installdir=%{installoutputdir -- ${suffix}}
+
+  # Install and clean libnssadapter.so
+  mkdir ${installdir}/lib
+  install -m 755 %{nssadapter_name}/bin/libnssadapter.so ${installdir}/lib
+  make -C %{nssadapter_name} clean
+
+# build cycles of nss adapter
+done # end of release / debug cycle loop
+
+
 %install
+function customisejdkProperties() {
+    local imagepath=${1}
+    local suffix=${2}
+    if [ -d ${imagepath} ] ; then
+        # Install crypto-policies FIPS configuration files and append
+        # include line to java.security
+        bash -ex %{SOURCE32} ${imagepath}/conf/security %{_libdir}/%{sdkdir -- ${suffix}}/libnssadapter.so
+    fi
+}
+
+function customisejdkTzdata() {
+    local imagepath=${1}
+    local suffix=${2}
+    if [ -d ${imagepath} ] ; then
+        # Use system-wide tzdata
+        mv ${imagepath}/lib/tzdb.dat{,.upstream}
+        ln -s %{_datadir}/javazi-1.8/tzdb.dat ${imagepath}/lib/tzdb.dat
+    fi
+}
+
 function installjdk() {
     local imagepath=${1}
+    local suffix=${2}
 
     if [ -d ${imagepath} ] ; then
         # the build (erroneously) removes read permissions from some jars
@@ -1782,18 +1925,9 @@ function installjdk() {
         find ${imagepath} -iname '*.so' -exec chmod +x {} \;
         find ${imagepath}/bin/ -exec chmod +x {} \;
 
-        # Install nss.cfg right away as we will be using the JRE above
-      	#is already there from portables
-        # Install nss.fips.cfg: NSS configuration for global FIPS mode (crypto-policies)
-      	#is already there from portables
-
-        # Turn on system security properties
-        sed -i -e "s:^security.useSystemPropertiesFile=.*:security.useSystemPropertiesFile=true:" \
-            ${imagepath}/conf/security/java.security
-
-        # Use system-wide tzdata
-        mv ${imagepath}/lib/tzdb.dat{,.upstream}
-        ln -sv %{javazidir}/tzdb.dat ${imagepath}/lib/tzdb.dat
+        customisejdkTzdata ${imagepath} ${suffix}
+        # Final setup on the main image
+        customisejdkProperties ${imagepath} ${suffix}
 
         # Rename OpenJDK cacerts database
         mv ${imagepath}/lib/security/cacerts{,.upstream}
@@ -1857,13 +1991,13 @@ function debugcheckjdk() {
             fi
         done
 
-        # Make sure gdb can do a backtrace based on line numbers on libjvm.so
-        # javaCalls.cpp:58 should map to:
-        # http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ff3b27e6bcc2/src/share/vm/runtime/javaCalls.cpp#l58
-        # Using line number 1 might cause build problems. See:
-        # https://bugzilla.redhat.com/show_bug.cgi?id=1539664
-        # https://bugzilla.redhat.com/show_bug.cgi?id=1538767
-        gdb -q "${imagepath}/bin/java" <<EOF | tee gdb.out
+# Make sure gdb can do a backtrace based on line numbers on libjvm.so
+# javaCalls.cpp:58 should map to:
+# http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ff3b27e6bcc2/src/share/vm/runtime/javaCalls.cpp#l58
+# Using line number 1 might cause build problems. See:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1539664
+# https://bugzilla.redhat.com/show_bug.cgi?id=1538767
+gdb -q "${imagepath}/bin/java" <<EOF | tee gdb.out
 handle SIGSEGV pass nostop noprint
 handle SIGILL pass nostop noprint
 set breakpoint pending on
@@ -1874,8 +2008,9 @@ quit
 end
 run -version
 EOF
+
 %ifarch %{gdb_arches}
-        grep 'JavaCallWrapper::JavaCallWrapper' gdb.out
+grep 'JavaCallWrapper::JavaCallWrapper' gdb.out
 %endif
 
     fi
@@ -1896,7 +2031,7 @@ for suffix in %{build_loop} ; do
   for jdkjre in jdk ; do
     buildoutputdir=`ls -d %{portable_compatiblename}*portable${debugbuild}.${jdkjre}*`
     top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
-    installjdk ${top_dir_abs_main_build_path}
+    installjdk  ${top_dir_abs_main_build_path} ${suffix}
     # it may happen, that some library - in original case libjsvml build identically for two jdks
     # it is becasue of our ld/gcc flags - otherwise rpm build enhances each binarry by full path to it
     # if it is hit then this library needs to have build-id repalced - note, that it do not affect dbugability
@@ -1965,7 +2100,6 @@ for s in 16 24 32 48 ; do
      $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
 done
 
-
 cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 cp -a ${misc_image}/%{generated_sources_name} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
@@ -1986,11 +2120,19 @@ pushd ${jdk_image}
   install -d -m 755 $RPM_BUILD_ROOT%{tapsetdir}
   for name in $tapsetFiles ; do
     targetName=`echo $name | sed "s/.stp/$suffix.stp/"`
-    ln -srvf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/$name $RPM_BUILD_ROOT%{tapsetdir}/$targetName
+    ln -sf %{_jvmdir}/%{sdkdir -- $suffix}/tapset/$name $RPM_BUILD_ROOT%{tapsetdir}/$targetName
   done
 %endif
 
 popd
+
+  install -d -m 755 $RPM_BUILD_ROOT%{_libdir}/%{sdkdir -- ${suffix}}
+#FIXME this is really weird if
+%if 0%{?fedora}
+  mv $RPM_BUILD_ROOT/../%{name}/%{installoutputdir -- $suffix}/lib/libnssadapter.so          $RPM_BUILD_ROOT%{_libdir}/%{sdkdir -- ${suffix}}
+%else
+  mv $RPM_BUILD_ROOT/../../BUILD/%{name}/%{installoutputdir -- $suffix}/lib/libnssadapter.so $RPM_BUILD_ROOT%{_libdir}/%{sdkdir -- ${suffix}}
+%endif
 
 # Install static libs artefacts
 %if %{include_staticlibs}
@@ -2016,6 +2158,7 @@ install -d -m 755 ${commondocdir}
 cp -a ${top_dir_abs_main_build_path}/NEWS ${commondocdir}
 
 # Install desktop files
+# TODO: provide desktop files via portable
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/{applications,pixmaps}
 for e in jconsole$suffix ; do
     desktop-file-install --vendor=%{uniquesuffix -- $suffix} --mode=644 \
@@ -2032,14 +2175,14 @@ mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib
 mv $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/conf/  $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}
 mv $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib/security  $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib
 pushd $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}
-  ln -srv $RPM_BUILD_ROOT%{etcjavadir -- $suffix}/conf  ./conf
+  ln -s %{etcjavadir -- $suffix}/conf  ./conf
 popd
 pushd $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib
-  ln -srv $RPM_BUILD_ROOT%{etcjavadir -- $suffix}/lib/security  ./security
+  ln -s %{etcjavadir -- $suffix}/lib/security  ./security
 popd
 # end moving files to /etc
 
-#TODO this is done also i portables and in install jdk. But hard to say where the operation will hapen at the end
+#TODO this is done also in portables and in install jdk. But hard to say where the operation will hapen at the end
 # stabilize permissions
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 755 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
@@ -2068,13 +2211,22 @@ find %{compatiblename} -name \*.debuginfo | sed 's,^,/usr/lib/debug%{_jvmdir}/,'
 popd
 
 %check
-
 # We test debug first as it will give better diagnostics on a crash
 for suffix in %{build_loop} ; do
 
 # Tests in the check stage are performed on the installed image
 # rpmbuild operates as follows: build -> install -> test
-export JAVA_HOME=${RPM_BUILD_ROOT}%{_jvmdir}/%{sdkdir -- $suffix}
+ if [ "x$suffix" = "x" ] ; then
+      debugbuild=""
+  else
+      # change -something to .something
+      debugbuild=`echo $suffix  | sed "s/-/./g"`
+  fi
+  buildoutputdir=`ls -d %{portable_compatiblename}*portable${debugbuild}.jdk*`
+  top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
+export JAVA_HOME_INTERNAL=${top_dir_abs_main_build_path}  # have in-tree setup before move of configs to /etc
+export JAVA_HOME=${RPM_BUILD_ROOT}%{_jvmdir}/%{sdkdir -- $suffix} # have systems setup with links to /etc
+
 
 #check Shenandoah is enabled
 %if %{use_shenandoah_hotspot}
@@ -2083,11 +2235,11 @@ $JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
 
 # Check unlimited policy has been used
 $JAVA_HOME/bin/javac -d . %{SOURCE13}
-$JAVA_HOME/bin/java --add-opens java.base/javax.crypto=ALL-UNNAMED TestCryptoLevel
+$JAVA_HOME_INTERNAL/bin/java --add-opens java.base/javax.crypto=ALL-UNNAMED TestCryptoLevel 
 
 # Check ECC is working
 $JAVA_HOME/bin/javac -d . %{SOURCE14}
-$JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
+$JAVA_HOME_INTERNAL/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 
 # Check system crypto (policy) is active and can be disabled
 # Test takes a single argument - true or false - to state whether system
@@ -2095,8 +2247,8 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 $JAVA_HOME/bin/javac -d . %{SOURCE15}
 export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
 export SEC_DEBUG="-Djava.security.debug=properties"
-$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true || echo "FIXME! Fips are now disabled in portables"
-$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
+$JAVA_HOME_INTERNAL/bin/java ${SEC_DEBUG} ${PROG} true
+$JAVA_HOME_INTERNAL/bin/java ${SEC_DEBUG} -Dredhat.crypto-policies=false ${PROG} false
 
 # Check java launcher has no SSB mitigation
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
@@ -2315,6 +2467,9 @@ exit 0
 %endif
 
 %if %{include_normal_build}
+%files crypto-adapter
+%{files_crypto_adapter %{nil}}
+
 %files headless
 %{files_jre_headless %{nil}}
 
@@ -2346,6 +2501,9 @@ exit 0
 %endif
 
 %if %{include_debug_build}
+%files crypto-adapter-slowdebug
+%{files_crypto_adapter -- %{debug_suffix_unquoted}}
+
 %files slowdebug
 %{files_jre -- %{debug_suffix_unquoted}}
 
@@ -2371,6 +2529,9 @@ exit 0
 %endif
 
 %if %{include_fastdebug_build}
+%files crypto-adapter-fastdebug
+%{files_crypto_adapter --  %{fastdebug_suffix_unquoted}}
+
 %files fastdebug
 %{files_jre -- %{fastdebug_suffix_unquoted}}
 

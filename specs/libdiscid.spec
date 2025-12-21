@@ -1,11 +1,11 @@
 Name:           libdiscid
-Version:        0.6.4
-Release:        7%{?dist}
+Version:        0.6.5
+Release:        1%{?dist}
 Summary:        C Library for creating MusicBrainz DiscIDs
 
 License:        LGPL-2.1-or-later
 URL:            https://musicbrainz.org/doc/libdiscid
-Source0:        http://ftp.musicbrainz.org/pub/musicbrainz/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://data.metabrainz.org/pub/musicbrainz/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires:  doxygen
 BuildRequires:  gcc
@@ -52,6 +52,9 @@ find %{buildroot} -name '*.la' -delete -print
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Dec 19 2025 David King <amigadave@amigadave.com> - 0.6.5-1
+- Update to 0.6.5 (#2367775)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

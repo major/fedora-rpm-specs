@@ -4,11 +4,13 @@
 
 Name:    adcli
 Version: 0.9.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Active Directory enrollment
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/adcli
 Source0: https://gitlab.freedesktop.org/-/project/1196/uploads/5a1c55410c0965835b81fbd28d820d46/adcli-%{version}.tar.gz
+
+Patch1: 0001-enroll-fix-issues-if-default-keytab-is-used.patch
 
 BuildRequires: gcc
 BuildRequires: intltool pkgconfig
@@ -126,6 +128,9 @@ documentation.
 %endif
 
 %changelog
+* Fri Dec 19 2025 Sumit Bose <sbose@redhat.com> - 0.9.3.1-3
+- Fix issue with restoring SELinux file label
+
 * Tue Dec 16 2025 Sumit Bose <sbose@redhat.com> - 0.9.3.1-2
 - Use selinux_requires_min to avoid policycoreutils-python-utils dependency
   Resolves: rhbz#2422451

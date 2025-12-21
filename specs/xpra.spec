@@ -167,12 +167,6 @@ cat >xpra.sysusers.conf <<EOF
 g xpra -
 EOF
 
-# Error: Only console users are allowed to run the X server (rhbz#2413528)
-# Create a Xwrapper.config config file
-cat >Xwrapper.config <<EOF
-allowed_users=anybody
-EOF
-
 %generate_buildrequires
 %pyproject_buildrequires -x tests
 
@@ -244,7 +238,9 @@ rm -rf %{buildroot}%{_docdir}/xpra/Build
 install -pm 644 README.md %{buildroot}%{_docdir}/xpra/
 
 install -m0644 -D xpra.sysusers.conf %{buildroot}%{_sysusersdir}/xpra.conf
-install -pm 644 Xwrapper.config %{buildroot}%{_sysconfdir}/X11/
+
+# Remove invalid paths
+sed -e 's|build/bdist.linux-%{?_arch}/wheel/xpra-%{version}.data/data||g' -i %{buildroot}%{_sysconfdir}/xpra/conf.d/55_server_x11.conf
 
 %post
 %systemd_post xpra-encoder.service
@@ -277,7 +273,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %config(noreplace) %{_sysconfdir}/xpra/nvenc.keys
 %config(noreplace) %{_sysconfdir}/xpra/conf.d/*.conf
 %config(noreplace) %{_sysconfdir}/X11/xorg.conf.d/90-xpra-virtual.conf
-%config(noreplace) %{_sysconfdir}/X11/Xwrapper.config
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/xpra.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/xpra
 %config(noreplace) %{_sysconfdir}/pam.d/xpra
@@ -290,7 +285,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %config(noreplace) %{_sysconfdir}/xpra/content-type/90_fallback.conf
 %config(noreplace) %{_sysconfdir}/xpra/http-headers/00_nocache.txt
 %config(noreplace) %{_sysconfdir}/xpra/http-headers/10_content_security_policy.txt
-%ghost %{_rundir}/xpra/proxy
+%ghost %attr(1700,-,xpra) %{_rundir}/xpra/proxy
 %{_libexecdir}/xpra/
 %{_bindir}/xpra
 %{_bindir}/xpra_launcher

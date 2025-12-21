@@ -1,10 +1,10 @@
 %global packname BH
-%global packver 1.78.0
-%global packrel 0
+%global packver 1.90.0
+%global packrel 1
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          17%{?dist}
+Release:          1%{?dist}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 # Automatically converted from old format: Boost - review is highly recommended.
 License:          BSL-1.0
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/include
 
 %changelog
+* Fri Dec 19 2025 Tom Callaway <spot@fedoraproject.org> - 1.90.0.1-1
+- update to 1.90.0-1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.78.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

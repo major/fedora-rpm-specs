@@ -10,6 +10,8 @@ Summary:        Compile and install Ruby
 License:        MIT
 URL:            https://github.com/rbenv/ruby-build
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# PR https://github.com/rbenv/ruby-build/pull/2576
+Patch:          2576.patch
 
 BuildRequires:  gawk
 BuildRequires:  grep

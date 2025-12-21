@@ -1,5 +1,5 @@
 Name:           libvpl-tools
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Intel Video Processing Library (Intel VPL) Tools
 License:        MIT

@@ -3,7 +3,7 @@
 %bcond mypy 1
 
 Name:           python-typeguard
-Version:        4.4.3
+Version:        4.4.4
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 

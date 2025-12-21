@@ -8,17 +8,12 @@ tools dot, neato, twopi.
 
 Name:		pydot
 Version:	4.0.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Python interface to Graphviz's Dot language
 License:	MIT
 URL:		https://github.com/pydot/pydot
 Source0:	https://github.com/pydot/pydot/archive/refs/tags/v%{version}.tar.gz
 Patch0:		https://github.com/pydot/pydot/commit/103a1a1d7027d90eab7577a8860dba2b09e94ec6.patch
-# One test fails because it tries to generate a jpeg ("jpe") and the result is an empty string.
-# I have no idea _why_ this fails, any other format type works, but not jpegs.
-# Nevertheless, this test isn't about jpeg rendering, so I swapped it to png so we can get this package going again.
-# https://github.com/pydot/pydot/issues/501
-Patch1:		pydot-4.0.1-testfix-replace-jpe-with-png.patch
 # Replace parameterized with built-in pytest functionality
 # https://github.com/pydot/pydot/pull/515
 Patch2:		%{url}/pull/515.patch
@@ -30,20 +25,22 @@ BuildRequires:	tomcli
 %{common_desc}
 
 %package -n python3-%{name}
-Summary:	Python3 interface to Graphviz's Dot language
+Summary:	Python3 interface to the Graphviz Dot language
 BuildRequires:	python3-devel
 BuildRequires:	graphviz-devel
 Requires:	graphviz
+%if 0%{?fedora} >= 43
+# Additional req't for tests (no JPEG output from GDKPixbuf-less Graphvi)z
+BuildRequires: graphviz-devil
+Recommends: graphviz-devil
+%endif
 Provides:	%{name} = %{version}-%{release}
 
 %description -n python3-%{name}
 %{common_desc}
 
 %prep
-%setup -q
-%patch -P 0 -p1 -b .103a1a1d
-%patch -P 1 -p1 -b .fixtest
-%patch -P 2 -p1 -b .515
+%autosetup -p1 
 
 # Do not depend on linters, typecheckers, or coverage tools
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -71,6 +68,12 @@ sed -r -i 's/--cov\b//' setup.cfg
 %doc ChangeLog README.md
 
 %changelog
+* Mon Dec 01 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 4.0.1-5
+- Drop patch switching tests to PNG, now that Graphviz is fixed in F43+
+- Install graphviz-devil as a build req. for tests, on F43+, and
+  Recommend for runtime F43+ users as well. (Enables no-longer-default
+  JPEG, TIFF, and BMP output formats.)
+
 * Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-4
 - Replace parameterized with built-in pytest functionality
 

@@ -9,13 +9,14 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
 License:	MIT
 URL:		http://perfmon2.sourceforge.net/
 Source0:	http://sourceforge.net/projects/perfmon2/files/libpfm4/%{name}-%{version}.tar.gz
+Patch1:		libpfm-fix-const.patch
 Patch2:		libpfm-python3-setup.patch
 Patch3:		libpfm-gcc14.patch
 
@@ -71,6 +72,7 @@ Python bindings for libpfm4 and perf_event_open system call.
 
 %prep
 %setup -q
+%patch -P1 -p1 -b .fix-const
 %patch -P2 -p1 -b .python3
 %patch -P3 -p1 -b .gcc14
 # to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
@@ -132,6 +134,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Tue Dec 16 2025 Aaron Merey <amerey@redhat.com> - 4.13.0-17
+- Add libpfm-fix-const.patch
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.13.0-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

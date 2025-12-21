@@ -8,7 +8,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.26
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -30,6 +30,7 @@ Source2: msghack.py
 Source3: msghack.1
 
 Patch1: gettext-0.21.1-covscan.patch
+Patch2: gettext-0.26-c23.diff
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
 BuildRequires: automake
@@ -196,6 +197,7 @@ Substitutes the values of environment variables.
 %prep
 %setup -q
 %patch 1 -p1 -b .orig~
+%patch 2 -p1 -b .orig~
 autoreconf
 
 # Defeat libtextstyle attempt to bundle libxml2.  The comments
@@ -454,6 +456,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Thu Dec 18 2025 Manish Tiwari <matiwari@redhat.com> - 0.26-2
+- Add upstream provided patch to fix build failure with glibc 2.42 C23 const-preserving macros
+- https://lists.gnu.org/archive/html/bug-gnulib/2025-11/msg00220.html
+
 * Tue Aug 19 2025 Manish Tiwari <matiwari@redhat.com> - 0.26-1
 - update to 0.26 release
 - https://savannah.gnu.org/news/?id=10789

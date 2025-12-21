@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/jreese/znc-push
-%global commit  4243934d5bb09ee8f7aa700a1b6bf57b3fcdd6a3
+%global commit  e4250e688b4b45a886928c7e2cdb59747304747d
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 %forgemeta
 
@@ -8,7 +8,7 @@
 
 Name:           znc-%{modname}
 Version:        2.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Push notification service module for ZNC
 
 License:        MIT
@@ -36,7 +36,7 @@ that matches a configurable set of conditions.
 chmod -x README.md
 
 %build
-CXXFLAGS="%{optflags} -DUSE_CURL $(pkg-config --libs libcurl) -DPUSHVERSION=%{shortcommit}" \
+CXXFLAGS="%{optflags} -DUSE_CURL $(pkg-config --libs libcurl) -DPUSHVERSION=\\\"%{shortcommit}\\\"" \
 LDFLAGS="%{__global_ldflags}" \
   znc-buildmod %{modname}.cpp
 
@@ -49,6 +49,9 @@ install -Dpm0755 %{modname}.so %{buildroot}%{_libdir}/znc/%{modname}.so
 %{_libdir}/znc/%{modname}.so
 
 %changelog
+* Fri Oct 24 2025 LuK1337 <priv.luk@gmail.com> - 2.0.0-13
+- Update to latest Git HEAD (e4250e688b4b45a886928c7e2cdb59747304747d)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

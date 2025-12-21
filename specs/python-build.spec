@@ -21,6 +21,13 @@ Patch:          0001-fedora-disable-some-build-requirements.patch
 # Upstream fix for a test failure
 Patch:          14aecb.patch
 
+# Fix for Python 3.15.0a3+
+# The argparse.HelpFormatter color argument was removed
+# https://github.com/pypa/build/commit/393b77
+# https://github.com/pypa/build/commit/60e15e
+Patch:          393b77-60e15e.patch
+
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

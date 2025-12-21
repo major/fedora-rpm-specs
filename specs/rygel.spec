@@ -104,6 +104,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_libdir}/girepository-1.0/RygelRenderer-%{apiver}.typelib
 %{_libdir}/girepository-1.0/RygelRendererGst-%{apiver}.typelib
 %{_libdir}/girepository-1.0/RygelServer-%{apiver}.typelib
+%dir %{_libdir}/rygel-%{apiver}
+%dir %{_libdir}/rygel-%{apiver}/engines
+%dir %{_libdir}/rygel-%{apiver}/plugins
 %{_libdir}/rygel-%{apiver}/engines/librygel-media-engine-gst.so
 %{_libdir}/rygel-%{apiver}/engines/librygel-media-engine-simple.so
 %{_libdir}/rygel-%{apiver}/engines/media-engine-gst.plugin
