@@ -4,8 +4,8 @@
 %global minlibver 0.4.0
 
 Name:           openshot
-Version:        3.3.0
-Release:        5%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 License:        GPL-3.0-or-later and Apache-2.0 and MIT and CC-BY-SA-4.0
 URL:            http://www.openshot.org
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Dec 19 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.4.0-1
+- update to 3.4.0 (resolves rhbz#2422631)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

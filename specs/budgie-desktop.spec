@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.preview.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -80,6 +80,8 @@ Requires:       gsettings-desktop-schemas
 Requires:       gnome-keyring-pam
 Requires:       hicolor-icon-theme
 Requires:       labwc
+# mutter-common is required for gschemas that the labwc bridge uses
+Requires:       mutter-common
 Requires:       network-manager-applet
 Requires:       python3-psutil
 Requires:       slurp
@@ -223,6 +225,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sat Dec 20 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.preview.2-4
+- Add missing mutter-common requirement
+
 * Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.preview.2-3
 - Add missing labwc requirement
 

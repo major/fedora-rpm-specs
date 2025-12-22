@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -12,6 +12,9 @@ Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
 Patch01: 0001-disable-rpi-pisp.patch
+# Fix initial black image / flickering on IPU6 ov02c10 laptops
+# https://lists.libcamera.org/pipermail/libcamera-devel/2025-December/056017.html
+Patch02: 0001-ipa-simple-agc-Make-sure-activeState.agc-expo-again-.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -197,6 +200,10 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Sat Dec 20 2025 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.6.0-2
+- Fix initial black image / flickering on IPU6 ov02c10 laptops
+- Related: rhbz#2355032
+
 * Thu Dec 04 2025 Milan Zamazal <mzamazal@redhat.com> - 0.6.0-1
 - Update to version 0.6.0
 - Remove the doc package

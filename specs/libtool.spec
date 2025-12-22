@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.5.4
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -199,6 +199,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Sat Dec 20 2025 Jakub Jelinek <jakub@redhat.com> - 2.5.4-9
+- bump: for gcc 16.* in rawhide
+
 * Fri Sep 19 2025 David Abdurachmanov <davidlt@rivosinc.com> - 2.5.4-8
 - RISC-V doesn't allow linking non-PIC into shared objects
 

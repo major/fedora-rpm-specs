@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b5904
+Version:        b6153
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp

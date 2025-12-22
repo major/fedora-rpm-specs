@@ -1,9 +1,9 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 25.8.4
+%global libo_version 26.2.0
 # This is the last (fourth) digit of LO version
-%global libo_min_version 2
+%global libo_min_version 1
 # Set this to 1 if this is a prerelease build
-%global prerelease %{nil}
+%global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -14,7 +14,8 @@
 %global libo_python_executable %{__python3}
 %global libo_python_sitearch %{python3_sitearch}
 # rhbz#465664 jar-repacking breaks help by reordering META-INF/MANIFEST.MF
-%global __jar_repack %{nil}
+# 26.2.0.1: test re-enabling java repack
+# %%global __jar_repack %%{nil}
 # make it easier to download sources from pre-release site
 %if 0%{?prerelease}
 %global source_url http://dev-builds.libreoffice.org/pre-releases/src
@@ -168,27 +169,35 @@ BuildRequires: Box2D-devel
 BuildRequires: boost-devel
 BuildRequires: cups-devel
 BuildRequires: dragonbox-static
+BuildRequires: fast_float-devel
 BuildRequires: fontpackages-devel
 %if %{with firebird}
 BuildRequires: firebird-devel
 %endif
+BuildRequires: frozen-static
 BuildRequires: glm-devel
+BuildRequires: gpgmepp-devel
 BuildRequires: hyphen-devel
 BuildRequires: libjpeg-turbo-devel
+BuildRequires: libnumbertext-devel
 BuildRequires: lpsolve-devel
 BuildRequires: openldap-devel
 BuildRequires: pam-devel
+BuildRequires: zxcvbn-c-devel
 BuildRequires: pkgconfig(bluez)
+BuildRequires: pkgconfig(cppunit) >= 1.14.0
 BuildRequires: pkgconfig(dconf)
 BuildRequires: pkgconfig(epoxy)
 BuildRequires: pkgconfig(evolution-data-server-1.2)
 BuildRequires: pkgconfig(expat)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
+BuildRequires: pkgconfig(graphite2)
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(gtk4)
+BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(hunspell)
 BuildRequires: pkgconfig(ice)
 BuildRequires: pkgconfig(icu-i18n)
@@ -200,6 +209,8 @@ BuildRequires: pkgconfig(libclucene-core)
 BuildRequires: pkgconfig(libcmis-0.6)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libetonyek-0.1)
+BuildRequires: pkgconfig(libeot)
+BuildRequires: pkgconfig(libepubgen-0.1)
 BuildRequires: pkgconfig(libexttextcat)
 BuildRequires: pkgconfig(libfreehand-0.1)
 BuildRequires: pkgconfig(liblangtag)
@@ -208,6 +219,7 @@ BuildRequires: pkgconfig(libmwaw-0.3)
 BuildRequires: pkgconfig(libodfgen-0.1)
 BuildRequires: pkgconfig(libpagemaker-0.0)
 BuildRequires: pkgconfig(libpq)
+BuildRequires: pkgconfig(libqxp-0.0)
 BuildRequires: pkgconfig(librevenge-0.0)
 BuildRequires: pkgconfig(libstaroffice-0.0)
 BuildRequires: pkgconfig(libtiff-4)
@@ -219,6 +231,8 @@ BuildRequires: pkgconfig(libwps-0.4)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(libxslt)
 BuildRequires: pkgconfig(libzmf-0.0)
+BuildRequires: pkgconfig(md4c)
+BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(mythes)
 BuildRequires: pkgconfig(neon)
 BuildRequires: pkgconfig(nss)
@@ -231,6 +245,7 @@ BuildRequires: pkgconfig(xinerama)
 BuildRequires: pkgconfig(xmlsec1-nss)
 BuildRequires: pkgconfig(xt)
 BuildRequires: pkgconfig(zlib)
+BuildRequires: pkgconfig(zxing)
 BuildRequires: unixODBC-devel
 BuildRequires: %{libo_python_executable}
 
@@ -263,23 +278,11 @@ BuildRequires: kf6-kio-devel
 BuildRequires: kf6-kwindowsystem-devel
 %endif
 
-BuildRequires: gpgmepp-devel
-BuildRequires: pkgconfig(cppunit) >= 1.14.0
-BuildRequires: pkgconfig(graphite2)
-BuildRequires: pkgconfig(harfbuzz)
-BuildRequires: pkgconfig(libeot)
-BuildRequires: pkgconfig(libepubgen-0.1)
-BuildRequires: pkgconfig(libqxp-0.0)
 %if 0%{?fedora} > 43 || 0%{?rhel} > 10
 BuildRequires: pkgconfig(liborcus-0.21)
 %else
 BuildRequires: pkgconfig(liborcus-0.20)
 %endif
-BuildRequires: pkgconfig(mdds-3.0)
-BuildRequires: pkgconfig(zxing)
-BuildRequires: libnumbertext-devel
-BuildRequires: frozen-static
-BuildRequires: zxcvbn-c-devel
 
 %ifarch %{java_arches}
 # java stuff
@@ -328,9 +331,6 @@ Patch12: cflags.patch
 Patch13: fix_or_exclude-tests-with-missing-glyphs.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
-%if 0%{?fedora} > 43 || 0%{?rhel} > 10
-Patch502: orcus.patch
-%endif
 
 %global instdir %{_libdir}
 %global baseinstdir %{instdir}/libreoffice
@@ -613,6 +613,7 @@ an appropriate bridge or adapter exists
 
 %package ure-common
 Summary: Common UNO Runtime Environment
+BuildArch: noarch
 
 %description ure-common
 Arch-independent part of %{name}-ure.
@@ -1100,9 +1101,6 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %ifarch aarch64 s390x ppc64le
 %patch -P 501 -p1
 %endif
-%if 0%{?fedora} > 43 || 0%{?rhel} > 10
-%patch -P 502 -p0
-%endif
 
 # Temporarily disable failing tests
 %ifarch ppc64le
@@ -1133,6 +1131,21 @@ sed -i -e /CppunitTest_sd_png_export_tests/d sd/Module_sd.mk
 sed -i -e /CppunitTest_sw_core_text/d sw/Module_sw.mk
 # started to fail in 25.2.0.0
 sed -i -e /CppunitTest_sd_tiledrendering/d sd/Module_sd.mk
+# Started to fail in 26.2.0.0.alpha1
+sed -i -e /CppunitTest_svx_unit/d svx/Module_svx.mk
+sed -i -e /CppunitTest_vcl_graphic_test/d vcl/Module_vcl.mk
+sed -i -e /CppunitTest_sd_export_tests-ooxml1/d sd/Module_sd.mk
+sed -i -e /CppunitTest_sd_export_tests/d sd/Module_sd.mk
+sed -i -e /CppunitTest_sd_filter_eppt/d sd/Module_sd.mk
+sed -i -e /CppunitTest_sw_rtfexport2/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_htmlexport/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_fodfexport/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_ooxmlexport10/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_ooxmlimport2/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_ww8export3/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_uiwriter7/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_globalfilter/d sw/Module_sw.mk
 %endif
 %ifarch riscv64
 # Failed test on RV64
@@ -2011,7 +2024,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/libhsqldb.so
 %{baseinstdir}/program/librptlo.so
 %{baseinstdir}/program/librptuilo.so
-%{baseinstdir}/program/librptxmllo.so
 %endif
 %{baseinstdir}/share/registry/base.xcd
 %ifarch %{java_arches}

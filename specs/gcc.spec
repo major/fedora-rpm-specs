@@ -1,5 +1,5 @@
-%global DATE 20251218
-%global gitrev f73d23f06a1b8aa7cdce95a6092c0ce0f5650a00
+%global DATE 20251220
+%global gitrev ac4db8ee4097571c12b053c4724d2ca8b98dcfe9
 %global gcc_version 16.0.0
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.2%{?dist}
+Release: %{gcc_release}.3%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -317,9 +317,8 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-pr123152.patch
-Patch14: gcc16-pr123114.patch
-Patch15: gcc16-pr123115.patch
+Patch13: gcc16-pr123114.patch
+Patch14: gcc16-pr123115.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3937,5 +3936,18 @@ end
 %endif
 
 %changelog
+* Sat Dec 20 2025 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.3
+- update from trunk
+  - PRs bootstrap/12407, c/123156, c++/91388, c++/117034, c++/122070,
+	c++/122509, c++/122690, c++/122712, c++/122772, c++/122834,
+	c++/122922, c++/122995, c++/123030, c++/123044, c++/123186,
+	debug/122968, fortran/71565, fortran/92613, libstdc++/112591,
+	libstdc++/123147, libstdc++/123180, rtl-optimization/123223,
+	target/55212, target/122970, target/123171, target/123216,
+	target/123217, tree-optimization/122734, tree-optimization/123097,
+	tree-optimization/123117, tree-optimization/123118,
+	tree-optimization/123152, tree-optimization/123153,
+	tree-optimization/123192, tree-optimization/123205
+
 * Thu Dec 18 2025 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.2
 - new package

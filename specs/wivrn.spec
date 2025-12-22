@@ -2,15 +2,15 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  25.11.1
+%global wivrn_version  25.12
 #%%global commit0        
 %global tag0           v%%{wivrn_version}
-%global date           20251108
+%global date           20251219
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        06e62fc7d9c5cbcbc43405bb86dfde3bf01ce043
+%global commit1        20e0dacbdd2de863923790326beec76e848b056a
 %global monado_version 25.0.0
 
 %forgemeta
@@ -87,21 +87,17 @@ Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
 # downstream-only - WiVRn specific Monado patches
 Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
+Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0002-Use-extern-socket-fd.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-Use-extern-socket-fd.patch
+Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-change-environment-blend-mode-selection-logic.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-change-environment-blend-mode-selection-logic.patch
+Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-st-oxr-forward-0-refresh-rate.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-Replace-distortion-with-foveation.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-Replace-distortion-with-foveation.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-Limit-foveation-samples-per-pixel.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-ipc-Add-callbacks-and-unify-main-functions.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-st-oxr-push-XrEventDataInteractionProfileChanged-whe.patch
 
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
@@ -200,9 +196,10 @@ on the computer.
 
 Supports a wide range of headsets such as:
 
-Quest 1 / 2 / Pro / 3 / 3S
+Meta Quest 1, 2, 3, 3S, pro
 Pico Neo 4
-HTC Vive Focus 3 / HTC Vive XR elite
+HTC Vive Focus 3, XR Elite
+Samsung Galaxy XR
 and most other Android based headsets
 
 
@@ -234,8 +231,6 @@ pushd _deps/monado-src
 %patch -P0005 -p1
 %patch -P0006 -p1
 %patch -P0007 -p1
-%patch -P0008 -p1
-%patch -P0009 -p1
 popd
 
 

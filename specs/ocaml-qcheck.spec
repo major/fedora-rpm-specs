@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/c-cube/qcheck
 
 Name:           ocaml-qcheck
-Version:        0.27
+Version:        0.90
 Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
@@ -38,8 +38,8 @@ instances and printing them.}
 %description
 %_desc
 
-This package is a compatibility wrapper for qcheck.  New code should
-use either ocaml-qcheck-alcotest or ocaml-qcheck-ounit.
+This package is a compatibility wrapper for qcheck.  New code should use
+either %{name}-alcotest or %{name}-ounit.
 
 
 %package        devel
@@ -52,10 +52,9 @@ Requires:       %{name}-ounit-devel%{?_isa} = %{version}-%{release}
 %description    devel
 %_desc
 
-The %{name}-devel package contains libraries and signature files
-for developing applications that use the qcheck compatibility wrapper.
-New code should instead use %{name}-alcotest-devel or
-%{name}-ounit-devel.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use the qcheck compatibility wrapper.  New code
+should instead use %{name}-alcotest-devel or %{name}-ounit-devel.
 
 
 %package        core
@@ -64,7 +63,8 @@ Summary:        QuickCheck inspired property-based testing for OCaml
 
 %description    core
 %_desc
-This package provides alcotest support for qcheck.
+
+This package provides the common code for alcotest.
 
 
 %package        core-devel
@@ -75,8 +75,8 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 %description    core-devel
 %_desc
 
-The %{name}-core-devel package contains libraries and signature
-files for developing applications that use %{name}-core.
+The %{name}-core-devel package contains libraries and signature files
+for developing applications that use %{name}-core.
 
 
 %package        ounit
@@ -100,8 +100,8 @@ Requires:       ocaml-ounit-devel%{?_isa}
 %description    ounit-devel
 %_desc
 
-The %{name}-ounit-devel package contains libraries and signature
-files for developing applications that use %{name}-ounit.
+The %{name}-ounit-devel package contains libraries and signature files
+for developing applications that use %{name}-ounit.
 
 
 %package        alcotest
@@ -125,8 +125,8 @@ Requires:       ocaml-alcotest-devel%{?_isa}
 %description    alcotest-devel
 %_desc
 
-The %{name}-alcotest-devel package contains libraries and signature
-files for developing applications that use %{name}-alcotest.
+The %{name}-alcotest-devel package contains libraries and signature files
+for developing applications that use %{name}-alcotest.
 
 
 %package     -n ocaml-ppx-deriving-qcheck
@@ -149,9 +149,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 %description -n ocaml-ppx-deriving-qcheck-devel
 %_desc
 
-The ocaml-ppx-deriving-qcheck-devel package contains libraries and
-signature files for developing applications that use
-ocaml-ppx-deriving-qcheck.
+The ocaml-ppx-deriving-qcheck-devel package contains libraries and signature
+files for developing applications that use ocaml-ppx-deriving-qcheck.
 
 
 %prep
@@ -203,6 +202,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Sat Dec 20 2025 Jerry James <loganjerry@gmail.com> - 0.90-1
+- Version 0.90
+
 * Tue Nov 04 2025 Jerry James  <loganjerry@gmail.com> - 0.27-1
 - Version 0.27
 

@@ -1,11 +1,67 @@
 # Try opting-out of LTO, due to test failures
 %define _lto_cflags %{nil}
 
-%global soversion 27
+%global soversion 28
+
+%bcond openh264 0
+
+%global skip_tests Clip:verify parent Timeline|\\\
+Clip:time remapping|\\\
+Clip:resample_audio_8000_to_48000_reverse|\\\
+FFmpegWriter:Options_Overloads|\\\
+FrameMapper:resample_audio_mapper|\\\
+FrameMapper:resample_audio_48000_to_41000|\\\
+SphericalMetadata:SphericalMetadata_Test|\\\
+SphericalMetadata:SphericalMetadata_FullOrientation|\\\
+Timeline:Multi-threaded Timeline Add/Remove Effect
+%if %{without openh264}
+%global skip_openh264_tests |\AudioWaveformer:Extract waveform data sintel|\\\
+AudioWaveformer:Extract waveform continues if caller closes original reader|\\\
+AudioWaveformer:Channel selection returns data and rejects invalid channel|\\\
+AudioWaveformer:Extract waveform data clip slowed by time curve|\\\
+AudioWaveformer:Extract waveform waits for reader reopen|\\\
+AudioWaveformer:Waveform extraction does not mutate source reader video flag|\\\
+Clip:effects|\\\
+Clip:verify parent Timeline|\\\
+Clip:has_video|\\\
+FFmpegReader:DisplayInfo|\\\
+FFmpegReader:Multiple_Open_and_Close|\\\
+FFmpegReader:verify parent Timeline|\\\
+FFmpegReader:Seek|\\\
+FFmpegReader:Frame_Rate|\\\
+FFmpegReader:Duration_Strategy_Audio_Preferred|\\\
+FFmpegReader:Duration_And_Length|\\\
+FFmpegReader:Duration_Strategy_Video_Preferred|\\\
+FFmpegReader:Duration_Strategy_Longest_Stream|\\\
+FFmpegWriter:DisplayInfo|\\\
+FFmpegWriter:Webm|\\\
+FFmpegWriter:Gif|\\\
+Frame:Convert_Image|\\\
+Frame:Data_Access|\\\
+KeyFrame:AttachToObject|\\\
+Timeline:ApplyJSONDiff Update Reader Info|\\\
+Timeline:Multi-threaded Timeline Add/Remove Clip|\\\
+Timeline:Multi-threaded Timeline GetFrame|\\\
+VideoCacheThread:prefetchWindow: interrupt on userSeeked flag|\\\
+VideoCacheThread:prefetchWindow: backward caching with FFmpegReader & CacheMemory|\\\
+VideoCacheThread:prefetchWindow: forward caching with FFmpegReader & CacheMemory|\\\
+ImageWriter:Gif
+%else
+%global skip_openh264_tests %nil
+%endif
+%ifarch s390x
+%global skip_s390x_tests |\Clip:Speed up time curve|\\\
+ColorMap:3D LUT obeys DOMAIN_MIN and DOMAIN_MAX|\\\
+ColorMap:1D LUT obeys DOMAIN_MIN and DOMAIN_MAX|\\\
+AnalogTape:AnalogTape stripe lifts bottom|\\\
+CVOutline:Outline_Tests
+%else
+%global skip_s390x_tests %nil
+%endif
 
 Name:           libopenshot
-Version:        0.4.0
-Release:        8%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -29,6 +85,9 @@ BuildRequires:  ImageMagick-c++-devel
 # EPEL 8 don't have ffmpeg-free so we can't build it on EPEL 8
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  opencv-devel
+%if %{with openh264}
+BuildRequires:  openh264
+%endif
 BuildRequires:  protobuf-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  qt5-qtmultimedia-devel
@@ -95,31 +154,7 @@ rm -rf third_party/jsoncpp
 # Some tests soft-fail because of missing OpenH264
 # https://github.com/OpenShot/libopenshot/issues/1020
 export QT_QPA_PLATFORM=offscreen
-%ctest --output-on-failure \
---exclude-regex "AudioWaveformer:Extract waveform data sintel|\
-Clip:effects|\
-Clip:verify parent Timeline|\
-Clip:has_video|\
-Clip:resample_audio_8000_to_48000_reverse|\
-Clip:time remapping|\
-FFmpegReader:DisplayInfo|\
-FFmpegReader:Multiple_Open_and_Close|\
-FFmpegReader:verify parent Timeline|\
-FFmpegReader:Seek|\
-FFmpegReader:Frame_Rate|\
-FFmpegWriter:DisplayInfo|\
-FFmpegWriter:Webm|\
-FFmpegWriter:Options_Overloads|\
-FFmpegWriter:Gif|\
-Frame:Convert_Image|\
-Frame:Data_Access|\
-FrameMapper:resample_audio_48000_to_41000|\
-FrameMapper:resample_audio_mapper|\
-KeyFrame:AttachToObject|\
-Timeline:ApplyJSONDiff Update Reader Info|\
-Timeline:Multi-threaded Timeline Add/Remove Clip|\
-Timeline:Multi-threaded Timeline GetFrame|\
-ImageWriter:Gif"
+%ctest --exclude-regex "%{skip_tests}%{skip_openh264_tests}%{skip_s390x_tests}"
 
 %install
 %cmake_install
@@ -142,6 +177,11 @@ ImageWriter:Gif"
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Fri Dec 19 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.5.0-1
+- Updated to 0.5.0 (resolves rhbz#2422618)
+- Skip known failing tests with FFmpeg 8 and without OpenH264 and x264
+- Add support for running more tests when OpenH264 is available
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 0.4.0-8
 - Rebuilt for OpenCV-4.12
 

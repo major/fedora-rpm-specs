@@ -15,7 +15,7 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        2.4.4
+Version:        2.4.5
 Release:        1%{?dist}
 # Release:        0.12.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
@@ -35,6 +35,7 @@ Patch0:         %{name}-2.4.0-fedora.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
+BuildRequires:  perl-Pod-Checker
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -59,7 +60,6 @@ chmod -x scripts/*
 
 %install
 %make_install
-
 install -Dpm 644 %{SOURCE1} \
   $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
 install -Dpm 644 %{SOURCE2} \
@@ -81,7 +81,7 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %files -f %{name}.lang
 %license COPYING
 %doc HISTORY conf/ scripts/
-%lang(de) %doc HISTORY.DE
+%lang(de) %doc HISTORY
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/*.conf
 %{_bindir}/createcats
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
@@ -92,6 +92,10 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Sat Dec 20 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.5-1
+- Add BR perl-Pod-Checker
+- Update to 2.4.5
+
 * Tue Oct 07 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.4-1
 - Update to 2.4.4
 

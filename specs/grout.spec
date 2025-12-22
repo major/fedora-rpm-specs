@@ -9,8 +9,15 @@
 %global __meson /usr/bin/scl run %toolset -- /usr/bin/meson
 %endif
 
+# FRR integration (disabled on EPEL)
+%if %{defined epel}
+%bcond_with frr
+%else
+%bcond_without frr
+%endif
+
 Name: grout
-Version: 0.14.2
+Version: 0.14.3
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -30,7 +37,7 @@ BuildRequires: gcc >= 13
 %endif
 BuildRequires: libcap-devel
 BuildRequires: libcmocka-devel
-BuildRequires: libecoli-devel >= 0.8.0
+BuildRequires: libecoli-devel >= 0.10.0
 BuildRequires: libevent-devel
 BuildRequires: libmnl-devel
 BuildRequires: libsmartcols-devel
@@ -42,6 +49,11 @@ BuildRequires: pkgconf
 BuildRequires: scdoc
 BuildRequires: socat
 BuildRequires: systemd
+%if %{with frr}
+BuildRequires: frr-headers >= 10.5
+BuildRequires: libyang-devel
+BuildRequires: json-c-devel
+%endif
 
 # DPDK dependencies
 BuildRequires: libarchive-devel
@@ -70,12 +82,24 @@ It comes with a client library to configure it over a standard UNIX socket and
 a CLI that uses that library. The CLI can be used as an interactive shell, but
 also in scripts one command at a time, or by batches.
 
-%package devel
+%package headers
 Summary: Development headers for building %{name} API clients
-Requires: %{name}%{?_isa} = %{version}-%{release}
+BuildArch: noarch
 
-%description devel
+%description headers
 This package contains the development headers to build %{name} API clients.
+
+%if %{with frr}
+%global frr_version %(rpm -q --qf '%%{version}' frr-headers)
+
+%package frr
+Summary: FRR zebra dataplane plugin for grout.
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: frr%{?_isa} = %{frr_version}
+
+%description frr
+This package contains the FRR zebra dataplane plugin for grout.
+%endif
 
 %prep
 %forgesetup
@@ -84,18 +108,12 @@ This package contains the development headers to build %{name} API clients.
 mv dpdk-* subprojects/dpdk
 
 %build
-export GROUT_VERSION=v%{version}-%{release}
-%meson -Dfrr=disabled -Ddpdk_static=true -Ddpdk:machine=generic
+export GROUT_VERSION=%{version}-%{release}
+%meson -Dfrr=%{?with_frr:enabled}%{!?with_frr:disabled} -Ddpdk_static=true -Ddpdk:machine=generic
 %meson_build
 
 %install
 %meson_install --skip-subprojects
-
-install -D -m 0644 main/grout.default %{buildroot}%{_sysconfdir}/default/grout
-install -D -m 0644 main/grout.init %{buildroot}%{_sysconfdir}/grout.init
-install -D -m 0644 main/grout.service %{buildroot}%{_unitdir}/grout.service
-install -D -m 0755 main/grout.bash-completion %{buildroot}%{_datadir}/bash-completion/completions/grout
-install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-completion/completions/grcli
 
 %post
 %systemd_post %{name}.service
@@ -117,10 +135,18 @@ install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-comple
 %attr(644, root, root) %{_mandir}/man7/grout-frr.7*
 %attr(644, root, root) %{_mandir}/man8/grout.8*
 
-%files devel
+%files headers
 %doc README.md
 %license licenses/BSD-3-clause.txt
-%{_includedir}/gr_*.h
+%{_datadir}/pkgconfig/grout.pc
+%{_includedir}/grout/gr_*.h
+
+%if %{with frr}
+%files frr
+%doc README.md
+%license licenses/GPL-2.0-or-later.txt
+%{_libdir}/frr/modules/dplane_grout.so
+%endif
 
 %changelog
 %autochangelog

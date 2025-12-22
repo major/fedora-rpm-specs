@@ -4,8 +4,8 @@
 
 %global crate rusqlite
 
-Name:           rust-rusqlite
-Version:        0.37.0
+Name:           rust-rusqlite0.31
+Version:        0.31.0
 Release:        %autorelease
 Summary:        Ergonomic wrapper for SQLite
 
@@ -18,6 +18,8 @@ Source:         %{crates_source}
 # * drop unused optional rusqlite_macros dependency
 # * drop unused support for sqlcipher and loadable extensions
 # * drop unused, benchmark-only bencher dev-dependency
+# * allow hashlink 0.10:
+#   https://github.com/rusqlite/rusqlite/commit/fe257138d1e7ab5b43fa11b0184e3edbb2549378
 Patch:          rusqlite-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -39,7 +41,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/bindings.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -138,18 +139,6 @@ use the "column_decltype" feature of the "%{crate}" crate.
 %files       -n %{name}+column_decltype-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+column_metadata-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+column_metadata-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "column_metadata" feature of the "%{crate}" crate.
-
-%files       -n %{name}+column_metadata-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+csv-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -222,18 +211,6 @@ use the "i128_blob" feature of the "%{crate}" crate.
 %files       -n %{name}+i128_blob-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jiff-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+jiff-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "jiff" feature of the "%{crate}" crate.
-
-%files       -n %{name}+jiff-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+limits-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -282,16 +259,16 @@ use the "modern_sqlite" feature of the "%{crate}" crate.
 %files       -n %{name}+modern_sqlite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+preupdate_hook-devel
+%package     -n %{name}+release_memory-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+preupdate_hook-devel %{_description}
+%description -n %{name}+release_memory-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "preupdate_hook" feature of the "%{crate}" crate.
+use the "release_memory" feature of the "%{crate}" crate.
 
-%files       -n %{name}+preupdate_hook-devel
+%files       -n %{name}+release_memory-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde_json-devel

@@ -26,8 +26,6 @@ Source1:        setup.py
 Source2:        pyproject.toml
 
 # Build dependencies
-# Manifold requires static files
-BuildRequires:  polyclipping2-static
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  openvdb-devel >= 11
@@ -36,6 +34,7 @@ BuildRequires:  pkgconfig(assimp)
 %endif
 BuildRequires:  pkgconfig(gtest)
 BuildRequires:  pkgconfig(tbb)
+BuildRequires:  polyclipping2-devel
 BuildRequires:  python3-devel
 %if %{with python}
 BuildRequires:  python3-nanobind-devel
@@ -107,6 +106,7 @@ sed -i "s|GENERATE_DOCBOOK       = NO|GENERATE_DOCBOOK       = YES|" \
   -DCMAKE_SKIP_BUILD_RPATH=ON \
   -DCMAKE_SKIP_INSTALL_RPATH=ON \
   -DMANIFOLD_CBIND=ON \
+  -DMANIFOLD_CROSS_SECTION=ON \
   -DMANIFOLD_DOWNLOADS=OFF \
   -DMANIFOLD_EXPORT=%{?with_export:ON}%{!?with_export:OFF} \
   -DMANIFOLD_OPTIMIZED=ON \

@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.38.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -2563,6 +2563,19 @@ test-stresshistofit\$\$|\
 test-stresshistofit-interpreted|\
 test-stresshistogram\$\$|\
 test-stresshistogram-interpreted"
+
+# The zlib-ng library is compiled with hardware acceleration support on s390x
+# in Fedora 43 and later.
+# This means that some tests that compare the size of compressed data fail.
+# - test-stress
+# - gtest-tree-readspeed-readspeed-general
+# - gtest-tree-tree-testTBranch
+%if %{?fedora}%{!?fedora:0} >= 43
+excluded="${excluded}|\
+test-stress\$\$|\
+gtest-tree-readspeed-readspeed-general|\
+gtest-tree-tree-testTBranch"
+%endif
 %endif
 
 # Fails with gcc 14 on aarch64, ppc64le and s390x (on EPEL 10 also x86_64)
@@ -3443,6 +3456,10 @@ fi
 %endif
 
 %changelog
+* Fri Dec 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-4
+- Exclude tests for Fedora 43+ on s390x that fail due to hardware
+  acceleration in the zlib-ng library.
+
 * Thu Dec 18 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-3
 - Don't install the python modules twice
 - Fix Requires and Provides in the python3-root rpm

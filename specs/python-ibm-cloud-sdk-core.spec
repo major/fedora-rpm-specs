@@ -1,6 +1,6 @@
 Name:           python-ibm-cloud-sdk-core
 Epoch:          2
-Version:        3.24.1
+Version:        3.24.2
 Release:        %autorelease
 Summary:        Core library used by SDKs for IBM Cloud Services
 

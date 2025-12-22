@@ -5,7 +5,7 @@
 
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
-Version:       0.33.0
+Version:       0.33.1
 Release:       %autorelease
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs

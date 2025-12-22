@@ -65,13 +65,13 @@ Summary:        Extremely fast Python linter and code formatter
 #
 # Apache-2.0 OR MIT:
 #   - crates/ruff_annotate_snippets/ is a fork of the annotate-snippets crate
-#   - salsa, salsa-macros, salsa-macros-rules, Source200
+#   - salsa, salsa-macros, salsa-macros-rules, Source300
 #
 # MIT:
 #   - book/mermaid.min.js in the vendored salsa snapshot; does not contribute
 #     to the licenses of the binary RPMs, since we do not package the book, and
 #     it is removed in %%prep to be sure
-#   - lsp-types, Source100
+#   - lsp-types, Source200
 #
 # =====
 #
@@ -108,7 +108,6 @@ SourceLicense:  %{shrink:
 # output of %%{cargo_license_summary}. This should automatically include the
 # licenses of the crates that were bundled as additional Sources.
 #
-### BEGIN LICENSE SUMMARY ###
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
@@ -132,7 +131,6 @@ SourceLicense:  %{shrink:
 # WTFPL
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-###  END LICENSE SUMMARY  ###
 License:        %{shrink:
     MIT AND
     Apache-2.0 AND
@@ -177,7 +175,7 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 %global lsp_types_rev 3512a9f33eadc5402cfab1b8f7340824c8ca1439
 %global lsp_types_baseversion 0.95.1
 %global lsp_types_snapdate 20240429
-Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
+Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
 # For now, ruff still needs to use a git snapshot of salsa because it
 # frequently needs bug fixes faster than the salsa release cycle delivers them;
@@ -192,7 +190,7 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 %global salsa_rev 55e5e7d32fa3fc189276f35bb04c9438f9aedbd1
 %global salsa_baseversion 0.24.0
 %global salsa_snapdate 20251204
-Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
+Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
 %global typeshed_rev ef2b90c67e5c668b91b3ae121baf00ee5165c30b
@@ -224,12 +222,12 @@ BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
 
-# This is a fork of lsp-types; see the notes about Source100.
+# This is a fork of lsp-types; see the notes about Source200.
 %global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
 %global lsp_types_version %{lsp_types_baseversion}^%{lsp_types_snapinfo}
 Provides:       bundled(crate(lsp-types)) = %{lsp_types_version}
 
-# This is a snapshot of salsa; see the notes about Source200.
+# This is a snapshot of salsa; see the notes about Source300.
 %global salsa_snapinfo %{salsa_snapdate}git%{sub %{salsa_rev} 1 7}
 %global salsa_version %{salsa_baseversion}^%{salsa_snapinfo}
 Provides:       bundled(crate(salsa)) = %{salsa_version}
@@ -298,6 +296,8 @@ This package provides an importable Python module for ruff.
 %autosetup -N
 %autopatch -p1 -M99
 
+%cargo_prep
+
 # Usage: git2path SELECTOR PATH
 # Replace a git dependency with a path dependency in Cargo.toml
 git2path() {
@@ -306,32 +306,28 @@ git2path() {
   tomcli set Cargo.toml str "${1}.path" "${2}"
 }
 
-# See comments above Source100:
-%setup -q -T -D -b 100 -n ruff-%{version}
-# Adding the crate to the workspace (in this case implicitly, by linking it
+# See comments above Source200:
+%setup -q -T -D -b 200 -n ruff-%{version}
+# Adding the crate to the workspace (in this case implicitly, by moving it
 # under crates/) means %%cargo_generate_buildrequires can handle it correctly.
-ln -s '../../lsp-types-%{lsp_types_rev}' crates/lsp-types
+mv ../lsp-types-%{lsp_types_rev} crates/lsp-types
 git2path workspace.dependencies.lsp-types crates/lsp-types
 pushd crates/lsp-types
-%autopatch -p1 -m100 -M199
+%autopatch -p1 -m200 -M299
 popd
 install -t LICENSE.bundled/lsp-types -D -p -m 0644 crates/lsp-types/LICENSE
 
-# See comments above Source200:
-%setup -q -T -D -b 200 -n ruff-%{version}
-ln -s '../../salsa-%{salsa_rev}' crates/salsa
-ln -s '../../salsa-%{salsa_rev}/components/salsa-macro-rules' \
-    crates/salsa-macro-rules
-ln -s '../../salsa-%{salsa_rev}/components/salsa-macros' \
-    crates/salsa-macros
+# See comments above Source300:
+%setup -q -T -D -b 300 -n ruff-%{version}
+mv ../salsa-%{salsa_rev} crates/salsa
+mv crates/salsa/components/salsa-macro-rules crates/salsa-macro-rules
+mv crates/salsa/components/salsa-macros crates/salsa-macros
 git2path workspace.dependencies.salsa crates/salsa
 pushd crates/salsa
-%autopatch -p1 -m200 -M299
+%autopatch -p1 -m300 -M399
 popd
-install -t LICENSE.bundled/salsa -D -p -m 0644 crates/salsa/LICENSE-*
 # These were taken from salsa’s workspace, but we have added the salsa crates
 # to ruff’s workspace, and we cannot have more than one workspace.
-value="$(tomcli get crates/salsa/Cargo.toml "workspace.package.${field}")"
 tomcli set crates/salsa/Cargo.toml del 'workspace.package.authors'
 tomcli set crates/salsa/Cargo.toml list package.authors 'Salsa developers'
 for field in edition license repository rust-version
@@ -342,7 +338,7 @@ do
 done
 # Now remove salsa’s workspace entirely.
 tomcli set crates/salsa/Cargo.toml del workspace
-# Fix up paths to ancillary salsa crates since we have linked them into the
+# Fix up paths to ancillary salsa crates since we have moved them into the
 # workspace.
 tomcli set crates/salsa/Cargo.toml str dependencies.salsa-macro-rules.path \
     '../salsa-macro-rules'
@@ -368,6 +364,7 @@ tomcli set crates/salsa/Cargo.toml del features.shuttle
 tomcli set crates/salsa/Cargo.toml del dependencies.shuttle
 # Remove bundled, pre-compiled mermaid JavaScript to prove it is not used.
 rm crates/salsa/book/mermaid.min.js
+install -t LICENSE.bundled/salsa -D -p -m 0644 crates/salsa/LICENSE-*
 
 # Loosen some version bounds. We retain this comment and the following example
 # even when there are currently no dependencies that need to be adjusted.
@@ -377,8 +374,6 @@ rm crates/salsa/book/mermaid.min.js
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-%cargo_prep
 
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/typeshed -D -p -m 0644 \
@@ -399,10 +394,6 @@ rm -rv crates/ruff_dev
 # library crate for exposing Ruff as a WebAssembly module. Powers the
 # [Ruff Playground](https://play.ruff.rs/).
 rm -rv crates/ruff_wasm crates/ty_wasm
-
-# Do not strip the compiled executable; we need useful debuginfo. Upstream set
-# this intentionally, so this change makes sense to keep downstream-only.
-tomcli set pyproject.toml false tool.maturin.strip
 
 # Verify we have the correct snapshot hash for typeshed
 typeshed_rev_file='crates/ty_vendored/vendor/typeshed/source_commit.txt'
@@ -432,7 +423,6 @@ Please update %%{salsa_baseversion} in the spec file!
 EOF
   exit 1
 fi
-
 
 
 %generate_buildrequires
@@ -514,12 +504,6 @@ skip="${skip-} --skip color/"
 #   location searched: crates.io index
 skip="${skip-} --skip compile_fail"
 
-# These tests (in the bundled salsa) are flaky on all architectures, although
-# not with equal frequency: https://github.com/salsa-rs/salsa/issues/994
-skip="${skip-} --skip parallel_join::execute_cancellation"
-skip="${skip-} --skip parallel_map::execute_cancellation"
-skip="${skip-} --skip parallel_scope::execute_cancellation"
-
 # These tests are flaky, e.g.:
 #   thread 'python_environment::ty_environment_and_discovered_venv' panicked at
 #     /usr/share/cargo/registry/insta-cmd-0.6.0/src/spawn.rs:103:27:
@@ -537,7 +521,7 @@ skip="${skip-} --skip python_environment::ty_environment_is_only_environment"
 # Not confirmed flaky, but the other ty_environment_* ones are, so…
 skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
 
-# This panics consistenly on s390x only; not reported upstream since it
+# This panics consistently on s390x only; not reported upstream since it
 # couldn’t be reproduced in a git checkout under qemu-user-static emulation.
 %ifarch s390x
 skip="${skip-} --skip mdtest__generics_specialize_constrained"

@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.5.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -31,7 +31,6 @@ Source3: README.licenses
 Source100: audacious-plugins-amidi.metainfo.xml
 Source101: audacious-plugins-exotic.metainfo.xml
 Source102: audacious-plugins-jack.metainfo.xml
-Source103: audacious-plugins-ffaudio.metainfo.xml
 
 # Fedora customization
 Patch0: audacious-plugins-3.7-alpha1-xmms-skindir.patch
@@ -114,6 +113,9 @@ Provides:  audacious-plugins-freeworld = %{version}-%{release}
 # added 2025-06-13
 Obsoletes: audacious-plugins-freeworld-aac < 4.4.2-4
 Provides:  audacious-plugins-freeworld-aac = %{version}-%{release}
+# added 2025-12-20
+Obsoletes: audacious-plugins-ffaudio < 4.5.1-3
+Provides:  audacious-plugins-ffaudio = %{version}-%{release}
 
 # plugin .so files
 %if 0%{?fedora} > 29 || 0%{?rhel} > 8
@@ -168,21 +170,6 @@ Requires: audacious-plugins%{?_isa} >= %{aud_ver}
 %description amidi
 This package provides AMIDI-Plug, a modular MIDI music player, as an
 input plugin for Audacious.
-
-
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%package ffaudio
-Summary: FFmpeg input plugin for Audacious
-License: BSD-2-Clause-pkgconf-disclaimer
-
-%{?aud_plugin_dep}
-Requires: audacious-plugins%{?_isa} >= %{aud_ver}
-Obsoletes: audacious-plugins-freeworld-ffaudio < %{version}-%{release}
-Provides: audacious-plugins-freeworld-ffaudio = %{version}-%{release}
-
-%description ffaudio
-This package provides FFmpeg as an input plugin for Audacious.
-%endif
 
 
 %prep
@@ -261,9 +248,6 @@ mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE100} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE101} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
-%if 0%{?fedora} || 0%{?rhel} >= 9
-install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
-%endif
 
 
 %files -f %{name}.lang
@@ -315,6 +299,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %dir %{_libdir}/audacious/Input/
 %{_libdir}/audacious/Input/aac-raw.so
 %{_libdir}/audacious/Input/cdaudio-ng.so
+%{_libdir}/audacious/Input/ffaudio.so
 %{_libdir}/audacious/Input/flacng.so
 %{_libdir}/audacious/Input/metronom.so
 %{_libdir}/audacious/Input/modplug.so
@@ -386,14 +371,11 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 #%%{_libdir}/audacious/Input/amidi-plug/
 %{_datadir}/appdata/%{name}-amidi.metainfo.xml
 
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%files ffaudio
-%{_libdir}/audacious/Input/ffaudio.so
-%{_datadir}/appdata/%{name}-ffaudio.metainfo.xml
-%endif
-
 
 %changelog
+* Sat Dec 20 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5.1-3
+- merge -ffaudio subpackage
+
 * Mon Sep 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.5.1-2
 - Rebuilt for FFmpeg 8
 

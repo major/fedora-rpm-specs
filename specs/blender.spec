@@ -225,10 +225,8 @@ BuildRequires:  cmake(ceres)
 BuildRequires:  embree-devel
 %endif
 %if %{with manifold}
-BuildRequires:	pkgconfig(assimp)
 BuildRequires:	pkgconfig(manifold)
-# Needed by manifold
-BuildRequires:	polyclipping2-static
+BuildRequires:  polyclipping2-devel
 %endif
 %if %{with materialx}
 BuildRequires:  materialx-devel

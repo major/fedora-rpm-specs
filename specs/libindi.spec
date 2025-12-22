@@ -115,13 +115,13 @@ Summary: INDI shared libraries
 These are the shared libraries of INDI.
 
 
-%if 0%{?build_qt5_client}
+%if 0%{?build_qt_client}
 %package qt
-Summary: INDI Qt5 client libraries
+Summary: INDI QT client libraries
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description qt
-These are the Qt5 client libraries of INDI.
+These are the QT client libraries of INDI.
 %endif
 
 
@@ -181,14 +181,14 @@ rm -rf libs/hid
 
 %files libs
 %license COPYING.BSD COPYING.GPL COPYING.LGPL COPYRIGHT LICENSE
-%if 0%{?build_qt5_client}
+%if 0%{?build_qt_client}
 %exclude %{_libdir}/libindiclientqt.so.*
 %endif
 %{_libdir}/%{name}*.so.2
 %{_libdir}/%{name}*.so.2.*
 %{_libdir}/indi/MathPlugins
 
-%if 0%{?build_qt5_client}
+%if 0%{?build_qt_client}
 %files qt
 %{_libdir}/libindiclientqt.so.2
 %{_libdir}/libindiclientqt.so.2.*

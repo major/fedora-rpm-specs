@@ -2,20 +2,13 @@
 %global debug_package %{nil}
 
 Name:           libheinz
-Version:        2.0.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        C++ base library of Heinz Maier-Leibnitz Zentrum
 
 License:        0BSD
 URL:            https://jugit.fz-juelich.de/mlz/libheinz
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
-
-# use GNUInstallDirs to facilitate the installation of the library
-# use ARCH_INDEPENDENT for header-only library when CMake >= 3.14
-# create the INTERFACE library since the library is header-only and ALIAS targets
-# install and export the targets
-# https://jugit.fz-juelich.de/mlz/libheinz/-/issues/2
-Patch0:         libheinz-fix-cmake.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -43,6 +36,8 @@ The %{name}-devel package contains development files for %{name}.
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 
+sed -i 's|lib/cmake|%{_libdir}/cmake|g' CMakeLists.txt
+
 %build
 %cmake
 %cmake_build
@@ -57,7 +52,7 @@ The %{name}-devel package contains development files for %{name}.
 %license LICENSE
 %doc README.md
 %{_includedir}/heinz/
-%{_datadir}/cmake/LibHeinz/
+%{_libdir}/cmake/LibHeinz/
 
 %changelog
 %autochangelog

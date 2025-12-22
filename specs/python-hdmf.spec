@@ -13,7 +13,10 @@
 # https://github.com/hdmf-dev/hdmf-zarr/issues/202
 # Incompatible with Zarr 3
 # https://bugzilla.redhat.com/show_bug.cgi?id=2338926
-%bcond zarr 1
+#
+# Also, since 4.1.1, this would require https://pypi.org/project/hdmf-zarr/ to
+# be packaged as python-hdmf-zarr.
+%bcond zarr 0
 
 %global desc %{expand:
 The Hierarchical Data Modeling Framework, or *HDMF* is a Python package
@@ -32,7 +35,7 @@ Documentation of HDMF can be found at https://hdmf.readthedocs.io}
 %global schema_version 1.8.0
 
 Name:           python-hdmf
-Version:        4.1.0
+Version:        4.1.1
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -68,7 +71,7 @@ Summary:        %{summary}
 BuildRequires:  hdmf-common-schema = %{schema_epoch}:%{schema_version}
 Requires:       hdmf-common-schema = %{schema_epoch}:%{schema_version}
 %if %{without zarr}
-# Obsoletes:      python3-hdmf+zarr < X.Y.Z-R
+Obsoletes:      python3-hdmf+zarr < 4.1.0-2
 %endif
 
 %description -n python3-hdmf %{desc}
@@ -90,7 +93,7 @@ sed -r -i 's/("numcodecs)<[^"]+"/\1"/' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files hdmf
+%pyproject_save_files -L hdmf
 
 ln -s %{_datadir}/hdmf-common-schema/ \
     %{buildroot}%{python3_sitelib}/hdmf/common/hdmf-common-schema

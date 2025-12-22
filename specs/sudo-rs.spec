@@ -35,9 +35,9 @@ A memory safe implementation of sudo and su.
 %{cargo_license -f pam-login} > LICENSE.dependencies
 
 %install
-install -Dpm 0755 target/rpm/su -t %{buildroot}/%{_bindir}/su-rs
-install -Dpm 0755 target/rpm/sudo -t %{buildroot}/%{_bindir}/sudo-rs
-install -Dpm 0755 target/rpm/visudo -t %{buildroot}/%{_bindir}/visudo-rs
+install -Dpm 0755 target/rpm/su -T %{buildroot}/%{_bindir}/su-rs
+install -Dpm 0755 target/rpm/sudo -T %{buildroot}/%{_bindir}/sudo-rs
+install -Dpm 0755 target/rpm/visudo -T %{buildroot}/%{_bindir}/visudo-rs
 
 %if %{with check}
 %check

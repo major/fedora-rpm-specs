@@ -1,5 +1,5 @@
 # The Clipper C++ crystallographic library already uses the name "clipper".
-# The developer is fine with the choosen name polyclipping for the previous version
+# The developer is fine with the chosen name polyclipping for the previous version
 # of the library. This rpm packages the "clipper2" polygon clipping library
 
 # Conditionals for optional features
@@ -7,7 +7,7 @@
 %bcond_without docs   # Enable docs by default
 
 Name:           polyclipping2
-Version:        1.5.4
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Polygon Clipping and Offsetting Library v2
 License:        BSL-1.0
@@ -40,13 +40,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
-
-
-%package static
-Summary:        Static files for %{name}
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-%description static
-Static libraries for Clipper2.
 
 %if %{with docs}
 %package doc
@@ -89,9 +82,9 @@ Documentation for Clipper2 library.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libClipper2.so.1
+%{_libdir}/libClipper2.so.2
 %{_libdir}/libClipper2.so.%{version}
-%{_libdir}/libClipper2Z.so.1
+%{_libdir}/libClipper2Z.so.2
 %{_libdir}/libClipper2Z.so.%{version}
 
 %files devel
@@ -102,10 +95,6 @@ Documentation for Clipper2 library.
 %{_libdir}/libClipper2.so
 %{_libdir}/libClipper2Z.so
 %{_libdir}/cmake/clipper2/
-
-%files static
-%{_libdir}/libClipper2utils.a
-%{_libdir}/libClipper2Zutils.a
 
 # Documentation
 %if %{with docs}

@@ -1,5 +1,5 @@
 Name:		rocksndiamonds
-Version:	4.4.0.6
+Version:	4.4.1.0
 Release:	1%{?dist}
 License:	GPL-1.0-or-later
 Summary:	Underground digging game
@@ -12,12 +12,13 @@ Source2:	rocksndiamonds.png
 # Additional music files we have permission for!
 Source3:	rocksndiamonds-distributable-music.tar.bz2
 Patch3:		rocksndiamonds-4.4.0.4-music-info-url.patch
-Patch4:		rocksndiamonds-4.0.0.1-CVE-2011-4606.patch
+Patch4:		rocksndiamonds-4.4.1.0-strncpy-specified-bound-1024-equals-destination-size.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:	SDL2-devel, libX11-devel, desktop-file-utils, xorg-x11-proto-devel
 BuildRequires:	SDL2_image-devel, SDL2_mixer-devel, SDL2_net-devel, zlib-devel
 Requires:	libmodplug%{_isa}
+Requires:	libxmp%{_isa}
 
 %description
 Dig for treasure and solve puzzles underground, but watch out for falling
@@ -26,7 +27,7 @@ rocks and strange creatures!
 %prep
 %setup -q -a 3
 %patch -P3 -p1 -b .url
-%patch -P4 -p1
+%patch -P4 -p1 -b .fix
 
 # Stawp!
 rm -rf lib/*
@@ -102,6 +103,9 @@ EOF
 %{_localstatedir}/games/%{name}/
 
 %changelog
+* Sat Dec 20 2025 Tom Callaway <spot@fedoraproject.org> - 4.4.1.0-1
+- update to 4.4.1.0
+
 * Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 4.4.0.6-1
 - update to 4.4.0.6
 

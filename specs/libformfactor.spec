@@ -1,5 +1,5 @@
 Name:           libformfactor
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Efficient computation of scattering form factors of arbitrary polyhedra
 # the library is under GPL-3.0-or-later
@@ -7,8 +7,6 @@ Summary:        Efficient computation of scattering form factors of arbitrary po
 License:        GPL-3.0-or-later
 URL:            https://jugit.fz-juelich.de/mlz/libformfactor
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
-# Use GNUInstallDirs to fix the install directory in CMake
-Patch0:         libformfactor-fix-cmake.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -30,11 +28,11 @@ The %{name}-devel package contains development files for %{name}.
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 
-%build
-%cmake \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+sed -i 's|DESTINATION lib|DESTINATION %{_libdir}|g' ff/CMakeLists.txt
+sed -i 's|DESTINATION cmake|DESTINATION %{_libdir}/cmake/formfactor|g' CMakeLists.txt
 
+%build
+%cmake
 %cmake_build
 
 %install
@@ -46,7 +44,7 @@ The %{name}-devel package contains development files for %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libformfactor.so.*
+%{_libdir}/libformfactor.so.%{version}
 
 %files devel
 %{_libdir}/libformfactor.so
