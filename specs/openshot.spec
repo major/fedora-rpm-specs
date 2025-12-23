@@ -19,9 +19,9 @@ ExcludeArch:    ppc64le
 # For appdata
 BuildRequires:  libappstream-glib
 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-qt5-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  python3-qt5-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  libopenshot >= %{minlibver}
 BuildRequires:  libopenshot-audio >= %{minlibver}
 BuildRequires:  desktop-file-utils
@@ -45,6 +45,9 @@ Recommends:     python%{python3_pkgversion}-sentry-sdk
 
 # Support the actual name of this tool
 Provides:       %{distname} = %{version}-%{release}
+
+%generate_buildrequires
+%pyproject_buildrequires 
 
 %description
 OpenShot Video Editor is a free, open-source, non-linear video editor. It
@@ -77,11 +80,11 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # We strip bad shebangs (/usr/bin/env) instead of fixing them
 # since these files are not executable anyways
@@ -119,8 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/mime/packages/%{distrdnn}.xml
 %{_metainfodir}/%{distrdnn}.appdata.xml
 %{python3_sitelib}/%{name}_qt/
+%{python3_sitelib}/%{name}_qt-%{version}.dist-info/
 %exclude %{python3_sitelib}/%{name}_qt/language/*
-%{python3_sitelib}/*egg-info/
+#{python3_sitelib}/*egg-info/
 
 %files lang -f OpenShot.lang
 %dir %{python3_sitelib}/%{name}_qt/language

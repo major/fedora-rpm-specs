@@ -3,7 +3,7 @@
 
 # https://github.com/alecthomas/chroma
 %global goipath         github.com/alecthomas/chroma/v2
-Version:                2.14.0
+Version:                2.21.1
 
 %gometa -f
 

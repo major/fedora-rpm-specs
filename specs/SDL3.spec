@@ -11,14 +11,17 @@
 %if 0%{?rhel}
 # Disable static library on RHEL
 %bcond_with static
+# RHEL is Wayland-only, XWayland does not support XScrnSaver
+%bcond_with xscrnsaver
 %else
 %bcond_without static
+%bcond_without xscrnsaver
 %endif
 
 
 Name:           SDL3
 Version:        3.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -48,7 +51,9 @@ BuildRequires:  libX11-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libXrender-devel
+%if %{with xscrnsaver}
 BuildRequires:  libXScrnSaver-devel
+%endif
 BuildRequires:  libXinerama-devel
 BuildRequires:  libXcursor-devel
 BuildRequires:  libXfixes-devel
@@ -149,6 +154,7 @@ export LDFLAGS="%{shrink:%{build_ldflags}}"
     -DSDL_VENDOR_INFO="%{?dist_vendor} %{version}-%{release}" \
     %{?with_static:-DSDL_STATIC=ON} \
     %{?with_static:-DCMAKE_POSITION_INDEPENDENT_CODE=ON} \
+    %{!?with_xscrnsaver:-DSDL_X11_XSCRNSAVER=OFF} \
 %ifarch ppc64le
     -DSDL_ALTIVEC=OFF \
 %endif
@@ -196,6 +202,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Sun Dec 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.6-2
+- Disable libXScrnSaver on RHEL
+
 * Fri Dec 19 2025 Tom Callaway <spot@fedoraproject.org> - 3.3.6-1
 - update to 3.3.6
 

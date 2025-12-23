@@ -18,7 +18,9 @@ Source2:        gpgkey-9FCDEE9E1A381F311EA62A7404D041E8171901CC.gpg
 # glycin fails when reading a DAC format inside a JPEG.  One TIFF test fails for
 # unknown reasons; it simply fails to clean the metadata.  This implies that
 # this package fails, in part, to fulfill its purpose on F43+.
-Patch:          %{name}-skip-broken-tests.patch
+Patch0:          %{name}-skip-broken-tests.patch
+# Fix test failures with Python 3.15
+Patch1:          %{name}-py315-fix.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject

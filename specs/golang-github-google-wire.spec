@@ -3,7 +3,7 @@
 
 # https://github.com/google/wire
 %global goipath         github.com/google/wire
-Version:                0.6.0
+Version:                0.7.0
 
 %gometa
 
@@ -19,7 +19,7 @@ written to be used with Wire is useful even for hand-written initialization.}
                         CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        1%{?dist}
 Summary:        Compile-time Dependency Injection for Go
 
 # Upstream license specification: Apache-2.0
@@ -70,6 +70,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 0.7.0-1
+- Update to latest upstream release 0.7.0 (rhbz#2390420)
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.6.0-16
 - rebuild
 

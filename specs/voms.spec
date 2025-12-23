@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:		voms
-Version:	2.1.2
-Release:	2%{?dist}
+Version:	2.1.3
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -73,7 +73,7 @@ Provides:	voms-clients = %{version}-%{release}
 Obsoletes:	voms-clients < 2.0.12-3
 
 Requires(post):		%{_sbindir}/update-alternatives
-Requires(postun):	%{_sbindir}/update-alternatives
+Requires(preun):	%{_sbindir}/update-alternatives
 
 %description clients-cpp
 The Virtual Organization Membership Service (VOMS) is an attribute authority
@@ -203,7 +203,7 @@ fi
     --slave %{_mandir}/man1/voms-proxy-destroy.1.gz voms-proxy-destroy-man \
     %{_mandir}/man1/voms-proxy-destroy2.1.gz
 
-%postun clients-cpp
+%preun clients-cpp
 if [ $1 -eq 0 ] ; then
     %{_sbindir}/update-alternatives --remove voms-proxy-init \
     %{_bindir}/voms-proxy-init2
@@ -296,6 +296,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Sat Dec 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.3-1
+- Update to version 2.1.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

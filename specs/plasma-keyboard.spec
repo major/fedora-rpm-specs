@@ -1,7 +1,7 @@
 Name:           plasma-keyboard
 Epoch:          1
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Virtual Keyboard for Qt based desktops
 
 License:        LGPL-2.1-only AND GPL-2.0-only AND CC0-1.0 AND LGPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only
@@ -30,6 +30,8 @@ BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  qt6-qtbase-private-devel
+
+Requires:       (kcm-%{name}%{?_isa} if plasma-systemsettings%{?_isa})
 
 %description
 The plasma-keyboard is a virtual keyboard
@@ -73,6 +75,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboa
 %{_datadir}/applications/kcm_plasmakeyboard.desktop
 
 %changelog
+* Sun Dec 21 2025 Alessandro Astone <ales.astone@gmail.com> - 1:0.1.0-2
+- Requires kcm if systemsettings is installed
+
 * Tue Nov 11 2025 Alessandro Astone <ales.astone@gmail.com> - 1:0.1.0-1
 - First official release 0.1.0
 - Bump epoch

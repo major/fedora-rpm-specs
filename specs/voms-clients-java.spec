@@ -1,5 +1,5 @@
 Name:		voms-clients-java
-Version:	3.3.6
+Version:	3.3.7
 Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
@@ -15,12 +15,12 @@ BuildRequires:	maven-local-openjdk25
 %else
 BuildRequires:	maven-local
 %endif
-BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.6
+BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.7
 BuildRequires:	mvn(commons-cli:commons-cli)
 BuildRequires:	mvn(commons-io:commons-io)
 BuildRequires:	mvn(junit:junit)
 BuildRequires:	asciidoctor
-Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.6
+Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.7
 %if %{?rhel}%{!?rhel:0} == 9
 Requires:	(java-headless or java-1.8.0-headless or java-11-headless or java-17-headless or java-21-headless or java-25-headless)
 %else
@@ -79,21 +79,21 @@ mkdir -p %{buildroot}%{_bindir}
 
 cat > %{buildroot}%{_bindir}/voms-proxy-init3 << EOF
 #!/bin/sh
-VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx16m"}
+VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx32m"}
 java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java bcpkix bcutil bcprov commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyInit "\$@"
 EOF
 chmod 755 %{buildroot}%{_bindir}/voms-proxy-init3
 
 cat > %{buildroot}%{_bindir}/voms-proxy-info3 << EOF
 #!/bin/sh
-VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx16m"}
+VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx32m"}
 java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java bcpkix bcutil bcprov commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyInfo "\$@"
 EOF
 chmod 755 %{buildroot}%{_bindir}/voms-proxy-info3
 
 cat > %{buildroot}%{_bindir}/voms-proxy-destroy3 << EOF
 #!/bin/sh
-VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx16m"}
+VOMS_CLIENTS_JAVA_OPTIONS=\${VOMS_CLIENTS_JAVA_OPTIONS:-"-XX:+UseSerialGC -Xmx32m"}
 java \$VOMS_CLIENTS_JAVA_OPTIONS -cp \$(build-classpath voms-clients-java voms-api-java canl-java bcpkix bcutil bcprov commons-cli commons-io) org.italiangrid.voms.clients.VomsProxyDestroy "\$@"
 EOF
 chmod 755 %{buildroot}%{_bindir}/voms-proxy-destroy3
@@ -167,7 +167,11 @@ fi
 %license LICENSE
 
 %changelog
-* Wed Aug 06 2025 Mattias Ellert  <mattias.ellert@physics.uu.se> - 3.3.6-1
+* Sat Dec 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.7-1
+- Update to version 3.3.7
+- Increase default max heap memory (following upstream)
+
+* Wed Aug 06 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.6-1
 - Update to version 3.3.6
 
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3.3.5-5

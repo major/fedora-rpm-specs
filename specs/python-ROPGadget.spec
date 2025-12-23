@@ -1,7 +1,7 @@
-%global srcname ropgadget
+%global srcname ROPgadget
 
 Name:           python-ROPGadget
-Version:        7.6
+Version:        7.7
 Release:        %autorelease
 Summary:        A tool to find ROP gadgets in program files
 

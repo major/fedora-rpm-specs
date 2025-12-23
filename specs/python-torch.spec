@@ -107,12 +107,7 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 %global ox_ver 1.18.0
 Source90:       https://github.com/onnx/onnx/archive/refs/tags/v%{ox_ver}.tar.gz
 
-%if 0%{?fedora} >= 45
-# drop aarch64 in 45
-%global pt_arches x86_64
-%else
 %global pt_arches x86_64 aarch64
-%endif
 ExclusiveArch:  %pt_arches
 %global toolchain gcc
 %global _lto_cflags %nil
@@ -506,10 +501,15 @@ sed -i -e 's@${PROJECT_SOURCE_DIR}/third_party/concurrentqueue@/usr/include/conc
 # Control the number of jobs
 #
 # The build can fail if too many threads exceed the physical memory
-# So count core and and memory and increase the build memory util the build succeeds
+# Run at least one thread, more if CPU & memory resources are available.
 #
+%ifarch x86_64
 # Real cores, No hyperthreading
 COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
+%else
+# cpuinfo format varies on other arches, fall back to nproc
+COMPILE_JOBS=`nproc`
+%endif
 if [ ${COMPILE_JOBS}x = x ]; then
     COMPILE_JOBS=1
 fi

@@ -1,5 +1,5 @@
 Name: rdma-core
-Version: 60.0
+Version: 61.0
 Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
@@ -464,6 +464,7 @@ fi
 %{_libexecdir}/truescale-serdes.cmds
 %{_sbindir}/rdma-ndd
 %{_unitdir}/rdma-ndd.service
+%{_sbindir}/rdma_topo
 %{_mandir}/man7/rxe*
 %{_mandir}/man8/rdma-ndd.*
 
@@ -618,6 +619,7 @@ fi
 %{_libdir}/libhns.so.*
 %{_libdir}/libibverbs*.so.*
 %{_libdir}/libibverbs/*.so
+%{_libdir}/libionic.so.*
 %{_libdir}/libmana.so.*
 %{_libdir}/libmlx5.so.*
 %{_libdir}/libmlx4.so.*

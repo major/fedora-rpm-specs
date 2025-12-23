@@ -103,6 +103,7 @@ specfile_path: distro/my_pkg.spec
 
 * Mon Jul 28 2025 Packit <hello@packit.dev> - 1.11.0-1
 - `packit test` now supports running and validating TMT tests locally without requiring a PR or a release, including result parsing and basic failure reporting. (#2632)
+- Resolves: rhbz#2383891
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

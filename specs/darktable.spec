@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 5.2.1
-Release: 3%{?dist}
+Version: 5.4.0
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -18,8 +18,6 @@ Source0: https://github.com/darktable-org/darktable/releases/download/release-%{
 #Source1: https://github.com/darktable-org/darktable/releases/download/release-%%{version}/%%{name}-%%{version}.tar.xz.asc
 #Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf10f9686652b0e949fcd94c318dca123f949bd3b
 
-Patch0: 0001-Fix-build-with-clang-21.patch
- 
 BuildRequires: cairo-devel
 # clang is optional (OpenCL kernel build test)
 BuildRequires: clang >= 7
@@ -247,6 +245,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/darktable-curve-tool-helper
 
 %changelog
+* Sun Dec 21 2025 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 5.4.0-1
+- 5.4.0 release
+- Remove 0001-Fix-build-with-clang-21.patch
+
 * Wed Aug 20 2025 Germano Massullo <germano.massullo@thetra.eu> - 5.2.1-3
 - Add 0001-Fix-build-with-clang-21.patch by Tom Stellard
 

@@ -1,19 +1,9 @@
 %global source_version %%(echo "%version" | tr '~' '-')
 
-# https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
-%if (0%{?fedora} > 29 || 0%{?rhel} > 7)
-%global with_python2 0
-%else
-%global with_python2 1
-%endif
-
 %global with_pkg_config %(pkg-config --version >/dev/null 2>&1 && echo -n "1" || echo -n "0")
 
 %global ibus_api_version 1.0
 %global pkgcache /var/cache/%name
-
-# for bytecompile in %%{_datadir}/ibus/setup
-%global __python %{__python3}
 
 # No gtk2 in RHEL 10
 %if 0%{?rhel} > 9
@@ -30,7 +20,7 @@
 %bcond_with    gtk4
 %endif
 
-%global ibus_xinit_condition %ibus_panel_condition
+%global ibus_xinit_condition (%pcd1 or %pcd2 or %pcd3)
 # FIXME: How to write a condition with multiple lines
 %global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %pcd4)
 %global pcd1 budgie-desktop or cinnamon or deepin-desktop or i3
@@ -63,7 +53,7 @@
 Name:           ibus
 Version:        1.5.34~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -94,15 +84,6 @@ BuildRequires:  gtk-doc
 BuildRequires:  dconf-devel
 BuildRequires:  dbus-x11
 BuildRequires:  python3-devel
-BuildRequires:  python3-gobject
-%if %with_python2
-# https://bugzilla.gnome.org/show_bug.cgi?id=759334
-# Need python2 for gsettings-schema-convert
-BuildRequires:  python2-devel
-# for AM_GCONF_SOURCE_2 in configure.ac
-BuildRequires:  GConf2-devel
-BuildRequires:  intltool
-%endif
 BuildRequires:  git
 BuildRequires:  vala
 BuildRequires:  iso-codes-devel
@@ -118,23 +99,20 @@ Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
 %if %{with gtk2}
 Requires:      (%{name}-gtk2%{?_isa}   = %{version}-%{release} if gtk2)
 %endif
-Requires:       %{name}-gtk3%{?_isa}   = %{version}-%{release}
-Requires:       %{name}-setup          = %{version}-%{release}
+Requires:      (%{name}-gtk3%{?_isa}   = %{version}-%{release} if gtk3)
 %if 0%{?fedora}
 Requires:      (%{name}-panel%{?_isa}  = %{version}-%{release} if %ibus_panel_condition)
 %endif
 %if %{with xinit}
 Requires:      (%{name}-xinit          = %{version}-%{release} if %ibus_xinit_condition)
 %endif
+Requires:       python3-ibus           = %{version}-%{release}
+Recommends:     %{name}-setup          = %{version}-%{release}
 
 Requires:       iso-codes
 Requires:       dconf
 # rpmlint asks to delete librsvg2
 #Requires:       librsvg2
-# Owner of %%python3_sitearch/gi/overrides
-Requires:       python3-gobject
-# https://bugzilla.redhat.com/show_bug.cgi?id=1161871
-%{?__python3:Requires: %{__python3}}
 
 Requires:               desktop-file-utils
 Requires(post):         desktop-file-utils
@@ -151,6 +129,16 @@ Requires(postun):       %{_sbindir}/alternatives
 
 %description
 IBus means Intelligent Input Bus. It is an input framework for Linux OS.
+
+%package -n python3-ibus
+Summary:        Python 3 GObject Introspection overrides for IBus
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{py3_dist pygobject}
+
+%description -n python3-ibus
+The python3-ibus package provides GObject Introspection overrides
+for IBus, allowing Python applications to use the IBus library
+for input method support.
 
 %package libs
 Summary:        IBus libraries
@@ -204,7 +192,6 @@ This package contains IBus IM module for GTK4
 %package setup
 Summary:        IBus setup utility
 Requires:       %{name} = %{version}-%{release}
-%{?__python3:Requires: %{__python3}}
 Requires:       python3-gobject
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  python3-gobject-devel
@@ -213,38 +200,6 @@ BuildArch:      noarch
 
 %description setup
 This is a setup utility for IBus.
-
-%if %with_python2
-%package pygtk2
-Summary:        IBus PyGTK2 library
-%if (0%{?fedora} && 0%{?fedora} <= 27) || (0%{?rhel} && 0%{?rhel} <= 7)
-Requires:       dbus-python >= %{dbus_python_version}
-%else
-Requires:       python2-dbus >= %{dbus_python_version}
-%endif
-Requires:       python2
-Requires:       pygtk2
-BuildArch:      noarch
-
-%description pygtk2
-This is a PyGTK2 library for IBus. Now major IBus engines use PyGObject3
-and this package will be deprecated.
-%endif
-
-%package py2override
-Summary:        IBus Python2 override library
-Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
-# Owner of %%python2_sitearch/gi/overrides
-%if (0%{?fedora} && 0%{?fedora} <= 27) || (0%{?rhel} && 0%{?rhel} <= 7)
-Requires:       pygobject3-base
-%else
-Requires:       python2-gobject-base
-%endif
-Requires:       python2
-
-%description py2override
-This is a Python2 override library for IBus. The Python files override
-some functions in GObject-Introspection.
 
 %package wayland
 Summary:        IBus IM module for Wayland
@@ -375,11 +330,7 @@ fi
     --enable-gtk-doc \
     --enable-surrounding-text \
     --with-python=python3 \
-%if ! %with_python2
     --disable-python2 \
-%else
-    --enable-python-library \
-%endif
     --with-python-overrides-dir=%{python3_sitearch}/gi/overrides \
     --enable-wayland \
     --enable-introspection \
@@ -424,11 +375,7 @@ install -m 755 -d $RPM_BUILD_ROOT%pkgcache/bus
 touch $RPM_BUILD_ROOT%pkgcache/bus/registry
 
 # install .desktop files
-%if %with_python2
-echo "NoDisplay=true" >> $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup.desktop
-%else
 echo "NoDisplay=true" >> $RPM_BUILD_ROOT%{_datadir}/applications/org.freedesktop.IBus.Setup.desktop
-%endif
 #echo "X-GNOME-Autostart-enabled=false" >> $RPM_BUILD_ROOT%%{_sysconfdir}/xdg/autostart/ibus.desktop
 
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/ibus
@@ -476,6 +423,12 @@ make check \
 
 %postun
 if [ "$1" -eq 0 ]; then
+  # ibus 1.5.31 has no ibus-xinit and need to delete %%_xinputconf here
+  # for the back compatiblity for a year.
+  %{_sbindir}/alternatives --remove xinputrc %{_xinputconf} || :
+  # if alternative was set to manual, reset to auto
+  [ -L %{_sysconfdir}/alternatives/xinputrc -a "`readlink %{_sysconfdir}/alternatives/xinputrc`" = "%{_xinputconf}" ] && %{_sbindir}/alternatives --auto xinputrc || :
+
   # 'dconf update' sometimes does not update the db...
   dconf update || :
   [ -f %{_sysconfdir}/dconf/db/ibus ] && \
@@ -540,12 +493,14 @@ dconf update || :
 %dir %{_prefix}/lib/systemd/user/gnome-session.target.wants
 %{_prefix}/lib/systemd/user/gnome-session.target.wants/*.service
 %{_prefix}/lib/systemd/user/org.freedesktop.IBus.session.*.service
-%python3_sitearch/gi/overrides/__pycache__/*.py*
-%python3_sitearch/gi/overrides/IBus.py
 %verify(not mtime) %dir %pkgcache
 %verify(not mtime) %dir %pkgcache/bus
 # 'ibus write-cache --system' updates the system cache.
 %ghost %pkgcache/bus/registry
+
+%files -n python3-ibus
+%{python3_sitearch}/gi/overrides/__pycache__/*.py*
+%{python3_sitearch}/gi/overrides/IBus.py
 
 %files libs
 %{_libdir}/libibus-*%{ibus_api_version}.so.*
@@ -570,24 +525,9 @@ dconf update || :
 # gtk-update-icon-cache is executed in the main package only one time.
 %files setup
 %{_bindir}/ibus-setup
-%if %with_python2
-%{_datadir}/applications/ibus-setup.desktop
-%else
 %{_datadir}/applications/org.freedesktop.IBus.Setup.desktop
-%endif
 %{_datadir}/ibus/setup
 %{_datadir}/man/man1/ibus-setup.1.gz
-
-%if %with_python2
-%files pygtk2
-%dir %{python2_sitelib}/ibus
-%{python2_sitelib}/ibus/*
-%endif
-
-%if %with_python2
-%files py2override
-%python2_sitearch/gi/overrides/IBus.py*
-%endif
 
 %files wayland
 %{_libexecdir}/ibus-wayland
@@ -639,6 +579,15 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sun Dec 21 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-3
+- Resolves: #2321990#c10 Keep xinit postun in ibus for back compatibility
+- Resolves: #2418564 Do not install ibus-xinit in COSMIC desktop
+- Resolves: #2418670 Disable X11 display in GTK3 Wayland with hibernation
+- Resolves: #2418908 Delete Python2 and subpackage python3-ibus
+- Fix GTK3 build in src/tests/ibus-keypress
+- Add warning to clean VALA files in configure
+- Order locale compose and user compose
+
 * Wed Nov 26 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-2
 - Resolves: #2237664 Fix mouse position in Emojier category list
 - Resolves: #2326455 Free IBusInputContext in input_method_activate()

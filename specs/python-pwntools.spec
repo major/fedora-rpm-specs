@@ -1,6 +1,6 @@
 Name:           python-pwntools
-Version:        4.14.1
-Release:        6%{?dist}
+Version:        4.15.0
+Release:        2%{?dist}
 Summary:        A CTF framework and exploit development library
 URL:            https://github.com/Gallopsled/pwntools/
 VCS:            https://github.com/Gallopsled/pwntools/
@@ -84,6 +84,10 @@ intended to make exploit writing as simple as possible.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+# Allow installation with unicorn 2.1.4, which is the version Fedora ships.
+# See https://github.com/unicorn-engine/unicorn/issues/2134.
+# Remove once fixed.
+sed -i '/!=2.1.4/d' pyproject.toml
 
 #wrong permission
 chmod -x docs/requirements.txt
@@ -128,7 +132,6 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 %{python3_sitelib}/pwnlib/
 %{_bindir}/asm
 %{_bindir}/checksec-pwntools
-%{_bindir}/common
 %{_bindir}/constgrep
 %{_bindir}/cyclic
 %{_bindir}/debug
@@ -139,7 +142,6 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 %{_bindir}/errno
 %{_bindir}/hex
 %{_bindir}/libcdb
-%{_bindir}/main
 %{_bindir}/phd
 %{_bindir}/pwn
 %{_bindir}/pwnstrip
@@ -147,8 +149,6 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 %{_bindir}/shellcraft
 %{_bindir}/template
 %{_bindir}/unhex
-%{_bindir}/update
-%{_bindir}/version
 
 # Waiting on pwntools to support newer sphinx shipped by Fedora.
 # %%files doc
@@ -156,6 +156,12 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 4.15.0-2
+- Allow installing with Fedora's unicorn 2.1.4
+
+* Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 4.15.0-1
+- Update to 4.15.0 (rhbz#2338171)
+
 * Mon Dec 15 2025 Python Maint <python-maint@redhat.com> - 4.14.1-6
 - Use new packaging macros
 

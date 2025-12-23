@@ -1,10 +1,3 @@
-%global git 0
-#global snapshot 20230905
-%global commit 4d60929fea25d66ef58ab66eaced315242d8c029
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
-%bcond_without check
-
 # Currently does not build with opencl/libxsmm
 %bcond_with opencl
 
@@ -19,19 +12,14 @@
 %bcond_without openmpi
 %endif
 
-Name: dbcsr
-# SONAME is based on major.minor version
-%global sover 2.8
-Version: %{sover}.0
-Release: %autorelease
-Summary: Distributed Block Compressed Sparse Row matrix library
-License: GPL-2.0-or-later
-URL: https://cp2k.github.io/dbcsr/develop/
-%if %{git}
-Source0: https://github.com/cp2k/dbcsr/archive/%{commit}/dbcsr-%{shortcommit}.tar.gz
-%else
-Source0: https://github.com/cp2k/dbcsr/releases/download/v%{version}/dbcsr-%{version}.tar.gz
-%endif
+Name:          dbcsr
+Version:       2.9.1
+Release:       %autorelease
+Summary:       Distributed Block Compressed Sparse Row matrix library
+License:       GPL-2.0-or-later
+URL:           https://cp2k.github.io/dbcsr/develop/
+Source0:       https://github.com/cp2k/dbcsr/releases/download/v%{version}/dbcsr-%{version}.tar.gz
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
@@ -42,16 +30,16 @@ BuildRequires: libxsmm-devel
 %endif
 BuildRequires: python3-fypp
 
-%global dbcsr_desc_base \
-DBCSR stands for Distributed Blocked Compressed Sparse Row.\
-\
-DBCSR is a library designed to efficiently perform sparse matrix-matrix\
-multiplication, among other operations.  It is MPI and OpenMP parallel and\
-can exploit Nvidia and AMD GPUs via CUDA and HIP.
+%global _description %{expand:
+DBCSR stands for Distributed Blocked Compressed Sparse Row.
+
+DBCSR is a library designed to efficiently perform sparse matrix-matrix
+multiplication, among other operations.  It is MPI and OpenMP parallel and
+can exploit Nvidia and AMD GPUs via CUDA and HIP.}
 
 
 %description
-%{dbcsr_desc_base}
+%{_description}
 
 This package contains the non-MPI single process and multi-threaded versions.
 
@@ -73,7 +61,7 @@ Summary: DBCSR - openmpi version
 BuildRequires:  openmpi-devel
 
 %description openmpi
-%{dbcsr_desc_base}
+%{_description}
 
 This package contains the parallel single- and multi-threaded versions
 using OpenMPI.
@@ -92,7 +80,7 @@ Summary: DBCSR - mpich version
 BuildRequires:  mpich-devel
 
 %description mpich
-%{dbcsr_desc_base}
+%{_description}
 
 This package contains the parallel single- and multi-threaded versions
 using mpich.
@@ -107,14 +95,7 @@ developing applications that use %{name}-mpich.
 
 
 %prep
-%if %{git}
-%autosetup -p1 -n %{name}-%{commit}
-echo git:%{shortcommit} > REVISION
-%else
 %autosetup -p1
-%endif
-# Use cmake's version so it can find flexiblas
-rm cmake/Find{BLAS,LAPACK}.cmake
 # Use system fypp, other tools not needed
 rm -r tools
 
@@ -126,16 +107,21 @@ rm -r tools
 export CFLAGS="%{optflags} -fPIC"
 export CXXFLAGS="%{optflags} -fPIC"
 export FFLAGS="%{optflags} -fPIC"
-%cmake -DCMAKE_INSTALL_Fortran_MODULES=%{_fmoddir} -DUSE_MPI=OFF %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm}
+%cmake \
+  -DCMAKE_INSTALL_Fortran_MODULES=%{_fmoddir} \
+  -DUSE_MPI=OFF \
+  %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm}
 %cmake_build
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  %cmake -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} \
-   -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
-   -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB \
-   -DUSE_MPI_F08=ON \
-   -DTEST_MPI_RANKS=2
+  %cmake \
+    -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR \
+    %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} \
+    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
+    -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB \
+    -DUSE_MPI_F08=ON \
+    -DTEST_MPI_RANKS=2
   %cmake_build
   module purge
 done
@@ -151,7 +137,6 @@ do
 done
 
 
-%if %{with check}
 %check
 %ctest
 for mpi in %{mpi_list}
@@ -163,13 +148,12 @@ do
   %ctest || test $fail
   module purge
 done
-%endif
 
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libdbcsr.so.%{sover}*
+%{_libdir}/libdbcsr.so.*
 
 %files devel
 %{_fmoddir}/dbcsr_api.mod
@@ -181,8 +165,8 @@ done
 %files openmpi
 %license LICENSE
 %doc README.md
-%{_libdir}/openmpi/lib/libdbcsr.so.%{sover}*
-%{_libdir}/openmpi/lib/libdbcsr_c.so.%{sover}*
+%{_libdir}/openmpi/lib/libdbcsr.so.*
+%{_libdir}/openmpi/lib/libdbcsr_c.so.*
 
 %files openmpi-devel
 %{_libdir}/openmpi/include/dbcsr.h
@@ -197,8 +181,8 @@ done
 %files mpich
 %license LICENSE
 %doc README.md
-%{_libdir}/mpich/lib/libdbcsr.so.%{sover}*
-%{_libdir}/mpich/lib/libdbcsr_c.so.%{sover}*
+%{_libdir}/mpich/lib/libdbcsr.so.*
+%{_libdir}/mpich/lib/libdbcsr_c.so.*
 
 %files mpich-devel
 %{_libdir}/mpich/include/dbcsr.h

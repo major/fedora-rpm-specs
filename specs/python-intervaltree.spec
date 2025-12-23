@@ -1,8 +1,8 @@
 %global srcname intervaltree
 
 Name:           python-%{srcname}
-Version:        3.1.0
-Release:        21%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        A mutable, self-balancing interval tree for Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -12,6 +12,7 @@ Source0:        https://files.pythonhosted.org/packages/source/i/%{srcname}/%{sr
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-sortedcontainers
 
 %global _description %{expand:
 A mutable, self-balancing interval tree for Python. Queries may
@@ -47,6 +48,9 @@ Requires:       python3-sortedcontainers
 %doc README.md CHANGELOG.md
 
 %changelog
+* Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 3.2.0-1
+- New upstream version (rhbz#2424082)
+
 * Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 3.1.0-21
 - Use new Python packaging macros
 

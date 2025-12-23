@@ -1,7 +1,7 @@
 %global modname rpyc
 
 Name:           python-%{modname}
-Version:        6.0.1
+Version:        6.0.2
 Release:        %autorelease
 Summary:        Transparent, Symmetrical Python Library for Distributed-Computing
 

@@ -1,6 +1,6 @@
 Name:           perl-Mouse
 Summary:        Moose minus the antlers
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mouse
@@ -172,6 +172,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Test::Mouse.3*
 
 %changelog
+* Sun Dec 21 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.6.1-1
+- Update to 2.6.1
+
 * Thu Oct 30 2025 Paul Howarth <paul@city-fan.org> - 2.6.0-1
 - Update to 2.6.0 (rhbz#2407306)
   - Update minimum perl version from 5.8 => 5.10 (GH#112)

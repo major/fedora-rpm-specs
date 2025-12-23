@@ -2,8 +2,8 @@
 %global fonts font(amiri) font(dejavusans) font(dejavusansmono) font(dejavuserif) font(widelands) font(gargi) font(wenquanyimicrohei) font(frankruehlclm)
 
 Name:           widelands
-Version:        1.2.1
-Release:        3%{?dist}
+Version:        1.3
+Release:        1%{?dist}
 Summary:        Open source realtime-strategy game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -11,7 +11,7 @@ License:        GPL-2.0-or-later
 URL:            http://www.widelands.org
 Source0:        https://github.com/widelands/widelands/archive/v%{version}/%{name}-%{version}.tar.gz
 # gnu++11 fix in CMakeLists.txt for PPC64 little-endian
-Patch0:         widelands-1.2-build19-ppc64le.patch
+Patch0:         widelands-1.3-build19-ppc64le.patch
 # Fix failures on s390x due to uninitialized variables
 Patch1:         widelands-1.2-build20-gcc10.patch
 # widelands uses glew which atm is hardcoded to glx, see e.g.:
@@ -19,11 +19,11 @@ Patch1:         widelands-1.2-build20-gcc10.patch
 # This can be fixed cleaner by switching to glewContextInit once we are
 # at glew 2.3, or maybe backport:
 # https://github.com/nigels-com/glew/commit/715afa0ff56c0eb12c23938b80aa2813daa10d81
-Patch2:         widelands-1.0-make-sdl2-use-x11.patch
-Patch3:         widelands-1.2.1-gcc13.patch
-Patch4:         widelands-1.1-f37-sys-minizip-buildfix.patch
+Patch2:         widelands-1.3-make-sdl2-use-x11.patch
+Patch3:         widelands-1.3-gcc13.patch
+Patch4:         widelands-1.3-f37-sys-minizip-buildfix.patch
 Patch5:         widelands-1.2.1-disable-some-tests.patch
-Patch6:         widelands-1.2.1-gcc15.patch
+Patch6:         widelands-1.3-gcc15.patch
 
 BuildRequires: asio-devel
 BuildRequires: SDL2-devel
@@ -35,7 +35,6 @@ BuildRequires: cmake
 BuildRequires: ctags
 BuildRequires: desktop-file-utils 
 BuildRequires: libappstream-glib
-BuildRequires: gettext
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: glew-devel
@@ -70,7 +69,7 @@ perhaps will have a thought, what Widelands is all about.
 
 %build
 %cmake \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DWL_INSTALL_BASEDIR=%{_prefix}/share/%{name} \
     -DWL_INSTALL_DATADIR=%{_prefix}/share/%{name} \
     -DOPTION_BUILD_WEBSITE_TOOLS=OFF \
@@ -89,7 +88,7 @@ mv $RPM_BUILD_ROOT%{_prefix}/games/%{name} \
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 # Validate appdata (provided by upstream)
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.metainfo.xml
 
 pushd $RPM_BUILD_ROOT
 # Replace fonts with system fonts. We used to have symlinks directly from
@@ -190,9 +189,9 @@ ln -s $(fc-match -f "%{file}" "widelands") \
 
 
 # Scripting magic to add proper %%lang() markings to the locale files
-find usr/share/widelands/locale/ -maxdepth 1 -type d -name \*_\* | sed -n 's#\(usr/share/widelands/locale/\(.*\)_.*\)#%lang(\2) /\1#p' > %{_builddir}/%{?buildsubdir}/%{name}.files
-find usr/share/widelands/locale/ -maxdepth 1 -type d ! -name "*_*" | sed -n -e 's#\(usr/share/widelands/locale/\(.\+\)\)#%lang(\2) /\1#p' >> %{_builddir}/%{?buildsubdir}/%{name}.files
-find usr/share/widelands/ -mindepth 1 -maxdepth 1 -not -name locale | sed -n 's#\(usr/share/widelands/*\)#/\1#p' >> %{_builddir}/%{?buildsubdir}/%{name}.files
+find usr/share/widelands/i18n/translations/ -maxdepth 2 -type f -name \*_\*.po | sed -n 's#\(usr/share/widelands/i18n/translations/.*/\([^/]*\)_[^/]*\.po\)#%lang(\2) /\1#p' > %{_builddir}/%{?buildsubdir}/%{name}.files
+find usr/share/widelands/i18n/translations/ -maxdepth 2 -type f -name \*.po -and ! -name "*_*.po" | sed -n -e 's#\(usr/share/widelands/i18n/translations/.*/\([^/]\+\)\.po\)#%lang(\2) /\1#p' >> %{_builddir}/%{?buildsubdir}/%{name}.files
+find usr/share/widelands/ -mindepth 1 -maxdepth 1 -not -name i18n | sed -n 's#\(usr/share/widelands/*\)#/\1#p' >> %{_builddir}/%{?buildsubdir}/%{name}.files
 popd
 
 
@@ -202,13 +201,21 @@ popd
 %{_mandir}/man6/widelands.6.gz
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/*.png
-%{_metainfodir}/*.appdata.xml
+%{_metainfodir}/*.metainfo.xml
 %{_datadir}/applications/*.desktop
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/locale
+%{_datadir}/%{name}/i18n/fonts.lua
+%{_datadir}/%{name}/i18n/fonts
+%{_datadir}/%{name}/i18n/locales.lua
+%{_datadir}/%{name}/i18n/locales/*.json
+%{_datadir}/%{name}/i18n/translation_stats.conf
+%{_datadir}/%{name}/i18n/translations/*/*.pot
 
 
 %changelog
+* Sun Dec 21 2025 Peter Hanecak <hany@hany.sk> - 1.3-1
+- New upstream release 1.3 (rhbz#2422054)
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 1.2.1-3
 - Rebuilt for icu 77.1
 

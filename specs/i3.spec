@@ -1,5 +1,5 @@
 Name:           i3
-Version:        4.24
+Version:        4.25
 Release:        %autorelease
 Summary:        Improved tiling window manager
 License:        BSD-3-Clause
@@ -135,6 +135,8 @@ This is the configuration file of i3 used for the Fedora i3 Spin.
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
+Provides:       %{name}-devel-doc = %{version}-%{release}
+Obsoletes:      %{name}-devel-doc < 4.25
 
 %description    doc
 Asciidoc generated documentation for %{name}.
@@ -145,15 +147,6 @@ Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 Header files for %{name}.
-
-%package        devel-doc
-Summary:        Documentation for the development files of %{name}
-BuildRequires:  doxygen
-BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-
-%description    devel-doc
-Doxygen generated documentations for %{name}.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -166,9 +159,6 @@ find . -maxdepth 1 -type f -name "i3*" -exec sed -i -e '1s;^#!/usr/bin/env perl;
 %build
 %meson
 %meson_build
-
-doxygen pseudo-doc.doxygen
-mv pseudo-doc/html pseudo-doc/doxygen
 
 %install
 %meson_install
@@ -220,10 +210,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/i3.desktop
 %files devel
 %license LICENSE
 %{_includedir}/%{name}/
-
-%files devel-doc
-%license LICENSE
-%doc pseudo-doc/doxygen/
 
 %changelog
 %autochangelog

@@ -1,6 +1,6 @@
 Name:		voms-api-java
-Version:	3.3.6
-Release:	2%{?dist}
+Version:	3.3.7
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
@@ -83,6 +83,9 @@ popd
 %license LICENSE
 
 %changelog
+* Sat Dec 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.7-1
+- Update to version 3.3.7
+
 * Mon Sep 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.6-2
 - Include upstream's scripts for generating test certificates
 - Enable tests again

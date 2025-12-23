@@ -1,22 +1,24 @@
-%global commit df8547ff075d4352db2eb802775b7fa7a92756db
+%global commit 77a677aa6621927495f1954eded11e601937798b
 %global short_commit %(c=%{commit}; echo ${c:0:7})
-%global commit_date 20240205
+%global commit_date 20251217
 %global commit_release .%{commit_date}git%{short_commit}
 
 # To make rpmdev-bumpspec and similar tools happy
-%global baserelease 13
+%global baserelease 14
 
 Name:           libvmi
 Version:        0.14.0
-Release:        11.20240205gitdf8547f%{?dist}
+Release:        %{baserelease}%{commit_release}%{?dist}
 Summary:        A library for performing virtual-machine introspection
 
 License:        LGPL-3.0-or-later
 URL:            http://libvmi.com/
 Source0:        https://github.com/%{name}/%{name}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
 
-# disable '-Werror'
+# Disable '-Werror':
 Patch0001:      libvmi-no_werror.patch
+# Fix incompatible pointer type:
+Patch0002:      libvmi-fix-incompatible-pointer.patch
 
 # Cannot presently build on other architectures.
 ExclusiveArch:  x86_64
@@ -78,6 +80,9 @@ find %{buildroot}%{_libdir} -name '*.a' -delete -print
 %{_bindir}/*
 
 %changelog
+* Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 0.14.0-14.20251217git77a677a
+- Update to Git master
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-11.20240205gitdf8547f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

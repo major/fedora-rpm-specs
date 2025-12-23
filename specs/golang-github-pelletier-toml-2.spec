@@ -3,7 +3,7 @@
 
 # https://github.com/pelletier/go-toml
 %global goipath         github.com/pelletier/go-toml/v2
-Version:                2.2.3
+Version:                2.2.4
 
 %gometa
 
@@ -20,6 +20,7 @@ Summary:        Go library for the TOML file format
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+Patch1:         go-toml-2.2.4-const-format-strings.patch
 
 %description %{common_description}
 
@@ -27,6 +28,7 @@ Source:         %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

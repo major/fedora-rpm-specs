@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
 Version: 25.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later
 URL:     https://userbase.kde.org/Kamoso
@@ -20,6 +20,9 @@ URL:     https://userbase.kde.org/Kamoso
 Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# Reverts an issue where kamoso's handling of camera fails on start, and crashes shortly after
+# https://invent.kde.org/multimedia/kamoso/-/commit/27a464754ef15992781920c3524945aabd601dd3
+Patch0:         27a464754ef15992781920c3524945aabd601dd3.patch
 
 ## upstreamable patches
 
@@ -103,6 +106,9 @@ xvfb-run -a bash -c "%ctest"
 
 
 %changelog
+* Sun Dec 21 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-2
+- Fix for a crash on start, and camera issues
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

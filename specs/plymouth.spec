@@ -100,6 +100,17 @@ Patch: 0001-utils-Don-t-lose-log-level-when-silencing-kmsg.patch
 Patch: 0002-details-Suppress-kernel-s-own-kmsg-console-output.patch
 Patch: 0003-kmsg-reader-Seek-to-the-end-of-the-ringbuffer.patch
 
+# Fix crash in drm plugin close_input_source() rhbz#2416551
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/5c10072a978dd7566559f44a54c3e031bb4cb216
+Patch: 0001-renderers-Only-call-ply_terminal_set_unbuffered_inpu.patch
+
+# Fix wrong KBD layout when a user has configured multiple layouts rhbz#2416197
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/b609687e8d15b23aaa39100221b62d37b5859011
+Patch: 0001-Display-the-first-specified-XKBLAYOUT-as-the-active-.patch
+
+# Fix race in fb_device_has_drm_device () causing frame-buffer plugin to
+# sometimes load while drm plugin is already handling the display
+Patch: 0001-ply-device-manager-Fix-race-in-fb_device_has_drm_dev.patch
 
 BuildRequires: meson
 BuildRequires: system-logos
@@ -432,7 +443,7 @@ fi
 %{_datadir}/plymouth/plymouthd.defaults
 %{_localstatedir}/spool/plymouth
 %{_mandir}/man?/*
-%ghost %verify(not mode) %{_localstatedir}/lib/plymouth/boot-duration
+%ghost %attr(0644,root,root) %{_localstatedir}/lib/plymouth/boot-duration
 %{_unitdir}/
 
 %files devel

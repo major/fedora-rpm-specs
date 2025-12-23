@@ -1,8 +1,8 @@
 %global pypi_name claripy
 
 Name:           python-%{pypi_name}
-Version:        9.2.158
-Release:        4%{?dist}
+Version:        9.2.189
+Release:        1%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
 License:        LicenseRef-Callaway-BSD
@@ -43,6 +43,9 @@ sed -i 's/, "z3-solver==4.13.0.0"//' pyproject.toml
 %doc README.md
 
 %changelog
+* Sat Dec 20 2025 W. Michael Petullo <mike@flyn.org> - 9.2.189-1
+- Update to latest upstream release (closes rhbz#2380259)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 9.2.158-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

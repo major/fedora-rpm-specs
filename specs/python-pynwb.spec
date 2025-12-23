@@ -23,7 +23,7 @@
 %bcond test_validation_module 0
 
 Name:           python-pynwb
-Version:        2.8.3
+Version:        3.1.3
 Release:        %autorelease
 Summary:        Package for working with Neurodata stored in the NWB format
 
@@ -36,7 +36,9 @@ Summary:        Package for working with Neurodata stored in the NWB format
 License:        BSD-3-Clause-LBNL AND Unlicense
 URL:            https://github.com/NeurodataWithoutBorders/pynwb
 # Use the pypi tar because GitHub tar does not include the required git-submodules
-Source:         %{pypi_source pynwb}
+Source0:        %{pypi_source pynwb}
+# Man page hand-written for Fedora in groff_man(7) format from --help output
+Source1:        pynwb-validate.1
 
 BuildArch:      noarch
 
@@ -59,6 +61,9 @@ BuildRequires:  python3-matplotlib
 
 %prep
 %autosetup -n pynwb-%{version} -p1
+
+# These would end up in the binary package:
+find src -type f -name .codespellrc -print -delete
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's@"coverage", "run", "-p"@"%{python3}"@' \
@@ -99,6 +104,7 @@ done
 %install
 %pyproject_install
 %pyproject_save_files pynwb
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %check
 # Generate test files
@@ -131,13 +137,12 @@ done
 %endif
     --verbose
 
-# Clean up testing artefacts
-rm -v %{buildroot}%{python3_sitelib}/pynwb/.core_typemap_version \
-      %{buildroot}%{python3_sitelib}/pynwb/core_typemap.pkl
-
 %files -n python3-pynwb -f %{pyproject_files}
 %license license.txt
 %doc README.rst
+
+%{_bindir}/pynwb-validate
+%{_mandir}/man1/pynwb-validate.1*
 
 %changelog
 %autochangelog

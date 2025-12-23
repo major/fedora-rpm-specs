@@ -14,7 +14,7 @@
 
 # https://github.com/containers/podman-tui
 %global goipath github.com/containers/podman-tui
-Version: 1.9.0
+Version: 1.10.0
 %gometa
 
 %global goname podman-tui
@@ -79,6 +79,7 @@ export BUILDTAGS="exclude_graphdriver_devicemapper exclude_graphdriver_btrfs btr
 export BUILDTAGS="$BUILDTAGS libtrust_openssl"
 %endif
 
+export CGO_LDFLAGS="${CGO_LDFLAGS} -Wl,--allow-multiple-definition"
 %gobuild -o %{gobuilddir}/bin/%{goname} %{goipath}
 
 %install

@@ -1,6 +1,6 @@
 Name:           python-ibm-vpc
-Version:        0.28.0
-Release:        5%{?dist}
+Version:        0.32.0
+Release:        1%{?dist}
 Summary:        Python client library for IBM Cloud VPC Services
 
 License:        Apache-2.0
@@ -56,6 +56,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Dec 17 2025 Packit <hello@packit.dev> - 0.32.0-1
+- Update to version 0.32.0
+- Resolves: rhbz#2372634
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.28.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 
