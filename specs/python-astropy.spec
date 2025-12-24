@@ -3,7 +3,7 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 7.1.1
+Version: 7.2.0
 Release: %autorelease
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
@@ -13,10 +13,11 @@ License: BSD-3-Clause AND CFITSIO AND Python-2.0.1 AND MIT
 URL: http://astropy.org
 Source: %{pypi_source %{srcname}}
 Source: astropy-README.dist
+# Please, do not change the compilation flags
+Patch: restore-compilation-flags.patch
 Patch: python-astropy-system-configobj.patch
 Patch: python-astropy-system-ply.patch
-# Add python 3.14 to tox.ini
-Patch: tox314.patch
+Patch: fix-doctest.patch
 
 BuildRequires: gcc
 BuildRequires: expat-devel
@@ -41,15 +42,19 @@ Summary: %{summary}
 BuildRequires: %{py3_dist tox}
 BuildRequires: %{py3_dist pytest}
 BuildRequires: %{py3_dist hypothesis}
+BuildRequires: %{py3_dist scipy}
+BuildRequires: %{py3_dist matplotlib}
+BuildRequires: %{py3_dist h5py}
+BuildRequires: %{py3_dist scikit-image}
 # Unbundled
 BuildRequires: %{py3_dist configobj}
 BuildRequires: %{py3_dist ply}
 Requires: %{py3_dist configobj}
 Requires: %{py3_dist ply}
 # Bundled
-Provides: bundled(cfitsio) = 4.5.0
+Provides: bundled(cfitsio) = 4.6.3
 Provides: bundled(jquery) = 3.60
-Provides: bundled(wcslib) = 8.4
+#Provides: bundled(wcslib) = 8.4
 
 # Drop doc subpackage, is empty 
 
@@ -72,6 +77,10 @@ Utilities provided by Astropy.
 rm -rf astropy/extern/configobj
 rm -rf astropy/extern/ply
 rm -rf cextern/expat
+# The buils system requires a subset of the header files
+# cel.h, lin.h, prj.h, spc.h, spx.h, tab.h, wcs.h, 
+# wcserr.h, wcsmath.h, wcsprintf.h
+rm -rf cextern/wcslib/C/*.c
 
 # Apparently, --current-env doesn't like {list_dependencies_command}
 sed -i 's/{list_dependencies_command}/python -m pip freeze --all/g' tox.ini

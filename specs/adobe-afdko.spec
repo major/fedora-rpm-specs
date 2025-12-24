@@ -1,21 +1,36 @@
-%global archivename afdko
-%global antl4_ver 4.9.3
+# Upstream actually uses a post-release snapshot of commit
+# df4d68c09cdef73e023b8838a8bc7ca4dff1d1de “that addresses a missing include
+# directive needed in more recent Visual Studio releases;” we should be able to
+# get by with the release.
+%global antl4_ver 4.13.2
 
 Name:		adobe-afdko
-Version:	4.0.1
-Release:	4%{?dist}
+Version:	4.0.3
+Release:	1%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
-# ExternalAntlr4Cpp.cmake is BSD-3-clause
-# c/makeotf/makeotf_lib/build/hotpccts/pccts/* is ANTLR-PD
-# afdko-3.6.1/python/afdko/pdflib/pdfgen.py is Python-2.0.1
-# python/afdko/resources/ is BSD-3-Clause
-License:	Apache-2.0 AND BSD-3-Clause AND ANTLR-PD AND Python-2.0.1
+# Everything is Apache-2.0 except:
+#
+# The following would affect the license of a python3-afdko subpackage, which
+# we currently don’t have.
+#
+# - License of afdko-3.6.1/python/afdko/pdflib/pdfgen.py is said to be “same as
+#   the Python license,” which would seem to suggest Python-2.0.1, but the
+#   license text matches MIT-CMU.
+# - Contents of python/afdko/resources/ are derived from adobe-mappings-cmap
+#   and share its BSD-3-Clause license.
+#
+# The following do not affect the licenses of the binary RPMs.
+#
+# - ExternalAntlr4Cpp.cmake is BSD-3-Clause, as noted in LICENSE.md, but this
+#   is a build-system file and does not affect the licenses of the binary RPMs
+# - Various fonts and other test data files are OFL-1.1 (and/or
+#   OFL-1.0-RFN/OFL-1.0-no-RFN?), but do not contribute to the licenses of the
+#   binary RPMs
+License:	Apache-2.0
 URL:		https://github.com/adobe-type-tools/afdko
-Source0:	https://github.com/adobe-type-tools/%{archivename}/releases/download/%{version}/%{archivename}-%{version}.tar.gz
+Source0:	%{url}/releases/download/%{version}/afdko-%{version}.tar.gz
 Source1:	https://www.antlr.org/download/antlr4-cpp-runtime-%{antl4_ver}-source.zip
-Patch0: antlr4-cpp-runtime-%{antl4_ver}.patch
 BuildRequires:	gcc g++
-BuildRequires:	make
 BuildRequires:	cmake
 BuildRequires:	libuuid-devel
 BuildRequires:	libxml2-devel
@@ -27,13 +42,13 @@ The AFDKO is a set of tools for building OpenType font files
 from PostScript and TrueType font data.
 
 %prep
-%autosetup -p1 -n %{archivename}-%{version}
-cp %{SOURCE1} .
+%autosetup -p1 -n afdko-%{version}
 
 %build
 %set_build_flags
 export XFLAGS="${CFLAGS} ${LDFLAGS}"
-%cmake
+%cmake \
+  -DANTLR4_ZIP_REPOSITORY:PATH=%{SOURCE1}
 %cmake_build
 
 %install
@@ -42,9 +57,28 @@ export XFLAGS="${CFLAGS} ${LDFLAGS}"
 %files
 %license LICENSE.md
 %doc docs/ README.md NEWS.md
-%{_bindir}/*
+%{_bindir}/detype1
+%{_bindir}/makeotfexe
+%{_bindir}/mergefonts
+%{_bindir}/rotatefont
+%{_bindir}/sfntdiff
+%{_bindir}/sfntedit
+%{_bindir}/spot
+%{_bindir}/tx
+%{_bindir}/type1
 
 %changelog
+* Tue Dec 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.3-1
+- Updated to 4.0.3 release
+- Bundled antlr4-cpp-runtime-4.13.2
+- List packaged executables explicitly
+- Correct/update and better document the License expression
+
+* Tue Dec 09 2025 Cristian Le <git@lecris.dev> - 4.0.2-1
+- Updated to 4.0.2 release
+- Bundled antlr4-cpp-runtime-4.12.0
+- Allow to build with CMake 4.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

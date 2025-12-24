@@ -1,5 +1,5 @@
 Name:    haruna
-Version: 1.6.0
+Version: 1.7.0
 Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 

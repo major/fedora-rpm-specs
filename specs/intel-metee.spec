@@ -1,7 +1,7 @@
 %global upstream_name metee
 
 Name:		intel-metee
-Version:	5.0.0
+Version:	6.1.0
 Release:	%autorelease
 Summary:	Cross-platform access library for Intel CSME HECI interface
 
@@ -58,7 +58,7 @@ interface.
 %files
 %license COPYING
 %doc CHANGELOG.md README.md
-%{_libdir}/lib%{upstream_name}.so.%{version}
+%{_libdir}/lib%{upstream_name}.so.%{version}.0
 
 %files devel
 %{_includedir}/%{upstream_name}.h

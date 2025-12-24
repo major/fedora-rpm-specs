@@ -43,13 +43,12 @@ BuildRequires:  pkgconfig(flexiblas)
 Provides:       coin-or-Csdp = %{version}-%{release}
 
 %description
-CSDP is a library of routines that implements a predictor corrector
-variant of the semidefinite programming algorithm of Helmberg, Rendl,
-Vanderbei, and Wolkowicz.  The main advantages of this code are that it
-is written to be used as a callable subroutine, it is written in C for
-efficiency, the code runs in parallel on shared memory multiprocessor
-systems, and it makes effective use of sparsity in the constraint
-matrices.
+CSDP is a library of routines that implements a predictor corrector variant of
+the semidefinite programming algorithm of Helmberg, Rendl, Vanderbei, and
+Wolkowicz.  The main advantages of this code are that it is written to be used
+as a callable subroutine, it is written in C for efficiency, the code runs in
+parallel on shared memory multiprocessor systems, and it makes effective use
+of sparsity in the constraint matrices.
 
 %package devel
 Summary:        Header files for CSDP
@@ -58,8 +57,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       coin-or-Csdp-devel = %{version}-%{release}
 
 %description devel
-This package contains the header files necessary to develop programs
-that use the CSDP library.
+This package contains the header files necessary to develop programs that use
+the CSDP library.
 
 %package tools
 Summary:        Command line tools for working with CSDP
@@ -68,12 +67,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       coin-or-Csdp-tools = %{version}-%{release}
 
 %description tools
-This package contains command-line wrappers around the CSDP library,
-including a solver, a program for computing the Lovasz Theta number of a
-graph, and some graph manipulation programs.
+This package contains command-line wrappers around the CSDP library, including
+a solver, a program for computing the Lovasz Theta number of a graph, and some
+graph manipulation programs.
 
-Note that "csdp-" has been prefixed to some of the binary names, due to
-the generic nature of the names.
+Note that "csdp-" has been prefixed to some of the binary names, due to the
+generic nature of the names.
 
 %package octave
 Summary:        Octave interface to CSDP
@@ -82,8 +81,8 @@ Requires:       %{name}-tools = %{version}-%{release}, octave
 BuildArch:      noarch
 
 %description octave
-This package contains an Octave interface to the C library for
-SemiDefinite Programming.
+This package contains an Octave interface to the C library for SemiDefinite
+Programming.
 
 %prep
 %forgeautosetup -p1
@@ -152,7 +151,7 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 %files
 %doc AUTHORS README.md doc/csdpuser.pdf
 %license LICENSE
-%{_libdir}/libsdp.so.6*
+%{_libdir}/libsdp.so.6{,.*}
 
 %files devel
 %doc doc/example.c
@@ -169,7 +168,4 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 %{octavedir}
 
 %changelog
-* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 6.2.0-1.1
-- Rebuild for Octave 10.2
-
 %autochangelog

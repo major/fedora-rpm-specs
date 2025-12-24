@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 21
 %global min_ver 1
-%global patch_ver 7
+%global patch_ver 8
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -503,6 +503,7 @@ Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
+Patch2103: 0001-lld-Adjust-compressed-debug-level-test-for-s390x-wit.patch
 #endregion LLD patches
 
 #region polly patches

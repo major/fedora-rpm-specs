@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           mkdocs-material
-Version:        9.7.0
+Version:        9.7.1
 Release:        %autorelease
 Summary:        Material design theme for MkDocs
 

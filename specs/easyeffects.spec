@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        8.0.3
+Version:        8.0.8
 Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -66,6 +66,7 @@ BuildRequires:  pkgconfig(webrtc-audio-processing-2)
 BuildRequires:  zita-convolver-devel >= 3.1.0
 
 BuildRequires:  ladspa-devel
+BuildRequires:  pkgconfig(libmysofa)
 
 # Visual style stuff
 Requires:       breeze-icon-theme
@@ -130,6 +131,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Mon Dec 22 2025 Vasiliy Glazov <vascom2@gmail.com> - 8.0.8-1
+- Update to 8.0.8
+
 * Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 8.0.3-1
 - Rebase to 8.0.3
 

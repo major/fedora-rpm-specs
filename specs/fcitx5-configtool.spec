@@ -2,7 +2,7 @@
 
 
 Name:           fcitx5-configtool
-Version:        5.1.11
+Version:        5.1.12
 Release:        %autorelease
 Summary:        Configuration tools used by fcitx5
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

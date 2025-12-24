@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.34.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
@@ -18,6 +18,9 @@ Source2: %{gem_name}-%{version}-web.tar.gz
 # Make the test suite compatible with Rack 3+.
 # https://github.com/SeleniumHQ/selenium/pull/16158
 Patch0: rubygem-selenium-webdriver-4.34.0-Use-Rack-Files-for-Rack-3-compatibility.patch
+# Enable compatibility with rubyzip v3.
+# https://github.com/SeleniumHQ/selenium/pull/16108/commits/b91463c4eb2059da2cbdced3e65f1a7aa2708829
+Patch1: rubygem-selenium-webdriver-4.35.0-rb-Allow-to-use-rubyzip-v3.patch
 
 # There is no other driver in Fedora, therefore suggest what we have. This also
 # reflescts the `selenium-manager` stub above.
@@ -71,6 +74,9 @@ Documentation for %{name}.
 cd %{builddir}
 %patch 0 -p1
 )
+
+%patch 1 -p2
+%gemspec_remove_dep -g rubyzip '< 3.0'
 
 # Drop the original selenium-manager binaries and replace them by symlink to
 # selenium-manager binary from the package of the same name.
@@ -160,6 +166,9 @@ HEADLESS=true SE_CHROMEDRIVER=chromedriver rspec spec/integration
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Mon Dec 22 2025 Vít Ondruch <vondruch@redhat.com> - 4.34.0-2
+- Enable compatibility with rubygem(rubyzip) v3.
+
 * Mon Aug 11 2025 Tomáš Juhász <tjuhasz@redhat.com> - 4.34.0-1
 - Use packaged selenium-manager binary.
 

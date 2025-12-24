@@ -5,7 +5,21 @@ Summary:        A mpd client which submits information about tracks being played
 License:        GPL-2.0-or-later AND BSD-2-Clause
 URL:            https://www.musicpd.org/clients/%{name}/
 Source0:        https://www.musicpd.org/download/%{name}/%{version}/%{name}-%{version}.tar.xz
-Source2:        %{name}.tmpfiles.conf
+Source1:        https://www.musicpd.org/download/%{name}/%{version}/%{name}-%{version}.tar.xz.sig
+# Find which key was used for signing the release:
+#
+# $ LANG=C gpg --verify mpdscribble-0.25.tar.xz.sig mpdscribble-0.25.tar.xz
+
+# gpg: Signature made Mon Dec 11 18:22:41 2023 CET
+# gpg:                using RSA key 0392335A78083894A4301C43236E8A58C6DB4512
+# gpg: Can't check signature: No public key
+#
+# Now export the key required as follows:
+#
+# gpg --no-default-keyring --keyring ./keyring.gpg --keyserver keyserver.ubuntu.com --recv-key 0392335A78083894A4301C43236E8A58C6DB4512
+# gpg --no-default-keyring --keyring ./keyring.gpg  --output 0392335A78083894A4301C43236E8A58C6DB4512.gpg --export --armour
+Source2:        0392335A78083894A4301C43236E8A58C6DB4512.gpg
+Source3:        %{name}.tmpfiles.conf
 
 BuildRequires: cmake
 BuildRequires: gcc-g++
@@ -24,6 +38,7 @@ mpdscribble is a music player daemon (mpd) client which submits information
 about tracks being played to Last.fm (formerly audioscrobbler)
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 # Create a sysusers.d config file
@@ -41,7 +56,7 @@ EOF
 %install
 %meson_install
 
-install -D -m 0644 -p %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -D -m 0644 -p %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -d %{buildroot}%{_localstatedir}/run/%{name}
 
 # Make room for logs

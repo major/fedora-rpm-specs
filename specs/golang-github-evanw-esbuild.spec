@@ -3,7 +3,7 @@
 
 # https://github.com/evanw/esbuild
 %global goipath         github.com/evanw/esbuild
-Version:                0.24.2
+Version:                0.27.2
 
 %gometa -L -f
 
@@ -37,7 +37,6 @@ Requires: %{name} = %{version}-%{release}
 
 %prep
 %goprep -A
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

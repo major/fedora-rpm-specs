@@ -92,7 +92,7 @@ ExcludeArch: armv7hl
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
 Version:        146.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
@@ -144,6 +144,9 @@ Patch83:        build-seccomp.patch
 # Upstream patches
 Patch402:       mozilla-526293.patch
 Patch406:        mozilla-1170092.patch
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1998188
+# this is the Firefox patch, manually rediffed against 146.0.1
+Patch407:       thunderbird-146.0.1-fix_resize_crash.patch
 
 # Bundled expat backported patches
 
@@ -308,6 +311,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 
 %patch -P 402 -p1 -b .526293
 %patch -P 406 -p1 -b .1170092-etc-conf
+%patch -P 407 -p1 -b .1998188-resize-crash
 
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 
@@ -767,6 +771,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Mon Dec 22 2025 Adam Williamson <awilliam@redhat.com> - 146.0.1-2
+- Backport fix for resize crash bug (RHBZ #2423824 upstream #1998188)
+
 * Thu Dec 18 2025 Jan Horak <jhorak@redhat.com> - 146.0.1-1
 - Update to 146.0.1
 

@@ -1,7 +1,7 @@
 %global giturl  https://github.com/documatt/sphinx-reredirects
 
 Name:           python-sphinx-reredirects
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Handle redirects for moved pages in Sphinx documentation
 
@@ -16,13 +16,13 @@ BuildOption(install): -l sphinx_reredirects
 
 BuildRequires:  %{py3_dist pytest}
 
-%global _description %{expand:
-Sphinx-reredirects is the extension for Sphinx documentation projects
-that handles redirects for moved pages.  It generates HTML pages with
-meta refresh redirects to the new page location to prevent 404 errors if
-you rename or move your documents.}
+%global _description %{expand:Sphinx-reredirects is the extension for Sphinx documentation projects that
+handles redirects for moved pages.  It generates HTML pages with meta refresh
+redirects to the new page location to prevent 404 errors if you rename or move
+your documents.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-sphinx-reredirects
 Summary:        Handle redirects for moved pages in Sphinx documentation
@@ -38,7 +38,8 @@ Obsoletes:      python3-sphinx_reredirects < 0.1.2-3
 Obsoletes:      python3-sphinx-reredirects-doc < 1.0.0
 Provides:       python3-sphinx-reredirects-doc = %{version}-%{release}
 
-%description -n python3-sphinx-reredirects %_description
+%description -n python3-sphinx-reredirects
+%_description
 
 %check
 # test_linkcheck attempts to access the network

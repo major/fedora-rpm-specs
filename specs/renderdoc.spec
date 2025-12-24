@@ -1,6 +1,6 @@
 %global vswig   modified-7
 Name:           renderdoc
-Version:        1.41
+Version:        1.42
 Release:        1%{?dist}
 Summary:        A stand-alone graphics debugging tool
 
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Dec 22 2025 kb1000 <fedora@kb1000.de> - 1.42-1
+- Update to 1.42 (#2423943)
+
 * Fri Dec 12 2025 kb1000 <fedora@kb1000.de> - 1.41-1
 - Update to 1.41 (#2393585)
 

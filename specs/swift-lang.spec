@@ -230,6 +230,7 @@ for i = 0, 49 do
 end
 }
 Source99:       swiftlang.conf
+Source100:      fedora-presets.ini
 
 # NOTE: The patch number corresponds to the source it's packaging. For example,
 # Patch25 is patching Source25, swift-foundation.
@@ -255,11 +256,11 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libedit-devel
 BuildRequires:  perl-podlators
-BuildRequires:  swiftlang
 BuildRequires:  lld
+BuildRequires:  binutils-gold
 
 Requires:       glibc-devel
-Requires:       binutils-gold
+Requires:       lld
 Requires:       gcc
 
 Recommends:     libstdc++-devel
@@ -315,11 +316,14 @@ end
 %patch 44
 %patch 15
 %patch 5
-%patch 7 
+%patch 7
 %patch 13
 %patch 25
 %patch 24
 %patch 9
+
+# Install custom Fedora preset
+cp %{SOURCE100} swift/utils/fedora-presets.ini
 
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
@@ -330,13 +334,53 @@ sed -i 's/swift-tools-version:999.0.0/swift-tools-version:6.1.3/' wasmkit/Packag
 
 %global buildsubdir %{nil}
 %build
-# Work around broken symlink in BuildRequires swiftlang by ensuring PATH finds the versioned swift
-export PATH=%{_libexecdir}/swift/%{version}/bin:$PATH
 export VERBOSE=1
-%{builddir}/swift/utils/build-script --preset=buildbot_linux,no_test \
-    skip-early-swiftsyntax=true \
+
+# Four-stage bootstrap to build Swift from scratch without external Swift compiler
+# Stage 0: Build minimal Swift toolchain from C++ using gold linker
+#          Produces: Swift compiler with C++ legacy driver (no SwiftPM, no swift-driver)
+#          Stage 0 clang defaults to gold
+# Stage 1: Rebuild Swift compiler using Stage 0 with gold linker
+#          Produces: Swift compiler with macros support + Foundation + Dispatch
+#          Stage 1 clang is compiled with lld as its default linker
+# Stage 2: Build Swift compiler using Stage 1 with lld linker
+#          Produces: Swift compiler + SwiftPM + basic tools (still no swift-driver)
+#          Stage 2 clang defaults to lld
+# Stage 3: Build final production toolchain using Stage 2
+#          Produces: Complete toolchain with swift-driver, sourcekit-lsp, swift-format, etc.
+#          This matches upstream first-party distributions
+
+echo "=== Bootstrap Stage 0: Building minimal Swift from C++ ==="
+%{builddir}/swift/utils/build-script --preset=bootstrap_stage0 \
+    build_subdir=bootstrap_stage0 \
+    install_destdir=%{_builddir}/stage0 \
+    installable_package=%{_builddir}/swift-%{version}-stage0.tar.gz \
+    extra-cmake-options="-DLLVM_USE_LINKER=gold -DCLANG_DEFAULT_LINKER=gold"
+
+echo "=== Bootstrap Stage 1: Rebuilding Swift with Stage 0 ==="
+export PATH=%{_builddir}/stage0/usr/bin:$PATH
+%{builddir}/swift/utils/build-script --preset=bootstrap_stage1 \
+    build_subdir=bootstrap_stage1 \
+    install_destdir=%{_builddir}/stage1 \
+    installable_package=%{_builddir}/swift-%{version}-stage1.tar.gz \
+    extra-cmake-options="-DLLVM_USE_LINKER=gold -DCLANG_DEFAULT_LINKER=lld"
+
+echo "=== Bootstrap Stage 2: Building toolchain with SwiftPM ==="
+export PATH=%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
+%{builddir}/swift/utils/build-script --preset=bootstrap_stage2 \
+    build_subdir=bootstrap_stage2 \
+    install_destdir=%{_builddir}/stage2 \
+    installable_package=%{_builddir}/swift-%{version}-stage2.tar.gz \
+    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=lld"
+
+echo "=== Stage 3: Building final production toolchain with swift-driver ==="
+export PATH=%{_builddir}/stage2/usr/bin:%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
+%{builddir}/swift/utils/build-script --preset=fedora_final \
+    --preset-file=%{builddir}/swift/utils/fedora-presets.ini \
+    build_subdir=fedora_final \
     install_destdir=%{_builddir} \
-    installable_package=%{_builddir}/swift-%{version}-f%{fedora}.tar.gz
+    installable_package=%{_builddir}/swift-%{version}-f%{fedora}.tar.gz \
+    extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=lld -DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,relro,-z,now -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,relro,-z,now"
 
 
 %install

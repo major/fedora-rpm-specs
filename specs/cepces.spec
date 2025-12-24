@@ -7,7 +7,7 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.13
+Version:        0.3.16
 Release:        %autorelease
 Summary:        Certificate Enrollment through CEP/CES
 
@@ -164,7 +164,7 @@ done
 # Install the CA into certmonger.
 if [[ "$1" == "1" ]]; then
     getcert add-ca -c %{name} \
-      -e %{_libexecdir}/certmonger/%{name}-submit >/dev/null || :
+      -e %{_libexecdir}/certmonger/%{name}-submit --install >/dev/null || :
 fi
 
 %preun certmonger

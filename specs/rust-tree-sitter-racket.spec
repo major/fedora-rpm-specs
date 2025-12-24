@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate supports-hyperlinks
+%global crate tree-sitter-racket
 
-Name:           rust-supports-hyperlinks
-Version:        3.2.0
+Name:           rust-tree-sitter-racket
+Version:        0.24.7
 Release:        %autorelease
-Summary:        Detects whether a terminal supports rendering hyperlinks
+Summary:        Racket parser for tree-sitter
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/supports-hyperlinks
+License:        MIT
+URL:            https://crates.io/crates/tree-sitter-racket
 Source:         %{crates_source}
+# * LICENSE file not shipped, see
+#   https://github.com/6cdh/tree-sitter-racket/pull/10
+Source1:        https://raw.githubusercontent.com/6cdh/tree-sitter-racket/refs/tags/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Detects whether a terminal supports rendering hyperlinks.}
+Racket parser for tree-sitter.}
 
 %description %{_description}
 
@@ -31,7 +34,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,6 +51,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -59,6 +62,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+cp -p LICENSE %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check

@@ -4,7 +4,7 @@
 %global dock_obsolete_vr 1.3.7-2
 
 Name:           %{project}
-Version:        4.20.0
+Version:        4.21.0
 Release:        6%{?dist}
 
 Summary:        Improved builder for Docker images
@@ -23,7 +23,6 @@ Requires:       python3-atomic-reactor = %{version}-%{release}
 Requires:       git >= 1.7.10
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if 0%{?with_check}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-capturelog
@@ -78,11 +77,14 @@ you started hooking Docker into your infrastructure.
 %if 0%{fedora} >= 36
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -a docs/manpage/atomic-reactor.1 %{buildroot}%{_mandir}/man1/
@@ -108,15 +110,19 @@ cp -a docs/manpage/atomic-reactor.1 %{buildroot}%{_mandir}/man1/
 %license LICENSE
 %dir %{python3_sitelib}/atomic_reactor
 %dir %{python3_sitelib}/atomic_reactor/__pycache__
+%{python3_sitelib}/atomic_reactor-%{version}.dist-info/INSTALLER
+%{python3_sitelib}/atomic_reactor-%{version}.dist-info/METADATA
+%{python3_sitelib}/atomic_reactor-%{version}.dist-info/WHEEL
+%{python3_sitelib}/atomic_reactor-%{version}.dist-info/entry_points.txt
+%{python3_sitelib}/atomic_reactor-%{version}.dist-info/licenses/LICENSE
+%{python3_sitelib}/atomic_reactor-%{version}.dist-info/top_level.txt
 %{python3_sitelib}/atomic_reactor/*.*
+%{python3_sitelib}/atomic_reactor/__pycache__/*.py*
 %{python3_sitelib}/atomic_reactor/cli
 %{python3_sitelib}/atomic_reactor/plugins
 %{python3_sitelib}/atomic_reactor/schemas
 %{python3_sitelib}/atomic_reactor/tasks
 %{python3_sitelib}/atomic_reactor/utils
-%{python3_sitelib}/atomic_reactor/__pycache__/*.py*
-
-%{python3_sitelib}/atomic_reactor-%{version}-py3.*.egg-info
 
 
 %changelog

@@ -5,7 +5,7 @@ Name:           cdk
 Version:        %{mainver}.%{datever}
 Release:        %autorelease
 Summary:        Curses Development Kit
-License:        MIT-X11
+License:        X11-distribute-modifications-variant
 URL:            https://invisible-island.net/cdk/
 Source0:        https://invisible-island.net/cdk-%{mainver}-%{datever}.tgz
 BuildRequires:  gcc

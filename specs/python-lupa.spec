@@ -10,7 +10,7 @@ such as proper co-routine support.
 %endif
 
 Name:           python-lupa
-Version:        2.5
+Version:        2.6
 Release:        %autorelease
 Summary:        Python wrapper around Lua and LuaJIT
 

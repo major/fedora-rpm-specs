@@ -1,12 +1,12 @@
 # This package requires astropy which requires astropy-iers-data
 # The loop has to be broken for the bootstrap of a new Python in Fedora
-%bcond tests 1
+%bcond tests 0
 
 %global upname astropy-iers-data
 %global srcname astropy_iers_data
 
 Name: python-%{upname}
-Version: 0.2025.12.8.0.38.44
+Version: 0.2025.12.22.0.40.30
 Release: %autorelease
 Summary: IERS Earth Rotation and Leap Second tables for the astropy core package
 License: BSD-3-Clause

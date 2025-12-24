@@ -2,7 +2,7 @@
 %bcond check 1
 
 Name:       stgit
-Version:    2.5.4
+Version:    2.5.5
 Release:    %autorelease
 Summary:    Stack-based patch management for Git
 
@@ -30,6 +30,8 @@ Source:     https://github.com/stacked-git/%{name}/releases/download/v%{version}
 # Relax clap dependency to allow building with clap 4.5+
 # Relax thiserror dependency
 Patch:      stgit-fix-metadata.diff
+# Reverts gix update to build with gix 0.73
+Patch:      0001-Revert-chore-update-gix-to-0.74.1.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  asciidoc

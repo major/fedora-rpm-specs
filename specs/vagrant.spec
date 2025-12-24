@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -158,6 +158,8 @@ sed -i -e '/required_ruby_version/ s/, "< 3.2"//' %{name}.gemspec
 # We have newer version in Fedora
 %gemspec_remove_dep -s %{name}.gemspec -g listen
 %gemspec_add_dep -s %{name}.gemspec -g listen '>= 3.5.1'
+%gemspec_remove_dep -s %{name}.gemspec -g rubyzip '~> 2.0'
+%gemspec_add_dep -s %{name}.gemspec -g rubyzip '>= 2.0.0'
 
 # Remove Windows specific dependencies
 %gemspec_remove_dep -s %{name}.gemspec -g wdm
@@ -494,6 +496,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Mon Dec 22 2025 Vít Ondruch <vondruch@redhat.com> - 2.3.4-9
+- Relax `rubygem(rubyzip)` dependency
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

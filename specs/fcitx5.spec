@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           fcitx5
-Version:        5.1.16
+Version:        5.1.17
 Release:        %autorelease
 Summary:        Next generation of fcitx
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -46,6 +46,7 @@ BuildRequires:  pkgconfig(xcb-icccm)
 BuildRequires:  pkgconfig(xcb-keysyms)
 BuildRequires:  pkgconfig(xkeyboard-config)
 BuildRequires:  /usr/bin/appstream-util
+BuildRequires:  cmake(nlohmann_json)
 Requires:       dbus-common
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -101,7 +102,7 @@ This package will setup autostart and environment needed for fcitx5 to work prop
 
 %build
 %cmake -GNinja
-%cmake_build 
+%cmake_build
 
 %install
 %cmake_install
@@ -112,7 +113,7 @@ install -d                %{buildroot}%{_datadir}/%{name}/table
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/%{name}-configtool.desktop
- 
+
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/org.fcitx.Fcitx5.desktop
@@ -120,7 +121,7 @@ desktop-file-install --delete-original \
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/%{name}-wayland-launcher.desktop
-  
+
 # convert symlinked icons to copied icons, this will help co-existing with
 # fcitx4
 for iconfile in $(find %{buildroot}%{_datadir}/icons -type l)
@@ -128,7 +129,7 @@ do
   origicon=$(readlink -f ${iconfile})
   rm -f ${iconfile}
   cp ${origicon} ${iconfile}
-done 
+done
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %find_lang %{name}
 
@@ -147,7 +148,7 @@ fi
 
 %files -f %{name}.lang
 %license LICENSES/LGPL-2.1-or-later.txt
-%doc README.md 
+%doc README.md
 %config %{_xinputconf}
 %{_bindir}/%{name}
 %{_bindir}/%{name}-configtool

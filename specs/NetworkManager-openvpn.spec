@@ -7,7 +7,7 @@
 Summary:   NetworkManager VPN plugin for OpenVPN
 Name:      NetworkManager-openvpn
 Epoch:     1
-Version:   1.12.3
+Version:   1.12.5
 Release:   1%{?dist}
 License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
@@ -94,6 +94,8 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 %{_libdir}/NetworkManager/libnm-vpn-plugin-openvpn.so
 %{_datadir}/dbus-1/system.d/nm-openvpn-service.conf
 %{_prefix}/lib/NetworkManager/VPN/nm-openvpn-service.name
+%{_prefix}/lib/sysusers.d/nm-openvpn-sysusers.conf
+%{_prefix}/lib/tmpfiles.d/nm-openvpn-tmpfiles.conf
 %{_libexecdir}/nm-openvpn-service
 %{_libexecdir}/nm-openvpn-service-openvpn-helper
 %doc AUTHORS README
@@ -112,6 +114,9 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 
 %changelog
+* Mon Dec 22 2025 Packit <hello@packit.dev> - 1:1.12.5-1
+- Update to version 1.12.5
+
 * Tue Aug 26 2025 Íñigo Huguet <ihuguet@riseup.net> - 1:1.12.3-1
 - Update to 1.12.3 release
 

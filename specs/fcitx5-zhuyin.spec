@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-zhuyin
-Version:    5.1.5
+Version:    5.1.6
 Release:    %autorelease
 Summary:    Libzhuyin Wrapper for Fcitx
 License:    GPL-2.0-or-later

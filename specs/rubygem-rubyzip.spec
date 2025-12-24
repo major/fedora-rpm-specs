@@ -2,22 +2,15 @@
 %global gem_name rubyzip
 
 Name: rubygem-%{gem_name}
-Version: 2.3.2
-Release: 12%{?dist}
+Version: 3.2.2
+Release: 1%{?dist}
 Summary: A ruby module for reading and writing zip files
 License: Ruby OR BSD-2-Clause
 URL: http://github.com/rubyzip/rubyzip
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rubyzip/rubyzip.git --no-checkout
-# cd rubyzip && git archive -v -o rubyzip-2.3.2-test.txz v2.3.2 test/
-Source1: %{gem_name}-%{version}-test.txz
-# Fix errors when build is run on s390x.
-# https://github.com/rubyzip/rubyzip/issues/535
-# https://github.com/rubyzip/rubyzip/pull/445
-Patch1: rubygem-rubyzip-2.3.2-fix-test_extract_incorrect_size-in-s390x-arch.patch
-# Make test compatibility with zlib-ng.
-# https://github.com/rubyzip/rubyzip/pull/447/commits/99d8f59eaf8baebf971fb603b437d24a26d93c3a
-Patch2: rubygem-rubyzip-3.0.0-Change-encryption-test-less-implementation-specific.patch
+# cd rubyzip && git archive -v -o rubyzip-3.2.2-test.tar.gz v3.2.2 test/
+Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -39,11 +32,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-pushd %{_builddir}
-%patch 1 -p1
-%patch 2 -p1
-popd
-
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -57,27 +45,30 @@ cp -a .%{gem_dir}/* \
 pushd .%{gem_instdir}
 cp -a %{_builddir}/test .
 
-# We don't need about coverage.
-sed -i '/simplecov/ s/^/#/' test/test_helper.rb
-
-ruby -rforwardable -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+# `FULL_ZIP64_TEST` enables additional two slow test cases.
+FULL_ZIP64_TEST=1 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
 %dir %{gem_instdir}
-%doc %{gem_instdir}/README.md
+%license %{gem_instdir}/LICENSE.md
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
+%doc %{gem_instdir}/Changelog.md
+%doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
-%doc %{gem_instdir}/TODO
+%{gem_instdir}/rubyzip.gemspec
 %{gem_instdir}/samples
 
-
 %changelog
+* Mon Dec 22 2025 Vít Ondruch <vondruch@redhat.com> - 3.2.2-1
+- Update to rubyzip 3.2.2.
+  Resolves: rhbz#2335556
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

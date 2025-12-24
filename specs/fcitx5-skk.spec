@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-skk
-Version:    5.1.8
+Version:    5.1.9
 Release:    %autorelease
 Summary:    Japanese SKK (Simple Kana Kanji) Engine for Fcitx5
 # Automatically converted from old format: GPLv3+ - review is highly recommended.

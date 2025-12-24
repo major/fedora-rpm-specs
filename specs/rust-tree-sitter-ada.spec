@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate supports-hyperlinks
+%global crate tree-sitter-ada
 
-Name:           rust-supports-hyperlinks
-Version:        3.2.0
+Name:           rust-tree-sitter-ada
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Detects whether a terminal supports rendering hyperlinks
+Summary:        Ada grammar for tree-sitter
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/supports-hyperlinks
+License:        MIT
+URL:            https://crates.io/crates/tree-sitter-ada
 Source:         %{crates_source}
+# * LICENSE.txt file not shipped, see
+#   https://github.com/briot/tree-sitter-ada/pull/19
+Source1:        https://raw.githubusercontent.com/briot/tree-sitter-ada/ba7951a8f3fb08f9ea923625153e7670c89f30b4/LICENSE.txt
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Detects whether a terminal supports rendering hyperlinks.}
+Ada grammar for tree-sitter.}
 
 %description %{_description}
 
@@ -30,8 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,6 +51,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -59,6 +62,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+cp -p LICENSE.txt %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check

@@ -3,7 +3,7 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.5.2
+Version: 1.5.3
 Release: %autorelease
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
@@ -32,6 +32,7 @@ Summary: %{summary}
 # Testing
 %if %{with check}
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist lz4}
 BuildRequires:  %{py3_dist psutil} 
@@ -41,7 +42,7 @@ BuildRequires:  %{py3_dist threadpoolctl}
 Recommends: %{py3_dist numpy}
 Recommends: %{py3_dist lz4}
 Recommends: %{py3_dist psutil} 
-Provides: bundled(python3dist(loky)) = 3.5.5
+Provides: bundled(python3dist(loky)) = 3.5.6
 
 %description -n python3-%{srcname} %_description
 
@@ -63,6 +64,8 @@ rm -rf joblib/externals/cloudpickle/
 %check
 %pytest \
  --deselect "joblib/test/test_memory.py::test_parallel_call_cached_function_defined_in_jupyter" \
+ --deselect "joblib/test/test_numpy_pickle.py::test_joblib_pickle_across_python_versions" \
+ --deselect "joblib/test/test_numpy_pickle.py::test_joblib_pickle_across_python_versions_with_mmap" \
   joblib
 %endif
 

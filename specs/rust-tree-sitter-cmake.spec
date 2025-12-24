@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate supports-hyperlinks
+%global crate tree-sitter-cmake
 
-Name:           rust-supports-hyperlinks
-Version:        3.2.0
+Name:           rust-tree-sitter-cmake
+Version:        0.7.1
 Release:        %autorelease
-Summary:        Detects whether a terminal supports rendering hyperlinks
+Summary:        CMake grammar for tree-sitter
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/supports-hyperlinks
+License:        MIT
+URL:            https://crates.io/crates/tree-sitter-cmake
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Detects whether a terminal supports rendering hyperlinks.}
+CMake grammar for tree-sitter.}
 
 %description %{_description}
 
@@ -31,8 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/README.rst
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

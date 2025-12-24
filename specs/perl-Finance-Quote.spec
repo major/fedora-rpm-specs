@@ -1,7 +1,7 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.67
+%global cpan_version 1.68
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
 Release:        1%{?dist}
@@ -122,7 +122,6 @@ make test
 %{_mandir}/man3/Finance::Quote::Bourso.3*
 %{_mandir}/man3/Finance::Quote::BSEIndia.3*
 %{_mandir}/man3/Finance::Quote::BVB.3*
-%{_mandir}/man3/Finance::Quote::CMBChina.3*
 %{_mandir}/man3/Finance::Quote::Comdirect.3*
 %{_mandir}/man3/Finance::Quote::Consorsbank.3*
 %{_mandir}/man3/Finance::Quote::CSE.3*
@@ -162,12 +161,27 @@ make test
 %{_mandir}/man3/Finance::Quote::TreasuryDirect.3*
 %{_mandir}/man3/Finance::Quote::TwelveData.3*
 %{_mandir}/man3/Finance::Quote::Union.3*
+%{_mandir}/man3/Finance::Quote::USBonds.3*
 %{_mandir}/man3/Finance::Quote::XETRA.3*
 %{_mandir}/man3/Finance::Quote::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::YahooWeb.3*
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Dec 22 2025 Paul Howarth <paul@city-fan.org> - 1.6800-1
+- Update to 1.68
+  - Changes to AlphaVantage.pm and CurrencyRates/AlphaVantage.pm to throttle
+    queries (GH#546)
+  - YahooJSON.pm: Add additional fields/labels (GH#544)
+  - New module USBonds.pm
+  - MarketWatch.pm: Added headers to fix 401 code (GH#542)
+  - Modified AEX.pm to return no data available if currency indicator is '%'
+    (bonds return percentage of par/facevalue) (GH#539)
+  - Fixed YahooWeb.pm (GH#533, GH#538)
+  - Removed CMBChina.pm - no longer working (GH#534)
+  - Rewrote Union.pm for URL that returns JSON (GH#516)
+  - Modified parsing in BVB.pm (GH#513)
+
 * Mon Oct 20 2025 Paul Howarth <paul@city-fan.org> - 1.6700-1
 - Update to 1.67
   - Fixed ASEGR.pm; web site redesigned, URL used for data was no longer

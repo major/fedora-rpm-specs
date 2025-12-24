@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/(fcitx5|qt5)/.*\\.so$
 
 Name:           fcitx5-qt
-Version:        5.1.11
+Version:        5.1.12
 Release:        %autorelease
 Summary:        Qt library and IM module for fcitx5
 # Fcitx5Qt{4,5}DBusAddons Library and Input context plugin are released under BSD.

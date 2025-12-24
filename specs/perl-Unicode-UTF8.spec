@@ -9,8 +9,8 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.62
-Release:	32%{?dist}
+Version:	0.63
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
@@ -90,6 +90,12 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Mon Dec 22 2025 Paul Howarth <paul@city-fan.org> - 0.63-1
+- Update to 0.63
+  - Remove the non-portable tests for Perl's "super" code points; testing
+    values beyond 0x7FFF_FFFF isn’t necessary
+  - Documentation typo corrections
+
 * Thu Sep 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.62-32
 - Use system Module::Install but skip ReadmeFromPod on RHEL
 

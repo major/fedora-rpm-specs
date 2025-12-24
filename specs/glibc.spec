@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-618-gded9c1e525
+%global glibcsrcdir glibc-2.42.9000-651-g0b8a996f44
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 16
+%global baserelease 17
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2397,6 +2397,43 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Dec 22 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-17
+- Auto-sync with upstream branch master,
+  commit 0b8a996f44b5f4c02991f02cd12bf05b17db4576:
+- riscv: Add RVV memset for both multiarch and non-multiarch builds (Yao Zihong)
+- stdlib: Avoid strlen plt with clang (Adhemerval Zanella)
+- math: Do not use __builtin_isgreater* and __builtin_isless* on clang (Adhemerval Zanella)
+- elf: Support vDSO with more than one PT_LOAD with v_addr starting at 0 (BZ 32583) (Adhemerval Zanella)
+- nptl: Make pthread_{clock, timed}join{_np} act on all cancellation (BZ 33717) (Adhemerval Zanella)
+- support: Add support_thread_state_wait (Adhemerval Zanella)
+- nptl: Remove INVALID_TD_P (Adhemerval Zanella)
+- nptl: Do not use pthread set_tid_address as state synchronization (BZ #19951) (Adhemerval Zanella)
+- nptl: Set cancellation type and state on pthread_exit (BZ #28267) (Adhemerval Zanella)
+- nptl: Use __futex_abstimed_wait64 on pthread_create (BZ 33715) (Adhemerval Zanella)
+- build-many-glibcs.py: Fix s390x-linux-gnu. (Stefan Liebler)
+- hurd/i386: Remove stale __GNUC_PREREQ (6, 0) test from tls.h (Uros Bizjak)
+- nptl: Optimize trylock for high cache contention workloads (BZ #33704) (Sunil K Pandey)
+- Regenerate sysdeps/x86_64/configure (Adhemerval Zanella)
+- x86_64: Fix mark-plt configure test (Adhemerval Zanella)
+- math: Fix potential underflow on ldbl-128 erfl (Adhemerval Zanella)
+- atomic: Reinstate HAVE_64B_ATOMICS configure check (Wilco Dijkstra)
+- malloc: Improve thp_init (Wilco Dijkstra)
+- linux: Update kernel version to 6.17 in tst-openat2-consts.py (Adhemerval Zanella)
+- Updates struct tcp_info and TCP_AO_XX corresponding struct from 6.17 to netinet/tcp.h (Jiayuan Chen)
+- malloc: set default tcache fill count to 16 (Dev Jain)
+- malloc: Remove fastbin comments (Dev Jain)
+- malloc: Remove fastbin infrastructure (Dev Jain)
+- malloc: Remove do_check_remalloced_chunk (Dev Jain)
+- malloc: remove fastbin code from malloc_info (Dev Jain)
+- malloc: remove fastbin code from do_check_malloc_state (Dev Jain)
+- malloc: remove mallopt fastbin stats (Dev Jain)
+- malloc: remove allocation from fastbin, and trim_fastbins (Dev Jain)
+- malloc: remove malloc_consolidate (Dev Jain)
+- malloc: remove fastbin tests (Dev Jain)
+- Deprecate s390-linux-gnu (31bit) (Stefan Liebler)
+- benchtests: Add pthread mutex trylock recursive throughput test (BZ #33704) (Sunil K Pandey)
+- benchtests: Refactor pthread trylock throughput test (BZ #33704) (Sunil K Pandey)
+
 * Mon Dec 15 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-16
 - Auto-sync with upstream branch master,
   commit ded9c1e525f2d69a81e61c34c29077fed7df658c:

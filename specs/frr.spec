@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -183,7 +183,6 @@ bzip2 -9 selinux/%{name}.pp
 
 %install
 mkdir -p %{buildroot}%{_sysconfdir}/{frr,rc.d/init.d,sysconfig,logrotate.d,pam.d,default} \
-         %{buildroot}%{_localstatedir}/log/frr %{buildroot}%{_localstatedir}/lib/frr \
          %{buildroot}%{_infodir} %{buildroot}%{_unitdir}
 
 mkdir -p -m 0755 %{buildroot}%{_libdir}/frr
@@ -274,8 +273,6 @@ rm tests/lib/*grpc*
 %license COPYING
 %doc doc/mpls
 %dir %attr(750,frr,frr) %{_sysconfdir}/frr
-%dir %attr(755,frr,frr) %{_localstatedir}/lib/frr
-%dir %attr(755,frr,frr) %{_localstatedir}/log/frr
 %dir %attr(755,frr,frr) /run/frr
 %{_infodir}/*info*
 %{_mandir}/man1/frr.1*
@@ -315,6 +312,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Mon Dec 22 2025 Michal Ruprich <mruprich@redhat.com> - 10.5.0-3
+- Moving the creation of /var files to tmpfiles.d for immutable systems
+
 * Wed Nov 19 2025 Michal Ruprich <mruprich@redhat.com> - 10.5.0-1
 - New version 10.5.0
 - Enabling RPKI, sharpd ospfapi and ospfclient

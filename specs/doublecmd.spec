@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.1.28
-Release:        2%{?dist}
+Version:        1.1.31
+Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Mon Dec 22 2025 Vasiliy Glazov <vascom2@gmail.com> - 1.1.31-1
+- Update to 1.1.31
+
 * Fri Sep 12 2025 Vasiliy Glazov <vascom2@gmail.com> - 1.1.28-2
 - Added aarch64 build
 

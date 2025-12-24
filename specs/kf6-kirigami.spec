@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.21.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -14,11 +14,13 @@ Source1:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_k
 # SwipeListItem: Add back checking for parent width and implicitWidth
 # https://invent.kde.org/frameworks/kirigami/-/commit/19127672cd812d177192cf84da4107f9abed2934
 Patch0:         19127672cd812d177192cf84da4107f9abed2934.patch
-
+# SwipeListItem: Use implicitContentHeight/Width instead of contentItem.implicitHeight/Width
+# https://invent.kde.org/frameworks/kirigami/-/commit/50e6e5b1df0cf075682ad0d4fa11bf9efdcf9618
+Patch1:         50e6e5b1df0cf075682ad0d4fa11bf9efdcf9618.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  extra-cmake-modules >= %{majmin_ver_kf6}
+BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  make
 BuildRequires:  qt6-linguist
@@ -68,7 +70,6 @@ Developer Documentation files for %{name} in HTML format
 
 %install
 %cmake_install_kf6
-
 %find_lang_kf6 libkirigami6_qt
 
 %files -f libkirigami6_qt.lang
@@ -129,6 +130,10 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Mon Dec 22 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-3
+- SwipeListItem: Use implicitContentHeight/Width instead of
+  contentItem.implicitHeight/Width
+
 * Mon Dec 15 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-2
 - Add backported patch from upstream
 
