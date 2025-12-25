@@ -28,7 +28,7 @@
 
 # https://github.com/golang-migrate/migrate
 %global goipath         github.com/golang-migrate/migrate/v4
-Version:                4.19.0
+Version:                4.19.1
 %global tag             v%{version}
 
 %gometa -L -f

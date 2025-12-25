@@ -1,5 +1,5 @@
 %global	urlver	3.6
-%global	mainver	3.6.1
+%global	mainver	3.6.2
 
 %global	plugin_least_ver	3.6.0
 
@@ -270,6 +270,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Tue Dec 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-1
+- 3.6.2
+
 * Tue Nov 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.1-1
 - 3.6.1
 

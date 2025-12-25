@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        10.20
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -1018,6 +1018,32 @@ fi
 
 %ldconfig_post core
 
+%pretrans -p <lua> core
+%if %[ "x86_64" == "%{_target_cpu}"]
+%define _oldlibdir /usr/lib64
+%else
+%define _oldlibdir /usr/lib
+%endif
+oldPath = "%{_oldlibdir}/wine/%{winepedir}/wine-dxgi.dll"
+opStat = posix.stat(oldPath)
+if opStat and opStat.type == "regular" then
+os.execute("%{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-dxgi.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d8.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d9.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10core%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d10core.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10_1%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d10_1.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d10.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d11.dll")
+%if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
+os.execute("%{_sbindir}/alternatives --remove 'wine-dxgi(x86-32)' /usr/lib/wine/i386-windows/wine-dxgi.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d9(x86-32)' /usr/lib/wine/i386-windows/wine-d3d9.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10core(x86-32)' /usr/lib/wine/i386-windows/wine-d3d10core.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10_1(x86-32)' /usr/lib/wine/i386-windows/wine-d3d10_1.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10(x86-32)' /usr/lib/wine/i386-windows/wine-d3d10.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d11(x86-32)' /usr/lib/wine/i386-windows/wine-d3d11.dll")
+%endif
+end
+
 %posttrans core
 # handle upgrades for a few package updates
 rm -f %{_libdir}/wine/%{winepedirs}/d3d8.dll
@@ -1075,6 +1101,7 @@ if [ $1 -eq 0 ] ; then
   %{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d8.dll
   %{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d9.dll
   %{_sbindir}/alternatives --remove 'wine-d3d10core%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10core.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d10_1%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10_1.dll
   %{_sbindir}/alternatives --remove 'wine-d3d10%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10.dll
   %{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d11.dll || :
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
@@ -2287,6 +2314,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 23 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-4
+- Account for alternatives in upgrade path
+
 * Tue Dec 09 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-3
 - Bring sanity to the upgrade path, credit Gordon Messmer (RHBZ#2401666)
 

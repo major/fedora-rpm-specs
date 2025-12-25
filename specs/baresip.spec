@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        4.3.0
+Version:        4.4.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -13,7 +13,7 @@ Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/C
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 4.3.0
+BuildRequires:  libre-devel >= 4.4.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -416,6 +416,7 @@ This module provides the X11 video output driver.
 %else
   -DDEFAULT_AUDIO_DEVICE:STRING="pulse" \
 %endif
+  -DEXTRA_MODULES:STRING="g726" \
 %if 0%{?rhel} == 8
   -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl3;%{_libdir}/openssl3"
 %endif
@@ -462,7 +463,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.23*
+%{_libdir}/lib%{name}.so.24*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -615,6 +616,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Wed Dec 24 2025 Robert Scheck <robert@fedoraproject.org> 4.4.0-1
+- Upgrade to 4.4.0 (#2424559)
+
 * Sat Nov 29 2025 Robert Scheck <robert@fedoraproject.org> 4.3.0-1
 - Upgrade to 4.3.0 (#2404130)
 

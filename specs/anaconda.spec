@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.9
+Version: 44.10
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -518,6 +518,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 23 2025 Packit <hello@packit.dev> - 44.10-1
+- rhsm: add --flatpak-registry-url support (bciconel)
+- flatpak: handle self-signed certificate errors in registry sources (bciconel)
+- flatpak: add utility to check for self-signed certificate errors (bciconel)
+- docs: Add bootc kickstart command support release note (k.koukiou)
+
 * Tue Dec 16 2025 Packit <hello@packit.dev> - 44.9-1
 - data/profile.d: Add trivial Fedora KDE Plasma Mobile spin profile (neal)
 - data/profile.d/fedora-kde: Disable stages redundant with Plasma Setup (neal)

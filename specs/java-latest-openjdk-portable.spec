@@ -404,9 +404,9 @@ exit 1
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 25
+%global featurever 26
 %global interimver 0
-%global updatever 1
+%global updatever 0
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -460,8 +460,8 @@ exit 1
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        8
-%global rpmrelease      3
+%global buildver        29
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -480,7 +480,7 @@ exit 1
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           1
+%global is_ga           0
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -775,7 +775,7 @@ Source18: TestTranslations.java
 # RH1940064: Enable XML Signature provider in FIPS mode
 # RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized [now part of JDK-8301553 upstream]
 # usage in jdk >25 is experimental and may disapear
-Patch1001: fips-%{featurever}u-%{fipsver}.patch
+Patch1001: fips-25u-%{fipsver}.patch
 
 #############################################
 #
@@ -791,7 +791,7 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 #
 #############################################
 
-# Currently empty
+Patch1: JDK-8373246-8351842_broke_native_debugging_on_Linux.patch
 
 #############################################
 #
@@ -1086,6 +1086,7 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 # usage in jdk >25 is experimental and may disapear
 %patch -P1001 -p1
+%patch -P1 -p1
 popd # openjdk
 
 echo "Generating %{alt_java_name} man page"
@@ -1491,6 +1492,9 @@ function packagejdk() {
 
     # Release images have external debug symbols
     if [ "x$suffix" = "x" ] ; then
+        # jdk26 is putting debugsymbols out of main image, 
+        # we later reconstruct debuginfo subpakckages manually, so putting them back
+        cp -r symbols/* ${jdkname}/
         createtar ${debugarchive} $(find ${jdkname} -name \*.debuginfo)
         genchecksum ${debugarchive}
 

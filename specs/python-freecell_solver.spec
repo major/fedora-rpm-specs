@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Freecell Solver Python bindings
 
 License:        MIT
@@ -14,10 +14,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(cffi)
 BuildRequires:  python3dist(openstackdocstheme)
 BuildRequires:  python3dist(oslotest) >= 1.10.0
-BuildRequires:  python3dist(pbr)
-BuildRequires:  python3dist(pbr) >= 2.0
-BuildRequires:  python3dist(python-subunit) >= 0.0.18
-BuildRequires:  python3dist(testtools) >= 1.4.0
 BuildRequires:  python3dist(sphinx)
 
 %description
@@ -26,7 +22,6 @@ Python bindings for Freecell Solver using cffi.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
-Requires:       python3dist(pbr) >= 2.0
 %description -n python3-%{pypi_name}
 Python bindings for Freecell Solver using cffi.
 
@@ -63,6 +58,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Tue Dec 23 2025 Shlomi Fish <shlomif@shlomifish.org> 0.2.6-22
+- Remove unneeded build/runtime requires
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.6-21
 - Rebuilt for Python 3.14.0rc3 bytecode
 

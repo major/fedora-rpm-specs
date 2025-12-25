@@ -9,14 +9,14 @@
 Name:    kf6-%{framework}
 Summary: Breeze icon theme library
 Version: 6.21.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # skladnik.svg is CC-BY-SA-4.0
 # folder-edit-sign-encrypt.svg is LGPL-2.1-or-later
 # src/lib/ is LGPL-2.0-or-later
 # all other icons are LGPL-3.0-or-later
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND CC-BY-SA-4.0
-URL:     https://api.kde.org/frameworks/breeze-icons/html/
+URL:     https://develop.kde.org/frameworks/breeze-icons/
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
@@ -192,6 +192,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 %endif
 
 %changelog
+* Tue Dec 23 2025 Georg Sauthoff <mail@gms.tf> - 6.21.0-2
+- update project URL
+
 * Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
 - 6.21.0
 

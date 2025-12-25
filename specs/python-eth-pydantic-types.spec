@@ -1,7 +1,7 @@
 %global pypi_name eth_pydantic_types
 
 Name:          python-eth-pydantic-types
-Version:       0.2.4
+Version:       0.2.5
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       ETH Pydantic types

@@ -2,32 +2,32 @@
 %global gem_name bcrypt_pbkdf
 
 Name: rubygem-%{gem_name}
-Version: 1.1.0
-Release: 16%{?dist}
-Summary: OpenBSD's bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based PRF)
-# BSD license in files:
-#   ext/mri/hash_sha512.c
+Version: 1.1.2
+Release: 1%{?dist}
+Summary: OpenBSD's bcrypt_pbkdf (a variant of PBKDF2 with bcrypt-based PRF)
+# BSD-4-Clause:
 #   ext/mri/blf.h
 #   ext/mri/blowfish.c
-# ISC License in file:
+# BSD-2-Clause:
+#   ext/mri/hash_sha512.c
+# ISC:
 #   ext/mri/bcrypt_pbkdf.c
-# Automatically converted from old format: MIT and BSD and ISC - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND ISC
+License: MIT AND BSD-2-Clause AND BSD-4-Clause AND ISC
 URL: https://github.com/net-ssh/bcrypt_pbkdf-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/net-ssh/bcrypt_pbkdf-ruby/pull/21
-Patch0:  bcrypt_pbkdf-pr21-minitest-5_19-compat.patch
+# Fix compatiblity with minitest 6
+# https://github.com/net-ssh/bcrypt_pbkdf-ruby/pull/28
+Patch0: rubygem-bcrypt_pbkdf-1.1.2-Fix-compatibility-with-minitest-6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
 # Compiler is required for build of gem binary extension.
 # https://fedoraproject.org/wiki/Packaging:C_and_C++#BuildRequires_and_Requires
 BuildRequires: gcc
-BuildRequires: rubygem(rake-compiler) >= 0.9.7
 BuildRequires: rubygem(minitest) >= 5
 
 %description
-This gem implements bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based
+This gem implements bcrypt_pbkdf (a variant of PBKDF2 with bcrypt-based
 PRF).
 
 
@@ -41,7 +41,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-%patch -P0 -p1
+
+%patch 0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -59,9 +60,9 @@ cp -a .%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri}
 rm -rf %{buildroot}%{gem_instdir}/ext/
 
 %check
-pushd .%{gem_instdir}
-ruby -Itest:$(dirs +1)%{gem_extdir_mri} -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
+( cd .%{gem_instdir}
+ruby -Itest:${OLDPWD}%{gem_extdir_mri} -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+)
 
 %files
 %dir %{gem_instdir}
@@ -82,6 +83,10 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Tue Dec 23 2025 Vít Ondruch <vondruch@redhat.com> - 1.1.2-1
+- Update to bcrypt_pbkdf-ruby 1.1.2
+- Fix compatiblity with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

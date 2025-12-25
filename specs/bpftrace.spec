@@ -1,7 +1,7 @@
 #global llvm_compat 18
 
 Name:           bpftrace
-Version:        0.24.0
+Version:        0.24.2
 Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
@@ -32,6 +32,9 @@ BuildRequires:  libpcap-devel
 %endif
 BuildRequires:  rubygem-asciidoctor
 BuildRequires:  xxd
+BuildRequires:  libxml2-devel
+BuildRequires:  libffi-devel
+BuildRequires:  elfutils-devel
 
 
 %description
@@ -52,7 +55,6 @@ and predecessor tracers such as DTrace and SystemTap
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DBUILD_TESTING:BOOL=OFF \
        -DBUILD_SHARED_LIBS:BOOL=OFF \
-       -DUSE_SYSTEM_BPF_BCC:BOOL=ON \
 %if 0%{?llvm_compat}
        -DLLVM_DIR=/usr/lib64/llvm%{llvm_compat}/lib/cmake/llvm/ \
        -DClang_DIR=/usr/lib64/llvm%{llvm_compat}/lib/cmake/clang/ \
@@ -91,6 +93,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Mon Dec 22 2025 Augusto Caringi <acaringi@redhat.com> - 0.24.2-1
+- Rebased to version 0.24.2
+
 * Fri Sep 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.24.0-1
 - Rebased to version 0.24.0
 

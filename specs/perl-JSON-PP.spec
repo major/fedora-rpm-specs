@@ -4,19 +4,19 @@
 Name:		perl-JSON-PP
 Epoch:		1
 Version:	4.16
-Release:	521%{?dist}
+Release:	522%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/JSON-PP
 Source0:	https://cpan.metacpan.org/modules/by-module/JSON/JSON-PP-%{version}.tar.gz
+Patch0:		https://patch-diff.githubusercontent.com/raw/makamaka/JSON-PP/pull/93.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(lib)
 # Module Runtime
 BuildRequires:	perl(bytes)
@@ -50,7 +50,7 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(Tie::IxHash)
 %endif
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Data::Dumper)
 Requires:	perl(Encode)
 Requires:	perl(Math::BigFloat)
@@ -68,13 +68,19 @@ JSON::PP is a pure-Perl module and is compatible with JSON::XS.
 %prep
 %setup -q -n JSON-PP-%{version}
 
+# Silence Getopt::Long warning (fix already committed upstream)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2417867
+# https://src.fedoraproject.org/rpms/perl-JSON-PP/pull-request/1
+# https://github.com/makamaka/JSON-PP/issues/88
+# https://github.com/makamaka/JSON-PP/pull/93
+%patch -P0 -p1
+
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -89,6 +95,10 @@ make test
 %{_mandir}/man3/JSON::PP::Boolean.3*
 
 %changelog
+* Tue Dec 23 2025 Paul Howarth <paul@city-fan.org> - 1:4.16-522
+- Silence Getopt::Long warning (rhbz#2417867, PR#1, GH#88, GH#93)
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.16-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate libsqlite3-sys
 
 Name:           rust-libsqlite3-sys
-Version:        0.35.0
+Version:        0.36.0
 Release:        %autorelease
 Summary:        Native bindings to the libsqlite3 library
 
@@ -22,7 +22,7 @@ Patch:          libsqlite3-sys-fix-metadata.diff
 Patch1:         0001-unconditionally-enable-building-with-bindgen-and-pkg.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(sqlite3) >= 3.14
+BuildRequires:  pkgconfig(sqlite3) >= 3.34.1
 
 %global _description %{expand:
 Native bindings to the libsqlite3 library.}
@@ -32,7 +32,7 @@ Native bindings to the libsqlite3 library.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(sqlite3) >= 3.14
+Requires:       pkgconfig(sqlite3) >= 3.34.1
 
 %description    devel %{_description}
 
@@ -92,16 +92,16 @@ use the "column_metadata" feature of the "%{crate}" crate.
 %files       -n %{name}+column_metadata-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+min_sqlite_version_3_14_0-devel
+%package     -n %{name}+min_sqlite_version_3_34_1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+min_sqlite_version_3_14_0-devel %{_description}
+%description -n %{name}+min_sqlite_version_3_34_1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "min_sqlite_version_3_14_0" feature of the "%{crate}" crate.
+use the "min_sqlite_version_3_34_1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+min_sqlite_version_3_14_0-devel
+%files       -n %{name}+min_sqlite_version_3_34_1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pkg-config-devel
@@ -157,6 +157,8 @@ use the "unlock_notify" feature of the "%{crate}" crate.
 %cargo_prep
 # * remove bundled copies of sqlite and sqlcipher
 rm -vr sqlite3/ sqlcipher/
+# * remove bundled generated bindings
+rm -vr bindgen-bindings/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

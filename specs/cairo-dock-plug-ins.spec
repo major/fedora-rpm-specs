@@ -1,5 +1,5 @@
 %global	urlver		3.6
-%global	mainver		3.6.1
+%global	mainver		3.6.2
 
 %global	core_least_ver	3.6.0
 
@@ -47,7 +47,7 @@ BuildRequires:  gcc-c++
 BuildRequires:	cmake
 BuildRequires:	gettext
 
-BuildRequires:	pkgconfig(gldi) >= %{mainver}
+BuildRequires:	pkgconfig(gldi) >= %{core_least_ver}
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	cairo-dock-devel >= %{core_least_ver}
@@ -419,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Dec 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-1
+- 3.6.2
+
 * Tue Nov 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.1-1
 - 3.6.1
 

@@ -16,6 +16,9 @@ Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.si
 # Daniel Eklöf (Git signing) <daniel@ekloef.se>
 Source2:        gpgkey-5BBD4992C116573F.asc
 
+# https://codeberg.org/dnkl/foot/pulls/2240
+Patch0:         0001-Fix-discarded-const-qualifiers-from-string-functions.patch
+
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.59.0

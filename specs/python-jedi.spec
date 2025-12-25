@@ -22,9 +22,8 @@ Summary:        An auto completion tool for Python that can be used for text edi
 
 # jedi is MIT
 # django-stubs is MIT
-# typeshed is MIT ASL 2.0
-# Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND Apache-2.0
+# typeshed is Apache-2.0
+License:        MIT AND Apache-2.0
 
 URL:            https://jedi.readthedocs.org
 Source0:        https://github.com/davidhalter/jedi/archive/v%{version}/jedi-%{version}.tar.gz

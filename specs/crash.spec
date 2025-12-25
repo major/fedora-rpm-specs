@@ -4,13 +4,13 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 9.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-16.2.tar.gz
 URL: https://crash-utility.github.io
 ExclusiveOS: Linux
-ExclusiveArch: %{ix86} ia64 x86_64 ppc ppc64 s390 s390x %{arm} aarch64 ppc64le
+ExclusiveArch: %{ix86} ia64 x86_64 ppc ppc64 s390 s390x %{arm} aarch64 ppc64le riscv64
 BuildRequires: ncurses-devel zlib-devel lzo-devel snappy-devel bison wget patch texinfo libzstd-devel
 BuildRequires: make gcc gcc-c++
 BuildRequires: gmp-devel mpfr-devel
@@ -65,6 +65,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Fri Dec 19 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 9.0.1-2
+- enable RISC-V 64-bit architecture
+
 * Fri Nov 21 2025 Lianbo Jiang <lijiang@redhat.com> - 9.0.1-1
 - Rebase to upstream crash 9.0.1
 

@@ -1,5 +1,5 @@
 Name:           clapper
-Version:        0.8.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Modern media player powered by GStreamer and GTK4
 
@@ -29,6 +29,8 @@ BuildRequires:  pkgconfig(gstreamer-tag-1.0) >= 1.24.0
 BuildRequires:  pkgconfig(gstreamer-video-1.0) >= 1.24.0
 BuildRequires:  pkgconfig(gtk4) >= 4.10.0
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.4.0
+BuildRequires:  pkgconfig(libcgraph)
+BuildRequires:  pkgconfig(libgvc)
 BuildRequires:  pkgconfig(libpeas-2)
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(microdns)

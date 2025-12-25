@@ -14,7 +14,7 @@ antivirus quarantine files, etc.
 }
 
 License:        BSD-2-Clause
-URL:            https://www.decalage.info/olefile
+URL:            https://github.com/decalage2/olefile
 Source0:        %{pypi_source olefile %version zip}
 
 BuildArch:      noarch

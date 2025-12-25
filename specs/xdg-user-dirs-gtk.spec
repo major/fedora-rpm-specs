@@ -1,19 +1,19 @@
 Name:		xdg-user-dirs-gtk
-Version:	0.11
-Release:	7%{?dist}
+Version:	0.16
+Release:	1%{?dist}
 Summary:	Gnome integration of special directories
 
 License:	GPL-2.0-or-later
 URL:		https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk
 Source0:	https://download.gnome.org/sources/xdg-user-dirs-gtk/%{version}/%{name}-%{version}.tar.xz
 
-Patch0: show-in-mate.patch
+# https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk/-/merge_requests/22
+Patch0:		xdg-user-dirs-gtk-0.16-not-showin-kde.patch
 
 BuildRequires:	desktop-file-utils
-BuildRequires:  gcc
-BuildRequires:	gettext
-BuildRequires:	intltool
-BuildRequires:  make
+BuildRequires:	gcc
+BuildRequires:	meson
+BuildRequires:	systemd-rpm-macros
 BuildRequires:	xdg-user-dirs
 BuildRequires:	pkgconfig(gtk+-3.0)
 
@@ -28,26 +28,39 @@ locale changes.
 %autosetup -p1
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 %find_lang %name
 
-desktop-file-validate $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/user-dirs-update-gtk.desktop
+desktop-file-validate $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/user-dirs-update-gtk.desktop $RPM_BUILD_ROOT%{_datadir}/applications/user-dirs-update-gtk.desktop
 
+%post
+%systemd_user_post user-dirs-update-gtk.service
+
+%preun
+%systemd_user_preun user-dirs-update-gtk.service
+
+%postun
+%systemd_user_postun_with_restart user-dirs-update-gtk.service
 
 %files -f %{name}.lang
 %doc NEWS AUTHORS README ChangeLog
 %license COPYING
-%{_bindir}/*
+%{_bindir}/xdg-user-dirs-gtk-update
+%{_datadir}/applications/user-dirs-update-gtk.desktop
+%{_userunitdir}/user-dirs-update-gtk.service
 %config(noreplace) %{_sysconfdir}/xdg/autostart/user-dirs-update-gtk.desktop
 
 
 %changelog
+* Tue Dec 16 2025 David King <amigadave@amigadave.com> - 0.16-1
+- Update to 0.16 (#2422022)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

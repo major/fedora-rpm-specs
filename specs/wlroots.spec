@@ -37,6 +37,8 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
+# https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5203
+Patch:          Fix-discarded-const-qualifier.patch
 
 # Fedora patches
 # Following patch is required for phoc.

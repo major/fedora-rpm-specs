@@ -1,5 +1,5 @@
 %bcond check    1
-%bcond heif     1
+%bcond heif     %{undefined rhel}
 %bcond jpegxl   %{undefined rhel}
 
 %bcond bundled_rust_deps %{defined rhel}
@@ -110,7 +110,6 @@ Summary:        Sandboxed image rendering (thumbnailer)
 Requires:       glycin-loaders%{_isa} = %{version}-%{release}
 
 # Ensure glycin-thumbnailer replaces the old gdk-pixbuf-thumbnailer.
-Provides:       gdk-pixbuf2%{_isa} = %{version}-%{release}
 Obsoletes:      gdk-pixbuf2 < 2.43.5-1
 
 %description    thumbnailer

@@ -5,13 +5,15 @@
 %global crate rusqlite
 
 Name:           rust-rusqlite
-Version:        0.37.0
+Version:        0.38.0
 Release:        %autorelease
 Summary:        Ergonomic wrapper for SQLite
 
 License:        MIT
 URL:            https://crates.io/crates/rusqlite
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          rusqlite-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop features for building with bundled dependencies
 # * drop Windows- and WASM-specific features and dependencies
@@ -102,6 +104,18 @@ use the "buildtime_bindgen" feature of the "%{crate}" crate.
 %files       -n %{name}+buildtime_bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+cache-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+cache-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "cache" feature of the "%{crate}" crate.
+
+%files       -n %{name}+cache-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+chrono-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -186,6 +200,18 @@ use the "extra_check" feature of the "%{crate}" crate.
 %files       -n %{name}+extra_check-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+fallible_uint-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fallible_uint-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fallible_uint" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fallible_uint-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+functions-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -196,6 +222,18 @@ This package contains library source intended for building other packages which
 use the "functions" feature of the "%{crate}" crate.
 
 %files       -n %{name}+functions-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hashlink-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hashlink-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hashlink" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hashlink-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+hooks-devel

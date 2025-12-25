@@ -6,7 +6,7 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Geographic Pandas extensions
 
@@ -14,8 +14,6 @@ License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 # PyPI source does not have test data.
 Source:         https://github.com/%{srcname}/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Fix tests with GEOS 3.14.
-Patch:          https://github.com/geopandas/geopandas/commit/1d598fe055f8bf10bf7a0ae64dc39a10799cf99e.patch
 
 BuildArch:      noarch
 

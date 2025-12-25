@@ -9,6 +9,12 @@ such as proper co-routine support.
 %bcond_with luajit
 %endif
 
+%if 0%{?fedora} == 43
+%bcond old_cython 1
+%else
+%bcond old_cython 0
+%endif
+
 Name:           python-lupa
 Version:        2.6
 Release:        %autorelease
@@ -27,6 +33,9 @@ BuildRequires:  luajit-devel
 %else
 BuildRequires:  lua-devel
 %endif
+%if %{with old_cython}
+BuildRequires:  sed
+%endif
 
 %description %_description
 
@@ -41,6 +50,11 @@ BuildRequires:  python3-setuptools
 
 %prep
 %autosetup -n lupa-lupa-%{version} -p1
+%if %{with old_cython}
+for f in pyproject.toml requirements.txt; do
+  sed -i 's|Cython>=3.1.6|Cython>=3.1.3|' $f
+done
+%endif
 
 
 %generate_buildrequires

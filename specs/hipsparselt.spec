@@ -42,7 +42,7 @@
 %endif
 
 %global upstreamname hipSPARSELt
-%global rocm_release 7.0
+%global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -51,7 +51,11 @@
 # stored in the toplevel tensilelite_tag.txt file
 #
 # https://github.com/ROCm/hipSPARSELt/issues/248
-%global hipblaslt_commit 7fc3631478ce7887f3cfdba3adb149240ac539db
+#
+# When keeping sync the hipblaslt project patch is difficult,
+# use the hipblaslt repo tag, not the tensilelit_tag file
+# This it the hipblaslt 7.1.1 repo tag
+%global hipblaslt_commit 7c0ea90bd75ec971502a9232373f8ae7484a5cfa
 %global hipblaslt_scommit %(c=%{hipblaslt_commit}; echo ${c:0:7})
 
 %global toolchain rocm
@@ -80,9 +84,9 @@
 %global tensile_verbose 1
 
 # match hipblaslt
-%global amdgpu_targets %{rocm_gpu_list_hipblaslt}
+%global gpu_list %{rocm_gpu_list_hipblaslt}
 # For testing
-%global _amdgpu_targets "gfx1100"
+%global _gpu_list "gfx1100"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -115,7 +119,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -133,8 +137,9 @@ Source1:        https://github.com/ROCm/hipBLASLt/archive/%{hipblaslt_commit}/hi
 # This are patches from the hiblaslt package for patching tensile
 Source2:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 Source3:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
+Source4:        0001-hipblaslt-find-origami-package.patch
 # do not try to fetch, point to the nanobind tarball
-Source4:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
+Source5:        0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
 
 %global nanobind_version 2.9.2
 %global nanobind_giturl https://github.com/wjakob/nanobind
@@ -160,9 +165,10 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-llvm-devel
+BuildRequires:  rocm-origami-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-smi
+BuildRequires:  rocm-smi-devel
 BuildRequires:  rocsparse-devel
 BuildRequires:  roctracer-devel
 BuildRequires:  zlib-devel
@@ -253,6 +259,7 @@ cd hipBLASLt
 patch -p1 < %{SOURCE2}
 patch -p1 < %{SOURCE3}
 patch -p1 < %{SOURCE4}
+patch -p1 < %{SOURCE5}
 
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
@@ -289,8 +296,13 @@ sed -i -e 's@lapack cblas@flexiblas@' clients/gtest/CMakeLists.txt
 cd projects/hipsparselt
 %endif
 
+HIPBLASLT_PATH=$PWD/hipBLASLt
+cd hipBLASLt
+# disable openmp
+sed -i -e 's@option(HIPBLASLT_ENABLE_OPENMP "Use OpenMP to improve performance." ON)@option(HIPBLASLT_ENABLE_OPENMP "Use OpenMP to improve performance." OFF)@' CMakeLists.txt
+
 # Do a manual install instead of cmake's virtualenv
-cd hipBLASLt/tensilelite
+cd tensilelite
 TL=$PWD
 
 python3 setup.py install --root $TL
@@ -313,7 +325,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 
 %cmake %{cmake_generator} \
        -DTensile_TEST_LOCAL_PATH=${TL} \
-       -DGPU_TARGETS=%{amdgpu_targets} \
+       -DGPU_TARGETS=%{gpu_list} \
        -DBLAS_INCLUDE_DIR=%{_includedir}/flexiblas \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -326,6 +338,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DCMAKE_Fortran_COMPILER=gfortran \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
+       -DHIPSPARSELT_HIPBLASLT_PATH=${HIPBLASLT_PATH} \
        -DROCM_SYMLINK_LIBS=OFF \
        -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
        -DTensile_VERBOSE=%{tensile_verbose} \
@@ -386,6 +399,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Sat Dec 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Use hipblaslt gpu list
 

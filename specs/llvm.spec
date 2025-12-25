@@ -520,6 +520,7 @@ Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
 # because they already support kfunc __bpf_trap.
 Patch502: 0001-BPF-Support-Jump-Table-149715.patch
 Patch503: 0002-BPF-Remove-unused-weak-symbol-__bpf_trap-166003.patch
+Patch504: 0003-BPF-Remove-dead-code-related-to-__bpf_trap-global-va.patch
 #endregion RHEL patches
 
 # Fix a pgo miscompilation triggered by building Rust 1.87 with pgo on ppc64le.
@@ -1348,6 +1349,7 @@ Flang runtime libraries.
 # The following patches have been backported from LLVM 22.
 %patch -p1 -P502
 %patch -p1 -P503
+%patch -p1 -P504
 %endif
 %endif
 

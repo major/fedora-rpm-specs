@@ -1,9 +1,9 @@
 %global forgeurl https://github.com/nullobsi/cantata/
-%global commit e5df8a52df7345380fa189bd0bb3be1dfd2c831e
+%global commit c3a900e4ed903fa0a2820ad2882e8253dfbc8c7b
 
 Name:    cantata
 Summary: Music Player Daemon (MPD) graphical client
-Version: 3.3.1
+Version: 3.4.0
 Release: %autorelease
 License: GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 
@@ -11,13 +11,7 @@ License: GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-late
 
 Url:            %{forgeurl}
 Source0:        %{forgesource}
-Patch0:         %{name}-debn-font-p0.patch
-Patch1:         %{name}-debn-qtio-p1.patch
-Patch2:         %{name}-drop-qtio-p2.patch
-Patch3:         %{name}-hidebroken-p3.patch
-Patch4:         %{name}-no-tag-edit-p4.patch
-Patch5:         %{name}-trayicon-p5.patch
-Patch6:         %{name}-qt610-p6.patch
+Patch0:         pr127-tray-icon.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel
@@ -64,17 +58,12 @@ Cantata is a graphical client for the music player daemon (MPD).
 
 %prep
 %forgeautosetup -p1
-# Remove unused bundled libraries — confirmed inactive in Fedora build
-rm -rf \
-  3rdparty/ebur128-not-used \
-  3rdparty/qtsingleapplication-not-used-linux \
-  3rdparty/solid-lite-not-used \
-  3rdparty/qxt-not-used-linux \
-  3rdparty/kcategorizedview-debundle \
-  3rdparty/qtiocompressor-removed
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release \
+  -DBUNDLED_KCATEGORIZEDVIEW=OFF \
+  -DBUNDLED_KARCHIVE=OFF \
+  -DBUNDLED_FONTAWESOME=OFF \
   -DCOMPILE_WARNING_AS_ERROR=OFF \
   -DENABLE_CATEGORIZED_VIEW=OFF \
   -DBUILD_PLUGIN_DEBUG=OFF \
@@ -88,9 +77,7 @@ rm -rf \
   -DENABLE_PROXY_CONFIG=ON \
   -DENABLE_HTTP_SERVER=ON \
   -DENABLE_LIBVLC=OFF \
-  -DENABLE_HTTP_STREAM_PLAYBACK=ON \
-  -DENABLE_TAGEDITOR_SUPPORT=OFF \
-  -DENABLE_TRACKORGANIZER_SUPPORT=OFF
+  -DENABLE_HTTP_STREAM_PLAYBACK=ON 
 %cmake_build
 
 %install
@@ -109,7 +96,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dog.unix.cantata.Cant
 %{_datadir}/Cantata/icons/*
 %{_datadir}/Cantata/scripts/*
 %{_datadir}/applications/*
-%{_kf6_datadir}/knotifications6/%{name}.notifyrc
 %{_datadir}/metainfo/*
 %{_datadir}/icons/hicolor/scalable/apps/dog.unix.cantata.Cantata.svg
 %{_datadir}/icons/hicolor/symbolic/apps/dog.unix.cantata.Cantata-symbolic.svg

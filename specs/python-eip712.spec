@@ -1,7 +1,7 @@
 %global pypi_name eip712
 
 Name:          python-%{pypi_name}
-Version:       0.3.0
+Version:       0.3.3
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Message classes for typed structured data hashing and signing in Ethereum

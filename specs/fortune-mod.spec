@@ -4,13 +4,14 @@
 %bcond_with tests
 
 %global CookieDir %{_datadir}/games/fortune
+%global _cmake_generator "Unix Makefiles"
 
 # needed to support out-of-source builds on EPEL8
 %undefine __cmake_in_source_build
 
 Name:		fortune-mod
 Version:	3.24.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A program which will display a fortune
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +51,7 @@ BuildRequires:	recode-devel
 BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
+BuildRequires:	make
 BuildRequires:	valgrind
 BuildRequires:	valgrind-devel
 BuildRequires:	chrpath
@@ -134,6 +136,9 @@ chrpath -d %{buildroot}%{_bindir}/fortune
 %{_mandir}/man*/*
 
 %changelog
+* Tue Dec 23 2025 Shlomi Fish <shlomif@shlomifish.org> 3.24.0-4
+- Porting to "CMake ninja default"
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
