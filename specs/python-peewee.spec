@@ -18,7 +18,9 @@ Version:        3.18.3
 Release:        %autorelease
 Summary:        A simple and small ORM
 
-License:        MIT
+# main license is MIT
+# playhouse/_pysqlite is Zlib
+License:        MIT AND Zlib
 URL:            https://github.com/coleifer/peewee
 # PyPI tarball doesn't have tests
 Source:         %{url}/archive/%{version}/peewee-%{version}.tar.gz

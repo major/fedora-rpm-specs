@@ -1,6 +1,6 @@
 %global maj_ver 21
 %global min_ver 1
-%global patch_ver 7
+%global patch_ver 8
 #global rc_ver 3
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global srcdir llvm-project-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
@@ -348,6 +348,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 %changelog
+* Wed Dec 24 2025 Tom Stellard <tstellar@redhat.com> - 21.1.8-1
+- Update to LLVM 21.1.8
+
 * Sat Dec 06 2025 Tom Stellard <tstellar@redhat.com> - 21.1.7-1
 - Update to LLVM 21.1.7
 

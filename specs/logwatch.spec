@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.13
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -141,6 +141,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/default.conf/service
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Wed Dec 24 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-5
+- Update patch for dovecot for BZ2418363
+
 * Wed Oct 29 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-4
 - Ignore virtual filesystem nsfs in zz-disk-space (BZ2322773)
 - Suppress extra blank line from dovecot when no other output generate

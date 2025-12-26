@@ -17,7 +17,7 @@ Release: 1%{?dist}
 # approved SPDX id -- https://github.com/spdx/license-list-XML/issues/2651
 License: BSD-2-Clause-pkgconf-disclaimer
 
-Summary: Advanced audio player
+Summary: Advanced audio player and music player
 URL: https://audacious-media-player.org/
 Group: Applications/Multimedia
 
@@ -73,7 +73,7 @@ Requires: qt5-qtsvg%{?_isa}
 Provides: xmms-gui
 
 %description
-Audacious is an open source audio player
+Audacious is an open source audio player and music player.
 
 A descendant of XMMS, Audacious plays your music how you want it, without
 stealing away your computer’s resources from other tasks. Drag and drop

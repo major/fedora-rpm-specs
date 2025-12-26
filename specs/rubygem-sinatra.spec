@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
@@ -16,11 +16,14 @@ Source1: %{gem_name}-%{version}-test.tar.gz
 # Fix test failures caused by RDoc 6.16+
 # https://github.com/sinatra/sinatra/pull/2132
 Patch0: rubygem-sinatra-4.2.1-Fix-RDoc-6-16-compatibility-by-relaxing-the-check.patch
+# Fix compatibility with minitest 6
+Patch1: rubygem-sinatra-4.2.1-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 %if %{without bootstrap}
 BuildRequires: rubygem(minitest) > 5
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(mustermann)
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(rack-test)
@@ -62,6 +65,7 @@ Documentation for %{name}.
 
 ( cd %{builddir}
 %patch 0 -p1
+%patch 1 -p1
 )
 
 %build
@@ -126,6 +130,9 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Wed Dec 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:4.2.1-4
+- Fix compatibility with minitest 6
+
 * Wed Dec 10 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.2.1-3
 - Drop dependency on rubygem(liquid), which was retired from Fedora.
 

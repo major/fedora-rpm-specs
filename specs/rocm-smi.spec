@@ -24,6 +24,18 @@
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm-smi-lib
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+%global pkg_name rocm-smi%{pkg_suffix}
+
 %bcond_with test
 %if %{with test}
 %global build_test ON
@@ -33,9 +45,9 @@
 
 %bcond_with doc
 
-Name:       rocm-smi
+Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
@@ -109,19 +121,19 @@ sed -i -e '/TARGETS gtest gtest_main/,+3d' tests/rocm_smi_test/CMakeLists.txt
 sed -i '/#include <string.*/a#include <iomanip>' tests/rocm_smi_test/test_base.h
 
 %build
-%cmake -DFILE_REORG_BACKWARD_COMPATIBILITY=OFF -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+%cmake -DFILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
-       -DBUILD_TESTS=%build_test
+       -DBUILD_TESTS=%{build_test}
 
 %cmake_build
 
 %install
 %cmake_install
 
-# For Fedora < 38, the README is not installed if doxygen is disabled:
-install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
-
-rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.md
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 
 %if 0%{?suse_version}
 %post   -p /sbin/ldconfig
@@ -129,26 +141,29 @@ rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %files
-%doc %{_docdir}/rocm_smi
+%doc README.md
 %license LICENSE.md
-%{_bindir}/rocm-smi
-%{_libexecdir}/rocm_smi
-%{_libdir}/librocm_smi64.so.1{,.*}
-%{_libdir}/liboam.so.1{,.*}
+%{pkg_prefix}/bin/rocm-smi
+%{pkg_prefix}/libexec/rocm_smi/
+%{pkg_prefix}/%{pkg_libdir}/librocm_smi64.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/liboam.so.1{,.*}
 
 %files devel
-%{_includedir}/rocm_smi/
-%{_includedir}/oam/
-%{_libdir}/librocm_smi64.so
-%{_libdir}/liboam.so
-%{_libdir}/cmake/rocm_smi/
+%{pkg_prefix}/include/rocm_smi/
+%{pkg_prefix}/include/oam/
+%{pkg_prefix}/%{pkg_libdir}/librocm_smi64.so
+%{pkg_prefix}/%{pkg_libdir}/liboam.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocm_smi/
 
 %if %{with test}
 %files test
-%{_datarootdir}/rsmitst_tests
+%{pkg_prefix}/share/rsmitst_tests
 %endif
 
 %changelog
+* Thu Dec 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

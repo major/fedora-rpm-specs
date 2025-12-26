@@ -1,6 +1,6 @@
 Name:           direwolf
-Version:        1.7
-Release:        12%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPL-2.0-or-later
@@ -17,13 +17,14 @@ ExcludeArch:    i686
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  cmake
-BuildRequires:  glibc-devel
+BuildRequires:  avahi-devel
 BuildRequires:  alsa-lib-devel
+BuildRequires:  glibc-devel
 BuildRequires:  gpsd-devel
 BuildRequires:  hamlib-devel
-BuildRequires:  systemd systemd-devel
-BuildRequires:  avahi-devel
 BuildRequires:  hidapi-devel
+BuildRequires:  libgpiod-devel
+BuildRequires:  systemd systemd-devel
 
 Requires:       ax25-tools ax25-apps
 
@@ -35,6 +36,21 @@ can perform as an APRS GPS Tracker, Digipeater, Internet Gateway
 (IGate), APRStt gateway. It can also be used as a virtual TNC for
 other applications such as APRSIS32, UI-View32, Xastir, APRS-TW, YAAC,
 UISS, Linux AX25, SARTrack, Winlink Express, BPQ32, Outpost PM, and many
+others.
+
+
+%package -n %{name}-doc
+Summary:        Documentation for Dire Wolf
+BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
+
+%description -n %{name}-doc
+Dire Wolf is a modern software replacement for the old 1980's style
+TNC built with special hardware.  Without any additional software, it
+can perform as an APRS GPS Tracker, Digipeater, Internet Gateway
+(IGate), APRStt gateway. It can also be used as a virtual TNC for
+other applications such as APRSIS32, UI-View32, Xastir, APRS-TW, YAAC,
+UISS, Linux AX25, SARTrack, RMS Express, BPQ32, Outpost PM, and many
 others.
 
 
@@ -50,14 +66,14 @@ EOF
 
 # Remove bundled libraries we're not using
 rm -r external/{hidapi,misc,regex}
+# Not needed and breaks finding hidapi on Fedora
+rm cmake/modules/Findhidapi.cmake
+
 
 %build
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DUNITTEST=1 -DENABLE_GENERIC=1 -DUSE_SYSTEM_HIDAPI=ON
 %cmake_build
-
-%check
-%ctest
 
 
 %install
@@ -82,8 +98,8 @@ cp ${RPM_BUILD_ROOT}%{_pkgdocdir}/conf/%{name}.conf ${RPM_BUILD_ROOT}/%{_sysconf
 mkdir -m 0755 -p ${RPM_BUILD_ROOT}/var/log/%{name}
 
 # Move udev rules to system dir
-mkdir -p ${RPM_BUILD_ROOT}%{_udevrulesdir}
-mv ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d/99-direwolf-cmedia.rules ${RPM_BUILD_ROOT}%{_udevrulesdir}/99-direwolf-cmedia.rules
+#mkdir -p ${RPM_BUILD_ROOT}%{_udevrulesdir}
+#mv ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d/99-direwolf-cmedia.rules ${RPM_BUILD_ROOT}%{_udevrulesdir}/99-direwolf-cmedia.rules
 
 # Copy doc pngs
 cp direwolf-block-diagram.png ${RPM_BUILD_ROOT}%{_pkgdocdir}/direwolf-block-diagram.png
@@ -109,19 +125,8 @@ chmod 0644 ${RPM_BUILD_ROOT}%{_pkgdocdir}/telem/*
 install -m0644 -D direwolf.sysusers.conf %{buildroot}%{_sysusersdir}/direwolf.conf
 
 
-%package -n %{name}-doc
-Summary:        Documentation for Dire Wolf
-BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-
-%description -n %{name}-doc
-Dire Wolf is a modern software replacement for the old 1980's style
-TNC built with special hardware.  Without any additional software, it
-can perform as an APRS GPS Tracker, Digipeater, Internet Gateway
-(IGate), APRStt gateway. It can also be used as a virtual TNC for
-other applications such as APRSIS32, UI-View32, Xastir, APRS-TW, YAAC,
-UISS, Linux AX25, SARTrack, RMS Express, BPQ32, Outpost PM, and many
-others.
+%check
+%ctest
 
 
 %files
@@ -150,6 +155,10 @@ others.
 
 
 %changelog
+* Wed Dec 24 2025 Richard Shaw <hobbes1069@gmail.com> - 1.8.1-1
+- Update to 1.8.1.
+- Build with libgpiod.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

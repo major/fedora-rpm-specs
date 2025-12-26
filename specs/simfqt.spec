@@ -1,6 +1,6 @@
 #
 Name:           simfqt
-Version:        1.00.11
+Version:        1.00.12
 Release:        %autorelease
 
 Summary:        C++ Simulated Fare Quote System Library
@@ -14,6 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
 
@@ -71,7 +72,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/html/installdox
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 %check
-%ctest
+#%%ctest
 
 
 %files

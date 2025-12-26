@@ -1,6 +1,6 @@
 Name:           python-nodeenv
-Version:        1.9.1
-Release:        8%{?dist}
+Version:        1.10.0
+Release:        %autorelease
 Summary:        Node.js virtual environment builder
 
 License:        BSD-3-Clause
@@ -90,6 +90,9 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %changelog
+* Thu Dec 25 2025 Tim Semeijn <fedora@semops.nl> - 1.10.0-1
+- Update to version 1.10.0 (RHBZ#2424115)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.1-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

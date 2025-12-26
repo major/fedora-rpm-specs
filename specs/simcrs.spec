@@ -1,6 +1,6 @@
 #
 Name:           simcrs
-Version:        1.01.12
+Version:        1.01.13
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel-Oriented Distribution System library
@@ -18,6 +18,7 @@ BuildRequires:  pkgconfig(cppzmq)
 BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(airrac)
 BuildRequires:  pkgconfig(rmol)

@@ -1,6 +1,6 @@
 %global neo_major 25
-%global neo_minor 44
-%global neo_build 36015
+%global neo_minor 48
+%global neo_build 36300
 %global neo_hotfix 8
 
 %if 0%{?rhel}

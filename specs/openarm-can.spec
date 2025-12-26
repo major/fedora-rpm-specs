@@ -12,18 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-%global commit 010ea250f7ffdcc0d16d16bafd29a713f89df070
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20251016
-
 Name:           openarm-can
-Version:        1.1.0^%{commitdate}git%{shortcommit}
+Version:        1.2.0
 Release:        %{autorelease}
 Summary:        OpenArm CAN control library
 
 License:        Apache-2.0
 URL:            https://docs.openarm.dev/software/can
-Source:         https://github.com/enactic/openarm_can/archive/%{commit}/openarm_can-%{shortcommit}.tar.gz
+Source:         https://github.com/enactic/openarm_can/archive/%{version}/openarm_can-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -51,7 +47,7 @@ Summary: Setup and configuration utility scripts
 Setup and configuration utility scripts.
 
 %prep
-%autosetup -n openarm_can-%{commit}
+%autosetup -n openarm_can-%{version}
 
 
 %build
@@ -76,7 +72,14 @@ Setup and configuration utility scripts.
 
 %files utils
 %license LICENSE.txt
-%{_libexecdir}/openarm-can/
+%{_bindir}/openarm-can-change-baudrate
+%{_bindir}/openarm-can-configure-socketcan
+%{_bindir}/openarm-can-configure-socketcan-4-arms
+%{_bindir}/openarm-can-demo
+%{_bindir}/openarm-can-diagnosis
+%{_bindir}/openarm-can-motor-check
+%{_bindir}/openarm-can-set-zero
+%{_bindir}/openarm-can-zero-position-calibration
 
 %changelog
 %autochangelog

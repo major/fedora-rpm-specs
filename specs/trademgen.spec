@@ -3,7 +3,7 @@
 
 #
 Name:           trademgen
-Version:        1.00.14
+Version:        1.00.15
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel Demand Generation Library
@@ -18,6 +18,7 @@ BuildRequires:  pkgconfig(readline)
 BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(sevmgr)
 

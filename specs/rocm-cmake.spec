@@ -29,8 +29,8 @@
 
 %bcond_with compat
 %if %{with compat}
-# install to /usr/lib64/rocm/<major>.<minor>
-%global pkg_prefix %{_prefix}/lib64/rocm/%{rocm_release}/
+# install to /usr/lib64/rocm/rocm-<major>.<minor>
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
 %global pkg_suffix -%{rocm_release}
 %else
 %global pkg_prefix %{_prefix}

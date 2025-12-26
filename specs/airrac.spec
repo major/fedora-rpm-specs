@@ -1,6 +1,6 @@
 #
 Name:           airrac
-Version:        1.00.13
+Version:        1.00.14
 Release:        %autorelease
 
 Summary:        C++ Simulated Revenue Accounting (RAC) System Library
@@ -15,6 +15,7 @@ BuildRequires:  boost-devel
 BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
 

@@ -1,6 +1,6 @@
 #
 Name:           airinv
-Version:        1.00.13
+Version:        1.00.14
 Release:        %autorelease
 
 Summary:        C++ Simulated Airline Inventory Management System library
@@ -17,6 +17,7 @@ BuildRequires:  pkgconfig(cppzmq)
 BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(airrac)
 BuildRequires:  pkgconfig(rmol)

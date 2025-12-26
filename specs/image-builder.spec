@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        43
+Version:        44
 
 %gometa
 
@@ -42,6 +42,8 @@ BuildRequires:  libvirt-devel
 %if 0%{?fedora}
 # Build requirements of 'github.com/containers/storage' package
 BuildRequires:  btrfs-progs-devel
+# for _tmpfilesdir macro
+BuildRequires:  systemd-rpm-macros
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.2
@@ -240,7 +242,9 @@ export LDFLAGS="${LDFLAGS} -X 'main.version=%{version}'"
 %install
 install -m 0755 -vd                                 %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/image-builder %{buildroot}%{_bindir}/
-
+# tmpfiles.d snippet
+install -m 0755 -vd                                 %{buildroot}%{_tmpfilesdir}
+install -m 0644 -vp data/tmpfiles.d/image-builder.conf %{buildroot}%{_tmpfilesdir}/image-builder.conf
 %check
 export GOFLAGS="-buildmode=pie"
 %if 0%{?rhel}
@@ -257,8 +261,35 @@ cd $PWD/_build/src/%{goipath}
 %license LICENSE
 %doc README.md
 %{_bindir}/image-builder
+%{_tmpfilesdir}/image-builder.conf
+%ghost %dir /var/cache/image-builder
 
 %changelog
+* Wed Dec 24 2025 Packit <hello@packit.dev> - 44-1
+Changes with 44
+----------------
+  - [RFC] main: print pretty json manifest (#414)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - bib: document details about  {,bib}cmd{ManifestFromCobra,Build} (#402)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - bib: fix anaconda-iso mTLS key extraction (#404)
+    - Author: Michael Vogt, Reviewers: Brian C. Lane, Ondřej Budai
+  - bib: small cleanups (#400)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - cmd: move `awscloudNewUploader` back into upload.go (#397)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - cmd: remove bibupload as it was never exposed to the public (#405)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - data: install tmpfiles.d/image-builder.conf to auto-clean cache (#418)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - main: error when image-builder is used to create anaconda-iso (#401)
+    - Author: Michael Vogt, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - test: add rhel specific tests (#403)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-12-24
+
+
 * Wed Dec 10 2025 Packit <hello@packit.dev> - 43-1
 Changes with 43
 ----------------

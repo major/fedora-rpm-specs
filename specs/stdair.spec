@@ -1,6 +1,6 @@
 #
 Name:           stdair
-Version:        1.00.22
+Version:        1.00.23
 Release:        %autorelease
 
 Summary:        C++ Standard Airline IT Object Library
@@ -14,6 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 
 %description

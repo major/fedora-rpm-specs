@@ -24,6 +24,19 @@
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # Downloads its own googletest
 # Testing also depends on having AMD hardware cpu and/or gpu installed.
 # Not suitable for a general check
@@ -38,9 +51,9 @@
 %global build_test OFF
 %endif
 
-Name:       amdsmi
+Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -131,52 +144,59 @@ sed -i '/#include <unordered_set.*/a#include <cstdint>' rocm_smi/include/rocm_sm
 # https://github.com/ROCm/amdsmi/issues/124
 sed -i '/#include <string.*/a#include <iomanip>' tests/amd_smi_test/test_common.h
 
+# Do not hardcode share dir
+sed -i 's@set(SHARE_INSTALL_PREFIX@#set(SHARE_INSTALL_PREFIX@' CMakeLists.txt
+
 %build
 %cmake \
     -DBUILD_KERNEL_ASM_DIR=/usr/include/asm \
+    -DBUILD_TESTS=%build_test \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
+    -DSHARE_INSTALL_PREFIX=%{pkg_prefix}/share \
 %if %{with test}
     -DUSE_SYSTEM_GTEST=On \
 %endif
-    -DBUILD_TESTS=%build_test
+    %{nil}
 
 %cmake_build
 
 %install
 %cmake_install
 
-mkdir -p %{buildroot}/%{python3_sitelib}
-if [ -d %{buildroot}/usr/share/amd_smi/amdsmi ]; then
-    mv %{buildroot}/usr/share/amd_smi/amdsmi %{buildroot}/%{python3_sitelib}
-    mv %{buildroot}/usr/share/amd_smi/pyproject.toml %{buildroot}/%{python3_sitelib}/amdsmi/
+mkdir -p %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
+if [ -d %{buildroot}%{pkg_prefix}/share/amd_smi/amdsmi ]; then
+    mv %{buildroot}%{pkg_prefix}/share/amd_smi/amdsmi %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
+    mv %{buildroot}%{pkg_prefix}/share/amd_smi/pyproject.toml %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/
 else
-    mv %{buildroot}/usr/share/amdsmi %{buildroot}/%{python3_sitelib}
-    mv %{buildroot}/usr/share/pyproject.toml %{buildroot}/%{python3_sitelib}/amdsmi/
+    mv %{buildroot}%{pkg_prefix}/share/amdsmi %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
+    mv %{buildroot}%{pkg_prefix}/share/pyproject.toml %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/
 fi
 
 # Remove some things
-rm -rf %{buildroot}/usr/share/example
-rm -rf %{buildroot}/usr/share/amd_smi/example
-rm -rf %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt
-rm -f %{buildroot}/usr/share/doc/amd-smi-lib/LICENSE.txt
-rm -f %{buildroot}/usr/share/doc/amd-smi-lib/README.md
-rm -rf %{buildroot}/usr/share/doc/amd-smi-lib/copyright
-rm -f %{buildroot}%{_datadir}/_version.py
-rm -f %{buildroot}%{_datadir}/amd_smi/_version.py
-rm -f %{buildroot}%{_datadir}/setup.py
-rm -f %{buildroot}%{_datadir}/amd_smi/setup.py
+rm -rf %{buildroot}/%{pkg_prefix}/share/example
+rm -rf %{buildroot}/%{pkg_prefix}/share/amd_smi/example
+rm -rf %{buildroot}/%{pkg_prefix}/share/doc/amd_smi-asan/LICENSE.txt
+rm -f %{buildroot}/%{pkg_prefix}/share/doc/amd-smi-lib/LICENSE.txt
+rm -f %{buildroot}/%{pkg_prefix}/share/doc/amd-smi-lib/README.md
+rm -rf %{buildroot}/%{pkg_prefix}/share/doc/amd-smi-lib/copyright
+rm -f %{buildroot}%{pkg_prefix}/share/_version.py
+rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/_version.py
+rm -f %{buildroot}%{pkg_prefix}/share/setup.py
+rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/setup.py
 
 # W: unstripped-binary-or-object /usr/lib/python3.13/site-packages/amdsmi/libamd_smi.so
 # Does an explict open, so can not just rm it
 # let's just strip it
-strip %{buildroot}/%{python3_sitelib}/amdsmi/*.so
+strip %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/*.so
 # E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
-chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
+chmod a+x %{buildroot}/%{pkg_prefix}/libexec/amdsmi_cli/amdsmi_*.py
 
 %if %{with test}
 # put the test files in a reasonable place
-mkdir %{buildroot}%{_datadir}/amdsmi
-mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
+mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
+mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/.
 %endif
 
 %if 0%{?suse_version}
@@ -188,27 +208,28 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %doc README.md
 %license LICENSE
 %license esmi_ib_library_License.txt 
-%{_libdir}/libamd_smi.so.*
-%{_libdir}/libgoamdsmi_shim64.so.*
-%{_bindir}/amd-smi
-%{_libexecdir}/amdsmi_cli
-%{python3_sitelib}/amdsmi
+%{pkg_prefix}/%{pkg_libdir}/libamd_smi.so.*
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.*
+%{pkg_prefix}/bin/amd-smi
+%{pkg_prefix}/libexec/amdsmi_cli
+%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
 
 %files devel
-%dir %{_includedir}/amd_smi
-%dir %{_libdir}/cmake/amd_smi
-%{_includedir}/amd_smi/*.h
-%{_includedir}/*.h
-%{_libdir}/libamd_smi.so
-%{_libdir}/libgoamdsmi_shim64.so
-%{_libdir}/cmake/amd_smi/*.cmake
+%{pkg_prefix}/include/amd_smi/
+%{pkg_prefix}/include/*.h
+%{pkg_prefix}/%{pkg_libdir}/libamd_smi.so
+%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/amd_smi/
 
 %if %{with test}
 %files test
-%{_datadir}/amdsmi
+%{pkg_prefix}/share/amdsmi
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

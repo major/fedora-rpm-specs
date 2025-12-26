@@ -28,13 +28,8 @@ BuildRequires:  systemd-rpm-macros
 
 Requires:       dbus-common
 
-%global common_description %{expand:
-Daemon for dark-mode and light-mode transitions on Linux desktop.}
-
 %description
-%{common_description}
-
-%gopkg
+Daemon for dark-mode and light-mode transitions on Linux desktop.
 
 %prep
 %goprep -A
@@ -53,7 +48,6 @@ scdoc < darkman.1.scd > darkman.1
 
 %install
 %go_vendor_license_install -c %{S:2}
-%gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 install -m 0644 -Dp contrib/darkman.service     %{buildroot}%{_userunitdir}/darkman.service
@@ -88,8 +82,6 @@ install -m 0644 -Dp contrib/portal/darkman.portal %{buildroot}%{_datadir}/xdg-de
 %dir %{_datadir}/xdg-desktop-portal
 %dir %{_datadir}/xdg-desktop-portal/portals/
 %{_datadir}/xdg-desktop-portal/portals/darkman.portal
-
-%gopkgfiles
 
 %changelog
 %autochangelog

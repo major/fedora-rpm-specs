@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/libretro/%{corename}-libretro
-%global commit e2c0259a6941285f853bdc81dfd33756e107c2c2
+%global commit 7e9b257b8a591cb7e00f9e55371edba19db9799c
 %global corename beetle-pce-fast
 
 Name:           libretro-%{corename}
@@ -20,7 +20,10 @@ Supplements:    gnome-games
 Supplements:    retroarch
 
 %description
-%{summary}.
+Beetle PC Engine Fast is a port/fork of Mednafen's PC Engine Fast "pce_fast"
+module to the libretro API. This libretro core contains CD-ROM2 support but
+unlike Mednafen's PCE Fast module, lacks SuperGrafx support. SuperGrafx support
+is available in the Beetle SuperGrafx core or the Beetle PC Engine "pce" core.
 
 
 %prep

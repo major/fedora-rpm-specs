@@ -287,9 +287,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 25
+%global featurever 26
 %global interimver 0
-%global updatever 1
+%global updatever 0
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -343,10 +343,10 @@
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
-%global top_level_dir_name   %{vcstag}
+%global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        8
-%global rpmrelease      3
+%global buildver        29
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -364,7 +364,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           1
+%global is_ga           0
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -594,7 +594,6 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_bindir}/jnativescan jnativescan %{sdkbindir -- %{?1}}/jmap \\
   --slave %{_bindir}/jps jps %{sdkbindir -- %{?1}}/jps \\
   --slave %{_bindir}/jpackage jpackage %{sdkbindir -- %{?1}}/jpackage \\
-  --slave %{_bindir}/jrunscript jrunscript %{sdkbindir -- %{?1}}/jrunscript \\
   --slave %{_bindir}/jshell jshell %{sdkbindir -- %{?1}}/jshell \\
   --slave %{_bindir}/jstack jstack %{sdkbindir -- %{?1}}/jstack \\
   --slave %{_bindir}/jstat jstat %{sdkbindir -- %{?1}}/jstat \\
@@ -614,7 +613,6 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_mandir}/man1/jnativescan.1%{man_comp} jnativescan.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jnativescan.1 \\
   --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jps.1 \\
   --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jpackage.1 \\
-  --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jrunscript.1 \\
   --slave %{_mandir}/man1/jstack.1%{man_comp} jstack.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstack.1 \\
   --slave %{_mandir}/man1/jstat.1%{man_comp} jstat.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstat.1 \\
   --slave %{_mandir}/man1/jwebserver.1%{man_comp} jwebserver.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jwebserver.1 \\
@@ -813,7 +811,6 @@ fi
 %{etcjavadir -- %{?1}}/lib/security/cacerts
 %{etcjavadir -- %{?1}}/lib/security/cacerts.upstream
 %dir %{etcjavadir -- %{?1}}/conf
-%dir %{etcjavadir -- %{?1}}/conf/sdp
 %dir %{etcjavadir -- %{?1}}/conf/management
 %dir %{etcjavadir -- %{?1}}/conf/security
 %dir %{etcjavadir -- %{?1}}/conf/security/policy
@@ -846,7 +843,6 @@ fi
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/jmxremote.access
 # This is a config template, thus not config-noreplace
 %config  %{etcjavadir -- %{?1}}/conf/management/jmxremote.password.template
-%config  %{etcjavadir -- %{?1}}/conf/sdp/sdp.conf.template
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/management.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp-strict.properties.template
@@ -901,7 +897,6 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jnativescan
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jps
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jpackage
-%{_jvmdir}/%{sdkdir -- %{?1}}/bin/jrunscript
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jshell
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jstack
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jstat
@@ -932,7 +927,6 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jnativescan.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jps.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jpackage.1
-%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jrunscript.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jshell.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstack.1
 %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstat.1
@@ -969,7 +963,6 @@ fi
 %ghost %{_bindir}/jmap
 %ghost %{_bindir}/jps
 %ghost %{_bindir}/jpackage
-%ghost %{_bindir}/jrunscript
 %ghost %{_bindir}/jshell
 %ghost %{_bindir}/jstack
 %ghost %{_bindir}/jstat

@@ -6,7 +6,7 @@
 
 #
 Name:           opentrep
-Version:        0.07.19
+Version:        0.07.20
 Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests

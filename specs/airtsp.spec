@@ -1,6 +1,6 @@
 #
 Name:           airtsp
-Version:        1.01.15
+Version:        1.01.16
 Release:        %autorelease
 
 Summary:        C++ Simulated Airline Travel Solution Provider Library
@@ -15,6 +15,7 @@ BuildRequires:  boost-devel
 BuildRequires:  soci-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
+BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
 

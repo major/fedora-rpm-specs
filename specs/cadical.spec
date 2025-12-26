@@ -2,7 +2,7 @@
 
 Name:           cadical
 Epoch:          1
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Simplified SAT solver
 
@@ -104,7 +104,7 @@ make -C test
 %files libs
 %license LICENSE
 %doc NEWS.md README.md
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel
 %{_includedir}/%{name}.hpp

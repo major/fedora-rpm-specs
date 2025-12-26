@@ -69,26 +69,29 @@
 
 %bcond_with compat
 %if %{with compat}
-# install to /usr/lib64/rocm/<major>.<minor>
-%global bundle_prefix %{_libdir}/rocm/%{rocm_release}/llvm
-%global pkg_prefix %{_prefix}/lib64/rocm/%{rocm_release}
+%global amd_device_libs_prefix %{_libdir}/rocm/rocm-%{rocm_release}/llvm/lib/clang/%{llvm_maj_ver}/lib
+%global bundle_prefix %{_libdir}/rocm/rocm-%{rocm_release}/llvm
+%global pkg_libdir lib
+%global pkg_libdir_suffix %{nil}
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_suffix -%{rocm_release}
-%global amd_device_libs_prefix llvm/lib/clang/%{llvm_maj_ver}
 %else
+%global amd_device_libs_prefix %{_libdir}/rocm/llvm/lib/clang/%{llvm_maj_ver}/lib
 %global bundle_prefix %{_libdir}/rocm/llvm
+%global pkg_libdir %{_lib}
+%global pkg_libdir_suffix %{nil}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
-%global amd_device_libs_prefix lib64/rocm/llvm/lib/clang/%{llvm_maj_ver}
 %endif
-%global pkg_name rocm-compilersupport%{pkg_suffix}
-%global rocm_llvm_name rocm-llvm%{pkg_suffix}
-%global rocm_clang_name rocm-clang%{pkg_suffix}
-%global rocm_clang_tools_extra_name rocm-clang-tools-extra%{pkg_suffix}
-%global rocm_lld_name rocm-lld%{pkg_suffix}
-%global rocm_libcxx_name rocm-libc++%{pkg_suffix}
-%global rocm_clang_analyzer_name rocm-clang-analyzer%{pkg_suffix}
 %global device_libs_name rocm-device-libs%{pkg_suffix}
 %global hipcc_name hipcc%{pkg_suffix}
+%global pkg_name rocm-compilersupport%{pkg_suffix}
+%global rocm_clang_analyzer_name rocm-clang-analyzer%{pkg_suffix}
+%global rocm_clang_name rocm-clang%{pkg_suffix}
+%global rocm_clang_tools_extra_name rocm-clang-tools-extra%{pkg_suffix}
+%global rocm_libcxx_name rocm-libc++%{pkg_suffix}
+%global rocm_lld_name rocm-lld%{pkg_suffix}
+%global rocm_llvm_name rocm-llvm%{pkg_suffix}
 %if 0%{?suse_version}
 # 15.6
 # rocm-comgr.x86_64: E: shlib-policy-name-error (Badness: 10000) libamd_comgr2
@@ -416,7 +419,7 @@ sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 14@' clang/lib/H
 
 install -pm 755 %{SOURCE1} prep.sh
 sed -i -e 's@%%{pkg_prefix}@%{pkg_prefix}@' prep.sh
-sed -i -e 's@%%{_lib}@%{_lib}@' prep.sh
+sed -i -e 's@%%{pkg_libdir}@%{pkg_libdir}@' prep.sh
 sed -i -e 's@%%{amd_device_libs_prefix}@%{amd_device_libs_prefix}@' prep.sh
 sed -i -e 's@%%{bundle_prefix}@%{bundle_prefix}@' prep.sh
 grep -v '%%{' prep.sh
@@ -493,6 +496,7 @@ p=$PWD
  -DLLVM_INCLUDE_BENCHMARKS=OFF \\\
  -DLLVM_INCLUDE_EXAMPLES=OFF \\\
  -DLLVM_INCLUDE_TESTS=OFF \\\
+ -DLLVM_LIBDIR_SUFFIX=%{pkg_libdir_suffix} \\\
  -DLLVM_TARGETS_TO_BUILD=%{targets_to_build} \\\
  -DLLVM_TOOL_GOLD_BUILD=%{build_gold} \\\
  -DLLVM_TOOL_LLVM_AS_FUZZER_BUILD=OFF \\\
@@ -627,17 +631,15 @@ pushd .
 %cmake \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_tools_config} \
-       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-       -DROCM_DEVICE_LIBS_BITCODE_INSTALL_LOC_NEW="%{amd_device_libs_prefix}/amdgcn" \
-       -DROCM_DEVICE_LIBS_BITCODE_INSTALL_LOC_OLD=""
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+       -DCMAKE_INSTALL_PREFIX=%{amd_device_libs_prefix}
 
 %cmake_build -j ${JOBS}
 popd
 
 build_devicelibs=$p/build-devicelibs
 %global llvmrocm_devicelibs_config \\\
-	-DAMDDeviceLibs_DIR=$build_devicelibs/%{_lib}/cmake/AMDDeviceLibs
+	-DAMDDeviceLibs_DIR=$build_devicelibs/%{pkg_libdir}/cmake/AMDDeviceLibs
 
 #
 # HIPCC
@@ -657,7 +659,7 @@ pushd .
        %{llvmrocm_devicelibs_config} \
        -DCMAKE_INSTALL_RPATH=%{bundle_prefix}/lib \
        -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
        -DCMAKE_SKIP_INSTALL_RPATH=OFF
 
 %cmake_build -j ${JOBS}
@@ -681,7 +683,7 @@ pushd .
        %{llvmrocm_devicelibs_config} \
        -DBUILD_SHARED_LIBS=ON \
        -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib}
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir}
 
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
 %if 0%{?suse_version}
@@ -747,6 +749,13 @@ pushd .
 %endif
 
 %cmake_install
+
+# move cmake bits to where the others are
+mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
+mv %{buildroot}%{amd_device_libs_prefix}/%{pkg_libdir}/cmake/* %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake
+# no extra license please
+rm -rf %{buildroot}%{amd_device_libs_prefix}/share
+
 popd
 
 #
@@ -790,9 +799,7 @@ mkdir -p %{buildroot}%{_libdir}/rocm/include
 %endif
 
 rm -rf %{buildroot}%{pkg_prefix}/hip
-rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.*
-rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocm-compilersupport/NOTICES.txt
-rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocm-compilersupport/README.md
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/packages/*
 
 %if 0%{?suse_version}
 find %{buildroot}%{bundle_prefix}/bin -type f -executable -exec strip {} \;
@@ -832,31 +839,25 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %{_rpmmacrodir}/macros.rocmcompiler
 
 %files -n %{device_libs_name}
-%if %{without compat}
 %license amd/device-libs/LICENSE.TXT
 %doc amd/device-libs/README.md amd/device-libs/doc/*.md
-%endif
-%{pkg_prefix}/lib64/cmake/AMDDeviceLibs/
-%{pkg_prefix}/%{amd_device_libs_prefix}/amdgcn
+%{pkg_prefix}/%{pkg_libdir}/cmake/AMDDeviceLibs/
+%{amd_device_libs_prefix}/amdgcn
 
 
 %files -n %{comgr_name}
-%if %{without compat}
 %license amd/comgr/LICENSE.txt amd/comgr/NOTICES.txt
 %doc amd/comgr/README.md
-%endif
-%{pkg_prefix}/lib64/libamd_comgr.so.*
+%{pkg_prefix}/%{pkg_libdir}/libamd_comgr.so.*
 
 %files -n %{comgr_name}-devel
 %{pkg_prefix}/include/amd_comgr/
-%{pkg_prefix}/lib64/cmake/amd_comgr/
-%{pkg_prefix}/lib64/libamd_comgr.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/amd_comgr/
+%{pkg_prefix}/%{pkg_libdir}/libamd_comgr.so
 
 %files -n %{hipcc_name}
-%if %{without compat}
 %license amd/hipcc/LICENSE.txt
 %doc amd/hipcc/README.md
-%endif
 %{pkg_prefix}/bin/hipcc
 %{pkg_prefix}/bin/hipconfig
 

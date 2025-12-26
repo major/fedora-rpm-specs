@@ -1,6 +1,6 @@
-%global commit  ad2e709d6025ced5a09a67bbb51b4aeb6160ecec
+%global commit  8d91fbdff8f4db6e256370f030a9f6ac8c7f2c62
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date    20250226
+%global date    20251216
 
 %global corename pcsx-rearmed
 %global filename pcsx_rearmed
@@ -74,16 +74,12 @@ Provides:       bundled(libchdr)
 Provides:       bundled(lzma) = 22.01
 
 %description
-PCSX ReARMed is yet another PCSX fork based on the PCSX-Reloaded project,
-which itself contains code from PCSX, PCSX-df and PCSX-Revolution. This
-version is ARM architecture oriented and features MIPS->ARM recompiler by
-Ari64, NEON GTE code and more performance improvements. It was created for
-Pandora handheld, but should be usable on other devices after some code
-adjustments (N900, GPH Wiz/Caanoo, PlayBook versions are also available).
-
-PCSX ReARMed features ARM NEON GPU by Exophase, that in many cases produces
-pixel perfect graphics at very high performance. There is also Una-i's GPU
-plugin from PCSX4ALL project, and traditional P.E.Op.S. one.
+PCSX ReARMed is yet another PCSX fork based on the PCSX-Reloaded project, which
+itself contains code from PCSX, PCSX-df and PCSX-Revolution. This version was
+originally ARM architecture oriented (hence the name) with its MIPS->ARM dynamic
+recompilation and assembly optimizations, but more recently it targets other
+architectures too. A fork of this emulator was used in PS Classic (without any
+coordination or even notification).
 
 
 %prep

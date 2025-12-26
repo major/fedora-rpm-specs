@@ -7,9 +7,10 @@
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
 %global llvm_compat 15
 %endif
+%global igc_patch 8
 
 Name: intel-igc
-Version: 2.22.2
+Version: 2.24.%{igc_patch}
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -82,6 +83,7 @@ tar -xf %{SOURCE1}
     -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DIGC_OPTION__LLVM_PREFERRED_VERSION='%(rpm -q --qf '%%{version}' llvm%{?llvm_compat}-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
     -DVC_INTRINSICS_SRC="%{_builddir}/vc-intrinsics-%{vc_commit}" \
+    -DIGC_API_PATCH_VERSION=%{igc_patch} \
 %ifarch x86_64
     -DIGC_OPTION__ARCHITECTURE_TARGET='Linux64' \
 %endif

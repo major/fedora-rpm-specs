@@ -96,7 +96,7 @@ performance and reduce the memory overhead of its predecessors.
 Summary:        Headers and other files for developing with %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
-Requires:       symfpu-devel%{?_isa}
+Requires:       symfpu-devel
 
 # This can be removed when F42 reaches EOL
 Obsoletes:      cvc4-devel < 1.9

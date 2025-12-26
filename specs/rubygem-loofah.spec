@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.22.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -10,11 +10,14 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/flavorjones/loofah.git && cd loofah
 # git archive -v -o loofah-2.22.0-test.tar.gz v2.22.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# Fix minitest6 compatibility
+Patch0:  %{gem_name}-2.22.0-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(nokogiri) >= 1.6.6.2
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(crass)
 BuildArch: noarch
 
@@ -35,6 +38,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -68,6 +75,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Wed Dec 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.22.0-7
+- Fix minitest6 compatibility
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

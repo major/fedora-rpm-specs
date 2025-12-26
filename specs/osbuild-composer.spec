@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        155
+Version:        158
 
 %gometa
 
@@ -211,7 +211,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.480
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.209.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.230.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -262,6 +262,7 @@ Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/sdk/metric)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.36.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.2
+Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.3
 Provides: bundled(golang(golang.org/x/crypto)) = 0.41.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
 Provides: bundled(golang(golang.org/x/mod)) = 0.27.0
@@ -660,6 +661,31 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Dec 24 2025 Packit <hello@packit.dev> - 158-1
+Changes with 158
+----------------
+  - Add new job type for generating manifests using image-builder-cli [HMS-9049] (#4904)
+    - Author: Achilleas Koutsou, Reviewers: Nobody
+  - chore(deps): update quay.io/konflux-ci/konflux-vanguard/task-rpms-signature-scan:0.2 docker digest to 90c2b32 (#4937)
+    - Author: {}, Reviewers: Florian Schüller, Sanne Raymaekers
+  - go.mod: update osbuild/images to v0.230.0 (#4964)
+    - Author: Achilleas Koutsou, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal
+  - konflux: osbuild-composer use tasks with valid cosign (HMS-9721) (#4956)
+    - Author: Florian Schüller, Reviewers: Sanne Raymaekers, Tomáš Hozza
+  - osbuild-worker-executor: ignore item order in tarball in test (#4965)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Michael Vogt
+  - schutzfile: pin osbuild to version ignoring PQC keys (#4968)
+    - Author: Ondřej Budai, Reviewers: Simon Steinbeiß
+  - templates/openshift: switch to konflux images (HMS-9722) (#4957)
+    - Author: Sanne Raymaekers, Reviewers: Nobody
+  - test/{api,ubi}: pin cloud-tools to an older version (#4966)
+    - Author: Ondřej Budai, Reviewers: Tomáš Hozza
+  - worker: support separate set of s3 credentials (#4958)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-12-24
+
+
 * Wed Nov 12 2025 Packit <hello@packit.dev> - 155-1
 Changes with 155
 ----------------

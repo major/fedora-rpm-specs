@@ -47,9 +47,10 @@ Patch0:         0001-Fix-TypeError-bad-argument-type-for-built-in-operati.patch
 # Fix unit tests
 Patch1:         0002-Rename-assertion-method.patch
 
-# Fix compatibility with Python 3.14:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2336943
+# Fix compatibility with Python 3.14 and 3.15:
+# https://github.com/powerline/powerline/pull/2271
 Patch2:         0003-Fix-compatibility-with-Python-3.14.patch
+Patch3:         0004-Fix-compatibility-with-Python-3.15.patch
 
 %description
 Powerline is a status-line plugin for vim, and provides status-lines and prompts

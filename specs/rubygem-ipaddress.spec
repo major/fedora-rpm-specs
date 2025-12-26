@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: IPv4/IPv6 address manipulation library
 License: MIT
 URL: https://github.com/bluemonk/ipaddress
@@ -10,6 +10,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/ipaddress-gem/ipaddress/pull/86
 # Integer unification on ruby2.4: ruby3.2 completely removes Fixnum
 Patch0:  %{name}-pr86-ruby24-integer-unification.patch
+# Fix minitest 6 compatibility
+# Note that the upstream removed Mongoid extension:
+# https://github.com/ipaddress-gem/ipaddress/pull/139
+Patch1:  %{name}-0.8.3-minitest6.patch
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(minitest)
 BuildArch: noarch
@@ -33,6 +37,7 @@ gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -71,6 +76,9 @@ popd
 %{gem_instdir}/CHANGELOG.rdoc
 
 %changelog
+* Wed Dec 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.3-21
+- Fix minitest6 compatibility
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

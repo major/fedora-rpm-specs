@@ -1,6 +1,6 @@
 Name:           python-cffsubr
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 
 # The entire source is Apache-2.0, except:
@@ -21,7 +21,7 @@ BuildRequires:  python3-devel
 
 %global txbin /usr/bin/tx
 # For the unbundled “tx” executable:
-BuildRequires:  ((adobe-afdko >= 4.0.1) with (adobe-afdko < 5~~))
+BuildRequires:  ((adobe-afdko >= 4.0.3) with (adobe-afdko < 5~~))
 BuildRequires:  symlinks
 
 %description
@@ -34,7 +34,7 @@ Standalone CFF subroutinizer based on the AFDKO tx tool.
 Summary:        %{summary}
 
 # For the unbundled “tx” executable:
-Requires:       ((adobe-afdko >= 4.0.1) with (adobe-afdko < 5~~))
+Requires:       ((adobe-afdko >= 4.0.3) with (adobe-afdko < 5~~))
 
 %description -n python3-cffsubr
 Standalone CFF subroutinizer based on the AFDKO tx tool.
@@ -86,6 +86,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 %{_mandir}/man1/cffsubr.1*
 
 %changelog
+* Wed Dec 24 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.4.0-2
+- Require adobe-afdko at least 4.0.3 to match upstream
+
 * Tue Dec 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.4.0-1
 - Update to 0.4.0 (close RHBZ#2419162)
 
