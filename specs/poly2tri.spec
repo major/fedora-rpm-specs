@@ -7,7 +7,7 @@ Release:        %autorelease
 Summary:        A 2D constrained Delaunay triangulation library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
-URL:            https://code.google.com/p/%{name}
+URL:            https://github.com/greenm01/poly2tri
 # hg clone %%{url}
 # rm -rf %%{name}/.hg
 # tar -pczf %%{name}-%%{rev}.tar.gz %%{name}

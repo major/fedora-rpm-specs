@@ -30,12 +30,7 @@ ExcludeArch:    %{ix86}
 
 # Define our own pytorch_arches macro until we have one system-wide.
 %if %{undefined pytorch_arches}
-# Match the pytorch package's current (as of F43) arch support plans.
-%if 0%{?fedora} < 45
 %global pytorch_arches %{x86_64} %{arm64}
-%else
-%global pytorch_arches %{x86_64}
-%endif
 %endif
 
 # Only include the torch extras on arches with PyTorch

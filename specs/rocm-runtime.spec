@@ -20,14 +20,6 @@
 # THE SOFTWARE.
 #
 
-%if 0%{?suse_version}
-# 15.6
-# rocm-runtime.x86_64: E: shlib-policy-name-error (Badness: 10000) libhsa-runtime64-1
-# Your package contains a single shared library but is not named after its SONAME.
-%global runtime_name libhsa-runtime64-1
-%else
-%global runtime_name rocm-runtime
-%endif
 %global upstreamname rocr-runtime
 
 #Image support is x86 only
@@ -38,11 +30,31 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+
+%if 0%{?suse_version}
+# 15.6
+# rocm-runtime.x86_64: E: shlib-policy-name-error (Badness: 10000) libhsa-runtime64-1
+# Your package contains a single shared library but is not named after its SONAME.
+%global pkg_name libhsa-runtime64-1%{pkg_suffix}
+%else
+%global pkg_name rocm-runtime%{pkg_suffix}
+%endif
+
 %bcond_without kfdtest
 
-Name:       %{runtime_name}
+Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -61,9 +73,9 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libdrm-devel
 BuildRequires:  libffi-devel
-BuildRequires:  rocm-llvm-static
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-device-libs
+BuildRequires:  rocm-llvm%{pkg_suffix}-static
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-device-libs%{pkg_suffix}
 BuildRequires:  libzstd-devel
 
 %if 0%{?suse_version}
@@ -81,9 +93,7 @@ BuildRequires:  numactl-devel
 BuildRequires:  vim-common
 %endif
 
-Provides:   rocm-runtime = %{version}-%{release}
-Obsoletes:  hsakmt < 6.3
-Provides:   hsakmt = %{version}-%{release}
+Provides:   rocm-runtime%{pkg_suffix} = %{version}-%{release}
 
 %description
 The ROCm Runtime Library is a thin, user-mode API that exposes the necessary
@@ -95,17 +105,15 @@ applications to launch compute kernels directly to the graphics hardware.
 %package devel
 Summary: ROCm Runtime development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides:  hsakmt-devel = %{version}-%{release}
-Obsoletes: hsakmt-devel < 6.3
-Provides:  rocm-runtime-devel = %{version}-%{release}
+Provides:  rocm-runtime%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 ROCm Runtime development files
 
 %package static
 Summary: ROCm Runtime hsakmt development files
-Requires: rocm-runtime-devel = %{version}-%{release}
-Provides:  rocm-runtime-static = %{version}-%{release}
+Requires: rocm-runtime%{pkg_suffix}-devel = %{version}-%{release}
+Provides:  rocm-runtime%{pkg_suffix}-static = %{version}-%{release}
 
 %description static
 %{summary}
@@ -113,7 +121,7 @@ Provides:  rocm-runtime-static = %{version}-%{release}
 %if %{with kfdtest}
 %package -n kfdtest
 Summary: Test suite for ROCm's KFD kernel module
-Requires: rocm-smi
+Requires: rocm-smi%{pkg_suffix}
 
 %description -n kfdtest
 This package includes ROCm's KFD kernel module test suite (kfdtest), the list of
@@ -135,8 +143,9 @@ export PATH=%{rocmllvm_bindir}:$PATH
 
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DCMAKE_SHARED_LINKER_FLAGS=-ldrm_amdgpu \
     -DINCLUDE_PATH_COMPATIBILITY=OFF \
     %{?!enableimage:-DIMAGE_SUPPORT=OFF}
@@ -150,7 +159,11 @@ export LIBHSAKMT_PATH=$(pwd)/build/libhsakmt/archive
 export LIBHSAKMT_PATH=$(pwd)/%__cmake_builddir/libhsakmt/archive
 %endif
 cd libhsakmt/tests/kfdtest
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_SKIP_RPATH=ON -DLLVM_DIR=%{rocmllvm_cmakedir}
+%cmake \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLLVM_DIR=%{rocmllvm_cmakedir}
 %cmake_build
 
 %endif
@@ -163,37 +176,40 @@ cd libhsakmt/tests/kfdtest
 %cmake_install
 %endif
 
-rm -f %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-runtime64/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE.md
 
 %ldconfig_scriptlets
 
 %files
 %doc README.md
 %license LICENSE.txt
-%{_libdir}/libhsa-runtime64.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhsa-runtime64.so.1{,.*}
 
 %files devel
-%{_includedir}/hsa/
-%{_includedir}/hsakmt
-%{_libdir}/libhsa-runtime64.so
-%{_libdir}/cmake/hsa-runtime64/
+%{pkg_prefix}/include/hsa/
+%{pkg_prefix}/include/hsakmt
+%{pkg_prefix}/%{pkg_libdir}/libhsa-runtime64.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hsa-runtime64/
 
 %files static
-%{_libdir}/libhsakmt.a
-%{_libdir}/cmake/hsakmt/
-%{_libdir}/pkgconfig/libhsakmt.pc
+%{pkg_prefix}/%{pkg_libdir}/libhsakmt.a
+%{pkg_prefix}/%{pkg_libdir}/cmake/hsakmt/
+%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 
 %if %{with kfdtest}
 %files -n kfdtest
 %doc libhsakmt/tests/kfdtest/README.txt
 %license libhsakmt/tests/kfdtest/LICENSE.kfdtest
-%{_bindir}/kfdtest
-%{_bindir}/run_kfdtest.sh
-%{_datadir}/kfdtest
+%{pkg_prefix}/bin/kfdtest
+%{pkg_prefix}/bin/run_kfdtest.sh
+%{pkg_prefix}/share/kfdtest
 %endif
 
 %changelog
+* Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
+- Enable --with compat
+
 * Fri Dec 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Enable hsakmt
 

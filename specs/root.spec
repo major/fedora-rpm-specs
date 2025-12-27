@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.38.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -100,6 +100,9 @@ Patch13:	%{name}-cppyy-Remove-code-related-to-finding-CPyCppyy-API-he.patch
 #		Don't install the python modules twice
 #		https://github.com/root-project/root/pull/20753
 Patch14:	%{name}-PyROOT-Don-t-install-the-python-modules-twice.patch
+#		Fix test for stricter syntax in numpy 2.4.0 (backport)
+#		https://github.com/root-project/root/pull/20775
+Patch15:	%{name}-Python-Fix-TF1-Pythonization-test-for-NumPy-2.4.0.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1905,6 +1908,7 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P12 -p1
 %patch -P13 -p1
 %patch -P14 -p1
+%patch -P15 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -3456,6 +3460,9 @@ fi
 %endif
 
 %changelog
+* Thu Dec 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-5
+- Fix test for stricter syntax in numpy 2.4.0 (backport)
+
 * Fri Dec 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-4
 - Exclude tests for Fedora 43+ on s390x that fail due to hardware
   acceleration in the zlib-ng library.

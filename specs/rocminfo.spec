@@ -24,9 +24,23 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-Name:       rocminfo
+%bcond_with compat
+%if %{with compat}
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_skip_rpath OFF
+%global pkg_rpath %{_prefix}/lib64/rocm/rocm-%{rocm_release}/lib
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_prefix %{_prefix}
+%global pkg_skip_rpath ON
+%global pkg_rpath %{nil}
+%global pkg_suffix %{nil}
+%endif
+%global pkg_name rocminfo%{pkg_suffix}
+
+Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm system info utility
 
 License:    NCSA
@@ -39,7 +53,7 @@ ExclusiveArch:  x86_64
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  rocm-runtime-devel >= %{rocm_release}.0
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  python3-devel
 
 # rocminfo calls lsmod to check the kernel mode driver status
@@ -49,7 +63,7 @@ Requires:       kmod
 ROCm system info utility
 
 %prep
-%autosetup -n %{name}-rocm-%{version} -p1
+%autosetup -n %{upstreamname}-rocm-%{version} -p1
 
 %if 0%{?fedora} || 0%{?rhel}
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} rocm_agent_enumerator
@@ -60,8 +74,11 @@ sed -i -e 's@/usr/bin/env python3@/usr/bin/python3@' rocm_agent_enumerator
 
 %build
 %cmake \
-    -DROCM_DIR=/usr \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    -DROCM_DIR=%{pkg_prefix} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_INSTALL_RPATH=%{pkg_rpath} \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{pkg_skip_rpath}
 
 %cmake_build
 
@@ -69,17 +86,20 @@ sed -i -e 's@/usr/bin/env python3@/usr/bin/python3@' rocm_agent_enumerator
 %cmake_install
 
 #FIXME:
-chmod 755 %{buildroot}%{_bindir}/*
+chmod 755 %{buildroot}%{pkg_prefix}/bin/*
+
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocminfo/License.txt
 
 %files
 %doc README.md
 %license License.txt
-%{_bindir}/rocm_agent_enumerator
-%{_bindir}/rocminfo
-#Duplicated files:
-%exclude %{_docdir}/*/License.txt
+%{pkg_prefix}/bin/rocm_agent_enumerator
+%{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -24,6 +24,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global toolchain clang
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
@@ -43,9 +56,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           roctracer
+Name:           roctracer%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -54,12 +67,12 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 %if 0%{?suse_version}
 BuildRequires:  libatomic1
@@ -149,15 +162,17 @@ sed -i -e 's@add_subdirectory(test)@#add_subdirectory(test)@' CMakeLists.txt
 %else
 
 # Adjust test running script lib dir
-sed -i -e 's@../lib/@../lib64/@' test/run.sh
+sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
 
 %endif
 
 %build
 %cmake \
-    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
-    -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
-    -DCMAKE_MODULE_PATH=%{_libdir}/cmake/hip \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_MODULE_PATH=%{pkg_prefix}/%{pkg_libdir}/cmake/hip \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
@@ -176,34 +191,30 @@ sed -i -e 's@../lib/@../lib64/@' test/run.sh
 %cmake_install
 
 # Only install the pdf
-rm -rf rm %{buildroot}%{_datadir}/html
+rm -rf rm %{buildroot}%{pkg_prefix}/share/html
+# Extra licenses
+rm -f %{buildroot}%{pkg_prefix}/share/doc/*/LICENSE.md
 
 %files
-%dir %{_libdir}/%{name}
 %license LICENSE.md
 %doc README.md
-%{_libdir}/lib%{name}64.so.*
-%{_libdir}/libroctx64.so.*
-%{_libdir}/%{name}/libfile_plugin.so
-%{_libdir}/%{name}/libhip_stats.so
-%{_libdir}/%{name}/libroctracer_tool.so
-%exclude %{_docdir}/%{name}*/LICENSE.md
+%{pkg_prefix}/%{pkg_libdir}/libroctracer64.so.*
+%{pkg_prefix}/%{pkg_libdir}/libroctx64.so.*
+%{pkg_prefix}/%{pkg_libdir}/roctracer/
 
 %files devel
-%{_includedir}/%{name}
-%{_libdir}/lib%{name}64.so
-%{_libdir}/libroctx64.so
+%{pkg_prefix}/include/roctracer
+%{pkg_prefix}/%{pkg_libdir}/libroctracer64.so
+%{pkg_prefix}/%{pkg_libdir}/libroctx64.so
 
 %if %{with doc}
 %files doc
-%dir %{_docdir}/%{name}
-%{_docdir}/%{name}/%{name}.pdf
+%{pkg_prefix}/share/doc/roctracer/
 %endif
 
 %if %{with test}
 %files test
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*
+%{pkg_prefix}/share/roctracer/
 %endif
 
 %changelog

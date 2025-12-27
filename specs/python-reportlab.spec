@@ -12,6 +12,7 @@ Summary:        Library for generating PDFs and graphics
 License:        BSD-3-Clause AND BSD-4-Clause AND MIT
 URL:            https://www.reportlab.com/opensource/
 Source0:        %pypi_source
+Patch0:         %{name}-fix_python_3.15.patch
 BuildArch:      noarch
 
 BuildRequires:  gcc
@@ -46,7 +47,11 @@ formats.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -N
+
+%if 0%{?python3_version_nodots} >= 315
+%patch -P 0 -p1
+%endif
 
 # clean up hashbangs from libraries
 find src -name '*.py' | xargs sed -i -e '/^#!\//d'

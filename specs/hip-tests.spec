@@ -24,12 +24,26 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//' -e 's/flto=thin//' )
 
 # What gpu's we are testing
-%global gpu_offload_list "--offload-arch=gfx1100 --offload-arch=gfx1101 --offload-arch=gfx1102 --offload-arch=gfx1151 --offload-arch=gfx1200 --offload-arch=gfx1201"
+%global gpu_list "--offload-arch=gfx1100 --offload-arch=gfx1101 --offload-arch=gfx1102 --offload-arch=gfx1151 --offload-arch=gfx1200 --offload-arch=gfx1201"
+%global _gpu_list "--offload-arch=gfx1100"
 
 # Option to test suite for testing on real HW:
 # May have to set gpu under test with
@@ -50,9 +64,9 @@
 # Also had to step on the cxx flags in the cmake step.
 %global _lto_cflags %{nil}
 
-Name:       hip-tests
+Name:       hip-tests%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    HIP tests
 
 License:    MIT AND BSL-1.0 AND Apache-2.0
@@ -84,11 +98,11 @@ BuildRequires:  pkgconfig(opengl)
 %if 0%{?fedora}
 BuildRequires:  picojson-devel
 %endif
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel >= %{rocm_release}.0
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}.0
 
 # Boost Software License 1.0
 # https://github.com/catchorg/Catch2/blob/v2.13.4/LICENSE.txt
@@ -117,6 +131,8 @@ sed -i -e 's@INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/hip@INSTALL_DIR libexec/hip-te
 sed -i '/hip\/hip_runtime/a#include <stdlib.h>' catch/unit/deviceLib/kerDevAlloc*.cc
 sed -i '/hip\/hip_runtime/a#include <stdlib.h>' catch/unit/deviceLib/kerDevFree*.cc
 
+# Need some help finding lamdhip64
+sed -i -e 's@-lamdhip64@-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64@' catch/unit/compiler/CMakeLists.txt
 
 %if 0%{?fedora}
 # Remove local copy of picojson, use the system version
@@ -128,17 +144,23 @@ mv catch/external/Catch2/LICENSE.txt catch/external/Catch2/LICENSE.catch2.txt
 
 %build
 cd catch
+
+# hip is built with hipcc, append the location of the runtime headers
+export HIPCC_COMPILE_FLAGS_APPEND="-I %{pkg_prefix}/include"
+
 %cmake \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
-    -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
-    -DCMAKE_CXX_FLAGS="-O2" \
-    -DCMAKE_EXE_LINKER_FLAGS="-lamdhip64" \
     -DCMAKE_AR=%{rocmllvm_bindir}/llvm-ar \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_CXX_FLAGS="-O2 -I %{pkg_prefix}/include" \
+    -DCMAKE_EXE_LINKER_FLAGS="-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_RANLIB=%{rocmllvm_bindir}/llvm-ranlib \
     -DHIP_PLATFORM=amd \
-    -DOFFLOAD_ARCH_STR=%{gpu_offload_list} \
-    -DROCM_PATH=%{_prefix}
+    -DOFFLOAD_ARCH_STR=%{gpu_list} \
+    -DROCM_PATH=%{pkg_prefix}
 
 %cmake_build -t build_tests
 
@@ -167,19 +189,22 @@ cd catch
 #  void* handle = dlopen("./libLazyLoad.so", RTLD_LAZY);
 
 # Remove devel things
-rm -rf %{buildroot}%{_libexecdir}/hip-tests/catch_tests/headers
-rm -rf %{buildroot}%{_libexecdir}/hip-tests/catch_tests/saxpy.h
+rm -rf %{buildroot}%%{pkg_prefix}/libexec/hip-tests/catch_tests/headers
+rm -rf %{buildroot}%%{pkg_prefix}/libexec/hip-tests/catch_tests/saxpy.h
 
 # Clean up dupes:
-%fdupes %{buildroot}%{_prefix}
+%fdupes %{buildroot}%{pkg_prefix}
 
 %files
 %doc README.md
 %license LICENSE.md
 %license catch/external/Catch2/LICENSE.catch2.txt
-%{_libexecdir}/hip-tests/
+%{pkg_prefix}/libexec/hip-tests/
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

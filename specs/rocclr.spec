@@ -33,6 +33,18 @@
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname clr
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+%global pkg_name rocclr%{pkg_suffix}
+
 %global toolchain clang
 
 %bcond_with debug
@@ -81,9 +93,9 @@
 
 %bcond_with docs
 
-Name:           rocclr
+Name:           %{pkg_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
@@ -110,7 +122,7 @@ BuildRequires:  fdupes
 BuildRequires:  perl-generators
 %endif
 BuildRequires:  gcc-c++
-BuildRequires:  hipcc
+BuildRequires:  hipcc%{pkg_suffix}
 BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  perl
@@ -149,11 +161,9 @@ BuildRequires:  python3-CppHeaderParser
 BuildRequires:  python3-cppheaderparser
 %endif
 %endif
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-runtime-devel >= %{rocm_release}
-# TODO: drop this when we bump to 7.0, 6.4.2 added some API's that rocclr needs
-BuildRequires:  rocm-runtime-devel >= 6.4.2
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
 BuildRequires:  zlib-devel
 
 # ROCclr relies on some x86 intrinsics
@@ -171,7 +181,7 @@ Provides:       bundled(opencl-headers) = 2.2
 ROCm Compute Language Runtime
 
 %if %{with ocl}
-%package -n rocm-opencl
+%package -n rocm-opencl%{pkg_suffix}
 Summary:        ROCm OpenCL platform and device tool
 Requires:       comgr(major) = %{comgr_maj_api_ver}
 %if 0%{?fedora}
@@ -186,63 +196,63 @@ Requires:    opencl-filesystem
 Recommends:  LibOpenCL1
 %endif
 
-%description -n rocm-opencl
+%description -n rocm-opencl%{pkg_suffix}
 ROCm OpenCL language runtime.
 Supports offline and in-process/in-memory compilation.
 
-%package -n rocm-opencl-devel
+%package -n rocm-opencl%{pkg_suffix}-devel
 Summary:        ROCm OpenCL development package
-Requires:       rocm-opencl%{?_isa} = %{version}-%{release}
+Requires:       rocm-opencl%{pkg_suffix}%{?_isa} = %{version}-%{release}
 %if 0%{?fedora}
 Requires:  OpenCL-ICD-Loader-devel%{?_isa}
 %else
 Requires:  ocl-icd-devel%{?_isa}
 %endif
 
-%description -n rocm-opencl-devel
+%description -n rocm-opencl%{pkg_suffix}-devel
 The AMD ROCm OpenCL development package.
 
-%package -n rocm-clinfo
+%package -n rocm-clinfo%{pkg_suffix}
 Summary:        ROCm OpenCL platform and device tool
 
-%description -n rocm-clinfo
+%description -n rocm-clinfo%{pkg_suffix}
 A simple ROCm OpenCL application that enumerates all possible platform and
 device information.
 %endif
 
-%package -n rocm-hip
+%package -n rocm-hip%{pkg_suffix}
 Summary:        ROCm HIP platform and device tool
-Requires:       comgr(major) = %{comgr_maj_api_ver}
-Requires:       hipcc
+Requires:       comgr%{pkg_suffix}(major) = %{comgr_maj_api_ver}
+Requires:       hipcc%{pkg_suffix}
 
-%description -n rocm-hip
+%description -n rocm-hip%{pkg_suffix}
 HIP is a C++ Runtime API and Kernel Language that allows developers to create
 portable applications for AMD and NVIDIA GPUs from the same source code.
 
-%post -n rocm-hip -p /sbin/ldconfig
-%postun -n rocm-hip -p /sbin/ldconfig
+%if 0%{?suse_version}
+%ldconfig_scriptlets -n %{pkg_name}
+%endif
 
-%package -n rocm-hip-devel
+%package -n rocm-hip%{pkg_suffix}-devel
 Summary:        ROCm HIP development package
-Requires:       rocm-hip%{?_isa} = %{version}-%{release}
-Requires:       rocm-comgr-devel
-Requires:       rocm-runtime-devel >= %{rocm_release}
+Requires:       rocm-hip%{pkg_suffix}%{?_isa} = %{version}-%{release}
+Requires:       rocm-comgr%{pkg_suffix}-devel
+Requires:       rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
 # For roc-obj-ls
 Requires:       binutils
 Requires:       gawk
 
-Provides:       hip-devel = %{version}-%{release}
-Obsoletes:      hip-devel < 6.0.0
+Provides:       hip%{pkg_suffix}-devel = %{version}-%{release}
 
-%description -n rocm-hip-devel
+%description -n rocm-hip%{pkg_suffix}-devel
 ROCm HIP development package.
 
 %if %{with docs}
-%package -n hip-doc
+%package -n hip%{pkg_suffix}-doc
 Summary:        HIP API documentation package
 BuildArch:      noarch
 
-%description -n hip-doc
+%description -n hip%{pkg_suffix}-doc
 This package contains documentation for the hip package
 %endif
 
@@ -302,24 +312,25 @@ p=$PWD
 export PATH=%{rocmllvm_bindir}:$PATH
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
-    -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DHIPCC_BIN_DIR=%{pkg_prefix}/bin \
     -DHIP_COMMON_DIR=$p/hip \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-    -DHIPCC_BIN_DIR=%{_bindir} \
-    -DHIP_COMPILER=%rocmllvm_bindir/clang++ \
+    -DHIP_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DHIP_PLATFORM=amd \
-    -DROCM_PATH=%{_prefix} \
+    -DROCM_PATH=%{pkg_prefix} \
     -DBUILD_ICD=OFF \
     -DCLR_BUILD_HIP=ON \
     -DCLR_BUILD_OCL=%{build_ocl} \
     -DFILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DHIP_ENABLE_ROCPROFILER_REGISTER=OFF \
     -DUSE_PROF_API=%{build_prof_api} \
-    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_BUILD_TYPE=%{build_type}
 
 %cmake_build
@@ -328,85 +339,92 @@ export PATH=%{rocmllvm_bindir}:$PATH
 %cmake_install
 
 %if %{with ocl}
+%if %{without compat}
 # Install OpenCL ICD configuration:
 install -D -m 644 opencl/config/amdocl64.icd \
-    %{buildroot}%{_sysconfdir}/OpenCL/vendors/amdocl64.icd
+	%{buildroot}%{_sysconfdir}/OpenCL/vendors/amdocl64.icd
+%endif
 
 # Avoid file conflicts with opencl-headers package:
-mkdir -p %{buildroot}%{_includedir}/%{name}
-mv %{buildroot}%{_includedir}/CL %{buildroot}%{_includedir}/%{name}/CL
+mkdir -p %{buildroot}%{pkg_prefix}/include/%{name}
+mv %{buildroot}%{pkg_prefix}/include/CL %{buildroot}%{pkg_prefix}/include/%{name}/CL
 
 # Avoid file conflicts with clinfo package:
-mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
+mv %{buildroot}%{pkg_prefix}/bin/clinfo %{buildroot}%{pkg_prefix}/bin/rocm-clinfo
 %endif
 
 # Clean up file dupes
 %if 0%{?fedora}
-%fdupes %{buildroot}/%{_docdir}/hip
+%fdupes %{buildroot}/
 %endif
 
 # TODO send upstream a patch, libhip should be installed with cmake's 'TARGETS'
-chmod 755 %{buildroot}%{_libdir}/lib*.so*
+chmod 755 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/lib*.so*
 
 # Unnecessary file and is not FHS compliant:
-rm %{buildroot}%{_libdir}/.hipInfo
+rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/.hipInfo
 
 # Windows files:
-rm %{buildroot}%{_bindir}/*.bat
+rm %{buildroot}%{pkg_prefix}/bin/*.bat
 
-rm -f %{buildroot}%{_prefix}/share/doc/packages/rocclr*/LICENSE.md
-rm -f %{buildroot}%{_prefix}/share/doc/opencl*/LICENSE.md
-rm -f %{buildroot}%{_prefix}/share/doc/hip-asan/LICENSE.md
-rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocclr*/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/opencl*/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hip-asan/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 
 %if %{with ocl}
-%files -n rocm-opencl
+%files -n rocm-opencl%{pkg_suffix}
 %if 0%{?suse_version}
 %dir %{_sysconfdir}/OpenCL/
 %dir %{_sysconfdir}/OpenCL/vendors
 %endif
+%if %{without compat}
 %license opencl/LICENSE.md
 %config(noreplace) %{_sysconfdir}/OpenCL/vendors/amdocl64.icd
-%{_libdir}/libamdocl64.so.%{rocm_major}{,.*}
-%{_libdir}/libcltrace.so.%{rocm_major}{,.*}
+%endif
+%{pkg_prefix}/%{pkg_libdir}/libamdocl64.so.%{rocm_major}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libcltrace.so.%{rocm_major}{,.*}
 
-%files -n rocm-opencl-devel
-%{_libdir}/libamdocl64.so
-%{_libdir}/libcltrace.so
-%{_includedir}/%{name}
+%files -n rocm-opencl%{pkg_suffix}-devel
+%{pkg_prefix}/%{pkg_libdir}/libamdocl64.so
+%{pkg_prefix}/%{pkg_libdir}/libcltrace.so
+%{pkg_prefix}/include/%{name}
 
-%files -n rocm-clinfo
+%files -n rocm-clinfo%{pkg_suffix}
 %license opencl/LICENSE.md
-%{_bindir}/rocm-clinfo
+%{pkg_prefix}/bin/rocm-clinfo
 %endif
 
-%files -n rocm-hip
+%files -n rocm-hip%{pkg_suffix}
 %license hipamd/LICENSE.md
-%{_libdir}/libamdhip64.so.%{rocm_major}{,.*}
-%{_libdir}/libhiprtc.so.%{rocm_major}{,.*}
-%{_libdir}/libhiprtc-builtins.so.%{rocm_major}{,.*}
-%{_datadir}/hip
+%{pkg_prefix}/%{pkg_libdir}/libamdhip64.so.%{rocm_major}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhiprtc.so.%{rocm_major}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so.%{rocm_major}{,.*}
+%{pkg_prefix}/share/hip
 
-%files -n rocm-hip-devel
-%{_bindir}/roc-*
-%{_libdir}/libamdhip64.so
-%{_libdir}/libhiprtc.so
-%{_libdir}/libhiprtc-builtins.so
-%{_libdir}/cmake/hip*
-%{_bindir}/hipdemangleatp
-%{_bindir}/hipcc_cmake_linker_helper
-%{_includedir}/hip
+%files -n rocm-hip%{pkg_suffix}-devel
+%{pkg_prefix}/bin/roc-*
+%{pkg_prefix}/%{pkg_libdir}/libamdhip64.so
+%{pkg_prefix}/%{pkg_libdir}/libhiprtc.so
+%{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hip*
+%{pkg_prefix}/bin/hipdemangleatp
+%{pkg_prefix}/bin/hipcc_cmake_linker_helper
+%{pkg_prefix}/include/hip
 %if %{with cppheaderparser}
-%{_includedir}/hip_prof_str.h
+%{pkg_prefix}/include/hip_prof_str.h
 %endif
 
 %if %{with docs}
-%files -n hip-doc
+%files -n hip%{pkg_suffix}-doc
 %license hip/LICENSE.md
-%{_docdir}/hip
+%{pkg_prefix}/share/doc/hip
 %endif
 
 %changelog
+* Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

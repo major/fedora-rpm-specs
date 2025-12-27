@@ -52,7 +52,6 @@ Source11:       fastapi-dev.1
 Source12:       fastapi-run.1
 Source13:       fastapi-deploy.1
 Source14:       fastapi-login.1
-Source15:       fastapi-logout.1
 
 BuildArch:      noarch
 
@@ -678,8 +677,7 @@ export TIANGOLO_BUILD_PACKAGE='fastapi'
 %pyproject_install
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
-    '%{SOURCE15}'
+    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}'
 
 install -d \
     '%{buildroot}%{bash_completions_dir}' \

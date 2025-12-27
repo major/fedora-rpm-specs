@@ -1,7 +1,7 @@
 %global pypi_name aiosqlite
 
 Name:           python-%{pypi_name}
-Version:        0.22.0
+Version:        0.22.1
 Release:        1%{?dist}
 Summary:        Asyncio bridge to the standard SQLite3 module
 
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %doc CHANGELOG.md README.rst
 
 %changelog
+* Thu Dec 25 2025 Federico Pellegrin <fede@evolware.org> - 0.22.1-1
+- Bump to 0.22.1 (rhbz#2424699)
+
 * Mon Dec 15 2025 Federico Pellegrin <fede@evolware.org> - 0.22.0-1
 - Bump to 0.22.0 (rhbz#2421994)
 

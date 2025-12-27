@@ -149,6 +149,7 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %changelog
 * Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-8
 - Add --with compat
+- Reduce rccl list
 
 * Sun Dec 14 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-7
 - Fix rocm-7.1 libpath

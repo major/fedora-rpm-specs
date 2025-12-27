@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocrand_name librocrand1
-%else
-%global rocrand_name rocrand
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,22 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+%if 0%{?suse_version}
+%global rocrand_name librocrand1%{pkg_suffix}
+%else
+%global rocrand_name rocrand%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -76,31 +86,27 @@
 
 # The common parts of the cmake configuration
 %global cmake_config \\\
-  -DCMAKE_CXX_COMPILER=hipcc \\\
-  -DCMAKE_C_COMPILER=hipcc \\\
-  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DBUILD_TEST=%build_test \\\
   -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
-  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
   -DCMAKE_BUILD_TYPE=%build_type \\\
   -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \\\
+  -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \\\
+  -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \\\
+  -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \\\
+  -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \\\
   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
+  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
   -DCMAKE_SKIP_RPATH=ON \\\
-  -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
-  -DROCM_SYMLINK_LIBS=OFF \\\
-  -DBUILD_TEST=%build_test
+  -DROCM_SYMLINK_LIBS=OFF
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-%bcond_with generic
-%global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
-%if %{with generic}
-%global gpu_list %{rocm_gpu_list_generic}
-%else
 %global gpu_list %{rocm_gpu_list_default}
-%endif
+%global _gpu_list gfx1100
 
 # export an llvm compilation database
 # Useful for input for other llvm tools
@@ -111,13 +117,13 @@
 %global build_compile_db OFF
 %endif
 
-Name:           rocrand
+Name:           rocrand%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -135,13 +141,13 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}-modules
 
 %if %{with test} || %{with check}
 %if 0%{?suse_version}
@@ -165,7 +171,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       rocrand = %{version}-%{release}
+Provides:       rocrand%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -198,7 +204,7 @@ The rocRAND development package.
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{rocrand_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -226,8 +232,7 @@ cd projects/rocrand
 %endif
 
 %cmake %{cmake_generator} %{cmake_config} \
-    -DAMDGPU_TARGETS=%{gpu_list} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir
+       -DAMDGPU_TARGETS=%{gpu_list} \
 
 %cmake_build
 
@@ -238,7 +243,7 @@ cd projects/rocrand
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 
 %files -n %{rocrand_name}
 %if %{with gitcommit}
@@ -250,27 +255,31 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %if %{with debug}
-%{_libdir}/librocrand-d.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocrand-d.so.1{,.*}
 %else
-%{_libdir}/librocrand.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocrand.so.1{,.*}
 %endif
 
 %files devel 
-%{_includedir}/rocrand/
-%{_libdir}/cmake/rocrand/
+%{pkg_prefix}/include/rocrand/
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocrand/
 %if %{with debug}
-%{_libdir}/librocrand-d.so
+%{pkg_prefix}/%{pkg_libdir}/librocrand-d.so
 %else
-%{_libdir}/librocrand.so
+%{pkg_prefix}/%{pkg_libdir}/librocrand.so
 %endif
 
 %if %{with test}
 %files test
-%{_bindir}/test_*
-%{_bindir}/rocRAND/
+%{pkg_prefix}/bin/test_*
+%{pkg_prefix}/bin/rocRAND/
 %endif
 
 %changelog
+* Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
+- Add --with compat
+- Remove --with generic
+
 * Wed Dec 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Fix debug install
 

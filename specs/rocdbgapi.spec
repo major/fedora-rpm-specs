@@ -24,9 +24,22 @@
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname ROCdbgapi
 
-Name:       rocdbgapi
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
+Name:       rocdbgapi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    AMD Debugger API
 
 License:    MIT
@@ -37,8 +50,8 @@ ExclusiveArch: x86_64
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: rocm-comgr-devel
-BuildRequires: rocm-runtime-devel
+BuildRequires: rocm-comgr%{pkg_suffix}-devel
+BuildRequires: rocm-runtime%{pkg_suffix}-devel
 
 %description
 The AMD Debugger API is a library that provides all the support necessary
@@ -57,28 +70,32 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-%cmake
+%cmake \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
 %cmake_build
 
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocm-dbgapi/LICENSE.txt
-rm -f %{buildroot}%{_prefix}/share/doc/rocm-dbgapi-asan/LICENSE.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-dbgapi/LICENSE.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-dbgapi-asan/LICENSE.txt
 
 %files
 %doc README.md
 %license LICENSE.txt
-%{_libdir}/librocm-dbgapi.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocm-dbgapi.so.0{,.*}
 
 %files devel
-%dir %{_includedir}/amd-dbgapi
-%dir %{_libdir}/cmake/amd-dbgapi
-%{_datadir}/pkgconfig/amd-dbgapi.pc
-%{_includedir}/amd-dbgapi/*.h
-%{_libdir}/librocm-dbgapi.so
-%{_libdir}/cmake/amd-dbgapi/*.cmake
+%{pkg_prefix}/share/pkgconfig/amd-dbgapi.pc
+%{pkg_prefix}/include/amd-dbgapi/
+%{pkg_prefix}/%{pkg_libdir}/librocm-dbgapi.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/amd-dbgapi/
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Initial package

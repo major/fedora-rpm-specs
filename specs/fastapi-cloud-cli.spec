@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -8,6 +8,18 @@ URL:            https://github.com/fastapilabs/fastapi-cloud-cli
 # The GitHub archive contains a few useful files that the PyPI sdist does not,
 # such as the release notes.
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Written for Fedora in groff_man(7) format based on --help output
+Source100:      fastapi-cloud.1
+Source110:      fastapi-cloud-deploy.1
+Source120:      fastapi-cloud-login.1
+Source130:      fastapi-cloud-logout.1
+Source140:      fastapi-cloud-whoami.1
+Source150:      fastapi-cloud-unlink.1
+Source160:      fastapi-cloud-env.1
+Source161:      fastapi-cloud-env-list.1
+Source162:      fastapi-cloud-env-set.1
+Source163:      fastapi-cloud-env-delete.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -40,7 +52,14 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 %pyproject_extras_subpkg -n fastapi-cloud-cli standard
 
 
-%check
+%install -a
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+    '%{SOURCE100}' '%{SOURCE110}' '%{SOURCE120}' '%{SOURCE130}' \
+    '%{SOURCE140}' '%{SOURCE150}' \
+    '%{SOURCE160}' '%{SOURCE161}' '%{SOURCE162}' '%{SOURCE163}'
+
+
+%check -a
 %pytest -v
 
 
@@ -48,6 +67,13 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 %license LICENSE
 %doc README.md
 %doc release-notes.md
+
+# This package does not provide its own executable entry point; instead, it
+# adds a “fastapi cloud” command to the fastapi CLI (entry point in
+# python3-fastapi; separate package fastapi-cli also relevant). These man pages
+# integrate with those in python3-fastapi.
+%{_mandir}/man1/fastapi-cloud.1*
+%{_mandir}/man1/fastapi-cloud-*.1*
 
 
 %changelog

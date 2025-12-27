@@ -24,6 +24,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global glog_version 0.7.1
 
 %bcond_with check
@@ -45,11 +58,11 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Summary:        A rocprofiler helper library
-Name:           rocprofiler-register
-License:        MIT AND BSD-3-Clause
+Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
+Summary:        A rocprofiler helper library
+License:        MIT AND BSD-3-Clause
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -122,7 +135,8 @@ cp -p external/glog/COPYING COPYING.glog
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DROCPROFILER_REGISTER_BUILD_TESTS=%{build_test} \
     -DROCPROFILER_REGISTER_BUILD_FMT=OFF
 
@@ -132,9 +146,9 @@ cp -p external/glog/COPYING COPYING.glog
 %cmake_install
 
 # Do not install the test source etc
-rm -rf %{buildroot}%{_prefix}/share/rocprofiler-register
-rm -rf %{buildroot}%{_prefix}/share/modulefiles
-rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE.md
+rm -rf %{buildroot}%{pkg_prefix}/share/rocprofiler-register
+rm -rf %{buildroot}%{pkg_prefix}/share/modulefiles
+rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 
 %if %{with check}
 %check
@@ -143,17 +157,20 @@ rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE.md
 
 %files
 %license LICENSE.md COPYING.glog
-%{_libdir}/librocprofiler-register.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocprofiler-register.so.0{,.*}
 
 %files devel
 %doc README.md
-%{_includedir}/rocprofiler-register/
-%{_libdir}/librocprofiler-register.so
-%{_libdir}/cmake/rocprofiler-register/
+%{pkg_prefix}/include/rocprofiler-register/
+%{pkg_prefix}/%{pkg_libdir}/librocprofiler-register.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
-* Update to 7.1.0
+- Update to 7.1.0
 
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2

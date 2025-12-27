@@ -25,6 +25,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # Testing is broken
 %bcond_with test
 %if %{with test}
@@ -40,11 +53,11 @@
 %global build_type RelWithDebInfo
 %endif
 
-Summary:        Architected Queuing Language Profiling Library
-Name:           aqlprofile
-License:        MIT
+Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
+Summary:        Architected Queuing Language Profiling Library
+License:        MIT
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -54,8 +67,8 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 %description
 AQLprofile is an open source library that enables advanced GPU
@@ -82,9 +95,11 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 
 %build
 %cmake \
-  -DCMAKE_BUILD_TYPE=%{build_type} \
-  -DAQLPROFILE_BUILD_TESTS=%{build_test} \
-  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DAQLPROFILE_BUILD_TESTS=%{build_test} \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     
 %cmake_build
 
@@ -93,15 +108,17 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 
 %files
 %license LICENSE.md
-%{_libdir}/libhsa-amd-aqlprofile64.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhsa-amd-aqlprofile64.so.1{,.*}
 
 %files devel
 %doc README.md
-%dir %{_includedir}/aqlprofile-sdk
-%{_includedir}/aqlprofile-sdk/*.h
-%{_libdir}/libhsa-amd-aqlprofile64.so
+%{pkg_prefix}/include/aqlprofile-sdk/
+%{pkg_prefix}/%{pkg_libdir}/libhsa-amd-aqlprofile64.so
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -6,8 +6,11 @@
 # pyproject.toml files: they have different names, and some of the dependencies
 # for fastapi-cli-slim belong to an optional extra.
 
+# Not yet packaged: fastapi-new, https://github.com/fastapi/fastapi-new
+%bcond new 0
+
 Name:           fastapi-cli
-Version:        0.0.16
+Version:        0.0.20
 Release:        %autorelease
 Summary:        Run and manage FastAPI apps from the command line with FastAPI CLI
 
@@ -47,7 +50,11 @@ FastAPI app, manage your FastAPI project, and more.}
 %description %{common_description}
 
 
-%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info standard standard-no-fastapi-cloud-cli
+%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info standard
+%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info standard-no-fastapi-cloud-cli
+%if %{with new}
+%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info new
+%endif
 
 
 %package slim
@@ -58,7 +65,11 @@ Summary:        %{summary}
 %description slim %{common_description}
 
 
-%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info standard standard-no-fastapi-cloud-cli
+%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info standard
+%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info standard-no-fastapi-cloud-cli
+%if %{with new}
+%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info new
+%endif
 
 
 %prep
@@ -67,7 +78,7 @@ Summary:        %{summary}
 
 %generate_buildrequires
 export TIANGOLO_BUILD_PACKAGE='fastapi-cli-slim'
-%pyproject_buildrequires -x standard,standard-no-fastapi-cloud-cli
+%pyproject_buildrequires -x standard,standard-no-fastapi-cloud-cli%{?with_new:,new}
 (
   export TIANGOLO_BUILD_PACKAGE='fastapi-cli'
   %pyproject_buildrequires

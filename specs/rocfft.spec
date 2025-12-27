@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocfft_name librocfft0
-%else
-%global rocfft_name rocfft
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,22 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+%if 0%{?suse_version}
+%global rocfft_name librocfft0%{pkg_suffix}
+%else
+%global rocfft_name rocfft%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 
@@ -90,37 +100,33 @@
 %endif
 
 %global cmake_config \\\
-  -DCMAKE_CXX_COMPILER=hipcc \\\
-  -DCMAKE_CXX_FLAGS="--rtlib=compiler-rt --unwindlib=libgcc" \\\
-  -DCMAKE_C_COMPILER=hipcc \\\
-  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
-  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
-  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
-  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
   -DBUILD_CLIENTS_TESTS_OPENMP=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
-  -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
+  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
   -DCMAKE_BUILD_TYPE=%{build_type} \\\
+  -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \\\
+  -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \\\
+  -DCMAKE_CXX_FLAGS="--rtlib=compiler-rt --unwindlib=libgcc" \\\
+  -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \\\
+  -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \\\
+  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
+  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
   -DROCFFT_BUILD_OFFLINE_TUNER=OFF \\\
   -DROCFFT_KERNEL_CACHE_ENABLE=OFF \\\
   -DROCM_SYMLINK_LIBS=OFF \\\
   -DSQLITE_USE_SYSTEM_PACKAGE=ON
 
-%bcond_with generic
-%global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
-%if %{with generic}
-%global gpu_list %{rocm_gpu_list_generic}
-%else
 %global gpu_list %{rocm_gpu_list_default}
-%endif
+%global _gpu_list gfx1100
 
-Name:           rocfft
+Name:           rocfft%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -136,21 +142,19 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{ve
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(sqlite3)
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel >= %{rocm_release}
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
 
 %if %{with test}
-BuildRequires:  rocrand-devel
+BuildRequires:  rocrand%{pkg_suffix}-devel
 BuildRequires:  fftw-devel
 BuildRequires:  boost-devel
-BuildRequires:  hiprand-devel
-BuildRequires:  rocm-omp-devel
+BuildRequires:  hiprand%{pkg_suffix}-devel
+BuildRequires:  rocm-omp%{pkg_suffix}-devel
 
 %if 0%{?suse_version}
 BuildRequires:  gtest
@@ -159,7 +163,7 @@ BuildRequires:  gtest-devel
 %endif
 
 # rocfft-test compiles some things and requires rocm-hip-devel
-Requires:  rocm-hip-devel >= %{rocm_release}
+Requires:  rocm-hip%{pkg_suffix}-devel >= %{rocm_release}
 
 %endif
 
@@ -181,7 +185,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       rocfft = %{version}-%{release}
+Provides:       rocfft%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -204,7 +208,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        The rocFFT development package
 Requires:       %{rocfft_name}%{?_isa} = %{version}-%{release}
-Requires:       rocm-hip-devel
+Requires:       rocm-hip%{pkg_suffix}-devel
 
 %description devel
 The rocFFT development package.
@@ -244,8 +248,7 @@ export LDFLAGS="${LDFLAGS} -pie"
 # So switch from libgcc to rocm-llvm's libclang-rt.builtins with
 # the rtlib=compiler-rt. Leave unwind unchange with unwindlib=libgcc
 %cmake %{cmake_generator} %{cmake_config} \
-    -DGPU_TARGETS=%{gpu_list} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir
+    -DGPU_TARGETS=%{gpu_list}
 
 %cmake_build
 
@@ -260,9 +263,9 @@ cd projects/rocfft
 find %{buildroot} -type f -name "rocfft_rtc_helper" -print0 | xargs -0 -I {} /usr/bin/rm -rf "{}"
 
 # we don't need or want the client-info file installed by rocfft
-rm -rf %{buildroot}/%{_prefix}/.info
+rm -rf %{buildroot}/%{pkg_prefix}/.info
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 
 
 %check
@@ -285,20 +288,24 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %license LICENSE.md
 %endif
 
-%{_libdir}/librocfft.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocfft.so.0{,.*}
 
 %files devel
-%{_includedir}/rocfft/
-%{_libdir}/librocfft.so
-%{_libdir}/cmake/rocfft/
+%{pkg_prefix}/include/rocfft/
+%{pkg_prefix}/%{pkg_libdir}/librocfft.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocfft/
 
 %if %{with test}
 %files test
-%{_bindir}/rocfft-test
-%{_bindir}/rtc_helper_crash
+%{pkg_prefix}/bin/rocfft-test
+%{pkg_prefix}/bin/rtc_helper_crash
 %endif
 
 %changelog
+* Wed Dec 17 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Add -with compat
+- Remove -with generic
+
 * Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Remove dir tags
 

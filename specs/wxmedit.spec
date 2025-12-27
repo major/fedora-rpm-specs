@@ -1,6 +1,8 @@
 %global forgeurl https://github.com/wxMEdit/wxMEdit
 Version:        3.2
-%global tag %{version}
+%global date 20251010
+%global commit 18d14b12bf5f2a17d9e46f8450789d3ef56bfa70
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 %forgemeta
 
 Name:           wxmedit
@@ -43,11 +45,6 @@ rm -r %{buildroot}%{_datadir}/doc/wxmedit
 %find_lang %{name}
 
 %check
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=113678779
-# https://kojipkgs.fedoraproject.org/work/tasks/8820/113678820/build.log
-# test/encoding/test_gb18030_conv.cpp(73): error: in "wxmedit_test/encoding_test/test_gb18030_conv": check t == u has failed
-# the tests may pass in future new release
-sed -i '/test_gb18030_conv/d' test/test.cpp
 make check || (cat ./test-suite.log && exit 1)
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop

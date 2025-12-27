@@ -1,5 +1,5 @@
 Name:       intel-media-driver-free
-Version:    25.3.4
+Version:    25.4.6
 Release:    %autorelease
 Summary:    The Intel Media Driver for VAAPI
 License:    MIT and BSD

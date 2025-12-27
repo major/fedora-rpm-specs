@@ -78,7 +78,8 @@ Portable Computing Language development files.
 %autosetup -p1
 
 # Unbundle uthash
-find . -depth -name utlist.h -print -delete
+rm include/uthash.h
+rm include/utlist.h
 
 %build
 %global __cc_clang clang-%{llvm_ver}
