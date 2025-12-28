@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global miopen_name libMIOpen1
-%else
-%global miopen_name miopen
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global miopen_name libMIOpen1%{pkg_suffix}
+%else
+%global miopen_name miopen%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 
@@ -85,6 +97,9 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 # Use ninja if it is available
 %bcond_without ninja
 
@@ -100,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -136,15 +151,16 @@ BuildRequires:  frugally-deep-devel
 BuildRequires:  half-devel
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(nlohmann_json)
-BuildRequires:  hipblas-devel
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocrand-devel
-BuildRequires:  roctracer-devel
+BuildRequires:  hipblas%{pkg_suffix}-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocrand%{pkg_suffix}-devel
+BuildRequires:  roctracer%{pkg_suffix}-devel
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  zlib-devel
 
@@ -183,11 +199,11 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       miopen = %{version}-%{release}
+Provides:       miopen%{pkg_suffix} = %{version}-%{release}
 
 # Use ROCm devel at runtime
-Requires:       rocm-hip-devel
-Requires:       rocrand-devel
+Requires:       rocm-hip%{pkg_suffix}-devel
+Requires:       rocrand%{pkg_suffix}-devel
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -198,7 +214,7 @@ AMD's library for high performance machine learning primitives.
 %package devel
 Summary: Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       miopen-devel = %{version}-%{release}
+Provides:       miopen%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -291,14 +307,16 @@ LINK_MEM=32
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
 %{?suse_version:%{?build_cxxflags:CXXFLAGS="%{build_cxxflags}"}}
+
 %cmake %{cmake_generator} \
+       -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+       -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-       -DCMAKE_CXX_COMPILER=hipcc \
-       -DCMAKE_C_COMPILER=hipcc \
        -DROCM_SYMLINK_LIBS=OFF \
        -DHIP_PLATFORM=amd \
-       -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-       -DCMAKE_INSTALL_LIBDIR=%_libdir \
+       -DGPU_TARGETS=%{gpu_list} \
        -DBUILD_TESTING=%{build_test} \
        %{?build_type:-DCMAKE_BUILD_TYPE=%{build_type}} \
        -DCMAKE_SKIP_RPATH=ON \
@@ -324,7 +342,6 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 %endif
 %endif
 
-
 %if %{with test}
 %if %{with check}
 %check
@@ -344,10 +361,11 @@ cd projects/miopen
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.md
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 
 %if 0%{?fedora} || 0%{?suse_version}
-%fdupes %{buildroot}%{_prefix}
+%fdupes %{buildroot}%{pkg_prefix}
 %endif
 
 %post -p /sbin/ldconfig
@@ -362,21 +380,24 @@ rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.md
 %license LICENSE.md
 %endif
 
-%{_libdir}/libMIOpen.so.1{,.*}
-%{_libexecdir}/miopen/
+%{pkg_prefix}/%{pkg_libdir}/libMIOpen.so.1{,.*}
+%{pkg_prefix}/libexec/miopen/
 
 %files devel
-%_datadir/miopen/
-%_includedir/miopen/
-%{_libdir}/libMIOpen.so
-%{_libdir}/cmake/miopen/
+%{pkg_prefix}/share/miopen/
+%{pkg_prefix}/include/miopen/
+%{pkg_prefix}/%{pkg_libdir}/libMIOpen.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/miopen/
 
 %if %{with test}
 %files test
-%{_bindir}/test*
+%{pkg_prefix}/bin/test*
 %endif
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

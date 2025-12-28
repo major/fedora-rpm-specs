@@ -1,10 +1,10 @@
-%global git_commit 994bcd6900f1a7d7939e55e143c3f4e25772a440
+%global git_commit d5222226adb84e60329380fd7a2f6eaf06736056
 
 %global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.6.2
+Version:  3.6.3
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -14,15 +14,13 @@ Patch: opensips-0001-Consistently-use-rtpproxy-switches.patch
 Patch: opensips-0002-Cleanup-Oracle-s-makefiles.patch
 Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
 Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
-Patch: opensips-0005-Guard-VERSIONTYPE.patch
-Patch: opensips-0006-Revert-Guard-VERSIONTYPE.patch
-Patch: opensips-0007-Fix-libdl-linking-typo-to-eliminate-build-warnings.patch
-Patch: opensips-0008-Remove-unnecessary-j-invocation.patch
-Patch: opensips-0009-Curl-expects-signed-long-integers.patch
-Patch: opensips-0010-Missing-const.patch
-Patch: opensips-0011-Fix-rabbitmq-c-deprecated-header-warnings.patch
-Patch: opensips-0012-Fix-libbson-deprecated-API-warning-with-version-comp.patch
-Patch: opensips-0013-Fix-uninitialized-variable-warnings-in-SQL-API-funct.patch
+Patch: opensips-0005-Fix-rabbitmq-c-deprecated-header-warnings.patch
+Patch: opensips-0006-Fix-libbson-deprecated-API-warning-with-version-comp.patch
+Patch: opensips-0007-Fix-uninitialized-variable-warnings-in-SQL-API-funct.patch
+Patch: opensips-0008-Fix-const-correctness-warnings-in-HTTP-and-FreeSWITC.patch
+Patch: opensips-0009-Fix-uninitialized-va_list-warning-on-ppc64le-and-i68.patch
+Patch: opensips-0010-Fix-format-specifier-warnings-on-32-bit-architecture.patch
+Patch: opensips-0011-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
 
 URL:      https://opensips.org
 

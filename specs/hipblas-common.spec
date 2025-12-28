@@ -32,13 +32,26 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-Name:           hipblas-common
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
+Name:           hipblas-common%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
 License:        MIT
@@ -53,7 +66,7 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
+BuildRequires:  rocm-cmake%{pkg_suffix}
 
 # Only headers, cmake infra
 BuildArch: noarch
@@ -86,7 +99,10 @@ cd projects/hipblas-common
 cd projects/hipblas-common
 %endif
 
-%cmake -DCMAKE_INSTALL_LIBDIR=share
+%cmake \
+    -DCMAKE_INSTALL_LIBDIR=share \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
 %cmake_build
 
 %install
@@ -96,7 +112,7 @@ cd projects/hipblas-common
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas-common/LICENSE.md
 
 %files devel
 %if %{with gitcommit}
@@ -105,10 +121,13 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
 %license LICENSE.md
 %endif
 
-%{_includedir}/%{name}
-%{_datadir}/cmake/%{name}
+%{pkg_prefix}/include/hipblas-common/
+%{pkg_prefix}/share/cmake/hipblas-common/
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

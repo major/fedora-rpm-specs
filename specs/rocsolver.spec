@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocsolver_name librocsolver0
-%else
-%global rocsolver_name rocsolver
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -32,10 +26,28 @@
 %global date0 20250926
 %endif
 
-%global upstreamname rocSOLVER
+%global upstreamname rocsolver
 %global rocm_release 7.1
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global rocsolver_name librocsolver0%{pkg_suffix}
+%else
+%global rocsolver_name rocsolver%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -76,6 +88,9 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 # Use ninja if it is available
 %if 0%{?fedora} || 0%{?suse_version}
 %bcond_without ninja
@@ -98,13 +113,13 @@
 %global build_compile_db OFF
 %endif
 
-Name:           rocsolver
+Name:           rocsolver%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -116,12 +131,12 @@ License:        BSD-3-Clause AND BSD-2-Clause
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
+URL:            https://github.com/ROCm/rocm-libraries
+
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/rocSOLVER
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 # https://github.com/ROCm/rocSOLVER/pull/652
@@ -135,15 +150,15 @@ BuildRequires:  gcc-c++
 # RFE to replace fmt:: with std::
 # https://github.com/ROCm/rocSOLVER/issues/929
 BuildRequires:  fmt-devel
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-static
-BuildRequires:  rocsparse-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocprim%{pkg_suffix}-static
+BuildRequires:  rocsparse%{pkg_suffix}-devel
 
 %if %{with compress}
 BuildRequires:  pkgconfig(libzstd)
@@ -182,7 +197,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       rocsolver = %{version}-%{release}
+Provides:       rocsolver%{pkg_suffix} = %{version}-%{release}
 
 %description
 rocSOLVER is a work-in-progress implementation of a subset
@@ -208,7 +223,7 @@ Requires:       %{rocsolver_name}%{?_isa} = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{rocsolver_name}%{?_isa} = %{version}-%{release}
 
 %description test
 %{summary}
@@ -222,7 +237,7 @@ cd projects/rocsolver
 %patch -P1 -p1
 %patch -P2 -p1 
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 # As of 6.4, there are 2 long running hip jobs
@@ -297,8 +312,10 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
 fi
 
 %cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DCMAKE_BUILD_TYPE=%{build_type} \
@@ -308,8 +325,7 @@ fi
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DGPU_TARGETS=%{gpu_list} \
     -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DROCSOLVER_PARALLEL_COMPILE_JOBS=${COMPILE_JOBS} \
@@ -328,7 +344,7 @@ cd projects/rocsolver
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 
 %files  -n %{rocsolver_name}
 %if %{with gitcommit}
@@ -339,20 +355,26 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
 %doc README.md
 %endif
 
-%{_libdir}/librocsolver.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocsolver.so.0{,.*}
 
 %files devel
-%{_includedir}/rocsolver/
-%{_libdir}/librocsolver.so
-%{_libdir}/cmake/rocsolver/
+%{pkg_prefix}/include/rocsolver/
+%{pkg_prefix}/%{pkg_libdir}/librocsolver.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocsolver/
 
 %if %{with test}
 %files test
-%{_datadir}/rocsolver/
-%{_bindir}/rocsolver*
+%{pkg_prefix}/share/rocsolver/
+%{pkg_prefix}/bin/rocsolver*
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
+* Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove dir tags
 

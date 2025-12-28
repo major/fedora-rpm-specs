@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global hipblas_name libhipblas3
-%else
-%global hipblas_name hipblas
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hipblas_name libhipblas3%{pkg_suffix}
+%else
+%global hipblas_name hipblas%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -66,13 +78,13 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           hipblas
+Name:           hipblas%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm BLAS marshalling library
 License:        MIT
@@ -92,15 +104,15 @@ BuildRequires:  gcc-fortran
 %else
 BuildRequires:  gcc-gfortran
 %endif
-BuildRequires:  hipblas-common-devel
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocsolver-devel
+BuildRequires:  hipblas-common%{pkg_suffix}-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocsolver%{pkg_suffix}-devel
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -115,7 +127,7 @@ BuildRequires:  python3-pyyaml
 %endif
 %endif
 
-Provides:       hipblas = %{version}-%{release}
+Provides:       hipblas%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -142,7 +154,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{hipblas_name}%{?_isa} = %{version}-%{release}
-Requires:       hipblas-common-devel
+Requires:       hipblas-common%{pkg_suffix}-devel
 
 %description devel
 %{summary}
@@ -173,8 +185,10 @@ cd projects/hipblas
 %endif
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -185,7 +199,6 @@ cd projects/hipblas
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
@@ -200,7 +213,7 @@ cd projects/hipblas
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 
 %files  -n %{hipblas_name}
 %if %{with gitcommit}
@@ -210,19 +223,22 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 %license LICENSE.md
 %doc README.md
 %endif
-%{_libdir}/libhipblas.so.3{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhipblas.so.3{,.*}
 
 %files devel
-%{_includedir}/hipblas/
-%{_libdir}/libhipblas.so
-%{_libdir}/cmake/hipblas/
+%{pkg_prefix}/include/hipblas/
+%{pkg_prefix}/%{pkg_libdir}/libhipblas.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipblas/
 
 %if %{with test}
 %files test
-%{_bindir}/hipblas*
+%{pkg_prefix}/bin/hipblas*
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Add --with compat
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Remove dir tags
 

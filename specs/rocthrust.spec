@@ -32,6 +32,19 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -53,13 +66,13 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           rocthrust
+Name:           rocthrust%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Thrust libary
 
@@ -92,13 +105,13 @@ Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocprim-static
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocprim%{pkg_suffix}-static
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 %if %{with check}
 %if 0%{?suse_version}
@@ -137,7 +150,7 @@ cd projects/rocthrust
 # The ROCMExportTargetsHeaderOnly.cmake file
 # generates a files that reference the install location of other files
 # Make this change so they match
-sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExportTargetsHeaderOnly.cmake
+sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR %{pkg_libdir}/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
 %if %{with gitcommit}
@@ -152,8 +165,10 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %endif
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -164,6 +179,7 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DROCM_SYMLINK_LIBS=OFF
+
 %cmake_build
 
 %install
@@ -173,7 +189,8 @@ cd projects/rocthrust
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocthrust/LICENSE
 
 %check
 %if %{with check}
@@ -190,10 +207,13 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
 %license LICENSE
 %license NOTICES.txt
 %endif
-%{_includedir}/thrust
-%{_libdir}/cmake/%{name}
+%{pkg_prefix}/include/thrust
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocthrust/
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

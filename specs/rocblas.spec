@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocblas_name librocblas5
-%else
-%global rocblas_name rocblas
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 de5c1aebb641af098d9310a9fcca5591a7c066c8
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global rocblas_name librocblas5%{pkg_suffix}
+%else
+%global rocblas_name rocblas%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -71,8 +83,6 @@
 # export HIP_VISIBLE_DEVICES=<num> - 0, 1 etc.
 %bcond_with check
 
-# Tensile in 6.4 does not support generics
-# https://github.com/ROCm/Tensile/issues/2124
 %bcond_without tensile
 %if %{with tensile}
 %global build_tensile ON
@@ -110,42 +120,44 @@
 %global cmake_config \\\
   -DBLAS_INCLUDE_DIR=%{_includedir}/%{blaslib} \\\
   -DBLAS_LIBRARY=%{blaslib} \\\
-  -DCMAKE_CXX_COMPILER=hipcc \\\
-  -DCMAKE_C_COMPILER=hipcc \\\
-  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
-  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
-  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
-  -DCMAKE_BUILD_TYPE=%{build_type} \\\
-  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
-  -DCMAKE_SKIP_RPATH=ON \\\
-  -DCMAKE_VERBOSE_MAKEFILE=ON \\\
-  -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
-  -DROCM_SYMLINK_LIBS=OFF \\\
-  -DHIP_PLATFORM=amd \\\
   -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_FORTRAN_CLIENTS=OFF \\\
   -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \\\
+  -DBUILD_WITH_PIP=OFF \\\
+  -DBUILD_WITH_TENSILE=%{build_tensile} \\\
   -DBUILD_WITH_HIPBLASLT=OFF \\\
+  -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
+  -DCMAKE_BUILD_TYPE=%{build_type} \\\
+  -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \\\
+  -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \\\
+  -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \\\
+  -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \\\
+  -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
+  -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
+  -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
+  -DCMAKE_SKIP_RPATH=ON \\\
+  -DCMAKE_VERBOSE_MAKEFILE=ON \\\
+  -DGPU_TARGETS=%{gpu_list} \\\
+  -DROCM_SYMLINK_LIBS=OFF \\\
+  -DHIP_PLATFORM=amd \\\
   -DTensile_CPU_THREADS=${CORES} \\\
-  -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \\\
-  -DTensile_VERBOSE=%{tensile_verbose} \\\
   -DTensile_DIR=${TP}/cmake \\\
+  -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \\\
   -DTensile_ROOT=${TP} \\\
-  -DBUILD_WITH_PIP=OFF
+  -DTensile_VERBOSE=%{tensile_verbose}
 
-%bcond_with generic
-%global rocm_gpu_list_generic "gfx9-generic;gfx9-4-generic;gfx10-1-generic;gfx10-3-generic;gfx11-generic;gfx12-generic"
-%if %{with generic}
-%global gpu_list %{rocm_gpu_list_generic}
-%else
 %global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
+%if %{with compat}
+%bcond_without bundled_tensile
+%else
+%bcond_with bundled_tensile
 %endif
 
-%bcond_with bundled_tensile
-
-Name:           rocblas
+Name:           rocblas%{pkg_suffix}
 Summary:        BLAS implementation for ROCm
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
@@ -156,7 +168,7 @@ Release:        2%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
@@ -173,12 +185,13 @@ Patch106:       0001-tensile-gfx1036.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}-modules
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -246,8 +259,8 @@ BuildRequires:  pkgconfig(libzstd)
 %if %{with test}
 
 BuildRequires:  libomp-devel
-BuildRequires:  rocminfo
-BuildRequires:  rocm-smi-devel
+BuildRequires:  rocminfo%{pkg_suffix}
+BuildRequires:  rocm-smi%{pkg_suffix}-devel
 
 %if 0%{?suse_version}
 BuildRequires:  openblas-devel
@@ -279,7 +292,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       rocblas = %{version}-%{release}
+Provides:       rocblas%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -310,7 +323,7 @@ Requires:       cmake(hip)
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{rocblas_name}%{?_isa} = %{version}-%{release}
 Requires:       diffutils
 
 %description test
@@ -323,7 +336,7 @@ Requires:       diffutils
 cd projects/rocblas
 %patch -P1 -p1 
 %else
-%setup -n %{upstreamname}
+%setup -q -n %{upstreamname}
 %patch -P1 -p1
 %endif
 
@@ -351,8 +364,9 @@ rm -r Tensile/Configs/miopen/archives
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g' Tensile/cmake/TensileConfig.cmake
 
 # Use /usr instead of /opt/rocm for prefix
-sed -i -e 's@opt/rocm@usr@g' Tensile/Common.py
-sed -i -e 's@opt/rocm@usr@g' Tensile/Tests/yaml_only/test_config.py
+# Is this needed with bundled?
+sed -i -e 's@/opt/rocm@%{pkg_prefix}@g' Tensile/Common.py
+sed -i -e 's@/opt/rocm@%{pkg_prefix}@g' Tensile/Tests/yaml_only/test_config.py
 
 # Ignora asm cap
 sed -i -e 's@globalParameters["IgnoreAsmCapCache"] = False@globalParameters["IgnoreAsmCapCache"] = True@' Tensile/Common.py
@@ -363,6 +377,13 @@ sed -i -e 's@if not ignoreCacheCheck and derivedAsmCaps@if False and derivedAsmC
 sed -i -e '/joblib/d' requirements.*
 sed -i -e '/rich/d' requirements.*
 sed -i -e '/msgpack/d' requirements.*
+
+# Generalize prefix
+sed -i -e 's@/usr/bin@%{pkg_prefix}/bin@' Tensile/Utilities/Toolchain.py
+sed -i -e 's@/usr/lib64/rocm/llvm/bin@%{rocmllvm_bindir}@' Tensile/Utilities/Toolchain.py
+
+# Make sure hip/hip_runtime.h is found
+sed -i -e 's@"-D__HIP_HCC_COMPAT_MODE__=1"@"-D__HIP_HCC_COMPAT_MODE__=1","-I%{pkg_prefix}/include"@' Tensile/BuildCommands/SourceCommands.py
 
 cd ..
 
@@ -403,13 +424,6 @@ TP=`/usr/bin/TensileGetPath`
 cd projects/rocblas
 %endif
 
-# With compat llvm the system clang is wrong
-CLANG_PATH=`hipconfig --hipclangpath`
-export TENSILE_ROCM_ASSEMBLER_PATH=${CLANG_PATH}/clang++
-export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
-# Work around problem with koji's ld
-export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
-
 CORES=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
 if [ ${CORES}x = x ]; then
     CORES=1
@@ -422,10 +436,13 @@ if [ ${CORES} = 1 ]; then
     fi
 fi
 
-%cmake %{cmake_generator} %{cmake_config} \
-    -DGPU_TARGETS=%{gpu_list} \
-    -DBUILD_WITH_TENSILE=%{build_tensile} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+export CLANG_PATH=%{rocmllvm_bindir}
+export TENSILE_ROCM_ASSEMBLER_PATH=${CLANG_PATH}/clang++
+export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
+# Work around problem with koji's ld
+export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
+
+%cmake %{cmake_generator} %{cmake_config}
 
 %cmake_build
 
@@ -436,7 +453,7 @@ cd projects/rocblas
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocblas/LICENSE.md
 
 %check
 %if %{with test}
@@ -454,30 +471,31 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %files -n %{rocblas_name}
 %if %{with gitcommit}
 %license projects/rocblas/LICENSE.md
+%doc projects/rocblas/README.md
 %else
 %license LICENSE.md
+%doc README.md
 %endif
-%{_libdir}/librocblas.so.5{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocblas.so.5{,.*}
 %if %{with tensile}
-%{_libdir}/rocblas/
+%{pkg_prefix}/%{pkg_libdir}/rocblas/
 %endif
 
 %files devel
-%if %{with gitcommit}
-%doc projects/rocblas/README.md
-%else
-%doc README.md
-%endif
-%{_includedir}/rocblas/
-%{_libdir}/cmake/rocblas/
-%{_libdir}/librocblas.so
+%{pkg_prefix}/include/rocblas/
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocblas/
+%{pkg_prefix}/%{pkg_libdir}/librocblas.so
 
 %if %{with test}
 %files test
-%{_bindir}/rocblas*
+%{pkg_prefix}/bin/rocblas*
 %endif
 
 %changelog
+* Thu Dec 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
+- Add --with compat
+- Remove --with generic
+
 * Wed Dec 17 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Add --with bundled_tensile
 

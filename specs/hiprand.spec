@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global hiprand_name libhiprand1
-%else
-%global hiprand_name hiprand
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hiprand_name libhiprand1%{pkg_suffix}
+%else
+%global hiprand_name hiprand%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -75,7 +87,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        HIP random number generator
 License:        MIT AND BSD-3-Clause
@@ -89,13 +101,13 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocrand-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocrand%{pkg_suffix}-devel
 
 %if %{with test}
 %if 0%{?suse_version}
@@ -109,7 +121,7 @@ BuildRequires:  gtest-devel
 BuildRequires:  doxygen
 %endif
 
-Provides:       hiprand = %{version}-%{release}
+Provides:       hiprand%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -127,8 +139,8 @@ backend. Currently, hipRAND supports either rocRAND or cuRAND.
 %package devel
 Summary:        The hipRAND development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       rocrand-devel
-Provides:       hiprand-devel = %{version}-%{release}
+Requires:       rocrand%{pkg_suffix}-devel
+Provides:       hiprand%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 The hipRAND development package.
@@ -165,10 +177,11 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/pack
 cd projects/hiprand
 %endif
 
-
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -177,7 +190,6 @@ cd projects/hiprand
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_TEST=%{build_test} \
     -DROCM_SYMLINK_LIBS=OFF
 
@@ -189,8 +201,8 @@ cd projects/hiprand
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.md
-rm -f %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hiprand/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/bin/hipRAND/CTestTestfile.cmake
 
 %check
 %if %{with test}
@@ -212,26 +224,29 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %license LICENSE.md
 %endif
 %if %{with debug}
-%{_libdir}/libhiprand-d.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhiprand-d.so.1{,.*}
 %else
-%{_libdir}/libhiprand.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhiprand.so.1{,.*}
 %endif
 
 %files devel
-%{_includedir}/hiprand/
+%{pkg_prefix}/include/hiprand/
 %if %{with debug}
-%{_libdir}/libhiprand-d.so
+%{pkg_prefix}/%{pkg_libdir}/libhiprand-d.so
 %else
-%{_libdir}/libhiprand.so
+%{pkg_prefix}/%{pkg_libdir}/libhiprand.so
 %endif
-%{_libdir}/cmake/hiprand/
+%{pkg_prefix}/%{pkg_libdir}/cmake/hiprand/
 
 %if %{with test}
 %files test
-%{_bindir}/test*
+%{pkg_prefix}/bin/test*
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Add --with compat
+
 * Wed Dec 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Fix debug install
 

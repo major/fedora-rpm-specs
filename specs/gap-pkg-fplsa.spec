@@ -3,7 +3,7 @@
 %global giturl      https://github.com/gap-packages/FPLSA
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.2.7
+Version:        1.2.8
 Release:        %autorelease
 Summary:        Finitely presented Lie algebras
 

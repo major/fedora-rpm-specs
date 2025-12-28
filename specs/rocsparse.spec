@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocsparse_name librocsparse1
-%else
-%global rocsparse_name rocsparse
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global rocsparse_name librocsparse1%{pkg_suffix}
+%else
+%global rocsparse_name rocsparse%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -88,8 +100,10 @@
 %endif
 
 %global cmake_config \\\
-  -DCMAKE_CXX_COMPILER=hipcc \\\
-  -DCMAKE_C_COMPILER=hipcc \\\
+  -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \\\
+  -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \\\
+  -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \\\
+  -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \\\
   -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
   -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
   -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
@@ -105,13 +119,16 @@
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_FORTRAN_CLIENTS=OFF
 
-Name:           rocsparse
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
+Name:           rocsparse%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
 License:        MIT
@@ -126,14 +143,13 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
-BuildRequires:  rocprim-static
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocprim%{pkg_suffix}-static
 
 %if %{with compress}
 BuildRequires:  pkgconfig(libzstd)
@@ -141,7 +157,7 @@ BuildRequires:  pkgconfig(libzstd)
 
 %if %{with test}
 BuildRequires:  libomp-devel
-BuildRequires:  rocblas-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
 
 %if 0%{?suse_version}
 BuildRequires:  gcc-fortran
@@ -152,7 +168,6 @@ BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
 BuildRequires:  python3dist(pyyaml)
 %endif
-
 
 %endif
 
@@ -166,7 +181,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       rocsparse = %{version}-%{release}
+Provides:       rocsparse%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -224,8 +239,7 @@ cd projects/rocsparse
 %endif
 
 %cmake %{cmake_generator} %{cmake_config} \
-    -DGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DGPU_TARGETS=%{gpu_list} \
 %if %{with test}
     -DCMAKE_MATRICES_DIR=%{_builddir}/rocsparse-test-matrices/
 %endif
@@ -239,11 +253,11 @@ cd projects/rocsparse
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsparse/LICENSE.md
 
 %if %{with test}
-mkdir -p %{buildroot}/%{_datadir}/rocsparse/matrices
-install -pm 644 %{_builddir}/rocsparse-test-matrices/* %{buildroot}/%{_datadir}/rocsparse/matrices
+mkdir -p %{buildroot}/%{pkg_prefix}/share/rocsparse/matrices
+install -pm 644 %{_builddir}/rocsparse-test-matrices/* %{buildroot}/%{pkg_prefix}/share/rocsparse/matrices
 %endif
 
 %check
@@ -268,23 +282,26 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %license LICENSE.md
 %endif
 
-%{_libdir}/librocsparse.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocsparse.so.1{,.*}
 
 %files devel
-%{_includedir}/rocsparse/
-%{_libdir}/librocsparse.so
-%{_libdir}/cmake/rocsparse/
+%{pkg_prefix}/include/rocsparse/
+%{pkg_prefix}/%{pkg_libdir}/librocsparse.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocsparse/
 
 %if %{with test}
 %files test
-%{_bindir}/rocsparse*
-%{_datadir}/rocsparse/test/rocsparse_*
-%{_datadir}/rocsparse/
-%{_libdir}/rocsparse/
-%{_libexecdir}/rocsparse/
+%{pkg_prefix}/bin/rocsparse*
+%{pkg_prefix}/share/rocsparse/test/rocsparse_*
+%{pkg_prefix}/share/rocsparse/
+%{pkg_prefix}/%{pkg_libdir}/rocsparse/
+%%{pkg_prefix}/libexec/rocsparse/
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Add --with compat
+
 * Mon Nov 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Fix -test subpackage
 

@@ -1,9 +1,24 @@
-%if 0%{?suse_version}
-%global hipsparse_name libhipsparse4
-%else
-%global hipsparse_name hipsparse
-%endif
-
+#
+# Copyright Fedora Project Authors.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -15,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hipsparse_name libhipsparse4%{pkg_suffix}
+%else
+%global hipsparse_name hipsparse%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -53,7 +86,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm SPARSE marshalling library
 License:        MIT
@@ -74,26 +107,26 @@ BuildRequires:  gcc-fortran
 %else
 BuildRequires:  gcc-gfortran
 %endif
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-static
-BuildRequires:  rocsparse-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocprim%{pkg_suffix}-static
+BuildRequires:  rocsparse%{pkg_suffix}-devel
 
 %if %{with test}
 BuildRequires:  gtest-devel
-BuildRequires:  rocblas-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
 %if 0%{?suse_version}
-BuildRequires:  rocm-libomp-devel
+BuildRequires:  rocm-libomp%{pkg_suffix}-devel
 %else
 BuildRequires:  libomp-devel
 %endif
 %endif
 
-Provides:       hipsparse = %{version}-%{release}
+Provides:       hipsparse%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -114,7 +147,7 @@ cuSPARSE backends.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       hipsparse-devel = %{version}-%{release}
+Provides:       hipsparse%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -143,8 +176,10 @@ cd projects/hipsparse
 %endif
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -155,7 +190,6 @@ cd projects/hipsparse
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
     -DBUILD_CLIENTS_SAMPLES=OFF \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
@@ -182,7 +216,7 @@ cd projects/hipsparse
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipsparse/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsparse/LICENSE.md
 
 %if %{with test}
 mkdir -p %{buildroot}/%{_datadir}/%{name}/matrices
@@ -198,20 +232,24 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 %license LICENSE.md
 %endif
 
-%{_libdir}/libhipsparse.so.4{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhipsparse.so.4{,.*}
 
 %files devel
-%{_includedir}/hipsparse/
-%{_libdir}/libhipsparse.so
-%{_libdir}/cmake/hipsparse/
+%{pkg_prefix}/include/hipsparse/
+%{pkg_prefix}/%{pkg_libdir}/libhipsparse.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipsparse/
 
 %if %{with test}
 %files test
-%{_bindir}/hipsparse*
-%{_datadir}/hipsparse/
+%{pkg_prefix}/bin/hipsparse*
+%{pkg_prefix}/share/hipsparse/
 %endif
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+- Add copyright
+
 * Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

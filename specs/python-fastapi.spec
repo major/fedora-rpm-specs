@@ -9,11 +9,17 @@
 
 %bcond inline_snapshot 1
 %bcond orjson 1
-%bcond passlib 1
+# Not yet packaged: https://pypi.org/project/pwdlib/
+# (Used for a few tests.)
+%bcond pwdlib 0
 # Not yet packaged: https://pypi.org/project/PyJWT/
+# (Only has very limited use in the tests.)
 %bcond pyjwt 0
 # Python 3.14 / Pydantic 3.12 / PEP 649 compat. issues; orphaned for F43
 %bcond sqlmodel %[ %{without bootstrap} && 0 ]
+# Not yet packaged: https://pypi.org/project/strawberry-graphql/
+# (Only needed for integration examples in the documentation.)
+%bcond strawberry_graphql 0
 %bcond uvicorn 1
 
 # For translations, check docs/*/docs/index.md
@@ -37,7 +43,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.127.0
+Version:        0.127.1
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -76,18 +82,19 @@ BuildRequires:  %{py3_dist httpx} >= 0.23
 BuildRequires:  %{py3_dist pytest} >= 7.1.3
 BuildRequires:  %{py3_dist dirty-equals} >= 0.9
 %if %{with sqlmodel}
-BuildRequires:  %{py3_dist sqlmodel} >= 0.0.24
+BuildRequires:  %{py3_dist sqlmodel} >= 0.0.27
 %endif
 BuildRequires:  %{py3_dist flask} >= 1.1.2
+%if %{with strawberry_graphql}
+BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
+%endif
 BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
-# Omit PyJWT, https://pypi.org/project/PyJWT/, because it is not packaged and
-# only has very limited use in the tests.
 %if %{with pyjwt}
 BuildRequires:  %{py3_dist PyJWT} >= 2.9
 %endif
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
-%if %{with passlib}
-BuildRequires:  %{py3_dist passlib[bcrypt]} >= 1.7.2
+%if %{with pwdlib}
+BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
 %endif
 %if %{with inline_snapshot}
 BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
@@ -713,11 +720,16 @@ ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutori
 %endif
 
 %if %{without pyjwt}
-ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_security/test_tutorial005*"
+ignore="${ignore-} --ignore=tests/test_tutorial/test_security/test_tutorial004.py"
+ignore="${ignore-} --ignore=tests/test_tutorial/test_security/test_tutorial005.py"
 %endif
 
 %if %[ %{without sqlmodel} || %{without inline_snapshot} ]
 ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/*"
+%endif
+
+%if %{without strawberry_graphql}
+ignore="${ignore-} --ignore=tests/test_tutorial/test_graphql/test_tutorial001.py"
 %endif
 
 # Ignore all DeprecationWarning messages, as they pop up from various

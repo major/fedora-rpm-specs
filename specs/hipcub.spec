@@ -32,6 +32,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -56,13 +69,13 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           hipcub
+Name:           hipcub%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
@@ -78,13 +91,13 @@ Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstrea
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocprim-static
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocprim%{pkg_suffix}-static
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 %if %{with check} || %{with test}
 %if 0%{?suse_version}
@@ -92,7 +105,7 @@ BuildRequires:  gtest
 %else
 BuildRequires:  gtest-devel
 %endif
-BuildRequires:  rocminfo
+BuildRequires:  rocminfo%{pkg_suffix}
 %endif
 
 # Only headers, cmake infra but noarch confuses the libdir
@@ -108,7 +121,7 @@ In the ROCm environment, hipCUB uses the rocPRIM library as the backend.
 %package devel
 Summary:        The %{upstreamname} development package
 Provides:       %{name}-static = %{version}-%{release}
-Requires:       rocprim-devel
+Requires:       rocprim%{pkg_suffix}-devel
 
 %description devel
 The %{upstreamname} development package.
@@ -134,7 +147,7 @@ cd projects/hipcub
 # The ROCMExportTargetsHeaderOnly.cmake file
 # generates a files that reference the install location of other files
 # Make this change so they match
-sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExportTargetsHeaderOnly.cmake
+sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR %{pkg_libdir}/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
 %if %{with gitcommit}
@@ -149,8 +162,10 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %endif
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -161,6 +176,7 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DROCM_SYMLINK_LIBS=OFF
+
 %cmake_build
 
 %install
@@ -170,7 +186,8 @@ cd projects/hipcub
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipcub/LICENSE.txt
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 
 %if %{with check}
 %check
@@ -185,16 +202,19 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipcub/LICENSE.txt
 %doc README.md
 %license LICENSE.txt
 %endif
-%{_includedir}/%{name}
-%{_libdir}/cmake/%{name}
+%{pkg_prefix}/include/hipcub
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipcub
 
 %if %{with test}
 %files test
-%{_bindir}/test_*
-%{_bindir}/hipcub/
+%{pkg_prefix}/bin/test_*
+%{pkg_prefix}/bin/hipcub/
 %endif
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

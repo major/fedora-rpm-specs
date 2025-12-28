@@ -2,10 +2,10 @@
 %undefine _include_frame_pointers
 
 # Pin to a specific llvm version
-%global llvm_ver 20
+%global llvm_ver 21
 
 Name: pocl
-Version: 7.0
+Version: 7.1
 Release: %autorelease
 
 # The entire code is under MIT
@@ -30,6 +30,7 @@ BuildRequires: clang(major) = %{llvm_ver}
 BuildRequires: clang-devel(major) = %{llvm_ver}
 BuildRequires: compiler-rt(major) = %{llvm_ver}
 BuildRequires: llvm-devel(major) = %{llvm_ver}
+BuildRequires: spirv-llvm-translator-devel >= %{llvm_ver}, spirv-llvm-translator-devel < %[%{llvm_ver} + 1]
 
 BuildRequires: glew-devel
 BuildRequires: hwloc-devel
@@ -44,6 +45,10 @@ BuildRequires: zlib-devel
 BuildRequires: cmake
 BuildRequires: libtool
 BuildRequires: ninja-build
+
+# TODO: Unbundle the STC headers
+# It's unclear if this should be STC, stclib, libstc or libSTC?
+Provides: bundled(STC)
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1082364
 Requires: libstdc++-devel%{?_isa}
@@ -80,6 +85,11 @@ Portable Computing Language development files.
 # Unbundle uthash
 rm include/uthash.h
 rm include/utlist.h
+
+# TODO: Unbundle the STC headers
+# Copy the STC license
+cp thirdparty/STC/LICENSE STC-LICENSE
+
 
 %build
 %global __cc_clang clang-%{llvm_ver}
@@ -120,12 +130,13 @@ rm include/utlist.h
 %endif
 # PoCL doesn't support s390x, see rhbz#2396306. The tests fail badly (endian issues?) but removing a main arch from a package is a pain.
 %ifnarch s390x
-%ctest -E '^regression/test_rematerialized_alloca_load_with_outside_pr_users$|^workgroup/conditional_barrier_dynamic$%{pocl_arched_test_excludes}'
+%ctest -E '^workgroup/conditional_barrier_dynamic$%{pocl_arched_test_excludes}'
 %endif
 
 %files
 %doc README.md doc/sphinx/source/*.rst
-%license COPYING
+# TODO: Unbundle the STC headers
+%license COPYING STC-LICENSE
 %{_sysconfdir}/OpenCL/vendors/%{name}.icd
 %{_libdir}/lib%{name}.so.2*
 %{_datadir}/%{name}/

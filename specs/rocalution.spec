@@ -19,16 +19,28 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocalution_name librocalution1
-%else
-%global rocalution_name rocalution
-%endif
-
 %global upstreamname rocALUTION
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global rocalution_name librocalution1%{pkg_suffix}
+%else
+%global rocalution_name rocalution%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -54,6 +66,9 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 # Use ninja if it is available
 %if 0%{?fedora} || 0%{?suse_version}
 %bcond_without ninja
@@ -69,7 +84,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -78,16 +93,16 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-static
-BuildRequires:  rocrand-devel
-BuildRequires:  rocsparse-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocprim%{pkg_suffix}-static
+BuildRequires:  rocrand%{pkg_suffix}-devel
+BuildRequires:  rocsparse%{pkg_suffix}-devel
 
 %if %{with test}
 %if 0%{?suse_version}
@@ -107,7 +122,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       rocalution = %{version}-%{release}
+Provides:       rocalution%{pkg_suffix} = %{version}-%{release}
 
 %if 0%{?suse_version}
 # Got the name wrong
@@ -137,7 +152,7 @@ Host
 %package devel
 Summary: Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocalution-devel = %{version}-%{release}
+Provides:       rocalution%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -162,8 +177,10 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMa
 
 %build
 %cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=%rocmllvm_bindir/ld.lld \
     -DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=%rocmllvm_bindir/ld.lld \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -174,10 +191,9 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMa
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
-    -DCMAKE_MODULE_PATH=%{_libdir}/cmake/hip \
-    -DHIP_ROOT_DIR=%{_prefix} \
+    -DGPU_TARGETS=%{gpu_list} \
+    -DCMAKE_MODULE_PATH=%{pkg_prefix}/%{pkg_libdir}/cmake/hip \
+    -DHIP_ROOT_DIR=%{pkg_prefix} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DBUILD_CLIENTS_TESTS=%{build_test}
 
@@ -186,26 +202,29 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMa
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocalution/LICENSE.md
 
 %files
 %license LICENSE.md
-%{_libdir}/librocalution.so.1{,.*}
-%{_libdir}/librocalution_hip.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocalution.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocalution_hip.so.1{,.*}
 
 %files devel
 %doc README.md
-%{_includedir}/rocalution/
-%{_libdir}/librocalution.so
-%{_libdir}/librocalution_hip.so
-%{_libdir}/cmake/rocalution/
+%{pkg_prefix}/include/rocalution/
+%{pkg_prefix}/%{pkg_libdir}/librocalution.so
+%{pkg_prefix}/%{pkg_libdir}/librocalution_hip.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocalution/
 
 %if %{with test}
 %files test
-%{_bindir}/rocalution*
+%{pkg_prefix}/bin/rocalution*
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

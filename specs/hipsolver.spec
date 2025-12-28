@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global hipsolver_name libhipsolver1
-%else
-%global hipsolver_name hipsolver
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hipsolver_name libhipsolver1%{pkg_suffix}
+%else
+%global hipsolver_name hipsolver%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -73,7 +85,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm SOLVER marshalling library
 License:        MIT
@@ -95,22 +107,22 @@ BuildRequires:  gcc-fortran
 %else
 BuildRequires:  gcc-gfortran
 %endif
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocsolver-devel
-BuildRequires:  rocsparse-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocsolver%{pkg_suffix}-devel
+BuildRequires:  rocsparse%{pkg_suffix}-devel
 %if 0%{?fedora}
 BuildRequires:  suitesparse-devel
 %endif
 
 %if %{with test}
 BuildRequires:  gtest-devel
-BuildRequires:  hipsparse-devel
+BuildRequires:  hipsparse%{pkg_suffix}-devel
 %if 0%{?suse_version}
 BuildRequires:  blas-devel
 BuildRequires:  cblas-devel
@@ -121,7 +133,7 @@ BuildRequires:  lapack-static
 %endif
 %endif
 
-Provides:       hipsolver = %{version}-%{release}
+Provides:       hipsolver%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -141,7 +153,7 @@ and cuSOLVER as backends.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       hipsolver-devel = %{version}-%{release}
+Provides:       hipsolver%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -170,8 +182,10 @@ cd projects/hipsolver
 %endif
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -182,7 +196,6 @@ cd projects/hipsolver
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_TESTS=%{build_test}
 
 %cmake_build
@@ -194,7 +207,8 @@ cd projects/hipsolver
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 
 %files
 %if %{with gitcommit}
@@ -205,22 +219,25 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 %license LICENSE.md
 %endif
 
-%{_libdir}/libhipsolver.so.1{,.*}
-%{_libdir}/libhipsolver_fortran.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhipsolver.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhipsolver_fortran.so.1{,.*}
 
 %files devel
-%{_includedir}/hipsolver/
-%{_libdir}/libhipsolver.so
-%{_libdir}/libhipsolver_fortran.so
-%{_libdir}/cmake/hipsolver/
+%{pkg_prefix}/include/hipsolver/
+%{pkg_prefix}/%{pkg_libdir}/libhipsolver.so
+%{pkg_prefix}/%{pkg_libdir}/libhipsolver_fortran.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipsolver/
 
 %if %{with test}
 %files test
-%{_datadir}/hipsolver/
-%{_bindir}/hipsolver*
+%{pkg_prefix}/share/hipsolver/
+%{pkg_prefix}/bin/hipsolver*
 %endif
 
 %changelog
+* Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Add --with compat
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove dir tags
 

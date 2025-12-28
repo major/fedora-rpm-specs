@@ -1,15 +1,12 @@
 # -*-Mode: rpm-spec -*-
 
-%global commit 0fc054957275580a31d09679b95d9de9cf69d04a
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:     wev
-Version:  1.0.1
-Release:  0.20230430git%{shortcommit}%{?dist}
+Version:  1.1.0
+Release:  1%{?dist}
 Summary:  A tool for debugging events on a sway Wayland window
 License:  MIT
 URL:      https://git.sr.ht/~sircmpwn/wev
-Source0:  %{url}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
+Source0:  %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -23,7 +20,7 @@ A tool for debugging events on a sway Wayland window,
 analogous to the X11 tool xev.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup
 
 %build
 %set_build_flags
@@ -39,6 +36,9 @@ analogous to the X11 tool xev.
 %doc README.md
 
 %changelog
+* Fri Dec 26 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0 (#2399685)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-0.20230430git0fc0549
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

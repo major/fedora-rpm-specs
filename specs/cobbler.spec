@@ -75,7 +75,7 @@ Requires: genisoimage
 Recommends: bash-completion
 Requires: dnf-plugins-core
 # syslinux is only available on x86
-Requires: (syslinux if (filesystem.x86_64 or filesystem.i686))
+Requires: (syslinux if (filesystem(x86-64) or filesystem(x86-32)))
 # grub2 efi stuff is only available on x86
 Recommends: grub2-efi-ia32
 Recommends: grub2-efi-x64

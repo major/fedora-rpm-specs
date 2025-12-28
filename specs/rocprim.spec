@@ -31,6 +31,20 @@
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -57,13 +71,13 @@
 %global build_type RelWithDebInfo
 %endif
 
-Name:           rocprim
+Name:           rocprim%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm parallel primatives
 
@@ -82,12 +96,12 @@ ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 %if %{with doc}
 BuildRequires:  doxygen
@@ -100,7 +114,7 @@ BuildRequires:  gtest
 %else
 BuildRequires:  gtest-devel
 %endif
-BuildRequires:  rocminfo
+BuildRequires:  rocminfo%{pkg_suffix}
 %endif
 
 %description
@@ -109,7 +123,7 @@ for developing performant GPU-accelerated code on AMD ROCm platform.
 
 %package devel
 Summary:        ROCm parallel primatives
-Provides:       rocprim-static = %{version}-%{release}
+Provides:       rocprim%{pkg_suffix}-static = %{version}-%{release}
 
 # the devel subpackage is only headers and cmake infra
 BuildArch: noarch
@@ -121,8 +135,8 @@ for developing performant GPU-accelerated code on AMD ROCm platform.
 %if %{with test}
 %package test
 Summary:        upstream tests for ROCm parallel primatives
-Provides:       rocprim-test = %{version}-%{release}
-Requires:       rocprim-devel
+Provides:       rocprim%{pkg_suffix}-test = %{version}-%{release}
+Requires:       rocprim%{pkg_suffix}-devel
 Requires:       gtest
 
 %description test
@@ -154,9 +168,10 @@ cd projects/rocprim
 	-DBUILD_TEST=%{build_test} \
 	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
 	-DCMAKE_BUILD_TYPE=%build_type \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_CXX_COMPILER=hipcc \
+	-DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+	-DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
 	-DCMAKE_INSTALL_LIBDIR=share \
+	-DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
 	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
 	-DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
 	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -172,11 +187,11 @@ cd projects/rocprim
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocprim/LICENSE.md
 
 %if %{with test}
 # force the cmake test file to use absolute paths for its referenced binaries
-sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmake
+sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/%{name}/CTestTestfile.cmake
 %endif
 
 %files devel
@@ -189,18 +204,21 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 %license LICENSE.md
 %license NOTICES.txt
 %endif
-%{_includedir}/%{name}
-%{_datadir}/cmake/rocprim
+%{pkg_prefix}/include/rocprim/
+%{pkg_prefix}/share/cmake/rocprim/
 
 %if %{with test}
 %files test
-%{_bindir}/test*
-%{_datadir}/libtest*
-%{_bindir}/%{name}/
+%{pkg_prefix}/bin/test*
+%{pkg_prefix}/share/libtest*
+%{pkg_prefix}/bin/rocprim/
 %endif
 
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

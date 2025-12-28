@@ -1,8 +1,8 @@
-%global appname com.github.alecaddd.sequeler
+%global appname io.github.ellie_commons.sequeler
 
 Name:           sequeler
-Summary:        Friendly SQL Client
-Version:        0.8.2
+Summary:        Easily connect to your local or remote database
+Version:        0.9.0
 Release:        %autorelease
 
 # The entire source is GPL-3.0-or-later (the LICENSE file is GPLv3, and both
@@ -19,12 +19,8 @@ License:        %{shrink:
                 LGPL-2.1-or-later AND
                 CC0-1.0
                 }
-URL:            https://github.com/Alecaddd/sequeler
+URL:            https://github.com/ellie-commons/sequeler
 Source:         %{url}/archive/v%{version}/sequeler-%{version}.tar.gz
-
-# Fix deprecated top-level developer_name in AppData XML
-# https://github.com/Alecaddd/sequeler/pull/387
-Patch:          %{url}/pull/387.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,16 +36,16 @@ BuildRequires:  appstream
 
 BuildRequires:  hardlink
 
-BuildRequires:  meson
+BuildRequires:  meson >= 0.59.0
 BuildRequires:  vala
 BuildRequires:  gcc
 
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(granite) >= 5.2.0
+BuildRequires:  pkgconfig(granite) >= 5.3.0
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gtksourceview-3.0)
+BuildRequires:  pkgconfig(gtksourceview-4)
 BuildRequires:  pkgconfig(libgda-5.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libssh2)
@@ -177,10 +173,10 @@ desktop-file-validate \
 # Still required by guidelines for now
 # (https://pagure.io/packaging-committee/issue/1053):
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
+    %{buildroot}/%{_metainfodir}/%{appname}.metainfo.xml
 # Matches what gnome-software and others use:
 appstreamcli validate --no-net --explain \
-    %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
+    %{buildroot}/%{_metainfodir}/%{appname}.metainfo.xml
 
 
 %files -f %{appname}.lang
@@ -193,7 +189,7 @@ appstreamcli validate --no-net --explain \
 %{_datadir}/glib-2.0/schemas/%{appname}.gschema.xml
 %{_datadir}/icons/hicolor/*/*/%{appname}.svg
 %{_datadir}/icons/hicolor/{16x16,24x24}/{actions,status}/*.svg
-%{_metainfodir}/%{appname}.appdata.xml
+%{_metainfodir}/%{appname}.metainfo.xml
 
 
 %changelog

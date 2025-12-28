@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/primgrp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Primitive permutation groups library
 

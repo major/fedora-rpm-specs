@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global hipfft_name libhipfft0
-%else
-%global hipfft_name hipfft
-%endif
-
 %bcond_with gitcommit
 %if %{with gitcommit}
 %global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
@@ -36,6 +30,24 @@
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hipfft_name libhipfft0%{pkg_suffix}
+%else
+%global hipfft_name hipfft%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -74,7 +86,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm FFT marshalling library
 License:        MIT
@@ -95,21 +107,21 @@ ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel >= %{rocm_release}
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-static
-BuildRequires:  rocfft-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocprim%{pkg_suffix}-static
+BuildRequires:  rocfft%{pkg_suffix}-devel
 
 %if %{with test}
 
 BuildRequires:  boost-devel
 BuildRequires:  fftw-devel
-BuildRequires:  hiprand-devel
-BuildRequires:  rocrand-devel
+BuildRequires:  hiprand%{pkg_suffix}-devel
+BuildRequires:  rocrand%{pkg_suffix}-devel
 
 %if 0%{?suse_version}
 BuildRequires:  gtest
@@ -120,7 +132,7 @@ BuildRequires:  gtest-devel
 
 %endif
 
-Provides:       hipfft = %{version}-%{release}
+Provides:       hipfft%{pkg_suffix} = %{version}-%{release}
 
 %description
 hipFFT is an FFT marshalling library. Currently, hipFFT supports
@@ -137,7 +149,7 @@ the backend and results back to the application.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       hipfft-devel = %{version}-%{release}
+Provides:       hipfft%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -170,8 +182,10 @@ cd projects/hipfft
 %endif
 
 %cmake \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
     -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
@@ -180,7 +194,6 @@ cd projects/hipfft
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
@@ -195,7 +208,7 @@ cd projects/hipfft
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipfft/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfft/LICENSE.md
 
 %check
 %if %{with test}
@@ -219,14 +232,14 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %doc README.md
 %endif
 
-%{_libdir}/libhipfft.so.0{,.*}
-%{_libdir}/libhipfftw.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhipfft.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libhipfftw.so.0{,.*}
 
 %files devel
-%{_includedir}/hipfft/
-%{_libdir}/libhipfft.so
-%{_libdir}/libhipfftw.so
-%{_libdir}/cmake/hipfft/
+%{pkg_prefix}/include/hipfft/
+%{pkg_prefix}/%{pkg_libdir}/libhipfft.so
+%{pkg_prefix}/%{pkg_libdir}/libhipfftw.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipfft/
 
 %if %{with test}
 %files test
@@ -234,6 +247,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Add --with compat
+
 * Thu Dec 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Fix building -test, disable lto
 

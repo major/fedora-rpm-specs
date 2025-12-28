@@ -11,19 +11,16 @@
 %endif
 
 Name:          leptonica
-Version:       1.86.0
-Release:       3%{?dist}
+Version:       1.87.0
+Release:       1%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
 URL:           https://github.com/danbloomberg/leptonica
 Source0:       https://github.com/DanBloomberg/leptonica/archive/%{version}/%{name}-%{version}.tar.gz
-# Use CMAKE_INSTALL_LIBDIR
-# Fix library name on win32
+# Add soversion suffix on win32
 # Don't add _<CONFIG> suffix to pkgconfig filename
 Patch0:        leptonica_cmake.patch
-# Backport fix for broken pkgconfig file
-Patch1:        https://github.com/DanBloomberg/leptonica/commit/e0936377f9094b72f7f2ea6bc34311ccc69b2f71.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -189,6 +186,9 @@ MinGW Windows Leptonica library.
 
 
 %changelog
+* Thu Dec 25 2025 Sandro Mani <manisandro@gmail.com> - 1.87.0-1
+- Update to 1.87.0
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 1.86.0-3
 - Rebuild (libtiff)
 

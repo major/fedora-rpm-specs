@@ -11,7 +11,7 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        37.0.0
+Version:        37.0.1
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
@@ -29,12 +29,6 @@ Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 # based on a cursory inspection of gherkin-generate-tokens.cpp.
 Source10:       gherkin.1
 Source11:       gherkin-generate-tokens.1
-
-# Downstream-only: loosen the lower bound on uv_build
-#
-# It was aggressively updated by upstream automation; we can use an older
-# version until we catch up.
-Patch:          0001-Downstream-only-loosen-the-lower-bound-on-uv_build.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

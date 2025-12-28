@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/datastructures
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Standard data structures for GAP
 

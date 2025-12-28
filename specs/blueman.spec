@@ -33,6 +33,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	iproute
+BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	marshalparser
 BuildRequires:	python3-Cython >= 0.21

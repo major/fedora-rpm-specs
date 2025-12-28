@@ -4,8 +4,11 @@ Release:       %autorelease
 License:       GPL-2.0-or-later AND GFDL-1.3-or-later
 Summary:       KDE media player based on VLC
 URL:           https://apps.kde.org/kaffeine/
+VCS:           https://invent.kde.org/multimedia/kaffeine/
 #Source:        https://download.kde.org/%{stable_kf5}/%{name}/%{name}-%{version}.tar.xz
-Source:        https://invent.kde.org/multimedia/kaffeine/-/archive/v%{version}/kaffeine-v%{version}.tar.bz2
+Source:        %{vcs}/-/archive/v%{version}/kaffeine-v%{version}.tar.bz2
+# Fix use of std::prev (rhbz#2424083)
+Patch:         %{vcs}/-/merge_requests/23.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules

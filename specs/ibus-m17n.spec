@@ -1,7 +1,7 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.36
+Version:    1.4.37
 Release:    %autorelease
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
@@ -11,7 +11,7 @@ Source0:    https://github.com/ibus/%{name}/archive/%{version}/%{name}-%{version
 BuildRequires:  gettext-devel >= 0.19
 BuildRequires:  libtool
 BuildRequires:  m17n-lib-devel
-BuildRequires:  gtk3-devel
+BuildRequires:  gtk4-devel
 BuildRequires:  ibus-devel >= %{require_ibus_version}
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -28,7 +28,7 @@ the input table maps from m17n-db.
 %setup -q
 
 %build
-%configure --disable-static --with-gtk=3.0
+%configure --disable-static --with-gtk=4.0
 # make -C po update-gmo
 %{make_build}
 

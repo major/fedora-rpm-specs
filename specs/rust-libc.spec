@@ -12,6 +12,8 @@ Summary:        Raw FFI bindings to platform libraries like libc
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/libc
 Source:         %{crates_source}
+# * https://github.com/rust-lang/libc/issues/4892
+Patch2:         0001-backport-linux-fuchsia-Mark-mq_attr-padding-area-as-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  glibc-devel
