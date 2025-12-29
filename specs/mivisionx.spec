@@ -24,9 +24,37 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//' )
+
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"        xz level 7 using %%{getncpus} threads
+#
+# This changes from the default compressor
+#   $ gzip
+# To
+#   $ xz -7 -T cpus
+#
+# Multithreading the compress stage reduces the overall build time.
+%global _source_payload         w7T0.xzdio
+%global _binary_payload         w7T0.xzdio
+
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
 
 # For testing
 # Use the VX conformace tests, openvx_1.3 branch
@@ -41,9 +69,9 @@
 # [ FAILED   ] SmokeTestBase.vxUnloadKernels
 # [ DISABLED ] 8190 test(s)
 
-Name:           mivisionx
+Name:           mivisionx%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -76,16 +104,16 @@ BuildRequires:  libavformat-free-devel
 %if 0%{?fedora}
 BuildRequires:  mesa-va-drivers
 %endif
-BuildRequires:  miopen-devel
+BuildRequires:  miopen%{pkg_suffix}-devel
 BuildRequires:  opencv-devel
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-omp-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpp-devel
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-omp%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-rpp%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -123,17 +151,21 @@ for f in `find . -type f -name '*.hpp' -o -name '*.h' -o -name '*.cpp' `; do
 done
 
 # Fixup default ROCM_PATH
-sed -i -e 's@/opt/rocm@%{_prefix}@' CMakeLists.txt
+sed -i -e 's@/opt/rocm@%{pkg_prefix}@' CMakeLists.txt
+
+# Make finding rpp required
+sed -i -e 's@find_package(rpp 2.1.0 QUIET)@find_package(rpp 2.1.0 REQUIRED)@' amd_openvx_extensions/CMakeLists.txt
 
 %build
 
-# Use this to debugging finding rpp
-#    --debug-find-pkg=rpp
-
+# Finding rpp is always a problem, print out debug find info
 %cmake \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
-    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+    --debug-find-pkg=rpp \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DGPU_TARGETS=%{gpu_list} \
     -DMIGRAPHX=OFF \
     -DNEURAL_NET=OFF \
     -DHIP_PLATFORM=amd
@@ -145,39 +177,42 @@ sed -i -e 's@/opt/rocm@%{_prefix}@' CMakeLists.txt
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
-%fdupes %{buildroot}%{_prefix}
+%fdupes %{buildroot}%{pkg_prefix}
 %endif
 
 # ERROR   0020: file '/usr/lib64/libvx_amd_custom.so.1.0.1' contains a runpath referencing '..' of an absolute path [:/usr/lib64/rocm/llvm/bin/../lib]
-chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/libvx_amd_custom.so.1.*.*
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libvx_amd_custom.so.1.*.*
 
-rm -f %{buildroot}%{_prefix}/share/doc/%{name}/LICENSE.txt
-rm -f %{buildroot}%{_prefix}/share/doc/%{name}-asan/LICENSE.txt
-rm -rf %{buildroot}%{_datadir}/%{name}/apps
-rm -rf %{buildroot}%{_datadir}/%{name}/samples
-rm -rf %{buildroot}%{_datadir}/%{name}/test
+rm -f %{buildroot}%{pkg_prefix}/share/doc/mivisionx/LICENSE.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/mivisionx-asan/LICENSE.txt
+rm -rf %{buildroot}%{pkg_prefix}/share/mivisionx/apps
+rm -rf %{buildroot}%{pkg_prefix}/share/mivisionx/samples
+rm -rf %{buildroot}%{pkg_prefix}/share/mivisionx/test
 
 
 %files
 %license LICENSE.txt
-%{_bindir}/runvx
-%{_libdir}/libopenvx.so.1{,.*}
-%{_libdir}/libvx_amd_custom.so.1{,.*}
-%{_libdir}/libvx_opencv.so.1{,.*}
-%{_libdir}/libvx_rpp.so.3{,.*}
-%{_libdir}/libvxu.so.1{,.*}
+%{pkg_prefix}/bin/runvx
+%{pkg_prefix}/%{pkg_libdir}/libopenvx.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libvx_amd_custom.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libvx_opencv.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libvx_rpp.so.3{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libvxu.so.1{,.*}
 
 %files devel
 %doc README.md
-%{_datadir}/%{name}/
-%{_includedir}/%{name}/
-%{_libdir}/libopenvx.so
-%{_libdir}/libvx_amd_custom.so
-%{_libdir}/libvx_opencv.so
-%{_libdir}/libvx_rpp.so
-%{_libdir}/libvxu.so
+%{pkg_prefix}/share/mivisionx/
+%{pkg_prefix}/include/mivisionx/
+%{pkg_prefix}/%{pkg_libdir}/libopenvx.so
+%{pkg_prefix}/%{pkg_libdir}/libvx_amd_custom.so
+%{pkg_prefix}/%{pkg_libdir}/libvx_opencv.so
+%{pkg_prefix}/%{pkg_libdir}/libvx_rpp.so
+%{pkg_prefix}/%{pkg_libdir}/libvxu.so
 
 %changelog
+* Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
+- Add --with compat
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 7.1.0-5
 - Rebuilt for OpenCV-4.12
 

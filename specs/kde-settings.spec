@@ -6,7 +6,7 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 43.98
+Version: 43.99
 Release: 1%{?dist}
 
 License: MIT
@@ -197,10 +197,10 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %{_sysconfdir}/xdg/plasma-workspace/env/env.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk3_scrolling.sh
-%dir %{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/plasmoidsetupscripts/
-%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kicker.js
-%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kickerdash.js
-%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kickoff.js
+%dir %{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/
+%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kicker.js
+%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kickerdash.js
+%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kickoff.js
 %if 0%{?version_maj:1}
 %{_datadir}/wallpapers/Fedora
 %endif
@@ -225,6 +225,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Sat Dec 27 2025 Neal Gompa <ngompa@fedoraproject.org> - 43.99-1
+- look-and-feel: Add support for Fedora light/dark themes
+
 * Mon Dec 15 2025 Alessandro Astone <ales.astone@gmail.com> - 43.98-1
 - Use plasma-keyboard as the virtual keyboard for initial-setup
 

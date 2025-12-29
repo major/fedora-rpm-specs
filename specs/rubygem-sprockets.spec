@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Rack-based asset packaging system
 License: MIT
 URL: https://github.com/rails/sprockets
@@ -14,6 +14,8 @@ Source1: sprockets-%{version}-tests.tar.gz
 # Fix Minitest 5.19+ test failures.
 # https://github.com/rails/sprockets/pull/791
 Patch0: rubygem-sprockets-4.2.0-Fix-Minitest-constant-name-in-tests.patch
+# Fix compatibility with minitest 6
+Patch1: rubygem-sprockets-4.2.0-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
@@ -21,6 +23,7 @@ BuildRequires: rubygem(base64)
 BuildRequires: rubygem(concurrent-ruby)
 BuildRequires: rubygem(execjs)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(rack-test)
 BuildRequires: rubygem(rake)
@@ -49,6 +52,7 @@ Documentation for %{name}.
 
 pushd %{_builddir}
 %patch 0 -p1
+%patch 1 -p1
 popd
 
 %build
@@ -211,6 +215,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-9
+- Fix compatibiltily with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -24,12 +24,31 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%global _source_payload w7T0.xzdio
+%global _binary_payload w7T0.xzdio
+
 # The default list in the project does not cover our expected targets
-%global all_rocm_gpus "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx950;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
+%global gpu_list "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx950;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
+%global _gpu_list gfx1100
 
 %bcond_with debug
 %if %{with debug}
@@ -41,9 +60,9 @@
 # Testing does not work well, it requires local hw.
 %bcond_with test
 
-Name:           rocm-rpp
+Name:           rocm-rpp%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -55,10 +74,6 @@ License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 #   src/modules/md5.cpp
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-# Problems building mivsionx
-# CMake Error at /usr/lib64/cmake/rpp/rpp-config.cmake:28 (message):
-#  File or directory //include referenced by variable rpp_INCLUDE_DIR does not
-Patch1:         0001-rocm-rpp-fix-cmake-install-vars.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -68,13 +83,13 @@ BuildRequires:  ninja-build
 %if 0%{?fedora}
 BuildRequires:  opencv-devel
 %endif
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-omp-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-omp%{pkg_suffix}-devel
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -125,51 +140,66 @@ sed -i -e '/COMPONENT test/d' CMakeLists.txt
 # https://github.com/ROCm/rpp/issues/602
 rm -rf libs/third_party
 
+# Problems building mivsionx
+# CMake Error at /usr/lib64/cmake/rpp/rpp-config.cmake:28 (message):
+#  File or directory //include referenced by variable rpp_INCLUDE_DIR does not
+#
+# Adjust the cmake install locations
+sed -i -e 's|@PACKAGE_INCLUDE_INSTALL_DIR@|%{pkg_prefix}/include|' cmake_modules/rpp-config.cmake.in
+sed -i -e 's|@PACKAGE_LIB_INSTALL_DIR@|%{pkg_prefix}/%{pkg_libdir}|' cmake_modules/rpp-config.cmake.in
+
 %build
 
-%cmake -G Ninja \
-       -DAMDGPU_TARGETS=%{all_rocm_gpus} \
-       -DBACKEND=HIP \
-       -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-       -DCMAKE_BUILD_TYPE=%{build_type} \
-       -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
-       -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
-       -DHIP_PLATFORM=amd \
-       -DROCM_SYMLINK_LIBS=OFF \
-       -DRPP_AUDIO_SUPPORT=OFF \
-       -DROCM_PATH=%{_prefix} \
-       -DHIP_PATH=%{_prefix} \
-       -DCMAKE_INSTALL_LIBDIR=%{_libdir}
+%cmake \
+    -G Ninja \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DGPU_TARGETS=%{gpu_list} \
+    -DBACKEND=HIP \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DHIP_PLATFORM=amd \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DRPP_AUDIO_SUPPORT=OFF \
+    -DROCM_PATH=%{pkg_prefix} \
+    -DHIP_PATH=%{pkg_prefix} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_prefix}/%{pkg_libdir}
+
 %cmake_build
 
 %install
 %cmake_install
 
 # ERROR   0020: file '/usr/lib64/librpp.so.1.9.1' contains a runpath referencing '..' of an absolute path [/usr/lib64/rocm/llvm/bin/../lib]
-chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.2.*.*
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librpp.so.2.*.*
+
+# Extra licenses
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rpp-asan/FFTS_LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rpp-asan/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rpp/FFTS_LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rpp/LICENSE
 
 %files
 %license LICENSE
-%{_libdir}/librpp.so.2{,.*}
-%exclude %{_docdir}/rpp/LICENSE
-%exclude %{_docdir}/rpp-asan/LICENSE
-# For the third parth ffts source we removed
-%exclude %{_docdir}/rpp/FFTS_LICENSE
-%exclude %{_docdir}/rpp-asan/FFTS_LICENSE
-
+%{pkg_prefix}/%{pkg_libdir}/librpp.so.2{,.*}
 
 %files devel
 %doc README.md
-%{_includedir}/rpp/
-%{_libdir}/librpp.so
-%{_libdir}/cmake/rpp/
+%{pkg_prefix}/include/rpp/
+%{pkg_prefix}/%{pkg_libdir}/librpp.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rpp/
 
 %if %{with test}
 %files test
-%{_datadir}/rpp/
+%{pkg_prefix}/share/rpp/
 %endif
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Add --with compat
+
 * Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove dir tags
 

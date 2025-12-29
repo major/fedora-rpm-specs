@@ -19,13 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-
-%if 0%{?suse_version}
-%global hipsparselt_name libhipsparselt0
-%else
-%global hipsparselt_name hipsparselt
-%endif
-
 %if 0%{?suse_version}
 %{?sle15_python_module_pythons}
 %{?!python_module:%define python_module() python3-%{**}}
@@ -45,6 +38,24 @@
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hipsparselt_name libhipsparselt0
+%else
+%global hipsparselt_name hipsparselt
+%endif
 
 # The tensilelite that hipSPARELt use comes from hipBLASLt
 # But not the matching release tag, a custom commit that is
@@ -119,7 +130,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -156,21 +167,21 @@ BuildRequires:  ninja-build
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git
-BuildRequires:  hipcc
-BuildRequires:  hipsparse-devel
+BuildRequires:  hipcc%{pkg_suffix}
+BuildRequires:  hipsparse%{pkg_suffix}-devel
 BuildRequires:  libzstd-devel
-BuildRequires:  rocminfo
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-llvm-devel
-BuildRequires:  rocm-origami-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-smi-devel
-BuildRequires:  rocsparse-devel
-BuildRequires:  roctracer-devel
+BuildRequires:  rocminfo%{pkg_suffix}
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-llvm%{pkg_suffix}-devel
+BuildRequires:  rocm-origami%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-smi%{pkg_suffix}-devel
+BuildRequires:  rocsparse%{pkg_suffix}-devel
+BuildRequires:  roctracer%{pkg_suffix}-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -206,7 +217,7 @@ BuildRequires:  gmock-devel
 BuildRequires:  rocm-omp-devel
 %endif
 
-Provides:       hipsparselt = %{version}-%{release}
+Provides:       hipsparselt%{pkg_suffix} = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
 
 %if %{without nanobind}
@@ -230,7 +241,7 @@ hipSPARSELt supports the rocSPARSELt backend.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       hipsparselt-devel = %{version}-%{release}
+Provides:       hipsparselt%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -263,6 +274,10 @@ patch -p1 < %{SOURCE5}
 
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
+
+# Make sure hip/hip_runtime.h is found
+sed -i -e 's@-x hip @-I%{pkg_prefix}/include -x hip @' device-library/matrix-transform/CMakeLists.txt
+sed -i -e 's@"-D__HIP_HCC_COMPAT_MODE__=1"@"-D__HIP_HCC_COMPAT_MODE__=1","-I%{pkg_prefix}/include"@' tensilelite/Tensile/Toolchain/Component.py
 
 %if %{with nanobind}
 # Disable download of nanobind
@@ -309,6 +324,7 @@ python3 setup.py install --root $TL
 cd ../..
 
 # Should not have to do this
+export PATH=%{pkg_prefix}/bin:%{rocmllvm_bindir}:$PATH
 CLANG_PATH=`hipconfig --hipclangpath`
 ROCM_CLANG=${CLANG_PATH}/clang
 RESOURCE_DIR=`${ROCM_CLANG} -print-resource-dir`
@@ -324,16 +340,16 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # TensileGetPath
 
 %cmake %{cmake_generator} \
-       -DTensile_TEST_LOCAL_PATH=${TL} \
        -DGPU_TARGETS=%{gpu_list} \
        -DBLAS_INCLUDE_DIR=%{_includedir}/flexiblas \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DBUILD_VERBOSE=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
        -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DCMAKE_PREFIX_PATH=%{python3_sitelib}/nanobind \
        -DCMAKE_Fortran_COMPILER=gfortran \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
@@ -341,6 +357,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DHIPSPARSELT_HIPBLASLT_PATH=${HIPBLASLT_PATH} \
        -DROCM_SYMLINK_LIBS=OFF \
        -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
+       -DTensile_TEST_LOCAL_PATH=${TL} \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
        -DVIRTUALENV_SITE_PATH=${TL}%{python3_sitelib} \
@@ -355,16 +372,17 @@ cd projects/hipsparselt
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipsparselt/LICENSE.md
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsparselt/LICENSE.md
 
 # hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco
-%{rocmllvm_bindir}/llvm-strip %{buildroot}%{_libdir}/hipsparselt/library/Kernels*.hsaco
+%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.hsaco
 
 # hipsparselt.x86_64: E: ldd-failed /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8): No such file or directory
 # ldd: warning: you do not have execution permission for `/usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco'
 # 	not a dynamic executable
 # Do something about the prems
-chmod a+x %{buildroot}%{_libdir}/hipsparselt/library/Kernels*.hsaco
+chmod a+x %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.hsaco
 # But not much to do about the rest, this is not a normal *.so
 # file /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco 
 # /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco: ELF 64-bit LSB shared object, AMD GPU architecture version 1, dynamically linked, BuildID[sha1]=99e2194d9647da308804928d27ea1f336bfd76cc, stripped
@@ -374,7 +392,7 @@ chmod a+x %{buildroot}%{_libdir}/hipsparselt/library/Kernels*.hsaco
 # chrpath -l /usr/bin/hipsparselt-test 
 # /usr/bin/hipsparselt-test: RUNPATH=$ORIGIN/../lib:$ORIGIN/../lib/hipsparselt-clients/lib:/usr/llvm/lib
 # So adjust it here
-chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %files
@@ -385,20 +403,23 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %doc README.md
 %license LICENSE.md
 %endif
-%{_libdir}/libhipsparselt.so.*
-%{_libdir}/hipsparselt/
+%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
+%{pkg_prefix}/%{pkg_libdir}/hipsparselt/
 
 %files devel
-%{_includedir}/hipsparselt/
-%{_libdir}/cmake/hipsparselt/
-%{_libdir}/libhipsparselt.so
+%{pkg_prefix}/include/hipsparselt/
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipsparselt/
+%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so
 
 %if %{with test}
 %files test
-%{_bindir}/hipsparselt*
+%{pkg_prefix}/bin/hipsparselt*
 %endif
 
 %changelog
+* Fri Dec 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

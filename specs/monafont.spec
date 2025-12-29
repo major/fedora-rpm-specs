@@ -41,7 +41,7 @@
 
 %define		obsoletes_EVR		2.90-5.999
 %define		sazanami_ver		20040629
-%define		vlgothic_ver		20220612
+%define		vlgothic_ver		20230918
 
 %define		catalog_dir		%{_sysconfdir}/X11/fontpath.d
 
@@ -54,7 +54,7 @@ Japanese text arts correctly.
 
 Name:		%{archivename}
 Version:	2.90
-Release:	42%{?dist}
+Release:	43%{?dist}
 Summary:	Japanese font for text arts
 
 # monafont itself is under public domain
@@ -262,6 +262,9 @@ fi
 %{_datadir}/appdata/%{fontname}-vlgothic.metainfo.xml
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.90-43
+- Rebuild for new vlgothic
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Generic interface to multiple Ruby template engines
 License: MIT
 URL: https://github.com/jeremyevans/tilt
@@ -29,6 +29,7 @@ BuildRequires: ruby
 # BuildRequires: rubygem(wikicloth)
 BuildRequires: rubygem(creole)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(erubi)
 BuildRequires: rubygem(builder)
@@ -118,6 +119,9 @@ popd
 
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-7
+- Add BR: rubygem(minitest-mock) for minitest 6
+
 * Wed Dec 10 2025 Vít Ondruch <vondruch@redhat.com> - 2.2.0-6
 - Drop dependency on rubygem(liquid), which was retired from Fedora.
 

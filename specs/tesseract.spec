@@ -7,8 +7,8 @@
 %endif
 
 Name:          tesseract
-Version:       5.5.1
-Release:       5%{?dist}
+Version:       5.5.2
+Release:       1%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -18,8 +18,6 @@ Source0:       https://github.com/tesseract-ocr/tesseract/archive/%{version}%{?p
 # Fix library name case
 # Build training libs statically
 Patch1:        tesseract_cmake.patch
-# Don't assume neon available on arm64/aarch64
-Patch2:        tesseract_neon.patch
 
 
 BuildRequires: cmake
@@ -277,6 +275,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 5.5.2-1
+- Update to 5.5.2
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 5.5.1-5
 - Rebuild (icu)
 

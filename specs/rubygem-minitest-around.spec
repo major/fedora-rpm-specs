@@ -2,11 +2,13 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.0
-Release: 5%{?dist}
+Release: 7%{?dist}
 Summary: Around block for minitest
 License: MIT
 URL: https://github.com/splattael/minitest-around
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix compatibility with minietst 6
+Patch0:  minitest-around-0.5.0-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(minitest)
@@ -26,17 +28,19 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-
-%setup -q -D -T -n  %{gem_name}-%{version}
+%setup -q -n  %{gem_name}-%{version}
+%patch -P0 -p1
 
 # cucumber 7 syntax change
 sed -i config/cucumber.yml -e "s|~@ignore|'not @ignore'|"
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+
+# Remove minitest version strict requirement
+sed -i ../%{gem_name}-%{version}.gemspec \
+	-e '\@runtime_dependency.*minitest@s|~>|>=|'
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -47,11 +51,23 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
-
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.gitignore \
+	.travis.yml \
+	Gemfile \
+	Rakefile \
+	config/ \
+	features/ \
+	%{gem_name}.gemspec \
+	test/ \
+	%{nil}
 
 
 # Run the test suite
 %check
+export CUCUMBER_PUBLISH_QUIET=true
 pushd .%{gem_instdir}
   sed -i "/require 'bundler/ s/^/#/" test/helper.rb
   RUBYOPT=-Ilib ruby -e 'Dir.glob "./test/*_{test,spec}.rb", &method(:require)'
@@ -64,20 +80,18 @@ popd
 %license %{gem_instdir}/LICENSE
 %{gem_libdir}
 %{gem_spec}
-%exclude %{gem_instdir}/.*
-%exclude %{gem_cache}
 
 %files doc
 %doc %{gem_docdir}
-%exclude %{gem_instdir}/config
-%exclude %{gem_instdir}/features
-%exclude %{gem_instdir}/Gemfile
-%exclude %{gem_instdir}/Rakefile
-%exclude %{gem_instdir}/examples
-%exclude %{gem_instdir}/minitest-around.gemspec
-%exclude %{gem_instdir}/test
+%{gem_instdir}/examples
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-7
+- Fix compatibility with minitest 6
+
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-6
+- Use recent gem2rpm style
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

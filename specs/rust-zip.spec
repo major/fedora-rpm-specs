@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        3.0.0
+Version:        6.0.0
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -24,19 +24,29 @@ Source11:       get_test_data.sh
 Patch:          zip-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused benchmark-only / example-only dev-dependencies
-# * Remove the wasm_js feature from the getrandom dependency for the getrandom
-#   feature, and from the getrandom dev-dependency. Our rust-getrandom does not
-#   provide this feature; see also “Unconditional use of getrandom’s wasm_js
-#   feature is counter to upstream guidance,”
-#   https://github.com/zip-rs/zip2/issues/336.
+# * Remove the wasm_js feature from the getrandom dev-dependency. Our
+#   rust-getrandom does not provide this feature; see also “Unconditional use of
+#   getrandom’s wasm_js feature is counter to upstream guidance,”
+#   https://github.com/zip-rs/zip2/issues/336. Upstream fixed the issue for the
+#   dependency since 4.3.0, but not yet for the dev-dependency.
 # * patch out the nt-time features; rust-nt-time not yet packaged
-# * allow bzip2 0.6; see
-#   https://github.com/zip-rs/zip2/commit/c8278990c40ddfbeb4a23877c1221792535d21b3,
-#   released upstream in 4.3.0
+# * deps: Bump lzma-rust2 to v0.15:
+#   https://github.com/zip-rs/zip2/commit/d6d106fea2844793a8c80d27192b52694fcc57ca
+# * Patch out ppmd support, even though it is in the default features. While the
+#   README.md for the ppmd-rust crate says “The code in this crate is in the
+#   public domain as the original code by their authors,” Cargo.toml lists the
+#   license as CC0-1.0, which is not precisely equivalent to the public-domain
+#   declaration in the README and is not-allowed for code in Fedora.
+# * Remove lzma-static and xz-static features, which were supposed to be removed
+#   in this release
+#   (https://github.com/zip-rs/zip2/commit/af0f3349dae5640a0b756ea065c95af8a1a0e2a5),
+#   but apparently were not due to
+#   https://github.com/release-plz/release-plz/issues/2446 causing the previous
+#   commit to be published.
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
-Patch10:        zip-3.0.0-omitted-test-files.patch
+Patch10:        zip-6.0.0-omitted-test-files.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -102,18 +112,6 @@ use the "_deflate-any" feature of the "%{crate}" crate.
 %files       -n %{name}+_deflate-any-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+aes-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+aes-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "aes" feature of the "%{crate}" crate.
-
-%files       -n %{name}+aes-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+aes-crypto-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -124,6 +122,18 @@ This package contains library source intended for building other packages which
 use the "aes-crypto" feature of the "%{crate}" crate.
 
 %files       -n %{name}+aes-crypto-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bitstream-io-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bitstream-io-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bitstream-io" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bitstream-io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bzip2-devel
@@ -148,18 +158,6 @@ This package contains library source intended for building other packages which
 use the "chrono" feature of the "%{crate}" crate.
 
 %files       -n %{name}+chrono-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+constant_time_eq-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+constant_time_eq-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "constant_time_eq" feature of the "%{crate}" crate.
-
-%files       -n %{name}+constant_time_eq-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+deflate-devel
@@ -270,6 +268,18 @@ use the "jiff-02" feature of the "%{crate}" crate.
 %files       -n %{name}+jiff-02-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+legacy-zip-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+legacy-zip-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "legacy-zip" feature of the "%{crate}" crate.
+
+%files       -n %{name}+legacy-zip-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+lzma-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -280,18 +290,6 @@ This package contains library source intended for building other packages which
 use the "lzma" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lzma-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+lzma-rs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+lzma-rs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "lzma-rs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+lzma-rs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pbkdf2-devel
@@ -366,18 +364,6 @@ use the "zeroize" feature of the "%{crate}" crate.
 %files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zopfli-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+zopfli-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "zopfli" feature of the "%{crate}" crate.
-
-%files       -n %{name}+zopfli-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+zstd-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -407,7 +393,6 @@ use the "zstd" feature of the "%{crate}" crate.
 %check
 # Extract test data (only) from the GitHub archive
 tar -xzvf '%{SOURCE10}' --strip-components=1 'zip2-%{version}/tests/data/'
-cp -vp '%{SOURCE11}' tests/data/
 %cargo_test -a
 %endif
 

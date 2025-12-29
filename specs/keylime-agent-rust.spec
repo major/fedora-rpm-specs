@@ -58,6 +58,9 @@ Source1:        rust-keylime-%{version}-vendor.tar.xz
 Patch0:       0001-rust-keylime-metadata.patch
 Patch1:       0002-services-conflict.patch
 ## (100-199) Patches for building from system Rust libraries (Fedora)
+# Update reqwest-retry to 0.8, retry-policies to 0.5
+# https://github.com/keylime/rust-keylime/pull/1165
+Patch100:     keylime-agent-rust-0.2.8-reqwest-retry-0.8.patch
 ## (200+) Patches for building from vendored Rust libraries (RHEL)
 
 ExclusiveArch:  %{rust_arches}
@@ -165,8 +168,7 @@ The Keylime IMA emulator for testing with emulated TPM
 # Add back the line below if patches are added (do not forget the '%')
 # autopatch -m 200 -p1
 %else
-# Add back the line below if patches are added (do not forget the '%')
-# autopatch -m 100 -M 199 -p1
+%autopatch -m 100 -M 199 -p1
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires

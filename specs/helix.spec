@@ -54,6 +54,8 @@ Source200:      https://raw.githubusercontent.com/blinxen/tree-sitter-eex/main/L
 
 # Remove windows dependencies
 Patch:          remove-windows-dependency.patch
+# Backport PR 14673
+Patch:          pr-14673.patch
 
 # Exclude %%{ix86} since the build fails with LLVM ERROR: out of memory Allocation failed error
 ExcludeArch: %{ix86}
@@ -347,7 +349,7 @@ A Kakoune / Neovim inspired editor, written in Rust.
 %prep
 %autosetup -c -p1
 # Bump gix to version 0.73
-tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.73
+tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.75
 # Relax unicode-width lower bound
 tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
 # Allow etcetera 0.11; not suitable for offering upstream yet because this has

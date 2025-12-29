@@ -19,21 +19,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-
-%if 0%{?suse_version}
-%global origami_name liborigami0
-%else
-%global origami_name rocm-origami
-%endif
-
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname origami
 
-Name:       rocm-origami
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global origami_name liborigami0%{pkg_suffix}
+%else
+%global origami_name rocm-origami%{pkg_suffix}
+%endif
+
+Name:       rocm-origami%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Analytical GEMM Solution Selection
 
 License:    MIT
@@ -56,10 +67,11 @@ ExclusiveArch: x86_64
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: rocm-cmake
-BuildRequires: rocm-comgr-devel
-BuildRequires: rocm-hip-devel
-BuildRequires: rocm-runtime-devel
+BuildRequires: rocm-cmake%{pkg_suffix}
+BuildRequires: rocm-comgr%{pkg_suffix}-devel
+BuildRequires: rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires: rocm-hip%{pkg_suffix}-devel
+BuildRequires: rocm-runtime%{pkg_suffix}-devel
 
 %description
 The name "origami" still evokes the elegance of transforming
@@ -99,27 +111,34 @@ cp %{SOURCE2} .
 sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/dependencies.cmake
 
 %build
-%cmake
+%cmake \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
 %cmake_build
 
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/origami/LICENSE.md
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/origami/LICENSE.md
 
 %files -n %{origami_name}
 %doc README.md
 %license LICENSE.md
-%{_libdir}/liborigami.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/liborigami.so.0{,.*}
 
 %files devel
-%dir %{_includedir}/origami
-%dir %{_libdir}/cmake/origami
-%{_includedir}/origami/*.hpp
-%{_libdir}/cmake/origami/*.cmake
-%{_libdir}/liborigami.so
+%{pkg_prefix}/include/origami/
+%{pkg_prefix}/%{pkg_libdir}/cmake/origami/
+%{pkg_prefix}/%{pkg_libdir}/liborigami.so
 
 %changelog
+* Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Add --with compat
+
 * Sat Dec 13 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Support SUSE
 

@@ -3,8 +3,8 @@
 %global pkgname quazip
 
 Name:          mingw-%{pkgname}
-Version:       1.4
-Release:       7%{?dist}
+Version:       1.5
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -21,14 +21,14 @@ Source:        https://github.com/stachenov/quazip/archive/v%{version}/%{pkgname
 BuildRequires: make
 BuildRequires: cmake
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-qt5-qtbase
 BuildRequires: mingw32-qt6-qtbase
 BuildRequires: mingw32-qt6-qt5compat
 BuildRequires: mingw32-libzip
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-qt5-qtbase
 BuildRequires: mingw64-qt6-qtbase
@@ -135,6 +135,9 @@ popd
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 1.5-1
+- Update to 1.5
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -35,6 +35,8 @@ Patch3:         %{name}-docs.patch
 Patch4:         %{name}-tests.patch
 # Backport fix for CVE-2025-11277
 Patch5:         https://github.com/assimp/assimp/commit/0978918f7148fbcd3d05cc6573dae7859975a895.patch
+# PyAssimp: Re-add 'aiProcess_Triangulate' (#2423174)
+Patch6:         https://github.com/assimp/assimp/commit/dd98d4aea3d9d2b3544540ea44eeb15c3616dbb7.patch
 
 
 BuildRequires:  boost-devel
@@ -173,6 +175,9 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-5
+- PyAssimp: Re-add 'aiProcess_Triangulate' (#2423174)
+
 * Sun Dec 14 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-4
 - Backport fix for CVE-2025-11277
 

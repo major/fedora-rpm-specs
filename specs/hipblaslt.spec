@@ -19,12 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global hipblaslt_name libhipblaslt0
-%else
-%global hipblaslt_name hipblaslt
-%endif
-
 %if 0%{!?suse_version:1}
 %define python_exec python3
 %define python_expand python3
@@ -41,6 +35,24 @@
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global hipblaslt_name libhipblaslt0%{pkg_suffix}
+%else
+%global hipblaslt_name hipblaslt%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -76,15 +88,15 @@
 # The problem with the fork has been raised here.
 # https://github.com/ROCm/hipBLASLt/issues/908
 
-# hipblaslt does not support our default set
-%global amdgpu_targets %{rocm_gpu_list_hipblaslt}
-# For testing
-%global _amdgpu_targets "gfx1100"
-
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
+
+# hipblaslt does not support our default set
+%global gpu_list %{rocm_gpu_list_hipblaslt}
+# For testing
+%global _gpu_list "gfx1100"
 
 # Use ninja if it is available
 # Ninja is available on suse but obs times out with ninja build, make doesn't
@@ -114,7 +126,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -147,22 +159,26 @@ Patch5:         0001-hipblaslt-cmake-compile-and-link-pools.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+%if 0%{?suse_version}
+BuildRequires:  gcc-fortran
+%else
 BuildRequires:  gcc-gfortran
+%endif
 BuildRequires:  git
-BuildRequires:  hipblas-devel
-BuildRequires:  hipcc
+BuildRequires:  hipblas%{pkg_suffix}-devel
+BuildRequires:  hipcc%{pkg_suffix}
 BuildRequires:  libzstd-devel
-BuildRequires:  rocblas-devel
-BuildRequires:  rocminfo
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-llvm-devel
-BuildRequires:  rocm-origami-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-smi-devel
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocminfo%{pkg_suffix}
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-llvm%{pkg_suffix}-devel
+BuildRequires:  rocm-origami%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-smi%{pkg_suffix}-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -196,11 +212,9 @@ BuildRequires:  msgpack-devel
 BuildRequires:  blis-devel
 BuildRequires:  lapack-devel
 %if 0%{?suse_version}
-BuildRequires:  gcc-fortran
 BuildRequires:  gmock
 BuildRequires:  gtest
 %else
-BuildRequires:  gcc-gfortran
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
 %endif
@@ -216,7 +230,7 @@ BuildRequires:  ninja
 %endif
 %endif
 
-Provides:       hipblaslt = %{version}-%{release}
+Provides:       hipblaslt%{pkg_suffix} = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
 
 %if %{without nanobind}
@@ -238,7 +252,7 @@ algorithmic implementations and heuristics.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       hipblaslt-devel = %{version}-%{release}
+Provides:       hipblaslt%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -291,7 +305,7 @@ tar czf nanobind.tar.gz nanobind
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
 # This compiles a large file with multiple gpus.
-GPUS=`echo %{amdgpu_targets} | grep -o 'gfx' | wc -l`
+GPUS=`echo %{gpu_list} | grep -o 'gfx' | wc -l`
 
 HIP_JOBS=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
 if [ ${HIP_JOBS}x = x ]; then
@@ -329,6 +343,7 @@ TL=$PWD
 cd ..
 
 # Should not have to do this
+export PATH=%{pkg_prefix}/bin:$PATH
 CLANG_PATH=`hipconfig --hipclangpath`
 ROCM_CLANG=${CLANG_PATH}/clang
 RESOURCE_DIR=`${ROCM_CLANG} -print-resource-dir`
@@ -383,16 +398,17 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
 fi
 
 %cmake %{cmake_generator} \
-       -DGPU_TARGETS=%{amdgpu_targets} \
+       -DGPU_TARGETS=%{gpu_list} \
        -DBLIS_INCLUDE_DIR=%{_includedir}/blis \
        -DBLIS_LIB=%{_libdir}/libblis.so \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DBUILD_VERBOSE=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
        -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
        -DCMAKE_PREFIX_PATH=%{python3_sitelib}/nanobind \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
@@ -418,7 +434,8 @@ cd projects/hipblaslt
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
 
 %post  -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -432,23 +449,29 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %license LICENSE.md
 %endif
 
-%{_libdir}/libhipblaslt.so.*
-%{_libdir}/hipblaslt/
+%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
+%{pkg_prefix}/%{pkg_libdir}/hipblaslt/
 
 %files devel
-%{_includedir}/hipblaslt/
-%{_includedir}/hipblaslt-export.h
-%{_includedir}/hipblaslt-version.h
-%{_libdir}/cmake/hipblaslt/
-%{_libdir}/libhipblaslt.so
+%{pkg_prefix}/include/hipblaslt/
+%{pkg_prefix}/include/hipblaslt-export.h
+%{pkg_prefix}/include/hipblaslt-version.h
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipblaslt/
+%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so
 
 %if %{with test}
 %files test
-%{_bindir}/hipblaslt*
-%{_bindir}/sequence.yaml
+%{pkg_prefix}/bin/hipblaslt*
+%{pkg_prefix}/bin/sequence.yaml
 %endif
 
 %changelog
+* Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
+- Add --with compat
+
+* Sat Dec 13 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
+- Fix fortran buildrequires on SUSE
+
 * Sun Dec 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Add compile and link job pools
 

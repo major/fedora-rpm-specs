@@ -66,13 +66,20 @@ Recommends:     python3-tabulate+widechars
 
 %install
 %pyproject_install
-%pyproject_save_files tabulate
+%pyproject_save_files -l tabulate
 
 install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p '%{SOURCE1}'
 
 
 %check
-%pytest --doctest-modules --ignore benchmark.py
+%pyproject_check_import
+
+# Failing tests test_wrap_multiword_non_wide* in current Pythons
+# https://github.com/astanin/python-tabulate/issues/389
+k="${k-}${k+ and }not test_wrap_multiword_non_wide"
+k="${k-}${k+ and }not test_wrap_multiword_non_wide_with_hyphens"
+
+%pytest --doctest-modules --ignore benchmark.py -k "${k-}"
 
 
 %files -n python3-tabulate -f %{pyproject_files}

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.6
-Release: 7%{?dist}
+Release: 9%{?dist}
 Summary: Efficient and thread-safe constant autoloader
 License: MIT
 URL: https://github.com/fxn/zeitwerk
@@ -12,11 +12,14 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/fxn/zeitwerk.git --no-checkout
 # cd zeitwerk && git archive -v -o zeitwerk-2.6.6-tests.txz v2.6.6 test
 Source2: %{gem_name}-%{version}-tests.txz
+# Fix compatibility with minitest 6
+Patch0:  zeitwerk-2.6.6-minitest6.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildArch: noarch
 
 %description
@@ -36,6 +39,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b2
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -77,6 +84,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.6-9
+- Fix compatibility with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

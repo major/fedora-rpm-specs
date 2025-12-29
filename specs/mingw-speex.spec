@@ -1,18 +1,15 @@
 %{?mingw_package_header}
 
 Name:           mingw-speex
-Version:        1.2.0
-Release:        20%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Voice compression format (codec)
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-clause AND TU-Berlin-1.0
 URL:            http://www.speex.org/
 Source0:        http://downloads.xiph.org/releases/speex/speex-%{version}.tar.gz
 # Fix build
 Patch0:         mingw-speex_build.patch
-# Backport patch for CVE-2020-23903
-Patch1:         https://github.com/xiph/speex/commit/870ff845b32f314aec0036641ffe18aba4916887.patch
 
 BuildArch:      noarch
 
@@ -149,6 +146,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 1.2.1-1
+- Update to 1.2.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

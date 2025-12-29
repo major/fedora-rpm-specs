@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.22.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Simple low-level client for Redis 6+
 License: MIT
 URL: https://github.com/redis-rb/redis-client
@@ -20,12 +20,15 @@ Patch0:  redis-client-GH95c9666-Ractor-ruby4_0.patch
 # https://github.com/redis-rb/redis-client/commit/e5869bf151c2b922fbc52e87edba8f7d1efe8b93
 # Adjust to Ractor warning change
 Patch1:  redis-client-GHe5869bf-Ractor-warning-change.patch
+# Fix compatibility with minitest 6
+Patch2:  redis-client-0.22.2-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
 BuildRequires: rubygem(benchmark)
 BuildRequires: rubygem(connection_pool)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 %{?with_regenerate_certs:BuildRequires: %{_bindir}/openssl}
 BuildRequires: %{_bindir}/redis-server
 BuildArch: noarch
@@ -48,6 +51,7 @@ Documentation for %{name}.
 cd %{_builddir}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 )
 
 %build
@@ -117,6 +121,9 @@ popd
 %{gem_instdir}/redis-client.gemspec
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.2-6
+- Fix compatiblitity with minitest 6
+
 * Sun Dec 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.2-5
 - Apply upstream patch for ruby4_0 Ractor warning change
 

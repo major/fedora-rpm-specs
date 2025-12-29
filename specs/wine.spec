@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        10.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -1035,12 +1035,11 @@ os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10_1%{?_isa}' %{_oldlibdi
 os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d10.dll")
 os.execute("%{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d11.dll")
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
-os.execute("%{_sbindir}/alternatives --remove 'wine-dxgi(x86-32)' /usr/lib/wine/i386-windows/wine-dxgi.dll")
-os.execute("%{_sbindir}/alternatives --remove 'wine-d3d9(x86-32)' /usr/lib/wine/i386-windows/wine-d3d9.dll")
-os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10core(x86-32)' /usr/lib/wine/i386-windows/wine-d3d10core.dll")
-os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10_1(x86-32)' /usr/lib/wine/i386-windows/wine-d3d10_1.dll")
-os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10(x86-32)' /usr/lib/wine/i386-windows/wine-d3d10.dll")
-os.execute("%{_sbindir}/alternatives --remove 'wine-d3d11(x86-32)' /usr/lib/wine/i386-windows/wine-d3d11.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-dxgi(x86-32)' %{_oldlibdir}/wine/i386-windows/wine-dxgi.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d9(x86-32)' %{_oldlibdir}/wine/i386-windows/wine-d3d9.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10_1(x86-32)' %{_oldlibdir}/wine/i386-windows/wine-d3d10_1.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10(x86-32)' %{_oldlibdir}/wine/i386-windows/wine-d3d10.dll")
+os.execute("%{_sbindir}/alternatives --remove 'wine-d3d11(x86-32)' %{_oldlibdir}/wine/i386-windows/wine-d3d11.dll")
 %endif
 end
 
@@ -2314,6 +2313,9 @@ fi
 %endif
 
 %changelog
+* Fri Dec 26 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-5
+- Fix x86_64 alternatives upgrade path
+
 * Tue Dec 23 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-4
 - Account for alternatives in upgrade path
 

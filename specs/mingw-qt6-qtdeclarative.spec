@@ -21,7 +21,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -168,7 +168,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/qmleasing-qt6.exe
 %{mingw32_bindir}/qmlpreview-qt6.exe
 %{mingw32_bindir}/qmlscene-qt6.exe
-%{mingw32_bindir}/qmltestrunner.exe
+%{mingw32_bindir}/qmltestrunner-qt6.exe
 %{mingw32_includedir}/qt6/QtLabsAnimation/
 %{mingw32_includedir}/qt6/QtLabsFolderListModel/
 %{mingw32_includedir}/qt6/QtLabsQmlModels/
@@ -718,7 +718,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/qmleasing-qt6.exe
 %{mingw64_bindir}/qmlpreview-qt6.exe
 %{mingw64_bindir}/qmlscene-qt6.exe
-%{mingw64_bindir}/qmltestrunner.exe
+%{mingw64_bindir}/qmltestrunner-qt6.exe
 %{mingw64_includedir}/qt6/QtLabsAnimation/
 %{mingw64_includedir}/qt6/QtLabsFolderListModel/
 %{mingw64_includedir}/qt6/QtLabsQmlModels/
@@ -1217,6 +1217,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 6.10.1-2
+- Add -qt6 suffix to qmltestrunner tool to avoid conflict with qt5-qtdeclarative
+
 * Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
 - 6.10.1
 

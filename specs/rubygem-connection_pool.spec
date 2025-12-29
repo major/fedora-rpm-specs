@@ -3,15 +3,18 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.5
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Generic connection pool for Ruby
 License: MIT
 URL: https://github.com/mperham/connection_pool
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix compatibility with minitest 6
+Patch0:  %{gem_name}-2.2.5-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildArch: noarch
 
 %description
@@ -28,6 +31,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -65,6 +69,9 @@ popd
 
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.5-12
+- Fix compatibility with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

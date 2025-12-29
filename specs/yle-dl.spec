@@ -7,6 +7,7 @@ License:        GPL-3.0-or-later
 URL:            https://aajanki.github.io/yle-dl/index-en.html
 Source:         https://github.com/aajanki/%{name}/archive/releases/%{version}/%{name}-%{version}.tar.gz
 Patch:          0000-Revert-New-style-license-metadata.patch
+Patch:          https://github.com/aajanki/%{name}/pull/391.patch
 
 BuildArch:      noarch
 # Depends on archful python3-xattr which excludes i686

@@ -1,5 +1,5 @@
 Name:           scorep
-Version:        9.3
+Version:        9.4
 Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
@@ -343,6 +343,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Sat Dec 27 2025 Dave Love <loveshack@fedoraproject.org> - 9.4-1
+- Update to version 9.4
+
 * Fri Oct 10 2025 Dave Love <loveshack@fedoraproject.org> - 9.3-1
 - Update to version 9.3
 

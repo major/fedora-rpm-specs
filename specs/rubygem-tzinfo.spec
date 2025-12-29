@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Time Zone Library
 License: MIT
 URL: https://tzinfo.github.io
@@ -12,6 +12,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/tzinfo/tzinfo.git --no-checkout
 # cd tzinfo && git archive -v -o tzinfo-2.0.6-tests.txz v2.0.6 test/
 Source1: %{gem_name}-%{version}-tests.txz
+# Fix compatibility with minitest 6
+Patch0:  %{gem_name}-2.0.6-minitest6.patch
 # tzdata might not be available on the system, but users still might prefer
 # to use tzinfo-data gem (although it is not available in Fedora).
 # https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
@@ -20,6 +22,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(concurrent-ruby)
 BuildArch: noarch
 
@@ -38,6 +41,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -85,6 +92,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.6-7
+- Fix compatibliltiy with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

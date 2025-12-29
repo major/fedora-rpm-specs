@@ -1,6 +1,8 @@
 # Break a circular dependency on pyproj introduced by running doctests.
 %bcond bootstrap 0
 %bcond doctests %{without bootstrap}
+# Enables more tests, but could sometimes be broken on new Pythons
+%bcond matplotlib 1
 
 Name:           python-shapely
 Version:        2.1.2
@@ -15,11 +17,18 @@ License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
 
+BuildSystem:            pyproject
+BuildOption(install):   -l shapely
+BuildOption(generate_buildrequires): -x test
+
 BuildRequires:  tomcli
 BuildRequires:  gcc
 BuildRequires:  geos-devel
 
-BuildRequires:  python3-devel
+%if %{with matplotlib}
+# Enables shapely/tests/test_plotting.py
+BuildRequires:  %{py3_dist matplotlib}
+%endif
 %if %{with doctests}
 BuildRequires:  %{py3_dist pyproj}
 %endif
@@ -47,9 +56,7 @@ Provides:       bundled(klib-kvec) = 0.1.0
 %description -n python3-shapely %_description
 
 
-%prep
-%autosetup -n shapely-%{version} -p1
-
+%prep -a
 # Currently, the PyPI sdist does not ship with pre-generated Cython C sources.
 # We preventively check for them anyway, as they must be removed if they do
 # appear. Note that C sources in src/ are not generated.
@@ -66,19 +73,6 @@ tomcli set pyproject.toml lists delitem \
 %endif
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l shapely
-
-
 %check
 # Ensure the “un-built” package is not imported. Otherwise compiled extensions
 # cannot be tested.
@@ -86,31 +80,12 @@ mkdir empty
 cd empty
 ln -s ../shapely/tests/
 
-%pytest -v
+%pyproject_check_import -e 'shapely.tests*' %{?!with_matplotlib:-e shapely.plotting}
+%pytest -rs -v
 
 %if %{with doctests}
-# TODO: Why does this fail? We cannot reproduce it in a git checkout.
-#
-# The expected and actual results do at least describe equivalent circles, so
-# the library is not giving the wrong answer.
-#
-# ___________ [doctest] shapely.constructive.maximum_inscribed_circle ____________
-# 1473 **kwargs
-# 1474     For other keyword-only arguments, see the
-# 1475     `NumPy ufunc docs <https://numpy.org/doc/stable/reference/ufuncs.html#ufuncs-kwargs>`_.
-# 1476
-# 1477 Examples
-# 1478 --------
-# 1479 >>> import shapely
-# 1480 >>> from shapely import Polygon
-# 1481 >>> poly = Polygon([(0, 0), (0, 10), (10, 10), (10, 0), (0, 0)])
-# 1482 >>> shapely.maximum_inscribed_circle(poly)
-# Expected:
-#     <LINESTRING (5 5, 0 5)>
-# Got:
-#     <LINESTRING (5 5, 10 5)>
-#
-# /[…]/shapely/constructive.py:1482: DocTestFailure
+# Doctest shapely.constructive.maximum_inscribed_circle fails
+# https://github.com/shapely/shapely/issues/2391
 dtk="${dtk-}${dtk+ and }not shapely.constructive.maximum_inscribed_circle"
 
 %pytest --doctest-modules --doctest-only-doctests=true \

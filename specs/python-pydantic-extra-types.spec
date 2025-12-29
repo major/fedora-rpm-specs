@@ -11,7 +11,7 @@
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.10.6
+Version:        2.11.0
 %forgemeta
 Release:        %autorelease
 Summary:        Extra types for Pydantic
@@ -124,11 +124,8 @@ ignore="${ignore-} --ignore=tests/test_mongo_object_id.py"
 ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %endif
 
-# With Pydantic 3.12.0a1, this test fails because the generated JSON schema
-# takes a slightly different form than the tests expect. This kind of change is
-# normal in a new Pydantic release. We should ask upstream to adapt this test,
-# but probably not until Pydantic 3.12.0 final is available. For now, we should
-# ignore this harmless discrepancy.
+# 2.10.6: Failing test_json_schema tests
+# https://github.com/pydantic/pydantic-extra-types/issues/346
 k="${k-}${k+ and }not test_json_schema"
 
 %pytest -Wdefault ${ignore-} -k "${k-}" -v

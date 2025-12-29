@@ -1,7 +1,7 @@
 %global sover 1
 
 Name:           protobuf-c
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        C bindings for Google's Protocol Buffers
 

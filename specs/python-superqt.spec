@@ -82,7 +82,17 @@ k="${k-}${k+ and }not test_qiconify"
 # Test fails for unknown reason
 k="${k-}${k+ and }not test_wrapped_eliding_label"
 for QT_FLAVOR in pyqt5 pyqt6 pyside6
-    do PYTEST_QT_API="${QT_FLAVOR}" %pytest -r fEs ${k+-k "${k-}"}
+do
+    case "${QT_FLAVOR}" in
+    pyside6)
+        # Segfault in test_cmap_combo with pyside6 6.10
+        # https://github.com/pyapp-kit/superqt/issues/318
+        ki="${k-}${k+ and }not test_cmap_combo"
+        ;;
+    *)
+        ki="${k-}"
+    esac
+    PYTEST_QT_API="${QT_FLAVOR}" %pytest -r fEs ${ki+-k "${ki-}"}
 done
 %else
 %pyproject_check_import

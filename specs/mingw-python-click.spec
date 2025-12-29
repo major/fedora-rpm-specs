@@ -5,7 +5,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       8.2.2
+Version:       8.3.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 8.3.1-1
+- Update to 8.3.1
+
 * Thu Aug 07 2025 Sandro Mani <manisandro@gmail.com> - 8.2.2-1
 - Update to 8.2.2
 

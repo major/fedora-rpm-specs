@@ -2,11 +2,11 @@
 
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
-Version: 5.2
-Release: 46%{?dist}
+Version: 5.3
+Release: 1%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
-Source0: http://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-%{version}.tar.bz2
+Source0: https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/snapshot/tftp-hpa-%{version}.tar.gz
 Source1: tftp.socket
 Source2: tftp.service
 
@@ -15,15 +15,15 @@ Patch2: tftp-hpa-0.39-tzfix.patch
 Patch3: tftp-0.42-tftpboot.patch
 Patch4: tftp-0.49-chk_retcodes.patch
 Patch5: tftp-hpa-0.49-fortify-strcpy-crash.patch
-Patch6: tftp-0.49-cmd_arg.patch
+Patch6: tftp-hpa-5.3-cmd_arg.patch
 Patch7: tftp-hpa-0.49-stats.patch
-Patch8: tftp-hpa-5.2-pktinfo.patch
+Patch8: tftp-hpa-5.3-pktinfo.patch
 Patch9: tftp-doc.patch
 Patch10: tftp-enhanced-logging.patch
-Patch11: tftp-hpa-5.2-gcc10.patch
 Patch12: tftp-off-by-one.patch
-Patch13: tftp-c99.patch
 Patch14: tftp-hpa-5.2-osh.patch
+# https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/patch/?id=b9f2335e88dcb3939015843c7143f1533c755a46
+Patch15: tftp-hpa-5.3-setjmp.patch
 
 BuildRequires: autoconf
 BuildRequires: gcc
@@ -64,16 +64,14 @@ systemd socket activation, and is disabled by default.
 %patch -P8 -p1 -b .pktinfo
 %patch -P9 -p1 -b .doc
 %patch -P10 -p1 -b .logging
-%patch -P11 -p1 -b .gcc10
 %patch -P12 -p1 -b .off-by-one
-%patch -P13 -p1
 %patch -P14 -p1 -b .osh
+%patch -P15 -p1 -b .setjmp
 
 %build
 autoreconf
 %configure
-touch aconfig.h.in aconfig.h MCONFIG
-make %{?_smp_mflags}
+%make_build
 
 %install
 mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
@@ -82,7 +80,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sbindir}
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/lib/tftpboot
 mkdir -p ${RPM_BUILD_ROOT}%{_unitdir}
 
-make INSTALLROOT=${RPM_BUILD_ROOT} SBINDIR=%{_sbindir} MANDIR=%{_mandir} INSTALL='install -p' install
+%make_install INSTALLROOT=%{buildroot} SBINDIR=%{_sbindir} MANDIR=%{_mandir}
 
 install -p -m 644 %SOURCE1 ${RPM_BUILD_ROOT}%{_unitdir}
 install -p -m 644 %SOURCE2 ${RPM_BUILD_ROOT}%{_unitdir}
@@ -100,16 +98,25 @@ install -p -m 644 %SOURCE2 ${RPM_BUILD_ROOT}%{_unitdir}
 %files
 %doc README README.security CHANGES
 %{_bindir}/tftp
-%{_mandir}/man1/*
+%{_mandir}/man1/tftp.1*
 
 %files server
 %doc README README.security CHANGES
 %dir %{_localstatedir}/lib/tftpboot
 %{_sbindir}/in.tftpd
-%{_mandir}/man8/*
-%{_unitdir}/*
+%{_mandir}/man8/in.tftpd.8*
+%{_mandir}/man8/tftpd.8*
+%{_unitdir}/tftp.service
+%{_unitdir}/tftp.socket
 
 %changelog
+* Fri Dec 26 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.3-1
+- Updated to 5.3 (resolves rhbz#2419684)
+- drop obsolete patch
+- backport fix for compiler warning about setjmp
+- make file lists more explicit
+- use modern make macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

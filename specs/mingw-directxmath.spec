@@ -3,11 +3,11 @@
 %global debug_package %{nil}
 
 %global pkgname directxmath
-%global tag oct2024
+%global tag apr2025
 
 Name:          mingw-%{pkgname}
 Version:       3.20
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -15,6 +15,7 @@ License:       MIT
 URL:           https://github.com/microsoft/DirectXMath
 Source0:       https://github.com/microsoft/DirectXMath/archive/%{tag}/%{pkgname}-%{version}.tar.gz
 # Fix cmake module install dir
+# Adapt header install dir
 Patch0:        directxmath_cmake.patch
 
 BuildRequires: make
@@ -72,6 +73,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 3.20-4
+- Update to apr2025 release
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

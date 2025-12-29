@@ -5,7 +5,7 @@
 %global crate dua-cli
 
 Name:           rust-dua-cli
-Version:        2.30.1
+Version:        2.32.2
 Release:        %autorelease
 Summary:        Tool to conveniently learn about the disk usage of directories
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/dua-cli
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump gix-glob dependency to 0.21
+# * bump gix-glob dependency to 0.22
 # * relax trash dependency to >=3,<6
 Patch:          dua-cli-fix-metadata.diff
 

@@ -25,6 +25,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # mixing gcc and clang, some flags need to be removed
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong//' -e 's/-fcf-protection//' -e 's/-mtls-dialect=gnu2//')
 
@@ -53,9 +66,12 @@
 %global _source_payload         w7T0.xzdio
 %global _binary_payload         w7T0.xzdio
 
-Name:           rocal
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
+Name:           rocal%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -87,19 +103,19 @@ BuildRequires:  half-devel
 BuildRequires:  lmdb-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libsndfile-devel
-BuildRequires:  mivisionx-devel
+BuildRequires:  mivisionx%{pkg_suffix}-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  pybind11-devel
-BuildRequires:  rocdecode-devel
-BuildRequires:  rocjpeg-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-omp-devel
-BuildRequires:  rocm-rpp-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocdecode%{pkg_suffix}-devel
+BuildRequires:  rocjpeg%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-omp%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-rpp%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  turbojpeg-devel
 
 # License info copied from the rapidjson spec
@@ -118,7 +134,7 @@ rocAL currently provides C API.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocal-devel = %{version}-%{release}
+Provides:       rocal%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -156,8 +172,8 @@ sed -i -e 's@set(COMPILER_FOR_HIP@#set(COMPILER_FOR_HIP@' rocAL/rocAL_hip/CMakeL
 sed -i -e 's@set(LINK_LIBRARY_LIST ${LINK_LIBRARY_LIST} ${TurboJpeg_LIBRARIES})@set(LINK_LIBRARY_LIST ${LINK_LIBRARY_LIST} ${LIBJPEG_LIBRARIES} ${TurboJpeg_LIBRARIES})@' rocAL/CMakeLists.txt
 
 # Tests use the wrong ROCM_PATH
-sed -i -e 's@set(ROCM_PATH /opt/rocm@set(ROCM_PATH /usr@' tests/cpp_api/CMakeLists.txt
-sed -i -e 's@set(ROCM_PATH /opt/rocm@set(ROCM_PATH /usr@' tests/cpp_api/*/CMakeLists.txt
+sed -i -e 's@set(ROCM_PATH /opt/rocm@set(ROCM_PATH %{pkg_prefix}@' tests/cpp_api/CMakeLists.txt
+sed -i -e 's@set(ROCM_PATH /opt/rocm@set(ROCM_PATH %{pkg_prefix}@' tests/cpp_api/*/CMakeLists.txt
 
 # tests have wrong include
 for f in `find tests -type f -name '*.cpp' `; do
@@ -189,16 +205,17 @@ cd ../..
 
 %cmake \
     --debug-find-pkg=MIVisionX \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_INSTALL_LIBDIR=%_libdir \
-    -DCMAKE_PREFIX_PATH=$p/install/lib/cmake \
     -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
     -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_PREFIX_PATH=$p/install/lib/cmake \
     -DCOMPILER_FOR_HIP=%rocmllvm_bindir/clang++ \
+    -DGPU_TARGETS=%{gpu_list} \
     -DHIP_PLATFORM=amd \
-    -DROCM_PATH=%_prefix
+    -DROCM_PATH=%{pkg_prefix}
 
 %cmake_build
 
@@ -213,32 +230,38 @@ cd ../..
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocal/LICENSE.txt
-rm -f %{buildroot}%{_prefix}/share/doc/rocal-asan/LICENSE.txt
+# Extra licenses
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocal/LICENSE.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocal-asan/LICENSE.txt
+# Extra README
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocal/README.md
 
 # No cmake knob to turn off testing, remove the install dir
 %if %{without test}
-rm -rf %{buildroot}%{_datadir}/rocal/test
+rm -rf %{buildroot}%{pkg_prefix}/share/rocal/test
 %endif
 
 # ERROR   0020: file '/usr/lib64/librocal.so.2.3.0' contains a rpath referencing '..' of an absolute path [:/usr/lib64/rocm/llvm/bin/../lib]
-chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librocal.so.2.*.*
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librocal.so.2.*.*
 
 %files
 %doc README.md
 %license LICENSE.txt
-%{_libdir}/librocal.so.2{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocal.so.2{,.*}
 
 %files devel
-%{_libdir}/librocal.so
-%{_includedir}/rocal/
+%{pkg_prefix}/%{pkg_libdir}/librocal.so
+%{pkg_prefix}/include/rocal/
 
 %if %{with test}
 %files test
-%{_datadir}/rocal/test
+%{pkg_prefix}/share/rocal/test
 %endif
 
 %changelog
+* Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Mon Nov 10 2025 Adam Williamson <awilliam@redhat.com> - 7.1.0-2
 - Rebuild for new ffmpeg / mivisionx
 

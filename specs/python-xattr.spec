@@ -1,7 +1,7 @@
 
 
 Name:           python-xattr
-Version:        0.10.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Python wrapper for extended filesystem attributes
 
@@ -54,7 +54,7 @@ Summary:        %{summary}
 
 
 %files -n python3-xattr -f %{pyproject_files}
-%doc CHANGES.txt README.rst TODO.txt
+%doc CHANGES.txt README.rst
 %license LICENSE.txt
 %{_bindir}/xattr
 

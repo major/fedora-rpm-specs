@@ -24,6 +24,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
@@ -33,9 +46,9 @@
 # This is a header only
 %global debug_package %{nil}
 
-Name:           rocwmma
+Name:           rocwmma%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -44,12 +57,13 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-omp-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-omp%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -78,22 +92,33 @@ Provides:       %{name}-static = %{version}-%{release}
 
 %build
 %cmake \
-       -DROCM_SYMLINK_LIBS=OFF \
-       -DHIP_PLATFORM=amd \
-       -DROCWMMA_BUILD_SAMPLES=FALSE \
-       -DROCWMMA_BUILD_TESTS=FALSE
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_CXX_FLAGS="-O2 -I %{pkg_prefix}/include" \
+    -DCMAKE_EXE_LINKER_FLAGS="-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DHIP_PLATFORM=amd \
+    -DROCWMMA_BUILD_SAMPLES=FALSE \
+    -DROCWMMA_BUILD_TESTS=FALSE
 
 %cmake_build
 
 %install
 %cmake_install
 
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocwmma/LICENSE.md
+
 %files devel
 %license LICENSE.md
-%exclude %{_docdir}/%{name}/LICENSE.md
-%{_includedir}/%{name}/
+%{pkg_prefix}/include/rocwmma
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

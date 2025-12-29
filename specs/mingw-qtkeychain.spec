@@ -3,25 +3,29 @@
 %global pkgname qtkeychain
 
 Name:           mingw-%{pkgname}
-Version:        0.14.3
-Release:        4%{?dist}
+Version:        0.15.0
+Release:        1%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 BuildArch:      noarch
 
 License:        BSD-3-Clause
 Url:            https://github.com/frankosterfeld/%{pkgname}
 Source0:        https://github.com/frankosterfeld/%{pkgname}/archive/%{version}/%{pkgname}-%{version}.tar.gz
+# Add missing cmath include
+Patch0:         qtkeychain_include.patch
+# Don't add /utf-8 when building with mingw
+Patch1:         qtkeychain_cmake.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  cmake
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt5-qtbase
 BuildRequires:  mingw32-qt5-qttools
 BuildRequires:  mingw32-qt5-qttools-tools
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt5-qtbase
 BuildRequires:  mingw64-qt5-qttools
@@ -85,6 +89,9 @@ grep %{mingw64_datadir}/qt5keychain/translations %{pkgname}.lang > mingw64_%{pkg
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_Qt5Keychain.pri
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 0.15.0-1
+- Update to 0.15.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

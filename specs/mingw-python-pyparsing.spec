@@ -9,8 +9,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
-Version:        3.1.2
-Release:        4%{?dist}
+Version:        3.3.1
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -62,7 +62,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 3.1.2
+Version: 3.3.1
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -107,6 +107,9 @@ cp -a pyparsing %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 3.3.1-1
+- Update to 3.3.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

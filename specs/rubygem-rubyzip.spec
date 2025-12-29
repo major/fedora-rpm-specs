@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A ruby module for reading and writing zip files
 License: Ruby OR BSD-2-Clause
 URL: http://github.com/rubyzip/rubyzip
@@ -11,10 +11,13 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rubyzip/rubyzip.git --no-checkout
 # cd rubyzip && git archive -v -o rubyzip-3.2.2-test.tar.gz v3.2.2 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# Fix compatibility with minitest 6
+Patch0:  rubyzip-3.2.2-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildArch: noarch
 
 %description
@@ -31,6 +34,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -65,6 +72,9 @@ popd
 %{gem_instdir}/samples
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.2-2
+- Fix compatilility with minitest 6
+
 * Mon Dec 22 2025 Vít Ondruch <vondruch@redhat.com> - 3.2.2-1
 - Update to rubyzip 3.2.2.
   Resolves: rhbz#2335556

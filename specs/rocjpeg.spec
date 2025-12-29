@@ -19,17 +19,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocjpeg_name librocjpeg1
-%else
-%global rocjpeg_name rocjpeg
-%endif
-
 %global upstreamname rocJPEG
 
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global rocjpeg_name librocjpeg1%{pkg_suffix}
+%else
+%global rocjpeg_name rocjpeg%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -59,7 +71,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -70,11 +82,12 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 %if %{with check}
 %if 0%{?suse_version}
@@ -106,7 +119,7 @@ Requires:     Mesa-libva
 %else
 Requires:     mesa-va-drivers
 %endif
-Provides:     rocjpeg = %{version}-%{release}
+Provides:     rocjpeg%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -122,7 +135,7 @@ on your GPU.
 %package devel
 Summary: The development package for %{name}
 Requires:     %{name}%{?_isa} = %{version}-%{release}
-Provides:     rocjpeg-devel = %{version}-%{release}
+Provides:     rocjpeg%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 The rocJPEG development package.
@@ -135,15 +148,15 @@ The rocJPEG development package.
 sed -i "s|\(llvm/bin/clang++\)|\1 CACHE STRING \"ROCm Compiler path\"|" CMakeLists.txt
 
 # There is no /opt/amgpu/include, just use the normal path.
-sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cmake
+sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|%{pkg_prefix}/include|" cmake/FindLibva.cmake
 
 # Fix up sample
-sed -i -e 's@${ROCM_PATH}/lib/llvm/bin/clang++@/usr/bin/hipcc@' samples/*/CMakeLists.txt
-sed -i -e 's@{ROCM_PATH}/lib@/usr/lib64@' samples/*/CMakeLists.txt test/CMakeLists.txt
-sed -i -e 's@{ROCM_PATH}/include/rocjpeg@/usr/include/rocjpeg@' samples/*/CMakeLists.txt test/CMakeLists.txt
+sed -i -e 's@${ROCM_PATH}/lib/llvm/bin/clang++@%{pkg_prefix}/bin/hipcc@' samples/*/CMakeLists.txt
+sed -i -e 's@{ROCM_PATH}/lib@%{pkg_prefix}/lib64@' samples/*/CMakeLists.txt test/CMakeLists.txt
+sed -i -e 's@{ROCM_PATH}/include/rocjpeg@%{pkg_prefix}/include/rocjpeg@' samples/*/CMakeLists.txt test/CMakeLists.txt
 sed -i -e 's@set(ROCM_PATH /opt/rocm@set(__ROCM_PATH /opt/rocm@' samples/*/CMakeLists.txt test/CMakeLists.txt
 # Fix up test
-sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
+sed -i -e 's@{ROCM_PATH}/share@%{pkg_prefix}/share@' test/CMakeLists.txt
 
 # cpack cruft in the middle of the configure, this breaks TW 
 sed -i -e 's@file(READ "/etc/os-release" OS_RELEASE)@#file(READ "/etc/os-release" OS_RELEASE)@'  CMakeLists.txt
@@ -157,22 +170,26 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
 
 %build
 
-%cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib}
+%cmake \
+    %{cmake_generator} \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
 %cmake_build
 
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg-asan/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg-dev/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-dev/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-test/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg-asan/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg-dev/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg-test/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-dev/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-test/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
 
 # Need to install first
 %if %{with check}
@@ -182,15 +199,18 @@ rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 
 %files
 %license LICENSE
-%{_libdir}/librocjpeg.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocjpeg.so.1{,.*}
 
 %files devel
-%{_libdir}/librocjpeg.so
-%{_libdir}/cmake/rocjpeg/
-%{_includedir}/rocjpeg/
-%{_datadir}/rocjpeg/
+%{pkg_prefix}/%{pkg_libdir}/librocjpeg.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocjpeg/
+%{pkg_prefix}/include/rocjpeg/
+%{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

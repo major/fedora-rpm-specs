@@ -24,6 +24,19 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %bcond_with debug
 %if %{with debug}
 %global build_type DEBUG
@@ -34,9 +47,9 @@
 # Needs ROCm HW so is only suitable for local testing
 %bcond_with test
 
-Name:           hipfort
+Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -50,20 +63,18 @@ Patch2:         0001-hipfort-remove-build-type-check.patch
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
-BuildRequires:  hipcc
-BuildRequires:  hipblas-devel
-BuildRequires:  hipfft-devel
-BuildRequires:  hiprand-devel
-BuildRequires:  hipsolver-devel
-BuildRequires:  hipsparse-devel
-BuildRequires:  ninja-build
-BuildRequires:  rocm-cmake
-BuildRequires:  rocblas-devel
-BuildRequires:  rocfft-devel
-BuildRequires:  rocrand-devel
-BuildRequires:  rocsolver-devel
-BuildRequires:  rocsparse-devel
-
+BuildRequires:  hipblas%{pkg_suffix}-devel
+BuildRequires:  hipfft%{pkg_suffix}-devel
+BuildRequires:  hiprand%{pkg_suffix}-devel
+BuildRequires:  hipsolver%{pkg_suffix}-devel
+BuildRequires:  hipsparse%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocblas%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocfft%{pkg_suffix}-devel
+BuildRequires:  rocrand%{pkg_suffix}-devel
+BuildRequires:  rocsolver%{pkg_suffix}-devel
+BuildRequires:  rocsparse%{pkg_suffix}-devel
 
 # ROCm is only x86_64 for now
 ExclusiveArch:  x86_64
@@ -90,13 +101,16 @@ sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_requir
 
 %build
 
-%cmake -G Ninja \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-       -DCMAKE_SKIP_RPATH=ON \
-       -DROCM_SYMLINK_LIBS=OFF \
-       -DHIP_PLATFORM=amd \
-       -DBUILD_SHARED_LIBS=ON \
-       -DCMAKE_BUILD_TYPE=%{build_type}
+%cmake \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DHIP_PLATFORM=amd \
+    -DBUILD_SHARED_LIBS=ON \
+    -DCMAKE_BUILD_TYPE=%{build_type}
 
 %cmake_build
 
@@ -116,31 +130,30 @@ export LDFLAGS=""
 %install
 %cmake_install
 # nvidia is not supported on Fedora
-rm -rf %{buildroot}%{_includedir}/%{name}/nvptx
-rm -rf %{buildroot}%{_libdir}/lib%{name}-nvptx*
+rm -rf %{buildroot}%{pkg_prefix}/include/hipfort/nvptx
+rm -rf %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipfort-nvptx*
 
 # rpmbuild has a problem with this file
-rm %{buildroot}%{_libdir}/cmake/%{name}/%{name}-config.cmake
+rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/hipfort-config.cmake
 
 %files
 %license LICENSE
-%exclude %{_docdir}/%{name}/LICENSE
 %doc README.md
-%dir %{_datadir}/%{name}
-%dir %{_includedir}/%{name}
-%dir %{_libdir}/cmake/%{name}
 %{_bindir}/hipfc
-%{_libdir}/lib%{name}-amdgcn.so.*
-%{_libexecdir}/%{name}
+%{pkg_prefix}/%{pkg_libdir}/libhipfort-amdgcn.so.*
+%{_libexecdir}/hipfort
 
 
 %files devel
-%{_datadir}/%{name}
-%{_includedir}/%{name}
-%{_libdir}/lib%{name}-amdgcn.so
-%{_libdir}/cmake/%{name}
+%{pkg_prefix}/share/hipfort/
+%{pkg_prefix}/include/hipfort/
+%{pkg_prefix}/%{pkg_libdir}/libhipfort-amdgcn.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

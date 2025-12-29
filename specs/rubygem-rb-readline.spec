@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.5
-Release:	18%{?dist}
+Release:	19%{?dist}
 
 Summary:	Pure-Ruby Readline Implementation
 # SPDX confirmed
@@ -10,6 +10,10 @@ License:	BSD-3-Clause
 
 URL:		http://github.com/ConnorAtherton/rb-readline
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Make testsuite compatible with minitest 6
+Patch0:	rb-readline-0.5.5-minitest6.patch
+# Remove ruby3.4 frozen string warnings
+Patch1:	rb-readline-0.5.5-frozen-string.patch
 
 BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(minitest) >= 5
@@ -30,6 +34,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
+%patch -P1 -p1
 mv ../%{gem_name}-%{version}.gemspec .
 
 %build
@@ -96,6 +102,10 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-19
+- Fix compatibility with minitest 6
+- Remove ruby3.4 frozen string warnings
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

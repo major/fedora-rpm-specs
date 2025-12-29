@@ -19,17 +19,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rocdecode_name librocdecode1
-%else
-%global rocdecode_name rocdecode
-%endif
-
 %global upstreamname rocDecode
 
 %global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+%global rocdecode_name librocdecode1%{pkg_suffix}
+%else
+%global rocdecode_name rocdecode%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -59,7 +71,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -72,11 +84,12 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 %if %{with check}
 %if 0%{?suse_version}
@@ -106,7 +119,7 @@ BuildRequires:  ninja
 
 # Rocdecode isn't useful without AMD's mesa va drivers:
 Requires:     mesa-va-drivers
-Provides:     rocdecode = %{version}-%{release}
+Provides:     rocdecode%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -121,7 +134,7 @@ rocDecode API, you can access the video decoding features available on your GPU.
 %package devel
 Summary: The rocDecode development package
 Requires:     %{name}%{?_isa} = %{version}-%{release}
-Provides:     rocdecode-devel = %{version}-%{release}
+Provides:     rocdecode%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 The rocDecode development package.
@@ -147,18 +160,24 @@ sed -i -e 's@string(REGEX MATCH "22.04" UBUNTU_22_FOUND ${OS_RELEASE})@#string(R
 sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY} -ldrm_amdgpu@' CMakeLists.txt
 
 %build
-%cmake %{cmake_generator} \
-    -DCMAKE_CXX_COMPILER=hipcc \
-    -DCMAKE_INSTALL_LIBDIR=%{_lib}
+%cmake \
+    %{cmake_generator} \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
 %cmake_build
 
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocdecode/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
-rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocdecode/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocdecode-asan/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
+
+rm -rf %{buildroot}%{pkg_prefix}/share/rocdecode/samples
 
 # Need to install the sample first
 %if %{with check}
@@ -168,16 +187,18 @@ rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 
 %files
 %license LICENSE
-%{_libdir}/librocdecode.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocdecode.so.1{,.*}
 
 %files devel
-%{_libdir}/librocdecode.so
-%{_libdir}/cmake/rocdecode/
-%{_includedir}/rocdecode
-%{_datadir}/rocdecode
-%exclude %{_datadir}/rocdecode/samples
+%{pkg_prefix}/%{pkg_libdir}/librocdecode.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocdecode/
+%{pkg_prefix}/include/rocdecode
+%{pkg_prefix}/share/rocdecode
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with compat
+
 * Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 
