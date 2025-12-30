@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        5.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -13,7 +13,7 @@ Source4:        exabgp.systemd.exabgp@.service
 Patch0001:      0001-Fix-handle_connection-return-value-and-md5-parameter.patch
 Patch0002:      0002-Fix-inject_operational-afi_safi-bug-peer.py-api_shut.patch
 Patch0003:      0003-Fix-Duplicate-attribute-crash-attribute.ID-on-bytes.patch
-Patch0101:      0101-Support-python-3.14.patch
+Patch0100:      0100-Adjust-python-versions.patch
 
 BuildArch:      noarch
 
@@ -125,6 +125,10 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Wed Dec 24 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.1-2
+- Update python version validation (resolves rhbz#2424298)
+  Upstream has indicated that python 3.8.1+ should all be supported 
+
 * Sat Nov 22 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.1-1
 - Update to version 5.0.1 release (resolves rhbz#2415530)
 

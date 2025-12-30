@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.1.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A simple framework for automatic parallelism
 
 License:        MIT
@@ -13,6 +13,7 @@ Patch1:         0001-Make-it-work-with-Minitest-5.patch
 Patch2:         0002-Make-tests-work-with-Rake-10.patch
 Patch3:         0003-Fix-throw_test-test.patch
 Patch4:         0004-Fix-run-with-Minitest-5.patch
+Patch5:         0005-minitest6.patch
 BuildArch:      noarch
 
 BuildRequires:  rubygems-devel
@@ -42,6 +43,7 @@ gem unpack %{SOURCE0}
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
+%patch -P5 -p1
 gem spec %{SOURCE0} -l --ruby >%{gem_name}.gemspec
 
 
@@ -76,6 +78,9 @@ rake test
 
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.3-25
+- Fix compatibility with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

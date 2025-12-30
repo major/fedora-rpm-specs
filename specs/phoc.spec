@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     phoc
-Version:  0.51.0
+Version:  0.52~rc1
 Release:  %{autorelease}
 Summary:  Display compositor designed for phones
 
@@ -9,6 +9,9 @@ License:  GPL-3.0-or-later
 URL:      https://gitlab.gnome.org/World/Phosh/phoc
 Source0:  https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 Source1:  https://gitlab.gnome.org/GNOME/gvdb/-/archive/%{gvdb_commit}/gvdb-%{gvdb_commit}.tar.gz
+
+# Can be dropped after 0.52~rc1
+Patch0:   0001-build-Use-released-gmobile.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -52,6 +55,7 @@ pronounced like the English word fog.
 
 %prep
 %setup -a1 -q -n %{name}-v%{version_no_tilde _}
+%patch -p1 0
 mv gvdb-%{gvdb_commit} subprojects/gvdb
 
 %conf
@@ -74,7 +78,7 @@ HERE
 %{_bindir}/phoc
 %{_bindir}/phoc-outputs-states
 %{_datadir}/phoc
-%{_datadir}/glib-2.0/schemas/sm.puri.phoc.gschema.xml
+%{_datadir}/glib-2.0/schemas/mobi.phosh.phoc.gschema.xml
 %{_datadir}/applications/mobi.phosh.Phoc.desktop
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Phoc.svg
 %{_mandir}/man1/phoc.1.gz

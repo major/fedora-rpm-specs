@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Shared classes and tests for fog providers and services
 License: MIT
 URL: https://github.com/fog/fog-core
@@ -11,6 +11,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/fog/fog-core.git && cd fog-core
 # git archive -v -o fog-core-2.6.0-spec.tar.gz v2.6.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
+# Fix compatibility with minitest 6
+Patch0:  %{gem_name}-2.6.0-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -18,6 +20,7 @@ BuildRequires: rubygem(excon)
 BuildRequires: rubygem(formatador)
 BuildRequires: rubygem(mime-types)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(minitest-stub-const)
 BuildArch: noarch
 
@@ -35,6 +38,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 # Test suite passes with Excon 0.100.0 just fine. Relax the dependency for now
 # so we don't need to bump excon ATM.
@@ -82,6 +89,9 @@ popd
 %{gem_instdir}/fog-core.gemspec
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.0-4
+- Fix compatibility with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

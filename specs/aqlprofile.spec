@@ -55,7 +55,7 @@
 
 Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
 
@@ -69,6 +69,20 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+
+%if %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gmock
+BuildRequires:  gtest
+%else
+BuildRequires:  gmock-devel
+BuildRequires:  gtest-devel
+%endif
+BuildRequires:  rocm-clang%{pkg_suffix}-devel
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-llvm%{pkg_suffix}-static
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+%endif
 
 %description
 AQLprofile is an open source library that enables advanced GPU
@@ -86,6 +100,15 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}
 
+%if %{with test}
+%package test
+Summary:        The test package for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description test
+%{summary}
+%endif
+
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
@@ -95,10 +118,11 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 
 %build
 %cmake \
+    -DAQLPROFILE_BUILD_TESTS=%{build_test} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DAQLPROFILE_BUILD_TESTS=%{build_test} \
+    -DCMAKE_HIP_COMPILER_ROCM_ROOT=%{pkg_prefix} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     
 %cmake_build
@@ -115,7 +139,14 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %{pkg_prefix}/include/aqlprofile-sdk/
 %{pkg_prefix}/%{pkg_libdir}/libhsa-amd-aqlprofile64.so
 
+%if %{with test}
+%{pkg_prefix}/share/hsa-amd-aqlprofile/
+%endif
+
 %changelog
+* Sun Dec 28 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Fix --with test
+
 * Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
 

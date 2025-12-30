@@ -1,11 +1,11 @@
 Name:           gnome-radio
-Version:        60.0
+Version:        63.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
 License:        GPL-3.0-or-later
 URL:            http://gnomeradio.org
-Source0:        http://www.gnomeradio.org/src/gnome-radio-60.0.tar.xz
+Source0:        http://www.gnomeradio.org/src/gnome-radio-63.0.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -47,6 +47,7 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_bindir}/gtk-internet-radio-locator
 %{_bindir}/gtk-radio
 %{_bindir}/org.gnome.Radio
+%{_bindir}/radio-icy
 %{_datadir}/applications/gnome-radio.desktop
 %{_datadir}/gnome-radio/doc/AAMOT.txt.xz
 %{_datadir}/gnome-radio/doc/Aamot-2020.txt.xz

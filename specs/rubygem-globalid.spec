@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Refer to any model with a URI: gid://app/class/id
 License: MIT
 URL: http://www.rubyonrails.org
@@ -25,6 +25,7 @@ BuildRequires: ruby >= 2.5.0
 %if %{without bootstrap}
 BuildRequires: rubygem(activesupport)
 BuildRequires: rubygem(activemodel)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(railties)
 %endif
 BuildArch: noarch
@@ -88,6 +89,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-5
+- Fix compatibility with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

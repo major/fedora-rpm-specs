@@ -25,12 +25,25 @@
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # This is a clang tool so best to build with clang
 %global toolchain clang
 
-Name:           hipify
+Name:           hipify%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -43,9 +56,9 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  perl
 # System clang may be too old, use rocm-llvm
-BuildRequires:  rocm-llvm-static
-BuildRequires:  rocm-clang-devel
-BuildRequires:  rocm-compilersupport-macros
+BuildRequires:  rocm-llvm%{pkg_suffix}-static
+BuildRequires:  rocm-clang%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  zlib-devel
 
 Requires:       perl
@@ -64,6 +77,8 @@ HIP C++ automatically.
 %cmake \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/..
 
 %cmake_build
@@ -76,26 +91,30 @@ diff e.hip t.hip
 
 %install
 %cmake_install
-rm -rf %{buildroot}/usr/hip
+rm -rf %{buildroot}%{pkg_prefix}/hip
 # Fix executable perm:
-chmod a+x %{buildroot}%{_bindir}/*
+chmod a+x %{buildroot}%{pkg_prefix}/bin/*
 # Fix script shebang (Fedora doesn't allow using "env"):
-sed -i 's|\(/usr/bin/\)env perl|\1perl|' %{buildroot}%{_bindir}//hipify-perl
+sed -i 's|\(/usr/bin/\)env perl|\1perl|' %{buildroot}%{pkg_prefix}/bin//hipify-perl
 
 # Fix
 # /usr/bin/hipify-clang: error while loading shared libraries: libclang-cpp.so.19.0git
-chrpath %{buildroot}%{_bindir}/hipify-clang -r %rocmllvm_libdir
+chrpath %{buildroot}%{pkg_prefix}/bin/hipify-clang -r %rocmllvm_libdir
 
-rm -rf %{buildroot}%{_includedir}
+# No devel package
+rm -rf %{buildroot}%{pkg_prefix}/include
 
 %files
 %doc README.md
 %license LICENSE.txt
-%{_bindir}/hipify-clang
-%{_bindir}/hipify-perl
-%{_libexecdir}/%{name}
+%{pkg_prefix}/bin/hipify-clang
+%{pkg_prefix}/bin/hipify-perl
+%{pkg_prefix}/libexec/hipify/
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

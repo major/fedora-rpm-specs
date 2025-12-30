@@ -1,5 +1,5 @@
 Name:           python-pdfminer
-Version:        20251107
+Version:        20251228
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 
@@ -216,6 +216,7 @@ k="${k-}${k+ and }not test_font_size"
 k="${k-}${k+ and }not test_paint_path_quadrilaterals"
 k="${k-}${k+ and }not test_pdf_with_empty_characters_horizontal"
 k="${k-}${k+ and }not test_pdf_with_empty_characters_vertical"
+k="${k-}${k+ and }not (TestPaintPath and test_linewidth)"
 
 ignore="${ignore-} --ignore=tests/test_tools_dumppdf.py"
 ignore="${ignore-} --ignore=tests/test_tools_pdf2txt.py"

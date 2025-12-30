@@ -1,14 +1,12 @@
 Name:           liferea
 Epoch:          1
-Version:        1.16.5
-Release:        3%{?dist}
+Version:        1.16.7
+Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
 Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.bz2
-
-Patch: 0001-Backport-fixes-from-1459.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -49,6 +47,7 @@ browse through their items, and show their contents.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+
 
 %build
 %configure --disable-static
@@ -91,6 +90,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Sun Dec 28 2025 Yanko Kaneti <yaneti@declera.com> - 1:1.16.7-1
+- Update to 1.16.7
+
+* Fri Oct 31 2025 Yanko Kaneti <yaneti@declera.com> - 1:1.16.6-1
+- Update to 1.16.6
+
 * Thu Oct 30 2025 Yanko Kaneti <yaneti@declera.com> - 1:1.16.5-3
 - Fix incomplete libpeas requirements update (#207399)
 - Drop rhel conditionals for now
@@ -108,7 +113,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 * Mon Sep 30 2024 josef radinger <cheese@nosuchhost.net> - 1:1.15.8-1
 - bump version
 
-* Tue Jul 21 2024 josef radinger <cheese@nosuchhost.net> - 1:1.15.7-1
+* Mon Jul 22 2024 josef radinger <cheese@nosuchhost.net> - 1:1.15.7-1
 - bump version
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.15.6-2

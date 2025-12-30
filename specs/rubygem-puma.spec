@@ -12,7 +12,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 # MIT: lib/puma/sd_notify.rb
 # https://github.com/puma/puma/issues/3311
@@ -55,6 +55,9 @@ Patch8: rubygem-puma-pr3743-update-all-certs.patch
 # https://github.com/puma/puma/pull/3615
 # Patch for ruby4_0 OpenSSL set_minmax_proto_version removal
 Patch9: rubygem-puma-pr3615-ruby40-OpenSSL-set_minmax_proto_version-removal.patch
+# support minitest 6
+# ref: https://github.com/rails/rails/commit/99395e1ea401acbc23d4f6b2a8657cdb82f921bd
+Patch10: rubygem-puma-6.4.2-minitest6.patch
 
 BuildRequires: openssl-devel
 BuildRequires: ruby(release)
@@ -62,6 +65,7 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(minitest-stub-const)
 BuildRequires: rubygem(nio4r)
 # `rackup` is split into independent package since Rack 3.x
@@ -111,6 +115,7 @@ pushd %{builddir}
 %patch 7 -p1
 %patch 8 -p1
 %patch 9 -p1
+%patch 10 -p1
 popd
 
 %if %{with ragel}
@@ -251,6 +256,9 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.4.2-10
+- Fix compatibility with minitest 6
+
 * Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.4.2-9
 - Backport upstream change for updating SSL certs again for testsuite
 - Backport upstream fix for some OpenSSL method removal for ruby4_0

@@ -5,7 +5,7 @@
 %global crate ossl
 
 Name:           rust-ossl
-Version:        1.3.1
+Version:        1.4.0
 Release:        %autorelease
 Summary:        OpenSSL version 3+ bindings to modern EVP APIs
 
@@ -18,17 +18,17 @@ Patch:          ossl-fix-metadata.diff
 Patch2:         0001-Unconditionally-link-with-system-OpenSSL.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(openssl) >= 3.0.0
+BuildRequires:  pkgconfig(openssl) >= 3.0.7
 
 %global _description %{expand:
-A PKCS #11 software token written in Rust.}
+OpenSSL version 3+ bindings to modern EVP APIs.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(openssl) >= 3.0.0
+Requires:       pkgconfig(openssl) >= 3.0.7
 
 %description    devel %{_description}
 
@@ -37,6 +37,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE-2.0.txt
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

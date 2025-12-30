@@ -8,8 +8,8 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	6.1.4
-Release:	2%{?dist}
+Version:	6.1.5
+Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 # SPDX confirmed
@@ -19,9 +19,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # %%{SOURCE2} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rmagick-create-full-tarball.sh
-# https://github.com/rmagick/rmagick/pull/1712
-# Ractor#take is removed on ruby3_5
-Patch0:	rmagick-pr1712-Ractor_take_removal.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	rubygems-devel 
@@ -65,7 +62,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
-%patch -P0 -p1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 # permission
@@ -149,6 +145,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.1.5-1
+- 6.1.5
+
 * Wed Oct 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.1.4-2
 - Apply upstream patch for ruby3_5 Ractor change for testsuite
 

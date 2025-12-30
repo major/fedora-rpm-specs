@@ -32,7 +32,7 @@
 %endif
 
 %global ghc_major 9.12
-%global ghc_patchlevel 2
+%global ghc_patchlevel 3
 %global ghc_name ghc%{ghc_major}
 
 %global Cabal_ver 3.14.2.0
@@ -90,10 +90,10 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}.20251209
+Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -913,7 +913,10 @@ make test
 
 
 %changelog
-* Sun Dec 14 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20251209-1
+* Sun Dec 28 2025 Jens Petersen <petersen@redhat.com> - 9.12.3-12
+- https://downloads.haskell.org/ghc/9.12.3/docs/users_guide/9.12.3-notes.html
+
+* Sun Dec 14 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20251209-11
 - update to 9.12.3 RC3
 - https://downloads.haskell.org/ghc/9.12.3-rc3/docs/users_guide/9.12.3-notes.html
 

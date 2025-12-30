@@ -7,8 +7,8 @@
 
 Name:           mingw-%{pkgname}
 Summary:        MinGW Windows Qwt library
-Version:        6.2.0
-Release:        8%{?dist}
+Version:        6.3.0
+Release:        1%{?dist}
 URL:            http://qwt.sourceforge.net
 License:        LGPL-2.0-or-later WITH FLTK-exception
 BuildArch:      noarch
@@ -94,10 +94,8 @@ export MINGW_BUILDDIR_SUFFIX=qt5
 
 %if %{with qt6}
 export MINGW_BUILDDIR_SUFFIX=qt6
-# /usr/i686-w64-mingw32/sys-root/mingw/include/qt6/QtCore/qconfig.h has
-# QT_COMPILER_SUPPORTS_F16C set to 1, also SSE2/3 AVX/2, which seems
-# dubious. Hack below makes it compile
-echo QMAKE_CXXFLAGS += -msse2 >> qwtbuild.pri
+export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw_qmake_qt6} QWT_CONFIG+=QwtPkgConfig ..
 %mingw_make_build
 %endif
@@ -180,6 +178,9 @@ mv %{buildroot}%{mingw64_libdir}/*.dll %{buildroot}%{mingw64_bindir}
 %endif
 
 %changelog
+* Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 6.3.0-1
+- Update to 6.3.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate axum
 
 Name:           rust-axum
-Version:        0.8.7
+Version:        0.8.8
 Release:        %autorelease
 Summary:        Web framework that focuses on ergonomics and modularity
 

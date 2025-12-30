@@ -11,7 +11,8 @@ Summary:    Redirect connections through proxy servers
 License:    GPL-2.0-or-later
 URL:        https://github.com/rofl0r/proxychains-ng
 Source0:    http://ftp.barfooze.de/pub/sabotage/tarballs/proxychains-ng-%{version}.tar.xz
-Patch1:     de6719e341d5dcc165260f788147401c53a68b65.patch
+# generated using git format-patch --zero-commit --stdout $(git describe --tags --abbrev=0 master) > $(git rev-parse master).patch
+Patch1:     979bfef42974f80352566cbad1fd1be4ec33cd70.patch
 
 BuildRequires:  gcc
 BuildRequires:  make

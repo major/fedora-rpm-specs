@@ -48,6 +48,15 @@ ExcludeArch: s390 s390x armv7hl i686
 %global mpi_list %{?mpi_list} openmpi
 %endif
 
+%global oshmem 1
+%ifarch ppc64le
+# Currently no oshmem compilers on Fedora due to UCX bug -- not clear
+# what better to test.
+%if %{?fedora}0
+%global oshmem 0
+%endif
+%endif
+
 # Avoid missing symbol link errors in test
 %undefine _ld_as_needed
 # Avoid in test
@@ -322,9 +331,11 @@ make -C serial check V=1
 %{_libdir}/openmpi/bin/scorep-mpicxx
 %{_libdir}/openmpi/bin/scorep-mpif77
 %{_libdir}/openmpi/bin/scorep-mpif90
+%if %{oshmem}
 %{_libdir}/openmpi/bin/scorep-oshcc
 %{_libdir}/openmpi/bin/scorep-oshcxx
 %{_libdir}/openmpi/bin/scorep-oshfort
+%endif
 %{_libdir}/openmpi/bin/scorep-score
 %{_libdir}/openmpi/bin/scorep-wrapper
 %{_libdir}/openmpi/bin/scorep-preload-init
@@ -343,6 +354,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Sun Dec 28 2025 Dave Love <loveshack@fedoraproject.org> - 9.4-1
+- Account for lack of oshmem compilers on ppc64le
+
 * Sat Dec 27 2025 Dave Love <loveshack@fedoraproject.org> - 9.4-1
 - Update to version 9.4
 

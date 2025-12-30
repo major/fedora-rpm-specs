@@ -1,20 +1,14 @@
 # .so library version
 %global abiver  3
-# Upstream suggests to pick bugfixes directly from master
-# Currently we do that to pick fixes for HowardHinnant/date#671
-%global date    20221213
-%global commit  c9169ea31021127d2acde79c0a838480602a5539
-
-%global shortcommit  %(c=%{commit}; echo ${c:0:7})
 
 Name:           date
-Version:        3.0.1^%{date}git%{shortcommit}
-Release:        8%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        Date and time library based on the C++11/14/17 <chrono> header
 
 License:        MIT
 URL:            https://github.com/HowardHinnant/date
-Source0:        %{url}/archive/%{commit}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # add pkg-config support to make the package compatible with meson
 # https://github.com/HowardHinnant/date/pull/538
 Patch0:         output-date-pc-for-pkg-config.patch
@@ -23,7 +17,6 @@ Patch1:         date-macro.patch
 
 BuildRequires:  cmake >= 3.7
 BuildRequires:  gcc-c++
-BuildRequires:  make
 # required for test suite
 BuildRequires:  tzdata
 
@@ -111,6 +104,9 @@ export CTEST_OUTPUT_ON_FAILURE=ON
 
 
 %changelog
+* Sun Dec 28 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.4-1
+- Update to 3.0.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1^20221213gitc9169ea-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

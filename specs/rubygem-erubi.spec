@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.12.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Small ERB Implementation
 License: MIT
 URL: https://github.com/jeremyevans/erubi
@@ -11,6 +11,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/jeremyevans/erubi.git && cd erubi
 # git archive -v -o erubi-1.12.0-test.tar.gz 1.12.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# Fix compatibility with minitest 6
+Patch0:  %{gem_name}-1.12.0-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -31,6 +33,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -51,11 +57,7 @@ cp -a .%{gem_dir}/* \
 pushd .%{gem_instdir}
 ln -s %{_builddir}/test test
 
-# Avoid global_expectations dependency.
-# https://github.com/jeremyevans/erubi/commit/592cabf3ddafeb65758b01317fe6fd4825e8e8a4
-sed -i '/require .minitest\/global_expectations\/autorun./ s/^/#/' test/test.rb
-
-ruby -rminitest/autorun ./test/test.rb
+ruby ./test/test.rb
 popd
 
 %files
@@ -72,6 +74,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.12.0-5
+- Fix compatibility with minitest6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

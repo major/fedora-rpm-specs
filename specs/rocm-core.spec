@@ -19,24 +19,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-
-%if 0%{?suse_version}
-# 15.6
-# rocm-core.x86_64: E: shlib-policy-name-error (Badness: 10000) librocm-core1
-# Your package contains a single shared library but is not named after its SONAME.
-%global core_name librocm-core1
-%else
-%global core_name rocm-core
-%endif
-
 %global upstreamname rocm-core
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+%if 0%{?suse_version}
+# 15.6
+# rocm-core.x86_64: E: shlib-policy-name-error (Badness: 10000) librocm-core1
+# Your package contains a single shared library but is not named after its SONAME.
+%global core_name librocm-core1%{pkg_suffix}
+%else
+%global core_name rocm-core%{pkg_suffix}
+%endif
+
 Name:           %{core_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A utility to get the ROCm release version
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
@@ -61,7 +72,7 @@ ExclusiveArch:  x86_64
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocm-core-devel = %{version}-%{release}
+Provides:       rocm-core%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -70,34 +81,40 @@ Provides:       rocm-core-devel = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}
 
 %build
-%cmake -DROCM_VERSION=%{rocm_version}
+%cmake \
+    -DROCM_VERSION=%{rocm_version} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+
 %cmake_build
 
 %install
 %cmake_install
 
-rm -rf %{buildroot}/%{_prefix}/.info
-rm -rf %{buildroot}/%{_libdir}/rocmmod
-rm -rf %{buildroot}/%{_docdir}/*/LICENSE.md
-rm -rf %{buildroot}/%{_libexecdir}/%{name}
+rm -rf %{buildroot}/%{pkg_prefix}/.info
+rm -rf %{buildroot}/%{pkg_prefix}/%{pkg_libdir}/rocmmod
+rm -rf %{buildroot}/%{pkg_prefix}/share/doc/*/LICENSE.md
 
-mv  %{buildroot}/%{_includedir}/rocm-core/*.h %{buildroot}/%{_includedir}/
-rm -rf %{buildroot}/%{_includedir}/rocm-core
+# Use the system include path
+mv  %{buildroot}/%{pkg_prefix}/include/rocm-core/*.h %{buildroot}/%{pkg_prefix}/include/
+rm -rf %{buildroot}/%{pkg_prefix}/include/rocm-core
 
 find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 
 %files
 %doc README.md
 %license LICENSE.md
-%{_libdir}/librocm-core.so.*
+%{pkg_prefix}/%{pkg_libdir}/librocm-core.so.*
 
 %files devel
-%dir %{_libdir}/cmake/rocm-core
-%{_includedir}/*.h
-%{_libdir}/librocm-core.so
-%{_libdir}/cmake/rocm-core/*.cmake
+%{pkg_prefix}/include/*.h
+%{pkg_prefix}/%{pkg_libdir}/librocm-core.so
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocm-core/
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

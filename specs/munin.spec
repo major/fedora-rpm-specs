@@ -1,6 +1,6 @@
 Name:           munin
 Version:        2.0.76
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPL-2.0-only
 URL:            http://munin-monitoring.org/
@@ -35,6 +35,9 @@ Source32:       munin-cgi-graph.service
 Source33:       munin-cgi-graph.socket
 Source34:       munin-cgi-html.service
 Source35:       munin-cgi-html.socket
+
+# Common sources
+Source40:       munin.sysusers
 
 # Patches
 Patch101:       21b3d860c17d7997d64267963f91ed75ca8a3e03.patch
@@ -159,6 +162,7 @@ SNMP or similar technology.
 Summary:        Network-wide resource monitoring tool (common files)
 Requires:       acl
 %{?systemd_requires}
+%{?sysusers_requires_compat}
 BuildArch:      noarch
 
 
@@ -262,11 +266,6 @@ sed -i -e 's,@@DBDIR@@,%{_sharedstatedir}/munin-node,g' node/_bin/munin-get.in
 cp %SOURCE16 .
 cp %SOURCE17 .
 cp %SOURCE18 .
-
-# Create a sysusers.d config file
-cat >munin.sysusers.conf <<EOF
-u munin - 'Munin user' %{_sharedstatedir}/munin /bin/sh
-EOF
 
 
 %build
@@ -398,9 +397,10 @@ touch %{buildroot}%{_sysconfdir}/httpd/conf.d/munin.conf
 touch %{buildroot}%{_sysconfdir}/httpd/conf.d/munin-cgi.conf
 touch %{buildroot}%{_sysconfdir}/munin/munin-htpasswd
 
-install -m0644 -D munin.sysusers.conf %{buildroot}%{_sysusersdir}/munin.conf
 
+### Common ###
 
+install -m0644 -D %{SOURCE40} %{buildroot}%{_sysusersdir}/munin.conf
 
 
 %post
@@ -434,33 +434,6 @@ fi
 %postun
 %systemd_postun_with_restart munin-rrdcached.service munin.timer
 %systemd_postun munin.service
-
-
-%triggerin -- munin < 2.0.69-2
-if [ -n "$(ls %{_sysconfdir}/munin/conf.d/* 2>/dev/null)" ]; then
-    mv -f %{_sysconfdir}/munin/conf.d/* %{_sysconfdir}/munin/munin-conf.d/
-fi
-exit 0
-
-
-%triggerpostun -- munin < 2.0.69-2
-if [ -d %{_sysconfdir}/munin/conf.d ]; then
-    if ! rmdir %{_sysconfdir}/munin/conf.d 2>/dev/null; then
-        mv -f %{_sysconfdir}/munin/conf.d %{_sysconfdir}/munin/conf.d.rpmold
-    fi
-fi
-if [ -f %{_sysconfdir}/munin/munin.conf.rpmnew ]; then
-    if [ -n "$(ls %{_sysconfdir}/munin/munin-conf.d/* 2>/dev/null)" ]; then
-        ln -sf munin-conf.d %{_sysconfdir}/munin/conf.d
-    fi
-fi
-exit 0
-
-
-%pre node
-getent group munin >/dev/null || groupadd -r munin
-getent passwd munin >/dev/null || useradd -r -g munin -d %{_sharedstatedir}/munin -s /bin/sh -c "Munin user" munin
-exit 0
 
 
 %post node
@@ -503,9 +476,7 @@ fi
 
 
 %pre common
-getent group munin >/dev/null || groupadd -r munin
-getent passwd munin >/dev/null || useradd -r -g munin -d %{_sharedstatedir}/munin -s /bin/sh -c "Munin user" munin
-exit 0
+%sysusers_create_compat %{SOURCE40}
 
 
 %post nginx
@@ -582,7 +553,6 @@ exit 0
 %config(noreplace) %ghost %{_sysconfdir}/httpd/conf.d/munin.conf
 %config(noreplace) %ghost %{_sysconfdir}/httpd/conf.d/munin-cgi.conf
 %config(noreplace) %ghost %{_localstatedir}/www/html/munin/.htaccess
-%{_sysusersdir}/munin.conf
 
 
 %files node
@@ -630,6 +600,7 @@ exit 0
 %dir %{perl_vendorlib}/Munin
 %{perl_vendorlib}/Munin/Common
 %{_tmpfilesdir}/%{name}.conf
+%{_sysusersdir}/munin.conf
 %attr(0775, root, munin) %dir %{_rundir}/munin
 
 
@@ -661,6 +632,9 @@ exit 0
 
 
 %changelog
+* Sun Dec 28 2025 Kim B. Heino  <b@bbbs.net> - 2.0.76-8
+- rhbz 2406177: Move sysusers.d config to munin-common
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.76-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

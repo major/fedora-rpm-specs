@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.11.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Library to read and write netrc files
 License: MIT
 URL: https://github.com/geemus/netrc
@@ -13,6 +13,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Patch0: rubygem-netrc-0.11.0-missing-HOME-relevant-only-w-o-passwd-pw_dir.patch
 # https://github.com/heroku/netrc/pull/53
 Patch1: rubygem-netrc-0.11.0-augment-Dir-home-to-read-password-database-by-uid.patch
+# https://github.com/heroku/netrc/pull/45
+# Fix compatibility with minitest 6
+Patch2: rubygem-netrc-pr45-minitest6.patch
 # This is installed by default in Ruby upstream, but we need to require
 # it explicitly.
 # https://github.com/heroku/netrc/pull/16
@@ -41,6 +44,7 @@ Documentation for %{name}.
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -77,6 +81,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.0-19
+- Fix compatibility with minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
