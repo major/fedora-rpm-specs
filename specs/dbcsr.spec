@@ -153,7 +153,7 @@ done
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libdbcsr.so.*
+%{_libdir}/libdbcsr.so.2.9*
 
 %files devel
 %{_fmoddir}/dbcsr_api.mod

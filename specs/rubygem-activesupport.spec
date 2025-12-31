@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
@@ -19,6 +19,9 @@ Source2: https://raw.githubusercontent.com/rails/rails/e25d738430bdc6bdd04cd28be
 # Fix XmlMiniTest::ParsingTest#test_decimal test failure with BigDecimal 3.2.3+
 # https://github.com/rails/rails/pull/55840
 Patch1: rubygem-activesupport-8.0.3-Always-pass-default-precision-to-BigDecimal-when-parsing.patch
+# Support minitest 6
+# https://github.com/rails/rails/pull/56202/
+Patch2: rubygem-activesupport-pr56202-minitest6.patch
 
 # Ruby package has just soft dependency on rubygem(json), while
 # ActiveSupport always requires it.
@@ -41,6 +44,7 @@ BuildRequires: rubygem(drb)
 BuildRequires: rubygem(i18n) >= 0.7
 BuildRequires: rubygem(listen)
 BuildRequires: rubygem(minitest) >= 5.0.0
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(msgpack)
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(redis)
@@ -68,9 +72,14 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -a 1
 
 %patch 1 -p2
+%patch 2 -p2
+
+# lib/active_support/testing/method_call_assertions.rb
+# always needs minitest/mock
+%gemspec_add_dep -g minitest-mock
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -82,9 +91,10 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-( cd .%{gem_instdir}
 # Move the tests into place
-cp -a %{builddir}/test .
+cp -a test .%{gem_instdir}
+
+cd .%{gem_instdir}
 
 mkdir ../tools
 ln -s %{SOURCE2} ../tools/
@@ -118,7 +128,6 @@ kill -15 $mPID
 %ifnarch %{ix86}
 kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %endif
-)
 
 %files
 %dir %{gem_instdir}
@@ -133,6 +142,9 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.0.3-3
+- Backport upstream fix to support minitest 6
+
 * Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.0.3-2
 - Backport upstream change for testsuite removal for new benchmark gem in
   ruby4_0

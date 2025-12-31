@@ -43,6 +43,8 @@ Source10:       https://github.com/fish-shell/rust-pcre2/archive/%{rust_pcre2_fi
 # Backports from upstream (0001~500)
 
 # Proposed upstream (501~1000)
+# https://github.com/fish-shell/fish-shell/pull/12222
+Patch501:       0501-Update-phf-from-0.12-to-0.13.patch
 
 # Downstream-only (1001+)
 Patch1001:      1001-cargo-Use-internal-copy-of-rust-pcre2-instead-of-fet.patch

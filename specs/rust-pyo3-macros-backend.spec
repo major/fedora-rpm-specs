@@ -5,7 +5,7 @@
 %global crate pyo3-macros-backend
 
 Name:           rust-pyo3-macros-backend
-Version:        0.27.1
+Version:        0.27.2
 Release:        %autorelease
 Summary:        Code generation for PyO3 package
 

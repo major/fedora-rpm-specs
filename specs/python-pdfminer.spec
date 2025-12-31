@@ -1,5 +1,5 @@
 Name:           python-pdfminer
-Version:        20251228
+Version:        20251229
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 
@@ -162,7 +162,23 @@ do
   ln -s "%{adobe_mappings_rootpath}/${cmap}/cid2code.txt" \
       "cmaprsrc/cid2code_Adobe_${cmap}.txt"
 done
-%make_build cmap PYTHON='%{python3}'
+# Prior to release 20251229, there was a “cmap” Makefile target. It was
+# removed, perhaps accidentally.
+#
+# %%make_build cmap PYTHON='%%{python3}'
+#
+# The following is equivalent to what the “cmap” target used to do.
+mkdir -p pdfminer/cmap
+%{python3} tools/conv_cmap.py -c B5=cp950 -c UniCNS-UTF8=utf-8 \
+    pdfminer/cmap Adobe-CNS1 cmaprsrc/cid2code_Adobe_CNS1.txt
+%{python3} tools/conv_cmap.py -c GBK-EUC=cp936 -c UniGB-UTF8=utf-8 \
+    pdfminer/cmap Adobe-GB1 cmaprsrc/cid2code_Adobe_GB1.txt
+%{python3} tools/conv_cmap.py -c RKSJ=cp932 -c EUC=euc-jp \
+    -c UniJIS-UTF8=utf-8 \
+    pdfminer/cmap Adobe-Japan1 cmaprsrc/cid2code_Adobe_Japan1.txt
+%{python3} tools/conv_cmap.py -c KSC-EUC=euc-kr -c KSC-Johab=johab \
+    -c KSCms-UHC=cp949 -c UniKS-UTF8=utf-8 \
+    pdfminer/cmap Adobe-Korea1 cmaprsrc/cid2code_Adobe_Korea1.txt
 
 # Make an updated git commit and set a tag for setuptools_git_version.
 #

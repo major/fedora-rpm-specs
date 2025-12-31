@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.27.1
+Version:        0.27.2
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -23,6 +23,7 @@ Patch:          pyo3-fix-metadata.diff
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 Bindings to Python interpreter.}
@@ -608,6 +609,7 @@ use the "uuid" feature of the "%{crate}" crate.
 %cargo_prep
 # drop files that are not useful
 rm -r emscripten/ newsfragments/
+dos2unix --keepdate src/call.rs src/pyclass/guard.rs
 
 %generate_buildrequires
 # unit tests require optional dependencies

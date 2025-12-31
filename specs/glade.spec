@@ -17,6 +17,7 @@ BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gjs-devel
+BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  gtk-doc
 BuildRequires:  itstool

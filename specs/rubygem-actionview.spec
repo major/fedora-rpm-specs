@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -21,6 +21,7 @@ BuildRequires: rubygems-devel
 BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(activerecord) = %{version}
 BuildRequires: rubygem(actionpack) = %{version}
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(railties) = %{version}
 BuildRequires: rubygem(capybara)
 BuildRequires: rubygem(sqlite3)
@@ -95,6 +96,9 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.3-2
+- Add BR: rubygem(minitest-mock) for minitest 6 compatibility
+
 * Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
 - Update to Action View 8.0.3.
   Related: rhzb#2388437

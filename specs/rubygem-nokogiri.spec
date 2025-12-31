@@ -1,7 +1,7 @@
-%global	mainver		1.18.10
+%global	mainver		1.19.0
 #%%global	prever		.rc4
 
-%global	baserelease		2
+%global	baserelease		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -29,8 +29,6 @@ Source1:	rubygem-%{gem_name}-%{version}%{?prever}-full.tar.gz
 Source2:	nokogiri-create-full-tarball.sh
 # Shut down libxml2 version unmatching warning
 Patch0:	%{name}-1.11.0.rc4-shutdown-libxml2-warning.patch
-# Handle minitest 6
-Patch1:	%{name}-1.18.10-minitest6.patch
 BuildRequires:	ruby(release)
 BuildRequires:	ruby(rubygems)
 ##
@@ -87,7 +85,6 @@ mv ../%{gem_name}-%{version}.gemspec .
 
 # patches
 %patch -P0 -p1
-%patch -P1 -p1
 
 # remove bundled external libraries
 sed -i \
@@ -279,6 +276,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.0-1
+- 1.19.0
+
 * Wed Dec 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.10-2
 - Handle minitest 6 compatibility
 

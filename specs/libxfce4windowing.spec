@@ -81,7 +81,7 @@ developing applications that use %{name}.
 
 
 %conf
-%meson %{!?with_x11:-Dx11=false}
+%meson %{!?with_x11:-Dx11=disabled}
 
 %build
 %meson_build

@@ -2,24 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ignore
+%global crate float16
 
-Name:           rust-ignore
-Version:        0.4.25
+Name:           rust-float16
+Version:        0.1.5
 Release:        %autorelease
-Summary:        Fast library for efficiently matching ignore files
+Summary:        Half-precision floating point f16 and bf16 types for Rust
 
-License:        Unlicense OR MIT
-URL:            https://crates.io/crates/ignore
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/float16
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          ignore-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Update rustc_version from 0.2 to 0.4:
+#   https://github.com/Alexhuszagh/float16/pull/15
+Patch:          float16-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
-A fast library for efficiently matching ignore files such as
-`.gitignore` against file paths.}
+Half-precision floating point f16 and bf16 types for Rust implementing
+the IEEE 754-2008 standard binary16 and bfloat16 types.}
 
 %description %{_description}
 
@@ -33,9 +36,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYING
+%license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/UNLICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,20 +54,22 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+simd-accel-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+simd-accel-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "simd-accel" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+simd-accel-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Fix some CRLF-terminated files in the released crates.
+find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

@@ -9,6 +9,7 @@ License:	BSD-2-Clause AND Apache-2.0 AND GPL-3.0-or-later
 URL:		https://dhcpd-pools.sourceforge.net/
 Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Patch0:		dhcpd-pools-test-color.patch
+Patch1:		0001-f44_hack.patch
 BuildRequires:	uthash-devel
 BuildRequires:	gcc, make
 BuildRequires:	perl-generators
@@ -24,6 +25,9 @@ and other organizations that have large IP space.
 %setup -q
 # "errors" test output has ANSI color, strip/disable
 %patch -P0 -p1
+%if 0%{?fedora} >= 44
+%patch -P1 -p1
+%endif
 
 %build
 # configure to match OS install defaults

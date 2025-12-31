@@ -45,7 +45,7 @@
 %endif
 
 # Needs ROCm HW so is only suitable for local testing
-%bcond_with test
+%bcond_with check
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
@@ -93,7 +93,7 @@ The headers of libraries for %{name}.
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
-sed -i -e 's/-o $@/-lrocfft -lrocrand -lrocblas -lrocsolver -lrocsparse -lhipfft -lhiprand -lhipblas -lhipsolver -lhipsparse -o $@/' test/Makefile.in
+sed -i -e 's|-o $@|-L %{pkg_prefix}/%{pkg_libdir} -lrocfft -lrocrand -lrocblas -lrocsolver -lrocsparse -lhipfft -lhiprand -lhipblas -lhipsolver -lhipsparse -o $@|' test/Makefile.in
 
 # For CMake 4
 sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_required(VERSION 3.5@' bin/CMakeLists.txt
@@ -104,6 +104,7 @@ sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_requir
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_Fortran_FLAGS="-fPIE -L%{pkg_prefix}/%{pkg_libdir}" \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_SKIP_RPATH=ON \
@@ -115,7 +116,7 @@ sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_requir
 %cmake_build
 
 # Assume you _just_ installed hipfort as the tests assume hipfc is in the PATH
-%if %{with test}
+%if %{with check}
 %check
 # Mixing rpm gfortran security flags with hipcc does not work
 # Override the normal rpm flags
@@ -136,13 +137,15 @@ rm -rf %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipfort-nvptx*
 # rpmbuild has a problem with this file
 rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/hipfort-config.cmake
 
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
+
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/hipfc
+%{pkg_prefix}/bin/hipfc
 %{pkg_prefix}/%{pkg_libdir}/libhipfort-amdgcn.so.*
-%{_libexecdir}/hipfort
-
+%{pkg_prefix}/libexec/hipfort
 
 %files devel
 %{pkg_prefix}/share/hipfort/
@@ -153,6 +156,7 @@ rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/hipfort-config.cmake
 %changelog
 * Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
+- Change --with test to --with check
 
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0

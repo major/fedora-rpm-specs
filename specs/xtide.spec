@@ -1,8 +1,8 @@
 %define          mainver   2.15.6
 #%%define          betatag   dev-20160114
-%define          dwfdate   20241229
+%define          dwfdate   20251228
 
-%define          baserelease 2
+%define          baserelease 3
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -365,6 +365,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.6-3
+- Update harmonics data to 20251228
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

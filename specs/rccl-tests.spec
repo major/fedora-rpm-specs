@@ -21,13 +21,26 @@
 #
 
 %global upstreamname rccl-tests
-%global commit0 33cc4df1e4631d98a7a9ff1b1e0221f77ec81470
+%global commit0 5272cd16efeeb5012f17e5541a39af9de6aa9eae
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251018
+%global date0 20251211
 
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -40,7 +53,10 @@
 %global build_type RelWithDebInfo
 %endif
 
-Name:           rccl-tests
+%global gpu_list %{rocm_gpu_list_rccl}
+%global _gpu_list gfx1100
+
+Name:           rccl-tests%{pkg_suffix}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 Summary:        RCCL tests
@@ -70,15 +86,15 @@ Source0:        %{url}/archive/%{commit0}/rccl-tests-%{shortcommit0}.tar.gz
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
-BuildRequires:  hipify
+BuildRequires:  hipify%{pkg_suffix}
 BuildRequires:  gcc-c++
-BuildRequires:  rccl-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
+BuildRequires:  rccl%{pkg_suffix}-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -92,8 +108,10 @@ operations. They can be compiled against RCCL.
 
 %build
 %cmake \
-    -DGPU_TARGETS=%{rocm_gpu_list_rccl} \
+    -DGPU_TARGETS=%{gpu_list} \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DEXPLICIT_ROCM_VERSION=%{rocm_version}
 
 %cmake_build
@@ -102,15 +120,20 @@ operations. They can be compiled against RCCL.
 %cmake_install
 
 # ERROR   0001: file '/usr/bin/all_reduce_bias_perf' contains a standard runpath '/usr/lib' in [/usr/lib:/opt/rocm/lib]
-chrpath -d %{buildroot}%{_bindir}/*
+chrpath -d %{buildroot}%{pkg_prefix}/bin/*
 
-rm -f %{buildroot}%{_prefix}/share/doc/rccl-tests/LICENSE.txt
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl-tests/LICENSE.txt
 
 %files
 %doc README.md
 %license LICENSE.txt
-%{_bindir}/*_perf
+%{pkg_prefix}/bin/*_perf
 
 %changelog
+* Sat Dec 27 2025 Tom Rix <Tom.Rix@amd.com> - git20251211.5272cd1-1
+- Add --with compat
+- Update source
+
 * Wed Oct 22 2025 Tom Rix <Tom.Rix@amd.com> - git20251018.33cc4df-1
 - Initial package

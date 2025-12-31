@@ -1,18 +1,20 @@
 %global forgeurl https://github.com/qtile/qtile
-%global tag v0.34.0
+%global tag v0.34.1
 
 Name: qtile
-Version: 0.34.0
+Version: 0.34.1
 Release: %{autorelease}
 Summary: A pure-Python tiling window manager
 %forgemeta
 Source: %{forgesource}
-#ExclusiveArch: x86_64 aarch64
 
 # Everything licensed under MIT except for the following files.
 # GPL-3.0-or-later:
 #   libqtile/widget/cmus.py
 #   libqtile/widget/moc.py
+#
+# Slated for removal in the next Qtile release. See:
+# https://github.com/qtile/qtile/pull/5738
 License: MIT AND GPL-3.0-or-later
 Url: http://qtile.org
 
@@ -25,6 +27,7 @@ BuildRequires:  pulseaudio
 
 # Test dependencies
 BuildRequires:  gcc
+BuildRequires:  xcb-util-cursor
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
 BuildRequires:  xterm
@@ -83,10 +86,11 @@ Summary: Qtile's python library
 %package wayland
 Summary: Qtile wayland session
 Requires: qtile = %{version}-%{release}
+Requires: xorg-x11-server-Xwayland
 BuildRequires: xorg-x11-server-Xwayland
-BuildRequires: python3-pywlroots
 BuildRequires: cairo-devel
 BuildRequires: gobject-introspection-devel
+BuildRequires: wayland-devel
 BuildRequires: wayland-protocols-devel
 
 
@@ -131,18 +135,30 @@ desktop-file-install \
     --dir %{buildroot}%{_datadir}/wayland-sessions/ \
     resources/qtile-wayland.desktop
 
+
 %check
-# The tests can sometimes randomly fail. Rebuilding the package again usually
-# solves the issue. Please see the upstream issue:
-# https://github.com/qtile/qtile/issues/4573
+# Tests can sometimes randomly fail. Rebuilding the package again usually solves
+# the issue. See https://github.com/qtile/qtile/issues/4573
+
+# Avoid `OSError: [Errno 24] Too Many Open Files` error
+ulimit -n 10240
+
 %ifnarch s390x ppc64le
-# Tests in test/widgets/test_generic_poll_text.py require network
-%pytest -vv --backend x11 --backend wayland \
+# Disabled tests
+# - test/widgets/test_generic_poll_text.py      require network
+# - test/backend/wayland/test_idle_inhibit.py   https://github.com/qtile/qtile/issues/5723
+%pytest \
+    -vv \
+    --backend x11 \
+    --backend wayland \
     --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_text \
     --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_json_with_data \
-    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_custom_headers
-
-
+    --deselect test/widgets/test_generic_poll_text.py::test_gen_poll_url_custom_headers \
+    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_open[1-x11-InhibitorConfig] \
+    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_visible[1-x11-InhibitorConfig] \
+    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_focus[1-x11-InhibitorConfig] \
+    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_fullscreen[1-x11-InhibitorConfig] \
+    --deselect test/backend/wayland/test_idle_inhibit.py::test_inhibitor_global[1-x11-InhibitorConfig]
 %endif
 
 

@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/c-cube/qcheck
 
 Name:           ocaml-qcheck
-Version:        0.90
+Version:        0.91
 Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
@@ -202,6 +202,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Mon Dec 29 2025 Jerry James <loganjerry@gmail.com> - 0.91-1
+- Version 0.91
+
 * Sat Dec 20 2025 Jerry James <loganjerry@gmail.com> - 0.90-1
 - Version 0.90
 

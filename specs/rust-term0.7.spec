@@ -2,24 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ignore
+%global crate term
 
-Name:           rust-ignore
-Version:        0.4.25
+Name:           rust-term0.7
+Version:        0.7.0
 Release:        %autorelease
-Summary:        Fast library for efficiently matching ignore files
+Summary:        Terminal formatting library
 
-License:        Unlicense OR MIT
-URL:            https://crates.io/crates/ignore
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/term
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          ignore-fix-metadata-auto.diff
+Patch:          term-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A fast library for efficiently matching ignore files such as
-`.gitignore` against file paths.}
+A terminal formatting library.}
 
 %description %{_description}
 
@@ -33,9 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYING
+%license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/UNLICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,18 +48,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+simd-accel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+simd-accel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "simd-accel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+simd-accel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

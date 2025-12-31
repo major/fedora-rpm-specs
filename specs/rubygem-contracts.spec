@@ -1,18 +1,14 @@
 %global	gem_name	contracts
 
 Name:		rubygem-%{gem_name}
-Version:	0.17.2
-Release:	4%{?dist}
+Version:	0.17.3
+Release:	1%{?dist}
 
 Summary:	Contracts for Ruby
 # SPDX confirmed
 License:	BSD-2-Clause
 URL:		http://egonschiele.github.io/contracts.ruby/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Upstream patches
-# https://github.com/egonSchiele/contracts.ruby/issues/309
-# Workaround for ruby34 hash inspect format change
-Patch0:	contracts.ruby-issue309-ruby34-hash-inspect-change.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -36,8 +32,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
-
-%patch -P0 -p1
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -83,6 +77,9 @@ popd
 %{gem_instdir}/benchmarks/
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.17.3-1
+- 0.17.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

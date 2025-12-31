@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.6.0
+Version:        1.6.1
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -147,6 +147,10 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Mon Dec 29 2025 Alessandro Astone <ales.astone@gmail.com> - 1.6.1-1
+- Fix graphical initialization with Python 3.14 and newer (rhbz#2425593)
+- Allow using block device as pre-installed image files
+
 * Mon Dec 08 2025 Alessandro Astone <ales.astone@gmail.com> - 1.6.0-3
 - Fix versioned dependency on gbinder-python (rhbz#2420131)
 

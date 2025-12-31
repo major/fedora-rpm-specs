@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.5.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Sprockets Rails integration
 License: MIT
 URL: https://github.com/rails/sprockets-rails
@@ -12,10 +12,13 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/rails/sprockets-rails.git && cd sprockets-rails
 # git archive -v -o sprockets-rails-3.5.2-tests.tar.gz v3.5.2 test/
 Source1: sprockets-rails-%{version}-tests.tar.gz
+# Fix compatibility for minitest 6
+Patch0:  sprockets-rails-3.5.2-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(railties) >= 6.1
 %dnl BuildRequires: rubygem(rake)
 BuildRequires: rubygem(sprockets)
@@ -35,6 +38,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -64,6 +71,9 @@ ruby -Ilib -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.2-3
+- Fix compatibility for minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

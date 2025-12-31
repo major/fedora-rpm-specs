@@ -19,16 +19,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%if 0%{?suse_version}
-%global rccl_name librccl1
-%else
-%global rccl_name rccl
-%endif
-
 %global upstreamname RCCL
 %global rocm_release 7.1
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
+
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
+%global pkg_suffix -%{rocm_release}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%endif
+%if 0%{?suse_version}
+%global rccl_name librccl1%{pkg_suffix}
+%else
+%global rccl_name rccl%{pkg_suffix}
+%endif
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -67,10 +77,12 @@
 # On 6.2
 # Problems reported with gfx10, removing gfx10 and default (gfx10 and gfx11) from build list
 #
+%global gpu_list %{rocm_gpu_list_rccl}
+%global _gpu_list gfx1100
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -84,16 +96,17 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  hipify
+BuildRequires:  hipify%{pkg_suffix}
 BuildRequires:  gcc-c++
 BuildRequires:  fmt-devel
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-core-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-smi-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-core%{pkg_suffix}-devel
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-smi%{pkg_suffix}-devel
 
 %if %{with test}
 %if 0%{?suse_version}
@@ -104,7 +117,7 @@ BuildRequires:  gtest-devel
 %endif
 
 Requires:       %{name}-data = %{version}-%{release}
-Provides:       rccl = %{version}-%{release}
+Provides:       rccl%{pkg_suffix} = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -132,7 +145,7 @@ larger operations or aggregated through the API.
 %package devel
 Summary:        Headers and libraries for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rccl-devel = %{version}-%{release}
+Provides:       rccl%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
 Headers and libraries for %{name}
@@ -220,20 +233,21 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 
 %build
 %cmake \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
+    -DGPU_TARGETS=%{gpu_list} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DBUILD_TESTS=%{build_test} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_C_COMPILER=/usr/bin/hipcc \
-    -DCMAKE_CXX_COMPILER=/usr/bin/hipcc \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
-    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_SKIP_RPATH=ON \
     -DENABLE_MSCCLPP=OFF \
     -DEXPLICIT_ROCM_VERSION=%{rocm_version} \
     -DHIP_PLATFORM=amd \
     -DRCCL_ROCPROFILER_REGISTER=OFF \
-    -DROCM_PATH=%{_prefix} \
+    -DROCM_PATH=%{pkg_prefix} \
     -DROCM_SYMLINK_LIBS=OFF
 
 %cmake_build
@@ -241,34 +255,32 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 %install
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 
 %files
 %license LICENSE.txt
-%{_libdir}/librccl.so.*
-%{_bindir}/rcclras
+%{pkg_prefix}/%{pkg_libdir}/librccl.so.*
+%{pkg_prefix}/bin/rcclras
 
 %files data
-%dir %{_datadir}/rccl
-%dir %{_datadir}/rccl/msccl-algorithms
-%dir %{_datadir}/rccl/msccl-unit-test-algorithms
-%{_datadir}/rccl/msccl-algorithms/*.xml
-%{_datadir}/rccl/msccl-unit-test-algorithms/*.xml
+%{pkg_prefix}/share/rccl/msccl-algorithms/
+%{pkg_prefix}/share/rccl/msccl-unit-test-algorithms/
 
 %files devel
 %doc README.md
-%dir %{_includedir}/rccl
-%dir %{_libdir}/cmake/rccl
-%{_includedir}/rccl/*
-%{_libdir}/cmake/rccl/*.cmake
-%{_libdir}/librccl.so
+%{pkg_prefix}/include/rccl/
+%{pkg_prefix}/%{pkg_libdir}/cmake/rccl/
+%{pkg_prefix}/%{pkg_libdir}/librccl.so
 
 %if %{with test}
 %files test
-%{_bindir}/rccl-UnitTests
+%{pkg_prefix}/bin/rccl-UnitTests
 %endif
 
 %changelog
+* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

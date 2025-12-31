@@ -5,7 +5,7 @@
 %global crate tower-http
 
 Name:           rust-tower-http
-Version:        0.6.7
+Version:        0.6.8
 Release:        %autorelease
 Summary:        Tower middleware and utilities for HTTP clients and servers
 

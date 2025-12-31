@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Job framework with pluggable queues
 License: MIT
 URL: https://rubyonrails.org
@@ -17,6 +17,7 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby >= 3.2.0
 BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(globalid)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(zeitwerk)
 BuildRequires: tzdata
 BuildArch: noarch
@@ -88,6 +89,9 @@ done
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.3-2
+- Add BR: rubygem(minitest-mock) for minitest 6 compatibility
+
 * Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
 - Update to Action Job 8.0.3.
   Related: rhzb#2388437

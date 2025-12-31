@@ -2,7 +2,7 @@
 %global maven_group_id tw.edu.ntu.csie
 %global pom_file_version 3.35
 %global octpkg %{name}
-%global release_date 2025-05-11
+%global release_date 2025-12-21
 %global cpp_std c++17
 %global giturl https://github.com/cjlin1/libsvm
 
@@ -20,7 +20,7 @@
 %bcond python %[!0%{?rhel}]
 
 Name:           libsvm
-Version:        3.36
+Version:        3.37
 Release:        %autorelease
 Summary:        A Library for Support Vector Machines
 
@@ -45,15 +45,10 @@ Patch:          %{name}.javaDir.patch
 Patch:          %{name}.toolsDir.patch
 Patch:          %{name}.svm-toy-qt5.patch
 
-# This can be removed when F40 reaches EOL
-%if %{without java}
-Obsoletes:      libsvm-java < 3.25-7
-%endif
-
 %description
 LIBSVM is integrated software for support vector classification (C-SVC,
-nu-SVC ), regression (epsilon-SVR, nu-SVR) and distribution estimation
-(one-class SVM ).  It supports multi-class classification.
+nu-SVC), regression (epsilon-SVR, nu-SVR) and distribution estimation
+(one-class SVM).  It supports multi-class classification.
 
 %package devel
 Summary:        Development files for libsvm in C, C++ and Java
@@ -62,8 +57,8 @@ BuildRequires:  make
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-Header and object files for libsvm in C, C++ and Java.
-Install this package if you want to develop programs with libsvm.
+Header and object files for libsvm in C, C++ and Java.  Install this package
+if you want to develop programs with libsvm.
 
 %if %{with python}
 %package -n     python3-%{name}
@@ -71,10 +66,11 @@ Summary:        Python3 tools and interfaces for libsvm
 BuildRequires:  python3-devel
 #gnuplot is required by easy.py
 Requires:       gnuplot
+Recommends:     %{py3_dist scipy}
 
 %description -n python3-%{name}
-Python3 tools and interfaces for libsvm.  Install this package if you
-want to develop programs with libsvm in Python3.
+Python3 tools and interfaces for libsvm.  Install this package if you want to
+develop programs with libsvm in Python3.
 %endif
 
 %if %{with java}
@@ -88,9 +84,8 @@ Requires:       javapackages-tools
 Requires:       %{name} = %{version}-%{release}
 
 %description    java
-Java tools and interfaces for libsvm.
-Install this package if you want to develop
-programs with libsvm in Java.
+Java tools and interfaces for libsvm.  Install this package if you want to
+develop programs with libsvm in Java.
 
 %package        javadoc
 Summary:        Javadoc for libsvm
@@ -123,8 +118,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       hicolor-icon-theme
 
 %description    svm-toy-qt
-svm-toy is a libsvm demonstration program which has a qt-GUI to
-display the derived separating hyperplane.
+svm-toy is a libsvm demonstration program which has a qt-GUI to display the
+derived separating hyperplane.
 
 %prep
 %autosetup -p0 -n %{name}-%{upver}

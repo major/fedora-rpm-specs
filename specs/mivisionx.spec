@@ -93,7 +93,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  fdupes
 %endif
 BuildRequires:  half-devel
-BuildRequires:  hipcc
+BuildRequires:  hipcc%{pkg_suffix}
 # Problem with ffmpeg
 # /MIVisionX-rocm-6.3.1/amd_openvx_extensions/amd_media/kernels.cpp:98:5: error: use of undeclared identifier 'av_register_all'
 #   98 |     av_register_all();

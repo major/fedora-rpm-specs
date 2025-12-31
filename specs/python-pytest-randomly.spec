@@ -1,7 +1,7 @@
 %global upstream_name pytest-randomly
 
 Name:           python-%{upstream_name}
-Version:        3.16.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Pytest plugin to randomly order tests and control random.seed
 License:        MIT

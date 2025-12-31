@@ -164,6 +164,8 @@ sed -i -e 's@GIT NAMES git@GIT NAMES git-not-going-to-find-me@' cmake_modules/ut
 
 # fix link of librvslib
 sed -i -e '/add_library/a target_link_libraries(${RVS_TARGET} -lrocm_smi64 -lhipblaslt -lhiprand -lrocrand -lrocblas -lyaml-cpp -lpci -lamd_smi -lamdhip64 -lhsa-runtime64 -lomp)' rvslib/CMakeLists.txt
+# Now the library path
+sed -i -e 's@-lrocm_smi64 @-L%{pkg_prefix}/%{pkg_libdir} -lrocm_smi64 @' rvslib/CMakeLists.txt
 
 # for finding omp.h
 sed -i -e 's@${YAML_CPP_INCLUDE_DIR}@${YAML_CPP_INCLUDE_DIR} "%{pkg_llvm_prefix}/include" @' rvs/CMakeLists.txt
@@ -172,7 +174,6 @@ sed -i -e 's@${YAML_CPP_INCLUDE_DIR}@${YAML_CPP_INCLUDE_DIR} "%{pkg_llvm_prefix}
 %build
 %cmake -G Ninja \
        -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
-       -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DCMAKE_BUILD_TYPE=%{build_type} \
        -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
        -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
@@ -198,8 +199,10 @@ rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librvslib.so{,.0}
 # The libdir/rvs/*.so are dlopened, the version and symlinks are not needed
 L="libbabel libgm libgpup libgst libiet libmem libpbqt libpeqt libperf libpebb libpesm librcqt libsmqt libtst"
 for l in $L; do
-    rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rvs/$l.so{,.0}
-    mv %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rvs/$l.so.0.0.0 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rvs/$l.so
+    if [ -f $l.so ]; then
+	rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rvs/$l.so{,.0}
+	mv %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rvs/$l.so.0.0.0 %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rvs/$l.so
+    fi
 done
 
 # rocm-validation-suite.x86_64: W: hidden-file-or-dir /usr/share/rocm-validation-suite/conf/.rvsmodules.config

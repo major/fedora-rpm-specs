@@ -1,7 +1,7 @@
 Name:       distgen
 Summary:    Templating system/generator for distributions
-Version:    2.1
-Release:    6%{?dist}
+Version:    2.2
+Release:    1%{?dist}
 License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
 BuildArch:  noarch
@@ -10,7 +10,7 @@ BuildRequires: python3-devel
 BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-pytest
 
-Source0: https://github.com/devexp-db/%name/releases/download/v%version/%name-%version.tar.gz
+Source0: https://pypi.org/packages/source/d/%name/%name-%version.tar.gz
 
 %description
 Based on given template specification (configuration for template), template
@@ -22,6 +22,7 @@ file and preexisting distribution metadata generate output file.
 
 %generate_buildrequires
 %pyproject_buildrequires -x pytest,pytest-catchlog,pytest-cov,coverage,flake8
+
 
 %build
 %pyproject_wheel
@@ -45,6 +46,9 @@ file and preexisting distribution metadata generate output file.
 
 
 %changelog
+* Mon Dec 29 2025 Pavel Raiskup <praiskup@redhat.com> - 2.2-1
+- new upstream release with F43 config
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

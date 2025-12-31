@@ -1,6 +1,6 @@
 Name:           pgcli
-Version:        4.3.0
-Release:        5%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
@@ -13,29 +13,10 @@ BuildRequires:  python3-devel
 
 BuildRequires:  help2man
 
-# Workaround for missing dependency for pure-Python implementation and missing
-# python_c module in python-psycopg3,
-# https://bugzilla.redhat.com/show_bug.cgi?id=2266555.
-%if %{defined fc41}
-# Require the version in which the bug was fixed.
-BuildRequires:  python3-psycopg3 >= 3.1.19-1
-Requires:       python3-psycopg3 >= 3.1.19-1
-%elif %{defined fc40}
-# This was never fixed in Fedora 40, so we must keep the workaround
-# indefinitely there.
-BuildRequires:  libpq
-Requires:       libpq
-%endif
-
-# Additional BuildRequires for tests, not in the package metadata. Versions
-# come from tox.ini, https://github.com/dbcli/pgcli/blob/%%{version}/tox.ini.
-# Note that upstream wants pytest <= 3.0.7, and we will have to unpin it and
-# hope for the best; and that upstream wants mock, which is deprecated
-# (https://fedoraproject.org/wiki/Changes/DeprecatePythonMock) and unnecessary.
-BuildRequires:  python3dist(pytest) >= 2.7
-BuildRequires:  python3dist(behave) >= 1.2.4
-BuildRequires:  python3dist(pexpect) >= 3.3
-BuildRequires:  python3dist(sshtunnel) >= 0.4
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(behave)
+BuildRequires:  python3dist(pexpect)
+BuildRequires:  python3dist(sshtunnel)
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides python3-pgcli
@@ -43,10 +24,10 @@ BuildRequires:  python3dist(sshtunnel) >= 0.4
 %description
 CLI for Postgres Database. With auto-completion and syntax highlighting
 
-%pyproject_extras_subpkg -n python3-pgcli keyring
+%pyproject_extras_subpkg -n python3-pgcli keyring sshtunnel
 
 %generate_buildrequires
-%pyproject_buildrequires -x keyring
+%pyproject_buildrequires -x keyring -x sshtunnel
 
 %prep
 %autosetup
@@ -76,6 +57,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 %{_mandir}/man1/pgcli.1*
 
 %changelog
+* Thu Dec 25 2025 Dick Marinus <dick@mrns.nl> - 4.4.0-1
+- Update to 4.4.0, clean up and add sshtunnel subpackage
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 
