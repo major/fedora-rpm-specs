@@ -21,12 +21,11 @@ Patch:          https://gitlab.xfce.org/xfce/thunar/-/merge_requests/620.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(dbus-glib-1) >= 0.34
 BuildRequires:  pkgconfig(exo-2) >= %{xfceversion}
+BuildRequires:  pkgconfig(glib-2.0) >= 2.72.0
 BuildRequires:  pkgconfig(gudev-1.0) >= 145
 BuildRequires:  pkgconfig(libexif) >= 0.6.0
-BuildRequires:  pkgconfig(libpcre) >= 6.0
-BuildRequires:  pkgconfig(libstartup-notification-1.0) >= 0.4
+BuildRequires:  pkgconfig(libpcre2-8) >= 10.0
 BuildRequires:  pkgconfig(libnotify) >= 0.4.0
 BuildRequires:  pkgconfig(libxfce4ui-2) >= %{xfceversion}
 BuildRequires:  pkgconfig(libxfce4panel-2.0) >= %{xfceversion}

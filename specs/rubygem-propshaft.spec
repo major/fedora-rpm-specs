@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Deliver assets for Rails
 License: MIT
 URL: https://github.com/rails/propshaft
@@ -15,6 +15,7 @@ Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.7.0
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(actioncable)
 BuildRequires: rubygem(railties)
 BuildArch: noarch
@@ -77,6 +78,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-2
+- Fix compatibility with minitest 6
+
 * Mon Oct 13 2025 Vít Ondruch <vondruch@redhat.com> - 1.3.1-1
 - Update to Propshaft 1.3.1
   Resolves: rhbz#2380390

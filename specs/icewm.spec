@@ -79,42 +79,15 @@ Recommends:     xrandr
 # https://github.com/bbidulock/icewm/issues/379
 Recommends:     xterm
 
-# Various additional useful tools
-#   * For antiX like IceWM
-Suggests:       conky
-#   * Notification daemon
-Suggests:       dunst
-#   * Screenshot
-Suggests:       gnome-screenshot
-#   * X11 keyboard indicator and switcher
-Suggests:       gxkb
-#   * Display resolution control
-Suggests:       lxrandr
-#   * A network control and status applet for NetworkManager
-Suggests:       network-manager-applet
-#   * Launcher
-Suggests:       nwg-launchers
-#   * Compositor for X11
-Suggests:       picom
-#   * Night mode
-Suggests:       redshift-gtk
-#   * Volume control
-Suggests:       volumeicon
-
 #   * Minimal session for icewm
 Suggests:       %{name}-minimal-session = %{version}-%{release}
-%endif
-
-%if 0%{?fedora}
-#   * Screen brightness control (not available in EPEL8 yet)
-Suggests:       xbacklight
 %endif
 
 Obsoletes:      %{name}-fonts-settings < 2.3.3-3
 
 %global _description %{expand:
-IceWM is a window manager for the X Window System (freedesktop, XFree86). The
-goal of IceWM is speed, simplicity, and not getting in the user's way.}
+IceWM is a window manager for the X Window System. The features of IceWM are
+speed, simplicity, and not getting in the user's way.}
 
 %description %{_description}
 

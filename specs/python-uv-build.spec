@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.9.18
+Version:        0.9.21
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -35,6 +35,7 @@ Summary:        The uv build backend
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
+# bzip2-1.0.6
 License:        %{shrink:
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 OR BSD-2-Clause) AND
@@ -54,7 +55,8 @@ License:        %{shrink:
                 (MIT OR Unlicense) AND
                 Unicode-3.0 AND
                 Unicode-DFS-2016 AND
-                Zlib
+                Zlib AND
+                bzip2-1.0.6
                 }
 URL:            https://pypi.org/project/uv-build
 Source:         %{pypi_source uv_build}

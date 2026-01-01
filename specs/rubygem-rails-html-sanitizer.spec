@@ -3,16 +3,19 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: This gem is responsible to sanitize HTML fragments in Rails applications
 License: MIT
 URL: https://github.com/rails/rails-html-sanitizer
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix compatibility for minitest 6
+Patch0:  rails-html-sanitizer-1.6.2-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(loofah)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildArch: noarch
 
 %description
@@ -35,6 +38,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -65,6 +69,9 @@ ruby -Ilib -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/test
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.2-2
+- Fix compatibility for minitest 6
+
 * Tue Sep 02 2025 Vít Ondruch <vondruch@redhat.com> - 1.6.2-1
 - Update to rails-html-sanitizer 1.6.2.
   Resolves: rhbz#2330070

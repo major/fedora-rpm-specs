@@ -1,5 +1,5 @@
 Name:           alglib
-Version:        4.06.0
+Version:        4.07.0
 Release:        1%{?dist}
 Summary:        A numerical analysis and data processing library
 
@@ -67,7 +67,7 @@ sed -i 's|\r||g' manual.cpp.html
 
 %files
 %license gpl2.txt
-%{_libdir}/libalglib.so.4.6.0
+%{_libdir}/libalglib.so.4.7.0
 
 %files devel
 %{_includedir}/%{name}/
@@ -79,6 +79,9 @@ sed -i 's|\r||g' manual.cpp.html
 
 
 %changelog
+* Mon Dec 29 2025 Sandro Mani <manisandro@gmail.com> - 4.07.0-1
+- Update to 4.07.0
+
 * Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 4.06.0-1
 - Update to 4.06.0
 

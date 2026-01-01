@@ -29,10 +29,12 @@
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
 %global pkg_suffix -%{rocm_release}
+%global pkg_skip_install_rpath FALSE
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
+%global pkg_skip_install_rpath TRUE
 %endif
 %global pkg_name rocm-smi%{pkg_suffix}
 
@@ -121,11 +123,12 @@ sed -i -e '/TARGETS gtest gtest_main/,+3d' tests/rocm_smi_test/CMakeLists.txt
 sed -i '/#include <string.*/a#include <iomanip>' tests/rocm_smi_test/test_base.h
 
 %build
-%cmake -DFILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
-       -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-       -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
-       -DBUILD_TESTS=%{build_test}
+%cmake \
+    -DBUILD_TESTS=%{build_test} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_SKIP_INSTALL_RPATH=%{pkg_skip_install_rpath} \
+    -DSHARE_INSTALL_PREFIX=%{pkg_prefix}/share
 
 %cmake_build
 

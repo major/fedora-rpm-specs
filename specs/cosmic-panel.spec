@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 8eb8a1b6305213ec7402cb2ec24bef6b501b978a
 %global commitdatestring 2025-12-02 17:29:52 -0500
-%global cosmic_minver 1.0.0
+%global cosmic_minver 1.0.1
 
 Name:           cosmic-panel
-Version: 1.0.0
+Version: 1.0.1
 Release:        %autorelease
 Summary:        Panel for the COSMIC Desktop Environment
 

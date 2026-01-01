@@ -1,4 +1,4 @@
-%global forgeurl https://github.com/francescmm/%{upstream_package_name}
+%global forgeurl https://github.com/francescmaestre/%{upstream_package_name}
 %global tag v%{version}
 %global upstream_package_name GitQlient
 
@@ -34,19 +34,6 @@ Requires:   qt5-qtsvg
 GitQlient, pronounced as git+client (/gɪtˈklaɪənt/) is a multi-platform Git
 client originally forked from QGit. Nowadays it goes beyond of just a fork and
 adds a lot of new functionality.
-
-Some of the major feature you can find are:
-
-  * Easy access to remote actions like: push, pull, submodules management and
-    branches
-  * Branches management
-  * Tags and stashes management
-  * Submodules handling
-  * Allow to open several repositories in the same window
-  * Better visualization of the commits and the work in progress
-  * Better visualization of the repository view
-  * GitHub/GitLab integration
-  * Embedded text editor with syntax highlight for C++
 
 
 %prep

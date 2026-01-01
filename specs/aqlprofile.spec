@@ -53,6 +53,9 @@
 %global build_type RelWithDebInfo
 %endif
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
 Release:        3%{?dist}
@@ -81,6 +84,7 @@ BuildRequires:  gtest-devel
 BuildRequires:  rocm-clang%{pkg_suffix}-devel
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-llvm%{pkg_suffix}-static
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 %endif
 
@@ -122,7 +126,10 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_HIP_ARCHITECTURES=%{gpu_list} \
     -DCMAKE_HIP_COMPILER_ROCM_ROOT=%{pkg_prefix} \
+    -DCMAKE_HIP_COMPILER=%{rocmllvm_bindir}/amdclang++ \
+    -DCMAKE_HIP_FLAGS="-I %{pkg_prefix}/include" \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     
 %cmake_build

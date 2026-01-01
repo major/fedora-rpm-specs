@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.0.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
@@ -22,6 +22,8 @@ Patch1: rubygem-activesupport-8.0.3-Always-pass-default-precision-to-BigDecimal-
 # Support minitest 6
 # https://github.com/rails/rails/pull/56202/
 Patch2: rubygem-activesupport-pr56202-minitest6.patch
+# We don't always install railties with activesupport, so rescue this
+Patch3: rubygem-activesupport-pr56202-minitest6-rescue-loaderror.patch
 
 # Ruby package has just soft dependency on rubygem(json), while
 # ActiveSupport always requires it.
@@ -76,6 +78,7 @@ Documentation for %{name}.
 
 %patch 1 -p2
 %patch 2 -p2
+%patch 3 -p1
 
 # lib/active_support/testing/method_call_assertions.rb
 # always needs minitest/mock
@@ -142,6 +145,9 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.0.3-4
+- Update minitest 6 patch, and rescue when railties is not installed
+
 * Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.0.3-3
 - Backport upstream fix to support minitest 6
 

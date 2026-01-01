@@ -10,10 +10,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit eead361cca44d8e19e988572462c49e26cf20427
 %global commitdatestring 2025-10-01 18:37:18 +0200
-%global cosmic_minver 1.0.0
+%global cosmic_minver 1.0.1
 
 Name:           pop-launcher
-Version: 1.0.0
+Version: 1.0.1
 Epoch: 1
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service

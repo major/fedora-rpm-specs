@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
@@ -18,6 +18,10 @@ Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Fix test compatibility with Propshaft 1.3+
 # https://github.com/rails/rails/pull/55746
 Patch0: rubygem-railties-8.0.3-Fix-tests-now-that-Propshaft-Server-is-a-middleware.patch
+# MT6: Fix LineFiltering to work with both MT5 & MT6
+# https://github.com/rails/rails/pull/56202
+# https://github.com/rails/rails/commit/99395e1ea401acbc23d4f6b2a8657cdb82f921bd
+Patch1: rubygem-railties-pr56202-linefiltering-minitest6.patch
 
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -44,6 +48,7 @@ BuildRequires: rubygem(capybara)
 BuildRequires: rubygem(dalli)
 BuildRequires: rubygem(importmap-rails)
 BuildRequires: rubygem(listen)
+BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(mysql2)
 BuildRequires: rubygem(pg)
 BuildRequires: rubygem(puma)
@@ -86,6 +91,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+%patch 1 -p2
 
 ( cd %{builddir}
 %patch 0 -p2
@@ -141,6 +147,7 @@ echo 'gem "capybara"' >> ../Gemfile
 echo 'gem "dalli"' >> ../Gemfile
 echo 'gem "importmap-rails"' >> ../Gemfile
 echo 'gem "listen"' >> ../Gemfile
+echo 'gem "minitest-mock"' >> ../Gemfile
 echo 'gem "mysql2"' >> ../Gemfile
 echo 'gem "pg"' >> ../Gemfile
 echo 'gem "propshaft"' >> ../Gemfile
@@ -287,6 +294,9 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.3-3
+- Backport upstream fix for minitest 6
+
 * Mon Oct 13 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-2
 - Fix test compatibility with Propshaft 1.3+
 

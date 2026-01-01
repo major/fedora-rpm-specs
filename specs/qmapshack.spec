@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.17.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: GPS mapping and management tool
 
 # src/animation = WTFPL
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Tue Dec 30 2025 Sandro Mani <manisandro@gmail.com> - 1.17.1-20
+- Rebuild (alglib)
+
 * Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 1.17.1-19
 - Rebuild (gdal)
 

@@ -17,8 +17,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	xfce4-panel-devel
 BuildRequires:	libxfce4ui-devel
 BuildRequires:	exo-devel >= 0.5.0
-BuildRequires:	pcre-devel >= 5.0
-BuildRequires:	dbus-glib-devel >= 0.34
+BuildRequires:	pcre2-devel >= 10.0
 BuildRequires:	libxml2-devel, gettext, intltool, perl(XML::Parser)
 
 Requires:	xfce4-panel

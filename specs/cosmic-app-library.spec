@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit d06546837b53adf9a02c4b771cb8211738462e37
-%global commitdatestring 2025-12-09 17:06:54 -0700
-%global cosmic_minver 1.0.0
+%global commit 1b8918d0059831b4cf4ba918a363a5bd38b0e64b
+%global commitdatestring 2025-12-30 08:51:09 -0700
+%global cosmic_minver 1.0.1
 
 Name:           cosmic-app-library
-Version: 1.0.0
+Version: 1.0.1
 Release:        %autorelease
 Summary:        App Library program for the COSMIC Desktop Environment
 

@@ -295,7 +295,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %{pkg_prefix}/share/rocsparse/test/rocsparse_*
 %{pkg_prefix}/share/rocsparse/
 %{pkg_prefix}/%{pkg_libdir}/rocsparse/
-%%{pkg_prefix}/libexec/rocsparse/
+%{pkg_prefix}/libexec/rocsparse/
 %endif
 
 %changelog

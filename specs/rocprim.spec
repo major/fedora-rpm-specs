@@ -71,6 +71,9 @@
 %global build_type RelWithDebInfo
 %endif
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 Name:           rocprim%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
@@ -164,19 +167,18 @@ cd projects/rocprim
 %endif
 
 %cmake \
-	-DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	-DBUILD_TEST=%{build_test} \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_BUILD_TYPE=%build_type \
-	-DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
-	-DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
-	-DCMAKE_INSTALL_LIBDIR=share \
-	-DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-	-DGPU_TARGETS=%{rocm_gpu_list_test} \
-	-DROCM_SYMLINK_LIBS=OFF
+    -DBUILD_TEST=%{build_test} \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_BUILD_TYPE=%build_type \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_INSTALL_LIBDIR=share \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DGPU_TARGETS=%{gpu_list} \
+    -DROCM_SYMLINK_LIBS=OFF
 
 %cmake_build
 
@@ -191,7 +193,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocprim/LICENSE.md
 
 %if %{with test}
 # force the cmake test file to use absolute paths for its referenced binaries
-sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/%{name}/CTestTestfile.cmake
+sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfile.cmake
 %endif
 
 %files devel

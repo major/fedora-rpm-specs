@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 3d1ec12ce7ee4184da124599c88d7c85804215a6
-%global commitdatestring 2025-12-05 09:14:45 -0700
-%global cosmic_minver 1.0.0
+%global commit ff506f91f73202ffb26214ce244aa77c53be8e5b
+%global commitdatestring 2025-12-30 08:51:03 -0700
+%global cosmic_minver 1.0.1
 
 Name:           cosmic-bg
-Version: 1.0.0
+Version: 1.0.1
 Release:        %autorelease
 Summary:        Background manager for the COSMIC Desktop Environment
 

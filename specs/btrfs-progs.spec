@@ -3,11 +3,11 @@
 
 Name:           btrfs-progs
 Version:        6.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
-URL:            https://btrfs.wiki.kernel.org/index.php/Main_Page
+URL:            https://btrfs.readthedocs.io
 Source0:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.xz
 Source1:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.sign
 Source2:        gpgkey-F2B41200C54EFB30380C1756C565D5F9D76D583B.gpg
@@ -169,6 +169,9 @@ popd >/dev/null
 
 
 %changelog
+* Tue Dec 23 2025 Georg Sauthoff <mail@gms.tf> - 6.17.1-2
+- Update URL
+
 * Fri Nov 07 2025 Packit <hello@packit.dev> - 6.17.1-1
 - Update to version 6.17.1
 - Resolves: rhbz#2413317

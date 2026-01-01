@@ -7,7 +7,7 @@ Version:        1.0.0
 Release:        21%{?dist}
 Summary:        python3 copy of sgmllib
 License:        PSF-2.0
-URL:            http://hg.hardcoded.net/sgmllib
+URL:            https://pypi.org/project/sgmllib3k/
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
@@ -52,6 +52,9 @@ eventually think about finding another module to use.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Dec 30 2025 Kevin Fenzi <kevin@scrye.com> - 1.0.0-21
+- Update url. Fixes rhbz#2424651
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-21
 - Rebuilt for Python 3.14.0rc3 bytecode
 

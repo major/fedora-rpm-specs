@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.18
+Version:        0.9.21
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -105,6 +105,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
+# bzip2-1.0.6
 License:        %{shrink:
                 0BSD AND
                 (0BSD OR Apache-2.0 OR MIT) AND
@@ -130,7 +131,8 @@ License:        %{shrink:
                 MPL-2.0 AND
                 Unicode-3.0 AND
                 Unicode-DFS-2016 AND
-                Zlib
+                Zlib AND
+                bzip2-1.0.6
                 }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/astral-sh/uv
@@ -471,6 +473,13 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
+# procfs
+#   wanted: 0.17
+#   currently packaged: 0.17, but an update to 0.18 is planned
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2392071
+#   https://github.com/astral-sh/uv/pull/17275
+tomcli set Cargo.toml str workspace.dependencies.procfs.version '>=0.17, <0.19'
+
 %cargo_prep
 
 
@@ -558,6 +567,8 @@ skip="${skip-} --skip python_find::python_find_prerelease_with_patch_request"
 # On other architectures, the list of available downloads differs, e.g. pypy
 # and graalpy downloads may be missing.
 skip="${skip-} --skip python_list::python_list_downloads"
+# Similarly, version numbers may not match exactly.
+skip="${skip-} --skip python_list::python_list_with_mirrors"
 %endif
 %ifarch %{power64}
 # The error message lacks the expected hint:

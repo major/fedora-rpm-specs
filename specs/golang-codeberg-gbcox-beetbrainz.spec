@@ -6,7 +6,7 @@
 %global project beetbrainz
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/
-%global commit a077dc9ac4568d9bc4235097c9a3990037fc42cd
+%global commit f2e2004eb77a9c2486b3d49ef682abf41bba2a6d 
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global golicenses LICENSE.md
@@ -20,7 +20,7 @@ scrobbling via ListenBrainz.}
 %gometa
 
 Name:           %{goname}
-Version:        1.10.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Provides webhook integration for ListenBrainz scrobbling with %{project}
 License:        GPL-3.0-or-later
@@ -53,6 +53,7 @@ export LDFLAGS="\
 
 %install
 install -Dm755 %{project} %{buildroot}%{_bindir}/%{project}
+install -Dm755 %{project}-replay %{buildroot}%{_bindir}/%{project}-replay
 install -Dm644 %{project}.service %{buildroot}%{_userunitdir}/%{project}.service
 mkdir -p %{buildroot}%{_mandir}/man8
 install -m644 -p %{project}.8 %{buildroot}%{_mandir}/man8
@@ -73,6 +74,7 @@ install -m644 -p %{project}.8 %{buildroot}%{_mandir}/man8
 %license %{golicenses}
 %doc %{godocs}
 %{_bindir}/%{project}
+%{_bindir}/%{project}-replay
 %{_userunitdir}/%{project}.service
 %{_mandir}/man8/%{project}.8*
 

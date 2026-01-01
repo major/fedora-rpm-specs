@@ -1,9 +1,9 @@
 Name: metacity
-Version: 3.56.0
+Version: 3.58.1
 Release: %autorelease
 Summary: Unobtrusive window manager
 URL: https://wiki.gnome.org/Projects/Metacity
-Source0: https://download.gnome.org/sources/metacity/3.56/metacity-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/metacity/3.58/metacity-%{version}.tar.xz
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT-open-group
 
@@ -13,7 +13,6 @@ BuildRequires: itstool
 BuildRequires: make
 BuildRequires: vulkan-devel
 BuildRequires: yelp-tools
-BuildRequires: zenity
 
 BuildRequires: pkgconfig(gio-2.0) >= 2.67.3
 BuildRequires: pkgconfig(gsettings-desktop-schemas) >= 42.0
@@ -35,7 +34,6 @@ BuildRequires: pkgconfig(xres) >= 1.2
 
 Requires: gsettings-desktop-schemas
 Requires: startup-notification
-Requires: zenity
 
 # http://bugzilla.redhat.com/605675
 Provides: firstboot(windowmanager) = metacity
@@ -103,9 +101,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/gnome-control-center/keybindings/*
 %{_libdir}/lib*.so.*
+%{_libexecdir}/%{name}-dialog
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-message.1*
 %{_datadir}/applications/%{name}.desktop
+%{_userunitdir}/%{name}.service
 
 %files devel
 %{_bindir}/%{name}-theme-viewer

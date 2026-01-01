@@ -3,13 +3,13 @@
 %global use_evolution_data_server 1
 
 Name:           gnome-panel
-Version:        3.56.0
+Version:        3.58.1
 Release:        %autorelease
 Summary:        GNOME Flashback panel
 
 License:        GPL-2.0-or-later and LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GnomePanel
-Source0:        https://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake >= 1.16.4
@@ -139,6 +139,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/man/man*/*
 %{_libdir}/%{name}/
+%{_userunitdir}/%{name}.service
 
 %files libs
 %{_libdir}/lib%{name}.so.*

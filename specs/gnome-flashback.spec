@@ -3,14 +3,14 @@
 %bcond_with compiz_session
 
 Name:           gnome-flashback
-Version:        3.56.0
+Version:        3.58.0
 Release:        %autorelease
 Summary:        GNOME Flashback session
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeFlashback
-Source0:        https://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
-Source1:        %{name}.pamd
+Source:         https://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
+Source:         %{name}.pamd
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -136,12 +136,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libexecdir}/%{name}-media-keys
 %{_libexecdir}/%{name}-metacity
 %{_libexecdir}/%{name}-polkit
-%{_sysconfdir}/xdg/autostart/%{name}-clipboard.desktop
 %{_sysconfdir}/xdg/autostart/%{name}-geoclue-demo-agent.desktop
-%{_sysconfdir}/xdg/autostart/%{name}-idle-monitor.desktop
-%{_sysconfdir}/xdg/autostart/%{name}-media-keys.desktop
 %{_sysconfdir}/xdg/autostart/%{name}-nm-applet.desktop
-%{_sysconfdir}/xdg/autostart/%{name}-polkit.desktop
 %{_sysconfdir}/xdg/menus/%{name}-applications.menu
 %{_userunitdir}/*%{name}*
 

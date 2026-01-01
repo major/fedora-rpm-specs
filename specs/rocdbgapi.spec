@@ -37,9 +37,14 @@
 %global pkg_module default
 %endif
 
+# On Rawhide this gcc 16.0.0 issue
+# ../src/memory.h:66:7: error: defining ‘amd::dbgapi::address_space_t’, which 
+# Switch to our compiler
+%global toolchain clang
+
 Name:       rocdbgapi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    AMD Debugger API
 
 License:    MIT
@@ -50,7 +55,9 @@ ExclusiveArch: x86_64
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: hipcc%{pkg_suffix}
 BuildRequires: rocm-comgr%{pkg_suffix}-devel
+BuildRequires: rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires: rocm-runtime%{pkg_suffix}-devel
 
 %description
@@ -71,6 +78,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %build
 %cmake \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
 
@@ -94,6 +103,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-dbgapi-asan/LICENSE.txt
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd-dbgapi/
 
 %changelog
+* Tue Dec 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Switch to rocm-llvm
+
 * Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
 

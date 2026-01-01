@@ -25,13 +25,27 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global bundle_prefix %{_libdir}/rocm/rocm-%{rocm_release}/llvm
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global bundle_prefix %{_libdir}/rocm/llvm
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
 %global upstreamname llvm-project
 
 %global toolchain clang
 
-%global bundle_prefix %{_libdir}/rocm/llvm
 %global llvm_triple %{_target_platform}
 
 %bcond_with debug
@@ -41,14 +55,14 @@
 %global build_type RelWithDebInfo
 %endif
 
-Name:           rocm-omp
+Name:           rocm-omp%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        Apache-2.0 WITH LLVM-exception OR NCSA AND MIT
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{name}-%{rocm_version}.tar.gz
+Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/rocm-omp-%{rocm_version}.tar.gz
 
 BuildRequires:  binutils-devel
 BuildRequires:  cmake
@@ -59,12 +73,12 @@ BuildRequires:  fdupes
 BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  perl
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-device-libs
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-device-libs%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  zlib-devel
 
-Requires:       rocm-llvm-filesystem
+Requires:       rocm-llvm%{pkg_suffix}-filesystem
 
 ExclusiveArch:  x86_64
 %global targets_to_build "X86;AMDGPU"
@@ -74,14 +88,14 @@ ExclusiveArch:  x86_64
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       rocm-omp%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
 
 %package static
 Summary:        Static Libraries for %{name}
-Requires:       rocm-omp-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
 %{summary}
@@ -191,7 +205,7 @@ cd openmp
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
-%fdupes %{buildroot}%{_prefix}
+%fdupes %{buildroot}%{pkg_prefix}
 %endif
 
 rm -rf %{buildroot}%{bundle_prefix}/lib/omptest
@@ -218,6 +232,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
+- Add --with compat
+
 * Thu Nov 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Update to 7.1.1
 

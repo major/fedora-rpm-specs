@@ -12,9 +12,6 @@ Summary:        Detect and read QR codes from any image source
 License:        (MIT OR Apache-2.0) AND ISC
 URL:            https://crates.io/crates/rqrr
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow image 0.25: https://github.com/WanzenBug/rqrr/pull/46
-Patch:          rqrr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

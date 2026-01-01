@@ -2,10 +2,10 @@
 %global tag %{version}
 
 Name:           minigalaxy
-Version:        1.3.2
+Version:        1.4.0
 %forgemeta
 Release:        %autorelease
-Summary:        GOG client for Linux that lets you download and play your GOG Linux games
+Summary:        Simple GOG client for Linux
 BuildArch:      noarch
 
 # CC-BY-3.0:    Logo image (data/minigalaxy.png)
@@ -30,6 +30,7 @@ Requires:       webkit2gtk4.1
 Recommends:     dosbox
 Recommends:     gamemode
 Recommends:     innoextract
+Recommends:     libvkd3d
 Recommends:     mangohud
 Recommends:     wine
 Recommends:     wine-dxvk
@@ -37,8 +38,7 @@ Recommends:     wine-dxvk
 Suggests:       scummvm
 
 %description
-A simple GOG client for Linux that lets you download and play your GOG Linux
-games.
+A simple GOG client for Linux.
 
 
 %prep
@@ -51,6 +51,8 @@ games.
 
 %install
 %py3_install
+# Dirty: remove test files for quick update current ver
+rm -rf %{buildroot}%{python3_sitelib}/tests/
 
 
 %check

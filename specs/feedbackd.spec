@@ -1,5 +1,5 @@
 Name:           feedbackd
-Version:        0.8.7
+Version:        0.8.8
 Release:        %autorelease
 Summary:        Feedback library for GNOME
 
@@ -24,6 +24,7 @@ BuildRequires:  systemd-devel
 BuildRequires:  vala
 BuildRequires:  dbus-daemon
 BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 
@@ -67,6 +68,9 @@ developing applications that use %{name}.
 %post
 %systemd_user_post fbd-alert-slider.service
 
+%pre
+%sysusers_create_compat %{_sysusersdir}/feedbackd.conf
+
 %preun
 %systemd_user_preun fbd-alert-slider.service
 
@@ -85,6 +89,7 @@ developing applications that use %{name}.
 %{_datadir}/dbus-1/services/org.sigxcpu.Feedback.service
 %{_datadir}/feedbackd
 %{_datadir}/glib-2.0/schemas/org.sigxcpu.feedbackd.gschema.xml
+%{_sysusersdir}/feedbackd.conf
 %{_userunitdir}/fbd-alert-slider.service
 
 %files -n libfeedbackd

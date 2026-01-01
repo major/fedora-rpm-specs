@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit e65529dcfcc9f85a6c8c6f8066d972ffd7e409f7
-%global commitdatestring 2025-12-09 17:08:37 -0700
-%global cosmic_minver 1.0.0
+%global commit 6d3abf431c09c4bbc2365f136ec7319e267e791e
+%global commitdatestring 2025-12-30 08:59:25 -0700
+%global cosmic_minver 1.0.1
 
 Name:           cosmic-files
-Version: 1.0.0
+Version: 1.0.1
 Release:        %autorelease
 Summary:        Libcosmic file manager
 

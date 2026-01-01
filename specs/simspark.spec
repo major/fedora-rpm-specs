@@ -1,6 +1,6 @@
 Name:           simspark
 Version:        0.3.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Spark physical simulation system
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -10,6 +10,9 @@ Source0:        http://downloads.sourceforge.net/simspark/%{name}-%{version}.tar
 Patch0:         %{name}-confscript-mlibfix.patch
 # https://gitlab.com/robocup-sim/SimSpark/-/merge_requests/53
 Patch1:         %{name}-pr53-cxx-header-include.patch
+# Fix compilation with gcc15
+# https://gitlab.com/robocup-sim/SimSpark/-/merge_requests/74
+Patch2:         %{name}-pr74-gcc15-resolve-ambiguous-override.patch
 
 
 BuildRequires: make
@@ -80,6 +83,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-12
+- Backport upstream fix for gcc15 with ambiguous override
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

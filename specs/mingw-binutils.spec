@@ -3,8 +3,8 @@
 %define enable_new_dtags 0
 
 Name:           mingw-binutils
-Version:        2.45
-Release:        2%{?dist}
+Version:        2.45.1
+Release:        1%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -463,6 +463,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Tue Dec 30 2025 Sandro Mani <manisandro@gmail.com> - 2.45.1-1
+- Update to 2.45.1
+
 * Fri Oct 10 2025 Sandro Mani <manisandro@gmail.com>
 - Backport fixes for CVE-2025-11494, CVE-2025-11495, CVE-2025-11082,
   CVE-2025-11081, CVE-2025-11083

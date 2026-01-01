@@ -436,6 +436,10 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+# allow ghc-9.6 unix
+( cd libraries/Cabal/Cabal
+  cabal-tweak-dep-ver unix '>= 2.8.6.0' '>= 2.8'
+)
 ( cd hadrian
   cabal-tweak-flag selftest False
 )
@@ -445,16 +449,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P3 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
-
-# Unique Word64 disabled on fedora ghc-9.8.4.i686 (but not ghc9.8)
-# remove for ghc-9.10
-%if 0%{?fedora} >= 43
-%ifnarch %{ix86}
-#%%patch -P6 -p1 -b .orig
-%endif
-%else
-%patch -P6 -p1 -b .orig
-%endif
 
 %ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig

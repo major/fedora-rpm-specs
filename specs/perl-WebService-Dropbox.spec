@@ -1,6 +1,6 @@
 Name:           perl-WebService-Dropbox
-Version:        2.09
-Release:        12%{?dist}
+Version:        2.10
+Release:        1%{?dist}
 Summary:        Perl interface to Dropbox API
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -94,6 +94,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Tue Dec 30 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.10-1
+- Update to 2.10-1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

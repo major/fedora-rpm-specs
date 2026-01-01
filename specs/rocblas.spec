@@ -315,7 +315,9 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{rocblas_name}%{?_isa} = %{version}-%{release}
+%if %{without compat}
 Requires:       cmake(hip)
+%endif
 
 %description devel
 %{summary}

@@ -1,13 +1,13 @@
 %global po_package %{name}-3.0
 
 Name:           gnome-applets
-Version:        3.56.0
+Version:        3.58.0
 Release:        %autorelease
 Summary:        Small applications for the GNOME Flashback panel
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeApplets
-Source0:        https://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake >= 1.16.4

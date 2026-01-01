@@ -1,5 +1,5 @@
 Name:           python-pdfminer
-Version:        20251229
+Version:        20251230
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 
@@ -156,7 +156,8 @@ cp -p docs/licenses/LICENSE.pyHanko ./
 
 
 %build -p
-# Symlink the unbundled CMap resources and convert to the pickled format.
+# Symlink the unbundled CMap resources and convert to the compressed JSON
+# format.
 for cmap in Japan1 Korea1 GB1 CNS1
 do
   ln -s "%{adobe_mappings_rootpath}/${cmap}/cid2code.txt" \
@@ -184,9 +185,9 @@ mkdir -p pdfminer/cmap
 #
 # Normally this kind of thing would be in %%prep, but we must do this
 # immediately before building the wheel, and after any other changes such as
-# rebuilding the pickled CMap resources, lest setuptools_git_version determine
-# that the tree is “dirty” and produce a “post” version, appearing in the
-# binary RPMs as something like YYYYMMDD^post0.
+# rebuilding the compressed JSON CMap resources, lest setuptools_git_version
+# determine that the tree is “dirty” and produce a “post” version, appearing in
+# the binary RPMs as something like YYYYMMDD^post0.
 #
 # We *also* need to ensure that git ignores anything that might be written
 # during %%pyproject_wheel, or we will still end up with a dirty/postrelease

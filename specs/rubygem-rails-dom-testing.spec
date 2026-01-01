@@ -3,11 +3,13 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Dom and Selector assertions for Rails applications
 License: MIT
 URL: https://github.com/rails/rails-dom-testing
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix compatibilty for minitest 6
+Patch0:  rails-dom-testing-2.2.0-minitest6.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -31,6 +33,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -59,6 +62,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-3
+- Fix compatibility for minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

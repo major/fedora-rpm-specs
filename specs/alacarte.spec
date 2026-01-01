@@ -1,12 +1,12 @@
 %global app_id  org.gnome.alacarte
 
 Name:           alacarte
-Version:        3.56.0
+Version:        3.58.0
 Release:        %autorelease
 Summary:        Menu editor for the GNOME desktop
 License:        LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/alacarte
-Source0:        https://download.gnome.org/sources/alacarte/3.56/%{name}-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/alacarte/3.58/%{name}-%{version}.tar.xz
 
 BuildArch:      noarch
 
@@ -14,6 +14,7 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib

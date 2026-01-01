@@ -1,18 +1,21 @@
 Name:           python-sphinx-inline-tabs
-# There are 2 different versions here:
-# https://github.com/pradyunsg/sphinx-inline-tabs/issues/7
-Version:        2023.04.21
-%global tag     2023.04.21
+Version:        2025.12.21.14
 Release:        %autorelease
 Summary:        Add inline tabbed content to your Sphinx documentation
 # SPDX
 License:        MIT
 URL:            https://github.com/pradyunsg/sphinx-inline-tabs
-Source0:        %{url}/archive/%{tag}/sphinx-inline-tabs-%{tag}.tar.gz
+Source:         %{url}/archive/%{version}/sphinx-inline-tabs-%{version}.tar.gz
+
+# Make tests runnable in %%check, merged upstream
+Patch:          https://github.com/pradyunsg/sphinx-inline-tabs/pull/53.patch
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
+
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install): -l sphinx_inline_tabs
+
 
 %global _description %{expand:
 Add inline tabbed content to your Sphinx documentation.
@@ -35,29 +38,18 @@ Summary:        %{summary}
 %description -n python3-sphinx-inline-tabs  %_description
 
 
-%prep
-%autosetup -p1 -n sphinx-inline-tabs-%{tag}
+%prep -a
+sed -i '/pytest-cov/d' pyproject.toml
 
 
-%generate_buildrequires
-# There is a [test] extra, but there are no tests :/
-# https://github.com/pradyunsg/sphinx-inline-tabs/issues/6
-%pyproject_buildrequires -r
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files sphinx_inline_tabs
+%check -a
+# As of 2025.12.21.14, the deselected tests assert docutils 0.21.2 specifcic output.
+%pytest -k "not xml"
 
 
 %files -n python3-sphinx-inline-tabs -f %{pyproject_files}
 %doc README.md
 %doc CODE_OF_CONDUCT.md
-%license LICENSE
 
 
 %changelog

@@ -2,23 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate astral-reqwest-retry
+%global crate as-slice
 
-Name:           rust-astral-reqwest-retry
-Version:        0.8.0
+Name:           rust-as-slice
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Retry middleware for reqwest
+Summary:        AsSlice and AsMutSlice traits
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/astral-reqwest-retry
+URL:            https://crates.io/crates/as-slice
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          astral-reqwest-retry-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Retry middleware for reqwest.}
+`AsSlice` and `AsMutSlice` traits.}
 
 %description %{_description}
 
@@ -48,18 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tracing-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tracing-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

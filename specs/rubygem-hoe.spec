@@ -3,7 +3,7 @@
 
 Summary:    	Hoe is a simple rake/rubygems helper for project Rakefiles
 Name:       	rubygem-%{gem_name}
-Version:    	4.3.0
+Version:    	4.5.0
 Release:    	1%{?dist}
 # SPDX confirmed
 License:    	MIT
@@ -131,6 +131,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.5.0-1
+- 4.5.0
+
 * Thu Aug 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-1
 - 4.3.0
 

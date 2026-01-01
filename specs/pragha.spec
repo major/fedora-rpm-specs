@@ -16,7 +16,8 @@ Source0:        https://github.com/pragha-music-player/pragha/releases/download/
 Patch0: pragha-c99-1.patch
 Patch1: pragha-c99-2.patch
 
-BuildRequires: make
+BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.8.0
 BuildRequires:  pkgconfig(gio-2.0) >= 2.36
 BuildRequires:  pkgconfig(keybinder-3.0) >= 0.2.0
