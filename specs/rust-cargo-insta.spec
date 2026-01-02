@@ -4,7 +4,7 @@
 %global crate cargo-insta
 
 Name:           rust-cargo-insta
-Version:        1.44.3
+Version:        1.45.1
 Release:        %autorelease
 Summary:        Review tool for the insta snapshot testing library for Rust
 
@@ -15,9 +15,6 @@ Source:         %{crates_source}
 # * Drop rust-strings dev-dependency, used only for a few tests
 # * Allow console 0.16: https://github.com/mitsuhiko/insta/pull/789
 Patch:          cargo-insta-fix-metadata.diff
-# * Downstream: Patch out tests that would require rust-strings. It is not worth
-#   packaging it solely for these.
-Patch10:        0001-Downstream-patch-out-tests-that-would-require-rust-s.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -74,88 +71,8 @@ License:        %{shrink:
 
 %if %{with check}
 %check
-# * skip tests that can only be run in-tree
-%{cargo_test -- -- --exact %{shrink:
-    --skip back_compat::test_empty_snapshot_in_multiline_format
-    --skip back_compat::test_force_update_does_reformat
-    --skip back_compat::test_multiline_with_relative_indentation
-    --skip back_compat::test_no_reformat_raw_string_multiline
-    --skip back_compat::test_no_reformat_single_line_in_multiline_format
-    --skip back_compat::test_no_reformat_true_multiline_legacy
-    --skip back_compat::test_trailing_whitespace_line
-    --skip binary::test_binary_accept
-    --skip binary::test_binary_change_extension
-    --skip binary::test_binary_pending
-    --skip binary::test_binary_pending_snapshot_removal
-    --skip binary::test_binary_unreferenced_delete
-    --skip binary::test_change_binary_to_text
-    --skip binary::test_change_text_to_binary
-    --skip delete_pending::delete_unreferenced
-    --skip delete_pending::test_pending_snapshot_deletion
-    --skip glob_filter::test_glob_filter_preserves_snapshot_names
-    --skip inline::test_hashtag_escape_in_inline_snapshot
-    --skip inline::test_json_inline
-    --skip inline::test_multiple_assertions_within_allow_duplicates
-    --skip inline::test_old_yaml_format
-    --skip inline::test_single_line_assertions
-    --skip inline::test_single_line_duplicates
-    --skip inline::test_utf8_inline
-    --skip inline::test_yaml_inline
-    --skip inline_snapshot_trimming::test_backwards_compatibility
-    --skip inline_snapshot_trimming::test_leading_newline_processing
-    --skip inline_snapshot_trimming::test_no_indentation_warnings
-    --skip inline_snapshot_trimming::test_single_vs_multiline_detection
-    --skip inline_snapshot_trimming::test_warning_only_for_missing_newline
-    --skip inline_snapshot_trimming::test_warning_persistence
-    --skip nextest_doctest::test_cargo_test_no_warning
-    --skip test_force_update_inline_snapshot
-    --skip test_force_update_inline_snapshot_hashes
-    --skip test_force_update_inline_snapshot_linebreaks
-    --skip test_force_update_snapshots
-    --skip test_hashtag_escape_in_inline_snapshot
-    --skip test_hidden_snapshots
-    --skip test_ignored_snapshots
-    --skip test_inline_snapshot_indent
-    --skip test_json_inline
-    --skip test_line_numbers_1_based
-    --skip test_matches_fully_linebreaks
-    --skip test_root_crate_all
-    --skip test_root_crate_no_all
-    --skip test_runner_fallback::test_no_test_runner_fallback_flag
-    --skip test_runner_fallback::test_runner_fallback_equals_false
-    --skip test_runner_fallback::test_runner_fallback_equals_true
-    --skip test_runner_fallback::test_runner_fallback_flag_enables
-    --skip test_runner_fallback::test_runner_fallback_override_with_flag
-    --skip test_runner_fallback::test_runner_fallback_override_with_no_flag
-    --skip test_runner_fallback::test_runner_fallback_space_true
-    --skip test_snapshot_kind_behavior
-    --skip test_snapshot_name_clash
-    --skip test_unparsable_snapshot_at_start
-    --skip test_unparsable_snapshot_in_yaml
-    --skip test_unparsable_snapshot_invalid_yaml
-    --skip test_unreferenced_delete
-    --skip test_utf8_inline
-    --skip test_valid_snapshot_with_separator_lines
-    --skip test_virtual_manifest_all
-    --skip test_virtual_manifest_default
-    --skip test_virtual_manifest_single_crate
-    --skip test_workspace_source_path::test_workspace_source_path_complex
-    --skip test_workspace_source_path::test_workspace_source_path_issue_777
-    --skip test_yaml_inline
-    --skip unreferenced::test_unreferenced_config_reject
-    --skip unreferenced::test_unreferenced_delete
-    --skip workspace::test_external_test_path
-    --skip workspace::test_insta_workspace_root
-    --skip workspace::test_manifest_option
-    --skip workspace::test_root_crate_no_all
-    --skip workspace::test_root_crate_workspace
-    --skip workspace::test_root_crate_workspace_accept
-    --skip workspace::test_root_test_duplicate_snapshots
-    --skip workspace::test_virtual_manifest_all
-    --skip workspace::test_virtual_manifest_default
-    --skip workspace::test_virtual_manifest_single_crate
-    --skip workspace::test_workspace_root_option
-}}
+# * almost all integration tests can only be run in-tree
+%cargo_test -- --bins
 %endif
 
 %changelog

@@ -130,7 +130,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -166,7 +166,6 @@ BuildRequires:  ninja-build
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  git
 BuildRequires:  hipcc%{pkg_suffix}
 BuildRequires:  hipsparse%{pkg_suffix}-devel
 BuildRequires:  libzstd-devel
@@ -306,6 +305,11 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
 sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' clients/CMakeLists.txt
 sed -i -e 's@lapack cblas@flexiblas@' clients/gtest/CMakeLists.txt
+
+# We are building from a tarball, not a git repo
+sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' hipBLASLt/cmake/dependencies.cmake
+sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/Dependencies.cmake
+
 %build
 %if %{with gitcommit}
 cd projects/hipsparselt
@@ -417,6 +421,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %changelog
+* Wed Dec 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Remove build requires git
+
 * Fri Dec 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Add --with compat
 

@@ -1,7 +1,7 @@
 %global giturl  https://github.com/pradyunsg/furo
 
 Name:           python-furo
-Version:        2025.09.25
+Version:        2025.12.19
 Release:        %autorelease
 Summary:        Clean customizable Sphinx documentation theme
 

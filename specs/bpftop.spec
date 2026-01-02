@@ -40,6 +40,9 @@ License:        %{shrink:
 URL:            https://github.com/Netflix/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# * Allow procfs 0.18: https://github.com/Netflix/bpftop/pull/189
+Patch:          bpftop-fix-metadata.diff
+
 ExcludeArch: %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -50,7 +53,7 @@ BuildRequires:  cargo-rpm-macros >= 26
 %description %{_description}
 
 %prep
-%autosetup -n bpftop-%{version}
+%autosetup -n bpftop-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

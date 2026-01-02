@@ -3,7 +3,7 @@
 
 Name:           spglib
 Summary:        C library for finding and handling crystal symmetries
-Version:        2.6.0
+Version:        2.7.0
 Release:        %autorelease
 License:        BSD-3-Clause
 URL:            https://spglib.readthedocs.io/
@@ -63,34 +63,31 @@ develop applications with spglib Python3 bindings.
 
 %prep
 %autosetup -p1 -n spglib-%{version}
+%if %{with python}
+# Remove the numpy version constraint
+tomcli set pyproject.toml arrays replace "build-system.requires" "numpy.*" "numpy"
+%endif
 
 
 %generate_buildrequires
 %if %{with python}
-# Remove the numpy version constraint
-tomcli set pyproject.toml arrays replace "build-system.requires" "numpy.*" "numpy"
 %pyproject_buildrequires -x test
 %endif
 
 
-%conf
+%build
 %cmake \
-    -G Ninja \
     -DSPGLIB_SHARED_LIBS=ON \
     -DSPGLIB_WITH_Fortran=ON \
     -DSPGLIB_WITH_Python=OFF \
     -DSPGLIB_WITH_TESTS=ON \
     -DCMAKE_INSTALL_MODULEDIR=%{_fmoddir}
 
-
-%build
 %cmake_build
 %if %{with python}
 # Use the C library built at previous step to avoid building bundled version
 %{pyproject_wheel %{shrink:
-  -C cmake.build-type=RelWithDebInfo
-  -C cmake.define.Spglib_ROOT=$(pwd)/%_vpath_builddir
-  -C cmake.define.CMAKE_REQUIRE_FIND_PACKAGE_Spglib=true
+  -C cmake.define.Spglib_ROOT=%{__cmake_builddir}
 }}
 %endif
 

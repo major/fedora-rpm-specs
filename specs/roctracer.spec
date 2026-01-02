@@ -44,10 +44,6 @@
 # Needs ROCm HW and is only suitable for local testing
 # GPU_TARGETS in the cmake config are only for testing
 %bcond_with test
-%if %{with test}
-# rpm flags interfere with building the tests
-%global build_cflags %{nil}
-%endif
 
 %bcond_with doc
 
@@ -170,6 +166,8 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_CXX_FLAGS="-I%{pkg_prefix}/include"\
+    -DCMAKE_EXE_LINKER_FLAGS="-L %{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_MODULE_PATH=%{pkg_prefix}/%{pkg_libdir}/cmake/hip \
@@ -178,6 +176,7 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
     -DROCM_SYMLINK_LIBS=OFF \
     -DGPU_TARGETS=%{rocm_gpu_list_test} \
     -DHIP_PLATFORM=amd \
+    -DHIP_HIPCC_FLAGS="-I%{pkg_prefix}/include -L%{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=RelDebInfo
 

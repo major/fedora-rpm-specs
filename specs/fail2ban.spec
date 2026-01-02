@@ -11,7 +11,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -50,6 +50,9 @@ Patch4: https://patch-diff.githubusercontent.com/raw/fail2ban/fail2ban/pull/3728
 # Upstream fix to also catch sshd-session logs
 # https://bugzilla.redhat.com/show_bug.cgi?id=2332945
 Patch5: https://github.com/fail2ban/fail2ban/commit/54c0effceb998b73545073ac59c479d9d9bf19a4.patch
+# Needed for Dovecot change to loging format in 2.4, fixed in f2b version 1.1.1.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2426440
+Patch6: https://github.com/fail2ban/fail2ban/commit/04ff4c060cdc233af9a6deeb85a6523da0416f31.patch
 
 
 BuildArch: noarch
@@ -425,6 +428,9 @@ fi
 
 
 %changelog
+* Wed Dec 31 2025 Richard Shaw <hobbes1069@gmail.com> - 1.1.0-15
+- Add patch for Dovecot 2.4 jail. Fixes BZ#2426440.
+
 * Sat Oct 11 2025 Orion Poplawski <orion@nwra.com> - 1.1.0-14
 - Cleanup old conditionals
 

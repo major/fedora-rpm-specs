@@ -2,16 +2,13 @@
 
 Summary:	Persistent connections using Net::HTTP plus a speed fix
 Name:		rubygem-%{gem_name}
-Version:	4.0.6
-Release:	3%{?dist}
+Version:	4.0.8
+Release:	1%{?dist}
 # SPDX confirmed
 License:	MIT
 
 URL:		https://github.com/drbrain/net-http-persistent
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/drbrain/net-http-persistent/pull/157/
-# ruby3.5 strips CGI gem
-Patch0:	%{gem_name}-pr157-cgi-ruby35.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -39,8 +36,6 @@ This package contains documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
-
-%patch -P0 -p1
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -83,6 +78,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Wed Dec 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-1
+- 4.0.8
+
 * Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.6-3
 - Apply upstream PR for ruby35 CGI change
 

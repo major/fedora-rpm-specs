@@ -11,6 +11,9 @@ Summary:        X11 compatibility layer built on wlroots and Xwayland
 License:        MIT
 URL:            https://gitlab.freedesktop.org/wayback/wayback
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+# fix wayland-session -sesscmd
+# https://gitlab.freedesktop.org/wayback/wayback/-/merge_requests/89
+Patch:          0001-wayback-session-fix-sesscmd-handling.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc

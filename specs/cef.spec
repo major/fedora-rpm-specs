@@ -230,12 +230,12 @@
 %global chromium_major 143
 %global chromium_branch 7499
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 146
+%global chromium_minor 169
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 8aed01b55e1b242b2b3df82a87f321a5cc2b6762
+%global cef_commit 30cb3bdf337b9c32016d8b892d39d2f2df135ce6
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 10
+%global cef_patch 13
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -478,8 +478,6 @@ Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
 Patch902: cef-disable-broken-patches.patch
-# https://github.com/chromiumembedded/cef/pull/4059
-Patch903: cef-Fix-accelerated-paint-struct-size-init.patch
 ## END CEF
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -1156,7 +1154,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P901 -p1 -b .cef-no-libxml-visibility-patch
 %endif
 %patch -P902 -p1 -b .cef-disable-broken-patches
-%patch -P903 -p1 -b .cef-fix-accelerated-paint
 
 # Redirect the git version stuff to use the version file contents instead
 cat >>cef/VERSION.in <<EOF

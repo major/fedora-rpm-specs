@@ -1,7 +1,7 @@
 %global pkgname pnpm
 
 Name:           nodejs-%{pkgname}
-Version:        10.12.2
+Version:        10.27.0
 Release:        %{autorelease}
 Summary:        Fast, disk space efficient package manager
 
@@ -14,8 +14,8 @@ Source3:        %{pkgname}-%{version}-bundled-licenses.txt
 BuildArch:      noarch
 BuildRequires:  fdupes
 BuildRequires:  nodejs-devel
-BuildRequires:  npm
-BuildRequires:  typescript
+BuildRequires:  nodejs-packaging
+BuildRequires:  nodejs-npm
 Requires:       bash
 Provides:       npm(%{pkgname}) = %{version}
 
@@ -53,11 +53,8 @@ install -d %{buildroot}%{nodejs_sitearch}
 
 npm install -g %{SOURCE0}
 
-# HACK: Move pnpm to the right location.
-# I haven't found a npm config for `<prefix>/lib/node_modules` yet.
-mv %{buildroot}$(dirname %{nodejs_sitearch})/node_modules/%{pkgname} %{buildroot}%{nodejs_sitearch}
 # Fix symlinks
-ln -sf ..//lib/$(basename %{nodejs_sitearch})/%{pkgname}/bin/pnpm.cjs %{buildroot}%{_bindir}/pnpm
+ln -sf ../lib/$(basename %{nodejs_sitearch})/%{pkgname}/bin/pnpm.cjs %{buildroot}%{_bindir}/pnpm
 ln -sf ../lib/$(basename %{nodejs_sitearch})/%{pkgname}/bin/pnpx.cjs %{buildroot}%{_bindir}/pnpx
 
 # Fix shebang in pnp(m|x)

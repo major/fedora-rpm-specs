@@ -60,7 +60,7 @@
 
 Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause
 
@@ -74,7 +74,6 @@ Source1:        https://github.com/google/glog/archive/refs/tags/v%{glog_version
 BuildRequires:  cmake
 BuildRequires:  fmt-devel
 BuildRequires:  gcc-c++
-BuildRequires:  git
 
 # BSD-3-Clause
 # rocprofile needs a newer glog
@@ -166,6 +165,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Wed Dec 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove build requires git
+
 * Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
 

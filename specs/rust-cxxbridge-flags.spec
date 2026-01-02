@@ -5,7 +5,7 @@
 %global crate cxxbridge-flags
 
 Name:           rust-cxxbridge-flags
-Version:        1.0.190
+Version:        1.0.192
 Release:        %autorelease
 Summary:        Compiler configuration of the cxx crate (implementation detail)
 

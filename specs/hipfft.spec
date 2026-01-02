@@ -243,7 +243,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 
 %if %{with test}
 %files test
-%{_bindir}/hipfft-test
+%{pkg_prefix}/bin/hipfft-test
 %endif
 
 %changelog

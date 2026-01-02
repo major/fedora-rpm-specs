@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.40.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Capybara aims to simplify the process of integration testing Rack applications
 License: MIT
 URL: https://github.com/teamcapybara/capybara
@@ -13,6 +13,8 @@ Source1: %{gem_name}-%{version}-tests.tar.gz
 # Fix compatibility with Rack::Protection 4.1.0+
 # https://github.com/teamcapybara/capybara/pull/2812
 Patch0: rubygem-capybara-3.40.0-Disable-Rack-Protection-HostAuthorization-.patch
+# Fix compatibility with minitest 6
+Patch1: rubygem-capybara-3.40.0-minitest6.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -50,6 +52,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 %patch 0 -p1
+%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -97,6 +100,9 @@ cucumber
 %{gem_instdir}/spec
 
 %changelog
+* Wed Dec 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.40.0-4
+- Fix compatibility for minitest 6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

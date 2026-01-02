@@ -1,6 +1,6 @@
 Name:           meld
-Version:        3.23.0
-Release:        5%{?dist}
+Version:        3.23.1
+Release:        1%{?dist}
 Summary:        Visual diff and merge tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,14 +60,14 @@ sed -i -e "/^dependency(/d" meson.build
 #
 # See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
 #
-appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/org.gnome.Meld.appdata.xml \
+appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/org.gnome.Meld.metainfo.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/a.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png
 %find_lang %{name} --with-gnome
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Meld.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Meld.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Meld.metainfo.xml
 
 %files -f %{name}.lang
 %license COPYING
@@ -78,11 +78,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_datadir}/glib-2.0/schemas/org.gnome.Meld.gschema.xml
 %{_datadir}/applications/org.gnome.Meld.desktop
 %{_datadir}/mime/packages/org.gnome.Meld.xml
-%{_datadir}/metainfo/org.gnome.Meld.appdata.xml
+%{_datadir}/metainfo/org.gnome.Meld.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Meld*
 %{python3_sitelib}/meld/
 
 %changelog
+* Wed Dec 31 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 3.23.1-1
+- New upstream release 3.23.1 (RHBZ#2426418)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.23.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

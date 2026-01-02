@@ -3,8 +3,8 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        25.12.2
-Release:        1%{?dist}
+Version:        25.12.30
+Release:        2%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -45,6 +45,7 @@ License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
 
 URL:            http://www.shotcut.org/
 Source0:        https://github.com/mltframework/shotcut/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         sharedframe_mlt32_fix.diff
 
 ExcludeArch:    %{ix86}
 
@@ -131,6 +132,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg et Estonian
 %lang_subpkg eu Euskara
 %lang_subpkg fi Finnish
+%lang_subpkg fr_CA "(Canadian French)"
 %lang_subpkg fr French
 %lang_subpkg ga "(Irish Gaeilge)"
 %lang_subpkg gd "(Scottish Gaelic)"
@@ -140,6 +142,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg it Italian
 %lang_subpkg ja Japanese
 %lang_subpkg ko Korean
+%lang_subpkg lt Lithuanian
 %lang_subpkg nb Norwegian
 %lang_subpkg ne Nepali
 %lang_subpkg nl Dutch
@@ -239,6 +242,13 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Wed Dec 31 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.12.30-2
+- Add Canadian French and Lithuanian language subpackage
+
+* Wed Dec 31 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.12.30-1
+- Update to version 25.12.30
+- Add sharedframe_mlt32_fix.diff
+
 * Wed Dec 03 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.12.2-1
 - Update to version 25.12.2
 

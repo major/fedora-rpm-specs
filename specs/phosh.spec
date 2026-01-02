@@ -2,7 +2,7 @@
 %global libcall_ui_version v0.1.5
 
 Name:		phosh
-Version:	0.51.0
+Version:	0.52~rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -54,6 +54,7 @@ BuildRequires:	pkgconfig(libpulse) >= 12.99.3
 BuildRequires:	pkgconfig(libpulse-mainloop-glib)
 BuildRequires:	pkgconfig(libcallaudio-0.1)
 BuildRequires:	pkgconfig(mm-glib) >= 1.24.0
+BuildRequires:	pkgconfig(qrcodegen)
 BuildRequires:	/usr/bin/xvfb-run
 BuildRequires:	/usr/bin/xauth
 BuildRequires:	dbus-daemon

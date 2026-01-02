@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
@@ -14,6 +14,11 @@ Patch0: rubygem-shoulda-context-2.0.0-Use-File-exist.patch
 # Avoid Bundler re-resolving dependencies test suite issues.
 # https://github.com/thoughtbot/shoulda-context/pull/111
 Patch1: rubygem-shoulda-context-3.0.0.rc1-Ignore-Resolving-dependencies.-message-by-Bundler.patch
+# Support minitest 6
+Patch2: rubygem-shoulda-context-2.0.0-minitest6.patch
+# Support test-unit 3.7.4 and above
+# ref: https://github.com/test-unit/test-unit/pull/341
+Patch3: rubygem-shoulda-context-2.0.0-test-unit-374.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -49,6 +54,8 @@ sed -i 's|#!/usr/bin/env ruby|#!/usr/bin/ruby|' exe/convert_to_should_syntax
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -134,6 +141,10 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Wed Dec 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.0-7
+- Fix compatibity for minitest 6
+- Fix compatibility for test-unit 3.7.4 and above
+
 * Wed Nov 26 2025 Vít Ondruch <vondruch@redhat.com> - 2.0.0-6
 - Fix possible test suite issues with Bundler 4.0.0.beta1
 

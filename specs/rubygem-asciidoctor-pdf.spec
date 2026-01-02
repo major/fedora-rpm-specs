@@ -1,19 +1,17 @@
 %global gem_name asciidoctor-pdf
 
 Name:     rubygem-%{gem_name}
-Version:  2.3.19
-Release:  2%{?dist}
+Version:  2.3.24
+Release:  1%{?dist}
 Summary:  Converts AsciiDoc documents to PDF using Prawn
 License:  MIT
 URL:      https://github.com/asciidoctor/asciidoctor-pdf
 Source0:  https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/asciidoctor/asciidoctor-pdf.git && cd asciidoctor-pdf
-# git checkout v2.3.19
-# tar -czf rubygem-asciidoctor-pdf-2.3.19-specs-examples.tgz spec/ examples/ docs/
+# git checkout v2.3.24
+# tar -czf rubygem-asciidoctor-pdf-2.3.24-specs-examples.tgz spec/ examples/ docs/
 Source1:  %{name}-%{version}-specs-examples.tgz
-Patch0: prawn-svg-0_36_2.patch
-Patch1: converter_spec.rb.patch
-Patch2: arrange_block_spec.rb.patch
+Patch0: prawn-svg-0_36.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel >= 3.5.9
@@ -54,8 +52,6 @@ Documentation for %{name}.
 mv %{_builddir}/{spec,examples} .
 mv %{_builddir}/docs/modules docs/
 %patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 
 # Regenerate the parser.
 tt lib/asciidoctor/pdf/formatted_text/parser.treetop
@@ -103,6 +99,9 @@ rspec -t '~network'
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Wed Dec 31 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 2.3.24-1
+- Bump version to 2.3.24
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

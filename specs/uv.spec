@@ -154,19 +154,19 @@ ExcludeArch:    %{ix86}
 # of memory in the final linking step. This cannot be fixed by adding
 # "-C link-args=-Wl,--no-keep-memory" to the RUSTFLAGS (as that seems to have
 # no significant effect on memory requirements), nor can it be fixed by
-# reducing parallelism with e.g. the _smp_tasksize_proc global (although we do
-# need this as well), since nothing else is happening at that point in the
-# build. See:
+# reducing parallelism (although we do need this as well), since nothing else
+# is happening at that point in the build. See:
 # https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
 %global rustflags_debuginfo 1
 
 # As a separate limitation, memory exhaustion can occur on builders with very
 # many CPUs. Typical workspace crates peak out at 2-4 GB per rustc invocation.
-# The uv crate needs much more memory to compile (see the RUSTFLAGS adjustment
-# in %%build), but in practice it is also compiled alone after all the other
-# crates have finished, so it does not need to influence (and does not benefit
-# from) this setting. Even though some crates will require more than 3GB, the
-# average should be below that on many-core systems. Increase as needed.
+# The uv crate needs much more memory to compile and link, but in practice it
+# is also compiled alone after all the other crates have finished, so it does
+# not need to influence (and does not benefit from) this setting. This setting
+# does not necessarily have to reflect the maximum memory required to compile a
+# workspace crate; keeping it well above the average suffices in practice on
+# many-core systems.  Increase as needed.
 %global _smp_tasksize_proc 4096
 
 # Compilation may fail on builders with very many cores (e.g. 192 cores) due to
@@ -194,18 +194,25 @@ BuildRequires:  /usr/bin/python3.14t
 # use a system copy.”
 #
 # crates/uv-pep440/
-# Version number from Cargo.toml:
+# Version number from crates/uv-pep440/CHANGELOG.md; it was also in
+# crates/uv-pep440/Cargo.toml until uv 0.9.11, when internal crates started
+# being versioned and published on crates.io.
 Provides:       bundled(crate(pep440_rs)) = 0.7.0
 # crates/uv-pep508/
-# Cargo.toml has 0.6.0, but Changelog.md shows 0.7.0, and the source reflects
-# the changes for 0.7.0:
+# Version number from crates/uv-pep508/Changelog.md; it was also in
+# crates/uv-pep508/Cargo.toml until uv 0.9.11, when internal crates started
+# being versioned and published on crates.io, but the version in Cargo.toml was
+# 0.6.0. The source reflects upstream changes in 0.7.0.
 Provides:       bundled(crate(pep508_rs)) = 0.7.0
 # crates/uv-virtualenv/
 # As a whole, this crate is derived from https://github.com/konstin/gourgeist
 # 0.0.4, which was published as https://crates.io/crates/gourgeist. It looks
-# looks like the project was subsumed into `uv`, and the link to `uv` at
-# https://konstin.github.io/gourgeist/ seems to support this, so we consider
-# this not to be a real case of bundling, and we do not add:
+# like the project was subsumed into `uv`, and the link to `uv` at
+# https://konstin.github.io/gourgeist/ (“See
+# https://github.com/astral-sh/uv/tree/main/crates/uv-virtualenv for the up to
+# date version”) supports this. We therefore consider this not to be a real
+# case of bundling, since the source in uv is now the canonical one, and we do
+# not add:
 #   Provides:       bundled(crate(gourgeist)) = 0.0.4
 
 # crates/uv-extract/src/vendor/cloneable_seekable_reader.rs
@@ -259,9 +266,10 @@ Provides:       bundled(crate(keyring)) = 4.0.0~rc2
 #   https://github.com/astral-sh/uv/issues/5588#issuecomment-2257474140
 #
 # The scripts were last updated from virtualenv upstream in
-# https://github.com/astral-sh/uv/pull/3376 on 2024-05-04; the latest
-# virtualenv release at that time was 20.26.0.
-Provides:       bundled(python3dist(virtualenv)) = 20.26
+# https://github.com/astral-sh/uv/pull/15272 on 2025-09-05. The PR was opened
+# on 2025-08-14 and last revised on 2025-08-30; the latest virtualenv release
+# throughout that time interval was 20.34.0.
+Provides:       bundled(python3dist(virtualenv)) = 20.34
 
 # The contents of crates/uv-python/python/packaging/ are a bundled copy of a
 # subset of https://pypi.org/project/packaging.
