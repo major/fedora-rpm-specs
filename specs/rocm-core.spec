@@ -47,7 +47,7 @@
 
 Name:           %{core_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A utility to get the ROCm release version
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
@@ -93,7 +93,11 @@ Provides:       rocm-core%{pkg_suffix}-devel = %{version}-%{release}
 
 rm -rf %{buildroot}/%{pkg_prefix}/.info
 rm -rf %{buildroot}/%{pkg_prefix}/%{pkg_libdir}/rocmmod
-rm -rf %{buildroot}/%{pkg_prefix}/share/doc/*/LICENSE.md
+# Extra licenses
+# Fedora
+rm -f %{buildroot}/%{pkg_prefix}/share/doc/*/LICENSE.md
+# OpenSUSE
+rm -f %{buildroot}/%{pkg_prefix}/share/doc/*/*/LICENSE.md
 
 # Use the system include path
 mv  %{buildroot}/%{pkg_prefix}/include/rocm-core/*.h %{buildroot}/%{pkg_prefix}/include/
@@ -112,6 +116,9 @@ find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocm-core/
 
 %changelog
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Fix OpenSUSE
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Add --with compat
 

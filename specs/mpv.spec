@@ -2,14 +2,40 @@
 %bcond x11 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           mpv
-Version:        0.40.0
-Release:        5%{?dist}
+Version:        0.41.0
+Release:        1%{?dist}
 
-License:        GPL-2.0-or-later AND LGPL-2.1-or-later
+# overall license is GPL-2.0-or-later and LGPL-2.1-or-later
+# BSD-2-Clause
+#   osdep/android/strnlen.c
+#   osdep/android/strnlen.h
+# BSD-3-Clause
+#   audio/filter/af_scaletempo2_internals.h
+# ISC
+#   audio/out/ao_sndio.c
+#   include/mpv/client.h
+#   include/mpv/render.h
+#   include/mpv/render_gl.h
+#   include/mpv/stream_cb.h
+#   misc/thread_pool.c
+#   misc/thread_tools.c
+#   osdep/win32-console-wrapper.c
+#   player/client.c
+#   player/lua/console.lua
+#   ta/ta.c
+#   ta/ta.h
+#   ta/ta_talloc.c
+#   ta/ta_talloc.h
+#   ta/ta_utils.c
+# MIT
+#   misc/codepoint_width.c
+#   osdep/dirent-win.h
+#   osdep/timer-darwin.c
+#   player/lua/fzy.lua
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT
 Summary:        Movie player playing most video formats and DVDs
 URL:            https://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/mpv-player/mpv/commit/26b29fba02a2782f68e2906f837d21201fc6f1b9.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -32,29 +58,30 @@ BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.4.0
 BuildRequires:  pkgconfig(libass)
-BuildRequires:  pkgconfig(libavcodec) >= 59.27.100
-BuildRequires:  pkgconfig(libavdevice) >= 58.13.100
-BuildRequires:  pkgconfig(libavfilter) >= 7.110.100
-BuildRequires:  pkgconfig(libavformat) >= 59.24.100
-BuildRequires:  pkgconfig(libavutil) >= 57.24.100
+BuildRequires:  pkgconfig(libavcodec) >= 60.31.102
+BuildRequires:  pkgconfig(libavdevice) >= 60.3.100
+BuildRequires:  pkgconfig(libavfilter) >= 9.12.100
+BuildRequires:  pkgconfig(libavformat) >= 60.16.100
+BuildRequires:  pkgconfig(libavutil) >= 58.29.100
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
-BuildRequires:  pkgconfig(libplacebo) >= 5.264.1
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.57
+BuildRequires:  pkgconfig(libplacebo) >= 6.338.2
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libswresample) >= 3.9.100
-BuildRequires:  pkgconfig(libswscale) >= 5.9.100
+BuildRequires:  pkgconfig(libswresample) >= 4.12.100
+BuildRequires:  pkgconfig(libswscale) >= 7.5.100
 BuildRequires:  pkgconfig(libva)
+# https://github.com/mpv-player/mpv/wiki/FAQ#user-content-Why_does_mpv_not_support_Lua_53_or_newer
 BuildRequires:  pkgconfig(lua-5.1)
 BuildRequires:  pkgconfig(mujs)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(rubberband)
 BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(uchardet) >= 0.0.5
+BuildRequires:  pkgconfig(uchardet)
 BuildRequires:  pkgconfig(vapoursynth)
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client)
@@ -176,7 +203,6 @@ sed -e "s|/usr/local/etc|%{_sysconfdir}/%{name}|" -i etc/%{name}.conf
     -Dsdl2-audio=enabled \
     -Dsdl2-gamepad=enabled \
     -Dsdl2-video=enabled \
-    -Dsdl2=enabled \
     -Dshaderc=disabled \
     -Dsndio=disabled \
     -Dspirv-cross=disabled \
@@ -195,6 +221,7 @@ sed -e "s|/usr/local/etc|%{_sysconfdir}/%{name}|" -i etc/%{name}.conf
 
 %install
 %meson_install
+install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
@@ -213,7 +240,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.*
 %{_metainfodir}/%{name}.metainfo.xml
 %dir %{_sysconfdir}/%{name}/
-%config(noreplace) %{_sysconfdir}/%{name}/encoding-profiles.conf
 
 %files libs
 %license LICENSE.GPL LICENSE.LGPL Copyright
@@ -225,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Dec 22 2025 Carl George <carlwgeorge@fedoraproject.org> - 0.41.0-1
+- Update to version 0.41.0 rhbz#2424204
+
 * Tue Nov 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.40.0-5
 - Backport patch to fix build with FFmpeg 8
 

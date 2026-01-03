@@ -46,15 +46,22 @@
 # rocm-runtime.x86_64: E: shlib-policy-name-error (Badness: 10000) libhsa-runtime64-1
 # Your package contains a single shared library but is not named after its SONAME.
 %global pkg_name libhsa-runtime64-1%{pkg_suffix}
+# [  130s] libhsa-runtime64-1-static.x86_64: E: lto-no-text-in-archive (Badness: 10000) /usr/lib64/libhsakmt.a
+# [  130s] This archive does not contain a non-empty .text section.  The archive was not
+# [  130s] created with -ffat-lto-objects option.
+#
+# Disable building static on SUSE
+%bcond_with static
 %else
 %global pkg_name rocm-runtime%{pkg_suffix}
+%bcond_without static
 %endif
 
 %bcond_without kfdtest
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -110,6 +117,7 @@ Provides:  rocm-runtime%{pkg_suffix}-devel = %{version}-%{release}
 %description devel
 ROCm Runtime development files
 
+%if %{with static}
 %package static
 Summary: ROCm Runtime hsakmt development files
 Requires: rocm-runtime%{pkg_suffix}-devel = %{version}-%{release}
@@ -117,6 +125,7 @@ Provides:  rocm-runtime%{pkg_suffix}-static = %{version}-%{release}
 
 %description static
 %{summary}
+%endif
 
 %if %{with kfdtest}
 %package -n kfdtest
@@ -179,6 +188,12 @@ cd libhsakmt/tests/kfdtest
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-runtime64/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE.md
 
+%if %{without static}
+rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhsakmt.a
+rm -rf %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake/hsakmt/
+rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
+%endif
+
 %ldconfig_scriptlets
 
 %files
@@ -192,10 +207,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/libhsa-runtime64.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/hsa-runtime64/
 
+%if %{with static}
 %files static
 %{pkg_prefix}/%{pkg_libdir}/libhsakmt.a
 %{pkg_prefix}/%{pkg_libdir}/cmake/hsakmt/
 %{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
+%endif
 
 %if %{with kfdtest}
 %files -n kfdtest
@@ -207,6 +224,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE.md
 %endif
 
 %changelog
+* Thu Jan 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
+- Add --with static
+- Disable packaging libhsakmt.a on SUSE
+
 * Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
 - Enable --with compat
 

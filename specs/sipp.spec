@@ -1,17 +1,21 @@
 Summary:	SIP test tool / traffic generator
 Name:		sipp
-Version:	3.7.6
+Version:	3.7.7
 Release:	%autorelease
 License:	GPL-2.0-or-later
 URL:		https://github.com/SIPp/sipp
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch:		sipp-0001-Removal-of-bundled-gmock-gtest.patch
-Patch:		sipp-0002-Temporary-disable-this-gmock-flag.patch
+Patch:		sipp-0002-Remove-unused-gmock-we-don-t-use-it.patch
+Patch:		sipp-0003-Make-SSL-library-mandatory.patch
+Patch:		sipp-0004-Removed-outdated-md5-implementation.patch
+Patch:		sipp-0005-Removed-outdated-Rijndael-Vincent-Rijmen-et-al.-impl.patch
+Patch:		sipp-0006-Raise-minimal-OpenSSL-version-to-1.1.1.patch
 BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	gmock-devel
+BuildRequires:	gsl-devel
 BuildRequires:	gtest-devel
 BuildRequires:	libpcap-devel
 BuildRequires:	lksctp-tools-devel
@@ -35,8 +39,7 @@ echo "#define SIPP_VERSION VERSION
 #define VERSION \"v%{version}\"" > include/version.h
 
 %build
-# FIXME consider adding -DUSE_GSL=1
-%{cmake} -DUSE_PCAP=1 -DUSE_SSL=1 -DUSE_SCTP=1
+%{cmake} -DUSE_PCAP=1 -DUSE_GSL=1 -DUSE_SCTP=1
 %cmake_build
 
 %install

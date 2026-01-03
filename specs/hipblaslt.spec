@@ -126,7 +126,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -164,7 +164,6 @@ BuildRequires:  gcc-fortran
 %else
 BuildRequires:  gcc-gfortran
 %endif
-BuildRequires:  git
 BuildRequires:  hipblas%{pkg_suffix}-devel
 BuildRequires:  hipcc%{pkg_suffix}
 BuildRequires:  libzstd-devel
@@ -330,6 +329,9 @@ sed -i -e '/#include <omp.h>/d'   clients/common/include/testing_matmul.hpp
 sed -i -e '/#include <omp.h>/d'   clients/common/include/hipblaslt_init.hpp
 sed -i -e '/#include <omp.h>/d'   clients/common/src/cblas_interface.cpp
 
+# We are building from a tarball, not a git repo
+sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/dependencies.cmake
+
 %build
 %if %{with gitcommit}
 cd projects/hipblaslt
@@ -466,6 +468,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Wed Dec 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-6
+- Remove build requires git
+
 * Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
 - Add --with compat
 

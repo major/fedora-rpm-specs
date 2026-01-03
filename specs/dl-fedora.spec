@@ -5,7 +5,7 @@
 %bcond tests 0
 
 Name:           dl-fedora
-Version:        2.1.1
+Version:        2.2
 Release:        %autorelease
 Summary:        Fedora image download tool
 

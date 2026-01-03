@@ -1,12 +1,11 @@
 Name:           edgar
-Version:        1.37
-Release:        7%{?dist}
+Version:        1.38
+Release:        1%{?dist}
 Summary:        A platform game
 
 # edgar now contains sounds licensed under a "good" Fedora license:
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=653813#80
-# Automatically converted from old format: GPLv2+ and CC-BY and CC-BY-SA and CC0 and GPLv3 - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0 AND GPL-3.0-only
+License:        GPL-2.0-or-later AND CC-BY-3.0 AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://www.parallelrealities.co.uk/games/edgar/
 Source0:        https://github.com/riksweeney/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -70,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Thu Jan 01 2026 Andrea Musuruane <musuruan@gmail.com> - 1.38-1
+- Updated to new upstream release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

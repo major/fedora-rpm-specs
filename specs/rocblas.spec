@@ -168,7 +168,7 @@ Release:        2%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
@@ -415,7 +415,7 @@ sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LI
 cd Tensile
 TL=$PWD
 python3 setup.py install --root $TL
-TP=${TL}/usr/lib/python3.14/site-packages/Tensile/
+TP=${TL}/usr/lib/python%{python3_version}/site-packages/Tensile/
 cd ..
 %else
 TP=`/usr/bin/TensileGetPath`
@@ -494,6 +494,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
+- Fix --with bundled_tensile on RHEL
+
 * Thu Dec 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
 - Add --with compat
 - Remove --with generic

@@ -34,6 +34,19 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%bcond_with compat
+%if %{with compat}
+%global pkg_libdir lib
+%global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
+%global pkg_suffix -%{rocm_release}
+%global pkg_module rocm%{pkg_suffix}
+%else
+%global pkg_libdir %{_lib}
+%global pkg_prefix %{_prefix}
+%global pkg_suffix %{nil}
+%global pkg_module default
+%endif
+
 %global toolchain rocm
 # hipcc does not support some clang flags
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
@@ -123,13 +136,13 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           composable_kernel
+Name:           composable_kernel%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -148,12 +161,12 @@ BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  ninja-build
-BuildRequires:  rocm-cmake
-BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-cmake%{pkg_suffix}
+BuildRequires:  rocm-comgr%{pkg_suffix}-devel
+BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -263,19 +276,22 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
     -DBUILD_TESTING=%{build_test} \
     -DCK_BUILD_DEVICE_CONV=%{build_ck_conv} \
     -DCK_BUILD_DEVICE_CONTRACTION=%{build_ck_contraction} \
-    -DCK_BUILD_DEVICE_GEMM=%{build_ck_gem} \
+    -DCK_BUILD_DEVICE_GEMM=%{build_ck_gemm} \
     -DCK_BUILD_DEVICE_MHA=%{build_ck_mha} \
     -DCK_BUILD_DEVICE_OTHER=%{build_ck_other} \
     -DCK_BUILD_DEVICE_REDUCTION=%{build_ck_reduction} \
     -DCK_PARALLEL_COMPILE_JOBS=${COMPILE_JOBS} \
     -DCK_PARALLEL_LINK_JOBS=${LINK_JOBS} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
-    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_CXX_FLAGS="-fuse-ld=bfd" \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_HIP_ARCHITECTURES=%ck_gpu_list \
     -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
-    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+    -DCMAKE_HIP_COMPILER_ROCM_ROOT=%{pkg_prefix} \
+    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DENABLE_CLANG_CPP_CHECKS=OFF \
     -DGPU_ARCHS=%ck_gpu_list \
     -DHIP_PLATFORM=amd \
@@ -291,13 +307,14 @@ cd projects/composablekernel
 %cmake_install
 
 %if %{without cklibs}
-cp -p -r include/ck_tile %{buildroot}%{_includedir}
+cp -p -r include/ck_tile %{buildroot}%{pkg_prefix}/include
 %endif
 
 # Clean up dupes
-%fdupes %{buildroot}%{_prefix}
+%fdupes %{buildroot}%{pkg_prefix}
 
-rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
+# Extra license
+rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 
 %files
 %if %{with gitcommit}
@@ -308,53 +325,54 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %license LICENSE
 %endif
 
-%{_libdir}/libutility.so.*
+%{pkg_prefix}/%{pkg_libdir}/libutility.so.*
 %if %{with ck_conv} || %{with ck_gemm}
-%{_libdir}/libdevice_conv_operations.so.*
+%{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so.*
 %endif
 %if %{with ck_gemm} || %{with ck_conv} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
-%{_libdir}/libdevice_gemm_operations.so.*
+%{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so.*
 %endif
 %if %{with ck_other}
-%{_libdir}/libdevice_other_operations.so.*
+%{pkg_prefix}/%{pkg_libdir}/libdevice_other_operations.so.*
 %endif
 %if %{with ck_reduction}
-%{_libdir}/libdevice_reduction_operations.so.*
+%{pkg_prefix}/%{pkg_libdir}/libdevice_reduction_operations.so.*
 %endif
 %if %{with ck_contraction}
-%{_libdir}/libdevice_contraction_operations.so.*
+%{pkg_prefix}/%{pkg_libdir}/libdevice_contraction_operations.so.*
 %endif
 
 %files devel
-%dir %{_includedir}/ck
-%dir %{_includedir}/ck_tile
-%dir %{_libdir}/cmake/%{name}
-%{_includedir}/ck/*
-%{_includedir}/ck_tile/*
-%{_libdir}/cmake/%{name}/*
-%{_libdir}/libutility.so
+%{pkg_prefix}/include/ck/
+%{pkg_prefix}/include/ck_tile/
+%{pkg_prefix}/%{pkg_libdir}/cmake/composable_kernel/
+%{pkg_prefix}/%{pkg_libdir}/libutility.so
 %if %{with ck_conv} || %{with ck_gemm}
-%{_libdir}/libdevice_conv_operations.so
+%{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so
 %endif
 %if %{with ck_gemm} || %{with ck_mha} || %{with ck_conv} || %{with ck_reduction} || %{with ck_contraction}
-%{_libdir}/libdevice_gemm_operations.so
+%{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so
 %endif
 %if %{with ck_other}
-%{_libdir}/libdevice_other_operations.so
+%{pkg_prefix}/%{pkg_libdir}/libdevice_other_operations.so
 %endif
 %if %{with ck_reduction}
-%{_libdir}/libdevice_reduction_operations.so
+%{pkg_prefix}/%{pkg_libdir}/libdevice_reduction_operations.so
 %endif
 %if %{with ck_contraction}
-%{_libdir}/libdevice_contraction_operations.so
+%{pkg_prefix}/%{pkg_libdir}/libdevice_contraction_operations.so
 %endif
 
 %if %{with test}
 %files test
-%{_bindir}/test*
+%{pkg_prefix}/bin/test*
 %endif
 
 %changelog
+* Sat Dec 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Add --with compat
+- Fix build with ck_gemm
+
 * Sun Nov 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Fix missing contraction libs
 

@@ -40,7 +40,7 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm system info utility
 
 License:    NCSA
@@ -88,7 +88,11 @@ sed -i -e 's@/usr/bin/env python3@/usr/bin/python3@' rocm_agent_enumerator
 #FIXME:
 chmod 755 %{buildroot}%{pkg_prefix}/bin/*
 
-rm -f %{buildroot}%{pkg_prefix}/share/doc/rocminfo/License.txt
+# Extra licenses
+# Fedora
+rm -f %{buildroot}%{pkg_prefix}/share/doc/*/License.txt
+# OpenSUSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 
 %files
 %doc README.md
@@ -97,6 +101,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocminfo/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Thu Jan 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Fix OpenSUSE
+
 * Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
 

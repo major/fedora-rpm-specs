@@ -12,6 +12,7 @@ Summary:        Exif parsing library written in pure Rust
 License:        BSD-2-Clause
 URL:            https://crates.io/crates/kamadak-exif
 Source:         %{crates_source}
+Patch:          0001-Remove-brittle-expected-panic-message-from-a-test.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

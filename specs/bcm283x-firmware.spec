@@ -5,10 +5,10 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 6bb0bae
+%define gitshort f1ea709
 
 Name:          bcm283x-firmware
-Version:       20251127
+Version:       20251217
 Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
@@ -108,6 +108,9 @@ install -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{buildro
 %{efi_esp_root}/start4*
 
 %changelog
+* Thu Jan 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20251217-1.f1ea709
+- Update to latest firmware
+
 * Mon Dec 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251127-1.6bb0bae
 - Update to latest firmware
 

@@ -3,7 +3,7 @@
 
 # https://github.com/xvzc/SpoofDPI
 %global goipath         github.com/xvzc/SpoofDPI
-Version:                1.0.1
+Version:                1.2.1
 
 %gometa -L -f
 
@@ -25,11 +25,12 @@ BuildRequires:  go-vendor-tools
 BuildRequires:  libpcap-devel
 
 %description
-A simple and fast anti-censorship tool written in Go.
+Simple and fast anti-censorship tool written in Go.
 
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
+%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -53,7 +54,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %files -f %{go_vendor_license_filelist}
 %license vendor/modules.txt
-%doc README.md
+%doc docs README.md
 %{_bindir}/spoofdpi
 
 

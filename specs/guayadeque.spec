@@ -4,14 +4,14 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20241205
 %endif
-%global metadata_name org.guayadeque.guayadeque
+%global metadata_name org.guayadeque.Guayadeque
 
 Name:           guayadeque
 %if 0%{?usesnapshot}
 Version:        0.6.2
 Release:        0.5.beta6.git%{shortcommit0}%{dist}
 %else
-Version:        0.7.4
+Version:        0.7.5
 Release:        1%{?dist}
 %endif
 Summary:        Music player
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Thu Jan 01 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.5-1
+- Update to 0.7.5
+
 * Wed Dec 03 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.4-1
 - Update to 0.7.4
 - Fix wxWidgets compatibility

@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -72,6 +72,8 @@ Patch0102:      0102-frontend-Allow-invalid-recording-encoder-if-quality-.patch
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 ## From: https://github.com/obsproject/obs-studio/pull/12507
 Patch0105:      0105-libobs-opengl-Reject-external-only-modifiers.patch
+## From: https://github.com/obsproject/obs-studio/pull/12951
+Patch0106:      0106-fix-shutdown-crash.patch
 
 # WIP code to improve new CEF support (based on upstream dev tree)
 ## From: https://github.com/asahilina/obs-browser/tree/lockdown
@@ -399,6 +401,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Thu Jan 01 2026 Hoshino Lina <lina@lina.yt> - 32.0.4-2
+- Fix crash when shutting down
+
 * Fri Dec 19 2025 Hoshino Lina <lina@lina.yt> - 32.0.4-1
 - Update to 32.0.4
 

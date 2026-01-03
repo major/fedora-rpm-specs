@@ -1,7 +1,7 @@
 %global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
 
 Name:		phosh-mobile-settings
-Version:	0.51.0
+Version:	0.52~rc2
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -10,8 +10,6 @@ Source0:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
 Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
-# FIXME: tests fail if build directory is used a XDG_RUNTIME_DIR
-Patch0:	shorter-xdg_runtime_dir-path.patch
 
 ExcludeArch:	%{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415478
@@ -72,6 +70,7 @@ install -d %{buildroot}%{_datadir}/phosh-tweaks
 %find_lang %{name}
 
 %check
+export XDG_RUNTIME_DIR=/tmp/runtime-dir
 dbus-run-session sh <<'SH'
 %meson_test
 SH

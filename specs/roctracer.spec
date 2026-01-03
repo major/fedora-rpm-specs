@@ -47,6 +47,13 @@
 
 %bcond_with doc
 
+%bcond_with debug
+%if %{with debug}
+%global build_type DEBUG
+%else
+%global build_type RelWithDebInfo
+%endif
+
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %define _source_payload	w7T0.xzdio
@@ -54,7 +61,7 @@
 
 Name:           roctracer%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -164,6 +171,7 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
 
 %build
 %cmake \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_CXX_FLAGS="-I%{pkg_prefix}/include"\
@@ -172,13 +180,11 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_MODULE_PATH=%{pkg_prefix}/%{pkg_libdir}/cmake/hip \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DGPU_TARGETS=%{rocm_gpu_list_test} \
     -DHIP_PLATFORM=amd \
     -DHIP_HIPCC_FLAGS="-I%{pkg_prefix}/include -L%{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
-    -DBUILD_SHARED_LIBS=ON \
-    -DCMAKE_BUILD_TYPE=RelDebInfo
+    -DBUILD_SHARED_LIBS=ON
 
 %cmake_build
 
@@ -217,6 +223,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/LICENSE.md
 %endif
 
 %changelog
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Add --with debug
+
+* Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add --with compat
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

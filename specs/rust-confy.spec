@@ -16,6 +16,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump directories dependency from ^2 to >=5,<7
 Patch:          confy-fix-metadata.diff
+Patch:          0001-fix-compilation-error-in-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

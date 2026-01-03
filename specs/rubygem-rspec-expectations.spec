@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	3
+%global	baserelease	4
 
 %global	gem_name	rspec-expectations
 
@@ -93,6 +93,13 @@ rspec spec/
 exit 0
 %endif
 
+# Fix minitest 6 compatibility
+# Behavior changed on: https://github.com/minitest/minitest/commit/2572c78420af73dbe9b202d535a1474405a32173
+if ( ruby -e 'require "minitest" ; exit Minitest::VERSION >= "6"' ) ; then
+	sed -i features/test_frameworks/minitest.feature \
+		-e 's|9 runs, 10 assertions, 5 failures, 0 errors|9 runs, 11 assertions, 5 failures, 0 errors|'
+fi
+
 # Skip one failing scenario, needs investigating...
 sed -i features/built_in_matchers/include.feature -e '\@skip-on-fedora@d'
 sed -i features/built_in_matchers/include.feature -e 's|^\([ \t]*\)\(Scenario: counts usage.*\)|\1@skip-on-fedora\n\1\2|'
@@ -118,6 +125,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Thu Jan 01 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.5-4
+- Fix compatibility for minitest 6
+
 * Tue Dec 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.5-3
 - Backport upstream patch to support ruby4_0 source_location behavior change
 

@@ -1,5 +1,5 @@
 Name:           mt32emu
-Version:        2.7.2
+Version:        2.7.3
 Release:        %autorelease
 Summary:        C/C++ library for emulating Roland MT-32, CM-32L and LAPC-I synthesizer modules
 
@@ -8,7 +8,7 @@ Summary:        C/C++ library for emulating Roland MT-32, CM-32L and LAPC-I synt
 # general license - LGPL-2.1-or-later
 # Hash implementation at mt32emu/src/sha1 - BSD-3-Clause
 License:        LGPL-2.1-or-later AND BSD-3-Clause
-URL:            http://munt.sourceforge.net/
+URL:            https://munt.sourceforge.net/
 Source0:        https://github.com/munt/munt/archive/refs/tags/lib%{name}_%{version_}.tar.gz
 
 BuildRequires:  cmake

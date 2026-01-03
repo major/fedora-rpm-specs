@@ -1,10 +1,12 @@
 Name:           fyi
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Command line utility to send desktop notifications
 License:        MIT
 URL:            https://codeberg.org/dnkl/fyi
 Source:         https://codeberg.org/dnkl/%{name}/archive/%{version}.tar.gz
+
+Patch0:		fyi-no-const.patch
 
 BuildRequires:  dbus-devel
 BuildRequires:  gcc
