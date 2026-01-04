@@ -18,15 +18,19 @@
 # disable profiling libraries (overriding macros.ghc-srpm)
 %undefine with_ghc_prof
 # disable haddock documentation (overriding macros.ghc-os)
+%ifnarch s390x
 %undefine with_haddock
+%endif
 %endif
 
 %ifarch s390x
 %undefine with_ghc_prof
+# quick build haddock output is different for libHSghc
+%undefine with_haddock
 %endif
 %if %{defined el10}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2369537 (ppc64le)
-%ifarch s390x ppc64le
+%ifarch ppc64le
 %undefine with_ghc_prof
 %endif
 %endif
@@ -93,7 +97,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -110,6 +114,9 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26711
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15264
+Patch4: https://gitlab.haskell.org/ghc/ghc/-/commit/65370007e2d9f1976fbcfbb514917fb111117148.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -168,6 +175,9 @@ BuildRequires: perl-interpreter
 BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
+%endif
+%if %{with dwarf}
+BuildRequires: elfutils-devel
 %endif
 %if %{with use_lld}
 BuildRequires: lld%{llvm_major}
@@ -309,7 +319,6 @@ Installing this package causes %{name}-*-doc packages corresponding to
 %{name}-*-devel packages to be automatically installed too.
 
 
-%ifnarch s390x
 %package doc-index
 Summary: GHC library documentation indexing
 License: BSD-3-Clause
@@ -318,7 +327,6 @@ BuildArch: noarch
 
 %description doc-index
 The package enables re-indexing of installed library documention.
-%endif
 
 
 %package filesystem
@@ -447,6 +455,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
+%patch -P4 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -493,6 +502,7 @@ export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 %ifarch %{ghc_unregisterized_arches}
   --enable-unregisterised \
 %endif
+  %{?with_dwarf:--enable-dwarf-unwind} \
 %{nil}
 
 # avoid "ghc: hGetContents: invalid argument (invalid byte sequence)"
@@ -671,10 +681,8 @@ rm %{buildroot}%{ghcliblib}/package.conf.d/*.conf.copy
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24121
 rm %{buildroot}%{ghclibdir}/share/doc/%ghcplatform/*/LICENSE
 
-%ifarch s390x
 %if %{without haddock}
 rm %{buildroot}%{ghc_html_libraries_dir}/gen_contents_index
-%endif
 %endif
 
 (
@@ -707,6 +715,10 @@ rm -rf testghc
 mkdir testghc
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -O1
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
@@ -871,13 +883,11 @@ make test
 %if %{with haddock} || %{with manual}
 %files doc
 
-%ifnarch s390x
+%if %{with haddock}
 %files doc-index
 %{ghc_html_libraries_dir}/gen_contents_index
-%if %{with haddock}
 %verify(not size mtime) %{ghc_html_libraries_dir}/doc-index*.html
 %verify(not size mtime) %{ghc_html_libraries_dir}/index*.html
-%endif
 %endif
 
 %files filesystem
@@ -907,6 +917,9 @@ make test
 
 
 %changelog
+* Fri Jan 02 2026 Jens Petersen <petersen@redhat.com> - 9.12.3-13
+- fix subword division regression
+
 * Sun Dec 28 2025 Jens Petersen <petersen@redhat.com> - 9.12.3-12
 - https://downloads.haskell.org/ghc/9.12.3/docs/users_guide/9.12.3-notes.html
 

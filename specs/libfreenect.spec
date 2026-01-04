@@ -1,6 +1,6 @@
 Name:           libfreenect
 Version:        0.7.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 # OpenNI driver is available as Apache-2.0
@@ -201,6 +201,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Fri Jan 02 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.7.5-4
+- Add OpenNI2 driver on riscv64
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 0.7.5-3
 - Rebuilt for OpenCV-4.12
 

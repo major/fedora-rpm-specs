@@ -15,7 +15,7 @@
 
 Name:       php-%{gh_project}
 Version:    1.9.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A simple Atom/RSS parsing library for PHP
 
 Group:      Development/Libraries
@@ -96,8 +96,8 @@ rm -rf demo
 
 
 %install
-mkdir -p %{buildroot}/%{_datadir}/php/
-cp -ar library %{buildroot}/%{_datadir}/php/%{name}
+mkdir -p %{buildroot}/%{_datadir}/php/%{name}
+cp -ar library src -t %{buildroot}/%{_datadir}/php/%{name}
 
 install -pm 644 autoloader.php \
     %{buildroot}/%{_datadir}/php/%{name}/autoloader.php
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 31 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.9.0-2
+- Fix files missing (rhbz#2426462)
+
 * Fri Sep 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.9.0-1
 - 1.9.0
 

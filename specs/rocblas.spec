@@ -154,7 +154,11 @@
 %if %{with compat}
 %bcond_without bundled_tensile
 %else
+%if 0%{?suse_version}
+%bcond_without bundled_tensile
+%else
 %bcond_with bundled_tensile
+%endif
 %endif
 
 Name:           rocblas%{pkg_suffix}
@@ -168,7 +172,7 @@ Release:        2%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
@@ -185,6 +189,7 @@ Patch106:       0001-tensile-gfx1036.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  rocminfo%{pkg_suffix}
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
@@ -222,6 +227,11 @@ BuildRequires:  %{python_module joblib}
 BuildRequires:  %{python_module msgpack}
 BuildRequires:  %{python_module PyYAML}
 BuildRequires:  %{python_module setuptools}
+%if 0%{?suse_version} <= 1600
+%else
+BuildRequires:  msgpack-cxx-devel
+# suse version <= 1600
+%endif
 %else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
@@ -494,6 +504,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Jan 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-6
+- Fix SUSE
+
 * Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
 - Fix --with bundled_tensile on RHEL
 

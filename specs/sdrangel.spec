@@ -1,6 +1,6 @@
 Name:		sdrangel
-Version:	7.22.9
-Release:	3%{?dist}
+Version:	7.22.10
+Release:	1%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPL-3.0-or-later
 URL:		https://github.com/f4exb/sdrangel
@@ -110,6 +110,10 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Sat Jan 03 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 7.22.10-1
+- New version
+  Resolves: rhbz#2424286
+
 * Wed Dec 10 2025 Jerry James <loganjerry@gmail.com> - 7.22.9-3
 - Stop building for 32-bit x86
 

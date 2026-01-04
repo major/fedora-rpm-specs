@@ -1,11 +1,11 @@
 Name:		libgdl
 Epoch:		1
 Version:	3.40.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	GNOME docking library
 
 License:	LGPL-2.1-or-later
-URL:		https://gitlab.gnome.org/GNOME/gdl
+URL:		https://gitlab.gnome.org/Archive/gdl
 Source0:	https://download.gnome.org/sources/gdl/3.40/gdl-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gdl/-/merge_requests/4
 Patch0:		libgdl-3.40.0-libxml2-2.12.0-includes.patch
@@ -80,6 +80,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/%{name}-3.0/gdl
 
 %changelog
+* Wed Dec 24 2025 Georg Sauthoff <mail@gms.tf> - 1:3.40.0-13
+- update project URL
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.40.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global glib2_version 2.80
 %global libdnf_version 0.43.1
-%global libdnf5_version 5.2.0.17
+%global libdnf5_version 5.2.17.0
 
 %bcond dnf5_default %[0%{?rhel} >= 11]
 %bcond dnf4 %[(0%{?rhel} && 0%{?rhel} < 11) || 0%{?fedora}]
@@ -60,6 +60,7 @@ BuildRequires: python3-devel
 %if %{with dnf4}
 BuildRequires: pkgconfig(appstream)
 BuildRequires: pkgconfig(libdnf) >= %{libdnf_version}
+Requires: libdnf%{?_isa} >= %{libdnf_version}
 %endif
 
 # Validate metainfo
@@ -67,7 +68,6 @@ BuildRequires: libappstream-glib
 
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
-Requires: libdnf%{?_isa} >= %{libdnf_version}
 Requires: shared-mime-info
 Requires: systemd
 
@@ -98,6 +98,7 @@ Obsoletes: dnf4-plugin-notify-PackageKit < %{version}-%{release}
 %endif
 
 %if %{with dnf5_default}
+Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
 # DNF5 backend is now built-in
@@ -120,6 +121,7 @@ Summary: DNF5 backend for PackageKit
 Provides: %{name}-dnf5 = %{version}-%{release}
 Provides: %{name}-dnf5%{?_isa} = %{version}-%{release}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
 

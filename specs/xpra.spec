@@ -42,6 +42,9 @@ Patch0:         %{name}-fix_audio.patch
 # Fix rhbz#2417964
 Patch1:         %{name}-bug4724.patch
 
+# Fix rhbz#2425762
+Patch2:         %{name}-%{version}-fix_clipboard_on_wayland.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libXtst-devel
@@ -154,6 +157,7 @@ This package contains the GTK3 xpra client.
 %patch -P 0 -p1 -b .backup
 %endif
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 rm -rf *.egg-info
 

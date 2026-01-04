@@ -53,12 +53,12 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.58.2
+Version: 3.59.1
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.59/%{name}-%{version}.tar.xz
 
 # 0-99: General patches
 # enable corresponding autopatch below to make them applied
@@ -316,14 +316,14 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %files
 %license COPYING
 %doc README ChangeLog NEWS
-%{_libdir}/libcamel-1.2.so.66
-%{_libdir}/libcamel-1.2.so.66.0.0
+%{_libdir}/libcamel-1.2.so.67
+%{_libdir}/libcamel-1.2.so.67.0.0
 %{_libdir}/libebackend-1.2.so.11
 %{_libdir}/libebackend-1.2.so.11.0.0
 %{_libdir}/libebook-1.2.so.21
 %{_libdir}/libebook-1.2.so.21.1.3
-%{_libdir}/libebook-contacts-1.2.so.4
-%{_libdir}/libebook-contacts-1.2.so.4.0.0
+%{_libdir}/libebook-contacts-1.2.so.5
+%{_libdir}/libebook-contacts-1.2.so.5.0.0
 %{_libdir}/libecal-2.0.so.3
 %{_libdir}/libecal-2.0.so.3.0.0
 %{_libdir}/libedata-book-1.2.so.27
@@ -355,7 +355,6 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_libexecdir}/evolution-addressbook-factory-subprocess
 %{_libexecdir}/evolution-calendar-factory
 %{_libexecdir}/evolution-calendar-factory-subprocess
-%{_libexecdir}/evolution-scan-gconf-tree-xml
 %{_libexecdir}/evolution-source-registry
 %{_libexecdir}/evolution-user-prompter
 

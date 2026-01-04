@@ -13,7 +13,9 @@ Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_
 
 ExcludeArch:	%{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415478
-ExcludeArch:    s390x
+ExcludeArch:	s390x
+# https://bugzilla.redhat.com/show_bug.cgi?id=2415700
+ExcludeArch:	ppc64le
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++

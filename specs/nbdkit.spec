@@ -51,10 +51,10 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.46-stable
+%global source_directory 1.47-development
 
 Name:           nbdkit
-Version:        1.46.0
+Version:        1.47.1
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,6 +85,9 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Fix for broken test, upstream in nbdkit >= 1.47.2
+Patch:          0001-tests-test-ocaml-debug-hexdump.sh-Fix-test-that-plug.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1582,6 +1585,9 @@ fi
 
 
 %changelog
+* Fri Jan 02 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.1-1
+- New upstream development version 1.47.1
+
 * Sat Dec 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1.46.0-1
 - New upstream stable version 1.46.0
 

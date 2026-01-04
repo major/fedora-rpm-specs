@@ -5,12 +5,10 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
-# For 0.44.0, LLVM 15 is the default. LLVM 16 support is “experimental;” we can
-# try it if we need to.
 %global llvm_compat 20
 
 Name:           python-llvmlite
-Version:        0.45.1
+Version:        0.46.0
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -139,7 +137,7 @@ export PYTEST_ADDOPTS="\
 %doc CHANGE_LOG README.rst
 
 %files doc
-%license LICENSE
+%license LICENSE LICENSE.thirdparty
 %doc examples/
 %if %{with doc_pdf}
 %doc docs/_build/latex/llvmlite.pdf

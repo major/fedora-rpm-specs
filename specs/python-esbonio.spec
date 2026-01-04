@@ -1,5 +1,5 @@
 Name:           python-esbonio
-Version:        1.0.0b12
+Version:        1.0.0
 Release:        %autorelease
 Summary:        A Language Server for Sphinx projects
 License:        MIT
@@ -34,7 +34,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files esbonio
+%pyproject_save_files -l esbonio
 
 %check
 %pyproject_check_import

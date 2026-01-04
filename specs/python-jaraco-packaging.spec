@@ -48,6 +48,9 @@ Documentation for jaraco.packaging
 # Remove dev-only dependencies. Upstream later split the `test` dependencies out of it
 # https://github.com/jaraco/skeleton/issues/138
 tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "pytest-.*"
+# Additionally, the types-docutils dependency is only needed for typechecking:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "types-docutils.*"
 
 
 %generate_buildrequires

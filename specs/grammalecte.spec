@@ -16,8 +16,8 @@ n'est pas possible de déterminer avec de fortes chances qu'une suite de mots
 douteuse est erronée, le correcteur ne signalera rien.}
 
 Name:           grammalecte
-Version:        2.2
-Release:        5%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        French grammar checker
 Summary(fr):    Correcteur grammatical dédié à la langue française
 
@@ -30,8 +30,6 @@ License:        GPL-3.0-only AND MPL-2.0 AND LGPL-2.1-or-later
 URL:            https://grammalecte.net/
 Source0:        http://grammalecte.net:8080/tarball/v%{version}/%{name}-%{version}.tar.gz
 Source1:        libreoffice-%{name}.metainfo.xml
-# Disable failing word suggestion tests due to algorithm change
-Patch0:         %{name}-2.2-tests.patch
 
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
@@ -87,7 +85,7 @@ bibliothèque Python.
 
 
 %prep
-%autosetup -p0
+%autosetup
 
 # Use system bottle library for build
 ln -sf %{python3_sitelib}/bottle.py 3rd/
@@ -95,7 +93,7 @@ ln -sf %{python3_sitelib}/bottle.py 3rd/
 
 %build
 # Build LibreOffice extension and Python module ZIP
-%{python3} make.py -b -d fr
+%{python3} make.py fr
 
 # Build Python module
 mkdir python/
@@ -138,7 +136,7 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 
 
 %files -n libreoffice-%{name}
-%doc README.txt
+%doc ./gc_lang/fr/changelog.md README.txt
 %license LICENSE.txt LICENSE.fr.txt ./gc_lang/fr/oxt/Dictionnaires/dictionaries/README*.txt
 %{_libdir}/libreoffice/share/extensions/%{name}/
 %{_metainfodir}/%{name}.appdata.xml
@@ -152,6 +150,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 
 
 %changelog
+* Fri Jan 02 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.3.0-1
+- Update to 2.3.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,12 +1,11 @@
 Name:           tuxanci
 Version:        0.21.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        First Tux shooter multi-player network game
 # LICENCE:      GPLv2 text
 ## unused
 # data/font/DejaVuSans.ttf: Bitstream Vera and Public Domain
 License:        GPL-1.0-or-later
-URL:            http://www.tuxanci.org/en/start
 Source0:        http://download.tuxanci.org/tuxanci-0.21.0.tar.bz2
 Source1:        tuxanci.desktop
 Source2:        tuxanci.appdata.xml
@@ -78,6 +77,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/appdata/tuxanci.appdata.xml
 
 %changelog
+* Fri Jan 02 2026 Petr Pisar <ppisar@redhat.com> - 0.21.0-27
+- Remove disfunctional and abused URL from RPM metadata (bug #2422021)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -355,16 +355,19 @@ Source11: idle3.appdata.xml
 # Only used on platforms without the required LLVM version.
 #
 # When updating Python:
-#  1. touch the .h files (create them empty)
-#  2. scratch build Python on platform with required LLVM version (usually rawhide)
-#  3. download the files from Koji:
+#  1. scratch build Python on platform with required LLVM version (usually rawhide)
+#  2. download the files from Koji:
 #    $ bash download-jit-stencils-from-koji.sh KOJI_TASK_URL|KOJI_TASK_ID
-#  4. add the files to lookaside cache with fedpkg new-sources
+#  3. add the files to lookaside cache with fedpkg new-sources
 Source30: download-jit-stencils-from-koji.sh
+# This %%if-hack makes it easier to do step 1. from the above.
+# Use `fedpkg sources --force` to get the conditionally defined sources from the lookaside cache.
+%if %{without jit_build_stencils} || %{exists:%{_sourcedir}/Python-%{upstream_version}-x86_64-optimized-jit_stencils.h}
 Source31: Python-%{upstream_version}-aarch64-debug-jit_stencils.h
 Source32: Python-%{upstream_version}-aarch64-optimized-jit_stencils.h
 Source33: Python-%{upstream_version}-x86_64-debug-jit_stencils.h
 Source34: Python-%{upstream_version}-x86_64-optimized-jit_stencils.h
+%endif
 %global jit_stencils_source %{_sourcedir}/Python-%{upstream_version}-%{_arch}-${ConfName}-jit_stencils.h
 %global jit_stencils_filename jit_stencils-%{_arch}-redhat-linux-gnu.h
 

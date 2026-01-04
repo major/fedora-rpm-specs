@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.9.38
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
 
@@ -20,6 +20,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
 # Source1 is created by $ bash %%SOURCE2 %%version
 Source2:	yard-create-missing-test-files.sh
+# https://github.com/lsegal/yard/issues/1637
+# Fix spec testsuite with namespace collision
+Patch0:	yard-0.9.38-issue1637-spec-namespace-collision.patch
 
 # The 'irb/notifier' might be required for parsing of some old Ruby code.
 # https://github.com/lsegal/yard/blob/v0.9.24/lib/yard/parser/ruby/legacy/irb/slex.rb#L13
@@ -58,6 +61,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+%patch -P0 -p1
 mv ../%{gem_name}-%{version}.gemspec .
 
 %build
@@ -112,6 +116,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Fri Jan 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.38-2
+- Fix spec testsuite failure with namespace collision
+
 * Mon Dec 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.38-1
 - 0.9.38
 

@@ -22,6 +22,8 @@ URL:        http://aomedia.org/
 Source:     https://aomedia.googlesource.com/%{name}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://aomedia.issues.chromium.org/issues/448994065
 Patch:      0001-cmake-fix-nasm-detection-w-3.0.patch
+# Building static library breaks .cmake files if we don't ship it, so drop it
+Patch:      aom-nostatic.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
@@ -67,6 +69,8 @@ video format.
 
 %package -n libaom-devel
 Summary:        Development files for aom
+# cmake files assume /usr/bin/aomdec is present
+Requires:       aom%{?_isa} = %{version}-%{release}
 Requires:       libaom%{?_isa} = %{version}-%{release}
 
 %description -n libaom-devel
@@ -108,7 +112,6 @@ sed -i "s@GENERATE_LATEX         = YES@GENERATE_LATEX         = NO@" libs.doxy_t
 
 %install
 %cmake3_install
-rm -rvf %{buildroot}%{_libdir}/libaom.a
 
 %files
 %doc AUTHORS CHANGELOG README.md

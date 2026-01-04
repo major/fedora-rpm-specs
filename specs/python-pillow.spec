@@ -17,8 +17,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        12.0.0
-Release:        2%{?dist}
+Version:        12.1.0
+Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -307,6 +307,9 @@ popd
 
 
 %changelog
+* Fri Jan 02 2026 Sandro Mani <manisandro@gmail.com> - 12.1.0-1
+- Update to 12.1.0
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 12.0.0-2
 - Rebuild (libtiff)
 

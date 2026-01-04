@@ -1,5 +1,5 @@
 %global mainver 5.0
-%global datever 20250116
+%global datever 20251014
 
 Name:           cdk
 Version:        %{mainver}.%{datever}
@@ -7,7 +7,7 @@ Release:        %autorelease
 Summary:        Curses Development Kit
 License:        X11-distribute-modifications-variant
 URL:            https://invisible-island.net/cdk/
-Source0:        https://invisible-island.net/cdk-%{mainver}-%{datever}.tgz
+Source0:        https://invisible-island.net/archives/cdk/cdk-%{mainver}-%{datever}.tgz
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
 BuildRequires:  make

@@ -5,7 +5,7 @@
 %global ftest_shortcommit %(c=%{ftest_commit}; echo ${c:0:7})
 
 Name:       utf8cpp
-Version:    4.0.8
+Version:    4.0.9
 Release:    1%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
 License:    BSL-1.0
@@ -86,6 +86,9 @@ popd
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Fri Jan 02 2026 Dominik Mierzejewski <dominik@greysector.net> - 4.0.9-1
+- update to 4.0.9 (resolves rhbz#2425940)
+
 * Sat Sep 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.0.8-1
 - update to 4.0.8 (resolves rhbz#2395010)
 

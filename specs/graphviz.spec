@@ -105,7 +105,7 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		14.0.4
+Version:		14.1.1
 Release:		1%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
@@ -495,7 +495,7 @@ make doxygen
 find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 # Install README
-install -m0644 README %{buildroot}%{_docdir}/%{name}
+install -m0644 README.md %{buildroot}%{_docdir}/%{name}
 
 %if %{PHP}
 # PHP configuration file
@@ -735,6 +735,14 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Sat Jan 03 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 14.1.1-1
+- New version
+  Resolves: rhbz#2422020
+
+* Fri Jan 02 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 14.1.0-1
+- New version
+  Resolves: rhbz#2415204
+
 * Wed Dec 10 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 14.0.4-1
 - New version
   Resolves: rhbz#2415204

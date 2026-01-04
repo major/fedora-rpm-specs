@@ -2,7 +2,7 @@
 %global srcname puzzle-sets-%{puzzleset}
 
 Name:           crosswords-%{srcname}
-Version:        4.3
+Version:        4.4
 Release:        %autorelease
 Summary:        Dutch puzzle sets from web.keesing.com for GNOME Crosswords
 

@@ -1,5 +1,5 @@
 Name:           tree-sitter-lua
-Version:        0.4.0
+Version:        0.4.1
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter-grammars/%{name}

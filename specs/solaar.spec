@@ -8,6 +8,7 @@ Release:        %autorelease
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr-Solaar/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
+Patch:          https://github.com/pwr-Solaar/Solaar/pull/3099.patch
 
 BuildArch:      noarch
 License:        GPL-2.0-or-later

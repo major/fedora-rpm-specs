@@ -142,7 +142,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -159,7 +159,6 @@ Patch1:         0001-composable_kernel-per-dir-build.patch
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
-BuildRequires:  git
 BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
@@ -236,6 +235,10 @@ sed -i -e 's@add_subdirectory(profiler)@#add_subdirectory(profiler)@' CMakeLists
 # https://github.com/ROCm/composable_kernel/issues/1782
 sed -i -e 's@STATIC@SHARED@' library/src/utility/CMakeLists.txt library/src/tensor_operation_instance/gpu/CMakeLists.txt
 sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION \"%{version}\"@' library/src/utility/CMakeLists.txt library/src/tensor_operation_instance/gpu/CMakeLists.txt
+
+# We are building from a tarball, not a git repo
+sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' CMakeLists.txt
+sed -i -e 's@execute_process(COMMAND "${GIT_EXECUTABLE}"@#execute_process(COMMAND "${GIT_EXECUTABLE}"@' CMakeLists.txt
 
 %build
 %if %{with gitcommit}
@@ -369,6 +372,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
+- Remove build requires git
+
 * Sat Dec 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Add --with compat
 - Fix build with ck_gemm

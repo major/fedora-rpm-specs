@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.7.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A generic swappable back-end for XML parsing
 License: MIT
 URL: https://github.com/sferik/multi_xml
@@ -35,6 +35,11 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+# ref: https://github.com/sferik/multi_xml/issues/72
+# ruby4.0 bumps bigdecimal to 4.0
+sed -i ../%{gem_name}-%{version}.gemspec \
+        -e '\@add_runtime_dependency.*bigdecimal@s|~> 3\.1|>= 3.1|'
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -76,6 +81,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jan 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-5
+- Relax bigdecimal dependency
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

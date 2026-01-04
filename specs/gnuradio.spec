@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	9%{?alphatag:.%{alphatag}}%{?dist}
+Release:	10%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -58,6 +58,7 @@ BuildRequires:	gsm-devel
 BuildRequires:	gtk3-devel
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	portaudio-devel
+BuildRequires:	gobject-introspection
 BuildRequires:	python3-devel
 BuildRequires:	python3-cairo
 BuildRequires:	python3-click
@@ -225,6 +226,10 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Sat Jan 03 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 3.10.12.0-10
+- Fixed build of gnuradio-companion
+  Resolves: rhbz#2424093
+
 * Wed Nov 12 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 3.10.12.0-9
 - Enabled iio
 

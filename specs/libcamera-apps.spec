@@ -1,10 +1,10 @@
 Name:    libcamera-apps
-Version: 1.10.1
+Version: 1.11.0
 Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/rpicam-apps
-Source0: https://github.com/raspberrypi/rpicam-apps/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0: %{url}/archive/v%{version}.tar.gz#/rpicam-apps-%{version}.tar.gz
 
 Patch1: 0001-rpi-namespace.patch
 
@@ -45,8 +45,6 @@ Headers for developing against libcamera-apps.
 %prep
 %autosetup -p1 -n rpicam-apps-%{version}
 
-sed -i 's/qt5/qt6/' preview/meson.build
-
 %build
 
 %meson \
@@ -55,7 +53,10 @@ sed -i 's/qt5/qt6/' preview/meson.build
     -Denable_qt=enabled \
     -Denable_libav=enabled \
     -Denable_hailo=disabled \
-    -Ddisable_rpi_features=true
+%ifnarch aarch64
+    -Ddisable_rpi_features=true \
+%endif
+    %{nil}
 
 %meson_build
 
@@ -78,6 +79,10 @@ sed -i 's/qt5/qt6/' preview/meson.build
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Fri Jan 02 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.11.0-1
+- Update to 1.11.0
+- Enable RPi features on aarch64
+
 * Thu Dec 11 2025 Milan Zamazal <mzamazal@redhat.com> - 1.10.1-1
 - Update to 1.10.1
 - -Werror no longer disabled.

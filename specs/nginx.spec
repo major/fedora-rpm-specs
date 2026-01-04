@@ -37,11 +37,6 @@
 %global with_ktls 1
 %endif
 
-# Build against OpenSSL 1.1 on EL7
-%if 0%{?rhel} == 7
-%global openssl_pkgversion 11
-%endif
-
 # Build against OpenSSL 3 on EL8
 %if 0%{?rhel} == 8
 %global openssl_pkgversion 3
@@ -89,7 +84,6 @@ Source19:          nginx.sysusers
 Source20:          nginx.tmpfiles
 Source102:         nginx-logo.png
 Source200:         README.dynamic
-Source210:         UPGRADE-NOTES-1.6-to-1.10
 Source220:         instance.conf
 
 # removes -Werror in upstream build scripts.  -Werror conflicts with
@@ -119,24 +113,17 @@ BuildRequires:     gperftools-devel
 BuildRequires:     libxcrypt-devel
 BuildRequires:     openssl%{?openssl_pkgversion}-devel
 BuildRequires:     pcre2-devel
+%if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires:     zlib-ng-devel
+%else
+BuildRequires:     zlib-devel
+%endif
 
 Requires:          nginx-filesystem = %{epoch}:%{version}-%{release}
-%if 0%{?el7}
-# centos-logos el7 does not provide 'system-indexhtml'
-Requires:          system-logos redhat-indexhtml
-# need to remove epel7 geoip sub-package, doesn't work anymore
-# https://bugzilla.redhat.com/show_bug.cgi?id=1576034
-# https://bugzilla.redhat.com/show_bug.cgi?id=1664957
-Obsoletes:         nginx-mod-http-geoip <= 1:1.16
-%else
 Requires:          system-logos-httpd
-%endif
 
 Provides:          webserver
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:        logrotate
-%endif
 Requires:          %{name}-core = %{epoch}:%{version}-%{release}
 
 BuildRequires:     systemd
@@ -181,7 +168,9 @@ Meta package that installs all available nginx modules.
 %package filesystem
 Summary:           The basic directory layout for the Nginx server
 BuildArch:         noarch
+# RHEL 9 compat, remove after RHEL 9 EOL
 %{?sysusers_requires_compat}
+
 
 %description filesystem
 The nginx-filesystem package contains the basic directory layout
@@ -211,9 +200,7 @@ Requires:          gd
 %package mod-http-perl
 Summary:           Nginx HTTP perl module
 BuildRequires:     perl-devel
-%if 0%{?fedora} >= 24 || 0%{?rhel} >= 7
 BuildRequires:     perl-generators
-%endif
 BuildRequires:     perl(ExtUtils::Embed)
 Requires:          nginx(abi) = %{nginx_abiversion}
 Requires:          perl(constant)
@@ -271,12 +258,7 @@ Requires:          zlib-devel
 cat %{S:2} %{S:3} %{S:4} %{S:5} %{S:6} > %{_builddir}/%{name}.gpg
 %{gpgverify} --keyring='%{_builddir}/%{name}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-cp %{SOURCE200} %{SOURCE210} %{SOURCE10} %{SOURCE12} %{SOURCE18} %{SOURCE220} .
-
-%if 0%{?rhel} > 0 && 0%{?rhel} < 8
-sed -i -e 's#KillMode=.*#KillMode=process#g' nginx.service nginx@.service
-sed -i -e 's#PROFILE=SYSTEM#HIGH:!aNULL:!MD5#' nginx.conf
-%endif
+cp %{SOURCE200} %{SOURCE10} %{SOURCE12} %{SOURCE18} %{SOURCE220} .
 
 %if 0%{?openssl_pkgversion}
 sed \
@@ -413,17 +395,8 @@ install -p -m 0644 ./nginx.conf \
 rm -f %{buildroot}%{_datadir}/nginx/html/index.html
 rm -f %{buildroot}%{_datadir}/nginx/html/50x.html
 
-%if 0%{?el7}
-ln -s ../../doc/HTML/index.html \
-      %{buildroot}%{_datadir}/nginx/html/index.html
-ln -s ../../doc/HTML/img \
-      %{buildroot}%{_datadir}/nginx/html/img
-ln -s ../../doc/HTML/en-US \
-      %{buildroot}%{_datadir}/nginx/html/en-US
-%else
 ln -s ../../testpage/index.html \
       %{buildroot}%{_datadir}/nginx/html/index.html
-%endif
 install -p -m 0644 %{SOURCE102} \
     %{buildroot}%{_datadir}/nginx/html
 ln -s nginx-logo.png %{buildroot}%{_datadir}/nginx/html/poweredby.png
@@ -495,6 +468,7 @@ mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 644 -p %{SOURCE20} %{buildroot}%{_tmpfilesdir}/nginx.conf
 
 %pre filesystem
+# RHEL 9 compat, remove after RHEL 9 EOL
 %sysusers_create_compat %{SOURCE19}
 
 %post
@@ -542,9 +516,6 @@ if [ $1 -ge 1 ]; then
 fi
 
 %files
-%if 0%{?rhel} == 7
-%doc UPGRADE-NOTES-1.6-to-1.10
-%endif
 %{_datadir}/nginx/html/*
 %{_bindir}/nginx-upgrade
 %{_datadir}/vim/vimfiles/ftdetect/nginx.vim

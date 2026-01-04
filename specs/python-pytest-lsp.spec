@@ -1,5 +1,5 @@
 Name:           python-pytest-lsp
-Version:        1.0.0b2
+Version:        1.0.0
 Release:        %autorelease
 Summary:        A pytest plugin for end-to-end testing of language servers
 
@@ -38,7 +38,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_lsp
+%pyproject_save_files -l pytest_lsp
 
 %check
 %pytest -v || :

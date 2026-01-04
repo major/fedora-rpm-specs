@@ -13,6 +13,8 @@ License:        BSD-3-Clause
 URL:            https://crates.io/crates/ed25519-dalek
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump toml dev-dependency from v0.7 to v0.9:
+#   https://github.com/dalek-cryptography/curve25519-dalek/commit/65a9efe
 # * drop unused, benchmark-only criterion dev-dependency
 # * allow hex-literal 1, “ed25519-dalek: update hex-literal dev-dependency to
 #   version 1”: https://github.com/dalek-cryptography/curve25519-dalek/pull/854

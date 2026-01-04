@@ -1114,7 +1114,9 @@ make check
 %if %{with postproc}
 %exclude %{vlc_plugindir}/video_filter/libpostproc_plugin.so
 %endif
+%if %{with opencv}
 %exclude %{vlc_plugindir}/video_filter/libopencv_*.so
+%endif
 %{vlc_plugindir}/video_filter/*.so
 %{vlc_plugindir}/video_output/libfb_plugin.so
 %{vlc_plugindir}/video_output/libvdummy_plugin.so

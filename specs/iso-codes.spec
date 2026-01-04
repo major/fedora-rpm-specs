@@ -1,14 +1,14 @@
 Name:       iso-codes
 Summary:    ISO code lists and translations
-Version:    4.19.0
-Release:    1%{?dist}
+Version:    4.20.1
+Release:    2%{?dist}
 License:    LGPL-2.1-or-later
 URL:        https://salsa.debian.org/iso-codes-team/iso-codes
 Source0:    https://salsa.debian.org/iso-codes-team/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildRequires: gettext
 BuildRequires: python3
-BuildRequires: make
+BuildRequires: meson
 BuildArch: noarch
 
 # for /usr/share/xml
@@ -35,17 +35,20 @@ when building programs that use %{name}.
 sed -i 's/ & / and /g' data/iso_3166-2.json
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install INSTALL="%{__install} -p"
+%meson_install
+
+%check
+%meson_test
 
 %find_lang %{name} --all-name
 
 %files -f %{name}.lang
 %doc CHANGELOG.md README.md
-%license COPYING
+%license LICENSES/LGPL-2.1-or-later.txt
 %dir %{_datadir}/xml/iso-codes
 %{_datadir}/xml/iso-codes/*.xml
 %{_datadir}/iso-codes
@@ -54,6 +57,12 @@ sed -i 's/ & / and /g' data/iso_3166-2.json
 %{_datadir}/pkgconfig/iso-codes.pc
 
 %changelog
+* Fri Jan 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 4.20.1-2
+- Upstream moved to meson build system 
+
+* Fri Jan 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 4.20.1-1
+- Update to 4.20.1 version (#2426701)
+
 * Fri Nov 14 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.19.0-1
 - Update to 4.19.0 version (#2413657)
 

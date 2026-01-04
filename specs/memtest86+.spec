@@ -8,15 +8,10 @@ architecture computers. BIOS based memory tests are only a quick
 check and often miss many of the failures that are detected by
 Memtest86+.
 }
-%ifarch x86_64
 %global mt_isa x64
-%endif
-%ifarch %{ix86}
-%global mt_isa ia32
-%endif
 
 Name:          memtest86+
-Version:       7.20
+Version:       8.00
 Release:       %autorelease
 Summary:       Stand-alone memory tester for x86-64 computers
 License:       GPL-2.0-only
@@ -26,7 +21,7 @@ Source1:       memtest86+.kernel-install-plugin
 
 BuildRequires: gcc, make, xorriso, dosfstools, mtools
 Requires(pre): systemd-udev >= 252
-ExclusiveArch: x86_64 %{ix86}
+ExclusiveArch: x86_64
 
 %description
 %wordwrap -v common_description
@@ -37,7 +32,8 @@ ExclusiveArch: x86_64 %{ix86}
 
 
 %build
-pushd build%{__isa_bits}
+# only x86_64 now supported in fedora
+pushd build/x86_64
 make
 make iso
 popd
@@ -47,9 +43,9 @@ popd
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mkdir -p %{buildroot}%{_datarootdir}/%{name}
 
-pushd build%{__isa_bits}
-install -m 0644 memtest.efi %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.efi
-install -m 0644 memtest.bin %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.bin
+pushd build/x86_64
+install -m 0644 mt86plus %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.efi
+install -m 0644 mt86plus %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.bin
 install -m 0644 memtest.iso %{buildroot}%{_datarootdir}/%{name}/memtest86+%{mt_isa}.iso
 install -m 0755 %{SOURCE1} %{buildroot}%{_libdir}/%{name}/memtest86+.kernel-install-plugin
 popd

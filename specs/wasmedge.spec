@@ -12,6 +12,8 @@ Summary: High performance WebAssembly Virtual Machine
 License: Apache-2.0 AND CC0-1.0
 URL:     https://github.com/%{reponame}/%{reponame}
 Source0: %{url}/releases/download/%{version}/%{reponame}-%{version}-src.tar.gz
+# Patch from https://github.com/WasmEdge/WasmEdge/commit/37cc9fa19bd23edbbdaa9252059b17f191fa4d17
+Patch0: 0001-fix-runtime-refine-the-overflow-detection-when-wrapp.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: git
@@ -55,7 +57,7 @@ Provides: %{reponame}-devel = %{version}-%{release}
 This package contains necessary header files for %{reponame} development.
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 [ -f VERSION ] || echo -n %{version} > VERSION
 
 %build

@@ -6,7 +6,7 @@
 %global project beetbrainz
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/
-%global commit 2e7f927cda4c1f0a0bde88699c33b37544029600 
+%global commit dde4052d27efd23c9f90e49a6348354bc7171eb4 
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global golicenses LICENSE.md
@@ -20,7 +20,7 @@ scrobbling via ListenBrainz.}
 %gometa
 
 Name:           %{goname}
-Version:        1.11.1
+Version:        1.11.2
 Release:        %autorelease
 Summary:        Provides webhook integration for ListenBrainz scrobbling with %{project}
 License:        GPL-3.0-or-later

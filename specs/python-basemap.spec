@@ -2,7 +2,7 @@
 
 Name:           python-basemap
 Version:        2.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
@@ -85,6 +85,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jan 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-6
+- Bump numpy pin for FTI
+
 * Thu Oct 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-5
 - Bump pyshp pin for FTI
 

@@ -13,7 +13,7 @@
 %bcond bootstrap 0
 
 Name:           libheif
-Version:        1.20.2
+Version:        1.21.1
 Release:        %autorelease
 Summary:        HEIF and AVIF file format decoder and encoder
 
@@ -31,6 +31,7 @@ BuildRequires:  pkgconfig(libbrotlidec)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(openjph) >= 0.18.0
 %if !%{with bootstrap}
 BuildRequires:  pkgconfig(sdl2)
@@ -106,6 +107,8 @@ rm -rf third-party/
  -DBUILD_TESTING=ON \
  -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF \
  -DPLUGIN_DIRECTORY=%{_libdir}/%{name} \
+ -DWITH_AOM=ON \
+ -DWITH_AOM_PLUGIN=OFF \
  -DWITH_DAV1D=ON \
  -DWITH_DAV1D_PLUGIN=OFF \
  -DWITH_JPEG_DECODER=ON \

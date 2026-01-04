@@ -16,6 +16,8 @@ Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_
 Source3:	phosh
 
 ExcludeArch:	%{ix86}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2426735
+ExcludeArch:	ppc64le
 
 BuildRequires:	gcc
 BuildRequires:	meson
