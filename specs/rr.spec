@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 5
+%global baserelease 6
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -32,6 +32,8 @@ Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.t
 
 Patch1: remove-termio.patch
 Patch2: update-cmake-ver.patch
+# https://github.com/rr-debugger/rr/issues/4037
+Patch3: rr-5.9.0-use-openat2-header.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -134,6 +136,10 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Sat Jan 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 5.9.0-6
+- Add patch to fix build with Linux 6.19+
+- Rebuild for capnproto 1.3.0
+
 * Fri Nov 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 5.9.0-5
 - Rebuild for capnproto 1.2.0
 

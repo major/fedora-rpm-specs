@@ -7,16 +7,18 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        7.6.0
+Version:        8.1.0
 Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
 License:        BSD-2-Clause AND Apache-2.0
-URL:            https://streamlink.github.io/
+URL:            https://streamlink.github.io
 Source0:        %{pypi_source %{srcname}}
 # Fix documentation build
-Patch1:         %{name}-6.6.2-documentation.patch
+Patch0:         %{name}-8.1.0-documentation.patch
+# Fix tests with pytest < 8.4.0
+Patch1:         %{name}-8.1.0-pytest_8.3.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
 # For easy patching of pyproject.toml
@@ -67,12 +69,16 @@ Zsh command line completion support for %{srcname}.
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%setup -q -n %{srcname}-%{version}
+%patch -P0 -p0 -b .documentation
+%if 0%{?fedora} <= 43
+%patch -P1 -p0 -b .pytest_8.3
+%endif
 
 # Replace pycryptodome dependency with pycryptodomex
 tomcli set pyproject.toml arrays replace "project.dependencies" "(pycryptodome)(\s*[><=]+.*)" "\1x\2"
 
-# Drop useless dependencies
+# Drop useless dependencies (only needed for building the HTML documentation)
 tomcli set pyproject.toml arrays delitem "dependency-groups.docs" "furo\s*[><=]+.*"
 
 %if 0%{?fedora} < 43
@@ -82,13 +88,6 @@ tomcli set pyproject.toml arrays replace "dependency-groups.dev" "(setuptools)\s
 
 # setuptools < 77.0.3 doesn't support PEP 639
 tomcli set pyproject.toml del "project.license" "project.license-files"
-
-%if 0%{?fedora} <= 41
-# Drop version constraint on freezegun
-tomcli set pyproject.toml arrays replace "dependency-groups.test" "(freezegun)\s*[><=]+.*" "\1"
-# Drop version constraint on trio
-tomcli set pyproject.toml arrays replace "project.dependencies" "(trio)\s*[><=].*\s;\s*python_version>='3\.13'" "\1"
-%endif
 %endif
 
 
@@ -119,11 +118,6 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %check
-%if 0%{?fedora} <= 41
-# Skip failing tests due to freezegun version incompatibility
-export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefmt_custom"
-%endif
-
 %pytest
 
 
@@ -143,6 +137,9 @@ export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefm
 
 
 %changelog
+* Sat Jan 03 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 8.1.0-1
+- Update to 8.1.0
+
 * Sun Nov 02 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.6.0-1
 - Update to 6.7.0
 

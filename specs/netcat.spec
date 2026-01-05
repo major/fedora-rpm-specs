@@ -1,4 +1,4 @@
-%global commit ed51ee9f9dacba2435f559923aea6b34ab481d24
+%global commit d0cc618721a8b450997f44626c9d937245dc1b9a
 
 %if 0%{?fedora} || 0%{?rhel} > 8
 %global link_bin nc
@@ -11,8 +11,8 @@
 Summary:         OpenBSD netcat to read and write data across connections using TCP or UDP
 Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
-Version:         1.229
-Release:         3%{?dist}
+Version:         1.237
+Release:         1%{?dist}
 # BSD-3-Clause: nc.1 and netcat.c
 # BSD-2-Clause: atomicio.{c,h} and socks.c
 License:         BSD-3-Clause AND BSD-2-Clause
@@ -24,7 +24,7 @@ Source3:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin
 Source4:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/socks.c
 Source5:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/Makefile
 # Port peculiarities from OpenBSD to Linux
-Patch0:          https://salsa.debian.org/debian/netcat-openbsd/-/raw/08f1670e0f7c682b3a86335c026a2df62daab3d4/debian/patches/port-to-linux-with-libbsd.patch
+Patch0:          https://salsa.debian.org/debian/netcat-openbsd/-/raw/3dd21269220dd746eaf4e64a17b7257eba47c2c2/debian/patches/port-to-linux-with-libbsd.patch
 BuildRequires:   make
 BuildRequires:   gcc
 BuildRequires:   libbsd-devel
@@ -46,8 +46,9 @@ cp -pf %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} .
 %patch -P0 -p1 -b .port-to-linux-with-libbsd
 sed -e '1i #define unveil(path, permissions) 0' \
     -e '1i #define pledge(request, paths) 0' \
+    -e '1i #ifndef IPTOS_DSCP_VA\n#define IPTOS_DSCP_VA 0xb0\n#endif' \
     -i netcat.c
-sed -e 's/^\(LIBS=.*\)/\1 -ltls/' -i Makefile
+sed -e 's/^\(LIBS ?= .*\)/\1 -ltls/' -i Makefile
 
 %build
 %make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
@@ -75,6 +76,9 @@ fi
 %{_mandir}/man1/netcat.1*
 
 %changelog
+* Sat Jan 03 2026 Robert Scheck <robert@fedoraproject.org> 1.237-1
+- Upgrade to 1.237 (#2406149)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.229-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

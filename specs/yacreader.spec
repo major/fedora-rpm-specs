@@ -2,7 +2,7 @@
 %global versuf %{nil}
 
 Name:           yacreader
-Version:        9.16.2
+Version:        9.16.3
 Release:        %autorelease
 Summary:        Cross platform comic reader and library manager
 
@@ -40,8 +40,7 @@ Requires:       qt5-qtquickcontrols%{?_isa}
 Requires:       qt5-qtsvg
 
 %description
-Best comic reader and comic manager with support for .cbr .cbz .zip .rar comic
-files.
+"Yet another comic reader".
 
 
 %prep

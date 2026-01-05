@@ -5,8 +5,8 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.44
-Release:    2%{?dist}
+Version:    3.0.48
+Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
 Name:       php-%{composer_project}%{vmajor}
@@ -20,25 +20,34 @@ Source2:    makesrc.sh
 
 BuildArch:      noarch
 
+%global php_min_version 5.6.1
+%define depends_on() %{expand:
+Requires: %{*}
+
 %if %{with tests}
-BuildRequires:  php(language) >= 5.6.1
-BuildRequires:  php-composer(fedora/autoloader)
+BuildRequires: %{*}
+%endif
+}
+
+%depends_on php-bcmath  >= %{php_min_version}
+%depends_on php-gmp     >= %{php_min_version}
+%depends_on php-mcrypt  >= %{php_min_version}
+%depends_on php-openssl >= %{php_min_version}
+%depends_on php-sodium  >= %{php_min_version}
+%depends_on php-xml     >= %{php_min_version}
+%depends_on php-composer(paragonie/constant_time_encoding)
+
 BuildRequires:  php-fedora-autoloader-devel
-BuildRequires:  %{_bindir}/phpunit9
-BuildRequires:  %{_bindir}/phpab
-# Optional at runtime, to avoid too muck skipped tests
-BuildRequires:  php-bcmath
-BuildRequires:  php-gmp
+
+%if %{with tests}
+%global phpunit_bin %{_bindir}/phpunit9
+BuildRequires:  php-composer(fedora/autoloader)
+BuildRequires:  php-cli >= %{php_min_version}
+BuildRequires:  %{phpunit_bin}
 %endif
 
-Requires:   php(language) >= 5.6.1
-Requires:   php-bcmath
-Requires:   php-gmp
-Requires:   php-openssl
-Requires:   php-xml
 # Autoloader
 Requires:   php-composer(fedora/autoloader)
-
 Provides:   php-composer(%{composer_vendor}/%{composer_project}) = %{version}
 
 
@@ -58,6 +67,7 @@ phpab \
 	--output autoload.php \
 	--basedir phpseclib/ \
 	./composer.json
+echo "require_once '%{_datadir}/php/ParagonIE/ConstantTime/autoload.php';" >> autoload.php
 cat autoload.php
 
 
@@ -91,16 +101,9 @@ php tests/make_compatible_with_phpunit9.php
 # from travis/run-phpunit.sh
 # testAuthorityInfoAccess fails without internet access
 # testCurveExistance as we remove some files
-ret=0
-for cmd in "php %{phpunit}" php80 php81 php82; do
-  if which $cmd; then
-    set $cmd
-    $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
-       --filter '^((?!(testAuthorityInfoAccess|testCurveExistance|testLoginToInvalidServer)).)*$' \
-       --verbose --configuration tests/phpunit.xml || ret=1
-  fi
-done
-exit $ret
+php -d memory_limit=1G %{phpunit_bin} \
+	--filter '^((?!(testAuthorityInfoAccess|testCurveExistance|testLoginToInvalidServer)).)*$' \
+	--verbose --configuration tests/phpunit.xml
 %endif
 
 
@@ -111,6 +114,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.48-1
+- Update to v3.0.48
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

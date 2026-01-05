@@ -1,7 +1,7 @@
 %global repo util-dfm
 
 Name:           deepin-util-dfm
-Version:        1.3.9
+Version:        1.3.43
 Release:        %autorelease
 Summary:        Utilities of deepin file manager
 # the library is mainly under GPL-3.0-or-later, except:
@@ -12,13 +12,15 @@ Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Widgets)
 
+BuildRequires:  cmake(Dtk6Core)
+
+BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(udisks2)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
@@ -26,101 +28,117 @@ BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(mount)
 BuildRequires:  pkgconfig(libmediainfo)
 BuildRequires:  pkgconfig(libisoburn-1)
+BuildRequires:  pkgconfig(liblucene++)
+BuildRequires:  pkgconfig(liblucene++-contrib)
 
 %description
-A Toolkit of libdfm-io, libdfm-mount and libdfm-burn, developed by UnionTech
-Software Technology Co., Ltd.
+Deepin File Manager utilities (libdfm-io, libdfm-mount and libdfm-burn)
+developed by UnionTech Software Technology Co., Ltd
 
-%package -n     dfm-burn
-Summary:        The dfm-burn libraries
+%package -n     dfm6-burn
+Summary:        The dfm6-burn libraries
+%description -n dfm6-burn
+A Toolkit of dfm6-burn.
 
-%description -n dfm-burn
-A Toolkit of dfm-burn.
+%package -n     dfm6-burn-devel
+Summary:        Development files for dfm6-burn
+Requires:       dfm6-burn%{?_isa} = %{version}-%{release}
+%description -n dfm6-burn-devel
+This package contains development files for dfm6-burn.
 
-%package -n     dfm-burn-devel
-Summary:        Development tools for dfm-burn
-Requires:       dfm-burn%{?_isa} = %{version}-%{release}
+%package -n     dfm6-io
+Summary:        The dfm6-io libraries
+%description -n dfm6-io
+A Toolkit of dfm6-io.
 
-%description -n dfm-burn-devel
-This package contains development files for dfm-burn.
+%package -n     dfm6-io-devel
+Summary:        Development files for dfm6-io
+Requires:       dfm6-io%{?_isa} = %{version}-%{release}
+%description -n dfm6-io-devel
+This package contains development files for dfm6-io.
 
-%package -n     dfm-io
-Summary:        The dfm-io libraries
+%package -n     dfm6-mount
+Summary:        The dfm6-mount libraries
+%description -n dfm6-mount
+A Toolkit of dfm6-mount.
 
-%description -n dfm-io
-A Toolkit of dfm-io.
+%package -n     dfm6-mount-devel
+Summary:        Development files for dfm6-mount
+Requires:       dfm6-mount%{?_isa} = %{version}-%{release}
+%description -n dfm6-mount-devel
+This package contains development files for dfm6-mount.
 
-%package -n     dfm-io-devel
-Summary:        Development tools for dfm-io
-Requires:       dfm-io%{?_isa} = %{version}-%{release}
+%package -n     dfm6-search
+Summary:        The dfm6-search libraries
+%description -n dfm6-search
+A Toolkit of dfm6-search.
 
-%description -n dfm-io-devel
-This package contains development files for dfm-io.
-
-%package -n     dfm-mount
-Summary:        The dfm-mount libraries
-
-%description -n dfm-mount
-A Toolkit of dfm-mount.
-
-%package -n     dfm-mount-devel
-Summary:        Development tools for dfm-mount
-Requires:       dfm-mount%{?_isa} = %{version}-%{release}
-
-%description -n dfm-mount-devel
-This package contains development files for dfm-mount.
+%package -n     dfm6-search-devel
+Summary:        Development files for dfm6-search
+Requires:       dfm6-search%{?_isa} = %{version}-%{release}
+%description -n dfm6-search-devel
+This package contains development files for dfm6-search.
 
 %prep
 %autosetup -p1 -n %{repo}-%{version}
+
 # use Fedora build flags
 sed -i 's/-O0//; s/-O3//' \
     src/dfm-io/CMakeLists.txt \
-    src/dfm-burn/CMakeLists.txt
+    src/dfm-burn/CMakeLists.txt \
+    src/dfm-search/CMakeLists.txt
 
 %build
-%cmake \
-    -GNinja \
-    -DPROJECT_VERSION=%{version} \
+%cmake -DVERSION=%{version}
 %cmake_build
 
 %install
 %cmake_install
 
-%files -n dfm-burn
+%files -n dfm6-burn
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libdfm-burn.so.1
-%{_libdir}/libdfm-burn.so.1.0.0
+%{_libdir}/libdfm6-burn.so.1*
 
-%files -n dfm-io
+%files -n dfm6-burn-devel
+%{_includedir}/dfm6-burn/
+%{_libdir}/libdfm6-burn.so
+%{_libdir}/pkgconfig/dfm6-burn.pc
+%{_libdir}/cmake/dfm6-burn/
+
+%files -n dfm6-io
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libdfm-io.so.1
-%{_libdir}/libdfm-io.so.1.0.0
+%{_libdir}/libdfm6-io.so.1*
 
-%files -n dfm-mount
+%files -n dfm6-io-devel
+%{_includedir}/dfm6-io/
+%{_libdir}/libdfm6-io.so
+%{_libdir}/pkgconfig/dfm6-io.pc
+%{_libdir}/cmake/dfm6-io/
+
+%files -n dfm6-mount
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libdfm-mount.so.1
-%{_libdir}/libdfm-mount.so.1.0.0
+%{_libdir}/libdfm6-mount.so.1*
 
-%files -n dfm-burn-devel
-%{_includedir}/dfm-burn/
-%{_libdir}/libdfm-burn.so
-%{_libdir}/pkgconfig/dfm-burn.pc
-%{_libdir}/cmake/dfm-burn/
+%files -n dfm6-mount-devel
+%{_includedir}/dfm6-mount/
+%{_libdir}/libdfm6-mount.so
+%{_libdir}/pkgconfig/dfm6-mount.pc
+%{_libdir}/cmake/dfm6-mount/
 
-%files -n dfm-io-devel
-%{_includedir}/dfm-io/
-%{_libdir}/libdfm-io.so
-%{_libdir}/pkgconfig/dfm-io.pc
-%{_libdir}/cmake/dfm-io/
+%files -n dfm6-search
+%license LICENSES/*
+%doc README.md
+%{_libdir}/libdfm6-search.so.1*
+%{_libexecdir}/dfm6-search-client
 
-%files -n dfm-mount-devel
-%{_includedir}/dfm-mount/
-%{_libdir}/libdfm-mount.so
-%{_libdir}/pkgconfig/dfm-mount.pc
-%{_libdir}/cmake/dfm-mount/
+%files -n dfm6-search-devel
+%{_includedir}/dfm6-search/
+%{_libdir}/libdfm6-search.so
+%{_libdir}/pkgconfig/dfm6-search.pc
+%{_libdir}/cmake/dfm6-search/
 
 %changelog
 %autochangelog

@@ -61,7 +61,7 @@
 
 Name:           roctracer%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -198,7 +198,11 @@ sed -i -e 's@../lib/@../%{pkg_libdir}/@' test/run.sh
 # Only install the pdf
 rm -rf rm %{buildroot}%{pkg_prefix}/share/html
 # Extra licenses
+# Fedora
 rm -f %{buildroot}%{pkg_prefix}/share/doc/*/LICENSE.md
+# OpenSUSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
+
 
 %files
 %license LICENSE.md
@@ -223,6 +227,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/LICENSE.md
 %endif
 
 %changelog
+* Sat Jan 3 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Fix SUSE
+
 * Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Add --with debug
 

@@ -1,6 +1,3 @@
-# FIXME: LTO causes ld segfault, revisit in the future
-%global _lto_cflags %nil
-
 Name:           ceres-solver
 Version:        2.2.0
 # Release candidate versions are messy. Give them a release of
@@ -8,11 +5,12 @@ Version:        2.2.0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
 Release:        7%{?dist}
 Summary:        A non-linear least squares minimizer
-
 License:        BSD-3-Clause AND Apache-2.0
 
 URL:            http://ceres-solver.org/
 Source0:        http://%{name}.org/%{name}-%{version}.tar.gz
+# Relax eigen version constraints
+Patch0:         ceres-solver_eigenver.patch
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
@@ -23,24 +21,7 @@ Source0:        http://%{name}.org/%{name}-%{version}.tar.gz
 %global cmake_blas_flags -DBLAS_LIBRARIES=%{_libdir}/lib%{blaslib}%{blasvar}.so
 %endif
 
-%if 0%{?rhel} > 0 && 0%{?rhel} < 7
-# Exclude ppc64 because suitesparse is not available on ppc64
-# https://lists.fedoraproject.org/pipermail/epel-devel/2015-May/011193.html
-ExcludeArch: ppc64
-%endif
-
-%if 0%{?rhel} == 9
-# Workaround a build error with eigen3 on rhel 9
-%ifarch ppc64le
-%undefine _lto_cflags
-%endif
-%endif
-
-%if (0%{?rhel} && 0%{?rhel} <= 7)
-BuildRequires:  cmake3 >= 2.8.0
-%else
-BuildRequires:  cmake >= 2.8.0
-%endif
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
@@ -130,16 +111,9 @@ developing applications that use %{name}.
 %endif
 
 
-%ldconfig_scriptlets
-
-
 %files
-%if (0%{?rhel} == 06)
-%doc README.md LICENSE
-%else
 %doc README.md
 %license LICENSE
-%endif
 %{_libdir}/libceres.so.4
 %{_libdir}/libceres.so.2.2.0
 

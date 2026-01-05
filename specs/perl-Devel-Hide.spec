@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Devel-Hide
-Version:        0.0015
-Release:        11%{?dist}
+Version:        0.0016
+Release:        1%{?dist}
 Summary:        Forces the unavailability of specified Perl modules (for testing)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Hide
@@ -15,16 +15,14 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Hide-%{v
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(lib)
 # Module::CoreList is used from a private subroutine that is never called
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More) >= 0.82
@@ -45,12 +43,11 @@ installed or not).
 %setup -q -n Devel-Hide-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -62,6 +59,11 @@ make test
 %{_mandir}/man3/Devel::Hide.3*
 
 %changelog
+* Sat Jan  3 2026 Paul Howarth <paul@city-fan.org> - 0.0016-1
+- Update to 0.0016 (rhbz#2426839)
+  - Drop support for perl 5.6 (deprecated since 0.0012)
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0015-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

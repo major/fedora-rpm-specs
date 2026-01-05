@@ -53,8 +53,11 @@
 %global build_type RelWithDebInfo
 %endif
 
-%global gpu_list %{rocm_gpu_list_default}
+%global gpu_list %{rocm_gpu_list_test}
 %global _gpu_list gfx1100
+
+# Test building needs our compiler
+%global toolchain clang
 
 Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
@@ -70,7 +73,12 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  rocm-clang%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
+BuildRequires:  rocm-hip%{pkg_suffix}-devel
+BuildRequires:  rocm-llvm%{pkg_suffix}-static
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
+BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 %if %{with test}
@@ -81,11 +89,6 @@ BuildRequires:  gtest
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
 %endif
-BuildRequires:  rocm-clang%{pkg_suffix}-devel
-BuildRequires:  rocm-hip%{pkg_suffix}-devel
-BuildRequires:  rocm-llvm%{pkg_suffix}-static
-BuildRequires:  rocm-rpm-macros%{pkg_suffix}
-BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 %endif
 
 %description
@@ -126,11 +129,14 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
+    -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_HIP_ARCHITECTURES=%{gpu_list} \
     -DCMAKE_HIP_COMPILER_ROCM_ROOT=%{pkg_prefix} \
     -DCMAKE_HIP_COMPILER=%{rocmllvm_bindir}/amdclang++ \
     -DCMAKE_HIP_FLAGS="-I %{pkg_prefix}/include" \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DGPU_TARGETS=%{gpu_list}
     
 %cmake_build
 
@@ -147,6 +153,7 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %{pkg_prefix}/%{pkg_libdir}/libhsa-amd-aqlprofile64.so
 
 %if %{with test}
+%files test
 %{pkg_prefix}/share/hsa-amd-aqlprofile/
 %endif
 

@@ -1,7 +1,7 @@
 %global framework modemmanager-qt
 
 Name:    kf6-%{framework}
-Version: 6.21.0
+Version: 6.22.0
 Release: 1%{?dist}
 Summary: A Tier 1 KDE Frameworks module wrapping ModemManager DBus API
 License: GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -74,6 +74,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
+- 6.22.0
+
 * Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
 - 6.21.0
 

@@ -1,10 +1,11 @@
 Summary:          Re-implementation for Unix of the Plan 9 shell
 Name:             rc
 Version:          1.7.4
-Release:          25%{?dist}
+Release:          26%{?dist}
 License:          Zlib
 URL:              https://github.com/rakitzis/rc
 Source0:          https://github.com/rakitzis/rc/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:           https://github.com/rakitzis/rc/commit/429f81caf8af998e59075c86b777b2ecef7956cf.patch#/rc-1.7.4-c23.patch
 Conflicts:        filesystem < 3
 Provides:         /bin/rc
 Requires(post):   grep
@@ -21,11 +22,10 @@ UNIX's Bourne shell, with some small additions and less idiosyncratic syntax.
 This is a re-implementation for Unix, by Byron Rakitzis, of the Plan 9 shell.
 
 %prep
-%setup -q
+%autosetup -p1
 autoreconf --force --install
 
 %build
-export CFLAGS="$CFLAGS -Dbool=boolean"  # https://github.com/rakitzis/rc/issues/113
 %configure --with-edit=gnu
 %make_build
 
@@ -54,6 +54,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 03 2026 Robert Scheck <robert@fedoraproject.org> 1.7.4-26
+- Add upstream patch for C23 compatibility
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

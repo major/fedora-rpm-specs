@@ -1,8 +1,8 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.45
-Release:        3%{?dist}
+Version:        3.1.46
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -45,14 +45,13 @@ Requires:       git-core
 
 %install
 %pyproject_install
-%pyproject_save_files git
+%pyproject_save_files -l git
 
 %check
 # The upstream test suite has very specific requirements, such as being run in
-# it's own git repository and with the dependencies as git submodules.
-# Upstream is aware this makes it nearly impossible for distros to run the
-# upstream test suite.  For now, we'll just check that the module is
-# importable.
+# its own git repository and with the dependencies as git submodules.  Upstream
+# is aware this makes it nearly impossible for distros to run the upstream test
+# suite. For now, we'll just check that the module is importable.
 # https://github.com/gitpython-developers/GitPython/issues/914
 %pyproject_check_import
 
@@ -60,6 +59,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Sat Jan 03 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.46-1
+- Update to 3.1.46 (close RHBZ#2426665)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.45-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

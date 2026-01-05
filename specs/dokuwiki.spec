@@ -5,7 +5,9 @@ License:	GPL-2.0-only
 %global		releasenum 2025-05-14b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	1%{?dist}
+Release:	2%{?dist}
+
+%global php_min_version 7.4
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -15,25 +17,42 @@ Patch1:		dokuwiki-rm-bundled-libs.patch
 
 BuildArch:	noarch
 
-Requires:	php-gd >= 7.4
-Requires:	php-json >= 7.4
-Requires:	php-xml >= 7.4
+%global smoke_test 1
+%define depends_on(v::) %{expand:
+BuildRequires: %{*}
 
-Requires:	php-composer(aziraphale/email-address-validator) >= 2.0.1
-# dokuwiki relies on a certain bugfix backported into geshi/geshi,
-# hence the requirement also includes the RPM release number
-Requires:	php-composer(geshi/geshi) >= 1.0.9.1-5
-Requires:	php-composer(kissifrot/php-ixr) >= 1.8.4
-Requires:	php-composer(openpsa/universalfeedcreator) >= 1.8.6
-Requires:	php-composer(paragonie/constant_time_encoding) >= 2.6.3
-Requires:	php-composer(php81_bc/strftime) >= 0.7.6
-Requires:	php-composer(phpseclib/phpseclib) >= 3.0.35
-Requires:	php-composer(simplepie/simplepie) >= 1.8.0
-Requires:	php-composer(splitbrain/lesserphp) >= 0.10.0
-Requires:	php-composer(splitbrain/php-archive) >= 1.3.1
-Requires:	php-composer(splitbrain/php-cli) >= 1.3.1
-Requires:	php-composer(splitbrain/php-jsstrip) >= 1.0.1
-Requires:	php-composer(splitbrain/slika) >= 1.0.6
+%if 0%{?smoke_test}
+Requires: %{*}
+%endif
+}
+
+%if 0%{?smoke_test}
+BuildRequires: php-cli >= %{php_min_version}
+%endif
+
+%depends_on php-gd >= %{php_min_version}
+%depends_on php-json >= %{php_min_version}
+%depends_on php-xml >= %{php_min_version}
+
+# Composer deps
+%depends_on php-composer(aziraphale/email-address-validator) >= 2.0.1
+%depends_on php-composer(kissifrot/php-ixr) >= 1.8.4
+%depends_on php-composer(geshi/geshi) >= 1.0.9.1
+%depends_on php-composer(openpsa/universalfeedcreator) >= 1.8.6
+%depends_on php-composer(paragonie/constant_time_encoding) >= 2.6.3
+%depends_on php-composer(php81_bc/strftime) >= 0.7.6
+%depends_on php-composer(phpseclib/phpseclib) >= 3.0.35
+# %%depends_on php-composer(simplepie/simplepie) >= 1.8.0
+%depends_on php-composer(splitbrain/lesserphp) >= 0.10.0
+%depends_on php-composer(splitbrain/php-archive) >= 1.3.1
+%depends_on php-composer(splitbrain/php-cli) >= 1.3.1
+%depends_on php-composer(splitbrain/php-jsstrip) >= 1.0.1
+%depends_on php-composer(splitbrain/slika) >= 1.0.6
+
+# Deps that require extra handling
+
+# Fedora's simplepie package was unfortunately broken for some time
+%depends_on php-simplepie >= 1.9.0-2
 
 
 %description
@@ -184,6 +203,24 @@ pushd %{buildroot}%{_datadir}/%{name}
 	ln -sf ../../../etc/%name conf
 popd
 
+
+# Smoke test. Runs the index page script in CLI.
+# Should catch some missing or improperly patched dependencies.
+%if 0%{?smoke_test}
+%check
+cat > %{buildroot}%{_datadir}/%{name}/conf/local.php <<'EOF'
+<?php
+$conf['savedir'] = "%{buildroot}%{_localstatedir}/lib/%{name}/data";
+EOF
+
+php %{buildroot}%{_datadir}/%{name}/index.php
+
+rm -f \
+	%{buildroot}%{_localstatedir}/lib/%{name}/data/index/page.idx \
+	%{buildroot}%{_datadir}/%{name}/conf/local.php
+%endif
+
+
 %post selinux
 semanage fcontext -a -t httpd_sys_rw_content_t '%{_sysconfdir}/%{name}(/.*)?' 2>/dev/null || :
 semanage fcontext -a -t httpd_sys_content_t '%{_datadir}/%{name}(/.*)?' 2>/dev/null || :
@@ -239,6 +276,10 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250514b-2
+- Fix "class SimplePie\SimplePie not found" error
+- Add smoke test
+
 * Tue Oct 14 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250514b-1
 - Update to version 2025-05-14b "Librarian"
 

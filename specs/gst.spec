@@ -1,7 +1,7 @@
 %global uuid    com.leinardi.%{name}
 
 Name:           gst
-Version:        0.7.6
+Version:        0.7.7
 Release:        %autorelease
 Summary:        System utility designed to stress and monitoring various hardware components
 
@@ -12,7 +12,7 @@ BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  meson >= 0.45.1
+BuildRequires:  meson
 BuildRequires:  python3-devel
 
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.56.0
@@ -21,23 +21,25 @@ BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22.30
 Requires:       dbus-common
 Requires:       hicolor-icon-theme
 Requires:       lm_sensors
-Requires:       python3-gobject >= 3.44.1
+Requires:       python3-gobject >= 3.50.0
 Requires:       python3-humanfriendly >= 10.0
-Requires:       python3-injector >= 0.21.0
+Requires:       python3-injector >= 0.22.0
 Requires:       python3-matplotlib-gtk3 >= 3.1.1
-Requires:       python3-peewee >= 3.16.3
-Requires:       python3-psutil >= 5.9.5
-Requires:       python3-pyxdg %dnl >= 0.28 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2242522
-Requires:       python3-pyyaml >= 6.0.1
-Requires:       python3-requests %dnl >= 2.31.0 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2189970
+Requires:       python3-peewee >= 3.17.8
+Requires:       python3-psutil >= 6.1.0
+Requires:       python3-pyxdg >= 0.28
+Requires:       python3-pyyaml >= 6.0.2
+Requires:       python3-requests >= 2.32.3
 Requires:       python3-reactivex >= 4.0.4
 
 Recommends:     dmidecode
 Recommends:     stress-ng
 
 %description
-GST is a GTK system utility designed to stress and monitoring various hardware
+GST is a GTK system utility designed to stress and monitor various hardware
 components like CPU and RAM.
+
+Features
 
 - Run different CPU and memory stress tests
 - Run multi and single core benchmark

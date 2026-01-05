@@ -5,7 +5,7 @@
 %global app_id org.gnome.Shell.Extensions.GSConnect
 
 Name:           gnome-shell-extension-gsconnect
-Version:        67
+Version:        71
 Release:        1%{?dist}
 Summary:        KDE Connect implementation for GNOME Shell
 
@@ -157,6 +157,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 03 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 71-1
+- Update to 71
+
 * Sun Nov 02 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 67-1
 - Update to 67
 

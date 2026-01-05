@@ -15,7 +15,7 @@ It has been forked from the original MComix project and ported to python3.
 Name:			mcomix3
 # For now, choose version 0
 Version:		0
-Release:		0.42.D%{gitdate}git%{shortcommit}%{?dist}
+Release:		0.43.D%{gitdate}git%{shortcommit}%{?dist}
 Summary:		%base_summary
 # GPL version info is from mcomix/mcomixstarter.py
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -39,6 +39,9 @@ Patch5:		0005-Rescue-when-creating-thumbnail-fails-in-load_pixbuf_.patch
 # sqlite3.py: support python 3.14
 # ref: https://github.com/python/cpython/issues/9337
 Patch6:		0006-sqlite3.py-support-python-3.14.patch
+# Restore space / pageup button behavior in recent GTK
+# (ref: bug 2426924
+Patch7:		0007-Workaround-to-restore-space-pageup-button-behavior-i.patch
 
 BuildRequires:	python3-devel
 BuildRequires:	%{_bindir}/appstream-util
@@ -91,6 +94,7 @@ cat %{PATCH3} | git am
 cat %{PATCH4} | git am
 cat %{PATCH5} | git am
 cat %{PATCH6} | git am
+cat %{PATCH7} | git am
 
 %build
 pushd %{name}
@@ -237,6 +241,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sat Jan 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0-0.43.D20211016git483f4b3
+- Restore space / pageup button behavior (bug 2426924)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0-0.42.D20211016git483f4b3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

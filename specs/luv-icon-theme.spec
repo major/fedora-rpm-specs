@@ -4,12 +4,12 @@ Name: luv-icon-theme
 Summary: Flat, but complex, icon theme
 License: CC-BY-SA-4.0
 
-%global git_date    20250926
-%global git_commit  31b3e00558474a3ac154b21bfbf6b6540ca60821
+%global git_date    20251225
+%global git_commit  5af1f34153128c3ac6d2afca164b2aeb8dcc70e8
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 # Version number taken from 'debian/changelog' file
-Version: 0.6.4^%{git_date}.%{git_commit_short}
+Version: 0.6.8^%{git_date}.%{git_commit_short}
 Release: 1%{?dist}
 
 URL: https://github.com/Nitrux/%{name}
@@ -98,6 +98,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Luv &>/dev/null || :
 
 
 %changelog
+* Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.8^20251225.5af1f34-1
+- Update to latest git snapshot (2025-12-25)
+
 * Sat Nov 01 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.4^20250926.31b3e00-1
 - Update to latest git snapshot (2025-09-26)
 

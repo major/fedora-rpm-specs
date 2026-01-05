@@ -10,8 +10,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.6.2
-Release:        2%{?dist}
+Version:        6.6.3
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -26,7 +26,6 @@ Patch0:         set_wheel.patch
 Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
 Patch4:         set_menu_defaults.patch
-Patch5:         %{url}/pull/13239.patch#/use_system-auth.patch
 
 ExcludeArch:    %{ix86}
 
@@ -336,6 +335,9 @@ EOF
 %endif
 
 %changelog
+* Sat Jan 03 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
+- Update to 6.6.3
+
 * Wed Dec 17 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-2
 - Use PAM system-auth
 

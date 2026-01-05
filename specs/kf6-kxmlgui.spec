@@ -1,7 +1,7 @@
 %global framework kxmlgui
 
 Name:    kf6-%{framework}
-Version: 6.21.0
+Version: 6.22.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for user-configurable main windows
 
@@ -114,6 +114,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
+- 6.22.0
+
 * Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
 - 6.21.0
 

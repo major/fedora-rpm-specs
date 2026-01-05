@@ -17,7 +17,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.2
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -108,6 +108,8 @@ BuildRequires: perl(IO::Socket::IP)
 BuildRequires: perl-devel
 Requires: perl(Mail::DKIM)
 BuildRequires: perl(Mail::DKIM)
+BuildRequires: perl(Mail::DMARC)
+Requires: perl(Mail::DMARC)
 
 Requires(post): systemd-units
 Requires(post): systemd-sysv
@@ -284,6 +286,9 @@ rm -f %{_sharedstatedir}/razor/*
 %systemd_preun sa-update.timer
 
 %changelog
+* Sat Jan 03 2026 Kevin Fenzi <kevin@scrye.com> - 4.0.2-2
+- Add perl-Mail-DMARC requirement to enable DMARC plugin. Fixes rhbz#2316684
+
 * Thu Sep 04 2025 Kevin Fenzi <kevin@scrye.com> - 4.0.2-1
 - Update to 4.0.2. Fixes rhbz#2392141
 

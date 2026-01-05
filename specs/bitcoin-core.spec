@@ -5,7 +5,7 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    30.0
+Version:    30.1
 Release:    %autorelease
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
@@ -32,12 +32,13 @@ Source7:    %{project_name}.service.system
 Source8:    %{project_name}.service.user
 Source9:    %{project_name}-qt.protocol
 Source10:   %{project_name}-qt.desktop
+Source11:   %{project_name}.sysusers.conf
 
 # Documentation
-Source11:   %{project_name}.conf.example
-Source12:   README.gui.redhat
-Source13:   README.utils.redhat
-Source14:   README.server.redhat
+Source12:   %{project_name}.conf.example
+Source13:   README.gui.redhat
+Source14:   README.utils.redhat
+Source15:   README.server.redhat
 
 # AppStream metadata
 Source18:   %{project_name}-qt.metainfo.xml
@@ -66,7 +67,7 @@ BuildRequires:  pkgconfig(libzmq) >= 4
 BuildRequires:  pkgconfig(sqlite3) >= 3.7.17
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
-BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  systemtap-sdt-devel
 
 Requires:   %{name}-desktop = %{version}-%{release}
@@ -156,12 +157,7 @@ contrib/verify-binaries/verify.py --min-good-sigs 3 bin %{SOURCE2} %{SOURCE0}
 grep -q $(sha256sum %{SOURCE0}) %{SOURCE2}
 
 # Documentation (sources can not be directly reference with doc)
-cp -p %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
-
-# Create a sysusers.d config file
-cat >%{name}.sysusers.conf <<EOF
-u bitcoin - 'Bitcoin wallet server' /var/lib/%{project_name} -
-EOF
+cp -p %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} .
 
 %build
 
@@ -227,7 +223,7 @@ install -p -m 644 -D %{SOURCE18} %{buildroot}%{_metainfodir}/%{project_name}-qt.
 # Remove test files so that they aren't shipped. Tests have already been run.
 rm -f %{buildroot}%{_bindir}/test_*
 
-install -m0644 -D %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
+install -m0644 -D %{SOURCE11} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{project_name}-qt.desktop

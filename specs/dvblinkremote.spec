@@ -2,7 +2,7 @@
 
 Name:           dvblinkremote
 Version:        0.2.0
-Release:        0.37.%{prerelease}%{?dist}
+Release:        0.38.%{prerelease}%{?dist}
 Summary:        Tool for interacting with a DVBLink Connect! Server
 
 License:        MIT
@@ -55,6 +55,7 @@ developing applications that use libdvblinkremote.
 
 %build
 %cmake \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DDVBLINKREMOTE_BIN_DIR=%{_bindir} \
   -DDVBLINKREMOTE_INCLUDE_DIR=%{_includedir}/lib%{name} \
   -DDVBLINKREMOTE_LIB_DIR=%{_libdir}
@@ -80,6 +81,9 @@ developing applications that use libdvblinkremote.
 
 
 %changelog
+* Sat Jan 03 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.2.0-0.38.beta
+- Fix build with CMake 4.0 (RHBZ #2380559)
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.0-0.37.beta
 - Rebuilt for tinyxml2 11.0.0
 

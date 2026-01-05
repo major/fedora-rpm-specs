@@ -5,7 +5,7 @@
 Name: firejail
 Summary: Linux namespaces sandbox program
 
-%global ver_no 0.9.76
+%global ver_no 0.9.78
 #%%global ver_rc rc4
 
 Version: %{expand:%{ver_no}%{?ver_rc:~}%{?ver_rc}}
@@ -43,10 +43,10 @@ using Linux namespaces. It includes a sandbox profile for Mozilla Firefox.
 # For some features, if --enable-feature is requested, but the requirements
 # are not satisfied (e.g. missing library headers), configure will only print
 # a warning, instead of erroring out. Capture the output to a file...
-%configure --enable-ids --enable-landlock --enable-selinux | tee fedconfig.txt
+%configure --enable-selinux | tee fedconfig.txt
 
 # ...and make sure that all the features we're interested in are enabled.
-for FEATURE in DBUSPROXY IDS LANDLOCK SELINUX X11 ; do
+for FEATURE in DBUSPROXY LANDLOCK SELINUX X11 ; do
 	grep -e "-DHAVE_${FEATURE}$" fedconfig.txt
 done
 
@@ -91,14 +91,17 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %{_docdir}/%{name}/COPYING
 %{_docdir}/%{name}/profile.template
 %{_docdir}/%{name}/redirect_alias-profile.template
-%{_docdir}/%{name}/syscalls.txt
-%{_mandir}/man5/%{name}-login.5.*
-%{_mandir}/man5/%{name}-profile.5.*
-%{_mandir}/man5/%{name}-users.5.*
+%{_docdir}/%{name}/*syscalls.txt
+%{_mandir}/man5/%{name}-login.5*
+%{_mandir}/man5/%{name}-profile.5*
+%{_mandir}/man5/%{name}-users.5*
 %{_mandir}/man1/*
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.78-1
+- Update to v0.9.78
+
 * Wed Jul 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.76-1
 - Update to v0.9.76
 

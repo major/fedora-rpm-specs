@@ -2,7 +2,7 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 6.21.0
+Version: 6.22.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -114,6 +114,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
+- 6.22.0
+
 * Fri Dec 05 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-1
 - 6.21.0
 

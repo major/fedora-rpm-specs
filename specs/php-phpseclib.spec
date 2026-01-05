@@ -3,12 +3,12 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           4de468f48f0ab9709fc875aca0762abdc81cfa9b
+%global github_commit           1815ddd00195487cc922577751c175f339f4e20f
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.49
+Version:    2.0.50
 Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
@@ -37,6 +37,7 @@ BuildRequires:  %{_bindir}/phpab
 # Optional at runtime, to avoid too muck skipped tests
 BuildRequires:  php-bcmath
 BuildRequires:  php-gmp
+BuildRequires:  php-mcrypt
 %endif
 
 Requires:   php(language) >= 5.3.3
@@ -44,6 +45,7 @@ Requires:   php-bcmath
 Requires:   php-date
 Requires:   php-gmp
 Requires:   php-hash
+Requires:   php-mcrypt
 Requires:   php-openssl
 Requires:   php-pcre
 Requires:   php-session
@@ -111,7 +113,7 @@ sed -e '/require /d' -i tests/Unit/Crypt/Hash/SHA*_96Test.php
 
 # testAuthorityInfoAccess fails without internet access
 ret=0
-for cmd in "php %{phpunit}" php80 php81 php82; do
+for cmd in "php %{phpunit}" php80 php81 php82 php83 php84 php85; do
   if which $cmd; then
     set $cmd
     $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
@@ -131,6 +133,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.50-1
+- Update to v2.0.50
+
 * Mon Oct 06 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.49-1
 - Update to v2.0.49
 

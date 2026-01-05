@@ -1,8 +1,8 @@
 %global framework kirigami
 
 Name:           kf6-%{framework}
-Version:        6.21.0
-Release:        3%{?dist}
+Version:        6.22.0
+Release:        1%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -10,13 +10,6 @@ Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_k
 Source1:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 # -- UPSTREAM --
-
-# SwipeListItem: Add back checking for parent width and implicitWidth
-# https://invent.kde.org/frameworks/kirigami/-/commit/19127672cd812d177192cf84da4107f9abed2934
-Patch0:         19127672cd812d177192cf84da4107f9abed2934.patch
-# SwipeListItem: Use implicitContentHeight/Width instead of contentItem.implicitHeight/Width
-# https://invent.kde.org/frameworks/kirigami/-/commit/50e6e5b1df0cf075682ad0d4fa11bf9efdcf9618
-Patch1:         50e6e5b1df0cf075682ad0d4fa11bf9efdcf9618.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -130,6 +123,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
+- 6.22.0
+
 * Mon Dec 22 2025 Steve Cossette <farchord@gmail.com> - 6.21.0-3
 - SwipeListItem: Use implicitContentHeight/Width instead of
   contentItem.implicitHeight/Width

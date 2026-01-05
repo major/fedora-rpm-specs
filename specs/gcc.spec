@@ -1,5 +1,5 @@
-%global DATE 20251220
-%global gitrev ac4db8ee4097571c12b053c4724d2ca8b98dcfe9
+%global DATE 20260103
+%global gitrev b48538f45d8b883ab0ed4e77c445dc12b122cb3a
 %global gcc_version 16.0.0
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}
+Release: %{gcc_release}.4%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -293,6 +293,10 @@ Requires: glibc >= 2.16
 %endif
 Requires: libgcc >= %{version}-%{release}
 Requires: libgomp = %{version}-%{release}
+%if %{build_libatomic}
+Requires: libatomic = %{version}-%{release}
+Obsoletes: libatomic-static < %{version}-%{release}
+%endif
 # lto-wrapper invokes make
 Requires: make
 %if !%{build_ada}
@@ -317,8 +321,9 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-pr123114.patch
-Patch14: gcc16-pr123115.patch
+Patch13: gcc16-pr123115.patch
+Patch14: gcc16-pr120250.patch
+Patch15: gcc16-pr123372.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -741,13 +746,6 @@ Summary: The GNU Atomic library
 This package contains the GNU Atomic library
 which is a GCC support runtime library for atomic operations not supported
 by hardware.
-
-%package -n libatomic-static
-Summary: The GNU Atomic static library
-Requires: libatomic = %{version}-%{release}
-
-%description -n libatomic-static
-This package contains GNU Atomic static libraries.
 
 %package -n libasan
 Summary: The Address Sanitizer runtime library
@@ -1954,7 +1952,7 @@ mv -f %{buildroot}%{_prefix}/%{_lib}/libga68.*a $FULLLPATH/
 mv -f %{buildroot}%{_prefix}/%{_lib}/libitm.*a $FULLLPATH/
 %endif
 %if %{build_libatomic}
-mv -f %{buildroot}%{_prefix}/%{_lib}/libatomic.*a $FULLLPATH/
+mv -f %{buildroot}%{_prefix}/%{_lib}/libatomic.*a $FULLPATH/
 %endif
 %if %{build_libasan}
 mv -f %{buildroot}%{_prefix}/%{_lib}/libasan.*a $FULLLPATH/
@@ -2069,6 +2067,7 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libitm.so.1.* | sed 's,^.*
 rm -f libatomic.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > libatomic.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > 64/libatomic.so
+mv -f %{buildroot}%{_prefix}/lib64/libatomic.*a 64/
 %endif
 %if %{build_libasan}
 rm -f libasan.so
@@ -2122,10 +2121,6 @@ ln -sf ../lib64/libga68.a 64/libga68.a
 %if %{build_libitm}
 ln -sf lib32/libitm.a libitm.a
 ln -sf ../lib64/libitm.a 64/libitm.a
-%endif
-%if %{build_libatomic}
-ln -sf lib32/libatomic.a libatomic.a
-ln -sf ../lib64/libatomic.a 64/libatomic.a
 %endif
 %if %{build_libasan}
 ln -sf lib32/libasan.a libasan.a
@@ -2204,6 +2199,7 @@ echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libitm.so.1.* | sed 's,^.*
 rm -f libatomic.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > libatomic.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > 32/libatomic.so
+mv -f %{buildroot}%{_prefix}/lib/libatomic.*a 32/
 %endif
 %if %{build_libasan}
 rm -f libasan.so
@@ -2260,10 +2256,6 @@ ln -sf lib64/libga68.a libga68.a
 ln -sf ../lib32/libitm.a 32/libitm.a
 ln -sf lib64/libitm.a libitm.a
 %endif
-%if %{build_libatomic}
-ln -sf ../lib32/libatomic.a 32/libatomic.a
-ln -sf lib64/libatomic.a libatomic.a
-%endif
 %if %{build_libasan}
 ln -sf ../lib32/libasan.a 32/libasan.a
 ln -sf lib64/libasan.a libasan.a
@@ -2313,9 +2305,6 @@ ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libga6
 %endif
 %if %{build_libitm}
 ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libitm.a 32/libitm.a
-%endif
-%if %{build_libatomic}
-ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libatomic.a 32/libatomic.a
 %endif
 %if %{build_libasan}
 ln -sf ../../../%{multilib_32_arch}-%{_vendor}-%{_target_os}/%{gcc_major}/libasan.a 32/libasan.a
@@ -3024,6 +3013,7 @@ end
 %endif
 %else
 %if %{build_libatomic}
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.so
 %endif
 %if %{build_libasan}
@@ -3628,22 +3618,6 @@ end
 %if %{build_libatomic}
 %files -n libatomic
 %{_prefix}/%{_lib}/libatomic.so.1*
-
-%files -n libatomic-static
-%dir %{_prefix}/lib/gcc
-%dir %{_prefix}/lib/gcc/%{gcc_target_platform}
-%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
-%ifarch sparcv9 ppc
-%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib32
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib32/libatomic.a
-%endif
-%ifarch sparc64 ppc64 ppc64p7
-%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib64
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib64/libatomic.a
-%endif
-%ifnarch sparcv9 sparc64 ppc ppc64 ppc64p7
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.a
-%endif
 %doc rpm.doc/changelogs/libatomic/ChangeLog*
 %endif
 
@@ -3936,6 +3910,24 @@ end
 %endif
 
 %changelog
+* Sat Jan  3 2026 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.4
+- update from trunk
+  - PRs ada/123060, ada/123088, ada/123185, ada/123289, ada/123302,
+	ada/123306, ada/15605, c++/117518, c++/119097, c++/120005, c++/121864,
+	c++/122550, c++/122690, c++/122712, c++/122819, c++/122958,
+	c++/122994, c++/123080, c++/123261, c++/123277, fortran/101399,
+	fortran/121472, fortran/121475, fortran/122957, fortran/123201,
+	fortran/123253, libfortran/119136, middle-end/123067,
+	middle-end/123222, other/122243, rtl-optimization/123114,
+	rtl-optimization/123267, rtl-optimization/123276,
+	rtl-optimization/123295, rtl-optimization/123308, target/121485,
+	target/122769, target/123216, target/123217, target/123274,
+	target/123278, target/123283, target/123318, testsuite/123299,
+	testsuite/123334, tree-optimization/123089
+- require libatomic package from gcc package as -latomic is now linked
+  as-needed by default
+- remove libatomic-static package, move libatomic.a into gcc package
+
 * Sat Dec 20 2025 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.3
 - update from trunk
   - PRs bootstrap/12407, c/123156, c++/91388, c++/117034, c++/122070,

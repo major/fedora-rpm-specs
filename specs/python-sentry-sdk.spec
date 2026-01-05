@@ -50,7 +50,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.47.0
+Version:        2.48.0
 %global tag %{version}
 %forgemeta
 

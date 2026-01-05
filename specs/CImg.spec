@@ -6,8 +6,8 @@
 
 Name:           CImg
 Epoch:          1
-Version:        3.6.5
-Release:        2%{?dist}
+Version:        3.6.6
+Release:        1%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
 # plugins/cimgmatlab.h: LGPLv3
@@ -37,11 +37,6 @@ BuildRequires:  OpenEXR-devel
 BuildRequires:  zlib-devel
 BuildRequires:  make
 
-# to fix compile error on i686
-Patch1:         https://github.com/GreycLab/CImg/commit/94f00eb0302a9db7aa8ea4034fb48a8a4dbbbb8e.patch
-# modified for removing nonexistant html-parts
-Patch2:         https://github.com/GreycLab/CImg/commit/50674b2dcfe004673f629bbb37bc9c960f2ae614.patch
-
 %description
 The CImg Library is an open-source C++ toolkit for image processing. 
 It consists in a single header file 'CImg.h' providing a minimal set of C++ 
@@ -59,8 +54,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch -P 1 -p1
-%patch -P 2 -p1
 sed -i 's|$(X11PATH)/lib|$(X11PATH)/%{_lib}|g' examples/Makefile
 %if %{with flexiblas}
 sed -i 's|-lblas -llapack|-lflexiblas|g' examples/Makefile
@@ -86,6 +79,10 @@ make -C examples linux %{?_smp_mflags}
 %{_includedir}/%{name}/
 
 %changelog
+* Sat Jan 03 2026 josef radinger <cheese@nosuchhost.net> - 1:3.6.6-1
+- bump version
+- remove now unneeded patches
+
 * Thu Dec 18 2025 josef radinger <cheese@nosuchhost.net> - 1:3.6.5-2
 - bump version
 - add patch https://github.com/GreycLab/CImg/commit/94f00eb0302a9db7aa8ea4034fb48a8a4dbbbb8e.patch

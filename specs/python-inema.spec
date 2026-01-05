@@ -7,7 +7,7 @@ international postal products like post cards and letters of all weight\
 classes and service classes (normal, registered, ...).
 
 Name:           python-%{srcname}
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        A Python interface to the Deutsche Post Internetmarke Online Franking
 

@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -10,6 +10,7 @@ Source1:        coturn.service
 Source2:        coturn.tmpfilesd
 Source3:        coturn.logrotate
 Source4:        coturn.sysusersd
+Patch0:         coturn-4.7.0-cve-2025-69217.patch
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
@@ -97,7 +98,7 @@ Summary:        Coturn client development headers
 This package contains the TURN client development headers.
 
 %prep
-%setup -q
+%autosetup -p1
 # Use Fedora Default Ciphers
 sed -i \
     -e 's|#define DEFAULT_CIPHER_LIST "DEFAULT"|#define DEFAULT_CIPHER_LIST "PROFILE=SYSTEM"|g' \
@@ -220,6 +221,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Sun Jan 04 2026 Robert Scheck <robert@fedoraproject.org> - 4.7.0-4
+- Backport upstream patches for CVE-2025-69217 (#2425955)
+
 * Sun Aug 10 2025 Robert Scheck <robert@fedoraproject.org> - 4.7.0-3
 - Start after network-online.target not network.target
 

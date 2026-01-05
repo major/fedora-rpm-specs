@@ -1,6 +1,6 @@
 Name:           gnat-srpm-macros
-Version:        6
-Release:        9%{?dist}
+Version:        7
+Release:        1%{?dist}
 Summary:        RPM macros needed when source packages that need GNAT are built
 Summary(sv):    RPM-makron som behövs när källkodspaket som behöver GNAT byggs
 
@@ -21,14 +21,6 @@ RPM-paket som behöver GNAT-verktygen byggs. Det är ett fristående paket för 
 bero av så få andra paket som möjligt.
 
 
-%prep
-# nothing to do
-
-
-%build
-# nothing to do
-
-
 %install
 mkdir -p %{buildroot}/%{rpmmacrodir}
 install -p -m 0644 -t %{buildroot}/%{rpmmacrodir} %{SOURCE1}
@@ -39,7 +31,7 @@ install -p -m 0644 -t %{buildroot}/%{rpmmacrodir} %{SOURCE1}
 
 
 %changelog
-* Fri Jan 01 2026 David Abdurachmanov <davidlt@rivosinc.com> - 6-9
+* Fri Jan 02 2026 David Abdurachmanov <davidlt@rivosinc.com> - 7-1
 - Add riscv64 to GPRbuild_arches
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6-8
