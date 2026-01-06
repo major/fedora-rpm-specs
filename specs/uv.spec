@@ -147,6 +147,10 @@ Source1:        uv.toml
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
 
+# Gate python_install tests on python-managed feature
+# https://github.com/astral-sh/uv/pull/17312
+Patch:          %{url}/pull/17312.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -562,13 +566,6 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 skip="${skip-} --skip version::self_version"
 skip="${skip-} --skip version::self_version_json"
 skip="${skip-} --skip version::self_version_short"
-%else
-# Some python_find:: tests don’t find system interpreters, require network
-# https://github.com/astral-sh/uv/issues/16431
-skip="${skip-} --skip python_find::python_find_freethreaded_313"
-skip="${skip-} --skip python_find::python_find_freethreaded_314"
-skip="${skip-} --skip python_find::python_find_prerelease_version_specifiers"
-skip="${skip-} --skip python_find::python_find_prerelease_with_patch_request"
 %endif
 
 %ifnarch %{x86_64} %{arm64}
@@ -596,14 +593,6 @@ skip="${skip-} --skip registry_client::tests::test_redirect_to_server_with_crede
 # appropriately conditionalized upstream; see
 # https://github.com/astral-sh/uv/pull/13699#issuecomment-2916115588.
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
-
-%if %{defined el10}
-# Trivial difference in snapshots: packages appear in a different order.
-skip="${skip-} --skip lock::tests::missing_dependency_source_unambiguous"
-skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"
-skip="${skip-} --skip lock::tests::missing_dependency_source_version_unambiguous"
-skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
-%endif
 
 # Upstream is trying to ensure platform-independent byte-for-byte deterministic
 # wheels. This isn’t quite working out. It would be nice to understand this,

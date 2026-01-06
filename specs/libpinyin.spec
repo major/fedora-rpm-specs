@@ -1,5 +1,5 @@
 Name:           libpinyin
-Version:        2.10.3
+Version:        2.11.91
 Release:        1%{?dist}
 Summary:        Library to deal with pinyin
 
@@ -96,6 +96,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Sun Jan 04 2026 Peng Wu <pwu@redhat.com> - 2.11.91-1
+- Update to 2.11.91
+- support "sua" and "zua" pinyin input
+
 * Thu Sep 18 2025 Peng Wu <pwu@redhat.com> - 2.10.3-1
 - Update to 2.10.3
 - bug fixes

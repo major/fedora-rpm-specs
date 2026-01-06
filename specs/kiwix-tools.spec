@@ -1,16 +1,12 @@
-%global commit 43b00419dd3f33eb644e1d83c2e802fc200b2de7
-%global date 20241221
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name: kiwix-tools
-Version: 3.7.0^%{date}git%{shortcommit}
+Version: 3.8.1
 Release: %autorelease
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
 
 URL: https://github.com/kiwix/%{name}
-Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: docopt-cpp-devel
 BuildRequires: libkiwix-devel
@@ -28,7 +24,7 @@ The Kiwix tools is a collection of Kiwix related command line
 tools.
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -p1
 
 %build
 %meson -Dwerror=false

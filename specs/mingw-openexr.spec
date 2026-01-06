@@ -3,7 +3,7 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.4.0
+Version:       3.4.4
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -16,18 +16,20 @@ Source0:       https://github.com/AcademySoftwareFoundation/%{pkgname}/archive/v
 BuildRequires: cmake
 BuildRequires: make
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-imath
 BuildRequires: mingw32-libdeflate
+BuildRequires: mingw32-libopenjph
 BuildRequires: mingw32-zlib
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-imath
 BuildRequires: mingw64-libdeflate
+BuildRequires: mingw64-libopenjph
 BuildRequires: mingw64-zlib
 
 %description
@@ -36,11 +38,6 @@ MinGW Windows %{pkgname} library.
 
 %package -n mingw32-%{pkgname}
 Summary:       MinGW Windows %{pkgname} library
-Provides:      mingw32-OpenEXR = %{version}-%{release}
-Provides:      mingw32-ilmbase = %{version}-%{release}
-Obsoletes:     mingw32-OpenEXR < 2.5.3
-Obsoletes:     mingw32-OpenEXR-static < 2.5.3
-Obsoletes:     mingw32-ilmbase < 2.5.3
 
 %description -n mingw32-%{pkgname}
 %{summary}.
@@ -50,10 +47,6 @@ Obsoletes:     mingw32-ilmbase < 2.5.3
 %package -n mingw32-%{pkgname}-tools
 Summary:       Tools for the MinGW Windows %{pkgname} library
 Requires:      mingw32-%{pkgname} = %{version}-%{release}
-Provides:      mingw32-OpenEXR-tools = %{version}-%{release}
-Provides:      mingw32-ilmbase-tools = %{version}-%{release}
-Obsoletes:     mingw32-OpenEXR-tools < 2.5.3
-Obsoletes:     mingw32-ilmbase-tools < 2.5.3
 
 %description -n mingw32-%{pkgname}-tools
 %{summary}.
@@ -61,11 +54,6 @@ Obsoletes:     mingw32-ilmbase-tools < 2.5.3
 
 %package -n mingw64-%{pkgname}
 Summary:       MinGW Windows %{pkgname} library
-Provides:      mingw64-OpenEXR = %{version}-%{release}
-Provides:      mingw64-ilmbase = %{version}-%{release}
-Obsoletes:     mingw64-OpenEXR < 2.5.3
-Obsoletes:     mingw64-OpenEXR-static < 2.5.3
-Obsoletes:     mingw64-ilmbase < 2.5.3
 
 %description -n mingw64-%{pkgname}
 %{summary}.
@@ -74,10 +62,6 @@ Obsoletes:     mingw64-ilmbase < 2.5.3
 %package -n mingw64-%{pkgname}-tools
 Summary:       Tools for the MinGW Windows %{pkgname} library
 Requires:      mingw64-%{pkgname} = %{version}-%{release}
-Provides:      mingw64-OpenEXR-tools = %{version}-%{release}
-Provides:      mingw64-ilmbase-tools = %{version}-%{release}
-Obsoletes:     mingw64-OpenEXR-tools < 2.5.3
-Obsoletes:     mingw64-ilmbase-tools < 2.5.3
 
 %description -n mingw64-%{pkgname}-tools
 %{summary}.
@@ -105,17 +89,17 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 %files -n mingw32-%{pkgname}
 %license LICENSE.md
-%{mingw32_bindir}/libIex-3_3.dll
-%{mingw32_bindir}/libIlmThread-3_3.dll
-%{mingw32_bindir}/libOpenEXR-3_3.dll
-%{mingw32_bindir}/libOpenEXRCore-3_3.dll
-%{mingw32_bindir}/libOpenEXRUtil-3_3.dll
+%{mingw32_bindir}/libIex-3_4.dll
+%{mingw32_bindir}/libIlmThread-3_4.dll
+%{mingw32_bindir}/libOpenEXR-3_4.dll
+%{mingw32_bindir}/libOpenEXRCore-3_4.dll
+%{mingw32_bindir}/libOpenEXRUtil-3_4.dll
 %{mingw32_includedir}/OpenEXR/
-%{mingw32_libdir}/libIex-3_3.dll.a
-%{mingw32_libdir}/libIlmThread-3_3.dll.a
-%{mingw32_libdir}/libOpenEXR-3_3.dll.a
-%{mingw32_libdir}/libOpenEXRCore-3_3.dll.a
-%{mingw32_libdir}/libOpenEXRUtil-3_3.dll.a
+%{mingw32_libdir}/libIex-3_4.dll.a
+%{mingw32_libdir}/libIlmThread-3_4.dll.a
+%{mingw32_libdir}/libOpenEXR-3_4.dll.a
+%{mingw32_libdir}/libOpenEXRCore-3_4.dll.a
+%{mingw32_libdir}/libOpenEXRUtil-3_4.dll.a
 %{mingw32_libdir}/cmake/OpenEXR/
 %{mingw32_libdir}/pkgconfig/OpenEXR.pc
 
@@ -135,17 +119,17 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 %files -n mingw64-%{pkgname}
 %license LICENSE.md
-%{mingw64_bindir}/libIex-3_3.dll
-%{mingw64_bindir}/libIlmThread-3_3.dll
-%{mingw64_bindir}/libOpenEXR-3_3.dll
-%{mingw64_bindir}/libOpenEXRCore-3_3.dll
-%{mingw64_bindir}/libOpenEXRUtil-3_3.dll
+%{mingw64_bindir}/libIex-3_4.dll
+%{mingw64_bindir}/libIlmThread-3_4.dll
+%{mingw64_bindir}/libOpenEXR-3_4.dll
+%{mingw64_bindir}/libOpenEXRCore-3_4.dll
+%{mingw64_bindir}/libOpenEXRUtil-3_4.dll
 %{mingw64_includedir}/OpenEXR/
-%{mingw64_libdir}/libIex-3_3.dll.a
-%{mingw64_libdir}/libIlmThread-3_3.dll.a
-%{mingw64_libdir}/libOpenEXR-3_3.dll.a
-%{mingw64_libdir}/libOpenEXRCore-3_3.dll.a
-%{mingw64_libdir}/libOpenEXRUtil-3_3.dll.a
+%{mingw64_libdir}/libIex-3_4.dll.a
+%{mingw64_libdir}/libIlmThread-3_4.dll.a
+%{mingw64_libdir}/libOpenEXR-3_4.dll.a
+%{mingw64_libdir}/libOpenEXRCore-3_4.dll.a
+%{mingw64_libdir}/libOpenEXRUtil-3_4.dll.a
 %{mingw64_libdir}/cmake/OpenEXR/
 %{mingw64_libdir}/pkgconfig/OpenEXR.pc
 
@@ -165,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 3.4.4-1
+- Update to 3.4.4
+
 * Mon Sep 08 2025 Sandro Mani <manisandro@gmail.com> - 3.4.0-1
 - Update to 3.4.0
 

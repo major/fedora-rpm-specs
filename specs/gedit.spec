@@ -1,20 +1,21 @@
 %global amtk_version 5.9
 %global glib2_version 2.76
 %global gtk3_version 3.22
-%global gtksourceview_version 299.5
+%global gtksourceview_version 299.6
 %global libpeas_version 1.14.1
 %global gspell_version 1.0
-%global tepl_version 6.13
+%global tepl_version 6.14
 
 # Filter provides for plugin .so files
 %global __provides_exclude_from ^%{_libdir}/gedit/plugins/
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global api_version %%(ver=%%{version}; echo ${ver%%.*})
+%global tarball_version %%(ver=%%{version}; echo ${ver//~/.})
 %global libgd_commit 3cccf99234288a6121b3945a25cd4ec3b7445c74
 
 Name:		gedit
 Epoch:		2
-Version:	48.2
+Version:	49.0
 Release:	%autorelease
 Summary:	Text editor for the GNOME desktop
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -126,7 +127,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_libdir}/gedit/girepository-1.0/
 %dir %{_libdir}/gedit
 %dir %{_libdir}/gedit/plugins
-%{_libdir}/gedit/libgedit-%{version}.so
+%{_libdir}/gedit/libgedit-%{api_version}.so
+%{_libdir}/gedit/plugins/codecomment.plugin
+%{_libdir}/gedit/plugins/libcodecomment.so
 %{_libdir}/gedit/plugins/docinfo.plugin
 %{_libdir}/gedit/plugins/libdocinfo.so
 %{_libdir}/gedit/plugins/filebrowser.plugin
@@ -156,7 +159,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_metainfodir}/org.gnome.gedit.metainfo.xml
 
 %files devel
-%{_includedir}/gedit-%{version}/
+%{_includedir}/gedit-%{api_version}/
 %{_libdir}/pkgconfig/gedit.pc
 %{_datadir}/gtk-doc/
 

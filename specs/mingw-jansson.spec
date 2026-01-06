@@ -3,27 +3,27 @@
 %global pkgname jansson
 
 Name:           mingw-%{pkgname}
-Version:        2.12
-Release:        17%{?dist}
+Version:        2.14.1
+Release:        1%{?dist}
 Summary:        C library for encoding, decoding and manipulating JSON data
 License:        MIT 
-URL:            http://www.digip.org/jansson/
-Source0:        http://www.digip.org/jansson/releases/jansson-%{version}.tar.bz2
+URL:            https://github.com/akheron/jansson
+Source0:        https://github.com/akheron/jansson/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+# Fix cmake module install dir
+Patch0:         jansson-cmakedir.patch
+# Raise minimum cmake version
+Patch1:         jansson-cmakever.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  cmake
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
-BuildRequires:  mingw32-binutils
-BuildRequires:  mingw32-dlfcn
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
-BuildRequires:  mingw64-binutils
-BuildRequires:  mingw64-dlfcn
 
 
 %description
@@ -49,41 +49,40 @@ Small library for parsing and writing JSON documents.
 
 
 %build
-%mingw_cmake -DJANSSON_BUILD_SHARED_LIBS=ON -DJANSSON_EXAMPLES=OFF -DJANSSON_WITHOUT_TESTS=ON -DJANSSON_BUILD_DOCS=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo
-%mingw_make %{?_smp_mflags}
+%mingw_cmake \
+  -DJANSSON_BUILD_SHARED_LIBS=ON -DJANSSON_EXAMPLES=OFF \
+  -DJANSSON_WITHOUT_TESTS=ON -DJANSSON_BUILD_DOCS=OFF \
+  -DCMAKE_DLL_NAME_WITH_SOVERSION=ON
+%mingw_make_build
 
 
 %install
-%mingw_make install DESTDIR=%{buildroot}
+%mingw_make_install
 
 
 %files -n mingw32-%{pkgname}
 %license LICENSE
-%{mingw32_bindir}/libjansson.dll
-%{mingw32_libdir}/libjansson.dll.a
-%{mingw32_libdir}/pkgconfig/jansson.pc
+%{mingw32_bindir}/lib%{pkgname}-4.dll
+%{mingw32_libdir}/lib%{pkgname}.dll.a
+%{mingw32_libdir}/cmake/%{pkgname}/
+%{mingw32_libdir}/pkgconfig/%{pkgname}.pc
 %{mingw32_includedir}/jansson.h
 %{mingw32_includedir}/jansson_config.h
-%{mingw32_prefix}/cmake/janssonConfig.cmake
-%{mingw32_prefix}/cmake/janssonConfigVersion.cmake
-%{mingw32_prefix}/cmake/janssonTargets-relwithdebinfo.cmake
-%{mingw32_prefix}/cmake/janssonTargets.cmake
 
 %files -n mingw64-%{pkgname}
 %license LICENSE
-%{mingw64_bindir}/libjansson.dll
-%{mingw64_libdir}/libjansson.dll.a
-%{mingw64_libdir}/pkgconfig/jansson.pc
+%{mingw64_bindir}/lib%{pkgname}-4.dll
+%{mingw64_libdir}/lib%{pkgname}.dll.a
+%{mingw64_libdir}/cmake/%{pkgname}/
+%{mingw64_libdir}/pkgconfig/%{pkgname}.pc
 %{mingw64_includedir}/jansson.h
 %{mingw64_includedir}/jansson_config.h
-%{mingw64_prefix}/cmake/janssonConfig.cmake
-%{mingw64_prefix}/cmake/janssonConfigVersion.cmake
-%{mingw64_prefix}/cmake/janssonTargets-relwithdebinfo.cmake
-%{mingw64_prefix}/cmake/janssonTargets.cmake
 
-# See https://fedoraproject.org/wiki/Packaging:MinGW
 
 %changelog
+* Sun Jan 04 2026 Sandro Mani <manisandro@gmail.com> - 2.14.1-1
+- Update to 2.14.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

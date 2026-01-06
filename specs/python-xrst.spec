@@ -4,8 +4,8 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
-Version:        2025.0.2
-Release:        8%{?dist}
+Version:        2026.0.0
+Release:        1%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -39,32 +39,6 @@ cat << EOF > temp.sed
 s|'sphinx_rtd_theme'|&, '--suppress_spell_warnings'|
 EOF
 sed -i pytest/test_rst.py -f temp.sed 
-#
-# Fix sys.write -> sys.stderr.write
-# This patch will not be necessary when version >= 2025.0.4
-sed -i xrst/check_input_files.py -e 's|sys.write|sys.stderr.write|'
-#
-# Change toml -> tomli
-# This patch will not be necessary when version >= 2026.0.0
-cat << EOF > temp.sed
-s|import toml\$|import tomli|
-s|toml[.]loads[(]|tomli.loads(|
-s|^( *)toml\$|\\1tomli|
-s|'toml'|'tomli'|
-EOF
-#
-for file in \
-   bin/rst2man.py \
-   pyproject.toml \
-   tox.ini \
-   xrst/auto_file.py \
-   xrst/get_conf_dict.py \
-   xrst/rename_group.py \
-   xrst/replace_spell.py \
-   xrst/run_xrst.py
-do
-   sed -r -i $file -f temp.sed
-done
 #
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -106,6 +80,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Sun Jan 04 2025 Brad Bell <bradbell at seanet dot com> - 2026.0.0-1
+- New upstream source.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2025.0.2-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

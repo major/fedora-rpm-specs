@@ -2,8 +2,8 @@
 %global sover 3.1
 
 Name:           OpenImageIO
-Version:        3.1.8.0
-Release:        3%{?dist}
+Version:        3.1.9.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -203,6 +203,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Jan 04 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.9.0-1
+- Update to 3.1.9.0.
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 1:3.1.8.0-3
 - Rebuilt for OpenCV-4.12
 

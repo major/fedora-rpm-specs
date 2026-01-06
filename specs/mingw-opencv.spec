@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       4.12.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -238,6 +238,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Sun Jan 04 2026 Sandro Mani <manisandro@gmail.com> - 4.12.0-2
+- Rebuild (mingw-openexr)
+
 * Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 4.12.0-1
 - Update to 4.12.0
 

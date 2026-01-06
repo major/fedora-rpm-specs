@@ -1,7 +1,7 @@
 %global apiver 6
 
 Name:           libgedit-tepl
-Version:        6.13.0
+Version:        6.14.0
 Release:        %autorelease
 Summary:        Text editor product line library
 License:        LGPL-3.0-or-later
@@ -18,7 +18,7 @@ BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
 BuildRequires:  pkgconfig(libgedit-amtk-5) >= 5.9
 BuildRequires:  pkgconfig(libgedit-gfls-1) >= 0.3
-BuildRequires:  pkgconfig(libgedit-gtksourceview-300) >= 299.5
+BuildRequires:  pkgconfig(libgedit-gtksourceview-300) >= 299.6
 BuildRequires:  pkgconfig(libhandy-1) >= 1.6
 BuildRequires:  pkgconfig(icu-uc) pkgconfig(icu-i18n)
 # test dependencies
@@ -69,7 +69,7 @@ developing applications that use %{name}.
 %doc NEWS README.md
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Tepl-%{apiver}.typelib
-%{_libdir}/libgedit-tepl-%{apiver}.so.3{,.*}
+%{_libdir}/libgedit-tepl-%{apiver}.so.4{,.*}
 
 %files devel
 %{_includedir}/libgedit-tepl-%{apiver}/

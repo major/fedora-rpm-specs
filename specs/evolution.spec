@@ -480,6 +480,7 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %{_libdir}/evolution/libecontactlisteditor.so
 %{_libdir}/evolution/libecontactprint.so
 %{_libdir}/evolution/libemail-engine.so
+%{_libdir}/evolution/libevcardeditor.so
 %{_libdir}/evolution/libevolution-mail-formatter.so
 %{_libdir}/evolution/libevolution-shell.so
 %{_libdir}/evolution/libessmime.so

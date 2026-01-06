@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rkyv_derive
+%global crate aligned
 
-Name:           rust-rkyv_derive
-Version:        0.8.13
+Name:           rust-aligned
+Version:        0.4.3
 Release:        %autorelease
-Summary:        Derive macro for rkyv
+Summary:        Newtype with alignment of at least A bytes
 
-License:        MIT
-URL:            https://crates.io/crates/rkyv_derive
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/aligned
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-Derive macro for rkyv.}
+A newtype with alignment of at least `A` bytes.}
 
 %description %{_description}
 
@@ -31,8 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/src/serde/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,22 +48,8 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytecheck-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bytecheck-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bytecheck" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bytecheck-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Fix CRLF-terminated source files
-find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

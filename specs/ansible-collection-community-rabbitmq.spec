@@ -15,8 +15,8 @@
 %endif
 
 Name:           ansible-collection-community-rabbitmq
-Version:        1.3.0
-Release:        4%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        RabbitMQ collection for Ansible
 
 # plugins/module_utils/_version.py: Python Software Foundation License version 2
@@ -65,6 +65,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst
 
 %changelog
+* Sat Jan 03 2026 Kevin Fenzi <kevin@scrye.com> - 1.6.0-1
+- Update to 1.6.0. Fixes rhbz#2332773
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

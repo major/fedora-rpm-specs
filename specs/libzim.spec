@@ -1,5 +1,5 @@
 Name: libzim
-Version: 9.2.3
+Version: 9.4.1
 Release: %autorelease
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
@@ -7,9 +7,6 @@ Summary: Reference implementation of the ZIM specification
 
 URL: https://github.com/openzim/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/openzim/libzim/pull/936
-Patch100: %{name}-9.2.3-icu76-build-fix.patch
 
 BuildRequires: gtest-devel
 BuildRequires: libicu-devel

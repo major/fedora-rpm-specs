@@ -1,33 +1,32 @@
 Name:		perl-B-Hooks-Parser
 Version:	0.21
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Interface to perl's parser variables
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/B-Hooks-Parser
 Source0:	https://cpan.metacpan.org/authors/id/E/ET/ETHER/B-Hooks-Parser-%{version}.tar.gz
-
-BuildRequires:	perl-interpreter
+# Build
+BuildRequires:	coreutils
+BuildRequires:	gcc
+BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(ExtUtils::Depends) >= 0.302
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+# Module
+BuildRequires:	perl(B::Hooks::OP::Check) >= 0.18
+BuildRequires:	perl(DynaLoader)
+BuildRequires:	perl(parent)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
+# Test Suite
 BuildRequires:	perl(B::Hooks::EndOfScope)
-BuildRequires:	perl(B::Hooks::OP::Check)
-BuildRequires:	perl(ExtUtils::MakeMaker)
-BuildRequires:	perl(ExtUtils::Depends) >= 0.302
 BuildRequires:	perl(File::Spec)
-BuildRequires:	perl(parent)
-BuildRequires:	perl(DynaLoader)
-BuildRequires:	perl(Module::Metadata)
-BuildRequires:	perl(Test::Exception)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Fatal)
-BuildRequires:	findutils
-BuildRequires:	gcc
-BuildRequires:	coreutils
-BuildRequires:	make
-
+# Dependencies
+# (none)
 
 %description
 This module provides an API for parts of the perl parser. It can be used to
@@ -36,34 +35,38 @@ modify code while it's being parsed.
 %prep
 %setup -q -n B-Hooks-Parser-%{version}
 
-%build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
-
-%install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -delete
-
+# Use American English spelling
 cp LICENCE LICENSE
 
-%{_fixperms} %{buildroot}/*
+%build
+perl Makefile.PL \
+  INSTALLDIRS=vendor \
+  NO_PACKLIST=1 \
+  NO_PERLLOCAL=1 \
+  OPTIMIZE="%{optflags}"
+%{make_build}
+
+%install
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes CONTRIBUTING README
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
-%{perl_vendorarch}/auto/B
-%{perl_vendorarch}/B
-%{_mandir}/man3/B::Hooks::Parser.3pm*
+%{perl_vendorarch}/auto/B/
+%{perl_vendorarch}/B/
+%{_mandir}/man3/B::Hooks::Parser.3*
 
 %changelog
+* Sun Jan  4 2026 Paul Howarth <paul@city-fan.org> - 0.21-24
+- Classify buildreqs by usage
+- Use %%license unconditionally
+- Use %%{make_build} and %%{make_install}
+- Fix permissions verbosely
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

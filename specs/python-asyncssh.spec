@@ -5,7 +5,7 @@ implements many SSH protocol features such as the various channels,\
 SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
-Version:        2.21.1
+Version:        2.22.0
 Release:        %autorelease
 Summary:        Asynchronous SSH for Python
 
@@ -14,8 +14,14 @@ License:        EPL-2.0 OR GPL-2.0-or-later
 URL:            https://github.com/ronf/asyncssh
 Source0:        %pypi_source
 
+# XXX remove with next release
+# cf. https://github.com/ronf/asyncssh/pull/788
+Patch0:         libnacl-dep-cleanup.patch
+Patch1:         aiofiles-context-manager.patch
+
 
 BuildArch:      noarch
+
 
 # required by unittests
 BuildRequires:  nmap-ncat
@@ -23,9 +29,6 @@ BuildRequires:  openssh-clients
 BuildRequires:  openssl
 BuildRequires:  python3-gssapi
 
-
-# for ed25519 etc.
-Recommends:     python3-libnacl
 
 # for OpenSSH private key encryption
 Suggests:       python3-bcrypt
@@ -35,6 +38,7 @@ Suggests:       python3-gssapi
 Suggests:       python3-pyOpenSSL
 # for U2F etc. support
 Suggests:       python3-fido2
+
 
 %description
 %{desc}

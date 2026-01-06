@@ -30,7 +30,7 @@ Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND GPL-3.0-or-later
-URL:            https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
+URL:            https://spidermonkey.dev/
 Source0:        https://ftp.mozilla.org/pub/firefox/releases/%{version}esr/source/firefox-%{version}esr.source.tar.xz
 
 # Known failures with system libicu

@@ -7,7 +7,7 @@
 %global crate gengo-bin
 
 Name:           rust-gengo-bin
-Version:        0.14.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 

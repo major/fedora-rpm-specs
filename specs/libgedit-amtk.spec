@@ -1,5 +1,5 @@
 Name:           libgedit-amtk
-Version:        5.9.1
+Version:        5.9.2
 Release:        %autorelease
 Summary:        Gedit Technology - Actions, Menus and Toolbars Kit
 License:        LGPL-3.0-or-later

@@ -1,5 +1,5 @@
 Name:           ddrescue
-Version:        1.29.1
+Version:        1.30
 Release:        %autorelease
 Summary:        Data recovery tool trying hard to rescue data in case of read errors
 License:        GPL-3.0-or-later

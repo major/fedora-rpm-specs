@@ -1,10 +1,16 @@
+%if 0%{?rhel}
+# Zig depends on a C compiler (gcc) during bootstraping
+# older versions of gcc fail to compile the transpiled source so we limit it to x86_64
+%global         zig_arches x86_64
+%else
 # https://ziglang.org/download/VERSION/release-notes.html#Support-Table
 %global         zig_arches x86_64 aarch64 riscv64 %{mips64}
+%endif
 # Signing key from https://ziglang.org/download/
 %global         public_key RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
 
 # note here at which Fedora or EL release we need to use compat LLVM packages
-%if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 %global         llvm_compat 20
 %endif
 
@@ -15,7 +21,7 @@
 %bcond macro     %{without bootstrap}
 %bcond test      1
 
-%global zig_cache_dir %{builddir}/zig-cache
+%global zig_cache_dir %{_vpath_builddir}/zig-cache
 
 %global zig_build_options %{shrink: \
     --verbose \
@@ -44,7 +50,7 @@
 
 Name:           zig
 Version:        0.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 # The minisign file references a specific archive name so we store for ease of use
 %global         archive_name %{name}-%{version}.tar.xz
@@ -57,7 +63,10 @@ Source2:        macros.%{name}
 # Remove native lib directories from rpath
 # this is unlikely to be upstreamed in its current state because upstream
 # wants to work around the shortcomings of NixOS
-Patch:          0001-remove-native-lib-directories-from-rpath.patch
+Patch0:         0001-remove-native-lib-directories-from-rpath.patch
+# LLVM on RHEL/EPEL only provides fewer targets so we patch the required targets down
+# Targets come from https://src.fedoraproject.org/rpms/llvm/blob/rawhide/f/llvm.spec
+Patch1:         0002-Remove-unsupported-LLVM-targets-for-EPEL.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -138,9 +147,14 @@ This package contains common RPM macros for %{name}.
 %endif
 
 %prep
-/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key} -Q | grep "file:%{archive_name}"
+/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key} -Q | grep -F "file:%{archive_name}"
 
-%autosetup -p1
+%autosetup -N
+%patch 0 -p1
+%if 0%{?rhel}
+%patch 1 -p1
+%endif
+
 %if %{without bootstrap}
 # Ensure that the pre-build stage1 binary is not used
 rm -f stage1/zig1.wasm
@@ -232,6 +246,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Sun Jan 04 2026 Jan200101 <sentrycraft123@gmail.com> - 0.15.2-2
+- Rebuilt for EPEL
+
 * Sun Oct 12 2025 Jan200101 <sentrycraft123@gmail.com> - 0.15.2-1
 - Update to 0.15.2
 

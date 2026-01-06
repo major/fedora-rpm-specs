@@ -1,5 +1,5 @@
 Name: libkiwix
-Version: 14.0.0
+Version: 14.1.1
 Release: %autorelease
 
 License: GPL-3.0-or-later
@@ -7,10 +7,6 @@ Summary: Common code base for all Kiwix ports
 
 URL: https://github.com/kiwix/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fixed build against libicu 76
-# Similar to https://github.com/openzim/libzim/pull/936
-Patch100: %{name}-14.0.0-icu76-build-fix.patch
 
 BuildRequires: gtest-devel
 BuildRequires: libcurl-devel

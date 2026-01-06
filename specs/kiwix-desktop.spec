@@ -1,5 +1,5 @@
 Name: kiwix-desktop
-Version: 2.4.1
+Version: 2.5.1
 Release: %autorelease
 
 License: GPL-3.0-or-later
@@ -12,10 +12,10 @@ BuildRequires: libkiwix-devel
 BuildRequires: libzim-devel
 BuildRequires: mustache-devel
 BuildRequires: pugixml-devel
-BuildRequires: qt5-linguist
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtwebengine-devel
-BuildRequires: qtsingleapplication-qt5-devel
+BuildRequires: qt6-linguist
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtwebengine-devel
+BuildRequires: qtsingleapplication-qt6-devel
 
 BuildRequires: aria2
 BuildRequires: desktop-file-utils
@@ -26,11 +26,11 @@ BuildRequires: make
 
 Requires: aria2%{?_isa}
 Requires: hicolor-icon-theme
-Requires: qt5-qtsvg%{?_isa}
+Requires: qt6-qtsvg%{?_isa}
 Requires: shared-mime-info
 
-# Required qt5-qtwebengine is not available on some arches.
-ExclusiveArch: %{qt5_qtwebengine_arches}
+# Required qt6-qtwebengine is not available on some arches.
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 %description
 The Kiwix-desktop is a view/manager of zim files for GNU/Linux
@@ -45,7 +45,7 @@ rm -rf subprojects
 
 %build
 pushd %{_vpath_builddir}
-    %qmake_qt5 PREFIX=%{_prefix} CONFIG+=qtsingleapplication ..
+    %qmake_qt6 PREFIX=%{_prefix} CONFIG+=qtsingleapplication ..
 popd
 
 %make_build -C %{_vpath_builddir}
