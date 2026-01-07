@@ -1,7 +1,7 @@
-%global commit 27d2acd196b983afad774c109966bc7b44c4a85c
+%global commit a8ac9f9ce50284c5ddeac8b4d50e9bc433eb42b4
 # %%global tag 11 #disabled due to unarragment release line after mass rebuild.
 %global githead %(printf %%.7s %commit)
-%global gitdate 20250704
+%global gitdate 20251223
 
 # epel7 compatibility mode
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -48,7 +48,7 @@ It can be used to improve portability and other functionality in your programs.
 
 Name:     gnulib
 Version:  0
-Release:  54.%{gitdate}git%{?dist}
+Release:  55.%{gitdate}git%{?dist}
 Summary:  GNU Portability Library
 License:  Public Domain and BSD and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ and LGPLv3+
 URL:      https://www.gnu.org/software/gnulib
@@ -77,6 +77,8 @@ BuildRequires:		help2man
 BuildRequires:		git
 BuildRequires:      make
 BuildRequires:      ncurses-devel
+BuildRequires:      python3-devel
+
 
 %description
 %common_desc
@@ -92,6 +94,7 @@ for item in $toRemove
 do
    list="$(echo $list| sed "s:\b$item\b::g")"
 done
+
 #is necessary to avoid some modules to test prep pass
 ./gnulib-tool --create-testdir --with-tests --with-obsolete --avoid=alloca --avoid=lib-symbol-visibility --avoid=havelib --dir=build-tests $list
 
@@ -108,6 +111,12 @@ popd
 #tests build
 cp -p lib/timevar.def build-tests/gllib #Fix timevar.def not found
 pushd build-tests
+
+# FIX ERROR CAN'T DETECT AC_LIB_PREPARE_PREFIX
+mkdir m4
+autoreconf -vfi
+
+
 %configure --prefix=%_prefix
 make %{?_smp_mflags}
 popd
@@ -120,9 +129,14 @@ javac -d lib lib/javaversion.java
 %endif
 
 # This part is done with the original path
+
 make %{?_smp_mflags} MODULES.html
+
 sed -i -r 's#HREF="(lib|m4|modules)#HREF="%{_datadir}/%{name}/\1#g' MODULES.html
 sed -i "/^[ ]*gnulib_dir=/s#\`[^\`]*\`#%{_datadir}/%{name}#" gnulib-tool
+sed -i "/^[ ]*gnulib_dir=/s#\`[^\`]*\`#%{_datadir}/%{name}#" gnulib-tool.sh
+sed -i "/^[ ]*gnulib_dir=/s#\`[^\`]*\`#%{_datadir}/%{name}#" gnulib-tool.py
+
 # This part is done with the target path
 make %{?_smp_mflags} info
 make %{?_smp_mflags} html
@@ -144,16 +158,21 @@ mkdir -p %{buildroot}%{_pkgdocdir}
 mkdir -p %{buildroot}%{_mandir}/man1
 
 cp -p check-module %{buildroot}%{_bindir}
-cp -p gnulib-tool %{buildroot}%{_bindir}
+cp -p gnulib-tool gnulib-tool.sh gnulib-tool.py %{buildroot}%{_bindir}
 cp -rp build-aux lib m4 modules config tests %{buildroot}%{_datadir}/%{name}/
+cp -p .gnulib-tool.py %{buildroot}%{_datadir}/%{name}/
 mkdir -p %{buildroot}%{_datadir}/%{name}/doc
 cp -arv doc/relocatable.texi %{buildroot}%{_datadir}/%{name}/doc
 
 cp -p doc/gnulib.info %{buildroot}%{_datadir}/info/
-cp -p doc/gnulib.html MODULES.html NEWS COPYING ChangeLog users.txt doc/COPYING* %{buildroot}%{_pkgdocdir}/
+cp -p doc/gnulib.html MODULES.html NEWS COPYING ChangeLog HACKING users.txt doc/COPYING* %{buildroot}%{_pkgdocdir}/
 cp -p %{SOURCE1} %{SOURCE2} %{buildroot}%{_mandir}/man1
 
 cp -rp top %{buildroot}%{_datadir}/%{name}/
+
+# Python Gnulib installing
+mkdir -p %{buildroot}%{python3_sitelib}
+cp -rp py%{name} %{buildroot}%{python3_sitelib}
 
 # Module installing
 %make_install -C build-%{module1}
@@ -199,7 +218,7 @@ This package contains javaversion built unit of %{name}.
 %package devel
 Summary: Devel files of %{name}
 BuildArch: noarch
-Provides: gnulib
+Provides: gnulib = %{version}-%{release}
 Requires: gettext-devel
 Requires: bison
 Requires: coreutils
@@ -209,6 +228,13 @@ Requires: make
 Requires: texinfo
 Requires: diffutils
 Requires: patch
+Requires: m4
+Requires: grep
+Requires: autoconf
+Requires: automake
+Requires: gawk
+Requires: gcc
+Requires: gnulib-python
 
 %description devel
 %common_desc
@@ -218,6 +244,8 @@ This package contains devel files of %{name}.
 %files devel
 %{_datadir}/%{name}/
 %{_bindir}/gnulib-tool
+%{_bindir}/gnulib-tool.sh
+%{_bindir}/gnulib-tool.py
 %{_bindir}/check-module
 %{_mandir}/*/check-module.*
 %{_mandir}/*/gnulib-tool.*
@@ -230,6 +258,20 @@ This package contains devel files of %{name}.
 # Remove built java class, goes to javaversion sub-package
 %exclude %{_datadir}/%{name}/lib/javaversion.class
 %endif
+
+#-------------------------------------------------------------------------
+%package -n python3-%{name}
+Summary: Python Implement of Gnulib
+BuildArch: noarch
+Requires: gnulib = %{version}-%{release}
+Provides: gnulib-python = %{version}-%{release}
+Requires: python3
+
+%description -n python3-%{name}
+Python Implement of Gnulib
+
+%files -n python3-%{name}
+%{python3_sitelib}/py%{name}
 
 #-------------------------------------------------------------------------
 
@@ -250,6 +292,14 @@ It can be enabled for specific files by setting appropriate git attributes.
 
 #-------------------------------------------------------------------------
 %changelog
+* Tue Dec 23 2025 Mosaab Alzoubi <mosaab[AT]ruya[DOT]systems> - 0-55.20251223git
+- Update on 2025-12-23
+- Use stable branch instead of master
+- Add next generation of Gnulib the python release of Gnulib
+- Fix building tests
+- Re-struct for gnulib ng with python base
+- Update dependencies
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-54.20250704git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

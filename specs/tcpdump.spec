@@ -3,8 +3,8 @@
 Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
-Version: 4.99.5
-Release: 6%{?dist}
+Version: 4.99.6
+Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 BuildRequires: make
@@ -12,17 +12,14 @@ BuildRequires: automake openssl-devel libpcap-devel git-core gcc
 BuildRequires: systemd-rpm-macros
 
 Source0: http://www.tcpdump.org/release/tcpdump-%{version}.tar.xz
-Source1: ftp://ftp.ee.lbl.gov/%{tcpslice_dir}.tar.gz
+Source1: http://www.tcpdump.org/release/%{tcpslice_dir}.tar.gz
 Source2: http://www.tcpdump.org/release/tcpdump-%{version}.tar.xz.sig
 Source3: tcpdump-sysusers.conf
-Source4: http://www.tcpdump.org/release/%{tcpslice_dir}.tar.gz
 
 Patch0002:      0002-Use-getnameinfo-instead-of-gethostbyaddr.patch
 Patch0003:      0003-Drop-root-priviledges-before-opening-first-savefile-.patch
 Patch0007:      0007-Introduce-nn-option.patch
 Patch0009:      0009-Change-n-flag-to-nn-in-TESTonce.patch
-Patch0010:      0010-pgm-fix-the-way-we-step-through-the-packet.patch
-Patch0011:      0011-pgm-don-t-advance-bp-by-the-option-haeder-length-twi.patch
 
 %if "%{_sbindir}" == "%{_bindir}"
 # Compat symlinks for Requires in other packages.
@@ -89,6 +86,9 @@ sed -i 's/\(\.TH[a-zA-Z ]*\)[1-9]\(.*\)/\18\2/' \
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Mon Jan 05 2026 Michal Ruprich <mruprich@redhat.com> - 14:4.99.6-1
+- New version 4.99.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14:4.99.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

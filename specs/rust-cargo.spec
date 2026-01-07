@@ -12,7 +12,7 @@
 %global crate cargo
 
 Name:           rust-cargo
-Version:        0.91.0
+Version:        0.92.0
 Release:        %autorelease
 Summary:        Package manager for Rust
 

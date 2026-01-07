@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc2.20
+%define pkgrelease 0.rc4.260105g3609fa95fb0f.31
 %define kversion 6
-%define tarfile_release 6.19-rc2
+%define tarfile_release 6.19-rc4-3-g3609fa95fb0f
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.20%{?buildid}%{?dist}
+%define specrelease 0.rc4.260105g3609fa95fb0f.31%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4521,13 +4521,45 @@ fi\
 #
 #
 %changelog
-* Mon Dec 22 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc2.20]
-- fedora: updates for the 6.19 merge (Peter Robinson)
-
-* Mon Dec 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc2.20]
+* Mon Jan 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.3609fa95fb0f.31]
 - package YNL test framework files (Thorsten Leemhuis)
-- disable a compiler warning for libbpf (Thorsten Leemhuis)
-- powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
+
+* Mon Jan 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.3609fa95fb0f.30]
+- Linux v6.19.0-0.rc4.3609fa95fb0f
+
+* Sun Jan 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc3.aacb0a6d604a.29]
+- Linux v6.19.0-0.rc3.aacb0a6d604a
+
+* Sat Jan 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc3.805f9a061372.28]
+- fedora: aarch64: Enable BST platform support (Weizhao Ouyang)
+- fedora: aarch64: Enable TI_SCI_INTR_IRQCHIP as built-in (Ayush Singh)
+- Linux v6.19.0-0.rc3.805f9a061372
+
+* Thu Jan 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc3.b69053dd3ffb.27]
+- Linux v6.19.0-0.rc3.b69053dd3ffb
+
+* Wed Dec 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc3.c8ebd433459b.26]
+- Linux v6.19.0-0.rc3.c8ebd433459b
+
+* Tue Dec 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc3.8640b74557fc.25]
+- Linux v6.19.0-0.rc3.8640b74557fc
+
+* Mon Dec 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc3.7839932417dd.24]
+- Linux v6.19.0-0.rc3.7839932417dd
+
+* Sun Dec 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc2.d26143bb38e2.23]
+- Linux v6.19.0-0.rc2.d26143bb38e2
+
+* Sat Dec 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc2.c53f467229a7.22]
+- Linux v6.19.0-0.rc2.c53f467229a7
+
+* Thu Dec 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc2.ccd1cdca5cd4.21]
+- Linux v6.19.0-0.rc2.ccd1cdca5cd4
+
+* Tue Dec 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc2.b927546677c8.20]
+- Fedora: arm: aarch64: Enable mandatory CONFIGs for QCS8300 (Shivendra Pratap)
+- fedora: updates for the 6.19 merge (Peter Robinson)
+- Linux v6.19.0-0.rc2.b927546677c8
 
 * Mon Dec 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc2.19]
 - Linux v6.19.0-0.rc2

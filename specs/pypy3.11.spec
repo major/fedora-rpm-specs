@@ -43,7 +43,7 @@ ExcludeArch:    %{ix86}
 
 # Whether to use RPM build wheels from the python-{pip,setuptools}-wheel package
 # Uses upstream bundled prebuilt wheels otherwise
-%bcond_without rpmwheels
+%bcond rpmwheels 1
 
 # We will build a "pypy" binary.
 #
@@ -52,21 +52,20 @@ ExcludeArch:    %{ix86}
 # it on the other archs.  The resulting binary will typically be slower than
 # CPython for the latter case.
 %ifarch %{ix86} x86_64 %{arm} %{power64} s390x aarch64
-%bcond_without jit
+%bcond jit 1
 %else
-%bcond_with jit
+%bcond jit 0
 %endif
 
 # Should we build the emacs JIT-viewing mode?
-%bcond_without emacs
+%bcond emacs 1
 
 # Easy way to turn off the selftests:
-%bcond_without selftests
+%bcond selftests 1
 
 # We refer to this subdir of the source tree in a few places during the build:
 %global goal_dir pypy/goal
 
-%if 0%{?fedora} >= 42
 # REMINDER: When updating the main pypy3 version for a certain Fedora release
 # make sure to update the python-classroom group in https://pagure.io/fedora-comps/
 #   1. locate comps-fXX.xml.in for each affected Fedora release
@@ -76,10 +75,7 @@ ExcludeArch:    %{ix86}
 # also update the excluded packages in python-classroom in https://pagure.io/fedora-kiwi-descriptions/
 #   1. locate excluded pypy3.N packages in teams/python.xml
 #   2. update the package list to include all non-main pypys
-%bcond_without main_pypy3
-%else
-%bcond_with main_pypy3
-%endif
+%bcond main_pypy3 %[0%{?fedora} >= 42]
 
 # Source and patches:
 Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar.bz2
@@ -119,7 +115,7 @@ Patch9: 009-add-libxcrypt-support.patch
 # and avoid a cycle in the build-time dependency graph:
 # Note, pypy3 is built with pypy2, so no dependency cycle
 
-%bcond_without build_using_pypy2
+%bcond build_using_pypy2 1
 %if %{with build_using_pypy2}
 BuildRequires: pypy2
 %global bootstrap_python_interp pypy2
@@ -224,7 +220,7 @@ Summary:  Run-time libraries used by PyPy implementations of Python %{pyversion}
 # We supply an emacs mode for the JIT viewer.
 # (This doesn't bring in all of emacs, just the directory structure)
 %if %{with emacs}
-Requires: emacs-filesystem >= %{_emacs_version}
+Requires: emacs-filesystem%{?_emacs_version: >= %{_emacs_version}}
 %endif
 
 %if %{with main_pypy3}
@@ -616,6 +612,11 @@ cp -a rpython/jit/tool/pypytrace-mode.elc %{buildroot}/%{_emacs_sitelispdir}/pyp
 %if %{with main_pypy3}
 # Install macros for rpm:
 install -m0644 -p -D -t %{buildroot}/%{_rpmconfigdir}/macros.d %{SOURCE2}
+%endif
+
+%if %{without rpmwheels}
+# Inject SBOM into the installed wheels
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pypylibdir}/ensurepip/_bundled/*.whl}
 %endif
 
 

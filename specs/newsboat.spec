@@ -36,6 +36,8 @@ BuildRequires: pkgconfig(stfl)
 BuildRequires:  git-core
 BuildRequires:  rust-packaging
 
+Obsoletes: newsbeuter < 2.9-29
+
 Provides: podboat = %{version}-%{release}
 
 %description

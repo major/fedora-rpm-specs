@@ -44,7 +44,7 @@
 
 Name: evolution
 Version: 3.59.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home

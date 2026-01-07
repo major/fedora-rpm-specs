@@ -3,7 +3,7 @@
 
 # https://github.com/TecharoHQ/anubis
 %global goipath         github.com/TecharoHQ/anubis
-Version:                1.23.1
+Version:                1.24.0
 
 %gometa -L -f
 

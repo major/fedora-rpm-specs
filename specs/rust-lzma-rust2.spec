@@ -12,7 +12,7 @@
 %global crate lzma-rust2
 
 Name:           rust-lzma-rust2
-Version:        0.15.4
+Version:        0.15.5
 Release:        %autorelease
 Summary:        LZMA / LZMA2 / LZIP / XZ compression ported from 'tukaani xz for java'
 
@@ -27,7 +27,6 @@ Source:         %{crates_source}
 Patch:          lzma-rust2-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 LZMA / LZMA2 / LZIP / XZ compression ported from 'tukaani xz for java'.}
@@ -147,8 +146,6 @@ use the "xz" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Fix CRLF line terminations
-find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

@@ -1,6 +1,6 @@
 Name:           juniversalchardet
 Version:        2.4.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Java character encoding detection
 
 # Choice of licenses offered in each source file
@@ -10,7 +10,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)

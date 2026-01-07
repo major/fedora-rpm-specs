@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.6.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -89,7 +89,7 @@ export JAVA_HOME=%{_prefix}/lib/jvm/java
 # skip test failing with Python 3.13.0
 k='not test_hierharchy_arraylist'
 # json options fail on some arches
-%ifarch s390x ppc64le
+%ifarch s390x ppc64le riscv64
   k="${k} and not jvm_options"
 %endif
 %pytest -k "${k}" -v
@@ -112,6 +112,9 @@ popd
 
 
 %changelog
+* Mon Jan 05 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.6.1-13
+- Disable jvm_options on riscv64
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.1-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

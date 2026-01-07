@@ -203,6 +203,10 @@ Python 3 version.
 %install
 %cmake_install
 
+%if %{with python_bindings}
+echo "rpm" > %{buildroot}%{python3_sitearch}/%{libname}-%{version}.dist-info/INSTALLER
+%endif
+
 %check
 %ctest
 

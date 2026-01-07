@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.20
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -73,6 +73,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Mon Jan 05 2026 Sandro Mani <manisandro@gmail.com> - 3.20-5
+- Fix includedir in pc file
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 3.20-4
 - Update to apr2025 release
 

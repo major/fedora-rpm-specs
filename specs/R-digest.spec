@@ -1,22 +1,17 @@
-%bcond_with check
+Name:           R-digest
+Version:        %R_rpm_version 0.6.39
+Release:        %autorelease
+Summary:        Create Cryptographic Hash Digest of R Objects
 
-%global packname digest
-%global packver 0.6.37
-
-Name:             R-%{packname}
-Version:          %{packver}
-Release:          %autorelease
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 # Automatically converted from old format: GPLv2+ and BSD and MIT and zlib - review is highly recommended.
-License:          GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND Zlib
-Summary:          Create Cryptographic Hash Digest of R Objects
-BuildRequires:    R-devel >= 3.4.0, tex(latex), R-utils
-%if %{with check}
-# Test requires:
-BuildRequires:    R-simplermarkdown, R-tinytest
-%endif
-Provides:         bundled(xxhash)
+License:        GPL-2.0-or-later AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND Zlib
+URL:            %{cran_url}
+Source:         %{cran_source}
+
+BuildRequires:  R-devel
+Obsoletes:      %{name}-devel <= 0.6.39
+
+Provides:       bundled(xxhash)
 
 %description
 Implementation of a function 'digest()' for the creation of hash digests of
@@ -35,49 +30,22 @@ Shane Day is used. Please note that this package is not meant to be deployed
 for cryptographic purposes for which more comprehensive (and widely tested)
 libraries such as OpenSSL should be used.
 
-%package devel
-Requires:         %{name}%{?_isa} = %{version}-%{release}
-Summary:          Header files for compiling against digest
-
-%description devel
-Header files for compiling against digest.
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/R/library
-%{_bindir}/R CMD INSTALL -l $RPM_BUILD_ROOT%{_libdir}/R/library %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
+%R_install
+%R_save_files
 
 %check
-%if %{with check}
-# s390x fails this check in spooky ways
-%ifnarch s390x
-%{_bindir}/R CMD check %{packname}
-%endif
-%endif
+%R_check
 
-%files
-%license %{_libdir}/R/library/%{packname}/GPL-2
-%dir %{_libdir}/R/library/%{packname}
-%doc %{_libdir}/R/library/%{packname}/html
-%{_libdir}/R/library/%{packname}/DESCRIPTION
-%{_libdir}/R/library/%{packname}/INDEX
-%{_libdir}/R/library/%{packname}/NAMESPACE
-%{_libdir}/R/library/%{packname}/Meta
-%{_libdir}/R/library/%{packname}/R
-%{_libdir}/R/library/%{packname}/doc/
-%{_libdir}/R/library/%{packname}/help
-%{_libdir}/R/library/%{packname}/libs/
-%{_libdir}/R/library/%{packname}/demo
-%{_libdir}/R/library/%{packname}/tinytest
-
-%files devel
-%{_libdir}/R/library/%{packname}/include/
+%files -f %{R_files}
 
 %changelog
 %autochangelog

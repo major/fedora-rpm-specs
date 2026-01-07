@@ -3,7 +3,7 @@
 %global srcname astroplan
 
 Name:           python-%{srcname}
-Version:        0.9.1
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Python package to help astronomers plan observations
 
@@ -50,7 +50,6 @@ BuildRequires:  %{py3_dist setuptools}
 %check
 # Most test rely on an internet database of coordinates
 %pyproject_check_import
-
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.rst

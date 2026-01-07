@@ -1,4 +1,4 @@
-%global gimpplugindir %(%___build_pre; gimptool --gimpplugindir)/plug-ins/gmic_gimp_qt
+%global gimpplugindir %(%___build_pre; gimptool --gimpplugindir)/plug-ins
 
 %global use_system_cimg 1
 
@@ -156,9 +156,7 @@ iconv -f iso8859-1 -t utf-8 COPYING > COPYING.conv && mv -f COPYING.conv COPYING
 iconv -f iso8859-1 -t utf-8 COPYING-libcgmic > COPYING-libcgmic.conv && mv -f COPYING-libcgmic.conv COPYING-libcgmic
 
 cd src
-# Makefile hardcodes gimptool-2.0 for setting PLUGIN var, so
-# override for gimp-3 compat until upstream fixes its rules
-make DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIB=%{_lib} PLUGIN=%{gimpplugindir} install
+make DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIB=%{_lib} install
 
 desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/gmic_qt.desktop
 desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/zart.desktop
@@ -192,14 +190,34 @@ fi
 # cpio can't handle file -> dir replacements, so must manually
 # purge the old file path.
 #
+# Then also handle upgrades from a botched update to 3.5.5 which
+# created an extra sub-directory level.
+#
+# cpio can't handle dir -> file replacements, so must manually
+# purge the old directory path.
+#
 # Workaround could be removed in Fedora >= 45 timeframe at which
 # point we shouldn't see any legacy files around in a normal
 # upgrade scenario.
 %pretrans -p <lua> gimp
-path = "%{gimpplugindir}"
+path = "%{gimpplugindir}/gmic_gimp_qt"
 st = posix.stat(path)
 if st and st.type == "regular" then
   os.remove(path)
+end
+
+path = "%{gimpplugindir}/gmic_gimp_qt/gmic_gimp_qt"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
 end
 
 %posttrans
@@ -230,6 +248,9 @@ end
 %files gimp
 %dir %{gimpplugindir}
 %{gimpplugindir}/gmic_gimp_qt
+# Remove ghosts in Fedora >= 45, see pretrans script
+%ghost %{gimpplugindir}/gmic_gimp_qt/gmic_gimp_qt.rpmmoved
+%ghost %{gimpplugindir}/gmic_gimp_qt/gmic_gimp_qt.rpmmoved/gmic_gimp_qt
 %dir %{_datadir}/gmic
 %{_datadir}/gmic/gmic_cluts.gmz
 %{_datadir}/gmic/gmic_denoise_cnn.gmz

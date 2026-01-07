@@ -15,6 +15,8 @@ License:        GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://apps.gnome.org/Contacts
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+Patch:          0001-evolution-data-server-3.59.1-api-change.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
 BuildRequires:  docbook-style-xsl

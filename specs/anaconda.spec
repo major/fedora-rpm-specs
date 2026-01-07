@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.10
+Version: 44.11
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -518,6 +518,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 30 2025 Packit <hello@packit.dev> - 44.11-1
+- Update to version 44.11
+
 * Tue Dec 23 2025 Packit <hello@packit.dev> - 44.10-1
 - rhsm: add --flatpak-registry-url support (bciconel)
 - flatpak: handle self-signed certificate errors in registry sources (bciconel)

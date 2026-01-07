@@ -10,7 +10,7 @@ proxy functionality.}
 %global forgeurl https://github.com/romis2012/httpx-socks
 
 Name:           python-httpx-socks
-Version:        0.10.1
+Version:        0.11.0
 Release:        %{autorelease}
 Summary:        Proxy (HTTP, SOCKS) transports for httpx
 License:        Apache-2.0
@@ -29,14 +29,14 @@ Summary:        %{summary}
 
 %description -n python3-httpx-socks %_description
 
-%pyproject_extras_subpkg -n python3-httpx-socks asyncio trio
+%pyproject_extras_subpkg -n python3-httpx-socks asyncio trio anyio
 
 %prep
 %autosetup -n httpx-socks-%{version}
 %forgesetup
 
 # loosen pinned deps
-sed -i -e "s/httpx>.*$/httpx',/" -e "s/httpcore>.*$/httpcore',/" setup.py
+sed -r -i 's/("httpx>=.*),<.*"/\1"/' pyproject.toml
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r \
@@ -50,7 +50,7 @@ sed -r \
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -x asyncio,trio %{?with_tests:requirements-dev-filtered.txt}
+%pyproject_buildrequires -x asyncio,trio,anyio %{?with_tests:requirements-dev-filtered.txt}
 
 
 %build

@@ -1,5 +1,5 @@
 Name:           R-rpm-macros
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Macros to help produce R packages
 

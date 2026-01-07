@@ -12,7 +12,7 @@
 #
 # year 
 # The year corresponding to this version
-%define year 2025
+%define year 2026
 #
 # soversion
 # fedora uses its own soversion number for cppad_lib where
@@ -29,7 +29,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
 Version: %{year}0000.0
-Release: 5%{?dist}
+Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -38,7 +38,7 @@ Source:  %{url}/archive/%{version}/CppAD-%{version}.tar.gz
 #
 BuildRequires: gcc
 BuildRequires: gcc-c++
-BuildRequires: cmake >= 3.0
+BuildRequires: cmake >= 3.10
 BuildRequires: make
 BuildRequires: python-xrst >= 2025.0
 BuildRequires: python-sphinx_rtd_theme
@@ -81,11 +81,6 @@ The documentation for the most recent version of %{name} can be found at
 # changed into that directory and unpack Source.
 %setup -q -c
 #
-# atomic_op.hpp
-# Fix warning. This should not be necessary when version > 20250000.0
-sed -i CppAD-%{version}/include/cppad/local/var_op/atomic_op.hpp \
-   -e 's|arg_tmp\[1\];|*arg_tmp = { 0 };|'
-#
 # xrst.toml
 # This is not a git repository so suppress the warning that could not double
 # check that all the files with xrst commands were included.
@@ -96,38 +91,6 @@ echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
 # COPYING, uw_copy_040507.html
 cp CppAD-%{version}/COPYING  COPYING
 cp CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
-#
-# fix bug
-# should not be needed once version > 20250000.0
-cat << EOF > temp.sed
-/setup_random(size_t& not_used)/! b end
-: loop
-N
-/\\n *}/! b loop
-s|^|# if ! CPPAD_IS_SAME_UNSIGNED_INT_SIZE_T\\n|
-s|$|\\n# endif|
-#
-: end
-EOF
-sed -i.bak CppAD-%{version}/include/cppad/local/play/player.hpp -f temp.sed
-#
-# fix bug
-# should not be needed once version > 20250000.0
-cat << EOF > temp.sed
-/CHECK_CXX_SOURCE_COMPILES/! b end
-s|^|   SET(CMAKE_REQUIRED_DEFINITIONS "" )\\
-   SET(CMAKE_REQUIRED_INCLUDES    "" )\\
-   SET(CMAKE_REQUIRED_LIBRARIES   "" )\\
-   IF( cppad_cxx_flags )\\
-      SET(CMAKE_REQUIRED_FLAGS   "\${cppad_cxx_flags} \${CMAKE_CXX_FLAGS}" )\\
-   ELSE( cppad_cxx_flags )\\
-      SET(CMAKE_REQUIRED_FLAGS   "" )\\
-   ENDIF( cppad_cxx_flags )\\
-|
-#
-: end
-EOF
-sed -i.bak CppAD-%{version}/cmake/compile_source_test.cmake -f temp.sed
 #
 # cppad_lib/CMakeLists.txt
 # cppad_lib: replace soversion number and ensure build type is release 
@@ -269,6 +232,9 @@ make %{?_smp_mflags} check
 %%clean
 # ----------------------------------------------------------------------------
 %changelog
+* Mon Jan 05 2026 Brad Bell <bradbell at seanet dot com> - 20260000.0-1
+- New upstream source cppad-20260000.0.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250000.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -12,8 +12,8 @@
 
 Name: fence-agents
 Summary: Set of unified programs capable of host isolation ("fencing")
-Version: 4.16.0
-Release: 6%{?alphatag:.%{alphatag}}%{?dist}
+Version: 4.17.0
+Release: 1%{?alphatag:.%{alphatag}}%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Group: System Environment/Base
 URL: https://github.com/ClusterLabs/fence-agents
@@ -48,6 +48,7 @@ fence-agents-emerson \\
 fence-agents-eps \\
 fence-agents-gce \\
 fence-agents-hds-cb \\
+fence-agents-hetzner-cloud \\
 fence-agents-heuristics-ping \\
 fence-agents-hpblade \\
 fence-agents-ibmblade \\
@@ -77,6 +78,7 @@ fence-agents-rsb \\
 fence-agents-sanbox2 \\
 fence-agents-sbd \\
 fence-agents-scsi \\
+fence-agents-shelly \\
 fence-agents-vbox \\
 fence-virt \\
 fence-agents-vmware \\
@@ -374,6 +376,19 @@ Fence agent for Amazon AWS instances.
 %{_sbindir}/fence_aws
 %{_mandir}/man8/fence_aws.8*
 
+%package aws-vpc-net
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
+Summary: Fence agent for Amazon AWS VPC network and power fencer
+Requires: fence-agents-common = %{version}-%{release}
+Requires: python3-boto3
+BuildArch: noarch
+Obsoletes: fence-agents < 3.1.13
+%description aws-vpc-net
+Fence agent for Amazon AWS instances that fences by modifying aws sec groups
+%files aws-vpc-net
+%{_sbindir}/fence_aws_vpc_net
+%{_mandir}/man8/fence_aws_vpc_net.8*
+
 %package azure-arm
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Azure Resource Manager
@@ -385,7 +400,9 @@ Requires: python3-azure-common
 Requires: python3-azure-identity
 Requires: python3-azure-mgmt-compute
 Requires: python3-azure-mgmt-network
+%if 0%{?rhel} && 0%{?rhel} < 10
 Requires: python3-msrestazure
+%endif
 %endif
 BuildArch: noarch
 Obsoletes: fence-agents < 3.1.13
@@ -625,6 +642,18 @@ Fence agent for Hitachi Compute Blades that are accessed via telnet.
 %files hds-cb
 %{_sbindir}/fence_hds_cb
 %{_mandir}/man8/fence_hds_cb.8*
+
+%package hetzner-cloud
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
+Summary: Fence agent for Hetzner Cloud
+Requires: fence-agents-common = %{version}-%{release}
+BuildArch: noarch
+Obsoletes: fence-agents < 3.1.13
+%description hetzner-cloud
+Fence agent for Hetzner Cloud.
+%files hetzner-cloud
+%{_sbindir}/fence_hetzner_cloud
+%{_mandir}/man8/fence_hetzner_cloud.8*
 
 %package heuristics-ping
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -1114,6 +1143,17 @@ Fence agent for SCSI persistent reservations.
 %{_datadir}/cluster/fence_scsi_check_hardreboot
 %{_mandir}/man8/fence_scsi.8*
 
+%package shelly
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
+Summary: Fence agent for Shelly Switches
+Requires: fence-agents-common = %{version}-%{release}
+BuildArch: noarch
+%description shelly
+Fence agent for Shelly Switches.
+%files shelly
+%{_sbindir}/fence_shelly_gen2
+%{_mandir}/man8/fence_shelly_gen2.8*
+
 %package vbox
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VirtualBox
@@ -1315,6 +1355,9 @@ are located on corosync cluster nodes.
 %{_libdir}/fence-virt/cpg.so
 
 %changelog
+* Mon Jan  5 2026 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.17.0-1
+- new upstream release
+
 * Thu Oct  2 2025 Daniel P. Berrangé <berrange@redhat.com> - 4.16.0-6
 - Exclude build on i686 arch
 

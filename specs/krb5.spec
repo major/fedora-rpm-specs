@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 10
+%global baserelease 11
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -97,6 +97,7 @@ Patch0035: 0035-Don-t-issue-session-keys-with-deprecated-enctypes.patch
 Patch0036: 0036-downstream-Remove-3des-support-cumulative-1.patch
 Patch0037: 0037-Add-PKINIT-paChecksum2-from-MS-PKCA-v20230920.patch
 Patch0038: 0038-downstream-Do-not-block-HMAC-MD4-5-in-FIPS-mode.patch
+Patch0039: 0039-Fix-strchr-conformance-to-C23.patch
 Patch0040: 0040-automated-fast.patch
 Patch0041: 0041-bail-if-prompter-is-not-specified-but-required.patch
 
@@ -744,6 +745,9 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Mon Jan 05 2026 Julien Rische <jrische@redhat.com> - 1.21.3-11
+- Fix strchr() conformance to C23
+
 * Mon Oct 20 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-10
 - Update the prompter patch to upstream version
   Resolves: rhbz#2403513
@@ -755,7 +759,6 @@ exit 0
 * Fri Sep 26 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-8
 - Add automated FAST channel for kinit
 - https://github.com/krb5/krb5/pull/1447 - work in progress
-
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

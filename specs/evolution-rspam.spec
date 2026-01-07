@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 51%{?dist}
+Release: 52%{?dist}
 License: GPL-2.0-or-later
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam

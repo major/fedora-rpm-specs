@@ -13,7 +13,7 @@ Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)

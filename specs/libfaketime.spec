@@ -4,21 +4,32 @@ Name:       libfaketime
 Version:    0.9.12
 Release:    %autorelease
 Summary:    Manipulate system time per process for testing purposes
-# most of the code is GPL-2.0-or-later AND GPL-3.0-only
-# part of src/libfaketime.c is GPLv3
-License:    GPL-2.0-or-later AND GPL-3.0-only
+# COPYING:                  GPLv2 text
+# man/faketime.1:           "GNU General Public License, see COPYING"
+# README:                   "GNU General Public License, see COPYING"
+# src/faketime.c:           GPL-2.0-only
+# src/faketime_common.h:    GPL-2.0-only
+# src/libfaketime.c:        GPL-2.0-only AND GPL-3.0-only
+# src/time_ops.h:           GPL-2.0-only
+# src/uthash.h:             BSD-1-Clause
+## Not in any binary package
+# src/timeprivacy:          BSD-2-Clause
+# test/libmallocintercept.c:    GPL-2.0-only
+# test/timetest.c:          GPL-2.0-or-later
+License:    GPL-3.0-only AND GPL-2.0-only AND BSD-1-Clause
+SourceLicense:  %{license} AND GPL-2.0-or-later AND BSD-2-Clause
 URL:        https://github.com/wolfcw/libfaketime
 Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Provides:   faketime = %{version}
-
+# https://github.com/wolfcw/libfaketime/pull/525
+Patch0:     libfaketime-0.9.12-isoc23.patch
+BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
+# Tests:
+BuildRequires:  bash
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-Time-HiRes
-
-# https://github.com/wolfcw/libfaketime/pull/525
-Patch0: libfaketime-0.9.12-isoc23.patch
+BuildRequires:  perl(Time::HiRes)
+Provides:   faketime = %{version}-%{release}
 
 %description
 libfaketime intercepts various system calls that programs use to retrieve the

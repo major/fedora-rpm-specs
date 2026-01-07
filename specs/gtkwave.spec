@@ -1,6 +1,6 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.125
+Version:	3.3.126
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
@@ -196,6 +196,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Mon Jan  5 2026 Paul Howarth <paul@city-fan.org> - 3.3.126-1
+- Update to 3.3.126
+  - Added -H --noheader command line option for GTK3
+  - Added headerbar rc variable to disable GTK3 headerbars
+  - Fix for rendering multiline string constants in dumps
+  - Add warning message for missing XPM loader
+  - Updated libghw to current version
+  - Changed behaviour of X search in pattern search so it is matched by a
+    single X bit
+
 * Wed Aug 20 2025 Paul Howarth <paul@city-fan.org> - 3.3.125-1
 - Update to 3.3.125
   - Added json2stems to distribution to support newer versions of Verilator

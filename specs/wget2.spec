@@ -4,11 +4,11 @@
 %bcond as_wget 1
 %endif
 
-%global somajor 3
+%global somajor 4
 
 Name:           wget2
-Version:        2.2.0
-Release:        6%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -18,19 +18,6 @@ Source0:        https://ftp.gnu.org/gnu/wget/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/wget/%{name}-%{version}.tar.gz.sig
 # key 08302DB6A2670428
 Source2:        tim.ruehsen-keyring.asc
-
-# Backports from upstream
-# Patch0001 needed for proper build on other than x86 arches
-Patch0001:      0001-use-signed-char-ascii.patch
-# -O and -nc together truncate existing file and cause data loss
-# rhbz#2298879
-Patch0002:      0002-dont-truncate-no-clobber.patch
-# Add --show-progress as alias for --force-progress for wget1 compat
-# rhbz#2348997
-Patch0003:      0003-Add-show-progress.patch
-# Fix redirect regression
-# https://gitlab.com/gnuwget/wget2/-/issues/689
-Patch0004:      %{url}/-/commit/400713caebb51e17046c7d884e08729a27cfa505.patch#/0004-Fix-redirect-regression.patch
 
 # Buildsystem build requirements
 BuildRequires:  autoconf
@@ -192,6 +179,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Thu Jan 01 2026 LuK1337 <priv.luk@gmail.com> - 2.2.1-1
+- New version 2.2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

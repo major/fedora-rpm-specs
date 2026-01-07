@@ -4,7 +4,7 @@
 # https://github.com/FiloSottile/age
 %global goipath         filippo.io/age
 %global forgeurl        https://github.com/FiloSottile/age
-Version:                1.3.0
+Version:                1.3.1
 
 %gometa -L -f
 

@@ -1,5 +1,5 @@
 Name:		rocksndiamonds
-Version:	4.4.1.0
+Version:	4.4.1.2
 Release:	1%{?dist}
 License:	GPL-1.0-or-later
 Summary:	Underground digging game
@@ -103,6 +103,9 @@ EOF
 %{_localstatedir}/games/%{name}/
 
 %changelog
+* Mon Jan  5 2026 Tom Callaway <spot@fedoraproject.org> - 4.4.1.2-1
+- update to 4.4.1.2
+
 * Sat Dec 20 2025 Tom Callaway <spot@fedoraproject.org> - 4.4.1.0-1
 - update to 4.4.1.0
 

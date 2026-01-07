@@ -17,7 +17,7 @@ ExclusiveArch:  %{java_arches} noarch
 Requires:   java-headless
 Requires:   javapackages-filesystem
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(biz.aQute.bnd:bnd-maven-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 

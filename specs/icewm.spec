@@ -71,7 +71,6 @@ Recommends:     %{name}-themes = %{version}-%{release}
 Recommends:     abattis-cantarell-fonts
 # Command line utilities for the Advanced Linux Sound
 Recommends:     alsa-utils
-Recommends:     desktop-backgrounds-compat
 Recommends:     mutt
 # Commandline utility to change output properties. Required for
 # icewm-menu-xrandr.
@@ -183,10 +182,6 @@ echo "Theme=\"IceAdwaita-Medium/default.theme\"" > %{buildroot}%{_datadir}/%{nam
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_docdir}/%{name}/README.Fedora.md
 
 %find_lang %{name}
-
-# Change to current Fedora default background
-sed -i 's!/backgrounds/gnome/adwaita-day.jpg!/backgrounds/default.png!' \
-    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-*/default.theme
 
 
 %files -f %{name}.lang

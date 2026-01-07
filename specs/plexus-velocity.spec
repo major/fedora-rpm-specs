@@ -1,6 +1,6 @@
 Name:           plexus-velocity
 Version:        2.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Velocity Component
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -11,7 +11,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)

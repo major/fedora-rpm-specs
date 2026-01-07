@@ -46,7 +46,8 @@ sed -Ei '/^test = \[/,/^\]/ { /"(griffe|mypy|ruff|flake8).*"/d }' pyproject.toml
 %if %{defined rhel}
 # Remove unnecessary test dependencies:
 # rich is listed in both [rich] and [test] extras, so we need to be more careful
-sed -Ei '/^test = \[/,/^\]/ { /"(rich|build|wheel)",/d }' pyproject.toml
+sed -Ei '/^test = \[/,/^\]/ { /"(rich|build|wheel|pytest-timeout)",/d }' pyproject.toml
+sed -Ei '/^\[tool.pytest.ini_options\]/,/^\[/ { /^timeout/d }' pyproject.toml
 # Don't blow up all of the tests by failing to report the installed version of build
 sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 %endif
@@ -67,6 +68,12 @@ sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 %pyproject_install
 %pyproject_save_files setuptools_scm
 
+# Allow parallel-installable executable for alternate Python stacks (e.g. in RHEL)
+mv %{buildroot}%{_bindir}/setuptools-scm %{buildroot}%{_bindir}/setuptools-scm-%{python3_version}
+%if "%{python3_pkgversion}" == "3"
+ln -s ./setuptools-scm-%{python3_version} %{buildroot}%{_bindir}/setuptools-scm
+%endif
+
 
 %if %{with tests}
 %check
@@ -78,7 +85,10 @@ sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 
 %files -n python%{python3_pkgversion}-setuptools_scm -f %{pyproject_files}
 %doc README.md
+%{_bindir}/setuptools-scm-%{python3_version}
+%if "%{python3_pkgversion}" == "3"
 %{_bindir}/setuptools-scm
+%endif
 
 
 %changelog

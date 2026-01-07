@@ -1,12 +1,12 @@
 #% define beta_tag rc2
-%define patchlevel 0
+%define patchlevel 9
 %define baseversion 5.3
 %bcond_without tests
 
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -23,9 +23,9 @@ Source5: chet-gpgkey.asc
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-#{lua:for i=1,rpm.expand('%{patchlevel}') do
-#    print(string.format('Patch%u: bash-%s-patch-%u.patch\n', i, rpm.expand('%{baseversion}'), i))
-#end}
+%{lua:for i=1,rpm.expand('%{patchlevel}') do
+    print(string.format('Patch%u: bash-%s-patch-%u.patch\n', i, rpm.expand('%{baseversion}'), i))
+end}
 
 # Other patches
 # Non-interactive shells beginning with argv[0][0] == '-' should run the startup files when not in posix mode.
@@ -323,6 +323,9 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jan 05 2026 Siteshwar Vashisht <svashisht@redhat.com> - 5.3.9-1
+- Update to bash-5.3 patchlevel 9
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

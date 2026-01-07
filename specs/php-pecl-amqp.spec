@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-amqp
 #
-# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2012-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -14,7 +14,7 @@
 %global pecl_name        amqp
 %global ini_name         40-%{pecl_name}.ini
 
-%global upstream_version 2.1.2
+%global upstream_version 2.2.0
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -23,12 +23,10 @@
 Summary:       Communicate with any AMQP compliant server
 Name:          php-pecl-amqp
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       9%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/amqp
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
-
-Patch0:        595.patch
 
 ExcludeArch:   %{ix86}
 
@@ -69,8 +67,6 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
-%patch -P0 -p1 -b .pr595
-
 # Upstream often forget to change this
 extver=$(sed -n '/#define PHP_AMQP_VERSION /{s/.* "//;s/".*$//;p}' php_amqp_version.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
@@ -204,6 +200,10 @@ exit $ret
 
 
 %changelog
+* Sat Jan  3 2026 Remi Collet <remi@remirepo.net> - 2.2.0-1
+- update to 2.2.0
+- drop patch merged upstream
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 2.1.2-9
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - add patch for PHP 8.5.0alpha2 from

@@ -64,9 +64,7 @@ mv gvdb-%{gvdb_commit} subprojects/gvdb
 %meson_install
 
 %check
-xvfb-run -s -noreset sh <<HERE
-%meson_test
-HERE
+%{shrink:xvfb-run -s -noreset %meson_test}
 
 %files
 %doc README.md

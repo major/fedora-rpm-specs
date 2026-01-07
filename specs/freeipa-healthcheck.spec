@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -26,20 +26,19 @@ Source0:        https://github.com/freeipa/freeipa-healthcheck/archive/%{version
 Source1:        ipahealthcheck.conf
 
 Patch0001:      0001-Remove-ipaclustercheck.patch
+Patch0002:      0002-Migrate-from-pkg_resources.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
 Requires:       python3-ipalib
 Requires:       python3-ipaserver
 Requires:       python3-lib389 >= 1.4.2.14-1
-Requires:       python3-setuptools
 # cronie-anacron provides anacron
 Requires:       anacron
 Requires:       logrotate
 Requires(post): systemd-units
 Requires:       %{name}-core = %{version}-%{release}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  systemd-devel
 %{?systemd_requires}
 # packages for make check
@@ -63,9 +62,6 @@ proactively detect defects in a FreeIPA cluster.
 
 %package -n %{name}-core
 Summary: Core plugin system for healthcheck
-
-# so that freeipa-healthcheck-core can work standalone
-Requires:       python3-setuptools
 
 # Cross-provides for sibling OS
 Provides:       %{alt_name}-core = %{version}
@@ -163,6 +159,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Mon Jan 05 2026 Rob Crittenden <rcritten@redhat.com> - 0.19-3
+- Migrate from pkg_resources
+
 * Fri Oct 31 2025 Rob Crittenden <rcritten@redhat.com> - 0.19-2
 - Added Requires on python3-setuptools to the core subpackage
 

@@ -1,78 +1,35 @@
-%global packname  evaluate
-%global rlibdir  %{_datadir}/R/library
+Name:           R-evaluate
+Version:        %R_rpm_version 1.0.5
+Release:        %autorelease
+Summary:        Parsing and Evaluation Tools that Provide More Details than the Default
 
-# Heavy dependencies.
-%global with_suggests 0
+License:        MIT
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-Name:             R-%{packname}
-Version:          1.0.5
-Release:          %autorelease
-Summary:          Parsing and Evaluation Tools that Provide More Details than the Default
-
-License:          MIT
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
-
-# Here's the R view of the dependencies world:
-# Depends:
-# Imports:   R-methods
-# Suggests:  R=callr, R-covr, R-ggplot2 >= 3.3.6, R-lattice, R-methods, R-pkgload, R-ragg >= 1.4.0, R-rlang >= 1.1.5, R-knitr, R-testthat >= 3.0.0, R-withr
-# LinkingTo:
-# Enhances:
-
-BuildArch:        noarch
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-%if %{with_suggests}
-BuildRequires:    R-callr
-BuildRequires:    R-ggplot2 >= 3.3.6
-BuildRequires:    R-lattice
-BuildRequires:    R-methods
-BuildRequires:    R-pkgload
-BuildRequires:    R-ragg >= 1.4.0
-BuildRequires:    R-rlang >= 1.1.5
-BuildRequires:    R-knitr
-BuildRequires:    R-testthat >= 3.0.0
-BuildRequires:    R-withr
-%endif
+BuildArch:      noarch
+BuildRequires:  R-devel
 
 %description
 Parsing and evaluation tools that make it easy to recreate the command line
 behaviour of R.
 
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%if %{with_suggests}
-%{_bindir}/R CMD check %{packname}
-%endif
+%R_check \--no-tests
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%license %{rlibdir}/%{packname}/LICENSE
-%doc %{rlibdir}/%{packname}/NEWS.md
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

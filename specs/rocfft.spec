@@ -100,7 +100,7 @@
 %endif
 
 %global cmake_config \\\
-  -DBUILD_CLIENTS_TESTS_OPENMP=%{build_test} \\\
+  -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
   -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
   -DCMAKE_BUILD_TYPE=%{build_type} \\\
@@ -126,7 +126,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -154,7 +154,6 @@ BuildRequires:  rocrand%{pkg_suffix}-devel
 BuildRequires:  fftw-devel
 BuildRequires:  boost-devel
 BuildRequires:  hiprand%{pkg_suffix}-devel
-BuildRequires:  rocm-omp%{pkg_suffix}-devel
 
 %if 0%{?suse_version}
 BuildRequires:  gtest
@@ -302,6 +301,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Mon Jan 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
+- Remove omp tests
+
 * Wed Dec 17 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Add -with compat
 - Remove -with generic

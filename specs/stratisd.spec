@@ -13,6 +13,8 @@ URL:            https://github.com/stratis-storage/stratisd
 Source0:        %{url}/archive/stratisd-v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/stratisd-v%{version}/%{name}-%{version}-vendor.tar.gz
 
+# * Allow procfs 0.18: https://github.com/stratis-storage/stratisd/pull/3951
+Patch:          stratisd-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
@@ -83,7 +85,7 @@ Requires:     stratisd
 %{summary}.
 
 %prep
-%autosetup -n stratisd-stratisd-v%{version} %{?rhel:-a1}
+%autosetup -n stratisd-stratisd-v%{version} -p1 %{?rhel:-a1}
 
 %if 0%{?rhel}
 %cargo_prep -v vendor

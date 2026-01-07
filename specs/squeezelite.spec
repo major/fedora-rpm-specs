@@ -12,13 +12,17 @@ Summary:         Headless music player for streaming from Lyrion Music Server
 # It incorporates dsd2pcm, which is BSD licenced.
 License:         GPL-3.0-only AND BSD-2-Clause-Views
 
-URL:             %{forgeurl}
+URL:             https://lyrion.org/players-and-controllers/squeezelite/
 Source0:         %{forgesource}
 Source1:         %{name}.system.service
 Source2:         %{name}.user.service
 Source3:         %{name}.service.7.md
 Source4:         %{name}.sysconfig
+Source5:         org.lyrion.%{name}.metainfo.xml
+Source6:         https://raw.githubusercontent.com/CDrummond/squeezelite/refs/tags/0.8.0/fastlane/metadata/android/en-US/images/icon.png
 
+
+BuildRequires:   /usr/bin/appstream-util
 BuildRequires: make
 BuildRequires:   alsa-lib-devel
 BuildRequires:   faad2-devel
@@ -80,8 +84,16 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/sysconfig/%{name}
 install -p -D -t %{buildroot}/%{_mandir}/man1 -m 0644 doc/%{name}.1
 install -p -D -t %{buildroot}/%{_mandir}/man7 -m 0644 %{name}.service.7
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
+install -p -D -m 0644 %{SOURCE5} \
+        %{buildroot}/%{_metainfodir}/org.lyrion.%{name}.metainfo.xml
+install -p -D -m 0644 %{SOURCE6} \
+        %{buildroot}/%{_datadir}/icons/hicolor/512x512/%{name}.png
 
 install -m0644 -D squeezelite.sysusers.conf %{buildroot}%{_sysusersdir}/squeezelite.conf
+
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %files
@@ -96,8 +108,8 @@ install -m0644 -D squeezelite.sysusers.conf %{buildroot}%{_sysusersdir}/squeezel
 %{_unitdir}/%{name}.service
 %{_userunitdir}/%{name}.service
 %{_sysusersdir}/squeezelite.conf
-
-
+%{_datadir}/icons/hicolor/512x512/%{name}.png
+%{_metainfodir}/org.lyrion.%{name}.metainfo.xml
 
 
 %post

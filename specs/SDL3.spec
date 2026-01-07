@@ -20,8 +20,8 @@
 
 
 Name:           SDL3
-Version:        3.3.6
-Release:        2%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -202,6 +202,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Mon Jan  5 2026 Tom Callaway <spot@fedoraproject.org> - 3.4.0-1
+- update to 3.4.0
+
 * Sun Dec 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.6-2
 - Disable libXScrnSaver on RHEL
 

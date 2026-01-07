@@ -1,10 +1,10 @@
-%global forgeurl https://github.com/openjdk/jfx17u
+%global forgeurl https://github.com/openjdk/jfx25u
 %global openjfxdir %{_jvmdir}/%{name}
-%global rtdir jfx17u-17.0.17-1
+%global rtdir jfx25u-25.0.2-3
 
 Name:           openjfx
 Epoch:          3
-Version:        17.0.17.1
+Version:        25.0.2.3
 Release:        1%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
@@ -26,26 +26,25 @@ Source10:       pom-graphics_compileJava-prism.xml
 Source11:       pom-graphics_graphics.xml
 Source12:       pom-graphics_libdecora.xml
 Source13:       pom-graphics_libglass.xml
-Source14:       pom-graphics_libglassgtk2.xml
-Source15:       pom-graphics_libglassgtk3.xml
-Source16:       pom-graphics_libjavafx_font.xml
-Source17:       pom-graphics_libjavafx_font_freetype.xml
-Source18:       pom-graphics_libjavafx_font_pango.xml
-Source19:       pom-graphics_libjavafx_iio.xml
-Source20:       pom-graphics_libprism_common.xml
-Source21:       pom-graphics_libprism_es2.xml
-Source22:       pom-graphics_libprism_sw.xml
-Source23:       pom-graphics_prism.xml
-Source24:       pom-media.xml
-Source25:       pom-openjfx.xml
-Source26:       pom-swing.xml
-Source27:       pom-swt.xml
-Source28:       pom-web.xml
-Source29:       build.xml
-Patch0: openjfx-c99.patch
-Patch1: openjfx-c99-2.patch
-Patch2: openjfx-c99-3.patch
-Patch3: openjfx-fix-type.patch
+Source14:       pom-graphics_libglassgtk3.xml
+Source15:       pom-graphics_libjavafx_font.xml
+Source16:       pom-graphics_libjavafx_font_freetype.xml
+Source17:       pom-graphics_libjavafx_font_pango.xml
+Source18:       pom-graphics_libjavafx_iio.xml
+Source19:       pom-graphics_libprism_common.xml
+Source20:       pom-graphics_libprism_es2.xml
+Source21:       pom-graphics_libprism_sw.xml
+Source22:       pom-graphics_prism.xml
+Source23:       pom-media.xml
+Source24:       pom-openjfx.xml
+Source25:       pom-swing.xml
+Source26:       pom-swt.xml
+Source27:       pom-web.xml
+Source28:       build.xml
+Source29:       pom-jdk.jsobject.xml
+Source30:       pom-jfx.incubator.input.xml
+Source31:       pom-jfx.incubator.richtext.xml	
+Patch0:         openjfx-disable-mtl.patch
 
 ExclusiveArch:  %{java_arches}
 
@@ -94,7 +93,7 @@ The media module have been removed due to missing dependencies.
 
 #Drop *src/test folders
 rm -rf modules/javafx.{base,controls,fxml,graphics,media,swing,swt,web}/src/test/
-rm -rf modules/jdk.packager/src/test/
+rm -rf modules/jfx.incubator.{input,richtext}/src/test/
 
 #prep for javafx.graphics
 cp -a modules/javafx.graphics/src/jslc/antlr modules/javafx.graphics/src/main/antlr3
@@ -112,8 +111,13 @@ do
     mv pom-$MODULE.xml ./modules/javafx.$MODULE/pom.xml
 done
 
-mkdir ./modules/javafx.graphics/mvn-{antlr,decora,compileJava,graphics,libdecora,libglass,libglassgtk2,libglassgtk3,libjavafx_font,libjavafx_font_freetype,libjavafx_font_pango,libjavafx_iio,libprism_common,libprism_es2,libprism_sw,prism}
-for GRAPHMOD in antlr decora compileJava graphics libdecora libglass libglassgtk2 libglassgtk3 libjavafx_font libjavafx_font_freetype libjavafx_font_pango libjavafx_iio libprism_common libprism_es2 libprism_sw prism
+for MODULE in jdk.jsobject jfx.incubator.input jfx.incubator.richtext
+do
+    mv pom-$MODULE.xml ./modules/$MODULE/pom.xml
+done
+
+mkdir ./modules/javafx.graphics/mvn-{antlr,decora,compileJava,graphics,libdecora,libglass,libglassgtk3,libjavafx_font,libjavafx_font_freetype,libjavafx_font_pango,libjavafx_iio,libprism_common,libprism_es2,libprism_sw,prism}
+for GRAPHMOD in antlr decora compileJava graphics libdecora libglass libglassgtk3 libjavafx_font libjavafx_font_freetype libjavafx_font_pango libjavafx_iio libprism_common libprism_es2 libprism_sw prism
 do
     mv pom-graphics_$GRAPHMOD.xml ./modules/javafx.graphics/mvn-$GRAPHMOD/pom.xml
 done
@@ -151,8 +155,10 @@ export CXXFLAGS="${RPM_OPT_FLAGS}"
 
 install -d -m 755 %{buildroot}%{openjfxdir}
 cp -a modules/javafx.{base,controls,fxml,media,swing,swt,web}/target/*.jar %{buildroot}%{openjfxdir}
+cp -a modules/jdk.jsobject/target/*.jar %{buildroot}%{openjfxdir}
+cp -a modules/jfx.incubator.{input,richtext}/target/*.jar %{buildroot}%{openjfxdir}
 cp -a modules/javafx.graphics/mvn-compileJava/mvn-java/target/*.jar %{buildroot}%{openjfxdir}
-cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,javafx_font_pango,glass,glassgtk2,glassgtk3,javafx_iio,prism_common,prism_es2,prism_sw}/target/*.so %{buildroot}%{openjfxdir}
+cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,javafx_font_pango,glass,glassgtk3,javafx_iio,prism_common,prism_es2,prism_sw}/target/*.so %{buildroot}%{openjfxdir}
 #cp -a %_target_platform/lib/libjfxwebkit.so %{buildroot}%{openjfxdir}
 
 %files
@@ -163,6 +169,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Mon Jan 05 2026 Nicolas De Amicis <deamicis@bluewin.ch> - 3:25.0.2.3-1
+- Rebase to openjfx 25.0.2
+
 * Thu Nov 06 2025 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.17.1-1
 - Bump to 17.0.17
 

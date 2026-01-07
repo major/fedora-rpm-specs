@@ -227,6 +227,10 @@ export CFLAGS="$CFLAGS -ffloat-store -fexcess-precision=standard"
 export CFLAGS="$CFLAGS -std=gnu17"
 %endif
 
+%if 0%{?fedora} > 42
+export CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
+%endif
+
 %ifarch s390x
 export CFLAGS="$CFLAGS -Wno-error=free-nonheap-object"
 %endif
@@ -416,6 +420,7 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 * Thu Dec 11 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 8.0.0-1
 - New upstream release
 - New pkg-varnish-cache checkout
+- Added cflag -Wno-error=discarded-qualifiers to build on fedora while waiting for upstream
 
 * Wed Oct 29 2025 Luboš Uhliarik <luhliari@redhat.com> - 7.7.3-2
 - Add tmpfiles.d rules for /var directories (bootc compatibility)

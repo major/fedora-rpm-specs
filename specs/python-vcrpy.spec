@@ -4,7 +4,7 @@
 %global modname vcrpy
 
 Name:               python-%{modname}
-Version:            8.1.0
+Version:            8.1.1
 Release:            1%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
@@ -88,6 +88,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Mon Jan 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 8.1.1-1
+- 8.1.1
+
 * Mon Dec 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 8.1.0-1
 - 8.1.0
 

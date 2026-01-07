@@ -4,8 +4,6 @@
 %global debug_package %{nil}
 
 %global crate regorus
-# Further features can be added in future releases
-%global features regex,base64,time,std
 
 Name:           rust-regorus
 Version:        0.2.6
@@ -17,6 +15,9 @@ URL:            https://crates.io/crates/regorus
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  git-core
+
+Patch0: remove-jsonschema.patch
 
 %global _description %{expand:
 A fast, lightweight Rego (OPA policy language) interpreter.}
@@ -53,6 +54,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+arc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ast-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ast-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ast" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ast-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+base64-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -65,6 +90,186 @@ use the "base64" feature of the "%{crate}" crate.
 %files       -n %{name}+base64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+base64url-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+base64url-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "base64url" feature of the "%{crate}" crate.
+
+%files       -n %{name}+base64url-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+coverage-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+coverage-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "coverage" feature of the "%{crate}" crate.
+
+%files       -n %{name}+coverage-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+crypto-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deprecated-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deprecated-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deprecated" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deprecated-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+full-opa-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+full-opa-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "full-opa" feature of the "%{crate}" crate.
+
+%files       -n %{name}+full-opa-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+glob-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+glob-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "glob" feature of the "%{crate}" crate.
+
+%files       -n %{name}+glob-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+graph-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+graph-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "graph" feature of the "%{crate}" crate.
+
+%files       -n %{name}+graph-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hex-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hex-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hex" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hex-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jwt-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jwt-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jwt" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jwt-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+no_std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+no_std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "no_std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+no_std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+opa-no-std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+opa-no-std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "opa-no-std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+opa-no-std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+opa-runtime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+opa-runtime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "opa-runtime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+opa-runtime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+opa-testutil-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+opa-testutil-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "opa-testutil" feature of the "%{crate}" crate.
+
+%files       -n %{name}+opa-testutil-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+regex-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -75,6 +280,42 @@ This package contains library source intended for building other packages which
 use the "regex" feature of the "%{crate}" crate.
 
 %files       -n %{name}+regex-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rego-extensions-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rego-extensions-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rego-extensions" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rego-extensions-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+semver-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+semver-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "semver" feature of the "%{crate}" crate.
+
+%files       -n %{name}+semver-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_yaml-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_yaml-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_yaml" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_yaml-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -101,15 +342,51 @@ use the "time" feature of the "%{crate}" crate.
 %files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+urlquery-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+urlquery-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "urlquery" feature of the "%{crate}" crate.
+
+%files       -n %{name}+urlquery-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+uuid-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+uuid-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "uuid" feature of the "%{crate}" crate.
+
+%files       -n %{name}+uuid-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+yaml-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+yaml-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "yaml" feature of the "%{crate}" crate.
+
+%files       -n %{name}+yaml-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -n -f %{features}
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -n -f %{features}
+%cargo_build
 
 %install
 %cargo_install

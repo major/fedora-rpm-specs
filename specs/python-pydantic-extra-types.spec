@@ -124,10 +124,6 @@ ignore="${ignore-} --ignore=tests/test_mongo_object_id.py"
 ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %endif
 
-# 2.10.6: Failing test_json_schema tests
-# https://github.com/pydantic/pydantic-extra-types/issues/346
-k="${k-}${k+ and }not test_json_schema"
-
 %pytest -Wdefault ${ignore-} -k "${k-}" -v
 %endif
 

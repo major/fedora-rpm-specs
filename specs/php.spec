@@ -65,12 +65,13 @@
 %bcond_with      modphp
 %bcond_without   lmdb
 
-# liburiparser version 0.9.10 required (not yet released)
+# liburiparser version 1.0.0 required
+%global liburiparser_ver 1.0.0
 # use bundled library instead for now
 %bcond_with          liburiparser
 
-%global upver        8.5.1
-#global rcver        RC2
+%global upver        8.5.2
+%global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -135,6 +136,7 @@ Patch47: php-8.4.0-phpinfo.patch
 Patch48: php-8.5.0-openssl-ec-param.patch
 
 # Upstream fixes (100+)
+Patch100: upstream.patch
 
 # Security fixes (200+)
 
@@ -178,9 +180,9 @@ BuildRequires: systemtap-sdt-devel
 BuildRequires: systemtap-sdt-dtrace
 %endif
 %if %{with liburiparser}
-BuildRequires: pkgconfig(liburiparser) >= 0.9.10
+BuildRequires: pkgconfig(liburiparser) >= %{liburiparser_ver}
 %else
-Provides:      bundled(liburiparser) = 0.9.10
+Provides:      bundled(liburiparser) = %{liburiparser_ver}
 %endif
 # used for tests
 BuildRequires: %{_bindir}/ps
@@ -852,6 +854,7 @@ in pure PHP.
 %patch -P48 -p1 -b .ec-param
 
 # upstream patches
+%patch -P100 -p1 -b .liburiparser
 
 # security patches
 
@@ -1644,6 +1647,10 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Mon Jan  5 2026 Remi Collet <remi@remirepo.net> - 8.5.2~RC1-1
+- update to 8.5.2RC1
+- use system liburiparser
+
 * Wed Dec 17 2025 Remi Collet <remi@remirepo.net> - 8.5.1-1
 - Update to 8.5.1 - http://www.php.net/releases/8_5_1.php
 

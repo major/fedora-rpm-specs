@@ -16,7 +16,7 @@ Patch:          %{name}-java11.patch
 # Adapt tests to JDK 21
 Patch:          %{name}-java21.patch
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  mutter
 BuildRequires:  mvn(junit:junit)

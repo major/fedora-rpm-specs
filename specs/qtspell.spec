@@ -1,6 +1,6 @@
 Name:           qtspell
 Version:        1.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Spell checking for Qt text widgets
 
 License:        GPL-3.0-or-later
@@ -69,16 +69,16 @@ The %{name}-qt5-translations contains translations for %{name}-qt5.
 
 
 %package        qt6
-Summary:        Spell checking for Qt5 text widgets
+Summary:        Spell checking for Qt6 text widgets
 
 %description    qt6
-QtSpell adds spell-checking functionality to Qt5's text widgets, using the
+QtSpell adds spell-checking functionality to Qt6's text widgets, using the
 enchant spell-checking library.
 
 
 %package        qt6-devel
 Summary:        Development files for %{name}-qt6
-Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
+Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
 
 %description    qt6-devel
 The %{name}-qt6-devel package contains libraries and header files for
@@ -108,7 +108,6 @@ that use %{name}.
 Summary:       MinGW Windows %{name}-Qt5 library
 Requires:      mingw32-qt5-qttranslations
 BuildArch:     noarch
-Obsoletes:     mingw32-%{name}-qt5-static
 
 %description -n mingw32-%{name}-qt5
 MinGW Windows %{name}-Qt5 library.
@@ -118,7 +117,6 @@ MinGW Windows %{name}-Qt5 library.
 Summary:       MinGW Windows %{name}-Qt5 library
 Requires:      mingw64-qt5-qttranslations
 BuildArch:     noarch
-Obsoletes:     mingw64-%{name}-qt5-static
 
 %description -n mingw64-%{name}-qt5
 MinGW Windows %{name}-Qt5 library.
@@ -245,6 +243,9 @@ MINGW_BUILDDIR_SUFFIX=qt6 %mingw_make_install
 
 
 %changelog
+* Mon Jan 05 2026 Sandro Mani <manisandro@gmail.com> - 1.0.2-3
+- Fix incorrect requires qtspell-qt6-devel -> qtspell-qt5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

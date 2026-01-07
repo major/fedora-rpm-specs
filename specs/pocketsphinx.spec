@@ -1,13 +1,12 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
 URL:            https://cmusphinx.github.io/
 Source0:        https://github.com/cmusphinx/pocketsphinx/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1:         pocketsphinx-5.0.4-no-sounddevice.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -119,6 +118,9 @@ mv redhat-linux-build-python redhat-linux-build
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Mon Jan 05 2026 W. Michael Petullo <mike@flyn.org> - 2:5.0.4-4
+- Drop pocketsphinx-5.0.4-no-sounddevice.patch, as Fedora now ships python-sounddevice
+
 * Sun Dec 14 2025 W. Michael Petullo <mike@flyn.org> - 2:5.0.4-3
 - Use more Python macros (BZ #2295577)
 

@@ -4,8 +4,8 @@
 %endif
 
 Name:		calf
-Version:	0.90.8
-Release:	2%{?dist}
+Version:	0.90.9
+Release:	1%{?dist}
 Summary:	Audio plugins pack
 # The jackhost code is GPLv2+ 
 # The GUI code is LGPLv2+
@@ -157,6 +157,9 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_libdir}/dssi/%{name}.so
 
 %changelog
+* Mon Jan 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.90.9-1
+- 0.90.9
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

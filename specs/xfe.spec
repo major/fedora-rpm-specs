@@ -7,7 +7,7 @@
 
 Name:		xfe
 Version:	%{main_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -17,10 +17,13 @@ Summary:	X File Explorer File Manager
 License:	GPL-2.0-or-later AND Zlib AND MIT
 URL:		http://roland65.free.fr/xfe/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{main_version}.tar.xz
-%dnl Source0:	https://sourceforge.net/p/xfe/bugs/_discuss/thread/7d14462c76/238d/attachment/%{name}-%{version}.tar.xz
 # Temporarily
 # Use system-wide startup-notification: need discuss with upstream
 Patch0:	xfe-2.0-use-system-libsn.patch
+# Fix use-after-free when trying to repaint window after opening supprted file
+# https://bugzilla.redhat.com/show_bug.cgi?id=2425678
+# https://sourceforge.net/p/xfe/bugs/313/
+Patch1:	xfe-2.1.2-sf313-use-after-free.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -66,6 +69,7 @@ This package contains extra theme files for %{name}.
 %prep
 %setup -q -n %{name}-%{main_version}
 %patch -P0 -p1 -b .syssn
+%patch -P1 -p1 -b .xfi_invalid_img
 
 for f in \
 	ChangeLog
@@ -173,6 +177,10 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Mon Jan 05 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.2-2
+- Workaround for use-after-free when trying to repaint window after opening
+  supprted file (bug 2425678)
+
 * Thu Jan 01 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.2-1
 - 2.1.2
 

@@ -1,6 +1,6 @@
 Summary: Text mode Mail Client
 Name: neomutt
-Version: 20251211
+Version: 20260105
 Release: 1%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
@@ -84,7 +84,7 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
-* Thu Dec 11 2025 Richard Russon <rich@flatcap.org> - 20251211-1
+* Mon Jan 05 2026 Richard Russon <rich@flatcap.org> - 20260105-1
 - Security
   - #4725	deprecate old ssl and tls options
 - Features
@@ -101,7 +101,6 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
   - #4696	`cmd_parse_fetch()`: debug: avoid NULL dereference
   - #4697	expunge: guard against segfault
   - #4719	alias: complete when only one match
-  - #4721	browser: fix select/descend folder/mailbox
   - #4726	imap: protect against crash on shutdown
   - fix resolve for tagged save
   - help: fix sorting of unbound functions
@@ -139,6 +138,9 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
   - pass focused window to global functions
   - Use `buf_at()` to get a char from a `Buffer`
   - use `StringArray` everywhere
+
+* Thu Dec 11 2025 Richard Russon <rich@flatcap.org> - 20251211-1
+  - Superseded by 2026-01-05
 
 * Fri Sep 05 2025 Richard Russon <rich@flatcap.org> - 20250905-1
 - Security

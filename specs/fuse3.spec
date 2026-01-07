@@ -5,7 +5,7 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
-%global xyz_version 3.18.0
+%global xyz_version 3.18.1
 %global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
 
 Name:		fuse3
@@ -121,6 +121,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %config(noreplace) %{_sysconfdir}/fuse.conf
 
 %changelog
+* Mon Jan  5 2026 Tom Callaway <spot@fedoraproject.org> - 3.18.1-1
+- update to 3.18.1
+
 * Fri Dec 19 2025 Tom Callaway <spot@fedoraproject.org> - 3.18.0-1
 - update to 3.18.0
 

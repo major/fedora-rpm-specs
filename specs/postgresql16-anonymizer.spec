@@ -3,11 +3,11 @@
 %global shortname       anonymizer
 %global extension       postgresql_%{shortname}
 %global pgversion       16
-%global pgrx_version    0.16.0
+%global pgrx_version    0.16.1
 %global pg_config       %{_bindir}/pg_config
 
 Name:           postgresql%{pgversion}-%{shortname}
-Version:        2.4.1
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Mask or replace personally identifiable information (PII) or sensitive data
 

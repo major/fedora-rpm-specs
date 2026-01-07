@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.32.0
+Version:        4.33.0
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -28,9 +28,8 @@ License:        MIT
 URL:            https://tox.readthedocs.io/
 Source:         %{pypi_source tox}
 
-# Remove dependency on devpi-process.
-# Remove dependency on detect-test-pollution.
-# Remove coverage-related dependencies.
+# Remove usage of devpi-process.
+# Remove coverage options.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
 # Adjust setuptools-version specific ifs to check for setuptools version rather than Python version.
 # Ignore ResourceWarning: subprocess ... is still running (happens arbitrarily, possibly due to pytest-xdist usage)
@@ -103,12 +102,14 @@ Recommends:     python3-devel
 # Upstream updates dependencies too aggressively
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
 # First, carefully adjust the pins of build and runtime dependencies,
-# then remove all the >= specifiers from tests deps, whatever they are.
+# then remove all the >= specifiers from tests deps, whatever they are,
+# finally, remove undesired test dependencies.
 sed -ri -e 's/"(packaging|filelock|platformdirs|pyproject-api|cachetools|hatch-vcs)>=.*/"\1",/g' \
         -e 's/"(virtualenv)>=.*/"\1>=20.29",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
         -e 's/"(pluggy)>=.*/"\1>=1.5",/g' \
         -e '/^test = \[/,/^\]/ { s/>=[^;"]+// }' \
+        -e '/^test = \[/,/^\]/ { /"(covdefaults|coverage|detect-test-pollution|devpi-process|diff-cover|pytest-cov)[;"]/d }' \
     pyproject.toml
 
 %generate_buildrequires

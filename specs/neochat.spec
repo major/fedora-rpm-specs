@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name: neochat
 Version: 25.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Mon Jan 05 2026 Jens Petersen <petersen@redhat.com> - 25.12.0-2
+- rebuild for F44 https://fedoraproject.org/wiki/Changes/cmark-0.31
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

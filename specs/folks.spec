@@ -3,12 +3,14 @@
 Name:           folks
 Epoch:          1
 Version:        0.15.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GObject contact aggregation library
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Folks
 Source0:        https://download.gnome.org/sources/folks/0.15/folks-%{version}.tar.xz
+
+Patch:          0001-evolution-data-server-3.59.1-api-change.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -108,6 +110,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/vapi/%{name}*
 
 %changelog
+* Mon Jan 05 2026 Milan Crha <mcrha@redhat.com> - 1:0.15.9-7
+- Rebuilt for evolution-data-server soname bump
+
 * Fri Aug 01 2025 Milan Crha <mcrha@redhat.com> - 1:0.15.9-6
 - Rebuilt for evolution-data-server soname bump
 

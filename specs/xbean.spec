@@ -20,7 +20,7 @@ Obsoletes:      %{name}-javadoc < 4.24-9
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.osgi:org.osgi.core)
@@ -74,7 +74,7 @@ rm -r xbean-finder/src/main/java/org/apache/xbean/finder{,/archive}/Bundle*
 sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apache/xbean/finder/archive/MJarJarArchiveTest.java
 
 %build
-%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build --force -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install

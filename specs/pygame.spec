@@ -1,19 +1,29 @@
 Name:           pygame
 Version:        2.6.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
 URL:            http://www.pygame.org
-Source0:	https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 
-BuildRequires:  python%{python3_pkgversion}-devel python%{python3_pkgversion}-numpy python%{python3_pkgversion}-Cython
-BuildRequires:  SDL2_ttf-devel SDL2_image-devel SDL2_mixer-devel
-BuildRequires:  SDL2-devel freetype-devel
-BuildRequires:  libpng-devel libjpeg-devel libX11-devel
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-numpy
+BuildRequires:  python%{python3_pkgversion}-Cython
+BuildRequires:  SDL2_ttf-devel
+BuildRequires:  SDL2_image-devel
+BuildRequires:  SDL2_mixer-devel
+BuildRequires:  SDL2-devel
+BuildRequires:  freetype-devel
+BuildRequires:  libpng-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  libX11-devel
 BuildRequires:  portmidi-devel
 BuildRequires:  gcc
+
+# https://github.com/pygame/pygame/issues/4716
+Patch:          pygame-2.6.1-python-3.15-fix.patch
 
 %global _description\
 Pygame is a set of Python modules designed for writing games. It is\
@@ -108,6 +118,10 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Mon Jan 05 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.6.1-8
+- Fixed build with python-3.15
+  Resolves: rhbz#2424565
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6.1-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

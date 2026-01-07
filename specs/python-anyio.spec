@@ -6,7 +6,7 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        4.11.0
+Version:        4.12.0
 Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
@@ -77,6 +77,9 @@ k="${k-}${k+ and }not (TestCapacityLimiter and test_bad_init_value[trio])"
 
 
 %changelog
+* Fri Dec 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.12.0-1
+- Update to 4.12.0 (close RHBZ#2419146)
+
 * Thu Nov 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.11.0-1
 - Update to 4.11.0 (close RHBZ#2352829)
 

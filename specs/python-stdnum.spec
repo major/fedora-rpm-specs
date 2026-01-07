@@ -1,8 +1,8 @@
 %global srcname stdnum
 
 Name:           python-%{srcname}
-Version:        2.1
-Release:        5%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
 License:        LGPL-2.0-or-later
@@ -63,6 +63,9 @@ export LANG=C.utf-8
 
 
 %changelog
+* Mon Jan 05 2026 Dan Horák <dan[at]danny.cz> - 2.2-1
+- updated to 2.2 (rhbz#2427049)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    c467c59a4f6e04b942be422844e7a6352fa01b57
+%global gh_commit    4a9739b51cbcb355f6e95659612f92e282a7077b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-12-08
+%global gh_date      2025-12-24
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.5.1
+Version:        12.5.2
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -39,7 +39,6 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
 
-Patch0:         upstream.patch
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.3
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
@@ -118,7 +117,6 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch -P0 -p1
 
 
 %build
@@ -189,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec 25 2025 Remi Collet <remi@remirepo.net> - 12.5.2-1
+- update to 12.5.2
+
 * Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 12.5.1-1
 - update to 12.5.1
 - raise dependency on nikic/php-parser 5.7.0

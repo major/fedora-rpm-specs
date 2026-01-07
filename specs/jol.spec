@@ -1,6 +1,6 @@
 Name:           jol
 Version:        0.17
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Java Object Layout
 
 # GPL-2.0-only: the project as a whole
@@ -13,7 +13,7 @@ License:        GPL-2.0-only AND GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://openjdk.java.net/projects/code-tools/jol/
 Source0:        https://github.com/openjdk/jol/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.sf.jopt-simple:jopt-simple)
 BuildRequires:  mvn(org.ow2.asm:asm)
@@ -68,7 +68,7 @@ This package contains a command line interface to JOL.
 %pom_disable_module jol-samples
 
 %build
-%mvn_build -s
+%mvn_build -s --force
 
 %install
 %mvn_install

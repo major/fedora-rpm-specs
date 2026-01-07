@@ -1,6 +1,6 @@
 Name:           hackrf
-Version:        2024.02.1
-Release:        5%{?dist}
+Version:        2026.01.1
+Release:        1%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -131,6 +131,7 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 %{_includedir}/libhackrf/hackrf.h
 %{_libdir}/pkgconfig/libhackrf.pc
 %{_libdir}/libhackrf.so
+%{_libdir}/cmake/HackRF
 
 %files firmware
 %{_datadir}/%{name}/README-Fedora
@@ -144,6 +145,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Mon Jan 05 2026 Steven A. Falco <stevenfalco@gmail.com> - 2026.01.1-1
+- Update to 2026.01.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.02.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 Name:          javapoet
 Version:       1.7.0
-Release:       27%{?dist}
+Release:       28%{?dist}
 Summary:       A Java API for generating .java source files
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 URL:           https://github.com/square/javapoet
 Source0:       https://github.com/square/%{name}/archive/%{name}-%{version}.tar.gz
 
-BuildRequires: maven-local-openjdk21
+BuildRequires: maven-local-openjdk25
 
 %if 0
 # test dependencies

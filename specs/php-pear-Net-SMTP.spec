@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-pear-Net-SMTP
 #
-# Copyright (c) 2006-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2006-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,8 +10,8 @@
 %global pear_name Net_SMTP
 
 Name:           php-pear-Net-SMTP
-Version:        1.12.1
-Release:        4%{?dist}
+Version:        1.12.2
+Release:        1%{?dist}
 Summary:        Provides an implementation of the SMTP protocol
 
 License:        BSD-2-Clause
@@ -29,7 +29,6 @@ Requires:       php-pear(PEAR) >= 1.10.1
 Requires:       php-pear(Net_Socket)
 Requires:       php-pear(Auth_SASL)
 # From phpcompatinfo report for version 1.9.0
-Requires:       php-pcre
 Requires:       php-openssl
 # Optional
 %if 0%{?fedora} >= 29 || 0%{?rhel} >= 8
@@ -102,6 +101,10 @@ fi
 
 
 %changelog
+* Mon Jan  5 2026 Remi Collet <remi@remirepo.net> 1.12.2-1
+- update to 1.12.2
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

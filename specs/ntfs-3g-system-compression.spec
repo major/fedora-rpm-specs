@@ -1,19 +1,18 @@
 Name:     ntfs-3g-system-compression
 Summary:  NTFS-3G plugin for reading "system compressed" files
-Version:  1.0
-Release:  19%{?dist}
+Version:  1.1
+Release:  1%{?dist}
 License:  GPL-2.0-or-later
 URL:      https://github.com/ebiggers/ntfs-3g-system-compression
-Source0:  https://github.com/ebiggers/ntfs-3g-system-compression/archive/v%{version}/ntfs-3g-system-compression-%{version}.tar.gz
-Patch99:  ntfs-3g-system-compression-fedora-c99.patch
+Source:   %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
+BuildRequires:  make
 BuildRequires:  pkgconfig(libntfs-3g) >= 2017.3.23
-BuildRequires:  fuse-devel
+Supplements:    ntfs-3g
 
 %description
 System compression, also known as "Compact OS", is a Windows feature that
@@ -28,11 +27,13 @@ supported. Compressing an existing file may be done by using the "compact"
 utility on Windows.
 
 %prep
-%autosetup
+%autosetup -p1
 
-%build
+%conf
 autoreconf -i
 %configure
+
+%build
 %make_build
 
 %install
@@ -46,6 +47,11 @@ rm -rf %{buildroot}%{_libdir}/ntfs-3g/*.la
 %{_libdir}/ntfs-3g/ntfs-plugin-80000017.so
 
 %changelog
+* Mon Jan 05 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.1-1
+- Update to 1.1
+- Slightly modernize spec
+- Drop unneeded patch
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

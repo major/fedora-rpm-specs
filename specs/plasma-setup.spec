@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit 359ce87477532065bf95d478f5d9270e8bd05c84
+%global commit 81df938edc7dc5f53968b0d5e6ba03245707ceb0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20251218
+%global date 20260105
 
 %global orgname org.kde.plasmasetup
 
@@ -12,7 +12,7 @@
 
 Name:           plasma-setup
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -21,8 +21,6 @@ Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
 # Backported changes
 
 # Proposed changes
-## Support setting the hostname on initial setup
-Patch0101:      https://invent.kde.org/plasma/plasma-setup/-/merge_requests/68.patch
 
 # Downstream only changes
 Patch1001:      plasma-setup-load-fedora-wallpaper.patch
@@ -124,6 +122,9 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Mon Jan 05 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20260105git81df938-1
+- Bump to new git snapshot
+
 * Sat Jan 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20251218git359ce87-2
 - Add patch to support setting the hostname
 

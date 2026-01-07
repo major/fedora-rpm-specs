@@ -3,7 +3,7 @@
 
 
 Name:           python-pycares
-Version:        5.0.0
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        Python interface for c-ares
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Mon Jan 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.0.1-1
+- 5.0.1
+
 * Thu Dec 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.0-1
 - 5.0.0
 

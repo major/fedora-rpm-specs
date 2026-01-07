@@ -16,8 +16,8 @@
 %bcond_without	irc
 %bcond_with	debugqa
 
-%global nspr_version	4.32.0
-%global nss_version	3.90.0
+%global nspr_version	4.35.0
+%global nss_version	3.112.0
 %global libvpx_version	1.5.0
 %global webp_version	1.0.2
 %global icu_version	63.1
@@ -34,7 +34,7 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.22
+Version:        2.53.23
 Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
@@ -67,7 +67,7 @@ Patch18:	seamonkey-2.53.8-mozilla-1661070-2.patch
 Patch19:	seamonkey-2.53.22-system-av1.patch
 Patch21:	seamonkey-2.53.22-media-document.patch
 Patch23:	seamonkey-2.53.9-revert-1593550.patch
-Patch24:	seamonkey-2.53.20-install_man.patch
+Patch24:	seamonkey-2.53.23-install_man.patch
 Patch25:	seamonkey-2.53.7-mailnews-useragent.patch
 Patch26:	seamonkey-2.53.13-userDisabled.patch
 Patch27:	seamonkey-2.53.8-ext-if-needed.patch
@@ -83,8 +83,6 @@ Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
-Patch43:	seamonkey-2.53.22-mozilla-1502802.patch
-Patch44:	seamonkey-2.53.22-mozilla-1363875.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -213,8 +211,6 @@ cp %{SOURCE3} GNUmakefile
 %patch 39 -p1 -b .dateformat
 %patch 40 -p0 -b .slowscript
 %patch 42 -p1 -b .postmessage-event
-%patch 43 -p1 -b .1502802
-%patch 44 -p1 -b .1363875
 
 %patch 60 -p1 -b .ua-update
 %patch 61 -p1 -b .ua-update-preload
@@ -503,6 +499,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Mon Jan  5 2026 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.23-1
+- update to 2.53.23
+
 * Wed Nov  5 2025 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.22-1
 - update to 2.53.22
 

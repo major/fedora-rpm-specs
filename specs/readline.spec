@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # * Main sources are GPL-3.0-or-later
 # * examples/rlfe are GPL-2.0-or-later
@@ -14,6 +14,8 @@ Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 # Official upstream patches
 # Patches are converted to apply with '-p1'
 Patch1: readline-8.3-patch-1.patch
+Patch2: readline-8.3-patch-2.patch
+Patch3: readline-8.3-patch-3.patch
 
 # Other patches
 # Remove RPATH, use CFLAGS
@@ -88,6 +90,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Mon Jan 05 2026 Siteshwar Vashisht <svashisht@redhat.com> - 8.3-3
+- Update to readline-8.3 patchlevel 3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

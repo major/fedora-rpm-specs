@@ -9,8 +9,8 @@
 %endif
 
 Name:    varnish-modules
-Version: 0.26.0
-Release: 5%{?dist}
+Version: 0.27.0
+Release: 1%{?dist}
 Summary: A collection of modules ("vmods") extending Varnish VCL
 
 License: BSD-2-Clause
@@ -81,6 +81,9 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
+* Mon Jan 05 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.27.0-1
+- New upstream release varnish-modules-0.27.0
+
 * Wed Nov 19 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.26.0-5
 - Rebuilt for varnish-7.7.3-2, rhbz#2407456
 

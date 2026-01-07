@@ -58,10 +58,9 @@ tar xf %{SOURCE3}
 cd %{_sourcedir}
 sha256sum --check --ignore-missing --strict '%{builddir}/trusted_checksums'
 
-%goprep -A
-%setup -q -T -D -a1 %{forgesetupargs}
+%goprep -p1
+tar -xf %{SOURCE1}
 cp -p %{SOURCE4} .
-%autopatch -p1
 
 # Modify tests so that they expect binaries where we build them.
 sed -i -e 's!\.\./bin/!/%{gobuilddir}/bin/!g' t/Makefile
@@ -83,7 +82,7 @@ pushd docs
 popd
 
 %if 0%{?fedora}
-LDFLAGS="-X 'github.com/git-lfs/git-lfs/config.Vendor=Fedora %{?fedora}' " \
+GO_LDFLAGS="-X 'github.com/git-lfs/git-lfs/config.Vendor=Fedora %{?fedora}' "
 %endif
 %gobuild -o %{gobuilddir}/bin/git-lfs %{goipath}
 
@@ -130,7 +129,7 @@ exit 0
 %check
 %go_vendor_license_check -c %{S:5}
 %if %{with check}
-%gotest ./...
+%gocheck2
 PATH=%{buildroot}%{_bindir}:%{gobuilddir}/bin:$PATH \
     make -C t PROVE_EXTRA_ARGS="-j$(getconf _NPROCESSORS_ONLN)"
 %endif
@@ -138,7 +137,6 @@ PATH=%{buildroot}%{_bindir}:%{gobuilddir}/bin:$PATH \
 
 %files -f %{go_vendor_license_filelist}
 %doc README.md README.Fedora CHANGELOG.md docs
-%license vendor/modules.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/%{name}*.5*

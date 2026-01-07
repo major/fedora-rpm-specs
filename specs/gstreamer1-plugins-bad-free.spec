@@ -29,8 +29,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.26.9
-Release:        2%{?dist}
+Version:        1.26.10
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -899,6 +899,9 @@ EOF
 
 
 %changelog
+* Tue Jan 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.26.10-1
+- 1.26.10
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 1.26.9-2
 - Rebuilt for OpenCV-4.12
 

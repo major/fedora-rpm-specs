@@ -6,8 +6,8 @@
 #define beta_or_stable beta
 
 Name: privoxy
-Version: 4.0.0
-Release: 3%{?dist}
+Version: 4.1.0
+Release: 1%{?dist}
 Summary: Privacy enhancing proxy
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
@@ -103,6 +103,9 @@ fi
 %{_sysusersdir}/privoxy.conf
 
 %changelog
+* Mon Jan 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.0-1
+- 4.1.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

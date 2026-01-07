@@ -1,5 +1,5 @@
 Name:           python-jaraco-test
-Version:        5.5.1
+Version:        5.6.0
 Release:        %autorelease
 Summary:        Testing support by jaraco
 License:        MIT

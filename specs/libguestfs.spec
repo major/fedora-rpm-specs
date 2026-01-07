@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 # we only do a sanity check that kernel/qemu/libvirt/appliance is not
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
-%global test_arches aarch64 %%{power64} s390x x86_64
+%global test_arches aarch64 %{power64} s390x x86_64
 
 # Trim older changelog entries.
 # https://lists.fedoraproject.org/pipermail/devel/2013-April/thread.html#181627
@@ -23,7 +23,7 @@ ExcludeArch: %{ix86}
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.57-development
+%global source_directory 1.58-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.57.7
-Release:       2%{?dist}
+Version:       1.58.0
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -94,7 +94,7 @@ BuildRequires: libselinux-utils
 BuildRequires: libselinux-devel
 BuildRequires: fuse, fuse-devel
 BuildRequires: pcre2-devel
-BuildRequires: libvirt-devel
+BuildRequires: libvirt-devel >= 11.10.0
 BuildRequires: gperf
 BuildRequires: rpm-devel
 BuildRequires: cpio
@@ -106,7 +106,7 @@ BuildRequires: unzip
 BuildRequires: systemd-units
 BuildRequires: netpbm-progs
 BuildRequires: icoutils
-BuildRequires: libvirt-daemon-kvm >= 7.1.0
+BuildRequires: libvirt-daemon-kvm
 %if !0%{?rhel}
 BuildRequires: perl(Expect)
 %endif
@@ -126,7 +126,7 @@ BuildRequires: curl
 BuildRequires: xz
 BuildRequires: zstd
 BuildRequires: libzstd-devel
-BuildRequires: /usr/bin/qemu-img
+BuildRequires: qemu-img >= 7.2.0
 
 %if 0%{verify_tarball_signature}
 BuildRequires: gnupg2
@@ -283,7 +283,7 @@ Requires:      systemd-libs%{?_isa}
 Requires:      fuse
 
 # For core APIs:
-Requires:      /usr/bin/qemu-img
+Requires:      qemu-img
 Requires:      coreutils
 Requires:      grep
 Requires:      tar
@@ -292,7 +292,7 @@ Requires:      tar
 Requires:      xz
 
 # For qemu direct and libvirt backends.
-Requires:      qemu-kvm-core
+Requires:      qemu-kvm-core >= 7.2.0
 %if !0%{?rhel}
 Suggests:      qemu-block-curl
 Suggests:      qemu-block-iscsi
@@ -302,7 +302,7 @@ Suggests:      qemu-block-rbd
 Suggests:      qemu-block-ssh
 %endif
 Recommends:    libvirt-daemon-config-network
-Requires:      libvirt-daemon-driver-qemu >= 7.1.0
+Requires:      libvirt-daemon-driver-qemu >= 11.10.0
 Requires:      libvirt-daemon-driver-secret
 Requires:      libvirt-daemon-driver-storage-core
 Requires:      passt
@@ -1082,6 +1082,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jan 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.58.0-1
+- New upstream development version 1.58.0
+- Require libvirt >= 11.10.0, qemu >= 7.2.0 and passt.
+
 * Wed Dec 17 2025 Tom Callaway <spot@fedoraproject.org> - 1:1.57.7-2
 - rebuild for new libconfig
 

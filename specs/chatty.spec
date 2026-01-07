@@ -18,6 +18,8 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_versi
 # We do not want to provide a private library, which is from another
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
+# https://gitlab.gnome.org/World/Chatty/-/merge_requests/1481
+Patch1:  1481.patch
 
 ExcludeArch:    %{ix86}
 
