@@ -374,6 +374,8 @@ Patch0123: 0123-pccsadmin-use-more-of-pycryptography-instead-of-pyop.patch
 Patch0124: 0124-pccsadmin-prefer-pycryptography-over-pyopenssl.patch
 Patch0125: 0125-pccsadmin-add-fallback-for-when-pyopenssl-is-not-ava.patch
 Patch0126: 0126-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
+# https://github.com/intel/confidential-computing.tee.dcap/pull/485
+Patch0127: 0127-PCS-Client-Tool-Migrate-from-deprecated-pkg_resource.patch
 
 # 0200-0299 -> against intel-sgx-ssl.git
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
@@ -541,7 +543,7 @@ Requires: python3-keyring
 %endif
 Requires: python3-requests
 Requires: python3-urllib3
-Requires: python3-setuptools
+Requires: python3-packaging
 %if 0%{?rhel}
 Requires: openssl
 %endif

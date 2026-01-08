@@ -1,5 +1,5 @@
 Name:           photoqt
-Version:        4.9.2
+Version:        5.0
 Release:        %autorelease
 Summary:        A fast Qt image viewer
 

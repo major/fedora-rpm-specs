@@ -2,7 +2,7 @@
 ExcludeArch:    %{ix86}
 
 Name:           siril
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
@@ -19,10 +19,7 @@ Summary:        Astronomical image processing software
 # - src/pixelMath/tinyexpr.h
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND Zlib
 URL:            https://siril.org
-Source:         https://free-astro.org/download/siril-1.4.0.tar.bz2
-
-# Backport upstream patch to fix version ordering in appdata.xml
-Patch:          8452301832b4a5c938a157f01402aefad50e3d04.patch
+Source:         https://free-astro.org/download/%{name}-%{version}.tar.bz2
 
 BuildRequires:  make
 BuildRequires:  cmake

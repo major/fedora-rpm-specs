@@ -1,7 +1,7 @@
 %global pypi_name jenkins_job_builder
 
 Name:           python-jenkins-job-builder
-Version:        6.4.3
+Version:        6.4.4
 Release:        %autorelease
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1

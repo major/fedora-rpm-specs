@@ -2,7 +2,7 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 2.9-development
+%global source_directory 2.10-stable
 
 %if !0%{?rhel}
 # Optional features enabled in this build for Fedora.
@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.9.10
+Version:       2.10.0
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -70,7 +70,7 @@ BuildRequires: perl(IPC::Run3)
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.57.6-1
+BuildRequires: libguestfs-devel >= 1:1.58.0-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion
 %if 0%{?fedora} || 0%{?rhel} >= 11
@@ -103,7 +103,7 @@ BuildRequires: glibc-utils
 BuildRequires: %{_bindir}/qemu-nbd
 BuildRequires: %{_bindir}/nbdcopy
 BuildRequires: %{_bindir}/nbdinfo
-BuildRequires: nbdkit-server >= 1.45.11
+BuildRequires: nbdkit-server >= 1.46.1
 BuildRequires: nbdkit-file-plugin
 BuildRequires: nbdkit-null-plugin
 BuildRequires: nbdkit-cow-filter
@@ -116,7 +116,7 @@ BuildRequires: glibc-static
 BuildRequires: gnupg2
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.57.6-1
+Requires:      libguestfs%{?_isa} >= 1:1.58.0-1
 Requires:      guestfs-tools >= 1.54
 
 # XFS is the default filesystem in Fedora and RHEL.
@@ -150,7 +150,7 @@ Requires:      libnbd >= 1.22
 Requires:      %{_bindir}/qemu-nbd
 Requires:      %{_bindir}/nbdcopy
 Requires:      %{_bindir}/nbdinfo
-Requires:      nbdkit-server >= 1.45.11
+Requires:      nbdkit-server >= 1.46.1
 Requires:      nbdkit-curl-plugin
 Requires:      nbdkit-file-plugin
 Requires:      nbdkit-nbd-plugin
@@ -367,6 +367,10 @@ done
 
 
 %changelog
+* Tue Jan 06 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.10.0-1
+- New upstream stable branch version 2.10.0
+- Requires libguestfs >= 1.58.0 and nbdkit >= 1.46.
+
 * Tue Nov  4 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.10-1
 - New upstream development version 2.9.10
 - Requires libguestfs 1.57.6 for new inspection APIs.

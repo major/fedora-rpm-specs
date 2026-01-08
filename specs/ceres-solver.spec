@@ -3,14 +3,14 @@ Version:        2.2.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A non-linear least squares minimizer
 License:        BSD-3-Clause AND Apache-2.0
 
 URL:            http://ceres-solver.org/
 Source0:        http://%{name}.org/%{name}-%{version}.tar.gz
 # Relax eigen version constraints
-Patch0:         ceres-solver_eigenver.patch
+Patch0:         ceres-solver-Support-Eigen3-5.0.0.patch
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
@@ -124,6 +124,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jan 06 2026 Sandro Mani <manisandro@gmail.com> - 2.2.0-8
+- Update eigen-5.x compatibility patch
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

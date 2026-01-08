@@ -40,6 +40,8 @@ Source3:        Xalan.1
 # from 14 to 17.
 Patch:          https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-libs/xalan-c/files/xalan-c-1.12-icu-75.patch
 
+Patch: gcc_15_fixes.patch
+
 BuildRequires:  gnupg2
 BuildRequires:  cmake
 # Either make or ninja is supported.
@@ -104,7 +106,7 @@ documentation.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-%autosetup -n %{tar_name}
+%autosetup -n %{tar_name} -p 1
 
 # https://github.com/apache/xalan-c/pull/35
 chmod -v a-x NOTICE

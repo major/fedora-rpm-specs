@@ -53,7 +53,7 @@
 
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -69,6 +69,8 @@ Patch1:     0002-option-use-system-gtest.patch
 Patch2:     0003-test-client-includes-for-gcc-15.patch
 # SUSE 15.6 does not have filesystem
 Patch3:     0001-amdsmi-remove-unneeded-include-fileystem.patch
+# https://github.com/ROCm/amdsmi/pull/165
+Patch4:     0001-Fix-compilation-with-libdrm-2.4.130.patch
 
 ExclusiveArch: x86_64
 
@@ -227,6 +229,9 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Tue Jan 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Fix Tumbleweed
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Add --with compat
 

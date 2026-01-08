@@ -32,20 +32,21 @@ BuildRequires:	doxygen
 BuildRequires:	libxslt
 BuildRequires:	docbook5-style-xsl
 BuildRequires:	yaml-cpp-devel
-BuildRequires:	gettext
 BuildRequires:	pkgconfig
-BuildRequires:	pkgconfig(Qt5Core)
-BuildRequires:	pkgconfig(Qt5Network)
-BuildRequires:	pkgconfig(Qt5Positioning)
-BuildRequires:	pkgconfig(Qt5SerialPort)
-BuildRequires:	pkgconfig(Qt5Test)
+BuildRequires:	pkgconfig(Qt6Core)
+BuildRequires:	pkgconfig(Qt6Network)
+BuildRequires:	pkgconfig(Qt6Positioning)
+BuildRequires:	pkgconfig(Qt6SerialPort)
+BuildRequires:	pkgconfig(Qt6Test)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2364151
-BuildRequires:	pkgconfig(Qt5UiTools)
-BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt6UiTools)
+BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:	desktop-file-utils
 # for appdata metainfo validation with appstream-util
 BuildRequires:	libappstream-glib
-Patch:		qdmr-0.12.1-fix-docbook-xsl-path.patch
+BuildRequires:	librsvg2-tools
+BuildRequires:	graphviz
+Patch:		qdmr-0.13.2-fix-docbook-xsl-path.patch
 
 %description
 A Qt5 application to program DMR radios. DMR is a digital modulation
@@ -84,7 +85,8 @@ Libraries and header files for developing applications using libdmrconf.
   -DBUILD_TESTS=ON \
   -DINSTALL_APPSTREAM_DATA=ON \
   -DINSTALL_UDEV_RULES=ON \
-  -DINSTALL_UDEV_PATH=%{_udevrulesdir}
+  -DINSTALL_UDEV_PATH=%{_udevrulesdir} \
+  -DDOCBOOK2MAN_XSLT=docbook_man.fedora.xsl
 %cmake_build
 
 %install
@@ -97,15 +99,12 @@ mv %{buildroot}%{_docdir}/qdmr/libdmrconf %{buildroot}%{_docdir}
 # workaround for https://gitlab.com/graphviz/graphviz/-/issues/2681
 mv %{SOURCE1} %{buildroot}%{_docdir}/libdmrconf/html/dot_autodetect.png
 
-%find_lang %{name} --with-qt
-
+%check
+%ctest
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
-%check
-%ctest
-
-%files -f %{name}.lang
+%files
 %license LICENSE
 %doc README.md
 %{_bindir}/dmrconf

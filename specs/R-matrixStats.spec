@@ -1,22 +1,13 @@
-%global packname  matrixStats
-%global packver   1.5.0
+Name:           R-matrixStats
+Version:        %R_rpm_version 1.5.0
+Release:        %autorelease
+Summary:        Functions that Apply to Rows and Columns of Matrices (and to Vectors)
 
-Name:             R-%{packname}
-Version:          %{packver}
-Release:          %autorelease
-Summary:          Functions that Apply to Rows and Columns of Matrices (and to Vectors)
-License:          Artistic-2.0
-URL:              http://cran.r-project.org/web/packages/%{packname}/index.html
-Source0:          http://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
-BuildRequires:    R-devel >= 3.4.0
-# Suggests
-# BuildRequires:  R-base64enc
-# BuildRequires:  R-ggplot2
-# BuildRequires:  R-knitr
-# BuildRequires:  R-markdown
-# BuildRequires:  R-microbenchmark
-# BuildRequires:  R-R.devices
-# BuildRequires:  R-R.rsp
+License:        Artistic-2.0
+URL:            %{cran_url}
+Source:         %{cran_source}
+
+BuildRequires:  R-devel
 
 %description
 High-performing functions operating on rows and columns of matrices, e.g. 
@@ -26,35 +17,21 @@ processing time is minimized. There are also optimized vector-based methods,
 e.g. binMeans(), madDiff() and weightedMedian().
 
 %prep
-%setup -c -q -n %{packname}
+%autosetup -c
+
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p %{buildroot}%{_libdir}/R/library
-R CMD INSTALL %{packname} -l %{buildroot}%{_libdir}/R/library 
-# Clean up in advance of check
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-%{__rm} -rf %{buildroot}%{_libdir}/R/library/R.css
+%R_install
+%R_save_files
 
 %check
-# Too many missing deps
-# %%{_bindir}/R CMD check %%{packname}
+%R_check
 
-%files
-%dir %{_libdir}/R/library/%{packname}
-%doc %{_libdir}/R/library/%{packname}/html
-%{_libdir}/R/library/%{packname}/DESCRIPTION
-%doc %{_libdir}/R/library/%{packname}/NEWS.md
-%{_libdir}/R/library/%{packname}/INDEX
-%{_libdir}/R/library/%{packname}/libs/
-%{_libdir}/R/library/%{packname}/Meta
-%{_libdir}/R/library/%{packname}/NAMESPACE
-%{_libdir}/R/library/%{packname}/R
-%{_libdir}/R/library/%{packname}/benchmarking
-%{_libdir}/R/library/%{packname}/doc
-%{_libdir}/R/library/%{packname}/help
-%{_libdir}/R/library/%{packname}/WORDLIST
+%files -f %{R_files}
 
 %changelog
 %autochangelog

@@ -25,10 +25,6 @@ BuildRequires: swig
 BuildRequires: openssl-devel
 BuildRequires: python3-devel
 BuildRequires: python3-dbus
-BuildRequires: python3-jinja2
-BuildRequires: python3-pip
-BuildRequires: python3-setuptools
-BuildRequires: pyproject-rpm-macros
 BuildRequires: systemd-rpm-macros
 
 Requires: python3-%{name} = %{version}-%{release}
@@ -186,6 +182,9 @@ The keylime tools package includes miscelaneous tools.
 
 %prep
 %autosetup -S git -n %{name}-%{version} -a2
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %if 0%{?with_selinux}

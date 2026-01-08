@@ -2,7 +2,7 @@
 
 Name:             decentxml
 Version:          1.4
-Release:          41%{?dist}
+Release:          42%{?dist}
 Summary:          XML parser optimized for round-tripping and code reuse
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -24,7 +24,7 @@ Source0:          https://bitbucket.org/digulla/%{name}/get/r%{version}.zip
 # For running w3c conformance test suite.
 Source1:          http://www.w3.org/XML/Test/xmlts20031210.zip
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -58,6 +58,19 @@ sed -i -e "s|junit-dep|junit|g" pom.xml
 
 # Two tests fail with Java 8, probably because of some Unicode incompatibility.
 sed -i '/not_wf_sa_16[89] /d' src/test/java/de/pdark/decentxml/XMLConformanceTest.java
+
+# there are non-utf chars, and patch, sed, awk, iconv, enca... are failing to fix it. Replacing it manually:
+evil=src/test/java/de/pdark/decentxml/NamespaceTest.java
+echo "//reworked"  > $evil.nw
+while read -r line; do 
+  if  echo "$line" | grep -qe "dc:publisher" ; then
+    echo  '                    "    <dc:publisher>Wikipedia - Die freie Enzyklopedie</dc:publisher>\r\n" + '>> $evil.nw
+  else
+    echo  "$line" >> $evil.nw
+  fi
+done < $evil
+mv $evil.nw $evil
+
 
 %pom_remove_plugin :maven-javadoc-plugin
 

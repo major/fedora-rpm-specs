@@ -2,12 +2,12 @@
 # RPM repository.
 
 Name:           libmtp
-Version:        1.1.19
-Release:        10%{?dist}
+Version:        1.1.22
+Release:        1%{?dist}
 Summary:        Software library for MTP media players
 URL:            http://libmtp.sourceforge.net/
 
-Source0:        https://download.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # m4/stdint.m4 is LicenseRef-Fedora-UltraPermissive
 # m4/iconv.m4 is FSFULLR
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND FSFULLR AND LicenseRef-Fedora-UltraPermissive
@@ -23,7 +23,10 @@ BuildRequires:  libgcrypt-devel
 %endif
 BuildRequires:  chrpath
 
+# https://github.com/libmtp/libmtp/pull/356
 Patch0:         0001-doc-Don-t-document-internal-endian-macros.patch
+# https://github.com/libmtp/libmtp/issues/346
+Patch1:         0001-disabled-foxconn-487-e111-id.-https-github.com-libmt.patch
 
 %description
 This package provides a software library for communicating with MTP
@@ -78,6 +81,13 @@ ln -sf mtp-connect mtp-newfolder
 ln -sf mtp-connect mtp-sendfile
 ln -sf mtp-connect mtp-sendtr
 popd
+
+# Move udev helper to the correct place as --with-udev is ignored if non-root
+mkdir -p $RPM_BUILD_ROOT/usr/lib
+if [ -d $RPM_BUILD_ROOT/usr/lib64/udev ] ; then \
+	mv $RPM_BUILD_ROOT/usr/lib64/udev $RPM_BUILD_ROOT/usr/lib/ ; \
+fi
+
 # Convert COPYING file to UTF-8
 iconv -f iso-8859-1 -t utf-8 -o COPYING.utf8 COPYING
 touch -r COPYING COPYING.utf8; mv -f COPYING.utf8 COPYING
@@ -116,6 +126,10 @@ chrpath --delete $RPM_BUILD_ROOT{%{_bindir},/usr/lib/udev}/mtp*
 %{_libdir}/pkgconfig/libmtp.pc
 
 %changelog
+* Tue Jan 06 2026 Bastien Nocera <bnocera@redhat.com> - 1.1.22-1
+- Update to 1.1.22
+- Disable player match that breaks Bluetooth on Mediatek MT7925 adapters
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

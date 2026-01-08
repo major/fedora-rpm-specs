@@ -22,6 +22,12 @@ URL:        https://github.com/wolfcw/libfaketime
 Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/wolfcw/libfaketime/pull/525
 Patch0:     libfaketime-0.9.12-isoc23.patch
+# Make the libraires executable, needed for stripping them. Not suitable for
+# upstream, e.g. Debian does not like it.
+Patch1:     libfaketime-0.9.12-Dynamic-libraries-are-expected-to-be-executable-on-F.patch
+# Adapt to GCC 16, posted upstream,
+# <https://github.com/wolfcw/libfaketime/pull/528>
+Patch2:     libfaketime-0.9.12-tests-Silence-an-unused-but-set-variable-warning-wit.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make

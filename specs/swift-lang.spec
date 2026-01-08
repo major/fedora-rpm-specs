@@ -398,7 +398,7 @@ mkdir -p %{buildroot}/usr/lib
 ln -fs %{_libexecdir}/swift/%{version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}%{_libdir}
 ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so %{buildroot}%{_libdir}/
-ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so.17 %{buildroot}%{_libdir}/
+ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so.17.0 %{buildroot}%{_libdir}/
 ln -fs %{_libexecdir}/swift/%{version}/lib/libsourcekitdInProc.so %{buildroot}%{_libdir}/
 ln -fs %{_libexecdir}/swift/%{version}/lib/libswiftDemangle.so %{buildroot}%{_libdir}/
 mkdir -p %{buildroot}%{_includedir}/swift

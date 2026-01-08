@@ -1,97 +1,115 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-# Switch to Clang due LTO regression in GCC
-# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=114501
-%global toolchain clang
+#note to future contributors:
+# Do NOT use forge macros
+#they crash bodhi
 
-%global forgeurl https://github.com/Chatterino/%{name}
-%global uuid com.chatterino.chatterino
-%global chatterino_git_commit 3aead09339ffff0fbfd9f8a7a5ea9eb551ad8fb8
-%global chatterino_git_shortcommit %(c=%{chatterino_git_commit}; echo ${c:0:7})
-%global tarball_version %%(echo %{version} | tr '~' '-')
+#pin to commit for patch fixes
+%global         forgeurl0 https://github.com/Chatterino/chatterino2
+%global         version0  2.5.4
+%global         date      20251110
+%global         commit0   f3559280786dbabc8cebe1951a525580d11cb2a5
+
+
 
 # Git submodules
 #   * libcommuni
-%global commit2         030710ad53dda1541601ccabbad36a12a9e90c78
+%global forgeurl2   https://github.com/hemirt/libcommuni
+%global commit2         bb5417c451d764f57f2f1b3e1c9a81496b5521bd
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
 #   * settings
-%global commit3         9e9c2f65f4ae195a96329a90fd6ae24c24fb8f2f
+%global forgeurl3   https://github.com/pajlada/settings
+%global commit3         d847148cbf0becb75e48b90c2c25b78922f4e181
 %global shortcommit3    %(c=%{commit3}; echo ${c:0:7})
 
 #   * signals
-%global commit4         d06770649a7e83db780865d09c313a876bf0f4eb
+%global forgeurl4   https://github.com/pajlada/signals
+%global commit4         4b127541d30d9ae86df1553cb567cc2fc55fac46
 %global shortcommit4    %(c=%{commit4}; echo ${c:0:7})
 
 #   * serialize
-%global commit5         17946d65a41a72b447da37df6e314cded9650c32
+%global forgeurl5   https://github.com/pajlada/serialize
+%global commit5         f4a7dbfa64e7515506bdb75f6037cb74cd37f67c
 %global shortcommit5    %(c=%{commit5}; echo ${c:0:7})
 
 #   * magic_enum
+%global forgeurl9   https://github.com/Neargye/magic_enum
 %global commit9         e55b9b54d5cf61f8e117cafb17846d7d742dd3b4
 %global shortcommit9    %(c=%{commit9}; echo ${c:0:7})
 
-#   * sanitizers-cmake
-%global commit10        0573e2ea8651b9bb3083f193c41eb086497cc80a
-%global shortcommit10   %(c=%{commit10}; echo ${c:0:7})
 
-#   * miniaudio
-%global commit11        4a5b74bef029b3592c54b6048650ee5f972c1a48
+#   * certify
+%global forgeurl11  https://github.com/djarek/certify
+%global commit11       a448a3915ddac716ce76e4b8cbf0e7f4153ed1e2
 %global shortcommit11   %(c=%{commit11}; echo ${c:0:7})
 
 #   * expected-lite
-%global commit12        5b5caad7cd57d5ba3ca796bf1521b131d73ca405
+%global forgeurl12  https://github.com/martinmoene/expected-lite
+%global commit12        6656728c5874fefa976ff7c67999798df7fc961d
 %global shortcommit12   %(c=%{commit12}; echo ${c:0:7})
 
+
 Name:           chatterino2
-Version:        2.5.2
-%forgemeta
+Version:        %forgeversion
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 
-# Boost Software License (v1.0) Boost Software License 1.0
-# -----------------------------------------------------------------------
-# resources/licenses/boost_boost.txt
-#
-# BSD 3-clause "New" or "Revised" License
-# ---------------------------------------
-# lib/libcommuni/
-#
-# Expat License
-# -------------
-# lib/serialize/
-# lib/signals/
-# resources/
-#
-# Mozilla Public License (v1.1) GNU General Public License (v2 or later) or GNU Lesser General Public License (v2.1 or later)
-# ---------------------------------------------------------------------------------------------------------------------------
-# lib/libcommuni/
-#
-# zlib/libpng license Aladdin Free Public License
-# -----------------------------------------------
-# lib/websocketpp/
-#
-License:        MIT and BSL-1.0 and BSD-3-Clause and zlib and GPL-2.0-or-later and LGPL-2.1-or-later and MPL-1.1
 
+
+#  - Main is MIT
+# - chatterino2: MIT AND BSD-3-Clause
+#  - cmake/CodeCoverage.cmake: BSD-3-Clause (CMake helper only, does not propagate to binary, SourceLicense only)
+#  - lib/lrucache: BSD-3-Clause
+#  - src/providers/twitch/ChatterinoWebSocketppLogger.hpp: BSD-3-Clause
+#  - semver/include/semver/semver.hpp: MIT
+#  - resources/*: MIT
+# libcommuni: BSD-3-Clause
+#  - Main is BSD-3-Clause
+# settings: MIT
+#  - Main is MIT
+#  - cmake/conan_provider.cmake: MIT (CMake helper only, does not propagate to binary, SourceLicense only)
+# signals: MIT
+#  - Main is MIT
+#  - cmake/conan_provider.cmake: MIT (CMake helper only, does not propagate to binary, SourceLicense only)
+# serialize: MIT
+#  - Main is MIT
+# magic_enum: MIT
+#  - Main is MIT
+#  - cmake/GenPkgConfig: UNLICENSE (CMake helper only, does not propagate to binary, SourceLicense only)
+# certify: BSL-1.0
+#  - Main is BSL-1.0
+# expected-lite: BSL-1.0
+#  - Main is BSL-1.0
+# lrucache
+# - Main is BSD-3-Clause
+
+License:        MIT AND BSD-3-Clause AND BSL-1.0
+SourceLicense:  MIT AND BSD-3-Clause AND BSL-1.0 AND Unlicense
+
+%global _description %{expand:
+Chatterino 2 is a chat client for Twitch.tv. The Chatterino 2 wiki can be
+found https://wiki.chatterino.com/.}
 URL:            %{forgeurl}
-Source0:        %{forgesource}
-Source2:        https://github.com/hemirt/libcommuni/archive/%{commit2}/libcommuni-%{shortcommit2}.tar.gz
-Source3:        https://github.com/pajlada/settings/archive/%{commit3}/settings-%{shortcommit3}.tar.gz
-Source4:        https://github.com/pajlada/signals/archive/%{commit4}/signals-%{shortcommit4}.tar.gz
-Source5:        https://github.com/pajlada/serialize/archive/%{commit5}/serialize-%{shortcommit5}.tar.gz
-Source9:        https://github.com/Neargye/magic_enum/archive/%{commit9}/magic_enum-%{shortcommit9}.tar.gz
-Source10:       https://github.com/arsenm/sanitizers-cmake/archive/%{commit10}/sanitizers-cmake-%{shortcommit10}.tar.gz
-Source11:       https://github.com/mackron/miniaudio/archive/%{commit11}/miniaudio-%{shortcommit11}.tar.gz
-Source12:       https://github.com/martinmoene/expected-lite/archive/%{commit12}/expected-lite-%{shortcommit12}.tar.gz
+Source0:        %{forgeurl0}/archive/%{commit0}.tar.gz
+Source2:        %{forgeurl2}/archive/%{commit2}.tar.gz
+Source3:        %{forgeurl3}/archive/%{commit3}.tar.gz
+Source4:        %{forgeurl4}/archive/%{commit4}.tar.gz
+Source5:        %{forgeurl5}/archive/%{commit5}.tar.gz
+Source9:        %{forgeurl9}/archive/%{commit9}.tar.gz
+Source11:       %{forgeurl11}/archive/%{commit11}.tar.gz
+Source12:       %{forgeurl12}/archive/%{commit12}.tar.gz
 
+# Patch0:https://patch-diff.githubusercontent.com/raw/Chatterino/chatterino2/pull/6495.diff
+# fixes lua system lib lookup
 
 BuildRequires:  boost-devel
-BuildRequires:  clang
+BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  make
+BuildRequires:  ninja-build
 
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Core)
@@ -104,88 +122,98 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(RapidJSON)
+BuildRequires:  cmake(Qt6CorePrivate)
+# BuildRequires: cmake(sol2)
 
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(websocketpp)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(libnotify)
+BuildRequires: miniaudio-devel
 
+
+%description
+%_description
+
+%package -n chatterino
+
+Summary:        Chat client for https://twitch.tv
+
+
+# because directory ownership
 Requires:       hicolor-icon-theme
-Requires:       qt6-qtsvg
-Requires:       qt6-qtimageformats
+
+Provides:     chatterino2%{?_isa} = %{version}-%{release}
 
 # Current submodules patched so not possible to build with system packages
 #   * https://github.com/Chatterino/chatterino2/issues/1444
-Provides:       bundled(expected-lite) = 0.8.0~git%{shortcommit12}
-Provides:       bundled(libcommuni) = 3.7.0~git%{shortcommit2}
-Provides:       bundled(magic_enum) = 0.9.3~git%{shortcommit9}
-Provides:       bundled(miniaudio) = 0.11.18~git%{shortcommit11}
-Provides:       bundled(sanitizers-cmake) = 0~git%{shortcommit10}
-Provides:       bundled(serialize) = 0~git%{shortcommit5}
-Provides:       bundled(settings) = 0~git%{shortcommit3}
-Provides:       bundled(signals) = 0.1.0~git%{shortcommit4}
+Provides:       bundled(expected-lite) = 0.9.0~git%{commit12}
+Provides:       bundled(libcommuni) = 3.7.0~git%{commit2}
+Provides:       bundled(magic_enum) = 0.9.5~git%{commit9}
+Provides:       bundled(serialize) = 0.1.0~git%{commit5}
+Provides:       bundled(settings) = 0.3.0~git%{commit3}
+Provides:       bundled(signals) = 0.1.0~git%{commit4}
+Provides:       bundled(certify) = 0.1~git%{commit4}
 
-%description
-Chatterino 2 is a chat client for Twitch.tv. The Chatterino 2 wiki can be
-found https://wiki.chatterino.com/.
+%description -n chatterino
+%_description
 
 
 %prep
-%forgesetup
-%setup -n %{name}-%{tarball_version} -q -D -T -a2
-%setup -n %{name}-%{tarball_version} -q -D -T -a3
-%setup -n %{name}-%{tarball_version} -q -D -T -a4
-%setup -n %{name}-%{tarball_version} -q -D -T -a5
-%setup -n %{name}-%{tarball_version} -q -D -T -a9
-%setup -n %{name}-%{tarball_version} -q -D -T -a10
-%setup -n %{name}-%{tarball_version} -q -D -T -a11
-%setup -n %{name}-%{tarball_version} -q -D -T -a12
+%autosetup -a 0 -n chatterino2-%{commit0}
 
-mv libcommuni-%{commit2}/*  lib/libcommuni
-mv settings-%{commit3}/*    lib/settings
-mv signals-%{commit4}/*     lib/signals
-mv serialize-%{commit5}/*   lib/serialize
-mv magic_enum-%{commit9}/*  lib/magic_enum
-mv miniaudio-%{commit11}/*  lib/miniaudio
-mv expected-lite-%{commit12}/* lib/expected-lite
-mv sanitizers-cmake-%{commit10}/* cmake/sanitizers-cmake
+cd lib/libcommuni
+tar -xf %{SOURCE2} --strip-components=1
+cd ../settings
+tar -xf %{SOURCE3} --strip-components=1
+cd ../signals
+tar -xf %{SOURCE4}  --strip-components=1
+cd ../serialize
+tar -xf %{SOURCE5} --strip-components=1
+cd ../magic_enum
+tar -xf %{SOURCE9} --strip-components=1
+cd ../certify
+tar -xf %{SOURCE11} --strip-components=1
+cd ../expected-lite
+tar -xf %{SOURCE12} --strip-components=1
 
 
 %build
-export GIT_COMMIT=%{chatterino_git_commit}
-export GIT_HASH=%{chatterino_git_shortcommit}
-export GIT_RELEASE=%{version}
-%cmake \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DBUILD_WITH_QT6=ON \
-    -DUSE_PRECOMPILED_HEADERS=0FF \
-    -DUSE_SYSTEM_QTKEYCHAIN=ON \
-    -DBUILD_WITH_QTKEYCHAIN=ON \
-    %{nil}
+export GIT_COMMIT=%{commit0}
+export GIT_HASH=%(c=%{commit0}; echo ${c:0:7})
+export GIT_RELEASE=%{version0}
+#NOTE: we need to fix `-DCHATTERINO_PLUGINS=OFF` in te future
+%cmake -G Ninja \
+                -DUSE_SYSTEM_QTKEYCHAIN=ON \
+                -DUSE_SYSTEM_MINIAUDIO=ON \
+                -DCHATTERINO_PLUGINS=OFF
+
 %cmake_build
 
 
 %install
 %cmake_install
-install -Dpm 0644 resources/%{uuid}.appdata.xml   \
-    %{buildroot}%{_metainfodir}/%{uuid}.appdata.xml
+install -Dpm 0644 resources/com.chatterino.chatterino.appdata.xml   \
+    %{buildroot}%{_metainfodir}/com.chatterino.chatterino.appdata.xml
 install -Dpm 0644 resources/icon.png              \
     %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/chatterino.png
 
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/com.chatterino.chatterino.desktop
 
 
-%files
-%license LICENSE
-%doc README.md BUILDING_ON_LINUX.md docs/
+%files -n chatterino
+%license LICENSE resources/licenses/*
+%doc README.md
 %{_bindir}/chatterino
-%{_datadir}/applications/*.desktop
-%{_datadir}/icons/hicolor/*/*/*.png
-%{_metainfodir}/*.xml
+%{_datadir}/applications/com.chatterino.chatterino.desktop
+%{_datadir}/icons/hicolor/256x256/apps/*chatterino.png
+%{_metainfodir}/com.chatterino.chatterino.appdata.xml
 
 
 %changelog
 %autochangelog
+

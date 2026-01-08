@@ -1,18 +1,11 @@
 Name:          pdfbox
-Version:       2.0.30
-Release:       6%{?dist}
+Version:       3.0.6
+Release:       1%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 URL:           http://pdfbox.apache.org/
 Source0:       http://archive.apache.org/dist/pdfbox/%{version}/pdfbox-%{version}-src.zip
-
-# Use system font instead of bundled font
-Patch0:        pdfbox-use-system-liberation-font.patch
-# Use system icc profiles
-Patch1:        pdfbox-use-system-icc-profiles-openicc.patch
-# bumped jdi setup to 1.8
-Patch2:        1.8.patch
 
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
@@ -27,12 +20,14 @@ BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
+BuildRequires: picocli
 BuildRequires: dejavu-sans-mono-fonts
 BuildRequires: google-noto-emoji-fonts
 BuildRequires: liberation-sans-fonts
 BuildRequires: icc-profiles-openicc
 BuildRequires: fontconfig
 Requires:      liberation-sans-fonts
+Requires:      mvn(org.apache.pdfbox:pdfbox-io)
 
 # TODO: Require liberation-sans-fonts >= 2 and don't ignore test failures
 
@@ -74,6 +69,7 @@ Requires:      mvn(commons-logging:commons-logging)
 Requires:      mvn(org.apache.pdfbox:fontbox)
 Requires:      mvn(org.apache.pdfbox:pdfbox)
 Requires:      mvn(org.apache.pdfbox:pdfbox-debugger)
+Requires:      mvn(org.apache.pdfbox:pdfbox-io)
 Requires:      mvn(org.bouncycastle:bcmail-jdk15)
 Requires:      mvn(org.bouncycastle:bcpkix-jdk15)
 Requires:      mvn(org.bouncycastle:bcprov-jdk15)
@@ -83,6 +79,12 @@ Summary:       Apache PDFBox Tools
 
 %description tools
 This package contains command line tools for Apache PDFBox.
+
+%package io
+Summary:        Apache pdfbox-io
+
+%description io
+IO calasses subbpkg
 
 %package javadoc
 Summary:        Javadoc for %{name}
@@ -144,12 +146,6 @@ find -name 'sRGB.icc*' -print -delete
 find -name '*.icm' -print -delete
 find -name '*.ttf' -print -delete
 
-%patch 0 -p1 -b .font
-%patch 1 -b .openicc
-%patch 2 -p1
-#mkdir .xmvn
-#echo 8 > .xmvn/javapackages-rule-index
-
 # Don't build apps (it's just a bundle of everything)
 %pom_disable_module preflight-app
 %pom_disable_module debugger-app
@@ -207,15 +203,8 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %mvn_file :xmpbox xmpbox
 %mvn_file :fontbox fontbox
 
-%pom_xpath_set 'pom:source' 8
-%pom_xpath_set 'pom:target' 8
 
-%pom_change_dep -r javax.activation:activation jakarta.activation:jakarta.activation-api:1.2.2
-%pom_change_dep -r javax.xml.bind:jaxb-api jakarta.xml.bind:jakarta.xml.bind-api:2
-%pom_xpath_remove 'pom:dependency/pom:scope[text()="provided"]' preflight
-# might be removed once bouncycastle got updated
-%pom_change_dep -r :bcpkix-jdk15to18 :bcpkix-jdk15
-%pom_change_dep -r :bcprov-jdk15to18 :bcmail-jdk15
+%pom_change_dep -r info.picocli:picocli info.picocli:picocli:4.7.6
 
 %build
 # Integration tests all require internet access to download test resources, so skip
@@ -239,12 +228,18 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 
 %files -f .mfiles-%{name}
 %doc README.md RELEASE-NOTES.txt
+%license LICENSE.txt NOTICE.txt
 
 %files debugger -f .mfiles-%{name}-debugger
 %{_bindir}/pdfbox-debugger
+%license LICENSE.txt NOTICE.txt
 
 %files tools -f .mfiles-%{name}-tools
 %{_bindir}/pdfbox
+%license LICENSE.txt NOTICE.txt
+
+%files io -f .mfiles-pdfbox-io
+%license LICENSE.txt NOTICE.txt
 
 %files -n fontbox -f .mfiles-fontbox
 %doc fontbox/README.txt
@@ -259,6 +254,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 
 %files -n xmpbox -f .mfiles-xmpbox
 %doc xmpbox/README.txt
+%license LICENSE.txt NOTICE.txt
+
+%files reactor -f .mfiles-pdfbox-reactor
 %license LICENSE.txt NOTICE.txt
 
 %changelog

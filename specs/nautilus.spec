@@ -66,6 +66,7 @@ Requires:       %{name}-extensions%{_isa} = %{version}-%{release}
 Requires:       localsearch
 
 Recommends:     glycin-thumbnailer%{_isa}
+Recommends:     gst-thumbnailers%{_isa}
 
 Provides:       bundled(libgd)
 

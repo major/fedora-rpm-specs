@@ -2,7 +2,7 @@ Name:           tiled
 Summary:        Tiled Map Editor
 
 Version:        1.11.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -26,6 +26,10 @@ Patch1:         0001-fix-qt-6.9-rendering-issue.patch
 # https://github.com/mapeditor/tiled/commit/93fb1e926556794ef3298f8c2b0916105dec47c2.patch
 # https://github.com/mapeditor/tiled/commit/67735b1cdf6a6832d5af4f49123277dd51032820.patch
 Patch2:         0002-qbs3.patch
+
+# Fix build failure with Qt 6.10.1
+# https://github.com/mapeditor/tiled/commit/64175fc9566a9da75e3d4818b9b3d9f600893f68.patch
+Patch3:         0003-qt-6.10.1.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -293,6 +297,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Tue Jan 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11.2-8
+- Add a patch to fix build failure with Qt 6.10.1
+
 * Fri Oct 31 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11.2-7
 - Add a patch to fix build failure with qbs3
 

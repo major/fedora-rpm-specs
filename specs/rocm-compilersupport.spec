@@ -112,7 +112,7 @@
 %bcond_with alt_arch
 
 # buid the static analyzer
-%bcond_with sa
+%bcond_without sa
 %if %{with sa}
 %global build_sa ON
 %else
@@ -133,7 +133,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        10.rocm%{rocm_version}%{?dist}
+Release:        11.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1141,6 +1141,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %endif
 
 %changelog
+* Tue Jan 6 2025 Tom Rix <Tom.Rix@amd.com> - 20-11.rocm7.1.1
+- Turn on static analysis
+
 * Sun Dec 14 2025 Tom Rix <Tom.Rix@amd.com> - 20-10.rocm7.1.1
 - Add --with compat
 

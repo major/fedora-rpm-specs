@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            https://fritzing.org/
 
 %global version_no 1.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
 # The official website says that v1.0.6 was released on 2025-10-21.
@@ -41,6 +41,9 @@ Patch3:         0003-maximum-qt-version.patch
 # Fix build issued with Qt 6.9.
 # Borrowed from: https://aur.archlinux.org/cgit/aur.git/plain/0004-Work-around-build-issues-with-Qt-6.9.patch?h=fritzing
 Patch4:         0004-Work-around-build-issues-with-Qt-6.9.patch
+
+# Fix build error with Qt 6.10.1
+Patch5:         0005-qt-6.10.1.patch
 
 # Point library detection scripts to system-provided libs.
 Patch10:        0010-quazip-detect.patch
@@ -168,6 +171,9 @@ fi
 
 
 %changelog
+* Tue Jan 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.6^20251007-2
+- Add a patch to fix build failure with Qt 6.10.1
+
 * Mon Oct 27 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.6^20251007-1
 - Update to v1.0.6
 

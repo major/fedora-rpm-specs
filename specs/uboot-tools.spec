@@ -1,4 +1,4 @@
-%global candidate rc5
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.01
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -42,6 +42,8 @@ Patch8:   uefi-enable-https-boot-by-default.patch
 Patch10:  USB-PD-TCPM-improvements.patch
 # Rockchips improvements
 Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
+Patch12:  rockchip-rk3568-nanopi-r5-Drop-duplicated-extra-sdhc.patch
+Patch13:  rockchip-rk356x-Stop-overriding-sdhci-mmc-aliases.patch
 # Jetson fixes
 Patch14:  p3450-fix-board.patch
 Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
@@ -276,6 +278,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Jan 06 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.01-1
+- Update to 2026.01 GA
+
 * Mon Dec 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.01-0.4.rc5
 - Update to 2026.01 RC5
 

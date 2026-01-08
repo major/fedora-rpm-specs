@@ -16,7 +16,7 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.39.0
+Version:        2.40.0
 Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
@@ -74,7 +74,7 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
-Patch100:       s390utils-%%{version}-fedora.patch
+#Patch100:       s390utils-%%{version}-fedora.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -289,6 +289,7 @@ done
 %{_bindir}/pvextract-hdr
 %{_bindir}/pvimg
 %{_bindir}/pvsecret
+%{_bindir}/pvverify
 %{_mandir}/man1/genprotimg.1*
 %{_mandir}/man1/pvattest.1*
 %{_mandir}/man1/pvattest-check.1*
@@ -310,7 +311,9 @@ done
 %{_mandir}/man1/pvsecret-retrieve.1*
 %{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
+%{_mandir}/man1/pvverify.1*
 %dir %{_datadir}/s390-tools
+%{_datadir}/s390-tools/netboot/
 %{_datadir}/s390-tools/pvimg/
 %{bash_completions_dir}/*.bash
 %{zsh_completions_dir}/_*
@@ -645,9 +648,11 @@ For more information refer to the following publications:
 %{_bindir}/mk-s390image
 %{_bindir}/pvapconfig
 %{_bindir}/pvimg
+%{_bindir}/pvinfo
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
 %{_bindir}/pvsecret
+%{_bindir}/pvverify
 %{_bindir}/zkey
 %{_bindir}/zkey-cryptsetup
 %{_bindir}/zpwr
@@ -699,6 +704,7 @@ For more information refer to the following publications:
 %{_mandir}/man1/pvsecret-retrieve.1*
 %{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
+%{_mandir}/man1/pvverify.1*
 %{_mandir}/man1/zkey.1*
 %{_mandir}/man1/zkey-cryptsetup.1*
 %{_mandir}/man1/zkey-ekmfweb.1*
@@ -1129,6 +1135,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Tue Jan 06 2026 Dan Horák <dan[at]danny.cz> - 2:2.40.0-1
+- rebased to 2.40.0 (rhbz#2421447)
+
 * Thu Nov 13 2025 Dan Horák <dan[at]danny.cz> - 2:2.39.0-1
 - rebased to 2.39.0 (rhbz#2403755)
 

@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 55%{?dist}
+Release: 56%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -19,7 +19,9 @@ Source94: nginx.conf
 Source95: sensors.conf
 Source96: snmp.conf
 Source97: rrdtool.conf
+%if 0%{?fedora}
 Source98: onewire.conf
+%endif
 
 Patch0: %{name}-include-collectd.d.patch
 Patch1: %{name}-gcc11.patch
@@ -89,14 +91,6 @@ BuildRequires: libxml2-devel
 This plugin retrieves statistics from the BIND dns server.
 
 
-%package ceph
-Summary:       Ceph plugin for collectd
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: yajl-devel
-%description ceph
-This plugin collects data from Ceph.
-
-
 %package chrony
 Summary:       Chrony plugin for collectd
 Requires:      %{name}%{?_isa} = %{version}-%{release}
@@ -118,15 +112,6 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 BuildRequires: curl-devel
 %description curl
 This plugin reads webpages with curl
-
-
-%package curl_json
-Summary:       Curl JSON plugin for collectd
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: curl-devel
-BuildRequires: yajl-devel
-%description curl_json
-This plugin retrieves JSON data via curl.
 
 
 %package curl_xml
@@ -252,14 +237,6 @@ Requires:      libcollectdclient%{?_isa} = %{version}-%{release}
 Development files for libcollectdclient.
 
 
-%package log_logstash
-Summary:       Logstash plugin for collectd
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: yajl-devel
-%description log_logstash
-This plugin formats messages as JSON events for Logstash
-
-
 %package lua
 Summary:       Lua plugin for collectd
 Requires:      %{name}%{?_isa} = %{version}-%{release}
@@ -368,6 +345,7 @@ This plugin for collectd provides Network UPS Tools support.
 %endif
 
 
+%if 0%{?fedora}
 %package onewire
 Summary:       OneWire bus plugin for collectd
 Requires:      %{name}%{?_isa} = %{version}-%{release}
@@ -375,6 +353,7 @@ BuildRequires: owfs-devel
 %description onewire
 The experimental OneWire plugin collects temperature information
 from sensors connected to the computer over the OneWire bus.
+%endif
 
 
 %package openldap
@@ -384,24 +363,6 @@ BuildRequires: openldap-devel
 %description openldap
 This plugin for collectd reads monitoring information
 from OpenLDAP's cn=Monitor subtree.
-
-
-%package ovs_events
-Summary:       Open vSwitch events plugin for collectd
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: yajl-devel
-%description ovs_events
-This plugin monitors the link status of Open vSwitch (OVS) connected
-interfaces, dispatches the values to collectd and sends notifications
-whenever a link state change occurs in the OVS database.
-
-
-%package ovs_stats
-Summary:       Open vSwitch stats plugin for collectd
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: yajl-devel
-%description ovs_stats
-This plugin collects statictics of OVS connected bridges and interfaces.
 
 %package -n perl-Collectd
 Summary:       Perl bindings for collectd
@@ -617,6 +578,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 This plugin can send data to OpenTSDB.
 
 
+%if 0%{?fedora}
 %ifarch x86_64
 %package xencpu
 Summary:       xencpu plugin for collectd
@@ -624,6 +586,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 BuildRequires: xen-devel
 %description xencpu
 The xencpu plugin collects CPU statistics from Xen.
+%endif
 %endif
 
 
@@ -651,8 +614,10 @@ touch src/pinba.proto
     --disable-barometer \
     --disable-buddyinfo \
     --disable-capabilities \
+    --disable-ceph \
     --disable-check_uptime \
     --disable-connectivity \
+    --disable-curl_json \
     --disable-dcpmm \
     --disable-dpdk_telemetry \
     --disable-dpdkevents \
@@ -664,11 +629,14 @@ touch src/pinba.proto
     --disable-intel_rdt \
     --disable-ipstats \
     --disable-logparser \
+    --disable-log_logstash \
     --disable-lpar \
     --disable-lvm \
     --disable-mic \
     --disable-netapp \
     --disable-netstat_udp \
+    --disable-ovs_events \
+    --disable-ovs_stats \
 %ifarch s390 s390x
     --disable-nut \
 %endif
@@ -701,6 +669,7 @@ touch src/pinba.proto
 %else
     --disable-java \
 %endif
+    --disable-write_stackdriver \
     --with-python=%{_bindir}/python3 \
     --with-perl-bindings=INSTALLDIRS=vendor \
     --disable-werror \
@@ -746,7 +715,9 @@ cp %{SOURCE94} %{buildroot}%{_sysconfdir}/collectd.d/nginx.conf
 cp %{SOURCE95} %{buildroot}%{_sysconfdir}/collectd.d/sensors.conf
 cp %{SOURCE96} %{buildroot}%{_sysconfdir}/collectd.d/snmp.conf
 cp %{SOURCE97} %{buildroot}%{_sysconfdir}/collectd.d/rrdtool.conf
+%if 0%{?fedora}
 cp %{SOURCE98} %{buildroot}%{_sysconfdir}/collectd.d/onewire.conf
+%endif
 
 %ifnarch %{java_arches}
 # remove collectd-java.5 man page on non-java arches
@@ -803,7 +774,9 @@ make check
 %ifnarch s390 s390x
 %exclude %{_sysconfdir}/collectd.d/nut.conf
 %endif
+%if 0%{?fedora}
 %exclude %{_sysconfdir}/collectd.d/onewire.conf
+%endif
 %exclude %{_sysconfdir}/collectd.d/perl.conf
 %exclude %{_sysconfdir}/collectd.d/ping.conf
 %exclude %{_sysconfdir}/collectd.d/postgresql.conf
@@ -892,7 +865,6 @@ make check
 %{_libdir}/collectd/wireless.so
 %{_libdir}/collectd/write_graphite.so
 %{_libdir}/collectd/write_log.so
-%{_libdir}/collectd/write_stackdriver.so
 %{_libdir}/collectd/zfs_arc.so
 
 %dir %{_datadir}/collectd/
@@ -953,20 +925,12 @@ make check
 %{_libdir}/collectd/bind.so
 
 
-%files ceph
-%{_libdir}/collectd/ceph.so
-
-
 %files chrony
 %{_libdir}/collectd/chrony.so
 
 
 %files curl
 %{_libdir}/collectd/curl.so
-
-
-%files curl_json
-%{_libdir}/collectd/curl_json.so
 
 
 %files curl_xml
@@ -1035,9 +999,6 @@ make check
 %doc %{_mandir}/man5/collectd-java.5*
 %endif
 
-%files log_logstash
-%{_libdir}/collectd/log_logstash.so
-
 
 %files lua
 %{_mandir}/man5/collectd-lua*
@@ -1093,21 +1054,16 @@ make check
 %endif
 
 
+%if 0%{?fedora}
 %files onewire
 %{_libdir}/collectd/onewire.so
 %config(noreplace) %{_sysconfdir}/collectd.d/onewire.conf
+%endif
 
 
 %files openldap
 %{_libdir}/collectd/openldap.so
 
-
-%files ovs_events
-%{_libdir}/collectd/ovs_events.so
-
-
-%files ovs_stats
-%{_libdir}/collectd/ovs_stats.so
 
 %files -n perl-Collectd
 %doc perl-examples/*
@@ -1228,9 +1184,11 @@ make check
 %{_libdir}/collectd/write_tsdb.so
 
 
+%if 0%{?fedora}
 %ifarch x86_64
 %files xencpu
 %{_libdir}/collectd/xencpu.so
+%endif
 %endif
 
 
@@ -1240,6 +1198,11 @@ make check
 
 
 %changelog
+* Tue Jan 06 2026 Jonathan Wright <jonathan@almalinux.org> - 5.12.0-56
+- rebuild for varnish update
+- remove ceph, curl_json, log_logstash, ovs_events, ovs_stats packages
+- prepare spec file for EPEL10
+
 * Wed Sep 17 2025 Jonathan Wright <jonathan@almalinux.org> - 5.12.0-55
 - rebuild for varnish update
 

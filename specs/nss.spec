@@ -1,5 +1,5 @@
 %global nspr_version 4.38.2
-%global nss_version 3.119.0
+%global nss_version 3.119.1
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -50,6 +50,13 @@ rpm.define(string.format("nspr_archive_version %s",
 %{lua:
 rpm.define(string.format("nss_archive_version %s",
            string.gsub(rpm.expand("%nss_version"), "(.*)%.0$", "%1")))
+}
+
+%{lua:
+if rpm.expand("%{nss_version}") == "3.119.1" then
+    rpm.define(string.format("nss_archive_version %s",
+               string.gsub(rpm.expand("%{nss_archive_version}"), "%.", "_")))
+end
 }
 
 %{lua:
@@ -1100,8 +1107,12 @@ fi
 
 
 %changelog
-* Fri Dec 5 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.119.1-1
+* Mon Jan 5 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.119.1-1
 - Update NSS to 3.119.1 with NSPR 4.38.2
+- Fix previous changelog
+
+* Fri Dec 5 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.119.0-1
+- Update NSS to 3.119.0 with NSPR 4.38.2
 
 * Tue Nov 25 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.118.1-3
 - Rebuild for binutils-2.45.50-9.fc44

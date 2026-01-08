@@ -14,7 +14,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        64.1
+Version:        64.2
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -48,7 +48,6 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp parts from Stephan Brumme's SHA3 and MD5:   Zlib
 # zpaqfranz.cpp parts from Iliade translated by Vincenzo Monti in 1825
 #       in extract_test[1-4] Base64-encoded variables:   LicenseRef-Fedora-Public-Domain
-# zpaqfranz.cpp parts from zpaqd v7.15: LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from LZ4: BSD-2-Clause
 # zpaqfranz.cpp parts from codewithnick/ascii-art:  MIT
 ## Used at build time, but not packaged in any binary package
@@ -68,7 +67,7 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-64.1-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+Patch0:         zpaqfranz-64.2-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -161,6 +160,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Tue Jan 06 2026 Petr Pisar <ppisar@redhat.com> - 1:64.2-1
+- 64.2 bump
+
 * Mon Jan 05 2026 Petr Pisar <ppisar@redhat.com> - 1:64.1-1
 - 64.1 bump
 

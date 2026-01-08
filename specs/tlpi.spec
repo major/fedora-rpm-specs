@@ -1,5 +1,5 @@
 Name:		tlpi
-Version:	250914
+Version:	260105
 Release:	%autorelease
 Summary:	Utilities to display namespaces and control groups
 

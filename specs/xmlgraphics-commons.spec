@@ -1,17 +1,18 @@
 Name:           xmlgraphics-commons
 Version:        2.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
 License:        Apache-2.0 
 URL:            http://xmlgraphics.apache.org/
 Source0:        http://archive.apache.org/dist/xmlgraphics/commons/source/xmlgraphics-commons-%{version}-src.tar.gz
+Patch1:         jdk25.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(junit:junit)
@@ -36,7 +37,7 @@ This package contains API documentation for %{name}.
 
 %prep
 %setup -q %{name}-%{version}
-
+patch -p1 < %{PATCH1}
 find -name "*.jar" -delete
 
 # Disable plugins not needed for RPM build

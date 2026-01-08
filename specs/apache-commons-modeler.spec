@@ -3,7 +3,7 @@
 
 Name:             apache-%{short_name}
 Version:          2.0.1
-Release:          46%{?dist}
+Release:          48%{?dist}
 Summary:          Model MBeans utility classes
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:          Apache-2.0
@@ -15,7 +15,7 @@ Source0:          http://www.apache.org/dist/commons/%{base_name}/source/%{short
 # POM file based on the one from an unreleased upstream snapstream
 Source1:          pom.xml
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-digester:commons-digester)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)
@@ -55,7 +55,7 @@ cp -p %{SOURCE1} .
 
 # Fix ant dependency
 %pom_remove_dep ant:ant
-%pom_add_dep org.apache.ant:ant:1.8
+%pom_add_dep org.apache.ant:ant:1.10
 
 %mvn_alias : org.apache.commons:%{short_name}
 %mvn_file : %{name} %{short_name}

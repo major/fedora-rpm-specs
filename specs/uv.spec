@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.21
+Version:        0.9.22
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -146,10 +146,6 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Gate python_install tests on python-managed feature
-# https://github.com/astral-sh/uv/pull/17312
-Patch:          %{url}/pull/17312.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -484,13 +480,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# procfs
-#   wanted: 0.17
-#   currently packaged: 0.17, but an update to 0.18 is planned
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2392071
-#   https://github.com/astral-sh/uv/pull/17275
-tomcli set Cargo.toml str workspace.dependencies.procfs.version '>=0.17, <0.19'
 
 %cargo_prep
 

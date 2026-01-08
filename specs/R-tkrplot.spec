@@ -1,64 +1,35 @@
-%global packname tkrplot
-%global packver  0.0-29
-%global rlibdir  %{_libdir}/R/library
+Name:           R-tkrplot
+Version:        %R_rpm_version 0.0-30
+Release:        %autorelease
+Summary:        TK Rplot
 
-Name:             R-%{packname}
-Version:          0.0.29
-Release:          %autorelease
-Summary:          TK Rplot
+License:        GPL-2.0-only OR GPL-3.0-only
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-License:          GPL-2.0-only OR GPL-3.0-only
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source:           https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
-
-# Here's the R view of the dependencies world:
-# Depends:   R-grDevices, R-tcltk
-# Imports:
-# Suggests:
-# LinkingTo:
-# Enhances:
-
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-BuildRequires:    R-grDevices
-BuildRequires:    R-tcltk
-BuildRequires:    tcl-devel < 1:9
-BuildRequires:    tk-devel < 1:9
+BuildRequires:  R-devel
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 
 %description
 Simple mechanism for placing R graphics in a Tk widget.
 
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%{_bindir}/R CMD check %{packname}
+%R_check
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%dir %{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/libs/%{packname}.so
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

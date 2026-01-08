@@ -10,7 +10,7 @@ URL: https://powdertoy.co.uk
 License: GPL-3.0-only AND Apache-2.0 AND MIT
 
 Version: 99.3.384
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
@@ -20,6 +20,10 @@ Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/v%{version}/%{rep
 # but in Fedora we always used "powdertoy". This patch edits some files
 # which refer to "powder" and makes them use "powdertoy" instead.
 Patch0: 0000-use-powdertoy-instead-of-powder-as-name.patch
+
+# Fix building with GCC16. Backported from upstream.
+# https://github.com/The-Powder-Toy/The-Powder-Toy/commit/2df4e31e5ff526b8871adb0bb62d1b6a8e289255.patch
+Patch1: 0001-gcc16.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -146,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Tue Jan 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 99.3.384-4
+- Add a patch to fix build failure with GCC16
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 99.3.384-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

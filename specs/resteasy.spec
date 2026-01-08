@@ -3,32 +3,42 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
 Source0:        https://github.com/resteasy/Resteasy/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
+Source1:        resteasy-jakarta.patch
 Patch1:         0001-RESTEASY-2559-Improper-validation-of-response-header.patch
 Patch2:         0001-Remove-Log4jLogger.patch
 Patch3:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 Patch4:         0001-Update-to-new-jakarta-xml-bind-namespace.patch
-Patch5:         rest-easy-jakarta.patch
 
 BuildArch:      noarch
 %if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
 %endif
 
-BuildRequires:  tomcat-servlet-6.0-api
-BuildRequires:  tomcat-jakartaee-migration
-
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} < 43
+BuildRequires:  maven-local
+%else
 BuildRequires:  maven-local-openjdk25
+%endif
+
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 
+%if 0%{?rhel} && 0%{?rhel} < 10 || 0%{?fedora} && 0%{?fedora} < 43
+BuildRequires:  mvn(org.apache.tomcat:tomcat-servlet-api)
+%elif 0%{?rhel}
+BuildRequires:  tomcat9-servlet-4.0-api
+%else
+BuildRequires:  tomcat-servlet-6.0-api
+BuildRequires:  tomcat-jakartaee-migration
+%endif
 
 # Jackson 2
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
@@ -118,7 +128,14 @@ Provides:       %{name}-servlet-initializer = %{version}-%{release}
 %{extdesc} %{summary}.
 
 %prep
-%autosetup -n Resteasy-%{namedversion} -p 1
+%setup -n Resteasy-%{namedversion}
+%patch 1 -p 1
+%patch 2 -p 1
+%patch 3 -p 1
+%patch 4 -p 1
+%if 0%{?fedora} >= 43
+patch -p 1 < %{_sourcedir}/resteasy-jakarta.patch
+%endif
 
 %pom_disable_module arquillian
 %pom_disable_module eagledns
@@ -228,10 +245,12 @@ find -name '*.jar' -print -delete
 
 %mvn_install
 
+%if 0%{?rhel} >= 10 || 0%{?fedora} && 0%{?fedora} >= 43
 /usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-client.jar %{buildroot}%{_datadir}/java/resteasy/%{name}-client.jar
 /usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-jackson2-provider.jar %{buildroot}%{_datadir}/java/resteasy/%{name}-jackson2-provider.jar
 /usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-jaxrs.jar  %{buildroot}%{_datadir}/java/resteasy/%{name}-jaxrs.jar
 /usr/bin/javax2jakarta -logLevel=ALL -profile=EE %{buildroot}%{_datadir}/java/resteasy/%{name}-servlet-initializer.jar %{buildroot}%{_datadir}/java/resteasy/%{name}-servlet-initializer.jar
+%endif
 
 %files -n pki-%{name}
 %doc README.md
@@ -250,6 +269,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Tue Jan 6 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 3.0.26-38
+- Add support for CentOS and older Fedora
+
 * Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 3.0.26-36
 - Rrevert to jdk21
 

@@ -30,7 +30,7 @@
 
 Name:           nekohtml
 Version:        1.9.22
-Release:        32%{?dist}
+Release:        33%{?dist}
 Epoch:          0
 Summary:        HTML scanner and tag balancer
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -53,11 +53,10 @@ Requires:       xml-commons-apis
 # Explicit requires for javapackages-tools since nekohtml-filter script
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
-BuildRequires:  javapackages-local-openjdk21
-BuildRequires:  ant-openjdk21
+BuildRequires:  javapackages-local-openjdk25
+BuildRequires:  ant-openjdk25
 BuildRequires:  ant-junit
 BuildRequires:  xerces-j2
-BuildRequires:  xerces-j2-javadoc
 BuildRequires:  xml-commons-apis
 
 BuildArch:      noarch

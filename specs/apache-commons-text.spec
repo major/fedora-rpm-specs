@@ -2,7 +2,7 @@
 
 Name:           apache-%{jarname}
 Version:        1.10.0
-Release:        11%{?dist}
+Release:        13%{?dist}
 Summary:        Apache Commons Text is a library focused on algorithms working on strings
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/%{jarname}
@@ -15,7 +15,7 @@ Source2:        https://archive.apache.org/dist/commons/KEYS
 Patch0:         0001-disable-url-lookup.patch
 
 BuildRequires:  gnupg2
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
@@ -36,6 +36,17 @@ escaping of various types.
 # -p1: strip one level directory in patch(es)
 # -n: base directory name
 %autosetup -p1 -n %{jarname}-%{version}-src
+# there are non-utf chars, and patch, sed, awk, iconv, enca... are failing to fix it. Replacing it manually:
+evil=src/main/java/org/apache/commons/text/translate/EntityArrays.java
+echo "//reworked"  > $evil.nw
+while read -r line; do 
+  if  echo "$line" | grep -qe "&Aring;" ; then
+    echo  'initialMap.put("\u00C5", "&Aring;"); // this line was changed by specfile' >> $evil.nw
+  else
+    echo  "$line" >> $evil.nw
+  fi
+done < $evil
+mv $evil.nw $evil
 
 # delete precompiled jar and class files
 find -type f '(' -name '*.jar' -o -name '*.class' ')' -print -delete

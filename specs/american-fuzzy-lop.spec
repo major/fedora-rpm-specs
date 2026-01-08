@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.34c
+Version:       4.35c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.34c
+%global tag    v4.35c
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -291,6 +291,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Tue Jan 06 2026 Richard W.M. Jones <rjones@redhat.com> - 4.35c-1
+- New version 4.35c (RHBZ#2425505)
+
 * Wed Oct 01 2025 Richard W.M. Jones <rjones@redhat.com> - 4.34c-1
 - New version 4.34c (RHBZ#2400625)
 

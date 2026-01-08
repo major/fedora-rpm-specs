@@ -1,20 +1,25 @@
 Name:           qps
-Version:        1.10.2
-Release:        6%{?dist}
-Summary:        Visual process manager
+Version:        2.12.0
+Release:        1%{?dist}
+Summary:        Qt process viewer and manager
 
-Group:          Applications/System
-License:        GPLv2+
-URL:            http://qps.kldp.net/
-Source0:        http://kldp.net/frs/download.php/4776/%{name}-%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+License:        GPL-2.0-or-later
+URL:            https://lxqt-project.org/
+Source0:        https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1:        https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz.asc
 
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt4-devel >= 4.3.0
+BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(lxqt)
+BuildRequires:  perl
 
-Patch0:         qps-1.10.2-includes.patch
-Patch1:         qps-1.10.2-nostrip.patch
-
+Requires:       hicolor-icon-theme
 
 %description
 Qps is a visual process manager, an X11 version of "top" or "ps" that
@@ -43,46 +48,35 @@ Qps can:
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .includes
-%patch1 -p1 -b .nostrip
-
-iconv --from-code ISO88591 --to-code UTF8 ./CHANGES \
---output CHANGES.utf-8 && mv CHANGES.utf-8 ./CHANGES
- 
+%autosetup
 
 %build
-qmake-qt4
-make %{?_smp_mflags}
-
+%cmake
+%cmake_build
 
 %install
-rm -rf %{buildroot}
-install -D -p -m 0755 qps %{buildroot}%{_bindir}/qps
-install -D -p -m 0644 qps.1 %{buildroot}%{_mandir}/man1/qps.1
-install -D -p -m 0644 icon/icon.xpm %{buildroot}%{_datadir}/pixmaps/qps.xpm
-install -D -p -m 0644 qps.desktop %{buildroot}%{_datadir}/applications/qps.desktop
+%cmake_install
+%find_lang %{name} --with-qt
 
-desktop-file-install --vendor=fedora \
-        --remove-category=Application \
-        --dir %{buildroot}%{_datadir}/applications \
-        %{buildroot}%{_datadir}/applications/qps.desktop
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.lxqt.Qps.appdata.xml
 
-
-%clean
-rm -rf %{buildroot}
-
-
-%files
-%defattr(-,root,root,-)
-%doc CHANGES COPYING
-%{_bindir}/qps
-%{_datadir}/applications/*
-%{_datadir}/pixmaps/qps.xpm
-%{_mandir}/man1/qps.1*
-
+%files -f %{name}.lang
+%license COPYING
+%doc CHANGELOG README.md
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%{_metainfodir}/org.lxqt.Qps.appdata.xml
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/translations
+%{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Tue Jan 6 2026 Basil Crow <me@basilcrow.com> - 2.12.0-1
+- Revive packaging
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.10.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 

@@ -1,47 +1,16 @@
-%global packname sfsmisc
-%global packver  1.1
-%global packrev  20
-%global rlibdir  %{_datadir}/R/library
+Name:           R-sfsmisc
+Version:        %R_rpm_version 1.1-23
+Release:        %autorelease
+Summary:        Utilities from 'Seminar fuer Statistik' ETH Zurich
 
-%bcond_with suggests
+License:        GPL-2.0-or-later
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-Name:             R-%{packname}
-Version:          %{packver}.%{packrev}
-Release:          %autorelease
-Summary:          Utilities from 'Seminar fuer Statistik' ETH Zurich
-
-License:          GPL-2.0-or-later
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrev}.tar.gz
-
-# Here's the R view of the dependencies world:
-# Depends:
-# Imports:   R-grDevices, R-utils, R-stats, R-tools
-# Suggests:  R-datasets, R-tcltk, R-cluster, R-lattice, R-MASS, R-Matrix, R-nlme, R-lokern, R-Rmpfr, R-gmp
-# LinkingTo:
-# Enhances:
-
-BuildArch:        noarch
-Suggests:         procps-ng
-BuildRequires:    procps-ng
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-BuildRequires:    R-grDevices
-BuildRequires:    R-utils
-BuildRequires:    R-stats
-BuildRequires:    R-tools
-%if %{with suggests}
-BuildRequires:    R-datasets
-BuildRequires:    R-tcltk
-BuildRequires:    R-cluster
-BuildRequires:    R-lattice
-BuildRequires:    R-MASS
-BuildRequires:    R-Matrix
-BuildRequires:    R-nlme
-BuildRequires:    R-lokern
-BuildRequires:    R-Rmpfr
-BuildRequires:    R-gmp
-%endif
+BuildArch:      noarch
+BuildRequires:  R-devel
+BuildRequires:  procps-ng
+Suggests:       procps-ng
 
 %description
 Useful utilities ['goodies'] from Seminar fuer Statistik ETH Zurich, some
@@ -54,44 +23,22 @@ and CPU information. Finally, miscellaneous utilities such as simple
 efficient prime numbers, integer codes, Duplicated(), toLatex.numeric() and
 is.whole().
 
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-export LANG=C.UTF-8
-%if %{with suggests}
-%{_bindir}/R CMD check --no-examples %{packname}
-%else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-examples --no-vignettes %{packname}
-%endif
+%R_check \--no-examples
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%doc %{rlibdir}/%{packname}/NEWS.Rd
-%doc %{rlibdir}/%{packname}/ChangeLog
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%{rlibdir}/%{packname}/data
-%{rlibdir}/%{packname}/demo
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

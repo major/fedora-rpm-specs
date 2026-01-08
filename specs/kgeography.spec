@@ -56,7 +56,7 @@ rm -fv %{buildroot}%{_kf6_datadir}/locale/*/LC_SCRIPTS/kgeography/*
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 

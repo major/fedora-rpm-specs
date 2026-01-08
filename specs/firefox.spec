@@ -200,14 +200,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        146.0.1
+Version:        147.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20251219.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260106.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -256,7 +256,6 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
-Patch82:        build-c11-threads-avail.patch
 Patch83:        build-seccomp.patch
 
 
@@ -274,8 +273,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
-Patch402:        D275955.1765540580.diff
-Patch403:        IWYU.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -572,7 +569,6 @@ This package contains results of tests executed during build.
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
 %if 0%{?fedora} >= 44
-%patch -P82 -p1 -b .build-c11-threads-avail
 %patch -P83 -p1 -b .build-seccomp
 %endif
 
@@ -595,8 +591,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-%patch -P402 -p1 -b .D275955.1765540580
-%patch -P403 -p1 -b .IWYU
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1270,6 +1264,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jan 06 2026 Martin Stransky <stransky@redhat.com> - 147.0-1
+- Updated to 147.0
+
 * Fri Dec 19 2025 Martin Stransky <stransky@redhat.com> - 146.0.1-1
 - Updated to 146.0.1
 

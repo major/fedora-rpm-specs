@@ -39,8 +39,8 @@ Summary:        Development files for %{name}
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       vala
-Recommends:     %{name}-demo = %{version}-%{release}
 Recommends:     %{name}-doc = %{version}-%{release}
+Suggests:       %{name}-demo = %{version}-%{release}
 
 %description    devel
 Development files for %{name}.

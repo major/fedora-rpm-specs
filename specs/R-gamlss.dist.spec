@@ -1,31 +1,14 @@
-%global packname gamlss.dist
-%global packver  6.0-5
-%global rlibdir  %{_libdir}/R/library
-
-Name:             R-%{packname}
-Version:          6.0.5
-Release:          %autorelease
-Summary:          Distributions for Generalized Additive Models for Location Scale and Shape
+Name:           R-gamlss.dist
+Version:        %R_rpm_version 6.1-1
+Release:        %autorelease
+Summary:        Distributions for Generalized Additive Models for Location Scale and Shape
 
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
-License:          GPL-2.0-only OR GPL-3.0-only
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+License:        GPL-2.0-only OR GPL-3.0-only
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-# Here's the R view of the dependencies world:
-# Depends:   R-MASS, R-graphics, R-stats, R-methods, R-grDevices
-# Imports:
-# Suggests:
-# LinkingTo:
-# Enhances:
-
-BuildRequires:    R-devel >= 3.5.0
-BuildRequires:    tex(latex)
-BuildRequires:    R-MASS
-BuildRequires:    R-graphics
-BuildRequires:    R-stats
-BuildRequires:    R-methods
-BuildRequires:    R-grDevices
+BuildRequires:  R-devel
 
 %description
 A set of distributions which can be used for modelling the response variables
@@ -36,44 +19,26 @@ created, by transforming, any continuous distribution defined on the real line,
 to a distribution defined on ranges 0 to infinity or 0 to 1, by using a "log"
 or a "logit" transformation respectively.
 
-
 %prep
-%setup -q -c -n %{packname}
-
+%autosetup -c
 # Fix permissions.
-chmod -x \
-    %{packname}/NAMESPACE %{packname}/R/*.R \
-    %{packname}/man/*.Rd %{packname}/src/ST3.?
+pushd gamlss.dist
+chmod -x NAMESPACE R/*.R man/*.Rd src/ST3.?
+popd
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%{_bindir}/R CMD check %{packname}
+%R_check
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/doc
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%dir %{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/libs/%{packname}.so
-%doc %{rlibdir}/%{packname}/Distributions-2010.pdf
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

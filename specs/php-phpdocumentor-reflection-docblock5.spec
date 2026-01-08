@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    90614c73d3800e187615e2dd236ad0e2a01bf761
+%global gh_commit    5cee1d3dfc2d2aa6599834520911d246f656bcb8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpDocumentor
 %global gh_project   ReflectionDocBlock
@@ -14,7 +14,7 @@
 %bcond_without       tests
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
-Version:        5.6.5
+Version:        5.6.6
 Release:        1%{?dist}
 Summary:        DocBlock parser
 
@@ -32,7 +32,7 @@ BuildRequires:  php-fedora-autoloader-devel
 BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-filter
 BuildRequires: (php-composer(phpdocumentor/type-resolver)     >= 1.7   with php-composer(phpdocumentor/type-resolver)     < 2)
-BuildRequires: (php-composer(webmozart/assert)                >= 1.9.1 with php-composer(webmozart/assert)                < 2)
+BuildRequires: (php-composer(webmozart/assert)                >= 1.9.1 with php-composer(webmozart/assert)                < 3)
 BuildRequires: (php-composer(phpdocumentor/reflection-common) >= 2.2   with php-composer(phpdocumentor/reflection-common) < 3)
 BuildRequires: (php-composer(phpstan/phpdoc-parser)           >= 1.7   with php-composer(phpstan/phpdoc-parser)           < 3)
 BuildRequires: (php-composer(doctrine/deprecations)           >= 1.1   with php-composer(doctrine/deprecations)           < 2)
@@ -56,7 +56,7 @@ BuildRequires:  php-spl
 # From composer.json, require
 #        "php": "^7.4 || ^8.0",
 #        "phpdocumentor/type-resolver": "^1.7",
-#        "webmozart/assert": "^1.9.1",
+#        "webmozart/assert": "^1.9.1 || ^2",
 #        "phpdocumentor/reflection-common": "^2.2",
 #        "ext-filter": "*",
 #        "phpstan/phpdoc-parser": "^1.7|^2.0",
@@ -64,7 +64,7 @@ BuildRequires:  php-spl
 Requires:       php(language) >= 7.4
 Requires:       php-filter
 Requires:      (php-composer(phpdocumentor/type-resolver)     >= 1.7   with php-composer(phpdocumentor/type-resolver)     < 2)
-Requires:      (php-composer(webmozart/assert)                >= 1.9.1 with php-composer(webmozart/assert)                < 2)
+Requires:      (php-composer(webmozart/assert)                >= 1.9.1 with php-composer(webmozart/assert)                < 3)
 Requires:      (php-composer(phpdocumentor/reflection-common) >= 2.2   with php-composer(phpdocumentor/reflection-common) < 3)
 Requires:      (php-composer(phpstan/phpdoc-parser)           >= 1.7   with php-composer(phpstan/phpdoc-parser)           < 3)
 Requires:      (php-composer(doctrine/deprecations)           >= 1.1   with php-composer(doctrine/deprecations)           < 2)
@@ -105,12 +105,19 @@ phpab \
   --output src/DocBlock/autoload.php \
   src/
 
-cat <<AUTOLOAD | tee -a src/DocBlock/autoload.php
+cat << 'AUTOLOAD' | tee -a src/DocBlock/autoload.php
+
+$deps = [
+    '%{_datadir}/php/Webmozart/Assert/autoload.php',
+];
+if (PHP_VERSION_ID > 80200) {
+    array_unshift($deps, '%{_datadir}/php/Webmozart/Assert2/autoload.php');
+}
 
 \Fedora\Autoloader\Dependencies::required([
     '%{_datadir}/php/phpDocumentor/Reflection2/autoload-common.php',
     '%{_datadir}/php/phpDocumentor/Reflection2/autoload-type-resolver.php',
-    '%{_datadir}/php/Webmozart/Assert/autoload.php',
+    $deps,
     '%{_datadir}/php/PHPStan/PhpDocParser/autoload.php',
     '%{_datadir}/php/Doctrine/Deprecations/autoload.php',
 ]);
@@ -165,6 +172,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Dec 25 2025 Remi Collet <remi@remirepo.net> - 5.6.6-1
+- update to 5.6.6
+- allow webmozart/assert version 2
+
 * Fri Nov 28 2025 Remi Collet <remi@remirepo.net> - 5.6.5-1
 - update to 5.6.5
 

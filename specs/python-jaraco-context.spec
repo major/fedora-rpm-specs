@@ -15,15 +15,13 @@
 %endif
 
 Name:           python-%{pkgname}
-Version:        6.0.1
+Version:        6.0.2
 Release:        %autorelease
 Summary:        Context managers by jaraco
 
 License:        MIT
 URL:            https://github.com/jaraco/%{projname}
 Source0:        %{pypi_source %{srcname}}
-
-Patch:          https://github.com/jaraco/%{projname}/commit/ccab4e0bfcf4da77434cc5769b5186d72f55b7c3.diff#/split-deps.diff
 
 BuildArch:      noarch
 

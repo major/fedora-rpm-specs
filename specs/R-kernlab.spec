@@ -1,21 +1,15 @@
-%global packname kernlab
-%global packvers 0.9
-%global packrel 31
-%global rlibdir %{_libdir}/R/library
+Name:           R-kernlab
+Version:        %R_rpm_version 0.9-33
+Release:        %autorelease
+Summary:        GNU R package for kernel-based machine learning lab
 
-Name:		R-%{packname}
-Version:	%{packvers}.%{packrel}
-Release:	%autorelease
-Summary:	GNU R package for kernel-based machine learning lab
 
-License:	GPL-2.0-only
-URL:		https://CRAN.R-project.org/package=%{packname}
-Source:		%{url}&version=%{packvers}-%{packrel}#/%{packname}_%{packvers}-%{packrel}.tar.gz
-
-BuildRequires:	R-devel
-BuildRequires:	tex(latex)
+License:	    GPL-2.0-only
+URL:            %{cran_url}
+Source:         %{cran_source}
 
 ExcludeArch:	%{ix86} s390x
+BuildRequires:  R-devel
 
 %description
 Kernel-based machine learning methods for classification,
@@ -25,33 +19,21 @@ includes Support Vector Machines, Spectral Clustering,
 Kernel PCA, Gaussian Processes and a QP solver.
 
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
+%R_install
+%R_save_files
 
 %check
-%{_bindir}/R CMD check %{packname}
+%R_check
 
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/CITATION
-%doc %{rlibdir}/%{packname}/doc
-%doc %{rlibdir}/%{packname}/html
-%license %{rlibdir}/%{packname}/COPYRIGHTS
-%{rlibdir}/%{packname}/DESCRIPTION
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/data
-%{rlibdir}/%{packname}/help
-%{rlibdir}/%{packname}/libs
+%files -f %{R_files}
 
 %changelog
 %autochangelog

@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -98,6 +98,10 @@ FRRouting is a fork of Quagga.
 
 %package headers
 Summary: Build headers for FRR
+BuildArch: noarch
+Requires: json-c-devel
+Requires: libyang-devel
+
 %description headers
 Build headers for FRR required to generate out of tree dplane plugins
 
@@ -160,7 +164,7 @@ autoreconf -ivf
     --enable-static=no \
     --disable-ldpd \
     --disable-babeld \
-    --with-pkgconfigdir=%{_libdir}/pkgconfig \
+    --with-pkgconfigdir=%{_datadir}/pkgconfig \
     --with-moduledir=%{_libdir}/frr/modules \
     --with-yangmodelsdir=%{_datadir}/frr-yang/ \
     --with-crypto=openssl \
@@ -215,7 +219,7 @@ install -D -m 644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/inclu
 # Delete libtool archives
 find %{buildroot} -type f -name "*.la" -delete -print
 
-#Upstream does not maintain a stable API, these headers from -devel subpackage are no longer needed
+# Upstream does not maintain a stable API
 rm %{buildroot}%{_libdir}/frr/*.so
 
 
@@ -299,7 +303,7 @@ rm tests/lib/*grpc*
 %files headers
 %dir %{_includedir}/frr/
 %{_includedir}/frr/*
-%{_libdir}/pkgconfig/frr.pc
+%{_datadir}/pkgconfig/frr.pc
 
 %files rpki
 %{_libdir}/frr/modules/bgpd_rpki.so
@@ -312,6 +316,10 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Tue Jan 06 2026 Robin Jarry <rjarry@redhat.com> - 10.5.0-4
+- Make frr-headers a noarch package
+- Add missing dependencies to frr-headers
+
 * Mon Dec 22 2025 Michal Ruprich <mruprich@redhat.com> - 10.5.0-3
 - Moving the creation of /var files to tmpfiles.d for immutable systems
 

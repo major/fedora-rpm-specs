@@ -90,7 +90,6 @@ Summary: glib static
 Requires: %{name}-devel = %{version}-%{release}
 Requires: pcre2-static
 Requires: sysprof-capture-static
-Requires: libatomic-static
 
 %description static
 The %{name}-static subpackage contains static libraries for %{name}.

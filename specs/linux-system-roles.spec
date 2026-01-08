@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.114.0
+Version: 1.115.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -95,7 +95,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 1 1.6.5
 
 %global rolename2 selinux
-%deftag 2 1.10.5
+%deftag 2 1.10.6
 
 %global rolename3 timesync
 %deftag 3 1.11.1
@@ -107,7 +107,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 5 1.17.7
 
 %global rolename6 storage
-%deftag 6 1.19.1
+%deftag 6 1.19.2
 
 %global rolename7 metrics
 %deftag 7 1.13.2
@@ -128,7 +128,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 12 1.3.6
 
 %global rolename13 certificate
-%deftag 13 1.4.3
+%deftag 13 1.4.4
 
 %global rolename14 crypto_policies
 %deftag 14 1.5.1
@@ -139,16 +139,16 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 15 v0.30.0
 
 %global rolename16 ssh
-%deftag 16 1.6.2
+%deftag 16 1.7.0
 
 %global rolename17 ha_cluster
 %deftag 17 1.28.0
 
 %global rolename18 vpn
-%deftag 18 1.6.13
+%deftag 18 1.6.14
 
 %global rolename19 firewall
-%deftag 19 1.11.3
+%deftag 19 1.11.4
 
 %global rolename20 cockpit
 %deftag 20 1.7.2
@@ -157,7 +157,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 21 1.9.1
 
 %global rolename22 ad_integration
-%deftag 22 1.6.1
+%deftag 22 1.6.2
 
 %global rolename23 rhc
 %deftag 23 1.6.12
@@ -166,13 +166,13 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 24 1.5.1
 
 %global rolename25 postgresql
-%deftag 25 1.4.4
+%deftag 25 1.4.5
 
 %global rolename26 systemd
 %deftag 26 1.3.5
 
 %global rolename27 keylime_server
-%deftag 27 1.2.2
+%deftag 27 1.2.3
 
 %global rolename28 fapolicyd
 %deftag 28 1.1.11
@@ -181,16 +181,16 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 29 1.1.5
 
 %global rolename30 snapshot
-%deftag 30 1.6.1
+%deftag 30 1.6.2
 
 %global rolename31 gfs2
 %deftag 31 1.0.4
 
 %global rolename32 sudo
-%deftag 32 1.2.7
+%deftag 32 1.2.8
 
 %global rolename33 aide
-%deftag 33 1.2.3
+%deftag 33 1.2.4
 
 Source1: %{archiveurl1}
 Source2: %{archiveurl2}
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Jan  6 2026 Packit <hello@packit.dev> - 1.115.0-1
+- Update to upstream version 1.115.0
+
 * Wed Dec  17 2025 Packit <hello@packit.dev> - 1.114.0-1
 - Update to upstream version 1.114.0
 

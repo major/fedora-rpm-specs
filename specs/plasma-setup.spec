@@ -12,7 +12,7 @@
 
 Name:           plasma-setup
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -102,6 +102,14 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 %systemd_postun %{name}.service
 
 
+%triggerun -- fedora-release < 44
+# When upgrading to Fedora 44, mark the system as configured if /etc/reconfigSys doesn't exist
+if [ ! -f "%{_sysconfdir}/reconfigSys" ]; then
+   touch %{_sysconfdir}/plasma-setup-done
+fi
+exit 0
+
+
 %files -f %{orgname}.lang
 %license LICENSES/*
 %config(noreplace) %{_sysconfdir}/xdg/plasmasetuprc
@@ -122,6 +130,9 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
 %changelog
+* Tue Jan 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20260105git81df938-2
+- Add trigger scriptlet to disable plasma-setup for upgrades to F44
+
 * Mon Jan 05 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20260105git81df938-1
 - Bump to new git snapshot
 

@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -18,6 +18,7 @@ Source7:  vsftpd.service
 Source8:  vsftpd@.service
 Source9:  vsftpd.target
 Source10: vsftpd-generator
+Source11: vsftpd-tmpfiles.conf
 
 BuildRequires: make
 BuildRequires: pam-devel
@@ -138,6 +139,7 @@ install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE9} $RPM_BUILD_ROOT%{_unitdir}
 install -m 755 %{SOURCE10} $RPM_BUILD_ROOT%{_generatorsdir}
+install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT%{_tmpfilesdir}/vsftpd.conf
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
@@ -167,8 +169,12 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_mandir}/man5/vsftpd.conf.*
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
+%{_tmpfilesdir}/vsftpd.conf
 
 %changelog
+* Thu Dec 18 2025 Fedor Vorobev <fvorobev@redhat.com> - 3.0.5-13
+- Add a tmpfiles.d config. (image mode support)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

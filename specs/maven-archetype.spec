@@ -3,7 +3,7 @@
 
 Name:           maven-archetype
 Version:        3.2.1.0.%{hashShort}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Maven project templating toolkit
 
 # Most of the code is under ASL 2.0, but some bundled jdom sources are
@@ -26,7 +26,7 @@ Patch3: 0003-Port-to-commons-lang3.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(net.sourceforge.jchardet:jchardet)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -176,7 +176,7 @@ popd
 %build
 %mvn_package :archetype-models maven-archetype
 # Tests are skipped due to missing test dependencies
-%mvn_build -f -s -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8 -Dsource=1.8 -DdetectJavaApiLink=false
+%mvn_build -f -s -- -Dmaven.compiler.source=8 -Dmaven.compiler.target=8 -Dsource=8 -DdetectJavaApiLink=false
 
 %install
 %mvn_install

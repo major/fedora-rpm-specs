@@ -12,12 +12,12 @@ Version:        0.6.2
 Release:        0.5.beta6.git%{shortcommit0}%{dist}
 %else
 Version:        0.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
 License:        GPL-3.0-or-later AND BSD-3-Clause
-URL:            https://github.com/thothix/guayadeque
+URL:            https://codeberg.org/thothix/guayadeque
 %if 0%{?usesnapshot}
 Source0:        %url/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %else
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Tue Jan 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.5-2
+- Updates to move from Github to Codeberg
+
 * Thu Jan 01 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.5-1
 - Update to 0.7.5
 

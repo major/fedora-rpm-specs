@@ -1,7 +1,7 @@
 Name:		wofi
 Summary:	A launcher/menu program for wlroots based wayland compositors
 
-Version:	1.4.1
+Version:	1.5.3
 Release:	%autorelease
 
 License:	GPL-3.0-only

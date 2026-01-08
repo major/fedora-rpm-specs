@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/vkohaupt/vokoscreenNG
 
 Name:           vokoscreenNG
-Version:        4.7.3
+Version:        4.8.1
 %forgemeta
 Release:        %autorelease
 Summary:        Powerful screencast creator to record the screen
@@ -42,10 +42,9 @@ Recommends:      pipewire-gstreamer
 %description
 vokoscreenNG for Windows and Linux is a powerful screencast creator in many
 languages to record the screen, an area or a window (Linux only). Recording of
-audio from multiple sources is supported. With the built-in camera support,
-you can make your video more personal. Other tools such as systray, magnifying
-glass, countdown, timer, Showclick and Halo support will help you do a good
-job.
+audio from multiple sources is supported. With the built-in camera support, you
+can make your video more personal. Other tools such as systray, magnifying
+glass, countdown, timer, Showclick and Halo support will help you do a good job.
 
 
 %prep

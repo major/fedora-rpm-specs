@@ -20,7 +20,7 @@
 
 Name:          postgresql%{pgversion}-postgis
 Version:       3.6.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -349,8 +349,15 @@ strip %{buildroot}/%{_libdir}/gcj/postgis/*.jar.so
 %endif
 
 %if %utils
+pushd utils
 install -d %{buildroot}%{_datadir}/postgis
-install -m 755 utils/*.pl %{buildroot}%{_datadir}/postgis
+install -m 755 create_*.pl repo_revision.pl \
+    postgis_restore.pl read_scripts_version.pl \
+%if 0%{?fedora}
+    profile_intersects.pl test_*.pl \
+%endif
+    %{buildroot}%{_datadir}/postgis
+popd
 %endif
 
 find %buildroot \( -name '*.la' -or -name '*.a' \) -delete
@@ -476,16 +483,19 @@ fi
 %doc utils/README
 %dir %{_datadir}/postgis/
 %doc %{_datadir}/doc/pgsql/extension/README.address_standardizer
-%{_datadir}/postgis/test_estimation.pl
-%{_datadir}/postgis/profile_intersects.pl
-%{_datadir}/postgis/test_joinestimation.pl
 %{_datadir}/postgis/create_extension_unpackage.pl
-%{_datadir}/postgis/postgis_restore.pl
-%{_datadir}/postgis/read_scripts_version.pl
-%{_datadir}/postgis/test_geography_estimation.pl
-%{_datadir}/postgis/test_geography_joinestimation.pl
 %{_datadir}/postgis/create_or_replace_to_create.pl
 %{_datadir}/postgis/create_upgrade.pl
+%{_datadir}/postgis/postgis_restore.pl
+%{_datadir}/postgis/read_scripts_version.pl
+%if 0%{?fedora}
+# requires perl(Pg)
+%{_datadir}/postgis/profile_intersects.pl
+%{_datadir}/postgis/test_estimation.pl
+%{_datadir}/postgis/test_geography_estimation.pl
+%{_datadir}/postgis/test_geography_joinestimation.pl
+%{_datadir}/postgis/test_joinestimation.pl
+%endif
 %endif
 
 
@@ -494,6 +504,9 @@ fi
 
 
 %changelog
+* Tue Jan 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.6.1-4
+- Avoid perl(Pg) dependency on RHEL
+
 * Wed Dec 31 2025 Sandro Mani <manisandro@gmail.com> - 3.6.1-3
 - Bump release
 
