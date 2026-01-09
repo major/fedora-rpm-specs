@@ -1,50 +1,15 @@
-%bcond bootstrap 0
+Name:           R-openssl
+Version:        %R_rpm_version 2.3.4
+Release:        %autorelease
+Summary:        Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
 
-%global packname openssl
-%global rlibdir  %{_libdir}/R/library
+License:        MIT
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-# Skip examples or tests that use the network.
-%bcond network 0
-
-# jose depends on this package.
-%bcond doc 0
-
-Name:             R-%{packname}
-Version:          2.3.3
-Release:          %autorelease
-Summary:          Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
-
-License:          MIT
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
-
-# Here's the R view of the dependencies world:
-# Depends:
-# Imports:   R-askpass
-# Suggests:  R-curl, R-testthat >= 2.1.0, R-digest, R-knitr, R-rmarkdown, R-jsonlite, R-jose, R-sodium
-# LinkingTo:
-# Enhances:
-
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-BuildRequires:    pkgconfig(openssl)
-%if 0%{?fedora} >= 41
-BuildRequires:    openssl-devel-engine
-%endif
-BuildRequires:    R-askpass
-%if %{without bootstrap}
-BuildRequires:    R-curl
-BuildRequires:    R-testthat >= 2.1.0
-BuildRequires:    R-sodium
-%if %{with doc}
-BuildRequires:    R-digest
-BuildRequires:    R-knitr
-BuildRequires:    R-rmarkdown
-BuildRequires:    R-jsonlite
-BuildRequires:    R-jose
-BuildRequires:    glyphicons-halflings-fonts
-%endif
-%endif
+BuildRequires:  R-devel
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  openssl-devel-engine
 
 %description
 Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers.
@@ -58,57 +23,26 @@ arbitrary sized data. Other utilities include key generators, hash functions
 'bignum' math methods for manually performing crypto calculations on large
 multibyte integers.
 
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+rm -f openssl/tests/testthat/test_google.R # network
 
-%if %{without network}
-rm %{packname}/tests/testthat/test_google.R
-%endif
-
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%if %{without bootstrap}
-%if %{without network}
-args="--no-examples"
-%endif
-%if %{without doc}
-args="${args} --ignore-vignettes"
-export _R_CHECK_FORCE_SUGGESTS_=0
-%endif
 # Allow tests with SHA1 signatures to pass.
 # https://github.com/jeroen/openssl/issues/125
 export OPENSSL_ENABLE_SHA1_SIGNATURES=1
-%{_bindir}/R CMD check %{packname} $args
-%endif
+%R_check \--no-examples
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/doc
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%doc %{rlibdir}/%{packname}/NEWS
-%license %{rlibdir}/%{packname}/LICENSE
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%{rlibdir}/%{packname}/cacert.pem
-%dir %{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/libs/%{packname}.so
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

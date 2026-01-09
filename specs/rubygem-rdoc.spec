@@ -2,11 +2,13 @@
 %global gem_name rdoc
 
 Name: rubygem-%{gem_name}
-Version: 6.14.2
-Release: 201%{?dist}
+Version: 7.0.3
+Release: 200%{?dist}
 Summary: RDoc produces HTML and command-line documentation for Ruby projects
 # BSD-3-Clause: lib/rdoc/generator/darkfish.rb
 # CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
+# MIT: lib/rdoc/generator/aliki.rb
+# MIT: lib/rdoc/generator/template/aliki/*
 # OFL-1.1-RFN: lib/rdoc/generator/template/darkfish/css/fonts.css
 # Note that RDoc now embeds Racc parser:
 # https://github.com/ruby/rdoc/pull/1019
@@ -15,16 +17,26 @@ Summary: RDoc produces HTML and command-line documentation for Ruby projects
 # Please also note that there are uncertainties about the license:
 # https://github.com/ruby/rdoc/issues/401
 # https://github.com/ruby/rdoc/issues/924
-License: GPL-2.0-only AND Ruby AND BSD-3-Clause AND CC-BY-2.5 AND OFL-1.1-RFN
+License: %{shrink:
+    GPL-2.0-only AND
+    Ruby AND
+    BSD-3-Clause AND
+    CC-BY-2.5 AND
+    MIT AND
+    OFL-1.1-RFN
+}
 URL: https://ruby.github.io/rdoc
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ruby/rdoc.git --no-checkout && cd rdoc
-# git archive -v -o rdoc-6.14.2-tests.tar.gz v6.14.2 test/
+# git archive -v -o rdoc-%%{version}-tests.tar.gz v%%{version} test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
 # Fix ruby_version abuse. Keep this in sinc with ruby-2.3.0-ruby_version.patch
 # applied in ruby package.
 # https://bugs.ruby-lang.org/issues/11002
 Patch0: rubygem-rdoc-5.1.0-ruby_version.patch
+# https://github.com/ruby/rdoc/pull/1531
+# Fix error with `gem install --document=rdoc,ri`
+Patch1: rdoc-pr1531-fix-mutilple-document-installation.patch
 Requires: rubygem(irb)
 Requires: rubygem(io-console)
 Requires: rubygem(json)
@@ -57,9 +69,10 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b 1
+%setup -q -n %{gem_name}-%{version} -a 1
 
 %patch 0 -p1
+%patch 1 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -86,9 +99,8 @@ for n in 1; do
 done
 
 %check
-( cd .%{gem_instdir}
-cp -a %{builddir}/test .
-
+( cp -a test .%{gem_instdir}
+cd .%{gem_instdir}
 sed -i '/^\s*require..bundler/ s/^/#/g' test/rdoc/support/test_case.rb
 
 # Give `lib` precedence over system location, otherwise strange timestamp
@@ -113,16 +125,22 @@ RUBYOPT=-Ilib \
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/CONTRIBUTING.rdoc
+%doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/CVE-2013-0256.rdoc
 %doc %{gem_instdir}/Example*
 %doc %{gem_instdir}/History.rdoc
-%doc %{gem_instdir}/README.rdoc
+%doc %{gem_instdir}/README.md
 %doc %{gem_instdir}/RI.md
 %doc %{gem_instdir}/TODO.rdoc
 %{gem_instdir}/rdoc.gemspec
 
 %changelog
+* Wed Dec 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.3-200
+- Update to RDoc 7.0.3
+  Resolves: rhbz#2341304
+  Resolves: rhbz#2401435
+- Apply upstream fix for error with gem install --document=rdoc,ri
+
 * Tue Sep 02 2025 Vít Ondruch <vondruch@redhat.com> - 6.14.2-201
 - Update to RDoc 6.14.2.
   Resolves: rhbz#2150709

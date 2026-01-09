@@ -1,5 +1,5 @@
 Name:       libigloo
-Version:    0.9.4
+Version:    0.9.5
 Release:    1%{?dist}
 Summary:    C framework from Icecast
 # COPYING:                  LGPL-2.0 text
@@ -202,6 +202,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 07 2026 Petr Pisar <ppisar@redhat.com> - 0.9.5-1
+- 0.9.5 bump
+
 * Fri Aug 29 2025 Petr Pisar <ppisar@redhat.com> - 0.9.4-1
 - 0.9.4 bump (libigloo-tests license changed to "LGPL-2.0-or-later")
 

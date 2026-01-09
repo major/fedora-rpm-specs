@@ -2,7 +2,7 @@
 %bcond adblock 1
 
 Name:    kdepim-addons
-Version: 25.12.0
+Version: 25.12.1
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
@@ -200,6 +200,9 @@ popd
 
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sun Dec 07 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

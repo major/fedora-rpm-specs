@@ -4,19 +4,19 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gprconfig_kb
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   72c8aca4324a736a434d985ba1d02f5665e33355
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:        %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # [Fedora specific]
 Source1:        fedora_arches.xml
@@ -58,7 +58,7 @@ GNAT project toolchains.
 #############
 
 %prep
-%autosetup -n %{upstream_name}-%{upstream_version} -p1
+%autosetup -C -p1
 
 
 ###########
@@ -112,6 +112,9 @@ xmllint --nonet --noout --noent \
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

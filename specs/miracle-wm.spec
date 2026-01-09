@@ -1,30 +1,29 @@
 %global miral_ver 5.1
-%global miroil_ver 5.0
 %global mirversion 2.18
 
 %global miracle_configlib_somajor 0
 
 
 Name:           miracle-wm
-Version:        0.7.1
+Version:        0.8.3
 Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
 URL:            https://github.com/miracle-window-manager/miracle-wm
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# bugfix: only install libmirrenderer-dev if it is available
+# https://github.com/miracle-wm-org/miracle-wm/pull/734
+Patch0:         734.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  pkgconfig(miral) >= %{miral_ver}
-BuildRequires:  pkgconfig(miroil) >= %{miroil_ver}
-BuildRequires:  pkgconfig(mirrenderer) >= %{mirversion}
 BuildRequires:  pkgconfig(mirplatform) >= %{mirversion}
 BuildRequires:  pkgconfig(mircommon) >= %{mirversion}
 BuildRequires:  pkgconfig(mirwayland) >= %{mirversion}
 BuildRequires:  pkgconfig(mircommon-internal) >= %{mirversion}
-BuildRequires:  pkgconfig(mirserver-internal) >= %{mirversion}
 BuildRequires:  pkgconfig(mirserver-internal) >= %{mirversion}
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(yaml-cpp)
@@ -93,6 +92,7 @@ libraries for manipulating the configuration of %{name}.
 %{_bindir}/miracle-wm-session
 %{_bindir}/miraclemsg
 %{_libexecdir}/miracle-wm-*
+%{_datarootdir}/miracle-wm/
 %{_datarootdir}/wayland-sessions/miracle-wm.desktop
 %{_userunitdir}/miracle-wm*
 %license LICENSE
@@ -109,6 +109,9 @@ libraries for manipulating the configuration of %{name}.
 
 
 %changelog
+* Tue Dec 30 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.3-1
+- Update to 0.8.3
+
 * Tue Sep 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.7.1-1
 - Update to 0.7.1
 

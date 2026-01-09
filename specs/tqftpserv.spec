@@ -1,14 +1,11 @@
 Name:           tqftpserv
-Version:        1.1
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Trivial File Transfer Protocol server over AF_QIPCRTR
 
 License:        BSD-3-Clause
 URL:            https://github.com/linux-msm/tqftpserv
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# tqftpserv.service.in: remove dependency on qrtr-ns.service
-Patch:          https://github.com/linux-msm/tqftpserv/pull/24.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson

@@ -1,6 +1,6 @@
 Name:           PragmARC
 Version:        20130728
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        PragmAda Reusable Components, a component library for Ada
 Summary(sv):    PragmAda Reusable Components, ett komponentbibliotek för ada
 
@@ -83,6 +83,9 @@ cp -p %{SOURCE3} %{buildroot}%{_GNAT_project_dir}/
 
 
 %changelog
+* Wed Jan 07 2026 Björn Persson <Bjorn@Rombobjörn.se> - 20130728-39
+- Rebuilt with GCC 16 prerelease.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 20130728-38
 - Rebuilt because the ALI of System.OS_Constants changed.
 

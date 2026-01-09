@@ -5,13 +5,18 @@
 %bcond tests 1
 
 Name:           python-%{srcname}
-Version:        10.0.2
+Version:        10.1.0
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 
 License:        MPL-2.0
 URL:            https://github.com/pikepdf/pikepdf
 Source:         %pypi_source %{srcname}
+# Pinned only for wheel building purposes.
+Patch:          0001-Unpin-python-xmp-toolkit.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  qpdf-devel >= 11.5.0
@@ -53,13 +58,6 @@ Documentation for pikepdf
 # Drop coverage requirements
 tomcli set pyproject.toml arrays delitem 'project.optional-dependencies.test' 'coverage.*'
 tomcli set pyproject.toml arrays delitem 'project.optional-dependencies.test' 'pytest-cov.*'
-
-%if 0%{?fedora} < 43
-# By dropping project.license, we can use older setuptools.
-tomcli set pyproject.toml del project.license
-tomcli set pyproject.toml str 'project.license.text' 'MPL-2.0'
-tomcli set pyproject.toml arrays replace 'build-system.requires' 'setuptools.*' 'setuptools >= 61'
-%endif
 
 %if %{with docs}
 # We don't build docs against the installed version, so force the version.

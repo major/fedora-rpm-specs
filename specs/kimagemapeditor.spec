@@ -1,7 +1,7 @@
 %global app_id  org.kde.kimagemapeditor
 
 Name:           kimagemapeditor
-Version:        25.12.0
+Version:        25.12.1
 Release:        1%{?dist}
 Summary:        HTML image map editor
 License:        GPL-2.0-or-later
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.
 
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

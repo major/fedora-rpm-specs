@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: HTTP Caching for Rack
 License: MIT
 URL: https://github.com/rack/rack-cache
@@ -15,6 +15,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-global_expectations)
 BuildRequires: rubygem(mocha)
 BuildRequires: rubygem(rack)
 BuildArch: noarch
@@ -57,7 +58,7 @@ ln -s %{_builddir}/test .
 sed -i '/bundler/ s/^/#/' test/test_helper.rb
 
 # We don't have maxitest in Fedora, lets try Minitest.
-sed -i '/global_must/ s/^/#/' test/test_helper.rb
+sed -i '/global_must/ s/global_must/global_expectations/' test/test_helper.rb
 sed -i 's/maxitest/minitest/' test/test_helper.rb
 mv test/meta_store_test.rb{,.disabled}
 
@@ -77,6 +78,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Jan 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.0-6
+- Use minitest-global_expectations
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

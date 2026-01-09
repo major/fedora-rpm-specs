@@ -1,6 +1,6 @@
 Name:		samtools
 Version:	1.15.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Tools for nucleotide sequence alignments in the SAM format
 
 License:	MIT
@@ -52,7 +52,7 @@ done
 
 %check
 # Check if samtools is built with system htslib.
-ldd samtools | grep -E '/lib(64)?/libhts\.so\.'
+ldd samtools | grep -E -e '/lib(64)?/libhts\.so\.' -e '/lib64/lp64d/libhts\.so\.'
 
 make test
 
@@ -90,6 +90,9 @@ make test
 
 
 %changelog
+* Mon Jan 05 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.15.1-8
+- Extend check to handle RISC-V 64-bit architecture port.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

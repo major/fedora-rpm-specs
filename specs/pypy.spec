@@ -30,7 +30,7 @@ ExcludeArch:    %{ix86}
 # Whether to use RPM build wheels from the python-{pip,setuptools}-wheel package
 # Uses upstream bundled prebuilt wheels otherwise
 # setuptools >= 45.0 no longer support Python 2.7, hence disabled
-%bcond_with rpmwheels
+%bcond rpmwheels 0
 
 # PyPy consists of an implementation of an interpreter (with JIT compilation)
 # for the full Python language  written in a high-level language, leaving many
@@ -111,7 +111,7 @@ ExcludeArch:    %{ix86}
 
 %global src_name %{ver_name}-v%{version}-src
 
-%ifarch %{ix86} x86_64 %{arm} s390x %{power64} aarch64
+%ifarch %{ix86} x86_64 %{arm} s390x %{power64} aarch64 riscv64
 %global with_jit 1
 %else
 %global with_jit 0
@@ -369,7 +369,7 @@ License: MIT and Python and UCD and BSD and (ASL 2.0 or BSD) and BSD and ASL 2.0
 # We supply an emacs mode for the JIT viewer.
 # (This doesn't bring in all of emacs, just the directory structure)
 %if %{with_emacs}
-Requires: emacs-filesystem >= %{_emacs_version}
+Requires: emacs-filesystem%{?_emacs_version: >= %{_emacs_version}}
 %endif
 
 %if %{with rpmwheels}

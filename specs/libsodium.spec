@@ -15,8 +15,8 @@
 %endif
 
 Name:           libsodium
-Version:        1.0.20
-Release:        6%{?dist}
+Version:        1.0.21
+Release:        2%{?dist}
 Summary:        The Sodium crypto library
 # Most source code is ISC, except:
 # BSD-2-Clause:
@@ -37,6 +37,7 @@ Source1:        https://download.libsodium.org/libsodium/releases/%{name}-%{vers
 # https://doc.libsodium.org/installation#integrity-checking
 Source2:        %{name}.pubkey
 
+Patch0:        upstream.patch
 
 BuildRequires: gnupg2
 BuildRequires: gcc
@@ -111,6 +112,7 @@ for Win64 target.
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
 
 %setup -q
+%patch -P0 -p1 -b.upstream
 
 
 %build
@@ -195,6 +197,14 @@ make -C build_native check
 
 
 %changelog
+* Wed Jan  7 2026 Remi Collet <remi@remirepo.net> - 1.0.21-2
+- fix aarch64 build failure using upstream patch
+
+* Wed Jan  7 2026 Remi Collet <remi@remirepo.net> - 1.0.21-1
+- update to 1.0.21
+- open https://github.com/jedisct1/libsodium/discussions/1503 build failure on aarch64
+- workaround build failure using -flax-vector-conversions on aarch64
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

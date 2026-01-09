@@ -1,14 +1,14 @@
 # The different tarballs have been at different versions
-%global shortv %(echo %version|awk -F. '{print $1 "." $2}')
+%define shortv %(echo %version|awk -F. '{print $1 "." $2}')
 # Has been different from cubelib/cube
-%global cubew_vers %version
-%global shortwv %(echo %cubew_vers|awk -F. '{print $1 "." $2}')
+%define cubew_vers %version
+%define shortwv %(echo %cubew_vers|awk -F. '{print $1 "." $2}')
 %{!?bash_completion_dir:%global bash_completion_dir /usr/share/bash-completion/completions}
 
 
 Name:           cube
-Version:        4.9
-Release:        3%{?dist}
+Version:        4.9.1
+Release:        1%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -347,6 +347,9 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
 
 %changelog
+* Wed Jan  7 2026 Dave Love <loveshack@fedoraproject.org> - 4.9.1-1
+- Update to v4.9.1 [#2427578]
+
 * Thu Oct 23 2025 Dave Love <loveshack@fedoraproject.org> - 4.9-3
 - Reinstate cube-devel package (#2406039)
 

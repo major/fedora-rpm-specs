@@ -9,7 +9,7 @@
 
 Name: virt-manager
 Version: 5.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -18,6 +18,7 @@ BuildArch: noarch
 URL: https://virt-manager.org/
 Source0: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 
+Patch1: 0001-virtinst-cloudinit-include-empty-meta-data-file.patch
 
 Requires: virt-manager-common = %{verrel}
 Requires: python3-gobject >= 3.31.3
@@ -175,6 +176,9 @@ machine).
 
 
 %changelog
+* Wed Jan 07 2026 Pavel Hrdina <phrdina@redhat.com> - 5.1.0.3
+- Fix cloud init
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.1.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

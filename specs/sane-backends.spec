@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -57,6 +57,11 @@ Patch2: sane-backends-1.0.23-sane-config-multilib.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2377132
 # https://gitlab.com/sane-project/backends/-/merge_requests/881
 Patch3: 0001-sanei_thread.c-Use-deferred-cancellation-mode.patch
+# FTBFS with GCC 16 + C23 - strchr now honors const/non-const of parameter in return value,
+# (passing const parameter gives const return value and vice versa)so non-const char has to
+# be used when changing the original string.
+# https://gitlab.com/sane-project/backends/-/merge_requests/894
+Patch4: gphoto2-gcc16-ftbfs.patch
 
 
 # we need autoconf during build
@@ -402,6 +407,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Wed Jan 07 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-5
+- Fix FTBFS with GCC 16 + C23
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

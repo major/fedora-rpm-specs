@@ -18,11 +18,13 @@ License:        GPL-3.0-only AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apa
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/apognu/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Downgrade dependencies to the versions available in Fedora
+# upgrade i18n-embed 0.14 -> 0.16
+# upgrade i18n-embed-fl 0.8 -> 0.10
 Patch:          tuigreet-fix-metadata.diff
 # Fedora-specific patch: use greetd user home to remember username and last session.
 # See the patch header for the rationale.
 Patch:          tuigreet-0.9.1-Store-persistent-data-in-the-greetd-user-home.patch
+Patch:          tuigreet-0.9.1-adjust-for-i18n-embed-0.16.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  scdoc

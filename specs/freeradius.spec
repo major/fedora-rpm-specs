@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -371,7 +371,19 @@ EOF
 %preun
 %systemd_preun radiusd.service
 
+%post
+# related: https://bugzilla.redhat.com/show_bug.cgi?id=2427017
+# https://github.com/FreeRADIUS/freeradius-server/commit/7d9fcdff99113b7eb3413f436fecccbc5d34bd96
+if [ -x /usr/sbin/setsebool ]; then
+    /usr/sbin/setsebool -P radius_use_jit on || :
+fi
+
 %postun
+if [ $1 -eq 0 ]; then
+    if [ -x /usr/sbin/setsebool ]; then
+        /usr/sbin/setsebool -P radius_use_jit off || :
+    fi
+fi
 %systemd_postun_with_restart radiusd.service
 
 /bin/systemctl try-restart radiusd.service >/dev/null 2>&1 || :
@@ -919,6 +931,10 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/kafka/messages-json.conf
 
 %changelog
+* Mon Jan 05 2026 Antonio Torres <antorres@redhat.com> - 3.2.8-2
+- Enable selinux flag for JIT usage
+  Resolves: #2427017
+
 * Mon Nov 10 2025 Antonio Torres <antorres@redhat.com> - 3.2.8-1
 - Update to upstream release 3.2.8
 

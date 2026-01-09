@@ -7,7 +7,7 @@
 Name:           florist
 Epoch:          2
 Version:        %{upstream_version}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
 
 License:        GPL-2.0-or-later WITH GNAT-exception
@@ -139,6 +139,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Wed Jan 07 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2:22.0.0-14
+- Rebuilt with GCC 16 prerelease.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:22.0.0-13
 - Rebuilt because the ALI of System.OS_Constants changed.
 

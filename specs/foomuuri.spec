@@ -1,5 +1,5 @@
 Name:           foomuuri
-Version:        0.30
+Version:        0.31
 Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
@@ -148,6 +148,7 @@ systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 
 %ghost %dir %{_rundir}/foomuuri
 %attr(0700, root, root) %dir %{_sharedstatedir}/foomuuri
 %{_datadir}/dbus-1/system.d/fi.foobar.Foomuuri1.conf
+%{_datadir}/polkit-1/actions/fi.foobar.Foomuuri1.policy
 %if %{defined fedora} || %{defined foobar}
 %{bash_completions_dir}/foomuuri
 %endif
@@ -165,6 +166,11 @@ systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 
 
 
 %changelog
+* Wed Jan 07 2026 Kim B. Heino  <b@bbbs.net> - 0.31-1
+- Upgrade to 0.31
+- CVE-2025-67603: Add PolicyKit authorization to D-Bus methods
+- CVE-2025-67858: Verify interface input parameter on D-Bus methods
+
 * Fri Dec 12 2025 Kim B. Heino  <b@bbbs.net> - 0.30-1
 - Upgrade to 0.30
 

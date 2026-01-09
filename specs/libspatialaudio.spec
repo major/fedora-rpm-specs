@@ -1,18 +1,16 @@
-%global commit0 d926a2ee469a3fefd50a9364fb9ac6fb484c3f70
+%global commit0 850bdb747b234d6a89f9547fbc6dfa1cf2a6722d
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20200406
+%global date0 20251204
 
 Name:           libspatialaudio
-Version:        3.1
-Release:        24.%{date0}git%{?shortcommit0}%{?dist}
+Version:        4.0
+Release:        1%{?dist}
 Summary:        Ambisonic encoding / decoding and binauralization library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/videolabs/libspatialaudio
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-# https://github.com/videolabs/libspatialaudio/pull/41
-# Needed to fix the VLC build
-Patch1:         0001-Fix-MySofa-library-directory-detection.patch
+Patch0:           0001-Drop-config.h-install.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -44,8 +42,6 @@ developing applications that use %{name}.
 
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380758)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DBUILD_STATIC_LIBS=OFF
 
@@ -60,7 +56,7 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libspatialaudio.so.1*
+%{_libdir}/libspatialaudio.so.2*
 
 %files devel
 %{_includedir}/*
@@ -69,6 +65,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Wed Jan 07 2026 Nicolas Chauvet <kwizart@gmail.com> - 4.0-1
+- Update to 0.4.0
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.1-24.20200406gitd926a2e
 - Allow to build with CMake 4.0 (rhbz#2380758)
 

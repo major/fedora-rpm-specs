@@ -3,16 +3,18 @@ Version:        %R_rpm_version 1.1.0
 Release:        %autorelease
 Summary:        Seamless R and C++ Integration
 
-#		The following three files uses the Boost Software License:
-#		- Rcpp/inst/include/Rcpp/utils/tinyformat/tinyformat.h
-#		- Rcpp/inst/include/Rcpp/macros/config.hpp
-#		- Rcpp/inst/include/Rcpp/macros/cat.hpp
+#               The following three files uses the Boost Software License:
+#               - Rcpp/inst/include/Rcpp/utils/tinyformat/tinyformat.h
+#               - Rcpp/inst/include/Rcpp/macros/config.hpp
+#               - Rcpp/inst/include/Rcpp/macros/cat.hpp
 License:        GPL-2.0-or-later AND BSL-1.0
 URL:            %{cran_url}
 Source:         %{cran_source}
 
 BuildRequires:  R-devel
-BuildRequires:	dos2unix
+BuildRequires:  dos2unix
+Provides:       %{name}-devel = %{version}-%{release}
+Provides:       %{name}-devel%{?_isa} = %{version}-%{release}
 Obsoletes:      %{name}-devel <= 1.1.0
 
 %description
@@ -55,7 +57,7 @@ sed 's!/bin/env Rscript!/usr/bin/Rscript!' \
 chmod 755 %{buildroot}%{_R_libdir}/Rcpp/discovery/cxx0x.R
 
 for f in ConvolveBenchmarks/overhead.r ConvolveBenchmarks/overhead.sh \
-	 Misc/ifelseLooped.r Misc/newFib.r OpenMP/OpenMPandInline.r ; do
+         Misc/ifelseLooped.r Misc/newFib.r OpenMP/OpenMPandInline.r ; do
     chmod 755 %{buildroot}%{_R_libdir}/Rcpp/examples/$f
 done
 

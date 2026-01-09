@@ -1,23 +1,16 @@
-%global packname  units
-%global packvers  1.0
-%global packrel   0
-%global rlibdir   %{_libdir}/R/library
-
-Name:           R-%{packname}
-Version:        %{packvers}.%{packrel}
+Name:           R-units
+Version:        %R_rpm_version 1.0-0
 Release:        %autorelease
 Summary:        Measurement Units for R Vectors
 
 License:        GPL-2.0-or-later
-URL:            https://cran.r-project.org/package=%{packname}
-Source0:        %{url}&version=%{packvers}-%{packrel}#/%{packname}_%{packvers}-%{packrel}.tar.gz
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-BuildRequires:  R-devel >= 3.5.0
+BuildRequires:  R-devel
 BuildRequires:  udunits2-devel
-BuildRequires:  R-Rcpp-devel >= 0.12.10
-BuildRequires:  R-testthat >= 3.0.0
+Obsoletes:      %{name}-devel < 0.6.3
 Recommends:     R-xml2
-Obsoletes:      R-units-devel < 0.6.3
 
 %description
 Support for measurement units in R vectors, matrices and arrays: automatic
@@ -30,36 +23,21 @@ Documentation about 'units' is provided in the paper by Pebesma, Mailund
 a vignette; see 'citation("units")' for details.
 
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
+%R_install
+%R_save_files
 
 %check
-export LANG=C.UTF-8
-export _R_CHECK_FORCE_SUGGESTS_=0
-%{_bindir}/R CMD check --no-manual --ignore-vignettes %{packname}
+%R_check
 
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/doc
-%doc %{rlibdir}/%{packname}/html
-%doc %{rlibdir}/%{packname}/CITATION
-%doc %{rlibdir}/%{packname}/NEWS.md
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/DESCRIPTION
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%{rlibdir}/%{packname}/demo
-%{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/share
+%files -f %{R_files}
 
 %changelog
 %autochangelog

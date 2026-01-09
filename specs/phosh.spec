@@ -1,8 +1,9 @@
-%global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
+%global gvc_url https://gitlab.gnome.org/guidog/libgnome-volume-control
+%global gvc_commit 1cdc1cb2d622d64e9ad2781093bcc63719c5ea5b
 %global libcall_ui_version v0.1.5
 
 Name:		phosh
-Version:	0.52.0
+Version:	0.52.1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -10,7 +11,7 @@ URL:		https://gitlab.gnome.org/World/Phosh/phosh
 Source0:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
-Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
+Source1:	%{gvc_url}/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
 # Similar situation as gvc
 Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_version}/libcall-ui-%{libcall_ui_version}.tar.gz
 Source3:	phosh

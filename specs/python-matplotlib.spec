@@ -32,13 +32,13 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.10.3
+%global mpl_images_version 3.10.8
 
 # The version of FreeType in this Fedora branch.
-%global ftver 2.13.1
+%global ftver 2.14.1
 
 Name:           python-matplotlib
-Version:        3.10.6
+Version:        3.10.8
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
@@ -65,29 +65,31 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 # Temporary fix for some tests.
 Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
 
-# https://github.com/matplotlib/matplotlib/pull/30497
-Patch0003:      0006-TST-Use-a-temporary-directory-for-test_save_figure_r.patch
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en
 BuildRequires:  freetype-devel
 BuildRequires:  libpng-devel
 BuildRequires:  qhull-devel
+%ifnarch %{ix86}
 BuildRequires:  xwayland-run
+%endif
 BuildRequires:  zlib-devel
 
+%ifnarch %{ix86}
 BuildRequires:  ghostscript
 # No ImageMagick for EL8/ELN/EL9
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} < 8)
 BuildRequires:  ImageMagick
 %endif
 BuildRequires:  inkscape
+%endif
 
 BuildRequires:  font(dejavusans)
 BuildRequires:  font(notosanscjkjp)
 BuildRequires:  font(wenquanyizenhei)
 
+%ifnarch %{ix86}
 BuildRequires:  texlive-collection-basic
 BuildRequires:  texlive-collection-fontsrecommended
 BuildRequires:  texlive-collection-latex
@@ -136,6 +138,7 @@ BuildRequires:  tex(cmr10.tfm)
 BuildRequires:  tex(cmss10.tfm)
 BuildRequires:  tex(cmsy10.tfm)
 BuildRequires:  tex(cmtt10.tfm)
+%endif
 
 %description
 Matplotlib is a Python 2D plotting library which produces publication
@@ -168,7 +171,9 @@ Obsoletes:      python-matplotlib-data-fonts < 3
 %package -n     python3-matplotlib
 Summary:        Python 2D plotting library
 BuildRequires:  python3-devel
+%ifnarch %{ix86}
 BuildRequires:  python3dist(pycairo)
+%endif
 BuildRequires:  python3dist(pytz)
 BuildRequires:  python3dist(sphinx)
 Requires:       dejavu-sans-fonts
@@ -182,7 +187,9 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-rerunfailures)
 BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(pytest-xdist)
+%ifnarch %{ix86}
 BuildRequires:  python3dist(pikepdf)
+%endif
 %endif
 # Remove in F45.
 Provides:       python3-matplotlib-data = %{version}-%{release}
@@ -203,8 +210,10 @@ errorcharts, scatterplots, etc, with just a few lines of code.
 %package -n     python3-matplotlib-qt5
 Summary:        Qt5 backend for python3-matplotlib
 BuildRequires:  python3dist(cairocffi)
+%ifnarch %{ix86}
 BuildRequires:  python3dist(pyqt5)
 BuildRequires:  qt5-qtwayland
+%endif
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3dist(cairocffi)
 Requires:       python3dist(pyqt5)
@@ -216,9 +225,11 @@ Obsoletes:      python3-matplotlib-qt4 < 3.5.0-0
 %package -n     python3-matplotlib-qt6
 Summary:        Qt6 backend for python3-matplotlib
 BuildRequires:  python3dist(cairocffi)
+%ifnarch %{ix86}
 BuildRequires:  python3dist(pyqt6)
 BuildRequires:  python3-pyqt6
 BuildRequires:  qt6-qtwayland
+%endif
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3dist(cairocffi)
 Requires:       python3dist(pyqt6)
@@ -228,9 +239,15 @@ Requires:       python3dist(pyqt6)
 
 %package -n     python3-matplotlib-gtk3
 Summary:        GTK3 backend for python3-matplotlib
+%ifnarch %{ix86}
+# For Cairo and xlib typelib files.
+BuildRequires:  gobject-introspection
 # This should be converted to typelib(Gtk) when supported
 BuildRequires:  gtk3
 BuildRequires:  python3-gobject
+%endif
+# For Cairo and xlib typelib files.
+Requires:       gobject-introspection
 Requires:       gtk3%{?_isa}
 Requires:       python3-gobject%{?_isa}
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
@@ -240,9 +257,15 @@ Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 
 %package -n     python3-matplotlib-gtk4
 Summary:        GTK4 backend for python3-matplotlib
+%ifnarch %{ix86}
+# For Cairo and xlib typelib files.
+BuildRequires:  gobject-introspection
 # This should be converted to typelib(Gtk) when supported
 BuildRequires:  gtk4
 BuildRequires:  python3-gobject
+%endif
+# For Cairo and xlib typelib files.
+Requires:       gobject-introspection
 Requires:       gtk4%{?_isa}
 Requires:       python3-gobject%{?_isa}
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
@@ -252,8 +275,10 @@ Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 
 %package -n     python3-matplotlib-tk
 Summary:        Tk backend for python3-matplotlib
+%ifnarch %{ix86}
 BuildRequires:  python3-pillow-tk
 BuildRequires:  python3-tkinter
+%endif
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3-pillow-tk
 Requires:       python3-tkinter
@@ -264,7 +289,9 @@ Requires:       python3-tkinter
 %if %{with wx}
 %package -n     python3-matplotlib-wx
 Summary:        WX backend for python3-matplotlib
+%ifnarch %{ix86}
 BuildRequires:  python3dist(wxpython)
+%endif
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3dist(wxpython)
 
@@ -347,12 +374,14 @@ rm -rf %{buildroot}%{python3_sitearch}/matplotlib/mpl-data/fonts
 # These files confuse pytest, and we want to test the installed copy.
 rm -rf build*/
 
+%ifnarch %{ix86}
 # We need to prime this LaTeX cache stuff, or it might fail while running tests
 # in parallel.
 mktexfmt latex.fmt
 mktexfmt lualatex.fmt
 mktexfmt pdflatex.fmt
 mktexfmt xelatex.fmt
+%endif
 # Also prime the font cache.
 %{py3_test_envvars} %{python3} -c 'import matplotlib.font_manager'
 
@@ -367,6 +396,7 @@ env MPLCONFIGDIR=$PWD \
     %{pytest} -ra -n auto \
          -m 'not network' -k "${k-}" \
          --pyargs matplotlib mpl_toolkits.axes_grid1 mpl_toolkits.axisartist mpl_toolkits.mplot3d
+%ifnarch %{ix86}
 # Skip GTK3Cairo tests that are broken in virtual display.
 k="${k-}${k+ and }not (test_interactive_thread_safety and gtk3cairo)"
 k="${k-}${k+ and }not (test_interactive_timers and gtk3cairo)"
@@ -383,6 +413,7 @@ xwfb-run -- env MPLCONFIGDIR=$PWD \
     %{pytest} -ra -n auto \
         -m 'not network' -k "${k-}" \
         --pyargs matplotlib.tests.test_backend_gtk3 matplotlib.tests.test_backend_qt matplotlib.tests.test_backend_tk matplotlib.tests.test_backends_interactive
+%endif
 %endif
 
 

@@ -71,7 +71,12 @@ install -D -t '%{buildroot}%{_mandir}/man1' -p -m 0644 'jrnl.1'
 
 
 %check -a
-%tox -- -- -rs
+# Python 3.13.11, 3.14.2 regression in
+# test_override_configured_linewrap_with_a_value_of_23
+# https://github.com/jrnl-org/jrnl/issues/2041
+k="${k-}${k+ and }not test_override_configured_linewrap_with_a_value_of_23"
+
+%tox -- -- -k "${k-}" -rs
 
 
 %files -f %{pyproject_files}

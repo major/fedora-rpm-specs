@@ -145,6 +145,14 @@ Interactive viewer for MaterialX materials.
 # Remove bundled assets
 find . -type f \( -name '*.tt[cf]' -o -name '*.ot[cf]' -o -name '*.woff*' \) -delete
 
+# Fix installation path for cmake configuration
+sed -i "s|@PACKAGE_CMAKE_INSTALL_PREFIX@/libraries|%{_datadir}/%{name}/libraries/|" \
+        cmake/modules/MaterialXConfig.cmake.in
+sed -i "s|@PACKAGE_CMAKE_INSTALL_PREFIX@/python|%{python3_sitelib}/%{name}/|" \
+        cmake/modules/MaterialXConfig.cmake.in
+sed -i "s|@PACKAGE_CMAKE_INSTALL_PREFIX@/resources|%{_datadir}/%{name}/resources/|" \
+        cmake/modules/MaterialXConfig.cmake.in
+
 # Fix executable
 %py3_shebang_fix .
 

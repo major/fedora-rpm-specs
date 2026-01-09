@@ -46,16 +46,16 @@
 %endif
 
 # Hypervisor ABI
-%define hv_abi  4.20
+%define hv_abi  4.21
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.20.2
-Release: 2%{?dist}
+Version: 4.21.0
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
-Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
+Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.xz
 Source2: %{name}.logrotate
 # used by stubdoms
 Source10: lwip-1.3.0.tar.gz
@@ -66,19 +66,21 @@ Source14: grub-0.97.tar.gz
 Source15: polarssl-1.1.4-gpl.tgz
 # .config file for xen hypervisor
 Source21: xen.hypervisor.config
-# mini-os xen-RELEASE-4.20.0 with .git and .gitignore stripped
-Source22: mini-os-4.20.0.tar.xz
+# mini-os xen-RELEASE-4.21.0 with .git and .gitignore stripped
+Source22: mini-os-4.21.0.tar.xz
 
-Patch5: xen.fedora.systemd.patch
-Patch6: xen.ocaml.selinux.fix.patch
-Patch34: xen.canonicalize.patch
-Patch37: droplibvirtconflict.patch
-Patch41: xen.gcc9.fixes.patch
-Patch43: xen.gcc11.fixes.patch
-Patch45: xen.gcc12.fixes.patch
-Patch46: xen.efi.build.patch
-Patch49: xen.python3.12.patch
-Patch59: dropped.regs.patch
+Patch1: xen.fedora.systemd.patch
+Patch2: xen.ocaml.selinux.fix.patch
+Patch3: xen.canonicalize.patch
+Patch4: droplibvirtconflict.patch
+Patch5: xen.gcc9.fixes.patch
+Patch6: xen.gcc11.fixes.patch
+Patch7: xen.gcc12.fixes.patch
+Patch8: xen.efi.build.patch
+Patch9: xen.python3.12.patch
+Patch10: dropped.regs.patch
+Patch11: xen.json.nocpuid.patch
+Patch12: xen.gcc16.fixes.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -102,8 +104,10 @@ BuildRequires: acpica-tools
 BuildRequires: bzip2-devel xz-devel libzstd-devel
 # libfsimage
 BuildRequires: e2fsprogs-devel
-# tools now require yajl and wget
-BuildRequires: yajl-devel wget
+# tools now require wget
+BuildRequires: wget
+# use json-c instead of yajl
+BuildRequires: json-c-devel
 # remus support now needs libnl3
 BuildRequires: libnl3-devel
 %if %with_xsm
@@ -246,19 +250,25 @@ This package contains libraries for developing ocaml tools to
 manage Xen virtual machines.
 %endif
 
+%package test
+Summary: internal xen tests
+%description test
+This package contains files used in testing the xen builds
 
 %prep
 %setup -q
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 %patch 5 -p1
 %patch 6 -p1
-%patch 34 -p1
-%patch 37 -p1
-%patch 41 -p1
-%patch 43 -p1
-%patch 45 -p1
-%patch 46 -p1
-%patch 49 -p1
-%patch 59 -p1
+%patch 7 -p1
+%patch 8 -p1
+%patch 9 -p1
+%patch 10 -p1
+%patch 11 -p1
+%patch 12 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -305,7 +315,7 @@ CONFIG_EXTRA="$CONFIG_EXTRA --enable-systemd"
 ./configure --prefix=%{_prefix} --libdir=%{_libdir} --libexecdir=%{_libexecdir} --with-system-qemu=/usr/bin/qemu-system-i386 --with-linux-backend-modules="xen-evtchn xen-gntdev xen-gntalloc xen-blkback xen-netback xen-pciback xen-scsiback xen-acpi-processor" $CONFIG_EXTRA
 unset CFLAGS CXXFLAGS FFLAGS LDFLAGS
 export LDFLAGS="$LDFLAGS_SAVE"
-export CFLAGS=`echo "$CFLAGS_SAVE -Wno-error=address" | sed -e s/-specs=\/usr\/lib\/rpm\/redhat/redhat-annobin-cc1//g`
+export CFLAGS=`echo "$CFLAGS_SAVE -Wno-error=address" | sed -e 's/-specs=\/usr\/lib\/rpm\/redhat/redhat-annobin-cc1//g'`
 
 %if %build_hyp
 %make_build prefix=/usr xen
@@ -598,7 +608,7 @@ fi
 %{_libdir}/libxenlight.so.4.*
 %{_libdir}/libxenstat.so.4.*
 %{_libdir}/libxenstore.so.4
-%{_libdir}/libxenstore.so.4.0
+%{_libdir}/libxenstore.so.4.1
 %{_libdir}/libxentoolcore.so.1
 %{_libdir}/libxentoolcore.so.1.0
 %{_libdir}/libxentoollog.so.1
@@ -608,6 +618,8 @@ fi
 %{_libdir}/xenfsimage
 %{_libdir}/libxenhypfs.so.1
 %{_libdir}/libxenhypfs.so.1.0
+%{_libdir}/libxenmanage.so.1
+%{_libdir}/libxenmanage.so.1.0
 
 # All runtime stuff except for XenD/xm python stuff
 %files runtime
@@ -625,7 +637,8 @@ fi
 %{_unitdir}/xen-watchdog.service
 %{_unitdir}/xen-qemu-dom0-disk-backend.service
 %{_unitdir}/xendriverdomain.service
-/usr/lib/modules-load.d/xen.conf
+%{_modulesloaddir}/xen.conf
+%{_systemd_util_dir}/system-sleep/xen-watchdog-sleep.sh
 
 %config(noreplace) %{_sysconfdir}/sysconfig/xencommons
 %config(noreplace) %{_sysconfdir}/xen/xl.conf
@@ -807,7 +820,23 @@ fi
 %{_libexecdir}/xen/ocaml/xsd_glue/xenctrl_plugin/domain_getinfo_v1.cmxs
 %endif
 
+%files test
+%{_libexecdir}/xen/tests/*
+
 %changelog
+* Wed Jan 07 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.0-1
+- update to xen 4.21.0
+  rebase mini-os
+  use .xz xen tarball instead of .gz
+  fix quotes around sed command
+  update libxenstore version
+  package libxenmanage and xen-watchdog-sleep.sh files
+  add a new package for test files
+  renumber patches
+  use json-c instead of yajl
+- fix bug in xen code when using json-c
+- fix code issues detected by gcc16
+
 * Thu Nov 13 2025 Michael Young <m.a.young@durham.ac.uk> - 4.20.2-2.fc44
 - update to xen 4.20.2
   remove patches now included or superceded upstream

@@ -1,6 +1,6 @@
 Name:           GtkAda
 Version:        2.24.2
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        GTKada 2, an Ada binding to GTK+ 2
 Summary(sv):    GTKada 2, en adabindning till GTK+ 2
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -258,6 +258,9 @@ install --mode=u=rw,go=r,a-s --preserve-timestamps COPYING %{buildroot}%{_licens
 
 
 %changelog
+* Wed Jan 07 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2.24.2-54
+- Rebuilt with GCC 16 prerelease.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.24.2-53
 - Rebuilt because the ALI of System.OS_Constants changed.
 

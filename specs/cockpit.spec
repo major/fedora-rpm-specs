@@ -62,7 +62,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        353.1
+Version:        354
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -94,7 +94,6 @@ BuildRequires: openssl-devel
 BuildRequires: gnutls-devel >= 3.4.3
 BuildRequires: zlib-devel
 BuildRequires: krb5-devel >= 1.11
-BuildRequires: libxslt-devel
 BuildRequires: glib-networking
 BuildRequires: sed
 
@@ -108,7 +107,6 @@ BuildRequires: distribution-logos
 BuildRequires: wallpaper-branding
 %else
 BuildRequires: openssh-clients
-BuildRequires: docbook-style-xsl
 %endif
 BuildRequires: krb5-server
 BuildRequires: gdb
@@ -119,7 +117,13 @@ BuildRequires: nodejs-esbuild
 %endif
 
 # For documentation
-BuildRequires: xmlto
+%if 0%{?rhel} || 0%{?centos}
+# Only has legacy asciidoc-py and not asciidoctor.
+# asciidoc-py includes a2x package which can generate man-pages.
+BuildRequires: asciidoc
+%else
+BuildRequires: asciidoctor
+%endif
 
 BuildRequires:  selinux-policy
 BuildRequires:  selinux-policy-devel
@@ -167,9 +171,9 @@ BuildRequires:  python3-pytest-timeout
 %build
 %if %{defined rebuild_bundle}
 rm -rf dist
-# HACK: node module packaging is currently broken in Fedora, should be in
+# HACK: node module packaging is currently broken in Fedora ≤ 43, should be in
 # common location, not major version specific one
-NODE_ENV=production NODE_PATH=$(echo /usr/lib/node_modules_*) ./build.js
+NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules_*) ./build.js
 %else
 # Use pre-built bundle on distributions without nodejs-esbuild
 %endif
@@ -375,7 +379,7 @@ Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.3.0
+Provides: bundled(npm(tabbable)) = 6.4.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 Provides: bundled(npm(uuid)) = 13.0.0
@@ -663,6 +667,12 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 07 2026 Martin Pitt <mpitt@redhat.com> - 354-1
+- Convert documentation to AsciiDoc
+- Work around Firefox 146/147 bug (rhbz#2422331)
+- Bug fixes
+
+
 * Mon Dec 15 2025 Jelle van der Waa <jelle@vdwaa.nl> - 353.1-1
 - Release workflow fixes
 

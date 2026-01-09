@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:		knights
-Version:	25.12.0
+Version:	25.12.1
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/qlogging-categories6/knights.renamecategories
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

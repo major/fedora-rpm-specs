@@ -1,5 +1,5 @@
 Name:    ktnef
-Version: 25.12.0
+Version: 25.12.1
 Release: 1%{?dist}
 Summary: The KTNef Library
 
@@ -66,6 +66,9 @@ find ./po -type f -name libktnef5.po -execdir mv {} libktnef6.po \;
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

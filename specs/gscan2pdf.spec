@@ -11,7 +11,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -149,12 +149,13 @@ BuildRequires:  xwayland-run
 BuildRequires:  xorg-x11-server-Xvfb
 %endif
 # Optional tests:
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} < 43 && 0%{?fedora} >= 41
 # Some tests (e.g. t/52_process_chain_udt.t) attempt to load PNM or PBM
 # images and Glib::Object::Introspection then warns "Caught error getting
 # pixbuf: Couldn’t recognize the image file format...". That's because
 # a support for the formats was removed from gdk-pixbuf2-modules.
-# The warnings are probably harmless, but noisy.
+# PNM and PBM are again supported by glycin >= 2.0.alpha.5 linked from
+# gdk-pixbuf2.
 BuildRequires:  gdk-pixbuf2-modules-extra
 %endif
 # pdftk not packaged (bug #1708054)
@@ -170,12 +171,14 @@ Suggests:       cuneiform
 Recommends:     gocr
 # djvulibre for djvused program
 Recommends:     djvulibre
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} < 43 && 0%{?fedora} >= 41
 # Some operations like Threshold use PBM as an intermediate format and then
 # Glib::Object::Introspection warns "Caught error getting pixbuf:
 # Couldn’t recognize the image file format..." and gscan2pdf fails to load it.
 # That's because a support for the format was removed from
 # gdk-pixbuf2-modules-2.42.11 and later added as a separate package.
+# PNM and PBM are again supported by glycin >= 2.0.alpha.5 linked from
+# gdk-pixbuf2.
 Requires:       gdk-pixbuf2-modules-extra
 %endif
 # libtiff-tools for /usr/bin/tiffcp and
@@ -215,12 +218,13 @@ Requires:       coreutils
 Requires:       file
 # fontconfig for a fc-list tool
 Requires:       fontconfig
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} < 43 && 0%{?fedora} >= 41
 # Some tests (e.g. t/52_process_chain_udt.t) attempt to load PNM or PBM
 # images and Glib::Object::Introspection then warns "Caught error getting
 # pixbuf: Couldn’t recognize the image file format...". That's because
 # a support for the formats was removed from gdk-pixbuf2-modules.
-# The warnings are probably harmless, but noisy.
+# PNM and PBM are again supported by glycin >= 2.0.alpha.5 linked from
+# gdk-pixbuf2.
 Requires:       gdk-pixbuf2-modules-extra
 %endif
 Requires:       perl-Test-Harness
@@ -376,6 +380,10 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 07 2026 Petr Pisar <ppisar@redhat.com> - 2.13.5-2
+- gdk-pixbuf2-modules-extra is not needed for PNM and PBM with recent
+  gdk-pixbuf2
+
 * Mon Nov 10 2025 Petr Pisar <ppisar@redhat.com> - 2.13.5-1
 - 2.13.5 bump
 

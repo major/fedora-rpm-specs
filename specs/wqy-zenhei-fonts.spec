@@ -4,7 +4,7 @@
 
 Version: 0.9.46
 Release: 34%{?dist}
-URL:     http://wenq.org/enindex.cgi
+URL:     http://wenq.org/wqy2/index.cgi?ZenHei(en)
 
 %global foundry           WQY
 %global fontlicense       GPL-2.0-only WITH Font-exception-2.0

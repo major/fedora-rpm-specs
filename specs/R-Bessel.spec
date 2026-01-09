@@ -1,70 +1,36 @@
-%global packname  Bessel
-%global packvers  0.6
-%global packrel   1
-%global rlibdir  %{_libdir}/R/library
-
-Name:             R-%{packname}
-Version:          %{packvers}.%{packrel}
-Release:          %autorelease
-Summary:          Computations and Approximations for Bessel Functions
+Name:           R-Bessel
+Version:        %R_rpm_version 0.6-1
+Release:        %autorelease
+Summary:        Computations and Approximations for Bessel Functions
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:          GPL-2.0-or-later
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packvers}-%{packrel}.tar.gz
+License:        GPL-2.0-or-later
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-# Here's the R view of the dependencies world:
-# Depends:
-# Imports:   R-methods, R-Rmpfr
-# Suggests:  R-gsl, R-sfsmisc
-# LinkingTo:
-# Enhances:
-
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-BuildRequires:    R-methods
-BuildRequires:    R-Rmpfr
-BuildRequires:    R-gsl
-BuildRequires:    R-sfsmisc
+BuildRequires:  R-devel
 
 %description
 Computations for Bessel function for complex, real and partly 'mpfr'
 (arbitrary precision) numbers; notably interfacing TOMS 644;
 approximations for large arguments, experiments, etc.
 
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+%R_check
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/doc
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%doc %{rlibdir}/%{packname}/NEWS.Rd
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%dir %{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/libs/%{packname}.so
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

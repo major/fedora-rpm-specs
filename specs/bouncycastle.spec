@@ -1,4 +1,4 @@
-%global gittag r1rv77
+%global gittag r1rv83
 %global classname org.bouncycastle.jce.provider.BouncyCastleProvider
 %global profilen 1.8
 %global profile %(echo %{profilen} | sed "s/\\.//g" )
@@ -6,7 +6,7 @@
 
 Summary:          Bouncy Castle Cryptography APIs for Java
 Name:             bouncycastle
-Version:          1.77
+Version:          1.83
 Release:          5%{?dist}
 License:          MIT
 URL:              http://www.bouncycastle.org
@@ -134,7 +134,11 @@ cp -p %{SOURCE6} bcutil.pom
 cp -p %{SOURCE7} bcjmail.pom
 
 # this test needs additional dependeces
-rm prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java
+rm -v prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java
+# and those depends on it
+rm -v prov/src/test/java/org/bouncycastle/jce/provider/test/RegressionTest.java
+rm -v prov/src/test/java/org/bouncycastle/jce/provider/test/SimpleTestTest.java
+rm -v prov/src/test/java/org/bouncycastle/jce/provider/test/AllTests.java
 
 %build
 ant -f ant/jdk%{profile}+.xml \

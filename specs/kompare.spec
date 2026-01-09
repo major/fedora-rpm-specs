@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kompare
 Summary: Diff tool
-Version: 25.12.0
+Version: 25.12.1
 Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -33,7 +33,7 @@ BuildRequires:  cmake(KF6TextEditor)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6I18n)
 
-BuildRequires:  cmake(KompareDiff2) >= %{majmin_ver_kf6}
+BuildRequires:  cmake(KompareDiff2)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -44,7 +44,7 @@ Tool to visualize changes between two versions of a file
 
 %package libs
 Summary: Runtime libraries for %{name}
-Requires:  libkomparediff2%{?_isa} >= %{majmin_ver_kf6}
+Requires:  libkomparediff2%{?_isa}
 %description libs
 This package contains shared libraries for %{name}.
 
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ko
 
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

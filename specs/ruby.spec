@@ -1,6 +1,6 @@
-%global major_version 3
-%global minor_version 4
-%global teeny_version 8
+%global major_version 4
+%global minor_version 0
+%global teeny_version 0
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -10,15 +10,22 @@
 %dnl %global milestone preview2
 
 # Keep the revision enabled for pre-releases from GIT.
-%dnl %global revision 48d4efcb85
+%dnl %global revision d428d086c2
 
 %global ruby_archive %{name}-%{ruby_version}
 
 # If revision and milestone are removed/commented out, the official release build is expected.
-%if 0%{?milestone:1}%{?revision:1} != 0
-%global ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision}}
+%if 0%{?milestone:1} != 0
+%global ruby_archive %{ruby_archive}-%{?milestone}
+%endif
+
+%if 0%{?revision:1} != 0
+%global ruby_archive %{ruby_archive}-%{?revision}
 %define ruby_archive_timestamp %(stat --printf='@%Y' %{_sourcedir}/%{ruby_archive}.tar.xz | date -f - +"%Y%m%d")
-%define development_release ~%{ruby_archive_timestamp}%{?milestone}%{?!milestone:%{?revision:git%{revision}}}
+%endif
+
+%if 0%{?milestone:1}%{?revision:1} != 0
+%define development_release ~%{?ruby_archive_timestamp}%{?milestone}%{?!milestone:%{?revision:git%{revision}}}
 %endif
 
 
@@ -29,118 +36,115 @@
 ## BUNDLED_GEMS_VERSIONS
 
 # Bundled libraries versions
-%global rubygems_version 3.6.9
+%global rubygems_version 4.0.3
 %global rubygems_molinillo_version 0.8.0
-%global rubygems_net_http_version 0.6.0
+%global rubygems_net_http_version 0.7.0
 %global rubygems_net_protocol_version 0.2.2
-%global rubygems_optparse_version 0.6.0
-%global rubygems_resolv_version 0.6.0
+%global rubygems_optparse_version 0.8.0
+%global rubygems_resolv_version 0.6.2
 %global rubygems_securerandom_version 0.4.1
-%global rubygems_timeout_version 0.4.3
+%global rubygems_timeout_version 0.4.4
 %global rubygems_tsort_version 0.2.0
-%global rubygems_uri_version 1.0.4
+%global rubygems_uri_version 1.1.1
 
 # Default gems.
-%global bundler_version 2.6.9
-%global bundler_connection_pool_version 2.5.0
-%global bundler_fileutils_version 1.7.3
-%global bundler_net_http_persistent_version 4.0.4
+%global bundler_version 4.0.3
+%global bundler_connection_pool_version 2.5.4
+%global bundler_fileutils_version 1.8.0
+%global bundler_net_http_persistent_version 4.0.6
 %global bundler_pub_grub_version 0.5.0
 %global bundler_securerandom_version 0.4.1
-%global bundler_thor_version 1.3.2
+%global bundler_thor_version 1.4.0
 %global bundler_tsort_version 0.2.0
-%global bundler_uri_version 1.0.4
+%global bundler_uri_version 1.1.1
 
-%global benchmark_version 0.4.0
-%global cgi_version 0.4.2
-%global date_version 3.4.1
-%global delegate_version 0.4.0
+%global date_version 3.5.1
+%global delegate_version 0.6.1
 %global did_you_mean_version 2.0.0
-%global digest_version 3.2.0
-%global english_version 0.8.0
-%global erb_version 4.0.4
-%global error_highlight_version 0.7.0
+%global digest_version 3.2.1
+%global english_version 0.8.1
+%global erb_version 6.0.1
+%global error_highlight_version 0.7.1
 %global etc_version 1.4.6
-%global fcntl_version 1.2.0
-%global fiddle_version 1.1.6
-%global fileutils_version 1.7.3
+%global fcntl_version 1.3.0
+%global fileutils_version 1.8.0
 %global find_version 0.2.0
-%global forwardable_version 1.3.3
-%global io_console_version 0.8.1
+%global forwardable_version 1.4.0
+%global io_console_version 0.8.2
 %global io_nonblock_version 0.3.2
-%global io_wait_version 0.3.2
-%global ipaddr_version 1.2.7
-%global irb_version 1.14.3
-%global json_version 2.9.1
-%global logger_version 1.6.4
-%global net_http_version 0.6.0
+%global io_wait_version 0.4.0
+%global ipaddr_version 1.2.8
+%global json_version 2.18.0
+%global net_http_version 0.9.1
 %global net_protocol_version 0.2.2
 %global open_uri_version 0.5.0
 %global open3_version 0.2.1
-%global openssl_version 3.3.1
-%global optparse_version 0.6.0
-%global ostruct_version 0.6.1
-%global pathname_version 0.4.0
-%global pp_version 0.6.2
+%global openssl_version 4.0.0
+%global optparse_version 0.8.1
+%global pp_version 0.6.3
 %global prettyprint_version 0.2.0
-%global prism_version 1.5.2
-%global pstore_version 0.1.4
-%global psych_version 5.2.2
-%global rdoc_version 6.14.0
-%global readline_version 0.0.4
-%global reline_version 0.6.0
-%global resolv_version 0.6.2
+%global prism_version 1.7.0
+%global psych_version 5.3.1
+%global resolv_version 0.7.0
 %global ruby2_keywords_version 0.0.5
 %global securerandom_version 0.4.1
-%global set_version 1.1.1
 %global shellwords_version 0.2.2
 %global singleton_version 0.3.0
-%global stringio_version 3.1.2
-%global strscan_version 3.1.2
+%global stringio_version 3.2.0
+%global strscan_version 3.1.6
 %global syntax_suggest_version 2.0.2
 %global tempfile_version 0.3.1
-%global time_version 0.4.1
-%global timeout_version 0.4.3
+%global time_version 0.4.2
+%global timeout_version 0.6.0
 %global tmpdir_version 0.3.1
 %global tsort_version 0.2.0
 %global un_version 0.3.0
-%global uri_version 1.0.4
-%global weakref_version 0.1.3
-%global win32_registry_version 0.1.0
-%global win32ole_version 1.9.1
+%global uri_version 1.1.1
+%global weakref_version 0.1.4
+%global win32_registry_version 0.1.2
 %global yaml_version 0.4.0
-%global zlib_version 3.2.1
+%global zlib_version 3.2.2
 
 # Bundled gems.
 %global abbrev_version 0.1.2
-%global base64_version 0.2.0
-%global bigdecimal_version 3.1.8
-%global csv_version 3.3.2
-%global debug_version 1.11.0
-%global drb_version 2.2.1
+%global base64_version 0.3.0
+%global benchmark_version 0.5.0
+%global bigdecimal_version 4.0.1
+%global csv_version 3.3.5
+%global debug_version 1.11.1
+%global drb_version 2.2.3
+%global fiddle_version 1.1.8
 %global getoptlong_version 0.2.1
-%global matrix_version 0.4.2
-%global minitest_version 5.25.4
+%global irb_version 1.16.0
+%global logger_version 1.7.0
+%global matrix_version 0.4.3
+%global minitest_version 6.0.0
 %global mutex_m_version 0.3.0
-%global net_ftp_version 0.3.8
-%global net_imap_version 0.5.8
+%global net_ftp_version 0.3.9
+%global net_imap_version 0.6.2
 %global net_pop_version 0.1.2
 %global net_smtp_version 0.5.1
 %global nkf_version 0.2.0
 %global observer_version 0.1.2
-%global power_assert_version 2.0.5
-%global prime_version 0.1.3
+%global ostruct_version 0.6.3
+%global power_assert_version 3.0.1
+%global prime_version 0.1.4
+%global pstore_version 0.2.0
 %global racc_version 1.8.1
-%global rake_version 13.2.1
-%global rbs_version 3.8.0
-%global repl_type_completor_version 0.1.9
+%global rake_version 13.3.1
+%global rbs_version 3.10.0
+%global rdoc_version 7.0.3
+%global readline_version 0.0.4
+%global reline_version 0.6.3
+%global repl_type_completor_version 0.1.12
 %global resolv_replace_version 0.1.1
 %global rexml_version 3.4.4
 %global rinda_version 0.2.0
-%global rss_version 0.3.1
-%global syslog_version 0.2.0
-%global test_unit_version 3.6.7
-%global typeprof_version 0.30.1
+%global rss_version 0.3.2
+%global syslog_version 0.3.0
+%global test_unit_version 3.7.5
+%global typeprof_version 0.31.1
+%global win32ole_version 1.9.2
 
 ## END_BUNDLED_GEMS_VERSIONS
 
@@ -158,11 +162,19 @@
 %bcond_without gmp
 %bcond_without hostname
 %bcond_without systemtap
-# YJIT is supported on x86_64 and aarch64.
-# https://github.com/ruby/ruby/blob/master/doc/yjit/yjit.md
+%bcond_without rust
+
+# Don't build rust parts if we are not building with rust bits.
+%if 0%{?with_rust}
+# YJIT and ZJIT is supported on x86_64 and aarch64.
+# https://github.com/ruby/ruby/blob/master/doc/jit/yjit.md
+# https://github.com/ruby/ruby/blob/master/doc/jit/zjit.md
 %ifarch x86_64 aarch64
 %bcond_without yjit
+%bcond_without zjit
 %endif
+%endif
+
 # Enable test when building on local.
 %bcond_with bundler_tests
 %bcond_without parallel_tests
@@ -178,7 +190,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -221,25 +233,21 @@ Source3: ruby-exercise.stp
 Source4: macros.ruby
 Source5: macros.rubygems
 # RPM dependency generators.
-Source8: rubygems.attr
-Source9: rubygems.req
-Source10: rubygems.prov
-Source11: rubygems.con
+Source6: rubygems.attr
+Source7: rubygems.req
+Source8: rubygems.prov
+Source9: rubygems.con
 # ABRT hoook test case.
-Source13: test_abrt.rb
+Source10: test_abrt.rb
 # SystemTap tests.
-Source14: test_systemtap.rb
+Source11: test_systemtap.rb
 # Ruby OpenSSL FIPS tests.
-Source15: test_openssl_fips.rb
+Source12: test_openssl_fips.rb
 # RPM gem Requires dependency generator tests.
-Source16: rpm_test_helper.rb
-Source17: test_rubygems_req.rb
-Source18: test_rubygems_prov.rb
-Source19: test_rubygems_con.rb
-# This file is available in official RDoc 6.9+, while it is missing from
-# default RDoc gem as shipped in Ruby tarball. This should not be needed for
-# Ruby 3.5+.
-Source20: https://github.com/ruby/rdoc/blob/master/lib/rubygems_plugin.rb
+Source13: rpm_test_helper.rb
+Source14: test_rubygems_req.rb
+Source15: test_rubygems_prov.rb
+Source16: test_rubygems_con.rb
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -247,26 +255,31 @@ Source20: https://github.com/ruby/rdoc/blob/master/lib/rubygems_plugin.rb
 %{load:%{SOURCE5}}
 
 %define _local_file_attrs local_generator
-%define __local_generator_requires make -C %{_builddir}/%{buildsubdir}/%{_vpath_builddir} -s runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE9}"
-%define __local_generator_provides make -C %{_builddir}/%{buildsubdir}/%{_vpath_builddir} -s runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE10}"
-%define __local_generator_conflicts make -C %{_builddir}/%{buildsubdir}/%{_vpath_builddir} -s runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE11}"
+%define __local_generator_requires make -C %{_builddir}/%{buildsubdir}/%{_vpath_builddir} -s runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE7}"
+%define __local_generator_provides make -C %{_builddir}/%{buildsubdir}/%{_vpath_builddir} -s runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE8}"
+%define __local_generator_conflicts make -C %{_builddir}/%{buildsubdir}/%{_vpath_builddir} -s runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE9}"
 %define __local_generator_path ^%{gem_dir}/specifications/.*\.gemspec$
 
 # Fix ruby_version abuse.
 # https://bugs.ruby-lang.org/issues/11002
 Patch0: ruby-2.3.0-ruby_version.patch
+# Fix ruby_version abuse for rdoc.
+# Since rdoc is bundled gem, the patch is split from ruby-2.3.0-ruby_version.patch
+# re-made in ruby/rdoc git source and will be applied in correct path in the
+# specfile where we have the exact rdoc version that is part of the path.
+Patch1: ruby-2.3.0-ruby_version-Add-ruby_version_dir_name-support-for-RDoc.patch
 # http://bugs.ruby-lang.org/issues/7807
-Patch1: ruby-2.1.0-Prevent-duplicated-paths-when-empty-version-string-i.patch
+Patch2: ruby-2.1.0-Prevent-duplicated-paths-when-empty-version-string-i.patch
 # Allows to override libruby.so placement. Hopefully we will be able to return
 # to plain --with-rubyarchprefix.
 # http://bugs.ruby-lang.org/issues/8973
-Patch2: ruby-2.1.0-Enable-configuration-of-archlibdir.patch
+Patch3: ruby-2.1.0-Enable-configuration-of-archlibdir.patch
 # Force multiarch directories for i.86 to be always named i386. This solves
 # some differencies in build between Fedora and RHEL.
-Patch3: ruby-2.1.0-always-use-i386.patch
+Patch4: ruby-2.1.0-always-use-i386.patch
 # Allows to install RubyGems into custom directory, outside of Ruby's tree.
 # http://bugs.ruby-lang.org/issues/5617
-Patch4: ruby-2.1.0-custom-rubygems-location.patch
+Patch5: ruby-2.1.0-custom-rubygems-location.patch
 # The ABRT hook used to be initialized by preludes via following patches:
 # https://bugs.ruby-lang.org/issues/8566
 # https://bugs.ruby-lang.org/issues/15306
@@ -278,10 +291,13 @@ Patch4: ruby-2.1.0-custom-rubygems-location.patch
 Patch6: ruby-2.7.0-Initialize-ABRT-hook.patch
 # Disable syntax_suggest test suite, which tries to download its dependencies.
 # https://bugs.ruby-lang.org/issues/19297
-Patch9: ruby-3.3.0-Disable-syntax-suggest-test-case.patch
-# Fix the tests using SHA-1 Probabilistic Signature Scheme (PSS) parameters.
-# https://github.com/ruby/openssl/pull/879
-Patch10: ruby-3.4.2-openssl-Fix-SHA-1-PSS-tests.patch
+Patch7: ruby-3.3.0-Disable-syntax-suggest-test-case.patch
+# Add a way to provide %%build_rustflags to JIT's rustc.
+# https://github.com/ruby/ruby/pull/15695
+Patch8: ruby-4.0.1-Support-customizable-rustc_flags-for-rustc-builds.patch
+# https://github.com/ruby/rdoc/pull/1531
+# Fix error with `gem install --document=rdoc,ri`
+Patch9: rdoc-pr1531-fix-mutilple-document-installation.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -302,7 +318,17 @@ BuildRequires: zlib-devel
 %{?with_gmp:BuildRequires: gmp-devel}
 %{?with_systemtap:BuildRequires: %{_bindir}/dtrace}
 %{?with_systemtap:BuildRequires: systemtap-sdt-devel}
-%{?with_yjit:BuildRequires: %{_bindir}/rustc}
+%if 0%{?with_rust}
+BuildRequires: %{_bindir}/rustc
+
+# We need the %%{build_rustflags}, EL needs different package than Fedora.
+%if 0%{?fedora}
+BuildRequires: rust-srpm-macros
+%else
+Buildrequires: rust-toolset
+%endif
+
+%endif
 
 # Install section
 BuildRequires: multilib-rpm-config
@@ -366,15 +392,6 @@ Provides: bundled(ccan-list)
 Provides: bundled(rubygem-did_you_mean) = %{did_you_mean_version}
 Provides: bundled(rubygem-openssl) = %{openssl_version}
 
-# Tcl/Tk support was removed from stdlib in Ruby 2.4, i.e. F27 timeframe.
-Obsoletes: ruby-tcltk < 2.4.0
-
-# The Net::Telnet and XMLRPC were removed in Ruby 2.8, i.e. F34 timeframe.
-# https://bugs.ruby-lang.org/issues/16484
-# TODO: Update the versions prior landing in Fedora.
-Obsoletes: rubygem-net-telnet < 0.2.0-%{release}
-Obsoletes: rubygem-xmlrpc < 0.3.0-%{release}
-
 
 %description libs
 This package includes the libruby, necessary to run Ruby.
@@ -411,6 +428,7 @@ Provides:   bundled(rubygem-resolv) = %{rubygems_resolv_version}
 Provides:   bundled(rubygem-securerandom) = %{rubygems_securerandom_version}
 Provides:   bundled(rubygem-timeout) = %{rubygems_timeout_version}
 Provides:   bundled(rubygem-tsort) = %{rubygems_tsort_version}
+Provides:   bundled(rubygem-uri) = %{rubygems_uri_version}
 
 BuildArch:  noarch
 
@@ -441,8 +459,6 @@ Macros and development tools for packaging RubyGems.
 %package default-gems
 Summary:    Default gems which are part of Ruby StdLib
 Supplements: ruby(rubygems)
-# Obsoleted by Ruby 2.7 in F32 timeframe.
-Obsoletes: rubygem-did_you_mean < 1.4.0-130
 # Obsoleted by Ruby 3.0 in F34 timeframe.
 Obsoletes: rubygem-openssl < 2.2.0-145
 BuildArch:  noarch
@@ -458,10 +474,6 @@ Version:    %{irb_version}
 License:    Ruby OR BSD-2-Clause
 Provides:   irb = %{version}-%{release}
 Provides:   bundled(rubygem-irb) = %{irb_version}
-# Obsoleted by Ruby 2.6 in F30 timeframe.
-Provides:   ruby(irb) = %{ruby_version}%{?development_release}-%{release}
-Provides:   ruby-irb = %{ruby_version}%{?development_release}-%{release}
-Obsoletes:  ruby-irb < %{ruby_version}%{?development_release}-%{release}
 BuildArch:  noarch
 
 %description -n rubygem-irb
@@ -475,11 +487,13 @@ Version:    %{rdoc_version}
 # BSD-3-Clause: lib/rdoc/generator/darkfish.rb
 # CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
 # OFL-1.1-RFN: lib/rdoc/generator/template/darkfish/css/fonts.css
+# MIT: lib/rdoc/generator/aliki.rb
+# MIT: lib/rdoc/generator/template/aliki/*
 # Note that RDoc now embeds Racc parser:
 # https://github.com/ruby/rdoc/pull/1019
 # Luckily, this should have no license impact:
 # https://github.com/ruby/racc/blob/5eb07b28bfb3e193a1cac07798fe7be7e1e246c4/lib/racc/parser.rb#L8-L10
-License:    GPL-2.0-only AND Ruby AND BSD-3-Clause AND CC-BY-2.5 AND OFL-1.1-RFN
+License:    GPL-2.0-only AND Ruby AND BSD-3-Clause AND CC-BY-2.5 AND OFL-1.1-RFN AND MIT
 Requires:   rubygem(io-console)
 Requires:   rubygem(json) >= %{json_version}
 Provides:   rdoc = %{version}-%{release}
@@ -536,8 +550,18 @@ provide higher layer features, such like curses and readline.
 %package -n rubygem-json
 Summary:    This is a JSON implementation as a Ruby extension in C
 Version:    %{json_version}
-License:    Ruby OR BSD-2-Clause
+# Apache-2.0 OR BSL-1.0: ext/json/vendor/ryu.h
+# MIT: ext/json/vendor/jeaiii-ltoa.h
+# BSL-1.0: ext/json/vendor/fpconv.c
+License:    (Ruby OR BSD-2-Clause) AND (Apache-2.0 OR BSL-1.0) AND MIT AND BSL-1.0
 Provides:   bundled(rubygem-json) = %{json_version}
+# https://github.com/ulfjack/ryu
+Provides:   bundled(ryu)
+# jeaiii-ltoa.h
+# https://github.com/jeaiii/itoa
+Provides:   bundled(itoa)
+# https://github.com/night-shift/fpconv
+Provides:   bundled(fpconv)
 
 %description -n rubygem-json
 This is a implementation of the JSON specification according to RFC 4627.
@@ -600,10 +624,13 @@ many machines, systematically and repeatably.
 Summary:    Bundled gems which are part of Ruby StdLib
 Provides:   bundled(rubygem-abbrev) = %{abbrev_version}
 Provides:   bundled(rubygem-base64) = %{base64_version}
+Provides:   bundled(rubygem-benchmark) = %{benchmark_version}
 Provides:   bundled(rubygem-csv) = %{csv_version}
 Provides:   bundled(rubygem-debug) = %{debug_version}
 Provides:   bundled(rubygem-drb) = %{drb_version}
 Provides:   bundled(rubygem-getoptlong) = %{getoptlong_version}
+Provides:   bundled(rubygem-fiddle) = %{fiddle_version}
+Provides:   bundled(rubygem-logger) = %{logger_version}
 Provides:   bundled(rubygem-matrix) = %{matrix_version}
 Provides:   bundled(rubygem-mutex_m) = %{mutex_m_version}
 Provides:   bundled(rubygem-net-ftp) = %{net_ftp_version}
@@ -611,8 +638,12 @@ Provides:   bundled(rubygem-net-imap) = %{net_imap_version}
 Provides:   bundled(rubygem-net-pop) = %{net_pop_version}
 Provides:   bundled(rubygem-net-smtp) = %{net_smtp_version}
 Provides:   bundled(rubygem-nkf) = %{nkf_version}
-Provides:   bundled(rubygem-prime) = %{prime_version}
 Provides:   bundled(rubygem-observer) = %{observer_version}
+Provides:   bundled(rubygem-ostruct) = %{ostruct_version}
+Provides:   bundled(rubygem-prime) = %{prime_version}
+Provides:   bundled(rubygem-pstore) = %{pstore_version}
+Provides:   bundled(rubygem-readline) = %{readline_version}
+Provides:   bundled(rubygem-reline) = %{reline_version}
 Provides:   bundled(rubygem-repl_type_completor) = %{repl_type_completor_version}
 Provides:   bundled(rubygem-resolv-replace) = %{resolv_replace_version}
 Provides:   bundled(rubygem-rinda) = %{rinda_version}
@@ -636,15 +667,12 @@ Provides:   bundled(rubygem-minitest) = %{minitest_version}
 BuildArch:  noarch
 
 %description -n rubygem-minitest
-minitest/unit is a small and incredibly fast unit testing framework.
+minitest/test is a small and incredibly fast unit testing framework.
 
 minitest/spec is a functionally complete spec engine.
 
 minitest/benchmark is an awesome way to assert the performance of your
 algorithms in a repeatable manner.
-
-minitest/mock by Steven Baker, is a beautifully tiny mock object
-framework.
 
 minitest/pride shows pride in testing and adds coloring to your test
 output.
@@ -769,13 +797,19 @@ analysis result in RBS format, a standard type description format for Ruby
 %setup -q -n %{ruby_archive}
 
 %patch 0 -p1
+
+pushd .bundle/gems/rdoc-%{rdoc_version}
 %patch 1 -p1
+%patch 9 -p1
+popd
+
 %patch 2 -p1
 %patch 3 -p1
 %patch 4 -p1
+%patch 5 -p1
 %patch 6 -p1
-%patch 9 -p1
-%patch 10 -p1
+%patch 7 -p1
+%patch 8 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -809,6 +843,8 @@ pushd %{_vpath_builddir}
         --with-ruby-version='' \
         --enable-multiarch \
         %{?with_yjit: --enable-yjit} \
+        %{?with_zjit: --enable-zjit} \
+        %{?with_rust: rustc_flags='%{build_rustflags}'} \
 
 popd
 
@@ -846,8 +882,7 @@ sed -i 's/Version: \${ruby_version}/Version: %{ruby_version}/' %{buildroot}%{_li
 
 # Kill bundled certificates, as they should be part of ca-certificates.
 for cert in \
-  rubygems.org/GlobalSignRootCA.pem \
-  rubygems.org/GlobalSignRootCA_R3.pem
+  rubygems.org/GlobalSign.pem
 do
   rm %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/$cert
   rm -d $(dirname %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/$cert) || :
@@ -865,10 +900,10 @@ sed -i "s/%%{name}/%{name}/" %{buildroot}%{_rpmmacrodir}/macros.rubygems
 
 # Install dependency generators.
 mkdir -p %{buildroot}%{_fileattrsdir}
-install -m 644 %{SOURCE8} %{buildroot}%{_fileattrsdir}
+install -m 644 %{SOURCE6} %{buildroot}%{_fileattrsdir}
+install -m 755 %{SOURCE7} %{buildroot}%{_rpmconfigdir}
+install -m 755 %{SOURCE8} %{buildroot}%{_rpmconfigdir}
 install -m 755 %{SOURCE9} %{buildroot}%{_rpmconfigdir}
-install -m 755 %{SOURCE10} %{buildroot}%{_rpmconfigdir}
-install -m 755 %{SOURCE11} %{buildroot}%{_rpmconfigdir}
 
 # Install custom operating_system.rb.
 mkdir -p %{buildroot}%{rubygems_dir}/rubygems/defaults
@@ -885,32 +920,6 @@ mkdir -p %{buildroot}%{_exec_prefix}/lib{,64}/gems/%{name}
 
 # Move bundled rubygems to %%gem_dir and %%gem_extdir_mri
 # make symlinks for io-console, which is considered to be part of stdlib by other Gems
-mkdir -p %{buildroot}%{gem_libdir irb}
-mv %{buildroot}%{ruby_libdir}/irb* %{buildroot}%{gem_libdir irb}
-mv %{buildroot}%{gem_spec -d irb} %{buildroot}%{gem_spec irb}
-ln -s %{gem_libdir irb}/irb.rb %{buildroot}%{ruby_libdir}/irb.rb
-# TODO: This should be possible to replaced by simple directory symlink
-# after ~ F31 EOL (rhbz#1691039).
-mkdir -p %{buildroot}%{ruby_libdir}/irb
-pushd %{buildroot}%{gem_dir}/gems/irb-%{irb_version}/lib
-find irb -type d -mindepth 1 -exec mkdir %{buildroot}%{ruby_libdir}/'{}' \;
-find irb -type f -exec ln -s %{gem_libdir irb}/'{}' %{buildroot}%{ruby_libdir}/'{}' \;
-popd
-
-mkdir -p %{buildroot}%{gem_libdir rdoc}
-mv %{buildroot}%{ruby_libdir}/rdoc* %{buildroot}%{gem_libdir rdoc}
-mv %{buildroot}%{gem_spec -d rdoc} %{buildroot}%{gem_spec rdoc}
-# Default gem is missing the RubyGems plugin, using various sorts of
-# heuristics to workadound this. Restore the plugin to let the documentaion
-# generator work properly. This shold not be needed for Ruby 3.5+.
-# https://github.com/ruby/rdoc/pull/1171
-# https://github.com/rubygems/rubygems/pull/8340
-# Make sure to not overwrite the file, because it should not exist.
-test ! -e %{buildroot}%{gem_libdir rdoc}/%{basename:%{SOURCE20}}
-mv %{SOURCE20} %{buildroot}%{gem_libdir rdoc}
-echo "require_relative '../gems/rdoc-%{rdoc_version}/lib/rubygems_plugin.rb'" \
-  > %{buildroot}%{gem_plugin rdoc}
-
 # TODO: Put help files into proper location.
 # https://bugs.ruby-lang.org/issues/15359
 mkdir -p %{buildroot}%{gem_libdir bundler}
@@ -960,7 +969,9 @@ find %{buildroot}%{gem_dir}/gems/*/lib -name \*.so -delete
 
 # Move man pages into proper location
 mkdir -p %{buildroot}%{_mandir}/man{1,5}
+mv %{buildroot}%{gem_instdir irb}/man/irb.1 %{buildroot}%{_mandir}/man1
 mv %{buildroot}%{gem_instdir rake}/doc/rake.1 %{buildroot}%{_mandir}/man1
+mv %{buildroot}%{gem_instdir rdoc}/man/ri.1 %{buildroot}%{_mandir}/man1
 # https://bugs.ruby-lang.org/issues/17778
 cp -a %{buildroot}%{gem_libdir bundler}/bundler/man/*.1 %{buildroot}%{_mandir}/man1
 cp -a %{buildroot}%{gem_libdir bundler}/bundler/man/*.5 %{buildroot}%{_mandir}/man5
@@ -980,7 +991,6 @@ echo 'doc/images' >> .ruby-doc.en
 echo 'doc/syntax' >> .ruby-doc.en
 
 find doc -maxdepth 1 -type f -name '*.ja*' > .ruby-doc.ja
-echo 'doc/irb' >> .ruby-doc.ja
 echo 'doc/pty' >> .ruby-doc.ja
 
 sed -i 's/^/%doc /' .ruby-doc.*
@@ -989,9 +999,9 @@ sed -i 's/^/%lang(ja) /' .ruby-doc.ja
 %check
 %if 0%{?with_hardening_test}
 # Check Ruby hardening.
-%define fortification_x86_64  fortified="12" fortify-able="29"
+%define fortification_x86_64  fortified="10" fortify-able="26"
 %define fortification_i686    fortified="10" fortify-able="26"
-%define fortification_aarch64 fortified="12" fortify-able="29"
+%define fortification_aarch64 fortified="11" fortify-able="28"
 %define fortification_ppc64le fortified="7" fortify-able="24"
 %define fortification_s390x   fortified="10" fortify-able="24"
 %define fortification_riscv64 fortified="10" fortify-able="26"
@@ -1018,6 +1028,7 @@ make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
 # Net::HTTP.
 make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Gem; module Net; end; end; \
+  require 'rbconfig'; \
   require 'rubygems/vendor/net-http/lib/net/http'; \
   puts '%%{rubygems_net_http_version}: %{rubygems_net_http_version}'; \
   puts %Q[Gem::Net::HTTP::VERSION: #{Gem::Net::HTTP::VERSION}]; \
@@ -1045,6 +1056,7 @@ make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
 # Resolv.
 make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Gem; end; \
+  require 'rbconfig'; \
   require 'rubygems/vendor/resolv/lib/resolv'; \
   puts '%%{rubygems_resolv_version}: %{rubygems_resolv_version}'; \
   puts %Q[Gem::Resolv::VERSION: #{Gem::Resolv::VERSION}]; \
@@ -1120,6 +1132,7 @@ make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
 make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Gem; end; \
   module Bundler; end; \
+  require 'rbconfig'; \
   require 'bundler/vendor/net-http-persistent/lib/net/http/persistent'; \
   puts '%%{bundler_net_http_persistent_version}: %{bundler_net_http_persistent_version}'; \
   puts %Q[Gem::Net::HTTP::Persistent::VERSION: #{Gem::Net::HTTP::Persistent::VERSION}]; \
@@ -1181,27 +1194,27 @@ touch %{_vpath_builddir}/abrt.rb
 
 # Check if abrt hook is required (RubyGems are disabled by default when using
 # runruby, so re-enable them).
-make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE13}"
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE10}"
 
 # Check if systemtap is supported.
 %if %{with systemtap}
 ln -sfr probes.d %{_vpath_builddir}/
-make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=%{SOURCE14}
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=%{SOURCE11}
 %endif
 
 # Test dependency generators for RPM
+GENERATOR_SCRIPT="%{SOURCE7}" \
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
+  -I%{_builddir}/%{buildsubdir}/tool/lib -I%{_sourcedir} --enable-gems \
+  %{SOURCE14} --verbose"
+GENERATOR_SCRIPT="%{SOURCE8}" \
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
+  -I%{_builddir}/%{buildsubdir}/tool/lib -I%{_sourcedir} --enable-gems \
+  %{SOURCE15} --verbose"
 GENERATOR_SCRIPT="%{SOURCE9}" \
 make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
   -I%{_builddir}/%{buildsubdir}/tool/lib -I%{_sourcedir} --enable-gems \
-  %{SOURCE17} --verbose"
-GENERATOR_SCRIPT="%{SOURCE10}" \
-make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
-  -I%{_builddir}/%{buildsubdir}/tool/lib -I%{_sourcedir} --enable-gems \
-  %{SOURCE18} --verbose"
-GENERATOR_SCRIPT="%{SOURCE11}" \
-make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
-  -I%{_builddir}/%{buildsubdir}/tool/lib -I%{_sourcedir} --enable-gems \
-  %{SOURCE19} --verbose"
+  %{SOURCE16} --verbose"
 
 
 DISABLE_TESTS=""
@@ -1218,7 +1231,7 @@ MSPECOPTS=""
 # Run Ruby OpenSSL tests in OpenSSL FIPS.
 make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
   -I%{_builddir}/%{buildsubdir}/tool/lib --enable-gems \
-  %{SOURCE15} %{_builddir}/%{buildsubdir} --verbose"
+  %{SOURCE12} %{_builddir}/%{buildsubdir} --verbose"
 
 %{?with_bundler_tests:make -C %{_vpath_builddir} test-bundler-parallel}
 
@@ -1261,10 +1274,8 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 # List all these files explicitly to prevent surprises
 # Platform independent libraries.
 %dir %{ruby_libdir}
-%exclude %{ruby_libdir}/irb*
 %exclude %{ruby_libdir}/json*
 %exclude %{ruby_libdir}/psych*
-%{ruby_libdir}/benchmark*
 %{ruby_libdir}/bundled_gems.rb
 %{ruby_libdir}/cgi*
 %{ruby_libdir}/coverage.rb
@@ -1275,12 +1286,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{ruby_libdir}/erb*
 %{ruby_libdir}/error_highlight*
 %{ruby_libdir}/expect.rb
-%{ruby_libdir}/fiddle*
 %{ruby_libdir}/fileutils.rb
 %{ruby_libdir}/find.rb
 %{ruby_libdir}/forwardable*
 %{ruby_libdir}/ipaddr.rb
-%{ruby_libdir}/logger*
 %{ruby_libdir}/mkmf.rb
 %{ruby_libdir}/monitor.rb
 %{ruby_libdir}/net
@@ -1289,20 +1298,14 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{ruby_libdir}/open3*
 %{ruby_libdir}/optionparser.rb
 %{ruby_libdir}/optparse*
-%{ruby_libdir}/ostruct*
 %{ruby_libdir}/pathname.rb
 %{ruby_libdir}/pp.rb
 %{ruby_libdir}/prettyprint.rb
-%{ruby_libdir}/pstore*
 %{ruby_libdir}/random
-%{ruby_libdir}/readline.rb
-%{ruby_libdir}/reline*
 %{ruby_libdir}/resolv.rb
 %{ruby_libdir}/ripper*
-%dir %{ruby_libdir}/ruby_vm
-%{ruby_libdir}/ruby_vm/rjit
 %{ruby_libdir}/securerandom.rb
-%{ruby_libdir}/set*
+%{ruby_libdir}/set/subclass_compatible.rb
 %{ruby_libdir}/shellwords.rb
 %{ruby_libdir}/singleton*
 %{ruby_libdir}/socket.rb
@@ -1401,13 +1404,11 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{ruby_libarchdir}/erb/escape.so
 %{ruby_libarchdir}/etc.so
 %{ruby_libarchdir}/fcntl.so
-%{ruby_libarchdir}/fiddle.so
 %dir %{ruby_libarchdir}/io
 %{ruby_libarchdir}/io/nonblock.so
 %{ruby_libarchdir}/io/wait.so
 %{ruby_libarchdir}/monitor.so
 %{ruby_libarchdir}/objspace.so
-%{ruby_libarchdir}/pathname.so
 %{ruby_libarchdir}/pty.so
 %dir %{ruby_libarchdir}/rbconfig
 %{ruby_libarchdir}/rbconfig.rb
@@ -1455,8 +1456,6 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{_rpmconfigdir}/rubygems.con
 
 %files default-gems
-%gem_spec -d benchmark
-%gem_spec -d cgi
 %gem_spec -d date
 %gem_spec -d delegate
 %gem_spec -d did_you_mean
@@ -1469,31 +1468,23 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %gem_spec -d error_highlight
 %gem_spec -d etc
 %gem_spec -d fcntl
-%gem_spec -d fiddle
 %gem_spec -d fileutils
 %gem_spec -d find
 %gem_spec -d forwardable
 %gem_spec -d io-nonblock
 %gem_spec -d io-wait
 %gem_spec -d ipaddr
-%gem_spec -d logger
 %gem_spec -d net-http
 %gem_spec -d net-protocol
 %gem_spec -d open3
 %gem_spec -d open-uri
 %gem_spec -d optparse
 %gem_spec -d openssl
-%gem_spec -d ostruct
-%gem_spec -d pathname
 %gem_spec -d pp
 %gem_spec -d prettyprint
-%gem_spec -d pstore
-%gem_spec -d readline
-%gem_spec -d reline
 %gem_spec -d resolv
 %gem_spec -d ruby2_keywords
 %gem_spec -d securerandom
-%gem_spec -d set
 %gem_spec -d shellwords
 %gem_spec -d singleton
 %gem_spec -d stringio
@@ -1517,9 +1508,17 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 %files -n rubygem-irb
 %{_bindir}/irb
-%{ruby_libdir}/irb*
-%{gem_instdir irb}
+%dir %{gem_instdir irb}
+%{gem_libdir irb}
 %{gem_spec irb}
+%{gem_instdir irb}/exe
+
+%{gem_instdir irb}/Gemfile
+%license %{gem_instdir irb}/LICENSE.txt
+%doc %{gem_instdir irb}/doc
+%doc %{gem_instdir irb}/README.md
+%doc %{gem_instdir irb}/CONTRIBUTING.md
+%doc %{gem_instdir irb}/EXTEND_IRB.md
 %{_mandir}/man1/irb.1*
 
 %files -n rubygem-rdoc
@@ -1585,10 +1584,24 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 # base64
 %dir %{gem_instdir base64}
-%license %{gem_instdir base64}/LICENSE.txt
+%license %{gem_instdir base64}/BSDL
+%license %{gem_instdir base64}/COPYING
+%license %{gem_instdir base64}/LEGAL
+%{gem_instdir base64}/sig
 %{gem_libdir base64}
 %{gem_spec base64}
 %doc %{gem_instdir base64}/README.md
+
+# benchmark
+%dir %{gem_instdir benchmark}
+%license %{gem_instdir benchmark}/BSDL
+%license %{gem_instdir benchmark}/COPYING
+%doc %{gem_instdir benchmark}/README.md
+%{gem_instdir benchmark}/Gemfile
+%{gem_instdir benchmark}/Rakefile
+%{gem_instdir benchmark}/bin
+%{gem_libdir benchmark}
+%{gem_spec benchmark}
 
 # csv
 %dir %{gem_instdir csv}
@@ -1603,6 +1616,7 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %dir %{gem_instdir drb}
 %license %{gem_instdir drb}/LICENSE.txt
 %{gem_libdir drb}
+%{gem_instdir drb}/drb.gemspec
 %{gem_spec drb}
 
 # getoptlong
@@ -1616,10 +1630,32 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %doc %{gem_instdir getoptlong}/README.md
 %{gem_instdir getoptlong}/Rakefile
 
+# fiddle
+%dir %{gem_instdir fiddle}
+%license %{gem_instdir fiddle}/LICENSE.txt
+%doc %{gem_instdir fiddle}/README.md
+%{gem_instdir fiddle}/Rakefile
+%{gem_libdir fiddle}
+%dir %{gem_extdir_mri fiddle}
+%{gem_extdir_mri fiddle}/fiddle.so
+%{gem_extdir_mri fiddle}/gem.build_complete
+%{gem_instdir fiddle}/fiddle.gemspec
+%{gem_spec fiddle}
+
+# logger
+%dir %{gem_instdir logger}
+%license %{gem_instdir logger}/BSDL
+%license %{gem_instdir logger}/COPYING
+%doc %{gem_instdir logger}/README.md
+%{gem_libdir logger}
+%{gem_spec logger}
+
 # matrix
 %dir %{gem_instdir matrix}
-%license %{gem_instdir matrix}/LICENSE.txt
+%license %{gem_instdir matrix}/BSDL
+%license %{gem_instdir matrix}/COPYING
 %{gem_libdir matrix}
+%{gem_instdir matrix}/matrix.gemspec
 %{gem_spec matrix}
 
 # mutex_m
@@ -1695,6 +1731,18 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %doc %{gem_instdir observer}/README.md
 %{gem_instdir observer}/Rakefile
 
+# ostruct
+%dir %{gem_instdir ostruct}
+%license %{gem_instdir ostruct}/BSDL
+%license %{gem_instdir ostruct}/COPYING
+%doc %{gem_instdir ostruct}/README.md
+%{gem_instdir ostruct}/Gemfile
+%{gem_instdir ostruct}/Rakefile
+%{gem_instdir ostruct}/bin
+%{gem_libdir ostruct}
+%{gem_instdir ostruct}/ostruct.gemspec
+%{gem_spec ostruct}
+
 # prime
 %dir %{gem_instdir prime}
 %license %{gem_instdir prime}/BSDL
@@ -1703,7 +1751,19 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{gem_instdir prime}/Rakefile
 %{gem_libdir prime}
 %{gem_instdir prime}/sig
+%{gem_instdir prime}/prime.gemspec
 %{gem_spec prime}
+
+# pstore
+%dir %{gem_instdir pstore}
+%license %{gem_instdir pstore}/BSDL
+%license %{gem_instdir pstore}/COPYING
+%doc %{gem_instdir pstore}/README.md
+%{gem_instdir pstore}/Gemfile
+%{gem_instdir pstore}/Rakefile
+%{gem_instdir pstore}/bin
+%{gem_libdir pstore}
+%{gem_spec pstore}
 
 # rdbg
 %{_bindir}/rdbg
@@ -1723,6 +1783,23 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{gem_libdir debug}
 %{gem_instdir debug}/misc
 %{gem_spec debug}
+
+# readline
+%dir %{gem_instdir readline}
+%license %{gem_instdir readline}/BSDL
+%license %{gem_instdir readline}/COPYING
+%doc %{gem_instdir readline}/README.md
+%{gem_libdir readline}
+%{gem_spec readline}
+
+# reline
+%dir %{gem_instdir reline}
+%license %{gem_instdir reline}/BSDL
+%license %{gem_instdir reline}/COPYING
+%license %{gem_instdir reline}/license_of_rb-readline
+%doc %{gem_instdir reline}/README.md
+%{gem_libdir reline}
+%{gem_spec reline}
 
 # repl_type_completor
 %dir %{gem_instdir repl_type_completor}
@@ -1758,7 +1835,8 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 # syslog
 %dir %{gem_instdir syslog}
 %{gem_extdir_mri syslog}
-%license %{gem_instdir syslog}/LICENSE.txt
+%license %{gem_instdir syslog}/BSDL
+%license %{gem_instdir syslog}/COPYING
 %{gem_instdir syslog}/bin
 %{gem_libdir syslog}
 %exclude %{gem_cache syslog}
@@ -1768,10 +1846,12 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{gem_instdir syslog}/Rakefile
 
 %files -n rubygem-minitest
+%{_bindir}/minitest
 %dir %{gem_instdir minitest}
 %exclude %{gem_instdir minitest}/.*
 %{gem_instdir minitest}/Manifest.txt
 %{gem_instdir minitest}/design_rationale.rb
+%{gem_instdir minitest}/bin
 %{gem_libdir minitest}
 %{gem_spec minitest}
 %doc %{gem_instdir minitest}/History.rdoc
@@ -1820,16 +1900,17 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %{gem_instdir rbs}/sig
 %{gem_instdir rbs}/src
 %{gem_instdir rbs}/stdlib
-%{gem_instdir rbs}/templates
 %{gem_spec rbs}
 
 %files -n rubygem-test-unit
+%{_bindir}/test-unit
 %dir %{gem_instdir test-unit}
 %license %{gem_instdir test-unit}/BSDL
 %license %{gem_instdir test-unit}/COPYING
 %license %{gem_instdir test-unit}/PSFL
 %{gem_libdir test-unit}
 %{gem_instdir test-unit}/sample
+%{gem_instdir test-unit}/bin
 %{gem_spec test-unit}
 %doc %{gem_instdir test-unit}/README.md
 %{gem_instdir test-unit}/Rakefile
@@ -1874,6 +1955,7 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %exclude %{gem_instdir typeprof}/.*
 %license %{gem_instdir typeprof}/LICENSE
 %{gem_instdir typeprof}/bin
+%{gem_instdir typeprof}/typeprof.conf.jsonc
 %doc %{gem_instdir typeprof}/doc
 %{gem_libdir typeprof}
 %{gem_spec typeprof}
@@ -1881,6 +1963,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Fri Jan 02 2026 Jarek Prokop <jprokop@redhat.com> - 4.0.0-30
+- Upgrade to Ruby 4.0.0.
+  Resolves: rhbz#2425358
+
 * Wed Dec 17 2025 Vít Ondruch <vondruch@redhat.com> - 3.4.8-29
 - Update to Ruby 3.4.8.
   Resolves: rhbz#2422963

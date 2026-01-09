@@ -28,6 +28,14 @@ Source:         %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
 # unbundle it and build with an external library. We therefore maintain this
 # patch without sending it upstream.
 Patch:          c4fs-1abba00-external-c4core.patch
+# Implement c4::fs::EntryList::iterator_impl<>::operator[]
+# https://github.com/biojppm/c4fs/pull/6
+#
+# Fixes:
+#
+# Fails to compile with GCC 16
+# https://github.com/biojppm/c4fs/issues/5
+Patch:          %{url}/pull/6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

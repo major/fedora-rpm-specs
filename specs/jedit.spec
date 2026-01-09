@@ -1,14 +1,14 @@
 Name:           jedit
 Version:        5.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Programmer's text editor
 
 License:        GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
 URL:            http://www.jedit.org/
 Source0:        https://sourceforge.net/projects/jedit/files/jedit/%{version}/jedit%{version}source.tar.bz2
 
-BuildRequires:  ant-openjdk21 apache-ivy ant-junit ivy-local junit bsf bsh ant-contrib ant-apache-bsf mockito hamcrest jsr-305 desktop-file-utils docbook-style-xsl xerces-j2 xalan-j2
-Requires:       java-25 >= 1:11
+BuildRequires:  javapackages-local-openjdk25 ant-openjdk25 apache-ivy ant-junit ivy-local junit bsf bsh ant-contrib ant-apache-bsf mockito-junit-jupiter hamcrest jsr-305 desktop-file-utils docbook-style-xsl xerces-j2 xalan-j2
+Requires:       java-25
 Requires:       javapackages-filesystem
 Requires:       which
 
@@ -35,9 +35,6 @@ sed -i '/<dependency org="net.sf.launch4j" name="launch4j"/,/<\/dependency>/d' i
 sed -i '/<dependency org="org.bouncycastle"/d' ivy.xml
 sed -i '/<dependency org="com.evolvedbinary.appbundler"/d' ivy.xml
 
-# fix mockito dependency
-sed -i 's;name="mockito-junit-jupiter";name="mockito-core";g' ivy.xml
-
 # skip downloading of binary plugins
 sed -i '/<dependency org="org.jedit.plugins"/d' ivy.xml
 sed -i '/<script language="javascript">/,/<[/]script>/d' build.xml
@@ -46,7 +43,7 @@ sed -i 's;<ivy:retrieve.*/>;&\n<mkdir dir="${lib.dir}/default-plugins"/>;g' buil
 # fix docs generation
 # docbook-xsl not available as xmvn artifact in fedora, supply zip manually
 ln -s /usr/share/sgml/docbook/xsl-stylesheets docbook
-zip -rq docbook-xsl-resources.zip docbook	
+zip -rq docbook-xsl-resources.zip docbook
 sed -i 's;${lib.dir}/docbook/docbook-xsl-resources.zip;docbook-xsl-resources.zip;g' build.xml
 # saxon not available in fedora, use xalan instead
 sed -i 's;<dependency org="saxon" name="saxon" rev="[0-9.]*" conf="docbook"/>;<dependency org="xalan" name="xalan" rev="2.7.2" conf="docbook"/><dependency org="xalan" name="serializer" rev="2.7.2" conf="docbook"/>;g' ivy.xml
@@ -55,13 +52,6 @@ sed -i 's;com.icl.saxon.TransformerFactoryImpl;org.apache.xalan.processor.Transf
 # use system ivy configuration
 rm -f ivysettings.xml
 sed -i '/<ivy:settings.*[/]>/d' build.xml
-
-# build with jdk25
-sed -i 's/value="11"/value="25"/g' build.xml
-# but jdk25 do not work finw with --release 25 ... so removing usecases
-sed -i 's/release="${target.java.version}"//g' build.xml
-# and tests do not compile with jdk25 (jsut 3 errors.. but still)
-sed -i 's/depends="init,retrieve,setup,compile,test"/depends="init,retrieve,setup,compile"/g' build.xml
 
 %build
 ant -v -Divy.mode=local -Divy.jar.present=true build docs-html
@@ -99,6 +89,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications --set-icon=%{_da
 %license doc/Apache.LICENSE.txt
 
 %changelog
+* Wed Jan 07 2026 Zdenek Zambersky <zzambers@redhat.com> - 5.7.0-9
+- Fixes and cleanup for jdk 25 build
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 5.6.0-8
 - Rebuilt for java-25-openjdk as preffered jdk
 

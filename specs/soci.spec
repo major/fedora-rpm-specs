@@ -222,6 +222,7 @@ dos2unix AUTHORS README ChangeLog COPYING NEWS
 %endif
 
 %cmake \
+ -DSOCI_STATIC=OFF \
  -DSOCI_EMPTY=%{?with_empty:ON}%{!?with_empty:OFF} \
  -DSOCI_SQLITE3=%{?with_sqlite3:ON}%{!?with_sqlite3:OFF} \
  -DSOCI_POSTGRESQL=%{?with_postgresql:ON}%{!?with_postgresql:OFF} \
@@ -238,12 +239,6 @@ dos2unix AUTHORS README ChangeLog COPYING NEWS
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
 #echo "%%{_libdir}/%%{name}" > %%{buildroot}%%{_sysconfdir}/ld.so.conf.d/%%{name}64.conf
 
-# CMake helpers
-mkdir -p %{buildroot}%{_datadir}/%{name}
-mv -f %{buildroot}%{_libdir}/cmake %{buildroot}%{_datadir}/%{name}/CMake
-
-# Remove unpackaged files from the buildroot
-rm -f %{buildroot}%{_libdir}/*.a
 
 %if %{with tests}
 %check
@@ -286,7 +281,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 %dir %{_includedir}/%{name}/
 %{_includedir}/%{name}/*.h
 %{_libdir}/lib%{name}_core.so
-%{_datadir}/%{name}/CMake
+%{_libdir}/cmake/%{name}-%{version}
 
 %{?with_empty:%files empty-devel
 %doc AUTHORS ChangeLog COPYING NEWS README

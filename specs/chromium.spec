@@ -1,3 +1,6 @@
+# macro for el10 minor version
+%define rhel_minor_version %(grep -oP '10\.[0-9.]*' /etc/redhat-release |  cut -d '.' -f2)
+
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
 
@@ -138,6 +141,9 @@
 
 # enable|disable control flow integrity support
 %global cfi 0
+%ifarch x86_64 aarch64
+%global cfi 1
+%endif
 
 # enable qt backend
 %global enable_qt 1
@@ -254,7 +260,7 @@
 %endif
 
 Name:	chromium
-Version: 143.0.7499.169
+Version: 143.0.7499.192
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1089,7 +1095,7 @@ Qt6 UI for chromium.
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
 
-%if 0%{?rhel} == 9
+%if 0%{?rhel} == 9 || 0%{?rhel_minor_version} == 1
 %patch -P312 -p1 -b .el9-rust-no-alloc-shim-is-unstable
 %patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
 %endif
@@ -1811,6 +1817,12 @@ fi
 %endif
 
 %changelog
+* Wed Jan 07 2026 Than Ngo <than@redhat.com> - 143.0.7499.192-1
+- Update tp 143.0.7499.192
+  * High CVE-2026-0628: Insufficient policy enforcement in WebView tag
+- Fix rhbz#2425338, Enable control flow integrity support for x86_64/aarch64
+- Enable build for epel10.1
+
 * Sat Dec 20 2025 Than Ngo <than@redhat.com> - 143.0.7499.169-1
 - Update to 143.0.7499.169
 

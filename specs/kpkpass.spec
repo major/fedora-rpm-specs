@@ -1,5 +1,5 @@
 Name:    kpkpass
-Version: 25.12.0
+Version: 25.12.1
 Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
@@ -74,6 +74,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

@@ -1,10 +1,13 @@
 Name:           scorep
 Version:        9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
+# GCC plug-in: Adopt API changes in GCC 16 dev;
+# https://gitlab.com/score-p/scorep/-/commit/469b1a129c19dd01e4aad40b6fd511e23a3d9cbd
+Patch1:         gcc16.diff
 BuildRequires:  make
 BuildRequires:  gcc-gfortran
 BuildRequires:  bison
@@ -160,11 +163,15 @@ Score-P openmpi configuration files.
 
 %prep
 %setup -q
+%patch -P1 -p1 -b .gcc16
 # Bundled libs in vendor/
 rm -rf vendor/{opari2,otf2,cubew,cubelib}
 mkdir bin
 # configure expects llvm-config
 ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
+pushd build-gcc-plugin
+autoreconf
+popd
 
 %build
 # This package uses -Wl,-wrap to wrap calls at link time.  This is incompatible
@@ -354,6 +361,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Wed Jan  7 2026 Dave Love <loveshack@fedoraproject.org> - 9.4-2
+- Add patch to build gcc plugin with gcc 16
+
 * Sun Dec 28 2025 Dave Love <loveshack@fedoraproject.org> - 9.4-1
 - Account for lack of oshmem compilers on ppc64le
 

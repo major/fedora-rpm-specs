@@ -6,8 +6,8 @@ Release:        %autorelease
 Summary:        Admin tool for the Academic website builder
 
 License:        MIT
-URL:            https://github.com/GetRD/%{srcname}
-Source:         https://github.com/GetRD/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/BuildLore/%{srcname}
+Source:         https://github.com/BuildLore/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Patch0:         academic-admin-0.11.2-dependencies.patch
 
 BuildArch:      noarch

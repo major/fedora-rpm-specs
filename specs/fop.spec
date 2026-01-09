@@ -1,6 +1,6 @@
 Name:           fop
 Summary:        XSL-driven print formatter
-Version:        2.9
+Version:        2.11
 Release:        %autorelease
 # ASL 1.1:
 # several files in fop-core/src/main/resources/org/apache/fop/render/awt/viewer/resources
@@ -22,13 +22,15 @@ Source5:        5C9A30FF22B2C02F30261C305B93F1DF7CDB6DEA.gpg
 Patch1:         0001-Main.patch
 Patch2:         0002-Use-sRGB.icc-color-profile-from-colord-package.patch
 Patch3:         0003-Port-to-QDox-2.0.patch
+Patch4:         0004-jdk25.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Requires:       java-21
+Requires:       java-25
 Requires:       xalan-j2 >= 2.7.0
 Requires:       xml-commons-apis >= 1.3.04
+BuildRequires:  bouncycastle-pkix
 # Explicit requires for javapackages-tools since fop script
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
@@ -38,14 +40,15 @@ BuildRequires:  apache-commons-logging
 BuildRequires:  batik
 BuildRequires:  fontbox
 BuildRequires:  gnupg2
-BuildRequires:  javapackages-local-openjdk21
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  junit
 BuildRequires:  maven-antrun-plugin
 BuildRequires:  maven-assembly-plugin
 BuildRequires:  maven-clean-plugin
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  build-helper-maven-plugin
 BuildRequires:  mvn(javax.servlet:servlet-api)
+BuildRequires:  bouncycastle-pkix
 # For servlet, not packaged
 #BuildRequires:  maven-war-plugin
 BuildRequires:  pdfbox
@@ -80,6 +83,8 @@ rm -f fop/lib/*.jar fop/lib/build/*.jar
 
 # Not packaged
 %pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin
+%pom_change_dep org.bouncycastle:bcpkix-jdk15to18:1.78.1 org.bouncycastle:bcpkix-jdk18on:1.83 fop-core
+%pom_change_dep org.bouncycastle:bcprov-jdk15to18:1.78.1 org.bouncycastle:bcprov-jdk18on:1.83 fop-core
 %pom_remove_dep javax.media:jai-core fop-core
 %pom_remove_dep com.sun.media:jai-codec fop-core
 %pom_remove_dep net.sf.offo:fop-hyph fop-core

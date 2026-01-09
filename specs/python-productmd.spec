@@ -1,5 +1,5 @@
 Name:           python-productmd
-Version:        1.49
+Version:        1.50
 Release:        1%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Wed Jan 07 2026 Lubomír Sedlář <lsedlar@redhat.com> - 1.50-1
+- Allow .vhdfixed.xz format for vhd-compressed type
+
 * Mon Dec 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.49-1
 - Improvements to networking calls
 

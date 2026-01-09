@@ -1,7 +1,7 @@
 %global app_id  app.drey.MultiplicationPuzzle
 
 Name:           gmult
-Version:        14.0
+Version:        16.0
 Release:        %autorelease
 Summary:        Multiplication Puzzle
 # CC0-1.0 applies only to build system files
@@ -9,13 +9,14 @@ License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 URL:            https://gitlab.gnome.org/mterry/gmult
 Source:         %{url}/-/archive/%{version}/gmult-%{version}.tar.bz2
 
+BuildRequires:  blueprint-compiler
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= 2.76
 BuildRequires:  pkgconfig(gtk4) >= 4.14
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.5
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.8
 BuildRequires:  vala
 
 Requires:       hicolor-icon-theme
@@ -33,10 +34,6 @@ which digits.
 
 %prep
 %autosetup -p1
-%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
-# Gtk.CssProvider.load_from_data deprecated and replaced in 4.12
-sed -i -e 's/VALA_0_58/VALA_0_56/;s/load_from_data/load_from_string/' gmult/main.vala
-%endif
 
 
 %build

@@ -10,8 +10,7 @@ Version:	1.32.0
 Release:	%autorelease
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
-# Automatically converted from old format: (LGPLv2 or LGPLv3) and GPLv3+ - review is highly recommended.
-License:	(LicenseRef-Callaway-LGPLv2 OR LGPL-3.0-only) AND GPL-3.0-or-later
+License:	(LGPL-2.0-only OR LGPL-3.0-only) AND GPL-3.0-or-later
 URL:		https://www.freedesktop.org/wiki/Software/LightDM/
 Source0:	%{giturl}/archive/%{version}/lightdm-%{version}.tar.gz
 
@@ -34,10 +33,14 @@ Source25:	50-disable-guest.conf
 Source26:	50-run-directory.conf
 
 Patch0:		gcc-10.patch
-Patch1:     remove_bin_path.patch
+Patch1:		remove_bin_path.patch
 
 # Upstreamed:
 Patch2:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
+
+# Pending
+# https://github.com/canonical/lightdm/pull/373
+Patch3:		lightdm-1.32.0-add-qt6-lib.patch
 
 # Upstream commits
 
@@ -57,6 +60,7 @@ BuildRequires:	pkgconfig(gobject-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0) >= 0.9.5
 BuildRequires:	pkgconfig(libxklavier)
 BuildRequires:	pkgconfig(Qt5Core) pkgconfig(Qt5DBus) pkgconfig(Qt5Gui)
+BuildRequires:	pkgconfig(Qt6Core) pkgconfig(Qt6DBus) pkgconfig(Qt6Gui)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xdmcp)
@@ -122,12 +126,28 @@ Requires:	%{name}-qt5%{?_isa} = %{version}-%{release}
 %description qt5-devel
 %{summary}.
 
+%package qt6
+Summary:	LightDM Qt6 client library
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+
+%description qt6
+This package contains a Qt6-based library for LightDM clients to use to interface
+with LightDM.
+
+
+%package qt6-devel
+Summary:	Development files for %{name}-qt6
+Requires:	%{name}-qt6%{?_isa} = %{version}-%{release}
+%description qt6-devel
+%{summary}.
+
 
 %prep
 %autosetup -p 1
 
 
-%build
+%conf
 # Make libtoolize happy.
 %{__cat} %{_datadir}/aclocal/intltool.m4 > aclocal.m4
 # gettext-0.25 fix
@@ -142,6 +162,7 @@ NOCONFIGURE=1 ./autogen.sh
 	--enable-gtk-doc			\
 	--enable-libaudit			\
 	--enable-liblightdm-qt5     \
+	--enable-liblightdm-qt6		\
 	--enable-introspection      \
 %if %{with tests}
 	--enable-tests				\
@@ -152,6 +173,8 @@ NOCONFIGURE=1 ./autogen.sh
 	--with-greeter-user=lightdm \
 	--with-greeter-session=lightdm-greeter
 
+
+%build
 %make_build
 
 
@@ -203,17 +226,14 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %post
-# todo: document need/purpose for this snippet
-if [ $1 = 1 ] ; then
-	%{_bindir}/killall -HUP dbus-daemon 2>&1 > /dev/null
-fi
-%{?systemd_post:%systemd_post lightdm.service}
+%systemd_post lightdm.service
 
 %preun
-%{?systemd_preun:%systemd_preun lightdm.service}
+%systemd_preun lightdm.service
 
 %postun
-%{?systemd_postun}
+%systemd_postun lightdm.service
+
 
 %files -f lightdm.lang
 %license COPYING.GPL3
@@ -252,8 +272,6 @@ fi
 %{_datadir}/bash-completion/completions/lightdm
 %{_prefix}/lib/tmpfiles.d/lightdm.conf
 
-%ldconfig_scriptlets gobject
-
 %files gobject
 %license COPYING.LGPL2 COPYING.LGPL3
 %{_libdir}/liblightdm-gobject-1.so.0*
@@ -266,8 +284,6 @@ fi
 %{_datadir}/gir-1.0/LightDM-1.gir
 %{_datadir}/vala/vapi/liblightdm-gobject-1.*
 
-%ldconfig_scriptlets qt5
-
 %files qt5
 %license COPYING.LGPL2 COPYING.LGPL3
 %{_libdir}/liblightdm-qt5-3.so.0*
@@ -276,6 +292,15 @@ fi
 %{_includedir}/lightdm-qt5-3/
 %{_libdir}/liblightdm-qt5-3.so
 %{_libdir}/pkgconfig/liblightdm-qt5-3.pc
+
+%files qt6
+%license COPYING.LGPL2 COPYING.LGPL3
+%{_libdir}/liblightdm-qt6-3.so.0*
+
+%files qt6-devel
+%{_includedir}/lightdm-qt6-3/
+%{_libdir}/liblightdm-qt6-3.so
+%{_libdir}/pkgconfig/liblightdm-qt6-3.pc
 
 
 %changelog

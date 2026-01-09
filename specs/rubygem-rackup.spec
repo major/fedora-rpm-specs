@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: A general server command for Rack applications
 License: MIT
 URL: https://github.com/rack/rackup
@@ -15,6 +15,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-global_expectations)
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(webrick)
 BuildArch: noarch
@@ -60,11 +61,6 @@ find %{buildroot}%{gem_instdir}/bin -type f | \
 ( cd .%{gem_instdir}
 cp -a %{builddir}/test .
 
-# Avoid minitest-global_expectations in exchange of lot of deprecation warnings.
-# https://github.com/rack/rack/pull/1394
-mkdir -p test/minitest/global_expectations
-echo 'require "minitest/autorun"' > test/minitest/global_expectations/autorun.rb
-
 ruby -Ilib:test -e 'Dir.glob "./test/**/spec_*.rb", &method(:require)'
 )
 
@@ -84,6 +80,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/security.md
 
 %changelog
+* Wed Jan 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.1-5
+- Use minitest-global_expectations
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

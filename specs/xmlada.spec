@@ -6,13 +6,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     xmlada
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   5e5b761eb827f458efd2043a5e9ab03e1a614720
 
 Name:           xmlada
 Epoch:          2
 Version:        %{upstream_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        XML library for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -21,7 +21,7 @@ License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
 # generating some of XML/Ada's source code.
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:        %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # XML/Ada's aggregate project file. This project file is normally generated and
 # installed by GPRinstall, but as we'll install each XML/Ada component
@@ -31,12 +31,10 @@ Source1:        xmlada.gpr
 BuildRequires:  make
 %if %{without bootstrap}
 BuildRequires:  gcc-gnat gprbuild sed
-# A fedora-gnat-project-common that contains the macro GPRinstall is needed.
-BuildRequires:  fedora-gnat-project-common >= 3.21
+BuildRequires:  fedora-gnat-project-common
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
 %else
 BuildRequires:  findutils
 %endif
@@ -90,6 +88,10 @@ BuildArch:      noarch
 License:        AdaCore-doc AND MIT AND BSD-2-Clause
 # License for the documentation is AdaCore-doc. The Javascript and CSS files
 # that Sphinx includes with the documentation are BSD 2-Clause and MIT-licensed.
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
 
 %description doc %{common_description_en}
 
@@ -119,7 +121,7 @@ on which GPRbuild is not yet available.
 #############
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Set version number.
 sed --in-place --expression 's/18.0w/%{version}/' configure configure.in
@@ -277,6 +279,9 @@ find %{buildroot}%{_includedir}/%{name}/sources -type d -empty -delete
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Fri Aug 08 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-7
 - Rebuilt because the ALI of System.OS_Constants changed.
 

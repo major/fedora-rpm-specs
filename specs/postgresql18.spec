@@ -48,20 +48,23 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 18.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
 License: PostgreSQL
 Url: http://www.postgresql.org/
 
-# This SRPM includes a copy of the previous major release, which is needed for
+# This SRPM includes copies of the previous major releases, which are needed for
 # in-place upgrade of an old database.  In most cases it will not be critical
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 17
 %global prevversion %{prevmajorversion}.7
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
+%global prevmajorversion16 16
+%global prevversion16 %{prevmajorversion16}.11
+%global prev_prefix16 %{_libdir}/pgsql/postgresql-%{prevmajorversion16}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
 %global setup_version 8.10
@@ -84,6 +87,8 @@ Source12: https://github.com/devexp-db/postgresql-setup/releases/download/v%{set
 # differ with publicly released ones.
 Source16: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}.tar.bz2.sha256
 Source17: https://ftp.postgresql.org/pub/source/v%{prevversion}/postgresql-%{prevversion}.tar.bz2.sha256
+Source18: https://ftp.postgresql.org/pub/source/v%{prevversion16}/postgresql-%{prevversion16}.tar.bz2
+Source19: https://ftp.postgresql.org/pub/source/v%{prevversion16}/postgresql-%{prevversion16}.tar.bz2.sha256
 
 # Comments for these patches are in the patch files.
 Patch1: rpm-pgsql.patch
@@ -378,9 +383,10 @@ counterparts.
 
 %if %upgrade
 %package -n %{pkgname}-upgrade
-Summary: Support for upgrading from the previous major release of PostgreSQL
+Summary: Support for upgrading from the previous major releases of PostgreSQL
 Requires: %{pkgname}-server%{?_isa} = %precise_version
 Provides: bundled(postgresql-server) = %prevversion
+Provides: bundled(postgresql-server) = %prevversion16
 Provides: %{pkgname}-upgrade = %precise_version
 Provides: %{pkgname}-upgrade%{?_isa} = %precise_version
 
@@ -389,7 +395,7 @@ Provides: %{pkgname}-upgrade%{?_isa} = %precise_version
 %description -n %{pkgname}-upgrade
 The postgresql-upgrade package contains the pg_upgrade utility and supporting
 files needed for upgrading a PostgreSQL database from the previous major
-version of PostgreSQL.
+versions of PostgreSQL (versions %{prevmajorversion} and %{prevmajorversion16}).
 
 
 %package -n %{pkgname}-upgrade-devel
@@ -507,6 +513,7 @@ goal of accelerating analytics queries.
   sha256sum -c %{SOURCE16}
 %if %upgrade
   sha256sum -c %{SOURCE17}
+  sha256sum -c %{SOURCE19}
 %endif
 )
 %setup -q -a 12 -n postgresql-%{version}
@@ -529,14 +536,16 @@ find . -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\
 
 %if %upgrade
 tar xfj %{SOURCE3}
+tar xfj %{SOURCE18}
 
 # libpq from this upgrade-only build is dropped and the libpq from the main
 # version is used. Use the same major hack therefore.
 %if ! %external_libpq
-find . -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\)/SO_MAJOR_VERSION= %{private_soname}-\1/" {} \;
+find postgresql-%{prevversion} -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\)/SO_MAJOR_VERSION= %{private_soname}-\1/" {} \;
+find postgresql-%{prevversion16} -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\)/SO_MAJOR_VERSION= %{private_soname}-\1/" {} \;
 %endif
 
-# apply once SOURCE3 is extracted
+# apply once SOURCE3 and SOURCE18 are extracted
 %endif
 
 # remove .gitignore files to ensure none get into the RPMs (bug #642210)
@@ -767,6 +776,83 @@ upgrade_configure ()
 	make %{?_smp_mflags} all
 	make -C contrib %{?_smp_mflags} all
 	popd
+
+	# Build PostgreSQL 16 for upgrade support
+	pushd postgresql-%{prevversion16}
+
+	# The upgrade build can be pretty stripped-down, but make sure that
+	# any options that affect on-disk file layout match the previous
+	# major release!
+
+	# The set of built server modules here should ideally create superset
+	# of modules we used to ship in %%prevversion16 (in the installation
+	# the user will upgrade from), including *-contrib or *-pl*
+	# subpackages.  This increases chances that the upgrade from
+	# %%prevversion16 will work smoothly.
+
+upgrade_configure16 ()
+{
+	# Note we intentionally do not use %%configure here, because we *don't* want
+	# its ideas about installation paths.
+
+	# The -fno-aggressive-loop-optimizations is hack for #993532
+	CFLAGS="$CFLAGS -fno-aggressive-loop-optimizations -DOPENSSL_NO_ENGINE" ./configure \
+		--build=%{_build} \
+		--host=%{_host} \
+		--prefix=%prev_prefix16 \
+		--disable-rpath \
+		--with-lz4 \
+		--with-zstd \
+%if %icu
+		--with-icu \
+%endif
+%if %plperl
+		--with-perl \
+%endif
+%if %pltcl
+		--with-tcl \
+%endif
+%if %ldap
+       --with-ldap \
+%endif
+%if %pam
+       --with-pam \
+%endif
+%if %kerberos
+       --with-gssapi \
+%endif
+%if %uuid
+       --with-ossp-uuid \
+%endif
+%if %xml
+       --with-libxml \
+       --with-libxslt \
+%endif
+%if %nls
+       --enable-nls \
+%endif
+%if %sdt
+       --enable-dtrace \
+%endif
+%if %selinux
+%if %ssl
+       --with-openssl \
+%endif
+       --with-selinux \
+%endif
+%if %plpython3
+		--with-python \
+%endif
+		--with-tclconfig=/usr/%_lib \
+		--with-system-tzdata=/usr/share/zoneinfo \
+		"$@"
+}
+
+	upgrade_configure16 \
+
+	make %{?_smp_mflags} all
+	make -C contrib %{?_smp_mflags} all
+	popd
 # endif upgrade
 %endif
 
@@ -787,6 +873,16 @@ data_default    %{_localstatedir}/pgsql/data
 package         postgresql-upgrade
 engine          %{_libdir}/pgsql/postgresql-%{prevmajorversion}/bin
 description     "Upgrade data from system PostgreSQL version (PostgreSQL %{prevmajorversion})"
+redhat_sockets_hack no
+EOF
+
+cat > $RPM_BUILD_ROOT%{_sysconfdir}/postgresql-setup/upgrade/postgresql16.conf <<EOF
+id              postgresql16
+major           %{prevmajorversion16}
+data_default    %{_localstatedir}/pgsql/data
+package         postgresql-upgrade
+engine          %{_libdir}/pgsql/postgresql-%{prevmajorversion16}/bin
+description     "Upgrade data from system PostgreSQL version (PostgreSQL %{prevmajorversion16})"
 redhat_sockets_hack no
 EOF
 
@@ -838,6 +934,7 @@ install -m 644 %{SOURCE11} $RPM_BUILD_ROOT%{?_localstatedir}/lib/pgsql/.bash_pro
 rm $RPM_BUILD_ROOT/%{_datadir}/man/man1/ecpg.1
 
 %if %upgrade
+	# Install PostgreSQL 17 for upgrade
 	pushd postgresql-%{prevversion}
 	make DESTDIR=$RPM_BUILD_ROOT install
 	make -C contrib DESTDIR=$RPM_BUILD_ROOT install
@@ -876,8 +973,49 @@ rm $RPM_BUILD_ROOT/%{_datadir}/man/man1/ecpg.1
 	rm share/extension/*.sql
 	rm share/extension/*.control
 	popd
+
+	# Install PostgreSQL 16 for upgrade
+	pushd postgresql-%{prevversion16}
+	make DESTDIR=$RPM_BUILD_ROOT install
+	make -C contrib DESTDIR=$RPM_BUILD_ROOT install
+	popd
+
+	# remove stuff we don't actually need for upgrade purposes
+	pushd $RPM_BUILD_ROOT%{_libdir}/pgsql/postgresql-%{prevmajorversion16}
+	rm bin/clusterdb
+	rm bin/createdb
+	rm bin/createuser
+	rm bin/dropdb
+	rm bin/dropuser
+	rm bin/ecpg
+	rm bin/initdb
+	rm bin/pg_basebackup
+	rm bin/pg_dump
+	rm bin/pg_dumpall
+	rm bin/pg_restore
+	rm bin/pgbench
+	rm bin/psql
+	rm bin/reindexdb
+	rm bin/vacuumdb
+	rm -rf share/doc
+	rm -rf share/man
+	rm -rf share/tsearch_data
+	rm lib/*.a
+	# Drop libpq.  This might need some tweaks once there's
+	# soname bump between %%prevversion16 and %%version.
+	rm lib/libpq.so*
+	# Drop libraries.
+	rm lib/lib{ecpg,ecpg_compat,pgtypes}.so*
+	rm share/*.bki
+	rm share/*.sample
+	rm share/*.sql
+	rm share/*.txt
+	rm share/extension/*.sql
+	rm share/extension/*.control
+	popd
 	cat <<EOF > $RPM_BUILD_ROOT%macrosdir/macros.postgresql-upgrade
 %%postgresql_upgrade_prefix %prev_prefix
+%%postgresql_upgrade_prefix16 %prev_prefix16
 EOF
 %endif
 
@@ -1310,6 +1448,12 @@ make -C postgresql-setup-%{setup_version} check
 %exclude %{_libdir}/pgsql/postgresql-%{prevmajorversion}/lib/pgxs
 %exclude %{_libdir}/pgsql/postgresql-%{prevmajorversion}/lib/pkgconfig
 %{_libdir}/pgsql/postgresql-%{prevmajorversion}/share
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/bin
+%exclude %{_libdir}/pgsql/postgresql-%{prevmajorversion16}/bin/pg_config
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/lib
+%exclude %{_libdir}/pgsql/postgresql-%{prevmajorversion16}/lib/pgxs
+%exclude %{_libdir}/pgsql/postgresql-%{prevmajorversion16}/lib/pkgconfig
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/share
 
 
 %files -n %{pkgname}-upgrade-devel
@@ -1317,6 +1461,10 @@ make -C postgresql-setup-%{setup_version} check
 %{_libdir}/pgsql/postgresql-%{prevmajorversion}/include
 %{_libdir}/pgsql/postgresql-%{prevmajorversion}/lib/pkgconfig
 %{_libdir}/pgsql/postgresql-%{prevmajorversion}/lib/pgxs
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/bin/pg_config
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/include
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/lib/pkgconfig
+%{_libdir}/pgsql/postgresql-%{prevmajorversion16}/lib/pgxs
 %{macrosdir}/macros.postgresql-upgrade
 %endif
 
@@ -1358,6 +1506,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Wed Jan 7 2025 Filip Janus <fjanus@redhat.com> - 18.1-2
+- Add postgresql16 upgrade server
+
 * Thu Nov 13 2025 Packit <hello@packit.dev> - 18.1-1
 - Update to version 18.1
 - Resolves: rhbz#2414834

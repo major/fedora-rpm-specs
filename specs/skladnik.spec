@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:           skladnik
-Version:        25.12.0
+Version:        25.12.1
 Release:        1%{?dist}
 Summary:        Warehouse keeper game
 # GPL: code
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
+- 25.12.1
+
 * Sat Dec 06 2025 Steve Cossette <farchord@gmail.com> - 25.12.0-1
 - 25.12.0
 

@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -580,6 +580,22 @@ Recommends: (%{pkgname}-tkinter%{?_isa} = %{version}-%{release} if tk%{?_isa})
 # The zoneinfo module needs tzdata
 Requires: tzdata
 
+# The requirement on libexpat is generated, but we need to version it.
+# When built with a specific expat version, but installed with an older one,
+# we sometimes get:
+#   ImportError: /usr/lib64/python3.X/lib-dynload/pyexpat.cpython-....so:
+#   undefined symbol: XML_...
+# The pyexpat module has build-time checks for expat version to only use the
+# available symbols. However, there is no runtime protection, so when the module
+# is later installed with an older expat, it may error due to undefined symbols.
+# This breaks many things, including python -m venv.
+# We avoid this problem by requiring at least the same version of expat that
+# was used during the build time.
+# Other subpackages (like -debug) also need this, but they all depend on -libs.
+%global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+Requires: expat >= %{expat_version}
+
+
 %description -n %{pkgname}-libs
 This package contains runtime libraries for use by Python:
 - the majority of the Python standard library
@@ -756,6 +772,7 @@ License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AN
 Provides: bundled(libb2) = 0.98.1
 Provides: bundled(mimalloc) = 2.12
 Requires: tzdata
+Requires: expat >= %{expat_version}
 
 %description -n python%{pybasever}-freethreading
 The provisional Free Threading (PEP 703) build of Python.
@@ -1776,6 +1793,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Jan 06 2026 Karolina Surma <ksurma@redhat.com> - 3.13.11-2
+- Require at least the same expat version as used during the build time
+
 * Fri Dec 05 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.11-1
 - Update to 3.13.11
 

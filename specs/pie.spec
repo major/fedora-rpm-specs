@@ -1,20 +1,20 @@
 # remirepo/fedora spec file for pie
 #
-# SPDX-FileCopyrightText:  Copyright 2024-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2024-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        d41c81aeeab8815ae1a49c6282cb309893410c0c
+%global gh_commit        90d6d1850b254540328a8397a9e689ad1bca873e
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 1.3.4
+%global upstream_version 1.3.5
 #global upstream_prever  rc3
 
 %global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
@@ -137,6 +137,9 @@ done
 
 
 %changelog
+* Wed Jan  7 2026 Remi Collet <remi@remirepo.net> - 1.3.5-1
+- update to 1.3.5
+
 * Sat Jan  3 2026 Remi Collet <remi@remirepo.net> - 1.3.4-1
 - update to 1.3.4
 

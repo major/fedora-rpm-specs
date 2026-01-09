@@ -1,35 +1,18 @@
-%global packname jquerylib
-%global packver  0.1.4
-%global rlibdir  %{_datadir}/R/library
+Name:           R-jquerylib
+Version:        %R_rpm_version 0.1.4
+Release:        %autorelease
+Summary:        Obtain jQuery as an HTML Dependency Object
 
-Name:             R-%{packname}
-Version:          0.1.4
-Release:          17%{?dist}
-Summary:          Obtain jQuery as an HTML Dependency Object
+License:        MIT
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-License:          MIT
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+BuildArch:      noarch
+BuildRequires:  R-devel
 
-# Here's the R view of the dependencies world:
-# Depends:
-# Imports:   R-htmltools
-# Suggests:  R-testthat
-# LinkingTo:
-# Enhances:
-
-BuildArch:        noarch
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-BuildRequires:    R-htmltools
-BuildRequires:    R-testthat
-
-%global jquery1_version 1.12.4
-Provides: bundled(js-jquery1) = %{jquery1_version}
-%global jquery2_version 2.2.4
-Provides: bundled(js-jquery2) = %{jquery2_version}
-%global jquery3_version 3.6.0
-Provides: bundled(js-jquery3) = %{jquery3_version}
+Provides:       bundled(js-jquery1) = 1.12.4
+Provides:       bundled(js-jquery2) = 2.2.4
+Provides:       bundled(js-jquery3) = 3.6.0
 
 %description
 Obtain any major version of jQuery (<https://code.jquery.com/>) and use it in
@@ -38,95 +21,22 @@ Most R users don't need to use this package directly, but other R packages
 (e.g. shiny, rmarkdown, etc.) depend on this package to avoid bundling
 redundant copies of jQuery.
 
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%{_bindir}/R CMD check %{packname}
+%R_check
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%doc %{rlibdir}/%{packname}/NEWS.md
-%license %{rlibdir}/%{packname}/LICENSE
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%dir %{rlibdir}/%{packname}/lib
-%doc %{rlibdir}/%{packname}/lib/AUTHORS.txt
-%license %{rlibdir}/%{packname}/lib/LICENSE.txt
-%{rlibdir}/%{packname}/lib/%{jquery1_version}/
-%{rlibdir}/%{packname}/lib/%{jquery2_version}/
-%{rlibdir}/%{packname}/lib/%{jquery3_version}/
-
+%files -f %{R_files}
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.4-16
-- R-maint-sig mass rebuild
-
-* Fri Apr 18 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.4-15
-- R-maint-sig mass rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Apr 25 2024 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.4-12
-- R-maint-sig mass rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.4-8
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Aug 25 2022 Tom Callaway <spot@fedoraproject.org> - 0.1.4-6
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Jun 19 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.1.4-2
-- Rebuild for R 4.1
-
-* Mon May 10 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.1.4-1
-- Update to latest version
-
-* Mon Apr 26 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.1.3-1
-- initial package for Fedora
+%autochangelog

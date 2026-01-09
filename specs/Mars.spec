@@ -4,7 +4,7 @@ Release:        32%{?dist}
 Summary:        An interactive development environment for programming in MIPS assembly language
 
 License:        MIT
-URL:            http://courses.missouristate.edu/KenVollmar/MARS/
+URL:            https://dpetersanderson.github.io/
 Source0:        https://github.com/dpetersanderson/MARS/releases/download/v.4.5.1/Mars4_5.jar
 Source1:        Mars
 Source2:        Mars.desktop

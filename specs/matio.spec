@@ -1,5 +1,5 @@
 Name:           matio
-Version:        1.5.29
+Version:        1.5.30
 Release:        1%{?dist}
 Summary:        Library for reading/writing Matlab MAT files
 
@@ -82,7 +82,7 @@ make check || ( cat test/testsuite.log && exit $fail )
 %license COPYING
 %doc NEWS README
 %{_bindir}/matdump
-%{_libdir}/*.so.13*
+%{_libdir}/*.so.14*
 
 %files devel
 %{_includedir}/matio*.h
@@ -92,6 +92,9 @@ make check || ( cat test/testsuite.log && exit $fail )
 
 
 %changelog
+* Tue Jan 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.5.30-1
+- 1.5.30
+
 * Mon Nov 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.5.29-1
 - 1.5.29
 

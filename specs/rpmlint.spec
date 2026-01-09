@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -96,6 +96,11 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Wed Jan 07 2026 Miro Hrončok <mhroncok@redhat.com> - 2.8.0-2
+- Filter out cross-directory-hard-link
+- https://fedoraproject.org/wiki/Changes/Hardlink_identical_files_in_packages_by_default
+- Fixes: rhbz#2400621
+
 * Mon Oct 27 2025 Tom Callaway <spot@fedoraproject.org> - 2.8.0-1
 - update to 2.8.0
 - filter out the "alternative-link-missing" and "alternative-generic-name-not-symlink" checks

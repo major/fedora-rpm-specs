@@ -51,7 +51,7 @@ ExcludeArch:    %{ix86}
 # We will only build with JIT support on those architectures, and build without
 # it on the other archs.  The resulting binary will typically be slower than
 # CPython for the latter case.
-%ifarch %{ix86} x86_64 %{arm} %{power64} s390x aarch64
+%ifarch %{ix86} x86_64 %{arm} %{power64} s390x aarch64 riscv64
 %bcond jit 1
 %else
 %bcond jit 0

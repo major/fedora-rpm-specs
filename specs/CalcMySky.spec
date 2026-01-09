@@ -1,9 +1,9 @@
 Name: CalcMySky
 Version:  0.4.0
-Release:  1%{?dist}
-Summary: Simulator of light scattering by planetary atmospheres 
+Release:  2%{?dist}
+Summary: Simulator of light scattering by planetary atmospheres
 
-License: GPL-3.0-only
+License: GPL-2.0-or-later
 URL: https://github.com/10110111/CalcMySky
 Source0: https://github.com/10110111/CalcMySky/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires: gcc-c++
@@ -65,6 +65,9 @@ These are the development files.
 
 
 %changelog
+* Wed Jan 07 2026 Federico Pellegrin <fede@evolware.org> - 0.4.0-2
+- Correct license to "GPL-2.0-or-later" as project was relicensed with 0.4.0
+
 * Mon Jan 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.4.0-1
 - 0.4.0
 

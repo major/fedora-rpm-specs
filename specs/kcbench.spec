@@ -1,5 +1,5 @@
 Name:           kcbench
-Version:        0.9.13
+Version:        0.9.14
 Release:        1%{?dist}
 Summary:        Benchmark that compiles a Linux kernel
 
@@ -52,6 +52,9 @@ echo "Nothing to build"
 %{_docdir}/kcbench/
 
 %changelog
+* Wed Jan 07 2026 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.9.14-1
+- Update to 0.9.14
+
 * Thu Oct 23 2025 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.9.13-1
 - Update to 0.9.13
 

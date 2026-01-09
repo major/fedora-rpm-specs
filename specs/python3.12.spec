@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -240,8 +240,7 @@ BuildRequires: bluez-libs-devel
 BuildRequires: bzip2
 BuildRequires: bzip2-devel
 BuildRequires: desktop-file-utils
-# See the runtime requirement in the -libs subpackage
-BuildRequires: expat-devel >= 2.6
+BuildRequires: expat-devel
 
 BuildRequires: findutils
 BuildRequires: gcc-c++
@@ -415,6 +414,13 @@ Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
 # hardware protections can be enabled without losing Perf unwinding.
 Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 
+# 00471 # 37c05f26d11e8e24f2a760167015a267996b1d69
+# CVE-2025-12084
+#
+# * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
+# * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
+Patch471: 00471-cve-2025-12084.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python" and "python3" in Fedora, EL, etc.,
@@ -567,12 +573,20 @@ Recommends: (%{pkgname}-tkinter%{?_isa} = %{version}-%{release} if tk%{?_isa})
 Requires: tzdata
 
 # The requirement on libexpat is generated, but we need to version it.
-# When built with expat >= 2.6, but installed with older expat, we get:
+# When built with a specific expat version, but installed with an older one,
+# we sometimes get:
 #   ImportError: /usr/lib64/python3.X/lib-dynload/pyexpat.cpython-....so:
-#   undefined symbol: XML_SetReparseDeferralEnabled
+#   undefined symbol: XML_...
+# The pyexpat module has build-time checks for expat version to only use the
+# available symbols. However, there is no runtime protection, so when the module
+# is later installed with an older expat, it may error due to undefined symbols.
 # This breaks many things, including python -m venv.
+# We avoid this problem by requiring at least the same version of expat that
+# was used during the build time.
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
-Requires: expat >= 2.6
+%global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+Requires: expat >= %{expat_version}
+
 
 %description -n %{pkgname}-libs
 This package contains runtime libraries for use by Python:
@@ -1739,6 +1753,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Jan 06 2026 Lumír Balhar <lbalhar@redhat.com> - 3.12.12-2
+- Security fix for CVE-2025-12084
+- Require at least the same expat version as used during the build time
+
 * Fri Oct 10 2025 Karolina Surma <ksurma@redhat.com> - 3.12.12-1
 - Update to 3.12.12
 

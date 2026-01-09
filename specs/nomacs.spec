@@ -2,15 +2,12 @@
 
 Name:		nomacs
 Summary:	Lightweight image viewer
-Version:	3.21.1
-Release:	4%{?dist}
+Version:	3.22.0
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
-Source1:	https://github.com/novomesk/%{name}-plugins/archive/refs/tags/%{name}-plugins-%{version}.tar.gz
-# https://github.com/nomacs/nomacs/issues/1365
-Patch0:		%{name}-%{version}-libdir.diff
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
@@ -18,6 +15,8 @@ BuildRequires:	qt6-linguist
 BuildRequires:	qt6-qttools-devel
 # qt6-qtsvg-devel
 BuildRequires:	cmake(Qt6Svg)
+# quazip-qt6-devel
+BuildRequires:	cmake(QuaZip-Qt6)
 # exiv2-devel
 BuildRequires:	pkgconfig(exiv2) >= 0.20
 # opencv-devel
@@ -26,14 +25,10 @@ BuildRequires:	pkgconfig(opencv) >= 2.1.0
 BuildRequires:	pkgconfig(libraw) >= 0.12.0
 # libtiff-devel
 BuildRequires:	pkgconfig(libtiff-4)
-# libwebp-devel >= 0.3.1
-BuildRequires:	pkgconfig(libwebp)
-# libheif-devel (rpmfusion-free)
-# BuildRequires:	pkgconfig(libheif)
 BuildRequires:	lcov
 Obsoletes:	nomacs-plugins < %{version}
 Recommends:	qt6-qtimageformats
-Recommends:	kf6-ktimageformats
+Recommends:	kf6-kimageformats
 
 %description
 nomacs is image viewer based on Qt5 library.
@@ -59,16 +54,12 @@ Some usefull plugins for nomacs:
 
 %prep
 %setup
-%setup -T -D -a 1 -n %{name}-%{version}
-# plug them in
-mv nomacs-plugins-%{version}/* ImageLounge/plugins/
 # Be sure
 rmdir {3rd-party/*,3rd-party}
-%patch 0
 
 
 %build
-%cmake -S ImageLounge -DCMAKE_BUILD_TYPE=Release
+%cmake -S ImageLounge -DCMAKE_BUILD_TYPE=Release -DENABLE_QUAZIP=ON
 %{cmake_build}
 
 
@@ -103,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Tue Jan 06 2026 Alexey Kurov <nucleo@fedoraproject.org> - 3.22.0-1
+- nomacs 3.22.0
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 3.21.1-4
 - Rebuilt for OpenCV-4.12
 

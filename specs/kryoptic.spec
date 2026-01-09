@@ -36,6 +36,7 @@ Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 # Relax asn1 requirement versions
 Patch:          kryoptic-fix-metadata.diff
+Patch:          kryoptic-cryptoki-0.11.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel

@@ -1,17 +1,14 @@
-%global packname  S4Vectors
-%global rlibdir %{_libdir}/R/library
+Name:           R-S4Vectors
+Version:        %R_rpm_version 0.48.0
+Release:        %autorelease
+Summary:        S4 implementation of vectors and lists
 
-%global __suggests_exclude ^R\\((BiocStyle|ShortRead|graph)\\)
+License:        Artistic-2.0
+URL:            %{bioc_url}
+Source:         %{bioc_source}
 
-Name:             R-%{packname}
-Version:          0.46.0
-Release:          %autorelease
-Summary:          S4 implementation of vectors and lists
-License:          Artistic-2.0
-URL:              http://www.bioconductor.org/packages/release/bioc/html/S4Vectors.html
-Source0:          http://www.bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{version}.tar.gz
-BuildRequires:    R-devel >= 4.0.0 tex(latex) R-methods R-utils R-stats R-stats4
-BuildRequires:    R-BiocGenerics >= 0.53.2
+BuildRequires:  R-devel
+Obsoletes:      %{name}-devel <= 0.48.0
 
 %description
 The S4Vectors package defines the Vector and List virtual classes and a set of
@@ -22,44 +19,22 @@ subclasses of general interest (e.g. DataFrame, Rle, and Hits) are implemented
 in the S4Vectors package itself (many more are implemented in the IRanges
 package and in other Bioconductor infrastructure packages).
 
-%package devel
-Summary:          Development files for R-S4Vectors
-Requires:         %{name}%{?_isa} = %{version}-%{release}
-
-%description devel
-Development files for R-S4Vectors.
-
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p %{buildroot}%{rlibdir}
-R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
+%R_install
+%R_save_files
 
 %check
-# Testing tests optional deps we don't package
-# _R_CHECK_FORCE_SUGGESTS_=false %%{_bindir}/R CMD check %%{packname}
+%R_check \--no-examples \--no-tests
 
-%files
-%dir %{rlibdir}/%{packname}/
-%doc %{rlibdir}/%{packname}/html/
-%doc %{rlibdir}/%{packname}/doc/
-%{rlibdir}/%{packname}/DESCRIPTION
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/NEWS
-%{rlibdir}/%{packname}/Meta/
-%{rlibdir}/%{packname}/R/
-%{rlibdir}/%{packname}/help/
-%{rlibdir}/%{packname}/unitTests/
-%{rlibdir}/%{packname}/libs/
-
-%files devel
-%{rlibdir}/%{packname}/include/
+%files -f %{R_files}
 
 %changelog
 %autochangelog

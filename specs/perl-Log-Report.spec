@@ -2,7 +2,7 @@
 %bcond_without perl_Log_Report_enables_optional_test
 
 Name:           perl-Log-Report
-Version:        1.43
+Version:        1.44
 Release:        1%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -237,6 +237,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 07 2026 Petr Pisar <ppisar@redhat.com> - 1.44-1
+- 1.44 bump
+
 * Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 1.43-1
 - 1.43 bump
 

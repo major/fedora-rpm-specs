@@ -339,6 +339,7 @@ Patch0012: 0012-psw-make-aesm_service-build-verbose.patch
 Patch0013: 0013-Fix-modern-C-function-prototype-compliance.patch
 Patch0014: 0014-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
 Patch0015: 0015-fix-BOM-for-pccs-with-DCAP-1.23.patch
+Patch0016: 0016-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
 # Optional patches
 Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
 

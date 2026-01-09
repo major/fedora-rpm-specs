@@ -40,7 +40,7 @@ which.
 %prep
 %autosetup -p1
 mkdir %{_vpath_builddir}
-sed -e "/static {/,+2d" -i %{name}.pro
+sed -e "/-Werror/d" -e "/static {/,+2d" -i %{name}.pro
 rm -rf subprojects
 
 %build

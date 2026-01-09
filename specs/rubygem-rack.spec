@@ -4,7 +4,7 @@ Name: rubygem-%{gem_name}
 Version: 3.2.3
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 License: MIT AND BSD-3-Clause
@@ -18,6 +18,7 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.4.0
 BuildRequires: rubygem(logger)
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-global_expectations)
 BuildArch: noarch
 
 %description
@@ -59,11 +60,6 @@ cp -a .%{gem_dir}/* \
 
 cp -a %{builddir}/test .
 
-# Avoid minitest-global_expectations in exchange of lot of deprecation warnings.
-# https://github.com/rack/rack/pull/1394
-mkdir -p test/minitest/global_expectations
-echo 'require "minitest/autorun"' > test/minitest/global_expectations/autorun.rb
-
 ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
 )
 
@@ -82,6 +78,9 @@ ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/SPEC.rdoc
 
 %changelog
+* Wed Jan 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.2.3-4
+- Use minitest-global_expectations
+
 * Thu Nov 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.2.3-3
 - Add BR: rubygem(logger) for ruby3_5
 

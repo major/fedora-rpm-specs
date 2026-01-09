@@ -4,8 +4,8 @@
 ExcludeArch:    %{ix86}
 
 Name:           opengrm-%{shortname}
-Version:        1.3.16
-Release:        6%{?dist}
+Version:        1.3.17
+Release:        1%{?dist}
 Summary:        Library for making and modifying n-gram language models
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -109,6 +109,9 @@ LD_LIBRARY_PATH=$PWD/src/lib/.libs make check
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 07 2026 W. Michael Petullo <mike@flyn.org> - 1.3.17-1
+- New upstream release
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

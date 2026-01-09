@@ -1,37 +1,15 @@
-%bcond bootstrap 0
+Name:           R-pdftools
+Version:        %R_rpm_version 3.6.0
+Release:        %autorelease
+Summary:        Text Extraction, Rendering and Converting of PDF Documents
 
-%global packname pdftools
-%global rlibdir  %{_libdir}/R/library
+License:        MIT
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-Name:             R-%{packname}
-Version:          3.6.0
-Release:          %autorelease
-Summary:          Text Extraction, Rendering and Converting of PDF Documents
-
-License:          MIT
-URL:              https://CRAN.R-project.org/package=%{packname}
-Source:           https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
-
-# Here's the R view of the dependencies world:
-# Depends:
-# Imports:   R-Rcpp >= 0.12.12, R-qpdf
-# Suggests:  R-png, R-webp, R-tesseract, R-testthat
-# LinkingTo:
-# Enhances:
-
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
-BuildRequires:    R-Rcpp-devel >= 0.12.12
-BuildRequires:    R-qpdf
-%if %{without bootstrap}
-BuildRequires:    R-png
-BuildRequires:    R-webp
-BuildRequires:    R-tesseract
-BuildRequires:    R-testthat
-%endif
-BuildRequires:    poppler-cpp-devel
-BuildRequires:    poppler-data
-BuildRequires:    tex(inconsolata.sty)
+BuildRequires:  R-devel
+BuildRequires:  poppler-cpp-devel
+BuildRequires:  poppler-data
 
 %description
 Utilities based on 'libpoppler' for extracting text, fonts, attachments and
@@ -39,43 +17,22 @@ metadata from a PDF file. Also supports high quality rendering of PDF documents
 into PNG, JPEG, TIFF format, or into raw bitmap vectors for further processing
 in R.
 
-
 %prep
-%setup -q -c -n %{packname}
-cd %{packname}
-%autopatch -p1
+%autosetup -c
 
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
-
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
-
+%R_install
+%R_save_files
 
 %check
-%if %{without bootstrap}
-%{_bindir}/R CMD check %{packname}
-%endif
+%R_check \--no-examples
 
-
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/html
-%{rlibdir}/%{packname}/DESCRIPTION
-%license %{rlibdir}/%{packname}/LICENSE
-%doc %{rlibdir}/%{packname}/NEWS
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%dir %{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/libs/%{packname}.so
-
+%files -f %{R_files}
 
 %changelog
 %autochangelog

@@ -59,14 +59,14 @@
 # Upstream source information.
 %global upstream_owner         AdaCore
 %global upstream_name          gprbuild
-%global upstream_version       25.0.0
-%global upstream_release_date  20241007
-%global upstream_gittag        v%{upstream_version}
+%global upstream_version       26.0.0
+%global upstream_release_date  20250915
+%global upstream_commit        bdfb879cf03643ec8e48a09ce07b08c4a6ff0263
 
 Name:           gprbuild
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A multi-language extensible build tool
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -84,7 +84,7 @@ License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
 #   XML/Ada's source code.
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:        %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 # For testing.
 Source1:        gprbuild-sanity.tar.gz
 
@@ -115,6 +115,9 @@ Patch:          %{name}-usrmove.patch
 #    installation paths are fixed so the location of the KB can be hard coded.
 Patch:          %{name}-hard-code-default-kb-dir.patch
 
+# backport of upstream commit 6421e350274b3018a26bd058b1c90d033b053f71:
+Patch:          gprbuild-operator_not_declared.patch
+
 BuildRequires:  gcc-gnat make sed dos2unix findutils
 BuildRequires:  libgnat-static
 # A fedora-gnat-project-common that contains the macro GPRinstall is needed.
@@ -132,7 +135,7 @@ BuildRequires:  xmlada-static >= 2:23
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  texinfo
-BuildRequires:  latexmk
+# TeX package `titleref` is required by `doc/share/latex_elements.py`.
 BuildRequires:  tex(titleref.sty)
 %endif
 
@@ -244,7 +247,7 @@ This is not the libgpr that is part of gRPC from Google.
 #############
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Convert the line-endings of some files.
 find ./examples -type f -a \( -name '*.gpr' -o -name '*.ada' \) -print0 \
@@ -444,8 +447,10 @@ make -C examples run
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gpr*
 %attr(444,-,-) %{_GNAT_project_dir}/_default.gpr
+%if %{without bootstrap}
 # Exclude the installation script; it serves no purpose in this context.
 %exclude %{_prefix}/doinstall
+%endif
 
 %if %{without bootstrap}
 
@@ -485,6 +490,10 @@ make -C examples run
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+- Program `gprslave' has been removed.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-5
 - Rebuilt because the ALI of System.OS_Constants changed.
 

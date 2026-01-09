@@ -1,10 +1,14 @@
 Name: liboauth2
-Version: 2.1.1
+Version: 2.2.0
 Release: 1%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: Apache-2.0
 URL: https://github.com/OpenIDC/liboauth2
 Source0: https://github.com/OpenIDC/liboauth2/archive/v%{version}/%{name}-%{version}.tar.gz
+# Upstream PR: https://github.com/OpenIDC/liboauth2/pull/65
+Patch0: 0001-Fix-use-of-strchr-with-new-GCC.patch
+# Upstream PR: https://github.com/OpenIDC/liboauth2/pull/66
+Patch1: 0001-Few-more-fixes-for-discarded-qualifiers-in-tests.patch
 
 BuildRequires: automake
 BuildRequires: cmake
@@ -93,6 +97,11 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Tue Jan 06 2026 Packit <hello@packit.dev> - 2.2.0-1
+- Update to version 2.2.0
+- Resolves: rhbz#2427345
+- Fix build with GCC 15.2.1 or later
+
 * Fri Aug 08 2025 Packit <hello@packit.dev> - 2.1.1-1
 - Update to version 2.1.1
 - Resolves: rhbz#2345163

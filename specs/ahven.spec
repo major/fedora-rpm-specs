@@ -1,6 +1,6 @@
 Name:           ahven
 Version:        2.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A unit testing framework for Ada 95
 Summary(sv):    Ett enhetstestramverk för ada 95
 
@@ -108,6 +108,9 @@ cp --preserve=timestamps README.md ROADMAP NEWS.txt %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Wed Jan 07 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2.9-2
+- Rebuilt with GCC 16 prerelease.
+
 * Tue Sep 02 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.9-1
 - Upgraded to 2.9.
 - Set_Up and Tear_Down procedures are now called for testsuites derived from

@@ -156,7 +156,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.37
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.116
+%global nss_version 3.119
 %global nss_build_version %{nss_version}
 %endif
 
@@ -256,6 +256,7 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
+Patch82:        build-c11-threads-avail.patch
 Patch83:        build-seccomp.patch
 
 
@@ -569,6 +570,7 @@ This package contains results of tests executed during build.
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
 %if 0%{?fedora} >= 44
+%patch -P82 -p1 -b .build-c11-threads-avail
 %patch -P83 -p1 -b .build-seccomp
 %endif
 

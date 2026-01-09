@@ -5,7 +5,7 @@
 
 Version: 0.2.0
 Release: 0.38.beta%{?dist}
-URL:     http://wenq.org/enindex.cgi?MicroHei(en)
+URL:     http://wenq.org/wqy2/index.cgi?MicroHei(en)
 
 %global foundry           WQY
 %global fontlicense       Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0

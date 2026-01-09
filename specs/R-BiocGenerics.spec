@@ -1,50 +1,34 @@
-%global packname  BiocGenerics
-%global rlibdir  %{_datadir}/R/library
+Name:           R-BiocGenerics
+Version:        %R_rpm_version 0.56.0
+Release:        %autorelease
+Summary:        Generic functions for Bioconductor
 
-Name:             R-%{packname}
-Version:          0.54.0
-Release:          %autorelease
-Summary:          Generic functions for Bioconductor
+License:        Artistic-2.0
+URL:            %{bioc_url}
+Source:         %{bioc_source}
 
-License:          Artistic-2.0
-URL:              http://bioconductor.org/packages/release/bioc/html/%{packname}.html
-Source0:          http://bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{version}.tar.gz
-BuildArch:        noarch
-
-BuildRequires:    R-devel >= 4.0.0 tex(latex)
-BuildRequires:    R-methods R-utils R-graphics R-stats R-generics
+BuildArch:      noarch
+BuildRequires:  R-devel
 
 %description
 S4 generic functions needed by many other Bioconductor packages.
 
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p %{buildroot}%{rlibdir}
-%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -f %{buildroot}%{rlibdir}/R.css
+%R_install
+%R_save_files
 
-## Tests fails because of a circular dependency with the 'suggested'
-## requirement in the DESCRIPTION file.
-#%check
-#%{_bindir}/R CMD check %{packname}
+%check
+%R_check \--no-examples \--no-tests
 
-%files
-%dir %{rlibdir}/%{packname}
-%doc %{rlibdir}/%{packname}/html
-%doc %{rlibdir}/%{packname}/NEWS
-%{rlibdir}/%{packname}/CITATION
-%{rlibdir}/%{packname}/DESCRIPTION
-%{rlibdir}/%{packname}/INDEX
-%{rlibdir}/%{packname}/NAMESPACE
-%{rlibdir}/%{packname}/Meta
-%{rlibdir}/%{packname}/R
-%{rlibdir}/%{packname}/help
-%{rlibdir}/%{packname}/unitTests
+%files -f %{R_files}
 
 %changelog
 %autochangelog

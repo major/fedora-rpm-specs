@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc4.260105g3609fa95fb0f.31
+%define pkgrelease 0.rc4.260107gf0b9d8eb98df.33
 %define kversion 6
-%define tarfile_release 6.19-rc4-3-g3609fa95fb0f
+%define tarfile_release 6.19-rc4-20-gf0b9d8eb98df
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260105g3609fa95fb0f.31%{?buildid}%{?dist}
+%define specrelease 0.rc4.260107gf0b9d8eb98df.33%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4521,8 +4521,18 @@ fi\
 #
 #
 %changelog
-* Mon Jan 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.3609fa95fb0f.31]
+* Wed Jan 07 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc4.260107gf0b9d8eb98df.33]
+- rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
+
+* Wed Jan 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.33]
 - package YNL test framework files (Thorsten Leemhuis)
+
+* Wed Jan 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.32]
+- Revert "Turn on CONFIG_DEBUG_INFO_COMPRESSED_ZLIB" (Lianbo Jiang)
+- Linux v6.19.0-0.rc4.f0b9d8eb98df
+
+* Tue Jan 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.7f98ab9da046.31]
+- Linux v6.19.0-0.rc4.7f98ab9da046
 
 * Mon Jan 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.3609fa95fb0f.30]
 - Linux v6.19.0-0.rc4.3609fa95fb0f

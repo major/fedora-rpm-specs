@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 
 # Git submodules
 #   * libcommuni
-%global forgeurl2   https://github.com/hemirt/libcommuni
+%global forgeurl2   https://github.com/Chatterino/libcommuni
 %global commit2         bb5417c451d764f57f2f1b3e1c9a81496b5521bd
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 

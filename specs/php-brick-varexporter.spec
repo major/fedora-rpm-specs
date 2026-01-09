@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-brick-varexporter
 #
-# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    af98bfc2b702a312abbcaff37656dbe419cec5bc
+%global gh_commit    b3a50b8f630a9ed5015ea3e1f00479af261ed80d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   varexporter
@@ -19,8 +19,8 @@
 %global ns_project   VarExporter
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.6.0
-Release:        2%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        A powerful alternative to var_export
 
 License:        MIT
@@ -31,30 +31,24 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 
-BuildRequires:  php(language) >= 8.1
+BuildRequires:  php(language) >= 8.2
 BuildRequires: (php-composer(nikic/php-parser) >= 5.0   with php-composer(nikic/php-parser) < 6)
-BuildRequires:  php-reflection
-BuildRequires:  php-date
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#    "phpunit/phpunit": "^10.5",
+#    "phpunit/phpunit": "^11.0",
 #    "php-coveralls/php-coveralls": "^2.2",
-#    "vimeo/psalm": "6.8.4"
-BuildRequires:  phpunit10 >= 10.5
-%global phpunit %{_bindir}/phpunit10
+#    "vimeo/psalm": "6.14.3"
+BuildRequires:  phpunit11
+%global phpunit %{_bindir}/phpunit11
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#    "php": "^8.1",
+#    "php": "^8.2",
 #    "nikic/php-parser": "^5.0"
-Requires:       php(language) >= 8.1
+Requires:       php(language) >= 8.2
 Requires:      (php-composer(nikic/php-parser) >= 5.0   with php-composer(nikic/php-parser) < 6)
 # From phpcompatifo report for 0.3.2
-Requires:       php-reflection
-Requires:       php-pcre
-Requires:       php-spl
+# Only reflection pcre spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -106,10 +100,10 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit10} \
+    $1 ${2:-%{_bindir}/phpunit11} \
       --no-coverage || ret=1
   fi
 done
@@ -124,6 +118,11 @@ exit $ret
 
 
 %changelog
+* Wed Jan  7 2026 Remi Collet <remi@remirepo.net> - 0.7.0-1
+- update to 0.7.0
+- raise dependency on PHP 8.2
+- switch to phpunit11
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
