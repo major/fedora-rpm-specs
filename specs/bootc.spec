@@ -23,7 +23,7 @@
 
 Name:           bootc
 # Ensure this local build overrides anything else.
-Version:        1.11.0
+Version:        1.12.0
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -162,7 +162,7 @@ chmod +x %{?buildroot}/%{system_reinstall_bootc_install_podman_path}
 # generate doc file list excluding directories; workaround for
 # https://github.com/coreos/rpm-ostree/issues/5420
 touch %{?buildroot}/%{_docdir}/bootc/baseimage/base/sysroot/.keepdir
-find %{?buildroot}/%{_docdir} ! -type d -printf '%{_docdir}/%%P\n' > bootcdoclist.txt
+find %{?buildroot}/%{_docdir} ! -type d -printf '%{_docdir}/%%P\n' | sort > bootcdoclist.txt
 
 %if %{with check}
 %check

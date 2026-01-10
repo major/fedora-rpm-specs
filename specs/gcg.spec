@@ -94,7 +94,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libgcg
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libgcg.so.4.0*
+%{_libdir}/libgcg.so.4.0{,.*}
 
 %files -n libgcg-devel
 %{_includedir}/gcg/

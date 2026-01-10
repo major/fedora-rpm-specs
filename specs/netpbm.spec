@@ -1,6 +1,6 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         11.12.00
+Version:         11.13.00
 Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD-3-Clause AND GPL-2.0-only AND LGPL-2.1-or-later AND GPL-3.0-or-later AND IJG AND MIT AND NTP AND PostgreSQL AND LicenseRef-MIT-CRL-Xim AND LicenseRef-Fedora-Public-Domain
@@ -229,6 +229,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Thu Jan 08 2026 Josef Ridky <jridky@redhat.com> - 11.13.00-1
+- New upstream release 11.13.00
+
 * Tue Oct 14 2025 Josef Ridky <jridky@redhat.com> - 11.12.00-1
 - New upstream release 11.12.00
 

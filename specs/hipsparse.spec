@@ -60,9 +60,6 @@
 %global build_type RelWithDebInfo
 %endif
 
-# Assumes gpu hw
-%bcond_with check
-
 # downloads tests, use mock --enable-network
 %bcond_with test
 %if %{with test}
@@ -86,7 +83,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm SPARSE marshalling library
 License:        MIT
@@ -170,6 +167,9 @@ cd projects/hiprand
 %autosetup -p1 -n %{upstreamname}
 %endif
 
+# A better default for the matrices dir
+sed -i -e 's@hipsparse_exepath() + "../matrices/"@"%{pkg_prefix}/share/hipsparse/matrices/"@' clients/include/utility.hpp
+
 %build
 %if %{with gitcommit}
 cd projects/hipsparse
@@ -186,28 +186,17 @@ cd projects/hipsparse
     -DCMAKE_BUILD_TYPE=%build_type \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DGPU_TARGETS=%{rocm_gpu_list_default} \
     -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
     -DBUILD_CLIENTS_SAMPLES=OFF \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-%if %{with test}
-    -DCMAKE_MATRICES_DIR=%{_builddir}/%{name}-test-matrices/ \
-%endif
+    -DCMAKE_MATRICES_DIR=%{_builddir}/hipsparse-test-matrices/ \
     -DBUILD_FORTRAN_CLIENTS=OFF
 
 %cmake_build
-
-%if %{with test}
-%if %{with check}
-%check
-gpu=default
-find . -name 'hipsparse-test' -exec {} \;
-%endif
-%endif
 
 %install
 %if %{with gitcommit}
@@ -219,8 +208,8 @@ cd projects/hipsparse
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsparse/LICENSE.md
 
 %if %{with test}
-mkdir -p %{buildroot}/%{_datadir}/%{name}/matrices
-install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{name}/matrices
+mkdir -p %{buildroot}/%{pkg_prefix}/share/hipsparse/matrices
+install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{pkg_prefix}/share/hipsparse/matrices
 %endif
 
 %files
@@ -246,6 +235,10 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 %endif
 
 %changelog
+* Wed Jan 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Fix test matrices location
+- Remove --with check
+
 * Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Add --with compat
 - Add copyright

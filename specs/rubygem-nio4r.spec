@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: New IO for Ruby
 # The entire source code is MIT, bundled libev is BSD-2-Clause OR GPL-2.0-or-later
 License: MIT AND (BSD-2-Clause OR GPL-2.0-or-later)
@@ -104,6 +104,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.1-9
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.1-8
 - Support ruby35/openssl SSLContext change
 

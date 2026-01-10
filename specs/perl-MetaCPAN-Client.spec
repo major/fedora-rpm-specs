@@ -3,7 +3,7 @@
 # TODO: BR: perl(HTTP::Tiny::Mech) and perl(WWW::Mechanize::Cached) when available
 
 Name:		perl-MetaCPAN-Client
-Version:	2.035000
+Version:	2.037000
 Release:	1%{?dist}
 Summary:	A comprehensive, DWIM-featured client to the MetaCPAN API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -108,6 +108,12 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Types.3*
 
 %changelog
+* Thu Jan  8 2026 Paul Howarth <paul@city-fan.org> - 2.037000-1
+- Update to 2.037000
+  - Fix es_filter to merge into query (GH#132)
+  - More ES 8 related fixes (GH#133)
+  - Updated scripts in examples/ (GH#133)
+
 * Wed Jan  7 2026 Paul Howarth <paul@city-fan.org> - 2.035000-1
 - Update to 2.035000
   - Fix a compatibility issue for ES 8 in scroller setting (GH#131)

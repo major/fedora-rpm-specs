@@ -12,6 +12,8 @@ Patch:          %{name}-LdFlags.patch
 
 BuildRequires:  R-devel
 Requires:       R-core-devel%{?_isa}
+Provides:       %{name}-devel = %{version}-%{release}
+Provides:       %{name}-devel%{?_isa} = %{version}-%{release}
 Obsoletes:      %{name}-devel <= 0.2.19
 
 %description

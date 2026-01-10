@@ -67,7 +67,6 @@ Requires: gstreamer1%{?_isa}
 Requires: gstreamer1-plugins-base%{?_isa} >= %{gst_plugins_base_version}
 Requires: gstreamer1-plugins-good%{?_isa}
 Requires: gstreamer1-plugins-good-gtk%{?_isa}
-Requires: gstreamer1-plugins-ugly-free%{?_isa}
 %if ! 0%{?flatpak}
 Requires: gvfs-fuse%{?_isa}
 %endif
@@ -79,6 +78,7 @@ Requires: gtk3%{?_isa} >= %{gtk3_version}
 
 Recommends: gstreamer1-plugin-openh264%{?_isa}
 Recommends: gstreamer1-plugins-bad-free%{?_isa}
+Recommends: gstreamer1-plugins-ugly-free%{?_isa}
 
 # Removed in F30
 Obsoletes: totem-nautilus < 1:3.31.91

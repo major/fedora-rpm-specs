@@ -8,10 +8,10 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.32
-%global crio_spec_ver   1.32.11
+%global crio_spec_ver   1.32.12
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.32.11
+%global crio_tag        v1.32.12
 %global golangver       1.23.4
 
 # Related: github.com/cri-o/cri-o/issues/3684
@@ -161,17 +161,14 @@ install -m 0755 -vd                %{buildroot}%{_sharedstatedir}/containers
 # refresh shell completion syntax and install
 echo "+++ INSTALLING shell completion"
 # bash
-%{buildroot}%{_bindir}/%{service_name} complete bash >   ./completions/bash/crio
 install -d -m 0755    %{buildroot}%{bash_completions_dir}
 install -D -m 0644 -t %{buildroot}%{bash_completions_dir} ./completions/bash/crio
 
 # fish
-%{buildroot}%{_bindir}/%{service_name} complete fish >   ./completions/fish/crio.fish
 install -d -m 0755    %{buildroot}%{fish_completions_dir}
 install -D -m 0644 -t %{buildroot}%{fish_completions_dir} ./completions/fish/crio.fish
 
 # zsh
-%{buildroot}%{_bindir}/%{service_name} complete zsh >   ./completions/zsh/_crio
 install -d -m 0755    %{buildroot}%{zsh_completions_dir}
 install -D -m 0644 -t %{buildroot}%{zsh_completions_dir} ./completions/zsh/_crio
 

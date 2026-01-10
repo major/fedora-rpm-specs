@@ -7,13 +7,13 @@ Release:        1%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
-URL:            http://galeracluster.com/
+URL:            https://mariadb.com/docs/galera-cluster
 
-# Actually, the truth is, we do use galera source tarball provided by MariaDB on
-# following URL (without macros):
-#   https://archive.mariadb.org/mariadb-10.11/galera-26.4.21/src/galera-26.4.21.tar.gz
-
-Source0:        http://releases.galeracluster.com/source/%{name}-%{version}.tar.gz
+# The Upstream Release Monitoring use this config: https://release-monitoring.org/project/9068/ which checks GitHub tags.
+# The MariaDB upstream releases their own - further patched - version (dozens of files added) on their custom download web page. However they only release it with a MariaDB server release. 
+# So it can only be accessed through the 'https://archive.mariadb.org/mariadb-.../...' path which contains the major version of the MariaDB server.
+# Furthermore there is a lag (can be days, weeks) between when a new tag is done on GitHub and when MariaDB upstream releases the new version on their web with the new MariaDB server release.
+Source0:        https://archive.mariadb.org/mariadb-11.8/%{name}-%{version}/src/%{name}-%{version}.tar.gz
 
 Patch0:         cmake_paths.patch
 Patch1:         docs.patch

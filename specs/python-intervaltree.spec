@@ -1,7 +1,7 @@
 %global srcname intervaltree
 
 Name:           python-%{srcname}
-Version:        3.2.0
+Version:        3.2.1
 Release:        1%{?dist}
 Summary:        A mutable, self-balancing interval tree for Python
 
@@ -48,6 +48,9 @@ Requires:       python3-sortedcontainers
 %doc README.md CHANGELOG.md
 
 %changelog
+* Thu Jan 08 2026 W. Michael Petullo <mike@flyn.org> - 3.2.1-1
+- New upstream version (rhbz#2424823)
+
 * Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 3.2.0-1
 - New upstream version (rhbz#2424082)
 

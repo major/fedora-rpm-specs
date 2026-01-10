@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/python-pkginfo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Allow bzip2 0.6: https://github.com/PyO3/python-pkginfo-rs/pull/30
+# * Allow zip 7: https://github.com/PyO3/python-pkginfo-rs/pull/31
 Patch:          python-pkginfo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

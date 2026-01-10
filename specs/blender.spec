@@ -8,7 +8,7 @@
 %bcond llvm       1   # Required for OSL support
 %bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
-%bcond materialx  0   # MaterialX support
+%bcond materialx  1   # MaterialX support
 %bcond nanovdb    1   # NanoVDB support
 %bcond ninja      1   # Use Ninja build system
 %bcond openvdb    1   # OpenVDB support
@@ -229,7 +229,9 @@ BuildRequires:	pkgconfig(manifold)
 BuildRequires:  polyclipping2-devel
 %endif
 %if %{with materialx}
-BuildRequires:  materialx-devel
+BuildRequires:  cmake(materialx)
+BuildRequires:  materialx-data
+BuildRequires:  python3-materialx
 %endif
 BuildRequires:  opensubdiv-devel >= 3.4.4
 %if %{with openshading}
@@ -292,11 +294,11 @@ BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  pkgconfig(ao)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freealut)
-BuildRequires:	pkgconfig(libpipewire-0.3)
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(opus)
-BuildRequires:	pkgconfig(rubberband)
+BuildRequires:  pkgconfig(rubberband)
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  pkgconfig(vorbis)
@@ -381,8 +383,7 @@ export HIP_CLANG_PATH=`hipconfig -l`
 %endif
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \
-    %{?with_manpage:-DWITH_DOC_MANPAGE=ON } \
-    %{?with_materialx:-DMATERIALX_STDLIB_DIR=%{_datadir}/materialx} \
+    %{?with_manpage:-DWITH_DOC_MANPAGE=ON} \
     %{!?with_materialx:-DWITH_MATERIALX=OFF} \
     %{?with_openshading:-DOSL_COMPILER=%{_bindir}/oslc} \
     %{?with_usd:-DUSD_LIBRARY=%{_libdir}/libusd_ms.so} \

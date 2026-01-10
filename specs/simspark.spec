@@ -1,6 +1,6 @@
 Name:           simspark
 Version:        0.3.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Spark physical simulation system
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -83,6 +83,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-13
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-12
 - Backport upstream fix for gcc15 with ambiguous override
 

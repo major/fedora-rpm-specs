@@ -2,14 +2,14 @@
 %global gem_name pg
 
 Name: rubygem-%{gem_name}
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 Summary: Pg is the Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ged/ruby-pg.git
-# git archive -v -o pg-1.6.2-spec.tar.gz v1.6.2 spec/
+# git archive -v -o pg-1.6.3-spec.tar.gz v1.6.3 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 # Disable RPATH.
 # https://github.com/ged/ruby-pg/issues/183
@@ -83,7 +83,7 @@ export PGPORT="$((54321 + ${RANDOM} % 1000))"
 export RUBY_PG_TEST_DIR=%{_builddir}/tmp
 # Set --verbose to show detail log by $VERBOSE.
 # See https://github.com/ged/ruby-pg/blob/master/spec/helpers.rb $VERBOSE
-if ! ruby -S --verbose rspec -I$(dirs +1)%{gem_extdir_mri} -f d spec -E "${EXAMPLE_MATCHES}"; then
+if ! ruby -S --verbose rspec -I$(dirs +1)%{gem_extdir_mri} -f d spec; then
   echo "==== [setup.log start ] ===="
   cat ${RUBY_PG_TEST_DIR}/tmp_test_specs/setup.log
   echo "==== [setup.log end ] ===="
@@ -119,6 +119,10 @@ popd
 %{gem_instdir}/sample
 
 %changelog
+* Thu Jan 08 2026 Jarek Prokop <jprokop@redhat.com> - 1.6.3-1
+- Upgrade to pg 1.6.3.
+  Resolves: rhbz#2425945
+
 * Mon Dec 01 2025 Jarek Prokop <jprokop@redhat.com> - 1.6.2-1
 - Upgrade to pg 1.6.2.
   Resolves: rhbz#2392514

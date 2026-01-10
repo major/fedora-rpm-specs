@@ -1,13 +1,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gnatcoll-bindings
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   4d3761dd658759b06aea4fdf028ba5a4bdf89785
 
 Name:           gnatcoll-bindings
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        The GNAT Components Collection – bindings
 Summary(sv):    GNAT Components Collection – bindningar
 
@@ -15,11 +15,15 @@ License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-3.0-or-later AND
 # The subpackages have different licenses. This is the aggregation of those.
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source:         %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
+
+# Package `GNATCOLL.ZSTD.Controlled' depends on `GNATCOLL.OS.FS',
+# which is not part of GNATcoll minimal.
+# See also: https://github.com/AdaCore/gnatcoll-bindings/issues/22
+Patch:          %{name}-zstd-requires-gnatcoll-os.patch
 
 BuildRequires:  gcc-gnat gcc-c++ gprbuild sed dos2unix
-# A fedora-gnat-project-common that contains the new GPRinstall macro.
-BuildRequires:  fedora-gnat-project-common >= 3.21
+BuildRequires:  fedora-gnat-project-common
 
 BuildRequires:  gnatcoll-core-devel = %{epoch}:%{version}
 # Although it's not explicitly stated, I guess it's best to keep all the parts
@@ -30,19 +34,20 @@ BuildRequires:  xz-devel
 BuildRequires:  python3-devel
 BuildRequires:  readline-devel
 BuildRequires:  zlib-devel
+BuildRequires:  libzstd-devel
 
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
 
 %description
 This is the bindings module of the GNAT Components Collection. It provides
-bindings to GMP, Iconv, LZMA, Python 3, Readline, Syslog and ZLib, and a
-parallel sorting algorithm using OpenMP.
+bindings to GMP, Iconv, LZMA, Python 3, Readline, Syslog, ZLib and ZSTD,
+and a parallel sorting algorithm using OpenMP.
 
 %description -l sv
 Detta är bindningsmodulen i GNAT Components Collection. Den tillhandahåller
-bindningar till GMP, Iconv, LZMA, Python 3, Readline, Syslog och ZLib, samt en
-parallell sorteringsalgoritm som använder OpenMP.
+bindningar till GMP, Iconv, LZMA, Python 3, Readline, Syslog, ZLib och ZSTD,
+samt en parallell sorteringsalgoritm som använder OpenMP.
 
 
 #################
@@ -191,7 +196,7 @@ This is the LZMA component of the GNAT Components Collection. It is an
 interface to liblzma, a library for lossless data compression.
 
 %description -n gnatcoll-lzma -l sv
-Detta är LZMA-komponenten i GNAT Components Collection. Den är en gränssnitt
+Detta är LZMA-komponenten i GNAT Components Collection. Den är ett gränssnitt
 mot biblioteket liblzma för förlustfri datakomprimering.
 
 
@@ -359,7 +364,7 @@ This is the ZLib component of the GNAT Components Collection. It is an
 interface to ZLib, a library for lossless data compression.
 
 %description -n gnatcoll-zlib -l sv
-Detta är ZLib-komponenten i GNAT Components Collection. Den är en gränssnitt
+Detta är ZLib-komponenten i GNAT Components Collection. Den är ett gränssnitt
 mot biblioteket ZLib för förlustfri datakomprimering.
 
 
@@ -378,7 +383,38 @@ It is an interface to ZLib, a library for lossless data compression.
 %description -n gnatcoll-zlib-devel -l sv
 Detta paket innehåller källkod och länkningsinformation som behövs för att
 utveckla program som använder ZLib-komponenten i GNAT Components Collection.
-Den är en gränssnitt mot biblioteket ZLib för förlustfri datakomprimering.
+Den är ett gränssnitt mot biblioteket ZLib för förlustfri datakomprimering.
+
+
+%package -n gnatcoll-zstd
+Summary:        The GNAT Components Collection – ZSTD binding
+Summary(sv):    GNAT Components Collection – ZSTD-bindning
+License:        GPL-3.0-or-later WITH GCC-exception-3.1
+
+%description -n gnatcoll-zstd
+This is the ZSTD component of the GNAT Components Collection. It is an
+interface to ZSTD, a library for lossless data compression.
+
+%description -n gnatcoll-zstd -l sv
+Detta är ZSTD-komponenten i GNAT Components Collection. Den är ett gränssnitt
+mot biblioteket ZSTD för förlustfri datakomprimering.
+
+%package -n gnatcoll-zstd-devel
+Summary:        Development files for the GNAT Components Collection – ZSTD binding
+Summary(sv):    Filer för programmering med GNAT Components Collection – ZSTD-bindning
+License:        GPL-3.0-or-later WITH GCC-exception-3.1
+Requires:       gnatcoll-zstd%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       fedora-gnat-project-common gnatcoll-core-devel
+
+%description -n gnatcoll-zstd-devel
+This package contains source code and linking information for developing
+applications that use the ZSTD component of the GNAT Components Collection.
+It is an interface to ZSTD, a library for lossless data compression.
+
+%description -n gnatcoll-zstd-devel -l sv
+Detta paket innehåller källkod och länkningsinformation som behövs för att
+utveckla program som använder ZSTD-komponenten i GNAT Components Collection.
+Den är ett gränssnitt mot biblioteket ZSTD för förlustfri datakomprimering.
 
 
 %global set_env export GNATCOLL_VERSION=%{version} \
@@ -386,7 +422,10 @@ Den är en gränssnitt mot biblioteket ZLib för förlustfri datakomprimering.
                 export LIBRARY_TYPE=relocatable \
                 export GNATCOLL_ICONV_OPT=@/dev/null \
                 export GNATCOLL_PYTHON_CFLAGS=`python3-config --cflags` \
-                export GNATCOLL_PYTHON_LIBS=`python3-config --ldflags`
+                export GNATCOLL_PYTHON_LIBS=`python3-config --ldflags` \
+                export GNATCOLL_ZSTD_VERSION=%{version} \
+                export GNATCOLL_ZSTD_OS=unix \
+                export GNATCOLL_ZSTD_BUILD_MODE=PROD
 # Iconv is not a separate library, but an empty GNATCOLL_ICONV_OPT doesn't
 # prevent GPRbuild from using the default "-liconv", so it's set to a value
 # that makes no difference.
@@ -397,7 +436,7 @@ Den är en gränssnitt mot biblioteket ZLib för förlustfri datakomprimering.
 #############
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Convert line breaks.
 dos2unix --keepdate gmp/examples/gmp_examples.gpr
@@ -410,7 +449,7 @@ dos2unix --keepdate gmp/examples/gmp_examples.gpr
 %build
 %set_env
 
-for component in cpp gmp iconv lzma omp syslog zlib ; do
+for component in cpp gmp iconv lzma omp syslog zlib zstd; do
     gprbuild %{GPRbuild_flags} -P ${component}/gnatcoll_${component}.gpr
 done
 
@@ -432,7 +471,7 @@ gprbuild %{GPRbuild_flags} \
 %set_env
 
 # Install each component.
-for component in cpp gmp iconv lzma omp readline syslog zlib ; do
+for component in cpp gmp iconv lzma omp readline syslog zlib zstd ; do
     %{GPRinstall -s gnatcoll-${component} -a gnatcoll-${component}} \
                  --no-build-var -P ${component}/gnatcoll_${component}.gpr
 done
@@ -444,13 +483,13 @@ done
              --no-build-var -P python3/gnatcoll_python.gpr
 
 # Fix up the symlinks.
-for component in cpp gmp iconv lzma omp python3 readline syslog zlib ; do
+for component in cpp gmp iconv lzma omp python3 readline syslog zlib zstd ; do
     ln --symbolic --force libgnatcoll_${component}.so.%{version} \
        %{buildroot}%{_libdir}/libgnatcoll_${component}.so
 done
 
 # These files may be of some value to developers:
-for component in gmp iconv omp python3 readline syslog ; do
+for component in gmp iconv omp python3 readline syslog zstd ; do
     mkdir --parents %{buildroot}%{_docdir}/gnatcoll-${component}
     cp --preserve=timestamps ${component}/README* \
        --target-directory=%{buildroot}%{_docdir}/gnatcoll-${component}/
@@ -470,7 +509,7 @@ cp --preserve=timestamps COPYING3 COPYING.RUNTIME \
    --target-directory=%{buildroot}%{_licensedir}/%{name}
 
 # Make the generated usage project files architecture-independent.
-for component in cpp gmp iconv lzma omp python readline syslog zlib ; do
+for component in cpp gmp iconv lzma omp python readline syslog zlib zstd ; do
     sed --regexp-extended --in-place \
         '--expression=1i with "directories";' \
         '--expression=/^--  This project has been generated/d' \
@@ -651,11 +690,29 @@ done
 %{_libdir}/libgnatcoll_zlib.so
 
 
+%files -n gnatcoll-zstd
+%license %{_licensedir}/%{name}
+%{_libdir}/libgnatcoll_zstd.so.%{version}
+
+%files -n gnatcoll-zstd-devel
+%{_GNAT_project_dir}/gnatcoll_zstd.gpr
+%{_includedir}/gnatcoll-zstd
+%dir %{_libdir}/gnatcoll-zstd
+%attr(444,-,-) %{_libdir}/gnatcoll-zstd/*.ali
+%{_libdir}/libgnatcoll_zstd.so
+# README:
+%{_docdir}/gnatcoll-zstd
+
+
 ###############
 ## Changelog ##
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+- New subpackage for bindings to the ZSTD library.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-5
 - Rebuilt because the ALI of System.OS_Constants changed.
 

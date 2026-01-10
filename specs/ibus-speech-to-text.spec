@@ -1,8 +1,9 @@
+%global debug_package %{nil}
 Name:   ibus-speech-to-text
-Version:  0.6.0
+Version:  0.7.0
 Release:  1%{?dist}
 Summary:  A speech to text IBus Input Method using VOSK
-BuildArch:  noarch
+ExcludeArch: %{ix86}
 License:  GPL-3.0-or-later
 URL:     https://github.com/Manish7093/IBus-Speech-To-Text
 Source0: https://github.com/Manish7093/IBus-Speech-To-Text/archive/refs/tags/%{version}.tar.gz
@@ -13,6 +14,7 @@ BuildRequires:  libadwaita-devel
 BuildRequires:  gstreamer1-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
+BuildRequires:  python3-pywhispercpp
 
 Requires:    ibus >= 1.5.3
 Requires:    python3-dbus
@@ -22,9 +24,10 @@ Requires:    gobject-introspection
 Requires:    gst-vosk >= 0.3.0
 Requires:    gtk4
 Requires:    dconf
+Requires:    python3-pywhispercpp
 
 %description
-A speech to text IBus Input Method using VOSK, 
+A speech to text IBus Input Method using VOSK and WhisperCpp
 which can be used to dictate text to any application
 
 %prep
@@ -51,6 +54,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-stt.deskt
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.stt.gschema.xml
 
 %changelog
+* Wed Jan 7 2026 Manish Tiwari <matiwari@redhat.com> 0.7.0-1
+- Update to release 0.7.0
+- Add support for WhisperCpp
+
 * Sun Sep 7 2025 Manish Tiwari <matiwari@redhat.com> 0.6.0-1
 - Update to 0.6.0 release
 

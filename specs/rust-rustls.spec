@@ -6,7 +6,7 @@
 %global crate rustls
 
 Name:           rust-rustls
-Version:        0.23.35
+Version:        0.23.36
 Release:        %autorelease
 Summary:        Rustls is a modern TLS library written in Rust
 

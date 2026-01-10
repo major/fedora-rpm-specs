@@ -1,13 +1,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gnatcoll-db
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   08413b3c5f18766a3a59c0d0736ac17fa8e6d831
 
 Name:           gnatcoll-db
 Epoch:          2
 Version:        %{upstream_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        The GNAT Components Collection – database packages
 Summary(sv):    GNAT Components Collection – databaspaket
 
@@ -15,17 +15,14 @@ License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-3.0-or-later AND
 # The subpackages have different licenses. This is the aggregation of those.
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source:         %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # This patch makes gnatcoll_db2ada run dborm.py in python3, and also corrects
 # the location of dborm.py:
 Patch:          %{name}-dborm_python3.patch
-# [Backport] Refine dependencies on GNATColl (be1a7c6).
-Patch:          %{name}-refine-dependencies-to-gnatcoll.patch
 
 BuildRequires:  gcc-gnat gprbuild sed make
-# A fedora-gnat-project-common that contains GPRbuild_flags is needed.
-BuildRequires:  fedora-gnat-project-common >= 3.17
+BuildRequires:  fedora-gnat-project-common
 BuildRequires:  gnatcoll-core-devel     = %{epoch}:%{version}
 BuildRequires:  gnatcoll-projects-devel = %{epoch}:%{version}
 BuildRequires:  gnatcoll-iconv-devel    = %{epoch}:%{version}
@@ -37,9 +34,8 @@ BuildRequires:  sqlite-devel libpq-devel
 BuildRequires:  python3-devel
 
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
 
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
@@ -269,6 +265,10 @@ License:        AdaCore-doc AND MIT AND BSD-2-Clause AND GPL-3.0-or-later WITH G
 # License for the documentation is AdaCore-doc. The Javascript and CSS files
 # that Sphinx includes with the documentation are BSD 2-Clause and MIT-licensed.
 # The example code is licensed under GPLv3+ with the GCC runtime exception.
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
 
 %description doc
 This package contains the documentation for the database and Xref components of
@@ -284,7 +284,7 @@ databaskomponenter och Xref.
 #############
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Delete the bundled SQLite to be extra sure that the packaged version is used.
 rm --recursive sqlite/amalgamation
@@ -489,6 +489,9 @@ cp --preserve=timestamps COPYING3 COPYING.RUNTIME \
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-4
 - Rebuilt because the ALI of System.OS_Constants changed.
 

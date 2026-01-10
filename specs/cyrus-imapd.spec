@@ -1,9 +1,15 @@
+#%%global prever rc1
+
 Name: cyrus-imapd
-Version: 3.8.3
-Release: %autorelease
+Version: 3.12.1
+Release: %autorelease %{?prever:-e %prever}
 Summary: A high-performance email, contacts and calendar server
 License: BSD-Attribution-HPND-disclaimer
 URL: http://www.cyrusimap.org/
+
+# cyrus-imapd does not to support LTO, but we keep it enabled
+# https://github.com/cyrusimap/cyrus-imapd/pull/4679
+#%%define _lto_cflags %%{nil}
 
 # UID/GID 76 have long been reserved for Cyrus
 %define uid 76
@@ -18,14 +24,20 @@ URL: http://www.cyrusimap.org/
 %global __provides_exclude ^perl\\(AnnotateInlinedCIDs\\)$
 
 # Cassandane testsuite is no longer executed during build time. It is called from separate CI test:
-# https://src.fedoraproject.org/tests/cyrus-imapd/blob/main/f/Sanity/cassandane
+#
+# https://gitlab.com/redhat/centos-stream/tests/cyrus-imapd/-/tree/main/Sanity/cassandane
+#
 # Do not remove CASSANDANE* and CASSANDANE*_END tags - the content between them is extracted and executed inside the CI test.
-# If you want to run cassandane locally:
-# Run: `rpmbuild '--with cassandane'` or `echo '%%_with_cassandane 1' >> ~/.rpmmacros`.
+#
+# If you want to run cassandane manually through this spec file, run:
+#       # echo -e '%%_with_cassandane 1\n%%_topdir /tmp/rpmbuild' | sed -e 's/%//' >> ~/.rpmmacros
+#       # rpm -i cyrus-imapd-*.src.rpm
+#       # dnf builddep /tmp/rpmbuild/SPECS/cyrus-imapd.spec -y
+#       # rpmbuild -bi /tmp/rpmbuild/SPECS/cyrus-imapd.spec 2>&1 | tee build.log
 %bcond_with cassandane
 
-Source0: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz
-Source1: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz.sig
+Source0: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version%{?prever:-%prever}/cyrus-imapd-%version%{?prever:-%prever}.tar.gz
+Source1: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version%{?prever:-%prever}/cyrus-imapd-%version%{?prever:-%prever}.tar.gz.sig
 Source2: ellie-pub.key
 Source10: cyrus-imapd.logrotate
 Source11: cyrus-imapd.pam-config
@@ -49,17 +61,12 @@ Patch1: patch-cyrus-default-configs
 # We rename quota to cyr_quota to avoid a conflict with /usr/bin/quota; one
 # place in the source must be patched to match.
 Patch2: patch-cyrus-rename-quota
-# Workaround for some compiled Perl modules not being linked against
-# libpcreposix, which causes them to fail to load.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1668723
-# https://github.com/cyrusimap/cyrus-imapd/issues/2629#issuecomment-456925909
-Patch3: patch-cyrus-perl-linking
 # cyrus-imapd does not support LTO
 # https://github.com/cyrusimap/cyrus-imapd/pull/4679
 # Remove attribute always_inline to fix compilation error and keep LTO enabled:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2223951
-Patch4: patch-cyrus-remove-always-inline-for-buf-len
-Patch5: patch-cyrus-rename-imtest
+Patch3: patch-cyrus-remove-always-inline-for-buf-len
+Patch4: patch-cyrus-rename-imtest
 
 # Cassandane patches:
 # Prevent cassandane from trying to syslog things
@@ -67,34 +74,28 @@ Patch91: patch-cassandane-no-syslog
 # Tell the annotator script to run as the current user/group
 # Upstream ticket https://github.com/cyrusimap/cyrus-imapd/issues/1995
 Patch92: patch-cassandane-fix-annotator
-# TODO libexec/cyrus-imapd path element got into upstream:
-# https://github.com/cyrusimap/cyrus-imapd/commit/9233f70bf7a2872ab0b456ea294ce36e0e01e182
-# try to get fixed the below upstream to work on Fedora:
-# https://github.com/cyrusimap/cyrus-imapd/commit/f10eee167313418d84e63d215310477d4fe68e94
-Patch93: patch-cassandane-xapian-delve-path
-Patch94: patch-cyrus-corrected-declaration-initialization-of-functions.patch
+# Due to the /usr/sbin->/usr/bin merge, add /usr/bin path to the mix
+Patch93: patch-cassandane-build-info.patch
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
-BuildRequires: groff libtool make pkgconfig rsync systemd
-BuildRequires: perl-devel perl-generators perl(ExtUtils::MakeMaker)
-BuildRequires: perl(Pod::Html)
+BuildRequires: groff libtool make perl-devel perl(ExtUtils::MakeMaker)
+BuildRequires: perl-generators perl(Pod::Html) pkgconfig rsync systemd
+BuildRequires: systemd-rpm-macros xxd
+BuildRequires: CUnit-devel cyrus-sasl-devel glib2-devel
+BuildRequires: jansson-devel krb5-devel libical-devel libicu-devel
+BuildRequires: libnghttp2-devel libpq-devel libxml2-devel
+BuildRequires: mariadb-connector-c-devel net-snmp-devel
+BuildRequires: openldap-devel openssl-devel pcre2-devel
+BuildRequires: sqlite-devel wslay-devel xapian-core-devel
+# Miscellaneous modules needed for 'make check' to function:
+BuildRequires: cyrus-sasl-plain cyrus-sasl-md5
+%if 0%{?fedora}
+BuildRequires: clamav-devel shapelib-devel
+%endif
 %if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires: gnupg2
 %endif
 
-%if 0%{?fedora}
-BuildRequires: clamav-devel shapelib-devel
-%endif
-BuildRequires: CUnit-devel cyrus-sasl-devel glib2-devel
-BuildRequires: jansson-devel krb5-devel libical-devel libicu-devel
-BuildRequires: libnghttp2-devel libxml2-devel mariadb-connector-c-devel net-snmp-devel
-BuildRequires: openldap-devel openssl-devel pcre2-devel libpq-devel
-BuildRequires: sqlite-devel xapian-core-devel
-
-# Miscellaneous modules needed for 'make check' to function:
-BuildRequires: cyrus-sasl-plain cyrus-sasl-md5
-
-BuildRequires: systemd-rpm-macros
 
 %if %{with cassandane}
 # Additional packages required for cassandane to function
@@ -204,6 +205,7 @@ BuildRequires: perl(version)
 BuildRequires: perl(warnings)
 BuildRequires: perl(XML::DOM)
 BuildRequires: perl(XML::Generator)
+BuildRequires: perl(XML::Simple)
 BuildRequires: perl(XML::Spice)
 # These were reported as missing during the build itself
 BuildRequires: perl(DBD::SQLite)
@@ -239,7 +241,7 @@ is through software using the IMAP, IMAPS, JMAP, POP3, POP3S, KPOP, CalDAV
 and/or CardDAV protocols.
 
 The private mailbox database design gives the Cyrus IMAP server large
-advantages in efficiency, scalability, and administratability. Multiple
+advantages in efficiency, scalability, and administrability. Multiple
 concurrent read/write connections to the same mailbox are permitted. The server
 supports access control lists on mailboxes and storage quotas on mailbox
 hierarchies.
@@ -303,7 +305,7 @@ This package contains Perl libraries used to interface with Cyrus IMAPd.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
-%autosetup -p1
+%autosetup -p1 -n cyrus-imapd-%{version}%{?prever:-%{prever}}
 
 # https://github.com/cyrusimap/cyrus-imapd/commit/216934c3f4884999206715db3499fc0162e1d65c
 echo %version > VERSION
@@ -336,11 +338,10 @@ sed -i \
 
 %if %{with cassandane}
 pushd cassandane
-mkdir work
 cp %SOURCE81 cassandane.ini
 # RF rpm-buildroot-usage
 sed -i \
-    -e "s!CASSDIR!$(pwd)!" \
+    -e "s!CASSDIR!/tmp/cassandane!" \
     -e "s!BUILDROOT!%buildroot!" \
     cassandane.ini
 popd
@@ -348,13 +349,16 @@ popd
 
 
 %build
-#autoreconf -vi
+autoreconf --verbose --force --install
 
 %if %{with cassandane} && 0%{?fedora}
 # Needed for Cyrus::FastMail tests to pass
 export CLD2_CFLAGS="-I/usr/include/cld2"
 export CLD2_LIBS="-lcld2"
 %endif
+
+# C++17 or later needed for libicu-devel
+export CXXFLAGS="%{optflags} -std=gnu++17"
 
 %configure \
     --disable-silent-rules \
@@ -376,7 +380,6 @@ export CLD2_LIBS="-lcld2"
     --with-syslogfacility=MAIL \
     \
     --enable-autocreate \
-    --enable-backup \
     --enable-calalarmd \
     --enable-http \
     --enable-idled \
@@ -416,6 +419,52 @@ yes | cpan -T IO::File::fcntl
 pushd cassandane
 export NOCYRUS=1
 make
+
+export IMAPTEST_COMMIT=44ff753f51d1a767b8d71b04e882847664d9f0c8
+
+# Do not depend on imaptest package (missing on RHEL10)
+wget https://github.com/dovecot/imaptest/archive/$IMAPTEST_COMMIT/imaptest-$IMAPTEST_COMMIT.tar.gz
+rm -rf imaptest-src
+mkdir imaptest-src
+tar -xf imaptest-$IMAPTEST_COMMIT.tar.gz  --strip-components=1 -C imaptest-src
+pushd imaptest-src
+cat <<'EOF_so-file.patch' > so-file.patch
+From 39d3dcc8f8ae4e7e751cb0ba633301630e32f54e Mon Sep 17 00:00:00 2001
+From: Aki Tuomi <aki.tuomi@open-xchange.com>
+Date: Tue, 20 May 2025 11:47:24 +0300
+Subject: [PATCH] configure: Use libssl_iostream_openssl.so with installed
+ dovecot
+
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index d8c3405..df881b5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -25,8 +25,8 @@ AS_IF([test "$DOVECOT_INSTALLED" = 'no'], [
+ 	LIBDOVECOT=$abs_dovecotdir/src/lib-dovecot/libdovecot.la
+ 	LIBDOVECOT_SSL=$abs_dovecotdir/src/lib-ssl-iostream/libssl_iostream_openssl.la
+ ], [
+-	LIBDOVECOT=$dovecot_pkglibdir/libdovecot.la
+-	LIBDOVECOT_SSL=$dovecot_moduledir/libssl_iostream_openssl.la
++	LIBDOVECOT=$dovecot_pkglibdir/libdovecot.so
++	LIBDOVECOT_SSL=$dovecot_moduledir/libssl_iostream_openssl.so
+ ])
+ AC_SUBST([LIBDOVECOT_SSL])
+EOF_so-file.patch
+patch -p1 < so-file.patch
+autoreconf -i
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1103927#c4 (and later)
+sed -e 's@\(^LIBDOVECOT .*\)@\1 -Wl,-rpath -Wl,/usr/lib64/dovecot@' -i src/Makefile.in
+./configure --with-dovecot=/usr/lib64/dovecot
+make
+popd
+
+mkdir -p imaptest/src
+ln -sfr ./imaptest-src/src/imaptest imaptest/src
+ln -sfr ./imaptest-src/src/tests imaptest/src
 popd
 %endif
 # CASSANDANE_BUILD_END
@@ -478,6 +527,7 @@ install -p -D -m 644 %{SOURCE19} %{buildroot}%{_sysusersdir}/cyrus-imapd.conf
 find doc perl -name CVS -type d -prune -exec rm -rf {} \;
 find doc perl -name .cvsignore -type f -exec rm -f {} \;
 rm -f doc/Makefile.dist*
+rm -f doc/html/.buildinfo
 rm -f doc/text/htmlstrip.c
 rm -f doc/text/Makefile
 rm -rf doc/man
@@ -501,15 +551,11 @@ find %buildroot/%_libdir/perl5/ -type f -name "*.so" -exec chmod 755 {} \;
 
 # Actual binary conflicts
 # Rename 'fetchnews' binary and manpage to avoid clash with leafnode
-mv %buildroot/%_sbindir/fetchnews %buildroot/%_sbindir/cyr_fetchnews
+mv %buildroot/%_bindir/fetchnews %buildroot/%_bindir/cyr_fetchnews
 mv %buildroot/%_mandir/man8/fetchnews.8 %buildroot/%_mandir/man8/cyr_fetchnews.8
 
-# Fix conflict with dump
-mv %buildroot/%_sbindir/restore %buildroot/%_sbindir/cyr_restore
-mv %buildroot/%_mandir/man8/restore.8 %buildroot/%_mandir/man8/cyr_restore.8
-
 # Fix conceptual conflict with quota
-mv %buildroot/%_sbindir/quota %buildroot/%_sbindir/cyr_quota
+mv %buildroot/%_bindir/quota %buildroot/%_bindir/cyr_quota
 mv %buildroot/%_mandir/man8/quota.8 %buildroot/%_mandir/man8/cyr_quota.8
 
 # fix conflicts with uw-imap
@@ -558,25 +604,27 @@ chmod -x %buildroot/%perl_vendorlib/Cyrus/Annotator/Daemon.pm
 
 
 %check
+# TODO: unit tests fail on i686 - https://github.com/cyrusimap/cyrus-imapd/issues/5431
+%ifnarch i686
+LD_LIBRARY_PATH=%buildroot/%_libdir make -j%{?_smp_build_ncpus} check || exit 1
+%endif
+
 %if %{without cassandane}
 exit 0
 %endif
 
-%ifarch %{ix86} armv7hl
-exit 0
-%endif
-
-# TODO: The mime_boundary_extended cunit test fails due to LTO on ppc64le, skip it for now:
-%ifnarch ppc64le
-LD_LIBRARY_PATH=%buildroot/%_libdir make -j%{?_smp_build_ncpus} check || exit 1
-%endif
-
-# Cassandane cannot run solely as root because imap services would otherwise quit:
+# Create user&group for Cassandane. Cassandane cannot run solely as root because imap services would otherwise quit:
 #$ grep -R "must run as the Cyrus user" | egrep "imapd|httpd|pop3d"
 #imap/imapd.c:    if (geteuid() == 0) fatal("must run as the Cyrus user", EX_USAGE);
 #imap/httpd.c:    if (geteuid() == 0) fatal("must run as the Cyrus user", EX_USAGE);
 #imap/pop3d.c:    if (geteuid() == 0) fatal("must run as the Cyrus user", EX_USAGE);
 getent group saslauth >/dev/null || /usr/sbin/groupadd -g %gid -r saslauth
+getent passwd saslauth >/dev/null && (
+    # Workaround for systemd-sysusers bug: https://github.com/systemd/systemd/issues/37495
+    # If cyrus-sasl package is installed first, it creates user saslauth with UID 76 instead of only group.
+    usermod -g users saslauth
+    userdel saslauth
+)
 # Set up shell and home directory for cyrus so that debugging of failing tests is easier.
 getent passwd cyrus >/dev/null && /usr/sbin/usermod -s /bin/bash cyrus
 getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /var/lib/imap -g %cyrusgroup \
@@ -585,38 +633,19 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 # Set LD_LIBRARY_PATH for cyrus so that it points to cyrus-imapd libraries we just built.
 [ -z "`grep LD_LIBRARY_PATH /var/lib/imap/.bashrc`" ] && echo "export LD_LIBRARY_PATH=%buildroot/%_libdir" >> /var/lib/imap/.bashrc
 
-# CASSANDANE
-# TODO: Temporary workaround for missing mail::IMAPTalk methods.
-# https://github.com/robmueller/mail-imaptalk/commit/0cf2624edca6fc0dd1cdc851a8710af928ba1f1e
-dnf downgrade -y https://kojipkgs.fedoraproject.org//packages/perl-Mail-IMAPTalk/4.04/22.fc39/noarch/perl-Mail-IMAPTalk-4.04-22.fc39.noarch.rpm
+mkdir -p /tmp/cassandane/work
+chown -R %cyrususer:%cyrusgroup /tmp/cassandane/
 
+# CASSANDANE
 # Run the Cassandane test suite.  This will exhaustively test the various
 # server components, but running it in a mock chroot is rather an exercise.
 pushd cassandane
-
-# Do not depend on imaptest package (missing on RHEL10)
-wget https://dovecot.org/nightly/imaptest/imaptest-20210511.tar.gz
-rm -rf imaptest-src
-mkdir imaptest-src
-tar -xf imaptest-20210511.tar.gz --strip-components=1 -C imaptest-src
-pushd imaptest-src
-# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1103927#c4 (and later)
-sed -e 's@\(^LIBDOVECOT .*\)@\1 -Wl,-rpath -Wl,/usr/lib64/dovecot@' -i src/Makefile.in
-./configure --with-dovecot=/usr/lib64/dovecot
-make
-popd
-
-mkdir -p imaptest/src
-ln -sfr ./imaptest-src/src/imaptest imaptest/src
-ln -sfr ./imaptest-src/src/tests imaptest/src
-
-chown -R cyrus:mail .
 
 # Construct the set of excluded tests to pass to Cassandane
 # ---------------------------------------------------------
 exclude=()
 tests=(
-    # This exclusion list was verified on 2024-06-10.
+    # This exclusion list was verified on 2025-12-19.
 
     # This tests coredumping and won't work on a machine where systemd
     # intercepts coredumps, which includes our builders.
@@ -624,43 +653,26 @@ tests=(
 
     # Can't currently be run at build time because of compiled-in paths.  See
     # https://github.com/cyrusimap/cyrus-imapd/issues/2386
-    Admin.imap_admins
+    Cyrus::Admin.imap_admins
+    Cyrus::Admin.imap_admins_virtdomains
 
     # TODO currently failing
-    Cyrus::Flags.userflags_crash
-    Cyrus::JMAPCore.eventsource
-    Cyrus::JMAPEmail.email_query_no_guidsearch_ignore_jmapuploads
-    Cyrus::JMAPEmail.email_query_seen_multimbox
-    Cyrus::JMAPEmail.email_query_unicodefdfx
-    Cyrus::JMAPMailbox.mailbox_ignore_notes_subfolders
-    Cyrus::JMAPMailbox.mailbox_set_create_specialuse_nochildren
-    Cyrus::JMAPMailbox.mailbox_set_sharewith_acl
-    Cyrus::JMAPSieve.getmetadata
+    Cyrus::Caldav.freebusy_empty_rrule
+    Cyrus::ImapTest.urlauth2
+    Cyrus::IMAPLimits.maxargssize_append_flags
+    Cyrus::JMAPCalendars.calendarevent_guesstz_ignore_xjmapid
+    Cyrus::JMAPCalendars.itip_ignore_invalid_timezone
+    Cyrus::JMAPEmail.email_query_emailaddress
+    Cyrus::JMAPEmail.email_query_messageid
+    Cyrus::LibCyrus.example_libcyrus
+    Cyrus::LibCyrus.example_libcyrus_min
+    Cyrus::SearchFuzzy.dedup_part_compact
+    Cyrus::SearchFuzzy.dedup_part_index
+    Cyrus::SearchFuzzy.index_tier_audit_bug
     Cyrus::SearchSquat.nonincremental
     Cyrus::SearchSquat.incremental
     Cyrus::SearchSquat.one_doc_per_message
-
-    # The following fail only on f41 (f39,f40 pass)
-    # These time out:
-    Cyrus::Annotator.add_annot_deliver
-    Cyrus::Annotator.add_annot_splitconv
-    Cyrus::Annotator.add_annot_deliver_tomailbox
-    Cyrus::Annotator.add_annot_splitconv_rerun
-    Cyrus::Annotator.annotator_callout_disabled
-    Cyrus::Annotator.fetch_after_annotate
-    Cyrus::Annotator.reconstruct_after_delivery
-    Cyrus::Annotator.set_system_flag_deliver
-    Cyrus::Annotator.set_user_flag_deliver
-    Cyrus::Master.service_unix
-    # This unexpectedly ends with unsolicited response:
-    Cyrus::Idle.idled_default_timeout
-    # These end with 'BYE Fatal error: socket path too long'
-    Cyrus::MurderIMAP.frontend_commands
-    Cyrus::MurderIMAP.list_specialuse
-    Cyrus::MurderIMAP.move_to_backend_nonexistent
-    Cyrus::MurderIMAP.move_to_nonexistent
-    Cyrus::MurderIMAP.rename_with_location
-    Cyrus::MurderIMAP.xlist
+    Cyrus::Simple.sasl_ir
 )
 for i in ${tests[@]}; do exclude+=("!$i"); done
 
@@ -692,10 +704,9 @@ sudo -u cyrus -g mail LD_LIBRARY_PATH=%buildroot/%_libdir ./testrunner.pl -j%{?_
 # CASSANDANE_END
 
 if [ -s "work/failed" ]; then
-   cat work/failed
-   exit 1
+    cat work/failed
+    exit 1
 fi
-
 
 
 %post
@@ -714,7 +725,6 @@ fi
 
 %{_sbindir}/arbitron
 %{_sbindir}/chk_cyrus
-%{_sbindir}/ctl_backups
 %{_sbindir}/ctl_conversationsdb
 %{_sbindir}/ctl_cyrusdb
 %{_sbindir}/ctl_deliver
@@ -722,7 +732,6 @@ fi
 %{_sbindir}/ctl_zoneinfo
 %{_sbindir}/cvt_cyrusdb
 %{_sbindir}/cvt_xlist_specialuse
-%{_sbindir}/cyr_backup
 %{_sbindir}/cyr_buildinfo
 %{_sbindir}/cyr_cd.sh
 %{_sbindir}/cyr_dbtool
@@ -734,9 +743,9 @@ fi
 %{_sbindir}/cyr_ls
 %{_sbindir}/cyr_pwd
 %{_sbindir}/cyr_quota
-%{_sbindir}/cyr_restore
 %{_sbindir}/cyr_synclog
 %{_sbindir}/cyr_userseen
+%{_sbindir}/cyr_withlock_run
 %{_sbindir}/cyrdump
 %{_sbindir}/dav_reconstruct
 %{_sbindir}/deliver
@@ -759,11 +768,9 @@ fi
 %{_mandir}/man1/dav_reconstruct.1*
 %{_mandir}/man5/cyrus.conf.5*
 %{_mandir}/man5/imapd.conf.5*
-%{_mandir}/man5/krb.equiv.5*
 %{_mandir}/man8/arbitron.8*
-%{_mandir}/man8/backupd.8*
+%{_mandir}/man8/calalarmd.8*
 %{_mandir}/man8/chk_cyrus.8*
-%{_mandir}/man8/ctl_backups.8*
 %{_mandir}/man8/ctl_conversationsdb.8*
 %{_mandir}/man8/ctl_cyrusdb.8*
 %{_mandir}/man8/ctl_deliver.8*
@@ -771,7 +778,6 @@ fi
 %{_mandir}/man8/ctl_zoneinfo.8*
 %{_mandir}/man8/cvt_cyrusdb.8*
 %{_mandir}/man8/cvt_xlist_specialuse.8*
-%{_mandir}/man8/cyr_backup.8*
 %{_mandir}/man8/cyr_buildinfo.8*
 %{_mandir}/man8/cyr_dbtool.8*
 %{_mandir}/man8/cyr_deny.8*
@@ -781,9 +787,9 @@ fi
 %{_mandir}/man8/cyr_info.8*
 %{_mandir}/man8/cyr_ls.8*
 %{_mandir}/man8/cyr_quota.8*
-%{_mandir}/man8/cyr_restore.8*
 %{_mandir}/man8/cyr_synclog.8*
 %{_mandir}/man8/cyr_userseen.8*
+%{_mandir}/man8/cyr_withlock_run.8*
 %{_mandir}/man8/cyradm.8*
 %{_mandir}/man8/cyrdump.8*
 %{_mandir}/man8/deliver.8*

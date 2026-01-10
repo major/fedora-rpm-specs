@@ -1,95 +1,34 @@
-%bcond_with check
+Name:           R-testthat
+Version:        %R_rpm_version 3.3.1
+Release:        %autorelease
+Summary:        Unit Testing for R
 
-%global packname testthat
-%global packver 3.3.1
+License:        MIT
+URL:            %{cran_url}
+Source:         %{cran_source}
 
-Name:             R-%{packname}
-Version:          %{packver}
-Release:          %autorelease
-Summary:          Unit Testing for R
-
-License:          MIT
-URL:              https://cran.r-project.org/package=%{packname}
-Source0:          %{url}&version=%{packver}#/%{packname}_%{packver}.tar.gz
-
-BuildRequires:    R-devel >= 3.6.0, tetex-latex
-BuildRequires:    R-brio >= 1.1.5
-BuildRequires:    R-callr >= 3.7.6
-BuildRequires:    R-cli >= 3.6.5
-BuildRequires:    R-desc >= 1.4.3
-BuildRequires:    R-digest >= 0.6.33
-BuildRequires:    R-evaluate >= 1.0.4
-BuildRequires:    R-jsonlite >= 2.0.0
-BuildRequires:    R-lifecycle >= 1.0.4
-BuildRequires:    R-magrittr >= 2.0.3
-BuildRequires:    R-methods
-BuildRequires:    R-pkgload >= 1.4.0
-BuildRequires:    R-praise >= 1.0.0
-BuildRequires:    R-processx >= 3.8.6
-BuildRequires:    R-ps >= 1.9.1
-BuildRequires:    R-R6 >= 2.6.1
-BuildRequires:    R-rlang >= 1.1.6
-BuildRequires:    R-utils
-BuildRequires:    R-waldo >= 0.6.2
-BuildRequires:    R-withr >= 3.0.2
-
-BuildRequires:    R-curl >= 0.9.5
-# for skip_if_offline()
-Requires:         R-curl
-BuildRequires:    R-knitr
-BuildRequires:    R-rmarkdown
-BuildRequires:    R-rstudioapi
-
-BuildRequires:    R-shiny
-BuildRequires:    R-usethis
-BuildRequires:    R-vctrs >= 0.1.0
-BuildRequires:    R-xml2
-# Not in Fedora as of 2025-04-20
-# BuildRequires:    R-diffviewer >= 0.1.0
-# BuildRequires:    R-S7
+BuildRequires:  R-devel
 
 %description
 A unit testing system designed to be fun, flexible, and easy to set up.
 
 %prep
-%setup -q -c -n %{packname}
+%autosetup -c
+rm -f testthat/tests/testthat/test-expect-known.R # unconditional suggest, should be fixed
 
-# Don't need coverage
-sed -i 's/covr, //g' %{packname}/DESCRIPTION
-
-# Remove S7 tests
-rm -f %{packname}/tests/testthat/test-expect-inheritance.R
+%generate_buildrequires
+%R_buildrequires
 
 %build
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/R/library
-%{_bindir}/R CMD INSTALL -l $RPM_BUILD_ROOT%{_libdir}/R/library %{packname}
-test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
-rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
+%R_install
+%R_save_files
 
 %check
-export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
-%{_bindir}/R CMD check --ignore-vignettes --no-manual %{packname}
+%R_check
 
-%files
-%dir %{_libdir}/R/library/%{packname}
-%doc %{_libdir}/R/library/%{packname}/doc
-%doc %{_libdir}/R/library/%{packname}/html
-%doc %{_libdir}/R/library/%{packname}/CITATION
-# Not the actual license text. Not too useful.
-%doc %{_libdir}/R/library/%{packname}/LICENSE
-%doc %{_libdir}/R/library/%{packname}/NEWS.md
-%{_libdir}/R/library/%{packname}/DESCRIPTION
-%{_libdir}/R/library/%{packname}/INDEX
-%{_libdir}/R/library/%{packname}/NAMESPACE
-%{_libdir}/R/library/%{packname}/Meta
-%{_libdir}/R/library/%{packname}/R
-%{_libdir}/R/library/%{packname}/examples/
-%{_libdir}/R/library/%{packname}/help
-%{_libdir}/R/library/%{packname}/libs/
-%{_libdir}/R/library/%{packname}/resources/
-%{_libdir}/R/library/%{packname}/include/
+%files -f %{R_files}
 
 %changelog
 %autochangelog

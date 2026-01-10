@@ -52,7 +52,8 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
+# lto breaks test building
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//' -e 's/-flto=thin//')
 
 %bcond_with debug
 %if %{with debug}
@@ -119,7 +120,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -322,7 +323,6 @@ fi
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DGPU_TARGETS=%{gpu_list} \
@@ -369,6 +369,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Thu Jan 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
+- Disable lto to fix test building
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
 - Add --with compat
 

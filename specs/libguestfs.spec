@@ -35,7 +35,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.58.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -158,7 +158,7 @@ BuildRequires: rubygem-rake
 BuildRequires: rubygem(json)
 BuildRequires: rubygem(rdoc)
 BuildRequires: rubygem(test-unit)
-BuildRequires: ruby-irb
+BuildRequires: rubygem(irb)
 BuildRequires: php-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: gjs
@@ -1082,6 +1082,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.58.0-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Mon Jan 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.58.0-1
 - New upstream development version 1.58.0
 - Require libvirt >= 11.10.0, qemu >= 7.2.0 and passt.

@@ -24,13 +24,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     aws
-%global upstream_version  25.1.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   2e783e32f15f9de271a4ca2de5168bcf37d23fc2
 
 Name:           aws
 Epoch:          2
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        The Ada Web Server
 
 License:        (GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception) AND GPL-2.0-or-later WITH GNAT-exception
@@ -44,7 +44,7 @@ License:        (GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WIT
 # OPEN ISSUE: What are the licenses of the manpages?
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:        %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # Man pages.
 Source1:        aws-manpages.tar.gz
@@ -69,11 +69,6 @@ Patch:          %{name}-no-build-and-install-names.patch
 Patch:          %{name}-no-third-party-javascript-source-code.patch
 # [Fedora-specific] Recommend the mailcap package for an up-to-date mime.types.
 Patch:          %{name}-recommend-mailcap-for-mime-types.patch
-# Handle comments in mime.types:
-# https://github.com/AdaCore/aws/issues/379
-Patch:          %{name}-mime-types-comments.patch
-# [Fedora-specific] Use 'gnatcoll_core.gpr' instead of 'gnatcoll.gpr'.
-Patch:          %{name}-refine-dependencies-to-gnatcoll.patch
 # Let GnuTLS rely on P11-kit's knowledge of what the system trust store is.
 # Don't use the Debian-oriented pathname of a file that would at best just add
 # the same set of certificates again:
@@ -81,8 +76,7 @@ Patch:          %{name}-refine-dependencies-to-gnatcoll.patch
 Patch:          aws-trust-the-system-trust-store.patch
 
 BuildRequires:  gcc-gnat gprbuild make sed findutils tar
-# A fedora-gnat-project-common that contains the new GPRinstall macro.
-BuildRequires:  fedora-gnat-project-common >= 3.21
+BuildRequires:  fedora-gnat-project-common
 BuildRequires:  templates_parser-devel
 BuildRequires:  xmlada-devel
 # A gnatcoll-core that contains gnatcoll_core.gpr is needed.
@@ -101,9 +95,8 @@ BuildRequires:  libgcrypt-devel
 BuildRequires:  python3-rpm-macros
 
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
 
 # Build only on architectures where GPRbuild is available.
 ExclusiveArch:  %{GPRbuild_arches}
@@ -138,16 +131,26 @@ This package contains contains supporting tools for the Ada Web Server.
 Summary:        Documentation for the Ada Web Server
 BuildArch:      noarch
 License:        AdaCore-doc AND MIT AND BSD-2-Clause AND GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception)
-# License for the documentation is AdaCore-doc. The Javascript and CSS files
-# that Sphinx includes with the documentation are BSD 2-Clause and
-# MIT-licensed.
-# Ada package specifications quoted in the manual may be covered by GPL 3 or
-# later with GCC and/or GNAT exceptions.
-# The example code is licensed under GPLv3+. Various icons in
-# 'examples/shared/web_elements/icons' are either in the public domain or
-# licensed under GPL (no version mentioned). Template
-# 'examples/runme/aws_status.thtml' has license GPLv3+ with either GCC or GNAT
-# runtime exception.
+#
+# * License for the documentation is AdaCore-doc. The Javascript and
+#   CSS files that Sphinx includes with the documentation are BSD
+#   2-Clause and MIT-licensed.
+#
+# * Ada package specifications quoted in the manual may be covered by
+#   GPL 3 or later with GCC and/or GNAT exceptions.
+#
+# * The example code is licensed under GPLv3+.
+#
+# * Various icons in 'examples/shared/web_elements/icons' are either
+#   in the public domain or licensed under GPL (no version mentioned).
+#
+# * Template 'examples/runme/aws_status.thtml' has license GPLv3+ with
+#   either GCC or GNAT runtime exception.
+#
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
 
 %description doc %{common_description_en}
 
@@ -187,7 +190,7 @@ applications that use the Ada Web Server.
 #############
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Update some release specific information in the source code. The substitution
 # is scoped to a specific line to increase the chance of detecting code changes
@@ -397,8 +400,7 @@ sed --regexp-extended --in-place \
 %exclude %{_includedir}/%{name}/readme.txt
 %exclude %{_includedir}/%{name}/*.gpr
 %exclude %{_includedir}/%{name}/wrappers.c
-%exclude %{_includedir}/%{name}/urandom.c
-%exclude %{_includedir}/%{name}/aws-os_lib.h
+%exclude %{_includedir}/%{name}/os_lib.h
 # Include only Ada files so it will be an error if more junk appears:
 %{_includedir}/%{name}/*.ad[sb]
 %dir %{_libdir}/%{name}
@@ -440,6 +442,11 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+- This version adds a time limit to mitigate CVE-2025-52494.
+  Resolves: RHBZ#2402593
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.1.0-3
 - Rebuilt because the ALI of System.OS_Constants changed.
 

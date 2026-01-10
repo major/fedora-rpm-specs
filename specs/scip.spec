@@ -52,6 +52,9 @@ BuildRequires:  mathjax
 BuildRequires:  php-cli
 BuildRequires:  python3
 
+# Test
+BuildRequires:  vipr
+
 Requires:       libscip%{?_isa} = %{version}-%{release}
 
 %global _desc %{expand:Welcome to what is currently one of the fastest academically developed solvers
@@ -98,8 +101,8 @@ Requires:       mpfr-devel%{?_isa}
 Requires:       zlib-devel%{?_isa}
 
 %description -n libscip-devel
-This package contains headers and library links for developing
-applications that use libscip.
+This package contains headers and library links for developing applications
+that use libscip.
 
 %package -n     libscip-doc
 # The content is licensed with Apache-2.0.  The other licenses are due to files
@@ -173,7 +176,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 # The BendersQP-benders-qp-classical_20_0.mps test often triggers a timeout.
 # We could make the timeout longer (1500 seconds by default), but it sometimes
 # times out even at 3000 seconds.  Let's just skip it.
-%ctest -E classical_20_0
+# The examples also (mostly) take a great deal of time.
+%ctest -E '(classical_20_0)|(examples-)'
 
 %files
 %{_bindir}/scip
@@ -181,7 +185,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libscip
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libscip.so.10.0*
+%{_libdir}/libscip.so.10.0{,.*}
 
 %files -n libscip-devel
 %{_includedir}/scip/

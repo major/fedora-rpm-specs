@@ -15,7 +15,7 @@ BuildRequires:	javapackages-local-openjdk%2 \
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	71%{?dist}
+Release:	72%{?dist}
 Summary:	A full-text search system
 
 # Overall	LGPL-2.1-or-later
@@ -286,6 +286,9 @@ popd
 
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-72
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Wed Dec 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-71
 - F-44: use JDK25
 

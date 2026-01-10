@@ -12,7 +12,7 @@
 Summary:	Ruby binding of GStreamer
 Name:		rubygem-%{gem_name}
 Version:	4.3.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -156,6 +156,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.4-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.4-1
 - 4.3.4
 

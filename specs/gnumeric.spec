@@ -1,13 +1,11 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.57
-Release:          8%{?dist}
+Version:          1.12.59
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
-License:          GPL-2.0-only AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2+
+License:          GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:              http://www.gnumeric.org
 Source:           https://download.gnome.org/sources/%{name}/1.12/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gnumeric/-/merge_requests/34
-Patch:            gnumeric-1.12.56-gcc14.patch
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
 BuildRequires:    docbook-dtds
@@ -103,6 +101,13 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %ldconfig_scriptlets
 
 
+%check
+appstream-util validate-relax --nonet \
+        %{buildroot}%{_metainfodir}/*.appdata.xml
+desktop-file-validate \
+        %{buildroot}/%{_datadir}/applications/*.desktop
+        
+
 %files -f %{name}.lang
 %doc HACKING AUTHORS ChangeLog NEWS BUGS README
 %license COPYING
@@ -145,6 +150,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 09 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:1.12.59-1
+- Update to 1.12.59
+- Convert license tag from LicenseRef-Callaway-LGPLv2+
+- Drop unneeded patch
+- Add check stanza
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:1.12.57-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

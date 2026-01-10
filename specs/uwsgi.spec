@@ -262,7 +262,7 @@
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2030,6 +2030,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.31-4
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Wed Nov 26 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-3
 - Fix path errors for EPEL9 uwsgidecorator packages
 

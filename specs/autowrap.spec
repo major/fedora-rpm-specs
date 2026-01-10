@@ -2,13 +2,12 @@
 
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
-Version: 0.25.0
+Version: 0.26.0
 Release: %autorelease
 License: BSD-3-Clause
 URL: https://pypi.org/project/autowrap/
 Source0: https://github.com/OpenMS/autowrap/archive/refs/tags/release/%{version}/%{name}-release-%{version}.tar.gz
 Patch0:  %{name}-fix_configuration_for_old_setuptools.patch
-Patch1:  %{name}-fix_enum_based_overload_resolution.patch
 BuildArch: noarch
 
 ## For testing
@@ -40,7 +39,6 @@ Obsoletes: python2-autowrap < 0:%{version}-%{release}
 %if 0%{?fedora} < 43
 %patch -P 0 -p1
 %endif
-%patch -P 1 -p1
 
 ##Remove bundled files
 rm -rf %{name}-release-%{version}/autowrap/data_files/boost

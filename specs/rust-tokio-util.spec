@@ -6,13 +6,15 @@
 %global crate tokio-util
 
 Name:           rust-tokio-util
-Version:        0.7.17
+Version:        0.7.18
 Release:        %autorelease
 Summary:        Additional utilities for working with Tokio
 
 License:        MIT
 URL:            https://crates.io/crates/tokio-util
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          tokio-util-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

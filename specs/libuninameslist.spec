@@ -1,5 +1,5 @@
 Name:           libuninameslist
-Version:        20250909
+Version:        20260107
 Release:        1%{?dist}
 
 Summary:        A library providing Unicode character names and annotations
@@ -50,6 +50,10 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libuninameslist.pc
 
 %changelog
+* Thu Jan 08 2026 Packit <hello@packit.dev> - 20260107-1
+- Update to version 20260107
+- Resolves: rhbz#2427846
+
 * Wed Sep 10 2025 Packit <hello@packit.dev> - 20250909-1
 - Update to version 20250909
 - Resolves: rhbz#2394361

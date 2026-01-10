@@ -1,7 +1,7 @@
 %global giturl  https://github.com/ESSS/pytest-regressions
 
 Name:           python-pytest-regressions
-Version:        2.8.3
+Version:        2.9.0
 Release:        %autorelease
 Summary:        Pytest fixtures for writing regression tests
 
@@ -20,11 +20,10 @@ BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}
 
-%global _desc %{expand:
-This pytest plugin makes it simple to test general data, images, files,
-and numeric tables by saving *expected* data in a *data directory*
-(courtesy of pytest-datadir) that can be used to verify that future runs
-produce the same data.}
+%global _desc %{expand:This pytest plugin makes it simple to test general data, images, files, and
+numeric tables by saving *expected* data in a *data directory* (courtesy of
+pytest-datadir) that can be used to verify that future runs produce the same
+data.}
 
 %description
 %_desc

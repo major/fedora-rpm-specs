@@ -1,6 +1,6 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.6.2
+Version:        6.6.3
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -175,6 +175,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Jan 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
+- Update to 6.6.3
+
 * Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
 - Update to 6.6.2
 

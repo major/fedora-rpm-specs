@@ -51,7 +51,8 @@ Source5:  56dhclient
 Source6:  dhcpd.service
 Source7:  dhcpd6.service
 Source8:  dhcrelay.service
-Source11: dhcp.sysusers
+Source11: systemd-sysusers.conf
+Source12: systemd-tmpfiles.conf
 
 Patch1: 0001-change-bug-url.patch
 Patch2: 0002-additional-dhclient-options.patch
@@ -338,8 +339,9 @@ install -m 644 %{SOURCE7} %{buildroot}%{_unitdir}
 %endif
 install -m 644 %{SOURCE8} %{buildroot}%{_unitdir}
 
-# systemd-sysusers
+# Install systemd sysusers and tmpfiles configs
 install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/dhcp.conf
+install -p -D -m 0644 %{SOURCE12} %{buildroot}%{_tmpfilesdir}/dhcp.conf
 
 %if %{with dhcpd}
 # Start empty lease databases
@@ -431,6 +433,7 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %if %{without dhcpd}
 rm -frv \
     %{buildroot}%{_sysusersdir}/dhcp.conf \
+    %{buildroot}%{_tmpfilesdir}/dhcp.conf \
     %{buildroot}%{_sbindir}/dhcpd \
     %{buildroot}%{_bindir}/omshell \
     %{buildroot}%{_mandir}/man1/omshell.1 \
@@ -555,6 +558,7 @@ done
 %attr(0644,root,root)   %{_unitdir}/dhcpd.service
 %attr(0644,root,root)   %{_unitdir}/dhcpd6.service
 %{_sysusersdir}/dhcp.conf
+%{_tmpfilesdir}/dhcp.conf
 %{_sbindir}/dhcpd
 %{_bindir}/omshell
 %attr(0644,root,root) %{_mandir}/man1/omshell.1.gz

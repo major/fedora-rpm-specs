@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.1.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Wrapper around bcrypt() password hashing algorithm
 # ext/mri/* - bcrypt-Solar-Designer
 # Non of theses are part of resulting package.
@@ -71,6 +71,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jan 08 2026 Vít Ondruch <vondruch@redhat.com> - 3.1.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Fri Nov 07 2025 Vít Ondruch <vondruch@redhat.com> - 3.1.20-1
 - Update to BCrypt 3.1.20.
   Resolves: rhbz#2216825

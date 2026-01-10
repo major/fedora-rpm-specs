@@ -1,13 +1,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gtkada
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   6106d463e45d259e5bc44d9514e44664b7d7eac9
 
 Name:           GtkAda3
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        GTKada, an Ada binding to GTK+ 3
 Summary(sv):    GTKada, en adabindning till GTK+ 3
 
@@ -23,7 +23,7 @@ License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WIT
 # - src/gtkada-intl.gpb : GPLv2+ with GNAT runtime exception
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source:         %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 Source2:        testgtk_Makefile
 Source3:        testgtk.gpr
@@ -36,15 +36,15 @@ Patch:          %{name}-gps-plugin-remove-gtkada-rm.patch
 # Don't raise Constraint_Error instead of displaying an iconless custom dialog:
 # https://github.com/AdaCore/gtkada/issues/56
 Patch:          gtkada-dialog-constraint_error.patch
+# Backport of upstream commit 26be71ad32cb5edd4c2bf5b45e92e2ae664eb957:
+Patch:          gtkada-canvas_view-implicit_conversion.patch
 
 BuildRequires:  gcc-gnat gprbuild make
-# A fedora-gnat-project-common that contains GPRbuild_flags is needed.
-BuildRequires:  fedora-gnat-project-common >= 3.17
+BuildRequires:  fedora-gnat-project-common
 
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
 
 BuildRequires:  python3
 BuildRequires:  gtk3-devel
@@ -123,6 +123,10 @@ License:        GFDL-1.1-no-invariants-or-later AND MIT AND BSD-2-Clause AND GPL
 # CSS files that Sphinx includes with the documentation are BSD 2-Clause and MIT
 # licensed. The example code is licensed under GPLv3+ with the GCC runtime
 # exception.
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
 
 %description doc %{common_description_en}
 
@@ -138,7 +142,7 @@ Paketet %{name}-doc innehåller dokumentationen till GTKada för GTK+ 3.x.
 #############
 
 %prep
-%autosetup -n %{upstream_name}-%{upstream_version} -p1
+%autosetup -C -p1
 
 # The substitutions below are scoped to specific lines to increase the chance of
 # detecting code changes at this point. Sed should exit with exit code 0 if the
@@ -359,6 +363,9 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-5
 - Rebuilt because the ALI of System.OS_Constants changed.
 

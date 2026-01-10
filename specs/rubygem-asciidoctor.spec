@@ -6,23 +6,11 @@
 
 Summary: A fast, open source AsciiDoc implementation in Ruby
 Name: rubygem-%{gem_name}
-Version: 2.0.20
-Release: 11%{?dist}
+Version: 2.0.26
+Release: 1%{?dist}
 License: MIT
 URL: https://asciidoctor.org
 Source0: https://github.com/asciidoctor/asciidoctor/archive/%{gittag}/%{gem_name}-%{version}%{pre}.tar.gz
-# improve ruby-2.5 compatibility
-# https://github.com/asciidoctor/asciidoctor/issues/4462
-# https://github.com/asciidoctor/asciidoctor/commit/cc9a8d3c
-Patch0: 0001-use-single-line-block-in-manify-method-in-manpage-co.patch
-# https://github.com/asciidoctor/asciidoctor/commit/b7c03964
-Patch1: 0002-change-dot-layout-in-chained-method-call-to-be-compa.patch
-# https://github.com/asciidoctor/asciidoctor/pull/4494
-Patch2: 0003-support-ruby33-Logger.patch
-# https://github.com/asciidoctor/asciidoctor/pull/4562/
-Patch3: 0004-remove-base64-dependency.patch
-# https://github.com/asciidoctor/asciidoctor/commit/e5442fc2
-Patch4: 0005-normalize-inspect-output.patch
 %if 0%{?el7}
 Requires: ruby(release)
 BuildRequires: ruby(release)
@@ -139,6 +127,10 @@ cp -a .%{gem_instdir}/man/*.1 \
 %doc %{gem_docdir}
 
 %changelog
+* Mon Dec 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.0.26-1
+- updated to 2.0.26 (resolves rhbz#2265214)
+- droped upstreamed patches
+
 * Wed Nov 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.20-11
 - Add logger dep for ruby3_5
 

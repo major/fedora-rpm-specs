@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	17
+%global	baserelease	18
 
 %undefine        _changelog_trimtime
 
@@ -365,6 +365,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-18
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Mon Nov 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-17
 - Support ruby4
 

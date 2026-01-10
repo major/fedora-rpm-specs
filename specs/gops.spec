@@ -12,7 +12,7 @@
 
 # https://github.com/google/gops
 %global goipath         github.com/google/gops
-Version:                0.3.28
+Version:                0.3.29
 
 %gometa -L -f
 

@@ -8,9 +8,7 @@
 %bcond draco         1
 %bcond embree        1
 %bcond jemalloc      0
-# Not yet packaged: https://github.com/AcademySoftwareFoundation/MaterialX
-# https://bugzilla.redhat.com/show_bug.cgi?id=2262694
-%bcond materialx     0
+%bcond materialx     1
 # Default "UNIX Makefiles" backend for CMake would also work fine; ninja is a
 # bit faster. We conditionalize it just in case there are backend-specific
 # issues in the future.
@@ -204,6 +202,13 @@ BuildRequires:  embree-devel
 
 %if %{with jemalloc}
 BuildRequires:  pkgconfig(jemalloc)
+%endif
+
+%if %{with materialx}
+BuildRequires:  cmake(materialx)
+BuildRequires:  materialx-data
+BuildRequires:  pkgconfig(xt)
+BuildRequires:  python3-materialx
 %endif
 
 %if %{with ocio}
@@ -575,7 +580,6 @@ extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
      -DPXR_BUILD_ALEMBIC_PLUGIN=%{expr:%{with alembic}?"ON":"OFF"} \
      -DPXR_BUILD_DRACO_PLUGIN=%{expr:%{with draco}?"ON":"OFF"} \
      -DPXR_BUILD_EMBREE_PLUGIN=%{expr:%{with embree}?"ON":"OFF"} \
-     -DPXR_BUILD_MATERIALX_PLUGIN=%{expr:%{with materialx}?"ON":"OFF"} \
      -DPXR_BUILD_OPENCOLORIO_PLUGIN=%{expr:%{with ocio}?"ON":"OFF"} \
      -DPXR_BUILD_OPENIMAGEIO_PLUGIN=%{expr:%{with oiio}?"ON":"OFF"} \
      -DPXR_BUILD_PRMAN_PLUGIN=OFF \
@@ -585,6 +589,7 @@ extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
      -DPXR_ENABLE_PTEX_SUPPORT=%{expr:%{with ptex}?"ON":"OFF"} \
      -DPXR_ENABLE_OSL_SUPPORT=%{expr:%{with openshading}?"ON":"OFF"} \
      -DPXR_ENABLE_MALLOCHOOK_SUPPORT=OFF \
+     -DPXR_ENABLE_MATERIALX_SUPPORT=%{expr:%{with materialx}?"ON":"OFF"} \
      -DPXR_ENABLE_PYTHON_SUPPORT=ON \
      \
      -DPXR_INSTALL_LOCATION="%{_libdir}/usd/plugin" \
@@ -650,6 +655,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_bindir}/hdGenSchema
 %{_bindir}/sdfdump
 %{_bindir}/sdffilter
+%if %{with materialx}
+%{_bindir}/usdBakeMaterialX
+%endif
 %{_bindir}/usdGenSchema
 %{_bindir}/usdInitSchema
 %{_bindir}/usdcat
@@ -678,6 +686,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %{_mandir}/man1/hdGenSchema.1*
 %{_mandir}/man1/sdfdump.1*
 %{_mandir}/man1/sdffilter.1*
+%if %{with materialx}
+%{_mandir}/man1/usdBakeMaterialX.1*
+%endif
 %{_mandir}/man1/usdGenSchema.1*
 %{_mandir}/man1/usdInitSchema.1*
 %{_mandir}/man1/usdcat.1*

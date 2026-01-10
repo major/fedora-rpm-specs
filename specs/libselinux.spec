@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz

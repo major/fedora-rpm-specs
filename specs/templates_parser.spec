@@ -1,12 +1,12 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     templates-parser
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   cc94ff9833cfe776d462b490aac9727b623742c8
 
 Name:           templates_parser
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        An Ada library for parsing templates
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception
@@ -16,21 +16,19 @@ License:        GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH
 # contributors license" (or alike).
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:        %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # Manpages from Debian package
 Source1:        templates2ada.1
 Source2:        templatespp.1
 
 BuildRequires:  gcc-gnat gprbuild make sed
-# A fedora-gnat-project-common that contains the new GPRinstall macro.
-BuildRequires:  fedora-gnat-project-common >= 3.21
+BuildRequires:  fedora-gnat-project-common
 BuildRequires:  xmlada-devel
 
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
 
 # Build only on architectures where GPRbuild is available.
 ExclusiveArch:  %{GPRbuild_arches}
@@ -67,6 +65,10 @@ BuildArch:      noarch
 License:        AdaCore-doc AND MIT AND BSD-2-Clause
 # License for the documentation is AdaCore-doc. The Javascript and CSS files
 # that Sphinx includes with the documentation are BSD 2-Clause and MIT-licensed.
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
 
 %description doc %{common_description_en}
 
@@ -90,7 +92,7 @@ from scripts to process files and generate other files.
 #############
 
 %prep
-%autosetup -n %{upstream_name}-%{upstream_version} -p1
+%autosetup -C -p1
 
 # XML/Ada is installed.
 cp config/tp_xmlada_installed.gpr tp_xmlada.gpr
@@ -208,6 +210,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 25.0.0-5
 - Rebuilt because the ALI of System.OS_Constants changed.
 

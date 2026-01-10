@@ -6,6 +6,7 @@ Summary:        Tools for virtual machine firmware volumes
 License:        GPL-2.0-only
 URL:            https://pypi.org/project/virt-firmware/
 Source0:        virt_firmware-%{version}.tar.gz
+Patch1:         0001-reorganize-esp-detection-catch-bootctl-failures.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -61,7 +62,7 @@ be used for a more finegrained secure boot configuration for virtual
 machines.
 
 %prep
-%autosetup -n virt_firmware-%{version}
+%autosetup -n virt_firmware-%{version} -p1
 
 %build
 %pyproject_wheel

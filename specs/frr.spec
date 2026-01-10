@@ -137,12 +137,10 @@ SELinux policy modules for FRR package
 #Selinux
 mkdir selinux
 cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} selinux
-# C++14 or later needed for abseil-cpp 20230125; string_view needs C++17:
-sed -r -i 's/(AX_CXX_COMPILE_STDCXX\(\[)11(\])/\117\2/' configure.ac
 
 %build
-#hopefully just temporary due to rhbz#2327314
-export LDFLAGS="%{build_ldflags} -Wl,-z,noseparate-code"
+# C++17 or later needed for abseil-cpp-20250814
+export CXXFLAGS="%{optflags} -std=gnu++17"
 export CFLAGS="%{optflags} -DINET_NTOP_NO_OVERRIDE"
 autoreconf -ivf
 
@@ -291,6 +289,7 @@ rm tests/lib/*grpc*
 %{_libdir}/frr/*.so.*
 %dir %{_libdir}/frr/modules
 %{_libdir}/frr/modules/*
+%exclude %{_libdir}/frr/modules/bgpd_rpki.so
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/logrotate.d/frr
 %config(noreplace) %attr(644,frr,frr) %{_sysconfdir}/frr/daemons
 %config(noreplace) %{_sysconfdir}/pam.d/frr

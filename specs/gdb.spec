@@ -41,11 +41,11 @@ Name: %{?scl_prefix}gdb
 # See timestamp of source gnulib installed into gnulib/ .
 %global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 16.3
+Version: 17.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 6%{?dist}
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -936,6 +936,17 @@ fi
 # endif scl
 
 %changelog
+* Thu Jan 8 2026 Kevin Buettner <kevinb@redhat.com> - 17.1-1
+- Rebase to FSF GDB 17.1.
+  Deleted: gdb-fix-bg-execution-repeat.patch
+  Backport 919ba8ce158e, "bfd: fix build with C23", from Guinevere Larsen,
+  fixing RH BZ 2424325.
+  Backport "Fix some more C23 const-correctness issues", from Keith Seitz,
+  fixing same class of problem described by RH BZ 2424325.
+  Backport 777079c67c81, "[gdb/build, c++20] Fix deprecated implicit
+  capture in cooked_index::set_contents", from Tom de Vries, fixing more
+  FTBS problems.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com>
 - Rebuilt for Python 3.14.0rc3 bytecode
 

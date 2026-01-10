@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.26.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -84,6 +84,14 @@ Patch3: valgrind-3.26.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.26.0-some-Wl-z-now.patch
+
+# VALGRIND_3_26_BRANCH patches
+Patch5: 0001-Prepare-NEWS-for-branch-3.26-fixes.patch
+Patch6: 0002-Bug-511972-valgrind-3.26.0-tests-fail-to-build-on-up.patch
+Patch7: 0003-readlink-proc-self-exe-overwrites-buffer-beyond-its-.patch
+Patch8: 0004-Linux-DRD-suppression-add-an-entry-for-__is_decorate.patch
+Patch9: 0005-Linux-Helgrind-add-a-suppression-for-_dl_allocate_tl.patch
+Patch10: 0006-Disable-linux-madvise-MADV_GUARD_INSTALL.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -263,6 +271,13 @@ Valgrind User Manual for details.
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
+
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -503,6 +518,15 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Thu Jan  8 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-2
+  - Add VALGRIND_3_26_BRANCH patches
+    - 0001-Prepare-NEWS-for-branch-3.26-fixes.patch
+    - 0002-Bug-511972-valgrind-3.26.0-tests-fail-to-build-on-up.patch
+    - 0003-readlink-proc-self-exe-overwrites-buffer-beyond-its-.patch
+    - 0004-Linux-DRD-suppression-add-an-entry-for-__is_decorate.patch
+    - 0005-Linux-Helgrind-add-a-suppression-for-_dl_allocate_tl.patch
+    - 0006-Disable-linux-madvise-MADV_GUARD_INSTALL.patch
+
 * Fri Oct 24 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-1
 - Valgrind 3.26.0 final
 - Clarify License of valgrind-scripts.

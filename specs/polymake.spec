@@ -183,16 +183,15 @@ Provides:       bundled(sympol) = 0.1.9
 %description
 Polymake is a tool to study the combinatorics and the geometry of convex
 polytopes and polyhedra.  It is also capable of dealing with simplicial
-complexes, matroids, polyhedral fans, graphs, tropical objects, and so
-forth.
+complexes, matroids, polyhedral fans, graphs, tropical objects, and so forth.
 
-Polymake can use various computational packages if they are installed.
-Those available from Fedora are: 4ti2, azove, gfan, latte-integrale,
-normaliz, qhull, Singular, TOPCOM, and vinci.
+Polymake can use various computational packages if they are installed.  Those
+available from Fedora are: 4ti2, azove, gfan, latte-integrale, normaliz,
+qhull, Singular, TOPCOM, and vinci.
 
 Polymake can interface with various visualization packages if they are
-installed.  Install one or more of the tools from the following list:
-evince, geomview, graphviz, gv, and okular.
+installed.  Install one or more of the tools from the following list: evince,
+geomview, graphviz, gv, and okular.
 
 %package        doc
 # GPL-2.0-or-later: the project as whole.  Other licenses are due to doxygen.

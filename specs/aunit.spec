@@ -4,19 +4,19 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     aunit
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   cb7458f1a7f193e72526cb6bdd1a9a82ccfdd3f7
 
 Name:           aunit
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A unit testing framework for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source:         %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # [Fedora-specific] Build a relocatable library.
 Patch:          %{name}-disable-static.patch
@@ -28,12 +28,11 @@ Patch:          %{name}-fix-doc-build-path.patch
 Patch:          %{name}-cb-examples-dir.patch
 
 BuildRequires:  gcc-gnat gprbuild make sed findutils dos2unix
-# A fedora-gnat-project-common that contains the new GPRinstall macro.
-BuildRequires:  fedora-gnat-project-common >= 3.21
+BuildRequires:  fedora-gnat-project-common
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
+# TeX package `titleref` is required by `doc/share/latex_elements.py`.
 BuildRequires:  tex(titleref.sty)
 %if %{with check}
 # Used in `test/Makefile`.
@@ -75,6 +74,10 @@ License:        GFDL-1.3-no-invariants-or-later AND MIT AND BSD-2-Clause AND GPL
 # CSS files that Sphinx includes with the documentation are BSD 2-Clause and MIT
 # licensed. The example code is licensed under GPLv3+ with the GCC runtime
 # exception.
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
 
 %description doc %{common_description_en}
 
@@ -86,7 +89,7 @@ This package contains the documentation in HTML and PDF, and some examples.
 #############
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # Version information in this file is used during the build.
 echo '%{version}' > ./version_information
@@ -238,6 +241,9 @@ make -C test || { cat test/test.out.full >&2 ; false ; }
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-5
 - Rebuilt because the ALI of System.OS_Constants changed.
 

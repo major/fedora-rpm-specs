@@ -15,7 +15,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
 Version:	1.17.10
-Release:	8%{?dist}
+Release:	9%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -160,6 +160,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Thu Jan 08 2026 Jerry James <loganjerry@gmail.com> - 1.17.10-9
+- Bootstrap to unblock coin-or-Cbc rebuild
+
 * Wed Sep 17 2025 Jerry James <loganjerry@gmail.com> - 1.17.10-8
 - Bootstrap to unblock coin-or-Cbc rebuild
 

@@ -31,6 +31,7 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
+Patch: 0001-Update-cosmic-randr.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

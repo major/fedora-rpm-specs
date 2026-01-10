@@ -6,13 +6,10 @@ Summary:        Embedded JavaScript and WebAssembly Engine for R
 License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
-Patch:          0001-Use-local-path-for-example-sources.patch
 
 ExclusiveArch:  %{nodejs_arches}
 BuildRequires:  R-devel
 BuildRequires:  v8-devel
-BuildRequires:  js-underscore
-Requires:       js-underscore
 
 # This is not packaged and it's only used to make sure example docs build when
 # offline anyway.

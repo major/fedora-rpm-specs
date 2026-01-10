@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Allows Ruby scripts to interface with a SQLite3 database
 License: BSD-3-Clause
 URL: https://github.com/sparklemotion/sqlite3-ruby
@@ -104,6 +104,9 @@ popd
 %{gem_instdir}/dependencies.yml
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.0-4
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Sun Oct 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.0-3
 - Apply upstream patch to remove benchmark dep for ruby3_5
 

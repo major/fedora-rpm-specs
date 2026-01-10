@@ -10,7 +10,7 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.6.3
+Version:        6.6.4
 Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -101,6 +101,7 @@ Requires:       accountsservice-libs%{?_isa}
 # needed for settings
 Requires:       gsound
 Requires:       libtimezonemap%{?_isa}
+Requires:       python3-babel
 Requires:       python3-distro
 Requires:       python3-pytz
 Requires:       python3-pexpect
@@ -335,6 +336,9 @@ EOF
 %endif
 
 %changelog
+* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.4-1
+- Update to 6.6.4
+
 * Sat Jan 03 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
 - Update to 6.6.3
 

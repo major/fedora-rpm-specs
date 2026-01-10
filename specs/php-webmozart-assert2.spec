@@ -12,8 +12,8 @@
 %global bootstrap 0
 %global github_owner     webmozart
 %global github_name      assert
-%global github_version   2.0.0
-%global github_commit    1b34b004e35a164bc5bb6ebd33c844b2d8069a54
+%global github_version   2.1.1
+%global github_commit    b01be90dceff69c88c7b36c30ee45c9fd9107f7f
 %global major            2
 
 %global composer_vendor  webmozart
@@ -143,6 +143,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan  8 2026 Remi Collet <remi@remirepo.net> - 2.1.1-1
+- update to 2.1.1
+
 * Thu Dec 25 2025 Remi Collet <remi@remirepo.net> - 2.0.0-1
 - update to 2.0.0
 - rename to php-webmozart-assert2

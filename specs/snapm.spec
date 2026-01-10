@@ -1,15 +1,13 @@
 %global summary A set of tools for managing snapshots
 
 Name:		snapm
-Version:	0.5.2
+Version:	0.7.0
 Release:	%autorelease
 Summary:	%{summary}
 
 License:	Apache-2.0
 URL:		https://github.com/snapshotmanager/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1:		0001-schedule-fix-TIMELINE-policy-retention-indexing-when.patch
-Patch2:		0002-container_tests-add-GcPolicyParamsTimeline-progressi.patch
 
 BuildArch:	noarch
 
@@ -27,6 +25,7 @@ BuildRequires: libfaketime
 
 Requires: python3-snapm = %{version}-%{release}
 Recommends: boom-boot
+Recommends: python3-file-magic
 
 %package -n python3-snapm
 Summary: %{summary}

@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -1085,6 +1085,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.3.0.0-4
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Thu Dec 04 2025 Petr Pisar <ppisar@redhat.com> - 5.3.0.0-3
 - Fix overriding RPM signature verification policy with --no-gpgchecks option
   (upstream GH #2479)

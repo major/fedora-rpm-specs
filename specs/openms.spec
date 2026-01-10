@@ -11,21 +11,38 @@ ExclusiveArch: %{qt6_qtwebengine_arches}
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
-%global commit b886c44b4ca0625932f9874613918856774cfd8d
+# This is a post-release re-code of the 3.5.0 version
+%global use_intermediate 1
+
+%if 0%{?use_intermediate}
+%global commit 91afebf7e1dc7a0ea078cafc3ccd393e633e9e1e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20250722
+%global date 20260107
+%else
+%global commit %{nil}
+%global date %{nil}
+%global shortcommit %{nil}
+%endif
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   3.4.1
+Version:   3.5.0
 Epoch:     2
-Release:   %autorelease -s %{date}git%{shortcommit}
+%if 0%{?use_intermediate}
+Release:  %autorelease -s %{date}git%{shortcommit}
+%else
+Release:  %autorelease
+%endif
+
 # BSD-3-Clause is the main license
 # Apache-2.0, CC-BY-4.0 and CC0-1.0 are coming from TDL directory
 License:   BSD-3-Clause AND Apache-2.0 AND CC-BY-4.0 AND CC0-1.0
 URL:       http://www.openms.de/
-#Source0:   https://github.com/OpenMS/OpenMS/archive/Release%%{version}/OpenMS-release-%%{version}.tar.gz
+%if 0%{?use_intermediate}
 Source0:   https://github.com/OpenMS/OpenMS/archive/%{commit}/OpenMS-%{commit}.tar.gz
+%else
+Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-release-%{version}.tar.gz
+%endif
 
 ##TOPPView, TOPPAS, INIFileEditor .desktop and icon files
 Source1:   https://raw.githubusercontent.com/OpenMS/OpenMS/develop/src/openms_gui/source/VISUAL/ICONS/TOPPView.png
@@ -78,10 +95,7 @@ Requires: R-core%{?_isa}
 # Remove -O0 flag for tests compiling
 Patch0: %{name}-remove_testflag.patch
 
-Patch1: %{name}-3.2.0-bz2254779.patch
-Patch3: %{name}-bug7907.patch
-# Relax eigen version check to build against eigen3-5.0.0
-Patch4: %{name}-eigen.patch
+Patch1: %{name}-%{version}-bug7907.patch
 
 
 %description
@@ -152,7 +166,7 @@ Summary: Python wrapper for OpenMS
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
-BuildRequires: python3-autowrap >= 0.23.0
+BuildRequires: python3-autowrap >= 0.24.0
 BuildRequires: python3-pip
 BuildRequires: python3-cython >= 3.1.0
 BuildRequires: python3-wheel
@@ -192,14 +206,17 @@ Summary: OpenMS documentation
 HTML documentation of OpenMS.
 
 %prep
+%if 0%{?use_intermediate}
 %autosetup -N -n OpenMS-%{commit}
+%else
+%autosetup -N -n OpenMS-release-%{version}
+%endif
 
 %patch -P 0 -p1 -b .backup
-%patch -P 1 -p1 -b .backup
+
 %ifarch %{power64}
-%patch -P 3 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
 %endif
-%patch -P 4 -p1 -b .eigen
 
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml
@@ -224,7 +241,7 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DGIT_TRACKING:BOOL=OFF \
  -DENABLE_UPDATE_CHECK:BOOL=OFF \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cxxflags} -std=gnu++17" -DCMAKE_C_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cflags} -std=gnu17" \
+ -DCMAKE_CXX_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cxxflags}" -DCMAKE_C_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cflags}" \
  -DCMAKE_BUILD_TYPE=Release \
  -DBoost_IOSTREAMS_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libboost_iostreams.so \
  -DBoost_MATH_C99_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libboost_math_c99.so \
@@ -484,6 +501,9 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/LuciphorAdapter
 %{_bindir}/SageAdapter
 %{_bindir}/DatabaseFilter
+%{_bindir}/IsobaricWorkflow
+%{_bindir}/PeakPickerIM
+%{_bindir}/PeptideDataBaseSearchFI
 %{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/TOPPAS.desktop
 %{_datadir}/applications/TOPPView.desktop
@@ -497,6 +517,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/ClusterMassTracesByPrecursor
 %{_bindir}/Epifany
 %{_bindir}/FeatureFinderMetaboIdent
+%{_bindir}/FeatureFinderLFQ
 %{_bindir}/GNPSExport
 %{_bindir}/NucleicAcidSearchEngine
 %{_bindir}/ProteomicsLFQ
@@ -511,7 +532,6 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/CometAdapter
 %{_bindir}/MetaboliteAdductDecharger
 %{_bindir}/OpenPepXL
-%{_bindir}/OpenPepXLLF
 %{_bindir}/OpenMSDatabasesInfo
 %{_bindir}/PSMFeatureExtractor
 %{_bindir}/XFDR

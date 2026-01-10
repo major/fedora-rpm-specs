@@ -1,5 +1,5 @@
 Name:          muffin
-Version:       6.6.0
+Version:       6.6.1
 Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
@@ -127,7 +127,10 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
-* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com>
+* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
+* Thu Dec 11 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3

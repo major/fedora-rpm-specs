@@ -12,8 +12,8 @@
 %bcond_without perl_PDF_Builder_enables_tiff
 
 Name:           perl-PDF-Builder
-Version:        3.027
-Release:        3%{?dist}
+Version:        3.028
+Release:        1%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -29,8 +29,6 @@ Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMPERRY/PDF-Builder-%{
 # Renable tests, we have downstream-fixed ghostcript-9.56.1, bug #2123391,
 # not suitable for the upstream
 Patch0:         PDF-Builder-3.024-Don-t-skip-ghostscript-9.56.-0-1.patch
-# Adjust tests to SVGPDF-0.091, bug #2385393, in upstream after 3.027
-Patch1:         PDF-Builder-3.027-Adjust-tests-to-SVGPDF-0.091.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -212,6 +210,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 08 2026 Petr Pisar <ppisar@redhat.com> - 3.028-1
+- 3.028 bump
+
 * Thu Jul 31 2025 Petr Pisar <ppisar@redhat.com> - 3.027-3
 - Adjust tests to SVGPDF-0.091 (bug #2385393)
 

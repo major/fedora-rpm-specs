@@ -12,11 +12,11 @@
 #global snapdate YYYYMMDD
 
 Name:           openshadinglanguage
-Version:        1.14.8.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
+Version:        1.15.0.0%{?commit:~%{snapdate}git%{sub %{commit} 1 7}}
 # This is based on the first two components of the version, so we could produce
 # it automatically, but we rewrite it manually here as a reminder, to reduce
 # the likelihood of undetected SONAME version bumps.
-%global so_version 1.14
+%global so_version 1.15
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 
@@ -87,8 +87,6 @@ Source:         %{url}/archive/v%{version}/OpenShadingLanguage-%{version}.tar.gz
 %else
 Source:         %{url}/archive/%{commit}/OpenShadingLanguage-%{commit}.tar.gz
 %endif
-
-#Patch:          0001-Add-missing-include-cstdint-for-fixed-width-integers.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 

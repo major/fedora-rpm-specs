@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	27%{?dist}
+Release:	28%{?dist}
 # gemspec	LGPL-2.1-or-later
 # SPDX confirmed
 License:	LGPL-2.1-or-later
@@ -215,6 +215,9 @@ xvfb-run \
 %{gem_instdir}/sample/
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-28
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Fri Aug 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-27
 - set GTK2_RC_FILES to choose gnome theme for test, remove gnome-themes-extra
   dep

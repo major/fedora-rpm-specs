@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -336,6 +336,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.1-42
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.1-41
 - Fix cmake config for flatpak builds
 

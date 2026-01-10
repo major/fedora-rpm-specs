@@ -294,7 +294,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -2690,6 +2690,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 08 2026 Richard W.M. Jones <rjones@redhat.com> - 11.10.0-2
+- Rebuild for xen 4.21.0
+
 * Mon Dec 01 2025 Cole Robinson <crobinso@redhat.com> - 11.10.0-1
 - Update to version 11.10.0
 

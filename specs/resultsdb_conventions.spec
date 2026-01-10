@@ -9,7 +9,7 @@ to help with reporting results that conform to the conventions.
 
 Name:           resultsdb_conventions
 Version:        %{pagure_version}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -32,6 +32,7 @@ Obsoletes:      python2-resultsdb_conventions < %{version}-%{release}
 %package -n python%{python3_pkgversion}-resultsdb_conventions-fedora
 Summary:        %{sum} (Fedora module)
 %{?python_provide:%python_provide python%{python3_pkgversion}-resultsdb_conventions-fedora}
+Requires:       python%{python3_pkgversion}-resultsdb_conventions
 Obsoletes:      python2-resultsdb_conventions-fedora < %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-resultsdb_conventions-fedora
@@ -72,6 +73,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %pycached %{python3_sitelib}/resultsdb_conventions/fedoracoreos.py
 
 %changelog
+* Thu Jan 08 2026 Adam Williamson <awilliam@redhat.com> - 3.0.2-12
+- Make -fedora subpackage require main package
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.2-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

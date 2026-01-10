@@ -4,7 +4,7 @@
 Name: vmod-uuid
 Summary: UUID module for Varnish Cache
 Version: 1.10
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://github.com/otto-de/libvmod-uuid
@@ -71,6 +71,9 @@ find %{buildroot}/%{_libdir}/ -name  '*.a' -delete
 
 
 %changelog
+* Thu Jan 08 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-27
+- Rebuild for varnish-8.0.0-1
+
 * Wed Nov 19 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-26
 - Rebuild for varnish-7.7.3-2, rhbz#2407457
 

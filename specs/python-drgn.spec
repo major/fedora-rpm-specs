@@ -92,8 +92,12 @@ V=1 %pyproject_wheel
 %if %{with docs}
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs html
+
+# generate man pages
+PYTHONPATH=${PWD} sphinx-build-3 -b man docs man
+
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf {html,man}/.{doctrees,buildinfo}
 %endif
 
 
@@ -104,6 +108,10 @@ rm -rf html/.{doctrees,buildinfo}
 
 mkdir -p %{buildroot}%{_datadir}/drgn
 cp -PR contrib tools %{buildroot}%{_datadir}/drgn
+
+%if %{with docs}
+install -D -p -m 0644 man/*.1 -t %{buildroot}%{_mandir}/man1/
+%endif
 
 
 %if %{with tests}
@@ -121,6 +129,8 @@ cp -PR contrib tools %{buildroot}%{_datadir}/drgn
 %{python3_sitearch}/_%{pypi_name}.cpython*.so
 
 %if %{with docs}
+%{_mandir}/man1/drgn*.1*
+
 %files -n %{pypi_name}-doc
 %license COPYING
 %license LICENSES

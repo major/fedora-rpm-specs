@@ -1,5 +1,5 @@
 Name:		perltidy
-Version:	20250912
+Version:	20260109
 Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
 License:	GPL-2.0-or-later
@@ -31,7 +31,7 @@ BuildRequires:	perl(Getopt::Long)
 BuildRequires:	perl(HTML::Entities)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(List::Util)
-BuildRequires:	perl(Pod::Html)
+BuildRequires:	perl(Pod::Simple::XHTML)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
@@ -45,7 +45,7 @@ BuildRequires:	perl(utf8)
 Requires:	perl(File::Spec)
 Requires:	perl(File::Temp)
 Requires:	perl(HTML::Entities)
-Requires:	perl(Pod::Html)
+Requires:	perl(Pod::Simple::XHTML)
 Provides:	perl-Perl-Tidy = %{version}-%{release}
 
 %description
@@ -91,6 +91,11 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Thu Jan  8 2026 Paul Howarth <paul@city-fan.org> - 20260109-1
+- Update to 20260109 (see CHANGES.md for details) (rhbz#2428067)
+- Change Pod::Html dependency to Pod::Simple::XHTML, which is now the preferred
+  back-end option for HTML generation
+
 * Sat Sep 13 2025 Paul Howarth <paul@city-fan.org> - 20250912-1
 - Update to 20250912 (see CHANGES.md for details) (rhbz#2394876)
 - Package new SECURITY.md file

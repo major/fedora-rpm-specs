@@ -1,9 +1,3 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 Name:           python-flask-socketio
 Version:        5.6.0
 Release:        %autorelease
@@ -20,13 +14,6 @@ BuildOption(install):   -l flask_socketio
 
 BuildArch:      noarch
 
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
-
 %global common_description %{expand:
 Flask-SocketIO gives Flask applications access to low latency bi-directional
 communications between the clients and the server. The client-side application
@@ -40,13 +27,11 @@ server.}
 %package -n     python3-flask-socketio
 Summary:        %{summary}
 
+# PDF documentation build and -doc subpackage dropped in Fedora 44; we can
+# remove this after Fedora 46 reaches end-of-life.
+Obsoletes:      python-flask-socketio-doc < 5.6.0-2
+
 %description -n python3-flask-socketio %{common_description}
-
-
-%package        doc
-Summary:        Documentation for %{name}
-
-%description    doc %{common_description}
 
 
 %prep -a
@@ -55,14 +40,6 @@ sed -r -i \
     -e 's/--cov[^[:blank:]]*//g' \
     -e '/^[[:blank:]]*(pytest-cov)[[:blank:]]*$/d' \
     tox.ini
-
-
-%build -a
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}/src" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %check -a
@@ -74,16 +51,8 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 
 %files -n python3-flask-socketio -f %{pyproject_files}
-
-
-%files doc
-%license LICENSE
 %doc CHANGES.md
 %doc README.md
-%doc SECURITY.md
-%if %{with doc_pdf}
-%doc docs/_build/latex/flask-socketio.pdf
-%endif
 %doc example/
 
 

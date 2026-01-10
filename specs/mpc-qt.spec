@@ -1,7 +1,7 @@
 %global app_id  io.github.mpc_qt.mpc-qt
 
 Name:           mpc-qt
-Version:        25.07
+Version:        26.01
 Release:        %autorelease
 Summary:        A clone of Media Player Classic reimplemented in Qt
 # MainWindow::on_actionHelpAbout_triggered states "or later"
@@ -53,7 +53,7 @@ rm -f %{buildroot}%{_datadir}/doc/mpc-qt/ipc.md
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 
 %files
@@ -62,7 +62,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 %{_bindir}/mpc-qt
 %{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_metainfodir}/%{app_id}.appdata.xml
+%{_metainfodir}/%{app_id}.metainfo.xml
 
 
 %changelog

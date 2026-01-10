@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.6
+Version:        5.6.1
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
@@ -51,15 +51,15 @@ Requires:       ocaml-index%{?_isa} = %{version}-%{release}
 
 Recommends:     ocaml-source
 
-%global _desc %{expand:
-Merlin is an assistant for editing OCaml code.  It aims to provide the
-features available in modern IDEs: error reporting, auto completion,
-source browsing and much more.}
+%global _desc %{expand:Merlin is an assistant for editing OCaml code.  It aims to provide the
+features available in modern IDEs: error reporting, auto completion, source
+browsing and much more.}
 
-%description %_desc
+%description
+%_desc
 
-You should also install a package that integrates with your editor of
-choice, such as emacs-merlin or vim-merlin.
+You should also install a package that integrates with your editor of choice,
+such as emacs-merlin or vim-merlin.
 
 %package        lib
 Summary:        Library access to the merlin protocol
@@ -67,9 +67,8 @@ Requires:       ocaml-csexp-devel%{?_isa}
 
 %description    lib
 These libraries provides access to low-level compiler interfaces and the
-standard higher-level merlin protocol.  The library is provided as-is,
-is not thoroughly documented, and its public API might break with any
-new release.
+standard higher-level merlin protocol.  The library is provided as-is, is not
+thoroughly documented, and its public API might break with any new release.
 
 %package     -n dot-merlin-reader
 License:        MIT
@@ -77,8 +76,8 @@ Summary:        Merlin configuration file reader
 Requires:       %{name}-lib%{?_isa} = %{version}-%{release}
 
 %description -n dot-merlin-reader
-This package contains a helper process that reads .merlin files and gives
-the normalized content to merlin.
+This package contains a helper process that reads .merlin files and gives the
+normalized content to merlin.
 
 %package     -n ocaml-index
 License:        MIT
@@ -86,9 +85,9 @@ Summary:        Tool that indexes value usages from cmt files
 Requires:       %{name}-lib%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-index
-This package contains a tool that indexes value usages from cmt files.
-It should integrate with the build system to index a codebase and allow
-tools such as Merlin to perform project-wide occurrence queries.
+This package contains a tool that indexes value usages from cmt files.  It
+should integrate with the build system to index a codebase and allow tools
+such as Merlin to perform project-wide occurrence queries.
 
 %package     -n emacs-merlin
 License:        MIT
@@ -102,7 +101,8 @@ Recommends:     emacs-auto-complete
 Recommends:     emacs-company-mode
 Recommends:     emacs-iedit
 
-%description -n emacs-merlin %_desc
+%description -n emacs-merlin
+%_desc
 
 This package contains the Emacs interface to merlin.
 
@@ -113,7 +113,8 @@ BuildArch:      noarch
 Requires:       ocaml-merlin = %{version}-%{release}
 Requires:       vim-filesystem
 
-%description -n vim-merlin %_desc
+%description -n vim-merlin
+%_desc
 
 This package contains the Vim interface to merlin.
 

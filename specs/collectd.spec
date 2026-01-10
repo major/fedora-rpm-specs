@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 56%{?dist}
+Release: 57%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1198,6 +1198,9 @@ make check
 
 
 %changelog
+* Thu Jan 08 2026 Kevin Fenzi <kevin@scrye.com> - 5.12.0-57
+- Rebuild for xen update.
+
 * Tue Jan 06 2026 Jonathan Wright <jonathan@almalinux.org> - 5.12.0-56
 - rebuild for varnish update
 - remove ceph, curl_json, log_logstash, ovs_events, ovs_stats packages

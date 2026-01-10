@@ -10,7 +10,7 @@
 
 Name:           hivex
 Version:        1.3.24
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -319,6 +319,9 @@ fi
 
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.24-12
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.3.24-11
 - OCaml 5.4.0 rebuild
 

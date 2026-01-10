@@ -1,6 +1,6 @@
 Name:		domoticz
-Version:	2025.1
-Release:	4%{?dist}
+Version:	2025.2
+Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -156,9 +156,6 @@ mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/%{name}/{backups,plugins,scripts,temp
 mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/%{name}/scripts/{dzVents,lua,lua_parsers,python,templates}
 mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/%{name}/scripts/dzVents/{data,generated_scripts,scripts}
 
-# Disable the app's self-update script
-chmod 644 $RPM_BUILD_ROOT%{_datadir}/%{name}/updatedomo
-
 # Unbundle DroidSans.ttf
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/www/styles/elemental/fonts/DroidSans.ttf
 ln -s %{_fontdir}/google-droid/DroidSans.ttf \
@@ -247,6 +244,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Thu Jan 08 2026 Michael Cronenworth <mike@cchtml.com> - 2025.2-1
+- New stable release
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2025.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

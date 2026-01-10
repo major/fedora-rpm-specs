@@ -106,7 +106,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		14.1.1
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -735,6 +735,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 14.1.1-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Sat Jan 03 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 14.1.1-1
 - New version
   Resolves: rhbz#2422020

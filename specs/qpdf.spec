@@ -1,7 +1,7 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
 Version: 12.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # MIT: e.g. libqpdf/sha2.c, but those are not compiled in (GNUTLS is used)
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
@@ -12,6 +12,11 @@ Source1: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name
 
 # make qpdf working under FIPS, downstream patch
 Patch1:  qpdf-relax.patch
+
+# zlib/zlib-ng has different behavior for inflate/deflate errors
+# on s390x
+# it might be fixed upstream in qpdf once it migrates to zlib-ng...
+Patch1000: qpdf-s390x-disable-tests-zlib.patch
 
 
 # gcc and gcc-c++ are no longer in buildroot by default
@@ -90,6 +95,10 @@ QPDF Manual
 
 %patch -P 1 -p1 -b .relax
 
+%ifarch s390x
+%patch -P 1000 -p1 -b .s390x-disable-tests-zlib
+%endif
+
 # unpack zip file with manual
 unzip %{SOURCE1}
 
@@ -148,6 +157,9 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 
 %changelog
+* Thu Jan 08 2026 Zdenek Dohnal <zdohnal@redhat.com> - 12.2.0-3
+- Fix FTBFS due change in zlib-ng - remove zlib related tests from s390x
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

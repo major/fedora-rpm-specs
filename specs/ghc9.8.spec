@@ -4,6 +4,8 @@
 %bcond perfbuild 1
 %bcond build_hadrian 1
 %bcond manual 1
+# disabled by default
+%bcond debug_flavor 0
 # End: prod settings
 
 # not for production builds
@@ -32,7 +34,7 @@
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond abicheck 0
+%bcond abicheck 1
 
 # no longer build testsuite (takes time and not really being used)
 %bcond testsuite 0
@@ -78,17 +80,14 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25662
 Patch5: hp2ps-C-gnu17.patch
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# needs more backporting to 9.6
-Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2427789
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
+Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
 
 # for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
 # Debian patches:
-# bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
-# see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
-#Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
@@ -102,7 +101,7 @@ Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b
 
 Patch60: ghc9.8-32bit-unique-word-revert.patch
 
-# https://github.com/haskell/directory/pull/184
+# https://github.com/haskell/directory/pull/184 (directory.buildinfo)
 Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
@@ -392,8 +391,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 %patch -P5 -p1 -b .orig
-
-#%%patch -P9 -p1 -b .orig
+%patch -P6 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -408,7 +406,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 #debian
-#%%patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
@@ -470,7 +467,9 @@ export LANG=C.utf8
 
 %if %{with build_hadrian}
 # do not disable debuginfo with ghc_bin_build
+%if %{with perfbuild}
 %global ghc_debuginfo 1
+%endif
 (
 cd hadrian
 %ghc_bin_build -W
@@ -484,6 +483,9 @@ cd hadrian
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
+%if %{defined debug_flavor}
+%define hadrian_debug +debug_info
+%endif
 # + hadrian/dist/build/hadrian/hadrian -j224 --flavour=perf --docs=no-sphinx-pdfs binary-dist-dir --hash-unit-ids
 # # cabal-read (for OracleQ (PackageDataKey (Package {pkgType = Library, pkgName = "rts", pkgPath = "rts"})))
 # rts/include/rts/Messages.h: withFile: resource exhausted (Too many open files)
@@ -491,7 +493,7 @@ cd hadrian
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
-%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir --hash-unit-ids
+%{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir --hash-unit-ids
 
 
 %install

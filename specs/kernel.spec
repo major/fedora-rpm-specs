@@ -147,7 +147,7 @@ Summary: The Linux kernel
 # genspec.sh variables
 #
 
-# kernel package name
+# kernel package name (should only be used to define %{name})
 %global package_name kernel
 %global gemini 0
 # Include Fedora files
@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc4.260107gf0b9d8eb98df.33
+%define pkgrelease 0.rc4.260108gf0b9d8eb98df.34
 %define kversion 6
 %define tarfile_release 6.19-rc4-20-gf0b9d8eb98df
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260107gf0b9d8eb98df.33%{?buildid}%{?dist}
+%define specrelease 0.rc4.260108gf0b9d8eb98df.34%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -954,7 +954,7 @@ BuildRequires: redhat-sb-certs >= 9.4-0.1
 Source0: linux-%{tarfile_release}.tar.xz
 
 Source1: Makefile.rhelver
-Source2: %{package_name}.changelog
+Source2: %{name}.changelog
 
 Source10: redhatsecurebootca5.cer
 Source13: redhatsecureboot501.cer
@@ -1178,7 +1178,7 @@ Patch999999: linux-kernel-test.patch
 # END OF PATCH DEFINITIONS
 
 %description
-The %{package_name} meta package
+The %{name} meta package
 
 # This macro does requires, provides, conflicts, obsoletes for a kernel package.
 #	%%kernel_reqprovconf [-o] <subpackage>
@@ -1347,7 +1347,7 @@ This package provides debug information for the libperf package.
 %endif
 
 %if %{with_tools}
-%package -n %{package_name}-tools
+%package -n %{name}-tools
 Summary: Assortment of tools for the Linux kernel
 %ifarch %{cpupowerarchs}
 Provides:  cpupowerutils = 1:009-0.6.p1
@@ -1357,44 +1357,44 @@ Provides:  cpufrequtils = 1:009-0.6.p1
 Obsoletes: cpufreq-utils < 1:009-0.6.p1
 Obsoletes: cpufrequtils < 1:009-0.6.p1
 Obsoletes: cpuspeed < 1:1.5-16
-Requires: %{package_name}-tools-libs = %{specrpmversion}-%{release}
+Requires: %{name}-tools-libs = %{specrpmversion}-%{release}
 %endif
 %define __requires_exclude ^%{_bindir}/python
-%description -n %{package_name}-tools
+%description -n %{name}-tools
 This package contains the tools/ directory from the kernel source
 and the supporting documentation.
 
-%package -n %{package_name}-tools-libs
+%package -n %{name}-tools-libs
 Summary: Libraries for the kernels-tools
-%description -n %{package_name}-tools-libs
+%description -n %{name}-tools-libs
 This package contains the libraries built from the tools/ directory
 from the kernel source.
 
-%package -n %{package_name}-tools-libs-devel
+%package -n %{name}-tools-libs-devel
 Summary: Assortment of tools for the Linux kernel
-Requires: %{package_name}-tools = %{version}-%{release}
+Requires: %{name}-tools = %{version}-%{release}
 %ifarch %{cpupowerarchs}
 Provides:  cpupowerutils-devel = 1:009-0.6.p1
 Obsoletes: cpupowerutils-devel < 1:009-0.6.p1
 %endif
-Requires: %{package_name}-tools-libs = %{version}-%{release}
-Provides: %{package_name}-tools-devel
-%description -n %{package_name}-tools-libs-devel
+Requires: %{name}-tools-libs = %{version}-%{release}
+Provides: %{name}-tools-devel
+%description -n %{name}-tools-libs-devel
 This package contains the development files for the tools/ directory from
 the kernel source.
 
-%package -n %{package_name}-tools-debuginfo
-Summary: Debug information for package %{package_name}-tools
+%package -n %{name}-tools-debuginfo
+Summary: Debug information for package %{name}-tools
 Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
 AutoReqProv: no
-%description -n %{package_name}-tools-debuginfo
-This package provides debug information for package %{package_name}-tools.
+%description -n %{name}-tools-debuginfo
+This package provides debug information for package %{name}-tools.
 
 # Note that this pattern only works right to match the .build-id
 # symlinks because of the trailing nonmatching alternation and
 # the leading .*, because of find-debuginfo.sh's buggy handling
 # of matching the pattern against the symlinks file.
-%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|XXX' -o %{package_name}-tools-debuginfo.list}
+%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|XXX' -o %{name}-tools-debuginfo.list}
 
 %package -n rtla
 %if 0%{gemini}
@@ -1405,7 +1405,7 @@ Requires: libtraceevent
 Requires: libtracefs
 Requires: libbpf
 %ifarch %{cpupowerarchs}
-Requires: %{package_name}-tools-libs = %{version}-%{release}
+Requires: %{name}-tools-libs = %{version}-%{release}
 %endif
 %description -n rtla
 The rtla meta-tool includes a set of commands that aims to analyze
@@ -1453,10 +1453,10 @@ Summary: gcov graph and source files for coverage data collection.\
 %{nil}
 
 %if %{with_kernel_abi_stablelists}
-%package -n %{package_name}-abi-stablelists
+%package -n %{name}-abi-stablelists
 Summary: The Red Hat Enterprise Linux kernel ABI symbol stablelists
 AutoReqProv: no
-%description -n %{package_name}-abi-stablelists
+%description -n %{name}-abi-stablelists
 The kABI package contains information pertaining to the Red Hat Enterprise
 Linux kernel ABI, including lists of kernel symbols that are needed by
 external Linux kernel modules, and a yum plugin to aid enforcement.
@@ -1532,8 +1532,8 @@ against the %{?2:%{2} }kernel package.\
 %define kernel_devel_matched_package(m) \
 %package %{?1:%{1}-}devel-matched\
 Summary: Meta package to install matching core and devel packages for a given %{?2:%{2} }kernel\
-Requires: %{package_name}%{?1:-%{1}}-devel = %{specrpmversion}-%{release}\
-Requires: %{package_name}%{?1:-%{1}}-core = %{specrpmversion}-%{release}\
+Requires: %{name}%{?1:-%{1}}-devel = %{specrpmversion}-%{release}\
+Requires: %{name}%{?1:-%{1}}-core = %{specrpmversion}-%{release}\
 %description %{?1:%{1}-}devel-matched\
 This meta package is used to install matching core and devel packages for a given %{?2:%{2} }kernel.\
 %{nil}
@@ -3865,10 +3865,10 @@ popd
 ###
 
 %if %{with_tools}
-%post -n %{package_name}-tools-libs
+%post -n %{name}-tools-libs
 /sbin/ldconfig
 
-%postun -n %{package_name}-tools-libs
+%postun -n %{name}-tools-libs
 /sbin/ldconfig
 %endif
 
@@ -4165,7 +4165,7 @@ fi\
 %endif
 
 %if %{with_kernel_abi_stablelists}
-%files -n %{package_name}-abi-stablelists
+%files -n %{name}-abi-stablelists
 /lib/modules/kabi-*
 %endif
 
@@ -4246,9 +4246,9 @@ fi\
 
 %if %{with_tools}
 %ifnarch %{cpupowerarchs}
-%files -n %{package_name}-tools
+%files -n %{name}-tools
 %else
-%files -n %{package_name}-tools -f cpupower.lang
+%files -n %{name}-tools -f cpupower.lang
 %{_bindir}/cpupower
 %{_libexecdir}/cpupower
 %{_unitdir}/cpupower.service
@@ -4293,16 +4293,16 @@ fi\
 %endif
 
 %if %{with_debuginfo}
-%files -f %{package_name}-tools-debuginfo.list -n %{package_name}-tools-debuginfo
+%files -f %{name}-tools-debuginfo.list -n %{name}-tools-debuginfo
 %endif
 
-%files -n %{package_name}-tools-libs
+%files -n %{name}-tools-libs
 %ifarch %{cpupowerarchs}
 %{_libdir}/libcpupower.so.1
 %{_libdir}/libcpupower.so.1.0.1
 %endif
 
-%files -n %{package_name}-tools-libs-devel
+%files -n %{name}-tools-libs-devel
 %ifarch %{cpupowerarchs}
 %{_libdir}/libcpupower.so
 %{_includedir}/cpufreq.h
@@ -4521,11 +4521,12 @@ fi\
 #
 #
 %changelog
-* Wed Jan 07 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc4.260107gf0b9d8eb98df.33]
+* Thu Jan 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.34]
 - rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
-
-* Wed Jan 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.33]
 - package YNL test framework files (Thorsten Leemhuis)
+
+* Thu Jan 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.33]
+- kernel.spec.template: Cleanup package_name use (Prarit Bhargava)
 
 * Wed Jan 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.32]
 - Revert "Turn on CONFIG_DEBUG_INFO_COMPRESSED_ZLIB" (Lianbo Jiang)

@@ -1,6 +1,6 @@
 Name:          marisa
 Version:       0.3.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
@@ -188,6 +188,9 @@ popd
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.0-6
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

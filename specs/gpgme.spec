@@ -169,6 +169,7 @@ BuildRequires:  python-pip
 BuildRequires:  python3-wheel
 # Needed since Python 3.12+ drops distutils
 BuildRequires:  python3-setuptools
+BuildRequires:  pyproject-rpm-macros
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      platform-python-gpg < %{version}-%{release}
 

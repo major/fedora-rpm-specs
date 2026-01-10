@@ -10,6 +10,7 @@ Source:         %{cran_source}
 
 BuildRequires:  R-devel
 BuildRequires:  cctz-devel
+Requires:       cctz-devel
 Obsoletes:      %{name}-devel <= 0.2.13
 
 %description

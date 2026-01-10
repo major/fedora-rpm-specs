@@ -7,8 +7,8 @@
 %bcond bootstrap 0
 
 # There have been no official releases yet, so we pull from git
-%global date           20250911
-%global commit         661bea2a02d9b17ff2b11c5e8143e7482441b933
+%global date           20251125
+%global commit         530c14844dc789d6c6af026758451482c4bfc684
 %global user           gap-packages
 %global gap_pkgname    nautytracesinterface
 %global gap_skip_check %{?with_bootstrap}

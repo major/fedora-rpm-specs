@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        6.0.0
+Version:        7.0.0
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -23,26 +23,23 @@ Source11:       get_test_data.sh
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zip-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused benchmark-only / example-only dev-dependencies
+# * Drop unused benchmark-only / example-only dev-dependencies
 # * Remove the wasm_js feature from the getrandom dev-dependency. Our
 #   rust-getrandom does not provide this feature; see also “Unconditional use of
 #   getrandom’s wasm_js feature is counter to upstream guidance,”
 #   https://github.com/zip-rs/zip2/issues/336. Upstream fixed the issue for the
 #   dependency since 4.3.0, but not yet for the dev-dependency.
-# * patch out the nt-time features; rust-nt-time not yet packaged
-# * deps: Bump lzma-rust2 to v0.15:
-#   https://github.com/zip-rs/zip2/commit/d6d106fea2844793a8c80d27192b52694fcc57ca
+# * Patch out the nt-time features; rust-nt-time not yet packaged
 # * Patch out ppmd support, even though it is in the default features. While the
 #   README.md for the ppmd-rust crate says “The code in this crate is in the
 #   public domain as the original code by their authors,” Cargo.toml lists the
 #   license as CC0-1.0, which is not precisely equivalent to the public-domain
 #   declaration in the README and is not-allowed for code in Fedora.
-# * Remove lzma-static and xz-static features, which were supposed to be removed
-#   in this release
-#   (https://github.com/zip-rs/zip2/commit/af0f3349dae5640a0b756ea065c95af8a1a0e2a5),
-#   but apparently were not due to
-#   https://github.com/release-plz/release-plz/issues/2446 causing the previous
-#   commit to be published.
+# * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
+#   flate2/zlib-ng-compat, not packaged.
+# * Unpin generic-array; see https://github.com/zip-rs/zip2/pull/458 for the
+#   upstream rationale, but we cannot use an old version and are not so
+#   concerned about deprecation warnings anyway.
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
@@ -196,6 +193,18 @@ use the "deflate-flate2-zlib" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate-flate2-zlib-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+deflate-flate2-zlib-ng-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate-flate2-zlib-ng-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate-flate2-zlib-ng" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate-flate2-zlib-ng-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+deflate-flate2-zlib-rs-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -230,30 +239,6 @@ This package contains library source intended for building other packages which
 use the "deflate64" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deflate64-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+getrandom-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+getrandom-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
-
-%files       -n %{name}+getrandom-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+hmac-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+hmac-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "hmac" feature of the "%{crate}" crate.
-
-%files       -n %{name}+hmac-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+jiff-02-devel
@@ -292,30 +277,6 @@ use the "lzma" feature of the "%{crate}" crate.
 %files       -n %{name}+lzma-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pbkdf2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pbkdf2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pbkdf2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pbkdf2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+sha1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sha1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sha1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sha1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+time-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -350,18 +311,6 @@ This package contains library source intended for building other packages which
 use the "xz" feature of the "%{crate}" crate.
 
 %files       -n %{name}+xz-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+zeroize-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+zeroize-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "zeroize" feature of the "%{crate}" crate.
-
-%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zstd-devel

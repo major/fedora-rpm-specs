@@ -439,7 +439,7 @@ Name: qemu
 Version: 10.2.0
 
 # Set for release candidate builds
-%global rcver rc4
+#global rcver rc4
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}
@@ -497,7 +497,8 @@ Patch: 0008-Revert-meson.build-Disallow-libnfs-v6-to-fix-the-bro.patch
 # Increase test-replication timeout
 # NOT upstream, but see https://gitlab.com/qemu-project/qemu/-/issues/3035
 Patch: 0002-TEMPORARY-increase-test-timeout.patch
-
+# https://lists.nongnu.org/archive/html/qemu-devel/2026-01/msg01140.html
+Patch: 0001-meson-disable-libatomic-with-GCC-16.patch
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}
@@ -698,8 +699,6 @@ BuildRequires: igvm-devel
 BuildRequires: glibc-static
 BuildRequires: glib2-static
 BuildRequires: zlib-static
-# -latomic added by GLib 2.81.0, 2024-06-28
-BuildRequires: libatomic-static
 %endif
 
 

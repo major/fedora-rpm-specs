@@ -1,13 +1,13 @@
 %define   baseversion     1.2.15
-%define   fixversion      .1
+%define   fixversion      .2
 %global   _hardened_build 1
 
-%global   utils_patch     1
+%global   utils_patch     0
 
 Summary: Advanced Linux Sound Architecture (ALSA) utilities
 Name:    alsa-utils
 Version: %{baseversion}%{?fixversion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://www.alsa-project.org/
 Source:  ftp://ftp.alsa-project.org/pub/utils/alsa-utils-%{version}.tar.bz2
@@ -211,6 +211,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Thu Jan  8 2026 Jaroslav Kysela <perex@perex.cz> - 1.2.15.2-1
+* Updated to 1.2.15.2
+
 * Thu Jan  1 2026 Jaroslav Kysela <perex@perex.cz> - 1.2.15.1-3
 * Apply fix to alsactl (card detection issue)
 

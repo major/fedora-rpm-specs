@@ -62,9 +62,9 @@ Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/9.6.7/ghc-%{version}-src.tar.lz
+Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/9.6.7/ghc-%{version}-testsuite.tar.lz
+Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.lz
 %endif
 Source5: ghc-pkg.man
 Source6: haddock.man
@@ -76,9 +76,12 @@ Source11: https://hackage.haskell.org/package/Cabal-%{hadrian_Cabal_ver}/Cabal-%
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-Patch8: ghc-configure-c99.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25662
-Patch9: hp2ps-C-gnu17.patch
+Patch5: hp2ps-C-gnu17.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
+Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
+Patch8: ghc-configure-c99.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/23707
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085
 Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
@@ -389,9 +392,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 %patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-
+%patch -P5 -p1 -b .orig
+%patch -P6 -p1 -b .orig
 %patch -P8 -p1 -b .orig
-%patch -P9 -p1 -b .orig
 %patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz

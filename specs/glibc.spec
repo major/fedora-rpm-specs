@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 17
+%global baserelease 18
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1401,9 +1401,10 @@ build()
 
 %ifarch x86_64
 # Build for the glibc32 package.
+# There is no libatomic.so.1, so for robustness ensure it is not used.
 build build-%{target}-32 \
-  CC="gcc -m32" \
-  CXX="g++ -m32" \
+  CC="gcc -m32 -fno-link-libatomic" \
+  CXX="g++ -m32 -fno-link-libatomic" \
   CFLAGS="${glibc_flags_cflags/-m64/-m32}" \
   --host=i686-linux-gnu \
 %dnl There is no libgcc_s.so.1, but building support/ requires it.
@@ -2397,6 +2398,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Jan  7 2026 DJ Delorie <dj@redhat.com> - 2.42.9000-18
+- Improve robustness of glibc32 build. (#2427390)
+
 * Mon Dec 22 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-17
 - Auto-sync with upstream branch master,
   commit 0b8a996f44b5f4c02991f02cd12bf05b17db4576:

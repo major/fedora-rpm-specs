@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenBSD's bcrypt_pbkdf (a variant of PBKDF2 with bcrypt-based PRF)
 # BSD-4-Clause:
 #   ext/mri/blf.h
@@ -83,6 +83,9 @@ ruby -Itest:${OLDPWD}%{gem_extdir_mri} -e 'Dir.glob "./test/**/*_test.rb", &meth
 %{gem_instdir}/test
 
 %changelog
+* Thu Jan 08 2026 Vít Ondruch <vondruch@redhat.com> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Tue Dec 23 2025 Vít Ondruch <vondruch@redhat.com> - 1.1.2-1
 - Update to bcrypt_pbkdf-ruby 1.1.2
 - Fix compatiblity with minitest 6

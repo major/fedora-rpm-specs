@@ -1,5 +1,5 @@
 Name:           nauty
-Version:        2.9.1
+Version:        2.9.3
 Release:        %autorelease
 Summary:        Graph canonical labeling and automorphism group computation
 
@@ -49,16 +49,15 @@ Requires:       coreutils
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 
 %description
-Nauty and Traces are programs for computing automorphism groups of
-graphs and digraphs.  (At present, Traces does not accept digraphs.)
-They can also produce a canonical label.  They are written in a portable
-subset of C, and run on a considerable number of different systems.
+Nauty and Traces are programs for computing automorphism groups of graphs and
+digraphs.  (At present, Traces does not accept digraphs.)  They can also
+produce a canonical label.  They are written in a portable subset of C, and
+run on a considerable number of different systems.
 
-There is a small suite of programs called gtools included in the
-package.  For example, geng can generate non-isomorphic graphs very
-quickly.  There are also generators for bipartite graphs, digraphs, and
-multigraphs, and programs for manipulating files of graphs in a compact
-format.
+There is a small suite of programs called gtools included in the package.  For
+example, geng can generate non-isomorphic graphs very quickly.  There are also
+generators for bipartite graphs, digraphs, and multigraphs, and programs for
+manipulating files of graphs in a compact format.
 
 %package     -n libnauty
 License:        Apache-2.0
@@ -66,8 +65,8 @@ Summary:        Library for graph automorphism
 
 %description -n libnauty
 Nauty (No AUTomorphisms, Yes?) is a set of procedures for computing
-automorphism groups of graphs and digraphs.  This package contains a
-library of nauty procedures.
+automorphism groups of graphs and digraphs.  This package contains a library
+of nauty procedures.
 
 %package     -n libnauty-devel
 License:        Apache-2.0
@@ -104,6 +103,7 @@ export LIBS='-lz-ng'
     --disable-popcnt \
     --enable-runtime-popcnt \
 %endif
+    --disable-static \
     --enable-tls
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -119,9 +119,6 @@ make
 %install
 %make_install
 
-# We do not want the libtool archives or static archives
-rm %{buildroot}%{_libdir}/*.{a,la}
-
 # Generate the man pages
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -132,7 +129,7 @@ done
 
 # Link identical executables
 rm %{buildroot}%{_bindir}/pickg
-ln -s countg %{buildroot}%{_bindir}/pickg
+ln countg %{buildroot}%{_bindir}/pickg
 
 # Move the headers
 mkdir -p %{buildroot}%{_includedir}/nauty
@@ -160,17 +157,17 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %files -n libnauty
 %doc changes24-29.txt formats.txt
 %license COPYRIGHT LICENSE-2.0.txt
-%{_libdir}/libnauty-2.9.1.so
-%{_libdir}/libnautyS-2.9.1.so
-%{_libdir}/libnautyW-2.9.1.so
-%{_libdir}/libnautyL-2.9.1.so
-%{_libdir}/libnauty1-2.9.1.so
-%{_libdir}/libnautyS1-2.9.1.so
-%{_libdir}/libnautyW1-2.9.1.so
-%{_libdir}/libnautyL1-2.9.1.so
+%{_libdir}/libnauty-2.9.3.so
+%{_libdir}/libnautyS-2.9.3.so
+%{_libdir}/libnautyW-2.9.3.so
+%{_libdir}/libnautyL-2.9.3.so
+%{_libdir}/libnauty1-2.9.3.so
+%{_libdir}/libnautyS1-2.9.3.so
+%{_libdir}/libnautyW1-2.9.3.so
+%{_libdir}/libnautyL1-2.9.3.so
 %if 0%{?__isa_bits} == 64
-%{_libdir}/libnautyQ-2.9.1.so
-%{_libdir}/libnautyQ1-2.9.1.so
+%{_libdir}/libnautyQ-2.9.3.so
+%{_libdir}/libnautyQ1-2.9.3.so
 %endif
 
 %files -n libnauty-devel

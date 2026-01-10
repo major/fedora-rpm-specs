@@ -1,40 +1,36 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gnatcoll-core
-%global upstream_version  25.0.0
-%global upstream_gittag   v%{upstream_version}
+%global upstream_version  26.0.0
+%global upstream_commit   8e270f83719d4284782a965edd80246be15b949b
 
 Name:           gnatcoll
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        The GNAT Components Collection
 Summary(sv):    GNAT Components Collection
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND CC-BY-3.0
 # The license is GPLv3+ with the GCC runtime exception, except for:
-# - src/getRSS.c : CC-BY-3.0
+# - minimal/src/getRSS.c : CC-BY-3.0
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
-Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+Source:         %{url}/archive/%{upstream_commit}.tar.gz#/%{upstream_name}-%{upstream_version}.tar.gz
 
 # [Fedora-specific] Remove unnecessary redirection.
 Patch:          %{name}-core-fix-html-dir-indirection.patch
-# Correct location from where the documentation and examples must be installed.
-# https://github.com/AdaCore/gnatcoll-core/issues/87
-Patch:          %{name}-core-fix-doc-install.patch
 # Adjust a pathname in the manual, replacing the Adacore-specific pathname with
 # the FHS-compliant pathname where this package installs the examples:
 Patch:          %{name}-core-doc-examples-dir.patch
 # Use 'gnatcoll_core.gpr' and 'gnatcoll_projects.gpr' instead of 'gnatcoll.gpr'
 # in the examples.
 Patch:          %{name}-core-refine-dependencies-gnatcoll.patch
-# [GCC 14.2.1] Fix unsupported use of the Access attribute.
+# [GCC 15.2.1] Fix unsupported use of the Access attribute.
 Patch:          %{name}-core-fix-base64-coder-example.patch
 
 BuildRequires:  gcc-gnat gprbuild make sed
-# A fedora-gnat-project-common that contains the new GPRinstall macro.
-BuildRequires:  fedora-gnat-project-common >= 3.21
+BuildRequires:  fedora-gnat-project-common
 
 BuildRequires:  libgpr-devel
 BuildRequires:  xmlada-devel
@@ -43,9 +39,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python-unversioned-command
 
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:  python3-sphinx_rtd_theme
 
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
@@ -216,8 +211,12 @@ License:        AdaCore-doc AND MIT AND BSD-2-Clause AND GPL-3.0-or-later WITH G
 # License for the documentation is AdaCore-doc. The Javascript and CSS files
 # that Sphinx includes with the documentation are BSD 2-Clause and MIT-licensed.
 # The example code is licensed under GPLv3+ with the GCC runtime exception.
-Provides: gnatcoll-doc = %{epoch}:%{version}-%{release}
-Obsoletes: gnatcoll-doc < 2:24.0.0-2
+Requires:       font(fontawesome)
+Requires:       font(lato)
+Requires:       font(robotoslab)
+# Fonts are required by the Read the Docs Sphinx theme.
+Provides:       gnatcoll-doc = %{epoch}:%{version}-%{release}
+Obsoletes:      gnatcoll-doc < 2:24.0.0-2
 # This documentation package has been renamed to gnatcoll-core-doc to emphasize
 # its scope now that gnatcoll-db-doc has been introduced as a subpackage of
 # gnatcoll-db.
@@ -239,7 +238,7 @@ Collections centrala komponenter.
 #############
 
 %prep
-%autosetup -n %{upstream_name}-%{upstream_version} -p1
+%autosetup -C -p1
 
 # The information in the VERSION files is read by the Python-based
 # configuration scripts. File `core/VERSION` is also read by
@@ -422,6 +421,9 @@ done
 ###############
 
 %changelog
+* Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
+- Updated to v26.0.0.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-5
 - Rebuilt because the ALI of System.OS_Constants changed.
 

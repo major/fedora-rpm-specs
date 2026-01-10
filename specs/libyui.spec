@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  27%{?dist}
+Release:  28%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPLv2 or LGPLv3) and MIT
@@ -349,6 +349,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.16-28
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
+
 * Thu Oct 09 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.16-27
 - Rebuilt for new graphviz
 

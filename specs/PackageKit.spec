@@ -16,6 +16,8 @@ Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{ver
 # Backports from upstream (1~500)
 ## Implement DependsOn and RequiredBy for dnf backend
 Patch0001:    https://github.com/PackageKit/PackageKit/commit/38c7cfbcd6f3202770685cd2439770523117d2bf.patch
+## Fix crashes from GNOME Software
+Patch0002:    https://github.com/PackageKit/PackageKit/pull/930.patch
 
 # Patches proposed upstream (501~1000)
 ## https://github.com/PackageKit/PackageKit/pull/931
@@ -101,6 +103,8 @@ Obsoletes: dnf4-plugin-notify-PackageKit < %{version}-%{release}
 Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
+# Ensure PK knows about RPM transcations
+Requires: rpm-plugin-dbus-announce%{?_isa}
 # DNF5 backend is now built-in
 Obsoletes: PackageKit-backend-dnf5 < %{version}-%{release}
 Provides: PackageKit-backend-dnf5 = %{version}-%{release}
@@ -124,6 +128,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
+# Ensure PK knows about RPM transcations
+Requires: rpm-plugin-dbus-announce%{?_isa}
 
 %description backend-dnf5
 PackageKit is a D-Bus abstraction layer that allows the session user
