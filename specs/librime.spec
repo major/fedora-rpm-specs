@@ -1,5 +1,5 @@
 Name:           librime
-Version:        1.15.0
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        Rime Input Method Engine Library
 
@@ -134,6 +134,10 @@ popd
 
 
 %changelog
+* Thu Jan 08 2026 Peng Wu <pwu@redhat.com> - 1.16.0-1
+- Update to 1.16.0
+- Resolves: RHBZ#2427440
+
 * Fri Nov 28 2025 Peng Wu <pwu@redhat.com> - 1.15.0-1
 - Update to 1.15.0
 - Add the librime predict plugin

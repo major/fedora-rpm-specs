@@ -7,7 +7,7 @@ Summary:        Fedora QA wiki test management Python library
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://pagure.io/fedora-qa/python-wikitcms
+URL:            https://forge.fedoraproject.org/quality/python-wikitcms
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 

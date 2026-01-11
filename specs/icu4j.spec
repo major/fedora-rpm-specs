@@ -1,7 +1,7 @@
 %global giturl  https://github.com/unicode-org/icu
 
 Name:           icu4j
-Version:        78.1
+Version:        78.2
 Release:        %autorelease
 Epoch:          1
 Summary:        International Components for Unicode for Java
@@ -46,10 +46,10 @@ Java provides a very strong foundation for global programs, and IBM and the
 ICU team played a key role in providing globalization technology into Sun's
 Java. But because of its long release schedule, Java cannot always keep
 up-to-date with evolving standards. The ICU team continues to extend Java's
-Unicode and internationalization support, focusing on improving
-performance, keeping current with the Unicode standard, and providing
-richer APIs, while remaining as compatible as possible with the original
-Java text and internationalization API design.
+Unicode and internationalization support, focusing on improving performance,
+keeping current with the Unicode standard, and providing richer APIs, while
+remaining as compatible as possible with the original Java text and
+internationalization API design.
 
 %package        charset
 Summary:        Charset converter library of %{name}
@@ -65,9 +65,9 @@ Summary:        Parent POM for %{name}
 Parent POM for %{name}.
 
 %package        javadoc
-# Unicode-DFS-2016: the content
+# Unicode-3.0: the content
 # MIT: jquery
-License:        Unicode-DFS-2016 AND MIT
+License:        Unicode-3.0 AND MIT
 Summary:        API documentation for %{name}
 Provides:       bundled(js-jquery)
 

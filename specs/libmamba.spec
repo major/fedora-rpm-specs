@@ -12,6 +12,8 @@ Source0:        https://github.com/mamba-org/mamba/archive/%{version}/%{name}-%{
 # Use Fedora versions of zstd
 # Install into /etc/profile.d
 Patch:          libmamba-fedora.patch
+# Fix for gcc 16 - https://github.com/mamba-org/mamba/pull/4132
+Patch:          libmamba-gcc16.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

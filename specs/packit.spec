@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.13.0
+Version:        1.14.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Thu Jan 08 2026 Packit <hello@packit.dev> - 1.14.0-1
+- We have added the `--preserve-spec` flag to the `prepare-sources` and `srpm` commands. When used, Packit will not change the spec file in any way (e.g., release is not bumped, Source0 is not changed). When enabled, it implies `--no-update-release`. (#2653)
+- Resolves: rhbz#2427944
+
 * Tue Dec 09 2025 Packit <hello@packit.dev> - 1.13.0-1
 - `packit init` now automatically retrieves the latest version of the pre-commit hook to be added to the user's pre-commit configuration file. (#2651)
 - Resolves: rhbz#2420553

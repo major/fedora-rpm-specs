@@ -1,5 +1,5 @@
 Name:           python-xapp
-Version:        3.0.1
+Version:        3.0.2
 Release:        1%{?dist}
 Summary:        Python bindings for xapps
 
@@ -49,6 +49,9 @@ Requires:      xapps
 
 
 %changelog
+* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 3.0.2-1
+- Update to 3.0.2
+
 * Sat Dec 13 2025 Leigh Scott <leigh123linux@gmail.com> - 3.0.1-1
 - Update to 3.0.1
 

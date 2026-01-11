@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*$
 
 Name:		xed
-Version:	3.8.7
+Version:	3.8.9
 Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
@@ -128,6 +128,9 @@ This package contains the documentation files for %{name}.
 %doc %{_datadir}/gtk-doc/*
 
 %changelog
+* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 3.8.9-1
+- Update to 3.8.9
+
 * Sat Dec 13 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.7-1
 - Update to 3.8.7
 

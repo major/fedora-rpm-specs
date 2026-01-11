@@ -1,5 +1,5 @@
 Name:           newflasher
-Version:        58
+Version:        59
 Release:        %autorelease
 Summary:        Flash tool for new Sony flash tool protocol (Xperia XZ Premium and further)
 

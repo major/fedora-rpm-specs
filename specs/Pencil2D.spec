@@ -93,10 +93,10 @@ License:        GPL-2.0-only AND BSD-3-Clause AND GPL-2.0-or-later
 #   - core_lib/src/miniz.cpp is MIT
 #   - core_lib/src/miniz.h appears to be Unlicense
 #
-# The following source belongs to a bundled copy of Catch (catch2) (version
-# 2.13.9 as of this writing); it is removed in %%prep in order to use the system
-# Catch library. Because version 2.x (catch2) is header-only, it is treated as
-# a static library and would contribute to the licenses of the binary RPMs,
+# The following source belongs to a bundled copy of Catch2 (version 2.13.9 as
+# of this writing); it is removed in %%prep in order to use the system Catch2
+# library. Because version 2.x (catch2) is header-only, it is treated as a
+# static library and would contribute to the licenses of the binary RPMs,
 # except that it is used only for test executables that are not installed.
 #   - tests/src/catch.hpp is BSL-1.0
 #
@@ -153,8 +153,9 @@ BuildRequires:  pkgconfig(Qt6Xml)
 BuildRequires:  qt6-linguist
 
 BuildRequires:  pkgconfig(miniz)
-# Header-only:
-BuildRequires:  catch2-static
+# Please consider supporting Catch2 version 3.x
+# https://github.com/pencil2d/pencil/issues/1977
+BuildRequires:  pkgconfig(catch2) >= 3.0
 
 BuildRequires:  desktop-file-utils
 # Required by guidelines (https://pagure.io/packaging-committee/issue/1053):
@@ -338,10 +339,10 @@ sed -r -i '/\bminiz\.(h|cpp)/d' core_lib/core_lib.pro
 echo "LIBS_PRIVATE += $(pkgconf --libs miniz)" | tee -a */*.pro >/dev/null
 echo "INCLUDEPATH += $(pkgconf --variable=includedir miniz)" | tee -a */*.pro >/dev/null
 
-# Unbundle catch2
-rm -v tests/src/catch.hpp
-sed -r -i '/\bcatch\.hpp/d' tests/tests.pro
-echo "INCLUDEPATH += $(pkgconf --variable=includedir catch2)/catch2" >> tests/tests.pro
+# Unbundle catch2, using version 3.x
+# https://catch2-temp.readthedocs.io/en/latest/migrate-v2-to-v3.html
+echo '#include <catch2/catch_all.hpp>' > tests/src/catch.hpp
+echo "LIBS += $(pkgconf --libs catch2)" >> tests/tests.pro
 
 
 %conf

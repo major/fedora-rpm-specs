@@ -2,7 +2,7 @@
 
 Name:           octomap
 Version:        1.9.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Efficient Probabilistic 3D Mapping Framework Based on Octrees
 
 # octovis is GPLv2, octomap and dynamic-edt-3d are BSD
@@ -87,6 +87,8 @@ you will need to install dynamic-edt-3d-devel.
 rm -fr octovis/src/extern/
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380960)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DCMAKE_BUILD_TYPE=None
 
@@ -159,6 +161,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/dynamicEDT3D
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.9.8-9
+- Allow to build with CMake 4.0 (rhbz#2380960)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

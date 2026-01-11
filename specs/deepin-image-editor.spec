@@ -101,6 +101,8 @@ sed -i 's/CMAKE_CXX_STANDARD 11/CMAKE_CXX_STANDARD 17/' tests/CMakeLists.txt
 sed -i 's/std=c++11/std=c++17/' tests/CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380536)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if %{with check}
     -DDOTEST=ON

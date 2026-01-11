@@ -6,7 +6,7 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.25.6
+Version: 3.25.8
 Release: 1%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
@@ -76,6 +76,8 @@ Patch30: hplip-hpfax-importerror-print.patch
 Patch31: hplip-wifisetup.patch
 # pgp.mit.edu keyserver got bad connection, so we need to have pool of keyservers
 # to choose (Bz#1641100, launchpad#1799212)
+# F42+ update: HP has new key, and currently only on Ubuntu keyserver - so this patch now
+# only adjust terminal output, we will see if connection problems reappear
 Patch32: hplip-keyserver.patch
 # QMessagebox call was copy-pasted from Qt4 version, but Qt5 has different arguments,
 # This patch solves most of them
@@ -250,9 +252,11 @@ Patch72: hplip-no-urlopener.patch
 # hp-scan command failed to run and gives an error (fedora#2395809)
 # https://bugs.launchpad.net/hplip/+bug/2124268
 Patch73: hplip-scan-size.patch
-# HP uses new GPG key, but hplip code does not use it
-# https://developers.hp.com/hp-linux-imaging-and-printing/hplipDigitalCertificate.html
-Patch74: hplip-new-gpg-key.patch
+# 3.25.8 brings new implementation for calling commands in subprocess,
+# but again directs I/O into pipes, which does not work for TUI plugin
+# installation. Additionally it tracebacks if stdout/stderr is None
+# https://bugs.launchpad.net/hplip/+bug/2110101
+Patch74: hplip-plugin-stdout.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -617,8 +621,8 @@ done
 %patch -P 72 -p1 -b .no-urlopener
 # https://bugs.launchpad.net/hplip/+bug/2124268
 %patch -P 73 -p1 -b .scan-size
-# Use new GPG key from Ubuntu keyserver
-%patch -P 74 -p1 -b .new-gpg-key
+# https://bugs.launchpad.net/hplip/+bug/2110101
+%patch -P 74 -p1 -b .plugin-stdout
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -990,6 +994,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Fri Jan 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.8-1
+- hplip-3.25.8 is available (fedora#2415311)
+
 * Wed Sep 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.6-1
 - hp-scan command failed to run and gives an error (fedora#2395809)
 - use new GPG key from HP - new key was used as fix for CVE-2025-43023

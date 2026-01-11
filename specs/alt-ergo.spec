@@ -64,15 +64,15 @@ BuildRequires:	ocaml-zip-devel
 
 Requires:	ocaml-alt-ergo-parsers%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-Alt-Ergo is an automated theorem prover implemented in OCaml. It is
-based on CC(X) - a congruence closure algorithm parameterized by an
-equational theory X. This algorithm is reminiscent of the Shostak
-algorithm. Currently CC(X) is instantiated by the theory of linear
-arithmetics. Alt-Ergo also contains a home made SAT-solver and an
-instantiation mechanism by which it fully supports quantifiers.}
+%global _desc %{expand:Alt-Ergo is an automated theorem prover implemented in OCaml.  It is based on
+CC(X) - a congruence closure algorithm parameterized by an equational theory
+X.  This algorithm is reminiscent of the Shostak algorithm.  Currently CC(X)
+is instantiated by the theory of linear arithmetics.  Alt-Ergo also contains a
+home made SAT-solver and an instantiation mechanism by which it fully supports
+quantifiers.}
 
-%description %_desc
+%description
+%_desc
 
 %package gui
 Summary:	Graphical front end for Alt-Ergo
@@ -81,17 +81,18 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	gtksourceview2
 Requires:	hicolor-icon-theme
 
-%description gui %_desc
+%description gui
+%_desc
 
-This package contains a graphical front end for the Alt-Ergo theorem
-prover.
+This package contains a graphical front end for the Alt-Ergo theorem prover.
 
 %package -n ocaml-alt-ergo-parsers
 Summary:	Parser library used by the Alt-Ergo SMT solver
 License:	CECILL-C
 Requires:	ocaml-alt-ergo-lib%{?_isa} = %{version}-%{release}
 
-%description -n ocaml-alt-ergo-parsers %_desc
+%description -n ocaml-alt-ergo-parsers
+%_desc
 
 This package contains the parser library used by the Alt-Ergo SMT solver.
 
@@ -103,16 +104,18 @@ Requires:	ocaml-alt-ergo-lib-devel%{?_isa} = %{version}-%{release}
 Requires:	ocaml-psmt2-frontend-devel%{?_isa}
 Requires:	ocaml-zip-devel%{?_isa}
 
-%description -n ocaml-alt-ergo-parsers-devel %_desc
+%description -n ocaml-alt-ergo-parsers-devel
+%_desc
 
-This package contains development files needed to build applications
-that use the Alt-Ergo parser library.
+This package contains development files needed to build applications that use
+the Alt-Ergo parser library.
 
 %package -n ocaml-alt-ergo-lib
 Summary:	Automated theorem prover library
 License:	CECILL-C
 
-%description -n ocaml-alt-ergo-lib %_desc
+%description -n ocaml-alt-ergo-lib
+%_desc
 
 This package is the core of Alt-Ergo as an OCaml library.
 
@@ -124,10 +127,11 @@ Requires:	ocaml-num-devel%{?_isa}
 Requires:	ocaml-ocplib-simplex-devel%{?_isa}
 Requires:	ocaml-zarith-devel%{?_isa}
 
-%description -n ocaml-alt-ergo-lib-devel %_desc
+%description -n ocaml-alt-ergo-lib-devel
+%_desc
 
-This package contains development files needed to build applications
-that use the Alt-Ergo library.
+This package contains development files needed to build applications that use
+the Alt-Ergo library.
 
 %prep
 %autosetup -n %{name}-%{minorver}.0-free -N -a 2

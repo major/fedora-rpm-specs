@@ -1,12 +1,12 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        6.1.2
+Version:        6.1.3
 Release:        %autorelease
 Summary:        Fedora compose and image finder
 
 License:        GPL-3.0-or-later
-URL:            https://pagure.io/fedora-qa/fedfind
+URL:            https://forge.fedoraproject.org/quality/fedfind
 Source0:        https://files.pythonhosted.org/packages/source/f/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel

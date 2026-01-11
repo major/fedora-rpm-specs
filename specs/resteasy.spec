@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -22,7 +22,7 @@ ExclusiveArch:  %{java_arches} noarch
 %if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} < 43
 BuildRequires:  maven-local
 %else
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 %endif
 
 BuildRequires:  mvn(commons-io:commons-io)
@@ -269,6 +269,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Fri Jan 9 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 3.0.26-39
+- Revert to jdk21
+
 * Tue Jan 6 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 3.0.26-38
 - Add support for CentOS and older Fedora
 

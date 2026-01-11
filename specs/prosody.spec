@@ -5,13 +5,13 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           13.0.2
-Release:           4%{?dist}
+Version:           13.0.3
+Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
 Source1:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz.asc
-Source2:           https://keys.openpgp.org/vks/v1/by-fingerprint/3E52119EF853C59678DBBF6BADED9A77B67AD329
+Source2:           https://keys.openpgp.org/vks/v1/by-fingerprint/32A9EDDE3609931EB98CEAC315907E8E7BDD6BFE
 Source3:           prosody.service
 Source4:           prosody.logrotate
 Source5:           prosody.tmpfilesd
@@ -208,6 +208,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Sat Jan 10 2026 Robert Scheck <robert@fedoraproject.org> 13.0.3-1
+- Upgrade to 13.0.3 (#2427189)
+
 * Sun Aug 10 2025 Robert Scheck <robert@fedoraproject.org> 13.0.2-4
 - Use 'systemctl try-reload-or-restart' in logrotate postrotate
   script (#2371331, thanks to Marcos Mello)

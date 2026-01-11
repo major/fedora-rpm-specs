@@ -1,7 +1,7 @@
 %global srcname libpysal
 
 Name:           python-%{srcname}
-Version:        4.14.0
+Version:        4.14.1
 Release:        %autorelease
 Summary:        Python Spatial Analysis Library core components
 

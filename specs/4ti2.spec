@@ -56,11 +56,11 @@ Requires:       4ti2-libs%{?_isa} = %{version}-%{release}
 Requires:       environment(modules)
 
 %description
-A software package for algebraic, geometric and combinatorial problems
-on linear spaces.
+A software package for algebraic, geometric and combinatorial problems on
+linear spaces.
 
-This package uses Environment Modules.  Prior to invoking the binaries,
-you must run "module load 4ti2-%{_arch}" to modify your PATH.
+This package uses Environment Modules.  Prior to invoking the binaries, you
+must run "module load 4ti2-%{_arch}" to modify your PATH.
 
 %package devel
 Summary:        Headers needed to develop software that uses 4ti2
@@ -142,13 +142,13 @@ make check
 %files devel
 %{_includedir}/4ti2/
 %{_libdir}/lib4ti2*.so
-%{_libdir}/libzsolve*.so
+%{_libdir}/libzsolve.so
 
 %files libs
 %doc AUTHORS NEWS README.md THANKS
 %license COPYING
-%{_libdir}/lib4ti2*.so.0*
-%{_libdir}/libzsolve*.so.0*
+%{_libdir}/lib4ti2*.so.0{,.*}
+%{_libdir}/libzsolve.so.0{,.*}
 
 %changelog
 %autochangelog

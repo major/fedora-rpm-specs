@@ -1,7 +1,7 @@
 %global forgeurl0 https://github.com/NetworkConfiguration/dhcpcd
 
 Name: dhcpcd
-Version: 10.1.0
+Version: 10.3.0
 Release: %autorelease
 Summary: A minimalistic network configuration daemon with DHCPv4, rdisc and DHCPv6 support
 License: BSD-2-Clause AND ISC AND MIT
@@ -14,9 +14,7 @@ Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9
 Source3: %{name}.service
 Source4: %{name}@.service
 Source5: systemd-sysusers.conf
-# Backport to work with the latest glibc getrandom() vDSO
-# https://github.com/NetworkConfiguration/dhcpcd/commit/e9e40400003db2e4f12dba85acabbaf2212a520f
-Patch: e9e40400003d-allow-the-__NR_rt_sigprocmask-syscall.patch
+Source6: systemd-tmpfiles.conf
 
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros
@@ -57,6 +55,7 @@ find %{buildroot} -name '*.la' -delete -print
 install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 install -D -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}@.service
 install -D -m 644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -m 644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -d %{buildroot}%{_sharedstatedir}/%{_name}
 
 %post
@@ -85,6 +84,7 @@ install -d %{buildroot}%{_sharedstatedir}/%{_name}
 %{_mandir}/man8/%{name}.8.gz
 %{_sbindir}/%{name}
 %{_sysusersdir}/%{name}.conf
+%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}@.service
 %defattr(0644,root,dhcpcd,0755)

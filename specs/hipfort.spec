@@ -49,7 +49,7 @@
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -59,6 +59,8 @@ Patch0:         0001-Handle-cmake-DBUILD_SHARED_LIBS-ON.patch
 Patch1:         0001-Generalize-hipfc-to-other-linux-distros.patch
 # https://github.com/ROCm/hipfort/issues/261
 Patch2:         0001-hipfort-remove-build-type-check.patch
+# https://github.com/ROCm/hipfort/issues/279
+Patch3:         0001-hipfort-remove-rocblas_sgemm_kernel_name.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -75,6 +77,8 @@ BuildRequires:  rocfft%{pkg_suffix}-devel
 BuildRequires:  rocrand%{pkg_suffix}-devel
 BuildRequires:  rocsolver%{pkg_suffix}-devel
 BuildRequires:  rocsparse%{pkg_suffix}-devel
+
+Requires:       rocminfo%{pkg_suffix}
 
 # ROCm is only x86_64 for now
 ExclusiveArch:  x86_64
@@ -93,7 +97,8 @@ The headers of libraries for %{name}.
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
-sed -i -e 's|-o $@|-L %{pkg_prefix}/%{pkg_libdir} -lrocfft -lrocrand -lrocblas -lrocsolver -lrocsparse -lhipfft -lhiprand -lhipblas -lhipsolver -lhipsparse -o $@|' test/Makefile.in
+# Can not pass -L*, hipfc gets confused and treats '-' as the start of a passthrough arg 
+sed -i -e 's|-o $@|-lrocfft -lrocrand -lrocblas -lrocsolver -lrocsparse -lhipfft -lhiprand -lhipblas -lhipsolver -lhipsparse -o $@|' test/Makefile.in
 
 # For CMake 4
 sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_required(VERSION 3.5@' bin/CMakeLists.txt
@@ -115,7 +120,7 @@ sed -i 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR@cmake_minimum_requir
 
 %cmake_build
 
-# Assume you _just_ installed hipfort as the tests assume hipfc is in the PATH
+# Assume you _just_ installed hipfort-devel as the tests assume hipfc is in the PATH
 %if %{with check}
 %check
 # Mixing rpm gfortran security flags with hipcc does not work
@@ -125,6 +130,9 @@ export CXXFLAGS=""
 export FFLAGS=""
 export FCFLAGS=""
 export LDFLAGS=""
+# hipfc needs these set to find things
+export HIPFORT="%{pkg_prefix}"
+export ROCM_PATH="%{pkg_prefix}"
 %cmake_build -t all-tests-run
 %endif
 
@@ -154,6 +162,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Thu Jan 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove rocblas_sgemm_kernel_name and similar
+- Add requires rocminfo
+
 * Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
 - Change --with test to --with check

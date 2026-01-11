@@ -79,13 +79,12 @@ BuildRequires:  texinfo-tex
 %description
 The APRON library is dedicated to the static analysis of the numerical
 variables of a program by Abstract Interpretation.  The aim of such an
-analysis is to infer invariants about these variables, like 1<=x+y<=z,
-which holds during any execution of the program.
+analysis is to infer invariants about these variables, like 1<=x+y<=z, which
+holds during any execution of the program.
 
-The APRON library is intended to be a common interface to various
-underlying libraries/abstract domains and to provide additional services
-that can be implemented independently from the underlying
-library/abstract domain.
+The APRON library is intended to be a common interface to various underlying
+libraries/abstract domains and to provide additional services that can be
+implemented independently from the underlying library/abstract domain.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -96,8 +95,8 @@ Requires:       mpfr-devel%{?_isa}
 Provides:       bundled(js-jquery)
 
 %description    devel
-The %{name}-devel package contains libraries and signature files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for developing
+applications that use %{name}.
 
 %package -n     ocaml-%{name}
 Summary:        Ocaml interface to APRON
@@ -245,8 +244,7 @@ test/ctest1
 %files
 %doc AUTHORS Changes README.md apron/apron.pdf
 %license COPYING
-%{_libdir}/lib*.so.0
-%{_libdir}/lib*.so.0.*
+%{_libdir}/lib*.so.0{,.*}
 
 %files devel
 %doc doc/apron doc/apronxx

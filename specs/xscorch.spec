@@ -1,6 +1,6 @@
 Name:		xscorch
 Version:	0.2.1
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	A Scorched Earth clone
 License:	GPL-2.0-only
 URL:		http://www.xscorch.org/
@@ -16,6 +16,7 @@ BuildRequires:  gcc
 BuildRequires:	libX11-devel gtk2-devel desktop-file-utils libappstream-glib
 BuildRequires:	perl-interpreter
 Requires:       hicolor-icon-theme
+Requires:       gdk-pixbuf2-modules-extra
 
 %description
 xscorch is a clone of the classic DOS game, "Scorched Earth". The basic goal
@@ -68,6 +69,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.2.1-30
+- Fix XPM requirement.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

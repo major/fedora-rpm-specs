@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -1485,6 +1485,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Fri Jan 09 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-14
+- Fix Risc-V related test failures caused by -12 revision. 
+
 * Mon Jan 05 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-13
 - Rebase to commit be970c68891
 

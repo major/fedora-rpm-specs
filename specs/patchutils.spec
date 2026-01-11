@@ -1,10 +1,11 @@
 Summary: A collection of programs for manipulating patch files
 Name: patchutils
 Version: 0.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/patchutils/
 Source0: http://cyberelk.net/tim/data/patchutils/stable/%{name}-%{version}.tar.xz
+Patch0: patchutils-0.4.4-ftbfs-gnulib.patch
 Obsoletes: interdiff <= 0.0.10
 Provides: interdiff = 0.0.11
 Requires: patch
@@ -22,7 +23,7 @@ combining two incremental patches, fixing line numbers in hand-edited
 patches, and simply listing the files modified by a patch.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -44,6 +45,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Mon Jan 05 2026 Than Ngo <than@redhat.com> - 0.4.4-2
+- Fixed FTBFS
+
 * Fri Sep 26 2025 Tim Waugh <twaugh@redhat.com>
 - 0.4.4.
 

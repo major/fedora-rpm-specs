@@ -62,19 +62,24 @@ Provides:       pgjdbc = %{version}-%{release}
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.ongres.scram:scram-client)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
-BuildRequires:  mvn(se.jiderhamn:classloader-leak-test-framework)
 
 %if %runselftest
 BuildRequires:  postgresql-contrib
 BuildRequires:  postgresql-test-rpm-macros
 %endif
 
+# gettext is only needed if we try to update translations
+# BuildRequires:  gettext
+
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 42.7.4-9
 
-# gettext is only needed if we try to update translations
-# BuildRequires:  gettext
+Provides:       bundled(mvn(com.ongres.scram:scram-client)) = 3.2
+Provides:       bundled(mvn(com.ongres.scram:scram-common)) = 3.2
+Provides:       bundled(mvn(com.ongres.stringprep:saslprep)) = 2.2
+Provides:       bundled(mvn(com.ongres.stringprep:stringprep)) = 2.2
 
 %description
 PostgreSQL is an advanced Object-Relational database management system. The
@@ -92,9 +97,6 @@ This package contains tests for %{name}.
 
 # remove any binary libs
 find -type f \( -name "*.jar" -or -name "*.class" \) -delete
-
-# Build parent POMs in the same Maven call.
-%pom_remove_plugin :maven-shade-plugin
 
 # compat symlink: requested by dtardon (libreoffice), reverts part of
 # 0af97ce32de877 commit.
@@ -140,7 +142,7 @@ opts="-DskipTests=true"
 
 %mvn_build -j -- $opts
 
-xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
+xmvn --offline -Dmdep.outputFile=tests-classpath dependency:build-classpath
 
 %install
 %mvn_install

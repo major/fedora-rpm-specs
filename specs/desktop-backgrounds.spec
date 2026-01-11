@@ -55,6 +55,14 @@ Provides:       system-backgrounds-gnome = %{version}-%{release}
 %description    gnome
 The desktop-backgrounds-gnome package sets default background in gnome.
 
+%package        kde
+Summary:        The default Fedora wallpaper from KDE Plasma desktop
+Requires:       %{fedora_release_name}-backgrounds-kde
+Provides:       system-backgrounds-kde = %{version}-%{release}
+
+%description    kde
+The desktop-backgrounds-kde package sets default background in KDE Plasma.
+
 %package        compat
 Summary:        The default Fedora wallpaper for less common DEs
 Requires:       %{fedora_release_name}-backgrounds-base
@@ -181,7 +189,12 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 /bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.screensaver.fedora.gschema.override
 
-#   for KDE, this is handled in kde-settings
+#   for KDE
+
+(cd %{buildroot}%{_datadir}/wallpapers;
+ln -s F%{sub %{fedora_release_name} 2 -1} Default
+)
+
 #   for XFCE, LXDE, etc.
 
 %if "x%{?picture_ext}" == "xjxl"
@@ -261,6 +274,10 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 %files gnome
 %{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.background.fedora.gschema.override
 %{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.screensaver.fedora.gschema.override
+
+%files kde
+%dir %{_datadir}/wallpapers
+%{_datadir}/wallpapers/Default
 
 %files compat
 %dir %{_datadir}/backgrounds/images/

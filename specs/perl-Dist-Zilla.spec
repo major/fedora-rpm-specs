@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla
-Version:        6.033
-Release:        2%{?dist}
+Version:        6.036
+Release:        1%{?dist}
 Summary:        Distribution builder; installer not included!
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla
@@ -20,7 +20,6 @@ BuildRequires:  perl(App::Cmd::Command::version)
 BuildRequires:  perl(App::Cmd::Setup) >= 0.330
 BuildRequires:  perl(App::Cmd::Tester) >= 0.306
 BuildRequires:  perl(App::Cmd::Tester::CaptureExternal)
-# Archive::Tar is a fall-back for missing optional Archive::Tar::Wrapper 0.15
 BuildRequires:  perl(Archive::Tar)
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(Carp)
@@ -100,8 +99,6 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version)
 BuildRequires:  perl(YAML::Tiny)
-# Optional run-time:
-# Archive::Tar::Wrapper 0.15
 # Tests:
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(lib)
@@ -110,7 +107,6 @@ BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::File::ShareDir)
 BuildRequires:  perl(Test::More) >= 0.96
-# Archive::Tar is a fall-back for missing optional Archive::Tar::Wrapper 0.15
 Requires:       perl(Archive::Tar)
 #Requires:       perl(autobox) >= 2.53
 Requires:       perl(Config::INI::Reader)
@@ -180,6 +176,9 @@ make test
 %{_sysconfdir}/bash_completion.d
 
 %changelog
+* Fri Jan 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.036-1
+- Bump 6.036
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.033-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

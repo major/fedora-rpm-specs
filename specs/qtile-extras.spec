@@ -1,8 +1,11 @@
 %global forgeurl https://github.com/elParaguayo/qtile-extras
-%global tag v0.34.0
+# Upstream tagged 0.34.1 early and didn't include the commit that fixed the test
+# suite. We need to use `commit` instead of `tag` to make sure the fix is
+# included for this release.
+%global commit 359964520a9dcd2c7e12680bfc53e359d74c489b
 
 Name: qtile-extras
-Version: 0.34.0
+Version: 0.34.1
 Release: %{autorelease}
 Summary: A collection of mods for Qtile
 %forgemeta
@@ -37,6 +40,7 @@ BuildRequires: gobject-introspection-devel
 # We should patch the tox.ini file and remove the missing dependencies instead
 # of installing everything manually
 BuildRequires: tox
+BuildRequires: python3-anyio
 BuildRequires: python3-tox-current-env
 BuildRequires: python3-pytest
 BuildRequires: xorg-x11-server-Xvfb
@@ -113,17 +117,16 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %check
-# I am not sure why these tests fail. Let's investigate later
-pytest_expressions="not test_footballmatch_module_kickoff_time"
-pytest_expressions+=" and not test_githubnotifications_reload_token"
-pytest_expressions+=" and not test_syncthing_http_error"
+# Avoid `OSError: [Errno 24] Too Many Open Files` error
+ulimit -n 10240
 
-%pytest -vv -k "$pytest_expressions" \
+%pytest -vv \
     --deselect test/widget/test_alsawidget.py::test_alsawidget_defaults[1-x11] \
     --deselect test/widget/test_alsawidget.py::test_controls[1-x11] \
     --deselect test/widget/test_alsawidget.py::test_step[1-x11-alsa_manager0] \
     --deselect test/widget/test_alsawidget.py::test_no_icons[1-x11-alsa_manager0] \
-    --deselect test/widget/test_alsawidget.py::test_icons[1-x11-alsa_manager0]
+    --deselect test/widget/test_alsawidget.py::test_icons[1-x11-alsa_manager0] \
+    --deselect test/widget/test_githubnotifications.py::test_githubnotifications_reload_token[1-x11-False-githubnotification_manager0]
 
 %files -n qtile-extras -f %{pyproject_files}
 %license LICENSE

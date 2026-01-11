@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-651-g0b8a996f44
+%global glibcsrcdir glibc-2.42.9000-670-g755798985d
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 18
+%global baserelease 20
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -347,6 +347,7 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-rh2426825.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
@@ -2398,6 +2399,32 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Jan 09 2026 Florian Weimer  <fweimer@redhat.com> - 2.42.9000-20
+- Work around GCC problem that makes diagnostics pragmas ineffective (#2426825)
+
+* Thu Jan 08 2026 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-19
+- Auto-sync with upstream branch master,
+  commit 755798985d0dc2438c546851f926087158955614:
+- aarch64: Fix PT_GNU_PROPERTY checks for static exe (BZ 33713)
+- tst-sig-redzone: Decorate assembly function
+- hurd: check that signal processing does not hurt the x86_64 redzone
+- hurd: also test mmx state restoration
+- mach/hurd: add `bits/in.h`
+- Better terminology for ‘long double’ in manual
+- Update copyright dates not handled by scripts/update-copyrights
+- Update copyright dates with scripts/update-copyrights
+- Pass glibc pre-commit checks
+- malloc_info: fix closing </sizes> tag typo
+- LoongArch: Use generic __builtin_trap in abort.
+- malloc: Fix clang build after 1c588a2187
+- elf: Fix elf/tst-decorate-maps on aarch64 after 321e1fc73f
+- misc: Enable tst-atomic for clang
+- math: Use math_opt_barrier on ldbl-128 powl underflow/overflow handling
+- stdio: Fix tst-vfprintf-user-type on clang
+- x86: Do not use __builtin_isinf_sign for _Float64x/long double
+- x86: Do not use __builtin_fpclassify for _Float64x/long double
+- resolv: Add test for NOERROR/NODATA handling [BZ #14308]
+
 * Wed Jan  7 2026 DJ Delorie <dj@redhat.com> - 2.42.9000-18
 - Improve robustness of glibc32 build. (#2427390)
 

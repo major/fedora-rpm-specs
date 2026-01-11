@@ -4,7 +4,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.11.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -33,6 +33,9 @@ Patch3: vagrant-libvirt-0.12.2-Remove-config-unsupported-by-fog-libvirt.patch
 # Fix compatibility with REXML 3.4.2+
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1861
 Patch4: vagrant-libvirt-0.12.2-Fix-REXML-3-4-2-compatibility.patch
+# Replace CGI, removed from Ruby 4.0 bundled gems with URI.
+# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1866
+Patch5: vagrant-libvirt-0.12.2-Replace-CGI.parse-with-URI-equivalent.patch
 
 # Enable QEMU Session by default
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/969
@@ -84,6 +87,7 @@ Documentation for %{name}.
 %patch 2 -p1
 %patch 3 -p1
 %patch 4 -p1
+%patch 5 -p1
 %patch 100 -p1
 
 %build
@@ -153,6 +157,9 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Tue Dec 16 2025 Jarek Prokop <jprokop@redhat.com> - 0.11.2-9
+- Fix Ruby 4.0 compatibility by replacing CGI with URI equivalent.
+
 * Mon Nov 03 2025 Vít Ondruch <vondruch@redhat.com> - 0.11.2-8
 - Fix compatibility with REXML 3.4.2+
 

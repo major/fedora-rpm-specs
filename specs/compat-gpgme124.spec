@@ -1,5 +1,6 @@
 %bcond check 1
-%bcond qt5 1
+# No Qt5 on RHEL 10 and higher
+%bcond qt5 %[ 0%{?rhel} < 10 ]
 %bcond qt6 1
 %bcond devel 0
 
@@ -175,6 +176,8 @@ export CXXFLAGS='%{optflags} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 export SETUPTOOLS_USE_DISTUTILS=local
+# bypass configure check which fails with GCC 16
+export ac_cv_prog_cxx_cxx11=''
 
 # Also build either qt5 or qt6
 mkdir build

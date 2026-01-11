@@ -1,8 +1,8 @@
 %bcond   gui_related_parts 1
 
 Name:    unixODBC
-Version: 2.3.12
-Release: 7%{?dist}
+Version: 2.3.14
+Release: 2%{?dist}
 
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -17,7 +17,6 @@ Source1: odbcinst.ini
 
 Patch8:  so-version-bump.patch
 Patch9:  keep-typedefs.patch
-Patch10: unixODBC-c89.patch
 
 BuildRequires: make automake autoconf libtool libtool-ltdl-devel bison flex
 BuildRequires: readline-devel
@@ -49,7 +48,6 @@ ODBC, you need to install this package.
 %setup -q
 %patch -P8 -p1 -b .soname-bump
 %patch -P9 -p1
-%patch -P 10 -p1
 
 autoreconf -vfi
 
@@ -124,6 +122,12 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 
 
 %changelog
+* Fri Jan 09 2026 Michal Schorm <mschorm@redhat.com> - 2.3.14-2
+- Bump release to test Packit automation
+
+* Fri Jan 09 2026 Michal Schorm <mschorm@redhat.com> - 2.3.14-1
+- Rebase to 2.3.14
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

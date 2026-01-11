@@ -14,7 +14,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.7.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -34,6 +34,7 @@ Source17: postlogin.5
 Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Patch1:  pam-1.7.0-redhat-modules.patch
 Patch2:  pam-1.5.3-unix-nomsg.patch
+Patch3:  pam-1.7.1-pam-unix-remove-obsolete-defines.patch
 
 %{load:%{SOURCE3}}
 
@@ -131,6 +132,7 @@ cp %{SOURCE18} .
 
 %patch -P 1 -p1 -b .redhat-modules
 %patch -P 2 -p1 -b .nomsg
+%patch -P 3 -p1 -b .pam-unix-remove-obsolete-defines
 
 %build
 %meson \
@@ -362,6 +364,10 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Fri Jan  9 2026 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.1-4
+- pam_unix: remove obsolete HAVE_YP_* to fix NIS
+  Resolves: #2363005
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

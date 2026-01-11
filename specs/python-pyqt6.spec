@@ -6,17 +6,12 @@
 
 Summary: PyQt6 is Python bindings for Qt6
 Name:    python-pyqt6
-Version: 6.10.1
-Release: 2%{?dist}
+Version: 6.10.2
+Release: 1%{?dist}
 License: gpl-3.0-only
 Url:     http://www.riverbankcomputing.com/software/pyqt/
 Source0: https://pypi.python.org/packages/source/P/PyQt6/pyqt6-%{version}%{?snap:.%{snap}}.tar.gz
 Source1: macros.pyqt6
-
-# Revert ownership changes for createMimeDataFromSelection() from 6.10.1
-# See also https://www.riverbankcomputing.com/pipermail/pyqt/2025-December/046406.html
-# https://salsa.debian.org/python-team/packages/pyqt6/-/commit/55ea38efe80e8fcbf71686758080177a61316fd2
-Patch0:        pyqt6-revert-createMimeDataFromSelection.patch
 
 BuildRequires: make
 BuildRequires: chrpath
@@ -243,6 +238,9 @@ sed -i \
 
 
 %changelog
+* Fri Jan 09 2026 Sandro Mani <manisandro@gmail.com> - 6.10.2-1
+- Update to 6.10.2
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 6.10.1-2
 - Revert changes to createMimeDataFromSelection
 

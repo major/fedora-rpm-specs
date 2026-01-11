@@ -86,10 +86,10 @@ BuildRequires:  libtool
 ExclusiveArch:  %{java_arches}
 
 %description
-ANother Tool for Language Recognition, is a language tool
-that provides a framework for constructing recognizers,
-interpreters, compilers, and translators from grammatical
-descriptions containing actions in a variety of target languages.
+ANother Tool for Language Recognition, is a language tool that provides a
+framework for constructing recognizers, interpreters, compilers, and
+translators from grammatical descriptions containing actions in a variety of
+target languages.
 
 %package        tool
 Summary:        ANother Tool for Language Recognition
@@ -103,10 +103,10 @@ Requires:       %{name}-java = %{epoch}:%{antlr_version}-%{release}
 Requires:       javapackages-tools
 
 %description    tool
-ANother Tool for Language Recognition, is a language tool
-that provides a framework for constructing recognizers,
-interpreters, compilers, and translators from grammatical
-descriptions containing actions in a variety of target languages.
+ANother Tool for Language Recognition, is a language tool that provides a
+framework for constructing recognizers, interpreters, compilers, and
+translators from grammatical descriptions containing actions in a variety of
+target languages.
 
 %package        java
 Summary:        Java run-time support for ANTLR-generated parsers
@@ -189,9 +189,9 @@ Version:        %{c_runtime_version}
 Release:        %{antlr_version}.%{baserelease}%{?dist}
 
 %description    C-docs
-This package contains doxygen documentation with instruction
-on how to use the C target in ANTLR and complete API description of the
-C run-time support for ANTLR-generated parsers.
+This package contains doxygen documentation with instruction on how to use the
+C target in ANTLR and complete API description of the C run-time support for
+ANTLR-generated parsers.
 
 %package        C++-devel
 Summary:        C++ runtime support for ANTLR-generated parsers

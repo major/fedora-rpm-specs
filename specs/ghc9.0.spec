@@ -52,11 +52,14 @@ Version: 9.0.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
+# C backend fails to build with recent gcc
+# https://bugzilla.redhat.com/show_bug.cgi?id=2428204
+ExcludeArch: %{ghc_unregisterized_arches}
 Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
 Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.xz
@@ -788,6 +791,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 09 2026 Jens Petersen <petersen@redhat.com> - 9.0.2-22
+- exclude s390x & riscv64 whose C backend fails with recent gcc (#2428204)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

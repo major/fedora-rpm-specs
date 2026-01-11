@@ -1,14 +1,11 @@
 Name:           omniORBpy
-Version:        4.3.3
-Release:        5%{?dist}
+Version:        4.3.4
+Release:        1%{?dist}
 Summary:        CORBA ORB for Python
 
 License:        LGPL-2.0-or-later
 URL:            http://omniorb.sourceforge.net/
 Source0:        http://sourceforge.net/projects/omniorb/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.bz2
-
-# Fix FTBFS with Python 3.7 (error: invalid conversion from 'const char*' to 'char*')
-Patch0:         omniORBpy_char.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -93,6 +90,9 @@ find %{buildroot}%{python3_sitelib} -type d -exec chmod 755 {} \;
 
 
 %changelog
+* Fri Jan 09 2026 Sandro Mani <manisandro@gmail.com> - 4.3.4-1
+- Update to 4.3.4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.3-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

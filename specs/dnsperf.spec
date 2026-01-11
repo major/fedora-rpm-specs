@@ -1,17 +1,16 @@
-%if 0%{?fedora} >= 29 || 0%{?rhel} > 7
+# EPEL10 build of python3-pcapy is not yet available
+%if 0%{?fedora} >= 29 || (0%{?rhel} > 7 && 0%{?rhel} < 10)
 %bcond_without python3
-%bcond_with    python2
 %else
 %bcond_with    python3
-%bcond_without python2
 %endif
 
-%global forgeurl0 https://github.com/DNS-OARC/dnsperf
+%global forgeurl0 https://codeberg.org/DNS-OARC/dnsperf
 
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
 Version: 2.14.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
 # Github project has different license and so far is the only one with any
@@ -33,8 +32,6 @@ License: Apache-2.0
 Url: https://www.dns-oarc.net/tools/dnsperf
 Vcs: git:%{forgeurl0}
 
-# Deactivate GitHub sources, make web server official. Should be the same, but GitHub does not match checksums.
-#Source: https://github.com/DNS-OARC/dnsperf/archive/v%%{version}/%%{name}-%%{version}.tar.gz
 Source0: https://www.dns-oarc.net/files/dnsperf/%{name}-%{version}.tar.gz
 Source2: dnsperf-data
 
@@ -47,6 +44,8 @@ BuildRequires: libnghttp2-devel
 
 %if %{with python3}
 BuildRequires: python3-devel
+BuildRequires: python3-dns
+BuildRequires: python3-pcapy
 %endif
 
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
@@ -60,10 +59,6 @@ Requires:   gnuplot
 BuildRequires: python3-devel
 %endif
 
-%if %{with python2}
-BuildRequires: python2-devel
-%endif
-
 Provides: %{name}-data = %{version}-%{release}
 Obsoletes: %{name}-data < 2.5.1-2
 
@@ -71,7 +66,7 @@ Obsoletes: %{name}-data < 2.5.1-2
 This is dnsperf, a collection of DNS server performance testing tools.
 For more information, see the dnsperf(1) and resperf(1) man pages.
 
-%if %{with python2} || %{with python3}
+%if %{with python3}
 %package queryparse
 Summary: Pcap dns query extraction utility
 BuildArch: noarch
@@ -79,9 +74,6 @@ BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
 %if %{with python3}
 Requires: python3-pcapy python3-dns
-%endif
-%if %{with python2}
-Requires: pcapy python2-dns
 %endif
 
 %description queryparse
@@ -101,16 +93,13 @@ autoreconf -fi
 %configure
 %make_build
 
-%if %{with python2}
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python2} -p -n contrib/queryparse/queryparse
-%endif
 %if %{with python3}
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -p -n contrib/queryparse/queryparse
 %endif
 
 %install
 %make_install dist_doc_DATA=''
-%if %{with python2} || %{with python3}
+%if %{with python3}
 install -p contrib/queryparse/queryparse %{buildroot}/%{_bindir}
 install -D -m 644 -p contrib/queryparse/queryparse.1 %{buildroot}/%{_mandir}/man1/queryparse.1
 gzip %{buildroot}/%{_mandir}/man1/queryparse.1
@@ -122,6 +111,9 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 
 %check
 %make_build check
+%if %{with python3}
+%{buildroot}/%{_bindir}/queryparse --version
+%endif
 
 %files 
 %doc README.md CHANGES
@@ -131,13 +123,17 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %dir %{_datadir}/dnsperf
 %ghost %{_datadir}/dnsperf/queryfile-example-current
 
-%if %{with python2} || %{with python3}
+%if %{with python3}
 %files queryparse
 %{_bindir}/queryparse
 %{_mandir}/man1/queryparse.1*
 %endif
 
 %changelog
+* Fri Jan 09 2026 Petr Menšík <pemensik@redhat.com> - 2.14.0-3
+- Drop python2 support and disable queryparse on EPEL 10 (rhbz#2373967)
+- Update forge address
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

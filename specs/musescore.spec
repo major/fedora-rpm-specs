@@ -29,7 +29,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        33%{?dist}
+Release:        34%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -243,6 +243,8 @@ Patch:          %{name}-fluidsynth-2.3.7.patch
 Patch:          musescore-fix-build-against-qt-6-10.patch
 # Fix build with FFmpeg 8
 Patch:          %{name}-ffmpeg8.patch
+# Fix a CVE in the bundled fluidsynth
+Patch:          %{name}-CVE-2025-56225.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -507,8 +509,7 @@ mkdir -p %{buildroot}%{_datadir}/mscore-%{musescore_maj}/fonts
 cp -p fonts/*.xml %{buildroot}%{_datadir}/mscore-%{musescore_maj}/fonts
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,updatecontact,update_contact,g' \
-  -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
+sed -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
   -i %{buildroot}%{_metainfodir}/%{fontorg}.gootville-fonts.metainfo.xml \
   %{buildroot}%{_metainfodir}/%{fontorg}.gootville-text-fonts.metainfo.xml \
   %{buildroot}%{_metainfodir}/%{fontorg}.mscore-fonts.metainfo.xml \
@@ -795,6 +796,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Fri Jan 09 2026 Jerry James <loganjerry@gmail.com> - 4.6.5-34
+- Patch for CVE-2025-56225
+
 * Thu Dec 18 2025 Jerry James <loganjerry@gmail.com> - 4.6.5-33
 - Version 4.6.5
 

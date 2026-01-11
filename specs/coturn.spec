@@ -1,6 +1,6 @@
 Name:           coturn
-Version:        4.7.0
-Release:        4%{?dist}
+Version:        4.8.0
+Release:        1%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -10,7 +10,6 @@ Source1:        coturn.service
 Source2:        coturn.tmpfilesd
 Source3:        coturn.logrotate
 Source4:        coturn.sysusersd
-Patch0:         coturn-4.7.0-cve-2025-69217.patch
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
@@ -221,6 +220,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Sat Jan 10 2026 Robert Scheck <robert@fedoraproject.org> - 4.8.0-1
+- Upgrade to 4.8.0 (#2427319)
+
 * Sun Jan 04 2026 Robert Scheck <robert@fedoraproject.org> - 4.7.0-4
 - Backport upstream patches for CVE-2025-69217 (#2425955)
 
@@ -267,7 +269,7 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 - Upgrade to 4.6.2 (#2186297)
 
 * Thu Jan 19 2023 Robert Scheck <robert@fedoraproject.org> - 4.6.1-3
-- Added upstream patch to fix OpenSSL 3 support 
+- Added upstream patch to fix OpenSSL 3 support
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

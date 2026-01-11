@@ -7,6 +7,8 @@ Version:          1.86
 Release:          %autorelease
 Summary:          Python tools for computational molecular biology
 Source:           %{pypi_source}
+Patch0:           %{pypi_name}-CVE_2025_68463_1.patch
+Patch1:           %{pypi_name}-fix_numpy-2.4_compatibility.patch
 
 # Starting from biopython-1.69, BioPython is released under the
 # "Biopython License Agreement"; it looks like a MIT variant
@@ -35,7 +37,7 @@ biology.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x tests

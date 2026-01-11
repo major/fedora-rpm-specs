@@ -104,7 +104,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          4%{?with_debug:.debug}%{?dist}
+Release:          5%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -132,6 +132,7 @@ Source50:         rh-skipped-tests-list-base.list
 Source51:         rh-skipped-tests-list-arm.list
 Source52:         rh-skipped-tests-list-s390.list
 Source53:         rh-skipped-tests-list-ppc.list
+Source54:         rh-skipped-tests-list-riscv.list
 
 # Comments for these patches are in the patch files
 # Patches common for more mysql-like packages
@@ -169,7 +170,7 @@ BuildRequires:    mecab-devel
 BuildRequires:    bison
 BuildRequires:    libzstd-devel
 BuildRequires:    libcurl-devel
-%ifnarch aarch64 s390x
+%ifnarch aarch64 s390x riscv64
 BuildRequires:    numactl-devel
 BuildRequires:    libquadmath-devel
 %endif
@@ -544,6 +545,9 @@ cat %{SOURCE52} | tee -a mysql-test/%{skiplist}
 cat %{SOURCE53} | tee -a mysql-test/%{skiplist}
 %endif
 
+%ifarch riscv64
+cat %{SOURCE54} | tee -a mysql-test/%{skiplist}
+%endif
 
 
 cp %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
@@ -593,10 +597,10 @@ cp %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
          -DSYSTEMD_SERVICE_NAME="%{daemon_name}" \
          -DSYSTEMD_PID_DIR="%{pidfiledir}" \
          -DWITH_INNODB_MEMCACHED=ON \
-%ifnarch aarch64 s390x
+%ifnarch aarch64 s390x riscv64
          -DWITH_NUMA=ON \
 %endif
-%ifarch s390x
+%ifarch s390x riscv64
          -DUSE_LD_GOLD=OFF \
 %endif
          -DWITH_ROUTER=OFF \
@@ -1119,6 +1123,11 @@ popd
 %endif
 
 %changelog
+* Tue Dec 02 2025 David Abdurachmanov <davidlt@rivosinc.com> - 8.4.7-5
+- Disable numactrl and libquadmath on risc-v
+- Disable ld.gold on risc-v
+- Add list of skipped tests for risc-v
+
 * Fri Nov 21 2025 Michal Schorm <mschorm@redhat.com> - 8.4.7-4
 - Bump release for tmpfiles.d fixup
 

@@ -10,7 +10,11 @@ Version:        2.18
 Release:        %autorelease
 Summary:        Decentralized cross-distribution software installation system
 
+# LGPL-2.1-or-later: the project as a whole
+# CC0-1.0: share/metainfo/0install.appdata.xml
+# LicenseRef-Fedora-Public-Domain: src/sample_client.py
 License:        LGPL-2.1-or-later
+SourceLicense:  %{license} AND CC0-1.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://0install.net/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/releases/download/v%{version}/%{name}-%{version}.tbz
@@ -26,38 +30,37 @@ BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.5
 BuildRequires:  ocaml-ounit2-devel
 
-%global _desc %{expand:
-Zero Install is a decentralized cross-distribution software installation
-system.  Other features include full support for shared libraries (with
-a SAT solver for dependency resolution), sharing between users, and
-integration with native platform package managers.  It supports both
-binary and source packages, and works on Linux, macOS, Unix and Windows
-systems.}
+%global _desc %{expand:Zero Install is a decentralized cross-distribution software installation
+system.  Other features include full support for shared libraries (with a SAT
+solver for dependency resolution), sharing between users, and integration with
+native platform package managers.  It supports both binary and source
+packages, and works on Linux, macOS, Unix and Windows systems.}
 
-%description %_desc
+%description
+%_desc
 
 %package -n     ocaml-0install-solver
 Summary:        Package dependency solver
 
-%description -n ocaml-0install-solver %_desc
+%description -n ocaml-0install-solver
+%_desc
 
-This package contains a package dependency resolver based on a SAT
-solver.  This was originally written for the 0install package manager,
-but is now generic and is also used as a solver backend for opam.
+This package contains a package dependency resolver based on a SAT solver.
+This was originally written for the 0install package manager, but is now
+generic and is also used as a solver backend for opam.
 
-The SAT solver is based on MiniSat (http://minisat.se/Papers.html) and
-the application to package management is based on OPIUM (Optimal Package
-Install/Uninstall Manager).  0install-solver uses a (novel?) strategy to
-find the optimal solution extremely quickly (even for a SAT-based
-solver).
+The SAT solver is based on MiniSat (http://minisat.se/Papers.html) and the
+application to package management is based on OPIUM (Optimal Package
+Install/Uninstall Manager).  0install-solver uses a (novel?) strategy to find
+the optimal solution extremely quickly (even for a SAT-based solver).
 
 %package -n     ocaml-0install-solver-devel
 Summary:        Development files for %{name}-solver
 Requires:       ocaml-0install-solver%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-0install-solver-devel
-The %{name}-solver-devel package contains libraries and signature files
-for developing applications that use %{name}-solver.
+The %{name}-solver-devel package contains libraries and signature files for
+developing applications that use %{name}-solver.
 
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}

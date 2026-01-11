@@ -2,26 +2,27 @@
 %global gem_name gem2rpm
 
 Name: rubygem-%{gem_name}
-Version: 1.0.2
-Release: 12%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 Summary: Generate rpm specfiles from gems
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/fedora-ruby/gem2rpm
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/fedora-ruby/gem2rpm.git && cd gem2rpm
-# git checkout v1.0.2 && tar czvf gem2rpm-1.0.2-tests.tgz test/
-Source1: %{gem_name}-%{version}-tests.tgz
+# git checkout v2.0.0 && tar czvf gem2rpm-2.0.0-tests.tar.gz test/
+Source1: %{gem_name}-%{version}-tests.tar.gz
 Requires: %{_bindir}/rpmdev-packager
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: %{_bindir}/rpmdev-packager
 BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(minitest-mock)
 BuildArch: noarch
 
 %description
-Generate source rpms and rpm spec files from a Ruby Gem.  The spec file
+Generate source rpms and rpm spec files from a Ruby Gem. The spec file
 tries to follow the gem as closely as possible, and be compliant with the
 Fedora rubygem packaging guidelines.
 
@@ -58,11 +59,11 @@ cp -a .%{_bindir}/* \
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 %check
-pushd .%{gem_instdir}
-cp -a %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
 TEST_GEM2RPM_LOCAL=1 ruby -Itest -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -80,6 +81,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 09 2026 Vít Ondruch <vondruch@redhat.com> - 2.0.0-1
+- Update to gem2rpm 2.0.0.
+  Resolves: rhbz#2428247
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global giturl  https://github.com/ESSS/pytest-regressions
 
 Name:           python-pytest-regressions
-Version:        2.9.0
+Version:        2.9.1
 Release:        %autorelease
 Summary:        Pytest fixtures for writing regression tests
 

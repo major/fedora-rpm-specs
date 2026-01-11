@@ -1,14 +1,18 @@
 #global rctag rc8
 
+# for fortran nested functions that (still in 2026) in gfortran implementation uses
+# trampolines that require executable stack
+%undefine _hardened_linker_errors
+
 Name:		wsjtx
-Version:	2.7.0
-Release:	14%{?dist}
+Version:	3.0.0~rc1
+Release:	1%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
 
-URL:		http://physics.princeton.edu/pulsar/k1jt/wsjtx.html
-Source0:    https://sourceforge.net/projects/wsjt/files/%{name}-%{version}%{?rctag:-%{rctag}}/%{name}-%{version}%{?rctag:-%{rctag}}.tgz
+URL:		https://sourceforge.net/projects/wsjt/
+Source0:	https://sourceforge.net/projects/wsjt/files/%{name}-%{version_no_tilde}%{?rctag:-%{rctag}}/%{name}-%{version_no_tilde}%{?rctag:-%{rctag}}.tgz
 Source100:	edu.princeton.physics.WSJTX.metainfo.xml
 
 ExcludeArch:    i686
@@ -23,6 +27,7 @@ BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-linguist
 BuildRequires:	qt5-qtserialport-devel
 BuildRequires:	qt5-qtmultimedia-devel
+BuildRequires:	qt5-qtwebsockets-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	hamlib-devel
 BuildRequires:	fftw-devel
@@ -39,6 +44,12 @@ BuildRequires:	asciidoc
 BuildRequires:	rubygem-asciidoctor
 BuildRequires:	libappstream-glib
 %endif
+# Sent upstream
+# https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
+Patch0:		wsjtx-3.0.0-rename-split.patch
+# Temporal fix, problem reported upstream
+# https://www.mail-archive.com/wsjt-devel@lists.sourceforge.net/msg28480.html
+Patch1:		wsjtx-3.0.0-path-fix.patch
 
 %description
 WSJT-X is a computer program designed to facilitate basic amateur radio
@@ -49,8 +60,7 @@ from the Moon.
 
 
 %prep
-%setup -n %{name}-%{version}
-#{?rctag:-%{rctag}}
+%setup -q -n %{name}-%{version_no_tilde}
 
 # Remove bundled hamlib
 rm -f src/hamlib*.tgz* src/hamlib*.tar.gz*
@@ -69,6 +79,10 @@ rm -rf boost
 
 # convert CR + LF to LF
 dos2unix *.ui *.iss *.txt
+find ./ -type f -name '*.cpp' -exec dos2unix {} \;
+
+%patch -P0 -p1 -b .external-split
+%patch -P1 -p1 -b .path-fix
 
 
 %build
@@ -77,9 +91,11 @@ dos2unix *.ui *.iss *.txt
 # need to be fixed for this package to work with LTO
 %define _lto_cflags %{nil}
 
-# Workaround for build with gcc-10, problem reported upstream
-export CFLAGS="%{optflags} -fcommon"
-export LDFLAGS="%{?__global_ldflags}"
+# -fcommon is a workaround for build with gcc-10, reported upstream
+export CFLAGS="%{build_cflags} -fcommon -Wno-error=maybe-uninitialized"
+# reported upstream
+export CXXFLAGS="%{build_cxxflags} -Wno-error=maybe-uninitialized"
+export LDFLAGS="%{build_ldflags}"
 # workaround for hamlib check, i.e. for hamlib_LIBRARY_DIRS not to be empty
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 
@@ -152,6 +168,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_bindir}/wsjtx
 %{_bindir}/wsjtx_app_version
 %{_bindir}/wsprd
+%{_bindir}/EchoCallSim
+%{_bindir}/ft8sim
+%{_bindir}/testEchoCall
 %{?fedora:%{_mandir}/man1/*.1.gz}
 %{?fedora:%{_metainfodir}/*.xml}
 %{_datadir}/applications/wsjtx.desktop
@@ -161,6 +180,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Mon Jan 05 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 3.0.0~rc1-1
+- New version
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -66,24 +66,20 @@ BuildRequires:  utf8cpp-devel
 # https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 ExclusiveArch:  %{java_arches}
 
-# Subpackages removed in 4.10.  This can be removed when F40 reaches EOL.
-Obsoletes:      antlr4-runtime-test-annotations < 4.10
-Obsoletes:      antlr4-runtime-test-annotation-processors < 4.10
+%global _desc %{expand:ANTLR (ANother Tool for Language Recognition) is a powerful parser generator
+for reading, processing, executing, or translating structured text or binary
+files.  It is widely used to build languages, tools, and frameworks.  From a
+grammar, ANTLR generates a parser that can build and walk parse trees.}
 
-%global _desc %{expand:
-ANTLR (ANother Tool for Language Recognition) is a powerful parser
-generator for reading, processing, executing, or translating structured
-text or binary files.  It is widely used to build languages, tools, and
-frameworks.  From a grammar, ANTLR generates a parser that can build
-and walk parse trees.}
-
-%description %_desc
+%description
+%_desc
 
 %package     -n antlr4-runtime
 Summary:        ANTLR runtime
 BuildArch:      noarch
 
-%description -n antlr4-runtime %_desc
+%description -n antlr4-runtime
+%_desc
 
 This package provides the runtime library used by Java ANTLR parsers.
 
@@ -94,7 +90,8 @@ Requires:       antlr4-runtime = %{version}-%{release}
 Requires:       java-25-headless
 Requires:       javapackages-tools
 
-%description -n antlr4 %_desc
+%description -n antlr4
+%_desc
 
 This package provides the ANTLR parser generator.
 
@@ -102,7 +99,8 @@ This package provides the ANTLR parser generator.
 Summary:        API Documentation for antlr4
 BuildArch:      noarch
 
-%description -n antlr4-javadoc %_desc
+%description -n antlr4-javadoc
+%_desc
 
 This package contains API documentation for antlr4.
 
@@ -111,23 +109,26 @@ Summary:        ANTLR plugin for Apache Maven
 BuildArch:      noarch
 Requires:       antlr4 = %{version}-%{release}
 
-%description -n antlr4-maven-plugin %_desc
+%description -n antlr4-maven-plugin
+%_desc
 
-This package provides a plugin for Apache Maven which can be used to
-generate ANTLR parsers during project build.
+This package provides a plugin for Apache Maven which can be used to generate
+ANTLR parsers during project build.
 
 %package     -n antlr4-doc
 Summary:        ANTLR4 documentation
 BuildArch:      noarch
 
-%description -n antlr4-doc %_desc
+%description -n antlr4-doc
+%_desc
 
 This package contains ANTLR4 documentation.
 
 %package     -n antlr4-cpp-runtime
 Summary:        ANTLR runtime for C++
 
-%description -n antlr4-cpp-runtime %_desc
+%description -n antlr4-cpp-runtime
+%_desc
 
 This package provides the runtime library used by C++ ANTLR parsers.
 
@@ -135,10 +136,10 @@ This package provides the runtime library used by C++ ANTLR parsers.
 Summary:        Header files for programs that use C++ ANTLR parsers
 Requires:       antlr4-cpp-runtime%{?_isa} = %{version}-%{release}
 
-%description -n antlr4-cpp-runtime-devel %_desc
+%description -n antlr4-cpp-runtime-devel
+%_desc
 
-This package provides header files for programs that use C++ ANTLR
-parsers.
+This package provides header files for programs that use C++ ANTLR parsers.
 
 %ifarch %go_arches
 %global goipath github.com/antlr4-go/antlr
@@ -152,7 +153,8 @@ BuildRequires:  go-rpm-macros
 Obsoletes:      golang-antlr4-runtime-devel < 4.13
 Provides:       golang-antlr4-runtime-devel = %{version}-%{release}
 
-%description -n golang-github-antlr4-antlr-devel %_desc
+%description -n golang-github-antlr4-antlr-devel
+%_desc
 
 This package provides the runtime library used by Go ANTLR parsers.
 %endif
@@ -168,17 +170,18 @@ BuildRequires:  nodejs
 BuildRequires:  nodejs-packaging
 Requires:       nodejs
 
-%description -n nodejs-antlr4 %_desc
+%description -n nodejs-antlr4
+%_desc
 
-This package provides the runtime library used by JavaScript ANTLR
-parsers.
+This package provides the runtime library used by JavaScript ANTLR parsers.
 %endif
 
 %package     -n python3-antlr4-runtime
 Summary:        ANTLR runtime for Python 3
 BuildArch:      noarch
 
-%description -n python3-antlr4-runtime %_desc
+%description -n python3-antlr4-runtime
+%_desc
 
 This package provides the runtime library used by Python 3 ANTLR parsers.
 
@@ -188,7 +191,8 @@ Summary:        ANTLR runtime for swift
 BuildRequires:  chrpath
 BuildRequires:  swift-lang
 
-%description -n swift-antlr4-runtime %_desc
+%description -n swift-antlr4-runtime
+%_desc
 
 This package provides the runtime library used by swift ANTLR parsers.
 %endif

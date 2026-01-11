@@ -8,6 +8,9 @@
 # CEF changes to the new Chromium spec.
 ## END CEF
 
+# macro for el10 minor version
+%define rhel_minor_version %(grep -oP '10\.[0-9.]*' /etc/redhat-release |  cut -d '.' -f2)
+
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
 
@@ -154,6 +157,9 @@
 
 # enable|disable control flow integrity support
 %global cfi 0
+%ifarch x86_64 aarch64
+%global cfi 1
+%endif
 
 ## CEF: QT builds are not relevant
 %global use_qt6 0
@@ -230,7 +236,7 @@
 %global chromium_major 143
 %global chromium_branch 7499
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 169
+%global chromium_minor 192
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
 %global cef_commit 30cb3bdf337b9c32016d8b892d39d2f2df135ce6
 %global cef_branch %{chromium_branch}
@@ -1063,7 +1069,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
 
-%if 0%{?rhel} == 9
+%if 0%{?rhel} == 9 || 0%{?rhel_minor_version} == 1
 %patch -P312 -p1 -b .el9-rust-no-alloc-shim-is-unstable
 %patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
 %endif

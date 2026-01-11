@@ -5,7 +5,7 @@
 
 Name:           %{srcname}-factory
 Version:        0.7.0
-Release:        0.50.20200220git%{shortcommit0}%{?dist}
+Release:        0.51.20200220git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 # Automatically converted from old format: GPLv3+ and CC-BY-SA - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
@@ -76,12 +76,15 @@ sed -i -e 's|docbook-to-man|docbook2man|g' cmake-helper/docbook-to-man.cmake
 rm -rf bear-engine/core/src/visual/glew/
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380474)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # https://github.com/j-jorge/bear/issues/9
 # The Bear Factory (i.e. the editors for the Bear Engine) requires wiWidgets < 3.
 # Changes in the API of wxWidgets broke some parts of the editors.
 # The editor needs to be disabled with -DBEAR_EDITORS_ENABLED=0
 %cmake -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%{_lib} \
        -DBEAR_FACTORY_INSTALL_LIBRARY_DIR=%{_lib} \
+       -DCMAKE_CXX_STANDARD=17 \
        -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed" \
        -DCMAKE_SKIP_RPATH:BOOL=ON \
        -DBEAR_USES_FREEDESKTOP=ON \
@@ -139,6 +142,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/cmake/%{srcname}-engine
 
 %changelog
+* Thu Jan 08 2026 Cristian Le <git@lecris.dev> - 0.7.0-0.51.20200220git2a78522
+- Allow to build with CMake 4.0 (rhbz#2380474)
+
 * Tue Dec 16 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 0.7.0-0.50.20200220git2a78522
 - Patched for Boost 1.90
 

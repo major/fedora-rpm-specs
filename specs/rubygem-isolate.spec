@@ -3,7 +3,7 @@ Summary:	Very simple RubyGems sandbox
 
 Name:		rubygem-%{gem_name}
 Version:	4.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 License:	MIT
 URL:		http://github.com/jbarnette/isolate
@@ -36,6 +36,10 @@ This package contains documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
+
+# Remove strict version requirement for rubygems
+sed -i ./%{gem_name}-%{version}.gemspec \
+	-e '\@required_rubygems_version@s|~>|>=|'
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -76,6 +80,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Fri Jan 09 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-2
+- Remove strict version requirement for rubygems
+
 * Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
 - 4.1.0
 

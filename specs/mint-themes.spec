@@ -1,6 +1,6 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.3.5
+Version:        2.3.7
 Release:        1%{?dist}
 Summary:        Mint themes
 
@@ -100,6 +100,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 1:2.3.7-1
+- Update to 2.3.7
+
 * Tue Dec 16 2025 Leigh Scott <leigh123linux@gmail.com> - 1:2.3.5-1
 - Update to 2.3.5
 

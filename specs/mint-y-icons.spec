@@ -1,5 +1,5 @@
 Name:           mint-y-icons
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
@@ -47,6 +47,9 @@ done
 %{_datadir}/folder-color-switcher/
 
 %changelog
+* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 1.9.1-1
+- Update to 1.9.1
+
 * Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1.9.0-1
 - Update to 1.9.0
 

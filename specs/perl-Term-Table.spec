@@ -4,7 +4,7 @@
 %bcond_without perl_Term_Table_enables_unicode
 
 Name:           perl-Term-Table
-Version:        0.025
+Version:        0.028
 Release:        1%{?dist}
 Summary:        Format a header and rows into a table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.028-1
+- 0.028 bump
+
 * Mon Sep 01 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.025-1
 - 0.025 bump
 

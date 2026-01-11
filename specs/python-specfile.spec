@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.37.1
+%global base_version 0.38.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -77,6 +77,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Thu Jan 08 2026 Packit <hello@packit.dev> - 0.38.0-1
+- A bug leading to incorrect EVR expansion has been fixed. (#492)
+- Prevented side-effects during condition evaluation that could occur when expanding macros that manipulate other macros, leading to misinterpreted validity of condition branches. (#499)
+
 * Fri Oct 03 2025 Packit <hello@packit.dev> - 0.37.1-1
 - We have solved a FutureWarning in our codebase. (#485)
 

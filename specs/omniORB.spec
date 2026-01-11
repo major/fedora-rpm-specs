@@ -8,8 +8,8 @@
 %bcond_without openssl
 
 Name:           omniORB
-Version:        4.3.3
-Release:        7%{?dist}
+Version:        4.3.4
+Release:        1%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPL-2.0-or-later
@@ -240,6 +240,9 @@ fi
 
 
 %changelog
+* Fri Jan 09 2026 Sandro Mani <manisandro@gmail.com> - 4.3.4-1
+- Update to 4.3.4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.3-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

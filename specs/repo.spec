@@ -1,19 +1,11 @@
 Name:           repo
-Version:        2.60.1
+Version:        2.61
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
 License:        Apache-2.0
 URL:            https://gerrit.googlesource.com/git-repo
 Source0:        %{url}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# Revert the commit that upper-bounded the version of virtualenv (in tox.ini)
-# in order to support Python 3.6, something we are not concerned about. See:
-# https://gerrit.googlesource.com/git-repo/+/b5644160b74e70e223caa62ad0ca2ce8310cfb87
-Patch:          0001-Revert-tests-Fix-tox-error-in-py36-use-virtualenv-20.patch
-
-# Remove unnecessary black version upper bound
-Patch:          0001-tox-Remove-black-version-constraint.patch
 
 BuildArch:      noarch
 
@@ -36,7 +28,7 @@ to work with Git.
 %autosetup -c %{name}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 # repo is an unusual tool because it downloads all of its own Python modules

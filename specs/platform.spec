@@ -1,6 +1,6 @@
 Name:           platform
 Version:        2.1.0.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Platform support library used by libCEC and binary add-ons for Kodi
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -36,6 +36,8 @@ cp -p %{SOURCE1} .
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381364)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -61,6 +63,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 2.1.0.1-24
+- Allow to build with CMake 4.0 (rhbz#2381364)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

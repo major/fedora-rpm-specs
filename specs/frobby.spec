@@ -1,6 +1,6 @@
 Name:           frobby
 Summary:        Computations with monomial ideals
-Version:        0.9.6
+Version:        0.9.7
 Release:        %autorelease
 
 # GPL-2.0-or-later: the frobby code
@@ -64,6 +64,7 @@ Frobby internals as a library (libfrobby).
 %cmake -DBUILD_TESTING:BOOL=ON
 
 %build
+export STRIP=true
 %cmake_build
 
 # generate docs

@@ -1,6 +1,6 @@
 Name:           perl-Module-Starter
 Epoch:          1
-Version:        1.79
+Version:        1.80
 Release:        1%{?dist}
 Summary:        A simple starter kit for any module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -30,7 +30,7 @@ BuildRequires:  perl(Software::LicenseUtils) >= 0.103005
 # base not used
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Find)
-# File::Temp not used
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(version) >= 0.77
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 09 2026 Petr Pisar <ppisar@redhat.com> - 1:1.80-1
+- 1.80 bump
+
 * Mon Jan 05 2026 Petr Pisar <ppisar@redhat.com> - 1:1.79-1
 - 1.79 bump
 

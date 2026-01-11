@@ -9,7 +9,7 @@
 %bcond_without doc
 %bcond_without check
 
-%bcond_with debug
+%bcond_without debug
 
 # This package fails its testsuite with LTO.  Disable LTO for now
 %define _lto_cflags %{nil}
@@ -179,7 +179,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 export PYTHONPATH=%{buildroot}%{python3_sitearch}/%{name}
 %if %{with debug}
 export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
-%ctest -- -VV --force-new-ctest-process -j1 --output-on-failure --debug -E 'openmeeg_python_test_python2.py'
+ctest --test-dir %_vpath_builddir -VV --force-new-ctest-process -j1 --output-on-failure --debug -E 'openmeeg_python_test_python2.py|OpenMEEGMathsTest-full|CM2-Head1'
 %else
 export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
 %ctest -E 'openmeeg_python_test_python2.py|OpenMEEGMathsTest-full|CM2-Head1'

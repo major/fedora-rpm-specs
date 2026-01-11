@@ -24,6 +24,12 @@ License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
 Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Omit the “bind” block in test Test Mutex::FunctorCondition
+#
+# Work around failure to compile with GCC 16,
+# https://github.com/abseil/abseil-cpp/issues/1992.
+Patch:          0001-Omit-the-bind-block-in-test-Test-Mutex-FunctorCondit.patch
+
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
 BuildRequires:  ninja-build

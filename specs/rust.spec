@@ -1079,9 +1079,11 @@ rm -rf "./build/%{rust_triple}/test/"
 %endif
 %if %with disabled_libssh2
 # These tests need ssh - guaranteed to fail when libssh2 is disabled.
-%global cargo_test_skip_list  %{cargo_test_skip_list} \\\
-  net_err_suggests_fetch_with_cli \\\
+%global cargo_test_skip_list %{shrink:
+  %{cargo_test_skip_list}
+  net_err_suggests_fetch_with_cli
   ssh_something_happens
+}
 %endif
 %if "%{cargo_test_skip_list}" != ""
 %define cargo_test_skip --test-args "%(printf -- '--skip %%s ' %{cargo_test_skip_list})"

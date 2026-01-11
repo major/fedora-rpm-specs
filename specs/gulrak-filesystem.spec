@@ -1,3 +1,13 @@
+# Use the system Catch2? We need 2.x and cannot straightforwarly port to 3.x
+# (and upstream will not migrate to 3.x because they need to test C++11
+# support, https://github.com/gulrak/filesystem/issues/165). If a Catch2 2.x
+# compat package is no longer available, we can use the bundled single-header
+# copy. This would be:
+#    Provides:       bundled(catch2) = 2.13.7
+# except that it is only used to build test executables, and nothing from the
+# bundled Catch2 library is included in any of the binary RPMs.
+%bcond system_catch2 1
+
 Name:           gulrak-filesystem
 Version:        1.5.14
 Release:        %autorelease
@@ -12,9 +22,11 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  make
 
+%if %{with system_catch2}
 # Consider migrating to Catch2 v3
 # https://github.com/gulrak/filesystem/issues/165
 BuildRequires:  pkgconfig(catch2) < 3
+%endif
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -52,10 +64,12 @@ developing applications that use %{name}.
 %prep
 %autosetup -n filesystem-%{version}
 
+%if %{with system_catch2}
 # Remove bundled Catch library and use the system version
 rm -vf test/catch.hpp
 sed -r -i 's|(include[[:blank:]]+")(catch.hpp")|\1catch2/\2|' test/*.cpp
 sed -r -i 's|[[:blank:]]+catch\.hpp||' test/CMakeLists.txt
+%endif
 
 
 %conf

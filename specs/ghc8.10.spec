@@ -50,11 +50,14 @@ Version: 8.10.7
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
+# C backend fails to build with recent gcc
+# https://bugzilla.redhat.com/show_bug.cgi?id=2428204
+ExcludeArch: %{ghc_unregisterized_arches}
 Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
 Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.xz
@@ -151,7 +154,7 @@ BuildRequires: python3
 BuildRequires: python3-sphinx
 %endif
 %ifarch %{ghc_llvm_archs}
-%if %{defined fedora}
+%if %{defined fedora} || 0%{?rhel} >= 10
 BuildRequires: llvm%{llvm_major}
 %else
 BuildRequires: llvm = %{llvm_major}
@@ -219,7 +222,7 @@ Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
 %endif
 Requires: binutils-gold
 %ifarch %{ghc_llvm_archs}
-%if %{defined fedora}
+%if %{defined fedora} || 0%{?rhel} >= 10
 Requires: llvm%{llvm_major}
 %else
 Requires: llvm = %{llvm_major}
@@ -451,7 +454,7 @@ export LD=%{_bindir}/ld.gold
 
 # only needed for ghc < 8.8
 %ifarch %{ghc_unregisterized_arches}
-%if 0%{?fedora} < 33 && 0%{?rhel} < 9
+%if %{defined el8}
 cat > ghc-unregisterised-wrapper << EOF
 #!/usr/bin/sh
 exec /usr/bin/ghc -optc-I%{_libdir}/ghc-$(ghc --numeric-version)/include \${1+"\$@"}
@@ -475,7 +478,7 @@ ln -s /usr/bin/ghc-pkg ghc-pkg-unregisterised-wrapper
   --enable-unregisterised \
 %endif
 %ifarch %{ghc_unregisterized_arches}
-%if 0%{?fedora} < 33 && 0%{?rhel} < 9
+%if %{defined el8}
   GHC=$PWD/ghc-unregisterised-wrapper \
 %else
   GHC=%{_bindir}/ghc-%{ghcboot_major} \
@@ -813,6 +816,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 09 2026 Jens Petersen <petersen@redhat.com> - 8.10.7-19
+- exclude s390x & riscv64 whose C backend fails with recent gcc (#2384620)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,8 @@
-# EL8 and EL9 require `gcc-toolset-13` as build dependency.
+# EL8 and EL9 require `gcc-toolset-14` as build dependency.
 # * On EL8, Binutils 2.30 do not support the `vmovdqu` AVX-512 instruction.
 # * On EL8 and EL9, GCC 8.5.0/11.4.1 generates ultra-slow test code for aarch64.
 # * When building with `gcc-toolset-12`, the `gcc-annobin` plugin is not found.
+# * With `gcc-toolset-13`, the AVX-512 test segfaults when ASAN is enabled.
 %global needs_gcc_toolset 0%{?el8} || 0%{?el9}
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
@@ -11,7 +12,7 @@
 %endif
 
 Name:           blake3
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 
@@ -19,11 +20,15 @@ License:        Apache-2.0
 URL:            https://github.com/BLAKE3-team/BLAKE3/
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Fix building the test application on non-x86 machines:
+# https://github.com/BLAKE3-team/BLAKE3/pull/539
+Patch0:         0001-Fix-building-the-test-application-on-non-x86-machine.patch
+
 BuildRequires:  cmake
 %if %{needs_gcc_toolset}
-BuildRequires:  gcc-toolset-13
-BuildRequires:  gcc-toolset-13-libasan-devel
-BuildRequires:  gcc-toolset-13-libubsan-devel
+BuildRequires:  gcc-toolset-14
+BuildRequires:  gcc-toolset-14-libasan-devel
+BuildRequires:  gcc-toolset-14-libubsan-devel
 %else
 BuildRequires:  gcc
 BuildRequires:  libasan
@@ -66,7 +71,7 @@ Development files for the %{name} library.
 export ASMFLAGS="%{build_cflags}"
 
 %if %{needs_gcc_toolset}
-. /opt/rh/gcc-toolset-13/enable
+. /opt/rh/gcc-toolset-14/enable
 %endif
 cd c
 %cmake \
@@ -80,20 +85,13 @@ cd c
 # These make-flag definitions are only used locally
 %ifnarch x86_64
 %define non_x86_64_flags BLAKE3_NO_SSE2=1 BLAKE3_NO_SSE41=1 BLAKE3_NO_AVX2=1 BLAKE3_NO_AVX512=1
-%else
-%if %{needs_gcc_toolset}
-# Do not run the AVX-512 test because it segfaults when instrumented with ASAN
-# (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=110027 - fixed upstream, but
-# `gcc-toolset-13` does not include the fix)
-%define non_x86_64_flags BLAKE3_NO_AVX512=1
-%endif
 %endif
 %ifarch %{arm32} aarch64
 %define arm_flags %{?flags} BLAKE3_USE_NEON=1
 %endif
 
 %if %{needs_gcc_toolset}
-. /opt/rh/gcc-toolset-13/enable
+. /opt/rh/gcc-toolset-14/enable
 %endif
 cd c
 %make_build %{?non_x86_64_flags} %{?arm_flags} -f Makefile.testing test
