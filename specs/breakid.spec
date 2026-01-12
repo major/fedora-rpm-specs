@@ -22,9 +22,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  help2man
 
 %description
-BreakID is a symmetry detecting and breaking library for SAT solvers.
-It is based on Jo Devriendt's BreakID code.  It has been re-licensed by
-the original author to be MIT.  All modifications by Mate Soos.
+BreakID is a symmetry detecting and breaking library for SAT solvers.  It is
+based on Jo Devriendt's BreakID code.  It has been re-licensed by the original
+author to be MIT.  All modifications by Mate Soos.
 
 %package        devel
 Summary:        Development files for breakid
@@ -32,8 +32,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       bliss-devel%{?_isa}
 
 %description    devel
-Header files and library links for developing applications that use
-breakid.
+Header files and library links for developing applications that use breakid.
 
 %prep
 %autosetup -n %{name}-release-%{version} -p1
@@ -72,7 +71,7 @@ cd -
 %doc README.md
 %license LICENSE
 %{_bindir}/breakid
-%{_libdir}/libbreakid.so.3*
+%{_libdir}/libbreakid.so.3{,.*}
 %{_mandir}/man1/breakid.1*
 
 %files devel

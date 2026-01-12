@@ -3,19 +3,19 @@
 different types to ResultsDB, and provides code (currently a Python library) \
 to help with reporting results that conform to the conventions.
 
-%global pagure_namespace    taskotron
-%global pagure_name         resultsdb_conventions
-%global pagure_version      3.0.2
+%global forgejo_namespace    quality
+%global forgejo_name         resultsdb_conventions
+%global forgejo_version      3.0.2
 
 Name:           resultsdb_conventions
-Version:        %{pagure_version}
+Version:        %{forgejo_version}
 Release:        12%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://pagure.io/%{pagure_namespace}/%{pagure_name}
-Source0:        https://files.pythonhosted.org/packages/source/r/%{pagure_name}/%{pagure_name}-%{pagure_version}.tar.gz
+URL:            https://forge.fedoraproject.org/%{forgejo_namespace}/%{forgejo_name}
+Source0:        https://files.pythonhosted.org/packages/source/r/%{forgejo_name}/%{forgejo_name}-%{forgejo_version}.tar.gz
 BuildArch:      noarch
 
 %description

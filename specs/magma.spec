@@ -15,6 +15,13 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
+%bcond_with debug
+%if %{with debug}
+%global build_type DEBUG
+%else
+%global build_type RelWithDebInfo
+%endif
+
 Name:           magma
 Version:        2.9.0
 Release:        %autorelease
@@ -49,6 +56,7 @@ BuildRequires:  hipsparse-devel
 BuildRequires:  ninja-build
 BuildRequires:  python3
 BuildRequires:  rocm-cmake
+BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-core-devel
 BuildRequires:  rocm-hip-devel
@@ -136,15 +144,13 @@ rm control/strlcpy.cpp
 # Policy CMP0037 may not be set to OLD behavior because this version of CMake
 sed -i -e 's@cmake_policy( SET CMP0037 OLD)@#cmake_policy( SET CMP0037 OLD)@' CMakeLists.txt
 
+# Add offload-compress compile flags
+sed -i -e 's@-DROCM_VERSION@--offload-compress -DROCM_VERSION@' CMakeLists.txt
+
 %build
 
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
-export HIP_CLANG_PATH=`hipconfig -l`
-RESOURCE_DIR=`${HIP_CLANG_PATH}/clang -print-resource-dir`
-export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
-# To fix relocation overflow on link
-export HIPCC_COMPILE_FLAGS_APPEND=--offload-compress
 
 echo "BACKEND = hip"                          > make.inc
 echo "FORT = false"                          >> make.inc
@@ -158,7 +164,8 @@ make generate
 
 %cmake -G Ninja \
        -DBLA_VENDOR=FlexiBLAS \
-       -DCMAKE_CXX_COMPILER=hipcc \
+       -DCMAKE_BUILD_TYPE=%{build_type} \
+       -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
        -DAMDGPU_TARGETS=%{gpu_list} \
        -DCMAKE_INSTALL_LIBDIR=%_libdir \
        -DMAGMA_ENABLE_HIP=ON \

@@ -1,5 +1,5 @@
 Name:           R-later
-Version:        %R_rpm_version 1.4.4
+Version:        %R_rpm_version 1.4.5
 Release:        %autorelease
 Summary:        Utilities for Scheduling Functions to Execute Later with Event Loops
 
@@ -18,6 +18,7 @@ R execution stack has emptied. The functions are scheduled in an event loop.
 
 %prep
 %autosetup -c
+rm -f later/tests/testthat/test-run_now.R # unconditional suggest
 # Ensure we don't use this bundled code.
 rm later/src/{badthreads.h,tinycthread.c}
 cp %{SOURCE1} later/src/tinycthread.h

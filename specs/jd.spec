@@ -11,19 +11,19 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.14.0
+%define         main_ver      0.15.0
 #%%define         strtag        20200118
-%dnl %define         pre_ver       alpha
+%dnl %define         pre_ver       beta
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20250727
-%global         gitcommit     11a0e8c648092d51308acb67bc86cc44cf9b0e20
+%global         gitdate       20260110
+%global         gitcommit     95c8d64c60e607aebb9097b9dd4b865670b1844c
 %dnl %global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20250727
-%global         tarballtime   2350
+%global         tarballdate   20260110
+%global         tarballtime   2319
 
 ##########################################
 # Defined by vendor
@@ -211,6 +211,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sat Jan 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.15.0-1
+- 0.15.0
+
 * Sun Jul 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.14.0-1
 - 0.14.0
 

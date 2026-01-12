@@ -31,8 +31,6 @@
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
-%global hadrian_Cabal_ver 3.10.3.0
-
 # bootstrap needs 9.6+ (& hadrian needs Cabal-3.10)
 # epel9 ghc too old to build hadrian
 %if %{defined el9}
@@ -271,6 +269,7 @@ Conflicts: ghc9.4-compiler-default
 Conflicts: ghc9.6-compiler-default
 Conflicts: ghc9.8-compiler-default
 Conflicts: ghc9.12-compiler-default
+Conflicts: ghc9.14-compiler-default
 
 %description compiler-default
 The package contains symlinks to make %{name} the default GHC compiler.
@@ -492,9 +491,7 @@ export LANG=C.utf8
 cd hadrian
 ln -sf ../libraries/ghc-platform ghc-platform-%{ghc_platform_ver}
 ln -sf ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
-%ghc_libs_build -P -W ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver}
-# Cabal-syntax-%%{hadrian_Cabal_ver} Cabal-%%{hadrian_Cabal_ver}
-
+%ghc_libs_build -H -P -W ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
@@ -674,6 +671,10 @@ rm -rf testghc
 mkdir testghc
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -O1
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
 echo 'main = putStrLn "Foo"' > testghc/foo.hs

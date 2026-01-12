@@ -121,6 +121,13 @@ Patch11: 10928.patch
 # armv7hl patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
 
+# fixes for autoconf-2.70+ with gcc16
+# https://bugzilla.redhat.com/show_bug.cgi?id=2427789
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11942
+Patch13: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11942.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
+Patch14: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
+
 # for unregisterized
 # https://gitlab.haskell.org/ghc/ghc/-/issues/15689
 Patch15: ghc-warnings.mk-CC-Wall.patch
@@ -452,6 +459,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P12 -p1 -b .orig
 %endif
 
+%patch -P13 -p1 -b .orig
+%patch -P14 -p1 -b .orig
+
 %ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
 %endif
@@ -595,7 +605,7 @@ cd hadrian
 ln -s ../libraries/mtl mtl-%{mtl_ver}
 ln -s ../libraries/transformers transformers-%{transformers_ver}
 ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
-%ghc_libs_build -P -W transformers-%{transformers_ver} mtl-%{mtl_ver} Cabal-%{Cabal_ver}
+%ghc_libs_build -H -P -W transformers-%{transformers_ver} mtl-%{mtl_ver} Cabal-%{Cabal_ver}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian

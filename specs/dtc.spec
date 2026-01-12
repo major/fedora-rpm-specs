@@ -8,13 +8,14 @@
 
 Name:          dtc
 Version:       1.7.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
 
 Source0:       https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
 Patch0001:     0001-build-fix-Dtools-false-build.patch
+Patch0002:     dtc-Fix-discarded-const-qualifiers.patch
 
 BuildRequires: gcc make
 BuildRequires: flex bison swig
@@ -22,7 +23,6 @@ BuildRequires: python3-devel
 BuildRequires: python3-pip
 BuildRequires: python3-setuptools
 BuildRequires: python3-setuptools_scm
-BuildRequires: python3-wheel
 
 %if %{with_mingw}
 BuildRequires: mingw32-filesystem >= 95
@@ -180,6 +180,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %endif
 
 %changelog
+* Sun Jan 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.7.2-8
+- Add patch to fix discarded const qualifiers
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.2-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

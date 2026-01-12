@@ -26,13 +26,13 @@ BuildRequires:  make
 
 %description
 Azove is a tool designed for counting (without explicit enumeration) and
-enumeration of 0/1 vertices.  Given a polytope by a linear relaxation or
-facet description P = {x | Ax <= b}, all 0/1 points lying in P can be
-counted or enumerated.  This is done by intersecting the polytope P with
-the unit-hypercube [0,1] d.  The integral vertices (no fractional ones)
-of this intersection will be enumerated.  If P is a 0/1 polytope, azove
-solves the vertex enumeration problem.  In fact it can also solve the
-0/1 knapsack problem and the 0/1 subset sum problem.
+enumeration of 0/1 vertices.  Given a polytope by a linear relaxation or facet
+description `P = {x | Ax <= b}`, all 0/1 points lying in P can be counted or
+enumerated.  This is done by intersecting the polytope P with the
+unit-hypercube `[0,1] d`.  The integral vertices (no fractional ones) of this
+intersection will be enumerated.  If P is a 0/1 polytope, azove solves the
+vertex enumeration problem.  In fact it can also solve the 0/1 knapsack
+problem and the 0/1 subset sum problem.
 
 %prep
 %autosetup -p0

@@ -1,5 +1,5 @@
 Name:           R-gert
-Version:        %R_rpm_version 2.2.0
+Version:        %R_rpm_version 2.3.0
 Release:        %autorelease
 Summary:        Simple Git Client for R
 

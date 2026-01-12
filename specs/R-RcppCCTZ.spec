@@ -1,5 +1,5 @@
 Name:           R-RcppCCTZ
-Version:        %R_rpm_version 0.2.13
+Version:        %R_rpm_version 0.2.14
 Release:        %autorelease
 Summary:        'Rcpp' Bindings for the 'CCTZ' Library
 
@@ -23,11 +23,8 @@ time zone.
 # Remove bundled cctz.
 rm -r RcppCCTZ/inst/include/cctz
 rm RcppCCTZ/src/time_zone_*.{cc,h}
-rm RcppCCTZ/src/{civil_time_detail,time_tool,zone_info_source}.cc
-
-# Link against system cctz.
-sed -i '/PKG_CXXFLAGS/d' RcppCCTZ/src/Makevars
-echo "PKG_LIBS = -lcctz" >> RcppCCTZ/src/Makevars
+rm RcppCCTZ/src/{civil_time_detail,zone_info_source}.cc
+echo "PKG_LIBS = -lcctz" > RcppCCTZ/src/Makevars
 
 %generate_buildrequires
 %R_buildrequires

@@ -1,4 +1,4 @@
-%global giturl  https://github.com/ds4dm/Bliss
+%global giturl  https://github.com/scipopt/Bliss
 
 Name:           bliss
 Version:        0.77
@@ -28,9 +28,9 @@ BuildRequires:  make
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
-Bliss is an open source tool for computing automorphism groups and
-canonical forms of graphs.  It has both a command line user interface as
-well as C++ and C programming language APIs.
+Bliss is an open source tool for computing automorphism groups and canonical
+forms of graphs.  It has both a command line user interface as well as C++ and
+C programming language APIs.
 
 %package devel
 # The content is LGPL-3.0-only.  Other licenses are due to files installed by
@@ -65,15 +65,14 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 
 %description devel
-Headers and library files needed to develop applications that use the
-bliss library.
+Headers and library files needed to develop applications that use the bliss
+library.
 
 %package libs
 Summary:        Compute automorphism groups and canonical labelings of graphs
 
 %description libs
-A command-line bliss tool to access the functionality of the bliss
-library.
+A command-line bliss tool to access the functionality of the bliss library.
 
 %prep
 %autosetup -n Bliss-%{version} -p0
@@ -121,7 +120,7 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/bliss.1
 %files libs
 %doc CHANGES.txt
 %license COPYING COPYING.LESSER
-%{_libdir}/libbliss.so.2*
+%{_libdir}/libbliss.so.2{,.*}
 
 %changelog
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-11

@@ -1,5 +1,5 @@
 Name:           gnome-online-accounts-gtk
-Version:        3.50.8
+Version:        3.50.10
 Release:        1%{?dist}
 Summary:        GUI Utility for logging into online accounts
 License:        GPL-3.0-or-later
@@ -42,6 +42,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/gnome-online-accounts-gtk.svg
 
 %changelog
+* Sat Jan 10 2026 Leigh Scott <leigh123linux@gmail.com> - 3.50.10-1
+- Update to 3.50.10
+
 * Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 3.50.8-1
 - Update to 3.50.8
 

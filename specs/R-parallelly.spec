@@ -1,5 +1,5 @@
 Name:           R-parallelly
-Version:        %R_rpm_version 1.46.0
+Version:        %R_rpm_version 1.46.1
 Release:        %autorelease
 Summary:        Enhancing the 'parallel' Package
 

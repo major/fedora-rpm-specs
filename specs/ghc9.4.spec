@@ -100,13 +100,21 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch4: hp2ps-C-gnu17.patch
 # detect ffi.h
 # https://gitlab.haskell.org/ghc/ghc/-/issues/21485
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
 Patch8: ghc-configure-c99.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
-Patch9: hp2ps-C-gnu17.patch
+
+# fixes for autoconf-2.70+ with gcc16
+# https://bugzilla.redhat.com/show_bug.cgi?id=2427789
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11942
+Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11942.patch
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
+Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
 
 # arm patches
 # https://github.com/haskell/text/issues/396
@@ -124,7 +132,6 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
 
 # Debian patches:
-Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
@@ -432,14 +439,16 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 %patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-
+%patch -P4 -p1 -b .orig
 %patch -P5 -p1 -b .orig
 # should be safe but enabling in fedora first
 %if %{defined fedora} || 0%{?rhel} >= 10
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
-%patch -P9 -p1 -b .orig
+
+%patch -P10 -p1 -b .orig
+%patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -466,7 +475,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P17 -p1 -b .orig
 
 #debian
-#%%patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
@@ -548,7 +556,7 @@ EOF
 
 %build
 # patch5, patch8
-autoupdate
+autoreconf
 
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
@@ -599,7 +607,7 @@ ln -s ../libraries/mtl mtl-%{mtl_ver}
 ln -s ../libraries/transformers transformers-%{transformers_ver}
 ln -s ../libraries/Cabal/Cabal-syntax Cabal-syntax-%{Cabal_ver}
 ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
-%ghc_libs_build -P -W transformers-%{transformers_ver} mtl-%{mtl_ver} Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver}
+%ghc_libs_build -H -P -W transformers-%{transformers_ver} mtl-%{mtl_ver} Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian

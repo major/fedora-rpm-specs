@@ -40,6 +40,8 @@ Patch:          zip-fix-metadata-auto.diff
 # * Unpin generic-array; see https://github.com/zip-rs/zip2/pull/458 for the
 #   upstream rationale, but we cannot use an old version and are not so
 #   concerned about deprecation warnings anyway.
+# * Update constant_time_eq from 0.3.1 to 0.4.2. Downstream-only for MSRV
+#   reasons.
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile

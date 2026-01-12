@@ -7,8 +7,8 @@
 %global vala_version 0.56.18
 
 Name:           budgie-desktop
-Version:        10.10.preview.2
-Release:        4%{?dist}
+Version:        10.10.0
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -138,6 +138,7 @@ Documentation for budgie-desktop
 
 %install
 %meson_install
+chmod +x %{buildroot}/%{_libexecdir}/%{name}/labwc_bridge.py
 %find_lang %{name}
 
 %check
@@ -225,6 +226,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Jan 11 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.0-1
+- Update to 10.10.0 stable
+
 * Sat Dec 20 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.preview.2-4
 - Add missing mutter-common requirement
 

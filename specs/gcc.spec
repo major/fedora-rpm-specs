@@ -1,5 +1,5 @@
-%global DATE 20260103
-%global gitrev b48538f45d8b883ab0ed4e77c445dc12b122cb3a
+%global DATE 20260110
+%global gitrev 000ed919272a9a0a6b6e52ae9e2052d90baa6964
 %global gcc_version 16.0.0
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.4%{?dist}
+Release: %{gcc_release}.5%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -296,6 +296,7 @@ Requires: libgomp = %{version}-%{release}
 %if %{build_libatomic}
 Requires: libatomic = %{version}-%{release}
 Obsoletes: libatomic-static < %{version}-%{release}
+Provides: libatomic-static = %{version}-%{release}
 %endif
 # lto-wrapper invokes make
 Requires: make
@@ -323,7 +324,8 @@ Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
 Patch13: gcc16-pr123115.patch
 Patch14: gcc16-pr120250.patch
-Patch15: gcc16-pr123372.patch
+Patch15: gcc16-pr123189.patch
+Patch16: gcc16-pr123273.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3910,6 +3912,37 @@ end
 %endif
 
 %changelog
+* Sat Jan 10 2026 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.5
+- update from trunk
+  - PRs ada/123003, ada/123371, ada/123490, c/117687, c/121081, c/121507,
+	c/123212, c/123435, c/123463, c/123475, c++/123331, c++/123347,
+	c++/123393, debug/123259, fortran/90218, fortran/123012,
+	fortran/123029, fortran/123071, fortran/123321, fortran/123352,
+	fortran/123483, gcov-profile/123019, ipa/123383, libstdc++/122878,
+	libstdc++/123100, libstdc++/123183, libstdc++/123326,
+	libstdc++/123378, libstdc++/123406, middle-end/111817,
+	middle-end/123107, rtl-optimization/119291, rtl-optimization/121675,
+	rtl-optimization/121773, rtl-optimization/123121,
+	rtl-optimization/123491, target/119430, target/121192, target/121290,
+	target/121535, target/121778, target/122846, target/123010,
+	target/123017, target/123268, target/123269, target/123317,
+	target/123320, target/123390, target/123403, target/123457,
+	target/123489, target/123492, testsuite/123353, testsuite/123377,
+	tree-optimization/42196, tree-optimization/102486,
+	tree-optimization/102954, tree-optimization/122103,
+	tree-optimization/122608, tree-optimization/122793,
+	tree-optimization/123197, tree-optimization/123200,
+	tree-optimization/123221, tree-optimization/123298,
+	tree-optimization/123300, tree-optimization/123310,
+	tree-optimization/123315, tree-optimization/123316,
+	tree-optimization/123319, tree-optimization/123351,
+	tree-optimization/123372, tree-optimization/123374,
+	tree-optimization/123382, tree-optimization/123414,
+	tree-optimization/123431
+- fix ICE on friend with noexcept (PR c++/123189)
+- fix -E -fdirectives-only comment handling (PR preprocessor/123273)
+- provide libatomic-static from gcc subpackage
+
 * Sat Jan  3 2026 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.4
 - update from trunk
   - PRs ada/123060, ada/123088, ada/123185, ada/123289, ada/123302,

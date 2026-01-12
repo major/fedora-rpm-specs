@@ -79,7 +79,7 @@ PATH=$PATH:$PWD/test
 %files
 %doc README.md README
 %license LICENSE
-%{_libdir}/libccluster.so.1*
+%{_libdir}/libccluster.so.1{,.*}
 
 %files devel
 %{_includedir}/ccluster/

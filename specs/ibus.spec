@@ -22,11 +22,11 @@
 
 %global ibus_xinit_condition (%pcd1 or %pcd2 or %pcd3)
 # FIXME: How to write a condition with multiple lines
-%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %pcd4)
+%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %wcd1)
 %global pcd1 budgie-desktop or cinnamon or deepin-desktop or i3
-%global pcd2 lxqt-session or lxsession or mate-panel or phosh
+%global pcd2 lxqt-x11-session or lxsession or mate-panel or phosh or awesome
 %global pcd3 plasma-workspace or sugar or xfce4-session
-%global pcd4 cosmic-panel or hyprland or sway or waybar
+%global wcd1 cosmic-panel or hyprland or sway or waybar or lxqt-wayland-session
 
 %if %with_pkg_config
 %if %{with gtk2}
@@ -53,7 +53,7 @@
 Name:           ibus
 Version:        1.5.34~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -110,13 +110,9 @@ Requires:       python3-ibus           = %{version}-%{release}
 Recommends:     %{name}-setup          = %{version}-%{release}
 
 Requires:       iso-codes
-Requires:       dconf
 # rpmlint asks to delete librsvg2
 #Requires:       librsvg2
 
-Requires:               desktop-file-utils
-Requires(post):         desktop-file-utils
-Requires(postun):       desktop-file-utils
 Requires:               dconf
 Requires(postun):       dconf
 Requires(posttrans):    dconf
@@ -579,6 +575,15 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jan 09 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-4
+- Resolves: #2419469 Fix SEGV with double bus_name_acquired_cb()
+- Resolves: #2424256 Delete Requires desktop-file-utils in spec
+- Resolves: #2425585 Separate lxqt-wayland-session and lxqt-x11-session in spec
+- Resolves: #2428238 Add awesome in spec
+- Rebase: #1797120 Fix assertion in panel_binding_construct()
+- Connect delete surrounding text in ibus-wayland
+- Fix Backspace after commit-text in Ghostty in ibus-wayland
+
 * Sun Dec 21 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-3
 - Resolves: #2321990#c10 Keep xinit postun in ibus for back compatibility
 - Resolves: #2418564 Do not install ibus-xinit in COSMIC desktop

@@ -24,16 +24,15 @@ BuildRequires:  gcc-c++
 BuildRequires:  gcc-fortran
 
 %description
-The AMPL Solver Library is an interface used to access a variety of
-solvers from AMPL code.
+The AMPL Solver Library is an interface used to access a variety of solvers
+from AMPL code.
 
 %package        devel
 Summary:        Header files and library links for asl
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-Header files and library links for building projects that use
-%{name}.
+Header files and library links for building projects that use %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{commit}
@@ -72,11 +71,11 @@ cp -p src/solvers2/fg_read.c %{buildroot}%{_includedir}/asl2
 %files
 %doc README.md
 %license LICENSE LICENSE.2
-%{_libdir}/libasl.so.0*
-%{_libdir}/libasl-mt.so.0*
-%{_libdir}/libasl2.so.0*
-%{_libdir}/libasl2-mt.so.0*
-%{_libdir}/libaslcpp.so.0*
+%{_libdir}/libasl.so.0{,.*}
+%{_libdir}/libasl-mt.so.0{,.*}
+%{_libdir}/libasl2.so.0{,.*}
+%{_libdir}/libasl2-mt.so.0{,.*}
+%{_libdir}/libaslcpp.so.0{,.*}
 
 %files devel
 %{_includedir}/asl/

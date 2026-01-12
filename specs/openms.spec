@@ -1,4 +1,4 @@
-%bcond_with check
+%bcond_without check
 %bcond_with debug
 
 ExclusiveArch: %{qt6_qtwebengine_arches}
@@ -26,10 +26,10 @@ ExclusiveArch: %{qt6_qtwebengine_arches}
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   3.5.0
+Version:   3.6.0
 Epoch:     2
 %if 0%{?use_intermediate}
-Release:  %autorelease -s %{date}git%{shortcommit}
+Release:  %autorelease -p -s %{date}git%{shortcommit}
 %else
 Release:  %autorelease
 %endif
@@ -95,7 +95,7 @@ Requires: R-core%{?_isa}
 # Remove -O0 flag for tests compiling
 Patch0: %{name}-remove_testflag.patch
 
-Patch1: %{name}-%{version}-bug7907.patch
+Patch1: %{name}-3.5.0-bug7907.patch
 
 
 %description
@@ -166,7 +166,7 @@ Summary: Python wrapper for OpenMS
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
-BuildRequires: python3-autowrap >= 0.24.0
+BuildRequires: python3-autowrap >= 0.26.0
 BuildRequires: python3-pip
 BuildRequires: python3-cython >= 3.1.0
 BuildRequires: python3-wheel
@@ -413,7 +413,8 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-%ctest --test-dir %_vpath_builddir -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
+#ctest --test-dir %%_vpath_builddir -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
+ctest --test-dir %_vpath_builddir --output-on-failure --force-new-ctest-process --timeout 6000 -j1
 %endif
 
 %files

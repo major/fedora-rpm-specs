@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 Name:           python-ruamel-yaml
-Version:        0.18.17
+Version:        0.19.1
 Release:        %autorelease
 Summary:        YAML 1.2 loader/dumper package for Python
 
@@ -28,20 +28,19 @@ BuildRequires:  python3-pytest
 
 %py_provides python3-ruamel.yaml
 
+%if !%{with bootstrap}
+# ruamel.yaml.clibz is not available in Fedora (and probably never will
+# be), so require the old clib backend
+Requires:       python3-ruamel-yaml+oldlibyaml = %{version}-%{release}
+%endif
+
 %description -n python3-ruamel-yaml %{_description}
 
 %prep
 %autosetup -n ruamel.yaml-%{version}
-# Upstream upper-bounds the Python interpeter versions with which the C
-# implementation (ruamel.yaml.clib dependency) may be used. Patch this out.
-sed -r -i 's/( and python_version<"[^"]+")(.*ruamel\.yaml\.clib)/\2/' \
-    __init__.py
-%if %{with bootstrap}
-sed -r -i 's/^([[:blank:]]*)(.*ruamel\.yaml\.clib)/\1# \2/' __init__.py
-%endif
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{!?with_bootstrap:-x oldlibyaml}
 
 %build
 %pyproject_wheel
@@ -62,6 +61,8 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 
 %files -n python3-ruamel-yaml -f %{pyproject_files}
 %doc README.md
+
+%pyproject_extras_subpkg -n python3-ruamel-yaml oldlibyaml
 
 %changelog
 %autochangelog

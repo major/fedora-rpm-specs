@@ -11,7 +11,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:          budgie-control-center
-Version:       2.0.0~preview.1
+Version:       2.0.0
 Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
@@ -230,6 +230,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sun Jan 11 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.0.0-1
+- Update to 2.0.0 release
+
 * Sun Nov 23 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.0.0~preview.1-1
 - Update to 2.0.0~preview.1
 

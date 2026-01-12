@@ -1,5 +1,5 @@
 Name:           R-rlang
-Version:        %R_rpm_version 1.1.6
+Version:        %R_rpm_version 1.1.7
 Release:        %autorelease
 Summary:        Functions for Base Types and Core R and 'Tidyverse' Features
 

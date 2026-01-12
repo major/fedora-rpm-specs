@@ -13,7 +13,7 @@
 %global giturl         https://github.com/gap-packages/hap
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.73
+Version:        1.74
 Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 
@@ -23,8 +23,6 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Adapt to ImageMagick 7.x
 Patch:          %{name}-imagemagick7.patch
-# Adapt to Singular 4.4
-Patch:          %{name}-singular4.4.patch
 
 BuildArch:      noarch
 BuildSystem:    gap
@@ -49,6 +47,7 @@ BuildRequires:  gap-pkg-nq
 BuildRequires:  gap-pkg-polycyclic
 BuildRequires:  gap-pkg-polymaking
 BuildRequires:  gap-pkg-singular
+BuildRequires:  gap-pkg-smallgrp
 BuildRequires:  graphviz
 BuildRequires:  ImageMagick
 BuildRequires:  perl-generators
@@ -60,6 +59,7 @@ Requires:       gap-pkg-crystcat
 Requires:       gap-pkg-fga
 Requires:       gap-pkg-nq
 Requires:       gap-pkg-polycyclic
+Requires:       gap-pkg-smallgrp
 Requires:       xdg-utils
 
 Recommends:     asymptote
@@ -133,10 +133,8 @@ sed -i.orig 's/\r//' www/SideLinks/HAPpagestyles.css
 fixtimestamp www/SideLinks/HAPpagestyles.css
 
 # Remove incorrect executable bits
-chmod a-x lib/Kelvin/{*.xml,kelvin.gd,*.gi,init.g,tutex/*.txt} \
-          lib/Khaled/init.g \
-          lib/Perturbations/Gcomplexes/{*.gz,bsSL2Z} \
-          www/SideLinks/About/*.g
+chmod a-x lib/Perturbations/Gcomplexes/bsSL2Z \
+          www/SideLinks/About/7dimBieberback.g
 
 %install -a
 rm -f %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tutorial/clean

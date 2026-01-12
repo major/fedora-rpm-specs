@@ -1,7 +1,7 @@
 %global srcname Levenshtein
 
 %global forgeurl https://github.com/rapidfuzz/%{srcname}
-Version:        0.27.1
+Version:        0.27.3
 %forgemeta
 
 Name:         python-%{srcname}
@@ -15,6 +15,7 @@ License:      GPL-2.0-or-later
 URL:          %{forgeurl}
 
 Source0:      %{forgesource}
+Patch0:       levenshtein-0.27.1-cython-cpp.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -36,7 +37,7 @@ Summary:  %{summary}
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 # Remove Cython's upper constraint
 sed -i '/Cython>=3\.[0-9]\+\./s/,\s*<3\.[0-9]\+\.[0-9a-z]*[0-9]*//' pyproject.toml
 
@@ -64,7 +65,7 @@ export SKBUILD_CMAKE_BUILD_TYPE=RelWithDebInfo
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
-%license COPYING
+%license LICENSE
 
 
 %changelog

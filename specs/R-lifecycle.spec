@@ -1,5 +1,5 @@
 Name:           R-lifecycle
-Version:        %R_rpm_version 1.0.4
+Version:        %R_rpm_version 1.0.5
 Release:        %autorelease
 Summary:        Manage the Life Cycle of your Package Functions
 
@@ -28,7 +28,7 @@ documentation badges, and user-friendly deprecation warnings.
 %R_save_files
 
 %check
-%R_check
+%R_check \--no-examples
 
 %files -f %{R_files}
 

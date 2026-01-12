@@ -1,7 +1,7 @@
 %global sover 15
 
 Name: log4cxx
-Version: 1.5.0
+Version: 1.6.1
 Release: %autorelease
 Summary: A port to C++ of the Log4j project
 
@@ -54,7 +54,7 @@ Documentation for %{name}.
 %files
 %{_libdir}/liblog4cxx.so.%{sover}*
 
-%doc NOTICE KEYS
+%doc NOTICE
 %license LICENSE
 
 

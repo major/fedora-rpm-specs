@@ -6,7 +6,7 @@
 # https://github.com/twpayne/chezmoi
 %global goipath         chezmoi.io/chezmoi
 %global forgeurl        https://github.com/twpayne/chezmoi
-Version:                2.69.0
+Version:                2.69.1
 
 %gometa -L -f
 

@@ -4,7 +4,7 @@
 %global tag v%{version}
 
 Name:           corsix-th
-Version:        0.68.0
+Version:        0.69.2
 %forgemeta
 Release:        %autorelease
 Summary:        Open source clone of Theme Hospital
@@ -46,12 +46,9 @@ Recommends:     fluid-soundfont-lite-patches
 Recommends:     innoextract
 
 %global _description %{expand:
-CorsixTH aims to reimplement the game engine of Theme Hospital, and be able to
-load the original game data files. This means that you will need a purchased
-copy of Theme Hospital, or a copy of the demo, in order to use CorsixTH. After
-most of the original engine has been reimplemented in open source code, the
-project will serve as a base from which extensions and improvements to the
-original game can be made.
+A reimplementation of the 1997 Bullfrog business sim Theme Hospital. As well as
+faithfully recreating the original, CorsixTH adds support for modern operating
+systems (Windows, macOS, Linux and BSD), high resolutions and much more.
 
   * To play CorsixTH, you will need either the Demo:
 

@@ -33,6 +33,7 @@ Patch:          zip-fix-metadata-auto.diff
 # * allow bzip2 0.6; see
 #   https://github.com/zip-rs/zip2/commit/c8278990c40ddfbeb4a23877c1221792535d21b3,
 #   released upstream in 4.3.0
+# * Update constant_time_eq from 0.3 to 0.4. Downstream-only for MSRV reasons.
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile

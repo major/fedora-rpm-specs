@@ -1,5 +1,5 @@
 Name:           rakudo
-Version:        2025.10
+Version:        2025.12
 Release:        %autorelease
 Summary:        Raku on MoarVM, JVM, and JS
 License:        Artistic-2.0
@@ -60,8 +60,8 @@ rm -r %{buildroot}%{_datadir}/perl6/core/precomp/
 rm %{buildroot}%{_datadir}/perl6/core/repo.lock
 
 %check
-%ifarch i686
-rm t/06-telemetry/01-basic.t
+%ifarch %{ix86} s390x
+rm t/04-nativecall/26-varargs.t
 %endif
 make test
 

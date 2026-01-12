@@ -19,9 +19,9 @@ BuildRequires:  mvn(org.apiguardian:apiguardian-api)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 
 %description
-Autolink is a Java library to extract links such as URLs and email
-addresses from plain text.  It's smart about where a link ends, such as
-with trailing punctuation.
+Autolink is a Java library to extract links such as URLs and email addresses
+from plain text.  It's smart about where a link ends, such as with trailing
+punctuation.
 
 %{?javadoc_package}
 

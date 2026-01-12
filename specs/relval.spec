@@ -7,8 +7,8 @@ Summary:        Tool for interacting with Fedora QA wiki pages
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://pagure.io/fedora-qa/relval
-Source0:        https://releases.pagure.org/fedora-qa/relval/%{srcname}-%{version}.tar.gz
+URL:            https://forge.fedoraproject.org/quality/relval
+Source0:        https://forge.fedoraproject.org/quality/relval/releases/download/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -20,6 +20,7 @@ Source:         %{crates_source}
 # * bump pbkdf2 dependency from 0.11 to 0.12
 # * bump zstd dependency from 0.11 to 0.13
 # * drop unused, benchmark-only bencher dev-dependency
+# * Update constant_time_eq from 0.3 to 0.4. Downstream-only for MSRV reasons.
 Patch:          zip-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

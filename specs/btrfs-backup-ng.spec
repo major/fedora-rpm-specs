@@ -1,5 +1,5 @@
 Name:           btrfs-backup-ng
-Version:        0.6.8
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Intelligent, feature-rich backups for btrfs
 
@@ -9,18 +9,26 @@ Source:         %{pypi_source btrfs_backup_ng}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-asyncio
 
-Requires:    btrfs-progs
+Requires:       btrfs-progs
+Requires:       openssh-clients
+Requires:       pv
+Requires:       gzip
+Requires:       bzip2
+Requires:       zstd
+Requires:       xz
+Requires:       lz4
+Requires:       lzo
+Requires:       pigz
+Requires:       pbzip2
 
 
 %description
-btrfs-backup-ng is a command line  utility for creating atomic, incremental,
-intelligent, feature-rich backups for *btrfs* using *snapshots* and
-*send/receive* between filesystems. Think of it as a basic version
-of Time Machine. Backups can be stored locally and/or remotely (e.g. via SSH).
-Multi-target setups are supported as well as dealing with transmission
-failures (e.g. due to network outage).
-
+Complete btrfs backup solution with automated snapshots,
+incremental transfers, restore functionality,
+snapper integration, btrbk migration, and systemd scheduling
 
 %prep
 %autosetup -p1 -n btrfs_backup_ng-%{version}
@@ -38,14 +46,32 @@ failures (e.g. due to network outage).
 %pyproject_install
 %pyproject_save_files -l btrfs_backup_ng
 
+install -d %{buildroot}%{_mandir}/man1
+install -m 0644 man/man1/btrfs*.1* %{buildroot}%{_mandir}/man1
+
+%define bash_compdir  %{_prefix}/share/bash-completions/completions
+%define zsh_compdir   %{_prefix}/share/zsh/site-functions
+%define fish_compdir  %{_prefix}/share/fish/vendor_completions.d
+
+install -d %{buildroot}%{bash_compdir}
+install -d %{buildroot}%{zsh_compdir}
+install -d %{buildroot}%{fish_compdir}
+install -m 0644 completions/btrfs-backup-ng.bash %{buildroot}%{bash_compdir}/btrfs-backup-ng
+install -m 0644 completions/btrfs-backup-ng.zsh  %{buildroot}%{zsh_compdir}/_btrfs-backup-ng
+install -m 0644 completions/btrfs-backup-ng.fish %{buildroot}%{fish_compdir}/btrfs-backup-ng.fish
 
 %check
-%pyproject_check_import
+%{pytest}
 
 
 %files -n btrfs-backup-ng -f %{pyproject_files}
-%doc README.md
+%doc README.md CHANGELOG.md
+%{_mandir}/man1/btrfs*.1.gz
 %{_bindir}/btrfs-backup-ng
+%{_prefix}/share/bash-completions/completions/btrfs-backup-ng
+%{_prefix}/share/zsh/site-functions/_btrfs-backup-ng
+%{_prefix}/share/fish/vendor_completions.d/btrfs-backup-ng.fish
+
 
 %changelog
 %autochangelog

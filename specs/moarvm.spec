@@ -1,10 +1,12 @@
 Name:           moarvm
-Version:        2025.10
+Version:        2025.12
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
 URL:            https://github.com/MoarVM/MoarVM
 Source:         %{url}/releases/download/%{version}/MoarVM-%{version}.tar.gz
+# https://github.com/MoarVM/MoarVM/issues/1980
+Patch0: https://paste.sr.ht/blob/3a4c7f855827e70b97d2a7741aeb2eb02b40196d#/0001-Fix-building-MoarVM-with-a-system-provided-libuv.patch
 
 BuildRequires:  gcc
 BuildRequires:  make

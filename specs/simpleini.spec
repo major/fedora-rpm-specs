@@ -1,25 +1,17 @@
 # header-only library
 %global debug_package %{nil}
 
-%global forgeurl https://github.com/brofield/simpleini
-Version:        4.22
-%forgemeta
-
 Name:           simpleini
+Version:        4.25
 Release:        %autorelease
 Summary:        Cross-platform C++ library to read and write INI-style configuration files
 License:        MIT
-URL:            %{forgeurl}
-Source0:        %{forgesource}
-
-# https://github.com/brofield/simpleini/pull/74
-Patch0:         0001-cmake-fix-namespace-and-include-dir-74.patch
-Patch1:         0001-convert-use-libicu-by-default.patch
+URL:            https://github.com/brofield/simpleini
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(GTest)
-BuildRequires:  libicu-devel
 
 %description
 simpleini is a cross-platform library that provides a simple API to read and
@@ -31,22 +23,21 @@ MIT licence.
 %package        devel
 Summary:        Development files for %{name}
 Provides:       %{name}-static = %{version}-%{release}
-Requires:       libicu-devel
 
 %description    devel
-The %{name}-devel package contains development files for %{name}.
+This package contains development files for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1
 
 %build
-%cmake \
-    -DSIMPLEINI_USE_SYSTEM_GTEST=ON
-
+%cmake -DSIMPLEINI_USE_SYSTEM_GTEST=ON
 %cmake_build
 
 %install
 %cmake_install
+install -pDm644 ConvertUTF.h %{buildroot}%{_includedir}/ConvertUTF.h
+install -pDm644 ConvertUTF.c %{buildroot}%{_includedir}/ConvertUTF.c
 
 %check
 %ctest
@@ -55,7 +46,9 @@ The %{name}-devel package contains development files for %{name}.
 %license LICENCE.txt
 %doc README.md
 %{_includedir}/SimpleIni.h
-%{_datadir}/cmake/SimpleIni/
+%{_includedir}/ConvertUTF.h
+%{_includedir}/ConvertUTF.c
+%{_libdir}/cmake/SimpleIni/
 
 %changelog
 %autochangelog

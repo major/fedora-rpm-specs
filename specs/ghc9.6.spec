@@ -31,7 +31,7 @@
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond abicheck 0
+%bcond abicheck 1
 
 # no longer build testsuite (takes time and not really being used)
 %bcond testsuite 0
@@ -78,11 +78,12 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25662
 Patch5: hp2ps-C-gnu17.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2427789
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
 Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
 Patch8: ghc-configure-c99.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23707
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23707 (duplicate manpages)
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085
 Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
 
@@ -90,9 +91,6 @@ Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
 # Debian patches:
-# bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
-# see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
-#Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
@@ -410,7 +408,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 #debian
-#%%patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 

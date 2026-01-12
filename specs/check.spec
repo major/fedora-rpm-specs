@@ -48,11 +48,11 @@ BuildRequires: mingw64-gcc-c++
 %endif
 
 %description
-Check is a unit test framework for C. It features a simple interface for 
-defining unit tests, putting little in the way of the developer. Tests 
-are run in a separate address space, so Check can catch both assertion 
-failures and code errors that cause segmentation faults or other signals. 
-The output from unit tests can be used within source code editors and IDEs.
+Check is a unit test framework for C. It features a simple interface for
+defining unit tests, putting little in the way of the developer.  Tests are
+run in a separate address space, so Check can catch both assertion failures
+and code errors that cause segmentation faults or other signals.  The output
+from unit tests can be used within source code editors and IDEs.
 
 %package devel
 Summary:        Libraries and headers for developing programs with check
@@ -75,8 +75,8 @@ BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
 %description checkmk
-The checkmk binary translates concise versions of test suites into C
-programs suitable for use with the Check unit test framework.
+The checkmk binary translates concise versions of test suites into C programs
+suitable for use with the Check unit test framework.
 
 %if %{with mingw}
 %package -n mingw32-check
@@ -199,7 +199,7 @@ cd -
 %files
 %doc AUTHORS NEWS
 %license COPYING.LESSER
-%{_libdir}/libcheck.so.0*
+%{_libdir}/libcheck.so.0{,.*}
 %if %{without bootstrap}
 %{_infodir}/check*
 %endif
@@ -252,7 +252,7 @@ cd -
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jun 27 2025 Jerry James  <loganjerry@gmail.com> - 0.15.2-18
+* Fri Jun 27 2025 Jerry James <loganjerry@gmail.com> - 0.15.2-18
 - Add bootstrap mode that does not build documentation
 - Remove unused graphviz and texlive-tex BRs
 

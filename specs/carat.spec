@@ -35,9 +35,9 @@ Requires:       %{name}-tables = 1:%{version}-%{release}
 Requires:       environment(modules)
 
 %description
-CARAT handles enumeration, construction, recognition, and comparison
-problems for crystallographic groups up to dimension 6.  The name CARAT
-is an acronym for Crystallographic AlgoRithms And Tables.
+CARAT handles enumeration, construction, recognition, and comparison problems
+for crystallographic groups up to dimension 6.  The name CARAT is an acronym
+for Crystallographic AlgoRithms And Tables.
 
 Due to its specialized nature and some generically named binaries, this
 package uses environment modules to access its binaries.

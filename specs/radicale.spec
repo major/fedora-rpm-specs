@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.10
+%define radicale_version  3.6.0
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -76,10 +76,11 @@ BuildRequires:    checkpolicy
 BuildRequires:    selinux-policy-devel
 BuildRequires:    hardlink
 
-# for 'make check' of major version 3.0.6
+# for 'make check'
 BuildRequires:    python3-defusedxml >= 0.7.1
 BuildRequires:    python3-passlib >= 1.7.4
 BuildRequires:    python3-vobject >= 0.9.6
+BuildRequires:    python3-packaging
 
 Conflicts:        radicale < 3.0.0
 Conflicts:        radicale2
@@ -235,6 +236,9 @@ sed -i 's|\(/var/run\)|%{_rundir}|' SELinux/%{name}.fc
 
 # restore original version after applying patches
 %{__sed} -i 's|version = "%{radicale_major}.dev"|version = "%{radicale_version}"|' pyproject.toml
+
+# restore "passlib" requirement until "libpass" is available
+%{__sed} -i 's|libpass[^"]*|passlib|' pyproject.toml
 
 %if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 # Create a sysusers.d config file
@@ -528,6 +532,11 @@ fi
 
 
 %changelog
+* Sat Jan 10 2026 Peter Bieringer <pb@bieringer.de>  - 3.6.0-1
+- Update to 3.6.0
+- add BuildRequires: python3-packaging
+- force to use "passlib" instead of "libpass"
+
 * Thu Dec 18 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.10-1
 - Update to 3.5.10
 
