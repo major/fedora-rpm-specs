@@ -23,8 +23,8 @@ BuildRequires:  pkgconfig(catch2-with-main)
 BuildRequires:  python3-devel
 
 %description
-CLI11 is a command line parser for C++11 and beyond that provides a
-rich feature set with a simple and intuitive interface.
+CLI11 is a command line parser for C++11 and beyond that provides a rich
+feature set with a simple and intuitive interface.
 
 %package devel
 Summary:        Command line parser for C++11
@@ -32,8 +32,8 @@ BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
-CLI11 is a command line parser for C++11 and beyond that provides a
-rich feature set with a simple and intuitive interface.
+CLI11 is a command line parser for C++11 and beyond that provides a rich
+feature set with a simple and intuitive interface.
 
 %package        docs
 # Doxygen adds files with licenses other than BSD-3-Clause.

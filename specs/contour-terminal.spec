@@ -1,19 +1,16 @@
-%global forgeurl https://github.com/contour-terminal/contour
-Version:        0.6.1.7494
-%forgemeta
-
 Name:           contour-terminal
+Version:        0.6.2.8008
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 License:        Apache-2.0
-URL:            %{forgeurl}
-Source:         %{forgesource}
+URL:            https://github.com/contour-terminal/contour
+Source:         %{url}/archive/v%{version}/contour-%{version}.tar.gz
+Patch0:         https://github.com/contour-terminal/contour/pull/1855.patch
 
 ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 BuildRequires:  extra-cmake-modules
 BuildRequires:  fmt-devel
 BuildRequires:  guidelines-support-library-devel
@@ -50,6 +47,10 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6OpenGL)
 BuildRequires:  cmake(Qt6OpenGLWidgets)
 BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6CorePrivate)
+BuildRequires:  cmake(Qt6WaylandClientPrivate)
+BuildRequires:  wayland-devel
 
 Requires:       qt6-qt5compat
 Requires:       hicolor-icon-theme
@@ -61,17 +62,12 @@ Contour is a modern and actually fast, modal, virtual terminal emulator,
 for everyday use. It is aiming for power users with a modern feature mindset.
 
 %prep
-%forgeautosetup -p1
-
-sed -i -e 's|kservices5/ServiceMenus|kio/servicemenus|g' src/contour/CMakeLists.txt
-
+%autosetup -p1 -C
 
 %build
 %cmake \
-    -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCONTOUR_TESTING=ON \
-
+    -DCONTOUR_TESTING=ON
 %cmake_build
 
 %install

@@ -30,7 +30,7 @@ rm -f webfakes/tests/testthat/test-httpbin.R # network tests
 %R_save_files
 
 %check
-%R_check
+%R_check \--no-examples
 
 %files -f %{R_files}
 

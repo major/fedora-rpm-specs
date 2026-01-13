@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20251125
+Version:	20260110
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -569,8 +569,8 @@ end
 %{_firmwarepath}/iwlwifi-gl-c0*1??.ucode*
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-gl-c0*9[7-9].ucode*
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-gl-c0*1??.ucode*
-%{_firmwarepath}/iwlwifi-sc-a0-wh-b0-1??.ucode*
-%{_firmwarepath}/intel/iwlwifi/iwlwifi-sc-a0-wh-b0-1??.ucode*
+%{_firmwarepath}/iwlwifi-sc-a0-*1??.ucode*
+%{_firmwarepath}/intel/iwlwifi/iwlwifi-sc-a0-*1??.ucode*
 
 %files -n libertas-firmware
 %license LICENCE.Marvell LICENCE.OLPC
@@ -723,6 +723,74 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sun Jan 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260110-1
+- Update to 20260110
+- update firmware for MT7925 WiFi device
+- mediatek MT7925: update bluetooth firmware to 20260106153314
+- mediatek MT7920: update bluetooth firmware to 20260105151350
+- mediatek MT7922: update bluetooth firmware to 20260106153735
+- update firmware for MT7922 WiFi device
+- Mellanox: Add new mlxsw_spectrum firmware xx.2016.3900
+- amdgpu: Update dcn314, dcn315 firmware to 0.1.42.0
+- qcom: Update DSP firmware for sa8775 platform
+- QCA: Add Bluetooth firmware for QCC2072 uart interface
+- i915: Xe3p_LPD DMC v2.33
+- qcom: Update DSP firmware for qcs8300 platform
+- update firmware for MT7920 WiFi device
+- qcom: Update aic100 firmware files
+- qca: Update Bluetooth WCN6750 1.1.3-00100 firmware to 1.1.3-00105
+- firmware: Revert kernel_boot.elf due to license compliance issue
+- add firmware for an8811hb 2.5G ethernet phy
+- i915: Xe3LPD_3002 DMC v2.28
+- i915: Xe3LPD DMC v2.33
+- intel_vpu: Add firmware for 50xx NPUs and update older ones
+- Update AMD SEV firmware
+- amdgpu: DMCUB updates for various ASICs
+- qcom: venus-5.4: fix ELF segment alignment to 4 bytes
+- mediatek MT7925: update bluetooth firmware to 20251210093205
+- update firmware for MT7925 WiFi device
+- rcar_gen4_pcie: add firmware for Renesas R-Car Gen4 PCIe controller
+- qcom: Update CDSP firmware for qcm6490 platform
+- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x488C_DB55
+- iwlwifi: Add firmware file for Intel Scorpius core
+- rtw89: 8852b: update fw to v0.29.29.15
+- cirrus: cs35l41: Update firmware and tuning for various HP laptops
+- cirrus: cs35l41: Add support for new HP Clipper laptop
+- qcom: drop compatibility a640_zap.mdt symlink
+- qcom: add version for a530v3_gpmu.fw2
+- xe: Update GUC to v70.55.3 for BMG, PTL
+- iwlwifi: add Bz/Sc FW for core101-82 release
+- iwlwifi: Add Sc/Gf firmware for core101-82 release
+- iwlwifi: update ty/So/Ma firmwares for core101-82 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core101-82 release
+- amdgpu: DMCUB updates for various ASICs
+- qcom: Add firmwares for sm8150/sm8450/sm8550/sm8650/sm8750 GPUs
+- ath10k: WCN3990 hw1.0: update board-2.bin
+- ath10k: QCA9888 hw2.0: update board-2.bin
+- ath10k: QCA4019 hw1.0: update board-2.bin
+- cirrus: cs35l41: Add support for new HP laptops
+- Revert "amdgpu: update GC 11.5.0 firmware"
+- Update amd-ucode copyright information
+- Update AMD cpu microcode
+- Update firmware file for Intel Scorpius core
+- Update firmware file for Intel BlazarIGfP core
+- Update firmware file for Intel BlazarI core
+- Update firmware file for Intel BlazarU-HrPGfP core
+- Update firmware file for Intel BlazarU core
+- ath11k: QCA6698AQ hw2.1: update to WLAN.HSP.1.1-04866-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
+- ath11k: QCA2066 hw2.1: update board-2.bin
+- qcom: update ADSP firmware for x1e80100 platform, change the license
+- qcom: reorder ADSP, CDSP firmware entries for qcs8300 in WHENCE
+- Reapply "amdgpu: update SMU 14.0.3 firmware"
+- Revert "amdgpu: update SMU 14.0.3 firmware"
+- Revert "amdgpu: update GC 10.3.6 firmware"
+- Revert "amdgpu: update GC 11.5.1 firmware"
+- update firmware for MT7925 WiFi device
+- mediatek MT7925: update bluetooth firmware to 20251124093155
+- intel_vpu: Update NPU firmware
+- qcom: vpu: update video firmware binary for SM8250
+- xe: Update GUC to v70.54.0 for BMG, PTL
+
 * Tue Nov 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251125-1
 - Update to 20251125
 - Revert "amdgpu: update GC 11.0.1 firmware"

@@ -5,7 +5,7 @@
 
 Name:           %{srcname}-factory
 Version:        0.7.0
-Release:        0.51.20200220git%{shortcommit0}%{?dist}
+Release:        0.52.20200220git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 # Automatically converted from old format: GPLv3+ and CC-BY-SA - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
@@ -142,6 +142,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/cmake/%{srcname}-engine
 
 %changelog
+* Sun Jan 11 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.7.0-0.52.20200220git2a78522
+- Rebuilt for Boost 1.90
+
 * Thu Jan 08 2026 Cristian Le <git@lecris.dev> - 0.7.0-0.51.20200220git2a78522
 - Allow to build with CMake 4.0 (rhbz#2380474)
 

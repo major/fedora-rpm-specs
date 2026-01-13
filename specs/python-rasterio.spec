@@ -1,7 +1,7 @@
 %global srcname rasterio
 
 Name:           python-%{srcname}
-Version:        1.4.4
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
@@ -12,9 +12,12 @@ Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcnam
 # Fedora-specific.
 Patch:          0001-Loosen-up-build-requirements.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  gcc-c++
-BuildRequires:  gdal >= 3.5
-BuildRequires:  gdal-devel >= 3.5
+BuildRequires:  gdal >= 3.8
+BuildRequires:  gdal-devel >= 3.8
 
 # This is licensed as BSD-3-Clause, same as rasterio
 Provides: bundled(python3dist(click-plugins)) = 2

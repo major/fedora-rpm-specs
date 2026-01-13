@@ -18,6 +18,7 @@ processing HTTP requests.
 
 %prep
 %autosetup -c
+rm -f gargle/tests/testthat/test-secret.R # unconditional suggest
 
 %generate_buildrequires
 %R_buildrequires

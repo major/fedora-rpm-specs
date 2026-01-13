@@ -7,8 +7,8 @@
 %bcond rocm 0
 %endif
 
-# build problems on aarch64, ppc64le and s390x
-ExcludeArch:    aarch64 ppc64le s390x
+# bundled GGML sources are missing ppc64le and s390x
+ExcludeArch:    ppc64le s390x
 
 # Build the next version of ollama
 %bcond next 0
@@ -152,6 +152,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
 %doc llama-README.md
 %{_prefix}/lib/ollama/libggml-base.so
+%ifarch x86_64
 %{_prefix}/lib/ollama/libggml-cpu-alderlake.so
 %{_prefix}/lib/ollama/libggml-cpu-haswell.so
 %{_prefix}/lib/ollama/libggml-cpu-icelake.so
@@ -159,6 +160,10 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_prefix}/lib/ollama/libggml-cpu-skylakex.so
 %{_prefix}/lib/ollama/libggml-cpu-sse42.so
 %{_prefix}/lib/ollama/libggml-cpu-x64.so
+%else
+# upstream CMakeLists.txt disables GGML CPU variants on aarch64
+%{_prefix}/lib/ollama/libggml-cpu.so
+%endif
 %{_bindir}/ollama
 
 %if %{with rocm}

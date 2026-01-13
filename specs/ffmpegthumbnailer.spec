@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/dirkvdb/ffmpegthumbnailer
-Version:        2.2.4
+Version:        2.3.0
 %global tag v%{version}
 %forgemeta
 
@@ -12,7 +12,6 @@ Source0:        %{forgesource}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 BuildRequires:  extra-cmake-modules
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavformat)
@@ -47,7 +46,6 @@ This package contains the development files for %{name}.
 
 %build
 %cmake \
-    -GNinja \
     -DENABLE_GIO=ON \
     -DENABLE_THUMBNAILER=ON
 %cmake_build

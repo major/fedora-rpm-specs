@@ -95,6 +95,7 @@ BuildRequires:	pari-devel
 BuildRequires:	pari-gp
 BuildRequires:	libpq-devel
 BuildRequires:	readline-devel
+BuildRequires:	vim-filesystem
 BuildRequires:	zlib-devel
 
 Requires:	emacs-filesystem
@@ -105,25 +106,24 @@ Requires:	vim-filesystem
 Provides:	bundled(gnulib)
 
 %description
-ANSI Common Lisp is a high-level, general-purpose programming
-language.  GNU CLISP is a Common Lisp implementation by Bruno Haible
-of Karlsruhe University and Michael Stoll of Munich University, both
-in Germany.  It mostly supports the Lisp described in the ANSI Common
-Lisp standard.  It runs on most Unix workstations (GNU/Linux, FreeBSD,
-NetBSD, OpenBSD, Solaris, Tru64, HP-UX, BeOS, NeXTstep, IRIX, AIX and
-others) and on other systems (Windows NT/2000/XP, Windows 95/98/ME)
-and needs only 4 MiB of RAM.
+ANSI Common Lisp is a high-level, general-purpose programming language.  GNU
+CLISP is a Common Lisp implementation by Bruno Haible of Karlsruhe University
+and Michael Stoll of Munich University, both in Germany.  It mostly supports
+the Lisp described in the ANSI Common Lisp standard.  It runs on most Unix
+workstations (GNU/Linux, FreeBSD, NetBSD, OpenBSD, Solaris, Tru64, HP-UX,
+BeOS, NeXTstep, IRIX, AIX and others) and on other systems (Windows NT/2000/XP,
+Windows 95/98/ME) and needs only 4 MiB of RAM.
 
-It is Free Software and may be distributed under the terms of GNU GPL,
-while it is possible to distribute commercial proprietary applications
-compiled with GNU CLISP.
+It is Free Software and may be distributed under the terms of GNU GPL, while
+it is possible to distribute commercial proprietary applications compiled with
+GNU CLISP.
 
-The user interface comes in English, German, French, Spanish, Dutch,
-Russian and Danish, and can be changed at run time.  GNU CLISP
-includes an interpreter, a compiler, a debugger, CLOS, MOP, a foreign
-language interface, sockets, i18n, fast bignums and more.  An X11
-interface is available through CLX, Garnet, CLUE/CLIO.  GNU CLISP runs
-Maxima, ACL2 and many other Common Lisp packages.
+The user interface comes in English, German, French, Spanish, Dutch, Russian
+and Danish, and can be changed at run time.  GNU CLISP includes an
+interpreter, a compiler, a debugger, CLOS, MOP, a foreign language interface,
+sockets, i18n, fast bignums and more.  An X11 interface is available through
+CLX, Garnet, CLUE/CLIO.  GNU CLISP runs Maxima, ACL2 and many other Common
+Lisp packages.
 
 
 %package devel
@@ -229,7 +229,7 @@ find %{buildroot}%{_libdir} -name '*.dvi' -exec rm -f {} \+
 cat %{name}low.lang >> %{name}.lang
 
 # Compile the Emacs interface
-pushd %{buildroot}%{_datadir}/emacs/site-lisp
+pushd %{buildroot}%{_emacs_sitelispdir}
 %{_emacs_bytecompile} *.el
 popd
 
@@ -362,8 +362,8 @@ make -C build base-mod-check
 %{_libdir}/%{instdir}/rawsock/preload.lisp
 %dir %{_libdir}/%{instdir}/zlib/
 %{_libdir}/%{instdir}/zlib/*.fas
-%{_datadir}/emacs/site-lisp/*
-%{_datadir}/vim/vimfiles/after/syntax/*
+%{_emacs_sitelispdir}/*
+%{vimfiles_root}/after/syntax/*
 
 %files devel
 %doc modules/clx/clx-manual
@@ -463,7 +463,7 @@ make -C build base-mod-check
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.95-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Mon Jun 02 2025 Jerry James  <loganjerry@gmail.com> - 2.49.95-4
+* Mon Jun 02 2025 Jerry James <loganjerry@gmail.com> - 2.49.95-4
 - Update to latest git snapshot
 - Drop one upstreamed patch to fix undefined behavior
 

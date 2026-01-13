@@ -36,8 +36,10 @@ Patch:		tlf-1.4.1-fsf-address-fix.patch
 # no upstream release yet
 Patch:		tlf-1.4.1-format-security-fix.patch
 Patch:		tlf-c99.patch
-# It seems already fixed in upstream git
+# Already fixed in the upstream git
 Patch:		tlf-1.4.1-gcc-15-fix.patch
+# Already fixed in the upstream git
+Patch:		tlf-1.4.1-gcc-16-fix.patch
 
 %description
 Tlf is a console (ncurses) mode general purpose CW/VOICE keyer,

@@ -6,7 +6,7 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 43.99
+Version: 43.100
 Release: 1%{?dist}
 
 License: MIT
@@ -21,11 +21,9 @@ BuildRequires: kde-filesystem
 BuildRequires: systemd-rpm-macros
 Source10: ssh-agent.sh
 
-%if ! 0%{?bootstrap}
-# for f33+ , consider merging version_maj with version, ie, use Version: 33 --rex
-%global  version_maj %(echo %{version} | cut -d. -f1)
-BuildRequires: f%{version_maj}-backgrounds-kde
-%endif
+# For detecting the correct background settings
+BuildRequires: desktop-backgrounds-compat
+BuildRequires: system-backgrounds-kde
 
 # when kdebugrc was moved here
 Conflicts: kf5-kdelibs4support < 5.7.0-3
@@ -46,9 +44,7 @@ Requires: shared-mime-info
 %package plasma
 Summary: Configuration files for plasma
 Requires: %{name} = %{version}-%{release}
-%if 0%{?version_maj:1}
-Requires: f%{version_maj}-backgrounds-kde
-%endif
+Requires: system-backgrounds-kde
 Requires: system-logos
 Requires: google-noto-sans-fonts
 # Not required but expected by users as we use other fonts from the noto "family"
@@ -67,6 +63,16 @@ Summary: Configuration files for sddm
 Requires: sddm
 Requires: breeze-cursor-theme
 %description sddm
+%{summary}.
+
+%package plasmalogin
+Summary: Configuration files for Plasma Login Manager
+Requires: plasma-login-manager
+%if 0%{?version_maj:1}
+Requires: f%{version_maj}-backgrounds-kde
+%endif
+Supplements: (%{name} and plasma-login-manager)
+%description plasmalogin
 %{summary}.
 
 
@@ -135,11 +141,14 @@ fi
 
 cp -p %{SOURCE1} .
 
-# default wallpaper symlink
-%if 0%{?version_maj:1}
+# legacy default wallpaper symlink
 mkdir -p %{buildroot}%{_datadir}/wallpapers
-ln -s F%{version_maj} %{buildroot}%{_datadir}/wallpapers/Fedora
-%endif
+ln -s Default %{buildroot}%{_datadir}/wallpapers/Fedora
+
+if [ -e "%{_datadir}/backgrounds/default.png" ]; then
+sed -e "s/jxl/png/g" \
+    -i %{buildroot}{%{_datadir}/kde-settings/kde-profile/default/xdg/kscreenlockerrc,%{_prefix}/lib/plasma-login/defaults.conf}
+fi
 
 %if 0%{?rhel} && 0%{?rhel} < 9
 # for rhel 8 and older with older noto fonts
@@ -158,9 +167,7 @@ rm -rv %{buildroot}%{_libexecdir}/initial-setup
 
 
 %check
-%if 0%{?version_maj:1} && 1%{?flatpak} == 0
-test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
-%endif
+test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %files
@@ -201,14 +208,16 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kicker.js
 %{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kickerdash.js
 %{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/contents/plasmoidsetupscripts/org.kde.plasma.kickoff.js
-%if 0%{?version_maj:1}
 %{_datadir}/wallpapers/Fedora
-%endif
 %{_sysconfdir}/xdg/plasma-workspace/env/ssh-agent.sh
 
 
 %files sddm
 %{_prefix}/lib/sddm/sddm.conf.d/kde_settings.conf
+
+
+%files plasmalogin
+%{_prefix}/lib/plasma-login/defaults.conf
 
 
 %files pulseaudio
@@ -225,6 +234,12 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Sun Jan 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.100-1
+- Set wallpaper configuration for plasmalogin and kscreenlocker properly
+
+* Fri Jan 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 43.99-2
+- Use system-backgrounds-kde for wallpaper symlink
+
 * Sat Dec 27 2025 Neal Gompa <ngompa@fedoraproject.org> - 43.99-1
 - look-and-feel: Add support for Fedora light/dark themes
 

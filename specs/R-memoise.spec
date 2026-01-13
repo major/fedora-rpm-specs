@@ -16,6 +16,7 @@ arguments it returns the pre-computed value.
 
 %prep
 %autosetup -c
+rm -f memoise/tests/testthat/test-filesystem.R # unconditional suggest
 
 %generate_buildrequires
 %R_buildrequires

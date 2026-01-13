@@ -27,6 +27,12 @@ Patch1:         bloaty-1.1-longlong.patch
 # Add missing #include needed on GCC13
 # https://github.com/google/bloaty/pull/332
 Patch2:         %{url}/pull/332.patch
+# Add missing `#include <stdexcept>` in `src/range_map.h`
+#
+# This was satisfied indirectly/implicitly via abseil-cpp prior to version
+# 20260107; the missing include was fixed upstream in refactoring commit
+# 5b8d313c8783e669db096e8101a757e98d975f9456c7d968dc42d98a4591036c.
+Patch3:         0001-Add-missing-include-stdexcept-in-src-range_map.h.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -76,7 +82,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 bloaty.1
 
 %files
 %license LICENSE
-%doc README.md how-bloaty-works.md 
+%doc README.md how-bloaty-works.md
 %{_bindir}/bloaty
 %{_mandir}/man1/bloaty.1*
 

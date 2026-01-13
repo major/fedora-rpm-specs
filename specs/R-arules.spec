@@ -1,5 +1,5 @@
 Name:           R-arules
-Version:        %R_rpm_version 1.7-11
+Version:        %R_rpm_version 1.7.13
 Release:        %autorelease
 Summary:        Mining Association Rules and Frequent Itemsets
 

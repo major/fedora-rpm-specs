@@ -1,5 +1,5 @@
 Name:           R-Bessel
-Version:        %R_rpm_version 0.6-1
+Version:        %R_rpm_version 0.7-0
 Release:        %autorelease
 Summary:        Computations and Approximations for Bessel Functions
 

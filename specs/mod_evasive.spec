@@ -1,6 +1,6 @@
 Name:           mod_evasive
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Denial of Service evasion module for Apache
 
 License:        GPL-2.0-or-later
@@ -9,6 +9,7 @@ Source0:        https://github.com/jvdmr/mod_evasive/archive/%{version}.tar.gz
 Source1:        mod_evasive.conf
 
 BuildRequires:  httpd-devel, gcc
+BuildRequires:  pcre2-devel
 Requires:       httpd
 Requires:       httpd-mmn = %([ -a %{_includedir}/httpd/.mmn ] && cat %{_includedir}/httpd/.mmn || echo missing)
 
@@ -25,9 +26,6 @@ reports abuses via email and syslog facilities.
 
 
 %build
-# create apache httpd-2.4 version and compile it
-sed 's/connection->remote_ip/connection->client_ip/' \
-  < mod_evasive20.c > mod_evasive24.c
 apxs -Wc,"%{optflags}" -c mod_evasive24.c
 
 
@@ -48,6 +46,9 @@ install -pm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/
 
 
 %changelog
+* Sun Jan 11 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.4.0-3
+- Remove patching mod_evasive20 to really use mod_evasive24 from new version.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

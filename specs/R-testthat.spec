@@ -1,5 +1,5 @@
 Name:           R-testthat
-Version:        %R_rpm_version 3.3.1
+Version:        %R_rpm_version 3.3.2
 Release:        %autorelease
 Summary:        Unit Testing for R
 

@@ -1,8 +1,8 @@
-%bcond 	        hip 0
+%bcond 	        hip 1
 %bcond          ninja 1
 #%%global	        prerelease beta
 Name:           oidn
-Version:        2.3.3
+Version:        2.4.0
 Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        Apache-2.0
@@ -34,6 +34,7 @@ BuildRequires:  clang
 %else
 BuildRequires:  gcc-c++
 %endif
+BuildRequires:  help2man
 BuildRequires:  ispc
 Recommends:     ispc-gpu
 %if %{with ninja}
@@ -88,6 +89,17 @@ The %{name}-docs package contains documentation for %{name}.
 %install
 %cmake_install
 
+# Generate and install man pages.
+install -d '%{buildroot}%{_mandir}/man1'
+for cmd in %{buildroot}%{_bindir}/*
+do
+  LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+      help2man \
+      --no-info --no-discard-stderr --version-string='%{version}' \
+      --output="%{buildroot}%{_mandir}/man1/$(basename "${cmd}").1" \
+      "${cmd}"
+done
+
 # Remove rpath
 chrpath --delete %{buildroot}%{_bindir}/%{name}{Denoise,Test,Benchmark}
 chrpath --delete %{buildroot}%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.*
@@ -102,6 +114,7 @@ rm -rf %{buildroot}%{_docdir}/OpenImageDenoise
 %license LICENSE.txt
 %doc CHANGELOG.md 
 %{_bindir}/%{name}{Denoise,Test,Benchmark}
+%{_mandir}/man1/%{name}{Denoise,Test,Benchmark}.1.gz
 
 %files libs
 %{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.2

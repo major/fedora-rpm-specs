@@ -18,18 +18,18 @@ BuildRequires:  gcc
 BuildRequires:  make
 
 %description
-The main cliquer package contains a command-line interface to the
-cliquer library.  Note that the upstream binary name is "cl", which is
-too generic for Fedora.  Therefore, the binary is named "cliquer".
+The main cliquer package contains a command-line interface to the cliquer
+library.  Note that the upstream binary name is "cl", which is too generic for
+Fedora.  Therefore, the binary is named "cliquer".
 
 %package libs
 Summary:        Library to find cliques in arbitrary weighted graphs
 
 %description libs
-Cliquer is a set of C routines for finding cliques in an arbitrary
-weighted graph.  It uses an exact branch-and-bound algorithm developed
-by Patric Östergård.  It is designed with the aim of being efficient
-while still being flexible and easy to use.
+Cliquer is a set of C routines for finding cliques in an arbitrary weighted
+graph.  It uses an exact branch-and-bound algorithm developed by Patric
+Östergård.  It is designed with the aim of being efficient while still being
+flexible and easy to use.
 
 %package devel
 Summary:        Development files for cliquer
@@ -86,7 +86,7 @@ LD_LIBRARY_PATH=$PWD make test
 %files libs
 %doc ChangeLog README
 %license COPYING
-%{_libdir}/libcliquer.so.1*
+%{_libdir}/libcliquer.so.1{,.*}
 
 %files devel
 %{_includedir}/%{name}/

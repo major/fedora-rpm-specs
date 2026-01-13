@@ -47,9 +47,8 @@ BuildRequires:  tex(ulem.sty)
 
 %description
 The CoCoA C++ library offers functions to perform calculations in
-Computational Commutative Algebra, and some other related areas.  The
-library is designed to be pleasant to use while offering good run-time
-performance.
+Computational Commutative Algebra, and some other related areas.  The library
+is designed to be pleasant to use while offering good run-time performance.
 
 %package devel
 Summary:        Headers and library links for %{name}
@@ -130,7 +129,7 @@ make check
 %files
 %license COPYRIGHT-full-text
 %doc README
-%{_libdir}/libcocoa.so.0*
+%{_libdir}/libcocoa.so.0{,.*}
 
 %files devel
 %{_includedir}/CoCoA

@@ -12,7 +12,7 @@
 
 # https://github.com/tetratelabs/wazero
 %global goipath         github.com/tetratelabs/wazero
-Version:                1.9.0
+Version:                1.11.0
 
 %gometa -L -f
 
@@ -38,16 +38,8 @@ Source:         %{gosource}
 
 # https://github.com/tetratelabs/wazero/issues/2409
 Patch:          0001-Skip-Nlink-test-in-TestStat.patch
-# https://github.com/tetratelabs/wazero/pull/2411
-Patch:          0002-Skip-custom-context-host-test-if-compiler-unsupporte.patch
-# https://github.com/tetratelabs/wazero/pull/2410
-Patch:          0003-Ensure-interpreter.Engine-is-empty-after-closing.patch
-# https://github.com/tetratelabs/wazero/pull/2412
-Patch:          0004-Add-ppc64le-s390x-Linux-to-supported-stat-implementa.patch
-# https://github.com/tetratelabs/wazero/pull/2415
-Patch:          0005-TST-Increase-buffer-size-of-TestWriteFdNonblock.patch
-# https://github.com/tetratelabs/wazero/issues/2413#issuecomment-3172806637
-Patch:          0006-TST-Pin-test-stacks-in-TestAdjustClonedStack.patch
+# We require this because we parse files for dependencies instead of go.mod.
+Patch:          0002-Ensure-dependencies-are-arch-independent.patch
 
 %description %{common_description}
 

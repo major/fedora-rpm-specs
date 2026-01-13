@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.10.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -490,6 +490,7 @@ popd
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
+%patch -P81 -p1 -b .move-gpu-info-logging-to-gpu-thread
 
 ## upstreamable patches
 %patch -P100 -p1 -b .add-missing-pipewire-headers
@@ -851,6 +852,9 @@ done
 %endif
 
 %changelog
+* Sun Jan 11 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.1-4
+- Apply the "Move GPU info logging into the GPU thread" patch
+
 * Thu Jan 08 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.1-3
 - Move GPU info logging into the GPU thread
 

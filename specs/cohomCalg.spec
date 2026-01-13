@@ -25,8 +25,7 @@ BuildRequires:  tex(hyperxmp.sty)
 BuildRequires:  tex(totpages.sty)
 
 %description
-This package computes sheaf cohomologies for line bundles on toric
-varieties.
+This package computes sheaf cohomologies for line bundles on toric varieties.
 
 %package doc
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various

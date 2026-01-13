@@ -16,8 +16,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	pkgconfig(zlib)
 
 %description
-This package contains the COmputational INfrastructure for Operations
-Research (COIN-OR) mixed integer library.
+This package contains the COmputational INfrastructure for Operations Research
+(COIN-OR) mixed integer library.
 
 %prep
 %autosetup -n %{module}-releases-%{version}

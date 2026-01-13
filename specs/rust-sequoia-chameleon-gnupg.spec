@@ -163,8 +163,16 @@ install -Dpm 0644 \
 
 %if %{with check}
 %check
-# * limit parallelism to avoid hitting resource limits (open files)
-%cargo_test -- -- --test-threads 8
+# limit parallelism to avoid hitting resource limits (open files)
+export RUST_TEST_THREADS=8
+# * skip tests that fail due to keys that expired on 2025-12-16:
+#   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/156
+%{cargo_test -- -- %{shrink:
+    --skip gpg::decrypt::general_purpose_
+    --skip gpg::decrypt::restricted_agent
+    --skip gpg::sign::general_purpose_
+    --skip gpg::sign::restricted_agent
+}}
 %endif
 
 %changelog

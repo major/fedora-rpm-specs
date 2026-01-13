@@ -82,6 +82,8 @@ This package contains development files for dfm6-search.
 %prep
 %autosetup -p1 -n %{repo}-%{version}
 
+sed -i 's|Boostsystem Threads||' misc/dfm-search/dfm-search.pc.in
+
 # use Fedora build flags
 sed -i 's/-O0//; s/-O3//' \
     src/dfm-io/CMakeLists.txt \

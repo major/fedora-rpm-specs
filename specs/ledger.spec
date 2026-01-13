@@ -7,6 +7,7 @@ Summary:          A powerful command-line double-entry accounting system
 License:          BSD-3-Clause
 URL:              https://ledger-cli.org/
 Source0:          https://github.com/ledger/ledger/archive/v%{version}.tar.gz
+Patch0:           ledger-boost190.patch
 
 BuildRequires:    boost-devel
 BuildRequires:    cmake
@@ -41,7 +42,7 @@ Requires: %{name} = %{version}-%{release}
 Libraries and header files for %{name} development.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 # Avoid texinfo errors on EL7.
 %if 0%{?rhel} == 7
 sed -i -e 's#FIXME:UNDOCUMENTED#FIXMEUNDOCUMENTED#g' doc/ledger3.texi

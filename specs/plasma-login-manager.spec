@@ -1,15 +1,15 @@
 # Disable X11 for RHEL
 %bcond x11 %[%{undefined rhel}]
 
-%global commit 68b01223669541ad5bee9dc57ba05f0359aaec09
+%global commit 99ded959c822c39819c15d60bcec67f2e4129673
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20251203
+%global commitdate 20260111
 %global gititer 1
 
 
 Name:           plasma-login-manager
 Version:        0.21.0%{?commitdate:~git%{gititer}.%{commitdate}.%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager from KDE
 
@@ -31,6 +31,8 @@ Source12:       plasmalogin.sysusers
 Source13:       plasma-login.conf
 
 # upstream patches
+## Fix loading defaults config
+Patch0101:      https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/58.patch
 
 # downstream patches
 ## plasmalogin.service: +EnvironmentFile=-/etc/sysconfig/plasmalogin
@@ -55,6 +57,7 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6QuickTest)
 BuildRequires:  cmake(KF6Config)
@@ -133,6 +136,7 @@ Requires: qt6-filesystem
 
 mkdir -p %{buildroot}%{_sysconfdir}/plasmalogin.conf.d
 mkdir -p %{buildroot}%{_prefix}/lib/plasmalogin/plasmalogin.conf.d
+mkdir -p %{buildroot}%{_prefix}/lib/plasma-login
 
 install -Dpm 644 %{SOURCE10} %{buildroot}%{_datadir}/plasmalogin/scripts/README.scripts
 install -Dpm 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/sysconfig/plasmalogin
@@ -181,6 +185,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 %dir %{_sysconfdir}/plasmalogin.conf.d
 %dir %{_prefix}/lib/plasmalogin
 %dir %{_prefix}/lib/plasmalogin/plasmalogin.conf.d
+%dir %{_prefix}/lib/plasma-login
 %config(noreplace) %{_sysconfdir}/plasmalogin/*
 %config(noreplace) %{_sysconfdir}/plasma-login.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/plasmalogin
@@ -215,6 +220,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Sun Jan 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260111.99ded95-2
+- Add patch to read default wallpaper settings
+
+* Sun Jan 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260111.99ded95-1
+- Bump to new git snapshot
+
 * Wed Dec 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20251203.68b0122-1
 - Bump to new git snapshot
 - Add sample plasmalogin.conf

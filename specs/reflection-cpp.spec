@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           reflection-cpp
-Version:        0.1.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        C++ static reflection support library
 License:        Apache-2.0
@@ -20,10 +20,10 @@ Summary:        Development files for %{name}
 Provides:       %{name}-static = %{version}-%{release}
 
 %description    devel
-%{description}.
+C++ static reflection support library.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
 %cmake

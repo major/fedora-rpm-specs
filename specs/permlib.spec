@@ -31,11 +31,10 @@ BuildRequires:  make
 BuildRequires:  tex(newunicodechar.sty)
 
 %description
-PermLib is a callable C++ library for permutation computations.
-Currently it supports set stabilizer and in-orbit computations, based on
-bases and strong generating sets (BSGS).  Additionally, it computes
-automorphisms of symmetric matrices and finds the lexicographically
-smallest set in an orbit of sets.
+PermLib is a callable C++ library for permutation computations.  Currently it
+supports set stabilizer and in-orbit computations, based on bases and strong
+generating sets (BSGS).  Additionally, it computes automorphisms of symmetric
+matrices and finds the lexicographically smallest set in an orbit of sets.
 
 %package devel
 # The code is BSD-3-Clause.  Other licenses are due to files added by doxygen.
@@ -49,11 +48,10 @@ Provides:       %{name}-static = %{version}-%{release}
 Provides:       bundled(js-jquery)
 
 %description devel
-PermLib is a callable C++ library for permutation computations.
-Currently it supports set stabilizer and in-orbit computations, based on
-bases and strong generating sets (BSGS).  Additionally, it computes
-automorphisms of symmetric matrices and finds the lexicographically
-smallest set in an orbit of sets.
+PermLib is a callable C++ library for permutation computations.  Currently it
+supports set stabilizer and in-orbit computations, based on bases and strong
+generating sets (BSGS).  Additionally, it computes automorphisms of symmetric
+matrices and finds the lexicographically smallest set in an orbit of sets.
 
 This package contains header files for developing programs that use
 PermLib.
@@ -61,6 +59,9 @@ PermLib.
 %prep
 %autosetup -p0 -n PermLib-%{version}
 sed "s/@VERSION@/%{version}/" %{SOURCE1} > Doxyfile
+
+# Remove flags that break the build with boost 1.90.0
+sed -i 's/ -ansi -pedantic//' CMakeLists.txt
 
 %build
 %cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5

@@ -1,5 +1,5 @@
 Name:           R-tibble
-Version:        %R_rpm_version 3.3.0
+Version:        %R_rpm_version 3.3.1
 Release:        %autorelease
 Summary:        Simple Data Frames
 

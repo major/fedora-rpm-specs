@@ -1,5 +1,5 @@
 Name:           R-Rcpp
-Version:        %R_rpm_version 1.1.0
+Version:        %R_rpm_version 1.1.1
 Release:        %autorelease
 Summary:        Seamless R and C++ Integration
 
@@ -50,7 +50,6 @@ dos2unix -k \
 
 %install
 %R_install
-rm -rf %{buildroot}%{_R_libdir}/Rcpp/tinytest
 
 sed 's!/bin/env Rscript!/usr/bin/Rscript!' \
     -i %{buildroot}%{_R_libdir}/Rcpp/discovery/cxx0x.R
@@ -66,11 +65,12 @@ for f in `find %{buildroot}%{_R_libdir}/Rcpp/examples -type f` ; do
 done
 
 %R_save_files
-grep -v examples %{R_files} > %{R_files}.main
+grep -vE "examples|tinytest" %{R_files} > %{R_files}.main
 grep examples %{R_files} > %{R_files}.examples
 
 %check
 %R_check
+rm -rf %{buildroot}%{_R_libdir}/Rcpp/tinytest
 
 %files -f %{R_files}.main
 

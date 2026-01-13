@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.38.00
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -103,6 +103,13 @@ Patch14:	%{name}-PyROOT-Don-t-install-the-python-modules-twice.patch
 #		Fix test for stricter syntax in numpy 2.4.0 (backport)
 #		https://github.com/root-project/root/pull/20775
 Patch15:	%{name}-Python-Fix-TF1-Pythonization-test-for-NumPy-2.4.0.patch
+#		Starting with gcc 16, libstdc++ links to libatomic
+#		https://github.com/root-project/root/pull/20826
+Patch16:	%{name}-gcc-16-libstdc-links-to-libatomic.patch
+#		Test fails with gcc 16 (which uses c++20 as default)
+#		https://github.com/root-project/root/issues/20831
+#		https://github.com/root-project/root/pull/20841
+Patch17:	%{name}-RF-Use-TRandom3-in-test-RooFuncWrapper.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1909,6 +1916,8 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P13 -p1
 %patch -P14 -p1
 %patch -P15 -p1
+%patch -P16 -p1
+%patch -P17 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2475,6 +2484,7 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - gtest-tree-ntuple-ntuple-join-table
 # - gtest-tree-ntuple-ntuple-largefile2
 # - gtest-tree-ntuple-ntuple-merger
+# - gtest-tree-ntuple-ntuple-metrics
 # - gtest-tree-ntuple-ntuple-model
 # - gtest-tree-ntuple-ntuple-modelext
 # - gtest-tree-ntuple-ntuple-multi-column
@@ -2531,6 +2541,7 @@ gtest-tree-ntuple-ntuple-extended|\
 gtest-tree-ntuple-ntuple-join-table|\
 gtest-tree-ntuple-ntuple-largefile2|\
 gtest-tree-ntuple-ntuple-merger|\
+gtest-tree-ntuple-ntuple-metrics|\
 gtest-tree-ntuple-ntuple-model\$\$|\
 gtest-tree-ntuple-ntuple-modelext|\
 gtest-tree-ntuple-ntuple-multi-column|\
@@ -2598,6 +2609,9 @@ gtest-math-matrix-testMatrixTSparse"
 
 # Filter out parts of tests that require remote network access
 # RNTuple.StdAtomic fails on ix86 (different alignment 64 bit (non)atomic)
+# TH3D.FillThreadSafe and RDFHelpers.Histo3DThreadSafe fail on ix86
+# due to alignment issues with std::atomic_ref
+# https://github.com/root-project/root/issues/20834
 # InterpreterTest.Evaluate fails on s390x
 # TClingDataMemberInfo.Offset fails on s390x
 # https://github.com/root-project/root/issues/14512
@@ -2607,6 +2621,8 @@ gtest-math-matrix-testMatrixTSparse"
 export GTEST_FILTER=-\
 %ifarch %{ix86}
 RNTuple.StdAtomic:\
+TH3D.FillThreadSafe:\
+RDFHelpers.Histo3DThreadSafe:\
 %endif
 %ifarch s390x
 InterpreterTest.Evaluate:\
@@ -3460,6 +3476,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 12 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-6
+- Fixes for gcc 16
+
 * Thu Dec 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.38.00-5
 - Fix test for stricter syntax in numpy 2.4.0 (backport)
 

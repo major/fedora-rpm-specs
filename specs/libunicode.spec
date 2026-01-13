@@ -1,5 +1,5 @@
 Name:           libunicode
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Modern C++20 Unicode Library
 License:        Apache-2.0
@@ -10,7 +10,6 @@ ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 BuildRequires:  cmake(fmt)
 BuildRequires:  cmake(range-v3)
 BuildRequires:  unicode-ucd
@@ -36,14 +35,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-tools package contains tools about %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
 %cmake \
-    -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIBUNICODE_UCD_DIR=/usr/share/unicode/ucd \
-
+    -DLIBUNICODE_UCD_DIR=/usr/share/unicode/ucd
 %cmake_build
 
 %install
@@ -55,7 +52,7 @@ The %{name}-tools package contains tools about %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libunicode*.so.0.6*
+%{_libdir}/libunicode*.so.0.7*
 
 %files devel
 %{_includedir}/libunicode/

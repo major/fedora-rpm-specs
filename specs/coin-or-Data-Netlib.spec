@@ -16,8 +16,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	pkgconfig(zlib)
 
 %description
-This package contains the COmputational INfrastructure for Operations
-Research (COIN-OR) models from netlib for testing.
+This package contains the COmputational INfrastructure for Operations Research
+(COIN-OR) models from netlib for testing.
 
 %prep
 %autosetup -n %{module}-releases-%{version}

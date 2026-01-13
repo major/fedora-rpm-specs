@@ -1,7 +1,7 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        6.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -9,10 +9,12 @@ Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
+Patch2:         fix_mount_action.patch
 
 ExcludeArch:   %{ix86}
 
 Requires:       redhat-menus
+Requires:       gvfs-archive%{?_isa}
 Requires:       gvfs-fuse%{?_isa}
 Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
@@ -175,6 +177,10 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sun Jan 11 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-2
+- Fix mount action so it works compressed archives
+- Add requires gvfs-archive
+
 * Thu Jan 08 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
 - Update to 6.6.3
 

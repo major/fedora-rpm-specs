@@ -6,8 +6,8 @@
 
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
-Version:   1.20.20
-Release:   5%{?dist}
+Version:   1.52.0
+Release:   1%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -18,7 +18,22 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: gtk3-devel
-BuildRequires: NetworkManager-libnm-devel >= 1:1.20.0
+
+# Ensure using libnma-devel that has CVE-2025-9615 update
+%if 0%{?fedora} == 42
+BuildRequires: NetworkManager-libnm-devel >= 1:1.52.2
+%elif 0%{?fedora} == 43
+BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
+%elif 0%{?fedora} > 43
+BuildRequires: NetworkManager-libnm-devel >= 1:1.55.91
+%elif 0%{?rhel} == 9
+BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
+%elif 0%{?rhel} == 10
+BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
+%else
+BuildRequires: NetworkManager-libnm-devel >= 1:1.56.0
+%endif
+
 BuildRequires: libnma-devel >= 1.8.0
 BuildRequires: pkgconfig
 BuildRequires: ppp-devel >= 2.4.5
@@ -32,7 +47,22 @@ BuildRequires: libnma-gtk4-devel
 %endif
 
 Requires: dbus-common
-Requires: NetworkManager >= 1:1.20.0
+
+# Ensure NetworkManager dependency has CVE-2025-9615 update
+%if 0%{?fedora} == 42
+Requires: NetworkManager >= 1:1.52.2
+%elif 0%{?fedora} == 43
+Requires: NetworkManager >= 1:1.54.3
+%elif 0%{?fedora} > 43
+Requires: NetworkManager >= 1:1.55.91
+%elif 0%{?rhel} == 9
+BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
+%elif 0%{?rhel} == 10
+BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
+%else
+Requires: NetworkManager >= 1:1.56.0
+%endif
+
 Requires: ppp = %{ppp_version}
 %if 0%{?fedora} > 42
 # Note: go-l2tp is a package alias of golang-github-katalix-l2tp
@@ -136,7 +166,7 @@ IKEv1 is deprecated and disabled by default with Libreswan >= 5.0.
 You can re-enable IKEv1 by uncommenting the #ikev1-policy=accept line in
 /etc/ipsec.conf which can be achieved by running the following command:
 
-sudo sed -e 's/#ikev1-policy=accept/ikev1-policy=accept/' -i /etc/ipsec.conf
+sudo sed -e 's/#ikev1-policy=.*/ikev1-policy=accept/' -i /etc/ipsec.conf
 %endif
 
 EOF
@@ -174,6 +204,13 @@ exit 0
 %endif
 
 %changelog
+* Sun Jan 11 2026 Douglas Kosovic <doug@uq.edu.au> - 1.52.0-1
+- Updated to 1.52.0 release
+  Verify file permissions for private connections to prevent unprivileged
+  user from using other user's certs (CVE-2025-9615)
+- Ensure NetworkManager dependency has CVE-2025-9615 update.
+- Correct sed example in generated README.Fedora and README.EPEL files.
+
 * Wed Nov 12 2025 Douglas Kosovic <doug@uq.edu.au> - 1.20.20-5
 - Add README.Fedora for Fedora or README.EPEL for EPEL
 - Use (go-l2tp or xl2tpd) dependency for Fedora 43 to handle upgrades

@@ -3,7 +3,7 @@
 
 Name:		dssp
 Version:	3.0.0
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Protein secondary structure assignment
 %{?el5:Group:		Applications/Engineering}
 License:	BSL-1.0
@@ -15,6 +15,8 @@ Patch1:		dssp-make.patch
 Patch2:		dssp-tuple.patch
 # Fix build with GCC 15 (#2384563)
 Patch3:         dssp-nullptr.patch
+# Fix build with Boost 1.90.0 which has no libboost_system.so
+Patch4:         dssp-boost_system.patch
 BuildRequires:	zlib-devel bzip2-devel boost-devel gcc-c++
 BuildRequires: make
 
@@ -45,6 +47,7 @@ Biopolymers. 1983 22 2577-2637.
 %patch -P1 -p1 -b .make
 %patch -P2 -p1 -b .tuple
 %patch -P3 -p1 -b .nullptr
+%patch -P4 -p1 -b .boost_system
 chmod -x src/buffer.h
 
 
@@ -80,6 +83,9 @@ chmod -x $RPM_BUILD_ROOT%_mandir/man1/*
 
 
 %changelog
+* Tue Dec 16 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 3.0.0-28
+- Patched for Boost 1.90
+
 * Mon Dec 15 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 3.0.0-27
 - Fix build (#2384563)
 

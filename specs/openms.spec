@@ -166,7 +166,7 @@ Summary: Python wrapper for OpenMS
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
-BuildRequires: python3-autowrap >= 0.26.0
+BuildRequires: python3-autowrap >= 0.23.0
 BuildRequires: python3-pip
 BuildRequires: python3-cython >= 3.1.0
 BuildRequires: python3-wheel
@@ -254,7 +254,7 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DMT_ENABLE_OPENMP=ON -DENABLE_GCC_WERROR:BOOL=OFF \
  -DPERCOLATOR_BINARY:FILEPATH=%{_bindir}/percolator \
  -DBOOST_USE_STATIC:BOOL=OFF -DBoost_INCLUDE_DIR:PATH=%{_includedir} \
- -DENABLE_TUTORIALS:BOOL=OFF -DENABLE_UNITYBUILD:BOOL=OFF \
+ -DENABLE_TUTORIALS:BOOL=OFF -DENABLE_UNITYBUILD:BOOL=OFF -DENABLE_DOCS:BOOL=ON \
  -DHAS_XSERVER:BOOL=OFF \
  -DCMAKE_INSTALL_PREFIX=%{_prefix} \
  -DINSTALL_BIN_DIR:PATH=bin -DINSTALL_CMAKE_DIR:PATH=%{_lib}/cmake/OpenMS \
@@ -294,14 +294,10 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
 %endif
 
 %if %{with check}
-%cmake_build
+%cmake_build -- OpenMS TOPP GUI test doc Tutorials_build
 %else
-%cmake_build -- OpenMS TOPP GUI
+%cmake_build -- OpenMS TOPP GUI doc
 %endif
-
-pushd %_vpath_builddir/doc
-make doc_minimal
-popd
 
 %if 0%{?with_pyOpenMS}
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
@@ -405,16 +401,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %if %{with check}
 ## starting tests
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/OpenMS
-export PATH=%{buildroot}%{_bindir}
 export OPENMS_DATA_PATH=%{buildroot}%{_datadir}/OpenMS
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
-export EXAMPLE_PATH=%{buildroot}%{_datadir}/OpenMS
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 #ctest --test-dir %%_vpath_builddir -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
-ctest --test-dir %_vpath_builddir --output-on-failure --force-new-ctest-process --timeout 6000 -j1
+%{_bindir}/ctest --test-dir %_vpath_builddir --output-on-failure --force-new-ctest-process --timeout 6000 -j1
 %endif
 
 %files

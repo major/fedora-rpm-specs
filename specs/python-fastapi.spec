@@ -59,6 +59,11 @@ Source12:       fastapi-run.1
 Source13:       fastapi-deploy.1
 Source14:       fastapi-login.1
 
+# ⬆️ Bump Starlette to <`0.52.0`
+# https://github.com/fastapi/fastapi/pull/14695
+# Rebased on 0.128.0
+Patch:          0001-Bump-Starlette-to-0.52.0.patch
+
 BuildArch:      noarch
 
 # Downstream-only: run test_fastapi_cli without coverage

@@ -1,45 +1,47 @@
 # header-only library
 %global debug_package %{nil}
-%bcond check 1
-
-%global forgeurl https://github.com/yixuan/spectra
-Version:        1.1.0
-%forgemeta
+%bcond check 0
 
 Name:           spectra
+Version:        1.2.0
 Release:        %autorelease
 Summary:        A header-only C++ library for large scale eigenvalue problems
 License:        MPL-2.0
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://github.com/yixuan/spectra
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         spectra-fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  ninja-build
+%if %{with check}
 BuildRequires:  eigen3-devel
+%endif
 
-%description
+%global _description %{expand:
 Spectra stands for Sparse Eigenvalue Computation Toolkit as a Redesigned ARPACK.
 It is a C++ library for large scale eigenvalue problems, built on top of Eigen,
 an open source linear algebra library.
 
 Spectra is implemented as a header-only C++ library, whose only dependency,
 Eigen, is also header-only. Hence Spectra can be easily embedded in C++ projects
-that require calculating eigenvalues of large matrices.
+that require calculating eigenvalues of large matrices.}
+
+%description
+%_description
 
 %package        devel
 Summary:        Development files for %{name}
 Provides:       %{name}-static%{?_isa} = %{version}-%{release}
+Requires:       eigen3-devel
 
 %description    devel
-%{description}
+%_description
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -C
 
 %build
 %cmake \
-    -GNinja \
 %if %{with check}
     -DBUILD_TESTS=ON \
 %endif

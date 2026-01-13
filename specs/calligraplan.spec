@@ -3,7 +3,7 @@
 %global app_id org.kde.calligraplan
 
 Name:    calligraplan
-Version: 4.0.0
+Version: 4.0.1
 Release: 1%{?dist}
 Summary: A Project Planner 
 
@@ -14,9 +14,6 @@ Source:  https://download.kde.org/%{stable_kf6}/%{name}/%{name}-%{version}.tar.x
 ## upstream patches
 
 ## upstreamable patches
-# https://invent.kde.org/office/calligraplan/-/merge_requests/36
-Patch:   0001-Fix-soname-of-tjscheduler-library.patch
-Patch:   0002-Fix-installation-of-portfolio-icons.patch
 
 ## downstream patches
 
@@ -162,6 +159,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{app_id}*.deskto
 
 
 %changelog
+* Sun Jan 11 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.1-1
+- 4.0.1
+
 * Tue Jan 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.0-1
 - 4.0.0
 

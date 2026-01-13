@@ -16,11 +16,12 @@
 
 Name:           innoextract
 Version:        1.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        zlib
 Summary:        Tool to extract installers created by Inno Setup
 Url:            https://constexpr.org/innoextract/
 Source:         %{url}/files/%{name}-%{version}.tar.gz
+Patch0:         innoextract-boost190.patch
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -34,6 +35,7 @@ non-windows systems without running the actual installer using wine.
 
 %prep
 %setup -q
+%patch 0 -p1
 
 %build
 %cmake \
@@ -54,6 +56,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/innoextract.1*
 
 %changelog
+* Tue Dec 16 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 1.9-18
+- Patched for Boost 1.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

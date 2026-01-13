@@ -2,10 +2,9 @@
 %bcond_without perl_MooseX_Types_DateTime_enables_optional_test
 
 Name:       perl-MooseX-Types-DateTime
-Version:    0.13
-Release:    31%{?dist}
+Version:    0.14
+Release:    1%{?dist}
 # see, e.g., lib/MooseX/Types/DateTime.pm
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Summary:    DateTime related constraints and coercions for Moose
@@ -14,15 +13,10 @@ Url:        https://metacpan.org/release/MooseX-Types-DateTime
 BuildArch:  noarch
 
 BuildRequires: coreutils
-BuildRequires: findutils
-BuildRequires: make
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
-BuildRequires: perl(:VERSION) >= 5.8.3
-BuildRequires: perl(Config)
-BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires: perl(strict)
-BuildRequires: perl(warnings)
+BuildRequires: perl-macros
+BuildRequires: perl(Module::Build::Tiny) >= 0.034
 # Run-time:
 BuildRequires: perl(DateTime) >= 0.43
 BuildRequires: perl(DateTime::Duration) >= 0.43
@@ -32,15 +26,20 @@ BuildRequires: perl(if)
 BuildRequires: perl(Moose) >= 0.41
 BuildRequires: perl(MooseX::Types) >= 0.30
 BuildRequires: perl(MooseX::Types::Moose) >= 0.30
-BuildRequires: perl(namespace::clean) >= 0.19
 BuildRequires: perl(namespace::autoclean)
+BuildRequires: perl(namespace::clean) >= 0.19
+BuildRequires: perl(strict)
+BuildRequires: perl(warnings)
 # Tests:
 BuildRequires: perl(File::Spec)
+BuildRequires: perl(Module::Metadata)
 BuildRequires: perl(Moose::Util::TypeConstraints)
 BuildRequires: perl(ok)
+BuildRequires: perl(Term::ANSIColor)
 BuildRequires: perl(Test::Fatal)
 BuildRequires: perl(Test::More) >= 0.88
-# Test::Warnings not used
+BuildRequires: perl(Test::Warnings)
+BuildRequires: perl(ok)
 %if %{with perl_MooseX_Types_DateTime_enables_optional_test}
 # Optional tests:
 BuildRequires: perl(Locale::Maketext)
@@ -64,29 +63,28 @@ and coercions designed to work with the DateTime suite of objects.
 %prep
 %setup -q -n MooseX-Types-DateTime-%{version}
 
-perl -MConfig -i -pe 's{^#!.*perl}{$Config{startperl}}' t/*.t
-find . -type f -exec chmod -c -x {} +
-
 %build
-PERL_MM_FALLBACK_SILENCE_WARNING=1 perl Makefile.PL \
-    INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
+/usr/bin/perl Build.PL --installdirs=vendor
+./Build
 
 %install
-%{make_install}
+./Build install --destdir=%{buildroot} --create_packlist=0
 %{_fixperms} %{buildroot}/*
 
 %check
-unset AUTHOR_TESTING
-make test
+./Build test
 
 %files
-%doc Changes t/
+%doc Changes t
 %license LICENCE
 %{perl_vendorlib}/MooseX*
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Sun Jan 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
+- Update to 0.14
+- Adapt to new tooling
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

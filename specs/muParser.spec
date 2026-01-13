@@ -3,13 +3,13 @@
 Name:           muParser
 Summary:        A fast math parser library
 Version:        2.3.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-License:        MIT
+License:        BSD-2-Clause
 URL:            https://beltoforion.de/en/muparser/
 Source0:        https://github.com/%{owner}/%{lcname}/archive/v%{version}/%{lcname}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ Development files and the documentation
 %{_libdir}/cmake/muparser/*.cmake
 
 %changelog
+* Sun Jan 11 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 2.3.5-4
+- Use correct SPDX license tag
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
