@@ -40,11 +40,14 @@ BuildRequires: desktop-file-utils
 BuildRequires: sed
 Provides:      bundled(eyescale-cmake-common) = %{cmake_module_ver}
 # https://github.com/HBPVIS/Servus/pull/100
-Patch0:        servus-1.5.2-stdexcept-fix.patch
+Patch:        servus-1.5.2-stdexcept-fix.patch
 # https://github.com/HBPVIS/Servus/pull/96
-Patch1:        servus-1.5.2-copy-const-fix.patch
+Patch:        servus-1.5.2-copy-const-fix.patch
 # https://github.com/Eyescale/CMake/pull/599
-Patch2:        servus-1.5.2-libdir-fix.patch
+Patch:        servus-1.5.2-libdir-fix.patch
+# https://github.com/HBPVIS/Servus/issues/116
+# https://github.com/Eyescale/CMake/pull/606
+Patch:        servus-1.5.2-cmake-4-fix.patch
 
 %description
 Servus is a small C++ network utility library that provides a zeroconf API,
@@ -96,8 +99,7 @@ sed -i 's/%{version_major}\.%{version_minor}\.%{version_patch}/%{api_version}/g'
 popd
 
 %check
-cd %{_vpath_builddir}
-make test
+%ctest
 
 %files
 %doc AUTHORS.txt LICENSE.txt README.md doc/Changelog.md

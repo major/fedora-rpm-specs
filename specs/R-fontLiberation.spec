@@ -3,8 +3,7 @@ Version:        %R_rpm_version 0.1.0
 Release:        %autorelease
 Summary:        Liberation Fonts
 
-# Automatically converted from old format: OFL - review is highly recommended.
-License:        LicenseRef-Callaway-OFL
+License:        OFL-1.1
 URL:            %{cran_url}
 Source:         %{cran_source}
 

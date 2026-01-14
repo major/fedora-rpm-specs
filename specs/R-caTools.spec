@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.18.3
 Release:        %autorelease
 Summary:        Tools: Moving Window Statistics, GIF, Base64, ROC AUC, etc
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}

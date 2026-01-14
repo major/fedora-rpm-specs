@@ -3,8 +3,8 @@ Version:        %R_rpm_version 0.9.0
 Release:        %autorelease
 Summary:        Custom Bootstrap Sass Themes for shiny and rmarkdown
 
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+# See `LICENSE.note` for breakdown.
+License:        MIT AND BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 

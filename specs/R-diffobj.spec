@@ -3,8 +3,7 @@ Version:        %R_rpm_version 0.3.6
 Release:        %autorelease
 Summary:        Diffs for R Objects
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
 

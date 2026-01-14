@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-phpspec-prophecy
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    35f1adb388946d92e6edab2aa2cb2b60e132ebd5
+%global gh_commit    a24f1bda2d00a03877f7f99d9e6b150baf543f6d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
@@ -15,7 +15,7 @@
 %bcond_with          phpspec
 
 Name:           php-phpspec-prophecy
-Version:        1.22.0
+Version:        1.24.0
 Release:        2%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
@@ -25,23 +25,20 @@ Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source2:        makesrc.sh
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.2
 %if %{with tests}
 BuildRequires:  (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
 BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 8)
 BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 8)
 BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # from composer.json, "require-dev": {
-#        "friendsofphp/php-cs-fixer": "^3.40",
-#        "phpspec/phpspec": "^6.0 || ^7.0"
+#        "friendsofphp/php-cs-fixer": "^3.88",
+#        "phpspec/phpspec": "^6.0 || ^7.0 || ^8.0",
 #        "phpstan/phpstan": "^2.1.13",
-#        "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0"
+#        "phpunit/phpunit": "^11.0 || ^12.0"
 %if %{with phpspec}
 BuildRequires:  php-composer(phpspec/phpspec) >= 6.0
 %endif
-BuildRequires:  phpunit8
-BuildRequires:  phpunit9
-BuildRequires:  phpunit10
 BuildRequires:  phpunit11
 BuildRequires:  phpunit12
 %endif
@@ -49,20 +46,19 @@ BuildRequires:  phpunit12
 BuildRequires:  php-fedora-autoloader-devel
 
 # from composer.json, "requires": {
-#        "php":                               "^7.4 || 8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.*",
+#        "php":                               "8.2.* || 8.3.* || 8.4.*",
 #        "phpdocumentor/reflection-docblock": "^5.2",
 #        "sebastian/comparator":              "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
 #        "doctrine/instantiator":             "^1.2 || ^2.0",
-#        "sebastian/recursion-context":       "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
-Requires:       php(language) >= 7.4
+#        "sebastian/recursion-context":       "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
+#        "symfony/deprecation-contracts":     "^2.5 || ^3.1"
+Requires:       php(language) >= 8.2
 Requires:       (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
 Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 8)
 Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 8)
 Requires:       (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # From phpcompatinfo report for version 1.11.0
-Requires:       php-pcre
-Requires:       php-reflection
-Requires:       php-spl
+# only pcre, reflection and spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -85,9 +81,13 @@ to be used inside any testing framework out there with minimal effort.
 phpab --template fedora --output src/Prophecy/autoload.php src
 cat << 'EOF' | tee -a src/Prophecy/autoload.php
 
-$inst = ['%{_datadir}/php/Doctrine/Instantiator/autoload.php'];
-if (PHP_VERSION_ID > 80100) {
-	array_unshift($inst, '%{_datadir}/php/Doctrine/Instantiator2/autoload.php');
+if (PHP_VERSION_ID > 80400) {
+	$inst = [
+        '%{_datadir}/php/Doctrine/Instantiator2/autoload.php',
+        '%{_datadir}/php/Doctrine/Instantiator/autoload.php',
+    ];
+} else {
+	$inst = '%{_datadir}/php/Doctrine/Instantiator/autoload.php';
 }
 \Fedora\Autoloader\Dependencies::required([
     $inst,
@@ -95,15 +95,11 @@ if (PHP_VERSION_ID > 80100) {
 ]);
 if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from phpunit, v1 from phpspec
 	$inst = [
+        '%{_datadir}/php/SebastianBergmann/Comparator6/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Comparator5/autoload.php',
         '%{_datadir}/php/SebastianBergmann/Comparator4/autoload.php',
         '%{_datadir}/php/SebastianBergmann/Comparator3/autoload.php',
 	];
-	if (PHP_VERSION_ID > 80100) {
-		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/Comparator5/autoload.php');
-	}
-	if (PHP_VERSION_ID > 80200) {
-		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/Comparator6/autoload.php');
-	}
 	if (PHP_VERSION_ID > 80300) {
 		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/Comparator7/autoload.php');
 	}
@@ -111,19 +107,22 @@ if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from php
 }
 if (!class_exists('SebastianBergmann\\RecursionContext\\Context')) { // v2 from phpunit, v1 from phpspec
     $inst = [
+            '%{_datadir}/php/SebastianBergmann/RecursionContext6/autoload.php',
+            '%{_datadir}/php/SebastianBergmann/RecursionContext5/autoload.php',
             '%{_datadir}/php/SebastianBergmann/RecursionContext4/autoload.php',
             '%{_datadir}/php/SebastianBergmann/RecursionContext3/autoload.php',
     ];
-	if (PHP_VERSION_ID > 80100) {
-		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/RecursionContext5/autoload.php');
-	}
-	if (PHP_VERSION_ID > 80200) {
-		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/RecursionContext6/autoload.php');
-	}
 	if (PHP_VERSION_ID > 80300) {
 		array_unshift($inst, '%{_datadir}/php/SebastianBergmann/RecursionContext7/autoload.php');
 	}
     \Fedora\Autoloader\Dependencies::required([$inst]);
+}
+// from https://github.com/symfony/deprecation-contracts
+if (!function_exists('trigger_deprecation')) {
+    function trigger_deprecation(string $package, string $version, string $message, mixed ...$args): void
+    {
+        @trigger_error(($package || $version ? "Since $package $version: " : '').($args ? vsprintf($message, $args) : $message), \E_USER_DEPRECATED);
+    }
 }
 EOF
 
@@ -152,39 +151,22 @@ phpspec --version
 %endif
 
 ret=0
-# ignore it_can_not_double_an_enum on all version. Not ready
-for cmd in php php81 php82 php83 php84; do
-  if which $cmd; then
-%if %{with phpspec}
-    $cmd -d auto_prepend_file=vendor/autoload.php \
-      %{_bindir}/phpspec run --format pretty --verbose --no-ansi || ret=1
-%endif
-    $cmd -d auto_prepend_file=vendor/autoload.php \
-       %{_bindir}/phpunit8 \
-         || ret=1
-    $cmd -d auto_prepend_file=vendor/autoload.php \
-       %{_bindir}/phpunit9 \
-         || ret=1
-    $cmd -d auto_prepend_file=vendor/autoload.php \
-       %{_bindir}/phpunit10 \
-         || ret=1
-  fi
-done
-for cmd in php php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=vendor/autoload.php \
        %{_bindir}/phpunit11 \
          || ret=1
   fi
 done
-# Not ready see https://github.com/phpspec/prophecy/issues/640
-for cmd in php php83 php84; do
+if [ -x %{_bindir}/phpunit12 ]; then
+for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=vendor/autoload.php \
        %{_bindir}/phpunit12 \
-         || ignore=1
+         || ret=1
   fi
 done
+fi
 exit $ret
 %else
 : Test suite disabled
@@ -199,6 +181,11 @@ exit $ret
 
 
 %changelog
+* Mon Jan 12 2026 Remi Collet <remi@remirepo.net> - 1.24.0-2
+- update to 1.24.0
+- use doctrine/instantiator v2 only with PHP 8.4+
+- raise dependency on PHP 8.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

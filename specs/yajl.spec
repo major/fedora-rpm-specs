@@ -29,6 +29,8 @@ Patch: 0005-Fix-for-CVE-2017-16516.patch
 Patch: 0006-Fix-CVE-2022-24795.patch
 Patch: 0007-yajl-fix-memory-leak-problem.patch
 Patch: 0008-fix-memory-leaks.patch
+# Cherry-picked from: https://github.com/lloyd/yajl/pull/256.patch
+Patch: 0009-Allow-cmake-4.0.patch
 
 BuildRequires: gcc
 BuildRequires: cmake
@@ -55,18 +57,14 @@ necessary for developing against the YAJL library
 %autosetup -S git_am
 
 %build
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # NB, we are not using upstream's 'configure'/'make'
 # wrapper, instead we use cmake directly to better
 # align with Fedora standards
 %cmake \
-   -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
-   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
-   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
-   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
    %if "%{?_lib}" == "lib64"
      %{?_cmake_lib_suffix64}
    %endif
+
 %cmake_build
 
 

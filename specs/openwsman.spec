@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -421,6 +421,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 08 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-13
+- Fix bogus 'sscg' arguments
+
 * Fri Jan 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-12
 - Support rdoc 6.16 and above (for ruby4.0)
 

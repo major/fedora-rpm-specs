@@ -47,10 +47,9 @@ BuildRequires:  perl(open)
 BuildRequires:  python3-devel
 
 %description
-Flame graphs visualize profiled code.  Stack samples can be captured
-using Linux perf_events, FreeBSD pmcstat (hwpmc), DTrace, SystemTap, and
-many other profilers.  This package contains only the visualizer script,
-flamegraph.pl.
+Flame graphs visualize profiled code.  Stack samples can be captured using
+Linux perf_events, FreeBSD pmcstat (hwpmc), DTrace, SystemTap, and many other
+profilers.  This package contains only the visualizer script, flamegraph.pl.
 
 %package        demos
 Summary:        Demos of graphs produced by flamegraph
@@ -69,9 +68,8 @@ License:        CDDL-1.0 AND Apache-2.0 AND BSD-2-Clause AND GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 
 %description    stackcollapse
-A set of scripts that collapse stack traces produced by various tools
-for consumption by flamegraph, as well as some miscellaneous support
-scripts.
+A set of scripts that collapse stack traces produced by various tools for
+consumption by flamegraph, as well as some miscellaneous support scripts.
 
 %package        stackcollapse-perf
 Summary:        Stack collapser for perf output

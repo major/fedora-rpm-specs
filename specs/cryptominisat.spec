@@ -78,10 +78,6 @@ The %{name} library.
 Summary:        Python 3 interface to %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-# This can be removed when F41 reaches EOL
-Obsoletes:      python3-%{name} < 5.11.15
-Provides:       python3-%{name} = %{version}-%{release}
-
 %description -n python3-pycryptosat
 Python 3 interface to %{name}.
 
@@ -168,7 +164,7 @@ sed -i 's,/builddir.*cadiback/,%{_libdir}/,' %{buildroot}%{_libdir}/cmake/crypto
 %files libs
 %doc AUTHORS
 %license LICENSE.txt
-%{_libdir}/libcadiback.so.0*
+%{_libdir}/libcadiback.so.0{,.*}
 %{_libdir}/libcryptominisat5.so.5.13
 
 %files -n python3-pycryptosat -f %{pyproject_files}

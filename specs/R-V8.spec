@@ -8,6 +8,9 @@ URL:            %{cran_url}
 Source:         %{cran_source}
 
 ExclusiveArch:  %{nodejs_arches}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 BuildRequires:  v8-devel
 

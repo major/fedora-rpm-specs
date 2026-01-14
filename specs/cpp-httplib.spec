@@ -13,7 +13,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.26.0
+Version:        0.30.1
 %forgemeta
 Release:        %autorelease
 
@@ -22,6 +22,12 @@ License:        MIT
 URL:            https://github.com/yhirose/cpp-httplib
 VCS:            git:%{forgeurl0}
 Source0:        %forgesource
+
+# fix u8 string literals not accepted in new standard.
+# https://github.com/yhirose/cpp-httplib/pull/2326
+Patch1:         cpp-httplib-cpp11-test.patch
+# https://github.com/yhirose/cpp-httplib/issues/2324
+Patch2:         %{url}/commit/cea018f2cdf67d3742f617c6884cd1df84fe75ad.patch#/cpp-httplib-test-issue2301-online.patch
 
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc-c++

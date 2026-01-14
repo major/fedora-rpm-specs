@@ -132,7 +132,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/osi_doxy.tag
 
 %changelog
-* Wed Dec 03 2025 Jerry James  <loganjerry@gmail.com> - 0.108.11-5
+* Wed Dec 03 2025 Jerry James <loganjerry@gmail.com> - 0.108.11-5
 - Rebuild for soplex 8.0.0
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.108.11-4

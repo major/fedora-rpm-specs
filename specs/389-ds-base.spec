@@ -515,6 +515,7 @@ Patch:            0001-Issue-7096-During-replication-online-total-init-the-.patc
 Patch:            0002-Issue-Revise-paged-result-search-locking.patch
 Patch:            0003-Issue-7108-Fix-shutdown-crash-in-entry-cache-destruc.patch
 Patch:            0004-Issue-7172-Index-ordering-mismatch-after-upgrade-717.patch
+Patch:            0005-Issue-7172-2nd-Index-ordering-mismatch-after-upgrade.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes

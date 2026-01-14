@@ -32,21 +32,20 @@ BuildRequires:  make
 BuildRequires:  pkgconfig(flexiblas)
 
 %description
-DSDP is a free open source implementation of an interior-point method
-for semidefinite programming.  It provides primal and dual solutions,
-exploits low-rank structure and sparsity in the data, and has relatively
-low memory requirements for an interior-point method.  It allows
-feasible and infeasible starting points and provides approximate
-certificates of infeasibility when no feasible solution exists.  The
-dual-scaling algorithm implemented in this package has a convergence
-proof and worst-case polynomial complexity under mild assumptions on the
-data.  The software can be used as a set of subroutines, through Matlab,
-or by reading and writing to data files.  Furthermore, the solver offers
-scalable parallel performance for large problems and a well documented
-interface.  Some of the most popular applications of semidefinite
-programming and linear matrix inequalities (LMI) are model control,
-truss topology design, and semidefinite relaxations of combinatorial and
-global optimization problems. 
+DSDP is a free open source implementation of an interior-point method for
+semidefinite programming.  It provides primal and dual solutions, exploits
+low-rank structure and sparsity in the data, and has relatively low memory
+requirements for an interior-point method.  It allows feasible and infeasible
+starting points and provides approximate certificates of infeasibility when no
+feasible solution exists.  The dual-scaling algorithm implemented in this
+package has a convergence proof and worst-case polynomial complexity under
+mild assumptions on the data.  The software can be used as a set of
+subroutines, through Matlab, or by reading and writing to data files.
+Furthermore, the solver offers scalable parallel performance for large
+problems and a well documented interface.  Some of the most popular
+applications of semidefinite programming and linear matrix inequalities (LMI)
+are model control, truss topology design, and semidefinite relaxations of
+combinatorial and global optimization problems.
 
 %package devel
 # The content is DSDP.  The remaining licenses cover the various fonts embedded
@@ -115,7 +114,7 @@ done
 %files
 %doc docs/DSDP5-Exe-UserGuide.pdf docs/DSDP5-P1289-0905.pdf
 %license dsdp-license
-%{_libdir}/libdsdp.so.5*
+%{_libdir}/libdsdp.so.5{,.*}
 
 %files devel
 %doc docs/DSDP5-API-UserGuide.pdf docs/dox

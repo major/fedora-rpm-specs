@@ -3,7 +3,6 @@ Version:        %R_rpm_version 4051.111
 Release:        %autorelease
 Summary:        Rmetrics - chronological and calendar objects
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}

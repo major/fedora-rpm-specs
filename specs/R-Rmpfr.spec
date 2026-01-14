@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.1-2
 Release:        %autorelease
 Summary:        R MPFR - Multiple Precision Floating-Point Reliable
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}

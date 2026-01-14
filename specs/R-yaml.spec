@@ -3,8 +3,8 @@ Version:        %R_rpm_version 2.3.12
 Release:        %autorelease
 Summary:        Methods to Convert R Data to YAML and Back
 
-# Automatically converted from old format: BSD and MIT - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
+# See `COPYING` for license breakdown.
+License:        BSD-3-Clause AND MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 
@@ -15,7 +15,7 @@ Provides:       bundled(libyaml) = 0.2.5
 
 %description
 Implements the 'libyaml' 'YAML' 1.1 parser and emitter
-(<http://pyyaml.org/wiki/LibYAML>) for R.
+(<https://pyyaml.org/wiki/LibYAML>) for R.
 
 %prep
 %autosetup -c

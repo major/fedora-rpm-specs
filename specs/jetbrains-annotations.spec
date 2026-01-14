@@ -18,9 +18,9 @@ BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 
 %description
-This package contains a set of Java annotations which can be used in
-JVM-based languages.  They serve as additional documentation and can be
-interpreted by IDEs and static analysis tools to improve code analysis.
+This package contains a set of Java annotations which can be used in JVM-based
+languages.  They serve as additional documentation and can be interpreted by
+IDEs and static analysis tools to improve code analysis.
 
 %{?javadoc_package}
 

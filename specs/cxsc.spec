@@ -43,17 +43,16 @@ C-XSC is the C language variant of the XSC (eXtensions for Scientific
 Computing) project.  It provides routines that guarantee accuracy and
 reliability of results.  Problem-solving routines with automatic result
 verification have been developed for many standard problems of numerical
-analysis, such as linear or nonlinear systems of equations, differential
-and integral equations, etc. as well as for a large number of
-applications in engineering and the natural sciences.  Some of the
-features of C-XSC are:
+analysis, such as linear or nonlinear systems of equations, differential and
+integral equations, etc. as well as for a large number of applications in
+engineering and the natural sciences.  Some of the features of C-XSC are:
 - Operator concept (user-defined operators)
 - Overloading concept
 - Module concept
 - Dynamic arrays
 - Controlled rounding
-- Predefined arithmetic data types real, extended real, complex,
-  interval, complex interval, and corresponding vector and matrix types
+- Predefined arithmetic data types real, extended real, complex, interval,
+  complex interval, and corresponding vector and matrix types
 - Predefined arithmetic operators and elementary functions of the highest
   accuracy for the arithmetic data types
 - Data type dotprecision for the exact representation of dot products
@@ -199,7 +198,7 @@ make toolboxtest_dyn
 %files
 %doc changelog README
 %license docu/COPYING
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.2{,.*}
 
 %files devel
 %doc examples
@@ -213,7 +212,7 @@ make toolboxtest_dyn
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Wed Jun 04 2025 Jerry James  <loganjerry@gmail.com> - 2.5.4-30
+* Wed Jun 04 2025 Jerry James <loganjerry@gmail.com> - 2.5.4-30
 - Fix FTBFS due to ambiguous references to "complex"
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-29

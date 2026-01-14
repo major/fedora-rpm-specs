@@ -1,7 +1,7 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
@@ -43,7 +43,7 @@ and can be used by python3 applications.
 
 %package utils
 Summary: Utilities for analyzing and setting file capabilities
-License: LGPL-2.0-or-later
+License: GPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %ifarch x86_64
 Recommends: %{name}-audit
@@ -57,7 +57,7 @@ lets you set the file system based capabilities.
 %ifarch x86_64
 %package audit
 Summary: Utility for capturing needed capabilities
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name} = %{version}-%{release}
 
 %description audit
@@ -134,6 +134,9 @@ make check
 %endif
 
 %changelog
+* Mon Jan 12 2026 Steve Grubb <sgrubb@redhat.com> 0.9-2
+- Fix SPDX licence on audit package
+
 * Sun Jan 11 2026 Steve Grubb <sgrubb@redhat.com> 0.9-1
 - New upstream feature release
 - Make libcap-ng-audit exclusive to x86_64 for now

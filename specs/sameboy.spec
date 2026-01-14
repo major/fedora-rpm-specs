@@ -1,15 +1,12 @@
 
 Name:           sameboy
-Version:        1.0.1
-Release:        2%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Game Boy and Game Boy Color emulator written in C
 
 License:        MIT
-URL:            https://github.com/LIJI32/SameBoy
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/LIJI32/SameBoy/pull/681
-# 1.0 made some changes that install the mimetype to the wrong location
-Patch0:         0001-correct-mimetype-location-to-follow-the-shared-mime-.patch
+URL:            https://sameboy.github.io/
+Source0:        https://github.com/LIJI32/SameBoy/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Requires:       hicolor-icon-theme
 BuildRequires:  gcc
@@ -36,7 +33,7 @@ Summary:        Thumbnailer for Game Boy and Game Boy Color games
 Thumbnailer for Game Boy and Game Boy Color games
 
 %prep
-%autosetup -n SameBoy-%{version} -p1
+%autosetup -n SameBoy-%{version}
 
 %build
 %set_build_flags
@@ -83,6 +80,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/thumbnailers/sameboy.thumbnailer
 
 %changelog
+* Mon Jan 12 2026 Jan200101 <sentrycraft123@gmail.com> - 1.0.2-1
+- Update to 1.0.2
+- Change URL to github.io page
+- convert license to SPDX 
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

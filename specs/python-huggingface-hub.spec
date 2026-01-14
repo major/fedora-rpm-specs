@@ -1,5 +1,5 @@
 Name:           python-huggingface-hub
-Version:        0.30.2
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Client library to handle repos on the huggingface.co hub
 
@@ -35,6 +35,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n huggingface_hub-%{version}
+# Remove hf-xet dependency - not packaged in Fedora (XET version control integration)
+sed -i '/HF_XET_VERSION/d' setup.py
 
 
 %generate_buildrequires
@@ -62,7 +64,8 @@ Summary:        %{summary}
 %files -n python3-huggingface-hub -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{_bindir}/huggingface-cli
+%{_bindir}/hf
+%{_bindir}/tiny-agents
 
 %changelog
 %autochangelog

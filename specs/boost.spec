@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -158,6 +158,9 @@ Patch5: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch
 # Install boost_system for the CMake configuration
 # https://github.com/boostorg/system/issues/132
 Patch6: boost-1.90-system.patch
+
+# https://github.com/boostorg/range/pull/157
+Patch7: boost-1.90.0-range.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -1359,6 +1362,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-2
+- Add patch for boost/range/detail/any_iterator_interface.hpp
+
 * Sat Jan 10 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-1
 - Rebase to 1.90.0
 - See https://fedoraproject.org/wiki/Changes/F44Boost189

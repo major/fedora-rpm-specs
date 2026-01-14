@@ -3,8 +3,7 @@ Version:        %R_rpm_version 1.0.7
 Release:        %autorelease
 Summary:        ANSI Control Sequence Aware String Functions
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
 

@@ -107,10 +107,10 @@ ln -s %{_texmf_main}/tex/latex/hevea/hevea.sty examples
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2.36-18
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 2.36-18
 - Bump and rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2.36-17
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 2.36-17
 - Rebuild to fix OCaml dependencies
 
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-16

@@ -44,9 +44,9 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 
 %description
-The Mojo Executor provides a way to to execute other Mojos (plugins)
-within a Maven plugin, allowing you to easily create Maven plugins that
-are composed of other plugins.
+The Mojo Executor provides a way to to execute other Mojos (plugins) within a
+Maven plugin, allowing you to easily create Maven plugins that are composed of
+other plugins.
 
 %package parent
 Summary:        Parent POM for mojo-executor

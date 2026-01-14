@@ -78,7 +78,7 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %files
 %doc README.md
 %license license.txt
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel
 %{_includedir}/%{name}/

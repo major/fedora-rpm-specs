@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.10-7
 Release:        %autorelease
 Summary:        Polygon Clipping
 
-# Automatically converted from old format: Boost - review is highly recommended.
 License:        BSL-1.0
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  polyclipping-devel

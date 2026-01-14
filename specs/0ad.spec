@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.27.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -310,6 +310,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.27.1-6
+- Rebuilt for Boost 1.90
+
 * Tue Sep 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.1-5
 - Re-enable ppc64le
 

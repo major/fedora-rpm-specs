@@ -3,10 +3,12 @@ Version:        %R_rpm_version 4.7-1.2
 Release:        %autorelease
 Summary:        Breiman and Cutler's Random Forests for Classification and Regression
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 

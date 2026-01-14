@@ -44,7 +44,8 @@ BuildRequires: librtas-devel
 #BuildRequires: autoconf
 #BuildRequires: automake
 #BuildRequires: libtool
-#BuildRequires: bison
+BuildRequires: bison
+BuildRequires: flex
 
 ### Sources
 Source0: https://www.kernel.org/pub/linux/utils/util-linux/v%{upstream_major}/util-linux-%{upstream_version}.tar.xz
@@ -108,6 +109,11 @@ Patch1: 0001-login-add-run-motd.d-to-the-hardcoded-MOTD_FILE.patch
 
 ### Temporary dracut workaround
 Patch2: 0002-libmount-disable-EROFS-backing-file-support.patch
+
+# Upstream backports
+Patch3: 0003-build-sys-gcc-ignore-Wunused-but-set-variable-for-bi.patch
+Patch4: 0004-blkid-Drop-const-from-blkid_partitions_get_name.patch
+
 
 %description
 The util-linux package contains a large variety of low-level system

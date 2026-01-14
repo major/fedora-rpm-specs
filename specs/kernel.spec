@@ -27,6 +27,8 @@
 # or find-debuginfo.sh. Make use of __spec_install_post override
 # and save/restore binaries we want to package as unstripped.
 %define buildroot_unstripped %{_builddir}/root_unstripped
+# buildroot_save_unstripped: Save unstripped binaries before RPM strips them
+#   %1 - Path(s) to binaries to save (relative to buildroot)
 %define buildroot_save_unstripped() \
 (cd %{buildroot}; cp -rav --parents -t %{buildroot_unstripped}/ %1 || true) \
 %{nil}
@@ -52,10 +54,17 @@
 # purposely leave out the removal section.  All global wide changes
 # should be added above this line otherwise the %%install section
 # will not see them.
+#
+# We build multiple kernel variants (debug, rt, etc.) in %%build
+# and install their files to RPM_BUILD_ROOT as we go. If %%install wiped RPM_BUILD_ROOT
+# at the start (the default), we'd lose all the variants built in %%build. So we
+# override __spec_install_pre to skip the "rm -rf" step.
 %global __spec_install_pre %{___build_pre}
 
 # Replace '-' with '_' where needed so that variants can use '-' in
 # their name.
+#   %1 - Variant name (e.g., "debug", "rt-debug")
+#   Returns: "+variant_name" with dashes converted to underscores for uname
 %define uname_suffix() %{lua:
 	local flavour = rpm.expand('%{?1:+%{1}}')
 	flavour = flavour:gsub('-', '_')
@@ -67,8 +76,10 @@
 # This returns the main kernel tied to a debug variant. For example,
 # kernel-debug is the debug version of kernel, so we return an empty
 # string. However, kernel-64k-debug is the debug version of kernel-64k,
-# in this case we need to return "64k", and so on. This is used in
+# in this case we need to return "+64k", and so on. This is used in
 # macros below where we need this for some uname based requires.
+#   %1 - Variant name (e.g., "64k-debug")
+#   Returns: "+main_variant" for compound variants, empty string for simple variants
 %define uname_variant() %{lua:
 	local flavour = rpm.expand('%{?1:%{1}}')
 	_, _, main, sub = flavour:find("(%w+)-(.*)")
@@ -176,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc4.260108gf0b9d8eb98df.34
+%define pkgrelease 0.rc5.38
 %define kversion 6
-%define tarfile_release 6.19-rc4-20-gf0b9d8eb98df
+%define tarfile_release 6.19-rc5
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.260108gf0b9d8eb98df.34%{?buildid}%{?dist}
+%define specrelease 0.rc5.38%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -1184,9 +1195,13 @@ The %{name} meta package
 #	%%kernel_reqprovconf [-o] <subpackage>
 # It uses any kernel_<subpackage>_conflicts and kernel_<subpackage>_obsoletes
 # macros defined above.
-# -o: Skips main "Provides" that would satisfy general kernel requirements that
-#     special-purpose kernels shouldn't include.
-#     For example, used for zfcpdump-core to *not* provide kernel-core. (BZ 2027654)
+#
+# Options:
+#   -o: Skip main "Provides" that would satisfy general kernel requirements that
+#       special-purpose kernels shouldn't include.
+#       For example, used for zfcpdump-core to *not* provide kernel-core. (BZ 2027654)
+# Arguments:
+#   %1 - Variant/subpackage name (e.g., "debug", "zfcpdump"), or empty for stock kernel
 #
 %define kernel_reqprovconf(o) \
 %if %{-o:0}%{!-o:1}\
@@ -1498,6 +1513,13 @@ This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 # This macro creates a kernel-<subpackage>-devel package.
 #	%%kernel_devel_package [-m] <subpackage> <pretty-name>
 #
+# Options:
+#   -m: For debug variants with debugbuildsenabled==0, adds a dependency on the
+#       non-debug variant's devel package (e.g., 64k-debug-devel requires 64k-devel)
+# Arguments:
+#   %1 - Variant/subpackage name (e.g., "debug", "rt")
+#   %2 - Pretty name for description (e.g., "debug", "PREEMPT_RT")
+#
 %define kernel_devel_package(m) \
 %package %{?1:%{1}-}devel\
 Summary: Development package for building kernel modules to match the %{?2:%{2} }kernel\
@@ -1571,6 +1593,12 @@ This package provides kernel modules for the %{?2:%{2} }kernel package for Red H
 # This macro creates a kernel-<subpackage>-modules-extra package.
 #	%%kernel_modules_extra_package [-m] <subpackage> <pretty-name>
 #
+# Options:
+#   -m: For debug variants, adds a dependency on the non-debug variant's modules-extra
+# Arguments:
+#   %1 - Variant/subpackage name
+#   %2 - Pretty name for description
+#
 %define kernel_modules_extra_package(m) \
 %package %{?1:%{1}-}modules-extra\
 Summary: Extra kernel modules to match the %{?2:%{2} }kernel\
@@ -1594,6 +1622,12 @@ This package provides less commonly used kernel modules for the %{?2:%{2} }kerne
 #
 # This macro creates a kernel-<subpackage>-modules package.
 #	%%kernel_modules_package [-m] <subpackage> <pretty-name>
+#
+# Options:
+#   -m: For debug variants, adds a dependency on the non-debug variant's modules
+# Arguments:
+#   %1 - Variant/subpackage name
+#   %2 - Pretty name for description
 #
 %define kernel_modules_package(m) \
 %package %{?1:%{1}-}modules\
@@ -1659,10 +1693,15 @@ The meta-package for the %{1} kernel\
 # This macro creates a kernel-<subpackage> and its -devel and -debuginfo too.
 #	%%define variant_summary The Linux kernel compiled for <configuration>
 #	%%kernel_variant_package [-n <pretty-name>] [-m] [-o] <subpackage>
-# -m: Used with debugbuildsenabled==0 to create a "meta" debug variant that
-#     depends on base variant and skips debug/internal/partner packages.
-# -o: Skips main "Provides" that would satisfy general kernel requirements that
-#     special-purpose kernels shouldn't include.
+#
+# Options:
+#   -n <name>: Use <name> as the pretty variant name in descriptions (default: <subpackage>)
+#   -m: Used with debugbuildsenabled==0 to create a "meta" debug variant that
+#       depends on non-debug variant and skips debug/internal/partner packages.
+#   -o: Skips main "Provides" that would satisfy general kernel requirements that
+#       special-purpose kernels shouldn't include.
+# Arguments:
+#   %1 - Variant/subpackage name (e.g., "debug", "rt", "zfcpdump"), or empty for stock kernel
 #
 %define kernel_variant_package(n:mo) \
 %package %{?1:%{1}-}core\
@@ -1935,6 +1974,10 @@ Prebuilt 64k unified kernel image addons for virtual machines.
 %kernel_modules_extra_matched_package
 %endif
 
+# Output a log message with spec file line number for debugging builds
+#
+# Temporarily disables command echoing (set +x) to avoid cluttering output,
+# finds the line number in the spec file, prints the message, then re-enables echoing.
 %define log_msg() \
 	{ set +x; } 2>/dev/null \
 	_log_msglineno=$(grep -n %{*} %{_specdir}/${RPM_PACKAGE_NAME}.spec | grep log_msg | cut -d":" -f1) \
@@ -2250,6 +2293,13 @@ cp_vmlinux()
 
 %define make %{__make} %{?cross_opts} %{?make_opts} HOSTCFLAGS="%{?build_hostcflags}" HOSTLDFLAGS="%{?build_hostldflags}"
 
+#  Initialize build environment for a kernel variant
+#   $1 (Variant) - Variant suffix (e.g., "debug", "rt"), or empty for stock kernel
+# Sets up:
+#   - Config: Path to kernel config file
+#   - DevelDir: Installation directory for kernel-devel files
+#   - KernelVer: Full kernel version string
+#   - Arch: Target architecture
 InitBuildVars() {
     %{log_msg "InitBuildVars for $1"}
 
@@ -2300,6 +2350,12 @@ BuildBpftool(){
     CFLAGS="" LDFLAGS="" make EXTRA_CFLAGS="${BPFBOOTSTRAP_CFLAGS}" EXTRA_CXXFLAGS="${BPFBOOTSTRAP_CFLAGS}" EXTRA_LDFLAGS="${BPFBOOTSTRAP_LDFLAGS}" %{?make_opts} %{?clang_make_opts} V=1 -C tools/bpf/bpftool bootstrap
 }
 
+#  Main function to compile and install a kernel variant
+#   $1 (MakeTarget) - Make target to build (e.g., "bzImage", "vmlinux")
+#   $2 (KernelImage) - Path to kernel image file produced by build
+#   $3 (DoVDSO) - Whether to install VDSO files (1=yes, 0=no)
+#   $4 (Variant) - Variant suffix (e.g., "debug", "rt", "zfcpdump"), or empty for stock kernel
+#   $5 (InstallName) - Name for installed kernel (default: "vmlinuz")
 BuildKernel() {
     %{log_msg "BuildKernel for $4"}
     MakeTarget=$1
@@ -3362,7 +3418,12 @@ find Documentation -type d | xargs chmod u+w
 # the signature off of the modules.
 #
 # Don't sign modules for the zfcpdump variant as it is monolithic.
-
+#
+# Signs all kernel modules with the kernel module signing key for:
+#   - UEFI Secure Boot validation
+#   - Kernel lockdown mode support
+# Also compresses modules with the configured compression algorithm if zipmodules=1.
+#
 %define __modsign_install_post \
   if [ "%{signmodules}" -eq "1" ]; then \
     %{log_msg "Signing kernel modules ..."} \
@@ -3883,6 +3944,12 @@ popd
 # for this bug in the hardlink binary (fixed in util-linux 2.38):
 # https://github.com/util-linux/util-linux/issues/1602
 #
+# Arguments:
+#   %1 - Variant name (e.g., "debug", "rt"), or empty for stock kernel
+# Handles:
+#   - Hardlinking duplicate files across kernel-devel packages to save space
+#   - Building scripts and resolve_btfids for cross-compiled kernels (with_cross)
+#
 %define kernel_devel_post() \
 %{expand:%%post %{?1:%{1}-}devel}\
 if [ -f /etc/sysconfig/kernel ]\
@@ -3948,6 +4015,13 @@ fi\
 # It also defines a %%postun script that does the same thing.
 #	%%kernel_modules_post [<subpackage>]
 #
+# Arguments:
+#   %1 - Variant name (e.g., "debug", "rt"), or empty for stock kernel
+# Handles:
+#   - Running depmod to update module dependencies
+#   - Deferring dracut regeneration until posttrans (if kernel-core not yet installed)
+#   - Running dracut in posttrans to build initramfs
+#
 %define kernel_modules_post() \
 %{expand:%%post %{?1:%{1}-}modules}\
 /sbin/depmod -a %{KVERREL}%{?1:+%{1}}\
@@ -3982,6 +4056,14 @@ fi\
 #	%%kernel_variant_posttrans [-v <subpackage>] [-u uki-suffix]
 # More text can follow to go at the end of this variant's %%post.
 #
+# Options:
+#   -v <variant>: Variant name (e.g., "debug", "rt")
+#   -u <suffix>: UKI suffix for unified kernel image packages
+# Handles:
+#   - weak-modules integration (RHEL only)
+#   - kernel-install for bootloader setup
+#   - symvers installation to /boot
+#
 %define kernel_variant_posttrans(v:u:) \
 %{expand:%%posttrans %{?-v:%{-v*}-}%{!?-u*:core}%{?-u*:uki-%{-u*}}}\
 %if 0%{!?fedora:1}\
@@ -4007,6 +4089,17 @@ fi\
 #	%%kernel_variant_post [-v <subpackage>] [-r <replace>]
 # More text can follow to go at the end of this variant's %%post.
 #
+# Options:
+#   -v <variant>: Variant name (e.g., "debug", "rt")
+#   -r <name>: Kernel name to replace in /etc/sysconfig/kernel DEFAULTKERNEL
+#              (for setting this variant as the new default)
+# Expands to multiple post scripts for:
+#   - kernel-devel
+#   - kernel-modules, kernel-modules-core, kernel-modules-extra, kernel-modules-internal
+#   - kernel-modules-partner (RHEL only)
+#   - kernel-core
+#   - kernel posttrans
+#
 %define kernel_variant_post(v:r:) \
 %{expand:%%kernel_devel_post %{?-v*}}\
 %{expand:%%kernel_modules_post %{?-v*}}\
@@ -4029,9 +4122,17 @@ touch %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{KVERREL}%{?-v:+%
 
 #
 # This macro defines a %%preun script for a kernel package.
-#	%%kernel_variant_preun [-v <subpackage>] -u [uki-suffix] -e
+#	%%kernel_variant_preun [-v <subpackage>] [-u uki-suffix] [-e]
 # Add kernel-install's --entry-type=type1|type2|all option (if supported) to limit removal
 # to a specific boot entry type.
+#
+# Options:
+#   -v <variant>: Variant name (e.g., "debug", "rt")
+#   -u <suffix>: UKI suffix for unified kernel image packages
+#   -e: Add --entry-type flag to kernel-install (for selective boot entry removal)
+# Handles:
+#   - kernel-install remove for bootloader cleanup
+#   - weak-modules --remove-kernel (RHEL only)
 #
 %define kernel_variant_preun(v:u:e) \
 %{expand:%%preun %{?-v:%{-v*}-}%{!?-u*:core}%{?-u*:uki-%{-u*}}}\
@@ -4285,10 +4386,9 @@ fi\
 %{_bindir}/page_owner_sort
 %{_bindir}/slabinfo
 %if %{with_ynl}
-%{_bindir}/*ynl*
+%{_bindir}/ynl*
 %{_docdir}/ynl
 %{_datadir}/ynl
-%{_datadir}/kselftest
 %{python3_sitelib}/pyynl*
 %endif
 
@@ -4366,6 +4466,23 @@ fi\
 # This macro defines the %%files sections for a kernel package
 # and its devel and debuginfo packages.
 #	%%kernel_variant_files [-k vmlinux] <use_vdso> <condition> <subpackage>
+#
+# Options:
+#   -k <name>: Kernel image filename (default: "vmlinuz")
+# Arguments:
+#   %1 - Whether VDSO was built (1=yes, 0=no) - controls if vdso files are included
+#   %2 - Condition (usually with_<variant>) - only generate files section if true
+#   %3 - Variant/subpackage name, or empty for stock kernel
+# Generates %%files sections for:
+#   - kernel-core (or variant-core): vmlinuz, config, System.map, modules.builtin
+#   - kernel-modules-core: essential modules, dependency metadata
+#   - kernel-modules: additional modules
+#   - kernel-modules-extra: less common modules
+#   - kernel-modules-internal: Red Hat internal modules (RHEL only)
+#   - kernel-modules-partner: Partner modules (RHEL only)
+#   - kernel-devel: headers and build infrastructure
+#   - kernel-debuginfo: vmlinux with debug symbols (if with_debuginfo)
+#   - kernel-uki-virt: unified kernel image for VMs (if with_efiuki)
 #
 %define kernel_variant_files(k:) \
 %if %{2}\
@@ -4521,9 +4638,24 @@ fi\
 #
 #
 %changelog
-* Thu Jan 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.34]
+* Mon Jan 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.38]
 - rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
-- package YNL test framework files (Thorsten Leemhuis)
+
+* Mon Jan 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.37]
+- Linux v6.19.0-0.rc5
+
+* Sun Jan 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.755bc1335e3b.36]
+- Linux v6.19.0-0.rc4.755bc1335e3b
+
+* Sat Jan 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.b6151c4e60e5.35]
+- gitlab-ci: set allow_failure for the rawhide-release job (Patrick Talbert)
+- redhat: export FLAVOR (Jose Ignacio Tornos Martinez)
+- redhat: Add documentation comments to kernel.spec.template macros (Alexandra Hájková)
+- redhat/configs: enable rtw8922ae for rhel (Jose Ignacio Tornos Martinez)
+- Linux v6.19.0-0.rc4.b6151c4e60e5
+
+* Fri Jan 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.623fb9912f6a.34]
+- Linux v6.19.0-0.rc4.623fb9912f6a
 
 * Thu Jan 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc4.f0b9d8eb98df.33]
 - kernel.spec.template: Cleanup package_name use (Prarit Bhargava)

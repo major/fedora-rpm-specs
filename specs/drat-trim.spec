@@ -32,12 +32,11 @@ BuildRequires:  gcc
 BuildRequires:  help2man
 
 %description
-The proof checker DRAT-trim can be used to check whether a
-propositional formula in the DIMACS format is unsatisfiable.  Given a
-propositional formula and a clausal proof, DRAT-trim validates that the
-proof is a certificate of unsatisfiability of the formula.  Clausal
-proofs should be in the DRAT format which is used to validate the
-results of the SAT competitions.
+The proof checker DRAT-trim can be used to check whether a propositional
+formula in the DIMACS format is unsatisfiable.  Given a propositional formula
+and a clausal proof, DRAT-trim validates that the proof is a certificate of
+unsatisfiability of the formula.  Clausal proofs should be in the DRAT format
+which is used to validate the results of the SAT competitions.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -107,8 +106,7 @@ sh ./run-examples
 
 %files
 %license LICENSE
-%{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files          devel
 %{_includedir}/%{name}.h

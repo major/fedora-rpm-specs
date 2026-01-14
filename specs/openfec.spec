@@ -58,8 +58,7 @@ find -name '*.h' -type f -exec install -pDm 0644 '{}' %{buildroot}%{_includedir}
 popd
 
 %check
-cd %{_vpath_builddir}
-make test
+%ctest
 
 %files
 %license LICENCE_CeCILL-C_V1-en.txt Licence_CeCILL_V2-en.txt

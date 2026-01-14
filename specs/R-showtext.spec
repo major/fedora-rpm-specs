@@ -10,6 +10,9 @@ License:        Apache-2.0 AND Zlib
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(libpng)

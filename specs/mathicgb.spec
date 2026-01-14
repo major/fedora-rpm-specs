@@ -46,6 +46,9 @@ sed -i.orig 's/\r//' doc/description.txt
 touch -r doc/description.txt.orig doc/description.txt
 rm -f doc/description.txt.orig
 
+# Fix the URL in the pkgconfig file
+sed -i 's/broune/Macaulay2/' build/autotools/mathicgb.pc.in
+
 # Upstream doesn't generate the configure script
 autoreconf -fi
 
@@ -82,7 +85,7 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files libs
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %changelog
 %autochangelog

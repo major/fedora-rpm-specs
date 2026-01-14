@@ -621,8 +621,8 @@ export USE_FBGEMM_GENAI=OFF
 # export USE_MAGMA=ON
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
-RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
-export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
+#RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
+#export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
@@ -648,8 +648,8 @@ export USE_ROCM=ON
 export USE_ROCM_CK=OFF
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
-RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
-export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
+# RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
+# export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}

@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.1.0
 Release:        %autorelease
 Summary:        Examples of Recursive Lists and Nested or Split Data Frames
 
-# Automatically converted from old format: CC0 - review is highly recommended.
 License:        CC0-1.0
 URL:            %{cran_url}
 Source:         %{cran_source}

@@ -1,6 +1,6 @@
 Name:           radiotray-ng
 Version:        0.2.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Internet radio player
 
 License:        GPL-3.0-or-later
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rtng-bookmark-editor.
 
 
 %changelog
+* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.2.9-5
+- Rebuilt for Boost 1.90
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

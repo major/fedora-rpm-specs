@@ -6,7 +6,7 @@ License: Unlicense
 Summary: Minimal, header-only, Modern C++ library for terminal goodies
 
 Version: 3.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 URL: https://agauniyal.github.io/rang/
 Source0: https://github.com/agauniyal/rang/archive/v%{version}/rang-v%{version}.tar.gz
@@ -48,6 +48,8 @@ This package contains development files for programs using the "rang" library.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381405)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 
 %if 0%{?with_tests}
@@ -77,6 +79,9 @@ pushd test/%{__cmake_builddir}
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.2-9
+- Allow to build with CMake 4.0 (rhbz#2381405)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

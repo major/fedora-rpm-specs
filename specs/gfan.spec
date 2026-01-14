@@ -167,7 +167,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files -n libgfan
 %doc gfanlib/README.txt
-%{_libdir}/libgfan.so.0*
+%{_libdir}/libgfan.so.0{,.*}
 
 %files -n libgfan-devel
 %{_includedir}/gfanlib/

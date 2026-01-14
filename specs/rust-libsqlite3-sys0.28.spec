@@ -13,6 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/libsqlite3-sys
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump bindgen build-dependency from 0.69 to 0.72
 # * remove features for building vendored sqlite3 and sqlcipher sources
 # * drop Windows- and WASM-specific features
 # * exclude files that are only useful for upstream development

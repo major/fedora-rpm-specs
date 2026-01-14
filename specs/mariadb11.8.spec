@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%global package_version 11.8.3
+%global package_version 11.8.5
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 11.8.3
+%global last_tested_version 11.8.5
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          5%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -231,7 +231,6 @@ Patch13:          %{majorname}-libfmt.patch
 Patch14:          %{majorname}-mtr.patch
 
 Patch16:          %{majorname}-federated.patch
-Patch17:          upstream_dafd1c414f96ca399e5779ba075fdf1dd8fb7f8a.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -885,7 +884,6 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 %patch -P16 -p1
-%patch -P17 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1615,6 +1613,7 @@ fi
 
 %{_libdir}/%{majorname}/plugin/auth_ed25519.so
 %{_libdir}/%{majorname}/plugin/auth_parsec.so
+%{_libdir}/%{majorname}/plugin/auth_mysql_sha2.so
 %{_libdir}/%{majorname}/plugin/disks.so
 %{_libdir}/%{majorname}/plugin/file_key_management.so
 %{_libdir}/%{majorname}/plugin/ha_archive.so
@@ -1842,6 +1841,9 @@ fi
 %endif
 
 %changelog
+* Thu Nov 20 2025 Pavol Sloboda <psloboda@redhat.com> - 3:11.8.5-1
+- Rebase to 11.8.5
+
 * Wed Oct 29 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3:11.8.3-5
 - Revert to soft static allocation of MariaDB and MySQL sysusers.d files
 

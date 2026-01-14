@@ -1,7 +1,7 @@
 Name:		xrootd-s3-http
-Version:	0.5.3
+Version:	0.6.0
 Release:	1%{?dist}
-Summary:	S3/HTTP filesystem plugins for XRootD
+Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
@@ -50,16 +50,21 @@ and HTTP backends through an XRootD server.
 
 %files
 %{_libdir}/libXrdHTTPServer-5.so
+%{_libdir}/libXrdN2NPrefix-5.so
 %{_libdir}/libXrdOssFilter-5.so
 %{_libdir}/libXrdOssGlobus-5.so
 %{_libdir}/libXrdOssHttp-5.so
 %{_libdir}/libXrdOssS3-5.so
 %{_libdir}/libXrdOssPosc-5.so
+%{_libdir}/libXrdPelicanHttpCore-5.so
 %{_libdir}/libXrdS3-5.so
 %doc README.md
 %license LICENSE
 
 %changelog
+* Mon Jan 12 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.0-1
+- Update to version 0.6.0
+
 * Wed Oct 29 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.3-1
 - Update to version 0.5.3
 

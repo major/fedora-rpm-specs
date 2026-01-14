@@ -1,6 +1,6 @@
 Name:          glogg
 Version:       1.1.4
-Release:       35%{?dist}
+Release:       36%{?dist}
 Summary:       Smart interactive log explorer
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
@@ -52,6 +52,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.1.4-36
+- Rebuilt for Boost 1.90
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

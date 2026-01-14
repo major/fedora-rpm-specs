@@ -1648,7 +1648,7 @@ fi
 - New upstream version 1.45.2
 - New map filter.
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.45.1-5
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.45.1-5
 - Rebuild to fix OCaml dependencies
 
 * Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.45.1-4

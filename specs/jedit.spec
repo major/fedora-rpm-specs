@@ -1,9 +1,9 @@
 Name:           jedit
 Version:        5.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Programmer's text editor
 
-License:        GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
+License:        GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later AND (SPL-1.0 OR LGPL-2.1-only) AND LGPL-2.0-or-later
 URL:            http://www.jedit.org/
 Source0:        https://sourceforge.net/projects/jedit/files/jedit/%{version}/jedit%{version}source.tar.bz2
 
@@ -89,6 +89,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications --set-icon=%{_da
 %license doc/Apache.LICENSE.txt
 
 %changelog
+* Mon Jan 12 2026 Zdenek Zambersky <zzambers@redhat.com> - 5.7.0-10
+- Fixed license tag to also reflect libraries
+
 * Wed Jan 07 2026 Zdenek Zambersky <zzambers@redhat.com> - 5.7.0-9
 - Fixes and cleanup for jdk 25 build
 

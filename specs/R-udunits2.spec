@@ -3,10 +3,12 @@ Version:        %R_rpm_version 0.13.2.2
 Release:        %autorelease
 Summary:        Udunits-2 Bindings for R
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  udunits2-devel

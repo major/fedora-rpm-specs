@@ -3,7 +3,6 @@ Version:        %R_rpm_version 0.3.2
 Release:        %autorelease
 Summary:        Threshold independent performance measures for probabilistic classifiers
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}

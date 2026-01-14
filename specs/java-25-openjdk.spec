@@ -2124,8 +2124,8 @@ pushd ${jdk_image}
 popd
 
   install -d -m 755 $RPM_BUILD_ROOT%{_libdir}/%{sdkdir -- ${suffix}}
-#FIXME this is really weird if
-%if 0%{?fedora}
+# RPM 4.20 (F41+) uses rpm-controlled per-package build directories
+%if 0%{?fedora} || 0%{?rhel} >= 11
   mv $RPM_BUILD_ROOT/../%{name}/%{installoutputdir -- $suffix}/lib/libnssadapter.so          $RPM_BUILD_ROOT%{_libdir}/%{sdkdir -- ${suffix}}
 %else
   mv $RPM_BUILD_ROOT/../../BUILD/%{name}/%{installoutputdir -- $suffix}/lib/libnssadapter.so $RPM_BUILD_ROOT%{_libdir}/%{sdkdir -- ${suffix}}

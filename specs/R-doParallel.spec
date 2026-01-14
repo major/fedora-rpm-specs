@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.0.17
 Release:        %autorelease
 Summary:        Foreach Parallel Adaptor for the 'parallel' Package
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}

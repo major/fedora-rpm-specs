@@ -83,7 +83,7 @@ rm README.md.orig
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Wed Jul 16 2025 Jerry James  <loganjerry@gmail.com> - 4.0.0-2
+* Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 4.0.0-2
 - Fix end of line encodings
 
 * Tue Jan 28 2025 Jerry James <loganjerry@gmail.com> - 4.0.0-1

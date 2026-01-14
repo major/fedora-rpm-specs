@@ -33,10 +33,9 @@ BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 %description
 Bos provides support for basic and robust interaction with the operating
-system in OCaml.  It has functions to access the process environment,
-parse command line arguments, interact with the file system and run
-command line programs.  Bos works equally well on POSIX and Windows
-operating systems.
+system in OCaml.  It has functions to access the process environment, parse
+command line arguments, interact with the file system and run command line
+programs.  Bos works equally well on POSIX and Windows operating systems.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -48,8 +47,8 @@ Requires:       ocaml-logs-devel%{?_isa}
 Requires:       ocaml-rresult-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n bos-%{version}

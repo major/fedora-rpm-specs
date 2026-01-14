@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.7-0
 Release:        %autorelease
 Summary:        Use Cairo for high-quality bitmap, vector, and display output
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  cairo-devel >= 1.2

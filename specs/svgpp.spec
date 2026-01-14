@@ -17,7 +17,7 @@ Summary: SVG handling library for C++
 License: BSL-1.0
 
 Version: 1.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: https://svgpp.org
 Source0: https://github.com/svgpp/svgpp/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -30,7 +30,6 @@ Patch0: svgpp-exboost-path.patch
 %if 0%{?with_tests}
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: make
 BuildRequires: tree
 BuildRequires: boost-devel
 %endif
@@ -70,6 +69,8 @@ cp -a include/svgpp %{buildroot}%{_includedir}/%{name}
 
 %if 0%{?with_tests}
 %check
+# TODO: Please submit an issue to upstream (rhbz#2381658)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 pushd src/test/
 %cmake
 %cmake_build
@@ -84,6 +85,9 @@ pushd src/test/
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.3.1-4
+- Allow to build with CMake 4.0 (rhbz#2381658)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

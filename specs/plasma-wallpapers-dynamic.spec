@@ -3,15 +3,13 @@
 %global somajor 5
 
 Name:           plasma-%{component}
-Version:        5.0.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Dynamic wallpaper plugin for KDE Plasma
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://github.com/zzag/plasma5-%{component}
 Source0:        %{url}/archive/%{version}/plasma5-%{component}-%{version}.tar.gz
-
-Patch0:         plasma-wallpaper-dynamic-fix-build-against-qt-6-10.patch
 
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules

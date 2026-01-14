@@ -7,7 +7,7 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
@@ -16,17 +16,7 @@ URL:            https://github.com/pypa/build
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 # downstream-only
-Patch:          0001-fedora-disable-some-build-requirements.patch
-
-# Upstream fix for a test failure
-Patch:          14aecb.patch
-
-# Fix for Python 3.15.0a3+
-# The argparse.HelpFormatter color argument was removed
-# https://github.com/pypa/build/commit/393b77
-# https://github.com/pypa/build/commit/60e15e
-Patch:          393b77-60e15e.patch
-
+#Patch:          0001-fedora-disable-some-build-requirements.patch
 
 BuildArch:      noarch
 

@@ -37,10 +37,10 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %global topcom_minor %(cut -d. -f2 <<< %{version})
 
 %description
-TOPCOM is a package for computing Triangulations Of Point Configurations
-and Oriented Matroids.  It was very much inspired by the maple program
-PUNTOS, which was written by Jesus de Loera.  TOPCOM is entirely written
-in C++, so there is a significant speed up compared to PUNTOS.
+TOPCOM is a package for computing Triangulations Of Point Configurations and
+Oriented Matroids.  It was very much inspired by the maple program PUNTOS,
+which was written by Jesus de Loera.  TOPCOM is entirely written in C++, so
+there is a significant speed up compared to PUNTOS.
 
 %package devel
 Summary:        Header files needed to build with %{name}
@@ -150,13 +150,13 @@ LD_LIBRARY_PATH=$PWD src/check
 %files libs
 %doc AUTHORS ChangeLog README
 %license COPYING
-%{_libdir}/libTOPCOM.so.1*
+%{_libdir}/libTOPCOM.so.1{,.*}
 
 %files examples
 %doc examples
 
 %changelog
-* Wed Dec 03 2025 Jerry James  <loganjerry@gmail.com> - 1.1.2-10
+* Wed Dec 03 2025 Jerry James <loganjerry@gmail.com> - 1.1.2-10
 - Rebuild for soplex 8.0.0
 
 * Tue Aug 19 2025 Jerry James <loganjerry@gmail.com> - 1.1.2-9

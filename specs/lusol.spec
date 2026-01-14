@@ -44,8 +44,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gcc-gfortran%{?_isa}
 
 %description    devel
-Header files and library links for developing applications that use
-LUSOL.
+Header files and library links for developing applications that use LUSOL.
 
 %prep
 %forgeautosetup -p1
@@ -81,7 +80,7 @@ cp -p src/lusol*.mod %{buildroot}%{_fmoddir}
 %files
 %doc CHANGES.md README.md src/lusol.txt
 %license LICENSE.md
-%{_libdir}/libclusol.so.0*
+%{_libdir}/libclusol.so.0{,.*}
 
 %files devel
 %{_fmoddir}/lusol*.mod

@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	22.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -857,6 +857,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon Jan 12 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 22.0.0-2
+- Rebuild w/ liborc-2.2.2 (Apache ORC)
+
 * Fri Oct 24 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 22.0.0-1
 - Arrow 22.0.0 GA f44-build-side-121464
 

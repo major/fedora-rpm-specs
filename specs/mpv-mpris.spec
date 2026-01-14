@@ -1,6 +1,6 @@
 Name:           mpv-mpris
-Version:        1.1
-Release:        8%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        MPRIS plugin for mpv
 
 License:        MIT
@@ -43,6 +43,9 @@ ln -sf %{_libdir}/mpv/mpris.so %{buildroot}/%{_sysconfdir}/mpv/scripts/
 %doc README.md
 
 %changelog
+* Mon Jan 12 2026 Jan200101 <sentrycraft123@gmail.com> - 1.2-1
+- Update to 1.2
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.1-8
 - Rebuilt for FFmpeg 8
 

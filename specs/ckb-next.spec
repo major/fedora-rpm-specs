@@ -1,6 +1,6 @@
 Name:           ckb-next
 Version:        0.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
 License:        GPL-2.0-only
@@ -66,6 +66,8 @@ sed -e 's|"/lib/udev/rules.d"|"%{_udevrulesdir}"|g' -i CMakeLists.txt
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380492)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -134,6 +136,9 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 0.6.2-3
+- Allow to build with CMake 4.0 (rhbz#2380492)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

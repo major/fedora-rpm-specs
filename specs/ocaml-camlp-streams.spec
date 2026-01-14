@@ -20,33 +20,32 @@ BuildRequires:  ocaml-dune >= 2.7
 
 %description
 The camlp-streams package provides two library modules:
-- Stream: imperative streams, with in-place update and memoization of
-  the latest element produced.
-- Genlex: a small parameterized lexical analyzer producing streams of
-  tokens from streams of characters.
+- Stream: imperative streams, with in-place update and memoization of the
+  latest element produced.
+- Genlex: a small parameterized lexical analyzer producing streams of tokens
+  from streams of characters.
 
 The two modules are designed for use with Camlp4 and Camlp5:
-- The stream patterns and stream expressions of Camlp4/Camlp5 consume
-  and produce data of type `'a Stream.t`.
+- The stream patterns and stream expressions of Camlp4/Camlp5 consume and
+  produce data of type `'a Stream.t`.
 - The Genlex tokenizer can be used as a simple lexical analyzer for
   Camlp4/Camlp5-generated parsers.
 
-The Stream module can also be used by hand-written recursive-descent
-parsers, but is not very convenient for this purpose.
+The Stream module can also be used by hand-written recursive-descent parsers,
+but is not very convenient for this purpose.
 
-The Stream and Genlex modules have been part of the OCaml standard
-library for a long time, and have been distributed as part of the core
-OCaml system.  They will be removed from the OCaml standard library at
-some future point, but will be maintained and distributed separately in
-this camlp-streams package.
+The Stream and Genlex modules were part of the OCaml standard library for a
+long time, and were distributed as part of the core OCaml system.  They were
+removed from the OCaml standard library in version 5.0, but are maintained and
+distributed separately in this camlp-streams package.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n camlp-streams-%{version}
@@ -73,7 +72,7 @@ files for developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 5.0.1-18
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 5.0.1-18
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-17

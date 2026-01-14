@@ -3,8 +3,7 @@ Version:        %R_rpm_version 1.2.0
 Release:        %autorelease
 Summary:        An Alternative Conflict Resolution Strategy
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 

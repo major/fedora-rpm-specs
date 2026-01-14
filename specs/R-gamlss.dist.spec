@@ -3,10 +3,12 @@ Version:        %R_rpm_version 6.1-1
 Release:        %autorelease
 Summary:        Distributions for Generalized Additive Models for Location Scale and Shape
 
-# Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 

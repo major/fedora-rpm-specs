@@ -26,17 +26,17 @@ BuildRequires:  ocaml-ppx-stable-witness-devel >= 0.17
 BuildRequires:  ocaml-ppx-variants-conv-devel >= 0.17
 
 %description
-This library contains functionality for reading and writing OCaml
-values in a type-safe binary protocol. These functions are extremely
-efficient and provide users with a convenient and safe way of
-performing I/O on any extensionally defined data type. This means that
-functions, objects, and values whose type is bound through a
-polymorphic record field are not supported, but everything else is.
+This library contains functionality for reading and writing OCaml values in a
+type-safe binary protocol.  These functions are extremely efficient and
+provide users with a convenient and safe way of performing I/O on any
+extensionally defined data type.  This means that functions, objects, and
+values whose type is bound through a polymorphic record field are not
+supported, but everything else is.
 
-As of now, there is no support for cyclic or shared values. Cyclic
-values will lead to non-termination whereas shared values, besides
-requiring significantly more space when encoded, may lead to a
-substantial increase in memory footprint when they are read back in.
+As of now, there is no support for cyclic or shared values.  Cyclic values
+will lead to non-termination whereas shared values, besides requiring
+significantly more space when encoded, may lead to a substantial increase in
+memory footprint when they are read back in.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -50,8 +50,8 @@ Requires:       ocaml-ppx-stable-witness-devel%{?_isa}
 Requires:       ocaml-variantslib-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature files
-for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n bin_prot-%{version}

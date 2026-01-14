@@ -5,7 +5,6 @@ Version:        %R_rpm_version 1.14
 Release:        %autorelease
 Summary:        Format R Code Automatically
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}

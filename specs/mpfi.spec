@@ -29,16 +29,15 @@ BuildRequires:  mpfr-devel
 BuildRequires:  gmp-devel
 
 %description
-MPFI is intended to be a portable library written in C for arbitrary
-precision interval arithmetic with intervals represented using MPFR
-reliable floating-point numbers. It is based on the GNU MP library and
-on the MPFR library and is part of the latter. The purpose of an
-arbitrary precision interval arithmetic is on the one hand to get
-"guaranteed" results, thanks to interval computation, and on the other
-hand to obtain accurate results, thanks to multiple precision
-arithmetic. The MPFI library is built upon MPFR in order to benefit
-from the correct roundings provided by MPFR. Further advantages of
-using MPFR are its portability and compliance with the IEEE 754
+MPFI is intended to be a portable library written in C for arbitrary precision
+interval arithmetic with intervals represented using MPFR reliable
+floating-point numbers.  It is based on the GNU MP library and on the MPFR
+library and is part of the latter.  The purpose of an arbitrary precision
+interval arithmetic is on the one hand to get "guaranteed" results, thanks to
+interval computation, and on the other hand to obtain accurate results, thanks
+to multiple precision arithmetic.  The MPFI library is built upon MPFR in
+order to benefit from the correct roundings provided by MPFR.  Further
+advantages of using MPFR are its portability and compliance with the IEEE 754
 standard for floating-point arithmetic.
 
 %package        devel
@@ -47,15 +46,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 Requires:       mpfr-devel%{?_isa}
 
+# This can be removed when F47 reaches EOL
+Obsoletes:      %{name}-static < 1.5.4-11
+Provides:       %{name}-static = %{version}-%{release}
+
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
-
-%package        static
-Summary:        Static library for %{name}
-
-%description    static
-The %{name}-static package contains the static %{name} library.
+The %{name}-devel package contains libraries and header files for developing
+applications that use %{name}.
 
 %prep
 %autosetup -p1
@@ -71,15 +68,13 @@ sed -i 's/texp10\$(EXEEXT) //' tests/Makefile.in
 # Fix the pkgconfig file
 sed -i 's/ -lmpfr -lgmp/\nLibs.private:&/' mpfi.pc.in
 
+%configure --disable-static
+
 %build
-%configure
 %make_build
 
 %install
 %make_install
-
-# Remove libtool archives
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 # Remove dir file in the info directory
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
@@ -93,7 +88,7 @@ make check
 %files
 %doc AUTHORS NEWS TODO
 %license COPYING COPYING.LESSER
-%{_libdir}/libmpfi.so.0*
+%{_libdir}/libmpfi.so.0{,.*}
 
 %files devel
 %{_includedir}/mpfi.h
@@ -101,9 +96,6 @@ make check
 %{_infodir}/%{name}.info*
 %{_libdir}/libmpfi.so
 %{_libdir}/pkgconfig/mpfi.pc
-
-%files static
-%{_libdir}/lib%{name}.a
 
 %changelog
 * Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 1.5.4-10

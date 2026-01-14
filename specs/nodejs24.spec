@@ -521,8 +521,12 @@ npm() {
 # === Sanity check for important versions
 node -e 'require("assert").equal(process.versions.node, "%{node_version}")'
 node -e 'require("assert").equal(process.versions.v8.replace(/-node\.\d+$/, ""), "%{v8_version}")'
+%if %{with bundled_c_ares}
 node -e 'require("assert").equal(process.versions.ares.replace(/-DEV$/, ""), "%{c_ares_version}")'
+%endif
+%if %{with bundled_punycode}
 node --no-deprecation -e 'require("assert").equal(require("punycode").version, "%{nodejs_punycode_version}")'
+%endif
 
 npm version --json | jq --exit-status '.npm == "%{npm_version}"'
 

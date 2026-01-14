@@ -2,7 +2,7 @@
 %bcond          mypyc 1
 
 Name:           python-tomli
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        A little TOML parser for Python
 

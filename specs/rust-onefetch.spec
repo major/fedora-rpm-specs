@@ -7,7 +7,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.25.0
+Version:        2.26.1
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -17,16 +17,13 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Use gix 0.73, gix-features 0.43
-# * Update rstest to 0.26: https://github.com/o2sh/onefetch/pull/1594
 # * Do not depend on criterion; it is needed only for benchmarks
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,
 #   but the maintainer of the gix stack in Fedora does not intend to do so,
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
-# * bump gix to version 0.75
-#   https://github.com/o2sh/onefetch/commit/0c41e41
+# * Allow tokei 14: https://github.com/o2sh/onefetch/pull/1669
 Patch:          onefetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -40,6 +37,7 @@ Command-line Git information tool.}
 %package     -n %{crate}
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
@@ -52,7 +50,6 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
-# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT

@@ -91,8 +91,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %files
 %doc AUTHORS README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/libeantic.so.3*
-%{_libdir}/libeanticxx.so.3*
+%{_libdir}/libeantic.so.3{,.*}
+%{_libdir}/libeanticxx.so.3{,.*}
 
 %files          devel
 %{_includedir}/%{name}/

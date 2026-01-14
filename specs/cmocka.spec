@@ -1,14 +1,15 @@
 Name:           cmocka
-Version:        1.1.8
+Version:        2.0.2
 Release:        %autorelease
 
 License:        Apache-2.0
 Summary:        An elegant unit testing framework for C with support for mock objects
 URL:            https://cmocka.org
 
-Source0:        https://cmocka.org/files/1.1/%{name}-%{version}.tar.xz
-Source1:        https://cmocka.org/files/1.1/%{name}-%{version}.tar.xz.asc
+Source0:        https://cmocka.org/files/2.0/%{name}-%{version}.tar.xz
+Source1:        https://cmocka.org/files/2.0/%{name}-%{version}.tar.xz.asc
 Source2:        cmocka.keyring
+Source4:        https://github.com/jothepro/doxygen-awesome-css/archive/refs/tags/v2.4.1/doxygen-awesome-css-2.4.1.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -67,14 +68,28 @@ preferable.
 
 This is the successor of Google's Cmockery.
 
+
 %package -n libcmocka-devel
 Summary:        Development headers for the cmocka library
 Requires:       libcmocka = %{version}-%{release}
+Requires:       (libcmocka-cmake-devel if cmake)
+Requires:       pkgconf-pkg-config
 
 Conflicts: cmockery2-devel
 
 %description -n libcmocka-devel
 Development headers for the cmocka unit testing library.
+
+
+%package -n libcmocka-cmake-devel
+Summary:        CMake support for the cmocka library
+Requires:       cmake
+Requires:       libcmocka-devel = %{version}
+Provides:       libcmocka-devel:%{_libdir}/cmake/cmocka
+
+%description -n libcmocka-cmake-devel
+cmake support for developing with the cmocka unit testing library.
+
 
 %package -n cmocka-doc
 Summary:        API documentation for the cmocka unit testing framework
@@ -86,7 +101,7 @@ framework.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%autosetup -a4 -p1
 
 %build
 # This package uses -Wl,-wrap to wrap calls at link time.  This is incompatible
@@ -96,15 +111,14 @@ framework.
 
 %cmake \
   -DWITH_STATIC_LIB=ON \
-  -DWITH_CMOCKERY_SUPPORT=ON \
-  -DUNIT_TESTING=ON
+  -DUNIT_TESTING=ON \
+  -DDOXYGEN_AWESOME_CSS_DIR=%{_sourcedir}/doxygen-awesome-css-2.4.1
 
 %cmake_build
 %__cmake --build %{__cmake_builddir} --target docs
 
 %install
 %cmake_install
-ln -s libcmocka.so %{buildroot}%{_libdir}/libcmockery.so
 
 %ldconfig_scriptlets -n libcmocka
 
@@ -112,18 +126,18 @@ ln -s libcmocka.so %{buildroot}%{_libdir}/libcmockery.so
 %ctest
 
 %files -n libcmocka
-%doc AUTHORS README.md ChangeLog
-%license COPYING
+%doc AUTHORS README.md CHANGELOG.md
+%license LICENSE
 %{_libdir}/libcmocka.so.*
 
 %files -n libcmocka-devel
 %{_includedir}/cmocka.h
 %{_includedir}/cmocka_pbc.h
-%{_includedir}/cmockery/cmockery.h
-%{_includedir}/cmockery/pbc.h
+%{_includedir}/cmocka_version.h
 %{_libdir}/libcmocka.so
-%{_libdir}/libcmockery.so
 %{_libdir}/pkgconfig/cmocka.pc
+
+%files -n libcmocka-cmake-devel
 %{_libdir}/cmake/cmocka/cmocka-*.cmake
 
 %files -n cmocka-doc

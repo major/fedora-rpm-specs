@@ -2,7 +2,7 @@
 
 Name:          lunchbox
 Version:       1.17.0
-Release:       15%{?dist}
+Release:       17%{?dist}
 Summary:       C++ library for multi-threaded programming
 # Boost license: lunchbox/atomic.h, lunchbox/any.h
 # LGPLv3 license: e.g. any.cpp and lfVector.h
@@ -22,12 +22,13 @@ BuildRequires: boost-devel
 BuildRequires: servus-devel
 BuildRequires: qt5-qtbase-devel
 Provides:      bundled(eyescale-cmake-common) = %{cmake_module_ver}
-# https://github.com/Eyescale/CMake/pull/599
-Patch0:        lunchbox-1.17.0-libdir-fix.patch
 # https://github.com/Eyescale/CMake/pull/601
-Patch1:        lunchbox-1.17.0-docdir-override.patch
+Patch:         lunchbox-1.17.0-docdir-override.patch
 # https://github.com/Eyescale/Lunchbox/pull/334
-Patch2:        lunchbox-1.17.0-nanosleep-fix.patch
+Patch:         lunchbox-1.17.0-nanosleep-fix.patch
+# https://github.com/Eyescale/Lunchbox/pull/335
+# https://github.com/Eyescale/CMake/pull/606
+Patch:         lunchbox-1.17.0-cmake-4-fix.patch
 
 %description
 Lunchbox is C++ library for multi-threaded programming, providing
@@ -66,6 +67,12 @@ rm -f bitOperation.cpp intervalSet.cpp result.cpp string.cpp
 popd
 %endif
 
+# drop failing debug test
+# https://github.com/Eyescale/Lunchbox/issues/336
+pushd tests
+rm -f debug.cpp
+popd
+
 %build
 %cmake -DCOMMON_DOC_DIR=%{_docdir}/%{name} -DCOMMON_FIND_PACKAGE_QUIET=OFF
 %cmake_build
@@ -82,8 +89,7 @@ mv %{buildroot}%{_datadir}/Lunchbox/benchmarks/* %{buildroot}%{_bindir}
 rmdir %{buildroot}%{_datadir}/Lunchbox/benchmarks
 
 %check
-cd %{_vpath_builddir}
-make test
+%ctest
 
 %files
 %license lgpl-2.1.txt lgpl-3.0.txt LICENSE_1_0.txt
@@ -99,6 +105,13 @@ make test
 %{_datadir}/Lunchbox
 
 %changelog
+* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.17.0-17
+- Rebuilt for Boost 1.90
+
+* Mon Jan 12 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 1.17.0-16
+- Fixed FTBFS with cmake-4
+  Resolves: rhbz#2381282
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

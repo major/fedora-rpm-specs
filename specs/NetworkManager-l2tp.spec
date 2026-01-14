@@ -24,14 +24,12 @@ BuildRequires: gtk3-devel
 BuildRequires: NetworkManager-libnm-devel >= 1:1.52.2
 %elif 0%{?fedora} == 43
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
-%elif 0%{?fedora} > 43
-BuildRequires: NetworkManager-libnm-devel >= 1:1.55.91
 %elif 0%{?rhel} == 9
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
 %elif 0%{?rhel} == 10
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
 %else
-BuildRequires: NetworkManager-libnm-devel >= 1:1.56.0
+BuildRequires: NetworkManager-libnm-devel >= 1:1.55.91
 %endif
 
 BuildRequires: libnma-devel >= 1.8.0
@@ -53,14 +51,12 @@ Requires: dbus-common
 Requires: NetworkManager >= 1:1.52.2
 %elif 0%{?fedora} == 43
 Requires: NetworkManager >= 1:1.54.3
-%elif 0%{?fedora} > 43
-Requires: NetworkManager >= 1:1.55.91
 %elif 0%{?rhel} == 9
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
 %elif 0%{?rhel} == 10
 BuildRequires: NetworkManager-libnm-devel >= 1:1.54.3
 %else
-Requires: NetworkManager >= 1:1.56.0
+Requires: NetworkManager >= 1:1.55.91
 %endif
 
 Requires: ppp = %{ppp_version}

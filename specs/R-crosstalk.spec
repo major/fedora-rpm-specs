@@ -3,20 +3,29 @@ Version:        %R_rpm_version 1.2.2
 Release:        %autorelease
 Summary:        Inter-Widget Interactivity for HTML Widgets
 
-# Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND Apache-2.0
+# See LICENSE.note for bundled licenses
+# - jQuery: MIT
+# - Bootstrap: MIT
+# - selectize.js: Apache-2.0
+# - es5-shim: MIT
+# - ion.rangeSlider: MIT
+# - strftime for Javascript: MIT
+License:        MIT AND Apache-2.0
 URL:            %{cran_url}
 Source:         %{cran_source}
 
 BuildArch:      noarch
 BuildRequires:  R-devel
 
+# Check `R/controls.R` for the bundled versions:
+# MIT; inst/lib/bootstrap
+Provides:       bundled(js-bootstrap-grid) = 3.4.1
 # MIT; inst/lib/ionrangeslider
-Provides:       bundled(js-IonDen-ionrangeslider) = 2.1.2
+Provides:       bundled(js-IonDen-ionrangeslider) = 2.3.1
 # MIT; inst/lib/jquery
 Provides:       bundled(js-jquery) = 3.5.1
-# ASL 2.0; inst/lib/selectize
-Provides:       bundled(js-brianreavis-selectize) = 0.12.1
+# Apache-2.0; inst/lib/selectize
+Provides:       bundled(js-brianreavis-selectize) = 0.12.4
 # MIT; inst/lib/strftime
 Provides:       bundled(js-samsonjs-strftime) = 0.9.2
 

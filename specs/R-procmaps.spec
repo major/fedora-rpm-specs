@@ -3,10 +3,9 @@ Version:        %R_rpm_version 0.0.5
 Release:        %autorelease
 Summary:        Portable Address Space Mapping
 
-# Overall: GPLv3; bundled gperftools code: BSD
+# Overall: GPL-3.0-only; bundled gperftools code: BSD-3-Clause
 # Note, gperftools code is some internal portion of it, so cannot be unbundled.
-# Automatically converted from old format: GPLv3 and BSD - review is highly recommended.
-License:        GPL-3.0-only AND LicenseRef-Callaway-BSD
+License:        GPL-3.0-only AND BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 

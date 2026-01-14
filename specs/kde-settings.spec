@@ -6,7 +6,7 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 43.100
+Version: 43.101
 Release: 1%{?dist}
 
 License: MIT
@@ -21,8 +21,6 @@ BuildRequires: kde-filesystem
 BuildRequires: systemd-rpm-macros
 Source10: ssh-agent.sh
 
-# For detecting the correct background settings
-BuildRequires: desktop-backgrounds-compat
 BuildRequires: system-backgrounds-kde
 
 # when kdebugrc was moved here
@@ -67,7 +65,7 @@ Requires: breeze-cursor-theme
 
 %package plasmalogin
 Summary: Configuration files for Plasma Login Manager
-Requires: plasma-login-manager
+Requires: plasma-login-manager >= 0.21.0~git1.20260112
 %if 0%{?version_maj:1}
 Requires: f%{version_maj}-backgrounds-kde
 %endif
@@ -145,11 +143,6 @@ cp -p %{SOURCE1} .
 mkdir -p %{buildroot}%{_datadir}/wallpapers
 ln -s Default %{buildroot}%{_datadir}/wallpapers/Fedora
 
-if [ -e "%{_datadir}/backgrounds/default.png" ]; then
-sed -e "s/jxl/png/g" \
-    -i %{buildroot}{%{_datadir}/kde-settings/kde-profile/default/xdg/kscreenlockerrc,%{_prefix}/lib/plasma-login/defaults.conf}
-fi
-
 %if 0%{?rhel} && 0%{?rhel} < 9
 # for rhel 8 and older with older noto fonts
 sed -e "s/Noto Sans Mono/Noto Mono/g" \
@@ -217,7 +210,7 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %files plasmalogin
-%{_prefix}/lib/plasma-login/defaults.conf
+%{_prefix}/lib/plasmalogin/defaults.conf
 
 
 %files pulseaudio
@@ -234,6 +227,9 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-1
+- plasmalogin, kscreenlocker: Use the proper wallpaper theme and PLM config file path
+
 * Sun Jan 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.100-1
 - Set wallpaper configuration for plasmalogin and kscreenlocker properly
 

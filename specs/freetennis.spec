@@ -70,7 +70,7 @@ install -p %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-63
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.4.8-62
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.4.8-62
 - Rebuild to fix OCaml dependencies
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-61

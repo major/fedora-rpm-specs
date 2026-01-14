@@ -96,9 +96,9 @@ Requires:       which%{?_isa}
 
 %description
 GCL is a Common Lisp currently compliant with the ANSI standard.  Lisp
-compilation produces native code through the intermediary of the
-system's C compiler, from which GCL derives efficient performance and
-easy portability.  The GUI currently uses TCL/Tk.
+compilation produces native code through the intermediary of the system's C
+compiler, from which GCL derives efficient performance and easy portability.
+The GUI currently uses TCL/Tk.
 
 
 %package emacs

@@ -3,8 +3,7 @@ Version:        %R_rpm_version 0.5-1
 Release:        %autorelease
 Summary:        Translate CSS Selectors to XPath Expressions
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 

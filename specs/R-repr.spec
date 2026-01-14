@@ -3,8 +3,7 @@ Version:        %R_rpm_version 1.1.7
 Release:        %autorelease
 Summary:        Serializable Representations
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
 

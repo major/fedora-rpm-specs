@@ -30,16 +30,15 @@ BuildRequires:  ocaml-topkg-devel
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
-Astring exposes an alternative `String` module for OCaml.  This module
-tries to balance minimality and expressiveness for basic, index-free,
-string processing and provides types and functions for substrings,
-string sets and string maps.
+Astring exposes an alternative `String` module for OCaml.  This module tries
+to balance minimality and expressiveness for basic, index-free, string
+processing and provides types and functions for substrings, string sets and
+string maps.
 
 Remaining compatible with the OCaml `String` module is a non-goal.  The
-`String` module exposed by Astring has exception safe functions,
-removes deprecated and rarely used functions, alters some signatures
-and names, adds a few missing functions and fully exploits OCaml's
-newfound string immutability.
+`String` module exposed by Astring has exception safe functions, removes
+deprecated and rarely used functions, alters some signatures and names, adds a
+few missing functions and fully exploits OCaml's newfound string immutability.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -92,7 +91,7 @@ ocaml pkg/pkg.ml test
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.8.5-29
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.8.5-29
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-28

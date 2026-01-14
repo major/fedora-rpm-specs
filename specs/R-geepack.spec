@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.3.13
 Release:        %autorelease
 Summary:        Generalized Estimating Equation Package
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 Obsoletes:      %{name}-devel <= 1.3.13

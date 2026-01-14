@@ -46,28 +46,27 @@ BuildRequires:  zstr-static
 Provides:       bundled(FilereaderLP)
 
 %description
-HiGHS is a high performance serial and parallel solver for large scale
-sparse linear optimization problems of the form
-
+HiGHS is a high performance serial and parallel solver for large scale sparse
+linear optimization problems of the form
+```
     Minimize (1/2) x^TQx + c^Tx subject to L <= Ax <= U; l <= x <= u
+```
+where `Q` must be positive semi-definite and, if `Q` is zero, there may be a
+requirement that some of the variables take integer values.  Thus HiGHS can
+solve linear programming (LP) problems, convex quadratic programming (QP)
+problems, and mixed integer programming (MIP) problems.  It is mainly written
+in C++, but also has some C.
 
-where Q must be positive semi-definite and, if Q is zero, there may be a
-requirement that some of the variables take integer values.  Thus HiGHS
-can solve linear programming (LP) problems, convex quadratic programming
-(QP) problems, and mixed integer programming (MIP) problems.  It is
-mainly written in C++, but also has some C.
+HiGHS has primal and dual revised simplex solvers, originally written by Qi
+Huangfu and further developed by Julian Hall.  It also has an interior point
+solver for LP written by Lukas Schork, an active set solver for QP written by
+Michael Feldmeier, and a MIP solver written by Leona Gottwald.  Other features
+have been added by Julian Hall and Ivet Galabova, who manages the software
+engineering of HiGHS and interfaces to C, C#, FORTRAN, Julia and Python.
 
-HiGHS has primal and dual revised simplex solvers, originally written by
-Qi Huangfu and further developed by Julian Hall.  It also has an
-interior point solver for LP written by Lukas Schork, an active set
-solver for QP written by Michael Feldmeier, and a MIP solver written by
-Leona Gottwald.  Other features have been added by Julian Hall and Ivet
-Galabova, who manages the software engineering of HiGHS and interfaces
-to C, C#, FORTRAN, Julia and Python.
-
-Although HiGHS is freely available under the MIT license, we would be
-pleased to learn about users' experience and give advice via email sent
-to highsopt@gmail.com.
+Although HiGHS is freely available under the MIT license, we would be pleased
+to learn about users' experience and give advice via email sent to
+highsopt@gmail.com.
 
 %package        devel
 Summary:        Header files and library links for HiGHS
@@ -76,8 +75,7 @@ Requires:       pdqsort-static
 Requires:       zstr-static
 
 %description    devel
-Header files and library links for developing applications that use
-HiGHS.
+Header files and library links for developing applications that use HiGHS.
 
 %package     -n python3-highspy
 Summary:        Python interface to coin-or-HiGHS
@@ -144,7 +142,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc AUTHORS FEATURES.md README.md
 %license LICENSE.txt
 %{_bindir}/highs
-%{_libdir}/libhighs.so.1*
+%{_libdir}/libhighs.so.1{,.*}
 %{_mandir}/man1/highs.1*
 
 %files devel

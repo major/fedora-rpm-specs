@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-670-g755798985d
+%global glibcsrcdir glibc-2.42.9000-675-ge539a26999
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 20
+%global baserelease 21
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2399,6 +2399,15 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Jan 12 2026 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-21
+- Auto-sync with upstream branch master,
+  commit e539a269990dac3ff4d2432c0eb6966a5ee4f274:
+- hurd: Fix sigreturn clobbering some xmm registers (Samuel Thibault)
+- Linux: test sizes larger than UINT_MAX for copy_file_range (Xi Ruoyao)
+- Update the bundled <linux/fuse.h> userspace header from Linux 6.18 (Xi Ruoyao)
+- Linux: fix copy_file_range test on Linux >= 6.18 (Xi Ruoyao)
+- Switch currency symbol for the bg_BG locale to euro (Florian Weimer)
+
 * Fri Jan 09 2026 Florian Weimer  <fweimer@redhat.com> - 2.42.9000-20
 - Work around GCC problem that makes diagnostics pragmas ineffective (#2426825)
 

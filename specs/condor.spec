@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -947,6 +947,9 @@ install -m0644 -D condor.sysusers.conf %{buildroot}%{_sysusersdir}/condor.conf
 /sbin/ldconfig
 
 %changelog
+* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 23.9.6-13
+- Rebuilt for Boost 1.90
+
 * Thu Oct  2 2025 Daniel P. Berrangé <berrange@redhat.com> - 23.9.6-12
 - Exclude build on i686
 

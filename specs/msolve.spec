@@ -123,8 +123,8 @@ make check
 %files libs
 %doc AUTHORS README.md
 %license COPYING
-%{_libdir}/libmsolve.so.3*
-%{_libdir}/libneogb.so.3*
+%{_libdir}/libmsolve.so.3{,.*}
+%{_libdir}/libneogb.so.3{,.*}
 
 %files devel
 %{_includedir}/msolve/

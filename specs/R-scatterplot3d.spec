@@ -3,7 +3,6 @@ Version:        %R_rpm_version 0.3-44
 Release:        %autorelease
 Summary:        3D Scatter Plot
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}

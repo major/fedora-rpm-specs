@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.0-2
 Release:        %autorelease
 Summary:        Truncated Multivariate Normal Simulation
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 

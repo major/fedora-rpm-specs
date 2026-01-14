@@ -68,11 +68,10 @@ BuildRequires:  mvn(org.codehaus.mojo:l10n-maven-plugin)
 %endif
 
 %description
-Doxia is a content generation framework which aims to provide its
-users with powerful techniques for generating static and dynamic
-content. Doxia can be used to generate static sites in addition to
-being incorporated into dynamic content generation systems like blogs,
-wikis and content management systems.
+Doxia is a content generation framework which aims to provide its users with
+powerful techniques for generating static and dynamic content.  Doxia can be
+used to generate static sites in addition to being incorporated into dynamic
+content generation systems like blogs, wikis and content management systems.
 
 %package        javadoc
 # Apache-2.0: the content

@@ -30,8 +30,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       bzip2-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n camlbz2-%{version} -p1
@@ -65,7 +65,7 @@ rm src/io.h
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.8.0-7
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.8.0-7
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-6

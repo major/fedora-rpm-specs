@@ -3,7 +3,7 @@ Version:        %R_rpm_version 1.11.0
 Release:        %autorelease
 Summary:        Non-Invasive Pretty Printing of R Code
 
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 

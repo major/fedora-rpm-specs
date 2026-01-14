@@ -3,10 +3,8 @@ Version:        %R_rpm_version 1.6.6
 Release:        %autorelease
 Summary:        Cross-Platform File System Operations Based on 'libuv'
 
-# Wasn't this so much nicer when it was just GPLv3?
-# SPDX is currently missing this one:
-# https://scancode-licensedb.aboutcode.org/bsd-credit.html
-License:        GPL-3.0-only AND libutil-David-Nugent AND BSD-3-Clause AND BSD-2-Clause AND ISC AND MIT AND LicenseRef-Fedora-Public-Domain AND Beerware
+# Main: MIT, src/bsd/* is ISC/BSD-3-Clause.
+License:        MIT AND ISC AND BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 

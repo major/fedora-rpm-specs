@@ -55,23 +55,23 @@ Requires:       hicolor-icon-theme
 Recommends:     prooftree
 
 %description
-Proof General is a generic front-end for proof assistants (also known
-as interactive theorem provers) based on Emacs.
+Proof General is a generic front-end for proof assistants (also known as
+interactive theorem provers) based on Emacs.
 
 Proof General allows one to edit and submit a proof script to a proof
 assistant in an interactive manner:
-- It tracks the goal state, and the script as it is submitted, and
-  allows for easy backtracking and block execution.
-- It adds toolbars and menus to Emacs for easy access to proof
-  assistant features.
-- It integrates with Emacs Unicode support for some provers to provide
-  output using proper mathematical symbols.
-- It includes utilities for generating Emacs tags for proof scripts,
-  allowing for easy navigation.
+- It tracks the goal state, and the script as it is submitted, and allows for
+  easy backtracking and block execution.
+- It adds toolbars and menus to Emacs for easy access to proof assistant
+  features.
+- It integrates with Emacs Unicode support for some provers to provide output
+  using proper mathematical symbols.
+- It includes utilities for generating Emacs tags for proof scripts, allowing
+  for easy navigation.
 
-Proof General supports a number of different proof assistants
-(Isabelle, Coq, PhoX, and LEGO to name a few) and is designed to be
-easily extendable to work with others.
+Proof General supports a number of different proof assistants (Isabelle, Coq,
+PhoX, and LEGO to name a few) and is designed to be easily extendable to work
+with others.
 
 %package -n emacs-%{pkg}
 Summary:        Compiled elisp files to run Proof General under GNU Emacs
@@ -81,8 +81,8 @@ Requires:       emacs-common-%{pkg} = %{version}-%{release}
 %description -n emacs-%{pkg}
 Proof General is a generic front-end for proof assistants based on Emacs.
 
-This package contains the byte compiled elisp packages to run Proof
-General with GNU Emacs.
+This package contains the byte compiled elisp packages to run Proof General
+with GNU Emacs.
 
 %prep
 %forgeautosetup -p0

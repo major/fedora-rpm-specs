@@ -13,14 +13,13 @@ VCS:            git:%{url}.git
 %global fontorg           com.github
 %global fontconfs         %{SOURCE1}
 
-%global fontdescription   %{expand:
-This font is inspired by the work of Florian Kretlow and the impressive
-Figurato font he developed for figured bass, as well as the work of
-Ronald Caltabiano and his pioneering Sicilian Numerals font.  This
-version of Campania is not directly based on either of these, however.
-Instead, it uses the glyphs from Doulos and adds some relatively
-straightforward contextual substitutions and positioning rules to allow
-you to enter the most common symbols just by typing naturally.}
+%global fontdescription   %{expand:This font is inspired by the work of Florian Kretlow and the impressive
+Figurato font he developed for figured bass, as well as the work of Ronald
+Caltabiano and his pioneering Sicilian Numerals font.  This version of
+Campania is not directly based on either of these, however.  Instead, it uses
+the glyphs from Doulos and adds some relatively straightforward contextual
+substitutions and positioning rules to allow you to enter the most common
+symbols just by typing naturally.}
 
 Source0:        https://github.com/MarcSabatella/Campania/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        65-%{fontpkgname}.conf
@@ -44,9 +43,7 @@ fontforge -lang=ff -c 'Open($1); Generate($2)' Campania.sfd Campania.otf
 metainfo=%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,updatecontact,update_contact,g' \
-    -e 's,<!\[CDATA\[\(.*\)\]\]>,\1,' \
-    -i $metainfo
+sed -i 's,<!\[CDATA\[\(.*\)\]\]>,\1,' $metainfo
 
 %check
 %fontcheck

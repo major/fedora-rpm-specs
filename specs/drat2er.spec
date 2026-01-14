@@ -34,23 +34,21 @@ BuildRequires:  help2man
 BuildRequires:  make
 
 %description
-Drat2er is a tool for transforming proofs that are usually produced by
-SAT solvers.  It takes as input a propositional formula (specified in
-the DIMACS format) together with a DRAT proof (DRAT is the current
-standard format for proofs in SAT solving), and outputs an
-extended-resolution proof of the formula in either the TRACECHECK or
-the DRAT format.  The details of this proof transformation are
-described in the paper "Extended Resolution Simulates DRAT" (IJCAR
-2018).  Note that if drat2er is given as input a DRUP proof, then it
-transforms this DRUP proof into an ordinary resolution proof.
+Drat2er is a tool for transforming proofs that are usually produced by SAT
+solvers.  It takes as input a propositional formula (specified in the DIMACS
+format) together with a DRAT proof (DRAT is the current standard format for
+proofs in SAT solving), and outputs an extended-resolution proof of the
+formula in either the TRACECHECK or the DRAT format.  The details of this
+proof transformation are described in the paper "Extended Resolution Simulates
+DRAT" (IJCAR 2018).  Note that if drat2er is given as input a DRUP proof, then
+it transforms this DRUP proof into an ordinary resolution proof.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-Headers files and library links for developing applications that use
-%{name}.
+Headers files and library links for developing applications that use %{name}.
 
 %package        tools
 # The project itself is MIT.
@@ -88,8 +86,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files
 %license LICENSE
-%{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files          devel
 %{_includedir}/drat*.h

@@ -3,8 +3,7 @@ Version:        %R_rpm_version 2.17.3
 Release:        %autorelease
 Summary:        Unified Handling of Graphics Devices
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
 

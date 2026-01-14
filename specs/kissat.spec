@@ -30,20 +30,21 @@ BuildRequires:  xz-lzma-compat
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-KISSAT is a "keep it simple and clean bare metal SAT solver" written in
-C.  It is a port of CaDiCaL back to C with improved data structures,
-better scheduling of inprocessing and optimized algorithms and
-implementation.  Coincidentally 'kissat' also means 'cats' in Finnish.}
+%global _desc %{expand:KISSAT is a "keep it simple and clean bare metal SAT solver" written in C.  It
+is a port of CaDiCaL back to C with improved data structures, better
+scheduling of inprocessing and optimized algorithms and implementation.
+Coincidentally 'kissat' also means 'cats' in Finnish.}
 
-%description %_desc
+%description
+%_desc
 
 This package contains a command-line interface to KISSAT.
 
 %package libs
 Summary:        Keep It Simple SAT solver library
 
-%description libs %_desc
+%description libs
+%_desc
 
 This package contains KISSAT as a library, for use in applications that
 need a SAT solver.
@@ -108,7 +109,7 @@ LD_LIBRARY_PATH=$PWD/build build/tissat
 %files libs
 %doc README.md
 %license LICENSE
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel
 %{_includedir}/%{name}.h

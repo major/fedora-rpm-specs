@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.0.2
 Release:        %autorelease
 Summary:        Flights that Departed NYC in 2013
 
-# Automatically converted from old format: CC0 - review is highly recommended.
 License:        CC0-1.0
 URL:            %{cran_url}
 Source:         %{cran_source}

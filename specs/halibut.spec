@@ -9,6 +9,8 @@ BuildRequires:	gcc
 BuildRequires:	perl-interpreter
 BuildRequires:	make
 BuildRequires:	cmake
+# Already fixed upstream
+Patch:		halibut-1.3-cmake-4-fix.patch
 
 %description
 Halibut is yet another text formatting system, intended primarily for

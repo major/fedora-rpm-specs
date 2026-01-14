@@ -1,6 +1,6 @@
 Name:    libcamera-apps
 Version: 1.11.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/rpicam-apps
@@ -79,6 +79,9 @@ Headers for developing against libcamera-apps.
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.11.0-2
+- Rebuilt for Boost 1.90
+
 * Fri Jan 02 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.11.0-1
 - Update to 1.11.0
 - Enable RPi features on aarch64

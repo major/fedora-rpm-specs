@@ -22,16 +22,16 @@ for computing Littlewood-Richardson coefficients. The C programs form the
 engine of the package, providing fast calculation of single LR coefficients,
 products of Schur functions, and skew Schur functions. The Maple code mainly
 gives an interface which makes it possible to use the C programs from Maple.
-This interface uses the same notation as the SF package of John Stembridge,
-to make it easier to use both packages at the same time.
+This interface uses the same notation as the SF package of John Stembridge, to
+make it easier to use both packages at the same time.
 
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and header files for developing
+applications that use %{name}.
 
 %package -n	python3-lrcalc
 Summary:	Python interface to lrcalc
@@ -68,7 +68,6 @@ cd -
 
 %install
 %make_install
-rm %{buildroot}%{_libdir}/*.la
 rm -rf %{buildroot}%{_datadir}/%{name}
 
 mkdir -p %{buildroot}%{_datadir}/modulefiles
@@ -87,7 +86,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %doc AUTHORS ChangeLog README
 %license COPYING LICENSE
 %{_libdir}/%{name}/
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.2{,.*}
 %{_datadir}/modulefiles/%{name}-%{_arch}
 
 %files		devel

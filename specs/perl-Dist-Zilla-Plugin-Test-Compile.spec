@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-Test-Compile
-Version:        2.058
-Release:        24%{?dist}
+Version:        2.059
+Release:        1%{?dist}
 Summary:        Common tests to check syntax of your modules, only using core modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Test-Compile
@@ -9,9 +9,7 @@ BuildArch:      noarch
 # Build
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-# XXX: BuildRequires:  perl(Data::Dumper)
-# XXX: BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Module::Build::Tiny) >= 0.039
+BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
@@ -40,6 +38,7 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Module::CoreList) >= 2.77
 BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Perl::PrereqScanner) >= 1.016
+BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::MinimumVersion)
@@ -47,6 +46,7 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings) >= 0.009
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version)
+Requires:       perl(Dist::Zilla) >= 4.300039
 Requires:       perl(Dist::Zilla::File::InMemory)
 Requires:       perl(Dist::Zilla::Role::FileFinderUser)
 Requires:       perl(Dist::Zilla::Role::FileGatherer)
@@ -110,6 +110,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 12 2026 Michal Josef Špaček <mspacek@redhat.com> - 2.059-1
+- 2.059 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.058-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -25,9 +25,9 @@ Requires:       emacs-%{srcname} = %{version}-%{release}
 Requires:       ocaml(runtime)
 
 %description
-This package contains the opam file for emacs-%{srcname}.  Install
-this only if you want opam to know that caml-mode is available.
-If you just want to use caml-mode, install emacs-%{srcname}.
+This package contains the opam file for emacs-%{srcname}.  Install this only
+if you want opam to know that caml-mode is available.  If you just want to use
+caml-mode, install emacs-%{srcname}.
 
 %package     -n emacs-%{srcname}
 Summary:        Emacs mode for editing OCaml source code
@@ -35,10 +35,10 @@ BuildArch:      noarch
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 
 %description -n emacs-%{srcname}
-This package provides a caml-mode for Emacs, for editing OCaml programs,
-as well as an inferior-caml-mode, to run a toplevel.  Caml-mode supports
-indentation, compilation and error retrieving, and sending phrases to
-the toplevel.  There is also support for hilit, font-lock and imenu.
+This package provides a caml-mode for Emacs, for editing OCaml programs, as
+well as an inferior-caml-mode, to run a toplevel.  Caml-mode supports
+indentation, compilation and error retrieving, and sending phrases to the
+toplevel.  There is also support for hilit, font-lock and imenu.
 
 %prep
 %autosetup -n %{srcname}-%{version}

@@ -181,10 +181,8 @@ make check
 %{_bindir}/latte2ine
 %{_bindir}/polyhedron-to-cones
 %{_bindir}/top-ehrhart-knapsack
-%{_libdir}/liblatte.so.0
-%{_libdir}/liblatte.so.0.*
-%{_libdir}/libnormalize.so.0
-%{_libdir}/libnormalize.so.0.*
+%{_libdir}/liblatte.so.0{,.*}
+%{_libdir}/libnormalize.so.0{,.*}
 
 %changelog
 * Wed Nov 19 2025 Jerry James <loganjerry@gmail.com> - 1.7.6-14

@@ -14,8 +14,8 @@ Name:           gpsd-epel
 %else
 Name:           gpsd
 %endif
-Version:        3.26.1
-Release:        5%{?dist}
+Version:        3.27.3
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -158,8 +158,7 @@ do not reference it or depend on it in any way.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
-%patch -P 1 -p1 -b .apistatus
-%patch -P 2 -p1 -b .sconsflags
+%autopatch -p1
 
 %if %{with_bundled_scons}
 %setup -q -T -D -a 1
@@ -311,7 +310,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 %if %{with_libs}
 %files -n %{pkgname}-libs
-%{_libdir}/libgps.so.31*
+%{_libdir}/libgps.so.32*
 
 %files -n %{pkgname}-devel
 %doc TODO HACKING
@@ -326,7 +325,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 %if %{with_qt}
 %files -n %{pkgname}-qt
-%{_libdir}/libQgpsmm.so.31*
+%{_libdir}/libQgpsmm.so.32*
 
 %files -n %{pkgname}-qt-devel
 %{_libdir}/libQgpsmm.so
@@ -395,6 +394,13 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
+* Mon Jan 12 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.27.3-1
+- update to 3.27.3
+
+* Mon Jan 12 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.26.1-6
+- fix buffer overflow in NMEA2000 driver (CVE-2025-67268)
+- fix integer underflow in handling of Navcom packets (CVE-2025-67269)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:3.26.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

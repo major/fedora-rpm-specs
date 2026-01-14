@@ -38,9 +38,9 @@ Provides:       bundled(minisat) = 1.14.1
 
 %description
 The GLPK (GNU Linear Programming Kit) package is intended for solving
-large-scale linear programming (LP), mixed integer programming (MIP),
-and other related problems. It is a set of routines written in ANSI C
-and organized in the form of a callable library.
+large-scale linear programming (LP), mixed integer programming (MIP), and
+other related problems. It is a set of routines written in ANSI C and
+organized in the form of a callable library.
 
 GLPK supports the GNU MathProg language, which is a subset of the AMPL
 language.
@@ -83,8 +83,8 @@ Summary:        GLPK-related utilities and examples
 Requires:       %{name}%{_isa} = %{version}-%{release}
 
 %description utils
-The glpk-utils package contains the standalone solver program glpsol
-that uses GLPK (GNU Linear Programming Kit).
+The glpk-utils package contains the standalone solver program glpsol that uses
+GLPK (GNU Linear Programming Kit).
 
 
 %prep
@@ -127,7 +127,7 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 %files
 %doc README
 %license COPYING
-%{_libdir}/libglpk.so.40*
+%{_libdir}/libglpk.so.40{,.*}
 
 %files devel
 %doc ChangeLog AUTHORS NEWS

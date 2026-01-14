@@ -12,7 +12,9 @@ BuildRequires:	doxygen
 BuildRequires:	gcc
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	pulseaudio-libs-devel
-BuildRequires: make
+BuildRequires:	make
+# https://github.com/andrewrk/libsoundio/issues/309
+Patch:		libsoundio-2.0.0-cmake-4.patch
 
 %description
 C library providing cross-platform audio input and output. The API is suitable
@@ -41,13 +43,12 @@ Summary:	Utilities for libsoundio
 Utilities files for libsoundio.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %cmake -DBUILD_STATIC_LIBS=FALSE
 %cmake_build
-cd %{__cmake_builddir}
-make doc
+%cmake_build -t doc
 
 %install
 %cmake_install

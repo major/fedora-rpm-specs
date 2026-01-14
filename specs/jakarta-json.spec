@@ -22,14 +22,9 @@ BuildRequires:  mvn(org.glassfish.build:spec-version-maven-plugin)
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-# These can be removed when Fedora 41 reaches EOL
-Obsoletes:      jakarta-json-impl < 2.0.0
-Obsoletes:      jakarta-json-api < 2.0.0
-Provides:       jakarta-json-api = %{version}-%{release}
-
 %description
-Jakarta JSON Processing provides portable APIs to parse, generate,
-transform, and query JSON documents.
+Jakarta JSON Processing provides portable APIs to parse, generate, transform,
+and query JSON documents.
 
 %{?javadoc_package}
 

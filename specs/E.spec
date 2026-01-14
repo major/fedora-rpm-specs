@@ -31,21 +31,20 @@ BuildRequires:	tex(supertabular.sty)
 # You can verify the CASC results here: http://www.cs.miami.edu/~tptp/CASC/J4/
 
 %description
-E is a purely equational theorem prover for full first-order logic.
-That means it is a program that you can stuff a mathematical
-specification (in first-order format) and a hypothesis into, and which
-will then run forever, using up all of your machines' resources.  Very
-occasionally it will find a proof for the hypothesis and tell you so.
+E is a purely equational theorem prover for full first-order logic.  That
+means it is a program that you can stuff a mathematical specification (in
+first-order format) and a hypothesis into, and which will then run forever,
+using up all of your machines' resources.  Very occasionally it will find a
+proof for the hypothesis and tell you so.
 
 E's inference core is based on a modified version of the superposition
-calculus for equational clausal logic.  Both clausification and
-reasoning on the clausal form can be documented in checkable proof
-objects.
+calculus for equational clausal logic.  Both clausification and reasoning on
+the clausal form can be documented in checkable proof objects.
 
-E was the best-performing open source software prover in the 2008 CADE
-ATP System Competition (CASC) in the FOF, CNF, and UEQ divisions.  In
-the 2011 competition, it won second place in the FOF division, and
-placed highly in CNF and UEQ.
+E was the best-performing open source software prover in the 2008 CADE ATP
+System Competition (CASC) in the FOF, CNF, and UEQ divisions.  In the 2011
+competition, it won second place in the FOF division, and placed highly in CNF
+and UEQ.
 
 %prep
 %autosetup -p0 -n eprover-%{name}-%{version}

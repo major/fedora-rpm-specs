@@ -37,8 +37,7 @@ export CFLAGS="%{build_cflags} -DNOT_X_WINDOWS -Wno-error=unused-function"
 %cmake
 %cmake_build
 make -C icons putty-48.png
-cd %{__cmake_builddir}
-make -C doc
+%cmake_build -t doc
 
 %install
 %cmake_install

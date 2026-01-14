@@ -23,10 +23,10 @@ BuildRequires:  tex(tabu.sty)
 Suggests:       rlwrap
 
 %description
-Metamath is a tiny language that can express theorems in abstract
-mathematics, accompanied by proofs that can be verified by a computer
-program.  Metamath lets you see mathematics developed in complete detail
-from first principles, with absolute rigor.
+Metamath is a tiny language that can express theorems in abstract mathematics,
+accompanied by proofs that can be verified by a computer program.  Metamath
+lets you see mathematics developed in complete detail from first principles,
+with absolute rigor.
 
 %package        theories
 Summary:        Existing mathematical theories in the metamath format
@@ -52,10 +52,10 @@ BuildArch:      noarch
 
 %description    doc
 This package contains The Metamath book, which provides an in-depth
-understanding of the Metamath language and program.  The first part of
-the book also includes an easy-to-read informal discussion of abstract
-mathematics and computers, with references to other proof verifiers and
-automated theorem provers.
+understanding of the Metamath language and program.  The first part of the
+book also includes an easy-to-read informal discussion of abstract mathematics
+and computers, with references to other proof verifiers and automated theorem
+provers.
 
 %prep
 %autosetup -n %{name}

@@ -21,8 +21,8 @@ BuildRequires:  ocaml >= 5.2.0
 BuildRequires:  ocaml-dune >= 1.5.1
 
 %description
-This package exposes the OCaml compiler libraries repackaged under
-the toplevel names Ocaml_common, Ocaml_bytecomp, Ocaml_optcomp, etc.
+This package exposes the OCaml compiler libraries repackaged under the
+toplevel names Ocaml_common, Ocaml_bytecomp, Ocaml_optcomp, etc.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -55,7 +55,7 @@ signature files for developing applications that use
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.17.0-7
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.17.0-7
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-6

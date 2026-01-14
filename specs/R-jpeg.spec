@@ -3,10 +3,12 @@ Version:        %R_rpm_version 0.1-11
 Release:        %autorelease
 Summary:        Read and write JPEG images
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  libjpeg-devel

@@ -3,8 +3,7 @@ Version:        %R_rpm_version 1.4.8
 Release:        %autorelease
 Summary:        Find Tools Needed to Build R Packages
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 

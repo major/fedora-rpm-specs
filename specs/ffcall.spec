@@ -16,14 +16,13 @@ BuildRequires:  gnulib-devel
 BuildRequires:  make
 
 %description
-This is a collection of four libraries which can be used to build
-foreign function call interfaces in embedded interpreters.  The four
-packages are:
+This is a collection of four libraries which can be used to build foreign
+function call interfaces in embedded interpreters.  The four packages are:
  - avcall: calling C functions with variable arguments
  - vacall: C functions accepting variable argument prototypes
  - trampoline: closures as first-class C functions
- - callback: closures with variable arguments as first-class C functions
-   (a reentrant combination of vacall and trampoline)
+ - callback: closures with variable arguments as first-class C functions (a
+   reentrant combination of vacall and trampoline)
 
 %package devel
 Summary:        Files needed to develop programs with %{name}
@@ -57,7 +56,6 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
 %make_install
 rm -fr $RPM_BUILD_ROOT%{_datadir}/html
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 # Fix permissions
 chmod a+x $RPM_BUILD_ROOT%{_libdir}/lib*.so.*
@@ -72,10 +70,10 @@ popd
 %files
 %license COPYING
 %doc README NEWS
-%{_libdir}/libavcall.so.1*
-%{_libdir}/libcallback.so.1*
-%{_libdir}/libffcall.so.0*
-%{_libdir}/libtrampoline.so.1*
+%{_libdir}/libavcall.so.1{,.*}
+%{_libdir}/libcallback.so.1{,.*}
+%{_libdir}/libffcall.so.0{,.*}
+%{_libdir}/libtrampoline.so.1{,.*}
 
 %files devel
 %doc avcall/avcall.html

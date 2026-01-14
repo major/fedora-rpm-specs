@@ -35,19 +35,18 @@ Provides:       gapless = %{version}-%{release}
 Provides:       gapless%{?_isa} = %{version}-%{release}
 
 %description
-G4Music is a fast fluent lightweight music player written in GTK4, with
-a beautiful and adaptive user interface.  It focuses on high performance
-for large music collections.
+G4Music is a fast fluent lightweight music player written in GTK4, with a
+beautiful and adaptive user interface.  It focuses on high performance for
+large music collections.
 
 Features:
-- Supports most music file types, samba and any other remote protocol
-  (depends on GIO and GStreamer).
-- Fast loading and parsing thousands of music files in a few seconds,
-  monitors local changes.
-- Low memory usage for large music collections with album covers
-  (embedded and external), no thumbnail caches to store.
-- Groups and sorts by album/artist/title, shuffle list, full-text
-  searching.
+- Supports most music file types, samba and any other remote protocol (depends
+  on GIO and GStreamer).
+- Fast loading and parsing thousands of music files in a few seconds, monitors
+  local changes.
+- Low memory usage for large music collections with album covers (embedded and
+  external), no thumbnail caches to store.
+- Groups and sorts by album/artist/title, shuffle list, full-text searching.
 - Gaussian blurred cover as background, follows GNOME light/dark mode.
 - Drag-drop from GNOME Files, showing music in Files.
 - Supports audio peaks visualizer.

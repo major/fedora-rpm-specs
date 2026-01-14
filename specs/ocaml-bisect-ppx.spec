@@ -38,16 +38,14 @@ BuildRequires:  ocamlformat
 %endif
 
 %description
-Bisect_ppx is a code coverage tool for OCaml.  It helps you test
-thoroughly by showing which parts of your code are *not* tested.  It is
-a small preprocessor that inserts instrumentation at places in your
-code, such as if-then-else and match expressions.  After you run tests,
-Bisect_ppx gives a nice HTML report showing which places were visited
-and which were missed.
+Bisect_ppx is a code coverage tool for OCaml.  It helps you test thoroughly by
+showing which parts of your code are *not* tested.  It is a small preprocessor
+that inserts instrumentation at places in your code, such as if-then-else and
+match expressions.  After you run tests, Bisect_ppx gives a nice HTML report
+showing which places were visited and which were missed.
 
-Usage is simple - add package bisect_ppx when building tests, run your
-tests, then run the Bisect_ppx report tool on the generated visitation
-files.
+Usage is simple — add package bisect_ppx when building tests, run your tests,
+then run the Bisect_ppx report tool on the generated visitation files.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -91,7 +89,7 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.8.3-17
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 2.8.3-17
 - Rebuild to fix OCaml dependencies
 - Add patch to support ppxlib 0.36.x
 

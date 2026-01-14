@@ -7,6 +7,9 @@ License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 BuildRequires:  tcl-devel < 1:9
 BuildRequires:  tk-devel < 1:9

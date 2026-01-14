@@ -103,7 +103,7 @@ cd -
 %doc AUTHORS README.md
 %{_bindir}/lfscc
 %{_datadir}/%{name}/
-%{_libdir}/liblfscc.so.0*
+%{_libdir}/liblfscc.so.0{,.*}
 %{_mandir}/man1/lfscc.1*
 
 %files devel

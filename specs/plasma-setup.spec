@@ -1,9 +1,9 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit 1524a421e0a4f5d2e003ddfb093946f418678178
+%global commit c46bd5f31a8a0a8e57b907393f8c0cd73d089c43
 %global shortcommit %{sub %{commit} 1 7}
-%global date 20260110
+%global date 20260112
 
 %global orgname org.kde.plasmasetup
 
@@ -130,6 +130,9 @@ exit 0
 
 
 %changelog
+* Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20260112gitc46bd5f-1
+- Bump to new git snapshot
+
 * Sun Jan 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20260110git1524a42-1
 - Bump to new git snapshot
 

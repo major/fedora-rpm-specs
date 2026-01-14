@@ -35,7 +35,7 @@ It also handles file finders for the supported SCMs.
 
 
 # We don't package the [rich] extra on RHELs, to avoid pulling rich into the buildroot
-%pyproject_extras_subpkg -n python%{python3_pkgversion}-setuptools_scm toml%{!?rhel:,rich}
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-setuptools_scm simple,toml%{!?rhel:,rich}
 
 
 %prep
@@ -57,7 +57,7 @@ sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 # Note: We only pull in the [rich] extra when running tests.
 # This is to make the new Python version bootstrapping simpler
 # as setuptools_scm is an early package and rich is a late one.
-%pyproject_buildrequires %{?with_tests:-g test %{!?rhel:-x rich}}
+%pyproject_buildrequires %{?with_tests:-g test %{!?rhel:-x rich}} -x simple,toml
 
 
 %build

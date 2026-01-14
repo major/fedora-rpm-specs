@@ -2057,7 +2057,7 @@ pushd %{static_builddir}
 run_configure \
   --enable-attr \
   --enable-linux-user \
-%ifnarch %{power64}
+%ifnarch %{power64} s390x
   --enable-pie \
 %endif
   --enable-tcg \

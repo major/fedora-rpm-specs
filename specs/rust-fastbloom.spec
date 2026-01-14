@@ -5,7 +5,7 @@
 %global crate fastbloom
 
 Name:           rust-fastbloom
-Version:        0.14.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Fastest Bloom filter in Rust
 
@@ -92,7 +92,7 @@ use the "std" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 # convert files with CRLF line endings
-dos2unix --keepdate LICENSE-APACHE LICENSE-MIT README.md src/math.rs
+dos2unix --keepdate LICENSE-APACHE LICENSE-MIT README.md src/bit_vector.rs src/math.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -54,6 +54,9 @@ Mathic-based tools.  Currently this contains:
 %autosetup -p1
 
 %conf
+# Fix the URL in the pkgconfig file
+sed -i 's/broune/Macaulay2/' build/autotools/mathic.pc.in
+
 # Upstream doesn't generate the configure script
 autoreconf -fi .
 
@@ -86,7 +89,7 @@ make check
 %files
 %doc README.md
 %license lgpl-2.1.txt
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel
 %{_includedir}/%{name}.h

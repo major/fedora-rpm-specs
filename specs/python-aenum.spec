@@ -1,8 +1,8 @@
 %global pypi_name aenum
 
 Name:           python-%{pypi_name}
-Version:        3.1.15
-Release:        6%{?dist}
+Version:        3.1.16
+Release:        1%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ rm %{pypi_name}/_py2.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Jan 12 2026 Federico Pellegrin <fede@evolware.org> - 3.1.16-1
+- Update to 3.1.16 (rhbz#2362243)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.15-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

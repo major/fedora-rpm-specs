@@ -5,7 +5,7 @@ Name: gravity-beams-and-evaporating-stars
 %global shortname %(echo "%{name}" | sed -e 's:\\([a-z]\\)[a-z]*:\\1:g' -e 's:-::g')
 
 Version: 1.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: A game about hurling asteroids into the sun
 License: MIT
 
@@ -44,6 +44,8 @@ sed -e 's|__DATA_DIR__|"%{_datadir}/%{name}"|' -i src/main.cpp
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380630)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -98,6 +100,9 @@ appstream-util validate-relax --nonet packaging/%{name}.appdata.xml
 
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 1.0-22
+- Allow to build with CMake 4.0 (rhbz#2380630)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

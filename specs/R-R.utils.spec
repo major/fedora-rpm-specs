@@ -3,7 +3,7 @@ Version:        %R_rpm_version 2.13.0
 Release:        %autorelease
 Summary:        Various Programming Utilities
 
-License:        LGPL-2.0-or-later
+License:        LGPL-2.1-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
 

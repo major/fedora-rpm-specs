@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.2.3
 Release:        %autorelease
 Summary:        R Session Information
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}

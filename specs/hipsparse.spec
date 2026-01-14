@@ -60,6 +60,15 @@
 %global build_type RelWithDebInfo
 %endif
 
+# export an llvm compilation database
+# Useful for input for other llvm tools
+%bcond_with export
+%if %{with export}
+%global build_compile_db ON
+%else
+%global build_compile_db OFF
+%endif
+
 # downloads tests, use mock --enable-network
 %bcond_with test
 %if %{with test}
@@ -68,6 +77,8 @@
 %else
 %global build_test OFF
 %endif
+
+%bcond_without check
 
 # gfortran and clang rpm macros do not mix
 %global build_fflags %{nil}
@@ -83,7 +94,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm SPARSE marshalling library
 License:        MIT
@@ -114,12 +125,20 @@ BuildRequires:  rocprim%{pkg_suffix}-static
 BuildRequires:  rocsparse%{pkg_suffix}-devel
 
 %if %{with test}
-BuildRequires:  gtest-devel
-BuildRequires:  rocblas%{pkg_suffix}-devel
 %if 0%{?suse_version}
-BuildRequires:  rocm-libomp%{pkg_suffix}-devel
+BuildRequires:  gtest
 %else
-BuildRequires:  libomp-devel
+BuildRequires:  gtest-devel
+%endif
+BuildRequires:  rocblas%{pkg_suffix}-devel
+%endif
+
+%if %{with check}
+%if %{with export}
+BuildRequires:  cppcheck
+BuildRequires:  cppcheck-htmlreport
+BuildRequires:  rocm-clang-analyzer%{pkg_suffix}
+BuildRequires:  rocm-clang-tools-extra%{pkg_suffix}
 %endif
 %endif
 
@@ -178,6 +197,7 @@ cd projects/hipsparse
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -197,6 +217,29 @@ cd projects/hipsparse
     -DBUILD_FORTRAN_CLIENTS=OFF
 
 %cmake_build
+
+%if %{with check}
+%check
+%if %{with export}
+json=`find . -name 'compile_commands.json'`
+json=`realpath $json`
+json_dir=`dirname $json`
+if [ -f ${json} ]; then
+    jobs=`nproc`
+    export PATH=%{rocmllvm_bindir}:$PATH
+    output=/tmp/%{name}-tidy/
+    mkdir -p ${output}
+    # Use echo to consume tidy's error code
+    %{rocmllvm_bindir}/run-clang-tidy -p ${json_dir} &> ${output}/tidy.log || echo "ran clang-tidy"
+    
+    output=/tmp/%{name}-cppcheck/
+    mkdir -p ${output}
+    cppcheck --project=${json} -j ${jobs} --std=c++17 --safety --output-file=${output}/cppcheck.txt
+    cppcheck --project=${json} -j ${jobs} --std=c++17 --safety --xml --output-file=${output}/cppcheck.xml
+    cppcheck-htmlreport --file=${output}/cppcheck.xml --report-dir=${output}
+fi
+%endif
+%endif
 
 %install
 %if %{with gitcommit}
@@ -235,6 +278,9 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{pkg_prefix}/
 %endif
 
 %changelog
+* Mon Jan 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
+- Add static analysis check
+
 * Wed Jan 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Fix test matrices location
 - Remove --with check

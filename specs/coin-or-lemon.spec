@@ -43,11 +43,10 @@ BuildRequires:  make
 BuildRequires:  zlib-devel
 
 %description
-LEMON stands for Library for Efficient Modeling and Optimization in
-Networks. It is a C++ template library providing efficient
-implementations of common data structures and algorithms with focus on
-combinatorial optimization tasks connected mainly with graphs and
-networks.
+LEMON stands for Library for Efficient Modeling and Optimization in Networks.
+It is a C++ template library providing efficient implementations of common
+data structures and algorithms with focus on combinatorial optimization tasks
+connected mainly with graphs and networks.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -72,7 +71,7 @@ Summary:        Documentation for for %{name}
 BuildArch:      noarch
 
 %description    doc
-The %{name}-doc package contains a %{name}'s API documentation.
+The %{name}-doc package contains %{name}'s API documentation.
 
 
 %prep
@@ -149,8 +148,7 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 %{_docdir}/%{name}/AUTHORS
 %{_docdir}/%{name}/NEWS
 %{_docdir}/%{name}/README
-%{_libdir}/libemon.so.1
-%{_libdir}/libemon.so.1.*
+%{_libdir}/libemon.so.1{,.*}
 
 %files devel
 %{_includedir}/lemon/
@@ -167,7 +165,7 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
-* Wed Dec 03 2025 Jerry James  <loganjerry@gmail.com> - 1.3.1-39
+* Wed Dec 03 2025 Jerry James <loganjerry@gmail.com> - 1.3.1-39
 - Rebuild for soplex 8.0.0
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-38

@@ -1,6 +1,6 @@
 # remirepo/Fedora spec file for php-phpstan-phpdoc-parser
 #
-# SPDX-FileCopyrightText:  Copyright 2024-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2024-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    1e0cd5370df5dd2e556a36b9c62f62e555870495
+%global gh_commit    16dbf9937da8d4528ceb2145c9c7c0bd29e26374
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpstan
 %global gh_project   phpdoc-parser
@@ -19,7 +19,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        PHPDoc parser with support for nullable, intersection and generic types
 
@@ -101,7 +101,7 @@ sed -e 's:exec://exec:' -i tests/bootstrap.php
 # use auto_prepend_file to ensure we use new version (not old one pulled by PHPUnit)
 # ignore test using doctrine/annotations
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d auto_prepend_file=vendor/autoload.php \
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 12 2026 Remi Collet <remi@remirepo.net> - 2.3.1-1
+- update to 2.3.1
+
 * Mon Sep  1 2025 Remi Collet <remi@remirepo.net> - 2.3.0-1
 - update to 2.3.0
 

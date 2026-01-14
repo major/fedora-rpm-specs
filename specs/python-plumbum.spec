@@ -2,12 +2,15 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shell combinators library
 
 License:        MIT
 URL:            https://github.com/tomerfiliba/plumbum
 Source0:        %{pypi_source}
+# Upstream, but not released: https://github.com/tomerfiliba/plumbum/issues/761.
+Patch0:         0001-fix-test-on-prerelease-of-3.15.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -58,6 +61,9 @@ Summary:        Shell combinators library
 %doc LICENSE README.rst
 
 %changelog
+* Mon Jan 12 2026 W. Michael Petullo <mike@flyn.org> - 1.10.0-2
+- Patch to fix test on Python 3.15
+
 * Tue Nov 11 2025 W. Michael Petullo <mike@flyn.org> - 1.10.0-1
 - Unretire
 - Update to 1.10.0

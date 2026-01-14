@@ -2,10 +2,9 @@
 
 Name:           llmnrd
 Version:        0.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Link-Local Multicast Resolution Daemon
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            https://github.com/tklauser/llmnrd
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -32,12 +31,12 @@ networks where no DNS server is available. It supports both IPv4 and IPv6.
 
 %build
 %set_build_flags
-%make_build prefix=%{_usr} Q=
+%make_build prefix=%{_usr} Q= BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 
 
 %install
-%make_install prefix=%{_usr} Q=
-install -Dp %{SOURCE1} ${RPM_BUILD_ROOT}%{_unitdir}/llmnrd.service
+%make_install prefix=%{_usr} Q= BINDIR=%{_bindir} SBINDIR=%{_sbindir}
+install -m 0644 -Dp %{SOURCE1} ${RPM_BUILD_ROOT}%{_unitdir}/llmnrd.service
 
 %check
 # would not find result, but it tries
@@ -63,6 +62,9 @@ ${RPM_BUILD_ROOT}%{_bindir}/llmnr-query -I lo localhost
 %{_mandir}/man8/llmnrd.8*
 
 %changelog
+* Mon Jan 12 2026 Petr Menšík <pemensik@redhat.com> - 0.7-15
+- Fix FTBFS caused by sbin merge (rhbz#2385147)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

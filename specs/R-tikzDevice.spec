@@ -3,10 +3,12 @@ Version:        %R_rpm_version 0.12.6
 Release:        %autorelease
 Summary:        R Graphics Output in LaTeX Format
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  texlive-pgf

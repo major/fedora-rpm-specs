@@ -3,7 +3,6 @@ Version:        %R_rpm_version 3.0
 Release:        %autorelease
 Summary:        Font Files for the 'showtext' Package
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            %{cran_url}
 Source:         %{cran_source}

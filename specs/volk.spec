@@ -69,9 +69,7 @@ popd
 %build
 %cmake
 %cmake_build
-
-# Use make_build for EL8 compat
-%make_build -C %{__cmake_builddir} volk_doc
+%cmake_build -t volk_doc
 
 %check
 cd %{__cmake_builddir}

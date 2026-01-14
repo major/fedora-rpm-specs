@@ -19,7 +19,7 @@ Epoch: 3
 %else
 Epoch: 2
 %endif
-Version: 2.1.13
+Version: 2.2.0
 License: Apache-2.0
 Release: %autorelease
 Summary: OCI container runtime monitor
@@ -27,13 +27,13 @@ URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/v%{version}.tar.gz
 %if %{with docs}
-ExclusiveArch: %{golang_arches_future}
 BuildRequires: go-md2man
 %endif
 BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: glib2-devel
 BuildRequires: libseccomp-devel
+BuildRequires: pkgconfig
 BuildRequires: systemd-devel
 BuildRequires: systemd-libs
 BuildRequires: make

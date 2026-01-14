@@ -94,10 +94,6 @@ Requires:	less
 Requires:	qepcad-B
 Requires:	TOPCOM%{_isa}
 
-# The surfex code is no longer distributed with Singular
-# This can be removed when F41 reaches EOL
-Obsoletes:	Singular-surfex < 4.3.1-1
-
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
 

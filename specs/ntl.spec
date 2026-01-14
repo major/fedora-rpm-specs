@@ -26,8 +26,8 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 
 %description
-NTL is a high-performance, portable C++ library providing data structures
-and algorithms for arbitrary length integers; for vectors, matrices, and
+NTL is a high-performance, portable C++ library providing data structures and
+algorithms for arbitrary length integers; for vectors, matrices, and
 polynomials over the integers and over finite fields; and for arbitrary
 precision floating point arithmetic.
 
@@ -38,10 +38,10 @@ NTL provides high quality implementations of state-of-the-art algorithms for:
   arithmetic, polynomial factorization, irreducibility testing, computation
   of minimal polynomials, traces, norms, and more;
 * lattice basis reduction, including very robust and fast implementations of
-  Schnorr-Euchner, block Korkin-Zolotarev reduction, and the new 
+  Schnorr-Euchner, block Korkin-Zolotarev reduction, and the new
   Schnorr-Horner pruning heuristic for block Korkin-Zolotarev;
 * basic linear algebra over the integers, finite fields, and arbitrary
-  precision floating point numbers. 
+  precision floating point numbers.
 
 %package devel 
 Summary:        Development files for %{name}

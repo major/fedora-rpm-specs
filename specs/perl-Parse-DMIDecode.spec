@@ -3,7 +3,7 @@
 
 Name:           perl-Parse-DMIDecode
 Version:        0.03
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Interface to SMBIOS using dmidecode
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -20,7 +20,7 @@ Patch3:         Parse-DMIDecode-0.03-Disable-portability-warnings-lexically.patc
 # the upstream
 Patch4:         Parse-DMIDecode-0.03-Emulate-number-of-structures-if-not-reported-by-dmid.patch
 # This mirrors the ExclusiveArch in the dmidecode spec file
-ExclusiveArch:  %{ix86} x86_64 ia64 aarch64
+ExclusiveArch:  %{ix86} x86_64 ia64 aarch64 riscv64
 # A debug package is not required as there are no binaries in this package. We
 # are not noarch because of dmidecode
 %global debug_package %{nil}
@@ -84,6 +84,9 @@ unset DEBUG
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jan 12 2026 Marcin Juszkiewicz - 0.03-41
+- enable RISC-V 64-bit architecture port
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

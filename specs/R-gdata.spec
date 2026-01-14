@@ -3,8 +3,7 @@ Version:        %R_rpm_version 3.0.1
 Release:        %autorelease
 Summary:        Various R Programming Tools for Data Manipulation
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
+License:        GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
 

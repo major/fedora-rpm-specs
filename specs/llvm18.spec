@@ -450,6 +450,11 @@ cp -Rv ../cmake/* %{buildroot}%{pkg_datadir}/llvm/cmake
 %check
 # non reproducible errors
 rm test/tools/dsymutil/X86/swift-interface.test
+# https://bugzilla.redhat.com/show_bug.cgi?id=2385159
+rm test/tools/opt-viewer/basic.test
+rm test/tools/opt-viewer/filter.test
+rm test/tools/opt-viewer/suppress.test
+rm test/tools/opt-viewer/unicode-function-name.test
 
 %if %{with check}
 # FIXME: use %%cmake_build instead of %%__ninja
@@ -629,7 +634,7 @@ fi
 * Fri Apr 12 2024 Tom Stellard <tstellar@redhat.com> - 18.1.3-1
 - 18.1.3 Release
 
-* Tue Mar 19 2024 Zhengyu He <hezhy472013@gmail.com> - 18.1.2-2
+* Thu Mar 21 2024 Zhengyu He <hezhy472013@gmail.com> - 18.1.2-2
 - Add support for riscv64
 
 * Thu Mar 21 2024 Tom Stellard <tstellar@redhat.com> - 18.1.2-1

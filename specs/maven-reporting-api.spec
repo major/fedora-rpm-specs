@@ -24,9 +24,9 @@ BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
 %{?javadoc_package}
 
 %description
-API to manage report generation.  Maven-reporting-api is included in the
-Maven 2.x core distribution, but was moved to shared components to
-achieve report decoupling from the Maven 3 core.
+API to manage report generation.  Maven-reporting-api is included in the Maven
+2.x core distribution, but was moved to shared components to achieve report
+decoupling from the Maven 3 core.
 
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
@@ -54,7 +54,7 @@ rm README.md.orig
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Wed Jul 16 2025 Jerry James  <loganjerry@gmail.com> - 1:4.0.0-2
+* Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 1:4.0.0-2
 - Fix end of line encodings
 
 * Tue Jan 28 2025 Jerry James <loganjerry@gmail.com> - 1:4.0.0-1

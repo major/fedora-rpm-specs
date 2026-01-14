@@ -1,6 +1,6 @@
 Name:		bastet
 Version:	0.43.2
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	An evil falling bricks game
 
 License:	GPL-3.0-or-later
@@ -83,6 +83,9 @@ mkdir -p %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.43.2-13
+- Rebuilt for Boost 1.90
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.43.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

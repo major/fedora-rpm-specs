@@ -25,17 +25,16 @@ BuildRequires:  ocaml-ppx-jane-devel
 %endif
 
 %description
-Cinaps is a trivial Metaprogramming tool for OCaml using the OCaml
-toplevel.
+Cinaps is a trivial Metaprogramming tool for OCaml using the OCaml toplevel.
 
 It is intended for two purposes:
-- when you want to include a bit of generated code in a file, but writing
-  a proper generator/ppx rewriter is not worth it;
-- when you have many repeated blocks of similar code in your program, to
-  help writing and maintaining them.
+- when you want to include a bit of generated code in a file, but writing a
+  proper generator/ppx rewriter is not worth it;
+- when you have many repeated blocks of similar code in your program, to help
+  writing and maintaining them.
 
-It is not intended as a general preprocessor, and in particular can only
-be used to generate static code that is independent of the system.
+It is not intended as a general preprocessor, and in particular can only be
+used to generate static code that is independent of the system.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -79,7 +78,7 @@ help2man -N --version-string=%{version} \
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.15.1-24
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.15.1-24
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-23

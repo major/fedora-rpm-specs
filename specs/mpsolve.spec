@@ -28,7 +28,6 @@ fi \
 # Upstream has not tagged a release since version 3.2.1
 # Build from this commit, which the Macaulay2 devs call 3.2.3 beta
 %global commit  8450a4da8f02be0aefb3b0abaf084584a615e41d
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mpsolve
 Version:        3.2.3~beta
@@ -38,7 +37,7 @@ Summary:        Multiprecision polynomial solver
 License:        GPL-3.0-or-later
 URL:            https://numpi.dm.unipi.it/software/mpsolve
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         %{giturl}/archive/%{commit}/%{name}-%{sub %{commit} 1 7}.tar.gz
 # Fix LTO warnings about mismatched types
 Patch:          %{name}-lto.patch
 
@@ -242,8 +241,8 @@ make check
 %files          libs
 %doc AUTHORS README
 %license COPYING
-%{_libdir}/libmps.so.3*
-%{_libdir}/libmps-fortran.so.0*
+%{_libdir}/libmps.so.3{,.*}
+%{_libdir}/libmps-fortran.so.0{,.*}
 
 %files          doc
 %doc doc/html/*

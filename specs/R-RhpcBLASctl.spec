@@ -3,10 +3,12 @@ Version:        %R_rpm_version 0.23-42
 Release:        %autorelease
 Summary:        Control the Number of Threads on BLAS
 
-# Automatically converted from old format: AGPLv3
 License:        AGPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 

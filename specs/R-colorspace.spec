@@ -3,8 +3,7 @@ Version:        %R_rpm_version 2.1-2
 Release:        %autorelease
 Summary:        A Toolbox for Manipulating and Assessing Colors and Palettes
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 

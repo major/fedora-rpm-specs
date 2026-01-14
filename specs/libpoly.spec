@@ -21,17 +21,17 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist sympy}
 
 %description
-LibPoly is a C library for manipulating polynomials.  The target
-applications are symbolic reasoning engines, such as SMT solvers, that
-need to reason about polynomial constraints.
+LibPoly is a C library for manipulating polynomials.  The target applications
+are symbolic reasoning engines, such as SMT solvers, that need to reason about
+polynomial constraints.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and header files for developing
+applications that use %{name}.
 
 %package     -n python3-polypy
 Summary:        Python 3 interface to %{name}
@@ -91,8 +91,8 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files
 %license LICENCE
 %doc README.md
-%{_libdir}/libpoly.so.0*
-%{_libdir}/libpolyxx.so.0*
+%{_libdir}/libpoly.so.0{,.*}
+%{_libdir}/libpolyxx.so.0{,.*}
 
 %files devel
 %{_includedir}/poly/

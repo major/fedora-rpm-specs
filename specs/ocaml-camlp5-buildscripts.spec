@@ -26,9 +26,9 @@ BuildRequires:  ocaml-mdx-devel >= 2.2.1
 BuildRequires:  ocaml-re-devel >= 1.10.4
 
 %description
-Sysadmin scripts written in OCaml (and Perl precursors), for use with
-Camlp5 and Camlp5-based projects.  These scripts allow removing a
-dependency on Perl for such projects.
+Sysadmin scripts written in OCaml (and Perl precursors), for use with Camlp5
+and Camlp5-based projects.  These scripts allow removing a dependency on Perl
+for such projects.
 
 %prep
 %autosetup -n camlp5-buildscripts-%{version}

@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.0.14
 Release:        %autorelease
 Summary:        Provides Iterator Construct
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            %{cran_url}
 Source:         %{cran_source}

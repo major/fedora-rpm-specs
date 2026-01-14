@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.4.8
 Release:        %autorelease
 Summary:        Rcpp Interface to PostgreSQL
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  pkgconfig(libpq)

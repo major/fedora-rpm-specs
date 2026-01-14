@@ -3,8 +3,7 @@ Version:        %R_rpm_version 3.0.6
 Release:        %autorelease
 Summary:        High-Performance Stemmer, Tokenizer, and Spell Checker
 
-# Automatically converted from old format: GPLv2 or LGPLv2 or MPLv1.1 - review is highly recommended.
-License:        GPL-2.0-only OR LicenseRef-Callaway-LGPLv2 OR LicenseRef-Callaway-MPLv1.1
+License:        GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1
 URL:            %{cran_url}
 Source:         %{cran_source}
 

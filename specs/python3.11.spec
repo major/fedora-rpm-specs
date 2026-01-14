@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -347,6 +347,13 @@ Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 # This resolves the issue of failing tests when a system is
 # stressed on OpenSSL 3.5.
 Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
+
+# 00471 # f7ffc7e947b58a4d33c7f5bb69674af20fe4875d
+# CVE-2025-12084
+#
+# * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
+# * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
+Patch471: 00471-cve-2025-12084.patch
 
 # (New patches go here ^^^)
 #
@@ -1676,6 +1683,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jan 08 2026 Lumír Balhar <lbalhar@redhat.com> - 3.11.14-3
+- Security fix for CVE-2025-12084
+
 * Tue Jan 06 2026 Karolina Surma <ksurma@redhat.com> - 3.11.14-2
 - Require at least the same expat version as used during the build time
 

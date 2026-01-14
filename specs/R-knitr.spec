@@ -3,7 +3,7 @@ Version:        %R_rpm_version 1.51
 Release:        %autorelease
 Summary:        A General-Purpose Package for Dynamic Report Generation in R
 
-License:        GPL-2.0-or-later
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}
 

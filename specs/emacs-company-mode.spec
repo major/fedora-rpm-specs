@@ -25,14 +25,14 @@ Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 
 %description
 Company is a text completion framework for Emacs.  The name stands for
-"complete anything".  It uses pluggable back-ends and front-ends to
-retrieve and display completion candidates.  It comes with several
-back-ends such as Elisp, Clang, Semantic, Eclim, Ropemacs, Ispell, CMake,
-BBDB, Yasnippet, dabbrev, etags, gtags, files, keywords and a few others.
+"complete anything".  It uses pluggable back-ends and front-ends to retrieve
+and display completion candidates.  It comes with several back-ends such as
+Elisp, Clang, Semantic, Eclim, Ropemacs, Ispell, CMake, BBDB, Yasnippet,
+dabbrev, etags, gtags, files, keywords and a few others.
 
 The CAPF back-end provides a bridge to the standard
-completion-at-point-functions facility, and thus works with any major
-mode that defines a proper completion function.
+completion-at-point-functions facility, and thus works with any major mode
+that defines a proper completion function.
 
 %prep
 %autosetup -n %{srcname}-%{version}

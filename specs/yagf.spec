@@ -2,7 +2,7 @@
 
 Name:           yagf
 Version:        0.9.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Graphical front-end for cuneiform
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -41,6 +41,8 @@ dos2unix src/mainform.cpp src/mainform.h
 chmod 644 src/mainform.cpp src/mainform.h src/main.cpp
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381646)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # CMakeLists.txt constructed in such a way that
 # translations can't be installed from %%{_target_platform}
 %cmake
@@ -65,6 +67,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/YAGF.desktop
 %{_datadir}/appdata/YAGF.appdata.xml
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.9.5-26
+- Allow to build with CMake 4.0 (rhbz#2381646)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

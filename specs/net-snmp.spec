@@ -5,12 +5,12 @@
 %global multilib_arches %{ix86} ia64 ppc ppc64 s390 s390x x86_64 sparc sparcv9 sparc64 aarch64
 
 # actual soname version
-%global soname  40
+%global soname  45
 
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
-Version:    5.9.4
-Release:    18%{?dist}
+Version:    5.9.5.2
+Release:    1%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -36,22 +36,16 @@ Patch6:     net-snmp-5.9-cflags.patch
 Patch7:     net-snmp-5.8-Remove-U64-typedef.patch
 Patch8:     net-snmp-5.7.3-iterator-fix.patch
 Patch9:     net-snmp-5.9-autofs-skip.patch
-Patch10:    net-snmp-5.9-coverity.patch
 Patch11:    net-snmp-5.8-expand-SNMPCONFPATH.patch
 Patch12:    net-snmp-5.8-duplicate-ipAddress.patch
 Patch13:    net-snmp-5.9-memory-reporting.patch
-Patch14:    net-snmp-5.8-man-page.patch
 Patch15:    net-snmp-5.8-ipAddress-faster-load.patch
-Patch16:    net-snmp-5.8-rpm-memory-leak.patch
 Patch17:    net-snmp-5.9-aes-config.patch
 Patch18:    net-snmp-5.8-clientaddr-error-message.patch
 Patch19:    net-snmp-5.9-intermediate-certs.patch
 Patch20:    net-snmp-5.9.1-remove-des.patch
 Patch21:    net-snmp-libs-misunderstanding.patch
 Patch22:    net-snmp-5.9-ipv6-disable-leak.patch
-Patch23:    net-snmp-5.9-rpmdb.patch
-Patch24:    net-snmp-5.9.4-autoconf.patch
-Patch25:    net-snmp-5.9.4-kernel-6.7.patch
 Patch26:    net-snmp-5.9.4-tls.patch
 Patch27:    net-snmp-5.9.4-revert-n-snmptrapd-log.patch
 
@@ -80,6 +74,7 @@ BuildRequires:   perl-devel, perl(ExtUtils::Embed), procps
 BuildRequires:   python3-devel, python3-setuptools
 BuildRequires:   chrpath
 BuildRequires:   mariadb-connector-c-devel
+BuildRequires:   libnl3-devel
 # for netstat, needed by 'make test'
 BuildRequires:   net-tools
 # for make test
@@ -233,22 +228,16 @@ cp %{SOURCE10} .
 %patch 7 -p1 -b .u64-remove
 %patch 8 -p1 -b .iterator-fix
 %patch 9 -p1 -b .autofs-skip
-%patch 10 -p1 -b .coverity
 %patch 11 -p1 -b .expand-SNMPCONFPATH
 %patch 12 -p1 -b .duplicate-ipAddress
 %patch 13 -p1 -b .memory-reporting
-%patch 14 -p1 -b .man-page
 %patch 15 -p1 -b .ipAddress-faster-load
-%patch 16 -p1 -b .rpm-memory-leak
 %patch 17 -p1 -b .aes-config
 %patch 18 -p1 -b .clientaddr-error-message
 %patch 19 -p1 -b .intermediate-certs
 %patch 20 -p1 -b .remove-des
 %patch 21 -p1
 %patch 22 -p1 -b .ipv6-disable-leak
-%patch 23 -p1 -b .rpmdbpatch
-%patch 24 -p1 
-%patch 25 -p1 -b .kernel-6.7
 %patch 26 -p1 -b .tls
 %patch 27 -p1 -b .revert-n-snmptrapd-log
 
@@ -525,6 +514,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Mon Jan 12 2026 Josef Ridky <jridky@redhat.com> - 1:5.9.5.2-1
+- New upstream release 5.9.5.2
+
 * Mon Oct 13 2025 Josef Ridky <jridky@redhat.com> - 1:5.9.4-18
 - Enable PQC in net-snmp
 - Fix inverted use of -n in snmptrapd_log.c

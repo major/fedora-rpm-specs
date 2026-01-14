@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.5.0
 Release:        %autorelease
 Summary:        Reimplementations of Functions Introduced Since R-3.0.0
 
-# Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}

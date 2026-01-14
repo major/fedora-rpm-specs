@@ -23,15 +23,30 @@ SourceLicense:  LGPL-2.1-or-later
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR MIT
+# BSD-3-Clause OR Apache-2.0
 # LGPL-2.1-or-later
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        LGPL-2.1-or-later AND Apache-2.0 AND BSD-3-Clause AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+    LGPL-2.1-or-later AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    MIT AND
+    MPL-2.0 AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR MIT) AND
+    (BSD-3-Clause OR Apache-2.0) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (Unlicense OR MIT)
+    }
 URL:            https://wiki.gnome.org/Projects/LibRsvg
 Source0:        https://download.gnome.org/sources/librsvg/2.61/librsvg-%{version}.tar.xz
 # upstream dropped vendoring since 2.55.0 (GNOME/librsvg#718), to create:
@@ -41,6 +56,11 @@ Source1:        librsvg-%{version}-vendor.tar.xz
 
 # Patches to build with Fedora-packaged rust crates
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
+# Omit tests::svg1_1_filters_composite_04_f_svg
+#
+# Test tests::svg1_1_filters_composite_04_f_svg fails with image 0.25.9
+# https://gitlab.gnome.org/GNOME/librsvg/-/issues/1219
+Patch:          0002-Omit-tests-svg1_1_filters_composite_04_f_svg.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 1.2.0

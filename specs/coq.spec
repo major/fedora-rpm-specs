@@ -113,41 +113,40 @@ Requires:       texlive-base
 
 Recommends:     emacs-proofgeneral
 
-# This can be removed when F41 reaches EOL
-Obsoletes:      coq-doc < 8.16.0-2
+%global _desc %{expand:Coq is a formal proof management system.  It provides a formal language to
+write mathematical definitions, executable algorithms and theorems together
+with an environment for semi-interactive development of machine-checked
+proofs.}
 
-%global _desc %{expand:
-Coq is a formal proof management system.  It provides a formal language
-to write mathematical definitions, executable algorithms and theorems
-together with an environment for semi-interactive development of
-machine-checked proofs.}
+%description
+%_desc
 
-%description %_desc
-
-Typical applications include the certification of properties of
-programming languages (e.g. the CompCert compiler certification project,
-or the Bedrock verified low-level programming library), the formalization
-of mathematics (e.g. the full formalization of the Feit-Thompson theorem
-or homotopy type theory) and teaching.
+Typical applications include the certification of properties of programming
+languages (e.g. the CompCert compiler certification project, or the Bedrock
+verified low-level programming library), the formalization of mathematics
+(e.g. the full formalization of the Feit-Thompson theorem or homotopy type
+theory) and teaching.
 
 %package core
 Summary:        Core components of the coq proof management system
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description core %_desc
+%description core
+%_desc
 
-This package includes the Coq core binaries, plugins, and tools, but not
-the vernacular standard library.
+This package includes the Coq core binaries, plugins, and tools, but not the
+vernacular standard library.
 
 %package coqide-server
 Summary:        The coqidetop language server
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
-%description coqide-server %_desc
+%description coqide-server
+%_desc
 
 This package provides the coqidetop language server, an implementation of
-Coq's XML protocol which allows clients, such as CoqIDE, to interact with
-Coq in a structured way.
+Coq's XML protocol which allows clients, such as CoqIDE, to interact with Coq
+in a structured way.
 
 %package coqide
 Summary:        Coqide IDE for Coq proof management system
@@ -156,10 +155,11 @@ Requires:       adwaita-icon-theme
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
 
-%description coqide %_desc
+%description coqide
+%_desc
 
-This package provides CoqIDE, a graphical user interface for the
-development of interactive proofs.
+This package provides CoqIDE, a graphical user interface for the development
+of interactive proofs.
 
 %if %{with doc}
 %package doc
@@ -182,15 +182,16 @@ Requires:       font(fontawesome)
 Requires:       font(lato)
 Requires:       font(robotoslab)
 
-%description doc %_desc
+%description doc
+%_desc
 
-This package provides documentation and tutorials for the system.  The
-main documentation comes in two parts: the main Library documentation,
-which describes all Coq.* modules, and the Reference Manual, which
-gives a more complete description of the whole system. Included are
-also HTML versions of both. Furthermore, there are two tutorials, the
-main one, and one specifically on recursive types. The example code
-for the latter is also included.
+This package provides documentation and tutorials for the system.  The main
+documentation comes in two parts: the main Library documentation, which
+describes all Coq.* modules, and the Reference Manual, which gives a more
+complete description of the whole system.  Included are also HTML versions of
+both.  Furthermore, there are two tutorials, the main one, and one
+specifically on recursive types. The example code for the latter is also
+included.
 %endif
 
 %prep

@@ -3,8 +3,7 @@ Version:        %R_rpm_version 1.0.5
 Release:        %autorelease
 Summary:        Manage the Life Cycle of your Package Functions
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 

@@ -450,7 +450,7 @@ make %{?_smp_mflags} check || {
 - New upstream development version 1.23.5
 - Add './configure --with-extra' containing downstream package information.
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.23.4-3
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.23.4-3
 - Rebuild to fix OCaml dependencies
 
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.23.4-2

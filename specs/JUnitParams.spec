@@ -43,21 +43,20 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 %description
-The JUnitParams project adds a new runner to JUnit and provides much
-easier and more readable parameterized tests for JUnit >= 4.12.
+The JUnitParams project adds a new runner to JUnit and provides much easier
+and more readable parameterized tests for JUnit >= 4.12.
 
 The main differences with the standard JUnit Parameterized runner are:
 - more explicit - params are in test method params, not class fields
 - less code - you don't need a constructor to set up parameters
 - you can mix parameterized with non-parameterized methods in one class
-- params can be passed as a CSV string or from a parameters provider
-  class
-- parameters provider class can have as many parameters providing
-  methods as you want, so that you can group different cases
-- you can have a test method that provides parameters (no external
-  classes or statics anymore)
-- you can see actual parameter values in your IDE (in JUnit's
-  Parameterized, it's only consecutive numbers of parameters)
+- params can be passed as a CSV string or from a parameters provider class
+- parameters provider class can have as many parameters providing methods as
+  you want, so that you can group different cases
+- you can have a test method that provides parameters (no external classes or
+  statics anymore)
+- you can see actual parameter values in your IDE (in JUnit's Parameterized,
+  it's only consecutive numbers of parameters)
 
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p1

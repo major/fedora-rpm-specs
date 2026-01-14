@@ -23,8 +23,8 @@ BuildRequires:  libtool
 BuildRequires:  make
 
 %description
-Gf2x is a C/C++ software package containing routines for fast arithmetic
-in GF(2)[x] (multiplication, squaring, GCD) and searching for
+Gf2x is a C/C++ software package containing routines for fast arithmetic in
+`GF(2)[x]` (multiplication, squaring, GCD) and searching for
 irreducible/primitive trinomials.
 
 %package devel
@@ -94,10 +94,8 @@ LD_LIBRARY_PATH=$PWD/.libs:$PWD/fft/.libs make check
 %files
 %doc AUTHORS BUGS NEWS README TODO
 %license COPYING
-%{_libdir}/lib%{name}.so.3
-%{_libdir}/lib%{name}.so.3.*
-%{_libdir}/lib%{name}-fft.so.3
-%{_libdir}/lib%{name}-fft.so.3.*
+%{_libdir}/lib%{name}.so.3{,.*}
+%{_libdir}/lib%{name}-fft.so.3{,.*}
 
 %files devel
 %doc ChangeLog

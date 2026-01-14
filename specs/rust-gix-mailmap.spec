@@ -7,7 +7,7 @@
 %global crate gix-mailmap
 
 Name:           rust-gix-mailmap
-Version:        0.28.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        Parser for mailmap files for gix
 

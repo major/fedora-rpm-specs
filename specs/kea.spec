@@ -255,25 +255,6 @@ mkdir -p %{buildroot}%{_localstatedir}/log
 install -dm 0750 %{buildroot}%{_localstatedir}/log/kea/
 
 %post
-# Kea runs under kea user instead of root now, but if its files got altered, their new
-# ownership&permissions won't get changed so fix them to prevent startup failures
-[ "`stat --format '%U:%G' %{_rundir}/kea/logger_lockfile 2>&1 | grep root:root`" = "root:root" ] \
-    && chown kea:kea %{_rundir}/kea/logger_lockfile
-[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-leases4.csv* 2>&1 | grep root:root | head -1`" = "root:root" ] \
-    && chown kea:kea %{_sharedstatedir}/kea/kea-leases4.csv* && chmod 0640 %{_sharedstatedir}/kea/kea-leases4.csv*
-[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-leases6.csv* 2>&1 | grep root:root | head -1`" = "root:root" ] \
-    && chown kea:kea %{_sharedstatedir}/kea/kea-leases6.csv* && chmod 0640 %{_sharedstatedir}/kea/kea-leases6.csv*
-[ "`stat --format '%U:%G' %{_sharedstatedir}/kea/kea-dhcp6-serverid 2>&1 | grep root:root`" = "root:root" ] \
-    && chown kea:kea %{_sharedstatedir}/kea/kea-dhcp6-serverid
-[ "`stat --format '%U:%G' %{_sysconfdir}/kea/kea*.conf 2>&1 | grep root:root | head -1`" = "root:root" ] \
-    && chown root:kea %{_sysconfdir}/kea/kea*.conf && chmod 0640 %{_sysconfdir}/kea/kea*.conf
-
-# Remove /tmp/ from socket-name for existing configurations to fix CVE-2025-32802
-for i in kea-ctrl-agent.conf kea-dhcp4.conf kea-dhcp6.conf kea-dhcp-ddns.conf; do
-    if [ -n "`grep '\"socket-name\": \"/tmp/' %{_sysconfdir}/kea/$i`" ]; then
-        sed -i.CVE-2025-32802.bak 's#\("socket-name": "/tmp/\)\(.*\)#"socket-name": "\2#g' %{_sysconfdir}/kea/$i
-    fi
-done
 # Set a pseudo-random password for default config to secure fresh install and allow CA startup without user intervention
 if [[ ! -s %{_sysconfdir}/kea/kea-api-password && -n `grep '"password-file": "kea-api-password"' %{_sysconfdir}/kea/kea-ctrl-agent.conf` ]]; then
     (umask 0027; head -c 32 /dev/urandom | base64 > %{_sysconfdir}/kea/kea-api-password)

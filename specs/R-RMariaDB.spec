@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.3.4
 Release:        %autorelease
 Summary:        Database Interface and 'MariaDB' Driver
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  mariadb-connector-c-devel

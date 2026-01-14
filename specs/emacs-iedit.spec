@@ -20,11 +20,10 @@ BuildRequires:  make
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 
 %description
-This package includes Emacs minor modes (iedit-mode and
-iedit-rectangle-mode) based on an API library (iedit-lib) and allows you
-to alter one occurrence of some text in a buffer (possibly narrowed) or
-region, and simultaneously have other occurrences changed in the same
-way, with visual feedback as you type.
+This package includes Emacs minor modes (iedit-mode and iedit-rectangle-mode)
+based on an API library (iedit-lib) and allows you to alter one occurrence of
+some text in a buffer (possibly narrowed) or region, and simultaneously have
+other occurrences changed in the same way, with visual feedback as you type.
 
 iedit-mode is a great alternative to built-in replace commands:
 

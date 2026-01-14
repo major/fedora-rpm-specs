@@ -30,23 +30,22 @@ Requires:       ocaml-findlib%{?_isa}
 Recommends:     %{py3_dist xdot}
 
 %description
-The command not-ocamlfind is a pass-thru to ocamlfind, but adds three
-new commands: preprocess, reinstall-if-diff and package-graph.
+The command not-ocamlfind is a pass-thru to ocamlfind, but adds three new
+commands: preprocess, reinstall-if-diff and package-graph.
 
-- reinstall-if-diff does what it says on the label: only reinstalls
-  (remove then install) if the file-content of the package has changed.
+- reinstall-if-diff does what it says on the label: only reinstalls (remove
+  then install) if the file-content of the package has changed.
 
-- preprocess produces the source and does not attempt to compile it; as
-  an added benefit, it prints (to stderr) the commands it executed to
-  produce that source.   So you can use this for debugging multi-stage
-  PPX rewriter sequences.
+- preprocess produces the source and does not attempt to compile it; as an
+  added benefit, it prints (to stderr) the commands it executed to produce
+  that source.   So you can use this for debugging multi-stage PPX rewriter
+  sequences.
 
-- package-graph outputs a graph in the format accepted by the dot
-  command of graphviz.  By default you get the package-dependency graph,
-  with sizes of the archives for each packages as part of the
-  node-label.  If you add -dominator-from <node>, it will compute the
-  dominator-tree from that node, and if you add -xdot, it will
-  automatically invoke xdot on the graph.
+- package-graph outputs a graph in the format accepted by the dot command of
+  graphviz.  By default you get the package-dependency graph, with sizes of
+  the archives for each packages as part of the node-label.  If you add
+  `-dominator-from <node>`, it will compute the dominator-tree from that node,
+  and if you add `-xdot`, it will automatically invoke xdot on the graph.
 
 %prep
 %autosetup

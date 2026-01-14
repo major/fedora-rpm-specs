@@ -1,6 +1,6 @@
-%global DATE 20260110
-%global gitrev 000ed919272a9a0a6b6e52ae9e2052d90baa6964
-%global gcc_version 16.0.0
+%global DATE 20260112
+%global gitrev 25ea0dce3d78a294015cf5df891a4630172b0d12
+%global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.5%{?dist}
+Release: %{gcc_release}.1%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -324,8 +324,10 @@ Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
 Patch13: gcc16-pr123115.patch
 Patch14: gcc16-pr120250.patch
-Patch15: gcc16-pr123189.patch
-Patch16: gcc16-pr123273.patch
+Patch15: gcc16-pr123273.patch
+Patch16: gcc16-ipacp-revert.patch
+Patch17: gcc16-pr121778-revert.patch
+Patch18: gcc16-pr123414-revert.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3912,6 +3914,14 @@ end
 %endif
 
 %changelog
+* Mon Jan 12 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.1
+- update from trunk
+  - PRs c++/81337, c++/115163, c++/123526, fortran/77415, ipa/122458,
+	ipa/123543, libfortran/123012, middle-end/123175,
+	rtl-optimization/123523, target/123415, testsuite/121752,
+	testsuite/123129, tree-optimization/122824, tree-optimization/122830,
+	tree-optimization/123417, tree-optimization/123528
+
 * Sat Jan 10 2026 Jakub Jelinek <jakub@redhat.com> 16.0.0-0.5
 - update from trunk
   - PRs ada/123003, ada/123371, ada/123490, c/117687, c/121081, c/121507,

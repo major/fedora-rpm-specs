@@ -23,12 +23,12 @@ Obsoletes:      fontawesome-fonts < 1:4.7.0-16
 Provides:       fontawesome-fonts = 1:%{version}-%{release}
 
 %description
-Font Awesome gives you scalable vector icons that can instantly be
-customized — size, color, drop shadow, and anything that can be done with the
-power of CSS.
+Font Awesome gives you scalable vector icons that can instantly be customized
+— size, color, drop shadow, and anything that can be done with the power of
+CSS.
 
-This package contains OpenType and TrueType font files which are typically used
-locally.
+This package contains OpenType and TrueType font files which are typically
+used locally.
 
 %package web
 License:	OFL-1.1-RFN AND MIT
@@ -36,9 +36,9 @@ Requires:	%{fontname}-fonts = %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:	Iconic font set, web files
 
 %description web
-Font Awesome gives you scalable vector icons that can instantly be
-customized — size, color, drop shadow, and anything that can be done with the
-power of CSS.
+Font Awesome gives you scalable vector icons that can instantly be customized
+— size, color, drop shadow, and anything that can be done with the power of
+CSS.
 
 This package contains CSS, SCSS and LESS style files as well as Web Open Font
 Format versions 1 and 2, Embedded OpenType and SVG font files which are

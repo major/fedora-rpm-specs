@@ -133,7 +133,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        11.rocm%{rocm_version}%{?dist}
+Release:        12.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -394,6 +394,12 @@ Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 %package -n %{rocm_clang_analyzer_name}
 Summary:       The ROCm code analysis framework
 Requires:      %{rocm_clang_name} = %{version}-%{release}
+# For scan-build
+Requires:      perl(File::Copy)
+Requires:      perl(File::Find)
+Requires:      perl(FindBin)
+Requires:      perl(Hash::Util)
+Requires:      perl(Sys::Hostname)
 
 %description -n %{rocm_clang_analyzer_name}
 %{summary}
@@ -1141,7 +1147,10 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %endif
 
 %changelog
-* Tue Jan 6 2025 Tom Rix <Tom.Rix@amd.com> - 20-11.rocm7.1.1
+* Mon Jan 12 2026 Tom Rix <Tom.Rix@amd.com> - 20-12.rocm7.1.1
+- Improve requires for static analysis
+
+* Tue Jan 6 2026 Tom Rix <Tom.Rix@amd.com> - 20-11.rocm7.1.1
 - Turn on static analysis
 
 * Sun Dec 14 2025 Tom Rix <Tom.Rix@amd.com> - 20-10.rocm7.1.1

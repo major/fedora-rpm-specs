@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.44.1
 Release:        %autorelease
 Summary:        R Interface to 'Python'
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  python3-devel

@@ -3,10 +3,12 @@ Version:        %R_rpm_version 1.1.3
 Release:        %autorelease
 Summary:        Visualize R Data Structures with Trees
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 

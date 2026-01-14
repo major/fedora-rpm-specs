@@ -3,7 +3,6 @@ Version:        %R_rpm_version 1.2.6
 Release:        %autorelease
 Summary:        Unicode Text Processing
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            %{cran_url}
 Source:         %{cran_source}

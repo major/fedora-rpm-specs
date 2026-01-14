@@ -10,19 +10,16 @@ VCS:            git:%{giturl}.git
 %global fontlicenses    LICENSE.txt OFL-FAQ.txt
 %global fontdocs        FONTLOG.txt README.md
 
-%global _desc %{expand:
-The Leland music fonts (Leland & Leland Text) were initially developed
-for the MuseScore (https://www.musescore.org) music composition
-software.
+%global _desc %{expand:The Leland music fonts (Leland & Leland Text) were initially developed for the
+MuseScore (https://www.musescore.org) music composition software.
 
-Leland is compliant with Standard Music Font Layout (SMuFL), which
-provides a standard way of mapping the thousands of musical symbols
-required by conventional music notation into the Private Use Area in
-Unicode's Basic Multilingual Plane for a single (format-independent)
-font.
+Leland is compliant with Standard Music Font Layout (SMuFL), which provides a
+standard way of mapping the thousands of musical symbols required by
+conventional music notation into the Private Use Area in Unicode's Basic
+Multilingual Plane for a single (format-independent) font.
 
-The font is named after Leland Smith, creator of the SCORE music
-notation software.}
+The font is named after Leland Smith, creator of the SCORE music notation
+software.}
 
 %global fontfamily0     Leland
 %global fontsummary0    SMuFL-compliant OpenType music font
@@ -71,8 +68,7 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Leland/Leland.json
 
 # Fix invalid metadata; see bz 1943727
 for name in leland leland-text; do
-  sed -e 's,updatecontact,update_contact,g' \
-      -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
+  sed -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
       -e 's,\(MuseScore\) (\(https://www.musescore.org\)),<a href="\2">\1</a>,' \
       -e 's,&,&amp;,' \
       -i %{buildroot}%{_metainfodir}/%{fontorg}.${name}-fonts.metainfo.xml

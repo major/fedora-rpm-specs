@@ -484,7 +484,7 @@ popd
 %patch -P2 -p1 -b .link-pipewire
 %patch -P3 -p1 -b .aarch64-new-stat
 %patch -P4 -p1 -b .use-openh264
-%if 0%{?fedora} > 43
+%if 0%{?fedora} > 43 || 0%{?rhel} > 10
 %patch -P5 -p1 -b .chromium-141-glibc-2.42-SYS_SECCOMP
 %endif
 

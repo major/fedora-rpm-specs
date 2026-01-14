@@ -22,11 +22,10 @@ BuildArch:      noarch
 %global fontpkgheader1  %{expand:
 Version:        1.7
 }
-%global fontdescription1 %{expand:
-The Finale Ash font is a SMuFL-compliant, modern update to the
-legendary, long-unavailable handwritten Ash font.  This font is artfully
-crafted to represent the classic AshMusic font developed in 1996 for
-Express Music Services, Inc. by Ashley Wells.}
+%global fontdescription1 %{expand:The Finale Ash font is a SMuFL-compliant, modern update to the legendary,
+long-unavailable handwritten Ash font.  This font is artfully crafted to
+represent the classic AshMusic font developed in 1996 for Express Music
+Services, Inc. by Ashley Wells.}
 
 %global fontfamily2     Finale Ash Text
 %global fontsummary2    Text font designed to complement the Finale Ash font
@@ -36,9 +35,8 @@ Express Music Services, Inc. by Ashley Wells.}
 %global fontpkgheader2  %{expand:
 Version:        1.3
 }
-%global fontdescription2 %{expand:
-The Finale Ash Text font is a SMuFL-compliant text font designed to
-complement the Finale Ash music font.}
+%global fontdescription2 %{expand:The Finale Ash Text font is a SMuFL-compliant text font designed to complement
+the Finale Ash music font.}
 
 %global fontfamily3     Finale Broadway
 %global fontsummary3    Update of the handwritten Broadway Copyist font
@@ -48,11 +46,10 @@ complement the Finale Ash music font.}
 %global fontpkgheader3  %{expand:
 Version:        1.4
 }
-%global fontdescription3 %{expand:
-The Finale Broadway font is the SMuFL-compliant version of Finale's
-premiere handwritten Broadway Copyist legacy font.  In addition to the
-characters from the Broadway Copyist font, this font also contains
-Broadway Copyist Perc characters.}
+%global fontdescription3 %{expand:The Finale Broadway font is the SMuFL-compliant version of Finale's premiere
+handwritten Broadway Copyist legacy font.  In addition to the characters from
+the Broadway Copyist font, this font also contains Broadway Copyist Perc
+characters.}
 
 %global fontfamily4     Finale Broadway Legacy Text
 %global fontsummary4    Broadway Copyist Text and Text Ext fonts
@@ -62,11 +59,9 @@ Broadway Copyist Perc characters.}
 %global fontpkgheader4  %{expand:
 Version:        1.1
 }
-%global fontdescription4 %{expand:
-The Finale Broadway Legacy Text font is the SMuFL-compliant version of
-the handwritten Broadway Copyist Text and Broadway Copyist Text Ext
-fonts.  It emulates the look and feel of natural felt-tip print
-handwriting.}
+%global fontdescription4 %{expand:The Finale Broadway Legacy Text font is the SMuFL-compliant version of the
+handwritten Broadway Copyist Text and Broadway Copyist Text Ext fonts.  It
+emulates the look and feel of natural felt-tip print handwriting.}
 
 %global fontfamily5     Finale Broadway Text
 %global fontsummary5    Finale Copyist Text and Text Ext fonts
@@ -76,11 +71,10 @@ handwriting.}
 %global fontpkgheader5  %{expand:
 Version:        1.1
 }
-%global fontdescription5 %{expand:
-The Finale Broadway Text font is the SMuFL-compliant version of the
-handwritten Finale Copyist Text and Finale Copyist Text Ext fonts.  This
-font includes enclosures and basic notes and accidentals for creating
-chord suffixes.}
+%global fontdescription5 %{expand:The Finale Broadway Text font is the SMuFL-compliant version of the
+handwritten Finale Copyist Text and Finale Copyist Text Ext fonts.  This font
+includes enclosures and basic notes and accidentals for creating chord
+suffixes.}
 
 %global fontfamily6     Finale Engraver
 %global fontsummary6    Update of Bruce Nelson's Engraver font
@@ -90,8 +84,7 @@ chord suffixes.}
 %global fontpkgheader6  %{expand:
 Version:        1.4
 }
-%global fontdescription6 %{expand:
-The Finale Engraver font is a SMuFL-compliant version of Bruce Nelson's
+%global fontdescription6 %{expand:The Finale Engraver font is a SMuFL-compliant version of Bruce Nelson's
 Engraver, EngraverFontExtras, and EngraverTime fonts.  This font set was
 developed to meet the Music Publisher Association's music font design
 specifications.  It includes a larger notehead with a different notehead
@@ -107,10 +100,8 @@ dynamics and articulations, tempo markings, and harp pedaling symbols.}
 %global fontpkgheader7  %{expand:
 Version:        1.9
 }
-%global fontdescription7 %{expand:
-The Finale Jazz font is the SMuFL-compliant version of the handwritten
-Jazz legacy font and also includes the legacy JazzPerc and JazzCord
-fonts.}
+%global fontdescription7 %{expand:The Finale Jazz font is the SMuFL-compliant version of the handwritten Jazz
+legacy font and also includes the legacy JazzPerc and JazzCord fonts.}
 
 %global fontfamily8     Finale Jazz Text
 %global fontsummary8    Handwritten Jazz Text and Jazz Text Ext fonts
@@ -120,10 +111,9 @@ fonts.}
 %global fontpkgheader8  %{expand:
 Version:        1.3
 }
-%global fontdescription8 %{expand:
-The Finale Jazz Text font is the SMuFL-compliant version of the
-handwritten Jazz Text and Jazz Text Ext legacy fonts.  This font
-contains a full set of text and enclosures.}
+%global fontdescription8 %{expand:The Finale Jazz Text font is the SMuFL-compliant version of the handwritten
+Jazz Text and Jazz Text Ext legacy fonts.  This font contains a full set of
+text and enclosures.}
 
 %global fontfamily9     Finale Jazz Text Lowercase
 %global fontsummary9    Lowercase versions of Finale Jazz Text
@@ -133,11 +123,9 @@ contains a full set of text and enclosures.}
 %global fontpkgheader9  %{expand:
 Version:        1.4
 }
-%global fontdescription9 %{expand:
-The Finale Jazz Text Lowercase font is a text font designed as an
-extension to Finale Jazz Text and contains lowercase versions of the
-alphabet characters, as opposed to the small caps characters contained
-in Finale Jazz Text.}
+%global fontdescription9 %{expand:The Finale Jazz Text Lowercase font is a text font designed as an extension to
+Finale Jazz Text and contains lowercase versions of the alphabet characters,
+as opposed to the small caps characters contained in Finale Jazz Text.}
 
 %global fontfamily10    Finale Legacy
 %global fontsummary10   The Petrucci, Seville and Tamburo fonts
@@ -147,24 +135,22 @@ in Finale Jazz Text.}
 %global fontpkgheader10 %{expand:
 Version:        1.6
 }
-%global fontdescription10 %{expand:
-The Finale Legacy font is the SMuFL-compliant version of the Petrucci,
-Seville and Tamburo fonts.
+%global fontdescription10 %{expand:The Finale Legacy font is the SMuFL-compliant version of the Petrucci, Seville
+and Tamburo fonts.
 
 Named for the sixteenth-century Italian who first used movable type for
-printing polyphonic music, Petrucci was the default music font for
-Finale products for years but is now shipped for compatibility.
+printing polyphonic music, Petrucci was the default music font for Finale
+products for years but is now shipped for compatibility.
 
-Seville was formerly the default font used for selecting fretboard
-diagrams in Finale.
+Seville was formerly the default font used for selecting fretboard diagrams in
+Finale.
 
-Named for the Italian term for drum, Tamburo is a font primarily
-comprised of noteheads.  It contains a variety of symbols particularly
-useful for percussion notation, including instrument noteheads and
-several articulation marks.  Tamburo also includes a full set of symbols
-for use in hymnal shape note music, where each note of the scale is
-displayed with a unique notehead.  Moreover, Tamburo expands your
-choice of accidentals for quarter-tone music.}
+Named for the Italian term for drum, Tamburo is a font primarily comprised of
+noteheads.  It contains a variety of symbols particularly useful for
+percussion notation, including instrument noteheads and several articulation
+marks.  Tamburo also includes a full set of symbols for use in hymnal shape
+note music, where each note of the scale is displayed with a unique notehead.
+Moreover, Tamburo expands your choice of accidentals for quarter-tone music.}
 
 %global fontfamily11    Finale Lyrics
 %global fontsummary11   Text font designed for optimal lyric spacing
@@ -174,9 +160,8 @@ choice of accidentals for quarter-tone music.}
 %global fontpkgheader11 %{expand:
 Version:        2.3
 }
-%global fontdescription11 %{expand:
-The Finale Lyrics font contains standard text characters.  It was
-designed specifically for optimal lyric spacing.}
+%global fontdescription11 %{expand:The Finale Lyrics font contains standard text characters.  It was designed
+specifically for optimal lyric spacing.}
 
 %global fontfamily12    Finale Maestro
 %global fontsummary12   Engraved music font
@@ -186,32 +171,30 @@ designed specifically for optimal lyric spacing.}
 %global fontpkgheader12 %{expand:
 Version:        2.7
 }
-%global fontdescription12 %{expand:
-The Finale Maestro font is a SMuFL-compliant update to Finale's classic
-engraved default music font, Maestro.  This update looks similar to the
-legacy Maestro font with the characters now mapped to the SMuFL
-specification and minor updates added to some glyphs.  Additionally,
-this single font now incorporates the characters from the Finale
-AlphaNotes, Finale Mallets, Finale Percussion, Finale Numerics, Maestro
-Percussion and Maestro Wide fonts.
+%global fontdescription12 %{expand:The Finale Maestro font is a SMuFL-compliant update to Finale's classic
+engraved default music font, Maestro.  This update looks similar to the legacy
+Maestro font with the characters now mapped to the SMuFL specification and
+minor updates added to some glyphs.  Additionally, this single font now
+incorporates the characters from the Finale AlphaNotes, Finale Mallets, Finale
+Percussion, Finale Numerics, Maestro Percussion and Maestro Wide fonts.
 
-The elegant Maestro font is more robust than the older Petrucci, and
-more accurately represents the look of engraved music.
+The elegant Maestro font is more robust than the older Petrucci, and more
+accurately represents the look of engraved music.
 
-Created for use with beginning music students, the Finale AlphaNotes
-font places note names inside noteheads.
+Created for use with beginning music students, the Finale AlphaNotes font
+places note names inside noteheads.
 
-The Finale Percussion font consists of pictogram glyphs that you can use
-in your score to visually indicate individual percussion instruments.
+The Finale Percussion font consists of pictogram glyphs that you can use in
+your score to visually indicate individual percussion instruments.
 
-The Finale Mallets font includes icons to represent any variety of
-mallet usages, including the ability to create a cross-mallet symbol.
-For example, you could use two 'zero-width' characters to indicate that
-the performer should use two different mallets in one hand.
+The Finale Mallets font includes icons to represent any variety of mallet
+usages, including the ability to create a cross-mallet symbol.  For example,
+you could use two 'zero-width' characters to indicate that the performer
+should use two different mallets in one hand.
 
 The Finale Numerics font includes all the characters you need to create
-harmonic analysis and figured bass.  Zero-width characters allow you to
-stack characters easily.}
+harmonic analysis and figured bass.  Zero-width characters allow you to stack
+characters easily.}
 
 %global fontfamily13    Finale Maestro Text
 %global fontsummary13   A Times font for lyrics
@@ -221,10 +204,8 @@ stack characters easily.}
 %global fontpkgheader13 %{expand:
 Version:        1.6
 }
-%global fontdescription13 %{expand:
-The Finale Maestro Text font is the SMuFL-compliant version of the
-MaestroTimes font.  This includes Regular, Italic, Bold and Bold
-Italic.}
+%global fontdescription13 %{expand:The Finale Maestro Text font is the SMuFL-compliant version of the
+MaestroTimes font.  This includes Regular, Italic, Bold and Bold Italic.}
 
 Source0:        https://makemusic.zendesk.com/hc/en-us/article_attachments/4586784089367/MMFonts.msi
 Source1:        https://makemusic.zendesk.com/hc/en-us/article_attachments/4402710909975/OFL.txt
@@ -278,7 +259,7 @@ for font in 'Finale Ash' 'Finale Ash Text' 'Finale Broadway' \
 done
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,updatecontact,update_contact,g;s,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
+sed -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
     -i $(ls -1d %{buildroot}%{_metainfodir}/%{fontorg}.*.xml)
 
 %check

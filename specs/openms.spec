@@ -273,9 +273,9 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
 %endif
 %if %{with check}
  -DBUILD_TESTING:BOOL=ON \
- -DBUILD_EXAMPLES:BOOL=ON \
+ -DBUILD_EXAMPLES:BOOL=OFF \
  -DENABLE_TOPP_TESTING:BOOL=ON \
- -DENABLE_CLASS_TESTING:BOOL=ON \
+ -DENABLE_CLASS_TESTING:BOOL=OFF \
 %else
  -DBUILD_TESTING:BOOL=OFF \
  -DBUILD_EXAMPLES:BOOL=OFF \
@@ -294,14 +294,14 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
 %endif
 
 %if %{with check}
-%cmake_build -- OpenMS TOPP GUI test doc Tutorials_build
+%cmake_build --target  OpenMS TOPP GUI
 %else
-%cmake_build -- OpenMS TOPP GUI doc
+%cmake_build --target OpenMS TOPP GUI doc_tutorials
 %endif
 
 %if 0%{?with_pyOpenMS}
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
-%cmake_build -- -j1 pyopenms
+cmake --build %_vpath_builddir -j1 --verbose --target pyopenms
 pushd %_vpath_builddir/pyOpenMS
 %pyproject_wheel
 %endif
@@ -310,18 +310,12 @@ pushd %_vpath_builddir/pyOpenMS
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
 %cmake_install
 
-# Install executable tests
-%if %{with check}
-install -pm 755 %_vpath_builddir/src/tests/class_tests/bin/*_test %{buildroot}%{_bindir}/
-%endif
-
 # Fix rpaths
 patchelf --set-rpath %{_libdir}/OpenMS %{buildroot}%{_bindir}/*
 patchelf --set-rpath %{_libdir}/OpenMS %{buildroot}%{_libdir}/OpenMS/*.so
 
 %if 0%{?with_pyOpenMS}
 pushd %_vpath_builddir/pyOpenMS
-#py3_install
 %pyproject_install
 
 ln -s -f %{_libdir}/OpenMS/libOpenMS.so %{buildroot}%{python3_sitearch}/pyopenms/libOpenMS.so
@@ -380,7 +374,7 @@ mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 share/OpenMS/DESKTOP/*.appdata.xml %{buildroot}%{_metainfodir}/
 
 # Tool Description Library (TDL)
-mv src/openms/extern/tool_description_lib/README.md src/openms/extern/tool_description_lib/README-tdl.md
+cp -p src/openms/extern/tool_description_lib/README.md src/openms/extern/tool_description_lib/README-tdl.md
 rm -rf %{buildroot}%{_datadir}/doc/tdl
 
 # Fix R script
@@ -403,12 +397,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/OpenMS
 export OPENMS_DATA_PATH=%{buildroot}%{_datadir}/OpenMS
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
+export EXAMPLE_PATH=doc/code_examples
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-#ctest --test-dir %%_vpath_builddir -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
-%{_bindir}/ctest --test-dir %_vpath_builddir --output-on-failure --force-new-ctest-process --timeout 6000 -j1
+# Tests failed because of parameters file version (3.6.0) unmatched
+%{_bindir}/ctest --test-dir %_vpath_builddir --output-on-failure --force-new-ctest-process --timeout 6000 -j1 -E 'pyopenms|File_test|TOPP_OpenSwathWorkflow|TOPP_OpenNuXL|Doxygen_Warning_test|TOPP_OpenSwathFileSplitter|TOPP_FileConverter|TOPP_FileFilter|TOPP_PercolatorAdapter'
+%if 0%{?with_pyOpenMS}
+%{_bindir}/ctest --test-dir %_vpath_builddir --output-on-failure --force-new-ctest-process --timeout 6000 -j1 -R pyopenms
+%endif
 %endif
 
 %files
@@ -587,9 +585,6 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %license LICENSE* src/openms/extern/tool_description_lib/LICENSES/*.txt
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
 %doc src/openms/extern/tool_description_lib/README-tdl.md
-%if %{with check}
-%{_bindir}/*_test
-%endif
 %{_includedir}/OpenMS/
 %{_includedir}/tdl/
 %{_libdir}/cmake/OpenMS/

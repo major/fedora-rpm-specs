@@ -104,14 +104,14 @@ Provides:       bundled(ocaml-cil)
 %global _docdir_fmt %{name}
 
 %description
-Frama-C is a suite of tools dedicated to the analysis of the source
-code of software written in C.
+Frama-C is a suite of tools dedicated to the analysis of the source code of
+software written in C.
 
-Frama-C gathers several static analysis techniques in a single
-collaborative framework. The collaborative approach of Frama-C allows
-static analyzers to build upon the results already computed by other
-analyzers in the framework. Thanks to this approach, Frama-C provides
-sophisticated tools, such as a slicer and dependency analysis.
+Frama-C gathers several static analysis techniques in a single collaborative
+framework.  The collaborative approach of Frama-C allows static analyzers to
+build upon the results already computed by other analyzers in the framework.
+Thanks to this approach, Frama-C provides sophisticated tools, such as a
+slicer and dependency analysis.
 
 %package doc
 Summary:        Large documentation files for %{name}
@@ -129,8 +129,8 @@ Requires:       emacs(bin)
 BuildArch:      noarch
 
 %description emacs
-This package contains an Emacs support file for working with C source
-files marked up with ACSL.
+This package contains an Emacs support file for working with C source files
+marked up with ACSL.
 
 %prep
 %autosetup -p1 -n %{name}-%{pkgversion}

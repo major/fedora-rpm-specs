@@ -3,8 +3,7 @@ Version:        %R_rpm_version 1.5.1
 Release:        %autorelease
 Summary:        Parse XML
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 

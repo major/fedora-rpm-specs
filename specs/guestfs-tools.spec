@@ -405,7 +405,7 @@ end
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.54.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 1.54.0-2
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 1.54.0-2
 - Rebuild to fix OCaml dependencies
 
 * Tue May 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1.54.0-1

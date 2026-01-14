@@ -7,6 +7,9 @@ License:        GPL-3.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 BuildRequires:  netcdf-devel >= 4.1
 BuildRequires:  chrpath

@@ -5,7 +5,7 @@
 %global crate gix-trace
 
 Name:           rust-gix-trace
-Version:        0.1.15
+Version:        0.1.17
 Release:        %autorelease
 Summary:        Minimal tracing support for gitoxide that can be turned off to zero cost
 

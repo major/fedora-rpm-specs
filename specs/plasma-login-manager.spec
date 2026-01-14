@@ -1,15 +1,15 @@
 # Disable X11 for RHEL
 %bcond x11 %[%{undefined rhel}]
 
-%global commit 99ded959c822c39819c15d60bcec67f2e4129673
+%global commit c96b1944419fb49837253705be41961f2b3e6159
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20260111
+%global commitdate 20260112
 %global gititer 1
 
 
 Name:           plasma-login-manager
 Version:        0.21.0%{?commitdate:~git%{gititer}.%{commitdate}.%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager from KDE
 
@@ -27,12 +27,14 @@ Source11:       plasmalogin.sysconfig
 # this is an ugly hack that should be removed if it becomes possible.
 # see https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/TFDMAU7KLMSQTKPJELHSM6PFVXIZ56GK/
 Source12:       plasmalogin.sysusers
-# sample plasma-login.conf generated with plasmalogin --example-config, and entries commented-out
-Source13:       plasma-login.conf
+# sample plasmalogin.conf generated with plasmalogin --example-config, and entries commented-out
+Source13:       plasmalogin.conf
 
 # upstream patches
-## Fix loading defaults config
-Patch0101:      https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/58.patch
+
+# proposed patches
+## fix to make the KCM not break the wallpaper config
+Patch0101:      https://invent.kde.org/plasma/plasma-login-manager/-/commit/c5ddc7d6da9733ee471b4287092cb05108a0fb73.patch
 
 # downstream patches
 ## plasmalogin.service: +EnvironmentFile=-/etc/sysconfig/plasmalogin
@@ -136,11 +138,10 @@ Requires: qt6-filesystem
 
 mkdir -p %{buildroot}%{_sysconfdir}/plasmalogin.conf.d
 mkdir -p %{buildroot}%{_prefix}/lib/plasmalogin/plasmalogin.conf.d
-mkdir -p %{buildroot}%{_prefix}/lib/plasma-login
 
 install -Dpm 644 %{SOURCE10} %{buildroot}%{_datadir}/plasmalogin/scripts/README.scripts
 install -Dpm 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/sysconfig/plasmalogin
-install -Dpm 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/plasma-login.conf
+install -Dpm 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/plasmalogin.conf
 
 mkdir -p %{buildroot}/run/plasmalogin
 mkdir -p %{buildroot}%{_localstatedir}/lib/plasmalogin
@@ -185,9 +186,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 %dir %{_sysconfdir}/plasmalogin.conf.d
 %dir %{_prefix}/lib/plasmalogin
 %dir %{_prefix}/lib/plasmalogin/plasmalogin.conf.d
-%dir %{_prefix}/lib/plasma-login
 %config(noreplace) %{_sysconfdir}/plasmalogin/*
-%config(noreplace) %{_sysconfdir}/plasma-login.conf
+%config(noreplace) %{_sysconfdir}/plasmalogin.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/plasmalogin
 %{_prefix}/lib/pam.d/plasmalogin*
 %{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-plasmalogin.conf
@@ -220,6 +220,16 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260112.c96b194-3
+- Add WIP fix to avoid KCM breaking wallpaper settings
+
+* Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260112.c96b194-2
+- Fix install path for main config file
+
+* Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260112.c96b194-1
+- Bump to new git snapshot
+- Drop merged patch
+
 * Sun Jan 11 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260111.99ded95-2
 - Add patch to read default wallpaper settings
 

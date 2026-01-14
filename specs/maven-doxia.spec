@@ -76,20 +76,20 @@ Provides:       %{name}-module-xhtml = %{version}-%{release}
 Obsoletes:      %{name}-tests < 1.13.0
 Provides:       %{name}-tests = %{version}-%{release}
 
-%global _desc %{expand:
-Doxia is a content generation framework which aims to provide its users
-with powerful techniques for generating static and dynamic content.
-Doxia can be used to generate static sites in addition to being
-incorporated into dynamic content generation systems like blogs, wikis
-and content management systems.}
+%global _desc %{expand:Doxia is a content generation framework which aims to provide its users with
+powerful techniques for generating static and dynamic content.  Doxia can be
+used to generate static sites in addition to being incorporated into dynamic
+content generation systems like blogs, wikis and content management systems.}
 
-%description %_desc
+%description
+%_desc
 
 %package        core
 Summary:        Core classes and interfaces for %{name}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    core %_desc
+%description    core
+%_desc
 
 This package contains the core classes and interfaces for %{name}.
 
@@ -99,7 +99,8 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    modules %_desc
+%description    modules
+%_desc
 
 This package provides doxia modules for several markup languages.
 
@@ -108,7 +109,8 @@ Summary:        Almost Plain Text module for %{name}
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    module-apt %_desc
+%description    module-apt
+%_desc
 
 This package contains a doxia module for Almost Plain Text (APT) source
 documents.  APT format is supported both as source and target formats.
@@ -118,7 +120,8 @@ Summary:        FML module for %{name}
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    module-fml %_desc
+%description    module-fml
+%_desc
 
 This package contains a doxia module for FML source documents.  FML
 format is only supported as a source format.
@@ -129,7 +132,8 @@ Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{name}-module-xhtml5 = %{version}-%{release}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    module-markdown %_desc
+%description    module-markdown
+%_desc
 
 This package contains a doxia module for Markdown source documents.
 
@@ -138,7 +142,8 @@ Summary:        Xdoc module for %{name}
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    module-xdoc %_desc
+%description    module-xdoc
+%_desc
 
 This package contains a doxia module for Xdoc source documents.  Xdoc
 format is supported both as source and target formats.
@@ -148,7 +153,8 @@ Summary:        XHTML5 module for %{name}
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{name}-sink-api = %{version}-%{release}
 
-%description    module-xhtml5 %_desc
+%description    module-xhtml5
+%_desc
 
 This package contains a doxia module for XHTML5 source documents.
 XHTML5 format is supported both as source and target formats.
@@ -156,7 +162,8 @@ XHTML5 format is supported both as source and target formats.
 %package        sink-api
 Summary:        Sink API for %{name}
 
-%description    sink-api %_desc
+%description    sink-api
+%_desc
 
 This package contains the sink API for %{name}.  The supported output
 document formats are accessed via this API.
@@ -164,7 +171,9 @@ document formats are accessed via this API.
 %package        test-docs
 Summary:        Test documents for %{name}
 
-%description    test-docs %_desc
+%description    test-docs
+%_desc
+
 This package contains several test documents to check syntax structures
 under Doxia.
 

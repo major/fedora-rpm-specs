@@ -29,19 +29,18 @@ BuildRequires:  ocaml-findlib
 Requires:       coq%{?_isa} = %{coqver}
 
 %description
-Flocq (Floats for Coq) is a floating-point formalization for the Coq
-system.  It provides a comprehensive library of theorems on a
-multi-radix multi-precision arithmetic.  It also supports efficient
-numerical computations inside Coq.
+Flocq (Floats for Coq) is a floating-point formalization for the Coq system.
+It provides a comprehensive library of theorems on a multi-radix
+multi-precision arithmetic.  It also supports efficient numerical computations
+inside Coq.
 
 %package source
 Summary:        Source Coq files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description source
-This package contains the source Coq files for flocq.  These files are
-not needed to use flocq.  They are made available for informational
-purposes.
+This package contains the source Coq files for flocq.  These files are not
+needed to use flocq.  They are made available for informational purposes.
 
 %prep
 %autosetup -n %{name}-%{name}-%{version}-%{commit}

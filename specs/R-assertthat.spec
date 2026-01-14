@@ -3,7 +3,6 @@ Version:        %R_rpm_version 0.2.1
 Release:        %autorelease
 Summary:        Easy Pre and Post Assertions
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            %{cran_url}
 Source:         %{cran_source}

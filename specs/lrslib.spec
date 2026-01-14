@@ -29,13 +29,13 @@ BuildRequires:  gmp-devel
 Requires:       environment(modules)
 
 %description
-%{name} is a self-contained ANSI C implementation as a callable library
-of the reverse search algorithm for vertex enumeration/convex hull
-problems and comes with a choice of three arithmetic packages.  Input
-file formats are compatible with Komei Fukuda's cdd package (cddlib).
-All computations are done exactly in either multiple precision or fixed
-integer arithmetic.  Output is not stored in memory, so even problems
-with very large output sizes can sometimes be solved.
+%{name} is a self-contained ANSI C implementation as a callable library of the
+reverse search algorithm for vertex enumeration/convex hull problems and comes
+with a choice of three arithmetic packages.  Input file formats are compatible
+with Komei Fukuda's cdd package (cddlib).  All computations are done exactly
+in either multiple precision or fixed integer arithmetic.  Output is not
+stored in memory, so even problems with very large output sizes can sometimes
+be solved.
 
 %package devel
 Summary:        Header files and libraries for developing with %{name}
@@ -164,8 +164,7 @@ cp -p lrsarith-*/man/man5/lrsarith.5 %{buildroot}%{_mandir}/man5
 %files
 %doc README
 %license COPYING
-%{_libdir}/liblrs.so.1
-%{_libdir}/liblrs.so.1.*
+%{_libdir}/liblrs.so.1{,.*}
 
 %files devel
 %doc chdemo.c lpdemo.c lpdemo1.c lpdemo2.c nashdemo.c vedemo.c
