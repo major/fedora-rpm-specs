@@ -3,10 +3,12 @@ Version:        %R_rpm_version 3.99-0.20
 Release:        %autorelease
 Summary:        Tools for Parsing and Generating XML Within R and S-Plus
 
-
 License:        BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  R-devel
 BuildRequires:  libxml2-devel

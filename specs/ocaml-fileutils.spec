@@ -80,7 +80,7 @@ developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.6.6-3
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.6.6-3
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-2

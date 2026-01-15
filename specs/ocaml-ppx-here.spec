@@ -17,8 +17,8 @@ BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %description
-Ppx_here is a ppx rewriter that defines an extension node whose value is
-its source position.
+Ppx_here is a ppx rewriter that defines an extension node whose value is its
+source position.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -27,8 +27,8 @@ Requires:       ocaml-base-devel%{?_isa}
 Requires:       ocaml-ppxlib-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_here-%{version}

@@ -5,8 +5,8 @@ Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/AcademySoftwareFoundation/openapv/issues/149
-Patch0:        %{name}-skip-decode-tests.patch
+# https://github.com/AcademySoftwareFoundation/openapv/pull/177
+Patch0:        %{name}-fix-md5-hash-mismatch-on-big-endian.patch
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: gcc
@@ -36,9 +36,7 @@ The openapv-libs package contains the shared library files
 
 %prep
 %setup -q
-%ifarch s390x
 %patch -P0 -p1 -b .orig
-%endif
 
 %build
 %cmake \

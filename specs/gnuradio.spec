@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	10%{?alphatag:.%{alphatag}}%{?dist}
+Release:	11%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -226,6 +226,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 3.10.12.0-11
+- Rebuilt for Boost 1.90
+
 * Sat Jan 03 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 3.10.12.0-10
 - Fixed build of gnuradio-companion
   Resolves: rhbz#2424093

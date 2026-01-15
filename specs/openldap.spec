@@ -20,7 +20,7 @@
 
 Name: openldap
 Version: 2.6.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -565,6 +565,10 @@ exit 0
 %endif
 
 %changelog
+* Tue Jan 13 2026 Simon Pichugin <spichugi@redhat.com> - 2.6.10-5
+- Add support for argon2 (rhbz#2167213)
+- Bump version 2.6.10-5
+
 * Fri Aug 29 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.10-4
 - Fix LDAP initialization does unnecessary resolution of hostname (rhbz#2331728)
 - Convert STI tests to FMF (rhbz#2382998)

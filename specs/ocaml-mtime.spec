@@ -22,13 +22,12 @@ BuildRequires:  ocaml-topkg-devel >= 1.0.3
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
-Mtime has platform independent support for monotonic wall-clock time in
-pure OCaml.  This time increases monotonically and is not subject to
-operating system calendar time adjustments.  The library has types to
-represent nanosecond precision timestamps and time spans.
+Mtime has platform independent support for monotonic wall-clock time in pure
+OCaml.  This time increases monotonically and is not subject to operating
+system calendar time adjustments.  The library has types to represent
+nanosecond precision timestamps and time spans.
 
-The additional Mtime_clock library provide access to a system
-monotonic clock.
+The additional Mtime_clock library provide access to a system monotonic clock.
 
 Mtime has no dependencies.  Mtime_clock depends on your system library.
 
@@ -37,8 +36,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n mtime-%{version}

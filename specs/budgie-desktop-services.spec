@@ -1,5 +1,5 @@
 Name:    budgie-desktop-services
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 Summary: Daemon responsible for enabling various features of Budgie Desktop
 
@@ -28,7 +28,7 @@ desktop logic for Budgie 11.
 %autosetup -n %{name}
 
 %build
-%cmake_kf6
+%cmake_kf6 -DINSTALL_LABWC=OFF
 %cmake_build
 
 %install
@@ -38,9 +38,11 @@ desktop logic for Budgie 11.
 %license COPYING
 %{_bindir}/org.buddiesofbudgie.Services
 %{_datadir}/dbus-1/system.d/org.buddiesofbudgie.Services.conf
-%{_sysconfdir}/labwc/autostart
 
 %changelog
+* Tue Jan 13 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.0.1-1
+- Update to 1.0.1 bug fix release
+
 * Sat Jan 10 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.0.0-1
 - Update to 1.0.0 stable release
 

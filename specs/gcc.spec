@@ -1,5 +1,5 @@
-%global DATE 20260112
-%global gitrev 25ea0dce3d78a294015cf5df891a4630172b0d12
+%global DATE 20260113
+%global gitrev a0ec01c1ccb192681b09dd03c265e84fe2bd00e5
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.1%{?dist}
+Release: %{gcc_release}.2%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -327,7 +327,7 @@ Patch14: gcc16-pr120250.patch
 Patch15: gcc16-pr123273.patch
 Patch16: gcc16-ipacp-revert.patch
 Patch17: gcc16-pr121778-revert.patch
-Patch18: gcc16-pr123414-revert.patch
+Patch18: gcc16-pr123573.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -1762,6 +1762,11 @@ GROUP ( /%{_lib}/libgcc_s.so.1 libgcc.a )' > $FULLPATH/libgcc_s.so
 %else
 ln -sf /%{_lib}/libgcc_s.so.1 $FULLPATH/libgcc_s.so
 %endif
+rm -f $FULLPATH/libgcc_s_asneeded.so
+echo '/* GNU ld script
+   Add DT_NEEDED entry for libgcc_s.so only if needed.  */
+OUTPUT_FORMAT('`gcc -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -lgcc_s ) )' > $FULLPATH/libgcc_s_asneeded.so
 %ifarch sparcv9 ppc
 %ifarch ppc
 rm -f $FULLPATH/64/libgcc_s.so
@@ -1773,6 +1778,11 @@ GROUP ( /lib64/libgcc_s.so.1 libgcc.a )' > $FULLPATH/64/libgcc_s.so
 %else
 ln -sf /lib64/libgcc_s.so.1 $FULLPATH/64/libgcc_s.so
 %endif
+rm -f $FULLPATH/64/libgcc_s_asneeded.so
+echo '/* GNU ld script
+   Add DT_NEEDED entry for libgcc_s.so only if needed.  */
+OUTPUT_FORMAT('`gcc -m64 -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -lgcc_s ) )' > $FULLPATH/64/libgcc_s_asneeded.so
 %endif
 %ifarch %{multilib_64_archs}
 %ifarch x86_64 ppc64 ppc64p7
@@ -1785,6 +1795,11 @@ GROUP ( /lib/libgcc_s.so.1 libgcc.a )' > $FULLPATH/32/libgcc_s.so
 %else
 ln -sf /lib/libgcc_s.so.1 $FULLPATH/32/libgcc_s.so
 %endif
+rm -f $FULLPATH/32/libgcc_s_asneeded.so
+echo '/* GNU ld script
+   Add DT_NEEDED entry for libgcc_s.so only if needed.  */
+OUTPUT_FORMAT('`gcc -m32 -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -lgcc_s ) )' > $FULLPATH/32/libgcc_s_asneeded.so
 %endif
 
 mv -f %{buildroot}%{_prefix}/%{_lib}/libgomp.spec $FULLPATH/
@@ -1857,6 +1872,12 @@ ln -sf ../../../libitm.so.1.* libitm.so
 %endif
 %if %{build_libatomic}
 ln -sf ../../../libatomic.so.1.* libatomic.so
+rm -f libatomic_asneeded.so libatomic_asneeded.a
+echo '/* GNU ld script
+   Add DT_NEEDED entry for -latomic only if needed.  */
+OUTPUT_FORMAT('`gcc -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -latomic ) )' > libatomic_asneeded.so
+ln -sf libatomic.a libatomic_asneeded.a
 %endif
 %if %{build_libasan}
 ln -sf ../../../libasan.so.8.* libasan.so
@@ -1898,6 +1919,12 @@ ln -sf ../../../../%{_lib}/libitm.so.1.* libitm.so
 %endif
 %if %{build_libatomic}
 ln -sf ../../../../%{_lib}/libatomic.so.1.* libatomic.so
+rm -f libatomic_asneeded.so libatomic_asneeded.a
+echo '/* GNU ld script
+   Add DT_NEEDED entry for -latomic only if needed.  */
+OUTPUT_FORMAT('`gcc -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -latomic ) )' > libatomic_asneeded.so
+ln -sf libatomic.a libatomic_asneeded.a
 %endif
 %if %{build_libasan}
 ln -sf ../../../../%{_lib}/libasan.so.8.* libasan.so
@@ -2072,6 +2099,17 @@ rm -f libatomic.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > libatomic.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > 64/libatomic.so
 mv -f %{buildroot}%{_prefix}/lib64/libatomic.*a 64/
+rm -f libatomic_asneeded.so libatomic_asneeded.a 64/libatomic_asneeded.so 64/libatomic_asneeded.a
+echo '/* GNU ld script
+   Add DT_NEEDED entry for -latomic only if needed.  */
+OUTPUT_FORMAT('`gcc -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -latomic ) )' > libatomic_asneeded.so
+ln -sf libatomic.a libatomic_asneeded.a
+echo '/* GNU ld script
+   Add DT_NEEDED entry for -latomic only if needed.  */
+OUTPUT_FORMAT('`gcc -m64 -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -latomic ) )' > 64/libatomic_asneeded.so
+ln -sf libatomic.a 64/libatomic_asneeded.a
 %endif
 %if %{build_libasan}
 rm -f libasan.so
@@ -2204,6 +2242,17 @@ rm -f libatomic.so
 echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > libatomic.so
 echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libatomic.so.1.* | sed 's,^.*liba,liba,'`' )' > 32/libatomic.so
 mv -f %{buildroot}%{_prefix}/lib/libatomic.*a 32/
+rm -f libatomic_asneeded.so libatomic_asneeded.a 32/libatomic_asneeded.so 32/libatomic_asneeded.a
+echo '/* GNU ld script
+   Add DT_NEEDED entry for -latomic only if needed.  */
+OUTPUT_FORMAT('`gcc -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -latomic ) )' > libatomic_asneeded.so
+ln -sf libatomic.a libatomic_asneeded.a
+echo '/* GNU ld script
+   Add DT_NEEDED entry for -latomic only if needed.  */
+OUTPUT_FORMAT('`gcc -m32 -Wl,--print-output-format -nostdlib -r -o /dev/null`')
+INPUT ( AS_NEEDED ( -latomic ) )' > 32/libatomic_asneeded.so
+ln -sf libatomic.a 32/libatomic_asneeded.a
 %endif
 %if %{build_libasan}
 rm -f libasan.so
@@ -2919,6 +2968,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcov.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcc_eh.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcc_s.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcc_s_asneeded.so
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgomp.spec
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgomp.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgomp.so
@@ -2938,6 +2988,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgcov.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgcc_eh.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgcc_s.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgcc_s_asneeded.so
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgomp.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgomp.so
 %if %{build_libquadmath}
@@ -2951,6 +3002,8 @@ end
 %if %{build_libatomic}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libatomic.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libatomic.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libatomic_asneeded.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libatomic_asneeded.so
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libasan.a
@@ -2969,6 +3022,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgcov.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgcc_eh.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgcc_s.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgcc_s_asneeded.so
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgomp.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgomp.so
 %if %{build_libquadmath}
@@ -2982,6 +3036,8 @@ end
 %if %{build_libatomic}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libatomic.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libatomic.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libatomic_asneeded.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libatomic_asneeded.so
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libasan.a
@@ -3005,6 +3061,8 @@ end
 %if %{build_libatomic}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic_asneeded.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic_asneeded.so
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libasan.a
@@ -3019,6 +3077,8 @@ end
 %if %{build_libatomic}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic.so
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic_asneeded.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libatomic_asneeded.so
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libasan.so
@@ -3914,6 +3974,14 @@ end
 %endif
 
 %changelog
+* Tue Jan 13 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.2
+- update from trunk
+  - PRs fortran/91960, fortran/112460, libstdc++/123396,
+	rtl-optimization/123444, rtl-optimization/123501, target/117581,
+	target/123484, testsuite/123098, tree-optimization/122843,
+	tree-optimization/122845, tree-optimization/123301,
+	tree-optimization/123525, tree-optimization/123539
+
 * Mon Jan 12 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.1
 - update from trunk
   - PRs c++/81337, c++/115163, c++/123526, fortran/77415, ipa/122458,

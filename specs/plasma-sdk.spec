@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-sdk
-Version: 6.5.4
+Version: 6.5.5
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.lookan
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
+- 6.5.5
+
 * Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
 - 6.5.4
 

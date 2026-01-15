@@ -20,23 +20,21 @@ BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 
 %description
-A library for use in ppxes for constructing and matching on ASTs
-corresponding to the augmented parsetree that is recognized by the Jane
-Street OCaml compiler (flambda).
+A library for use in ppxes for constructing and matching on ASTs corresponding
+to the augmented parsetree that is recognized by the Jane Street OCaml
+compiler (flambda).
 
-ASTs constructed using this library are compatible with the standard
-OCaml compiler.  Any syntax change known to this library is encoded as
-attributes, and the standard OCaml compiler's interpretation of the ASTs
-constructed by these library (which amounts to ignoring the attributes)
-is reasonable.  That is, we only expose "unsurprising" things in this
-library.  For example, if you construct an *n*-ary function using this
-library, the standard OCaml compiler will interpret it as *n* nested
-unary functions in the normal way.
+ASTs constructed using this library are compatible with the standard OCaml
+compiler.  Any syntax change known to this library is encoded as attributes,
+and the standard OCaml compiler's interpretation of the ASTs constructed by
+these library (which amounts to ignoring the attributes) is reasonable.  That
+is, we only expose "unsurprising" things in this library.  For example, if you
+construct an *n*-ary function using this library, the standard OCaml compiler
+will interpret it as *n* nested unary functions in the normal way.
 
-Likewise, ppxes that use this library to match on Jane Street ASTs can
-also be used with the standard OCaml compiler.  (The Jane Street AST
-cases of the match will just never be triggered when using the standard
-OCaml compiler.)
+Likewise, ppxes that use this library to match on Jane Street ASTs can also be
+used with the standard OCaml compiler.  (The Jane Street AST cases of the
+match will just never be triggered when using the standard OCaml compiler.)
 
 %package        devel
 Summary:        Development files for %{name}

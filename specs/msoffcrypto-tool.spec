@@ -1,6 +1,6 @@
 Summary:        Python tool for decrypting MS Office files with passwords or other keys
 Name:           msoffcrypto-tool
-Version:        5.4.2
+Version:        6.0.0
 Release:        %autorelease
 License:        MIT
 URL:            https://github.com/nolze/msoffcrypto-tool

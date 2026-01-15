@@ -59,10 +59,10 @@ Requires:       ocaml-ocamlbuild%{?_isa}
 %description    care
 %_desc
 
-This package provides a command line tool which helps with various
-aspects of a package's life cycle: creating and linting a distribution,
-releasing it on the web, publishing its documentation, adding it to the
-OCaml opam repository, etc.
+This package provides a command line tool which helps with various aspects of
+a package's life cycle: creating and linting a distribution, releasing it on
+the web, publishing its documentation, adding it to the OCaml opam repository,
+etc.
 
 %package        care-devel
 Summary:        Development files for %{name}-care
@@ -75,8 +75,8 @@ Requires:       ocaml-opam-format-devel%{?_isa}
 Requires:       ocaml-webbrowser-devel%{?_isa}
 
 %description    care-devel
-The %{name}-care-devel package contains libraries and signature files
-for developing applications that use %{name}-care.
+The %{name}-care-devel package contains libraries and signature files for
+developing applications that use %{name}-care.
 %endif
 
 %prep

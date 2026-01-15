@@ -24,15 +24,15 @@ BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-ppx-assert-devel >= 0.17
 
 %description
-This package defines compile-time constants used in Jane Street libraries
-such as Base, Core, and Async.
+This package defines compile-time constants used in Jane Street libraries such
+as Base, Core, and Async.
 
 %package        devel
 Summary:        Development files for %{name}
 
 %description    devel
-This package defines compile-time constants used in Jane Street libraries
-such as Base, Core, and Async.
+This package defines compile-time constants used in Jane Street libraries such
+as Base, Core, and Async.
 
 %prep
 %autosetup -p1 -n jst-config-%{version}

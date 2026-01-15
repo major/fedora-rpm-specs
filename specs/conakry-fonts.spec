@@ -3,11 +3,10 @@
 
 Name:		%{fontname}-fonts
 Version:	20070829
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	N'Ko font by Michael Everson
 
-# Automatically converted from old format: OFL - review is highly recommended.
-License:	LicenseRef-Callaway-OFL
+License:	OFL-1.1
 URL:		http://www.evertype.com/fonts/nko/
 Source0:	http://www.evertype.com/fonts/nko/ConakryFont.zip
 Source1:	%{name}-fontconfig.conf
@@ -53,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 20070829-33
+- Use SPDX license id
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20070829-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

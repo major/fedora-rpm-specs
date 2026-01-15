@@ -14,11 +14,10 @@ size 2048x922)
 
 Name:           %{fontname}-fonts
 Version:        1.100
-Release:        0.24.20130409hg%{hgrev}%{?dist}
+Release:        0.25.20130409hg%{hgrev}%{?dist}
 Summary:        A mono spaced, courier-width font
 
-# Automatically converted from old format: OFL - review is highly recommended.
-License:        LicenseRef-Callaway-OFL
+License:        OFL-1.1
 URL:            http://code.google.com/p/anka-coder-fonts/
 
 # Generated from an hg clone since sfd sources were available
@@ -158,6 +157,9 @@ done
 
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.100-0.25.20130409hg4348cf4ec395
+- Update to SPDX license id
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-0.24.20130409hg4348cf4ec395
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

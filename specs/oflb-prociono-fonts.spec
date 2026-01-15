@@ -3,10 +3,10 @@
 
 Name:    %{fontname}-fonts
 Version: 20141125
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: A text roman with standard and discretionary ligatures, class-based kerning
-# Automatically converted from old format: OFL - review is highly recommended.
-License: LicenseRef-Callaway-OFL
+
+License: OFL-1.1
 URL:     http://www.google.com/fonts/specimen/Prociono
 Source0: https://googlefontdirectory.googlecode.com/hg/ofl/prociono/Prociono-Regular.ttf
 Source1: https://googlefontdirectory.googlecode.com/hg/ofl/prociono/OFL.txt
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 20141125-25
+- Use spdx license id
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20141125-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

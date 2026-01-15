@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.5.4
+Version: 6.5.5
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
+- 6.5.5
+
 * Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
 - 6.5.4
 

@@ -21,10 +21,10 @@ BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %description
-Ppx_stable_witnesss is a ppx extension for deriving a witness that a
-type is intended to be stable.  In this context, stable means that the
-serialization format will never change.  This allows programs running at
-different versions of the code to communicate safely.
+Ppx_stable_witnesss is a ppx extension for deriving a witness that a type is
+intended to be stable.  In this context, stable means that the serialization
+format will never change.  This allows programs running at different versions
+of the code to communicate safely.
 
 %package        devel
 Summary:        Development files for %{name}

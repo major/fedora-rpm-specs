@@ -8,8 +8,7 @@ Summary:        A JSON/UBJSON/MessagePack encoder/decoder for MATLAB/Octave
 %global forgeurl https://github.com/fangq/jsonlab
 %forgemeta
 
-# Automatically converted from old format: GPLv3+ or BSD - review is highly recommended.
-License:        GPL-3.0-or-later OR LicenseRef-Callaway-BSD
+License:        GPL-3.0-or-later OR BSD-3-Clause
 URL:            http://openjdata.org/jsonlab
 Source:         %forgesource
 BuildArch:      noarch

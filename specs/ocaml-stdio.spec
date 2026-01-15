@@ -20,9 +20,8 @@ BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
 
 %description
-Stdio provides input/output functions for OCaml.  It re-exports the
-buffered channels of the stdlib distributed with OCaml but with some
-improvements.
+Stdio provides input/output functions for OCaml.  It re-exports the buffered
+channels of the stdlib distributed with OCaml but with some improvements.
 
 %package        devel
 Summary:        Development files for %{name}

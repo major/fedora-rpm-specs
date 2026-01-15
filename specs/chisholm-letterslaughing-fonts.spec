@@ -4,11 +4,12 @@
 
 Name:		%{fontname}-fonts
 Version:	20030323
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Letters Laughing is a decorative/LED sans-serif font
 
-# Automatically converted from old format: OFL - review is highly recommended.
-License:	LicenseRef-Callaway-OFL	
+# https://bugzilla.redhat.com/show_bug.cgi?id=491530#c3
+# grep -a -B 6 -A 84 'SIL OPEN FONT LICENSE' *.ttf
+License:	OFL-1.1
 URL:		http://glyphobet.net/fonts/free/?font=lleqcdd
 Source0:	%{archivename}
 Source1:	%{name}-fontconfig.conf
@@ -47,6 +48,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 20030323-32
+- Update to SPDX identifier
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20030323-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

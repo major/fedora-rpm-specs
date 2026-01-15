@@ -12,8 +12,8 @@
 %global bootstrap 0
 %global github_owner     webmozart
 %global github_name      assert
-%global github_version   2.1.1
-%global github_commit    b01be90dceff69c88c7b36c30ee45c9fd9107f7f
+%global github_version   2.1.2
+%global github_commit    ce6a2f100c404b2d32a1dd1270f9b59ad4f57649
 %global major            2
 
 %global composer_vendor  webmozart
@@ -143,6 +143,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Jan 13 2026 Remi Collet <remi@remirepo.net> - 2.1.2-1
+- update to 2.1.2
+
 * Thu Jan  8 2026 Remi Collet <remi@remirepo.net> - 2.1.1-1
 - update to 2.1.1
 

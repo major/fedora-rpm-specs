@@ -1,5 +1,5 @@
 Name:    ksystemstats
-Version: 6.5.4
+Version: 6.5.5
 Release: 1%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
@@ -72,6 +72,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %caps(cap_perfmon=ep) %{_libexecdir}/ksystemstats_intel_helper
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
+- 6.5.5
+
 * Tue Dec 09 2025 Steve Cossette <farchord@gmail.com> - 6.5.4-1
 - 6.5.4
 

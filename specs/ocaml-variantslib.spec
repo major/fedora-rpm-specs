@@ -32,8 +32,8 @@ BuildRequires:  ocaml-base-devel >= 0.17
 BuildRequires:  ocaml-dune >= 3.11.0
 
 %description
-This package contains an OCaml syntax extension to define first class
-values representing variants.
+This package contains an OCaml syntax extension to define first class values
+representing variants.
 
 %package        devel
 Summary:        Development files for %{name}

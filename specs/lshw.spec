@@ -5,13 +5,14 @@
 Summary:       Hardware lister
 Name:          lshw
 Version:       B.02.20
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPL-2.0-only
-URL:           http://ezix.org/project/wiki/HardwareLiSter
-Source0:       http://www.ezix.org/software/files/lshw-%{version}.tar.gz
+URL:           https://github.com/lyonel/lshw
+Source0:       https://github.com/lyonel/lshw/archive/refs/tags/%{version}.tar.gz
 Source1:       https://salsa.debian.org/openstack-team/third-party/lshw/raw/debian/stein/debian/patches/lshw-gtk.1
-Patch1:        lshw-B.02.18-scandir.patch
-Patch2:        lshw-B.02.20-cmake.patch
+Patch:         lshw-B.02.20-209f83.patch
+Patch:         lshw-B.02.18-scandir.patch
+Patch:         lshw-B.02.20-cmake.patch
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
@@ -108,6 +109,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %endif
 
 %changelog
+* Mon Jan 12 2026 Terje Rosten <terjeros@gmail.com> - B.02.20-10
+- Improve cmake patch to get all required flags added
+- Increase required cmake version
+- Update to latest commit 209f83
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - B.02.20-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

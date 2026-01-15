@@ -17,9 +17,11 @@ BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %description
-Ppx_cold translates [@@cold] attributes to [@@inline never]
-[@@local never] [@@specialise never].  See the discussion in
-https://github.com/ocaml/ocaml/issues/8563.
+Ppx_cold translates `[@@cold]` attributes to:
+
+`[@@inline never] [@@local never] [@@specialise never]`
+
+See the discussion in https://github.com/ocaml/ocaml/issues/8563.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -28,8 +30,8 @@ Requires:       ocaml-base-devel%{?_isa}
 Requires:       ocaml-ppxlib-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_cold-%{version}

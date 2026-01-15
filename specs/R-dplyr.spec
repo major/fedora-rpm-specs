@@ -7,6 +7,9 @@ License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 Obsoletes:      %{name}-devel < 0.8.5-4
 

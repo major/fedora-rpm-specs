@@ -23,11 +23,11 @@ BuildRequires:  ocaml-ppx-inline-test-devel
 BuildRequires:  ocaml-variantslib-devel >= 0.17
 
 %description
-Ppx_variants_conv is a ppx rewriter that can be used to define
-first-class values representing variant constructors, and additional
-routines to fold, iterate and map over all constructors of a variant
-type.  It provides corresponding functionality for variant types as
-ppx_fields_conv provides for record types.
+Ppx_variants_conv is a ppx rewriter that can be used to define first-class
+values representing variant constructors, and additional routines to fold,
+iterate and map over all constructors of a variant type.  It provides
+corresponding functionality for variant types as ppx_fields_conv provides for
+record types.
 
 %package        devel
 Summary:        Development files for %{name}

@@ -11,6 +11,9 @@ Summary:        Syntax highlighting engine written in Python
 License:        BSD-2-Clause
 URL:            https://pygments.org/
 Source0:        %{pypi_source pygments}
+# https://github.com/pygments/pygments/issues/2992
+# https://github.com/pygments/pygments/pull/3016
+Patch0:         0001-Fix-test_lexer_classes-search-path.patch
 
 BuildArch:      noarch
 
@@ -60,12 +63,6 @@ Provides:       pygmentize = %{?epoch:%{epoch}:}%{version}-%{release}
 %prep
 %autosetup -p1 -n pygments-%{version}
 
-# Create pytest configuration to fix path resolution issues in pytest 8.4
-# Upstream issue: https://github.com/pygments/pygments/issues/2992
-cat > pytest.ini << EOF
-[pytest]
-collect_imported_tests = false
-EOF
 
 %generate_buildrequires
 %pyproject_buildrequires

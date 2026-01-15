@@ -20,17 +20,17 @@ BuildRequires:  ocaml-dune
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
-The ocaml-integers library provides a number of 8-, 16-, 32- and 64-bit
-signed and unsigned integer types, together with aliases such as `long`
-and `size_t` whose sizes depend on the host platform.
+The ocaml-integers library provides a number of 8-, 16-, 32- and 64-bit signed
+and unsigned integer types, together with aliases such as `long` and `size_t`
+whose sizes depend on the host platform.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -p1
@@ -57,7 +57,7 @@ files for developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.7.0-19
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.7.0-19
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-18

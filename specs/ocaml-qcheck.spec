@@ -208,7 +208,7 @@ asciidoc README.adoc
 * Sat Dec 20 2025 Jerry James <loganjerry@gmail.com> - 0.90-1
 - Version 0.90
 
-* Tue Nov 04 2025 Jerry James  <loganjerry@gmail.com> - 0.27-1
+* Tue Nov 04 2025 Jerry James <loganjerry@gmail.com> - 0.27-1
 - Version 0.27
 
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 0.26-4

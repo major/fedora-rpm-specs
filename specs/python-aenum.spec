@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 License:        BSD-3-Clause
@@ -65,7 +65,8 @@ rm %{pypi_name}/_py2.py
 
 %check
 # https://github.com/ethanfurman/aenum/issues/7
-# PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} %{pypi_name}/test.py
+sed -i -e 's/from \. /from aenum /g' -e 's/from \./from aenum\./g' %{pypi_name}/test.py
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} %{pypi_name}/test.py
 
 %files -n python3-%{pypi_name}
 %doc README.md aenum/doc aenum/CHANGES
@@ -74,6 +75,9 @@ rm %{pypi_name}/_py2.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Tue Jan 13 2026 Federico Pellegrin <fede@evolware.org> - 3.1.16-2
+- Enable running of unit tests
+
 * Mon Jan 12 2026 Federico Pellegrin <fede@evolware.org> - 3.1.16-1
 - Update to 3.1.16 (rhbz#2362243)
 

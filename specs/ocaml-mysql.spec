@@ -83,7 +83,7 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.2.4-17
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.2.4-17
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-16

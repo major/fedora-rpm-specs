@@ -7,6 +7,9 @@ License:        BSD-2-Clause
 URL:            https://github.com/libxls/libxls
 Source0:        https://github.com/libxls/libxls/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 

@@ -1,6 +1,6 @@
 Name:    libplasma
-Version: 6.5.4
-Release: 2%{?dist}
+Version: 6.5.5
+Release: 1%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -131,6 +131,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
+- 6.5.5
+
 * Wed Dec 24 2025 Georg Sauthoff <mail@gms.tf> - 6.5.4-2
 - update project URL
 

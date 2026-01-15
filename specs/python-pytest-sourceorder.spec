@@ -1,6 +1,6 @@
 Name: python-pytest-sourceorder
 Version: 0.6.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Test-ordering plugin for pytest
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -8,6 +8,9 @@ License: GPL-3.0-or-later
 URL: https://github.com/encukou/pytest-sourceorder
 
 Source0: https://github.com/encukou/pytest-sourceorder/archive/v%{version}.tar.gz#/pytest-sourceorder-%{version}.tar.gz
+
+# Compatibility with pytest 8.4+
+Patch:   https://pagure.io/python-pytest-sourceorder/pull-request/4.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -56,6 +59,10 @@ instead of the "almost alphabetical" order Pytest normally uses.
 
 
 %changelog
+* Tue Jan 13 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.6.0-18
+- Backport patch for compatibility with pytest 8.4+
+- Fixes: rhbz#2423893
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-17
 - Rebuilt for Python 3.14.0rc3 bytecode
 

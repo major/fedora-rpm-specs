@@ -65,15 +65,15 @@ BuildRequires:  /usr/bin/pod2man
 BuildRequires:  /usr/bin/pod2html
 
 %description
-Dose3 is a framework made of several OCaml libraries for managing
-distribution packages and their dependencies.
+Dose3 is a framework made of several OCaml libraries for managing distribution
+packages and their dependencies.
 
 Though not tied to any particular distribution, dose3 constitutes a pool of
 libraries which enable analyzing packages coming from various distributions.
 
 Besides basic functionalities for querying and setting package properties,
-dose3 also implements algorithms for solving more complex problems
-(monitoring package evolutions, correct and complete dependency resolution,
+dose3 also implements algorithms for solving more complex problems (monitoring
+package evolutions, correct and complete dependency resolution,
 repository-wide uninstallability checks).
 
 %package        devel
@@ -98,11 +98,11 @@ developing applications that use %{name}.
 Summary:        Tools suite from the dose3 framework
 
 %description -n dose3-tools
-Dose3 is a framework made of several OCaml libraries for managing
-distribution packages and their dependencies.
+Dose3 is a framework made of several OCaml libraries for managing distribution
+packages and their dependencies.
 
-This package contains the tools shipped with the dose3 framework
-for manipulating packages of various formats.
+This package contains the tools shipped with the dose3 framework for
+manipulating packages of various formats.
 
 %prep
 %autosetup -p1 -n dose3-%{version}

@@ -32,15 +32,14 @@ Provides:       %{name}-doc = %{version}-%{release}
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
-Ctypes is a library for binding to C libraries using pure OCaml.  The
-primary aim is to make writing C extensions as straightforward as
-possible.
+Ctypes is a library for binding to C libraries using pure OCaml.  The primary
+aim is to make writing C extensions as straightforward as possible.
 
-The core of ctypes is a set of combinators for describing the structure
-of C types -- numeric types, arrays, pointers, structs, unions and
-functions.  You can use these combinators to describe the types of the
-functions that you want to call, then bind directly to those functions --
-all without writing or generating any C!
+The core of ctypes is a set of combinators for describing the structure of C
+types — numeric types, arrays, pointers, structs, unions and functions.  You
+can use these combinators to describe the types of the functions that you want
+to call, then bind directly to those functions — all without writing or
+generating any C!
 
 %package        devel
 Summary:        Development files for %{name}
@@ -48,8 +47,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-integers-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -p1

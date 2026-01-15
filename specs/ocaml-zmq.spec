@@ -29,8 +29,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       zeromq-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature files
-for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %package        lwt
 Summary:        LWT-aware ZeroMQ bindings for OCaml
@@ -46,8 +46,8 @@ Requires:       %{name}-lwt%{?_isa} = %{version}-%{release}
 Requires:       ocaml-lwt-devel%{?_isa}
 
 %description    lwt-devel
-The %{name}-lwt-devel package contains libraries and signature
-files for developing applications that use %{name}-lwt.
+The %{name}-lwt-devel package contains libraries and signature files for
+developing applications that use %{name}-lwt.
 
 %prep
 %autosetup -n zmq-%{version} -p1
@@ -97,7 +97,7 @@ rm -fr %{buildroot}%{ocamldir}/zmq-eio
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Mon Jun 30 2025 Jerry James  <loganjerry@gmail.com> - 5.3.0-8
+* Mon Jun 30 2025 Jerry James <loganjerry@gmail.com> - 5.3.0-8
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-7

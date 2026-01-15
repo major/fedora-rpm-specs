@@ -1,10 +1,10 @@
 Name:           nipy-data
 Version:        0.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Test data and brain templates for nipy
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# from main nipy repository
+License:        BSD-3-Clause
 URL:            http://nipy.org/nipy/
 Source0:        http://nipy.org/data-packages/nipy-data-%{version}.tar.gz
 Source1:        http://nipy.org/data-packages/nipy-templates-%{version}.tar.gz
@@ -30,6 +30,9 @@ done
 %{_datadir}/nipy/
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.2-24
+- Use spdx license id
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

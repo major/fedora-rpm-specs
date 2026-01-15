@@ -17,9 +17,9 @@ BuildRequires:  ocaml >= 5.1.0
 BuildRequires:  ocaml-dune >= 3.11.0
 
 %description
-The ocaml_intrinsics_kernel library provides an OCaml interface to
-operations that have dedicated hardware instructions on some
-micro-architectures.  Currently, it provides the following operations:
+The ocaml_intrinsics_kernel library provides an OCaml interface to operations
+that have dedicated hardware instructions on some micro-architectures.
+Currently, it provides the following operations:
 
 - conditional select
 

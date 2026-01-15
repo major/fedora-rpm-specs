@@ -15,6 +15,7 @@ Version:        1.0.2
 Release:        %{autorelease}
 Summary:        Library for bio-inspired computational intelligence
 
+# spdx checked
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}

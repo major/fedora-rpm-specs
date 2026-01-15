@@ -7,6 +7,9 @@ License:        GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 
 # Not currently possible to unbundle at the moment.

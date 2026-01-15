@@ -5,6 +5,7 @@ Version:        2.4.03
 Release:        %{autorelease}
 Summary:        Core library and API of the MINC toolkit
 
+# spdx
 License:        MIT
 URL:            https://github.com/BIC-MNI/libminc
 Source0:        https://github.com/BIC-MNI/libminc/archive/%{upver}/%{name}-%{version}.tar.gz

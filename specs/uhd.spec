@@ -73,6 +73,8 @@ Source2:        %{url}/releases/download/v%{images_ver}/uhd-images_%{images_ver}
 # dirty workaround for the https://github.com/EttusResearch/uhd/issues/551
 # until the better fix is available
 Patch:          uhd-4.8.0.0-imagepath-fix.patch
+# already in upstream
+Patch:          uhd-4.9.0.1-cmake-4-fix.patch
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -173,7 +175,7 @@ popd
 
 #%%check
 #cd host/%%{_vpath_builddir}
-#make test
+#%%ctest
 
 %install
 # fix python shebangs (run again for generated scripts)

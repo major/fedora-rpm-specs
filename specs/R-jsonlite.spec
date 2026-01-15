@@ -7,6 +7,9 @@ License:        MIT and ISC
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 
 # https://github.com/jeroen/jsonlite/issues/201

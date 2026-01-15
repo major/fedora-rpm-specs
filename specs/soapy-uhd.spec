@@ -17,6 +17,8 @@ Requires:	uhd
 Requires:	SoapySDR
 # https://github.com/pothosware/SoapyUHD/commit/6b521393cc45c66770f3d4bc69eac7dda982174c.patch
 Patch:		soapy-uhd-0.4.1-uhd-4.8-fix.patch
+# Already in upstream
+Patch:		soapy-uhd-cmake4-fix.patch
 
 %description
 Soapy SDR plugins for UHD supported SDR devices.

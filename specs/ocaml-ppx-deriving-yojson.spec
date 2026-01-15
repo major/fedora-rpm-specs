@@ -27,9 +27,8 @@ BuildRequires:  ocaml-ppxlib-devel >= 0.30.0
 BuildRequires:  ocaml-yojson-devel >= 1.6.0
 
 %description
-Deriving_Yojson is a ppx_deriving plugin that generates JSON serializers
-and deserializers that use the Yojson library from an OCaml type
-definition.
+Deriving_Yojson is a ppx_deriving plugin that generates JSON serializers and
+deserializers that use the Yojson library from an OCaml type definition.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -39,9 +38,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 Requires:       ocaml-yojson-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and
-signature files for developing applications that use
-%{name}.
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_deriving_yojson-%{version} -p1

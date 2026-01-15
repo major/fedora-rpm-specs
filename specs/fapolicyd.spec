@@ -1,10 +1,10 @@
 %global selinuxtype targeted
 %global moduletype distributed
-%define semodule_version 1.0
+%define semodule_version 1.1
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.4.2
+Version: 1.4.3
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
@@ -23,8 +23,6 @@ Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#
 # $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.0/ --dst-prefix=b/fapolicyd-selinux-1.0/ v1.0
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
-Patch0100: 0100-Improve-install-process.patch
-Patch0101: 0101-fapolicyd-hardening-do-not-block-sigkill.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -229,6 +227,11 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Tue Jan 13 2026 Petr Lautrbach <lautrbach@redhat.com> - 1.4.3-1
+- fapolicyd-1.4.3
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.3
+  https://github.com/linux-application-whitelisting/fapolicyd-selinux/releases/tag/v1.1
+
 * Wed Nov 26 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4.2-1
 - fapolicyd-1.4.2
   https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4.2

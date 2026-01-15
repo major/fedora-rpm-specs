@@ -44,12 +44,11 @@ BuildRequires:  pkgconfig(zlib)
 
 
 %description
-LablGTK is an Objective Caml interface to gtk+.
+LablGTK is an Objective Caml interface to gtk2.
 
-It uses the rich type system of Objective Caml to provide a strongly
-typed, yet very comfortable, object-oriented interface to gtk+. This
-is not that easy if you know the dynamic typing approach taken by
-gtk+.
+It uses the rich type system of Objective Caml to provide a strongly typed,
+yet very comfortable, object-oriented interface to gtk2.  This is not that
+easy if you know the dynamic typing approach taken by gtk2.
 
 
 %package devel
@@ -155,7 +154,7 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2.18.14-2
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 2.18.14-2
 - Rebuild to fix OCaml dependencies
 
 * Mon Feb  3 2025 Jerry James <loganjerry@gmail.com> - 2.18.14-1

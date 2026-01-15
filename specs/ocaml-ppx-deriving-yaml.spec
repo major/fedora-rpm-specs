@@ -24,10 +24,10 @@ BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-yaml-devel
 
 %description
-This ppx is based on ppx_yojson [1] and ppx_deriving_yojson [2] because
-of the many similarities between JSON and yaml.  In particular many of
-the ways OCaml values are encoded to yaml types are the same as those
-implemented by the Yojson ppx.
+This ppx is based on ppx_yojson [1] and ppx_deriving_yojson [2] because of the
+many similarities between JSON and yaml.  In particular many of the ways OCaml
+values are encoded to yaml types are the same as those implemented by the
+Yojson ppx.
 
 References:
 [1] https://github.com/NathanReb/ppx_yojson

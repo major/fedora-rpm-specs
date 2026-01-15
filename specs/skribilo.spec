@@ -4,8 +4,8 @@
 %global       mver 3.0
 
 Name:         skribilo
-Version:      0.10.0
-Release:      3%{?dist}
+Version:      0.11.0
+Release:      1%{?dist}
 Summary:      A free document production tool
 
 License:      GPL-3.0-or-later
@@ -94,11 +94,9 @@ rm %{buildroot}/%{_docdir}/%{name}/*.pdf
 # https://packages.fedoraproject.org/pkgs/lomt-junction-fonts/lomt-junction-fonts
 rm -f %{buildroot}%{_docdir}/%{name}/junction.ttf
 ln -sf /usr/share/fonts/Junction-regular.otf  %{buildroot}%{_docdir}/%{name}/Junction-regular.otf
-# lobster fonts have been orphaned
-# https://src.fedoraproject.org/rpms/impallari-lobster-fonts
-# Though bundled with TexLive
+# Lobster 2 fonts bundled with TexLive
 # https://packages.fedoraproject.org/pkgs/texlive/texlive-lobster2/
-rm -f %{buildroot}%{_docdir}/%{name}/lobster-1.4.otf
+rm -f %{buildroot}%{_docdir}/%{name}/lobster-2.100.otf
 ln -sf /usr/share/fonts/lobster2/LobsterTwo-Regular.otf %{buildroot}%{_docdir}/%{name}/LobsterTwo-Regular.otf
 # Hack-Regular
 # https://src.fedoraproject.org/rpms/source-foundry-hack-fonts
@@ -197,6 +195,9 @@ make check
 %{_datadir}/emacs/site-lisp/skribe.el
 
 %changelog
+* Tue Jan 13 2026 Benson Muite <fed500@fedoraproject.org> - 0.11.0-1
+- Update to release 0.11.0 bz#2428611
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

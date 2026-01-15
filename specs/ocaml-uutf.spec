@@ -24,14 +24,13 @@ BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 %description
-Uutf is a non-blocking streaming codec to decode and encode the UTF-8,
-UTF-16, UTF-16LE and UTF-16BE encoding schemes.  It can efficiently work
-character by character without blocking on I/O.  Decoders perform
-character position tracking and support newline normalization.
+Uutf is a non-blocking streaming codec to decode and encode the UTF-8, UTF-16,
+UTF-16LE and UTF-16BE encoding schemes.  It can efficiently work character by
+character without blocking on I/O.  Decoders perform character position
+tracking and support newline normalization.
 
-Functions are also provided to fold over the characters of UTF-encoded
-OCaml string values and to directly encode characters in OCaml Buffer.t
-values.
+Functions are also provided to fold over the characters of UTF-encoded OCaml
+string values and to directly encode characters in OCaml Buffer.t values.
 
 %package        devel
 Summary:        Development files for %{name}

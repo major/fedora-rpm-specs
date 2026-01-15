@@ -79,7 +79,7 @@ BuildRequires: bash-completion-devel
 BuildRequires: file
 BuildRequires: gettext-devel
 BuildRequires: json-c-devel
-BuildRequires: libnbd-devel >= 1.22
+BuildRequires: libnbd-devel >= 1.24
 BuildRequires: libosinfo-devel
 BuildRequires: libvirt-daemon-kvm
 BuildRequires: libvirt-devel
@@ -146,7 +146,7 @@ Requires:      edk2-aarch64
 %if !%{with_ovirt}
 Requires:      /usr/bin/python3
 %endif
-Requires:      libnbd >= 1.22
+Requires:      libnbd >= 1.24
 Requires:      %{_bindir}/qemu-nbd
 Requires:      %{_bindir}/nbdcopy
 Requires:      %{_bindir}/nbdinfo

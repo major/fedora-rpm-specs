@@ -8,7 +8,7 @@
 %bcond bootstrap 0
 
 # MinGW is enabled by default (except for RHEL), to disable use '--without mingw'
-%if 0%{?rhel} || 0%{?flatpak} || 0%{?with_bootstrap}
+%if 0%{?rhel} || 0%{?flatpak} || 0%{?_with_bootstrap}
 %bcond_with mingw
 %else
 %bcond_without mingw

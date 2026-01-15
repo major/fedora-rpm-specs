@@ -20,8 +20,8 @@ BuildRequires:  ocaml-alcotest-devel >= 1.4.0
 BuildRequires:  ocaml-dune >= 2.3
 
 %description
-spdx_licenses is an OCaml library aiming to provide an up-to-date and
-strict SPDX License Expression parser.
+spdx_licenses is an OCaml library aiming to provide an up-to-date and strict
+SPDX License Expression parser.
 
 It implements the format described in
 https://spdx.github.io/spdx-spec/appendix-IV-SPDX-license-expressions/.

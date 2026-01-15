@@ -19,20 +19,20 @@ BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-graphics-devel
 
 %description
-Parmap is a minimalistic library for exploiting multicore architectures
-in OCaml programs with minimal modifications: if you want to use your
-many cores to accelerate an operation which happens to be a map, fold or
-map/fold (map-reduce), just use Parmap's parmap, parfold and parmapfold
-primitives in place of the standard List.map and friends, and specify
-the number of subprocesses to use with the optional parameter ~ncores.
+Parmap is a minimalistic library for exploiting multicore architectures in
+OCaml programs with minimal modifications: if you want to use your many cores
+to accelerate an operation which happens to be a map, fold or map/fold
+(map-reduce), just use Parmap's parmap, parfold and parmapfold primitives in
+place of the standard `List.map` and friends, and specify the number of
+subprocesses to use with the optional parameter `~ncores`.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n parmap-%{version}
@@ -62,7 +62,7 @@ files for developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.2.5-17
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.2.5-17
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-16

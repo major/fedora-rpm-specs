@@ -18,10 +18,10 @@ BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 BuildRequires:  ocaml-ppx-sexp-conv-devel >= 0.17
 
 %description
-Ppx_custom_printf is a ppx rewriter that allows the use of user-defined
-string conversion functions in format strings (that is, strings passed to
-printf, sprintf, etc.).  No new syntax is introduced.  Instead a
-previously ill-typed use of the `!` operator is re-purposed.
+Ppx_custom_printf is a ppx rewriter that allows the use of user-defined string
+conversion functions in format strings (that is, strings passed to printf,
+sprintf, etc.).  No new syntax is introduced.  Instead a previously ill-typed
+use of the `!` operator is re-purposed.
 
 %package        devel
 Summary:        Development files for %{name}

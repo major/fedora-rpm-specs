@@ -5,7 +5,7 @@ Name:           target-isns
 License:        GPL-2.0-or-later
 Summary:        An iSNS client for the Linux LIO iSCSI target 
 Version:        0.6.8
-Release:        16%{?dist}
+Release:        17%{?dist}
 URL:            https://github.com/cvubrugier/target-isns
 Source:         https://github.com/open-iscsi/target-isns/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-disable-stringop-overflow-and-stringop-truncation-er.patch
@@ -26,6 +26,8 @@ LIO iSCSI target. It allows registering LIO iSCSI targets with an iSNS server.
 %patch -P0 -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381476)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DSUPPORT_SYSTEMD=ON .
 make %{?_smp_mflags}
 
@@ -51,6 +53,9 @@ install -m 644 target-isns.service %{buildroot}%{_unitdir}
 %license COPYING
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.6.8-17
+- Allow to build with CMake 4.0 (rhbz#2381476)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

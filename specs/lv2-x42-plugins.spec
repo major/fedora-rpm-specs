@@ -9,8 +9,8 @@ Summary:        A number of LV2 plugins
 # Automatically converted from old format: GPLv2+ and ISC - review is highly recommended.
 License:        GPL-2.0-or-later AND ISC
 URL:            https://github.com/x42/x42-plugins
-# A tarball is now provided at http://gareus.org/misc/x42-plugins.php
-Source0:        http://gareus.org/misc/x42-plugins/x42-plugins-%{prerelease}.tar.xz
+# A tarball is now provided at https://gareus.org/misc/x42-plugins.php
+Source0:        https://gareus.org/misc/x42-plugins/x42-plugins-%{prerelease}.tar.xz
 Source1:        README.md
 
 BuildRequires: make

@@ -69,7 +69,7 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlmod \
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Mon Jun 30 2025 Jerry James  <loganjerry@gmail.com> - 0.1.0-1
+* Mon Jun 30 2025 Jerry James <loganjerry@gmail.com> - 0.1.0-1
 - Version 0.1.0
 - Drop all patches
 - Build with dune

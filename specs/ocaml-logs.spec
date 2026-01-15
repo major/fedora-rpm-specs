@@ -30,12 +30,12 @@ BuildRequires:  ocaml-topkg-devel >= 1.1.0
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
-Logs provides a logging infrastructure for OCaml.  Logging is performed
-on sources whose reporting level can be set independently.  The log
-message report is decoupled from logging and is handled by a reporter.
+Logs provides a logging infrastructure for OCaml.  Logging is performed on
+sources whose reporting level can be set independently.  The log message
+report is decoupled from logging and is handled by a reporter.
 
-A few optional log reporters are distributed with the base library and
-the API lets you easily implement your own.
+A few optional log reporters are distributed with the base library and the API
+lets you easily implement your own.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -45,8 +45,8 @@ Requires:       ocaml-fmt-devel%{?_isa}
 Requires:       ocaml-lwt-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n logs-%{version} -p1

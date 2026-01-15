@@ -9,6 +9,9 @@ License:        GPL-3.0-only AND BSD-3-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 
 %description

@@ -27,16 +27,14 @@ BuildRequires:  ocaml-uutf-devel >= 1.0.0
 BuildRequires:  unicode-ucd
 
 %description
-Uuseg is an OCaml library for segmenting Unicode text.  It implements
-the locale-independent Unicode text segmentation algorithms
-(http://www.unicode.org/reports/tr29/) to detect grapheme cluster, word
-and sentence boundaries and the Unicode line breaking algorithm
-(http://www.unicode.org/reports/tr14/) to detect line break
-opportunities.
+Uuseg is an OCaml library for segmenting Unicode text.  It implements the
+locale-independent Unicode text segmentation algorithms
+(http://www.unicode.org/reports/tr29/) to detect grapheme cluster, word and
+sentence boundaries and the Unicode line breaking algorithm
+(http://www.unicode.org/reports/tr14/) to detect line break opportunities.
 
 The library is independent from any IO mechanism or Unicode text data
-structure and it can process text without a complete in-memory
-representation.
+structure and it can process text without a complete in-memory representation.
 
 Uuseg depends on Uucp and optionally on Uutf for support for OCaml UTF-X
 encoded strings.  It is distributed under the ISC license.
@@ -48,8 +46,8 @@ Requires:       ocaml-uucp-devel%{?_isa}
 Requires:       ocaml-uutf-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n uuseg-%{version}

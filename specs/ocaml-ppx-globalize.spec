@@ -22,8 +22,8 @@ BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 BuildRequires:  ocaml-ppxlib-jane-devel >= 0.17
 
 %description
-Ppx_globalize is a ppx rewriter that generates functions to copy local
-values to the global heap.
+Ppx_globalize is a ppx rewriter that generates functions to copy local values
+to the global heap.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -33,8 +33,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 Requires:       ocaml-ppxlib-jane-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files
+for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_globalize-%{version}

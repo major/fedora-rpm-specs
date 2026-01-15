@@ -2,8 +2,8 @@
 %global __brp_mangle_shebangs_exclude_from ^%{_prefix}/lib/pbuilder/pdebuild-internal$
 
 Name:           pbuilder
-Version:        0.231.1
-Release:        7%{?dist}
+Version:        0.231.2
+Release:        1%{?dist}
 Summary:        Personal package builder for Debian packages
 
 License:        GPL-2.0-or-later
@@ -146,6 +146,9 @@ make check
 
 
 %changelog
+* Tue Jan 13 2026 Sandro Mani <manisandro@gmail.com> - 0.231.2-1
+- Update to 0.231.2
+
 * Mon Nov 14 2025 Javier Hernández <jhernandez@cloudlinux.com> - 0.231.1-7
 - Disable shebang mangling of pdebuild-internal (rhbz#2414355)
 

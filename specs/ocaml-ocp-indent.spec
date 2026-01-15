@@ -30,17 +30,16 @@ Requires:       emacs-filesystem >= %{?_emacs_version}%{!?_emacs_version:0}
 Requires:       vim-filesystem
 
 %description
-Ocp-indent is a simple tool and library to indent OCaml code.  It is
-based on an approximate, tolerant OCaml parser and a simple stack
-machine; this is much faster and more reliable than using regexps.
-Presets and configuration options are available, with the possibility to
-set them project-wide.  Ocp-indent supports most common syntax
-extensions, and is extensible for others.
+Ocp-indent is a simple tool and library to indent OCaml code.  It is based on
+an approximate, tolerant OCaml parser and a simple stack machine; this is much
+faster and more reliable than using regexps.  Presets and configuration
+options are available, with the possibility to set them project-wide.
+Ocp-indent supports most common syntax extensions, and is extensible for
+others.
 
 Includes:
 
-- An indentor program, callable from the command-line or from within
-  editors
+- An indentor program, callable from the command-line or from within editors
 - Bindings for popular editors
 - A library that can be directly used by editor writers, or just for
   fault-tolerant/approximate parsing.
@@ -103,7 +102,7 @@ cd -
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.8.2-33
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.8.2-33
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-32

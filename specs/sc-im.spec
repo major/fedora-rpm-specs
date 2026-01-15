@@ -7,6 +7,8 @@ License:        BSD-4-Clause
 URL:            https://github.com/andmarti1424/sc-im
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make

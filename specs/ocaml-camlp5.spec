@@ -116,7 +116,7 @@ make -C test all
 
 
 %changelog
-* Mon Nov 17 2025 Jerry James  <loganjerry@gmail.com> - 8.04.00-3
+* Mon Nov 17 2025 Jerry James <loganjerry@gmail.com> - 8.04.00-3
 - Rebuild for ocaml-pcre2 8.0.4
 
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 8.04.00-2

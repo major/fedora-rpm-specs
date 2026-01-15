@@ -2,12 +2,11 @@
 
 
 Name:       python-feedgenerator
-Version:    2.1.0
+Version:    2.2.1
 Release:    %autorelease
 Summary:    %{sum}
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD
+License:    BSD-3-Clause
 URL:        https://github.com/getpelican/feedgenerator
 Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -31,7 +30,7 @@ enhancements.
 %prep
 %autosetup -n feedgenerator-%{version}
 # remove coverage related bits for pytest
-echo > setup.cfg
+sed -i.backup -e '/--cov/ d' -e '/pytest-cov/ d' pyproject.toml
 
 rm -rf feedgenerator/django/utils/six.py
 
@@ -55,7 +54,7 @@ done
 
 
 %files -n python3-feedgenerator -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 %changelog
 %autochangelog

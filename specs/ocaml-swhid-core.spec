@@ -21,9 +21,9 @@ BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.11
 
 %description
-swhid_core is an OCaml library to work with persistent identifiers used
-by Software Heritage, also known as swhid.  This is the core library;
-for most use cases you should use the swhid library instead.
+swhid_core is an OCaml library to work with persistent identifiers used by
+Software Heritage, also known as swhid.  This is the core library; for most
+use cases you should use the swhid library instead.
 
 %package        devel
 Summary:        Development files for %{name}

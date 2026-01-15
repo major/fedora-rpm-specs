@@ -9,7 +9,12 @@
 %bcond_without python
 
 %if %{with python}
+# Failed on s390x, see https://gitlab.com/petsc/petsc/-/issues/1694
+%ifnarch s390x
 %bcond_without pycheck
+%else
+%bcond_with pycheck
+%endif
 %endif
 
 # PETSc fails yet on s390x

@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-xpass
 #
-# SPDX-FileCopyrightText:  Copyright 2024-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2024-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -18,14 +18,14 @@
 %global pie_proj         xpass
 %global pecl_name        xpass
 %global ini_name         40-%{pecl_name}.ini
-%global upstream_version 1.1.0
+%global upstream_version 1.2.0
 #global upstream_prever  RC2
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:        Extended password extension
 Name:           %{php_base}-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        7%{?dist}
+Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -66,12 +66,16 @@ distributions, using extended crypt library (libxcrypt):
 
 * sha512 provided for legacy as used on some old distributions
 * yescrypt used on modern distributions
+* sm3crypt
+* sm3yescrypt
 
 It also provides additional functions from libxcrypt missing in core PHP:
 
 * crypt_preferred_method
 * crypt_gensalt
 * crypt_checksalt
+
+See PHP documentation on https://www.php.net/xpass
 
 
 %prep
@@ -149,6 +153,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Jan 13 2026 Remi Collet <remi@remirepo.net> - 1.2.0-1
+- update to 1.2.0
+
 * Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 1.1.0-7
 - add php_base option to create namespaced packages
 

@@ -27,8 +27,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       pcre2-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n pcre2-ocaml-%{version}

@@ -1,18 +1,18 @@
 Name:           viking
-Version:        1.10
+
+%global forgeurl https://github.com/viking-gps/viking
+%global version0 1.11
+%global tag0 viking-%version0
+%forgemeta
+Version:        %forgeversion
 Release:        %autorelease
 Summary:        GPS data editor and analyzer
 
 License:        GPL-2.0-or-later
-URL:            https://viking.sourceforge.net/
-Source0:        https://downloads.sourceforge.net/viking/viking-%{version}.tar.bz2
-# SourceForge is not good for fetching individual files and patches. Resort to
-# upstream's GitHub mirror.
-Source1:        https://raw.githubusercontent.com/viking-gps/viking/refs/tags/viking-%{version}/autogen.sh
-Patch:          https://github.com/viking-gps/viking/commit/443fe78cb097ae2196517fc726595b57cb9418c4.patch
-# Make compatible with C23
-# Backported from https://github.com/viking-gps/viking/pull/316
-Patch:          0000-Declare-vik_aggregate_layer_new-parameter.patch
+URL:            %forgeurl
+
+Source0:        %forgesource
+
 # Fails to build on s390x, not needed for multilib
 ExcludeArch:    s390x %{ix86}
 
@@ -44,6 +44,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  json-glib-devel
 BuildRequires:  yelp-tools
+BuildRequires:  xxd
+BuildRequires:  libnova-devel
 
 Requires:       hicolor-icon-theme
 Requires:       gpsbabel
@@ -56,15 +58,12 @@ geotag images, create routes using OSRM, see real-time GPS position, make maps
 using Mapnik, control items, etc.
 
 %prep
-%autosetup -p1
-cp %{SOURCE1} . && chmod +x autogen.sh
+%forgeautosetup
 NOCONFIGURE=1 ./autogen.sh
-# Convert to utf-8
-for file in ChangeLog NEWS TODO; do
-    mv $file timestamp
-    iconv -f ISO-8859-1 -t UTF-8 -o $file timestamp
-    touch -r timestamp $file
-done
+# Convert TODO to utf-8
+mv TODO timestamp
+iconv -f ISO-8859-1 -t UTF-8 -o TODO timestamp
+touch -r timestamp TODO
 
 %build
 %configure

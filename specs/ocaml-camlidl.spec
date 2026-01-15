@@ -104,7 +104,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Thu Jun 26 2025 Jerry James  <loganjerry@gmail.com> - 1.13-1
+* Thu Jun 26 2025 Jerry James <loganjerry@gmail.com> - 1.13-1
 - Version 1.13
 - Drop upstreamed DESTDIR and GC patches
 - Upstream now ships a META file

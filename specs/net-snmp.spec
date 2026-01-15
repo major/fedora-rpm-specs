@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.5.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -89,9 +89,7 @@ BuildRequires:   perl(strict)
 BuildRequires:   perl(TAP::Harness)
 BuildRequires:   perl(vars)
 BuildRequires:   perl(warnings)
-%ifnarch s390 s390x ppc64le
 BuildRequires:   lm_sensors-devel >= 3
-%endif
 BuildRequires:   autoconf, automake
 
 %description
@@ -124,9 +122,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-agent-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: elfutils-devel, rpm-devel, elfutils-libelf-devel, openssl-devel
 Requires: redhat-rpm-config
-%ifnarch s390 s390x ppc64le
 Requires: lm_sensors-devel
-%endif
 # pull perl development libraries, net-snmp agent libraries may link to them
 Requires: perl-devel%{?_isa}
 
@@ -261,12 +257,7 @@ MIBS="host agentx smux \
      ip-mib/ipAddressPrefixTable/ipAddressPrefixTable \
      ip-mib/ipDefaultRouterTable/ipDefaultRouterTable \
      ip-mib/ipv6ScopeZoneIndexTable ip-mib/ipIfStatsTable \
-     sctp-mib rmon-mib etherlike-mib"
-
-%ifnarch s390 s390x ppc64le
-# there are no lm_sensors on s390
-MIBS="$MIBS ucd-snmp/lmsensorsMib"
-%endif
+     sctp-mib rmon-mib etherlike-mib ucd-snmp/lmsensorsMib"
 
 %configure \
     --disable-static --enable-shared \
@@ -514,6 +505,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Mon Jan 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.9.5.2-2
+- Enable lm_sensors on all arches
+
 * Mon Jan 12 2026 Josef Ridky <jridky@redhat.com> - 1:5.9.5.2-1
 - New upstream release 5.9.5.2
 

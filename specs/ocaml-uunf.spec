@@ -30,12 +30,11 @@ BuildRequires:  ocaml-uutf-devel >= 1.0.0
 %description
 Uunf is an OCaml library for normalizing Unicode text.  It supports all
 Unicode normalization forms (http://www.unicode.org/reports/tr15/).  The
-library is independent from any I/O mechanism or Unicode text data
-structure and it can process text without a complete in-memory
-representation.
+library is independent from any I/O mechanism or Unicode text data structure
+and it can process text without a complete in-memory representation.
 
-Uunf depends only on Uutf for support of OCaml UTF-X encoded strings.
-It is distributed under the ISC license.
+Uunf depends only on Uutf for support of OCaml UTF-X encoded strings.  It is
+distributed under the ISC license.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -43,8 +42,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-uutf-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n uunf-%{version} -p1

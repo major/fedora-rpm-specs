@@ -8,7 +8,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.26
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -31,6 +31,7 @@ Source3: msghack.1
 
 Patch1: gettext-0.21.1-covscan.patch
 Patch2: gettext-0.26-c23.diff
+Patch3: gettext-0.26-stdcountof-h.patch
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
 BuildRequires: automake
@@ -198,6 +199,7 @@ Substitutes the values of environment variables.
 %setup -q
 %patch 1 -p1 -b .orig~
 %patch 2 -p1 -b .orig~
+%patch 3 -p1 -b .orig~
 autoreconf
 
 # Defeat libtextstyle attempt to bundle libxml2.  The comments
@@ -456,6 +458,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Sun Jan 11 2026 Manish Tiwari <matiwari@redhat.com> - 0.26-3
+- https://lists.gnu.org/archive/html/bug-gnulib/2025-09/msg00095.html
+- Upstream patch to fix implicit declaration error with GCC-16
+
 * Thu Dec 18 2025 Manish Tiwari <matiwari@redhat.com> - 0.26-2
 - Add upstream provided patch to fix build failure with glibc 2.42 C23 const-preserving macros
 - https://lists.gnu.org/archive/html/bug-gnulib/2025-11/msg00220.html

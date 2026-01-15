@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -35,6 +35,10 @@ Patch104: coreutils-df-direct.patch
 # gnulib C23 support
 # https://github.com/coreutils/gnulib/commit/df17f4f37ed3ca373d23ad42eae51122bdb96626
 Patch105: coreutils-9.9-gnulib-c23.patch
+
+# fix cut test failure on aarch64 rawhide (rhbz#2424302)
+# https://github.com/coreutils/coreutils/commit/95044cb5eaea83d02f768feb5ab79fcf5e6ad782
+Patch106: coreutils-9.9-fix-cut-test-aarch64.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -282,6 +286,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Tue Jan 13 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.9-2
+- fix cut test failure on aarch64 rawhide (rhbz#2424302)
+
 * Wed Nov 26 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.9-1
 - rebase to latest upstream release (rhbz#2413803)
 

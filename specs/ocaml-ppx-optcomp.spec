@@ -31,10 +31,10 @@ BuildRequires:  ocaml-ppx-inline-test-devel
 %endif
 
 %description
-Ppx_optcomp provides optional compilation for OCaml.  It is a tool used
-to handle optional compilations of pieces of code depending of the word
-size, the version of the compiler, etc.  The syntax is based on OCaml
-item extension nodes, with keywords similar to cpp.
+Ppx_optcomp provides optional compilation for OCaml.  It is a tool used to
+handle optional compilations of pieces of code depending of the word size, the
+version of the compiler, etc.  The syntax is based on OCaml item extension
+nodes, with keywords similar to cpp.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -44,8 +44,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 Requires:       ocaml-stdio-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_optcomp-%{version}

@@ -9,6 +9,9 @@ Source:         %{cran_source}
 # Remove bundled tinycthread and use C11 threads directly.
 Source:         tinycthread-threads-wrapper.h
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 Obsoletes:      %{name}-devel <= 1.4.4
 

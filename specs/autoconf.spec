@@ -10,7 +10,7 @@
 # `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
 Version:    2.72
-Release:    7%{?dist}
+Release:    8%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -60,6 +60,9 @@ Patch:      0001-Keep-lmingwex-and-lmoldname-in-linker-flags-for-MinG.patch
 Patch:      0001-autoreconf-Invoke-autopoint-in-more-situations.patch
 # From https://savannah.gnu.org/support/index.php?111273
 Patch:      0001-autoreconf-Adapt-to-the-on-disk-situation-after-auto.patch
+
+# Temporary fix (to be replaced by upstream patches)
+Patch:      0001-Port-C11-test-to-C.patch
 
 %if "%{name}" != "autoconf"
 # Set this to the sub-package base name, for "autoconf-latest"
@@ -234,6 +237,9 @@ install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
 
 
 %changelog
+* Thu Jan 08 2026 Frédéric Bérat <fberat@redhat.com> - 2.72-8
+- Port C11 test to C++20
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

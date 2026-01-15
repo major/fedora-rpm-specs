@@ -293,11 +293,7 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
   %{?_cmake_lib_suffix64}
 %endif
 
-%if %{with check}
-%cmake_build --target  OpenMS TOPP GUI
-%else
-%cmake_build --target OpenMS TOPP GUI doc_tutorials
-%endif
+%cmake_build --target OpenMS TOPP GUI doc_minimal
 
 %if 0%{?with_pyOpenMS}
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH

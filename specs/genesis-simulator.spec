@@ -15,7 +15,7 @@
 Name:       %{realname}-simulator
 Summary:    A general purpose simulation platform
 Version:    2.4
-Release:    27.20210608git%{shortcommit}%{?dist}
+Release:    28.20210608git%{shortcommit}%{?dist}
 Url:        http://www.genesis-sim.org/GENESIS/
 Source0:    https://github.com/genesis-sim/%{realname}-%{version}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # fix left over COPT
@@ -26,8 +26,7 @@ Patch1:     0002-feat-pass-RNG_CFLAGS.patch
 # GPL and LGPL: Genesis
 # MIT: param library
 # Public Domain: Scripts
-# Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT and Public Domain - review is highly recommended.
-License:    GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 
 BuildRequires: git-core
 BuildRequires: gcc
@@ -190,6 +189,9 @@ rm -rf %{buildroot}%{_libdir}/%{realname}/Tutorials
 %doc Doc Hyperdoc Tutorials
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.4-28.20210608git%(c=%{commit}; echo ${c:0:7})
+- Use SPDX license id
+
 * Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 2.4-27.20210608git7b0a66b
 - Rebuild for netcdf 4.9.3 soname bump
 

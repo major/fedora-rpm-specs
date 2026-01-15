@@ -11,7 +11,7 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.15.1
+Version: 1.16.0
 Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
@@ -69,6 +69,7 @@ Features
 - Modules for idview management
 - Modules for location management
 - Modules for netgroup management
+- Modules for passkeyconfig management
 - Modules for permission management
 - Modules for privilege management
 - Modules for pwpolicy management
@@ -81,6 +82,7 @@ Features
 - Modules for sudocmd management
 - Modules for sudocmdgroup management
 - Modules for sudorule management
+- Modules for sysaccount management
 - Modules for topology management
 - Modules for trust management
 - Modules for user management
@@ -157,6 +159,14 @@ cp %{buildroot}/%{ansible_collections_dir}/%{collection_namespace}/%{collection_
 %{ansible_collections_dir}/%{collection_namespace}/%{collection_name}
 
 %changelog
+* Tue Jan 13 2026 Thomas Woerner <twoerner@redhat.com> - 1.16.0-1
+- Update to version 1.16.0
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.16.0
+  - Add support for passkey management
+  - Add support for sysaccount management
+  - ipadnsrecord: Allow to set any IP address if create_reverse is false
+  - Add support for ansible-core 2.19
+
 * Fri Aug  1 2025 Thomas Woerner <twoerner@redhat.com> - 1.15.1-1
 - Update to version 1.15.1
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.15.0

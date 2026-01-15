@@ -3,12 +3,12 @@
 
 Name:        %{fontname}-fonts
 Version:    0.1.0
-Release:    30%{?dist}
+Release:    31%{?dist}
 Summary:    English asymmetric font
 
-# Automatically converted from old format: GPLv3+ with exceptions - review is highly recommended.
-License:    LicenseRef-Callaway-GPLv3+-with-exceptions
+License:    GPL-3.0-or-later WITH Font-exception-2.0
 # alas! returns a 404 : http://hiran.in/fontprojects
+# have contacted Hiran over e-mail
 URL:        http://hiran.in/blog/thanks-perizia-is-now-a-font
 Source0:    http://hiran.in/content/fonts/perizia/src/perizia010.sfd
 Source1:    %{name}-fontconfig.conf
@@ -60,6 +60,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.1.0-31
+- Use SPDX license id
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

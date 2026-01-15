@@ -508,7 +508,7 @@ Requires: tzdata
 # was used during the build time.
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 %global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
-Requires: expat >= %{expat_version}
+Requires: expat%{?_isa} >= %{expat_version}
 
 
 # Since patch 251 changed from distutils to sysconfig, pip needed to be adapted

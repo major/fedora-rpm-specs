@@ -71,7 +71,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -91,7 +91,6 @@ BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 
-%if %{with check}
 %if 0%{?suse_version}
 BuildRequires:  ffmpeg
 BuildRequires:  libavcodec-devel
@@ -104,7 +103,7 @@ BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavformat-free-devel
 BuildRequires:  libavutil-free-devel
 BuildRequires:  mesa-va-drivers
-%endif
+BuildRequires:  rocprofiler-register-devel
 %endif
 
 %if %{with ninja}
@@ -143,9 +142,8 @@ The rocDecode development package.
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 # Allow overriding CMAKE_CXX_COMPILER: 
 # https://github.com/ROCm/rocDecode/pull/436
-sed -i "s|\(llvm/bin/clang++\)|\1 CACHE STRING \"ROCm Compiler path\"|" \
-	CMakeLists.txt \
-	samples/*/CMakeLists.txt
+sed -i -e 's@set(CMAKE_C_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang)@set(CMAKE_C_COMPILER "%rocmllvm_bindir/amdclang")@' {,test/,samples/*/}CMakeLists.txt
+sed -i -e 's@set(CMAKE_CXX_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang++)@set(CMAKE_CXX_COMPILER "%rocmllvm_bindir/amdclang++")@' {,test/,samples/*/}CMakeLists.txt
 
 # Problems finding va.h
 # https://github.com/ROCm/rocDecode/issues/477
@@ -165,19 +163,19 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
-    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix}
+    -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
+    -DROCM_PATH=%{pkg_prefix}
 
 %cmake_build
 
 %install
 %cmake_install
 
+# Extra licenses
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocdecode/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocdecode-asan/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
-
-rm -rf %{buildroot}%{pkg_prefix}/share/rocdecode/samples
 
 # Need to install the sample first
 %if %{with check}
@@ -188,14 +186,21 @@ rm -rf %{buildroot}%{pkg_prefix}/share/rocdecode/samples
 %files
 %license LICENSE
 %{pkg_prefix}/%{pkg_libdir}/librocdecode.so.1{,.*}
+%{pkg_prefix}/%{pkg_libdir}/librocdecode-host.so.1{,.*}
 
 %files devel
 %{pkg_prefix}/%{pkg_libdir}/librocdecode.so
+%{pkg_prefix}/%{pkg_libdir}/librocdecode-host.so
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocdecode/
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocdecode-host/
 %{pkg_prefix}/include/rocdecode
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Tue Jan 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Handle librocdecode-host
+- Fix check
+
 * Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Add --with compat
 

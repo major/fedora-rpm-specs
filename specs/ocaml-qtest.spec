@@ -24,10 +24,10 @@ BuildRequires:  python3-pygments
 
 
 %description
-qtest extracts inline unit tests written using a special syntax in
-comments. Those tests are then run using the oUnit framework and the
-qcheck library. The possibilities range from trivial tests -- extremely
-simple to use -- to sophisticated random generation of test cases.
+qtest extracts inline unit tests written using a special syntax in comments.
+Those tests are then run using the oUnit framework and the qcheck library.
+The possibilities range from trivial tests — extremely simple to use — to
+sophisticated random generation of test cases.
 
 
 %package        devel
@@ -88,7 +88,7 @@ asciidoc README.adoc
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.11.2-26
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 2.11.2-26
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-25

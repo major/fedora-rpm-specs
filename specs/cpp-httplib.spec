@@ -24,10 +24,14 @@ VCS:            git:%{forgeurl0}
 Source0:        %forgesource
 
 # fix u8 string literals not accepted in new standard.
-# https://github.com/yhirose/cpp-httplib/pull/2326
-Patch1:         cpp-httplib-cpp11-test.patch
+# https://github.com/yhirose/cpp-httplib/issues/2321
+Patch1:         %{url}/pull/2322.patch#/cpp-httplib-cpp11-test.patch
 # https://github.com/yhirose/cpp-httplib/issues/2324
 Patch2:         %{url}/commit/cea018f2cdf67d3742f617c6884cd1df84fe75ad.patch#/cpp-httplib-test-issue2301-online.patch
+
+# Upstream no longer supports 32 bits
+# https://github.com/yhirose/cpp-httplib/issues/2148
+ExcludeArch: %{ix86}
 
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc-c++

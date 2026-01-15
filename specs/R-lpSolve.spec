@@ -6,6 +6,8 @@ Summary:        Interface to Lp_solve to Solve Linear/Integer Programs
 License:        LGPL-2.0-or-later
 URL:            %{cran_url}
 Source:         %{cran_source}
+# https://github.com/gaborcsardi/lpSolve/pull/5
+Patch:          0001-Use-R-provided-BLAS-routines.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -20,7 +22,7 @@ linear/integer problems, assignment problems, and transportation problems.
 This version calls lp_solve version 5.5.
 
 %prep
-%autosetup -c
+%autosetup -c -p1
 
 %generate_buildrequires
 %R_buildrequires

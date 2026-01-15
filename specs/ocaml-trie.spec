@@ -26,8 +26,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n trie-%{version}
@@ -50,7 +50,7 @@ files for developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.0.0-30
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.0.0-30
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-29

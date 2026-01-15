@@ -8,6 +8,9 @@ URL:            %{cran_url}
 Source:         %{cran_source}
 Patch:          0001-Unbundle-libxxhash.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 BuildRequires:  pkgconfig(libxxhash)
 

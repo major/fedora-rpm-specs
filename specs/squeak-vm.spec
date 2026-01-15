@@ -16,12 +16,13 @@ URL:            http://squeakvm.org/unix
 Source0:        http://squeakvm.org/unix/release/%{source}.tar.gz
 Source1:        inisqueak
 Source2:        squeak-desktop-files.tar.gz
-Patch0:         squeak-vm-dprintf.patch
-Patch1:         alsa-fixes.patch
-Patch2:         squeak-vm-4.10.2-fix-cmake.patch
-Patch3:         squeak-vm-4.10.2-squeak-init-fix.patch
-Patch4:         squeak-vm-4.10.2-format-security.patch
-Patch5:         squeak-vm-4.10.2-gcc-14-fix.patch
+Patch:          squeak-vm-dprintf.patch
+Patch:          alsa-fixes.patch
+Patch:          squeak-vm-4.10.2-fix-cmake.patch
+Patch:          squeak-vm-4.10.2-squeak-init-fix.patch
+Patch:          squeak-vm-4.10.2-format-security.patch
+Patch:          squeak-vm-4.10.2-gcc-14-fix.patch
+Patch:          squeak-vm-4.10.2-cmake-4-fix.patch
 
 # For clean upgrade path, could be probably dropped in F20 or later
 Provides:       %{name}-nonXOplugins = %{version}-%{release}
@@ -29,15 +30,30 @@ Obsoletes:      %{name}-nonXOplugins < 4.10.2.2614-1
 
 Requires:       xmessage
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  libX11-devel libXt-devel libvorbis-devel libtheora-devel speex-devel
-BuildRequires:  dbus-devel alsa-lib-devel pango-devel mesa-libGL-devel
-BuildRequires:  libICE-devel libSM-devel libXext-devel libuuid-devel
-BuildRequires:  libffi-devel nas-devel pulseaudio-libs-devel libxml2-devel glib2-devel
-BuildRequires:  cairo-devel,  libv4l-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libXt-devel
+BuildRequires:  libvorbis-devel
+BuildRequires:  libtheora-devel
+BuildRequires:  speex-devel
+BuildRequires:  dbus-devel
+BuildRequires:  alsa-lib-devel
+BuildRequires:  pango-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  libICE-devel
+BuildRequires:  libSM-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libuuid-devel
+BuildRequires:  libffi-devel
+BuildRequires:  nas-devel
+BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  libxml2-devel
+BuildRequires:  glib2-devel
+BuildRequires:  cairo-devel
+BuildRequires:  libv4l-devel
 
 %description
 Squeak is a full-featured implementation of the Smalltalk programming
@@ -49,12 +65,7 @@ This package contains just the Squeak virtual machine.
 %prep
 %setup -q -n %{source} -a 2
 
-%patch -P0 -p1 -b .dprintf
-%patch -P1 -p2 -b .alsa-fixes
-%patch -P2 -p1 -b .fix-cmake
-%patch -P3 -p1 -b .squeak-init-fix
-%patch -P4 -p1 -b .format-security
-%patch -P5 -p1 -b .gcc-14-fix
+%autopatch -p1
 
 # Fix libdir
 sed -i 's|libdir="${prefix}/lib/squeak"|libdir="%{_libdir}/squeak"|' unix/cmake/squeak.in

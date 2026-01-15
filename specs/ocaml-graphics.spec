@@ -21,9 +21,9 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xft)
 
 %description
-The graphics library provides a set of portable drawing primitives.
-Drawing takes place in a separate window that is created when
-Graphics.open_graph is called.
+The graphics library provides a set of portable drawing primitives.  Drawing
+takes place in a separate window that is created when `Graphics.open_graph` is
+called.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -32,8 +32,8 @@ Requires:       libX11-devel%{?_isa}
 Requires:       libXft-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %package        doc
 Summary:        Documentation for %{name}

@@ -3,14 +3,13 @@
 %bcond_with network_tests
 
 Name:           python-aiodns
-Version:        3.6.1
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Simple DNS resolver for asyncio
 
 License:        MIT
 URL:            https://github.com/saghul/aiodns
 Source0:        %{url}/archive/v%{version}/aiodns-%{version}.tar.gz
-Patch0:         unpin-pycares.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -62,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jan 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-1
+- 4.0.0
+
 * Mon Dec 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.6.1-2
 - Unpin pycares
 

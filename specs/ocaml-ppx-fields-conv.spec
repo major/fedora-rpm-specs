@@ -24,9 +24,9 @@ BuildRequires:  ocaml-ppx-inline-test-devel
 
 %description
 Ppx_fields_conv is a ppx rewriter that can be used to define first-class
-values representing record fields, and additional routines, to get and
-set record fields, iterate and fold over all fields of a record and
-create new record values.
+values representing record fields, and additional routines, to get and set
+record fields, iterate and fold over all fields of a record and create new
+record values.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -36,8 +36,8 @@ Requires:       ocaml-fieldslib-devel%{?_isa}
 Requires:       ocaml-ppxlib-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files
+for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_fields_conv-%{version}

@@ -62,8 +62,8 @@ Source15: unbound-anchor.timer
 Source16: unbound-munin.README
 Source17: unbound-anchor.service
 Source18: %{downloads}/%{name}/%{name}-%{version}%{?extra_version}.tar.gz.asc
-# source: https://nlnetlabs.nl/people/
-Source19: https://keys.openpgp.org/pks/lookup?op=get&search=0x9F6F1C2D7E045F8D#/wouter.nlnetlabs.nl.key
+# https://nlnetlabs.nl/signing-keys/
+Source19: https://nlnetlabs.nl/downloads/keys/releases-g2.asc#/nlnetlabs2026-g2.asc
 Source20: unbound.sysusers
 Source21: remote-control.conf
 Source22: https://nlnetlabs.nl/downloads/keys/Yorgos.asc
@@ -95,7 +95,7 @@ BuildRequires: autoconf-archive
 BuildRequires: bison flex byacc
 BuildRequires: dns-root-data
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: gnupg2
 %endif
 %if 0%{with_python2}
@@ -225,7 +225,8 @@ Unbound dracut module allowing use of Unbound for name resolution
 in initramfs.
 
 %prep
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
+# TODO: Remove Yorgos.asc and extra verification once releases start to be signed by new g2 key
 %{gpgverify} --keyring='%{SOURCE22}' --signature='%{SOURCE18}' --data='%{SOURCE0}' || \
 %{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE18}' --data='%{SOURCE0}'
 %endif

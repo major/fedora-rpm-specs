@@ -22,8 +22,8 @@ BuildRequires:  ocaml-ppx-sexp-conv-devel >= 0.17
 BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 
 %description
-Ppx_base is the set of ppx rewriters used for Base.  Note that Base
-doesn't need ppx to build; it is only used as a verification tool.
+Ppx_base is the set of ppx rewriters used for Base.  Note that Base doesn't
+need ppx to build; it is only used as a verification tool.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -38,8 +38,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_base-%{version}

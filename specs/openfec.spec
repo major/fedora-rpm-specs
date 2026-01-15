@@ -1,6 +1,6 @@
 Name:		openfec
-Version:	1.4.2.6
-Release:	7%{?dist}
+Version:	1.4.2.12
+Release:	1%{?dist}
 Summary:	Application-Level Forward Erasure Correction codes
 License:	CeCILL-C and GPLv2+ and BSD
 # GPLv2+:
@@ -68,7 +68,7 @@ popd
 %files devel
 %{_includedir}/%{name}
 %{_libdir}/libopenfec.so
-%{_datadir}/pkgconfig/openfec.pc
+%{_libdir}/pkgconfig/openfec.pc
 
 %files utils
 %{_bindir}/eperftool
@@ -76,6 +76,9 @@ popd
 %{_bindir}/simple_server
 
 %changelog
+* Tue Jan 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.2.12-1
+- New version
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 401
+Version: 406
 Release: %autorelease
 URL: https://invisible-island.net/xterm
 License: MIT AND X11 AND HPND AND CC-BY-4.0

@@ -24,13 +24,12 @@ BuildRequires:  ocaml-result-devel
 BuildRequires:  ocaml-trie-devel >= 1.0.0
 
 %description
-This is the core module of mew, a general modal editing engine generator.
-You can provide `Key`, `Mode`, and `Concurrent` modules to define the
-real world environment to get the core component of a modal editing
-engine.  The core component supports recursive key mappings associated
-with user provided modes.  After the core component is generated, you may
-extended it with a translator to interpret user key sequences to get a
-complete modal editing engine.
+This is the core module of mew, a general modal editing engine generator.  You
+can provide `Key`, `Mode`, and `Concurrent` modules to define the real world
+environment to get the core component of a modal editing engine.  The core
+component supports recursive key mappings associated with user provided modes.
+After the core component is generated, you may extended it with a translator
+to interpret user key sequences to get a complete modal editing engine.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -39,8 +38,8 @@ Requires:       ocaml-result-devel%{?_isa}
 Requires:       ocaml-trie-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n mew-%{version} -p1

@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.14
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -75,6 +75,9 @@ Patch16:       https://github.com/python/cpython/commit/5dceb93486176e6b4a6d9754
 # Backport fix for CVE-2025-12084
 # https://github.com/python/cpython/pull/142212
 Patch17:       CVE-2025-12084.patch
+# Backport proposed fix for CVE-2025-13836
+# https://github.com/python/cpython/pull/142141
+Patch18:       CVE-2025-13836.patch
 
 
 BuildRequires: make
@@ -515,6 +518,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Tue Jan 13 2026 Sandro Mani <manisandro@gmail.com> - 3.11.14-5
+- Backport proposed fix for CVE-2025-13836
+
 * Sun Dec 14 2025 Sandro Mani <manisandro@gmail.com> - 3.11.14-4
 - Backport patch for CVE-2025-12084
 

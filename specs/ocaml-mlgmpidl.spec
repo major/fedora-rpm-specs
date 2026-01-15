@@ -33,12 +33,11 @@ BuildRequires:  ghostscript-tools-dvipdf
 
 
 %description
-MLGMPIDL is an OCaml interface to the GMP and MPFR rational and real
-number math libraries. Although there is another such interface, this
-one is different in that it provides a more imperative (rather than
-functional) interface to conserve memory and that this one uses
-CAMLIDL to take care of the C/OCaml interface in a convenient and
-modular way.
+MLGMPIDL is an OCaml interface to the GMP and MPFR rational and real number
+math libraries.  Although there is another such interface, this one is
+different in that it provides a more imperative (rather than functional)
+interface to conserve memory and that this one uses CAMLIDL to take care of
+the C/OCaml interface in a convenient and modular way.
 
 
 %package        devel
@@ -153,11 +152,11 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.3.0-15
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-15
 - Rebuild to fix OCaml dependencies
 - Remove unneeded parts of the bigarray-compat patch
 
-* Fri Jun 06 2025 Jerry James  <loganjerry@gmail.com> - 1.3.0-14
+* Fri Jun 06 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-14
 - Remove use of obsolete ocaml_native_profiling macro
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13

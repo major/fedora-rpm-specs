@@ -33,18 +33,16 @@ BuildRequires:  ocaml-rpm-macros
 %endif
 
 %description
-This library provides a lean alternative to the Format [1] module of the
-OCaml standard library.  It aims to make it easy for users to do the
-right thing.  If you have tried Format before but find its API
-complicated and difficult to use, then Pp might be a good choice for
-you.
+This library provides a lean alternative to the Format [1] module of the OCaml
+standard library.  It aims to make it easy for users to do the right thing.
+If you have tried Format before but find its API complicated and difficult to
+use, then Pp might be a good choice for you.
 
-Pp uses the same concepts of boxes and break hints, and the final
-rendering is done by formatter from the Format module.  However it
-defines its own algebra which some might find easier to work with and
-reason about.  No previous knowledge is required to start using this
-library, however the various guides for the Format module such as this
-one [2] should be applicable to Pp as well.
+Pp uses the same concepts of boxes and break hints, and the final rendering is
+done by formatter from the Format module.  However it defines its own algebra
+which some might find easier to work with and reason about.  No previous
+knowledge is required to start using this library, however the various guides
+for the Format module such as this one [2] should be applicable to Pp as well.
 
 [1]: https://caml.inria.fr/pub/docs/manual-ocaml/libref/Format.html
 [2]: https://caml.inria.fr/resources/doc/guides/format.en.html
@@ -104,7 +102,7 @@ plugin(native) = "pp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/pp/dune-package << EOF
-(lang dune 3.19)
+(lang dune 3.20)
 (name pp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/pp))

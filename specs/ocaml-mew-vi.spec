@@ -22,10 +22,10 @@ BuildRequires:  ocaml-ppx-expect-devel
 BuildRequires:  ocaml-react-devel
 
 %description
-This is a vi-like modal editing engine generator.  Provide `Key`, `Mode`,
-and `Concurrent` modules to define the real world environment to get a
-handy vi-like modal editing engine.  Feed the the `i` channel user input
-and get the vi actions from the `action_output` channel.
+This is a vi-like modal editing engine generator.  Provide `Key`, `Mode`, and
+`Concurrent` modules to define the real world environment to get a handy
+vi-like modal editing engine.  Feed the the `i` channel user input and get the
+vi actions from the `action_output` channel.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -34,8 +34,8 @@ Requires:       ocaml-mew-devel%{?_isa}
 Requires:       ocaml-react-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n mew_vi-%{version}
@@ -62,7 +62,7 @@ files for developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.5.0-31
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.5.0-31
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-30

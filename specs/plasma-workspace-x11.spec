@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.5.4
+Version: 6.5.5
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -223,6 +223,9 @@ sed -i \
 
 
 %changelog
+* Tue Jan 13 2026 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.5.5-1
+- 6.5.5
+
 * Tue Dec 09 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.5.4-1
 - 6.5.4
 

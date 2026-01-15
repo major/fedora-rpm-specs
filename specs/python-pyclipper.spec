@@ -12,6 +12,9 @@ Source:         %pypi_source %{srcname}
 # Unbundle Clipper library from build entirely, so we can use the system copy.
 Patch:          0001-Unbundle-Clipper-library-from-build-entirely.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  polyclipping-devel
 BuildRequires:  python3-devel

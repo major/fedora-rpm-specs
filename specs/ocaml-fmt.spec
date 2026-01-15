@@ -29,10 +29,10 @@ BuildRequires:  ocaml-topkg-devel >= 1.1.0
 %description
 Fmt exposes combinators to devise `Format` pretty-printing functions.
 
-Fmt depends only on the OCaml standard library.  The optional Fmt_tty
-library that enables setting up formatters for terminal color output
-depends on the Unix library.  The optional Fmt_cli library that provides
-command line support for Fmt depends on Cmdliner.
+Fmt depends only on the OCaml standard library.  The optional Fmt_tty library
+that enables setting up formatters for terminal color output depends on the
+Unix library.  The optional Fmt_cli library that provides command line support
+for Fmt depends on Cmdliner.
 
 %package        devel
 Summary:        Development files for %{name}

@@ -28,17 +28,17 @@ BuildRequires:  ocaml-yojson-devel
 ExcludeArch:    %{ix86}
 
 %description
-The ppxlib project provides the basis for the ppx system, which is
-currently the officially supported method for meta-programming in Ocaml.
-It offers a principled way to generate code at compile time in OCaml
-projects.  It features:
-- an OCaml AST / parser/ pretty-printer snapshot, to create a full
-  frontend independent of the version of OCaml;
-- a library for ppx rewriters in general, and type-driven code generators
-  in particular;
+The ppxlib project provides the basis for the ppx system, which is currently
+the officially supported method for meta-programming in OCaml.  It offers a
+principled way to generate code at compile time in OCaml projects.  It
+features:
+- an OCaml AST / parser/ pretty-printer snapshot, to create a full frontend
+  independent of the version of OCaml;
+- a library for ppx rewriters in general, and type-driven code generators in
+  particular;
 - a full-featured driver for OCaml AST transformers;
-- a quotation mechanism for writing values representing OCaml AST in the
-  OCaml syntax;
+- a quotation mechanism for writing values representing OCaml AST in the OCaml
+  syntax;
 - a generator of open recursion classes from type definitions.
 
 %package        tools
@@ -46,8 +46,7 @@ Summary:        Command line tools for %{name}
 Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
 
 %description    tools
-The %{name}-tools package contains command line tools for
-%{name}.
+The %{name}-tools package contains command line tools for %{name}.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -58,9 +57,8 @@ Requires:       ocaml-ppx-derivers-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and
-signature files for developing applications that use
-%{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppxlib-%{version} -p1

@@ -13,6 +13,9 @@ Source:         %{pypi_source virtualenv}
 # Add /usr/share/python-wheels to extra_search_dir
 Patch:          rpm-wheels.patch
 
+# Restore support for Python 3.6 virtual environments
+Patch:          python3.6.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -66,8 +69,8 @@ Requires:       %{python_wheel_pkg_prefix}-pip-wheel >= 25.1
 # Python 3.12 virtualenvs are created without setuptools,
 # but the users can still do --setuptools=bundle to force them:
 Requires:       %{python_wheel_pkg_prefix}-setuptools-wheel >= 70.1
-# This was a requirement for Python 3.6+2.7 virtual environments
-Obsoletes:      %{python_wheel_pkg_prefix}-wheel0.37-wheel < 0.37.1-20
+# This is only needed for Python 3.6 virtual environments
+Requires:       (%{python_wheel_pkg_prefix}-wheel0.37-wheel if python3.6)
 
 %description -n python3-virtualenv %_description
 

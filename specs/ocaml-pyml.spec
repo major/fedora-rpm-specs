@@ -29,24 +29,22 @@ BuildRequires:  %{py3_dist numpy}
 py.ml provides OCaml bindings for Python 2 and Python 3.  This library
 subsumes the pycaml library, which is no longer actively maintained.
 
-The Python library is linked at runtime and the same executable can be
-run in a Python 2 or a Python 3 environment.  py.ml does not require any
-Python library at compile time.  The only compile time dependency is
-Stdcompat to ensure compatibility with all OCaml compiler versions from
-3.12.
+The Python library is linked at runtime and the same executable can be run in
+a Python 2 or a Python 3 environment.  py.ml does not require any Python
+library at compile time.  The only compile time dependency is Stdcompat to
+ensure compatibility with all OCaml compiler versions from 3.12.
 
 Bindings are split in three modules:
 
-- Py provides the initialization functions and some high-level bindings,
-  with error handling and naming conventions closer to OCaml usages.
+- Py provides the initialization functions and some high-level bindings, with
+  error handling and naming conventions closer to OCaml usages.
 
-- Pycaml provides a signature close to the old Pycaml module, so as to
-  ease migration.
+- Pycaml provides a signature close to the old Pycaml module, so as to ease
+  migration.
 
-- Pywrappers provides low-level bindings, which follow closely the
-  conventions of the C bindings for Python.  Submodules
-  Pywrappers.Python2 and Pywrappers.Python3 contain version-specific
-  bindings.
+- Pywrappers provides low-level bindings, which follow closely the conventions
+  of the C bindings for Python.  Submodules `Pywrappers.Python2` and
+  `Pywrappers.Python3` contain version-specific bindings.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -54,8 +52,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-stdcompat-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n pyml-%{version} -p1

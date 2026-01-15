@@ -1,19 +1,16 @@
 Name: tin
 Version: 2.6.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
 License: BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL: http://www.tin.org/
 Source0: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz
-Source1: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz.sign
-Source2: tin-pgp-key-0x5A49550EB490B4D1.txt
 BuildRequires: aspell
 BuildRequires: byacc
 BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: gnupg1
 BuildRequires: gnupg2
 BuildRequires: libcanlock-devel
 BuildRequires: make
@@ -34,11 +31,6 @@ server.
 Install tin if you need a basic news reader.
 
 %prep
-workdir=$(mktemp --directory)
-workring=${workdir}/keyring.gpg
-gpg1 --homedir=${workdir} --pgp2 --yes --output="${workring}" --dearmor %{S:2}
-gpg1 --homedir=${workdir} --pgp2 --verify --keyring="${workring}" %{S:1} %{S:0}
-rm -r ${workdir}
 %autosetup -p1
 rm -rv libcanlock pcre
 
@@ -96,6 +88,10 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man3 doc/wildmat.3
 %{_mandir}/man5/tin.5*
 
 %changelog
+* Tue Jan 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.6.5-2
+- stop verifying PGP-2 source tarball signature, gnupg1 was retired
+  and it is considered insecure anyway due to MD5 hash usage
+
 * Fri Dec 26 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.6.5-1
 - update to 2.6.5 (rhbz#2424803)
 

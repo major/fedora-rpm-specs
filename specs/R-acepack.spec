@@ -9,6 +9,9 @@ URL:            %{cran_url}
 Source:         %{cran_source}
 Source:         ace-copyright.txt
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 
 %description

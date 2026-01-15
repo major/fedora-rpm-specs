@@ -1,17 +1,8 @@
-# MinGW ist x86_64 only in EPEL9+
-%if 0%{?rhel} >= 9
-%ifarch x86_64
-%bcond_without mingw
-%else
-%bcond_with mingw
-%endif
-%else
-%bcond_without mingw
-%endif
+%bcond mingw    %{defined fedora}
 
 Name:           librttopo
 Version:        1.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Create and manage SQL/MM topologies
 
 License:        GPL-2.0-or-later
@@ -142,6 +133,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Tue Jan 13 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.1.0-18
+- Disable mingw on EPEL rhbz#2428744
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

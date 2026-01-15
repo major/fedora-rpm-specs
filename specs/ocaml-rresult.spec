@@ -26,10 +26,10 @@ BuildRequires:  ocaml-topkg-devel >= 1.0.3
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
-Rresult is an OCaml module for handling computation results and errors
-in an explicit and declarative manner without resorting to exceptions.
-It defines combinators to operate on the values of the result type
-available from OCaml 4.03 in the standard library.
+Rresult is an OCaml module for handling computation results and errors in an
+explicit and declarative manner without resorting to exceptions.  It defines
+combinators to operate on the values of the result type available from OCaml
+4.03 in the standard library.
 
 OCaml 4.08 provides the Stdlib.Result module which you should prefer to
 Rresult.
@@ -70,7 +70,7 @@ ocaml pkg/pkg.ml test
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.7.0-22
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.7.0-22
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-21

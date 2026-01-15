@@ -15,6 +15,8 @@ Source0:       https://github.com/nmeum/%{name}/releases/download/%{version}/%{n
 Patch0:        0001-Fix-libusb-enumeration.patch
 # https://github.com/nmeum/android-tools/pull/172
 Patch1:        0002-extras-libjsonpb-Fix-incompatibility-with-protobuf-v30.patch
+# https://github.com/nmeum/android-tools/pull/190
+Patch2:        0003-Make-legacy-USB-driver-default-on-Linux.patch
 
 BuildRequires: brotli-devel
 BuildRequires: cmake

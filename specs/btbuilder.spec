@@ -1,11 +1,13 @@
 Summary: Turn based role-playing game builder and engine
 Name: btbuilder
 Version: 0.5.19
-Release: 13%{?dist}
+Release: 14%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 Url: http://www.identicalsoftware.com/btbuilder
 Source: http://www.identicalsoftware.com/btbuilder/%{name}-%{version}.tgz
+# https://github.com/dulsi/btbuilder/pull/6
+Patch0: btbuilder-boost190.patch
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: boost-devel
@@ -40,6 +42,7 @@ This package contains the data files for Bt Builder.
 
 %prep
 %setup -q
+%patch 0 -p1
 
 %build
 %make_build CFLAGS="%{optflags}"
@@ -62,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %{_datadir}/btbuilder
 
 %changelog
+* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.5.19-14
+- Patched for Boost 1.90.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.19-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

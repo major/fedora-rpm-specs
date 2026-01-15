@@ -38,17 +38,16 @@ mdx enables execution of code blocks inside markdown files.  There are
 (currently) two sub-commands, corresponding to two modes of operation:
 preprocessing (`ocaml-mdx pp`) and tests (`ocaml-mdx test`).
 
-The preprocessor mode enables mixing documentation and code, and the
-practice of "literate programming" using markdown and OCaml.
+The preprocessor mode enables mixing documentation and code, and the practice
+of "literate programming" using markdown and OCaml.
 
-The test mode enables ensuring that shell scripts and OCaml fragments in
-the documentation always stay up-to-date.
+The test mode enables ensuring that shell scripts and OCaml fragments in the
+documentation always stay up-to-date.
 
-The blocks in markdown files can be parameterized by `mdx`-specific
-labels, that will change the way `mdx` interprets the block.  The syntax
-is: `<!-- $MDX labels -->`, where `labels` is a list of valid labels
-separated by a comma.  This line must immediately precede the block it
-is attached to.
+The blocks in markdown files can be parameterized by `mdx`-specific labels,
+that will change the way `mdx` interprets the block.  The syntax is:
+`<!-- $MDX labels -->`, where `labels` is a list of valid labels separated by
+a comma.  This line must immediately precede the block it is attached to.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -63,8 +62,8 @@ Requires:       ocaml-result-devel%{?_isa}
 Requires:       ocaml-version-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n mdx-%{version} -p1

@@ -21,22 +21,21 @@ BuildRequires:  pkgconfig(libgnomecanvas-2.0)
 
 %description
 Ocamlgraph provides several different implementations of graph data
-structures. It also provides implementations for a number of classical
-graph algorithms like Kruskal's algorithm for MSTs, topological
-ordering of DAGs, Dijkstra's shortest paths algorithm, and
-Ford-Fulkerson's maximal-flow algorithm to name a few. The algorithms
-and data structures are written functorially for maximal
-reusability. Also has input and output capability for Graph Modeling
-Language file format and Dot and Neato graphviz (graph visualization)
-tools.
+structures.  It also provides implementations for a number of classical graph
+algorithms like Kruskal's algorithm for MSTs, topological ordering of DAGs,
+Dijkstra's shortest paths algorithm, and Ford-Fulkerson's maximal-flow
+algorithm to name a few.  The algorithms and data structures are written
+functorially for maximal reusability.  Also has input and output capability
+for Graph Modeling Language file format and Dot and Neato graphviz (graph
+visualization) tools.
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and signature files
-for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %package        gtk
 Summary:        Display graphs using OCamlGraph and GTK2
@@ -54,8 +53,8 @@ Requires:       ocaml-lablgtk-devel%{?_isa}
 Requires:       libgnomecanvas-devel%{?_isa}
 
 %description    gtk-devel
-The %{name}-gtk-devel package contains libraries and signature
-files for developing applications that use %{name}-gtk.
+The %{name}-gtk-devel package contains libraries and signature files for
+developing applications that use %{name}-gtk.
 
 %package        tools
 Summary:        Graph editing tools for %{name}

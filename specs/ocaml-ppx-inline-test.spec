@@ -26,8 +26,7 @@ BuildRequires:  ocaml-ppx-jane-devel
 %endif
 
 %description
-Ppx_inline_test is a syntax extension for writing inline tests in OCaml
-code.
+Ppx_inline_test is a syntax extension for writing inline tests in OCaml code.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -37,8 +36,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 Requires:       ocaml-time-now-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files
+for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_inline_test-%{version}

@@ -42,11 +42,12 @@ BuildRequires:  ocaml-mdx-devel >= 2.1.0
 %endif
 
 %description
-This is an OCaml library to parse and generate the YAML file format.  It
-is intended to be interoperable with the Ezjsonm
-(https://github.com/mirage/ezjsonm) JSON handling library, if the simple
-common subset of Yaml is used.  Anchors and other advanced Yaml features
-are not implemented in the JSON compatibility layer.
+This is an OCaml library to parse and generate the YAML file format.  It is
+intended to be interoperable with the Ezjsonm [1] JSON handling library, if
+the simple common subset of Yaml is used.  Anchors and other advanced Yaml
+features are not implemented in the JSON compatibility layer.
+
+[1] https://github.com/mirage/ezjsonm
 
 %package        devel
 Summary:        Development files for %{name}
@@ -56,8 +57,8 @@ Requires:       ocaml-bos-devel%{?_isa}
 Requires:       ocaml-ctypes-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %package        sexp
 Summary:        Parse and generate YAML 1.1/1.2 files with sexp support
@@ -74,8 +75,8 @@ Requires:       ocaml-ppx-sexp-conv-devel%{?_isa}
 Requires:       ocaml-sexplib-devel%{?_isa}
 
 %description    sexp-devel
-The %{name}-sexp-devel package contains libraries and signature
-files for developing applications that use %{name}-sexp.
+The %{name}-sexp-devel package contains libraries and signature files for
+developing applications that use %{name}-sexp.
 
 %prep
 %autosetup -N -n yaml-%{version}

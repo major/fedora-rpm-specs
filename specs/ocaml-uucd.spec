@@ -24,14 +24,14 @@ BuildRequires:  ocaml-topkg-devel >= 1.1.0
 BuildRequires:  ocaml-xmlm-devel
 
 %description
-Uucd is an OCaml module to decode the data of the Unicode character
-database (http://www.unicode.org/reports/tr44/) from its XML
-representation (http://www.unicode.org/reports/tr42/).  It provides
-high-level (but not necessarily efficient) access to the data so that
-efficient representations can be extracted.
+Uucd is an OCaml module to decode the data of the Unicode character database
+(http://www.unicode.org/reports/tr44/) from its XML representation
+(http://www.unicode.org/reports/tr42/).  It provides high-level (but not
+necessarily efficient) access to the data so that efficient representations
+can be extracted.
 
-Uucd is made of a single module, depends on Xmlm and is distributed
-under the ISC license.
+Uucd is made of a single module, depends on Xmlm and is distributed under the
+ISC license.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -39,8 +39,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-xmlm-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n uucd-%{version}

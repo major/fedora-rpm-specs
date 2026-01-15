@@ -1,9 +1,9 @@
 Name: aqbanking
 Summary: A library for online banking functions and financial data import/export
-Version: 6.8.4
+Version: 6.9.1
 Release: 1%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
-Source0: https://www.aquamaniac.de/rdm/attachments/download/646/aqbanking-%{version}.tar.gz
+Source0: https://www.aquamaniac.de/rdm/attachments/download/652/aqbanking-%{version}.tar.gz
 License: GPL-2.0-only AND GPL-3.0-only
 URL: https://www.aquamaniac.de/rdm/projects/aqbanking
 
@@ -118,6 +118,12 @@ make check ||:
 
 
 %changelog
+* Tue Jan 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.9.1-1
+- 6.9.1
+
+* Tue Jan 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.8.5-1
+- 6.8.5
+
 * Fri Jan 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.8.4-1
 - 6.8.4
 

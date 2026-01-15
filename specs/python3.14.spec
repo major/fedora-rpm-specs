@@ -609,7 +609,7 @@ Requires: tzdata
 # was used during the build time.
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 %global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
-Requires: expat >= %{expat_version}
+Requires: expat%{?_isa} >= %{expat_version}
 
 
 %description -n %{pkgname}-libs
@@ -808,7 +808,7 @@ License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AN
 # See the comments in the definition of main -libs subpackage for detailed explanations
 Provides: bundled(mimalloc) = 2.12
 Requires: tzdata
-Requires: expat >= %{expat_version}
+Requires: expat%{?_isa} >= %{expat_version}
 
 # There are files in the standard library that have python shebang.
 # We've filtered the automatic requirement out so libs are installable without

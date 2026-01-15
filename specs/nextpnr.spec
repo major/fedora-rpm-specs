@@ -5,7 +5,7 @@
 
 Name:		nextpnr
 Version:	1
-Release:	61.%{snapdate}git%{shortcommit}%{?dist}
+Release:	62.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 # Automatically converted from old format: ISC and BSD and MIT and (MIT or Public Domain) - review is highly recommended.
@@ -88,6 +88,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1-62.20251205gitc46f2bb
+- Rebuilt for Boost 1.90
+
 * Fri Dec 05 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-61.20251111gitc46f2bb
 - update to newer snapshot
 

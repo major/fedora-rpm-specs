@@ -28,15 +28,14 @@ BuildRequires:  ocaml-ppx-jane-devel
 
 %description
 Ppx_expect is a framework for writing tests in OCaml, similar to Cram
-(https://bitheap.org/cram/).  Ppx_expect mimics the existing inline
-tests framework with the `let%%expect_test` construct.  The body of an
-expect-test can contain output-generating code, interleaved with
-`%%expect` extension expressions to denote the expected output.
+(https://bitheap.org/cram/).  Ppx_expect mimics the existing inline tests
+framework with the `let%%expect_test` construct.  The body of an expect-test
+can contain output-generating code, interleaved with `%%expect` extension
+expressions to denote the expected output.
 
-When run, these tests will pass iff the output matches what was
-expected.  If a test fails, a corrected file with the suffix
-".corrected" will be produced with the actual output, and the
-`inline_tests_runner` will output a diff.
+When run, these tests will pass iff the output matches what was expected.  If
+a test fails, a corrected file with the suffix ".corrected" will be produced
+with the actual output, and the `inline_tests_runner` will output a diff.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -48,8 +47,8 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 Requires:       ocaml-stdio-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_expect-%{version}

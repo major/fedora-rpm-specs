@@ -30,9 +30,8 @@ BuildRequires:  ocaml-ppx-inline-test-devel
 %endif
 
 %description
-Ppx_sexp_conv is a PPX syntax extension that generates code for
-converting OCaml types to and from s-expressions, as defined in the
-sexplib0 library.
+Ppx_sexp_conv is a PPX syntax extension that generates code for converting
+OCaml types to and from s-expressions, as defined in the sexplib0 library.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -43,8 +42,8 @@ Requires:       ocaml-ppxlib-jane-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files
+for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_sexp_conv-%{version}

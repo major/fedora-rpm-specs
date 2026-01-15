@@ -4,15 +4,14 @@
 %global with_docs 0
 
 Name:           python-%{pypi_name}
-Version:        3.0.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Yet Another Query Language
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        %pypi_source
-Patch0001:      0001-Uncap-hacking.patch
+Source:         %pypi_source
 
 BuildArch:      noarch
 
@@ -38,10 +37,9 @@ Documentation for YAQL library
 %autosetup -n %{pypi_name}-%{version} -p1
 
 sed -i '/sphinx-build/ s/-W//' tox.ini
-sed -i '/hacking/d' test-requirements.txt
 
 %generate_buildrequires
-%if 0%{?with_doc}
+%if 0%{?with_docs}
   %pyproject_buildrequires -t -e %{default_toxenv},docs
 %else
   %pyproject_buildrequires -t -e %{default_toxenv}

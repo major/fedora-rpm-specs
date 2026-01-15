@@ -30,12 +30,11 @@ BuildRequires:  ocaml-ppx-inline-test-devel
 %endif
 
 %description
-Ppx_compare is a ppx rewriter that derives comparison and equality
-functions from type representations.  The scaffolded functions are
-usually much faster than OCaml's `Pervasives.compare` and
-`Pervasives.(=)`.  Scaffolding functions also give more flexibility by
-allowing them to be overridden for a specific type, and more safety by
-making sure that only comparable values are compared.
+Ppx_compare is a ppx rewriter that derives comparison and equality functions
+from type representations.  The scaffolded functions are usually much faster
+than OCaml's `Stdlib.compare` and `Stdlib.(=)`.  Scaffolding functions also
+give more flexibility by allowing them to be overridden for a specific type,
+and more safety by making sure that only comparable values are compared.
 
 %package        devel
 Summary:        Development files for %{name}

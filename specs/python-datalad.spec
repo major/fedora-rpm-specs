@@ -12,6 +12,7 @@ Version:        1.2.3
 Release:        %autorelease
 Summary:        Keep code, data, containers under control with git and git-annex
 
+# spdx verified
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}

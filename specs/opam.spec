@@ -92,16 +92,16 @@ Suggests:       mercurial
 Suggests:       rsync
 
 %description
-Opam is a source-based package manager for OCaml. It supports multiple
-simultaneous compiler installations, flexible package constraints, and
-a Git-friendly development workflow.
+Opam is a source-based package manager for OCaml.  It supports multiple
+simultaneous compiler installations, flexible package constraints, and a
+Git-friendly development workflow.
 
 %package installer
 Summary:        Standalone script for opam install files
 
 %description installer
-Standalone script for working with opam .install files, see the opam
-package for more information.
+Standalone script for working with opam .install files, see the opam package
+for more information.
 
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}

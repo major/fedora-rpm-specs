@@ -15,7 +15,7 @@
 %endif
 
 Name:           python-%{pkgname}
-Version:        6.0.2
+Version:        6.1.0
 Release:        %autorelease
 Summary:        Context managers by jaraco
 

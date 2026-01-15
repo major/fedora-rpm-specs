@@ -84,7 +84,7 @@ developing applications using camlimages.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 5.0.5-7
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 5.0.5-7
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-6

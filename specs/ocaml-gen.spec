@@ -26,8 +26,8 @@ BuildRequires:  ocaml-qcheck-devel
 BuildRequires:  ocaml-qtest-devel
 
 %description
-Iterators for OCaml, both restartable and consumable.  The
-implementation keeps a good balance between simplicity and performance.
+Iterators for OCaml, both restartable and consumable.  The implementation
+keeps a good balance between simplicity and performance.
 
 
 %package        devel
@@ -73,7 +73,7 @@ developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 1.1-15
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 1.1-15
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14

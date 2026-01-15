@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:    plasma-wayland-protocols
-Version: 1.19.0
+Version: 1.20.0
 Release: 1%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
@@ -46,10 +46,13 @@ developing applications that use %{name}.
 %{_kf6_datadir}/plasma-wayland-protocols/
 
 %files devel
-%{_kf6_libdir}/cmake/PlasmaWaylandProtocols/
+%{_kf6_datadir}/cmake/PlasmaWaylandProtocols/
 
 
 %changelog
+* Tue Jan 13 2026 Steve Cossette <farchord@gmail.com> - 1.20.0-1
+- 1.20.0
+
 * Wed Sep 24 2025 Steve Cossette <farchord@gmail.com> - 1.19.0-1
 - 1.19.0
 

@@ -19,8 +19,8 @@ BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-dune >= 3.11.0
 
 %description
-This package contains a library with the definition of S-expressions and
-some base converters.
+This package contains a library with the definition of S-expressions and some
+base converters.
 
 %package        devel
 Summary:        Development files for %{name}

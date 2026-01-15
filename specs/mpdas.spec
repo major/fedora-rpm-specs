@@ -3,12 +3,12 @@ Version:        0.4.5
 Release:        %autorelease
 Summary:        An MPD audioscrobbling client
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+
+License:        BSD-3-Clause
 URL:            http://50hz.ws/%{name}/
 Source0:        %{url}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  libcurl-devel
 BuildRequires:  libmpdclient-devel
 BuildRequires:  gcc-c++

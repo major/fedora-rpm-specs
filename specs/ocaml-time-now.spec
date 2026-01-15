@@ -20,8 +20,8 @@ BuildRequires:  ocaml-ppx-base-devel >= 0.17
 BuildRequires:  ocaml-ppx-optcomp-devel >= 0.17
 
 %description
-This package provides a single OCaml function to report the current time
-in nanoseconds since the start of the Unix epoch.
+This package provides a single OCaml function to report the current time in
+nanoseconds since the start of the Unix epoch.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -35,8 +35,8 @@ Requires:       ocaml-ppx-sexp-conv-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n time_now-%{version}

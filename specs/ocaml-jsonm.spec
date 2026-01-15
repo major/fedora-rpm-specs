@@ -24,9 +24,9 @@ BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
 
 %description
-Jsonm is an OCaml non-blocking streaming codec to decode and encode the
-JSON data format.  It can process JSON text without blocking on IO and
-without a complete in-memory representation of the data.
+Jsonm is an OCaml non-blocking streaming codec to decode and encode the JSON
+data format.  It can process JSON text without blocking on IO and without a
+complete in-memory representation of the data.
 
 The uncut codec also processes whitespace and (non-standard) JSON with
 JavaScript comments.

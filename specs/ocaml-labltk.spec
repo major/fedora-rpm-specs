@@ -140,7 +140,7 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.06.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 8.06.15-2
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 8.06.15-2
 - Rebuild to fix OCaml dependencies
 
 * Mon Feb 03 2025 Richard W.M. Jones <rjones@redhat.com> - 8.06.15-1

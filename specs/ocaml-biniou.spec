@@ -87,7 +87,7 @@ sed -i '/bdump/d' .ofiles
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.2.2-14
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 1.2.2-14
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-13

@@ -3,11 +3,10 @@
 
 Name:       %{fontname}-sfd-fonts
 Version:    2.0.2
-Release:    40%{?dist}
+Release:    41%{?dist}
 Summary:    Old Standard True-Type Fonts
 
-# Automatically converted from old format: OFL - review is highly recommended.
-License:    LicenseRef-Callaway-OFL
+License:    OFL-1.1
 # Also at https://fonts.google.com/specimen/Old+Standard+TT
 URL:        https://fontlibrary.org/en/font/old-standard
 Source0:    http://www.thessalonica.org.ru/downloads/oldstandard-2.0.2.src.zip
@@ -78,6 +77,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.0.2-41
+- Use spdx license id
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

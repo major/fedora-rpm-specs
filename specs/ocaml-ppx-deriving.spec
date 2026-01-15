@@ -22,9 +22,9 @@ BuildRequires:  ocaml-ppx-derivers-devel
 BuildRequires:  ocaml-ppxlib-devel >= 0.36.0
 
 %description
-Deriving is a library simplifying type-driven code generation on OCaml.
-It includes a set of useful plugins: show, eq, ord (eq), enum, iter,
-map (iter), fold (iter), make, yojson, and protobuf.
+Deriving is a library simplifying type-driven code generation on OCaml.  It
+includes a set of useful plugins: show, eq, ord (eq), enum, iter, map (iter),
+fold (iter), make, yojson, and protobuf.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -33,8 +33,8 @@ Requires:       ocaml-ppx-derivers-devel%{?_isa}
 Requires:       ocaml-ppxlib-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files
+for developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_deriving-%{version} -p1

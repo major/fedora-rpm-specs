@@ -24,8 +24,8 @@ BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 BuildRequires:  ocaml-ppxlib-jane-devel >= 0.17
 
 %description
-Ppx_hash is a ppx rewriter that generates hash functions from type
-expressions and definitions.
+Ppx_hash is a ppx rewriter that generates hash functions from type expressions
+and definitions.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -38,8 +38,8 @@ Requires:       ocaml-ppxlib-jane-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
 
 %description    devel
-The %{name}-devel package contains libraries and signature
-files for developing applications that use %{name}.
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -n ppx_hash-%{version}

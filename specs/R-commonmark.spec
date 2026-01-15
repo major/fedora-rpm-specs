@@ -7,6 +7,9 @@ License:        BSD-2-Clause
 URL:            %{cran_url}
 Source:         %{cran_source}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  R-devel
 
 # Note, this is the GitHub-Flavored Markdown fork, not the one in Fedora.

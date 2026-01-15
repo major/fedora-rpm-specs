@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 21
+%global baserelease 22
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -348,6 +348,8 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2426825.patch
+Patch25: glibc-rh2428799-1.patch
+Patch26: glibc-rh2428799-2.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
@@ -2399,6 +2401,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jan 13 2026 Florian Weimer  <fweimer@redhat.com> - 2.42.9000-22
+- Revert <math.h> changes for fpclassify et al. because of C++ bugs (#2428799)
+
 * Mon Jan 12 2026 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-21
 - Auto-sync with upstream branch master,
   commit e539a269990dac3ff4d2432c0eb6966a5ee4f274:

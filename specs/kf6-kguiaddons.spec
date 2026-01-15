@@ -1,7 +1,7 @@
 %global 	framework kguiaddons
 
 Name:		kf6-%{framework}
-Version:	6.22.0
+Version:	6.22.1
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtGui
 
@@ -11,7 +11,7 @@ URL:		https://invent.kde.org/frameworks/%{framework}
 Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
-BuildRequires:  extra-cmake-modules >= %{version}
+BuildRequires:  extra-cmake-modules
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:  libX11-devel
@@ -106,6 +106,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Jan 13 2026 Steve Cossette <farchord@gmail.com> - 6.22.1-1
+- 6.22.1
+
 * Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
 - 6.22.0
 

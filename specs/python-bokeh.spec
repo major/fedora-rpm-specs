@@ -13,7 +13,7 @@ and data applications.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -61,7 +61,7 @@ Summary:        Interactive plots and applications in the browser from Python
 # Also see the breakdown in the bundled JS below
 # and https://github.com/bokeh/bokeh/blob/branch-2.2/bokehjs/LICENSE
 # Automatically converted from old format: BSD and ASL 2.0 and MIT and ISC - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND Apache-2.0 AND LicenseRef-Callaway-MIT AND ISC
+License:        BSD-3-Clause AND Apache-2.0 AND MIT AND ISC
 URL:            https://github.com/bokeh/bokeh
 Source0:        %pypi_source
 # Read package-lock.json and general list of bundled runtime libraries their versions
@@ -232,6 +232,9 @@ rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.3.0-23
+- use spdx license
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-22
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -27,9 +27,9 @@ BuildRequires:  ocaml-topkg-devel >= 0.9.0
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
-Fpath is an OCaml module for handling file system paths with POSIX or
-Windows conventions.  Fpath processes paths without accessing the file
-system and is independent from any system library.
+Fpath is an OCaml module for handling file system paths with POSIX or Windows
+conventions.  Fpath processes paths without accessing the file system and is
+independent from any system library.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -80,7 +80,7 @@ ocaml pkg/pkg.ml test
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.7.3-26
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.7.3-26
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-25
