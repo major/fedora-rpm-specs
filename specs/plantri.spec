@@ -21,13 +21,13 @@ BuildRequires:  make
 
 %description
 Plantri and fullgen are programs for generating certain types of planar
-graphs.  The authors are Gunnar Brinkmann (University of Ghent) and
-Brendan McKay (Australian National University).
+graphs.  The authors are Gunnar Brinkmann (University of Ghent) and Brendan
+McKay (Australian National University).
 
-Graphs are generated in such a way that exactly one member of each
-isomorphism class is output without the need for storing them.  The
-speed of generation is more than 2,000,000 graphs per second in many
-cases, so extremely large classes of graph can be exhaustively listed.
+Graphs are generated in such a way that exactly one member of each isomorphism
+class is output without the need for storing them.  The speed of generation is
+more than 2,000,000 graphs per second in many cases, so extremely large
+classes of graph can be exhaustively listed.
 
 %prep
 %autosetup -n %{name}%{upstreamver} -p1

@@ -9,10 +9,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 26a0f35f6a8db110e5f58a79e56f7e534fdd9fc1
 %global commitdatestring 2025-12-30 08:46:55 -0700
-%global cosmic_minver 1.0.1
+%global cosmic_minver 1.0.2
 
 Name:           cosmic-store
-Version: 1.0.1
+Version: 1.0.2
 Release:        %autorelease
 Summary:        App store for the COSMIC Desktop Environment
 

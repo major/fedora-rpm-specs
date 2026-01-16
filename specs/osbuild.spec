@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        167
+Version:        169
 
 %forgemeta
 
@@ -392,6 +392,35 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Jan 14 2026 Packit <hello@packit.dev> - 169-1
+Changes with 169
+----------------
+  - Update images dependency ref to latest (#2299)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2305)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - Update osbuild-ci container images (#2296)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20260101 (#2297)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20260112 (#2306)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - docs: introduce manifest guide (#2175)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - monitor: deep copy stage options in JSONSeqMonitor (#2293)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Michael Vogt, Ondřej Budai, Simon Steinbeiß, Tomáš Hozza
+  - stages/kickstart: support containers-storage transport (#2264)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - stages/rpm: add option to ignore key import errors (HMS-9986) (#2301)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - stages/rpm: add support for setting the rpmkeys binary (#2303)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - stages: add force option to org.osbuild.groups (#2304)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-01-14
+
+
 * Wed Dec 17 2025 Packit <hello@packit.dev> - 167-1
 Changes with 167
 ----------------

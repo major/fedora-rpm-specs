@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           plasma-mobile
-Version:        6.5.5
+Version:        6.5.90
 Release:        1%{?dist}
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-only AND MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
@@ -19,6 +19,7 @@ BuildRequires: kf6-kdbusaddons-devel
 BuildRequires: kwin-devel
 BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(libdrm)
 
@@ -49,6 +50,7 @@ BuildRequires: cmake(KF6XmlGui)
 BuildRequires: cmake(KF6ItemModels)
 BuildRequires: cmake(KF6GlobalAccel)
 BuildRequires: cmake(KF6Screen)
+BuildRequires: cmake(KF6KirigamiPlatform)
 BuildRequires: cmake(KPipeWire)
 BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6Sensors)
@@ -101,10 +103,13 @@ Obsoletes: plasma-nm-mobile < 5.27.81
 %find_lang plasma_applet_org.kde.phone.homescreen --all-name
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mobile_onscreenkeyboard,mobile_time}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.plasma.mobileshell.metainfo.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mobile_time,mobileshell,navigation,waydroidintegration}.desktop
 
 %files -f plasma_applet_org.kde.phone.homescreen.lang
 %license LICENSES/*
+%{_kf6_datadir}/plasma-mobile-device-presets/
+%{_kf6_metainfodir}/org.kde.plasma.mobileshell.metainfo.xml
 %{_kf6_libexecdir}/kauth/flashlighthelper
 %{_kf6_libexecdir}/kauth/waydroidhelper
 %{_kf6_bindir}/startplasmamobile
@@ -142,6 +147,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_autodetect_apn.so
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

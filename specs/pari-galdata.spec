@@ -13,8 +13,8 @@ BuildArch:	noarch
 BuildRequires:	gnupg2
 
 %description
-This package contains the optional PARI package galdata, which provides
-the Galois resolvents for the polgalois function, for degrees 8 through 11.
+This package contains the optional PARI package galdata, which provides the
+Galois resolvents for the polgalois function, for degrees 8 through 11.
 
 %prep
 # Verify the source file

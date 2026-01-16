@@ -8,7 +8,7 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -38,6 +38,7 @@ BuildRequires: flatpak-devel >= %{flatpak_version}
 BuildRequires: libstemmer-devel
 BuildRequires: libyaml-devel
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 BuildRequires: gettext
 BuildRequires: libxml2-devel
 BuildRequires: pkgconfig(libmarkdown)
@@ -231,9 +232,9 @@ cat kcm_updates.lang plasma-discover.lang | sort | uniq -u > discover.lang
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.appdata.xml ||:
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.flatpak.appdata.xml ||:
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.packagekit.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.flatpak.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.packagekit.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desktop
 
 
@@ -312,6 +313,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

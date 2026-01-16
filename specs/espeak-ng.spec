@@ -1,6 +1,6 @@
 Name:          espeak-ng
-Version:       1.51.1
-Release:       12%{?dist}
+Version:       1.52.0
+Release:       1%{?dist}
 Summary:       eSpeak NG Text-to-Speech
 
 License:       GPL-3.0-only AND GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND Unicode-DFS-2016 AND CC-BY-SA-3.0
@@ -16,15 +16,6 @@ BuildRequires: pkgconfig
 BuildRequires: rubygem-ronn
 BuildRequires: rubygem-kramdown
 BuildRequires: pcaudiolib-devel
-
-# Backported from:
-# https://github.com/espeak-ng/espeak-ng/commit/58f1e0b6a4e6aa55621c6f01118994d01fd6f68c
-Patch:        espeak-ng-1.51-CVE-2023-49990-4.patch
-# backported from upstream for add-text-to-phonemes-with-terminator
-Patch:        espeak-ng-1.51-add-translate-clause-with-terminator.patch
-# Backported from:
-# https://github.com/espeak-ng/espeak-ng/pull/2127/
-Patch:        espeak-ng-1.51-add-text-to-phonemes-with-terminator.patch
 
 %description
 The eSpeak NG (Next Generation) Text-to-Speech program is an open source speech
@@ -91,7 +82,7 @@ ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
 %license COPYING.BSD2
 %license COPYING.UCD
 %doc README.md
-%doc CHANGELOG.md
+%doc ChangeLog.md
 %{_bindir}/speak-ng
 %{_bindir}/espeak-ng
 %{_libdir}/libespeak-ng.so.1
@@ -114,6 +105,10 @@ ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
 %doc docs/*.html
 
 %changelog
+* Wed Jan 14 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.52.0-1
+- New version
+  Resolves: rhbz#2332083
+
 * Mon Oct 06 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 1.51.1-12
 - Backported espeak_TextToPhonemesWithTerminator
   Resolves: rhbz#2393480

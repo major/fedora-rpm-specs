@@ -21,15 +21,14 @@ Source:         %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 ExcludeArch:    %{ix86}
 
 %description
-SymFPU is an implementation of the SMT-LIB / IEEE-754 operations in
-terms of bit-vector operations.  It is templated in terms of the
-bit-vectors, propositions, floating-point formats and rounding mode
-types used.  This allow the same code to be executed as an arbitrary
-precision "SoftFloat" library (although it's performance would not be
-good) or to be used to build symbolic representation of floating-point
-operations suitable for use in "bit-blasting" SMT solvers (you could
-also generate circuits from them but again, performance will likely not
-be good).
+SymFPU is an implementation of the SMT-LIB / IEEE-754 operations in terms of
+bit-vector operations.  It is templated in terms of the bit-vectors,
+propositions, floating-point formats and rounding mode types used.  This
+allows the same code to be executed as an arbitrary precision "SoftFloat"
+library (although it's performance would not be good) or to be used to build
+symbolic representations of floating-point operations suitable for use in
+"bit-blasting" SMT solvers (you could also generate circuits from them but
+again, performance will likely not be good).
 
 %package devel
 Summary:        Development files for %{name}

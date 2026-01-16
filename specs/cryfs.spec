@@ -3,7 +3,7 @@
 
 Name:           cryfs
 Version:        0.11.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -15,6 +15,8 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{
 Patch0:         0001-Include-stdexcept-when-using-logic_error.patch
 # https://github.com/cryfs/cryfs/issues/459
 Patch1:         0002-Fix-versioneer-compatibility-with-Python-312.patch
+# Need to use Boost.Process v1 for Boost 1.90.0
+Patch2: cryfs-boost-process-v1.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -70,6 +72,9 @@ base directory, which can then be synchronized to remote storage
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Jan 14 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.11.3-14
+- Patched to use Boost.Process v1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

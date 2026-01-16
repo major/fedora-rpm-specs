@@ -22,21 +22,21 @@ Requires:       lrslib-utils
 
 %description
 The volume is one of the central properties of a convex body, and volume
-computation is involved in many hard problems.  Applications range from
-rather classical ones as in convex optimization to problems in remote
-fields like algebraic geometry where the number of common roots of
-polynomials can be related to a special polytope volume.
+computation is involved in many hard problems.  Applications range from rather
+classical ones as in convex optimization to problems in remote fields like
+algebraic geometry where the number of common roots of polynomials can be
+related to a special polytope volume.
 
-Part of the fascination of the subject stems from the discrepancy
-between the intuitive notion of "volume" and the actual hardness of
-computing it.  Despite this discouraging complexity - algorithms in
-general need exponential time in the input dimension - steadily growing
-computer power enables us to attack problems of practical interest.
+Part of the fascination of the subject stems from the discrepancy between the
+intuitive notion of "volume" and the actual hardness of computing it.  Despite
+this discouraging complexity — algorithms in general need exponential time in
+the input dimension — steadily growing computer power enables us to attack
+problems of practical interest.
 
-Vinci is an easy to install C package that implements the state of the
-art algorithms for volume computation.  It is the fruit of a research
-project carried out at the IFOR (Institute for Operations Research) at
-ETH Zürich, in collaboration with Benno Büeler and Komei Fukuda.
+Vinci is an easy to install C package that implements the state of the art
+algorithms for volume computation.  It is the fruit of a research project
+carried out at the IFOR (Institute for Operations Research) at ETH Zürich, in
+collaboration with Benno Büeler and Komei Fukuda.
 
 %prep
 %autosetup

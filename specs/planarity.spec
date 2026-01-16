@@ -19,28 +19,28 @@ BuildRequires:	make
 BuildRequires:	libtool
 
 %description
-This code project provides a library for implementing graph algorithms
-as well as implementations of several planarity-related graph algorithms.
-The origin of this project is the reference implementation for the Edge
-Addition Planarity Algorithm, which is now the fastest and simplest
-linear-time method for planar graph embedding and planarity obstruction
-isolation (i.e. Kuratowski subgraph isolation).
+This code project provides a library for implementing graph algorithms as well
+as implementations of several planarity-related graph algorithms.  The origin
+of this project is the reference implementation for the Edge Addition
+Planarity Algorithm, which is now the fastest and simplest linear-time method
+for planar graph embedding and planarity obstruction isolation (i.e.
+Kuratowski subgraph isolation).
 
 The software in this code project provides a graph algorithm framework and
 library, including an updated version of the edge addition combinatorial
 planar graph embedder and planar obstruction isolator (i.e., a Kuratowski
-subgraph isolator). This code project also includes several extensions
-that implement planarity-related algorithms such as a planar graph drawing
-algorithm, an outerplanar graph embedder and outerplanar obstruction
-isolator, and a number of subgraph homeomorphism search algorithms.
+subgraph isolator). This code project also includes several extensions that
+implement planarity-related algorithms such as a planar graph drawing
+algorithm, an outerplanar graph embedder and outerplanar obstruction isolator,
+and a number of subgraph homeomorphism search algorithms.
 
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
-This package contains the header files and development documentation
-for %{name}.
+This package contains the header files and development documentation for
+%{name}.
 
 %package	samples
 Summary:	Sample files for %{name}

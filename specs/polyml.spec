@@ -25,9 +25,9 @@ Requires:       gcc-c++
 Requires:       polyml-libs%{?_isa} = %{version}-%{release}
 
 %description
-Poly/ML is a full implementation of Standard ML available as
-open-source.  This release supports the ML97 version of the language
-and the Standard Basis Library.
+Poly/ML is a full implementation of Standard ML available as open-source.
+This release supports the ML97 version of the language and the Standard Basis
+Library.
 
 %package doc
 Summary:        Poly/ML documentation
@@ -109,7 +109,7 @@ make check
 
 %files libs
 %license COPYING
-%{_libdir}/libpolyml.so.16*
+%{_libdir}/libpolyml.so.16{,.*}
 
 %changelog
 %autochangelog

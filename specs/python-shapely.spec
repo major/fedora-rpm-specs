@@ -17,6 +17,9 @@ License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildSystem:            pyproject
 BuildOption(install):   -l shapely
 BuildOption(generate_buildrequires): -x test

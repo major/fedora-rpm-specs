@@ -65,16 +65,16 @@ BuildRequires:  tex-preview
 %endif
 
 %description
-NetworkX is a Python package for the creation, manipulation, and
-study of the structure, dynamics, and functions of complex networks.
+NetworkX is a Python package for the creation, manipulation, and study of the
+structure, dynamics, and functions of complex networks.
 
 %package -n python3-networkx
 Summary:        Creates and Manipulates Graphs and Networks
 Recommends:     xdg-utils
 
 %description -n python3-networkx
-NetworkX is a Python 3 package for the creation, manipulation, and
-study of the structure, dynamics, and functions of complex networks.
+NetworkX is a Python 3 package for the creation, manipulation, and study of
+the structure, dynamics, and functions of complex networks.
 
 %if %{with doctest}
 %package doc

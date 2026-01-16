@@ -39,7 +39,6 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  python3-clang
-BuildRequires:  python3-devel
 BuildRequires:  python3-numpy-doc
 BuildRequires:  python3-numpy-f2py
 BuildRequires:  %{py3_dist antlr4-python3-runtime}
@@ -82,13 +81,13 @@ BuildRequires:  %{py3_dist pytest-xdist}
 BuildRequires:  %{py3_dist wurlitzer}
 BuildRequires:  python3-z3
 
-%global _description\
-SymPy aims to become a full-featured computer algebra system (CAS)\
-while keeping the code as simple as possible in order to be\
-comprehensible and easily extensible. SymPy is written entirely in\
-Python and does not require any external libraries.
+%global _description %{expand:SymPy aims to become a full-featured computer algebra system (CAS) while
+keeping the code as simple as possible in order to be comprehensible and
+easily extensible.  SymPy is written entirely in Python and does not require
+any external libraries.}
 
-%description %_description
+%description
+%_description
 
 %package -n python3-%{name}
 Summary:        A Python3 library for symbolic mathematics
@@ -108,10 +107,7 @@ Recommends:     %{py3_dist pyglet}
 Recommends:     %{py3_dist scipy}
 
 %description -n python3-%{name}
-SymPy aims to become a full-featured computer algebra system (CAS)
-while keeping the code as simple as possible in order to be
-comprehensible and easily extensible. SymPy is written entirely in
-Python and does not require any external libraries.
+%_description
 
 %package doc
 # This project is BSD-3-Clause.  Other files bundled with the documentation

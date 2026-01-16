@@ -1,6 +1,6 @@
 Summary: Library for processing UTF-8 encoded Unicode strings
 Name:    utf8proc
-Version: 2.10.0
+Version: 2.11.3
 Release: %autorelease
 License: MIT AND Unicode-DFS-2015
 URL:     http://julialang.org/utf8proc/

@@ -1,4 +1,4 @@
-%bcond_without check
+%bcond_with check
 %bcond_with debug
 
 ExclusiveArch: %{qt6_qtwebengine_arches}

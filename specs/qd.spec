@@ -21,36 +21,32 @@ BuildRequires:	make
 BuildRequires:	tex(latex)
 
 %description
-This package provides numeric types of twice the precision of IEEE
-double (106 mantissa bits, or approximately 32 decimal digits) and
-four times the precision of IEEE double (212 mantissa bits, or
-approximately 64 decimal digits).  Due to features such as operator
-and function overloading, these facilities can be utilized
-with only minor modifications to conventional C++ and Fortran-90
-programs.
+This package provides numeric types of twice the precision of IEEE double (106
+mantissa bits, or approximately 32 decimal digits) and four times the
+precision of IEEE double (212 mantissa bits, or approximately 64 decimal
+digits).  Due to features such as operator and function overloading, these
+facilities can be utilized with only minor modifications to conventional C++
+and Fortran-90 programs.
 
-In addition to the basic arithmetic operations (add, subtract,
-multiply, divide, square root), common transcendental functions such
-as the exponential, logarithm, trigonometric and hyperbolic functions
-are also included. 
+In addition to the basic arithmetic operations (add, subtract, multiply,
+divide, square root), common transcendental functions such as the exponential,
+logarithm, trigonometric and hyperbolic functions are also included.
 
 %package devel
 Summary:	Double-Double and Quad-Double Arithmetic
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-This package provides numeric types of twice the precision of IEEE
-double (106 mantissa bits, or approximately 32 decimal digits) and
-four times the precision of IEEE double (212 mantissa bits, or
-approximately 64 decimal digits).  Due to features such as operator
-and function overloading, these facilities can be utilized
-with only minor modifications to conventional C++ and Fortran-90
-programs.
+This package provides numeric types of twice the precision of IEEE double (106
+mantissa bits, or approximately 32 decimal digits) and four times the
+precision of IEEE double (212 mantissa bits, or approximately 64 decimal
+digits).  Due to features such as operator and function overloading, these
+facilities can be utilized with only minor modifications to conventional C++
+and Fortran-90 programs.
 
-In addition to the basic arithmetic operations (add, subtract,
-multiply, divide, square root), common transcendental functions such
-as the exponential, logarithm, trigonometric and hyperbolic functions
-are also included.
+In addition to the basic arithmetic operations (add, subtract, multiply,
+divide, square root), common transcendental functions such as the exponential,
+logarithm, trigonometric and hyperbolic functions are also included.
 
 %prep
 %autosetup -p1
@@ -59,14 +55,14 @@ are also included.
 rm -f docs/qd.pdf
 
 %build
-%ifarch s390x aarch64 ppc64le
+%ifarch s390x %{arm64} %{power64}
 export CFLAGS='%{build_cflags} -ffp-contract=off'
 export CXXFLAGS='%{build_cxxflags} -ffp-contract=off'
 %endif
 export FC=gfortran
 
 %configure \
-%ifnarch %{ix86} s390x aarch64 ppc64le
+%ifnarch %{ix86} s390x %{arm64} %{power64}
   --enable-fma \
 %endif
   --enable-shared \
@@ -96,9 +92,6 @@ rm -rf %{buildroot}%{_datadir}
 mkdir -p %{buildroot}%{_fmoddir}/%{name}
 mv %{buildroot}%{_includedir}/qd/*.mod %{buildroot}%{_fmoddir}/%{name}
 
-# Remove la file
-rm %{buildroot}%{_libdir}/*.la
-
 # Fix pkgconfig file on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
   sed -i 's/^libdir=.*/&64/' %{buildroot}%{_libdir}/pkgconfig/qd.pc
@@ -110,7 +103,7 @@ LD_LIBRARY_PATH=$PWD/src/.libs:$PWD/fortran/.libs make check
 %files
 %doc AUTHORS NEWS README TODO
 %license COPYING
-%{_libdir}/libqd*.so.0*
+%{_libdir}/libqd*.so.0{,.*}
 
 %files devel
 %doc qd.pdf

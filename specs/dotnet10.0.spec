@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.101
+%global upstream_tag v10.0.102-sb1
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.1
-%global aspnetcore_runtime_version 10.0.1
-%global sdk_version 10.0.101
+%global runtime_version 10.0.2
+%global aspnetcore_runtime_version 10.0.2
+%global sdk_version 10.0.102
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -83,8 +83,8 @@ License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APS
 
 URL:            https://github.com/dotnet/
 
-Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{upstream_tag_without_v}.tar.gz
-Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-%{upstream_tag_without_v}.tar.gz.sig
+Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{sdk_version}.tar.gz
+Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-%{sdk_version}.tar.gz.sig
 Source2:        https://dotnet.microsoft.com/download/dotnet/release-key-2023.asc
 Source3:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/release.json
 %if %{with bootstrap}
@@ -699,7 +699,6 @@ find -depth -name 'artifacts' -type d -print -exec rm -rf {} \;
 ./build.sh \
   --source-only \
   --release-manifest %{SOURCE3} \
-  --branding rtm \
 %if %{without bootstrap}
   --with-sdk previously-built-dotnet \
 %endif
@@ -936,6 +935,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Jan 13 2026 Omair Majid <omajid@redhat.com> - 10.0.102-1
+- Update to .NET SDK 10.0.102 and Runtime 10.0.2
+
 * Wed Dec 10 2025 Omair Majid <omajid@redhat.com> - 10.0.101-1
 - Update to .NET SDK 10.0.101 and Runtime 10.0.1
 

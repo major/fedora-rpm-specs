@@ -71,7 +71,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -101,6 +101,7 @@ BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavformat-free-devel
 BuildRequires:  mesa-va-drivers
 %endif
+BuildRequires:  rocprofiler-register%{pkg_suffix}-devel
 %endif
 
 %if %{with ninja}
@@ -145,18 +146,19 @@ The rocJPEG development package.
 
 # Fix this error:
 # gmake[2]: /opt/rocm/lib/llvm/bin/clang++: No such file or directory
-sed -i "s|\(llvm/bin/clang++\)|\1 CACHE STRING \"ROCm Compiler path\"|" CMakeLists.txt
+sed -i -e 's@set(CMAKE_C_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang)@set(CMAKE_C_COMPILER "%rocmllvm_bindir/amdclang")@' {,test/,test/*/,samples/*/}CMakeLists.txt
+sed -i -e 's@set(CMAKE_CXX_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang++)@set(CMAKE_CXX_COMPILER "%rocmllvm_bindir/amdclang++")@' {,test/,test/*/,samples/*/}CMakeLists.txt
 
 # There is no /opt/amgpu/include, just use the normal path.
 sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|%{pkg_prefix}/include|" cmake/FindLibva.cmake
 
 # Fix up sample
 sed -i -e 's@${ROCM_PATH}/lib/llvm/bin/clang++@%{pkg_prefix}/bin/hipcc@' samples/*/CMakeLists.txt
-sed -i -e 's@{ROCM_PATH}/lib@%{pkg_prefix}/lib64@' samples/*/CMakeLists.txt test/CMakeLists.txt
-sed -i -e 's@{ROCM_PATH}/include/rocjpeg@%{pkg_prefix}/include/rocjpeg@' samples/*/CMakeLists.txt test/CMakeLists.txt
+sed -i -e 's@${ROCM_PATH}/lib@%{pkg_prefix}/lib64@' samples/*/CMakeLists.txt test/CMakeLists.txt
+sed -i -e 's@${ROCM_PATH}/include/rocjpeg@%{pkg_prefix}/include/rocjpeg@' samples/*/CMakeLists.txt test/CMakeLists.txt
 sed -i -e 's@set(ROCM_PATH /opt/rocm@set(__ROCM_PATH /opt/rocm@' samples/*/CMakeLists.txt test/CMakeLists.txt
 # Fix up test
-sed -i -e 's@{ROCM_PATH}/share@%{pkg_prefix}/share@' test/CMakeLists.txt
+sed -i -e 's@${ROCM_PATH}/share@%{pkg_prefix}/share@' test/CMakeLists.txt
 
 # cpack cruft in the middle of the configure, this breaks TW 
 sed -i -e 's@file(READ "/etc/os-release" OS_RELEASE)@#file(READ "/etc/os-release" OS_RELEASE)@'  CMakeLists.txt
@@ -208,6 +210,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Tue Jan 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Fix --with check
+
 * Wed Dec 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Add --with compat
 

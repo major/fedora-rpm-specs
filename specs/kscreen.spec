@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kscreen
 Epoch:   1
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -32,6 +32,7 @@ BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6KirigamiPlatform)
 BuildRequires:  cmake(Qt6WaylandClient)
 BuildRequires:  cmake(KF6Crash)
 BuildRequires:  pkgconfig(wayland-protocols)
@@ -76,6 +77,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_userunitdir}/plasma-kscreen-osd.service
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 1:6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 1:6.5.5-1
 - 6.5.5
 

@@ -1,7 +1,7 @@
-%global cpan_version 0.998002
+%global cpan_version 0.998003
 
 Name:           perl-App-cpm
-Version:        0.998.2
+Version:        0.998.3
 Release:        1%{?dist}
 Summary:        Fast CPAN module installer
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,7 +52,9 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(File::Temp)
 # BuildRequires:  perl(File::Which)
 # BuildRequires:  perl(Getopt::Long)
+# BuildRequires:  perl(HTTP::Tiny)
 # BuildRequires:  perl(HTTP::Tinyish) >= 0.12
+# BuildRequires:  perl(HTTP::Tinyish::Base)
 # BuildRequires:  perl(IO::Handle)
 # BuildRequires:  perl(IPC::Run3)
 # BuildRequires:  perl(JSON::PP) >= 2.27300
@@ -77,7 +79,6 @@ Requires:       perl(Archive::Tar)
 Requires:       perl(Archive::Zip) >= 1.68
 Requires:       perl(Command::Runner) >= 0.100
 Requires:       perl(ExtUtils::Install) >= 2.20
-Requires:       perl(ExtUtils::InstallPaths) >= 0.002
 Requires:       perl(File::HomeDir)
 Requires:       perl(HTTP::Tinyish) >= 0.12
 Requires:       perl(JSON::PP) >= 2.27300
@@ -157,6 +158,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.998.3-1
+- 0.998003 bump (rhbz#2427567)
+
 * Thu Dec 11 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.998.2-1
 - 0.998002 bump (rhbz#2419147)
 

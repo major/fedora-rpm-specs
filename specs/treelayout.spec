@@ -20,9 +20,9 @@ BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
 
 %description
-Efficiently create compact, highly customizable tree layouts.  The
-software builds tree layouts in linear time; i.e., even trees with many
-nodes are built quickly.
+Efficiently create compact, highly customizable tree layouts.  The software
+builds tree layouts in linear time; i.e., even trees with many nodes are built
+quickly.
 
 %package       demo
 Summary:       TreeLayout Core Demo

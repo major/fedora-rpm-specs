@@ -11,7 +11,7 @@
 
 Name:              fastnetmon
 Version:           1.2.1
-Release:           28.%{date}git%{shortcommit0}%{?dist}
+Release:           30.%{date}git%{shortcommit0}%{?dist}
 
 Summary:           DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -28,6 +28,19 @@ Source1:           fastnetmon.sysusers
 # https://github.com/pavel-odintsov/fastnetmon/pull/968
 # Adding missing header for g++13
 Patch0:            fastnetmon-pr968-g++13-header.patch
+# Boost migration patch by Marek Zarychta. Closes #1027
+# https://github.com/pavel-odintsov/fastnetmon/commit/f02063204d2b07a525d70e502571b31514653604
+#
+# Backported to 420e7b8
+#
+# Fixes:
+#
+# Add support for Boost 1.87.0 (Boost.Asio removals)
+# https://github.com/pavel-odintsov/fastnetmon/issues/1027
+#
+# fastnetmon: FTBFS in Fedora Rawhide/F44 with Boost 1.90
+# https://bugzilla.redhat.com/show_bug.cgi?id=2429533
+Patch1:            0001-Boost-migration-patch-by-Marek-Zarychta.-Closes-1027.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -122,6 +135,12 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %doc README.md SECURITY.md THANKS.md
 
 %changelog
+* Wed Jan 14 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-30.20220528git420e7b8
+- Rebuild for Boost 1.90 (fix RHBZ#2429686)
+
+* Wed Jan 14 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-29.20220528git420e7b8
+- Patch for Boost 1.90 (1.87+); Fixes RHBZ#2429533
+
 * Sat Jan 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.1-28.20220528git420e7b8
 - Rebuild for capnproto 1.3.0
 

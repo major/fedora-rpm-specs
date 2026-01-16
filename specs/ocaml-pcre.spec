@@ -67,7 +67,7 @@ developing applications that use %{name}.
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Mon Jun 30 2025 Jerry James  <loganjerry@gmail.com> - 8.0.4-1
+* Mon Jun 30 2025 Jerry James <loganjerry@gmail.com> - 8.0.4-1
 - Version 8.0.4
 - BR ocaml-ounit for the tests
 

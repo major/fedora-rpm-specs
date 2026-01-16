@@ -1,6 +1,5 @@
-# Remove the plotly dependency from the “vis” extra until python-plotly is
-# updated to a sufficiently current version, 6.x:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2342667
+# The python-plotly package was too old (<6.0) in F43 and older, and was
+# retired for Fedora 44.
 %bcond plotly 0
 
 # Add a BuildRequires on vtk merely for smoke-testing imports of VTK
@@ -26,6 +25,9 @@ License:        MIT AND CC-BY-4.0
 URL:            https://onurraufbingol.com/NURBS-Python/
 %global forgeurl https://github.com/orbingol/NURBS-Python
 Source:         %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -x test,vis
@@ -108,7 +110,7 @@ export SETUPTOOLS_USE_CYTHON=1
 
 
 %check -a
-%pytest ${ignore-}
+%pytest
 
 
 %files -n python3-geomdl -f %{pyproject_files}

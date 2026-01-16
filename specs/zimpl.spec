@@ -74,8 +74,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libzimpl%{?_isa} = %{version}-%{release}
 
 %description -n libzimpl-devel
-This package contains headers and library links for developing
-applications that use libzimpl.
+This package contains headers and library links for developing applications
+that use libzimpl.
 
 %prep
 %autosetup -p1
@@ -115,7 +115,7 @@ cd -
 %files -n libzimpl
 %doc CHANGELOG README
 %license LICENSE
-%{_libdir}/libzimpl.so.0*
+%{_libdir}/libzimpl.so.0{,.*}
 
 %files -n libzimpl-devel
 %{_includedir}/zimpl/

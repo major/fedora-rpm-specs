@@ -19,9 +19,9 @@ BuildRequires:	parallel
 
 %description
 This package contains the optional PARI package seadata, which provides the
-modular polynomials for prime level up to 500 needed by the GP functions
-ellap and ellsea.  This is suitable for finite fields of cardinality q up
-to 750 bits.
+modular polynomials for prime level up to 500 needed by the GP functions ellap
+and ellsea.  This is suitable for finite fields of cardinality q up to 750
+bits.
 
 These polynomials were extracted from the ECHIDNA databases available at
 <http://echidna.maths.usyd.edu.au/kohel/dbs/> and computed by David R. Kohel
@@ -32,9 +32,8 @@ Summary:	PARI/GP Computer Algebra System big modular polynomials
 Requires:	%{name} = %{version}-%{release}
 
 %description	big
-This package contains extra modular polynomials of prime level between
-500 and 800.  This is suitable for finite fields of cardinality q up to
-1100 bits.
+This package contains extra modular polynomials of prime level between 500 and
+800.  This is suitable for finite fields of cardinality q up to 1100 bits.
 
 %prep
 # Verify the source files

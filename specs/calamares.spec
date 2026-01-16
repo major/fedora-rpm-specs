@@ -1,6 +1,6 @@
 Name:           calamares
 Version:        3.3.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 3.3.14-5
+- Rebuilt for Boost 1.90
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 3.3.14-4
 - Rebuilt for icu 77.1
 

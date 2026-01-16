@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -41,6 +41,8 @@ Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
 Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.asc
 # Key exported from Petr Pisar's keyring
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
+# Adapt tests to glib2-2.87.0, in upstream after 2.15.2, bug #2423153
+Patch0:         modulemd-2.15.2-tests-Adapt-to-glib-2.87.0.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.47
@@ -189,6 +191,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Wed Jan 14 2026 Petr Pisar <ppisar@redhat.com> - 2.15.2-5
+- Adapt tests to glib2-2.87.0 (bug #2423153)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.15.2-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

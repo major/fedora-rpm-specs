@@ -1,22 +1,20 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit c46bd5f31a8a0a8e57b907393f8c0cd73d089c43
-%global shortcommit %{sub %{commit} 1 7}
-%global date 20260112
-
 %global orgname org.kde.plasmasetup
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
 %global _hardened_build 1
 
 Name:           plasma-setup
-Version:        0.1.0~%{date}git%{shortcommit}
+Version:        6.5.90
 Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
-Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
+
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
+Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 # Backported changes
 
@@ -75,7 +73,7 @@ ExcludeArch:    %{ix86}
 
 
 %prep
-%autosetup -n %{name}-%{commit} -S git_am
+%autosetup -p1
 
 
 %build
@@ -130,6 +128,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20260112gitc46bd5f-1
 - Bump to new git snapshot
 

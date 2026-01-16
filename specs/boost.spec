@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -81,7 +81,9 @@ Source1: b2.1
 # The subpackages that don't install shared libraries are also not pulled in
 # (b2, build, doc, doctools, examples, static).
 Requires: %{name}-atomic%{?_isa} = %{version}-%{release}
+Requires: %{name}-charconv%{?_isa} = %{version}-%{release}
 Requires: %{name}-chrono%{?_isa} = %{version}-%{release}
+Requires: %{name}-cobalt%{?_isa} = %{version}-%{release}
 Requires: %{name}-container%{?_isa} = %{version}-%{release}
 Requires: %{name}-contract%{?_isa} = %{version}-%{release}
 %if %{with context}
@@ -100,6 +102,7 @@ Requires: %{name}-locale%{?_isa} = %{version}-%{release}
 Requires: %{name}-log%{?_isa} = %{version}-%{release}
 Requires: %{name}-math%{?_isa} = %{version}-%{release}
 Requires: %{name}-nowide%{?_isa} = %{version}-%{release}
+Requires: %{name}-process%{?_isa} = %{version}-%{release}
 Requires: %{name}-program-options%{?_isa} = %{version}-%{release}
 %if %{with python3}
 Requires: %{name}-python3%{?_isa} = %{version}-%{release}
@@ -112,6 +115,7 @@ Requires: %{name}-test%{?_isa} = %{version}-%{release}
 Requires: %{name}-thread%{?_isa} = %{version}-%{release}
 Requires: %{name}-timer%{?_isa} = %{version}-%{release}
 Requires: %{name}-type_erasure%{?_isa} = %{version}-%{release}
+Requires: %{name}-url%{?_isa} = %{version}-%{release}
 Requires: %{name}-wave%{?_isa} = %{version}-%{release}
 # F44 dropped the boost-system subpackage
 Obsoletes: boost-system < 1.90.0
@@ -1361,6 +1365,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Thu Jan 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.90.0-4
+- Add dependencies on new subpackages to metapackage
+
 * Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.90.0-3
 - Fix libboost_system.so linker script to avoid ldcondig warning
 

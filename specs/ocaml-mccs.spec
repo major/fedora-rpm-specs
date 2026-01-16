@@ -34,15 +34,14 @@ BuildRequires:  ocaml-cudf-devel
 BuildRequires:  glpk-devel
 
 %description
-mccs (which stands for Multi Criteria CUDF Solver) is a CUDF problem
-solver developed at UNS during the European MANCOOSI project.
+mccs (which stands for Multi Criteria CUDF Solver) is a CUDF problem solver
+developed at UNS during the European MANCOOSI project.
 
-This project contains a stripped-down version of the mccs solver,
-taken from snapshot 1.1, with a binding as an OCaml library, and
-building with dune.
+This project contains a stripped-down version of the mccs solver, taken from
+snapshot 1.1, with a binding as an OCaml library, and building with dune.
 
-The binding enables interoperation with binary CUDF data from the
-OCaml CUDF library, and removes the native C++ parsers and printers.
+The binding enables interoperation with binary CUDF data from the OCaml CUDF
+library, and removes the native C++ parsers and printers.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -86,7 +85,7 @@ sed -i 's,clibs,../clibs,' src/glpk/dune
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 1.1.%{extraver}-3
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 1.1.%{extraver}-3
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-2

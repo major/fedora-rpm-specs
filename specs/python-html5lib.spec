@@ -13,6 +13,8 @@ Patch:          %{url}/pull/506.patch
 Patch:          %{url}/pull/573.patch
 # Fix compatibility with Python 3.14+
 Patch:          %{url}/pull/583.patch
+# Avoid ResourceWarning: Implicitly cleaning up <addinfourl ...>
+Patch:          %{url}/pull/591.patch
 
 BuildArch:      noarch
 

@@ -23,21 +23,21 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 
-%global _desc %{expand:
-Pattern-defeating quicksort (pdqsort) is a novel sorting algorithm that
-combines the fast average case of randomized quicksort with the fast
-worst case of heapsort, while achieving linear time on inputs with
-certain patterns.  pdqsort is an extension and improvement of David
-Musser's introsort.}
+%global _desc %{expand:Pattern-defeating quicksort (pdqsort) is a novel sorting algorithm that
+combines the fast average case of randomized quicksort with the fast worst
+case of heapsort, while achieving linear time on inputs with certain patterns.
+pdqsort is an extension and improvement of David Musser's introsort.}
 
-%description %_desc
+%description
+%_desc
 
 %package        devel
 Summary:        Pattern-defeating quicksort library
 BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 
-%description    devel %_desc
+%description    devel
+%_desc
 
 %prep
 %forgeautosetup
@@ -52,7 +52,7 @@ cp -p pdqsort.h %{buildroot}%{_includedir}
 %check
 # Run the benchmark as a kind of test, but only run small sizes
 # This is only possible on x86_64 due to use of rdtsc
-%ifarch x86_64
+%ifarch %{x86_64}
 cd bench
 sed -i 's/1000000, //' bench.cpp
 g++ %{build_cxxflags} -o bench bench.cpp

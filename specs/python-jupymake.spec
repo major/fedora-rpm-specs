@@ -1,7 +1,7 @@
 # Upstream does not release tarballs.  Instead the code is copied directly
 # into the polymake distribution.  Therefore, we check out the code from git.
 %global commit  a6987c8bb455c172e80eed7b5b62a7c13bf85815
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global shortcommit %{sub %{commit} 1 7}
 %global gitdate 20231204
 
 Name:           python-jupymake
@@ -31,17 +31,18 @@ BuildOption(install): -l JuPyMake
 BuildRequires:  gcc-c++
 BuildRequires:  polymake
 
-%global _description %{expand:
-This package provides a basic interface to call polymake from python.  It is
+%global _description %{expand:This package provides a basic interface to call polymake from python.  It is
 meant to be used in the Jupyter interface for polymake.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-jupymake
 Summary:        Python wrapper for the polymake shell
 Requires:       polymake%{?_isa}
 
-%description -n python3-jupymake %_description
+%description -n python3-jupymake
+%_description
 
 %prep
 %autosetup -n JuPyMake-%{commit} -p1

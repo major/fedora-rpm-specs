@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-nano
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/plasma-nano
@@ -33,6 +33,7 @@ BuildRequires:  cmake(KWinDBusInterface)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6Package)
 BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6KirigamiPlatform)
 
 # Qt
 BuildRequires:  cmake(Qt6Qml)
@@ -75,6 +76,9 @@ Requires: qt6-qtdeclarative
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

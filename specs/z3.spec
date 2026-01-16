@@ -49,11 +49,11 @@ BuildRequires:  %{py3_dist setuptools}
 
 %description
 Z3 is a satisfiability modulo theories (SMT) solver; given a set of
-constraints with variables, it reports a set of values for those
-variables that would meet the constraints.  The Z3 input format is an
-extension of the one defined by the SMT-LIB 2.0 standard.  Z3 supports
-arithmetic, fixed-size bit-vectors, extensional arrays, datatypes,
-uninterpreted functions, and quantifiers.
+constraints with variables, it reports a set of values for those variables
+that would meet the constraints.  The Z3 input format is an extension of the
+one defined by the SMT-LIB 2.0 standard.  Z3 supports arithmetic, fixed-size
+bit-vectors, extensional arrays, datatypes, uninterpreted functions, and
+quantifiers.
 
 %package libs
 Summary:        Library for applications that use z3 functionality
@@ -259,7 +259,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.15*
+%{_libdir}/libz3.so.4.15{,.*}
 
 %files devel
 %{_includedir}/z3/

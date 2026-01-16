@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPL-2.0-or-later
@@ -155,6 +155,9 @@ install -m0644 -D direwolf.sysusers.conf %{buildroot}%{_sysusersdir}/direwolf.co
 
 
 %changelog
+* Wed Jan 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.1-2
+- Rebuild for new gpsd
+
 * Wed Dec 24 2025 Richard Shaw <hobbes1069@gmail.com> - 1.8.1-1
 - Update to 1.8.1.
 - Build with libgpiod.

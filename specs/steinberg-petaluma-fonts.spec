@@ -23,13 +23,12 @@ Release:        13%{?dist}
 %global fontdocs         README.md redist/FONTLOG.txt
 %global fontdocsex       %{fontlicenses}
 
-%global common_description %{expand:
-Petaluma is a Unicode typeface designed by Steinberg for its Dorico music
-notation and scoring application.  It is compliant with version 1.3 of
-the Standard Music Font Layout (SMuFL), a community-driven standard for
-how music symbols should be laid out in the Unicode Private Use Area
-(PUA) in the Basic Multilingual Plane (BMP) for compatibility between
-different scoring applications.}
+%global common_description %{expand:Petaluma is a Unicode typeface designed by Steinberg for its Dorico music
+notation and scoring application.  It is compliant with version 1.3 of the
+Standard Music Font Layout (SMuFL), a community-driven standard for how music
+symbols should be laid out in the Unicode Private Use Area (PUA) in the Basic
+Multilingual Plane (BMP) for compatibility between different scoring
+applications.}
 
 %global fontfamily0      Petaluma
 %global fontsummary0     Petaluma music font
@@ -37,8 +36,8 @@ different scoring applications.}
 %global fontconfs0       %{SOURCE1}
 %global fontdescription0 %{expand:%{common_description}
 
-This package contains the Petaluma font.  It is a Unicode typeface
-designed by Steinberg for its music notation and scoring application.}
+This package contains the Petaluma font.  It is a Unicode typeface designed by
+Steinberg for its music notation and scoring application.}
 
 %global fontfamily1      PetalumaText
 %global fontsummary1     Petaluma text font
@@ -92,12 +91,6 @@ This meta-package installs all the font packages generated from the
 
 %install
 %fontinstall -a
-metainfo="%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml \
-%{buildroot}%{_metainfodir}/%{fontorg}.steinberg-petalumascript-fonts.metainfo.xml \
-%{buildroot}%{_metainfodir}/%{fontorg}.steinberg-petalumatext-fonts.metainfo.xml"
-
-# The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -i 's,updatecontact,update_contact,g' $metainfo
 
 # Install the SMuFL metadata
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma

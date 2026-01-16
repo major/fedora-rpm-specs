@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -172,6 +172,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_tmpfilesdir}/vsftpd.conf
 
 %changelog
+* Wed Jan 14 2026 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-14
+- Resolve CVE-2025-14242
+
 * Thu Dec 18 2025 Fedor Vorobev <fvorobev@redhat.com> - 3.0.5-13
 - Add a tmpfiles.d config. (image mode support)
 

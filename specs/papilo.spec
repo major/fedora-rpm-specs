@@ -88,8 +88,8 @@ Requires:       tbb-devel%{?_isa}
 %description -n libpapilo-devel
 %_desc
 
-This package contains headers and library links to develop applications
-that use libpapilo.
+This package contains headers and library links to develop applications that
+use libpapilo.
 
 %prep
 %autosetup -p1
@@ -130,7 +130,7 @@ rm -fr %{buildroot}%{_defaultlicensedir}
 
 %files -n libpapilo
 %license LICENSE src/papilo/external/fmt/LICENSE.rst
-%{_libdir}/libpapilo-core.so.0*
+%{_libdir}/libpapilo-core.so.0{,.*}
 
 %files -n libpapilo-devel
 %{_includedir}/papilo/

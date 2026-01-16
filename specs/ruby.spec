@@ -1,6 +1,6 @@
 %global major_version 4
 %global minor_version 0
-%global teeny_version 0
+%global teeny_version 1
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -83,7 +83,7 @@
 %global optparse_version 0.8.1
 %global pp_version 0.6.3
 %global prettyprint_version 0.2.0
-%global prism_version 1.7.0
+%global prism_version 1.8.0
 %global psych_version 5.3.1
 %global resolv_version 0.7.0
 %global ruby2_keywords_version 0.0.5
@@ -190,7 +190,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 30%{?dist}
+Release: 31%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -1963,6 +1963,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Tue Jan 13 2026 Vít Ondruch <vondruch@redhat.com> - 4.0.1-31
+- Upgrade to Ruby 4.0.1.
+  Resolves: rhbz#2428861
+
 * Fri Jan 02 2026 Jarek Prokop <jprokop@redhat.com> - 4.0.0-30
 - Upgrade to Ruby 4.0.0.
   Resolves: rhbz#2425358

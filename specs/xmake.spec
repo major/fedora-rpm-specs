@@ -1,7 +1,7 @@
 %bcond_with luajit
 
 Name:       xmake
-Version:    3.0.5
+Version:    3.0.6
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/scripts/.+\\.ps1$
 %global forgeurl https://github.com/xmake-io/xmake
@@ -18,6 +18,7 @@ Source:     %forgesource
 Patch0:     0001-pkgconfig-fix-check.patch
 Patch1:     0001-system-include.patch
 Patch2:     0001-add-relwithdebinfo-build-mode.patch
+Patch3:     https://github.com/xmake-io/xmake/pull/7213.patch
 
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(readline)

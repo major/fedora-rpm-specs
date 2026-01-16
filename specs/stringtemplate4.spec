@@ -25,10 +25,9 @@ BuildRequires:  mvn(org.antlr:antlr3-maven-plugin) >= 3.5.2
 BuildRequires:  xwayland-run
 
 %description
-StringTemplate is a java template engine (with ports for
-C# and Python) for generating source code, web pages,
-emails, or any other formatted text output. StringTemplate
-is particularly good at multi-targeted code generators,
+StringTemplate is a java template engine (with ports for C# and Python) for
+generating source code, web pages, emails, or any other formatted text output.
+StringTemplate is particularly good at multi-targeted code generators,
 multiple site skins, and internationalization/localization.
 
 %package javadoc

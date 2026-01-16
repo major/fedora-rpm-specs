@@ -24,8 +24,8 @@ BuildRequires:  tex(latex)
 %global major %(cut -d. -f1 <<< %{version})
 
 %description
-SACLIB is a library of C programs for computer algebra derived from the
-SAC2 system.  Hoon Hong was the primary author of that earlier system.
+SACLIB is a library of C programs for computer algebra derived from the SAC2
+system.  Hoon Hong was the primary author of that earlier system.
 
 %package devel
 # The content is ISC.  The remaining licenses cover the various fonts embedded
@@ -38,8 +38,7 @@ Summary:        Development files for saclib
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files and library links for developing applications that use
-saclib.
+Header files and library links for developing applications that use saclib.
 
 %prep
 %autosetup -n %{name}%{version} -p0
@@ -86,7 +85,7 @@ cp -p include/*.h %{buildroot}%{_includedir}/%{name}
 %files
 %doc README
 %license LICENSE
-%{_libdir}/libsaclib.so.2*
+%{_libdir}/libsaclib.so.2{,.*}
 
 %files devel
 %doc doc/user_guide/*.pdf

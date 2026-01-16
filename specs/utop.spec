@@ -39,10 +39,9 @@ BuildRequires:  emacs-tuareg
 Provides:       ocaml-%{name}%{?_isa} = %{version}-%{release}
 
 %description
-utop is an improved toplevel (i.e., Read-Eval-Print Loop) for
-OCaml. It can run in a terminal or in Emacs. It supports line
-editing, history, real-time and context sensitive completion,
-colors, and more.
+utop is an improved toplevel (i.e., Read-Eval-Print Loop) for OCaml.  It can
+run in a terminal or in Emacs.  It supports line editing, history, real-time
+and context sensitive completion, colors, and more.
 
 %package devel
 Summary:        Development files for %{name}
@@ -64,8 +63,8 @@ Requires:       emacs-tuareg
 Recommends:     emacs-company
 
 %description -n emacs-utop
-This package contains an Emacs front end for utop, an improved toplevel
-for OCaml.
+This package contains an Emacs front end for utop, an improved toplevel for
+OCaml.
 
 %prep
 %autosetup -p1

@@ -83,7 +83,7 @@ help2man \
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.1.11-7
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.1.11-7
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-6

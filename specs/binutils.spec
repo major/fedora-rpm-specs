@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -94,6 +94,14 @@ URL: https://sourceware.org/binutils
 %else
 %define enable_separate_code 0
 %endif
+
+# Enable the creation of relocations against the contents of read-only
+# sections (such as .text).  This is a security vulnerability, so it is
+# disabled here by default.
+# Note - the upstream GNU Binutils sources enable the generation of this
+# kind of relocation by default, so this is a difference between Ferdora
+# and upstream.
+%define enable_textrel 0
 
 # Indicate where the sources come from.
 #
@@ -330,6 +338,10 @@ Patch18: binutils-gold-i386-gnu-property-notes.patch
 # Lifetime: Fixed in 2.46 (maybe)
 Patch19: binutils-gold-empty-dwp.patch
 %endif
+
+# Purpose:  Fix ld testsuite failures when enable_textrel is set.
+# Lifetime: Permanent.
+Patch20: binutils-ld-default-z-text.patch
 
 #----------------------------------------------------------------------------
 
@@ -782,6 +794,12 @@ compute_global_configuration()
     CARGS="$CARGS --enable-threads=yes"
 %else
     CARGS="$CARGS --enable-threads=no"
+%endif
+
+%if %{enable_textrel}
+    CARGS="$CARGS --enable-textrel-check=no"
+%else
+    CARGS="$CARGS --enable-textrel-check=error"
 %endif
 
 %if "%{source}" != "official-release"
@@ -1485,6 +1503,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Jan 13 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-15
+- Disallow the creation of shared object that use text relocations.  (#2428281)
+
 * Fri Jan 09 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-14
 - Fix Risc-V related test failures caused by -12 revision. 
 

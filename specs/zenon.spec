@@ -32,11 +32,11 @@ Requires:	coq%{?_isa} = %{coqver}
 Requires:	coreutils
 
 %description
-Zenon is an automated theorem prover for first order classical logic
-with equality, based on the tableau method.  Zenon can read input files
-in TPTP, Coq, Focal, and its own Zenon format.  Zenon can directly
-generate Coq proofs (proof scripts or proof terms), which can be
-reinserted into Coq specifications.  Zenon can also be extended.
+Zenon is an automated theorem prover for first order classical logic with
+equality, based on the tableau method.  Zenon can read input files in TPTP,
+Coq, Focal, and its own Zenon format.  Zenon can directly generate Coq proofs
+(proof scripts or proof terms), which can be reinserted into Coq
+specifications.  Zenon can also be extended.
 
 %prep
 %autosetup
@@ -109,7 +109,7 @@ fi
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.8.5-32
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.8.5-32
 - Rebuild to fix OCaml dependencies
 
 * Wed Jan 22 2025 Jerry James <loganjerry@gmail.com> - 0.8.5-31

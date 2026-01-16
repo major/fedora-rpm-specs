@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF6/Plasma6
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -107,7 +107,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.cor
 %{_kf6_datadir}/qlogging-categories6/drkonqi.categories
 %{_userunitdir}/drkonqi-coredump-*
 %{_unitdir}/drkonqi-coredump-processor@.service
-%{_qt6_plugindir}/drkonqi/KDECoredumpNotifierTruck.so
+%{_kf6_datadir}/knotifications6/drkonqi-coredump-launcher.notifyrc
 %{_bindir}/drkonqi-sentry-data
 %{_unitdir}/systemd-coredump@.service.wants/drkonqi-coredump-processor@.service
 %{_userunitdir}/default.target.wants/*
@@ -122,6 +122,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.cor
 %{_kf6_datadir}/polkit-1/actions/org.kde.drkonqi.policy
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

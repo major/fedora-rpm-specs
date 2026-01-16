@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilities
@@ -118,7 +118,11 @@ cd py/
 %pyproject_save_files nftables
 
 %post services
-%systemd_post nftables.service
+# We want to keep nftables enabled on dist-upgrades
+# So if it is not enabled run the normal systemd_post
+if [ $1 -eq 1 ] && [[ ! -h /etc/systemd/system/multi-user.target.wants/nftables.service ]]; then
+  %systemd_post nftables.service
+fi
 
 %preun services
 %systemd_preun nftables.service
@@ -148,6 +152,9 @@ cd py/
 %{_unitdir}/nftables.service
 
 %changelog
+* Sat Jan 03 2026 Kevin Fenzi <kevin@scrye.com> - 1:1.1.5-3
+- Adjust post to keep service enabled on dist-upgrades. Thanks grumpey0@gmail.com
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:1.1.5-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

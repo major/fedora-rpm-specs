@@ -29,28 +29,27 @@ Requires:       gzip
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
-PicoSAT solves the SAT problem, which is the classical NP complete
-problem of searching for a satisfying assignment of a propositional
-formula in conjunctive normal form (CNF).  PicoSAT can generate proofs
-and cores in memory by compressing the proof trace.  It supports the
-proof format of TraceCheck.
+PicoSAT solves the SAT problem, which is the classical NP-complete problem of
+searching for a satisfying assignment of a propositional formula in
+conjunctive normal form (CNF).  PicoSAT can generate proofs and cores in
+memory by compressing the proof trace.  It supports the proof format of
+TraceCheck.
 
 %package R
 Summary:        A SAT solver library for R
 
 %description R
-The PicoSAT library, which contains routines that solve the SAT problem.
-The library has a simple API which is similar to that of previous
-solvers by the same authors.  This version of the library is built for
-use with R projects.
+The PicoSAT library, which contains routines that solve the SAT problem.  The
+library has a simple API which is similar to that of previous solvers by the
+same authors.  This version of the library is built for use with R projects.
 
 %package libs
 Summary:        A SAT solver library
 
 %description libs
-The PicoSAT library, which contains routines that solve the SAT problem.
-The library has a simple API which is similar to that of previous
-solvers by the same authors.
+The PicoSAT library, which contains routines that solve the SAT problem.  The
+library has a simple API which is similar to that of previous solvers by the
+same authors.
 
 %package devel
 Summary:        Development files for PicoSAT
@@ -136,13 +135,13 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_mandir}/man1
 %files R
 %doc NEWS
 %license LICENSE
-%{_libdir}/libpicosat-R.so.0*
+%{_libdir}/libpicosat-R.so.0{,.*}
 
 %files libs
 %doc NEWS
 %license LICENSE
-%{_libdir}/libpicosat-trace.so.0*
-%{_libdir}/libpicosat.so.0*
+%{_libdir}/libpicosat-trace.so.0{,.*}
+%{_libdir}/libpicosat.so.0{,.*}
 
 %files devel
 %{_includedir}/picosat.h

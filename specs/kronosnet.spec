@@ -1,7 +1,7 @@
 ###############################################################################
 ###############################################################################
 ##
-##  Copyright (C) 2012-2025 Red Hat, Inc.  All rights reserved.
+##  Copyright (C) 2012-2026 Red Hat, Inc.  All rights reserved.
 ##
 ##  This copyrighted material is made available to anyone wishing to use,
 ##  modify, copy, or redistribute it subject to the terms and conditions
@@ -36,7 +36,7 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.32
+Version: 1.33
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
@@ -436,6 +436,13 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Wed Jan 14 2026 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.33-1
+- New upstream release
+- Build fixes for gcc-15
+- Build fixes for rust coreutils
+- Coverity tests cleanup
+- Release: ship all files for completeness
+
 * Thu Sep 25 2025 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.32-1
 - New upstream release
 - IMPORTANT: sctp support is now officially deprecated. It is disabled by default and it will be removed in knet 2.x.

@@ -91,13 +91,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        146.0.1
-Release:        3%{?dist}
+Version:        147.0
+Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20251218.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20260114.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -146,10 +146,8 @@ Patch402:       mozilla-526293.patch
 Patch406:        mozilla-1170092.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1998188
 # this is the Firefox patch, manually rediffed against 146.0.1
-Patch407:       thunderbird-146.0.1-fix_resize_crash.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=2008377
 # fix crash on aarch64
-Patch408:        D275955.1765540580.diff
 
 # Bundled expat backported patches
 
@@ -314,8 +312,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 
 %patch -P 402 -p1 -b .526293
 %patch -P 406 -p1 -b .1170092-etc-conf
-%patch -P 407 -p1 -b .1998188-resize-crash
-%patch -P 408 -p1 -b .aarch64-crash
 
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 
@@ -775,6 +771,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Wed Jan 14 2026 Jan Horak <jhorak@redhat.com> - 147.0-1
+- Update to 147.0
+
 * Fri Jan 02 2026 Adam Williamson <awilliam@redhat.com> - 146.0.1-3
 - Port aarch64 crash fix from Firefox (upstream #2005469 / #2008377)
 

@@ -1,12 +1,13 @@
 Summary:	GLib Ncurses Toolkit
 Name:		libgnt
-Version:	2.14.1
-Release:	13%{?dist}
+Version:	2.14.3
+Release:	1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://keep.imfreedom.org/libgnt/libgnt/
 BuildRequires:	gcc
 BuildRequires:	meson
+BuildRequires:	ninja-build
 BuildRequires:	gobject-introspection
 BuildRequires:	gtk-doc
 BuildRequires:	glib2-devel
@@ -43,7 +44,7 @@ Documentation files for libgnt.
 %autosetup -p1
 
 %build
-%meson
+%meson -Dpython2=false
 %meson_build
 
 %install
@@ -67,6 +68,10 @@ Documentation files for libgnt.
 %{_datadir}/gtk-doc
 
 %changelog
+* Wed Jan 14 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.3-1
+- New version
+  Resolves: rhbz#1985297
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

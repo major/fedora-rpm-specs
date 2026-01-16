@@ -3,7 +3,7 @@
 
 # https://github.com/hickford/git-credential-oauth
 %global goipath         github.com/hickford/git-credential-oauth
-Version:                0.17.1
+Version:                0.17.2
 
 %gometa -f
 

@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 57%{?dist}
+Release: 58%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1198,6 +1198,9 @@ make check
 
 
 %changelog
+* Wed Jan 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.12.0-58
+- Rebuild for new gpsd
+
 * Thu Jan 08 2026 Kevin Fenzi <kevin@scrye.com> - 5.12.0-57
 - Rebuild for xen update.
 

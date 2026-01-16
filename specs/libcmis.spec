@@ -10,6 +10,13 @@ URL: https://github.com/tdf/libcmis
 Source: https://github.com/tdf/libcmis/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # https://github.com/tdf/libcmis/issues/51
 Patch:  libxmis-0.6.2-libxml2-2.12.0-includes.patch
+# https://github.com/tdf/libcmis/pull/68 and followups
+# Fixes build with boost 1.86+, followups address some issues
+Patch:  0001-Fix-boost-1.86-breakage.patch
+Patch:  0002-sha1-test-fails-with-older-boost.patch
+Patch:  0003-Fix-build-with-boost-1.66-and-simplify-a-bit.patch
+Patch:  0004-Fix-comment-and-sync-the-if-BOOST_VERSION.patch
+
 
 BuildRequires: boost-devel
 BuildRequires: gcc-c++

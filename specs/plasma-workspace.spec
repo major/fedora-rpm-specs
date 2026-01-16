@@ -1,11 +1,9 @@
-# X11 session is not shipped anymore
-%bcond x11 0
 %bcond kf6_pim 1
 %bcond plasma_keyboard %[0%{?fedora} >= 44 || 0%{?rhel} >= 11]
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
@@ -313,15 +311,6 @@ Conflicts:  %{name}-wayland < 6.4.1-2
 Provides:   %{name}-wayland = %{version}-%{release}
 Provides:   %{name}-wayland%{?_isa} = %{version}-%{release}
 
-%if ! %{with x11}
-%if 0%{?fedora}
-Obsoletes:      %{name}-x11 < 5.92.0
-%else
-Obsoletes:      %{name}-x11 < %{version}-%{release}
-Conflicts:      %{name}-x11 < %{version}-%{release}
-%endif
-%endif
-
 %description
 Plasma 6 libraries and runtime components
 
@@ -395,25 +384,6 @@ BuildArch:      noarch
 This package contains configuration and dependencies for SDDM
 to use KWin for the Wayland compositor for the greeter.
 
-%if %{with x11}
-%package x11
-Summary:        Xorg support for Plasma
-# Rename this package to match upstream
-Obsoletes:      %{name}-xorg < 5.20.90-2
-Provides:       %{name}-xorg = %{version}-%{release}
-Provides:       %{name}-xorg%{?_isa} = %{version}-%{release}
-# Split of Xorg session into subpackage
-Obsoletes:      %{name} < 5.19.5-2
-Requires:       %{name} = %{version}-%{release}
-Requires:       kwin-x11
-Requires:       xorg-x11-server-Xorg
-Requires:       xsetroot
-# Plasma X11 is deprecated and will be removed with Plasma 6.0
-Provides:       deprecated()
-%description x11
-%{summary}.
-%endif
-
 %package -n plasma-lookandfeel-fedora
 Summary:  Fedora look-and-feel for Plasma
 Requires: %{name} = %{version}-%{release}
@@ -456,7 +426,7 @@ EOL
 %build
 %cmake_kf6 \
   -DINSTALL_SDDM_WAYLAND_SESSION:BOOL=ON \
-  -DPLASMA_X11_DEFAULT_SESSION:BOOL=OFF \
+  -DWITH_X11_SESSION:BOOL=OFF \
   -DGLIBC_LOCALE_GEN:BOOL=OFF \
   -DGLIBC_LOCALE_PREGENERATED:BOOL=ON
 %cmake_build
@@ -465,13 +435,7 @@ EOL
 %install
 %cmake_install
 
-%if ! %{with x11}
-# Delete x11 session stuff
-rm -v %{buildroot}%{_kf6_bindir}/startplasma-x11 %{buildroot}%{_datadir}/xsessions/plasmax11.desktop
-%endif
-
-
-chrpath --delete %{buildroot}%{_kf6_qtplugindir}/phonon_platform/kde.so
+#chrpath --delete %{buildroot}%{_kf6_qtplugindir}/phonon_platform/kde.so
 
 # General startplasma symlink
 ln -sr %{buildroot}%{_kf6_bindir}/startplasma-wayland %{buildroot}%{_kf6_bindir}/startplasma
@@ -515,7 +479,7 @@ cat *.lang | sort | uniq -u > %{name}.lang
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{plasmashell,kcolorschemeeditor,kfontview,plasmawindowed,klipper,plasma-interactiveconsole}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{plasmashell,kcolorschemeeditor,kfontview,plasmawindowed,klipper,plasma-interactiveconsole,baloorunner,secretprompter}.desktop
 
 %post
 if [ -s /usr/sbin/setsebool ] ; then
@@ -526,6 +490,9 @@ fi
 %license LICENSES
 
 %files -f %{name}.lang
+%{_libexecdir}/ksecretprompter
+%{_kf6_datadir}/applications/org.kde.baloorunner.desktop
+%{_kf6_datadir}/applications/org.kde.secretprompter.desktop
 %{_kf6_datadir}/xdg-desktop-portal/kde-portals.conf
 %{_sysconfdir}/xdg/menus/plasma-applications.menu
 %{_kf6_bindir}/gmenudbusmenuproxy
@@ -583,7 +550,6 @@ fi
 %{_kf6_datadir}/knotifications6/*.notifyrc
 %{_kf6_datadir}/config.kcfg/*
 %{_kf6_datadir}/kio_desktop/
-%{_kf6_datadir}/plasma5support/services/*.operations
 %{_kf6_datadir}/applications/kcm_*
 %{_kf6_datadir}/applications/org.kde.plasmashell.desktop
 %{_kf6_datadir}/applications/org.kde.kcolorschemeeditor.desktop
@@ -628,7 +594,6 @@ fi
 %{_libdir}/libkworkspace6.so.*
 
 %files libs
-%{_sysconfdir}/xdg/taskmanagerrulesrc
 %{_libdir}/libbatterycontrol.so.*
 %{_libdir}/libtaskmanager.so.*
 %{_libdir}/libklipper.so.*
@@ -641,8 +606,6 @@ fi
 %if %{with kf6_pim}
 %{_kf6_qtplugindir}/plasmacalendarplugins/
 %endif
-%dir %{_kf6_qtplugindir}/phonon_platform/
-%{_kf6_qtplugindir}/phonon_platform/kde.so
 %{_kf6_plugindir}/kio/*.so
 %{_kf6_plugindir}/kded/*.so
 %{_libdir}/libklookandfeel.so.6
@@ -661,7 +624,6 @@ fi
 %{_kf6_qtplugindir}/plasma/containmentactions/org.kde.switchdesktop.so
 %{_kf6_qtplugindir}/plasma/containmentactions/switchwindow.so
 %{_kf6_qtplugindir}/plasma/containmentactions/switchactivity.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/*
 %{_kf6_qtplugindir}/plasma/kcminit/kcm_fonts_init.so
 %{_kf6_qtplugindir}/plasma/kcminit/kcm_style_init.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_fontinst.so
@@ -704,17 +666,14 @@ fi
 %files -n sddm-wayland-plasma
 %{_prefix}/lib/sddm/sddm.conf.d/plasma-wayland.conf
 
-%if %{with x11}
-%files x11
-%{_kf6_bindir}/startplasma-x11
-%{_datadir}/xsessions/plasmax11.desktop
-%endif
-
 %files -n plasma-lookandfeel-fedora
 %{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora*.desktop/
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

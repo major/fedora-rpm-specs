@@ -1,13 +1,14 @@
 Name:           plasma-keyboard
 Epoch:          1
-Version:        0.1.0
-Release:        2%{?dist}
+Version:        6.5.90
+Release:        1%{?dist}
 Summary:        Virtual Keyboard for Qt based desktops
 
 License:        LGPL-2.1-only AND GPL-2.0-only AND CC0-1.0 AND LGPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only
 URL:            https://invent.kde.org/plasma/%{name}/
 
-Source0:        https://download.kde.org/unstable/%{name}/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
+Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake
@@ -45,7 +46,7 @@ Requires: %{name} = %{epoch}:%{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -75,6 +76,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboa
 %{_datadir}/applications/kcm_plasmakeyboard.desktop
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 1:6.5.90-1
+- 6.5.90
+
 * Sun Dec 21 2025 Alessandro Astone <ales.astone@gmail.com> - 1:0.1.0-2
 - Requires kcm if systemsettings is installed
 

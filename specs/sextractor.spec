@@ -13,7 +13,7 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: automake autoconf libtool
 BuildRequires: fftw-devel >= 3.1
-BuildRequires: openblas-devel
+BuildRequires: flexiblas-devel
 BuildRequires: cfitsio-devel
 
 %description
@@ -26,13 +26,14 @@ well on moderately crowded star fields.
 %setup -q
 %patch -P0 -p1
 sh ./autogen.sh
+sed -i 's/openblas/flexiblas/g' configure
 
 %build
-%configure --enable-openblas
-make %{?_smp_mflags}
+%configure --enable-flexiblas --with-flexiblas-incdir=%{_includedir}/flexiblas
+%make_build
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 mkdir -p %{buildroot}%{_datadir}/%{name}
 install -m 644 -p config/*.conv %{buildroot}%{_datadir}/%{name}
 install -m 644 -p config/default.nnw %{buildroot}%{_datadir}/%{name}

@@ -74,12 +74,12 @@ Provides:       bundled(js-jquery)
 %global __requires_exclude ocaml\\\(Driver_ast\\\)
 
 %description
-Why3 is the next generation of the Why software verification platform.
-Why3 clearly separates the purely logical specification part from
-generation of verification conditions for programs.  It features a rich
-library of proof task transformations that can be chained to produce a
-suitable input for a large set of theorem provers, including SMT
-solvers, TPTP provers, as well as interactive proof assistants.
+Why3 is the next generation of the Why software verification platform.  Why3
+clearly separates the purely logical specification part from generation of
+verification conditions for programs.  It features a rich library of proof
+task transformations that can be chained to produce a suitable input for a
+large set of theorem provers, including SMT solvers, TPTP provers, as well as
+interactive proof assistants.
 
 %package examples
 Summary:        Example inputs
@@ -104,16 +104,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       alt-ergo coq cvc5 E gappa yices-tools z3 zenon
 
 %description all
-This package provides a complete software verification platform suite
-based on Why3, including various automated and interactive provers.
+This package provides a complete software verification platform suite based on
+Why3, including various automated and interactive provers.
 
 %package -n ocaml-%{name}
 Summary:        Software verification library for ocaml
 Requires:       ocaml-zip-devel%{?_isa}
 
 %description -n ocaml-%{name}
-This package contains an ocaml library that exposes the functionality
-of why3 to applications.
+This package contains an ocaml library that exposes the functionality of why3
+to applications.
 
 %package -n ocaml-%{name}-devel
 Summary:        Development files for using the ocaml-%{name} library
@@ -125,8 +125,8 @@ Requires:       ocaml-sexplib-devel%{?_isa}
 Requires:       ocaml-zip-devel%{?_isa}
 
 %description -n ocaml-%{name}-devel
-This package contains development files needed to build applications
-that use the ocaml-%{name} library.
+This package contains development files needed to build applications that use
+the ocaml-%{name} library.
 
 %package proofgeneral
 Summary:        Why3 integration with ProofGeneral

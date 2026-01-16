@@ -217,7 +217,7 @@ make check || {
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 5.3.5-5
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 5.3.5-5
 - Rebuild to fix OCaml dependencies
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.5-4

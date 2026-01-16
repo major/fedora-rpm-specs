@@ -1,20 +1,20 @@
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
 Version:	2.143
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSH-Perl-%{version}.tar.gz
+Patch0:		Net-SSH-Perl-2.143-XS.patch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	gcc
 #BuildRequires:	gnupg2
 BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.64
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::Manifest) >= 1.21
 # Module Runtime
@@ -86,15 +86,18 @@ client. It is compatible with both the SSH-1 and SSH-2 protocols.
 %prep
 %setup -q -n Net-SSH-Perl-%{version}
 
+# Fix FTBFS with ExtUtils::ParseXS 3.61
+# https://github.com/briandfoy/net-ssh-perl/pull/75
+%patch -P0
+
 %build
 # Protocol support (select one)
 # 1=SSH1 2=SSH2 3=Both
-echo 3 | perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+echo 3 | perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -108,6 +111,11 @@ make test
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Wed Jan 14 2026 Paul Howarth <paul@city-fan.org> - 2.143-5
+- Fix FTBFS with ExtUtils::ParseXS 3.61
+  https://github.com/briandfoy/net-ssh-perl/pull/75
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.143-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

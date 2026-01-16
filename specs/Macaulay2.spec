@@ -362,8 +362,8 @@ ExcludeArch: %{ix86} %{power64}
 
 %description
 Macaulay 2 is a new software system devoted to supporting research in
-algebraic geometry and commutative algebra written by Daniel R. Grayson
-and Michael E. Stillman
+algebraic geometry and commutative algebra written by Daniel R. Grayson and
+Michael E. Stillman.
 
 %package common
 Summary: Common files for %{name}

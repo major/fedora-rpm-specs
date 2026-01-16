@@ -11,6 +11,8 @@ Patch0:         collada-dom.minizip-include.patch
 Patch1:         collada-dom.include-zlib.patch
 Patch2:         collada-dom.cmake-version.patch
 Patch3:         collada-dom.cmake-drop-vars.patch
+Patch4:         collada-dom.gcc16.patch
+Patch5:         collada-dom.boost-filesystem.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

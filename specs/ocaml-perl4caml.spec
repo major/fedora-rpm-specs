@@ -139,7 +139,7 @@ install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-116
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.9.5-115
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.9.5-115
 - Rebuild to fix OCaml dependencies
 
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.9.5-114

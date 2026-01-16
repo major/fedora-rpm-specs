@@ -87,7 +87,7 @@ help2man -N --version-string=%{version} \
   -o %{buildroot}%{_mandir}/man1/jcache.1 %{buildroot}%{_bindir}/jcache
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-jupyter-cache -f %{pyproject_files}
 %doc CHANGELOG.md README.md

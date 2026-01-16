@@ -17,13 +17,12 @@ Release:        11%{?dist}
 %global fontdocs         README.md redist/bravura-text.md redist/FONTLOG.txt
 %global fontdocsex       %{fontlicenses}
 
-%global common_description %{expand:
-Bravura is an OpenType music font developed for Steinberg's Dorico music
-notation and composition software.  It is also the reference font for
-Standard Music Font Layout (SMuFL), which provides a standard way of
-mapping the thousands of musical symbols required by conventional music
-notation into the Private Use Area in Unicode's Basic Multilingual Plane
-for a single (format-independent) font.}
+%global common_description %{expand:Bravura is an OpenType music font developed for Steinberg's Dorico music
+notation and composition software.  It is also the reference font for Standard
+Music Font Layout (SMuFL), which provides a standard way of mapping the
+thousands of musical symbols required by conventional music notation into the
+Private Use Area in Unicode's Basic Multilingual Plane for a single
+(format-independent) font.}
 
 %global fontfamily0      Bravura
 %global fontsummary0     Bravura music font
@@ -32,8 +31,7 @@ for a single (format-independent) font.}
 %global fontdescription0 %{expand:%{common_description}
 
 This package contains the Bravura font family.  It is a Unicode typeface
-designed by Steinberg for its music notation and scoring application.
-}
+designed by Steinberg for its music notation and scoring application.}
 
 %global fontfamily1      BravuraText
 %global fontsummary1     Bravura text font
@@ -41,10 +39,8 @@ designed by Steinberg for its music notation and scoring application.
 %global fontconfs1       %{SOURCE2}
 %global fontdescription1 %{expand:%{common_description}
 
-This package contains the Bravura Text font family.  It is a Unicode
-typeface designed by Steinberg for its music notation and scoring
-application.
-}
+This package contains the Bravura Text font family.  It is a Unicode typeface
+designed by Steinberg for its music notation and scoring application.}
 
 Source0:        %{forgesource}
 Source1:        65-%{fontpkgname0}.conf
@@ -64,10 +60,6 @@ ExcludeArch:    %{ix86}
 
 %install
 %fontinstall -a
-metainfo=%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml
-
-# The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -i 's,updatecontact,update_contact,g' $metainfo
 
 # Install the SMuFL metadata
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura

@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.9.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -13,13 +13,14 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source100:      fastapi-cloud.1
 Source110:      fastapi-cloud-deploy.1
 Source120:      fastapi-cloud-login.1
-Source130:      fastapi-cloud-logout.1
-Source140:      fastapi-cloud-whoami.1
-Source150:      fastapi-cloud-unlink.1
-Source160:      fastapi-cloud-env.1
-Source161:      fastapi-cloud-env-list.1
-Source162:      fastapi-cloud-env-set.1
-Source163:      fastapi-cloud-env-delete.1
+Source130:      fastapi-cloud-logs.1
+Source140:      fastapi-cloud-logout.1
+Source150:      fastapi-cloud-whoami.1
+Source160:      fastapi-cloud-unlink.1
+Source170:      fastapi-cloud-env.1
+Source171:      fastapi-cloud-env-list.1
+Source172:      fastapi-cloud-env-set.1
+Source173:      fastapi-cloud-env-delete.1
 
 # Downstream-only; patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -55,8 +56,8 @@ BuildRequires:  %{py3_dist time-machine} >= 2.15
 %install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' '%{SOURCE110}' '%{SOURCE120}' '%{SOURCE130}' \
-    '%{SOURCE140}' '%{SOURCE150}' \
-    '%{SOURCE160}' '%{SOURCE161}' '%{SOURCE162}' '%{SOURCE163}'
+    '%{SOURCE140}' '%{SOURCE150}' '%{SOURCE160}' \
+    '%{SOURCE170}' '%{SOURCE171}' '%{SOURCE172}' '%{SOURCE173}'
 
 
 %check -a

@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        25.12
+Version:        26.1
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 

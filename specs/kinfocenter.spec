@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kinfocenter
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -111,9 +111,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 %{_kf6_datadir}/polkit-1/actions/org.kde.kinfocenter.dmidecode.policy
 %{_qt6_archdatadir}/qml/org/kde/kinfocenter/
 %{_kf6_libexecdir}/kauth/kinfocenter-dmidecode-helper
-
+%{_libexecdir}/kinfocenter-vulkan-helper
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

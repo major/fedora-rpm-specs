@@ -1,5 +1,5 @@
 Name:    kwin
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -12,6 +12,10 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+# Build fails in rawhide
+# https://invent.kde.org/plasma/kwin/-/commit/9a0f09d54c33cd688eaaea2f91a1ffc593ae43aa
+Patch0:         9a0f09d54c33cd688eaaea2f91a1ffc593ae43aa.patch
+
 
 ## proposed patches
 
@@ -274,6 +278,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

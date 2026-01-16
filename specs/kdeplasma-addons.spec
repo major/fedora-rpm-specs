@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -37,6 +37,7 @@ BuildRequires:  cmake(KF6Sonnet)
 BuildRequires:  cmake(KF6UnitConversion)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6KirigamiPlatform)
 BuildRequires:  cmake(Plasma5Support)
 BuildRequires:  kf6-rpm-macros >= 5.25.0-2
 BuildRequires:  libicu-devel
@@ -128,7 +129,6 @@ developing applications that use %{name}.
 %{_kf6_qmldir}/org/kde/plasma/*
 %{_kf6_datadir}/knotifications6/plasma_applet_timer.notifyrc
 %{_datadir}/kwin/tabbox/
-%{_datadir}/icons/hicolor/*/apps/fifteenpuzzle.*
 %{_datadir}/icons/hicolor/scalable/apps/accessories-dictionary.svgz
 %{_datadir}/knsrcfiles/comic.knsrc
 %{_kf6_libdir}/libplasmapotdprovidercore.so.*
@@ -147,6 +147,7 @@ developing applications that use %{name}.
 %{_kf6_qtplugindir}/plasma/weather_ions/noaa.so
 %{_kf6_qtplugindir}/plasma/weather_ions/wettercom.so
 %{_datadir}/plasma/weather/noaa_station_list.xml
+%{_datadir}/kwin/scripts/virtualdesktopsonlyonprimary/
 
 %files -n kate-krunner-plugin
 %{_kf6_plugindir}/krunner/krunner_katesessions.so
@@ -161,6 +162,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

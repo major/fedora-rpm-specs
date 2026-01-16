@@ -1,7 +1,7 @@
 %global srcname visvis
 Name:             python-%{srcname}
-Version:          1.14.0
-Release:          15%{?dist}
+Version:          1.15.0
+Release:          1%{?dist}
 Summary:          Python library for visualization of 1D to 4D data in an object oriented way
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -9,7 +9,6 @@ URL:              https://github.com/almarklein/%{srcname}
 Source0:          %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:        noarch
 BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
 BuildRequires:    sed
 
 %global _description\
@@ -42,19 +41,25 @@ pushd examples
 sed -i "1 s|#!/usr/bin/env python|#!%{python3}|" *.py
 popd
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files visvis
 
-%files -n python3-%{srcname}
-%license license.txt
+%files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE
 %doc README.md
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Wed Jan 14 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.15.0-1
+- New version
+  Resolves: rhbz#2339035
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.14.0-15
 - Rebuilt for Python 3.14.0rc3 bytecode
 

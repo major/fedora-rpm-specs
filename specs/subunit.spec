@@ -58,45 +58,42 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:       cppunit-devel%{?_isa}
 
 %description cppunit-devel
-Header files and libraries for developing applications that use cppunit
-and subunit.
+Header files and libraries for developing applications that use cppunit and
+subunit.
 
 %package shell
 Summary:        Shell bindings for subunit
 BuildArch:      noarch
 
 %description shell
-Subunit shell bindings.  See the python-subunit package for test
-processing functionality.
+Subunit shell bindings.  See the python-subunit package for test processing
+functionality.
 
 %package -n python3-%{name}
 Summary:        Streaming protocol for test results
 BuildArch:      noarch
 
-# This can be removed when Fedora 41 reaches EOL
-Obsoletes:      python2-%{name} < 1.4.1
-
 %description -n python3-%{name}
-Subunit is a streaming protocol for test results.  The protocol is a
-binary encoding that is easily generated and parsed.  By design all the
-components of the protocol conceptually fit into the xUnit TestCase ->
-TestResult interaction.
+Subunit is a streaming protocol for test results.  The protocol is a binary
+encoding that is easily generated and parsed.  By design all the components of
+the protocol conceptually fit into the xUnit `TestCase -> TestResult`
+interaction.
 
 Subunit comes with command line filters to process a subunit stream and
-language bindings for python, C, C++ and shell.  Bindings are easy to
-write for other languages.
+language bindings for python, C, C++ and shell.  Bindings are easy to write
+for other languages.
 
 A number of useful things can be done easily with subunit:
 - Test aggregation: Tests run separately can be combined and then
-  reported/displayed together.  For instance, tests from different
-  languages can be shown as a seamless whole.
+  reported/displayed together.  For instance, tests from different languages
+  can be shown as a seamless whole.
 - Test archiving: A test run may be recorded and replayed later.
-- Test isolation: Tests that may crash or otherwise interact badly with
-  each other can be run separately and then aggregated, rather than
-  interfering with each other.
+- Test isolation: Tests that may crash or otherwise interact badly with each
+  other can be run separately and then aggregated, rather than interfering
+  with each other.
 - Grid testing: subunit can act as the necessary serialization and
-  deserialization to get test runs on distributed machines to be
-  reported in real time.
+  deserialization to get test runs on distributed machines to be reported in
+  real time.
 
 %package -n python3-%{name}-test
 Summary:        Test code for the python 3 subunit bindings
@@ -124,8 +121,8 @@ Summary:        Static C library for subunit
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
-Subunit C bindings in a static library, for building statically linked
-test cases.
+Subunit C bindings in a static library, for building statically linked test
+cases.
 
 %prep
 %autosetup -p1

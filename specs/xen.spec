@@ -888,7 +888,7 @@ fi
   x86: Transitive Scheduler Attacks [XSA-471, CVE-2024-36350,
 	CVE-2024-36357]
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 4.19.2-6
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 4.19.2-6
 - Rebuild to fix OCaml dependencies
 
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.19.2-5

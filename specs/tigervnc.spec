@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -50,7 +50,11 @@ BuildRequires:  zlib-devel
 
 # TigerVNC 1.4.x requires fltk 1.3.3 for keyboard handling support
 # See https://github.com/TigerVNC/tigervnc/issues/8, also bug #1208814
-BuildRequires:  fltk-devel >= 1.3.3
+%if 0%{?fedora} >= 44
+BuildRequires:  fltk1.3-devel
+%else
+BuildRequires:  fltk-devel
+%endif
 BuildRequires:  libxcvt-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
@@ -409,6 +413,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Jan 14 2026 Jan Grulich <jgrulich@redhat.com> - 1.15.0-11
+- Use fltk1.3 compat package on F44+
+
 * Mon Nov 24 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-10
 - Rebuild (xorg-x11-server)
   Fixes: CVE-2025-62229 CVE-2025-62230 CVE-2025-62231

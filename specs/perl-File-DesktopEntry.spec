@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-File-DesktopEntry
-Version:        0.22
-Release:        29%{?dist}
+Version:        0.23
+Release:        1%{?dist}
 Summary:        Object to handle .desktop files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-DesktopEntry
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.23-1
+- 0.23 bump (rhbz#2428603)
+
 * Wed Aug 13 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-29
 - Package tests
 

@@ -2,7 +2,7 @@
 %global __brp_mangle_shebangs_exclude_from ^%{_prefix}/lib/pbuilder/pdebuild-internal$
 
 Name:           pbuilder
-Version:        0.231.2
+Version:        0.231.3
 Release:        1%{?dist}
 Summary:        Personal package builder for Debian packages
 
@@ -146,6 +146,9 @@ make check
 
 
 %changelog
+* Wed Jan 14 2026 Sandro Mani <manisandro@gmail.com> - 0.231.3-1
+- Update to 0.231.3
+
 * Tue Jan 13 2026 Sandro Mani <manisandro@gmail.com> - 0.231.2-1
 - Update to 0.231.2
 

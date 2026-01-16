@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 8.0.2
+Version: 8.0.3
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
@@ -41,7 +41,7 @@ BuildRequires: libevent-devel
 BuildRequires: pkgconfig(gnutls)
 
 %if 0%{?fedora} >= 25 || 0%{?epel} >= 8
-%ifarch x86_64
+%ifarch x86_64 aarch64
 BuildRequires: vectorscan-devel
 %endif
 %endif
@@ -195,6 +195,10 @@ fi
 %endif
 
 %changelog
+* Tue Jan 13 2026 Jason Taylor <jtfas90@proton.me> 8.0.3-1
+- Upstream security/bugfix release
+- add vectorscan for aarch
+
 * Sat Nov 08 2025 Jason Taylor <jtfas90@proton.me> 8.0.2-1
 - Upstream security/bugfix release
 

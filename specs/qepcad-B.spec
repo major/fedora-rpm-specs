@@ -49,13 +49,13 @@ Requires:       coreutils
 Requires:       Singular
 
 %description
-QEPCAD is an implementation of quantifier elimination by partial
-cylindrical algebraic decomposition due originally to Hoon Hong, and
-subsequently added on to by many others.  It is an interactive
-command-line program written in C/C++, and based on the SACLIB library.
-This is QEPCAD B version 1.x, the "B" designating a substantial
-departure from the original QEPCAD and distinguishing it from any
-development of the original that may proceed in a different direction.
+QEPCAD is an implementation of quantifier elimination by partial cylindrical
+algebraic decomposition due originally to Hoon Hong, and subsequently added on
+to by many others.  It is an interactive command-line program written in
+C/C++, and based on the SACLIB library.  This is QEPCAD B version 1.x, the "B"
+designating a substantial departure from the original QEPCAD and
+distinguishing it from any development of the original that may proceed in a
+different direction.
 
 %prep
 %autosetup -n qesource -p0

@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit f04ad2717751b86708c6ed89c41dcb49f4f42912
 %global commitdatestring 2025-12-30 08:46:22 -0700
-%global cosmic_minver 1.0.1
+%global cosmic_minver 1.0.2
 
 Name:           cosmic-screenshot
-Version: 1.0.1
+Version: 1.0.2
 Release:        %autorelease
 Summary:        Screenshot utility for the COSMIC Desktop Environment
 

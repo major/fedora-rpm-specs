@@ -157,7 +157,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.53.7-2
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 2.53.7-2
 - Rebuild to fix OCaml dependencies
 
 * Sat Feb 22 2025 Matthew Krupcale <mkrupcale@gmail.com> - 2.53.7-1

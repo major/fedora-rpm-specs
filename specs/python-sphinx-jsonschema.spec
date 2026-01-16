@@ -12,6 +12,9 @@ URL:            https://github.com/lnoor/sphinx-jsonschema
 # PyPI source does not contain tests... and license text
 # Source:         %%{pypi_source sphinx-jsonschema}
 Source:         %{url}/archive/v.%{version}/sphinx-jsonschema-%{version}.tar.gz
+# Compatibility with python-docutils 0.22+
+# https://github.com/lnoor/sphinx-jsonschema/pull/91
+Patch:          Use-Python-3-str-instead-of-deprecated-docutils-Safe.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

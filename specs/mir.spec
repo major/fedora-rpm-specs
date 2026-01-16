@@ -35,13 +35,15 @@
 
 Name:           mir
 Version:        2.25.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://canonical.com/mir
 Source0:        https://github.com/canonical/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# Add missing headers for GCC 16 build
+Patch:          https://github.com/canonical/mir/pull/4609.patch
 
 %if %{with ccache}
 BuildRequires:  ccache
@@ -320,7 +322,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
-* Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 2.25.1-2
+* Wed Jan 14 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 2.25.1-2
+- Patched for GCC 16
 - Rebuilt for Boost 1.90
 
 * Wed Dec 17 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.25.1-1

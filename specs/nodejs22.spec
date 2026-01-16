@@ -54,8 +54,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 21
-%global nodejs_patch 1
+%global nodejs_minor 22
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -82,7 +82,7 @@
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
-%global c_ares_version 1.34.5
+%global c_ares_version 1.34.6
 
 # llhttp - from deps/llhttp/include/llhttp.h
 %global llhttp_version 9.3.0
@@ -361,7 +361,7 @@ Requires: nodejs-cjs-module-lexer
 %endif
 
 %if %{with bundled_undici}
-Provides: bundled(nodejs-undici) = 6.22.0
+Provides: bundled(nodejs-undici) = 6.23.0
 %else
 BuildRequires: nodejs-undici
 Requires: nodejs-undici

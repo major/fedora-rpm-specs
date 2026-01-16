@@ -24,6 +24,9 @@ Patch:          %{url}/pull/48.patch
 # Include <cmath> for std::sqrt
 Patch:          %{url}/pull/49.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
@@ -31,8 +34,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  boost-devel
 BuildRequires:  cmake(doctest)
 
-%global desc %{expand:
-This is a ranges-like library for C++17 that provides zero-overhead list
+%global desc %{expand:This is a ranges-like library for C++17 that provides zero-overhead list
 comprehensions with a pipe-like syntax.
 
 Standard containers can be filtered, transformed, passed through various

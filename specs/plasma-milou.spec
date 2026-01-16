@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
@@ -24,6 +24,7 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6KirigamiPlatform)
 
 # Qt
 BuildRequires:  qt6-qtbase-devel
@@ -57,10 +58,13 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 %files -f milou.lang
 %license LICENSES/*
 %{_kf6_qmldir}/org/kde/milou/
-%{_kf6_datadir}/plasma/plasmoids/org.kde.milou/
+%{_kf6_qtplugindir}/plasma/applets/org.kde.milou.so
 
 
 %changelog
+* Tue Jan 13 2026 Steve Cossette <farchord@gmail.com> - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

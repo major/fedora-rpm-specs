@@ -24,16 +24,14 @@ BuildRequires:  pkgconfig(mpfr)
 
 %description
 PPLite is an open-source C++ library implementing the abstract domain of
-convex polyhedra, to be used in tools for static analysis and
-verification.
+convex polyhedra, to be used in tools for static analysis and verification.
 
 %package        devel
 Summary:        Development files for PPLite
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-Header files and library links for developing applications that use
-PPLite.
+Header files and library links for developing applications that use PPLite.
 
 %package        tools
 Summary:        Command line tools to use PPLite functionality
@@ -57,7 +55,7 @@ autoreconf -fi .
 %make_install
 
 # FIXME: boxed_inters test02 fails on ppc64le only
-%ifnarch ppc64le
+%ifnarch %{power64}
 %check
 make check
 %endif
@@ -65,7 +63,7 @@ make check
 %files
 %license COPYING
 %doc CREDITS
-%{_libdir}/libpplite.so.5*
+%{_libdir}/libpplite.so.5{,.*}
 
 %files devel
 %{_includedir}/pplite/

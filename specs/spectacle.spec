@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -51,6 +51,7 @@ BuildRequires: cmake(KF6StatusNotifierItem)
 BuildRequires: cmake(KF6Prison)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KQuickImageEditor)
 
 BuildRequires: cmake(KPipeWire)
 BuildRequires: cmake(LayerShellQt)
@@ -131,6 +132,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 1:6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 1:6.5.5-1
 - 6.5.5
 

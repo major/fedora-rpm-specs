@@ -14,16 +14,17 @@ BuildOption(install):                -l pytest_datadir
 
 BuildRequires:  %{py3_dist docutils}
 
-%global _desc %{expand:
-This package contains a pytest plugin for manipulating test data
-directories and files.}
+%global _desc %{expand:This package contains a pytest plugin for manipulating test data directories
+and files.}
 
-%description %_desc
+%description
+%_desc
 
 %package     -n python3-pytest-datadir
 Summary:        %{summary}
 
-%description -n python3-pytest-datadir %_desc
+%description -n python3-pytest-datadir
+%_desc
 
 %generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'

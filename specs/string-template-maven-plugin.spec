@@ -29,9 +29,9 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.twdata.maven:mojo-executor-maven-plugin)
 
 %description
-This plugin allows you to execute StringTemplate template files during
-your build.  The values for templates can come from static declarations
-or from a Java class specified to be executed.
+This plugin allows you to execute StringTemplate template files during your
+build.  The values for templates can come from static declarations or from a
+Java class specified to be executed.
 
 %package javadoc
 Summary:        API documentation for %{name}

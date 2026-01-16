@@ -260,7 +260,7 @@
 %endif
 
 Name:	chromium
-Version: 143.0.7499.192
+Version: 144.0.7559.59
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -345,6 +345,9 @@ Patch150: chromium-124-qt6.patch
 # revert, it causes ramdom crash on aarch64
 Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
 
+# Disable rust nightly features
+Patch301: chromium-144-rust-libadler2.patch
+
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
 Patch305: chromium-124-el8-arm64-memory_tagging.patch
@@ -408,7 +411,7 @@ Patch356: chromium-141-use_libcxx_modules.patch
 Patch357: chromium-134-type-mismatch-error.patch
 
 # set clang_lib path
-Patch358: chromium-141-rust-clanglib.patch
+Patch358: chromium-144-rust-clanglib.patch
 
 # PowerPC64 LE support
 # Timothy Pearson's patchset
@@ -447,7 +450,6 @@ Patch396: skia-vsx-instructions.patch
 Patch397: 0001-Implement-support-for-ppc64-on-Linux.patch
 Patch398: 0001-Implement-support-for-PPC64-on-Linux.patch
 Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
-Patch400: fix-clang-selection.patch
 Patch401: fix-rustc.patch
 Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
@@ -482,9 +484,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
-# Fix Wayland URI DnD issues
-Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
-Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -532,6 +531,7 @@ BuildRequires: gcc-toolset-14-libatomic-devel
 %endif
 
 BuildRequires: rustc
+BuildRequires: rustfmt
 BuildRequires: bindgen-cli
 
 %if ! %{bundlezstd}
@@ -1081,6 +1081,8 @@ Qt6 UI for chromium.
 %patch -P300 -p1 -R -b .revert-decommit-pooled-pages-by-default
 %endif
 
+%patch -P301 -p1 -b .rust-libadler2
+
 %if 0%{?rhel} == 8
 %ifarch aarch64
 %patch -P305 -p1 -b .el8-memory_tagging
@@ -1094,11 +1096,6 @@ Qt6 UI for chromium.
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
-
-%if 0%{?rhel} == 9 || 0%{?rhel_minor_version} == 1
-%patch -P312 -p1 -b .el9-rust-no-alloc-shim-is-unstable
-%patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
-%endif
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
@@ -1152,7 +1149,6 @@ Qt6 UI for chromium.
 %patch -P397 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
 %patch -P398 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
 %patch -P399 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
-%patch -P400 -p1 -b .fix-clang-selection
 %patch -P401 -p1 -b .fix-rustc
 %patch -P402 -p1 -b .fix-rust-linking
 %patch -P403 -p1 -b .fix-breakpad-compile
@@ -1177,8 +1173,6 @@ Qt6 UI for chromium.
 %endif
 
 # Upstream patches
-%patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
-%patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1817,8 +1811,21 @@ fi
 %endif
 
 %changelog
+* Wed Jan 14 2026 Than Ngo <than@redhat.com> - 144.0.7559.59-1
+- Update to 144.0.7559.59
+  * CVE-2026-0899: Out of bounds memory access in V8
+  * CVE-2026-0900: Inappropriate implementation in V8
+  * CVE-2026-0901: Inappropriate implementation in Blink
+  * CVE-2026-0902: Inappropriate implementation in V8
+  * CVE-2026-0903: Insufficient validation of untrusted input in Downloads
+  * CVE-2026-0904: Incorrect security UI in Digital Credentials
+  * CVE-2026-0905: Insufficient policy enforcement in Network
+  * CVE-2026-0906: Incorrect security UI
+  * CVE-2026-0907: Incorrect security UI in Split View
+  * CVE-2026-0908: Use after free in ANGLE
+
 * Wed Jan 07 2026 Than Ngo <than@redhat.com> - 143.0.7499.192-1
-- Update tp 143.0.7499.192
+- Update to 143.0.7499.192
   * High CVE-2026-0628: Insufficient policy enforcement in WebView tag
 - Fix rhbz#2425338, Enable control flow integrity support for x86_64/aarch64
 - Enable build for epel10.1

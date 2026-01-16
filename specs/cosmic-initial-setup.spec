@@ -8,12 +8,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit d467d9b26c377067c32c5c7c2982e76b03e7ff63
-%global commitdatestring 2025-12-30 08:50:25 -0700
-%global cosmic_minver 1.0.1
+%global commit cbc7b87a93de035205371eaeff39b19b9201c915
+%global commitdatestring 2026-01-12 13:54:22 -0500
+%global cosmic_minver 1.0.2
 
 Name:           cosmic-initial-setup
-Version: 1.0.1
+Version: 1.0.2
 Release:        %autorelease
 Summary:        Initial setup application for the COSMIC desktop environment
 
@@ -49,6 +49,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  flatpak-devel
 BuildRequires:  libinput-devel
 BuildRequires:  systemd-devel
+BuildRequires:  cmake
 
 Recommends:     PackageKit
 Recommends:     flatpak

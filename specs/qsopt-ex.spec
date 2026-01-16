@@ -40,11 +40,10 @@ BuildRequires:  pkgconfig(zlib)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
-QSopt_ex is an exact linear programming solver.  This is a fork of the
-version originally released by Daniel Espinoza et al.  The goal of the
-fork is to update the software, and in particular the build system, to
-be more friendly.  In addition, the external dependencies have been
-reduced.
+QSopt_ex is an exact linear programming solver.  This is a fork of the version
+originally released by Daniel Espinoza et al.  The goal of the fork is to
+update the software, and in particular the build system, to be more friendly.
+ In addition, the external dependencies have been reduced.
 
 %package        libs
 Summary:        Exact linear programming solver library
@@ -101,7 +100,7 @@ make check
 %files libs
 %doc NEWS.md README.md
 %license License.txt
-%{_libdir}/libqsopt_ex.so.2*
+%{_libdir}/libqsopt_ex.so.2{,.*}
 
 %files devel
 %{_includedir}/qsopt_ex/

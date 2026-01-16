@@ -46,8 +46,8 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.20
-Release:        5%{?dist}
+Version:        11.0
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -373,8 +373,8 @@ Requires:       libva
 %endif
 %endif
 
-Provides:       bundled(libjpeg) = 9f
-Provides:       bundled(mpg123-libs) = 1.32.9
+Provides:       bundled(mingw-libjpeg) = 9f
+Provides:       bundled(mingw-mpg123-libs) = 1.33.0
 
 %description core
 Wine core package includes the basic wine stuff needed by all other packages.
@@ -1440,9 +1440,6 @@ fi
 %{_libdir}/wine/%{winepedirs}/icinfo.exe
 %{_libdir}/wine/%{winepedirs}/icmp.dll
 %{_libdir}/wine/%{winepedirs}/icmui.dll
-%{_libdir}/wine/%{winepedirs}/icu.dll
-%{_libdir}/wine/%{winepedirs}/icuin.dll
-%{_libdir}/wine/%{winepedirs}/icuuc.dll
 %{_libdir}/wine/%{winepedirs}/ieframe.dll
 %{_libdir}/wine/%{winepedirs}/ieproxy.dll
 %{_libdir}/wine/%{winepedirs}/iertutil.dll
@@ -2262,6 +2259,7 @@ fi
 # twain subpackage
 %files twain
 %{_libdir}/wine/%{winepedirs}/twain_32.dll
+%{_libdir}/wine/%{winepedirs}/twaindsm.dll
 %{_libdir}/wine/%{winepedirs}/sane.ds
 %{_libdir}/wine/%{winesodir}/sane.so
 
@@ -2313,6 +2311,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 13 2026 Michael Cronenworth <mike@cchtml.com> - 11.0-1
+- version update
+
 * Fri Dec 26 2025 Michael Cronenworth <mike@cchtml.com> - 10.20-5
 - Fix x86_64 alternatives upgrade path
 

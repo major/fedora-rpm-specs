@@ -1,7 +1,7 @@
 # Upstream does not release tarballs.  Instead the code is copied directly
 # into the polymake distribution.  Therefore, we check out the code from git.
 %global commit  704994092647daca93ad18d6853a5540fceb3794
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global shortcommit %{sub %{commit} 1 7}
 %global gitdate 20180129
 
 Name:           python-jupyter-polymake
@@ -27,10 +27,10 @@ BuildRequires:  %{py3_dist jupymake}
 BuildRequires:  %{py3_dist jupyter-client}
 BuildRequires:  %{py3_dist pexpect}
 
-%global _description %{expand:
-This package contains a Jupyter kernel for polymake.}
+%global _description This package contains a Jupyter kernel for polymake.
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-jupyter-polymake
 Summary:        Jupyter kernel for polymake
@@ -43,7 +43,8 @@ Recommends:     %{py3_dist ipython}
 
 Provides:       bundled(npm(three)) = 137
 
-%description -n python3-jupyter-polymake %_description
+%description -n python3-jupyter-polymake
+%_description
 
 %prep
 %autosetup -n jupyter-polymake-%{commit} -p1

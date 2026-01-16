@@ -8,14 +8,14 @@
 
 
 Name:           plasma-login-manager
-Version:        0.21.0%{?commitdate:~git%{gititer}.%{commitdate}.%{shortcommit}}
-Release:        3%{?dist}
+Version:        6.5.90
+Release:        1%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager from KDE
 
 URL:            https://invent.kde.org/plasma/plasma-login-manager
-%dnl Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-Source0:        %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
+Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 # README.scripts
 Source10:       README.scripts
@@ -33,8 +33,6 @@ Source13:       plasmalogin.conf
 # upstream patches
 
 # proposed patches
-## fix to make the KCM not break the wallpaper config
-Patch0101:      https://invent.kde.org/plasma/plasma-login-manager/-/commit/c5ddc7d6da9733ee471b4287092cb05108a0fb73.patch
 
 # downstream patches
 ## plasmalogin.service: +EnvironmentFile=-/etc/sysconfig/plasmalogin
@@ -70,6 +68,7 @@ BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Auth)
 BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6KirigamiPlatform)
 BuildRequires:  cmake(PlasmaQuick)
 BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(LibKWorkspace)
@@ -114,7 +113,7 @@ Requires: qt6-filesystem
 %{summary}.
 
 %prep
-%autosetup -p1 %{?commitdate:-n %{name}-%{commit}}
+%autosetup -p1
 
 
 %conf
@@ -220,6 +219,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Tue Jan 13 2026 Steve Cossette <farchord@gmail.com> - 6.5.90-1
+- 6.5.90
+
+* Tue Jan 13 2026 farchord@gmail.com
+- 6.5.90
+
 * Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0~git1.20260112.c96b194-3
 - Add WIP fix to avoid KCM breaking wallpaper settings
 

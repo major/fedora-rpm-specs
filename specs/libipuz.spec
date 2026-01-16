@@ -1,11 +1,11 @@
 %bcond docs 1
 %bcond introspection 1
 
-# The shared library version
-%global soversion 0.5
-
 Name:           libipuz
 Version:        0.5.3
+# The shared library version
+%global soversion %(c=%{version}; echo $c | cut -d. -f1,2)
+
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 

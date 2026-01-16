@@ -1,6 +1,6 @@
 Name:           knighttime
 Summary:        Helpers for scheduling the dark-light cycle
-Version:        6.5.5
+Version:        6.5.90
 Release:        1%{?dist}
 
 License:        GPL-3.0-only AND BSD-3-Clause AND MIT AND GPL-2.0-only AND LGPL-2.1-only AND CC0-1.0 AND LGPL-3.0-only
@@ -97,6 +97,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.knighttimed.d
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

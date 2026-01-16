@@ -72,8 +72,7 @@ constraint integer programming solver SCIP.}
 %description
 %_desc
 
-This package contains a command-line tool to access SoPlex
-functionality.
+This package contains a command-line tool to access SoPlex functionality.
 
 %package -n     libsoplex
 Summary:        Library for sequential object-oriented simplex
@@ -100,8 +99,8 @@ Requires:       mpfr-devel%{?_isa}
 Requires:       zstr-devel
 
 %description -n libsoplex-devel
-This package contains headers and library links for developing
-applications that use libsoplex.
+This package contains headers and library links for developing applications
+that use libsoplex.
 
 %package -n     libsoplex-doc
 # The content is licensed with Apache-2.0.  The other licenses are due to files
@@ -165,7 +164,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libsoplex
 %doc CHANGELOG README.md
 %license LICENSE src/soplex/external/fmt/LICENSE.rst
-%{_libdir}/libsoplex.so.8.0*
+%{_libdir}/libsoplex.so.8.0{,.*}
 
 %files -n libsoplex-devel
 %{_includedir}/soplex*

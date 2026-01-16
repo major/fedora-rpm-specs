@@ -16,8 +16,8 @@ BuildRequires:	gnupg2
 %description
 This package contains the optional PARI package galpol, which contains a
 database of polynomials defining Galois extensions of the rationals
-representing all abstract groups of order up to 143 for all signatures
-(3657 groups, 7194 polynomials).
+representing all abstract groups of order up to 143 for all signatures (3657
+groups, 7194 polynomials).
 
 %prep
 # Verify the source file

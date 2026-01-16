@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.10.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -37,6 +37,7 @@ Source5: qv4global_p-multilib.h
 # https://codereview.qt-project.org/c/qt/qtdeclarative/+/678924
 Patch0:  qtdeclarative-quickshapes-make-module-public.patch
 Patch1:  qtdeclarative-qtqml-invalidate-fallback-lookups-after-each-call-from-aot-code.patch
+Patch2:  qtdeclarative-qtqml-do-not-clear-objects-propertycaches-on-last-gc-run.patch
 
 ## upstreamable patches
 
@@ -737,6 +738,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Wed Jan 14 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.1-3
+- QtQml: Do not clear objects propertyCaches on last GC run
+
 * Tue Dec 09 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-2
 - QtQml: Invalidate fallback lookups after each call from AOT code
 

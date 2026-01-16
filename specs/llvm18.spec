@@ -448,13 +448,15 @@ mkdir -p %{buildroot}%{pkg_datadir}/llvm/cmake
 cp -Rv ../cmake/* %{buildroot}%{pkg_datadir}/llvm/cmake
 
 %check
-# non reproducible errors
-rm test/tools/dsymutil/X86/swift-interface.test
-# https://bugzilla.redhat.com/show_bug.cgi?id=2385159
-rm test/tools/opt-viewer/basic.test
-rm test/tools/opt-viewer/filter.test
-rm test/tools/opt-viewer/suppress.test
-rm test/tools/opt-viewer/unicode-function-name.test
+(cd test
+ # non reproducible errors
+ rm tools/dsymutil/X86/swift-interface.test
+ # https://bugzilla.redhat.com/show_bug.cgi?id=2385159
+ rm tools/opt-viewer/{basic,filter,suppress,unicode-function-name}.test
+%ifarch ppc64le
+ rm tools/dsymutil/X86/DWARFLinkerParallel/odr-{fwd-declaration2,predictable-output2,string}.test
+%endif
+)
 
 %if %{with check}
 # FIXME: use %%cmake_build instead of %%__ninja

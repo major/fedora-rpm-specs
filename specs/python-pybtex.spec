@@ -14,29 +14,29 @@ BuildOption(generate_buildrequires): -x doc,test
 BuildOption(install): -l pybtex
 
 BuildRequires:  make
-BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 
-%global common_desc %{expand:
-Pybtex is a BibTeX-compatible bibliography processor written in Python.
-Pybtex aims to be 100%% compatible with BibTeX.  It accepts the same
-command line options, fully supports BibTeX’s .bst styles and produces
-byte-identical output.
+%global common_desc %{expand:Pybtex is a BibTeX-compatible bibliography processor written in Python.
+Pybtex aims to be 100%% compatible with BibTeX.  It accepts the same command
+line options, fully supports BibTeX’s .bst styles and produces byte-identical
+output.
 
 Additionally:
 - Pybtex is Unicode-aware.
 - Pybtex supports bibliography formats other than BibTeX.
 - It is possible to write formatting styles in Python.
-- As a bonus, Pythonic styles can produce HTML, Markdown and other
-  markup besides the usual LaTeX.
+- As a bonus, Pythonic styles can produce HTML, Markdown and other markup
+  besides the usual LaTeX.
 Pybtex also includes a Python API for managing bibliographies from Python.}
 
-%description %common_desc
+%description
+%common_desc
 
 %package -n python3-pybtex
 Summary:        BibTeX-compatible bibliography processor written in Python
 
-%description -n python3-pybtex %common_desc
+%description -n python3-pybtex
+%common_desc
 
 %package doc
 # The content is MIT.  Other licenses are due to files copied in by Sphinx.

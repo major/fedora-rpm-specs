@@ -25,12 +25,12 @@ BuildRequires:  pkgconfig(gtksourceview-3.0)
 BuildRequires:  pkgconfig(gtkspell3-3.0)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
-%global _description %{expand:
-LablGTK3 is an Objective Caml interface to gtk3.  It uses the rich
-type system of Objective Caml to provide a strongly typed, yet very
-comfortable, object-oriented interface to gtk3.}
+%global _description %{expand:LablGTK3 is an Objective Caml interface to gtk3.  It uses the rich type system
+of Objective Caml to provide a strongly typed, yet very comfortable,
+object-oriented interface to gtk3.}
 
-%description %_description
+%description
+%_description
 
 %package        devel
 Summary:        Development files for %{name}
@@ -46,7 +46,8 @@ developing applications that use %{name}.
 Summary:        OCaml interface to GooCanvas
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description    goocanvas2 %_description
+%description    goocanvas2
+%_description
 
 This package contains OCaml bindings for the GTK3 GooCanvas library.
 
@@ -64,7 +65,8 @@ files for developing applications that use %{name}-goocanvas2.
 Summary:        OCaml interface to gtkspell3
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description    gtkspell3 %_description
+%description    gtkspell3
+%_description
 
 This package contains OCaml bindings for gtkspell3.
 
@@ -82,7 +84,8 @@ files for developing applications that use %{name}-gtkspell3.
 Summary:        OCaml interface to librsvg2
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description    rsvg2 %_description
+%description    rsvg2
+%_description
 
 This package contains OCaml bindings for librsvg2.
 
@@ -100,7 +103,8 @@ files for developing applications that use %{name}-rsvg2.
 Summary:        OCaml interface to gtksourceview3
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description    sourceview3 %_description
+%description    sourceview3
+%_description
 
 This package contains OCaml bindings for gtksourceview3.
 
@@ -178,7 +182,7 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 3.1.5-6
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 3.1.5-6
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-5

@@ -11,10 +11,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 983d34ad9644930495e6d1c3ffb78408dad0c78d
 %global commitdatestring 2025-11-13 14:59:24 -0700
-%global cosmic_minver 1.0.1
+%global cosmic_minver 1.0.2
 
 Name:           cosmic-idle
-Version: 1.0.1
+Version: 1.0.2
 Release:        %autorelease
 Summary:        Idle notify manager for COSMIC
 

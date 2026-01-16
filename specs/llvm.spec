@@ -543,6 +543,9 @@ Patch2006: 0001-Add-REQUIRES-asserts-to-test-added-in-145149-because.patch
 Patch2101: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
 Patch2201: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
 
+# Fix segfault compiling plotters rust crate on ppc64le
+Patch2104: 0001-PowerPC-Add-check-for-cast-when-shufflevector-172443.patch
+
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
 %global __python3 /usr/bin/python3.12

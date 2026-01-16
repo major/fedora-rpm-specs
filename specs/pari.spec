@@ -55,8 +55,8 @@ but also contains a large number of other useful functions to compute with
 mathematical entities such as matrices, polynomials, power series, algebraic
 numbers, etc., and a lot of transcendental functions.
 
-This package contains the shared libraries. The interactive
-calculator PARI/GP is in package pari-gp.
+This package contains the shared libraries.  The interactive calculator
+PARI/GP is in package pari-gp.
 
 %package devel
 Summary:        Header files and libraries for PARI development
@@ -74,9 +74,9 @@ Requires:       xdg-utils
 Requires:       mimehandler(application/x-dvi)
 
 %description gp
-PARI/GP is an advanced programmable calculator, which computes
-symbolically as long as possible, numerically where needed, and
-contains a wealth of number-theoretic functions.
+PARI/GP is an advanced programmable calculator, which computes symbolically as
+long as possible, numerically where needed, and contains a wealth of
+number-theoretic functions.
 
 %prep
 # Verify the source file

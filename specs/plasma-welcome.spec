@@ -1,7 +1,7 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        6.5.5
+Version:        6.5.90
 Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
@@ -72,12 +72,15 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.deskto
 %{_kf6_bindir}/plasma-welcome
 %{_kf6_datadir}/applications/%{orgname}.desktop
 %{_kf6_metainfodir}/%{orgname}.*.xml
-%{_kf6_plugindir}/kded/kded_plasma-welcome.so
+%{_kf6_plugindir}/kded/kded_plasma_welcome.so
 %{_kf6_qmldir}/org/kde/plasma/welcome/
 %{_kf6_datadir}/qlogging-categories6/welcome.categories
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 6.5.5
+Version: 6.5.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -90,7 +90,8 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 %{_kf6_datadir}/applications/org.kde.bluedevilwizard.desktop
 %{_kf6_datadir}/bluedevilwizard/
 %{_kf6_datadir}/knotifications6/bluedevil.notifyrc
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.bluetooth
+%{_kf6_qmldir}/org/kde/bluedevil/
+%{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.bluetooth.so
 %{_kf6_datadir}/qlogging-categories6/bluedevil.categories
 %{_kf6_datadir}/remoteview/bluetooth-network.desktop
 %{_kf6_plugindir}/kded/*.so
@@ -100,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
+- 6.5.90
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.5-1
 - 6.5.5
 

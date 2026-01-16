@@ -4,7 +4,7 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        3.0.2
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Sphinx theme for readthedocs.org
 

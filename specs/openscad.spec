@@ -27,6 +27,8 @@ Patch4:         CVE-2022-0496.patch
 Patch5:         CVE-2022-0497.patch
 # https://github.com/openscad/openscad/commit/254904624763e4dd2d04ca5706af303a1f0a1777
 Patch6:         %{name}-2021.01-cgal6-cpp17.patch
+# https://github.com/openscad/openscad/commit/cc51ea0a0dd14075df0f9af09ed4e20cce7fcb4c
+Patch7:         %{name}-boost1.90.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

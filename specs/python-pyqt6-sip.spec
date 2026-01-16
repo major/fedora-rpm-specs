@@ -5,8 +5,8 @@
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-%{pkg_name}
-Version:        13.10.2
-Release:        4%{?dist}
+Version:        13.11.0
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt6
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -55,6 +55,9 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 
 %changelog
+* Wed Jan 14 2026 Jan Grulich <jgrulich@redhat.com> - 13.11.0-1
+- 13.11.0
+
 * Fri Jul 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 13.10.2-4
 - Convert to pyproject macros
 

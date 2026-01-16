@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.44.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -26,6 +26,9 @@ Patch1:         %{name}-yarn-offline.patch
 
 # Applied by prepare_vendor.sh
 # CVE-2024-55565.prebundle.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -309,6 +312,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Jan 13 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.44.6-2
+- Drop support for i686
+
 * Sat Dec 20 2025 Sandro Mani <manisandro@gmail.com> - 3.44.6-1
 - Update to 3.44.6
 

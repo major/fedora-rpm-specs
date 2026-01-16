@@ -34,12 +34,6 @@ BuildOption(generate_buildrequires): -x easy,recommend,test,test_more
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-# Turn off automatic python byte-compilation. One .py file,
-# trimesh/resources/templates/blender_boolean.py, is actually a *template for a
-# Python source* rather than an *actual Python source*, and trying to
-# byte-compile it will break the build. We will byte-compile manually instead.
-%undefine __brp_python_bytecompile
-
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
 
@@ -241,21 +235,21 @@ tomcli set pyproject.toml lists delitem \
 
 %install
 %pyproject_install
-# Manual byte-compile, to skip that one troublesome “.py” template file:
-find '%{buildroot}%{python3_sitelib}/trimesh' -type f \
-    -name '*.py' ! -name 'blender_boolean.py' |
-  while read -r pyfile
-  do
-    %py_byte_compile %{__python3} "${pyfile}"
-  done
-# Cannot handle skipping byte-compilation for blender_boolean.py:
-#pyproject_save_files trimesh
+%pyproject_save_files -l trimesh
 
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 
 %check
-# We cannot use %%pyproject_check_import without %%pyproject_save_files.
+# Some dependencies are unavailable; see the prep section above.
+# trimesh.ray.ray_pyembree requires embreex or pyembree.
+# trimesh.viewer.widget requires glooey.
+# trimesh.viewer.windowed requires pyglet.
+%{pyproject_check_import \
+  -e trimesh.ray.ray_pyembree \
+  -e trimesh.viewer.widget \
+  -e trimesh.viewer.windowed \
+}
 
 while read -r t
 do
@@ -316,14 +310,8 @@ export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 %pytest -v -k 'test_obb_mesh_large'
 
 
-%files -n python3-trimesh
-%license LICENSE.md
+%files -n python3-trimesh -f %{pyproject_files}
 %doc README.md
-# %%pyproject_save_files cannot handle skipping byte-compilation for
-# blender_boolean.py, so we list files manually:
-%{python3_sitelib}/trimesh
-%{python3_sitelib}/trimesh-%{version}.dist-info
-
 %{_bindir}/trimesh
 %{_mandir}/man1/trimesh.1*
 

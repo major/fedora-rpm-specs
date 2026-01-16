@@ -27,14 +27,14 @@ BuildRequires:  nodejs-npm
 BuildRequires:  yarnpkg
 
 %global _description %{expand:
-This is a lightweight Sphinx theme designed to mimic the look-and-feel of
-an interactive book.  It has the following primary features:
+This is a lightweight Sphinx theme designed to mimic the look-and-feel of an
+interactive book.  It has the following primary features:
 
 - Bootstrap 5 for visual elements and functionality
-- Flexible content layout that is inspired by beautiful online books,
-  such as the Edward Tufte CSS guide
-- Visual classes designed for Jupyter Notebooks.  Cell inputs, outputs,
-  and interactive functionality are all supported.
+- Flexible content layout that is inspired by beautiful online books, such as
+  the Edward Tufte CSS guide
+- Visual classes designed for Jupyter Notebooks.  Cell inputs, outputs, and
+  interactive functionality are all supported.
 - Launch buttons for online interactivity.  For pages that are built with
   computational material, connect your site to an online BinderHub for
   interactive content.}

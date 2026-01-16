@@ -22,24 +22,22 @@ BuildRequires:  ocaml-lablgtk-devel
 BuildRequires:  ocaml-ocamldoc
 
 %description
-Prooftree is a program for proof-tree visualization during interactive
-proof development in a theorem prover.  It is currently being developed
-for Coq and Proof General.  Prooftree helps against getting lost between
-different subgoals in interactive proof development.  It clearly shows
-where the current subgoal comes from and thus helps in developing the
-right plan for solving it.
+Prooftree is a program for proof-tree visualization during interactive proof
+development in a theorem prover.  It is currently being developed for Coq and
+Proof General.  Prooftree helps against getting lost between different
+subgoals in interactive proof development.  It clearly shows where the current
+subgoal comes from and thus helps in developing the right plan for solving it.
 
-Prooftree uses different colors for the already proven subgoals, the
-current branch in the proof and the still open subgoals.  Sequent texts
-are not displayed in the proof tree itself, but they are shown as a
-tool-tip when the mouse rests over a sequent symbol.  Long proof
-commands are abbreviated in the tree display, but show up in full length
-as tool-tip.  Both, sequents and proof commands, can be shown in the
-display below the tree (on single click) or in a separate window (on
-double or shift-click).
+Prooftree uses different colors for the already proven subgoals, the current
+branch in the proof and the still open subgoals.  Sequent texts are not
+displayed in the proof tree itself, but they are shown as a tool-tip when the
+mouse rests over a sequent symbol.  Long proof commands are abbreviated in the
+tree display, but show up in full length as tool-tip.  Both, sequents and
+proof commands, can be shown in the display below the tree (on single click)
+or in a separate window (on double or shift-click).
 
-Prooftree can mark the proof command that introduced a certain
-existential variable and thus help to locate the problem when Coq says:
+Prooftree can mark the proof command that introduced a certain existential
+variable and thus help to locate the problem when Coq says:
 No more subgoals but non-instantiated existential variables.
 
 %prep
@@ -72,7 +70,7 @@ sed -i 's/-I \$(LABLGTKDIR)/& -I +unix/' Makefile.in
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.14-7
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.14-7
 - Rebuild to fix OCaml dependencies
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-6

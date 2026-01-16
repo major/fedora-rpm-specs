@@ -114,7 +114,7 @@ popd
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.16.1-1
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.16.1-1
 - Version 0.16.1
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3

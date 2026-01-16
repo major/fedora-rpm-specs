@@ -169,7 +169,7 @@ make check MODE=debug
 %files
 %doc doc/SMT-LIB-LANGUAGE doc/YICES-LANGUAGE
 %license copyright.txt LICENSE.txt
-%{_libdir}/libyices.so.2.7*
+%{_libdir}/libyices.so.2.7{,.*}
 
 %files devel
 %{_includedir}/%{name}/

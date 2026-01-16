@@ -243,7 +243,7 @@ Patch0:         samba-4.23-fix-cmocka.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-common-tools = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
@@ -465,7 +465,7 @@ Unix.
 Summary: Samba client programs
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 %if %{with libsmbclient}
@@ -488,12 +488,62 @@ The %{name}-client package provides some SMB/CIFS clients to complement
 the built-in SMB/CIFS filesystem in Linux. These clients allow access
 of SMB/CIFS shares and printing to SMB/CIFS printers.
 
+### CORE-LIBS
+%package core-libs
+Summary: Samba core libraries
+Requires(pre): %{name}-common = %{samba_depver}
+Requires: %{name}-common = %{samba_depver}
+
+Provides: bundled(libreplace) = %{samba_depver}
+
+%description core-libs
+The samba-core-libs package contains foundational libraries needed by
+both Samba servers and clients. This includes error handling, utilities,
+and basic support libraries.
+
+### NDR-LIBS
+%package ndr-libs
+Summary: Samba NDR libraries
+Requires(pre): %{name}-common = %{samba_depver}
+Requires: %{name}-common = %{samba_depver}
+Requires: %{name}-core-libs = %{samba_depver}
+
+Provides: %{name}-common-libs = %{samba_depver}
+Obsoletes: %{name}-common-libs < %{samba_depver}
+
+%if %{without dc} && %{without testsuite}
+Obsoletes: samba-dc < %{samba_depver}
+Obsoletes: samba-dc-libs < %{samba_depver}
+Obsoletes: samba-dc-bind-dlz < %{samba_depver}
+%endif
+
+# ctdb-tests package has been dropped if we do not build the testsuite
+%if %{with clustering}
+%if %{without testsuite}
+Obsoletes: ctdb-tests < %{samba_depver}
+Obsoletes: ctdb-tests-debuginfo < %{samba_depver}
+# endif without testsuite
+%endif
+# endif with clustering
+%endif
+
+# We only build glusterfs for RHGS and Fedora, so obsolete it on other versions
+# of the distro
+%if %{without vfs_glusterfs}
+Obsoletes: samba-vfs-glusterfs < %{samba_depver}
+# endif without vfs_glusterfs
+%endif
+
+%description ndr-libs
+The samba-ndr-libs package contains NDR (Network Data Representation)
+encoding libraries used by both Samba servers and clients.
+
 ### CLIENT-LIBS
 %package client-libs
 Summary: Samba client libraries
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 %if %{with libwbclient}
 Requires: libwbclient = %{samba_depver}
@@ -523,50 +573,10 @@ Obsoletes: samba4-common < %{samba_depver}
 samba-common provides files necessary for both the server and client
 packages of Samba.
 
-### COMMON-LIBS
-%package common-libs
-Summary: Libraries used by both Samba servers and clients
-Requires(pre): samba-common = %{samba_depver}
-Requires: samba-common = %{samba_depver}
-Requires: %{name}-client-libs = %{samba_depver}
-Requires: libldb = %{samba_depver}
-%if %{with libwbclient}
-Requires: libwbclient = %{samba_depver}
-%endif
-
-Provides: bundled(libreplace) = %{samba_depver}
-
-%if %{without dc} && %{without testsuite}
-Obsoletes: samba-dc < %{samba_depver}
-Obsoletes: samba-dc-libs < %{samba_depver}
-Obsoletes: samba-dc-bind-dlz < %{samba_depver}
-%endif
-
-# ctdb-tests package has been dropped if we do not build the testsuite
-%if %{with clustering}
-%if %{without testsuite}
-Obsoletes: ctdb-tests < %{samba_depver}
-Obsoletes: ctdb-tests-debuginfo < %{samba_depver}
-# endif without testsuite
-%endif
-# endif with clustering
-%endif
-
-# We only build glusterfs for RHGS and Fedora, so obsolete it on other versions
-# of the distro
-%if %{without vfs_glusterfs}
-Obsoletes: samba-vfs-glusterfs < %{samba_depver}
-# endif without vfs_glusterfs
-%endif
-
-%description common-libs
-The samba-common-libs package contains internal libraries needed by the
-SMB/CIFS clients.
-
 ### COMMON-TOOLS
 %package common-tools
 Summary: Tools for Samba clients
-Requires: samba-common-libs = %{samba_depver}
+Requires: samba-ndr-libs = %{samba_depver}
 Requires: samba-client-libs = %{samba_depver}
 Requires: samba-libs = %{samba_depver}
 Requires: samba-ldb-ldap-modules = %{samba_depver}
@@ -604,7 +614,7 @@ and for GPO management on domain members.
 ### RPC
 %package dcerpc
 Summary: DCE RPC binaries
-Requires: samba-common-libs = %{samba_depver}
+Requires: samba-ndr-libs = %{samba_depver}
 Requires: samba-client-libs = %{samba_depver}
 Requires: samba-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
@@ -622,7 +632,7 @@ The samba-dcerpc package contains binaries that serve DCERPC over named pipes.
 Summary: Samba AD Domain Controller
 Requires: %{name} = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-common-tools = %{samba_depver}
 Requires: %{name}-tools = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
@@ -666,7 +676,7 @@ The samba-dc-provision package provides files to setup a domain controller
 %package dc-libs
 Summary: Samba AD Domain Controller Libraries
 Requires: %{name}-client-libs = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
@@ -704,8 +714,10 @@ name server related details of Samba AD.
 ### DEVEL
 %package devel
 Summary: Developer tools for Samba libraries
-Requires: %{name}-libs = %{samba_depver}
+Requires: %{name}-core-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
+Requires: %{name}-libs = %{samba_depver}
 Requires: %{name}-dc-libs = %{samba_depver}
 Requires: libnetapi = %{samba_depver}
 
@@ -760,7 +772,7 @@ Summary: Samba VFS module for GlusterFS
 Requires: glusterfs-api >= 3.4.0.16
 Requires: glusterfs >= 3.4.0.16
 Requires: %{name} = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
@@ -811,7 +823,7 @@ the Kerberos credentials cache of the user issuing the print job.
 %package ldb-ldap-modules
 Summary: Samba ldap modules for ldb
 Requires: %{name}-client-libs = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 
@@ -822,7 +834,7 @@ samba-gpupdate.
 ### LIBS
 %package libs
 Summary: Samba libraries
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 %if %{with libwbclient}
@@ -843,7 +855,7 @@ against the SMB, RPC and other protocols provided by the Samba suite.
 Summary: The NETAPI library
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
@@ -865,7 +877,7 @@ develop programs that link against the NETAPI library in the Samba suite.
 Summary: The SMB client library
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 %if %{with libwbclient}
@@ -890,7 +902,7 @@ suite.
 %if %{with libwbclient}
 %package -n libwbclient
 Summary: The winbind client library
-Requires: %{name}-client-libs = %{samba_depver}
+# libwbclient.so only links to libc - no samba library dependencies needed
 Conflicts: sssd-libwbclient
 
 %description -n libwbclient
@@ -915,7 +927,7 @@ library.
 %package -n python3-%{name}
 Summary: Samba Python3 libraries
 Requires: %{name}-client-libs = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: %{name}-dc-libs = %{samba_depver}
 Requires: python3-cryptography
@@ -985,7 +997,7 @@ Requires: %{name} = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
 Requires: %{name}-winbind = %{samba_depver}
 
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: %{name}-test-libs = %{samba_depver}
@@ -1016,7 +1028,7 @@ packages of Samba.
 ### TEST-LIBS
 %package test-libs
 Summary: Libraries need by the testing tools for Samba servers and clients
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
@@ -1049,8 +1061,8 @@ as a user using the `net usershare` command.
 Summary: Samba winbind
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
-Requires(post): %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
+Requires(post): %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-common-tools = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires(post): %{name}-client-libs = %{samba_depver}
@@ -1083,7 +1095,7 @@ Windows user and group accounts on Linux.
 %package winbind-clients
 Summary: Samba winbind clients
 Requires: %{name}-common = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: %{name}-winbind = %{samba_depver}
@@ -1153,7 +1165,7 @@ necessary to communicate to the Winbind Daemon
 Summary: Samba Winexe Windows Binary
 License: GPL-3.0-only
 Requires: %{name}-client-libs = %{samba_depver}
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 
@@ -1168,7 +1180,7 @@ Winexe is a Remote Windows-command executor
 %package -n ctdb
 Summary: A Clustered Database based on Samba's Trivial Database (TDB)
 
-Requires: %{name}-common-libs = %{samba_depver}
+Requires: %{name}-ndr-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-winbind-clients = %{samba_depver}
 
@@ -1264,7 +1276,6 @@ License: LGPL-3.0-or-later
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
 Requires: libtevent%{?_isa} >= %{tevent_version}
-Requires: samba-common-libs = %{samba_depver}
 # /endif without includelibs
 %endif
 
@@ -1716,7 +1727,7 @@ fi
 
 %ldconfig_scriptlets client-libs
 
-%ldconfig_scriptlets common-libs
+%ldconfig_scriptlets ndr-libs
 
 %if %{with dc}
 %ldconfig_scriptlets dc-libs
@@ -2010,33 +2021,104 @@ fi
 #endif with includelibs
 %endif
 
+### CORE-LIBS
+%files core-libs
+%dir %{_libdir}/samba
+
+#
+# Tier 0: Private libraries - libc only dependencies
+#
+%{_libdir}/samba/libreplace-private-samba.so
+%{_libdir}/samba/libsocket-blocking-private-samba.so
+%{_libdir}/samba/libsys-rw-private-samba.so
+%{_libdir}/samba/libtime-basic-private-samba.so
+
+#
+# Tier 1: Private libraries - system libs (libtalloc, libsystemd)
+#
+%{_libdir}/samba/libsamba-debug-private-samba.so
+%{_libdir}/samba/libserver-role-private-samba.so
+
+#
+# Tier 1: Public libraries - system libs (libtalloc)
+#
+%{_libdir}/libsamba-errors.so.%{libsamba_errors_so_version}*
+
+#
+# Tier 2: Private libraries - adds gnutls
+#
+%{_libdir}/samba/libgenrand-private-samba.so
+
+#
+# Tier 2: Public libraries - adds gnutls, icu, tevent
+#
+%{_libdir}/libsamba-util.so.%{libsamba_util_so_version}*
+%{_libdir}/libtevent-util.so.%{libtevent_util_so_version}*
+
+### NDR-LIBS
+%files ndr-libs
+
+#
+# Core NDR library
+#
+%{_libdir}/libndr.so.%{libndr_so_version}*
+
+#
+# Tier 0: libc only dependencies
+#
+%{_libdir}/samba/libutil-setid-private-samba.so
+%{_libdir}/samba/libutil-tdb-private-samba.so
+
+#
+# Tier 1: system libs only (libtalloc)
+#
+%{_libdir}/samba/libiov-buf-private-samba.so
+%{_libdir}/samba/libstable-sort-private-samba.so
+%{_libdir}/samba/libtalloc-report-private-samba.so
+%{_libdir}/samba/libtalloc-report-printf-private-samba.so
+
+#
+# Tier 2: depends on core-libs (debug, replace)
+#
+%{_libdir}/samba/libflag-mapping-private-samba.so
+%{_libdir}/samba/libinterfaces-private-samba.so
+%{_libdir}/samba/libtdb-wrap-private-samba.so
+
+#
+# Tier 3: depends on core-libs (util, errors, ndr)
+#
+%{_libdir}/samba/libdbwrap-private-samba.so
+%{_libdir}/samba/libsamba3-util-private-samba.so
+%{_libdir}/samba/libutil-reg-private-samba.so
+
+#
+# Tier 4: depends on core-libs + Tier 3 libs
+#
+%{_libdir}/samba/libsamba-security-private-samba.so
+
+#
+# NDR encoding libraries
+#
+%{_libdir}/libndr-nbt.so.%{libndr_nbt_so_version}*
+%{_libdir}/libndr-standard.so.%{libndr_standard_so_version}*
+%{_libdir}/libndr-krb5pac.so.%{libndr_krb5pac_so_version}*
+
 ### CLIENT-LIBS
 %files client-libs
 %{_libdir}/libdcerpc-binding.so.%{libdcerpc_binding_so_version}*
 %{_libdir}/libdcerpc-server-core.so.%{libdcerpc_server_core_so_version}*
 %{_libdir}/libdcerpc.so.%{libdcerpc_so_version}*
-%{_libdir}/libndr-krb5pac.so.%{libndr_krb5pac_so_version}*
-%{_libdir}/libndr-nbt.so.%{libndr_nbt_so_version}*
-%{_libdir}/libndr-standard.so.%{libndr_standard_so_version}*
-%{_libdir}/libndr.so.%{libndr_so_version}*
 %{_libdir}/libsamba-credentials.so.%{libsamba_credentials_so_version}*
-%{_libdir}/libsamba-errors.so.%{libsamba_errors_so_version}*
 %{_libdir}/libsamba-hostconfig.so.%{libsamba_hostconfig_so_version}*
 %{_libdir}/libsamba-passdb.so.%{libsamba_passdb_so_version}*
-%{_libdir}/libsamba-util.so.%{libsamba_util_so_version}*
 %{_libdir}/libsamdb.so.%{libsamdb_so_version}*
 %{_libdir}/libsmbconf.so.%{libsmbconf_so_version}*
 %{_libdir}/libsmbldap.so.%{libsmbldap_so_version}*
-%{_libdir}/libtevent-util.so.%{libtevent_util_so_version}*
-
-%dir %{_libdir}/samba
 %{_libdir}/samba/libCHARSET3-private-samba.so
 %{_libdir}/samba/libMESSAGING-SEND-private-samba.so
-%{_libdir}/samba/libMESSAGING-private-samba.so
 %{_libdir}/samba/libaddns-private-samba.so
 %{_libdir}/samba/libads-private-samba.so
 %{_libdir}/samba/libasn1util-private-samba.so
-%{_libdir}/samba/libauth-private-samba.so
 %{_libdir}/samba/libauthkrb5-private-samba.so
 %{_libdir}/samba/libcli-cldap-private-samba.so
 %{_libdir}/samba/libcli-ldap-common-private-samba.so
@@ -2049,20 +2131,12 @@ fi
 %{_libdir}/samba/libcluster-private-samba.so
 %{_libdir}/samba/libcmdline-contexts-private-samba.so
 %{_libdir}/samba/libcommon-auth-private-samba.so
-%{_libdir}/samba/libctdb-event-client-private-samba.so
-%{_libdir}/samba/libdbwrap-private-samba.so
 %{_libdir}/samba/libdcerpc-pkt-auth-private-samba.so
 %{_libdir}/samba/libdcerpc-samba-private-samba.so
 %{_libdir}/samba/libevents-private-samba.so
-%{_libdir}/samba/libflag-mapping-private-samba.so
-%{_libdir}/samba/libgenrand-private-samba.so
 %{_libdir}/samba/libgensec-private-samba.so
-%{_libdir}/samba/libgpext-private-samba.so
-%{_libdir}/samba/libgpo-private-samba.so
 %{_libdir}/samba/libgse-private-samba.so
 %{_libdir}/samba/libhttp-private-samba.so
-%{_libdir}/samba/libinterfaces-private-samba.so
-%{_libdir}/samba/libiov-buf-private-samba.so
 %{_libdir}/samba/libkrb5samba-private-samba.so
 %{_libdir}/samba/libldbsamba-private-samba.so
 %{_libdir}/samba/liblibcli-lsa3-private-samba.so
@@ -2075,45 +2149,36 @@ fi
 %{_libdir}/samba/libmsrpc3-private-samba.so
 %{_libdir}/samba/libndr-samba-private-samba.so
 %{_libdir}/samba/libndr-samba4-private-samba.so
-%{_libdir}/samba/libnet-keytab-private-samba.so
 %{_libdir}/samba/libnetif-private-samba.so
 %if 0%{?rhel}
 %{_libdir}/samba/libngtcp2-crypto-gnutls-private-samba.so
 %{_libdir}/samba/libngtcp2-private-samba.so
 %endif
 %{_libdir}/samba/libnpa-tstream-private-samba.so
-%{_libdir}/samba/libposix-eadb-private-samba.so
-%{_libdir}/samba/libprinter-driver-private-samba.so
-%{_libdir}/samba/libprinting-migrate-private-samba.so
 %{_libdir}/samba/libquic-private-samba.so
 %{_libdir}/samba/libregistry-private-samba.so
 %{_libdir}/samba/libsamba-cluster-support-private-samba.so
-%{_libdir}/samba/libsamba-debug-private-samba.so
 %{_libdir}/samba/libsamba-modules-private-samba.so
-%{_libdir}/samba/libsamba-security-private-samba.so
 %{_libdir}/samba/libsamba-security-trusts-private-samba.so
 %{_libdir}/samba/libsamba-sockets-private-samba.so
-%{_libdir}/samba/libsamba3-util-private-samba.so
 %{_libdir}/samba/libsamdb-common-private-samba.so
 %{_libdir}/samba/libsecrets3-private-samba.so
 %{_libdir}/samba/libserver-id-db-private-samba.so
-%{_libdir}/samba/libserver-role-private-samba.so
 %{_libdir}/samba/libsmbclient-raw-private-samba.so
-%{_libdir}/samba/libsmbd-base-private-samba.so
 %{_libdir}/samba/libsmbd-shim-private-samba.so
-%{_libdir}/samba/libsmbldaphelper-private-samba.so
-%{_libdir}/samba/libstable-sort-private-samba.so
-%{_libdir}/samba/libsys-rw-private-samba.so
-%{_libdir}/samba/libsocket-blocking-private-samba.so
-%{_libdir}/samba/libtalloc-report-printf-private-samba.so
-%{_libdir}/samba/libtalloc-report-private-samba.so
-%{_libdir}/samba/libtdb-wrap-private-samba.so
-%{_libdir}/samba/libtime-basic-private-samba.so
-%{_libdir}/samba/libtorture-private-samba.so
-%{_libdir}/samba/libutil-crypt-private-samba.so
-%{_libdir}/samba/libutil-reg-private-samba.so
-%{_libdir}/samba/libutil-setid-private-samba.so
-%{_libdir}/samba/libutil-tdb-private-samba.so
+
+#
+# Command line library
+#
+%{_libdir}/samba/libcmdline-private-samba.so
+
+#
+# Password database modules (depend on libsamba-passdb)
+#
+%dir %{_libdir}/samba/ldb
+%dir %{_libdir}/samba/pdb
+%{_libdir}/samba/pdb/smbpasswd.so
+%{_libdir}/samba/pdb/tdbsam.so
 
 %if %{without libwbclient}
 %{_libdir}/samba/libwbclient.so.*
@@ -2163,19 +2228,6 @@ fi
 %{_mandir}/man5/smb.conf.5*
 %{_mandir}/man5/smbpasswd.5*
 %{_mandir}/man7/samba.7*
-
-### COMMON-LIBS
-%files common-libs
-# common libraries
-%{_libdir}/samba/libcmdline-private-samba.so
-%{_libdir}/samba/libreplace-private-samba.so
-
-%dir %{_libdir}/samba/ldb
-
-%dir %{_libdir}/samba/pdb
-%{_libdir}/samba/pdb/ldapsam.so
-%{_libdir}/samba/pdb/smbpasswd.so
-%{_libdir}/samba/pdb/tdbsam.so
 
 ### COMMON-TOOLS
 %files common-tools
@@ -2532,6 +2584,28 @@ fi
 %{_libdir}/samba/libREG-FULL-private-samba.so
 %{_libdir}/samba/libRPC-SERVER-LOOP-private-samba.so
 %{_libdir}/samba/libRPC-WORKER-private-samba.so
+
+#
+# Server-side libraries (not used by libsmbclient)
+#
+%{_libdir}/samba/libauth-private-samba.so
+%{_libdir}/samba/libctdb-event-client-private-samba.so
+%{_libdir}/samba/libgpext-private-samba.so
+%{_libdir}/samba/libgpo-private-samba.so
+%{_libdir}/samba/libMESSAGING-private-samba.so
+%{_libdir}/samba/libnet-keytab-private-samba.so
+%{_libdir}/samba/libposix-eadb-private-samba.so
+%{_libdir}/samba/libprinter-driver-private-samba.so
+%{_libdir}/samba/libprinting-migrate-private-samba.so
+%{_libdir}/samba/libsmbd-base-private-samba.so
+%{_libdir}/samba/libsmbldaphelper-private-samba.so
+%{_libdir}/samba/libtorture-private-samba.so
+%{_libdir}/samba/libutil-crypt-private-samba.so
+
+#
+# Password database modules (server-side, links to libsmbldaphelper)
+#
+%{_libdir}/samba/pdb/ldapsam.so
 
 ### LIBNETAPI
 %files -n libnetapi
@@ -3830,7 +3904,6 @@ fi
 %if %{with dc}
 %{_libdir}/samba/libdlz-bind9-for-torture-private-samba.so
 %endif
-%{_libdir}/samba/libdsdb-module-private-samba.so
 
 ### USERSHARES
 %files usershares

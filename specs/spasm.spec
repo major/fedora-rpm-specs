@@ -135,7 +135,7 @@ make check
 %{_modulesdir}/%{name}-%{_arch}
 
 %files -n libspasm
-%{_libdir}/libspasm.so.0*
+%{_libdir}/libspasm.so.0{,.*}
 
 %files -n libspasm-devel
 %{_includedir}/spasm.h
