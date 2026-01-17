@@ -5,12 +5,21 @@ Version:        0.9.15
 Summary:        Numerical abstract domain library
 Release:        %autorelease
 
-# The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
-# except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
+# The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception,
+# with the following exceptions:
+# GPL-2.0-or-later:
+# - apronxx/apxx_ppl*.hh
+# - examples/*
+# - newpolka/mf_qsort.c
+# - ppl/*
+# - products/*
+# - test/*
+# GPL-3.0-only
+# - pplite/*
 # This means that libpolkaMPQ.so.*, libpolkaRll.so.*, and libap_ppl.so.* are
 # GPL-2.0-or-later, and the other libraries are all LGPL-2.1-or-later WITH
 # OCaml-LGPL-linking-exception.
-License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND GPL-3.0-only
 URL:            https://antoinemine.github.io/Apron/doc/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz

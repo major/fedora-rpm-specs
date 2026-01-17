@@ -34,10 +34,10 @@ BuildRequires:	ruby(rubygems)
 ##
 ## For %%check
 BuildRequires:	rubygem(minitest)
+BuildRequires:	rubygem(minitest-mock)
 %if !0%{?rhel}
 # For test/xml/test_document_encoding.rb
 # Drop rubygem(rubyzip) build dependency in RHEL
-BuildRequires:	rubygem(minitest-mock)
 BuildRequires:	rubygem(rubyzip)
 %endif
 BuildRequires:	rubygems-devel

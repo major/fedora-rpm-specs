@@ -1,11 +1,10 @@
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
-Version:	2.143
-Release:	5%{?dist}
+Version:	2.144
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSH-Perl-%{version}.tar.gz
-Patch0:		Net-SSH-Perl-2.143-XS.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	gcc
@@ -86,10 +85,6 @@ client. It is compatible with both the SSH-1 and SSH-2 protocols.
 %prep
 %setup -q -n Net-SSH-Perl-%{version}
 
-# Fix FTBFS with ExtUtils::ParseXS 3.61
-# https://github.com/briandfoy/net-ssh-perl/pull/75
-%patch -P0
-
 %build
 # Protocol support (select one)
 # 1=SSH1 2=SSH2 3=Both
@@ -111,6 +106,10 @@ make test
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Thu Jan 15 2026 Paul Howarth <paul@city-fan.org> - 2.144-1
+- Update to 2.144
+  - Fix FTBFS with ExtUtils::ParseXS 3.61 (GH#75)
+
 * Wed Jan 14 2026 Paul Howarth <paul@city-fan.org> - 2.143-5
 - Fix FTBFS with ExtUtils::ParseXS 3.61
   https://github.com/briandfoy/net-ssh-perl/pull/75

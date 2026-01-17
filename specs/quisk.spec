@@ -1,6 +1,6 @@
 Name:           quisk
 Version:        4.2.50
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 # Automatically converted from old format: GPLv2 and BSD - review is highly recommended.
@@ -12,7 +12,6 @@ Source2:        quisk.png
 Source3:        name.ahlstrom.james.Quisk.metainfo.xml
 
 BuildRequires:  gcc
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  python3-wxpython4
 BuildRequires:  fftw-devel
@@ -52,12 +51,17 @@ sed -i 's|#!\s*/usr/bin/python|#!/usr/bin/python3|;s|#!\s*/usr/bin/env\s\+python
   quisk.py quisk_vna.py portaudio.py n2adr/startup.py \
   afedrinet/sdr_control.py afedrinet/afedri.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 CFLAGS="%{optflags}" %{__python3} setup.py build_ext --inplace
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files quisk
+
 # make Python scripts with shebangs executable
 for f in `find %{buildroot}%{python3_sitearch}/%{name} -name \*.py`
 do
@@ -73,19 +77,21 @@ install -Dpm 0644 %{SOURCE2} \
 install -Dpm 0644 %{SOURCE3} \
   %{buildroot}%{_metainfodir}/name.ahlstrom.james.Quisk.metainfo.xml
 
-%files
+%files -f %{pyproject_files}
 %license license.txt
 %doc docs.html defaults.html
 %doc help.html help_vna.html
 %{_bindir}/%{name}{,_vna}
-%{python3_sitearch}/%{name}
-%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_metainfodir}/name.ahlstrom.james.Quisk.metainfo.xml
 
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.50-2
+- Converted to new python packaging
+  Resolves: rhbz#2378426
+
 * Fri Jan 02 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.2.50-1
 - New version
   Resolves: rhbz#2416567

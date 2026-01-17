@@ -6,7 +6,7 @@
 
 Name:		wsjtx
 Version:	3.0.0~rc1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
@@ -180,6 +180,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0.0~rc1-2
+- Rebuilt for boost
+  Resolves: rhbz#2429735
+
 * Mon Jan 05 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 3.0.0~rc1-1
 - New version
 

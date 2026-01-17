@@ -23,6 +23,13 @@ Release:        %autorelease
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
+# BSL-1.0: runtime/Cpp/runtime/nuget/ANTLR4.Runtime.cpp.*.nuspec
+# DCO-1.1 (not SPDX): developer-cert-of-origin.txt
+# BSD-3-Clause AND MIT: runtime/Dart/LICENSE (the indicated files do not exist)
+# BSD-3-Clause AND LicenseRef-Fedora-Public-Domain:
+#   runtime/Swift/Tests/Antlr4Tests/MurmurHashTests.swift
+# Unicode-3.0: scripts/parse-extended-pictographic/ExtendedPictographic.txt
+SourceLicense:  %{license} AND BSL-1.0 AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.antlr.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/antlr4-%{version}.tar.gz
@@ -85,6 +92,7 @@ This package provides the runtime library used by Java ANTLR parsers.
 
 %package     -n antlr4
 Summary:        Parser generator (ANother Tool for Language Recognition)
+License:        BSD-3-Clause AND Unicode-3.0
 BuildArch:      noarch
 Requires:       antlr4-runtime = %{version}-%{release}
 Requires:       java-25-headless

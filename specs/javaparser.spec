@@ -26,7 +26,6 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
-BuildRequires:  mvn(org.junit:junit-bom:pom:)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
@@ -43,8 +42,9 @@ ones to modify the source code.
 %prep
 %autosetup -p1 -C
 
-
 sed -i 's/\r//' readme.md
+
+%pom_remove_dep -r :junit-bom
 
 # Remove plugins unnecessary for RPM builds
 %pom_remove_plugin -r :jacoco-maven-plugin

@@ -294,8 +294,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 11.10.0
-Release: 3%{?dist}
+Version: 12.0.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -2691,6 +2691,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 15 2026 Daniel P. Berrangé <berrange@redhat.com> - 12.0.0-1
+- Update to 12.0.0
+
 * Mon Jan 12 2026 Daniel P. Berrangé <berrange@redhat.com> - 11.10.0-3
 - Disable -Werror on ELN
 

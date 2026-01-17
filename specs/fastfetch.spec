@@ -1,6 +1,6 @@
 Name:           fastfetch
-Version:        2.48.1
-Release:        2%{?dist}
+Version:        2.57.1
+Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
 License:        MIT
@@ -24,10 +24,6 @@ BuildRequires:  libglvnd-devel
 BuildRequires:  mesa-libGL-devel
 %else
 BuildRequires:  mesa-libOSMesa-devel
-%endif
-# conditionalize xfconf until it is built for epel10
-%if 0%{?rhel} != 10
-BuildRequires:  xfconf-devel
 %endif
 BuildRequires:  glib2-devel
 BuildRequires:  ocl-icd-devel
@@ -115,6 +111,15 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wright <jonathan@almalinux.org> - 2.57.1-1
+- update to 2.57.1
+
+* Thu Jan 15 2026 Jonathan Wright <jonathan@almalinux.org> - 2.50.2-1
+- update to 2.50.2
+
+* Thu Jan 15 2026 Jonathan Wright <jonathan@almalinux.org> - 2.49.0-1
+- update to 2.49.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.48.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

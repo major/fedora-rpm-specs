@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -344,11 +344,6 @@ Patch19: binutils-gold-empty-dwp.patch
 Patch20: binutils-ld-default-z-text.patch
 
 #----------------------------------------------------------------------------
-
-# Purpose:  Change the Risc-V assembler's default behaviour to not enabling
-#            relaxation (as this is suspected of causing DWARF debug info problems).
-# Lifetime: Fixed in 2.46 (maybe)
-Patch95: binutils-riscv-gas-default-no-relax.patch
 
 # Purpose:  Revert the fixes for PR33577 which introduce a change into the
 #            behaviour of symbol versioning - a behaviour not expected by
@@ -1503,6 +1498,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Jan 15 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-16
+- Remove experimental Risc-V patch added with -12 revision.
+
 * Tue Jan 13 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-15
 - Disallow the creation of shared object that use text relocations.  (#2428281)
 

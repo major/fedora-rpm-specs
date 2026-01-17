@@ -24,6 +24,8 @@ Summary:        Plastic Recurrent Network Simulator
 License:        GPL-3.0-only
 URL:            http://www.fzenke.net/auryn/
 Source0:        %forgesource
+# https://github.com/fzenke/auryn/pull/44
+Patch0:         auryn-boost_filesystem.patch
 
 # This used in various places and was needed before since
 # upstream added an m suffix to the 0.8.2 release.

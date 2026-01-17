@@ -2,7 +2,7 @@
 
 Name:           simple-ccsm
 Version:        0.8.18
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Simple settings manager for Compiz
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,11 +10,11 @@ URL:            https://gitlab.com/compiz/%{name}
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 BuildArch:      noarch
 
+BuildRequires:  gettext
 BuildRequires:  fdupes
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  intltool
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(compiz) >= %{basever}
 BuildRequires:  pkgconfig(libcompizconfig) >= %{basever}
@@ -24,6 +24,7 @@ Requires:       python3-cairo
 Requires:       compizconfig-python
 Requires:       python3-gobject
 Recommends:     compiz-plugins-extra >= %{basever}
+Patch:          simple-ccsm-0.8.18-wheel-fix.patch
 
 
 %description
@@ -31,17 +32,19 @@ Compiz settings manager focused on simplicity for an end-user.
 
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-python3 setup.py build \
-    --prefix=%{_prefix} \
-    --enableDesktopEffects
+%pyproject_wheel
+
 
 %install
-python3 setup.py install \
-    --root=%{buildroot} \
-    --prefix=%{_prefix}
+%pyproject_install
+%pyproject_save_files -M
 
 mv %{buildroot}%{_datadir}/{metainfo,appdata}/
 
@@ -54,7 +57,7 @@ desktop-file-install                              \
 
 %find_lang %{name} --with-gnome --all-name
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f %{pyproject_files}
 %license COPYING
 %doc AUTHORS README.md NEWS
 %{_bindir}/%{name}
@@ -63,7 +66,6 @@ desktop-file-install                              \
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/appdata/%{name}.appdata.xml
-%{python3_sitelib}/simple_ccsm-%{version}-py%{python3_version}.egg-info
 
 
 %changelog

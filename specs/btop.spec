@@ -1,8 +1,8 @@
 %undefine _hardened_build
 
 Name:           btop
-Version:        1.4.5
-Release:        1%{?dist}
+Version:        1.4.6
+Release:        2%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -29,9 +29,9 @@ BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
 BuildRequires:  gcc-toolset-12-binutils
 %endif
 %if 0%{?el9}
-BuildRequires:  gcc-toolset-13-gcc-c++
-BuildRequires:  gcc-toolset-13-annobin-plugin-gcc
-BuildRequires:  gcc-toolset-13-binutils
+BuildRequires:  gcc-toolset-14-gcc-c++
+BuildRequires:  gcc-toolset-14-gcc-plugin-annobin
+BuildRequires:  gcc-toolset-14-binutils
 %endif
 
 # AMD GPU support
@@ -63,10 +63,14 @@ C++ version and continuation of bashtop and bpytop.
 
 %build
 %{?el8:. /opt/rh/gcc-toolset-12/enable}
-%{?el9:. /opt/rh/gcc-toolset-13/enable}
+%{?el9:. /opt/rh/gcc-toolset-14/enable}
 
 # to build debuginfo
 export CXXFLAGS="${CXXFLAGS} -g"
+# fix build error on epel9 using non-standard functions in older glibc
+%if 0%{?el9}
+sed -i '1i #define _GNU_SOURCE' src/linux/intel_gpu_top/intel_gpu_top.c
+%endif
 %make_build
 
 
@@ -87,6 +91,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wright <jonathan@almalinux.org> - 1.4.6-2
+- fix build on EL9
+
+* Thu Jan 15 2026 Jonathan Wright <jonathan@almalinux.org> - 1.4.6-1
+- update to 1.4.6 rhbz#2397033
+
 * Sat Sep 27 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.4.5-1
 - Update to 1.4.5
 - Close: rhbz#2397033

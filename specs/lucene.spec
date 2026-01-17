@@ -1,5 +1,5 @@
 Name:           lucene
-Version:        10.2.0
+Version:        10.3.2
 Release:        %autorelease
 Epoch:          0
 Summary:        High-performance, full-featured text search engine
@@ -46,7 +46,6 @@ Source31:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-spatial3
 Source32:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-suggest/%{version}/lucene-suggest-%{version}.pom
 Source33:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-test-framework/%{version}/lucene-test-framework-%{version}.pom
 
-Patch1:         0001-Use-antlr4-automatic-module-name.patch
 
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.ibm.icu:icu4j)
@@ -223,7 +222,7 @@ Summary:        Lucene module: suggest
 %{summary}.
 
 %prep
-%setup -q
+%autosetup -p1 -C
 
 find -mindepth 1 -maxdepth 1 ! -name lucene ! -name LICENSE.txt ! -name NOTICE.txt ! -name README.md -exec rm -rf {} +
 mv -t . lucene/*

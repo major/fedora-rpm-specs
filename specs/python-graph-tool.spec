@@ -56,6 +56,10 @@ License:        %{shrink:
 URL:            https://graph-tool.skewed.de/
 Source:         https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
 
+# Fix invalid conversion from 'const char8_t*' to 'const char*'
+# https://git.skewed.de/count0/graph-tool/-/merge_requests/78
+Patch:          https://git.skewed.de/count0/graph-tool/-/merge_requests/78.patch
+
 # Note that upstream sets the optimization flag -O3. Per
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags,
 # we should normally patch this out in order to fully respect the system

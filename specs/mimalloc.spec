@@ -2,7 +2,7 @@
 
 Name:           mimalloc
 Version:        2.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A general purpose allocator with excellent performance
 
 License:        MIT
@@ -40,7 +40,7 @@ rm -rf bin
     -DMI_INSTALL_TOPLEVEL=ON \
     -DMI_BUILD_STATIC=OFF \
     -DMI_BUILD_TESTS=OFF \
-    -DMI_OPT_ARCH=OFF \
+    -DMI_NO_OPT_ARCH=ON \
     -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
@@ -62,6 +62,9 @@ rm -rf bin
 
 
 %changelog
+* Sun Jul 13 2025 Christoph Erhardt <fedora@sicherha.de> - 2.2.3-3
+- Disable architecture-specific optimizations again
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

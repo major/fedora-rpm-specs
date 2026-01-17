@@ -2,7 +2,7 @@
 
 Name:           ogre
 Version:        1.9.0
-Release:        52%{?dist}
+Release:        53%{?dist}
 Epoch:          1
 Summary:        Object-Oriented Graphics Rendering Engine
 # MIT - main library
@@ -53,6 +53,7 @@ Patch12:        ogre-a24ac4afbbb9dc5ff49a61634af50da11ba8fb97.diff
 # https://bugzilla.redhat.com/show_bug.cgi?id=1841324
 Patch13:        ogre-1.9.0-sysctl.patch
 Patch14:        %{name}-gcc11.patch
+Patch15:        %{name}-gcc16.patch
 BuildRequires:  gcc-c++
 BuildRequires:  zziplib-devel freetype-devel
 BuildRequires:  libXaw-devel libXrandr-devel libXxf86vm-devel libGLU-devel
@@ -188,6 +189,7 @@ mkdir build
 %patch -P12 -p1
 %patch -P13 -p1
 %patch -P14 -p1
+%patch -P15 -p1
 
 # remove execute bits from src-files for -debuginfo package
 chmod -x `find RenderSystems/GL -type f` \
@@ -291,6 +293,9 @@ mv %{buildroot}%{_libdir}/OGRE/cmake/* %{buildroot}%{_datadir}/cmake/Modules
 
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.9.0-53
+- Patched for GCC 16
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

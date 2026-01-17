@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.5
-Release:       22%{?dist}
+Release:       23%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -104,6 +104,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.2.5-23
+- Rebuilt for Boost 1.90
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.5-22
 - Rebuilt for Python 3.14.0rc3 bytecode
 

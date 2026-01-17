@@ -1,6 +1,6 @@
 Name:    kopeninghours
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for parsing and evaluating OSM opening hours expressions
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 25.12.1-2
+- Rebuilt for Boost 1.90
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

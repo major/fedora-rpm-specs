@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        35%{?dist}
+Release:        36%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -14,7 +14,6 @@ BuildArch:      noarch
 Patch1:         fusion-icon_0001-Fix-typeerror-in-python3.6.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  desktop-file-utils
 
@@ -41,11 +40,15 @@ appear.
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build -- --with-gtk=3.0
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files FusionIcon
 
 mv %{buildroot}%{_datadir}/{metainfo,appdata}/
 
@@ -53,22 +56,20 @@ mv %{buildroot}%{_datadir}/{metainfo,appdata}/
 desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
-
-%files
-%doc COPYING
+%files -f %{pyproject_files}
+%license COPYING
 %{_bindir}/fusion-icon
 %{_datadir}/applications/fusion-icon.desktop
-%dir %{python3_sitelib}/FusionIcon/
-%{python3_sitelib}/FusionIcon/*py*
 %{_datadir}/appdata/fusion-icon.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/fusion-icon.png
 %{_datadir}/icons/hicolor/scalable/apps/fusion-icon.svg
-%{python3_sitelib}/fusion_icon-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/FusionIcon/interface_gtk/
-%{python3_sitelib}/FusionIcon/interface_qt/
 
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.2.4-36
+- Switched to new python packaging
+  Resolves: rhbz#2377263
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:0.2.4-35
 - Rebuilt for Python 3.14.0rc3 bytecode
 

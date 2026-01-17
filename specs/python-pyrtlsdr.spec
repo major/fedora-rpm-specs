@@ -1,7 +1,7 @@
 %global srcname pyrtlsdr
 Name:             python-%{srcname}
 Version:          0.3.0
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Python binding for librtlsdr
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:          GPL-3.0-only
@@ -14,35 +14,40 @@ Python binding for librtlsdr (a driver for Realtek RTL2832U based SDR's).
 
 %package -n python3-%{srcname}
 Summary:          Python 3 binding for librtlsdr
-%{?python_provide:%python_provide python3-%{srcname}}
-BuildRequires:    python3-devel, python3-setuptools
+BuildRequires:    python3-devel
 # needed for librtlsdr
 Requires:         rtl-sdr
 # faster arrays
-Recommends:       python2-numpy
+Recommends:       python3-numpy
 
 %description -n python3-%{srcname}
 Python 3 binding for librtlsdr (a driver for Realtek RTL2832U based SDR's).
 
 %prep
-%setup -qn %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 rm -rf pyrtlsdr.egg-info
 chmod 644 rtlsdr/rtlsdrtcp/base.py
 
 find . -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files rtlsdr
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/rtlsdr/
-%{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.3.0-14
+- Switched to new python packaging
+  Resolves: rhbz#2378078
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

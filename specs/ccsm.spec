@@ -2,7 +2,7 @@
 
 Name:           ccsm
 Version:        0.8.18
-Release:        21%{?dist}
+Release:        22%{?dist}
 Epoch:          1
 Summary:        Plugin and configuration tool - Compiz Reloaded Project
 
@@ -14,7 +14,6 @@ Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
@@ -29,6 +28,8 @@ Requires:       gobject-introspection
 Requires:       gdk-pixbuf2
 Requires:       pango
 Requires:       gtk3
+Patch:          ccsm-0.8.18-wheel-fix.patch
+
 
 %description
 The Compiz Project brings 3D desktop visual effects that improve
@@ -39,25 +40,34 @@ rich desktop experience.
 This package contains a GUI configuration tool to configure Compiz
 plugins and the composite window manager.
 
+
 %prep
 %autosetup -n %{name}-v%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-python3 setup.py build --prefix=%{_prefix} --with-gtk=3.0
+%pyproject_wheel
+
 
 %install
-python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
+%pyproject_install
+%pyproject_save_files ccm
 
 mv %{buildroot}%{_datadir}/{metainfo,appdata}/
 
 %find_lang %{name}
 
+
 %check
-desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/ccsm.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/ccsm.desktop
 
 
-%files -f %{name}.lang
-%doc AUTHORS COPYING VERSION
+%files -f %{name}.lang -f %{pyproject_files}
+%license COPYING
+%doc AUTHORS VERSION
 %{_bindir}/ccsm
 %{_datadir}/appdata/ccsm.appdata.xml
 %{_datadir}/applications/ccsm.desktop
@@ -65,12 +75,14 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/ccsm.desktop
 %{_datadir}/ccsm/*
 %{_datadir}/icons/hicolor/*/apps/ccsm.*
 %{_datadir}/compiz/icons/hicolor/{22x22/{categories,devices,mimetypes},scalable/{apps,categories}}/*.{png,svg}
-%dir %{python3_sitelib}/ccm
-%{python3_sitelib}/ccm/*
-%{python3_sitelib}/ccsm-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.8.18-22
+- Converted to new python packaging
+  Resolves: rhbz#2378533
+- Minor SPEC cleanup
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:0.8.18-21
 - Rebuilt for Python 3.14.0rc3 bytecode
 

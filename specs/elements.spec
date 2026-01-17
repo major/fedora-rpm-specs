@@ -15,6 +15,8 @@ Patch0:         0000-Remove-examples.patch
 Patch2:         0001-Disable-PDF-documentation.patch
 # distutils have been removed
 Patch3:         0002-Do-not-rely-on-distutils.patch
+# boost::filesystem::is_regular no longer exists
+Patch4:         elements-boost_filesystem.patch
 
 BuildRequires: CCfits-devel
 BuildRequires: boost-devel >= 1.53

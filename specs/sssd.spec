@@ -19,7 +19,7 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version})
 
 Name: sssd
-Version: 2.11.1
+Version: 2.12.0
 Release: %autorelease
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
@@ -34,7 +34,6 @@ Source3: pubkey.asc
 ### Patches ###
 # Place your patches here:
 # Patch0001:  0001-patch-file.patch
-Patch0001: 0001-krb5-disable-Kerberos-localauth-an2ln-plugin-for-AD-.patch
 
 ### Downstream only patches ###
 # Place your downstream only patches here:
@@ -158,7 +157,7 @@ the existing back ends.
 %package common
 Summary: Common files for the SSSD
 License: GPL-3.0-or-later
-Requires: libldb
+Requires: libldb >= %{samba_package_version}
 Requires: sssd-client%{?_isa} = %{version}-%{release}
 Requires: (libsss_sudo = %{version}-%{release} if sudo)
 Requires: (libsss_autofs%{?_isa} = %{version}-%{release} if autofs)
@@ -460,14 +459,16 @@ An implementation of a Kerberos KCM server. Use this package if you want to
 use the KCM: Kerberos credentials cache.
 
 %package idp
-Summary: Kerberos plugins and OIDC helper for external identity providers.
+Summary: The IdP back end of the SSSD, Kerberos plugins and OIDC helper
 License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 
 %description idp
-This package provides Kerberos plugins that are required to enable
-authentication against external identity providers. Additionally a helper
-program to handle the OAuth 2.0 Device Authorization Grant is provided.
+Provides the Identity Provider (IdP) back end that the SSSD can utilize to fetch
+identity data from and authenticate against an IdP like Keycloak or Entra ID
+server. Additionally this package provides Kerberos plugins that are required to
+enable authentication against external identity providers, if the KDC supports
+it, and a helper program to handle the OAuth 2.0 Device Authorization Grant.
 
 %package passkey
 Summary: SSSD helpers and plugins needed for authentication with passkey token
@@ -1045,4 +1046,6 @@ fi
 %posttrans common
 %systemd_postun_with_restart sssd.service
 
+%changelog
 %autochangelog
+

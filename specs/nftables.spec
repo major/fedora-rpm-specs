@@ -1,6 +1,6 @@
 Name:           nftables
-Version:        1.1.5
-Release:        3%{?dist}
+Version:        1.1.6
+Release:        1%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilities
@@ -16,21 +16,20 @@ Source5:        main.nft
 Source6:        router.nft
 Source7:        nat.nft
 
-Patch01: 0001-parser_bison-remove-leftover-utf-8-character-in-erro.patch
-Patch02: 0002-tools-gitignore-nftables.service-file.patch
-Patch03: 0003-monitor-Quote-device-names-in-chain-declarations-too.patch
+Patch01: 0001-build-fix-.-configure-with-non-bash-shell.patch
+Patch02: 0002-doc-fix-typo-in-man-page.patch
 
 #BuildRequires: autogen
-#BuildRequires: autoconf
-#BuildRequires: automake
-#BuildRequires: libtool
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: pkgconfig(libmnl) >= 1.0.4
 BuildRequires: gmp-devel
-BuildRequires: pkgconfig(libnftnl) >= 1.3.0
+BuildRequires: pkgconfig(libnftnl) >= 1.3.1
 BuildRequires: systemd
 BuildRequires: asciidoc
 BuildRequires: pkgconfig(xtables) >= 1.6.1
@@ -82,7 +81,7 @@ and /etc/sysconfig/nftables.
 %autosetup -p1
 
 %build
-#./autogen.sh
+autoreconf -fi
 %configure --disable-silent-rules --with-xtables --with-json
 %make_build
 cd py/
@@ -152,6 +151,9 @@ fi
 %{_unitdir}/nftables.service
 
 %changelog
+* Thu Jan 15 2026 Phil Sutter <psutter@redhat.com> - 1:1.1.6-1
+- new version 1.1.6
+
 * Sat Jan 03 2026 Kevin Fenzi <kevin@scrye.com> - 1:1.1.5-3
 - Adjust post to keep service enabled on dist-upgrades. Thanks grumpey0@gmail.com
 

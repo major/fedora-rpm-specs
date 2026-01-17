@@ -62,7 +62,6 @@ firmware.  This package has EFI applications for %{efiarch}.
 
 %prep
 %autosetup -n %{name}-v%{version} -p1
-%cargo_prep
 # drop unused packages from workspace to reduce dependencies.
 sed -i Cargo.toml -e '/mefisto/d'
 %if %{without efi_apps}
@@ -73,6 +72,7 @@ sed -i Cargo.toml -e '/efi-apps/d'
 %cargo_generate_buildrequires -f std,json,pem,udev
 
 %build
+%cargo_prep
 %cargo_build -- --package virtfw-efi-tools --features udev
 %cargo_build -- --package virtfw-efi-tools
 %cargo_build -- --package virtfw-igvm-tools

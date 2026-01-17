@@ -6,7 +6,7 @@
 
 Name:           v4l-utils
 Version:        1.32.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
 # e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
@@ -20,12 +20,12 @@ Source0:        %{url}/v4l-utils-%{version}.tar.xz
 Patch0:         sbin-location.diff
 
 BuildRequires:  alsa-lib-devel
-BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  json-c-devel
 BuildRequires:  kernel-headers
 BuildRequires:  libjpeg-devel
 BuildRequires:  meson >= 0.56
+BuildRequires:  perl-interpreter
 %if %{with qt}
 BuildRequires:  desktop-file-utils
 %if 0%{?fedora} < 41 || 0%{?rhel}
@@ -168,7 +168,8 @@ Utilities for Infrared receivers and transmitters using RC core.
 %autosetup -p1
 
 %build
-%meson -Dbpf=auto -Ddoxygen-man=true -Ddoxygen-html=false \
+%meson -Dbpf=auto \
+  -Ddoxygen-doc=disabled -Ddoxygen-man=false -Ddoxygen-html=false \
   %{!?with_dvb:-Dlibdvbv5=disabled} \
   %{!?with_qt:-Dqv4l2=disabled -Dqvidcap=disabled}
 
@@ -264,7 +265,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 %{_includedir}/libdvbv5/*.h
 %{_libdir}/libdvbv5*.so
 %{_libdir}/pkgconfig/libdvbv5*.pc
-%{_mandir}/man3/*.3*
 
 %files -n dvb-tools
 %{_bindir}/cx18-ctl
@@ -286,6 +286,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 
 
 %changelog
+* Tue Jan 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.32.0-2
+- Disable doxygen manpages
+
 * Mon Oct 06 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

@@ -15,7 +15,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.32.1
+Version:        1.35.0
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -39,6 +39,7 @@ Source1:        https://evilpiepirate.org/%{name}/%{name}-vendored-%{version}.ta
 Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13AB336D8DCA6E76.asc
 
 # Upstream patches
+Patch0001:      https://github.com/koverstreet/bcachefs-tools/commit/17f2ba49b7bd3dd34ec317b01be5fb1cd52be3ef.patch
 
 # Upstreamable patches
 
@@ -215,6 +216,11 @@ rm -rf %{buildroot}%{_usrsrc}
 
 
 %changelog
+* Thu Jan 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.35.0-1
+- Update to version 1.35.0
+  Resolves: rhbz#2419155
+- Add patch to fix build with Linux 6.19+ headers
+
 * Mon Nov 10 2025 Packit <hello@packit.dev> - 1.32.1-1
 - Update to version 1.32.1
 - Resolves: rhbz#2413809

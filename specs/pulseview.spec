@@ -11,6 +11,9 @@ Source0:        %{url}/download/source/%{name}/%{name}-%{version}.tar.gz
 Patch0:         pulseview-qt.patch
 # Upstream commit ed643f0b4ac587204a5243451cda181ee1405d62
 Patch1:         0001-Fix-broken-build-due-to-C-template-behind-C-linkage.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2429719
+# move to C++14 needed by Boost 1.90
+Patch2:         pulseview-cpp14.patch
 BuildRequires:  pkgconfig(libsigrokcxx) >= 0.5.2
 BuildRequires:  pkgconfig(libsigrokdecode) >= 0.5.2
 BuildRequires:  qt5-qtbase-devel

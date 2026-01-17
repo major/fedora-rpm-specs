@@ -1,15 +1,29 @@
 %bcond docs 1
 %bcond introspection 1
 
-Name:           libipuz
-Version:        0.5.3
 # The shared library version
-%global soversion %(c=%{version}; echo $c | cut -d. -f1,2)
+%global soversion 0.5
 
+Name:           libipuz
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 
-License:        LGPL-2.1-or-later OR MIT
+# Licenses of Rust dependencies:
+# Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+# LICENSE.dependencies contains a full license breakdown
+License:        %{shrink:
+    (LGPL-2.1-or-later OR MIT) 
+AND (Apache-2.0 OR MIT)
+AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+AND MIT
+AND (MIT OR Apache-2.0)
+AND (Unlicense OR MIT)
+}
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -79,6 +93,10 @@ cd libipuz/rust
 %build
 %meson
 %meson_build
+pushd libipuz/rust >/dev/null
+%{cargo_license_summary}
+%{cargo_license} > ../../LICENSE.dependencies
+popd >/dev/null
 
 %if %{with docs}
 sphinx-build-3 docs html
@@ -94,6 +112,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %files -f %{name}-1.0.lang
 %license LICENSE COPYING.LGPL COPYING.MIT
+%license LICENSE.dependencies
 %doc README.md NEWS.md
 %{_libdir}/lib%{name}-%{soversion}.so
 

@@ -1,5 +1,5 @@
 Name:           perl-Type-Tiny
-Version:        2.008003
+Version:        2.010001
 Release:        1%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -198,6 +198,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Wed Jan 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.010001-1
+- 2.010001 bump (rhbz#2416716)
+
 * Mon Sep 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.008003-1
 - 2.008003 bump (rhbz#2395203)
 

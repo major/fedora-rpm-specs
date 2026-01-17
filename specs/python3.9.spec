@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 
 
@@ -402,6 +402,13 @@ Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-fo
 # allows us to properly apply CFLAGS exported by the build system
 # even when cross-compiling.
 Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
+
+# 00471 # fc5f344f7e15c13dbf41824a1b7a82d92205f79d
+# CVE-2025-12084
+#
+# * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
+# * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
+Patch471: 00471-cve-2025-12084.patch
 
 # (New patches go here ^^^)
 #
@@ -1892,6 +1899,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jan 14 2026 Lumír Balhar <lbalhar@redhat.com> - 3.9.25-3
+- Security fix for CVE-2025-12084
+
 * Mon Nov 10 2025 Tomas Orsava <torsava@redhat.com> - 3.9.25-2
 - Move _sysconfigdata_d_linux*.py to the debug subpackage
 

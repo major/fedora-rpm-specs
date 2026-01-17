@@ -1,5 +1,5 @@
 Name:           python-jupyter-server-terminals
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        A Jupyter Server Extension Providing Terminals
 License:        BSD-3-Clause

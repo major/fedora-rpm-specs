@@ -1,5 +1,5 @@
-%global DATE 20260113
-%global gitrev a0ec01c1ccb192681b09dd03c265e84fe2bd00e5
+%global DATE 20260115
+%global gitrev 1a9a51aca25eaad91d80869c43859274fe5e1096
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.2%{?dist}
+Release: %{gcc_release}.3%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -322,12 +322,7 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-pr123115.patch
-Patch14: gcc16-pr120250.patch
-Patch15: gcc16-pr123273.patch
-Patch16: gcc16-ipacp-revert.patch
-Patch17: gcc16-pr121778-revert.patch
-Patch18: gcc16-pr123573.patch
+Patch13: gcc16-pr123273.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -2553,7 +2548,8 @@ rm -rf %{buildroot}%{_prefix}/lib64/go/%{gcc_major}/%{gcc_target_platform}
 rm -f %{buildroot}%{_prefix}/lib*/lib*.spec || :
 rm -f %{buildroot}%{_prefix}/lib*/libstdc++.modules.json || :
 rm -f %{buildroot}%{_prefix}/%{_lib}/lib{asan,atomic,gcc_s,gcobol,ga68,gdruntime,gfortran,go,gomp-plugin-*,gomp,gphobos,hwasan}.so || :
-rm -f %{buildroot}%{_prefix}/%{_lib}/lib{itm,lsan,m2{cor,iso,log,min,pim},objc,quadmath,stdc++,tsan,ubsan}.so || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/lib{itm,lsan,m2{cor,iso,log,min,pim},objc,quadmath,stdc++,tsan,ubsan,gcc_s_asneeded,atomic_asneeded}.so || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/libatomic_asneeded.a || :
 rm -f %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/install-tools/{fixinc.sh,mkinstalldirs} || :
 rm -f %{buildroot}%{_prefix}/share/locale/*/LC_MESSAGES/libstdc++.mo || :
 rm -f %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include-fixed/README || :
@@ -3974,6 +3970,17 @@ end
 %endif
 
 %changelog
+* Thu Jan 15 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.3
+- update from trunk
+  - PRs c/123309, c++/120775, c++/122634, c++/123081, c++/123551,
+	debug/121045, driver/108865, driver/123504, ipa/122852, ipa/123542,
+	middle-end/123115, middle-end/123392, middle-end/123573,
+	rtl-optimization/123312, rtl-optimization/123544, target/38118,
+	target/114528, target/120250, target/121240, target/123092,
+	testsuite/122522, tree-optimization/119402, tree-optimization/120322,
+	tree-optimization/123109, tree-optimization/123190,
+	tree-optimization/123530
+
 * Tue Jan 13 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.2
 - update from trunk
   - PRs fortran/91960, fortran/112460, libstdc++/123396,

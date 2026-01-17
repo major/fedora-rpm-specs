@@ -1,6 +1,6 @@
 Name:           dd2
 Version:        0.2.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Dodgin' Diamond 2 - Shoot'em up arcade game
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -11,9 +11,10 @@ Source2:        %{name}.png
 Patch0:         dd2-0.2.1-glob-highscore.patch
 Patch1:         dd2-0.2.1-640x480-fullscreen.patch
 Patch2:         dd2-0.2.2-configure-c99.patch
-BuildRequires:  gcc
+Patch3:         dd2-0.2.2-c23.patch
+Patch4:         dd2-0.2.2-quit.patch
+BuildRequires:  gcc make
 BuildRequires:  SDL_mixer-devel desktop-file-utils
-BuildRequires: make
 Requires:       hicolor-icon-theme
 
 %description
@@ -24,10 +25,7 @@ power.
 
 
 %prep
-%setup -q
-%patch -P0 -p1 -z .highscore
-%patch -P1 -p1 -z .fs
-%patch -P2 -p1 -z .configure-c99
+%autosetup -p1
 #stop autoxxx from rerunning
 touch src/data/Makefile.in
 
@@ -57,7 +55,8 @@ install -p -m 644 %{SOURCE2} \
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README TODO
+%doc AUTHORS ChangeLog NEWS README TODO
+%license COPYING
 %attr(2755,root,games) %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -66,6 +65,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Thu Jan 15 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.2.2-40
+- Fix FTBFS (rhbz#2340033, rhbz#2384532)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

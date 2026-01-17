@@ -319,6 +319,9 @@ Provides: bundled(vtune) = 2018
 # Distro integration patches
 
 # 0000-0099 -> against linux-sgx.git
+#
+# Maintained in: https://github.com/berrange/linux-sgx/tree/dist-git-%{linux_sgx_version}-hostsw
+#
 Patch0000: 0000-Add-support-for-building-against-host-openssl-crypto.patch
 Patch0001: 0001-Add-support-for-building-against-host-tinyxml2-lib.patch
 Patch0002: 0002-Add-support-for-building-against-host-CppMicroServic.patch
@@ -343,7 +346,11 @@ Patch0016: 0016-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
 # Optional patches
 Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
 
+
 # 0100-0199 -> against SGXDataCenterAttestationPrimitives.git
+#
+# Maintained in https://github.com/berrange/SGXDataCenterAttestationPrimitives/tree/dist-git-%{dcap_version}-hostsw
+#
 Patch0100: 0100-Drop-use-of-bundled-pre-built-openssl.patch
 Patch0101: 0101-Improve-debuggability-of-build-system.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/437
@@ -377,14 +384,25 @@ Patch0125: 0125-pccsadmin-add-fallback-for-when-pyopenssl-is-not-ava.patch
 Patch0126: 0126-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
 # https://github.com/intel/confidential-computing.tee.dcap/pull/485
 Patch0127: 0127-PCS-Client-Tool-Migrate-from-deprecated-pkg_resource.patch
+# https://github.com/intel/confidential-computing.tee.dcap/pull/487
+Patch0128: 0128-qgs-add-compat-for-boost-1.87-which-drops-asio-io_se.patch
+Patch0129: 0129-qgs-add-compat-for-boost-1.89-which-deprecated-deadl.patch
+
 
 # 0200-0299 -> against intel-sgx-ssl.git
+#
+# Maintained in https://github.com/berrange/intel-sgx-ssl/tree/dist-git-%{sgx_ssl_version}
+#
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
 Patch0201: 0201-Workaround-missing-output-directory.patch
 Patch0202: 0202-Disable-various-EC-crypto-features.patch
 Patch0203: 0203-Disable-sm2-and-sm4-crypto-algorithms.patch
 
+
 # 0300-0399 -> against ipp-crypto.git
+#
+# Maintained in https://github.com/berrange/ipp-crypto/tree/dist-git-%{ipp_crypto_version}
+#
 Patch0300: 0300-Drop-min-openssl-from-3.0.8-to-3.0.7.patch
 Patch0301: 0301-Drop-Werror-from-build-flags.patch
 

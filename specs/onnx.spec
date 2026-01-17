@@ -1,19 +1,21 @@
 Name:       onnx
 Version:    1.17.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
 URL:        https://github.com/onnx/onnx
 Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.tar.gz
 # Build shared libraries and fix install location 
-Patch0:     0000-Build-shared-libraries-and-fix-install-location.patch
+Patch:     0000-Build-shared-libraries-and-fix-install-location.patch
 # Use system protobuf and require parameterized
-Patch2:     0002-Use-system-protobuf-and-require-parameterized.patch
+Patch:     0001-Use-system-protobuf-and-require-parameterized.patch
 # Let pyproject_wheel use binaries from cmake_build
-Patch3:     0003-Let-pyproject_wheel-use-binaries-from-cmake_build.patch
+Patch:     0002-Let-pyproject_wheel-use-binaries-from-cmake_build.patch
 # Add fixes for use with onnxruntime
-Patch4:     0004-Add-fixes-for-use-with-onnxruntime.patch
+Patch:     0003-Add-fixes-for-use-with-onnxruntime.patch
+# Add fixes for use with onnxruntime
+Patch:     0004-Remove-python-parameterized-dependency.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2212096
 ExcludeArch:    s390x
@@ -122,6 +124,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Thu Jan 15 2026 Diego Herrera <dherrera@fedoraproject.org> - 1.17.0-9
+- Disable tests that depend on python-parameterized
+- Clean up patches
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.17.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 Name:		rtlsdr-scanner
 Version:	1.3.2
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Frequency scanning GUI for RTL2832 based DVB-T dongles
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -9,16 +9,22 @@ Source0:	https://github.com/EarToEarOak/RTLSDR-Scanner/archive/v%{version}.tar.g
 Source1:	rtlsdr-scanner.desktop
 # Icon taken from older release of rtlsdr-scanner
 Source2:	rtlsdr_scan.png
-BuildRequires:	python3-setuptools, python3-visvis
-BuildRequires:	python3-devel, desktop-file-utils
-Requires:	python3-wxpython4, python3-matplotlib, python3-matplotlib-wx, python3-numpy
-Requires:	python3-pillow, python3-pyserial, python3-pyrtlsdr, hicolor-icon-theme
+BuildRequires:	python3-devel
+BuildRequires:	desktop-file-utils
+Requires:	python3-wxpython4
+Requires:	python3-matplotlib
+Requires:	python3-matplotlib-wx
+Requires:	python3-numpy
+Requires:	python3-pillow
+Requires:	python3-pyserial
+Requires:	python3-pyrtlsdr
 Requires:	python3-visvis
+Requires:	hicolor-icon-theme
 BuildArch:	noarch
 # distribution specific patch changing path to resources
-Patch0:		rtlsdr-scanner-1.3.2-fedora.patch
+Patch:		rtlsdr-scanner-1.3.2-fedora.patch
 # https://github.com/EarToEarOak/RTLSDR-Scanner/pull/51
-Patch1:		rtlsdr-scanner-1.3.2-python3.patch
+Patch:		rtlsdr-scanner-1.3.2-python3.patch
 
 %description
 Frequency scanning GUI for RTL2832 based DVB-T dongles. In other
@@ -33,9 +39,7 @@ BuildArch:	noarch
 %{summary}.
 
 %prep
-%setup -qn RTLSDR-Scanner-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n RTLSDR-Scanner-%{version}
 
 find rtlsdr_scanner -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 
@@ -48,11 +52,15 @@ mv rtlsdr_scanner/__main__.py rtlsdr_scan
 # drop python artefact from resources
 rm -f rtlsdr_scanner/res/__init__.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files rtlsdr_scanner
 
 install -Dpm 0755 ./rtlsdr_scan %{buildroot}%{_bindir}/rtlsdr_scan
 
@@ -68,20 +76,22 @@ desktop-file-install --add-category="Utility" \
   --dir=%{buildroot}%{_datadir}/applications \
   %{SOURCE1}
 
-%files
+%files -f %{pyproject_files}
 %license COPYING
 %doc readme.md
 %{_bindir}/rtlsdr_scan
 %{_datadir}/icons/hicolor/256x256/apps/rtlsdr_scan.png
 %{_datadir}/applications/rtlsdr-scanner.desktop
 %{_datadir}/%{name}
-%{python3_sitelib}/rtlsdr_scanner
-%{python3_sitelib}/rtlsdr_scanner-*.egg-info
 
 %files doc
 %doc doc/Manual.pdf
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.3.2-28
+- Switched to new python packaging
+  Resolves: rhbz#2378445
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.2-27
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -4,7 +4,7 @@
 Name:           libpqxx
 Summary:        C++ client API for PostgreSQL
 Epoch:          1
-Version:        7.10.3
+Version:        7.10.5
 Release:        1%{?dist}
 
 %global         forgeurl https://github.com/jtv/%{name}/
@@ -15,6 +15,9 @@ Release:        1%{?dist}
 License:        LicenseRef-Callaway-BSD
 URL:            http://pqxx.org/
 Source0:        %{forgesource}
+
+# Add missing includes for std::optional and std::variant.
+Patch0:         libpqxx-7.10.5-cxx20.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
@@ -104,6 +107,10 @@ cd -
 %endif
 
 %changelog
+* Thu Jan 15 2026 Björn Esser <besser82@fedoraproject.org> - 1:7.10.5-1
+- Update to v7.10.5
+- Add patch for missing includes for std::optional and std::variant
+
 * Thu Oct 09 2025 Björn Esser <besser82@fedoraproject.org> - 1:7.10.3-1
 - Update to v7.10.3
   Fixes rhbz#2401105

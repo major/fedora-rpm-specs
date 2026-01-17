@@ -55,7 +55,6 @@ BuildRequires:  boost-devel
 BuildRequires:  boost-filesystem
 BuildRequires:  boost-iostreams
 BuildRequires:  boost-program-options
-BuildRequires:  boost-system
 BuildRequires:  boost-thread
 BuildRequires:  cmake
 BuildRequires:  cmake(SDL2)

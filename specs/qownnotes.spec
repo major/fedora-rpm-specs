@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        3a1ebdbe12d0a5471ba443e3a8d060e05e1867ff
+%global qmarkdowntextedit_commit        22bddf088a60fd85f4a532ec73d6cc3de1575e3a
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 %global qtcsv_commit                    ae15c33b066fea9373a07bed5dc898c10b45ce2a
 %global qtcsv_shortcommit               %(c=%{qtcsv_commit}; echo ${c:0:7})
 
-%global piwiktracker_commit             c705cfd34109545e859b9915ddcc23f52f594258
+%global piwiktracker_commit             810a7e40c87cd736e883720fc11713a110d6a423
 %global piwiktracker_shortcommit        %(c=%{piwiktracker_commit}; echo ${c:0:7})
 
 %global qkeysequencewidget_commit       8cbb54a12f33e41bf7c4795405f4235db1ee8ff1
@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 %global md4c_commit                     c64ee9ab326c53962b5bd8cca98c086461bbdd6b
 %global md4c_shortcommit                %(c=%{md4c_commit}; echo ${c:0:7})
 
-%global qhotkey_commit                  998c76c21bef8645802804d77e60a7dc8efcaf6f
+%global qhotkey_commit                  f64d15c9f7e0b7457604f54c10c2fc6e2b1b936b
 %global qhotkey_shortcommit             %(c=%{qhotkey_commit}; echo ${c:0:7})
 
 
@@ -29,10 +29,10 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        25.5.10
+Version:        26.1.7
 %forgemeta
 Release:        %autorelease
-Summary:        Plain-text file markdown note taking with Nextcloud integration
+Summary:        Plain-text file notepad and todo-list manager with Markdown support
 
 # The entire source code is MIT except bundled libs:
 # BSD:          qdarkstyle
@@ -75,11 +75,7 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6WebSockets)
 BuildRequires:  cmake(Qt6Xml)
 
-# Switch to 'botan2'
-# * https://github.com/pbek/QOwnNotes/issues/1263
-%if 0%{?fedora} >= 32
-BuildRequires:  pkgconfig(botan-2) >= 2.12.0
-%endif
+#BuildRequires:  pkgconfig(botan-3)
 
 Requires:       hicolor-icon-theme
 Requires:       qt6-qtbase%{?_isa}
@@ -87,6 +83,7 @@ Requires:       qt6-qtbase%{?_isa}
 Recommends:     %{name}-translations = %{version}-%{release}
 Recommends:     hunspell
 
+Provides:       bundled(botan) = 2.12.0
 Provides:       bundled(fakevim) = 0.0.1
 Provides:       bundled(md4c) = 0.4.2~git%{md4c_shortcommit}
 Provides:       bundled(qhotkey) = 1.3.0~git%{qhotkey_commit}
@@ -96,27 +93,22 @@ Provides:       bundled(qt-piwik-tracker) = 0~git%{piwiktracker_shortcommit}
 Provides:       bundled(qt-toolbar-editor) = 0~git%{qttoolbareditor_shortcommit}
 Provides:       bundled(qtcsv) = 1.2.2
 
-%if 0%{?fedora} < 32
-Provides:       bundled(botan) = 2.12.0
-%endif
-
 %description
-QOwnNotes is the open source notepad with markdown support and todo list manager
-for GNU/Linux, Mac OS X and Windows, that works together with the default notes
-application of ownCloud and Nextcloud.
+QOwnNotes is the open source notepad with Markdown support and todo list manager
+for GNU/Linux, macOS and Windows, that works together with Nextcloud Notes and
+ownCloud Notes.
 
 You are able to write down your thoughts with QOwnNotes and edit or search for
-them later from your mobile device, like with CloudNotes or the
-ownCloud/Nextcloud web-service.
+them later from your mobile device, like with Nextcloud Notes for Android or the
+Nextcloud / ownCloud web-service.
 
-The notes are stored as plain text files and are synced with
-ownCloud's/Nextcloud's file sync functionality. Of course other software, like
+The notes are stored as plain text markdown files and are synced with
+Nextcloud's/ownCloud's file sync functionality. Of course other software, like
 Syncthing or Dropbox can be used too.
 
-I like the concept of having notes accessible in plain text files, like it is
-done in the ownCloud/Nextcloud notes apps, to gain a maximum of freedom, but I
-was not able to find a decent desktop note taking tool or a text editor, that
-handles them well. Out of this need QOwnNotes was born.
+If you like the concept of having notes accessible in plain text files, like it
+is done in the Nextcloud / ownCloud notes apps to gain a maximum of freedom then
+QOwnNotes is for you.
 
 
 %package        translations
@@ -157,9 +149,7 @@ lrelease-qt6 src/%{appname}.pro
 pushd src/%{_target_platform}
 %qmake_qt6                        \
     PREFIX=%{buildroot}%{_prefix} \
-    %if 0%{?fedora} >= 32
-    USE_SYSTEM_BOTAN=1            \
-    %endif
+    USE_SYSTEM_BOTAN=0            \
     ..
 popd
 %make_build -C src/%{_target_platform}

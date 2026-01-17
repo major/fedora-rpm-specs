@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.9.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 # gd license in php bindings isn't by default built-in
 License: gpl-1.0-or-later AND gpl-2.0-or-later AND gpl-2.0-or-later WITH rrdtool-floss-exception-2.0 AND mit AND lgpl-2.0-or-later AND lgpl-2.1-or-later AND bsd-source-code AND snprintf AND bsd-3-clause AND gpl-2.0-only AND licenseref-fedora-public-domain AND gtkbook
 URL: https://oss.oetiker.ch/rrdtool/
@@ -101,8 +101,8 @@ The Perl RRDtool bindings
 %package -n python3-rrdtool
 %{?python_provide:%python_provide python3-rrdtool}
 Summary: Python RRDtool bindings
-BuildRequires: python3-devel, python3-setuptools
-%{?__python3:Requires: %{__python3}}
+BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 Requires: %{name} = %{version}-%{release}
 
 %description -n python3-rrdtool
@@ -270,11 +270,6 @@ find examples/ -type f \
 find examples/ -name "*.pl" \
     -exec perl -pi -e 's|\015||gi' {} \;
 
-# Rebuild python
-pushd bindings/python
-%py3_build
-popd
-
 %install
 export PYTHON=%{__python3}
 %{make_install} PYTHON="$PYTHON"
@@ -314,11 +309,6 @@ rm -f examples/Makefile* examples/*.in examples/rrdcached/Makefile*
 # This is so rpm doesn't pick up perl module dependencies automatically
 find examples/ -type f -exec chmod 0644 {} \;
 
-# Reinstall python
-pushd bindings/python
-%py3_install
-popd
-
 # Clean up the buildroot
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-* \
         $RPM_BUILD_ROOT%{perl_vendorarch}/ntmake.pl \
@@ -339,14 +329,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 
 
 %post
-/sbin/ldconfig
 %systemd_post rrdcached.service rrdcached.socket
 
 %preun
 %systemd_post rrdcached.service rrdcached.socket
 
 %postun
-/sbin/ldconfig
 %systemd_post rrdcached.service rrdcached.socket
 
 %files -f %{name}.lang
@@ -408,6 +396,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.9.0-9
+- Dropped obsoleted python macros and some spec cleanup
+  Resolves: rhbz#2378442
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.0-8
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

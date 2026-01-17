@@ -1,6 +1,6 @@
 Name:               raysession
-Version:            0.14.3
-Release:            4%{?dist}
+Version:            0.17.2
+Release:            1%{?dist}
 Summary:            Session manager for audio software
 BuildArch:          noarch
 # The entire source code is GPLv2
@@ -13,17 +13,18 @@ Source1:            README-wayland
 
 # https://github.com/Houston4444/RaySession/pull/234
 # Support pyliblo3 as well as liblo so this can work on F41+
-Patch:              0001-Support-pyliblo3-as-well-as-liblo.patch
+# Patch:              0001-Support-pyliblo3-as-well-as-liblo.patch
 
-BuildRequires: make
-BuildRequires:      python3-qt5
+BuildRequires:      make
+BuildRequires:      python3-pyqt6
+BuildRequires:      qt6-linguist
 BuildRequires:      qt5-linguist
 BuildRequires:      desktop-file-utils
 Requires:           python3
 Requires:           python3-alsa
 Requires:           python3-pyliblo3
 Requires:           python3-pyxdg
-Requires:           python3-qt5
+Requires:           python3-qt6
 Requires:           hicolor-icon-theme
 Requires:           shared-mime-info
 Recommends:         wmctrl
@@ -59,20 +60,22 @@ Ray Session offers a little more:
 
 %build
 %{set_build_flags}
-make LRELEASE=lrelease-qt5 %{?_smp_mflags}
+make LRELEASE=lrelease-qt6 %{?_smp_mflags}
 
 %install
 %make_install PREFIX=%{_prefix}
 # Build processs creates absolute symbolic links, they need to be replaced
 # https://github.com/Houston4444/RaySession/issues/91
 rm %{buildroot}%{_bindir}/ray-jack_checker_daemon
-ln -s %{_datadir}/%{name}/ray-jack_checker_daemon %{buildroot}%{_bindir}/ray-jack_checker_daemon
+ln -s ../../usr/share/%{name}/ray-jack_checker_daemon %{buildroot}%{_bindir}/ray-jack_checker_daemon
 rm %{buildroot}%{_bindir}/ray-jack_config_script
-ln -s %{_datadir}/%{name}/ray-jack_config_script %{buildroot}%{_bindir}/ray-jack_config_script
+ln -s ../../usr/share/%{name}/ray-jack_config_script %{buildroot}%{_bindir}/ray-jack_config_script
 rm %{buildroot}%{_bindir}/ray-pulse2jack
-ln -s %{_datadir}/%{name}/ray-pulse2jack %{buildroot}%{_bindir}/ray-pulse2jack
+ln -s ../../usr/share/%{name}/ray-pulse2jack %{buildroot}%{_bindir}/ray-pulse2jack
 rm %{buildroot}%{_bindir}/ray_git
-ln -s %{_datadir}/%{name}/ray_git %{buildroot}%{_bindir}/ray_git
+ln -s ../../usr/share/%{name}/ray_git %{buildroot}%{_bindir}/ray_git
+# Throws a check-buildroot error, so we need to fix it.
+sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d/ray_completion.sh
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -85,7 +88,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/ray-daemon
 %{_bindir}/ray-jack_checker_daemon
 %{_bindir}/ray-jack_config_script
-%{_bindir}/ray-proxy
 %{_bindir}/ray-pulse2jack
 %{_bindir}/ray_git
 %{_bindir}/ray_control
@@ -98,9 +100,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_sysconfdir}/xdg/raysession/*
+%{_sysconfdir}/bash_completion.d/ray_completion.sh
 # No manpages, developer is aware https://github.com/Houston4444/RaySession/issues/40
 
 %changelog
+* Sat Jan 10 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-1
+- New upstream release
+- Removed patches, fixed upstream
+
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.14.3-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.14.3-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

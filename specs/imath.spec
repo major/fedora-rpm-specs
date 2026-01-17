@@ -11,7 +11,7 @@ License:        BSD-3-Clause
 URL:            https://github.com/AcademySoftwareFoundation/Imath
 Source0:        https://github.com/AcademySoftwareFoundation/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-Patch0:         imath-python-test.patch
+Patch0:         imath-disable-python-testPlane.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc gcc-c++
@@ -50,7 +50,10 @@ Requires:       python3-devel
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%setup -n %{srcname}-%{version}
+%ifarch aarch64 ppc64le s390x
+%patch -P0 -p1
+%endif
 
 
 %build

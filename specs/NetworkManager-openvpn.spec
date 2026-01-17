@@ -8,12 +8,12 @@ Summary:   NetworkManager VPN plugin for OpenVPN
 Name:      NetworkManager-openvpn
 Epoch:     1
 Version:   1.12.5
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
 
 Source0:   https://download.gnome.org/sources/NetworkManager-openvpn/1.12/%{name}-%{version}.tar.xz
-#Patch1: 0001-example.patch
+Patch:     https://gitlab.gnome.org/GNOME/NetworkManager-openvpn/-/merge_requests/104.patch
 
 
 BuildRequires: make
@@ -58,11 +58,6 @@ the OpenVPN server with NetworkManager (GNOME files).
 %prep
 %autosetup -p1
 
-# Create a sysusers.d config file
-cat >networkmanager-openvpn.sysusers.conf <<EOF
-u nm-openvpn - 'Default user for running openvpn spawned by NetworkManager' - -
-EOF
-
 
 %build
 if [ ! -f configure ]; then
@@ -84,7 +79,6 @@ make check
 
 %install
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
-install -m0644 -D networkmanager-openvpn.sysusers.conf %{buildroot}%{_sysusersdir}/networkmanager-openvpn.conf
 
 rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
@@ -94,13 +88,12 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 %{_libdir}/NetworkManager/libnm-vpn-plugin-openvpn.so
 %{_datadir}/dbus-1/system.d/nm-openvpn-service.conf
 %{_prefix}/lib/NetworkManager/VPN/nm-openvpn-service.name
-%{_prefix}/lib/sysusers.d/nm-openvpn-sysusers.conf
 %{_prefix}/lib/tmpfiles.d/nm-openvpn-tmpfiles.conf
+%{_sysusersdir}/nm-openvpn-sysusers.conf
 %{_libexecdir}/nm-openvpn-service
 %{_libexecdir}/nm-openvpn-service-openvpn-helper
 %doc AUTHORS README
 %license COPYING
-%{_sysusersdir}/networkmanager-openvpn.conf
 
 
 %files -n NetworkManager-openvpn-gnome
@@ -114,6 +107,9 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 
 %changelog
+* Sat Jan 03 2026 LuK1337 <priv.luk@gmail.com> - 1:1.12.5-2
+- Remove duplicate sysusers configuration (rh#2425539)
+
 * Mon Dec 22 2025 Packit <hello@packit.dev> - 1:1.12.5-1
 - Update to version 1.12.5
 

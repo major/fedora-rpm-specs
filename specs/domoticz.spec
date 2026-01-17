@@ -1,6 +1,6 @@
 Name:		domoticz
 Version:	2025.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -20,6 +20,9 @@ Patch1:		%{name}-tinyxpath.patch
 Patch2:		%{name}-python.patch
 # Python linking fix
 Patch3:		%{name}-python-link.patch
+# Boost 1.90 support (https://github.com/domoticz/domoticz/pull/6488)
+#                    (https://github.com/domoticz/domoticz/pull/6487)
+Patch4:		%{name}-boost.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cereal-devel
@@ -90,10 +93,7 @@ any mobile device
 
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch -P 1 -p1 -b.tinyxpath
-%patch -P 2 -p1 -b.python
-%patch -P 3 -p1 -b.python-link
+%autosetup -p 1 -n %{name}-%{version}
 # Add support for future versions of Python by replacing hardcoded version with macro
 sed -i 's/-lpythonVER/-lpython%{python3_version}/' CMakeLists.txt
 # Renaming of old define used wrong case in ZWave file
@@ -244,6 +244,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Wed Jan 14 2026 Michael Cronenworth <mike@cchtml.com> - 2025.2-2
+- Rebuilt for Boost 1.90
+
 * Thu Jan 08 2026 Michael Cronenworth <mike@cchtml.com> - 2025.2-1
 - New stable release
 

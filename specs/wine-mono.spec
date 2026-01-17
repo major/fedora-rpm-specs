@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        10.3.0
+Version:        10.4.1
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -12,7 +12,6 @@ URL:            http://wiki.winehq.org/Mono
 # https://github.com/madewokherd/wine-mono
 Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
 Patch0:         wine-mono-7.3.0-iconv.patch
-Patch1:         wine-mono-configure-c99.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -58,7 +57,7 @@ BuildRequires:  dos2unix
 
 Requires: wine-filesystem
 
-# Bundles FAudio, libtheorafile, libmojoshader, SDL2, SDL2_image
+# Bundles FAudio, SDL3
 
 %description
 Windows Mono library required for Wine.
@@ -104,6 +103,9 @@ cp -rp image/* \
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Wed Jan 14 2026 Michael Cronenworth <mike@cchtml.com> - 10.4.1-1
+- version upgrade
+
 * Sun Nov 02 2025 Michael Cronenworth <mike@cchtml.com> - 10.3.0-1
 - version upgrade
 

@@ -136,6 +136,9 @@ Patch79:        firefox-gcc-13-build.patch
 Patch82:        build-s390x-protobuf-musttail.patch
 # Build failure on rawhide of wrongly defined SYS_SECCOMP
 Patch83:        build-seccomp.patch
+Patch84:        build-minimal-lexical.patch
+Patch85:        build-libcubeb.patch
+Patch86:        build-missing-gitmodules.patch
 
 # PPC fix
 
@@ -304,7 +307,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 #FIXME %%patch -P 416 -p1 -b .SIOCGSTAMP
 %patch -P36 -p1 -b .build-botan
 %if 0%{?fedora} > 43
-#%patch -P37 -p1 -b .build-c11-threads-avail
+%patch -P37 -p1 -b .build-c11-threads-avail
 %endif
 %patch -P 418 -p1 -b .mozbz-1512162
 # most likely fixed
@@ -323,6 +326,9 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P82 -p1 -b .build-s390x-protobuf-musttail
 %patch -P83 -p1 -b .build-seccomp
+%patch -P84 -p1 -b .minimal-lexical
+%patch -P85 -p1 -b .libcubeb
+%patch -P86 -p1 -b .missing-gitmodules
 
 #patch -P 1200 -p1 -b .rustflags-commasplit
 

@@ -1,5 +1,5 @@
 Name:		stalld
-Version:	1.25.1
+Version:	1.26.3
 Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
@@ -62,6 +62,23 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Jan 15 2026 Clark Williams <williams@redhat.com> - 1.26.3-1
+- tests: Add pre-test and post-test cleanup of stalld processes
+- Makefile: version bump to v1.26.3
+- Makefile: Remove unnecessary -m64 compiler flag
+- Makefile: version bump to v1.26.2
+- Makefile: Remove LTO flags from build options
+- Makefile: switch to using gzip for tarball compression
+- Makefile: version bump to v1.26.1
+- Makefile: Add support for riscv64
+- Fix typo: rename 'merge_taks_info' to 'merge_tasks_info'
+- gitignore: Exclude Serena and Claude Code metadata
+- Makefile: Print BPF tool versions for debugging
+- Makefile: Remove redundant GCC version check
+- Makefile: Explicitly run the 'test' target in the tests directory
+- Makefile: Improve compiler flag detection for -fcf-protection
+- Makefile: Conditionally add -mno-omit-leaf-frame-pointer
+
 * Fri Nov 07 2025 Clark Williams <williams@redhat.com> - 1.25.1-1
 - docs: add CLAUDE.md, .claude agents, and update .gitignore
 - tests: Add comprehensive test suite with infrastructure and functional tests

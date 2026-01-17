@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        65%{?dist}
+Release:        66%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mpqc.org/
@@ -15,6 +15,8 @@ Patch2:         mpqc-2.3.1-cpp11-constexpr.patch
 Patch3:         mpqc-2.3.1-c23-function-prototype.patch
 # C++17 build fix: remove deprecated exception specification
 Patch4:         mpqc-2.3.1-cpp17-exception-specification.patch
+# C++20 fix: std::istream operator>>(char *) removal
+Patch5:         mpqc-2.3.1-cpp20-std_istream-redirect.patch
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -77,6 +79,7 @@ based on mpqc computational chemistry package from Sandia Labs.
 %patch -P2 -p1 -b .cpp11
 %patch -P3 -p1 -b .c23
 %patch -P4 -p1 -b .cpp17
+%patch -P5 -p1 -b .cpp20
 
 sed -i -e 's,molrender.in,%{_datadir}/molrender/molrender.in,g' src/bin/molrender/tkmolrender.in
 sed -i -e 's,prefix/lib,prefix/%{_lib},g' configure.in
@@ -199,6 +202,9 @@ done
 
 
 %changelog
+* Thu Jan 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-66
+- c++20 fix for std::istream redirect operator change
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-65
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

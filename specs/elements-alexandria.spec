@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
 Version:        2.32.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
 URL:            https://github.com/astrorama/Alexandria
@@ -10,6 +10,7 @@ Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{nam
 # It is downloaded from:
 # https://upload.cppreference.com/w/File:cppreference-doxygen-web.tag.xml
 Source1:        cppreference-doxygen-web.tag.xml
+Patch0:         boost-1.90-headers.patch
 
 %global elements_version 6.3.4
 
@@ -192,6 +193,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Thu Jan 15 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 2.32.0-5
+- Patched for Boost 1.90
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.32.0-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

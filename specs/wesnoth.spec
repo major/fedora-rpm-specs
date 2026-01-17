@@ -1,6 +1,6 @@
 Name:           wesnoth
 Version:        1.19.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -9,6 +9,7 @@ Source0:        http://www.%{name}.org/files/%{name}-%{version}.tar.bz2
 Source1:        wesnothd.service
 Source2:        %{name}.sysconfig
 Patch0:         scons-env.patch
+Patch1:         10175.patch
 
 Requires:       wesnoth-data = %{version}
 BuildRequires:  gcc-c++
@@ -193,6 +194,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Thu Jan 15 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.19-2
+- Patch for Boost 1.90.0
+
 * Fri Jan 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.19-1
 - 1.19.19
 

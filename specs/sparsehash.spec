@@ -4,13 +4,17 @@
 
 Name:           sparsehash
 Version:        2.0.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Extremely memory-efficient C++ hash_map implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://code.google.com/p/sparsehash
 Source0:        https://github.com/sparsehash/sparsehash/archive/sparsehash-%{version}.tar.gz
+
+# fix build with -std=c++20
+# https://github.com/sparsehash/sparsehash/pull/165
+Patch0:         https://github.com/sparsehash/sparsehash/pull/165.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -31,7 +35,7 @@ an implementation that optimizes for space and one that optimizes for
 speed.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%autosetup -n %{name}-%{name}-%{version} -p1
 
 %build
 %configure
@@ -54,6 +58,9 @@ make check
 %{_libdir}/pkgconfig/libsparsehash.pc
 
 %changelog
+* Thu Jan 15 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.3-16
+- Fix build with C++20 (GCC 16)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

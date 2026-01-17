@@ -11,7 +11,7 @@
 
 %global no64bit   0
 %global winegecko 2.47.4
-%global winemono  10.3.0
+%global winemono  10.4.1
 %if 0%{?fedora}
 %global opencl    1
 %endif
@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -2311,6 +2311,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 14 2026 Michael Cronenworth <mike@cchtml.com> - 11.0-2
+- wine-mono 10.4.1
+
 * Tue Jan 13 2026 Michael Cronenworth <mike@cchtml.com> - 11.0-1
 - version update
 

@@ -1,7 +1,7 @@
 Summary:       An X Window System utility for monitoring system resources
 Name:          xosview
-Version:       1.24
-Release:       7%{?dist}
+Version:       1.25
+Release:       1%{?dist}
 # The netbsd/swapinternal.{cc,h} source files are BSD only (with 
 # advertising), but neither file is used in the linux version of 
 # xosview.  Instead, the source files used are linux/swapmeter.{cc,h}, 
@@ -10,7 +10,7 @@ Release:       7%{?dist}
 License:       GPL-1.0-or-later
 URL:           http://www.pogo.org.uk/~mark/xosview/
 Source0:       http://www.pogo.org.uk/~mark/xosview/releases/xosview-%{version}.tar.gz
-Patch0:        xosview-1.24-app-def.patch
+Patch:         xosview-1.24-app-def.patch
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: libX11-devel 
@@ -23,14 +23,16 @@ current system state, including memory usage, CPU usage, system load,
 etc. Xosview runs under the X Window System.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %make_build OPTFLAGS="%{optflags}"
 
 %install
-make install PREFIX=%{buildroot}%{_prefix} INSTALL="install -p"
+%make_install PREFIX=%{_prefix}
 install -p -m 0644 -D Xdefaults %{buildroot}%{_datadir}/X11/app-defaults/XOsview
+
+%check
 desktop-file-validate %{buildroot}%{_datadir}/applications/xosview.desktop
 
 %files
@@ -43,6 +45,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/xosview.desktop
 %{_datadir}/X11/app-defaults/XOsview
 
 %changelog
+* Wed Jan 14 2026 Terje Røsten <terjeros@gmail.com> - 1.25-1
+- 1.25
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

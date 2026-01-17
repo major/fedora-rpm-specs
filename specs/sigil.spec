@@ -42,7 +42,6 @@ Requires:       python3-pillow python3-cssselect python3-cssutils
 Requires:       python3-html5lib python3-lxml python3-pyside6
 Requires:       python3-regex python3-chardet python3-six
 Requires:       hicolor-icon-theme
-Recommends:     FlightCrew-sigil-plugin
 # See internal/about.md for rationale for this
 Provides:       bundled(gumbo) = 0.9.2
 Provides:       bundled(nodejs-mathjax) = 2.75
