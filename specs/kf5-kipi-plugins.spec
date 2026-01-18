@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 Name:    kf5-%{base_name}
 Summary: Plugins to use with kf5-libkipi applications
 Version: 24.05.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/kipi_plugins/
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kipiplugins.deskt
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.05.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.05.2-5
 - Drop i686 support (leaf package)
 

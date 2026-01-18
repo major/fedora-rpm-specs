@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
 Version: 3.3.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 BuildRequires: gcc, gcc-c++
@@ -108,6 +108,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 3.3.18-2
 - Allow to build with CMake 4.0 (rhbz#2380712)
 

@@ -6,7 +6,7 @@
 
 Name: %{basen}
 Version: 1.14.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 # The entire source code is MIT except xxHash-0.6.5/ which is BSD
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
@@ -116,6 +116,12 @@ perl "$src"/run-tests.pl
 %__rm -f %{buildroot}/%{_libdir}/*.a
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

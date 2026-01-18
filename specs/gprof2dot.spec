@@ -1,5 +1,5 @@
 %global         usegit      1
-%global         baserelease     28
+%global         baserelease     29
 
 %global         githash     ff9cd266b9700b19c15a4b3cb7104134b5398133
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
@@ -70,6 +70,9 @@ python3 ./tests/test.py
 %{_bindir}/gprof2dot
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.29.D20250404gitff9cd266b9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.28.D20250404gitff9cd266b9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

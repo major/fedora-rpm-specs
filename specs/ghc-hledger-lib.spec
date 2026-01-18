@@ -28,7 +28,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.40
 # can only be reset when all subpkgs bumped
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A library providing the core functionality of hledger
 
 # https://hledger.org/dev-README.html
@@ -405,6 +405,9 @@ cd %{pager}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

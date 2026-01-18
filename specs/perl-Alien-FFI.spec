@@ -1,6 +1,6 @@
 Name:           perl-Alien-FFI
 Version:        0.27
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Make available libffi
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-FFI
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 08 2025 Petr Pisar <ppisar@redhat.com> - 0.27-14
 - Rebuild against libffi-3.5.2 (bug #2393821)
 

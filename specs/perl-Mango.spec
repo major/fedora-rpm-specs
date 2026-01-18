@@ -1,6 +1,6 @@
 Name:           perl-Mango
 Version:        1.30
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Pure-Perl non-blocking I/O MongoDB driver
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Mango
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

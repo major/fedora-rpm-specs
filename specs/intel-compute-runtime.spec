@@ -33,11 +33,17 @@ BuildRequires: libva-devel
 BuildRequires: libdrm-devel
 BuildRequires: kernel-devel
 BuildRequires: intel-igc-devel
+BuildRequires: intel-opencl-clang
 BuildRequires: ninja-build
 BuildRequires: libglvnd-devel
+BuildRequires: libnl3-devel
 BuildRequires: ocl-icd-devel
 BuildRequires: opencl-headers
 BuildRequires: oneapi-level-zero-devel
+BuildRequires: spirv-headers-devel
+BuildRequires: spirv-tools-devel
+#Need libudev headers
+BuildRequires: systemd-devel
 
 # This doesn't get added automatically, so specify it explicitly
 Requires: intel-igc
@@ -125,6 +131,7 @@ rm -rv third_party/sse2neon
 %if 0%{?use_system_headers}
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
     -DKHRONOS_HEADERS_DIR="/usr/include/CL/" \
+    -DKHRONOS_SPIRV_HEADERS_DIR="/usr/include/spirv/" \
     -DNEO_DRM_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
     -DNEO_I915_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
     -DNEO_XE_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \

@@ -15,7 +15,7 @@ Name:			clover2
 
 # For Version, see README.md and so on
 Version:		%{mainver}
-Release:		13%{?dist}
+Release:		15%{?dist}
 Summary:		Yet another compiler language
 
 # app-sample/	unused
@@ -155,6 +155,12 @@ LANG=C.utf8 make -C clover2 test
 %{_includedir}/clover2/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 08 2025 Tom Stellard <tstellar@redhat.com> - 11.0.0-13
 - Fix build with clang >=22
 

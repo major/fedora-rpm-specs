@@ -2,7 +2,7 @@
 
 Name:           lib%{libname}
 Version:        0.2.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        MIDI to WAVE converter library
 # it is dual licensed Artistic-1.0-Perl, but we are ignoring this second license
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ rm -vf %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

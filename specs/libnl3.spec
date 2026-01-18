@@ -1,6 +1,6 @@
 Name: libnl3
 Version: 3.12.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Convenience library for kernel netlink sockets
 License: LGPL-2.1-only
 URL: http://www.infradead.org/~tgr/libnl/
@@ -154,6 +154,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 4 2025 Thomas Haller <thom311@gmail.com> - 3.12.0-2
 - Fix build issue for Python
 

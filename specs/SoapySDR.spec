@@ -1,6 +1,6 @@
 Name:           SoapySDR
 Version:        0.8.1
-Release:        20%{?dist}
+Release:        22%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -98,6 +98,12 @@ ctest -V %{?_smp_mflags}
 %{_pkgdocdir}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.1-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

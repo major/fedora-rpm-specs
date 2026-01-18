@@ -2,7 +2,7 @@
 
 Name:           mpdris2
 Version:        0.9.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Provide MPRIS 2 support to mpd
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_prefix}/lib/systemd/user/mpDris2.service
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

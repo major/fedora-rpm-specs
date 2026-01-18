@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -135,6 +135,9 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 1.5-1
 - Update to 1.5
 

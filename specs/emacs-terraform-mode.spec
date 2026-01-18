@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Major mode of Terraform configuration file
 
 License:        GPL-3.0-or-later
@@ -50,6 +50,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 26 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.1.0-1
 - Update to 1.1.0
 

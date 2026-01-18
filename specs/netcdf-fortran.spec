@@ -1,6 +1,6 @@
 Name:           netcdf-fortran
 Version:        4.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fortran libraries for NetCDF-4
 
 License:        BSD-3-Clause AND Apache-2.0
@@ -256,6 +256,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 4.6.2-2
 - Rebuild for netcdf 4.9.3 soname bump
 

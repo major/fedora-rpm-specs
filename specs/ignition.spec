@@ -22,7 +22,7 @@ Version:                2.25.1
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -378,6 +378,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_prefix}/lib/bootupd/grub2-static/configs.d/05_ignition.cfg
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Steven Presti <spresti@redhat.com> - 2.25.0-1
 - New Release
 

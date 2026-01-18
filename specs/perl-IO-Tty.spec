@@ -1,6 +1,6 @@
 Name:           perl-IO-Tty
 Version:        1.20
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
 URL:            https://metacpan.org/release/IO-Tty
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

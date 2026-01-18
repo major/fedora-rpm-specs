@@ -2,7 +2,7 @@
 
 Name: mingw-brotli
 Version: 1.0.7
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: MinGW port of Lossless compression algorithm
 
 License: MIT
@@ -108,6 +108,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %license LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

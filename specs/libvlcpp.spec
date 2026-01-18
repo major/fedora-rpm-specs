@@ -8,7 +8,7 @@
 
 Name:           libvlcpp
 Version:        0.1.0^%{gitdate}git%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ bindings for libvlc
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0^20240204git44c1f48-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0^20240204git44c1f48-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

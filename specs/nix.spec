@@ -35,6 +35,9 @@ Patch3:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/1401
 Patch4:         nix-disable-mdbook.patch
 # https://github.com/NixOS/nix/pull/14593
 Patch5:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14593.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2425413
+# https://github.com/NixOS/nix/pull/14922
+Patch6:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14922.patch
 
 # https://nixos.org/manual/nix/unstable/installation/prerequisites-source
 # missing aws-cpp-sdk-s3 aws-c-auth aws-c-s3
@@ -160,7 +163,7 @@ The package provides the /nix root directory for the nix package manager.
 
 
 %package        legacy
-Summary:        nix classical commands
+Summary:        Nix classical commands
 BuildArch:      noarch
 Requires:       nix-core = %{version}-%{release}
 
@@ -256,7 +259,7 @@ sed -i -e '/^\.UR [@#.]/,/^\.UE/{ /^\.UR [@#.]/d; /^\.UE/d}' %{buildroot}%{_mand
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %if %{with tests}
-#export TEST_ROOT=/var/home/petersen/tmp/nix-test
+#export TEST_ROOT=$HOME/tmp/nix-test
 %meson_test
 %endif
 
@@ -264,10 +267,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %post daemon
 %systemd_post nix-daemon.service
 
-
 %preun daemon
 %systemd_preun nix-daemon.service
-
 
 %postun daemon
 %systemd_postun_with_restart nix-daemon.service
@@ -298,8 +299,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 
 %files daemon
 %{_bindir}/nix-daemon
-%{_sysconfdir}/profile.d/nix-daemon.*sh
-%{_unitdir}/nix-daemon.*
+%{_sysconfdir}/profile.d/nix-daemon.sh
+%{_sysconfdir}/profile.d/nix-daemon.fish
+%{_unitdir}/nix-daemon.service
+%{_unitdir}/nix-daemon.socket
 %{_tmpfilesdir}/nix-daemon.conf
 %ghost %dir /nix/var/nix/builds
 %ghost %dir /nix/var/nix/daemon-socket

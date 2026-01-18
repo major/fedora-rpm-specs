@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Authentication-Credential-HTTP
 Version:        1.019
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP Basic and Digest authentication for Catalyst
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Catalyst-Authentication-Credential-HTTP
@@ -73,6 +73,9 @@ currently supported.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.019-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 31 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.019-1
 - Update to 1.019
 - Rework dependencies

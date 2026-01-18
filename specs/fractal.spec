@@ -7,7 +7,7 @@
 
 Name:           fractal
 Version:        13~rc
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -103,6 +103,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13~rc-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 13~rc-2
 - Require gstreamer1-plugin-gtk4.
 

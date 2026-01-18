@@ -2,7 +2,7 @@
 
 Name:           gnome-logs
 Version:        49.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Log viewer for the systemd journal
 
 # data/org.gnome.Logs.appdata.xml.in is CC0-1.0
@@ -59,6 +59,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
 - Update to 49.0
 

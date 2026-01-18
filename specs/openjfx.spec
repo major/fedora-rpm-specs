@@ -5,7 +5,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        25.0.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
 
@@ -169,6 +169,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:25.0.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Nicolas De Amicis <deamicis@bluewin.ch> - 3:25.0.2.3-1
 - Rebase to openjfx 25.0.2
 

@@ -12,7 +12,7 @@ Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.3
 %global version_doc_major_minor 4.13
 %global version_doc %{version_doc_major_minor}.0
-Release:        29%{?dist}
+Release:        31%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
@@ -278,6 +278,12 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.3-29
 - Use the bundled gtest. GTest 1.17.1 will require C++17, and this version of
   ITK can’t be compiled as C++17.

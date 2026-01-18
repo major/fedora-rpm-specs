@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.3.1
-Release:	7%{?dist}
+Release:	9%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -354,6 +354,12 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.1-7
 - Rebuild for root 6.38
 - Drop obsolete work-around for ppc64le on EPEL 7

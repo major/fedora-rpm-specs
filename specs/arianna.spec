@@ -1,6 +1,6 @@
 Name:          arianna
 Version:       25.12.1
-Release:       1%{?dist}
+Release:       3%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -89,6 +89,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ar
 %{_kf6_metainfodir}/org.kde.arianna.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

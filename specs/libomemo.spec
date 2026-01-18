@@ -1,6 +1,6 @@
 Name: libomemo
 Version: 0.8.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: MIT
 Summary: OMEMO implementation in plain C
@@ -56,6 +56,9 @@ applications that use %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

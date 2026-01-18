@@ -1,6 +1,6 @@
 Name:		fastx_toolkit
 Version:	0.0.14
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Tools to process short-reads FASTA/FASTQ files
 
 License:	AGPL-3.0-or-later
@@ -83,6 +83,9 @@ find %{buildroot}/%{_datadir}/%{name}/galaxy/ -name "Makefile\.*" -delete
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.14-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.14-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

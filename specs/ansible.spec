@@ -34,7 +34,7 @@ Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
 Version:        13.1.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
 # License text that solely exists in file headers were not considered.
@@ -161,6 +161,12 @@ mv docs %{buildroot}%{_pkgdocdir}/ansible_collections
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 Maxwell G <maxwell@gtmx.me> - 13.1.0-1
 - Update to 13.1.0. Fixes rhbz#2354912.
 

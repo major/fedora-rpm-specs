@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 Name:    bovo
 Summary: Five in a row game
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # code GPLv2+, docs GFDL
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
@@ -78,6 +78,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

@@ -1,13 +1,16 @@
 %global branch 1.28
 
 Name:          mate-control-center
-Version:       %{branch}.0
+Version:       %{branch}.1
 Release:       %autorelease
 Summary:       MATE Desktop control-center
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
-URL:           http://mate-desktop.org
-Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
+URL:           https://mate-desktop.org
+Source0:       https://github.com/mate-desktop/mate-control-center/releases/download/v%{branch}.1/%{name}-%{version}.tar.xz
+
+# https://github.com/mate-desktop/mate-control-center/commit/b5f6b8c
+Patch1:        mate-control-center_0001-Fix-libsystemd-auto-detection.patch 
 
 BuildRequires: accountsservice-devel
 BuildRequires: dconf-devel
@@ -64,7 +67,8 @@ Development files for mate-control-center
 %prep
 %autosetup -p1
 
-#NOCONFIGURE=1 ./autogen.sh
+#Patch 1
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure                           \

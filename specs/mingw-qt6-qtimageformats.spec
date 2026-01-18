@@ -18,7 +18,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.10.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt6 for Windows - QtImageFormats component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -151,6 +151,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 6.10.1-2
 - Rebuild (libtiff)
 

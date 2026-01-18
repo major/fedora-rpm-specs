@@ -2,7 +2,7 @@
 
 Name:           gecode
 Version:        6.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Generic constraint development environment
 
 License:        MIT
@@ -159,6 +159,9 @@ make check
 %license LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

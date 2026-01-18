@@ -8,7 +8,7 @@
 
 Name:           OpenStego
 Version:        0.7.4
-Release:        17%{?dist}
+Release:        19%{?dist}
 Summary:        Free Steganography solution
 Summary(fr):    Solution libre pour la steganographie
 
@@ -98,6 +98,12 @@ desktop-file-install                       \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.7.4-17
 - Rebuilt for java-25-openjdk as preffered jdk
 

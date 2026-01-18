@@ -1,6 +1,6 @@
 Name:		perl-CPAN-Requirements-Dynamic
 Version:	0.002
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Dynamic prerequisites in meta files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Requirements-Dynamic
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/CPAN::Requirements::Dynamic.3*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

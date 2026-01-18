@@ -3,7 +3,7 @@
 
 Name:           perl-Inline
 Version:        0.87
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Inline Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Inline
@@ -137,6 +137,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.87-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 05 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.87-1
 - 0.87 bump
   Bundle TestML back, in Inline is developer release of TestML.

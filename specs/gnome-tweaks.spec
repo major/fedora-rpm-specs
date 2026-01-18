@@ -3,7 +3,7 @@
 
 Name:           gnome-tweaks
 Version:        49.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
 # Software is GPL-3.0+, Appdata file is CC0-1.0
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 49.0-1
 - Update to 49.0
 

@@ -6,7 +6,7 @@ Name:    kdewebdev
 Summary: Web development applications 
 Epoch:   6
 Version: 3.5.10
-Release: 61%{?dist}
+Release: 62%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -226,6 +226,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6:3.5.10-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 Than Ngo <than@redhat.com> - 6:3.5.10-61
 - Fixed FTBFS
 

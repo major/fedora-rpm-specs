@@ -1,7 +1,7 @@
 %define _default_patch_fuzz 2
 Name: pads
 Version: 1.2
-Release: 43%{?dist}
+Release: 44%{?dist}
 Summary: Passive Asset Detection System
 License: GPL-2.0-or-later 
 URL: http://passive.sourceforge.net/
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/pads/
 %{_mandir}/*/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

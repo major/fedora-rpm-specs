@@ -1,6 +1,6 @@
 Name:           beansbinding
 Version:        1.2.1
-Release:        41%{?dist}
+Release:        43%{?dist}
 Summary:        Beans Binding (JSR 295) reference implementation
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -58,6 +58,12 @@ find . -type f \( -iname "*.jar" -o -iname "*.zip" \) -print0 | xargs -t -0 %{__
 %{_javadocdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.2.1-41
 - Rebuilt for java-25-openjdk as preffered jdk
 

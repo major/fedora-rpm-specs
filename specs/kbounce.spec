@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    kbounce
 Summary: Ball bouncing game
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: LGPLv2+ and GFDL - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-GFDL
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

@@ -23,7 +23,7 @@
 
 Name:           mono
 Version:        6.14.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -946,6 +946,9 @@ rm %{buildroot}%{_bindir}/mono-find-provides
 %files complete
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 6.14.1-2
 - Allow to build with CMake 4.0 (rhbz#2380917)
 

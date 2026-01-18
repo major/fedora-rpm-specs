@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
 License: GPL-2.0-only AND GPL-2.0-or-later
@@ -64,6 +64,9 @@ KDE SDK kioslaves:
 
 
 %changelog	
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

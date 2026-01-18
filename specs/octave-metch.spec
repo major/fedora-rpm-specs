@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Mesh/volume registration toolbox
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -87,6 +87,9 @@ chmod -x inst/*
 %{octpkgdir}/packinfo
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 0.6-19
 - Rebuild for Octave 10.2
 

@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        1.11.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library for reading, creating, and modifying zip archives
 
 License:        BSD-3-Clause
@@ -107,6 +107,9 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

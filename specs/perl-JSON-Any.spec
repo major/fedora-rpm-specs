@@ -1,7 +1,7 @@
 Name:           perl-JSON-Any
 Summary:        A meta-module to make working with JSON easier
 Version:        1.40
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/JSON-Any-%{version}.tar.gz
@@ -65,6 +65,9 @@ find .  -type f -exec chmod -c -x {} +
 %{_mandir}/man3/JSON*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

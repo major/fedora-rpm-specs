@@ -1,6 +1,6 @@
 Name: pentaho-reporting-flow-engine
 Version: 0.9.4
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: Pentaho Flow Reporting Engine
 License: LGPL-2.1-or-later
 Epoch: 1
@@ -57,6 +57,9 @@ cp -rp build/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.4-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1:0.9.4-39
 - Rebuilt for java-25-openjdk as preffered jdk
 

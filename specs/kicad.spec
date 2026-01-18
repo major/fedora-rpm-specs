@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        9.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:9.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 01 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:9.0.7-1
 - Update to 9.0.7
 

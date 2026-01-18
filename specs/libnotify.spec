@@ -2,7 +2,7 @@
 
 Name:           libnotify
 Version:        0.8.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop notification library
 
 License:        LGPL-2.1-or-later
@@ -62,6 +62,9 @@ development of programs using %{name}.
 %doc %{_docdir}/libnotify/spec/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 26 2025 Petr Schindler <pschindl@redhat.com> - 0.8.7-1
 - Update to 0.8.7
 

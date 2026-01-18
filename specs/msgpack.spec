@@ -1,6 +1,6 @@
 Name:		msgpack
 Version:	3.1.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Binary-based efficient object serialization library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -67,6 +67,9 @@ cat %_vpath_builddir/Testing/Temporary/LastTest.log
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 3.1.0-22
 - Allow to build with CMake 4.0 (rhbz#2380918)
 

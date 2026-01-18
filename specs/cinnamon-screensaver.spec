@@ -1,7 +1,7 @@
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
 Version: 6.6.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -95,6 +95,12 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libexecdir}/cinnamon-screensaver/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.1-2
 - Change requires caribou to recommends
 

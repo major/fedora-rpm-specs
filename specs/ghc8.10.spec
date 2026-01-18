@@ -50,7 +50,7 @@ Version: 8.10.7
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -816,6 +816,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Jens Petersen <petersen@redhat.com> - 8.10.7-19
 - exclude s390x & riscv64 whose C backend fails with recent gcc (#2384620)
 

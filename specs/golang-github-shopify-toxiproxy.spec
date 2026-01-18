@@ -31,7 +31,7 @@ up your project.}
 %global godocs          CHANGELOG.md CREATING_TOXICS.md README.md README-client.md
 
 Name:           %{goname}
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        TCP proxy to simulate network and system conditions for resiliency testing
 
 License:        MIT
@@ -131,6 +131,9 @@ install -m0644 -D golang-github-shopify-toxiproxy.sysusers.conf %{buildroot}%{_s
 %{_sysusersdir}/golang-github-shopify-toxiproxy.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 2.1.4-23
 - Rebuild for golang 1.25.2
 

@@ -2,7 +2,7 @@
 
 Name:		libgadu
 Version:	1.12.2
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	A Gadu-gadu protocol compatible communications library
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2
@@ -99,6 +99,9 @@ make check
 %doc docs/protocol.html docs/html
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

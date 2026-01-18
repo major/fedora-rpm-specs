@@ -5,7 +5,7 @@ Summary: Tool for controlling liquid coolers, case fans and RGB LED strips
 License: GPL-3.0-or-later
 
 Version: 1.15.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://github.com/jonasmalacofilho/liquidctl
 Source0: %{pypi_source}
@@ -118,6 +118,9 @@ XDG_RUNTIME_DIR=$(pwd)/test-run-dir pytest-3
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Sieve support library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -124,6 +124,9 @@ sed -i "s/libksieve/libksieve5/" src/Messages.sh
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.5-5
 - Drop i686 support (leaf package)
 

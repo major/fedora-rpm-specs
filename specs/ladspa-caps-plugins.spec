@@ -1,6 +1,6 @@
 Name:           ladspa-caps-plugins
 Version:        0.9.24
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        The C* Audio Plugin Suite
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -48,6 +48,9 @@ make %{?_smp_mflags} OPTS="$RPM_OPT_FLAGS -fPIC" LDFLAGS="$RPM_LD_FLAGS -shared"
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.24-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.24-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

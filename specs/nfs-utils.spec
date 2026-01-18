@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -477,6 +477,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 29 2025 Steve Dickson <steved@redhat.com> 2.8.4-1
 - Added the libnfsidmap directory to RPM database (bz 2284001)
 

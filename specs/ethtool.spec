@@ -4,7 +4,7 @@ Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
 Version:        6.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
@@ -54,6 +54,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appstream
 %{_metainfodir}/%{appstream_id}.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Michel Lind <salimma@fedoraproject.org> - 2:6.15-3
 - Fix missing headers in text output (#2383328)
 

@@ -14,7 +14,7 @@ This is a code generation tool and serialization library for MessagePack.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Go code generator for MessagePack
 License:        MIT
 URL:            %{gourl}
@@ -66,6 +66,9 @@ go generate ./_generated
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 1.1.5-17
 - Rebuild for golang 1.25.2
 

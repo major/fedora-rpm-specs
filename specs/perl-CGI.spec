@@ -1,7 +1,7 @@
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
 Version:        4.71
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
 URL:            https://metacpan.org/release/CGI
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.71-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.71-1
 - 4.71 bump (rhbz#2402510)
 

@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    2.0   
-Release:    3%{?dist}
+Release:    5%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
@@ -195,6 +195,12 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

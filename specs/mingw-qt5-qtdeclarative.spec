@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtDeclarative component
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -782,6 +782,9 @@ rm -f %{buildroot}%{_prefix}/%{mingw64_target}/lib/pkgconfig/Qt5QmlDevTools.pc
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Sandro Mani <manisandro@gmail.com> - 5.15.18-1
 - Update to 5.15.18
 

@@ -7,7 +7,7 @@
 Name:           clojure
 Epoch:          1
 Version:        1.12.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A dynamic programming language that targets the Java Virtual Machine
 
 License:        EPL-1.0
@@ -62,6 +62,12 @@ can avoid reflection.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Markku Korkeala <markku.korkeala@iki.fi> - 1:1.12.4-1
 - Update to upstream release 1.12.4, closes rhbz#2369851
 

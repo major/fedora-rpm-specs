@@ -12,7 +12,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.60%{?revision:.%{revision}git}%{?dist}
+Release:	0.61%{?revision:.%{revision}git}%{?dist}
 Summary:	Generate Your Projects
 
 License:	BSD-3-Clause
@@ -97,6 +97,9 @@ rm setup.py
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.61.fcd686f1git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1-0.60.fcd686f1git
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -5,7 +5,7 @@
 
 Name:           nvme-cli
 Version:        2.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
@@ -119,6 +119,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 04 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.16-1
 - Update to 2.16
 

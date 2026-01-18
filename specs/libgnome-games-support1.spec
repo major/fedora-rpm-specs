@@ -1,6 +1,6 @@
 Name:           libgnome-games-support1
 Version:        1.8.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Support library for GNOME games
 
 License:        LGPLv3+
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.2
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -175,6 +175,12 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-5
 - PyAssimp: Re-add 'aiProcess_Triangulate' (#2423174)
 

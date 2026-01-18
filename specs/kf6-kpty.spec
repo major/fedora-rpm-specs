@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 module providing Pty abstraction
 
 License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
 - 6.22.0
 

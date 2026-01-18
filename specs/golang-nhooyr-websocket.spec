@@ -17,7 +17,7 @@ Minimal and idiomatic WebSocket library for Go.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Minimal and idiomatic WebSocket library for Go
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  golang(github.com/gorilla/websocket)
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 1.8.14-1
 - New upstream version (rhbz#2313503)
 

@@ -7,7 +7,7 @@
 Summary: An Apache module used for authentication
 Name: mod_%{modsuffix}
 Version: 3.3.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: Apache-1.0
 URL: https://github.com/phokz/mod-auth-external/
 Source: https://github.com/phokz/mod-auth-external/archive/%{name}-%{version}.tar.gz
@@ -47,6 +47,9 @@ install -p -m 644 -t %{buildroot}%{_httpd_modconfdir}/ %{SOURCE2}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

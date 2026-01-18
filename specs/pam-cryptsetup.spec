@@ -5,7 +5,7 @@
 
 Name:           pam-cryptsetup
 Version:        0.1
-Release:        0.17.%{snapinfo}%{?dist}
+Release:        0.18.%{snapinfo}%{?dist}
 Summary:        PAM module for updating LUKS-encrypted volumes
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -67,6 +67,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/security/pam_cryptsetup.la
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.18.20190823.7b42892
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.17.20190823.7b42892
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

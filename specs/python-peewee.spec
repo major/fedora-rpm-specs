@@ -14,9 +14,9 @@
 %bcond postgres_tests 1
 
 Name:           python-peewee
-Version:        3.18.3
+Version:        3.19.0
 Release:        %autorelease
-Summary:        A simple and small ORM
+Summary:        A little orm
 
 # main license is MIT
 # playhouse/_pysqlite is Zlib
@@ -27,8 +27,6 @@ Source:         %{url}/archive/%{version}/peewee-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
 BuildRequires:  sqlite-devel
 
 # documentation
@@ -42,6 +40,7 @@ BuildRequires:  mysql-connector-python3
 %endif
 %if %{with postgres_tests}
 BuildRequires:  python3-psycopg2
+BuildRequires:  python3-psycopg3
 BuildRequires:  postgresql-test-rpm-macros
 BuildRequires:  postgresql-contrib
 %endif
@@ -52,14 +51,14 @@ Peewee is a simple and small ORM. It has few (but expressive) concepts, making
 it easy to learn and intuitive to use.}
 
 
-%description %{_description}
+%description %_description
 
 
 %package -n python3-peewee
 Summary:        %{summary}
 
 
-%description -n python3-peewee %{_description}
+%description -n python3-peewee %_description
 
 
 %package docs
@@ -72,7 +71,7 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n peewee-%{version} -p 1
+%autosetup -n peewee-%{version}
 
 
 %generate_buildrequires
@@ -94,8 +93,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-%pyproject_save_files peewee playhouse pwiz
-mv %{buildroot}%{_bindir}/{pwiz.py,pwiz}
+%pyproject_save_files -l peewee playhouse pwiz
 
 
 %check
@@ -105,7 +103,7 @@ export PGTESTS_LOCALE="C.UTF-8"
 createdb peewee_test
 psql -c "CREATE EXTENSION hstore" peewee_test
 %endif
-%{python3} runtests.py
+%{py3_test_envvars} %{python3} runtests.py
 
 
 %files -n python3-peewee -f %{pyproject_files}

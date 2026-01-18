@@ -10,7 +10,7 @@
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
 URL:		https://github.com/libfuse/libfuse/
@@ -121,6 +121,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %config(noreplace) %{_sysconfdir}/fuse.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan  5 2026 Tom Callaway <spot@fedoraproject.org> - 3.18.1-1
 - update to 3.18.1
 

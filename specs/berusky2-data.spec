@@ -3,7 +3,7 @@
 Summary:        A datafile for Berusky
 Name:           berusky2-data
 Version:        0.12
-Release:        14%{?dist}
+Release:        16%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source:         http://downloads.sourceforge.net/%{game_name}/%{name}-%{version}.tar.xz
@@ -36,6 +36,12 @@ mv bitmap \
 %{_datadir}/%{game_name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

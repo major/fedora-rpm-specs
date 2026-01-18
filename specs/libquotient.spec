@@ -8,7 +8,7 @@ older use the previous name - libQMatrixClient.}
 
 Name: libquotient
 Version: 0.9.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
@@ -82,6 +82,9 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/pkgconfig/%{appname}Qt6.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Steve Cossette <farchord@gmail.com> - 0.9.5-1
 - 0.9.5
 

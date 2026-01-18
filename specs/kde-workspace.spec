@@ -19,7 +19,7 @@ Summary: KDE Workspace
 Name:    kde-workspace
 Epoch:   1
 Version: 4.11.22
-Release: 45%{?dist}
+Release: 46%{?dist}
 
 License: GPL-2.0-only
 URL:     https://github.com/KDE/%{name}
@@ -581,6 +581,9 @@ rm -rfv %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/colors/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.11.22-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1:4.11.22-45
 - Allow to build with CMake 4.0 (rhbz#2380675)
 

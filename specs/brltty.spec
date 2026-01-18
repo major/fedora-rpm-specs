@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.8
-Release: 6%{?dist}
+Release: 8%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -675,6 +675,12 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 6.8-6
 - OCaml 5.4.0 rebuild
 

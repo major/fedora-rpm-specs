@@ -3,7 +3,7 @@
 
 Name:           canl-c
 Version:        3.0.0
-Release:        23.20250222git%{shortcommit}%{?dist}
+Release:        25.20250222git%{shortcommit}%{?dist}
 Summary:        Common Authentication library - bindings for C
 
 License:        Apache-2.0
@@ -94,6 +94,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-25.20250222git233ebac
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-24.20250222git233ebac
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-23.20250222git233ebac
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

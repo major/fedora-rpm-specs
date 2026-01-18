@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        36%{?dist}
+Release:        37%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.4-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.2.4-36
 - Switched to new python packaging
   Resolves: rhbz#2377263

@@ -2,7 +2,7 @@
 
 Name:           aria2
 Version:        1.37.0
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        High speed download utility with resuming and segmented downloading
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -80,6 +80,12 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 %{_mandir}/*/man1/aria2c.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

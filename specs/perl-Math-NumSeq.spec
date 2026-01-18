@@ -5,7 +5,7 @@
 
 Name:           perl-Math-NumSeq
 Version:        75
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Number sequences
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -148,6 +148,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 75-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 75-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-App-ccdiff
 Version:        0.34
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Colored Character diff
 
 License:        Artistic-2.0
@@ -74,6 +74,9 @@ make test
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

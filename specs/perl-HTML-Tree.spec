@@ -8,7 +8,7 @@
 Name:           perl-HTML-Tree
 Epoch:          1
 Version:        5.07
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        HTML tree handling modules for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Tree
@@ -75,6 +75,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/HTML::*3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.07-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.07-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 
 Name:             byteman
 Version:          4.0.26
-Release:          1%{?dist}
+Release:          3%{?dist}
 Summary:          Java agent-based bytecode injection tool
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -222,4 +222,10 @@ ln -s %{_javadir}/byteman/byteman.jar $RPM_BUILD_ROOT%{homedir}/lib/byteman.jar
 %{homedir}/lib/byteman-dtest.jar
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

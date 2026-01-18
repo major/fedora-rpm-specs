@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        3.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -289,6 +289,12 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20251128-3.git19878fe
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20251128-2.git19878fe
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 28 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20251128-1.git19878fe
 - openssl: allow disabling all TLS / DTLS protocols
 - gnutls: do enabled-curve for hybrids with said curve

@@ -1,7 +1,7 @@
 Summary:	SASL DIGEST-MD5 authentication (RFC2831)
 Name:		perl-Authen-DigestMD5
 Version:	0.04
-Release:	51%{?dist}
+Release:	52%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Authen-DigestMD5
 Source0:	https://cpan.metacpan.org/modules/by-module/Authen/Authen-DigestMD5-%{version}.tar.gz
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Authen::DigestMD5.3*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

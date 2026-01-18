@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilities
@@ -151,6 +151,9 @@ fi
 %{_unitdir}/nftables.service
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Phil Sutter <psutter@redhat.com> - 1:1.1.6-1
 - new version 1.1.6
 

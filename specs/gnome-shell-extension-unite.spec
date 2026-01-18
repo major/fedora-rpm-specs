@@ -7,7 +7,7 @@
 
 Name:		gnome-shell-extension-unite
 Version:	8
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	GNOME Shell Extension Unite by hardpixel
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -56,6 +56,9 @@ Unity Shell.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

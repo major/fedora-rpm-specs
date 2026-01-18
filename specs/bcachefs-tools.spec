@@ -16,7 +16,7 @@
 
 Name:           bcachefs-tools
 Version:        1.35.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -216,6 +216,12 @@ rm -rf %{buildroot}%{_usrsrc}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.35.0-1
 - Update to version 1.35.0
   Resolves: rhbz#2419155

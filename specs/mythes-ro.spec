@@ -1,7 +1,7 @@
 Name: mythes-ro
 Summary: Romanian thesaurus
 Version: 3.3
-Release: 31%{?dist}
+Release: 32%{?dist}
 Source: http://downloads.sourceforge.net/rospell/th_ro_RO.%{version}.zip
 URL: http://rospell.sourceforge.net/
 License: GPL-2.0-or-later
@@ -28,6 +28,9 @@ cp -p th_ro_RO.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ro_RO_v2.idx
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

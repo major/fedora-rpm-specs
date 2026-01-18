@@ -1,7 +1,7 @@
 Summary: Library implementing the Unicode Bidirectional Algorithm
 Name: fribidi
 Version: 1.0.16
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://github.com/fribidi/fribidi/
 Source: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 License: LGPL-2.1-or-later AND Unicode-DFS-2016
@@ -88,6 +88,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 #%%{_mandir}/man3/*.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -123,10 +123,10 @@
 Name:           %{hipblaslt_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -468,6 +468,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-6
 - Remove build requires git
 

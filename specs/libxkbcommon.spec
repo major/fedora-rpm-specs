@@ -2,7 +2,7 @@
 
 Name:           libxkbcommon
 Version:        1.13.1
-Release:        1%{?gitdate:.%{gitdate}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
 License:        MIT AND X11 AND MIT-CMU
 URL:            http://www.x.org
@@ -131,6 +131,9 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %{_mandir}/man1/xkbcli-dump-keymap-x11.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 06 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-1
 - libxkbcommon 1.13.1
 

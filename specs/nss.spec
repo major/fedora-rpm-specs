@@ -3,7 +3,7 @@
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 1
+%global baserelease 2
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
@@ -1107,6 +1107,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.119.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 5 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.119.1-1
 - Update NSS to 3.119.1 with NSPR 4.38.2
 - Fix previous changelog

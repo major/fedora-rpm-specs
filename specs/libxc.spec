@@ -16,7 +16,7 @@
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
 Version:        7.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        MPL-2.0
 Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
 # Don't rebuild libxc for pylibxc
@@ -130,6 +130,9 @@ sed -i 's|includedir=${prefix}/include/|includedir=%{_libdir}/gfortran/modules|g
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 7.0.0-9
 - Allow to build with CMake 4.0 (rhbz#2380769)
 

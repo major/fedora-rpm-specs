@@ -24,7 +24,7 @@
 
 Name:           btrfs-efi
 Version:        20230328^git%{commitdate}.%{shortcommit}
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        EFI driver to enable Btrfs support
 
 License:        LGPL-2.1-or-later
@@ -89,6 +89,12 @@ BuildArch:      noarch
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20230328^git20240824.496ae85-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20230328^git20240824.496ae85-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Michel Lind <salimma@fedoraproject.org> - 20230328^git20240824.496ae85-5
 - aarch64: work around loading an RWX segment now being considered an error; Resolves: RHBZ#2384486
 

@@ -1,7 +1,7 @@
 Summary: Database Independent Abstraction Layer for C
 Name: libdbi
 Version: 0.9.0
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://libdbi.sourceforge.net/
@@ -91,6 +91,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_docdir}/%{name}-%{version}
 %doc doc/driver-guide/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

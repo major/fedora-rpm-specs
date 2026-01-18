@@ -1,6 +1,6 @@
 Name:           perl-Mail-POP3Client
 Version:        2.21
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl 5 module to talk to a POP3 (RFC1939) server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-POP3Client
@@ -41,6 +41,9 @@ implements RFC1939 (http://www.faqs.org/rfcs/rfc1939.html)
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

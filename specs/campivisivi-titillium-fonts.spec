@@ -1,5 +1,5 @@
 Version: 20120913
-Release: 32%{?dist}
+Release: 34%{?dist}
 URL: http://www.campivisivi.net/titillium/
 
 %global foundry           Campivisivi
@@ -36,6 +36,12 @@ Source1: 61-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20120913-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20120913-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20120913-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

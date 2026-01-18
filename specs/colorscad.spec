@@ -2,7 +2,7 @@
 
 Name:    colorscad
 Version: 0.7.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: Helps with exporting an OpenSCAD model with color information preserved
 
 %forgemeta
@@ -62,6 +62,12 @@ PATH=%{buildroot}%{_bindir}:$PATH test/run.sh
 %{_bindir}/3mfmerge
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 Jonny Heggheim <hegjon@gmail.com> - 0.7.0-1
 - Updated to version 0.7.0
 

@@ -8,7 +8,7 @@
 
 Name:           grace
 Version:        5.1.25
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -196,6 +196,9 @@ rm __dist_doc/doc/Makefile __dist_doc/doc/*.sgml
 %{_datadir}/%{name}/lib
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.25-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 5.1.25-45
 - Rebuild for netcdf 4.9.3 soname bump
 

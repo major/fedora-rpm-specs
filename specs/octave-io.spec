@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Input/Output in external formats
 # Automatically converted from old format: GPLv3+ and BSD - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-BSD
@@ -53,6 +53,9 @@ Input/Output in external formats.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 2.7.0-3
 - Rebuild for Octave 10.2
 

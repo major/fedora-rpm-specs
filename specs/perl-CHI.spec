@@ -1,6 +1,6 @@
 Name:           perl-CHI
 Version:        0.61
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Unified cache handling interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CHI
@@ -142,6 +142,9 @@ find lib \( -type f -a -executable \) -exec chmod -x {} \;
 %{perl_vendorlib}/CHI/Test*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

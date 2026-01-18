@@ -1,6 +1,6 @@
 Name:           miriway
 Version:        25.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
@@ -125,6 +125,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 25.12-2
 - Add missing sddm requires on sddm miriway sub-package
 

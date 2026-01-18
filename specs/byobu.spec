@@ -6,7 +6,7 @@
 
 Name:		byobu
 Version:	6.13
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -136,6 +136,12 @@ cp -p usr/share/byobu/pixmaps/byobu.svg %{buildroot}%{_iconsscaldir}
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 09 2025 Filipe Rosset <rosset.filipe@gmail.com> - 6.13-1
 - update to 6.13 rhbz#2356029
 

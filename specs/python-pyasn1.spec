@@ -2,8 +2,8 @@
 %global modules_version 0.4.1
 
 Name:           python-pyasn1
-Version:        0.6.1
-Release:        7%{?dist}
+Version:        0.6.2
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
 Source0:        https://github.com/pyasn1/pyasn1/archive/v%{version}.tar.gz
@@ -83,6 +83,10 @@ popd
 %doc docs/build/html/*
 
 %changelog
+* Fri Jan 16 2026 Simon Pichugin <spichugi@redhat.com> - 0.6.2-1
+- Update to 0.6.2
+- Fixed continuation octet limits in OID/RELATIVE-OID decoder (CVE-2026-23490)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

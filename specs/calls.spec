@@ -2,7 +2,7 @@
 
 Name:       calls
 Version:    49.1.1
-Release:    5%{?dist}
+Release:    7%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -116,4 +116,10 @@ SH
 %license COPYING
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

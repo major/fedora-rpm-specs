@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
 Version:        1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 25 2025 Jakub Kadlcik <frostyx@email.cz> 1.8-1
 - Implement a filter_distro helper function (frostyx@email.cz)
 - Test EPEL minor version aliases after 10.1 branching (nforro@redhat.com)

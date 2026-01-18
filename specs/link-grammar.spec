@@ -7,7 +7,7 @@
 Summary: A full-service natural language dependency parser
 Name: link-grammar
 Version: 5.12.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-or-later
 Source: https://www.gnucash.org/link-grammar/downloads/%{version}/link-grammar-%{version}.tar.gz
 URL: https://opencog.github.io/link-grammar-website/
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.12.7-2
 - Rebuilt for java-25-openjdk as system jdk
 

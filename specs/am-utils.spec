@@ -2,7 +2,7 @@ Summary: Automount utilities including an updated version of Amd
 Name: am-utils
 Version: 6.2.0
 %define upstream_version 6.2
-Release: 61%{?dist}
+Release: 63%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Epoch: 5
@@ -288,6 +288,12 @@ fi
 %{_libdir}/libamu.so*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-63
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

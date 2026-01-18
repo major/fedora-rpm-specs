@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 12%{?dist}
+Release: 14%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -365,6 +365,12 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 28 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-12
 - fix CVE-2025-64524
 

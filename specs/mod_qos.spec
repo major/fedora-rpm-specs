@@ -6,7 +6,7 @@
 
 Name:           mod_qos
 Version:        11.76
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Quality of service module for Apache
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -79,6 +79,9 @@ install -Dpm 644 man1/*  %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.76-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 04 2025 Robert Scheck <robert@fedoraproject.org> - 11.76-1
 - Update to 11.76 (#2276050)
 - Remove build-time conditionals for Apache HTTP Server 2.2

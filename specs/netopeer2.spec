@@ -1,6 +1,6 @@
 Name: netopeer2
 Version: 2.4.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -127,6 +127,9 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 21 2025 Michal Ruprich <mruprich@redhat.com> - 2.4.5-3
 - Fixing previous dependency, we need a runtime dependency
 

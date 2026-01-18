@@ -1,6 +1,6 @@
 Name:           perl-Geography-Countries
 Version:        2009041301
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        2-letter, 3-letter, and numerical codes for countries
 License:        MIT
 URL:            https://metacpan.org/release/Geography-Countries
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/Geography::Countries.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2009041301-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2009041301-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

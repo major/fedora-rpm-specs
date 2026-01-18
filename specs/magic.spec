@@ -2,7 +2,7 @@
 
 Name:		magic
 Version:	8.3.590
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -188,6 +188,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.590-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.590-1
 - 8.3.590
 

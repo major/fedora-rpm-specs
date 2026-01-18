@@ -9,7 +9,7 @@ BuildRequires:	%1 \
 %define		mainver		4.20.1
 %undefine		betaver		
 
-%define		baserelease		5
+%define		baserelease		7
 
 Name:		catfish
 Version:	%{mainver}
@@ -148,6 +148,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.20.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

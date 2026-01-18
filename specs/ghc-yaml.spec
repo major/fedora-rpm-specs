@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.11.11.2
 # can only be reset when subpkg bumped
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Support for parsing and rendering YAML documents
 
 License:        BSD-3-Clause
@@ -169,6 +169,9 @@ cd %{libyaml}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.11.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.11.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

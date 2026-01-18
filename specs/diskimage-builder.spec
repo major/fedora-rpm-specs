@@ -8,7 +8,7 @@
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
 Version:        3.34.0
-Release:        6%{?dist}
+Release:        8%{?dist}
 License:        Apache-2.0
 Group:          System Environment/Base
 URL:            https://launchpad.net/diskimage-builder
@@ -105,6 +105,12 @@ Components of TripleO that are responsible for building disk images.
 %{_datadir}/%{name}/elements
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.34.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

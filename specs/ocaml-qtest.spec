@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -82,6 +82,9 @@ asciidoc README.adoc
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-28
 - OCaml 5.4.0 rebuild
 

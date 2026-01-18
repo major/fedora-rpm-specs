@@ -1,6 +1,6 @@
 Name:           lsp-plugins
 Version:        1.2.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
@@ -194,6 +194,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gstreamer-1.0/libgstlsp-plugins*.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Vasiliy Glazov <vascom2@gmail.com> - 1.2.26-1
 - Update to 1.2.26
 

@@ -2,7 +2,7 @@ Name:           perl-Catalyst-Manual
 Summary:        Catalyst web framework manual
 Epoch:          1
 Version:        5.9013
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Manual-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Manual
@@ -43,6 +43,9 @@ find -name .gitignore -print0 | xargs -0 rm -f
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9013-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9013-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

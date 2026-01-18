@@ -1,6 +1,6 @@
 Name:           linsim
 Version:        2.0.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tool for Amateur Radio Digital Mode evaluation
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

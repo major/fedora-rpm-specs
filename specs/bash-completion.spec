@@ -6,7 +6,7 @@
 
 Name:           bash-completion
 Version:        2.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -94,6 +94,9 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.17-1
 - Update to version 2.17
   Resolves: #2408890

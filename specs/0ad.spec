@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.27.1
-Release:	6%{?dist}
+Release:	8%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -310,6 +310,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.27.1-6
 - Rebuilt for Boost 1.90
 

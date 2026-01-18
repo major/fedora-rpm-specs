@@ -6,7 +6,7 @@
 
 Name: calypso
 Version: 2.0
-Release: 0.24.%{date}git%{shortcommit}%{?dist}
+Release: 0.26.%{date}git%{shortcommit}%{?dist}
 Summary: Free and open-source CalDAV calendar server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -103,6 +103,12 @@ fi
 %{_sysusersdir}/calypso.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.26.20190429git7317d88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.25.20190429git7317d88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0-0.24.20190429git7317d88
 - Rebuilt for Python 3.14.0rc3 bytecode
 

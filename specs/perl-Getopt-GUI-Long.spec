@@ -1,6 +1,6 @@
 Name:           perl-Getopt-GUI-Long
 Version:        0.93
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Wrapper around Getopt::Long to provide a GUI to applications
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-GUI-Long
@@ -63,6 +63,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/Getopt::GUI::Long.*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

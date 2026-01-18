@@ -7,7 +7,7 @@
 
 Name:           moodle
 Version:        5.1.1
-Release:       	1%{?dist}
+Release:       	2%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -163,6 +163,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.1.1-1
 - 5.1.1
 

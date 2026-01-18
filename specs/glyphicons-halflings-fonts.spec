@@ -7,7 +7,7 @@
 Name:           %{fontname}-fonts
 Epoch:          1
 Version:        3.1.0
-Release:        24.%{checkout}%{?dist}
+Release:        25.%{checkout}%{?dist}
 Summary:        Precisely prepared monochromatic icons and symbols
 
 License:        MIT
@@ -42,6 +42,9 @@ install -m 0644 -p %{SOURCE0} %{buildroot}%{_fontdir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.0-25.20140211git728067b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.0-24.20140211git728067b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

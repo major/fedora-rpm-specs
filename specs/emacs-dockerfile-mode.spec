@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An emacs mode for handling Dockerfiles
 
 License:        Apache-2.0
@@ -45,6 +45,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -279,6 +279,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1.2-1
 - mercurial 7.1.2
 

@@ -26,7 +26,7 @@ for interacting with App Engine services.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Go app engine packages
 
 # Upstream license specification: Apache-2.0
@@ -79,6 +79,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.6.7-18
 - rebuild
 

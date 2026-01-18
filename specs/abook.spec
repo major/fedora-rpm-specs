@@ -1,6 +1,6 @@
 Name: abook
 Version: 0.6.1
-Release: 30%{?dist}
+Release: 32%{?dist}
 # GPL-2.0-or-later, except:
 # getopt.[ch]: LGPL-2.0-or-later
 # getopt1.c: LGPL-2.0-or-later
@@ -52,6 +52,12 @@ autoreconf -vif
 %{_mandir}/man5/abookrc.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

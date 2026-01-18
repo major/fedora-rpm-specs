@@ -30,7 +30,7 @@ Version:        6.19.1
 
 
 Name:           incus
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -468,6 +468,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.19.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.19.1-1
 - Update to 6.19.1
 

@@ -1,6 +1,6 @@
 Name:           flac
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An encoder/decoder for the Free Lossless Audio Codec
 
 License:        BSD-3-Clause AND GPL-2.0-or-later AND GFDL-1.3-or-later
@@ -94,6 +94,9 @@ install src/libFLAC++/libFLAC++.m4 %{buildroot}%{_datadir}/aclocal/
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Than Ngo <than@redhat.com> - 1.5.0-6
 - Rebuilt with new binutils in rawhide due to rhbz#2415824
 

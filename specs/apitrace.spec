@@ -7,7 +7,7 @@
 
 Name:           apitrace
 Version:        13.0
-Release:        4%{?commit:.git%{shortcommit}}%{?dist}
+Release:        6%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Tools for tracing OpenGL
 
 License:        MIT
@@ -142,6 +142,12 @@ chmod 0644 %{buildroot}%{_libdir}/%{name}/scripts/highlight.py
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

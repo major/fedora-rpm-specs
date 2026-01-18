@@ -13,7 +13,7 @@
 
 Name:           chromaprint
 Version:        1.6.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -117,6 +117,12 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.6.0-2
 - Rebuilt for FFmpeg 8
 

@@ -1,7 +1,7 @@
 Summary:       Analyzes C files charting control flow within the program
 Name:          cflow
 Version:       1.8
-Release:       1%{?dist}
+Release:       3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gnu.org/software/cflow/
@@ -47,6 +47,12 @@ make check
 %{_datadir}/cflow/%{version}/gcc.cfo
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 31 2025 Terje Rosten <terjeros@gmail.com> - 1.8-1
 - 1.8
 

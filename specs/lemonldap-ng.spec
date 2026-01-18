@@ -29,7 +29,7 @@
 
 Name:           lemonldap-ng
 Version:        2.22.1
-Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
+Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}.1
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
 # Qrious bundled javascript library is GPLv3+
@@ -746,6 +746,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.1-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 25 2025 Clement Oudot <clement.oudot@worteks.com> - 2.22.1-1
 - Update to 2.22.1
 

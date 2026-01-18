@@ -1,6 +1,6 @@
 Name:           perl-Data-Random
 Version:        0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module to generate random data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -68,6 +68,9 @@ AUTHOR_TESTING=1 %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
 - Update to 0.14
 - Pass NO_PERLLOCAL=1 to Makefile.PL

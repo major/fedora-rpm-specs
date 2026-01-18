@@ -1,6 +1,6 @@
 Name:    akonadi-search
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 # Rust crate licensing:
@@ -111,6 +111,12 @@ cd ../../..
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

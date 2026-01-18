@@ -8,7 +8,7 @@
 Summary: A getty replacement for use with data and fax modems
 Name: mgetty
 Version: 1.2.1
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source: ftp://mgetty.greenie.net/pub/mgetty/source/1.2/mgetty-%{version}.tar.gz
 Source1: ftp://mgetty.greenie.net/pub/mgetty/source/1.2/mgetty-%{version}.tar.gz.asc
 Source2: logrotate.mgetty
@@ -387,6 +387,9 @@ exit 0
 %{_mandir}/man1/viewfax.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

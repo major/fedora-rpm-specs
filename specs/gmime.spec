@@ -1,6 +1,6 @@
 Name:           gmime
 Version:        2.6.23
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library for creating and parsing MIME messages
 
 # Files in examples/, src/ and tests/ are GPLv2+
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.23-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.23-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

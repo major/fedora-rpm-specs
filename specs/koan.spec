@@ -3,7 +3,7 @@
 
 Name:           koan
 Version:        3.0.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Kickstart over a network
 
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ koan python%{python3_pkgversion} module.
 %files -n python%{python3_pkgversion}-koan -f %{pyproject_files}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.1-19
 - Rebuilt for Python 3.14.0rc3 bytecode
 

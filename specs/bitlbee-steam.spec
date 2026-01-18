@@ -1,6 +1,6 @@
 Name:           bitlbee-steam
 Version:        1.4.2
-Release:        22%{?dist}
+Release:        24%{?dist}
 Summary:        Steam protocol plugin for BitlBee
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -47,6 +47,12 @@ rm $RPM_BUILD_ROOT/%{_libdir}/bitlbee/steam.la
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

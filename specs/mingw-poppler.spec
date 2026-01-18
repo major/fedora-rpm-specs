@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       25.07.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
@@ -251,6 +251,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 25.07.0-3
 - Rebuild (libtiff)
 

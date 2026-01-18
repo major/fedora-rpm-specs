@@ -2,7 +2,7 @@
 
 Name:       electronics-menu
 Version:    1.0
-Release:    37%{?dist}
+Release:    38%{?dist}
 Summary:    Electronics Menu for the Desktop
 Summary(fr): Menu « Électronique » pour le bureau
 
@@ -73,6 +73,9 @@ sed -i 's|<Filename>fedora-|<Filename>|' electronics.menu
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

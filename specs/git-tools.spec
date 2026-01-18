@@ -1,6 +1,6 @@
 Name:           git-tools
 Version:        2025.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Assorted git-related scripts and tools
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -64,6 +64,9 @@ cp -p man1/git-* %{buildroot}%{_mandir}/man1/.
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Sep  6 2025 Greg Bailey <gbailey@lxpro.com> - 2025.08-1
 - Update to 2025.08 (#2391954)
 

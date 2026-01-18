@@ -5,7 +5,7 @@
 
 Name:           lib%{libname}
 Version:        0.22
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Library for easy processing of keyboard entry from terminal-based programs
 
 License:        MIT
@@ -68,6 +68,9 @@ CFLAGS="%{__global_cflags} -D_XOPEN_SOURCE" LDFLAGS="%{__global_ldflags}" make t
 %{_mandir}/man7/%{libname}.7*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libwbxml
 Version:        0.11.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library and tools to parse, encode and handle WBXML documents
 ## Used and installed:
 # COPYING:                          LGPL-2.1-or-later
@@ -110,6 +110,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libwbxml2.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 Petr Pisar <ppisar@redhat.com> - 0.11.10-5
 - Fix building with nonstandard CMake variables (bug #2381269)
 

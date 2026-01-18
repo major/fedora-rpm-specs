@@ -2,7 +2,7 @@
 
 Name:           gstreamer1-doc
 Version:        1.26.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 Summary:        GStreamer documentation
 
@@ -41,6 +41,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/GStreamer.dev
 %{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.26.10-1
 - 1.26.10
 

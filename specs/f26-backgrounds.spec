@@ -7,7 +7,7 @@
 
 Name:           %{bgname}-backgrounds
 Version:        %{relnum}.2.7
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Fedora %{relnum} default desktop background
 
 License:        CC-BY-SA-4.0
@@ -202,6 +202,9 @@ install -D -p -m644 %{SOURCE1} \
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.2.7-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 26.2.7-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

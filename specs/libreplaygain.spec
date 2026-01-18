@@ -2,7 +2,7 @@
 
 Name:           libreplaygain
 Version:        0
-Release:        0.30.20110810svn%{svn_release}%{?dist}
+Release:        0.31.20110810svn%{svn_release}%{?dist}
 Summary:        Gain analysis library from Musepack
 
 License:        LGPL-2.0-or-later
@@ -61,6 +61,9 @@ cp -v include/replaygain/*.h $RPM_BUILD_ROOT/%{_includedir}/replaygain/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.31.20110810svn475
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0-0.30.20110810svn475
 - Use SPDX license id
 - version shared objects

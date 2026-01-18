@@ -7,7 +7,7 @@
 Name:           clojure-core-specs-alpha
 Epoch:          1
 Version:        0.4.74
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Clojure library containing specs to describe Clojure core macros and functions
 
 Group:          Development/Languages
@@ -95,6 +95,12 @@ core macros and functions.
 %doc epl-v10.html CHANGES.md README.md CONTRIBUTING.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.74-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.74-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 Markku Korkeala <markku.korkeala@iki.fi> - 1:0.4.74-5
 - Remove timestamp modifications from jar, relates to rhbz#2355949
 

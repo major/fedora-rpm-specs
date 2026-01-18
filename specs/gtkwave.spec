@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
 Version:	3.3.126
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -196,6 +196,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.126-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan  5 2026 Paul Howarth <paul@city-fan.org> - 3.3.126-1
 - Update to 3.3.126
   - Added -H --noheader command line option for GTK3

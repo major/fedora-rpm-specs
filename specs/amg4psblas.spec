@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Name: amg4psblas
 Summary: Algebraic Multigrid Package based on PSBLAS
 Version: %{major_minor}.2
-Release: 10%{?dist}
+Release: 12%{?dist}
 License: MIT-CMU AND BSD-3-Clause
 URL: https://psctoolkit.github.io/products/amg4psblas/
 Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tgz
@@ -504,6 +504,12 @@ popd
 %license serial-build/LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

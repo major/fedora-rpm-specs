@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-Copyright
 Version:        0.009
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Package a COPYRIGHT file with a distribution
 # CONTRIBUTING: CC-BY-SA
 # COPYRIGHT:    Public Domain
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

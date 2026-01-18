@@ -9,7 +9,7 @@
 
 Name:           cutecosmic
 Version:        0.1%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Qt platform plugins for the COSMIC desktop
 
 # Main sources are GPL-3.0-or-later, rest are rust licenses
@@ -122,5 +122,11 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1^git20251110.1469fa3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1^git20251110.1469fa3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1^git20251110.1469fa3-1
 - Initial package

@@ -52,7 +52,7 @@ Version: 9.0.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -791,6 +791,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Jens Petersen <petersen@redhat.com> - 9.0.2-22
 - exclude s390x & riscv64 whose C backend fails with recent gcc (#2428204)
 

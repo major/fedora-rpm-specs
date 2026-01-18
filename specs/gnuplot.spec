@@ -19,7 +19,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 4%{?dist}
+Release: 5%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -310,6 +310,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 12 2025 Antonio Trande <sagitter@fedoraproject.org> - 6.0.3-4
 - Include libcerf support on s390x (pagure issue #12873)
 

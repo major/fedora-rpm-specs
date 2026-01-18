@@ -21,7 +21,7 @@
 
 Name:           mingw-qt6-qtbase
 Version:        6.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -583,6 +583,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
 - 6.10.1
 

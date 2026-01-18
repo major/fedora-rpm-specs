@@ -4,7 +4,7 @@
 Summary: CD image format converter from .bin/.cue to .iso/.cdr
 Name: bchunk
 Version: 1.2.2
-Release: 19%{?dist}
+Release: 21%{?dist}
 URL: http://he.fi/bchunk/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -40,6 +40,12 @@ install -p -m 644 bchunk.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %{_mandir}/man1/bchunk.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

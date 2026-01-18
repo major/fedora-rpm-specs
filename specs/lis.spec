@@ -1,6 +1,6 @@
 Name:		lis
 Version:	2.0.21
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	A library for solving linear equations and eigenvalue problems
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -119,6 +119,9 @@ rm -rf %{buildroot}%{_datadir}/examples
 %{_mandir}/man3/lis*.3f.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.21-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.21-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

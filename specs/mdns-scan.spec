@@ -1,7 +1,7 @@
 Summary:        Scan for mDNS/DNS-SD services published on the local network
 Name:           mdns-scan
 Version:        0.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/alteholz/mdns-scan/
 Source0:        https://github.com/alteholz/mdns-scan/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -34,6 +34,9 @@ install -D -p -m 0644 %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

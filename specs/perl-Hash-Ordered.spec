@@ -1,6 +1,6 @@
 Name:           perl-Hash-Ordered
 Version:        0.014
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl class for ordered hashes
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Hash-Ordered
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

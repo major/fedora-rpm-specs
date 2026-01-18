@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-react
 Version:        1.2.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        OCaml framework for Functional Reactive Programming (FRP)
 
 License:        ISC
@@ -81,6 +81,9 @@ ocaml pkg/pkg.ml test
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-17
 - OCaml 5.4.0 rebuild
 

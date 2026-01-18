@@ -1,7 +1,7 @@
 Name:		globus-gridmap-eppn-callout
 %global _name %(tr - _ <<< %{name})
 Version:	2.2
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Grid Community Toolkit - Globus gridmap ePPN callout
 
 License:	Apache-2.0
@@ -72,6 +72,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

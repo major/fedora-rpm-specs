@@ -1,6 +1,6 @@
 Name:           nitrokey-app
 Version:        1.4.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Nitrokey's Application
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.nitrokey.%
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

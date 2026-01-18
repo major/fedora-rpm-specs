@@ -5,7 +5,7 @@ Version:         %{tag}
 
 %forgemeta
 
-Release:         9%{?dist}
+Release:         10%{?dist}
 Summary:         Utility for flashing LEGO Mindstorms NXT firmware
 License:         GPL-2.0-or-later
 Url:             %{forgeurl}
@@ -60,6 +60,9 @@ cp -p %{SOURCE1} NXT-REFLASH-HOWTO
 %{_mandir}/man1/fwflash.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

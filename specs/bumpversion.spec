@@ -7,7 +7,7 @@
 
 Name:           bumpversion
 Version:        1.0.1
-Release:        17%{?dist}
+Release:        19%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -65,6 +65,12 @@ commits and tags:
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Federico Pellegrin <fede@evolware.org> - 1.0.1-17
 - Fix compatibility for Python 3.15 (rhbz#2414558)
 

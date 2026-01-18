@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        5.2.6
 # can only be reset when subpkg bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Kan extensions, Kan lifts, the Yoneda lemma, and (co)density (co)monads
 
 License:        BSD-3-Clause
@@ -168,6 +168,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

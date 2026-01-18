@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    ksshaskpass
 Version: 6.5.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -61,6 +61,9 @@ EOF
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
 - 6.5.90
 

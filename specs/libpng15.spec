@@ -1,7 +1,7 @@
 Summary: Old version of libpng, needed to run old binaries
 Name: libpng15
 Version: 1.5.30
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: zlib
 URL: http://www.libpng.org/pub/png/
 
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/*
 %{_libdir}/libpng15.so.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.30-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.30-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

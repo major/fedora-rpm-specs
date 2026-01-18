@@ -1,6 +1,6 @@
 Name:           bibutils
 Version:        7.2
-Release:        11%{?dist}
+Release:        13%{?dist}
 Summary:        Bibliography conversion tools
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -81,6 +81,12 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

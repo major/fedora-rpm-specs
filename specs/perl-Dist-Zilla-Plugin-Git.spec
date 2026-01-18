@@ -3,7 +3,7 @@
 
 Name:           perl-Dist-Zilla-Plugin-Git
 Version:        2.052
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Update your git repository after release
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git
@@ -184,6 +184,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.052-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 01 2025 Petr Pisar <ppisar@redhat.com> - 2.052-1
 - 2.052 bump
 

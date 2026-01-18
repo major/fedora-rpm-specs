@@ -1,6 +1,6 @@
 Name:		libvpd
 Version:	2.2.10
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	VPD Database access library for lsvpd
 
 License:	LGPL-2.0-or-later
@@ -63,6 +63,9 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/90-vpdupdate.rules %{buildroot}/%{_ud
 %{_libdir}/pkgconfig/libvpd_cxx-2.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 21 2025 Dan Horák <dan[at]danny.cz> - 2.2.10-4
 - modernize spec
 

@@ -1,6 +1,6 @@
 Name:    fex
 Version: 2.0.0
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Field split/extraction like cut/awk
 License: Apache-2.0
 URL:     http://semicomplete.com/projects/fex/
@@ -36,6 +36,9 @@ make install DESTDIR=%{buildroot}  PREFIX=%{_prefix}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

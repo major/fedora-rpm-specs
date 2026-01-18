@@ -21,7 +21,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.41%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.42%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
 License:        LGPL-2.1-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -264,6 +264,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.212.0-0.42.alpha4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.41.alpha4
 - Rebuild (icu)
 

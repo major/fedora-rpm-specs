@@ -12,7 +12,7 @@
 
 Name:		hitch
 Version:	1.8.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -131,6 +131,9 @@ make check
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.8.0-10
 - Buildfix for el10
 - Removed old sysv init script

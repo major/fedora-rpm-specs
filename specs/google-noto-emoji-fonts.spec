@@ -25,7 +25,7 @@ BuildRequires:  cairo-devel
 BuildRequires:  make
 
 Version: 20250623
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     https://github.com/googlefonts/noto-emoji
 
 %global foundry           Google
@@ -103,6 +103,9 @@ cp -p fonts/Noto-COLRv1.ttf .
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250623-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 05 2025 Peng Wu <pwu@redhat.com> - 20250623-3
 - Add google-noto-emoji-vf-fonts sub package
 

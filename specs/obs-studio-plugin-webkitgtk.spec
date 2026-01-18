@@ -5,7 +5,7 @@
 
 Name:           obs-studio-plugin-webkitgtk
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OBS Browser source plugin based on WebKitGTK
 
 License:        GPL-2.0-or-later
@@ -59,6 +59,9 @@ sed -e 's/webkit2gtk-4.1/webkit2gtk-4.0/g' -i meson.build
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20231023.3c0978b-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20231023.3c0978b-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

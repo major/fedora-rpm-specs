@@ -8,7 +8,7 @@
 Name:           mingw-%{pkgname}
 Summary:        MinGW Windows Qwt library
 Version:        6.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://qwt.sourceforge.net
 License:        LGPL-2.0-or-later WITH FLTK-exception
 BuildArch:      noarch
@@ -178,6 +178,9 @@ mv %{buildroot}%{mingw64_libdir}/*.dll %{buildroot}%{mingw64_bindir}
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 6.3.0-1
 - Update to 6.3.0
 

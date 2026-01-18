@@ -82,10 +82,10 @@
 Name:           %{hipsolver_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm SOLVER marshalling library
 License:        MIT
@@ -235,6 +235,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Add --with compat
 

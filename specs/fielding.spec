@@ -4,7 +4,7 @@
 
 Name:          fielding
 Version:       0.1~%{gitdate}.%{shortcommit}
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       A simple REST API testing tool
 
 # The following files contribute to the licenses of the binary RPMs:
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fi
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.fielding.svg
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~20231028.022709.1912c80-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~20231028.022709.1912c80-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

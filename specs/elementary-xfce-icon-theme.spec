@@ -1,6 +1,6 @@
 Name:           elementary-xfce-icon-theme
 Version:        0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Icons for Xfce based on the elementary Project Icon Theme
  
 
@@ -71,6 +71,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Johannes Lips <hannes@fedoraproject.org> - 0.22-1
 - update to latest upstream version 0.22
 

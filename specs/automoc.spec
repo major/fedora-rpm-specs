@@ -7,7 +7,7 @@
 
 Name:           automoc
 Version:        1.0
-Release:        0.50.%{?beta_tag}%{?dist}
+Release:        0.52.%{?beta_tag}%{?dist}
 Summary:        Automatic moc for Qt 4
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -89,6 +89,12 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.52.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.51.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.50.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

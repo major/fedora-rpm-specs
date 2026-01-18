@@ -29,7 +29,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
 Version: %{year}0000.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -232,6 +232,12 @@ make %{?_smp_mflags} check
 %%clean
 # ----------------------------------------------------------------------------
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260000.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260000.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Brad Bell <bradbell at seanet dot com> - 20260000.0-1
 - New upstream source cppad-20260000.0.
 

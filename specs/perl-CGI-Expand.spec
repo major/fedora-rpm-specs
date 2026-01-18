@@ -1,6 +1,6 @@
 Name:           perl-CGI-Expand
 Version:        2.05
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert flat hash to nested data using TT2's dot convention
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/CGI-Expand
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/CGI::Expand.3pm*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           manedit
 Version:        1.2.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        UNIX Manual Page Editor
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -109,6 +109,9 @@ popd
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

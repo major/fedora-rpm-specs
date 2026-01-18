@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -247,6 +247,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-13
 - F-43+: update loader dependency for gdk-pixbuf2 changes
 

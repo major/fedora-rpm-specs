@@ -3,7 +3,7 @@
 
 Name:		boom-boot
 Version:	1.6.8
-Release:	2%{?dist}
+Release:	4%{?dist}
 Summary:	%{summary}
 
 License:	Apache-2.0
@@ -161,6 +161,12 @@ pytest-3 --log-level=debug -v
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 31 2025 Bryn M. Reeves <bmr@redhat.com> - 1.6.8-2
 - Update tmt configuration to be version agnostic
 - Update to release 1.6.8.

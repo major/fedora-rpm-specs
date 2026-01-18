@@ -1,6 +1,6 @@
 Name: numad
 Version: 0.5
-Release: 49.20251104git%{?dist}
+Release: 50.20251104git%{?dist}
 Summary: NUMA user daemon
 
 License: LGPL-2.1-only
@@ -47,6 +47,9 @@ install -D -p -m 644 {,%{buildroot}%{_sysconfdir}/logrotate.d/%{name}/}numad.log
 %systemd_postun numad.service
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-50.20251104git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Lukas Nykryn <lnykryn@redhat.com> - 0.5-49.20251031git
 - improve single-node system support
 

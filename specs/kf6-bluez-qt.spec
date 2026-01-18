@@ -3,7 +3,7 @@
 Name:           kf6-%{framework}
 Summary:        A Qt wrapper for Bluez
 Version:        6.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
  
 License:        CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
 - 6.22.0
 

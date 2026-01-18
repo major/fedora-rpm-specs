@@ -13,7 +13,7 @@
 
 Name:           arachne-pnr
 Version:        0.1
-Release:        0.25.20190729git%{shortcommit0}%{?dist}
+Release:        0.27.20190729git%{shortcommit0}%{?dist}
 Summary:        Place and route for FPGA compilation
 License:        MIT
 URL:            https://github.com/cseed/arachne-pnr
@@ -94,6 +94,12 @@ make simpletest %{?_smp_mflags} \
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.27.20190729gitc40fb22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.26.20190729gitc40fb22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 24 2025 Alexander F. Lent <lx@xanderlent.com> - 0.1-0.25.20190729gitc40fb22
 - Re-enable builds on s390x while skipping the tests on that arch.
 

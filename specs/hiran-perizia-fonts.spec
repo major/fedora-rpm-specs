@@ -3,7 +3,7 @@
 
 Name:        %{fontname}-fonts
 Version:    0.1.0
-Release:    31%{?dist}
+Release:    32%{?dist}
 Summary:    English asymmetric font
 
 License:    GPL-3.0-or-later WITH Font-exception-2.0
@@ -60,6 +60,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.1.0-31
 - Use SPDX license id
 

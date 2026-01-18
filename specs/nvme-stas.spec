@@ -1,7 +1,7 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
 Version: 2.4.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: Apache-2.0
 URL:     https://github.com/linux-nvme/nvme-stas
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -89,6 +89,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -4,7 +4,7 @@
 Summary:            A lightweight, portable desktop environment
 Name:               %{srcname}-desktop
 Version:            1.6.2
-Release:            15%{?dist}
+Release:            16%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                http://%{name}.org
@@ -392,6 +392,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{srcname}-*.desktop
 
 ########################################################################################
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

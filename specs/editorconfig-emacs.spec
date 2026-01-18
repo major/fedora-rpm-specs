@@ -1,6 +1,6 @@
 Name:		editorconfig-emacs
 Version:	0.10.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	EditorConfig plugin for emacs
 License:	GPL-3.0-or-later
 URL:		https://github.com/editorconfig/%{name}
@@ -48,6 +48,9 @@ make doc/editorconfig.info
 %{_infodir}/editorconfig*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

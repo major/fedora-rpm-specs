@@ -1,6 +1,6 @@
 Name:           libtpms
 Version:        0.10.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library providing Trusted Platform Module (TPM) functionality
 License:        BSD-3-Clause AND LicenseRef-TCGL
 
@@ -65,6 +65,9 @@ make check
 %{_mandir}/man3/TPM*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 Stefan Berger <stefanb@linux.ibm.com> - 0.10.2-2
 - Add a patch fixing a compilation error
 

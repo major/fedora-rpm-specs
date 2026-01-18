@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global baserelease 13
+%global baserelease 14
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
@@ -765,6 +765,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 9 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-13
 - take care of more strict const checking
 

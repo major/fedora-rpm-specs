@@ -1,6 +1,6 @@
 Name:		fcitx-kkc
 Version:	0.1.4
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Japanese Kana Kanji Engine for Fcitx
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -47,6 +47,9 @@ rm -f $RPM_BUILD_ROOT%{_includedir}/fcitx/module/kkc/fcitx-kkc.h
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

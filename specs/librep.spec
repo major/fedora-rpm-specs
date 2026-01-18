@@ -1,6 +1,6 @@
 Name:           librep
 Version:        0.92.7
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A lightweight Lisp environment
 License:        GPL-2.0-or-later
 URL:            http://sawfish.wikia.com/
@@ -93,6 +93,9 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.7-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.7-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

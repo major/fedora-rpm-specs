@@ -1,6 +1,6 @@
 Name:    hotspot
 Version: 1.5.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: The Linux perf GUI for performance analysis
 
 License: GPL-2.0-or-later
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/com.kdab.hotspot.des
 %{_kf6_datadir}/knotifications6/hotspot.notifyrc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 29 2025 Steve Cossette <farchord@gmail.com> - 1.5.1-7
 - Rebuild for kddockwidgets
 

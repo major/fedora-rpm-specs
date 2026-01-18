@@ -1,6 +1,6 @@
 Name:           perl-HTML-WikiConverter
 Version:        0.68
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Perl module to convert HTML to wiki markup
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -104,6 +104,9 @@ find webapp-install cgi/* -type f | xargs chmod 0644
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    logiops
 Version: 0.3.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
 %forgemeta
 
@@ -63,6 +63,9 @@ rmdir src/ipcgull
 %doc logid.example.cfg
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Tom Callaway <spot@fedoraproject.org> - 0.3.5-4
 - rebuild for new libconfig
 

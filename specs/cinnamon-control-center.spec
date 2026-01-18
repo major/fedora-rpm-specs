@@ -8,7 +8,7 @@
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
 Version: 6.6.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -130,6 +130,12 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 

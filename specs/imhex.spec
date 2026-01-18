@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.37.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -206,6 +206,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 01 2025 Simone Caronni <negativo17@gmail.com> - 1.37.4-3
 - Rebuild for updated build requirements.
 

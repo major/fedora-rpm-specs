@@ -1,7 +1,7 @@
 Summary: MIME type data files for GNOME desktop
 Name: gnome-mime-data
 Version: 2.18.0
-Release: 36%{?dist}
+Release: 37%{?dist}
 URL: http://www.gnome.org
 Source0: http://ftp.gnome.org/pub/GNOME/sources/gnome-mime-data/2.18/%{name}-%{version}.tar.bz2
 # No license attribution, just COPYING.
@@ -57,6 +57,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/pkgconfig/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

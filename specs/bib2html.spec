@@ -1,7 +1,7 @@
 Summary:       Converting bibTeX file to HTML
 Name:          bib2html
 Version:       1.2.1
-Release:       42%{?dist}
+Release:       44%{?dist}
 License:       GPL-1.0-or-later
 URL:           http://www.litech.org/~wkiri/bib2html/
 Source0:       http://www.litech.org/~wkiri/bib2html/bib2html-%{version}.tar.gz
@@ -38,6 +38,12 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/bib2html
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

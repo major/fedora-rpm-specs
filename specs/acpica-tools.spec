@@ -1,6 +1,6 @@
 Name:           acpica-tools
 Version:        20251212
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -201,6 +201,12 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20251212-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20251212-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 20251212-1
 - 20251212
 

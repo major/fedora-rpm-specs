@@ -4,7 +4,7 @@
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
 Version:        5.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 BuildRequires: make
@@ -20,6 +20,8 @@ Source1:        screen.pam
 Patch1:         screen-5.0.0-screenrc.patch
 Patch2:         screen-5.0.0-suppress_remap.patch
 Patch3:         screen-5.0.1-fix-unescaped-in-email-address.patch
+# https://cgit.git.savannah.gnu.org/cgit/screen.git/commit/?h=screen-v5&id=ccd0b27504707e4f3099f0b9fd7a89489c6973fb
+Patch4:        screen-5.0.1-big-endian.patch
 
 %description
 The screen utility allows you to have multiple logins on just one
@@ -115,6 +117,9 @@ install -m0644 -D screen.sysusers.conf %{buildroot}%{_sysusersdir}/screen.conf
 %{_sysusersdir}/screen.conf
 
 %changelog
+* Mon Jan 05 2026 Dan Horák <dan[at]danny.cz> - 5.0.1-6
+- fix big-endian platforms (rhbz#2418337)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

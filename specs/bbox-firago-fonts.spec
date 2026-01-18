@@ -1,5 +1,5 @@
 Version: 1.001
-Release: 4%{?dist}
+Release: 6%{?dist}
 URL:     https://carrois.com/fira/
 
 %global version_nodots %{gsub %{version} %. %{quote:}}
@@ -42,6 +42,12 @@ cp %{SOURCE1} .
 %fontfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

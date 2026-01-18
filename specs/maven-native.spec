@@ -4,7 +4,7 @@
 
 Name:          maven-native
 Version:       1.0
-Release:       0.23%{dotreltag}%{?dist}
+Release:       0.24%{dotreltag}%{?dist}
 Summary:       Compile c and c++ source under Maven
 # Automatically converted from old format: ASL 2.0 and MIT - review is highly recommended.
 License:       Apache-2.0 AND LicenseRef-Callaway-MIT
@@ -130,6 +130,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.24.alpha.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0-0.23.alpha.11
 - Rebuilt for java-25-openjdk as preffered jdk
 

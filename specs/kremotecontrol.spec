@@ -1,7 +1,7 @@
 Name:    kremotecontrol 
 Summary: KDE frontend for your remote controls 
 Version: 17.08.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -99,6 +99,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/krcdnotifie
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MooX-late
 Version:        0.100
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Easily translate Moose code to Moo
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-late
@@ -71,6 +71,9 @@ classes can extend Moo classes, and so forth.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

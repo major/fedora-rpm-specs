@@ -6,7 +6,7 @@
 
 Name:		morserunner
 Version:	1.68z^%{git_suffix}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Amateur radio morse code contest simulator
 License:	MPL-2.0
 URL:		https://github.com/zmetzing/MorseRunner
@@ -71,5 +71,8 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/*/apps/morserunner.png
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.68z^20250901git29590a67-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 01 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1.68z^20250901git29590a67-1
 - Initial version

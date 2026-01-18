@@ -1,6 +1,6 @@
 Name:           perl-Log-Report-Optional
 Version:        1.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Base class for large Log::Report and simple Log::Report::Minimal
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report-Optional
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 11 2025 Petr Pisar <ppisar@redhat.com> - 1.08-1
 - 1.08 bump
 - Package the tests

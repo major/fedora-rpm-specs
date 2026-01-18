@@ -1,6 +1,6 @@
 Name:           coin-or-lemon
 Version:        1.3.1
-Release:        39%{?dist}
+Release:        41%{?dist}
 Summary:        A C++ template library providing many common graph algorithms
 
 License:        BSL-1.0 AND BSD-3-Clause
@@ -27,6 +27,9 @@ Patch:          lemon-%{version}-soplex.patch
 
 # Fix warnings that the register storage class is not permitted in C++17
 Patch:          lemon-%{version}-register.patch
+
+# Fix errors due to std::allocator changes in C++20
+Patch:          lemon-%{version}-std-allocator.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -91,7 +94,8 @@ sed -i 's/libemon\.a/libemon.so/' cmake/LEMONConfig.cmake.in
 
 
 %build
-export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/soplex'
+# The code is incompatible with C++20 and later
+export CXXFLAGS='%{build_cxxflags} -std=gnu++17 -I%{_includedir}/soplex'
 
 # CPLEX (aka ILOG) is non-free, so don't try to detect it.
 #
@@ -165,6 +169,15 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Fri Jan 16 2026 Jerry James <loganjerry@gmail.com> - 1.3.1-41
+- Build with C++17 for now
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 03 2025 Jerry James <loganjerry@gmail.com> - 1.3.1-39
 - Rebuild for soplex 8.0.0
 

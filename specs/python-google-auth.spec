@@ -16,7 +16,7 @@
 %bcond pytest_localserver %[ %{undefined el10} && %{undefined el9} ]
 
 Name:           python-google-auth
-Version:        2.45.0
+Version:        2.47.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
@@ -207,6 +207,9 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Fri Jan 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.47.0-1
+- 2.47.0
+
 * Tue Dec 16 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.45.0-1
 - Update to 2.45.0 (#2422343)
 

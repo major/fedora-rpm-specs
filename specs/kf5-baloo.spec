@@ -12,7 +12,7 @@
 Name:    kf5-%{framework}
 Summary: A Tier 3 KDE Frameworks 5 module that provides indexing and search functionality
 Version: 5.116.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://community.kde.org/Baloo
@@ -222,6 +222,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %define minor 10
 Name:           cpprest
 Version:        2.10.19
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        C++ REST library
 License:        MIT
 Url:            https://github.com/Microsoft/cpprestsdk
@@ -97,6 +97,12 @@ cd Release/%{_vpath_builddir}/Binaries
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.19-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Sep 14 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.10.19-8
 - Disable link time optimization (LTO)
 - Fixes: #2394765

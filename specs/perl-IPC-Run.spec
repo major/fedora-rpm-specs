@@ -3,7 +3,7 @@
 
 Name:           perl-IPC-Run
 Version:        20250809.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
 # The Win32* modules are not part of the binary RPM package
@@ -106,6 +106,9 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250809.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 11 2025 Paul Howarth <paul@city-fan.org> - 20250809.0-1
 - Update to 20250809.0 (rhbz#2387443)
   - Reduce delays in detecting child exit (GH#172)

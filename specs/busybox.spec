@@ -54,7 +54,7 @@
 
 Name:		busybox
 Version:	1.37.0
-Release:	5%{?dist}
+Release:	7%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPL-2.0-only
@@ -359,6 +359,12 @@ ln -s ./busybox %{buildroot}%{_sbindir}/udhcpc
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.37.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.37.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Tom Callaway <spot@fedoraproject.org> - 1:1.37.0-5
 - re-enable s390x, thanks to Ilya Leoshkevich
 

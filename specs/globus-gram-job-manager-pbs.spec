@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-pbs
 %global _name %(tr - _ <<< %{name})
 Version:	3.1
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Grid Community Toolkit - PBS Job Manager Support
 
 License:	Apache-2.0
@@ -155,6 +155,9 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/pbs
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.1-20
 - Drop old system V init scripts
 

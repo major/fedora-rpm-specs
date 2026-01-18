@@ -1,6 +1,6 @@
 Name:           bibletime
 Version:        3.1.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        An easy to use Bible study tool
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -89,6 +89,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/info.%{name}.BibleTim
 %{_datadir}/icons/hicolor/scalable/apps/info.%{name}.BibleTime.svg
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Greg Hellings <greg.hellings@gmail.com> - 3.1.1-3
 - Use ninja build (rhbz#2380970)
 

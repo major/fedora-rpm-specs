@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        5.4.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Oxygen fonts created by the KDE Community
 
 # See LICENSE-GPL+FE for details about the exception
@@ -97,6 +97,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf}-mono.conf \
 %{_libdir}/cmake/OxygenFont/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

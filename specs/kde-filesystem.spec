@@ -19,7 +19,7 @@
 Summary: KDE filesystem layout
 Name: kde-filesystem
 Version: 5
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: LicenseRef-Not-Copyrightable
 
@@ -193,6 +193,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/solid/{actions,devices}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

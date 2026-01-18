@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -256,6 +256,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 20 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.0-1
 - 2.4.0
 

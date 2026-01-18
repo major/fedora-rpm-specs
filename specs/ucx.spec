@@ -24,7 +24,7 @@
 
 Name: ucx
 Version: 1.19.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
@@ -123,6 +123,9 @@ Provides header files and examples for developing with UCX.
 # With ROCm 6.3+ libhsakmt is bundled with libhsa-runtime64
 # Remove this nonexistent library
 sed -i 's@-lhsakmt@@' config/m4/rocm.m4
+
+# Relax use of -Werror
+sed -i 's@-Werror@@' config/m4/compiler.m4
 
 autoreconf -fiv
 # https://github.com/openucx/ucx/commit/b0a275a5492125a13020cd095fe9934e0b5e7c6a
@@ -409,6 +412,9 @@ Infiniband datagrams for out-of-band communications.
 %endif
 
 %changelog
+* Fri Jan 16 2026 Tom Rix <Tom.Rix@amd.com> - 1.19.0-2
+- Relax use of -Werror
+
 * Fri Dec 05 2025 Kamal Heib <kheib@redhat.com> - 1.19.0-1
 - Update to version 1.19.0
 

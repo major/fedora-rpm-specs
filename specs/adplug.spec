@@ -4,7 +4,7 @@
 %define adplugdbver 2006-07-07
 Name:           adplug
 Version:        2.3.3
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Software library for AdLib (OPL2/3) emulation
 URL:            https://adplug.github.io/
 Source0:        https://github.com/adplug/adplug/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
@@ -75,6 +75,12 @@ install -D -p -m 644 %{adplugdbver}/adplug.db $RPM_BUILD_ROOT%{shareddata}/%{nam
 %{_infodir}/libadplug.info*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

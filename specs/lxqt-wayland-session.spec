@@ -3,7 +3,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -246,6 +246,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri Jan 16 2026 Shawn W Dunn <sfalken@opensuse.org> - 0.3.0-2
+- Adjust niri configuration to set Fedora wallpaper 
+
 * Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 0.3.0-1
 - Update to 0.3.0
 

@@ -1,6 +1,6 @@
 Name:           mopidy-mpd
 Version:        4.0.0~a1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
@@ -47,6 +47,9 @@ available from MPD clients.
 %doc README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~a1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0~a1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

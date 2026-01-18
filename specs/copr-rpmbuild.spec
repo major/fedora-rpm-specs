@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.6
 Summary: Run COPR build tasks
-Release: 1%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -305,6 +305,12 @@ EOF
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 29 2025 Jakub Kadlcik <frostyx@email.cz> 1.6-1
 - Re-store umask to default Fedora value
 - Don't traceback on builders without user SSH access

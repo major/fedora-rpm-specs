@@ -1,7 +1,7 @@
 Summary:	I/O on in-core objects like strings and arrays for Perl
 Name:		perl-IO-stringy
 Version:	2.113
-Release:	17%{?dist}
+Release:	18%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-stringy
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Stringy-%{version}.tar.gz
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/IO::WrapTie.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.113-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.113-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

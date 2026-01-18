@@ -1,7 +1,7 @@
 Summary: Libraries to provide access to RTAS calls and RTAS events
 Name:    librtas
 Version: 2.0.6
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL:     https://github.com/ibm-power-utilities/librtas
 License: LGPL-2.0-or-later
 
@@ -77,6 +77,9 @@ rm -f  %{buildroot}/%{_docdir}/librtas/*
 %{_includedir}/librtasevent_v6.h
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 18 2025 Than Ngo <than@redhat.com> - 2.0.6-5
 - Backport feature - use new lockdown-compatible ABI when available
 

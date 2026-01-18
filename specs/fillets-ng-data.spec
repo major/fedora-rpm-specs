@@ -1,7 +1,7 @@
 Summary: Game data files for Fish Fillets Next Generation
 Name: fillets-ng-data
 Version: 1.0.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 # The GPLv2 is included and nothing indicates "any later version". Exceptions :
 # - images/menu/flags/ is Public Domain
 # - font/ is GPLv2+ (taken from "freefont")
@@ -75,6 +75,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Nikolay Nikolov <nickysn@gmail.com> - 1.0.1-29
 - Fixed crash in the Engine room when pushing the key into the engine
 

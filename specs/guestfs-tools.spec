@@ -16,7 +16,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.55.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -388,6 +388,9 @@ end
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.55.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov  4 2025 Richard W.M. Jones <rjones@redhat.com> - 1.55.3-1
 - New upstream development version 1.55.3
 - Requires libguestfs >= 1.57.6 for new inspection APIs.

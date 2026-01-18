@@ -1,7 +1,7 @@
 Name:          lxqt-archiver
 Summary:       A simple & lightweight desktop-agnostic Qt file archiver
 Version:       1.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://lxqt.github.io/
 Source0:       https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/%{name}/translations/%{name}_ast.qm
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Shawn W Dunn <sfalken@opensuse.org> - 1.3.0-2
 - Upstream revised release tarball https://github.com/lxqt/lxqt-archiver/issues/460
 

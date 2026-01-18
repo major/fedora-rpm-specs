@@ -4,7 +4,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.4.6
-Release:	4%{?dist}
+Release:	6%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -251,6 +251,12 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:2.4.6-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

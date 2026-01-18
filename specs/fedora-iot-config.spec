@@ -1,6 +1,6 @@
 Name:           fedora-iot-config
 Version:        1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fedora IoT Configuration file
 
 License:        MIT
@@ -51,6 +51,9 @@ install -pm 0755 %{SOURCE2} %{buildroot}%{_sbindir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           onesixtyone
 Version:        0.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fast SNMP scanner
 
 %global         gituser trailofbits
@@ -52,6 +52,9 @@ them, in a fashion similar to Nmap ping sweeps.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           ctstream
 Version:        33
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Get URLs of Czech Television video streams
 License:        GPL-1.0-or-later
 URL:            http://xpisar.wz.cz/%{name}/
@@ -31,6 +31,12 @@ install %{SOURCE0} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/ctstream
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 33-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 33-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 33-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           inja
 Version:        3.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jinja-inspired template engine for modern C++
 
 License:        MIT
@@ -64,5 +64,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.5.0-1
 - Initial package

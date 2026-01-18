@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-SVM
 Version:        0.13
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl bindings for the libsvm Support Vector Machine library
 
 # Note: The sources bundle a copy of libsvm which is BSD-licensed,
@@ -75,6 +75,9 @@ make test
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

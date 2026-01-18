@@ -1,6 +1,6 @@
 Name:                   nuttcp
 Version:                8.2.2
-Release:                15%{?dist}
+Release:                16%{?dist}
 Source0:                http://nuttcp.net/nuttcp/%{name}-%{version}.tar.bz2
 URL:                    http://nuttcp.net/
 
@@ -67,6 +67,9 @@ install -m644 systemd/* %{buildroot}%{_unitdir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

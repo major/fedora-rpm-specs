@@ -27,7 +27,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -214,6 +214,12 @@ php -r '
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Remi Collet <remi@remirepo.net> - 2.9.3-1
 - update to 2.9.3
 

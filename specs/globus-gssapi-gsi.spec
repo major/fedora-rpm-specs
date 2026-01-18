@@ -1,7 +1,7 @@
 Name:		globus-gssapi-gsi
 %global _name %(tr - _ <<< %{name})
 Version:	14.20
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - GSSAPI library
 
 License:	Apache-2.0
@@ -127,6 +127,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.20-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.20-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

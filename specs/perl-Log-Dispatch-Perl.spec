@@ -1,6 +1,6 @@
 Name:           perl-Log-Dispatch-Perl
 Version:        0.05
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Use core Perl functions for logging
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatch-Perl
@@ -51,6 +51,9 @@ with "die" and "croak".
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

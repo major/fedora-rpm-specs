@@ -4,7 +4,7 @@
 
 Name:       mock-core-configs
 Version:    43.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -152,6 +152,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 43.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 43.4-1
 - Disable bootstrap for riscv (j1.kyjovsky@gmail.com)
 - Add risc-v fedora chroots (j1.kyjovsky@gmail.com)

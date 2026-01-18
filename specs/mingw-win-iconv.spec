@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.0.10
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Iconv implementation using Win32 API
 
 BuildArch:     noarch
@@ -99,6 +99,9 @@ rm -f %{buildroot}%{mingw64_includedir}/localcharset.h
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

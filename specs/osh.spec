@@ -9,7 +9,7 @@
 
 Name:           osh
 Version:        %{version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPL-3.0-or-later
 Summary:        Static and Dynamic Analysis as a Service
 URL:            https://github.com/openscanhub/openscanhub/
@@ -338,6 +338,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

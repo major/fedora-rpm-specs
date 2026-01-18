@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -183,6 +183,17 @@ Requires:  swig
 %description gdb
 This package contains file with commands for easier debugging of SWIG
 in gdb.
+
+%if %{python3lang}
+%package -n python%{python3_pkgversion}-swig
+Summary:   Python package metadata for SWIG
+Requires:  swig = %{version}-%{release}
+BuildArch: noarch
+
+%description -n python%{python3_pkgversion}-swig
+This package registers swig as installed for Python with pip for the
+purpose of using "swig" in build-system.requires of a pyproject.toml file.
+%endif
 
 %prep
 %autosetup -p1
@@ -339,6 +350,18 @@ install -pm 644 %{SOURCE3} %{SOURCE4} %{buildroot}%{_sysconfdir}/profile.d
 mkdir -p %{buildroot}%{_datadir}/%{name}/gdb
 install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 
+%if %{python3lang}
+# Create python package metadata
+mkdir -p %{buildroot}%{python3_sitelib}/swig-%{version}.dist-info
+echo "rpm" > %{buildroot}%{python3_sitelib}/swig-%{version}.dist-info/INSTALLER
+cat > %{buildroot}%{python3_sitelib}/swig-%{version}.dist-info/METADATA <<_EOF
+Metadata-Version: 2.1
+Name: swig
+Version: %{version}
+_EOF
+%endif
+
+
 %files
 %{_bindir}/%{name}
 %{_datadir}/%{name}
@@ -362,7 +385,15 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %files gdb
 %{_datadir}/%{name}/gdb
 
+%if %{python3lang}
+%files -n python%{python3_pkgversion}-swig
+%{python3_sitelib}/swig-%{version}.dist-info/
+%endif
+
 %changelog
+* Thu Jan 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.1-2
+- Add python3-swig with Python package metadata
+
 * Mon Dec 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.1-1
 - 4.4.1 bump (rhbz#2419819, rhbz#2415440)
 

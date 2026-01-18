@@ -1,6 +1,6 @@
 Name:    akonadi-contacts
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: The Akonadi Contacts Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -89,6 +89,12 @@ find ./po -type f -name akonadicontact5-serializer.po -execdir mv {} akonadicont
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

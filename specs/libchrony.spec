@@ -1,6 +1,6 @@
 Name:           libchrony
 Version:        0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for monitoring chronyd
 
 License:        LGPL-2.1-or-later
@@ -46,6 +46,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_libdir}/pkgconfig/libchrony.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 10 2025 Miroslav Lichvar <mlichvar@redhat.com> 0.2-1
 - update to 0.2
 

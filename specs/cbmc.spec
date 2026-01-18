@@ -5,7 +5,7 @@
 
 Name:           cbmc
 Version:        6.8.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
 License:        BSD-4-Clause
@@ -131,6 +131,12 @@ mv %{buildroot}{/usr/etc/bash_completion.d/cbmc,%{bash_completions_dir}}
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Lukáš Zaoral <lzaoral@redhat.com> - 6.8.0-1
 - rebase to the latest upstream release (rhbz#2412627)
 

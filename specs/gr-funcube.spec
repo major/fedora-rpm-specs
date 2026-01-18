@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       3.10.0~rc3^%{git_suffix}
-Release:       11%{?dist}
+Release:       12%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -103,6 +103,9 @@ install -m0644 -D gr-funcube.sysusers.conf %{buildroot}%{_sysusersdir}/gr-funcub
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0~rc3^20240726gitcbda6c6c-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.10.0~rc3^20240726gitcbda6c6c-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

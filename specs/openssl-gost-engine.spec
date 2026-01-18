@@ -2,7 +2,7 @@
 
 Name: openssl-gost-engine
 Version: 3.0.3
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: Apache-2.0
@@ -70,6 +70,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 05 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.0.3-10
 - Opt out of ninja cmake generator (rhbz#2381088)
 

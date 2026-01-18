@@ -1,6 +1,6 @@
 Name:           inertiablast
 Version:        0.93
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Steal energy pods to defeat the empire
 # Almost all is GPLv2+ with some graphics using the other licenses
 # Automatically converted from old format: GPLv2+ and CC0 and CC-BY and (CC-BY or GPLv3) - review is highly recommended.
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -45,7 +45,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -502,6 +502,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-1
 - 1.4.1
 

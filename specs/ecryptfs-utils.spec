@@ -16,7 +16,7 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: The eCryptfs mount helper and support libraries
 License: GPL-2.0-or-later
 URL: https://launchpad.net/ecryptfs
@@ -343,6 +343,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 111-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 111-41
 - use sysusers.d for ecryptfs group creation
 

@@ -1,7 +1,7 @@
 Name:		globus-proxy-utils
 %global _name %(tr - _ <<< %{name})
 Version:	7.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Proxy Utility Programs
 
 License:	Apache-2.0
@@ -83,6 +83,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.4-1
 - New GCT release v6.2.20251212
 - Drop patches included in the release

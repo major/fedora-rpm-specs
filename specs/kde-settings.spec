@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 43.101
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -227,6 +227,9 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 43.101-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-1
 - plasmalogin, kscreenlocker: Use the proper wallpaper theme and PLM config file path
 

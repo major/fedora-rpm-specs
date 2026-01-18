@@ -1,7 +1,7 @@
 Summary:	Perl interface to the MD2 Algorithm
 Name:		perl-Digest-MD2
 Version:	2.04
-Release:	38%{?dist}
+Release:	39%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Digest-MD2
 Source0:	https://cpan.metacpan.org/authors/id/G/GA/GAAS/Digest-MD2-%{version}.tar.gz
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/Digest::MD2.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

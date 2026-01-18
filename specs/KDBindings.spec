@@ -3,7 +3,7 @@
 
 Name:           KDBindings
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Reactive programming & data binding in C++
 
 License:        BSD-3-Clause AND MIT
@@ -47,5 +47,11 @@ rm -rf %{buildroot}%{_datadir}/doc/KDBindings
 %{_libdir}/cmake/KDBindings/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 29 2025 Steve Cossette <farchord@gmail.com> - 1.1.0-1
 - Initial Release

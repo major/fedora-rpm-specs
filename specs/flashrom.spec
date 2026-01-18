@@ -1,6 +1,6 @@
 Name:		flashrom
 Version:	1.6.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Simple program for reading/writing flash chips content
 License:	GPL-2.0-only
 URL:		https://flashrom.org
@@ -86,6 +86,9 @@ rm %{buildroot}/%{_libdir}/libflashrom.a
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

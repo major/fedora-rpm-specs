@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.4.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -149,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 3.4.4-1
 - Update to 3.4.4
 

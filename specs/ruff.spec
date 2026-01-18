@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.14.11
+Version:        0.14.13
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -187,17 +187,17 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev 309c249088fdeef0129606fa34ec2eefc74736ff
+%global salsa_rev 9860ff6ca0f1f8f3a8d6b832020002790b501254
 %global salsa_baseversion 0.25.2
-%global salsa_snapdate 20251226
+%global salsa_snapdate 20260109
 Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev d1d5fe58664b30a0c2dde3cd5c3dc8091f0f16ae
+%global typeshed_rev cd8b26b0ceef26cd84ab614088140d48680ac7f7
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20261226
+%global typeshed_snapdate 20260114
 
 # Downstream patch: always find the system-wide ruff executable
 #

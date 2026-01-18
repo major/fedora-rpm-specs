@@ -1,7 +1,7 @@
 Name:		globus-ftp-client
 %global _name %(tr - _ <<< %{name})
 Version:	9.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Grid Community Toolkit - GridFTP Client Library
 
 License:	Apache-2.0
@@ -139,6 +139,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9-1
 - New GCT release v6.2.20251212
 - Drop patches included in the release

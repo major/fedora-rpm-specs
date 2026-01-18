@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
 Version: 20260105
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -84,6 +84,9 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6:20260105-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Richard Russon <rich@flatcap.org> - 20260105-1
 - Security
   - #4725	deprecate old ssl and tls options

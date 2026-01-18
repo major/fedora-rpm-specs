@@ -5,7 +5,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.1.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -200,6 +200,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 28 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-5
 - fix low CVEs - CVE-2025-64503, CVE-2025-57812
 

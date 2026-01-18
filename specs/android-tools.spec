@@ -17,6 +17,8 @@ Patch0:        0001-Fix-libusb-enumeration.patch
 Patch1:        0002-extras-libjsonpb-Fix-incompatibility-with-protobuf-v30.patch
 # https://github.com/nmeum/android-tools/pull/190
 Patch2:        0003-Make-legacy-USB-driver-default-on-Linux.patch
+# https://github.com/nmeum/android-tools/pull/191
+Patch3:        0004-Add-missing-cstdint-includes-for-GCC-16-Fedora.patch
 
 BuildRequires: brotli-devel
 BuildRequires: cmake
@@ -24,12 +26,6 @@ BuildRequires: fmt-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gtest-devel
-BuildRequires: golang
-BuildRequires: golang(golang.org/x/crypto/chacha20)
-BuildRequires: golang(golang.org/x/crypto/chacha20poly1305)
-BuildRequires: golang(golang.org/x/crypto/curve25519)
-BuildRequires: golang(golang.org/x/crypto/hkdf)
-BuildRequires: golang(golang.org/x/crypto/xts)
 BuildRequires: libusbx-devel
 BuildRequires: libzstd-devel
 BuildRequires: lz4-devel
@@ -74,7 +70,6 @@ setup between the host and the target phone as adb.
 %autosetup -p1
 
 %build
-export GO111MODULE=off
 %cmake -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
 

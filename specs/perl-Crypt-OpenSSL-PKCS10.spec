@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
 Version:        0.35
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-PKCS10
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

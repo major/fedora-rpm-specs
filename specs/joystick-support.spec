@@ -1,6 +1,6 @@
 Name: joystick-support          
 Version:        1.0.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Load joystick / game pad drivers at boot time
 
 
@@ -39,6 +39,9 @@ echo -e "joydev\nanalog" > $RPM_BUILD_ROOT%{_libdir}/../lib/modules-load.d/joyst
 %{_libdir}/../lib/modules-load.d/joystick.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

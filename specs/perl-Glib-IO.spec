@@ -1,6 +1,6 @@
 Name:           perl-Glib-IO
 Version:        0.002
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl bindings to the GIO library
 License:        LGPL-2.1-only
 URL:            http://metacpan.org/release/Glib-IO
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

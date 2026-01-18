@@ -71,7 +71,7 @@
 
 Name:           mivisionx%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -210,6 +210,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/mivisionx/test
 %{pkg_prefix}/%{pkg_libdir}/libvxu.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
 - Add --with compat
 

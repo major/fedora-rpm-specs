@@ -3,7 +3,7 @@
 
 Name:       copr-cli
 Version:    2.4
-Release:    1%{?dist}
+Release:    3%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -91,6 +91,12 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.4-1
 - Fix copr-cli download for Pulp projects
 - Add API endpoint for generating a new token

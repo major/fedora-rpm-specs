@@ -37,7 +37,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 25%{?dist}
+Release: 27%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -285,6 +285,12 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 25 2025 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-25
 - apr_dbm lmdb: fix database access issues
 

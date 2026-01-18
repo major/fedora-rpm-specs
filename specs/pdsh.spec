@@ -1,12 +1,11 @@
 Name: pdsh
-Version: 2.35
+Version: 2.36
 Release: 1%{?dist}
 Summary: Parallel remote shell program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://github.com/chaos/pdsh/
 Source0: https://github.com/chaos/pdsh/releases/download/pdsh-%{version}/pdsh-%{version}.tar.gz
-Patch0: pdsh-2.34-fix-c23.patch
 Requires: pdsh-rcmd
 BuildRequires: make
 BuildRequires: autoconf, automake, libtool
@@ -19,7 +18,7 @@ BuildRequires: perl-generators
 #
 #  To build the various module subpackages, pass --with <pkg> on
 #   the rpmbuild command line (if your rpm is a recent enough version)
-#  
+#
 #  Similarly, to disable various pdsh options pass --without <pkg> on
 #   the rpmbuild command line.
 #
@@ -155,7 +154,7 @@ Pdsh module for libgenders functionality.
 
 %package   mod-nodeattr
 Summary:   Provides genders support for pdsh using the nodeattr program
-Requires:  genders 
+Requires:  genders
 Conflicts: pdsh-mod-genders
 Conflicts: pdsh-mod-machines
 Requires:  %{name}%{?_isa} = %{version}-%{release}
@@ -224,7 +223,6 @@ Pdsh module providing support for running pdsh on Torque nodes.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .fixc23
 chmod +x configure
 
 %build
@@ -393,6 +391,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 16 2026 Tom Callaway <spot@fedoraproject.org> - 2.36-1
+- update to 2.36
+
 * Tue Oct 14 2025 Tom Callaway <spot@fedoraproject.org> - 2.35-1
 - update to 2.35
 

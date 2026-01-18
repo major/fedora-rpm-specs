@@ -1,6 +1,6 @@
 Name:           dia-gnomeDIAicons
 Version:        0.1
-Release:        27%{?dist}
+Release:        29%{?dist}
 Summary:        GNOME-based network icon shapes for the Dia diagram editor
 # https://web.archive.org/web/20240520111753/https://gnomediaicons.sourceforge.net/
 License:        GPL-3.0-only
@@ -28,6 +28,12 @@ install -p -m 0644 sheets/rib_network.sheet %{buildroot}%{_datadir}/dia/sheets/r
 %{_datadir}/dia/sheets/rib_network.sheet
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

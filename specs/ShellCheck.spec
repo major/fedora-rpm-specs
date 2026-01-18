@@ -10,7 +10,7 @@
 
 Name:           %{pkg_name}
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Shell script analysis tool
 
 License:        GPL-3.0-or-later
@@ -175,6 +175,12 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 06 2025 Jens Petersen <petersen@redhat.com> - 0.11.0-1
 - https://hackage.haskell.org/package/ShellCheck-0.11.0/changelog
 

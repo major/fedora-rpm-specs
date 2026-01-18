@@ -8,7 +8,7 @@ Name:           obs-service-%{service}
 # Version comes from what openSUSE has released as in openSUSE:Tools
 # From: https://build.opensuse.org/package/show/openSUSE:Tools/obs-service-extract_file
 Version:        0.3
-Release:        17%{?snapdate:.%{snapdate}git%{shortcommit}}%{?dist}
+Release:        18%{?snapdate:.%{snapdate}git%{shortcommit}}%{?dist}
 Summary:        An OBS source service: Extract a file from an archive
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ install -pm 0644 extract_file.service %{buildroot}%{_prefix}/lib/obs/service
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-18.20190325git8ea7a76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-17.20190325git8ea7a76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

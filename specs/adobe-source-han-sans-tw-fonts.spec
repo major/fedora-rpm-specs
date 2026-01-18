@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 2.004
-Release: 11%{?dist}
+Release: 13%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-sans/
 
 %global foundry           Adobe
@@ -45,6 +45,12 @@ Source10: 65-2-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.004-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.004-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.004-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

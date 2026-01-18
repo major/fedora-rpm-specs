@@ -10,7 +10,7 @@ BuildRequires: python3
 %endif
 
 Version: 2.000
-Release: 42%{?dist}
+Release: 43%{?dist}
 URL: http://madanpuraskar.org/
 
 %global fontlicense       GPL-1.0-or-later
@@ -63,6 +63,9 @@ cp -p %{SOURCE2} %{SOURCE6} .
 %fontfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Parag Nemade <pnemade AT redhat DOT com> - 2.000-42
 - Build from source only on Fedora
 - Use binary ttf file for RHEL > 10 releases to drop BR: fontforge

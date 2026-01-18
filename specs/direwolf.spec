@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPL-2.0-or-later
@@ -155,6 +155,12 @@ install -m0644 -D direwolf.sysusers.conf %{buildroot}%{_sysusersdir}/direwolf.co
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.1-2
 - Rebuild for new gpsd
 

@@ -1,6 +1,6 @@
 Name:       libtelnet
 Version:    0.23
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    TELNET protocol parsing framework
 License:    Unlicense-libtelnet
 URL:        http://github.com/seanmiddleditch/libtelnet
@@ -69,6 +69,9 @@ find %{buildroot} -name "*.la" -delete
 %{_bindir}/telnet-proxy
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           android-file-transfer
 Version:        4.5
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
@@ -73,6 +73,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 4.5-4
 - rebuild for new fuse3
 

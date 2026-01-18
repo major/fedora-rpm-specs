@@ -1,7 +1,7 @@
 Name:          ebumeter
 Summary:       Loudness measurement according to EBU-R128
 Version:       0.4.2
-Release:       17%{?dist}
+Release:       18%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://kokkinizita.linuxaudio.org/linuxaudio
@@ -62,6 +62,9 @@ install -pm 644 %{SOURCE2} \
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

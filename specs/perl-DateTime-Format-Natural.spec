@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Natural
 Version:        1.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
@@ -115,6 +115,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.23-1
 - 1.23 bump (rhbz#2427060)
 

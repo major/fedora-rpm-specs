@@ -23,7 +23,7 @@
 
 Name:           conky
 Version:        1.22.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
@@ -125,6 +125,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 02 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1.22.2-1
 - update to 1.22.2
 - enable Wayland support (#2369338)

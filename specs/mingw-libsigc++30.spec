@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.6.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       MinGW Windows sigc++ 3.0 library
 
 License:       LGPL-2.0-or-later
@@ -78,6 +78,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        4.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPL-3.0-or-later
 URL:            https://gnu-octave.github.io/packages/control/
@@ -62,6 +62,9 @@ done;
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 11 2025 Thomas Sailer <fedora@tsailer.ch> - 4.1.3-1
 - Update to 4.1.3
 

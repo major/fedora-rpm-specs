@@ -4,7 +4,7 @@ Name:           perl-Finance-Quote
 %global cpan_version 1.68
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -168,6 +168,9 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6800-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 22 2025 Paul Howarth <paul@city-fan.org> - 1.6800-1
 - Update to 1.68
   - Changes to AlphaVantage.pm and CurrencyRates/AlphaVantage.pm to throttle

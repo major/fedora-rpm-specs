@@ -1,7 +1,7 @@
 Summary:        Generic library for real-time communications
 Name:           libre
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
 Source0:        https://github.com/baresip/re/archive/v%{version}/re-%{version}.tar.gz
@@ -107,6 +107,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 24 2025 Robert Scheck <robert@fedoraproject.org> 4.4.0-1
 - Upgrade to 4.4.0 (#2424568)
 

@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.0.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Reformatting tool for JSON
 
 License:        MIT
@@ -40,6 +40,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

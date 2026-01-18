@@ -8,7 +8,7 @@ Name: hunspell-as
 Summary: Assamese hunspell dictionaries
 Epoch: 1
 Version: 1.0.1.2resigned1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://addons.mozilla.org/firefox/downloads/file/4270589/assamese_spell_checker-1.0.1.2resigned1.xpi
 Source1: https://github.com/LibreOffice/dictionaries/raw/refs/heads/master/as_IN/README_as_IN.txt
 URL: https://addons.mozilla.org/en-US/firefox/addon/assamese-spell-checker/
@@ -38,6 +38,9 @@ cp -p dictionaries/as-IN.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/as_IN.a
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.1.2resigned1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 29 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.0.1.2resigned1-2
 - Use the correct SPDX format for license tag
 

@@ -1,6 +1,6 @@
 Name:           nwg-launchers
 Version:        0.7.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GTK-based launchers for sway and other window managers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -61,6 +61,9 @@ The project priorities are:
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

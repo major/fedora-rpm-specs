@@ -6,7 +6,7 @@
 
 Name:		ocp
 Version:	3.0.1%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # Main ocp source is GPL-2.0-or-later.
@@ -176,6 +176,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

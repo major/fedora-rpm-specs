@@ -8,7 +8,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.26
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -458,6 +458,9 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 11 2026 Manish Tiwari <matiwari@redhat.com> - 0.26-3
 - https://lists.gnu.org/archive/html/bug-gnulib/2025-09/msg00095.html
 - Upstream patch to fix implicit declaration error with GCC-16

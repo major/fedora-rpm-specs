@@ -1,6 +1,6 @@
 Name: docbook-utils
 Version: 0.6.15
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 Summary: Shell scripts for managing DocBook documents
 URL: https://github.com/devexp-db/docbook-utils
@@ -116,6 +116,12 @@ rm -rf $RPM_BUILD_ROOT/tmp
 %{_mandir}/*/docbook2ps.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

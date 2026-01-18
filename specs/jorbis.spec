@@ -1,6 +1,6 @@
 Name:           jorbis
 Version:        0.0.17
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Pure Java Ogg Vorbis Decoder
 URL:            http://www.jcraft.com/jorbis/
 License:        LGPL-2.0-or-later
@@ -79,6 +79,9 @@ cp -a doc $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.17-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.0.17-39
 - Rebuilt for java-25-openjdk as preffered jdk
 

@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 5.4.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -245,6 +245,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/darktable-curve-tool-helper
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 21 2025 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 5.4.0-1
 - 5.4.0 release
 - Remove 0001-Fix-build-with-clang-21.patch

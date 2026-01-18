@@ -1,6 +1,6 @@
 Name: kernelshark
 Version: 2.3.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 1
 
 # As of 2.3.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
@@ -99,6 +99,9 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_includedir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 15 2025 Zamir SUN <sztsian@gmail.com> - 1:2.3.1-7
 - Add -DCMAKE_POLICY_VERSION_MINIMUM=3.5 to support CMake 4.0
 - Fixes rhbz#2380677

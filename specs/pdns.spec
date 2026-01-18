@@ -3,7 +3,7 @@
 
 Name: pdns
 Version: 5.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
@@ -370,6 +370,9 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 5.0.2-2
 - Rebuilt for Boost 1.90
 

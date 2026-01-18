@@ -12,7 +12,7 @@
 
 Name:          leptonica
 Version:       1.87.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
@@ -186,6 +186,9 @@ MinGW Windows Leptonica library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.87.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 25 2025 Sandro Mani <manisandro@gmail.com> - 1.87.0-1
 - Update to 1.87.0
 

@@ -1,6 +1,6 @@
 Name:           eb
 Version:        4.4.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Library for accessing Japanese CD-ROM electronic books
 Summary(ja):    CD-ROM 書籍にアクセスするためのライブラリ
 
@@ -92,6 +92,9 @@ cat %{name}utils.lang >> %{name}.lang
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Jens Petersen <petersen@redhat.com> - 4.4.3-29
 - workaround FTBFS with gcc15 (#2340108)
 

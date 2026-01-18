@@ -2,7 +2,7 @@
 
 Name:		libdrm-armada
 Version:	2.0.0
-Release:	17.20190424git607c697%{?dist}
+Release:	18.20190424git607c697%{?dist}
 Summary:	DRM driver for Marvell Armada displays
 
 # Automatically converted from old format: GPLv2 and MIT - review is highly recommended.
@@ -59,6 +59,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-18.20190424git607c697
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17.20190424git607c697
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: cockpit-files
 Version: 34
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
 
@@ -86,6 +86,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 34-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Packit <hello@packit.dev> - 34-1
 - Bug fixes and translation updates
 

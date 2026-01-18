@@ -1,6 +1,6 @@
 Name:           glew
 Version:        2.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The OpenGL Extension Wrangler Library
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -78,6 +78,9 @@ chmod 0755 $RPM_BUILD_ROOT%{_libdir}/*.so*
 %doc doc/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

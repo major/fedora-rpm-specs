@@ -30,7 +30,7 @@
 Name:           aws
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        The Ada Web Server
 
 License:        (GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception) AND GPL-2.0-or-later WITH GNAT-exception
@@ -442,6 +442,12 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
 - Updated to v26.0.0.
 - This version adds a time limit to mitigate CVE-2025-52494.

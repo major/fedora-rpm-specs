@@ -1,7 +1,7 @@
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Url:            http://zx2c4.com/projects/password-store/
@@ -74,6 +74,9 @@ make test
 %{_bindir}/passmenu
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Peter Georg <peter.georg@physik.uni-regensburg.de> - 1.7.4-18
 - Recommend xdotool/ydotool depending on environment
 

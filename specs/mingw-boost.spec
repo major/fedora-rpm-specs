@@ -3,7 +3,7 @@
 %global name1 boost
 Name:           mingw-%{name1}
 Version:        1.78.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        MinGW Windows port of Boost C++ Libraries
 
 # Replace each . with _ in %%{version}
@@ -685,6 +685,9 @@ mv $RPM_BUILD_ROOT%{mingw64_libdir}/*.dll $RPM_BUILD_ROOT%{mingw64_bindir}
 %{mingw64_libdir}/libboost_test_exec_monitor-mt-x64.a
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.78.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 18 2025 Orion Poplawski <orion@nwra.com> - 1.78.0-18
 - Rebuild (icu-77)
 

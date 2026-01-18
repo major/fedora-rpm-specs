@@ -1,6 +1,6 @@
 Name:           SDL2_image
 Version:        2.8.8
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -82,6 +82,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

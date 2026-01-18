@@ -5,7 +5,7 @@
 
 Name:    konqueror
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE File Manager and Browser
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and GFDL - review is highly recommended.
@@ -209,6 +209,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

@@ -1,6 +1,6 @@
 Name:           penguin-command
 Version:        1.6.11
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Open source arcade game
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ desktop-file-install \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

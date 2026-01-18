@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
 Version:	1.115
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,6 +53,12 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.115-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.115-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Miroslav Suchý <msuchy@redhat.com> 1.115-1
 - update copr keys
 - Update for openSUSE 16 keys

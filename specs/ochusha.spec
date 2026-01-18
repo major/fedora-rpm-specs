@@ -25,7 +25,7 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		baserelease	21
+%define		baserelease	22
 %define		pre_release	1
 
 %if %{pre_release}
@@ -48,6 +48,8 @@ Source10:	ochusha-prefs-gtkrc
 Source11:	ochusha.sh
 Patch0:		ochusha-D20100214-gtk-deprecated.patch
 Patch1:		ochusha-D20100817-format-string.patch
+# Fix for g++16 / c++20: operator== automatically generates operator!= definition
+Patch2:		ochusha-D20100817-cpp20-equality-overload.patch
 # COPYING	BSD-2-Clause
 # intl/	LGPL-2.1-or-later (unused)
 # libochusha/sigslot.h	public domain (need review)
@@ -90,6 +92,7 @@ images that helps users to interact with BBSs.
 %endif
 #%%patch0 -p0 -b .gtk
 %patch -P1 -p1 -b .format
+%patch -P2 -p1 -b .cpp20
 
 # Icon path fix
 %{__sed} -i -e 's|Icon.*$|Icon=ochusha48|' ochusha/ochusha.desktop.in
@@ -235,6 +238,9 @@ change_encoding \
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 
 %changelog
+* Fri Jan 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.0.1-0.22.cvs20100817T0000
+- Fix for c++20 wrt inequality operator overload
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.1-0.21.cvs20100817T0000
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

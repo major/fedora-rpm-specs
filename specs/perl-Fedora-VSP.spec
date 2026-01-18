@@ -1,6 +1,6 @@
 Name:           perl-Fedora-VSP
 Version:        0.001
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl version normalization for RPM
 License:        GPL-3.0-or-later
 URL:            https://ppisar.fedorapeople.org/Fedora-VSP/
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

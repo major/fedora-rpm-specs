@@ -6,7 +6,7 @@
 
 Name:           cabextract
 Version:        1.11
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Utility for extracting cabinet (.cab) archives
 
 # cabextract itself is GPL-2.0-or-later but uses other source codes, breakdown:
@@ -62,6 +62,12 @@ archives.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

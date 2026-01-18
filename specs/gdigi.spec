@@ -1,6 +1,6 @@
 Name:		gdigi
 Version:	0.4.0
-Release:	20140230gitcada964d%{?dist}
+Release:	20140231gitcada964d%{?dist}
 Summary:	Utility to control DigiTech effect pedals
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -47,6 +47,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/gdigi.desktop
 %{_datadir}/icons/gdigi.png
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-20140231gitcada964d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-20140230gitcada964d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

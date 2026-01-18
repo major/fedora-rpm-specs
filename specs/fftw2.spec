@@ -1,6 +1,6 @@
 Name:           fftw2
 Version:        2.1.5
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Fast Fourier Transform library (version 2)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -121,6 +121,9 @@ rm doc/{Makefile*,mdate-sh,stamp-vti,texi2html,texinfo.tex,*.texi,fftw.info*}
 %{_libdir}/libsrfftw_threads.a
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

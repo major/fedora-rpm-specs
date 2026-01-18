@@ -5,7 +5,7 @@
 Summary:   Qt support library for PackageKit
 Name:      PackageKit-Qt
 Version:   1.1.4
-Release:   2%{?dist}
+Release:   4%{?dist}
 
 License:   LGPL-2.1-only
 URL:       http://www.packagekit.org/
@@ -72,6 +72,12 @@ Requires: PackageKit-Qt6%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 30 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.1.4-2
 - Drop unneeded Conflicts on PackageKit-Qt5
 

@@ -1,7 +1,7 @@
 Summary:        Sendmail milter for amavisd-new using the AM.PDP protocol
 Name:           amavisd-milter
 Version:        1.7.2
-Release:        10%{?dist}
+Release:        12%{?dist}
 # ISC (compat/strlcpy.c) and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND ISC
 URL:            https://github.com/prehor/amavisd-milter
@@ -61,6 +61,12 @@ install -D -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

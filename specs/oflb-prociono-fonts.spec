@@ -3,7 +3,7 @@
 
 Name:    %{fontname}-fonts
 Version: 20141125
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: A text roman with standard and discretionary ligatures, class-based kerning
 
 License: OFL-1.1
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20141125-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 20141125-25
 - Use spdx license id
 

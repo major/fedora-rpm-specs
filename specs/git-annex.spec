@@ -14,7 +14,7 @@
 Name:           git-annex
 Version:        10.20250929
 # can only be reset when subpkg bumped
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
 License:        AGPL-3.0-or-later
@@ -353,6 +353,9 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.20250929-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 06 2025 Jens Petersen <petersen@redhat.com> - 10.20250929-5
 - https://hackage.haskell.org/package/git-annex-10.20250929/changelog
 

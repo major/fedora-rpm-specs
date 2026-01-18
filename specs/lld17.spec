@@ -49,7 +49,7 @@
 
 Name:		%{pkg_name}
 Version:	%{lld_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -220,6 +220,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-lsf
 %global _name %(tr - _ <<< %{name})
 Version:	3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Grid Community Toolkit - LSF Job Manager Support
 
 License:	Apache-2.0
@@ -157,6 +157,9 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/lsf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.1-1
 - New GCT release v6.2.20251212
 - Drop patches included in the release

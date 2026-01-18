@@ -12,7 +12,7 @@
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
 Version: 2.9.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL: http://www.modsecurity.org/
 Source: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
@@ -148,6 +148,9 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

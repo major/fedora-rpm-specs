@@ -2,7 +2,7 @@
 
 Name:          apache-%{short_name}
 Version:       2.1
-Release:       35%{?dist}
+Release:       37%{?dist}
 Summary:       XML to Java object mapping module
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -50,6 +50,12 @@ This package contains the %{summary}.
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.1-35
 - Rebuilt for java-25-openjdk as preffered jdk
 

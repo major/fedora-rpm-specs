@@ -1,6 +1,6 @@
 Name:           perl-Git-Repository
 Version:        1.325
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl interface to Git repositories
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Git-Repository
@@ -11,7 +11,7 @@ Patch1:         git-2.38.1-compatibility.patch
 # Adapt tests to git-2.39.0, bug #2175807, proposed to the upstream,
 # <https://github.com/book/Git-Repository/pull/23>
 Patch2:         git-var-GIT_EDITOR.patch
-# Do not write to CWD by the tests, proposed to the upstream,
+# Do not write to CWD by the tests, in upstream after 1.325,
 # <https://github.com/book/Git-Repository/pull/24>
 Patch3:         Git-Repository-1.325-tests-Do-not-write-to-current-working-directory.patch
 BuildArch:      noarch
@@ -141,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

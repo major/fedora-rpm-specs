@@ -1,6 +1,6 @@
 Name:           gnome-klotski
 Version:        3.38.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        GNOME Klotski game
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -199,6 +199,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 14 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-27
 - disable failing test (resolves rhbz#2385042)
 - avoid wildcards in file list

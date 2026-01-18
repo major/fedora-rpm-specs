@@ -1,6 +1,6 @@
 Name:           clanbomber
 Version:        1.05
-Release:        50%{?dist}
+Release:        52%{?dist}
 Summary:        Lay bombs and Blast the other players of the field game using ClanLib
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -66,6 +66,12 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

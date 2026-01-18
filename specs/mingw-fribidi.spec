@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.0.16
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       LGPL-2.0-or-later
@@ -100,6 +100,9 @@ Static version of the MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

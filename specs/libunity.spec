@@ -1,7 +1,7 @@
 Name:	 libunity
 Summary: Library for integrating with Unity and Plasma
 Version: 7.1.4
-Release: 43.20190319%{?dist}
+Release: 44.20190319%{?dist}
 
 # most files LGPLv3, with a handful of GPLv3 (unity-sound-menu* sources in particular)
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -125,6 +125,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.4-44.20190319
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.4-43.20190319
 - Rebuilt for Python 3.14.0rc3 bytecode
 

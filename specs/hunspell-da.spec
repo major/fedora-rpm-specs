@@ -7,7 +7,7 @@
 Name: hunspell-da
 Summary: Danish hunspell dictionaries
 Version: 2.9.053
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://stavekontrolden.dk/dictionaries/da_DK/da_DK-%{version}.oxt
 URL: https://stavekontrolden.dk/
 # license information from README_da_DK.txt
@@ -35,6 +35,9 @@ cp -p da_DK.dic da_DK.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.053-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 01 2025 Parag Nemade <pnemade AT redhat DOT com> - 2.9.053-1
 - Updated to new URL and new version (rh#2417927)
 

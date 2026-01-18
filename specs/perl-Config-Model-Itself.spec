@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Itself
 Version:        2.025
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Model editor for Config::Model
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -93,6 +93,9 @@ install -D -m 0644 contrib/bash_completion.cme_meta %{buildroot}%{_sysconfdir}/b
 %config(noreplace) %{_sysconfdir}/bash_completion.d/cme_meta
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.025-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.025-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

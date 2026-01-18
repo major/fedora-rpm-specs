@@ -1,6 +1,6 @@
 Name: man-pages-ja
 Version: 20231115
-Release: 4%{?dist}
+Release: 5%{?dist}
 # BSD-3-Clause - shadow, bsd-games, byacc, bzip2, dhcpcd, dump, file, hdparm, rssh, tcp_wrappers, tcsh
 # GFDL-1.3-or-later - GNU_*, cron, glibc-linuxthreads
 # BSD-4-Clause-UC/Linux-man-pages-copyleft/GPL-2.0-or-later/BSD-4.3TAHOE/Linux-man-pages-1-para/GPL-1.0-or-later/BSD-3-Clause/MIT/Spencer-94/LicenseRef-LDPL/BSD-2-Clause/LicenseRef-Fedora-UltraPermissive/LicenseRef-Fedora-Public-Domain - LDP_manpages, gnumaniak, ld.so
@@ -157,6 +157,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20231115-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20231115-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        1.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Audio Library
 
 # See native spec
@@ -141,6 +141,9 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %{mingw64_datadir}/openal
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 1.25.0-1
 - Update to 1.25.0
 

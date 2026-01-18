@@ -1,7 +1,7 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
 Version: 3.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz.asc
@@ -110,4 +110,7 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_mandir}/man8/chkcon.8*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

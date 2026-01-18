@@ -1,7 +1,7 @@
 %global base_version 0.94
 Name:           perl-Filter-Simple
 Version:        0.96
-Release:        520%{?dist}
+Release:        521%{?dist}
 Summary:        Simplified Perl source filtering
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filter-Simple
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-521
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-520
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

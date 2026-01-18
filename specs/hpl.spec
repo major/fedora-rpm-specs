@@ -16,7 +16,7 @@
 Name:           hpl
 URL:            http://www.netlib.org/benchmark/hpl/
 Version:        2.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
 License:        LicenseRef-Callaway-BSD-with-advertising
 Requires:       %{name}-common = %{version}-%{release}
@@ -171,6 +171,9 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global commit0 90abd17b4f97671435798b6147b698aa9087612f
 
 Version:       1.100263
-Release:       0.27.20150923git%{?dist}
+Release:       0.28.20150923git%{?dist}
 # cf. https://github.com/googlefonts/robotoslab
 URL:           https://fonts.google.com/specimen/Roboto+Slab
 
@@ -50,6 +50,9 @@ cp -p %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 %fontfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.100263-0.28.20150923git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Georg Sauthoff <mail@gms.tf> - 1.100263-0.27.20150923git
 - Update project URL
 

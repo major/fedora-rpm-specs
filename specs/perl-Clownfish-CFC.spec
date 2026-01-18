@@ -1,6 +1,6 @@
 Name:           perl-Clownfish-CFC
 Version:        0.6.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Compiler for Apache Clownfish
 # other files:          ASL 2.0
 ## Unbundled
@@ -111,6 +111,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Jens Petersen <petersen@redhat.com> - 0.6.3-31
 - rebuild for F44 https://fedoraproject.org/wiki/Changes/cmark-0.31
 

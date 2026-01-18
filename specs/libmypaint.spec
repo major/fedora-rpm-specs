@@ -1,6 +1,6 @@
 Name: libmypaint
 Version: 1.6.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Library for making brush strokes
 
 # Compute some version related macros.
@@ -71,6 +71,9 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_datadir}/gir-1.0/MyPaint-%{major}.%{minor}.gir
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

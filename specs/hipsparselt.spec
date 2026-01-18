@@ -127,10 +127,10 @@
 Name:           %{hipsparselt_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -421,6 +421,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Remove build requires git
 

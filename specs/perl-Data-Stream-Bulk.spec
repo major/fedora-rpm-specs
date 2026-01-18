@@ -1,6 +1,6 @@
 Name:           perl-Data-Stream-Bulk
 Version:        0.11
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        N at a time iteration API
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ once processing of data sets.
 %{_mandir}/man3/Data*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

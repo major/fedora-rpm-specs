@@ -5,7 +5,7 @@
 
 Name:           perl-Config-AutoConf
 Version:        0.320
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A module to implement some of AutoConf macros in pure Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-AutoConf
@@ -72,6 +72,9 @@ a command, a library and similar.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.320-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.320-14
 - Avoid File::Slurper dependency in RHEL builds
 

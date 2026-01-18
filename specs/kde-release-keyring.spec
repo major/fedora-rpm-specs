@@ -5,7 +5,7 @@
 
 Name:    kde-release-keyring
 Version: 0~git%{commitdate}.%{shortcommit}
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Keyring of signing keys from KDE community members
 
 License: CC0-1.0
@@ -41,6 +41,9 @@ install -m644 -p -D keys/* %{buildroot}%{_datadir}/%{name}/keys
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250403.ae8f4d5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250403.ae8f4d5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

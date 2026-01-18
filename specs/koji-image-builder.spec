@@ -5,7 +5,7 @@ Version:        8
 %forgemeta
 
 Name:           koji-image-builder
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -84,6 +84,9 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %pycached %{python3_sitelib}/koji_cli_plugins/image_builder.py
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

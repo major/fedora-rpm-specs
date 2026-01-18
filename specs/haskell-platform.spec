@@ -3,7 +3,7 @@
 
 Name:           haskell-platform
 Version:        2024.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD-3-Clause
@@ -43,6 +43,9 @@ It provides a good starting environment for Haskell development.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

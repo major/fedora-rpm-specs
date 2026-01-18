@@ -1,7 +1,7 @@
 %global snapshot 20060225
 Name:           duel3
 Version:        0.1
-Release:        0.44.%{snapshot}%{?dist}
+Release:        0.45.%{snapshot}%{?dist}
 Summary:        One on one spaceship duel in a 2D arena
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -88,6 +88,9 @@ install -p -m 644 %{SOURCE3} \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.45.20060225
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.44.20060225
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

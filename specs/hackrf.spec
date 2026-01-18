@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2026.01.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -145,6 +145,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2026.01.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Steven A. Falco <stevenfalco@gmail.com> - 2026.01.1-1
 - Update to 2026.01.1
 

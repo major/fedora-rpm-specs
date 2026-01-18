@@ -2,7 +2,7 @@
 
 Name:           mingw-libogg
 Version:        1.3.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The Ogg bitstream file format library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -99,6 +99,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

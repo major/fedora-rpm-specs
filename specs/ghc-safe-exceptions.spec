@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.1.7.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Safe, consistent, and easy exception handling
 
 License:        MIT
@@ -126,6 +126,9 @@ cp -bp %{SOURCE1} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

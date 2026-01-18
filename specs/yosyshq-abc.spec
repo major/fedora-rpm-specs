@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 49efc5bb456111fbd9ea69617a216f165d666085
+%global commit0 799ba632239b2a4db2bacda81de4e6efdc486b0c
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20251205
+%global snapdate 20260115
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,8 +23,8 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.60
-Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.61
+Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
 # The bundled CUDD code is BSD-3-Clause.
@@ -58,6 +58,10 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 Provides:       %{prjname} = 1.01-40.%{version}.%{release}
 Obsoletes:      %{prjname} < 1.01-41
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
+# upstream abc commit 0ff43a1 (Command "aigsim".) added breaking change
+ExcludeArch: %{ix86}
 
 %description
 ABC is a growing software system for synthesis and verification of
@@ -167,6 +171,12 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Fri Jan 16 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.61-2.20260115git799ba63
+- drop i686 due to incompatible upstream changes
+
+* Thu Jan 15 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.61-1.20260115git799ba63
+- update to 0.61 snapshot
+
 * Fri Dec 05 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.60-1.20251205git49efc5b
 - update to 0.60 snapshot
 

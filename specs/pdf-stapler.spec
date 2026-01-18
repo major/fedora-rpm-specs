@@ -22,7 +22,7 @@ a completely refactored source code, tests, and added functionality.}
 
 Name:           pdf-stapler
 Version:        1.0.0
-Release:        0.26.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.27.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Tool for manipulating PDF documents from the command line
 License:        BSD-3-Clause
 URL:            https://github.com/hellerbarde/stapler
@@ -80,6 +80,9 @@ rm %{buildroot}%{_bindir}/stapler
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.27.20191215git8753251
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-0.26.20191215git8753251
 - Rebuilt for Python 3.14.0rc3 bytecode
 

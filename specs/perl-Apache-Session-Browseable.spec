@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
 Version:	1.3.18
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -111,6 +111,9 @@ kill $(cat /tmp/valkey.pid)
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Xavier Bachelot <xavier@bachelot.org> - 1.3.18-2
 - BR:/Recommends: Redis::Fast where possible
 - Run Redis tests

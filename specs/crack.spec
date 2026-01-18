@@ -1,7 +1,7 @@
 Summary:   Password cracker
 Name:      crack
 Version:   5.0a
-Release:   52%{?dist}
+Release:   54%{?dist}
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
 License:   ClArtistic
 Source:    ftp://ftp.cerias.purdue.edu/pub/tools/unix/pwdutils/crack/%{name}5.0.tar.gz
@@ -82,6 +82,12 @@ install -m0644 -D crack.sysusers.conf %{buildroot}%{_sysusersdir}/crack.conf
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0a-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0a-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0a-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

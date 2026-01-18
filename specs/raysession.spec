@@ -1,6 +1,6 @@
 Name:               raysession
 Version:            0.17.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Session manager for audio software
 BuildArch:          noarch
 # The entire source code is GPLv2
@@ -24,7 +24,7 @@ Requires:           python3
 Requires:           python3-alsa
 Requires:           python3-pyliblo3
 Requires:           python3-pyxdg
-Requires:           python3-qt6
+Requires:           python3-pyqt6
 Requires:           hicolor-icon-theme
 Requires:           shared-mime-info
 Recommends:         wmctrl
@@ -104,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 # No manpages, developer is aware https://github.com/Houston4444/RaySession/issues/40
 
 %changelog
+* Fri Jan 16 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-2
+- Fix for incorrect package name (Bug #2430438)
+
 * Sat Jan 10 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-1
 - New upstream release
 - Removed patches, fixed upstream

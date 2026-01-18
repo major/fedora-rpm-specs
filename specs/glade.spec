@@ -1,6 +1,6 @@
 Name:           glade
 Version:        3.40.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        User Interface Designer for GTK+
 
 # - /usr/bin/glade is GPLv2+
@@ -119,6 +119,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Glade.de
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

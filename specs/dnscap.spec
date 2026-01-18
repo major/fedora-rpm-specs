@@ -1,7 +1,7 @@
 %global filesurl https://www.dns-oarc.net/files/%{name}
 Name:           dnscap
 Version:        2.5.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Network capture utility designed specifically for DNS traffic
 License:        BSD-3-Clause AND ISC
 URL:            https://www.dns-oarc.net/tools/dnscap
@@ -64,6 +64,12 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 %doc CONTRIBUTORS CHANGES README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 03 2025 Fedor Vorobev <fvorobev@redhat.com> - 2.5.0-2
 - Modified upstream RPM .spec file.
 - Made it follow Fedora Package Guidelines.

@@ -15,7 +15,7 @@ This device provides a read-write interface to the Linux Kernel's ring buffer.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Simpler parser for the /dev/kmsg format
 
 # Upstream license specification: Apache-2.0
@@ -68,6 +68,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 2.0.1-21
 - Rebuild for golang 1.25.2
 

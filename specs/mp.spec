@@ -40,7 +40,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 17%{?dist}
+Release: 18%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -246,6 +246,9 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240319-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 04 2025 Jerry James <loganjerry@gmail.com> - 20240319-17
 - Rebuild for asl 20251122
 

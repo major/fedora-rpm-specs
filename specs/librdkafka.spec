@@ -2,7 +2,7 @@
 
 Name:		librdkafka
 Version:	2.12.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Apache Kafka C library
 
 License:	Apache-2.0
@@ -93,6 +93,9 @@ find %{buildroot} -name '*-static.pc' -delete -print
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Link Dupont <link@sub-pop.net> - 2.12.1-1
 - Update to 2.12.1 (RHBZ#2293040)
 - Updated disable-ssl-engine.patch for new version

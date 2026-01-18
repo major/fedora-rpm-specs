@@ -1,6 +1,6 @@
 Name:    libmygpo-qt
 Version: 1.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Qt Library that wraps the gpodder.net Web API
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -116,6 +116,9 @@ make test -C %{_target_platform}-qt5 ||:
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.2.0-1
 - Update to version 1.2.0
 - Remove qt4 support

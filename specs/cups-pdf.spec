@@ -2,7 +2,7 @@ Summary:        Extension for creating pdf-Files with CUPS
 Summary(fr):    Extension de CUPS pour créer des fichiers PDF
 Name:           cups-pdf
 Version:        3.0.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 URL:            https://www.cups-pdf.de/
 License:        GPL-2.0-or-later
 
@@ -124,6 +124,12 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 20 2025 Robert Marcano <robert@marcanoonline.com> - 3.0.2-1
 - Update to upstream version 3.0.2.
 

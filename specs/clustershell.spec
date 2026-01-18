@@ -3,7 +3,7 @@
 
 Name:           clustershell
 Version:        1.9.3
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 License:        LGPL-2.1-or-later
@@ -119,6 +119,12 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Sep 28 2025 Stephane Thiell <sthiell@stanford.edu> - 1.9.3-6
 - Migrate from deprecated setup.py build/install to pyproject macros
 - Switch Source0 to PyPI archive for canonical tree naming

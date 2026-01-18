@@ -4,7 +4,7 @@
 %global systemd_runtimedir (0%{?fedora} >= 21) || (0%{?rhel} >= 8)
 %global tmpfiles ((0%{?fedora} >= 15) || (0%{?rhel} == 7)) && !%{systemd_runtimedir}
 
-%global baserelease 23
+%global baserelease 24
 %global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
@@ -228,6 +228,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.24.Beta3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.23.Beta3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           glm
 Version:        1.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C++ mathematics library for graphics programming
 
 License:        MIT
@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
 %doc doc/api/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

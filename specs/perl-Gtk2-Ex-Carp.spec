@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-Carp
 Version:        0.01
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        GTK+ friendly die() and warn() functions
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ xvfb-run -a make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

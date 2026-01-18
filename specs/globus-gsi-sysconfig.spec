@@ -1,7 +1,7 @@
 Name:		globus-gsi-sysconfig
 %global _name %(tr - _ <<< %{name})
 Version:	9.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI System Config Library
 
 License:	Apache-2.0
@@ -120,6 +120,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

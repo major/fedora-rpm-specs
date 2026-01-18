@@ -1,6 +1,6 @@
 Name:           ls-qpack
 Version:        2.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QPACK compression library for use with HTTP/3
 
 License:        MIT
@@ -98,6 +98,9 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/interop-encode
 %{_libdir}/cmake/ls-qpack/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.6.2-2
 - Set missing math library flag (rhbz#2413628)
 - Set CMAKE_POLICY_VERSION_MINIMUM for CMake-4.0

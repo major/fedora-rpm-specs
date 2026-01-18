@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            https://fritzing.org/
 
 %global version_no 1.0.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
 # The official website says that v1.0.6 was released on 2025-10-21.
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6^20251007-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.6^20251007-2
 - Add a patch to fix build failure with Qt 6.10.1
 

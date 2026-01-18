@@ -1,6 +1,6 @@
 Name:       awstats
 Version:    8.0
-Release:    1%{?dist}
+Release:    3%{?dist}
 Summary:    Advanced Web Statistics
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
@@ -159,6 +159,12 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 22 2025 Tim Jackson <rpm@timj.co.uk> - 8.0-1
 * Update to 8.0
 

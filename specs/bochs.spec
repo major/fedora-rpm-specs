@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           bochs
 Version:        3.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Portable x86 PC emulator
 License:        LGPL-2.0-or-later
 URL:            http://bochs.sourceforge.net/
@@ -202,6 +202,12 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_prefix}/include/bochs/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:    amarok
 Summary: Media player
 Version: 3.3.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -248,6 +248,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 01 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.3.1-3
 - Rebuilt for FFmpeg 8
 

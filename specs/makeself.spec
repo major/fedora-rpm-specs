@@ -1,6 +1,6 @@
 Name:           makeself
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 Summary:        Make self-extractable archives on Unix
 
@@ -62,6 +62,9 @@ ln -s %{name}.sh %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 30 2025 Dridi Boukelmoune <dridi@fedoraproject.org> - 2.6.0-1
 - Bump version to 2.6.0
 

@@ -2,7 +2,7 @@
 
 Name:           liquid-dsp
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Digital Signal Processing Library for Software-Defined Radios
 
 License:        MIT
@@ -67,6 +67,9 @@ popd > /dev/null 2>&1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Richard Shaw <hobbes1069@gmail.com> - 1.7.0-1
 - Update to 1.7.0.
 

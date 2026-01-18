@@ -1,7 +1,7 @@
 Name:		globus-xio-udt-driver
 %global _name %(tr - _ <<< %{name})
 Version:	2.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO UDT Driver
 
 License:	Apache-2.0
@@ -84,6 +84,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

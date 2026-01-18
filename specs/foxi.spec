@@ -7,7 +7,7 @@ Name:           foxi
 License:        MIT
 # 1.4.1 comes from VERSION_NUMBER file
 Version:        1.4.1^git%{date0}.%{shortcommit0}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 # Only for pytorch's arch
 ExclusiveArch:  x86_64 aarch64
@@ -69,6 +69,9 @@ sed -i 's@cmake_minimum_required(VERSION 3.1@cmake_minimum_required(VERSION 3.5@
 %{_libdir}/libfoxi_loader.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1^git20210526.c278588-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 Tom Rix <Tom.Rix@amd.com> - 1.4.1^git20210526.c278588-7
 - Rebuild
 

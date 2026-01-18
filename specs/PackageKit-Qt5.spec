@@ -1,7 +1,7 @@
 Summary:   Qt5 support library for PackageKit
 Name:      PackageKit-Qt5
 Version:   1.1.2
-Release:   3%{?dist}
+Release:   5%{?dist}
 
 License:   LGPL-2.1-only
 URL:       http://www.packagekit.org/
@@ -52,5 +52,11 @@ Requires: PackageKit-Qt5%{?_isa} = %{version}-%{release}
 %{_libdir}/cmake/packagekitqt5/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 1.1.2-3
 - Split off from PackageKit-Qt

@@ -16,7 +16,7 @@
 
 Name:		blis
 Version:	2.0
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
 License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
@@ -372,6 +372,12 @@ export LD_LIBRARY_PATH=`pwd`/serial/lib
 %{macrosdir}/macros.blis-srpm
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan  6 2026 Dave Love <loveshack@fedoraproject.org> - 2.0-3
 - Add patch for gcc16
 - Remove el7 support

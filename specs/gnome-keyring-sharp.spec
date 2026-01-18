@@ -9,7 +9,7 @@
 
 Name:           gnome-keyring-sharp
 Version:        1.0.1
-Release:        0.45.%{svn_rev}svn%{?dist}
+Release:        0.46.%{svn_rev}svn%{?dist}
 Summary:        Mono implementation of GNOME Keyring
 
 License:        MIT
@@ -95,6 +95,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-0.46.133722svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-0.45.133722svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

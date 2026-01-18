@@ -1,6 +1,6 @@
 Name:		perl-Class-Load-XS
 Version:	0.10
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	XS implementation of parts of Class::Load
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Class-Load-XS
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/Class::Load::XS.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

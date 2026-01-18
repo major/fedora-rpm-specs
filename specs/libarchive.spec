@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -240,6 +240,9 @@ run_testsuite
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Packit <hello@packit.dev> - 3.8.4-1
 - Update to version 3.8.4
 - Resolves: rhbz#2419348

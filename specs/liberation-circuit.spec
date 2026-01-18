@@ -10,7 +10,7 @@ URL: https://linleyh.itch.io/liberation-circuit
 %global git_commit_short %(c="%{git_commit_long}"; echo "${c:0:8}")
 
 Version: 1.3
-Release: 19.%{git_date}git%{git_commit_short}%{?dist}
+Release: 20.%{git_date}git%{git_commit_short}%{?dist}
 
 %global repo_url https://github.com/linleyh/%{name}
 Source0: %{repo_url}/archive/%{git_commit_long}/%{name}-%{git_commit_long}.tar.gz
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-20.20220102git19e33635
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-19.20220102git19e33635
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

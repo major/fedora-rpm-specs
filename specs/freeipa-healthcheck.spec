@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -159,6 +159,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Rob Crittenden <rcritten@redhat.com> - 0.19-3
 - Migrate from pkg_resources
 

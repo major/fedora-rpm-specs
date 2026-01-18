@@ -1,6 +1,6 @@
 Name:           OpenColorIO
 Version:        2.4.2
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -171,6 +171,12 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.2-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

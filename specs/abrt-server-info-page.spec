@@ -10,7 +10,7 @@
 Summary: Web page with summary of ABRT services
 Name: abrt-server-info-page
 Version: 1.8
-Release: 23%{?dist}
+Release: 25%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://github.com/marusak/abrt-server-info-page
@@ -70,6 +70,12 @@ cp -a static/* %{buildroot}/%{PYTHONDIR}/abrt-server-info-page/static
 systemctl condrestart httpd
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

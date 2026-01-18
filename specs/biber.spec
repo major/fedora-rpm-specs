@@ -5,7 +5,7 @@ Name:           biber
 # Export $BCF_VERSION from lib/Biber/Constants.pm, bug #2048536
 %define bcfversion 3.11
 Version:        2.21
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
 # bin/biber:        Artistic-2.0
 # data/texmap.xsl:  Artistic-2.0
@@ -269,6 +269,12 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

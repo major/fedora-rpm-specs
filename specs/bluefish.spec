@@ -1,6 +1,6 @@
 %global pkgver 2.2.19
 #global prerel rc1
-%global baserelease 1
+%global baserelease 3
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -157,6 +157,12 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 22 2025 Paul Howarth <paul@city-fan.org> - 2.2.19-1
 - Update to 2.2.19 (rhbz#2416526)
   - Fix a regression in 2.2.18 that could cause a crash when right clicking in

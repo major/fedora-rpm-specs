@@ -1,6 +1,6 @@
 Name:           perl-Dancer2
 Version:        2.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -189,6 +189,9 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 26 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.0.1-2
 - Filter out plugins used in the documentation
 

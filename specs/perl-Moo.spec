@@ -2,7 +2,7 @@
 
 Name:           perl-Moo
 Version:        2.005005
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Minimalist Object Orientation (with Moose compatibility)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -67,8 +67,6 @@ Requires:       perl(mro)
 Requires:       perl(Role::Tiny) >= 1.003003
 
 %{?perl_default_filter}
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}perl\\(Moo::_
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}perl\\(Moo::_
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Devel::GlobalDestruction|Import::Into|Module::Runtime|Role::Tiny)\\)$
 
@@ -98,6 +96,9 @@ not quite- two thirds of Moose.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.005005-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.005005-10
 - Update dependencies
 

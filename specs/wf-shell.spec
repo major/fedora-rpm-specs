@@ -5,10 +5,10 @@
 %global gvc_shortcommit %(c=%{gvc_commit}; echo ${c:0:7})
 
 Name:           wf-shell
-Version:        0.9.0
+Version:        0.10.0
 %forgemeta
 Release:        %autorelease
-Summary:        GTK3-based panel for wayfire
+Summary:        A GTK4-based panel for wayfire
 
 License:        MIT
 URL:            %{forgeurl}
@@ -17,8 +17,7 @@ Source1:        https://github.com/GNOME/libgnome-volume-control/tarball/%{gvc_c
 
 BuildRequires:  gcc-c++
 BuildRequires:  glm-devel
-BuildRequires:  meson >= 0.51.0
-
+BuildRequires:  meson
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbusmenu-gtk3-0.4)
 BuildRequires:  pkgconfig(gtk-layer-shell-0) >= 0.6
@@ -27,12 +26,9 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(wayfire)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
-BuildRequires:  pkgconfig(wf-config) >= 0.8.0
-
+BuildRequires:  pkgconfig(wf-config) >= 0.10.0
 Recommends:     wayland-logout
-
 Requires:       hicolor-icon-theme
-
 Provides:       bundled(gvc) = 0.git%{gvc_shortcommit}
 
 %description

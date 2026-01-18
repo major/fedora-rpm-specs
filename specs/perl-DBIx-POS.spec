@@ -1,6 +1,6 @@
 Name:           perl-DBIx-POS
 Version:        0.03
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Define a dictionary of SQL statements in a POD dialect (POS)
 # There was some code that was taken from Class::Singleton, which was Artistic only at the time.
 # That code has since been relicensed to GPL+ or Artistic.
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:       fbterm
 Version:    1.7
-Release:    33%{?dist}
+Release:    34%{?dist}
 License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/fbterm/
 Source0:    https://github.com/fujiwarat/fbterm/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -96,6 +96,9 @@ setcap 'cap_sys_tty_config+ep' %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

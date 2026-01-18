@@ -1,6 +1,6 @@
 Name:       jalv
 Version:    1.6.8
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    A simple but fully featured LV2 host for Jack
 
 License:    MIT
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.gtk3.1.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

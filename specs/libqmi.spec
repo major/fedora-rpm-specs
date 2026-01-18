@@ -1,6 +1,6 @@
 Name: libqmi
 Version: 1.36.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Support library to use the Qualcomm MSM Interface (QMI) protocol
 License: LGPL-2.1-or-later
 URL: https://gitlab.freedesktop.org/mobile-broadband/libqmi/
@@ -95,6 +95,9 @@ cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

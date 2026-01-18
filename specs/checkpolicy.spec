@@ -4,7 +4,7 @@
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 3.9
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/checkpolicy-%{version}.tar.gz.asc
@@ -63,4 +63,10 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %{_bindir}/sedispol
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

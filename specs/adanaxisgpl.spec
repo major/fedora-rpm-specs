@@ -1,7 +1,7 @@
 Summary:        Action game in four spatial dimensions
 Name:           adanaxisgpl
 Version:        1.2.5
-Release:        53%{?dist}
+Release:        55%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.mushware.com/
@@ -94,6 +94,12 @@ install -p -m 644 x11/icons/%{name}-48.png %{buildroot}%{_datadir}/icons/hicolor
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Sep 28 2025 Hans de Goede <hans@hansg.org> - 1.2.5-53
 - Fix FTBFS (rhbz#2336268, rhbz#2339873, rhbz#2384448)
 

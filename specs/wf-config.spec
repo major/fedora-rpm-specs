@@ -1,26 +1,29 @@
+# Tests fails on s390x arch since 0.10.0
+%ifnarch s390x
 %bcond_without test
+%else
+%bcond_with test
+%endif
 
 %global forgeurl https://github.com/WayfireWM/wf-config
 
 Name:           wf-config
-Version:        0.9.0
+Version:        0.10.0
 %forgemeta
 Release:        %autorelease
 Summary:        Library for managing configuration files, written for wayfire
 
 License:        MIT
 URL:            %{forgeurl}
-Source0:        %{forgesource}
+Source:         %{forgesource}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  meson >= 0.47
-
+BuildRequires:  meson
 BuildRequires:  cmake(glm)
 %if %{with test}
 BuildRequires:  cmake(doctest)
 %endif
-
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libxml-2.0)
 

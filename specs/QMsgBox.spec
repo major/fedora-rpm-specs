@@ -4,7 +4,7 @@
 
 Name:           QMsgBox
 Version:        0
-Release:        30.20130830git%{shortcommit}%{?dist}
+Release:        32.20130830git%{shortcommit}%{?dist}
 Summary:        Solves a problem that prevents qt message icons from being displayed
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -141,6 +141,12 @@ ln -s %{_includedir}/qmsgbox.h %{buildroot}%{_includedir}/QMsgBox.h
 %{_libdir}/libQMsgBox-qt5.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-32.20130830git94677dc
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-31.20130830git94677dc
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-30.20130830git94677dc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

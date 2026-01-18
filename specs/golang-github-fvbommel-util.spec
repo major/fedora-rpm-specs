@@ -21,7 +21,7 @@ Go utility packages.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Go utility packages
 
 License:        MIT
@@ -65,6 +65,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.0.3-17
 - rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-Autouse
 Version:        2.02
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run-time class loading on first method call
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Autouse
@@ -82,6 +82,9 @@ AUTOMATED_TESTING=1 PERL_DL_NONLAZY=1 %{__perl} "-MExtUtils::Command::MM" "-e" "
 %{_mandir}/man3/Class::Autouse*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 19 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.02-1
 - 2.02 bump (rhbz#2389107)
 

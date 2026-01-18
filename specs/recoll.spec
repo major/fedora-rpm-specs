@@ -17,7 +17,7 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.43.9
+Version:        1.43.10
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -215,7 +215,6 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_mandir}/man1/recoll.1*
 %{_mandir}/man1/recollq.1*
 %{_mandir}/man1/recollindex.1*
-%{_mandir}/man1/xadump.1*
 %{_mandir}/man5/recoll.conf.5*
 %{_unitdir}/recollindex@.service
 %{_userunitdir}/recollindex.service
@@ -253,6 +252,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Fri Jan 16 2026 Terje Rosten <terjeros@gmail.com> - 1.43.10-1
+- 1.43.10
+
 * Sun Jan 04 2026 Terje Rosten <terjeros@gmail.com> - 1.43.9-1
 - 1.43.9
 

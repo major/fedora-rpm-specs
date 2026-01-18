@@ -2,7 +2,7 @@
 
 Name:           mmc
 Version:        1.7.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://mcx.space/mmc
@@ -223,6 +223,9 @@ mv %{buildroot}/%{octpkgdir}/*.mex %{buildroot}/%{octpkglibdir}/%{octave_host}-%
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.7.9-16
 - Rebuild for Octave 10.2
 

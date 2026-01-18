@@ -3,7 +3,7 @@
 
 Name:           battray
 Version:        2.3
-Release:        35%{?dist}
+Release:        37%{?dist}
 Summary:        Tool for displaying a laptop's battery status in the system traiy
 License:        MIT
 URL:            https://github.com/arp242/battray
@@ -42,6 +42,12 @@ low, dim the screen when you switch from AC to battery, etc.
 %license LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3-35
 - Rebuilt for Python 3.14.0rc3 bytecode
 

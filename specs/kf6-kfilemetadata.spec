@@ -3,7 +3,7 @@
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        6.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -98,6 +98,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 farchord@gmail.com - 6.22.0-1
 - 6.22.0
 

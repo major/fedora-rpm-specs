@@ -1,6 +1,6 @@
 Name:           perl-Devel-Refcount
 Version:        0.10
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Obtain the REFCNT value of a referent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Refcount
@@ -57,6 +57,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::Refcount.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

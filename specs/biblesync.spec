@@ -3,7 +3,7 @@
 
 Name:		biblesync
 Version:	2.1.0
-Release:	15%{?dist}
+Release:	17%{?dist}
 Summary:	A Cross-platform library for sharing Bible navigation
 
 License:	LicenseRef-Fedora-Public-Domain
@@ -70,6 +70,12 @@ popd
 %{_mandir}/man7/biblesync.7*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Greg Hellings <greg.hellings@gmail.com> - 2.1.0-15
 - Fix for ninja generator (rhbz#2380968)
 - Fix for FTBFS with CMake 4.0 (rhbz#2380477)

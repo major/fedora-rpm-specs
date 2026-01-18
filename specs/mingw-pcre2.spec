@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       10.46
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -177,6 +177,9 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.46-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 10.46-1
 - Update to 10.46
 

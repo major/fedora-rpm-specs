@@ -1,6 +1,6 @@
 Name:           libykneomgr
 Version:        0.1.8
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        YubiKey NEO CCID Manager C Library
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

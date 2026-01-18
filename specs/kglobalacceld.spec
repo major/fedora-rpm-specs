@@ -1,7 +1,7 @@
 Name:    kglobalacceld
 Summary: Daemon providing Global Keyboard Shortcut functionality
 Version: 6.5.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -72,6 +72,9 @@ Requires:       qt6-qtbase-devel
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 farchord@gmail.com - 6.5.90-1
 - 6.5.90
 

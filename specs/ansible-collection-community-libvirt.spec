@@ -10,7 +10,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -66,6 +66,12 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

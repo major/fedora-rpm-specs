@@ -19,7 +19,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 6.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -329,6 +329,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Pavel Raiskup <praiskup@redhat.com> 6.6-1
 - Make sure to install BuildRequires defined by macros (frostyx@email.cz)
 - unbreq plugin: performs action only when build is taking place (marian.koncek@mailbox.org)

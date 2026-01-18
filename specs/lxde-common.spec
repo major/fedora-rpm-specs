@@ -38,7 +38,7 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		5%{?dist}
+Release:		6%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -237,6 +237,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-5
 - Change openbox window border style on F-43+
 

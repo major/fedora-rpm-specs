@@ -42,7 +42,7 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 
 Name:			elk
 Version:		9.2.12
-Release:		7%{?dist}
+Release:		8%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -319,6 +319,9 @@ mv tests.orig tests
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.12-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		gamemode
 Version:	1.8.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Optimize system performance for games on demand
 License:	BSD-3-Clause
 URL:		https://github.com/FeralInteractive/gamemode
@@ -78,6 +78,9 @@ Files for development with %{name}.
 %{_libdir}/libgamemode*.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

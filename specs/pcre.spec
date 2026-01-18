@@ -2,7 +2,7 @@
 #%%global rcversion RC1
 Name:       pcre
 Version:    8.45
-Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}.9
+Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}.10
 %global myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
 ## Source package only:
@@ -261,6 +261,9 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcretest.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.45-1.10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.45-1.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

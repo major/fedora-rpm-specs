@@ -5,7 +5,7 @@
 Summary: X.Org X11 libFS runtime library
 Name: libFS
 Version: 1.0.9
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_libdir}/pkgconfig/libfs.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

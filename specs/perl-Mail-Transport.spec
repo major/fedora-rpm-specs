@@ -1,6 +1,6 @@
 Name:		perl-Mail-Transport
 Version:	4.01
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Email message exchange
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Transport
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/Mail::Transport::Sendmail.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-1
 - 4.01 bump (rhbz#2421439)
 

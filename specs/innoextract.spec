@@ -16,7 +16,7 @@
 
 Name:           innoextract
 Version:        1.9
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        zlib
 Summary:        Tool to extract installers created by Inno Setup
 Url:            https://constexpr.org/innoextract/
@@ -56,6 +56,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/innoextract.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Jonathan Wakely <jwakely@fedoraproject.org> - 1.9-18
 - Patched for Boost 1.90
 

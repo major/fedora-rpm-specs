@@ -1,6 +1,6 @@
 Name:           gstreamer1-plugin-libav
 Version:        1.26.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer FFmpeg/LibAV plugin
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
@@ -72,6 +72,9 @@ plugin.
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.26.10-1
 - 1.26.10
 

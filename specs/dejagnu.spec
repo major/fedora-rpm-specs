@@ -1,7 +1,7 @@
 Summary: A front end for testing other programs
 Name: dejagnu
 Version: 1.6.3
-Release: 13%{?dist}
+Release: 15%{?dist}
 Epoch: 1
 # Note: baseboards/riscv-sim.exp is GPL 2.0 or later
 # GFDL-1.3-or-later: Everything in doc/
@@ -63,6 +63,12 @@ install -D -m 644 doc/dejagnu.info $RPM_BUILD_ROOT/%{_infodir}/%{name}.info
 %{_infodir}/dejagnu*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

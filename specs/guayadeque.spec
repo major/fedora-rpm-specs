@@ -9,10 +9,10 @@
 Name:           guayadeque
 %if 0%{?usesnapshot}
 Version:        0.6.2
-Release:        0.5.beta6.git%{shortcommit0}%{dist}
+Release:        0.6.beta6.git%{shortcommit0}%{dist}
 %else
 Version:        0.7.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.5-2
 - Updates to move from Github to Codeberg
 

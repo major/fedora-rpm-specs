@@ -2,7 +2,7 @@
 
 Name:           git-archive-all
 Version:        1.23.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Archive git repository with its submodules
 
 License:        MIT
@@ -44,6 +44,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.23.1-14
 - Rebuilt for Python 3.14.0rc3 bytecode
 

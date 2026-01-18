@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.28%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.29%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -176,6 +176,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.29.svn1909
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.28.svn1909
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

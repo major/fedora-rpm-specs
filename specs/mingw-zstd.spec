@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.5.7
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -77,6 +77,9 @@ MINGW64_CMAKE_ARGS="-DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/%{pkgname}"
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

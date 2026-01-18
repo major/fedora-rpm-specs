@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Builder
 Version:        0.017
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Abstract actions and plans for the ExtUtils-Builder framework
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/ExtUtils::Builder*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 20 2025 Charles R. Anderson <cra@alum.wpi.edu> 0.017-3
 - BR: coreutils for _fixperms macro
 - BR: perl(blib) instead of perl-blib

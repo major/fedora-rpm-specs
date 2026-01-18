@@ -2,7 +2,7 @@
 
 Name:             decentxml
 Version:          1.4
-Release:          42%{?dist}
+Release:          44%{?dist}
 Summary:          XML parser optimized for round-tripping and code reuse
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -96,6 +96,12 @@ mv $evil.nw $evil
 %license LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 1.4-41
 - Rrevert to jdk21
 

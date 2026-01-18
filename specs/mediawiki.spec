@@ -1,7 +1,7 @@
 Summary: A wiki engine
 Name: mediawiki
 Version: 1.44.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
 Source0: https://releases.wikimedia.org/mediawiki/1.44/%{name}-%{version}.tar.gz
@@ -262,6 +262,9 @@ cd tests/phpunit
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Michael Cronenworth <mike@cchtml.com> - 1.44.3-2
 - Fix typo in Provides
 

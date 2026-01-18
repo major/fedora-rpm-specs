@@ -6,7 +6,7 @@
 Name:          mingw-%{pkgname}
 Summary:       MinGW Windows %{pkgname} library
 Version:       2.14.1
-Release:       7%{?dist}
+Release:       8%{?dist}
 BuildArch:     noarch
 
 License:       GPL-3.0-only
@@ -146,6 +146,9 @@ mv %{buildroot}%{mingw64_libdir}/qscintilla2_qt5.dll %{buildroot}%{mingw64_bindi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

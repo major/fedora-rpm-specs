@@ -16,7 +16,7 @@ A JMESPath implementation in Go.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Golang implementation of JMESPath
 
 # Upstream license specification: Apache-2.0
@@ -64,6 +64,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0.4.0-19
 - Rebuild for golang 1.25.2
 

@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -184,6 +184,9 @@ fi
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 22 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.9.0-1
 - Update to kbd-2.9.0
   Resolves: #2393145

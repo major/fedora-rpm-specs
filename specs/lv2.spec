@@ -1,6 +1,6 @@
 Name:           lv2
 Version:        1.18.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Audio Plugin Standard
 
 # lv2specgen template.html is CC-AT-SA
@@ -133,6 +133,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %doc %{_vpath_builddir}/doc/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       eureka
 Version:    2.0.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A cross-platform map editor for the classic DOOM games
 
 License:    GPL-2.0-or-later
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

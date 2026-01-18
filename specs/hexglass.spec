@@ -1,6 +1,6 @@
 Name:           hexglass
 Version:        1.2.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Block falling puzzle game based on a hexagonal grid 
 Summary(de):    Puzzlespiel mit fallenden Blöcken auf einem sechseckigen Raster
 
@@ -111,6 +111,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

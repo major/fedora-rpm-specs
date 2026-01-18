@@ -2,7 +2,7 @@ Name: mythes-hu
 Summary: Hungarian thesaurus
 %global upstreamid 20101019
 Version: 0.%{upstreamid}
-Release: 32%{?dist}
+Release: 33%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1283/9/dict-hu.oxt
 URL: http://extensions.services.openoffice.org/project/hu_dicts
 #bundled but unused spell-checking stuff is under GPLv2+ or LGPLv2+ or MPLv1.1
@@ -31,6 +31,9 @@ cp -p th_hu_HU_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20101019-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20101019-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

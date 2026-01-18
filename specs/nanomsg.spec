@@ -1,6 +1,6 @@
 Name:           nanomsg
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Socket library that provides several common communication patterns
 
 License:        MIT
@@ -79,6 +79,9 @@ sed -i 's/1\.2\.1/%{version}/' .version
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Jerry James  <loganjerry@gmail.com> - 1.2.2-1
 - Update to 1.2.2 (rhbz#2401721)
 - Adds support for cmake 4.0 (rhbz#2380925)

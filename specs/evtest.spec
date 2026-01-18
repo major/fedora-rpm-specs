@@ -2,7 +2,7 @@
 
 Name:           evtest
 Version:        1.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Event device test program
 
 License:        GPL-2.0-or-later
@@ -34,6 +34,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/evtest.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 26 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.36-1
 - evtest 1.36
 

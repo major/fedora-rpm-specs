@@ -16,7 +16,7 @@ from HAML and Jade}
 
 Name:           %{goname}
 Version:        0
-Release:        0.29%{?dist}
+Release:        0.30%{?dist}
 Summary:        Elegant templating engine for Go Programming Language
 
 License:        MIT
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.29
 - rebuild
 

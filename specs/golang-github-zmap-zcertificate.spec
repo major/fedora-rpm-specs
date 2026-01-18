@@ -14,7 +14,7 @@ ZCertificate parses X.509 certificates and runs ZLint.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Command line utility for parsing certificates
 
 # Upstream license specification: Apache-2.0
@@ -69,6 +69,9 @@ popd
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.0.1-19
 - rebuild
 

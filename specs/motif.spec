@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}.tar.gz
@@ -157,6 +157,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Olivier Fourdan <ofourdan@redhat.com> - 2.3.8-2
 - Fix memleak in XmString from:
   https://sourceforge.net/p/motif/code/merge-requests/10/

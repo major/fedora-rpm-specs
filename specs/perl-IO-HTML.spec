@@ -1,6 +1,6 @@
 Name:           perl-IO-HTML
 Version:        1.004
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Open an HTML file with automatic character set detection
 # examples/detect-encoding.pl: Public Domain
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

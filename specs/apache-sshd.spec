@@ -4,7 +4,7 @@
 Epoch:          1
 Name:           apache-sshd
 Version:        2.16.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Apache SSHD
 
 # One file has ISC licensing:
@@ -101,4 +101,10 @@ sed "s;<bouncycastle.version>.*;<bouncycastle.version>%{bouncycastleVer}</bouncy
 %license LICENSE.txt NOTICE.txt assembly/src/main/legal/licenses/jbcrypt.txt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.16.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.16.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

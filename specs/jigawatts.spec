@@ -8,7 +8,7 @@
 
 Name:    %{uname}
 Version: 0.2
-Release: 0.17.%{commitdate}%{shortcommit}%{?dist}
+Release: 0.18.%{commitdate}%{shortcommit}%{?dist}
 Summary: Java CRIU helper
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
 License: LicenseRef-Callaway-GPLv2-with-exceptions
@@ -85,6 +85,9 @@ cp ./target/libJigawatts.so %{buildroot}/%{_libdir}/
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-0.18.202108276c78499
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.2-0.17.202108276c78499
 - Rebuilt for java-25-openjdk as preffered jdk
 

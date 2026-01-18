@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        5.3.9
 # can only be reset when all subpkgs bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP/2 library
 
 License:        BSD-3-Clause
@@ -161,6 +161,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

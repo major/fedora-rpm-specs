@@ -1,7 +1,7 @@
 Summary:        Generates barcodes from text strings
 Name:           barcode
 Version:        0.98
-Release:        52%{?dist}
+Release:        54%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.gnu.org/software/barcode/
 Source0:        https://ftp.gnu.org/gnu/barcode/%{name}-%{version}.tar.gz
@@ -65,6 +65,12 @@ make # doesn't support %%{?_smp_mflags}
 %{_mandir}/man3/barcode.3*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.98-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.98-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.98-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

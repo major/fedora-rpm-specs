@@ -5,7 +5,7 @@
 
 Name:           lib%{libname}
 Version:        0
-Release:        37.20161213git%{shortcommit}%{?dist}
+Release:        38.20161213git%{shortcommit}%{?dist}
 Summary:        Fast C parser using Ragel to generate the state machine.
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ CFLAGS="$CFLAGS -D__STDC_WANT_LIB_EXT2__"
 %{_libdir}/%{name}.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-38.20161213git03e8a3a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 0-37.20161213git03e8a3a
 - Rebuilt for icu 77.1
 

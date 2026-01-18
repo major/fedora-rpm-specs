@@ -1,6 +1,6 @@
 Name:           ncmpcpp
 Version:        0.10.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Featureful ncurses based MPD client inspired by ncmpc
 License:        GPL-2.0-or-later
 URL:            http://ncmpcpp.rybczak.net/
@@ -62,6 +62,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.10.1-7
 - Rebuilt for Boost 1.90
 

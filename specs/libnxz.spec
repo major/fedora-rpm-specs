@@ -4,7 +4,7 @@
 
 Name:		libnxz
 Version:	0.64
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Zlib implementation for POWER processors
 License:    Apache-2.0 OR GPL-2.0-or-later
 Url:		https://github.com/libnxz/power-gzip
@@ -88,6 +88,9 @@ install -m0644 -D libnxz.sysusers.conf %{buildroot}%{_sysusersdir}/libnxz.conf
 %{_libdir}/libnxz.la
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@ License:	GPL-2.0-only
 %global		releasenum 2025-05-14b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	2%{?dist}
+Release:	4%{?dist}
 
 %global php_min_version 7.4
 
@@ -276,6 +276,12 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250514b-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250514b-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250514b-2
 - Fix "class SimplePie\SimplePie not found" error
 - Add smoke test

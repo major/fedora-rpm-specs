@@ -1,6 +1,6 @@
 Name:           dd2
 Version:        0.2.2
-Release:        40%{?dist}
+Release:        42%{?dist}
 Summary:        Dodgin' Diamond 2 - Shoot'em up arcade game
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -65,6 +65,12 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.2.2-40
 - Fix FTBFS (rhbz#2340033, rhbz#2384532)
 

@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       6.0.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 # The lxml project is licensed under BSD-3-Clause
@@ -89,6 +89,9 @@ export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive"
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 23 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-1
 - Update to 6.0.2
 

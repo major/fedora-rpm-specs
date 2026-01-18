@@ -61,7 +61,7 @@ CVOutline:Outline_Tests
 
 Name:           libopenshot
 Version:        0.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -177,6 +177,9 @@ export QT_QPA_PLATFORM=offscreen
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

@@ -54,7 +54,7 @@ Japanese text arts correctly.
 
 Name:		%{archivename}
 Version:	2.90
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	Japanese font for text arts
 
 # monafont itself is under public domain
@@ -262,6 +262,9 @@ fi
 %{_datadir}/appdata/%{fontname}-vlgothic.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.90-43
 - Rebuild for new vlgothic
 

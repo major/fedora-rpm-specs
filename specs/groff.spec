@@ -3,7 +3,7 @@
 Summary: A document formatting system
 Name: groff
 Version: 1.23.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -501,6 +501,9 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 24 2025 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-11
 - Revert the `psutils` removal
 

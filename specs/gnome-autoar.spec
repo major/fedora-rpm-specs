@@ -1,6 +1,6 @@
 Name:           gnome-autoar
 Version:        0.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Archive library
 
 License:        LGPL-2.1-or-later
@@ -79,6 +79,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

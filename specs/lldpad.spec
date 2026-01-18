@@ -7,7 +7,7 @@
 
 Name:               lldpad
 Version:            1.1.0
-Release:            15.git%{checkout}%{?dist}
+Release:            16.git%{checkout}%{?dist}
 Summary:            Intel LLDP Agent
 License:            GPL-2.0-only
 URL:                http://open-lldp.org/
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_libdir}/liblldp_clif.la
 %{_libdir}/liblldp_clif.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16.git85e5583
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Tom Callaway <spot@fedoraproject.org> - 1.1.0-15.git85e5583
 - rebuild for new libconfig
 

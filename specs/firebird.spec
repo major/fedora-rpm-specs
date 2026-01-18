@@ -10,7 +10,7 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        SQL relational database management system
 # Automatically converted from old format: Interbase - review is highly recommended.
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3.1683-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.3.1683-1
 - 5.0.3.1683
 

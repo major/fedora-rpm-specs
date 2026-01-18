@@ -4,7 +4,7 @@
 Summary: 	Open Fingerprint Architecture library	
 Name:		libofa	
 Version:	0.9.3	
-Release:	52%{?dist}
+Release:	53%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -96,6 +96,9 @@ rm -rf examples/.deps examples/Makefile examples/*.gcc43
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

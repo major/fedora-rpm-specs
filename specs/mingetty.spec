@@ -3,7 +3,7 @@ Name:       mingetty
 Version:    1.08
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
-Release:    40%{?dist}
+Release:    41%{?dist}
 URL: http://sourceforge.net/projects/mingetty/
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Bug #635412
@@ -47,6 +47,9 @@ install -m 0644 mingetty.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
 %{_mandir}/man8/mingetty.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

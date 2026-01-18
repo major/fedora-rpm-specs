@@ -19,7 +19,7 @@ Name:           %{goname}
 # Upstream includes release notes for past releases, but does not post 
 # tarballs or use git tags, so we ship the latest Git snapshot.
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A BibTeX source for fzf
 
 License:        BSD-3-Clause
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.1-19
 - rebuild
 

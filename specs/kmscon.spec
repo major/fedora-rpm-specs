@@ -1,6 +1,6 @@
 Name:           kmscon
 Version:        9.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
 URL:            https://github.com/kmscon/kmscon/
@@ -85,6 +85,9 @@ mod-gltex
 %{_libdir}/kmscon/mod-gltex.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 28 2025 Jocelyn Falempe <jfalempe@redhat.com> - 9.2.1
 - Bump version to 9.2.1
   * split the package into kmscon and kmscon-gl

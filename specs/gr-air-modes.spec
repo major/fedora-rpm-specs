@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.123.%{git_suffix}%{?dist}
+Release:          0.124.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:          GPL-3.0-or-later
 BuildRequires:    cmake
@@ -90,6 +90,9 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.124.20200807git9e2515a5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0-0.123.20200807git9e2515a5
 - Temporally dropped qwt requirement (until ported to qt5)
 

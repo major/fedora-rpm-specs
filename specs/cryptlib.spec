@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    16%{?dist}
+Release:    18%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -346,6 +346,12 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.8-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.8-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 05 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-16
 - rename README-manual in spec file [Bug 2412433]
 

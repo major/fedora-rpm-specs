@@ -1,6 +1,6 @@
 Name:          flpsed
 Version:       0.7.3
-Release:       25%{?dist}
+Release:       26%{?dist}
 Summary:       WYSIWYG pseudo PostScript editor
 
 License:       GPL-1.0-or-later
@@ -48,6 +48,9 @@ update-desktop-database &> /dev/null || :
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

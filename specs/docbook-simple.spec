@@ -1,6 +1,6 @@
 Name: docbook-simple
 Version: 1.1
-Release: 35%{?dist}
+Release: 37%{?dist}
 Summary: Simplified DocBook is a small subset of the DocBook XML DTD
 License: DocBook-DTD
 URL: http://www.oasis-open.org/docbook/xml/simple/
@@ -155,6 +155,12 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

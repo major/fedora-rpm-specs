@@ -2,7 +2,7 @@
 
 Name:           mingw-atkmm
 Version:        2.28.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows C++ interface for the ATK library
 
 License:        LGPL-2.0-or-later
@@ -100,6 +100,9 @@ quickly create complex user interfaces.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

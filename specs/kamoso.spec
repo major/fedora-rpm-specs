@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later
 URL:     https://userbase.kde.org/Kamoso
@@ -103,6 +103,9 @@ xvfb-run -a bash -c "%ctest"
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

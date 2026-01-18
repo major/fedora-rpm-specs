@@ -4,7 +4,7 @@
 Name:    console-image-viewer
 
 Version: 1.2
-Release: 27%{?dist}
+Release: 29%{?dist}
 Summary: Terminal image viewer
 
 License:  MIT
@@ -61,6 +61,12 @@ gzip -c %{SOURCE1}  > $RPM_BUILD_ROOT/%{_mandir}/man1/%{launcher}.1.gz
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.2-27
 - Rebuilt for java-25-openjdk as preffered jdk
 

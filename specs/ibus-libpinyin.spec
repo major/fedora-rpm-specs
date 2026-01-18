@@ -1,6 +1,6 @@
 Name:       ibus-libpinyin
 Version:    1.16.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
@@ -75,6 +75,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus-libpinyin/default.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.16.5-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

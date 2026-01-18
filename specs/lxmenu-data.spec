@@ -2,7 +2,7 @@
 
 Name:           lxmenu-data
 Version:        0.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Data files for the LXDE menu
 
 # SPDX confirmed
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.7-1
 - 0.1.7
 

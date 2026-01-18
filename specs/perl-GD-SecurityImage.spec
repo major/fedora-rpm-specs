@@ -1,6 +1,6 @@
 Name:           perl-GD-SecurityImage
 Version:        1.75
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Security image (captcha) generator
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 make test
 %{_mandir}/man3/GD*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.10.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/CentOS/common/centpkg
@@ -81,6 +81,12 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.1-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

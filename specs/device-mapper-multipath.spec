@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.13.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 # readline uses GPL-3.0-only
 License: GPL-2.0-only AND GPL-3.0-only
@@ -234,6 +234,12 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 13 2025 Benjamin Marzinski <bmarzins@redhat.com> - 0.13.0-2
 - Move STI tests to TMT
 

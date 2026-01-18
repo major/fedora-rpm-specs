@@ -7,7 +7,7 @@
 
 Name:           gudev-sharp
 Version:        0.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 # This is necessary because we went to 3.0 too soon.
 Epoch:          1
 Summary:        C# bindings for gudev
@@ -71,6 +71,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT/%{_prefix}/lib/pkgcon
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

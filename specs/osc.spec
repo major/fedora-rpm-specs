@@ -12,7 +12,7 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 1
+%global baserelease 2
 
 Name:           osc
 Summary:        Open Build Service Commander
@@ -169,6 +169,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-465.2.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Dan Čermák <dan.cermak@posteo.net> - 1.22.0-465.2.1
 - New upstream release 1.22.0, fixes rhbz#2413817
 

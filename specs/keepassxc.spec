@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform password manager
 # Automatically converted from old format: Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain - review is highly recommended.
 License:        BSL-1.0 AND LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain
@@ -219,6 +219,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 2.7.11-1
 - 2.7.11 release
 - Add org.keepassxc.KeePassXC.appdata.xml.patch

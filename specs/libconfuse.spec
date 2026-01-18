@@ -1,6 +1,6 @@
 Name:           libconfuse
 Version:        3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A configuration file parser library
 
 License:        ISC
@@ -86,6 +86,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/confuse
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

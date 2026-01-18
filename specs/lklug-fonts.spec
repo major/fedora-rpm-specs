@@ -6,7 +6,7 @@ BuildRequires: make
 # recent file as version.
 %global cvsdate 20090803
 Version: 0.6
-Release: 35.%{cvsdate}cvs%{?dist}
+Release: 36.%{cvsdate}cvs%{?dist}
 URL:    http://sinhala.sourceforge.net/
 
 %global fontlicense       GPL-2.0-only
@@ -50,6 +50,9 @@ make
 %fontfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-36.20090803cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 08 2025 Sudip Shil <sshil@redhat.com> - 0.6-35.20090803cvs
 - tmt test cases added
 

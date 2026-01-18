@@ -3,7 +3,7 @@
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
 Version:       9.0.%{patchlevel}
-Release:       39%{?dist}
+Release:       41%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckaut2.h appears to be covered by three licenses:
 #   The blanket license in COPYING.TXT and ckcmai.c, which is BSD three-clause
@@ -90,6 +90,12 @@ install -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           fedora-gnat-project-common
 Version:        3.22
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Files shared by Ada libraries
 Summary(sv):    Gemensamma filer för adabibliotek
 
@@ -59,6 +59,9 @@ cp -p macros.gnat %{buildroot}%{rpmmacrodir}/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

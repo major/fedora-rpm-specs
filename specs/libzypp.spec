@@ -17,8 +17,8 @@ Requires:       %{_bindir}/%{1}
 # End macro
 
 Name:           libzypp
-Version:        17.36.5
-Release:        2%{?dist}
+Version:        17.38.1
+Release:        1%{?dist}
 Summary:        A package management library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -31,6 +31,8 @@ Source0:        https://github.com/openSUSE/%{name}/archive/%{version}/%{name}-%
 # Patches proposed upstream
 
 # Fedora specific patches
+## Squid installs stuff in the wrong directory (rhbz#2430344)
+Patch1001:      zypp-logic-squidproxy-path-check.patch
 
 BuildRequires:  %{_bindir}/asciidoctor
 BuildRequires:  %{_bindir}/xsltproc
@@ -50,6 +52,7 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libproxy-1.0)
+BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(openssl) >= 1.1
 BuildRequires:  pkgconfig(readline) >= 5.1
 BuildRequires:  pkgconfig(sigc++-2.0)
@@ -63,6 +66,7 @@ BuildRequires:  libsolv-tools >= %{min_libsolv_ver}
 # For tests
 BuildRequires:  fcgi-devel
 BuildRequires:  nginx
+BuildRequires:  squid
 BuildRequires:  vsftpd
 
 # Ensure specific functionality is enabled for libsolv that libzypp needs
@@ -104,6 +108,7 @@ Provides:       libzypp(plugin:system) = 1
 Provides:       libzypp(plugin:urlresolver) = 0
 Provides:       libzypp(plugin:repoverification) = 0
 Provides:       libzypp(repovarexpand) = 1.1
+Provides:       libzypp(econf) = 0
 Requires:       zypp-common = %{version}-%{release}
 BuildArch:      noarch
 
@@ -144,16 +149,26 @@ developing applications that use %{name}.
 find -type f -exec sed -i -e "s|/usr/lib/zypp|%{_libexecdir}/zypp|g" {} ';'
 find -type f -exec sed -i -e "s|\${CMAKE_INSTALL_PREFIX}/lib/zypp|\${CMAKE_INSTALL_PREFIX}/libexec/zypp|g" {} ';'
 
-%build
+# Update tests to use correct vendorconfdir
+# Cf. https://github.com/openSUSE/libzypp/issues/693
+find -type f -exec sed -i -e "s|/usr/etc|%{_datadir}|g" {} ';'
+find -type f -exec sed -i -e "s|\${CMAKE_INSTALL_PREFIX}/etc|\${CMAKE_INSTALL_PREFIX}/share|g" {} ';'
+
+
+%conf
 %cmake \
          -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+         -DZYPPCONFDIR=%{_datadir} \
          -DDOC_INSTALL_DIR=%{_docdir} \
          -DENABLE_BUILD_DOCS=ON \
          -DENABLE_BUILD_TESTS=ON \
          -DENABLE_BUILD_TRANS=ON \
-         -DENABLE_PREVIEW_SINGLE_RPMTRANS_AS_DEFAULT_FOR_ZYPPER=ON \
-         -DENABLE_ZCHUNK_COMPRESSION=ON
+         -DENABLE_VISIBILITY_HIDDEN=ON \
+         -DENABLE_ZCHUNK_COMPRESSION=ON \
+         -DENABLE_ZSTD_COMPRESSION=ON \
+         %{nil}
 
+%build
 %cmake_build
 
 %install
@@ -181,11 +196,18 @@ mkdir -p %{buildroot}%{_sharedstatedir}/zypp
 mkdir -p %{buildroot}%{_localstatedir}/log/zypp
 mkdir -p %{buildroot}%{_localstatedir}/cache/zypp
 
+# system and vendor config supported:
+mkdir -p %{buildroot}%{_sysconfdir}/zypp/zypp.conf.d
+mkdir -p %{buildroot}%{_datadir}/zypp/zypp.conf.d
+
+# Create empty file for config
+touch %{buildroot}%{_sysconfdir}/zypp/zypp.conf
+
 # Remove needreboot file, we don't have a Fedora-specific one yet...
 rm %{buildroot}%{_sysconfdir}/zypp/needreboot
 
 %check
-pushd %{_vpath_builddir}/tests
+pushd %{_vpath_builddir}
 # Tests need to be compiled first and cannot be run in parallel
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:${LD_LIBRARY_PATH} ctest -VV --output-on-failure . || :
 popd
@@ -229,7 +251,9 @@ end
 %dir %{_sysconfdir}/zypp/needreboot.d
 %dir %{_sysconfdir}/zypp/credentials.d
 %dir %{_sysconfdir}/zypp/repos.d
-%config(noreplace) %{_sysconfdir}/zypp/zypp.conf
+%dir %{_sysconfdir}/zypp/zypp.conf.d
+%{_sysconfdir}/zypp/zypp.conf.README
+%ghost %config(noreplace) %{_sysconfdir}/zypp/zypp.conf
 %config(noreplace) %{_sysconfdir}/zypp/systemCheck
 %config(noreplace) %{_sysconfdir}/logrotate.d/zypp-history.lr
 %dir %{_sharedstatedir}/zypp/
@@ -247,6 +271,9 @@ end
 
 
 %changelog
+* Fri Jan 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 17.38.1-1
+- Rebase to 17.38.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.36.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

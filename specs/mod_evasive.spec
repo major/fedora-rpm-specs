@@ -1,6 +1,6 @@
 Name:           mod_evasive
 Version:        2.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Denial of Service evasion module for Apache
 
 License:        GPL-2.0-or-later
@@ -46,6 +46,9 @@ install -pm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 11 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.4.0-3
 - Remove patching mod_evasive20 to really use mod_evasive24 from new version.
 

@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.20
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -73,6 +73,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Sandro Mani <manisandro@gmail.com> - 3.20-5
 - Fix includedir in pc file
 

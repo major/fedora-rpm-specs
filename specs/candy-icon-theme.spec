@@ -10,7 +10,7 @@ License:        GPL-3.0-only
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 Version:        0^%{git_date}.git%{git_commit_short}
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 URL:            https://www.opendesktop.org/p/1305251/
 Source0:        %{git_url}/archive/%{git_commit}/%{git_repo}-%{git_commit}.tar.gz
@@ -62,6 +62,12 @@ gtk-update-icon-cache --force %{_datadir}/icons/Candy &>/dev/null || :
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20251226.git1ec7ed3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20251226.git1ec7ed3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20251226.git1ec7ed3-1
 - Update to latest git snapshot (2025-12-26)
 

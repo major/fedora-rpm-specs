@@ -1,7 +1,7 @@
 Name:		halibut
 Summary:	TeX-like software manual tool
 Version:	1.3
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	MIT and APAFML
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/halibut.html
 Source0:	http://www.chiark.greenend.org.uk/~sgtatham/halibut/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -51,6 +51,9 @@ install -Dpm 0644 misc/halibut.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/h
 %{_datadir}/vim/vimfiles/syntax/*.vim
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

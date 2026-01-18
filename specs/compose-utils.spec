@@ -6,7 +6,7 @@
 
 Name:       compose-utils
 Version:    0.1.50
-Release:    13%{?dist}
+Release:    15%{?dist}
 Summary:    Utilities for working with composes
 
 License:    GPL-2.0-only
@@ -80,6 +80,12 @@ Python 3 libraries supporting tools for working with composes
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.50-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.50-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.50-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 22
+%global baserelease 23
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2401,6 +2401,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.9000-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Florian Weimer  <fweimer@redhat.com> - 2.42.9000-22
 - Revert <math.h> changes for fpclassify et al. because of C++ bugs (#2428799)
 

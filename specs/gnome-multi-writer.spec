@@ -1,6 +1,6 @@
 Name:      gnome-multi-writer
 Version:   3.35.90
-Release:   16%{?dist}
+Release:   17%{?dist}
 Summary:   Write an ISO file to multiple USB devices at once
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gnome-multi-writer.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.35.90-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.35.90-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

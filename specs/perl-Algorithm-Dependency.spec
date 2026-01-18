@@ -1,6 +1,6 @@
 Name: 		perl-Algorithm-Dependency
 Version: 	1.112
-Release: 	12%{?dist}
+Release: 	13%{?dist}
 Summary: 	Algorithmic framework for implementing dependency trees
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Algorithm-Dependency
@@ -50,6 +50,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.112-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.112-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

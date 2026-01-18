@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -421,6 +421,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-13
 - Fix bogus 'sscg' arguments
 

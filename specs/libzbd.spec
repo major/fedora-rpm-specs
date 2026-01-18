@@ -1,6 +1,6 @@
 Name:		libzbd
 Version:	2.0.4
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A library to control zoned block devices
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/gzbd-viewer.desktop
 %license LICENSES/GPL-3.0-or-later.txt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

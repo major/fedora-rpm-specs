@@ -3,7 +3,7 @@
 
 Name:           libgdiplus
 Version:        6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An Open Source implementation of the GDI+ API
 License:        MIT
 URL:            https://gitlab.winehq.org/mono/libgdiplus
@@ -57,6 +57,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 6.2-2
 - enable pango for right to left mode eg. arabic
 

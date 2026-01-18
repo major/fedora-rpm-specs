@@ -1,6 +1,6 @@
 Name:           caribou
 Version:        0.4.21
-Release:        49%{?dist}
+Release:        51%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -156,6 +156,12 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.21-49
 - Disable autostart
 - Conditionalize gtk module dependencies

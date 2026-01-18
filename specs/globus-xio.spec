@@ -1,7 +1,7 @@
 Name:		globus-xio
 %global _name %(tr - _ <<< %{name})
 Version:	6.6
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO Framework
 
 License:	Apache-2.0
@@ -114,6 +114,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

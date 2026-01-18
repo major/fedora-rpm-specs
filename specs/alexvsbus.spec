@@ -5,7 +5,7 @@ Summary: Help Alex catch the bus on time!
 License: GPL-3.0-or-later
 
 Version: 2025.06.16.0
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 URL: https://github.com/M374LX/alexvsbus
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -114,6 +114,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.06.16.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.06.16.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2025.06.16.0-3
 - Rebuilt with latest patched stb_image: memory-safety fixes
 

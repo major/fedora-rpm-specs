@@ -1,6 +1,6 @@
 Name:           e2tools
 Version:        0.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Manipulate files in unmounted ext2/ext3 filesystems
 
 # No version specified.
@@ -79,6 +79,9 @@ The utilities are: e2cp e2ln e2ls e2mkdir e2mv e2rm e2tail
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

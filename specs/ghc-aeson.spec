@@ -20,7 +20,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.2.3.0
 # can only be reset when all subpkgs bumped
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Fast JSON parsing and encoding
 
 License:        BSD-3-Clause
@@ -226,6 +226,9 @@ cabal-tweak-dep-ver base '<4.18' '<4.20'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

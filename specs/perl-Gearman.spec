@@ -1,6 +1,6 @@
 Name:           perl-Gearman
 Version:        2.004.015
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl interface for Gearman distributed job system
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/Gearman::*.*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.004.015-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.004.015-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

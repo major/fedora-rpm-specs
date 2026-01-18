@@ -2,7 +2,7 @@
 
 Name:           mediainfo
 Version:        25.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
 License:        BSD-2-Clause
@@ -235,6 +235,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.10-1
 - Update to 25.10
 

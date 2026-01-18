@@ -1,19 +1,19 @@
-%global commit0 147f003fb7076ac4c7cf76a9a5ce152dc10e0ca6
+%global commit0 673e0e8a66
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20251010
+%global snapdate 20260115
 
 %global srcname migen
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        36.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        37.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://m-labs.hk/%{srcname}
-Source0:        https://github.com/m-labs/%{srcname}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+Source0:        https://git.m-labs.hk/M-Labs/%{srcname}/archive/%{commit0}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -41,7 +41,7 @@ operator overloading, libraries, etc.), to build well organized, reusable
 and elegant digital hardware designs.
 
 %prep
-%autosetup -n %{srcname}-%{commit0}
+%autosetup -n %{srcname}
 sed -r -i 's/(migen_version = ).*/\1"%{version}-%{release}"/' doc/conf.py
 
 %generate_buildrequires
@@ -64,6 +64,10 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Thu Jan 15 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-37.20260115git673e0e8
+- update upstream location
+- update to newer snapshot
+
 * Fri Oct 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-36.20251010git147f003
 - update to newer snapshot
 

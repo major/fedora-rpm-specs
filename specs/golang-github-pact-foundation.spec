@@ -17,7 +17,7 @@ service provider project.}
                         README.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Contract testing framework for HTTP APIs and non-HTTP messaging systems for Go
 
 License:        MIT
@@ -64,6 +64,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 1.5.1-19
 - Rebuild for golang 1.25.2
 

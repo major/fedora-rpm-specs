@@ -1,6 +1,6 @@
 Name:           perl-Carp-Clan
 Version:        6.08
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl module to print improved warning messages
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.08-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.08-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

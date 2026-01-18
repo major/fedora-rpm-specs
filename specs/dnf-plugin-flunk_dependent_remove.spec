@@ -8,7 +8,7 @@ Fail the request instead. This is implemented via a DNF plugin.}
 
 Name:           dnf-plugin-%{srcname}
 Version:        1.0
-Release:        21%{?dist}
+Release:        23%{?dist}
 Summary:        DNF plugin to prevent removing packages recursively via automation
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -39,6 +39,12 @@ install -D -m0644 %{SOURCE0} \
 %{python3_sitelib}/dnf-plugins/__pycache__/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0-21
 - Rebuilt for Python 3.14.0rc3 bytecode
 

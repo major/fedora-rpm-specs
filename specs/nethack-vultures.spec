@@ -1,6 +1,6 @@
 Name:           nethack-vultures
 Version:        2.1.2
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        NetHack - Vulture's Eye and Vulture's Claw
 
 License:        NGPL
@@ -221,6 +221,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.2-44
 - F-43+: Add sysusers.d config file (ref: bug 2383855)
 

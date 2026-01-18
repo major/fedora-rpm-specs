@@ -15,7 +15,7 @@ Extract human languages in plain UTF-8 text from computer code and markup.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.20%{?dist}
+Release:        0.21%{?dist}
 Summary:        Tools to extract plaintext from computer code and markup
 
 License:        MIT
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.20
 - rebuild
 

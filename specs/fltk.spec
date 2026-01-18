@@ -16,7 +16,7 @@
 
 Name:           fltk
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ user interface toolkit
 
 # see COPYING (or http://www.fltk.org/COPYING.php ) for exceptions details
@@ -363,6 +363,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/fluid.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.4.4-1
 - Rebase to 1.4.4
 

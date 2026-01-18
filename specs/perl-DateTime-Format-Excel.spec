@@ -4,7 +4,7 @@ Summary:	Convert between DateTime and Excel dates
 Name:		perl-DateTime-Format-Excel
 Epoch:		1
 Version:	0.31
-Release:	43%{?dist}
+Release:	44%{?dist}
 # lib/DateTime/Format/Excel.pm -> GPL+ or Artistic
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/%{pkgname}
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.31-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.31-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

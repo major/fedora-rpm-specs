@@ -1,7 +1,7 @@
 Summary: A library for supporting Open Financial Exchange (OFX)
 Name: libofx
 Version: 0.10.9
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL: https://github.com/libofx/libofx
 License: GPL-2.0-or-later
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/lib*.la $RPM_BUILD_ROOT%{_datadir}/doc
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

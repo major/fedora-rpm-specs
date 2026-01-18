@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.194
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -525,6 +525,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.194-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 Aaron Merey <amerey@redhat.com> - 0.194-2
 - Add elfutils-0.194-fix-const.patch
 

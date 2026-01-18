@@ -63,7 +63,7 @@ License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
 Version:        354
-Release:        1%{?dist}
+Release:        3%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
 
@@ -667,6 +667,12 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 354-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 354-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 Martin Pitt <mpitt@redhat.com> - 354-1
 - Convert documentation to AsciiDoc
 - Work around Firefox 146/147 bug (rhbz#2422331)

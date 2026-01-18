@@ -16,7 +16,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.6.4.0
 # can only be reset when all subpkgs bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Robust, reliable performance measurement and analysis
 
 License:        BSD-3-Clause
@@ -217,6 +217,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

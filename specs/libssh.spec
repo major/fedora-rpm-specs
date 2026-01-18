@@ -1,6 +1,6 @@
 Name:           libssh
 Version:        0.11.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -139,6 +139,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 09 2025 Jakub Jelen <jjelen@redhat.com> - 0.11.3-1
 - New upstream release fixing the following security weaknesses:
   - CVE-2025-8114: Fix NULL pointer dereference after allocation failure

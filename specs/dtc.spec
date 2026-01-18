@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.7.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -180,6 +180,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.7.2-8
 - Add patch to fix discarded const qualifiers
 

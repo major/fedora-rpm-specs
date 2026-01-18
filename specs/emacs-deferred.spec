@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.5.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simple asynchronous functions for Emacs Lisp
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -45,6 +45,9 @@ install -pm 0644 *.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

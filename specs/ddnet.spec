@@ -3,7 +3,7 @@
 
 Name:           ddnet
 Version:        19.5
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 #
@@ -177,6 +177,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Rafael Fontenelle <rafaelff@gnome.org> - 19.5-1
 - Update to version 19.5
 - Resolves:  rhbz#2402159

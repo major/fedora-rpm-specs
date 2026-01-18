@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-PkgConfig
 Version:        1.16
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Simplistic interface to pkg-config
 License:        LGPL-2.0-or-later
 URL:            https://metacpan.org/release/ExtUtils-PkgConfig
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/ExtUtils::PkgConfig.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

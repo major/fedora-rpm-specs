@@ -5,7 +5,7 @@
 Name:		kscope
 Summary: 	QT front-end to Cscope
 Version:	1.9.4
-Release:	45.%{commitdate}git%{shortcommit}%{?dist}
+Release:	46.%{commitdate}git%{shortcommit}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 # Source0:	http://download.sourceforge.net/kscope/%{name}-%{version}.tar.gz
@@ -72,6 +72,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_libdir}/libkscope_editor.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-46.20170716git98db2b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-45.20170716git98db2b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

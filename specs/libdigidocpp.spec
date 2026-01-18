@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        4.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -114,6 +114,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 22 2025 Dmitri Smirnov <dmitri@smirnov.ee> - 4.3.0-1
 - 4.3.0 upstream release
 

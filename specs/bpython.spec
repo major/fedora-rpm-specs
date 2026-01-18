@@ -3,7 +3,7 @@
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
 Version:       0.26
-Release:       1%{?dist}
+Release:       3%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
 Source0:       https://github.com/bpython/bpython/archive/%{version}-release.tar.gz
@@ -122,6 +122,12 @@ install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
 %{_bindir}/bpython-urwid
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 28 2025 Terje Rosten <terjeros@gmail.com> - 0.26-1
 - 0.26
 

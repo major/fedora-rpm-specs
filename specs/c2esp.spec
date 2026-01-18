@@ -2,7 +2,7 @@
 
 Name:           c2esp
 Version:        2.7
-Release:        35%{?dist}
+Release:        37%{?dist}
 Summary:        CUPS driver for Kodak AiO printers
 
 License:        GPL-2.0-or-later
@@ -65,6 +65,12 @@ make -C src/ install DESTDIR=%{buildroot}
 %{_datadir}/cups/drv/c2esp
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

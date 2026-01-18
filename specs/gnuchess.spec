@@ -1,7 +1,7 @@
 Summary: The GNU chess program
 Name: gnuchess
 Version: 6.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/chess/
 Source: http://ftp.gnu.org/pub/gnu/chess/%{name}-%{version}.tar.gz
@@ -61,6 +61,9 @@ install -m 644 doc/gnuchess.ini $RPM_BUILD_ROOT%{_datadir}/gnuchess/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.3.0-1
 - 6.3.0
 

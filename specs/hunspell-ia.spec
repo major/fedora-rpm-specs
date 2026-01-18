@@ -8,7 +8,7 @@ Name: hunspell-ia
 Summary: Interlingua hunspell dictionaries
 %global upstreamid 20240316
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2215/12/dict-ia-2024-03-16.oxt
 # Another URL is https://addons.mozilla.org/en-US/firefox/addon/dict-ia/
 URL: https://extensions.openoffice.org/en/project/interlingua-dictionario-orthographic-e-regulas-de-division-de-parolas.html
@@ -37,6 +37,9 @@ cp -p ia.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20240316-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Parag Nemade <pnemade AT redhat DOT com> - 0.20240316-1
 - Update to new upstream URL and Source (rh#2419831)
 

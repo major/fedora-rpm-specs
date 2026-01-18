@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        66%{?dist}
+Release:        67%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mpqc.org/
@@ -202,6 +202,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-67
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-66
 - c++20 fix for std::istream redirect operator change
 

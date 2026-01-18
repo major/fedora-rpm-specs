@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.10
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -318,6 +318,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Akira TAGOH <tagoh@redhat.com> - 1.8.10-4
 - Disable imsettings on Cinnamon.
   Relates: rhbz#2402664

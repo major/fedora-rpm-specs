@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 15
+%global baserelease 17
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond bootstrap 0
@@ -358,6 +358,12 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 23 2025 Jerry James <loganjerry@gmail.com> - 1:3.5.3-15
 - Remove build dependency on maven-enforcer-plugin
 

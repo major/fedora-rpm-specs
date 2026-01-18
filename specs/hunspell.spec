@@ -3,7 +3,7 @@
 Name:      hunspell
 Summary:   A spell checker and morphological analyzer library
 Version:   1.7.2
-Release:   10%{?dist}
+Release:   11%{?dist}
 Source:    https://github.com/hunspell/hunspell/releases/download/v%{version}/hunspell-%{version}.tar.gz
 URL:       https://github.com/hunspell/hunspell
 License:   LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
@@ -129,6 +129,9 @@ mkdir $RPM_BUILD_ROOT/%{_datadir}/myspell
 %{_datadir}/myspell
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

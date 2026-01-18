@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-postgresql
 Version:        5.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml library for accessing PostgreSQL databases
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 5.3.2-2
 - OCaml 5.4.0 rebuild
 

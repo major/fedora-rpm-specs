@@ -1,7 +1,7 @@
 Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
 Version:	1.19
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
 Source0:	https://www.cpan.org/modules/by-module/Crypt/Crypt-DSA-%{version}.tar.gz
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/Crypt::DSA::Util.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

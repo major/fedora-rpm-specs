@@ -11,29 +11,20 @@
 %bcond_with    manticore
 %bcond_without net_http
 %bcond_with    patron
-%bcond_without typhoeus
+%bcond_with    typhoeus
 
 Name: rubygem-%{gem_name}
-Version: 3.23.1
-Release: 4%{?dist}
+Version: 3.26.1
+Release: 1%{?dist}
 Summary: Library for stubbing HTTP requests in Ruby
 License: MIT
 URL: https://github.com/bblimke/webmock
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/bblimke/webmock.git && cd webmock
-# git archive -v -o webmock-3.23.1-tests.tar.gz v3.23.1 minitest/ spec/ test/
+# git archive -v -o webmock-3.26.1-tests.tar.gz v3.26.1 minitest/ spec/ test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
 # Revert dependency on rspec-retry, because it is not available in Fedora
 Patch0: rubygem-webmock-3.23.1-Revert-Retry-timed-out-real-requests-when-running-we.patch
-# Fix REXML 3.3.3+ compatibility.
-# https://github.com/bblimke/webmock/pull/1066
-Patch1: rubygem-webmock-3.23.1-Rescue-exceptions.patch
-# https://github.com/bblimke/webmock/pull/1074
-# support ruby3.4 hash inspect change
-Patch2: rubygem-webmock-pr1074-ruby34-hash-inspect-change.patch
-# https://github.com/bblimke/webmock/pull/1081
-# ruby34 removes deprecated net-http constants
-Patch3: rubygem-webmock-pr1081-ruby34-net-http-constants.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -76,13 +67,9 @@ Documentation for %{name}.
 # JSON is required by lib/webmock/request_body_diff.rb
 %gemspec_add_dep -g json
 
-%patch 1 -p1
-%patch 3 -p1
-
-pushd %{builddir}
+( cd %{builddir}
 %patch 0 -p1
-%patch 2 -p1
-popd
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -95,7 +82,7 @@ cp -a .%{gem_dir}/* \
 
 # Run the test suite
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
 
 ln -s %{builddir}/minitest minitest
 ln -s %{builddir}/spec spec
@@ -130,6 +117,10 @@ done
 # and we don't care about code quality, that's upstream business.
 rspec spec --exclude-pattern 'spec/{quality_spec.rb,acceptance/**/*}'
 
+# The Curb test suite fails without this export since 3.25.2 🤷
+# https://github.com/bblimke/webmock/issues/1118
+export HTTP_STATUS_SERVICE=http://httpstatus
+
 # Run acceptance test for each http client independently.
 for t in spec/acceptance/*/; do
   acceptance_test=$(basename ${t})
@@ -140,7 +131,7 @@ for t in spec/acceptance/*/; do
   rspec ${t}
 done
 
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -155,6 +146,13 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jan 15 2026 Vít Ondruch <vondruch@redhat.com> - 3.26.1-1
+- Update to WebMock 3.26.1.
+  Resolves: rhbz#2315776
+
+* Thu Jan 15 2026 Vít Ondruch <vondruch@redhat.com> - 3.23.1-5
+- Disable Typhoeus tests.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

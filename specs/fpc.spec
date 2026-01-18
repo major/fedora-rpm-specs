@@ -18,7 +18,7 @@ Version:        %{version_code}
 %else
 Version:        %{version_beta}~%{version_suffix}
 %endif
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 %if ! 0%{?beta}
   %global archive_type dist
@@ -819,6 +819,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4~rc1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.4~rc1-1
 - Update to v3.2.4~rc1
 

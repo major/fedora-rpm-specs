@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Version:        2.6.0
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Creates graphs representing ansible inventory
 
 License:        GPL-3.0-or-later
@@ -51,6 +51,12 @@ ln -sr %{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-3
 %{_bindir}/%{name}-3
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

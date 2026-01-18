@@ -12,10 +12,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.34.RC4%%{?dist}
+Release:        0.36.RC4%%{?dist}
 %else
 Version:        3.7.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -164,6 +164,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 29 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:3.7.1-1
 - This is a patch release update for v3.7 to include high priority fixes for
   stability and security and to make new planning and calendar functionality

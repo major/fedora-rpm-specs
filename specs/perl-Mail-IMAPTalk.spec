@@ -1,6 +1,6 @@
 Name:           perl-Mail-IMAPTalk
 Version:        4.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IMAP client interface with lots of features
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-IMAPTalk
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 01 2025 Michal Josef Špaček <mspacek@redhat.com> - 4.07-1
 - 4.07 bump
 

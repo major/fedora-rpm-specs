@@ -10,7 +10,7 @@
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
 Version: 2.14.0
-Release: 3%{?dist}
+Release: 5%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
 # Github project has different license and so far is the only one with any
@@ -130,6 +130,12 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Petr Menšík <pemensik@redhat.com> - 2.14.0-3
 - Drop python2 support and disable queryparse on EPEL 10 (rhbz#2373967)
 - Update forge address

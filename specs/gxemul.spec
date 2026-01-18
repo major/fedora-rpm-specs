@@ -1,6 +1,6 @@
 Name:		gxemul
 Version:	0.7.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Summary:	Instruction-level machine emulator
@@ -44,6 +44,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/gxemul.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

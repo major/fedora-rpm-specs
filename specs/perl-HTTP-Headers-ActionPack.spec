@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Headers-ActionPack
 Version:        0.09
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A Perl module to handle the inflation and deflation of complex HTTP header types
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ these headers as easy as calling inflate on a compatible object.
 %{_mandir}/man3/HTTP*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

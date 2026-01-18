@@ -1,6 +1,6 @@
 Name:           perl-Inline-Python
 Version:        0.58
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write Perl subs and classes in Python
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-Python
@@ -77,6 +77,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jul 26 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.58-1
 - 0.58 bump
 - Drop patches accepted upstream

@@ -1,6 +1,6 @@
 Name:		perl-Data-Report
 Version:	1.001
-Release:	48%{?dist}
+Release:	49%{?dist}
 Summary:	A flexible plugin-driven reporting framework
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -53,6 +53,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

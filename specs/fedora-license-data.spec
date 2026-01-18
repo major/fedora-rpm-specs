@@ -12,7 +12,7 @@
 
 Name:           fedora-license-data
 Version:        1.73
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -128,6 +128,9 @@ make check-grammar
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 27 2025 Miroslav Suchý <msuchy@redhat.com> 1.73-1
 - add dedications from linux-firmware from qcom/NOTICE.txt
 - add LGPL-2.0-only WITH Classpath-exception-2.0-short

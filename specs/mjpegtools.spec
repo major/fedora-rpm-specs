@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tools to manipulate MPEG data
 # Most sources are GPLv2+ except the following which don't mention "or later":
 # mplex/*
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_bindir}/lav2avi.sh
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 27 2025 Vitaly <vitaly@easycoding.org> - 2.2.1-11
 - Fixed installation with alternative versions of ffmpeg package.
 

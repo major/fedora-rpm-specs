@@ -2,7 +2,7 @@
 
 Name:       distcc
 Version:    3.4
-Release:    12%{?dist}
+Release:    14%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPL-2.0-or-later
 URL:        https://github.com/distcc/distcc
@@ -143,6 +143,12 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.4-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

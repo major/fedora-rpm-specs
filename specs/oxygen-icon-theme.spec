@@ -7,7 +7,7 @@ Name:    oxygen-icon-theme
 Summary: Oxygen icon theme
 Epoch:   1
 Version: 6.1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPL-3.0-or-later
@@ -101,6 +101,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

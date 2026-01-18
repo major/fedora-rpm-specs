@@ -24,7 +24,7 @@ BuildRequires: make
 %global forgesetupargs -n %{source_name}-%{version}
 %endif
 
-Release: 27%{?dist}
+Release: 29%{?dist}
 # original bitstream glyphs are Bitstream Vera
 # glyphs modifications by dejavu project are Public Domain
 # glyphs imported from Arev fonts are under BitStream Vera compatible license
@@ -236,6 +236,12 @@ make check
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Parag Nemade <pnemade AT redhat DOT com> - 2.37-27
 - Moving to use binary ttf as a Source for RHEL > 10 releases as we want
   to drop fontforge dependency from RHEL

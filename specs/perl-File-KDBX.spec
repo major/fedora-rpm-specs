@@ -14,7 +14,7 @@
 
 Name:		perl-File-KDBX
 Version:	0.906
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Encrypted database to store secret text and files
 
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -176,6 +176,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.906-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.906-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

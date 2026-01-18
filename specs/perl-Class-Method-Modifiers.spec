@@ -8,7 +8,7 @@
 Name:           perl-Class-Method-Modifiers
 Summary:        Provides Moose-like method modifiers
 Version:        2.15
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Method-Modifiers
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Method-Modifiers-%{version}.tar.gz
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/Class::Method::Modifiers.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

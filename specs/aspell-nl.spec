@@ -5,7 +5,7 @@ Name: aspell-%{lang}
 # Have to bump this to make it newer than the old, bad version.
 Epoch: 51
 Version: 0.50
-Release: 28%{?dist}
+Release: 30%{?dist}
 License: GPL-2.0-or-later
 URL: http://aspell.net/
 Source0: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -43,6 +43,12 @@ make install DESTDIR=$RPM_BUILD_ROOT libdir=%{_libdir}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 51:0.50-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 51:0.50-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 51:0.50-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

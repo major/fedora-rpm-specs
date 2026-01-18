@@ -105,7 +105,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -971,6 +971,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 04 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 8.0.1-2
 - disable dc1394 and ffnvcodec on risc-v
 

@@ -1,6 +1,6 @@
 Name:           gramps
 Version:        6.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -116,6 +116,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.6-1
 - 6.0.6
 

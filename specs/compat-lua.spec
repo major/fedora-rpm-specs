@@ -1,6 +1,6 @@
 Name:           compat-lua
 Version:        5.1.5
-Release:        29%{?dist}
+Release:        31%{?dist}
 Summary:        Powerful light-weight programming language (compat version)
 License:        MIT
 URL:            http://www.lua.org/
@@ -104,6 +104,12 @@ mv $RPM_BUILD_ROOT%{_libdir}/pkgconfig/lua.pc \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

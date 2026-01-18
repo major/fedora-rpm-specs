@@ -1,6 +1,6 @@
 Name:           glog
 Version:        0.3.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A C++ application logging library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT/%{_docdir}/%{name}-%{version}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          kgeotag
 Version:       1.7.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       CC-BY-SA-4.0 AND CC0-1.0 AND ODbL-1.0 AND BSD-3-Clause AND GPL-3.0-only
 Summary:       Photo geotagging program for KDE Plasma
 URL:           https://apps.kde.org/%{name}/
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.kgeotag.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

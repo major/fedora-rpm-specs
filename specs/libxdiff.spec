@@ -4,7 +4,7 @@
 
 Name:		libxdiff
 Version:	1.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Basic functionality to create difference/patches in binary and text
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -59,6 +59,9 @@ rm -rf %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/libxdiff.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

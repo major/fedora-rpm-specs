@@ -4,7 +4,7 @@
 %global namesq3 libsq3
 Name:           libsqlite3x
 Version:        %{veryear}%{vermon}%{verday}
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        A C++ Wrapper for the SQLite3 embeddable SQL database engine
 
 # fix license tag: https://bugzilla.redhat.com/show_bug.cgi?id=491618
@@ -102,6 +102,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libsq3.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20071018-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20071018-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:           cloog
 %global         tarball_name %{name}
 Version:        0.18.4
-Release:        22%{?dist}
+Release:        24%{?dist}
 Epoch:		1
 Summary:        The Chunky Loop Generator
 
@@ -92,6 +92,12 @@ mkdir -p %{buildroot}%{_docdir}/cloog-%{version}
 %{_docdir}/cloog-%{version}/cloog.pdf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.18.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.18.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.18.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

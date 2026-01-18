@@ -61,7 +61,7 @@
 
 Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
 
@@ -158,6 +158,12 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 28 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Fix --with test
 

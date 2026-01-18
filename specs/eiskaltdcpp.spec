@@ -1,6 +1,6 @@
 Name:           eiskaltdcpp
 Version:        2.4.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Direct Connect client
 
 # The entire source code is GPLv3+ except FlowLayout.cpp and .h which is LGPLv2+
@@ -144,6 +144,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.4.2-22
 - Allow to build with CMake 4.0 (rhbz#2380564)
 

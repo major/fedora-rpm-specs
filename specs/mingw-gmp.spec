@@ -2,7 +2,7 @@
 
 Name:       mingw-gmp
 Version:    6.3.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 
 Summary:    Cross-compiled GNU arbitrary precision library
 # Automatically converted from old format: LGPLv3+ or GPLv2+ - review is highly recommended.
@@ -136,6 +136,9 @@ rm -r $RPM_BUILD_ROOT/%{mingw64_prefix}/share
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 31 2025 Michael Cronenworth <mike@cchtml.com> - 6.3.0-4
 - Fix FTBFS (RHBZ#2385183)
 

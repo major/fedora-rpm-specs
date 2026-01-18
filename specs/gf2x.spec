@@ -1,6 +1,6 @@
 Name:           gf2x
 Version:        1.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Polynomial multiplication over the binary field
 
 # GPL-3.0-or-later: the project as a whole
@@ -106,6 +106,9 @@ LD_LIBRARY_PATH=$PWD/.libs:$PWD/fft/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 06 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-17
 - Use the x86_64 hwdir on x86_64
 - PCLMUL is not included in any x86_64_vX level

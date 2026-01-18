@@ -1,6 +1,6 @@
 Name:           perl-HTML-Mason
 Version:        1.60
-Release:        8%{?dist}
+Release:        9%{?dist}
 Epoch:          1
 Summary:        Powerful Perl-based web site development and delivery engine
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -146,6 +146,9 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/mason
 %dir %{_localstatedir}/www/mason
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.60-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.60-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

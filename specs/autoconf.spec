@@ -10,7 +10,7 @@
 # `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
 Version:    2.72
-Release:    8%{?dist}
+Release:    10%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -237,6 +237,12 @@ install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Frédéric Bérat <fberat@redhat.com> - 2.72-8
 - Port C11 test to C++20
 

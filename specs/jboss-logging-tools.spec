@@ -3,7 +3,7 @@
 
 Name:             jboss-logging-tools
 Version:          2.2.1
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          JBoss Logging I18n Annotation Processor
 # Not available license file https://issues.jboss.org/browse/LOGTOOL-107
 # ./annotations/src/main/java/org/jboss/logging/annotations/*.java: Apache (v2.0)
@@ -55,6 +55,9 @@ rm processor/src/test/java/org/jboss/logging/processor/generated/GeneratedSource
 %doc README.adoc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.2.1-21
 - Restore support for RHEL and older Fedora
 

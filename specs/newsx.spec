@@ -3,7 +3,7 @@
 
 Name:		newsx
 Version:	1.6
-Release:	47%{?dist}
+Release:	48%{?dist}
 # public domain:
 # dbz/dbz-v3.c
 # dbz/dbz-v6.c
@@ -75,6 +75,9 @@ popd
 %{_mandir}/man[158]/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

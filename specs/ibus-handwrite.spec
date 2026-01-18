@@ -1,6 +1,6 @@
 Name:       ibus-handwrite
 Version:    3.0.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    IBus handwrite project
 License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus-handwrite/
@@ -117,6 +117,9 @@ EOF
 %{_datadir}/ibus/component/handwrite-zh.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

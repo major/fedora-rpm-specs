@@ -1,7 +1,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/Xubuntu/lightdm-gtk-greeter
@@ -119,6 +119,9 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Adam Williamson <awilliam@redhat.com> - 2.0.8-15
 - Drop gnome-themes-standard dep as the provider was retired (#2398086)
 

@@ -49,7 +49,7 @@
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -162,6 +162,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove rocblas_sgemm_kernel_name and similar
 - Add requires rocminfo

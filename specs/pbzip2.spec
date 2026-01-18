@@ -1,6 +1,6 @@
 Name:		pbzip2
 Version:	1.1.13
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Parallel implementation of bzip2
 URL:		https://launchpad.net/pbzip2
 License:	bzip2-1.0.6
@@ -46,6 +46,9 @@ ln -sf ./%{name} %{buildroot}%{_bindir}/pbzcat
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -18,7 +18,7 @@ vendored and distributed with the package.}
 %global godocs          docs CHANGELOG.md README.md
 
 Name:           glide
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Package Management for Golang
 
 License:        MIT
@@ -69,6 +69,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0.13.2-23
 - Rebuild for golang 1.25.2
 

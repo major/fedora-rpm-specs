@@ -1,6 +1,6 @@
 Name:           gqrx
 Version:        2.17.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Software defined radio receiver powered by GNU Radio and Qt
 
 # Automatically converted from old format: GPLv3+ and GPLv2+ and BSD - review is highly recommended.
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet \
 %doc COPYING README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.17.7-4
 - Drop x86 support (leaf package)
 

@@ -7,7 +7,7 @@
 Summary:        M.A.R.S. - A Ridiculous Shooter
 Name:           marsshooter
 Version:        0.7.6
-Release:        35%{?dist}
+Release:        36%{?dist}
 # Engine is GPLv3+, the libs under ext_libs_for_windows are LGPLv2+ / MPLv1.1
 # but those are unused, so the resulting binary is pure GPLv3+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -115,6 +115,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.7.6-35
 - Allow to build with CMake 4.0 (rhbz#2380893)
 

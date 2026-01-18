@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.1.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -1136,6 +1136,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-3
 - Fix for Python 3.15 compatibility
 

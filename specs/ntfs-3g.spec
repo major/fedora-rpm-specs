@@ -8,7 +8,7 @@
 Name:           ntfs-3g
 Epoch:          2
 Version:        2022.10.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Linux NTFS userspace driver
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -200,6 +200,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %exclude %{_mandir}/man8/ntfs-3g*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:2022.10.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Georg Sauthoff <mail@gms.tf> - 2:2022.10.3-11
 - Update project URL
 

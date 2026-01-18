@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Access NetCDF files as a multi-dimensional array
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ Access a single or a collection of NetCDF files as a multi-dimensional array.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.0.6-7
 - Rebuild for Octave 10.2
 

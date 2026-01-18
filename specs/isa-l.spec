@@ -1,6 +1,6 @@
 Name:		isa-l
 Version:	2.31.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
@@ -98,6 +98,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Aug 23 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-7
 - Proper fix for failing python-isal tests on aarch64
 

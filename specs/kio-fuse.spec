@@ -10,7 +10,7 @@
 
 Name:           kio-fuse
 Version:        5.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KIO FUSE
 
 License:        GPL-3.0-or-later
@@ -84,6 +84,9 @@ dbus-launch --exit-with-session \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 5.1.1-2
 - rebuild for new fuse3
 

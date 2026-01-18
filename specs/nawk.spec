@@ -1,6 +1,6 @@
 Name:    nawk
 Version: 20251225
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: "The one true awk" descended from UNIX V7
 License: MIT
 URL:     https://github.com/onetrueawk/awk
@@ -38,6 +38,9 @@ install -D -p -m 0644 awk.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20251225-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan  6 2026 Mark McKinstry <mmckinst@fedoraproject.org> - 20251225-2
 - Set HOSTCC (#2401434)
 

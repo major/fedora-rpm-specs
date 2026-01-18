@@ -20,10 +20,11 @@
 
 # Attempt to prepare source-git with downstream repos
 %bcond_with sourcegit
+%bcond_without annocheck
 
 Name:           dnsmasq
-Version:        2.91
-Release:        2%{?extraversion:.%{extraversion}}%{?dist}
+Version:        2.92
+Release:        4%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -48,6 +49,8 @@ Patch1:         dnsmasq-2.77-underflow.patch
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
 Patch7:         dnsmasq-2.90-dbus-interfaces.patch
+# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2026q1/018378.html
+Patch8:         https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=patch;h=f603a4f920e6953b11667d424956fd47373870e9#/dnsmasq-2.92-dnssec-wildcard.patch
 
 
 Requires:       nettle
@@ -59,7 +62,7 @@ BuildRequires:  pkgconfig(libnetfilter_conntrack)
 BuildRequires:  nettle-devel
 BuildRequires:  nftables-devel
 Buildrequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  sequoia-sqv
 
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
@@ -70,6 +73,9 @@ BuildRequires:  git-core
 BuildRequires: make
 %if %{with i18n}
 BuildRequires: gettext
+%endif
+%if %{with annocheck}
+BuildRequires: annobin-annocheck
 %endif
 
 %description
@@ -105,7 +111,7 @@ Translations for few languages on dnsmasq.
 
 %prep
 %if 0%{?fedora}
-%gpgverify -k 4 -s 3 -d 0
+sqv --keyring=%{SOURCE4} --signature-file=%{SOURCE3} %{SOURCE0}
 %endif
 %if %{with sourcegit}
 %autosetup -n %{name}-%{version}%{?extraversion} -N -S git_am
@@ -138,13 +144,13 @@ sed -i "s|\(#\s*define RUNFILE\) \"/var/run/dnsmasq.pid\"|\1 \"%{_rundir}/dnsmas
 sed -i 's|^COPTS[[:space:]]*=|\0 -DHAVE_DBUS -DHAVE_LIBIDN2 -DHAVE_DNSSEC -DHAVE_CONNTRACK -DHAVE_NFTSET|' Makefile
 
 %build
-%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" BINDIR=%{_sbindir} \
+%make_build CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" BINDIR=%{_sbindir} \
 %if %{with i18n}
   all-i18n
 %else
   all
 %endif
-%make_build -C contrib/lease-tools CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
+%make_build -C contrib/lease-tools CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" BINDIR=%{_sbindir}
 
 %install
 # normally i'd do 'make install'...it's a bit messy, though
@@ -181,9 +187,24 @@ install -p -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -Dpm 644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %if %{with i18n}
-%make_install PREFIX=/usr BINDIR=%{_sbindir} install-i18n
+%make_install PREFIX=%{_prefix} CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" BINDIR=%{_sbindir} install-i18n
 %find_lang %{name} --with-man
 %endif
+
+%check
+# Minimalistic build check
+$RPM_BUILD_ROOT%{_sbindir}/dnsmasq --help
+$RPM_BUILD_ROOT%{_sbindir}/dnsmasq --help dhcp
+$RPM_BUILD_ROOT%{_sbindir}/dnsmasq --help dhcp6
+$RPM_BUILD_ROOT%{_sbindir}/dnsmasq --test --conf-file=$RPM_BUILD_ROOT%{_datadir}/%{name}/trust-anchors.conf
+if [ -d "%{_sysconfdir}/dnsmasq.d" ]; then
+  # this would fail in mock if that directory does not exist
+  $RPM_BUILD_ROOT%{_sbindir}/dnsmasq --test --conf-file=$RPM_BUILD_ROOT%{_sysconfdir}/dnsmasq.conf
+fi
+# check link flags
+if type -p annocheck; then
+  annocheck --no-use-debuginfod --ignore-unknown --verbose --debug-dir=$RPM_BUILD_ROOT%{_prefix}/lib/debug/%{_sbindir} $RPM_BUILD_ROOT%{_sbindir}/dnsmasq
+fi
 
 %post
 %systemd_post dnsmasq.service
@@ -219,6 +240,15 @@ install -Dpm 644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 %endif
 
 %changelog
+* Fri Jan 16 2026 Petr Menšík <pemensik@redhat.com> - 2.92-1
+- Update to 9.29 (rhbz#2429567)
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.91-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.91-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 18 2025 Fedor Vorobev <fvorobev@redhat.com> - 2.91-2
 - Added installation of a tmpfiles.d config (image mode support)
 

@@ -5,7 +5,7 @@
 
 Name:           capnproto
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
@@ -87,6 +87,12 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.3.0-2
 - Remove disabling tests for asyncio
 - Modernize spec

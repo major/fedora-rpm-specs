@@ -7,7 +7,7 @@
 
 Name:           perl-Eval-Closure
 Version:        0.14
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Safely and cleanly create closures via string eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Eval-Closure
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/Eval::Closure.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

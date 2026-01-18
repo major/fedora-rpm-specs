@@ -139,10 +139,10 @@
 Name:           composable_kernel%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -372,6 +372,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
 - Remove build requires git
 

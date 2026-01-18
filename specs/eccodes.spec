@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -460,6 +460,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.44.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 
 * Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.44.0-2
 - Allow to build with CMake 4.0 (rhbz#2380563)

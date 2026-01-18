@@ -1,7 +1,7 @@
 Name:           mopac7
 Summary:        Semi-empirical quantum mechanics suite
 Version:        1.15
-Release:        50%{?dist}
+Release:        51%{?dist}
 # https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/554
 # SPDX confirmed
 License:        LicenseRef-Fedora-Public-Domain
@@ -85,6 +85,9 @@ find tests -name 'Makefile*' -delete -print
 %{_libdir}/pkgconfig/libmopac7.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

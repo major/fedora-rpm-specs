@@ -5,7 +5,7 @@
 Name:			fcitx
 Summary:		An input method framework
 Version:		4.2.9.9
-Release:		10%{?dist}
+Release:		11%{?dist}
 License:		GPL-2.0-or-later
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		http://download.fcitx-im.org/fcitx/%{name}-%{version}_dict.tar.xz
@@ -300,6 +300,9 @@ fi
 %{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.9.9-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.9.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

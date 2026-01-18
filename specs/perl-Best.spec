@@ -1,6 +1,6 @@
 Name:       perl-Best 
 Version:    0.17
-Release:    3%{?dist}
+Release:    4%{?dist}
 # inc:      GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:  MIT
 SourceLicense:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
@@ -95,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

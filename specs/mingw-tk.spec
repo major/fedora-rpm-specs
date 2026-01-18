@@ -6,7 +6,7 @@
 
 Name:          mingw-tk
 Version:       9.0.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows graphical toolkit for the Tcl scripting language
 
 License:       TCL
@@ -133,6 +133,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Sandro Mani <manisandro@gmail.com> - 9.0.2-1
 - Update to 9.0.2
 

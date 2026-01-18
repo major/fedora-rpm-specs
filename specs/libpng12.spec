@@ -1,7 +1,7 @@
 Summary: Old version of libpng, needed to run old binaries
 Name: libpng12
 Version: 1.2.57
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: zlib
 URL: http://www.libpng.org/pub/png/
 
@@ -81,6 +81,9 @@ make check
 %{_libdir}/pkgconfig/libpng12.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.57-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.57-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

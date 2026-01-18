@@ -13,7 +13,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.68.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -223,6 +223,9 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.68.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 25 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.68.0-2
 - Enable HTTP/3 support in nghttpx and h2load
 

@@ -92,7 +92,7 @@
 
 Name:		musl
 Version:	1.2.5
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Fully featured lightweight standard C library for Linux
 License:	MIT
 URL:		https://musl.libc.org
@@ -330,6 +330,9 @@ EOF
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.2.5-5
 - Backport fix for stdio to skip empty iovec when buffering is disabled
 

@@ -1,6 +1,6 @@
 Name:           perl-Email-Address-List
 Version:        0.06
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        RFC close address list parsing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Address-List
@@ -52,6 +52,9 @@ find -type f -exec chmod -x {} +
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

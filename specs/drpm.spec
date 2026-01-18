@@ -7,7 +7,7 @@
 
 Name:           drpm
 Version:        0.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for making, reading and applying deltarpm packages
 # the entire source code is LGPLv2+, except src/drpm_diff.c and src/drpm_search.c which are BSD
 # Automatically converted from old format: LGPLv2+ and BSD - review is highly recommended.
@@ -83,6 +83,9 @@ The drpm-devel package provides a C interface (drpm.h) for the drpm library.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Aleš Matěj <amatej@redhat.com> - 0.5.3-1
 - Update to 0.5.3
 - Update `cmake_minimum_required` to support modern CMake

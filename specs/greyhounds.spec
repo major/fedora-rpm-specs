@@ -1,6 +1,6 @@
 Name:           greyhounds
 Version:        0.8
-Release:        0.45.prealpha%{?dist}
+Release:        0.46.prealpha%{?dist}
 Summary:        Greyhounds is a greyhounds racing and breeding game
 Summary(pl):    Greyhounds to wyścigi i hodowla chartów
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -84,6 +84,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-0.46.prealpha
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-0.45.prealpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

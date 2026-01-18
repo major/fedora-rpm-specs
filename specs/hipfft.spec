@@ -83,10 +83,10 @@
 Name:           %{hipfft_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm FFT marshalling library
 License:        MIT
@@ -247,6 +247,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Add --with compat
 

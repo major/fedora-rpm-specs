@@ -4,7 +4,7 @@
 
 Name:           cppmyth
 Version:        2.17.6
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Client interface for the MythTV backend
 
 License:        GPL-2.0-or-later
@@ -55,6 +55,12 @@ applications that use %{name}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

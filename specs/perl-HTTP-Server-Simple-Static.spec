@@ -1,6 +1,6 @@
 Name:		perl-HTTP-Server-Simple-Static
 Version:	0.14
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Serve static files with HTTP::Server::Simple
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

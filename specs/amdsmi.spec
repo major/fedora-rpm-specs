@@ -53,7 +53,7 @@
 
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    5%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -229,6 +229,12 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
 - Fix Tumbleweed
 

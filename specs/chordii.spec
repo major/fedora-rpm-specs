@@ -1,7 +1,7 @@
 Summary: Print songbooks (lyrics + chords)
 Name: chordii
 Version: 4.5.3b
-Release: 25%{?dist}
+Release: 27%{?dist}
 URL: http://www.chordii.org
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,12 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.3b-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.3b-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.3b-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

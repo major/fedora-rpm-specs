@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       25.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 
@@ -119,6 +119,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 25.3-1
 - Update to 25.3
 

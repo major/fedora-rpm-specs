@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           kf5-kirigami2-addons
 Version:        0.11.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Epoch:          1
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
@@ -58,6 +58,9 @@ or Plasma).
 %{_kf5_libdir}/cmake/KF5KirigamiAddons
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.11.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:0.11.0-8
 - Drop i686 support (leaf package)
 

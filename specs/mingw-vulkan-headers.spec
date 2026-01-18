@@ -5,7 +5,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.4.328.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       Apache-2.0
@@ -70,6 +70,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.328.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Sandro Mani <manisandro@gmail.com> - 1.4.328.1-1
 - Update to 1.4.328.1
 

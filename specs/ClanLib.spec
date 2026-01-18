@@ -1,7 +1,7 @@
 Summary:        Cross platform C++ game library
 Name:           ClanLib
 Version:        2.3.7
-Release:        35%{?dist}
+Release:        37%{?dist}
 License:        zlib
 URL:            http://www.clanlib.org/
 Source0:        http://www.clanlib.org/download/releases-2.0/%{name}-%{version}.tgz
@@ -89,6 +89,12 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

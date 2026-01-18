@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -282,6 +282,9 @@ fi
 %files devel
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5^20250707gitd55ec72-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 5^20250707gitd55ec72-7
 - Rebuilt for OpenCV-4.12
 

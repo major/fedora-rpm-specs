@@ -1,7 +1,7 @@
 Summary: Application for extraction and decompilation of JVM byte code
 Name: java-runtime-decompiler
 Version: 10.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-only
 URL: https://github.com/pmikova/java-runtime-decompiler
 Source0: https://github.com/judovana/%{name}/archive/%{name}-%{version}.tar.gz
@@ -231,4 +231,7 @@ desktop-file-install --vendor="fedora" --dir=${RPM_BUILD_ROOT}%{_datadir}/applic
 %license LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

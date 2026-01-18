@@ -13,7 +13,7 @@
 %bcond bootstrap 0
 
 Name:           libheif
-Version:        1.21.1
+Version:        1.21.2
 Release:        %autorelease
 Summary:        HEIF and AVIF file format decoder and encoder
 
@@ -117,12 +117,12 @@ rm -rf third-party/
  -DWITH_OpenJPEG_DECODER_PLUGIN=OFF \
  -DWITH_OpenJPEG_ENCODER=ON \
  -DWITH_OpenJPEG_ENCODER_PLUGIN=OFF \
-%ifnarch %{ix86}
- -DWITH_OpenH264_DECODER=ON \
- -DWITH_OpenH264_ENCODER=ON \
  -DWITH_OPENJPH_DECODER=ON \
  -DWITH_OPENJPH_ENCODER=ON \
  -DWITH_OPENJPH_ENCODER_PLUGIN=OFF \
+%ifnarch %{ix86}
+ -DWITH_OpenH264_DECODER=ON \
+ -DWITH_OpenH264_ENCODER=ON \
 %endif
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
  -DWITH_RAV1E=ON \

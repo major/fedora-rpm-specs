@@ -1,6 +1,6 @@
 Name:           lilypond-doc
 Version:        2.25.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML documentation for LilyPond
 
 License:        GPL-3.0-only
@@ -34,6 +34,9 @@ mkdir -p $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.31-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.25.31-1
 - 2.25.31
 

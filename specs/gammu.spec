@@ -3,7 +3,7 @@
 
 Name:           gammu
 Version:        1.42.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Command Line utility to work with mobile phones
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -188,6 +188,9 @@ install -pm 0644 docs/config/smsdrc %{buildroot}%{_sysconfdir}/gammu-smsdrc
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 1.42.0-20
 - Allow to build with CMake 4.0 (rhbz#2380612)
 

@@ -5,7 +5,7 @@
 
 Name:           gns3-gui
 Version:        2.2.55
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNS3 graphical user interface
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.55-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 19 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.55-1
 - Update to 2.2.55
 

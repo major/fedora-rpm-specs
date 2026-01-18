@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       1%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -291,6 +291,12 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.35c-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.35c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Richard W.M. Jones <rjones@redhat.com> - 4.35c-1
 - New version 4.35c (RHBZ#2425505)
 

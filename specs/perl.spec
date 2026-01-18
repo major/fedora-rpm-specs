@@ -117,7 +117,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        520%{?dist}
+Release:        521%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -7283,6 +7283,9 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:5.42.0-521
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:5.42.0-520
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

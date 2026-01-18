@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        3.1.46
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -59,6 +59,12 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.46-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.46-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.46-1
 - Update to 3.1.46 (close RHBZ#2426665)
 

@@ -1,7 +1,7 @@
 Name:    knotes
 Summary: Popup notes
 Version: 24.05.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # Automatically converted from old format: GPLv2 and GFDL - review is highly recommended.
 License: GPL-2.0-only AND LicenseRef-Callaway-GFDL
@@ -127,6 +127,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.05.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.05.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

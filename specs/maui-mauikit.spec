@@ -1,6 +1,6 @@
 Name:           maui-mauikit
 Version:        4.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPL-2.0-or-later AND GPL-3.0-or-later AND BSD-3-Clause AND LGPL-3.0-only AND LGPL-2.1-only AND CC0-1.0 AND MIT
 Summary:        Kit for developing Maui Apps
 Url:            https://invent.kde.org/maui/mauikit
@@ -82,6 +82,9 @@ on the MauKit framework.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

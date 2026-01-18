@@ -7,7 +7,7 @@
 
 Name:           fedpkg
 Version:        1.47
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -146,6 +146,9 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.47-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 01 2025 Sandro <devel@penguinpee.nl> - 1.47-2
 - Fix bash auto completion
 - Add fish auto completion

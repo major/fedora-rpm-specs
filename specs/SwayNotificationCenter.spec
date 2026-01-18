@@ -2,7 +2,7 @@
 
 Name:       SwayNotificationCenter
 Version:    0.10.1
-Release:    3%{?dist}
+Release:    5%{?dist}
 Summary:    Simple notification daemon with GTK GUI for SwayWM
 License:    GPL-3.0-only
 URL:        https://github.com/ErikReider/SwayNotificationCenter
@@ -124,6 +124,12 @@ This package installs Fish completion files for %{name}
 %{_datadir}/fish/vendor_completions.d/swaync.fish
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

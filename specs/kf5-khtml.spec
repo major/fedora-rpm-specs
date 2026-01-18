@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: KDE Frameworks 5 Tier 4 solution with KHTML, a HTML rendering engine
 
 # Automatically converted from old format: LGPLv2+ and GPLv3 and MIT and BSD - review is highly recommended.
@@ -102,6 +102,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

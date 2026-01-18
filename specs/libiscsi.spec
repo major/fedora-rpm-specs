@@ -1,7 +1,7 @@
 Name: libiscsi
 Summary: iSCSI client library
 Version: 1.20.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.1-or-later
 URL: https://github.com/sahlberg/%{name}
 Source: https://github.com/sahlberg/libiscsi/archive/%{version}.tar.gz
@@ -94,6 +94,9 @@ The libiscsi-devel package includes the header files for libiscsi.
 %{_libdir}/pkgconfig/libiscsi.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 04 2025 Adam Williamson <awilliam@redhat.com> - 1.20.3-3
 - Bump to rebuild on a side tag
 

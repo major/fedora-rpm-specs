@@ -2,7 +2,7 @@
 
 Name:           perl-HTTP-Message
 Version:        7.01
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
 # other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -134,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Michal Josef Špaček <mspacek@redhat.com> - 7.01-1
 - 7.01 bump
 

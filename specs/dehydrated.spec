@@ -1,7 +1,7 @@
 Summary: Client for signing certificates with an ACME server
 Name: dehydrated
 Version: 0.7.1
-Release: 8%{?dist}
+Release: 10%{?dist}
 License: MIT
 URL: https://github.com/dehydrated-io/dehydrated
 Source0: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz
@@ -150,6 +150,12 @@ systemctl start dehydrated.timer >/dev/null 2>&1 || :
 %{_mandir}/man1/dehydrated.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

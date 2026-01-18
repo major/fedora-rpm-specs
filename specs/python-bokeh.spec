@@ -13,7 +13,7 @@ and data applications.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -207,12 +207,14 @@ rm -rf %{pypi_name}.egg-info
 # https://github.com/bokeh/bokeh/pull/12690
 sed -i 's/np\.bool8/np.bool_/g' $(grep -rl 'np\.bool8')
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 # Remove zero length file
 rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
@@ -228,10 +230,13 @@ rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
 %license LICENSE.txt
 %doc README.md
 %{_bindir}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jan 16 2026 Federico Pellegrin <fede@evolware.org> - 2.3.0-24
+- Use new Python macros in spec file (rhbz#2377489)
+
 * Tue Jan 13 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.3.0-23
 - use spdx license
 

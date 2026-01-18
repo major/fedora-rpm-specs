@@ -6,7 +6,7 @@
 
 Name:           orangefs
 Version:        2.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parallel network file system client
 URL:            https://www.orangefs.org/
 # BSD (2 clause) maint/config/ssl.m4
@@ -307,6 +307,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}
 %{_docdir}/orangefs/random/SystemInterfaceTesting.pdf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 20 2025 Terje Rosten <terjeros@gmail.com> - 2.10.1-1
 - 2.10.1
 - move pdf to -docs subpackage

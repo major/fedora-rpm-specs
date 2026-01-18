@@ -1,7 +1,7 @@
 %global _lto_cflags %nil
 Name:           cataclysm-dda
 Version:        0.H
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Turn-based survival game set in a post-apocalyptic world
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -195,6 +195,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.H-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.H-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.H-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

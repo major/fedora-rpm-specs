@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -194,6 +194,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-9
 - add missing build requirement on libcap-devel
 

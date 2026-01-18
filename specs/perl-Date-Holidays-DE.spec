@@ -6,7 +6,7 @@
 Summary:        Perl module to determine German holidays
 Name:           perl-Date-Holidays-DE
 Version:        2.07
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/F/FR/FROGGS/%{pkgname}-%{version}.tar.gz
@@ -56,6 +56,9 @@ make test
 %{perl_vendorlib}/Date/Holidays/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

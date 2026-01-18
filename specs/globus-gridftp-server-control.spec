@@ -1,7 +1,7 @@
 Name:		globus-gridftp-server-control
 %global _name %(tr - _ <<< %{name})
 Version:	9.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server Library
 
 License:	Apache-2.0
@@ -90,6 +90,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.5-1
 - New GCT release v6.2.20251212
 - Drop patches included in the release

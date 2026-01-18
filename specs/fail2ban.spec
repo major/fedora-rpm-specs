@@ -11,7 +11,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -428,6 +428,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Richard Shaw <hobbes1069@gmail.com> - 1.1.0-15
 - Add patch for Dovecot 2.4 jail. Fixes BZ#2426440.
 

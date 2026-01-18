@@ -1,6 +1,6 @@
 Name:           perl-EV
 Version:        4.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wrapper for the libev high-performance event loop library
 
 # Note: The source archive includes a libev/ folder which contents are licensed
@@ -81,6 +81,9 @@ PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 21 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 4.36-1
 - Update to 4.36
 - Refresh typmap patch

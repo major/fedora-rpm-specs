@@ -25,7 +25,7 @@
 Name:           ghc-%{pkg_name}
 Version:        3.6.4
 # can only be reset when all subpkgs bumped
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Haskell %{name} library
 
 License:        GPL-2.0-or-later
@@ -413,6 +413,9 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 04 2025 Jens Petersen <petersen@redhat.com> - 3.6.4-37
 - source package renamed from pandoc to ghc-pandoc (#2360949)
   thanks to Benson Muite

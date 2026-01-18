@@ -7,7 +7,7 @@
 
 Name:           dreamchess
 Version:        0.3.0%{?cdate0:~%{cdate0}git}
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Portable chess game
 # GPL-3.0-or-later generally for most of sources
 # but BSD-3-Clause for dreamchess/src/include/gamegui/queue.h
@@ -184,6 +184,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

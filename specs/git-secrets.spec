@@ -1,6 +1,6 @@
 Name:           git-secrets
 Version:        1.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Prevents committing secrets and credentials into git repos
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ regular expression patterns, then the commit is rejected.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

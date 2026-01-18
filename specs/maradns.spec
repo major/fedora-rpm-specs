@@ -1,6 +1,6 @@
 Name:		maradns
 Version:	3.5.0036
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
 Source0:	http://www.maradns.org/download/3.5/%{version}/%{name}-%{version}.tar.xz
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0036-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0036-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

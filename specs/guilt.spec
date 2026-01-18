@@ -1,6 +1,6 @@
 Name:		guilt
 Version:	0.36
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Scripts to manage quilt-like patches on top of git
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man7/guilt*.7*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

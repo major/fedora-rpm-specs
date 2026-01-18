@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	3
 %dnl %global	alphatag		.rcb
 
 %undefine _ld_strict_symbol_defs
@@ -270,6 +270,12 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-1
 - 3.6.2
 

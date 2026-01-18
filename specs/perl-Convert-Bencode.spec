@@ -1,6 +1,6 @@
 Name:           perl-Convert-Bencode
 Version:        1.03
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Functions for converting to/from bencoded strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Bencode
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Convert::Bencode.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

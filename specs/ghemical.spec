@@ -1,7 +1,7 @@
 Name:			ghemical
 Summary:		Molecular mechanics and quantum mechanics front end for GNOME
 Version:		3.0.0
-Release:		29%{?dist}
+Release:		30%{?dist}
 
 # SPDX confirmed
 License:		GPL-2.0-or-later
@@ -117,6 +117,9 @@ desktop-file-install %{name}.desktop --dir=%{buildroot}%{_datadir}/applications
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

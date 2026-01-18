@@ -1,6 +1,6 @@
 Name:           mxparser
 Version:        1.2.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Parser of xpp3_min 1.1.7 with merged changes of the Plexus fork
 License:        xpp
 URL:            https://github.com/x-stream/%{name}
@@ -46,6 +46,9 @@ changes of the Plexus fork. It is an implementation of the XMLPULL V1 API
 %doc README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.2.2-14
 - Rebuilt for java-25-openjdk as preffered jdk
 

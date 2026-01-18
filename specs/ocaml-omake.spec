@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-omake
 Version:        0.10.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Build system with automated dependency analysis
 
 # License breakdown:
@@ -140,6 +140,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 0.10.7-6
 - OCaml 5.4.0 rebuild
 

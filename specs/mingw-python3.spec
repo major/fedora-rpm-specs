@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.14
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -518,6 +518,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Sandro Mani <manisandro@gmail.com> - 3.11.14-5
 - Backport proposed fix for CVE-2025-13836
 

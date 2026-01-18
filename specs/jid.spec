@@ -18,7 +18,7 @@ You can drill down JSON interactively by using filtering queries like jq.}
 %global godocs          ChangeLog README.md
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        JSON incremental digger
 
 License:        MIT
@@ -62,6 +62,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.7.6-21
 - rebuild
 

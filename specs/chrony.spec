@@ -9,7 +9,7 @@
 
 Name:           chrony
 Version:        4.8
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -209,6 +209,12 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 21 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.8-3
 - update seccomp filter for new glibc (#2405310)
 

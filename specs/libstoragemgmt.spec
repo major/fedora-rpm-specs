@@ -5,7 +5,7 @@
 
 Name:           libstoragemgmt
 Version:        1.10.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
@@ -466,6 +466,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Tom Callaway <spot@fedoraproject.org> - 1.10.2-8
 - rebuild for new libconfig
 

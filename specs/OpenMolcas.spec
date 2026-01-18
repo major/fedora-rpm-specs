@@ -3,7 +3,7 @@
 
 Name:           OpenMolcas
 Version:        25.10
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -144,6 +144,12 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 15 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 25.10-1
 - Update to 25.10.
 

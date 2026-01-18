@@ -1,6 +1,6 @@
 Name:           klog
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Ham radio logging program for KDE
 
 License:        GPL-2.0-or-later
@@ -108,6 +108,9 @@ install -Dm 0644 %{SOURCE106} \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 15 2025 Richard Shaw <hobbes1069@gmail.com> - 2.4.2-1
 - Update to 2.4.2.
 

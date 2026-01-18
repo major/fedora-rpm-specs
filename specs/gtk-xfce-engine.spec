@@ -2,7 +2,7 @@
 
 Name:           gtk-xfce-engine
 Version:        3.2.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Xfce GTK theme engine
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

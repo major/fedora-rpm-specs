@@ -1,6 +1,6 @@
 Name:           perl-Authen-PAM
 Version:        0.16
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Authen::PAM Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-PAM
@@ -51,6 +51,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

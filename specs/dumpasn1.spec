@@ -1,6 +1,6 @@
 Name:           dumpasn1
 Version:        20250606
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ASN.1 object dump utility
 
 License:        MIT
@@ -45,6 +45,9 @@ install -Dpm 644 dumpasn1.1 $RPM_BUILD_ROOT%{_mandir}/man1/dumpasn1.1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250606-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 08 2025 François Kooman <fkooman@tuxed.net> - 20250606-3
 - update `dumpasn1.cfg`
 - use manpage directly from official repository

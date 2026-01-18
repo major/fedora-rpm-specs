@@ -6,7 +6,7 @@ Group:   System Environment/Base
 
 Epoch:   1
 Version: 1.55.91
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 ###############################################################################
 
@@ -1059,6 +1059,12 @@ fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.55.91-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.55.91-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Íñigo Huguet <ihuguet@riseup.net>
 - Update to 1.56-rc2 release
 - Fixes CVE-2025-9615. To achieve it, remove normal users' permission to modify system connections.

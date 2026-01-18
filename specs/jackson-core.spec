@@ -1,6 +1,6 @@
 Name:           jackson-core
 Version:        2.18.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -58,6 +58,9 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.18.2-5
 - Restore support for RHEL and older Fedora
 

@@ -1,6 +1,6 @@
 Name:           gnome-tetravex
 Version:        3.38.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Tetravex game
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -53,6 +53,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tetravex
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 30 2025 Petr Schindler <pschindl@redhat.com> - 3.38.3-1
 - Update to 3.38.3
 

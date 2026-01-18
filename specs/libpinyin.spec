@@ -1,6 +1,6 @@
 Name:           libpinyin
 Version:        2.11.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPL-3.0-or-later
@@ -96,6 +96,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.91-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 04 2026 Peng Wu <pwu@redhat.com> - 2.11.91-1
 - Update to 2.11.91
 - support "sua" and "zua" pinyin input

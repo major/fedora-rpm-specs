@@ -7,7 +7,7 @@
 
 Name:           debhelper
 Version:        13.11.6
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Helper programs for debian/rules
 
 License:        GPL-2.0-or-later
@@ -170,6 +170,12 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.11.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.11.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.11.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

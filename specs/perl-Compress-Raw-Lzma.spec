@@ -3,7 +3,7 @@
 
 Name:		perl-Compress-Raw-Lzma
 Version:	2.214
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -129,6 +129,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.214-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 26 2025 Paul Howarth <paul@city-fan.org> - 2.214-1
 - Update to 2.214
   - Development workflow updates, no functional changes

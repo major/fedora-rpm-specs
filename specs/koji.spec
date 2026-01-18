@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.35.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -367,6 +367,9 @@ install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 %systemd_postun kojira.service
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Adam Williamson <awilliam@redhat.com> - 1.35.3-8
 - Backport PR #4342 (--fallback-unsigned feature) for Bodhi's benefit
 

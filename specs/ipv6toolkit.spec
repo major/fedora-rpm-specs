@@ -1,7 +1,7 @@
 Summary:        Security assessment and troubleshooting tools for IPv6 protocols
 Name:           ipv6toolkit
 Version:        2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND MPL-2.0
 # ipv6toolkit itself is GPL-3.0-or-later but uses other source codes, breakdown:
 # GFDL-1.3-no-invariants-or-later: manuals/*.[157]
@@ -97,6 +97,9 @@ for tool in tools/*; do if grep -q -E '^#!/.*perl' ${tool}; then perl -c ${tool}
 %{_mandir}/man7/ipv6toolkit.7*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:            monotone
 Version:         1.1
-Release:         53%{?dist}
+Release:         54%{?dist}
 Summary:         A free, distributed version control system
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
@@ -209,6 +209,9 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/monotone-server.con
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 28 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.1-53
 - Update for current users and groups guidelines.
 

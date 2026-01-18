@@ -1,6 +1,6 @@
 Name:           libacars
 Version:        1.3.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A library for decoding various ACARS message payloads
 License:        MIT
 URL:            https://github.com/szpajder/libacars
@@ -75,6 +75,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %{_bindir}/media_advisory
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.3.1-17
 - Allow to build with CMake 4.0 (rhbz#2380704)
 

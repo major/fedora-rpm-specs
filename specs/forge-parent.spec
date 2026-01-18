@@ -1,6 +1,6 @@
 Name:           forge-parent
 Version:        38
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Sonatype Forge Parent Pom
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -36,6 +36,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 38-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 38-33
 - Rebuilt for java-25-openjdk as preffered jdk
 

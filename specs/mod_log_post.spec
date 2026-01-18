@@ -9,7 +9,7 @@ Summary:        Module for the Apache web server to log all HTTP POST messages
 Summary(de):    Modul für den Apache Webserver zur Protokollierung von HTTP POST
 Name:           mod_log_post
 Version:        0.1.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2-with-exceptions
 URL:            https://ftp.robert-scheck.de/linux/%{name}/
@@ -63,6 +63,9 @@ touch -c -r log_post.conf $RPM_BUILD_ROOT%{_httpd_confdir}/log_post.conf \
 %config(noreplace) %{_httpd_confdir}/log_post.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

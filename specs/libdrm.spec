@@ -49,7 +49,7 @@ end}
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
 Version:        2.4.%{lib_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 
 URL:            https://dri.freedesktop.org
@@ -279,6 +279,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.128-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 22 2025 Mika Penttilä <mpenttil@redhat.com> - 2.4.127-3
 - Added amdgpu-slice.patch and amdgpu-fallback.patch
 

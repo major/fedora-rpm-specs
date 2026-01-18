@@ -7,7 +7,7 @@
 
 Name:		perl-Dist-CheckConflicts
 Version:	0.11
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Declare version conflicts for your dist
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Dist-CheckConflicts
@@ -89,6 +89,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Dist::CheckConflicts.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -83,7 +83,7 @@ Version: 9.4.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -1068,6 +1068,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.8-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 19 2025 Jens Petersen <petersen@redhat.com> - 9.4.8-36
 - bump hadrian dep bounds to fix build with ghc-9.8 (#2384624)
 

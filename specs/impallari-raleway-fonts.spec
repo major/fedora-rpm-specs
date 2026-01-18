@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 4.025
-Release: 17%{?dist}
+Release: 18%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           Impallari
@@ -58,6 +58,9 @@ This package provides optional documentation files shipped with
 %doc documents/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.025-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.025-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

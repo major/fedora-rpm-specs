@@ -6,7 +6,7 @@
 
 Name:           perl-IO-Socket-INET6
 Version:        2.73
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl Object interface for AF_INET|AF_INET6 domain sockets
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-INET6
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/IO::Socket::INET6.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

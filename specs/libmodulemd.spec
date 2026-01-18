@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -191,6 +191,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Petr Pisar <ppisar@redhat.com> - 2.15.2-5
 - Adapt tests to glib2-2.87.0 (bug #2423153)
 

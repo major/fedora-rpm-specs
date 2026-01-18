@@ -1,6 +1,6 @@
 Name:		fedora-upgrade
 Version:	42.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Upgrade Fedora to next version using dnf upgrade (unofficial tool)
 
 License:	GPL-2.0-only
@@ -87,6 +87,9 @@ install -m755 rpm-print-name-from-filename.py %{buildroot}%{_bindir}/rpm-print-n
 %license LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 18 2025 Miroslav Suchý <msuchy@redhat.com> 42.3-1
 - add upgrade to Fedora 43
 - remove upgrade to F40 that is EOL

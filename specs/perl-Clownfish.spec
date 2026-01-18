@@ -1,6 +1,6 @@
 Name:           perl-Clownfish
 Version:        0.6.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Apache Clownfish symbiotic object system
 # The LICENSE file declares sinces 0.5.0 that portions of the libcmark libary
 # from the CommonMark project are bundled. But I cannot find any of the code
@@ -87,6 +87,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

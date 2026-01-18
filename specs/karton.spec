@@ -4,7 +4,7 @@
 
 Name:           karton
 Version:        0.1^%{gitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Libvirt-based Virtual Machine Manager for KDE
 
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-3.0-or-later
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.karton.deskt
 %{_kf6_datadir}/qlogging-categories6/karton.categories
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1^20251110.023853.07520e0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Steve Cossette <farchord@gmail.com> - 0.1^20251110.023853.07520e0-1
 - Updated git snapshot
 

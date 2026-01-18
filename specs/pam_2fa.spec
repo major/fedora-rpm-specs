@@ -1,6 +1,6 @@
 Name:           pam_2fa
 Version:        1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Second factor authentication for PAM
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -67,6 +67,9 @@ autoreconf -i
 /%{_lib}/security/pam_ssh_user_auth.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

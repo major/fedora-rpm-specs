@@ -13,7 +13,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.41.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -146,6 +146,9 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.41.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 30 2025 Kalev Lember <kalevlember@gmail.com> - 1:1.41.0-2
 - Fix compiler-rt library path in ldc2.conf
 - Recommend compiler-rt package

@@ -13,7 +13,7 @@
 
 Name:		passt
 Version:	0^20251223.g2ba9fd5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
 Group:		System Environment/Daemons
@@ -133,6 +133,9 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20251223.g2ba9fd5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20251223.g2ba9fd5-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_12_15.b40f5cd..2025_12_23.2ba9fd5
 

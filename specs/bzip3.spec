@@ -15,7 +15,7 @@
 
 Name:           bzip3
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # 3rdparty/libsais-LICENSE: Apache-2.0 text
 # bz3grep:                  BSD-2-Clause
@@ -270,6 +270,12 @@ fi
 %{_mandir}/man1/%{programs}.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 18 2025 Petr Pisar <ppisar@redhat.com> - 1.5.3-1
 - 1.5.3 bump
 

@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-CChecker
 Version:        0.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Configure-time utilities for using C headers, libraries, or OS features
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CChecker
@@ -52,6 +52,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/ExtUtils::CChecker.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

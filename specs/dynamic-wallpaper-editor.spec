@@ -2,7 +2,7 @@
 
 Name:           dynamic-wallpaper-editor
 Version:        2.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Utility for creation or edition GNOME desktop's XML wallpapers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

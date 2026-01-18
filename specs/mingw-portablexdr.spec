@@ -2,7 +2,7 @@
 
 Name:		mingw-portablexdr
 Version:	4.9.1
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	MinGW Windows PortableXDR / RPC Library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -106,6 +106,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.1-38
 - Fix FTBFS using gnu89.. Fixes: rhbz#2385188
 

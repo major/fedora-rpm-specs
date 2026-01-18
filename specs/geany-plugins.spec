@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plugins for Geany
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -890,6 +890,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

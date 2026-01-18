@@ -616,7 +616,7 @@ export PATH="${cwd}/.bin:$PATH"
            %{!?with_bundled_sqlite:--shared-sqlite} \
            --shared-brotli \
            --shared-libuv \
-           --shared-cares \
+           %{!?with_bundled_cares:--shared-cares} \
            --with-intl=small-icu \
            --with-icu-default-data-dir=%{icudatadir} \
            --without-corepack \
@@ -835,7 +835,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} \
 # Fail the build if the versions don't match
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"
+%if %{with bundled_cares}
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.ares.replace(/-DEV$/, ''), '%{c_ares_version}')"
+%endif
 
 # Ensure we have punycode and that the version matches
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require(\"assert\").equal(require(\"punycode\").version, '%{punycode_version}')"

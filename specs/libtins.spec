@@ -1,6 +1,6 @@
 Name:           libtins
 Version:        4.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A high-level, multiplatform C++ network packet sniffing and crafting library
 
 License:        BSD
@@ -69,6 +69,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 4.5-8
 - Allow to build with CMake 4.0 (rhbz#2380755)
 

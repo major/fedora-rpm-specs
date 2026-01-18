@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -578,6 +578,9 @@ fi
 %{_sysusersdir}/inn.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

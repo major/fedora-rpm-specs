@@ -5,7 +5,7 @@ Summary:	PC/SC driver for REINER SCT cyberjack USB chip card reader
 Version:	3.99.5final.SP16
 %global version_prefix %(c=%{version}; echo ${c:0:6})
 %global version_suffix %(c=%{version}; echo ${c:12:4})
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://www.reiner-sct.com/
 Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}-%{version}.tar.bz2
@@ -151,6 +151,9 @@ exit 0
 %doc doc/verifypin_ascii.c doc/verifypin_fpin2.c
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.5final.SP16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 05 2025 Robert Scheck <robert@fedoraproject.org> - 3.99.5final.SP16-1
 - Update to new upstream version SP16 (#2400852)
 

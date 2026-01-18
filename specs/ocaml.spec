@@ -46,7 +46,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -463,6 +463,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 5.4.0-1
 - New upstream version 5.4.0 (RHBZ#2368289)
 

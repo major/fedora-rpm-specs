@@ -1,6 +1,6 @@
 Name:           cxxtest
 Version:        4.4
-Release:        40%{?dist}
+Release:        42%{?dist}
 Summary:        A JUnit-like testing framework for C++
 
 License:        LGPL-3.0-only
@@ -132,6 +132,12 @@ install -D -p -m 644 doc/cxxtestgen.1 %{buildroot}%{_mandir}/man1/cxxtestgen.1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.4-40
 - Rebuilt for Python 3.14.0rc3 bytecode
 

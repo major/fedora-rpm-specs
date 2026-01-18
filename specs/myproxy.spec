@@ -8,7 +8,7 @@
 
 Name:           myproxy
 Version:        6.2.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -317,6 +317,9 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.20-1
 - New GCT release v6.2.20251212
 - Drop patches included in the release

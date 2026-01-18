@@ -1,6 +1,6 @@
 Name:           4th
 Version:        3.62.5
-Release:        21%{?dist}
+Release:        23%{?dist}
 Summary:        A Forth compiler
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -72,6 +72,12 @@ cp -ap sources/include/*.h %{buildroot}%{_includedir}/%{name}/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

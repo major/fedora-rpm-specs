@@ -1,6 +1,6 @@
 Name:           perl-MooseX-LogDispatch
 Version:        1.2002
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Logging Role for Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -68,6 +68,9 @@ sed -i -e '/^inc\// d' MANIFEST
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2002-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2002-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 Name:           kookbook
 Version:        0.2.1^20240530.56b0c4d9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cookbook creator
 
 License:        MIT
@@ -99,6 +99,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}to
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1^20240530.56b0c4d9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1^20240530.56b0c4d9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

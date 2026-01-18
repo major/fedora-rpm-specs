@@ -1,6 +1,6 @@
 Name:		can-utils
 Version:	2025.01
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	SocketCAN user space utilities and tools
 
 # most utilities are dual-licensed but some are GPLv2 only
@@ -85,6 +85,12 @@ head -39 asc2log.c | tail -37 | cut -c4- > COPYING
 %{_libdir}/libisobusfs*.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.01-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.01-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.01-3
 - Minor spec cleanups
 

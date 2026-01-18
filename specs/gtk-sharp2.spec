@@ -1,6 +1,6 @@
 Name:           gtk-sharp2
 Version:        2.12.45
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        GTK+ and GNOME bindings for Mono
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -105,6 +105,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %{_prefix}/lib/monodoc/sources/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.45-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.45-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

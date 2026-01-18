@@ -1,6 +1,6 @@
 Name:           nekovm
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Neko embedded scripting language and virtual machine
 
 # https://haxe.org/foundation/open-source.html#neko-license
@@ -108,6 +108,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Sep 06 2025 Andy Li <andy@onthewings.net> - 2.4.1-1
 - New upstream version 2.4.1
 - Remove neko_c23_bool.patch, which has been applied in upstream

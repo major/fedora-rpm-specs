@@ -66,7 +66,7 @@
 Name:           gprbuild
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-language extensible build tool
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -490,6 +490,9 @@ make -C examples run
 ###############
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
 - Updated to v26.0.0.
 - Program `gprslave' has been removed.

@@ -6,7 +6,7 @@
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	57.%{snap}cvs%{?dist}
+Release:	58.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -86,6 +86,9 @@ sed -i "s/lncurses/ltinfo/" configure
 %{_includedir}/editline/readline.h
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-58.20251016cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 16 2025 Jerry James <loganjerry@gmail.com> - 3.1-57.20251016cvs
 - New version (20251016-3.1)
 - Add bootstrap mode that does not need groff-base

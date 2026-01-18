@@ -1,7 +1,7 @@
 Summary:    Extensible Binary Meta Language library
 Name:       libebml
 Version:    1.4.5
-Release:    5%{?dist}
+Release:    6%{?dist}
 License:    LGPL-2.1-or-later
 URL:        https://www.matroska.org/
 Source:     https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
@@ -65,6 +65,9 @@ rm -r src/lib/utf8-cpp
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

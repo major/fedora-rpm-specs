@@ -1,6 +1,6 @@
 Name: dapl
 Version: 2.1.9
-Release: 26%{?dist}
+Release: 28%{?dist}
 Summary: Library providing access to the DAT 2.0 API
 # Automatically converted from old format: GPLv2 or BSD or CPL - review is highly recommended.
 License: GPL-2.0-only OR LicenseRef-Callaway-BSD OR CPL-1.0
@@ -77,6 +77,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

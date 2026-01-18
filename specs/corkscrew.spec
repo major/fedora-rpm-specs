@@ -1,7 +1,7 @@
 Summary:	Tool for tunneling SSH through HTTP proxies
 Name:		corkscrew
 Version:	2.0
-Release:	40%{?dist}
+Release:	42%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 URL:		http://freshmeat.sourceforge.net/projects/corkscrew
@@ -52,6 +52,12 @@ install -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

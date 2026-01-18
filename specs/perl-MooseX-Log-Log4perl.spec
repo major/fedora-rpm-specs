@@ -1,6 +1,6 @@
 Name:       perl-MooseX-Log-Log4perl
 Version:    0.47
-Release:    31%{?dist}
+Release:    32%{?dist}
 # see lib/MooseX/Log/Log4perl.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ TEST_AUTHOR=1 TEST_POD=1 make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

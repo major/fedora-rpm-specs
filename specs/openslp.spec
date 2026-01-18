@@ -2,7 +2,7 @@
 Summary: Open implementation of Service Location Protocol V2
 Name:    openslp
 Version: 2.0.0
-Release: 40%{?dist}
+Release: 41%{?dist}
 
 License: BSD-3-Clause
 URL:     http://sourceforge.net/projects/openslp/
@@ -171,6 +171,9 @@ rm -f  $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

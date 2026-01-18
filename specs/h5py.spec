@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.15.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -257,6 +257,9 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi -W ignore::DeprecationWarning ${P
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Terje Rosten <terjeros@gmail.com> - 3.15.1-2
 - Add hack avoid %%pyproject_wheel overwriting the wordir
   %%{_pyproject_wheeldir} between different runs (rhbz#2404466)

@@ -3,7 +3,7 @@
 
 Name: argyllcms
 Version: 3.4.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -162,6 +162,12 @@ mv %{buildroot}%{_bindir}/com.argyllcms.metainfo.xml %{buildroot}%{_metainfodir}
 %{_datadir}/color/argyll/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-2
 - Bump EVR for f43 build
 

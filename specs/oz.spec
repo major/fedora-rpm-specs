@@ -1,6 +1,6 @@
 Name:    oz
 Version: 0.18.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Library and utilities for automated guest OS installs
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
@@ -146,6 +146,9 @@ libvirtd -d
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 02 2025 David Abdurachmanov <davidlt@rivosinc.com> - 0.18.1-24
 - Enable riscv64 arch
 

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:        20141121
-Release:        23%{?dist}
+Release:        24%{?dist}
 URL:            http://www.paratype.com/public/
 
 %global foundry         paratype
@@ -57,6 +57,9 @@ install -Dm 0644 -p %{SOURCE11} \
 %{_datadir}/appdata/%{fontpkgname}.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -31,6 +31,7 @@ BuildRequires: ninja-build
 BuildRequires: llvm%{?llvm_compat}-devel
 BuildRequires: lld%{?llvm_compat}-devel
 BuildRequires: clang%{?llvm_compat}
+BuildRequires: clang-tools-extra
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: python3

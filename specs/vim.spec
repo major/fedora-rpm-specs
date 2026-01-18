@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 2068
+%define patchlevel 2086
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -995,6 +995,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Jan 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2086-1
+- patchlevel 2086
+
 * Fri Jan 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2068-1
 - patchlevel 2068
 

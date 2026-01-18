@@ -1,6 +1,6 @@
 Name:		packmol
 Version:	21.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Packing optimization for molecular dynamics simulations
 License:	MIT
 URL:		https://m3g.github.io/packmol
@@ -65,6 +65,9 @@ done
 %{_bindir}/packmol_solvate
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 21.1.0-2
 - Allow to build with CMake 4.0 (rhbz#2381351)
 

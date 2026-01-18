@@ -3,7 +3,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 1.1.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -200,6 +200,12 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.1.0-1
 - Update to 1.1.0
 

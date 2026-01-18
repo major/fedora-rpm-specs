@@ -1,6 +1,6 @@
 Name:           bwa
 Version:        0.7.17
-Release:        16%{?dist}
+Release:        18%{?dist}
 Summary:        Burrows-Wheeler Alignment tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -72,6 +72,12 @@ install -m 0644 bwa.1 %{buildroot}/%{_mandir}/man1/bwa.1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.17-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.17-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.17-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

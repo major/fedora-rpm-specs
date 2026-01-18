@@ -13,7 +13,7 @@
 Name:    kdb
 Summary: Database Connectivity and Creation Framework
 Version: 3.2.0
-Release: 24%{?dist}
+Release: 25%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -176,6 +176,9 @@ cat kdb_sqlitedriver_qt.lang >> kdb_qt.lang
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 3.2.0-24
 - Rebuilt for icu 77.1
 

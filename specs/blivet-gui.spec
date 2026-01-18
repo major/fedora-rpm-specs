@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.6.0
-Release: 10%{?dist}
+Release: 12%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -80,6 +80,12 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 06 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-10
 - Fix AttributeError when creating encrypted MD array (#2401870)
 

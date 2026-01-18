@@ -1,6 +1,6 @@
 Name:           davfs2
 Version:        1.7.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -95,6 +95,12 @@ install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 %{_sysusersdir}/davfs2.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 26 2025 Paul Howarth <paul@city-fan.org> - 1.7.2-1
 - Update to 1.7.2 (rhbz#2391098)
   - Add support for libneon 34, 35

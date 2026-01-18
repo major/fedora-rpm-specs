@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20080203
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Chunky Geometric Fonts
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -65,6 +65,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20080203-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080203-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

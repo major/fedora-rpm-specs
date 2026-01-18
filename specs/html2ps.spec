@@ -18,7 +18,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.57.%{my_subversion}%{?dist}
+Release:        0.58.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -172,6 +172,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.58.b7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.57.b7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlify
 Version:        0.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -53,6 +53,9 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 0.1.0-4
 - OCaml 5.4.0 rebuild
 

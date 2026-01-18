@@ -2,7 +2,7 @@
 
 Name: gtk-doc
 Version: 1.35.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
@@ -77,6 +77,9 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/GtkDoc/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 1.35.1-2
 - Disable checks for F44 due to python3-parameterized retirement
 

@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.4.7.0
 # can only be reset when subpkg bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A class for types that can be converted to a hash value
 
 License:        BSD-3-Clause
@@ -176,6 +176,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

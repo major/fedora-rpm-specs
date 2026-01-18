@@ -35,7 +35,7 @@
 Summary: Various compatibility compilers (C, C++, Fortran, ...)
 Name: gcc%{gcc_major}
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}
+Release: %{gcc_release}%{?dist}.1
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -894,6 +894,9 @@ rm -rf testlogs-%{_target_platform}-%{version}-%{release}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/plugin/gcc-annobin.so.0.0.0
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.3.1-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug  8 2025 Jakub Jelinek <jakub@redhat.com> 14.3.1-3
 - update from gcc-14.3.1-3.fc41
 

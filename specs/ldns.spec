@@ -35,7 +35,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -285,6 +285,9 @@ rm -rf doc/man
 %doc doc/*.dox
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 04 2025 Petr Menšík <pemensik@redhat.com> - 1.9.0-1
 - Update 1.9.0 (rhbz#2416980)
 - Dropped python2 support

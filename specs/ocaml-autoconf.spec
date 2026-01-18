@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-autoconf
 Version:        1.1
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Autoconf macros for OCaml
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ make install \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1-46
 - OCaml 5.4.0 rebuild
 

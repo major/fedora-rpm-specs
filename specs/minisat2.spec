@@ -2,7 +2,7 @@
 
 Name:           minisat2
 Version:        2.2.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Minimalistic SAT solver
 
 License:        MIT
@@ -125,6 +125,9 @@ fi
 %{_libdir}/lib%{myname}.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

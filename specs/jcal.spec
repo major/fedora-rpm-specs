@@ -1,6 +1,6 @@
 Name:           jcal
 Version:        0.4.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Unix cal-like interface to libjalali
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -67,6 +67,9 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

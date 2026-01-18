@@ -1,6 +1,6 @@
 Name:           gnome-directory-thumbnailer
 Version:        0.1.11
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Thumbnailer for directories
 
 License:        LGPL-2.1-or-later
@@ -47,6 +47,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

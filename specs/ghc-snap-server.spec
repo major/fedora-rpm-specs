@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.1.2.1
 # can only be reset when subpkg bumped
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A web server for the Snap Framework
 
 License:        BSD-3-Clause
@@ -183,6 +183,9 @@ cabal-tweak-dep-ver transformers '< 0.6' '< 0.7'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.22
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -111,6 +111,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 18 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.22-6
 - Fix service startup, mosquitto user to own dirs, package owns runtime dirs
 

@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        3.1.8
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -315,6 +315,12 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 06 2025 Terje Rosten <terjeros@gmail.com> - 3.1.8-1
 - 3.1.8
 - apt-key is gone

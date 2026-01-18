@@ -6,7 +6,7 @@
 
 Name:		libssh2
 Version:	1.11.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A library implementing the SSH2 protocol
 License:	BSD-3-Clause
 URL:		https://www.libssh2.org/
@@ -116,6 +116,9 @@ LC_ALL=en_US.UTF-8 make -C tests check
 %{_libdir}/pkgconfig/libssh2.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.14.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Constraint manipulation
 
 License:        BSD-2-Clause
@@ -152,6 +152,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

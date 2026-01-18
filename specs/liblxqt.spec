@@ -5,7 +5,7 @@
 
 Name:		liblxqt
 Version:	2.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2
 Summary:	Core shared library for LXQt desktop suite
@@ -99,6 +99,9 @@ touch -r %{SOURCE1} %{buildroot}%{rpm_macros_dir}/macros.lxqt
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
 - Update to 2.3.0
 

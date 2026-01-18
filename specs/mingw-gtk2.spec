@@ -2,7 +2,7 @@
 
 Name:           mingw-gtk2
 Version:        2.24.33
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        MinGW Windows Gtk2 library
 
 License:        LGPL-2.0-or-later
@@ -311,6 +311,9 @@ rm -f %{buildroot}%{mingw64_bindir}/gtk-update-icon-cache.exe
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.33-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.33-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        1.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Packit <hello@packit.dev> - 1.14.0-1
 - We have added the `--preserve-spec` flag to the `prepare-sources` and `srpm` commands. When used, Packit will not change the spec file in any way (e.g., release is not bumped, Source0 is not changed). When enabled, it implies `--no-update-release`. (#2653)
 - Resolves: rhbz#2427944

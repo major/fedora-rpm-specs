@@ -1,6 +1,6 @@
 Name:           perl-Math-FFT
 Version:        1.36
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Perl module to calculate Fast Fourier Transforms
 # arrays.c:         GPL-1.0-or-later OR Artistic-1.0-Perl (copied from
 #                   <https://metacpan.org/dist/PGPLOT>)
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           libsodium
 Version:        1.0.21
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Sodium crypto library
 # Most source code is ISC, except:
 # BSD-2-Clause:
@@ -197,6 +197,9 @@ make -C build_native check
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan  7 2026 Remi Collet <remi@remirepo.net> - 1.0.21-2
 - fix aarch64 build failure using upstream patch
 

@@ -1,6 +1,6 @@
 Name:           PyX
 Version:        0.16
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Python graphics package
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -106,6 +106,12 @@ done
 %doc examples/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.16-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

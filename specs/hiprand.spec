@@ -84,10 +84,10 @@
 Name:           %{hiprand_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        HIP random number generator
 License:        MIT AND BSD-3-Clause
@@ -244,6 +244,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Add --with compat
 

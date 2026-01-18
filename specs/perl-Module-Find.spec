@@ -1,6 +1,6 @@
 Name:		perl-Module-Find
 Version:	0.17
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Find and use installed modules in a (sub)category
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Find
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Module::Find.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

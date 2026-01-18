@@ -7,7 +7,7 @@ License: GPL-3.0-only
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 Version: 0^%{git_date}.git%{git_commit_short}
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -153,6 +153,12 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20251114.git0f52ff2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20251114.git0f52ff2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20251114.git0f52ff2-1
 - Update to latest git snapshot (2025-11-14)
 - Fix missing symlinks (dangling symlinks were deleted too early)

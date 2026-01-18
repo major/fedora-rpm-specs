@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -354,6 +354,18 @@ Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
 # * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
 # * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
 Patch471: 00471-cve-2025-12084.patch
+
+# 00472 # 2ba215eaba508b2cdd7c3acfdf3b9a6e32872274
+# CVE-2025-13836
+#
+# gh-119451: Fix a potential denial of service in http.client (GH-119454)
+#
+# Reading the whole body of the HTTP response could cause OOM if
+# the Content-Length value is too large even if the server does not send
+# a large amount of data. Now the HTTP client reads large data by chunks,
+# therefore the amount of consumed memory is proportional to the amount
+# of sent data.
+Patch472: 00472-cve-2025-13836.patch
 
 # (New patches go here ^^^)
 #
@@ -1683,6 +1695,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Jan 16 2026 Lumír Balhar <lbalhar@redhat.com> - 3.11.14-4
+- Security fix for CVE-2025-13836
+
 * Thu Jan 08 2026 Lumír Balhar <lbalhar@redhat.com> - 3.11.14-3
 - Security fix for CVE-2025-12084
 

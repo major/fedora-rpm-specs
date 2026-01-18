@@ -29,13 +29,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   49.3
+Version:   50~alpha
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://apps.gnome.org/Software
-Source0:   https://download.gnome.org/sources/gnome-software/49/%{name}-%{tarball_version}.tar.xz
+Source0:   https://download.gnome.org/sources/gnome-software/50/%{name}-%{tarball_version}.tar.xz
 
 %if %{with dnf5}
 # to update the patch enter the ./dnf5-plugin/ directory and run from
@@ -294,9 +294,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_datadir}/swcatalog/xml
 %{_datadir}/swcatalog/xml/gnome-pwa-list-foss.xml
 %endif
-%if %{with packagekit}
 %{_datadir}/dbus-1/services/org.freedesktop.PackageKit.service
-%endif
 %{_datadir}/dbus-1/services/org.gnome.Software.service
 %{_datadir}/gnome-shell/search-providers/org.gnome.Software-search-provider.ini
 %{_datadir}/glib-2.0/schemas/org.gnome.software.gschema.xml

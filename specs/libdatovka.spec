@@ -1,6 +1,6 @@
 Name: libdatovka
 Version: 0.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Client library for accessing SOAP services of ISDS (Czech Data Boxes)
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -91,6 +91,9 @@ make check %{?_smp_mflags}
 %doc client
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 07 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.7.2-1
 - New version
   Resolves: rhbz#2397787

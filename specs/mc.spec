@@ -6,7 +6,7 @@ Summary:	User-friendly text console file manager and visual shell
 Name:		mc
 Epoch:		1
 Version: 	4.8.33
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://midnight-commander.org/
 Source:		http://ftp.midnight-commander.org/mc-%{version}.tar.xz
@@ -96,6 +96,9 @@ Midnight Commander s3+ and UC1541 EXTFS backend scripts.
 %{_libexecdir}/mc/extfs.d/{s3+,uc1541}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.33-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

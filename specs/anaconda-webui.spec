@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        61
+Version:        62
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -47,6 +47,7 @@ Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
+Provides: bundled(npm(error-stack-parser)) = 2.1.4
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(js-tokens)) = 4.0.0
@@ -61,7 +62,12 @@ Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.3.0
+Provides: bundled(npm(source-map)) = 0.5.6
+Provides: bundled(npm(stack-generator)) = 2.0.10
+Provides: bundled(npm(stackframe)) = 1.3.4
+Provides: bundled(npm(stacktrace-gps)) = 3.1.2
+Provides: bundled(npm(stacktrace-js)) = 2.0.2
+Provides: bundled(npm(tabbable)) = 6.4.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -121,6 +127,21 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Jan 16 2026 Packit <hello@packit.dev> - 62-1
+- components: localization: fix TypeError with undefined locale
+  (Resolves: rhbz#2422032)
+- Remove hardcoded window size from Firefox launch
+- Remove 'WebUI' from bug report titles and description
+- Set Bugzilla component to anaconda-webui only when bug is a front end exception
+- Enhance frontend exception reporting
+- components: localization: enable more than keyboard selection in Workstation
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 61-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 61-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Packit <hello@packit.dev> - 61-1
 - components: storage: fix form validation race condition in
   InstallationMethod (rhbz#2418952)

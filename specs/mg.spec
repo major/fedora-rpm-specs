@@ -1,6 +1,6 @@
 Name:          mg
 Version:       20250523
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Tiny Emacs-like editor
 License:       LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/hboetes/mg
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/mg.1.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250523-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250523-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

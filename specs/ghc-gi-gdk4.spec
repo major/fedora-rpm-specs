@@ -7,7 +7,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        4.0.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Gdk bindings
 
 License:        LGPL-2.1-only
@@ -133,6 +133,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-Pager
 Version:        0.08
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Pager utility for Class::DBI
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

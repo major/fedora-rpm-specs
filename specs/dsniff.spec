@@ -1,7 +1,7 @@
 Summary:        Tools for network auditing and penetration testing
 Name:           dsniff
 Version:        2.4
-Release:        0.47.b1%{?dist}
+Release:        0.48.b1%{?dist}
 # dsniff itself is BSD-3-Clause but uses other source codes, breakdown:
 # BSD-4-Clause-UC: missing/{err.[ch],{memcmp,strsep}.c,sys/queue.h}
 # ISC: base64.[ch]
@@ -114,6 +114,9 @@ export CFLAGS="$CFLAGS -std=gnu17"
 %{_mandir}/man8/webspy.8*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-0.48.b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-0.47.b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

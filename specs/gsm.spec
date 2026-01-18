@@ -5,7 +5,7 @@
 
 Name:           gsm
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared libraries for GSM speech compressor
 
 License:        tu-berlin-2.0
@@ -111,6 +111,9 @@ export LDFLAGS="%{?__global_ldflags}"
 %{_mandir}/man3/gsm_print.3*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 02 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.0.23-1
 - update to 1.0.23 (resolves rhbz#2392252)
 

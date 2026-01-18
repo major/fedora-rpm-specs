@@ -1,6 +1,6 @@
 Name:           perl-Alien-cmake3
 Version:        0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Find or download or build cmake 3 or better
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-cmake3
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 27 2025 Petr Pisar <ppisar@redhat.com> - 0.10-1
 - 0.10 bump
 

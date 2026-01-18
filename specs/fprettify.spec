@@ -1,6 +1,6 @@
 Name:           fprettify
 Version:        0.3.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Auto-formatter for modern Fortran source code
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -58,6 +58,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/fprettify-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.7-18
 - Rebuilt for Python 3.14.0rc3 bytecode
 

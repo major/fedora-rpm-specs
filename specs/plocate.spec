@@ -1,5 +1,5 @@
 Name:           plocate
-Version:        1.1.23
+Version:        1.1.24
 Release:        %autorelease
 Summary:        Much faster locate
 

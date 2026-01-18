@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.5.2
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 Source1:      https://github.com/kthohr/gcem/archive/refs/tags/gcem-1.18.0.tar.gz
@@ -133,6 +133,9 @@ install -Dm 644 %{__cmake_builddir}/fluidsynth.tmpfiles %{buildroot}%{_tmpfilesd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 24 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.5.2-1
 - Update to 2.5.2
 - Fix for CVE-2025-68617

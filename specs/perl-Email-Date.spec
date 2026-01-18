@@ -1,6 +1,6 @@
 Name:           perl-Email-Date
 Version:        1.104
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Find and format date headers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Date
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Email::Date.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.104-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.104-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

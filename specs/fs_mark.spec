@@ -1,6 +1,6 @@
 Name:		fs_mark
 Version:	3.3
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Benchmark synchronous/async file creation
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -38,6 +38,9 @@ install -D fs_mark $RPM_BUILD_ROOT/usr/bin/fs_mark
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

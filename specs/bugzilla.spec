@@ -5,7 +5,7 @@ Summary: Bug tracking system
 URL: https://www.bugzilla.org/
 Name: bugzilla
 Version: 5.0.6
-Release: 25%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: MPLv1.1 - review is highly recommended.
 License: LicenseRef-Callaway-MPLv1.1
 Source0: https://github.com/bugzilla/bugzilla/archive/release-%{version}.tar.gz
@@ -291,6 +291,12 @@ popd > /dev/null)
 %{bzinstallprefix}/bugzilla/contrib/Bugzilla.pm
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

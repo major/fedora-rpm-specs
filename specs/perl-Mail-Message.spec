@@ -1,6 +1,6 @@
 Name:		perl-Mail-Message
 Version:	4.01
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Message
@@ -124,6 +124,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.01-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-2
 - Remove bootstrap macro
 

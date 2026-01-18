@@ -1,7 +1,7 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.13
-Release:    10%{?dist}
+Release:    11%{?dist}
 # COPYING:                      GPL-3.0 text
 # doc/indent.texi:              Latex2e-translated-notice
 #                               (AND a subset of Latex2e WITH a texinfo-commented GPL clause;
@@ -183,6 +183,9 @@ make check %{?_smp_mflags}
 %{_infodir}/indent.info*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

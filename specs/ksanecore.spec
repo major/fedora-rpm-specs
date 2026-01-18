@@ -1,7 +1,7 @@
 Name:    ksanecore
 Summary: Library providing logic to interface scanners
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD and LGPLv2.1-only and LGPLv3.0-only
 URL:     https://invent.kde.org/libraries/ksanecore
@@ -65,6 +65,9 @@ Obsoletes: %{name}-qt6-devel < 24.12.0
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

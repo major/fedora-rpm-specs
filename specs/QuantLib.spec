@@ -2,7 +2,7 @@
 
 Name:		QuantLib
 Version:	1.29
-Release:	9%{?dist}
+Release:	11%{?dist}
 Summary:	A software framework for quantitative finance
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -145,6 +145,12 @@ touch -r News.md %{buildroot}%{_datadir}/emacs/site-lisp/quantlib.elc
 #%%{docdir}/QuantLib-%%{version}-docs-refman.ps
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

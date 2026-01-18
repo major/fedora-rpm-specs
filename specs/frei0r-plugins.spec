@@ -1,6 +1,13 @@
+# The package does not currently build with -msse4.1 enabled,
+# which is implicit on ELN when building with -march=x86-64-v3
+# Just explicitly disable this optimization until upstream
+# fixes the issue.
+# https://github.com/dyne/frei0r/issues/239
+%global optflags %{optflags} -mno-sse4.1
+
 Name:           frei0r-plugins
 Version:        2.5.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -15,7 +22,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gavl-devel >= 0.2.3
 BuildRequires:  opencv-devel >= 1.0.0
 BuildRequires:  cairo-devel >= 1.0.0
-     
+
 
 %description
 It is a minimalist plugin API for video sources and filters. The behavior of
@@ -76,6 +83,12 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Fri Jan 16 2026 Stephen Gallagher <sgallagh@redhat.com> - 2.5.1-4
+- Disable broken SSE4.1 optimization
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Nicolas Chauvet <kwizart@gmail.com> - 2.5.1-2
 - Rebuilt for OpenCV-4.12
 

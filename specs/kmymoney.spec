@@ -10,7 +10,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -200,6 +200,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 5.2.1-3
 - Rebuild (qt6)
 

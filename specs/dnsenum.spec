@@ -1,6 +1,6 @@
 Name:       dnsenum 
 Version:    1.3.2
-Release:    3%{?dist}
+Release:    5%{?dist}
 Summary:    A tool to enumerate DNS info about domains 
 
 License:    GPL-2.0-or-later
@@ -39,6 +39,12 @@ pod2man dnsenum.pl > dnsenum.1
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

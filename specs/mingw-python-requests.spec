@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.32.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       Apache-2.0
@@ -70,6 +70,9 @@ sed -i '/#!\/usr\/.*python/d' src/requests/certs.py
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 25 2025 Sandro Mani <manisandro@gmail.com> - 2.32.5-1
 - Update to 2.32.5
 

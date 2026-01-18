@@ -6,7 +6,7 @@
 
 Name:           gnome-clocks
 Version:        49.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clock application designed for GNOME 3
 
 # Sources are under GPL-2.0-or-later, Appdata is under CC0-1.0 and help is
@@ -68,6 +68,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.clocks.d
 %{_metainfodir}/org.gnome.clocks.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
 - Update to 49.0
 

@@ -1,7 +1,7 @@
 Name:           libcerf
 Version:        3.3
 %global         sover 3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library that provides complex error functions
 
 License:        MIT
@@ -69,6 +69,9 @@ mv $RPM_BUILD_ROOT/%{_datadir}/doc/cerf/html $RPM_BUILD_ROOT/%{_datadir}/doc/%{n
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 25 2025 Christoph Junghans <junghans@votca.org> - 3.3-1
 - Version bump to v3.3
 - Fixes: rhbz#2406304

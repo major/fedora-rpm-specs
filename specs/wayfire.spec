@@ -2,15 +2,15 @@
 
 # Git submodules
 #   * wf-utils
-%global commit1 08553c418f164bf5e84613d27447a32e380b75f0
+%global commit1 3ef27d1f76b5f3d1f34305bff12b3174e81727c2
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 #   * wf-touch
-%global commit2 b8b844fa873871f90a9cf0768c8ae8c92ad49f34
+%global commit2 093d8943df03cc8a2667990a065513c1bf2b57e0
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 Name:           wayfire
-Version:        0.9.0
+Version:        0.10.1
 %forgemeta
 Release:        %autorelease
 Summary:        A modular and extensible wayland compositor
@@ -25,7 +25,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  inotify-tools-devel
 BuildRequires:  libevdev-devel
-BuildRequires:  meson >= 0.63.0
+BuildRequires:  meson >= 0.64.0
 
 BuildRequires:  cmake(doctest)
 BuildRequires:  cmake(glm)
@@ -40,12 +40,13 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(nlohmann_json) >= 3.11.2
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pixman-1)
+BuildRequires:  pkgconfig(yyjson)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wf-config) >= 0.9.0
-BuildRequires:  pkgconfig(wlroots) >= 0.17.0
+BuildRequires:  pkgconfig(wf-config) >= 0.10.0
+BuildRequires:  pkgconfig(wlroots-0.19)
 BuildRequires:  pkgconfig(xkbcommon)
 
 Recommends:     wayfire-config-manager
@@ -56,8 +57,9 @@ Provides:       bundled(wf-utils) = 0.0~git%{commit1}
 
 %description
 Wayfire is a 3D Wayland compositor, inspired by Compiz and based on wlroots.
-It aims to create a customizable, extendable and lightweight environment
-without sacrificing its appearance.
+
+It aims to create a customizable, extendable and lightweight environment without
+sacrificing its appearance.
 
 
 %package        devel
@@ -80,6 +82,7 @@ mv wf-touch-%{commit2}/* subprojects/wf-touch/
 %meson                            \
     -Duse_system_wfconfig=enabled \
     -Duse_system_wlroots=enabled  \
+    -Dxwayland=enabled            \
     %{nil}
 %meson_build
 
@@ -98,6 +101,7 @@ rm -f %{buildroot}%{_prefix}/man/%{name}.1
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/wayland-sessions/*.desktop
+%{_datadir}/xdg-desktop-portal/wayfire-portals.conf
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}-blur-base.so
 %{_libdir}/libwf-utils.so.0*
@@ -106,6 +110,7 @@ rm -f %{buildroot}%{_prefix}/man/%{name}.1
 
 %files devel
 %{_includedir}/%{name}/
+%{_libdir}/lib%{name}-*.a
 %{_libdir}/libwf-utils.so
 %{_libdir}/pkgconfig/*.pc
 

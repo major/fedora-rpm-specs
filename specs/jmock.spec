@@ -1,6 +1,6 @@
 Name:           jmock
 Version:        2.12.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Java library for testing code with mock objects
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -122,6 +122,9 @@ Source for JAR files used in jMock Core tests.
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.12.0-21
 - Rebuilt for java-25-openjdk as preffered jdk
 

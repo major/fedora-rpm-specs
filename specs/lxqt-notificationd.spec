@@ -1,7 +1,7 @@
 Name:          lxqt-notificationd
 Summary:       Notification daemon for LXQt desktop suite
 Version:       2.3.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/lxqt/
 %{_datadir}/lxqt/translations/lxqt-config-notificationd/lxqt-config-notificationd_ast.qm
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.1-1
 - Update to 2.3.1
 

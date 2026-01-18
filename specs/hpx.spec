@@ -1,6 +1,6 @@
 Name:           hpx
 Version:        1.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
@@ -277,6 +277,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Christoph Junghans <junghans@votca.org> - 1.11.0-1
 - Version bump to v1.11.0
 - Fixes: rhbz#2411986

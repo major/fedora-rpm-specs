@@ -2,7 +2,7 @@
 
 Name:           parcellite
 Version:        1.2.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A lightweight GTK+ clipboard manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ install -D data/%{name}.appdata.xml %{buildroot}/%{_datadir}/metainfo/%{name}.ap
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.2.6-8
 - Allow to build with CMake 4.0 (rhbz#2381355)
 

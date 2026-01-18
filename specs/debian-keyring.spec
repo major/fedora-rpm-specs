@@ -2,7 +2,7 @@
 
 Name:           debian-keyring
 Version:        2025.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        GnuPG archive keys of the Debian archive
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -42,6 +42,12 @@ make
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

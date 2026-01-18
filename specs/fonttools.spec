@@ -31,7 +31,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.61.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -201,6 +201,9 @@ k="${k-}${k+ and }not (test_ttcompile_timestamp_calcs)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.61.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.61.1-1
 - Update to 4.61.1 version (#2421833)
 

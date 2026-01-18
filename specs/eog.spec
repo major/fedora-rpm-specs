@@ -8,7 +8,7 @@
 
 Name:    eog
 Version: 47.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -138,6 +138,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 10 2025 Leigh Scott <leigh123linux@gmail.com> - 47.0-4
 - Rebuild for libpeas1 changes
 

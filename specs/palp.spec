@@ -1,6 +1,6 @@
 Name:           palp
 Version:        2.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Package for Analyzing Lattice Polytopes
 License:        GPL-3.0-or-later
 URL:            http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html
@@ -99,6 +99,9 @@ cp -p man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 2.21-1
 - Version 2.21
 - Drop upstreamed buffer overflow patch

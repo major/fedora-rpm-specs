@@ -4,7 +4,7 @@
 
 Name:           VK_hdr_layer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Vulkan Wayland HDR WSI Layer
 
 License:        MIT
@@ -59,6 +59,12 @@ if the protocol is supported by the compositor.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250416.3b276e6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250416.3b276e6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250416.3b276e6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

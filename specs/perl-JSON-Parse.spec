@@ -1,6 +1,6 @@
 Name:           perl-JSON-Parse
 Version:        0.62
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Read JSON into a Perl variable
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,9 @@ is specified in "RFC 7159".)
 %{_bindir}/validjson
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

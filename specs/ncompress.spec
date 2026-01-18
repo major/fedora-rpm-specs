@@ -1,7 +1,7 @@
 Summary: Fast compression and decompression utilities
 Name: ncompress
 Version: 5.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: Unlicense
 URL: https://github.com/vapier/%{name}
 Source: https://github.com/vapier/%{name}/archive/refs/tags/v%{version}.tar.gz
@@ -89,6 +89,9 @@ ln -sf compress.1 $RPM_BUILD_ROOT%{_mandir}/man1/uncompress.1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

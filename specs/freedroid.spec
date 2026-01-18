@@ -3,7 +3,7 @@ Summary:        Clone of the C64 game Paradroid
 License:        GPL-2.0-or-later
 
 Version:        1.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 %global git_tag %{name}-%{version}.apk
 
@@ -82,6 +82,9 @@ install -Dpm 644 graphics/paraicon_48x48.png \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

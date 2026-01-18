@@ -2,7 +2,7 @@
 
 Name:           nginx-mod-naxsi
 Version:        1.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        nginx web application firewall module
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -51,6 +51,9 @@ install -m0755 naxsi_rules/naxsi_core.rules %{buildroot}%{_datadir}/nginx/naxsi/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 26 2025 Felix Kaechele <felix@kaechele.ca> - 1.6-12
 - Rebuild for 1.28.1
 

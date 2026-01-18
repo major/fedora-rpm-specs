@@ -6,7 +6,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.3.0
-Release:        0.17.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.18.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Python auto-completion for Emacs
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -91,6 +91,9 @@ export PYTEST_ADDOPTS="--deselect=test_jediepcserver.py::test_epc_server_runs_fi
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-0.18.20210503gite942a0e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-0.17.20210503gite942a0e
 - Rebuilt for Python 3.14.0rc3 bytecode
 

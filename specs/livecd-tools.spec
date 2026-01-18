@@ -3,7 +3,7 @@
 Summary:    Tools for building live CDs
 Name:       livecd-tools
 Version:    31.0
-Release:    19%{?dist}
+Release:    20%{?dist}
 %if 0%{?fedora}
 Epoch:      1
 %endif
@@ -146,6 +146,9 @@ rm -rfv %{buildroot}%{_mandir}/man8/livecd-iso-to-*
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:31.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Daniel P. Berrangé <berrange@redhat.com> - 1:31.0-19
 - Add ExcludeArch for i686 to remove the indirect dep on QEMU
 

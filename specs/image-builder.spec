@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 163
+%global min_osbuild_version 167
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        45
+Version:        47
 
 %gometa
 
@@ -47,7 +47,7 @@ BuildRequires:  systemd-rpm-macros
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.2
-Provides: bundled(golang(github.com/BurntSushi/toml)) = 3d3abc2
+Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.6.0
 Provides: bundled(golang(github.com/IBM/go-sdk-core/v5)) = 5.21.0
 Provides: bundled(golang(github.com/IBM/ibm-cos-sdk-go)) = 1.12.3
 Provides: bundled(golang(github.com/Microsoft/go-winio)) = 0.6.2
@@ -146,8 +146,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.20.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.231.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.233.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -265,6 +265,17 @@ cd $PWD/_build/src/%{goipath}
 %ghost %dir /var/cache/image-builder
 
 %changelog
+* Fri Jan 16 2026 Packit <hello@packit.dev> - 47-1
+Changes with 47
+----------------
+  - Revert "spec: Use gosource macro for Source0" (#433)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-01-16
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 45-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Packit <hello@packit.dev> - 45-1
 Changes with 45
 ----------------

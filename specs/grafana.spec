@@ -26,7 +26,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1026,6 +1026,9 @@ done
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/*/active/modules/200/grafana
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 3 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-22
 - Fix recursive macro definition causing rpminspect failure
 

@@ -4,7 +4,7 @@
 
 Name:               mailman3-fedmsg-plugin-schemas
 Version:            1.0.0
-Release:            8%{?dist}
+Release:            9%{?dist}
 Summary:            Fedora Messaging schema for messages emitted by Mailman 3
 
 License:            LGPL-3.0-or-later
@@ -51,6 +51,9 @@ rm -rf %{modname}.egg-info
 %doc README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

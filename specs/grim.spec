@@ -1,6 +1,6 @@
 Name:		grim
 Version:	1.5.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Screenshot tool for Sway
 
 License:	MIT
@@ -46,6 +46,9 @@ Grim is a command-line tool to grab images from Sway.
 %{fish_completions_dir}/grim*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

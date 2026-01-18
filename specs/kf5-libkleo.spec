@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE PIM cryptographic library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1)
@@ -116,6 +116,9 @@ sed -i "s/libkleopatra/libkleopatra5/" src/Messages.sh
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

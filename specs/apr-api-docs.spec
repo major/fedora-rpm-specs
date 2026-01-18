@@ -1,6 +1,6 @@
 Name:           apr-api-docs
 Version:        1.7.6
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Apache Portable Runtime API documentation
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -54,6 +54,12 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_docdir}/apr/api-docs
 %doc %{_docdir}/apr/api-docs/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 30 2025 Bojan Smojver <bojan@rexursive.com> 1.7.6-1
 - bump up to 1.7.6
 

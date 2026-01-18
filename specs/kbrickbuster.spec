@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
 Version: 25.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.k
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.0-1
 - 25.12.0
 

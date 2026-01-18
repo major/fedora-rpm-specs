@@ -1,7 +1,7 @@
 Name:           chntpw
 # Version is taken from HISTORY.txt
 Version:        1.00
-Release:        20.140201%{?dist}
+Release:        22.140201%{?dist}
 Summary:        Change passwords in Windows SAM files
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -92,6 +92,12 @@ cp -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-22.140201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-21.140201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-20.140201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

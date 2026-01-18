@@ -10,7 +10,7 @@
 
 Name:           mingw-filesystem
 Version:        150
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPL-2.0-or-later
@@ -381,6 +381,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 150-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 20 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 150-3
 - Own a few more directories.
 

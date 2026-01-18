@@ -2,7 +2,7 @@
 
 Name:		clatd
 Version:	2.1.0
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	CLAT / SIIT-DC Edge Relay implementation for Linux
 
 License:	MIT
@@ -83,6 +83,12 @@ install -p -D -m0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.ser
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 08 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 2.1.0-3
 - Changed perl deps since last version, bz#2413482
 

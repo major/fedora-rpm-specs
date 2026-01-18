@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.0
-Release:       8%{?dist}
+Release:       9%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -212,6 +212,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.0-8
 - Allow directories 6
 - Update License expression

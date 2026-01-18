@@ -1,6 +1,6 @@
 Name:           perl-IPC-SharedCache
 Version:        1.3
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Perl module to manage a cache in SysV IPC shared memory
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ make test
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

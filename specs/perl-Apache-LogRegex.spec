@@ -1,6 +1,6 @@
 Name:           perl-Apache-LogRegex
 Version:        1.71
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Parse a line from an Apache logfile into a hash
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-LogRegex
@@ -42,6 +42,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

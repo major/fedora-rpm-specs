@@ -1,6 +1,6 @@
 Name:           librhsm
 Version:        0.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Red Hat Subscription Manager library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librhsm
@@ -50,6 +50,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Petr Pisar <ppisar@redhat.com> - 0.0.4-1
 - 0.0.4 bump
 

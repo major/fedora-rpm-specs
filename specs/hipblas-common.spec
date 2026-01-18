@@ -48,10 +48,10 @@
 Name:           hipblas-common%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
 License:        MIT
@@ -125,6 +125,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas-common/LICENSE.md
 %{pkg_prefix}/share/cmake/hipblas-common/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Add --with compat
 

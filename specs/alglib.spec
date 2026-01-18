@@ -1,6 +1,6 @@
 Name:           alglib
 Version:        4.07.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A numerical analysis and data processing library
 
 License:        GPL-2.0-or-later
@@ -79,6 +79,12 @@ sed -i 's|\r||g' manual.cpp.html
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.07.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.07.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 29 2025 Sandro Mani <manisandro@gmail.com> - 4.07.0-1
 - Update to 4.07.0
 

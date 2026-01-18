@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    75%{?dist}
+Release:    77%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     check-cvs
@@ -619,6 +619,12 @@ exit 0
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-77
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-75
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

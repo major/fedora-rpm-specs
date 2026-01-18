@@ -6,7 +6,7 @@
 Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
-Release: 82%{?dist}
+Release: 84%{?dist}
 # Automatically converted from old format: BSD and BSD with advertising - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-BSD-with-advertising
 URL: ftp://metalab.unc.edu/pub/Linux/games/
@@ -229,6 +229,12 @@ install -m0644 -D bsd-games.sysusers.conf %{buildroot}%{_sysusersdir}/bsd-games.
 %{_sysusersdir}/bsd-games.conf
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-84
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-83
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-82
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

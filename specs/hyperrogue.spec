@@ -3,7 +3,7 @@
 
 Name:           hyperrogue
 Version:        13.0
-Release:        3.w%{?dist}
+Release:        4.w%{?dist}
 Summary:        An SDL roguelike in a non-euclidean world
 
 # The game is under the GPLv2 (savepng.* is under zlib) and the music under CC-BY-SA (v3) and sounds under CC-BY-SA 4.0, CC-BY 4.0 and CC0
@@ -105,6 +105,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-4.w
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-3.w
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

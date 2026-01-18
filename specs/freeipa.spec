@@ -119,7 +119,7 @@
 
 # 389-ds-base version that fixes uniqueness plugin
 # https://bodhi.fedoraproject.org/updates/FEDORA-2025-db214a095a
-%global ds_version 3.1.3-2
+%global ds_version 3.1.3-7
 
 # Fix for TLS 1.3 PHA, RHBZ#1775146
 %global httpd_version 2.4.41-9
@@ -155,11 +155,11 @@
 %global pki_version 10.10.5
 %else
 # Make sure to use PKI versions that work with 389-ds fix for https://github.com/389ds/389-ds-base/issues/4609
-%global pki_version 10.10.5
+%global pki_version 11.7.0
 %endif
 
-# RHEL 8.3+, F32+ has 0.79.13
-%global certmonger_version 0.79.17-1
+# for PKI-API to function
+%global certmonger_version 0.79.21-1
 
 # RHEL 8.2+, F32+ has 3.58
 %global nss_version 3.44.0-4
@@ -196,8 +196,8 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.13.0
-%global TARBALL_IPA_VERSION 4.13.0
+%define IPA_VERSION 4.13.1
+%global TARBALL_IPA_VERSION 4.13.1
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
 %define AT_SIGN @
@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -228,8 +228,6 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSIO
 #   gpg --armor --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
 Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
-
-Patch1:         freeipa-4.13.0-fix-trust-within-forest.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -593,7 +591,7 @@ Provides: bundled(npm(cookie)) = 1.0.2
 Provides: bundled(npm(csstype)) = 3.1.3
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(freeipa-webui)) = 0.1.7
+Provides: bundled(npm(freeipa-webui)) = 0.1.9
 Provides: bundled(npm(immer)) = 10.1.1
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
@@ -612,7 +610,7 @@ Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react-redux)) = 9.2.0
-Provides: bundled(npm(react-router)) = 7.9.3
+Provides: bundled(npm(react-router)) = 7.12.0
 Provides: bundled(npm(redux)) = 5.0.1
 Provides: bundled(npm(@reduxjs/toolkit)) = 2.6.1
 Provides: bundled(npm(redux-thunk)) = 3.1.0
@@ -1967,6 +1965,10 @@ fi
 %endif
 
 %changelog
+* Fri Jan 16 2026 Rob Crittenden <rcritten@redhat.com> - 4.13.1-0.1
+- Upstream release 4.13.1
+- Release notes: https://www.freeipa.org/release-notes/4-13-1.html
+
 * Fri Dec 05 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.0-2
 - Fix upgrade to Samba 4.23 when there is already established trust
 - Upstream PR: https://github.com/freeipa/freeipa/pull/8046

@@ -1,6 +1,6 @@
 Name:           multimedia-menus
 Version:        0.4.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Categorization for the GNOME/KDE/MATE Sound&Video/Multimedia menu
 # Licensing of individual parts is explained in licensing.txt file
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and GPL+ and LGPLv2 and LGPLv3+ and GPLv2 and MIT - review is highly recommended.
@@ -51,6 +51,9 @@ dconf update
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

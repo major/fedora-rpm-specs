@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           perl-DBD-MySQL
 Version:        5.013
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -192,6 +192,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.013-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.013-1
 - 5.013 bump (rhbz#2386173)
 

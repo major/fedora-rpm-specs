@@ -8,7 +8,7 @@
 %global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 0.1
+%global baserelease 0.2
 
 Name:       ipsilon
 Version:    3.1.1
@@ -469,6 +469,9 @@ install -m0644 -D ipsilon.sysusers.conf %{buildroot}%{_sysusersdir}/ipsilon.conf
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-0.2.git20241211.47dd9c5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 19 2025 Aurelien Bompard <abompard@fedoraproject.org> - 3.1.1-0.1.git20241211.47dd9c5
 - Update to upstream commit 47dd9c5
 

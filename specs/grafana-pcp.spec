@@ -16,7 +16,7 @@ end}
 
 Name:           grafana-pcp
 Version:        5.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        Apache-2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
@@ -198,6 +198,9 @@ yarn test
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 5.3.0-4
 - rebuild
 

@@ -1,7 +1,7 @@
 Summary:	Execution analysis and debugging tool-suite
 Name:		frysk
 Version:	0.4
-Release:	99%{?dist}
+Release:	100%{?dist}
 
 # Fedora 17+ is still waiting for vte et.al. bindings.
 %define enable_gnome %{fedora}0 < 170
@@ -469,6 +469,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}/funit-*-nodebug
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-100
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.4-99
 - Rebuilt for java-25-openjdk as preffered jdk
 

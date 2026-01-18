@@ -2,7 +2,7 @@
 
 Name:		nvidia-texture-tools
 Version:	2.1.2
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Collection of image processing and texture manipulation tools
 # Automatically converted from old format: MIT and ASL 2.0 and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND Apache-2.0 AND LicenseRef-Callaway-BSD
@@ -127,6 +127,9 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}:
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 03 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.1.2-15
 - Add support for RISC-V (riscv64)
 

@@ -1,6 +1,6 @@
 Name:           perl-Linux-Pid
 Version:        0.04
-Release:        60%{?dist}
+Release:        61%{?dist}
 Summary:        Get the native PID and the PPID on Linux 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ make test
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-61
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

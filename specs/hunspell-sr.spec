@@ -7,7 +7,7 @@ Name: hunspell-sr
 Summary: Serbian hunspell dictionaries
 %global upstreamid 20130715
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1572/9/dict-sr.oxt
 URL: http://extensions.services.openoffice.org/project/dict-sr
 License: LGPL-3.0-only
@@ -77,6 +77,9 @@ popd
 %{_datadir}/hyphen/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130715-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Parag Nemade <pnemade AT redhat DOT com> - 0.20130715-1
 - Updated to new version (rh#2426759)
 

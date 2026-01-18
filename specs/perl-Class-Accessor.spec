@@ -1,6 +1,6 @@
 Name:           perl-Class-Accessor
 Version:        0.51
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Automated accessor generation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Accessor
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/Class::Accessor::Faster.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.51-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.51-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

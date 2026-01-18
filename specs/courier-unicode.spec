@@ -1,7 +1,7 @@
 Summary: A library implementing algorithms related to the Unicode Standard
 Name: courier-unicode
 Version: 2.2.6
-Release: 7%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-only
 URL: http://www.courier-mta.org/unicode/
 Source0: https://downloads.sourceforge.net/project/courier/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -71,6 +71,12 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man7/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

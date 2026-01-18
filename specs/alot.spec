@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.12
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -54,6 +54,12 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{python3_sitelib}/alot/defaults
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec  6 2025 Dick Marinus <dick@mrns.nl> - 0.12-1
 - New upstream release 0.12
 

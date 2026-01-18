@@ -9,7 +9,7 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Libbpf library
 
 License:        LGPL-2.1-only OR BSD-2-Clause
@@ -53,7 +53,7 @@ developing applications that use %{name}
 %package usdt-devel
 Summary:        The header for defining USDTs
 Version:        %{usdtver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 %description usdt-devel
@@ -92,6 +92,9 @@ install -D -m644 usdt-%{usdtref}/usdt.h %{buildroot}%{_includedir}/%{usdtname}/u
 %{_includedir}/%{usdtname}/usdt.h
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Viktor Malik <vmalik@redhat.com> - 2:1.6.2-2
 - Add libbpf-usdt-devel subpackage containing the usdt.h single-header library
   for creating USDTs (User Statically-Defined Tracepoints).

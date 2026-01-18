@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-Future
 Version:        0.05
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Use Future with AnyEvent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/AnyEvent-Future/
@@ -47,6 +47,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/AnyEvent::Future*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

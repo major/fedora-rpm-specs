@@ -1,6 +1,6 @@
 Name:           gimp-wavelet-denoise-plugin
 Version:        0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Gimp wavelet denoise plugin
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ make install po
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

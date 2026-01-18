@@ -7,7 +7,7 @@
 
 Name:           guacamole-server
 Version:        1.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -246,6 +246,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.6.0-5
 - Rebuild against libwebsockets 4.5.0
 

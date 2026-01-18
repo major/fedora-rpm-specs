@@ -18,7 +18,7 @@ ExcludeArch: %{ix86}
 
 Name:    ga
 Version: 5.9.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Global Arrays Toolkit
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -233,6 +233,9 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 5.9.2-1
 - New upstream release
 - cat ./test-suite.log

@@ -1,6 +1,6 @@
 Name:           perl-Exception-Base
 Version:        0.2501
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Lightweight exceptions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Base
@@ -77,6 +77,9 @@ make test TEST_FILES=%{SOURCE2}
 %{_mandir}/man3/Exception::Base.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2501-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2501-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

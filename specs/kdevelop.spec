@@ -4,7 +4,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        25.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -233,6 +233,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9:25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 9:25.12.1-1
 - 25.12.1
 

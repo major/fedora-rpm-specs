@@ -10,7 +10,7 @@ Special character &#x2708; ( ✈ ) depicts two cats.
 
 Name:		%{fontname}-fonts
 Version:	0.3
-Release:	35%{?dist}
+Release:	37%{?dist}
 Summary:	Beteckna sans-serif fonts
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -125,6 +125,12 @@ install -Dm 0644 -p %{SOURCE6} \
 %doc AUTHORS LICENSE CHANGELOG readme.html
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

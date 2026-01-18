@@ -19,7 +19,8 @@ Patch:    elixir-0001-Fix-shebang.patch
 BuildRequires: erlang-compiler
 BuildRequires: erlang-crypto
 BuildRequires: erlang-dialyzer
-%ifarch %{java_arches}
+# Some architectures do not have 'fop' so erlang is built without docs.
+%ifnarch riscv64 %{ix86}
 # Requires for unit-testing but not strictly necessary for anything else
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/15654
 BuildRequires: erlang-doc

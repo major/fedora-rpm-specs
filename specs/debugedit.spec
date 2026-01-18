@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.2
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
@@ -91,6 +91,12 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Mark Wielaard <mjw@fedoraproject.org> - 5.2-4
 - Add 0001-find-debuginfo-Use-64k-buffers-to-extract-ar-members.patch
 

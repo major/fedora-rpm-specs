@@ -97,7 +97,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -917,6 +917,9 @@ make test
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.12.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 Jens Petersen <petersen@redhat.com> - 9.12.3-13
 - fix subword division regression
 

@@ -1,6 +1,6 @@
 Name:           6tunnel
 Version:        0.14
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Tunnelling for application that don't speak IPv6
 
 License:        GPL-2.0-only
@@ -45,6 +45,12 @@ autoreconf -vif
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 16 2025 Filipe Rosset <rosset.filipe@gmail.com> - 0.14-1
 - update to 0.14 remove upstreamed patch
 

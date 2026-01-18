@@ -1,6 +1,6 @@
 Name:           htmlcxx
 Version:        0.86
-Release:        27%{?dist}
+Release:        28%{?dist}
 # Automatically converted from old format: LGPLv2 and GPLv2+ and ASL 2.0 and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2 AND GPL-2.0-or-later AND Apache-2.0 AND LicenseRef-Callaway-MIT
 Summary:        A simple non-validating CSS1 and HTML parser for C++
@@ -69,6 +69,9 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

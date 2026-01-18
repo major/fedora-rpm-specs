@@ -17,7 +17,7 @@ Go package for using unix pseudo-terminals.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Go package for using unix pseudo-terminals
 
 License:        MIT
@@ -48,6 +48,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.3.0
-Release: 11%{?dist}
+Release: 13%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -145,6 +145,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-11
 - Drop gstreamer1-plugins-ugly-free dependency
 

@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        26.1.0
+Version:        26.1.1
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
@@ -61,6 +61,15 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Fri Jan 16 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.1.1-1
+- Update to 26.1.1 version (#2427948)
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:26.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:26.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:26.1.0-1
 - Update to 26.1.0 version (#2427948)
 

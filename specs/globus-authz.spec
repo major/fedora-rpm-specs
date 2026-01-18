@@ -1,7 +1,7 @@
 Name:		globus-authz
 %global _name %(tr - _ <<< %{name})
 Version:	4.6
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Globus authz library
 
 License:	Apache-2.0
@@ -111,6 +111,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

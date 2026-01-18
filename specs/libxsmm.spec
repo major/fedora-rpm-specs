@@ -21,7 +21,7 @@
 
 Name:		libxsmm
 Version:	1.17
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Small dense or sparse matrix multiplications and convolutions for x86_64
 License:	BSD-3-Clause
 URL:		https://github.com/hfp/libxsmm
@@ -146,6 +146,9 @@ rm -rf samples/cp2k/obj
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

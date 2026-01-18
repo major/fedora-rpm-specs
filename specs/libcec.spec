@@ -1,6 +1,6 @@
 Name:          libcec
 Version:       7.1.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
@@ -112,6 +112,9 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{python3_sitearch}/cec/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

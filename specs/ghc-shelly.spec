@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.12.1
 # can only be reset when subpkg bumped
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Shell-like (systems) programming in Haskell
 
 License:        BSD-3-Clause
@@ -177,6 +177,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

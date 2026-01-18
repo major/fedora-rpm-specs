@@ -1,7 +1,7 @@
 %global pypi_name google-auth-oauthlib
 
 Name:           python-%{pypi_name}
-Version:        1.2.3
+Version:        1.2.4
 Release:        %autorelease
 Summary:        Google oAuth Authentication Library
 
@@ -9,8 +9,6 @@ License:        Apache-2.0
 URL:            https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib
 Source0:        %{pypi_source google_auth_oauthlib}
 BuildArch:      noarch
-
-Patch0:         authpin.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

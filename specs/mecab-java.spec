@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	16
+%define		baserelease	17
 
 %define set_javaver() \
 %if 	0%{?fedora}%{?rhel} == %1 \
@@ -84,6 +84,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-16
 - F-44: use JDK25
 

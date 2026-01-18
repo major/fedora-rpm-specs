@@ -1,5 +1,5 @@
 Name:           gerbera
-Version:        3.0.0
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
@@ -64,7 +64,8 @@ Data files for the Gerbera media server.
     -DWITH_INOTIFY=1 \
     -DWITH_SYSTEMD=1 \
     -DUPNP_HAS_IPV6=1 \
-    -DUPNP_HAS_REUSEADDR=1
+    -DUPNP_HAS_REUSEADDR=1 \
+    -DWITH_ZIP=0
 
 %cmake_build
 
@@ -122,6 +123,12 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Fri Jan 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.1.0-1
+- 3.1.0
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-1
 - 3.0.0
 

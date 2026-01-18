@@ -2,7 +2,7 @@
 
 Name:           btop
 Version:        1.4.6
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -91,6 +91,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Jonathan Wright <jonathan@almalinux.org> - 1.4.6-2
 - fix build on EL9
 

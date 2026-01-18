@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           kasts
 Version:        25.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+ - review is highly recommended.
 License:        GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Callaway-BSD AND LGPL-3.0-or-later
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

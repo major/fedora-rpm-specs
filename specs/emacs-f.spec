@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.21.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Modern API for working with files and directories in Emacs
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -41,6 +41,9 @@ install -pm 0644 %{pkg}.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

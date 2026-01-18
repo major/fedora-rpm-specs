@@ -1,6 +1,6 @@
 Name:           dynamite
 Version:        0.1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Extract data compressed with PKWARE Data Compression Library
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libdynamite.{l,}a
 %{_libdir}/pkgconfig/libdynamite.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

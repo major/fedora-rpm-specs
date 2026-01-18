@@ -1,6 +1,6 @@
 Name:		lrcalc
 Version:	2.1
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	GPL-3.0-or-later
 Summary:	Littlewood-Richardson Calculator
 URL:		https://sites.math.rutgers.edu/~asbuch/lrcalc/
@@ -96,6 +96,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %files -n	python3-lrcalc -f %{pyproject_files}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

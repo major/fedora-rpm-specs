@@ -1,6 +1,6 @@
 Name:           glob2
 Version:        0.9.4.4
-Release:        72%{?dist}
+Release:        73%{?dist}
 Summary:        An innovative RTS game
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -154,6 +154,9 @@ EOF
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4.4-73
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.9.4.4-72
 - Rebuilt for Boost 1.90
 

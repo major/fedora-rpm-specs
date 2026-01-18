@@ -1,6 +1,6 @@
 Name:       appmenu-qt5
 Version:    0.3.0+16.10.20160628.1
-Release:    39%{?dist}
+Release:    41%{?dist}
 Summary:    Support for global DBus-exported application menu in Qt5
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -96,6 +96,12 @@ rm -fr %{buildroot}%{_libdir}/cmake
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0+16.10.20160628.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0+16.10.20160628.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0+16.10.20160628.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Name:      elinks
 Summary:   A text-mode Web browser
 Version:   0.19.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-only
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -136,6 +136,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Lukáš Zaoral <lzaoral@redhat.com> - 0.19.0-1
 - rebase to the latest upstream version (rhbz#2425384)
 

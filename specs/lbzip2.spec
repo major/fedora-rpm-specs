@@ -4,7 +4,7 @@
 
 Name:           lbzip2
 Version:        2.5
-Release:        33.%{date}git%{shortcommit}%{?dist}
+Release:        34.%{date}git%{shortcommit}%{?dist}
 Summary:        Fast, multi-threaded bzip2 utility
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ build-aux/autogen.sh
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-34.20171011gitb6dc48a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-33.20171011gitb6dc48a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,7 +6,7 @@ License:	GPL-2.0-or-later
 URL:		http://chocolate-doom.org/
 
 Version:	3.1.0
-Release:	6%{?dist}
+Release:	8%{?dist}
 
 %global git_tag %{name}-%{version}
 Source0:	https://github.com/chocolate-doom/chocolate-doom/archive/%{git_tag}/%{git_tag}.tar.gz
@@ -154,6 +154,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screensavers/%{rtld}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

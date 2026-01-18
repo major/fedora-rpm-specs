@@ -3,7 +3,7 @@
 
 Name:           ffms2
 Version:        5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 # src/index/vsutf16.h is LGPL-2.1-or-later
 # the rest is MIT-licensed
 License:        MIT AND LGPL-2.1-or-later
@@ -89,6 +89,9 @@ CPPFLAGS=-I/usr/include/ffmpeg make -C test SAMPLES_DIR=$(pwd)/test/samples TEST
 %{_libdir}/pkgconfig/ffms2.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.0-7
 - rebuild for FFmpeg 8
 

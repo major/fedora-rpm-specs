@@ -2,7 +2,7 @@
 
 Name:           mingw-SDL_image
 Version:        1.2.12
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        MinGW Windows port of the Image loading library for SDL
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -114,6 +114,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Sandro Mani <manisandro@gmail.com> - 1.2.12-35
 - Rebuild (libtiff)
 

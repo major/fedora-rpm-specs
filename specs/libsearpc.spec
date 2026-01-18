@@ -7,7 +7,7 @@
 
 Name:           libsearpc
 Version:        3.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A simple and easy-to-use C language RPC framework
 
 # Main package license: Apache-2.0
@@ -85,6 +85,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

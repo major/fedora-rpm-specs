@@ -1,6 +1,6 @@
 Name:           libcpuid
 Version:        0.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Provides CPU identification for x86 and ARM
 License:        BSD-2-Clause
 URL:            https://github.com/anrieff/libcpuid
@@ -101,6 +101,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %pytest python/tests
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

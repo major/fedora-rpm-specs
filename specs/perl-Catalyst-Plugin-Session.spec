@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Plugin-Session
 Summary:        Catalyst generic session plugin
 Version:        0.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Plugin-Session-%{version}.tar.gz 
@@ -92,6 +92,9 @@ This plugin links the two pieces together.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 31 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.44-1
 - Update to 0.44
 

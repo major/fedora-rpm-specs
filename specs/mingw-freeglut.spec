@@ -2,7 +2,7 @@
 
 Name:           mingw-freeglut
 Version:        3.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fedora MinGW alternative to the OpenGL Utility Toolkit (GLUT)
 
 License:        MIT
@@ -135,6 +135,9 @@ rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libglut.a
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.6.0-5
 - Allow to build with CMake 4.0 (rhbz#2380897)
 

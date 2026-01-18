@@ -17,7 +17,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.15.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -340,6 +340,12 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 13 2025 Than Ngo <than@redhat.com> - 2:1.15.0-1
 - Update to 1.15.0
 

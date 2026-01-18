@@ -17,7 +17,7 @@ Extract urls from text using regular expressions. Requires Go 1.10.3 or later.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Extract urls from text
 
 # Upstream license specification: BSD-3-Clause
@@ -62,6 +62,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.2.0-19
 - rebuild
 

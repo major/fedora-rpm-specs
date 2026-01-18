@@ -1,6 +1,6 @@
 Name:           perl-Config-Simple
 Version:        4.59
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Simple configuration file class 
 
 #see README
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.59-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.59-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

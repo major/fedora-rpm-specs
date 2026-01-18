@@ -1,7 +1,7 @@
 Name:           perl-Devel-Symdump
 Epoch:          1
 Version:        2.18
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A Perl module for inspecting Perl's symbol table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Devel-Symdump
@@ -93,6 +93,9 @@ make test %{!?perl_bootstrap:AUTHOR_TEST=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.18-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.18-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

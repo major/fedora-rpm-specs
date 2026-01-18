@@ -1,7 +1,7 @@
 Summary:       The Enlightenment window manager, DR16
 Name:          e16
 Version:       1.0.31
-Release:       2%{?dist}
+Release:       3%{?dist}
 # Automatically converted from old format: MIT with advertising and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-MIT-with-advertising AND GPL-2.0-or-later
 URL:           http://www.enlightenment.org/
@@ -97,6 +97,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Terje Rosten <terjeros@gmail.com> - 1.0.31-2
 - Add patch from upstream to fix bg color issue (rhbz#2419828)
 

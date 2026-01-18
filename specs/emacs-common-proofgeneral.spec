@@ -16,7 +16,7 @@ Summary:        Emacs mode for standard interaction interface for proof assistan
 # The icons are CC-BY-SA-3.0, except for the search icon.
 # The search icon is CC-BY-SA-2.0.
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC-BY-SA-2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 URL:            https://proofgeneral.github.io/
 VCS:            git:%{giturl}.git
 Source0:        %{forgesource}
@@ -159,6 +159,9 @@ install -Dpm 644 %{SOURCE4} \
 %{_emacs_sitelispdir}/%{pkg}/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 05 2025 Jerry James <loganjerry@gmail.com> - 4.5-12
 - Rebuild for emacs 30.2
 

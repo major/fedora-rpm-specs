@@ -1,6 +1,6 @@
 Name:           netsurf
 Version:        3.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Compact graphical web browser
 
 # There are MIT licensed bits as well as LGPL-licensed talloc, but most
@@ -136,6 +136,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.2
-Release:        16%{?dist}
+Release:        18%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -25,6 +25,12 @@ Patch2:         %{name}-cython.patch
 # fix floating-point accuracy bugs on ARM64
 # https://github.com/espressomd/espresso/pull/5109
 Patch3:         %{name}-arm64.patch
+# replace deprecated NumPy function by SciPy function
+# https://github.com/espressomd/espresso/pull/5034
+Patch4:         %{name}-scipy.patch
+# replace deprecated setuptools module by packaging module
+# https://github.com/espressomd/espresso/pull/4905
+Patch5:         %{name}-setuptools.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -118,6 +124,9 @@ This package contains %{name} compiled against MPICH2.
 %patch 0 -p1
 %patch 1 -p1
 %patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
+%patch 5 -p1
 
 %build
 %global defopts \\\
@@ -177,6 +186,12 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Fri Jan 16 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.2-18
+- Rebuilt with newer Python dependencies
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 4.2.2-16
 - Rebuilt for Boost 1.90
 

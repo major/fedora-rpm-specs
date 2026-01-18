@@ -5,7 +5,7 @@
 
 Name:			gpaw-setups
 Version:		24.11.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Atomic GPAW setups
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -80,6 +80,9 @@ install -p -m 444 %{name}*.*sh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.11.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 24.11.0-3
 - Explicitly set GPAW_SETUP_PATH
 

@@ -1,7 +1,7 @@
 Summary:       Web server access log visualizer
 Name:          logstalgia
 Version:       1.1.4
-Release:       11%{?dist}
+Release:       12%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://code.google.com/p/logstalgia/
@@ -46,6 +46,9 @@ access log (eg access.log) as a retro arcade game-like simulation.
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 1.1.4-11
 - Rebuilt for Boost 1.90
 

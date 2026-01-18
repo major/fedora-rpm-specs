@@ -15,7 +15,7 @@
 Summary:        GTK+ 3 and GNOME 3 bindings for Mono
 Name:           gtk-sharp3
 Version:        3.22.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
 
@@ -126,6 +126,9 @@ cp redhat-linux-build/Source/gtk/gtk-sharp.dll.config %{buildroot}/%{_monodir}/G
 #{_prefix}/lib/monodoc/sources/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

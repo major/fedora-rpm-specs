@@ -1,6 +1,6 @@
 Name:           git-fame
 Version:        2.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Pretty-print git repository collaborators sorted by contributions
 
 License:        MPL-2.0
@@ -48,6 +48,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 gitfame/git-fame.1
 %{python3_sitelib}/gitfame/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.1-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

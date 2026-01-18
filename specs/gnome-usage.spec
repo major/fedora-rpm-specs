@@ -5,7 +5,7 @@
 
 Name:		gnome-usage
 Version:	48.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A GNOME app to view information about use of system resources
 
 License:	GPL-3.0-or-later AND CC0-1.0
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Usage.deskt
 %{_metainfodir}/org.gnome.Usage.metainfo.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 28 2025 Matthias Clasen <mclasen@redhat.com> - 48.0-1
 - Update to 48.0
 

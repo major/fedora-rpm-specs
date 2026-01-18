@@ -10,7 +10,7 @@
 
 Name:		nordugrid-arc-nagios-plugins
 Version:	3.2.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Nagios plugins for ARC
 
 License:	Apache-2.0
@@ -109,6 +109,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 03 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.3-2
 - Add dependecy on nordugrid-arc-plugins-gridftp to EGI configuration
 

@@ -1,7 +1,7 @@
 Summary:	A tiny replacement for Module::Build
 Name:		perl-Module-Build-Tiny
 Version:	0.052
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Build-Tiny
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Build-Tiny-%{version}.tar.gz
@@ -85,6 +85,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Module::Build::Tiny.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.052-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.052-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

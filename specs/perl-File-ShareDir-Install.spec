@@ -1,6 +1,6 @@
 Name:           perl-File-ShareDir-Install
 Version:        0.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Install shared files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ShareDir-Install
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/File::ShareDir::Install.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

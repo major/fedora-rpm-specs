@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 12.1.0.0
-Release: 151%{?dist}
+Release: 152%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD-3-Clause
@@ -94,6 +94,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib OpenIb_Host/ff_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.1.0.0-152
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.1.0.0-151
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

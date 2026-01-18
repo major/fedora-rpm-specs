@@ -1,6 +1,6 @@
 Name:		dt-schema
 Version:	2024.05
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Tooling for devicetree validation using YAML and jsonschema
 License:	BSD-2-Clause
 URL:		http://devicetree.org/
@@ -46,6 +46,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{_bindir}/dt*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.05-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2024.05-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

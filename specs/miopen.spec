@@ -115,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -395,6 +395,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Fri Jan 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Rebuild for boost 1.90
+
 * Mon Jan 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
 - Fix --with check
 

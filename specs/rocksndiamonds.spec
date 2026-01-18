@@ -1,5 +1,8 @@
+# This package seems to have weird parallelism build bugs so...
+%global smp_mflags -j16
+
 Name:		rocksndiamonds
-Version:	4.4.1.2
+Version:	4.4.1.3
 Release:	1%{?dist}
 License:	GPL-1.0-or-later
 Summary:	Underground digging game
@@ -103,6 +106,9 @@ EOF
 %{_localstatedir}/games/%{name}/
 
 %changelog
+* Fri Jan 16 2026 Tom Callaway <spot@fedoraproject.org> - 4.4.1.3-1
+- update to 4.4.1.3
+
 * Mon Jan  5 2026 Tom Callaway <spot@fedoraproject.org> - 4.4.1.2-1
 - update to 4.4.1.2
 

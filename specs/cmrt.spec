@@ -1,6 +1,6 @@
 Name:           cmrt
 Version:        1.0.6
-Release:        25%{?dist}
+Release:        27%{?dist}
 Summary:        C for Media Runtime
 License:        MIT
 URL:            https://github.com/intel/cmrt
@@ -68,6 +68,12 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

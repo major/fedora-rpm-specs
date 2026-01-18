@@ -1,6 +1,6 @@
 Name:           perl-Crypt-RandPasswd
 Version:        0.07
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Random password generator based on FIPS-181
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -54,6 +54,9 @@ program are logically equivalent to those produced by the standard.
 %{_mandir}/man3/Crypt*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

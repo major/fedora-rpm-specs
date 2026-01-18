@@ -69,7 +69,7 @@
 
 Name:		erlang
 Version:	26.2.5.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -1992,6 +1992,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.2.5.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 10 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.15-1
 - Ver. 26.2.5.15
 

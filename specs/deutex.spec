@@ -2,7 +2,7 @@
 
 Name:           deutex
 Version:        5.2.3
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        DOOM wad file manipulator
 
 # All files LGPLv2+ or GPLv2+ except ./src/lzw.c which is MIT
@@ -47,6 +47,12 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

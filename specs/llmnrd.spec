@@ -2,7 +2,7 @@
 
 Name:           llmnrd
 Version:        0.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Link-Local Multicast Resolution Daemon
 
 License:        GPL-2.0-only
@@ -62,6 +62,9 @@ ${RPM_BUILD_ROOT}%{_bindir}/llmnr-query -I lo localhost
 %{_mandir}/man8/llmnrd.8*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Petr Menšík <pemensik@redhat.com> - 0.7-15
 - Fix FTBFS caused by sbin merge (rhbz#2385147)
 

@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.13
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -141,6 +141,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/default.conf/service
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 24 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-5
 - Update patch for dovecot for BZ2418363
 

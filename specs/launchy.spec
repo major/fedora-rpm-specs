@@ -1,6 +1,6 @@
 Name:           launchy
 Version:        2.5
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Open Source Keystroke Launcher
 
 License:        GPL-1.0-or-later
@@ -110,6 +110,9 @@ echo "X-GNOME-Autostart-enabled=false" >> \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

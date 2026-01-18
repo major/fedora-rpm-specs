@@ -4,7 +4,7 @@
 
 Name:           gucharmap
 Version:        17.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode character picker and font browser
 
 # semver X, Y and Y+1
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 17.0.1-1
 - Update to 17.0.1 (#2426960)
 

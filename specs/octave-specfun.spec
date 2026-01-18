@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.1.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Special functions for Octave, including ellipitic functions
 # announced on devel@lists.fedoraproject.org
 # Message-ID: <1323949577.12740.9.camel@xbox360.hq.axsem.com>
@@ -54,6 +54,9 @@ rm inst/{ellipke,expint}.m src/{ellipj.cc,Makefile}
 %doc %{octpkgdir}/packinfo/COPYING
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.1.0-44
 - Rebuild for Octave 10.2
 

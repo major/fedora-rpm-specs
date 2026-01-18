@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows g2clib library
 
 BuildArch:     noarch
@@ -86,6 +86,9 @@ MinGW Windows g2clib library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 09 2025 Sandro Mani <manisandro@gmail.com> - 2.3.0-1
 - Update to 2.3.0
 

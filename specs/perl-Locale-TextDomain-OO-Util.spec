@@ -3,7 +3,7 @@
 
 Name:           perl-Locale-TextDomain-OO-Util
 Version:        4.002
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Lexical Utils for Locale::TextDomain::OO
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-TextDomain-OO-Util
@@ -86,6 +86,9 @@ make test
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.002-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.002-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

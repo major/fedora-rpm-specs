@@ -6,7 +6,7 @@
 
 Name:           libbluray
 Version:        1.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 License:        LGPL-2.0-or-later
 URL:            https://www.videolan.org/developers/libbluray.html
@@ -118,6 +118,9 @@ mv %{buildroot}%{_docdir}/%{name}/html .
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-2
 - Fix build with java 23+
 

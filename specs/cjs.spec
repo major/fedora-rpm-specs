@@ -6,7 +6,7 @@
 Name:          cjs
 Epoch:         1
 Version:       128.1
-Release:       1%{?dist}
+Release:       3%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 # Automatically converted from old format: MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) - review is highly recommended.
@@ -105,6 +105,12 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:128.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:128.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Leigh Scott <leigh123linux@gmail.com> - 1:128.1-1
 - Update to 128.1
 

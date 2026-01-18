@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           funionfs
 Version:        0.4.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Union filesystem in userspace
 
 License:        GPL-2.0-or-later
@@ -38,6 +38,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-Test-Compile
 Version:        2.059
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common tests to check syntax of your modules, only using core modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Test-Compile
@@ -110,6 +110,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.059-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Michal Josef Špaček <mspacek@redhat.com> - 2.059-1
 - 2.059 bump
 

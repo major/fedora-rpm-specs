@@ -19,8 +19,8 @@ need libxc version > 3
 
 %global upstream_name nwchem
 
-%{?!major_version: %global major_version 7.3.0}
-%{?!git_hash: %global git_hash e60d3d906ff3f4f2548a7beb696e13330d887a6b}
+%{?!major_version: %global major_version 7.3.1}
+%{?!git_hash: %global git_hash e2869a2c81445f2edfd25bbae652d099fabb9a92}
 %{?!ga_version: %global ga_version 5.8.2-1}
 
 
@@ -521,6 +521,9 @@ mv QA.orig QA
 
 
 %changelog
+* Thu Jan 15 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 7.3.1-1
+- New upstream release
+
 * Sat Oct 25 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 7.3.0-1
 - New upstream release
 

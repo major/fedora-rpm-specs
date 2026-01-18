@@ -12,7 +12,7 @@
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
 Version: 1.16.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -159,6 +159,12 @@ cp %{buildroot}/%{ansible_collections_dir}/%{collection_namespace}/%{collection_
 %{ansible_collections_dir}/%{collection_namespace}/%{collection_name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Thomas Woerner <twoerner@redhat.com> - 1.16.0-1
 - Update to version 1.16.0
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.16.0

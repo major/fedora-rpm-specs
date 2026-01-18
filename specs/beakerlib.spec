@@ -1,7 +1,7 @@
 Name:       beakerlib
 Summary:    A shell-level integration testing library
 Version:    1.32
-Release:    1%{?dist}
+Release:    3%{?dist}
 License:    GPL-2.0-only
 BuildArch:  noarch
 URL:        https://github.com/%{name}
@@ -129,6 +129,12 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 %{_datadir}/vim/vimfiles/after/syntax/beakerlib.vim
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Dalibor Pospisil <dapospis@redhat.com> - 1.32
 - introduction of the new way to foist the os-relase and thus present
   different system to the tests, including the version, by KwisatzHaderach

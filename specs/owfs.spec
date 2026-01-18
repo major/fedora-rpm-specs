@@ -13,7 +13,7 @@
 
 Name:		owfs
 Version:	3.2p4
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
@@ -375,6 +375,9 @@ install -m0644 -D owfs.sysusers.conf %{buildroot}%{_sysusersdir}/owfs.conf
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2p4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 09 2025 Remi Collet <remi@remirepo.net> - 3.2p4-14
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

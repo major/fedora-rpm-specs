@@ -1,6 +1,6 @@
 Name:          crrcsim
 Version:       0.9.13
-Release:       25%{?dist}
+Release:       27%{?dist}
 Summary:       Model-Airplane Flight Simulation Program
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:       GPL-2.0-only
@@ -189,6 +189,12 @@ EOF
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

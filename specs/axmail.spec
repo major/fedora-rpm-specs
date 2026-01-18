@@ -1,7 +1,7 @@
 Summary: UROnode addon - an SMTP mailbox
 Name: axmail
 Version: 2.9
-Release: 17%{?dist}
+Release: 19%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://axmail.sourceforge.net
@@ -59,6 +59,12 @@ touch %{buildroot}%{_var}/lock/axmail
 %ghost %{_var}/lock/axmail
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 12 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.9-17
 - Consolidated makefile variables, fixed FTBFS
   Resolves: rhbz#2339918

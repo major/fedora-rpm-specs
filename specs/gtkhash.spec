@@ -13,7 +13,7 @@
 
 Name:           gtkhash
 Version:        1.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        GTK+ utility for computing message digests or checksums
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -186,6 +186,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

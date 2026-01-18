@@ -7,7 +7,7 @@
 Name: hunspell-hu
 Summary: Hungarian hunspell dictionaries
 Version: 1.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: http://downloads.sourceforge.net/project/magyarispell/Magyar%20Ispell/%{version}/magyarispell-%{version}.tar.gz
 URL: http://magyarispell.sourceforge.net
 License: LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
@@ -39,6 +39,9 @@ cp -p hu_HU.dic hu_HU.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 1.8.1-1
 - Updated to new version (rh#2426736)
 

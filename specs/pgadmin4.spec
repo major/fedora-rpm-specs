@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -258,6 +258,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Sandro Mani <manisandro@gmail.com> - 9.11-2
+- Regenerate vendor tarball to pull in newer devalue and svelte, fixes
+  CVE-2026-22775 and CVE-2025-15265
+
 * Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 9.11-1
 - Update to 9.11
 

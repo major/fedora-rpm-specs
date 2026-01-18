@@ -3,7 +3,7 @@
 Summary: Berkeley Yacc, a parser generator
 Name: byacc
 Version: 2.0.%{byaccdate}
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # An SPDX license string check done against byacc-20230521 using fossology
 # found strings corresponding to the licenses noted below across the byacc
@@ -59,6 +59,12 @@ echo ====================TESTING END=====================
 %{_mandir}/man1/byacc.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20241231-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20241231-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 16 2025 Arjun Shankar <arjun@redhat.com> - 2.0.20241231-1
 - Rebase to byacc-2.0.20241231 (#2335136)
 

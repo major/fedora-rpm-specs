@@ -1,7 +1,7 @@
 Summary: A simple fuzz test-case builder
 Name: Simple-Fuzzer
 Version: 0.7.1
-Release: 25%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://aconole.bytheb.org/programs/sfuzz.html
@@ -65,6 +65,12 @@ mv %{buildroot}%{_datadir}/sfuzz-db/*.so %{buildroot}%{_libdir}/simple-fuzzer/
 %license LICENSING
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

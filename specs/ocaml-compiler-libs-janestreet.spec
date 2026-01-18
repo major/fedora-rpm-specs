@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-compiler-libs-janestreet
 Version:        0.17.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml compiler libraries repackaged
 
 License:        MIT
@@ -49,6 +49,9 @@ signature files for developing applications that use
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 0.17.0-9
 - OCaml 5.4.0 rebuild
 

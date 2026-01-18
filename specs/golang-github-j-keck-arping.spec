@@ -15,7 +15,7 @@ mac address.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Native Go library to ping a host per arp datagram, or query a host mac address
 
 License:        MIT
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.0.2-15
 - rebuild
 

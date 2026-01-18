@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.0
-Release:	4%{?dist}
+Release:	6%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2742,6 +2742,12 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:20.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:20.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-4
 - ceph-20.2.0, disable crimson, core team says it's not ready
 

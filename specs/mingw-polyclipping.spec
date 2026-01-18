@@ -10,7 +10,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        6.4.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        MinGW Windows Polygon clipping library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -135,6 +135,9 @@ mv %{buildroot}/%{mingw64_datadir}/pkgconfig/polyclipping.pc %{buildroot}/%{ming
 %{mingw64_libdir}/pkgconfig/polyclipping.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 6.4.2-22
 - Allow to build with CMake 4.0 (rhbz#2380911)
 

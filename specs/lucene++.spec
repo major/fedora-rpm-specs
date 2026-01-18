@@ -2,7 +2,7 @@
 Name:    lucene++
 Summary: A high-performance, full-featured text search engine written in C++
 Version: 3.0.9
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: ASL 2.0 or LGPLv3+ - review is highly recommended.
 License: Apache-2.0 OR LGPL-3.0-or-later
@@ -20,6 +20,18 @@ Patch1: lucene++-3.0.9-fix_compilation_with_clang-17.patch
 # Fix build with CMake 4.0
 # https://github.com/luceneplusplus/LucenePlusPlus/commit/2857419
 Patch2: lucene++-3.0.9-fix_cmake-4.0.patch
+
+# Fix build with boost 1.85.0
+# https://github.com/luceneplusplus/LucenePlusPlus/commit/c18ead2
+Patch3: lucene++-3.0.9-fix_build_with_boost_1.85.0.patch
+
+# Migrate to boost::asio::io_context
+# https://github.com/luceneplusplus/LucenePlusPlus/commit/e6a3768
+Patch4: lucene++-3.0.9-migrate_to_boost_asio_io_context.patch
+
+# BitSet: Partial fix for Boost 1.90
+# github.com/luceneplusplus/LucenePlusPlus/pull/222
+Patch5: lucene++-3.0.9-bitset_partial_fix_for_boost_1.90.patch
 
 BuildRequires: boost-devel
 BuildRequires: cmake >= 3.5
@@ -72,6 +84,12 @@ Development files for lucene++, a high-performance, full-featured text search en
 
 
 %changelog
+* Fri Jan 16 2026 Wolfgang Stöggl <c72578@yahoo.de> - 3.0.9-4
+- Add patches for Boost 1.90
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.0.9-2
 - Add lucene++-3.0.9-fix_cmake-4.0.patch
 

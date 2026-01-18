@@ -4,7 +4,7 @@
 Name:    cutecom
 Version: 0.51.0
 Summary: A graphical serial terminal, like minicom or Hyperterminal on Windows
-Release: 21%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
 URL:     http://gitlab.com/cutecom/cutecom
@@ -68,6 +68,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/cutecom.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.51.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.51.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 04 2025 Cristian Le <git@lecris.dev> - 0.51.0-21
 - Allow to build with CMake 4.0
 

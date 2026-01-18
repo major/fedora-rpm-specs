@@ -2,7 +2,7 @@
 
 Name:           mrcpp
 Version:        1.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A numerical mathematics library based on multiresolution analysis
 License:        LGPL-3.0-or-later
 URL:            https://github.com/MRChemSoft/mrcpp/
@@ -110,6 +110,9 @@ rm %{buildroot}%{_bindir}/mrcpp-tests
 %{_includedir}/MRCPP/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 15 2025 Sandro Mani <manisandro@gmail.com> - 1.5.0-9.1
 - Fix build against eigen3-5.0.0
 

@@ -14,7 +14,7 @@ GRPC to JSON proxy generator following the gRPC HTTP spec.}
 %global godocs          docs examples ADOPTERS.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        GRPC to JSON proxy generator following the gRPC HTTP spec
 
 # Upstream license specification: BSD-3-Clause
@@ -69,6 +69,9 @@ install -m 0755 -vp %{gobuilddir}/src/github.com/grpc-ecosystem/grpc-gateway/v2/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 2.7.3-19
 - Rebuild for golang 1.25.2
 

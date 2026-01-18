@@ -1,7 +1,7 @@
 Name:          lxqt-about
 Summary:       About application for LXQt desktop suite
 Version:       2.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           https://lxqt-project.org/
@@ -54,6 +54,9 @@ desktop-file-edit \
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
 - Update to 2.3.0
 

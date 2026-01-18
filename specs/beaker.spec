@@ -4,7 +4,7 @@
 
 Name:           %{upstream_name}
 Version:        29.2
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPL-2.0-or-later
 URL:            https://beaker-project.org/
@@ -115,6 +115,12 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 29.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 29.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 29.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

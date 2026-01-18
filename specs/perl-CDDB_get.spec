@@ -1,6 +1,6 @@
 Name:           perl-CDDB_get
 Version:        2.28
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Read the CDDB entry for an audio CD in your drive
 # Artistic:     Artistic-1.0-Perl text
 # cddb.pl:          "same conditions as Perl, i.e. GPL-2.0-only OR Artistic-1.0-Perl"
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

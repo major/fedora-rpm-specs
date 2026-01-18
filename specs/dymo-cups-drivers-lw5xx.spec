@@ -4,7 +4,7 @@
 
 Name: dymo-cups-drivers-lw5xx
 Version: 2.0.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: DYMO LabelWriter 5xx Drivers for CUPS
 License: GPL-2.0-or-later
 URL: https://github.com/dymosoftware/Drivers
@@ -74,5 +74,8 @@ chmod +x configure
 %{_datadir}/cups/model/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.0.0.0-1
 - Initial specfile

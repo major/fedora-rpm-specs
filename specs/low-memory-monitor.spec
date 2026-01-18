@@ -1,6 +1,6 @@
 Name:           low-memory-monitor
 Version:        2.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Monitors low-memory conditions
 
 License:        GPL-3.0-or-later
@@ -71,6 +71,9 @@ systemctl --no-reload preset low-memory-monitor.service &>/dev/null || :
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Password-zxcvbn
 Version:        1.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dropbox's password estimation logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Data-Password-zxcvbn
@@ -64,6 +64,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 26 2025 Xavier Bachelot <xavier@bachelot.org> 1.1.3-1
 - Update to 1.1.3 (RHBZ#2416715)
 

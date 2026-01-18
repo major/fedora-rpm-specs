@@ -15,7 +15,7 @@
 
 Name:           perl-IO-All
 Version:        0.87
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        IO::All Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-All
@@ -134,6 +134,9 @@ make %{?_smp_mflags} test
 %{_mandir}/man3/IO::All::Temp.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.87-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.87-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

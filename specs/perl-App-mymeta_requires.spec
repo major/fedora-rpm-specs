@@ -1,6 +1,6 @@
 Name:           perl-App-mymeta_requires
 Version:        0.006
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Extract module requirements from MYMETA files
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0 
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

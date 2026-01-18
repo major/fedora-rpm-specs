@@ -1,6 +1,6 @@
 Name:           ibmonitor
 Version:        1.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 
 Summary:        Interactive bandwidth monitor
 
@@ -38,6 +38,9 @@ install -p -m 0755 ibmonitor $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

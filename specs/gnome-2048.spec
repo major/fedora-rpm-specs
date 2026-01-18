@@ -1,6 +1,6 @@
 Name:           gnome-2048
 Version:        50.alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A 2048 clone for GNOME
 
 License:        GPL-3.0-or-later
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.TwentyFo
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50.alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 26 2025 Yanko Kaneti <yaneti@declera.com> -  50.alpha-1
 - Upgrade to new WIP version ported to gtk4
 

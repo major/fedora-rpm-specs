@@ -6,7 +6,7 @@
 Summary:  Input method for entering unicode symbols and emoji by name
 Name: ibus-uniemoji
 Version: 0.7.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # emojione.json is in MIT
 # UnicodeData.txt is in Unicode
 # uniemoji is in GPLv3+
@@ -42,6 +42,9 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) %{_sysconfdir}/xdg/uniemoji/custom.json
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

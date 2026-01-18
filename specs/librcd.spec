@@ -1,6 +1,6 @@
 Name:           librcd
 Version:        0.1.14
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library for autodetection charset of Russian and Ukrainian text
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.14-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.14-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

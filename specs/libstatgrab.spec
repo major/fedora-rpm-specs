@@ -1,24 +1,42 @@
 %bcond_without  log4cplus
 %bcond_without  examples
 
+# For setting up the tag
+%define vermajor %(echo %{version} | cut -d. -f1)
+%define verminor %(echo %{version} | cut -d. -f2)
+%define verpatch %(echo %{version} | cut -d. -f3)
+%define tag LIBSTATGRAB_%{vermajor}_%{verminor}_%{verpatch}
+
+
 Name:           libstatgrab
 Epoch:          1
 Version:        0.92.1
-Release:        14%{?dist}
+Release:        16%{?dist}
 Summary:        A library that provides cross platform access to statistics of the system
 License:        LGPL-2.1-or-later
-URL:            http://www.i-scream.org/libstatgrab
-Source0:        http://ftp.i-scream.org/pub/i-scream/%{name}/%{name}-%{version}.tar.gz
+URL:            https://github.com/libstatgrab/libstatgrab
+Source0:        %{url}/releases/download/%{tag}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{tag}/%{name}-%{version}.tar.gz.asc
+
 # REJECTED due to Solaris or whatever linking issue,
 # thus we cope with pkgconfig manually.
-# See: https://github.com/i-scream/libstatgrab/pull/70
-Source1:        libstatgrab.pc.in
+# See: https://github.com/libstatgrab/libstatgrab/pull/70
+Source2:        libstatgrab.pc.in
+
+# See https://github.com/libstatgrab/libstatgrab/pull/140
+# Drop if/when upstream accepts
+Patch0:         0001-Update-Licenses.patch
+
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 %if %{with log4cplus}
 BuildRequires:  log4cplus-devel
 %endif
+BuildRequires:  gcc
+BuildRequires:  git-core
+BuildRequires:  make
 BuildRequires:  ncurses-devel
 # Tests.
 BuildRequires:  perl-generators
@@ -37,14 +55,13 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-BuildRequires: make
 
 %description
 Libstatgrab is a library that provides cross platform access to statistics
 about the system on which it's running. It's written in C and presents a
 selection of useful interfaces which can be used to access key system
 statistics. The current list of statistics includes CPU usage, memory
-utilisation, disk usage, process counts, network traffic, disk I/O, and more.
+utilization, disk usage, process counts, network traffic, disk I/O, and more.
 
 The current list of supported and tested platforms includes FreeBSD, Linux,
 NetBSD, OpenBSD, Solaris, DragonFly BSD, HP-UX and AIX.
@@ -54,7 +71,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description    devel
-This package contains libraries, header files and manpages for
+This package contains libraries, header files and man-pages for
 developing applications that use libstatgrab.
 
 %if %{with examples}
@@ -71,6 +88,8 @@ to develop libstatgrab based applications.
 %package -n     saidar
 Summary:        System information real-time monitor
 License:        GPL-2.0-or-later
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+
 
 %description -n saidar
 Saidar is a curses-based interface to viewing the current state of the
@@ -79,6 +98,8 @@ system.
 %package -n     statgrab
 Summary:        Sysctl-style interface to the statistics from libstatgrab
 License:        GPL-2.0-or-later
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+
 
 %description -n statgrab
 Statgrab gives a sysctl-style interface to the statistics gathered by
@@ -86,28 +107,16 @@ libstatgrab. This extends the use of libstatgrab to people writing scripts or
 anything else that can't easily make C function calls. Included with statgrab
 is a script to generate an MRTG configuration file to use statgrab.
 
-# TODO: F23+2 must drop -tools-compat?
-%package        tools-compat
-Summary:        Transition package for statgrab-tools
-Obsoletes:      statgrab-tools < 1:0.91-0
-Requires:       statgrab%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:       saidar%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description    tools-compat
-This package only exists to help transition statgrab-tools users to the new
-package split. It will be removed after 2 distribution release cycles, please
-do not reference it or depend on it in any way.
-
 %prep
-%setup -q
+%autosetup -S git_am
 # Instead of wasting several lines to install these programs, makefile hack
 # will save the time.
 sed -i 's|noinst_PROGRAMS|bin_PROGRAMS|g' examples/Makefile*
 # Place log files underneath /var/log.
 sed -i 's|@localstatedir@|@localstatedir@/log|g;s|.log4cplus|.log|g' *.properties.in
 
-%build
-cp -pf %{S:1} .
+%conf
+cp -pf %{S:2} .
 autoreconf -fiv
 # Changing to asciidoc            --enable-man-build
 %configure --with-ncurses      \
@@ -119,6 +128,7 @@ autoreconf -fiv
 %endif
            --disable-static
 
+%build
 %make_build
 
 %install
@@ -130,27 +140,6 @@ autoreconf -fiv
 rm -frv %{buildroot}%{_docdir}
 # Drop libtool archive.
 find %{buildroot} -name '*.la' -delete -print
-
-mkdir -p %{buildroot}%{_docdir}/%{name}-tools-compat/
-cat <<'EOF' >> %{buildroot}%{_docdir}/%{name}-tools-compat/README.Fedora
-This package only exists to help transition statgrab-tools users to the new
-package split. the structure of the transition is:
-
-└── statgrab-tools --> └── %{name}-tools-compat
-                           ├── saidar
-                           └── statgrab
-
-In the past prior to Fedora 24, libstatgrab had only 1 package for 2 programs
-with different usage, while putting them inside one package seems reasonable,
-however in order to reduce the size of the package, we decided to halve the
-original package, now users can choose which to install, saidar or statgrab.
-
-Note this compat package will be removed after 2 distribution release cycles,
-please do not reference it or depend on it in any way.
-
-Yours,
-libstatgrab maintainers
-EOF
 
 %check
 make check
@@ -187,9 +176,6 @@ make check
 %{_bindir}/vm_stats
 %endif
 
-%files tools-compat
-%{_docdir}/%{name}-tools-compat/README.Fedora
-
 %files -n saidar
 %license COPYING
 %{_bindir}/saidar
@@ -207,6 +193,12 @@ make check
 %{_mandir}/*/*statgrab*
 
 %changelog
+* Sat Jan 17 2026 Shawn W Dunn <sfalken@opensuse.org> - 1:0.92.1-16
+- Specfile modernization/cleanup, dropped compat package
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -382,7 +374,7 @@ make check
 * Wed Oct 04 2006 Patrick "Jima" Laughton <jima@beer.tclug.org> 0.13-3
 - Bump-n-build
 
-* Tue Sep 19 2006 Patrick "Jima" Laughton <jima@beer.tclug.org>	- 0.13-2
+* Tue Sep 19 2006 Patrick "Jima" Laughton <jima@beer.tclug.org> - 0.13-2
 - Bump for FC6 rebuild
 
 * Thu Apr 20 2006 Oliver Falk <oliver@linux-kernel.at> - 0.13-1

@@ -1,6 +1,6 @@
 Name:           perl-Math-Base-Convert
 Version:        0.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Very fast base to base conversion
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Base-Convert
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.13-1
 - 0.13 bump (rhbz#2395620)
 - Package tests

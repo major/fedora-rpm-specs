@@ -1,6 +1,6 @@
 Name: inksmoto
 Version: 0.7.0
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: The new xmoto level editor for Inkscape
 
 License: GPL-2.0-only
@@ -45,6 +45,9 @@ cp -pr inksmoto %{buildroot}%{_datadir}/inkscape/extensions/
 %doc AUTHORS INSTALL README
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

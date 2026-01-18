@@ -24,7 +24,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.115.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
 License: GPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Python
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan  14 2026 Packit <hello@packit.dev> - 1.115.3-1
 - Update to upstream version 1.115.3
 

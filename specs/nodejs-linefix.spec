@@ -5,7 +5,7 @@
 
 Name:		nodejs-linefix
 Version:	0.1.1
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Recursively repair line endings
 
 License:	MIT
@@ -67,6 +67,9 @@ ln -sf %{nodejs_sitelib}/%{packagename}/bin/fix.js \
 %{_bindir}/linefix
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Tomas Juhasz <tjuhasz@redhat.com> - 0.1.1-21
 - Rebuilt for nodejs-packaging
 

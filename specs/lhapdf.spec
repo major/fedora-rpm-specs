@@ -1,6 +1,6 @@
 Name:		lhapdf
 Version:	6.5.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
@@ -132,6 +132,9 @@ find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 %license COPYING
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.5.5-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

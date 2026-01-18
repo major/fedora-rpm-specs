@@ -1,7 +1,7 @@
 Summary: A multi-platform helper library for other libraries
 Name: gwenhywfar
 Version: 5.14.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://www.aquamaniac.de/rdm/projects/gwenhywfar
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
@@ -163,6 +163,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{_includedir}/gwenhywfar5/gwen-gui-qt5/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.14.1-1
 - 5.14.1
 

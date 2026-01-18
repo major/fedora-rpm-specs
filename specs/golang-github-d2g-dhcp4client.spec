@@ -15,7 +15,7 @@ DHCP Client for Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        DHCP Client for Go
 
 License:        MPL-2.0
@@ -50,6 +50,9 @@ done
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

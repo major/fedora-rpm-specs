@@ -2,7 +2,7 @@
 
 Name:           gnome-js-common
 Version:        %{major_ver}.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Common modules for GNOME JavaScript interpreters
 
 # LGPLv3 part still being clarified with upstream
@@ -58,6 +58,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

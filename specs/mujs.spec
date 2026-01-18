@@ -4,7 +4,7 @@
 
 Name:           mujs
 Version:        1.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
@@ -79,6 +79,9 @@ ln -s %{ucddir}/SpecialCasing.txt
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 12 2025 Alain Vigne <avigne@fedoraproject.org> 1.3.7-1
 - upstream release 1.3.7
 - Add a patch + dependency to get Unicode files from distrib, and not from the Internet

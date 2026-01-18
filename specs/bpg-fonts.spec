@@ -7,7 +7,7 @@
 Name:		%{fontname}-fonts
 Summary: 	Georgian Unicode fonts
 Version:	%{common_ver}
-Release:	29%{?dist}
+Release:	31%{?dist}
 # Font exception
 # See: http://groups.google.com/group/bpg-fonts/web/gpl-gnu-license
 # No version of the GPL is specified.
@@ -708,6 +708,12 @@ install -Dm 0644 -p %{SOURCE88} \
 %doc Docs/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20120413-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20120413-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20120413-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.5.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 %global tar_ver %{version}
 
@@ -373,6 +373,12 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 20 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5.1-3
 - merge -ffaudio subpackage
 

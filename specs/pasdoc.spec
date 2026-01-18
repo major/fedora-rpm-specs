@@ -10,7 +10,7 @@ License: GPL-2.0-or-later
 %global with_tests 1
 
 Version: 0.16.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 URL: https://github.com/pasdoc/pasdoc
 Source0: %{URL}/archive/v%{version}/pasdoc-%{version}.tar.gz
@@ -205,6 +205,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

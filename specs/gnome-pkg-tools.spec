@@ -1,6 +1,6 @@
 Name:           gnome-pkg-tools
 Version:        0.22.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for the Debian GNOME Packaging Team
 
 BuildArch:      noarch
@@ -47,6 +47,9 @@ install -Dpm 0755 dh/gnome.pm %{buildroot}%{perl_vendorlib}/Debian/Debhelper/Seq
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Sandro Mani <manisandro@gmail.com> - 0.22.13-1
 - Update to 0.22.13
 

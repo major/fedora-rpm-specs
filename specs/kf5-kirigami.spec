@@ -14,7 +14,7 @@ ExcludeArch: %{ix86}
 
 Name:    kf5-%{framework}
 Version: 1.1.0
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -101,6 +101,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.1.0-27
 - Drop i686 support (leaf package)
 

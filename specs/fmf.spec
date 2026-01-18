@@ -1,6 +1,6 @@
 Name:          fmf
 Version:       1.7.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 Summary:       Flexible Metadata Format
 License:       GPL-2.0-or-later
@@ -60,6 +60,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

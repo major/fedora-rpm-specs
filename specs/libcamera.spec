@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -200,6 +200,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 20 2025 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.6.0-2
 - Fix initial black image / flickering on IPU6 ov02c10 laptops
 - Related: rhbz#2355032

@@ -2,7 +2,7 @@
 
 Name:           gnome-robots
 Version:        41.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNOME Robots game
 
 # * gnome-robots source code and data is GPL-3.0-or-later and GFDL-1.1-or-later
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 41.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 41.2-3
 - Reuilt with rust-gtk4 0.10
 

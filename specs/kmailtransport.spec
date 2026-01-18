@@ -1,6 +1,6 @@
 Name:    kmailtransport
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMailTransport Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -83,6 +83,9 @@ find ./po -type f -name libmailtransport5.po -execdir mv {} libmailtransport6.po
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

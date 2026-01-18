@@ -3,7 +3,7 @@
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
 Version:    0.9.15
-Release:    5%{?dist}
+Release:    6%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -140,6 +140,9 @@ done
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.9.15-5
 - Rebuilt for FFmpeg 8
 

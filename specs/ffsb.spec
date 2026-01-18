@@ -1,6 +1,6 @@
 Name:		ffsb
 Version:	6.0
-Release:	0.32.rc2%{?dist}
+Release:	0.33.rc2%{?dist}
 Summary:	The Flexible Filesystem Benchmark
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -43,6 +43,9 @@ rm -f examples/profile_smallfile_reads~
 %{_bindir}/ffsb
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-0.33.rc2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-0.32.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

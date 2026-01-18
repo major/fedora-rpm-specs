@@ -8,7 +8,7 @@
 Name:           moose
 Version:        3.1.5
 %global codename chamcham
-Release:        31%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
+Release:        32%{?dist}%{?prerelease:.%{prerelease}}%{?commit:.git%{shortcommit}}
 Summary:        Multiscale Neuroscience and Systems Biology Simulator
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -152,6 +152,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c \
 %doc README.md
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.5-31
 - Rebuilt for Python 3.14.0rc3 bytecode
 

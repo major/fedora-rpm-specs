@@ -5,7 +5,7 @@
 
 Name:       %{pkg}
 Version:    41.0
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    Miscellaneous add on for Emacs
 
 # Automatically converted from old format: GPLv2+ and GPLv3 - review is highly recommended.
@@ -62,6 +62,9 @@ iconv -f iso8859-1 -t utf-8 info/emacs-goodies > info/emacs-goodies.utf
 %dir %{_emacs_sitelispdir}/goodies
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           ahven
 Version:        2.9
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A unit testing framework for Ada 95
 Summary(sv):    Ett enhetstestramverk för ada 95
 
@@ -108,6 +108,12 @@ cp --preserve=timestamps README.md ROADMAP NEWS.txt %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 Björn Persson <Bjorn@Rombobjörn.se> - 2.9-2
 - Rebuilt with GCC 16 prerelease.
 

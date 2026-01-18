@@ -2,7 +2,7 @@
 
 Name:           kddockwidgets
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt dock widget library
 
 License:        GPL-3.0-only AND GPL-2.0-only AND BSD-3-Clause
@@ -133,6 +133,9 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 29 2025 Marie Loise Nolden <loise@kde.org> - 2.4.0-2
 - add qch docs for Qt Creator/KDevelop
 

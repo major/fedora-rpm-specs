@@ -1,6 +1,6 @@
 Name:		perl-Hash-StoredIterator
 Version:	0.008
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Functions for accessing a hash's internal iterator
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Hash-StoredIterator
@@ -71,6 +71,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Hash::StoredIterator.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

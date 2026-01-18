@@ -4,7 +4,7 @@
 Name:           perl-Function-Parameters
 %global cpan_version 2.002006
 Version:        2.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Function-Parameters
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 17 2025 Paul Howarth <paul@city-fan.org> - 2.2.6-1
 - Update to 2.002006 (rhbz#2388952)
   - Fix a parse-time memory leak with undef or default initializers

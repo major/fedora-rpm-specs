@@ -1,6 +1,6 @@
 Name:       perl-CPANPLUS-Shell-Default-Plugins-RT 
 Version:    0.01 
-Release:    45%{?dist}
+Release:    46%{?dist}
 # see README 
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Check for rt.cpan.org tickets from within the CPANPLUS shell 
@@ -51,6 +51,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

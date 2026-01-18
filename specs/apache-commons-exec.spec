@@ -3,7 +3,7 @@
 
 Name:           apache-commons-exec
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Java library to reliably execute external processes from within the JVM
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/%{short_name}
@@ -63,6 +63,12 @@ find src/test/java/ -name "*.java" -exec sed  -i '/SetSystemProperty/d' {} \;
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.6.0-1
 - Update to 1.6.0
 

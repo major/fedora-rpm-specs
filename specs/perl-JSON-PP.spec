@@ -4,7 +4,7 @@
 Name:		perl-JSON-PP
 Epoch:		1
 Version:	4.16
-Release:	522%{?dist}
+Release:	523%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/JSON-PP
@@ -95,6 +95,9 @@ make test
 %{_mandir}/man3/JSON::PP::Boolean.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.16-523
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Paul Howarth <paul@city-fan.org> - 1:4.16-522
 - Silence Getopt::Long warning (rhbz#2417867, PR#1, GH#88, GH#93)
 - Use %%{make_build} and %%{make_install}

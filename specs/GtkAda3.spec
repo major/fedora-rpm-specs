@@ -7,7 +7,7 @@
 Name:           GtkAda3
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        GTKada, an Ada binding to GTK+ 3
 Summary(sv):    GTKada, en adabindning till GTK+ 3
 
@@ -363,6 +363,12 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 ###############
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:26.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:26.0.0-1
 - Updated to v26.0.0.
 

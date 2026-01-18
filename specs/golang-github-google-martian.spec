@@ -28,7 +28,7 @@ that Go can target.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Library for building custom HTTP/S proxies
 
 # Upstream license specification: Apache-2.0
@@ -75,6 +75,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 3.1.0-22
 - rebuild
 

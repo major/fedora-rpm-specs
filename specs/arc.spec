@@ -1,6 +1,6 @@
 Name:      arc
 Version:   5.21p
-Release:   30%{?dist}
+Release:   32%{?dist}
 Summary:   Arc archiver
 License:   GPL-1.0-or-later
 URL:       http://arc.sourceforge.net/
@@ -55,6 +55,12 @@ install -m 0644 arc.1 marc.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.21p-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.21p-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 19 2025 Hans de Goede <hans@hansg.org> - 5.21p-30
 - Fix FTBFS (rhbz#2339899, rhbz#2384462)
 

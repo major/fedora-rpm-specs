@@ -1,6 +1,6 @@
 Name: liburing
 Version: 2.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Linux-native io_uring I/O access library
 License: (GPL-2.0-only WITH Linux-syscall-note OR MIT) AND (LGPL-2.0-or-later OR MIT)
 Source0: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ for the Linux-native io_uring.
 %{_mandir}/man7/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Richard W.M. Jones <rjones@redhat.com> - 2.13-1
 - Update to liburing 2.13 (RHBZ#2422592)
 

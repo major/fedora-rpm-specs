@@ -1,7 +1,7 @@
 Name:		globus-xio-popen-driver
 %global _name %(tr - _ <<< %{name})
 Version:	4.1
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO Pipe Open Driver
 
 License:	Apache-2.0
@@ -82,6 +82,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

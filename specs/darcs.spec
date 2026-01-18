@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        2.18.5
 # can only be reset when all subpkgs bumped
-Release:        48%{?dist}
+Release:        50%{?dist}
 Summary:        A distributed, interactive, smart revision control system
 
 License:        GPL-2.0-or-later
@@ -256,6 +256,12 @@ install -Dpm 644 contrib/darcs_completion %{buildroot}%{_datadir}/bash-completio
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.5-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.5-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 11 2025 Jens Petersen <petersen@redhat.com> - 2.18.5-48
 - Rebuild
 

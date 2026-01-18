@@ -1,6 +1,6 @@
 Name:           perl-List-AllUtils
 Version:        0.19
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Combines List::Util and List::SomeUtils
 # CODE_OF_CONDUCT.md:   CC-BY-4.0
 # lib/List/AllUtils.pm: Artistic-2.0
@@ -95,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

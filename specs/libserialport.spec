@@ -1,6 +1,6 @@
 Name:           libserialport
 Version:        0.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for accessing serial ports
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
@@ -85,6 +85,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 16 2025 Dan Horák <dan[at]danny.cz> - 0.1.2-1
 - update to libserialport 0.1.2
 - update for glibc 2.42 (rhbz#2394724)

@@ -69,7 +69,7 @@
 %global patch_version 10
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 5
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -600,6 +600,12 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.31.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.31.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Miro Hrončok <mhroncok@redhat.com> - 3.31.10-3
 - Declarative %%generate_buildrequires: Keep the BRs stable
 

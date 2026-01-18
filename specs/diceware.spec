@@ -1,6 +1,6 @@
 Name:		diceware
 Version:	1.0.1
-Release:	4%{?dist}
+Release:	6%{?dist}
 Summary:	Create passphrases which one can remember
 
 # Code is GPL-3.0-or-later but then there are the wordlists:
@@ -73,6 +73,12 @@ rm -rf docs/_build/.doctrees
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

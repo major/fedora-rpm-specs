@@ -1,6 +1,6 @@
 Name:		nanovna-saver
 Version:	0.7.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -78,6 +78,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tools
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 02 2025 Jan Grulich <jgrulich@redhat.com> - 0.7.3-8
 - Rebuild (python-pyside6)
 

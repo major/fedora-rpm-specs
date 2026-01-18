@@ -1,6 +1,6 @@
 Name:           editline
 Version:        1.17.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A small compatible replacement for readline
 
 # https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License
@@ -60,6 +60,9 @@ rm %{buildroot}/%{_mandir}/man3/editline.3
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Jens Petersen <petersen@redhat.com> - 1.17.1-15
 - patch for gcc15 properly
 

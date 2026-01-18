@@ -45,7 +45,7 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.4.5
-Release: 2%{?dist}
+Release: 4%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -489,6 +489,12 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec  2 2025 Dave Dykstra <dwd@cern.ch> - 1.4.5-2
 - Include the real patches for e2fsprogs instead of empty files.  Fixes
   BZ#2417548.

@@ -1,6 +1,6 @@
 Name:          human-theme-gtk
 Version:       2.6.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Human theme for GTK
 Summary(fr):   Thème Human pour GTK
 License:       GPL-3.0-or-later and LGPL-2.1-or-later and CC-BY-SA-3.0
@@ -53,6 +53,9 @@ install -Dpm 644 data/profile.sh %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 08 2025 Fabrice Creuzot <code@luigifab.fr> - 2.6.0-1
 - New upstream release
 

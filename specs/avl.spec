@@ -1,6 +1,6 @@
 Name:           avl
 Version:        3.52
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Aerodynamic and flight-dynamic analysis of rigid aircrafts
 
 # Plotlib is LGPLv2+, the rest is GPLv2+
@@ -50,6 +50,12 @@ install -Dpm 0755 bin/avl %{buildroot}%{_bindir}/avl
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.52-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.52-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 04 2025 Sandro Mani <manisandro@gmail.com> - 3.52-1
 - Update to 3.52
 

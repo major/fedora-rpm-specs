@@ -35,7 +35,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -312,6 +312,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.6-3
 - Add workaround for setting a11y bus explicitly
 

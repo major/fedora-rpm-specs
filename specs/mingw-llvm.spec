@@ -14,7 +14,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       21.1.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       LLVM for MinGW
 # Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
 ExcludeArch:   i686
@@ -250,6 +250,9 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Sandro Mani <manisandro@gmail.com> - 21.1.8-1
 - Update to 21.1.8
 

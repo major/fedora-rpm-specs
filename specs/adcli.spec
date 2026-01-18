@@ -4,7 +4,7 @@
 
 Name:    adcli
 Version: 0.9.3.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: Active Directory enrollment
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/adcli
@@ -128,6 +128,12 @@ documentation.
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 19 2025 Sumit Bose <sbose@redhat.com> - 0.9.3.1-3
 - Fix issue with restoring SELinux file label
 

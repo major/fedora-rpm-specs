@@ -4,7 +4,7 @@
 
 Name:           almalinux-git-utils
 Version:        0.0.3^git%{commitdate}.%{shortcommit}
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Utilities for working with the AlmaLinux Git server
 
 License:        GPL-3.0-or-later
@@ -49,6 +49,12 @@ BuildRequires:  python3dist(pytest)
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3^git20240927.3a7c848-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3^git20240927.3a7c848-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.3^git20240927.3a7c848-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

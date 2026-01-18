@@ -25,7 +25,7 @@ format as the JSON that a TOML decoder should output.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Language agnostic test suite for TOML parsers
 
 License:        MIT
@@ -68,6 +68,9 @@ cp -a tests %{buildroot}%{_datadir}/toml-test/
 %gopkgfiles
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.2.0-23
 - rebuild
 

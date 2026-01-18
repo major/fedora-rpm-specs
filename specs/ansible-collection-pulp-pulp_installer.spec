@@ -2,7 +2,7 @@
 
 Name:           ansible-collection-pulp-pulp_installer
 Version:        3.22.1
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        A collection of roles to install or upgrade Pulp 3
 
 License:        GPL-2.0-or-later
@@ -62,6 +62,12 @@ cp -p -r --dereference docs %{buildroot}%{_docdir}/%{name}-doc
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

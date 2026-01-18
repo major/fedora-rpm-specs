@@ -2,7 +2,7 @@
 
 Name:           kanshi
 Version:        1.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Dynamic display configuration for Wayland
 
 # Overall project license: MIT
@@ -74,6 +74,9 @@ install -D -m 0644 -pv %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}.service
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 30 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.0-3
 - Rebuild for libscfg 0.2.0
 

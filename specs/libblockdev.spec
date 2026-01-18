@@ -86,7 +86,7 @@
 
 Name:        libblockdev
 Version:     3.4.0
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -958,6 +958,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 24 2025 Packit <hello@packit.dev> - 3.4.0-1
 - Update to version 3.4.0
 

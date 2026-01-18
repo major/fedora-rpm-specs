@@ -1,7 +1,7 @@
 Summary:	Perl interface to IDEA block cipher
 Name:		perl-Crypt-IDEA
 Version:	1.10
-Release:	36%{?dist}
+Release:	37%{?dist}
 License:	BSD-Systemics
 URL:		https://metacpan.org/release/Crypt-IDEA
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-IDEA-%{version}.tar.gz
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/Crypt::IDEA.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

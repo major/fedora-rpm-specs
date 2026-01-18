@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-SDL
 Version:        0.9.1
-Release:        75%{?dist}
+Release:        76%{?dist}
 Summary:        OCaml bindings for SDL
 License:        LGPL-2.1-or-later
 
@@ -74,6 +74,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-75
 - OCaml 5.4.0 rebuild
 

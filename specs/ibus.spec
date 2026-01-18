@@ -53,7 +53,7 @@
 Name:           ibus
 Version:        1.5.34~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -575,6 +575,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.34~alpha1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-4
 - Resolves: #2419469 Fix SEGV with double bus_name_acquired_cb()
 - Resolves: #2424256 Delete Requires desktop-file-utils in spec

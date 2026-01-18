@@ -3,7 +3,7 @@
 Name:           libsbw
 Summary:        C++ Broker library 
 Version:        2.12.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 URL:            http://sourceforge.net/projects/sbw/
 Source0:        https://sourceforge.net/projects/sbw/files/sbw/%{version}/sbw-core-%{version}.tar.bz2
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ install -pm 644 Broker.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %{_libdir}/cmake/SBW-static-config.cmake
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 2.12.2-20
 - Allow to build with CMake 4.0 (rhbz#2380752)
 

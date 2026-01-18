@@ -8,7 +8,7 @@
 
 Name:           build2
 Version:        0.17.0
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Cross-platform build toolchain for developing and packaging C++ code
 
 License:        MIT
@@ -643,6 +643,12 @@ b test:                                                                         
 %{_rpmmacrodir}/macros.%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

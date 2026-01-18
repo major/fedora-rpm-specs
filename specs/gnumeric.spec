@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.59
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 License:          GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:              http://www.gnumeric.org
@@ -150,6 +150,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.59-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 1:1.12.59-1
 - Update to 1.12.59
 - Convert license tag from LicenseRef-Callaway-LGPLv2+

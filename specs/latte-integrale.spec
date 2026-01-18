@@ -1,6 +1,6 @@
 Name:           latte-integrale
 Version:        1.7.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Lattice point enumeration
 
 %global tarver  %(tr . _ <<< %{version})
@@ -185,6 +185,9 @@ make check
 %{_libdir}/libnormalize.so.0{,.*}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 19 2025 Jerry James <loganjerry@gmail.com> - 1.7.6-14
 - Rebuild for ntl 11.6.0
 

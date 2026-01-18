@@ -12,7 +12,7 @@
 
 Name:           aubit4gl
 Version:        %{latestversion}%{postrelease} 
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        IBM Informix 4GL compatible compiler
 
 # The entire source code is GPL-2.0-or-later except
@@ -186,6 +186,12 @@ make -C tools/test
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.p1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.p1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 Chad Lemmen <rpm@stansoft.org> - 1.6.3.p1-1
 - updated version
 - added quotes to INFORMIXDIR variable

@@ -6,7 +6,7 @@
 
 Name: libabigail
 Version: 2.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
@@ -169,6 +169,9 @@ time make %{?_smp_mflags} check check-self-compare || (cat tests/test-suite.log 
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 06 2025 Dodji Seketeli <dodji@redhat.com> - 2.9-1
 - Update to upstream 2.9 tarball
 - Support new libabigail.so.8.0.0 SONAME

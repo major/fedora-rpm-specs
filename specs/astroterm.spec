@@ -1,6 +1,6 @@
 Name:           astroterm
 Version:        1.0.6
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A planetarium for your terminal
 
 License:        MIT
@@ -47,6 +47,12 @@ gunzip -dc %{SOURCE1} > data/ybsc5
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

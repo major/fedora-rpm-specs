@@ -1,6 +1,6 @@
 Name:           linpsk
 Version:        1.3.5
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Psk31 and RTTY program for Linux
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -92,6 +92,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} ';'
 %{_libexecdir}/%{name}-bin
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

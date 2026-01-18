@@ -3,7 +3,7 @@
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
 Version: 25.12.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
@@ -95,6 +95,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.akonadiim
 %{_includedir}/KPim6/ImportWizard/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 farchord@gmail.com - 25.12.1-1
 - 25.12.1
 

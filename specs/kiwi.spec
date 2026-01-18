@@ -10,7 +10,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.2.33
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -640,6 +640,9 @@ popd
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.33-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Daniel P. Berrangé <berrange@redhat.com> - 10.2.33-3
 - Add ExcludeArch to remove dep on i686 QEMU
 

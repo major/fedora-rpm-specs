@@ -3,7 +3,7 @@
 Summary: Disk based hash library
 Name: dbh
 Version: 5.0.22
-Release: 1%{?dist}
+Release: 3%{?dist}
 URL: http://dbh.sourceforge.net/
 Source0: http://downloads.sourceforge.net/%{name}/lib%{name}2-%{version}.tar.gz
 Patch0: %{name}-5.0.13-bigendian.patch
@@ -65,6 +65,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/dbh*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:5.0.22-1
 - 5.0.22
 

@@ -3,7 +3,7 @@
 Name:           crystal-dock
 Summary:        Modern cross-desktop dock for the Linux Desktop
 Version:        2.14.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/dangvd/crystal-dock
@@ -54,6 +54,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/crystal-dock.desktop
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 2.14.0-3
 - Rebuild (qt6)
 

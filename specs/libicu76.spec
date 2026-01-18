@@ -9,7 +9,7 @@
 
 Name:      libicu76
 Version:   76.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Compat package with icu 76.1 libraries
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
@@ -131,5 +131,8 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 76.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 30 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 76.1-1
 - Initial compat package

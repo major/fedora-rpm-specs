@@ -91,10 +91,10 @@
 Name:           %{hipsparse_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm SPARSE marshalling library
 License:        MIT
@@ -278,6 +278,9 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{pkg_prefix}/
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
 - Add static analysis check
 

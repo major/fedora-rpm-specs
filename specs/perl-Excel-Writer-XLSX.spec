@@ -1,6 +1,6 @@
 Name:           perl-Excel-Writer-XLSX
 Version:        1.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create a new file in the Excel 2007+ XLSX format
 # LICENSE_Artistic_Perl:    Artistic-1.0-Perl text
 # LICENSE_GPL_1.0:          GPL-1.0 text
@@ -122,6 +122,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 15 2025 Petr Pisar <ppisar@redhat.com> - 1.15-1
 - 1.15 bump
 

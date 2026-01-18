@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 Name:           kolorfill
 Version:        0^20250825.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple flood fill game
 
 License:        MIT
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20250825.3e21584b-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0^20250825.3e21584b-1
 - Update snapshot, build with Qt6
 

@@ -1,6 +1,6 @@
 Name:           perl-MooX
 Version:        0.101
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Using Moo and MooX:: packages the most lazy way
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX
@@ -46,6 +46,9 @@ Using Moo and MooX:: packages the most lazy way
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

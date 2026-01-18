@@ -1,6 +1,6 @@
 Name:           iapetal
 Version:        1.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A 2D space rescue game
 
 License:        GPL-3.0-or-later
@@ -50,6 +50,9 @@ desktop-file-install \
 %{_datadir}/appdata/iapetal.appdata.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

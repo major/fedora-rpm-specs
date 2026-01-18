@@ -1,6 +1,6 @@
 Name:           beefy-miracle-backgrounds
 Version:        16.91.0
-Release:        29%{?dist}
+Release:        31%{?dist}
 Summary:        Beefy Miracle desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -93,6 +93,12 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.91.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.91.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.91.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: kdbg
 Summary: A GUI for gdb, the GNU debugger, and KDE
 Version: 3.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source: http://download.sourceforge.net/kdbg/%{name}-%{version}.tar.gz
 # No version specified.
@@ -58,6 +58,9 @@ rm -f kdbg/pics/*action-debug-run*
 %lang(ru) %{_docdir}/HTML/ru/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Than Ngo <than@redhat.com> - 1:3.2.0-1
 - Fix rhbz#2389024, update to 3.2.0
 

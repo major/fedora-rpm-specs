@@ -1,6 +1,6 @@
 Name:           lxqt-themes
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LXQt standard themes
 
 License:        LGPL-2.0-or-later
@@ -85,6 +85,9 @@ Requires: fedora-logos
 #%%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
 - Update to 2.3.0
 

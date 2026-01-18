@@ -4,7 +4,7 @@
 
 Name:           mankalaengine
 Version:        1.1.%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Mancala game engine with AI support
 
 License:        GPL-3.0-or-later 
@@ -74,5 +74,8 @@ Mancala Variants supported by MankalaEngine.
 %{_bindir}/pallangulitui
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.20250130.7fa23e7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog
 

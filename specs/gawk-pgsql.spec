@@ -1,7 +1,7 @@
 Name:             gawk-pgsql
 Summary:          PostgreSQL client library for gawk
 Version:          1.1.2
-Release:          7%{?dist}
+Release:          8%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:          GPL-3.0-or-later
 
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{_infodir}/dir
 # =============================================================================
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-Annotate
 Version:        0.10
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Represent a series of changes in annotate form
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-Annotate
@@ -40,6 +40,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

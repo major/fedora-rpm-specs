@@ -1,6 +1,6 @@
 Name:           centpkg-minimal
 Version:        2.1.0
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Used by koji to download sources for building CentOS
 
 License:        GPL-2.0-only
@@ -36,6 +36,12 @@ install -pm 755 centpkg %{buildroot}%{_bindir}/centpkg
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

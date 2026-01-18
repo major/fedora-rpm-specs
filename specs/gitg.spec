@@ -8,7 +8,7 @@
 
 Name:           gitg
 Version:        45~%{gitdate}git%{shortcommit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 # most code is under GPL-2.0-or-later, except:
@@ -149,6 +149,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 45~20250512gitf7501bc-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 45~20250512gitf7501bc-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

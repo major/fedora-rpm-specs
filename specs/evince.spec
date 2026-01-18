@@ -17,7 +17,7 @@
 
 Name:           evince
 Version:        48.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
@@ -287,6 +287,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 48.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Marek Kasik <mkasik@redhat.com> - 48.1-1
 - Update to 48.1
 

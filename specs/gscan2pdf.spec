@@ -11,7 +11,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -380,6 +380,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 Petr Pisar <ppisar@redhat.com> - 2.13.5-2
 - gdk-pixbuf2-modules-extra is not needed for PNM and PBM with recent
   gdk-pixbuf2

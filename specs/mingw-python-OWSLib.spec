@@ -5,7 +5,7 @@
 Name:          mingw-python-OWSLib
 Summary:       MinGW Windows Python OWSLib library
 Version:       0.35.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -65,6 +65,9 @@ MinGW Windows Python3 OWSLib library.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 29 2025 Sandro Mani <manisandro@gmail.com> - 0.35.0-1
 - Update to 0.35.0
 

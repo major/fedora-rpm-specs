@@ -3,7 +3,7 @@
 Name:		globus-gatekeeper
 %global _name %(tr - _ <<< %{name})
 Version:	11.4
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Globus Gatekeeper
 
 License:	Apache-2.0
@@ -100,6 +100,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-services/available
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 11.4-10
 - Drop old system V init scripts
 

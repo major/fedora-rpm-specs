@@ -2,7 +2,7 @@
 
 Name:           librttopo
 Version:        1.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Create and manage SQL/MM topologies
 
 License:        GPL-2.0-or-later
@@ -133,6 +133,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.1.0-18
 - Disable mingw on EPEL rhbz#2428744
 

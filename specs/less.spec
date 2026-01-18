@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 685
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 %global lesspipe_version 2.20
@@ -109,6 +109,9 @@ popd
 %{_bindir}/vimcolor
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 685-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Michal Hlavinka <mhlavink@redhat.com> - 685-6
 - reintroduce use more feature rich lesspipe filter, but separate
   perl dependent colorizer into subpackage, credits Yaakov Selkowitz 

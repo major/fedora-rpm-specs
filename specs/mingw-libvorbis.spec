@@ -2,7 +2,7 @@
 
 Name:           mingw-libvorbis
 Version:        1.3.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        MinGW Windows libvorbis library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -108,6 +108,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

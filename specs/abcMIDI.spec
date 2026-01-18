@@ -1,6 +1,6 @@
 Name:           abcMIDI
 Version:        2025.02.16
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        ABC to/from MIDI conversion utilities
 
 Group:          Applications/Multimedia
@@ -66,6 +66,12 @@ install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.02.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.02.16-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.02.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

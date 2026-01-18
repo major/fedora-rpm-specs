@@ -4,7 +4,7 @@
 
 Name:           echo-icon-theme
 Version:        0.3.89.0
-Release:        0.44.%{alphatag}%{?dist}
+Release:        0.45.%{alphatag}%{?dist}
 Summary:        Echo icon theme
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -48,6 +48,9 @@ touch --no-create %{_datadir}/icons/Echo || :
 %ghost %{_datadir}/icons/Echo/icon-theme.cache
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.89.0-0.45.20081003gitcc6da5b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.89.0-0.44.20081003gitcc6da5b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

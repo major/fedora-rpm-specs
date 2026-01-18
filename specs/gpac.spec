@@ -1,7 +1,7 @@
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     2.4.0
-Release:     11%{?dist}
+Release:     12%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -181,6 +181,9 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.4.0-11
 - Rebuilt for FFmpeg 8
 

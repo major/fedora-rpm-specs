@@ -1,7 +1,7 @@
 Name: iptstate
 Summary: A top-like display of IP Tables state table entries
 Version: 2.2.7
-Release: 10%{?dist}
+Release: 11%{?dist}
 Source: https://github.com/jaymzh/iptstate/releases/download/v%{version}/iptstate-%{version}.tar.bz2
 Patch01: 0001-Makefile-respect-LDFLAGS.patch
 Patch02: 0002-Makefile-Use-pkg-config.patch
@@ -51,6 +51,9 @@ display the state table once.
 %{_mandir}/man8/iptstate.*
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

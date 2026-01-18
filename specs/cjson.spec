@@ -1,6 +1,6 @@
 Name:           cjson
 Version:        1.7.18
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Ultralightweight JSON parser in ANSI C
 
 # several files in tests/ are Apache-2.0 but are not packaged
@@ -55,6 +55,12 @@ rm -f %{buildroot}%{_libdir}/*.{la,a}
 %{_includedir}/cjson/
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.18-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

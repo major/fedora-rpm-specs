@@ -3,7 +3,7 @@
 
 Name:           cinnamon-translations
 Version:        6.6.2
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Translations for Cinnamon and Nemo
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,12 @@ Translations for Cinnamon, Nemo and Mintlocale.
 
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-1
 - Update to 6.6.2
 
