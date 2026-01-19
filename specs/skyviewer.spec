@@ -1,6 +1,6 @@
 Name:           skyviewer
 Version:        1.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Program to display HEALPix-based skymaps in FITS files
 
 License:        CFITSIO
@@ -61,6 +61,9 @@ desktop-file-install --vendor='' %{SOURCE1} \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Adam Williamson <awilliam@redhat.com> - 1.1.0-7
 - Rebuilt for new libQGLViewer-qt5
 

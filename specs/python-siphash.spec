@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        SipHash in Python
 
 License:        MIT
@@ -51,6 +51,9 @@ key and 64-bit output.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.1-22
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -7,7 +7,7 @@ License: MIT
 %global git_sha %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 0^%{git_date}.%{git_sha}
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://github.com/simonccarter/sta
 Source0: %{URL}/archive/%{git_commit}/sta-%{git_commit}.tar.gz
@@ -61,6 +61,9 @@ g++ %{optflags} %{build_ldflags} -o tester tests.cpp
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231130.94559e3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231130.94559e3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

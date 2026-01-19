@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        18.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -217,6 +217,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 13 2025 Sandro Mani <manisandro@gmail.com> - 18.0.1-1
 - Update to 18.0.1
 

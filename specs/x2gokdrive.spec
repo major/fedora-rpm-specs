@@ -1,6 +1,6 @@
 Name:           x2gokdrive
 Version:        0.0.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        KDrive graphical server backend for X2GoServer
 
 # Per debian/copyright, only the testscripts folder is GPLv2
@@ -337,6 +337,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

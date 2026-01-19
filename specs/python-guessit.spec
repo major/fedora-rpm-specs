@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.8.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Library to extract as much information as possible from a video filename
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License: LGPL-3.0-only
@@ -65,6 +65,9 @@ done
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.8.0-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 Name:           soapy-rtlsdr
 Version:        0.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SoapySDR module for RTL-SDR hardware
 
 License:        MIT
@@ -32,6 +32,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libdir}/SoapySDR/modules*/librtlsdrSupport.so
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 Richard Shaw <hobbes1069@gmail.com> - 0.3.3-1
 - Update to 0.3.3.
 

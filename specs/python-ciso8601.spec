@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast ISO8601 date time parser
 
 License:        MIT
@@ -49,6 +49,9 @@ than other Python libraries.
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

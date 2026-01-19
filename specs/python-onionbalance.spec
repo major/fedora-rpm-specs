@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -132,6 +132,9 @@ install -m0644 -D python-onionbalance.sysusers.conf %{buildroot}%{_sysusersdir}/
 %{_sysusersdir}/python-onionbalance.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

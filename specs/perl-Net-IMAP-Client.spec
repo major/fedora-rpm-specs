@@ -1,6 +1,6 @@
 Name:           perl-Net-IMAP-Client
 Version:        0.9511
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IMAP client library for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IMAP-Client
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9511-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.9511-1
 - bump 0.9511
 

@@ -37,7 +37,7 @@
 
 Name:		%{suite_name}2-%{name_suffix}
 Version:	3.1.36
-Release:	22%{?gitrel}%{?dist}
+Release:	23%{?gitrel}%{?dist}
 Summary:	YaST Development Tools
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -181,6 +181,9 @@ fi
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.36-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.36-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-POE-Filter-Zlib
 Version:        2.04
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        POE filter wrapped around Compress::Zlib
 # note license definition in Makefile.PL
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

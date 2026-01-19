@@ -1,6 +1,6 @@
 Name:           qps
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt process viewer and manager
 
 License:        GPL-2.0-or-later
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.lxqt.Qps.a
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 6 2026 Basil Crow <me@basilcrow.com> - 2.12.0-1
 - Revive packaging
 

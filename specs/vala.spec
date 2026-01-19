@@ -3,7 +3,7 @@
 
 Name:           vala
 Version:        0.56.18
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A modern programming language for GNOME
 
 # Most files are LGPLv2.1+, curses.vapi is 2-clause BSD
@@ -205,6 +205,9 @@ export -n VALAFLAGS
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.56.18-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 09 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.56.18-5
 - Rebuilt for new graphviz
 

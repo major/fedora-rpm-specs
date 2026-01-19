@@ -5,7 +5,7 @@
 
 Name:           tmispell-voikko
 Version:        0.7.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        An Ispell compatible front-end for spell-checking modules
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -104,6 +104,9 @@ install -Dpm 0644 tmispell.conf.example $RPM_BUILD_ROOT%{_sysconfdir}/tmispell.c
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

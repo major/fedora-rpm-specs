@@ -20,6 +20,7 @@ Source:         %{crates_source}
 # * Remove upper bound on globset, which was pinned in
 #   https://github.com/mitsuhiko/insta/commit/53e209fde72948ab63a60bc144f53ae4a8151441
 #   solely for MSRV reasons
+# * Allow toml_edit 0.24; downstream-only for MSRV reasons
 Patch:          insta-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

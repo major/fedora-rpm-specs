@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.6.0-1
 - 4.6.0
 

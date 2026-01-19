@@ -1,6 +1,6 @@
 Name:           tuxpaint
 Version:        0.9.35
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Epoch:          1
 Summary:        Drawing program designed for young children
@@ -123,6 +123,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_includedir}/tuxpaint/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.35-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 09 2025 Sandro Mani <manisandro@gmail.com> - 1:0.9.35-3
 - Rebuild (libimagequant)
 

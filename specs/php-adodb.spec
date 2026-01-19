@@ -3,7 +3,7 @@
 Name:           php-adodb
 Summary:        Database abstraction layer for PHP
 Version:        5.22.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-3-Clause or LGPL-2.0-or-later
 URL:            http://adodb.org
@@ -57,6 +57,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/adodb/*.txt
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.22.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.22.11-1
 - 5.22.11
 

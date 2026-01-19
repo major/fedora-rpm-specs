@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.0.0
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Backport of the linecache module
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -66,6 +66,9 @@ mv %{pkgname}/tests .
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-47
 - Rebuilt for Python 3.14.0rc3 bytecode
 

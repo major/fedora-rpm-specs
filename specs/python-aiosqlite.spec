@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Asyncio bridge to the standard SQLite3 module
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %doc CHANGELOG.md README.rst
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 25 2025 Federico Pellegrin <fede@evolware.org> - 0.22.1-1
 - Bump to 0.22.1 (rhbz#2424699)
 

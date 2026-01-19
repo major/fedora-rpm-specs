@@ -60,7 +60,7 @@
 
 Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause
 
@@ -165,6 +165,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Remove build requires git
 

@@ -3,7 +3,7 @@
 Summary:        Debug plugin for python-llm
 Name:           python-llm-echo
 Version:        0.3~a3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm-echo
 Source:         https://github.com/simonw/llm-echo/archive/%{pypi_version}/llm-echo-%{pypi_version}.tar.gz
@@ -43,5 +43,8 @@ Summary:        %{summary}
 %files -n python3-llm-echo -f %{pyproject_files}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3~a3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Terje Røsten <terjeros@gmail.com> - 0.3~a3-1
 - Initial package

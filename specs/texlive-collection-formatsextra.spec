@@ -5,7 +5,7 @@
 Name:           texlive-collection-formatsextra
 Epoch:          12
 Version:        svn72250
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Additional formats
 
 License:        LPPL-1.3c
@@ -342,6 +342,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/otherformats/startex/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72250-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72250-3
 - fix license tags
 - fix descriptions

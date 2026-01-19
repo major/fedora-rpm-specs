@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Subtitle file manipulation library
 
 License:        GPL-3.0-or-later
@@ -56,6 +56,9 @@ rm -rf aeidon/data/{headers,patterns,ui}  # setup.py fails if this was already c
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 18 2025 Sudip Shil <sshil@redhat.com> - 1.15-28
 - Add Obsoletes and Conflicts for gaupol to resolve upgrade deadlock (rhbz#2418575) 
 

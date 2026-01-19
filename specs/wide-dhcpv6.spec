@@ -15,7 +15,7 @@ License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later
 Summary:        DHCP Client and Server for IPv6
 Version:        20080615
 Url:            https://launchpad.net/ubuntu/+source/%{name}/%{version}-%{ubuntu_release}
-Release:        %{ubuntu_release}.%{my_release}%{dist}.8
+Release:        %{ubuntu_release}.%{my_release}%{dist}.9
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        CHANGELOG-LINUX
 Source2:        COPYRIGHT
@@ -138,6 +138,9 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20080615-23.3.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080615-23.3.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

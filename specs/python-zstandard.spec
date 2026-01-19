@@ -11,7 +11,7 @@ compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
 Version: 0.25.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Zstandard bindings for Python
 License: (BSD-3-Clause OR GPL-2.0-only) AND MIT
 URL: https://github.com/indygreg/python-zstandard
@@ -67,6 +67,9 @@ mv zstandard{.src,}
 %doc README.rst
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 22 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.25.0-1
 - update to 0.25.0 (resolves rhbz#2395104)
 

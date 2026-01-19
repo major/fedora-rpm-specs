@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.1.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Colorize your text in the terminal
 
 License:	MIT
@@ -57,6 +57,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

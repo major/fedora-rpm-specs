@@ -1,6 +1,6 @@
 Name:		qtilitools
 Version:	0.1.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/qtilities/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -33,6 +33,9 @@ BuildRequires:  cmake
 %{_datadir}/cmake/qtilitools
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -17,7 +17,7 @@ Summary: SVG handling library for C++
 License: BSL-1.0
 
 Version: 1.3.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://svgpp.org
 Source0: https://github.com/svgpp/svgpp/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ pushd src/test/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.3.1-4
 - Allow to build with CMake 4.0 (rhbz#2381658)
 

@@ -3,7 +3,7 @@
 Name:           texlive-scheme-infraonly
 Epoch:          12
 Version:        svn54191
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        infrastructure-only scheme (no TeX at all)
 
 License:        LPPL-1.3c
@@ -35,5 +35,8 @@ separately afterwards, with tlmgr install.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn54191-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 15 2025 Tom Callaway <spot@fedoraproject.org> - 12:svn54191-1
 - Update to TeX Live 2025

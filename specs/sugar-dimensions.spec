@@ -1,6 +1,6 @@
 Name:           sugar-dimensions
 Version:        60
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A pattern matching game
 
 # namingalert.py is licensed as LGPLv2+
@@ -57,6 +57,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 60-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 60-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

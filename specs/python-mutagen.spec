@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.47.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
 # licensecheck -r . | grep -vEe "UNKNOWN" -e "GNU General Public License v2.0" | sort
@@ -100,6 +100,9 @@ rm -rf docs/_build/{.buildinfo,.doctrees}
 %doc docs/_build/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.47.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Michele Baldessari <michele@baldessari.info> - 1.47.0-11
 - Use new python macros (RHBZ#2377913)
 

@@ -10,7 +10,7 @@ true of requests in terms of caching.}
 Name:           python-%{pypi_name}
 Summary:        httplib2 caching for requests
 Version:        0.14.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 URL:            https://github.com/ionrock/cachecontrol
@@ -64,6 +64,9 @@ Recommends:  python3-%{pypi_name}+redis
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Lumír Balhar <lbalhar@redhat.com> - 0.14.4-1
 - Update to 0.14.4 (rhbz#2414984)
 

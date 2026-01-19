@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Allows you to use py.test as a django test runner
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/django_pytest-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-45
 - Rebuilt for Python 3.14.0rc3 bytecode
 

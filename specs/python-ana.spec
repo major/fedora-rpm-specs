@@ -5,7 +5,7 @@
 
 Name:           python-ana
 Version:        0.06
-Release:        23%{commit_release}%{?dist}
+Release:        24%{commit_release}%{?dist}
 Summary:        Python module to provide easy distributed data storage
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ sed -i "s|assertEquals|assertEqual|g" test.py # Patch deprecated synonym.
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-24.20230801git7f3c0dd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 0.06-23
 - Unretire
 - Use new Python packaging macros

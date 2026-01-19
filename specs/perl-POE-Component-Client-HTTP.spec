@@ -8,7 +8,7 @@
 
 Name:           perl-POE-Component-Client-HTTP
 Version:        0.949
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A non-blocking/parallel web requests engine for POE
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -102,6 +102,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.949-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.949-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

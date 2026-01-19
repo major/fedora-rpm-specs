@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: An interface for returning uname (platform) information
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -74,6 +74,9 @@ popd
 %{gem_instdir}/sys-uname.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.2-11
 - Remove unneeded ostruct dep for ruby3_5
 

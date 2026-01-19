@@ -1,6 +1,6 @@
 Name:     primesieve
 Version:  12.11
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,9 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Kim Walisch <walki@fedoraproject.org> - 12.11-1
 - calculator.hpp: Update to version 2.0 with improved error handling
 - test/calculator.cpp: Add much more tests for calculator.hpp

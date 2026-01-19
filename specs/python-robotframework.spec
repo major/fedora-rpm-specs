@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        7.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
 # Support libraries to display HTML results:
@@ -73,6 +73,9 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 26 2025 Federico Pellegrin <fede@evolware.org> - 7.4.1-1
 - Upgrade to 7.4.1. Fixes Python 3.15 compatibility issue (rbhz#2424602)
 

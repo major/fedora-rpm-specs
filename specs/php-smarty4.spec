@@ -9,7 +9,7 @@
 Name:          php-smarty4
 Summary:       Smarty - the compiling PHP template engine
 Version:       4.5.6
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-3.0-only
 URL:           http://www.smarty.net
 # Github tarball doesn't include tests
@@ -108,6 +108,9 @@ phpunit8 \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 12 2025 Xavier Bachelot <xavier@bachelot.org> - 4.5.6-2
 - Sync specfile with php-Smarty
 

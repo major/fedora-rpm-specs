@@ -1,7 +1,7 @@
 %global enable_net_tests 0
 Name:           perl-YUM-RepoQuery
 Version:        0.002
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Query a YUM repository for package information
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/YUM-RepoQuery
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Petr Pisar <ppisar@redhat.com> - 0.002-39
 - Modernize the license tag
 - Package the tests

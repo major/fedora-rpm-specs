@@ -1,6 +1,6 @@
 Name:           pioneers
 Version:        15.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Turnbased board strategy game (colonize an island)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -142,6 +142,9 @@ scrollkeeper-update -q || :
 %{_datadir}/icons/hicolor/scalable/apps/%{name}-editor.svg
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

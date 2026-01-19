@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.23.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Backports of Ruby features for older Ruby
 License: MIT
 URL: http://github.com/marcandre/backports
@@ -76,6 +76,9 @@ popd
 %{gem_instdir}/backports.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.23.0-9
 - Skip Ractor related tests for ruby4_0 following upstream
 

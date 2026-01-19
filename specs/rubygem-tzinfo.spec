@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.6
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Time Zone Library
 License: MIT
 URL: https://tzinfo.github.io
@@ -92,6 +92,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.6-7
 - Fix compatibliltiy with minitest 6
 

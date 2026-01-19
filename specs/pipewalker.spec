@@ -3,7 +3,7 @@ Summary: Puzzle game about connecting components into a single circuit
 License: MIT
 
 Version: 1.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://github.com/artemsen/pipewalker
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

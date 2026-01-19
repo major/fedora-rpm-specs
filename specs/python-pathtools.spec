@@ -2,7 +2,7 @@
 
 Name:		python-%{upname}
 Version:	0.1.2
-Release:	42%{?dist}
+Release:	43%{?dist}
 Summary:	Pattern matching and various utilities for file systems paths
 
 License:	MIT
@@ -72,6 +72,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.2-42
 - Rebuilt for Python 3.14.0rc3 bytecode
 

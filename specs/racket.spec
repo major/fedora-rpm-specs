@@ -2,7 +2,7 @@
 
 Name:           racket
 Version:        8.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose programming language
 
 # see LICENSE.txt
@@ -229,6 +229,9 @@ chmod -x %{buildroot}%{_libdir}/racket/starter-sh
 %{_datadir}/doc/racket
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 22 2025 Jens Petersen <petersen@redhat.com> - 8.18-1
 - https://blog.racket-lang.org/2025/08/racket-v8-18.html
 

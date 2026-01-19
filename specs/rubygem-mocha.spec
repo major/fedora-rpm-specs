@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Mocking and stubbing library
 License: Ruby OR BSD-2-Clause OR MIT
 URL: https://mocha.jamesmead.org
@@ -90,6 +90,9 @@ popd
 %{gem_instdir}/mocha.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.1-5
 - Replace CGI with URI for ruby3_5
 

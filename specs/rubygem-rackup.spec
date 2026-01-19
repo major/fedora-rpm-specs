@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A general server command for Rack applications
 License: MIT
 URL: https://github.com/rack/rackup
@@ -80,6 +80,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/security.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.1-5
 - Use minitest-global_expectations
 

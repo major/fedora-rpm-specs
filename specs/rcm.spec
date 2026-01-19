@@ -1,6 +1,6 @@
 Name:		rcm
 Version:	1.3.6
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Management suite for dotfiles
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ make check
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

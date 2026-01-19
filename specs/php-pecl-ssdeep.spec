@@ -14,7 +14,7 @@
 Summary:        Wrapper for libfuzzy library
 Name:           php-pecl-%{pecl_name}
 Version:        1.1.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -136,6 +136,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.1.0-27
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - re-license spec file to CECILL-2.1

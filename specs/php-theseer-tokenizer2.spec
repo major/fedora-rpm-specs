@@ -18,7 +18,7 @@
 
 Name:           php-%{gh_vendor}-%{gh_project}%{major}
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
 License:        BSD-3-Clause
@@ -97,6 +97,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 2.0.1-1
 - update to 2.0.1
 - rename to php-theseer-tokenizer2

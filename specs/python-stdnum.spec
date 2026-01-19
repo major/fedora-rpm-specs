@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
 License:        LGPL-2.0-or-later
@@ -63,6 +63,9 @@ export LANG=C.utf-8
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Dan Horák <dan[at]danny.cz> - 2.2-1
 - updated to 2.2 (rhbz#2427049)
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An audio library based on libsndfile, CFFI and NumPy
 
 License:        BSD-3-Clause
@@ -81,6 +81,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.13.1-1
 - 0.13.1
 

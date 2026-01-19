@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
@@ -130,6 +130,9 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:4.2.1-4
 - Fix compatibility with minitest 6
 

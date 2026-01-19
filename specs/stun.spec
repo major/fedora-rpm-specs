@@ -2,7 +2,7 @@
 
 Name:		stun
 Version:	0.97    
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Implements a simple Stun Client
 License:	VSL-1.0
 URL:		http://sourceforge.net/projects/%{name}
@@ -57,6 +57,9 @@ install   server $RPM_BUILD_ROOT%{_sbindir}/stun-server
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

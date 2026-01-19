@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Plugin to bundle built software for the colcon command line tool
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -74,6 +74,9 @@ installed locally.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.3-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

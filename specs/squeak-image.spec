@@ -14,7 +14,7 @@
 
 Name:           squeak-image
 Version:        %{image_pfullver}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        The image files for Squeak
 
 License:        MIT
@@ -60,6 +60,9 @@ ln -s SqueakV%{image_major}%{sources_minor}.sources.gz squeak.sources.gz
 %{_datadir}/squeak/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.13680-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.13680-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

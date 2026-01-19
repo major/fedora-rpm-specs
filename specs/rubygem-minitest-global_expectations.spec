@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.0.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Support minitest expectation methods for all objects
 License:	MIT
@@ -63,5 +63,8 @@ ruby ./test/minitest_global_expectations_test.rb
 %doc	%{gem_instdir}/CHANGELOG
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.2-1
 - Initial package

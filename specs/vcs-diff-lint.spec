@@ -1,6 +1,6 @@
 Name:    vcs-diff-lint
 Version: 6.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: VCS Differential Code Analysis Tool
 BuildArch: noarch
 
@@ -78,6 +78,9 @@ install -p vcs-diff-lint-csdiff-ruff   %buildroot%_bindir
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

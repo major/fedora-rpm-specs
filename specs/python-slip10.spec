@@ -1,6 +1,6 @@
 Name:    python-slip10
 Version: 1.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Reference implementation of SLIP-0039: Shamir’s Secret-Sharing for Mnemonic Codes
 
 # MIT: slip10/ripemd160.py
@@ -59,6 +59,9 @@ cp -v %{SOURCE1} .
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Mustache is a framework-agnostic way to render logic-free views
 License: MIT
 URL: https://github.com/mustache/mustache
@@ -103,6 +103,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.1-13
 - Add BR: rubygem(ostruct) for ruby4_0
 

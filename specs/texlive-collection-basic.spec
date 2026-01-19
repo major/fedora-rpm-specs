@@ -5,7 +5,7 @@
 Name:           texlive-collection-basic
 Epoch:          12
 Version:        svn72890
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Essential programs and files
 
 License:        LPPL-1.3c
@@ -766,6 +766,9 @@ rm -rf %{buildroot}%{_texmf_main}/doc/generic/enctex/INSTALL*
 %doc %{_texmf_main}/doc/generic/unicode-data/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72890-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-6
 - Fix knuth & public domain license labels to be correct
 - Fix capitalization on summaries that needed it

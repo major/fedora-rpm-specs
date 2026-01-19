@@ -1,7 +1,7 @@
 Summary:        Perl script to send XMPP messages
 Name:           sendxmpp
 Version:        1.24
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        GPL-2.0-only
 URL:            https://sendxmpp.hostname.sk/
 Source:         https://github.com/lhost/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -34,6 +34,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 10 2025 Robert Scheck <robert@fedoraproject.org> 1.24-23
 - Upgrade to GIT 20250721
 

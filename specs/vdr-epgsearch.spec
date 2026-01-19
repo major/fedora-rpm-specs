@@ -16,7 +16,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Release:        0.12.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
@@ -92,6 +92,9 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 20 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.5-1
 - Add BR perl-Pod-Checker
 - Update to 2.4.5

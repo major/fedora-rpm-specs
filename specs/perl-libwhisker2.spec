@@ -1,7 +1,7 @@
 %define real_name libwhisker2
 Name:           perl-%{real_name}
 Version:        2.5
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Perl module geared specifically for HTTP testing
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -109,6 +109,9 @@ perl ./test.pl
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

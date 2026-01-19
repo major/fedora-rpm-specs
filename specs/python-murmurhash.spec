@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cython bindings for MurmurHash2
 
 License:        MIT
@@ -60,6 +60,9 @@ rm -rf %{buildroot}/%{python3_sitearch}%{pypi_name}/tests
 %{python3_sitearch}/%{pypi_name}-%{version}.dist-info
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.10-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

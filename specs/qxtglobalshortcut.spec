@@ -5,7 +5,7 @@
 
 Name:           qxtglobalshortcut
 Version:        0.0.1
-Release:        0.30.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.31.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Cross-platform library for handling system-wide shortcuts in Qt applications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -60,6 +60,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.31.20171021git1644620
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.0.1-0.30.20171021git1644620
 - Allow to build with CMake 4.0 (rhbz#2381403)
 

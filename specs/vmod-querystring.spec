@@ -2,7 +2,7 @@
 
 Name:           vmod-querystring
 Version:        2.0.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        QueryString module for Varnish Cache
 URL:            https://github.com/dridi/libvmod-querystring
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -60,6 +60,9 @@ rm %{buildroot}%{vmoddir}/*.la
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Dridi Boukelmoune <dridi@fedoraproject.org> - 2.0.3-11
 - Rebuild for Varnish 7.7.3
 

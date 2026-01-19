@@ -1,7 +1,7 @@
 Summary: A simple program for calculating radial velocities of stars in a binary system
 Name: radial
 Version: 1.0
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: LicenseRef-Fedora-UltraPermissive
 Url: http://www.nhn.ou.edu/~hegarty/radial/
 Source0: http://www.nhn.ou.edu/~hegarty/radial/%{name}-%{version}.tar.gz
@@ -37,6 +37,9 @@ install -p -m 0755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 %{_bindir}/radial
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

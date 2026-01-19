@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -73,6 +73,9 @@ fi
 %{_unitdir}/tmux@.service
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Filipe Rosset <rosset.filipe@gmail.com> - 3.6-1
 - Update tmux to 3.6
 

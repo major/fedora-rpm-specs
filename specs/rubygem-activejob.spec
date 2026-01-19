@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Job framework with pluggable queues
 License: MIT
 URL: https://rubyonrails.org
@@ -89,6 +89,9 @@ done
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.3-2
 - Add BR: rubygem(minitest-mock) for minitest 6 compatibility
 

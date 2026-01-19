@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.12.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Small ERB Implementation
 License: MIT
 URL: https://github.com/jeremyevans/erubi
@@ -74,6 +74,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.12.0-5
 - Fix compatibility with minitest6
 

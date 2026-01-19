@@ -3,7 +3,7 @@
 
 Name:           warzone2100
 Version:        4.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -101,6 +101,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.6.2-1
 - 4.6.2
 

@@ -3,7 +3,7 @@
 
 Name:          volpack
 Version:       1.0c7
-Release:       35%{?dist}
+Release:       36%{?dist}
 Summary:       Portable library for fast volume rendering
 License:       BSD-3-Clause
 URL:           http://amide.sourceforge.net
@@ -87,6 +87,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0c7-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0c7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

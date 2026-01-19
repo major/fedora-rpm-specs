@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        7%{?pre:}%{?gitrelease:}%{?dist}
+Release:        8%{?pre:}%{?gitrelease:}%{?dist}
 Summary:        Client library for accessing Gerrit
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -79,6 +79,9 @@ cp %{SOURCE2} ChangeLog
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CVSS2/3 library with interactive calculator
 
 # The entire source code is LGPL-3.0+ except cvss/cvss4.py which is BSD-2-Clause
@@ -47,6 +47,9 @@ BuildRequires:  python3-devel
 %{_bindir}/cvss_calculator
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Viliam Krizan <vkrizan@redhat.com> - 3.6-1
 - new version
 

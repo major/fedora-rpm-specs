@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extension for colcon to support Meson packages
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Sep 27 2025 Scott K Logan <logans@cottsay.net> - 0.5.0-1
 - Update to 0.5.0
 

@@ -10,7 +10,7 @@
 
 Name:           vaultwarden
 Version:        1.34.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -144,6 +144,9 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 Jonathan Wright <jonathan@almalinux.org> - 1.34.2-1
 - update to 1.34.2 rhbz#2368636
 

@@ -4,7 +4,7 @@
 Name:			python-%{srcname}
 Summary: 		%{sum}
 Version:		0.8.2
-Release:		27%{?dist}
+Release:		28%{?dist}
 # Automatically converted from old format: Python - review is highly recommended.
 License:		LicenseRef-Callaway-Python
 Source0:		https://files.pythonhosted.org/packages/5a/2b/8a2ff505db0ef7ce59f700b96898369b22a823c8d9191eba37639e568667/Cerealizer-%{version}.tar.gz
@@ -43,6 +43,9 @@ support C-defined type.
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.2-27
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-gbinder
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for libgbinder
 
 License:        GPL-3.0-only
@@ -46,6 +46,9 @@ Requires:       libgbinder >= %{libgbinder_version}
 %files -n python3-gbinder -f %{pyproject_files}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Alessandro Astone <ales.astone@gmail.com> - 1.3.0-1
 - new version
 

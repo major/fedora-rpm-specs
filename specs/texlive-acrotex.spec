@@ -8,7 +8,7 @@
 Name:           texlive-acrotex
 Epoch:          12
 Version:        svn%{revision}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The AcroTeX education bundle
 License:        LPPL-1.3c
 URL:            http://tug.org/texlive/
@@ -76,5 +76,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/acrotex/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn330-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 22 2025 Tom Callaway <spot@fedoraproject.org> - 12:svn330-1
 - initial package

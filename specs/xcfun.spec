@@ -2,7 +2,7 @@
 
 Name:    xcfun
 Version: 2.1.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: A library of approximate exchange-correlation functionals
 License: MPL-2.0
 URL:     https://xcfun.readthedocs.io
@@ -100,6 +100,9 @@ ctest --output-on-failure
 %{python3_sitearch}/xcfun
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.1-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

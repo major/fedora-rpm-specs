@@ -1,6 +1,6 @@
 Name:    sugar
 Version: 0.121
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -245,6 +245,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.121-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.121-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,7 +2,7 @@
 Summary:       Pro-audio reverb for JACK
 Name:          zita-rev1
 Version:       0.2.2
-Release:       15%{?dist}
+Release:       16%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://kokkinizita.linuxaudio.org/
@@ -73,6 +73,9 @@ install -m 644 %{_builddir}/%{name}-%{version}/doc/redzita.png %{buildroot}%{_da
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

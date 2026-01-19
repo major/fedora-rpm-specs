@@ -3,7 +3,7 @@
 
 Name:       perl-MooseX-Types-DateTime
 Version:    0.14
-Release:    1%{?dist}
+Release:    2%{?dist}
 # see, e.g., lib/MooseX/Types/DateTime.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -81,6 +81,9 @@ and coercions designed to work with the DateTime suite of objects.
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
 - Update to 0.14
 - Adapt to new tooling

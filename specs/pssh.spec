@@ -1,7 +1,7 @@
 Summary:       Parallel SSH tools
 Name:          pssh
 Version:       2.3.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
 Url:           https://github.com/lilydjwg/pssh
@@ -59,6 +59,9 @@ mv %{buildroot}%{_mandir}/man1/pscp.1 %{buildroot}%{_mandir}/man1/pscp.pssh.1
 %{python3_sitelib}/psshlib
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 7 2025 Pat Riehecky <riehecky@fnal.gov> - 2.3.6-1
 - update to version 2.3.6
 

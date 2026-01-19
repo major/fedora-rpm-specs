@@ -1,6 +1,6 @@
 Name:           ws-commons-util
 Version:        1.0.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Common utilities from the Apache Web Services Project
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -74,6 +74,9 @@ Summary:        Javadoc for %{name}
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0.2-29
 - Rebuilt for java-25-openjdk as preffered jdk
 

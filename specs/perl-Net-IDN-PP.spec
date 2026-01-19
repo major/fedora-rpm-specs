@@ -1,6 +1,6 @@
 Name:           perl-Net-IDN-PP
 Version:        0.02
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Perl implementation of the IDN Punycode algorithm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-IDN-PP
@@ -69,6 +69,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Petr Pisar <ppisar@redhat.com> - 0.02-1
 - 0.02 bump
 

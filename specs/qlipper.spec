@@ -1,6 +1,6 @@
 Name:		qlipper
 Version:	6.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Lightweight clipboard history
@@ -47,6 +47,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 04 2026 Alexey Kurov <nucleo@fedoraproject.org> - 6.0.0-1
 - qlipper 6.0.0
 

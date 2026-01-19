@@ -1,12 +1,12 @@
 #global snapshot 0
-%global commit afbb1dfc61a83b9e87666d4504ee063dcd90f2be
-%global commitdate 20241229
-%global gittag v3.0.1
+%global commit b72062f5047d4a4772338b6464f83514d4bcb91e
+%global commitdate 20260116
+%global gittag v3.1.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	3.0.1%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	5%{?dist}
+Version:	3.1.0%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	3%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # Main ocp source is GPL-2.0-or-later.
@@ -27,6 +27,8 @@ Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
 Patch0:		ocp-0.2.106-ini-optimize.patch
 Patch1:		ocp-0.2.106-ini-rompaths.patch
+Patch2:		ocp-3.1.0-438a06dd4229471e256bab5b1071d4210c607f37.patch
+Patch3:		ocp-3.1.0-c1a7fc1377dbfc2ef9df0df5d7c87a2562a93342.patch
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	bzip2-devel
@@ -62,11 +64,17 @@ Requires:	hicolor-icon-theme
 Requires:	unifont-fonts
 
 # Bundled code
+# AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
 Provides:	bundled(timidity++) = 2.15.0
-Provides:	bundled(libsidplayfp) = 2.12.0
-Provides:	bundled(adplug) = 2.3.4-beta
+# m4_define([lib_major], [3]) m4_define([lib_minor], [0]) m4_define([lib_level], [0a]) m4_define([lib_version], [lib_major.lib_minor.lib_level]) AC_INIT([libsidplayfp],[lib_version],[],[],[https://github.com/libsidplayfp/libsidplayfp/])
+Provides:	bundled(libsidplayfp) = 3.0.0a
+# AC_INIT([adplug], [2.4.1-beta])
+Provides:	bundled(adplug) = 2.4.1-beta
+# AC_INIT([binio],[1.5],[dn.tlp@gmx.net],[libbinio])
+# const char* residfpII_version_string = "3.1.0";
 Provides:	bundled(libbinio) = 1.5
-Provides:	bundled(reSID) = 1.0-pre2
+Provides:	bundled(reSIDfp) = 3.1.0
+# AC_INIT([libexsid], [2.1], [], [], [https://github.com/libsidplayfp/exsid-driver])
 Provides:	bundled(libexsid) = 2.1
 
 %description
@@ -176,6 +184,16 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Sat Jan 17 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.0-3
+- Use upstream fixes for #146 instead
+
+* Fri Jan 16 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.0-2
+- Add ocp-3.1.0-timidity-filename.patch to fix segfault when loading midi file (#146)
+
+* Fri Jan 16 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.0-1
+- Update to 3.1.0
+- Resolves rhbz#2388972
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

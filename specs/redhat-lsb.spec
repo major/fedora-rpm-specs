@@ -18,7 +18,7 @@ continue to support the LSB project and software that uses it
 Summary: Partial implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.17%{gver}%{?dist}
+Release: 0.18%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -85,6 +85,9 @@ cp -p lsb_release/src/README README.lsb_release
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.18.20231006git8d00acdc
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.17.20231006git8d00acdc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

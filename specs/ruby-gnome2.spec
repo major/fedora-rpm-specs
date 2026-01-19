@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 # SPDX confirmed
@@ -456,6 +456,9 @@ rm -rf $RPM_BUILD_ROOT/bin
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-26
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

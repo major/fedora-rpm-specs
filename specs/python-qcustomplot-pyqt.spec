@@ -1,7 +1,7 @@
 %global QCP_VER 2.1.1
 Name:          python-qcustomplot-pyqt
 Version:       2.1.1.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Python bindings for QCustomPlot2
 # https://github.com/salsergey/QCustomPlot-PyQt/issues/7
 License:       MIT and GPLv3
@@ -101,6 +101,9 @@ chmod a+rx %{buildroot}%{_libdir}/python%{python3_version}/site-packages/QCustom
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -19,7 +19,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        1.0.0
-Release:        11%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        12%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Library that handles metadata minification and expansion
 
 License:        MIT
@@ -107,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

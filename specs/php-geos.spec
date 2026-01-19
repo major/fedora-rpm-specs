@@ -19,7 +19,7 @@
 
 Name:           php-%{pecl_name}
 Version:        1.0.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 
 Summary:        PHP module for GEOS
 
@@ -153,6 +153,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.0.0-37
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - fix build with PHP 8.5.0alpha2

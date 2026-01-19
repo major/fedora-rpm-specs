@@ -1,6 +1,6 @@
 Name:           python-uc-micro-py
 Version:        1.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
 License:        MIT
@@ -39,6 +39,9 @@ sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
 %doc CHANGELOG.md README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Jerry James <loganjerry@gmail.com> - 1.0.3-9
 - Do not run coverage tools in RPM builds
 - Use the pyproject declarative buildsystem

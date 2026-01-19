@@ -5,7 +5,7 @@
 
 Name:           wmacpi
 Version:        2.3
-Release:        13.20200618git%{shortcommit}%{?dist}
+Release:        14.20200618git%{shortcommit}%{?dist}
 Summary:        Dockapp for laptop acpi/apm information
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ CFLAGS="%{build_cflags} -ansi" LDFLAGS="%{build_ldflags} -lX11 -ldockapp" \
 %{_mandir}/man1/wmacpi-cli.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-14.20200618gitd583dfc
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-13.20200618gitd583dfc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

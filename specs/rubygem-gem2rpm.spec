@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Generate rpm specfiles from gems
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -81,6 +81,9 @@ TEST_GEM2RPM_LOCAL=1 ruby -Itest -e 'Dir.glob "./test/**/test_*.rb", &method(:re
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Vít Ondruch <vondruch@redhat.com> - 2.0.0-1
 - Update to gem2rpm 2.0.0.
   Resolves: rhbz#2428247

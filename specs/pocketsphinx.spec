@@ -1,7 +1,7 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
@@ -118,6 +118,9 @@ mv redhat-linux-build-python redhat-linux-build
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:5.0.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 W. Michael Petullo <mike@flyn.org> - 2:5.0.4-4
 - Drop pocketsphinx-5.0.4-no-sounddevice.patch, as Fedora now ships python-sounddevice
 

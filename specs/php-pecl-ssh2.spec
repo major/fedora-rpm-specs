@@ -5,7 +5,7 @@
 
 Name:           php-pecl-ssh2
 Version:        1.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Bindings for the libssh2 library
 
 License:        PHP-3.01
@@ -104,6 +104,9 @@ done
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.4.1-9
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

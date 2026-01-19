@@ -16,7 +16,7 @@
 
 Name:           python-pandas
 Version:        2.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -710,6 +710,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 21 2025 Charalampos Stratakis <cstratak@redhat.com> - 2.3.3-3
 - Fix build with Cython 3.2
 - Fixes: rhbz#2413931

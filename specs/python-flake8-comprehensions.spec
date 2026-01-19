@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Flake8 plugin that helps you write better list/set/dict comprehensions
 
 License:        MIT
@@ -80,6 +80,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Scott K Logan <logans@cottsay.net> - 3.17.0-2
 - Revert an upstream patch for better setuptools compatibility
 

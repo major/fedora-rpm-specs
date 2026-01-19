@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.22
+Version:        0.9.26
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -146,6 +146,14 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+
+# Add linux distro env vars to passthrough
+# https://github.com/astral-sh/uv/pull/17515
+Patch:          %{url}/pull/17515.patch
+
+# Gate build_backend::build_with_all_metadata on pypi feature
+# https://github.com/astral-sh/uv/pull/17520
+Patch:          %{url}/pull/17520.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -310,24 +318,21 @@ Provides:       bundled(python3dist(packaging)) = 24.1~dev0^20240310gitcc938f9
 Provides:       bundled(python3dist(pipreqs)) = 0.5.0
 
 %global common_description %{expand:
-An extremely fast Python package installer and resolver, written in Rust.
-Designed as a drop-in replacement for common pip and pip-tools workflows.
+An extremely fast Python package and project manager, written in Rust.
 
 Highlights:
 
-  • ⚖️ Drop-in replacement for common pip, pip-tools, and virtualenv commands.
-  • ⚡️ 10-100x faster than pip and pip-tools (pip-compile and pip-sync).
-  • 💾 Disk-space efficient, with a global cache for dependency deduplication.
-  • 🐍 Installable via curl, pip, pipx, etc. uv is a static binary that can be
-    installed without Rust or Python.
-  • 🧪 Tested at-scale against the top 10,000 PyPI packages.
-  • 🖥️ Support for macOS, Linux, and Windows.
-  • 🧰 Advanced features such as dependency version overrides and alternative
-    resolution strategies.
-  • ⁉️ Best-in-class error messages with a conflict-tracking resolver.
-  • 🤝 Support for a wide range of advanced pip features, including editable
-    installs, Git dependencies, direct URL dependencies, local dependencies,
-    constraints, source distributions, HTML and JSON indexes, and more.}
+  • A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine,
+    virtualenv, and more.
+  • 10-100x faster than pip.
+  • Provides comprehensive project management, with a universal lockfile.
+  • Runs scripts, with support for inline dependency metadata.
+  • Installs and manages Python versions.
+  • Runs and installs tools published as Python packages.
+  • Includes a pip-compatible interface for a performance boost with a familiar
+    CLI.
+  • Supports Cargo-style workspaces for scalable projects.
+  • Disk-space efficient, with a global cache for dependency deduplication.}
 
 %description %{common_description}
 

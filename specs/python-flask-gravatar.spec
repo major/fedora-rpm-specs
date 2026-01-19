@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.5.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Small extension for Flask to make usage of Gravatar service easy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -70,6 +70,9 @@ Small extension for Flask to make usage of Gravatar service easy.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.0-3
 - Patch out the pytest-runner dependency
 

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.5.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Ruby shadow password module
 License:        LicenseRef-Fedora-UltraPermissive OR Unlicense
 URL:            https://github.com/apalmblad/ruby-shadow
@@ -86,6 +86,9 @@ popd
 %doc %{gem_instdir}/README.euc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.1-14
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

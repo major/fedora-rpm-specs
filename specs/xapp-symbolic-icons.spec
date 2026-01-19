@@ -1,6 +1,6 @@
 Name:           xapp-symbolic-icons
 Version:        1.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A set of symbolic icons which replaces the GNOME-specific Adwaita set
 License:        GPL-3.0-only AND LGPL-3.0-only
 URL:            https://github.com/xapp-project/xapp-symbolic-icons
@@ -39,6 +39,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/xapp/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 10 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.8-1
 - Update to 1.0.8
 

@@ -3,7 +3,7 @@
 
 Name:           rttr
 Version:        0.9.7
-Release:        0.13git%{shortcommit0}%{?dist}
+Release:        0.14git%{shortcommit0}%{?dist}
 Summary:        Run Time Type Reflection
 
 License:        MIT
@@ -118,6 +118,9 @@ rm -rf %{buildroot}%{_datadir}/rttr/{LICENSE.txt,README.md}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-0.14git7edbd58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.9.7-0.13git7edbd58
 - Allow to build with CMake 4.0 (rhbz#2381435)
 

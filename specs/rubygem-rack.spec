@@ -4,7 +4,7 @@ Name: rubygem-%{gem_name}
 Version: 3.2.3
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 License: MIT AND BSD-3-Clause
@@ -78,6 +78,9 @@ ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/SPEC.rdoc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.2.3-4
 - Use minitest-global_expectations
 

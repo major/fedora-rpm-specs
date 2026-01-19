@@ -13,7 +13,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Local and cloud file storage framework
 License: MIT
 URL: https://rubyonrails.org
@@ -181,6 +181,9 @@ bundle exec ruby -Itest -ractive_storage/engine -e 'Dir.glob "./test/**/*_test.r
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 8.0.3-2
 - Fixed a test failing with FFmpeg 8
 

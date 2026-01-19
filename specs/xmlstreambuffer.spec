@@ -1,6 +1,6 @@
 Name:           xmlstreambuffer
 Version:        2.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Stream Based Representation for XML Infoset
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -58,6 +58,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.1.0-10
 - Rebuilt for java-25-openjdk as preffered jdk
 

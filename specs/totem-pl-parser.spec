@@ -1,6 +1,6 @@
 Name:		totem-pl-parser
 Version:	3.26.6
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Totem Playlist Parser library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

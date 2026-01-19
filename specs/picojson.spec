@@ -9,7 +9,7 @@ Version:        1.3.0
 
 %forgemeta
 
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        BSD-2-Clause
 URL:            %{forgeurl}
 VCS:            git:%{forgeurl}.git
@@ -52,6 +52,9 @@ install -p -m 0644 picojson.h %{buildroot}%{_includedir}/picojson.h
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 29 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-23.20210117git111c9be
 - Update to latest git snapshot for many bug fixes
 - Change architecture to noarch

@@ -1,7 +1,7 @@
 Summary:        Reshape a data array
 Name:           rs
 Version:        20200313
-Release:        9%{?dist}
+Release:        10%{?dist}
 # BSD-3-Clause (rs.c, rs.1), ISC (utf8.c, .linked/strtonum.c, reallocarray.c), MirOS (rs.h, check.pl)
 License:        BSD-3-Clause AND ISC AND MirOS
 URL:            https://man.openbsd.org/rs.1
@@ -36,6 +36,9 @@ perl %{SOURCE1} -s check.t -v -p ./rs
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20200313-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20200313-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

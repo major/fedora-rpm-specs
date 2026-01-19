@@ -1,6 +1,6 @@
 Name:           python-precis_i18n
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for internationalized usernames and passwords
 
 License:        MIT
@@ -58,6 +58,9 @@ Summary:        %{summary}
 %doc README.md CHANGELOG.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Michael Kuhn <suraia@fedoraproject.org> - 1.1.2-1
 - Update to 1.1.2 (#2403669, #2414797)
 

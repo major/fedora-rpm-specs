@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -62,6 +62,9 @@ fi
 %doc README.rst
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 22 2025 Lukas Slebodnik <lslebodn@fedoraproject.org> - 1.27-1
 - New upstream version 1.27
 - Fix serialisation on FIPS enabled system

@@ -1,7 +1,7 @@
 Summary: Client for sending messages to a host's logged in users
 Name: rwall
 Version: 0.17
-Release: 70%{?dist}
+Release: 71%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/
@@ -100,6 +100,9 @@ install -m 755 %{SOURCE1} ${RPM_BUILD_ROOT}%{_unitdir}/
 %{_unitdir}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-71
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

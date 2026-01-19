@@ -5,7 +5,7 @@
 Name:           texlive-collection-langchinese
 Epoch:          12
 Version:        svn76973
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Chinese
 
 License:        LPPL-1.3c
@@ -1169,6 +1169,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/generic/zhspacing/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn76973-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76973-2
 - fix Knuth licensing
 - validate appdata files

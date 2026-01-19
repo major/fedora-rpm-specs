@@ -1,6 +1,6 @@
 Name:           python-ogr
 Version:        0.59.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,9 @@ One Git library to Rule!
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.59.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Packit <hello@packit.dev> - 0.59.0-1
 - Improved handling of retries after errors to avoid hitting rate limits if possible. (#958)
 - `GithubPullRequest.labels` property is now cached for better performance and to be consistent with other services. (#960, #961)

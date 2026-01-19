@@ -1,6 +1,6 @@
 Name:           perl-Perl-MinimumVersion
 Version:        1.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Find a minimum required version of perl for Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-MinimumVersion
@@ -69,6 +69,9 @@ Find a minimum required version of perl for Perl code
 %{_mandir}/man3/Perl::MinimumVersion*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.44-1
 - 1.44 bump (rhbz#2366212)
 

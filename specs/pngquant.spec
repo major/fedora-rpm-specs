@@ -2,7 +2,7 @@
 
 Name:           pngquant
 Version:        2.18.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        PNG quantization tool for reducing image file size
 
 License:        GPL-3.0-or-later
@@ -73,6 +73,9 @@ export CFLAGS="%{optflags} -fno-math-errno -funroll-loops -fomit-frame-pointer -
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 09 2025 Sandro Mani <manisandro@gmail.com> - 2.18.0-11
 - Rebuild (libimagequant)
 

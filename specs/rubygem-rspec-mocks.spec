@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	3
 
 %global	gem_name	rspec-mocks
 
@@ -122,6 +122,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.7-2
 - Backport upstream patch to skip mock for Kernel#inspect on ruby4_0
 

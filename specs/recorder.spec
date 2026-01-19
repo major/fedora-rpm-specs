@@ -1,6 +1,6 @@
 Name:           recorder
 Version:        1.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Lock-free, real-time flight recorder for C or C++ programs
 License:        LGPLv2+
 Url:            https://github.com/tao-3D/%{name}
@@ -72,6 +72,9 @@ collected by the flight_recorder library.
 %{_mandir}/man1/*.1.*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 1.2.2-13
 - Rebuild (qt6)
 

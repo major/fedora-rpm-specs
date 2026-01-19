@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.001
-Release: 19%{?dist}
+Release: 20%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           vernnobile
@@ -41,6 +41,9 @@ Source10: 60-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

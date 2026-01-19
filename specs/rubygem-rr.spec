@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: RR is a test double framework with a terse syntax
 License: MIT
 URL: https://rr.github.io/rr
@@ -74,6 +74,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-11
 - Add BR: rubygem(ostruct) for ruby3_5
 

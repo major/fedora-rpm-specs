@@ -1,6 +1,6 @@
 Name:      spatialindex
 Version:   2.1.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 %global so_version 8
 Summary:   Spatial index library 
 
@@ -84,6 +84,9 @@ rm -rv test/gtest/gtest-*
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0-3
 - Build as C++17 for compatibility with gtest 1.17
 

@@ -2,7 +2,7 @@
 %global pypi_name python-%{module_name}
 Name:			%{pypi_name}
 Version:		3.0.0
-Release:		15%{?dist}
+Release:		16%{?dist}
 Summary:		Python context manager for managing pid files
 License:		MIT
 URL:			https://pypi.org/project/python-pidfile
@@ -45,6 +45,9 @@ cp -p %{SOURCE1} .
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.0-15
 - Rebuilt for Python 3.14.0rc3 bytecode
 

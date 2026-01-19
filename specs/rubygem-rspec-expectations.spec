@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	4
+%global	baserelease	5
 
 %global	gem_name	rspec-expectations
 
@@ -125,6 +125,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 01 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.5-4
 - Fix compatibility for minitest 6
 

@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -198,6 +198,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 25 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-5
 - add dependency on grub2-tools-extra on EFI machines (RHEL-85421)
 - add initial support for aarch64 machines with UEFI (RHEL-84286)

@@ -7,7 +7,7 @@
 
 Name:		perl-Ref-Util
 Version:	0.204
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Utility functions for checking references
 License:	MIT
 URL:		https://metacpan.org/release/Ref-Util
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/Ref::Util::PP.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

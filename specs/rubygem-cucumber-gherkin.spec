@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 22.0.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Fast Gherkin lexer/parser
 License: MIT
 URL: https://github.com/cucumber/gherkin
@@ -87,6 +87,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Vít Ondruch <vondruch@redhat.com> - 22.0.0-11
 - Fix compatibilty with cucumber-messages 25+
 

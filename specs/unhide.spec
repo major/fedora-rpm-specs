@@ -1,7 +1,7 @@
 %global srcname Unhide
 Name:           unhide
 Version:        20240510
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to find hidden processes and TCP/UDP ports from rootkits
 
 # GPL-3.0-or-later
@@ -88,6 +88,9 @@ install -pm0644 man/fr/unhide-tcp.8 %{buildroot}%{_mandir}/fr/man8/
 %{_sbindir}/unhide_rb
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240510-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240510-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

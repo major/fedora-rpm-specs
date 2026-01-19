@@ -1,6 +1,6 @@
 Name:       perl-Net-DHCP
 Version:    0.700
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Set of classes for basic handling of DHCP packets
 
 License:    MIT
@@ -73,6 +73,9 @@ find %{buildroot} -type f -exec chmod 644 {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.700-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.700-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

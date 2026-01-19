@@ -10,7 +10,7 @@
 
 Name:           libkrun
 Version:        1.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -38,7 +38,7 @@ Patch4:         libkrun-remove-sev-deps.diff
 ExclusiveArch:  x86_64 aarch64
 
 # Starting 1.11.0, libkrunfw is no longer build-time linked.
-Requires:  libkrunfw >= 4.0.0
+Requires:  libkrunfw >= 5.0.0
 
 # While this project is composed mostly of Rust code, this is not a
 # conventional Rust crate. The root of the project is a workspace, there's a C
@@ -220,6 +220,12 @@ capabilities.
 %endif
 
 %changelog
+* Sat Jan 17 2026 Sergio Lopez <slp@redhat.com> - 1.17.0-2
+- Require libkrunfw >= 5.x.x
+
+* Fri Jan 16 2026 Sergio Lopez <slp@redhat.com> - 1.17.0-1
+- Update to version 1.17.0
+
 * Mon Sep 01 2025 Sergio Lopez <slp@redhat.com> - 1.15.1-1
 - Update to version 1.15.1
 

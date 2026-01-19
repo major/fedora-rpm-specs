@@ -10,7 +10,7 @@ Available features:\
 
 Name:           python-%{pypi_name}
 Version:        5.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPL-2.0-or-later
@@ -55,6 +55,9 @@ rm -rf setup.cfg
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 09 2025 Federico Pellegrin <fede@evolware.org> - 5.2.0-1
 - Bump to 5.2.0 (rhbz#2402609)
 

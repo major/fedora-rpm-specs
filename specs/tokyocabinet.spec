@@ -1,7 +1,7 @@
 Summary:	A modern implementation of a DBM
 Name:		tokyocabinet
 Version:	1.4.48
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	LGPL-2.1-or-later
 URL:		https://dbmx.net/tokyocabinet/
 Source:		https://dbmx.net/%{name}/%{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ make check
 %doc doc/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.48-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 04 2025 Stewart Smith <trawets@amazon.com> - 1.4.48-29
 - Update project and source URLs.
 - Update description to include the author's suggestions of successors

@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.4
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Python library to read and write PDF files
 License: MIT
 
@@ -51,6 +51,9 @@ of existing PDFs in new PDFs created with reportlab.
 %doc README.rst examples
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Sergio Pascual <sergiopr at fedoraproject.org> - 0.4-31
 - Update python macros (rhbz #2377982)
 - Add dependency on reportlab

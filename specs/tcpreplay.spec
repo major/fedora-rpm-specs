@@ -10,7 +10,7 @@
 
 Name:           tcpreplay
 Version:        4.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -68,6 +68,9 @@ autoreconf -vif
 %{_bindir}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 29 2025 Bojan Smojver <bojan@rexursive com> - 4.5.2-1
 - Update to 4.5.2
 

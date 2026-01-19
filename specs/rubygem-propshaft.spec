@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Deliver assets for Rails
 License: MIT
 URL: https://github.com/rails/propshaft
@@ -78,6 +78,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-2
 - Fix compatibility with minitest 6
 

@@ -1,7 +1,7 @@
 Name:           scanssh
 Summary:        Fast SSH server and open proxy scanner
 Version:        2.1.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
 License:        LicenseRef-Callaway-BSD-with-advertising
 URL:            http://github.com/ofalk/scanssh/wiki
@@ -50,6 +50,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/scanssh*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

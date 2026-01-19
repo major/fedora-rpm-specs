@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library to parse and manage gettext catalogs
 
 License:        MIT
@@ -55,6 +55,9 @@ POFile, MOFile, POEntry and MOEntry for creating new files/entries.
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.0-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

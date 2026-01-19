@@ -1,6 +1,6 @@
 Name:           sigil
 Version:        2.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -148,6 +148,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Dan Horák <dan[at]danny.cz> - 2.7.0-1
 - New upstream release 2.7.0 (rhbz#2419385)
 

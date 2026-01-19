@@ -3,7 +3,7 @@
 Name:		xbase
 Summary:	XBase compatible database library
 Version:	4.2.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	LGPL-3.0-or-later
 URL:		http://linux.techass.com/projects/xdb/
 Source0:	http://downloads.sourceforge.net/xdb/%{name}64-%{version}.tar.gz
@@ -117,6 +117,9 @@ popd
 %{_mandir}/man1/xb_*.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 4.2.6-1
 - so, funny story. turns out this thing is still being actively developed.
   and... i just noticed. whoops. sorry.

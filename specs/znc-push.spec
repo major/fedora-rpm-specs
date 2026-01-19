@@ -8,7 +8,7 @@
 
 Name:           znc-%{modname}
 Version:        2.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Push notification service module for ZNC
 
 License:        MIT
@@ -49,6 +49,9 @@ install -Dpm0755 %{modname}.so %{buildroot}%{_libdir}/znc/%{modname}.so
 %{_libdir}/znc/%{modname}.so
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 24 2025 LuK1337 <priv.luk@gmail.com> - 2.0.0-13
 - Update to latest Git HEAD (e4250e688b4b45a886928c7e2cdb59747304747d)
 

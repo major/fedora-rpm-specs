@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.5
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 Summary:	Pure-Ruby Readline Implementation
 # SPDX confirmed
@@ -102,6 +102,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-19
 - Fix compatibility with minitest 6
 - Remove ruby3.4 frozen string warnings

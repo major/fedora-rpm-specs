@@ -4,7 +4,7 @@
 
 Name:           wxsqlite3
 Version:        4.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ wrapper around the SQLite 3.x database
 
 License:        LGPL-3.0-or-later WITH WxWindows-exception-3.1
@@ -130,6 +130,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Martin Gansser <martinkg@fedoraproject.org> 4.11.2-1
 - Update to 4.11.2
 

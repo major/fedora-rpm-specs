@@ -1,6 +1,6 @@
 Name:           python-ovh
 Version:        1.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Lightweight wrapper around OVHcloud's APIs
 
 License:        BSD
@@ -59,6 +59,9 @@ install -m 0644 docs/_build/man/python-ovh.1* %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.2-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

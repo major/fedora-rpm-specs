@@ -3,7 +3,7 @@
 
 Name:       perl-SQL-Shell 
 Version:    1.18
-Release:    1%{?dist}
+Release:    2%{?dist}
 # lib/SQL/Shell.pm: GPL-2.0-or-later
 # bin/sqlsh:        GPL-2.0-or-later
 # README:           GPL-2.0-or-later
@@ -141,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Petr Pisar <ppisar@redhat.com> - 1.18-1
 - 1.18 bump
 

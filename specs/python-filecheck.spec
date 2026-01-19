@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.24
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Flexible pattern matching file verifier
 License: Apache-2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -72,6 +72,9 @@ fi
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.24-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.24-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

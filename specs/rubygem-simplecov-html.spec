@@ -4,7 +4,7 @@
 Summary:       Default HTML formatter for SimpleCov
 Name:          rubygem-%{gem_name}
 Version:       0.10.0
-Release:       20%{?dist}
+Release:       21%{?dist}
 License:       MIT
 URL:           https://github.com/colszowka/simplecov-html
 Source0:       http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{gem_instdir}/simplecov-html.gemspec
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

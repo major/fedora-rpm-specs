@@ -1,6 +1,6 @@
 Name:           stalonetray
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -48,6 +48,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 25 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.9.0-1
 - Update to 0.9.0
 

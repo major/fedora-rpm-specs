@@ -6,7 +6,7 @@
 
 Name:           python-jupymake
 Version:        0.9
-Release:        39.%{gitdate}.%{shortcommit}%{?dist}
+Release:        40.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Python wrapper for the polymake shell
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ Requires:       polymake%{?_isa}
 %doc README README.md example.py
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-40.20231204.a6987c8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 0.9-39.20231204.a6987c8
 - Rebuild for polymake 4.15
 - Add patch to fix polymake shell usage

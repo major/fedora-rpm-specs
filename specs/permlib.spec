@@ -3,7 +3,7 @@
 
 Name:           permlib
 Version:        0.2.9
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library for permutation computations
 
 License:        BSD-3-Clause
@@ -90,6 +90,9 @@ cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/permlib
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

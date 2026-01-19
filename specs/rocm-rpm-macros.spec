@@ -34,7 +34,7 @@
 
 Name:           %{pkg_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -147,6 +147,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-8
 - Add --with compat
 - Reduce rccl list

@@ -1,3 +1,4 @@
+%global bpf_supported_arches aarch64 x86_64 ppc64le riscv64
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9
@@ -10,7 +11,7 @@ BuildRequires: gcc make
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 2.6.11 
 BuildRequires: libattr-devel
-%ifarch x86_64
+%ifarch %{bpf_supported_arches}
 # These next ones are needed by cap-audit
 BuildRequires: clang
 BuildRequires: bpftool libbpf-devel
@@ -45,7 +46,7 @@ and can be used by python3 applications.
 Summary: Utilities for analyzing and setting file capabilities
 License: GPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%ifarch x86_64
+%ifarch %{bpf_supported_arches}
 Recommends: %{name}-audit
 %endif
 
@@ -54,7 +55,7 @@ The libcap-ng-utils package contains applications to analyze the
 posix capabilities of all the program running on a system. It also
 lets you set the file system based capabilities.
 
-%ifarch x86_64
+%ifarch %{bpf_supported_arches}
 %package audit
 Summary: Utility for capturing needed capabilities
 License: GPL-2.0-or-later
@@ -74,7 +75,7 @@ autoreconf -fv --install
 
 %build
 %configure --libdir=%{_libdir} \
-%ifarch x86_64
+%ifarch %{bpf_supported_arches}
 	 --enable-cap-audit=yes \
 %endif
 	--with-python3
@@ -113,7 +114,6 @@ make check
 
 %files python3
 %attr(755,root,root) %{python3_sitearch}/*
-%{python3_sitearch}/capng.py*
 
 %files utils
 %license COPYING
@@ -126,7 +126,7 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/netcap.8.gz
 %attr(0644,root,root) %{_mandir}/man8/pscap.8.gz
 
-%ifarch x86_64
+%ifarch %{bpf_supported_arches}
 %files audit
 %defattr(-,root,root,-)
 %attr(0755,root,root) %{_bindir}/cap-audit

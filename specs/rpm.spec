@@ -24,7 +24,7 @@
 
 %global rpmver 6.0.1
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -624,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Michal Domonkos <mdomonko@redhat.com> - 6.0.1-1
 - Rebase to 6.0.1 (https://rpm.org/releases/6.0.1)
 

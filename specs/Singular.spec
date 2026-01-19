@@ -241,8 +241,9 @@ export CPPFLAGS='-I%{_includedir}/flint -I%{_includedir}/gfanlib'
 pyincdir=$(python2 -Esc "import sysconfig; print(sysconfig.get_paths()['include'])")
 CPPFLAGS="$CPPFLAGS -I$pyincdir"
 %endif
+# The code is not ready for C++20
 export CFLAGS='%{build_cflags} -fPIC'
-export CXXFLAGS='%{build_cxxflags} -fPIC'
+export CXXFLAGS='%{build_cxxflags} -fPIC -std=gnu++17'
 # -Wl,-z,now breaks lazy module loading
 export LDFLAGS='%{build_ldflags} -Wl,-z,lazy'
 module load 4ti2-%{_arch}

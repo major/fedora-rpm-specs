@@ -1,6 +1,6 @@
 Name:		synapse
 Version:	0.2.99.4
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	A semantic launcher written in Vala
 
 # SPDX confirmed
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synapse.desktop
 %{_datadir}/icons/hicolor/scalable/apps/synapse.svg
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.99.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.99.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

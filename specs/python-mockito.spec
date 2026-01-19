@@ -3,7 +3,7 @@
 Summary:        Python spying framework inspired by Java's Mockito
 Name:           python-mockito
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        MIT
 URL:            https://github.com/kaste/%{pypi_name}-python
 Source0:        %{url}/archive/%{version}/%{pypi_name}-python-%{version}.tar.gz
@@ -47,6 +47,9 @@ Summary: %{summary}
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

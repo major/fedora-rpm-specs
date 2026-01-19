@@ -37,7 +37,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       13%{?github_release}%{?dist}
+Release:       14%{?github_release}%{?dist}
 Summary:       Helpers to build PHPUnit mocks
 
 License:       MIT
@@ -147,6 +147,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

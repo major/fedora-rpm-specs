@@ -1,6 +1,6 @@
 Name:		stalld
 Version:	1.26.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -62,6 +62,9 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Clark Williams <williams@redhat.com> - 1.26.3-1
 - tests: Add pre-test and post-test cleanup of stalld processes
 - Makefile: version bump to v1.26.3

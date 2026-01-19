@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -2311,6 +2311,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Michael Cronenworth <mike@cchtml.com> - 11.0-2
 - wine-mono 10.4.1
 

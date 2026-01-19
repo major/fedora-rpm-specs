@@ -1,6 +1,6 @@
 Name:		perl-PatchReader
 Version: 	0.9.6
-Release: 	38%{?dist}
+Release: 	39%{?dist}
 Summary:	Utilities to read and manipulate patches and CVS
 
 # Automatically converted from old format: MPLv1.1 and Artistic 2.0 - review is highly recommended.
@@ -63,6 +63,9 @@ make test
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

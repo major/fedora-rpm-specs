@@ -1,6 +1,6 @@
 Name:      python-aiorpcx
 Version:   0.24.0
-Release:   5%{?dist}
+Release:   6%{?dist}
 Summary:   Generic async RPC implementation
 
 # https://github.com/kyuupichan/aiorpcX/issues/11
@@ -42,6 +42,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/aiorpcX-*.egg-info/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.24.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 Name:           rpmrebuild
 Version:        2.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to build rpm file from rpm database
 License:        GPL-2.0-or-later
 URL:            http://rpmrebuild.sourceforge.net
@@ -48,6 +48,9 @@ A tool to build an RPM file from a package that has already been installed.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 05 2025 Anderson Silva <ansilva@redhat.com> - 2.21-1
 - Latest package from upstream.
 

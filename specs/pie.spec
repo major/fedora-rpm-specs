@@ -23,7 +23,7 @@
 
 Name:           pie
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP Installer for Extensions
 
 # SPDX: pie is BSD-3-Clause
@@ -137,6 +137,9 @@ done
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan  7 2026 Remi Collet <remi@remirepo.net> - 1.3.5-1
 - update to 1.3.5
 

@@ -15,7 +15,7 @@
 
 Name:       php-%{gh_project}
 Version:    1.9.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A simple Atom/RSS parsing library for PHP
 
 Group:      Development/Libraries
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 31 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.9.0-2
 - Fix files missing (rhbz#2426462)
 

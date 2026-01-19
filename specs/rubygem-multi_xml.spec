@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.7.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A generic swappable back-end for XML parsing
 License: MIT
 URL: https://github.com/sferik/multi_xml
@@ -81,6 +81,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-5
 - Relax bigdecimal dependency
 

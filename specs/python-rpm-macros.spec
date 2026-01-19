@@ -56,7 +56,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 BuildArch:      noarch
 
@@ -169,6 +169,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 16 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14-9
 - %%python_extras_subpkg: Only %%ghost the egg-info/dist-info directory, not the content
 - That way, accidentally unpackaged files within are reported as errors

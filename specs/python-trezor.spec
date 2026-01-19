@@ -1,6 +1,6 @@
 Name:           python-trezor
 Version:        0.13.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library and command-line client for communicating with Trezor Hardware Wallet
 
 License:        LGPL-3.0-only
@@ -77,6 +77,9 @@ install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_d
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.13.10-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

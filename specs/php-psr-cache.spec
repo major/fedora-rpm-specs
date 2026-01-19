@@ -24,7 +24,7 @@
 
 Name:      php-%{composer_vendor}-%{composer_project}
 Version:   %{github_version}
-Release:   21%{?github_release}%{?dist}
+Release:   22%{?github_release}%{?dist}
 Summary:   PSR Cache: Common interface for caching libraries
 
 License:   MIT
@@ -105,6 +105,9 @@ exit (interface_exists("Psr\\Cache\\CacheItemInterface") ? 0 : 1);
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

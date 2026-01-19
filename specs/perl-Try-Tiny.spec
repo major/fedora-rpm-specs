@@ -7,7 +7,7 @@
 Name:		perl-Try-Tiny
 Summary:	Minimal try/catch with proper localization of $@
 Version:	0.32
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	MIT
 URL:		https://metacpan.org/release/Try-Tiny
 Source0:	https://cpan.metacpan.org/authors/id/E/ET/ETHER/Try-Tiny-%{version}.tar.gz
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/Try::Tiny.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 
 Name:           zeromq-ada
 Version:        %{upstream_version}^git%{upstream_commit_date}.%{upstream_shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ada binding for ZeroMQ
 
 License:        MIT
@@ -234,6 +234,9 @@ bin/test_all
 ###############
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5^git20251117.c9a0e98-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Dennis van Raaij <dvraaij@fedoraproject.org> - 4.1.5^git20251117.c9a0e98-1
 - Removed debug package creation opt-out.
 - Updated to Git revision c9a0e98 (Nov 17, 2025).

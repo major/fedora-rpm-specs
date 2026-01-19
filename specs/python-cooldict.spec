@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.04
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Some useful dict-like structures
 
 License:        BSD-2-Clause
@@ -46,6 +46,9 @@ sed -i 's|collections.MutableMapping|collections.abc.MutableMapping|g' cooldict.
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 1.04-25
 - Add use of additional Python macros.
 

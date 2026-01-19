@@ -7,7 +7,7 @@
 Summary:      Virtual MIDI keyboard
 Name:         vkeybd
 Version:      0.1.18f
-Release:      2%{?dist}
+Release:      3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:      GPL-2.0-or-later
 URL:          https://github.com/tiwai/%{name}
@@ -66,6 +66,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/64x64/apps/vkeybd.png
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18f-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18f-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

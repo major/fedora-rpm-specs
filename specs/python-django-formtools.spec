@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A set of high-level abstractions for Django forms
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -88,6 +88,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2-21
 - Rebuilt for Python 3.14.0rc3 bytecode
 

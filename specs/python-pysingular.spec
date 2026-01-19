@@ -1,6 +1,6 @@
 Name:           python-pysingular
 Version:        0.9.7
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python interface to Singular
 
 License:        GPL-2.0-or-later
@@ -36,6 +36,9 @@ Summary:        Python 3 interface to Singular
 %license GPLv2
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.9.7-27
 - Use the pyproject declarative buildsystem
 

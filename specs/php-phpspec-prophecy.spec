@@ -16,7 +16,7 @@
 
 Name:           php-phpspec-prophecy
 Version:        1.24.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -181,6 +181,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Remi Collet <remi@remirepo.net> - 1.24.0-2
 - update to 1.24.0
 - use doctrine/instantiator v2 only with PHP 8.4+

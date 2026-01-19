@@ -1,6 +1,6 @@
 Name:           pyhoca-gui
 Version:        0.6.1.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Graphical X2Go client written in (wx)Python
 
 License:        AGPL-3.0-or-later
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1.1-25
 - Rebuilt for Python 3.14.0rc3 bytecode
 

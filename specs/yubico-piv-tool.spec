@@ -1,6 +1,6 @@
 Name:		yubico-piv-tool
 Version:	2.7.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
 License:	BSD-2-Clause
@@ -71,6 +71,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 31 2025 Jakub Jelen <jjelen@redhat.com> - 2.7.2-1
 - New upstream release (#2384902)
 

@@ -1,6 +1,6 @@
 Name:      spatialindex2.0
 Version:   2.0.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 %global so_version 7
 Summary:   Spatial index 2.0 compatibility library
 
@@ -82,6 +82,9 @@ rm -rv test/gtest/gtest-*
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.0-2
 - Build as C++17 for compatibility with gtest 1.17
 

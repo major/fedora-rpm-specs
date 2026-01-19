@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2025c
 %define tzdata_version 2025c
 %define tzcode_version 2025c
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -146,6 +146,9 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 14 2025 Patsy Griffin <patsy@redhat.com> - 2025c-1
   Update to tzdata-2025c (#2421294)
   - Update the expiration date for the leap seconds files.

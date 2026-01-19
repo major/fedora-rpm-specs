@@ -1,6 +1,6 @@
 Name:           python-pwntools
 Version:        4.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A CTF framework and exploit development library
 URL:            https://github.com/Gallopsled/pwntools/
 VCS:            https://github.com/Gallopsled/pwntools/
@@ -156,6 +156,9 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 21 2025 W. Michael Petullo <mike@flyn.org> - 4.15.0-2
 - Allow installing with Fedora's unicorn 2.1.4
 

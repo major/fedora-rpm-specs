@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SciToken reference implementation library
 
 License:        Apache-2.0
@@ -73,6 +73,9 @@ SciToken reference implementation library
 %{_bindir}/scitokens-verify-token
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 6 2025 Derek Weitzel <dweitzel@unl.edu> - 1.9.5-1
 - Marking intensive tests and adding --no-intensive option to skip them
 

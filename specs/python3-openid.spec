@@ -1,6 +1,6 @@
 Name:           python3-openid
 Version:        3.1.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Python 3 port of the python-openid library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -84,6 +84,9 @@ find %{buildroot} -name "*.po" | xargs rm -f
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-29
 - Rebuilt for Python 3.14.0rc3 bytecode
 

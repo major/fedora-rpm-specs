@@ -1,6 +1,6 @@
 Name:           xevd
 Version:        0.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Reference MPEG-5 Part 1 (EVC) decoder
 
 License:        BSD-3-Clause
@@ -94,6 +94,9 @@ rm -rfv %{buildroot}%{_libdir}/%{name}*
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-5
 - Add patch to link libm properly
 - Drop pc file definition patch

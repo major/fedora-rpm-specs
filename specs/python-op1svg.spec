@@ -15,7 +15,7 @@ op1svg normalizes SVG files so that the OP-1 understands them:
 
 Name:           python-%{pypi_name}
 Version:        0.1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Normalize SVG files so that the OP-1 understands them
 
 License:        MIT
@@ -61,6 +61,9 @@ cp -P %{SOURCE1} %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/op1svg.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.0-19
 - Rebuilt for Python 3.14.0rc3 bytecode
 

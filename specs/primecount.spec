@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        8.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Kim Walisch <walki@fedoraproject.org> - 8.0-7
 - Yet another rebuild due to automated test network timeout
 

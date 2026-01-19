@@ -9,7 +9,7 @@ BuildRequires:	javapackages-local-openjdk%2 \
 
 Name:		qdbm
 Version:	1.8.78
-Release:	74%{?dist}
+Release:	75%{?dist}
 # SPDX confirmed
 License:	LGPL-2.1-or-later
 
@@ -387,6 +387,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-75
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-74
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

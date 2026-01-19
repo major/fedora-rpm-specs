@@ -7,7 +7,7 @@
 
 Name:       xorg-x11-drv-amdgpu
 Version:    25.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 Summary:    AMD GPU video driver
 License:    MIT
@@ -66,6 +66,9 @@ X.Org X11 AMDGPU driver
 %{_mandir}/man4/amdgpu.4*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 25.0.0-1
 - Update to 25.0.0 (resolves rhbz#2384262)
 - Download and validate GPG signature

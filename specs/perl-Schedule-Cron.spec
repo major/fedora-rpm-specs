@@ -3,7 +3,7 @@
 Name:      perl-Schedule-Cron
 Summary:   Provides a simple but complete cron like scheduler
 Version:   1.05
-Release:   8%{?dist}
+Release:   9%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:   GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:       https://metacpan.org/release/Schedule-Cron
@@ -89,6 +89,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Python CLI utility and library for manipulating SQLite databases
 Name:           python-sqlite-utils
 Version:        3.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://pypi.python.org/project/sqlite-utils/
 Source:         %{pypi_source sqlite_utils}
@@ -57,4 +57,7 @@ Summary:        %{summary}
 %{_bindir}/sqlite-utils
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.38-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

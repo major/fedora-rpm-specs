@@ -50,7 +50,7 @@
 
 Name:           zig
 Version:        0.15.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 # The minisign file references a specific archive name so we store for ease of use
 %global         archive_name %{name}-%{version}.tar.xz
@@ -246,6 +246,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 04 2026 Jan200101 <sentrycraft123@gmail.com> - 0.15.2-2
 - Rebuilt for EPEL
 

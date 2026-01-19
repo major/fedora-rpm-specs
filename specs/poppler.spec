@@ -17,7 +17,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 25.07.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
 Source0: https://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -289,6 +289,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Marek Kasik <mkasik@redhat.com> - 25.07.0-3
 - Fix search for directory with NSS database
 - Resolves: #2401577

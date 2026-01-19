@@ -3,7 +3,7 @@
 
 Name: python-pmw
 Version: 2.1.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Python powerwidgets
 License: MIT AND GPL-2.0-or-later
 URL: https://pmw.sourceforge.net/
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{python3_sitelib}/Pmw/Pmw_1_3_3
 %doc Pmw/Pmw_2_1_1/doc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.1-15
 - Rebuilt for Python 3.14.0rc3 bytecode
 

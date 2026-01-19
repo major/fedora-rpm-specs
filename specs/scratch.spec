@@ -1,6 +1,6 @@
 Name:           scratch
 Version:        1.4.0.7
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Programming language learning environment for stories, games, music and art
 
 License:        GPL-2.0-only AND GPL-3.0-only AND MIT AND CC-BY-SA-3.0
@@ -214,6 +214,9 @@ cp -a %{SOURCE3} %{buildroot}%{_datadir}/appdata/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.7-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.7-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

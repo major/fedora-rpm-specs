@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.16.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Checks for various conditions and provides reports
 
 License:        MIT
@@ -65,6 +65,9 @@ Documentation for django-health-check
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.16.5-15
 - Rebuilt for Python 3.14.0rc3 bytecode
 

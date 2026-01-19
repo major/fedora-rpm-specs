@@ -1,6 +1,6 @@
 Name:           python-xlrd2
 Version:        1.3.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library to extract data from Microsoft Excel legacy spreadsheet files (xls)
 
 License:        Apache-2.0 AND BSD-3-Clause AND BSD-Advertising-Acknowledgement
@@ -108,6 +108,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc examples
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.4-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

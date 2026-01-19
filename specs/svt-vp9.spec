@@ -4,7 +4,7 @@
 
 Name:           svt-vp9
 Version:        0.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Scalable Video Technology for VP9 Encoder
 
 # ISC license for Source/Lib/ASM_SSE2/x86inc.asm
@@ -99,6 +99,9 @@ popd
 %{_libdir}/gstreamer-1.0/libgstsvtvp9enc.so
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.3.0-16
 - Allow to build with CMake 4.0 (rhbz#2380809)
 

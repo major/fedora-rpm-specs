@@ -1,6 +1,6 @@
 Name:		rteval-loads
 Version:	6.17.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Source files for rteval loads
 Group:		Development/Tools
 License:	GPL-2.0-only
@@ -27,6 +27,9 @@ install -m 644 %{SOURCE0} %{buildroot}%{_datadir}/rteval/loadsource
 %{_datadir}/rteval/loadsource/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.17.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 John Kacur <jkacur@redhat.com> - 6.17.7-1
 - Changed the kernel version to 6.17.7
 - changed the rteval-loads number scheme to reflect the kernel version

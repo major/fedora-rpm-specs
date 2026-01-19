@@ -3,7 +3,7 @@
 
 Name:           tinyproxy
 Version:        1.11.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 License:        GPL-2.0-or-later
 URL:            https://tinyproxy.github.io/
@@ -78,6 +78,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 02 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.11.2-5
 - Add upstream patch to fix CVE-2025-63938
 

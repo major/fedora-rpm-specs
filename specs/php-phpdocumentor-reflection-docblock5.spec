@@ -15,7 +15,7 @@
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
 Version:        5.6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DocBlock parser
 
 License:        MIT
@@ -172,6 +172,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 25 2025 Remi Collet <remi@remirepo.net> - 5.6.6-1
 - update to 5.6.6
 - allow webmozart/assert version 2

@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -103,6 +103,9 @@ PYTHON=%{__python3} stestr run
 %doc doc/build/html
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -18,7 +18,7 @@
 Summary:   Antivirus/anti-spam gateway for smtp server
 Name:      sagator
 Version:   2.0.3
-Release:   0.beta3%{?dist}.7
+Release:   0.beta3%{?dist}.8
 Source:    http://www.salstar.sk/pub/antivir/snapshots/unstable/sagator-%{version}-0.beta3.tar.bz2
 URL:       http://www.salstar.sk/sagator/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -222,6 +222,9 @@ touch %{_var}/lib/sagator-mkchroot
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-0.beta3.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.3-0.beta3.7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

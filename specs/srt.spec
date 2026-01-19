@@ -2,7 +2,7 @@
 
 Name:           srt
 Version:        1.5.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPL-2.0
@@ -94,6 +94,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: python-pulp-glue
 Version: 0.36.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The version agnostic Pulp 3 client library in python
 
 License: GPL-2.0-or-later
@@ -69,6 +69,9 @@ sed -i '/"multidict/s/,<[0-9.]\+//' pyproject.toml
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.36.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           seafile
 Version:        9.0.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cloud storage cli client
 
 License:        GPL-2.0-or-later WITH GPL-3.0-linking-source-exception
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 9.0.15-3
 - Rebuild against libwebsockets 4.5.0
 

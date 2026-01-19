@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -107,6 +107,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Kevin Fenzi <kevin@scrye.com> - 1.4.6-31
 - Add patch to find systemd-journald config and avoid warning. Fixes rhbz#2361203
 - Add patch to fix false positive on Li0n from bin/sbin merge. Fixes rhbz#2382304

@@ -3,7 +3,7 @@
 
 Name:           stfl
 Version:        0.24
-Release:        1.newsboat.git%{shortcommit}%{?dist}
+Release:        2.newsboat.git%{shortcommit}%{?dist}
 Summary:        The Structured Terminal Forms Language/Library
 
 License:        LGPL-3.0-or-later
@@ -94,6 +94,9 @@ rm -f %{buildroot}%{_libdir}/libstfl.a
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2.newsboat.gitbbb2404
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 17 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.24-1.newsboat.gitbbb2404
 - Switch to newsboat fork (rhbz#2419779)
 

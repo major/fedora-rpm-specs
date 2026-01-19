@@ -1,6 +1,6 @@
 Name:           taskd
 Version:        1.1.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Secure server providing multi-user, multi-client access to task data
 License:        MIT
 URL:            https://github.com/goldenHairDafo/taskd/
@@ -138,6 +138,9 @@ install -m0644 -D taskd.sysusers.conf %{buildroot}%{_sysusersdir}/taskd.conf
 %{_sysusersdir}/taskd.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

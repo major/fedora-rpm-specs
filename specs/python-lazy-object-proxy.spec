@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -50,6 +50,9 @@ sed -Ei '/\b(objproxies|hunter)\b/d' tox.ini
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.12.0-1
 - 1.12.0
 

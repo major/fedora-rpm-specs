@@ -2,7 +2,7 @@
 
 Name:           sdbus-cpp
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -118,6 +118,9 @@ rm -rf %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 21 2025 Packit <hello@packit.dev> - 2.2.1-1
 - Update to version 2.2.1
 - Resolves: rhbz#2277126

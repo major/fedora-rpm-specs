@@ -2,7 +2,7 @@
 
 Name:           python-chameleon
 Version:        4.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        XML-based template compiler
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ Requires:   python3-lxml
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.6.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

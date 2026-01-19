@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.44.6
-Release:        2%{?dist}
+Version:        3.44.7
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -312,6 +312,12 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Jan 17 2026 Sandro Mani <manisandro@gmail.com> - 3.44.7-1
+- Update to 3.44.7
+
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.44.6-2
 - Drop support for i686
 

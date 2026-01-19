@@ -8,7 +8,7 @@ grapheme clusters according to Unicode Standard Annex #29.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode segmentation and width for Python using Rust
 
 License:        MIT AND (MIT OR Apache-2.0)
@@ -61,5 +61,8 @@ sed -i 's/, "generate-import-lib"//g' Cargo.toml
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Sudip Shil <sshil@fedora> - 0.2.0-1
 - Initial packaging of python-unicode-segmentation-rs

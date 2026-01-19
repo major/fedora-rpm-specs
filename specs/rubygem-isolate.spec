@@ -3,7 +3,7 @@ Summary:	Very simple RubyGems sandbox
 
 Name:		rubygem-%{gem_name}
 Version:	4.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # SPDX confirmed
 License:	MIT
 URL:		http://github.com/jbarnette/isolate
@@ -80,6 +80,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-2
 - Remove strict version requirement for rubygems
 

@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            7.0.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 7.0.0-1
 - 7.0.0
 

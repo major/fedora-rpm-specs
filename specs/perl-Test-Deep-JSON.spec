@@ -1,6 +1,6 @@
 Name:           perl-Test-Deep-JSON
 Version:        0.05
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Compare JSON with Test::Deep
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ RELEASE_TESTING=1 %{__perl} Build.PL --installdirs=vendor
 %{_mandir}/man3/Test*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-roundrobin
 Version:        0.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Rather small collection of round robin utilites
 
 License:        MIT
@@ -50,6 +50,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.4-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

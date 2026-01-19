@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.34.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
@@ -166,6 +166,9 @@ HEADLESS=true SE_CHROMEDRIVER=chromedriver rspec spec/integration
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.34.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 22 2025 Vít Ondruch <vondruch@redhat.com> - 4.34.0-2
 - Enable compatibility with rubygem(rubyzip) v3.
 

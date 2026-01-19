@@ -4,7 +4,7 @@
 
 Name:		virglrenderer
 Version:	1.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Virgl Rendering library.
 License:	MIT
@@ -73,6 +73,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Janne Grunau >janne-fdr@jannau.net> - 1.2.0-2
 - Enable asahi,msm DRM native context support on aarch64
 

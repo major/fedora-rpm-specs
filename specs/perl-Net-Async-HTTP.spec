@@ -1,6 +1,6 @@
 Name:           perl-Net-Async-HTTP
 Version:        0.49
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Use HTTP with IO::Async
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-Async-HTTP
@@ -79,6 +79,9 @@ unset NET_ASYNC_HTTP_MAXCONNS
 %{_mandir}/man3/Net::Async::HTTP*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

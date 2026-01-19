@@ -4,7 +4,7 @@
 %global pgversion 18
 Name:		postgresql%{pgversion}-%{majorname}
 Version:	18.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -92,6 +92,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Lukas Javorsky <ljavorsk@redhat.com> - 18.0-1
 - Rebase to version 18.0
 

@@ -3,7 +3,7 @@
 
 Name:           shell-color-prompt
 Version:        0.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Color prompt for bash shell
 
 License:        GPL-2.0-or-later
@@ -65,6 +65,9 @@ BASH_COLOR_PROMPT_DIR=%{buildroot}%{profiledir} bats --timing --gather-test-outp
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Jens Petersen <petersen@redhat.com>
 - update project url
 

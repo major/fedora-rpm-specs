@@ -44,7 +44,7 @@ ExclusiveArch:		x86_64 aarch64 %{power64}
 
 Name:			quantum-espresso
 Version:		7.0
-Release:		14%{?dist}
+Release:		15%{?dist}
 Summary:		A suite for electronic-structure calculations and materials modeling
 
 # See bundling discussion in https://gitlab.com/QEF/q-e/-/issues/366
@@ -345,6 +345,9 @@ mv test-suite.orig test-suite
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

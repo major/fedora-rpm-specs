@@ -5,7 +5,7 @@
 
 Name:           xfce4-volumed
 Version:        0.2.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Daemon to add additional functionality to the volume keys of the keyboard
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ rm -rf %{buildroot}/%{_datadir}/applications/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

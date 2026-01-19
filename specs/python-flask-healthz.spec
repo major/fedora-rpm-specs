@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Module to easily add health endpoints to a Flask application
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -53,6 +53,9 @@ that can be used as liveness and readiness probes.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

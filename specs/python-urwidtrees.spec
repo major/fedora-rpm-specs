@@ -1,6 +1,6 @@
 Name:           python-urwidtrees
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tree Widget Container API for the urwid toolkit
 
 License:        GPL-3.0-or-later
@@ -68,6 +68,9 @@ popd
 %doc docs/build/html
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov  1 2025 Dick Marinus <dick@mrns.nl> - 1.0.4-1
 - Cleanup and version bump
 

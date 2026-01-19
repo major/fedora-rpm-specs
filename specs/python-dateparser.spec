@@ -15,7 +15,7 @@
 
 Name:           python-dateparser
 Version:        1.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
@@ -209,6 +209,9 @@ k="${k-}${k+ and }not search_dates"
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.2-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

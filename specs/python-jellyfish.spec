@@ -4,7 +4,7 @@
 
 Name:           python-%{realname}
 Version:        0.9.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A python library for doing approximate and phonetic matching of strings
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -68,6 +68,9 @@ PYTHONPATH=. pytest-3 jellyfish/test.py
 %doc README.md docs/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Michele Baldessari <michele@acksyn.org> - 0.9.1-15
 - Use new python macros (RHBZ#2377819)
 

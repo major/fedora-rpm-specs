@@ -18,7 +18,7 @@
 Name:           %{php_base}-pecl-apcu
 Summary:        APC User Cache
 Version:        5.1.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
@@ -203,6 +203,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 5.1.28-1
 - update to 5.1.28
 

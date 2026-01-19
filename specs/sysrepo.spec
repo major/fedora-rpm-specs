@@ -1,6 +1,6 @@
 Name: sysrepo
 Version: 3.7.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -138,6 +138,9 @@ fi
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 20 2025 Michal Ruprich <mruprich@redhat.com> - 3.7.11-1
 - New version 3.7.11
 

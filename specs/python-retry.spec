@@ -1,6 +1,6 @@
 Name:           python-retry
 Version:        0.9.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Easy to use retry decorator
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ export PBR_VERSION="%{version}"
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.4-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

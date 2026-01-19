@@ -5,7 +5,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.7.0
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}.1
 License: BSD-2-clause
 # Upstream moved to a separate namespace from OpenDNSSEC
 Url: http://www.softhsm.org/
@@ -127,6 +127,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-0.1.rc1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Alexander Bokovoy <abokovoy@redhat.com> - 2.7.0-0.1.rc1
 - Upstream release 2.7.0-rc1
 

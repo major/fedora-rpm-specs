@@ -1,6 +1,6 @@
 Name: swarp
 Version: 2.38.0
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: Tool that resamples and co-adds together FITS images
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -50,6 +50,9 @@ make DESTDIR=%{buildroot} install
 %license COPYRIGHT
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

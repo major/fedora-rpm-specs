@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -82,6 +82,9 @@ ruby -Ilib:test -e "Dir.glob('./test/**/*_test.rb').sort.each {|t| require t}"
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
 - Update to Active Model 8.0.3.
   Related: rhzb#2388437

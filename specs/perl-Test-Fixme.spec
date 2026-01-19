@@ -1,6 +1,6 @@
 Name:           perl-Test-Fixme
 Version:        0.17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Check code for FIXMEs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Fixme
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Test::Fixme.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

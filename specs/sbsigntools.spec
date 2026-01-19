@@ -3,7 +3,7 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       Signing utility for UEFI secure boot
 # Most source code is GPL-3.0-or-later, except:
 # LicenseRef-Fedora-Public-Domain:
@@ -122,6 +122,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.9.5-13
 - enable RISC-V 64-bit architecture
 

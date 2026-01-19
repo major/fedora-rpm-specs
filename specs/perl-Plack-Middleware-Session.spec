@@ -1,6 +1,6 @@
 Name:           perl-Plack-Middleware-Session
 Version:        0.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Middleware for session management
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -71,6 +71,9 @@ RELEASE_TESTING=1 PERL5LIB="." ./Build test
 %{_mandir}/man3/Plack*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Aug 31 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.36-1
 - Update to 0.36
 

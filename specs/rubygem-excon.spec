@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
@@ -131,6 +131,9 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.7-3
 - Backport upstream fix for Ractor behavior change on ruby4_0
 

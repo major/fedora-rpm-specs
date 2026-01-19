@@ -24,7 +24,7 @@
 
 Name:           php-%{gh_owner}-%{cname}
 Version:        1.9.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zeta Base Component
 
 Group:          Development/Libraries
@@ -130,6 +130,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 13 2025 Remi Collet <remi@remirepo.net> - 1.9.5-1
 - update to 1.9.5
 - re-license spec file to CECILL-2.1

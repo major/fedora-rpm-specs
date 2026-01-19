@@ -6,7 +6,7 @@
 Summary: Modular Assembler
 Name: yasm
 Version: 1.3.0^%{date}git%{shortcommit}
-Release: 3%{?dist}
+Release: 4%{?dist}
 # See COPYING for the detail, there is quite a lot!
 # Bitvect is (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later
 # Everything else is BSD. Either 2 or 3 clause.
@@ -104,6 +104,9 @@ make check
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0^20250625git121ab15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.3.0^20250625git121ab15-3
 - mark as deprecated, see https://fedoraproject.org/wiki/Changes/DeprecateYASM
 

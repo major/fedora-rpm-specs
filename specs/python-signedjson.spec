@@ -9,7 +9,7 @@ Features:
 
 Name:           python-%{srcname}
 Version:        1.1.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Sign JSON with Ed25519 signatures
 
 License:        Apache-2.0
@@ -48,6 +48,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.4-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

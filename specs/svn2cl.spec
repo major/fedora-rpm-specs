@@ -1,6 +1,6 @@
 Name:           svn2cl
 Version:        0.14
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Create a ChangeLog from a Subversion log
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -44,6 +44,9 @@ install -Dpm 644 svn2cl.1 $RPM_BUILD_ROOT%{_mandir}/man1/svn2cl.1
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           synfig
 Version:        1.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
 License:        GPL-2.0-or-later
@@ -124,6 +124,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 26 2025 Jerry James <loganjerry@gmail.com> - 1.5.3-4
 - Stop building for 32-bit x86
 

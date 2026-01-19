@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -104,6 +104,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_bindir}/ansible-runner
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 20 2025 Dan Radez <dan@radez.net> - 2.4.2-1
 - new upstream release rhbz#2404032
 

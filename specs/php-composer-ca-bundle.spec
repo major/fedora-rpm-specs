@@ -17,7 +17,7 @@
 
 Name:           php-composer-ca-bundle
 Version:        1.5.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec  9 2025 Remi Collet <remi@remirepo.net> - 1.5.10-1
 - update to 1.5.10 (no change)
 

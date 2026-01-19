@@ -4,7 +4,7 @@
 
 Name:           vakzination
 Version:        23.01.0^git%{date}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        CC-PDDC AND Apache-2.0 AND LGPL-2.0-or-later AND CC0-1.0 AND BSD-3-Clause AND GPL-2.0-or-later AND FSFAP
 Summary:        Vakzination manages your health certificates like vaccination, test, and recovery certificates.
@@ -58,6 +58,9 @@ desktop-file-install --dir=%{buildroot}%{_kf6_datadir}/applications/ %{buildroot
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0^git20241228.851a9fb-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0^git20241228.851a9fb-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

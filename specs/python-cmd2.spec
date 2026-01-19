@@ -2,7 +2,7 @@
 
 Name:             python-%{pypi_name}
 Version:          2.5.11
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
@@ -72,6 +72,9 @@ Requires:         /usr/bin/which
 %doc CHANGELOG.md README.md docs
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.5.11-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	5.27.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	minitest/mock, by Steven Baker, is a beautifully tiny mock (and stub) object framework
 # From README.rdoc
@@ -79,6 +79,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.27.0-2
 - Remove unneeded BR: rubygem(hoe)
 

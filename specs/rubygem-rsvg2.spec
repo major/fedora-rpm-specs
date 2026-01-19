@@ -10,7 +10,7 @@
 Summary:	Ruby binding of librsvg-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.3.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -152,6 +152,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.4-1
 - 4.3.4
 

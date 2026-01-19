@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
@@ -57,6 +57,9 @@ rm %{buildroot}%{_bindir}/bottle %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.13.4-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

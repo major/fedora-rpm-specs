@@ -4,7 +4,7 @@
 
 Name:           vim-%upstream_name
 Version:        4.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Asynchronous Vim Lint Engine
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -82,6 +82,9 @@ done
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 18 2025 Martin Jackson <mhjacks@swbell.net> - 4.0.0-3
 - Add lua files to neovim version to fix bz#2389282
 

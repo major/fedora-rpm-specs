@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.6.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: This gem is responsible to sanitize HTML fragments in Rails applications
 License: MIT
 URL: https://github.com/rails/rails-html-sanitizer
@@ -69,6 +69,9 @@ ruby -Ilib -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.2-2
 - Fix compatibility for minitest 6
 

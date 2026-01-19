@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        5.6.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -69,6 +69,9 @@ ln -sf pyproject-too.toml pyproject.toml
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.6.2-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

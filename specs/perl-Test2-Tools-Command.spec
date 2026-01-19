@@ -1,6 +1,6 @@
 Name:           perl-Test2-Tools-Command
 Version:        0.20
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Test simple unix commands
 License:        BSD-3-Clause
 
@@ -56,6 +56,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

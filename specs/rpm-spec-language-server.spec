@@ -1,6 +1,6 @@
 Name:           rpm-spec-language-server
 Version:        0.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Language Server for RPM spec files
 
 License:        GPL-2.0-or-later
@@ -65,6 +65,9 @@ sed -i 's/pygls = "^2.0"/pygls = "*"/' pyproject.toml
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 21 2025 Jakub Kadlcik <frostyx@email.cz> - 0.0.2-1
 - New upstream version
 

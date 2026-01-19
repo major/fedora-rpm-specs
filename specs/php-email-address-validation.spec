@@ -3,7 +3,7 @@ Summary:	PHP class for validating email addresses
 License:	BSD-2-Clause
 
 Version:	2.0.1
-Release:	15%{?dist}
+Release:	16%{?dist}
 
 %global repo_owner	aziraphale
 %global repo_name	email-address-validator
@@ -53,6 +53,9 @@ phpunit10 --bootstrap %{buildroot}%{_datadir}/php/%{name}/EmailAddressValidator.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

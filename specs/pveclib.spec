@@ -1,6 +1,6 @@
 Name:    pveclib
 Version: 1.0.4.5
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Library for simplified access to PowerISA vector operations
 License: Apache-2.0
 URL:     https://github.com/open-power-sdk/pveclib
@@ -89,6 +89,9 @@ find %{buildroot} -type f -name "libpvecstatic.so.0.0.0*.debug" -delete
 %{_libdir}/libpvecstatic.a
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

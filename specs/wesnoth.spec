@@ -1,6 +1,6 @@
 Name:           wesnoth
 Version:        1.19.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -194,6 +194,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 15 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.19-2
 - Patch for Boost 1.90.0
 

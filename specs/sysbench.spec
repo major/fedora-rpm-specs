@@ -1,7 +1,7 @@
 Summary:       System performance benchmark
 Name:          sysbench
 Version:       1.0.20
-Release:       19%{?dist}
+Release:       20%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/akopytov/sysbench/
 Source0:       https://github.com/akopytov/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -90,6 +90,9 @@ cd tests
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 25 2025 Xavier Bachelot <xavier@bachelot.org> 1.0.20-19
 - Fix luajit arches (RHBZ#2416811)
 

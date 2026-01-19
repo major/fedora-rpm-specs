@@ -31,7 +31,7 @@
 Name:           %{pkg_name}
 Version:        3.7.1
 # can only be reset when all subpkgs bumped
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Haskell stable package build tool
 
 License:        BSD-3-Clause
@@ -474,6 +474,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 11 2025 Jens Petersen <petersen@redhat.com> - 3.7.1-39
 - Rebuild
 

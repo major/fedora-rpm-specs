@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Perl module to generate text base QR Code
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Version: 0.05
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -67,6 +67,9 @@ make test VERBOSE=1
 %{_mandir}/man3/Text::QRCode.3pm.gz
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

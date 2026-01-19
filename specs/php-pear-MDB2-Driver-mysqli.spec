@@ -6,9 +6,9 @@
 Name:           php-pear-MDB2-Driver-mysqli
 Version:        1.5.0
 %if 0%{?prever:1}
-Release:        0.32.%{prever}%{?dist}
+Release:        0.33.%{prever}%{?dist}
 %else
-Release:        25%{?dist}
+Release:        26%{?dist}
 %endif
 Summary:        MySQL Improved MDB2 driver
 
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-0.33.b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-0.32.b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

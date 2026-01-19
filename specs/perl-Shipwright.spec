@@ -1,6 +1,6 @@
 Name:           perl-Shipwright
 Version:        2.4.42
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Build and Manage Self-contained Software Bundle
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -117,6 +117,9 @@ make test %{?_smp_mflags}
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.42-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.42-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

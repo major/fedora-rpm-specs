@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
@@ -70,6 +70,9 @@ ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Alexander Bokovoy <abokovoy@redhat.com> - 0.14.0-23
 - Remove tabfile usage which is not provided by latest PLY code anymore
 - Fixes: rhbz#2428835

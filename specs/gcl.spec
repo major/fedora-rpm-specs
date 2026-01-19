@@ -68,6 +68,8 @@ Patch:          %{name}-2.7.1-texinfo.patch
 Patch:          %{name}-2.7.1-elisp.patch
 # This patch was last sent upstream on 13 Oct 2009.  Add a format attribute.
 Patch:          %{name}-2.7.1-format.patch
+# Fix a clash with the system definition of bsearch.
+Patch:          %{name}-2.7.1-bsearch.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

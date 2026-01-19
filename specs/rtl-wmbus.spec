@@ -15,7 +15,7 @@ Version:               0
 
 %forgemeta
 
-Release:               23%{?dist}
+Release:               24%{?dist}
 Summary:               Software defined receiver for wireless M-Bus with RTL-SDR
 # Automatically converted from old format: BSD - review is highly recommended.
 License:               LicenseRef-Callaway-BSD
@@ -88,6 +88,9 @@ install -p -m 0755 -D build/%{the_binary} %{buildroot}%{_bindir}/%{the_binary}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

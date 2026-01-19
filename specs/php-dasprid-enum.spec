@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP enum implementation
 
 License:        BSD-2-Clause
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 16 2025 Remi Collet <remi@remirepo.net> - 1.0.7-1
 - update to 1.0.7
 - re-license spec file to CECILL-2.1

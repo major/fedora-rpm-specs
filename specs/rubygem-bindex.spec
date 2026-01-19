@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Bindings for your Ruby exceptions
 License: MIT
 URL: https://github.com/gsamokovarov/bindex
@@ -83,6 +83,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Vít Ondruch <vondruch@redhat.com> - 0.8.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

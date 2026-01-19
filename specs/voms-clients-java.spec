@@ -1,6 +1,6 @@
 Name:		voms-clients-java
 Version:	3.3.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -167,6 +167,9 @@ fi
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.7-1
 - Update to version 3.3.7
 - Increase default max heap memory (following upstream)

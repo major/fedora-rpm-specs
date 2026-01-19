@@ -4,7 +4,7 @@
 %global archivename %{fontname}-%{version}-beta
 
 Version: 0.2.0
-Release: 0.38.beta%{?dist}
+Release: 0.39.beta%{?dist}
 URL:     http://wenq.org/wqy2/index.cgi?MicroHei(en)
 
 %global foundry           WQY
@@ -43,6 +43,9 @@ Source10: 66-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.39.beta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 20 2025 Peng Wu  <pwu@redhat.com> - 0.2.0-0.38.beta
 - Update CI tests
 - Resolves: RHBZ#2383103

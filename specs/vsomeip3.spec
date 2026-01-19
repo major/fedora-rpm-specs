@@ -2,7 +2,7 @@
 
 Name:    vsomeip3
 Version: 3.5.11
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 # remove from i686 as not needed.
 ExcludeArch: %{ix86}
@@ -259,6 +259,9 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 08 2025 Stephen Smoogen  <smooge@fedoraproject.org> - 3.5.11-6
 - Find a couple of small changes needed to allow for selinux to be applied to non-standard policies
 

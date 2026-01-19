@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.189
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
 License:        LicenseRef-Callaway-BSD
@@ -43,6 +43,9 @@ information. It is useful for cross-architecture tools.
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.189-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 20 2025 W. Michael Petullo <mike@flyn.org> - 9.2.189-1
 - Update to latest upstream release (closes rhbz#2379148)
 

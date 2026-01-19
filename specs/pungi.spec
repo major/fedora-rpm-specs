@@ -1,6 +1,6 @@
 Name:           pungi
 Version:        4.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -135,6 +135,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 18 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.1-4
 - Remove dependency on python3-parameterized
 

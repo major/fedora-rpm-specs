@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.09
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Module that multiplexes interactions with lists of Python objects
 
 License:        BSD-2-Clause
@@ -44,6 +44,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 0.09-22
 - Use new Python packaging macros
 

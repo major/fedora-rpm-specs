@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Net::SSH: a pure-Ruby implementation of the SSH2 client protocol
 License: MIT
 URL: https://github.com/net-ssh/net-ssh
@@ -101,6 +101,9 @@ popd
 %exclude %{gem_instdir}/net-ssh-public_cert.pem
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 17 2025 Vít Ondruch <vondruch@redhat.com> - 7.3.0-4
 - Enable SHA1 signatures to pass the test suite.
   Resolves: rhbz#2385592

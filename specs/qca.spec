@@ -11,7 +11,7 @@
 Name:    qca
 Summary: Qt Cryptographic Architecture
 Version: 2.3.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-2.1-only
 URL:     https://userbase.kde.org/QCA
@@ -422,6 +422,9 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jul 29 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.10-3
 - Fix for https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
 

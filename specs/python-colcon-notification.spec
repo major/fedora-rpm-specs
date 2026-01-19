@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extension for colcon to provide status notifications
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

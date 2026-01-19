@@ -58,7 +58,7 @@
 
 Name:           rccl-tests%{pkg_suffix}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RCCL tests
 
 Url:            https://github.com/ROCm/rccl-tests
@@ -131,6 +131,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl-tests/LICENSE.txt
 %{pkg_prefix}/bin/*_perf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - git20251211.5272cd1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 27 2025 Tom Rix <Tom.Rix@amd.com> - git20251211.5272cd1-1
 - Add --with compat
 - Update source

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.2.02
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library that contains the classes required to create LogStash events
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -81,6 +81,9 @@ cp -a .%{gem_dir}/* \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.02-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.02-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           trackballs-music
 Version:        1.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        In-game music for Trackballs
 # Automatically converted from old format: GPLv2+ and EFML - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-EFML
@@ -34,6 +34,9 @@ install -p -m 644 *.ogg $RPM_BUILD_ROOT%{_datadir}/trackballs/music
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

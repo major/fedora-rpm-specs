@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command line tools for working with catkin
 
 License:        Apache-2.0
@@ -95,6 +95,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.4-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

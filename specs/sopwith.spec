@@ -1,6 +1,6 @@
 Name:           sopwith
 Version:        2.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SDL port of the sopwith game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %attr(664,root,games) %config(noreplace) %{_localstatedir}/games/%{name}/hiscores.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 09 2025 josef radinger <cheese@nosuchhost.net> - 2.9.0-1
 - bump version
 - we now have a score-file

@@ -1,7 +1,7 @@
 Summary:        GUI toolkit based on Xlib for X Window Systems
 Name:           xforms
 Version:        1.2.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://xforms-toolkit.org/
 Source0:        https://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}%{?pre}.tar.gz
@@ -107,6 +107,9 @@ rm -rfv $RPM_BUILD_ROOT%{_infodir}/{dir,xforms_images}
 %{_pkgdocdir}/xforms.pdf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

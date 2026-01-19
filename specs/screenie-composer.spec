@@ -2,7 +2,7 @@
 
 Name:           screenie-composer
 Version:        1.0.0
-Release:        0.34.20110805git%{snapshot}%{?dist}
+Release:        0.35.20110805git%{snapshot}%{?dist}
 Summary:        Fancy screenshot composer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -102,6 +102,9 @@ EOF
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.35.20110805git49c2630
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.34.20110805git49c2630
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

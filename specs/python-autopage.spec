@@ -17,7 +17,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A Python library to provide automatic paging for console output
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -92,6 +92,9 @@ cp %{SOURCE1} ./
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.2-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

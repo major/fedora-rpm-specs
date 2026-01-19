@@ -4,7 +4,7 @@
 
 Name:           python-whisper
 Version:        1.1.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -118,6 +118,9 @@ install -D -p -m0644 %{SOURCE19} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.10-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

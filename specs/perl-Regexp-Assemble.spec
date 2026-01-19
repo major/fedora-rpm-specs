@@ -1,6 +1,6 @@
 Name:           perl-Regexp-Assemble
 Version:        0.38
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Assemble multiple Regular Expressions into a single RE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Regexp-Assemble
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/Regexp::Assemble.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

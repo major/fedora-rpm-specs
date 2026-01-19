@@ -1,8 +1,8 @@
 %global octpkg control
 
 Name:           octave-%{octpkg}
-Version:        4.1.3
-Release:        2%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPL-3.0-or-later
 URL:            https://gnu-octave.github.io/packages/control/
@@ -13,6 +13,13 @@ Requires:       octave(api) = %{octave_api}
 Requires(post): octave
 Requires(postun): octave
 
+# compiler crash on aarch64:
+#during GIMPLE pass: ifcvt
+#MB04DL.f: In function ‘mb04dl_’:
+#MB04DL.f:4:7: internal compiler error: in predicate_rhs_code, at tree-if-conv.cc:2908
+#    4 |       SUBROUTINE MB04DL( JOB, N, THRESH, A, LDA, B, LDB, ILO, IHI,
+#      |       ^~~~~~~~~~~~~~~~~
+ExcludeArch: aarch64
 
 %description
 The Octave control systems package contains functions for analyzing
@@ -62,6 +69,9 @@ done;
 
 
 %changelog
+* Sat Jan 17 2026 Thomas Sailer <fedora@tsailer.ch> - 4.2.0-1
+- Update to 4.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

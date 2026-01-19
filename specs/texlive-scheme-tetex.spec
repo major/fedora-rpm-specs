@@ -3,7 +3,7 @@
 Name:           texlive-scheme-tetex
 Epoch:          12
 Version:        svn74022
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        teTeX scheme (more than medium, but nowhere near full)
 
 License:        LPPL-1.3c
@@ -88,5 +88,8 @@ equivalent to the teTeX distribution that was maintained by Thomas Esser.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn74022-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 15 2025 Tom Callaway <spot@fedoraproject.org> - 12:svn74022-1
 - Update to TeX Live 2025

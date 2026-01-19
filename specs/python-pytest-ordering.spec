@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Plugin to run your pytest tests in a specific order
 
 License:        MIT
@@ -73,6 +73,9 @@ rm -rf html/.{doctrees,buildinfo}
 %pytest -k "not test_run_marker_registered"
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 0.6-22
 - Updated spec to use pyproject-rpm-macros
 

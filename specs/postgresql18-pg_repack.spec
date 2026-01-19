@@ -4,7 +4,7 @@
 %global pgversion 18
 Name:           postgresql%{pgversion}-%{majorname}
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD-3-Clause
@@ -98,5 +98,8 @@ make
 %doc doc/release.rst
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jul 24 2025 Nikola Davidova <ndavidov@redhat.com> - 1.5.2-1
 - Initial packaging

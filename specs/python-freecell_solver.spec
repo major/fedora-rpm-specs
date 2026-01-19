@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Freecell Solver Python bindings
 
 License:        MIT
@@ -58,6 +58,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 23 2025 Shlomi Fish <shlomif@shlomifish.org> 0.2.6-22
 - Remove unneeded build/runtime requires
 

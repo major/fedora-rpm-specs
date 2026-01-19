@@ -1,7 +1,7 @@
 %global shortname mozilla-django-oidc
 Name:          python-%{shortname}
 Version:       4.0.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       A django OpenID Connect library
 
 License:       MPL-2.0
@@ -39,6 +39,9 @@ A django OpenID Connect library.
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

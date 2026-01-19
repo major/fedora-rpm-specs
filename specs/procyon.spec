@@ -8,7 +8,7 @@
 
 Name:       procyon
 Version:    0.6.0
-Release:    0.11.%{commitdate}.git%{shortcommit}%{?dist}
+Release:    0.12.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:    procyon java decompiler and other tools
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0 
@@ -214,4 +214,7 @@ popd
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.12.20220221.git88a95fa
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

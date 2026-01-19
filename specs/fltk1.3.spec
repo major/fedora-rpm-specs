@@ -5,7 +5,7 @@
 
 Name:		    fltk1.3
 Version:	    1.3.11
-Release:	    4%{?dist}
+Release:	    5%{?dist}
 Summary:	    C++ user interface toolkit
 
 # see COPYING (or http://www.fltk.org/COPYING.php ) for exceptions details
@@ -67,6 +67,15 @@ Requires:       %{name}-devel = %{version}-%{release}
 %description static
 %{summary}.
 
+%package fluid
+Summary:        Fast Light User Interface Designer for FLTK 1.3
+Conflicts:      fltk-fluid
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel
+%description fluid
+%{summary}, an interactive GUI designer for %{name}.
+
+
 %prep
 %autosetup -C -p1
 
@@ -99,13 +108,6 @@ mv $RPM_BUILD_ROOT%{_bindir}/fltk-config \
 install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/fltk-config
 %endif
 
-# Purge FLUID
-rm %{buildroot}%{_bindir}/fluid
-rm %{buildroot}%{_mandir}/man1/fluid.1*
-rm -rf %{buildroot}%{_datadir}/applications
-rm -rf %{buildroot}%{_datadir}/mime
-rm -rf %{buildroot}%{_datadir}/icons
-
 
 %files
 %doc ANNOUNCEMENT CHANGES CREDITS README
@@ -135,8 +137,18 @@ rm -rf %{buildroot}%{_datadir}/icons
 %{_libdir}/libfltk_gl.a
 %{_libdir}/libfltk_images.a
 
+%files fluid
+%{_bindir}/fluid
+%{_mandir}/man1/fluid.1*
+%{_datadir}/applications/fluid.desktop
+%{_datadir}/mime/packages/fluid.xml
+%{_datadir}/icons/hicolor/*/*/fluid.png
+
 
 %changelog
+* Sat Jan 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.3.11-4
+- Restore fluid subpackage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

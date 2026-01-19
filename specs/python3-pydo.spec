@@ -3,7 +3,7 @@
 Name: python3-%{srcname}
 Summary: PyDo - DigitalOcean python library
 Version: 0.13.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: ASL 2.0
 
@@ -52,6 +52,9 @@ Summary: %{summary}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.13.0-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

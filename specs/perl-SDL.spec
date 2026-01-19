@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -230,6 +230,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 07 2025 Petr Pisar <ppisar@redhat.com> - 2.548-31
 - Adapt tests to SDL-3.2.24 (bug #2401791)
 - Package the tests

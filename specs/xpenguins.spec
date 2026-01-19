@@ -1,5 +1,5 @@
 Name: xpenguins
-Version: 3.2.3
+Version: 3.2.4
 Release: %autorelease
 Summary: Cute little penguins that walk along the tops of your windows
 Summary(sv): Söta små pingviner som vandrar längs överkanterna på dina fönster

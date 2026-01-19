@@ -1,6 +1,6 @@
 Name:           perl-Net-eBay
 Version:        0.66
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl Interface to XML based eBay API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-eBay
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/Net::eBay.3pm*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 12 2025 Xavier Bachelot <xavier@bachelot.org> - 0.66-1
 - Update to 0.66 (RHBZ#2394739)
 

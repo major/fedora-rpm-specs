@@ -2,7 +2,7 @@
 
 Name:           vdr-vnsiserver
 Version:        1.8.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        VDR plugin to handle Kodi clients via VNSI
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ install -Dpm 644 %{plugin_name}/* %{buildroot}%{vdr_configdir}/plugins/%{plugin_
 %{vdr_plugindir}/libvdr-%{plugin_name}.so.%{vdr_apiversion}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 Dr. Tilmann Bubeck <bubeck@fedoraproject.org> - 1.8.3-14
 - Rebuilt for VDR 2.7.7
 

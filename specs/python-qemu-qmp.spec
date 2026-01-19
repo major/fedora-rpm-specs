@@ -1,6 +1,6 @@
 Name:           python-qemu-qmp
 Version:        0.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QEMU Monitor Protocol library
 
 License:        GPL-2.0-only AND LGPL-2.0-or-later
@@ -91,6 +91,9 @@ install -Dpm 0644 man/*.1 -t %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 03 2025 John Snow <jsnow@redhat.com> - 0.0.5-1
 - Update to v0.0.5
 

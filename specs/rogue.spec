@@ -1,6 +1,6 @@
 Name:             rogue
 Version:          5.4.5
-Release:          43%{?dist}
+Release:          44%{?dist}
 Summary:          The original graphical adventure game
 License:          BSD-3-Clause
 # TODO: Fix the source url
@@ -68,6 +68,9 @@ desktop-file-install \
 %config(noreplace) %attr(0664,games,games) %{_localstatedir}/games/roguelike/%{name}54.scr
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.5-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

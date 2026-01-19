@@ -1,6 +1,6 @@
 Name:           remind
 Version:        06.02.02
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
 # GPL-2.0-only: main software
@@ -137,6 +137,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 06.02.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 10 2026 Dick Marinus <dick@mrns.nl> - 06.02.02-1
 - v06.02.02
 

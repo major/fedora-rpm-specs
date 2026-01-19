@@ -1,6 +1,6 @@
 Name:		perl-Test2-Tools-Explain
 Version:	0.02
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Explain tools for the Perl Test2 framework
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test2-Tools-Explain
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/Test2::Tools::Explain.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           veusz
 Version:        4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -126,6 +126,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Jeremy Sanders <jeremy@jeremysanders.net> - 4.2-2
 - Remove python3-tomli build requirement
 

@@ -18,7 +18,7 @@
 
 Name:       vdirsyncer
 Version:    0.20.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -160,6 +160,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Michel Lind <salimma@fedoraproject.org> - 0.20.0-3
 - Support building with old setuptools (pre-PEP 639)
 

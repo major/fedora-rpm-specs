@@ -5,7 +5,7 @@
 
 Name:      pykickstart
 Version:   3.68
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -77,6 +77,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.68-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 02 2025 Brian C. Lane <bcl@redhat.com> - 3.68-1
 - rhsm: Add Flatpak registry option for RHEL10 (bciconel)
 - commands: bootc: remove 'experimental' warning (k.koukiou)

@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A lean WSGI object-dispatching web framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -48,6 +48,9 @@ fast with few dependencies
 %{_bindir}/gunicorn_pecan
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

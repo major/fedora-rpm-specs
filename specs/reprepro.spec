@@ -1,6 +1,6 @@
 Name:       reprepro
 Version:    5.4.4
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Tool to handle local repositories of Debian packages
 # filecntl.c, md5.c, md5.h are Public Domain
 # dpkgversions.c is GPLv2+
@@ -84,6 +84,9 @@ rm Makefile{,.am,.in} changestool.1 rredtool.1 reprepro.1
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           setBfree
 Version:        0.8.13
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A DSP Tonewheel Organ emulator
 
 # Automatically converted from old format: GPLv2+ and GPLv3+ and ISC - review is highly recommended.
@@ -123,6 +123,9 @@ install -p -m644 doc/jboverdrive.1 doc/setBfree.1 doc/setBfreeUI.1 doc/x42-whirl
 %license COPYING
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

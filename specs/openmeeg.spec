@@ -9,7 +9,15 @@
 %bcond_without doc
 %bcond_without check
 
-%bcond_without debug
+# openmeeg is not correctly working on PPC64
+# https://github.com/openmeeg/openmeeg/issues/795
+%ifarch %{power64} 
+%bcond_without openblas
+%else
+%bcond_with openblas
+%endif
+
+%bcond_with debug
 
 # This package fails its testsuite with LTO.  Disable LTO for now
 %define _lto_cflags %{nil}
@@ -29,16 +37,17 @@ Source0: https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version
 Patch0:  %{name}-use_builtin_find_blas_lapack.patch
 Patch1:  %{name}-fix-cmake4.patch
 
-# Remove newer cmake_policy
-Patch2:  %{name}-fix_compatibility_cmake330.patch
-
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gnuplot
 BuildRequires: graphviz
 BuildRequires: expat-devel
+%if %{with openblas}
+BuildRequires: openblas-devel
+%else
 BuildRequires: flexiblas-devel
+%endif
 %{?fedora:BuildRequires: gifticlib-devel}
 %{?fedora:BuildRequires: nifticlib-devel}
 BuildRequires: zlib-devel
@@ -104,7 +113,10 @@ BuildRequires: CGAL-devel
         -DUSE_VTK:BOOL=ON \\\
 %endif \
         -DUSE_SYSTEM_zlib:BOOL=ON \\\
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -Wno-dev
+        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -Wno-dev \\\
+%if %{with openblas} \
+        -DBLAS_openblas_LIBRARY:FILEPATH=%{_libdir}/libopenblas.so \\\
+%endif
 
 %description
 The OpenMEEG software is a C++ package for solving the forward
@@ -150,11 +162,9 @@ BuildArch:      noarch
 %prep
 %autosetup -N -n %{name}-%{version}
 
-%if 0%{?fedora} < 42
-%patch -P 2 -p1 -b .backup
-%endif
-
+%if %{without openblas}
 %patch -P 0 -p1 -b .backup
+%endif
 %patch -P 1 -p1 -b .backup
 
 %build
@@ -166,6 +176,9 @@ export CFLAGS="-O0 -g -fPIC"
 # Force setuptools_scm to set dynamic version of Python OpenMEEG
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
+%if %{with openblas}
+export CXXFLAGS="%{optflags} -I%{_includedir}/openblas"
+%endif
 %cmake %{openmeeg_cmake_options}
 %cmake_build
 

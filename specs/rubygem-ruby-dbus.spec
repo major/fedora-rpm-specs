@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.22.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Ruby module for interaction with D-Bus
 # MIT: lib/dbus/core_ext/*
 License: LGPL-2.1-or-later AND MIT
@@ -94,6 +94,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.1-8
 - Add dependency for logger, ostruct for ruby4_0
 

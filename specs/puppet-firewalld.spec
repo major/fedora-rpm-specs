@@ -1,6 +1,6 @@
 Name:		puppet-firewalld
 Version:	0.2.2
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	A Puppet module for FirewallD
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -30,6 +30,9 @@ cp -p metadata.json %{buildroot}%{_datadir}/puppet/modules/firewalld/metadata.js
 %{_datadir}/puppet/modules/firewalld
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

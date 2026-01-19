@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        1.37.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A linter for YAML files
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.37.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

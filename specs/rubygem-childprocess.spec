@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.1.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A gem for controlling external programs running in the background
 License: MIT
 URL: http://github.com/enkessler/childprocess
@@ -90,6 +90,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-12
 - Add explicit logger dep for ruby3_5
 

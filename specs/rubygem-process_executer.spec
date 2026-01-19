@@ -2,7 +2,7 @@
 %global gem_name process_executer
 
 Name: rubygem-%{gem_name}
-Version: 4.0.0
+Version: 4.0.2
 Release: %autorelease
 Summary: An API for executing commands in a sub process
 License: MIT
@@ -74,26 +74,29 @@ rspec spec
 %exclude %{gem_instdir}/.markdownlint.yml
 %exclude %{gem_instdir}/.rubocop.yml
 %exclude %{gem_instdir}/.yardopts
-%license %{gem_instdir}/LICENSE.txt
-%{gem_libdir}
-%exclude %{gem_cache}
-%{gem_spec}
-
-
-%files doc
-%doc %{gem_docdir}
+%exclude %{gem_instdir}/LICENSE.txt
+%exclude %{gem_instdir}/README.md
+%exclude %{gem_instdir}/CHANGELOG.md
+%exclude %{gem_instdir}/Gemfile
+%exclude %{gem_instdir}/Rakefile
 %exclude %{gem_instdir}/.rspec
 %exclude %{gem_instdir}/.commitlintrc.yml
 %exclude %{gem_instdir}/.husky/commit-msg
 %exclude %{gem_instdir}/package.json
 %exclude %{gem_instdir}/.release-please-manifest.json
 %exclude %{gem_instdir}/release-please-config.json
-
-%doc %{gem_instdir}/CHANGELOG.md
-%{gem_instdir}/Gemfile
-%doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile
+%exclude %{gem_instdir}/process_spawn_test
 %{gem_instdir}/process_executer.gemspec
+%{gem_libdir}
+%exclude %{gem_cache}
+%{gem_spec}
+%doc README.md
+%doc CHANGELOG.md
+%license LICENSE.txt
+
+%files doc
+%doc %{gem_docdir}
+
 
 
 %changelog

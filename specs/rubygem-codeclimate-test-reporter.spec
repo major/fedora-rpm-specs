@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.0.9
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Uploads Ruby test coverage data to Code Climate
 
 License:        MIT
@@ -71,6 +71,9 @@ rspec -Ilib spec
 %doc %{gem_docdir}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.9-7
 - Add logger dep explicitly for ruby3_5
 

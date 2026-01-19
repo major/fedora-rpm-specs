@@ -7,7 +7,7 @@
 Summary:    Xorg X11 vmware video driver
 Name:       xorg-x11-drv-vmware
 Version:    13.4.0
-Release:    11%{?dist}
+Release:    12%{?dist}
 URL:        http://www.x.org
 License:    MIT AND X11
 
@@ -52,6 +52,9 @@ find %{buildroot} -name "*.la" -delete
 %{_mandir}/man4/vmware.4*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.4.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Aug 29 2025 José Expósito <jexposit@redhat.com> - 13.4.0-11
 - Add explicit dependency to mesa-compat
 

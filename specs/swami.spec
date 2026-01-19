@@ -5,7 +5,7 @@
 
 Name: swami
 Version: 2.2.2
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: MIDI instrument and sound editor
 License: GPL-2.0-only
 URL: http://www.swamiproject.org/
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_includedir}/%{name}/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jul 20 2025 Yann Collette <ycollette.nospam@free.fr> - 2.2.2-25
 - update to 2.2.2-25 - fix for cmake-4
 

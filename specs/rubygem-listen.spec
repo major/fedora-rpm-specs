@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Listen to file modifications
 License: MIT
 URL: https://github.com/guard/listen
@@ -99,6 +99,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.7.1-9
 - Add dep for logger explicitly for ruby4_0
 

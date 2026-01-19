@@ -1,6 +1,6 @@
 Name:           python3-mypy
 Version:        1.18.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A static type checker for Python
 
 # The files under lib-python and lib-typing/3.2 are Python-licensed, but this
@@ -79,6 +79,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.18.2-3
 - Use modern macros
 

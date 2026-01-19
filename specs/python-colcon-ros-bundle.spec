@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Plugin for colcon to bundle ros applications
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -81,6 +81,9 @@ its dependencies installed in the root filesystem.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.0-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

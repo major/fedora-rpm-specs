@@ -56,10 +56,13 @@ Source5:        %{url1}/qt-piwik-tracker/archive/%{piwiktracker_commit}/piwiktra
 Source6:        %{url1}/qkeysequencewidget/archive/%{qkeysequencewidget_commit}/qkeysequencewidget-%{qkeysequencewidget_shortcommit}.tar.gz
 Source7:        https://github.com/%{name}/md4c/archive/%{md4c_commit}/md4c-%{md4c_shortcommit}.tar.gz
 Source8:        https://github.com/%{name}/QHotkey/archive/%{qhotkey_commit}/qhotkey-%{qhotkey_shortcommit}.tar.gz
+# Build with system Botan
+Patch:          0001-Revert-2786-botan-use-botan3-with-cmake.patch
 
 BuildRequires:  cmake3
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
+BuildRequires:  git-core
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
@@ -75,7 +78,7 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6WebSockets)
 BuildRequires:  cmake(Qt6Xml)
 
-#BuildRequires:  pkgconfig(botan-3)
+BuildRequires:  pkgconfig(botan-2)
 
 Requires:       hicolor-icon-theme
 Requires:       qt6-qtbase%{?_isa}
@@ -83,7 +86,6 @@ Requires:       qt6-qtbase%{?_isa}
 Recommends:     %{name}-translations = %{version}-%{release}
 Recommends:     hunspell
 
-Provides:       bundled(botan) = 2.12.0
 Provides:       bundled(fakevim) = 0.0.1
 Provides:       bundled(md4c) = 0.4.2~git%{md4c_shortcommit}
 Provides:       bundled(qhotkey) = 1.3.0~git%{qhotkey_commit}
@@ -122,14 +124,14 @@ Translations files for %{name}.
 
 
 %prep
-%forgeautosetup -p1
-%autosetup -n %{appname}-%{version} -D -T -a1
-%autosetup -n %{appname}-%{version} -D -T -a2
-%autosetup -n %{appname}-%{version} -D -T -a3
-%autosetup -n %{appname}-%{version} -D -T -a5
-%autosetup -n %{appname}-%{version} -D -T -a6
-%autosetup -n %{appname}-%{version} -D -T -a7
-%autosetup -n %{appname}-%{version} -D -T -a8
+%forgeautosetup -S git
+%setup -n %{appname}-%{version} -D -T -a1
+%setup -n %{appname}-%{version} -D -T -a2
+%setup -n %{appname}-%{version} -D -T -a3
+%setup -n %{appname}-%{version} -D -T -a5
+%setup -n %{appname}-%{version} -D -T -a6
+%setup -n %{appname}-%{version} -D -T -a7
+%setup -n %{appname}-%{version} -D -T -a8
 
 mv qmarkdowntextedit-%{qmarkdowntextedit_commit}/*      src/libraries/qmarkdowntextedit/
 mv Qt-Toolbar-Editor-%{qttoolbareditor_commit}/*        src/libraries/qttoolbareditor/
@@ -149,7 +151,7 @@ lrelease-qt6 src/%{appname}.pro
 pushd src/%{_target_platform}
 %qmake_qt6                        \
     PREFIX=%{buildroot}%{_prefix} \
-    USE_SYSTEM_BOTAN=0            \
+    USE_SYSTEM_BOTAN=1            \
     ..
 popd
 %make_build -C src/%{_target_platform}

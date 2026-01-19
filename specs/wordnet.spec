@@ -1,6 +1,6 @@
 Name:           wordnet
 Version:        3.0
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        A lexical database for the English language
 
 License:        MIT and GPL-2.0-or-later
@@ -143,6 +143,9 @@ rm -rf doc/{html,ps,pdf}/Makefile*
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

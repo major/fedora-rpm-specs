@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.69
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - reviewed
@@ -283,6 +283,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.69-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 11 2025 Ondřej Nosek <onosek@redhat.com> - 1.69-5
 - Patch: Submitting the module build - duplicate timeout
 

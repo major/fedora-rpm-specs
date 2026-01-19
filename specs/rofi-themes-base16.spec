@@ -1,6 +1,6 @@
 Name: rofi-themes-base16
 Version: 0.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Base16 themes for rofi
 BuildArch: noarch
 
@@ -40,6 +40,9 @@ cp -rp themes/* %{buildroot}/%{_datadir}/rofi/themes
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -21,7 +21,7 @@ Version:                1.84.1
 The easiest, most secure way to use WireGuard and 2FA.}
 
 Name:           tailscale
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The easiest, most secure way to use WireGuard and 2FA
 
 # main source code is BSD-3-Clause
@@ -915,6 +915,9 @@ install -dpm 600 %{buildroot}%{_localstatedir}/cache/tailscale
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.84.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.84.1-4
 - rebuild
 

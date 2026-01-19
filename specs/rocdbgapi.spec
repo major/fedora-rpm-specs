@@ -44,7 +44,7 @@
 
 Name:       rocdbgapi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    AMD Debugger API
 
 License:    MIT
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-dbgapi-asan/LICENSE.txt
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd-dbgapi/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Switch to rocm-llvm
 

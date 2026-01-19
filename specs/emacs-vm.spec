@@ -19,10 +19,9 @@ Summary: Emacs VM mail reader
 Summary(sv): Emacs postläsare VM
 Name: emacs-vm
 %global forgeurl https://gitlab.com/emacs-vm/vm/
-%global version0 8.3.0
-%global commit c3bc5151c9211eedc4b87549348eea4f57247953
+%global version0 8.3.2
 %forgemeta
-Version: %forgeversion -p
+Version: %forgeversion
 Release: %autorelease
 License: GPL-1.0-or-later AND GPL-2.0-or-later
 URL: %forgeurl

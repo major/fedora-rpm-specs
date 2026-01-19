@@ -1,6 +1,6 @@
 Name:         poweradmin
 Version:      2.1.7
-Release:      22%{?dist}
+Release:      23%{?dist}
 Summary:      A friendly web-based DNS administration tool for Bert Hubert's PowerDNS server
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -54,6 +54,9 @@ ln -s %{_sysconfdir}/%{name}/config.inc.php %{buildroot}/%{_datadir}/%{name}/inc
 %doc LICENSE README.md README.Fedora
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

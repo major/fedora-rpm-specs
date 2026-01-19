@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}1
 Version:        1.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version 1
 
 License:        BSD-3-Clause
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Aug 12 2025 Remi Collet <remi@remirepo.net> - 1.1.5-1
 - update to 1.1.5
 

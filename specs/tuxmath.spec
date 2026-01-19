@@ -1,6 +1,6 @@
 Name:           tuxmath
 Version:        2.0.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Educational math tutor for children
 
 License:        GPL-3.0-or-later AND CC-BY-1.0 AND OFL-1.1
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

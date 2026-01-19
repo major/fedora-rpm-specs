@@ -2,7 +2,7 @@
 
 Name:           python-%{pkgname}
 Version:        8.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        NFS-safe file locking with timeouts for POSIX systems
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ rm -f conftest.py
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.2-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

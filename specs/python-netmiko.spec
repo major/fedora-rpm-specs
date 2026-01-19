@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -77,6 +77,9 @@ sed -si '/^#!\/usr\/bin\/env python/d' netmiko/cli_tools/netmiko_*.py
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.5.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

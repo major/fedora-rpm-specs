@@ -3,7 +3,7 @@
 
 Name:           python-cvxopt
 Version:        1.3.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Python Package for Convex Optimization
 
 License:        GPL-3.0-or-later
@@ -146,6 +146,9 @@ export FLEXIBLAS=netlib
 %doc examples/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 22 2025 Jerry James <loganjerry@gmail.com> - 1.3.2-14
 - Work around ppc64le FTBFS with netlib
 - Use the pyproject declarative buildsystem

@@ -131,7 +131,7 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 Name: systemtap
 # PRERELEASE
 Version: 5.4
-Release: 2%{?release_override}%{?dist}
+Release: 3%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1365,6 +1365,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 5.4-2
 - Patched to workaround Autoconf 2.72 incompatiblity with GCC 16
 

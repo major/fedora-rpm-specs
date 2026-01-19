@@ -7,7 +7,7 @@
 %endif
 
 Name:           gtk4-layer-shell
-Version:        1.0.3
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Library to create panels and other desktop components for Wayland
 
@@ -16,7 +16,7 @@ URL:            https://github.com/wmww/gtk4-layer-shell
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  meson >= 0.51.1
+BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4)
@@ -32,12 +32,15 @@ BuildRequires:  python3-gobject
 %endif
 
 %description
-A library for using the Layer Shell Wayland protocol with GTK4. With this
-library you can build desktop shell components such as panels, notifications
-and wallpapers. You can use it to anchor your windows to a corner or edge of
-the output, or stretch them across the entire output. This Library is
-compatible with C, C++ and any language that supports GObject introspection
-files (Python, Vala, etc).
+A library for using the Layer Shell and Session Lock Wayland protocols with
+GTK4. This Library is compatible with C, C++ and any language that supports
+GObject introspection files (Python, Vala, etc).
+
+The Layer Shell protocol allows building desktop shell components such as
+panels, notifications and wallpapers. It can be used to anchor your windows to a
+corner or edge of the output, or stretch them across the entire output.
+
+The Session Lock protocol allows building lock screens.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -80,14 +83,17 @@ Development files for %{name}.
 %license LICENSE
 %doc README.md CHANGELOG.md
 %{_libdir}/girepository-1.0/Gtk4LayerShell-*.typelib
+%{_libdir}/girepository-1.0/Gtk4SessionLock-*.typelib
 %{_libdir}/lib%{name}.so.%{version}
 %{_libdir}/lib%{name}.so.0
 
 %files devel
 %{_datadir}/gir-1.0/Gtk4LayerShell-*.gir
+%{_datadir}/gir-1.0/Gtk4SessionLock-*.gir
 %{_datadir}/vala/vapi/%{name}-*
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
+%{_libdir}/liblayer-shell-preload.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog

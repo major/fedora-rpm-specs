@@ -1,6 +1,6 @@
 Name:           zasx
 Version:        1.30
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Asteroid like game with powerups
 License:        GPL-2.0-or-later AND Giftware
 URL:            https://www.allegro.cc/depot/Zasx/
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug  7 2025 Hans de Goede <hans@hansg.org> - 1.30-42
 - Fix FTBFS with gcc15
 - Resolves: rhbz#2341600

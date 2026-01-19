@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.6.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -170,6 +170,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 4.6.3-1
 - Update to 4.6.3
 

@@ -3,7 +3,7 @@
 
 Name:     python-%{libname}
 Version:  0.1.32
-Release:  20%{?dist}
+Release:  21%{?dist}
 Summary:  Python communication library for Ledger Hardware Wallet products
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -76,6 +76,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_udevrulesdir}/20-ledger.rules
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.32-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.32-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

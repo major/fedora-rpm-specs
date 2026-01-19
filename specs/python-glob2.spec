@@ -5,7 +5,7 @@ wildcards.
 
 Name:           python-%{pkg_name}
 Version:        0.7
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Glob module recursive wildcards support
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ sed -i "s/teardown(/teardown_method(/" test.py
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7-29
 - Rebuilt for Python 3.14.0rc3 bytecode
 

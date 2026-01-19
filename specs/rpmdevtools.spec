@@ -1,6 +1,6 @@
 Name:           rpmdevtools
 Version:        9.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        RPM Development Tools
 
 # rpmdev-md5 and rpmdev-setuptree are GPL-2.0-only,
@@ -132,6 +132,9 @@ cp %{SOURCE1} %{buildroot}%{_datadir}/rpmdevtools/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Aug 09 2025 Fabio Valentini <decathorpe@gmail.com> - 9.6-13
 - Revert to last stable release
 

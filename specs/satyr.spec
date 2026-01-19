@@ -17,7 +17,7 @@
 
 Name: satyr
 Version: 0.43
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Tools to create anonymous, machine-friendly problem reports
 License: GPL-2.0-or-later
 URL: https://github.com/abrt/satyr
@@ -135,6 +135,9 @@ make check|| {
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.43-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

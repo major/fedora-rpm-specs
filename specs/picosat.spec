@@ -1,6 +1,6 @@
 Name:           picosat
 Version:        965
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A SAT solver
 
 License:        MIT
@@ -150,6 +150,9 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_mandir}/man1
 %{_libdir}/libpicosat.so
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 965-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 07 2025 Jerry James <loganjerry@gmail.com> - 965-28
 - Stop building for 32-bit x86
 - Minor spec file cleanups

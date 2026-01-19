@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-Syck
 Version:        1.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
 # *:      MIT
@@ -92,6 +92,9 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 11 2025 Paul Howarth <paul@city-fan.org> - 1.36-1
 - Update to 1.36
   - Address memory corruption leading to 'str' value being set on empty keys

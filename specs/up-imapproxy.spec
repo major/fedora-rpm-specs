@@ -3,7 +3,7 @@
 Name:           up-imapproxy
 Summary:        University of Pittsburgh IMAP Proxy
 Version:        1.2.8
-Release:        0.33.20250101svn15036%{?dist}
+Release:        0.34.20250101svn15036%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.imapproxy.org
 # The source for this package was pulled from upstream's vcs.  Use the
@@ -103,6 +103,9 @@ install -m0644 -D up-imapproxy.sysusers.conf %{buildroot}%{_sysusersdir}/up-imap
 %{_sysusersdir}/up-imapproxy.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-0.34.20250101svn15036
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-0.33.20250101svn15036
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

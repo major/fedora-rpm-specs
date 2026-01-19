@@ -1,6 +1,6 @@
 Name: tin
 Version: 2.6.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
@@ -88,6 +88,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man3 doc/wildmat.3
 %{_mandir}/man5/tin.5*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.6.5-2
 - stop verifying PGP-2 source tarball signature, gnupg1 was retired
   and it is considered insecure anyway due to MD5 hash usage

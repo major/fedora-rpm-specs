@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.9
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A gem that provides a simple mixin for log functionality
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -70,6 +70,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.9-13
 - Add dependency for logger for ruby3_5
 

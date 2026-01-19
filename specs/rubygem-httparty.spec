@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.23.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Makes http fun! Also, makes consuming restful web services dead easy
 License: MIT
 URL: https://github.com/jnunemaker/httparty
@@ -99,6 +99,9 @@ popd
 %{gem_instdir}/website
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 18 2025 Vít Ondruch <vondruch@redhat.com> - 0.23.2-1
 - Update to HTTParty 0.23.2.
   Resolves: rhbz#2277777

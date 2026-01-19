@@ -12,7 +12,7 @@
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -92,6 +92,9 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.22-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 03 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-14
 - Bump release
 

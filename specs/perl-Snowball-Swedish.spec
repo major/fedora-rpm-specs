@@ -1,6 +1,6 @@
 Name:           perl-Snowball-Swedish
 Version:        1.2
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Porter's stemming algorithm for Swedish
 License:        GPL-2.0-only OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Snowball-Swedish
@@ -51,6 +51,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

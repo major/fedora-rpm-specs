@@ -1,6 +1,6 @@
 Name:           python-pytest-relaxed
 Version:        2.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Relaxed test discovery/organization for pytest
 
 License:        BSD-2-Clause
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.0.2-9
 - Backport patch for compatibility with pytest 8.4+
 

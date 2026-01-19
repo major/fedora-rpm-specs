@@ -21,7 +21,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        0.1.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Compatibility library for Draft PSR-15 HTTP Middleware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -116,6 +116,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-extras
 Version:        1.0.0
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Useful extra bits for Python
 
 License:        MIT
@@ -63,6 +63,9 @@ sed -e '/extras\.tests/d' -i setup.py
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-42
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Pulp
 Version:        100
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Some add-on perlcritic policies
 License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/Perl-Critic-Pulp
@@ -171,6 +171,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 100-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Oct 13 2025 Paul Howarth <paul@city-fan.org> - 100-1
 - Update to 100 (rhbz#2403443)
   - ProhibitUnknownBackslash allow \F new in Perl 5.16

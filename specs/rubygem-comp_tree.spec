@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.1.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A simple framework for automatic parallelism
 
 License:        MIT
@@ -78,6 +78,9 @@ rake test
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Dec 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.3-25
 - Fix compatibility with minitest 6
 

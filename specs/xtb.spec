@@ -13,7 +13,7 @@
 
 Name:           xtb
 Version:        6.7.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Semiempirical Extended Tight-Binding Program Package
 License:        LGPL-3.0-or-later
 URL:            https://github.com/grimme-lab/xtb/
@@ -142,6 +142,9 @@ export OMP_NUM_THREADS=1
 %{_libdir}/pkgconfig/xtb.pc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Sep 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.7.1-5
 - Patch out formatting issue in code that causes a crash.
 

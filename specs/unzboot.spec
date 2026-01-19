@@ -4,7 +4,7 @@
 
 Name:       unzboot
 Version:    0.1~git.%{commitdate}.%{shortcommit}
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 Summary:    Extracts a kernel vmlinuz image from a EFI application
 License:    GPL-2.0-or-later
@@ -43,6 +43,9 @@ compressed form.
 %{_bindir}/unzboot
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~git.20250530.3ccaa1a-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Sep 24 2025 Enric Balletbo i Serra <eballetbo@redhat.com> - 0.1~git.20250530.3ccaa1a-1
 - Check for g_malloc failure in unpack_efi_zboot_image
 - EFI zboot payload offset and size validation

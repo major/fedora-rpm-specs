@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.26.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Scott K Logan <logans@cottsay.net> - 0.26.0-4
 - Add upstream patch for platform alias compatibility in tests
 

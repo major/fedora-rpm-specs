@@ -2,7 +2,7 @@
 
 Name: python-%{pname}
 Version: 1.1.2
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Perform colorspace conversions accurately and easily
 License: MIT
 URL: https://github.com/njsmith/colorspacious
@@ -88,6 +88,9 @@ cp -p -r doc/_build/texinfo/colorspacious-figures %{buildroot}%{_datadir}/help/e
 %lang(en) %{_datadir}/help/en/colorspacious
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.2-32
 - Rebuilt for Python 3.14.0rc3 bytecode
 

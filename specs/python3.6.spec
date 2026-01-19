@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 50%{?dist}
+Release: 51%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -2168,6 +2168,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-50
 - On Fedora 44+, split this package into multiple subpackages
 - This mimics newer Python versions

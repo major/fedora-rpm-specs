@@ -1,6 +1,6 @@
 Name:             umockdev
 Version:          0.19.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Oct 12 2025 Packit <hello@packit.dev> - 0.19.4-1
 - preload: Hide sticky bit from emulated block dev stat
 - preload: Wrap listxattr()

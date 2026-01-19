@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.1.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Middleware for enabling Cross-Origin Resource Sharing in Rack apps
 
 License:        MIT
@@ -90,6 +90,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.1-15
 - Backport upstream fix for rack3 compatibility
 - Add logger dependency explicitly for ruby4_0

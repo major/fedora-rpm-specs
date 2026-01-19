@@ -1,6 +1,6 @@
 Name:           typelib-srpm-macros
 Version:        1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        gobject-introspection typelib sub-package generator macros
 
 URL:            https://src.fedoraproject.org/rpms/typelib-srpm-macros
@@ -27,6 +27,9 @@ install -D -p %{SOURCE0} $RPM_BUILD_ROOT%{_rpmmacrodir}/macros.typelib
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

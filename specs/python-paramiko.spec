@@ -1,6 +1,6 @@
 Name:          python-paramiko
 Version:       3.5.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -89,6 +89,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.1-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

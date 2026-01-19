@@ -1,6 +1,6 @@
 Name:		samtools
 Version:	1.15.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Tools for nucleotide sequence alignments in the SAM format
 
 License:	MIT
@@ -90,6 +90,9 @@ make test
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.15.1-8
 - Extend check to handle RISC-V 64-bit architecture port.
 

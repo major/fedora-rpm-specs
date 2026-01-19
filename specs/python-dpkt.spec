@@ -2,7 +2,7 @@
 
 Name:           python-dpkt
 Version:        1.9.8
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ with definitions for the basic TCP/IP protocols.
 %doc AUTHORS LICENSE README.md examples docs
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Nov 14 2025 Michele Baldessari <michele@acksyn.org> - 1.9.8-14
 - Use new python macros (RHBZ#2377675)
 

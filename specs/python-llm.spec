@@ -4,7 +4,7 @@
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
 Version:        0.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
@@ -86,6 +86,9 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 15 2025 Terje Røsten <terjeros@gmail.com> - 0.28-1
 - 0.28
 

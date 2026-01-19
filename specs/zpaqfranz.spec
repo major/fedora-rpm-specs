@@ -15,7 +15,7 @@
 Name:           zpaqfranz
 Epoch:          1
 Version:        64.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -160,6 +160,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:64.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 06 2026 Petr Pisar <ppisar@redhat.com> - 1:64.2-1
 - 64.2 bump
 

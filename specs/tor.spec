@@ -14,7 +14,7 @@
 
 Name:       tor
 Version:    0.4.8.21
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -169,6 +169,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Marcel Härry <mh+fedora@scrit.ch>- 0.4.8.21-2
 - Fix build issue on newer glibc - https://gitlab.torproject.org/tpo/core/tor/-/issues/41170
 - Include /etc/torrc.d/*.conf by default to avoid modifications from the core package (bz#2338912)

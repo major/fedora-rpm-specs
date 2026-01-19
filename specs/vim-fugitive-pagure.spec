@@ -1,6 +1,6 @@
 Name: vim-fugitive-pagure
 Version: 1.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Pagure support for vim-fugitive plugin
 License: GPL-2.0-or-later
 BuildArch: noarch
@@ -47,6 +47,9 @@ python3 -B -m pytest . -v -s
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

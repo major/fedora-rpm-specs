@@ -1,6 +1,6 @@
 Name:           qepcad-B
 Version:        1.74
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Quantifier elimination tool
 
 License:        ISC
@@ -117,6 +117,9 @@ ln -s %{_bindir}/qepcad %{buildroot}%{_datadir}/qepcad/bin
 %{_datadir}/qepcad/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.74-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.74-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

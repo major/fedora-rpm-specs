@@ -2,7 +2,7 @@
 
 Name: tuna
 Version: 0.20
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -104,6 +104,9 @@ done
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 04 2025 John Kacur <jkacur@redhat.com> - 0.20-2
 - Add python3-pip, python3-setuptools, python3-wheel BuildRequires
 - Delete setup.py in %%prep so pyproject.toml build is used

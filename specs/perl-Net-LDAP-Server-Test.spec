@@ -1,6 +1,6 @@
 Name:           perl-Net-LDAP-Server-Test
 Version:        0.22
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Test Net::LDAP code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-LDAP-Server-Test
@@ -67,6 +67,9 @@ Test your Net::LDAP code without having a real LDAP server available.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

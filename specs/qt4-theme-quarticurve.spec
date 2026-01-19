@@ -1,6 +1,6 @@
 Name: qt4-theme-quarticurve
 Version: 0.0
-Release: 0.47.beta8%{?dist}
+Release: 0.48.beta8%{?dist}
 URL: http://www.kde-look.org/content/show.php/Quarticurve?content=59884
 # downloadable from URL above
 Source: quarticurve-beta8.tar.bz2
@@ -33,6 +33,9 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 %doc COPYING ChangeLog readme.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-0.48.beta8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-0.47.beta8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

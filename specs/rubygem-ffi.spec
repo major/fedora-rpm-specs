@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.17.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: FFI Extensions for Ruby
 License: BSD-3-Clause
 URL: https://github.com/ffi/ffi/wiki
@@ -112,6 +112,9 @@ popd
 %{gem_instdir}/rakelib
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.0-6
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

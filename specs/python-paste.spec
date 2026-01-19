@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -93,6 +93,9 @@ py.test -k \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 20 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.1-12
 - Disabled urlparser and cgiapp tests, which fails with new setuptools
 

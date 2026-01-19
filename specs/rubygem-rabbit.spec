@@ -6,7 +6,7 @@ BuildRequires:	%1 \
 
 Name:		rubygem-%{gem_name}
 Version:	4.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	RD-document-based presentation application
 # GPL-2.0-or-later:	overall
@@ -188,6 +188,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-1
 - 4.0.1
 

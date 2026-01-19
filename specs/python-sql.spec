@@ -4,7 +4,7 @@
 
 Name:           python-%{module_name}
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -56,6 +56,9 @@ rm -rf */*.egg-info
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Dan Horák <dan[at]danny.cz> - 1.7.0-1
 - updated to 1.7.0 (rhbz#2416744)
 

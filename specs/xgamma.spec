@@ -1,6 +1,6 @@
 Name:       xgamma
 Version:    1.0.8
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    X utility to query and alter the gamma correction of a monitor
 # COPYING:      X11 AND HPND-sell-variant
 # man/xgamma.man:   X11 without the permision grant, probably a copy-and-paste
@@ -70,6 +70,9 @@ autoreconf -v --force --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 Petr Pisar <ppisar@redhat.com> - 1.0.8-1
 - 1.0.8 bump
 

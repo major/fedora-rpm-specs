@@ -7,7 +7,7 @@
 
 %define         mainver         0.6.2
 %undefine         betaver
-%define         baserelease		20
+%define         baserelease		21
 
 %define         rel             %{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
 
@@ -222,6 +222,9 @@ install -cpm 0644  \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.2-20
 - Add dep for gobject-introspection explicitly
 

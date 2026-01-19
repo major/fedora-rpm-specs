@@ -2,7 +2,7 @@
 
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
@@ -82,6 +82,9 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 23 2025 Jerry James <loganjerry@gmail.com> - 1.1-19
 - Remove build dependency on maven-enforcer-plugin
 

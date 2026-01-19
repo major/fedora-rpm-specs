@@ -1,6 +1,6 @@
 Name:           soundconverter
 Version:        4.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple sound converter application for GNOME
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.1-4
 - Drop gstreamer1-plugins-ugly-free dependency
 

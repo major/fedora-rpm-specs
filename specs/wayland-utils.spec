@@ -1,6 +1,6 @@
 Name:           wayland-utils
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wayland utilities
 
 License:        MIT
@@ -39,6 +39,9 @@ XDG output protocols.
 %{_mandir}/man1/wayland-info.1*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 24 2025 Olivier Fourdan <ofourdan@redhat.com> - 1.3.0-2
 - Bump wayland-protocol dependency to 1.44
   Related: #2416752

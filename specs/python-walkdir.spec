@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Python module to manipulate and filter os.walk() style iteration
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-34
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -26,6 +26,8 @@ Source3:        %{disturl}/raw/master/lidia-base-%{lidiaver}+latte-patches-%{lid
 Patch:          %{name}-warning.patch
 # Update obsolete C++ constructs: throw() specifiers
 Patch:          %{name}-c++.patch
+# Update obsolete usage of std::ifstream
+Patch:          %{name}-ifstream.patch
 # Fix LiDIA warnings that indicate possible runtime problems.
 Patch:          lidia-warning.patch
 # Update obsolete C++ constructs: throw() specifiers, register keyword, auto_ptr
@@ -185,6 +187,9 @@ make check
 %{_libdir}/libnormalize.so.0{,.*}
 
 %changelog
+* Sat Jan 17 2026 Jerry James <loganjerry@gmail.com> - 1.7.6-15
+- Add patch to remove obsolete ifstream usage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

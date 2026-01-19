@@ -9,10 +9,10 @@
 Name:           variety
 %if 0%{?usesnapshot}
 Version:        0.8.6
-Release:        0.16%{?snapshottag}%{?dist}
+Release:        0.17%{?snapshottag}%{?dist}
 %else
 Version:        0.8.13
-Release:        7%{?dist}
+Release:        8%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPL-3.0-only
@@ -128,6 +128,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 09 2025 Miro Hrončok <mhroncok@redhat.com> - 0.8.13-7
 - Fix a crash on startup for not being bale to find the data directory
 - Fixes: rhbz#2401190

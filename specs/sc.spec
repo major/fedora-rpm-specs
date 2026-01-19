@@ -1,6 +1,6 @@
 Name:    sc
 Version: 7.16
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Spreadsheet Calculator
 
 License: LicenseRef-Fedora-Public-Domain
@@ -59,6 +59,9 @@ install -m 0644 tutorial.sc %{buildroot}%{_datadir}/sc
 %{_datadir}/sc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.16-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.16-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

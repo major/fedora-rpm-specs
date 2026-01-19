@@ -9,7 +9,7 @@
 
 Name:           symfpu
 Version:        0
-Release:        0.20.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.21.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
@@ -54,6 +54,9 @@ cp -a core utils %{buildroot}%{_includedir}/%{name}
 %{_includedir}/%{name}/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21.20230627gite6ac3af
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 18 2025 Jerry James <loganjerry@gmail.com> - 0-0.20.20230627gite6ac3af
 - Switch to the cvc5 git branch
 - Drop all patches

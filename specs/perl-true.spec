@@ -1,6 +1,6 @@
 Name:		perl-true
 Version:	1.0.2
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Automatically return a true value when a file is required
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/true
@@ -90,6 +90,9 @@ make test
 %{_mandir}/man3/true::VERSION.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

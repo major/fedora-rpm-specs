@@ -1,6 +1,6 @@
 Name:		topline
 Version:	0.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Per-core/NUMA CPU and disk utilization plain-text grapher
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -37,6 +37,9 @@ cp -p topline.1* %{buildroot}%{_mandir}/man1
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

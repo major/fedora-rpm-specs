@@ -2,7 +2,7 @@
 
 Name:           supertux
 Version:        0.6.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Jump'n run like game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/supertux2.desktop
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 0.6.3-17
 - Rebuilt for Boost 1.90
 

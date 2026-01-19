@@ -7,7 +7,7 @@
 Name:           python-domdf-python-tools
 Version:        3.9.0
 %forgemeta
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Helpful functions for Python
 
 # Primary license: MIT
@@ -107,6 +107,9 @@ and not test_repr_deep
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.9.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

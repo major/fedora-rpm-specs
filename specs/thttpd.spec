@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -151,6 +151,9 @@ install -m0644 -D thttpd.sysusers.conf %{buildroot}%{_sysusersdir}/thttpd.conf
 %{_sysusersdir}/thttpd.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

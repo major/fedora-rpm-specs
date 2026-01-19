@@ -13,6 +13,8 @@ License:        BSD-3-Clause
 URL:            https://myst-nb.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Adapt to recent changes in Sphinx
+Patch:          %{giturl}/commit/4f4096d.patch
 
 BuildRequires:  help2man
 %if %{with doc}

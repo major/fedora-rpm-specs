@@ -2,7 +2,7 @@
 
 Name:           python-slugify
 Version:        8.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python module to deal with unicode slugs
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ A Python slugify application that handles Unicode.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.4-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -4,7 +4,7 @@
 
 Name:           %{module}
 Version:        0.31.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python module python-binary-memcached
 
 License:        MIT
@@ -55,6 +55,9 @@ Requires:  memcached
 %doc README.rst
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.31.2-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -14,7 +14,7 @@ VCS:            git:%{forgeurl}.git
 # If both %%petalumaver and %%petalumascriptver were increased,
 # release should be reset to 1. Otherwise, keep increasing it so that
 # name-version-release keeps growing for both subpackages.
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -111,6 +111,9 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/Petaluma.json
 %files          all
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Fedora Messaging message schemas for Noggin
 
 License:        MIT
@@ -51,6 +51,9 @@ This package contains the fedora-messaging message schemas for Noggin.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.3-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -3,7 +3,7 @@
 Summary: Load system gems via Bundler DSL
 Name: rubygem-%{gem_name}
 Version: 0.4.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: MIT
 URL: https://github.com/bundlerext/bundler_ext
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -71,6 +71,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.2-10
 - Use https source for testsuite Gemfile for ruby3_5
 

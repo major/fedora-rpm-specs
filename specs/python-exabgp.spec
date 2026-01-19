@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -125,6 +125,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 24 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.1-2
 - Update python version validation (resolves rhbz#2424298)
   Upstream has indicated that python 3.8.1+ should all be supported 

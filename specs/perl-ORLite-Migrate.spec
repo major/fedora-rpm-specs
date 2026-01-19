@@ -1,6 +1,6 @@
 Name:           perl-ORLite-Migrate
 Version:        1.10
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Light weight SQLite-specific schema migration
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Migrate
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/ORLite*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

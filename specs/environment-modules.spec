@@ -2,7 +2,7 @@
 
 Name:           environment-modules
 Version:        5.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -36,8 +36,10 @@ Requires(postun): %{_bindir}/update-alternatives
 Provides:       environment(modules)
 Obsoletes:      environment-modules-compat <= 4.8.99
 
+%if 0%{?fedora}
 # Tcl linter is useful for module lint command
 Recommends:     nagelfar
+%endif
 
 %description
 The Environment Modules package provides for the dynamic modification of
@@ -202,6 +204,9 @@ fi
 
 
 %changelog
+* Sat Jan 17 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.6.1-3
+- do not recommend nagelfar on RHEL
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

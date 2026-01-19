@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        4.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A shared storage lock manager
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -159,6 +159,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 02 2025 Marian Csontos <mcsontos@redhat.com> - 4.2.0-2
 - Make and install /var/lib/sanlock directory
 

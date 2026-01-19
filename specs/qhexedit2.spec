@@ -7,7 +7,7 @@
 Name:           qhexedit2
 # Remember to also update version in qhexedit2_build.patch in the setup.py hunk
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Binary Editor for Qt
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -251,6 +251,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE1}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 Sandro Mani <manisandro@gmail.com> - 0.9.0-1
 - Update to 0.9.0
 - Switch to qt6

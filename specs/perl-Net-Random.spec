@@ -2,7 +2,7 @@
 
 Name:           perl-Net-Random
 Version:        2.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A module gets random data from online sources
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Random
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Net::Random*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.33-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.33-1
 - 2.33 bump (rhbz#2413697)
 

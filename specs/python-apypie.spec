@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Apipie bindings for Python
 
 License:        MIT
@@ -41,6 +41,9 @@ Apipie bindings for Python3
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.1-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

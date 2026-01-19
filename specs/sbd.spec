@@ -19,7 +19,7 @@
 %global shortcommit %(echo %{longcommit}|cut -c1-8)
 %global modified %(echo %{longcommit}-|cut -f2 -d-)
 %global github_owner Clusterlabs
-%global baserelease 3
+%global baserelease 4
 
 %ifarch s390x s390
 # minimum timeout on LPAR diag288 watchdog is 15s
@@ -177,6 +177,9 @@ fi
 %{_libdir}/libsbdtestbed*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 08 2025 Klaus Wenninger <kwenning@redhat.com> - 1.5.2-3
 - avoid parsing SBD_DELAY_START as integer
 

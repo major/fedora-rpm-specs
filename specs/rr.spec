@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 6
+%global baserelease 7
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -136,6 +136,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 5.9.0-6
 - Add patch to fix build with Linux 6.19+
 - Rebuild for capnproto 1.3.0

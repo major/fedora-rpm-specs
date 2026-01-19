@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -281,6 +281,9 @@ fi
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 3 2025 Jered Floyd <jered@redhat.com> 10.1.0-3
 - Upstream convert2yaml patch backport for #12711, BZ#2417957
 

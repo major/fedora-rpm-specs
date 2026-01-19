@@ -5,7 +5,7 @@
 
 Name:           python-linkify-it-py
 Version:        2.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -49,6 +49,9 @@ sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
 %doc CHANGELOG.md README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 17 2025 Jerry James <loganjerry@gmail.com> - 2.0.3-9
 - Do not run coverage tools in RPM builds
 - Use the pyproject declarative buildsystem

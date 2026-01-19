@@ -8,7 +8,7 @@ Summary: Simple, asynchronous audio playback module for Python 3
 License: MIT
 
 Version: 1.0.4
-Release: 20%{?dist}
+Release: 21%{?dist}
 
 URL: https://github.com/hamiltron/py-simple-audio
 Source0: %pypi_source
@@ -48,6 +48,9 @@ Summary: %{summary}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.4-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

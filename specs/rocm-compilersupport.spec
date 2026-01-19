@@ -131,9 +131,9 @@
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
-Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
+Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}.1
 %else
-Release:        12.rocm%{rocm_version}%{?dist}
+Release:        13.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1147,6 +1147,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20-13.rocm7.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Tom Rix <Tom.Rix@amd.com> - 20-12.rocm7.1.1
 - Improve requires for static analysis
 

@@ -2,7 +2,7 @@
 
 Name:           sblim-cmpi-base
 Version:        1.6.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        SBLIM CMPI Base Providers
 
 License:        EPL-1.0
@@ -136,6 +136,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 12 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-31
 - Add support for Image Mode
 

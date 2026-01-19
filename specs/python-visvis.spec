@@ -1,7 +1,7 @@
 %global srcname visvis
 Name:             python-%{srcname}
 Version:          1.15.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python library for visualization of 1D to 4D data in an object oriented way
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -56,6 +56,9 @@ popd
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Jan 14 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.15.0-1
 - New version
   Resolves: rhbz#2339035

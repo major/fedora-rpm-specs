@@ -1,6 +1,6 @@
 Name:           sidplayfp
 Version:        2.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SID chip music module player
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -47,6 +47,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 13 2025 Karel Volný <kvolny@redhat.com> - 2.15.0-1
 - Update to 2.15.0 (rhbz#2359282)
 - See the upstream changes at https://github.com/libsidplayfp/sidplayfp/releases

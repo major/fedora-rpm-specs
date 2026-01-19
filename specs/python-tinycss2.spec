@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD-3-Clause
@@ -66,6 +66,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Nov 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.5.1-1
 - update to 1.5.1
 

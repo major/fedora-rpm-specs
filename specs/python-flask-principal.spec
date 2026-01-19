@@ -2,7 +2,7 @@
 
 Name:           python-flask-principal
 Version:        0.4.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Identity management for Flask applications
 License:        MIT
 
@@ -58,6 +58,9 @@ application.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-44
 - Rebuilt for Python 3.14.0rc3 bytecode
 

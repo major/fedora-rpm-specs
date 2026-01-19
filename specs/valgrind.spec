@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.26.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -518,6 +518,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.26.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan  8 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-2
   - Add VALGRIND_3_26_BRANCH patches
     - 0001-Prepare-NEWS-for-branch-3.26-fixes.patch

@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.1.32
-Release:	7%{?dist}
+Release:	8%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
 Summary:	TKRZW Python bindings
@@ -84,6 +84,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.32-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jul 26 2025 TI_Eugene <ti.eugene@gmail.com> - 0.1.32-7
 - Removed deprecated macroses (rhbz #2378278)
 

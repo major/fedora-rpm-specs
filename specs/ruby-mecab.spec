@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	14
+%define		baserelease	15
 %define		srcname		mecab-ruby
 
 
@@ -62,6 +62,9 @@ ruby -I. test.rb
 %{ruby_vendorarchdir}/*MeCab*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-14
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

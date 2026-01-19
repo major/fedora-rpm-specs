@@ -7,7 +7,7 @@
 
 Name:           python-sphinx-basic-ng
 Version:        1.0.0
-Release:        0.18.%{prerel}%{?dist}
+Release:        0.19.%{prerel}%{?dist}
 Summary:        Modernized skeleton for Sphinx themes
 
 License:        MIT
@@ -103,6 +103,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.19.beta2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 1.0.0-0.18.beta2
 - Use the pyproject declarative buildsystem
 

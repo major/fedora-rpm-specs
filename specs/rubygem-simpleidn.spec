@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.2.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Punycode ACE to unicode UTF-8 (and vice-versa) string conversion
 License: MIT
 URL: https://github.com/mmriis/simpleidn
@@ -70,6 +70,9 @@ popd
 %{gem_instdir}/simpleidn.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Version:        0.12.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        You like pytorch? You like micrograd? You'll love tinygrad!
 
 License:        MIT
@@ -95,6 +95,9 @@ PYTHON=1 SKIP_SLOW_TEST=1 %python3 -m pytest \
 %doc examples
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Jan 13 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.12.0-1
 - Update to 0.12.0
 - Include examples sub package

@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:    web-eid
 Version: 2.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -99,6 +99,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Nov 22 2025 Dmitri Smirnov <dmitri@smirnov.ee> - 2.8.0-1
 - 2.8.0 upstream release
 

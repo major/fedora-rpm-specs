@@ -1,6 +1,6 @@
 Name:           rhash
 Version:        1.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Great utility for computing hash sums
 
 License:        MIT
@@ -83,6 +83,9 @@ make test-shared
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

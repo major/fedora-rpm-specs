@@ -2,7 +2,7 @@
 
 Name:		perl-Statistics-ChiSquare
 Version:	1.0000
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	How well-distributed is your data?
 License:	(GPL-2.0-only OR Artistic-1.0-Perl) AND CC-BY-SA-3.0
 URL:		https://metacpan.org/release/Statistics-ChiSquare
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Statistics::ChiSquare.3*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0000-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0000-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

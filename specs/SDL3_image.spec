@@ -1,5 +1,5 @@
 Name:           SDL3_image
-Version:        3.2.4
+Version:        3.2.6
 Release:        %autorelease
 Summary:        Image loading library for SDL
 License:        Zlib AND (HPND-Pbmplus AND Zlib) AND Unlicense AND MIT AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
@@ -55,6 +55,14 @@ Requires:       cmake-filesystem
 The %{name}-devel package contains libraries and header files for developing
 applications that use %{name}.
 
+%package tests
+Summary:        Tests for the %{name} package
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description tests
+The %{name}-tests package contains tests that can be used to verify the
+functionality of the installed %{name} package.
+
 %prep
 %autosetup -p1
 
@@ -84,7 +92,7 @@ applications that use %{name}.
   -DSDLIMAGE_STRICT=OFF \
   -DSDLIMAGE_SVG=ON \
   -DSDLIMAGE_TESTS=ON \
-  -DSDLIMAGE_TESTS_INSTALL=OFF \
+  -DSDLIMAGE_TESTS_INSTALL=ON \
   -DSDLIMAGE_TGA=ON \
   -DSDLIMAGE_TIF=ON \
   -DSDLIMAGE_TIF_SHARED=ON \
@@ -100,9 +108,6 @@ applications that use %{name}.
 %install
 %cmake_install
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2355928
-mv %{buildroot}%{_bindir}/showimage{,3}
-
 %check
 %ctest
 
@@ -110,17 +115,19 @@ mv %{buildroot}%{_bindir}/showimage{,3}
 %license LICENSE.txt
 %doc CHANGES.txt README.md
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.2.4
+%{_libdir}/lib%{name}.so.0.2.6
 
 %files devel
-%{_bindir}/showanim
-%{_bindir}/showimage3
 %{_libdir}/lib%{name}.so
 %{_includedir}/%{name}/
 %{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/sdl3-image.pc
 %{_mandir}/man3/IMG_*.3*
 %{_mandir}/man3/SDL_IMAGE_*.3*
+
+%files tests
+%{_libexecdir}/installed-tests/%{name}
+%{_datadir}/installed-tests/%{name}
 
 %changelog
 %autochangelog

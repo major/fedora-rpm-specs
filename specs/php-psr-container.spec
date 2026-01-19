@@ -19,7 +19,7 @@
 
 Name:      php-%{pk_vendor}-%{pk_project}
 Version:   1.1.2
-Release:   10%{?dist}
+Release:   11%{?dist}
 Summary:   Common Container Interface
 
 License:   MIT
@@ -92,6 +92,9 @@ exit (interface_exists("Psr\\Container\\ContainerInterface") ? 0 : 1);
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

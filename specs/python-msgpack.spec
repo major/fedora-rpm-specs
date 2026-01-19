@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python MessagePack (de)serializer
 
 License:        Apache-2.0
@@ -59,6 +59,9 @@ make cython
 %license COPYING
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 27 2025 Orion Poplawski <orion@nwra.com> - 1.1.2-1
 - Update to 1.1.2
 

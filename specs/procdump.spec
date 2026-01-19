@@ -3,7 +3,7 @@
 
 Name:           procdump
 Version:        3.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
@@ -61,6 +61,9 @@ general process dump utility that you can embed in other scripts.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 14 2025 Julio Faracco <jfaracco@redhat.com> - 3.5.0-1
 - Add logging for missing symbols in restrack callstacks
 - Fix dotnet socket PID matching to prevent conflicts between processes

@@ -4,7 +4,7 @@
 Summary: HighLine is a high-level command-line IO library
 Name: rubygem-%{gem_name}
 Version: 3.0.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-only or Ruby
 URL: https://github.com/JEG2/highline
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -83,6 +83,9 @@ popd
 %{gem_instdir}/site
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

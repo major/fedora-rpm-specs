@@ -8,7 +8,7 @@ tools dot, neato, twopi.
 
 Name:		pydot
 Version:	4.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Python interface to Graphviz's Dot language
 License:	MIT
 URL:		https://github.com/pydot/pydot
@@ -68,6 +68,9 @@ sed -r -i 's/--cov\b//' setup.cfg
 %doc ChangeLog README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 01 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 4.0.1-5
 - Drop patch switching tests to PNG, now that Graphviz is fixed in F43+
 - Install graphviz-devil as a build req. for tests, on F43+, and

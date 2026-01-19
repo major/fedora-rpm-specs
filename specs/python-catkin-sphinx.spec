@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Sphinx extension for Catkin projects
 
 License:        BSD-3-Clause
@@ -50,6 +50,9 @@ Sphinx domain for CMake.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.2-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

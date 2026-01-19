@@ -1,6 +1,6 @@
 Name:           perl-Search-Elasticsearch
 Version:        8.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Official client for Elasticsearch
 License:        Apache-2.0
 
@@ -88,6 +88,9 @@ the cloud. You can read more about it on elasticsearch.org.
 %{_mandir}/man3/Search*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

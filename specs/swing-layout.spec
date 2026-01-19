@@ -1,6 +1,6 @@
 Name:           swing-layout
 Version:        1.0.4
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Natural layout for Swing panels
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -54,6 +54,9 @@ cat %{SOURCE1} | sed "s|<version>1.0.3</version>|<version>%{version}</version>|"
 %license COPYING
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.0.4-35
 - Rebuilt for java-25-openjdk as preffered jdk
 

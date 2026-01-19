@@ -4,7 +4,7 @@
 
 Name:           python-dictdiffer
 Version:        0.9.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Dictdiffer is a module that helps you to diff and patch dictionaries
 
 License:        MIT
@@ -102,6 +102,9 @@ PYTHONPATH="${PWD}" %pytest
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Jan 11 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.0-18
 - Port to pyproject-rpm-macros, diverge from EPEL8; fixes RHBZ#2377624
 - Drop -doc subpackage starting with F44

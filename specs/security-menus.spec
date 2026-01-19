@@ -1,6 +1,6 @@
 Name:           security-menus
 Version:        38
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Menu Structure for the Fedora Security Lab
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -41,6 +41,9 @@ done
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 38-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 38-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

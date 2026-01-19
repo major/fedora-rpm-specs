@@ -1,6 +1,6 @@
 Name:		php-IDNA_Convert
 Version:	4.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Provides conversion of internationalized strings to UTF8
 
 License:	LGPL-2.1-or-later
@@ -40,6 +40,9 @@ cp -a idna-convert-%{version}/src/* %{buildroot}/%{_datadir}/php/IDNA_Convert/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Aug 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
 - 4.2.1
 

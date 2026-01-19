@@ -3,7 +3,7 @@ Summary:       Report non-free software
 License:       GPL-3.0-only
 
 Version:       2.3
-Release:       6%{?dist}
+Release:       7%{?dist}
 
 BuildRequires: gcc
 BuildRequires: gettext-devel
@@ -45,6 +45,9 @@ make test %{?_smp_mflags}
 %license LICENCE.txt IMAGE-CREDITS.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jul 26 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.3-6
 - Fix build failure with glibc 2.42
 

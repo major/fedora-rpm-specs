@@ -8,7 +8,7 @@
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
 Version:    6.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
 License:    ZPL-2.1
@@ -54,6 +54,9 @@ sed -i -r 's/("| )setuptools == /\1setuptools >= /' pyproject.toml tox.ini
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 14 2025 Miro Hrončok <mhroncok@redhat.com> - 6.0-3
 - Allow build with setuptools > 78.1.1
 - Fixes: rhbz#2403569

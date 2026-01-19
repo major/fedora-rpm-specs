@@ -7,7 +7,7 @@
 
 Name:           perl-WWW-Mechanize-Chrome
 Version:        0.75
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automate the Chrome browser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/WWW-Mechanize-Chrome
@@ -162,6 +162,9 @@ make test
 %{_mandir}/man3/WWW::Mechanize::Chrome*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.75-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 31 2025 Chris Adams <linux@cmadams.net> - 0.75-1
 - new version
 

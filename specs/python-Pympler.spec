@@ -16,7 +16,7 @@ the lifetime of selected Python objects.
 
 Name: python-Pympler
 Version: 1.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Measure, monitor and analyze the memory behavior of Python objects
 License: Apache-2.0 and BSD-3-Clause and MIT
 # bundled stuff
@@ -79,6 +79,9 @@ chmod -x pympler/asizeof.py
 %doc NOTICE README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

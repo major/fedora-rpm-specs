@@ -3,7 +3,7 @@
 
 Name:		tkimg
 Version:	2.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Image support library for Tk
 # The core tkimg code is TCL
 # tiff/ is libtiff
@@ -104,6 +104,9 @@ rm -rf %{buildroot}%{_mandir}/html
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Dec 18 2025 Tom Callaway <spot@fedoraproject.org> - 2.1.0-1
 - update to 2.1.0
 - update the bundled copy of libpng to 1.6.53

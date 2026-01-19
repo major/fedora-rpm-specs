@@ -15,7 +15,7 @@ care if they’re perfect.\
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python charting for 80% of humans
 
 License:        MIT
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

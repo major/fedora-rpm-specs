@@ -5,7 +5,7 @@
 
 Name:           python-pyqtgraph
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -80,6 +80,9 @@ rm -f doc/build/html/objects.inv
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 01 2025 Scott Talbert <swt@techie.net> - 0.14.0-1
 - Update to new upstream release 0.14.0 (#2415292)
 

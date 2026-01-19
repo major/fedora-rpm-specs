@@ -17,7 +17,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.2
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -286,6 +286,9 @@ rm -f %{_sharedstatedir}/razor/*
 %systemd_preun sa-update.timer
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 03 2026 Kevin Fenzi <kevin@scrye.com> - 4.0.2-2
 - Add perl-Mail-DMARC requirement to enable DMARC plugin. Fixes rhbz#2316684
 

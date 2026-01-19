@@ -4,7 +4,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.11.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -157,6 +157,9 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Dec 16 2025 Jarek Prokop <jprokop@redhat.com> - 0.11.2-9
 - Fix Ruby 4.0 compatibility by replacing CGI with URI equivalent.
 

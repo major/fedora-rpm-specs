@@ -1,7 +1,7 @@
 Summary:       A graphical interface for modifying the system language
 Name:          system-config-language
 Version:       3.5.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           https://pagure.io/system-config-language
 Source0:       https://pagure.io/releases/%{name}/%{name}-%{version}.tar.xz
 License:       GPL-2.0-or-later
@@ -58,6 +58,9 @@ desktop-file-install --vendor system --delete-original       \
 %{_datadir}/polkit-1/actions/org.fedoraproject.config.language.policy
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 3.5.1-1
 - Update to 3.5.1 version (#2397233)
 

@@ -3,7 +3,7 @@
 
 Name: scitokens-cpp
 Version: 1.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -75,6 +75,9 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 05 2025 Derek Weitzel <dweitzel@unl.edu> - 1.2.0-1
 - Fix segfault if the JSON parser cannot parse the JWKS
 - Fix float time claims issue and improve error handling

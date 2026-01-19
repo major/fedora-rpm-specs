@@ -5,7 +5,7 @@
 
 Name:               python-blowfish
 Version:            0.6.1
-Release:            34%{?dist}
+Release:            35%{?dist}
 Summary:            %{sum}
 
 License:            GPL-3.0-or-later
@@ -49,6 +49,9 @@ Summary:            %{sum}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-34
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,10 +1,10 @@
-%global commit_date     20250302
-%global commit_long     d422a7e66021c290afc983800a81d68011d626fd
+%global commit_date     20260106
+%global commit_long     8d92cdd60def611865fb2cf2c4b3c7cdb4faf587
 %global commit_short    %(c=%{commit_long}; echo ${c:0:7})
 
 Name: rtl-433
-Version: 25.02
-Release: 3.%{commit_date}git%{commit_short}%{dist}
+Version: 25.12
+Release: 1.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -88,6 +88,12 @@ done
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Sat Jan 17 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.12-1.20260106git8d92cdd
+- bump to latest git commit
+
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.02-4.20250302gitd422a7e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.02-3.20250302gitd422a7e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

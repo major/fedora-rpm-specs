@@ -3,7 +3,7 @@
 
 Name:    schemesh
 Version: 0.9.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Fusion between a Unix shell and a Lisp REPL
 
 %forgemeta
@@ -57,6 +57,9 @@ time ./schemesh_test
 %{_libdir}/schemesh/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Nov 06 2025 Jens Petersen <petersen@redhat.com> - 0.9.1-5
 - fix build on ppc64le and s390x
 

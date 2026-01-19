@@ -3,7 +3,7 @@
 
 Name:           protonvpn-cli
 Version:        2.2.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Linux command-line client for ProtonVPN written in Python
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ browsing history).
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.12-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

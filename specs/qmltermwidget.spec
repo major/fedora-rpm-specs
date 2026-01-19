@@ -29,7 +29,7 @@ License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version:    0.2.0^%{git_date}git%{git_commit_short}
-Release:    6%{?dist}
+Release:    7%{?dist}
 
 URL:        https://github.com/Swordfish90/%{name}
 Source0:    %{URL}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -68,6 +68,9 @@ mv %{buildroot}/usr %{buildroot}%{_prefix}
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0^20220109git6322802-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0^20220109git6322802-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

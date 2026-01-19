@@ -1,7 +1,7 @@
 Name:          php-smarty-gettext
 Summary:       Gettext support for Smarty
 Version:       1.7.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://github.com/smarty-gettext/smarty-gettext
 
@@ -94,6 +94,9 @@ phpunit9 \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           pyproj
 Version:        3.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -181,6 +181,9 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.7.2-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

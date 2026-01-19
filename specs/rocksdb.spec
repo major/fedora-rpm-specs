@@ -4,7 +4,7 @@
 
 Name:    rocksdb
 Version: 10.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 # Automatically converted from old format: GPLv2 or ASL 2.0 and BSD - review is highly recommended.
@@ -141,6 +141,9 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Dec 10 2025 Jonny Heggheim <hegjon@gmail.com> - 10.2.1-1
 - Updated to version 10.2.1
 

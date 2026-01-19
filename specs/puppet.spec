@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        8.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -215,6 +215,9 @@ rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 03 2025 Terje Rosten <terjeros@gmail.com> - 8.10.0-3
 - Add patch from openvox to fix dnf5 issue
 

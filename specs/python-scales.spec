@@ -1,6 +1,6 @@
 Name:           python-scales
 Version:        1.0.9
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Stats for Python processes
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -64,6 +64,9 @@ sed -i "s/self.assertEquals/self.assertEqual/g" \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.9-27
 - Rebuilt for Python 3.14.0rc3 bytecode
 

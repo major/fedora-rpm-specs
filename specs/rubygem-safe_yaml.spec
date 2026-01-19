@@ -6,7 +6,7 @@
 Summary:       Parse YAML safely
 Name:          rubygem-%{gem_name}
 Version:       1.0.4
-Release:       22%{?dist}
+Release:       23%{?dist}
 License:       MIT
 URL:           http://dtao.github.com/safe_yaml/
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

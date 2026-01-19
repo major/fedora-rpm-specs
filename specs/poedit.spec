@@ -1,5 +1,5 @@
 Name:           poedit
-Version:        3.8
+Version:        3.8.1
 Release:        1%{?dist}
 Summary:        GUI editor for GNU gettext .po files
 Summary(de):    Grafischer Editor für GNU Gettext-Dateien
@@ -95,6 +95,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.%{nam
 
 
 %changelog
+* Sat Jan 17 2026 Wolfgang Stöggl <c72578@yahoo.de> - 3.8.1-1
+- New upstream version
+
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Oct 14 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.8-1
 - New upstream version
 

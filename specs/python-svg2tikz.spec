@@ -5,7 +5,7 @@ Version:        3.3.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Convert SVG to TikZ/PGF code
 
 License:        GPL-2.0-or-later
@@ -91,6 +91,9 @@ ln -s %{python3_sitelib}/%{srcname}/tikz_export_output.inx \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

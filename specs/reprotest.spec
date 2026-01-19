@@ -1,6 +1,6 @@
 Name:           reprotest
 Version:        0.7.30
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Build packages and check them for reproducibility
 URL:            https://salsa.debian.org/reproducible-builds/%{name}
 
@@ -55,6 +55,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/%{name}-%{version}.dist-info
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.30-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.30-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

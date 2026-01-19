@@ -2,7 +2,7 @@
 
 Name: vagrant-digitalocean
 Version: 0.9.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Vagrant plugin for having Digital Ocean as an provider
 License: MIT
 URL: https://github.com/devopsgroup-io/vagrant-digitalocean
@@ -79,6 +79,9 @@ cp -a .%{vagrant_plugin_dir}/* \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

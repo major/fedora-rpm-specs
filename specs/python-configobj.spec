@@ -1,6 +1,6 @@
 Name:           python-configobj
 Version:        5.0.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Config file reading, writing, and validation
 License:        BSD-3-Clause
 URL:            http://configobj.readthedocs.org/
@@ -43,6 +43,9 @@ export PYTHONPATH=$(pwd)/build/lib
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Sep 28 2025 Terje Rosten <terjeros@gmail.com> - 5.0.9-8
 - Use modern macros
 

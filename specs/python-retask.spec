@@ -1,6 +1,6 @@
 Name:           python-retask
 Version:        1.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python module to create and manage distributed task queues
 
 License:        MIT
@@ -49,6 +49,9 @@ Requires:       python3-redis
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

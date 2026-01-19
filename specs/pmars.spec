@@ -1,6 +1,6 @@
 Name:           pmars
 Version:        0.9.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Portable corewar system with ICWS'94 extensions
 
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ install -D -p -m 644 doc/pmars.6 %{buildroot}%{_mandir}/man6/pmars.6
 %{_mandir}/man6/pmars.6.*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

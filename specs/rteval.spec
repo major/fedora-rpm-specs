@@ -1,6 +1,6 @@
 Name:		rteval
 Version:	3.10
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -81,6 +81,9 @@ install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
 %{_bindir}/rteval
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Nov 26 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.10-4
 - Use pyproject dynamic BuildRequires
 

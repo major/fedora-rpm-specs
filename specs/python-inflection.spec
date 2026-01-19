@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Port of Ruby on Rails inflector to Python
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/inflection/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.1-19
 - Rebuilt for Python 3.14.0rc3 bytecode
 

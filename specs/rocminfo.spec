@@ -40,7 +40,7 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    ROCm system info utility
 
 License:    NCSA
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Fix OpenSUSE
 

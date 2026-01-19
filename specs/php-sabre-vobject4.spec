@@ -19,7 +19,7 @@
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
 Version:        4.5.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            http://sabre.io/vobject/
 License:        BSD-3-Clause
@@ -166,6 +166,9 @@ exit $ret
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Remi Collet <remi@remirepo.net> - 4.5.8-1
 - update to 4.5.8
 

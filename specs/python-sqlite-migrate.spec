@@ -3,7 +3,7 @@
 Summary:        A simple database migration system for SQLite
 Name:           python-sqlite-migrate
 Version:        0.1~b0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://pypi.python.org/project/sqlite-migrate/
 Source:         %{pypi_source sqlite-migrate}
@@ -42,4 +42,7 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~b0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 %autochangelog

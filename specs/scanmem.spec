@@ -3,7 +3,7 @@
 Name:           scanmem
 Summary:        Memory scanner
 Version:        0.17
-Release:        22%{?dist}.1
+Release:        23%{?dist}.1
 # Automatically converted from old format: GPLv3+ and LGPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 VCS:            https://github.com/scanmem/scanmem.git
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/GameConque
 %{_datadir}/appdata/GameConqueror.appdata.xml
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-23.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.17-22.1
 - Rebuilt for Python 3.14.0rc3 bytecode
 

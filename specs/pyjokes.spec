@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        0.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{global_desc}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ Summary: %{global_desc}. This package includes a commandline interface.
 %{_bindir}/pyjoke*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            0.6.11
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -54,6 +54,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Nov 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.6.11-1
 - 0.6.11
 

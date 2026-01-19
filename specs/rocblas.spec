@@ -168,11 +168,11 @@ URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
@@ -504,6 +504,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 2 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-6
 - Fix SUSE
 

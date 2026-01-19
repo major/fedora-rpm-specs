@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        20.8.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Monkeypatches to override default behavior of lib2to3
 # Automatically converted from old format: Python - review is highly recommended.
 License:        LicenseRef-Callaway-Python
@@ -65,6 +65,9 @@ cp -p fissix/*.txt %{buildroot}%{python3_sitelib}/%{srcname}/
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20.8.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 20.8.0-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

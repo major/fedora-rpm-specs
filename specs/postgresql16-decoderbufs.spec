@@ -6,7 +6,7 @@
 
 Name:		postgresql%{pgversion}-decoderbufs
 Version:	3.2.0
-Release:	2%{?pre:.%pre}%{?dist}
+Release:	3%{?pre:.%pre}%{?dist}
 Summary:	PostgreSQL Protocol Buffers logical decoder plugin
 
 License:	MIT
@@ -80,6 +80,9 @@ Just-in-time compilation support for %{majorname}.
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3.Final
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2.Final
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

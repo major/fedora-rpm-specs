@@ -1,6 +1,6 @@
 Name:           subtitleeditor
 Version:        0.55.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK+3 tool to edit subtitles for GNU/Linux/*BSD
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kiton
 %{_libdir}/%{name}/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.55.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Sep 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.55.0-1
 - update to 0.55.0 (resolves rhbz#2393843)
 

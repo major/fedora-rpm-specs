@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Ruby library to handle HTTP Cookies based on RFC 6265
 License:	MIT
@@ -76,6 +76,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Oct 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-1
 - 1.1.0
 

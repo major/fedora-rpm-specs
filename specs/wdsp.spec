@@ -7,7 +7,7 @@
 
 Name:		wdsp
 Version:	0
-Release:	0.12.%{git_suffix}%{?dist}
+Release:	0.13.%{git_suffix}%{?dist}
 Summary:	DSP library for LinHPSDR
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -63,6 +63,9 @@ install -Dpm 0664 "WDSP Guide, Rev 1.25.pdf" %{buildroot}/%{_docdir}/%{name}/"WD
 %{_docdir}/%{name}/WDSP\ Guide\,\ Rev\ 1.25.pdf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20250922git18782be8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 22 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0-0.12.20250922git18782be8
 - Switched to new upstream
 

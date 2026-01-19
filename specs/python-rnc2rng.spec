@@ -7,7 +7,7 @@ RELAX NG syntax.}
 
 Name:           python-rnc2rng
 Version:        2.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        RELAX NG Compact to regular syntax conversion library
 
 License:        MIT
@@ -49,6 +49,9 @@ BuildRequires:  python3-devel
 %{_bindir}/rnc2rng
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.0-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

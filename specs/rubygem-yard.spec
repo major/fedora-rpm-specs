@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.9.38
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
 
@@ -116,6 +116,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.38-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.38-2
 - Fix spec testsuite failure with namespace collision
 

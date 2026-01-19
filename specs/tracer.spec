@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    1.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -205,6 +205,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Dec 12 2025 Jakub Kadlcik <frostyx@email.cz> 1.4-1
 - Permit dnf4 to check for reboot with non-root user (riehecky@fnal.gov)
 - Add --reboot-only filter (riehecky@fnal.gov)

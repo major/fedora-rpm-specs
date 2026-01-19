@@ -1,6 +1,6 @@
 Name:               python-Mastodon
 Version:            2.1.4
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -54,6 +54,9 @@ tomcli set pyproject.toml lists delitem project.dependencies 'python-magic ; pla
 %doc README.rst
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Tue Sep 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.1.4-1
 - 2.1.4
 

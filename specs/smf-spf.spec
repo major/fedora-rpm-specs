@@ -1,7 +1,7 @@
 Summary:	Mail filter for Sender Policy Framework verification
 Name:		smf-spf
 Version:	2.5.1^20220423g061e937
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://github.com/jcbf/smf-spf/
 Source0:	https://github.com/jcbf/smf-spf/archive/061e9371f761f70afd40af349f4037fe0460725c.zip
@@ -85,6 +85,9 @@ install -m0644 -D %{SOURCE3} %{buildroot}%{_sysusersdir}/smfs.conf
 %{_sysusersdir}/smfs.conf
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1^20220423g061e937-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Sep 01 2025 Jordi Sanfeliu <jordi@fibranet.cat> 2.5.1^20220423g061e937-8
 - Added the line '%{_sysusersdir}/smf-spf.conf' in %files.
 

@@ -9,7 +9,7 @@
 #%%global	minorver	D%{?tardate}git%{shorthash}
 #%%global	prerelease	1
 
-%global	baserelease	8
+%global	baserelease	9
 
 Name:		wkhtmltopdf
 Version:	%{mainver}
@@ -113,6 +113,9 @@ make install \
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.12.6-8
 - Remove unneeded Requires for devel
 

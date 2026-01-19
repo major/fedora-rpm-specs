@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.17.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Libcurl wrapper
 License: MIT
 URL: https://github.com/typhoeus/ethon
@@ -92,6 +92,9 @@ rspec -r rackup spec
 %{gem_instdir}/ethon.gemspec
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 21 2025 Vít Ondruch <vondruch@redhat.com> - 0.17.0-1
 - Update to Ethon 0.17.0.
   Resolves: rhbz#2140240

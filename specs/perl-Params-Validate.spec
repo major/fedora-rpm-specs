@@ -1,7 +1,7 @@
 Summary:        Params-Validate Perl module
 Name:           perl-Params-Validate
 Version:        1.31
-Release:        12%{?dist}
+Release:        13%{?dist}
 # One file is GPL-1.0-or-later OR Artistic-1.0-Perl (c/ppport.h)
 License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Params-Validate
@@ -71,6 +71,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

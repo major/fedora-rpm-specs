@@ -4,7 +4,7 @@
 
 Name:          plasma-bigscreen
 Version:       6.4.80~%{gitdate}.%{shortcommit}
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
@@ -111,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.80~20251021.093642.6a767b3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Oct 29 2025 Steve Cossette <farchord@gmail.com> - 6.4.80~20251021.093642.6a767b3-2
 - Bump for rebuild for plasma 6.5 + PackageKit-Qt
 

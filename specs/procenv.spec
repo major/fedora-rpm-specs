@@ -4,7 +4,7 @@
 
 Name:           procenv
 Version:        0.60
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Utility to show process environment
 
 License:        GPL-3.0-or-later
@@ -47,6 +47,9 @@ make check
 %license COPYING
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Nov 17 2025 Dave Love <loveshack@fedoraproject.org> - 0.60-13
 - Fix FTBFS in rawhide
 

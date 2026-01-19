@@ -1,6 +1,6 @@
 Name:		tcd-utils
 Version:	20240222
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	TCD (Tide Constituent Database) Utils
 
 # https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/551
@@ -37,6 +37,9 @@ TCD Utils includes:
 %{_bindir}/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240222-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240222-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

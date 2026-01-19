@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Small Device C Compiler
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -167,6 +167,9 @@ popd
 
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Oct 02 2025 Roy Rankin <rrankin@ihug.com.au> - 4.4.0-4
 - add path to cc1 in sdcc-sdcc
 

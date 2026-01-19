@@ -1,6 +1,6 @@
 Name:           perl-Test-MockRandom
 Version:        1.01
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Replaces random number generation with non-random number generation
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Test-MockRandom
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

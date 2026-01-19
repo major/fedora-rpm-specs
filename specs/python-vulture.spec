@@ -10,7 +10,7 @@ very helpful tool for higher code quality.
 
 Name:           python-%{pypi_name}
 Version:        2.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Find dead code
 
 License:        MIT
@@ -58,6 +58,9 @@ sed -i '1{/^#!/d}' vulture/*.py
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.14-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

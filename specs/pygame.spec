@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.6.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -118,6 +118,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.6.1-8
 - Fixed build with python-3.15
   Resolves: rhbz#2424565

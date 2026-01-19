@@ -84,7 +84,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -222,6 +222,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocalution/LICENSE.md
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Add --with compat
 

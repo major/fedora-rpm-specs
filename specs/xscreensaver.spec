@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    1
+%define baserelease    2
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1219,6 +1219,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Dec 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.13-1
 - Update to 6.13
 

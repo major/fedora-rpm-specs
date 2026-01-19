@@ -11,7 +11,7 @@ ExcludeArch:    s390x
 
 Name:           vkmark
 Version:        2025.01
-Release:        3.%{codate}git%{shortcommit0}%{?dist}
+Release:        4.%{codate}git%{shortcommit0}%{?dist}
 Summary:        Vulkan benchmarking suite
 
 License:        LGPL-2.1-or-later

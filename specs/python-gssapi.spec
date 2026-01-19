@@ -2,7 +2,7 @@
 
 Name:           python-gssapi
 Version:        1.7.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python Bindings for GSSAPI (RFC 2743/2744 and extensions)
 
 License:        ISC
@@ -55,6 +55,9 @@ Requires:       krb5-libs >= 1.19
 %doc README.txt
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.3-15
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 Name: puzzles
 Version: 20241230.79be403
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A collection of one-player puzzle games
 
 License: MIT
@@ -45,6 +45,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/puzzles-*.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20241230.79be403-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241230.79be403-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
