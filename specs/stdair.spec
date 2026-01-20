@@ -42,8 +42,19 @@ This package contains the header files, shared libraries and
 development helper tools for %{name}. If you would like to develop
 programs using %{name}, you will need to install %{name}-devel.
 
+%package        data
+Summary:        Sample data sets for the Airline/Travel Market simulator (AirSim/TvlSim)
+
+%description    data
+This package contains sample data sets for the components of
+the Airline/Travel Market simulator (AirSim/TvlSim):
+https://github.com/airsim/.
+Most of those data sets may be browsed online as well:
+https://github.com/airsim/stdair/tree/main/samples/
+
 %package        doc
 Summary:        HTML documentation for the %{name} library
+BuildArch:      noarch
 BuildRequires:  tex(latex)
 BuildRequires:  doxygen
 BuildRequires:  ghostscript
@@ -56,7 +67,7 @@ BuildRequires:  texlive-wasysym texlive-newunicodechar texlive-ninecolors
 This package contains HTML pages, as well as a PDF reference manual,
 for %{name}. All that documentation is generated thanks to Doxygen
 (https://doxygen.org). The content is the same as what can be browsed
-online (https://%{name}.org).
+online (https://github.com/airsim/%{name}).
 
 
 %prep
@@ -82,6 +93,7 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %check
 %ctest
 
+
 %files
 %doc ChangeLog AUTHORS NEWS README.md
 %license COPYING
@@ -89,6 +101,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_libdir}/lib%{name}.so.*
 %{_libdir}/lib%{name}uicl.so.*
 %{_mandir}/man1/%{name}.1.*
+
+%files data
+%license COPYING
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/*.sh
 %dir %{_datadir}/%{name}

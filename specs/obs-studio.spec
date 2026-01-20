@@ -357,7 +357,7 @@ cp plugins/decklink/LICENSE.decklink-sdk .fedora-rpm/licenses/deps
 cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
 
 
-%build
+%conf
 # libcef_wrapper needs to be built static
 %undefine _cmake_shared_libs
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -377,6 +377,9 @@ cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
        -DENABLE_SCRIPTING_LUA=OFF \
 %endif
        -DOpenGL_GL_PREFERENCE=GLVND
+
+
+%build
 %cmake_build
 
 

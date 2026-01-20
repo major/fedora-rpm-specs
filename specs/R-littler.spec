@@ -29,6 +29,7 @@ Examples for using R-littler.
 
 %prep
 %autosetup -c
+chmod +x littler/inst/examples/installDeps2.r
 
 %generate_buildrequires
 %R_buildrequires
@@ -40,12 +41,9 @@ Examples for using R-littler.
 rm -rf %{buildroot}%{_R_libdir}/littler/script-tests
 
 mkdir -p %{buildroot}%{_bindir}
-mv %{buildroot}%{_R_libdir}/littler/bin/r \
-   %{buildroot}%{_bindir}
-rmdir %{buildroot}%{_R_libdir}/littler/bin
+ln -rs %{buildroot}%{_R_libdir}/littler/bin/r %{buildroot}%{_bindir}/r
 mkdir -p %{buildroot}%{_mandir}/man1
-mv %{buildroot}%{_R_libdir}/littler/man-page/r.1 \
-   %{buildroot}%{_mandir}/man1
+mv %{buildroot}%{_R_libdir}/littler/man-page/r.1 %{buildroot}%{_mandir}/man1
 rmdir %{buildroot}%{_R_libdir}/littler/man-page
 
 for f in %{buildroot}%{_R_libdir}/littler/examples/* ; do

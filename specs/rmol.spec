@@ -3,7 +3,7 @@
 
 #
 Name:           rmol
-Version:        1.00.16
+Version:        1.00.17
 Release:        %autorelease
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions
@@ -22,6 +22,7 @@ BuildRequires:  soci-sqlite3-devel
 BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(airrac)
+BuildRequires:  stdair-data
 
 %description
 %{name} is a C++ library of Revenue Management and Optimisation classes 

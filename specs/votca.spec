@@ -2,13 +2,15 @@ Name:           votca
 Version:        2025.1
 %global         uversion %{version}
 %global         sover 2025
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
 Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
 # add support for Eigen3 v5, merged upstream, drop in next version bump
 Patch0:         https://github.com/votca/votca/pull/1189.diff
+# fix build with boost-1.90, merged upstream, drop in next version bump
+Patch1:         c5aa266b0bec5501d18c47e7b1430dce80c526b6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -256,6 +258,10 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Sun Jan 18 2026 Christoph Junghans <junghans@votca.org> - 2025.1-4
+- Fix build with boost-1.90
+- Fixes: rhbz#2429731
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

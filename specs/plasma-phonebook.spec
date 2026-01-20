@@ -1,6 +1,6 @@
 Name:           plasma-phonebook
 Version:        24.02.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        CC0 and GPLv2 and GPLv3 and GPLv3+ and LGPLv2+
 Summary:        Convergent Plasma Mobile phonebook application
 Url:            https://invent.kde.org/plasma-mobile/%{name}
@@ -32,10 +32,10 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(KF6KirigamiAddons)
 
-Requires:       kf6-kirigami
-Requires:       kf6-kcontacts
-Requires:       kf6-kcoreaddons
-Requires:       kpeoplevcard
+Requires:       qt6qml(org.kde.kirigami)
+Requires:       qt6qml(org.kde.kirigamiaddons.components)
+Requires:       qt6qml(org.kde.people)
+Requires:       qt6qml(Qt5Compat.GraphicalEffects)
 
 
 %description
@@ -62,6 +62,9 @@ Contacts application which allows adding, modifying and removing contacts.
 %{_qt6_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
 
 %changelog
+* Sun Jan 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 24.02.0-6
+- Update QML module dependencies
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 24.02.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

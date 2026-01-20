@@ -52,7 +52,7 @@ BuildRequires:  ghostscript
 This package contains HTML pages, as well as a PDF reference manual,
 for %{name}. All that documentation is generated thanks to Doxygen
 (https://doxygen.org). The content is the same as what can be browsed
-online (https://%{name}.org).
+online (https://github.com/airsim/%{name}).
 
 
 %prep

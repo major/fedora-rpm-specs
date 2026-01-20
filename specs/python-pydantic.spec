@@ -96,6 +96,14 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
 ignore="${ignore-} --ignore=tests/test_docs.py"
 ignore="${ignore-} --ignore=tests/benchmarks"
 
+# [XPASS(strict)] When rebuilding model fields, we individually re-evaluate all
+# fields (using `_eval_type()`) and as such we don't benefit from PEP 649's
+# capabilities.
+#
+# (This actually passes beginning with Python 3.14.1; see
+# https://github.com/pydantic/pydantic/issues/12080#issuecomment-3608739542.)
+k="${k-}${k+ and }not test_deferred_annotations_nested_model"
+
 %pytest ${ignore-} -k "${k-}" -rs
 %endif
 

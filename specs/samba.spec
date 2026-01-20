@@ -3903,6 +3903,8 @@ fi
 %files test-libs
 %if %{with dc}
 %{_libdir}/samba/libdlz-bind9-for-torture-private-samba.so
+%else
+%{_libdir}/samba/libdsdb-module-private-samba.so
 %endif
 
 ### USERSHARES

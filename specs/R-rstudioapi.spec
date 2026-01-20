@@ -1,5 +1,5 @@
 Name:           R-rstudioapi
-Version:        %R_rpm_version 0.17.1
+Version:        %R_rpm_version 0.18.0
 Release:        %autorelease
 Summary:        Safely Access the RStudio API
 

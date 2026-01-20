@@ -1,6 +1,6 @@
 Name:           perl-Future-IO
-Version:        0.17
-Release:        2%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        Future-returning IO core methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -25,7 +25,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::ExpectAndCheck)
-BuildRequires:  perl(Test::Future::IO::Impl) >= 0.15
+BuildRequires:  perl(Test::Future::IO::Impl) >= 0.16
 BuildRequires:  perl(Test::Pod) >= 1.00
 
 %{?perl_default_filter}
@@ -56,6 +56,9 @@ their results asynchronously via Future instances.
 %{_mandir}/man3/Future*
 
 %changelog
+* Sun Jan 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.18-1
+- Update to 0.18
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

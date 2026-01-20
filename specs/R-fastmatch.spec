@@ -1,5 +1,5 @@
 Name:           R-fastmatch
-Version:        %R_rpm_version 1.1-6
+Version:        %R_rpm_version 1.1-8
 Release:        %autorelease
 Summary:        Fast match() function
 

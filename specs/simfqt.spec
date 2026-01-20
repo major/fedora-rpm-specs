@@ -1,6 +1,6 @@
 #
 Name:           simfqt
-Version:        1.00.12
+Version:        1.00.13
 Release:        %autorelease
 
 Summary:        C++ Simulated Fare Quote System Library
@@ -17,6 +17,7 @@ BuildRequires:  soci-sqlite3-devel
 BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
+BuildRequires:  stdair-data
 
 %description
 %{name} aims at providing a clean API and a simple implementation, as

@@ -1,30 +1,31 @@
+%global forgeurl https://github.com/derrod/legendary
+%global commit 42af7b5db78eb22210ae6cf2dd1b913c64ca3183
+
 Name:           legendary
 Version:        0.20.34
+%forgemeta
 Release:        %autorelease
 Summary:        Free and open-source replacement for the Epic Games Launcher
 BuildArch:      noarch
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/derrod/legendary
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{forgesource}
 
 BuildRequires:  python3-devel >= 3.9
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(requests)
-
-Requires:       python3-requests
-
 Recommends:     wine
 Recommends:     wine-dxvk
 
 %description
 Legendary is an open-source game launcher that can download and install games
-from the Epic Games Store on Linux and Windows. It's name as a tongue-in-cheek
-play on tiers of item rarity in many MMORPGs.
+from the Epic Games platform on Linux, macOS, and Windows. Its name as a
+tongue-in-cheek play on tiers of item rarity in many MMORPGs.
 
 
 %prep
-%autosetup
+%forgeautosetup
+%generate_buildrequires
+%pyproject_buildrequires
 
 # E: non-executable-script
 for lib in %{name}/{*.py,downloader/*.py,lfs/*.py,models/*.py}; do
@@ -35,19 +36,22 @@ done
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{name}
 
 
-%files
+%check
+%dnl %pyproject_check_import
+
+
+%files -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}*.egg-info/
-%{python3_sitelib}/%{name}/
 
 
 %changelog

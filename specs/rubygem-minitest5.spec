@@ -1,24 +1,23 @@
-# Generated from minitest-1.4.2.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name minitest
 
 Name: rubygem-%{gem_name}5
-Version: 5.8.4
-Release: 5%{?dist}
+Version: 5.27.0
+Release: 2%{?dist}
 Summary: minitest provides a complete suite of testing facilities
-Group: Development/Languages
+# README.rdoc
+# SPDX confirmed
 License: MIT
-URL: https://github.com/seattlerb/minitest
+URL: https://minite.st/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildArch: noarch
-Provides: rubygem(%{gem_name}5) = %{version}
 
 %description
 minitest provides a complete suite of testing facilities supporting
 TDD, BDD, mocking, and benchmarking.
 
-minitest/unit is a small and incredibly fast unit testing framework.
+minitest/test is a small and incredibly fast unit testing framework.
 It provides a rich set of assertions to make your tests clean and
 readable.
 
@@ -49,7 +48,6 @@ extract-method refactorings still apply.
 
 %package doc
 Summary: Documentation for %{name}
-Group: Documentation
 Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
@@ -57,17 +55,27 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -c -T
-
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build %{gem_name}-%{version}.gemspec
+%gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
-        %{buildroot}%{gem_dir}/
-rm -rf %{buildroot}%{gem_instdir}/Rakefile %{buildroot}%{gem_instdir}/test
+	%{buildroot}%{gem_dir}/
+
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.autotest \
+	Manifest.txt \
+	Rakefile \
+	test/ \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
@@ -77,39 +85,198 @@ ruby -Ilib:test -e 'Dir.glob "./test/minitest/test_*.rb", &method(:require)'
 popd
 
 %files
-%doc %{gem_instdir}/README.rdoc
+%license %{gem_instdir}/README.rdoc
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.*
 %{gem_libdir}
-%exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/History.rdoc
-%doc %{gem_instdir}/Manifest.txt
 %{gem_instdir}/design_rationale.rb
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Tue Dec 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.27.0-2
+- Remove BR: rubygem(hoe)
+- Update description, change obsoleted minitest/unit with minitest/test
 
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-4
+* Sun Dec 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
+* Sun Nov 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.26.2-1
+- 5.26.2
+
+* Thu Oct 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.26.0-100
+- 5.26.0
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.25.5-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Thu Mar 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.25.5-100
+- 5.25.5
+
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.25.4-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Thu Jan 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.25.4-100
+- 5.25.4
+
+* Wed Nov 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.25.1-101
+- Upstream patch to suppress warning when redefining object_id in ruby34
+
+* Sat Aug 17 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.25.0-100
+- 5.25.1
+
+* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.24.1-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
+* Sun Jun 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.24.1-100
+- 5.24.1
+
+* Fri Jun 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.24.0-100
+- 5.24.0
+
+* Wed May 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.23.1-100
+- 5.23.1
+
+* Thu May 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.23.0-100
+- 5.23.0
+
+* Fri Mar 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.22.3-100
+- 5.22.3
+
+* Thu Feb 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.22.2-100
+- 5.22.2
+
+* Tue Feb 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.22.0-100
+- 5.22.0
+
+* Sun Jan 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.21.2-100
+- 5.21.2
+
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.21.1-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Tue Jan 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.21.1-200
+- 5.21.1
+
+* Thu Sep 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.20.0-200
+- 5.20.0
+
+* Fri Jul 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.19.0-200
+- 5.19.0
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.18.1-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.18.1-200
+- 5.18.1
+
+* Sun Mar  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.18.0-200
+- 5.18.0
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Sun Jan  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.17.0-200
+- 5.17.0
+
+* Thu Aug 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.16.3-200
+- 5.16.3
+
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.16.2-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jul  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.16.2-200
+- 5.16.2
+
+* Tue Jun 21 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.16.1-200
+- 5.16.1
+
+* Sun Jun 19 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.16.0-200
+- 5.16.0
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Dec 22 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.15.0-200
+- 5.15.0
+
+* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.4-201
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sun Feb 28 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.14.4-200
+- 5.14.4
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.3-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jan 13 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.14.3-200
+- 5.14.3
+
+* Thu Sep 10 2020 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.14.2-200
+- 5.14.2
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.1-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Fri May 22 2020 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.14.1-200
+- 5.14.1
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.0-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Wed Jan 22 2020 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.14.0-200
+- 5.14.0
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.3-204
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.3-203
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sun Nov 18 2018 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.11.3-202
+- Use C.UTF-8 locale
+  See https://fedoraproject.org/wiki/Changes/Remove_glibc-langpacks-all_from_buildroot
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.3-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Mon Jun  4 2018 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.11.3-200
+- 5.11.3
+- Bump release number
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.1-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Mon Jan 15 2018 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.11.1-100
+- 5.11.1
+
+* Fri Jul 28 2017 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.10.3-100
+- 5.10.3
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.2-101
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-3
+* Fri May 12 2017 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.10.2-100
+- 5.10.2
+
+* Sat May  6 2017 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.10.1-100
+- 5.10.1
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-2
+* Wed Sep 28 2016 Greg Hellings <greg.hellings@gmail.com> - 5.8.5-1
+- Update to minitest 5.8.5
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.4-101
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
-* Tue Jan 26 2016 Greg Hellings <greg.hellings@gmail.com> - 5.8.4-1
-- Updated to new upstream
-- Removed Rakefile and installed tests
-
-* Wed Jan 13 2016 Greg Hellings <greg.hellings@gmail.com> - 5.8.1-2
-- Modifying for EPEL7
-- Changing package name to rubygem-minitest5 to avoid collisions
+* Tue Jan 26 2016 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.8.4-100
+- 5.8.4
+- Exclude some files
 
 * Wed Oct 21 2015 Vít Ondruch <vondruch@redhat.com> - 5.8.1-1
 - Update to minitest 5.8.1.

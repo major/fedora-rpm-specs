@@ -1,6 +1,6 @@
 #
 Name:           travelccm
-Version:        1.00.13
+Version:        1.00.14
 Release:        %autorelease
 
 Summary:        C++ Travel Customer Choice Model (CCM) Library
@@ -18,6 +18,7 @@ BuildRequires:  soci-sqlite3-devel
 BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
+BuildRequires:  stdair-data
 
 %description
 %{name} aims at providing a clean API, and the corresponding

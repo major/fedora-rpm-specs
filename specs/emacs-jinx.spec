@@ -2,7 +2,7 @@
 %global emacs_version_with_archsitelispdir 1:30.2-9
 
 Name:           emacs-%{pkg}
-Version:        2.5
+Version:        2.6
 Release:        %{autorelease}
 Summary:        Fast just-in-time spell-checker for Emacs
 License:        GPL-3.0-or-later

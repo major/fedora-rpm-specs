@@ -1,5 +1,5 @@
 Name:           R-blob
-Version:        %R_rpm_version 1.2.4
+Version:        %R_rpm_version 1.3.0
 Release:        %autorelease
 Summary:        A Simple S3 Class for Representing Vectors of Binary Data ('BLOBS')
 

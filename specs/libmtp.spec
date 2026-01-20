@@ -129,7 +129,7 @@ chrpath --delete $RPM_BUILD_ROOT{%{_bindir},/usr/lib/udev}/mtp*
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
 * Tue Jan 13 2026 Ondrej Holy <oholy@redhat.com> - 1.1.22-2
-- Use %autosetup to apply new patch
+- Use autosetup to apply new patch
 
 * Tue Jan 06 2026 Bastien Nocera <bnocera@redhat.com> - 1.1.22-1
 - Update to 1.1.22

@@ -1,5 +1,5 @@
 Name:           R-stringdist
-Version:        %R_rpm_version 0.9.15
+Version:        %R_rpm_version 0.9.17
 Release:        %autorelease
 Summary:        Approximate String Matching, Fuzzy Text Search, and String Distance Functions
 

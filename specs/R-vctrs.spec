@@ -1,13 +1,11 @@
 Name:           R-vctrs
-Version:        %R_rpm_version 0.6.5
+Version:        %R_rpm_version 0.7.0
 Release:        %autorelease
 Summary:        Vector Helpers
 
 License:        MIT
 URL:            %{cran_url}
 Source:         %{cran_source}
-# https://github.com/r-lib/vctrs/issues/1353
-Patch:          0001-Skip-some-tests-on-big-endian-machines.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

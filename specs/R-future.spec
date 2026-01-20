@@ -1,5 +1,5 @@
 Name:           R-future
-Version:        %R_rpm_version 1.68.0
+Version:        %R_rpm_version 1.69.0
 Release:        %autorelease
 Summary:        Unified Parallel and Distributed Processing in R for Everyone
 

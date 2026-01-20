@@ -5,21 +5,22 @@
 Summary:       A powerful visualization and data analysis tool
 Name:          extrema
 Version:       4.4.5
-Release:       43%{?dist}
+Release:       44%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://exsitewebware.com/extrema/
 Source0:       http://downloads.sourceforge.net/extrema/extrema-%{version}.tar.gz
-Patch0:        extrema-4.2.10.desktop.patch
-Patch1:        extrema-4.4.5-gcc46.patch
-Patch2:        extrema-4.4.5-wx3.0.patch
-Patch3:        extrema-4.4.5-wx3.0-2.patch
-Patch4:        extrema-4.4.5-wx3.2.patch
-BuildRequires: gcc-c++
-BuildRequires: wxGTK-devel
-BuildRequires: desktop-file-utils
+Patch:         extrema-4.2.10.desktop.patch
+Patch:         extrema-4.4.5-gcc46.patch
+Patch:         extrema-4.4.5-wx3.0.patch
+Patch:         extrema-4.4.5-wx3.0-2.patch
+Patch:         extrema-4.4.5-wx3.2.patch
+Patch:         extrema-4.4.5-gcc16.patch
 BuildRequires: ImageMagick
+BuildRequires: desktop-file-utils
+BuildRequires: gcc-c++
 BuildRequires: make
+BuildRequires: wxGTK-devel
 Requires:      extrema-help
 
 %description
@@ -51,11 +52,11 @@ documentation in PDF format for Extrema.
 
 %build
 %configure --disable-static CXXFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags}
+%make_build
 convert Images/%{name}.gif %{name}.png
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
 install -m 0644 -D %{name}.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
@@ -77,6 +78,9 @@ rm -f %{buildroot}%{_libdir}/lib%{name}.{la,a}
 %doc doc/*.pdf
 
 %changelog
+* Sun Jan 18 2026 Terje Røsten <terjeros@gmail.com> - 4.4.5-44
+- Add patch to build with GCC 16
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

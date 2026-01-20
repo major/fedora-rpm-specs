@@ -1,5 +1,5 @@
 Name:           R-xfun
-Version:        %R_rpm_version 0.55
+Version:        %R_rpm_version 0.56
 Release:        %autorelease
 Summary:        Miscellaneous Functions to Support Packages Maintained by 'Yihui Xie'
 

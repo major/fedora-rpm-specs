@@ -6,19 +6,18 @@ Name:       yaru-theme
 Version:    25.10.3
 %forgemeta
 Release:    %autorelease
-Summary:    Ubuntu community theme "yaru"
+Summary:    All Ubuntu Yaru GNOME themes
 BuildArch:  noarch
 
 License:    GPL-3.0-or-later and CC-BY-SA-4.0
 URL:        https://community.ubuntu.com/c/desktop/theme-refresh
 Source0:    %{forgesource}
 
-BuildRequires: meson >= 0.59
+BuildRequires: meson
 BuildRequires: sassc
 BuildRequires: pkgconfig(appstream-glib)
 
 Requires:   gnome-shell-theme-yaru = %{version}-%{release}
-Requires:   yaru-gtk2-theme = %{version}-%{release}
 Requires:   yaru-gtk3-theme = %{version}-%{release}
 Requires:   yaru-gtk4-theme = %{version}-%{release}
 Requires:   yaru-gtksourceview-theme = %{version}-%{release}
@@ -54,19 +53,6 @@ Suggests:       yaru-theme
 %description -n gnome-shell-theme-yaru %{_description}
 
 This package contains GNOME Shell Theme.
-
-
-%package     -n yaru-gtk2-theme
-Summary:        GTK+ 2 support for the Yaru GTK Theme
-
-Requires:       adwaita-gtk2-theme
-Requires:       gtk-murrine-engine
-
-Recommends:     yaru-gtk3-theme
-
-%description -n yaru-gtk2-theme %{_description}
-
-This package contains GTK+ 2 theme.
 
 
 %package     -n yaru-gtk3-theme
@@ -139,6 +125,10 @@ This package contains the GtkSourceView theme.
 
 %install
 %meson_install
+# Remove GTK 2 theme
+# https://github.com/ubuntu/yaru/issues/4356
+rm -rf %{buildroot}%{_datadir}/themes/Yaru-*/gtk-2.0/
+rm -rf %{buildroot}%{_datadir}/themes/Yaru/gtk-2.0/
 
 rm  %{buildroot}%{_datadir}/glib-2.0/schemas/99_Yaru.gschema.override \
     %{buildroot}%{_datadir}/xsessions/Yaru-xorg.desktop \
@@ -163,13 +153,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/Yaru &>/dev/null || :
 %{_datadir}/themes/Yaru-*/index.theme
 %{_datadir}/themes/Yaru*/gnome-shell
 %{_datadir}/themes/Yaru/index.theme
-
-%files -n yaru-gtk2-theme
-%license %{_license}
-%{_datadir}/themes/Yaru-*/gtk-2.0/
-%{_datadir}/themes/Yaru/gtk-2.0/
-%dir %{_datadir}/themes/Yaru
-%dir %{_datadir}/themes/Yaru-dark
 
 %files -n yaru-gtk3-theme
 %license %{_license}

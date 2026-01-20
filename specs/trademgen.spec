@@ -20,6 +20,7 @@ BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(stdair)
+BuildRequires:  stdair-data
 BuildRequires:  pkgconfig(sevmgr)
 
 %description

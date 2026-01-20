@@ -39,7 +39,7 @@
 
 Name:		vlc
 Epoch:		1
-Version:	3.0.22
+Version:	3.0.23
 Release:	%autorelease
 Summary:	The cross-platform open-source multimedia framework, player and server
 License:	GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause
@@ -56,10 +56,6 @@ Source:		macros.vlc
 ## backported patches from master
 # freerdp: update to freerdp 2.0 api (#2278)
 Patch:		freerdp2.patch
-# port to FFmpeg 8
-# https://code.videolan.org/videolan/vlc/-/merge_requests/6659
-# https://code.videolan.org/videolan/vlc/-/issues/29278
-Patch:		ffmpeg8.patch
 
 ## upstreamable patches
 

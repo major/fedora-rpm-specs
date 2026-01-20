@@ -1,5 +1,5 @@
 Name:           R-xml2
-Version:        %R_rpm_version 1.5.1
+Version:        %R_rpm_version 1.5.2
 Release:        %autorelease
 Summary:        Parse XML
 

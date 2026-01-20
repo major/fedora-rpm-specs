@@ -13,7 +13,10 @@ ExcludeArch: %{ix86}
 # we only do a sanity check that kernel/qemu/libvirt/appliance is not
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
-%global test_arches aarch64 %{power64} s390x x86_64
+#
+# s390x has been broken since around Jan 2026.  It seems as if qemu
+# crashes on start up.  Needs investigation.
+%global test_arches aarch64 %{power64} x86_64
 
 # Trim older changelog entries.
 # https://lists.fedoraproject.org/pipermail/devel/2013-April/thread.html#181627

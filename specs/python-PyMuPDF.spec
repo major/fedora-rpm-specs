@@ -35,6 +35,8 @@ BuildRequires:	python3-sphinx-copybutton
 BuildRequires:	python3-sphinx-notfound-page
 BuildRequires:	python3-furo
 BuildRequires:	rst2pdf
+# work around rst2pdf incompatibility with docutils 0.22
+BuildRequires:	python3-roman
 %endif
 BuildRequires:	gcc gcc-c++
 BuildRequires:	swig

@@ -1,5 +1,5 @@
 Name:           R-rappdirs
-Version:        %R_rpm_version 0.3.3
+Version:        %R_rpm_version 0.3.4
 Release:        %autorelease
 Summary:        Application Directories: Determine Where to Save Data, Caches, and Logs
 

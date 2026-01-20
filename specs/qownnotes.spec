@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        26.1.7
+Version:        26.1.8
 %forgemeta
 Release:        %autorelease
 Summary:        Plain-text file notepad and todo-list manager with Markdown support
@@ -56,6 +56,8 @@ Source5:        %{url1}/qt-piwik-tracker/archive/%{piwiktracker_commit}/piwiktra
 Source6:        %{url1}/qkeysequencewidget/archive/%{qkeysequencewidget_commit}/qkeysequencewidget-%{qkeysequencewidget_shortcommit}.tar.gz
 Source7:        https://github.com/%{name}/md4c/archive/%{md4c_commit}/md4c-%{md4c_shortcommit}.tar.gz
 Source8:        https://github.com/%{name}/QHotkey/archive/%{qhotkey_commit}/qhotkey-%{qhotkey_shortcommit}.tar.gz
+# AppData manifest
+Source100:      https://raw.githubusercontent.com/flathub/org.qownnotes.%{appname}/master/org.qownnotes.%{appname}.appdata.xml
 # Build with system Botan
 Patch:          0001-Revert-2786-botan-use-botan3-with-cmake.patch
 
@@ -159,7 +161,8 @@ popd
 
 %install
 %make_install -C src/%{_target_platform}
-install -m 0644 -Dp obs/%{name}.appdata.xml %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
+# AppData manifest
+install -D -p -m 0644 %{SOURCE100} -t %{buildroot}%{_metainfodir}/
 %find_lang %{appname} --with-qt
 
 

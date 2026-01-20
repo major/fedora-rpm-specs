@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 43%{?dist}
+Release: 44%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -59,6 +59,10 @@ Patch11: %{name}-disable-tests-riscv64.patch
 # CMake 4.0 support
 # Cherry-picked from: https://github.com/openbabel/openbabel/pull/2784
 Patch12: 2784.patch
+
+# Required by Eigen3-5.0+
+Patch13: %{name}-find_eigen3_5.0.patch
+Patch14: %{name}-set_cxx17_standard.patch
 
 BuildRequires: make
 BuildRequires: boost-devel
@@ -196,6 +200,11 @@ rm -rf src/formats/libinchi
 cp -p %{SOURCE2} ./inchi-license-lgpl-2.1.txt
 %endif
 
+%if 0%{?fedora} > 43
+%patch -P 13 -p1 -b .backup
+%patch -P 14 -p1 -b .backup
+%endif
+
 # convert to Unix line endings
 dos2unix -k \
   data/chemdrawcdx.h \
@@ -203,7 +212,7 @@ dos2unix -k \
   src/math/align.cpp \
   test/testsmartssym.py \
 
-convert src/GUI/babel.xpm -transparent white babel.png
+magick convert src/GUI/babel.xpm -transparent white babel.png
 
 # Remove duplicate html files
 pushd doc
@@ -247,7 +256,8 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DRUN_SWIG=true \
  -DENABLE_TESTS:BOOL=ON \
  -DOPTIMIZE_NATIVE=OFF \
- -DGLIBC_24_COMPATIBLE:BOOL=OFF
+ -DGLIBC_24_COMPATIBLE:BOOL=OFF \
+ -DEIGEN3_INCLUDE_DIR:PATH=%{_includedir}/eigen3 -DEIGEN3_VERSION:STRING=%(pkgconf --with-path %{_datadir}/pkgconfig --modversion eigen3)
 
 %cmake_build
 
@@ -336,6 +346,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Sun Jan 18 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-44
+- Fix rhbz#2430674
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

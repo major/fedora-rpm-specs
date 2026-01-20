@@ -2,10 +2,9 @@
 %global uuid com.github.phase1geo.%{name}
 
 Name:           minder
-Version:        2.0.3
+Version:        2.0.4
 Release:        %autorelease
 Summary:        Mind-mapping application
-
 %forgemeta
 
 License:        GPL-3.0-or-later
@@ -18,7 +17,6 @@ BuildRequires:  libappstream-glib
 BuildRequires:  libmarkdown-devel
 BuildRequires:  meson
 BuildRequires:  vala
-
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -30,7 +28,6 @@ BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libxml-2.0)
-
 Requires:       hicolor-icon-theme
 
 %description
@@ -39,27 +36,32 @@ Use the power of mind-mapping to make your ideas come to life.
   * Quickly create visual mind-maps using the keyboard and automatic layout.
   * Choose from many tree layout choices.
   * Support for Markdown formatting.
-  * Add notes, tasks and images to your nodes.
+  * Support for insertion of Unicode characters.
+  * Add notes, tasks, and images to your nodes.
   * Add node-to-node connections with optional text and notes.
-  * Stylize nodes, links and connections to add more meaning and improve
-    readability.
-  * Add stickers and node groups to call out and visibly organize information.
+  * Stylize nodes, callouts, links and connections to add more meaning and
+    improve readability.
+  * Save and reuse style settings within and across open mindmaps.
+  * Add stickers, tags, callouts and node groups to call out and visibly
+    organize information.
   * Quick search of node and connection titles and notes, including filtering
     options.
   * Zoom in or enable focus mode to focus on certain ideas or zoom out to see
     the bigger picture.
   * Enter focus mode to better view and understand portions of the map.
+  * Quickly brainstorm ideas with the brainstorming interface and worry about
+    where those ideas belong in the mind map later.
   * Unlimited undo/redo of any change.
-  * Automatically saves in the background.
+  * Automatically and manual saving supported.
   * Colorized node branches.
   * Open multiple mindmaps with the use of tabs.
   * Built-in and customizable theming.
   * Gorgeous animations.
-  * Import from OPML, FreeMind, Freeplane, PlainText (formatted), Outliner,
-    Portable Minder and XMind formats.
-  * Export to CSV, FreeMind, Freeplane, JPEG, BMP, SVG, Markdown, Mermaid,
-    OPML, Org-Mode, Outliner, PDF, PNG, Portable Minder, PlainText, XMind and
-    yEd formats.
+  * Import from OPML, FreeMind, Freeplane, PlainText/Markdown (formatted),
+    Mermaid (mindmap), Outliner, Portable Minder, filesystem and XMind formats.
+  * Export to CSV, FreeMind, Freeplane, JPEG, BMP, SVG, WebP, Markdown, Mermaid,
+    Mermaid Mindmap, OPML, Org-Mode, Outliner, PDF, PNG, PlainText, filesystem,
+    XMind and yEd formats.
   * Printer support.
 
 

@@ -1,12 +1,12 @@
 #global snapshot 0
-%global commit b72062f5047d4a4772338b6464f83514d4bcb91e
-%global commitdate 20260116
-%global gittag v3.1.0
+%global commit 8de33292d0833fc7337e8ad87b9cebaf7d618513
+%global commitdate 20260117
+%global gittag v3.1.1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	3.1.0%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	3%{?dist}
+Version:	3.1.1%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	2%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # Main ocp source is GPL-2.0-or-later.
@@ -27,8 +27,8 @@ Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
 Patch0:		ocp-0.2.106-ini-optimize.patch
 Patch1:		ocp-0.2.106-ini-rompaths.patch
-Patch2:		ocp-3.1.0-438a06dd4229471e256bab5b1071d4210c607f37.patch
-Patch3:		ocp-3.1.0-c1a7fc1377dbfc2ef9df0df5d7c87a2562a93342.patch
+Patch2:		ocp-3.1.1-timidity-config-file.patch
+Patch3:		ocp-3.1.1-timidity-pat-file-comment.patch
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	bzip2-devel
@@ -62,6 +62,9 @@ BuildRequires:	zlib-devel
 # For the hicolor icon directories
 Requires:	hicolor-icon-theme
 Requires:	unifont-fonts
+
+# Recommend a soundfont for MIDI files
+Recommends:	fluid-soundfont-gm
 
 # Bundled code
 # AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
@@ -184,6 +187,15 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Sun Jan 18 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.1-2
+- [MIDI] Add patch to prefer /etc/timidity++.cfg to /etc/timidity.cfg
+- [MIDI] Add upstream patch to set comment to .pat filename without full path
+- Recommends: fluid-soundfont-gm
+
+* Sun Jan 18 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.1-1
+- Update to 3.1.1
+- [MIDI] loading files would cause crash (null dereference) if ~/.timidity.cfg not present
+
 * Sat Jan 17 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.0-3
 - Use upstream fixes for #146 instead
 

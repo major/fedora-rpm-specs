@@ -1,6 +1,6 @@
 Name:       php-gettext-languages
-Version:    2.10.0
-Release:    10%{?dist}
+Version:    2.12.1
+Release:    1%{?dist}
 BuildArch:  noarch
 
 License:    MIT and Unicode-DFS-2016
@@ -19,15 +19,13 @@ URL:        https://github.com/mlocati/cldr-to-gettext-plural-rules
 Source0:    cldr-to-gettext-plural-rules-%{version}.tar.gz
 
 BuildRequires: php-composer(fedora/autoloader)
-BuildRequires: phpunit7
+BuildRequires: phpunit10
 
 Requires:   php(language) >= 5.4.0
 Requires:   php-cli
 Requires:   php-dom
 Requires:   php-iconv
 Requires:   php-json
-Requires:   php-pcre
-Requires:   php-spl
 
 Provides:   php-composer(gettext/languages) = %{version}
 
@@ -41,20 +39,15 @@ generated from CLDR data.
 %autosetup -p1 -n cldr-to-gettext-plural-rules-%{version}
 
 sed -i "s:require_once.*:require_once '%{_datadir}/php/Gettext/Languages/autoloader.php';:" bin/export-plural-rules
-#echo "#!/usr/bin/env php" > bin/export-plural-rules.sh
-#cat bin/export-plural-rules.sh bin/export-plural-rules.php > bin/export-plural-rules
-
-sed -i '1s;^;#!/usr/bin/php\n;' bin/export-plural-rules
 
 
 %install
-install -d -p -m 0755 %{buildroot}/%{_bindir}
 install -d -p -m 0755 %{buildroot}/%{_datadir}/php
 install -d -p -m 0755 %{buildroot}/%{_datadir}/php/Gettext
 install -d -p -m 0755 %{buildroot}/%{_datadir}/php/Gettext/Languages
 
-cp -a bin/export-plural-rules %{buildroot}/%{_bindir}/%{name}-export-plural-rules
-chmod 755 %{buildroot}/%{_bindir}/%{name}-export-plural-rules
+install -Dpm 0755 bin/export-plural-rules %{buildroot}/%{_bindir}/%{name}-export-plural-rules
+install -Dpm 0755 bin/import-cldr-data    %{buildroot}/%{_bindir}/%{name}-import-cldr-data
 
 cp -ar src/* %{buildroot}/%{_datadir}/php/Gettext/Languages/
 cp -ar tests/test %{buildroot}/%{_datadir}/php/Gettext/Languages/Test
@@ -64,7 +57,7 @@ cp -ar tests/test %{buildroot}/%{_datadir}/php/Gettext/Languages/Test
 sed -i "s:require_once.*:require_once '%{buildroot}/%{_datadir}/php/Gettext/Languages/autoloader.php';:" tests/bootstrap.php
 
 sed -i "s:require_once.*:require_once '%{buildroot}/%{_datadir}/php/Gettext/Languages/autoloader.php';:" bin/export-plural-rules
-phpunit7 --bootstrap tests/bootstrap.php --verbose
+phpunit10 --bootstrap tests/bootstrap.php
 
 
 %files
@@ -73,10 +66,16 @@ phpunit7 --bootstrap tests/bootstrap.php --verbose
 %doc composer.json
 %doc README.md
 %{_bindir}/%{name}-export-plural-rules
+%{_bindir}/%{name}-import-cldr-data
 %{_datadir}/php/Gettext
 
 
 %changelog
+* Sun Jan 18 2026 Remi Collet <remi@fedoraproject.org> - 2.12.1
+- update to 2.12.1
+- switch to phpunit10, fix FTBFS #2375214
+- add php-gettext-languages-import-cldr-data command
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

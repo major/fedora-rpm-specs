@@ -1,6 +1,6 @@
 #
 Name:           tvlsim
-Version:        1.01.11
+Version:        1.01.12
 Release:        %autorelease
 
 Summary:        Travel Market Simulator
@@ -20,6 +20,7 @@ BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  soci-postgresql-devel
 BuildRequires:  pkgconfig(stdair)
+BuildRequires:  stdair-data
 BuildRequires:  pkgconfig(airrac)
 BuildRequires:  pkgconfig(rmol)
 BuildRequires:  pkgconfig(sevmgr)
