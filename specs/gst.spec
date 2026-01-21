@@ -30,7 +30,7 @@ Requires:       python3-psutil >= 6.1.0
 Requires:       python3-pyxdg %dnl >= 0.28 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2242522
 Requires:       python3-pyyaml >= 6.0.2
 Requires:       python3-requests >= 2.32.3
-Requires:       python3-reactivex >= 4.0.4
+Requires:       python3-rx >= 4.0.4
 
 Recommends:     dmidecode
 Recommends:     stress-ng

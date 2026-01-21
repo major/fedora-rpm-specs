@@ -84,7 +84,6 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  hipblas-devel
-BuildRequires:  hipcc-libomp-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 

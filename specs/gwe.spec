@@ -13,12 +13,10 @@ Source1:        README.fedora.md
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  meson >= 0.45.1
+BuildRequires:  meson
 BuildRequires:  python3-devel
-
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.56.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22.30
-
 Requires:       dbus-common
 Requires:       hicolor-icon-theme
 Requires:       libdazzle
@@ -28,18 +26,16 @@ Requires:       python3-matplotlib-gtk3 >= 3.8.2
 Requires:       python3-peewee >= 3.17.0
 Requires:       python3-py3nvml >= 0.2.7
 Requires:       python3-pyxdg %dnl >= 0.28 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2242522
-Requires:       python3-reactivex >= 4.0.4
-Requires:       python3-requests %dnl >= 2.31.0 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2189970
+Requires:       python3-rx >= 4.0.4
+Requires:       python3-requests >= 2.31.0
 Requires:       python3-xlib >= 0.33
-
 # Conditional dep for GNOME
 Recommends:     (gnome-shell-extension-appindicator if gnome-shell)
-
 Recommends:     libappindicator-gtk3
 
 %description
-GWE is a GTK system utility designed to provide information, control the fans
-and overclock your NVIDIA video card and graphics processor.
+GWE is/was a GTK system utility designed to provide information, control the
+fans and overclock your NVIDIA video card and graphics processor.
 
 This package require NVIDIA driver. Please read included README.Fedora file:
 
@@ -58,7 +54,6 @@ This package require NVIDIA driver. Please read included README.Fedora file:
 %install
 %meson_install
 install -m0644 -Dp %{SOURCE1} %{buildroot}%{_docdir}/%{name}/README.fedora.md
-
 # Remove HiDPI version PNG icons since we have SVG version here
 rm -r %{buildroot}%{_datadir}/icons/hicolor/*@2x/
 

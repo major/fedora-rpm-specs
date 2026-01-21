@@ -1,7 +1,7 @@
 %global giturl  https://github.com/executablebooks/sphinx-design
 
 Name:           python-sphinx-design
-Version:        0.6.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Sphinx extension for responsive web components
 
@@ -19,7 +19,7 @@ BuildOption(generate_buildrequires): -x testing
 BuildOption(install): -l sphinx_design
 
 # The Fedora package does not contain JSON glyphs
-Provides:       bundled(material-icons-fonts) = 4.0.0.c9e5528
+Provides:       bundled(material-icons-fonts) = 4.0.0.116.ge9da21
 
 # Octicons is not available from Fedora
 # The upstream release tarball does not contain JSON glyphs
@@ -66,10 +66,10 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version} -p1
 
-%generate_buildrequires -p
 # Unpin pytest and myst-parser's version
 sed -i "/pytest~=/s/~=8\.3//" pyproject.toml
-sed -i "/myst-parser>=/s/>=2,<4//" pyproject.toml
+sed -i "/myst-parser>=/s/>=4,<6//" pyproject.toml
+
 # Do not run code coverage tools
 sed -i "/pytest-cov/d" pyproject.toml
 

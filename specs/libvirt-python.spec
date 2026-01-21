@@ -16,8 +16,8 @@
 
 Summary: The libvirt virtualization API python3 binding
 Name: libvirt-python
-Version: 11.10.0
-Release: 2%{?dist}
+Version: 12.0.0
+Release: 1%{?dist}
 Source0: https://libvirt.org/sources/python/%{dist_name}-%{version}.tar.gz
 Url: https://libvirt.org
 License: LGPL-2.1-or-later
@@ -89,6 +89,9 @@ exit 1
 
 
 %changelog
+* Mon Jan 19 2026 Daniel P. Berrangé <berrange@redhat.com> - 12.0.0-1
+- Update to 12.0.0 release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

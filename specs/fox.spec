@@ -1,3 +1,5 @@
+%global	use_gcc_strict_sanitize	0
+
 Name:		fox
 # http://www.fox-toolkit.org/faq.html#VERSION
 # For now, use stable one
@@ -51,6 +53,11 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	make
+
+%if 0%{?use_gcc_strict_sanitize}
+BuildRequires:	libasan
+BuildRequires:	libubsan
+%endif
 
 %description
 FOX is a C++ based Toolkit for developing Graphical User Interfaces 
@@ -112,6 +119,14 @@ do
 done
 
 %build
+%set_build_flags
+
+%if 0%{?use_gcc_strict_sanitize}
+export CC="${CC} -fsanitize=address -fsanitize=undefined"
+export CXX="${CXX} -fsanitize=address -fsanitize=undefined -fno-sanitize=vptr"
+export LDFLAGS="${LDFLAGS} -pthread"
+%endif
+
 %configure \
 	--disable-static \
 %if 0

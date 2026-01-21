@@ -6,7 +6,7 @@
 
 Name:           libkrunfw
 Version:        5.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 # Automatically converted from old format: LGPLv2 and GPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2 AND GPL-2.0-only
@@ -114,6 +114,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Mon Jan 19 2026 Sergio Lopez <slp@redhat.com> - 5.1.0-2
+- Rebuilt for new side tag
+
 * Sat Jan 17 2026 Sergio Lopez <slp@redhat.com> - 5.1.0-1
 - Update to 5.1.0 which bundles a 6.12.62 kernel
 

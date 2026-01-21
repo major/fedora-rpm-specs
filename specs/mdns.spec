@@ -20,7 +20,8 @@ Summary: Cross-platform mDNS/DNS-SD library in C
 URL: https://github.com/mjansson/mdns
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Patch1:
+# https://fedoraproject.org/wiki/Changes/CMake4.0
+Patch1: mdns-1.4-cmake.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

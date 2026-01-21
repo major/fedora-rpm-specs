@@ -26,6 +26,7 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  python3-devel
 # -base is not enough, need gi._gi_cairo for tests
+BuildRequires:  gobject-introspection
 BuildRequires:  python3-gobject
 BuildRequires:  %{py3_dist pillow}
 BuildRequires:  %{py3_dist pytest}
@@ -36,6 +37,7 @@ Requires:       hicolor-icon-theme
 Requires:       libgcc%{?_isa}
 Requires:       glibc-devel%{?_isa}
 Requires:       python3-gobject
+Requires:       gobject-introspection
 Requires:       gtk4
 
 %description
@@ -90,7 +92,7 @@ cp -p doc/%{name}.1 %{buildroot}%{_mandir}/man1
 
 %check
 # The test_main_window test hangs in mock
-%pytest --ignore fract4dgui/tests/test_main_window.py
+%pytest -v --ignore fract4dgui/tests/test_main_window.py
 
 %files
 %license LICENSE

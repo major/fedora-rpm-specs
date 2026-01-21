@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.13
+%define mainversion   6.14
 %dnl %define extratarver   1
 %dnl %define beta_ver      b2
 
@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    2
+%define baserelease    1
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -104,8 +104,8 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
-# driver/demo-Gtk.c: Initialize locking_supported_p for X11 session
-Patch5301:       xscreensaver-6.13-0001-driver-demo-Gtk.c-Initialize-locking_supported_p-for.patch
+# driver/Makefile.in: fix test-vp linkage
+Patch5401:       xscreensaver-6.14-0001-driver-fix-linkage-for-test-vp.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -414,7 +414,7 @@ done
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
-%__cat %PATCH5301 | %__git am
+%__cat %PATCH5401 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -459,9 +459,6 @@ silence_hack(){
 %global PATCH_desc \
 # change some files to UTF-8
 for f in \
-%if 0
-   driver/XScreenSaver.ad.in \
-%endif
    hacks/glx/sproingies.man \
    hacks/glx/cubocteversion.man \
    ; do
@@ -545,15 +542,9 @@ sed -i.term \
    -e 's|lxterminal|xterm|'
 %__git commit -m "Manual: change terminal to xterm" -a
 
-# Suppress rpmlint warnings.
-# suppress about pam config (although this is 
-# not the fault of xscreensaver.pam ......).
-#
-# From xscreensaver-5.15-10, no longer do this
-%if 0
-sed -i.rpmlint -n -e '1,5p' driver/xscreensaver.pam
-%endif
 # xscreensaver 6.12
+# xscreensaver 6.14: use login pam module as vanilla xscreensaver does
+%if 0
 sed -i.auth driver/xscreensaver.pam.in \
 	-e '\@auth.*include.*system-auth@s|^#||'
 %__git commit -m "Use system-auth for auth again" -a
@@ -562,6 +553,7 @@ sed -i.auth driver/xscreensaver.pam.in \
 sed -i.nooverride driver/Makefile.in \
 	-e '\@src2.*PAM_DIR@s|src2=.*$|src2= ;\\|'
 %__git commit -m "Don't override xscreensaver.pam by system-wide /etc/pam.d/login or so" -a
+%endif
 
 if [ -x %{_datadir}/libtool/config.guess ]; then
   # use system-wide copy
@@ -1219,6 +1211,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Jan 18 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.14-1
+- Update to 6.14
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

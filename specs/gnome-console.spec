@@ -3,7 +3,7 @@
 %global vte_version 0.77.0
 
 Name:           gnome-console
-Version:        49.1
+Version:        49.2
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 

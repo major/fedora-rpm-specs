@@ -1,14 +1,10 @@
 Name:           perl-File-Find-utf8
-Version:        0.014
-Release:        12%{?dist}
+Version:        0.016
+Release:        1%{?dist}
 Summary:        Fully UTF-8 aware File::Find
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-utf8
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAYOBAAN/File-Find-utf8-%{version}.tar.gz
-# Fix tests to work from a read-only location, proposed to an upstream,
-# <https://github.com/HayoBaan/File-Find-utf8/pull/4>
-Patch0:         File-Find-utf8-0.014-Create-a-temporary-directory-with-File-Temp.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -85,13 +81,18 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/File
+%dir %{perl_vendorlib}/File/Find
+%{perl_vendorlib}/File/Find/utf8.pm
+%{_mandir}/man3/File::Find::utf8.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 19 2026 Petr Pisar <ppisar@redhat.com> - 0.016-1
+- 0.016 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

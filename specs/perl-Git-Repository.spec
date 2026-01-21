@@ -1,19 +1,10 @@
 Name:           perl-Git-Repository
-Version:        1.325
-Release:        16%{?dist}
+Version:        1.326
+Release:        1%{?dist}
 Summary:        Perl interface to Git repositories
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Git-Repository
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOOK/Git-Repository-%{version}.tar.gz
-# Adapt tests to git-2.38.1, proposed to the upstream,
-# <https://github.com/book/Git-Repository/pull/22>
-Patch1:         git-2.38.1-compatibility.patch
-# Adapt tests to git-2.39.0, bug #2175807, proposed to the upstream,
-# <https://github.com/book/Git-Repository/pull/23>
-Patch2:         git-var-GIT_EDITOR.patch
-# Do not write to CWD by the tests, in upstream after 1.325,
-# <https://github.com/book/Git-Repository/pull/24>
-Patch3:         Git-Repository-1.325-tests-Do-not-write-to-current-working-directory.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -91,7 +82,7 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p1 -n Git-Repository-%{version}
 # Remove always skipped tests
-for F in t/author-pod-coverage.t t/author-pod-syntax.t t/release-distmeta.t t/test-all-git.t; do
+for F in t/author-distmeta.t t/author-pod-coverage.t t/author-pod-syntax.t t/test-all-git.t; do
     rm "$F"
     perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
 done
@@ -141,6 +132,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 19 2026 Petr Pisar <ppisar@redhat.com> - 1.326-1
+- 1.326 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

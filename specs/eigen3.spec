@@ -22,7 +22,7 @@
 
 Name:           eigen3
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight C++ template library for vector and matrix math
 
 License:        Apache-2.0 AND MPL-2.0 AND BSD-3-Clause AND Minpack
@@ -35,6 +35,8 @@ Source1:        mingw_TryRunResults.cmake
 Patch0:         eigen3_docs.patch
 # Fix lib install dir
 Patch1:         eigen3_libinstalldir.patch
+# Fix build error with doxygen >= 1.14
+Patch2:         eigen3-doxygen.patch
 
 BuildRequires:  %{blaslib}-devel
 BuildRequires:  fftw-devel
@@ -224,6 +226,9 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 
 
 %changelog
+* Mon Jan 19 2026 Than Ngo <than@redhat.com> - 5.0.1-3
+- Fix FTBFS with doxygen
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

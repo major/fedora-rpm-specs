@@ -34,7 +34,6 @@
 %endif
 
 # For testing distributed+rccl etc.
-%bcond_without rccl
 %bcond_with gloo
 %bcond_without mpi
 %bcond_without tensorpipe
@@ -49,10 +48,17 @@
 %bcond_with httplib
 %bcond_with kineto
 
+# In fedora, not in rhel/epel or requires a newer version
 %if 0%{?fedora}
+%bcond_without eigen3
 %bcond_without onnx
+%bcond_without protobuf
+%bcond_without setuptools
 %else
+%bcond_with eigen3
 %bcond_with onnx
+%bcond_with protobuf
+%bcond_with setuptools
 %endif
 
 Name:           python-%{pypi_name}
@@ -107,13 +113,30 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 %global ox_ver 1.18.0
 Source90:       https://github.com/onnx/onnx/archive/refs/tags/v%{ox_ver}.tar.gz
 
+%global pb_ver 3.19.6
+Source100:      https://github.com/protocolbuffers/protobuf/archive/refs/tags/v%{pb_ver}.tar.gz
+
+# A problem on RHEL 10
+# + /usr/bin/python3 setup.py build '--executable=/usr/bin/python3 -sP'
+# Traceback (most recent call last):
+#  File "/root/rpmbuild/BUILD/pytorch-v2.9.1/setup.py", line 288, in <module>
+#    import setuptools.command.bdist_wheel
+# ModuleNotFoundError: No module named 'setuptools.command.bdist_wheel'
+# This support came in 70.1.0, RHEL 10.2 has 69.0.3
+# Use ELN version
+%global st_ver 80.9.0
+Source110:      https://github.com/pypa/setuptools/archive/refs/tags/v%{st_ver}.tar.gz
+
 %global pt_arches x86_64 aarch64
 ExclusiveArch:  %pt_arches
 %global toolchain gcc
 %global _lto_cflags %nil
 
 BuildRequires:  cmake
+BuildRequires:  cpuinfo-devel
+%if %{with eigen3}
 BuildRequires:  eigen3-devel
+%endif
 BuildRequires:  flexiblas-devel
 BuildRequires:  fmt-devel
 BuildRequires:  foxi-devel
@@ -128,20 +151,20 @@ BuildRequires:  json-devel
 BuildRequires:  libomp-devel
 BuildRequires:  moodycamel-concurrentqueue-devel
 BuildRequires:  numactl-devel
-BuildRequires:  ninja-build
 %if %{with onnx}
 BuildRequires:  onnx-devel
 %endif
 %if %{with mpi}
 BuildRequires:  openmpi-devel
 %endif
+%if %{with protobuf}
 BuildRequires:  protobuf-devel
+%endif
 BuildRequires:  sleef-devel
 BuildRequires:  valgrind-devel
 BuildRequires:  pocketfft-devel
 BuildRequires:  pthreadpool-devel
 
-BuildRequires:  cpuinfo-devel
 BuildRequires:  FP16-devel
 BuildRequires:  fxdiv-devel
 BuildRequires:  psimd-devel
@@ -154,14 +177,19 @@ BuildRequires:  python3dist(networkx)
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(pyyaml)
+%if %{with setuptools}
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sphinx)
+%endif
 BuildRequires:  python3dist(typing-extensions)
 
+# Packages missing for RHEL/EPEL
 %if 0%{?fedora}
 BuildRequires:  python3-pybind11
 BuildRequires:  python3dist(fsspec)
+BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sympy)
+# New for 2.9 / EPEL 10.2
+BuildRequires:  ninja-build
 %endif
 
 %if %{with rocm}
@@ -173,15 +201,12 @@ BuildRequires:  hiprand-devel
 BuildRequires:  hipsparse-devel
 BuildRequires:  hipsparselt-devel
 BuildRequires:  hipsolver-devel
-# Magma is broken on ROCm 7
-# BuildRequires:  magma-devel
+BuildRequires:  magma-devel
 BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocrand-devel
 BuildRequires:  rocfft-devel
-%if %{with rccl}
 BuildRequires:  rccl-devel
-%endif
 BuildRequires:  rocprim-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -266,6 +291,18 @@ cp %{SOURCE1000} .
 
 %else
 %autosetup -p1 -n pytorch-v%{version}
+
+# GitHub release tarballs identify the version as an alpha, so replace that
+echo "%{pypi_version}" > version.txt
+
+%endif
+
+%if %{without setuptools}
+mkdir -p extra-python
+cd extra-python
+tar xf %{SOURCE110}
+mv setuptools-* setuptools
+cd ..
 %endif
 
 # Remove bundled egg-info
@@ -319,8 +356,14 @@ rm -rf third_party/onnx/*
 cp -r onnx-*/* third_party/onnx/
 %endif
 
+%if %{without protobuf}
+tar xf %{SOURCE100}
+rm -rf third_party/protobuf/*
+cp -r protobuf-*/* third_party/protobuf/
+%endif
+
 # Adjust for the hipblaslt's we build
-sed -i -e 's@"gfx90a", "gfx940", "gfx941", "gfx942"@"gfx90a", "gfx1103", "gfx1150", "gfx1151", "gfx1100", "gfx1101", "gfx1200", "gfx1201"@' aten/src/ATen/native/cuda/Blas.cpp
+sed -i -e 's@"gfx1100", "gfx1101", "gfx1200", "gfx1201", "gfx908",@"gfx1100", "gfx1101", "gfx1200", "gfx1201", "gfx1151",@' aten/src/ATen/native/cuda/Blas.cpp
 
 %if 0%{?rhel}
 # In RHEL but too old
@@ -412,6 +455,10 @@ mv third_party/kineto .
 mv third_party/onnx .
 %endif
 
+%if %{without protobuf}
+mv third_party/protobuf .
+%endif
+
 %if %{with test}
 mv third_party/googletest .
 %endif
@@ -442,6 +489,10 @@ mv kineto third_party
 
 %if %{without onnx}
 mv onnx third_party
+%endif
+
+%if %{without protobuf}
+mv protobuf third_party
 %endif
 
 %if %{with test}
@@ -536,7 +587,10 @@ export MAX_JOBS=$COMPILE_JOBS
 # Manually set this hardening flag
 export CMAKE_EXE_LINKER_FLAGS=-pie
 
+%if %{with protobuf}
 export BUILD_CUSTOM_PROTOBUF=OFF
+%endif
+
 export BUILD_NVFUSER=OFF
 export BUILD_SHARED_LIBS=ON
 export BUILD_TEST=OFF
@@ -566,7 +620,9 @@ export USE_OPENMP=ON
 export USE_PYTORCH_QNNPACK=OFF
 export USE_ROCM=OFF
 export USE_SYSTEM_SLEEF=ON
+%if %{with eigen3}
 export USE_SYSTEM_EIGEN_INSTALL=ON
+%endif
 %if %{with onnx}
 export USE_SYSTEM_ONNX=ON
 %endif
@@ -601,15 +657,6 @@ export USE_MPI=ON
 export BUILD_TEST=ON
 %endif
 
-# Why we are using py3_ vs pyproject_
-#
-# current pyproject problem with mock
-# + /usr/bin/python3 -Bs /usr/lib/rpm/redhat/pyproject_wheel.py /builddir/build/BUILD/pytorch-v2.1.0/pyproject-wheeldir
-# /usr/bin/python3: No module named pip
-# Adding pip to build requires does not fix
-#
-# See BZ 2244862
-
 %if %{with rocm}
 
 export USE_ROCM=ON
@@ -617,17 +664,23 @@ export USE_ROCM_CK_SDPA=OFF
 export USE_ROCM_CK_GEMM=OFF
 export USE_FBGEMM_GENAI=OFF
 
-# Magma is broken on ROCm 7
-# export USE_MAGMA=ON
+export USE_MAGMA=ON
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
-#RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
-#export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
+%endif
+
+%if %{without setuptools}
+cd extra-python
+EXTRA_PYTHON=$PWD
+cd setuptools
+python3 setup.py install --root $EXTRA_PYTHON
+cd ../..
+export PYTHONPATH=${EXTRA_PYTHON}%{python3_sitelib}:$PYTHONPATH
 %endif
 
 %if 0%{?fedora}
@@ -639,42 +692,45 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
 %install
 
-# pytorch rpm macros
-# install -Dpm 644 macros.pytorch \
-#    %{buildroot}%{_rpmmacrodir}/macros.pytorch
-
 %if %{with rocm}
 export USE_ROCM=ON
 export USE_ROCM_CK=OFF
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
-# RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`
-# export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
-
 %endif
 
 %if 0%{?fedora}
 %pyproject_install
 %pyproject_save_files '*torch*'
 %else
-%py3_install
-%endif
+# In 2.9+ the 'setup.py install' command is gone
+# + /usr/bin/python3 setup.py install -O1 --skip-build --root /builddir/build/BUILDROOT/python-torch-2.9.1-1.el10.x86_64 --prefix /usr
+# WARNING: Redirecting 'python setup.py install' to 'pip install . -v --no-build-isolation', for more inf
+# So we can no longer use py3_install
+# The replacement from pytorch does not map arguements
+# cobble together a new install based on pyproject_install
 
+PYTHONPATH=$PWD/extra-python/%{python3_sitelib}:$PYTHONPATH \
+ TMPDIR="$PWD/build" \
+ %{__python3} -m pip install --root %{buildroot} --prefix %{_prefix} --no-deps --disable-pip-version-check --progress-bar off --verbose --ignore-installed --no-warn-script-location --no-index --no-cache-dir --no-build-isolation .
+
+%endif
 
 %check
 # Not working yet
 # pyproject_check_import torch
 
-# Do not remote the empty files
-
 %files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.md 
 %{_bindir}/torchrun
+%if 0%{?rhel}
+%{_bindir}/torchfrtrace
+%endif
 %{python3_sitearch}/%{pypi_name}*
 %{python3_sitearch}/functorch
 

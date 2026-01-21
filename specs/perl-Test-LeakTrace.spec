@@ -8,7 +8,7 @@
 Name:		perl-Test-LeakTrace
 Summary:	Trace memory leaks
 Version:	0.17
-Release:	23%{?dist}
+Release:	24%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-LeakTrace
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-LeakTrace-%{version}.tar.gz
@@ -20,7 +20,7 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Module Runtime
 BuildRequires:	perl(Exporter) >= 5.57
@@ -45,7 +45,8 @@ BuildRequires:	perl(Test::Synopsis)
 BuildRequires:	perl(Test::Valgrind)
 %endif
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 # Don't provide private perl libs
 %{?perl_default_filter}
@@ -77,12 +78,11 @@ sed -i -e '/^xt\/05_valgrind\.t/d' MANIFEST
 %endif
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -98,6 +98,9 @@ make test
 %{_mandir}/man3/Test::LeakTrace::Script.3*
 
 %changelog
+* Mon Jan 19 2026 Paul Howarth <paul@city-fan.org> - 0.17-24
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -200,14 +200,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        147.0
-Release:        2%{?pre_tag}%{?dist}
+Version:        147.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20260106.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20260119.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -1266,6 +1266,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Jan 19 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-1
+- Updated to 147.0.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 147.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

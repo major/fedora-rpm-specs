@@ -705,6 +705,7 @@ find -depth -name 'artifacts' -type d -print -exec rm -rf {} \;
 %ifarch %{mono_archs}
   --use-mono-runtime \
 %endif
+  --clean-while-building \
   -- \
   /p:UseSystemLibs=${system_libs} \
   /p:TargetRid=%{runtime_id} \

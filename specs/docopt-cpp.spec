@@ -5,8 +5,7 @@ Version:        0.6.3
 Release:        %autorelease
 Summary:        C++11 Port of docopt
 
-# Automatically converted from old format: MIT or Boost - review is highly recommended.
-License:        LicenseRef-Callaway-MIT OR BSL-1.0
+License:        MIT OR BSL-1.0
 URL:            https://github.com/docopt/docopt.cpp
 
 %forgemeta
@@ -14,9 +13,13 @@ Source0:        %{forgesource0}
 
 # https://github.com/docopt/docopt.cpp/pull/145
 Patch1:         %{url}/pull/145.patch#/docopt-0.6.3-run-tests.patch
+# https://fedoraproject.org/wiki/Changes/CMake4.0
+Patch2:         docopt-cpp-0.6.3-cmake.patch
 
-BuildRequires:  cmake gcc-c++
-BuildRequires:  rpmautospec redhat-rpm-config
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  rpmautospec
+BuildRequires:  redhat-rpm-config
 # Needed for tests
 BuildRequires:  python3-devel
 

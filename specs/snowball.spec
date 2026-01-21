@@ -160,7 +160,7 @@ cd python
 
 %build
 # Build the compiler and C library
-sed -i 's|^\(CFLAGS=\).*|\1%{build_cflags}|' GNUmakefile
+sed -i 's|^\(EXECFLAGS=\).*|\1%{build_cflags}|' GNUmakefile
 %make_build
 
 %ifarch %{java_arches}

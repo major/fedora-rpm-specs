@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           quadrapassel
-Version:        49.2.3
+Version:        50~alpha
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 

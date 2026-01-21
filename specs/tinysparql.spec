@@ -11,13 +11,13 @@
 %endif
 
 Name:           tinysparql
-Version:        3.10.1
+Version:        3.11~alpha
 Release:        %autorelease
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tinysparql/
-Source0:        https://download.gnome.org/sources/tinysparql/3.10/tinysparql-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/tinysparql/3.11/tinysparql-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc

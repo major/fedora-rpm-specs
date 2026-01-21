@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc5.38
+%define pkgrelease 0.rc6.43
 %define kversion 6
-%define tarfile_release 6.19-rc5
+%define tarfile_release 6.19-rc6
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.38%{?buildid}%{?dist}
+%define specrelease 0.rc6.43%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -218,9 +218,19 @@ Summary: The Linux kernel
 # Where enabled by default, they can be disabled by using --without <opt> in
 # the rpmbuild command, or by forcing these values to 0.
 #
-# standard kernel
-%define with_up        %{?_without_up:        0} %{?!_without_up:        1}
-# build the base variants
+# stock kernel (kernel, kernel-core, kernel-modules, etc.)
+# Backwards compatibility: 'up' is deprecated, use 'stock' instead
+%define with_stock        %{?_without_stock:        0} %{?!_without_stock:        1}
+%{?_with_up: %define with_stock 1}
+%{?_without_up: %define with_stock 0}
+#  "Base" kernel refers to production configuration for the variant.
+#
+# The --with baseonly option builds: stock-base (skips stock-debug), kernel-doc, kernel-headers;
+# skips: perf, tools, selftests.
+#
+# build the base variants (non-debug builds of any enabled kernel variant)
+#Note: with_stock controls which variant (stock vs realtime/automotive/etc),
+#      with_base controls base vs debug within those variants
 %define with_base      %{?_without_base:      0} %{?!_without_base:      1}
 # build also debug variants
 %define with_debug     %{?_without_debug:     0} %{?!_without_debug:     1}
@@ -247,7 +257,7 @@ Summary: The Linux kernel
 
 # Supported variants
 #            with_base with_debug    with_gcov
-# up         X         X             X
+# stock      X         X             X
 # zfcpdump   X                       X
 # arm64_16k  X         X             X
 # arm64_64k  X         X             X
@@ -429,7 +439,7 @@ Summary: The Linux kernel
 %define with_realtime 1
 %define with_realtime_arm64_64k 1
 %define with_automotive 0
-%define with_up 0
+%define with_stock 0
 %define with_debug 0
 %define with_debuginfo 0
 %define with_vdso_install 0
@@ -449,7 +459,7 @@ Summary: The Linux kernel
 %if %{with_automotiveonly}
 %define with_automotive 1
 %define with_realtime 0
-%define with_up 0
+%define with_stock 0
 %define with_debug 0
 %define with_debuginfo 0
 %define with_vdso_install 0
@@ -465,7 +475,7 @@ Summary: The Linux kernel
 # if requested, only build tools
 %if %{with_toolsonly}
 %define with_tools 1
-%define with_up 0
+%define with_stock 0
 %define with_base 0
 %define with_debug 0
 %define with_realtime 0
@@ -560,7 +570,7 @@ Summary: The Linux kernel
 
 # don't build noarch kernels or headers (duh)
 %ifarch noarch
-%define with_up 0
+%define with_stock 0
 %define with_realtime 0
 %define with_automotive 0
 %define with_headers 0
@@ -658,7 +668,7 @@ Summary: The Linux kernel
 
 %ifarch %nobuildarches
 # disable BuildKernel commands
-%define with_up 0
+%define with_stock 0
 %define with_debug 0
 %define with_zfcpdump 0
 %define with_arm64_16k 0
@@ -700,10 +710,10 @@ Summary: The Linux kernel
 %endif
 
 # short-hand for "are we building base/non-debug variants of ...?"
-%if %{with_up} && %{with_base}
-%define with_up_base 1
+%if %{with_stock} && %{with_base}
+%define with_stock_base 1
 %else
-%define with_up_base 0
+%define with_stock_base 0
 %endif
 %if %{with_realtime} && %{with_base}
 %define with_realtime_base 1
@@ -1411,6 +1421,14 @@ This package provides debug information for package %{name}-tools.
 # of matching the pattern against the symlinks file.
 %{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/bootconfig(\.debug)?|.*%%{_bindir}/centrino-decode(\.debug)?|.*%%{_bindir}/powernow-k8-decode(\.debug)?|.*%%{_bindir}/cpupower(\.debug)?|.*%%{_libdir}/libcpupower.*|.*%%{python3_sitearch}/_raw_pylibcpupower.*|.*%%{_bindir}/turbostat(\.debug)?|.*%%{_bindir}/x86_energy_perf_policy(\.debug)?|.*%%{_bindir}/tmon(\.debug)?|.*%%{_bindir}/lsgpio(\.debug)?|.*%%{_bindir}/gpio-hammer(\.debug)?|.*%%{_bindir}/gpio-event-mon(\.debug)?|.*%%{_bindir}/gpio-watch(\.debug)?|.*%%{_bindir}/iio_event_monitor(\.debug)?|.*%%{_bindir}/iio_generic_buffer(\.debug)?|.*%%{_bindir}/lsiio(\.debug)?|.*%%{_bindir}/intel-speed-select(\.debug)?|.*%%{_bindir}/page_owner_sort(\.debug)?|.*%%{_bindir}/slabinfo(\.debug)?|.*%%{_sbindir}/intel_sdsi(\.debug)?|XXX' -o %{name}-tools-debuginfo.list}
 
+%if %{with_tools} && %{with_ynl}
+%package -n python3-%{name}-tools
+Summary: Various Python tools for the kernel
+%description -n python3-%{name}-tools
+The python3-kernel-tools package contains various python tools
+shipped as part of the kernel tools including ynl.
+%endif
+
 %package -n rtla
 %if 0%{gemini}
 Epoch: %{gemini}
@@ -1893,7 +1911,7 @@ This package includes a version of the Linux kernel compiled with the
 PREEMPT_RT real-time preemption support, targeted for Automotive platforms
 %endif
 
-%if %{with_up} && %{with_debug}
+%if %{with_stock} && %{with_debug}
 %if !%{debugbuildsenabled}
 %kernel_variant_package -m debug
 %else
@@ -1910,7 +1928,7 @@ It should only be installed when trying to gather additional information
 on kernel bugs, as some of these options impact performance noticably.
 %endif
 
-%if %{with_up_base}
+%if %{with_stock_base}
 # And finally the main -core package
 
 %define variant_summary The Linux kernel
@@ -1922,7 +1940,7 @@ of the operating system: memory allocation, process allocation, device
 input and output, etc.
 %endif
 
-%if %{with_up} && %{with_debug} && %{with_efiuki}
+%if %{with_stock} && %{with_debug} && %{with_efiuki}
 %description debug-uki-virt
 Prebuilt debug unified kernel image for virtual machines.
 
@@ -1930,7 +1948,7 @@ Prebuilt debug unified kernel image for virtual machines.
 Prebuilt debug unified kernel image addons for virtual machines.
 %endif
 
-%if %{with_up_base} && %{with_efiuki}
+%if %{with_stock_base} && %{with_efiuki}
 %description uki-virt
 Prebuilt default unified kernel image for virtual machines.
 
@@ -1991,8 +2009,8 @@ Prebuilt 64k unified kernel image addons for virtual machines.
 
 # do a few sanity-checks for --with *only builds
 %if %{with_baseonly}
-%if !%{with_up}
-%{log_msg "Cannot build --with baseonly, up build is disabled"}
+%if !%{with_stock}
+%{log_msg "Cannot build --with baseonly, stock build is disabled"}
 exit 1
 %endif
 %endif
@@ -3154,7 +3172,7 @@ BuildKernel %make_target %kernel_image %{_use_vdso} 16k-debug
 BuildKernel %make_target %kernel_image %{_use_vdso} 64k-debug
 %endif
 
-%if %{with_up}
+%if %{with_stock}
 BuildKernel %make_target %kernel_image %{_use_vdso} debug
 %endif
 %endif
@@ -3183,12 +3201,12 @@ BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k
 BuildKernel %make_target %kernel_image %{_use_vdso} automotive
 %endif
 
-%if %{with_up_base}
+%if %{with_stock_base}
 BuildKernel %make_target %kernel_image %{_use_vdso}
 %endif
 
 %ifnarch noarch i686 %{nobuildarches}
-%if !%{with_debug} && !%{with_zfcpdump} && !%{with_up} && !%{with_arm64_16k} && !%{with_arm64_64k} && !%{with_realtime} && !%{with_realtime_arm64_64k} && !%{with_automotive}
+%if !%{with_debug} && !%{with_zfcpdump} && !%{with_stock} && !%{with_arm64_16k} && !%{with_arm64_64k} && !%{with_realtime} && !%{with_realtime_arm64_64k} && !%{with_automotive}
 # If only building the user space tools, then initialize the build environment
 # and some variables so that the various userspace tools can be built.
 %{log_msg "Initialize userspace tools build environment"}
@@ -4150,12 +4168,12 @@ fi\
 %endif\
 %{nil}
 
-%if %{with_up_base} && %{with_efiuki}
+%if %{with_stock_base} && %{with_efiuki}
 %kernel_variant_posttrans -u virt
 %kernel_variant_preun -u virt -e
 %endif
 
-%if %{with_up_base}
+%if %{with_stock_base}
 %kernel_variant_preun -e
 %kernel_variant_post
 %endif
@@ -4165,12 +4183,12 @@ fi\
 %kernel_variant_post -v zfcpdump
 %endif
 
-%if %{with_up} && %{with_debug} && %{with_efiuki}
+%if %{with_stock} && %{with_debug} && %{with_efiuki}
 %kernel_variant_posttrans -v debug -u virt
 %kernel_variant_preun -v debug -u virt -e
 %endif
 
-%if %{with_up} && %{with_debug}
+%if %{with_stock} && %{with_debug}
 %kernel_variant_preun -v debug -e
 %kernel_variant_post -v debug
 %endif
@@ -4385,7 +4403,9 @@ fi\
 %config(noreplace) %{_sysconfdir}/logrotate.d/kvm_stat
 %{_bindir}/page_owner_sort
 %{_bindir}/slabinfo
+
 %if %{with_ynl}
+%files -n python3-%{name}-tools
 %{_bindir}/ynl*
 %{_docdir}/ynl
 %{_datadir}/ynl
@@ -4452,7 +4472,7 @@ fi\
 %endif
 
 # empty meta-package
-%if %{with_up_base}
+%if %{with_stock_base}
 %ifnarch %nobuildarches noarch
 %files
 %endif
@@ -4577,8 +4597,8 @@ fi\
 %endif\
 %{nil}
 
-%kernel_variant_files %{_use_vdso} %{with_up_base}
-%if %{with_up}
+%kernel_variant_files %{_use_vdso} %{with_stock_base}
+%if %{with_stock}
 %kernel_variant_files %{_use_vdso} %{with_debug} debug
 %endif
 %if %{with_arm64_16k}
@@ -4638,8 +4658,28 @@ fi\
 #
 #
 %changelog
-* Mon Jan 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.38]
+* Mon Jan 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc6.43]
 - rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
+
+* Mon Jan 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc6.42]
+- Linux v6.19.0-0.rc6
+
+* Fri Jan 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.944aacb68baf.41]
+- redhat: add usbio kmod placement rule (Jan Stancek)
+
+* Thu Jan 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.944aacb68baf.40]
+- Rename with_up to with_stock. (Alexandra Hájková)
+- Linux v6.19.0-0.rc5.944aacb68baf
+
+* Wed Jan 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.c537e12daeec.39]
+- redhat: dereference GITID during tarball creation (Jan Drögehoff)
+- redhat/configs: Disable CONFIG_INTEL_TH on RHEL (David Arcari)
+- Revert "[redhat] temporarily disable CONFIG_CRYPTO_DEV_SP_PSP" (Scott Weaver)
+- kernel-tools: split the python tools off (Peter Robinson)
+- Linux v6.19.0-0.rc5.c537e12daeec
+
+* Tue Jan 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.b71e635feefc.38]
+- Linux v6.19.0-0.rc5.b71e635feefc
 
 * Mon Jan 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc5.37]
 - Linux v6.19.0-0.rc5

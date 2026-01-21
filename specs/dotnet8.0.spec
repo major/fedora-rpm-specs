@@ -580,6 +580,7 @@ VERBOSE=1 retry_until_success $max_attempts \
 %ifarch %{mono_archs}
     --use-mono-runtime \
 %endif
+    --clean-while-building \
     --release-manifest %{SOURCE5} \
     -- \
     /p:MinimalConsoleLogOutput=false \

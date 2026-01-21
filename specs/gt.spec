@@ -1,6 +1,6 @@
 Name:           gt
 Version:        0.4
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Modified Timidity which supportes enhanced gus format patches
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -18,6 +18,7 @@ Patch4:         gt-0.4-ppc-compile-fix.patch
 Patch5:         gt-0.4-unsf-bigendian-fix.patch
 Patch6:         gt-0.4-unsf-tremolo.patch
 Patch7:         gt-0.4-gcc10.patch
+Patch8:         gt-0.4-std23.patch
 BuildRequires:  gcc
 BuildRequires:  alsa-lib-devel libvorbis-devel flex
 BuildRequires:  make
@@ -60,7 +61,8 @@ touch -r utils/midifile.c $RPM_BUILD_ROOT%{_mandir}/man1/midi-disasm.1
  
 
 %files
-%doc AUTHORS COPYING ChangeLog FEATURES NEWS README*
+%doc AUTHORS ChangeLog FEATURES NEWS README*
+%license COPYING
 %{_bindir}/gt
 %{_mandir}/man1/gt.1*
 
@@ -73,6 +75,9 @@ touch -r utils/midifile.c $RPM_BUILD_ROOT%{_mandir}/man1/midi-disasm.1
 
 
 %changelog
+* Mon Jan 19 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.4-50
+- Fix FTBFS (rhbz#2340597, rhbz#2385043)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

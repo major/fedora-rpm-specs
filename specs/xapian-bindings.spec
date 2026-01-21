@@ -2,8 +2,8 @@
 %global tcl_sitearch %{_libdir}/tcl%{tcl_version}
 
 Name:          xapian-bindings
-Version:       1.4.29
-Release:       6%{?dist}
+Version:       1.4.30
+Release:       1%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -103,6 +103,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
+* Mon Jan 19 2026 Christiano Anderson <chris@christiano.me> - 1.4.30-1
+- Update to 1.4.30
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.29-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           libkrun
 Version:        1.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -220,6 +220,9 @@ capabilities.
 %endif
 
 %changelog
+* Mon Jan 19 2026 Sergio Lopez <slp@redhat.com> - 1.17.0-3
+- Rebuilt for new side tag
+
 * Sat Jan 17 2026 Sergio Lopez <slp@redhat.com> - 1.17.0-2
 - Require libkrunfw >= 5.x.x
 

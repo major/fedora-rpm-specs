@@ -6,7 +6,7 @@
 %define debug_package %{nil}
 
 Name:           libosmium
-Version:        2.22.0
+Version:        2.23.0
 Release:        %autorelease
 Summary:        Fast and flexible C++ library for working with OpenStreetMap data
 
@@ -14,8 +14,6 @@ License:        BSL-1.0
 URL:            http://osmcode.org/libosmium/
 Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/osmcode/osm-testdata/archive/%{testcommit}/osm-testdata-%{testcommit}.tar.gz
-# https://github.com/osmcode/libosmium/issues/391
-Patch0:         libosmium-cmake4.patch
 
 BuildRequires:  cmake make gcc-c++
 BuildRequires:  doxygen graphviz xmlstarlet

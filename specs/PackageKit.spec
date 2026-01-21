@@ -97,14 +97,14 @@ Obsoletes: PackageKit-device-rebind < 0.8.13-2
 %if ! %{with dnf4}
 # No longer needed since we don't support DNF4
 Obsoletes: dnf4-plugin-notify-PackageKit < %{version}-%{release}
+# No longer needed since we don't support DNF4+DNF5
+Obsoletes: libdnf5-plugin-notify-PackageKit < %{version}-%{release}
 %endif
 
 %if %{with dnf5_default}
 Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
-# Ensure PK knows about RPM transcations
-Requires: rpm-plugin-dbus-announce%{?_isa}
 # DNF5 backend is now built-in
 Obsoletes: PackageKit-backend-dnf5 < %{version}-%{release}
 Provides: PackageKit-backend-dnf5 = %{version}-%{release}
@@ -128,8 +128,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libdnf5%{?_isa} >= %{libdnf5_version}
 # Ensure AppStream repodata is processed
 Requires: libdnf5-plugin-appstream%{?_isa}
-# Ensure PK knows about RPM transcations
-Requires: rpm-plugin-dbus-announce%{?_isa}
 
 %description backend-dnf5
 PackageKit is a D-Bus abstraction layer that allows the session user
@@ -148,7 +146,6 @@ BuildArch: noarch
 
 %description -n dnf4-plugin-notify-PackageKit
 DNF4 plugin to notify PackageKit of DNF4 actions.
-%endif
 
 %package -n libdnf5-plugin-notify-PackageKit
 Summary: DNF5 plugin to notify PackageKit of DNF5 actions
@@ -157,6 +154,7 @@ Conflicts: %{name} < 1.3.1-2
 
 %description -n libdnf5-plugin-notify-PackageKit
 DNF5 plugin to notify PackageKit of DNF5 actions.
+%endif
 
 %package glib
 Summary: GLib libraries for accessing PackageKit
@@ -321,21 +319,25 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %endif
 %if %{with dnf5_default}
 %{_libdir}/packagekit-backend/libpk_backend_dnf5.so
+%{_libdir}/rpm-plugins/notify_packagekit.so
+%{_rpmmacrodir}/macros.transaction_notify_packagekit
 %endif
 
 %if ! %{with dnf5_default}
 %files backend-dnf5
 %{_libdir}/packagekit-backend/libpk_backend_dnf5.so
+%{_libdir}/rpm-plugins/notify_packagekit.so
+%{_rpmmacrodir}/macros.transaction_notify_packagekit
 %endif
 
 %if %{with dnf4}
 %files -n dnf4-plugin-notify-PackageKit
 %pycached %{python3_sitelib}/dnf-plugins/notify_packagekit.py
-%endif
 
 %files -n libdnf5-plugin-notify-PackageKit
 %{_libdir}/libdnf5/plugins/notify_packagekit.so
 %config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/notify_packagekit.conf
+%endif
 
 %files glib
 %{_libdir}/*packagekit-glib2.so.*

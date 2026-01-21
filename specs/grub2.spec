@@ -608,6 +608,11 @@ fi
 %endif
 
 %changelog
+* Fri Jan 16 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-51
+- Revert 'Increase EFI max allocation to max usable address'
+- Related: #2427945
+- Related: #2263643
+
 * Wed Dec 10 2025 Joel Capitao <jcapitao@redhat.com> - 2.12-50
 - Do not include EFI dir in common subpackage
 - Resolves: rhbz#2420430

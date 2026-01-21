@@ -7,6 +7,10 @@ Summary:        Intel CPU undervolting and throttling configuration tool
 License:        GPL-3.0-or-later
 URL:            https://github.com/kitsunyan/intel-undervolt
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# intel-undervolt.service: wanted by suspend-then-hibernate
+# https://github.com/kitsunyan/intel-undervolt/pull/41
+# https://bugzilla.redhat.com/show_bug.cgi?id=2427927
+Patch:          https://github.com/kitsunyan/intel-undervolt/pull/41.patch
 ExclusiveArch:  i386 x86_64
 
 BuildRequires:  gcc
@@ -20,6 +24,9 @@ Intel CPUs.
 
 Undervolting works on Haswell and newer CPUs and based on the content of this
 article https://github.com/mihic/linux-intel-undervolt
+
+This tool may damage your hardware since it uses reverse engineered methods of
+MSR usage. Use it on your own risk.
 
 
 %prep

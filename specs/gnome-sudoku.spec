@@ -2,13 +2,13 @@
 
 Name:           gnome-sudoku
 Epoch:          1
-Version:        49.2
-Release:        2%{?dist}
+Version:        50~alpha
+Release:        1%{?dist}
 Summary:        GNOME Sudoku game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Sudoku
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(blueprint-compiler)
 BuildRequires:  pkgconfig(gee-0.8)
@@ -61,6 +61,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Sudoku.d
 
 
 %changelog
+* Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 1:50~alpha-1
+- Update to 50.alpha
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:49.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

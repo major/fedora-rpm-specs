@@ -38,7 +38,8 @@ URL: http://www.cyrusimap.org/
 
 Source0: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version%{?prever:-%prever}/cyrus-imapd-%version%{?prever:-%prever}.tar.gz
 Source1: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version%{?prever:-%prever}/cyrus-imapd-%version%{?prever:-%prever}.tar.gz.sig
-Source2: ellie-pub.key
+# Ellie Timoney's public key from https://github.com/elliefm.gpg
+Source2: elliefm-pub.key
 Source10: cyrus-imapd.logrotate
 Source11: cyrus-imapd.pam-config
 Source12: cyrus-imapd.sysconfig
@@ -86,15 +87,13 @@ BuildRequires: jansson-devel krb5-devel libical-devel libicu-devel
 BuildRequires: libnghttp2-devel libpq-devel libxml2-devel
 BuildRequires: mariadb-connector-c-devel net-snmp-devel
 BuildRequires: openldap-devel openssl-devel pcre2-devel
-BuildRequires: sqlite-devel wslay-devel xapian-core-devel
+BuildRequires: sqlite-devel xapian-core-devel
 # Miscellaneous modules needed for 'make check' to function:
 BuildRequires: cyrus-sasl-plain cyrus-sasl-md5
 %if 0%{?fedora}
-BuildRequires: clamav-devel shapelib-devel
+BuildRequires: clamav-devel shapelib-devel wslay-devel
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 8
-BuildRequires: gnupg2
-%endif
+BuildRequires: gpgverify
 
 
 %if %{with cassandane}
@@ -301,9 +300,7 @@ This package contains Perl libraries used to interface with Cyrus IMAPd.
 
 
 %prep
-%if 0%{?fedora} || 0%{?rhel} > 8
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%endif
 
 %autosetup -p1 -n cyrus-imapd-%{version}%{?prever:-%{prever}}
 
@@ -355,6 +352,7 @@ autoreconf --verbose --force --install
 # Needed for Cyrus::FastMail tests to pass
 export CLD2_CFLAGS="-I/usr/include/cld2"
 export CLD2_LIBS="-lcld2"
+> cassandane/cld2-compiled-in
 %endif
 
 # C++17 or later needed for libicu-devel
@@ -415,15 +413,15 @@ make notifyd/notifytest
 # This module is not available in Fedora:
 yes | cpan -T IO::File::fcntl
 
-# This is the test suite, which doesn't build much but does verify its dependencies.
 pushd cassandane
+# This is the test suite, which doesn't build much but does verify its dependencies.
 export NOCYRUS=1
 make
 
 export IMAPTEST_COMMIT=44ff753f51d1a767b8d71b04e882847664d9f0c8
 
 # Do not depend on imaptest package (missing on RHEL10)
-wget https://github.com/dovecot/imaptest/archive/$IMAPTEST_COMMIT/imaptest-$IMAPTEST_COMMIT.tar.gz
+wget https://src.fedoraproject.org/lookaside/pkgs/imaptest/imaptest-44ff753f51d1a767b8d71b04e882847664d9f0c8.tar.gz/sha512/35ce05ebb69d393d101d11959513ff4c699bfce47a81291b69e50c861cb81713ed216f0760e5984e72f8ad0cd7406716b9c9a159a2b472955b17e6e3cb9b3093/imaptest-44ff753f51d1a767b8d71b04e882847664d9f0c8.tar.gz
 rm -rf imaptest-src
 mkdir imaptest-src
 tar -xf imaptest-$IMAPTEST_COMMIT.tar.gz  --strip-components=1 -C imaptest-src
@@ -677,7 +675,7 @@ tests=(
 for i in ${tests[@]}; do exclude+=("!$i"); done
 
 # If cyrus-imapd is built without cld2 support, the below tests are expected to fail:
-if [ -z "$CLD2_CFLAGS" ]; then
+if [ ! -e cld2-compiled-in ]; then
 exclude+=(
    "!Cyrus::FastMail.cyr_expire_delete_findpaths_legacy"
    "!Cyrus::FastMail.cyr_expire_delete_findpaths_nolegacy"

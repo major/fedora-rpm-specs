@@ -1,13 +1,13 @@
 %global	hash_thread1	2501673c
 %global	hash_thread2	5d70
 
-%global	main_version	2.1.2
+%global	main_version	2.1.3
 
 %global	use_gcc_strict_sanitize	0
 
 Name:		xfe
 Version:	%{main_version}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -20,10 +20,6 @@ Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{main_version}.tar.xz
 # Temporarily
 # Use system-wide startup-notification: need discuss with upstream
 Patch0:	xfe-2.0-use-system-libsn.patch
-# Fix use-after-free when trying to repaint window after opening supprted file
-# https://bugzilla.redhat.com/show_bug.cgi?id=2425678
-# https://sourceforge.net/p/xfe/bugs/313/
-Patch1:	xfe-2.1.2-sf313-use-after-free.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -69,7 +65,6 @@ This package contains extra theme files for %{name}.
 %prep
 %setup -q -n %{name}-%{main_version}
 %patch -P0 -p1 -b .syssn
-%patch -P1 -p1 -b .xfi_invalid_img
 
 for f in \
 	ChangeLog
@@ -177,6 +172,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Mon Jan 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.3-1
+- 2.1.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

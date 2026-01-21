@@ -23,8 +23,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.115.3
-Release: 2%{?dist}
+Version: 1.116.0
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
 License: GPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Python
@@ -142,7 +142,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 16 1.7.1
 
 %global rolename17 ha_cluster
-%deftag 17 1.28.1
+%deftag 17 1.29.0
 
 %global rolename18 vpn
 %deftag 18 1.6.15
@@ -151,7 +151,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 19 1.11.4
 
 %global rolename20 cockpit
-%deftag 20 1.7.3
+%deftag 20 1.7.4
 
 %global rolename21 podman
 %deftag 21 1.9.2
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Sun Jan  18 2026 Packit <hello@packit.dev> - 1.116.0-1
+- Update to upstream version 1.116.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

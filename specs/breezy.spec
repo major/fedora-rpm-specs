@@ -3,7 +3,11 @@
 #   bzrmajor:  main bzr version
 #   Version: bzr version, add subrelease version here
 %global brzmajor 3.3
-%global brzminor .17
+%global brzminor .20
+
+# Optional dependencies not packaged or retired:
+%bcond fastimport 0
+%bcond github 0
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}
@@ -11,7 +15,14 @@ Release:        %autorelease
 Summary:        Friendly distributed version control system
 
 # breezy is GPL-2.0-or-later, but it has Rust dependencies
-# see packaged LICENSE.dependencies for details
+# Packaged LICENSE.dependencies contains a full license breakdown
+# Paste the the output of %%{cargo_license_summary} here:
+#
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# GPL-2.0+
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
 License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND MIT AND (Unlicense OR MIT)
 URL:            http://www.breezy-vcs.org/
 Source0:        https://github.com/breezy-team/breezy/archive/brz-%{version}%{?brzrc}.tar.gz
@@ -34,7 +45,7 @@ Provides:       git-remote-bzr = %{version}-%{release}
 Obsoletes:      git-remote-bzr < 3
 
 # This is needed for launchpad support
-Recommends:     python3-launchpadlib
+Recommends:     breezy+launchpad
 
 # Docs are not needed, but some might want them
 Suggests:       %{name}-doc = %{version}-%{release}
@@ -44,6 +55,9 @@ Breezy (brz) is a decentralized revision control system, designed to be easy
 for developers and end users alike.
 
 By default, Breezy provides support for both the Bazaar and Git file formats.
+
+
+%pyproject_extras_subpkg -n breezy %{?with_fastimport:fastimport} git %{?with_github:github} launchpad pgp paramiko
 
 
 %package doc
@@ -78,7 +92,7 @@ sed -i 's/Strip.All/Strip.No/' setup.py
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-%pyproject_buildrequires -x doc
+%pyproject_buildrequires -x doc,%{?with_fastimport:,fastimport},git,%{?with_github:,github},launchpad,pgp,paramiko
 
 
 %build

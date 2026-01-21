@@ -1,6 +1,6 @@
 Name:           python-ogr
-Version:        0.59.0
-Release:        2%{?dist}
+Version:        0.60.0
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Jan 19 2026 Packit <hello@packit.dev> - 0.60.0-1
+- A new method `get_rate_limit_remaining()` to check rate limit thresholds has been added to the service API. (#970)
+- Resolves: rhbz#2430818
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.59.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

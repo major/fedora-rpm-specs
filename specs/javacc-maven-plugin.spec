@@ -7,7 +7,7 @@
 %global giturl  https://github.com/mojohaus/javacc-maven-plugin
 
 Name:           javacc-maven-plugin
-Version:        3.1.1
+Version:        3.2.0
 Release:        %autorelease
 Summary:        JavaCC Maven Plugin
 
@@ -16,7 +16,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 URL:            https://www.mojohaus.org/javacc-maven-plugin/
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{giturl}/archive/%{name}-%{version}.tar.gz
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}

@@ -10,6 +10,10 @@ Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}
 
 # https://github.com/mate-desktop/mate-session-manager/commit/5424817
 Patch1:        mate-session-manager_0001-Use-g_info-for-screensaver-left-the-bus-message.patch
+# https://github.com/mate-desktop/mate-session-manager/pull/323
+Patch2:        mate-session-manager_0004-util-Only-accept-common-space-characters.patch
+Patch3:        mate-session-manager_0005-util-Disable-capturing-of-subpatterns.patch
+Patch4:        mate-session-manager_0006-manager-Loosen-environment-variable-restrictions.patch
 
 BuildRequires: dbus-glib-devel
 BuildRequires: desktop-file-utils

@@ -1,6 +1,5 @@
-# Created by pyp2rpm-3.3.8
 %global pypi_name icoextract
-%global pypi_version 0.1.5
+%global pypi_version 0.2.0
 
 # NOTE: 'icoextract' itself required for tests
 %bcond_with tests
@@ -8,7 +7,7 @@
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
 Release:        %autorelease
-Summary:        Windows PE EXE icon extractor
+Summary:        Extract icons from Windows PE files (.exe/.dll)
 
 License:        MIT
 URL:            https://github.com/jlu5/icoextract
@@ -17,7 +16,6 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 %if %{with tests}
 BuildRequires:  ImageMagick
 BuildRequires:  make
@@ -26,9 +24,9 @@ BuildRequires:  mingw64-gcc
 BuildRequires:  python3-icoextract
 %endif
 
-%description
-icoextract is an icon extractor for Windows PE files (.exe/.dll), written in
-Python. It also includes a thumbnailer script (exe-thumbnailer) for Linux
+%global _description %{expand:
+icoextract is an icon extractor for Windows PE files (.exe/.dll/.mun), written
+in Python. It also includes a thumbnailer script (exe-thumbnailer) for Linux
 desktops.
 
 This project is inspired by extract-icon-py, icoutils, and others.
@@ -37,40 +35,36 @@ icoextract aims to be:
 
   * Lightweight
   * Portable (cross-platform)
-  * Fast on large files
+  * Fast on large files}
+
+%description %{_description}
 
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
-
 Requires:       python3dist(pefile)
 Requires:       python3dist(pillow)
 Requires:       python3dist(setuptools)
-%description -n python3-%{pypi_name}
-icoextract is an icon extractor for Windows PE files (.exe/.dll), written in
-Python. It also includes a thumbnailer script (exe-thumbnailer) for Linux
-desktops.
-
-This project is inspired by extract-icon-py, icoutils, and others.
-
-icoextract aims to be:
-
-  * Lightweight
-  * Portable (cross-platform)
-  * Fast on large files
+%description -n python3-%{pypi_name} %{_description}
 
 
 %prep
 %autosetup -n %{pypi_name}-%{pypi_version}
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2353972
+install -D -p -m 0644 exe-thumbnailer.thumbnailer %{buildroot}%{_datadir}/thumbnailers/exe-thumbnailer.thumbnailer
 
 # Exec permission
 pushd %{buildroot}%{python3_sitelib}/%{pypi_name}
@@ -92,14 +86,13 @@ popd
 %endif
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md CHANGELOG.md
 %{_bindir}/%{pypi_name}
 %{_bindir}/exe-thumbnailer
 %{_bindir}/icolist
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
+%{_datadir}/thumbnailers/exe-thumbnailer.thumbnailer
 
 
 %changelog

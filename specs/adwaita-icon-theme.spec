@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        49.0
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/adwaita-icon-theme
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 

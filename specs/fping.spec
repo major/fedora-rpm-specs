@@ -2,14 +2,14 @@
 #global snapshot 0
 %global OWNER schweikert
 %global PROJECT fping
-%global commit 8540d42646c44951c78b731a13d128407bf47735
-%global commitdate 20250819
-%global gittag v5.4
+%global commit 06f9481ef3cf79c2aa973718366fb13927777689
+%global commitdate 20251231
+%global gittag v5.5
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: fping
-Version: 5.4%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release: 2%{?dist}
+Version: 5.5%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release: 1%{?dist}
 Summary: Scriptable, parallelized ping-like utility
 License: BSD-4.3TAHOE
 URL: https://www.fping.org/
@@ -59,6 +59,9 @@ use in scripting in mind.
 %{_mandir}/man8/*
 
 %changelog
+* Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> - 5.5-1
+- Update to 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -269,6 +269,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Mon Jan 19 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 3.0.26-41
+- Rebuilt with jdk21
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

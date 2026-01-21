@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.26.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD-3-Clause
@@ -14,6 +14,10 @@ Patch8:         %{name}-0.22.0-file-cache.patch
 Patch9:         %{name}-0.26.1-compiler.patch
 # https://github.com/OpenSC/OpenSC/pull/3458
 Patch10:        %{name}-0.26.1-bash-completion.patch
+# https://github.com/OpenSC/OpenSC/pull/3411
+# https://github.com/OpenSC/OpenSC/pull/3549
+Patch11:        %{name}-0.26.1-function-list.patch
+Patch12:        %{name}-0.26.1-softhsm-2.7.0.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -67,6 +71,8 @@ OpenSC libraries.
 %patch 8 -p1 -b .file-cache
 %patch 9 -p1 -b .compiler
 %patch 10 -p1 -b .bash-completion
+%patch 11 -p1 -b .function-list
+%patch 12 -p1 -b .softhsm-2.7.0
 
 XFAIL_TESTS="test-pkcs11-tool-test-threads.sh test-pkcs11-tool-test.sh"
 
@@ -239,6 +245,10 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Fri Jan 16 2026 Michael Catanzaro <mcatanzaro@redhat.com> - 0.26.1-6
+- Fix crash when loaded by p11-kit
+- SoftHSM 2.7.0 compatibility
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

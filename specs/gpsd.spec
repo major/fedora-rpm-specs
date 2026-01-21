@@ -14,7 +14,7 @@ Name:           gpsd-epel
 %else
 Name:           gpsd
 %endif
-Version:        3.27.3
+Version:        3.27.5
 Release:        2%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
@@ -138,22 +138,9 @@ Requires:       python3-%{name} = %{epoch}:%{version}-%{release}
 Requires:       python3-cairo
 Requires:       python3-gobject
 Requires:       gtk3
-# subpackage split
-Conflicts:      gpsd-clients < 1:3.25-6
 
 %description xclients
 This package contains X clients using gpsd.
-
-%package compat
-Summary:        Transitional package for gpsd-clients
-Obsoletes:      gpsd-clients < 1:3.25-6
-Requires:       gpsd-clients = %{epoch}:%{version}-%{release}
-Requires:       gpsd-xclients = %{epoch}:%{version}-%{release}
-
-%description compat
-This package only exists to help transition gpsd-clients users to the new
-package split. It will be removed after one distribution release cycle, please
-do not reference it or depend on it in any way.
 %endif
 
 %prep
@@ -389,11 +376,13 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_datadir}/gpsd/gpsd-logo.png
 %{_mandir}/man1/xgps.1*
 %{_mandir}/man1/xgpsspeed.1*
-
-%files compat
 %endif
 
 %changelog
+* Mon Jan 19 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.27.5-1
+- update to 3.27.5
+- drop compat subpackage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.27.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

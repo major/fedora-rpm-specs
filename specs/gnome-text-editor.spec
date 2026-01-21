@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	49.0
+Version:	49.1
 Release:	%autorelease
 Summary:	A simple text editor for the GNOME desktop
 

@@ -1,6 +1,6 @@
 Name:           python-datanommer-commands
-Version:        1.4.4
-Release:        6%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Console commands for datanommer
 
 License:        GPL-3.0-or-later
@@ -56,6 +56,7 @@ Summary:        %{summary}
 %{_bindir}/datanommer-extract-users
 %{_bindir}/datanommer-latest
 %{_bindir}/datanommer-stats
+%{_bindir}/datanommer-refresh-view
 
 
 %changelog

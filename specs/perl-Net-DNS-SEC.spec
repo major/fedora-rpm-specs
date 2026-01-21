@@ -1,6 +1,6 @@
 Name:           perl-Net-DNS-SEC
-Version:        1.26
-Release:        5%{?dist}
+Version:        1.27
+Release:        1%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        HPND-MIT-disclaimer
 URL:            https://metacpan.org/release/Net-DNS-SEC
@@ -36,7 +36,7 @@ BuildRequires:  perl(Net::DNS) >= 1.08
 BuildRequires:  perl(Net::DNS::ZoneFile)
 # Tests only
 BuildRequires:  perl(File::Find) >= 1.13
-BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(Test::Builder) >= 0.80
 BuildRequires:  perl(Test::More) >= 0.8
 # Optional tests:
 BuildRequires:  perl(Test::Pod) => 1.45
@@ -48,7 +48,7 @@ Requires:       perl(IO::File) >= 1.14
 Requires:       perl(MIME::Base64) >= 3.07
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|DynaLoader|Exporter|File::Spec|IO::File|MIME::Base64|Test::More)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|DynaLoader|Exporter|File::Spec|IO::File|MIME::Base64|Test::Builder|Test::More)\\)$
 # Remove private modules
 %global __requires_exclude %{__requires_exclude}|^perl\\(TestToolkit\\)
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(NonFatal|TestToolkit\\)
@@ -72,6 +72,7 @@ Requires:       perl-Test-Harness
 Requires:       perl(Carp) >= 1.1
 Requires:       perl(Exporter) >= 5.63
 Requires:       perl(IO::File) >= 1.14
+Requires:       perl(Test::Builder) >= 0.80
 Requires:       perl(Test::More) >= 0.8
 
 %description tests
@@ -134,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 19 2026 Petr Pisar <ppisar@redhat.com> - 1.27-1
+- 1.27 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-675-ge539a26999
+%global glibcsrcdir glibc-2.42.9000-699-g7b543dcdf9
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 23
+%global baserelease 25
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -348,8 +348,6 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2426825.patch
-Patch25: glibc-rh2428799-1.patch
-Patch26: glibc-rh2428799-2.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
@@ -2401,6 +2399,37 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Jan 19 2026 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-25
+- Auto-sync with upstream branch master,
+  commit 7b543dcdf97d07fd4346feb17916e08fe83ad0ae:
+- elf: Ignore LD_PROFILE if LD_PROFILE_OUTPUT is not set (bug 33797) (Florian Weimer)
+- hurd: make __thread_set_pcsptp align stack (Samuel Thibault)
+- Update advisory text for CVE-2026-0951 (Carlos O'Donell)
+- Add advisory text for CVE-2026-0951 (Carlos O'Donell)
+- Add advisory text for CVE-2026-0861 (Siddhesh Poyarekar)
+- resolv: Fix NSS DNS backend for getnetbyaddr (CVE-2026-0915) (Carlos O'Donell)
+- memalign: reinstate alignment overflow check (CVE-2026-0861) (Siddhesh Poyarekar)
+- malloc: Add tst-mallocfork to tests-exclude-threaded exception list (Arjun Shankar)
+- aarch64: Fix LD_AUDIT with GCS in permissive mode (Adhemerval Zanella)
+- aarch64: Add LD_PRELOAD tests for GCS handling (Adhemerval Zanella)
+- aarch64: Add LD_AUDIT tests for BTI handling (Adhemerval Zanella)
+- aarch64: Add LD_PRELOAD tests for BTI handling (Adhemerval Zanella)
+- Revert "x86: Do not use __builtin_fpclassify for _Float64x/long double" (Adhemerval Zanella)
+- Revert "x86: Do not use __builtin_isinf_sign for _Float64x/long double" (Adhemerval Zanella)
+- aarch64: update NEWS for 2.43 release (Yury Khrustalev)
+- aarch64: Add LD_DEBUG=security to log BTI and GCS warnings (Yury Khrustalev)
+- tst-if_nameindex.c: Fix minimum buffer size (Samuel Thibault)
+- ldbl-128ibm-compat: Add local aliases for printf family symbols (Sachin Monga)
+- math: Fix powerpc64le -Os build after 6b7067460f (Adhemerval Zanella)
+- x86: Fix x86_64 build failure with -Os (BZ 33367) (Adhemerval Zanella)
+- math: Sync acosh from CORE-MATH (Adhemerval Zanella)
+- math: Sync atanh from CORE-MATH (Adhemerval Zanella)
+- math: Sync asinh from CORE-MATH (Adhemerval Zanella)
+- aarch64: Fix error messages for GCS and BTI incompatible modules (Yury Khrustalev)
+
+* Mon Jan 19 2026 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-24
+- Removed previously added reverts as they were committed upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.9000-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

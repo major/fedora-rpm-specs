@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           pyatspi
-Version:        2.58.0
+Version:        2.58.1
 Release:        %autorelease
 Summary:        Python bindings for at-spi
 

@@ -1,6 +1,6 @@
 Name:           gkrellm-wifi
 Version:        0.9.12
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Wireless monitor plugin for the GNU Krell Monitors
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -11,9 +11,8 @@ Patch0:         %{name}-%{version}.patch
 Patch1:         gkrellm-wifi-0.9.12-asm_h.patch
 Patch2:         gkrellm-wifi-0.9.12-kernel-2.6.26.patch
 Patch3:         gkrellm-wifi-0.9.12-bz650345.patch
-BuildRequires:  gcc
+BuildRequires:  gcc make
 BuildRequires:  gkrellm-devel
-BuildRequires: make
 Requires:       gkrellm >= 2.2, gkrellm < 3
 # Unfortunate, but nescesarry this plugin used to be (wrongly) packaged in the
 # same specfile as gkrellm itself, with the wrong namae gkrellm-wireless and
@@ -36,23 +35,27 @@ your PC and displays a graph of the link quality percentage for each card.
 
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -fPIC \
+# -std=gnu17 because gkrellm-public-proto.h has incomplete callback prototpyes
+make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -fPIC -std=gnu17 \
   `pkg-config gkrellm --cflags` -DG_LOG_DOMAIN=\\\"gkrellm-wifi\\\""
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/gkrellm2/plugins
 install -m 755 %{name}.so $RPM_BUILD_ROOT%{_libdir}/gkrellm2/plugins
 
 
 
 %files
-%doc AUTHORS COPYING ChangeLog NEWS README THEMING TODO
+%doc AUTHORS ChangeLog NEWS README THEMING TODO
+%license COPYING
 %{_libdir}/gkrellm2/plugins/%{name}.so
 
 
 %changelog
+* Mon Jan 19 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.9.12-44
+- Fix FTBFS (rhbz#2340229, rhbz#2384632)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

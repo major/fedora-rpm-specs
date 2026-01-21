@@ -13,10 +13,7 @@ ExcludeArch: %{ix86}
 # we only do a sanity check that kernel/qemu/libvirt/appliance is not
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
-#
-# s390x has been broken since around Jan 2026.  It seems as if qemu
-# crashes on start up.  Needs investigation.
-%global test_arches aarch64 %{power64} x86_64
+%global test_arches aarch64 %{power64} s390x x86_64
 
 # Trim older changelog entries.
 # https://lists.fedoraproject.org/pipermail/devel/2013-April/thread.html#181627
@@ -26,7 +23,7 @@ ExcludeArch: %{ix86}
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.58-stable
+%global source_directory 1.59-development
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -37,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.58.0
-Release:       3%{?dist}
+Version:       1.59.1
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1085,6 +1082,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jan 19 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.1-1
+- New upstream development version 1.59.1
+- Fix potential build failure on s390x
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.58.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

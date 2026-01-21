@@ -16,8 +16,8 @@
 
 Summary: PDF rendering library
 Name:    poppler
-Version: 25.07.0
-Release: 4%{?dist}
+Version: 26.01.0
+Release: 2%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
 Source0: https://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -29,9 +29,9 @@ Source3: %{name}-test-%{test_date}-%{test_sha}.tar.xz
 
 Patch1:  poppler-0.90.0-position-independent-code.patch
 
-Patch3:  poppler-21.01.0-glib-introspection.patch
+Patch2:  poppler-21.01.0-glib-introspection.patch
 
-Patch4:  poppler-25.07.0-cert-db.patch
+Patch3:  poppler-26.01.0-climits.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -230,7 +230,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/libpoppler.so.151*
+%{_libdir}/libpoppler.so.156*
 
 %files devel
 %{_libdir}/pkgconfig/poppler.pc
@@ -277,7 +277,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %endif
 
 %files cpp
-%{_libdir}/libpoppler-cpp.so.2*
+%{_libdir}/libpoppler-cpp.so.3*
 
 %files cpp-devel
 %{_libdir}/pkgconfig/poppler-cpp.pc
@@ -289,6 +289,14 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 19 2026 Marek Kasik <mkasik@redhat.com> - 26.01.0-2
+- Include <climits> to fix build
+- Related: #2386218
+
+* Mon Jan 19 2026 Marek Kasik <mkasik@redhat.com> - 26.01.0-1
+- Update to 26.01.0
+- Resolves: #2386218
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

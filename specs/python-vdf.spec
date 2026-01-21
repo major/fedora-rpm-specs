@@ -10,10 +10,9 @@ BuildArch:  noarch
 
 License:    MIT
 URL:        https://github.com/ValvePython/vdf
-Source0:    %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source:     %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires: python3-devel
-BuildRequires: python3dist(setuptools)
 %if %{with tests}
 BuildRequires: python3dist(pytest-cov) >= 2.7.0
 BuildRequires: python3dist(pytest)
@@ -21,7 +20,9 @@ BuildRequires: python3dist(pytest)
 
 %global _description %{expand:
 Pure python module for (de)serialization to and from VDF that works just like
-json.}
+json.
+
+VDF is Valve's KeyValue text file format.}
 
 %description %{_description}
 
@@ -35,29 +36,31 @@ Summary:    %{summary}
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %if %{with tests}
 %check
-%{python3} -m pytest -v \
+%pyproject_check_import
+%pytest \
     %dnl # https://github.com/ValvePython/vdf/issues/33
     --ignore=tests/test_binary_vdf.py
 %endif
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}*.egg-info
 
 
 %changelog

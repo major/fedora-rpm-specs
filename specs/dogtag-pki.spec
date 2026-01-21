@@ -10,19 +10,19 @@ Name:             dogtag-pki
 
 # Upstream version number:
 %global           major_version 11
-%global           minor_version 8
+%global           minor_version 9
 %global           update_version 0
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 1
+%global           release_number 0.1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-#global           phase
+%global           phase beta1
 
 %undefine         timestamp
 %undefine         commit_id
@@ -203,12 +203,12 @@ BuildRequires:    xmlstarlet
 BuildRequires:    tomcat-lib >= 1:10.1.36
 BuildRequires:    tomcat-jakartaee-migration
 
-BuildRequires:    pki-resteasy-core                 >= 3.0.26
-BuildRequires:    pki-resteasy-client               >= 3.0.26
-BuildRequires:    pki-resteasy-servlet-initializer  >= 3.0.26
-BuildRequires:    pki-resteasy-jackson2-provider    >= 3.0.26
-BuildRequires:    pki-resteasy                      >= 3.0.26
+BuildRequires:     pki-resteasy-core                 >= 3.0.26
+BuildRequires:     pki-resteasy-client               >= 3.0.26
+BuildRequires:     pki-resteasy-servlet-initializer  >= 3.0.26
+BuildRequires:     pki-resteasy-jackson2-provider    >= 3.0.26
 
+BuildRequires:     dogtag-jss >= 5.9
 
 BuildRequires:    mvn(commons-cli:commons-cli)
 BuildRequires:    mvn(commons-codec:commons-codec)
@@ -241,6 +241,7 @@ BuildRequires:    mvn(org.jboss.resteasy:resteasy-jaxrs)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-client)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-jackson2-provider)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
+
 %endif
 
 BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.36
@@ -248,8 +249,8 @@ BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.36
 BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.36
 BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.36
 
-BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.8
-BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
+BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.9
+BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.9
 BuildRequires:    mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.6.0
 
 # Python build dependencies
@@ -590,7 +591,7 @@ Provides:         bundled(resteasy-client)
 Provides:         bundled(resteasy-jackson2-provider)
 %endif
 
-Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.8
+Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.9.0
 Requires:         mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.6.0
 Requires:         %{product_id}-base = %{version}-%{release}
 
@@ -643,9 +644,11 @@ Requires:         policycoreutils
 Requires:         procps-ng
 Requires:         openldap-clients
 Requires:         openssl
+Requires:         unzip
+
 Requires:         %{product_id}-tools = %{version}-%{release}
 
-Requires:         %{java_devel}
+Requires:         %{java_headless}
 
 Requires:         keyutils
 
@@ -665,7 +668,7 @@ Provides:         bundled(resteasy-servlet-initializer)
 
 Requires:         tomcat >= 1:10.1.36
 
-Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
+Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.9.0
 
 Requires:         systemd
 Requires(post):   systemd-units
@@ -676,6 +679,12 @@ Requires(pre):    shadow-utils
 %if 0%{?rhel}
 Requires:         ipa-healthcheck-core
 %else
+
+# Temporary fix. This should be required by freeipa-healthcheck-core
+# This is solved in https://src.fedoraproject.org/rpms/freeipa-healthcheck/c/19a33fac34459feb4929d838d539930d8edfc4fe?branch=f43
+# but new build has to be pushed to fedora 43
+Requires:         python3-setuptools
+
 Requires:         freeipa-healthcheck-core
 %endif
 
@@ -1027,11 +1036,6 @@ BuildArch:        noarch
 Obsoletes:        pki-tests < %{version}-%{release}
 Provides:         pki-tests = %{version}-%{release}
 
-
-%if 0%{?fedora} && 0%{?fedora} < 43
-Requires:         python3-pylint
-%endif
-
 Requires:         python3-flake8
 
 %description -n   %{product_id}-tests
@@ -1046,6 +1050,8 @@ This package provides test suite for %{product_name}.
 
 %autosetup -n pki-%{version}%{?phase:-}%{?phase} -p 1
 
+#migrate the source first because we are starting with tomcat 9 code, so we can build against either tomcat 9 or 10.1, based on the build platform
+/usr/bin/javax2jakarta -profile=EE -exclude=./base/tomcat-9.0 ./base ./base 
 %if %{without runtime_deps}
 
 if [ ! -d base/common/lib ]
@@ -1282,6 +1288,8 @@ export JAVA_HOME=%{java_home}
 
 %if %{with maven}
 # build Java binaries and run unit tests with Maven
+%pom_disable_module tomcat-9.0 base
+%pom_remove_dep :pki-tomcat-9.0 base/server
 %mvn_build %{!?with_test:-f} -j
 
 # create links to Maven-built JAR files for CMake
@@ -2074,6 +2082,9 @@ fi
 
 ################################################################################
 %changelog
+* Fri Jan 16 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.0-0.1.beta1
+- Rebase to PKI 11.9.0-beta1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.8.0-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

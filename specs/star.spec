@@ -21,6 +21,20 @@ URL:            https://codeberg.org/schilytools/schilytools
 
 Source0:        %{url}/archive/%{version_schily}.tar.gz#/schily-%{version_schily}.tar.gz
 
+# Allow rmt to access all files.
+# ~> downstream
+# ~> #968980
+Patch1:         star-1.5.2-rmt-rh-access.patch
+# Use ssh rather than rsh by default
+# ~> downstream
+# ~> related to #968980
+Patch2:         star-2024.03.21-use-ssh-by-default.patch	
+# Fix some invalid manpage references (#624612)
+Patch3:         star-2024.03.21-manpagereferences.patch
+# Prevent buffer overflow for filenames with length of 100 characters (#556664)
+# Although I couldn't replicate it with 2024.03.21-4, candidate for removal
+Patch4:         star-2024.03.21-bufferoverflow.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  libattr-devel libacl-devel libselinux-devel libcap-devel
 BuildRequires:  make e2fsprogs-devel
@@ -226,6 +240,9 @@ fi
 %{_libdir}/librmt.so.1.0
 
 %changelog
+* Mon Jan 19 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 2024.03.21-6
+- Re-add old patches that still make sense (#2430022)
+
 * Tue Nov 04 2025 Petr Khartskhaev <pkhartsk@redhat.com> - 2024.03.21-4
 - Update license info
 - Replace spax and scpio subpackages with Provides due to them being compiled as symlinks

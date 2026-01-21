@@ -6,7 +6,7 @@
 
 Name:		ocp
 Version:	3.1.1%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # Main ocp source is GPL-2.0-or-later.
@@ -64,7 +64,7 @@ Requires:	hicolor-icon-theme
 Requires:	unifont-fonts
 
 # Recommend a soundfont for MIDI files
-Recommends:	fluid-soundfont-gm
+Recommends:	soundfont2-default
 
 # Bundled code
 # AC_INIT([TiMidity++],[2.15.0],[timidity-talk@lists.sourceforge.net],[TiMidity++])
@@ -187,6 +187,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Sun Jan 18 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.1-3
+- Recommends: soundfont2-default virtual provide instead
+
 * Sun Jan 18 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.1-2
 - [MIDI] Add patch to prefer /etc/timidity++.cfg to /etc/timidity.cfg
 - [MIDI] Add upstream patch to set comment to .pat filename without full path

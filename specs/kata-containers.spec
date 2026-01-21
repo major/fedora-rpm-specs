@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.23.0
+Version: 3.24.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.1
+Release:    1%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}

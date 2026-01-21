@@ -685,6 +685,7 @@ VERBOSE=1 retry_until_success $max_attempts \
 %ifarch %{mono_archs}
     --use-mono-runtime \
 %endif
+    --clean-while-building \
     -- \
     /p:UseSystemLibs=${system_libs} \
     /p:TargetRid=%{runtime_id} \

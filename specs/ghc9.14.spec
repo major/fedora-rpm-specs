@@ -119,6 +119,9 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
 # unregisterised
 Patch16: ghc-hadrian-C-backend-rts--qg.patch
@@ -457,6 +460,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
+%patch -P4 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

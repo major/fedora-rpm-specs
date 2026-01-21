@@ -1,11 +1,11 @@
 %global __provides_exclude_from ^%{_libdir}/gala/.*\\.so$
 
-%global commit      42ab42a5b8d0b58bce027404b5cdeeda590362ae
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate     20250610
+%global commit      b856360860a8f8a48c765465d2d231025bb54297
+%global shortcommit %{sub %{commit} 1 7}
+%global gitdate     20260119
 
 Name:           gala
-Version:        8.2.3^%{gitdate}.git%{shortcommit}
+Version:        8.4.0^%{gitdate}.git%{shortcommit}
 Release:        %autorelease
 Summary:        Gala window manager
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -18,21 +18,20 @@ BuildRequires:  gcc
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  vala >= 0.46
+BuildRequires:  vala
 BuildRequires:  wayland-devel
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+BuildRequires:  pkgconfig(libmutter-17)
+BuildRequires:  pkgconfig(mutter-clutter-17)
+BuildRequires:  pkgconfig(mutter-cogl-17)
+BuildRequires:  pkgconfig(mutter-mtk-17)
+%endif
+%if 0%{?fedora} == 42
 BuildRequires:  pkgconfig(libmutter-16)
 BuildRequires:  pkgconfig(mutter-clutter-16)
 BuildRequires:  pkgconfig(mutter-cogl-16)
 BuildRequires:  pkgconfig(mutter-mtk-16)
-%endif
-%if 0%{?fedora} == 41
-BuildRequires:  pkgconfig(libmutter-15)
-BuildRequires:  pkgconfig(mutter-clutter-15)
-BuildRequires:  pkgconfig(mutter-cogl-15)
-BuildRequires:  pkgconfig(mutter-cogl-pango-15)
-BuildRequires:  pkgconfig(mutter-mtk-15)
 %endif
 
 BuildRequires:  pkgconfig(atk-bridge-2.0)

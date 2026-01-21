@@ -34,6 +34,13 @@ Source15:       systemd-tmpfiles.conf
 Source16:       systemd-sysusers.conf
 
 Patch1:         kea-sd-daemon.patch
+# Patch2 & Patch3:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430574
+# https://gitlab.isc.org/isc-projects/kea/-/issues/4266
+# Based on: https://gitlab.isc.org/isc-projects/kea/-/commit/c54dfd47714fea7e79c16d99c09b896d9c8d44df
+Patch2:         kea-replace-BOOST_STATIC_ASSERT.patch
+# Based on: https://gitlab.isc.org/isc-projects/kea/-/commit/9a86f27a94677ec9ee1988af892d65b7ab22027e
+Patch3:         kea-move-to-system-timer.patch
 
 BuildRequires: boost-devel
 # %%meson -D crypto=openssl
@@ -79,7 +86,7 @@ BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinx_rtd_theme
-BuildRequires: gnupg2
+BuildRequires: gpgverify
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %upstream_name_compat %{upstream_name}
@@ -137,10 +144,8 @@ The KEA Migration Assistant is an experimental tool which helps to translate
 ISC DHCP configurations to Kea.
 
 %prep
-%if 0%{?fedora} || 0%{?rhel} > 8
 %{gpgverify} --keyring='%{S:10}' --signature='%{S:1}' --data='%{S:0}'
 %{gpgverify} --keyring='%{S:10}' --signature='%{S:3}' --data='%{S:2}'
-%endif
 
 %autosetup -T -b2 -N -n keama-%{keama_version}
 %autosetup -p1 -n kea-%{version}
