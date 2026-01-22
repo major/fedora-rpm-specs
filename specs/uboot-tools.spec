@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.01
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Release:  3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -20,6 +20,7 @@ ExcludeArch: s390x
 Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
 Source2:  riscv64-boards
+Source3:  x86_64-boards
 
 # Fedora patches to enable/disable features
 Patch1:   disable-VBE-by-default.patch
@@ -102,12 +103,21 @@ BuildArch:   noarch
 %description -n uboot-images-riscv64
 U-Boot firmware binaries for riscv64 boards
 %endif
+
+%ifarch x86_64
+%package     -n uboot-images-x86_64
+Summary:     U-Boot firmware images for x86_64 boards
+BuildArch:   noarch
+
+%description -n uboot-images-x86_64
+U-Boot firmware binaries for x86_64 boards
+%endif
 %endif
 
 %prep
 %autosetup -p1 -n u-boot-%{version}%{?candidate:-%{candidate}}
 
-cp %SOURCE1 %SOURCE2 .
+cp %SOURCE1 %SOURCE2 %SOURCE3 .
 
 %build
 mkdir builds
@@ -121,7 +131,7 @@ mkdir builds
 export OPENSBI=%{_datadir}/%{opensbi}/generic/firmware/fw_dynamic.bin
 %endif
 
-%ifarch aarch64 riscv64
+%ifarch aarch64 riscv64 x86_64
 for board in $(cat %{_arch}-boards)
 do
   echo "Building board: $board"
@@ -226,6 +236,18 @@ do
 done
 %endif
 
+%ifarch x86_64
+for board in $(ls builds)
+do
+ for file in u-boot.rom
+ do
+  if [ -f builds/$(echo $board)/$(echo $file) ]; then
+    install -pD -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/$(echo $file)
+  fi
+ done
+done
+%endif
+
 # Bit of a hack to remove binaries we don't use as they're large
 for board in $(ls builds)
 do
@@ -275,9 +297,19 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %dir %{_datadir}/uboot/
 %{_datadir}/uboot/*
 %endif
+
+%ifarch x86_64
+%files -n uboot-images-x86_64
+%license Licenses/*
+%dir %{_datadir}/uboot/
+%{_datadir}/uboot/*
+%endif
 %endif
 
 %changelog
+* Mon Jan 19 2026 Javier Martinez Canillas <javierm@redhat.com> - 1:2026.01-3
+- Add a uboot-images-x86_64 subpackage
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2026.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

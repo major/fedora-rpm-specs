@@ -43,6 +43,8 @@ Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
 Source100:      Fedora-Color-Palette.gpl
 
 Patch0:         7722.patch
+# Poppler 26.01.0
+Patch1:         3a528728ebe33e10bb44d152f47cfedfddbfe18a.patch
 
 # Don't drop i686 until at least texlive no longer needs it -GC, 2023-08-10
 #%%if 0%%{?fedora} >= 39

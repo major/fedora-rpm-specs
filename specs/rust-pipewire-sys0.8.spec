@@ -12,6 +12,9 @@ Summary:        Rust FFI bindings for PipeWire
 License:        MIT
 URL:            https://crates.io/crates/pipewire-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump bindgen dependency from v0.69 to v0.72.1
+Patch:          pipewire-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3

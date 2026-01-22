@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1354,6 +1354,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Aug 14 2025 Packit <hello@packit.dev> - 17.6-1
 - Update to version 17.6
 - Resolves: rhbz#2388579

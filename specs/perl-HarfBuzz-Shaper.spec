@@ -3,26 +3,18 @@
 %define metacpan https://cpan.metacpan.org/authors/id/J/JV/JV
 %define FullName HarfBuzz-Shaper
 
-# Allow forced embedding of harfbuzz library.
-%bcond hbinc 0
-
 Name: perl-%{FullName}
 Summary: Access to a small subset of the native HarfBuzz library
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
-Version: 0.032
+Version: 0.033
 Release: %autorelease
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
 
 BuildRequires: coreutils findutils gcc make perl-devel
-%if %{with hbinc}
-BuildRequires: perl(Archive::Tar)
-BuildRequires: g++
-%else
 BuildRequires: harfbuzz-devel >= 1.7.7
-%endif
 BuildRequires: make
 BuildRequires: perl(Carp)
 BuildRequires: perl(Config)
@@ -50,13 +42,6 @@ This module is intended to be used with module L<Text::Layout>.
 
 %prep
 %setup -q -n %{FullName}-%{version}
-
-# Make sure the included sources for harfbuzz are not used.
-rm -fr ./hb_src
-# Same for Devel::CheckLib.
-rm -fr ./inc
-# And adjust the MANIFEST.
-perl -i -ne 'print $_ unless m{^(hb_src|inc)/}' MANIFEST
 
 %build
 env INCHS=%{with hbinc} \

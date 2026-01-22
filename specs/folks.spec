@@ -2,15 +2,13 @@
 
 Name:           folks
 Epoch:          1
-Version:        0.15.9
-Release:        9%{?dist}
+Version:        0.15.12
+Release:        1%{?dist}
 Summary:        GObject contact aggregation library
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Folks
 Source0:        https://download.gnome.org/sources/folks/0.15/folks-%{version}.tar.xz
-
-Patch:          0001-evolution-data-server-3.59.1-api-change.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -110,6 +108,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/vapi/%{name}*
 
 %changelog
+* Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 1:0.15.12-1
+- Update to 0.15.12
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 %global nspr_version 4.38.2
-%global nss_version 3.119.1
+%global nss_version 3.120.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 2
+%global baserelease 1
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+1]
+%global nspr_release %[%baserelease+3]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -50,13 +50,6 @@ rpm.define(string.format("nspr_archive_version %s",
 %{lua:
 rpm.define(string.format("nss_archive_version %s",
            string.gsub(rpm.expand("%nss_version"), "(.*)%.0$", "%1")))
-}
-
-%{lua:
-if rpm.expand("%{nss_version}") == "3.119.1" then
-    rpm.define(string.format("nss_archive_version %s",
-               string.gsub(rpm.expand("%{nss_archive_version}"), "%.", "_")))
-end
 }
 
 %{lua:
@@ -1107,6 +1100,9 @@ fi
 
 
 %changelog
+* Mon Jan 19 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.120.0-1
+- Update NSS to 3.120.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.119.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

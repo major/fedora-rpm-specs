@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-contacts
-Version:        49.0
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
@@ -14,8 +14,6 @@ Summary:        Contacts manager for GNOME
 License:        GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://apps.gnome.org/Contacts
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-
-Patch:          0001-evolution-data-server-3.59.1-api-change.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
@@ -36,6 +34,7 @@ BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libportal-gtk4)
 BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  pkgconfig(glycin-gtk4-2)
 
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       hicolor-icon-theme

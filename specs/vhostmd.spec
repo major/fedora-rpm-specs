@@ -2,8 +2,8 @@
 
 Summary:       Virtualization host metrics daemon
 Name:          vhostmd
-Version:       1.1
-Release:       20%{?dist}
+Version:       1.2
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 URL:           https://github.com/vhostmd/vhostmd
@@ -11,31 +11,9 @@ URL:           https://github.com/vhostmd/vhostmd
 Source0:       https://github.com/vhostmd/vhostmd/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:       vhostmd.conf
 
-# Prevents updates from previous versions with the old config file
-# from breaking (RHBZ#1782897).
-# https://github.com/vhostmd/vhostmd/commit/83cc269f6892852be94467cea771b3ad1da8a369
-Patch0001:     0001-Relax-virtio-requirement-in-config-file.patch
-Patch0002:     0002-libmetrics-Set-pointer-NULL-after-free.patch
-Patch0003:     0003-libmetrics-Initialize-local-variable-ret-to-failure.patch
-Patch0004:     0004-libmetrics-Check-return-value-of-asprintf.patch
-Patch0005:     0005-libmetrics-Remove-unsafe-XML_PARSE_NOENT-option.patch
-Patch0006:     0006-libmetrics-Ensure-libmetrics-mutex-is-unlocked-in-er.patch
-Patch0007:     0007-libmetrics-Fix-potential-memory-leak.patch
-Patch0008:     0008-libmetrics-Use-proper-conversion-specifier-when-call.patch
-Patch0009:     0009-libmetrics-Fix-potential-leak-of-FILE-pointer.patch
-Patch0010:     0010-util-Add-missing-call-to-va_end.patch
-Patch0011:     0011-util-Fix-potential-memory-leak.patch
-Patch0012:     0012-util-Check-return-value-of-strstr.patch
-Patch0013:     0013-Check-return-value-of-asprintf.patch
-Patch0014:     0014-vhostmd-Fix-memory-leak-in-parse_transports.patch
-Patch0015:     0015-vhostmd-Remove-unsafe-XML_PARSE_NOENT-option.patch
-Patch0016:     0016-vhostmd-Check-return-value-of-file-functions.patch
-Patch0017:     0017-vhostmd-Check-for-valide-file-handle-before-calling-.patch
-Patch0018:     0018-vhostmd-Fix-memory-leak-in-vhostmd_run.patch
-Patch0019:     0019-virtio-Fix-strncpy-length-parameter.patch
-# https://github.com/vhostmd/vhostmd/pull/13
-Patch0020:     0020-implicit-function-declarations.patch
-
+Patch0001:     0001-Add-channel_path-setting-to-daemon-config-file.patch
+Patch0002:     0002-Support-libvirts-new-channel-path-naming-scheme.patch
+Patch0003:     0003-Fix-parsing-of-vmstat-output.patch
 ExcludeArch: %{ix86}
 
 BuildRequires: make
@@ -181,6 +159,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/vhostmd/scripts/pagerate.pl
 
 
 %changelog
+* Tue Jan 20 2026 Nils Koenig <nkoenig@redhat.com> - 1.2-1
+- Updated to upstream version 1.2 plus latest fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

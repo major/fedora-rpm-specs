@@ -1,16 +1,20 @@
 Name:           libmediaart
 Version:        1.9.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for managing media art caches
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/libmediaart
 Source0:        https://download.gnome.org/sources/%{name}/1.9/%{name}-%{version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/libmediaart/-/merge_requests/21
+# move to glycin to avoid https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/issues/293
+Patch: 21.patch
+
 BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) pkgconfig(gio-2.0) pkgconfig(gio-unix-2.0)
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(glycin-2)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 %if 0%{?rhel} == 8
 # Test requires the jpeg gdk-pixbuf loader, which isn't built-in
@@ -39,7 +43,7 @@ developing applications that use %{name}.
 
 
 %build
-%meson -Dimage_library=gdk-pixbuf -Dgtk_doc=true
+%meson -Dimage_library=glycin -Dgtk_doc=true
 %meson_build
 
 
@@ -68,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jan 20 2026 Yanko Kaneti <yaneti@declera.com> - 1.9.7-4
+- Move to WIP glycin image extraction
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

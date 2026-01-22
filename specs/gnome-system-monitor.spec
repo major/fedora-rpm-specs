@@ -5,13 +5,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        49.1
-Release:        2%{?dist}
+Version:        50~alpha
+Release:        1%{?dist}
 Summary:        Process and resource monitor
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/SystemMonitor
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -61,6 +61,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_bindir}/gnome-system-monitor
 %{_datadir}/applications/org.gnome.SystemMonitor.desktop
 %{_datadir}/applications/gnome-system-monitor-kde.desktop
+%{_datadir}/dbus-1/services/org.gnome.SystemMonitor.service
 %{_datadir}/glib-2.0/schemas/org.gnome.gnome-system-monitor.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gnome-system-monitor.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.SystemMonitor*.svg
@@ -69,9 +70,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_datadir}/icons/hicolor/symbolic/apps/resources-symbolic.svg
 %{_metainfodir}/org.gnome.SystemMonitor.metainfo.xml
 %{_datadir}/polkit-1/actions/org.gnome.gnome-system-monitor.policy
+
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 50~alpha-1
+- Update to 50.alpha
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

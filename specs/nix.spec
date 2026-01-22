@@ -9,7 +9,7 @@
 Name:           nix
 # 2.32 needs boost >= 1.87 (https://bugzilla.redhat.com/show_bug.cgi?id=2406036)
 # (https://github.com/NixOS/nix/pull/14340)
-Version:        2.31.2
+Version:        2.31.3
 Release:        %autorelease
 Summary:        A purely functional package manager
 

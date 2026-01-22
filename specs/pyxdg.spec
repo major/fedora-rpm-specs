@@ -1,13 +1,10 @@
 Name:           pyxdg
-Version:        0.27
-Release:        21%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 Summary:        Python library to access freedesktop.org standards
 License:        LGPL-2.0-only
 URL:            http://freedesktop.org/Software/pyxdg
 Source0:        %pypi_source
-# Upstream did not include the test/examples directory in the source tarball
-# This tarball is a copy of the directory from https://cgit.freedesktop.org/xdg/pyxdg/
-Source1:        pyxdg-test-example.tar.gz
 # https://cgit.freedesktop.org/xdg/pyxdg/commit/?id=275865e620471c194560824232be632c9cb61600
 Patch0:         pyxdg-replace-imp-with-importlib.patch
 # https://cgit.freedesktop.org/xdg/pyxdg/commit/?id=9291d419017263c922869d79ac1fe8d423e5f929
@@ -33,10 +30,16 @@ PyXDG is a python library to access freedesktop.org standards. This
 package contains a Python 3 version of PyXDG.
 
 %prep
-%setup -q -a 1
+%setup -q
 %patch -P0 -p1 -b .replace-imp-with-importlib
 %patch -P1 -p1 -b .handle-python-3.14-ast.Str-changes
 %patch -P2 -p1 -b .handle-python-3.15-deprecations
+
+# fix symlink example
+rm -rf test/example/png_symlink
+pushd test/example
+ln -s png_file png_symlink
+popd
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -50,13 +53,16 @@ package contains a Python 3 version of PyXDG.
 
 %check
 %pyproject_check_import
-%pytest test/test-*.py
+%pytest test/test_*.py
 
 %files -n python%{python3_pkgversion}-pyxdg -f %{pyproject_files}
 %license COPYING
 %doc AUTHORS ChangeLog README TODO
 
 %changelog
+* Tue Jan 20 2026 Tom Callaway <spot@fedoraproject.org> - 0.28-1
+- update to 0.28
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

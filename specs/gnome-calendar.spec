@@ -8,14 +8,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        49.0.1
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
 # Sources are GPL-3.0-or-later, Appdata is CC0-1.0.
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calendar
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  blueprint-compiler
 BuildRequires:  gcc

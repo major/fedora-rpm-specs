@@ -137,7 +137,7 @@
 %bcond varlink 0
 %endif
 
-%global samba_version 4.23.4
+%global samba_version 4.24.0
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -152,7 +152,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release %nil
+%global pre_release rc1
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -182,8 +182,8 @@
 %global libsmbclient_so_version 0
 %global libwbclient_so_version 0
 
-%global talloc_version 2.4.3
-%global tdb_version 1.4.14
+%global talloc_version 2.4.4
+%global tdb_version 1.4.15
 %global tevent_version 0.17.1
 
 %global required_mit_krb5 1.20.1
@@ -238,8 +238,6 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Patch0:         samba-4.23-fix-cmocka.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -1842,6 +1840,7 @@ fi
 %{_libdir}/samba/vfs/acl_xattr.so
 %{_libdir}/samba/vfs/aio_fork.so
 %{_libdir}/samba/vfs/aio_pthread.so
+%{_libdir}/samba/vfs/aio_ratelimit.so
 %{_libdir}/samba/vfs/audit.so
 %{_libdir}/samba/vfs/btrfs.so
 %{_libdir}/samba/vfs/cap.so
@@ -1904,6 +1903,7 @@ fi
 %{_mandir}/man8/vfs_acl_xattr.8*
 %{_mandir}/man8/vfs_aio_fork.8*
 %{_mandir}/man8/vfs_aio_pthread.8*
+%{_mandir}/man8/vfs_aio_ratelimit.8*
 %{_mandir}/man8/vfs_audit.8*
 %{_mandir}/man8/vfs_btrfs.8*
 %{_mandir}/man8/vfs_cap.8*
@@ -2477,6 +2477,7 @@ fi
 %{_includedir}/samba-4.0/util/idtree_random.h
 %{_includedir}/samba-4.0/util/signal.h
 %{_includedir}/samba-4.0/util/substitute.h
+%{_includedir}/samba-4.0/util/talloc_keep_secret.h
 %{_includedir}/samba-4.0/util/tevent_ntstatus.h
 %{_includedir}/samba-4.0/util/tevent_unix.h
 %{_includedir}/samba-4.0/util/tevent_werror.h
@@ -2696,6 +2697,7 @@ fi
 %{python3_sitearch}/samba/__init__.py
 %dir %{python3_sitearch}/samba/__pycache__
 %{python3_sitearch}/samba/__pycache__/__init__.*.pyc
+%{python3_sitearch}/samba/__pycache__/asn1.*.pyc
 %{python3_sitearch}/samba/__pycache__/auth_util.*.pyc
 %{python3_sitearch}/samba/__pycache__/colour.*.pyc
 %{python3_sitearch}/samba/__pycache__/common.*.pyc
@@ -2704,12 +2706,14 @@ fi
 %{python3_sitearch}/samba/__pycache__/dnsresolver.*.pyc
 %{python3_sitearch}/samba/__pycache__/drs_utils.*.pyc
 %{python3_sitearch}/samba/__pycache__/functional_level.*.pyc
+%{python3_sitearch}/samba/__pycache__/generate_csr.*.pyc
 %{python3_sitearch}/samba/__pycache__/getopt.*.pyc
 %{python3_sitearch}/samba/__pycache__/gkdi.*.pyc
 %{python3_sitearch}/samba/__pycache__/graph.*.pyc
 %{python3_sitearch}/samba/__pycache__/hostconfig.*.pyc
 %{python3_sitearch}/samba/__pycache__/idmap.*.pyc
 %{python3_sitearch}/samba/__pycache__/join.*.pyc
+%{python3_sitearch}/samba/__pycache__/key_credential_link.*.pyc
 %{python3_sitearch}/samba/__pycache__/lsa_utils.*.pyc
 %{python3_sitearch}/samba/__pycache__/logger.*.pyc
 %{python3_sitearch}/samba/__pycache__/mdb_util.*.pyc
@@ -2729,6 +2733,7 @@ fi
 %{python3_sitearch}/samba/__pycache__/xattr.*.pyc
 %{python3_sitearch}/samba/_glue.*.so
 %{python3_sitearch}/samba/_ldb.*.so
+%{python3_sitearch}/samba/asn1.py
 %{python3_sitearch}/samba/auth.*.so
 %{python3_sitearch}/samba/auth_util.py
 %{python3_sitearch}/samba/dbchecker.py
@@ -2869,6 +2874,7 @@ fi
 %{python3_sitearch}/samba/emulate/__init__.py
 %{python3_sitearch}/samba/emulate/traffic.py
 %{python3_sitearch}/samba/emulate/traffic_packets.py
+%{python3_sitearch}/samba/generate_csr.py
 %dir %{python3_sitearch}/samba/gp
 %dir %{python3_sitearch}/samba/gp/__pycache__
 %{python3_sitearch}/samba/gp/__init__.py
@@ -2939,6 +2945,7 @@ fi
 %{python3_sitearch}/samba/gp_parse/gp_ini.py
 %{python3_sitearch}/samba/gp_parse/gp_pol.py
 %{python3_sitearch}/samba/hresult.*.so
+%{python3_sitearch}/samba/key_credential_link.py
 %{python3_sitearch}/samba/logger.py
 %{python3_sitearch}/samba/mdb_util.py
 %{python3_sitearch}/samba/ms_display_specifiers.py
@@ -2950,6 +2957,8 @@ fi
 %{python3_sitearch}/samba/netcmd/__pycache__/__init__.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/common.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/computer.*.pyc
+%{python3_sitearch}/samba/netcmd/__pycache__/computer_generate_csr.*.pyc
+%{python3_sitearch}/samba/netcmd/__pycache__/computer_keytrust.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/contact.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/dbcheck.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/delegation.*.pyc
@@ -2979,6 +2988,8 @@ fi
 %{python3_sitearch}/samba/netcmd/__pycache__/visualize.*.pyc
 %{python3_sitearch}/samba/netcmd/common.py
 %{python3_sitearch}/samba/netcmd/computer.py
+%{python3_sitearch}/samba/netcmd/computer_generate_csr.py
+%{python3_sitearch}/samba/netcmd/computer_keytrust.py
 %{python3_sitearch}/samba/netcmd/contact.py
 %{python3_sitearch}/samba/netcmd/dbcheck.py
 %{python3_sitearch}/samba/netcmd/delegation.py
@@ -3108,7 +3119,9 @@ fi
 %{python3_sitearch}/samba/netcmd/user/disable.py
 %{python3_sitearch}/samba/netcmd/user/edit.py
 %{python3_sitearch}/samba/netcmd/user/enable.py
+%{python3_sitearch}/samba/netcmd/user/generate_csr.py
 %{python3_sitearch}/samba/netcmd/user/getgroups.py
+%{python3_sitearch}/samba/netcmd/user/keytrust.py
 %{python3_sitearch}/samba/netcmd/user/list.py
 %{python3_sitearch}/samba/netcmd/user/move.py
 %{python3_sitearch}/samba/netcmd/user/password.py
@@ -3120,7 +3133,9 @@ fi
 %{python3_sitearch}/samba/netcmd/user/__pycache__/disable.*.pyc
 %{python3_sitearch}/samba/netcmd/user/__pycache__/edit.*.pyc
 %{python3_sitearch}/samba/netcmd/user/__pycache__/enable.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/generate_csr.*.pyc
 %{python3_sitearch}/samba/netcmd/user/__pycache__/getgroups.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/keytrust.*.pyc
 %{python3_sitearch}/samba/netcmd/user/__pycache__/list.*.pyc
 %{python3_sitearch}/samba/netcmd/user/__pycache__/move.*.pyc
 %{python3_sitearch}/samba/netcmd/user/__pycache__/password.*.pyc
@@ -3307,6 +3322,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/dns_wildcard.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/dsdb.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/dsdb_api.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/dsdb_dn.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/dsdb_dns.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/dsdb_lock.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/dsdb_quiet_env_tests.*.pyc
@@ -3329,6 +3345,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/imports.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/join.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/key_credential_link.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/key_credential_link_samdb.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/krb5_credentials.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ldap_raw.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ldap_referrals.*.pyc
@@ -3546,6 +3563,7 @@ fi
 %{python3_sitearch}/samba/tests/dns_wildcard.py
 %{python3_sitearch}/samba/tests/dsdb.py
 %{python3_sitearch}/samba/tests/dsdb_api.py
+%{python3_sitearch}/samba/tests/dsdb_dn.py
 %{python3_sitearch}/samba/tests/dsdb_dns.py
 %{python3_sitearch}/samba/tests/dsdb_lock.py
 %{python3_sitearch}/samba/tests/dsdb_schema_attributes.py
@@ -3588,6 +3606,7 @@ fi
 %{python3_sitearch}/samba/tests/kcc/kcc_utils.py
 %{python3_sitearch}/samba/tests/kcc/ldif_import_export.py
 %{python3_sitearch}/samba/tests/key_credential_link.py
+%{python3_sitearch}/samba/tests/key_credential_link_samdb.py
 %dir %{python3_sitearch}/samba/tests/krb5
 %dir %{python3_sitearch}/samba/tests/krb5/__pycache__
 %{python3_sitearch}/samba/tests/krb5/__pycache__/alias_tests.*.pyc
@@ -3609,12 +3628,14 @@ fi
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tgs_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tgt_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/key_trust_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kpasswd_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/lockout_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/ms_kile_client_principal_lookup_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/netlogon.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/nt_hash_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/pac_align_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/pkinit_certificate_mapping_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/pkinit_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/protected_users_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/raw_testcase.*.pyc
@@ -3652,12 +3673,14 @@ fi
 %{python3_sitearch}/samba/tests/krb5/kdc_tests.py
 %{python3_sitearch}/samba/tests/krb5/kdc_tgs_tests.py
 %{python3_sitearch}/samba/tests/krb5/kdc_tgt_tests.py
+%{python3_sitearch}/samba/tests/krb5/key_trust_tests.py
 %{python3_sitearch}/samba/tests/krb5/kpasswd_tests.py
 %{python3_sitearch}/samba/tests/krb5/lockout_tests.py
 %{python3_sitearch}/samba/tests/krb5/ms_kile_client_principal_lookup_tests.py
 %{python3_sitearch}/samba/tests/krb5/netlogon.py
 %{python3_sitearch}/samba/tests/krb5/nt_hash_tests.py
 %{python3_sitearch}/samba/tests/krb5/pac_align_tests.py
+%{python3_sitearch}/samba/tests/krb5/pkinit_certificate_mapping_tests.py
 %{python3_sitearch}/samba/tests/krb5/pkinit_tests.py
 %{python3_sitearch}/samba/tests/krb5/protected_users_tests.py
 %{python3_sitearch}/samba/tests/krb5/raw_testcase.py
@@ -3790,8 +3813,10 @@ fi
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_auth_policy.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_auth_silo.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_check_password_script.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_generate_csr.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_get_kerberos_ticket.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_getpassword_gmsa.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_keytrust.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_virtualCryptSHA.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_virtualCryptSHA_base.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_virtualCryptSHA_gpg.*.pyc
@@ -3838,8 +3863,10 @@ fi
 %{python3_sitearch}/samba/tests/samba_tool/user_auth_policy.py
 %{python3_sitearch}/samba/tests/samba_tool/user_auth_silo.py
 %{python3_sitearch}/samba/tests/samba_tool/user_check_password_script.py
+%{python3_sitearch}/samba/tests/samba_tool/user_generate_csr.py
 %{python3_sitearch}/samba/tests/samba_tool/user_get_kerberos_ticket.py
 %{python3_sitearch}/samba/tests/samba_tool/user_getpassword_gmsa.py
+%{python3_sitearch}/samba/tests/samba_tool/user_keytrust.py
 %{python3_sitearch}/samba/tests/samba_tool/user_virtualCryptSHA.py
 %{python3_sitearch}/samba/tests/samba_tool/user_virtualCryptSHA_base.py
 %{python3_sitearch}/samba/tests/samba_tool/user_virtualCryptSHA_gpg.py

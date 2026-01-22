@@ -1,8 +1,8 @@
 %global git_user0 gtownsend
 
 Name:           icon
-Version:        9.5.24b
-Release:        3%{?dist}
+Version:        9.5.25a
+Release:        1%{?dist}
 Summary:        Icon programming language
 License:        LicenseRef-Fedora-Public-Domain
 URL:            https://www2.cs.arizona.edu/icon/
@@ -97,6 +97,9 @@ install -p -m0755 bin/xgamma %{buildroot}%{_bindir}/icon-xgamma
 
 
 %changelog
+* Tue Jan 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 9.5.25a-1
+- Update to v9.5.25a
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.24b-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

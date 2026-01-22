@@ -1,12 +1,11 @@
 Name: kexec-tools
 Version: 2.0.32
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://kernel.org/pub/linux/utils/kernel/kexec
 License: GPL-2.0-only
 Summary: The kexec/kdump userspace component
 
 Source0: https://kernel.org/pub/linux/utils/kernel/kexec/%{name}-%{version}.tar.xz
-Recommends: kdump-utils
 
 BuildRequires: automake
 BuildRequires: autoconf
@@ -82,6 +81,9 @@ rm -f %{buildroot}/%{_libdir}/kexec-tools/kexec_test
 %doc TODO
 
 %changelog
+* Wed Jan 21 2026 Coiby Xu <coxu@redhat.com> - 2.0.32-3
+- Drop weak dependency on kdump-utils
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.22.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -123,6 +123,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.22.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 09 2026 Steve Cossette <farchord@gmail.com> - 6.22.0-2
 - Respun
 

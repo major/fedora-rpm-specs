@@ -14,7 +14,7 @@
 
 Name:		efl
 Version:	1.28.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Collection of Enlightenment libraries
 # Automatically converted from old format: BSD and LGPLv2+ and GPLv2 and zlib - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only AND Zlib
@@ -548,6 +548,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libexactness*.so
 
 %changelog
+* Tue Jan 20 2026 Tom Callaway <spot@fedoraproject.org> - 1.28.1-4
+- rebuild for new poppler
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

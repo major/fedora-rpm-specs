@@ -1,6 +1,6 @@
 Name:		xrootd-s3-http
-Version:	0.6.0
-Release:	3%{?dist}
+Version:	0.6.1
+Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -68,6 +68,9 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
+* Tue Jan 20 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 0.6.1-1
+- Update to version 0.6.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

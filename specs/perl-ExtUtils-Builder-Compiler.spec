@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Builder-Compiler
-Version:        0.031
-Release:        4%{?dist}
+Version:        0.035
+Release:        1%{?dist}
 Summary:        Interface around different compilers
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -19,7 +19,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(DynaLoader)
-BuildRequires:  perl(ExtUtils::Builder) >= 0.016
+BuildRequires:  perl(ExtUtils::Builder) >= 0.018
 BuildRequires:  perl(ExtUtils::Builder::Action::Command)
 BuildRequires:  perl(ExtUtils::Builder::Node)
 BuildRequires:  perl(ExtUtils::Builder::Planner) >= 0.007
@@ -71,6 +71,12 @@ make test
 %{_mandir}/man3/ExtUtils::Builder*
 
 %changelog
+* Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.035-1
+- Update to 0.035
+
+* Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.034-1
+- Update to 0.034
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.031-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

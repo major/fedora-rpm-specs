@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:		yubihsm-shell
-Version:	2.7.0
-Release:	3%{?dist}
+Version:	2.7.1
+Release:	1%{?dist}
 Summary:	Tools to interact with YubiHSM 2
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -112,6 +112,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 
 
 %changelog
+* Tue Jan 20 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.1-1
+- New upstream release (#2431274)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

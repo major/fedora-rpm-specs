@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.87.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -40,9 +40,6 @@ BuildRequires:  gettext
 # Native version required for glib-genmarshal
 BuildRequires:  glib2-devel >= 2.45.3
 BuildRequires:  python3-devel
-
-# https://bugzilla.gnome.org/show_bug.cgi?id=674214
-Patch1:         0001-Use-CreateFile-on-Win32-to-make-sure-g_unlink-always.patch
 
 # Prefer the use of GCC constructors over DllMain
 # This prevents having to depend on DllMain in static libraries
@@ -297,6 +294,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.87.1-2
+- Remove ancient, obsolete downstream patch from 2012 (RHBZ#2431179)
+
 * Sat Jan 17 2026 Sandro Mani <manisandro@gmail.com> - 2.87.1-1
 - Update to 2.87.1
 

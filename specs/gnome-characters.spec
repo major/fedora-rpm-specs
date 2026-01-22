@@ -7,14 +7,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-characters
-Version:	49.1
-Release:	2%{?dist}
+Version:	50~alpha
+Release:	1%{?dist}
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.
 # Other files are GPL 2.0 or later.
 License:	BSD-3-Clause AND GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Design/Apps/CharacterMap
-Source0:	https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -65,11 +65,14 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/%{appname}.deskto
 %{_datadir}/gnome-shell/search-providers/%{appname}.search-provider.ini
 %{_datadir}/icons/hicolor/scalable/apps/%{appname}.svg
 %{_datadir}/icons/hicolor/symbolic/apps/%{appname}-symbolic.svg
-%{_metainfodir}/%{appname}.appdata.xml
+%{_metainfodir}/%{appname}.metainfo.xml
 %{_libdir}/%{appname}
 
 
 %changelog
+* Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 50~alpha-1
+- Update to 50.alpha
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

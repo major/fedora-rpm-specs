@@ -2,8 +2,8 @@
 
 Name:           ETL
 Epoch:          1
-Version:        1.5.3
-Release:        5%{?dist}
+Version:        1.5.4
+Release:        1%{?dist}
 Summary:        Extended Template Library
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:1.5.4-1
+- 1.5.4
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

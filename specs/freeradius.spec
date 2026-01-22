@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -931,6 +931,9 @@ fi
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/kafka/messages-json.conf
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 05 2026 Antonio Torres <antorres@redhat.com> - 3.2.8-2
 - Enable selinux flag for JIT usage
   Resolves: #2427017

@@ -8,12 +8,12 @@ ExcludeArch: s390x
 %bcond_with nonfree
 
 %global appname retroarch
-%global uuid    com.libretro.RetroArch
+%global uuid    org.libretro.RetroArch
 
 # Freeworld package
 %if %{with freeworld}
 %global p_suffix    -freeworld
-%global sum_suffix  Freeworld version.
+%global sum_suffix  (Freeworld version)
 %else
 %global p_suffix    %{nil}
 %global sum_suffix  %{nil}
@@ -24,7 +24,7 @@ ExcludeArch: s390x
 Name:           %{appname}%{?p_suffix}
 Version:        1.22.0
 Release:        %autorelease
-Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
+Summary:        Cross-platform, sophisticated frontend for the libretro API %{?sum_suffix}
 
 # CC-BY:        Assets
 # CC0:          AppData manifest
@@ -100,9 +100,8 @@ Source1:        %{short_url}/%{appname}-assets/archive/v%{version}/%{appname}-as
 # notified.  Keep old one for fallback.
 # * https://github.com/libretro/RetroArch/pull/13113
 #
-# Old (+ line 408):
 # * https://github.com/flathub/org.libretro.RetroArch/blob/master/org.libretro.RetroArch.appdata.xml
-%dnl Source2:        https://raw.githubusercontent.com/flathub/%{uuid}/63af0e2449891e40c6ab6feae5d27845768b26fb/%{uuid}.appdata.xml
+Source2:        https://raw.githubusercontent.com/flathub/%{uuid}/19f5be928262256f42644dc0350cee1a5d9b3840/%{uuid}.appdata.xml
 
 # Libretro's core info
 Source3:        %{short_url}/libretro-core-info/archive/v%{version}/libretro-core-info-%{version}.tar.gz
@@ -118,6 +117,8 @@ Source5:        %{short_url}/libretro-database/archive/v%{version}/libretro-data
 Source10:       %{name}-enable-network-access.sh
 
 Source11:       README.fedora.md
+
+Patch:          0001-use_system_flac.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
@@ -137,8 +138,7 @@ BuildRequires:  stb_truetype-static
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca)
 BuildRequires:  pkgconfig(dbus-1)
-# Since Flac 1.5.0 update RetroArch won't compile
-#BuildRequires:  pkgconfig(flac)
+BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
@@ -224,13 +224,17 @@ Provides:       bundled(ibxm)
 # https://github.com/libretro/RetroArch/issues/8153
 Provides:       bundled(lua) = 5.3.6
 
-Provides:       bundled(flac) = 1.3.2
 Provides:       bundled(rcheevos) = 12.1
 Provides:       bundled(SPIRV-Cross)
 # Unbundling this in the manner of the other stb libraries does not work.
 Provides:       bundled(stb_vorbis)
 
 %global _description %{expand:
+RetroArch is the reference frontend for the libretro API. Popular examples of
+implementations for this API includes video game system emulators and game
+engines as well as more generalized 3D programs. These programs are instantiated
+as dynamic libraries. We refer to these as "libretro cores".
+
 libretro is an API that exposes generic audio/video/input callbacks. A frontend
 for libretro (such as RetroArch) handles video output, audio output, input and
 application lifecycle. A libretro core written in portable C or C++ can run
@@ -248,21 +252,23 @@ README.fedora.md file.}
 
 # Assets package
 %package        assets
-Summary:        Assets files for %{name}
+Summary:        Assets needed for RetroArch - e.g. menu drivers, etc.
 BuildArch:      noarch
 
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       dejavu-sans-mono-fonts
-Recommends:     open-sans-fonts
 
-# * Bundled fonts
+# RetroArch relies heavily on built-in fonts. There's no proper way to use system
+# fonts without dirty patching each theme.
 Provides:       bundled(inter-ui-fonts)
 Provides:       bundled(metrophobic-fonts)
 Provides:       bundled(sf-atarian-system-fonts)
 Provides:       bundled(titilium-web-fonts)
 
 %description    assets
-Assets files for %{name}.
+The retroarch-assets repository is the home of the user interface elements used
+to generate the various User Experience (UX) environments. The UX environments
+are referred to as "menu drivers" and you can switch between environments on
+most platforms at any time.
 
 
 # Filters package
@@ -283,13 +289,23 @@ BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    database
-RetroArch incoporates a ROM scanning system to automatically produce playlists.
-Each ROM that is scanned by the playlist generator is checked against a database
-of ROMs that are known to be good copies.
+Repository containing cheatcode files, content data files, etc.
+
+
+# Devel package
+%package        devel
+Summary:        Development files for %{name}
+BuildArch:      noarch
+
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description    devel
+libretro.h is a simple API that allows for the creation of games and emulators.
 
 
 %prep
 %setup -n RetroArch-%{version} -q
+%autopatch
 %setup -n RetroArch-%{version} -q -D -T -a1
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
@@ -299,8 +315,7 @@ of ROMs that are known to be good copies.
 pushd deps
 rm -rf                      \
         libfat              \
-%dnl Since Flac 1.5.0 update RetroArch won't compile \
-%dnl        libFLAC         \
+        libFLAC             \
         libiosuhax          \
         libvita2d           \
         libz                \
@@ -346,7 +361,6 @@ sed -e 's|# assets_directory =|assets_directory = %{_datadir}/libretro/assets/|g
 sed -e 's|# menu_show_online_updater = true|menu_show_online_updater = false|g' \
     -e 's|# menu_show_core_updater = true|menu_show_core_updater = false|g'     \
     -i retroarch.cfg
-sed -e 's|HAVE_UPDATE_ASSETS=yes|HAVE_UPDATE_ASSETS=no|g' -i qb/config.params.sh
 
 # Freeworld config file
 %if %{with freeworld}
@@ -360,9 +374,10 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
 %build
 ./configure                     \
     --prefix=%{_prefix}         \
-%dnl    --disable-builtinflac   \
+    --disable-builtinflac       \
     --disable-builtinmbedtls    \
     --disable-builtinzlib       \
+    --disable-update_assets     \
     --enable-dbus               \
     --enable-libdecor           \
     --enable-wayland            \
@@ -406,9 +421,9 @@ mkdir -p    %{buildroot}%{_licensedir}/%{name}-assets/
 mv          %{buildroot}%{_datadir}/libretro/assets%{?p_suffix}/COPYING \
             %{buildroot}%{_licensedir}/%{name}-assets/COPYING
 
-# * Remove duplicate fonts which available in Fedora repos
-rm  %{buildroot}%{_datadir}/libretro/assets%{?p_suffix}/pkg/osd-font.ttf \
-    %{buildroot}%{_datadir}/libretro/assets%{?p_suffix}/xmb/flatui/font.ttf
+# * Remove sounds
+#   CC-BY-NC-3.0 license is not permitted in Fedora
+rm -rf %{buildroot}%{_datadir}/libretro/assets/sounds/
 
 # Audio filters
 %make_install -C libretro-common/audio/dsp_filters              \
@@ -424,8 +439,9 @@ rm  %{buildroot}%{_datadir}/libretro/assets%{?p_suffix}/pkg/osd-font.ttf \
 %make_install -C libretro-core-info-%{version} \
     INSTALLDIR=%{_datadir}/libretro/info%{?p_suffix}
 
-# AppData manifest
-%dnl install -m 0644 -Dp %{SOURCE2} %{buildroot}%{_metainfodir}/%{uuid}.appdata.xml
+# AppData proper manifest
+rm -f %{buildroot}%{_metainfodir}/*.xml
+install -m 0644 -Dp %{SOURCE2} %{buildroot}%{_metainfodir}/%{uuid}.appdata.xml
 
 # Joypad Autoconfig Files
 %make_install -C %{appname}-joypad-autoconfig-%{version} \
@@ -438,6 +454,10 @@ mv  %{buildroot}%{_datadir}/libretro/autoconfig/ \
 # Database files (cheatcode, content data, cursors)
 %make_install -C libretro-database-%{version} \
     INSTALLDIR=%{_datadir}/libretro/database%{?p_suffix}
+
+# Devel package
+mkdir -p %{buildroot}%{_includedir}/libretro-common/
+cp -ar libretro-common/include/* %{buildroot}%{_includedir}/libretro-common/
 
 %if %{with freeworld}
 # Rename binary, desktop file, appdata manifest, manpage and config file
@@ -504,6 +524,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 %{_datadir}/libretro/database%{?p_suffix}/cht/
 %{_datadir}/libretro/database%{?p_suffix}/cursors/
 %{_datadir}/libretro/database%{?p_suffix}/rdb/
+
+
+%files devel
+%{_includedir}/libretro-common/
 
 
 %changelog

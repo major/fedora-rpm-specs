@@ -2,7 +2,7 @@
 
 Name:           udis86
 Version:        1.7.2
-Release:        29.%{gitrev}%{?dist}
+Release:        30.%{gitrev}%{?dist}
 Summary:        A disassembler library for x86 and x86-64
 
 License:        BSD-2-Clause
@@ -74,6 +74,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-30.56ff6c8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Wed Aug 27 2025 David Cantrell <dcantrell@redhat.com> - 1.7.2-29.56ff6c8
 - Drop nasm dependency; build udis86 without yasm or nasm (#2390545)
 

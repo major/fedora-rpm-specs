@@ -1,5 +1,5 @@
 Name:            libtalloc
-Version:         2.4.3
+Version:         2.4.4
 Release:         %autorelease
 Summary:         The talloc library
 License:         LGPL-3.0-or-later
@@ -56,6 +56,8 @@ Development libraries for python3-talloc
 %build
 zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
 
+# workaround https://gitlab.com/ita1024/waf/-/issues/2472
+export PYTHONARCHDIR=%{python3_sitearch}
 %configure --disable-rpath \
            --disable-rpath-install \
            --bundled-libraries=NONE \

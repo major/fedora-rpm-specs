@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        147.0.1
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -274,6 +274,12 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
+# Bug 1999029 - Wayland buffer transaction locking
+Patch402:        D278446.patch
+Patch403:        D278447.patch
+Patch404:        D278448.patch
+Patch405:        D278449.patch
+Patch406:        D278450.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -593,6 +599,12 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
+# Bug 1999029 - Wayland buffer transaction locking
+%patch -P402 -p1 -b .1999029-1
+%patch -P403 -p1 -b .1999029-2
+%patch -P404 -p1 -b .1999029-3
+%patch -P405 -p1 -b .1999029-4
+%patch -P406 -p1 -b .1999029-5
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1266,6 +1278,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jan 20 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-2
+- Backported mzbz#1999029
+
 * Mon Jan 19 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-1
 - Updated to 147.0.1
 

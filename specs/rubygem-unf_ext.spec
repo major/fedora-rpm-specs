@@ -3,7 +3,7 @@
 Summary:	Unicode Normalization Form support library for CRuby
 Name:		rubygem-%{gem_name}
 Version:	0.0.9.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 # LICENSE.txt
 # SPDX confirmed
 License:	MIT
@@ -98,6 +98,9 @@ ruby \
 %doc	%{gem_docdir}
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Thu Jan 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.9.1-8
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_4.0
 

@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:      optee_os
-Version:   4.8.0
-Release:   2%{?dist}
+Version:   4.9.0
+Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -103,6 +103,9 @@ install -p -m 0644 out/zynqmp/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{
 %{_datadir}/%{name}
 
 %changelog
+* Tue Jan 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.9.0-1
+- Update to 4.9.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

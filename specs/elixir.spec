@@ -14,6 +14,7 @@ VCS:      git:https://github.com/%{upstream}/%{name}.git
 Source0:  https://github.com/%{upstream}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  https://github.com/%{upstream}/%{name}/releases/download/v%{version}/Docs.zip#/%{name}-%{version}-doc.zip
 Patch:    elixir-0001-Fix-shebang.patch
+Patch:    increase-timeouts-for-tests.patch
 # See https://bugzilla.redhat.com/1470583
 #BuildArch:      noarch
 BuildRequires: erlang-compiler

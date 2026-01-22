@@ -88,6 +88,9 @@ information from Cucumber.
 
 %prep
 %autosetup -n messages-%{version} -p1
+# Do not upper-bound (SemVer-bound) the version of uv_build; we must work with
+# what we have, and compatibility is quite good in practice.
+sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' python/pyproject.toml
 
 
 %generate_buildrequires

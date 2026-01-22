@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.24.0
+Version: 3.25.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -390,6 +390,12 @@ fi
 
 
 %changelog
+* Tue Jan 20 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.25.0-1
+- kata-containers 3.25.0
+
+* Mon Jan 19 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.24.0-1
+- kata-containers 3.24.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

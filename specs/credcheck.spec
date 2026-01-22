@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 %global with_selinux 1
 Name: credcheck
-Version: 3.0
+Version: 4.4
 Release: %autorelease 
 Summary: PostgreSQL extension for credential checking
 License: PostgreSQL
@@ -25,13 +25,6 @@ Source1: %{name}.cil
 #https://github.com/HexaCluster/credcheck/blob/master/README.md
 Patch0: enable_cracklib.patch
 %endif
-#patch containing the latest license change taken from commit:
-#https://github.com/HexaCluster/credcheck/commit/db7c811a02f286b9ba3e81a219826bf47eca6d4e
-Patch1: upstream_db7c811a02f286b9ba3e81a219826bf47eca6d4e.patch
-#patch conatining the extra flag for the make process to include link
-#time optimization to make sure the code is optimized during linking
-#https://en.wikipedia.org/wiki/Interprocedural_optimization#WPO_and_LTO
-Patch2: lto_optimization.patch
 
 BuildRequires: make postgresql-server-devel gcc
 %if %{with cracklib}

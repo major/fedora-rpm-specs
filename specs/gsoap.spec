@@ -1,7 +1,7 @@
 Summary: Generator Tools for Coding SOAP/XML Web Services in C and C++
 Name: gsoap
-Version: 2.8.135
-Release: 4%{?dist}
+Version: 2.8.139
+Release: 1%{?dist}
 
 # gsoap is licensed both under the gSOAP public license and under GPL version
 # 2 or later with an OpenSSL linking exception.
@@ -24,13 +24,16 @@ Source2: wsdl2h.1
 # Replace top level index.html in the doc package with a version without
 # external image, js and css references to https://www.genivia.com/
 Source3: index.html
+# Fix build with "make --shuffle=reverse"
+# https://sourceforge.net/p/gsoap2/patches/186/
+Patch0: %{name}-shuffle-reverse.patch
+# Fix out-of-source build
+# https://sourceforge.net/p/gsoap2/patches/187/
+Patch1: %{name}-tree.patch
 # Create shared libraries
-Patch0: %{name}-libtool.patch
+Patch2: %{name}-libtool.patch
 # The custom tabs css does not work with newer doxygen - use default version
-Patch1: %{name}-doxygen-tabs.patch
-# Don't overwrite CPPFLAGS in Makefile.am files in sample directory
-# https://sourceforge.net/p/gsoap2/bugs/1321/
-Patch2: %{name}-cppflags.patch
+Patch3: %{name}-doxygen-tabs.patch
 
 BuildRequires: gcc-c++
 BuildRequires: flex
@@ -67,9 +70,10 @@ gSOAP documentation in html.
 
 %prep
 %setup -q -n gsoap-2.8
-%patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 # XML files non-executable
 find gsoap/samples/autotest/databinding/examples -name '*.xml' \
@@ -108,7 +112,7 @@ autoreconf --install --force
 
 # Dependencies are not declared properly -- no parallel build
 # Add /usr/share/gsoap to soapcpp2's default import path
-%make_build -j1 SOAPCPP2_IMPORTPATH='-DSOAPCPP2_IMPORT_PATH="\"%{_datadir}/gsoap/import:%{_datadir}/gsoap\""'
+%make_build SOAPCPP2_IMPORTPATH='-DSOAPCPP2_IMPORT_PATH="\"%{_datadir}/gsoap/import:%{_datadir}/gsoap\""'
 
 # Regenerete doxygen documentation
 cp -pr gsoap/doc gsoap/doc-build
@@ -129,7 +133,7 @@ popd
 install -m 644 -p %{SOURCE3} gsoap/doc-build
 
 %install
-%make_install -j1
+%make_install
 rm -f %{buildroot}/%{_libdir}/*.la
 rm %{buildroot}/%{_datadir}/gsoap/custom/*.o
 rm %{buildroot}/%{_datadir}/gsoap/plugin/*.o
@@ -138,7 +142,7 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 
 %check
-%make_build -j1 check
+%make_build check
 
 %files
 %doc factsheet.pdf NOTES.txt README.txt
@@ -377,6 +381,12 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %license LICENSE.txt GPLv2_license.txt
 
 %changelog
+* Mon Jan 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.139-1
+- Update to 2.8.139
+- Fix build with "make --shuffle=reverse" (and drop -j1 flags)
+- Fix out-of-source build
+- Drop patch accepted upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.135-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

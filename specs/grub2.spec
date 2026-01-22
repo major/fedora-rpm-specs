@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	50%{?dist}
+Release:	51%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -612,6 +612,8 @@ fi
 - Revert 'Increase EFI max allocation to max usable address'
 - Related: #2427945
 - Related: #2263643
+- Fix ppc64le build (Hans de Goede)
+- Fix 20-install.sh installing the hmac under the wrong filename (Hans de Goede)
 
 * Wed Dec 10 2025 Joel Capitao <jcapitao@redhat.com> - 2.12-50
 - Do not include EFI dir in common subpackage

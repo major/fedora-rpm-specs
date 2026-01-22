@@ -2,7 +2,7 @@
 
 Name:           python-queuelib
 Version:        1.8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
 License:        LicenseRef-Callaway-BSD
@@ -46,6 +46,9 @@ Python. Queuelib goals are speed and simplicity.
 %license LICENSE
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sun Sep 21 2025 Eduardo Echeverria <echevemaster@gmail.com> - 1.8.0-5
 - Unorphan package
 

@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -15,6 +15,11 @@ Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch1:         0001-test_conf.cpp-make-comparing-size_type-cross-platfor.patch
 Patch2:         0002-python_plugins_loader-disable-sign-compare-check-err.patch
 Patch3:         0003-Move-libdnf5-conf-config.h-creation-after-feature-de.patch
+Patch4:         0004-ruby-bindings-ignore-unused-but-set-variable-warning.patch
+Patch5:         0005-copr_plugin-silence-error-variable-val-set-but-not-u.patch
+Patch6:         0006-progressbar-remove-unused-message_index-variable.patch
+Patch7:         0007-Add-a-couple-of-missing-includes-to-fix-builds.patch
+Patch8:         0008-Replace-all-std-format-with-fmt-format.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1085,6 +1090,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Jan 20 2026 Petr Pisar <ppisar@redhat.com> - 5.3.0.0-7
+- Fix building with GCC 16 (bug #2427953)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

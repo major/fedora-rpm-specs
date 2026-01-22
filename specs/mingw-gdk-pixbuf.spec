@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.44.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -140,6 +140,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.44.4-4
+- Fix paths and remove JPEG 2000 in loaders.cache (RHBZ#2431201)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.44.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

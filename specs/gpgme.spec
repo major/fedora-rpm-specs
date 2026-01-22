@@ -13,7 +13,7 @@ Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        2.0.1
 %global spversion 2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -54,9 +54,6 @@ BuildRequires:  gnupg2 >= %{gnupg2_min_ver}
 BuildRequires:  gnupg2-smime
 BuildRequires:  libgpg-error-devel >= %{libgpg_error_min_ver}
 BuildRequires:  libassuan-devel >= 2.4.2
-
-# For python bindings
-BuildRequires:  swig
 
 # to remove RPATH
 BuildRequires:  chrpath
@@ -165,11 +162,6 @@ Requires:       q%{name}-common-devel%{?_isa}
 %package -n python3-gpg
 Summary:        %{name} bindings for Python 3
 BuildRequires:  python3-devel
-BuildRequires:  python-pip
-BuildRequires:  python3-wheel
-# Needed since Python 3.12+ drops distutils
-BuildRequires:  python3-setuptools
-BuildRequires:  pyproject-rpm-macros
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      platform-python-gpg < %{version}-%{release}
 
@@ -201,6 +193,10 @@ sed -i -e 's|^libdir=@libdir@$|libdir=@exec_prefix@/lib|g' src/gpgme-config.in
 
 # The build machinery does not support the newest Pythons
 sed -i 's/3.13/%{python3_version}/g' configure
+
+%generate_buildrequires
+cd gpgmepy
+%pyproject_buildrequires
 
 %build
 # People neeed to learn that you can't run autogen.sh anymore
@@ -407,6 +403,9 @@ popd
 %{python3_sitearch}/gpg/
 
 %changelog
+* Fri Jan 16 2026 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-3
+- Drop undesired and unnecessary build dependency on python3-wheel
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

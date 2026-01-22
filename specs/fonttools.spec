@@ -13,7 +13,7 @@
 %bcond repacker_extra %[ 0%{?fedora} > 41 ]
 # Requires python-sympy (not yet in any EPEL):
 %bcond symfont_extra %{undefined rhel}
-# Requires python-fs:
+# Required python-fs till 4.58.0 release
 %bcond ufo_extra %[ %{undefined rhel} || %{defined epel} ]
 # Requires python-unicodedata2 (depending on python version):
 %bcond unicode_extra %[ %{undefined rhel} || %{defined epel} ]

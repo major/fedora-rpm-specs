@@ -1,8 +1,8 @@
 %global irr_version 1.9.0mt13
 %global minetest_game_version 5.8.0
 Name:     minetest
-Version:  5.14.0
-Release:  2%{?dist}
+Version:  5.15.0
+Release:  1%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -223,6 +223,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.15.0-1
+- 5.15.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
 
 
 # To create a tarball from a version tag:
@@ -2082,6 +2082,9 @@ fi
 
 ################################################################################
 %changelog
+* Tue Jan 20 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.0-0.1.beta1.3
+- Rebuilt with new version for resteasy
+
 * Fri Jan 16 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.0-0.1.beta1
 - Rebase to PKI 11.9.0-beta1
 

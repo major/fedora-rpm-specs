@@ -7,13 +7,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        49.2
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Maps
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -37,6 +37,7 @@ BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 # Required for tests.
 BuildRequires:  libsecret
+BuildRequires:  blueprint-compiler
 
 Requires:       dbus
 Requires:       gdk-pixbuf2%{?_isa}

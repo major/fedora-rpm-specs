@@ -12,7 +12,11 @@ URL:		https://www.libvips.org/
 Source0:	https://github.com/libvips/libvips/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 # https://github.com/libvips/libvips/pull/4816
+# Fix vips_thumbnail behavior on s390x
 Patch0:		pr-4816.patch
+# https://github.com/libvips/libvips/pull/4836
+# Fix build with glibc 2.43 supporting C23
+Patch1:		pr-4836.patch
 
 BuildRequires:	meson
 BuildRequires:	pkgconfig(glib-2.0)

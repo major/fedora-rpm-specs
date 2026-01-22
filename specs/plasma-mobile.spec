@@ -3,12 +3,20 @@ ExcludeArch: %{ix86}
 
 Name:           plasma-mobile
 Version:        6.5.90
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-only AND MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
 Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/plasma-mobile-%{version}.tar.xz
 Source1:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/plasma-mobile-%{version}.tar.xz.sig
+
+Source15:       fedora-lookandfeel.json
+
+## upstream patches
+
+## downstream patches
+Patch1001:      plasma-mobile-load-fedora-wallpaper.patch
+Patch1002:      plasma-mobile-select-fedora-lookandfeel.patch
 
 # Remove the 'bugfix' digit from the version for some runtime requirements
 %global plasma_version %(echo %{version} | cut -d. -f1-3)
@@ -66,6 +74,7 @@ BuildRequires: cmake(PlasmaActivities)
 BuildRequires: cmake(PlasmaWaylandProtocols)
 BuildRequires: cmake(Plasma)
 BuildRequires: cmake(KWayland)
+BuildRequires: system-backgrounds-kde
 
 Requires: feedbackd
 Requires: kf6-bluez-qt
@@ -84,6 +93,10 @@ Requires: plasma-workspace >= %{plasma_version}
 Requires: qqc2-breeze-style
 Requires: qt6-qtwayland
 
+# Default look-and-feel theme
+Requires: plasma-lookandfeel-fedora-mobile = %{version}-%{release}
+Requires: system-backgrounds-kde
+
 # This package now integrates what was plasma-nm-mobile
 Obsoletes: plasma-nm-mobile < 5.27.81
 
@@ -91,8 +104,30 @@ Obsoletes: plasma-nm-mobile < 5.27.81
 %description
 %{summary}.
 
+%package -n plasma-lookandfeel-fedora-mobile
+Summary:  Fedora look-and-feel for Plasma Mobile
+Requires: %{name} = %{version}-%{release}
+BuildArch: noarch
+%description -n plasma-lookandfeel-fedora-mobile
+%{summary}.
+
+
 %prep
-%autosetup
+%autosetup -p1
+
+# Populate initial lookandfeel package
+cp -a lookandfeel lookandfeel-fedora
+# Overwrite settings to configure distro wallpaper
+sed -i -e 's|Image=Next$|Image=Default|' lookandfeel-fedora/contents/defaults
+install -m 0644 %{SOURCE15} lookandfeel-fedora/metadata.json
+cat >> CMakeLists.txt <<EOL
+plasma_install_package(lookandfeel-fedora org.fedoraproject.fedora.mobile look-and-feel lookandfeel)
+EOL
+
+# RHEL 10 has .png, not .jxl
+if [ -e /usr/share/wallpapers/Default/contents/images/3840x2160.png ]; then
+  sed -e 's|\.jxl|.png|g' -i initialstart/qml/LandingComponent.qml
+fi
 
 %build
 %cmake_kf6
@@ -146,7 +181,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mobile_*.so
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_autodetect_apn.so
 
+%files -n plasma-lookandfeel-fedora-mobile
+%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.mobile
+
 %changelog
+* Mon Jan 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.90-3
+- Add Fedora look-and-feel for mobile
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

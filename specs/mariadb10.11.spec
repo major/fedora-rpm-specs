@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -994,7 +994,6 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DINSTALL_SCRIPTDIR=bin \
          -DINSTALL_SUPPORTFILESDIR=share/%{majorname} \
          -DMYSQL_DATADIR="%{dbdatadir}" \
-         -DMYSQL_UNIX_ADDR="%{dbdatadir}/mysql.sock" \
          -DTMPDIR=%{_localstatedir}/tmp \
          -DINSTALL_SYSTEMD_TMPFILESDIR="" \
          -DINSTALL_SYSTEMD_SYSUSERSDIR="" \
@@ -1853,6 +1852,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 20 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3:10.11.15-3
+- Updated service files to work with environment files
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:10.11.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

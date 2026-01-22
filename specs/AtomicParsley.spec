@@ -2,7 +2,7 @@ Summary:   Command-line program to read and set MPEG-4 tags compatible with iPod
 URL:       http://atomicparsley.sourceforge.net/
 Name:      AtomicParsley
 Version:   0.9.5
-Release:   32%{?dist}
+Release:   33%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
 Source0:   https://bitbucket.org/wez/atomicparsley/overview/%{name}-%{version}.tar.gz
@@ -50,6 +50,9 @@ make install install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %{_bindir}/AtomicParsley
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

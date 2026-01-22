@@ -2,34 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate libspa-sys
+%global crate daemonix
 
-Name:           rust-libspa-sys0.8
-Version:        0.8.0
+Name:           rust-daemonix
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Rust FFI bindings for libspa
+Summary:        Spawn daemon processes on Unix-like systems
 
-License:        MIT
-URL:            https://crates.io/crates/libspa-sys
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/daemonix
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump bindgen dependency from v0.69 to v0.72.1
-Patch:          libspa-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3
-BuildRequires:  pkgconfig(libspa-0.2) >= 0.2
 
 %global _description %{expand:
-Rust FFI bindings for libspa.}
+Spawn daemon processes on Unix-like systems.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpipewire-0.3) >= 0.3
-Requires:       pkgconfig(libspa-0.2) >= 0.2
 
 %description    devel %{_description}
 
@@ -37,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,19 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+v0_3_65-devel
-Summary:        %{summary}
-BuildArch:      noarch
-Requires:       pkgconfig(libpipewire-0.3) >= 0.3.65
-
-%description -n %{name}+v0_3_65-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "v0_3_65" feature of the "%{crate}" crate.
-
-%files       -n %{name}+v0_3_65-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

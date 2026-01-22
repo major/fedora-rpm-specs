@@ -1,6 +1,6 @@
 Name:    libplasma
 Version: 6.5.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -13,50 +13,48 @@ Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{vers
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(KF6Archive)
-BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  cmake(KF6Su)
-BuildRequires:  cmake(KF6GlobalAccel)
-BuildRequires:  cmake(KF6Kirigami2)
-BuildRequires:  cmake(KF6Package)
-BuildRequires:  cmake(KF6Parts)
-BuildRequires:  cmake(KF6ConfigWidgets)
-BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  cmake(KF6Solid)
-BuildRequires:  openssl-devel
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qtsvg-devel
+
+# Qt
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6GuiPrivate)
 
 # KDE Frameworks
 BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6IconThemes)
-BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
-BuildRequires:  cmake(KF6XmlGui)
-BuildRequires:  cmake(PlasmaWaylandProtocols)
-
-# Qt
-BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6KirigamiPlatform)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6DBusAddons)
 
 # Plasma
 BuildRequires:  cmake(PlasmaActivities)
 
-BuildRequires:  wayland-devel
-BuildRequires:  kwayland-devel
+# Wayland
+BuildRequires:  cmake(PlasmaWaylandProtocols)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  pkgconfig(wayland-client)
+
+# autotests
+BuildRequires:  cmake(KF6Archive)
+
+# examples
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6WidgetsAddons)
 
 Requires:       kf6-filesystem
 
@@ -70,9 +68,10 @@ Provides:       kf6-plasma = 1:%{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(Qt6Qml)
+Requires:       cmake(Qt6Gui)
 Requires:       cmake(KF6Package)
-Requires:       qt6-qtbase-devel
-Requires:       cmake(KF6Service)
+Requires:       cmake(KF6KirigamiPlatform)
 Requires:       cmake(KF6WindowSystem)
 Obsoletes:      kf6-plasma-devel < 1:%{version}-%{release}
 Provides:       kf6-plasma-devel = 1:%{version}-%{release}
@@ -131,6 +130,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.90-3
+- Update dependencies
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

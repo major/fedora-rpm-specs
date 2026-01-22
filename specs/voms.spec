@@ -2,7 +2,7 @@
 
 Name:		voms
 Version:	2.1.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -296,6 +296,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Tue Jan 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.3-3
+- Rebuild for gsoap 2.8.139 (Fedora 44)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

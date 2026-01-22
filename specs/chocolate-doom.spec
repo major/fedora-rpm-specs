@@ -5,27 +5,14 @@ License:	GPL-2.0-or-later
 %global rtld org.chocolate_doom
 URL:		http://chocolate-doom.org/
 
-Version:	3.1.0
-Release:	8%{?dist}
+Version:	3.1.1
+Release:	1%{?dist}
 
 %global git_tag %{name}-%{version}
 Source0:	https://github.com/chocolate-doom/chocolate-doom/archive/%{git_tag}/%{git_tag}.tar.gz
 
 # Always use the system python3 instead of asking /usr/bin/env first.
 Patch1:		0001-use-python3.patch
-
-# Historically, chocolate-doom's build scripts did not explicitly set the -std= option.
-# When GCC15 came along and made C23 the default, the program failed to build because
-# it declares its custom "bool" type. After some debate, upstream decided that rather
-# than try to make the project compatible with different standards, they will use C99.
-#
-# Backport from upstream:
-# https://github.com/chocolate-doom/chocolate-doom/pull/1723
-Patch2:		0002-use-c99.patch
-
-# Fix missing includes.
-# Submitted upstream: https://github.com/chocolate-doom/chocolate-doom/pull/1725
-Patch3:		0003-missing-includes.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -154,6 +141,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screensavers/%{rtld}
 
 
 %changelog
+* Tue Jan 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.1-1
+- Update to v3.1.1
+- Drop Patch2 (C99 issues) - backport from this release
+- Drop Patch3 (missing includes) - merged upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

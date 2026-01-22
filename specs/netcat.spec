@@ -12,7 +12,7 @@ Summary:         OpenBSD netcat to read and write data across connections using 
 Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
 Version:         1.237
-Release:         2%{?dist}
+Release:         3%{?dist}
 # BSD-3-Clause: nc.1 and netcat.c
 # BSD-2-Clause: atomicio.{c,h} and socks.c
 License:         BSD-3-Clause AND BSD-2-Clause
@@ -50,6 +50,12 @@ sed -e '1i #define unveil(path, permissions) 0' \
     -i netcat.c
 sed -e 's/^\(LIBS ?= .*\)/\1 -ltls/' -i Makefile
 
+# https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+sed -e 's/\(^[[:space:]]*Rflag =\) tls_default_ca_cert_file();/\1 NULL;/' \
+    -i netcat.c
+%endif
+
 %build
 %make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
@@ -76,6 +82,10 @@ fi
 %{_mandir}/man1/netcat.1*
 
 %changelog
+* Wed Jan 21 2026 Robert Scheck <robert@fedoraproject.org> 1.237-3
+- Do not use removed /etc/pki/tls/cert.pem bundle file for
+  Fedora 43 >= and RHEL >= 11 (#2430274)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.237-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

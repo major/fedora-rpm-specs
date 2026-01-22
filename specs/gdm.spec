@@ -15,7 +15,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        49.2
+Version:        50~alpha.1
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 
@@ -124,7 +124,6 @@ GDM specific authentication features.
 %else
        -Dx11-support=false \
 %endif
-       -Dxdmcp=disabled
 
 %meson_build
 
@@ -157,10 +156,6 @@ ln -sf ../X11/xinit/Xsession %{buildroot}%{_sysconfdir}/gdm/
 %license COPYING
 %dir %{_sysconfdir}/gdm
 %config(noreplace) %{_sysconfdir}/gdm/custom.conf
-%config %{_sysconfdir}/gdm/Init/*
-%config %{_sysconfdir}/gdm/PostLogin/*
-%config %{_sysconfdir}/gdm/PreSession/*
-%config %{_sysconfdir}/gdm/PostSession/*
 %config %{_sysconfdir}/pam.d/gdm-autologin
 %config %{_sysconfdir}/pam.d/gdm-password
 # not config files
@@ -169,35 +164,34 @@ ln -sf ../X11/xinit/Xsession %{buildroot}%{_sysconfdir}/gdm/
 %endif
 %{_datadir}/gdm/gdm.schemas
 %{_datadir}/dbus-1/system.d/gdm.conf
-%dir %{_sysconfdir}/gdm/Init
-%dir %{_sysconfdir}/gdm/PreSession
-%dir %{_sysconfdir}/gdm/PostSession
-%dir %{_sysconfdir}/gdm/PostLogin
 %dir %{_sysconfdir}/dconf/db/gdm.d
 %dir %{_sysconfdir}/dconf/db/gdm.d/locks
 %{_datadir}/glib-2.0/schemas/org.gnome.login-screen.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.login-screen.gschema.override
 %{_libexecdir}/gdm-runtime-config
 %{_libexecdir}/gdm-session-worker
+%{_libexecdir}/gdm-new-session
 %{_libexecdir}/gdm-wayland-session
 %if %{with x11}
 %{_libexecdir}/gdm-x-session
 %endif
 %{_libexecdir}/gdm-headless-login-session
 %{_sbindir}/gdm
-%{_bindir}/gdmflexiserver
 %{_bindir}/gdm-config
 %dir %{_datadir}/dconf
 %dir %{_datadir}/dconf/profile
 %{_datadir}/dconf/profile/gdm
 %dir %{_datadir}/gdm/greeter
 %dir %{_datadir}/gdm/greeter/applications
+%dir %{_datadir}/gdm/greeter/wayland-sessions
 %{_datadir}/gdm/greeter/applications/*
+%{_datadir}/gdm/greeter/wayland-sessions/*
 %{_datadir}/gdm/greeter-dconf-defaults
 %{_datadir}/gdm/locale.alias
 %{_datadir}/gdm/gdb-cmd
 %{_datadir}/gnome-session/sessions/gnome-login.session
 %{_datadir}/polkit-1/rules.d/20-gdm.rules
+%{_datadir}/polkit-1/actions/org.gnome.displaymanager.policy
 %{_libdir}/girepository-1.0/Gdm-1.0.typelib
 %{_libdir}/security/pam_gdm.so
 %{_libdir}/libgdm.so.1{,.*}

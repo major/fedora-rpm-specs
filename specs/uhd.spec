@@ -32,7 +32,7 @@ URL:            http://github.com/EttusResearch/uhd
 Version:        4.9.0.1
 #%%global images_ver %%{version}
 %global images_ver 4.9.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -283,6 +283,9 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %endif
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jan 12 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 4.9.0.1-2
 - Rebuilt for Boost 1.90
 

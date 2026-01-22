@@ -1,8 +1,8 @@
 %define soversion 6
 
 Name:           assimp
-Version:        6.0.2
-Release:        7%{?dist}
+Version:        6.0.3
+Release:        1%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -33,10 +33,6 @@ Patch2:         %{name}-nozlib.patch
 Patch3:         %{name}-docs.patch
 # Enable ctest
 Patch4:         %{name}-tests.patch
-# Backport fix for CVE-2025-11277
-Patch5:         https://github.com/assimp/assimp/commit/0978918f7148fbcd3d05cc6573dae7859975a895.patch
-# PyAssimp: Re-add 'aiProcess_Triangulate' (#2423174)
-Patch6:         https://github.com/assimp/assimp/commit/dd98d4aea3d9d2b3544540ea44eeb15c3616dbb7.patch
 
 
 BuildRequires:  boost-devel
@@ -175,6 +171,9 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 
 
 %changelog
+* Tue Jan 20 2026 Sandro Mani <manisandro@gmail.com> - 6.0.3-1
+- Update to 6.0.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,13 +4,13 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.54.5
+Version:        3.55.2
 Release:        %autorelease
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.54/pygobject-%{version}.tar.gz
+Source0:        https://download.gnome.org/sources/pygobject/3.55/pygobject-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(girepository-2.0) >= %{glib2_version}
@@ -94,11 +94,12 @@ export PYTEST_ADDOPTS="-k 'not (ref_count or has_two_refs)'"
 %pycached %{python3_sitearch}/gi/*.py
 %{python3_sitearch}/gi/_gi.*.so
 %{python3_sitearch}/PyGObject-*.dist-info/
-%{python3_sitearch}/pygtkcompat/
+#%{python3_sitearch}/pygtkcompat/
 
 %files -n python3-gobject-devel
 %dir %{_includedir}/pygobject-3.0/
 %{_includedir}/pygobject-3.0/pygobject.h
+%{_includedir}/pygobject-3.0/pygobject-types.h
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog

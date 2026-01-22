@@ -1,12 +1,14 @@
 Name:           open-vmdk
-Version:        0.3.8
-Release:        5%{?dist}
+Version:        0.3.12
+Release:        1%{?dist}
 Summary:        Tools to create OVA files from raw disk images
 License:        Apache-2.0
 URL:            https://github.com/vmware/open-vmdk
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  python3-devel
 BuildRequires:  zlib-devel
 Requires:       coreutils
 Requires:       grep
@@ -23,18 +25,6 @@ inside, which is composed of an OVF descriptor with extension .ovf,
 one or more virtual machine disk image files with extension .vmdk,
 and a manifest file with extension .mf.
 
-%prep
-%autosetup -p1
-
-%build
-%{!?_auto_set_build_flags:%{set_build_flags}}
-%make_build
-
-%install
-%make_install
-
-install -m0644 templates/*.ovf %{buildroot}%{_datadir}/%{name}
-
 %files
 %{_bindir}/mkova.sh
 %{_bindir}/ova-compose
@@ -42,7 +32,49 @@ install -m0644 templates/*.ovf %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/
 %config(noreplace) %{_sysconfdir}/open-vmdk.conf
 
+%dnl ---------------------------------------------------------------------
+
+%package -n ovfenv
+Summary:       Tools to get or set OVF environment variables
+Requires:      open-vm-tools
+Requires:      python3-libxml2
+BuildArch:     noarch
+
+%description -n ovfenv
+Show the value of an OVF property, whether the properties
+were presented to this VM in guestinfo or on a cdrom.
+Optionally, allows a property value to be modified.
+
+%files -n ovfenv
+%{_bindir}/ovfenv
+%dir %{_sharedstatedir}/ovfenv
+
+
+%dnl ---------------------------------------------------------------------
+
+%prep
+%autosetup -p1
+
+
+%build
+%{!?_auto_set_build_flags:%{set_build_flags}}
+%make_build
+
+
+%install
+%make_install
+
+# Fix shebang for ovfenv
+%py3_shebang_fix %{buildroot}%{_bindir}/ovfenv
+
+install -m0644 templates/*.ovf %{buildroot}%{_datadir}/%{name}
+install -d -m 755 %{buildroot}%{_sharedstatedir}/ovfenv
+
+
 %changelog
+* Tue Jan 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.3.12-1
+- Update to 0.3.12
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,7 +10,7 @@ true of requests in terms of caching.}
 Name:           python-%{pypi_name}
 Summary:        httplib2 caching for requests
 Version:        0.14.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 
 URL:            https://github.com/ionrock/cachecontrol
@@ -37,6 +37,9 @@ Recommends:  python3-%{pypi_name}+redis
 
 %prep
 %autosetup -n %{pypi_name_lower}-%{version} -p1
+# Do not upper-bound (SemVer-bound) the version of uv_build; we must work with
+# what we have, and compatibility is quite good in practice.
+sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' pyproject.toml
 
 
 %generate_buildrequires
@@ -64,6 +67,9 @@ Recommends:  python3-%{pypi_name}+redis
 
 
 %changelog
+* Tue Jan 20 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.4-3
+- Do not upper-bound the version of uv_build
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:         davix
 Version:      0.8.10
-Release:      5%{?dist}
+Release:      6%{?dist}
 Summary:      Toolkit for HTTP-based file management
 License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -151,6 +151,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Tue Jan 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.10-6
+- Rebuild for gsoap 2.8.139 (Fedora 44)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

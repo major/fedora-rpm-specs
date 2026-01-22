@@ -2,7 +2,7 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect

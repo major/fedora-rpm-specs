@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        49.2
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -29,7 +29,7 @@ Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 %define gjs_version 1.85.90
 %define gtk4_version 4.0.0
 %define adwaita_version 1.5.0
-%define mutter_version 49.0
+%define mutter_version 50~alpha
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 49~alpha
 %define ibus_version 1.5.2
@@ -241,8 +241,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Shell.Extensions.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shell.Extensions-symbolic.svg
 %{_userunitdir}/org.gnome.Shell-disable-extensions.service
-%{_userunitdir}/org.gnome.Shell.target
-%{_userunitdir}/org.gnome.Shell@wayland.service
+#{_userunitdir}/org.gnome.Shell.target
+%{_userunitdir}/org.gnome.Shell@.service
 %{_libdir}/gnome-shell/
 %{_libexecdir}/gnome-shell-calendar-server
 %{_libexecdir}/gnome-shell-perf-helper

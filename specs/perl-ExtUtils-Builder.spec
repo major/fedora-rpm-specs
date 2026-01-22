@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Builder
-Version:        0.017
-Release:        4%{?dist}
+Version:        0.019
+Release:        1%{?dist}
 Summary:        Abstract actions and plans for the ExtUtils-Builder framework
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,6 +21,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter) >= 5.57
 BuildRequires:  perl(ExtUtils::Config)
 BuildRequires:  perl(ExtUtils::Config::MakeMaker)
+BuildRequires:  perl(ExtUtils::Helpers) >= 0.027
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(File::Basename)
@@ -76,8 +77,14 @@ make test
 %{_mandir}/man3/ExtUtils::Builder*
 
 %changelog
+* Mon Jan 19 2026 Charles R. Anderson <cra@alum.wpi.edu> 0.019-1
+- Update to 0.019
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Fri Dec 05 2025 Charles R. Anderson <cra@alum.wpi.edu> 0.018-1
+- Update to 0.018
 
 * Wed Aug 20 2025 Charles R. Anderson <cra@alum.wpi.edu> 0.017-3
 - BR: coreutils for _fixperms macro

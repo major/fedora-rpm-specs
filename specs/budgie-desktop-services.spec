@@ -1,6 +1,6 @@
 Name:    budgie-desktop-services
-Version: 1.0.1
-Release: 3%{?dist}
+Version: 1.0.2
+Release: 1%{?dist}
 Summary: Daemon responsible for enabling various features of Budgie Desktop
 
 License: MPL-2.0
@@ -28,7 +28,7 @@ desktop logic for Budgie 11.
 %autosetup -n %{name}
 
 %build
-%cmake_kf6 -DINSTALL_LABWC=OFF
+%cmake_kf6
 %cmake_build
 
 %install
@@ -40,6 +40,9 @@ desktop logic for Budgie 11.
 %{_datadir}/dbus-1/system.d/org.buddiesofbudgie.Services.conf
 
 %changelog
+* Tue Jan 20 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.0.2-1
+- Update to 1.0.2 release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

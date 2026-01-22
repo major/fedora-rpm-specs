@@ -2,8 +2,8 @@ Name: lhasa
 Summary: Free Software LHA implementation
 License: ISC
 
-Version: 0.4.0
-Release: 8%{?dist}
+Version: 0.5.0
+Release: 1%{?dist}
 
 URL: https://fragglet.github.io/lhasa/
 Source0: https://github.com/fragglet/lhasa/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -97,21 +97,24 @@ cp -a doc/html %{buildroot}%{_pkgdocdir}
 %{_mandir}/man1/lha.1*
 
 %files libs
-%doc AUTHORS NEWS
-%license COPYING
+%doc AUTHORS NEWS.md
+%license COPYING.md
 %{_libdir}/liblhasa.so.0*
 
 %files devel
 %{_libdir}/liblhasa.so
 %{_libdir}/pkgconfig/liblhasa.pc
-%{_includedir}/liblhasa-1.0/
+%{_includedir}/liblhasa-%{version}/
 
 %files doc
-%license COPYING
+%license COPYING.md
 %doc %{_pkgdocdir}
 
 
 %changelog
+* Tue Jan 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-1
+- Update to v0.5.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -28,7 +28,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -459,6 +459,9 @@ done
 %endif
 
 %changelog
+* Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Oct 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 4.15-8
 - Rebuild for petsc-3.24.0
 - Disable gmm support

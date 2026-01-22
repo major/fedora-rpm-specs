@@ -1,6 +1,6 @@
 Name:           teckit
-Version:        2.5.12
-Release:        6%{?dist}
+Version:        2.5.13
+Release:        2%{?dist}
 Summary:        Encoding conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
 # license/License_CPLv05.txt:   CPL-1.0 text, "0.5" version in the license
@@ -16,45 +16,80 @@ Summary:        Encoding conversion library and mapping compiler
 #                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
 # source/TECkit_Format.h:   LGPL-2.1-or-later OR CPL-0.5-or-later
 ## Not in any binary package
-# aclocal.m4:           FSFULLR
-# compile:              GPL-2.0-or-later WITH Autoconf-exception-generic
-#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>
-# config.guess:         GPL-3.0-or-later WITH Autoconf-exception-generic
-# config.sub:           GPL-3.0-or-later WITH Autoconf-exception-generic
-# configure:            FSFUL AND GPL-2.0-or-later WITH Libtool-exception
-# depcomp:              GPL-2.0-or-later WITH Autoconf-exception-generic
-# install-sh:           X11
-# lib/Makefile.in:      FSFULLRWD
-# ltmain.sh:            GPL-2.0-or-later WITH Libtool-exception AND
-#                       GPL-3.0-or-later WITH Libtool-exception AND GPL-3.0-or-later
-# m4/libtool.m4:        FSFULL AND FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
-# m4/ltoptions.m4:      FSFULLR
-# m4/ltsugar.m4:        FSFULLR
-# m4/ltversion.m4:      FSFULLR
-# m4/lt~obsolete.m4:    FSFULLR
-# Makefile.in:          FSFULLRWD
-# missing:              GPL-2.0-or-later WITH Autoconf-exception-generic
-# test-driver:          GPL-2.0-or-later WITH Autoconf-exception-generic
-# test/Makefile.in:     FSFULLRWD
+# debian-src/copyright: LGPL-2.0-or-later
+# perl_binaries:        precompiled source/Perl
+# repackage.sh:         GPL-2.0-or-later
+# SFconv/SFconv_ver.rc: LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/Compiler_ver.rc:   LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/Sample-tools/TECkit_Compile_ver.rc:    LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/Sample-tools/TxtConv_ver.rc:           LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/Sample-tools/version_defs.h:           LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/teckitjni/COPYING:     GPL-2.0 text
+# source/teckitjni/java/org/sil/scripts/teckit/TecKitJni.java:  LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/teckitjni/ltmain.sh:   GPL-2.0-or-later WITH Autoconf-exception-generic
+# source/teckitjni/missing:     GPL-2.0-or-later WITH Autoconf-exception-generic
+# source/teckitjni/src/teckitjniTest.cpp:   GPL-2.0-or-later
+# source/teckitjni/templates/cpp:           GPL-2.0-or-later
+# source/teckitjni/templates/h:             GPL-2.0-or-later
+# source/version_defs.h:        LGPL-2.1-or-later OR CPL-0.5-or-later
+# test/NormalizationTest.txt:   Unicode-3.0
 ## Unbundled
 # SFconv/expat/xmlparse/hashtable.c:    MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlparse/hashtable.h:    MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlparse/Makefile.in:    NPL-1.1
+# SFconv/expat/xmlparse/makefile.win:   NPL-1.1
 # SFconv/expat/xmlparse/xmlparse.c:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlparse/xmlparse.h:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/iasciitab.h:      MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/Makefile.in:      NPL-1.1
+# SFconv/expat/xmltok/makefile.win:     NPL-1.1
+# SFconv/expat/xmltok/utf8tab.h:        MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/xmldef.h:         MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/xmlrole.h:        MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/xmltok.h:         MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/xmltok_impl.c:    MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmltok/xmltok_impl.h:    MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/codepage.c:        MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/codepage.h:        MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/filemap.h:         MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/readfilemap.c:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/unixfilemap.c:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/win32filemap.c:    MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/xmlfile.c:         MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/xmlfile.h:         MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/xmltchar.h:        MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlwf/xmlwf.c:           MPL-1.1 OR GPL-1.0-or-later (bundled expat)
 # zlib-1.2.3:           "sse copyright notice in zlib.h"
-# zlib-1.2.3/zlib.h:    zlib-acknowledgement
+# zlib-1.2.13/contrib/ada/*.adb:        "see zlib.ads"
+# zlib-1.2.13/contrib/ada/zlib.ads:     GPL-2.0-or-later WITH GNAT-exception
+# zlib-1.2.13/contrib/blast/blast.c:    "see blast.h"
+# zlib-1.2.13/contrib/blast/blast.h:    Zlib
+# zlib-1.2.13/contrib/dotzlib:  BSL-1.0
+# zlib-1.2.13/contrib/gcc_gvmat64/gvmat64.S:    Zlib
+# zlib-1.2.13/doc/rfc1950.txt:  ??? permissive
+# zlib-1.2.13/zlib.h:    Zlib
+## Removed when repackaging
+# mac-installer/Resources/License.rtf:  "non-commercial"
+#                                       <https://github.com/silnrsi/teckit/issues/34>
 License:        (LGPL-2.1-or-later OR CPL-1.0) AND (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0)
+SourceLicense:  %{license} AND LGPL-2.0-or-later AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-generic AND Unicode-3.0 AND (MPL-1.1 OR GPL-1.0-or-later) AND NPL-1.1 AND GPL-2.0-or-later WITH GNAT-exception AND Zlib AND BSL-1.0
 URL:            https://software.sil.org/teckit/
-Source0:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz
-Source1:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz.asc
+# Archive repackaged with ./repackage.sh tool because of a bad license
+# <https://github.com/silnrsi/teckit/issues/34>.
+# Original URL is https://github.com/silnrsi/teckit/releases/download/v%%{version}/teckit-%%{version}.tar.xz
+Source0:        teckit-%{version}_repackaged.tar.xz
+Source1:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.xz.asc
 # Exported from ppisar's keyring
 Source2:        gpgkey-15D41BC02EB807D405EFFAF6C9183BEA0288CDEE.gpg
-BuildRequires:  autoconf >= 2.54
+Source3:        repackage.sh
+BuildRequires:  autoconf >= 2.69
 BuildRequires:  automake >= 1.11
 BuildRequires:  coreutils
 BuildRequires:  expat-devel
 # gcc is not needed, the only source/NormalizationData.c is included into
 # a C++ source/Engine.cpp compilation unit.
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
+# gnupg2 not used because of repackaging.
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  zlib-devel
@@ -83,10 +118,13 @@ Header files, pkg-config module, and documentation for developing application
 that use TECkit, a character encoding and mapping, library.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%dnl verification skipped because of repackaging
+%dnl %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Remove bundled libraries
 rm -r zlib-*/*.{c,h} SFconv/expat
+# Remove pre-build executables
+rm -r perl_binaries
 
 %build
 # Regenerate a build script
@@ -134,6 +172,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Tue Jan 20 2026 Petr Pisar <ppisar@redhat.com> - 2.5.13-2
+- Fix CI gating configuration
+
+* Tue Jan 20 2026 Petr Pisar <ppisar@redhat.com> - 2.5.13-1
+- 2.5.13 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.11
-Release: 3%{?dist}
+Version: 44.14
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -109,6 +109,7 @@ Requires: python3-dasbus >= %{dasbusver}
 Requires: python3-xkbregistry
 Requires: flatpak
 Requires: flatpak-libs
+Requires: systemd-pam
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
 %endif
@@ -518,6 +519,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 20 2026 Adam Williamson <awilliam@redhat.com> - 44.14-2
+- Require systemd-pam to fix GUI startup with systemd-259-6 and later
+
+* Tue Jan 20 2026 Packit <hello@packit.dev> - 44.14-1
+- installation: run subscription tasks after network configuration (bciconel)
+- subscription: ensure /var/lib/insights exists before running insights-client
+  (bciconel)
+- dnf: Print transaction problems when transaction ends with errors (pkratoch)
+- dnf: Print names and NEVRAs for failed TransactionItems (pkratoch)
+- dnf: Report transaction errors for individual TransactionItems (pkratoch)
+- network: List all network interfaces IP for RDP session (ppolawsk)
+- pyanaconda: rpm_ostree: fix _handle_boot_if_not_mount_point method issues
+  (k.koukiou)
+- network: add release note for INSTALLER-3088 (rvykydal)
+- network: remove DumpMissingConfigFiles API (rvykydal)
+- network: stop creating default profiles for each wired device (rvykydal)
+- network: add API for persisting initramfs configuration (rvykydal)
+- modules: rpm_ostree: allow /boot/efi mount point in bootc installation
+  (k.koukiou)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,25 +3,26 @@ Version:        1.14.2
 Summary:        A library for changing configuration files
 License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND Kazlib AND GPL-2.0-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
-%global forgeurl https://github.com/hercules-team/%%{name}
-%global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
+# Upstream Augeas is missing several important fixes which affect
+# Fedora.  For this reason we have soft-forked augeas, here:
+# https://github.com/rwmjones/augeas
+# See also:
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/J7SM6NLIMPU7J4LIRBDPTPWVXOKZWWEH/
+# %%global forgeurl https://github.com/hercules-team/augeas
+# %%global commit af2aa88ab37fc48167d8c5e43b1770a4ba2ff403
+%global forgeurl https://github.com/rwmjones/augeas
+%global commit f4135e3496fbc80597942acf60d90391444b1e5b
 %forgemeta
 
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
 # The problem with packaging from the upstream git repo is that we
 # need to provide our own gnulib submodule.  I created this by doing:
-# git archive --format=tar --prefix=.gnulib/ HEAD | gzip -9 > gnulib-2f7479a16a.tar.gz
+# (cd .gnulib && git archive --format=tar --prefix=.gnulib/ HEAD) |
+#   gzip -9 > gnulib-2f7479a16a.tar.gz
 Source1:        gnulib-2f7479a16a.tar.gz
-
-# Upstream Augeas is missing several important fixes which affect
-# Fedora.  For this reason I have taken the regrettable but hopefully
-# temporary step of forking upstream with some extra patches, here:
-# https://github.com/rwmjones/augeas/tree/fedora-43
-Patch:          0001-lenses-fstab.aug-Tighten-parsing-of-the-vfstype-fiel.patch
-Patch:          0002-lenses-fstab.aug-Allow-individual-mount-options-to-b.patch
 
 Provides:       bundled(gnulib)
 
@@ -198,6 +199,11 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.9
+- Soft fork Augeas, see
+  https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/J7SM6NLIMPU7J4LIRBDPTPWVXOKZWWEH/
+- Add more patches from pull requests that affect Fedora and RHEL
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-0.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

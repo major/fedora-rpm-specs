@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           synfigstudio
-Version:        1.5.3
-Release:        5%{?dist}
+Version:        1.5.4
+Release:        1%{?dist}
 Summary:        Vector-based 2D animation studio
 
 License:        GPL-2.0-or-later
@@ -96,11 +96,13 @@ desktop-file-install \
 %files devel
 %{_includedir}/synfigapp-0.0
 %{_libdir}/*.so
-%exclude %{_libdir}/*.la
 %doc COPYING TODO
 
 
 %changelog
+* Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-1
+- 1.5.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
