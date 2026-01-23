@@ -35,14 +35,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           localsearch
-Version:        3.10.2
+Version:        3.11~alpha
 Release:        %autorelease
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
-Source0:        https://download.gnome.org/sources/%{name}/3.10/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.11/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -162,6 +162,7 @@ ln -sr %{buildroot}%{_datadir}/dbus-1/services/%{domain_ontology}.Tracker3.Miner
 %{_libexecdir}/localsearch-3
 %{_libexecdir}/localsearch-control-3
 %{_libexecdir}/localsearch-extractor-3
+%{_libexecdir}/localsearch-endpoint-3
 %if ! 0%{?flatpak}
 %{_libexecdir}/localsearch-writeback-3
 %endif

@@ -12,9 +12,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
 
-# Allow Starlette 0.50, 0.51
-# Not upstreamable until a FastAPI release supports 0.51
-Patch:          allow_starlette_0.51.patch
+# Allow Starlette 0.50, 0.51, 0.52
+# Not upstreamable until a FastAPI release supports 0.52
+Patch:          allow_starlette_0.52.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

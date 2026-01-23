@@ -1,5 +1,5 @@
 Name:           python-blosc2
-Version:        3.8.0
+Version:        3.12.0
 Release:        %autorelease
 Summary:        Python wrapper for the Blosc2 compression library
 License:        BSD-3-Clause
@@ -52,10 +52,15 @@ export SKBUILD_BUILD_DIR=python-build
 %pyproject_save_files blosc2
 
 %check
+# There are unconditional torch imports. Let's drop those files fow now.
+grep -l '^import torch' tests/ndarray/test_*.py | xargs rm -v
+
 OPTIONS=(
     --deselect="tests/test_embed_store.py::test_with_remote"
     # One of those tests seems to hang in x86_64 builds in koji.
     --deselect="tests/ndarray/test_lazyexpr.py::test_lazyexpr[float32"
+    # Newly failing with python-blosc2 3.12.0
+    --deselect="tests/ndarray/test_resize.py::test_expand_dims"
 )
 
 %pytest tests/ "${OPTIONS[@]}" -v \

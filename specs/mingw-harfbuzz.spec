@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        12.3.0
-Release:        2%{?dist}
+Version:        12.3.1
+Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
 License:        MIT
@@ -156,6 +156,9 @@ export MINGW_BUILDDIR_SUFFIX=shared
 
 
 %changelog
+* Wed Jan 21 2026 Sandro Mani <manisandro@gmail.com> - 12.3.1-1
+- Update to 12.3.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

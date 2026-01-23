@@ -46,6 +46,8 @@ chmod 644 docs/DocuOggVideoTools.pdf
 rm -rf src/libresample/
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380961)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

@@ -5,7 +5,7 @@
 %global crate libheif-rs
 
 Name:           rust-libheif-rs
-Version:        2.6.0
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Safe wrapper around the libheif-sys crate for parsing heif/heic files
 
@@ -149,14 +149,9 @@ use the "v1_21" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests that rely on unavailable loaders for some image formats
-# * Test regression with libheif 1.21: test_raw_color_profile_of_image_handle:
-#   https://github.com/Cykooz/libheif-rs/issues/37;
-#   test_raw_color_profile_of_image:
-#   https://github.com/Cykooz/libheif-rs/issues/37#issuecomment-3762919665
 %{cargo_test -f image -- -- --exact %{shrink:
     --skip get_auxiliary_images
-    --skip test_raw_color_profile_of_image
-    --skip test_raw_color_profile_of_image_handle
+    --skip test_nclx_color_profile_of_handle_and_image
 }}
 %endif
 

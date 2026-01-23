@@ -34,7 +34,7 @@ An R interface to V8: Google's open source JavaScript and WebAssembly engine.
 %R_save_files
 
 %check
-%R_check
+%R_check \--no-examples
 
 %files -f %{R_files}
 

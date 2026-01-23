@@ -22,7 +22,9 @@ Source1:    http://downloads.sourceforge.net/project/gdcm/gdcmData/gdcmData/gdcm
 Patch1: 0001-3.0.1-Use-copyright.patch
 # Fix for 1687233
 Patch2: 0002-Fix-export-variables.patch
-Patch3: gdcm-3.0.24-c++20.patch
+Patch3: 0003-fix-set-C-23-for-poppler-usage.patch
+# Sent upstream: https://github.com/malaterre/GDCM/pull/205
+Patch4: 0004-fix-GooString-use-std-string-size.patch
 
 BuildRequires:  CharLS-devel >= 2.2
 BuildRequires:  cmake

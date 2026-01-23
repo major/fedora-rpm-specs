@@ -25,7 +25,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: php-pear
 Version: 1.10.17
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 # BSD-2-Clause: PEAR, PEAR_Manpages, Archive_Tar, Console_Getopt
 # BSD-3-Clause: XML_Util
@@ -45,6 +45,8 @@ Source22: http://pear.php.net/get/Console_Getopt-%{getoptver}.tgz
 Source23: http://pear.php.net/get/Structures_Graph-%{structver}.tgz
 Source24: http://pear.php.net/get/XML_Util-%{xmlutil}.tgz
 Source25: http://pear.php.net/get/PEAR_Manpages-%{manpages}.tgz
+
+Patch0:   164.patch
 
 BuildArch: noarch
 BuildRequires: php(language) > 5.4
@@ -218,7 +220,7 @@ install -m 644 -D macros.pear \
 
 # apply patches on installed PEAR tree
 pushd %{buildroot}%{peardir}
-  : none
+  patch -p1 <%{PATCH0}
 popd
 
 # Why this file here ?
@@ -332,6 +334,10 @@ fi
 
 
 %changelog
+* Wed Jan 21 2026 Remi Collet <remi@remirepo.net> - 1.10.17-2
+- remove report_memleaks usage with PHP 8.5 using patch from
+  https://github.com/pear/pear-core/pull/164
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

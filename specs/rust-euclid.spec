@@ -84,18 +84,6 @@ use the "libm" feature of the "%{crate}" crate.
 %files       -n %{name}+libm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+malloc_size_of-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+malloc_size_of-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "malloc_size_of" feature of the "%{crate}" crate.
-
-%files       -n %{name}+malloc_size_of-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+mint-devel
 Summary:        %{summary}
 BuildArch:      noarch

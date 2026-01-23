@@ -1,14 +1,14 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 9
-%global syslog_ng_patch_ver 0
+%global syslog_ng_minor_ver 10
+%global syslog_ng_patch_ver 2
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 8%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -18,10 +18,6 @@ Source0: https://github.com/balabit/syslog-ng/releases/download/syslog-ng-%{vers
 Source1: syslog-ng.conf
 Source2: syslog-ng.logrotate
 Source3: syslog-ng.service
-Patch0:  0001-Merge-pull-request-5437-from-HofiOne-fix-ack-tracker.patch
-Patch1:  0002-Merge-pull-request-5441-from-HofiOne-fix-mem-leaks.patch
-Patch2:  0003-Merge-pull-request-5445-from-beni-atlnz-log-writer-c.patch
-Patch3:  0004-Merge-pull-request-5447-from-therandomstring-s3-fix-.patch
 
 BuildRequires: make
 BuildRequires: bison
@@ -42,7 +38,6 @@ BuildRequires: libtool
 BuildRequires: libuuid-devel
 BuildRequires: libxslt
 BuildRequires: mongo-c-driver-devel
-BuildRequires: net-snmp-devel
 BuildRequires: openssl-devel
 BuildRequires: pcre2-devel
 BuildRequires: perl-generators
@@ -88,6 +83,8 @@ BuildRequires:  python3-tornado
 %bcond_without examples
 %endif
 
+%bcond_with snmp
+
 %if %{with bpf}
 BuildRequires: libbpf-devel
 BuildRequires: bpftool
@@ -98,6 +95,10 @@ BuildRequires: clang
 BuildRequires:  grpc-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  gcc-c++
+%endif
+
+%if %{with snmp}
+BuildRequires: net-snmp-devel
 %endif
 
 Requires: logrotate
@@ -393,7 +394,11 @@ touch -r lib/cfg-grammar.y lib/merge-grammar.py
     --with-python-packages=system \
     --disable-java \
     --disable-java-modules \
+%if %{with snmp}
     --enable-afsnmp \
+%else
+    --disable-afsnmp \
+%endif
 %if %{with examples}
     --enable-example-modules \
 %else
@@ -597,9 +602,10 @@ fi
 %files smtp
 %{_libdir}/syslog-ng/libafsmtp.so
 
+%if %{with snmp}
 %files snmp
 %{_libdir}/%{name}/libafsnmp.so
-
+%endif
 
 %files geoip
 %{_libdir}/syslog-ng/libgeoip2-plugin.so
@@ -648,6 +654,11 @@ fi
 
 
 %changelog
+* Wed Jan 21 2026 Peter Czanik <peter@czanik.hu> - 4.10.2-1
+- update to 4.10.2
+- disable SNMP support temporarily
+- remove patches made redundant by the version update
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

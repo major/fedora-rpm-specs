@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        158
+Version:        160
 
 %gometa
 
@@ -25,7 +25,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -73,7 +73,7 @@ Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/r
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage)) = 1.8.1
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.6.2
 Provides: bundled(golang(github.com/AzureAD/microsoft-authentication-library-for-go)) = 1.4.2
-Provides: bundled(golang(github.com/BurntSushi/toml)) = 3d3abc2
+Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.6.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp)) = 1.27.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric)) = 0.53.0
 Provides: bundled(golang(github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping)) = 0.53.0
@@ -82,27 +82,28 @@ Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.13.0
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/apapsch/go-jsonmerge/v2)) = 2.0.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.39.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.41.1
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.31.16
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.18.20
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.12
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.32.7
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.19.7
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.17
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = 1.19.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.12
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.12
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.17
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.17
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.60.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.260.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.62.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.279.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.12
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.17
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.87.3
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.30.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.39.0
-Provides: bundled(golang(github.com/aws/smithy-go)) = 1.23.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/signin)) = 1.0.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.30.9
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.13
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.41.6
+Provides: bundled(golang(github.com/aws/smithy-go)) = 1.24.0
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.3.0
@@ -135,9 +136,9 @@ Provides: bundled(golang(github.com/envoyproxy/go-control-plane/envoy)) = 1.32.4
 Provides: bundled(golang(github.com/envoyproxy/protoc-gen-validate)) = 1.2.1
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/getkin/kin-openapi)) = 0.133.0
-Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.36.2
-Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.36.2
-Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.36.2
+Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.40.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.40.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.40.0
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
@@ -208,9 +209,9 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.480
+Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.486
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
 Provides: bundled(golang(github.com/osbuild/images)) = 0.230.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
@@ -661,6 +662,21 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jan 21 2026 Packit <hello@packit.dev> - 160-1
+Changes with 160
+----------------
+  - Update snapshots to 20260106 (#4976)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - chore(deps): update konflux references (#4978)
+    - Author: {}, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - chore: bump dependencies via gobump (#4979)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - ci: gobump blueprint separately (#4973)
+    - Author: Lukáš Zapletal, Reviewers: Sanne Raymaekers, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-01-21
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 158-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

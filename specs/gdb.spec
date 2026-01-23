@@ -309,7 +309,7 @@ machine than the one which is running the program being debugged.
 
 %package doc
 Summary: Documentation for GDB (the GNU source-level debugger)
-License: GFDL
+License: GFDL-1.3-or-later
 BuildArch: noarch
 %if 0%{?scl:1}
 # As of F-28, packages won't need to call /sbin/install-info by hand

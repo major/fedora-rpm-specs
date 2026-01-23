@@ -1,5 +1,5 @@
 Name:          dfuzzer
-Version:       2.5
+Version:       2.6
 Release:       %autorelease
 Summary:       D-Bus fuzz testing tool
 

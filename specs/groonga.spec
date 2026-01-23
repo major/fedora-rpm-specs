@@ -1,5 +1,5 @@
 Name:           groonga
-Version:        15.0.4
+Version:        15.0.9
 Release:        %autorelease
 Summary:        An Embeddable Fulltext Search Engine
 License:        LGPL-2.1-only

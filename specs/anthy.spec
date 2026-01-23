@@ -10,7 +10,7 @@
 
 Name:  anthy
 Version: 9100h
-Release: 60%{?dist}
+Release: 61%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.1-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:  http://sourceforge.jp/projects/anthy/
@@ -124,7 +124,7 @@ gen_dict_args
 
 
 %build
-%configure --disable-static
+%configure --disable-static --with-lispdir=%{_emacs_sitelispdir}
 # fix rpath issue
 sed -ie 's/^hardcode_libdir_flag_spec.*$'/'hardcode_libdir_flag_spec=" -D__LIBTOOL_IS_A_FOOL__ "/' libtool
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/src-main/.libs:$RPM_BUILD_DIR/%{name}-%{version}/src-worddic/.libs make %{?_smp_mflags}
@@ -179,6 +179,10 @@ popd
 
 
 %changelog
+* Wed Jan 21 2026 Akira TAGOH <tagoh@redhat.com> - 9100h-61
+- Fix FTBFS
+- Set --with-lispdir=%%{_emacs_sitelispdir} instead of default.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

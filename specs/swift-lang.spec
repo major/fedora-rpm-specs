@@ -384,27 +384,117 @@ export PATH=%{_builddir}/stage2/usr/bin:%{_builddir}/stage1/usr/bin:%{_builddir}
 
 
 %install
-mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}
-cp -r %{_builddir}/usr/* %{buildroot}%{_libexecdir}/swift/%{version}
+# Create directory structure
 mkdir -p %{buildroot}%{_bindir}
-ln -fs %{_libexecdir}/swift/%{version}/bin/swift %{buildroot}%{_bindir}/swift
-ln -fs %{_libexecdir}/swift/%{version}/bin/swiftc %{buildroot}%{_bindir}/swiftc
-ln -fs %{_libexecdir}/swift/%{version}/bin/swift-build %{buildroot}%{_bindir}/swift-build
-ln -fs %{_libexecdir}/swift/%{version}/bin/swift-run %{buildroot}%{_bindir}/swift-run
-ln -fs %{_libexecdir}/swift/%{version}/bin/sourcekit-lsp %{buildroot}%{_bindir}/sourcekit-lsp
-mkdir -p %{buildroot}%{_mandir}/man1
-cp %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/swift.1
-mkdir -p %{buildroot}/usr/lib
-ln -fs %{_libexecdir}/swift/%{version}/lib/swift %{buildroot}/usr/lib/swift
 mkdir -p %{buildroot}%{_libdir}
-ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so %{buildroot}%{_libdir}/
-ln -fs %{_libexecdir}/swift/%{version}/lib/libIndexStore.so.17.0 %{buildroot}%{_libdir}/
-ln -fs %{_libexecdir}/swift/%{version}/lib/libsourcekitdInProc.so %{buildroot}%{_libdir}/
-ln -fs %{_libexecdir}/swift/%{version}/lib/libswiftDemangle.so %{buildroot}%{_libdir}/
+mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/bin
+mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib
+mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/include
 mkdir -p %{buildroot}%{_includedir}/swift
-cp -r %{_builddir}/swift/include/swift/SwiftDemangle %{buildroot}%{_includedir}/swift/
-mkdir -p %{buildroot}/%{_sysconfdir}/ld.so.conf.d/
-install -m 0644 %{SOURCE99} %{buildroot}/%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
+mkdir -p %{buildroot}%{_datadir}/swift
+mkdir -p %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+
+# Install executables to %{_libexecdir} to maintain Swift's internal directory structure
+cp -a %{_builddir}/usr/bin/* %{buildroot}%{_libexecdir}/swift/%{version}/bin/
+
+# Create symlinks in %{_bindir} for user-facing tools
+TOOLS="swift swiftc swift-build swift-run swift-package swift-test sourcekit-lsp swift-format swift-demangle"
+for tool in ${TOOLS}; do
+    if [ -f %{buildroot}%{_libexecdir}/swift/%{version}/bin/$tool ]; then
+        ln -sf %{_libexecdir}/swift/%{version}/bin/$tool %{buildroot}%{_bindir}/$tool
+    fi
+done
+
+# Install Swift runtime libraries to %{_libdir}
+if [ -d %{_builddir}/usr/lib/swift/linux ]; then
+    for lib in %{_builddir}/usr/lib/swift/linux/*.so*; do
+        [ -L "$lib" ] && continue  # Skip symlinks, we'll handle them later
+        [ -f "$lib" ] && install -m 0755 "$lib" %{buildroot}%{_libdir}/
+    done
+    # Now create symlinks
+    for link in %{_builddir}/usr/lib/swift/linux/*.so*; do
+        [ -L "$link" ] || continue
+        target=$(readlink "$link")
+        linkname=$(basename "$link")
+        ln -sf "$target" %{buildroot}%{_libdir}/$linkname
+    done
+fi
+
+# Install libsourcekitdInProc.so from build directory to %%{_builddir}/usr/lib (it's not installed by CMake)
+if [ -f %{_builddir}/build/fedora_final/swift-linux-%{_arch}/lib/libsourcekitdInProc.so ]; then
+    cp -a %{_builddir}/build/fedora_final/swift-linux-%{_arch}/lib/libsourcekitdInProc.so %{_builddir}/usr/lib/
+fi
+
+# Install SourceKit/IndexStore public libraries
+for lib in libIndexStore.so libIndexStore.so.17.0 libsourcekitdInProc.so libswiftDemangle.so; do
+    if [ -f %{_builddir}/usr/lib/$lib ]; then
+        install -m 0755 %{_builddir}/usr/lib/$lib %{buildroot}%{_libdir}/
+    fi
+done
+# Create any missing version symlinks
+if [ -f %{buildroot}%{_libdir}/libIndexStore.so.17.0 ] && [ ! -e %{buildroot}%{_libdir}/libIndexStore.so ]; then
+    ln -sf libIndexStore.so.17.0 %{buildroot}%{_libdir}/libIndexStore.so
+fi
+
+# Install lldb libraries to %{_libexecdir} (private, bundled with Swift toolchain)
+if [ -d %{_builddir}/usr/lib ]; then
+    for lib in %{_builddir}/usr/lib/liblldb.so*; do
+        if [ -e "$lib" ]; then
+            mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib
+            cp -a "$lib" %{buildroot}%{_libexecdir}/swift/%{version}/lib/
+        fi
+    done
+fi
+
+# Install lldb Python bindings
+if [ -d %{_builddir}/usr/lib64/python%{python3_version}/site-packages/lldb ]; then
+    mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib64/python%{python3_version}/site-packages
+    cp -a %{_builddir}/usr/lib64/python%{python3_version}/site-packages/lldb \
+          %{buildroot}%{_libexecdir}/swift/%{version}/lib64/python%{python3_version}/site-packages/
+fi
+
+# Install compiler private libraries and modules to %{_libexecdir}
+mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift
+cp -a %{_builddir}/usr/lib/swift/* %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/
+# Remove the runtime .so files we already installed to %{_libdir}
+if [ -d %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux ]; then
+    find %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux -name '*.so*' -type f -delete
+    find %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux -name '*.so*' -type l -delete
+fi
+
+# Install clang resource directory (sanitizer libraries, builtins)
+# Keep only what Swift needs internally
+if [ -d %{_builddir}/usr/lib/clang ]; then
+    mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib/clang
+    cp -a %{_builddir}/usr/lib/clang/* %{buildroot}%{_libexecdir}/swift/%{version}/lib/clang/
+fi
+
+# Install SwiftDemangle headers (public API)
+if [ -d %{_builddir}/swift/include/swift/SwiftDemangle ]; then
+    cp -a %{_builddir}/swift/include/swift/SwiftDemangle %{buildroot}%{_includedir}/swift/
+fi
+
+# Install Swift headers and modulemaps (for C interop)
+if [ -d %{_builddir}/usr/include ]; then
+    cp -a %{_builddir}/usr/include/* %{buildroot}%{_libexecdir}/swift/%{version}/include/
+fi
+
+# Install data files
+if [ -d %{_builddir}/usr/share/swift ]; then
+    cp -a %{_builddir}/usr/share/swift/* %{buildroot}%{_datadir}/swift/
+fi
+
+# Install man pages
+if [ -f %{_builddir}/usr/share/man/man1/swift.1 ]; then
+    install -m 0644 %{_builddir}/usr/share/man/man1/swift.1 %{buildroot}%{_mandir}/man1/
+fi
+
+# Create compatibility symlink for module lookup
+ln -sf %{_libexecdir}/swift/%{version}/lib/swift %{buildroot}%{_libdir}/swift
+
+# Install ld.so.conf.d configuration
+install -m 0644 %{SOURCE99} %{buildroot}%{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 
 # This is to fix an issue with check-rpaths complaining about
@@ -414,18 +504,48 @@ export QA_SKIP_RPATHS=1
 
 %files
 %license swift/LICENSE.txt
+
+# User-facing executables (symlinks to %%{_libexecdir}/swift/%%{version}/bin/)
 %{_bindir}/swift
 %{_bindir}/swiftc
 %{_bindir}/swift-build
 %{_bindir}/swift-run
+%{_bindir}/swift-package
+%{_bindir}/swift-test
 %{_bindir}/sourcekit-lsp
+%{_bindir}/swift-format
+%{_bindir}/swift-demangle
+
+# Man pages
 %{_mandir}/man1/swift.1.gz
-%{_libexecdir}/swift/
-%{_usr}/lib/swift
+
+# Swift runtime libraries (what users link against)
+%{_libdir}/libswift*.so*
+%{_libdir}/libFoundation*.so*
+%{_libdir}/libdispatch.so*
+%{_libdir}/libBlocksRuntime.so*
+%{_libdir}/libTesting.so*
+%{_libdir}/libXCTest.so*
+%{_libdir}/lib_*.so*
+
+# SourceKit/IndexStore public libraries
 %{_libdir}/libIndexStore.so*
-%{_libdir}/libsourcekitdInProc.so
-%{_libdir}/libswiftDemangle.so
+%{_libdir}/libsourcekitdInProc.so*
+%{_libdir}/libswiftDemangle.so*
+
+# Compatibility symlink for module lookup
+%{_libdir}/swift
+
+# Backend tools and compiler internals
+%{_libexecdir}/swift/
+
+# Public headers
 %{_includedir}/swift/
+
+# Data files (diagnostics, features.json, etc.)
+%{_datadir}/swift/
+
+# Dynamic linker configuration
 %{_sysconfdir}/ld.so.conf.d/swiftlang.conf
 
 

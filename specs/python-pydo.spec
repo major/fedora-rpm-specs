@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Summary: PyDo - DigitalOcean python library
-Version: 0.13.0
+Version: 0.24.0
 Release: 3%{?dist}
 
 License: ASL 2.0

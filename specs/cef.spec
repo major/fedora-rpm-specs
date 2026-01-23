@@ -233,15 +233,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 143
-%global chromium_branch 7499
+%global chromium_major 144
+%global chromium_branch 7559
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 192
+%global chromium_minor 59
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 30cb3bdf337b9c32016d8b892d39d2f2df135ce6
+%global cef_commit 5f7e6711711e0e4bb213e311458f60a6a2e8e3cc
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 13
+%global cef_patch 6
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -339,6 +339,9 @@ Patch150: chromium-124-qt6.patch
 # revert, it causes ramdom crash on aarch64
 Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
 
+# Disable rust nightly features
+Patch301: chromium-144-rust-libadler2.patch
+
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
 Patch305: chromium-124-el8-arm64-memory_tagging.patch
@@ -402,7 +405,7 @@ Patch356: chromium-141-use_libcxx_modules.patch
 Patch357: chromium-134-type-mismatch-error.patch
 
 # set clang_lib path
-Patch358: chromium-141-rust-clanglib.patch
+Patch358: chromium-144-rust-clanglib.patch
 
 # PowerPC64 LE support
 # Timothy Pearson's patchset
@@ -441,7 +444,6 @@ Patch396: skia-vsx-instructions.patch
 Patch397: 0001-Implement-support-for-ppc64-on-Linux.patch
 Patch398: 0001-Implement-support-for-PPC64-on-Linux.patch
 Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
-Patch400: fix-clang-selection.patch
 Patch401: fix-rustc.patch
 Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
@@ -476,9 +478,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
-# Fix Wayland URI DnD issues
-Patch1001: chromium-142-Add-ExtractData-support-for-text-uri-list.patch
-Patch1002: chromium-142-Update-pointer-position-during-draggin.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
@@ -532,6 +531,7 @@ BuildRequires: gcc-toolset-14-libatomic-devel
 %endif
 
 BuildRequires: rustc
+BuildRequires: rustfmt
 BuildRequires: bindgen-cli
 
 %if ! %{bundlezstd}
@@ -1055,6 +1055,8 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P300 -p1 -R -b .revert-decommit-pooled-pages-by-default
 %endif
 
+%patch -P301 -p1 -b .rust-libadler2
+
 %if 0%{?rhel} == 8
 %ifarch aarch64
 %patch -P305 -p1 -b .el8-memory_tagging
@@ -1068,11 +1070,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
-
-%if 0%{?rhel} == 9 || 0%{?rhel_minor_version} == 1
-%patch -P312 -p1 -b .el9-rust-no-alloc-shim-is-unstable
-%patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
-%endif
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
@@ -1126,7 +1123,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P397 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
 %patch -P398 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
 %patch -P399 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
-%patch -P400 -p1 -b .fix-clang-selection
 %patch -P401 -p1 -b .fix-rustc
 %patch -P402 -p1 -b .fix-rust-linking
 %patch -P403 -p1 -b .fix-breakpad-compile
@@ -1151,8 +1147,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 # Upstream patches
-%patch -P1001 -p1 -b .Add-ExtractData-support-for-text-uri-list.patch
-%patch -P1002 -p1 -b .Update-pointer-position-during-draggin.patch
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot

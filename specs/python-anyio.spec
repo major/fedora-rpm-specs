@@ -7,7 +7,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        4.12.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -69,6 +69,12 @@ tomcli set pyproject.toml lists delitem \
 # https://github.com/agronholm/anyio/pull/1020#issuecomment-3477923712
 k="${k-}${k+ and }not (TestCapacityLimiter and test_bad_init_value[trio])"
 
+%if v"0%{?python3_version}" >= v"3.15"
+# https://github.com/agronholm/anyio/issues/1061
+k="${k-}${k+ and }not (TestPath and test_properties)"
+k="${k-}${k+ and }not (TestPath and test_is_reserved)"
+%endif
+
 %pytest -Wdefault -m "not network" -k "${k-}" -rsx -v
 
 
@@ -77,6 +83,9 @@ k="${k-}${k+ and }not (TestCapacityLimiter and test_bad_init_value[trio])"
 
 
 %changelog
+* Wed Jan 21 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.12.1-3
+- Report and skip test regressions on Python 3.15.0a5 (fix RHBZ#2431598)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

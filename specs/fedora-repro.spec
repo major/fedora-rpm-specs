@@ -17,6 +17,9 @@ Source0:        https://github.com/keszybz/fedora-repro/archive/%{commit}/%{name
 BuildRequires:  python3-devel
 Requires:       /usr/bin/rpmdiff
 
+Requires:       koji
+Requires:       mock
+
 BuildArch:      noarch
 
 %description

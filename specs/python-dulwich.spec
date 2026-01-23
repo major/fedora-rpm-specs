@@ -17,6 +17,11 @@ BuildRequires:  python3-docutils
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-epytext
 
+# Test dependencies:
+BuildRequires:  python3-pytest
+BuildRequires:  /usr/bin/ssh-keygen
+BuildRequires:  /usr/bin/gpgsm
+
 %description
 Dulwich is a Python implementation of the Git file formats and
 protocols. The project is named after the village in which Mr. and
@@ -42,13 +47,19 @@ Summary:        The %{name} documentation
 %description -n %{name}-doc
 Documentation for %{name}.
 
+# Unpackaged extras due to missing dependencies:
+#  fuzzing: atheris
+#  fastimport: fastimport
+%global extras https,pgp,paramiko,colordiff,merge,patiencediff,aiohttp
+%pyproject_extras_subpkg -n python3-%{srcname} %{extras}
+
 %prep
 %autosetup -n %{srcname}-%{version}
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires -a -t
-%pyproject_buildrequires
+%pyproject_buildrequires -x %{extras}
 
 %build
 %pyproject_wheel
@@ -64,10 +75,9 @@ rm -rf html/.{doctrees,buildinfo}
 rm -rf %{buildroot}%{python3_sitearch}/docs/tutorial/
 
 %check
-# test_copy and test_receive_pack are failing for a long time (https://github.com/jelmer/dulwich/issues/988)
 # tests/contrib/test_swift_smoke.py is ignored because geventhttpclient is not packaged in Fedora
-# 8 more tests fail on 3.14 for now.
-#%{python3} -m pytest tests --ignore=tests/contrib/test_swift_smoke.py -k "not test_copy and not test_receive_pack"
+# test_filter_branch_index_filter fails for not yet investigated reasons
+%{python3} -m pytest tests --ignore=tests/contrib/test_swift_smoke.py -k "not test_filter_branch_index_filter"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst

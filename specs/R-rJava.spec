@@ -1,5 +1,5 @@
 Name:           R-rJava
-Version:        %R_rpm_version 1.0-11
+Version:        %R_rpm_version 1.0-14
 Release:        %autorelease
 Summary:        Low-Level R to Java Interface
 

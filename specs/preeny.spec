@@ -1,7 +1,7 @@
 Name:             preeny
 URL:              https://github.com/zardus/preeny
 Version:          0.1
-Release:          22%{?dist}
+Release:          23%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
 BuildRequires:    coreutils, make, gcc, libini_config-devel
@@ -35,6 +35,9 @@ install -pt %{buildroot}%{_libdir}/%{name} *.so
 %{_libdir}/%{name}/*.so
 
 %changelog
+* Wed Jan 21 2026 Kevin Fenzi <kevin@scrye.com> - 0.1-23
+- Rebuild due to buildsystem issue
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

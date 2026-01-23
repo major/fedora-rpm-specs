@@ -1,5 +1,5 @@
 Name:           bodhi-client
-Version:        25.11.2
+Version:        25.11.3
 Release:        %autorelease
 Summary:        Bodhi client
 
@@ -38,10 +38,14 @@ Command-line client for Bodhi, Fedora's update gating system.
 
 %install
 %pyproject_install
+%if 0%{?fedora} && 0%{?fedora} < 44
 # Poetry doesn't support PEP 639 yet, so we still need to manually mark the
 # license file.
 # https://github.com/python-poetry/poetry/issues/9670
 %pyproject_save_files -L bodhi
+%else
+%pyproject_save_files -l bodhi
+%endif
 
 install -d %{buildroot}%{_mandir}/man1
 install -pm0644 docs/_build/bodhi.1 %{buildroot}%{_mandir}/man1/
@@ -53,7 +57,9 @@ install -pm0644 bodhi-client.bash %{buildroot}%{_sysconfdir}/bash_completion.d/b
 %{pytest} -v
 
 %files -f %{pyproject_files}
+%if 0%{?fedora} && 0%{?fedora} < 44
 %license %{python3_sitelib}/bodhi_client-%{version}.dist-info/COPYING
+%endif
 %{_bindir}/bodhi
 %{_mandir}/man1/bodhi.1*
 %config(noreplace) %{_sysconfdir}/bash_completion.d/bodhi-client.bash

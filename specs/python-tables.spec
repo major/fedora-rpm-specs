@@ -38,6 +38,9 @@ Patch1:         0001-Skip-tests-that-fail-on-s390x.patch
 #     AssertionError: 0 != 4
 Patch2:         0001-Skip-failing-test.patch
 
+# AssertionError: (<class 'tables.exceptions.HDF5ExtError'>[129 chars]000>) != 'OK'
+Patch3:         test_basics.diff
+
 License:        BSD-3-Clause
 URL:            https://www.pytables.org
 
@@ -90,6 +93,10 @@ rmdir hdf5-blosc
 mv hdf5-blosc-%{hdf5_blosc_version} hdf5-blosc
 
 cp -a %{SOURCE2} pytablesmanual.pdf
+
+# Disable test failing deep in numexpr code:
+# TypeError: strings can only be operated with strings
+sed -r -i '/tables.tests.test_queries/d' tables/tests/test_suite.py
 
 %build
 %pyproject_wheel

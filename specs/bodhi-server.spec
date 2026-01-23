@@ -1,6 +1,6 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 25.11.2
+%global pypi_version 25.11.3
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
@@ -30,7 +30,7 @@ BuildRequires:  skopeo
 BuildRequires:  dnf
 BuildRequires:  python3dist(libdnf5)
 
-Requires: bodhi-client >= 8.3.0
+Requires: bodhi-client >= 25.11.3
 Requires: python3-bodhi-messages >= 8.1.1
 Requires: fedora-messaging
 Requires: git

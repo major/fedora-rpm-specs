@@ -12,6 +12,9 @@ Source:         %{url}/archive/v%{version}/python-hiredis-%{version}.tar.gz
 # - https://github.com/redis/hiredis-py/pull/159
 # - https://github.com/redis/hiredis-py/pull/161
 Patch0:         use-system-hiredis.patch
+# Do not use load_module as it is deprecated from py34 and will be removed in py315
+# https://github.com/redis/hiredis-py/pull/218
+Patch1:         do-not-use-load_module.patch
 
 BuildRequires: python3-devel
 BuildRequires: hiredis-devel

@@ -1,7 +1,7 @@
-%bcond check 1
+%bcond check 0
 
 %global goipath         github.com/redhatinsights/rhc
-Version:                0.3.5
+Version:                0.3.8
 
 %gometa -L -f
 
@@ -16,19 +16,13 @@ Source2:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  make
-BuildRequires:  pkgconfig(systemd)
-BuildRequires:  pkgconfig(bash-completion)
-BuildRequires:  golang
-BuildRequires:  go-rpm-macros
 %if %{with check}
 BuildRequires:  /usr/bin/dbus-launch
 %endif
 
 Requires: subscription-manager
-%if 0%{?fedora}
-Recommends: insights-client
-%else
+# insights-client only exists in CentOS Stream and RHEL
+%if ! 0%{?fedora}
 Requires: insights-client
 %endif
 Requires: yggdrasil >= 0.4
@@ -58,14 +52,16 @@ export GO_LDFLAGS="-X main.Version=%{version} -X main.ServiceName=yggdrasil"
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp _build/bin/*        %{buildroot}%{_bindir}/
 # Bash completion
-install -m 0755 -vd                     %{buildroot}%{_datadir}/bash-completion/completions
-install -m 0644 -vp data/completion/rhc.bash %{buildroot}%{_datadir}/bash-completion/completions/rhc
+install -m 0755 -vd                     %{buildroot}%{bash_completions_dir}/
+install -m 0644 -vp data/completion/rhc.bash  %{buildroot}%{bash_completions_dir}/%{name}
 # Man page
 install -m 0755 -vd                     %{buildroot}%{_mandir}/man1
-install -m 0644 -vp rhc.1               %{buildroot}%{_mandir}/man1/
+install -m 0644 -vp rhc.1               %{buildroot}%{_mandir}/man1/rhc.1
 # Systemd files
 install -m 0755 -vd                     %{buildroot}%{_unitdir}
 install -m 0644 -vp data/systemd/rhc-canonical-facts.*  %{buildroot}%{_unitdir}/
+# Configuration
+install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/%{name}/
 
 %check
 %go_vendor_license_check -c %{S:2}
@@ -86,11 +82,13 @@ install -m 0644 -vp data/systemd/rhc-canonical-facts.*  %{buildroot}%{_unitdir}/
 # Binaries
 %{_bindir}/rhc
 # Bash completion
-%{_datadir}/bash-completion/completions/rhc
+%{bash_completions_dir}/%{name}
 # Man page
 %{_mandir}/man1/*
 # Systemd
 %{_unitdir}/rhc-canonical-facts.*
+# Configuration
+%{_sysconfdir}/%{name}/
 
 %changelog
 %autochangelog

@@ -136,6 +136,8 @@ Source19: run-wayland-compositor
 # Fedora specific patches
 Patch221: firefox-nss-addon-hack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
+Patch225: %{name}-build-c11-threads-avail.patch
+Patch227: %{name}-build-seccomp.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
@@ -318,6 +320,10 @@ tar -xf %{SOURCE5}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
 %endif
 %patch -P 224 -p 1 -b .glibcxx
+%if 0%{?fedora} >= 44
+%patch -P 225 -p 1 -b .build-c11
+%patch -P 227 -p 1 -b .build-seccomp
+%endif
 
 # ARM64
 %ifarch %{arm64}

@@ -101,6 +101,9 @@ Patch5:		%{name}-3.14.1-gst1.patch
 # If we're using C++20 then we can't override toupper/tolower, it is not allowed.
 Patch6:		gambas3-3.19.4-c++20-do-not-try-to-override-std-functions.patch
 
+# Fix new getText() usage in Poppler 26
+Patch7:		gambas-3.21.2-poppler26.patch
+
 %description
 Gambas3 is a free development environment based on a Basic interpreter
 with object extensions, like Visual Basic (but it is NOT a clone !).
@@ -1208,6 +1211,7 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch -P 2 -p1 -b .noliconv
 %patch -P 5 -p1 -b .gst1
 %patch -P 6 -p1 -b .c++20
+%patch -P 7 -p1 -b .poppler26
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i

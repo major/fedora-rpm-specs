@@ -1,10 +1,10 @@
 %global srcnm Qalculate
 %global libversion 23
-%global libsymlink 3.9
+%global libsymlink 3.10
 
 Summary:	Multi-purpose calculator library
 Name:		libqalculate
-Version:	5.8.2
+Version:	5.9.0
 Release:	%autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -12,6 +12,9 @@ License:	GPL-2.0-or-later
 URL:		https://qalculate.github.io/
 Source0:	https://github.com/%{srcnm}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	gcc-c++
 BuildRequires:	glib2-devel
 BuildRequires:	cln-devel
@@ -23,7 +26,7 @@ BuildRequires:	curl-devel
 BuildRequires:	libicu-devel
 BuildRequires:	mpfr-devel
 BuildRequires:	perl(XML::Parser)
-BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRequires:	perl(Getopt::Long)
 BuildRequires: make
 
@@ -61,6 +64,7 @@ frontends are provided by qalculate-gtk and qalculate-kde packages resp.
 %setup -q
 
 %build
+autoreconf -fiv
 %configure --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool

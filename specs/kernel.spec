@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc6.43
+%define pkgrelease 0.rc6.260121g6c790212c588f.44
 %define kversion 6
-%define tarfile_release 6.19-rc6
+%define tarfile_release 6.19-rc6-36-g6c790212c588f
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.43%{?buildid}%{?dist}
+%define specrelease 0.rc6.260121g6c790212c588f.44%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4658,8 +4658,14 @@ fi\
 #
 #
 %changelog
-* Mon Jan 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc6.43]
+* Wed Jan 21 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc6.260121g6c790212c588f.44]
+- Linux v6.19.0-0.rc6.260121g6c790212c588f
+
+* Wed Jan 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc6.6c790212c588.44]
 - rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
+
+* Wed Jan 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc6.6c790212c588.43]
+- Linux v6.19.0-0.rc6.6c790212c588
 
 * Mon Jan 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc6.42]
 - Linux v6.19.0-0.rc6

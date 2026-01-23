@@ -1,6 +1,6 @@
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
-Version:    27
+Version:    29
 Release:    %autorelease
 
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
@@ -10,6 +10,10 @@ Source1:    smoke-test.c
 
 # Allow using artifacts from %%build in %%install instead of recompiling
 Patch:      0001-make-don-t-rebuild-files-on-make-install.patch
+
+# Remove explicit linking to compiler-rt.builtins library
+Patch:      0002-Disable-linking-compiler-rt-builtins-library.patch
+
 # Compatibility patches from upstream main
 
 # This contains parts of the musl C library; specify as bundled so we get notified about potential vulnerabilities

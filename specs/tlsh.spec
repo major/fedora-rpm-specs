@@ -54,6 +54,8 @@ echo 'set(CMAKE_CXX_FLAGS "%{optflags} -fPIC")' | \
 sed -r -i '/CMAKE_EXE_LINKER_FLAGS.*-static-libstdc/d' CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381609)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 pushd py_ext

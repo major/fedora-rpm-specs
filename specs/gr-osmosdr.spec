@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.5
-Release:       24%{?dist}
+Release:       25%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -45,6 +45,9 @@ Summary:       Common software API for various radio hardware
 Source0:        https://gitea.osmocom.org/sdr/gr-osmosdr/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://osmocom.org/issues/5144
 Patch0:        gr-osmosdr-0.2.3-airspy-multi-dev.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
 
 %description
 Primarily gr-osmosdr supports the OsmoSDR hardware, but it also
@@ -104,6 +107,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Wed Jan 21 2026 Jerry James <loganjerry@gmail.com> - 0.2.5-25
+- Stop building for 32-bit x86
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

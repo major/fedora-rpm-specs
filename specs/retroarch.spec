@@ -23,6 +23,7 @@ ExcludeArch: s390x
 
 Name:           %{appname}%{?p_suffix}
 Version:        1.22.0
+%global major_ver 1.22
 Release:        %autorelease
 Summary:        Cross-platform, sophisticated frontend for the libretro API %{?sum_suffix}
 
@@ -119,15 +120,18 @@ Source10:       %{name}-enable-network-access.sh
 Source11:       README.fedora.md
 
 Patch:          0001-use_system_flac.patch
+Patch:          0003_use_system_zstd.patch
+
+# Support for newer glslang versions without SPIRV and HLSL libraries
+# https://github.com/libretro/RetroArch/pull/17563
+Patch:          https://github.com/libretro/RetroArch/pull/17563.patch#/0002-Support-for-newer-glslang-versions-without-SPIRV-and-HLSL-libraries.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
-BuildRequires:  glslang-devel
+BuildRequires:  git-core
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libEGL-devel
-BuildRequires:  spirv-tools-libs
 BuildRequires:  systemd-devel
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
@@ -142,13 +146,17 @@ BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(glslang)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libdecor-0)
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libusb)
 BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(mbedtls)
 BuildRequires:  pkgconfig(miniupnpc)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(openssl)
@@ -192,9 +200,9 @@ BuildRequires:  xv
 Requires:       perl(Net::DBus)
 Requires:       perl(X11::Protocol)
 
-Recommends:     %{name}-assets              = %{?epoch:%{epoch}:}%{version}-%{release}
-Recommends:     %{name}-database            = %{?epoch:%{epoch}:}%{version}-%{release}
-Recommends:     %{name}-filters%{?_isa}     = %{?epoch:%{epoch}:}%{version}-%{release}
+Recommends:     %{name}-assets              >= %{?epoch:%{epoch}:}%{major_ver}
+Recommends:     %{name}-database            >= %{?epoch:%{epoch}:}%{major_ver}
+Recommends:     %{name}-filters%{?_isa}     >= %{?epoch:%{epoch}:}%{major_ver}
 Recommends:     gamemode
 Recommends:     libretro-beetle-ngp
 Recommends:     libretro-beetle-pce-fast
@@ -218,7 +226,6 @@ Recommends:     libretro-stella2014
 Provides:       bundled(7zip) = 19.00
 Provides:       bundled(discord-rpc)
 Provides:       bundled(dr)
-Provides:       bundled(glslang)
 Provides:       bundled(ibxm)
 
 # https://github.com/libretro/RetroArch/issues/8153
@@ -255,7 +262,7 @@ README.fedora.md file.}
 Summary:        Assets needed for RetroArch - e.g. menu drivers, etc.
 BuildArch:      noarch
 
-Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       %{name} >= %{?epoch:%{epoch}:}%{major_ver}
 
 # RetroArch relies heavily on built-in fonts. There's no proper way to use system
 # fonts without dirty patching each theme.
@@ -286,7 +293,7 @@ Audio and video filters for %{name}.
 Summary:        Database files (cheatcode, content data, cursors) for %{name}
 BuildArch:      noarch
 
-Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       %{name} >= %{?epoch:%{epoch}:}%{major_ver}
 
 %description    database
 Repository containing cheatcode files, content data files, etc.
@@ -304,8 +311,7 @@ libretro.h is a simple API that allows for the creation of games and emulators.
 
 
 %prep
-%setup -n RetroArch-%{version} -q
-%autopatch
+%autosetup -n RetroArch-%{version} -S git
 %setup -n RetroArch-%{version} -q -D -T -a1
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
@@ -314,6 +320,8 @@ libretro.h is a simple API that allows for the creation of games and emulators.
 # Unbundling
 pushd deps
 rm -rf                      \
+        bearssl-0.6         \
+        glslang             \
         libfat              \
         libFLAC             \
         libiosuhax          \
@@ -322,6 +330,7 @@ rm -rf                      \
         peglib              \
         pthreads            \
         wayland-protocols   \
+        zstd                \
         %{nil}
 popd
 for lib in image rect_pack truetype
@@ -374,34 +383,27 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
 %build
 ./configure                     \
     --prefix=%{_prefix}         \
+    --disable-builtinbearssl    \
     --disable-builtinflac       \
+    --disable-builtinglslang    \
     --disable-builtinmbedtls    \
     --disable-builtinzlib       \
+    --disable-oss               \
     --disable-update_assets     \
     --enable-dbus               \
     --enable-libdecor           \
+    --enable-spirv_cross        \
+    --enable-vulkan             \
     --enable-wayland            \
     %{nil}
 %set_build_flags
 %make_build
-
-# Assets
-%make_build -C %{appname}-assets-%{version}
 
 # Audio filters
 %make_build -C libretro-common/audio/dsp_filters
 
 # Video filters
 %make_build -C gfx/video_filters
-
-# Libretro's core info
-%make_build -C libretro-core-info-%{version}
-
-# Joypad Autoconfig Files
-%make_build -C %{appname}-joypad-autoconfig-%{version}
-
-# Database files (cheatcode, content data, cursors)
-%make_build -C libretro-database-%{version}
 
 
 %install
@@ -484,21 +486,28 @@ sed -i 's|org.libretro.RetroArch.desktop|org.libretro.RetroArch-freeworld.deskto
 install -Dpm0755 %{SOURCE10} -t %{buildroot}%{_bindir}
 install -Dpm0644 %{SOURCE11} -t %{buildroot}%{_docdir}/%{name}
 
+# Fix Desktop file name
+mv  %{buildroot}%{_datadir}/applications/com.libretro.RetroArch.desktop \
+    %{buildroot}%{_datadir}/applications/%{uuid}.desktop
+
+
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{uuid}.appdata.xml
 
 
 %files
 %license COPYING
 %doc README.md README.fedora.md README-exynos.md README-OMAP.md README-mali_fbdev_r4p0.md CHANGES.md CONTRIBUTING.md
-%{_bindir}/%{appname}*
-%{_datadir}/applications/*.desktop
+%{_bindir}/%{appname}
+%{_bindir}/%{appname}-cg2glsl
+%{_bindir}/%{appname}-enable-network-access.sh
+%{_datadir}/applications/%{uuid}.desktop
 %{_datadir}/libretro/autoconfig%{?p_suffix}/
 %{_datadir}/libretro/info%{?p_suffix}/
 %{_datadir}/pixmaps/*.svg
 %{_mandir}/man6/*.6*
-%{_metainfodir}/*.xml
+%{_metainfodir}/%{uuid}.appdata.xml
 %dir %{_datadir}/libretro/
 
 # Things may changed in future and it's safe to replace system config since old

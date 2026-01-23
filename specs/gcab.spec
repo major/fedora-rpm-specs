@@ -9,8 +9,7 @@ Version:        1.6
 Release:        10%{?dist}
 Summary:        Cabinet file library and tool
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 #VCS:           git:git://git.gnome.org/gcab
 URL:            http://ftp.gnome.org/pub/GNOME/sources/gcab
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gcab/%{version}/%{name}-%{version}.tar.xz

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/ferret
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.0.15
+Version:        1.0.16
 Release:        %autorelease
 Summary:        Backtracking search in permutation groups
 

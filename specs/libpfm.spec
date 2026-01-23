@@ -9,7 +9,7 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -19,6 +19,7 @@ Source0:	http://sourceforge.net/projects/perfmon2/files/libpfm4/%{name}-%{versio
 Patch1:		libpfm-fix-const.patch
 Patch2:		libpfm-python3-setup.patch
 Patch3:		libpfm-gcc14.patch
+Patch4:		libpfm-unused-vars.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -75,6 +76,7 @@ Python bindings for libpfm4 and perf_event_open system call.
 %patch -P1 -p1 -b .fix-const
 %patch -P2 -p1 -b .python3
 %patch -P3 -p1 -b .gcc14
+%patch -P4 -p1 -b .unused
 # to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
 # see https://github.com/pypa/setuptools/issues/3143
 # and https://github.com/pypa/pip/issues/11501
@@ -134,6 +136,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Wed Jan 21 2026 Aaron Merey <amerey@redhat.com> - 4.13.0-19
+- Add libpfm-unused-vars.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

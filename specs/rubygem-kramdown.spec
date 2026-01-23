@@ -2,8 +2,8 @@
 %global gem_name kramdown
 
 Name: rubygem-%{gem_name}
-Version: 2.5.1
-Release: 4%{?dist}
+Version: 2.5.2
+Release: 1%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
 # SPDX confirmed
@@ -121,6 +121,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Jan 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-1
+- 2.5.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

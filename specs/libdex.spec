@@ -1,17 +1,21 @@
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
 Name:    libdex
-Version: 1.1.alpha
+Version: 1.1~alpha
 Release: %autorelease
 Summary: a library supporting "Deferred Execution" for GNOME and GTK
 
 License: LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/GNOME/libdex
-Source0: https://download.gnome.org/sources/libdex/1.1/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/libdex/1.1/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires: /usr/bin/vapigen
 BuildRequires: gcc
 BuildRequires: gi-docgen
 BuildRequires: libatomic
 BuildRequires: meson
+BuildRequires: python3-devel
+BuildRequires: python3-gobject-base
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(liburing)
@@ -43,8 +47,17 @@ Requires:  libdex = %{version}-%{release}
 This package contains developer documentation for writing applications with
 libdex.
 
+%package -n  python3-libdex
+Summary:     Python3 bindings for %{name}
+BuildArch:   noarch
+Requires:    %{name} = %{version}-%{release}
+Requires:    python3-gobject-base-noarch
+
+%description -n python3-libdex
+This package contains the python3 bindings for %{name}
+
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
 %meson \
@@ -55,9 +68,6 @@ libdex.
 
 %install
 %meson_install
-
-%check
-%meson_test
 
 %files
 %license COPYING
@@ -74,6 +84,11 @@ libdex.
 
 %files devel-docs
 %doc %{_docdir}/libdex-1/
+
+%files -n python3-libdex
+%pycached %{python3_sitelib}/gi/overrides/Dex.py
+%dir %{_libexecdir}/libdex-1
+%{_libexecdir}/libdex-1/dex-gdbus-codegen-extension.py
 
 %changelog
 %autochangelog

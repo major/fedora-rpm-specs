@@ -2,7 +2,7 @@
 %global uuid        org.cvfosammmm.Setzer
 
 Name:           setzer
-Version:        65
+Version:        66
 Release:        %autorelease
 Summary:        LaTeX editor written in Python with Gtk
 

@@ -1,7 +1,7 @@
 Summary: A GNU general-purpose parser generator
 Name: bison
 Version: 3.8.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 # An SPDX license string check done against bison-3.8.2 found strings
 # corresponding to the following licenses across the bison source tree:
@@ -16,6 +16,11 @@ Source2: gpgkey-7DF84374B1EE1F9764BBE25D0DDCAA3278D5264E.gpg
 
 # from Gentoo sys-devel/bison
 Patch0: bison-3.8.2-gcc15-glibcxx-assertions.patch
+
+# Upstream fix for GCC 16 change:
+# index-parse.c:1114:9: error: variable ‘yynerrs’ set but not used [-Werror=unused-but-set-variable=]
+# https://bugzilla.redhat.com/show_bug.cgi?id=2429571
+Patch1: https://github.com/akimd/bison/commit/a166d5450e3f47587b98f6005f9f5627dbe21a5b.patch
 
 # testsuite dependency
 BuildRequires: gcc-c++
@@ -127,6 +132,9 @@ gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 %{_libdir}/liby.a
 
 %changelog
+* Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 3.8.2-14
+- Backport upstream fix for GCC 16 (RHBZ#2429571)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

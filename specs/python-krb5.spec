@@ -1,10 +1,12 @@
 Name:           python-krb5
-Version:        0.7.1
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Kerberos API bindings for Python
 License:        MIT
 URL:            https://github.com/jborean93/pykrb5
 Source:         %{pypi_source krb5}
+# Bump version of required cython to v3.2.4
+Patch0:         bump-cython-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  krb5-devel

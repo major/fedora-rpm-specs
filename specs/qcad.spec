@@ -16,7 +16,7 @@
 #
 
 Name:    qcad
-Version: 3.32.4.0
+Version: 3.32.6.0
 Release: %autorelease
 Epoch:   1
 Summary: Powerful 2D CAD system
@@ -116,9 +116,9 @@ rm -rf ../*-SPECPARTS
 
 # Use Fedora Qt5 scripts
 %if %{without qt6}
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.17
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15.8.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15.17.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.18
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.18/qt-labs-qtscriptgenerator-5.15.8.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.18/qt-labs-qtscriptgenerator-5.15.18.pro
 %endif
 
 

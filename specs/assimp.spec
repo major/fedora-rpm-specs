@@ -130,6 +130,7 @@ mv contrib/openddlparser/LICENSE contrib/openddlparser/LICENSE.openddlparser
  -DHAVE_POLY2TRI=ON \
  -DPOLY2TRI_INCLUDE_PATH=%{_includedir}/poly2tri \
  -DPOLY2TRI_LIB=poly2tri \
+ -DHTML_OUTPUT=out/html \
  -DCMAKE_INSTALL_DOCDIR=%{_defaultdocdir}/%{name}
 
 %cmake_build
@@ -143,7 +144,12 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 
 %check
 # Exclude tests that rely on nonbsd models
-%ctest --exclude-regex "utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.importDolphin|utMD2Importer.importFlag|utMD2Importer.importHorse|utQ3BSPImportExport.importerTest|utBlenderImporter.importBob|utBlenderImporter.importFleurOptonl|utPMXImporter.importTest|utXImporter.importDwarf" || :
+exclude="utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.importDolphin|utMD2Importer.importFlag|utMD2Importer.importHorse|utQ3BSPImportExport.importerTest|utBlenderImporter.importBob|utBlenderImporter.importFleurOptonl|utPMXImporter.importTest|utXImporter.importDwarf|utDXFImporterExporter.importRifle|utX3DImportExport.importX3DChevyTahoe|ut3DSImportExport.importGranate|ut3DSImportExport.importJeep1|ut3DSImportExport.importMp5Sil|ut3DSImportExport.importMarRifle|ut3DSImportExport.importPyramob|ut3DImportExport.importMarRifle|ut3DImportExport.importMarRifleA|ut3DImportExport.importMarRifleD|ut3DSImportExport.importCartWheel"
+%ifarch s390x aarch64
+%ctest --exclude-regex $exclude || :
+%else
+%ctest --exclude-regex $exclude || :
+%endif
 
 
 %files
@@ -153,8 +159,8 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 %license contrib/zip/UNLICENSE
 %doc Readme.md CREDITS
 %{_bindir}/assimp
-%{_libdir}/libassimp.so.%{version}
-%{_libdir}/libassimp.so.%{soversion}
+%{_libdir}/libassimp.so.6
+%{_libdir}/libassimp.so.6.0.2
 
 %files devel
 %{_includedir}/assimp/

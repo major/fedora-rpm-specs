@@ -1,15 +1,9 @@
-%if 0%{?fedora} <= 39
-# Disable LTO due regression in GCC
-# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=114501
-%global _lto_cflags %nil
-%endif
-
 %bcond_without tests
 
 Name:           kakoune
 Version:        2025.06.03
-Release:        2%{?dist}
-Summary:        Code editor heavily inspired by Vim
+Release:        3%{?dist}
+Summary:        mawww's experiment for a better code editor
 
 License:        Unlicense
 URL:            https://kakoune.org/
@@ -19,35 +13,25 @@ BuildRequires:  asciidoc
 BuildRequires:  gcc-c++ >= 10.3
 BuildRequires:  glibc-langpack-en
 BuildRequires:  make
-
 BuildRequires:  pkgconfig(ncurses) >= 5.3
 
 %description
-Features:
-
-  * Multiple selections
-  * Customization
-  * Text editing tools
-  * Client/Server architecture
-  * Advanced text manipulation primitives
-  * Active development & support
-
 Kakoune is a code editor that implements Vi’s "keystrokes as a text editing
-language" model. As it is also a modal editor, it is somewhat similar to the
-Vim editor (after which Kakoune was originally inspired).
+language" model. As it is also a modal editor, it is somewhat similar to the Vim
+editor (after which Kakoune was originally inspired).
 
-Kakoune can operate in two modes: normal and insertion. In insertion mode,
-keys are directly inserted into the current buffer. In normal mode, keys are
-used to manipulate the current selection and to enter insertion mode.
+Kakoune can operate in two modes: normal and insertion. In insertion mode, keys
+are directly inserted into the current buffer. In normal mode, keys are used to
+manipulate the current selection and to enter insertion mode.
 
-Kakoune has a strong focus on interactivity. Most commands provide immediate
-and incremental results, while being competitive with Vim in terms of
-keystroke count.
+Kakoune has a strong focus on interactivity. Most commands provide immediate and
+incremental results, while being competitive with Vim in terms of keystroke
+count.
 
-Kakoune works on selections, which are oriented, inclusive ranges of
-characters. Selections have an anchor and a cursor. Most commands move both of
-them except when extending selections, where the anchor character stays fixed
-and the cursor moves around.
+Kakoune works on selections, which are oriented, inclusive ranges of characters.
+Selections have an anchor and a cursor. Most commands move both of them except
+when extending selections, where the anchor character stays fixed and the cursor
+moves around.
 
 
 %prep
@@ -87,6 +71,9 @@ LANG=en_US.utf8 %make_build test
 
 
 %changelog
+* Wed Jan 21 2026 Artem Polishchuk <ego.cordatus@gmail.com> - 2025.06.03-3
+- Update desc and Spec cleanup
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.06.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

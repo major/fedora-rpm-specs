@@ -1,6 +1,6 @@
 Name:           perl-Boost-Geometry-Utils
 Version:        0.15
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Bindings for the Boost Geometry library
 # README:               GPL+ or Artistic
 # src/medial_axis.hpp:  Boost
@@ -16,6 +16,9 @@ Patch0:         Boost-Geometry-Utils-0.15-multi_linestring2perl-only-extend-the-
 Patch1:         Boost-Geometry-Utils-0.15-Port-Boost-1.73.0.patch
 # Correct shellbangs in the tests, CPAN RT#156188
 Patch2:         Boost-Geometry-Utils-0.15-Normalize-shellbangs.patch
+# Fix building with Boost 1.90.0, bug #2431531, posted to upstream,
+# CPAN RT#172828
+Patch3:         Boost-Geometry-Utils-0.15-Adapt-to-Boost-1.89.0.patch
 BuildRequires:  boost-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -103,6 +106,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 21 2026 Petr Pisar <ppisar@redhat.com> - 0.15-47
+- Fix building with Boost 1.90.0 (bug #2431531)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -498,6 +498,9 @@ skip="${skip-} --skip backtrace_works"
 # We could export SNAPSHOTS=overwrite, but that would ignore many other
 # possible discrepancies. Skipping the affected tests is better.
 skip="${skip-} --skip color/"
+# Flaky cycle fixpoint test
+# https://github.com/salsa-rs/salsa/issues/1023
+skip="${skip-} --skip cycle_nested_deep_conditional_changed"
 
 # Fails cryptically: requires network, perhaps?
 #   error: no matching package named `boxcar` found

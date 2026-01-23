@@ -6,7 +6,7 @@
 Name:          cjs
 Epoch:         1
 Version:       128.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 # Automatically converted from old format: MIT and (MPLv1.1 or GPLv2+ or LGPLv2+) - review is highly recommended.
@@ -16,7 +16,8 @@ License:       LicenseRef-Callaway-MIT AND (LicenseRef-Callaway-MPLv1.1 OR GPL-2
 # The console module (modules/console.c)
 # Stack printer (gjs/stack.c)
 URL:           https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:        pkconfig.patch
 
 ExcludeArch:   %{ix86}
 
@@ -105,6 +106,9 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Wed Jan 21 2026 Leigh Scott <leigh123linux@gmail.com> - 1:128.1-4
+- Add pkgconfig variable to export the appropriate API version of mozjs
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:128.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

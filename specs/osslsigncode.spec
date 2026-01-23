@@ -14,17 +14,17 @@
 %global tag %{version}
 
 Name:       osslsigncode
-Version:    2.9
+Version:    2.11
 %forgemeta
 Release:    %autorelease
-Summary:    OpenSSL based Authenticode signing for PE/MSI/Java CAB files
+Summary:    OpenSSL-based Authenticode signing for PE, CAB, CAT, MSI, APPX
 
 License:    GPL-3.0-or-later
 URL:        %{forgeurl}
 Source0:    %{forgesource}
 
 # To prevent network access during tests
-# Patch0:     %{name}-preventnetwork-access-during-tests.patch
+%dnl Patch:      %{name}-preventnetwork-access-during-tests.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   i686
@@ -53,8 +53,8 @@ BuildRequires: vim-common
 %description
 osslsigncode is a small tool that implements part of the functionality of the
 Microsoft tool signtool.exe - more exactly the Authenticode signing and
-timestamping. But osslsigncode is based on OpenSSL and cURL, and thus should
-be able to compile on most platforms where these exist.
+timestamping. But osslsigncode is based on OpenSSL and cURL, and thus should be
+able to compile on most platforms where these exist.
 
 
 %prep

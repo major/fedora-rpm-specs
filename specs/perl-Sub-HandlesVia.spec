@@ -1,6 +1,6 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.050003
-Release:        2%{?dist}
+Version:        0.052000
+Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -18,9 +18,12 @@ BuildRequires:  perl(:VERSION) >= 5.8.0
 
 BuildRequires:  perl(Class::Method::Modifiers)
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Devel::StackTrace)
 BuildRequires:  perl(Eval::TypeTiny)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(Exporter::Shiny)
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(List::Util) >= 1.54
 BuildRequires:  perl(MooseX::Extended)
@@ -43,15 +46,18 @@ BuildRequires:  perl(warnings)
 # Optional, for improved tests
 # N/A in Fedora: BuildRequires:  perl(Beam::Wire)
 BuildRequires:  perl(Moo)
+BuildRequires:  perl(Moo::_Utils)
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(MooseX::ArrayRef)
 BuildRequires:  perl(MooseX::InsideOut)
 # N/A in Fedora: BuildRequires:  perl(MooX::ProtectedAttributes)
+# N/A in Fedora: BuildRequires:  perl(MooX::Tag::TO_HASH)
 BuildRequires:  perl(MooX::TypeTiny)
 BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Test::Moose)
 
+Recommends:     perl(Moo::_Utils)
 
 %description
 If you've used Moose's native attribute traits, or MooX::HandlesVia before,
@@ -78,6 +84,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/Sub::HandlesVia*
 
 %changelog
+* Mon Jan 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.052000-1
+- 0.052000 bump (rhbz#2413814)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.050003-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

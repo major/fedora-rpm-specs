@@ -1,13 +1,10 @@
 Name:           perl-Cwd-utf8
-Version:        0.013
+Version:        0.014
 Release:        1%{?dist}
 Summary:        Fully UTF-8 aware Cwd
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cwd-utf8
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAYOBAAN/Cwd-utf8-%{version}.tar.gz
-# Fix running tests from a read-only directory, proposed upstream,
-# <https://github.com/HayoBaan/Cwd-utf8/pull/2>
-Patch0:         Cwd-utf8-0.013-Use-File-Temp-for-temporary-directories.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -89,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 21 2026 Petr Pisar <ppisar@redhat.com> - 0.014-1
+- 0.014 bump
+
 * Mon Jan 19 2026 Petr Pisar <ppisar@redhat.com> - 0.013-1
 - 0.013 bump
 - Package the tests

@@ -33,6 +33,11 @@ Patch:          Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 #          but at least it makes poetry function and pass functional tests.
 Patch:          dulwich-0.25.patch
 
+# Update to dulwich 1.0.0
+# https://github.com/python-poetry/poetry/pull/10701
+# Rebased and lock file changes removed
+Patch:          dulwich-1.0.0.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

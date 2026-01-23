@@ -6,13 +6,14 @@
 %bcond_with tests
 
 Name:           duo_unix
-Version:        1.12.1
-Release:        14%{?dist}
+Version:        2.2.3
+Release:        %autorelease
 Summary:        Duo two-factor authentication for UNIX systems
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
-URL:            http://www.duosecurity.com/
+# GPL-2.0-with-classpath-exception: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/714
+# URLEnc-MIT: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/715
+License:        GPL-2.0-with-classpath-exception AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND FSFAP AND FSFULLR AND GPL-1.0-only AND LicenseRef-URLEnc-MIT AND MIT AND SSH-short
+URL:            https://duo.com/
 Source:         https://dl.duosecurity.com/%{name}-%{version}.tar.gz
 
 Suggests:       %{name}-doc = %{version}-%{release}
@@ -90,7 +91,9 @@ Requires:       pam_duo%{?_isa} = %{version}-%{release}
 %configure \
   --with-pam=%{_libdir}/security \
   --sysconfdir=%{_sysconfdir}/duo \
-  --includedir=%{_includedir}/duo
+  --includedir=%{_includedir}/duo \
+  --with-debug=yes \
+  %{nil}
 %make_build
 %make_build -C pam_duo semodule
 
@@ -98,10 +101,8 @@ Requires:       pam_duo%{?_isa} = %{version}-%{release}
 %make_install
 %make_install -C pam_duo semodule-install
 
-rm %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
-%if 0%{?rhel} || 0%{?fc35}
+rm -r %{buildroot}%{_datadir}/LICENSES/
 rm %{buildroot}%{_libdir}/security/pam_duo.la
-%endif
 
 %if %{with tests}
 %check
@@ -109,7 +110,7 @@ make check
 %endif
 
 %files
-%license LICENSE
+%license LICENSES/*.txt
 %dir %{_sysconfdir}/duo
 # This generates a non-readable rpmlint error, but this permission set is
 # required for security. The Duo secrets are set in this file and allowing
@@ -125,7 +126,7 @@ make check
 %{_mandir}/man8/login_duo.8*
 
 %files -n pam_duo
-%license LICENSE
+%license LICENSES/*.txt
 %dir %{_sysconfdir}/duo
 %dir %{_libdir}/security
 %{_libdir}/security/pam_duo.so
@@ -136,7 +137,7 @@ make check
 %{_mandir}/man8/pam_duo.8*
 
 %files doc
-%license LICENSE
+%license LICENSES/*.txt
 %doc README.md AUTHORS CHANGES
 %doc %{_defaultdocdir}/%{name}
 
@@ -169,55 +170,4 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12.1-11
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Oct 14 2022 Ben Boeckel <mathstuf@gmail.com> - 1.12.1-5
-- Add selinux subpackage
-- Also package up docs from the source
-
-* Wed Oct 12 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-4
-- Add Recommends for pam_duo to the main package to prevent potential lockout
-  issues (Fixes: RHBZ#2134160)
-
-* Fri Oct 07 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-3
-- Fix EPEL build
-
-* Fri Oct 07 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-2
-- Update openssl BR
-- Fix duplicate license file
-- Add check section and conditionally run tests
-
-* Tue Sep 06 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-1
-- Update to 1.12.1
-- Make doc subpackage noarch
-- Drop unnecessary Requires
-- Misc specfile fixes to comply with the latest guidelines
-- Fix changelog formatting
-
-* Thu May 05 2022 Joel Goguen <contact@jgoguen.ca> - 1.12.0-1
-- Initial Fedora package
+%autochangelog

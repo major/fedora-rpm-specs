@@ -27,10 +27,11 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2506
-Release:        3%{?dist}
+Version:        6.2.2601
+Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
-ExcludeArch:    %{ix86}
+# FIXME https://github.com/NGSolve/netgen/issues/226
+ExcludeArch:    %{ix86} aarch64
 
 License:        LGPL-2.0-only
 URL:            https://github.com/NGSolve/netgen
@@ -420,6 +421,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Sun Jan 18 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2601-1
+- Update to 6.2.2601
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2506-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

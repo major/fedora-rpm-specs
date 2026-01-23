@@ -5,15 +5,15 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3510000
-%define docver 3510000
-%define rpmver 3.51.0
-%define year 2025
+%define realver 3510200
+%define docver 3510200
+%define rpmver 3.51.2
+%define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -312,6 +312,7 @@ make test
 %{_mandir}/man?/*
 
 %files libs
+%license LICENSE.md
 %doc README.md
 %{_libdir}/*.so.%{version}
 %{_libdir}/*.so.0
@@ -349,6 +350,13 @@ make test
 %endif
 
 %changelog
+* Tue Jan 20 2026 Carl George <carlwgeorge@fedoraproject.org> - 3.51.2-1
+- Update to 3.51.2
+- https://www.sqlite.org/releaselog/3_51_2.html
+- Resolves: rhbz#2417968
+- Include LICENSE.md file
+- Resolves: rhbz#2418961
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.51.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

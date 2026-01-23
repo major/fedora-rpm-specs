@@ -7,7 +7,7 @@
 Name: crow-translate
 Version: 4.0.2
 Release: %autorelease
-Summary: A simple and lightweight translator
+Summary: Application that allows you to translate and speak text
 
 # The entire source code is GPL-3.0-only except bundled libs:
 # GPL-3.0-or-later: qonlinetranslator
@@ -64,10 +64,9 @@ Provides: bundled(qtaskbarcontrol)
 Provides: bundled(singleapplication)
 
 %description
-Crow Translate is a simple and lightweight translator written in C++ / Qt that
-allows you to translate and speak text using Google, Yandex, Bing,
-LibreTranslate and Lingva translate API. You may also be interested in my
-library QOnlineTranslator used in this project.
+Application written in C++ / Qt6 that allows you to translate and speak text
+using Mozhi with multiple TTS providers including high-quality neural
+text-to-speech.
 
 
 %prep
@@ -99,8 +98,8 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{appid}.metainfo.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
 
 
 %files -f %{name}.lang

@@ -88,15 +88,7 @@ use the "threading" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%ifarch s390x
-%if 0%{?fedora} > 42
-# Packaged rust-ravif 0.12.0 in Fedora: encode8_opaque fails on s390x in Fedora
-# 43, 44/Rawhide: https://github.com/kornelski/cavif-rs/issues/109
-skip="${skip-} --skip encode8_opaque"
-%endif
-%endif
-
-%{cargo_test -- -- --exact ${skip-}}
+%cargo_test
 %endif
 
 %changelog

@@ -23,7 +23,7 @@
 
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
-Version:    1.20.1
+Version:    1.22.2
 Release:    %autorelease
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
@@ -36,7 +36,7 @@ Source0:    https://github.com/microsoft/onnxruntime/archive/v%{version}/%{name}
 Source1:    https://github.com/protocolbuffers/utf8_range/archive/%{utf8_range_commit}/%{utf8_range_name}.zip
 
 # Add an option to not install the tests
-Patch:      0000-dont-install-tests.patch
+Patch:      0000-don-t-install-tests.patch
 # Use the system flatbuffers
 Patch:      0001-system-flatbuffers.patch
 # Use the system protobuf
@@ -45,39 +45,31 @@ Patch:      0002-system-protobuf.patch
 Patch:      0003-system-onnx.patch
 # Fedora targets power8 or higher
 Patch:      0004-disable-power10.patch
-# Do not use nsync
-Patch:      0005-no-nsync.patch
-# Do not link against WIL
-Patch:      0006-remove-wil.patch
 # Use the system safeint
-Patch:      0007-system-safeint.patch
+Patch:      0005-system-safeint.patch
 # Versioned libonnxruntime_providers_shared.so
-Patch:      0008-versioned-onnxruntime_providers_shared.patch
+Patch:      0006-versioned-onnxruntime_providers_shared.patch
 # Disable gcc -Werrors with false positives
-Patch:      0009-gcc-false-positive.patch
+Patch:      0007-gcc-false-positives.patch
 # Test data not available 
-Patch:      0010-disable-pytorch-tests.patch
+Patch:      0008-disable-pytorch-tests.patch
 # Use the system date and boost
-Patch:      0011-system-date-and-mp11.patch
+Patch:      0009-system-date-and-mp11.patch
 # Use the system cpuinfo
-Patch:      0012-system-cpuinfo.patch
+Patch:      0010-system-cpuinfo.patch
 # Trigger onnx fix for onnxruntime_providers_shared
-Patch:      0013-onnx-onnxruntime-fix.patch
+Patch:      0011-onnx-onnxruntime-fix.patch
 # Use the system python version
-Patch:      0014-system-python.patch
-# Fix errors when DISABLE_ABSEIL=ON
-Patch:      0015-abseil-disabled-fix.patch
+Patch:      0012-system-python.patch
 # Fix missing includes
-Patch:      0016-missing-cpp-headers.patch
+Patch:      0014-missing-cpp-headers.patch
 # Revert https://github.com/microsoft/onnxruntime/pull/21492 until
 # Fedora's Eigen3 is compatible with the fix.
-Patch:      0017-revert-nan-propagation-bugfix.patch
-# Backport upstream implementation of onnx
-# from https://github.com/microsoft/onnxruntime/pull/21897
-Patch:      0019-backport-onnx-1.17.0-support.patch
-Patch:      0020-disable-locale-tests.patch
-Patch:      0021-fix-range-loop-construct.patch
-Patch:      0022-onnxruntime-convert-gsl-byte-to-std-byte.patch
+Patch:      0015-revert-nan-propagation-bugfix.patch
+Patch:      0016-disable-locale-tests.patch
+Patch:      0017-disable-downloading-dependencies.patch
+Patch:      0018-system-eigen3.patch
+Patch:      0019-disable-tests.patch
 # [Build] Fails to build with abseil-cpp 20250814
 # https://github.com/microsoft/onnxruntime/issues/25815
 # Patch suggested in a comment in the above issue.
@@ -85,6 +77,9 @@ Patch:      abseil-cpp-20250814.patch
 # Build fails on ROCm 7
 Patch:     0001-onnxruntime-warpSize-is-not-constant-in-ROCm-7.patch
 Patch:     0001-onnxruntime-ignore-deprecated-thrust-warnings.patch
+# unsupported HIP identifier: CUBLAS_GEMM_DEFAULT_TENSOR_OP
+Patch:     0001-onnxruntime-rocm-no-CUBLAS_GEMM_DEFAULT_TENSOR_OP-su.patch
+Patch:     0001-onnxruntime-use-hipblasGemmStridedBatchedEx-instead-of-_v2.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -221,7 +216,13 @@ rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
 %{python3} onnxruntime/lora/adapter_format/compile_schema.py --flatc /usr/bin/flatc
 
 # -Werror is too strict and brittle for distribution packaging.
+%if 0%{?fedora} < 44
 CXXFLAGS+="-Wno-error"
+%else
+# -Wno-error=sfinae-incomplete -Wno-error=array-bounds -Wno-error=uninitialized added
+# until codebase is fixed.
+CXXFLAGS+="-Wno-error -Wno-error=sfinae-incomplete -Wno-error=array-bounds -Wno-error=uninitialized -Wno-error=maybe-uninitialized"
+%endif
 
 # Overrides BUILD_SHARED_LIBS flag since onnxruntime compiles individual components as static, and links
 # all together into a single shared library when onnxruntime_BUILD_SHARED_LIB is ON.
@@ -233,7 +234,8 @@ CXXFLAGS+="-Wno-error"
  -Donnxruntime_BUILD_UNIT_TESTS=ON \\\
  -Donnxruntime_ENABLE_PYTHON=ON \\\
  -DPYTHON_VERSION=%{python3_version} \\\
- -Donnxruntime_DISABLE_ABSEIL=ON \\\
+ -Donnxruntime_ENABLE_ABSEIL=ON \\\
+ -Donnxruntime_ENABLE_DLPACK=OFF \\\
  -Donnxruntime_USE_FULL_PROTOBUF=ON \\\
  -Donnxruntime_USE_NEURAL_SPEED=OFF \\\
  -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \\\
@@ -276,8 +278,7 @@ backend=cpu
 %cmake_build
 
 # Build python libs
-mv ./onnxruntime ./onnxruntime.src
-cp -R ./%{__cmake_builddir}/onnxruntime ./onnxruntime
+cp -R ./%{__cmake_builddir}/onnxruntime/* ./onnxruntime
 cp ./%{__cmake_builddir}/requirements.txt ./requirements.txt
 %pyproject_wheel
 

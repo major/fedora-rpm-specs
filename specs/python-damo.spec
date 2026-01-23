@@ -11,7 +11,7 @@ patterns of your system or workloads and make data access-aware memory
 management optimizations.}
 
 Name:           python-%{srcname}
-Version:        3.1.1
+Version:        3.1.2
 Release:        %autorelease
 Summary:        Data Access Monitoring Operator
 
@@ -68,6 +68,9 @@ touch -r damo src/damo/__init__.py
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
+install -Dpm 0644 scripts/damo-completion.sh %{buildroot}%{bash_completions_dir}/%{srcname}
+# remove so this is not hoovered up with the rest of the scripts as doc (those are examples)
+rm scripts/damo-completion.sh
 
 
 %check
@@ -86,7 +89,9 @@ touch -r damo src/damo/__init__.py
 %files -n %{srcname} -f %{pyproject_files}
 %license COPYING
 %doc CONTRIBUTING FEATURES_DEPRECATION_PROCESS.md FEATURES_DEPRECATION_SCHEDULE.md README.md REPORTING.md SECURITY.md TODO USAGE.md release_note
+%doc scripts
 %{_bindir}/%{srcname}
+%{bash_completions_dir}/%{srcname}
 
 
 %changelog

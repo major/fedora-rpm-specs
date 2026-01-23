@@ -1,5 +1,5 @@
 Name:           python-gelidum
-Version:        0.7.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Freeze your objects in python
 
@@ -8,6 +8,8 @@ Summary:        Freeze your objects in python
 License:        MIT
 URL:            https://github.com/diegojromerolopez/gelidum
 Source0:        %{url}/archive/v%{version}/gelidum-%{version}.tar.gz
+
+Patch:          build-system.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

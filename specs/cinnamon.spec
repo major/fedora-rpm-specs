@@ -11,7 +11,7 @@
 
 Name:           cinnamon
 Version:        6.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -336,6 +336,9 @@ EOF
 %endif
 
 %changelog
+* Wed Jan 21 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.5-2
+- Rebuild for aarch64 linking issue
+
 * Fri Jan 16 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.5-1
 - Update to 6.6.5
 

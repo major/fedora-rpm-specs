@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	51%{?dist}
+Release:	52%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -608,7 +608,11 @@ fi
 %endif
 
 %changelog
-* Fri Jan 16 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-51
+* Tue Jan 20 2026 Nicolas Frayer <nfrayer@redhat.com> - 2.12-52
+- fs/xfs: Add new superblock features added in Linux 6.12/6.13
+- Resolves: #2429501
+
+* Fri Jan 16 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-51
 - Revert 'Increase EFI max allocation to max usable address'
 - Related: #2427945
 - Related: #2263643

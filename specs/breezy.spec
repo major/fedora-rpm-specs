@@ -28,6 +28,10 @@ URL:            http://www.breezy-vcs.org/
 Source0:        https://github.com/breezy-team/breezy/archive/brz-%{version}%{?brzrc}.tar.gz
 Source1:        brz-icon-64.png
 
+# Allow dulwich version 1
+# https://github.com/breezy-team/breezy/pull/335
+Patch:          dulwich1.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  zlib-devel

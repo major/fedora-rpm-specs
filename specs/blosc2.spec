@@ -1,5 +1,5 @@
 Name:           blosc2
-Version:        2.21.3
+Version:        2.22.0
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
@@ -7,7 +7,7 @@ License:        BSD-3-Clause
 URL:            https://www.blosc.org/
 Source:         https://github.com/Blosc/c-blosc2/archive/v%{version}/c-blosc2-%{version}.tar.gz
 
-%define soversion 5
+%define soversion 6
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -53,6 +53,7 @@ OPTIONS=(
         -GNinja
         -DBUILD_STATIC:BOOL=OFF
         -DBUILD_FUZZERS:BOOL=OFF
+        -DBUILD_EXAMPLES:BOOL=OFF
         -DPREFER_EXTERNAL_LZ4:BOOL=ON
         -DPREFER_EXTERNAL_ZLIB:BOOL=ON
         -DPREFER_EXTERNAL_ZSTD:BOOL=ON
@@ -87,7 +88,6 @@ objdump -p %{buildroot}%{_libdir}/libblosc2.so.%{soversion} | grep SONAME
 %{_libdir}/libblosc2.so.%{soversion}
 %{_libdir}/libblosc2.so.%{version}
 %license LICENSE.txt
-%doc ROADMAP.rst
 %doc ANNOUNCE.*
 %doc THANKS.*
 %doc RELEASE_NOTES.*

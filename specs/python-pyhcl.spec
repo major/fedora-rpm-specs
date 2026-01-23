@@ -2,13 +2,17 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        HCL configuration parser for Python
 
 License:        MPL-2.0
 URL:            https://github.com/virtuald/pyhcl
 Source0:        %{pypi_source}
 BuildArch:      noarch
+
+# Fix compatibility with the latest ply commit
+# Resolved upstream: https://github.com/virtuald/pyhcl/pull/93
+Patch:          fix-ply-compat.patch
 
 %description
 Implements a parser for HCL (HashiCorp Configuration Language) in Python.
@@ -31,7 +35,7 @@ This implementation aims to be compatible with the original Go version
 of the parser.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 # Unbundle ply
 rm -vr src/hcl/ply
 echo 'ply' >> requirements.txt
@@ -55,6 +59,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m pytest tests
 %{python3_sitelib}/pyhcl-*.egg-info/
 
 %changelog
+* Wed Jan 21 2026 Charalampos Stratakis <cstratak@redhat.com> - 0.4.5-12
+- Fix compatibility with the latest ply commit
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

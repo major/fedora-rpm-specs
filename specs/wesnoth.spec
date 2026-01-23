@@ -1,6 +1,6 @@
 Name:           wesnoth
-Version:        1.19.19
-Release:        3%{?dist}
+Version:        1.19.20
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -9,7 +9,6 @@ Source0:        http://www.%{name}.org/files/%{name}-%{version}.tar.bz2
 Source1:        wesnothd.service
 Source2:        %{name}.sysconfig
 Patch0:         scons-env.patch
-Patch1:         10175.patch
 
 Requires:       wesnoth-data = %{version}
 BuildRequires:  gcc-c++
@@ -194,6 +193,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Wed Jan 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.20-1
+- 1.19.20
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -120,10 +120,12 @@ k="${k-}${k+ and }not TestFlake8"
 # This may be flaky and/or arch-dependent.
 k="${k-}${k+ and }not test_executemany_server_failure_during_writes"
 
-# Python 3.13.2: TestConnectParams.test_connect_params fails with ValueError:
-# Invalid IPv6 URL
-# https://github.com/MagicStack/asyncpg/issues/1236
-k="${k-}${k+ and }not (TestConnectParams and test_connect_params)"
+%if v"0%{?python3_version}" >= v"3.15"
+# Test failure in test_pool_handles_transaction_exit_in_asyncgen_2 with Python
+# 3.15.0a5, PYTHONASYNCIODEBUG=1
+# https://github.com/MagicStack/asyncpg/issues/1300
+k="${k-}${k+ and }not (TestPool and test_pool_handles_transaction_exit_in_asyncgen_2)"
+%endif
 
 # See the “test” target in the Makefile:
 PYTHONASYNCIODEBUG=1 %pytest -k "${k-}"

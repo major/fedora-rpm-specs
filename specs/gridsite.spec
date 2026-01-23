@@ -1,12 +1,12 @@
 %global aprversion 1
 %{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn || echo 0-0)}}
 
-%global commit 1200598c92c2ef7990b64d3f30f26c9fe1c25c35
+%global commit 7a7b7646b2a36d16c18591bc5b27c91b4dd26161
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.35.20240125git%{shortcommit}%{?dist}
+Release:        0.36.20260121git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -246,6 +246,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Wed Jan 21 2026 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-0.36.20260121git7a7b764
+- New upstream snapshot (portability, FTBS)
+- Rebuild for new gsoap
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.35.20240125git1200598
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

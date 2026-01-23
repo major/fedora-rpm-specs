@@ -1,12 +1,12 @@
 Name:           google-benchmark
-Version:        1.9.4
+Version:        1.9.5
 %global so_version 1
 Release:        %autorelease
 
 License:        Apache-2.0
 Summary:        A microbenchmark support library
 URL:            https://github.com/google/benchmark
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/benchmark-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -15,6 +15,8 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  cmake(GTest)
 BuildRequires:  gmock-devel
+# Required for locale_impermeablity_test so the en_US.UTF-8 locale is valid.
+BuildRequires:  glibc-langpack-en
 
 %description
 A library to support the benchmarking of functions, similar to unit-tests.
@@ -50,6 +52,7 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
     -DBENCHMARK_ENABLE_INSTALL:BOOL=ON \
     -DBENCHMARK_ENABLE_TESTING:BOOL=ON \
     -DBENCHMARK_INSTALL_DOCS:BOOL=OFF \
+    -DBENCHMARK_INSTALL_TOOLS:BOOL=OFF \
     -DBENCHMARK_USE_BUNDLED_GTEST:BOOL=OFF
 
 

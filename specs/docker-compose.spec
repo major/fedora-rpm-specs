@@ -3,7 +3,7 @@
 
 # https://github.com/docker/compose/v5
 %global goipath         github.com/docker/compose/v5
-Version:                5.0.1
+Version:                5.0.2
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f

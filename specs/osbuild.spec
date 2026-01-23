@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        169
+Version:        170
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        169
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -392,6 +392,33 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Jan 21 2026 Packit <hello@packit.dev> - 170-1
+Changes with 170
+----------------
+  - Add V2 Solver API with complete package metadata, per-transaction results, and RHSM secrets discovery (HMS-10029) (#2287)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou
+  - Add tests for PQC key handling in osbuild [HMS-10057] (#2310)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Makefile: new target: rpm-nocheck (#2309)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - Update osbuild-ci container images (#2308)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - Update snapshots to 20260118 (#2312)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - packit: Add RHEL10 x86 and ARM COPR builds (#2311)
+    - Author: Simon Steinbeiß, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - stages: fix org.osbuild.ostree.grub2 permissions (#2307)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - test: add a wait to mitigate race condition (#2314)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - test: add one-block tolerance to fscache test (#2316)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - test: increase sendmsg test size (#2315)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-01-21
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 169-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

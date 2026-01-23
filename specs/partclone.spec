@@ -67,6 +67,8 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 
 %prep
 %autosetup -p1
+# https://github.com/Thomas-Tsai/partclone/issues/285
+%{?el8:sed -e 's/^\(AM_GNU_GETTEXT_VERSION\).*/\1([0.19])/' -i configure.ac}
 autoreconf -i -f
 
 %build

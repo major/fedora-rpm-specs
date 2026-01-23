@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           hatch
-Version:        1.16.2
+Version:        1.16.3
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
