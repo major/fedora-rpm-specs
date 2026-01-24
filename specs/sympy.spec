@@ -14,12 +14,15 @@ VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{name}-%{version}.tar.gz
 # For intersphinx
 Source1:        https://matplotlib.org/stable/objects.inv#/objects-matplotlib.inv
-Source2:        https://docs.scipy.org/doc/scipy/objects.inv#/objects-scipy.inv
+Source2:        https://mpmath.readthedocs.io/en/latest/objects.inv#/objects-mpmath.inv
+Source3:        https://docs.scipy.org/doc/scipy/objects.inv#/objects-scipy.inv
 # Do not depend on intersphinx_registry, which is not available in Fedora
 Patch:          %{name}-intersphinx.patch
 # Support llvmlite >= 0.45.
 # https://github.com/sympy/sympy/pull/28472
 Patch:          %{giturl}/pull/28472.patch
+# Support mpmath >= 1.4
+Patch:          %{name}-mpmath.patch
 
 # We have to build on an architecture that:
 # - Supports Java (for antlr4), which excludes 32-bit x86
@@ -64,7 +67,6 @@ BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-math-dollar}
 BuildRequires:  %{py3_dist sphinx-reredirects}
 BuildRequires:  %{py3_dist sphinxcontrib-jquery}
-BuildRequires:  python-mpmath-doc
 BuildRequires:  tex(latex)
 BuildRequires:  tex-dvipng
 
@@ -167,7 +169,8 @@ done
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://matplotlib\.org/stable/', \)None|\1'%{SOURCE1}'|" \
-    -e "s|\(.https://docs\.scipy\.org/doc/scipy/., \)None|\1'%{SOURCE2}'|" \
+    -e "s|\('https://mpmath\.org/doc/current/', \)None|\1'%{SOURCE2}'|" \
+    -e "s|\(.https://docs\.scipy\.org/doc/scipy/., \)None|\1'%{SOURCE3}'|" \
     -e "s|\(.https://numpy\.org/doc/stable/., \)None|\1'%{_docdir}/python3-numpy-doc/objects.inv'|" \
     -i doc/src/conf.py
 

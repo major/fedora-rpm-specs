@@ -5,8 +5,7 @@ Version:        2021.1
 Release:        %autorelease
 Summary:        GNOME test runner for installed tests
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-desktop-testing
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{version}.tar.xz
 

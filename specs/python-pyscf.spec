@@ -3,7 +3,7 @@
 %global __provides_exclude_from ^%{python3_sitearch}/pyscf/lib/.*\\.so$
 # but since we still need to pick up the dependencies for libcint,
 # libxc, etc, we just have to filter out the internal libraries
-%global __requires_exclude ^(libao2mo\\.so|libcgto\\.so|libcvhf\\.so|libfci\\.so|libnp_helper\\.so|libpbc\\.so).*$
+%global __requires_exclude ^(libao2mo\\.so|libcgto\\.so|libcvhf\\.so|libfci\\.so|libnp_helper\\.so|libpbc\\.so|libdft\\.so).*$
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -131,6 +131,9 @@ done
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Thu Jan 22 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.12.0-2
+- Filter out dependency on internal library.
+
 * Wed Jan 21 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.12.0-1
 - Update to 2.12.0.
 

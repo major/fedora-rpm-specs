@@ -2,12 +2,12 @@
 
 %global flatpak_version 1.5.0
 %global geoclue_version 2.5.2
-%global glib_version 2.72
+%global glib_version 2.76
 %global low_memory_monitor_version 2.0
 %global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.20.3
+Version: 1.21.0
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 

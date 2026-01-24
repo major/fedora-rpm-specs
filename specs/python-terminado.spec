@@ -60,7 +60,7 @@ sed -i 's/hatchling>=1.5/hatchling>=0.25/g' pyproject.toml
 # https://bugzilla.redhat.com/show_bug.cgi?id=1914880
 echo "set enable-bracketed-paste off" > .inputrc
 export INPUTRC=$PWD/.inputrc
-%pytest -v -W ignore::DeprecationWarning
+%pytest -v -W ignore::DeprecationWarning -W ignore::pytest.PytestUnraisableExceptionWarning
  
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}

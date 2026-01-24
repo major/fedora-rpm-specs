@@ -1,13 +1,16 @@
 %global pypi_name dropbox
 Name:           python-%{pypi_name}
 Version:        12.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Official Dropbox REST API Client
 License:        MIT
 
 URL:            https://www.dropbox.com/developers/core/sdks
 Source0:        %pypi_source
-Patch0:         unpin-pytest-runner.patch
+# Remove pytest-runner / setup.py test support
+# https://github.com/dropbox/dropbox-sdk-python/pull/523
+# Without changes to requirements.txt, which is not in the PyPI sdist
+Patch:          dropbox-12.0.2-no-pytest-runner.patch
 
 BuildArch:      noarch
 
@@ -29,9 +32,7 @@ Requires:       python3-urllib3
 A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
-
-%patch -P 0 -p0
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -49,6 +50,9 @@ A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Thu Jan 22 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 12.0.2-11
+- Remove dependency on deprecated pytest-runner
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -37,6 +37,10 @@ Patch10:        %{name}-boost-nowide.patch
 # https://github.com/slic3r/Slic3r/pull/5063
 Patch11:        %{name}-CVE-2020-28591.patch
 
+# Fix build with Boost 1.88, from Debian
+# https://github.com/slic3r/Slic3r/issues/5197
+Patch12:        https://salsa.debian.org/3dprinting-team/slic3r/-/raw/boost1.88/debian/patches/Fix-FTBFS-with-boost-1.88.patch
+
 Source1:        %{name}.desktop
 Source2:        %{name}.appdata.xml
 
@@ -152,6 +156,7 @@ for more information.
 %patch -p1 -P9
 %patch -p1 -P10
 %patch -p1 -P11
+%patch -p1 -P12
 
 # To avoid "error: exponent has no digits" on GCC 14+
 # https://bugzilla.redhat.com/2259542

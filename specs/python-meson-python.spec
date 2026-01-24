@@ -12,7 +12,7 @@
 
 Name:           python-meson-python
 Summary:        Meson Python build backend (PEP 517)
-Version:        0.18.0
+Version:        0.19.0
 Release:        %autorelease
 
 # SPDX
@@ -25,7 +25,7 @@ Source:         %{pypi_source meson_python}
 Patch100:       meson-python-0.18.0-remove-patchelf.patch
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -p %{?with_tests:-x test}
+BuildOption(generate_buildrequires): -p %{?with_tests:-g test}
 # LICENSE duplicates LICENSES/MIT.txt, which is handled automatically.
 BuildOption(install):   -l mesonpy
 
@@ -35,7 +35,9 @@ BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros >= 1.15.1
 
 %if %{with tests}
+BuildRequires:  cmake
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  git-core
 %endif
 

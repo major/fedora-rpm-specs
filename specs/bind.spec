@@ -85,8 +85,8 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.43
-Release:  3%{?dist}
+Version:  9.18.44
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -943,6 +943,9 @@ fi;
 %endif
 
 %changelog
+* Thu Jan 22 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.44-1
+- Update to 9.18.44 (rhbz#2431609)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 32:9.18.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20250808
-%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
-%global gcc_version 15.2.1
-%global gcc_major 15
+%global DATE 20260115
+%global gitrev 1a9a51aca25eaad91d80869c43859274fe5e1096
+%global gcc_version 16.0.1
+%global gcc_major 16
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -632,6 +632,8 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_bindir}/%{mingw32_target}-lto-dump
 %{mingw32_libdir}/libatomic.a
 %{mingw32_libdir}/libatomic.dll.a
+%{mingw32_libdir}/libatomic_asneeded.a
+%{mingw32_libdir}/libatomic_asneeded.so
 %{mingw32_libdir}/libgcc_s.a
 %{mingw32_libdir}/libssp.a
 %{mingw32_libdir}/libssp.dll.a
@@ -680,6 +682,8 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_bindir}/%{mingw64_target}-lto-dump
 %{mingw64_libdir}/libatomic.a
 %{mingw64_libdir}/libatomic.dll.a
+%{mingw64_libdir}/libatomic_asneeded.a
+%{mingw64_libdir}/libatomic_asneeded.so
 %{mingw64_libdir}/libgcc_s.a
 %{mingw64_libdir}/libssp.a
 %{mingw64_libdir}/libssp.dll.a
@@ -728,6 +732,8 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_bindir}/%{ucrt64_target}-lto-dump
 %{ucrt64_libdir}/libatomic.a
 %{ucrt64_libdir}/libatomic.dll.a
+%{ucrt64_libdir}/libatomic_asneeded.a
+%{ucrt64_libdir}/libatomic_asneeded.so
 %{ucrt64_libdir}/libgcc_s.a
 %{ucrt64_libdir}/libssp.a
 %{ucrt64_libdir}/libssp.dll.a
@@ -987,6 +993,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Wed Jan 21 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-1
+- Update to 16.0.1 (20260115)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

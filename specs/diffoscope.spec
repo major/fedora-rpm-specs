@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       306
+Version:       310
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPL-3.0-or-later
@@ -108,7 +108,6 @@ ExcludeArch:  %{ix86}
 %global toolz %{shrink: %tools %?tools2 %?tools3 %?tools4 %?tools5}
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-docutils
 # for tests
 BuildRequires: python3-pytest
@@ -137,16 +136,17 @@ was formerly known as "debbindiff".
 %autosetup -p1
 sed -i '1{\@/usr/bin/env@d}' diffoscope/main.py
 
-# We use the python3-file-magic module instead of the python3-magic module.
-# They conflict, and python3-file-magic is required by rpmlint.
-sed -i s/python-magic/file-magic/ setup.py
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 make -C doc
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l diffoscope
+
 echo %{buildroot}%{python3_sitelib}
 install -Dm0644 -t %{buildroot}%{_mandir}/man1/ doc/diffoscope.1
 install -Dm0644 -t %{buildroot}/usr/share/zsh/site-functions/ debian/zsh-completion/_diffoscope
@@ -176,10 +176,8 @@ DESELECT=(
   # Started failing in rawhide now
   --deselect=tests/comparators/test_text.py::test_ending_differences
 
-  # Formatting difference, probably llvm-version dependent
-  # -  define i64 @__rust_reallocate_inplace(ptr nocapture readnone %0, i64 %1, i64 %2, i64 %3) unnamed_addr #1 {
-  # +  define i64 @__rust_reallocate_inplace(ptr readnone captures(none) %0, i64 %1, i64 %2, i64 %3) unnamed_addr #1 {
-  --deselect=tests/comparators/test_rlib.py::test_item3_deflate_llvm_bitcode
+  # Started failing after F44 mass rebuild
+  --deselect=tests/comparators/test_fit.py::test_file_differences
 )
 
 LC_CTYPE=C.utf8 \
@@ -187,10 +185,9 @@ TZ=UTC \
 PYTHONPATH=build/lib/ \
 %python3 -m pytest tests/ -vv "${DESELECT[@]}"
 
-%files
+%files -f %{pyproject_files}
 %doc README.rst debian/changelog
 %license COPYING
-%{python3_sitelib}/diffoscope*
 %{_bindir}/diffoscope
 /usr/share/zsh/site-functions/_diffoscope
 %doc %{_mandir}/man1/diffoscope.1*

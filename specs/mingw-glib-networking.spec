@@ -5,7 +5,7 @@
 
 Name:           mingw-glib-networking
 Version:        2.80.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW Windows glib-networking library
 
 License:        LGPL-2.1-or-later
@@ -40,6 +40,7 @@ This package contains modules that extend the networking support in GIO.
 
 %package -n mingw32-glib-networking
 Summary:        MinGW Windows glib-networking library
+Requires:       mingw32-gsettings-desktop-schemas
 
 %description -n mingw32-glib-networking
 This package contains modules that extend the networking support in GIO.
@@ -47,6 +48,7 @@ This package contains modules that extend the networking support in GIO.
 
 %package -n mingw64-glib-networking
 Summary:        MinGW Windows glib-networking library
+Requires:       mingw64-gsettings-desktop-schemas
 
 %description -n mingw64-glib-networking
 This package contains modules that extend the networking support in GIO.
@@ -89,6 +91,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 
 
 %changelog
+* Thu Jan 22 2026 Sandro Mani <manisandro@gmail.com> - 2.80.1-4
+- Add Requires: mingw32-gsettings-desktop-schemas (#2431589)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.80.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

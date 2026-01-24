@@ -1,7 +1,7 @@
 Name:		libdstr
 Epoch:		1
-Version:	1.0
-Release:	29%{?dist}
+Version:	1.1
+Release:	1%{?dist}
 Summary:	Dave's String class
 
 BuildRequires:	gcc-c++
@@ -11,7 +11,7 @@ BuildRequires: make
 # SPDX confirmed
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.flaterco.com/util/index.html
-Source0:	ftp://ftp.flaterco.com/misc/%{name}-%{version}.tar.bz2
+Source0:	https://flaterco.com/files/%{name}-%{version}.tar.xz
 
 %description
 libdstr is a library containing Dstr, Dave's String class.
@@ -31,13 +31,10 @@ developing applications that use %{name}.
 
 %build
 %configure --disable-static
-%{__make} %{?_smp_mflags}
+%make_build
 
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	INSTALL="%{__install} -c -p"
+%make_install
 
 # Upstream uses some odd header file name,
 # changing...
@@ -54,19 +51,22 @@ find $RPM_BUILD_ROOT -name '*.la' \
 
 %files
 %doc	AUTHORS
-%doc	COPYING
+%license	COPYING
 %doc	ChangeLog
 %doc	README
 
-%{_libdir}/lib*.so.*
+%{_libdir}/libdstr.so.2{,.*}
 
 %files devel
 
-%{_includedir}/*.h
-%{_libdir}/lib*.so
+%{_includedir}/Dstr.h
+%{_libdir}/libdstr.so
 
 
 %changelog
+* Thu Jan 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.1-1
+- 1.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

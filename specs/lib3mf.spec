@@ -119,7 +119,9 @@ ln -s lib3mf.pc %{buildroot}%{_libdir}/pkgconfig/lib3MF.pc
 
 %if %{with tests}
 %check
-%make_build test -C build
+cd build
+%ctest --rerun-failed --output-on-failure
+cd ..
 %endif
 
 

@@ -160,11 +160,11 @@ BuildRequires:  pkgconfig(mbedtls)
 BuildRequires:  pkgconfig(miniupnpc)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(Qt5Concurrent) >= 5.2
-BuildRequires:  pkgconfig(Qt5Core) >= 5.2
-BuildRequires:  pkgconfig(Qt5Gui) >= 5.2
-BuildRequires:  pkgconfig(Qt5Network) >= 5.2
-BuildRequires:  pkgconfig(Qt5Widgets) >= 5.2
+BuildRequires:  pkgconfig(Qt6Concurrent) >= 6.2
+BuildRequires:  pkgconfig(Qt6Core) >= 6.2
+BuildRequires:  pkgconfig(Qt6Gui) >= 6.2
+BuildRequires:  pkgconfig(Qt6Network) >= 6.2
+BuildRequires:  pkgconfig(Qt6Widgets) >= 6.2
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-egl)

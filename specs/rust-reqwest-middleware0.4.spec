@@ -4,8 +4,8 @@
 
 %global crate reqwest-middleware
 
-Name:           rust-reqwest-middleware
-Version:        0.5.0
+Name:           rust-reqwest-middleware0.4
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Wrapper around reqwest to allow for client middleware chains
 
@@ -70,18 +70,6 @@ use the "charset" feature of the "%{crate}" crate.
 %files       -n %{name}+charset-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+form-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+form-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "form" feature of the "%{crate}" crate.
-
-%files       -n %{name}+form-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+http2-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -118,28 +106,16 @@ use the "multipart" feature of the "%{crate}" crate.
 %files       -n %{name}+multipart-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+query-devel
+%package     -n %{name}+rustls-tls-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+query-devel %{_description}
+%description -n %{name}+rustls-tls-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "query" feature of the "%{crate}" crate.
+use the "rustls-tls" feature of the "%{crate}" crate.
 
-%files       -n %{name}+query-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rustls-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rustls-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rustls" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rustls-devel
+%files       -n %{name}+rustls-tls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

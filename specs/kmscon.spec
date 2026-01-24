@@ -1,13 +1,13 @@
 Name:           kmscon
-Version:        9.2.1
-Release:        2%{?dist}
+Version:        9.3.0
+Release:        1%{?dist}
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
 URL:            https://github.com/kmscon/kmscon/
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  check-devel
 BuildRequires:  docbook-style-xsl
-BuildRequires:  libtsm-devel >= 4.3.0
+BuildRequires:  libtsm-devel >= 4.4.0
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  pkg-config
@@ -24,6 +24,9 @@ BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
+
+Patch1: 0001-kmsconvt-fix-agetty-launch-option.patch
+Patch2: 0001-Fix-build-on-i686.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -43,7 +46,7 @@ mod-gltex
 %autosetup -p1
 
 %conf
-%meson
+%meson -Dmulti_seat=disabled -Dvideo_fbdev=disabled
 
 %build
 %meson_build
@@ -78,13 +81,16 @@ mod-gltex
 %{_mandir}/man1/kmscon.conf.1*
 %{_unitdir}/kmscon.service
 %{_unitdir}/kmsconvt@.service
-%config(noreplace) /etc/kmscon/kmscon.conf
+%config /etc/kmscon/kmscon.conf.example
 
 %files gl
 %{_libdir}/kmscon/mod-drm3d.so
 %{_libdir}/kmscon/mod-gltex.so
 
 %changelog
+* Thu Jan 22 2026 Jocelyn Falempe <jfalempe@redhat.com> - 9.3.0-1
+- Bump version to 9.3.0-1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

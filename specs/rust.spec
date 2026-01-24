@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.92.0
+Version:        1.93.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.91.0
-%global bootstrap_channel 1.91.0
-%global bootstrap_date 2025-10-30
+%global bootstrap_version 1.92.0
+%global bootstrap_channel 1.92.0
+%global bootstrap_date 2025-12-11
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -28,7 +28,7 @@ ExclusiveArch:  %{rust_arches}
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-27
+%global wasi_libc_ref wasi-sdk-29
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -44,8 +44,9 @@ ExclusiveArch:  %{rust_arches}
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient. Rust currently requires LLVM 19.0+.
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
+# See src/llvm-project/cmake/Modules/LLVMVersion.cmake for bundled version.
 %global min_llvm_version 20.0.0
-%global bundled_llvm_version 21.1.3
+%global bundled_llvm_version 21.1.5
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -138,7 +139,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.92.0-unbundle-sqlite.patch
+Patch6:         rustc-1.93.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
@@ -152,7 +153,10 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.92.0-disable-libssh2.patch
+Patch100:       rustc-1.93.0-disable-libssh2.patch
+
+# When building wasi, prevent linking a compiler-rt builtins library we don't have.
+Patch1000:	wasi-no-link-builtins.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -679,6 +683,8 @@ test -f '%{local_rust_root}/bin/rustc'
 %if %{defined wasm_targets} && %{with bundled_wasi_libc}
 %setup -q -n %{wasi_libc_name} -T -b 1
 rm -rf %{wasi_libc_dir}/dlmalloc/
+
+%patch -P1000 -p1
 %endif
 
 %setup -q -n %{rustc_package}
@@ -727,6 +733,7 @@ rm -rf src/tools/rustc-perf/collector/*-benchmarks/
 %clear_dir vendor/libz-sys*/src/zlib{,-ng}/
 %clear_dir vendor/lzma-sys*/xz-*/
 %clear_dir vendor/openssl-src*/openssl/
+%clear_dir vendor/capstone-sys-*/capstone/
 
 %if %without bundled_libgit2
 %clear_dir vendor/libgit2-sys*/libgit2/

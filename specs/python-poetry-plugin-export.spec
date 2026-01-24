@@ -3,23 +3,14 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Poetry plugin to export the dependencies to various formats
-
-# Compatibility with poetry 2.2.1
-Patch:          https://github.com/python-poetry/poetry-plugin-export/commit/39ff1fb.patch
 
 # SPDX
 License:        MIT
 URL:            https://python-poetry.org/
 Source:         %{pypi_source poetry_plugin_export}
-
-# Adapt tests to cosmetic changes caused by poetry-core.
-# The changes in poetry.lock file were removed from the patch as they are not necessary and they were not applying cleanly.
-# Also the changes in pyproject.toml are not relevant.
-# Adapted from https://github.com/python-poetry/poetry-plugin-export/commit/16637f1.patch
-Patch:          Adapt-tests-to-changes-in-poetry-core.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -21,6 +21,8 @@ Source7: anyterm.tmpfiles.conf
 Patch0: anyterm-change-url-prefix.patch
 # svn diff --git -r 13873:18810
 Patch1: anyterm-upstream-fixes-r18810.patch
+# svn diff --git -c 20470 libpbe
+Patch2: anyterm-char8_t.patch
 
 BuildRequires: gcc-c++
 BuildRequires: boost-devel
@@ -54,6 +56,7 @@ The httpd configuration necessary to proxy anyterm.
 %setup -q
 %patch -P0 -p0
 %patch -P1 -p3
+%patch -P2 -p1
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS"

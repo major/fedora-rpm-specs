@@ -2,7 +2,7 @@
 
 Name:           quarter
 Version:        1.2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Lightweight glue library between Coin and Qt
 
 License:        BSD-3-Clause 
@@ -12,9 +12,9 @@ Source0:        https://github.com/coin3d/%{name}/releases/download/v%{version}/
 BuildRequires:  cmake gcc gcc-c++ doxygen
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  Coin4-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 # Needed for Cmake UI Config
-BuildRequires:  qt5-qttools-static
+BuildRequires:  qt6-qttools-static
 BuildRequires:  libspnav-devel
 
 %description
@@ -68,7 +68,7 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README.md
 %{_libdir}/*.so.%{sover}*
-%{_libdir}/qt5/plugins/designer/*
+%{_libdir}/qt6/plugins/designer/*
 
 %files devel
 %{_includedir}/Quarter/
@@ -81,6 +81,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Fri Jan 23 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.3-4
+- Migrate quart to QT6.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

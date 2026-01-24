@@ -1,12 +1,12 @@
 Name:           python-passlib
-Version:        1.7.4
-Release:        26%{?dist}
+Version:        1.9.3
+Release:        2%{?dist}
 Summary:        Comprehensive password hashing framework supporting over 20 schemes
 
 # license breakdown is described in LICENSE file
 License:        BSD-3-Clause AND Beerware AND UnixCrypt AND ISC
-URL:            https://foss.heptapod.net/python-libs/passlib
-Source:         %pypi_source passlib
+URL:            https://github.com/notypecheck/passlib
+Source:         %pypi_source libpass
 
 BuildArch:      noarch
 
@@ -29,6 +29,8 @@ multi-user application.}
 
 %package -n python3-passlib
 Summary:        %{summary}
+Provides:       python%{python3_version}dist(passlib) = %{version}
+Provides:       python3dist(passlib) = %{version}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
@@ -41,11 +43,7 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -n passlib-%{version}
-# Drop keywords from setup.py until upstream fixes them.
-# Upstream issue: https://foss.heptapod.net/python-libs/passlib/-/issues/194
-# Setuptools issue: https://github.com/pypa/setuptools/issues/4887
-sed -i '/keywords="""/,/"""/d' setup.py
+%autosetup -p1 -n libpass-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -x bcrypt -x totp %{!?el9:-x argon2} 
@@ -56,24 +54,25 @@ sed -i '/keywords="""/,/"""/d' setup.py
 
 
 %install
-# passlib setup.py append HG revision to the end of version by default
-# which makes StrictVersion checks complaining
-export PASSLIB_SETUP_TAG_RELEASE="no"
 %pyproject_install
-%pyproject_save_files passlib
+%pyproject_save_files -l passlib
 
 
 %check
-# We can safely ignore this failing test https://foss.heptapod.net/python-libs/passlib/-/issues/120
-%pytest -k 'not test_82_crypt_support'
+%pytest
 
 
 %files -n python3-passlib -f %{pyproject_files}
-%doc README
-%license LICENSE
+%doc README.md
 
 
 %changelog
+* Thu Jan 22 2026 Sandro Mani <manisandro@gmail.com> - 1.9.3-2
+- Add backwards compat provides
+
+* Thu Jan 22 2026 Sandro Mani <manisandro@gmail.com> - 1.9.3-1
+- Update to 1.9.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

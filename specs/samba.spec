@@ -239,6 +239,8 @@ Source18:       samba-winbind-systemd-sysusers.conf
 Source201:      README.downgrade
 Source202:      samba.abignore
 
+Patch0:         0001-printing-Fix-compilation-error-for-native-32-bit-tim.patch
+
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
 Requires: %{name}-ndr-libs = %{samba_depver}

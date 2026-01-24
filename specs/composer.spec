@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for composer
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,7 +8,7 @@
 #
 
 
-%global gh_commit    fb3bee27676fd852a8a11ebbb1de19b4dada5aba
+%global gh_commit    d4225153940b7c06f0e825195bdbdc312c67d917
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -16,7 +16,7 @@
 %global api_version  2.9.0
 %global run_version  2.2.2
 
-%global upstream_version 2.9.3
+%global upstream_version 2.9.4
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -27,7 +27,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -214,6 +214,9 @@ php -r '
 
 
 %changelog
+* Thu Jan 22 2026 Remi Collet <remi@remirepo.net> - 2.9.4-1
+- update to 2.9.4
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

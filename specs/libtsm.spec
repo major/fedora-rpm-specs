@@ -1,9 +1,9 @@
 Name:           libtsm
-Version:        4.3.0
-Release:        2%{?dist}
+Version:        4.4.1
+Release:        1%{?dist}
 Summary:        DEC-VT terminal emulator state machine
 License:        MIT AND LGPL-2.1-or-later
-URL:            https://github.com/Aetf/libtsm
+URL:            https://github.com/kmscon/libtsm
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -61,6 +61,9 @@ in %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 22 2026  Jocelyn Falempe <jfalempe@redhat.com> - 4.4.1-1
+- Update to 4.4.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

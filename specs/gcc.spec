@@ -1,5 +1,5 @@
-%global DATE 20260115
-%global gitrev 1a9a51aca25eaad91d80869c43859274fe5e1096
+%global DATE 20260122
+%global gitrev 753337290a70190b8934f46bac1e7b9068cda552
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}.1
+Release: %{gcc_release}.4%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -323,6 +323,7 @@ Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
 Patch13: gcc16-pr123273.patch
+Patch14: gcc16-pr123657.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3970,8 +3971,29 @@ end
 %endif
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.1-0.3.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Thu Jan 22 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.4
+- update from trunk
+  - PRs ada/68179, ada/123589, algol68/123007, algol68/123653, algol68/123734,
+	analyzer/123145, analyzer/123540, c/123437, c++/122391, c++/123601,
+	c++/123627, c++/123639, c++/123677, c++/123692, c++/123694,
+	diagnostics/122622, fortran/94377, fortran/109512, fortran/123375,
+	ipa/123412, libgcc/123650, libgomp/88707, libgomp/122314,
+	libgomp/122356, libstdc++/114153, middle-end/123697,
+	middle-end/123744, modula2/123739, pch/110746,
+	rtl-optimization/121787, rtl-optimization/122215,
+	rtl-optimization/123380, rtl-optimization/123585, sarif-replay/123056,
+	target/71340, target/113666, target/117575, target/122781,
+	target/122869, target/123279, target/123460, target/123521,
+	target/123584, target/123603, target/123607, target/123626,
+	target/123631, target/123724, target/123742, testsuite/123175,
+	testsuite/123751, tree-optimization/113524, tree-optimization/123061,
+	tree-optimization/123314, tree-optimization/123513,
+	tree-optimization/123602, tree-optimization/123636,
+	tree-optimization/123645, tree-optimization/123656,
+	tree-optimization/123729, tree-optimization/123731,
+	tree-optimization/123736, tree-optimization/123741,
+	tree-optimization/123745, tree-optimization/123753,
+	tree-optimization/123755, tree-optimization/123756
 
 * Thu Jan 15 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.3
 - update from trunk

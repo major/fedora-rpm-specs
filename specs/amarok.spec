@@ -1,3 +1,9 @@
+# FTBFS with GCC 16 when LTO is enabled
+# https://bugzilla.redhat.com/show_bug.cgi?id=2432234
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+%define _lto_cflags %{nil}
+%endif
+
 %global __provides_exclude_from ^%{_kf6_qmldir}/org/kde/amarok/.*\.so$
 
 Name:    amarok
@@ -26,6 +32,9 @@ Patch2:  liblastfm-version.patch
 # Needed because not every distro installs mygpo-qt6 under the same path.
 # For instance, Fedora namespaces qt6
 Patch10: fix-mygpo-qt6-compilation.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules

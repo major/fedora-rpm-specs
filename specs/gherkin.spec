@@ -11,12 +11,12 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        37.0.1
+Version:        38.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 37
-%global c_soversion 37
+%global cpp_soversion 38
+%global c_soversion 38
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 

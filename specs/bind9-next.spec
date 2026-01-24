@@ -22,6 +22,7 @@
 %bcond_with    TSAN
 %bcond_without DTRACE
 %bcond_with    OPENSSL_ENGINE
+%bcond         JEMALLOC  0%{?fedora}
 
 %{?!bind_uid:  %global bind_uid  25}
 %{?!bind_gid:  %global bind_gid  25}
@@ -30,7 +31,7 @@
 %global        chroot_prefix     %{bind_dir}/chroot
 %global        chroot_create_directories /dev /run/named %{_localstatedir}/{log,named,tmp} \\\
                                          %{_sysconfdir}/{crypto-policies/back-ends,pki/dnssec-keys,pki/tls,named} \\\
-                                         %{_libdir}/bind %{_libdir}/named %{_datadir}/GeoIP /proc/sys/net/ipv4
+                                         %{_libdir}/bind %{_libdir}/named %{_datadir}/{GeoIP,dns-root-data} /proc/sys/net/ipv4
 
 %global forgeurl0 https://gitlab.isc.org/isc-projects/bind9
 
@@ -52,7 +53,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.14
+Version:  9.21.17
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -64,17 +65,13 @@ Source2:  https://downloads.isc.org/isc/bind9/%{version}/%{upname}-%{version}.ta
 Source3:  named.logrotate
 Source4:  https://www.isc.org/docs/isc-keyblock.asc
 Source16: named.conf
-# Refresh by command: dig @a.root-servers.net. +tcp +norec
-# or from URL
-Source17: https://www.internic.net/domain/named.root
 Source18: named.localhost
 Source19: named.loopback
 Source20: named.empty
 Source23: named.rfc1912.zones
 Source25: named.conf.sample
-Source27: named.root.key
+Source27: named-mkroot.sh
 Source35: bind.tmpfiles.d
-Source36: trusted-key.key
 Source37: named.service
 Source38: named-chroot.service
 Source41: setup-named-chroot.sh
@@ -93,14 +90,13 @@ Patch3: bind-9.21-unittest-isc_rwlock-s390x.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
-Patch5: bind-9.21-dual-sign-continue.patch
-Patch6: bind-9.21-dual-sign-continue-test.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
 Requires(post): shadow-utils
 Requires(post): glibc-common
 Requires(post): grep
+Requires:       dns-root-data
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:     %{name}-utils %{name}-dnssec-utils
 %upname_compat %{upname}
@@ -111,7 +107,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  libtool
-BuildRequires:  meson
+BuildRequires:  meson >= 1.3.0
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 BuildRequires:  libcap-devel
@@ -124,11 +120,14 @@ BuildRequires:  sed
 BuildRequires:  libnghttp2-devel
 BuildRequires:  userspace-rcu-devel
 BuildRequires:  pkgconfig(libedit)
+BuildRequires:  dns-root-data
 # Compress the changelog
 BuildRequires:  gzip
-%if 0%{?fedora}
+%if %{with JEMALLOC}
 BuildRequires:  jemalloc-devel
-BuildRequires:  gnupg2
+%endif
+%if ! 0%{?rhel}
+BuildRequires:  gpgverify
 %endif
 BuildRequires:  libuv-devel
 %if %{with OPENSSL_ENGINE}
@@ -151,6 +150,8 @@ BuildRequires:  softhsm
 BuildRequires:  perl(Net::DNS) perl(Net::DNS::Nameserver) perl(Time::HiRes) perl(Getopt::Long)
 BuildRequires:  perl(English)
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-xdist
+BuildRequires:  python3-dns
 # manual configuration requires this tool
 BuildRequires:  iproute
 BuildRequires:  python3-jinja2
@@ -303,8 +304,8 @@ in HTML and PDF format.
 %endif
 
 %prep
-%if 0%{?fedora}
-# RHEL does not yet support this verification
+%if ! 0%{?rhel} || 0%{?rhel} > 10
+# RHEL does not (again?) support this verification
 %{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %endif
 %autosetup -n %{upname}-%{version} -p1
@@ -347,6 +348,10 @@ export STD_CDEFINES="$CPPFLAGS"
 #'s/([bind_VERSION_EXTRA],\s*\([^)]*\))/([bind_VERSION_EXTRA], \1-RH)/' \
 #configure.ac
 
+install -p -m 0755 %{SOURCE27} ./named-mkroot.sh # create named.root.key
+./named-mkroot.sh
+[ -f named.root.key ]
+
 
 LIBDIR_SUFFIX=
 export LIBDIR_SUFFIX
@@ -381,6 +386,9 @@ export LIBDIR_SUFFIX
 %if %{with DOC}
   -Ddoc=enabled \
 %endif
+%if %{without JEMALLOC}
+  -Djemalloc=disabled \
+%endif
 ;
 %if %{with DNSTAP}
   pushd lib
@@ -393,6 +401,9 @@ export LIBDIR_SUFFIX
 
 %if %{with DOC}
   %meson_build man arm arm-epub
+%endif
+%if %{with SYSTEMTEST}
+  %meson_build system-test-dependencies
 %endif
 
 # Compress changelog by default
@@ -410,6 +421,10 @@ gzip doc/changelog/changelog-*.rst
 %if %{with TSAN}
 export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
 %endif
+
+# We produce it runtime. Check it has valid syntax.
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${RPM_BUILD_ROOT}%{_libdir}" \
+  ${RPM_BUILD_ROOT}%{_bindir}/named-checkconf ${RPM_BUILD_ROOT}%{_sysconfdir}/named.root.key
 
 %if %{with UNITTEST}
   CPUS=$(lscpu -p=cpu,core | grep -v '^#' | wc -l)
@@ -460,18 +475,23 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
 
   if [ -n "$CONFIGURED" ]
   then
-    set -e
-    pushd bin/tests
+    pushd bin/tests/system
     export CI_SYSTEM=yes # allow running tests as root
     chown -R ${USER} . # Can be unknown user
-    %meson_build test 2>&1 | tee test.log
-    e=$?
+    e=0
+    pytest -n ${THREADS} --capture=tee-sys || e=$?
     [ "$CONFIGURED" = build ] && $SUDO sh ./ifconfig.sh down
-    popd
     if [ "$e" -ne 0 ]; then
-      echo "ERROR: this build of BIND failed 'make test'. Aborting."
+      echo "ERROR: failed running 'pytest' in system tests. Aborting."
+      ls -1 "$(pwd)"/*_tmp_*
+      for TMPTEST in *_tmp_*
+      do
+        echo "# $TMPTEST"
+        cat $TMPTEST/pytest.log.txt
+      done
       exit $e;
     fi;
+    popd
   else
     echo 'SKIPPED: tests require root, CAP_NET_ADMIN or already configured test addresses.'
   fi
@@ -576,13 +596,13 @@ touch ${RPM_BUILD_ROOT}%{_localstatedir}/log/named.log
 # configuration files:
 install -m 640 %{SOURCE16} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.conf
 touch ${RPM_BUILD_ROOT}%{_sysconfdir}/rndc.{key,conf}
-install -m 644 %{SOURCE27} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.root.key
-install -m 644 %{SOURCE36} ${RPM_BUILD_ROOT}%{_sysconfdir}/trusted-key.key
+install -m 644 -p named.root.key ${RPM_BUILD_ROOT}%{_sysconfdir}/named.root.key
+ln -s "%{_datadir}/dns-root-data/root.key" ${RPM_BUILD_ROOT}%{_sysconfdir}/trusted-key.key
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/named
 
 # data files:
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/named
-install -m 640 %{SOURCE17} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.ca
+ln -s "%{_datadir}/dns-root-data/root.hints" ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.ca
 install -m 640 %{SOURCE18} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.localhost
 install -m 640 %{SOURCE19} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.loopback
 install -m 640 %{SOURCE20} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.empty
@@ -595,7 +615,7 @@ install -m 644 %{SOURCE25} sample/etc/named.conf
 install -m 644 %{SOURCE16} named.conf.default
 install -m 644 %{SOURCE23} sample/etc/named.rfc1912.zones
 install -m 644 %{SOURCE18} %{SOURCE19} %{SOURCE20}  sample/var/named
-install -m 644 %{SOURCE17} sample/var/named/named.ca
+ln -s "%{_datadir}/dns-root-data/root.hints" sample/var/named/named.ca
 for f in my.internal.zone.db slaves/my.slave.internal.zone.db slaves/my.ddns.internal.zone.db my.external.zone.db; do 
   echo '@ in soa localhost. root 1 3H 15M 1W 1D
   ns localhost.' > sample/var/named/$f; 

@@ -15,6 +15,7 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject-base
+BuildRequires:  gi-docgen
 
 %description
 libgexiv2 is a GObject-based wrapper around the Exiv2 library. 

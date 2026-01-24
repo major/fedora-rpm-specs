@@ -1,8 +1,11 @@
+%bcond_without tests
+
 %global forgeurl https://github.com/sharkwouter/minigalaxy
 %global tag %{version}
+%global uuid io.github.sharkwouter.Minigalaxy
 
 Name:           minigalaxy
-Version:        1.4.0
+Version:        1.4.1
 %forgemeta
 Release:        %autorelease
 Summary:        Simple GOG client for Linux
@@ -17,13 +20,19 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
-BuildRequires:  python3-gobject-devel >= 3.30
-BuildRequires:  python3-setuptools
-
-BuildRequires:  python3dist(requests)
+%if %{with tests}
+BuildRequires:  gdk-pixbuf2-xlib
+BuildRequires:  gobject-introspection
+BuildRequires:  gtk3
+BuildRequires:  libnotify
+BuildRequires:  libX11
+BuildRequires:  python3dist(coverage)
+BuildRequires:  python3dist(flake8)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(simplejson)
+%endif
 
 Requires:       hicolor-icon-theme
-Requires:       python3-requests
 Requires:       unzip
 Requires:       webkit2gtk4.1
 
@@ -38,38 +47,45 @@ Recommends:     wine-dxvk
 Suggests:       scummvm
 
 %description
-A simple GOG client for Linux.
+%{summary}.
 
 
 %prep
-%forgeautosetup -p1
+%forgeautosetup
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
-# Dirty: remove test files for quick update current ver
-rm -rf %{buildroot}%{python3_sitelib}/tests/
+%pyproject_install
+%pyproject_save_files %{name}
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{uuid}.metainfo.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
+%if %{with tests}
+# Tests requires to run in X11 environment
+%pyproject_check_import -e '*.ui.*' -e '*.ui' -e '*.css'
+%pytest \
+    --ignore=tests/test_ui_library.py \
+    --ignore=tests/test_ui_window.py \
+    %{nil}
+%endif
 
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE THIRD-PARTY-LICENSES.md
 %doc README.md CHANGELOG.md
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.png
-%{_metainfodir}/*.xml
-%{python3_sitelib}/%{name}-*.egg-info/
-%{python3_sitelib}/%{name}/
+%{_metainfodir}/%{uuid}.metainfo.xml
 
 
 %changelog

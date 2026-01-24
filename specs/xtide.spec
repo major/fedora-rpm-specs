@@ -1,8 +1,8 @@
-%define          mainver   2.15.6
+%define          mainver   2.16
 #%%define          betatag   dev-20160114
 %define          dwfdate   20251228
 
-%define          baserelease 5
+%define          baserelease 1
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -42,6 +42,7 @@ License:         GPL-3.0-or-later
 BuildRequires:   make
 BuildRequires:   gcc-c++
 BuildRequires:   libXaw-devel
+BuildRequires:   Xaw3d-devel
 BuildRequires:   libXext-devel
 BuildRequires:   libpng-devel
 BuildRequires:   zlib-devel
@@ -149,12 +150,12 @@ EOF
 sed -i scripts/systemd/xttpd.service.in \
 	-e 's|^EnvironmentFile=.*$|EnvironmentFile=-%{_sysconfdir}/sysconfig/xttpd.service.conf|'
 
-autoreconf -i
-
 # Dstr -> Dstr.h
 grep -rl 'include.*<Dstr>' . | while read f ; do
 	sed -i.name -e 's|\(include.*\)<Dstr>|\1<Dstr.h>|' $f
 done
+
+autoreconf -i
 
 # Embed version
 sed -i.ver \
@@ -332,7 +333,7 @@ exit 0
 %{_datadir}/%{name}-harmonics/*.tcd
 
 %files -n libxtide
-%{_libdir}/libxtide.so.1{,.*}
+%{_libdir}/libxtide.so.2{,.*}
 
 %files -n libxtide-devel
 %{_libdir}/libxtide.so
@@ -365,6 +366,13 @@ exit 0
 %endif
 
 %changelog
+* Thu Jan 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.16-1
+- 2.16
+
+* Thu Jan 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.6-6
+- Use Xaw3d
+- Use system libdstr correctly
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

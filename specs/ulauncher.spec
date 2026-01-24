@@ -1,7 +1,7 @@
 Name:           ulauncher
 Version:        5.15.15
 Release:        %{autorelease}
-Summary:        Linux Application Launcher
+Summary:        Feature rich application Launcher for Linux
 BuildArch:      noarch
 
 License:        GPL-3.0-or-later
@@ -24,7 +24,6 @@ BuildRequires:  python3-websocket-client
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3dist(requests)
 BuildRequires:  pkgconfig(gtk+-3.0)
-
 Requires:       hicolor-icon-theme
 Requires:       keybinder3
 Requires:       webkit2gtk4.1
@@ -36,12 +35,12 @@ Requires:       python3-Levenshtein
 Requires:       python3-pyxdg
 Requires:       python3-websocket-client
 Requires:       wmctrl
-
 Recommends:     libappindicator-gtk3
 
 %description
-Ulauncher is a fast application launcher for Linux. It's is written in Python,
-using GTK+.
+Ulauncher is a fast application launcher for Linux. It's written in Python using
+GTK+, and features: App Search (fuzzy matching), Calculator, Extensions,
+Shortcuts, File browser mode and Custom Color Themes.
 
 
 %prep

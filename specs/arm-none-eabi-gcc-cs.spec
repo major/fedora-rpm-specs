@@ -10,7 +10,7 @@
 Name:           %{target}-gcc-cs
 Epoch:          1
 Version:        15.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
@@ -18,6 +18,7 @@ Source0:        http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 
 Source1:        README.fedora
 Source2:        bootstrapexplain
+Patch1:         gcc-15.2.0-ftbfs01.patch
 
 #BuildRequires:	autoconf = 2.69
 BuildRequires:  gcc-c++
@@ -56,6 +57,7 @@ pushd gcc-%{gcc_ver}/libiberty
 #autoconf -f
 popd
 pushd gcc-%{gcc_ver}
+%patch -P 1 -p3 -b .ftbfs01
 
 contrib/gcc_update --touch
 popd
@@ -287,6 +289,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 22 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:15.2.0-4
+- fix FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:15.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

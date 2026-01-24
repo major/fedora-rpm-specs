@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}
+Release:        2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1965,6 +1965,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 22 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-2
+- Rebuild against Samba 4.24.0-RC1
+
 * Fri Jan 16 2026 Rob Crittenden <rcritten@redhat.com> - 4.13.1-0.1
 - Upstream release 4.13.1
 - Release notes: https://www.freeipa.org/release-notes/4-13-1.html

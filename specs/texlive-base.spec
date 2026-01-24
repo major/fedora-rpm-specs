@@ -1,8 +1,8 @@
 %global shortname texlive
-%global source_date 20230311
-%global source_svn svn66984
-# %%global source_name texlive-%%{source_date}-source
-%global source_name texlive-source-build-%{source_svn}
+%global source_date 20250308
+# %%global source_svn svn66984
+%global source_name texlive-%%{source_date}-source
+# %%global source_name texlive-source-build-%{source_svn}
 %{!?_texdir: %global _texdir %{_datadir}/%{shortname}}
 %{!?_texmf_var: %global _texmf_var %{_var}/lib/texmf}
 
@@ -25,88 +25,86 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 95%{?dist}
-Epoch: 11
+Release: 99%{?dist}
+Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
 # So we'll just list the license texts. This is also a bit of a lie, since most of these license texts do not apply to themselves.
 License: Apache-2.0 AND Artistic-2.0 AND BSD-3-Clause AND GFDL-1.1-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND Knuth-CTAN AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LPPL-1.3a AND LPPL-1.3c AND MIT AND OFL-1.1 AND LicenseRef-Fedora-Public-Domain
 URL: http://tug.org/texlive/
-# Source0: https://ctan.math.illinois.edu/systems/texlive/Source/%%{source_name}.tar.xz
-# Using a specific tag to fix the LuaTeX CVE-2023-32700
-Source0: https://github.com/TeX-Live/texlive-source/archive/refs/tags/build-%{source_svn}.tar.gz
-
+Source0: https://ctan.math.illinois.edu/systems/texlive/Source/%{source_name}.tar.xz
 Source1: macros.texlive
 Source2: http://tug.ctan.org/systems/texlive/tlnet/tlpkg/texlive.tlpdb
 Source3: texlive-licenses.tar.xz
 Source4: generate-fmtutilcnf
 # These noarch components are packed wrong upstream (do not unpack into texmf-dist)
-Source5: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic.tar.xz
-Source6: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic.doc.tar.xz
-Source7: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/glyphlist.tar.xz
-Source8: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex.tar.xz
-Source9: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex.doc.tar.xz
-Source10: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lyluatex.tar.xz
-Source11: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lyluatex.doc.tar.xz
-Source12: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oberdiek.tar.xz
-Source13: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oberdiek.doc.tar.xz
-Source14: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-en.doc.tar.xz
+Source5: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cslatex.tar.xz
+Source6: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic.tar.xz
+Source7: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cyrillic.doc.tar.xz
+Source8: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/glyphlist.tar.xz
+Source9: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex.tar.xz
+Source10: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/latex.doc.tar.xz
+Source11: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lyluatex.tar.xz
+Source12: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/lyluatex.doc.tar.xz
+Source13: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oberdiek.tar.xz
+Source14: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/oberdiek.doc.tar.xz
+Source15: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlive-en.doc.tar.xz
+
 # These are the noarch components for the built binaries.
-Source15: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/a2ping.doc.tar.xz
-Source16: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/a2ping.tar.xz
-Source17: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/accfonts.doc.tar.xz
-Source18: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/accfonts.tar.xz
-Source19: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/adhocfilelist.doc.tar.xz
-Source20: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/adhocfilelist.tar.xz
-Source21: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/afm2pl.tar.xz
-Source22: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aleph.doc.tar.xz
-Source23: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aleph.tar.xz
-Source24: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/amstex.doc.tar.xz
-Source25: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/amstex.tar.xz
-Source26: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/arara.doc.tar.xz
-Source27: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/arara.tar.xz
-Source28: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/attachfile2.doc.tar.xz
-Source29: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/attachfile2.tar.xz
-Source30: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/authorindex.doc.tar.xz
-Source31: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/authorindex.tar.xz
-Source32: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/autosp.doc.tar.xz
-Source33: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/axodraw2.doc.tar.xz
-Source34: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/axodraw2.tar.xz
-Source35: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bib2gls.doc.tar.xz
-Source36: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bib2gls.tar.xz
-Source37: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibexport.doc.tar.xz
-Source38: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibexport.tar.xz
-Source39: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex8.doc.tar.xz
-Source40: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex8.tar.xz
-Source41: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex.doc.tar.xz
-Source42: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex.tar.xz
-Source43: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexu.doc.tar.xz
-Source44: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bundledoc.doc.tar.xz
-Source45: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bundledoc.tar.xz
-Source46: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cachepic.doc.tar.xz
-Source47: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cachepic.tar.xz
-Source48: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checkcites.doc.tar.xz
-Source49: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checkcites.tar.xz
-Source50: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checklistings.doc.tar.xz
-Source51: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checklistings.tar.xz
-Source52: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chklref.doc.tar.xz
-Source53: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chklref.tar.xz
-Source54: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chktex.doc.tar.xz
-Source55: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chktex.tar.xz
-Source56: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjk-gs-integrate.doc.tar.xz
-Source57: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjk-gs-integrate.tar.xz
-Source58: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjkutils.tar.xz
-Source59: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/clojure-pamphlet.doc.tar.xz
-Source60: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/clojure-pamphlet.tar.xz
-Source61: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cluttex.doc.tar.xz
-Source62: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cluttex.tar.xz
-Source63: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context.doc.tar.xz
-Source64: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context.tar.xz
-Source65: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/convbkmk.doc.tar.xz
-Source66: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/convbkmk.tar.xz
-Source67: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossrefware.doc.tar.xz
-Source68: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossrefware.tar.xz
-Source69: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cslatex.tar.xz
+Source16: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/a2ping.doc.tar.xz
+Source17: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/a2ping.tar.xz
+Source18: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/accfonts.doc.tar.xz
+Source19: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/accfonts.tar.xz
+Source20: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/adhocfilelist.doc.tar.xz
+Source21: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/adhocfilelist.tar.xz
+Source22: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/afm2pl.tar.xz
+Source23: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aleph.doc.tar.xz
+Source24: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aleph.tar.xz
+Source25: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/amstex.doc.tar.xz
+Source26: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/amstex.tar.xz
+Source27: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/arara.doc.tar.xz
+Source28: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/arara.tar.xz
+Source29: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/attachfile2.doc.tar.xz
+Source30: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/attachfile2.tar.xz
+Source31: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/authorindex.doc.tar.xz
+Source32: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/authorindex.tar.xz
+Source33: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/autosp.doc.tar.xz
+Source34: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/axodraw2.doc.tar.xz
+Source35: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/axodraw2.tar.xz
+Source36: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bib2gls.doc.tar.xz
+Source37: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bib2gls.tar.xz
+Source38: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibexport.doc.tar.xz
+Source39: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibexport.tar.xz
+Source40: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex8.doc.tar.xz
+Source41: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex8.tar.xz
+Source42: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex.doc.tar.xz
+Source43: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtex.tar.xz
+Source44: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexu.doc.tar.xz
+Source45: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bundledoc.doc.tar.xz
+Source46: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bundledoc.tar.xz
+Source47: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cachepic.doc.tar.xz
+Source48: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cachepic.tar.xz
+Source49: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checkcites.doc.tar.xz
+Source50: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checkcites.tar.xz
+Source51: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checklistings.doc.tar.xz
+Source52: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/checklistings.tar.xz
+Source53: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chklref.doc.tar.xz
+Source54: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chklref.tar.xz
+Source55: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chktex.doc.tar.xz
+Source56: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/chktex.tar.xz
+Source57: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjk-gs-integrate.doc.tar.xz
+Source58: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjk-gs-integrate.tar.xz
+Source59: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cjkutils.tar.xz
+Source60: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/clojure-pamphlet.doc.tar.xz
+Source61: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/clojure-pamphlet.tar.xz
+Source62: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cluttex.doc.tar.xz
+Source63: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/cluttex.tar.xz
+Source64: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context.doc.tar.xz
+Source65: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context.tar.xz
+Source66: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/convbkmk.doc.tar.xz
+Source67: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/convbkmk.tar.xz
+Source68: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossrefware.doc.tar.xz
+Source69: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/crossrefware.tar.xz
 Source70: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/csplain.tar.xz
 Source71: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctanbib.doc.tar.xz
 Source72: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ctanbib.tar.xz
@@ -466,6 +464,45 @@ Source422: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccen
 Source423: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.doc.tar.xz
 Source424: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upmendex.doc.tar.xz
 Source425: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.source.tar.xz
+# 2025
+Source426: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aomart.tar.xz
+Source427: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aomart.doc.tar.xz
+# We don't unpack this because we have the perl files from separate packaging
+# SourceNNN: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexperllibs.tar.xz
+Source428: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexperllibs.doc.tar.xz
+Source429: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookshelf.tar.xz
+Source430: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookshelf.doc.tar.xz
+Source431: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context-legacy.tar.xz
+Source432: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context-legacy.doc.tar.xz
+Source433: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/easydtx.tar.xz
+Source434: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/easydtx.doc.tar.xz
+Source435: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eolang.tar.xz
+Source436: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eolang.doc.tar.xz
+Source437: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/expltools.tar.xz
+Source438: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/expltools.doc.tar.xz
+Source439: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/extractbb.tar.xz
+Source440: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/extractbb.doc.tar.xz
+Source441: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/l3sys-query.tar.xz
+Source442: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/l3sys-query.doc.tar.xz
+Source443: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/markdown.tar.xz
+Source444: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/markdown.doc.tar.xz
+Source445: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/memoize.tar.xz
+Source446: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/memoize.doc.tar.xz
+Source447: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minted.tar.xz
+Source448: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minted.doc.tar.xz
+Source449: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ppmcheckpdf.tar.xz
+Source450: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ppmcheckpdf.doc.tar.xz
+Source451: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexshebang.tar.xz
+Source452: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexshebang.doc.tar.xz
+Source453: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sqltex.tar.xz
+Source454: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sqltex.doc.tar.xz
+Source455: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texblend.tar.xz
+Source456: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texblend.doc.tar.xz
+Source457: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.tar.xz
+Source458: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.doc.tar.xz
+Source459: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.tar.xz
+Source460: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.doc.tar.xz
+
 
 Patch1: tl-kpfix.patch
 Patch2: tl-format.patch
@@ -473,7 +510,7 @@ Patch5: texlive-2016-kpathsea-texlive-path.patch
 # fixes from arch and upstream texlive
 Patch7: texlive-20210325-new-poppler.patch
 # fix texmf.cnf so that it finds texinfo bits in Fedora
-Patch8: texlive-20230311-texinfo-path-fix.patch
+Patch8: texlive-20250308-texinfo-path-fix.patch
 # These tests only fail on 32 bit arches with gcc8
 Patch11: texlive-20220321-disable-more-failing-tests.patch
 # Another test which fails on 32 bit arches (in F30+)
@@ -497,9 +534,6 @@ Patch30: texlive-base-20220321-out-of-memory.patch
 # Fix configure to properly detect poppler
 Patch31: texlive-base-20210325-configure-poppler-xpdf-fix.patch
 
-# Just remove obsolete decRefCnt check from configure, valid in either case.
-Patch32: texlive-base-20220321-xpdf-no-GfxFont-decRefCnt.patch
-
 # Remove deprecated setpdfwrite ghostscript call
 # Patch33: texlive-base-20210325-no-setpdfwrite.patch
 
@@ -518,19 +552,13 @@ Patch37: texlive-base-libpaperv2.patch
 Patch44: texlive-base-20220321-pdf-header-order-fix.patch
 
 # Fix texmfcnf.lua for Fedora layout (thanks to Preining Norbert)
-Patch45: texlive-fedora-texmfcnf.lua.patch
+Patch45: texlive-2025-fedora-texmfcnf.lua.patch
 
 # Fix interpreter on perl scripts (thanks again to Debian)
 Patch46: texlive-base-20230311-fix-scripts.patch
 
-# Fix bundling option with perl-5.40.x
-Patch47: texdef-perl-option-5.40.x.patch
-
-# fix build error with gcc-14
-Patch48: texlive-base-20230311-typefixes.patch
-
-# fix buid error with gcc-15
-Patch49: texlive-2023-gcc15-ftbfs.patch
+# fix build error with gcc-15
+Patch49: texlive-base-2025-gcc15-ftbfs.patch
 
 # fix errors with python-3.1x
 Patch50: texlive-pythontex3-python-3.1x.patch
@@ -587,6 +615,169 @@ Obsoletes: texlive-cjk-gs-integrate-bin <= 7:20170520
 Obsoletes: tex-cjk-gs-integrate-bin <= 7:20170520
 Provides: texlive-cjk-gs-integrate-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cjk-gs-integrate-doc <= 7:20170520
+# Removed between TL2023 and TL2025
+Provides: texlive-ms = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-ms <= 11:svn57473
+Provides: texlive-ms-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-ms-doc <= 11:svn57473
+# All of these context components got marked as obsolete upstream and removed from TL
+Provides: texlive-context-account = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-account-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-account <= 11:svn47085
+Obsoletes: texlive-context-account-doc <= 11:svn47085
+Provides: texlive-context-algorithmic = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-algorithmic <= 11:svn47085
+Provides: texlive-context-annotation = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-annotation-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-annotation <= 11:svn47085
+Obsoletes: texlive-context-annotation-doc <= 11:svn47085
+Provides: texlive-context-bnf = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-bnf-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-bnf <= 11:svn47085
+Obsoletes: texlive-context-bnf-doc <= 11:svn47085
+Provides: texlive-context-chromato = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-chromato-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-chromato <= 11:svn47085
+Obsoletes: texlive-context-chromato-doc <= 11:svn47085
+Provides: texlive-context-cmscbf = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-cmscbf <= 11:svn47085
+Provides: texlive-context-cmttbf = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-cmttbf <= 11:svn47085
+Provides: texlive-context-construction-plan = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-construction-plan-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-construction-plan <= 11:svn47085
+Obsoletes: texlive-context-construction-plan-doc <= 11:svn47085
+Provides: texlive-context-degrade = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-degrade-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-degrade <= 11:svn47085
+Obsoletes: texlive-context-degrade-doc <= 11:svn47085
+Provides: texlive-context-fancybreak = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-fancybreak-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-fancybreak <= 11:svn47085
+Obsoletes: texlive-context-fancybreak-doc <= 11:svn47085
+Provides: texlive-context-french = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-french-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-french <= 11:svn54215
+Obsoletes: texlive-context-french-doc <= 11:svn54215
+Provides: texlive-context-fullpage = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-fullpage-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-fullpage <= 11:svn47085
+Obsoletes: texlive-context-fullpage-doc <= 11:svn47085
+Provides: texlive-context-gantt = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-gantt-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-gantt <= 11:svn47085
+Obsoletes: texlive-context-gantt-doc <= 11:svn47085
+Provides: texlive-context-inifile = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-inifile <= 11:svn47085
+Provides: texlive-context-layout = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-layout <= 11:svn47085
+Provides: texlive-context-lettrine = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-lettrine-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-lettrine <= 11:svn47085
+Obsoletes: texlive-context-lettrine-doc <= 11:svn47085
+Provides: texlive-context-rst = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-rst-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-rst <= 11:svn47085
+Obsoletes: texlive-context-rst-doc <= 11:svn47085
+Provides: texlive-context-ruby = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-ruby-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-ruby <= 11:svn47085
+Obsoletes: texlive-context-ruby-doc <= 11:svn47085
+Provides: texlive-context-simplefonts = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-simplefonts-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-simplefonts <= 11:svn47085
+Obsoletes: texlive-context-simplefonts-doc <= 11:svn47085
+Provides: texlive-context-title = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-title-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-title <= 11:svn47085
+Obsoletes: texlive-context-title-doc <= 11:svn47085
+Provides: texlive-context-typearea = %{epoch}:%{source_date}-%{release}
+Provides: texlive-context-typearea-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-context-typearea <= 11:svn47085
+Obsoletes: texlive-context-typearea-doc <= 11:svn47085
+# collection-texworks is windows only and we don't package it anymore
+Provides: texlive-collection-texworks = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-collection-texworks <= 11:20230311
+# These components are under non-free licenses and should not have been packaged before
+# (whoops)
+Provides: texlive-aalok = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-aalok <= 11:svn61719
+Provides: texlive-axessibility = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-axessibility <= 11:svn57105
+Provides: texlive-chhaya = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-chhaya <= 11:svn61719
+Provides: texlive-gentle = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-gentle <= 11:svn15878.0
+Provides: texlive-gentle-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-gentle-doc <= 11:svn15878.0
+Provides: texlive-hep = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-hep <= 11:svn15878.1.0
+Provides: texlive-hep-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-hep-doc <= 11:svn15878.1.0
+Provides: texlive-marathi = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-marathi <= 11:svn61719
+# These components were empty and we've stopped packaging them
+Provides: texlive-gustprog-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-gustprog-doc <= 11:svn54074
+Provides: texlive-metatype1 = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-metatype1 <= 11:svn37105
+# We do not currently package "dev" binaries because
+# managing them is a headache and can break user expectations.
+# If you really know what you're doing, this should be straightforward
+# to shove in by hand.
+Provides: texlive-latex-bin-dev = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-latex-bin-dev <= 11:svn66186
+Provides: texlive-xelatex-dev = %{epoch}:%{source_date}-%{release}
+# Not marked as obsolete upstream, but not pulled in by anything anymore
+Provides: texlive-luaintro-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-luaintro-doc <= 11:svn35490.0.03
+# These components are obsolete and removed from TL
+Provides: texlive-afparticle = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-afparticle <= 11:svn35900.1.3
+Provides: texlive-afparticle-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-afparticle-doc <= 11:svn35900.1.3
+Provides: texlive-babel-bahasa = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-babel-bahasa <= 11:svn30255.1.0l.metapackage
+Provides: texlive-babel-bahasa-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-babel-bahasa-doc <= 11:svn30255.1.0l.metapackage
+Provides: texlive-baskervald = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-baskervald <= 11:svn19490.1.016
+Provides: texlive-baskervald-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-baskervald-doc <= 11:svn19490.1.016
+Provides: texlive-electrum = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-electrum <= 11:svn19705.1.005_b
+Provides: texlive-electrum-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-electrum-doc <= 11:svn19705.1.005_b
+Provides: texlive-gentium-tug = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-gentium-tug <= 11:svn63470
+Provides: texlive-gentium-tug-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-gentium-tug-doc <= 11:svn63470
+Provides: texlive-iwhdp = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-iwhdp <= 11:svn37552.0.50
+Provides: texlive-iwhdp-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-iwhdp-doc <= 11:svn37552.0.50
+Provides: texlive-lualatex-doc-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-lualatex-doc-doc <= 11:svn30473.0
+Provides: texlive-mendex-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-mendex-doc <= 11:svn15878.1.5
+Provides: texlive-padauk = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-padauk <= 11:svn42617
+Provides: texlive-penrose = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-penrose <= 11:svn57508
+Provides: texlive-romande = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-romande <= 11:svn19537.1.008_v7_sc
+Provides: texlive-romande-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-romande-doc <= 11:svn19537.1.008_v7_sc
+Provides: texlive-substitutefont = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-substitutefont <= 11:svn32066.0.1.4
+Provides: texlive-substitutefont-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-substitutefont-doc <= 11:svn32066.0.1.4
+Provides: texlive-tex-refs-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-tex-refs-doc <= 11:svn57349
+Provides: texlive-xmltexconfig = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-xmltexconfig <= 11:svn45845
+Provides: texlive-xput = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-xput <= 11:svn65325
 
 %description
 The TeX Live software distribution offers a complete TeX system for a
@@ -639,9 +830,9 @@ Summary: Utilities to derive new fonts from existing ones
 Requires: texlive-base
 Requires: texlive-kpathsea
 Provides: tex(CSX.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(IndUni_Omega.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ISO-Latin1.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ISO-Latin2.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(IndUni_Omega.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(Norman.def) = %{epoch}:%{source_date}-%{release}
 BuildArch: noarch
 
@@ -685,7 +876,7 @@ package was developed on a Unix-like system, using (among other
 things) the gnu variant of the find command.
 
 %package -n %{shortname}-afm2pl
-Version: svn66186
+Version: svn71515
 Provides: texlive-afm2pl = %{epoch}:%{source_date}-%{release}
 Provides: tex-afm2pl = %{epoch}:%{source_date}-%{release}
 Provides: texlive-afm2pl-bin = %{epoch}:%{source_date}-%{release}
@@ -711,7 +902,7 @@ turn can be converted to a tfm file, with preservation of kerns and ligatures
 way).
 
 %package -n %{shortname}-albatross
-Version: svn65647
+Version: svn73436
 Provides: texlive-albatross = %{epoch}:%{source_date}-%{release}
 Summary: Find fonts that contain a given glyph
 License: BSD-3-Clause
@@ -722,7 +913,7 @@ This is a command line tool for finding fonts that contain a
 given (Unicode) glyph. It relies on Fontconfig.
 
 %package -n %{shortname}-aleph
-Version: svn66203
+Version: svn73850
 Provides: texlive-aleph = %{epoch}:%{source_date}-%{release}
 Provides: tex-aleph = %{epoch}:%{source_date}-%{release}
 Provides: texlive-aleph-bin = %{epoch}:%{source_date}-%{release}
@@ -754,7 +945,7 @@ An development of omega, using most of the extensions of TeX
 itself developed for e-TeX.
 
 %package -n %{shortname}-amstex
-Version: svn66186
+Version: svn73848
 Provides: texlive-amstex = %{epoch}:%{source_date}-%{release}
 Provides: tex-amstex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-amstex-bin = %{epoch}:%{source_date}-%{release}
@@ -783,16 +974,41 @@ Provides: tex(amstex.ini) = %{epoch}:%{source_date}-%{release}
 BuildArch: noarch
 
 %description -n %{shortname}-amstex
-AMSTeX is a TeX macro package, originally written by Michael
-Spivak for the American Mathematical Society (AMS) during 1983-
-1985 and is described in the book 'The Joy of TeX'. It is based
-on Plain TeX, and provides many features for producing more
-professional-looking maths formulas with less burden on
-authors. More recently, the focus of attention has switched to
-amslatex, but AMSTeX remains as a working system.
+AMS-TeX is a TeX macro package, originally written by Michael
+Spivak for the American Mathematical Society (AMS) during
+1983-1985 and is described in the book 'The Joy of TeX'. It is
+based on Plain TeX, and provides many features for producing
+more professional-looking maths formulas with less burden on
+authors. This is the final archival distribution of AMS-TeX.
+AMS-TeX is no longer supported by the AMS, nor is it used by
+the AMS publishing program. The AMS does not recommend creating
+any new documents using AMS-TeX; this distribution will be left
+on CTAN to facilitate processing of legacy documents and as a
+historical record of a pioneering TeX macro collection that
+played a key role in popularizing TeX and revolutionizing
+mathematics publishing. In addition to the "User's Guide to
+AMS-TeX", the AMS has also made the full text of the most
+recent reprint of the second edition of "The Joy of TeX" by
+Michael Spivak available as a pdf file. AMS-TeX is the
+historical basis of amslatex, which should now be used to
+prepare submissions for the AMS.
+
+%package -n %{shortname}-aomart
+Version: svn75192
+Provides: tex-aomart = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Typeset articles for the Annals of Mathematics
+Requires: texlive-base
+Requires: texlive-kpathsea
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-aomart
+The package provides a class for typesetting articles for The
+Annals of Mathematics.
 
 %package -n %{shortname}-arara
-Version: svn63760
+Version: svn71205
 Provides: texlive-arara = %{epoch}:%{source_date}-%{release}
 Provides: tex-arara = %{epoch}:%{source_date}-%{release}
 Provides: texlive-arara-bin = %{epoch}:%{source_date}-%{release}
@@ -823,9 +1039,10 @@ Arara is comparable with other well-known compilation tools
 like latexmk and rubber. The key difference is that that arara
 determines its actions from metadata in the source code, rather
 than relying on indirect resources, such as log file analysis.
+Arara requires a Java virtual machine.
 
 %package -n %{shortname}-attachfile2
-Version: svn57959
+Version: svn69505
 Provides: texlive-attachfile2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-attachfile2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-attachfile2-bin = %{epoch}:%{source_date}-%{release}
@@ -844,6 +1061,10 @@ Requires: tex(kvoptions.sty)
 Requires: tex(ltxcmds.sty)
 Requires: tex(pdfescape.sty)
 Requires: tex(pdftexcmds.sty)
+Provides: tex(atfi-dvipdfmx.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-dvips.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-luatex.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(atfi-pdftex.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(attachfile2.sty) = %{epoch}:%{source_date}-%{release}
 # perl
 BuildArch: noarch
@@ -883,7 +1104,7 @@ on BibTeX being used to handle citations. Additionally, it
 requires Perl (version 5 or higher).
 
 %package -n %{shortname}-autosp
-Version: svn58211
+Version: svn69814
 Provides: texlive-autosp = %{epoch}:%{source_date}-%{release}
 Provides: tex-autosp = %{epoch}:%{source_date}-%{release}
 Provides: texlive-autosp-bin = %{epoch}:%{source_date}-%{release}
@@ -908,7 +1129,7 @@ other parts. For example, \anotes\qa J\qa K&\ca l\qa m\ca n\en
 generates \Notes\qa J\sk\qa K\sk&\ca l\qa m\sk\ca n\en .
 
 %package -n %{shortname}-axodraw2
-Version: svn58155
+Version: svn74430
 Provides: texlive-axodraw2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-axodraw2 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-axodraw2-bin = %{epoch}:%{source_date}-%{release}
@@ -938,7 +1159,7 @@ file. The processing involves a run of pdfLaTeX, a run of
 axohelp, and then another run of pdfLaTeX.
 
 %package -n %{shortname}-bib2gls
-Version: svn65104
+Version: svn75219
 Provides: texlive-bib2gls = %{epoch}:%{source_date}-%{release}
 Provides: tex-bib2gls = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bib2gls-bin = %{epoch}:%{source_date}-%{release}
@@ -967,7 +1188,7 @@ format required by bib2gls.
 
 %package -n %{shortname}-bibcop
 Summary: Style checker for .bib files
-Version: svn65816
+Version: svn75042
 License: MIT
 Requires: texlive-base texlive-kpathsea
 Requires: tex(iexec.sty)
@@ -1007,7 +1228,7 @@ BibTeX file, expanding the abbreviations (other than the built-
 in ones like month names) and followig the cross-references.
 
 %package -n %{shortname}-bibtex
-Version: svn66186
+Version: svn73848
 Provides: texlive-bibtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex-bin = %{epoch}:%{source_date}-%{release}
@@ -1035,6 +1256,30 @@ ICU library. The older alternative bibtex8 supports 8-bit
 character sets. Another Unicode-aware alternative is the
 (independently developed) biber program, used with the BibLaTeX
 package to typeset its output.
+
+# this package doesn't have anything in it really, just man1 pages
+# but it pulls in other perl packages that match what would be in it
+%package -n %{shortname}-bibtexperllibs
+Version: svn72184
+Provides: tex-bibtexperllibs = %{epoch}:%{source_date}-%{release}
+License: GPL-1.0-or-later OR Artistic-1.0-Perl
+Summary: BibTeX Perl Libraries
+Requires: texlive-base
+Requires: texlive-kpathsea
+# So... we've got these modules packaged up from CPAN.
+Requires: perl(BibTeX::Parser::Author)
+Requires: perl(BibTeX::Parser::Entry)
+Requires: perl(LaTeX::ToUnicode::Tables)
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-bibtexperllibs
+This package provides BibTeX related Perl libraries by Gerhard
+Gossen, repacked by Boris Veytsman, for TeX Live and other
+TDS-compliant distributions. The libraries are written in pure
+Perl, so should work out of the box on any architecture. They
+have been packaged here mostly for Boris Veytsman's BibTeX
+suite, but can be used in any other Perl script.
 
 %package -n %{shortname}-bibtexu
 Version: svn66186
@@ -1082,8 +1327,24 @@ configuration file. Various examples are included. Originally
 written by Niel Kempson and Alejandro Aguilar-Sierra, it is now
 maintained as part of TeX Live.
 
+%package -n %{shortname}-bookshelf
+Version: svn72521
+Provides: tex-bookshelf = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Create a nice image from a BibTeX file
+Provides: tex(bookshelf-svgnam.tex) = %{epoch}:%{source_date}-%{release}
+Requires: texlive-base
+Requires: texlive-kpathsea
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-bookshelf
+This package turns a BibTeX bibliography file into a
+randomly-coloured, randomly-sized shelf of books, with the
+title and author in a randomly-chosen typeface.
+
 %package -n %{shortname}-bundledoc
-Version: svn64620
+Version: svn74306
 Provides: texlive-bundledoc = %{epoch}:%{source_date}-%{release}
 Provides: tex-bundledoc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bundledoc-bin = %{epoch}:%{source_date}-%{release}
@@ -1144,7 +1405,7 @@ interface, and a command line tool (written in lua) that
 generates the external graphics.
 
 %package -n %{shortname}-checkcites
-Version: svn64155
+Version: svn73120
 Provides: texlive-checkcites = %{epoch}:%{source_date}-%{release}
 Provides: tex-checkcites = %{epoch}:%{source_date}-%{release}
 Provides: texlive-checkcites-bin = %{epoch}:%{source_date}-%{release}
@@ -1220,7 +1481,7 @@ mathematical environments with no labels and advises the user
 to use a starred version instead.
 
 %package -n %{shortname}-chktex
-Version: svn64797
+Version: svn73776
 Provides: texlive-chktex = %{epoch}:%{source_date}-%{release}
 Provides: tex-chktex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-chktex-bin = %{epoch}:%{source_date}-%{release}
@@ -1240,7 +1501,7 @@ documents. Filters are also provided for checking the LaTeX
 parts of CWEB documents.
 
 %package -n %{shortname}-citation-style-language
-Version: svn65878
+Version: svn75059
 Provides: texlive-citation-style-language = %{epoch}:%{source_date}-%{release}
 Provides: texlive-citation-style-language-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-citation-style-language-doc = %{epoch}:%{source_date}-%{release}
@@ -1255,6 +1516,11 @@ Requires: texlive-lualibs
 Requires: texlive-luatex
 Requires: texlive-luaxml
 Requires: tex(url.sty)
+Provides: tex(citation-style-language-bib.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(citation-style-language-cite.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(citation-style-language-compatible.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(citation-style-language-data.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(citation-style-language-init.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(citation-style-language.sty) = %{epoch}:%{source_date}-%{release}
 # lua
 BuildArch: noarch
@@ -1328,7 +1594,7 @@ Provides: tex(ksso17.cfg) = %{epoch}:%{source_date}-%{release}
 cjkutils package.
 
 %package -n %{shortname}-clojure-pamphlet
-Version: svn60981
+Version: svn67201
 Provides: texlive-clojure-pamphlet = %{epoch}:%{source_date}-%{release}
 Provides: tex-clojure-pamphlet = %{epoch}:%{source_date}-%{release}
 Provides: texlive-clojure-pamphlet-bin = %{epoch}:%{source_date}-%{release}
@@ -1356,7 +1622,7 @@ accordingly). Finally, the LaTeX file will be run through the
 tangler to get the desired chunk of code.
 
 %package -n %{shortname}-cluttex
-Version: svn60964
+Version: svn74655
 Provides: texlive-cluttex = %{epoch}:%{source_date}-%{release}
 Provides: tex-cluttex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cluttex-bin = %{epoch}:%{source_date}-%{release}
@@ -1380,7 +1646,7 @@ set. Furthermore, cluttex can watch input files for changes
 (using an external program).
 
 %package -n %{shortname}-context
-Version: svn66546
+Version: svn75454
 Provides: texlive-context = %{epoch}:%{source_date}-%{release}
 Provides: tex-context = %{epoch}:%{source_date}-%{release}
 Provides: texlive-context-bin = %{epoch}:%{source_date}-%{release}
@@ -1413,6 +1679,7 @@ Requires: ruby
 Requires: tex(pstricks.sty)
 Requires: tex(pst-plot.sty)
 Provides: tex(aesop-de.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(alfredsson-sv.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(aristotle-grc.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bidi-symbols.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bryson.tex) = %{epoch}:%{source_date}-%{release}
@@ -1425,7 +1692,6 @@ Provides: tex(context-lmtx-error.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(context-performance.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(context-test.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(context-todo.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(contnav.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(darwin.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(davis.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dawkins.tex) = %{epoch}:%{source_date}-%{release}
@@ -1434,11 +1700,12 @@ Provides: tex(demo-symbols.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(demo-tex.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(demo-xml.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dequincey.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(dijkstra.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(douglas.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dyrynk-cz.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dyrynk-vlnka-cz.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(export-example.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(filenames.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(falstaff-sv.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(gray.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(greenfield.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hawking.tex) = %{epoch}:%{source_date}-%{release}
@@ -1449,10 +1716,13 @@ Provides: tex(hviezdoslav-vlnka-sk.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(i-readme.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(jaros-sk.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(jaros-vlnka-sk.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(jaynes.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(jojomayer.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(khatt-ar.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(khatt-en.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(klein.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(knuth-gpt.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(knuthmath.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(knuth.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(kollar-cz.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(kollar-vlnka-cz.tex) = %{epoch}:%{source_date}-%{release}
@@ -1460,6 +1730,7 @@ Provides: tex(komensky-cz.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(komensky-vlnka-cz.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(krdel-sk.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(kun-cz.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lansburgh-letterspacing-sv.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(linden.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lorem.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(luatex-basics-prepare.tex) = %{epoch}:%{source_date}-%{release}
@@ -1477,21 +1748,20 @@ Provides: tex(luatex-preprocessor.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(luatex-swiglib-test.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(luatex-swiglib.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(luatex-test.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(m-ch-de.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(m-ch-en.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(m-ch-nl.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(m-pictex.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(m-tikz-pgfplots.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(m-tikz-pgfplotstable.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(materie.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(math-knuth-dt.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(math-kontinuitet-sv.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mcnish.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(montgomery.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(m-tikz-pgfplotstable.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(m-tikz-pgfplots.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-arrange.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-combine.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-common.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-compare.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-copy.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-domotica.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(mtx-context-fixpdf.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-fonts.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-hashed.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-ideas.tex) = %{epoch}:%{source_date}-%{release}
@@ -1506,7 +1776,6 @@ Provides: tex(mtx-context-sql.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-timing.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-trim.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mtx-context-xml.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(original-context-symbol.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(poe.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pope-en.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pope-es.tex) = %{epoch}:%{source_date}-%{release}
@@ -1514,6 +1783,66 @@ Provides: tex(quevedo-es.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(reich.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-abbreviations-extras.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-abbreviations-logos.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(samples.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(sample.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(sapolsky.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(shakespeare-en.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(shakespeare-es.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(shelley-en.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(shelley-es.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(shelley-fr.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(slova-sk.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(smrek-sk.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(smrek-vlnka-sk.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(stork.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(thuan.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(tufte.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(vallejo-trilce-es.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(waltham.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(ward.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(weisman.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(welcome-to-context.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(zapf.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(zelensky.tex) = %{epoch}:%{source_date}-%{release}
+# shell and lua
+BuildArch: noarch
+
+%description -n %{shortname}-context
+A full featured, parameter driven macro package, which fully
+supports advanced interactive documents. See the ConTeXt garden
+for a wealth of support information.
+
+# This package exists because it is 90M and most people do not need it
+
+%package -n %{shortname}-context-doc
+Version: svn75454
+Provides: texlive-context-doc = %{epoch}:%{source_date}-%{release}
+Requires: texlive-context
+Provides: tex-context-doc = %{epoch}:%{source_date}-%{release}
+Summary: Documentation for context
+License: GPL-1.0-or-later OR LPPL-1.3c
+
+%description -n %{shortname}-context-doc
+Documentation for context.
+
+%package -n %{shortname}-context-legacy
+Version: svn75440
+Provides: texlive-context-legacy-doc = %{epoch}:%{source_date}-%{release}
+Requires: texlive-context
+Provides: tex-context-legacy = %{epoch}:%{source_date}-%{release}
+Summary: The ConTeXt macro package, MkII
+Provides: tex(supp-mis.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(supp-mpe.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(supp-pdf.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-ams.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-apa-de.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-apa-fr.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-apa-it.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-apa.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-aps.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-num-fr.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-num.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bibl-ssa.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-cdr-01.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-faq-00.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-faq-01.tex) = %{epoch}:%{source_date}-%{release}
@@ -1536,48 +1865,18 @@ Provides: tex(s-pre-66.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-pre-67.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-pre-93.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(s-pre-96.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(sample.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(samples.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(sapolsky.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(scite-context-readme.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(shakespeare-en.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(shakespeare-es.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(shelley-en.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(shelley-es.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(shelley-fr.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(slova-sk.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(smrek-sk.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(smrek-vlnka-sk.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(stork.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(thuan.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(tlig.map) = %{epoch}:%{source_date}-%{release}
-Provides: tex(tufte.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(vallejo-trilce-es.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(waltham.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ward.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(weisman.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(welcome-to-context.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(zapf.tex) = %{epoch}:%{source_date}-%{release}
-# shell and lua
+Provides: tex(m-ch-de.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(m-ch-en.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(m-ch-nl.tex) = %{epoch}:%{source_date}-%{release}
+# just shell stubs
 BuildArch: noarch
 
-%description -n %{shortname}-context
-A full featured, parameter driven macro package, which fully
-supports advanced interactive documents. See the ConTeXt garden
-for a wealth of support information.
-
-# This package exists because it is 90M and most people do not need it
-
-%package -n %{shortname}-context-doc
-Version: svn66546
-Provides: texlive-context-doc = %{epoch}:%{source_date}-%{release}
-Requires: texlive-context
-Provides: tex-context-doc = %{epoch}:%{source_date}-%{release}
-Summary: Documentation for context
-License: GPL-1.0-or-later OR LPPL-1.3c
-
-%description -n %{shortname}-context-doc
-Documentation for context.
+%description -n %{shortname}-context-legacy
+In TeX Live, ConTeXt MkII is split from current ConTeXt (MkIV
+and newer). We use the ConTeXt repackaging as distributed from
+https://github.com/gucci-on-fleek/context-packaging. See
+https://contextgarden.net and https://pragma-ade.com for
+information about ConTeXt.
 
 %package -n %{shortname}-convbkmk
 Version: svn49252
@@ -1603,7 +1902,7 @@ bookmarks in PDF files created by platex/uplatex, using
 hyperref.
 
 %package -n %{shortname}-crossrefware
-Version: svn64754
+Version: svn76407
 Provides: texlive-crossrefware = %{epoch}:%{source_date}-%{release}
 Provides: tex-crossrefware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-crossrefware-bin = %{epoch}:%{source_date}-%{release}
@@ -1625,7 +1924,7 @@ a tool for the creation of XML files for submitting to the
 parent site
 
 %package -n %{shortname}-cslatex
-Version: svn66186
+Version: svn67494
 Provides: texlive-cslatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-cslatex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cslatex-bin = %{epoch}:%{source_date}-%{release}
@@ -1653,39 +1952,10 @@ Requires: tex(czech.ldf)
 Requires: tex(slovak.ldf)
 Provides: tex(cspsfont.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(czech.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(fonttext.cfg) = %{epoch}:%{source_date}-%{release}
-Provides: tex(hyphen.cfg) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2cmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(il2enc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2lcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2lcmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2pag.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2pbk.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2pcr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2phv.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2phvn.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2pnc.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2ppl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2ptm.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2pzc.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(nhelvet.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ntimes.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(slovak.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2pag.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2pbk.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2pcr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2phv.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2phvn.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2pnc.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2ppl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2ptm.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xl2pzc.fd) = %{epoch}:%{source_date}-%{release}
 # symlinks
 BuildArch: noarch
 
@@ -1693,7 +1963,7 @@ BuildArch: noarch
 LaTeX support for Czech/Slovak typesetting
 
 %package -n %{shortname}-csplain
-Version: svn62771
+Version: svn67934
 Provides: texlive-csplain = %{epoch}:%{source_date}-%{release}
 Provides: tex-csplain = %{epoch}:%{source_date}-%{release}
 Provides: texlive-csplain-bin = %{epoch}:%{source_date}-%{release}
@@ -1713,22 +1983,6 @@ Requires: texlive-enctex
 Requires: texlive-tex-ini-files
 Requires: texlive-luatex
 Requires: texlive-luatex85
-Provides: tex(csenc-k.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(csenc-p.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(csenc-u.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(csenc-w.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(csfonts.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(csfontsm.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(czhyphen.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(extcode.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(fonttabs.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(il2code.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(plaina4.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(skhyphen.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t1code.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t1enc-u.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ucode.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(uni-lcuc.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ams-math.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cavantga.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cbookman.tex) = %{epoch}:%{source_date}-%{release}
@@ -1740,31 +1994,65 @@ Provides: tex(cs-adventor.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-all.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-antt.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-arev.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cs-baskerx.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-bera.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-bonum.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-charter.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-cursor.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cs-ebgaramond.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(csenc-k.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(csenc-p.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(csenc-u.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(csenc-w.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(csfontsm.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(csfonts.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-heros.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cs-heuristica.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cs-iwona.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cs-kurier.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cs-libertine.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-pagella.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-polta.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-schola.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cs-termes.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ctimes.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cyrchars.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(czhyphen.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dcfonts.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ecfonts.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(etex-mac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(exchars.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(extcode.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(ff-mac.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(fontfam-catalog.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(fontfam-global.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(fontfam.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(fonttabs.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glyphtounicode-cs.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(il2code.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(ki-math.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(kp-fonts.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(kp-math.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lmfonts.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(luafonts.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ntx-math.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(tx-math.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(unifam.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(opmac-bib-iso690.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(opmac-bib-simple.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(opmac-bib.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(opmac-xetex.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(opmac-luatex.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(opmac.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(opmac-xetex.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(pazo-math.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfuni.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(plaina4.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(skhyphen.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t1code.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t1enc-u.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(tx-math.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(ucode.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(unifam.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(uni-lcuc.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(uni-math.tex) = %{epoch}:%{source_date}-%{release}
 # symlinks
 BuildArch: noarch
 
@@ -1814,7 +2102,7 @@ validation retrieves the known attributes and the basic
 constraints from the server.
 
 %package -n %{shortname}-ctanbib
-Version: svn66068
+Version: svn68650
 Provides: texlive-ctanbib = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanbib = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctanbib-bin = %{epoch}:%{source_date}-%{release}
@@ -1879,7 +2167,7 @@ contribution to CTAN from the command line. The aim is to
 simplify the release process for LaTeX package authors.
 
 %package -n %{shortname}-ctie
-Version: svn66186
+Version: svn73848
 Provides: texlive-ctie = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctie = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctie-bin = %{epoch}:%{source_date}-%{release}
@@ -1894,7 +2182,7 @@ Requires: texlive-kpathsea
 This is a version of tie converted for use with cweb.
 
 %package -n %{shortname}-cweb
-Version: svn66186
+Version: svn73848
 Provides: texlive-cweb = %{epoch}:%{source_date}-%{release}
 Provides: tex-cweb = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cweb-bin = %{epoch}:%{source_date}-%{release}
@@ -1907,24 +2195,28 @@ License: Knuth-CTAN
 Summary: A Web system in C
 Requires: texlive-base
 Requires: texlive-kpathsea
-Provides: tex(Xcwebmac.tex) = %{epoch}:%{source_date}-%{release}
+Requires: tex(iftex.sty)
 Provides: tex(ctproofmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cttwinxmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ctwimac.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cwebacromac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cweb_ecma94.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cweb_hp8.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cweb_mac8.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(cweb_pc850.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cwebmac.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cweb_pc850.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dctproofmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dctwimac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dcwebmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dcwebstrings.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fcwebmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(icwebmac.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(pdfctproofmac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfctwimac.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfwebtocfront.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(twimac-web.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(twinx-startup.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(Xcwebmac.tex) = %{epoch}:%{source_date}-%{release}
 
 %description -n %{shortname}-cweb
 A highly portable and extended version of Levy/Knuth CWEB 3.64c
@@ -1934,7 +2226,7 @@ German, French (partially), and Italian program documentation
 on any machine.
 
 %package -n %{shortname}-cyrillic
-Version: svn63613
+Version: svn71408
 Provides: texlive-cyrillic = %{epoch}:%{source_date}-%{release}
 Provides: tex-cyrillic = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cyrillic-bin = %{epoch}:%{source_date}-%{release}
@@ -1953,8 +2245,8 @@ Requires: texlive-kpathsea
 Requires: tex(fontenc.sty)
 Provides: tex(cp1251.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cp855.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(cp866.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cp866av.def) = %{epoch}:%{source_date}-%{release}
+Provides: tex(cp866.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cp866mav.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cp866nav.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cp866tat.def) = %{epoch}:%{source_date}-%{release}
@@ -1965,21 +2257,9 @@ Provides: tex(isoir111.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(koi8-r.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(koi8-ru.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(koi8-u.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcy.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcyccr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmbr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmtl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcycmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lcydefs.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lcyenc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcylcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lcylcmtt.fd) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lcy.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(maccyr.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(macukr.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mik.def) = %{epoch}:%{source_date}-%{release}
@@ -1987,77 +2267,13 @@ Provides: tex(mls.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mnk.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(mos.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ncc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2ccr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmbr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmtl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2cmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ot2enc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2lcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2lcmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2wlcyr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2wlcyss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2wncyr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(ot2wncyss.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pt154.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pt254.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2accr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmbr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmtl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2acmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(t2aenc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2alcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2alcmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bccr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmbr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmtl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2bcmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(t2benc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2blcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2blcmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2cccr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmbr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmtl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2ccmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(t2cenc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2clcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(t2clcmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2ccr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmbr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmdh.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmfib.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmfr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmr.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmtl.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmtt.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2cmvtt.fd) = %{epoch}:%{source_date}-%{release}
 Provides: tex(x2enc.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2lcmss.fd) = %{epoch}:%{source_date}-%{release}
-Provides: tex(x2lcmtt.fd) = %{epoch}:%{source_date}-%{release}
 # shell
 BuildArch: noarch
 
@@ -2069,7 +2285,7 @@ cover (between them) pretty much every language that is written
 in a Cyrillic alphabet.
 
 %package -n %{shortname}-de-macro
-Version: svn61719
+Version: svn66746
 Provides: texlive-de-macro = %{epoch}:%{source_date}-%{release}
 Provides: tex-de-macro = %{epoch}:%{source_date}-%{release}
 Provides: texlive-de-macro-bin = %{epoch}:%{source_date}-%{release}
@@ -2095,7 +2311,7 @@ running de-macro on it. De-macro will expand macros defined in
 document, or in the document's "private" package file.
 
 %package -n %{shortname}-detex
-Version: svn66186
+Version: svn70015
 Provides: texlive-detex = %{epoch}:%{source_date}-%{release}
 Provides: tex-detex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-detex-bin = %{epoch}:%{source_date}-%{release}
@@ -2162,7 +2378,7 @@ English, German. Feel free to provide other translation files!
 
 %package -n %{shortname}-digestif
 Summary: Editor plugin for LaTeX, ConTeXt etc.
-Version: svn65223
+Version: svn72163
 License: GPL-3.0-or-later AND LPPL-1.3c AND GFDL-1.3-no-invariants-or-later
 Requires: texlive-base texlive-kpathsea
 # lua
@@ -2263,7 +2479,7 @@ document. The original version was written in Pascal, and the
 present author translated the program to C.
 
 %package -n %{shortname}-dviasm
-Version: svn64430
+Version: svn71902
 Provides: texlive-dviasm = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviasm = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dviasm-bin = %{epoch}:%{source_date}-%{release}
@@ -2286,7 +2502,7 @@ binary format. It supports advanced features such as adding a
 preprint number or watermarks.
 
 %package -n %{shortname}-dvicopy
-Version: svn66186
+Version: svn73848
 Provides: texlive-dvicopy = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvicopy = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvicopy-bin = %{epoch}:%{source_date}-%{release}
@@ -2371,7 +2587,7 @@ Here we don't include the main DVI previewer, but just want small utility
 programs.
 
 %package -n %{shortname}-dvipdfmx
-Version: svn66203
+Version: svn74096
 Provides: texlive-dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipdfmx-bin = %{epoch}:%{source_date}-%{release}
@@ -2402,7 +2618,7 @@ executable. A secondary design goal is to support as many "PDF"
 features as does pdfTeX.
 
 %package -n %{shortname}-dvipng
-Version: svn66203
+Version: svn73848
 Provides: texlive-dvipng = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipng = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipng-bin = %{epoch}:%{source_date}-%{release}
@@ -2449,7 +2665,7 @@ Requires: texlive-kpathsea
 support DVI pos: specials used by ConTeXt DVI output
 
 %package -n %{shortname}-dvips
-Version: svn66203
+Version: svn73850
 Provides: texlive-dvips = %{epoch}:%{source_date}-%{release}
 Provides: tetex-dvips = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvips = %{epoch}:%{source_date}-%{release}
@@ -2481,6 +2697,10 @@ Provides: tex(ad.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ansinew.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(asex.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(asexp.enc) = %{epoch}:%{source_date}-%{release}
+Provides: tex(blackdvi.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(blackdvi.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(colordvi.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(colordvi.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dc.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dvips-all.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dvips.enc) = %{epoch}:%{source_date}-%{release}
@@ -2500,18 +2720,14 @@ Provides: tex(q-t5-uni.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(q-texnansi-uni.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(q-ts1-uni.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(qx.enc) = %{epoch}:%{source_date}-%{release}
+Provides: tex(rotate.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(rotate.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(stormex.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(tex256.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texmext.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texmital.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texmsym.enc) = %{epoch}:%{source_date}-%{release}
 Provides: tex(texnansx.enc) = %{epoch}:%{source_date}-%{release}
-Provides: tex(blackdvi.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(blackdvi.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(colordvi.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(colordvi.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(rotate.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(rotate.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(dvips) = %{epoch}:%{source_date}-%{release}
 Requires: texlive-latex-fonts
 
@@ -2522,7 +2738,7 @@ be found in the distribution of dvipsk which forms part of the
 TeX Live sources.
 
 %package -n %{shortname}-dvisvgm
-Version: svn66532
+Version: svn73848
 Provides: texlive-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvisvgm-bin = %{epoch}:%{source_date}-%{release}
@@ -2548,8 +2764,28 @@ properly. Besides many other features, dvisvgm also supports
 color, emTeX, tpic, papersize, PDF mapfile and PostScript
 specials.
 
+%package -n %{shortname}-easydtx
+Version: svn72952
+Provides: tex-easydtx = %{epoch}:%{source_date}-%{release}
+License: GPL-3.0-or-later
+Summary: A simplified DTX format
+Requires: texlive-base
+Requires: texlive-kpathsea
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-easydtx
+EasyDTX is a variant of the DTX format which eliminates the
+need for all those pesky "macrocode" environments. Any line
+introduced by a single comment counts as documentation, and
+documentation lines may be indented. An .edtx file is converted
+to a .dtx by a little Perl script called edtx2dtx. There is
+also a rudimentary Emacs mode, implemented in
+easydoctex-mode.el, which takes care of fontification,
+indentation, and forward and inverse search.
+
 %package -n %{shortname}-ebong
-Version: svn55475
+Version: svn67933
 Provides: texlive-ebong = %{epoch}:%{source_date}-%{release}
 Provides: tex-ebong = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ebong-bin = %{epoch}:%{source_date}-%{release}
@@ -2571,8 +2807,23 @@ bengali langauage. It allows one to write the text in Rapid
 Roman Bangla and convert it to the bangtex format by a python
 program. All LaTeX markups are preserved in the target file.
 
+%package -n %{shortname}-eolang
+Version: svn74755
+Provides: tex-eolang = %{epoch}:%{source_date}-%{release}
+License: MIT
+Summary: Formulas and graphs for the EO programming language
+Requires: texlive-base
+Requires: texlive-kpathsea
+Provides: tex(eolang.sty) = %{epoch}:%{source_date}-%{release}
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-eolang
+This LaTeX package helps you write [?] -calculus formulas and
+SODG graphs for the EO programming language.
+
 %package -n %{shortname}-eplain
-Version: svn64721
+Version: svn71409
 Provides: texlive-eplain = %{epoch}:%{source_date}-%{release}
 Provides: tex-eplain = %{epoch}:%{source_date}-%{release}
 Provides: texlive-eplain-bin = %{epoch}:%{source_date}-%{release}
@@ -2616,7 +2867,7 @@ graphics), color, autopict (a package instance of the LaTeX
 picture code), psfrag, and url.
 
 %package -n %{shortname}-epspdf
-Version: svn66115
+Version: svn74487
 Provides: texlive-epspdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-epspdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-epspdf-bin = %{epoch}:%{source_date}-%{release}
@@ -2640,7 +2891,7 @@ conversion options are made possible by converting in multiple
 steps.
 
 %package -n %{shortname}-epstopdf
-Version: svn66461
+Version: svn71782
 Provides: texlive-epstopdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-epstopdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-epstopdf-bin = %{epoch}:%{source_date}-%{release}
@@ -2703,6 +2954,42 @@ the Spreadsheet::ParseExcel Perl module) and because most
 spreadsheet applications are able to read and write Excel
 files.
 
+%package -n %{shortname}-expltools
+Version: svn75347
+Provides: tex-expltools = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c AND GPL-2.0-or-later
+Summary: Development tools for expl3 programmers
+Requires: texlive-base
+Requires: texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-expltools
+This bundle introduces explcheck, a static analysis tool for
+developers working with expl3 code. Currently in its initial
+release, explcheck aims to help developers identify potential
+issues and improve code quality. In the future, this bundle may
+expand to include additional development tools for expl3.
+
+%package -n %{shortname}-extractbb
+Version: svn73916
+Provides: tex-extractbb = %{epoch}:%{source_date}-%{release}
+License: CC-BY-SA-4.0
+Summary: A reimplementation of extractbb, written in Lua
+Requires: texlive-base
+Requires: texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-extractbb
+extractbb is a program that exports the dimensions of an image
+or PDF file to a plain text format that is easily parsed by
+TeX. This tool is rarely run directly by users, but is
+frequently used by packages running on XeTeX or upTeX. This
+package specifically contains a Lua-based reimplementation
+extractbb that behaves identically to the original C-based
+version distributed with dvipdfmx.
+
 %package -n %{shortname}-fig4latex
 Version: svn26313
 Provides: texlive-fig4latex = %{epoch}:%{source_date}-%{release}
@@ -2751,7 +3038,7 @@ contains enough context to enable you to find the hyphenated
 word that's being referenced.
 
 %package -n %{shortname}-fontinst
-Version: svn62517
+Version: svn74240
 Provides: texlive-fontinst = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontinst = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontinst-bin = %{epoch}:%{source_date}-%{release}
@@ -2768,15 +3055,14 @@ Requires: tex(color.sty)
 Requires: tex(amstext.sty)
 Provides: tex(bbox.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(cfntinst.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(fontinst.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(finstmsc.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(fontinst.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(multislot.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(xfntinst.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(csc2x.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(csckrn2x.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(osf2x.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(finstmsc.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fontdoc.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(fontinst.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(multislot.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(osf2x.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(xfntinst.sty) = %{epoch}:%{source_date}-%{release}
 # shell
 BuildArch: noarch
 
@@ -2796,7 +3082,7 @@ normally be done manually or with the help of some other tool,
 such as the pltotf and vptovf programs.
 
 %package -n %{shortname}-fontools
-Version: svn65706
+Version: svn73362
 Provides: texlive-fontools = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontools = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontools-bin = %{epoch}:%{source_date}-%{release}
@@ -2846,7 +3132,7 @@ OpenType fonts, splitttc - split an OpenType Collection file
 (ttc or otc) into individual fonts.
 
 %package -n %{shortname}-fontware
-Version: svn66186
+Version: svn73848
 Provides: texlive-fontware = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontware-bin = %{epoch}:%{source_date}-%{release}
@@ -2889,7 +3175,7 @@ EPS files and psfrag substitution definition files, and
 produces PDF and EPS files with the substitutions included.
 
 %package -n %{shortname}-getmap
-Version: svn50589
+Version: svn75447
 Provides: texlive-getmap = %{epoch}:%{source_date}-%{release}
 Provides: tex-getmap = %{epoch}:%{source_date}-%{release}
 Provides: texlive-getmap-bin = %{epoch}:%{source_date}-%{release}
@@ -2934,7 +3220,7 @@ between different versions of a LaTeX file. Technically, it is
 a wrapper around git and latexdiff.
 
 %package -n %{shortname}-glossaries
-Version: svn64919
+Version: svn75224
 Provides: texlive-glossaries = %{epoch}:%{source_date}-%{release}
 Provides: tex-glossaries = %{epoch}:%{source_date}-%{release}
 Provides: texlive-glossaries-bin = %{epoch}:%{source_date}-%{release}
@@ -2966,23 +3252,28 @@ Requires: tex(supertabular.sty)
 Requires: tex(textcase.sty)
 Requires: tex(translator.sty)
 Provides: tex(example-glossaries-acronym-desc.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(example-glossaries-acronym.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-acronyms-lang.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-acronym.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-brief.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-childmultipar.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-childnoname.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-cite.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-constants.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-images.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(example-glossaries-long.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-longchild.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-long.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-multipar.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-parent.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-symbolnames.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-symbols.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-url.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-user.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-utf8.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossaries-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossaries-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-2022-11-03.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-2024-04-03.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-2025-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossaries-accsupp-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossaries-accsupp-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossaries-accsupp.sty) = %{epoch}:%{source_date}-%{release}
@@ -3004,6 +3295,7 @@ Provides: tex(glossaries-prefix.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossaries.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-hypernav-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-hypernav-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-hypernav-2022-11-03.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-hypernav.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-inline-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-inline-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
@@ -3013,24 +3305,26 @@ Provides: tex(glossary-list-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-list.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-long-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-long-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-long.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-longbooktabs-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-longbooktabs-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-longbooktabs.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-longragged-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-longragged-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-longragged.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-long.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-mcols-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-mcols-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-mcols-2025-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-mcols.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-super-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-super-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-super.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-superragged-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-superragged-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-superragged.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-super.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-tree-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-tree-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-tree-2025-03-19.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glossary-tree.sty) = %{epoch}:%{source_date}-%{release}
 # perl and lua
 BuildArch: noarch
@@ -3068,7 +3362,7 @@ Requires: texlive-kpathsea
 glyphlist package.
 
 %package -n %{shortname}-gregoriotex
-Version: svn58331
+Version: svn74348
 Provides: texlive-gregoriotex = %{epoch}:%{source_date}-%{release}
 Provides: tex-gregoriotex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-gregoriotex-bin = %{epoch}:%{source_date}-%{release}
@@ -3091,16 +3385,17 @@ Requires: tex(luatexbase.sty)
 Requires: tex(xcolor.sty)
 Requires: tex(xstring.sty)
 Provides: tex(gregoriosyms.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex-signs.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex-syllable.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex-main.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gsp-default.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex-nabc.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(gregoriotex-symbols.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(gregoriotex-chars.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-common.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-gsp-default.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-main.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-nabc.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-signs.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(gregoriotex-spaces.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-syllable.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex-symbols.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(gregoriotex.tex) = %{epoch}:%{source_date}-%{release}
 
 %description -n %{shortname}-gregoriotex
 Gregorio is a software application for engraving Gregorian
@@ -3120,8 +3415,6 @@ License: GPL-1.0-or-later
 Summary: Convert "ghostscript fonts" to PK files
 Requires: texlive-base
 Requires: texlive-kpathsea
-# Does not exist in a package anymore
-# Requires: tex(psfonts.map)
 
 %description -n %{shortname}-gsftopk
 Designed for use with xdvi and dvips this utility converts
@@ -3131,7 +3424,7 @@ applications are now capable of dealing with Type 1 fonts,
 direct.
 
 %package -n %{shortname}-hitex
-Version: svn65883
+Version: svn74030
 Provides: texlive-hitex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-hitex-bin = %{epoch}:%{source_date}-%{release}
 License: MIT
@@ -3173,7 +3466,7 @@ varying screen sizes, leveraging the ability of TeX to format a
 document for nearly-arbitrary values of \hsize and \vsize.
 
 %package -n %{shortname}-hyperxmp
-Version: svn65980
+Version: svn70694
 Provides: texlive-hyperxmp = %{epoch}:%{source_date}-%{release}
 Summary: Embed XMP metadata within a LaTeX document
 License: LPPL-1.3c
@@ -3246,7 +3539,7 @@ scheme (e.g. 5bbr8a.pfb). After running the script, you should
 have a working font installation in your local TeX tree.
 
 %package -n %{shortname}-jadetex
-Version: svn63654
+Version: svn71409
 Provides: texlive-jadetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-jadetex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-jadetex-bin = %{epoch}:%{source_date}-%{release}
@@ -3395,7 +3688,7 @@ generation in Korean language typesetting. The files belong to
 the ko.TeX bundle.
 
 %package -n %{shortname}-kpathsea
-Version: svn66209
+Version: svn75425
 Provides: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
 License: LGPL-2.1-or-later
 Summary: Path searching library for TeX-related files
@@ -3423,7 +3716,7 @@ locating feature required for movable installations, layered on
 top of a general search mechanism.
 
 %package -n %{shortname}-l3build
-Version: svn66471
+Version: svn75155
 Provides: texlive-l3build = %{epoch}:%{source_date}-%{release}
 Provides: tex-l3build = %{epoch}:%{source_date}-%{release}
 Provides: texlive-l3build-bin = %{epoch}:%{source_date}-%{release}
@@ -3447,6 +3740,29 @@ contributed packages); A system for typesetting package
 documentation; and An automated process for creating CTAN
 releases.
 
+%package -n %{shortname}-l3sys-query
+Version: svn70889
+Provides: tex-l3sys-query = %{epoch}:%{source_date}-%{release}
+License: MIT
+Summary: System queries for LaTeX using Lua
+Requires: texlive-base
+Requires: texlive-kpathsea
+Requires: texlive-luatex
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-l3sys-query
+The l3sys-query script provides a method for TeX runs to obtain
+system information via shell escape to Lua. The facilities are
+more limited than the similar Java script texosquery, but since
+it uses Lua, l3sys-query can be used out of the box; with any
+installed TeX system. The script is written taking account of
+TeX Live security requirements; it is therefore suitable for
+use with restricted shell escape, the standard setting when
+installing a TeX system. The supported queries are lsDirectory
+listing supporting a range of options pwdObtaining details of
+the current working directory
+
 %package -n %{shortname}-lacheck
 Version: svn66186
 Provides: texlive-lacheck = %{epoch}:%{source_date}-%{release}
@@ -3465,7 +3781,7 @@ documents. The distribution includes sources, and executables
 for OS/2 and Win32 environments.
 
 %package -n %{shortname}-latex
-Version: svn65161
+Version: svn75474
 Provides: texlive-latex = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex = %{epoch}:%{source_date}-%{release}
 Provides: tetex-latex = %{epoch}:%{source_date}-%{release}
@@ -3666,7 +3982,7 @@ writing, font encodings, configuration options and modification
 of LaTeX.
 
 %package -n %{shortname}-latex-git-log
-Version: svn54010
+Version: svn71402
 Provides: texlive-latex-git-log = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex-git-log = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-git-log-bin = %{epoch}:%{source_date}-%{release}
@@ -3779,7 +4095,7 @@ are now supported by latex2nemeth. We would like to acknowledge
 support by the TUGfund for this project (TUGfund project 33).
 
 %package -n %{shortname}-latexdiff
-Version: svn64980
+Version: svn72099
 Provides: texlive-latexdiff = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexdiff = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexdiff-bin = %{epoch}:%{source_date}-%{release}
@@ -3832,7 +4148,7 @@ programme handles style files (extension .sty), class files
 must be given.
 
 %package -n %{shortname}-latexindent
-Version: svn65937
+Version: svn74619
 Provides: texlive-latexindent = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexindent = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexindent-bin = %{epoch}:%{source_date}-%{release}
@@ -3875,7 +4191,7 @@ Latexpand is a Perl script that simply replaces \input and
 The script does not deal with \includeonly commands.
 
 %package -n %{shortname}-lcdftypetools
-Version: svn52851
+Version: svn70015
 Provides: texlive-lcdtypetools = %{epoch}:%{source_date}-%{release}
 Provides: tex-lcdftypetools = %{epoch}:%{source_date}-%{release}
 # This is a mistake in the texlive package. Will be fixed in next major TL update.
@@ -4056,7 +4372,7 @@ typesetting the document will be reproduced in any TeX
 environment with the program.
 
 %package -n %{shortname}-lollipop
-Version: svn45678
+Version: svn69742
 Provides: texlive-lollipop = %{epoch}:%{source_date}-%{release}
 Provides: tex-lollipop = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lollipop-bin = %{epoch}:%{source_date}-%{release}
@@ -4151,7 +4467,7 @@ PStricks environments for separate processing to produce images
 preview bundle.
 
 %package -n %{shortname}-luafindfont
-Version: svn64936
+Version: svn73986
 Provides: texlive-luafindfont = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luafindfont-bin = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
@@ -4164,7 +4480,7 @@ BuildArch: noarch
 This Lua script searches for fonts in the font database. It requires Lua 5.3.
 
 %package -n %{shortname}-luaotfload
-Version: svn64616
+Version: svn74324
 Provides: texlive-luaotfload = %{epoch}:%{source_date}-%{release}
 Provides: tex-luaotfload = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luaotfload-bin = %{epoch}:%{source_date}-%{release}
@@ -4192,7 +4508,7 @@ provided in ConTeXt, and adapts it to use in Plain TeX and
 LaTeX. It works under LuaLaTeX only.
 
 %package -n %{shortname}-luahbtex
-Version: svn66186
+Version: svn73848
 Provides: texlive-luahbtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luahbtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luahbtex-bin = %{epoch}:%{source_date}-%{release}
@@ -4215,7 +4531,7 @@ Requires: texlive-hyph-utf8
 LuaTeX with HarfBuzz library for glyph shaping.
 
 %package -n %{shortname}-luajittex
-Version: svn66186
+Version: svn73848
 Provides: texlive-luajittex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luajittex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luajittex-bin = %{epoch}:%{source_date}-%{release}
@@ -4238,7 +4554,7 @@ Requires: texlive-hyph-utf8
 LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz.
 
 %package -n %{shortname}-luatex
-Version: svn66967
+Version: svn75423
 Provides: texlive-luatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luatex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luatex-bin = %{epoch}:%{source_date}-%{release}
@@ -4262,7 +4578,7 @@ Requires: texlive-unicode-data
 Requires: texlive-hyph-utf8
 Requires: tex(luatex.def)
 Provides: tex(luatex-unicode-letters.tex) = %{epoch}:%{source_date}-%{release}
-Provides: tex(luatexiniconfig.tex) = %{epoch}:%{source_date}-%{release}
+# Provides: tex(luatexiniconfig.tex) = %%{epoch}:%%{source_date}-%%{release}
 
 %description -n %{shortname}-luatex
 LuaTeX is a greatly extended version of pdfTeX using Lua as an
@@ -4274,7 +4590,7 @@ input encoding, and is able to use modern (OpenType and
 TrueType) fonts (for both text and mathematics).
 
 %package -n %{shortname}-lwarp
-Version: svn66259
+Version: svn75010
 Provides: texlive-lwarp = %{epoch}:%{source_date}-%{release}
 Provides: tex-lwarp = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lwarp-bin = %{epoch}:%{source_date}-%{release}
@@ -4289,10 +4605,6 @@ Requires: texlive-base
 Requires: texlive-kpathsea
 Provides: tex(lwarp-2in1.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-2up.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-CJK.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-CJKutf8.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-DotArrow.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-SIunits.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-a4.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-a4wide.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-a5comb.sty) = %{epoch}:%{source_date}-%{release}
@@ -4301,8 +4613,8 @@ Provides: tex(lwarp-academicons.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-accents.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-accessibility.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-accsupp.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-acro.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-acronym.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-acro.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-addlines.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-adjmulticol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-afterpage.sty) = %{epoch}:%{source_date}-%{release}
@@ -4315,14 +4627,15 @@ Provides: tex(lwarp-amsthm.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-anonchap.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-anysize.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-appendix.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-ar.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-apxproof.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-arabicfront.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-array.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-ar.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-arydshln.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-asymptote.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-atbegshi.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-attachfile.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-attachfile2.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-attachfile.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-authblk.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-autobreak.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-autonum.sty) = %{epoch}:%{source_date}-%{release}
@@ -4347,8 +4660,8 @@ Provides: tex(lwarp-bookmark.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-booktabs.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-bophook.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-bounddvi.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-boxedminipage.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-boxedminipage2e.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-boxedminipage.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-braket.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-breakurl.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-breqn.sty) = %{epoch}:%{source_date}-%{release}
@@ -4358,8 +4671,8 @@ Provides: tex(lwarp-bxpapersize.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-bytefield.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-cancel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-canoniclayout.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-caption.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-caption3.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-caption.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-cases.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-ccicons.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-centerlastline.sty) = %{epoch}:%{source_date}-%{release}
@@ -4377,8 +4690,10 @@ Provides: tex(lwarp-chemmacros.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-chemnum.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-chkfloat.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-chngpage.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-cite.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-citeref.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-cite.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-CJK.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-CJKutf8.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-classicthesis.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-cleveref.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-clrdblpg.sty) = %{epoch}:%{source_date}-%{release}
@@ -4406,6 +4721,8 @@ Provides: tex(lwarp-decimal.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-decorule.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-diagbox.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-dingbat.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-doipubmed.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-DotArrow.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-dotlessi.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-dprogress.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-draftcopy.sty) = %{epoch}:%{source_date}-%{release}
@@ -4427,8 +4744,8 @@ Provides: tex(lwarp-enotez.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-enumerate.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-enumitem.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-epigraph.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-epsf.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-epsfig.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-epsf.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-epstopdf-base.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-epstopdf.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-eqlist.sty) = %{epoch}:%{source_date}-%{release}
@@ -4459,10 +4776,10 @@ Provides: tex(lwarp-fixme.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fixmetodonotes.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-flafter.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-flippdf.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-float.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-floatflt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-floatpag.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-floatrow.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-float.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fltrace.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-flushend.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fnbreak.sty) = %{epoch}:%{source_date}-%{release}
@@ -4470,15 +4787,17 @@ Provides: tex(lwarp-fncychap.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fnlineno.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fnpara.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fnpos.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-fontawesome.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-fontawesome5-generic-helper.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fontawesome5.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-fontawesome5-utex-helper.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-fontawesome.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fontaxes.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-fontenc.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-footmisc.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-footnote.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-footnotebackref.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-footnotehyper.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-footnoterange.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-footnote.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-footnpag.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-foreign.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-forest.sty) = %{epoch}:%{source_date}-%{release}
@@ -4498,17 +4817,17 @@ Provides: tex(lwarp-gentombow.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-geometry.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-ghsystem.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-gindex.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-gloss.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-glossaries.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-gloss.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-gmeometric.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-graphics.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-graphicx.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-grffile.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-grid-system.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-grid.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-gridset.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-hang.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-grid.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-grid-system.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-hanging.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-hang.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-hepunits.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-hhline.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-hhtensor.sty) = %{epoch}:%{source_date}-%{release}
@@ -4534,8 +4853,8 @@ Provides: tex(lwarp-keystroke.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-kpfonts-otf.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-kpfonts.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-layaureo.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-layout.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-layouts.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-layout.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-leading.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-leftidx.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-letterspace.sty) = %{epoch}:%{source_date}-%{release}
@@ -4557,11 +4876,11 @@ Provides: tex(lwarp-ltcaption.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-ltxgrid.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-ltxtable.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-lua-check-hyphen.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-lua-visual-debug.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-luacolor.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-luamplib.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-luatexko.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-luatodonotes.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-lua-visual-debug.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-luavlna.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-lyluatex.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-magaz.sty) = %{epoch}:%{source_date}-%{release}
@@ -4607,8 +4926,8 @@ Provides: tex(lwarp-movie15.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-mparhack.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-multibib.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-multicap.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-multicol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-multicolrule.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-multicol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-multimedia.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-multiobjective.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-multirow.sty) = %{epoch}:%{source_date}-%{release}
@@ -4636,8 +4955,8 @@ Provides: tex(lwarp-nomencl.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-nonfloat.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-nonumonpart.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-nopageno.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-notes.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-notespages.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-notes.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-nowidow.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-ntheorem.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-octave.sty) = %{epoch}:%{source_date}-%{release}
@@ -4655,11 +4974,11 @@ Provides: tex(lwarp-patch-komascript.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-patch-memoir.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pbalance.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pbox.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-pdfcol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdfcolfoot.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdfcolmk.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdfcolparallel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdfcolparcolumns.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-pdfcol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdfcomment.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdfcrypt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pdflscape.sty) = %{epoch}:%{source_date}-%{release}
@@ -4680,9 +4999,9 @@ Provides: tex(lwarp-pifont.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pinlabel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-placeins.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-plarydshln.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-plext.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-plextarydshln.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-plextcolorbl.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-plext.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-plimsoll.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-prelim2e.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-prettyref.sty) = %{epoch}:%{source_date}-%{release}
@@ -4697,6 +5016,7 @@ Provides: tex(lwarp-pxeveryshi.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pxfonts.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pxftnright.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-pxjahyper.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-pythontex.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-quotchap.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-quoting.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-ragged2e.sty) = %{epoch}:%{source_date}-%{release}
@@ -4711,8 +5031,8 @@ Provides: tex(lwarp-returntogrid.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-rlepsf.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-rmathbr.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-rmpage.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-romanbar.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-romanbarpagenumber.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-romanbar.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-rotating.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-rotfloat.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-rviewport.sty) = %{epoch}:%{source_date}-%{release}
@@ -4726,8 +5046,8 @@ Provides: tex(lwarp-scrlayer-notecolumn.sty) = %{epoch}:%{source_date}-%{release
 Provides: tex(lwarp-scrlayer-scrpage.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-scrlayer.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-scrpage2.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-section.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-sectionbreak.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-section.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-sectsty.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-selectp.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-semantic-markup.sty) = %{epoch}:%{source_date}-%{release}
@@ -4744,13 +5064,14 @@ Provides: tex(lwarp-shuffle.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-sidecap.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-sidenotes.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-simplebnf.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-siunitx-v2.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-SIunits.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-siunitx.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-siunitx-v2.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-skmath.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-slantsc.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-slashed.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-soul.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-soulpos.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-soul.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-soulutf8.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-splitbib.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-splitidx.sty) = %{epoch}:%{source_date}-%{release}
@@ -4765,6 +5086,7 @@ Provides: tex(lwarp-statmath.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-steinmetz.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-stfloats.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-struktex.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-subcaption.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-subfig.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-subfigure.sty) = %{epoch}:%{source_date}-%{release}
@@ -4793,15 +5115,15 @@ Provides: tex(lwarp-textfit.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-textpos.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-theorem.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-thinsp.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-thmbox.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-thm-listof.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-thm-restate.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-thmbox.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-thmtools.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-threadcol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-threeparttable.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-threeparttablex.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-thumb.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-thumbs.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-thumb.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-tikz-imagelabels.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-tikz.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-titleps.sty) = %{epoch}:%{source_date}-%{release}
@@ -4815,8 +5137,8 @@ Provides: tex(lwarp-tocdata.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-tocenter.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-tocloft.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-tocstyle.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-todo.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-todonotes.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-todo.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-topcapt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-tram.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-transparent.sty) = %{epoch}:%{source_date}-%{release}
@@ -4833,8 +5155,8 @@ Provides: tex(lwarp-ulem.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-umoline.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-underscore.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-unicode-math.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-units.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-unitsdef.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-units.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-upgreek.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-upref.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-url.sty) = %{epoch}:%{source_date}-%{release}
@@ -4853,8 +5175,8 @@ Provides: tex(lwarp-watermark.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-widetable.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-widows-and-orphans.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-witharrows.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp-wrapfig.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-wrapfig2.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(lwarp-wrapfig.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-xbmks.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-xcolor.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-xechangebar.sty) = %{epoch}:%{source_date}-%{release}
@@ -4876,7 +5198,6 @@ Provides: tex(lwarp-xurl.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-xy.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-zhlineskip.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(lwarp-zwpagelayout.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(lwarp.sty) = %{epoch}:%{source_date}-%{release}
 
 # lua
 BuildArch: noarch
@@ -4901,7 +5222,7 @@ included for each of the major operating systems and TeX
 distributions. A quick-start tutorial is provided.
 
 %package -n %{shortname}-lyluatex
-Version: svn66278
+Version: svn66880
 Provides: texlive-lyluatex = %{epoch}:%{source_date}-%{release}
 Summary: Commands to include lilypond scores within a (Lua)LaTeX document
 License: MIT
@@ -4927,7 +5248,7 @@ scores within LuaLaTeX. It calls LilyPond to compile scores,
 then includes the produced files.
 
 %package -n %{shortname}-make4ht
-Version: svn66130
+Version: svn74940
 Provides: texlive-make4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-make4ht = %{epoch}:%{source_date}-%{release}
 Provides: texlive-make4ht-bin = %{epoch}:%{source_date}-%{release}
@@ -4998,8 +5319,31 @@ from unsorted raw data. MakeIndex can process raw data output
 by various programs, however, it is generally used with LaTeX
 and troff.
 
+%package -n %{shortname}-markdown
+Version: svn75340
+Provides: tex-markdown = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Converting and rendering markdown documents inside TeX
+Requires: texlive-base
+Requires: texlive-kpathsea
+Provides: tex(markdown.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(markdown.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(markdownthemewitiko_markdown_defaults.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(markdownthemewitiko_markdown_defaults.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t-markdown.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t-markdownthemewitiko_markdown_defaults.tex) = %{epoch}:%{source_date}-%{release}
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-markdown
+The package provides facilities for the conversion of markdown
+markup to plain TeX. These are provided both in form of a Lua
+module and in form of plain TeX, LaTeX, and ConTeXt macro
+packages that enable the direct inclusion of markdown documents
+inside TeX documents.
+
 %package -n %{shortname}-match_parens
-Version: svn36270
+Version: svn66681
 Provides: texlive-match_parens = %{epoch}:%{source_date}-%{release}
 Provides: tex-match_parens = %{epoch}:%{source_date}-%{release}
 Provides: texlive-match_parens-bin = %{epoch}:%{source_date}-%{release}
@@ -5059,8 +5403,45 @@ manipulating named points and also allows the use of variables
 and maths (advance, multiply, and divide)--in short--it takes
 the pain out of PiCTeX.
 
+%package -n %{shortname}-memoize
+Version: svn73025
+Provides: tex-memoize = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Externalization of graphics and memoization of compilation results in general
+Requires: texlive-base
+Requires: texlive-kpathsea
+Provides: tex(memoize.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoizable.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoizable.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoizable.code.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoize-beamer.code.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoize-biblatex.code.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoize-extract-one.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(memoize.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(nomemoize.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(nomemoize.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t-memoize.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t-memoizable.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(t-nomemoize.tex) = %{epoch}:%{source_date}-%{release}
+# perl and python for some reason
+BuildArch: noarch
+
+%description -n %{shortname}-memoize
+Memoize is a package for externalization of graphics and
+memoization of compilation results in general, allowing the
+author to reuse the results of compilation-intensive code.
+Memoize (i) induces very little overhead, as all externalized
+graphics is produced in a single compilation. It features (ii)
+automatic recompilation upon the change of code or
+user-adjustable context, and (iii) automatic externalization of
+TikZ pictures and Forest trees, easily extensible to other
+commands and environments. Furthermore, Memoize (iv) supports
+cross-referencing, TikZ overlays and Beamer, (v) works with all
+major engines and formats, and (vi) is adaptable to any
+workflow.
+
 %package -n %{shortname}-metafont
-Version: svn66186
+Version: svn73848
 Provides: texlive-metafont = %{epoch}:%{source_date}-%{release}
 Provides: tex-metafont = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metafont-bin = %{epoch}:%{source_date}-%{release}
@@ -5098,7 +5479,7 @@ discussion of Metafont usage; the tex-k@tug.org list is best
 for bug reports about building the software, etc.
 
 %package -n %{shortname}-metapost
-Version: svn66264
+Version: svn73850
 Provides: texlive-metapost = %{epoch}:%{source_date}-%{release}
 Provides: tex-metapost = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metapost-bin = %{epoch}:%{source_date}-%{release}
@@ -5165,7 +5546,7 @@ hyphenation rules for the Polish language and sources of
 formats.
 
 %package -n %{shortname}-mflua
-Version: svn62774
+Version: svn73848
 Provides: texlive-mflua = %{epoch}:%{source_date}-%{release}
 Provides: tex-mflua = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mflua-bin = %{epoch}:%{source_date}-%{release}
@@ -5180,7 +5561,7 @@ Requires: texlive-kpathsea
 A METAFONT compliant program with a Lua interpreter embedded.
 
 %package -n %{shortname}-mfware
-Version: svn66186
+Version: svn73848
 Provides: texlive-mfware = %{epoch}:%{source_date}-%{release}
 Provides: tex-mfware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mfware-bin = %{epoch}:%{source_date}-%{release}
@@ -5196,7 +5577,7 @@ A collection of programs (as web source) for processing the
 output of Metafont.
 
 %package -n %{shortname}-mf2pt1
-Version: svn61217
+Version: svn71883
 Provides: texlive-mf2pt1 = %{epoch}:%{source_date}-%{release}
 Provides: tex-mf2pt1 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mf2pt1-bin = %{epoch}:%{source_date}-%{release}
@@ -5221,6 +5602,36 @@ input. If these restrictions are met, mf2pt1 will produce valid
 Type 1 output with more accurate control points than can be
 reverse-engineered by TeXtrace, mftrace, and other programs
 which convert bitmaps to outline fonts.
+
+%package -n %{shortname}-minted
+Version: svn75223
+Provides: tex-minted = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c AND BSD-3-Clause
+Summary: Highlighted source code for LaTeX
+Requires: texlive-catchfile
+Requires: texlive-etoolbox
+Requires: texlive-float
+Requires: texlive-fvextra
+Requires: texlive-latex2pydata
+Requires: texlive-newfloat
+Requires: texlive-pdftexcmds
+Requires: texlive-pgf
+Requires: texlive-pgfopts
+Requires: texlive-tools
+Requires: texlive-xcolor
+Requires: texlive-base
+Requires: texlive-kpathsea
+Provides: tex(minted.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(minted1.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(minted2.sty) = %{epoch}:%{source_date}-%{release}
+# python
+BuildArch: noarch
+
+%description -n %{shortname}-minted
+The package that facilitates expressive syntax highlighting in
+LaTeX using the powerful Pygments library. The package also
+provides options to customize the highlighted source code
+output using fancyvrb.
 
 %package -n %{shortname}-mkgrkindex
 Version: svn26313
@@ -5298,7 +5709,7 @@ you run it without an input file). For an extensive description
 see the file mkpicdoc.pdf, which is part of the distribution.
 
 %package -n %{shortname}-mltex
-Version: svn62145
+Version: svn71363
 Provides: texlive-mltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-mltex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mltex-bin = %{epoch}:%{source_date}-%{release}
@@ -5338,7 +5749,7 @@ Computer Modern (CM) fonts. The system is distributed as a TeX
 change file.
 
 %package -n %{shortname}-mptopdf
-Version: svn65952
+Version: svn75423
 Provides: texlive-mptopdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-mptopdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mptopdf-bin = %{epoch}:%{source_date}-%{release}
@@ -5395,7 +5806,7 @@ heterogeneous styles, are also supported (and work with other
 bibliography packages).
 
 %package -n %{shortname}-musixtex
-Version: svn65519
+Version: svn70804
 Provides: texlive-musixtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtex-bin = %{epoch}:%{source_date}-%{release}
@@ -5442,6 +5853,7 @@ Provides: tex(musixltx.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixlyr.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixmad.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixmkm.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(musixmtab.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixper.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixplt.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(musixpoi.tex) = %{epoch}:%{source_date}-%{release}
@@ -5480,7 +5892,7 @@ the pmx preprocessor compiles a simpler input language to
 MusixTeX macros.
 
 %package -n %{shortname}-musixtnt
-Version: svn40307
+Version: svn69742
 Provides: texlive-musixtnt = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtnt = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtnt-bin = %{epoch}:%{source_date}-%{release}
@@ -5511,7 +5923,7 @@ lines in a MusiXTeX source file. This should be used before
 using \TransformNotes.
 
 %package -n %{shortname}-m-tx
-Version: svn64182
+Version: svn75301
 Provides: texlive-m-tx = %{epoch}:%{source_date}-%{release}
 Provides: tex-m-tx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-m-tx-bin = %{epoch}:%{source_date}-%{release}
@@ -5535,7 +5947,7 @@ be typeset. In fact, pmx now provides a lyrics interface, but M-
 Tx continues in use by those who prefer its language.
 
 %package -n %{shortname}-oberdiek
-Version: svn65521
+Version: svn71916
 Provides: texlive-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek-doc = %{epoch}:%{source_date}-%{release}
@@ -5599,7 +6011,6 @@ Provides: tex(fibnum.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(flags.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(holtxdoc.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hypbmsec.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(hypcap.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hypgotoe.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hyphsubst.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ifdraft.sty) = %{epoch}:%{source_date}-%{release}
@@ -5607,7 +6018,6 @@ Provides: tex(iflang.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolparallel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolparcolumns.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcrypt.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(pdfrender.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(protecteddef.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(resizegather.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(rotchiffre.sty) = %{epoch}:%{source_date}-%{release}
@@ -5618,7 +6028,6 @@ Provides: tex(stackrel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(stampinclude.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(tabularht.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(tabularkv.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(telprint.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(thepdfnumber.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(twoopt.sty) = %{epoch}:%{source_date}-%{release}
 BuildArch: noarch
@@ -5661,7 +6070,7 @@ file; the .ins file necessary for installation is extracted by
 running the .dtx file with Plain TeX.
 
 %package -n %{shortname}-omegaware
-Version: svn66186
+Version: svn73848
 Provides: texlive-omegaware = %{epoch}:%{source_date}-%{release}
 Provides: tex-omegaware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-omegaware-bin = %{epoch}:%{source_date}-%{release}
@@ -5685,7 +6094,7 @@ maintenance mode only. Ongoing projects developing Omega (and
 Aleph) ideas include Omega-2 and LuaTeX.
 
 %package -n %{shortname}-optex
-Version: svn66513
+Version: svn75314
 Provides: texlive-optex = %{epoch}:%{source_date}-%{release}
 License: LicenseRef-Fedora-Public-Domain
 Summary: LuaTeX format based on Plain TeX and OPmac
@@ -5704,9 +6113,11 @@ Requires: texlive-unicode-data
 Provides: tex(op-demo.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-letter-cs.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-letter-en.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(op-letter-he.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(op-letter-src.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(op-letter-srl.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-mathalign.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(op-slides.tex) = %{epoch}:%{source_date}-%{release}
-
 
 %description -n %{shortname}-optex
 OpTeX is a LuaTeX format based on Plain TeX macros with power
@@ -5733,7 +6144,7 @@ word, header etc.
 
 %package -n %{shortname}-pagelayout
 Summary: Layout graphic rich documents
-Version: svn66392
+Version: svn71937
 License: LPPL-1.3c
 Requires: texlive-base texlive-kpathsea
 Provides: tex(pagelayout.cls) = %{epoch}:%{source_date}-%{release}
@@ -5753,7 +6164,7 @@ pagelayout class also integrates the Pgf/TikZ and tcolorbox
 LaTeX packages.
 
 %package -n %{shortname}-patgen
-Version: svn66186
+Version: svn73848
 Provides: texlive-patgen = %{epoch}:%{source_date}-%{release}
 Provides: tex-patgen = %{epoch}:%{source_date}-%{release}
 Provides: texlive-patgen-bin = %{epoch}:%{source_date}-%{release}
@@ -5846,7 +6257,7 @@ Existing files will be overwritten. All input files are
 processed seperately.
 
 %package -n %{shortname}-pdfcrop
-Version: svn55435
+Version: svn66862
 Provides: texlive-pdfcrop = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfcrop = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfcrop-bin = %{epoch}:%{source_date}-%{release}
@@ -5868,7 +6279,7 @@ A Perl script that can either trim pages of any whitespace
 border, or trim them of a fixed border.
 
 %package -n %{shortname}-pdfjam
-Version: svn56991
+Version: svn75152
 Provides: texlive-pdfjam = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfjam = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfjam-bin = %{epoch}:%{source_date}-%{release}
@@ -5894,7 +6305,7 @@ selecting pages, concatenating files, doing n-up formatting,
 and so on.
 
 %package -n %{shortname}-pdflatexpicscale
-Version: svn46617
+Version: svn72650
 Provides: texlive-pdflatexpicscale = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdflatexpicscale = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdflatexpicscale-bin = %{epoch}:%{source_date}-%{release}
@@ -5915,7 +6326,7 @@ The package provides a script to scale pictures down to a
 target resolution before creating a PDF document with pdfLaTeX.
 
 %package -n %{shortname}-pdftex
-Version: svn66243
+Version: svn74113
 Provides: texlive-pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftex-bin = %{epoch}:%{source_date}-%{release}
@@ -5929,7 +6340,7 @@ Summary: A TeX extension for direct creation of PDF
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires(post,postun): coreutils
-Requires: tex-graphics-def
+Requires: texlive-graphics-def
 Requires: texlive-cm
 Requires: texlive-dehyph
 Requires: texlive-etex
@@ -5937,7 +6348,7 @@ Requires: texlive-hyph-utf8
 Requires: texlive-hyphen-base
 Requires: texlive-knuth-lib
 Requires: texlive-plain
-Requires: tex-tex-ini-files
+Requires: texlive-tex-ini-files
 Provides: tex(dummy-space.map) = %{epoch}:%{source_date}-%{release}
 Provides: tex(glyphtounicode.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolor.tex) = %{epoch}:%{source_date}-%{release}
@@ -5969,7 +6380,7 @@ This is a tool in BASH serving to reduce the output of `pdftex` command and see
 only relevant errors in red bold font to fight them ASAP.
 
 %package -n %{shortname}-pdftosrc
-Version: svn66186
+Version: svn73848
 Provides: texlive-pdftosrc = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftosrc = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftosrc-bin = %{epoch}:%{source_date}-%{release}
@@ -5985,7 +6396,7 @@ a PDF stream given by object number. Developed as part of the
 pdfTeX source tree.
 
 %package -n %{shortname}-pdfxup
-Version: svn59001
+Version: svn71513
 Provides: texlive-pdfxup = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfxup = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfxup-bin = %{epoch}:%{source_date}-%{release}
@@ -5998,6 +6409,7 @@ License: LPPL-1.3c
 Summary: Create n-up PDF pages with minimal margins
 Requires: texlive-base
 Requires: texlive-kpathsea
+Provides: tex(pdfxup-template.tex) = %{epoch}:%{source_date}-%{release}
 # shell
 BuildArch: noarch
 
@@ -6031,7 +6443,7 @@ multilanguage pedigrees (at the present moment the English and
 Russian languages are supported).
 
 %package -n %{shortname}-perltex
-Version: svn52162
+Version: svn73044
 Provides: texlive-perltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-perltex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-perltex-bin = %{epoch}:%{source_date}-%{release}
@@ -6093,7 +6505,7 @@ second defines macros related to PBC, M-nets and B(PN) models;
 and a third that combines the other two.
 
 %package -n %{shortname}-pfarrei
-Version: svn31934
+Version: svn68950
 Provides: texlive-pfarrei = %{epoch}:%{source_date}-%{release}
 Provides: tex-pfarrei = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pfarrei-bin = %{epoch}:%{source_date}-%{release}
@@ -6177,7 +6589,7 @@ documents fully autonomously but does require the user to
 verify and, if needed, correct its decisions.
 
 %package -n %{shortname}-pmx
-Version: svn65926
+Version: svn75301
 Provides: texlive-pmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmx-bin = %{epoch}:%{source_date}-%{release}
@@ -6202,7 +6614,7 @@ proof-listening, pmxab will make a MIDI file of your score.
 scor2prt is an auxiliary program that makes parts from a score.
 
 %package -n %{shortname}-pmxchords
-Version: svn39249
+Version: svn73868
 Provides: texlive-pmxchords = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmxchords = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmxchords-bin = %{epoch}:%{source_date}-%{release}
@@ -6226,6 +6638,27 @@ chords above the notes of a score. The bundle contains: macros
 for typing the chords; a Lua script to transpose chord macros
 to the required key signature; and support scripts for common
 requirements.
+
+%package -n %{shortname}-ppmcheckpdf
+Version: svn74165
+Provides: tex-ppmcheckpdf = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Convert PDF to PNG and compare PNG files after l3build
+Requires: texlive-base
+Requires: texlive-kpathsea
+#lua
+BuildArch: noarch
+
+%description -n %{shortname}-ppmcheckpdf
+The build system l3build normally writes the contents of some
+boxes from .lvt files into corresponding .tlg files. Sometimes
+a dependent package adds e.g. the command \kern0pt, so that
+test files fail, even if the PDF files look the same as before
+and are still correct. The ppmcheckpdf tool offers an
+alternative option for regression testing: instead of printing
+the contents of boxes in .lvt files, PDF files are converted to
+PNG files and you can compare the PNG files after l3build has
+finished its work.
 
 %package -n %{shortname}-psutils
 Version: svn61719
@@ -6356,7 +6789,7 @@ generated that use Type 1 fonts. The program makes use of code
 donated to the X consortium by IBM.
 
 %package -n %{shortname}-ptex
-Version: svn66186
+Version: svn73848
 Provides: texlive-ptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex-bin = %{epoch}:%{source_date}-%{release}
@@ -6803,6 +7236,29 @@ rubikrotation which can process a sequence of Rubik rotation
 moves, with the help of a Perl package executed via \write18
 (shell escape) commands.
 
+%package -n %{shortname}-runtexshebang
+Version: svn68882
+Provides: tex-runtexshebang = %{epoch}:%{source_date}-%{release}
+License: MIT
+Summary: A Lua script running LaTeX document files with TeX-style shebang
+Requires: texlive-base
+Requires: texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-runtexshebang
+In short, a TeX-style shebang (%#!) is a special kind of TeX
+comment that you include in your TeX/LaTeX document file to
+tell the operating system's shell how to run the file for the
+rest of the file: %#!lualatex foo.tex \documentclass{article}
+\begin{document} Hello, {\LaTeX} World! Happy {\TeX}ing.
+\end{document} If you are using a TeX-style shebang, it must
+appear on the line that matched 20 lines or less in your LaTeX
+document, and it has to start with a TeX comment symbol (%)
+followed by a hash sign (#) and an exclamation mark (!),
+colloquially known as the bang, hence the name shebang for
+TeX/LaTeX.
+
 %package -n %{shortname}-seetexk
 Version: svn57972
 Provides: texlive-seetexk = %{epoch}:%{source_date}-%{release}
@@ -6871,6 +7327,28 @@ may use even more than 16 indexes: splitidx outputs only a
 single file \jobname.idx and the program splits that file into
 several raw index files and calls your favorite index processor
 for each of the files.
+
+%package -n %{shortname}-sqltex
+Version: svn72396
+Provides: tex-sqltex = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: An SQL Preprocessor for LaTeX
+Requires: texlive-base
+Requires: texlive-kpathsea
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-sqltex
+SQLTeX is a preprocessor that enables the use of SQL statements
+in LaTeX. The SQLTeX perl script reads an input file containing
+the LaTeX source with SQL commands, and writes a LaTeX file in
+which the SQL commands have been replaced by the values from
+their execution. It is possible to select a field for
+substitution in your LaTeX document, or to be used as input in
+another SQL command. (When an SQL command returns multiple
+fields and/or rows, the values can only be used within the
+document.) The default is to use MySQL databases, but Pg,
+Sybase, Oracle, Ingres, mSQL and PostgreSQL are also supported.
 
 %package -n %{shortname}-srcredact
 Version: svn38710
@@ -6982,7 +7460,7 @@ end. It is compiled into most engines and can be enabled with
 the --synctex=1 option. It is developed as part of TeX Live.
 
 %package -n %{shortname}-tex
-Version: svn66186
+Version: svn73848
 Provides: texlive-tex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex-bin = %{epoch}:%{source_date}-%{release}
@@ -7010,7 +7488,7 @@ inspiration for several other programs, including e-TeX and
 PDFTeX.
 
 %package -n %{shortname}-tex4ebook
-Version: svn66332
+Version: svn74939
 Provides: texlive-tex4ebook = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ebook = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ebook-bin = %{epoch}:%{source_date}-%{release}
@@ -7038,7 +7516,7 @@ conversion of LaTeX files to ebook formats such as epub, mobi
 and epub3. tex4ht is used as conversion engine.
 
 %package -n %{shortname}-tex4ht
-Version: svn66530
+Version: svn75475
 Provides: texlive-tex4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ht-bin = %{epoch}:%{source_date}-%{release}
@@ -7088,6 +7566,25 @@ This small utility, written in SNOBOL, converts the composition
 of special characters to Unicode, e. g. \"{a} - a, \k{a} - a,
 ...
 
+%package -n %{shortname}-texblend
+Summary: Compile segments of LaTeX documents
+Version: svn68961
+License: LPPL-1.3c
+Provides: tex-texblend = %{epoch}:%{source_date}-%{release}
+Requires: texlive-base texlive-kpathsea texlive-luatex
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-texblend
+This tool compiles individual files that are included as parts
+of larger documents. It utilizes the preamble of the main
+document but disregards all other included files. The main
+purpose is to allow fast compilation of particular chapters or
+sections, eliminating the need to recompile the entire
+document. This facilitates an efficient way to check for
+formatting or syntax errors in the particular part of the
+document being worked on.
+
 %package -n %{shortname}-texcount
 Version: svn49013
 Provides: texlive-texcount = %{epoch}:%{source_date}-%{release}
@@ -7113,7 +7610,7 @@ of the text have been counted. The package script is available
 as a Web service via its home page.
 
 %package -n %{shortname}-texdef
-Version: svn64967
+Version: svn74067
 Provides: texlive-texdef = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdef = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdef-bin = %{epoch}:%{source_date}-%{release}
@@ -7190,7 +7687,7 @@ single directory (thus "flattening" the document's directory
 tree).
 
 %package -n %{shortname}-texdoc
-Version: svn66227
+Version: svn73876
 Provides: texlive-texdoc = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoc = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoc-bin = %{epoch}:%{source_date}-%{release}
@@ -7244,8 +7741,26 @@ these programs can be configured by the sysadmin or user. Now
 only distributed as part of TeX Live, which includes a Windows
 executable.
 
+%package -n %{shortname}-texfindpkg
+Version: svn72937
+Provides: tex-texfindpkg = %{epoch}:%{source_date}-%{release}
+License: GPL-3.0-or-later
+Summary: Query or install TeX packages and their dependencies
+Requires: texlive-base
+Requires: texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-texfindpkg
+This package makes it easy to query or install TeX packages and
+their dependencies by file names, command names or environment
+names. TeXFindPkg supports both TeX Live and MiKTeX
+distributions. At present it focuses mainly on LaTeX packages,
+but may be extended to ConTeXt packages if anyone would like to
+contribute.
+
 %package -n %{shortname}-texfot
-Version: svn65545
+Version: svn70969
 Provides: texlive-texfot = %{epoch}:%{source_date}-%{release}
 Provides: tex-texfot = %{epoch}:%{source_date}-%{release}
 Provides: tex-texfot-bin = %{epoch}:%{source_date}-%{release}
@@ -7295,7 +7810,7 @@ synctex=1 -interaction=nonstopmode", which may all be changed).
 The script is designed to work on Linux distributions.
 
 %package -n %{shortname}-texlive-en
-Version: svn66572
+Version: svn74120
 Provides: texlive-texlive-en = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-en = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-en-doc = %{epoch}:%{source_date}-%{release}
@@ -7311,7 +7826,7 @@ BuildArch: noarch
 TeX Live manual (English).
 
 %package -n %{shortname}-texlive-scripts
-Version: svn66584
+Version: svn75476
 Provides: texlive-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-scripts-bin = %{epoch}:%{source_date}-%{release}
@@ -7350,7 +7865,7 @@ Includes install-tl, tl-portable, rungs, etc.; not needed for
 tlmgr to run but still ours.  Not included in tlcritical.
 
 %package -n %{shortname}-texlive-scripts-extra
-Version: svn62517
+Version: svn71746
 Provides: texlive-texlive-scripts-extra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-scripts-extra = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-scripts-extra-bin = %{epoch}:%{source_date}-%{release}
@@ -7371,7 +7886,7 @@ the infrastructure. Thus, this is not part of scheme-infraonly or tlcritical,
 just a normal package.
 
 %package -n %{shortname}-texlive.infra
-Version: svn66512
+Version: svn75215
 Provides: texlive-texlive.infra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive.infra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive.infra-bin = %{epoch}:%{source_date}-%{release}
@@ -7418,7 +7933,7 @@ The perl script allows the user to extract (and display)
 elements of the log file.
 
 %package -n %{shortname}-texlogfilter
-Version: svn62792
+Version: svn71525
 Provides: texlive-texlogfilter = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlogfilter-bin = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
@@ -7435,7 +7950,7 @@ mask specific warnings, such as box or references/citations warnings. It's also
 possible to add custom filter patterns.
 
 %package -n %{shortname}-texlogsieve
-Version: svn64301
+Version: svn74565
 Provides: texlive-texlogsieve = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlogsieve-bin = %{epoch}:%{source_date}-%{release}
 License: GPL-3.0-or-later
@@ -7467,6 +7982,8 @@ Obsoletes: texlive-texosquery-bin < 7:20170520
 Provides: tex-texosquery-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texosquery-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texosquery-doc < 7:20170520
+Provides: tex(texosquery.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(texosquery.tex) = %{epoch}:%{source_date}-%{release}
 License: LPPL-1.3c
 Summary: Cross-platform Java application to query OS information
 Requires: texlive-base
@@ -7499,7 +8016,7 @@ problematic characters) is temporarily changed to 12 while
 reading the result.
 
 %package -n %{shortname}-texplate
-Version: svn61719
+Version: svn71963
 Provides: texlive-texplate = %{epoch}:%{source_date}-%{release}
 Provides: tex-texplate = %{epoch}:%{source_date}-%{release}
 Provides: tex-texplate-bin = %{epoch}:%{source_date}-%{release}
@@ -7523,7 +8040,7 @@ text-based structure, given that a corresponding template
 exists.
 
 %package -n %{shortname}-texsis
-Version: svn45678
+Version: svn69742
 Provides: texlive-texsis = %{epoch}:%{source_date}-%{release}
 Provides: tex-texsis = %{epoch}:%{source_date}-%{release}
 Provides: tex-texsis-bin = %{epoch}:%{source_date}-%{release}
@@ -7586,7 +8103,7 @@ physicists, but others may also find it useful. It is
 completely compatible with Plain TeX.
 
 %package -n %{shortname}-texware
-Version: svn66186
+Version: svn73848
 Provides: texlive-texware = %{epoch}:%{source_date}-%{release}
 Provides: tex-texware = %{epoch}:%{source_date}-%{release}
 Provides: tex-texware-bin = %{epoch}:%{source_date}-%{release}
@@ -7635,7 +8152,7 @@ thumbnails. This arrangement works with both plain TeX and
 LaTeX.
 
 %package -n %{shortname}-tie
-Version: svn66186
+Version: svn73848
 Provides: texlive-tie = %{epoch}:%{source_date}-%{release}
 Provides: tex-tie = %{epoch}:%{source_date}-%{release}
 Provides: tex-tie-bin = %{epoch}:%{source_date}-%{release}
@@ -7664,7 +8181,7 @@ This package provides a shell script that calls XeTeX and
 pdf2svg to convert TikZ environments to SVG files.
 
 %package -n %{shortname}-tpic2pdftex
-Version: svn52851
+Version: svn73908
 Provides: texlive-tpic2pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tpic2pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tpic2pdftex-bin = %{epoch}:%{source_date}-%{release}
@@ -7685,7 +8202,7 @@ The AWK script converts pic language, embedded inline
 (delimited by .PS and .PE markers), to \pdfliteral commands.
 
 %package -n %{shortname}-ttfutils
-Version: svn66186
+Version: svn73908
 Provides: texlive-ttfutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-ttfutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-ttfutils-bin = %{epoch}:%{source_date}-%{release}
@@ -7706,7 +8223,7 @@ Utilities: ttf2afm ttf2pk ttf2tfm ttfdump. FreeType is the
 underlying library.
 
 %package -n %{shortname}-typeoutfileinfo
-Version: svn29349
+Version: svn67526
 Provides: texlive-typeoutfileinfo = %{epoch}:%{source_date}-%{release}
 Provides: tex-typeoutfileinfo = %{epoch}:%{source_date}-%{release}
 Provides: tex-typeoutfileinfo-bin = %{epoch}:%{source_date}-%{release}
@@ -7729,6 +8246,32 @@ systems, that displays the information content in a
 \ProvidesFile, \ProvidesPackage or \ProvidesClass command in a
 LaTeX source file. The package requires that the readprov
 package is available.
+
+%package -n %{shortname}-typog
+Version: svn71883
+Provides: tex-typog = %{epoch}:%{source_date}-%{release}
+Provides: tex(typog.sty) = %{epoch}:%{source_date}-%{release}
+Summary: Typographic fine-tuning and micro-typographic enhancements
+License: LPPL-1.3c
+Requires: texlive-base
+Requires: texlive-kpathsea
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-typog
+This package provides macros for micro-typographic
+enhancements. It covers a variety of topics: Precise
+hyphenation control Disable/break ligatures Manual italic
+correction Extra kerning for slash and hyphen Raising selected
+characters (e.g. hyphen, en-dash, and em-dash) Aligning of the
+last line of a paragraph Filling of the last line of a
+paragraph Word spacing control Microtype front-end Slightly
+sloppy paragraphs Vertically partially-tied paragraphs
+Breakable displayed equations Setspace front-end Smooth
+ragged-right paragraphs Moreover, typog provides an environment
+to flag interesting parts of the information deluge typically
+accumulating in a LaTeX log-file and an associated tool,
+typog-grep, that selectively retrieves these parts.
 
 %package -n %{shortname}-ulqda
 Version: svn26313
@@ -7763,7 +8306,7 @@ information -- for example, in-depth interviews.
 
 %package -n %{shortname}-upmendex
 Summary: Multilingual index processor
-Version: svn66381
+Version: svn74401
 License: BSD-3-Clause
 Requires: texlive-base texlive-kpathsea
 Provides: tex-upmendex = %{epoch}:%{source_date}-%{release}
@@ -7784,7 +8327,7 @@ Applies International Components for Unicode (ICU) for sorting
 process.
 
 %package -n %{shortname}-uptex
-Version: svn66381
+Version: svn73848
 Provides: texlive-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-bin = %{epoch}:%{source_date}-%{release}
@@ -7868,7 +8411,7 @@ License: GPL-1.0-or-later
 Summary: Typeset Devanagari
 Requires: texlive-base
 Requires: texlive-kpathsea
-Requires: tex-xetex-devanagari
+Requires: texlive-xetex-devanagari
 Requires: tex(hindicaptions.sty)
 Requires: tex(cite.sty)
 Requires: tex(ifxetex.sty)
@@ -7900,7 +8443,7 @@ XeTeX based package, which is far preferable for users who can
 type Unicode text.
 
 %package -n %{shortname}-vlna
-Version: svn66186
+Version: svn73908
 Provides: texlive-vlna = %{epoch}:%{source_date}-%{release}
 Provides: tex-vlna = %{epoch}:%{source_date}-%{release}
 Provides: tex-vlna-bin = %{epoch}:%{source_date}-%{release}
@@ -7951,7 +8494,7 @@ LaTeX/VTeX. Using the LaTeX/dvips or pdfLaTeX routes, the
 (pdf)TeX processor should be run with shell escapes enabled.
 
 %package -n %{shortname}-web
-Version: svn66186
+Version: svn73848
 Provides: texlive-web = %{epoch}:%{source_date}-%{release}
 Provides: tex-web = %{epoch}:%{source_date}-%{release}
 Provides: tex-web-bin = %{epoch}:%{source_date}-%{release}
@@ -7985,6 +8528,8 @@ Requires: tex(pstricks.sty)
 Requires: texlive-dvisvgm
 Requires: ghostscript
 Requires: python3
+Provides: tex(webquiz-doc.code.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(webquiz-ini.code.tex) = %{epoch}:%{source_date}-%{release}
 # python3
 BuildArch: noarch
 
@@ -8039,7 +8584,7 @@ The canonical previewer for use on Unix and other X-windows
 based systems.
 
 %package -n %{shortname}-xetex
-Version: svn66203
+Version: svn73850
 Provides: texlive-xetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xetex-bin = %{epoch}:%{source_date}-%{release}
@@ -8093,7 +8638,7 @@ Live; documentation has arisen separately. Source code is
 available from ctan:/systems/texlive/Source/.
 
 %package -n %{shortname}-xindex
-Version: svn65597
+Version: svn73644
 Provides: texlive-xindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindex-bin = %{epoch}:%{source_date}-%{release}
@@ -8157,7 +8702,7 @@ PMX and MusiXTeX processing. This package supports Windows,
 MacOS and Linux systems.
 
 %package -n %{shortname}-xmltex
-Version: svn62145
+Version: svn71362
 Provides: texlive-xmltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xmltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xmltex-bin = %{epoch}:%{source_date}-%{release}
@@ -8289,7 +8834,7 @@ tar xf %{SOURCE0}
 %patch -P36 -p1 -b .poppler-22.08.0
 %endif
 %else
-%patch -P32 -p1 -b .configure-no-GfxFont-decRefCnt
+# %%patch -P32 -p1 -b .configure-no-GfxFont-decRefCnt
 %endif
 
 %if 0%{?fedora} >= 38 || 0%{?rhel} > 9
@@ -8302,7 +8847,6 @@ ln -s %{_texdir}/licenses/$l $l
 done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
-%patch -P48 -p1 -b .gcc-14-typefixes
 %patch -P49 -p1 -b .gcc-15-ftbfs
 
 # Disable broken tests
@@ -8313,10 +8857,10 @@ sed -i 's|TESTS = tests/updmap-cmdline-test.pl||g' source/texk/texlive/Makefile.
 sed -i 's|bibtex8_tests = tests/bibtex8.test|bibtex8_tests =|g' source/texk/bibtex-x/Makefile.in
 sed -i 's|bibtex8_tests = tests/bibtex8.test|bibtex8_tests =|g' source/texk/bibtex-x/Makefile.am
 
-# Value here is "16" not "15" because we have a source0 at index 1.
-# Source15 at index 16 is our first "normal" noarch source file.
+# Value here is "17" not "16" because we have a source0 at index 1.
+# Source16 at index 17 is our first "normal" noarch source file.
 # Also, this macro has to be here, not at the top, or it will not evaluate properly. :P
-%global mysources %{lua: for index,value in ipairs(sources) do if index >= 16 then print(value.." ") end end}
+%global mysources %{lua: for index,value in ipairs(sources) do if index >= 17 then print(value.." ") end end}
 
 # Drop source/libs/xpdf dir, we use system ver (if at all)
 rm -rf source/libs/xpdf
@@ -8364,8 +8908,10 @@ rm -f dummy.*
 
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=118112
 export CFLAGS="$RPM_OPT_FLAGS -std=gnu17 -fno-strict-aliasing -Werror=format-security"
+
+# -std=gnu++17 until icu is properly C++20 compatible
 %if 0%{?fedora} >= 36 || 0%{?rhel} > 9
-export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Werror=format-security"
+export CXXFLAGS="$RPM_OPT_FLAGS -std=gnu++17 -fno-strict-aliasing -Werror=format-security"
 %else
 export CXXFLAGS="$RPM_OPT_FLAGS -std=c++11 -fno-strict-aliasing -Werror=format-security"
 %endif
@@ -8412,7 +8958,7 @@ sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' $i
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' $i
 done
 
-%make_build world STRIPPROG=/bin/true STRIP=/bin/true
+%make_build world STRIPPROG=/bin/true STRIP=/bin/true ||:
 
 %install
 # make directories
@@ -8501,6 +9047,7 @@ xz -dc %{SOURCE11} | tar x
 xz -dc %{SOURCE12} | tar x
 xz -dc %{SOURCE13} | tar x
 xz -dc %{SOURCE14} | tar x
+xz -dc %{SOURCE15} | tar x
 popd
 
 # We want the texmf.cnf we patched, not the vanilla one from the kpathsea.tar.xz
@@ -8519,15 +9066,12 @@ pushd %{buildroot}%{_texdir}/texmf-dist
 patch -p1 < %{_sourcedir}/texlive-20190410-tlmgr-ignore-warning.patch
 
 # Fix texmfcnf.lua
-patch -p1 < %{_sourcedir}/texlive-fedora-texmfcnf.lua.patch
+patch -p1 < %{_sourcedir}/texlive-2025-fedora-texmfcnf.lua.patch
 
 # Fix interpreter on perl scripts
 patch -p1 < %{_sourcedir}/texlive-base-20230311-fix-scripts.patch
 
-# Fix bundling option with perl-5.40.x
-patch -p1 < %{_sourcedir}/texdef-perl-option-5.40.x.patch
-
-# Fix errors with python3.13 
+# Fix errors with python3.13
 patch -p1 < %{_sourcedir}/texlive-pythontex3-python-3.1x.patch
 
 popd
@@ -8662,6 +9206,11 @@ rm -f latexmk
 rm -rf %{buildroot}%{_texdir}/texmf-dist/scripts/latexmk
 rm -f %{buildroot}%{_datadir}/texlive/texmf-dist/doc/man/man1/latexmk.*
 
+# remove ltx2unitxt
+# this lives in the "perl-LaTeX-ToUnicode" package
+rm -f ltx2unitxt
+rm -rf %{buildroot}%{_texdir}/texmf-dist/scripts/bibtexperllibs/ltx2unitxt
+
 # Fix symlinks for helper scripts
 rm -f bibexport.sh
 ln -s /usr/share/texlive/texmf-dist/scripts/bibexport/bibexport.sh bibexport.sh
@@ -8673,6 +9222,11 @@ rm -rf mkjobtexmf
 ln -s /usr/share/texlive/texmf-dist/scripts/mkjobtexmf/mkjobtexmf.pl mkjobtexmf
 rm -rf digestif
 ln -s /usr/share/texlive/texmf-dist/scripts/digestif/digestif.texlua digestif
+rm -rf texexec
+ln -s /usr/share/texlive/texmf-dist/scripts/context/stubs/unix/texexec texexec
+rm -rf texmfstart
+ln -s /usr/share/texlive/texmf-dist/scripts/context/stubs/unix/texmfstart texmfstart
+
 
 # make a mtxrun stub
 rm -f mtxrun
@@ -8766,7 +9320,7 @@ ln -s %{_sysconfdir}/texlive/psutils/paper.cfg %{buildroot}%{_texdir}/texmf-dist
 # Some (most) of the binaries are ending up with RPATH despite our best efforts.
 for i in afm2pl afm2tfm aleph bibtex bibtex8 bibtexu chkdvifont chktex ctie ctangle ctwill ctwill-refsort ctwill-twinx cweave detex disdvi dt2dv dv2dt dvi2tty dvibook dviconcat dvicopy dvilj dvilj2p dvilj4 dvilj4l dvipng \
          dvipos dvips dviselect dvispc dvisvgm dvitodvi dvitype eptex euptex gftodvi gftopk gftype gregorio gsftopk hbf2gf hitex kpsewhich luahbtex luatex mag makeindex makejvf mendex mf mflua mft mf-nowin mpost otftotfm msxlint \
-         odvicopy odvitype omfonts otangle otp2ocp outocp patgen pbibtex pdftex pdftosrc pktogf pdvitype pfb2pfa pk2bm pktype pltotf pmpost pooltype ppltotf ps2pk ptex ptftopl synctex t4ht tangle tex tex4ht tftopl tie tl-epsffit tl-psbook tl-psnup tl-psresize tl-psselect tl-pstops \
+         odvicopy odvitype omfonts otangle otp2ocp outocp patgen pbibtex pdftex pdftosrc pktogf pdvitype pfb2pfa pk2bm pktype pltotf pmpost pooltype ppltotf ps2pk ptekf ptex ptftopl synctex t4ht tangle tex tex4ht texprof tftopl tie tl-epsffit tl-psbook tl-psnup tl-psresize tl-psselect tl-pstops \
          ttf2afm ttf2pk ttf2tfm ttfdump twill upbibtex updvitype upmendex upmpost uppltotf uptex uptftopl vftovp vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf xdvi-xaw xdvipdfmx xetex; do
 chrpath --delete %{buildroot}%{_bindir}/$i
 done
@@ -8990,6 +9544,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{fmtutil_cnf_d}/amstex
 %doc %{_texdir}/texmf-dist/doc/amstex/base/
 
+%files -n %{shortname}-aomart
+%license lppl1.txt
+%{_bindir}/aom-fullref
+%{_mandir}/man1/aom-fullref.1*
+%{_texdir}/texmf-dist/bibtex/bst/aomart/
+%{_texdir}/texmf-dist/scripts/aomart/
+%{_texdir}/texmf-dist/tex/latex/aomart/
+%doc %{_texdir}/texmf-dist/doc/latex/aomart
+
 %files -n %{shortname}-arara
 %license bsd.txt
 %{_bindir}/arara
@@ -9031,8 +9594,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl3.txt
 %{_bindir}/bib2gls
 %{_bindir}/convertgls2bib
+%{_bindir}/datatool2bib
 %{_mandir}/man1/bib2gls.1*
 %{_mandir}/man1/convertgls2bib.1*
+%{_mandir}/man1/datatool2bib.1*
 %{_texdir}/texmf-dist/scripts/bib2gls/
 %doc %{_texdir}/texmf-dist/doc/support/bib2gls/
 
@@ -9075,6 +9640,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/tex/generic/bibtex/apalike.sty
 %{_texdir}/texmf-dist/tex/generic/bibtex/apalike.tex
 
+%files -n %{shortname}-bibtexperllibs
+%license gpl.txt
+%{_mandir}/man1/ltx2unitxt.1*
+
 %files -n %{shortname}-bibtexu
 %license lppl1.txt
 %{_bindir}/bibtexu
@@ -9099,6 +9668,17 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/bibtex/csf/polish-csf/iso8859-7.csf
 %doc %{_texdir}/texmf-dist/doc/bibtex8/
 %{_mandir}/man1/bibtex8.1*
+
+%files -n %{shortname}-bookshelf
+%license lppl1.3.txt
+%{_bindir}/bookshelf-listallfonts
+%{_bindir}/bookshelf-mkfontsel
+%{_mandir}/man1/bookshelf-listallfonts.1*
+%{_mandir}/man1/bookshelf-mkfontsel.1*
+%{_texdir}/texmf-dist/bibtex/bst/bookshelf/
+%{_texdir}/texmf-dist/scripts/bookshelf/
+%{_texdir}/texmf-dist/tex/latex/bookshelf/
+%doc %{_texdir}/texmf-dist/doc/latex/bookshelf/
 
 %files -n %{shortname}-bundledoc
 %license lppl1.txt
@@ -9213,6 +9793,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/cluttex
 %{_bindir}/clxelatex
 %{_texdir}/texmf-dist/scripts/cluttex/
+%{_mandir}/man1/cllualatex.1*
+%{_mandir}/man1/cluttex.1*
+%{_mandir}/man1/clxelatex.1*
 %doc %{_texdir}/texmf-dist/doc/support/cluttex/
 
 %files -n %{shortname}-context
@@ -9224,81 +9807,120 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 # %%{_bindir}/texexec
 %{_bindir}/texmfstart
 %{_mandir}/man1/context.1*
-%{_mandir}/man1/luatools.1*
-%{_mandir}/man1/mtx-babel.1*
-%{_mandir}/man1/mtx-base.1*
-%{_mandir}/man1/mtx-bibtex.1*
-%{_mandir}/man1/mtx-cache.1*
-%{_mandir}/man1/mtx-chars.1*
-%{_mandir}/man1/mtx-check.1*
-%{_mandir}/man1/mtx-colors.1*
-%{_mandir}/man1/mtx-context.1*
-%{_mandir}/man1/mtx-dvi.1*
-%{_mandir}/man1/mtx-epub.1*
-%{_mandir}/man1/mtx-evohome.1*
-%{_mandir}/man1/mtx-fcd.1*
-%{_mandir}/man1/mtx-flac.1*
-%{_mandir}/man1/mtx-fonts.1*
-%{_mandir}/man1/mtx-grep.1*
-%{_mandir}/man1/mtx-interface.1*
-%{_mandir}/man1/mtx-metapost.1*
-# %%{_mandir}/man1/mtx-metatex.1*
-%{_mandir}/man1/mtx-modules.1*
-%{_mandir}/man1/mtx-package.1*
-%{_mandir}/man1/mtx-patterns.1*
-%{_mandir}/man1/mtx-pdf.1*
-%{_mandir}/man1/mtx-plain.1*
-%{_mandir}/man1/mtx-profile.1*
-%{_mandir}/man1/mtx-rsync.1*
-%{_mandir}/man1/mtx-scite.1*
-%{_mandir}/man1/mtx-server.1*
-%{_mandir}/man1/mtx-spell.1*
-%{_mandir}/man1/mtx-texworks.1*
-%{_mandir}/man1/mtx-timing.1*
-%{_mandir}/man1/mtx-tools.1*
-%{_mandir}/man1/mtx-unicode.1*
-%{_mandir}/man1/mtx-unzip.1*
-%{_mandir}/man1/mtx-update.1*
-%{_mandir}/man1/mtx-vscode.1*
-%{_mandir}/man1/mtx-watch.1*
-%{_mandir}/man1/mtx-youless.1*
+# %%{_mandir}/man1/luatools.1*
+%{_mandir}/man1/mtxrun-babel.1*
+%{_mandir}/man1/mtxrun-base.1*
+%{_mandir}/man1/mtxrun-bibtex.1*
+%{_mandir}/man1/mtxrun-cache.1*
+%{_mandir}/man1/mtxrun-chars.1*
+%{_mandir}/man1/mtxrun-check.1*
+%{_mandir}/man1/mtxrun-colors.1*
+%{_mandir}/man1/mtxrun-context.1*
+%{_mandir}/man1/mtxrun-convert.1*
+%{_mandir}/man1/mtxrun-ctan.1*
+%{_mandir}/man1/mtxrun-dvi.1*
+%{_mandir}/man1/mtxrun-epub.1*
+%{_mandir}/man1/mtxrun-evohome.1*
+%{_mandir}/man1/mtxrun-fcd.1*
+%{_mandir}/man1/mtxrun-fixpdf.1*
+%{_mandir}/man1/mtxrun-flac.1*
+%{_mandir}/man1/mtxrun-fonts.1*
+%{_mandir}/man1/mtxrun-grep.1*
+%{_mandir}/man1/mtxrun-interface.1*
+%{_mandir}/man1/mtxrun-kpse.1*
+%{_mandir}/man1/mtxrun-metapost.1*
+%{_mandir}/man1/mtxrun-modules.1*
+%{_mandir}/man1/mtxrun-package.1*
+%{_mandir}/man1/mtxrun-patterns.1*
+%{_mandir}/man1/mtxrun-pdf.1*
+%{_mandir}/man1/mtxrun-plain.1*
+%{_mandir}/man1/mtxrun-profile.1*
+%{_mandir}/man1/mtxrun-rsync.1*
+%{_mandir}/man1/mtxrun-scite.1*
+%{_mandir}/man1/mtxrun-server.1*
+%{_mandir}/man1/mtxrun-spell.1*
+%{_mandir}/man1/mtxrun-synctex.1*
+%{_mandir}/man1/mtxrun-texworks.1*
+%{_mandir}/man1/mtxrun-tools.1*
+%{_mandir}/man1/mtxrun-unicode.1*
+%{_mandir}/man1/mtxrun-unzip.1*
+%{_mandir}/man1/mtxrun-update.1*
+%{_mandir}/man1/mtxrun-vscode.1*
+%{_mandir}/man1/mtxrun-watch.1*
+%{_mandir}/man1/mtxrun-youless.1*
 %{_mandir}/man1/mtxrun.1*
 # %%{_mandir}/man1/texexec.1*
 # %%{_mandir}/man1/texmfstart.1*
-%{_texdir}/texmf-dist/bibtex/bst/context/
-%{_texdir}/texmf-dist/context/
-%{_texdir}/texmf-dist/fonts/afm/hoekwater/context/contnav.afm
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-CNS1-4.cidmap
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-GB1-4.cidmap
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-Identity-0.cidmap
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-Japan1-5.cidmap
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-Japan1-6.cidmap
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-Japan2-0.cidmap
-%{_texdir}/texmf-dist/fonts/cid/fontforge/Adobe-Korea1-2.cidmap
-# %%{_texdir}/texmf-dist/fonts/enc/dvips/context/
+# %%{_texdir}/texmf-dist/context/
 # %%{_texdir}/texmf-dist/fonts/fea/context/
-%{_texdir}/texmf-dist/fonts/map/dvips/context/
-%{_texdir}/texmf-dist/fonts/map/luatex/context/
-%{_texdir}/texmf-dist/fonts/map/pdftex/context/
-%{_texdir}/texmf-dist/fonts/misc/xetex/fontmapping/context/
-%{_texdir}/texmf-dist/fonts/tfm/hoekwater/context/
-%{_texdir}/texmf-dist/fonts/type1/hoekwater/context/
-%{_texdir}/texmf-dist/metapost/context/
+# %%{_texdir}/texmf-dist/fonts/map/luatex/context/
+%{_texdir}/texmf-dist/fonts/opentype/public/context/
+%{_texdir}/texmf-dist/fonts/truetype/public/context/
+%dir %{_texdir}/texmf-dist/metapost/context/
+%{_texdir}/texmf-dist/metapost/context/fonts/
+%dir %{_texdir}/texmf-dist/metapost/context/base
+%{_texdir}/texmf-dist/metapost/context/base/common/
+%{_texdir}/texmf-dist/metapost/context/base/mpiv/
+%{_texdir}/texmf-dist/metapost/context/base/mpxl/
 %exclude %{_texdir}/texmf-dist/scripts/context/perl/mptopdf.pl
 %{_texdir}/texmf-dist/scripts/context/
+%exclude %{_texdir}/texmf-dist/scripts/context/ruby
+%exclude %{_texdir}/texmf-dist/scripts/context/stubs
 %{_texdir}/texmf-dist/tex/context/
+%exclude %{_texdir}/texmf-dist/tex/context/base/mkii
+%exclude %{_texdir}/texmf-dist/tex/context/bib/mkii
+%exclude %{_texdir}/texmf-dist/tex/context/fonts/mkii
+%exclude %{_texdir}/texmf-dist/tex/context/modules/common
+%exclude %{_texdir}/texmf-dist/tex/context/modules/mkii
+%exclude %{_texdir}/texmf-dist/tex/context/patterns/mkii
+%exclude %{_texdir}/texmf-dist/tex/context/user/mkii
+%{_texdir}/texmf-dist/tex/luatex/context/
+# %%{fmtutil_cnf_d}/context
+
+%files -n %{shortname}-context-doc
+%doc %{_texdir}/texmf-dist/doc/context/
+%doc %{_texdir}/texmf-dist/doc/fonts/context/
+%doc %{_texdir}/texmf-dist/doc/luametatex/
+%exclude %{_texdir}/texmf-dist/doc/context/scripts/mkii
+
+%files -n %{shortname}-context-legacy
+%dir %{_texdir}/texmf-dist/bibtex/bst/context/
+%dir %{_texdir}/texmf-dist/bibtex/bst/context/mkii/
+%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-ab.bst
+%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-au.bst
+%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-no.bst
+%{_texdir}/texmf-dist/bibtex/bst/context/mkii/cont-ti.bst
+%{_texdir}/texmf-dist/fonts/afm/public/context/
+%{_texdir}/texmf-dist/fonts/cid/context/
+%{_texdir}/texmf-dist/fonts/enc/dvips/context/
+%{_texdir}/texmf-dist/fonts/map/dvips/context/
+%{_texdir}/texmf-dist/fonts/map/pdftex/context/
+%{_texdir}/texmf-dist/fonts/misc/xetex/fontmapping/context/
+%{_texdir}/texmf-dist/fonts/tfm/public/context/
+%{_texdir}/texmf-dist/fonts/type1/public/context/
+%{_texdir}/texmf-dist/metapost/context/base/mpii/
+%{_texdir}/texmf-dist/scripts/context/ruby/
+%{_texdir}/texmf-dist/scripts/context/stubs/
+%{_texdir}/texmf-dist/tex/context/base/mkii
 # these four are in mptopdf
 %exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-mis.mkii
 %exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-mpe.mkii
 %exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 %exclude %{_texdir}/texmf-dist/tex/context/base/mkii/syst-tex.mkii
+%{_texdir}/texmf-dist/tex/context/bib/mkii/
+%{_texdir}/texmf-dist/tex/context/fonts/mkii/
+%{_texdir}/texmf-dist/tex/context/modules/common/
+%{_texdir}/texmf-dist/tex/context/modules/mkii/
+%{_texdir}/texmf-dist/tex/context/patterns/mkii/
+%{_texdir}/texmf-dist/tex/context/user/mkii/
 %exclude %{_texdir}/texmf-dist/tex/generic/context/mptopdf
 %{_texdir}/texmf-dist/tex/generic/context/
-%{_texdir}/texmf-dist/tex/latex/context/
-# %%{fmtutil_cnf_d}/context
-
-%files -n %{shortname}-context-doc
-%doc %{_texdir}/texmf-dist/doc/context/
+%{fmtutil_cnf_d}/context-legacy
+%doc %{_texdir}/texmf-dist/doc/context/scripts/mkii
+%{_bindir}/texexec
+%{_bindir}/texmfstart
+%{_mandir}/man1/texexec.1*
+%{_mandir}/man1/texmfstart.1*
 
 %files -n %{shortname}-convbkmk
 %{_bindir}/convbkmk
@@ -9325,8 +9947,8 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 
 %files -n %{shortname}-cslatex
 %license gpl.txt
-%{_bindir}/cslatex
-%{_bindir}/pdfcslatex
+# %%{_bindir}/cslatex
+# %%{_bindir}/pdfcslatex
 %{_texdir}/texmf-dist/tex/cslatex/
 %{fmtutil_cnf_d}/cslatex
 
@@ -9372,17 +9994,21 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license knuth.txt
 %{_bindir}/ctangle
 %{_bindir}/ctwill
+%{_bindir}/ctwill-proofsort
 %{_bindir}/ctwill-refsort
 %{_bindir}/ctwill-twinx
 %{_bindir}/cweave
 %{_bindir}/twill
+%{_bindir}/twill-refsort
 %{_mandir}/man1/ctangle.1*
 %{_mandir}/man1/ctwill.1*
+%{_mandir}/man1/ctwill-proofsort.1*
 %{_mandir}/man1/ctwill-refsort.1*
 %{_mandir}/man1/ctwill-twinx.1*
 %{_mandir}/man1/cweave.1*
 %{_mandir}/man1/cweb.1*
 %{_mandir}/man1/twill.1*
+%{_mandir}/man1/twill-refsort.1*
 %{_texdir}/texmf-dist/tex/plain/cweb/
 
 %files -n %{shortname}-cyrillic
@@ -9492,12 +10118,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/dvipdfmx
 %{_bindir}/dvipdft
 %{_bindir}/ebb
-%{_bindir}/extractbb
 %{_mandir}/man1/dvipdfm.1*
 %{_mandir}/man1/dvipdfmx.1*
 %{_mandir}/man1/dvipdft.1*
 %{_mandir}/man1/ebb.1*
-%{_mandir}/man1/extractbb.1*
 %{_mandir}/man1/xdvipdfmx.1*
 %{_texdir}/texmf-dist/dvipdfmx/
 %{_texdir}/texmf-dist/fonts/cmap/dvipdfmx/
@@ -9569,11 +10193,26 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/dvisvgm
 %{_mandir}/man1/dvisvgm.1*
 
+%files -n %{shortname}-easydtx
+%license gpl3.txt
+%{_bindir}/edtx2dtx
+%{_mandir}/man1/edtx2dtx.1*
+%{_texdir}/texmf-dist/scripts/easydtx/
+%doc %{_texdir}/texmf-dist/doc/support/easydtx/
+
 %files -n %{shortname}-ebong
 %license pd.txt
 %{_bindir}/ebong
 %{_texdir}/texmf-dist/scripts/ebong/
 %doc %{_texdir}/texmf-dist/doc/latex/ebong/
+
+%files -n %{shortname}-eolang
+%license mit.txt
+%{_bindir}/eolang
+%{_mandir}/man1/eolang.1*
+%{_texdir}/texmf-dist/scripts/eolang/
+%{_texdir}/texmf-dist/tex/latex/eolang/
+%doc %{_texdir}/texmf-dist/doc/latex/eolang/
 
 %files -n %{shortname}-eplain
 %license gpl2.txt
@@ -9606,6 +10245,18 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/scripts/exceltex/
 %{_texdir}/texmf-dist/tex/latex/exceltex/
 %doc %{_texdir}/texmf-dist/doc/latex/exceltex/
+
+%files -n %{shortname}-expltools
+%license gpl2.txt lppl1.3.txt
+%{_bindir}/explcheck
+%{_texdir}/texmf-dist/scripts/expltools/
+%doc %{_texdir}/texmf-dist/doc/support/expltools/
+
+%files -n %{shortname}-extractbb
+%{_bindir}/extractbb
+%{_mandir}/man1/extractbb.1*
+%{_texdir}/texmf-dist/scripts/extractbb/
+%doc %{_texdir}/texmf-dist/doc/support/extractbb/
 
 %files -n %{shortname}-fig4latex
 %license gpl3.txt
@@ -9705,9 +10356,13 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/hishrink
 %{_bindir}/histretch
 %{_bindir}/hitex
+%{_bindir}/texprof
+%{_bindir}/texprofile
 %{_mandir}/man1/hishrink.1*
 %{_mandir}/man1/histretch.1*
 %{_mandir}/man1/hitex.1*
+%{_mandir}/man1/texprof.1*
+%{_mandir}/man1/texprofile.1*
 %{_texdir}/fmtutil.cnf.d/hitex
 %{_texdir}/texmf-dist/makeindex/hitex/
 %{_texdir}/texmf-dist/tex/hitex/
@@ -9823,6 +10478,13 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/scripts/l3build/
 %{_texdir}/texmf-dist/tex/latex/l3build/
 %doc %{_texdir}/texmf-dist/doc/latex/l3build/
+
+%files -n %{shortname}-l3sys-query
+%license mit.txt
+%{_bindir}/l3sys-query
+%{_mandir}/man1/l3sys-query.1*
+%{_texdir}/texmf-dist/scripts/l3sys-query/
+%doc %{_texdir}/texmf-dist/doc/support/l3sys-query/
 
 %files -n %{shortname}-lacheck
 %license gpl.txt
@@ -10046,7 +10708,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texluac.1*
 %{_sysconfdir}/texlive/web2c/texmfcnf.lua
 %{_texdir}/texmf-dist/tex/generic/config/luatex-unicode-letters.tex
-%{_texdir}/texmf-dist/tex/generic/config/luatexiniconfig.tex
+# %%{_texdir}/texmf-dist/tex/generic/config/luatexiniconfig.tex
 %{_texdir}/texmf-dist/web2c/texmfcnf.lua
 %{fmtutil_cnf_d}/luatex
 %doc %{_texdir}/texmf-dist/doc/luatex/base/
@@ -10086,9 +10748,24 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/tex/plain/makeindex/
 %doc %{_texdir}/texmf-dist/doc/support/makeindex/
 
+%files -n %{shortname}-markdown
+%license lppl1.3.txt
+%{_bindir}/markdown2tex
+%{_mandir}/man1/markdown2tex.1*
+%{_texdir}/texmf-dist/scripts/markdown/
+%{_texdir}/texmf-dist/tex/context/third/markdown/
+%{_texdir}/texmf-dist/tex/generic/markdown/
+%{_texdir}/texmf-dist/tex/latex/markdown/
+%{_texdir}/texmf-dist/tex/luatex/markdown/
+%doc %{_texdir}/texmf-dist/doc/context/third/markdown/
+%doc %{_texdir}/texmf-dist/doc/generic/markdown/
+%doc %{_texdir}/texmf-dist/doc/latex/markdown/
+%doc %{_texdir}/texmf-dist/doc/optex/markdown/
+
 %files -n %{shortname}-match_parens
 %license gpl.txt
 %{_bindir}/match_parens
+%{_mandir}/man1/match_parens.1*
 %{_texdir}/texmf-dist/scripts/match_parens/
 %doc %{_texdir}/texmf-dist/doc/support/match_parens/
 
@@ -10099,6 +10776,24 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/scripts/mathspic/
 %{_texdir}/texmf-dist/tex/latex/mathspic/
 %doc %{_texdir}/texmf-dist/doc/latex/mathspic/
+
+%files -n %{shortname}-memoize
+%license lppl1.3.txt
+%{_bindir}/memoize-clean.pl
+%{_bindir}/memoize-clean.py
+%{_bindir}/memoize-extract.pl
+%{_bindir}/memoize-extract.py
+%{_mandir}/man1/memoize-clean.1*
+%{_mandir}/man1/memoize-clean.pl.1*
+%{_mandir}/man1/memoize-clean.py.1*
+%{_mandir}/man1/memoize-extract.1*
+%{_mandir}/man1/memoize-extract.pl.1*
+%{_mandir}/man1/memoize-extract.py.1*
+%{_texdir}/texmf-dist/scripts/memoize/
+%{_texdir}/texmf-dist/tex/generic/memoize/
+%{_texdir}/texmf-dist/tex/latex/memoize/
+%{_texdir}/texmf-dist/tex/plain/memoize/
+%doc %{_texdir}/texmf-dist/doc/generic/memoize/
 
 %files -n %{shortname}-metafont
 %license knuth.txt
@@ -10172,6 +10867,14 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/metapost/mf2pt1/
 %{_texdir}/texmf-dist/scripts/mf2pt1/
 %doc %{_texdir}/texmf-dist/doc/support/mf2pt1/
+
+%files -n %{shortname}-minted
+%license lppl1.3.txt
+%{_bindir}/latexminted
+%{_mandir}/man1/latexminted.1*
+%{_texdir}/texmf-dist/scripts/minted/
+%{_texdir}/texmf-dist/tex/latex/minted/
+%doc %{_texdir}/texmf-dist/doc/latex/minted/
 
 %files -n %{shortname}-mkgrkindex
 %{_bindir}/mkgrkindex
@@ -10441,7 +11144,14 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/pmxchords.1*
 %{_texdir}/texmf-dist/scripts/pmxchords/
 %{_texdir}/texmf-dist/tex/generic/pmxchords/
-%doc %{_texdir}/texmf-dist/doc/pmxchords/
+%doc %{_texdir}/texmf-dist/doc/support/pmxchords/
+
+%files -n %{shortname}-ppmcheckpdf
+%license lppl1.3.txt
+%{_bindir}/ppmcheckpdf
+%{_mandir}/man1/ppmcheckpdf.1*
+%{_texdir}/texmf-dist/scripts/ppmcheckpdf/
+%doc %{_texdir}/texmf-dist/doc/support/ppmcheckpdf/
 
 %files -n %{shortname}-pst2pdf
 %license gpl2.txt
@@ -10512,6 +11222,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/platex-dev
 %{_bindir}/pmpost
 %{_bindir}/ppltotf
+%{_bindir}/ptekf
 %{_bindir}/ptex
 %{_bindir}/ptftopl
 %{_bindir}/r-pmpost
@@ -10521,6 +11232,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/pbibtex.1*
 %{_mandir}/man1/platex-dev.1*
 %{_mandir}/man1/ppltotf.1*
+%{_mandir}/man1/ptekf.1*
 %{_mandir}/man1/ptex.1*
 %{_mandir}/man1/ptftopl.1*
 %{fmtutil_cnf_d}/platex
@@ -10577,6 +11289,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/tex/latex/rubik/
 %doc %{_texdir}/texmf-dist/doc/latex/rubik/
 
+%files -n %{shortname}-runtexshebang
+%license mit.txt
+%{_bindir}/runtexshebang
+%{_texdir}/texmf-dist/scripts/runtexshebang/
+%doc %{_texdir}/texmf-dist/doc/support/runtexshebang/
+
 %files -n %{shortname}-seetexk
 %{_bindir}/dvibook
 %{_bindir}/dviconcat
@@ -10602,6 +11320,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/tex/generic/splitindex/
 %{_texdir}/texmf-dist/tex/latex/splitindex/
 %doc %{_texdir}/texmf-dist/doc/latex/splitindex/
+
+%files -n %{shortname}-sqltex
+%license lppl1.3.txt
+%{_bindir}/sqltex
+%{_texdir}/texmf-dist/scripts/sqltex/
+%doc %{_texdir}/texmf-dist/doc/support/sqltex/
 
 %files -n %{shortname}-srcredact
 %license gpl2.txt
@@ -10649,7 +11373,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-tex4ht
 %license lppl1.txt
 %{_bindir}/ht
-%{_bindir}/htcontext
+# %%{_bindir}/htcontext
 %{_bindir}/htlatex
 %{_bindir}/htmex
 %{_bindir}/httex
@@ -10671,6 +11395,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texaccents.1*
 %doc %{_texdir}/texmf-dist/doc/support/texaccents
 %{_texdir}/texmf-dist/scripts/texaccents
+
+%files -n %{shortname}-texblend
+%license lppl1.3.txt
+%{_bindir}/texblend
+%{_texdir}/texmf-dist/scripts/texblend/
+%doc %{_texdir}/texmf-dist/doc/support/texblend/
 
 %files -n %{shortname}-texcount
 %license lppl1.txt
@@ -10719,6 +11449,14 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texfot.1*
 %{_texdir}/texmf-dist/scripts/texfot/
 %doc %{_texdir}/texmf-dist/doc/support/texfot/
+
+%files -n %{shortname}-texfindpkg
+%license gpl3.txt
+%{_bindir}/texfindpkg
+%{_mandir}/man1/texfindpkg.1*
+%{_texdir}/texmf-dist/scripts/texfindpkg/
+%{_texdir}/texmf-dist/tex/latex/texfindpkg/
+%doc %{_texdir}/texmf-dist/doc/support/texfindpkg/
 
 %files -n %{shortname}-texliveonfly
 %license gpl3.txt
@@ -10840,6 +11578,8 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/readme-html.dir/readme.zh-cn.html
 %{_texdir}/release-texlive.txt
 %{_texdir}/texmf-dist/scripts/texlive/tlmgr.pl
+%{_texdir}/texmf-dist/scripts/texlive/tl-errmess.ps1
+%{_texdir}/texmf-dist/scripts/texlive/uninstq.ps1
 %{_texdir}/tlpkg/installer/config.guess
 %{_texdir}/tlpkg/TeXLive/TLConfFile.pm
 %{_texdir}/tlpkg/TeXLive/TLConfig.pm
@@ -10929,7 +11669,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl.txt
 %{_bindir}/tpic2pdftex
 %{_mandir}/man1/tpic2pdftex.1*
-%doc %{_texdir}/texmf-dist/doc/tpic2pdftex/
+%doc %{_texdir}/texmf-dist/doc/support/tpic2pdftex/
 
 %files -n %{shortname}-ttfutils
 %license lppl1.txt
@@ -10944,13 +11684,21 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/fonts/enc/ttf2pk/
 %{_texdir}/texmf-dist/fonts/sfd/ttf2pk/
 %{_texdir}/texmf-dist/ttf2pk/
-%doc %{_texdir}/texmf-dist/doc/ttf2pk/
+%doc %{_texdir}/texmf-dist/doc/support/ttf2pk/
 
 %files -n %{shortname}-typeoutfileinfo
 %license lppl1.3.txt
 %{_bindir}/typeoutfileinfo
 %{_texdir}/texmf-dist/scripts/typeoutfileinfo/
 %doc %{_texdir}/texmf-dist/doc/support/typeoutfileinfo/
+
+%files -n %{shortname}-typog
+%license lppl1.3.txt
+%{_bindir}/typog-grep
+%{_mandir}/man1/typog-grep.1*
+%{_texdir}/texmf-dist/scripts/typog/
+%{_texdir}/texmf-dist/tex/latex/typog/
+%doc %{_texdir}/texmf-dist/doc/latex/typog/
 
 %files -n %{shortname}-ulqda
 %license lppl1.txt
@@ -11015,7 +11763,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license lppl1.txt
 %{_bindir}/vlna
 %{_mandir}/man1/vlna.1*
-%doc %{_texdir}/texmf-dist/doc/vlna/
+%doc %{_texdir}/texmf-dist/doc/support/vlna/
 
 %files -n %{shortname}-vpe
 %license lppl1.txt
@@ -11122,6 +11870,33 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Thu Jan 22 2026 Tom Callaway <spot@fedoraproject.org> - 12:20250308-99
+- time to land this big bird in rawhide. hold on to your butts.
+- oh and we're also forcing -std=gnu++17. Thanks icu.
+
+- Historical notes from my TL2025 out-of-band changes are below
+- * Tue Oct 21 2025 Tom Callaway <spot@fedoraproject.org>
+  - strip the scripts out of bibtexperllibs to avoid conflicts
+- * Fri Oct 17 2025 Tom Callaway <spot@fedoraproject.org>
+  - fix typos in explicit perl module dependencies
+- * Tue Oct  7 2025 Tom Callaway <spot@fedoraproject.org>
+  - update crossrefware to r76407 to fix typo which was causing invalid perl(IO::file) (should be IO::File) dependency
+  - add Provides for texlive-xelatex-dev (we don't actually package this)
+- * Mon Sep 22 2025 Tom Callaway <spot@fedoraproject.org>
+  - add more obsoletes, make the ms one more accurate
+- * Fri Sep 19 2025 Tom Callaway <spot@fedoraproject.org>
+  - obsolete texlive-ms/ms-doc
+- * Thu Sep 18 2025 Tom Callaway <spot@fedoraproject.org>
+  - bootstrap off
+- * Thu Sep 18 2025 Tom Callaway <spot@fedoraproject.org>
+  - remove all Requires on old "tex-" names, we don't use those anymore
+    and it was causing old packages to be pulled in
+  - bootstrap still on
+- * Tue Sep 16 2025 Tom Callaway <spot@fedoraproject.org>
+  - fix dep issue
+- * Wed Jun 11 2025 Tom Callaway <spot@fedoraproject.org>
+  - TeXLive 2025
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11:20230311-95
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -11318,7 +12093,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 * Fri May 28 2021 Tom Callaway <spot@fedoraproject.org> - 9:20210325-34
 - add texlive-gsftopk as a dependency on texlive-texlive-scripts for mktexpk
 - add texlive-psnfss as a dependency on texlive-latex
-- drop Requires: tex(psfonts.map), died with updmap-map
+- drop Rquires: tex(psfonts.map), died with updmap-map
 - conditionalize removing rpath from binaries which aren't always built
 
 * Thu May 27 2021 Tom Callaway <spot@fedoraproject.org> - 9:20210325-33
@@ -11416,7 +12191,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 
 * Wed May 27 2020 Tom Callaway <spot@fedoraproject.org> - 7:20200327-6
 - split off context-doc (bz1839593)
-- add Requires: tex(psfonts.map) to gsftopk (bz1840379)
+- add Rquires: tex(psfonts.map) to gsftopk (bz1840379)
 - update component sources to match main tree tarball (not doing this before was an epic fail on my part)
 
 * Wed May 20 2020 Tom Callaway <spot@fedoraproject.org> - 7:20200327-5

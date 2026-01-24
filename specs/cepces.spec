@@ -7,7 +7,7 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.16
+Version:        0.3.17
 Release:        %autorelease
 Summary:        Certificate Enrollment through CEP/CES
 

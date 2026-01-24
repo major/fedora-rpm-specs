@@ -5,7 +5,7 @@
 %global crate reqwest-retry
 
 Name:           rust-reqwest-retry
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Retry middleware for reqwest
 

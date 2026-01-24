@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate retry-policies
+%global crate reqwest-retry
 
-Name:           rust-retry-policies0.4
-Version:        0.4.0
+Name:           rust-reqwest-retry0.8
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Collection of plug-and-play retry policies for Rust projects
+Summary:        Retry middleware for reqwest
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/retry-policies
+URL:            https://crates.io/crates/reqwest-retry
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          reqwest-retry-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A collection of plug-and-play retry policies for Rust projects.}
+Retry middleware for reqwest.}
 
 %description %{_description}
 
@@ -33,8 +35,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.29.0
+Version:    2.30.0
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -60,6 +60,7 @@ BuildRequires:  enchant2
 BuildRequires:  hunspell-en
 %if 0%{?fedora}
 BuildRequires:  python3-rapidfuzz
+BuildRequires:  python3-regex
 %endif
 %if 0%{?fedora} >= 35
 # to make the python3-enchant test work for hunspell dictionaries which are not yet UTF-8:

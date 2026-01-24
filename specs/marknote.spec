@@ -1,6 +1,6 @@
 Name:          marknote
-Version:       1.3.0
-Release:       4%{?dist}
+Version:       1.4.1
+Release:       1%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A simple markdown note management app for KDE
 URL:           https://apps.kde.org/%{name}/
@@ -29,6 +29,7 @@ BuildRequires: cmake(KF6ColorScheme)
 BuildRequires: cmake(KF6XmlGui)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6BreezeIcons)
+BuildRequires: cmake(KF6IconThemes)
 
 BuildRequires: cmake(KPim6Mime)
 
@@ -73,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/qlogging-categories6/marknote.categories
 
 %changelog
+* Fri Jan 23 2026 Steve Cossette <farchord@gmail.com> - 1.4.1-1
+- 1.4.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

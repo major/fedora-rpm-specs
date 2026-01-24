@@ -2,7 +2,7 @@
 
 Name:    vsomeip3
 Version: 3.5.11
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 # remove from i686 as not needed.
 ExcludeArch: %{ix86}
@@ -22,6 +22,10 @@ Source8: vsomeip3.sysusers.conf
 Patch1: 01-vsomeip-build-extra.patch
 # Do various conversions of /usr/lib -> /usr/lib64
 Patch2: 02-vsomeip-fix-cmake_libdir.patch
+# boost::asio::io_context::strand::wrap is deprecated
+Patch3: 03-vsomeip3-boost-asio-deprecation.patch
+# GCC 16 -Warray-bounds false positive
+Patch4: 04-vsomeip3-gcc16-warning.patch
 
 BuildRequires: boost-devel
 BuildRequires: cmake
@@ -259,6 +263,9 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Thu Jan 22 2026 Jonathan Wakely <jwakely@fedoraproject.org> - 3.5.11-8
+- Patched for Boost 1.90.0 asio deprecation and GCC 16 warning (#2429732)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
