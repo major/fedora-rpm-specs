@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/CalcProgrammer1/OpenRGB
-%global commit ac00a8f36f3053d75cc2f483474e594666692ff3
+%global commit c1e5f7bb1bdc5d942076c8682ce902c7e54fe8c9
 #%%global tag release_%%{version}
 # Workaround for incorrect package suffix name with forge macros
 # (.20231017gitrelease.0.9 for example)
@@ -25,10 +25,10 @@ Source:         %{forgesource}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
-BuildRequires:  mbedtls-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(hidapi-libusb)
 BuildRequires:  pkgconfig(libusb)
+BuildRequires:  pkgconfig(mbedtls)
 BuildRequires:  cmake
 BuildRequires:  cmake(Qt5)
 BuildRequires:  cmake(Qt5LinguistTools)

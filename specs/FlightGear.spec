@@ -4,7 +4,7 @@
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
 Version:        2024.1.3
-Release:        3%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/11398677078/artifacts/raw/fgbuild/flightgear-%{version}.tar.bz2
@@ -83,6 +83,12 @@ rm -rf $RPM_BUILD_ROOT/usr/appdir
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2024.1.3-5
+- Rebuild with fltk 1.4.
+
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2024.1.3-4
+- Rebuild with fltk 1.4.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

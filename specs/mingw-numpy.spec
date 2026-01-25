@@ -19,6 +19,11 @@ Source0:       %{pypi_source}
 Patch0:        mingw-numpy-longdoubleformat.patch
 # Mingw does not have endian.h
 Patch1:        mingw-numpy-endian.patch
+# Fix FTBFS with GCC 16
+# Sent upstream:
+# https://github.com/numpy/x86-simd-sort/pull/225
+Patch2:          fix-gcc-16-ftbfs.patch
+
 
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
@@ -59,6 +64,8 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %build
+export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 (
 mkdir build_win32
 cd build_win32

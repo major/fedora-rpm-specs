@@ -14,6 +14,7 @@ BuildRequires:  multicharge-devel
 BuildRequires:  flexiblas-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-cffi
+BuildRequires:  python3-setuptools
 BuildRequires:  rubygem-asciidoctor
 
 %description

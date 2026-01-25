@@ -6,7 +6,7 @@
 # https://github.com/cloudfoundry/clock
 %global goipath         code.cloudfoundry.org/clock
 %global forgeurl        https://github.com/cloudfoundry/clock
-Version:                1.0.0
+Version:        1.59.0
 
 %gometa
 
@@ -23,14 +23,13 @@ Summary:        Time provider & rich fake for Go
 
 # Upstream license specification: Apache-2.0
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
-License:        Apache-2.0
+License:        Apache-2.0 AND BSD-3-Clause AND MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+Source1:        %{archivename}-vendor.tar.bz2
+Source2:        go-vendor-tools.toml
 
-BuildRequires: golang(github.com/onsi/ginkgo)
-BuildRequires: golang(github.com/onsi/gomega)
-
-Patch0001: 0001-Remove-ifrit-usage.patch
+BuildRequires:  go-vendor-tools
 
 %description
 %{common_description}
@@ -38,18 +37,52 @@ Patch0001: 0001-Remove-ifrit-usage.patch
 %gopkg
 
 %prep
-%goprep
-%patch 0001 -p1
+%goprep -A
+%setup -q -T -D -a1 %{forgesetupargs}
+
+%generate_buildrequires
+%go_vendor_license_buildrequires -c %{S:2}
 
 %install
 %gopkginstall
+%go_vendor_license_install -c %{S:2}
 
-%if %{with check}
 %check
-%gocheck
+export GOPATH=$PWD/_build
+cd _build/src/%{goipath}
+%go_vendor_license_check -c %{S:2}
+%if %{with check}
+%gotest ./...
 %endif
 
 %gopkgfiles
+%dir %{_licensedir}/%{name}
+%{_licensedir}/%{name}/LICENSE
+%{_licensedir}/%{name}/NOTICE
+%{_licensedir}/%{name}/vendor/github.com/Masterminds/semver/v3/LICENSE.txt
+%{_licensedir}/%{name}/vendor/github.com/go-logr/logr/LICENSE
+%{_licensedir}/%{name}/vendor/github.com/go-task/slim-sprig/v3/LICENSE.txt
+%{_licensedir}/%{name}/vendor/github.com/google/go-cmp/LICENSE
+%{_licensedir}/%{name}/vendor/github.com/google/pprof/AUTHORS
+%{_licensedir}/%{name}/vendor/github.com/google/pprof/LICENSE
+%{_licensedir}/%{name}/vendor/github.com/onsi/ginkgo/v2/LICENSE
+%{_licensedir}/%{name}/vendor/github.com/onsi/gomega/LICENSE
+%{_licensedir}/%{name}/vendor/github.com/tedsuo/ifrit/LICENSE
+%{_licensedir}/%{name}/vendor/go.yaml.in/yaml/v3/LICENSE
+%{_licensedir}/%{name}/vendor/go.yaml.in/yaml/v3/NOTICE
+%{_licensedir}/%{name}/vendor/golang.org/x/mod/LICENSE
+%{_licensedir}/%{name}/vendor/golang.org/x/mod/PATENTS
+%{_licensedir}/%{name}/vendor/golang.org/x/net/LICENSE
+%{_licensedir}/%{name}/vendor/golang.org/x/net/PATENTS
+%{_licensedir}/%{name}/vendor/golang.org/x/sync/LICENSE
+%{_licensedir}/%{name}/vendor/golang.org/x/sync/PATENTS
+%{_licensedir}/%{name}/vendor/golang.org/x/sys/LICENSE
+%{_licensedir}/%{name}/vendor/golang.org/x/sys/PATENTS
+%{_licensedir}/%{name}/vendor/golang.org/x/text/LICENSE
+%{_licensedir}/%{name}/vendor/golang.org/x/text/PATENTS
+%{_licensedir}/%{name}/vendor/golang.org/x/tools/LICENSE
+%{_licensedir}/%{name}/vendor/golang.org/x/tools/PATENTS
+%{_licensedir}/%{name}/vendor/modules.txt
 
 %changelog
 %autochangelog

@@ -1,6 +1,6 @@
 Name:       opencc
 Version:    1.1.9
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Libraries for Simplified-Traditional Chinese Conversion
 License:    Apache-2.0
 URL:        https://github.com/BYVoid/OpenCC
@@ -9,6 +9,7 @@ Patch0:     opencc-fixes-compile.patch
 Patch1:     opencc-fixes-crash.patch
 Patch2:     opencc-fixes-cmake.patch
 Patch3:     opencc-fixes-cmake-vars.patch
+Patch4:     opencc-fixes-CVE.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -82,21 +83,24 @@ developing applications that use %{name}.
 %{_libdir}/cmake/opencc/OpenCC*.cmake
 
 %changelog
+* Thu Jan 22 2026 Peng Wu <pwu@redhat.com> - 1.1.9-7
+- Add opencc-fixes-CVE.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Thu Aug 21 2025 Peng Wu  <pwu@redhat.com> - 1.1.9-5
+* Thu Aug 21 2025 Peng Wu <pwu@redhat.com> - 1.1.9-5
 - Update CI tests
 - Resolves: RHBZ#2382996
 
-* Tue Aug 12 2025 Peng Wu  <pwu@redhat.com> - 1.1.9-4
+* Tue Aug 12 2025 Peng Wu <pwu@redhat.com> - 1.1.9-4
 - Update for https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
 - Resolves: RHBZ#2381327
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Thu Jul 17 2025 Peng Wu  <pwu@redhat.com> - 1.1.9-2
+* Thu Jul 17 2025 Peng Wu <pwu@redhat.com> - 1.1.9-2
 - Update for marisa 0.3.0
 
 * Thu Feb  6 2025 Peng Wu <pwu@redhat.com> - 1.1.9-1

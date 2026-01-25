@@ -1,10 +1,10 @@
 Name:           perl-Business-ISBN-Data
-Version:        20260122.001
+Version:        20260123.001
 Release:        1%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Business-ISBN-Data
-Source0:        https://www.cpan.org/modules/by-module/Business/Business-ISBN-Data-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-Data-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Fri Jan 23 2026 Paul Howarth <paul@city-fan.org> - 20260123.001-1
+- 20260123.001 bump (rhbz#2432404)
+
 * Thu Jan 22 2026 Paul Howarth <paul@city-fan.org> - 20260122.001-1
 - 20260122.001 bump (rhbz#2432018)
 

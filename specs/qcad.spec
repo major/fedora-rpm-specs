@@ -36,7 +36,7 @@ Summary: Powerful 2D CAD system
 ## Other fonts in directory 'fonts' are released as public domain (all copyright
 ## is waived) and BSD (3-clauses).
 
-License: GPL-3.0-only AND GPL-2.0-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Callaway-Public-Domain AND CC-BY-3.0 AND LicenseRef-Hershey
+License: GPL-3.0-only AND GPL-2.0-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND CC-BY-3.0 AND LicenseRef-Hershey
 Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
@@ -84,7 +84,7 @@ BuildRequires: mesa-libGLU-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: fontpackages-devel
-BuildRequires: vlgothic-fonts
+BuildRequires: vl-gothic-fonts
 BuildRequires: dejavu-sans-fonts
 BuildRequires: dejavu-sans-mono-fonts
 

@@ -61,6 +61,10 @@
 %bcond_with setuptools
 %endif
 
+# 1/23/26
+# nothing provides (python3.14dist(mpmath) < 1.4~~ with python3.14dist(mpmath) >= 1.1) needed by python3-sympy-1.14.0-10.fc44.noarch from fedora
+%bcond_with sympy
+
 Name:           python-%{pypi_name}
 %if %{with gitcommit}
 Version:        %{pypi_version}^git%{date0}.%{shortcommit0}
@@ -180,6 +184,9 @@ BuildRequires:  python3dist(pyyaml)
 %if %{with setuptools}
 BuildRequires:  python3dist(setuptools)
 %endif
+%if %{with sympy}
+BuildRequires:  python3dist(sympy)
+%endif
 BuildRequires:  python3dist(typing-extensions)
 
 # Packages missing for RHEL/EPEL
@@ -187,7 +194,6 @@ BuildRequires:  python3dist(typing-extensions)
 BuildRequires:  python3-pybind11
 BuildRequires:  python3dist(fsspec)
 BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sympy)
 # New for 2.9 / EPEL 10.2
 BuildRequires:  ninja-build
 %endif

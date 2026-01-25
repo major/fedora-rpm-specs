@@ -2,7 +2,7 @@
 %global giturl      https://github.com/digraphs/Digraphs
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
 Summary:        GAP package for digraphs and multidigraphs
 

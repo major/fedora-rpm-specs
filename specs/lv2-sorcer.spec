@@ -4,7 +4,7 @@
 
 Name:           lv2-sorcer
 Version:        1.1.3
-Release:        0.14.%{prerelease}git%{shortcommit}%{?dist}
+Release:        0.15.%{prerelease}git%{shortcommit}%{?dist}
 Summary:        An audio compressor for JACK
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -62,6 +62,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{_libdir}/lv2/*
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.1.3-0.15.20171126git0a8cef4
+- Rebuild with fltk 1.4.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.14.20171126git0a8cef4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

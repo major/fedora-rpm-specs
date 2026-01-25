@@ -1,8 +1,8 @@
 Name:           SDL3_image
-Version:        3.2.6
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Image loading library for SDL
-License:        Zlib AND (HPND-Pbmplus AND Zlib) AND Unlicense AND MIT AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
+License:        Zlib AND (HPND-Pbmplus AND Zlib) AND MIT AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
 # License breakdown:
 # ./examples/showanim.c: Zlib
 # ./examples/showimage.c: Zlib
@@ -10,7 +10,6 @@ License:        Zlib AND (HPND-Pbmplus AND Zlib) AND Unlicense AND MIT AND (MIT 
 # ./src/IMG*.c: Zlib
 # Except:
 # ./src/IMG_gif.c: HPND-Pbmplus AND Zlib
-# ./src/miniz.h: Unlicense
 # ./src/nanosvg.h: Zlib
 # ./src/nanosvgrast.h: Zlib
 # ./src/qoi.h: MIT
@@ -32,8 +31,8 @@ BuildRequires:  libtiff-devel
 BuildRequires:  make
 BuildRequires:  perl
 BuildRequires:  SDL3-test
+BuildRequires:  zlib-static
 
-Provides:       bundled(miniz) = 1.15
 # Some custom version of it:
 Provides:       bundled(nanosvg)
 
@@ -68,13 +67,17 @@ functionality of the installed %{name} package.
 
 %build
 %cmake \
+  -DSDLIMAGE_ANI=ON \
+  -DSDLIMAGE_ANI_SAVE=ON \
   -DSDLIMAGE_AVIF=ON \
   -DSDLIMAGE_AVIF_SAVE=ON \
   -DSDLIMAGE_AVIF_SHARED=ON \
-  -DSDLIMAGE_BACKEND_STB=ON \
+  -DSDLIMAGE_BACKEND_STB=OFF \
   -DSDLIMAGE_BMP=ON \
+  -DSDLIMAGE_BMP_SAVE=ON \
   -DSDLIMAGE_DEPS_SHARED=ON \
   -DSDLIMAGE_GIF=ON \
+  -DSDLIMAGE_GIF_SAVE=ON \
   -DSDLIMAGE_INSTALL=ON \
   -DSDLIMAGE_INSTALL_CPACK=ON \
   -DSDLIMAGE_INSTALL_MAN=ON \
@@ -84,9 +87,12 @@ functionality of the installed %{name} package.
   -DSDLIMAGE_LBM=ON \
   -DSDLIMAGE_PCX=ON \
   -DSDLIMAGE_PNG=ON \
+  -DSDLIMAGE_PNG_LIBPNG=ON \
   -DSDLIMAGE_PNG_SAVE=ON \
+  -DSDLIMAGE_PNG_SHARED=ON \
   -DSDLIMAGE_PNM=ON \
   -DSDLIMAGE_QOI=ON \
+  -DSDLIMAGE_RELOCATABLE=OFF \
   -DSDLIMAGE_SAMPLES=ON \
   -DSDLIMAGE_SAMPLES_INSTALL=ON \
   -DSDLIMAGE_STRICT=OFF \
@@ -94,15 +100,18 @@ functionality of the installed %{name} package.
   -DSDLIMAGE_TESTS=ON \
   -DSDLIMAGE_TESTS_INSTALL=ON \
   -DSDLIMAGE_TGA=ON \
+  -DSDLIMAGE_TGA_SAVE=ON \
   -DSDLIMAGE_TIF=ON \
   -DSDLIMAGE_TIF_SHARED=ON \
   -DSDLIMAGE_VENDORED=OFF \
   -DSDLIMAGE_WEBP=ON \
+  -DSDLIMAGE_WEBP_SAVE=ON \
   -DSDLIMAGE_WEBP_SHARED=ON \
   -DSDLIMAGE_WERROR=OFF \
   -DSDLIMAGE_XCF=ON \
   -DSDLIMAGE_XPM=ON \
   -DSDLIMAGE_XV=ON
+
 %cmake_build
 
 %install
@@ -115,7 +124,7 @@ functionality of the installed %{name} package.
 %license LICENSE.txt
 %doc CHANGES.txt README.md
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.2.6
+%{_libdir}/lib%{name}.so.0.4.0
 
 %files devel
 %{_libdir}/lib%{name}.so

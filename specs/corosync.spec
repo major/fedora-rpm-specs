@@ -15,7 +15,7 @@
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
 Version: 3.1.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -289,6 +289,9 @@ network splits)
 %endif
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.10-4
+- Rebuilt for net-snmp 5.9.5.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

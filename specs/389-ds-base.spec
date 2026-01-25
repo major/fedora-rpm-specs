@@ -416,6 +416,7 @@ BuildRequires:    libdb-devel
 
 # The following are needed to build the snmp ldap-agent
 BuildRequires:    net-snmp-devel
+BuildRequires:    libnl3-devel
 BuildRequires:    bzip2-devel
 BuildRequires:    openssl-devel
 # the following is for the pam passthru auth plug-in

@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        88%{?dist}
+Release:        89%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -577,6 +577,9 @@ fi
 
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2:2.14.1-89
+- Rebuilt for net-snmp 5.9.5.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

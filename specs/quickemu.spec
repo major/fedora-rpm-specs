@@ -1,27 +1,11 @@
 Name:           quickemu
-Version:        4.9.7
+Version:        4.9.8
 Release:        %autorelease
 Summary:        Quickly create and run optimized Windows, macOS and Linux virtual machines
 License:        MIT
 
 URL:            https://github.com/quickemu-project/quickemu
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Import an accepted upstream fix that solves VMs crashing due to the use of
-# Pipewire on Fedora 41 and above
-Patch:          https://github.com/quickemu-project/quickemu/pull/1565.patch
-
-# Import an accepted upstream fix which ensures UEFI Secure Boot functions
-# as a user would expect (on Fedora and other distributions), by enabling the
-# Microsoft UEFI Secure Boot Platform Keys within VMs
-Patch:          https://github.com/quickemu-project/quickemu/pull/1579.patch
-
-# Import an upstream commit that fixes quickemu on QEMU versions above 10.0.0
-Patch:          https://github.com/quickemu-project/quickemu/commit/f25205f4513c4fa72be6940081c62e613d1fddc6.patch
-
-# Import an accepted upstream fix that fixes the installation of Windows 11
-# 25H2 as a virtual guest:
-Patch:          https://github.com/quickemu-project/quickemu/pull/1745.patch
 
 BuildArch:      noarch
 

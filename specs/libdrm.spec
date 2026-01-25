@@ -44,13 +44,15 @@ end}
 %bcond_without install_test_programs
 %bcond_without udev
 
-%global lib_version 128
-
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
-Version:        2.4.%{lib_version}
+Version:        2.4.128
 Release:        4%{?dist}
 License:        MIT
+
+# Get the patch version.
+# For example, with version 2.4.128 lib_version is 128
+%global lib_version %(echo %{version} | sed "s/.*\\.//")
 
 URL:            https://dri.freedesktop.org
 Source0:        %{url}/libdrm/%{name}-%{version}.tar.xz
@@ -291,7 +293,7 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 * Wed Oct 15 2025 José Expósito <jexposit@redhat.com> - 2.4.127-1
 - Update to 2.4.127
 
-* Thu Oct 03 2025 José Expósito <jexposit@redhat.com> - 2.4.126-1
+* Fri Oct 03 2025 José Expósito <jexposit@redhat.com> - 2.4.126-1
 - Update to 2.4.126
 
 * Tue Aug 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.125-3

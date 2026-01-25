@@ -1,5 +1,5 @@
 Name:           glsl-analyzer
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Language server for GLSL
 License:        GPL-3.0-only
@@ -10,12 +10,9 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.
 Source1:        https://github.com/nolanderc/glsl-samples/archive/95264d5602cc8542e9e8dbdaab6045f9619ab180.tar.gz#/glsl-samples-95264d5.tar.gz
 
 Patch:          0001-Add-fPIE-compiler-flag.patch
-# Fixes incorrect error handling
-# https://github.com/nolanderc/glsl_analyzer/pull/84
-Patch:          0002-re-add-missing-logic-to-stringify-Enums-as-Ints.patch
 # Updates to 0.15.2
 # https://github.com/nolanderc/glsl_analyzer/pull/83
-Patch:          0003-update-to-zig-0.15.2.patch
+Patch:          0002-update-to-zig-0.15.2.patch
 
 # 0.15.2 introduced changes incompatible with 0.15.1
 BuildRequires:  (zig >= 0.15.2 with zig < 0.16)

@@ -1,6 +1,6 @@
 Name:           extractpdfmark
 Version:        1.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Extract page mode and named destinations as PDFmark from PDF
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -69,6 +69,9 @@ make check
 
 
 %changelog
+* Fri Jan 23 2026 Federico Bruni <fede@inventati.org> - 1.1.1-13
+- Rebuilt for poppler 26.01.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

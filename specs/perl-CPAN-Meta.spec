@@ -1,19 +1,18 @@
 Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
-Version:        2.150010
-Release:        521%{?dist}
+Version:        2.150011
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Meta-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.121
@@ -38,7 +37,7 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
-# Runtime
+# Dependencies
 Requires:       perl(CPAN::Meta::YAML) >= 0.011
 Requires:       perl(Encode)
 Requires:       perl(JSON::PP) >= 2.27300
@@ -68,13 +67,12 @@ structure stored in the META.json file is described in CPAN::Meta::Spec.
 perl -MConfig -pi -e 's,^#!.*perl,$Config{startperl},' t/*.t
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot} UNINST=0
-find %{buildroot} -type f -name .packlist -delete
-%{_fixperms} %{buildroot}
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -100,6 +98,13 @@ make test
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Fri Jan 23 2026 Paul Howarth <paul@city-fan.org> - 2.150011-1
+- Update to 2.150011 (rhbz#2432163)
+  - Improved example of testing a minimum prerequisite version of a module
+  - Remove some code meant to handle running on pre-v5.8 perl, even though v5.8
+    was already a requirement
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.150010-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

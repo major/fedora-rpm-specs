@@ -42,7 +42,7 @@
 
 Name:           OpenSceneGraph
 Version:        3.6.5
-Release:        43%{?dist}
+Release:        45%{?dist}
 Summary:        High performance real-time graphics toolkit
 
 # The OSGPL is just the wxWidgets license.
@@ -794,6 +794,12 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 %endif
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 3.6.5-45
+- Rebuild with fltk 1.4.
+
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 3.6.5-44
+- Rebuild with fltk 1.4.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

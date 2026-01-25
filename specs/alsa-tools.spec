@@ -25,7 +25,7 @@
 Summary:        Specialist tools for ALSA
 Name:           alsa-tools
 Version:        1.2.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # Checked at least one source file from all the sub-projects contained in
 # the source tarball and they are consistent GPLv2+ - TJ 2007-11-15
@@ -202,6 +202,9 @@ install -m 644 %{SOURCE1} %{buildroot}/usr/lib/udev/rules.d
 %endif
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.15-4
+- Rebuild with fltk 1.4.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

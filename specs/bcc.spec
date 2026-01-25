@@ -138,8 +138,8 @@ Command line libbpf tools for BPF Compiler Collection (BCC)
 # renaming them in there and the install code will just
 # take them.
 pushd libbpf-tools;
-make BPFTOOL=bpftool LIBBPF_OBJ=%{_libdir}/libbpf.a CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
-make DESTDIR=./tmp-install prefix= install
+%make_build BPFTOOL=bpftool LIBBPF_OBJ=%{_libdir}/libbpf.a CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
+%make_install DESTDIR=./tmp-install prefix=
 (
     cd tmp-install/bin
     for file in *; do

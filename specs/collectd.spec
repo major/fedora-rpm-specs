@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 60%{?dist}
+Release: 61%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -1198,6 +1198,9 @@ make check
 
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 5.12.0-61
+- Rebuilt for net-snmp 5.9.5.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.0-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

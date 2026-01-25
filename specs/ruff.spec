@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.14.13
+Version:        0.14.14
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See

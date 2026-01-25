@@ -7,7 +7,7 @@
 
 Name:           lmms
 Version:        1.2.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Linux MultiMedia Studio
 URL:            https://lmms.io/
 
@@ -230,6 +230,9 @@ This package contains the necessary files to host VST plugins.
 
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.2-20
+- Rebuild with fltk 1.4.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

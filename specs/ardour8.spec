@@ -178,7 +178,7 @@ export LC_ALL=C.UTF-8
 %if %{with system_libs}
     --use-external-libs \
 %endif
-    --cxx11 \
+    --cxx17 \
     --freedesktop \
     --no-ytk \
     --with-backends=dummy,alsa,jack,pulseaudio

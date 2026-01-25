@@ -7,13 +7,13 @@
 License:       LGPL-2.1-only AND Unlicense
 
 Name:          calc
-Version:       2.15.1.0
+Version:       2.16.1.2
 Release:       %autorelease
 Summary:       Arbitrary precision arithmetic system and calculator
 
 # Also, https://github.com/lcn2/calc
 URL:           http://isthe.com/chongo/tech/comp/calc/
-Source0:       https://github.com/lcn2/calc/releases/download/v%{version}/calc-%{version}.tar.bz2
+Source0:       https://github.com/lcn2/calc/releases/download/v%{version}/calc-%{version}.tar.gz
 
 BuildRequires: gcc, sed, util-linux
 

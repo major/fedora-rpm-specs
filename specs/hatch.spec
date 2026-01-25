@@ -188,6 +188,12 @@ k="${k-}${k+ and }not test_set_dynamic_downgrade"
 k="${k-}${k+ and }not test_show_dynamic"
 k="${k-}${k+ and }not test_verbose_output_to_stderr"
 
+# Test TestUserAgent::test_user_agent_header_format fails on a pre-release
+# Python
+# https://github.com/pypa/hatch/issues/2167
+# https://bugzilla.redhat.com/show_bug.cgi?id=2432349
+k="${k-}${k+ and }not (TestUserAgent and test_user_agent_header_format)"
+
 %pytest -k "${k-}" ${ignore-} -vv
 %endif
 

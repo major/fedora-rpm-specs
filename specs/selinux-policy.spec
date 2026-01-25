@@ -5,7 +5,7 @@
 
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit bc4198342a71a33bf6f956857293379a7550112a
+%global commit b8928889681b041f10e511fd17accbcb2f82d5e0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -19,8 +19,8 @@
 %define STABLEVER 42.10
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 42.21
-Release: 2%{?dist}
+Version: 42.22
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: Makefile.devel
@@ -799,7 +799,4 @@ exit 0
 %endif
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42.21-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

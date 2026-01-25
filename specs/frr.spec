@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -315,6 +315,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 10.5.0-6
+- Rebuilt for net-snmp 5.9.5.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

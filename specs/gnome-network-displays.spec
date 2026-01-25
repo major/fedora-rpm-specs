@@ -1,8 +1,8 @@
 %global major_minor_version %%(cut -d "." -f 1,2 <<<%{version})
 
 Name:           gnome-network-displays
-Version:        0.97.0
-Release:        3%{?dist}
+Version:        0.99.0
+Release:        2%{?dist}
 Summary:        Screencasting for GNOME
 
 # The icon is licensed CC-BY-SA
@@ -59,7 +59,7 @@ Supports the Miracast and Chromecast protocols.
 %install
 %meson_install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %find_lang %{name} --all-name --with-gnome
 
 %post
@@ -75,10 +75,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.NetworkDisplays.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.NetworkDisplays-symbolic.svg
-%{_metainfodir}/org.gnome.NetworkDisplays.appdata.xml
+%{_metainfodir}/org.gnome.NetworkDisplays.metainfo.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 
 %changelog
+* Fri Jan 23 2026 Christian Glombek <lorbus@fedoraproject.org> - 0.99.0-1
+- Update to v0.99.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.97.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

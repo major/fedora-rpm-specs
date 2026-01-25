@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        2.4.0
-Release:        2%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -34,6 +34,11 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0 AND (Zlib OR BSL-1.0)
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
+
+# Fix FTBFS with GCC 16
+# Sent upstream:
+# https://github.com/numpy/x86-simd-sort/pull/225
+Patch:          fix-gcc-16-ftbfs.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -256,6 +261,12 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Fri Jan 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.1-1
+- 2.4.1
+
+* Fri Jan 23 2026 Charalampos Stratakis <cstratak@redhat.com> - 1:2.4.0-3
+- Fix FTBFS with GCC 16
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

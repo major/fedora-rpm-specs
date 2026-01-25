@@ -1,8 +1,8 @@
-%global bpf_supported_arches aarch64 x86_64 ppc64le riscv64
+%global bpf_supported_arches aarch64 x86_64 ppc64le riscv64 s390x
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9
-Release: 3%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
@@ -128,12 +128,17 @@ make check
 
 %ifarch %{bpf_supported_arches}
 %files audit
-%defattr(-,root,root,-)
 %attr(0755,root,root) %{_bindir}/cap-audit
 %attr(0644,root,root) %{_mandir}/man8/cap-audit.8.gz
 %endif
 
 %changelog
+* Fri Jan 23 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-5
+- Add s390x to libcap-ng-audit build arches
+
+* Fri Jan 23 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-4
+- Expand libcap-ng-audit to non-x86_64 arches
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

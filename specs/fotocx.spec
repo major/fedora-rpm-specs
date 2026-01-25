@@ -1,6 +1,6 @@
 Name:    fotocx
-Version: 26.1
-Release: 2%{?dist}
+Version: 26.2
+Release: 1%{?dist}
 Summary: Photo editor
 
 License: GPL-3.0-or-later
@@ -94,6 +94,10 @@ rm -f %{buildroot}%{_datadir}/icons/fotocx.png
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Thu Jan 22 2026 Packit <hello@packit.dev> - 26.2-1
+- Update to version 26.2
+- Resolves: rhbz#2427145
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

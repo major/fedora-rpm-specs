@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        7.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1:7.4.6-3
+- Rebuilt for net-snmp 5.9.5.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

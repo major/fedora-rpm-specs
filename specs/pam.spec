@@ -1,7 +1,7 @@
 %bcond nis %[!(0%{?rhel} >= 9)]
 
 %global so_ver 0
-%global pam_redhat_version 1.3.0
+%global pam_redhat_version 1.3.1
 
 # docs require fop, which is Java-based and not included in RHEL
 # PDF docs are not identical between builds, -doc needs to be archful if enabled
@@ -13,8 +13,8 @@
 
 Summary: An extensible library which provides authentication for applications
 Name: pam
-Version: 1.7.1
-Release: 5%{?dist}
+Version: 1.7.2
+Release: 1%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -34,7 +34,6 @@ Source17: postlogin.5
 Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Patch1:  pam-1.7.0-redhat-modules.patch
 Patch2:  pam-1.5.3-unix-nomsg.patch
-Patch3:  pam-1.7.1-pam-unix-remove-obsolete-defines.patch
 
 %{load:%{SOURCE3}}
 
@@ -101,7 +100,6 @@ BuildRequires: elinks
 BuildRequires: fop
 %endif
 BuildRequires: libxslt
-BuildRequires: linuxdoc-tools
 
 %description doc
 PAM (Pluggable Authentication Modules) is a system security tool that
@@ -132,7 +130,6 @@ cp %{SOURCE18} .
 
 %patch -P 1 -p1 -b .redhat-modules
 %patch -P 2 -p1 -b .nomsg
-%patch -P 3 -p1 -b .pam-unix-remove-obsolete-defines
 
 %build
 %meson \
@@ -144,8 +141,10 @@ cp %{SOURCE18} .
   -Dlogind=disabled \
   -Dopenssl=enabled \
   -Dpam_userdb=enabled \
+  -Dpwaccess=disabled \
   -Ddb=gdbm \
-  -Dselinux=enabled
+  -Dselinux=enabled \
+  -Dvendordir=''
 %meson_build
 
 %install
@@ -364,6 +363,11 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Fri Jan 23 2026 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.2-1
+- Rebase to release 1.7.2. Resolves: #2321512
+- Rebase to pam-redhat-1.3.1
+- Drop unused linuxdoc-tools dependency
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

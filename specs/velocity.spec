@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           velocity
-Version:        2.3
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Java-based template engine
 License:        Apache-2.0
@@ -70,14 +70,11 @@ sed 's/${project.version}/%{version}/' \
     velocity-engine-core/src/main/java-templates/org/apache/velocity/runtime/VelocityEngineVersion.java \
    >velocity-engine-core/src/main/java/org/apache/velocity/runtime/VelocityEngineVersion.java
 
-%pom_remove_plugin com.google.code.maven-replacer-plugin:replacer velocity-engine-core
-%pom_remove_plugin :maven-shade-plugin velocity-engine-core
-%pom_remove_plugin :maven-enforcer-plugin
 
 %pom_xpath_remove "pom:dependency[pom:scope='test']" velocity-engine-core
 
 %build
-%mvn_build -j -f -- -Djavacc.visitor=false
+%mvn_build -j -f
 
 %install
 %mvn_install

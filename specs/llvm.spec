@@ -186,16 +186,6 @@ end
 %endif
 %endif
 
-# We only want to run the performance comparison on snapshot builds.
-# centos-streams/RHEL do not have all the requirements. We tried to use pip,
-# but we've seen issues on some architectures. We're now restricting this
-# to Fedora.
-%if %{with pgo} && %{with snapshot_build} && %{defined fedora}
-%global run_pgo_perf_comparison 1
-%else
-%global run_pgo_perf_comparison %{nil}
-%endif
-
 # Sanity checks for PGO and bootstrapping
 #----------------------------------------
 %if %{with pgo}
@@ -406,12 +396,6 @@ end
 %global pkg_name_polly polly%{pkg_suffix}
 #endregion polly globals
 
-#region PGO globals
-%if 0%{run_pgo_perf_comparison}
-%global llvm_test_suite_dir %{_datadir}/llvm-test-suite
-%endif
-#endregion PGO globals
-
 #region flang globals
 %global pkg_name_flang flang%{pkg_suffix}
 #endregion flang globals
@@ -594,20 +578,6 @@ BuildRequires:	llvm(major) = %{host_clang_maj_ver}
 BuildRequires:	lld
 BuildRequires:	compiler-rt
 BuildRequires:	llvm
-%endif
-
-%if 0%{run_pgo_perf_comparison}
-BuildRequires:	llvm-test-suite
-BuildRequires:	tcl-devel
-BuildRequires:	which
-# pandas and scipy are needed for running llvm-test-suite/utils/compare.py
-# For RHEL we have to install it from pip and for fedora we take the RPM package.
-%if 0%{?rhel}
-BuildRequires:	python3-pip
-%else
-BuildRequires:	python3-pandas
-BuildRequires:	python3-scipy
-%endif
 %endif
 
 %else
@@ -1514,10 +1484,6 @@ OLD_LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 OLD_CWD="$PWD"
 
 %global builddir_instrumented $RPM_BUILD_DIR/instrumented-llvm
-%if 0%{run_pgo_perf_comparison}
-%global builddir_perf_pgo $RPM_BUILD_DIR/performance-of-pgoed-clang
-%global builddir_perf_system $RPM_BUILD_DIR/performance-of-system-clang
-%endif
 
 #region LLVM lit
 %if %{with python_lit}
@@ -1974,70 +1940,6 @@ cd $OLD_CWD
 %cmake_build --target runtimes
 #endregion Final stage
 
-#region Performance comparison
-%if 0%{run_pgo_perf_comparison}
-
-function run_perf_test {
-	local build_dir=$1
-
-	cd %{llvm_test_suite_dir}
-	%__cmake -G Ninja \
-		-S "%{llvm_test_suite_dir}" \
-		-B "${build_dir}" \
-		-DCMAKE_GENERATOR=Ninja \
-		-DCMAKE_C_COMPILER=clang \
-		-DCMAKE_CXX_COMPILER=clang++ \
-		-DTEST_SUITE_BENCHMARKING_ONLY=ON \
-		-DTEST_SUITE_COLLECT_STATS=ON \
-		-DTEST_SUITE_USE_PERF=OFF \
-		-DTEST_SUITE_SUBDIRS=CTMark \
-		-DTEST_SUITE_RUN_BENCHMARKS=OFF \
-		-DTEST_SUITE_COLLECT_CODE_SIZE=OFF \
-		-C%{llvm_test_suite_dir}/cmake/caches/O3.cmake
-
-	# Build the test-suite
-	%__cmake --build "${build_dir}" -j1 --verbose
-
-	# Run the tests with lit:
-	%{builddir_instrumented}/bin/llvm-lit -v -o ${build_dir}/results.json ${build_dir} || true
-	cd $OLD_CWD
-}
-
-# Run performance test for system clang
-reset_paths
-run_perf_test %{builddir_perf_system}
-
-# Run performance test for PGOed clang
-reset_paths
-FINAL_BUILD_DIR=`pwd`/%{_vpath_builddir}
-export LD_LIBRARY_PATH="${FINAL_BUILD_DIR}/lib:${FINAL_BUILD_DIR}/lib64:${LD_LIBRARY_PATH}"
-export PATH="${FINAL_BUILD_DIR}/bin:${OLD_PATH}"
-run_perf_test %{builddir_perf_pgo}
-
-# Compare the performance of system and PGOed clang
-%if 0%{?rhel}
-python3 -m venv compare-env
-source ./compare-env/bin/activate
-pip install "pandas>=2.2.3"
-pip install "scipy>=1.13.1"
-MY_PYTHON_BIN=./compare-env/bin/python3
-%endif
-
-system_llvm_release=$(/usr/bin/clang --version | grep -Po '[0-9]+\.[0-9]+\.[0-9]' | head -n1)
-${MY_PYTHON_BIN} %{llvm_test_suite_dir}/utils/compare.py \
-    --metric compile_time \
-    --lhs-name ${system_llvm_release} \
-    --rhs-name pgo-%{version} \
-    %{builddir_perf_system}/results.json vs %{builddir_perf_pgo}/results.json > %{builddir_perf_pgo}/results-system-vs-pgo.txt || true
-
-echo "Result of Performance comparison between system and PGOed clang"
-cat %{builddir_perf_pgo}/results-system-vs-pgo.txt
-
-%if 0%{?rhel}
-# Deactivate virtual python environment created ealier
-deactivate
-%endif
-%endif
 #endregion Performance comparison
 
 #region compat lib
@@ -2182,9 +2084,6 @@ ln -s ../share/clang/clang-format-diff.py %{buildroot}%{install_bindir}/clang-fo
 # Install the PGO profile that was used to build this LLVM into the clang package
 %if 0%{with pgo}
 cp -v $RPM_BUILD_DIR/result.profdata %{buildroot}%{install_datadir}/llvm-pgo.profdata
-%if 0%{run_pgo_perf_comparison}
-cp -v %{builddir_perf_pgo}/results-system-vs-pgo.txt %{buildroot}%{install_datadir}/results-system-vs-pgo.txt
-%endif
 %endif
 
 # File in the macros file for other packages to use.  We are not doing this
@@ -3388,9 +3287,6 @@ fi
 
 %if 0%{with pgo}
 %{expand_datas %{expand: llvm-pgo.profdata }}
-%if 0%{run_pgo_perf_comparison}
-%{expand_datas %{expand: results-system-vs-pgo.txt }}
-%endif
 %endif
 
 

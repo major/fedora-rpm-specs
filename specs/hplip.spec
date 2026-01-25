@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.25.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -994,6 +994,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.25.8-2
+- Rebuilt for net-snmp 5.9.5.2
+
 * Fri Jan 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.8-1
 - hplip-3.25.8 is available (fedora#2415311)
 

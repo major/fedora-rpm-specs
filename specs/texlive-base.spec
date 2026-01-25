@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 99%{?dist}
+Release: 100%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -562,6 +562,9 @@ Patch49: texlive-base-2025-gcc15-ftbfs.patch
 
 # fix errors with python-3.1x
 Patch50: texlive-pythontex3-python-3.1x.patch
+
+# fix FTBFS with gcc-16
+Patch51: texlive-base-ftbfs-gcc16.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -8848,6 +8851,7 @@ done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
 %patch -P49 -p1 -b .gcc-15-ftbfs
+%patch -P51 -p1 -b .ftbfs-gcc16
 
 # Disable broken tests
 # updmap-cmdline-test.pl is not useful and it will fail because it finds the system perl bits instead of the local copy
@@ -11870,6 +11874,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Fri Jan 23 2026 Than Ngo <than@redhat.com> - 12:20250308-100
+- Fix rhbz#2431538, FTBFS with gcc-16
+
 * Thu Jan 22 2026 Tom Callaway <spot@fedoraproject.org> - 12:20250308-99
 - time to land this big bird in rawhide. hold on to your butts.
 - oh and we're also forcing -std=gnu++17. Thanks icu.

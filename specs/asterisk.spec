@@ -51,7 +51,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          18.12.1
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.17
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.18
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -1698,6 +1698,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 18.12.1-1.18
+- Rebuilt for net-snmp 5.9.5.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.12.1-1.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

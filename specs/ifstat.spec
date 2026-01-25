@@ -1,7 +1,7 @@
 Summary: Interface statistics
 Name: ifstat
 Version: 1.1
-Release: 49%{?dist}
+Release: 50%{?dist}
 License: GPL-2.0-or-later
 URL: http://gael.roualland.free.fr/ifstat/
 Source0: http://gael.roualland.free.fr/ifstat/ifstat-%{version}.tar.gz
@@ -42,6 +42,9 @@ mv %{buildroot}%{_mandir}/man1/ifstat.1 %{buildroot}%{_mandir}/man1/ifstat-ifsta
 %{_bindir}/ifstat-ifstat
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-50
+- Rebuilt for net-snmp 5.9.5.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

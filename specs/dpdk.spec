@@ -22,18 +22,20 @@ Summary: Set of libraries and drivers for fast packet processing
 
 #
 # Note that, while this is dual licensed, all code that is included with this
-# Pakcage are BSD licensed. The only files that aren't licensed via BSD is the
+# Package are BSD licensed. The only files that aren't licensed via BSD is the
 # kni kernel module which is dual LGPLv2/BSD, and thats not built for fedora.
 #
-# Automatically converted from old format: BSD and LGPLv2 and GPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2 AND GPL-2.0-only
+# drivers/net/avp/rte_avp_common.h is BSD-3-Clause OR LGPL-2.1-only
+# drivers/net/atlantic/hw_atl/hw_atl_b0.c is BSD-3-Clause OR GPL-2.0-only
+# drivers/net/gve/base/* is MIT
+License: BSD-3-Clause AND (BSD-3-Clause OR LGPL-2.1-only) AND (BSD-3-Clause OR GPL-2.0-only) AND MIT
 
 #
 # The DPDK is designed to optimize througput of network traffic using, among
 # other techniques, carefully crafted assembly instructions.  As such it
 # needs extensive work to port it to other architectures.
 #
-ExclusiveArch: x86_64 i686 aarch64 ppc64le
+ExclusiveArch: x86_64 i686 aarch64 ppc64le riscv64
 
 BuildRequires: gcc
 BuildRequires: kernel-headers, libpcap-devel, doxygen, /usr/bin/sphinx-build, zlib-devel

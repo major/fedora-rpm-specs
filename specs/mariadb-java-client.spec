@@ -37,7 +37,7 @@ Summary: Tests for %{name}
 This package contains tests for %{name}.
 
 %prep
-%autosetup -p1 -n mariadb-connector-j-%{version}
+%autosetup -p1 -C
 
 %pom_remove_dep ch.qos.logback:logback-classic
 grep -l -r '^import ch\.qos\.logback\.classic' src/test | xargs rm -v
@@ -103,7 +103,7 @@ rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsN
 # NOTE this parameter skips running tests but still compiles them (instead of -f)
 %mvn_build -j -- -DskipTests=true
 
-xmvn -Dmdep.outputFile=tests-classpath dependency:build-classpath --offline
+xmvn --offline -Dmdep.outputFile=tests-classpath dependency:build-classpath
 
 %install
 %mvn_install

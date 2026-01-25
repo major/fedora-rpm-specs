@@ -2,8 +2,8 @@
 %bcond_without perl_CPAN_Meta_Requirements_enables_optional_test
 
 Name:           perl-CPAN-Meta-Requirements
-Version:        2.143
-Release:        14%{?dist}
+Version:        2.144
+Release:        1%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
@@ -11,12 +11,11 @@ Source0:        https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Meta-Requi
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(B)
 BuildRequires:  perl(Carp)
@@ -28,9 +27,8 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.88
 # Extra Tests (not run when bootstrapping due to circular build dependencies)
 %if !%{defined perl_bootstrap} && ! ( 0%{?rhel} ) && %{with perl_CPAN_Meta_Requirements_enables_optional_test}
-%if 0%{?fedora} > 23 || 0%{?rhel} > 7
+BuildRequires:  findutils
 BuildRequires:  glibc-langpack-en
-%endif
 BuildRequires:  perl(blib)
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(File::Temp)
@@ -46,7 +44,7 @@ BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Pod) >= 1.41
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(Test::Portability::Files)
-BuildRequires:  perl(Test::Spelling) >= 0.12, hunspell-en
+BuildRequires:  perl(Test::Spelling) >= 0.17, hunspell-en
 BuildRequires:  perl(Test::Version) >= 1
 %endif
 # Dependencies
@@ -75,12 +73,11 @@ exceptions.
 %setup -q -n CPAN-Meta-Requirements-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor UNINST=0
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 UNINST=0
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -97,6 +94,13 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Fri Jan 23 2026 Paul Howarth <paul@city-fan.org> - 2.144-1
+- Update to 2.144 (rhbz#2432229)
+  - Remove code meant to cope with running on v5.8, when v5.10 is the minimum
+    required perl
+  - Normalize away ">= 0" in compount version requirements; it's meaningless
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.143-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

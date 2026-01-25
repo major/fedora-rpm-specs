@@ -24,6 +24,9 @@ Patch:          https://github.com/pypa/wheel/commit/3028d3.patch
 # Upstream has removed this code entirely instead
 # https://github.com/pypa/wheel/pull/655
 Patch:          adjusts-tests-for-setuptools-78.patch
+# Security fix for CVE-2026-24049: Privilege Escalation or Arbitrary Code Execution via malicious wheel file unpacking
+# https://github.com/pypa/wheel/commit/7a7d2d (from 0.46.2+)
+Patch:          CVE-2026-24049.patch
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

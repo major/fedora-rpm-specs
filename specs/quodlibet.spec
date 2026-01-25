@@ -27,6 +27,7 @@ BuildRequires:	python3-devel
 # needed for tests
 BuildRequires:	glibc-langpack-en
 BuildRequires:	gnupg2
+BuildRequires:	gobject-introspection
 BuildRequires:	gstreamer1
 BuildRequires:	gstreamer1-plugins-good
 BuildRequires:	gtk3 >= 3.18

@@ -80,7 +80,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1645,6 +1645,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 8.5.2-3
+- Rebuilt for net-snmp 5.9.5.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

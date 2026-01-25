@@ -2,8 +2,9 @@
 %global libdnf_version 0.43.1
 %global libdnf5_version 5.2.17.0
 
-%bcond dnf5_default %[0%{?rhel} >= 11]
-%bcond dnf4 %[(0%{?rhel} && 0%{?rhel} < 11) || 0%{?fedora}]
+# For https://fedoraproject.org/wiki/Changes/PackageKit-DNF5
+%bcond dnf5_default %[0%{?fedora} >= 44 || 0%{?rhel} >= 11]
+%bcond dnf4 %[(0%{?rhel} && 0%{?rhel} < 11) || (0%{?fedora} && 0%{?fedora} < 44)]
 
 Summary:   Package management service
 Name:      PackageKit
@@ -18,10 +19,13 @@ Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{ver
 Patch0001:    https://github.com/PackageKit/PackageKit/commit/38c7cfbcd6f3202770685cd2439770523117d2bf.patch
 ## Fix crashes from GNOME Software
 Patch0002:    https://github.com/PackageKit/PackageKit/pull/930.patch
+## https://github.com/PackageKit/PackageKit/pull/931
+Patch0003:    PackageKit-1.3.3-Initial-DNF5-Backend.patch
 
 # Patches proposed upstream (501~1000)
-## https://github.com/PackageKit/PackageKit/pull/931
-Patch0501:    PackageKit-1.3.3-Initial-DNF5-Backend.patch
+## Alias "dnf" to "dnf5"
+## Pulled out from https://github.com/PackageKit/PackageKit/pull/938
+Patch0501:    PackageKit-alias-dnf-to-dnf5.patch
 
 # Downstream only patches (1001+)
 ## https://pagure.io/fedora-workstation/issue/233
@@ -235,6 +239,12 @@ using PackageKit.
 %elif 0%{?rhel}
 %autopatch -p1 -m 3001 -M 4000
 %endif
+
+# Revert dnf->dnf5 for <F43 and <EL11
+%if ! %{with dnf5_default}
+%patch -p1 -P 501 -R
+%endif
+
 
 %conf
 %meson \

@@ -106,7 +106,7 @@ done
 %install
 %mvn_install
 
-%jpackage_script org.junit.platform.console.ConsoleLauncher "" "" junit5:opentest4j:picocli:junit:hamcrest junit-platform-console
+%jpackage_script org.junit.platform.console.ConsoleLauncher "" "" junit5:opentest4j:picocli:junit:hamcrest:univocity-parsers junit-platform-console
 
 %files -f .mfiles
 %{_bindir}/junit-platform-console

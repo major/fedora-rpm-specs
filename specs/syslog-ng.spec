@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -654,6 +654,9 @@ fi
 
 
 %changelog
+* Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.10.2-2
+- Rebuilt for net-snmp 5.9.5.2
+
 * Wed Jan 21 2026 Peter Czanik <peter@czanik.hu> - 4.10.2-1
 - update to 4.10.2
 - disable SNMP support temporarily

@@ -1,5 +1,5 @@
 Name:           linux-sysinfo-snapshot
-Version:        3.7.8.2
+Version:        3.7.9.7
 Release:        %autorelease
 Summary:        System information snapshot tool for Mellanox adapters
 
