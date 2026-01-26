@@ -40,6 +40,7 @@ The %{name}-devel package contains development files for %{name}.
 %forgeautosetup -p1
 
 %build
+export CFLAGS="%{optflags} -Wno-error=discarded-qualifiers"
 autoreconf -i
 %configure --disable-static
 %make_build

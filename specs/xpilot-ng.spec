@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Space arcade game for multiple players
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -29,9 +29,9 @@ Patch3:         xpilot-ng-c99.patch
 Patch4:         xpilot-ng-SDL_window.patch
 Patch5:         xpilot-ng-c99-return-mismatch.patch
 Patch6:         xpilot-ng-c99-incompatible-pointer-types.patch
+Patch7:         xpilot-ng-c23.patch
 
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:  gcc make
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  expat-devel SDL_ttf-devel SDL_image-devel zlib-devel
 BuildRequires:  libXt-devel libGLU-devel
@@ -221,6 +221,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 4.7.3-37
+- Fix FTBFS (rhbz#2341581, rhbz#2385745)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

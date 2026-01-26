@@ -1,17 +1,17 @@
-%global forgeurl https://github.com/esa/pagmo2
-Version:        2.19.1
-%forgemeta
+%global gitdate 20251028
+%global commit 39b8965fa2cad6de9f609a3796b16efaf64fb2e8
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           pagmo2
+Version:        2.19.1^%{gitdate}git%{shortcommit}
 Release:        %autorelease
 Summary:        A C++ platform to perform parallel computations of optimisation tasks
 License:        LGPL-3.0-or-later OR GPL-3.0-or-later
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://github.com/esa/pagmo2
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  ninja-build
 BuildRequires:  eigen3-devel
 BuildRequires:  tbb-devel
 BuildRequires:  boost-devel
@@ -34,11 +34,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains development files for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -C
 
 %build
 %cmake \
-    -GNinja \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DPAGMO_BUILD_TESTS=ON \
     -DPAGMO_WITH_EIGEN3=ON \
@@ -46,15 +45,14 @@ The %{name}-devel package contains development files for %{name}.
 %ifnarch %{ix86}
     -DPAGMO_WITH_IPOPT=ON \
 %endif
-    -DPAGMO_ENABLE_IPO=ON \
-
+    -DPAGMO_ENABLE_IPO=ON
 %cmake_build
 
 %install
 %cmake_install
 
 %check
-%ctest
+%ctest -E bfe
 
 %files
 %license COPYING.gpl3 COPYING.lgpl3

@@ -1,6 +1,6 @@
 Name:           mirrormagic
 Version:        3.0.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Puzzle game where you steer a beam of light using mirrors
 License:        GPL-1.0-or-later
 URL:            http://www.artsoft.org/mirrormagic/
@@ -10,8 +10,8 @@ Source2:        %{name}.png
 Source3:        %{name}.appdata.xml
 Patch0:         %{name}-%{version}-yesno.patch
 Patch1:         %{name}-%{version}-fcommon-fix.patch
-BuildRequires: make
-BuildRequires:  gcc
+Patch2:         %{name}-%{version}-c23.patch
+BuildRequires:  gcc make
 BuildRequires:  SDL2_image-devel SDL2_mixer-devel SDL2_net-devel
 BuildRequires:  libappstream-glib desktop-file-utils
 Requires:       hicolor-icon-theme
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 3.0.0-22
+- Fix FTBFS (rhbz#2340868, rhbz#2385191)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

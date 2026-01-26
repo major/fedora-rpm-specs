@@ -18,7 +18,7 @@
 
 Name:           funguloids
 Version:        1.06
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Space-Flying-Mushroom-Picking-Simulator game
 License:        zlib
 URL:            http://funguloids.sourceforge.net
@@ -47,13 +47,12 @@ Patch9:         %{name}-ogre-1.7.0.patch
 Patch10:        %{name}-gcc47.patch
 Patch11:        %{name}-ogre-1.8.patch
 # Fix for Lua 5.2
-Patch12:	%{name}-lua-5.2.patch
+Patch12:        %{name}-lua-5.2.patch
 # Build with ogre-1.9
 Patch13:        %{name}-ogre-1.9.patch
-BuildRequires:  automake desktop-file-utils gcc-c++ python3
+BuildRequires:  automake desktop-file-utils gcc-c++ python3 make
 BuildRequires:  freealut-devel libvorbis-devel lua-devel
-BuildRequires:  ogre-devel >= 1.9 ois-devel openal-devel
-BuildRequires: make
+BuildRequires:  ogre-devel >= 1.9 ois-devel openal-soft-devel
 Requires:       hicolor-icon-theme
 
 %description
@@ -175,6 +174,9 @@ EOF
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.06-50
+- Fix FTBFS (rhbz#2384606)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

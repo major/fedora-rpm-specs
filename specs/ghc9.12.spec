@@ -117,6 +117,9 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/26711
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15264
 Patch4: https://gitlab.haskell.org/ghc/ghc/-/commit/65370007e2d9f1976fbcfbb514917fb111117148.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch5: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -456,6 +459,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 %patch -P4 -p1 -b .orig
+%patch -P5 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

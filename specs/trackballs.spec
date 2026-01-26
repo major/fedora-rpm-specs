@@ -1,13 +1,14 @@
 %global fonts font(freesans) font(freeserif)
 
 Name:           trackballs
-Version:        1.3.4
-Release:        4%{?dist}
+Version:        1.3.5
+Release:        1%{?dist}
 Summary:        Steer a marble ball through a labyrinth
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://trackballs.github.io/
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch1:         trackballs-gcc15.patch
 
 BuildRequires:  gcc-c++ cmake
 BuildRequires:  guile30-devel SDL2-devel SDL2_image-devel SDL2_mixer-devel
@@ -23,7 +24,7 @@ quality sound effects and background music.
 
 
 %prep
-%setup -q
+%autosetup -p1
 iconv -f ISO-8859-1 -t UTF8 share/%{name}.6 > share/%{name}.6.tmp
 touch -r share/%{name}.6 share/%{name}.6.tmp
 mv share/%{name}.6.tmp share/%{name}.6
@@ -71,6 +72,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.3.5-1
+- New upstream release 1.3.5 (rhbz#2411813)
+- Fix FTBFS (rhbz#2341455, rhbz#2381613)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

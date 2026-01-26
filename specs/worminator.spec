@@ -1,6 +1,6 @@
 Name:           worminator
 Version:        3.0R2.1
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Sidescrolling platform and shoot'em up action-game
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -12,6 +12,9 @@ Source3:        %{name}.appdata.xml
 Patch0:         worminator-3.0R2.1-speed.patch
 Patch1:         worminator-3.0R2.1-format-security.patch
 Patch2:         worminator-3.0R2.1-c99.patch
+Patch3:         worminator-3.0R2.1-remove-al-fix-aliases.patch
+Patch4:         worminator-3.0R2.1-fix-compiler-warnings.patch
+Patch5:         worminator-3.0R2.1-c23.patch
 BuildRequires:  gcc
 BuildRequires:  allegro-devel desktop-file-utils libappstream-glib
 Requires:       worminator-data >= 3.0R2.1-2, hicolor-icon-theme
@@ -29,8 +32,7 @@ sed -i 's/\r//' ReadMe.txt
 
 %build
 gcc $RPM_OPT_FLAGS -fsigned-char -Wno-deprecated-declarations \
-  -Wno-char-subscripts -DALLEGRO_FIX_ALIASES \
-  -DDATADIR=\"%{_datadir}/%{name}/\" -o %{name} \
+  -Wno-char-subscripts -DDATADIR=\"%{_datadir}/%{name}/\" -o %{name} \
   Worminator.c `allegro-config --libs` -lm
 
 
@@ -60,6 +62,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 3.0R2.1-48
+- Fix FTBFS (rhbz#2341554, rhbz#2385732)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

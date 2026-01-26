@@ -1,12 +1,12 @@
 Name:           flwkey
-Version:        1.2.3
-Release:        22%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        Modem program for the K1EL Winkeyer series
 
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-MIT
-URL:            http://www.w1hkj.com/
-Source0:        http://www.w1hkj.com/files/flwkey/%{name}-%{version}.tar.gz
+URL:            http://www.w1hkj.org/
+Source0:        http://www.w1hkj.org/files/flwkey/%{name}-%{version}.tar.gz
 Source99:       flwkey.appdata.xml
 
 BuildRequires:  gcc-c++
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.4-1
+- Update to 1.2.4.
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.3-22
 - Rebuild with fltk 1.4.
 

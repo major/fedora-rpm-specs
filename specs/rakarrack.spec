@@ -30,7 +30,7 @@ BuildRequires: automake
 BuildRequires: jack-audio-connection-kit-devel alsa-lib-devel alsa-utils
 BuildRequires: libsndfile-devel
 BuildRequires: libsamplerate-devel
-BuildRequires: fltk-devel
+BuildRequires: fltk1.3-devel
 BuildRequires: libXpm-devel libpng-devel libjpeg-devel
 BuildRequires: fftw-devel
 BuildRequires: desktop-file-utils
@@ -124,7 +124,7 @@ desktop-file-install --vendor "" \
 
 %changelog
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 0.6.2-0.34.20150814gita620840
-- Rebuild with fltk 1.4.
+- Rebuild with fltk 1.3 compat package.
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-0.33.20150814gita620840
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

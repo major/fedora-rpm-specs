@@ -17,8 +17,8 @@ BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	cmake 
 BuildRequires:	zlib-devel 
 BuildRequires:	fontconfig-devel
-BuildRequires:	fltk-devel 
-BuildRequires:	fltk-fluid 
+BuildRequires:	fltk1.3-devel 
+BuildRequires:	fltk1.3-fluid 
 BuildRequires:	fftw3-devel
 BuildRequires:	mxml-devel 
 BuildRequires:	alsa-lib-devel 
@@ -85,7 +85,7 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/presets/*
 
 %changelog
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.3.0-9
-- Rebuild with fltk 1.4.
+- Rebuild with fltk 1.3 compat package.
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

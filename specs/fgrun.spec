@@ -24,7 +24,7 @@ Patch:          0005-Fix-build-with-newer-simgear.patch
 Requires:       FlightGear, opengl-games-utils, hicolor-icon-theme
 BuildRequires:  gcc-c++
 BuildRequires:  SimGear-devel >= 2.6.0
-BuildRequires:  fltk-devel fltk-fluid plib-devel 
+BuildRequires:  fltk1.3-devel fltk1.3-fluid plib-devel 
 BuildRequires:  sg3_utils-devel OpenSceneGraph-devel mesa-libEGL-devel
 BuildRequires:  gettext boost-devel desktop-file-utils
 BuildRequires:  cmake
@@ -90,7 +90,7 @@ install -m 0644 %{SOURCE15} \
 
 %changelog
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2016.3.1-68
-- Rebuild with fltk 1.4.
+- Rebuild with fltk 1.3 compat package.
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2016.3.1-67
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

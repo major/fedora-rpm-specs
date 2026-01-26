@@ -19,7 +19,7 @@
 %endif
 
 Name:           webkitgtk
-Version:        2.51.4
+Version:        2.51.90
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -57,7 +57,8 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-Patch:          missing-include-sys-mman.patch
+# https://bugs.webkit.org/show_bug.cgi?id=306109
+Patch:          build.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap

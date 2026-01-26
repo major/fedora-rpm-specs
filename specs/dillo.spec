@@ -21,7 +21,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  cmake(fltk) >= 1.3.0
+BuildRequires:  cmake(fltk) < 1.4.0
 BuildRequires:  cmake(libjpeg-turbo)
 BuildRequires:  cmake(NanoSVG)
 BuildRequires:  cmake(WebP)

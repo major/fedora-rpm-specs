@@ -59,6 +59,7 @@ BuildRequires:  tex(stackengine.sty)
 BuildRequires:  tex(listofitems.sty)
 BuildRequires:  tex(ulem.sty)
 BuildRequires:  tex(etoc.sty)
+BuildRequires:  tex(xltabular.sty)
 %endif
 
 %global desc \

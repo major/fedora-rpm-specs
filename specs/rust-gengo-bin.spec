@@ -7,7 +7,7 @@
 %global crate gengo-bin
 
 Name:           rust-gengo-bin
-Version:        0.14.1
+Version:        0.14.2
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -32,21 +32,18 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MPL-2.0
-# Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
                 Apache-2.0 AND
                 (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-                (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 OR MIT OR Zlib) AND
                 BSD-3-Clause AND

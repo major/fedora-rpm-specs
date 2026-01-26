@@ -30,6 +30,10 @@ Patch2:		add-includes.patch
 # https://github.com/mupen64plus/mupen64plus-core/issues/1146
 Patch3:		upstream-prs-1122-1123-1080-1119.patch
 
+# Fix linking on Fedora 44+
+# https://github.com/mupen64plus/mupen64plus-core/issues/1168
+Patch4:		linking-error-dynamic-relocations.patch
+
 BuildRequires:	pkgconfig(SDL_ttf)
 BuildRequires:	pkgconfig(lirc)
 BuildRequires:	desktop-file-utils

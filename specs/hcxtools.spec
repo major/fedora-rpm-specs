@@ -1,11 +1,11 @@
-%global forgeurl https://github.com/ZerBea/%{name}
+%global forgeurl https://github.com/ZerBea/hcxtools
 %global tag %{version}
 
 Name:           hcxtools
-Version:        6.3.4
+Version:        7.0.1
 %forgemeta
 Release:        %autorelease
-Summary:        Portable solution for conversion WiFi dump files to hashcat formats
+Summary:        Set of tools to convert packets from capture files to hash files
 
 License:        MIT
 URL:            %{forgeurl}
@@ -31,26 +31,11 @@ BuildRequires:  zlib-devel
 # BuildRequires:  pkgconfig(zlib)
 
 %description
-Small set of tools convert packets from captures (h = hash, c = capture,
-convert and calculate candidates, x = different hashtypes) for the use with
-latest hashcat or John the Ripper. The tools are 100% compatible to hashcat
-and John the Ripper and recommended by hashcat. This branch is pretty closely
-synced to hashcat git and John the Ripper git.
+A small set of tools to convert packets from capture files to hash files for use
+with Hashcat or John the Ripper.
 
-Support of hashcat hash-modes: 4800, 5500, 2200x, 16100, 250x (deprecated),
-1680x (deprecated)
-
-Support of John the Ripper hash-modes: WPAPSK-PMK, PBKDF2-HMAC-SHA1, chap,
-netntlm, tacacs-plus
-
-Support of gzip (.gz) single file compression.
-
-Main purpose is to detect weak points within own WiFi networks by analyzing
-the hashes. Therefore convert the dump file to WPA-PBKDF2-PMKID+EAPOL hash
-file and check if wlan-key or plainmasterkey was transmitted unencrypted. Or
-upload the "uncleaned" dump file (pcapng, pcap, cap) here
-https://wpa-sec.stanev.org/?submit to find out if your ap or the client is
-vulnerable by using common wordlists or a weak password generation algorithm.
+These tools are 100% compatible with Hashcat and John the Ripper and are
+endorsed by Hashcat.
 
 
 %prep

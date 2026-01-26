@@ -1,15 +1,14 @@
 Name:           ladspa-blop-plugins
 Version:        0.2.8
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Bandlimited LADSPA Oscillator Plugins
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://blop.sourceforge.net/
 Source:         http://downloads.sourceforge.net/blop/blop-%{version}.tar.gz
 Patch1:         ladspa-blop-plugins-configure-c99.patch
-BuildRequires:  gcc
+BuildRequires:  gcc make
 BuildRequires:  ladspa-devel
-BuildRequires: make
 Requires:       ladspa
 Obsoletes:      blop <= 0.2.8-1
 Provides:       blop = %{version}-%{release}
@@ -32,7 +31,7 @@ sed -i 's|-O0||g' src/Makefile.in
 
 
 %build
-export LDADD="$RPM_LD_FLAGS"
+export LDADD="$RPM_LD_FLAGS -lm"
 %configure
 # note, we must pass CFLAGS as for some reason they do not get propagated
 # by configure
@@ -61,6 +60,9 @@ export LDADD="$RPM_LD_FLAGS"
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 0.2.8-44
+- Fix FTBFS (rhbz#2340705, rhbz#2385103)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

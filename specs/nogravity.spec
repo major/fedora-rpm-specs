@@ -1,6 +1,6 @@
 Name:           nogravity
 Version:        2.00
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Space shooter in 3D
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -30,6 +30,7 @@ Patch12:        0002-rlx32-Stop-using-MaxExtentableObjet.patch
 Patch13:        nogravity-2.00-stdint_h.patch
 Patch14:        nogravity--gcc6.patch
 Patch15:        nogravity-2.00-build-fixes.patch
+Patch16:        nogravity-2.00-c23.patch
 Requires:       %{name}-data = %{version}
 BuildRequires:  make gcc-c++
 BuildRequires:  SDL_mixer-devel openal-soft-devel libpng-devel libvorbis-devel
@@ -96,6 +97,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.00-51
+- Fix FTBFS (rhbz#2340938, rhbz#2385217)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

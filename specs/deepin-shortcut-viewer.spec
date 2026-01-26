@@ -1,16 +1,19 @@
 Name:           deepin-shortcut-viewer
-Version:        5.0.9
+Version:        5.5.6
 Release:        %autorelease
 Summary:        Deepin Shortcut Viewer
 License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/deepin-shortcut-viewer
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(dtkwidget) >= 2.0.6
-BuildRequires:  make
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Dtk6Core)
+BuildRequires:  cmake(Dtk6Widget)
 
 %description
 The program displays a shortcut key window when a JSON data is passed.
@@ -19,11 +22,11 @@ The program displays a shortcut key window when a JSON data is passed.
 %autosetup -p1
 
 %build
-%qmake_qt5 PREFIX=%{_prefix}
-%make_build
+%cmake
+%cmake_build
 
 %install
-%make_install INSTALL_ROOT="%{buildroot}"
+%cmake_install
 
 %files
 %doc README.md

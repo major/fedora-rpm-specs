@@ -1,5 +1,5 @@
 Name:           harfbuzz
-Version:        12.3.1
+Version:        12.3.2
 Release:        1%{?dist}
 Summary:        Text shaping library
 
@@ -110,6 +110,9 @@ This package contains Harfbuzz Cairo support library.
 %{_libdir}/libharfbuzz-cairo.so.*
 
 %changelog
+* Sat Jan 24 2026 Parag Nemade <pnemade AT redhat DOT com> - 12.3.2-1
+- Update to 12.3.2 version (#2432559)
+
 * Wed Jan 21 2026 Parag Nemade <pnemade AT redhat DOT com> - 12.3.1-1
 - Update to 12.3.1 version (#2431448)
 

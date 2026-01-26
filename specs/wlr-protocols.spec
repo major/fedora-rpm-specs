@@ -1,6 +1,6 @@
 %global forgeurl https://gitlab.freedesktop.org/wlroots/wlr-protocols
-%global date 20240126
-%global commit 2b8d43325b7012cc3f9b55c08d26e50e42beac7d
+%global date 20250816
+%global commit a741f0ac5d655338a5100fc34bc8cec87d237346
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           wlr-protocols
@@ -9,7 +9,7 @@ Release:        %autorelease
 Summary:        Wayland protocols designed for use in wlroots (and other compositors)
 License:        MIT
 URL:            %{forgeurl}
-Source0:        %{forgeurl}/-/archive/%{commit}/%{name}-%{commit}.tar.bz2
+Source0:        %{forgeurl}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.bz2
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -25,7 +25,7 @@ Summary:        Wayland protocols designed for use in wlroots (and other composi
 Wayland protocols designed for use in wlroots (and other compositors).
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1 -C
 
 %build
 %make_build

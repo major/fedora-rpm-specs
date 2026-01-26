@@ -27,7 +27,7 @@ BuildRequires:	libax25-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	libXt-devel
 BuildRequires:	libXi-devel
-BuildRequires:	fltk-devel
+BuildRequires:	fltk1.3-devel
 BuildRequires:	libX11-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:	desktop-file-utils

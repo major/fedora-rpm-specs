@@ -1,6 +1,6 @@
 Name:           rott
 Version:        1.1.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Rise of the Triad
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -17,8 +17,7 @@ Source7:        rott-registered.metainfo.xml
 # free datafiles. I believe this constitutes fair-use. If anyone disagrees let
 # me know and I'll remove it
 Source8:        rott.png
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:  gcc make
 BuildRequires:  SDL_mixer-devel desktop-file-utils libappstream-glib
 
 %description
@@ -59,7 +58,7 @@ from this dir.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 cp -a doc/rott.6 rott-shareware.6
 cp -a doc/rott.6 rott-registered.6
@@ -70,13 +69,14 @@ touch -r rott-registered.6.orig rott-registered.6
 
 
 %build
+# -std=gnu17 because of lots of incomplete callback prototypes in the code
 pushd rott
 make %{?_smp_mflags} \
-  EXTRACFLAGS="$RPM_OPT_FLAGS -Wno-unused -Wno-pointer-sign" \
+  EXTRACFLAGS="$RPM_OPT_FLAGS -std=gnu17 -Wno-unused -Wno-pointer-sign" \
   ROTT=rott-shareware.bin
 make tidy
 make %{?_smp_mflags} \
-  EXTRACFLAGS="$RPM_OPT_FLAGS -Wno-unused -Wno-pointer-sign" \
+  EXTRACFLAGS="$RPM_OPT_FLAGS -std=gnu17 -Wno-unused -Wno-pointer-sign" \
   ROTT=rott-registered.bin SHAREWARE=0 SUPERROTT=1
 popd
 
@@ -126,6 +126,9 @@ install -p -m 644 %{SOURCE8} \
 
 
 %changelog
+* Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.1.2-30
+- Fix FTBFS (rhbz#2341288, rhbz#2385577)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

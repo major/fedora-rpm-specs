@@ -89,22 +89,13 @@ ExcludeArch: %{ix86}
 
 # Set explicit conflicts with 'mariadb' packages
 %bcond conflicts_mariadb 1
-# Provide explicitly the 'community-mysql' names
-#   'community-mysql' names are deprecated and to be removed in future Fedora
-#   but we're leaving them here for compatibility reasons
-%bcond provides_community_mysql %{?mysql_default}
-# Obsolete the package 'community-mysql' and all its sub-packages
-%bcond obsoletes_community_mysql %{?mysql_default}
-# This is the last version of the 'community-mysql' package production release
-%global obsolete_community_mysql_version 8.0.35-10
-%global community_mysql_version 8.0.36-1
 
 # Make long macros shorter
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -254,9 +245,6 @@ Provides:         bundled(unordered_dense)
 %{?with_conflicts_mariadb:Conflicts: mariadb-any}
 # Explicitly disallow installation of mysql + mariadb-server
 %{?with_conflicts_mariadb:Conflicts: mariadb-server-any}
-%{?with_provides_community_mysql:Provides: community-mysql = %community_mysql_version}
-%{?with_provides_community_mysql:Provides: community-mysql%{?_isa} = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql <= %obsolete_community_mysql_version}
 
 %define conflict_with_other_streams() %{expand:\
 Provides: %{majorname}%{?1:-%{1}}-any\
@@ -310,9 +298,6 @@ contains the standard MySQL client programs and generic MySQL files.
 %package          -n %{pkgname}-libs
 Summary:          The shared libraries required for MySQL clients
 Requires:         %{pkgname}-common = %{sameevr}
-%{?with_provides_community_mysql:Provides: community-mysql-libs = %community_mysql_version}
-%{?with_provides_community_mysql:Provides: community-mysql-libs%{?_isa}= %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-libs <= %obsolete_community_mysql_version}
 
 %add_metadata_arched libs
 
@@ -327,9 +312,6 @@ MySQL server.
 %if %{with config}
 %package          -n %{pkgname}-config
 Summary:          The config files required by server and client
-%{?with_provides_community_mysql:Provides: community-mysql-config = %community_mysql_version}
-%{?with_provides_community_mysql:Provides: community-mysql-config%{?_isa} = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-config <= %obsolete_community_mysql_version}
 
 %add_metadata_arched config
 
@@ -350,8 +332,6 @@ Requires:         mariadb-connector-c-config
 %else
 Requires:         %{_sysconfdir}/my.cnf
 %endif
-%{?with_provides_community_mysql:Provides: community-mysql-common = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-common <= %obsolete_community_mysql_version}
 
 # As this package is noarch, it can't use the %%{?_isa} RPM macro
 %add_metadata_noarch common
@@ -368,8 +348,6 @@ MySQL package.
 Summary:          The error messages files required by MySQL server
 BuildArch:        noarch
 Requires:         %{pkgname}-common = %{sameevr}
-%{?with_provides_community_mysql:Provides: community-mysql-errmsg = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-errmsg <= %obsolete_community_mysql_version}
 
 # As this package is noarch, it can't use the %%{?_isa} RPM macro
 %add_metadata_noarch errmsg
@@ -417,9 +395,6 @@ Suggests:         logrotate
 %{?with_conflicts_mariadb:Conflicts: mariadb-server-galera-any}
 # Explicitly disallow installation of mysql + mariadb-server
 %{?with_conflicts_mariadb:Conflicts: mariadb-any}
-%{?with_provides_community_mysql:Provides: community-mysql-server = %community_mysql_version}
-%{?with_provides_community_mysql:Provides: community-mysql-server%{?_isa} = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-server <= %obsolete_community_mysql_version}
 
 %add_metadata_arched server
 
@@ -439,9 +414,6 @@ Requires:         zlib-devel
 Requires:         libzstd-devel
 %{?with_conflicts_mariadb:Conflicts: mariadb-devel-any}
 %{?with_conflicts_mariadb:Conflicts: mariadb-connector-c-devel}
-%{?with_provides_community_mysql:Provides: community-mysql-devel = %community_mysql_version}
-%{?with_provides_community_mysql:Provides: community-mysql-devel%{?_isa} = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-devel <= %obsolete_community_mysql_version}
 
 %add_metadata_arched devel
 
@@ -481,9 +453,6 @@ Requires:         perl(Time::HiRes)
 Requires:         perl(File::Compare)
 
 %{?with_conflicts_mariadb:Conflicts: mariadb-test-any}
-%{?with_provides_community_mysql:Provides: community-mysql-test = %community_mysql_version}
-%{?with_provides_community_mysql:Provides: community-mysql-test%{?_isa} = %community_mysql_version}
-%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-test <= %obsolete_community_mysql_version}
 
 %add_metadata_arched test
 
@@ -1123,6 +1092,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 23 2026 Michal Schorm <mschorm@redhat.com> - 8.4.8-2
+- Fedora 44 change: Remove 'community-mysql' names
+
 * Fri Jan 23 2026 Michal Schorm <mschorm@redhat.com> - 8.4.8-1
 - Rebase to 8.4.8
 

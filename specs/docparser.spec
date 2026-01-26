@@ -1,19 +1,9 @@
 Name:           docparser
-Version:        1.0.16
+Version:        1.0.25
 Release:        %autorelease
 Summary:        A document parser library ported from document2html
 
-# The entire source code is GPLv2+ except
-# src/utils/getoptpp.* which are Boost,
-# src/utils/json.hpp,
-# src/utils/miniz.c,
-# src/utils/pugiconfig.hpp,
-# src/utils/pugixml.cpp and
-# src/utils/pugixml.hpp
-# which are MIT,
-# /src/utils/lodepng.* which are zlib
-# Automatically converted from old format: GPLv3+ and Boost and MIT and zlib - review is highly recommended.
-License:        GPL-3.0-or-later AND BSL-1.0 AND LicenseRef-Callaway-MIT AND Zlib
+License:        LGPL-3.0-or-later AND CC-BY-4.0 AND CC0-1.0 AND MIT
 URL:            https://github.com/linuxdeepin/docparser
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -26,6 +16,11 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(tinyxml2)
+BuildRequires:  pkgconfig(libmagic)
+# test dependencies
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Dtk6Core)
 
 %description
 This file content analysis library is provided for the full-text search function
@@ -40,16 +35,21 @@ Header files and libraries for %{name}.
 
 %prep
 %autosetup
+sed -i 's|Debug|RelWithDebInfo|' CMakeLists.txt
 
 %build
-%cmake
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %cmake_build
 
 %install
 %cmake_install
+rm %{buildroot}%{_bindir}/{docparser_test,docparser_autotest}
+
+%check
+%{_vpath_builddir}/tests/docparser_autotest
 
 %files
-%license LICENSE.txt
+%license LICENSES/*
 %doc README.md
 %{_libdir}/lib%{name}.so.1*
 

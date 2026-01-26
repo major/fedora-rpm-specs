@@ -1,16 +1,8 @@
-# Sphinx-generated HTML documentation is historically not suitable for
-# packaging; see https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for
-# discussion. We can generate PDF documentation as a substitute.
-#
-# In Fedora 42 and later, we can (and in Fedora 43 and later, we do) build the
-# HTML documentation but unbundle Doxygen-inserted JavaScript assets from the
-# HTML documentation as much as possible, as prescribed in
-# https://src.fedoraproject.org/rpms/doxygen/blob/f42/f/README.rpm-packaging.
-%bcond doc_pdf %{defined fc42}
-
+# The Source Code Pro fonts are not packaged in RHEL/ELN.
+%bcond source_code_pro %[ %{undefined rhel} || %{defined epel} ]
 
 Name:           gi-docgen
-Version:        2025.5
+Version:        2026.1
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 
@@ -103,7 +95,7 @@ Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 # This patch removes all references to WOFF/WOFF2 font files (which we still
 # must remove in %%prep) and ensures the CSS correctly references corresponding
 # or stand-in local system fonts.
-Patch:          gi-docgen-2022.2-no-web-fonts.patch
+Patch:          0001-Downstream-only-use-local-packaged-fonts-instead-of-.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   gidocgen
@@ -116,23 +108,46 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
-%if %{with doc_pdf}
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
 
-# Unbundling fonts:
+# Unbundle fonts.
+# Fonts we expect to be in redhat-display-fonts:
 BuildRequires:  font(redhatdisplay)
+BuildRequires:  font(redhatdisplayitalic)
 BuildRequires:  font(redhatdisplayblack)
 BuildRequires:  font(redhatdisplaymedium)
+BuildRequires:  font(redhatdisplaymediumitalic)
+BuildRequires:  font(redhatdisplayblack)
+BuildRequires:  font(redhatdisplayblackitalic)
+# These auto-Provides are not present, but it is safe enough to believe that
+# the corresponding font files will be present in the same package as the other
+# BuildRequires:  font(redhatdisplaybold)
+# BuildRequires:  font(redhatdisplaybolditalic)
+# Fonts we expect to be in redhat-text-fonts:
 BuildRequires:  font(redhattext)
+BuildRequires:  font(redhattextitalic)
 BuildRequires:  font(redhattextmedium)
-%if 0%{?rhel} >= 10
-BuildRequires:  redhat-mono-vf-fonts
-%else
+BuildRequires:  font(redhattextmediumitalic)
+# These auto-Provides are not present, but it is safe enough to believe that
+# the corresponding font files will be present in the same package as the other
+# BuildRequires:  font(redhattextbold)
+# BuildRequires:  font(redhattextbolditalic)
+%if %{with source_code_pro}
+# Fonts we expect to be in adobe-source-code-pro-fonts
 BuildRequires:  font(sourcecodepro)
+# These auto-Provides are not present, but it is safe enough to believe that
+# the corresponding font files will be present in the same package as the other
+# BuildRequires:  font(sourcecodeproitalic)
 BuildRequires:  font(sourcecodeprosemibold)
+%else
+# At least depend on a good monospace alternative.
+BuildRequires:  redhat-mono-vf-fonts
 %endif
+
+# The “dot” tool is required for e.g. rendering class hierarchy diagrams. We
+# choose to make it a hard dependency so that package users never have to deal
+# with missing features.
+BuildRequires:  graphviz
+Requires:       graphviz
 
 # Unbundling fonts:
 Requires:       gi-docgen-fonts = %{version}-%{release}
@@ -174,15 +189,21 @@ Summary:        Metapackage providing fonts for gi-docgen output
 License:        Apache-2.0 OR GPL-3.0-or-later
 
 Requires:       font(redhatdisplay)
+Requires:       font(redhatdisplayitalic)
 Requires:       font(redhatdisplayblack)
 Requires:       font(redhatdisplaymedium)
+Requires:       font(redhatdisplaymediumitalic)
+Requires:       font(redhatdisplayblack)
+Requires:       font(redhatdisplayblackitalic)
 Requires:       font(redhattext)
+Requires:       font(redhattextitalic)
 Requires:       font(redhattextmedium)
-%if 0%{?rhel} >= 10
-Requires:       redhat-mono-vf-fonts
-%else
+Requires:       font(redhattextmediumitalic)
+%if %{with source_code_pro}
 Requires:       font(sourcecodepro)
 Requires:       font(sourcecodeprosemibold)
+%else
+Requires:       redhat-mono-vf-fonts
 %endif
 
 %description fonts
@@ -200,19 +221,15 @@ Documentation for gi-docgen.
 
 
 %prep -a
-# Remove all bundled fonts. See gi-docgen-*-no-web-fonts.patch.
+# Remove all bundled fonts.
+# See 0001-Downstream-only-use-local-packaged-fonts-instead-of-.patch.
 find . -type f \( -name '*.woff' -o -name '*.woff2' \) -print -delete
 
 
 %build -a
-%if %{with doc_pdf}
-sphinx-build -b latex -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_latex
-%make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
-%else
 sphinx-build -b html -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_html
 # Do not ship hashes and caches for incremental rebuilds.
 rm -rv %{_vpath_builddir}/_html/{.buildinfo,.doctrees}
-%endif
 
 
 %install -a
@@ -221,12 +238,7 @@ install -t '%{buildroot}%{_pkgdocdir}' -D -m 0644 -p \
     CONTRIBUTING.md \
     docs/CODEOWNERS \
     README.md
-%if %{with doc_pdf}
-install -t '%{buildroot}%{_pkgdocdir}' -p -m 0644 \
-    '%{_vpath_builddir}/_latex/gi-docgen.pdf'
-%else
 cp -rp '%{_vpath_builddir}/_html' '%{buildroot}%{_pkgdocdir}/html'
-%endif
 cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 

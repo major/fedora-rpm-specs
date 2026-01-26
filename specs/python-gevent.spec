@@ -3,7 +3,7 @@
 %global optflags %(echo %{optflags} -I%{_includedir}/libev)
 
 Name:          python-%{modname}
-Version:       24.11.1
+Version:       25.9.1
 Release:       %autorelease
 Summary:       A coroutine-based Python networking library
 
@@ -32,7 +32,7 @@ Features include:
 %package -n python3-%{modname}
 Summary:       %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-greenlet-devel >= 2.0.0
+BuildRequires: python3-greenlet-devel >= 3.2.2
 BuildRequires: python3-zope-event
 
 %description -n python3-%{modname}

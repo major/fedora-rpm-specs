@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        22bddf088a60fd85f4a532ec73d6cc3de1575e3a
+%global qmarkdowntextedit_commit        459e888d8a444ffaec092e4193e9872384d0939f
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        26.1.10
+Version:        26.1.11
 %forgemeta
 Release:        %autorelease
 Summary:        Plain-text file notepad and todo-list manager with Markdown support

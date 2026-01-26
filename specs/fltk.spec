@@ -16,7 +16,7 @@
 
 Name:           fltk
 Version:        1.4.4
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        C++ user interface toolkit
 
 # see COPYING (or http://www.fltk.org/COPYING.php ) for exceptions details
@@ -30,6 +30,8 @@ Source1:        fltk-config.sh
 Patch0:         fltk-cmake.patch
 # add lib64 support, drop extraneous libs (bug #708185) and ldflags (#1112930)
 Patch1:         fltk-1.4.4-fltk_config.patch
+# Fix cairo include
+Patch2:         fltk-cairo_h.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -100,6 +102,7 @@ It provides modern GUI functionality without the bloat, and supports \
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libstdc++-devel
+Requires:       pkgconfig(cairo)
 Requires:       pkgconfig(libdecor-0) >= 0.2.0
 Requires:       pkgconfig(wayland-client) >= 1.18
 Requires:       pkgconfig(wayland-cursor)
@@ -363,6 +366,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/fluid.desktop
 
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.4.4-5
+- Add patch for cairo header include problem.
+
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 1.4.4-4
+- Add cairo as a devel requirement.
+
 * Fri Jan 23 2026 Richard Shaw <hobbes1069@gmail.com> - 1.4.4-3
 - Rebuild after bootstrap build.
 

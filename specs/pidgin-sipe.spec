@@ -1,7 +1,7 @@
 Name:           pidgin-sipe
 Summary:        Pidgin protocol plugin to connect to MS Office Communicator
 Version:        1.25.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            http://sipe.sourceforge.net/
@@ -10,6 +10,7 @@ Patch1:         pidgin-sipe-1.25.0-fix-false-negative-configure-checks.patch
 Patch2:         pidgin-sipe-1.25.0-fix-glib-2.68-build.patch
 Patch3:         pidgin-sipe-1.25.0-fix-libxml2-2.12-build.patch
 Patch4:         pidgin-sipe-1.25.0-add-appstreamcli-no-net.patch
+Patch5:         pidgin-sipe-1.25.0-core-fix-build-for-stricter-strstr.patch
 
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(farstream-0.2)
@@ -79,11 +80,7 @@ This package provides the protocol plugin for libpurple clients.
 
 
 %prep
-%setup -q
-%patch -P 1 -p1 -b.fix-false-negative-configure-checks
-%patch -P 2 -p1 -b.fix-glib-2.68-build
-%patch -P 3 -p1 -b.fix-libxml2-2.12-build
-%patch -P 4 -p1 -b.add-appstreamcli-no-net
+%autosetup -p1
 
 %build
 # steps copied from "autogen.sh" in upstream source tree
@@ -126,6 +123,10 @@ rm -f \
 
 
 %changelog
+* Sat Jan 24 2026 Stefan Becker <chemobejk@gmail.com> - 1.25.0-24
+- add upstream patch to fix build for stricter strstr()
+- take autosetup macro into use
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

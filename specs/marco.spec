@@ -1,21 +1,13 @@
 %global branch 1.28
 
 Name:          marco
-Version:       %{branch}.0
+Version:       %{branch}.2
 Release:       %autorelease
 Summary:       MATE Desktop window manager
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
-
-# https://github.com/mate-desktop/marco/commit/5367553
-Patch1:        marco_0001-tabpopup-Report-the-window-as-active-to-a11y-when-it.patch
-# https://github.com/mate-desktop/marco/commit/2d3cec6
-Patch2:        marco_0002-tabpopup-Stop-spamming-the-ATs-with-label-changes-at.patch
-# https://github.com/mate-desktop/marco/pull/786
-Patch3:        marco_0004-window-props-Fix-check-for-XResQueryClientIds-succes.patch
-Patch4:        marco_0005-window-props-remove-incorrect-mask-check.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -64,7 +56,8 @@ Development files for marco
 %prep
 %autosetup -p1
 
-#NOCONFIGURE=1 ./autogen.sh
+# weird tarball, no generated files
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure --disable-static           \

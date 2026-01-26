@@ -17,7 +17,7 @@ Patch2:		%{name}-build-python3.patch
 BuildRequires:	gcc-c++
 BuildRequires:	alsa-lib-devel
 BuildRequires:	desktop-file-utils
-BuildRequires:	fltk-devel
+BuildRequires:	fltk1.3-devel
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	liblo-devel
 BuildRequires:	/usr/bin/scons

@@ -1,22 +1,21 @@
 Name:       eureka
-Version:    2.0.2
-Release:    5%{?dist}
+Version:    2.1.0
+Release:    2%{?dist}
 Summary:    A cross-platform map editor for the classic DOOM games
 
 License:    GPL-2.0-or-later
 URL:        http://eureka-editor.sourceforge.net
 Source0:    https://github.com/ioan-chera/eureka-editor/archive/refs/tags/%{name}-%{version}/%{name}-%{version}.tar.gz
 
-# Eureka's CMakeLists separate the code into a few static libraries,
-# with some of them getting additional compiler flags. For whatever reason
-# this causes those libraries to get their CFLAGS quoted, resulting in
-# build failures because "-O2 -whatever" is not a valid compiler flag.
-Patch0:     0000-quoted-cflags.patch
-
-# Remove bits of code covered under the CC0 license.
-Patch1:     0001-no-cc0-code.patch
+# This patch fixes two issues:
+# 1. aarch64 is wrongfully classified as big-endian.
+#    This seems to have already been fixed upsteam.
+# 2. The program converts endianness when reading files, but not when writing
+#    files, leading to malformed outputs on s390x.
+Patch2:     0002-endianness.patch
 
 BuildRequires:  gcc-c++
+BuildRequires:  gtest-devel
 BuildRequires:  fltk-devel
 BuildRequires:  fontconfig-devel
 BuildRequires:  libGL-devel
@@ -47,14 +46,9 @@ work-flow and its own quirks.
 %prep
 %autosetup -p1 -n eureka-editor-%{name}-%{version}
 
-# Remove CC0-licensed code
-rm -rf src/tl/
-
 
 %build
-# The test suite expects to download gtest sources from the internet,
-# and simply disabling that results in linking failures.
-%cmake -DENABLE_UNIT_TESTS=OFF
+%cmake -DUSE_SYSTEM_FLTK=ON -DUSE_SYSTEM_GOOGLE_TEST=ON
 %cmake_build
 
 
@@ -72,6 +66,8 @@ install -m 644 -p misc/eureka.desktop %{buildroot}%{_datadir}/applications/%{nam
 
 
 %check
+%ctest
+
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
@@ -87,6 +83,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.1.0-2
+- Rebuild for fltk 1.4.
+
+* Sat Jan 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.1.0-1
+- Update to v2.1.0
+- Drop Patch0 (CXXFLAGS issues) - fixed upstream
+- Drop Patch1 (remove CC0 licensed code) - removed upstream
+- Add a patch to fix endianness issues
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2.0.2-5
 - Rebuild with fltk 1.4.
 

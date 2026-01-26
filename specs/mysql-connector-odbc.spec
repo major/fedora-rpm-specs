@@ -5,14 +5,14 @@ ExcludeArch: %{ix86}
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        9.4.0
+Version:        9.6.0
 Release:        %autorelease
 Summary:        ODBC driver for MySQL
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2-with-exceptions
 URL:            https://dev.mysql.com/downloads/connector/odbc/
 
-Source0:        http://dev.mysql.com/get/Downloads/Connector-ODBC/9.4/%{name}-%{version}-src.tar.gz
+Source0:        https://cdn.mysql.com/Downloads/Connector-ODBC/9.6/%{name}-%{version}-src.tar.gz
 Patch0:         myodbc-64bit.patch
 Patch3:         mysql-connector-odbc-rpath.patch
 
