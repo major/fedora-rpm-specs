@@ -5,7 +5,7 @@ Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
 Version: 25.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/multimedia/k3b
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:25.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

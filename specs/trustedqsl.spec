@@ -4,8 +4,8 @@
 %global libtqslver 2.6
 
 Name:           trustedqsl
-Version:        2.8.2
-Release:        2%{?dist}
+Version:        2.8.3
+Release:        1%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sun Jan 25 2026 Richard Shaw <hobbes1069@gmail.com> - 2.8.3-1
+- Update to 2.8.3.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,8 @@
-%global upstreamver 2025-05-03
+%global upstreamver 2026-01-16
 
 Name:           limnoria
-Version:        20250503
-Release:        5%{?dist}
+Version:        20260116
+Release:        1%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
@@ -12,7 +12,7 @@ License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
 # The Dict plugin is GPL-2.0-or-later
 #
 URL:            https://github.com/ProgVal/Limnoria
-Source0:        https://github.com/ProgVal/Limnoria/archive/master-%{upstreamver}.tar.gz
+Source0:        %{url}/archive/master-%{upstreamver}.tar.gz
 
 BuildArch:      noarch
 
@@ -26,18 +26,7 @@ Obsoletes: supybot-gribble =< 0.83.4.1-18%{dist}
 Provides: supybot-gribble = 0.83.4.1-19%{dist}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-chardet
-BuildRequires:  python3-pytz
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-gnupg
-BuildRequires:  python3-feedparser
-BuildRequires:  python3-sqlalchemy
-BuildRequires:  python3-pysocks
-BuildRequires:  python3-ecdsa
-BuildRequires:  python3-setuptools
-Requires:  python3-devel
 Requires:  python3-chardet
-Requires:  python3-pytz
 Requires:  python3-dateutil
 Requires:  python3-gnupg
 Requires:  python3-feedparser
@@ -60,25 +49,29 @@ Limnoria is a project which continues development of Supybot
 
 %prep
 %autosetup -n Limnoria-master-%{upstreamver}
-
-%build
 # remove stray python bits from debug plugin
 sed -i 1"s|#!/usr/bin/python||" plugins/Debug/plugin.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
 # This should be set to the day of the release. 
 # It's gets added as 'version' and is based on build time, not release time.
 SOURCE_DATE_EPOCH=`date --date=%{version} +\%s`
 export SOURCE_DATE_EPOCH
+%pyproject_wheel
 
-%{__python3} setup.py build
 
 %install
-%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%pyproject_install
+%pyproject_save_files supybot
+
 
 # TODO: get tests working
 #check
 
-%files
+%files -f %{pyproject_files}
 %doc CONTRIBUTING.md README.md
 %license LICENSE.md
 %{_bindir}/supybot
@@ -113,9 +106,12 @@ export SOURCE_DATE_EPOCH
 %{_mandir}/man1/limnoria-wizard.1.gz
 %{_mandir}/man1/limnoria.1.gz
 %{_mandir}/man1/limnoria-reset-password.1.gz
-%{python3_sitelib}/*
 
 %changelog
+* Sat Jan 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260116-1
+- Update to 2026-01-16
+- Use modern python build macros (rhbz#2378552)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250503-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

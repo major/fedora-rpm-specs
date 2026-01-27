@@ -1,5 +1,5 @@
 Name:           python-pytest-gitconfig
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Provide a Git config sandbox for testing
 

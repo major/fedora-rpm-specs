@@ -15,7 +15,7 @@ Name:           corectrl
 Version:        1.5.2
 %forgemeta
 Release:        %autorelease
-Summary:        Friendly hardware control
+Summary:        Profile based system control utility
 
 # The entire source code is GPLv3+ except bundled libs:
 # * Boost:          tests/3rdparty/catch
@@ -38,7 +38,6 @@ BuildRequires:  ninja-build
 BuildRequires:  cmake(Catch2)
 BuildRequires:  cmake(fmt)
 BuildRequires:  cmake(pugixml) >= 1.11
-BuildRequires:  cmake(Qt5DBus)
 BuildRequires:  cmake(Qt6Charts)
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Core) >= 6.8
@@ -49,7 +48,11 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(QuaZip-Qt6)
 BuildRequires:  cmake(spdlog) >= 1.4
+%if 0%{?fedora} >= 44
+BuildRequires:  pkgconfig(botan-3)
+%else
 BuildRequires:  pkgconfig(botan-2)
+%endif
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(x11)
@@ -74,16 +77,12 @@ Provides:       bundled(units)
 
 %description
 CoreCtrl is a Free and Open Source GNU/Linux application that allows you to
-control with ease your computer hardware using application profiles. It aims
-to be flexible, comfortable and accessible to regular users.
+control with ease your computer hardware using application profiles. It aims to
+be flexible, comfortable and accessible to regular users.
 
 - For setup instructions run:
 
   $ xdg-open %{_docdir}/%{name}/README.fedora.md
-
-- or go to the project wiki:
-
-  https://gitlab.com/corectrl/corectrl/wikis
 
 
 %prep
@@ -109,11 +108,11 @@ echo "set_property(TARGET corectrl_lib PROPERTY SOVERSION 0)" >> src/CMakeLists.
     -DBUILD_TESTING=OFF \
     %endif
     %{nil}
-%ninja_build -C %{_vpath_builddir}
+%cmake_build
 
 
 %install
-%ninja_install -C %{_vpath_builddir}
+%cmake_install
 install -Dpm 0644 %{SOURCE1} %{buildroot}%{_docdir}/%{name}/README.fedora.md
 find README.md -type f -perm /111 -exec chmod 644 {} \;
 find %{buildroot}/%{_datadir}/. -type f -executable -exec chmod -x "{}" \;

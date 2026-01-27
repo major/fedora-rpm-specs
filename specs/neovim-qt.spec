@@ -3,6 +3,9 @@
 # it's only needed for devel package which we're not providing
 %undefine       _cmake_shared_libs
 
+# Qt does not support QClipboard::Selection under Weston, causing tests to crash
+%global test_compositor cage
+
 Name:           neovim-qt
 Version:        0.2.19
 Release:        3%{?dist}
@@ -28,6 +31,7 @@ BuildRequires:  neovim
 %if %{with tests}
 BuildRequires:  font(dejavusansmono)
 BuildRequires:  xwfb-run
+BuildRequires:  %{test_compositor}
 %endif
 
 Requires:       hicolor-icon-theme
@@ -52,8 +56,8 @@ Requires:       neovim
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %if %{with tests}
-# UI component tests require running X server
-%global __ctest xwfb-run -- %{__ctest}
+# UI component tests require running display server
+%global __ctest xwfb-run -c %{test_compositor} -- %{__ctest}
 %ctest
 %endif
 
@@ -67,6 +71,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %{_datadir}/nvim-qt/
 
 %changelog
+* Sat Jan 24 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.19-3
+- Switch xwfb-run compositor to cage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

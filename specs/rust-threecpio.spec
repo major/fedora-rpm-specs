@@ -7,7 +7,7 @@
 %global crate threecpio
 
 Name:           rust-threecpio
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Manage initrd cpio archives
 

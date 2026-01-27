@@ -1,6 +1,6 @@
 Name:           showcert
-Version:        0.4.11
-Release:        2%{?dist}
+Version:        0.4.12
+Release:        1%{?dist}
 Summary:        inspect TLS certificates presented by remote servers
 
 License:        MIT
@@ -58,6 +58,9 @@ gencert --help
 %{_bindir}/gencert
 
 %changelog
+* Sun Jan 25 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.12-1
+- update to 0.4.12
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 
 Name:    amarok
 Summary: Media player
-Version: 3.3.1
-Release: 5%{?dist}
+Version: 3.3.2
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -208,7 +208,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}*.
 %{_kf6_datadir}/kio/servicemenus/amarok_append.desktop
 %{_kf6_datadir}/knotifications6/amarok.notifyrc
 %{_kf6_datadir}/kpackage/amarok
-%{_kf6_datadir}/kpackage/genericqml/org.kde.amarok.context
 %{_kf6_datadir}/solid/actions/amarok-play-audiocd.desktop
 %{_kf6_metainfodir}/org.kde.amarok.*.xml
 %{_kf6_qmldir}/org/kde/amarok
@@ -257,6 +256,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
+* Fri Jan 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.2-1
+- 3.3.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

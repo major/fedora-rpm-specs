@@ -692,7 +692,6 @@ end
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %if %{with langpacks_subpkg}
 %files

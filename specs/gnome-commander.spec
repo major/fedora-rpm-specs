@@ -51,7 +51,7 @@ Name:          gnome-commander
 # Downgrade 3 times, sorry...
 Epoch:         4
 Version:       %{fedoraver}
-Release:       2%{?dist}%{flagrel}
+Release:       3%{?dist}%{flagrel}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
@@ -306,6 +306,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4:1.18.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.18.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

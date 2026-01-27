@@ -1,5 +1,5 @@
 Name:           python-cucumber-tag-expressions
-Version:        8.1.0
+Version:        9.0.0
 Release:        %autorelease
 Summary:        Provides a tag-expression parser and evaluation logic for cucumber/behave
 

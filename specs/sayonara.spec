@@ -10,12 +10,12 @@ Name:           sayonara
 
 %if 0%{?stable}
 Version:        1.11.0
-Release:        3.%{stable_ver}%{?dist}
+Release:        4.%{stable_ver}%{?dist}
 #Release:        3%%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{stable_ver}/sayonara-player-%{version}-%{stable_ver}.tar.bz2
 %else
 Version:        1.10.0
-Release:        0.5.%{prerel}%{?dist}
+Release:        0.6.%{prerel}%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{prerel}/sayonara-player-%{version}-%{prerel}.tar.bz2
 %endif
 
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/doc/%{name}/doxygen/html
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.11.0-4.stable2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3.stable2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

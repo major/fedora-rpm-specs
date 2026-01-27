@@ -1,5 +1,5 @@
 Name:           conflict
-Version:        20250117
+Version:        20250930
 Release:        %autorelease
 Summary:        Check for conflicting binary names on path
 

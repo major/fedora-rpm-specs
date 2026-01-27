@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -149,6 +149,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Tue Jan 20 2026 Karel Volný <kvolny@redhat.com> 2.3.1-1
 - new version 2.3.1 (rhbz#2424582)
 - see the upstream changelog at http://qmmp.ylsoftware.com/

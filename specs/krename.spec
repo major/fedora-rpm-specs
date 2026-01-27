@@ -1,6 +1,6 @@
 Name:           krename
 Version:        5.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Epoch:          1
 Summary:        Powerful batch file renamer
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.0.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

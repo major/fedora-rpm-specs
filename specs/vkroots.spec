@@ -1,7 +1,7 @@
 %global debug_package %{nil}
-%global commit 5106d8a0df95de66cc58dc1ea37e69c99afc9540
+%global commit 51c32131da197a38c340da2537cbfd695e6ede78
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global git_date 20240429
+%global git_date 20250716
 
 Name:           vkroots
 Version:        0^%{git_date}git%{shortcommit}
@@ -11,7 +11,7 @@ License:        LGPL-2.1-or-later AND (Apache-2.0 or MIT)
 URL:            https://github.com/Joshua-Ashton/vkroots
 Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
-BuildRequires:  meson
+BuildRequires:  meson >= 0.58.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  vulkan-headers

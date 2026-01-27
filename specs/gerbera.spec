@@ -1,6 +1,6 @@
 Name:           gerbera
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -123,6 +123,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.1.1-1
 - 3.1.1
 

@@ -10,7 +10,7 @@
 %global _with_vala 0
 
 Name:           xfce4-panel
-Version:        4.20.5
+Version:        4.20.6
 Release:        %autorelease
 Summary:        Next generation panel for Xfce
 

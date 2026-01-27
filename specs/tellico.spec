@@ -1,6 +1,6 @@
 Name:           tellico
 Version:        4.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A collection manager
 
 License:        GPL-2.0-or-later
@@ -118,6 +118,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.te
 
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

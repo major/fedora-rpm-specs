@@ -1,19 +1,16 @@
 Summary: A high quality TV viewer
-Name: tvtime
-Version: 1.0.10
-Release: 26%{?dist}
+Name:    tvtime
+Version: 1.0.11
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-URL: http://tvtime.sourceforge.net
-Source0: http://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.gz
-Patch0:  tvtime-1.0.10-honor-cflags.patch
-Patch1:  tvtime-1.0.10-fix-v-crash.patch
-Patch2:  tvtime-1.0.10-rdtsc-x86_64.patch 
-Patch3:  tvtime-1.0.10-fix-crash-on-no-v4ldevs.patch
-Patch4:  0001-xvoutput-print-an-error-if-create_shm-fails.patch
-Patch5:  0002-xvtvoutput-make-it-work-fine-under-remote-access-ssh.patch
-Patch6:  0003-Fix-bitwise-comparison-always-evaluates-to-false-com.patch
-Patch7:  0004-Fix-warning-implicit-declaration-of-function-minor-m.patch
+URL:     https://tvtime.sourceforge.net
+Source0: https://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.gz
+Patch:   tvtime-1.0.10-honor-cflags.patch
+Patch:   0003-Fix-bitwise-comparison-always-evaluates-to-false-com.patch
+Patch:   0004-Fix-warning-implicit-declaration-of-function-minor-m.patch
+Patch:   tvtime-1.0.10-termios_h.patch
+Patch:   tvtime-1.0.11-set_fmt.patch
 BuildRequires: make
 BuildRequires: gcc gcc-c++
 BuildRequires: alsa-lib-devel
@@ -83,6 +80,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 25 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.0.11-1
+- New upstream release 1.0.11
+- Fix FTBFS (rhbz#2385708)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

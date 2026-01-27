@@ -50,6 +50,7 @@ BuildRequires: pkgconfig(libonnxruntime)
 %endif
 
 Requires: hicolor-icon-theme
+Requires: qt6-qttools
 
 Recommends: gstreamer-plugins-good
 

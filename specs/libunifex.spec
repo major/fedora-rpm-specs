@@ -1,18 +1,17 @@
-%global forgeurl https://github.com/facebookexperimental/libunifex
-Version:        0.4.0
-%forgemeta
+%global date 20260109
+%global commit d2058fd1d4800203e1ded1cfad74fa73fdbf622a
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libunifex
+Version:        0.4.0^%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        A prototype implementation of the C++ sender/receiver async programming model
 License:        Apache-2.0 WITH LLVM-exception
-URL:            %{forgeurl}
-Source0:        %{forgesource}
-Patch0:         https://github.com/facebookexperimental/libunifex/pull/588.patch
+URL:            https://github.com/facebookexperimental/libunifex
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=110446313
-# https://kojipkgs.fedoraproject.org//work/tasks/6375/110446375/build.log
-ExcludeArch:    i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -29,19 +28,17 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains development files for %{name}.
+This package contains development files for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -C
 
 %build
 export CXXFLAGS="%{optflags} -Wno-error=maybe-uninitialized -Wno-error=template-body"
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DUNIFEX_USE_SYSTEM_GTEST=ON \
-    -DCMAKE_CXX_STANDARD=20 \
-
+    -DCMAKE_CXX_STANDARD=20
 %cmake_build
 
 %install

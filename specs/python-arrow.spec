@@ -1,13 +1,11 @@
 Name:               python-arrow
-Version:            1.3.0
+Version:            1.4.0
 Release:            %autorelease
 Summary:            Better dates and times for Python
 
 License:            Apache-2.0
 URL:                https://github.com/arrow-py/arrow
 Source:             %{pypi_source arrow}
-# https://github.com/arrow-py/arrow/commit/7225592f8e1d85ecc49ff0ad4b4291386520802f
-Patch:              0001-Move-dateutil-types-to-test-requirements-1183.patch
 # downstream-only
 Patch:              0002-Fedora-dependency-adjustments.patch
 
@@ -36,7 +34,8 @@ BuildRequires:      python3-devel
 
 %prep
 %autosetup -p 1 -n arrow-%{version}
-
+# Fix python tzdata dependency
+sed -i 's/tzdata;python_version/pytzdata;python_version/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

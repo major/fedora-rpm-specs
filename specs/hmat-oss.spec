@@ -2,24 +2,25 @@
 %global optflags %(echo %{optflags} -Wno-error=template-id-cdtor)
 %endif
 
-%global forgeurl https://github.com/jeromerobert/hmat-oss
-Version:        1.11.0
-%global tag %{version}
-%forgemeta
-
 Name:           hmat-oss
+Version:        1.11.0
 Release:        %autorelease
 Summary:        A hierarchical matrix C/C++ library
 License:        GPL-2.0-or-later
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://github.com/jeromerobert/hmat-oss
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  flexiblas-devel
 BuildRequires:  cmake(lapacke)
+BuildRequires:  blas-devel
 BuildRequires:  blas-static
+BuildRequires:  lapack-devel
 BuildRequires:  lapack-static
 
 %description
@@ -31,17 +32,16 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains development files for %{name}.
+This package contains development files for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -C
 
 %build
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DBUILD_EXAMPLES=ON \
-
+    -DBUILD_EXAMPLES=ON
 %cmake_build
 
 %install

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/acerion/cwdaemon
-Version:  0.12.0
+Version:  0.13.0
 %forgemeta
 
 Name:           cwdaemon
@@ -42,9 +42,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_unitdir}
 install -pDm644 %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/cwdaemon
 install -pDm644 %{SOURCE2} %{buildroot}%{_unitdir}/cwdaemon.service
-
-mkdir -p %{buildroot}%{_bindir}
-mv %{buildroot}%{_sbindir}/%{name} %{buildroot}%{_bindir}/%{name}
 
 %check
 make check

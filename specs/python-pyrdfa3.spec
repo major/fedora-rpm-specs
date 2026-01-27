@@ -1,6 +1,6 @@
 %global         srcname         pyrdfa3
 %global         forgeurl        https://github.com/prrvchr/pyrdfa3
-Version:        3.6.4
+Version:        3.6.5
 %global         tag             v%{version}
 %forgemeta
 
@@ -32,11 +32,7 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 # Remove pre-generated files
 rm -r doc
-rm -r src/pyRdfa3.egg-info
-
-# Relax version requirement on setuptools and requests
-sed -i 's/setuptools>=71.1.0/setuptools/g' pyproject.toml
-sed -i 's/requests>=2.32.3/requests>=2.31.0/g' pyproject.toml
+rm -r src/pyrdfa3.egg-info
 
 %generate_buildrequires
 %pyproject_buildrequires

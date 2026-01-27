@@ -9,10 +9,10 @@
 Name:           guayadeque
 %if 0%{?usesnapshot}
 Version:        0.6.2
-Release:        0.6.beta6.git%{shortcommit0}%{dist}
+Release:        0.7.beta6.git%{shortcommit0}%{dist}
 %else
 Version:        0.7.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPL-3.0-or-later except hmac/ which is BSD-3-Clause
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

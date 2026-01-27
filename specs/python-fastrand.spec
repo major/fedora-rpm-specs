@@ -1,11 +1,10 @@
 Name:           python-fastrand
-Version:        3.0.6
+Version:        3.0.7
 Release:        %autorelease
 Summary:        Fast random number generation in Python
 
 License:        Apache-2.0
 URL:            https://github.com/lemire/fastrand
-# PyPI source does not have demo code
 Source:         %{url}/archive/v%{version}/fastrand-%{version}.tar.gz
 
 BuildRequires:  python3-devel
@@ -42,10 +41,10 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
-%py3_test_envvars %python3 demo.py
+%py3_test_envvars %python3 -m timeit -s 'import fastrand' 'fastrand.pcg32bounded(1001)'
+%py3_test_envvars %python3 -m timeit -s 'import fastrand' 'fastrand.pcg32randint(100,1000)'
 
 %files -n python3-fastrand -f %{pyproject_files}
-%doc demo.py
 %doc README.md
 
 %changelog

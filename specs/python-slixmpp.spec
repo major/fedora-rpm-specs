@@ -3,8 +3,8 @@
 
 
 Name:           python-slixmpp
-Version:        1.8.6
-Release:        9%{?dist}
+Version:        1.12.0
+Release:        2%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
@@ -13,20 +13,20 @@ Source0:        https://codeberg.org/poezio/%{srcname}/archive/slix-%{version}.t
 
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-Cython
-BuildRequires:  gcc
-BuildRequires:  libidn-devel
+# Optional dependencies
+BuildRequires:  python3-aiohttp
+BuildRequires:  python3-cryptography
+BuildRequires:  python3-defusedxml
+BuildRequires:  python3-emoji
 # for docs
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-autodoc-typehints
 BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  texinfo
 # for tests
-#BuildRequires:  python3-nose
-#BuildRequires:  python3-aiohttp
-#BuildRequires:  gnupg
-#BuildRequires:  python3-aiodns
-#BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest
+# Rust jid
+BuildRequires:  cargo-rpm-macros
 
 %description
 Slixmpp is an MIT licensed XMPP library for Python 3.5+. It is a fork
@@ -38,7 +38,6 @@ remove all threads.
 
 %package -n python3-%{srcname}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 Slixmpp is an MIT licensed XMPP library for Python 3.5+. It is a fork
@@ -65,21 +64,25 @@ This package contains documentation in docbook format.
 
 %prep
 %autosetup -n %{srcname}
+%cargo_prep
+sed -i '18d' slixmpp/plugins/xep_0055/search.py
+sed -i '17d' slixmpp/plugins/xep_0055/search.py
 
 %generate_buildrequires
+%cargo_generate_buildrequires -a -t
 %pyproject_buildrequires
 
 
 %build
 %pyproject_wheel
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 # Build sphinx documentation
 pushd docs/
 sphinx-build -b texinfo . texinfo
 pushd texinfo
-ls
 makeinfo --docbook slixmpp.texi
-ls
 popd # texinfo
 popd # docs
 
@@ -92,17 +95,14 @@ popd # docs
 install -pDm0644 docs/texinfo/slixmpp.xml \
  %{buildroot}%{_datadir}/help/en/python-slixmpp/slixmpp.xml
 
-# Fix non-standard modes (775)
-chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/stringprep.cpython-*.so
-
 
 %check
-# Most of the tests availables are failing: temporary disabled
 %pyproject_check_import -t
-
+%python3 run_tests.py
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
+%license LICENSE.dependencies
 %doc CONTRIBUTING.rst README.rst
 
 
@@ -114,6 +114,12 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/stringprep.cpython-*.so
 
 
 %changelog
+* Sun Jan 25 2026 Benson Muite <fed500@fedoraproject.org> - 1.12.0-2
+- Remove unneeded permissions command
+
+* Sun Jan 25 2026 Benson Muite <fed500@fedoraproject.org> - 1.12.0-1
+- Update to 1.12.0 rhbz#2348952
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

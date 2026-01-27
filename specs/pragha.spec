@@ -5,7 +5,7 @@
 
 Name:           pragha
 Version:        1.3.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Lightweight GTK+ music manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -105,6 +105,9 @@ find %{buildroot}%{_libdir}/pragha -name \*.ls -exec rm -f {} \;
 %{_libdir}/pragha
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

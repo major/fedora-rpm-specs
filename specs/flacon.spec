@@ -3,7 +3,7 @@
 
 Name:          flacon
 Version:       12.0.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Audio File Encoder
 
 License:       LGPL-2.1-or-later
@@ -87,6 +87,9 @@ cd %{_target_platform}/tests && ./flacon_test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 12.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

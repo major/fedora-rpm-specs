@@ -1,70 +1,70 @@
-%global pypi_name django-health-check
-
-Name:           python-%{pypi_name}
-Version:        3.16.5
-Release:        16%{?dist}
-Summary:        Checks for various conditions and provides reports
+Name:           python-django-health-check
+Version:        3.20.8
+Release:        1%{?dist}
+Summary:        Monitor the health of your Django app and its connected services
 
 License:        MIT
-URL:            https://github.com/KristianOellegaard/django-health-check
-Source0:        %pypi_source
+URL:            https://github.com/codingjoe/django-health-check
+Source:         %{url}/archive/%{version}/django-health-check-%{version}.tar.gz
+
+# Downstream-only: patch out coverage-analysis (pytest-cov) options for pytest
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          django-health-check-3.20.8-pytest-no-coverage.patch
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-pip
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-sphinx
+BuildRequires:  tomcli
 
-%global _description\
-A Django application that provides health check capabilities.\
-Many of these checks involve connecting to back-end services and ensuring\
-basic operations are successful.
+%global _description %{expand:
+Pluggable health checks for Django applications. This project checks for
+various conditions and provides reports when anomalous behavior is detected.}
 
 %description %_description
 
-%package -n python3-%{pypi_name}
+%package -n python3-django-health-check
 Summary:        %summary
-Requires:       python3-django
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name} %_description
+# The -doc subpackage previously contained only the README and license file.
+# Now we ship the Markdown sources because they are useful on their own. (We
+# could build them with mkdocs, but there are missing extensions, and the
+# resulting HTML would have license and bundling difficulties similar to those
+# noted in RHBZ#2006555.) Since these sources are small in size and not
+# numerous, we don’t need to split them out into a -doc subpackage.
+Provides:       python-django-health-check-doc = %{version}-%{release}
+Obsoletes:      python-django-health-check-doc < 3.20.8
 
-%package -n python-%{pypi_name}-doc
-Summary:        Documentation for django-health-check
-%description -n python-%{pypi_name}-doc
-Documentation for django-health-check
+%description -n python3-django-health-check %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n django-health-check-%{version}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem dependency-groups.test 'pytest-cov\b.*'
+
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+%pyproject_buildrequires -g test
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l health_check
 
-# TODO: Enable once pytest-django is packaged
-# https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/QTZIBOTA5XHNOLEF22K46XC74LZ7OQP5/
-# %%check
-# export DJANGO_SETTINGS_MODULE=tests.testapp.settings
-# %%{__python3} -m pytest tests
+%check
+PYTHONPATH="${PWD}" %pytest
 
-%files -n python3-%{pypi_name}
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/health_check/
-%{python3_sitelib}/django_health_check-*.egg-info/
-
-%files -n python-%{pypi_name}-doc
-# There is a docs directory but it is no longer included in the release tarball
-# https://github.com/KristianOellegaard/django-health-check/tree/master/docs
-%doc README.rst
-%license LICENSE
+%files -n python3-django-health-check -f %{pyproject_files}
+%doc README.md
+# Markdown sources and associated images
+%doc docs/
 
 %changelog
+* Sun Jan 18 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.20.8-1
+- Update to 3.20.8
+- Port to pyproject-rpm-macros (fix RHBZ#2377644)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

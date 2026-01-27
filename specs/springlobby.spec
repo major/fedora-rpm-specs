@@ -21,12 +21,12 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  minizip-compat-devel
 BuildRequires:  ninja-build
-BuildRequires:  openal-devel
 BuildRequires:  rb_libtorrent-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  SDL_sound-devel
 BuildRequires:  SDL-devel
 BuildRequires:  wxGTK-devel
+BuildRequires:  pkgconfig(openal)
 
 # https://github.com/springlobby/springlobby/issues/709
 BuildRequires:  jsoncpp-devel
@@ -53,13 +53,12 @@ rm -rf \
 
 
 %build
-%cmake \
-    -B $PWD/%{_vpath_builddir} \
-    -G Ninja
+%cmake -G Ninja
+%cmake_build
 
 
 %install
-%ninja_install -C %{_vpath_builddir}
+%cmake_install
 %find_lang %{name}
 rm -rf %{buildroot}%{_docdir}/%{name}/COPYING
 
@@ -70,7 +69,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %files -f %{name}.lang
-%doc README AUTHORS ChangeLog
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/*.desktop

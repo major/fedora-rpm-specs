@@ -1,18 +1,11 @@
 %global _unitdir /usr/lib/systemd/system
 Summary: Analyzes and Reports on system logs
 Name: logwatch
-Version: 7.13
-Release: 6%{?dist}
+Version: 7.14
+Release: 1%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Add dnf5 module that will be available in the next release
-Source1: dnf5
-Source2: dnf5.conf
-# Fix for BZ2322773
-Patch1: zz-disk-space.patch
-# Fix for excess blank line in dovecot
-Patch2: dovecot.patch
 BuildRequires: perl-generators
 Requires: grep
 Requires: dnf5
@@ -101,10 +94,6 @@ echo "###### REGULAR EXPRESSIONS IN THIS FILE WILL BE TRIMMED FROM REPORT OUTPUT
 echo "# Local configuration options go here (defaults are in %{_datadir}/logwatch/default.conf/logwatch.conf)" > %{buildroot}%{_sysconfdir}/logwatch/conf/logwatch.conf
 echo "# Configuration overrides for specific logfiles/services may be placed here." > %{buildroot}%{_sysconfdir}/logwatch/conf/override.conf
 
-# Add dnf5 modules as needed
-install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/logwatch/scripts/services
-install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/default.conf/services
-
 %files
 %doc README HOWTO-Customize-LogWatch LICENSE
 %dir %{_var}/cache/logwatch
@@ -141,6 +130,10 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/default.conf/service
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Sun Jan 25 2026 Frank Crawford <frank@crawford.emu.id.au> - 7.14-1
+- Update to 7.14 (bz2431972)
+- Fix sorting of directories in zz-disk-space (bz2412337)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

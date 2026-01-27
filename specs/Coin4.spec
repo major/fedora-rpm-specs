@@ -1,6 +1,6 @@
 Name:           Coin4
-Version:        4.0.3
-Release:        6%{?dist}
+Version:        4.0.7
+Release:        1%{?dist}
 Summary:        High-level 3D visualization library
 
 License:        BSD-3-Clause AND GPL-3.0-or-later
@@ -20,7 +20,7 @@ Patch4:         coin-no_glx.patch
 # Cherrypicked from:
 # - https://github.com/coin3d/coin/commit/36abede21bc47a72a5c9666e7ec321f7c54b70c5
 # - https://github.com/coin3d/coin/commit/ecd34feb12b652f935a901e38b1f8bdf63bf43a3
-Patch5:         Coin4-4.0.3-Allow_CMake_4.0.patch
+#Patch5:         Coin4-4.0.3-Allow_CMake_4.0.patch
 
 
 BuildRequires:  cmake
@@ -165,6 +165,9 @@ fi
 
 
 %changelog
+* Sun Jan 25 2026 Richard Shaw <hobbes1069@gmail.com> - 4.0.7-1
+- Update to 4.0.7.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

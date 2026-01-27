@@ -93,6 +93,9 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
 Patch10: ghc-9.8.4-ix86-disables-Unique-Word64.patch
 
@@ -414,6 +417,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
+%patch -P4 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -439,7 +443,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P40 -p1 -b .orig
 %endif
 
-# https://github.com/haskell/directory/pull/184
+# can switch to https://github.com/haskell/directory/pull/184 for 9.10.4
 rm libraries/directory/directory.buildinfo
 
 

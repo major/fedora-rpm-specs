@@ -8,7 +8,7 @@
 %global crate get-size2
 
 Name:           rust-get-size2
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Determine the size in bytes an object occupies inside RAM
 

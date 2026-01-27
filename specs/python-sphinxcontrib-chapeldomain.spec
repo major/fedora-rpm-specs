@@ -1,5 +1,5 @@
 Name:           python-sphinxcontrib-chapeldomain
-Version:        0.0.39
+Version:        0.0.40
 Release:        %autorelease
 Summary:        Chapel domain for Sphinx
 
@@ -12,14 +12,6 @@ URL:            https://github.com/chapel-lang/sphinxcontrib-chapeldomain
 Source:         %{url}/archive/%{version}/sphinxcontrib-chapeldomain-%{version}.tar.gz
 # Relax pinned dependency requirements
 Patch:          relax-dep-requirements.patch
-# Use newer license metadata declarations
-# https://github.com/chapel-lang/sphinxcontrib-chapeldomain/pull/108
-Patch:          license-metadata.patch
-# Replace PyPI mock with unittest.mock
-# https://github.com/chapel-lang/sphinxcontrib-chapeldomain/pull/111
-Patch:          %{url}/pull/111.patch
-# Add license metadata for BSD-2-Clause
-Patch:          %{url}/pull/112.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

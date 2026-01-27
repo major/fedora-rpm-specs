@@ -1,5 +1,5 @@
 Name:           python-glymur
-Version:        0.14.4
+Version:        0.14.5
 %global srcversion %(echo '%{version}' | sed -r 's/\\.(post)/\\1/')
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files

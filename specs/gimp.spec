@@ -38,17 +38,17 @@
 # this breaks the logic in %%check.
 
 # tests known to fail if networking isn’t available
-%global skip_tests_networking gimp:desktop / appdata_file
+%global skip_tests_networking desktop - gimp:appdata_file
 
 # tests known to fail for being problematic
-%global skip_tests_problematic gimp:app / save-and-export\
-gimp:app / single-window-mode\
-gimp:app / ui
+%global skip_tests_problematic app - gimp:save-and-export\
+app - gimp:single-window-mode\
+app - gimp:ui
 
 # tests known to fail in a normal user environment
-%global skip_tests_user gimp:app / save-and-export\
-gimp:app / single-window-mode\
-gimp:app / ui
+%global skip_tests_user app - gimp:save-and-export\
+app - gimp:single-window-mode\
+app - gimp:ui
 
 # luajit isn’t available on all arches
 %global plain_lua_arches riscv64 ppc64le s390x
@@ -58,7 +58,7 @@ gimp:app / ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.6
+Version:        3.0.8
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -114,6 +114,7 @@ URL:            https://www.gimp.org
 %global appstream_minver 0.16.1
 %global atk_minver 2.4.0
 %global babl_minver 0.1.116
+%global bash_completion_minver 2.0
 %global cairo_minver 1.14.0
 %global cairopdf_minver 1.12.2
 %global fontconfig_minver 2.12.4
@@ -123,6 +124,7 @@ URL:            https://www.gimp.org
 %global exiv2_minver 0.27.4
 %global gettext_minver 0.19.8
 %global gexiv2_minver 0.14.0
+%global gexiv2_maxver 0.15.0
 %global glib_minver 2.70.0
 %global gtk3_minver 3.24.0
 %global gudev_minver 167
@@ -156,6 +158,7 @@ BuildRequires:  ImageMagick
 BuildRequires:  aalib-devel
 BuildRequires:  appdata-tools
 BuildRequires:  appstream
+BuildRequires:  bash-completion-devel >= %bash_completion_minver
 BuildRequires:  coreutils
 BuildRequires:  dbus-daemon
 BuildRequires:  desktop-file-utils
@@ -165,6 +168,7 @@ BuildRequires:  gettext >= %gettext_minver
 BuildRequires:  gi-docgen
 BuildRequires:  gjs
 BuildRequires:  glib-networking
+BuildRequires:  glibc-langpack-en
 BuildRequires:  libgs-devel
 BuildRequires:  libxml2
 BuildRequires:  libxslt
@@ -189,7 +193,7 @@ BuildRequires:  pkgconfig(fontconfig) >= %fontconfig_minver
 BuildRequires:  pkgconfig(freetype2) >= %freetype2_minver
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %gdk_pixbuf_minver
 BuildRequires:  pkgconfig(gegl-0.4) >= %gegl_minver
-BuildRequires:  pkgconfig(gexiv2) >= %gexiv2_minver
+BuildRequires:  (pkgconfig(gexiv2) >= %gexiv2_minver and pkgconfig(gexiv2) < %gexiv2_maxver)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0) >= %glib_minver
@@ -514,11 +518,21 @@ skip_tests="$skip_tests
 %endif
 
 all_tests="$(%meson_test --list 2>/dev/null)"
-suites="$(echo "$all_tests" | while read suite ignore; do echo "${suite%+*}"; done | sort -u)"
+suites="$(echo "$all_tests" | while read suite ignore; do echo "${suite%%+*}"; done | sort -u)"
 for suite in $suites; do
+    old_suite1="${suite%%:*}"
+    old_suite2="${suite#*:}"
     suite_tests="$(
         echo "$all_tests" | grep "^$suite\(+\S\+\)\?" | while read ignore ignore test; do
-            if ! echo "$skip_tests" | grep -qFx "$suite / $test"; then echo "$test"; fi
+            if [ "$suite" = "${suite/:/}" ]; then
+                if ! echo "$skip_tests" | grep -qFx "$suite - $test"; then
+                    echo "$test"
+                fi
+            else
+                if ! echo "$skip_tests" | grep -qFx "$old_suite2 - $old_suite1:$test"; then
+                    echo "$test"
+                fi
+            fi
         done | sort -u
     )"
     if [ -n "$suite_tests" ]; then
@@ -608,6 +622,10 @@ done
 %endif
 
 %{_datadir}/icons/hicolor/*/apps/gimp*
+
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/gimp-%{bin_version}
 
 %files libs
 %license LICENSE COPYING

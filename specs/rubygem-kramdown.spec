@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
 # SPDX confirmed
@@ -27,6 +27,9 @@ BuildRequires:	tex(amssymb.sty)
 BuildRequires:	tex(amsmath.sty)
 BuildRequires:	tex(amsthm.sty)
 BuildRequires:	tex(amsfonts.sty)
+# Ideally scrarctl.cls side should have Requires for xpatch.sty
+BuildRequires:	tex(xpatch.sty)
+BuildRequires:	tex(scrartcl.cls)
 BuildRequires:	tex(utf8x.def)
 BuildRequires:	tex-ec
 %endif
@@ -121,6 +124,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Jan 25 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-2
+- Add more tex related deps (for TeXLive 2025)
+
 * Wed Jan 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-1
 - 2.5.2
 
