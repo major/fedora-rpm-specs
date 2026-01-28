@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-shell-extensions
-Version:        49.0
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
@@ -24,6 +24,7 @@ BuildRequires:  meson
 BuildRequires:  git
 BuildRequires:  gettext >= 0.19.6
 BuildRequires:  glib2%{?_isa}
+BuildRequires:  pkgconfig(systemd)
 Requires:       gnome-shell >= %{min_gs_version}
 BuildArch:      noarch
 
@@ -256,8 +257,9 @@ rm -rf %{buildroot}/%{_datadir}/xsessions
 %files -n gnome-classic-session
 %{_datadir}/gnome-shell/modes/classic.json
 %{_datadir}/wayland-sessions/gnome-classic.desktop
-%{_datadir}/wayland-sessions/gnome-classic-wayland.desktop
+%{_datadir}/gnome-session/sessions/gnome-classic.session
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.extensions.classic.gschema.override
+%{_userunitdir}/gnome-session@gnome-classic.target.d*
 
 
 %if %{with x11}

@@ -58,6 +58,10 @@ Patch7:     0001-Fix-failure-to-build-with-libxml2-version-2.12.patch
 
 Patch8:     ardour6-c99.patch
 
+# Fixes for taglib version 2.x
+Patch9:     0008-Potential-fix-for-taglib-v2.0-crashes-when-exporting.patch
+Patch10:    0009-Add-missing-include-for-iostream-needed-for-taglib-2.patch
+
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.
@@ -215,7 +219,6 @@ export LC_ALL=C.UTF-8
 %if %{with system_libs}
     --use-external-libs \
 %endif
-    --cxx11 \
     --freedesktop \
     --with-backends=dummy,alsa,jack,pulseaudio
 

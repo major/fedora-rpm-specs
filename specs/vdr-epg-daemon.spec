@@ -1,15 +1,18 @@
 # Set vdr_version based on Fedora version
-%if 0%{?fedora} >= 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 42
-%global vdr_version 2.7.4
-%else
+# Default
 %global vdr_version 2.6.9
+
+%if 0%{?fedora} == 42
+%global vdr_version 2.7.4
+%elif 0%{?fedora} == 43
+%global vdr_version 2.7.7
+%elif 0%{?fedora} >= 44
+%global vdr_version 2.7.8
 %endif
 
 Name:           vdr-epg-daemon
 Version:        1.3.29
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
@@ -135,6 +138,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Mon Jan 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-10
+- Rebuilt for new VDR API version 2.7.8
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.29-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

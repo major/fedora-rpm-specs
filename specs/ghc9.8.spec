@@ -83,6 +83,9 @@ Patch5: hp2ps-C-gnu17.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2427789
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
 Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch7: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
 # for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -392,6 +395,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P3 -p1 -b .orig
 %patch -P5 -p1 -b .orig
 %patch -P6 -p1 -b .orig
+%patch -P7 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

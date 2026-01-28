@@ -5,8 +5,8 @@
 %bcond server 1
 
 Name:           tigervnc
-Version:        1.15.0
-Release:        12%{?dist}
+Version:        1.15.90
+Release:        1%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -32,8 +32,6 @@ Patch2:         tigervnc-sbin-bin-merge.patch
 %endif
 
 # Upstream patches
-Patch10:        tigervnc-more-responsive-initial-full-screen.patch
-Patch11:        tigervnc-dont-print-xvnc-banner-before-parsing-args.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -96,10 +94,21 @@ BuildRequires:  xorg-x11-xtrans-devel
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswscale)
+%endif
 
 # SELinux
-BuildRequires:  libselinux-devel, selinux-policy-devel, systemd
-%endif
+BuildRequires:  libselinux-devel
+BuildRequires:  selinux-policy-devel
+BuildRequires:  systemd
+
+# Wayland
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  pkgconfig(uuid)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(xkbcommon)
 
 Requires(post): coreutils
 Requires(postun):coreutils
@@ -117,50 +126,62 @@ from a wide variety of machine architectures.  This package contains a
 client which will allow you to connect to other desktops running a VNC
 server.
 
-%package server
-Summary:        A TigerVNC server
+%package x11-server
+Summary:        A TigerVNC server for X11
 Requires:       perl-interpreter
-Requires:       tigervnc-server-minimal = %{version}-%{release}
+Requires:       tigervnc-server-common = %{version}-%{release}
 Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires:       xorg-x11-xauth
 Requires:       xorg-x11-xinit
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-Requires(post): systemd
+Obsoletes:      tigervnc-server < %{version}-%{release}
+Provides:       tigervnc-server = %{version}-%{release}
 
-%description server
+%description x11-server
 The VNC system allows you to access the same desktop from a wide
 variety of platforms.  This package includes set of utilities
-which make usage of TigerVNC server more user friendly. It also
+which make usage of TigerVNC X11 server more user friendly. It also
 contains x0vncserver program which can export your active
 X session.
 
-%package server-minimal
-Summary:        A minimal installation of TigerVNC server
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
-Requires(post): systemd
+%package wayland-server
+Summary:        A TigerVNC server for Wayland compositors
+Requires:       tigervnc-server-common = %{version}-%{release}
+Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 
+%description wayland-server
+TigerVNC server which makes a Wayland compositor that is based on
+wlroots, or has the RemoteDesktop portal implemented, remotely
+accessible via VNC, TigerVNC or compatible viewers. It does not create
+a virtual display, instead, it shares an existing display (typically,
+that one connected to the physical screen).
+
+
+%package server-common
+Summary:        Common tools for TigerVNC servers
 Requires:       dbus-x11
 Requires:       mesa-dri-drivers
 Requires:       tigervnc-license
 Requires:       xkbcomp
 Requires:       xkeyboard-config
+Obsoletes:      tigervnc-server-minimal < %{version}-%{release}
+Provides:       tigervnc-server-minimal = %{version}-%{release}
 
-%description server-minimal
-The VNC system allows you to access the same desktop from a wide
-variety of platforms. This package contains minimal installation
-of TigerVNC server, allowing others to access the desktop on your
-machine.
+%description server-common
+Common tools used by both X11 and Wayland TigerVNC servers,
+including vncpasswd for password management and vncconfig for
+server configuration.
 
-%package server-module
+%package x11-server-module
 Summary:        TigerVNC module to Xorg
 Requires:       xorg-x11-server-Xorg %(xserver-sdk-abi-requires ansic) %(xserver-sdk-abi-requires videodrv)
 Requires:       tigervnc-license
+Obsoletes:      tigervnc-server-module < %{version}-%{release}
+Provides:       tigervnc-server-module = %{version}-%{release}
 
-%description server-module
+%description x11-server-module
 This package contains libvnc.so module to X server, allowing others
 to access the desktop on your machine.
 
@@ -201,8 +222,6 @@ runs properly under an environment with SELinux enabled.
 %endif
 
 # Upstream patches
-%patch -P10 -p1 -b .more-responsive-initial-full-screen
-%patch -P11 -p1 -b .dont-print-xvnc-banner-before-parsing-args
 
 %if %{with server}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
@@ -246,10 +265,6 @@ mkdir -p %{__cmake_builddir}
 %if %{with server}
 pushd unix/xserver
 
-%if 0%{?fedora} > 32 || 0%{?rhel} >= 9
-sed -i 's@TIGERVNC_BUILDDIR=${top_builddir}/\.\./\.\.@TIGERVNC_BUILDDIR=${TIGERVNC_SRCDIR}/%{_target_platform}@g' hw/vnc/Makefile.am
-%endif
-
 autoreconf -fiv
 %configure \
         --disable-xorg --disable-xnest --disable-xvfb --disable-dmx \
@@ -265,15 +280,14 @@ autoreconf -fiv
         --disable-devel-docs \
         --disable-selective-werror
 
-make %{?_smp_mflags}
+make TIGERVNC_BUILDDIR="`pwd`/../../%{__cmake_builddir}" %{?_smp_mflags}
 popd
+%endif
 
 # SELinux
 pushd unix/vncserver/selinux
 make
 popd
-
-%endif
 
 %if 0%{?rhel}
 # Build icons
@@ -294,12 +308,7 @@ rm -f %{buildroot}%{_docdir}/%{name}-%{version}/{README.rst,LICENCE.TXT}
 
 %if %{with server}
 pushd unix/xserver/hw/vnc
-%make_install
-popd
-
-# Install selinux policy file
-pushd unix/vncserver/selinux
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
+%make_install TIGERVNC_BUILDDIR="`pwd`/../../../../%{__cmake_builddir}"
 popd
 
 # Install systemd unit file
@@ -307,6 +316,11 @@ install -m644 %{SOURCE1} %{buildroot}%{_unitdir}/xvnc@.service
 install -m644 %{SOURCE2} %{buildroot}%{_unitdir}/xvnc.socket
 install -m755 %{SOURCE5} %{buildroot}/%{_bindir}/vncserver
 %endif
+
+# Install selinux policy file
+pushd unix/vncserver/selinux
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
+popd
 
 # Install desktop stuff
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{16x16,24x24,48x48}/apps
@@ -331,17 +345,18 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/X11/xorg.conf.d/10-libvnc.c
 
 install -m 644 %{SOURCE4} %{buildroot}/%{_docdir}/tigervnc/HOWTO.md
 
-%post server
+%post x11-server
 %systemd_post xvnc@.service
 %systemd_post xvnc.socket
 
-%preun server
+%preun x11-server
 %systemd_preun xvnc@.service
 %systemd_preun xvnc.socket
 
-%postun server
+%postun x11-server
 %systemd_postun xvnc@.service
 %systemd_postun xvnc.socket
+%endif
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -355,7 +370,6 @@ if [ $1 -eq 0 ]; then
     %selinux_modules_uninstall -s %{selinuxtype} %{modulename}
     %selinux_relabel_post -s %{selinuxtype}
 fi
-%endif
 
 
 %files -f %{name}.lang
@@ -366,7 +380,7 @@ fi
 %{_datadir}/metainfo/org.tigervnc.vncviewer.metainfo.xml
 
 %if %{with server}
-%files server
+%files x11-server
 %config(noreplace) %{_sysconfdir}/pam.d/tigervnc
 %config(noreplace) %{_sysconfdir}/tigervnc/vncserver-config-defaults
 %config(noreplace) %{_sysconfdir}/tigervnc/vncserver-config-mandatory
@@ -376,6 +390,7 @@ fi
 %{_unitdir}/xvnc.socket
 %{_bindir}/vncserver
 %{_bindir}/x0vncserver
+%{_bindir}/Xvnc
 %if 0%{?fedora} >= 42
 %{_bindir}/vncsession
 %else
@@ -385,26 +400,31 @@ fi
 %{_libexecdir}/vncsession-start
 %{_libexecdir}/vncsession-restore
 %{_mandir}/man1/x0vncserver.1*
+%{_mandir}/man1/Xvnc.1*
 %{_mandir}/man8/vncserver.8*
 %{_mandir}/man8/vncsession.8*
 %{_docdir}/tigervnc/HOWTO.md
 
-%files server-minimal
+%files x11-server-module
+%{_libdir}/xorg/modules/extensions/libvnc.so
+%config(noreplace) %{_sysconfdir}/X11/xorg.conf.d/10-libvnc.conf
+%endif
+
+%files server-common
 %{_bindir}/vncconfig
 %{_bindir}/vncpasswd
-%{_bindir}/Xvnc
-%{_mandir}/man1/Xvnc.1*
 %{_mandir}/man1/vncpasswd.1*
 %{_mandir}/man1/vncconfig.1*
 
-%files server-module
-%{_libdir}/xorg/modules/extensions/libvnc.so
-%config(noreplace) %{_sysconfdir}/X11/xorg.conf.d/10-libvnc.conf
+%files wayland-server
+%{_bindir}/w0vncserver
+%{_bindir}/w0vncserver-forget
+%{_mandir}/man1/w0vncserver.1*
+%{_mandir}/man1/w0vncserver-forget.1*
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
 %ghost %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
-%endif
 
 %files license
 %{_docdir}/tigervnc/LICENCE.TXT
@@ -413,6 +433,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Fri Jan 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.15.90-1
+- 1.15.90
+  Split to tigervnc-x11-server and tigervnc-wayland-server
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

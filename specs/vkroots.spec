@@ -9,7 +9,10 @@ Release:        %autorelease
 Summary:        A stupid simple method of making Vulkan layers, at home
 License:        LGPL-2.1-or-later AND (Apache-2.0 or MIT)
 URL:            https://github.com/Joshua-Ashton/vkroots
+BuildArch:      noarch
+
 Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Patch:          https://patch-diff.githubusercontent.com/raw/misyltoad/vkroots/pull/12.patch
 
 BuildRequires:  meson >= 0.58.0
 BuildRequires:  gcc
@@ -32,6 +35,10 @@ takes all the complexity/hastle away from you. It's so simple.
 %prep
 %autosetup -p1 -n %{name}-%{commit}
 
+# Autogenerate the header based on the installed Vulkan Headers
+cd gen
+./make_vkroots -v -x /usr/share/vulkan/registry/vk.xml
+
 
 %build
 %meson
@@ -46,7 +53,7 @@ takes all the complexity/hastle away from you. It's so simple.
 %license LICENSE
 %doc README.md
 %{_includedir}/%{name}.h
-%{_libdir}/pkgconfig/%{name}.pc
+%{_datadir}/pkgconfig/%{name}.pc
 
 
 %changelog

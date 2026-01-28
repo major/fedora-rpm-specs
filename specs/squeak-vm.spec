@@ -54,6 +54,8 @@ BuildRequires:  libxml2-devel
 BuildRequires:  glib2-devel
 BuildRequires:  cairo-devel
 BuildRequires:  libv4l-devel
+BuildRequires:  freetype-devel
+ExcludeArch:    %{ix86}
 
 %description
 Squeak is a full-featured implementation of the Smalltalk programming

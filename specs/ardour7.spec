@@ -54,6 +54,14 @@ Patch4:     0001-Fix-failure-to-build-with-libxml2-version-2.12.patch
 
 Patch5:     ardour7-c99.patch
 
+# Fix for GCC 16 which defaults to C++20
+Patch6:     0001-Add-C++17-option-to-force-compiles-to-use-std-cxx17.patch
+Patch7:     0002-Fix-for-Boost-1.8.5.patch
+
+# Fixes for taglib version 2.x
+Patch8:     0004-Potential-fix-for-taglib-v2.0-crashes-when-exporting.patch
+Patch9:     0005-Add-missing-include-for-iostream-needed-for-taglib-2.patch
+
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.
@@ -190,7 +198,7 @@ export LC_ALL=C.UTF-8
 %if %{with system_libs}
     --use-external-libs \
 %endif
-    --cxx11 \
+    --cxx17 \
     --freedesktop \
     --with-backends=dummy,alsa,jack,pulseaudio
 

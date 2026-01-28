@@ -14,6 +14,11 @@ URL:            https://crates.io/crates/flate2
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          flate2-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Update zlib-rs to 0.6.0; this was done upstream in
+#   https://github.com/rust-lang/flate2-rs/pull/529 with no source-code changes,
+#   and should soon be released as version 1.1.9.
+Patch:          flate2-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

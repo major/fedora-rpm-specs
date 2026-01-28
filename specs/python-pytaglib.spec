@@ -1,8 +1,8 @@
 %global srcname pytaglib
 
 Name:           python-%{srcname}
-Version:        2.1.0
-Release:        8%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -11,7 +11,7 @@ URL:            https://github.com/supermihi/pytaglib
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
-BuildRequires:  taglib-devel
+BuildRequires:  taglib-devel >= 2.0
 
 %global _description \
 pytaglib is a full-featured, easy-to-use, cross-platform audio metadata\
@@ -44,7 +44,7 @@ Python 3 version.
 sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 
 # Remove explicit Cython version, rely on wildcard
-sed -i 's/cython==3\.0\.\*/cython==3.*/' pyproject.toml
+sed -i 's/cython==3\.2\.[^"]*/cython==3.*/' pyproject.toml
 
 %build
 %pyproject_wheel
@@ -65,6 +65,9 @@ sed -i 's/cython==3\.0\.\*/cython==3.*/' pyproject.toml
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Thu Jan 22 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.0-1
+- Update to 3.1.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global pypi_name qpageview
 
 Name:           python-%{pypi_name}
-Version:        1.0.2
-Release:        2%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Widget to display page-based documents for Qt6/PyQt6
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
@@ -76,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE docs/source/license.rst
 
 %changelog
+* Mon Jan 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.0.3-1
+- 1.0.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:		perl-Mail-Message
-Version:	4.02
+Version:	4.03
 Release:	1%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,6 +25,8 @@ BuildRequires:	perl(File::Basename)
 BuildRequires:	perl(File::Copy)
 BuildRequires:	perl(File::Spec) >= 0.7
 BuildRequires:	perl(File::Temp)
+BuildRequires:	perl(Hash::Case) >= 1.05
+BuildRequires:	perl(Hash::Case::Preserve)
 BuildRequires:	perl(HTML::FormatPS)
 BuildRequires:	perl(HTML::FormatText) >= 2.01
 BuildRequires:	perl(HTML::TreeBuilder) >= 3.13
@@ -124,6 +126,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Mon Jan 26 2026 Paul Howarth <paul@city-fan.org> - 4.03-1
+- 4.03 bump (rhbz#2432838)
+
 * Thu Jan 22 2026 Paul Howarth <paul@city-fan.org> - 4.02-1
 - 4.02 bump (rhbz#2431994)
 

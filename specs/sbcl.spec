@@ -26,7 +26,7 @@
 
 Name:	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.6.0
+Version: 2.6.1
 Release: %autorelease
 
 # See COPYING for a license breakdown
@@ -46,9 +46,6 @@ Source0: https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version
 # - MIPS
 # - Sparc
 ExclusiveArch: %{ix86} x86_64 aarch64 %{power64} riscv64
-
-# Pre-generated html docs
-Source1: https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-documentation-html.tar.bz2
 
 %if %{with bootstrap}
 BuildRequires: clisp
@@ -86,6 +83,7 @@ BuildRequires: strace
 # doc generation
 BuildRequires: ghostscript
 BuildRequires: texinfo
+BuildRequires: texinfo-tex
 BuildRequires: time
 %endif
 
@@ -118,11 +116,7 @@ export SBCL_HOME=%{_prefix}/lib/sbcl
 
 # docs
 %if 0%{?docs}
-make -C doc/manual info
-
-# Handle pre-generated docs
-tar xvjf %{SOURCE1}
-cp -av %{name}-%{version}/doc/manual/* doc/manual/
+make -C doc/manual html pdf info
 %endif
 
 

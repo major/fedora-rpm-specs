@@ -12,8 +12,8 @@ anyone who would like to quickly and easily make interactive plots, dashboards,
 and data applications.}
 
 Name:           python-%{pypi_name}
-Version:        2.3.0
-Release:        24%{?dist}
+Version:        3.6.3
+Release:        1%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -66,12 +66,6 @@ URL:            https://github.com/bokeh/bokeh
 Source0:        %pypi_source
 # Read package-lock.json and general list of bundled runtime libraries their versions
 Source1:        parse-deps.py
-# From https://github.com/bokeh/bokeh/commit/865c54896e6158c1195e5ec8352f300cbf10920f
-# https://github.com/bokeh/bokeh/pull/10987
-Patch0:         bokeh-pr10987-python312-configparser.patch
-# https://github.com/bokeh/bokeh/commit/7047c6a90535564c9d05121fc8a095aef1de3c21
-# https://github.com/bokeh/bokeh/pull/11174
-Patch1:         bokeh-pr11174-replace-jinja2-markup.patch
 
 BuildArch:      noarch
 
@@ -90,79 +84,53 @@ BuildRequires:  python3-setuptools
 # MIT
 Provides: bundled(nodejs-@bokeh/numbro) = 1.6.2
 # MIT
-Provides: bundled(nodejs-@bokeh/slickgrid) = 2.4.2701
+Provides: bundled(nodejs-@bokeh/slickgrid) = 2.4.4103
 # MIT
-Provides: bundled(nodejs-@types/jquery) = 3.5.1
+Provides: bundled(nodejs-@types/jquery) = 3.5.29
 # MIT
-Provides: bundled(nodejs-@types/sizzle) = 2.3.2
+Provides: bundled(nodejs-@types/sizzle) = 2.3.8
 # MIT
-Provides: bundled(nodejs-@types/slickgrid) = 2.1.30
+Provides: bundled(nodejs-@types/slickgrid) = 2.1.40
 # MIT
-Provides: bundled(nodejs-choices.js) = 9.0.1
+Provides: bundled(nodejs-choices.js) = 10.2.0
+# MIT
+Provides: bundled(nodejs-deepmerge) = 4.3.1
+# MIT
+Provides: bundled(nodejs-esm) = 3.2.25
 # ISC
-Provides: bundled(nodejs-d) = 1.0.1
+Provides: bundled(nodejs-flatbush) = 4.4.0
 # MIT
-Provides: bundled(nodejs-deepmerge) = 4.2.2
+Provides: bundled(nodejs-flatpickr) = 4.6.13
 # ISC
-Provides: bundled(nodejs-es5-ext) = 0.10.53
-# MIT
-Provides: bundled(nodejs-es6-iterator) = 2.0.3
-# MIT
-Provides: bundled(nodejs-es6-map) = 0.1.5
-# MIT
-Provides: bundled(nodejs-es6-promise) = 4.2.8
-# MIT
-Provides: bundled(nodejs-es6-set) = 0.1.5
-# ISC
-Provides: bundled(nodejs-es6-symbol) = 3.1.3
-# ISC
-Provides: bundled(nodejs-es6-weak-map) = 2.0.3
-# MIT
-Provides: bundled(nodejs-event-emitter) = 0.3.5
-# ISC
-Provides: bundled(nodejs-ext) = 1.4.0
-# ISC
-Provides: bundled(nodejs-flatbush) = 3.3.0
-# MIT
-Provides: bundled(nodejs-flatpickr) = 4.6.3
-# ISC
-Provides: bundled(nodejs-flatqueue) = 1.2.1
+Provides: bundled(nodejs-flatqueue) = 2.0.3
 # ASL 2.0
-Provides: bundled(nodejs-fuse.js) = 3.6.1
+Provides: bundled(nodejs-fuse.js) = 6.6.2
 # MIT
-Provides: bundled(nodejs-hammerjs) = 2.0.8
+Provides: bundled(nodejs-jquery-ui) = 1.13.2
 # MIT
-Provides: bundled(nodejs-jquery-ui) = 1.12.1
+Provides: bundled(nodejs-jquery) = 3.7.1
+# ASL 2.0
+Provides: bundled(nodejs-mathjax-full) = 3.2.2
+# ASL 2.0
+Provides: bundled(nodejs-mhchemparser) = 4.2.1
 # MIT
-Provides: bundled(nodejs-jquery) = 3.5.1
+Provides: bundled(nodejs-nouislider) = 15.7.1
 # MIT
-Provides: bundled(nodejs-js-tokens) = 4.0.0
+Provides: bundled(nodejs-proj4) = 2.11.0
 # MIT
-Provides: bundled(nodejs-loose-envify) = 1.4.0
+Provides: bundled(nodejs-regl) = 2.1.0
 # MIT
-Provides: bundled(nodejs-mgrs) = 1.0.0
-# ISC
-Provides: bundled(nodejs-next-tick) = 1.0.0
-# MIT
-Provides: bundled(nodejs-nouislider) = 14.6.0
-# MIT
-Provides: bundled(nodejs-proj4) = 2.6.2
-# MIT
-Provides: bundled(nodejs-redux) = 4.0.5
+Provides: bundled(nodejs-redux) = 4.2.1
 # BSD
-Provides: bundled(nodejs-sprintf-js) = 1.1.2
-# MIT
-Provides: bundled(nodejs-symbol-observable) = 1.2.0
+Provides: bundled(nodejs-sprintf-js) = 1.1.4
 # MIT
 Provides: bundled(nodejs-timezone) = 1.0.23
 # BSD
-Provides: bundled(nodejs-tslib) = 1.13.0
-# ISC
-Provides: bundled(nodejs-type) = 1.2.0
+Provides: bundled(nodejs-tslib) = 2.7.0
 # MIT
 Provides: bundled(nodejs-underscore.template) = 0.1.7
 # MIT
-Provides: bundled(nodejs-wkt-parser) = 1.2.4
+Provides: bundled(nodejs-wkt-parser) = 1.3.3
 
 # Optional deps
 # https://docs.bokeh.org/en/latest/docs/installation.html#installation
@@ -201,11 +169,8 @@ BuildRequires:  %{py3_dist typing_extensions} >= 3.7.4
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
-
-# Replace `np.bool8` with `np.bool_` for NumPy 2.x.
-# This is for `netpyne` failing on the deprecated type alias.
-# https://github.com/bokeh/bokeh/pull/12690
-sed -i 's/np\.bool8/np.bool_/g' $(grep -rl 'np\.bool8')
+# Add to generate correctly egg-info
+sed -i 's/dynamic = \["version"\]/version = "%{version}"'/ pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -218,6 +183,8 @@ sed -i 's/np\.bool8/np.bool_/g' $(grep -rl 'np\.bool8')
 
 # Remove zero length file
 rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
+# Remove static typing information generated files
+rm -rf %{buildroot}/%{python3_sitelib}/typings
 
 %check
 %if %{with tests}
@@ -234,6 +201,9 @@ rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Mon Jan 26 2026 Federico Pellegrin <fede@evolware.org> - 3.6.3-1
+- Bump to 3.6.3
+
 * Fri Jan 16 2026 Federico Pellegrin <fede@evolware.org> - 2.3.0-24
 - Use new Python macros in spec file (rhbz#2377489)
 

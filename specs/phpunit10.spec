@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    c47fe00df06fb1f68399ef7386edb01c25132473
-%global gh_date      2025-12-01
+%global gh_commit    bd265b671a63b87e85a8155f885b6fbb41ee505b
+%global gh_date      2026-01-24
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,12 +30,12 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.59
+%global upstream_version 10.5.61
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -59,7 +59,7 @@ BuildRequires:  (php-composer(phpunit/php-text-template) >= 3.0.1     with php-c
 BuildRequires:  (php-composer(phpunit/php-timer) >= 6.0               with php-composer(phpunit/php-timer) < 7)
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 2.0.1          with php-composer(sebastian/cli-parser) < 3)
 BuildRequires:  (php-composer(sebastian/code-unit) >= 2.0             with php-composer(sebastian/code-unit) < 3)
-BuildRequires:  (php-composer(sebastian/comparator) >= 5.0.4          with php-composer(sebastian/comparator) < 6)
+BuildRequires:  (php-composer(sebastian/comparator) >= 5.0.5          with php-composer(sebastian/comparator) < 6)
 BuildRequires:  (php-composer(sebastian/diff) >= 5.1.1                with php-composer(sebastian/diff) < 6)
 BuildRequires:  (php-composer(sebastian/environment) >= 6.1.0         with php-composer(sebastian/environment) < 7)
 BuildRequires:  (php-composer(sebastian/exporter) >= 5.1.4            with php-composer(sebastian/exporter) < 6)
@@ -95,7 +95,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-timer": "^6.0.0",
 #        "sebastian/cli-parser": "^2.0.1",
 #        "sebastian/code-unit": "^2.0.0",
-#        "sebastian/comparator": "^5.0.4",
+#        "sebastian/comparator": "^5.0.5",
 #        "sebastian/diff": "^5.1.1",
 #        "sebastian/environment": "^6.1.0",
 #        "sebastian/exporter": "^5.1.4",
@@ -122,7 +122,7 @@ Requires:       (php-composer(phpunit/php-text-template) >= 3.0.1     with php-c
 Requires:       (php-composer(phpunit/php-timer) >= 6.0               with php-composer(phpunit/php-timer) < 7)
 Requires:       (php-composer(sebastian/cli-parser) >= 2.0.1          with php-composer(sebastian/cli-parser) < 3)
 Requires:       (php-composer(sebastian/code-unit) >= 2.0             with php-composer(sebastian/code-unit) < 3)
-Requires:       (php-composer(sebastian/comparator) >= 5.0.4          with php-composer(sebastian/comparator) < 6)
+Requires:       (php-composer(sebastian/comparator) >= 5.0.5          with php-composer(sebastian/comparator) < 6)
 Requires:       (php-composer(sebastian/diff) >= 5.1.1                with php-composer(sebastian/diff) < 6)
 Requires:       (php-composer(sebastian/environment) >= 6.1.0         with php-composer(sebastian/environment) < 7)
 Requires:       (php-composer(sebastian/exporter) >= 5.1.4            with php-composer(sebastian/exporter) < 6)
@@ -265,6 +265,10 @@ exit $ret
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 10.5.61-1
+- update to 10.5.61
+- raise dependency on sebastian/comparator 5.0.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.5.59-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

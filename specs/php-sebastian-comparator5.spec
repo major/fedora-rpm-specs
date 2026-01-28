@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-comparator5
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,7 +10,7 @@
 # disabled until phpunit10 available
 %bcond_without       tests
 
-%global gh_commit    e8e53097718d2b53cfb2aa859b06a41abf58c62e
+%global gh_commit    55dfef806eb7dfeb6e7a6935601fef866f8ca48d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
@@ -24,8 +24,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.4
-Release:        2%{?dist}
+Version:        5.0.5
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -122,6 +122,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 5.0.5-1
+- update to 5.0.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

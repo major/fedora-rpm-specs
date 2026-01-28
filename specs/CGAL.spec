@@ -11,8 +11,8 @@
 
 
 Name:           CGAL
-Version:        6.1
-Release:        4%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ and Boost - review is highly recommended.

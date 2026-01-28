@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -315,6 +315,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Mon Jan 26 2026 Adam Williamson <awilliam@redhat.com> - 10.5.0-7
+- Rebuild with fixed test suite
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 10.5.0-6
 - Rebuilt for net-snmp 5.9.5.2
 

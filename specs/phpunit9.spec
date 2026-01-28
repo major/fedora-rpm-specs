@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for phpunit9
 #
-# SPDX-FileCopyrightText:  Copyright 2010-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2010-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,8 +8,8 @@
 #
 
 
-%global gh_commit    b69489b312503bf8fa6d75a76916919d7d2fa6d4
-%global gh_date      2025-12-01
+%global gh_commit    492ee10a8369a1c1ac390a3b46e0c846e384c5a4
+%global gh_date      2026-01-24
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -22,12 +22,12 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.30
+%global upstream_version 9.6.32
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -52,7 +52,7 @@ BuildRequires:  (php-composer(phpunit/php-text-template) >= 2.0.4     with php-c
 BuildRequires:  (php-composer(phpunit/php-timer) >= 5.0.3             with php-composer(phpunit/php-timer) < 6)
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 1.0.2          with php-composer(sebastian/cli-parser) < 2)
 BuildRequires:  (php-composer(sebastian/code-unit) >= 1.0.8           with php-composer(sebastian/code-unit) < 2)
-BuildRequires:  (php-composer(sebastian/comparator) >= 4.0.9          with php-composer(sebastian/comparator) <  5)
+BuildRequires:  (php-composer(sebastian/comparator) >= 4.0.10         with php-composer(sebastian/comparator) <  5)
 BuildRequires:  (php-composer(sebastian/diff) >= 4.0.6                with php-composer(sebastian/diff) <  5)
 BuildRequires:  (php-composer(sebastian/environment) >= 5.1.5         with php-composer(sebastian/environment) <  6)
 BuildRequires:  (php-composer(sebastian/exporter) >= 4.0.8            with php-composer(sebastian/exporter) <  5)
@@ -89,7 +89,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-timer": "^5.0.3",
 #        "sebastian/cli-parser": "^1.0.2",
 #        "sebastian/code-unit": "^1.0.8",
-#        "sebastian/comparator": "^4.0.9",
+#        "sebastian/comparator": "^4.0.10",
 #        "sebastian/diff": "^4.0.6",
 #        "sebastian/environment": "^5.1.5",
 #        "sebastian/exporter": "^4.0.8",
@@ -110,7 +110,7 @@ Requires:       (php-composer(doctrine/instantiator) >= 1.5.0         with php-c
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
+Recommends:     (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
 Requires:       (php-composer(phpunit/php-code-coverage) >= 9.2.31    with php-composer(phpunit/php-code-coverage) <  10)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 3.0.6     with php-composer(phpunit/php-file-iterator) <  4)
 Requires:       (php-composer(phpunit/php-invoker) >= 3.1             with php-composer(phpunit/php-invoker) <  4)
@@ -118,7 +118,7 @@ Requires:       (php-composer(phpunit/php-text-template) >= 2.0.4     with php-c
 Requires:       (php-composer(phpunit/php-timer) >= 5.0.3             with php-composer(phpunit/php-timer) < 6)
 Requires:       (php-composer(sebastian/cli-parser) >= 1.0.2          with php-composer(sebastian/cli-parser) < 2)
 Requires:       (php-composer(sebastian/code-unit) >= 1.0.8           with php-composer(sebastian/code-unit) < 2)
-Requires:       (php-composer(sebastian/comparator) >= 4.0.9          with php-composer(sebastian/comparator) <  5)
+Requires:       (php-composer(sebastian/comparator) >= 4.0.10         with php-composer(sebastian/comparator) <  5)
 Requires:       (php-composer(sebastian/diff) >= 4.0.6                with php-composer(sebastian/diff) <  5)
 Requires:       (php-composer(sebastian/environment) >= 5.1.5         with php-composer(sebastian/environment) <  6)
 Requires:       (php-composer(sebastian/exporter) >= 4.0.8            with php-composer(sebastian/exporter) <  5)
@@ -174,7 +174,7 @@ find . -name \*.rpm -delete -print
 
 cat << 'EOF' | tee -a src/autoload.php
 // Dependencies
-if (PHP_VERSION_ID > 80100) {
+if (PHP_VERSION_ID > 80400) {
 	$inst = [
         '%{php_home}/Doctrine/Instantiator2/autoload.php',
         '%{php_home}/Doctrine/Instantiator/autoload.php',
@@ -204,10 +204,11 @@ if (PHP_VERSION_ID > 80100) {
     '%{php_home}/PharIo/Manifest2/autoload.php',
     '%{php_home}/PharIo/Version3/autoload.php',
     __DIR__ . '/Framework/Assert/Functions.php',
-    // May load Comparator/RecursionContext bad version
-    '%{php_home}/Prophecy/autoload.php',
 ]);
 // Extensions
+\Fedora\Autoloader\Dependencies::optional([
+    '%{php_home}/Prophecy/autoload.php',
+]);
 \Fedora\Autoloader\Dependencies::optional(
     glob("%{php_home}/%{ns_vendor}/Extensions/*/autoload.php")
 );
@@ -256,6 +257,11 @@ exit $ret
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 9.6.32-1
+- update to 9.6.32
+- raise dependency on sebastian/comparator 4.0.10
+- phpspec/prophecy is optional
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

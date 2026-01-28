@@ -1,7 +1,7 @@
 %global srcname azure-storage-blob
 
 Name:           python-%{srcname}
-Version:        12.26.0
+Version:        12.28.0
 Release:        %autorelease
 Summary:        Azure Storage Blobs client library for Python
 License:        MIT

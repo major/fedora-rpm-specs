@@ -223,7 +223,7 @@ Recommends:     libretro-stella2014
 # * Dummy for future
 %endif
 
-Provides:       bundled(7zip) = 19.00
+# Provides:       bundled(7zip) = 19.00
 Provides:       bundled(discord-rpc)
 Provides:       bundled(dr)
 Provides:       bundled(ibxm)
@@ -320,6 +320,7 @@ libretro.h is a simple API that allows for the creation of games and emulators.
 # Unbundling
 pushd deps
 rm -rf                      \
+        7zip                \
         bearssl-0.6         \
         glslang             \
         libfat              \
@@ -383,6 +384,7 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
 %build
 ./configure                     \
     --prefix=%{_prefix}         \
+    --disable-7zip              \
     --disable-builtinbearssl    \
     --disable-builtinflac       \
     --disable-builtinglslang    \

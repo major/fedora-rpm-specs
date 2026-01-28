@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.42.9000-699-g7b543dcdf9
-%global glibcversion 2.42.9000
+%global glibcsrcdir glibc-2.43-4-g144ba30208
+%global glibcversion 2.43
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 25
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2399,6 +2399,32 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Jan 26 2026 Frédéric Bérat <fberat@redhat.com> - 2.43-1
+- Auto-sync with upstream branch master,
+  commit 144ba302089cff5a2f2e1c9e1280faea9da9f8cc:
+- po: Incorporate translatins (nl updated, ar new) (Andreas K. Hüttel)
+- Fix ldbl-128ibm ceill, floorl, roundl and truncl zero-sign handling (Aurelien Jarno)
+- NEWS: add new section 2.43.1 (Andreas K. Hüttel)
+- Replace advisories directory with file ADVISORIES (Andreas K. Hüttel)
+- Create ChangeLog.old/ChangeLog.32 (Andreas K. Hüttel)
+- version.h, include/features.h: Increase version number (Andreas K. Hüttel)
+- contrib.texi: Add missing accent (Andreas K. Hüttel)
+- tst-cond23: add <support/test-driver.h> include (Aurelien Jarno)
+- install.texi, INSTALL: update versions (Andreas K. Hüttel)
+- contrib.texi: Updates (Andreas K. Hüttel)
+- NEWS: Insert list of fixed security advisories (Andreas K. Hüttel)
+- NEWS: Mention build issues due to const-preserving macros (Andreas K. Hüttel)
+- NEWS: Insert list of fixed bugs (Andreas K. Hüttel)
+- NEWS: Editorial changes (Andreas K. Hüttel)
+- NEWS: Additional items and minor consolidation (Andreas K. Hüttel)
+- NEWS: Group ISO C23 related changes (Andreas K. Hüttel)
+- po: Incorporate translations (Andreas K. Hüttel)
+- Update advisory text for GLIBC-SA-2026-0003 (Adhemerval Zanella)
+- Add advisory text for CVE-2025-15281 (Carlos O'Donell)
+- posix: Reset wordexp_t fields with WRDE_REUSE (CVE-2025-15281 / BZ 33814) (Adhemerval Zanella)
+- libc.pot: regenerate (Andreas K. Hüttel)
+- Linux: fix tst-copy_file_range-large failure in 32-bit glibc build on 64-bit kernel [BZ 33790] (Xi Ruoyao)
+
 * Mon Jan 19 2026 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-25
 - Auto-sync with upstream branch master,
   commit 7b543dcdf97d07fd4346feb17916e08fe83ad0ae:

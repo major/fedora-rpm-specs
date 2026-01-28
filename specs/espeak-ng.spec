@@ -1,6 +1,6 @@
 Name:          espeak-ng
 Version:       1.52.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       eSpeak NG Text-to-Speech
 
 License:       GPL-3.0-only AND GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND Unicode-DFS-2016 AND CC-BY-SA-3.0
@@ -16,6 +16,10 @@ BuildRequires: pkgconfig
 BuildRequires: rubygem-ronn
 BuildRequires: rubygem-kramdown
 BuildRequires: pcaudiolib-devel
+
+# Backported from:
+# https://github.com/espeak-ng/espeak-ng/pull/2127/
+Patch:        espeak-ng-1.52-add-text-to-phonemes-with-terminator.patch
 
 %description
 The eSpeak NG (Next Generation) Text-to-Speech program is an open source speech
@@ -105,6 +109,10 @@ ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
 %doc docs/*.html
 
 %changelog
+* Mon Jan 26 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.52.0-3
+- Backported espeak_TextToPhonemesWithTerminator to 1.52
+  Resolves: rhbz#2393480
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.52.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

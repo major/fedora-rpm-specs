@@ -1,8 +1,8 @@
 %global forgeurl https://git.sr.ht/~emersion/kanshi
 
 Name:           kanshi
-Version:        1.8.0
-Release:        4%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Dynamic display configuration for Wayland
 
 # Overall project license: MIT
@@ -20,13 +20,13 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        %{name}.service
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  systemd-rpm-macros
 
-BuildRequires:  pkgconfig(libvarlink)
 BuildRequires:  pkgconfig(scdoc) >= 1.9.2
 BuildRequires:  pkgconfig(scfg)
+BuildRequires:  pkgconfig(vali)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
 
@@ -74,6 +74,9 @@ install -D -m 0644 -pv %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}.service
 
 
 %changelog
+* Sat Jan 24 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9.0-1
+- Update to 1.9.0 (#2432507)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

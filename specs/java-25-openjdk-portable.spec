@@ -406,7 +406,7 @@ exit 1
 # New Version-String scheme-style defines
 %global featurever 25
 %global interimver 0
-%global updatever 1
+%global updatever 2
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -460,8 +460,8 @@ exit 1
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        8
-%global rpmrelease      3
+%global buildver        10
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -655,7 +655,7 @@ ExclusiveArch:  %{exclusive_arches}
 
 Name:    java-25-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -786,8 +786,9 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 # OpenJDK patches which missed last update
 #
 #############################################
-
-# Currently empty
+# JDK-8372534: Update Libpng to 1.6.51
+# Integrated in 25.0.3
+Patch2001: jdk8372534-libpng-1.6.51.patch
 
 #############################################
 #
@@ -868,7 +869,7 @@ Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.47
+Provides: bundled(libpng) = 1.6.51
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.1
 %endif
@@ -1081,6 +1082,8 @@ sh %{SOURCE12} %{top_level_dir_name}
 pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
+# Add libpng update ahead of 25.0.3
+%patch -P2001 -p1
 popd # openjdk
 
 echo "Generating %{alt_java_name} man page"
@@ -1708,6 +1711,11 @@ $JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
   $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE || echo "Fedora is often ahead in timezones, ignoring"
   $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR || echo "Fedora is often ahead in timezones, ignoring"
 %endif
+
+  # Check blocked.certs is valid (OPENJDK-4362)
+  jtreg_test=$(pwd)/%{top_level_dir_name}/test/jdk/sun/security/lib/CheckBlockedCerts.java
+  jtreg_dir=$(dirname ${jtreg_test})
+  $JAVA_HOME/bin/java --add-exports java.base/sun.security.util=ALL-UNNAMED -Dtest.src=${jtreg_dir} ${jtreg_test}
 
   # Check src.zip has all sources. See RHBZ#1130490
   unzip -l $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'

@@ -1,6 +1,6 @@
 Name:           cxxtools
 Version:        3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A collection of general-purpose C++ classes
 Epoch:          1
 
@@ -16,6 +16,7 @@ Patch3:         %{name}-%{version}-ppc64le.patch
 Patch4:         %{name}-%{version}-timer.patch
 # fix assertion with GLIBCXX_ASSERTIONS (upstream patch)
 Patch5:         0001-fix-for-possible-crash-in-cxxtools-Connectable.patch
+Patch6:         cxxtools-cxx20.patch
 
 BuildRequires:  make
 BuildRequires:  automake
@@ -86,6 +87,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/cxxtools/
 
 %changelog
+* Sat Jan 24 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:3.0-19
+- Add cxxtools-cxx20.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

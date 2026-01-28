@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform password manager
 # Automatically converted from old format: Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain - review is highly recommended.
 License:        BSL-1.0 AND LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain
@@ -114,6 +114,11 @@ BuildRequires:  gnupg2
 # non-YubiKey keys (ie, OnlyKey).
 Provides: bundled(ykcore)
 
+# GNOME-Shell does not allow clearing the clipboard when KeePassXC does not have focus.
+# KeePassXC already works around this by calling wl-copy, which is part of wl-clipboard.
+# See: https://github.com/keepassxreboot/keepassxc/issues/4498
+Recommends: (wl-clipboard if gnome-shell)
+
 # Unsupported CPU architectures on EPEL8
 # filled https://bugzilla.redhat.com/show_bug.cgi?id=2144863
 # to be compliant to "Architecture Build Failures" paragraph of Fedora Packaging Guidelines 
@@ -219,6 +224,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 24 2026 Michael Kuhn <suraia@fedoraproject.org> - 2.7.11-3
+- Add conditional recommends for wl-clipboard
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

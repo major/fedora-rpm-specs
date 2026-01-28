@@ -4,7 +4,7 @@
 
 Name:           merkaartor
 Version:        0.20.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Qt-Based OpenStreetMap editor
 
 # GPL-2.0-or-later: main program
@@ -22,6 +22,9 @@ Patch0:         merkaartor-0.19.0-CMAKE_INSTALL_LIBDIR.patch
 Patch1:         merkaartor-0.20.0-system-qtsingleapplication.patch
 # Fix build against gdal-3.12.0
 Patch2:         https://github.com/openstreetmap/merkaartor/commit/28cca84e9f5db0aaba87c2084ed32f9677598823.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -105,6 +108,9 @@ appstreamcli validate --no-net %{buildroot}%{_metainfodir}/org.%{name}.%{name}.a
 %{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
 %changelog
+* Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.20.0-9
+- Drop support for i686
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

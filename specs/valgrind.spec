@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.26.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -92,6 +92,8 @@ Patch7: 0003-readlink-proc-self-exe-overwrites-buffer-beyond-its-.patch
 Patch8: 0004-Linux-DRD-suppression-add-an-entry-for-__is_decorate.patch
 Patch9: 0005-Linux-Helgrind-add-a-suppression-for-_dl_allocate_tl.patch
 Patch10: 0006-Disable-linux-madvise-MADV_GUARD_INSTALL.patch
+Patch11: 0007-Bug-514613-Unclosed-leak_summary-still_reachable-tag.patch
+Patch12: 0008-Bug-514206-Assertion-sr_isError-sr-failed-mmap-fd-po.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -278,6 +280,8 @@ Valgrind User Manual for details.
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -518,6 +522,12 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+
+* Mon Jan 26 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-4
+  - Add more VALGRIND_3_26_BRANCH patches
+    - 0007-Bug-514613-Unclosed-leak_summary-still_reachable-tag.patch
+    - 0008-Bug-514206-Assertion-sr_isError-sr-failed-mmap-fd-po.patch
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

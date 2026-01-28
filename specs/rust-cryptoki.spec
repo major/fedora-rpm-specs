@@ -5,7 +5,7 @@
 %global crate cryptoki
 
 Name:           rust-cryptoki
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Rust-native wrapper around the PKCS #11 API
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}
-BuildRequires:  softhsm
+BuildRequires:  kryoptic
 %endif
 
 %global _description %{expand:
@@ -88,10 +88,9 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-export TEST_PKCS11_MODULE=%{_libdir}/pkcs11/libsofthsm2.so
-mkdir /tmp/tokens
-echo "directories.tokendir = /tmp/tokens" > /tmp/softhsm2.conf
-export SOFTHSM2_CONF=/tmp/softhsm2.conf
+export KRYOPTIC_CONF=/tmp/kryoptic.sql
+export TEST_PKCS11_MODULE=%{_libdir}/pkcs11/libkryoptic_pkcs11.so
+export RUST_BACKTRACE=1
 %cargo_test
 %endif
 

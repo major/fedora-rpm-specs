@@ -46,9 +46,9 @@ Patch5:     gmsh_gmm.patch
 
 BuildRequires: ann-devel
 %if %{with flexiblas}
-BuildRequires:  flexiblas-devel
+BuildRequires: flexiblas-devel
 %else
-BuildRequires:  blas-devel, lapack-devel
+BuildRequires: blas-devel, lapack-devel
 %endif
 BuildRequires: cgnslib-devel
 BuildRequires: cmake
@@ -66,7 +66,10 @@ BuildRequires: mathex-devel
 BuildRequires: med-devel
 BuildRequires: mesa-libGLU-devel
 BuildRequires: metis-devel
+# NOTE: netgen is FTBFS on aarch64
+%ifnarch aarch64
 BuildRequires: netgen-mesher-devel-private
+%endif
 BuildRequires: opencascade-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -76,8 +79,6 @@ BuildRequires: zlib-devel
 BuildRequires: texinfo
 # For transforming icon
 BuildRequires: ImageMagick
-
-Provides:      bundled(netgen-mesher) = svn469
 
 
 Requires:       %{name}-common = %{version}-%{release}
@@ -146,7 +147,9 @@ Documentation, demo projects and tutorials for %{name}.
 %package        openmpi
 Summary:        %{name} compiled against openmpi
 BuildRequires:  openmpi-devel
+%ifnarch aarch64
 BuildRequires:  netgen-mesher-openmpi-devel
+%endif
 BuildRequires:  hdf5-openmpi-devel
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       %{name}-openmpi-libs%{?_isa} = %{version}-%{release}
@@ -179,7 +182,9 @@ Development files for %{name} compiled against openmpi.
 %package        mpich
 Summary:        %{name} compiled against mpich
 BuildRequires:  mpich-devel
+%ifnarch aarch64
 BuildRequires:  netgen-mesher-mpich-devel
+%endif
 BuildRequires:  hdf5-mpich-devel
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       %{name}-mpich-libs%{?_isa} = %{version}-%{release}
@@ -249,6 +254,9 @@ gmsh_cmake_args="\
     -DENABLE_BUILD_LIB=YES \
     -DENABLE_BUILD_SHARED=YES \
     -DENABLE_BUILD_DYNAMIC=YES \
+%ifarch aarch64
+    -DENABLE_NETGEN=NO \
+%endif
     -DENABLE_MPEG_ENCODE=NO"
 
 ### serial version ###
@@ -269,6 +277,9 @@ export CXX=mpicxx
     -DCMAKE_INSTALL_BINDIR=$MPI_BIN \
     -DCMAKE_INSTALL_LIBDIR=$MPI_LIB \
     -DCMAKE_INSTALL_INCLUDEDIR=$MPI_INCLUDE \
+%ifarch aarch64
+    -DENABLE_NETGEN=NO \
+%endif
     $gmsh_cmake_args
 
 %cmake_build
@@ -285,6 +296,9 @@ export CXX=mpicxx
     -DCMAKE_INSTALL_BINDIR=$MPI_BIN \
     -DCMAKE_INSTALL_LIBDIR=$MPI_LIB \
     -DCMAKE_INSTALL_INCLUDEDIR=$MPI_INCLUDE \
+%ifarch aarch64
+    -DENABLE_NETGEN=NO \
+%endif
     $gmsh_cmake_args
 
 %cmake_build

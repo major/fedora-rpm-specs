@@ -34,7 +34,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.59.1
+Version:       1.59.2
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -1082,6 +1082,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jan 26 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.2-1
+- New upstream development version 1.59.2
+
 * Mon Jan 19 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.1-1
 - New upstream development version 1.59.1
 - Fix potential build failure on s390x

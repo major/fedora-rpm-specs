@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -250,7 +250,6 @@ touch $RPM_BUILD_ROOT%{_sharedstatedir}/nfs/rmtab
 
 mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/nfs/statd/sm
 mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/nfs/statd/sm.bak
-mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/nfs/v4recovery
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/exports.d
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/nfs-utils/nfsmount.conf.d
@@ -344,7 +343,6 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 
 %files
 %dir %{_sysconfdir}/exports.d
-%dir %{_sharedstatedir}/nfs/v4recovery
 %dir %{_sharedstatedir}/nfs
 %ghost %attr(644,root,root) %{_sharedstatedir}/nfs/etab
 %ghost %attr(644,root,root) %{_sharedstatedir}/nfs/rmtab
@@ -477,6 +475,10 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Fri Jan 23 2026 Scott Mayhew <smayhew@redhat.com> 2.8.4-3
+- Remove /var/lib/nfs/v4recovery (legacy client tracking has been disabled
+  since the v6.8 kernel)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

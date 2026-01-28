@@ -460,7 +460,7 @@ exit 1
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        29
+%global buildver        32
 %global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
@@ -658,7 +658,7 @@ Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -791,7 +791,7 @@ Patch1001: fips-25u-%{fipsver}.patch
 #
 #############################################
 
-Patch1: JDK-8373246-8351842_broke_native_debugging_on_Linux.patch
+# Currently empty
 
 #############################################
 #
@@ -872,7 +872,7 @@ Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.47
+Provides: bundled(libpng) = 1.6.51
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.1
 %endif
@@ -1086,7 +1086,6 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 # usage in jdk >25 is experimental and may disapear
 %patch -P1001 -p1
-%patch -P1 -p1
 popd # openjdk
 
 echo "Generating %{alt_java_name} man page"
@@ -1717,6 +1716,11 @@ $JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
   $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE || echo "Fedora is often ahead in timezones, ignoring"
   $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR || echo "Fedora is often ahead in timezones, ignoring"
 %endif
+
+  # Check blocked.certs is valid (OPENJDK-4362)
+  jtreg_test=$(pwd)/%{top_level_dir_name}/test/jdk/sun/security/lib/CheckBlockedCerts.java
+  jtreg_dir=$(dirname ${jtreg_test})
+  $JAVA_HOME/bin/java --add-exports java.base/sun.security.util=ALL-UNNAMED -Dtest.src=${jtreg_dir} ${jtreg_test}
 
   # Check src.zip has all sources. See RHBZ#1130490
   unzip -l $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'

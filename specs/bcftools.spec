@@ -1,6 +1,6 @@
 Name: bcftools
 Version: 1.15.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Tools for genomic variant calling and manipulating VCF/BCF files
 
 # This software is available under a choice of one of two licenses,
@@ -71,7 +71,8 @@ sed -i '1s|/usr/bin/env python3\{0,1\}|%{__python3}|' misc/*.py
 
 %check
 # Check if bcftools is built with system htslib.
-ldd bcftools | grep -E '/lib(64)?/libhts\.so\.'
+# /lib64/lp64d/ exists on riscv64
+ldd bcftools | grep -E '/lib(64)?(/lp64d)?/libhts\.so\.'
 
 %ifarch i686
 # Skip 2 failed tests.
@@ -99,6 +100,9 @@ make test
 
 
 %changelog
+* Mon Jan 26 2026 Jun Aruga <jaruga@redhat.com> - 1.15.1-17
+- RISC-V has /lib64/lp64d/ symlink which confuses ldd.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

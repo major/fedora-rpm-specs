@@ -5,7 +5,7 @@
 %global crate moka
 
 Name:           rust-moka
-Version:        0.12.12
+Version:        0.12.13
 Release:        %autorelease
 Summary:        Fast and concurrent cache library inspired by Java Caffeine
 
@@ -168,14 +168,6 @@ use the "sync" feature of the "%{crate}" crate.
 #   https://github.com/moka-rs/moka/pull/387. We reported this upstream as
 #   “Flaky failures in ensure_gc_runs_when_dropping_cache,”
 #   https://github.com/moka-rs/moka/issues/539.
-# * We find that the new test (in 0.12.12) test_timer_wheel_panic produces a
-#   segmentation fault. We can’t seem to reproduce this in a git checkout, even
-#   in release mode, so it’s difficult to usefully report this upstream, and we
-#   just skip the test for now. This may be “Occasional debug assertion failure
-#   in TimerWheel::schedule when Expiry sometimes returns None,” Expiry
-#   sometimes returns None, which is supposed to be fixed by
-#   https://github.com/moka-rs/moka/pull/566, but that PR isn’t quite trival to
-#   backport.
 # * Test cht::segment::tests::drop_many_values_concurrent has flaky unexplained
 #   falures, frequent (~20%?) on x86_64 and rare (<5%?) on ppc64le. For
 #   simplicity, we skip this on all architectures. Failure is: thread
@@ -190,7 +182,6 @@ use the "sync" feature of the "%{crate}" crate.
 #   failed: left: 2; right: 1
 %{cargo_test -f future,sync -- -- --exact %{shrink:
     --skip future::cache::tests::ensure_gc_runs_when_dropping_cache
-    --skip test_timer_wheel_panic
     --skip cht::segment::tests::drop_many_values_concurrent
     --skip test_try_get_with
 }}

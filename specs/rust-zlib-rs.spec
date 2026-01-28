@@ -5,7 +5,7 @@
 %global crate zlib-rs
 
 Name:           rust-zlib-rs
-Version:        0.5.5
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 
@@ -13,7 +13,13 @@ License:        Zlib
 URL:            https://crates.io/crates/zlib-rs
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop dependencies and internal-only features for fuzz-testing
+# * Drop dependencies (arbitrary) and internal-only features (__internal-fuzz,
+#   __internal-fuzz-disable-checksum) for fuzz-testing.
+# * Drop the ZLIB_DEBUG feature that prints debugging traces.
+# * Drop the __internal-test feature and corresponding optional runtime
+#   quickcheck dependency; these are only useful for external test harnesses.
+#   Keep the necessary quickcheck dev-dependency.
+# * Keep the __internal-api feature because libz-rs-sys uses it.
 Patch:          zlib-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -47,6 +53,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+__internal-api-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+__internal-api-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "__internal-api" feature of the "%{crate}" crate.
+
+%files       -n %{name}+__internal-api-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+avx512-devel

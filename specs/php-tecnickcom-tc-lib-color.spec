@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-tecnickcom-tc-lib-color
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    4a70cf68cd9fd4082b1b6d16234876a66649be0b
+%global gh_commit    3d8ee89d83c1c60a275a0c1885f11370a4d86461
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.3.2
-Release:        2%{?dist}
+Version:        2.3.6
+Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
 License:        LGPL-3.0-or-later
@@ -86,7 +86,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in php php81 php82 php83 php84 php85; do
+for cmdarg in php php82 php83 php84 php85; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 2.3.6-1
+- update to 2.3.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

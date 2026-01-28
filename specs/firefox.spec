@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        147.0.1
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -280,6 +280,8 @@ Patch403:        D278447.patch
 Patch404:        D278448.patch
 Patch405:        D278449.patch
 Patch406:        D278450.patch
+
+Patch407:        D280359.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -605,6 +607,8 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 %patch -P404 -p1 -b .1999029-3
 %patch -P405 -p1 -b .1999029-4
 %patch -P406 -p1 -b .1999029-5
+
+%patch -P407 -p1 -b .mzbz-2012006
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1278,6 +1282,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Sat Jan 24 2026 Jan Grulich <jgrulich@redhat.com> - 147.0.1-3
+- Added upstream fix:
+  PipeWire capture: clear existing capabilities before re-enumeration
+
 * Tue Jan 20 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-2
 - Backported mzbz#1999029
 

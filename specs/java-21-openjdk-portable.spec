@@ -406,7 +406,7 @@ exit 1
 # New Version-String scheme-style defines
 %global featurever 21
 %global interimver 0
-%global updatever 9
+%global updatever 10
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -446,7 +446,7 @@ exit 1
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 9203d50836c
+%global fipsver a0fd6e8ed6e
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
 %global javaver         %{featurever}
@@ -460,8 +460,8 @@ exit 1
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        10
-%global rpmrelease      2
+%global buildver        7
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -655,7 +655,7 @@ ExclusiveArch:  %{exclusive_arches}
 
 Name:    java-21-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -771,6 +771,7 @@ Source18: TestTranslations.java
 # test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
 # RH1940064: Enable XML Signature provider in FIPS mode
 # RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized [now part of JDK-8301553 upstream]
+# OPENJDK-4013: Update nss.fips.cfg to grant CKA_SIGN and CKA_ENCRYPT to any CKO_SECRET_KEY
 Patch1001: fips-%{featurever}u-%{fipsver}.patch
 
 #############################################
@@ -868,7 +869,7 @@ Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.47
+Provides: bundled(libpng) = 1.6.51
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.1
 %endif
@@ -1708,6 +1709,11 @@ $JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
   $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE || echo "Fedora is often ahead in timezones, ignoring"
   $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR || echo "Fedora is often ahead in timezones, ignoring"
 %endif
+
+  # Check blocked.certs is valid (OPENJDK-4362)
+  jtreg_test=$(pwd)/%{top_level_dir_name}/test/jdk/sun/security/lib/CheckBlockedCerts.java
+  jtreg_dir=$(dirname ${jtreg_test})
+  $JAVA_HOME/bin/java --add-exports java.base/sun.security.util=ALL-UNNAMED -Dtest.src=${jtreg_dir} ${jtreg_test}
 
   # Check src.zip has all sources. See RHBZ#1130490
   unzip -l $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'

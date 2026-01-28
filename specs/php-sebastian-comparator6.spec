@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-comparator6
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,11 +10,11 @@
 # disabled until phpunit11 available
 %bcond_without       tests
 
-%global gh_commit    85c77556683e6eee4323e4c5468641ca0237e2e8
+%global gh_commit    2c95e1e86cb8dd41beb8d502057d1081ccc8eca9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2025-08-10
+%global gh_date      2026-01-24
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.3.2
-Release:        2%{?dist}
+Version:        6.3.3
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 6.3.3-1
+- update to 6.3.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

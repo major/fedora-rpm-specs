@@ -23,14 +23,14 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  5
-%global github_commit   28a0214524bafe06f9866f9043fb5fe0975f4b51
+%global github_commit   19189f0ef4b285279f0492a5c5f4ded6304984b0
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250711
+%global github_date     20260126
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
 %global openqa_main_service openqa-webui.service
-%global openqa_extra_services openqa-gru.service openqa-websockets.service openqa-scheduler.service openqa-enqueue-audit-event-cleanup.service openqa-enqueue-audit-event-cleanup.timer openqa-enqueue-asset-cleanup.service openqa-enqueue-git-auto-update.service openqa-enqueue-asset-cleanup.timer openqa-enqueue-result-cleanup.service openqa-enqueue-result-cleanup.timer openqa-enqueue-bug-cleanup.service openqa-enqueue-bug-cleanup.timer openqa-enqueue-git-auto-update.timer openqa-enqueue-needle-ref-cleanup.service openqa-enqueue-needle-ref-cleanup.timer
+%global openqa_extra_services openqa-gru.service openqa-websockets.service openqa-scheduler.service openqa-enqueue-audit-event-cleanup.service openqa-enqueue-audit-event-cleanup.timer openqa-enqueue-asset-cleanup.service openqa-enqueue-git-auto-update.service openqa-enqueue-asset-cleanup.timer openqa-enqueue-result-cleanup.service openqa-enqueue-result-cleanup.timer openqa-enqueue-bug-cleanup.service openqa-enqueue-bug-cleanup.timer openqa-enqueue-git-auto-update.timer openqa-enqueue-needle-ref-cleanup.service openqa-enqueue-needle-ref-cleanup.timer openqa-enqueue-scheduled-product-cleanup.service openqa-enqueue-scheduled-product-cleanup.timer
 %global openqa_services %{openqa_main_service} %{openqa_extra_services}
 %global openqa_worker_services openqa-worker.target openqa-slirpvde.service openqa-vde_switch.service openqa-worker-cacheservice.service openqa-worker-cacheservice-minion.service
 %global openqa_localdb_services openqa-setup-db.service openqa-dump-db.service openqa-dump-db.timer
@@ -56,7 +56,7 @@
 # Diff from SUSE: we package bsdcat and bsdtar separately
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Plugin::OAuth2) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
+%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname openssh-clients perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Plugin::OAuth2) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
 # The following line is generated from dependencies.yaml (upstream)
 %define client_requires curl git-core jq perl(Getopt::Long::Descriptive) perl(IO::Socket::SSL) >= 2.009 perl(IPC::Run) perl(JSON::Validator) perl(LWP::Protocol::https) perl(LWP::UserAgent) perl(Test::More) perl(YAML::PP) >= 0.020 perl(YAML::XS)
 # Diff from SUSE 1: case (they have openQA-client, we have openqa-client)
@@ -64,6 +64,9 @@
 # Diff from SUSE 3: we package bsdcat and bsdtar separately
 # The following line is generated from dependencies.yaml (upstream)
 %define worker_requires bsdcat bsdtar openqa-client optipng os-autoinst perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.7 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
+# Diff from SUSE: we don't have perl(MCP) packaged currently
+# The following line is generated from dependencies.yaml (upstream)
+%define mcp_requires %{nil}
 # Diff from SUSE: they have npm as they run npm install in the spec,
 # we do it in update-cache.sh
 # The following line is generated from dependencies.yaml (upstream)
@@ -78,7 +81,7 @@
 # (openssh-common in SUSE), Syntax::Keyword::Try::Deparse seems to be
 # missing upstream
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires curl jq openssh os-autoinst perl(App::cpanminus) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 perl(Syntax::Keyword::Try::Deparse) postgresql-server
+%define test_requires %common_requires %main_requires %mcp_requires %python_scripts_requires %worker_requires curl jq openssh os-autoinst perl(App::cpanminus) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 perl(Syntax::Keyword::Try::Deparse) postgresql-server
 %ifarch x86_64
 %define qemu qemu qemu-kvm
 %else
@@ -92,9 +95,10 @@
 # it's not in Fedora (this means you can't run 'make coverage-codecov')
 # The following line is generated from dependencies.yaml (upstream)
 %define cover_requires perl(Devel::Cover)
-# diff from SUSE: # xorg-x11-fonts dropped because that binary package
+# diff from SUSE 1: xorg-x11-fonts dropped because that binary package
 # doesn't exist in Fedora (it exists as a source package generating
 # multiple binary packages) and I can't find any reason for it
+# diff from SUSE 2: we don't have perl(Test::CheckGitStatus) packaged
 # The following line is generated from dependencies.yaml (upstream)
 %define devel_no_selenium_requires %build_requires %cover_requires %qemu %style_check_requires %test_requires curl perl(Perl::Tidy) postgresql-devel rsync sudo tar
 # diff from SUSE: chromedriver dropped as we don't package it
@@ -107,7 +111,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -134,11 +138,6 @@ Source4:        23-fedora-messaging.t
 # but we need to change the groups so we have our own versions here
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2393053
-# https://github.com/os-autoinst/openQA/pull/6719
-# Include list of failed modules in job.done messages
-Patch:          0001-AMQP-include-list-of-failed-modules-in-job.done-mess.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -405,6 +404,9 @@ cp %{SOURCE2} lib/OpenQA/WebAPI/Plugin/
 cp %{SOURCE3} lib/OpenQA/WebAPI/Plugin/
 # we don't really need the tidy test
 rm -f t/00-tidy.t
+# we don't have the deps for the MCP feature yet
+rm -f lib/OpenQA/WebAPI/Plugin/MCP.pm
+rm -f t/api/17-mcp.t
 # add the fedora-messaging publishing plugin test to the sources
 cp %{SOURCE4} t/
 
@@ -429,6 +431,9 @@ ln -s %{_datadir}/openqa/script/openqa-validate-yaml %{buildroot}%{_bindir}/open
 ln -s %{_datadir}/openqa/script/setup-db %{buildroot}%{_bindir}/openqa-setup-db
 ln -s %{_datadir}/openqa/script/dump-db %{buildroot}%{_bindir}/openqa-dump-db
 ln -s %{_datadir}/openqa/script/openqa-label-all %{buildroot}%{_bindir}/openqa-label-all
+
+install -d -m 755 %{buildroot}%{_datadir}/openqa/client
+install -m 755 public/openqa-cli.yaml %{buildroot}%{_datadir}/openqa/client/openqa-cli.yaml
 
 # munin
 install -d -m 755 %{buildroot}/%{_datadir}/munin/plugins
@@ -458,14 +463,6 @@ rm -f %{buildroot}%{_datadir}/openqa/script/openqa-rollback
 rm -f %{buildroot}%{_datadir}/openqa/script/openqa-check-devel-repo
 rm -f %{buildroot}%{_datadir}/openqa/script/openqa-clean-repo-cache
 
-# See: https://progress.opensuse.org/issues/179359#note-33
-# it does not make sense to ship an empty 'template' config tree
-# under /usr/etc because nobody besides the distributor is meant to
-# put anything in /usr, so who is this helping? removing this avoids
-# unpleasantness with ostree and means we don't have to patch openQA
-# to use /usr/lib instead, we can just ignore the /usr level of config
-rm -rf %{buildroot}%{_prefix}/etc
-
 
 %check
 %if %{with tests}
@@ -477,10 +474,7 @@ export LC_ALL=en_US.UTF-8
 touch openqa-debug.log autoinst-log.txt
 chmod a+w openqa-debug.log autoinst-log.txt
 # we can't use 'unshare' in Fedora package build env
-sed -i -e 's,unshare -r -n ,,g' t/40-script_openqa-clone-custom-git-refspec.t t/40-openqa-clone-job.t t/32-openqa_client-script.t
-# these tests expect a 'not connected' error that it gets with unshare
-# but with mock we get 'Connection refused', so just wipe them
-sed -i -e '/fails without network/d' t/32-openqa_client-script.t t/40-openqa-clone-job.t
+sed -i -e 's,unshare -r -n ,,g' t/40-script_openqa-clone-custom-git-refspec.t
 # Skip tests not working currently, or flaky
 rm \
     t/01-test-utilities.t \
@@ -582,6 +576,8 @@ fi
 %{_unitdir}/openqa-enqueue-bug-cleanup.timer
 %{_unitdir}/openqa-enqueue-needle-ref-cleanup.service
 %{_unitdir}/openqa-enqueue-needle-ref-cleanup.timer
+%{_unitdir}/openqa-enqueue-scheduled-product-cleanup.service
+%{_unitdir}/openqa-enqueue-scheduled-product-cleanup.timer
 %{_tmpfilesdir}/openqa-webui.conf
 # web libs
 %{_datadir}/openqa/lib/DBIx/
@@ -614,12 +610,13 @@ fi
 %{_datadir}/openqa/script/openqa-enqueue-audit-event-cleanup
 %{_datadir}/openqa/script/openqa-enqueue-bug-cleanup
 %{_datadir}/openqa/script/openqa-enqueue-git-auto-update
+%{_datadir}/openqa/script/openqa-enqueue-needle-ref-cleanup
 %{_datadir}/openqa/script/openqa-enqueue-result-cleanup
+%{_datadir}/openqa/script/openqa-enqueue-scheduled-product-cleanup
 %{_datadir}/openqa/script/openqa-gru
 %{_datadir}/openqa/script/openqa-webui-daemon
 %{_datadir}/openqa/script/upgradedb
 %{_datadir}/openqa/script/modify_needle
-%{_datadir}/openqa/script/openqa-enqueue-needle-ref-cleanup
 %dir %{_localstatedir}/lib/openqa/share
 %defattr(-,geekotest,root)
 # the database script does creation with 'geekotest' privileges
@@ -727,11 +724,15 @@ fi
 %dir %{_sysconfdir}/nginx
 %dir %{_sysconfdir}/nginx/conf.d
 %config %{_sysconfdir}/nginx/conf.d/openqa.conf.template
+%config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-assets.inc
+%config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-endpoints.inc
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-locations.inc
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-upstreams.inc
 
 %files client
 %dir %{_datadir}/openqa
+%dir %{_datadir}/openqa/client
+%{_datadir}/openqa/client/openqa-cli.yaml
 %dir %{_datadir}/openqa/script
 %{_datadir}/openqa/script/client
 %{_datadir}/openqa/script/clone_job.pl
@@ -800,6 +801,10 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Mon Jan 26 2026 Adam Williamson <awilliam@redhat.com> - 5^20260126git19189f0-1
+- Update to latest upstream git
+- Drop merged patches
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5^20250711git28a0214-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

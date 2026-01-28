@@ -24,42 +24,21 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  5
-%global github_commit   d55ec722f662bc218505f314e9cc249eeb6a5cd7
+%global github_commit   72cabd06219204bb1c60c664ac5edbd87f26e030
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20250707
+%global github_date     20260123
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
 License:        GPL-2.0-or-later
-URL:            https://os-autoinst.github.io/openQA/
+URL:            https://github.com/os-autoinst/os-autoinst
 ExcludeArch:    %{ix86}
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
-
-# https://github.com/os-autoinst/os-autoinst/pull/2727
-# make os-autoinst-multi-machine work on Fedora (maybe?)
-Patch:          0001-setup-multi-machine-extend-network-service-detection.patch
-# https://github.com/os-autoinst/os-autoinst/pull/2728
-# Fix tests without Inline::Lua
-Patch:          0001-t-make-autotest-tests-pass-if-lua-and-or-python-are-.patch
-Patch:          0002-t-use-mock-not-redefine-for-lua_set.patch
-# https://github.com/os-autoinst/os-autoinst/pull/2750
-# Allow slow typing (assert_)script_run
-Patch:          0001-testapi-allow-passing-max_interval-through-assert_-s.patch
-# https://github.com/os-autoinst/os-autoinst/pull/2751
-# Fix tests with IPC::Run 20250809.0
-Patch:          0001-t-consoles-s3270.t-fix-with-IPC-Run-20250809.0.patch
-# https://github.com/os-autoinst/os-autoinst/pull/2772
-# Add a usb_disconnect function (bet you can't guess what it does)
-Patch:          0001-Add-disconnect_usb-qemu-only-for-now.patch
-# https://github.com/os-autoinst/os-autoinst/pull/2776
-# https://bugzilla.redhat.com/show_bug.cgi?id=2392684
-# VNC: cap the delay on key down events (rediffed)
-Patch:          0001-VNC-cap-the-delay-on-key-down-events.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -85,7 +64,7 @@ Patch:          0001-VNC-cap-the-delay-on-key-down-events.patch
 # https://github.com/openSUSE/cpanspec/issues/47
 # they have iproute2, we have iproute
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %main_requires_additional git-core iproute jq perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(Feature::Compat::Try) perl(File::Basename) perl(File::Find) perl(File::Map) perl(File::Path) perl(File::Temp) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
+%define main_requires %main_requires_additional git-core iproute iputils jq openssh-clients perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(Feature::Compat::Try) perl(File::Basename) perl(File::Find) perl(File::Map) perl(File::Path) perl(File::Temp) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
 # diff from SUSE: SUSE has python3-yamllint, Fedora has just yamllint
 # The following line is generated from dependencies.yaml (upstream)
 %define yamllint_requires yamllint
@@ -107,8 +86,14 @@ Patch:          0001-VNC-cap-the-delay-on-key-down-events.patch
 # packaged on Fedora at all
 # The following line is generated from dependencies.yaml (upstream)
 %define test_requires %build_requires %ocr_requires %test_base_requires %yamllint_requires ffmpeg-free perl(Inline::Python) perl(YAML::PP) python3-pillow-tk
+%ifnarch s390x
+# The following line is generated from dependencies.yaml
+%define devel_non_s390_requires ShellCheck
+%else
+%define devel_non_s390_requires %{nil}
+%endif
 # The following line is generated from dependencies.yaml (upstream)
-%define devel_requires %python_style_requires %test_requires ShellCheck file perl(Code::TidyAll) perl(Devel::Cover) perl(Module::CPANfile) perl(Perl::Tidy) perl(Template::Toolkit) sed shfmt
+%define devel_requires %devel_non_s390_requires %python_style_requires %test_requires ShellCheck file perl(Code::TidyAll) perl(Devel::Cover) perl(Module::CPANfile) perl(Perl::Tidy) perl(Template::Toolkit) sed shfmt
 
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -178,6 +163,10 @@ rm -f t/99-full-stack.t
 rm xt/00-tidy.t tools/tidyall
 # Remove test relying on a git working copy
 rm xt/30-make.t
+%ifarch aarch64
+# https://progress.opensuse.org/issues/194359
+rm -f t/28-signalblocker.t
+%endif
 
 %build
 %cmake \
@@ -282,6 +271,10 @@ fi
 %files devel
 
 %changelog
+* Tue Jan 20 2026 Adam Williamson <awilliam@redhat.com> - 5^20260123git72cabd0-1
+- Update to latest git, re-sync spec
+- Drop merged patches
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5^20250707gitd55ec72-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

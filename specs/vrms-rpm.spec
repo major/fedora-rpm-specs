@@ -2,21 +2,19 @@ Name:          vrms-rpm
 Summary:       Report non-free software
 License:       GPL-3.0-only
 
-Version:       2.3
-Release:       7%{?dist}
+Version:       2.4
+Release:       1%{?dist}
 
 BuildRequires: gcc
 BuildRequires: gettext-devel
 BuildRequires: libcmocka-devel
 BuildRequires: make
 BuildRequires: rpm-devel
+BuildRequires: python3-jsonschema
 
 %global git_tag release-%{version}
 URL:           https://github.com/suve/%{name}
 Source0:       %{url}/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
-
-# Fix build errors with glibc 2.42
-Patch0:        0000-glibc-2.42.patch
 
 %description
 vrms-rpm ("virtual Richard M. Stallman") reports non-free packages
@@ -28,10 +26,14 @@ installed on the system.
 %build
 make all PREFIX=%{_prefix} %{?_smp_mflags} \
 	DEFAULT_GRAMMAR=spdx-lenient \
-	DEFAULT_LICENCE_LIST=tweaked
+	DEFAULT_LICENCE_LIST=fedora
 
 %check
 make test %{?_smp_mflags}
+./build/vrms-rpm \
+	--licence-list $(pwd)/build/licences/fedora.txt \
+	--format json \
+	| jsonschema ./docs/json-schema.json
 
 %install
 %make_install PREFIX=%{_prefix}
@@ -45,6 +47,10 @@ make test %{?_smp_mflags}
 %license LICENCE.txt IMAGE-CREDITS.txt
 
 %changelog
+* Mon Jan 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.4-1
+- Update to v2.4
+- Drop Patch0 (glibc 2.42 build failure - fixed upstream)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

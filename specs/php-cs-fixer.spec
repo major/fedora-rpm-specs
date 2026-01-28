@@ -7,15 +7,15 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    260cc8c4a1d2f6d2f22cd4f9c70aa72e55ebac58
+%global gh_commit    50895a07cface1385082e4caa6a6786c4e033468
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2026-01-08
+%global gh_date      2026-01-23
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.92.5
-Release:        2%{?dist}
+Version:        3.93.0
+Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
 # see bundled list below, SPDX
@@ -102,6 +102,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 3.93.0-1
+- update to 3.93.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.92.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

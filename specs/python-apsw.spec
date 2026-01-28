@@ -1,5 +1,5 @@
 # https://rogerbinns.github.io/apsw/about.html#apsw-and-sqlite-versions
-%global sqlite_version 3.50.4
+%global sqlite_version 3.51.2
 
 Name:               python-apsw
 Version:            %{sqlite_version}.0

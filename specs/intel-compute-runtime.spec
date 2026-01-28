@@ -14,9 +14,6 @@ Version: %{neo_major}.%{neo_minor}.%{neo_build}.%{neo_hotfix}
 Release: %autorelease
 Summary: Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL
 
-#LTO is controlled in compute-runtime itself, but temp disable it here
-%global _lto_cflags %{nil}
-
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz

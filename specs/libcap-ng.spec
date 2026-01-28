@@ -2,11 +2,12 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
 Patch0: kernel.patch
+Patch1: drop-captest.patch
 BuildRequires: gcc make
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 2.6.11 
@@ -47,29 +48,19 @@ Summary: Utilities for analyzing and setting file capabilities
 License: GPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %ifarch %{bpf_supported_arches}
-Recommends: %{name}-audit
+Provides: %{name}-audit
 %endif
 
 %description utils
 The libcap-ng-utils package contains applications to analyze the
 posix capabilities of all the program running on a system. It also
-lets you set the file system based capabilities.
-
-%ifarch %{bpf_supported_arches}
-%package audit
-Summary: Utility for capturing needed capabilities
-License: GPL-2.0-or-later
-Requires: %{name} = %{version}-%{release}
-
-%description audit
-This utility can be used to determine the necessary capabilities
-that a program needs. It does this by adding eBPF hooks in the kernel
-to determine exactly what capability checks a program asks for.
-%endif
+lets you set the file system based capabilities, and use cap-audit
+to determine the necessary capabilities for a program.
 
 %prep
 %setup -q
 %patch -P 0 -p1
+%patch -P 1 -p1
 touch NEWS
 autoreconf -fv --install
 
@@ -117,26 +108,25 @@ make check
 
 %files utils
 %license COPYING
-%attr(0755,root,root) %{_bindir}/captest
 %attr(0755,root,root) %{_bindir}/filecap
 %attr(0755,root,root) %{_bindir}/netcap
 %attr(0755,root,root) %{_bindir}/pscap
-%attr(0644,root,root) %{_mandir}/man8/captest.8.gz
 %attr(0644,root,root) %{_mandir}/man8/filecap.8.gz
 %attr(0644,root,root) %{_mandir}/man8/netcap.8.gz
 %attr(0644,root,root) %{_mandir}/man8/pscap.8.gz
-
 %ifarch %{bpf_supported_arches}
-%files audit
 %attr(0755,root,root) %{_bindir}/cap-audit
 %attr(0644,root,root) %{_mandir}/man8/cap-audit.8.gz
 %endif
 
 %changelog
-* Fri Jan 23 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-5
+* Mon Jan 26 2026 Steve Grubb <sgrubb@redhat.com> 0.9-6
+- Deprecate captest and move cap-audit into utils package
+
+* Fri Jan 23 2026 Steve Grubb <sgrubb@redhat.com> 0.9-5
 - Add s390x to libcap-ng-audit build arches
 
-* Fri Jan 23 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-4
+* Fri Jan 23 2026 Steve Grubb <sgrubb@redhat.com> 0.9-4
 - Expand libcap-ng-audit to non-x86_64 arches
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-3

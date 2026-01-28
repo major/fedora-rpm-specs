@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -33,6 +33,8 @@ URL:            https://mapserver.org
 
 Source0:        https://github.com/%{project_owner}/%{project_name}/archive/rel-%{dashver}/%{project_name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 Requires:       httpd
 Requires:       dejavu-sans-fonts
@@ -335,6 +337,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 8.6.0-4
+- Drop support for i686
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

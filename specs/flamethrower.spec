@@ -8,7 +8,7 @@
 %bcond_with http_parser
 
 Name:		flamethrower
-Version:	0.11.0
+Version:	0.12.0
 Release:	%autorelease
 Summary:	A DNS performance and functional testing utility
 
@@ -16,38 +16,33 @@ License:	Apache-2.0
 URL:		https://github.com/DNS-OARC/flamethrower
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/DNS-OARC/flamethrower/pull/74
-Patch1:		flamethrower-0.11-catch2.patch
-# https://github.com/DNS-OARC/flamethrower/pull/75
-Patch2:		flamethrower-0.11-http-parser.patch
-# https://github.com/DNS-OARC/flamethrower/pull/77
-Patch3:		flamethrower-0.11-3rd-json.patch
-# https://github.com/DNS-OARC/flamethrower/pull/85
-Patch4:		flamethrower-0.11-3rd-base64.patch
-# https://github.com/DNS-OARC/flamethrower/pull/87
-Patch5:		flamethrower-0.11-uvw.patch
-Patch6:		flamethrower-0.11-uvw-compat.patch
-# https://github.com/DNS-OARC/flamethrower/pull/88
-Patch7:		flamethrower-0.11-gcc12.patch
-# https://github.com/DNS-OARC/flamethrower/pull/94
-Patch8:		flamethrower-0.12-httpsession.patch
+# https://github.com/DNS-OARC/flamethrower/pull/112
+Patch1:		flamethrower-0.12.0-unbundle-meson.patch
 
-BuildRequires:	gcc-c++, make
+BuildRequires:	gcc-c++
 BuildRequires:	cmake
-BuildRequires:	libuv-devel
-BuildRequires:	ldns-devel
-BuildRequires:	gnutls-devel
+BuildRequires:	meson
+BuildRequires:	ninja-build
+BuildRequires:	pkgconfig(libuv)
+BuildRequires:	pkgconfig(ldns)
+BuildRequires:	pkgconfig(gnutls)
+BuildRequires:	cmake(nlohmann_json)
+BuildRequires:	docopt-cpp-devel
+# cmake(uvw) does not have version
+BuildRequires:	uvw-devel >= 3.4
+BuildRequires:	cmake(httplib)
 BuildRequires:	pandoc
-BuildRequires:	json-devel
-BuildRequires:  docopt-cpp-devel
-BuildRequires:  uvw-devel
 %if %{with doh}
-BuildRequires:	libnghttp2-devel
+BuildRequires:	pkgconfig(libnghttp2)
 %endif
 # Not used again, http-parser is missing dependencies
 %if %{with http_parser}
 BuildRequires:	http-parser-devel
 %endif
+
+# cpp-httplib upstream no longer supports 32 bits
+# https://github.com/yhirose/cpp-httplib/issues/2148
+ExcludeArch: %{ix86}
 
 # 3rd/base64url from https://renenyffenegger.ch/notes/development/Base64/Encoding-and-decoding-base-64-with-cpp/index
 # also https://github.com/ReneNyffenegger/cpp-base64
@@ -70,22 +65,23 @@ It was built as an alternative to dnsperf, and many
 of the command line options are compatible.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -p1
+
+# Remove bundled source we are able to use from the system
+rm -rf 3rd/{json,docopt.cpp,uvw,cpp-httplib}
 
 %build
-%cmake -DCMAKE_SKIP_BUILD_RPATH=TRUE \
-%if %{with http_parser}
-	-DUSE_HTTP_PARSER=ON \
-%endif
+%meson -Dbundles=false \
 %if %{with doh}
--DDOH_ENABLE=ON \
+  -Ddoh=true \
 %endif
+# end of meson
 
-%cmake_build
+%meson_build
 
 
 %install
-%cmake_install
+%meson_install
 install -m 0644 -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
 
 %check
@@ -108,7 +104,6 @@ ${RPM_BUILD_ROOT}%{_bindir}/flame --help
 %doc README.md
 %license LICENSE
 %{_bindir}/flame
-%{_libdir}/libflamecore.so
 %{_mandir}/man1/flame.1*
 
 

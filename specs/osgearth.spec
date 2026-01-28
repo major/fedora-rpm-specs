@@ -4,7 +4,7 @@
 
 Name:          osgearth
 Version:       3.7.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPL-3.0-only
@@ -21,6 +21,9 @@ Patch2:        osgearth_unbundle.patch
 Patch3:        osgearth_link-lerc.patch
 # Fix ambiguous namespace with gdal-3.12
 Patch4:        osgearth-gdal-ns.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -276,6 +279,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.7.2-6
+- Drop support for i686
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

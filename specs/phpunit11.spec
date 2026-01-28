@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    fe3665c15e37140f55aaf658c81a2eb9030b6d89
-%global gh_date      2026-01-16
+%global gh_commit    4f1750675ba411dd6c2d5fa8a3cca07f6742020e
+%global gh_date      2026-01-24
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.48
+%global upstream_version 11.5.49
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -59,7 +59,7 @@ BuildRequires:  (php-composer(phpunit/php-text-template) >= 4.0.1     with php-c
 BuildRequires:  (php-composer(phpunit/php-timer) >= 7.0.1             with php-composer(phpunit/php-timer) < 8)
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 3.0.2          with php-composer(sebastian/cli-parser) < 4)
 BuildRequires:  (php-composer(sebastian/code-unit) >= 3.0.3           with php-composer(sebastian/code-unit) < 4)
-BuildRequires:  (php-composer(sebastian/comparator) >= 6.3.2          with php-composer(sebastian/comparator) < 7)
+BuildRequires:  (php-composer(sebastian/comparator) >= 6.3.3          with php-composer(sebastian/comparator) < 7)
 BuildRequires:  (php-composer(sebastian/diff) >= 6.0.2                with php-composer(sebastian/diff) < 7)
 BuildRequires:  (php-composer(sebastian/environment) >= 7.2.1         with php-composer(sebastian/environment) < 8)
 BuildRequires:  (php-composer(sebastian/exporter) >= 6.3.2            with php-composer(sebastian/exporter) < 7)
@@ -95,7 +95,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-timer": "^7.0.1",
 #        "sebastian/cli-parser": "^3.0.2",
 #        "sebastian/code-unit": "^3.0.3",
-#        "sebastian/comparator": "^6.3.2",
+#        "sebastian/comparator": "^6.3.3",
 #        "sebastian/diff": "^6.0.2",
 #        "sebastian/environment": "^7.2.1",
 #        "sebastian/exporter": "^6.3.2",
@@ -122,7 +122,7 @@ Requires:       (php-composer(phpunit/php-text-template) >= 4.0.1     with php-c
 Requires:       (php-composer(phpunit/php-timer) >= 7.0.1             with php-composer(phpunit/php-timer) < 8)
 Requires:       (php-composer(sebastian/cli-parser) >= 3.0.2          with php-composer(sebastian/cli-parser) < 4)
 Requires:       (php-composer(sebastian/code-unit) >= 3.0.3           with php-composer(sebastian/code-unit) < 4)
-Requires:       (php-composer(sebastian/comparator) >= 6.3.2          with php-composer(sebastian/comparator) < 7)
+Requires:       (php-composer(sebastian/comparator) >= 6.3.3          with php-composer(sebastian/comparator) < 7)
 Requires:       (php-composer(sebastian/diff) >= 6.0.2                with php-composer(sebastian/diff) < 7)
 Requires:       (php-composer(sebastian/environment) >= 7.2.1         with php-composer(sebastian/environment) < 8)
 Requires:       (php-composer(sebastian/exporter) >= 6.3.2            with php-composer(sebastian/exporter) < 7)
@@ -292,6 +292,10 @@ exit $ret
 
 
 %changelog
+* Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 11.5.49-1
+- update to 11.5.49
+- raise dependency on sebastian/comparator 6.3.3
+
 * Sat Jan 17 2026 Remi Collet <remi@remirepo.net> - 11.5.48-1
 - update to 11.5.48
 

@@ -1,14 +1,11 @@
 %global filesurl https://www.dns-oarc.net/files/%{name}
 Name:           dnscap
-Version:        2.5.0
-Release:        4%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        Network capture utility designed specifically for DNS traffic
 License:        BSD-3-Clause AND ISC
 URL:            https://www.dns-oarc.net/tools/dnscap
 Source:         %{filesurl}/%{name}-%{version}.tar.gz
-
-# https://codeberg.org/DNS-OARC/dnscap/pulls/360
-Patch0:         s390x-cryptopan.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -64,6 +61,21 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 %doc CONTRIBUTORS CHANGES README.md
 
 %changelog
+* Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2.5.1-1
+- Updated to version 2.5.1
+- Upstream change notes:
+  * This patch release fixes `assert()` usage for compatibility with newer
+    libc versions and handles byte order correctly in cryptopan plugin to
+    work for big endian systems.
+  * Commits:
+    ac12e05 copyright
+    ed3ea49 cryptopan reference implementation
+    997f047 cryptopan endian
+    fa3cabb assert
+
+* Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2.5.0-5
+- Use upstream's fix for cryptopan's endianness handling.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

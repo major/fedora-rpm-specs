@@ -11,6 +11,8 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         https://github.com/google/libultrahdr/pull/363.patch#/add-missing-header.patch
 Patch1:         https://github.com/google/libultrahdr/pull/376.patch#/add-ppc64le-and-s390x-build-support.patch
 Patch2:         https://github.com/google/libultrahdr/pull/381.patch#/use-system-gtest.patch
+Patch3:         https://github.com/google/libultrahdr/pull/373.patch#/fix-calculation-of-gainmap_weight.patch
+Patch4:         https://github.com/google/libultrahdr/pull/356.patch#/fix-exif-support-in-sample-app.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

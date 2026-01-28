@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.10.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -104,6 +104,9 @@ Patch4: postfix-3.8.0-large-fs.patch
 # rhbz#1931403, sent upstream
 Patch9: pflogsumm-1.1.6-syslog-name-underscore-fix.patch
 Patch11: postfix-3.4.4-chroot-example-fix.patch
+%if 0%{?rhel}
+Patch12: postfix-3.10.7-rhel-remove-version-mismatch-warning.patch
+%endif
 
 # Optional patches - set the appropriate environment variables to include
 #                    them when building the package/spec file
@@ -273,6 +276,10 @@ pushd pflogsumm-%{pflogsumm_ver}
 popd
 %endif
 %patch -P11 -p1 -b .chroot-example-fix
+
+%if 0%{?rhel}
+%patch -P12 -p1 -b .warning
+%endif
 
 # Backport 3.8-20221006 fix for uname -r detection
 sed -i makedefs -e '\@Linux\.@s|345|3456|'
@@ -846,6 +853,10 @@ fi
 %endif
 
 %changelog
+* Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2:3.10.7-3
+- Added a RHEL-specific patch to remove an OpenSSL version mismatch warning.
+  Resolves: RHEL-128018
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.10.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

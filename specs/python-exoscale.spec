@@ -1,6 +1,6 @@
 Name:           python-exoscale
-Version:        0.16.0
-Release:        2%{?dist}
+Version:        0.16.1
+Release:        1%{?dist}
 Summary:        Python bindings for Exoscale API
 
 License:        ISC
@@ -56,6 +56,10 @@ BuildRequires:  python3dist(setuptools)
 
 
 %changelog
+* Thu Jan 22 2026 Packit <hello@packit.dev> - 0.16.1-1
+- Update to version 0.16.1
+- Resolves: rhbz#2432086
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

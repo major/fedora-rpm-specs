@@ -14,7 +14,7 @@ BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-%if 0%{?fedora} >= 40
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 11
 # REGRESSION: dnf5 is unable to BuildRequires: files
 BuildRequires: urw-base35-nimbus-sans-fonts
 %else

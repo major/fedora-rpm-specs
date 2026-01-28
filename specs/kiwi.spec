@@ -6,11 +6,16 @@ The KIWI Image System provides an operating system image builder \
 for Linux supported hardware platforms as well as for virtualization \
 and cloud systems like Xen, KVM, VMware, EC2 and more.
 
+%if 0%{?rhel} && 0%{?rhel} < 10
+%bcond check 0
+%else
 %bcond check 1
+%endif
+
 
 Name:           kiwi
-Version:        10.2.33
-Release:        4%{?dist}
+Version:        10.2.37
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -20,6 +25,8 @@ Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}
 ExcludeArch:    %{ix86}
 
 # Backports from upstream
+## Fix unit tests for aarch64 and ppc64le
+Patch0001:      https://github.com/OSInside/kiwi/pull/2937.patch
 
 # Proposed upstream
 
@@ -45,7 +52,7 @@ BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 %if %{with check}
 # for tests
-BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest) >= 7
 %if 0%{?fedora}
 BuildRequires:  python3dist(pytest-xdist)
 %endif
@@ -61,15 +68,21 @@ Obsoletes:      kiwi-image-tbz-requires < %{version}-%{release}
 Provides:       kiwi-image:tbz
 # tools used by kiwi
 # For building Fedora, RHEL/CentOS, and Mageia based images
-Requires:       dnf
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 11
 Requires:       dnf5
 Provides:       kiwi-packagemanager:dnf5
 %endif
+%if 0%{?fedora} || (0%{?rhel} >= 8 && 0%{?rhel} < 11)
+%if 0%{?rhel}
+# Backward compatibility for OBS
+Requires:       dnf
+%endif
+Requires:       dnf4
 Provides:       kiwi-packagemanager:dnf
 Provides:       kiwi-packagemanager:dnf4
 Provides:       kiwi-packagemanager:yum
-%if (0%{?fedora} && 0%{?fedora} < 39) || (0%{?rhel} >= 8 && 0%{?rhel} < 11)
+%endif
+%if (0%{?rhel} >= 8 && 0%{?rhel} < 11)
 # For building Fedora, RHEL/CentOS, and Mageia based minimal images
 Requires:       microdnf
 Provides:       kiwi-packagemanager:microdnf
@@ -285,6 +298,7 @@ Requires:       parted
 Requires:       kpartx
 Requires:       cryptsetup
 Requires:       mdadm
+Requires:       open-vmdk
 Requires:       util-linux
 
 %description systemdeps-disk-images
@@ -640,6 +654,12 @@ popd
 
 
 %changelog
+* Mon Jan 26 2026 Neal Gompa <ngompa@fedoraproject.org> - 10.2.37-2
+- Backport fix for aarch64 and ppc64le tests
+
+* Mon Jan 26 2026 Neal Gompa <ngompa@fedoraproject.org> - 10.2.37-1
+- Update to 10.2.37
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.33-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

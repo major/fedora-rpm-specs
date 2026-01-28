@@ -12,6 +12,14 @@ Summary:        Integrate various capabilities using compile-time feature flags
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-features
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update libz-rs-sys to 0.6.0. Upstream has switched to zlib-rs in a release
+#   later than the one we have packaged. This is nice because it avoids unsafe
+#   code, but it is a bigger change than we want to backport. We are able to
+#   update to libz-rs-sys 0.6.0 downstream with no source-code changes; we
+#   helped upstream update to zlib-rs 0.6.0 in
+#   https://github.com/GitoxideLabs/gitoxide/pull/2399.
+Patch:          gix-features-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

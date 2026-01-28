@@ -20,7 +20,7 @@
 
 Name:          postgresql%{pgversion}-postgis
 Version:       3.6.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -35,6 +35,9 @@ Patch1:        postgis2-proj8.patch
 Patch2:	       postgis-c99.patch
 Patch3:	       postgis-c99-2.patch
 %endif
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %if %{?postgresql_default}
 %global pkgname postgis
@@ -490,6 +493,9 @@ fi
 
 
 %changelog
+* Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.6.1-3
+- Drop support for i686
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

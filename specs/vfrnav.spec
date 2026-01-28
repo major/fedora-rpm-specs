@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -8,6 +8,9 @@ URL:            https://gitlab.com/tsailer/vfrnav/
 Source:         https://gitlab.com/tsailer/vfrnav/-/archive/%{version}/%{name}-%{version}.tar.bz2
 Patch:          vfrnav-octave-colors.patch
 Patch:          vfrnav-compile.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %bcond_without webservice
 %bcond_with wetterdl
@@ -478,6 +481,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 20230429-31
+- Drop support for i686
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20230429-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

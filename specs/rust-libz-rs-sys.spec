@@ -5,7 +5,7 @@
 %global crate libz-rs-sys
 
 Name:           rust-libz-rs-sys
-Version:        0.5.5
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 
@@ -82,6 +82,18 @@ use the "export-symbols" feature of the "%{crate}" crate.
 %files       -n %{name}+export-symbols-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+gz-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gz-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gz" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gz-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+rust-allocator-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -135,17 +147,17 @@ use the "testing-prefix" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f gz
 
 %build
-%cargo_build
+%cargo_build -f gz
 
 %install
-%cargo_install
+%cargo_install -f gz
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f gz
 %endif
 
 %changelog

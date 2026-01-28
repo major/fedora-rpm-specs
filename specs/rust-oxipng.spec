@@ -4,7 +4,7 @@
 %global crate oxipng
 
 Name:           rust-oxipng
-Version:        10.0.0
+Version:        10.1.0
 Release:        %autorelease
 Summary:        Lossless PNG compression optimizer
 
@@ -20,20 +20,6 @@ Source:         %{crates_source}
 Source10:       https://github.com/shssoichiro/oxipng/archive/v%{version}/oxipng-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          oxipng-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Set autotests = true so we run all the tests
-# * Allow clap 4.5.51 instead of 4.5.53
-#   (https://bugzilla.redhat.com/show_bug.cgi?id=2415459,
-#   https://github.com/clap-rs/clap/blob/v4.5.53/CHANGELOG.md); indexmap 2.12.0
-#   instead of 2.12.1 (https://bugzilla.redhat.com/show_bug.cgi?id=2416171,
-#   https://github.com/indexmap-rs/indexmap/blob/2.12.1/RELEASES.md); and image
-#   0.25.8 instead of 0.25.9
-#   (https://bugzilla.redhat.com/show_bug.cgi?id=2415218,
-#   https://github.com/image-rs/image/blob/v0.25.9/CHANGES.md); The minimum
-#   versions of these dependencies seem to have been bumped more or less
-#   arbitrarily upstream, and we can afford to wait until the Fedora packages
-#   are updated in due course.
-Patch:          oxipng-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -44,14 +30,12 @@ A lossless PNG compression optimizer.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-### BEGIN LICENSE SUMMARY ###
 # Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # Zlib OR Apache-2.0 OR MIT
-###  END LICENSE SUMMARY  ###
 License:        %{shrink:
                 Apache-2.0 AND
                 (Apache-2.0 OR MIT) AND
@@ -112,18 +96,6 @@ This package contains library source intended for building other packages which
 use the "binary" feature of the "%{crate}" crate.
 
 %files       -n %{name}+binary-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+filetime-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+filetime-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "filetime" feature of the "%{crate}" crate.
-
-%files       -n %{name}+filetime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+freestanding-devel

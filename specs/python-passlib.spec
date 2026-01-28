@@ -1,6 +1,6 @@
 Name:           python-passlib
 Version:        1.9.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Comprehensive password hashing framework supporting over 20 schemes
 
 # license breakdown is described in LICENSE file
@@ -29,8 +29,6 @@ multi-user application.}
 
 %package -n python3-passlib
 Summary:        %{summary}
-Provides:       python%{python3_version}dist(passlib) = %{version}
-Provides:       python3dist(passlib) = %{version}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
@@ -51,22 +49,41 @@ BuildRequires:  python3-pytest
 
 %build
 %pyproject_wheel
+# This package was renamed from passlib to libpass and we want to provide the old distinfo
+# for packages that still need it.
+%global legacy_distinfo passlib-%{version}.dist-info
+mkdir %{legacy_distinfo}
+cat > %{legacy_distinfo}/METADATA << EOF
+Metadata-Version: 2.1
+Name: passlib
+Version: %{version}
+EOF
+echo rpm > %{legacy_distinfo}/INSTALLER
 
 
 %install
 %pyproject_install
 %pyproject_save_files -l passlib
 
+cp -a %{legacy_distinfo} %{buildroot}%{python3_sitelib}
+
 
 %check
 %pytest
 
+%{py3_test_envvars} %{python3} -c 'import importlib.metadata as im; assert im.version("passlib") == im.version("libpass") == "%{version}"'
+
 
 %files -n python3-passlib -f %{pyproject_files}
 %doc README.md
+%{python3_sitelib}/%{legacy_distinfo}/
 
 
 %changelog
+* Mon Jan 26 2026 Miro Hrončok <mhroncok@redhat.com> - 1.9.3-3
+- Provide Python metadata for the passlib package to hotfix the dependent packages
+- Fixes: rhzb#2432064
+
 * Thu Jan 22 2026 Sandro Mani <manisandro@gmail.com> - 1.9.3-2
 - Add backwards compat provides
 

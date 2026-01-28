@@ -7,13 +7,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 47.0
-Release: 5%{?dist}
+Version: 49.1
+Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:     https://wiki.gnome.org/Apps/EyeOfGnome
-Source0: https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 Patch0:  libpeas1_pygobject352.patch
 
 BuildRequires: pkgconfig(exempi-2.0)
@@ -109,7 +109,7 @@ the functionality of the installed %{name} package.
 %find_lang %{name} --with-gnome
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/eog.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.gnome.eog.metainfo.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.desktop
 
 %files -f %{name}.lang
@@ -123,7 +123,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %{_datadir}/GConf/gsettings/eog.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.eog.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.eog.gschema.xml
-%{_metainfodir}/eog.appdata.xml
+%{_metainfodir}/org.gnome.eog.metainfo.xml
 
 %files devel
 %{_includedir}/eog-3.0
@@ -138,6 +138,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 49.1-1
+- Update to 49.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -12,12 +12,13 @@
 %global build_search %{xapian_core_support}
 %global clang_support ON
 %global system_sqlite3 ON
+%global build_doc OFF
 
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.15.0
-Release: 3%{?dist}
+Version: 1.16.1
+Release: 1%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -38,7 +39,7 @@ BuildRequires: web-assets-devel
 # Building an RPM package typically needs unbundling of Javascript assets.
 Requires: (js-doxygen if redhat-rpm-config)
 
-%if ! 0%{?_module_build}
+%if ! 0%{?_module_build} && "%{build_doc}" == "ON"
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
 # From doc/manual.sty
@@ -99,35 +100,44 @@ BuildRequires: /usr/bin/epstopdf
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 BuildRequires: gettext
-BuildRequires: desktop-file-utils
 BuildRequires: graphviz
 %endif
+
+%if "%{build_wizard}" == "ON"
+BuildRequires: desktop-file-utils
+%endif
+
 BuildRequires: zlib-devel
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: cmake
 BuildRequires: git
-%if "x%{?xapian_core_support}" == "xON"
+
+%if "%{?xapian_core_support}" == "ON"
 BuildRequires: xapian-core-devel
 %endif
-%if "x%{?clang_support}" == "xON"
+
+%if "%{clang_support}" == "ON"
 BuildRequires: llvm-devel
 BuildRequires: clang-devel
 %else
 BuildRequires: gcc-c++ gcc
 %endif
+
 %if "%{system_spdlog}" == "ON"
 BuildRequires: spdlog-devel
 %else
 # SPDLOG_VER* defined in deps/spdlog/include/spdlog/version.h
 Provides: bundled(spdlog) = 1.14.1
 %endif
+
 %if "%{system_sqlite3}" == "ON"
 BuildRequires: sqlite-devel
 %else
 # SQLITE_VERSION defined in deps/sqlite3/sqlite3.h
 Provides: bundled(sqlite) = 3.42.0
 %endif
+
 %if "%{system_fmt}" == "ON"
 BuildRequires: fmt-devel
 %else
@@ -152,7 +162,7 @@ BuildArch: noarch
 %description -n js-doxygen
 Javascript files for use by locally installed Doxygen documentation.
 
-%if  "x%{build_wizard}" == "xON"
+%if  "%{build_wizard}" == "ON"
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Requires: %{name} = %{epoch}:%{version}-%{release}
@@ -253,7 +263,7 @@ cp %{SOURCE3} .
 	-Dbuild_search=%{build_search} \
 	-Duse_libclang=%{clang_support} \
 	-DMAN_INSTALL_DIR=%{_mandir}/man1 \
-	-Dbuild_doc=OFF \
+	-Dbuild_doc=%{build_doc} \
 	-DPYTHON_EXECUTABLE=%{_bindir}/python3 \
 	-Dbuild_xmlparser=ON \
 	-Duse_sys_sqlite3=%{system_sqlite3} \
@@ -269,7 +279,7 @@ cp %{SOURCE3} .
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp doc/*.1 %{buildroot}/%{_mandir}/man1/
 
-%if  "x%{build_wizard}" == "xOFF"
+%if "%{build_wizard}" == "OFF"
 rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
 %else
 # install icons
@@ -282,7 +292,7 @@ install -m644 -p -D doxywizard-3.png $icondir/128x128/apps/doxywizard.png
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
-%if "x%{?xapian_core_support}" == "xOFF"
+%if "%{xapian_core_support}" == "OFF"
 rm -f %{buildroot}/%{_mandir}/man1/doxyindexer.1* %{buildroot}/%{_mandir}/man1/doxysearch.1*
 %endif
 
@@ -310,20 +320,20 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %doc LANGUAGE.HOWTO README.md README.rpm-packaging
 %license LICENSE
 %if ! 0%{?_module_build}
-%if "x%{?xapian_core_support}" == "xON"
+%if "%{xapian_core_support}" == "ON"
 %{_bindir}/doxyindexer
 %{_bindir}/doxysearch*
 %endif
 %endif
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
-%if "x%{?xapian_core_support}" == "xON"
+%if "%{xapian_core_support}" == "ON"
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
 %endif
 %{_rpmconfigdir}/macros.d/macros.doxygen
 %{_rpmconfigdir}/redhat/doxygen-unbundler
-%if "x%{build_wizard}" == "xON" 
+%if "%{build_wizard}" == "ON"
 %files doxywizard
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
@@ -340,6 +350,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Mon Jan 26 2026 Than Ngo <than@redhat.com> - 2:1.16.1-1
+- Fix rhbz#2427243, Update to 1.16.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

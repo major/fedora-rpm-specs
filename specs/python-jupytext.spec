@@ -2,7 +2,7 @@
 #global vsuffix d
 
 Name:           python-jupytext
-Version:        1.18.1
+Version:        1.19.1
 Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 
@@ -28,12 +28,12 @@ BuildOption(install): -l jupytext jupytext_config
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:  nodejs-devel
-BuildRequires:  nodejs-npm
+BuildRequires:  nodejs24-devel
+BuildRequires:  nodejs24-npm
 BuildRequires:  pandoc
 
 # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2275382
-BuildRequires:  nodejs-full-i18n
+BuildRequires:  nodejs24-full-i18n
 
 %global _desc %{expand:Have you always wished Jupyter notebooks were plain text documents?  Wished
 you could edit them in your favorite IDE?  And get clear and meaningful diffs
@@ -132,6 +132,11 @@ export YARN_CACHE_FOLDER="$PWD/jupyterlab/.package-cache"
 export npm_config_nodedir=%{_includedir}/node
 export CFLAGS='%{build_cflags} -I%{_includedir}/node'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/node'
+
+# Jupyterlab looks for a binary named "node"
+mkdir -p bin
+ln -s %{_bindir}/node-24 bin/node
+PATH=$PATH:$PWD/bin
 
 %build -a
 # Build the documentation

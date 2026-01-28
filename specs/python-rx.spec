@@ -34,7 +34,6 @@ BuildRequires:  python3-coverage
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
-BuildRequires:  python3-pytest-runner
 
 
 %description -n python3-%{pkgname} %{_description}

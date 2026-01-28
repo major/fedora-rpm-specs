@@ -1,6 +1,6 @@
 Name:		kealib
 Version:	1.6.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	HDF5 Based Raster File Format as a GDAL plugin
 
 License:	MIT
@@ -15,6 +15,9 @@ Patch0:         kealib-cmakedir.patch
 # https://github.com/ubarsc/kealib/commit/db4a900d42babb81d2ac2c397df11ac4eaf46a5a
 # https://github.com/ubarsc/kealib/commit/b9cf5d48c0968698d4443d06b080be6e011d6779
 Patch1:         kealib-gdal312.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -84,6 +87,9 @@ mv %{buildroot}%{_prefix}/lib/gdalplugins/* %{buildroot}%{_libdir}/gdalplugins/
 %{_includedir}/libkea
 
 %changelog
+* Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.6.2-3
+- Drop support for i686
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

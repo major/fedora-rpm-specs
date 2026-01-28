@@ -1,6 +1,6 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
-Version: 12.3.1
+Version: 12.3.2
 Release: 1%{?dist}
 # MIT: e.g. libqpdf/sha2.c, but those are not compiled in (GNUTLS is used)
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
@@ -157,6 +157,9 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 
 %changelog
+* Mon Jan 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 12.3.2-1
+- qpdf-12.3.2 is available (fedora#2432603)
+
 * Wed Jan 21 2026 Zdenek Dohnal <zdohnal@redhat.com> - 12.3.1-1
 - qpdf-12.3.1 is available (fedora#2430864)
 

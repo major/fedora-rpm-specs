@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/CalcProgrammer1/OpenRGB
-%global commit c1e5f7bb1bdc5d942076c8682ce902c7e54fe8c9
+%global commit 74cbdcce55711f57b3ca4439d3136f5bb7068db7
 #%%global tag release_%%{version}
 # Workaround for incorrect package suffix name with forge macros
 # (.20231017gitrelease.0.9 for example)

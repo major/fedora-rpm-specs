@@ -1,5 +1,5 @@
 Name:           python-python-multipart
-Version:        0.0.21
+Version:        0.0.22
 Release:        %autorelease
 Summary:        A streaming multipart parser for Python
 

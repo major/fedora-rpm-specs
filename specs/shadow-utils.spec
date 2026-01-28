@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.19.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -26,6 +26,12 @@ Patch0: shadow-4.15.0-manfix.patch
 Patch1: shadow-4.19.0-account-tools-setuid.patch
 # https://github.com/shadow-maint/shadow/commit/3e8c105f0703264e947d8c034b90419794955d49
 Patch2: shadow-4-19-useradd-support-btrfs.patch
+# https://github.com/shadow-maint/shadow/commit/3e8c105f0703264e947d8c034b90419794955d49
+Patch3: shadow-4.19.0-chkhash1.patch
+# https://github.com/shadow-maint/shadow/commit/9b67543987e3d140c86f1b8e2b5db5c10d8bc3c5
+Patch4: shadow-4.19.0-chkhash2.patch
+# https://github.com/shadow-maint/shadow/commit/958b4859991e700b61af2f9e07e3aa87ad1d9218
+Patch5: shadow-4.19.0-usermod-add-optimizations.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -275,6 +281,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Mon Jan 26 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.19.0-5
+- chkhash.c: fix support for ! and * in hashes
+- usermod.c: add back optimizations
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.19.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

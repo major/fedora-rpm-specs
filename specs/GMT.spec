@@ -33,6 +33,9 @@ Source0:        https://github.com/GenericMappingTools/gmt/releases/download/%{v
 #Patch0:         https://patch-diff.githubusercontent.com/raw/GenericMappingTools/gmt/pull/6044.patch
 #Patch1: GMT-c99.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 %if 0%{?fedora} >= 41

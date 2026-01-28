@@ -1,6 +1,6 @@
 Name:    easytag
 Version: 2.4.3
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: Tag editor for MP3, Ogg, FLAC and other music files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -8,7 +8,12 @@ License: GPL-2.0-or-later
 URL:     https://wiki.gnome.org/Apps/EasyTAG
 Source:  https://download.gnome.org/sources/%{name}/2.4/%{name}-%{version}.tar.xz
 
-BuildRequires: appdata-tools
+# Debian patches to port to taglib-2.x
+Patch:   03_port-to-taglib-2.patch
+Patch:   04_taglib-2-further-fix.patch
+
+BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: desktop-file-utils
 BuildRequires: docbook-dtds
 BuildRequires: docbook-style-xsl
@@ -17,16 +22,20 @@ BuildRequires: gcc-c++
 BuildRequires: id3lib-devel >= 3.7.12
 BuildRequires: intltool
 BuildRequires: itstool
+BuildRequires: libappstream-glib
+BuildRequires: libappstream-glib-devel
+BuildRequires: libtool
 BuildRequires: libxslt
 BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(id3tag)
 BuildRequires: pkgconfig(opusfile)
 BuildRequires: pkgconfig(speex)
-BuildRequires: pkgconfig(taglib)
+BuildRequires: pkgconfig(taglib) >= 2.0
 BuildRequires: pkgconfig(vorbisfile)
 BuildRequires: pkgconfig(wavpack)
 BuildRequires: make
+BuildRequires: yelp-tools
 Recommends:    yelp
 
 # Obsoleted in F37
@@ -49,11 +58,12 @@ easier access to EasyTAG when opening directories and audio files.
 %endif
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
 %set_build_flags
+autoreconf -fiv
 # id3lib C interface uses int bool, not compatible with C23
 CFLAGS="$CFLAGS -std=gnu11"
 %configure --disable-appdata-validate
@@ -74,13 +84,13 @@ make check
 %doc ChangeLog HACKING README THANKS TODO
 %license COPYING
 %{_bindir}/easytag
-%{_datadir}/appdata/easytag.appdata.xml
 %{_datadir}/applications/easytag.desktop
 %{_datadir}/icons/hicolor/*/apps/easytag.*
 %{_datadir}/icons/hicolor/symbolic/apps/easytag-symbolic.svg
 %{_datadir}/glib-2.0/schemas/org.gnome.EasyTAG.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.EasyTAG.gschema.xml
 %{_mandir}/man1/easytag.1*
+%{_metainfodir}/easytag.appdata.xml
 
 %if 0
 %files nautilus
@@ -91,6 +101,9 @@ make check
 
 
 %changelog
+* Thu Jan 22 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1524,6 +1524,32 @@ popd
     -DLLVM_ENABLE_EH=ON
 %endif
 
+%if 0%{?rhel} == 8
+# On RHEL 8 we build with gcc, but the runtimes are built with the just built
+# clang, so we need to pass clang supported compiler flags to the runtimes
+# build.  If we pass the gcc flags, some of the cmake feature checkes will
+# fail, because they use -Werror and emit an error when passed gcc specific
+# compiler flags like -specs.
+# Specifically, this is required in order to fix the libomptest.so build.
+
+function strip_specs {
+  echo $1 | sed -e 's/-specs=[^ ]\+//g'
+}
+
+CLANG_CC_CONFIG=$(pwd)/redhat-hardened-clang.cfg
+CLANG_LD_CONFIG=$(pwd)/redhat-hardened-clang-ld.cfg
+echo "-fPIE" >> $CLANG_CC_CONFIG
+echo "-pie" >> $CLANG_LD_CONFIG
+CLANG_CCFLAGS_EXTRA=--config=$CLANG_CC_CONFIG
+CLANG_LDFLAGS_EXTRA=--config=$CLANG_LD_CONFIG
+
+CLANG_CXXFLAGS=$(strip_specs "$CXXFLAGS $CLANG_CCFLAGS_EXTRA")
+CLANG_CFLAGS=$(strip_specs "$CFLAGS $CLANG_CCFLAGS_EXTRA")
+CLANG_LDFLAGS=$(strip_specs "$LDFLAGS $CLANG_LDFLAGS_EXTRA")
+%global cmake_common_args %{cmake_common_args} \\\
+    -DRUNTIMES_CMAKE_ARGS="-DCMAKE_C_FLAGS=$CLANG_C_FLAGS;-DCMAKE_CXX_FLAGS=$CLANG_CXX_FLAGS;-DCMAKE_SHARED_LINKER_FLAGS=$CLANG_LD_FLAGS"
+%endif
+
 %if %reduce_debuginfo == 1
 	%global cmake_common_args %{cmake_common_args} -DCMAKE_C_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG"
 	%global cmake_common_args %{cmake_common_args} -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG"

@@ -295,7 +295,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 12.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -303,6 +303,10 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
+
+# Fix IPv6 connections to ESXi
+# Upstream in > 12.0.0
+Patch: 0001-esx-Allow-connecting-to-IPv6-server.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2691,6 +2695,9 @@ exit 0
 
 
 %changelog
+* Mon Jan 26 2026 Richard W.M. Jones <rjones@redhat.com> - 12.0.0-3
+- Backport fix for IPv6 connections to ESXi
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
