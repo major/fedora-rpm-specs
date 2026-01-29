@@ -112,6 +112,11 @@ Patch: 0001-Display-the-first-specified-XKBLAYOUT-as-the-active-.patch
 # sometimes load while drm plugin is already handling the display
 Patch: 0001-ply-device-manager-Fix-race-in-fb_device_has_drm_dev.patch
 
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/issues/321
+# https://bugzilla.redhat.com/show_bug.cgi?id=2433079
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/45655f12fa2d5553ab4ba509f2e203c249191664
+Patch: 0001-ply-keyboard-Fix-hang-on-read-of-incomplete-terminal.patch
+
 BuildRequires: meson
 BuildRequires: system-logos
 BuildRequires: gcc libtool git

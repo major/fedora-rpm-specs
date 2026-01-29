@@ -1,21 +1,19 @@
-%global commit 7ad58fac017622b6c696aa65bc97a8cd73766a50
+%global commit c77c438c0992cd36f163a1abcc51181cc29a3322
 %global gittag %{commit}
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
-%global commitdate 20210516
+%global commitdate 20260127
 
-# qt6-qtbase-devel is not available in Fedora 36+ s390x
-%if 0%{?fedora} > 35
-%ifarch s390x
-%bcond_with qt6
-Obsoletes:  	libmml-qt6 < 0:2.4-14
-%else
 %bcond_without qt6
-%endif
+
+%if 0%{?fedora} < 44
+%bcond_without qt4
+%else
+%bcond_with qt4
 %endif
 
 Name:           libmml
 Version:        2.4
-Release:        26.%{commitdate}git%{shortcommit}%{?dist}
+Release:        27.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        MML Widget
 License:        GPL-3.0-only OR LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 URL:            https://github.com/copasi/copasi-dependencies/tree/master/src/mml
@@ -76,6 +74,7 @@ The %{name}-qt5-devel package contains Qt5 libraries and header files for
 developing applications that use %{name}.
 
 ############### QT4 ######################
+%if %{with qt4}
 %package        qt4
 Summary:        Qt4/OpenGL-based MML Widget
 BuildRequires:  pkgconfig(Qt)
@@ -94,18 +93,20 @@ Requires:       %{name}-qt4%{?_isa} = %{version}-%{release}
 %description    qt4-devel
 The %{name}-qt4-devel package contains Qt4 libraries and header files for
 developing applications that use %{name}.
+%endif
 
 %prep
 %setup -qc -n mml-%{commit}
 
-mv mml-%{commit} qt5; cp -a qt5 qt4
+mv mml-%{commit} qt5
+%if %{with qt4}
+cp -a qt5 qt4
+%endif
 %if %{with qt6}
 cp -a qt5 qt6
 %endif
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380735)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 ############### QT6 ######################
 %if %{with qt6}
 pushd qt6
@@ -144,6 +145,7 @@ export CXXFLAGS=$SETOPT_FLAGS
 popd
 
 ############### QT4 ######################
+%if %{with qt4}
 pushd qt4
 SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error=format-security/g')
 export CXXFLAGS=$SETOPT_FLAGS
@@ -159,6 +161,7 @@ export CXXFLAGS=$SETOPT_FLAGS
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt4_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt4_headerdir}/%{name}-qt4
 %cmake_build
 popd
+%endif
 
 %install
 ############### QT6 ######################
@@ -174,9 +177,11 @@ pushd qt5
 popd
 
 ############### QT4 ######################
+%if %{with qt4}
 pushd qt4
 %cmake_install
 popd
+%endif
 
 ############### QT6 ######################
 %if %{with qt6}
@@ -200,6 +205,7 @@ popd
 %{_qt5_libdir}/%{name}.so
 
 ############### QT4 ######################
+%if %{with qt4}
 %files qt4
 %license qt4/LGPL_EXCEPTION.txt qt4/LICENSE.LGPL
 %{_qt4_libdir}/%{name}-qt4.so.*
@@ -207,8 +213,13 @@ popd
 %files qt4-devel
 %{_qt4_headerdir}/%{name}-qt4/
 %{_qt4_libdir}/%{name}-qt4.so
+%endif
 
 %changelog
+* Tue Jan 27 2026 Antonio Trande <sagitter@fedoraproject.org> - 2.4-27.20260127gitc77c438c
+- Update to recent commit #c77c438c
+- Qt4 build obsoleted
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-26.20210516git7ad58fac
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

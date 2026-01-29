@@ -1,6 +1,6 @@
 Name:    breeze-gtk
-Version: 6.5.90
-Release: 3%{?dist}
+Version: 6.5.91
+Release: 1%{?dist}
 Summary: Breeze widget theme for GTK
 
 License: BSD-3-Clause AND CC0-1.0
@@ -100,6 +100,9 @@ Supplements:    (plasma-breeze and gtk4)
 
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

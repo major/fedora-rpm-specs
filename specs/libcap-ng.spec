@@ -2,7 +2,7 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
@@ -49,6 +49,7 @@ License: GPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %ifarch %{bpf_supported_arches}
 Provides: %{name}-audit
+Obsoletes: %{name}-audit < %{version}-%{release}
 %endif
 
 %description utils
@@ -120,6 +121,9 @@ make check
 %endif
 
 %changelog
+* Mon Jan 26 2026 Steve Grubb <sgrubb@redhat.com> 0.9-7
+- Add Obsoletes libcap-ng-audit to remove old package
+
 * Mon Jan 26 2026 Steve Grubb <sgrubb@redhat.com> 0.9-6
 - Deprecate captest and move cap-audit into utils package
 

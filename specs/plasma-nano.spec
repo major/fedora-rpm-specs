@@ -5,8 +5,8 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-nano
-Version: 6.5.90
-Release: 2%{?dist}
+Version: 6.5.91
+Release: 1%{?dist}
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/plasma-nano
 
@@ -76,6 +76,9 @@ Requires: qt6-qtdeclarative
 
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

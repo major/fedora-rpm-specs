@@ -54,6 +54,7 @@ Requires:   fedora-third-party
 %{obsoleteJdk -- 1.8.0}
 %{obsoleteJdk -- 11}
 %{obsoleteJdk -- 17}
+%{obsoleteJdk -- 21}
 Obsoletes: openjfx8 < 1000
 Obsoletes: openjfx8-devel < 1000
 
@@ -63,12 +64,13 @@ of https://adoptium.net/installation/linux/#_centosrhelfedora_instructions ,
 if third-party repositories are enabled on a Fedora Linux system.
 This repository contains all JDKS which are live and not available in fedora 
 as per https://fedoraproject.org/wiki/Changes/ThirdPartyLegacyJdks .
-It (4.11.2024) installs: temurin-11-jdk temurin-11-jre temurin-17-jdk temurin-17-jre temurin-21-jdk
- temurin-21-jre temurin-22-jdk temurin-22-jre temurin-23-jdk temurin-23-jre temurin-8-jdk
- temurin-8-jre
+It (4.1.2026) installs: temurin-11-jdktemurin-17-jdk temurin-21-jdk
+temurin-25-jdk temurin-8-jdk, theirs -jre variants and we expect jre-headless in March 2026
 Warning, jdk contains both jre and jdk, so if you install jdk and jre (of same version)
 you will have two java alternatives masters, and one javac master.
 Since f42 it will be obsoleting retired java-(1.8.0,11,17)-openjdk-*
+Since f44 it will be obsoleting also java-(21)-openjdk-*
+https://fedoraproject.org/wiki/Changes/Java21RemovedEarlierThenScheduled
 
 %prep
 cat %{SOURCE2} |  sed "s/^enabled=0/enabled=%{enabled_by_default}/" > %{reponame}
@@ -86,7 +88,7 @@ install -D -m0644 %{SOURCE3} -t %{buildroot}%{_docdir}/%{name}/
 -- in dnf5 lua goes to stdout, but not to logs
 local posix = require ("posix")
 
-local jdksKnown={"1.8.0", "11", "17"}
+local jdksKnown={"1.8.0", "11", "17", "21"}
 local jdksFound={}
 
 local javadir="/usr/lib/jvm"
@@ -142,13 +144,14 @@ for key, value in pairs(jdksFound) do
 end
 if counter>0 then
   print("https://fedoraproject.org/wiki/Changes/ThirdPartyLegacyJdks")
+  print("https://fedoraproject.org/wiki/Changes/Java21RemovedEarlierThenScheduled")
   print("") --dnf5 is consuming first and alst line of output. this is it
 end
 
 %post
 # in dnf5 bash goes to logs, but not to stdout
 hits=0
-for x in 1.8.0 11 17 ; do
+for x in 1.8.0 11 17 21; do
   key="$x"
   if [ "$key" == "1.8.0" ] ; then
     key=8
@@ -164,6 +167,7 @@ for x in 1.8.0 11 17 ; do
 done
 if [ $hits -gt 0 ] ; then
   echo "https://fedoraproject.org/wiki/Changes/ThirdPartyLegacyJdks"
+  echo "https://fedoraproject.org/wiki/Changes/Java21RemovedEarlierThenScheduled"
 fi
 
 

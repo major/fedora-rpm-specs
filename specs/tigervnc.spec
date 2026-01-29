@@ -5,7 +5,7 @@
 %bcond server 1
 
 Name:           tigervnc
-Version:        1.15.90
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        A TigerVNC remote display system
 
@@ -433,6 +433,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Jan 27 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.0-1
+- 1.16.0
+
 * Fri Jan 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.15.90-1
 - 1.15.90
   Split to tigervnc-x11-server and tigervnc-wayland-server

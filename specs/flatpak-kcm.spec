@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:          flatpak-kcm
-Version:       6.5.90
-Release:       2%{?dist}
+Version:       6.5.91
+Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
 Url:           https://invent.kde.org/plasma/flatpak-kcm
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_app-permissions.d
 %{_kf6_datadir}/applications/kcm_app-permissions.desktop
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           kmscon
 Version:        9.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
 URL:            https://github.com/kmscon/kmscon/
@@ -25,8 +25,17 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 
-Patch1: 0001-kmsconvt-fix-agetty-launch-option.patch
 Patch2: 0001-Fix-build-on-i686.patch
+
+# Needed to enable kmscon by default with systemd
+Patch10: https://github.com/kmscon/kmscon/pull/246.patch
+Patch11: https://github.com/kmscon/kmscon/pull/245.patch
+
+# Fix locale on minimal Fedora install
+Patch12: https://github.com/kmscon/kmscon/pull/252.patch
+
+# Fix agetty launch option
+Patch20: 0001-kmsconvt-fix-agetty-launch-option.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
@@ -88,6 +97,9 @@ mod-gltex
 %{_libdir}/kmscon/mod-gltex.so
 
 %changelog
+* Tue Jan 27 2026 Jocelyn Falempe <jfalempe@redhat.com> - 9.3.0-2
+- Add systemd install unit, so it can be enabled by default.
+
 * Thu Jan 22 2026 Jocelyn Falempe <jfalempe@redhat.com> - 9.3.0-1
 - Bump version to 9.3.0-1
 

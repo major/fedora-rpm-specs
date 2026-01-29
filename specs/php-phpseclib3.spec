@@ -5,8 +5,8 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.48
-Release:    2%{?dist}
+Version:    3.0.49
+Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
 Name:       php-%{composer_project}%{vmajor}
@@ -114,6 +114,9 @@ php -d memory_limit=1G %{phpunit_bin} \
 
 
 %changelog
+* Tue Jan 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.49-1
+- Update to v3.0.49
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.48-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

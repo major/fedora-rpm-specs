@@ -119,7 +119,11 @@ ExclusiveArch:  %{rust_arches}
   rpm.define("rustc_package rustc-" .. version_channel .. "-src")
 end}
 Source0:        https://static.rust-lang.org/dist/%{rustc_package}.tar.xz
-Source1:        %{wasi_libc_source}
+Source1:        https://static.rust-lang.org/dist/%{rustc_package}.tar.xz.asc
+Source2:        https://static.rust-lang.org/rust-key.gpg.ascii
+
+Source10:        %{wasi_libc_source}
+
 # Sources for bootstrap_arches are inserted by lua below
 
 # By default, rust tries to use "rust-lld" as a linker for some targets.
@@ -222,15 +226,21 @@ end}
   local channel = rpm.expand("%{bootstrap_channel}")
   local target_arch = rpm.expand("%{_target_cpu}")
   for i, arch in ipairs(bootstrap_arches) do
-    i = 1000 + i * 3
+    i = 1000 + i * 6
     local suffix = channel.."-"..rust_triple(arch)
     print(string.format("Source%d: %s/cargo-%s.tar.xz\n", i, base, suffix))
-    print(string.format("Source%d: %s/rustc-%s.tar.xz\n", i+1, base, suffix))
-    print(string.format("Source%d: %s/rust-std-%s.tar.xz\n", i+2, base, suffix))
+    print(string.format("Source%d: %s/cargo-%s.tar.xz.asc\n", i+1, base, suffix))
+    print(string.format("Source%d: %s/rustc-%s.tar.xz\n", i+2, base, suffix))
+    print(string.format("Source%d: %s/rustc-%s.tar.xz.asc\n", i+3, base, suffix))
+    print(string.format("Source%d: %s/rust-std-%s.tar.xz\n", i+4, base, suffix))
+    print(string.format("Source%d: %s/rust-std-%s.tar.xz.asc\n", i+5, base, suffix))
     if arch == target_arch then
       rpm.define("bootstrap_source_cargo "..i)
-      rpm.define("bootstrap_source_rustc "..i+1)
-      rpm.define("bootstrap_source_std "..i+2)
+      rpm.define("bootstrap_sig_cargo "..i+1)
+      rpm.define("bootstrap_source_rustc "..i+2)
+      rpm.define("bootstrap_sig_rustc "..i+3)
+      rpm.define("bootstrap_source_std "..i+4)
+      rpm.define("bootstrap_sig_std "..i+5)
       rpm.define("bootstrap_suffix "..suffix)
     end
   end
@@ -244,6 +254,12 @@ Provides:       bundled(%{name}-bootstrap) = %{bootstrap_version}
 BuildRequires:  (cargo >= %{bootstrap_version} with cargo <= %{version})
 BuildRequires:  (%{name} >= %{bootstrap_version} with %{name} <= %{version})
 %global local_rust_root %{_prefix}
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} < 11
+BuildRequires:  gnupg2
+%else
+BuildRequires:  gpgverify
 %endif
 
 BuildRequires:  make
@@ -667,8 +683,12 @@ the Cargo package manager, and a few convenience macros for rpm builds.
 
 
 %prep
+%gpgverify -k 2 -s 1 -d 0
 
 %ifarch %{bootstrap_arches}
+%gpgverify -k 2 -s %{bootstrap_sig_cargo} -d %{bootstrap_source_cargo}
+%gpgverify -k 2 -s %{bootstrap_sig_rustc} -d %{bootstrap_source_rustc}
+%gpgverify -k 2 -s %{bootstrap_sig_std} -d %{bootstrap_source_std}
 rm -rf %{local_rust_root}
 %setup -q -n cargo-%{bootstrap_suffix} -T -b %{bootstrap_source_cargo}
 ./install.sh --prefix=%{local_rust_root} --disable-ldconfig
@@ -681,7 +701,7 @@ test -f '%{local_rust_root}/bin/rustc'
 %endif
 
 %if %{defined wasm_targets} && %{with bundled_wasi_libc}
-%setup -q -n %{wasi_libc_name} -T -b 1
+%setup -q -n %{wasi_libc_name} -T -b 10
 rm -rf %{wasi_libc_dir}/dlmalloc/
 
 %patch -P1000 -p1

@@ -1,7 +1,7 @@
 Name:    kwrited
 Summary: KDE Write Daemon
-Version: 6.5.90
-Release: 2%{?dist}
+Version: 6.5.91
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -45,6 +45,9 @@ Conflicts:      kde-workspace < 5.0.0-1
 %{_kf6_datadir}/knotifications6/kwrited.notifyrc
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

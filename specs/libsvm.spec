@@ -17,7 +17,11 @@
 %endif
 
 %bcond octave %[!0%{?rhel}]
+%ifarch %{ix86}
+%bcond python 0
+%else
 %bcond python %[!0%{?rhel}]
+%endif
 
 Name:           libsvm
 Version:        3.37
@@ -76,9 +80,9 @@ develop programs with libsvm in Python3.
 %if %{with java}
 %package        java
 Summary:        Java tools and interfaces for libsvm
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildArch:      noarch
 Requires:       javapackages-tools
 Requires:       %{name} = %{version}-%{release}

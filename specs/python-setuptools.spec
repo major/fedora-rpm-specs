@@ -12,28 +12,24 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        80.9.0
+Version:        80.10.2
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # autocommand is LGPL-3.0-only
 # backports-tarfile is MIT
 # importlib-metadata is Apache-2.0
-# inflect is MIT
 # jaraco-context is MIT
-# jaraco-collections is MIT
 # jaraco-functools is MIT
 # jaraco-text is MIT
 # more-itertools is MIT
 # packaging is BSD-2-Clause OR Apache-2.0
 # platformdirs is MIT
 # tomli is MIT
-# typeguard is MIT
-# typing-extensions is Python-2.0.1
 # wheel is MIT
 # zipp is MIT
 # the setuptools logo is MIT
-License:        MIT AND Apache-2.0 AND (BSD-2-Clause OR Apache-2.0) AND Python-2.0.1 AND LGPL-3.0-only
+License:        MIT AND Apache-2.0 AND (BSD-2-Clause OR Apache-2.0) AND LGPL-3.0-only
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source %{srcname} %{version}}
 
@@ -90,20 +86,16 @@ execute the software that requires pkg_resources.
 %global bundled %{expand:
 Provides: bundled(python%{python3_pkgversion}dist(autocommand)) = 2.2.2
 Provides: bundled(python%{python3_pkgversion}dist(backports-tarfile)) = 1.2
-Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 8
-Provides: bundled(python%{python3_pkgversion}dist(inflect)) = 7.3.1
-Provides: bundled(python%{python3_pkgversion}dist(jaraco-collections)) = 5.1
-Provides: bundled(python%{python3_pkgversion}dist(jaraco-context)) = 5.3
-Provides: bundled(python%{python3_pkgversion}dist(jaraco-functools)) = 4.0.1
-Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 3.12.1
-Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 10.3
-Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 24.2
-Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 4.2.2
-Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.0.1
-Provides: bundled(python%{python3_pkgversion}dist(typeguard)) = 4.3
-Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.12.2
-Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.45.1
-Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.19.2
+Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 8.7.1
+Provides: bundled(python%{python3_pkgversion}dist(jaraco-context)) = 6.1
+Provides: bundled(python%{python3_pkgversion}dist(jaraco-functools)) = 4.4
+Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 4
+Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 10.8
+Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 26
+Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 4.4
+Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.4
+Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.46.3
+Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.23
 }
 
 %package -n python%{python3_pkgversion}-setuptools
@@ -149,6 +141,9 @@ find setuptools pkg_resources -name \*.py | xargs sed -i -e '1 {/^#!\//d}'
 rm -f setuptools/*.exe
 # Don't ship these
 rm -r docs/conf.py
+# Remove a filter for coverage warning from pytest config
+# In pytest < 9, such a warning filter triggers ImportError without coverage
+sed -i '/:coverage/d' pytest.ini
 
 %if %{without bootstrap}
 %generate_buildrequires

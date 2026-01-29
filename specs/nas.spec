@@ -1,7 +1,7 @@
 Name:       nas 
 Summary:    The Network Audio System (NAS)
 Version:    1.9.5
-Release:    14%{?dist}
+Release:    15%{?dist}
 URL:        http://radscan.com/nas.html
 # README:               MIT (main license)
 # lib/audio/aiff.c          MIT (with Apple warranty declaration)
@@ -37,8 +37,8 @@ Patch2:     nas-1.9.5-Pass-extra-linker-flags-to-shared-libraries.patch
 # Adapt pointer types to GCC 14, bug #2261396, in upstream after 1.9.5,
 # <https://sourceforge.net/p/nas/bugs/12/>
 Patch3:     nas-1.9.5-Correct-pointer-types-for-GCC-14.patch
-# Adapt to API changes in libXaw-1.0.16, bug #2276343, proposed to an
-# upstream, <https://sourceforge.net/p/nas/bugs/14/>
+# Adapt to API changes in libXaw-1.0.16, bug #2276343, in upstream after
+# 1.9.5, <https://sourceforge.net/p/nas/bugs/14/>
 Patch4:     nas-1.9.5-Adapt-to-libXaw-1.0.16.patch
 BuildRequires:  bison
 BuildRequires:  flex
@@ -93,16 +93,20 @@ Development files and the documentation for Network Audio System.
 
 %prep
 %autosetup -p1
-
 # Update config.sub to support aarch64, bug #926196
 cp -p %{_datadir}/automake-*/config.{sub,guess} config
 sed -i -e '/AC_FUNC_SNPRINTF/d' config/configure.ac
 autoreconf -i -f config
 
+# Fails to build since GCC 15 which moved a default language standard tp ISO
+# C23. Porting nas to C23 is a big task probably not worth of this legacy
+# code.
+%global _pkg_extra_cflags -std=c99
+
 %build
 xmkmf
 # See HISTORY file how to modify CDEBUGFLAGS
-%make_build WORLDOPTS='-k CDEBUGFLAGS="%{optflags}" -k EXTRA_LDOPTIONS="%{__global_ldflags}"' World
+%make_build WORLDOPTS='-k CDEBUGFLAGS="%{build_cflags}" -k EXTRA_LDOPTIONS="%{build_ldflags}"' World
 
 
 %install
@@ -154,6 +158,9 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/lib*.a
 
 
 %changelog
+* Tue Jan 27 2026 Petr Pisar <ppisar@redhat.com> - 1.9.5-15
+- Build as ISO C99 (bug #2340904)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

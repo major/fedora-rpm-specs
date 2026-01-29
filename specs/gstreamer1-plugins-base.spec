@@ -8,8 +8,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.26.10
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPL-2.1-or-later
@@ -233,7 +233,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 
 %files -f gst-plugins-base-%{majorminor}.lang
 %license COPYING
-%doc AUTHORS NEWS README.md README.static-linking RELEASE REQUIREMENTS
+%doc NEWS README.md README.static-linking RELEASE
 %{_datadir}/appdata/*.appdata.xml
 %{_libdir}/libgstallocators-%{majorminor}.so.*
 %{_libdir}/libgstaudio-%{majorminor}.so.*
@@ -323,6 +323,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstfdmemory.h
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstphysmemory.h
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstshmallocator.h
+%{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstudmabufallocator.h
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/app
 %{_includedir}/gstreamer-%{majorminor}/gst/app/app.h
 %{_includedir}/gstreamer-%{majorminor}/gst/app/app-prelude.h
@@ -432,6 +433,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideoaggregator.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideocodecalphameta.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideodecoder.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideodmabufpool.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideoencoder.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideofilter.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/gstvideometa.h
@@ -505,6 +507,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Tue Jan 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
+- 1.28.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

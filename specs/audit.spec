@@ -1,7 +1,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.1.2
-Release: 4%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -88,7 +88,7 @@ Management Facility) database, through an IBM Tivoli Directory Server
 %package rules
 Summary: audit rules and utilities
 License: GPL-2.0-or-later
-Requires(post): coreutils
+Requires(post): coreutils gawk grep
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Recommends: %{name} = %{version}-%{release}
 
@@ -301,6 +301,12 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Tue Jan 27 2026 Steve Grubb <sgrubb@redhat.com> 4.1.2-6
+- Change awk to gawk
+
+* Tue Jan 27 2026 Steve Grubb <sgrubb@redhat.com> 4.1.2-5
+- Update requires for audit-rules package (#2415124)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

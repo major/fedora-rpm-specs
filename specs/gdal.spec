@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -72,6 +72,9 @@ Source5:       %{name}-cleaner.sh
 
 # Add some utils to the default install target
 Patch0:        gdal_utils.patch
+
+Patch1:        gdal-3.12.1-poppler-26.01.0.patch
+Patch2:        gdal-3.12.1-statically-link-stdc++.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -880,6 +883,11 @@ done
 
 
 %changelog
+* Tue Jan 27 2026 Marek Kasik <mkasik@redhat.com> - 3.12.1-4
+- Rebuild (poppler)
+- Statically link stdc++ due to undefined references
+-   Assisted-by: Claude Code
+
 * Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.12.1-3
 - Poppler rebuild
 

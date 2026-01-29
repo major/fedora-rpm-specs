@@ -1,27 +1,31 @@
-%global forgeurl https://salsa.debian.org/dns-team/dns-root-data
+%global forgeurl https://github.com/pemensik/get-trust-anchor
+%global gitcommit e68840988f15155a0be80ae5c36c33a79862ce42
+%global upload_sources %{SOURCE0} %{SOURCE3} %{SOURCE5}
 
 Name:           dns-root-data
-Version:        2025080400
+Version:        2026260100
 Release:        %autorelease
 Summary:        DNS root hints and DNSSEC trust anchor
 
-License:        MIT and CC0-1.0
+License:        BSD-2-Clause and CC0-1.0
 # Part of data is covered by https://www.iana.org/help/licensing-terms
 URL:            https://data.iana.org/root-anchors/
 VCS:            git:%{forgeurl}.git
-Source0:        %{forgeurl}/-/archive/debian/%{version}/dns-root-data-debian-%{version}.tar.bz2
-Source1:        https://data.iana.org/root-anchors/icannbundle.pem
+Source0:        %{forgeurl}/archive/%{gitcommit}/%{name}-%{version}.tar.gz
+Source1:        %{url}/icannbundle.pem
+Source2:        %{url}/root-anchors.xml
+Source3:        %{url}/root-anchors.p7s
+Source4:        https://www.internic.net/domain/named.root
+Source5:        https://www.internic.net/domain/named.root.sig
 # This is DSA 1024b key. But no better signature is provided
-Source2:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf0cb1a326bdf3f3efa3a01fa937bb869e3a238c5#/registry-admin.key
+Source6:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf0cb1a326bdf3f3efa3a01fa937bb869e3a238c5#/registry-admin.key
 
-BuildRequires:  perl-interpreter
-BuildRequires:  perl(XML::LibXML)
-BuildRequires:  perl(Net::DNS)
-BuildRequires:  perl(DateTime::Format::RFC3339)
-BuildRequires:  perl(DateTime)
-BuildRequires:  perl(Path::Tiny)
+BuildRequires:  python3
+BuildRequires:  python3-dns
 BuildRequires:  openssl
-BuildRequires:  gnupg
+BuildRequires:  gpgverify
+BuildRequires:  bind-dnssec-utils
+BuildRequires:  sed
 BuildArch:      noarch
 
 %description
@@ -31,28 +35,60 @@ of DNS root zone data, namely:
  * Root Hints (root.hints)
  * Root Trust Anchors (root.key, root.ds)
 
-%prep
-%autosetup -n %{name}-debian-%{version}
+%package utils
+Summary:        Tool for fetching and verifying DNSSEC trust anchor
+Requires:       %{name} = %{version}-%{release}
+Requires:       python3
+Requires:       python3-dns
+Requires:       openssl
+BuildArch:      noarch
 
-%{gpgverify} --keyring=%{SOURCE2} --data=root.hints --signature=root.hints.sig
-openssl smime -verify -CAfile %{SOURCE1} -inform DER -in root-anchors.p7s -content root-anchors.xml -out /dev/null
+%description utils
+Python trust anchor verification and fetching tool.
+
+
+%prep
+%autosetup -n get-trust-anchor-%{gitcommit} -p1
+
+%{gpgverify} --keyring=%{SOURCE6} --data=%{SOURCE4} --signature=%{SOURCE5}
+openssl smime -verify -CAfile %{SOURCE1} -inform DER -in %{SOURCE3} -content %{SOURCE2} -out /dev/null
 
 
 %build
-./parse-root-anchors
+sed -e "1 s,^#\!/usr/bin/env python,#\!%{_bindir}/python3," -i get_trust_anchor.py
+python3 ./get_trust_anchor.py --root-ca=%{SOURCE1} --local=%{SOURCE2} --local-sig=%{SOURCE3} --ksks-from-trust-anchor
+# Reset modification date to match original source
+touch -r %{SOURCE2} ksk-as-ds.txt
+touch -r %{SOURCE2} ksk-as-dnskey.txt
+
 
 %install
 mkdir -p %{buildroot}%{_datadir}/%{name}
-install -p -m 0644 root.hints{,.sig} \
-	%{buildroot}%{_datadir}/%{name}
-install -p -m 0644 root-anchors.{p7s,xml} %{buildroot}%{_datadir}/%{name}
-install -p -m 0644 root.{key,ds} %{buildroot}%{_datadir}/%{name}
+install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/%{name}/icannbundle.pem
+install -p -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/%{name}/root-anchors.xml
+install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/%{name}/root-anchors.p7s
+install -p -m 0644 %{SOURCE4} %{buildroot}%{_datadir}/%{name}/root.hints
+install -p -m 0644 %{SOURCE5} %{buildroot}%{_datadir}/%{name}/root.hints.sig
+install -p -m 0644 ksk-as-ds.txt %{buildroot}%{_datadir}/%{name}/root.ds
+install -p -m 0644 ksk-as-dnskey.txt %{buildroot}%{_datadir}/%{name}/root.key
+
+mkdir -p %{buildroot}%{_bindir}
+install -p -m 0755 get_trust_anchor.py %{buildroot}%{_bindir}/get_dnssec_trust_anchor
+
+
+%check
+openssl smime -verify -CAfile %{buildroot}%{_datadir}/%{name}/icannbundle.pem \
+              -inform DER -in %{buildroot}%{_datadir}/%{name}/root-anchors.p7s \
+              -content %{buildroot}%{_datadir}/%{name}/root-anchors.xml
+dnssec-importkey %{buildroot}%{_datadir}/%{name}/root.key
+grep -w DS %{buildroot}%{_datadir}/%{name}/root.ds
+grep -w DNSKEY %{buildroot}%{_datadir}/%{name}/root.key
 
 
 %files
-%license debian/copyright
-%doc debian/README.Debian
+%license LICENSE
 %dir %{_datadir}/%{name}/
+%{_datadir}/%{name}/icannbundle.pem
 %{_datadir}/%{name}/root-anchors.xml
 %{_datadir}/%{name}/root-anchors.p7s
 %{_datadir}/%{name}/root.hints
@@ -60,6 +96,9 @@ install -p -m 0644 root.{key,ds} %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/root.key
 %{_datadir}/%{name}/root.ds
 
+%files utils
+%doc README.md
+%{_bindir}/get_dnssec_trust_anchor
 
 
 %changelog

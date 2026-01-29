@@ -1,6 +1,6 @@
 Name:           wordxtr
 Version:        2.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Create hunspell dictionary from given plain text input data files
 
 License:        GPL-2.0-or-later
@@ -42,6 +42,9 @@ input language and plain text unicode data files.
 %{_bindir}/wordxtr
 
 %changelog
+* Tue Jan 27 2026 Parag Nemade <pnemade AT redhat DOT com> - 2.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        18.0.1
-Release:        2%{?dist}
+Version:        18.0.2
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -217,6 +217,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Jan 27 2026 Sandro Mani <manisandro@gmail.com>
+- Update to 18.0.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

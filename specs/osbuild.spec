@@ -1,12 +1,14 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        170
+Version:        171
+%global         osbuild_initrd_version 0.1
 
 %forgemeta
 
 %global         pypi_name osbuild
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
+%global         debug_package %{nil}
 
 Name:           %{pypi_name}
 Release:        1%{?dist}
@@ -15,7 +17,7 @@ License:        Apache-2.0
 URL:            %{forgeurl}
 
 Source0:        %{forgesource}
-BuildArch:      noarch
+Source1:        https://github.com/osbuild/initrd/releases/download/%{osbuild_initrd_version}/osbuild-initrd-%{osbuild_initrd_version}.tar.gz
 Summary:        A build system for OS images
 
 BuildRequires:  make
@@ -23,6 +25,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd
+BuildRequires:  golang
 
 # for tests
 BuildRequires:  python3-iniparse
@@ -52,6 +55,7 @@ Requires:       util-linux
 Requires:       python3-%{pypi_name} = %{version}-%{release}
 Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires:       python3-librepo
+Requires:       %{name}-initrd
 
 # This is required for `osbuild`, for RHEL-10 and above
 # the stdlib tomllib module can be used instead
@@ -117,6 +121,12 @@ Requires:       rpm-ostree
 %description ostree
 Contains the necessary stages, assembler and source
 to build OSTree based images.
+
+%package        initrd
+Summary:        osbuild initrd for vm support
+
+%description    initrd
+Osbuild initrd used for in-vm support.
 
 %package        selinux
 Summary:        SELinux policies
@@ -199,10 +209,12 @@ Contains depsolving capabilities for package managers.
 
 %prep
 %forgeautosetup -p1
+tar xf %SOURCE1
 
 %build
 %py3_build
 make man
+(cd osbuild-initrd-%{osbuild_initrd_version}; make build)
 
 # SELinux
 make -f /usr/share/selinux/devel/Makefile osbuild.pp
@@ -216,6 +228,7 @@ bzip2 -9 osbuild-container.pp
 
 %install
 %py3_install
+(cd osbuild-initrd-%{osbuild_initrd_version}; %make_install)
 
 # Ensure vm.py is executable which is needed to run in with init= in the vm
 chmod 0755 %{buildroot}%{python3_sitelib}/%{pypi_name}/vm.py
@@ -336,6 +349,9 @@ ignore="$ignore --ignore tools/test/test_depsolve.py"
 %{python3_sitelib}/%{pypi_name}-*.egg-info/
 %{python3_sitelib}/%{pypi_name}/
 
+%files initrd
+%{pkgdir}/initrd
+
 %files lvm2
 %{pkgdir}/devices/org.osbuild.lvm2*
 %{pkgdir}/stages/org.osbuild.lvm2*
@@ -392,6 +408,25 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Tue Jan 27 2026 Packit <hello@packit.dev> - 171-1
+Changes with 171
+----------------
+  - Improve robustness of --in-vm support (#2292)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Support running bootc-image-builder with --in-vm (#2328)
+    - Author: Alexander Larsson, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - bootc.install.config: add ostree.bls-append-except-default option (#2319)
+    - Author: Joel Capitao, Reviewers: Brian C. Lane, Simon de Vlieger
+  - grub2.iso: configurable entries (HMS-10018, HMS-10015) (#2317)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Ondřej Budai
+  - mockbuild: fix PQC builds on RHEL 10 (#2327)
+    - Author: Ondřej Budai, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - monitor: Report if the runner is running in a vm (#2320)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-01-27
+
+
 * Wed Jan 21 2026 Packit <hello@packit.dev> - 170-1
 Changes with 170
 ----------------

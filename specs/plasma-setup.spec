@@ -7,8 +7,8 @@
 %global _hardened_build 1
 
 Name:           plasma-setup
-Version:        6.5.90
-Release:        3%{?dist}
+Version:        6.5.91
+Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -134,6 +134,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Mon Jan 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.90-3
 - Use system-backgrounds-kde for wallpaper
 

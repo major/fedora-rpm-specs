@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    79dee3d2685b80518e94b9ea741b3f822b213a5e
-%global gh_date      2026-01-24
+%global gh_commit    37ddb96c14bfee10304825edbb7e66d341ec6889
+%global gh_date      2026-01-27
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    5
 
-%global upstream_version 12.5.7
+%global upstream_version 12.5.8
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -284,6 +284,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 12.5.8-1
+- update to 12.5.8
+
 * Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 12.5.7-1
 - update to 12.5.7
 - raise dependency on sebastian/comparator 7.1.4

@@ -16,12 +16,7 @@
 %bcond_with          tests
 
 # enable/disable man pages
-# see https://jira.mongodb.org/browse/CDRIVER-6210
-%if 0%{?fedora} >= 44
-%bcond_with          manpages
-%else
 %bcond_without       manpages
-%endif
 
 # disable for bootstrap (libmongocrypt needs libbson)
 %bcond_without       libmongocrypt
@@ -35,12 +30,14 @@
 Name:      mongo-c-driver
 Summary:   Client library written in C for MongoDB
 Version:   %{up_version}%{?up_prever:~%{up_prever}}
-Release:   2%{?dist}
+Release:   3%{?dist}
 # See THIRD_PARTY_NOTICES
 License:   Apache-2.0 AND ISC AND MIT AND Zlib
 URL:       https://github.com/%{gh_owner}/%{gh_project}
 
 Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/refs/tags/%{up_version}%{?up_prever:-%{up_prever}}.tar.gz
+
+Patch0:    upstream.patch
 
 BuildRequires: cmake >= 3.15
 BuildRequires: gcc
@@ -137,6 +134,7 @@ Documentation: http://mongoc.org/libbson/%{version}/
 
 %prep
 %setup -q -n %{gh_project}-%{up_version}%{?up_prever:-%{up_prever}}
+%patch -P0 -p1
 
 
 %build
@@ -280,6 +278,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 1.30.6-3
+- re-enable man pages using upstream patch for new docutils
+
 * Thu Jan 22 2026 Remi Collet <remi@remirepo.net> - 1.30.6-2
 - temporarily drop man pages on Fedora 44 as FTBFS
   reported as https://jira.mongodb.org/browse/CDRIVER-6210

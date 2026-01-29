@@ -1,6 +1,6 @@
 Name:       smatch
-Version:    1.73
-Release:    9%{?dist}
+Version:    1.74
+Release:    1%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -21,7 +21,6 @@ Patch2:     use-distribution-ldflags.patch
 Patch3:     preserve-install-timestamps.patch
 # TODO: File an issue upstream about the missing license.
 Patch4:     add-BSD-3-license.patch
-Patch5:     fix-gcc14-compilation-errors.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -51,17 +50,15 @@ Data for Smatch the static analysis tool for C.
 %if 0%{?rhel}
 %set_build_flags
 %endif
-
-export CFLAGS="-std=gnu99 $CFLAGS"
 %make_build PREFIX='%{_prefix}'
 
 %install
 %make_install PREFIX='%{_prefix}'
 
 %check
-echo "int main(void) { int a; return a; }" > test.c
-./smatch test.c > out
-grep "test.c:1 main() error: uninitialized symbol 'a'." out
+echo 'int main(void) { int a[2]; return a[2]; }' > test.c
+./smatch test.c 2>&1 | tee out
+grep "test.c:1 main() error: buffer overflow 'a' 2 <= 2" out
 
 %files
 %doc README Documentation/{arm64-detecting-tagged-addresses,smatch}.txt
@@ -72,6 +69,10 @@ grep "test.c:1 main() error: uninitialized symbol 'a'." out
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jan 26 2026 Lukáš Zaoral <lzaoral@redhat.com> - 1.74-1
+- rebase to the latest upstream release (rhbz#2432015)
+- update sanity check test case
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

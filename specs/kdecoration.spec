@@ -1,7 +1,7 @@
 Name:    kdecoration
 Summary: A plugin-based library to create window decorations
-Version: 6.5.90
-Release: 2%{?dist}
+Version: 6.5.91
+Release: 1%{?dist}
 
 License: LGPL-3.0-only AND LGPL-2.1-only AND CC0-1.0
 URL:     https://invent.kde.org/plasma/kdecoration
@@ -58,6 +58,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/org.kde.kdecoration2/
 %{_includedir}/KDecoration3
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

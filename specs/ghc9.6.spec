@@ -83,6 +83,10 @@ Patch5: hp2ps-C-gnu17.patch
 Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
 Patch8: ghc-configure-c99.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
+
 # https://gitlab.haskell.org/ghc/ghc/-/issues/23707 (duplicate manpages)
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085
 Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
@@ -393,6 +397,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P5 -p1 -b .orig
 %patch -P6 -p1 -b .orig
 %patch -P8 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 %patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz

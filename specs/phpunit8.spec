@@ -8,8 +8,8 @@
 #
 
 
-%global gh_commit    e4eee30004883338a11ef8f3da87e5e3bf02a30c
-%global gh_date      2026-01-24
+%global gh_commit    1015741814413c156abb0f53d7db7bbd03c6e858
+%global gh_date      2026-01-27
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -22,7 +22,7 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.51
+%global upstream_version 8.5.52
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -223,7 +223,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php81 php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
      $cmd ./phpunit $OPT --verbose || ret=1
   fi
@@ -240,6 +240,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 8.5.52-1
+- update to 8.5.52
+
 * Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 8.5.51-1
 - update to 8.5.51
 - raise dependency on sebastian/comparator 3.0.7

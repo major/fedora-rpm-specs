@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        26.1.11
+Version:        26.1.13
 %forgemeta
 Release:        %autorelease
 Summary:        Plain-text file notepad and todo-list manager with Markdown support

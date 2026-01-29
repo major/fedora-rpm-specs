@@ -6,7 +6,7 @@
 %endif
 
 Name:           chessx
-Version:        1.6.2
+Version:        1.6.6
 Release:        %autorelease
 Summary:        Chess Database and PGN viewer
 
@@ -27,10 +27,8 @@ Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
 
 # (downstream patch)
 Patch001:       0001-Work-around-Qt-Wayland-integration-issue.patch
-# https://github.com/Isarhamster/chessx/pull/61
-Patch002:       0002-Fix-install-path-of-icons-on-Linux.patch
-# https://github.com/Isarhamster/chessx/pull/63
-Patch003:       0003-Allow-linking-against-system-libraries-via-pkg-confi.patch
+Patch002:       https://github.com/Isarhamster/chessx/pull/61.patch#/0002-Fix-install-path-of-icons-on-Linux.patch
+Patch003:       https://github.com/Isarhamster/chessx/pull/63.patch#/0003-Allow-linking-against-system-libraries-via-pkg-confi.patch
 
 BuildRequires:  gcc-c++
 %if %{with qt6}
@@ -60,6 +58,9 @@ and Windows.
 
 %prep
 %autosetup -p1 -n %{name}-master
+
+# Fix up lupdate path
+sed -i 's| lupdate | $$[QT_INSTALL_BINS]/lupdate |' chessx.pro
 
 # Ensure bundled quazip code is not used
 rm -rf src/quazip

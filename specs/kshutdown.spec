@@ -1,31 +1,32 @@
-%undefine __cmake_in_source_build
-
 Name:           kshutdown
-Version:        5.2
-Release:        16%{?dist}
-Summary:        Graphical shutdown utility for Plasma 5
+Version:        6.2
+Release:        1%{?dist}
+Summary:        Graphical shutdown utility for Plasma 6
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
-URL:            http://kshutdown.sourceforge.net/
-Source0:        http://sourceforge.net/projects/%{name}/files/KShutdown/%{version}/%{name}-source-%{version}.zip
+URL:            https://kshutdown.sourceforge.io/
+Source0:        https://sourceforge.net/projects/%{name}/files/KShutdown/%{version}/%{name}-source-%{version}.zip
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Widgets)
 
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kidletime-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-knotifyconfig-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kcrash-devel
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6XmlGui)
 
 %description
 KShutdown is a graphical shutdown utility which allows you to turn off
@@ -36,7 +37,7 @@ options, command line support, and notifications.
 %autosetup
 
 %build
-%{cmake_kf5} -DKS_KF5=true
+%{cmake_kf6}
 %cmake_build
 
 %install
@@ -49,11 +50,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kshutdown.desktop
 %files -f %{name}.lang
 %doc ChangeLog LICENSE TODO
 %{_bindir}/kshutdown
-%{_datadir}/knotifications5/kshutdown.notifyrc
 %{_datadir}/applications/kshutdown.desktop
 %{_datadir}/icons/hicolor/*/apps/kshutdown.png
 
 %changelog
+* Sun Jan 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.2-1
+- 6.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -158,6 +158,8 @@ and above. This package provides Bill of Materials module for Guice.
 %pom_disable_module spring extensions
 %pom_disable_module testlib extensions
 
+%pom_add_dep com.google.code.findbugs:jsr305 core
+
 #%pom_remove_dep :aopalliance core
 #%pom_remove_dep :asm core
 #%pom_remove_dep :cglib core

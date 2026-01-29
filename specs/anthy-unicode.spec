@@ -1,5 +1,4 @@
 %global pkg  anthy-unicode
-%bcond_without autoreconf
 
 %if (0%{?fedora} > 35 || 0%{?rhel} > 7)
 %bcond_with    xemacs
@@ -9,7 +8,7 @@
 
 
 Name:  anthy-unicode
-Version: 1.0.0.20240502
+Version: 1.0.0.20260127
 Release: %autorelease
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -17,24 +16,18 @@ URL:  https://github.com/fujiwarat/anthy-unicode/wiki
 BuildRequires: emacs
 BuildRequires: gcc
 BuildRequires: git
+BuildRequires: meson
 %if %{with xemacs}
 BuildRequires: xemacs
 # overlay.el is required by anthy-unicode.el and anthy-unicode-isearch.el
 BuildRequires: xemacs-packages-extra
 %endif
-%if %{with autoreconf}
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
-BuildRequires: make
-%endif
 
-Source0: https://github.com/fujiwarat/anthy-unicode/releases/download/%{version}/%{name}-%{version}.tar.gz
-Source1: https://github.com/fujiwarat/anthy-unicode/releases/download/%{version}/%{name}-%{version}.tar.gz.sum
+Source0: https://github.com/fujiwarat/anthy-unicode/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1: https://github.com/fujiwarat/anthy-unicode/releases/download/%{version}/%{name}-%{version}.tar.xz.sha256sum#/%{name}.tar.xz.sha256sum
 Source2: %{name}-init.el
 # Upstreamed patches
 #Patch0: %%{name}-HEAD.patch
-Patch0: %{name}-HEAD.patch
 
 Summary: Japanese character set input library for Unicode
 
@@ -77,25 +70,24 @@ the programs which uses Anthy Unicode.
 
 
 %prep
-SAVED_SUM=$(grep sha512sum %SOURCE1 | awk '{print $2}')
-MY_SUM=$(sha512sum %SOURCE0 | awk '{print $1}')
+SAVED_SUM=$(cat %SOURCE1 | awk '{print $1}')
+MY_SUM=$(sha256sum %SOURCE0 | awk '{print $1}')
 if test x"$SAVED_SUM" != x"$MY_SUM" ; then
     abort
 fi
 %autosetup -S git
 
 %build
-%if %{with autoreconf}
-autoreconf -f -i -v
-%endif
-%configure --disable-static
-make %{?_smp_mflags}
+%meson \
+        -Demacs=enabled \
+        %{nil}
+%meson_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%meson_install
 
 # remove unnecessary files
-rm $RPM_BUILD_ROOT%{_libdir}/lib*.la
+#rm $RPM_BUILD_ROOT%%{_libdir}/lib*.la
 
 pushd ./src-util
 install -m 644 dic-tool-input $RPM_BUILD_ROOT%{_datadir}/%{pkg}
@@ -124,20 +116,19 @@ popd
 %endif
 
 %check
-sed -e "s|@datadir@|$PWD|" -e "s|@PACKAGE@|mkanthydic|" \
+sed -e "s|@datadir@|$PWD|" -e "s|@PACKAGE@|redhat-linux-build/mkanthydic|" \
   anthy-unicode.conf.in > test.conf
-_TEST_ENV="LD_LIBRARY_PATH=$PWD/src-main/.libs:$PWD/src-worddic/.libs"
-_TEST_ENV="$_TEST_ENV CONFFILE=$PWD/test.conf"
-cd test
+_TEST_ENV="CONFFILE=$PWD/test.conf"
+cd redhat-linux-build/test
 env $_TEST_ENV ./anthy --all
 env $_TEST_ENV ./checklib
-cd ../src-util
-env $_TEST_ENV ./anthy-dic-tool-unicode --load dic-tool-input
+cd ../../src-util
+env $_TEST_ENV ../redhat-linux-build/src-util/anthy-dic-tool-unicode --load dic-tool-input
 diff $HOME/.config/anthy/private_words_default dic-tool-result
-env $_TEST_ENV ./anthy-dic-tool-unicode --dump
+env $_TEST_ENV ../redhat-linux-build/src-util/anthy-dic-tool-unicode --dump
 mkdir -p $HOME/.anthy
 mv $HOME/.config/anthy/private_words_default $HOME/.anthy
-env $_TEST_ENV ./anthy-dic-tool-unicode --migrate
+env $_TEST_ENV ../redhat-linux-build/src-util/anthy-dic-tool-unicode --migrate
 diff $HOME/.config/anthy/private_words_default dic-tool-result
 cd ..
 
@@ -182,4 +173,3 @@ cd ..
 
 %changelog
 %autochangelog
-

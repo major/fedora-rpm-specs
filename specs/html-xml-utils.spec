@@ -1,14 +1,21 @@
 Name:           html-xml-utils
-Version:        8.6
-Release:        5%{?dist}
+Version:        8.7
+Release:        1%{?dist}
 Summary:        A number of simple utilities for manipulating HTML and XML files
 
 # All files W3C except openurl.c which has two BSD-3-Clause functions
 License:        W3C AND BSD-3-Clause
 URL:            https://www.w3.org/Tools/HTML-XML-utils/
-Source:         %{url}/html-xml-utils-%{version}.tar.gz
+Source:         %{url}/%{name}-%{version}.tar.gz
+# Fix C23 incompatibilities
+Patch:          %{name}-c23.patch
+# Fix a libcurl warning
+Patch:          %{name}-libcurl.patch
 
+BuildRequires: bison
+BuildRequires: flex
 BuildRequires: gcc
+BuildRequires: gperf
 BuildRequires: libcurl-devel
 BuildRequires: libidn2-devel
 BuildRequires: make
@@ -18,12 +25,17 @@ A number of simple utilities for manipulating HTML and XML files. See Manpages
 for each specific command.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
+
+# Force generated files to be regenerated
+rm dtd.c html.c scan.c unent.c
 
 %build
+export CFLAGS='%{build_cflags} -DYY_NO_INPUT'
 %configure
-%make_build
-
+# Occasional failures when building in parallel:
+# /bin/sh: line 1: ./cexport: Text file busy
+make
 
 %install
 %make_install
@@ -102,6 +114,11 @@ make check
 
 
 %changelog
+* Tue Jan 27 2026 Jerry James <loganjerry@gmail.com> - 8.7-1
+- Update to 8.7
+- Add patch for C23 compatibility
+- Regenerate files generated with gperf, flex, and bison
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

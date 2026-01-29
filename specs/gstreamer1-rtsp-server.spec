@@ -1,8 +1,8 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-rtsp-server
-Version:        1.26.10
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        GStreamer RTSP server library
 
 License:        LGPL-2.0-or-later AND LGPL-2.1-only
@@ -62,7 +62,7 @@ chrpath --delete %{buildroot}%{_libdir}/libgstrtspserver-%{majorminor}.so*
 
 %files
 %license COPYING.LIB
-%doc README TODO NEWS RELEASE REQUIREMENTS
+%doc README TODO NEWS RELEASE
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/libgstrtspserver-%{majorminor}.so.*
 %{_libdir}/girepository-1.0/GstRtspServer-%{majorminor}.typelib
@@ -84,6 +84,9 @@ chrpath --delete %{buildroot}%{_libdir}/libgstrtspserver-%{majorminor}.so*
 %endif
 
 %changelog
+* Tue Jan 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
+- 1.28.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

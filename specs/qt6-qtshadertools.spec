@@ -23,7 +23,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Downstream patches
-Patch0: qtshadertools-unbundle-glslang.patch
+# Patch0: qtshadertools-unbundle-glslang.patch
 
 # Upstream patches
 
@@ -35,8 +35,8 @@ BuildRequires: ninja-build
 BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
-BuildRequires: glslang-devel
-BuildRequires: spirv-tools-devel
+# BuildRequires: glslang-devel
+# BuildRequires: spirv-tools-devel
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
 
 Provides: bundled(spirv-cross)
@@ -62,9 +62,9 @@ Requires: spirv-tools
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 # Make sure 3rdparty/glslang isn't used
-pushd src/3rdparty
-rm -rf glslang
-popd
+# pushd src/3rdparty
+# rm -rf glslang
+# popd
 
 %build
 %cmake_qt6

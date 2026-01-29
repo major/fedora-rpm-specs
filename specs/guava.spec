@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           guava
-Version:        33.3.0
+Version:        33.5.0
 Release:        %autorelease
 Summary:        Google Core Libraries for Java
 # Most of the code is under Apache-2.0
@@ -12,6 +12,10 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/google/guava/archive/v%{version}/guava-%{version}.tar.gz
+
+Patch:          0001-Remove-unused-annotation-module-dependencies.patch
+Patch:          0002-Remove-NullMarked-filtering-and-annotation-collectio.patch
+Patch:          0003-Fix-invalid-Maven-attribute-values-in-compilerArgs.patch
 
 BuildRequires:  jurand
 %if %{with bootstrap}
@@ -44,8 +48,6 @@ guava-testlib provides additional functionality for conveninent unit testing
 
 find . -name '*.jar' -delete
 
-%pom_remove_parent guava-bom
-
 %pom_disable_module guava-gwt
 %pom_disable_module guava-tests
 
@@ -59,6 +61,7 @@ find . -name '*.jar' -delete
 
 %pom_remove_plugin -r :toolchains-maven-plugin
 %pom_remove_plugin -r :maven-toolchains-plugin
+%pom_remove_plugin -r :central-publishing-maven-plugin
 %pom_xpath_remove pom:jdkToolchain
 
 %pom_remove_dep :caliper guava-tests
@@ -78,14 +81,14 @@ sed -i /Xplugin:ErrorProne/d pom.xml
 
 %pom_remove_dep -r :error_prone_annotations
 %pom_remove_dep -r :j2objc-annotations
-%pom_remove_dep -r org.checkerframework:
 %pom_remove_dep -r :listenablefuture
+%pom_remove_dep -r :jspecify
 
 %java_remove_annotations guava guava-testlib -s \
-  -p org[.]checkerframework[.] \
   -p com[.]google[.]common[.]annotations[.] \
   -p com[.]google[.]errorprone[.]annotations[.] \
   -p com[.]google[.]j2objc[.]annotations[.] \
+  -p org[.]jspecify[.]annotations[.] \
 
 %mvn_package "com.google.guava:failureaccess" guava
 

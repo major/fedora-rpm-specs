@@ -1,13 +1,17 @@
+%global upstream_ver 2.12.2.8
+%global commit 0f7c
+
 Name:           hello
-Version:        2.12.2
+Version:        %{upstream_ver}^20260117git%{commit}
 Release:        %autorelease
 Summary:        Prints a familiar, friendly greeting
 # All code is GPLv3+.
 # Parts of the documentation are under GFDL
 License:        GPL-3.0-or-later AND GFDL-1.3-or-later
 URL:            https://www.gnu.org/software/hello/
-Source0:        https://ftp.gnu.org/gnu/hello/hello-%{version}.tar.gz
-Source1:        https://ftp.gnu.org/gnu/hello/hello-%{version}.tar.gz.sig
+# generated with make dist on Rawhide
+Source0:        https://ftp.gnu.org/gnu/hello/hello-%{upstream_ver}-%{commit}.tar.gz
+# Source1:        https://ftp.gnu.org/gnu/hello/hello-%%{version}.tar.gz.sig
 Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
 
 BuildRequires:  gcc
@@ -30,8 +34,8 @@ practices.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+# %%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
+%setup -q -n %{name}-2.12.2.8-%{commit}
 
 
 %build

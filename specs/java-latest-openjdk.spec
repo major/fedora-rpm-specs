@@ -345,7 +345,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        29
+%global buildver        32
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -1192,7 +1192,7 @@ Version: %{newjavaver}.%{buildver}
 # This package needs `.0` as prefix of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}0.%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}0.%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -1331,7 +1331,7 @@ Provides: bundled(lcms2) = 2.17.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.47
+Provides: bundled(libpng) = 1.6.51
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.1
 %endif
@@ -2551,7 +2551,4 @@ exit 0
 %endif
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:26.0.0.0.29-0.0.1.ea.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

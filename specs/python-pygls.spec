@@ -1,5 +1,5 @@
 Name:           python-pygls
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        A pythonic generic language server
 
@@ -7,9 +7,12 @@ License:        Apache-2.0
 URL:            https://github.com/openlawlibrary/pygls
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildSystem:    pyproject
+BuildOption(install): -L pygls
+BuildOption(generate_buildrequires): -x ws
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
-
 BuildRequires:  python3-pytest
 BuildRequires:  %{py3_dist pytest_asyncio}
 
@@ -25,28 +28,11 @@ Summary:        %{summary}
 
 %description -n python3-pygls %_description
 
-%pyproject_extras_subpkg -n python3-pygls ws
-
-%prep
-%autosetup -p1 -n pygls-%{version}
-
-# relax version requirements of websockets
-sed -i 's/\^11\.0\.3/>=11.0.3/' pyproject.toml
-
-%generate_buildrequires
-%pyproject_buildrequires -x ws
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files pygls
-
-%check
-%pytest
+%check -a
+%pytest -rs
 
 %files -n python3-pygls -f %{pyproject_files}
+%license LICENSE.txt
 
 %changelog
 %autochangelog

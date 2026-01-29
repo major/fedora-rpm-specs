@@ -1,14 +1,16 @@
 %global branch 1.28
 
 Name:          eom
-Version:       %{branch}.0
+Version:       %{branch}.1
 Release:       %autorelease
 Summary:       Eye of MATE image viewer
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ 
 URL:           http://mate-desktop.org 
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
-Patch0:        libpeas1_pygobject352.patch
+
+# https://github.com/mate-desktop/eom/pull/372
+Patch1:        eom_0001-configure-Only-use-girepository-2.0-if-libpeas-uses-.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: exempi-devel
@@ -47,7 +49,8 @@ Development files for eom
 %prep
 %autosetup -p1
 
-#NOCONFIGURE=1 ./autogen.sh
+# Patch1 + generating autotools files
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -95,7 +98,6 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 %dir %{_includedir}/eom-2.20
 %dir %{_includedir}/eom-2.20/eom
 %{_includedir}/eom-2.20/eom/*.h
-%{_datadir}/gtk-doc/html/eom/
 %{_datadir}/gir-1.0/*.gir
 
 

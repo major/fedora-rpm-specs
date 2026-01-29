@@ -45,7 +45,7 @@
 %endif
 
 Name:           neovim
-Version:        0.11.5
+Version:        0.11.6
 Release:        %autorelease
 
 License:        Apache-2.0 AND Vim AND MIT

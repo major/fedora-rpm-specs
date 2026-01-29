@@ -79,7 +79,7 @@
 
 Name:           git
 Version:        2.52.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -138,6 +138,11 @@ Patch5:         git-test-apache-davlockdbtype-config.patch
 #
 # https://github.com/gitgitgadget/git/pull/1853
 Patch6:         git-2.52-sanitize-sideband-channel-messages.patch
+
+# Fix test failures with curl 8.18.0
+# These patches should be removed in v2.53.0
+Patch7:         t5563-add-missing-end-of-line-in-HTTP-header.patch
+Patch8:         t5551-handle-trailing-slashes-in-expected-cookies-output.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -1041,6 +1046,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Jan 27 2026 Ondřej Pohořelský <opohorel@redhat.com> - 2.52.0-3
+- fix test failures with curl 8.18.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.52.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

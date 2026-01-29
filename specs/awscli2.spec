@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.27.0
+Version:            2.33.0
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -27,6 +27,8 @@ Patch3:             0001-Bump-the-ceiling-for-botocore-memory-leak-tests-to-1.pa
 Patch4:             urllib3-v2.patch
 # fix Python 3.14 incompatibilities
 Patch5:             python314.patch
+# https://github.com/aws/aws-cli/pull/9684#issuecomment-3804078566
+Patch6:             prompt-toolkit-3.0.52.patch
 
 BuildArch:          noarch
 

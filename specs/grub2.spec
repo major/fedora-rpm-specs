@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	52%{?dist}
+Release:	53%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -608,6 +608,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 21 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.12-53
+- Revert "Add support for Linux EFI stub loading on arm architectures"
+  this fixes aarch64 kernels with stubble-/systemd-stub not booting
+
 * Tue Jan 20 2026 Nicolas Frayer <nfrayer@redhat.com> - 2.12-52
 - fs/xfs: Add new superblock features added in Linux 6.12/6.13
 - Resolves: #2429501

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.14
-Release: 2%{?dist}
+Version: 44.17
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -109,7 +109,6 @@ Requires: python3-dasbus >= %{dasbusver}
 Requires: python3-xkbregistry
 Requires: flatpak
 Requires: flatpak-libs
-Requires: systemd-pam
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
 %endif
@@ -132,6 +131,7 @@ Requires: NetworkManager-libnm >= %{nmver}
 Requires: kbd
 Requires: chrony
 Requires: systemd
+Requires: systemd-pam
 %if ! 0%{?rhel}
 Requires: systemd-resolved
 %endif
@@ -257,7 +257,7 @@ Requires: fcoe-utils >= %{fcoeutilsver}
 Requires: device-mapper-multipath
 # only WeakRequires in -env-
 Requires: kdump-anaconda-addon
-%if ! 0%{?rhel}
+%if ! 0%{?rhel} || 0%{?rhel} >= 10
 Requires: zram-generator-defaults
 %else
 Requires: zram-generator
@@ -519,6 +519,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 27 2026 Packit <hello@packit.dev> - 44.17-1
+- rescue: Change 'immutable' to 'atomic' in warning message (k.koukiou)
+- Only show compatible translations in text mode (mkolman)
+- Add instructions for externally build boot iso updates (mkolman)
+
+* Tue Jan 27 2026 Packit <hello@packit.dev> - 44.16-1
+- Remove Merging examples section from CONTRIBUTING.rst (k.koukiou)
+
+* Tue Jan 27 2026 Packit <hello@packit.dev> - 44.15-1
+- spec: Require zram-generator-defaults for RHEL-10 (k.koukiou)
+- RPM spec: make anaconda-core require systemd-pam (awilliam)
+- payloads: flatpak: fix SSL error detection on older Python versions
+  (bciconel)
+- rescue: Add warning for immutable systems (k.koukiou)
+- rescue: detect OSTree deployments in rescue mode and show deployment path
+  (k.koukiou)
+- pyanaconda: storage: fix FindExistingSystems API for ostree based OSes
+  (k.koukiou)
+
 * Tue Jan 20 2026 Adam Williamson <awilliam@redhat.com> - 44.14-2
 - Require systemd-pam to fix GUI startup with systemd-259-6 and later
 

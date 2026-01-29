@@ -1966,8 +1966,6 @@ cd $OLD_CWD
 %cmake_build --target runtimes
 #endregion Final stage
 
-#endregion Performance comparison
-
 #region compat lib
 cd ..
 

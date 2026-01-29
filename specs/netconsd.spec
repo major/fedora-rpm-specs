@@ -6,12 +6,13 @@ Release:        %autorelease
 Summary:        The Netconsole Daemon
 
 License:        BSD-3-Clause
-URL:            https://facebookmicrosites.github.io/netconsd
+URL:            %{forgeurl}
 Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  libstdc++-static
+BuildRequires:  re2-devel
 
 %description
 This is a daemon for receiving and processing logs from the Linux Kernel, as

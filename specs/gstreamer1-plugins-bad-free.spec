@@ -29,8 +29,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.26.10
-Release:        3%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -404,6 +404,7 @@ aren't tested well enough, or the code is not of good enough quality.
     -D lcevcencoder=disabled \
     -D libde265=disabled \
     -D magicleap=disabled \
+    -D mpeghdec=disabled \
     -D neon=disabled \
     -D nvcomp=disabled \
     -D nvdswrapper=disabled \
@@ -522,7 +523,7 @@ EOF
 
 %files -f gst-plugins-bad-%{majorminor}.lang
 %license COPYING
-%doc AUTHORS NEWS README.md README.static-linking RELEASE REQUIREMENTS
+%doc NEWS README.md README.static-linking RELEASE
 
 %{_metainfodir}/gstreamer-bad-free.metainfo.xml
 %{_bindir}/gst-transcoder-%{majorminor}
@@ -899,6 +900,9 @@ EOF
 
 
 %changelog
+* Tue Jan 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
+- 1.28.0
+
 * Thu Jan 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.26.10-3
 - libonnxruntime rebuild
 

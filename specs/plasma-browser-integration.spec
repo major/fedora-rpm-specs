@@ -1,7 +1,7 @@
 Name:    plasma-browser-integration
 Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
-Version: 6.5.90
-Release: 2%{?dist}
+Version: 6.5.91
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -55,7 +55,8 @@ https://community.kde.org/Plasma/Browser_Integration
 %build
 %cmake_kf6 \
   -DMOZILLA_DIR:PATH=%{_libdir}/mozilla \
-  -DLIBREWOLF_DIR:PATH=%{_libdir}/librewolf
+  -DLIBREWOLF_DIR:PATH=%{_libdir}/librewolf \
+  -DWATERFOX_DIR:PATH=%{_libdir}/waterfox
 %cmake_build
 
 
@@ -69,6 +70,7 @@ https://community.kde.org/Plasma/Browser_Integration
 %config %{_sysconfdir}/chromium/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %config %{_sysconfdir}/opt/chrome/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %config %{_sysconfdir}/opt/edge/native-messaging-hosts/org.kde.plasma.browser_integration.json
+%{_libdir}/waterfox/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %{_bindir}/plasma-browser-integration-host
 %{_libdir}/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %{_libdir}/librewolf/native-messaging-hosts/org.kde.plasma.browser_integration.json
@@ -79,6 +81,9 @@ https://community.kde.org/Plasma/Browser_Integration
 %{_kf6_qtplugindir}/kf6/kded/browserintegrationflatpakintegrator.so
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -374,12 +374,16 @@ sed -i -e 's@"gfx1100", "gfx1101", "gfx1200", "gfx1201", "gfx908",@"gfx1100", "g
 %if 0%{?rhel}
 # In RHEL but too old
 sed -i -e '/typing-extensions/d' setup.py
-# Need to pip these
-sed -i -e '/sympy/d' setup.py
+# Need to pip this
 sed -i -e '/fsspec/d' setup.py
-%else
+%endif
+
+%if %{with sympy}
 # for 2.5.0
 sed -i -e 's@sympy==1.13.1@sympy>=1.13.1@' setup.py
+%else
+# Need to pip this
+sed -i -e '/sympy/d' setup.py
 %endif
 
 # A new dependency

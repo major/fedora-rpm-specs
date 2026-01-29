@@ -3,8 +3,8 @@
 %endif
 
 Name:       mock-core-configs
-Version:    43.4
-Release:    2%{?dist}
+Version:    43.5
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -22,7 +22,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.115
+Requires:   distribution-gpg-keys >= 1.116
 # specify minimal compatible version of mock
 Requires:   mock >= 6.1.test
 Requires:   mock-filesystem
@@ -152,8 +152,10 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 43.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Tue Jan 27 2026 Pavel Raiskup <pavel@raiskup.cz> 43.5-1
+- add PQ keys to rhel9 (msuchy@redhat.com)
+- Switch Mageia 10+ and Cauldron to DNF5 (ngompa@mageia.org)
+- EOL Fedora 41
 
 * Mon Jan 12 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 43.4-1
 - Disable bootstrap for riscv (j1.kyjovsky@gmail.com)

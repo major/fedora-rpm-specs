@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Web Mercator XYZ tile utilities
 
 License:        BSD-3-Clause
@@ -12,10 +12,6 @@ Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(click)
-BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
 
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(numpydoc)
@@ -30,19 +26,18 @@ command line programs built on these utilities.}
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname} %{_description}
 
 
 %prep
 %autosetup -n %{srcname}-%{version}
-# Remove bundled egg-info
-rm -rf %{srcname}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 %build
-%py3_build
-
+%pyproject_wheel
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs html
 
@@ -50,19 +45,21 @@ PYTHONPATH=${PWD} sphinx-build-3 docs html
 rm -rf html/.{buildinfo,doctrees}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
 %{pytest}
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname}  -f %{pyproject_files}
 %doc README.rst html
 %license LICENSE.txt
 %{_bindir}/mercantile
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jan 27 2026 Federico Pellegrin <fede@evolware.org> - 1.2.1-21
+- Use new Python macros in spec file (rhbz#2377881)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

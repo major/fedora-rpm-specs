@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.45.50
-Release: 19%{?dist}
+Version: 2.45.90
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -107,6 +107,7 @@ URL: https://sourceware.org/binutils
 #
 # Official releases come from:  https://ftp.gnu.org/gnu/binutils
 # Pre releases come from:       https://sourceware.org/pub/binutils/snapshots/
+#   (Even numbered pre releases include gold)
 # Snapshots come from:          https://snapshots.sourceware.org/binutils/trunk/
 # Tarballs are made by hand following a process outlined in this document:
 #                               https://fedoraproject.org/wiki/BinutilsRawhideSync
@@ -120,8 +121,9 @@ URL: https://sourceware.org/binutils
 # a snapshot of the mainline development sources.
 
 # %%define source official-release
-# %%define source pre-release
-%define source snapshot
+%define source even-pre-release
+# %%define source odd-pre-release
+# %%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -216,14 +218,13 @@ URL: https://sourceware.org/binutils
 %if "%{source}" == "official-release"
 # Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%%{version}.tar.xz
 Source0: https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
-%endif
-%if "%{source}" == "pre-release"
-Source0: binutils-%{version}.tar.xz
-%endif
-%if "%{source}" == "snapshot"
+%elif "%{source}" == "even-pre-release"
+Source0: binutils-with-gold-%{version}.tar.xz
+%elif "%{source}" == "odd-pre-release"
+Source0: binutils-%%{version}.tar.xz
+%elif "%{source}" == "snapshot"
 Source0: binutils-with-gold-%{version}-%{commit_id}.tar.gz
-%endif
-%if "%{source}" == "tarball"
+%elif "%{source}" == "tarball"
 Source0: binutils-%{version}-%{commit_id}.tar.xz
 %endif
 
@@ -345,11 +346,9 @@ Patch20: binutils-ld-default-z-text.patch
 
 #----------------------------------------------------------------------------
 
-# Purpose:  Revert the fixes for PR33577 which introduce a change into the
-#            behaviour of symbol versioning - a behaviour not expected by
-#            other linkers.
-# Lifetime: Fixed in 2.46 (maybe) (hopefully temporary)
-# Patch97: binutils-revert-PR33577.patch
+# Purpose:  Fix an issue with object attributes for the AArch64 target.
+# Lifetime: TEMPORARY - should be fixed by the 2.46 release.
+Patch97: binutils-aarch64-obj-attr.patch
 
 # Purpose:  Remove the Build protected-func-2 without PIE linker tests
 #            as these are currently failing.
@@ -359,12 +358,6 @@ Patch98: binutils-remove-ld-protected-func-2-test.patch
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10.
 # Lifetime: TEMPORARY
 Patch99: binutils-suppress-ld-align-tests.patch
-
-# Purpose: Disable GCS warnings when shared dependencies are not built with GCS
-# support.
-# Lifetime: TEMPORARY
-Patch100: binutils-disable-gcs-report-dynamic.patch
-Patch101: binutils-disable-gcs-report-dynamic-tests.patch
 
 #----------------------------------------------------------------------------
 
@@ -635,6 +628,10 @@ mv ../%{gold_tarball}/elfcpp .
 %autosetup -p1 -n binutils-with-gold-%{version}-%{commit_id}
 %elif "%{source}" == "official-release"
 %autosetup -p1 -n binutils-with-gold-%{version}
+%elif "%{source}" == "even-pre-release"
+%autosetup -p1 -n binutils-with-gold-%{version}
+%elif "%{source}" == "odd-pre-release"
+%autosetup -p1 -n binutils-%{version}
 %else
 %autosetup -p1 -n binutils-%{version} 
 %endif
@@ -1498,6 +1495,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Jan 27 2026 Nick Clifton <nickc@redhat.com> - 2.45.90-1
+- Rebase to pre-release snapshot.
+
 * Mon Jan 19 2026 Nick Clifton <nickc@redhat.com> - 2.45.50-19
 - Rebase to commit ba5838a98fb
 

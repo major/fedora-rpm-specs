@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        62
+Version:        64
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -27,6 +27,7 @@ Requires: cockpit-storaged
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
+Requires: python3-bugzilla
 # Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
 # it can often fall back to a diferent browser. This does not work in the limited installer
 # environment, so we need to make sure Firefox is available. Exclude on RHEL, only Flatpak version will be there.
@@ -34,7 +35,7 @@ Requires: anaconda-core  >= %{anacondacorever}
 Requires: (firefox if fedora-release-workstation)
 %endif
 %if 0%{?fedora}
-Requires: fedora-logos
+Requires: system-logos
 %endif
 BuildRequires: desktop-file-utils
 
@@ -51,7 +52,7 @@ Provides: bundled(npm(error-stack-parser)) = 2.1.4
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(js-tokens)) = 4.0.0
-Provides: bundled(npm(lodash)) = 4.17.21
+Provides: bundled(npm(lodash)) = 4.17.23
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(luxon)) = 3.7.2
 Provides: bundled(npm(memoize-one)) = 5.2.1
@@ -127,6 +128,15 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jan 27 2026 Packit <hello@packit.dev> - 64-1
+
+
+* Tue Jan 27 2026 Packit <hello@packit.dev> - 63-1
+- Disable Firefox password manager popup in password fields (Resolves: rhbz#2400443)
+- Use python-bugzilla API for bug creation and attachments
+- spec: require system-logos instead of fedora-logos (Resolves: rhbz#2433186)
+
+
 * Fri Jan 16 2026 Packit <hello@packit.dev> - 62-1
 - components: localization: fix TypeError with undefined locale
   (Resolves: rhbz#2422032)

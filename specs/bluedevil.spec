@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 6.5.90
-Release: 3%{?dist}
+Version: 6.5.91
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{name}.git
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
+- 6.5.91
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,22 +2,20 @@
 
 Summary:       Text editor for the MATE desktop
 Name:          pluma
-Version:       %{branch}.0
+Version:       %{branch}.1
 Release:       %autorelease
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
-Patch1:        pluma_0001-Show-the-default-in-the-filechooser-s-Character-Enco.patch
-Patch2:        pluma_0002-Do-not-use-the-window-allocation-to-save-the-window-.patch
-Patch3:        pluma_0003-Fix-window-size-saving-when-maximized.patch
-Patch4:        libpeas1_pygobject352.patch
+# https://github.com/mate-desktop/pluma/pull/731
+Patch1:        pluma_0001-configure-Only-use-girepository-2.0-if-libpeas-uses-.patch
+#Patch4:        libpeas1_pygobject352.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: enchant-devel
 BuildRequires: libpeas1-devel
-# Required for autotools to generate typelib
 BuildRequires: gobject-introspection-devel
 BuildRequires: gtk3-devel
 BuildRequires: gtksourceview4-devel
@@ -71,7 +69,8 @@ Development files for pluma
 %prep
 %autosetup -p1
 
-#NOCONFIGURE=1 ./autogen.sh
+# Patch1
+NOCONFIGURE=1 ./autogen.sh
 
 # Fix debug permissions with messy hack 
 find ./*/* -type f -exec chmod 644 {} \;

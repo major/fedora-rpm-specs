@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for phpunit10
 #
-# SPDX-FileCopyrightText:  Copyright 2010-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2010-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    bd265b671a63b87e85a8155f885b6fbb41ee505b
-%global gh_date      2026-01-24
+%global gh_commit    33198268dad71e926626b618f3ec3966661e4d90
+%global gh_date      2026-01-27
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.61
+%global upstream_version 10.5.63
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -244,7 +244,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php81 php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
      $cmd ./phpunit $OPT || ret=1
   fi
@@ -265,6 +265,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 10.5.63-1
+- update to 10.5.63
+
 * Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 10.5.61-1
 - update to 10.5.61
 - raise dependency on sebastian/comparator 5.0.5

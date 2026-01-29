@@ -3,7 +3,7 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.41
+Version:        0.3.44
 Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
@@ -49,6 +49,7 @@ BuildRequires:  hfsplus-tools
 %endif
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  libtool
 BuildRequires:  gettext-devel
 BuildRequires:  libxslt
 BuildRequires:  docbook-style-xsl
@@ -68,7 +69,6 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 %prep
 %autosetup -p1
 # https://github.com/Thomas-Tsai/partclone/issues/285
-%{?el8:sed -e 's/^\(AM_GNU_GETTEXT_VERSION\).*/\1([0.19])/' -i configure.ac}
 autoreconf -i -f
 
 %build
@@ -133,6 +133,12 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Wed Jan 28 2026 Robert Scheck <robert@fedoraproject.org> 0.3.44-1
+- Upgrade to 0.3.44 (#2433151)
+
+* Fri Jan 23 2026 Robert Scheck <robert@fedoraproject.org> 0.3.42-1
+- Upgrade to 0.3.42 (#2430752 #c1)
+
 * Wed Jan 21 2026 Robert Scheck <robert@fedoraproject.org> 0.3.41-1
 - Upgrade to 0.3.41 (#2430752)
 

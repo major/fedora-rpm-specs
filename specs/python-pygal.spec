@@ -10,6 +10,10 @@ License:            LGPL-3.0-or-later
 URL:                https://pypi.io/project/pygal
 Source0:            https://pypi.io/packages/source/p/%{modname}/%{modname}-%{version}.tar.gz
 
+# Remove pytest-runner
+# https://github.com/Kozea/pygal/pull/578
+Patch:              https://github.com/Kozea/pygal/pull/578.patch
+
 BuildArch:          noarch
 
 BuildRequires:      python3-devel

@@ -2,8 +2,7 @@ Name:           pyxattr
 Summary:        Extended attributes library wrapper for Python
 Version:        0.7.2
 Release:        19%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://pyxattr.k1024.org/
 Source0:        %{URL}/downloads/%{name}-%{version}.tar.gz
 Source1:        %{URL}/downloads/%{name}-%{version}.tar.gz.asc

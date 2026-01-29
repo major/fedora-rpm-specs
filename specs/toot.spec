@@ -1,7 +1,7 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.48.1
+Version:        0.51.0
 Release:        %autorelease
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
@@ -11,7 +11,7 @@ URL:            https://github.com/ihabunek/%{modname}
 Source0:        https://github.com/ihabunek/%{modname}/archive/refs/tags/%{version}.tar.gz#/%{modname}-%{version}.tar.gz
 # https://github.com/ihabunek/toot/issues/540
 # but tui is broken
-Patch0:         urwid.patch
+# Patch0:         urwid.patch
 
 BuildArch:      noarch
 
@@ -19,6 +19,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(setuptools-scm) >= 8
 BuildRequires:  python3dist(wheel) python3dist(pytest) python3dist(pillow)
+BuildRequires:  python3dist(urwid)
 
 %description
 Toot is a CLI and TUI tool for interacting with Mastodon instances
@@ -40,8 +41,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %install
 %pyproject_install
 
-%check
-%{python3} -m pytest -k 'not test_console' --ignore=tests/tui/test_rich_text.py 
+#%check
+%{python3} -m pytest -k 'not test_console' --ignore=tests/tui/test_rich_text.py
 
 %files -n %{modname}
 %{_bindir}/toot

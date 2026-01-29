@@ -7,22 +7,20 @@
 %endif
 %endif
 
-# Undefine for stable
-#define prerel  1
 %define status  stable
 %define uversion %{version}-%{status}
 
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.5.1
-Release:        2%{?dist}
+Version:        4.6
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
 %endif
 # Godot itself is MIT-licensed, the rest is from vendored thirdparty libraries
-License:        MIT AND AML-glslang AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND CC-BY-4.0 AND MPL-2.0 AND OFL-1.1 AND Unlicense AND Zlib
+License:        MIT AND AML-glslang AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND CC-BY-4.0 AND MPL-2.0 AND OFL-1.1 AND Unlicense AND X11 AND Zlib
 URL:            https://godotengine.org
 Source0:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{name}-%{uversion}.tar.xz
 Source1:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{name}-%{uversion}.tar.xz.sha256
@@ -132,7 +130,7 @@ Provides:       bundled(glslang) = 14.2.0
 %endif
 # Has custom changes to support seeking in zip archives.
 # Should not be unbundled.
-Provides:       bundled(minizip) = 1.3.1
+Provides:       bundled(minizip) = 1.3.1.2
 %if ! %{system_recastnavigation}
 # Could be unbundled if packaged.
 Provides:       bundled(recastnavigation) = 1.6.0
@@ -274,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Jan 26 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.6-1
+- Version 4.6-stable
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

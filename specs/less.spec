@@ -1,10 +1,10 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 685
-Release: 7%{?dist}
+Version: 691
+Release: 2%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-%global lesspipe_version 2.20
+%global lesspipe_version 2.22
 Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
 Source2: less.sh
 Source3: less.csh
@@ -58,6 +58,8 @@ Syntax highlighting modes for the less pager.
 %patch -P 11 -p1 -b .old-bot
 %patch -P 13 -p1 -b .help
 
+# get consistent result localy and on builders
+sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lesspipe-%{lesspipe_version}/configure
 
 %build
 rm -f ./configure
@@ -66,11 +68,8 @@ autoreconf -fiv
 %make_build CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
 pushd lesspipe-%{lesspipe_version}
-#fix shebangs
-sed -i "s|^#!/usr/bin/env bash|^#!/usr/bin/bash|" lesspipe.sh
-
-./configure --prefix=%{_prefix}
-%make_build
+./configure --prefix=%{_prefix} --shell=%{_bindir}/sh --bash-completion-dir=%{_datadir}/bash-completion/completions/
+# do not run make, it does nothing atm, but it reruns configure with wrong argumens
 popd
 
 %install
@@ -81,7 +80,7 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 
 pushd lesspipe-%{lesspipe_version}
 %make_install
-rm -f $RPM_BUILD_ROOT/usr/share/bash-completion/less_completion
+rm -rf $RPM_BUILD_ROOT/usr/share/bash-completion/
 popd
 
 %check
@@ -105,10 +104,15 @@ popd
 %files color
 %{_bindir}/archive_color
 %{_bindir}/code2color
-%{_bindir}/sxw2txt
 %{_bindir}/vimcolor
 
 %changelog
+* Tue Jan 27 2026 Michal Hlavinka <mhlavink@redhat.com> - 691-2
+- update lesspipe.sh to 2.22
+
+* Tue Jan 27 2026 Michal Hlavinka <mhlavink@redhat.com> - 691-1
+- updated to 691 (#2431354)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 685-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

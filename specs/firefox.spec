@@ -92,6 +92,7 @@ ExcludeArch: i686
 %global system_drm        1
 %global system_gbm        1
 %global system_pipewire   1
+%global build_tests       1
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.
 %if 0%{?rhel}
@@ -120,12 +121,10 @@ ExcludeArch: i686
 
 %if 0%{?build_with_pgo}
 %global use_xvfb          0
-%global build_tests       1
 %endif
 
 %if 0%{?run_firefox_tests}
 %global use_xvfb          0
-%global build_tests       1
 %endif
 
 %global launch_wayland_compositor 0
@@ -201,7 +200,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        147.0.1
-Release:        3%{?pre_tag}%{?dist}
+Release:        5%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1282,6 +1281,13 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jan 27 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-5
+- Clean up firefox launch script and fix .mozilla location
+  for mzbz#259356 / rhbz#2431665.
+
+* Tue Jan 27 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-4
+- Build tests on non-PGO build to have unified test environment.
+
 * Sat Jan 24 2026 Jan Grulich <jgrulich@redhat.com> - 147.0.1-3
 - Added upstream fix:
   PipeWire capture: clear existing capabilities before re-enumeration

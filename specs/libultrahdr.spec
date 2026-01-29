@@ -46,6 +46,12 @@ This package contains development files for %{name}.
 mv third_party/image_io/src/modp_b64/LICENSE third_party/image_io/src/modp_b64/LICENSE.BSD-3-Clause
 
 %build
+%if 0%fedora <= 43
+%ifarch %{ix86}
+export CFLAGS="%{optflags} -latomic"
+export LDFLAGS="%{optflags} -latomic"
+%endif
+%endif
 %cmake -DUHDR_BUILD_TESTS=ON -DUHDR_ENABLE_SYSTEM_GTEST=ON
 %cmake_build
 

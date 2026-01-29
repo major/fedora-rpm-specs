@@ -1,7 +1,7 @@
 %define soversion 6
 
 Name:           assimp
-Version:        6.0.3
+Version:        6.0.4
 Release:        1%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
@@ -153,14 +153,14 @@ exclude="utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.impor
 
 
 %files
-%license LICENSE 
+%license LICENSE
 %license contrib/clipper/License.txt
 %license contrib/openddlparser/LICENSE.openddlparser
 %license contrib/zip/UNLICENSE
 %doc Readme.md CREDITS
 %{_bindir}/assimp
 %{_libdir}/libassimp.so.6
-%{_libdir}/libassimp.so.6.0.2
+%{_libdir}/libassimp.so.6.0.4
 
 %files devel
 %{_includedir}/assimp/
@@ -177,6 +177,9 @@ exclude="utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.impor
 
 
 %changelog
+* Tue Jan 27 2026 Sandro Mani <manisandro@gmail.com> - 6.0.4-1
+- Update to 6.0.4
+
 * Tue Jan 20 2026 Sandro Mani <manisandro@gmail.com> - 6.0.3-1
 - Update to 6.0.3
 
