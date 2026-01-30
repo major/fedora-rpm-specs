@@ -3,8 +3,8 @@
 #global shortcommit %%(c=%%{gitcommit}; echo ${c:0:5})
 
 Name:		gst-editing-services
-Version:        1.26.10
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -90,6 +90,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
+- 1.28.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

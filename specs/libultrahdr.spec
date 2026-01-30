@@ -1,18 +1,19 @@
+%global gitdate       20251202
+%global commit        8cbc983d2f6c2171af5cbcdb8801102f83fe92ab
+%global short_commit  %(c="%{commit}"; echo ${c:0:7})
+
 Name:           libultrahdr
-Version:        1.4.0
+Version:        1.4.0^%{gitdate}git%{short_commit}
 Release:        %autorelease
-Summary:        A fast image processing library with low memory needs
+Summary:        Reference codec for the Ultra HDR format
 # main library is licensed under Apache-2.0
 # bundled image_io library is licensed under Apache-2.0, except:
 # third_party/image_io/src/modp_b64: BSD-3-Clause
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://github.com/google/libultrahdr
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/google/libultrahdr/pull/363.patch#/add-missing-header.patch
-Patch1:         https://github.com/google/libultrahdr/pull/376.patch#/add-ppc64le-and-s390x-build-support.patch
+Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Patch1:         https://github.com/google/libultrahdr/pull/383.patch#/remove-platform-and-architecture-detection-logic.patch
 Patch2:         https://github.com/google/libultrahdr/pull/381.patch#/use-system-gtest.patch
-Patch3:         https://github.com/google/libultrahdr/pull/373.patch#/fix-calculation-of-gainmap_weight.patch
-Patch4:         https://github.com/google/libultrahdr/pull/356.patch#/fix-exif-support-in-sample-app.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -46,12 +47,6 @@ This package contains development files for %{name}.
 mv third_party/image_io/src/modp_b64/LICENSE third_party/image_io/src/modp_b64/LICENSE.BSD-3-Clause
 
 %build
-%if 0%fedora <= 43
-%ifarch %{ix86}
-export CFLAGS="%{optflags} -latomic"
-export LDFLAGS="%{optflags} -latomic"
-%endif
-%endif
 %cmake -DUHDR_BUILD_TESTS=ON -DUHDR_ENABLE_SYSTEM_GTEST=ON
 %cmake_build
 

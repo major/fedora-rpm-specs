@@ -1,6 +1,6 @@
 Name:		pari-galpol
 Version:	20180625
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois polynomials
 License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
@@ -11,7 +11,7 @@ Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galpol.tgz.asc
 Source2:	gpgkey-42028EA404A2E9D80AC453148F0E7C2B4522E387.gpg
 BuildArch:	noarch
 
-BuildRequires:	gnupg2
+BuildRequires:	gpgverify
 
 %description
 This package contains the optional PARI package galpol, which contains a
@@ -38,6 +38,9 @@ cp -a data/galpol %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20180625-19
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20180625-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

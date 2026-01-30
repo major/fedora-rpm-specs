@@ -34,7 +34,6 @@
 %define bcond_override_default_libcxx 0
 %define bcond_override_default_lto_build 0
 %define bcond_override_default_check 0
-%define _find_debuginfo_dwz_opts %{nil}
 %endif
 
 # Build compat packages llvmN instead of main package for the current LLVM
@@ -1470,11 +1469,9 @@ export ASMFLAGS="%{build_cflags}"
 # We set CLANG_DEFAULT_PIE_ON_LINUX=OFF and PPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON to match the
 # defaults used by Fedora's GCC.
 
-# Disable dwz on aarch64, because it takes a huge amount of time to decide not to optimize things.
-# This is copied from clang.
-%ifarch aarch64
+# Disable dwz because it takes a huge amount of time to decide not to
+# optimize things.
 %define _find_debuginfo_dwz_opts %{nil}
-%endif
 
 cd llvm
 
@@ -1889,6 +1886,10 @@ llvm-profdata show --topn=10 %{builddir_instrumented}/tools/clang/utils/perf-tra
 
 cp %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata $RPM_BUILD_DIR/result.profdata
 
+# The instrumented files are not needed anymore.
+# Remove them in order to free disk space (~10GiB).
+rm -rf %{builddir_instrumented}
+
 #endregion Perf training
 %endif
 
@@ -1965,6 +1966,18 @@ cd $OLD_CWD
 #   /usr/lib64/libomptarget-nvptx-*.bc
 %cmake_build --target runtimes
 #endregion Final stage
+
+%if %{with lto_build}
+# The LTO cache is not needed anymore.
+# Remove it in order to free disk space.
+rm -rfv %{_vpath_builddir}/lto.cache
+%endif
+
+# Strip debug info from static libraries before the install phase because
+# LLVM already consumes a lot of disk space (i.e. > 150GiB).
+# The install phase duplicates files on disk, causing errors if the disk is
+# too small.
+RPM_BUILD_ROOT=$(realpath ..)/%{build_libdir} %__brp_strip_static_archive
 
 #region compat lib
 cd ..

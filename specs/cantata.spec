@@ -39,11 +39,12 @@ BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libcddb)
 BuildRequires:  pkgconfig(libcdio_paranoia)
+BuildRequires:  pkgconfig(libebur128)
 BuildRequires:  pkgconfig(libmpg123)
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libmusicbrainz5)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(taglib)
+BuildRequires:  pkgconfig(taglib) >= 2.0
 BuildRequires:  pkgconfig(udisks2)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  desktop-file-utils
@@ -69,7 +70,7 @@ Cantata is a graphical client for the music player daemon (MPD).
   -DBUILD_PLUGIN_DEBUG=OFF \
   -DENABLE_DEVICES_SUPPORT=ON \
   -DENABLE_REMOTE_DEVICES=OFF \
-  -DENABLE_UDISKS2=OFF \
+  -DENABLE_UDISKS2=ON \
   -DINSTALL_UBUNTU_ICONS=OFF \
   -DENABLE_SIMPLE_MPD_SUPPORT=ON \
   -DENABLE_AVAHI=ON \
@@ -93,6 +94,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dog.unix.cantata.Cant
 %license LICENSE
 %doc AUTHORS ChangeLog README TODO
 %{_bindir}/%{name}
+%{_libexecdir}/Cantata/cantata-*
 %{_datadir}/Cantata/icons/*
 %{_datadir}/Cantata/scripts/*
 %{_datadir}/applications/*
@@ -100,6 +102,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dog.unix.cantata.Cant
 %{_datadir}/icons/hicolor/scalable/apps/dog.unix.cantata.Cantata.svg
 %{_datadir}/icons/hicolor/symbolic/apps/dog.unix.cantata.Cantata-symbolic.svg
 %{_datadir}/icons/hicolor/*x*/apps/dog.unix.cantata.Cantata.png
+%dir %{_libexecdir}/Cantata
 %dir %{_datadir}/Cantata
 %dir %{_datadir}/Cantata/icons
 %dir %{_datadir}/Cantata/scripts

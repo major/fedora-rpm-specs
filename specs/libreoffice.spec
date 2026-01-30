@@ -52,19 +52,19 @@
 %endif
 
 # Handle KDE/Qt integration for Fedora and RHEL/EPEL
-%if 0%{?rhel} && 0%{?rhel} < 10
-%bcond_with kf5
-%bcond_with kf6
-%endif
 
-# KDE Plasma 5 integration only for Fedora
-%if 0%{?fedora}
+# KDE Plasma 5 integration only for Fedora < 44
+%if 0%{?fedora} && 0%{?fedora} < 44
 %bcond_without kf5
+%else
+%bcond_with kf5
 %endif
 
 # KDE Plasma 6 integration for Fedora and RHEL/EPEL 10+
 %if 0%{?fedora} || 0%{?rhel} >= 10
 %bcond_without kf6
+%else
+%bcond_with kf6
 %endif
 
 
@@ -736,6 +736,9 @@ Obsoletes: libreoffice-kde4 < 1:6.3.0.0
 Obsoletes: libreoffice-kde5 < 1:6.4.7.3
 Obsoletes: libreoffice-kde4-debuginfo < 1:6.3.0.0
 Obsoletes: libreoffice-kde5-debuginfo < 1:6.4.7.3
+%if (0%{?fedora} && 0%{?fedora} >= 44)
+Obsoletes: libreoffice-kf5 < 1:26.2.0.1
+%endif
 Supplements: (%{name}-core%{?_isa} and plasma-workspace)
 
 %description kf6

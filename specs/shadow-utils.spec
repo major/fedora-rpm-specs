@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.19.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -32,6 +32,11 @@ Patch3: shadow-4.19.0-chkhash1.patch
 Patch4: shadow-4.19.0-chkhash2.patch
 # https://github.com/shadow-maint/shadow/commit/958b4859991e700b61af2f9e07e3aa87ad1d9218
 Patch5: shadow-4.19.0-usermod-add-optimizations.patch
+# https://github.com/shadow-maint/shadow/pull/1520
+# Approved by upstream for 4.19.3 this weekend:
+# https://github.com/shadow-maint/shadow/issues/1521
+# Fixes the hash check to accept hashes with \ or n in the salt
+Patch6: 1520.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -281,6 +286,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Jan 27 2026 Adam Williamson <awilliam@redhat.com> - 2:4.19.0-6
+- chkhash.c: fix escaping in SHA-256 / SHA-512 / MD5 regexes
+
 * Mon Jan 26 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.19.0-5
 - chkhash.c: fix support for ! and * in hashes
 - usermod.c: add back optimizations

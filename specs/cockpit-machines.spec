@@ -16,13 +16,20 @@
 #
 
 Name:           cockpit-machines
-Version:        346
-Release:        3%{?dist}
+Version:        347
+Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
 
-Source0:        https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+# distributions which ship nodejs-esbuild can rebuild the bundle during package build
+%if 0%{?fedora} >= 42
+%define rebuild_bundle 1
+%endif
+
+Source0: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1: https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-node-%{version}.tar.xz
+
 BuildArch:      noarch
 %if 0%{?suse_version}
 BuildRequires:  appstream-glib
@@ -33,6 +40,11 @@ BuildRequires:  make
 BuildRequires: gettext
 %if 0%{?rhel} && 0%{?rhel} <= 8
 BuildRequires: libappstream-glib-devel
+%endif
+%if %{defined rebuild_bundle}
+BuildRequires: nodejs
+BuildRequires: %{_bindir}/node
+BuildRequires: nodejs-esbuild
 %endif
 
 Requires: cockpit-bridge >= 215
@@ -70,7 +82,6 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
@@ -78,24 +89,15 @@ Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
-Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
-Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.3.0
-Provides: bundled(npm(js-tokens)) = 4.0.0
-Provides: bundled(npm(lodash)) = 4.17.21
-Provides: bundled(npm(loose-envify)) = 1.4.0
-Provides: bundled(npm(object-assign)) = 4.1.1
+Provides: bundled(npm(lodash)) = 4.17.23
 Provides: bundled(npm(prop-types)) = 15.8.1
-Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.8
-Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
-Provides: bundled(npm(redux-thunk)) = 3.1.0
-Provides: bundled(npm(redux)) = 5.0.1
+Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.3.0
+Provides: bundled(npm(tabbable)) = 6.4.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -104,9 +106,19 @@ Cockpit component for managing libvirt virtual machines.
 
 %prep
 %setup -q -n %{name}
+%if %{defined rebuild_bundle}
+%setup -q -D -T -a 1 -n %{name}
+%endif
 
 %build
-# Nothing to build
+%if %{defined rebuild_bundle}
+rm -rf dist
+# HACK: node module packaging is broken in Fedora ≤ 43; should be in
+# common location, not major version specific one
+NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules_*) ./build.js
+%else
+# Use pre-built bundle on distributions without nodejs-esbuild
+%endif
 
 %install
 %make_install PREFIX=/usr
@@ -120,6 +132,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 28 2026 Packit <hello@packit.dev> - 347-1
+- Bug fixes and translation updates
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 346-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

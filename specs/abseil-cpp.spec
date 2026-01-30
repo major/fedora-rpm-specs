@@ -1,8 +1,8 @@
 # Installed library version
-%global lib_version 2508.0.0
+%global lib_version 2601.0.0
 
 Name:           abseil-cpp
-Version:        20250814.1
+Version:        20260107.0
 Release:        %autorelease
 Summary:        C++ Common Libraries
 
@@ -137,6 +137,7 @@ skips="${skips})$"
 # All shared libraries except installed TESTONLY libraries; see the %%files
 # list for the -testing subpackage for those.
 %{_libdir}/libabsl_base.so.%{lib_version}
+%{_libdir}/libabsl_borrowed_fixup_buffer.so.%{lib_version}
 %{_libdir}/libabsl_city.so.%{lib_version}
 %{_libdir}/libabsl_civil_time.so.%{lib_version}
 %{_libdir}/libabsl_cord.so.%{lib_version}
@@ -168,10 +169,11 @@ skips="${skips})$"
 %{_libdir}/libabsl_flags_reflection.so.%{lib_version}
 %{_libdir}/libabsl_flags_usage.so.%{lib_version}
 %{_libdir}/libabsl_flags_usage_internal.so.%{lib_version}
+%{_libdir}/libabsl_generic_printer_internal.so.%{lib_version}
 %{_libdir}/libabsl_graphcycles_internal.so.%{lib_version}
 %{_libdir}/libabsl_hash.so.%{lib_version}
-%{_libdir}/libabsl_hashtablez_sampler.so.%{lib_version}
 %{_libdir}/libabsl_hashtable_profiler.so.%{lib_version}
+%{_libdir}/libabsl_hashtablez_sampler.so.%{lib_version}
 %{_libdir}/libabsl_int128.so.%{lib_version}
 %{_libdir}/libabsl_kernel_timeout_internal.so.%{lib_version}
 %{_libdir}/libabsl_leak_check.so.%{lib_version}
@@ -217,7 +219,6 @@ skips="${skips})$"
 %{_libdir}/libabsl_strerror.so.%{lib_version}
 %{_libdir}/libabsl_strings.so.%{lib_version}
 %{_libdir}/libabsl_strings_internal.so.%{lib_version}
-%{_libdir}/libabsl_string_view.so.%{lib_version}
 %{_libdir}/libabsl_symbolize.so.%{lib_version}
 %{_libdir}/libabsl_synchronization.so.%{lib_version}
 %{_libdir}/libabsl_throw_delegate.so.%{lib_version}

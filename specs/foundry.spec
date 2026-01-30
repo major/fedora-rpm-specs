@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           foundry
-Version:        1.0.1
+Version:        1.1~alpha
 Release:        %autorelease
 Summary:        IDE library and command-line companion tool
 
@@ -10,7 +10,7 @@ Summary:        IDE library and command-line companion tool
 License:        LGPL-2.1-or-later AND Apache-2.0
 
 URL:            https://gitlab.gnome.org/GNOME/foundry
-Source:         https://download.gnome.org/sources/foundry/1.0/foundry-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/foundry/1.1/foundry-%{tarball_version}.tar.xz
 
 ExcludeArch:    %{ix86}
 
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(jsonrpc-glib-1.0)
 BuildRequires:  pkgconfig(libcmark)
-BuildRequires:  pkgconfig(libdex-1) >= 0.11.1
+BuildRequires:  pkgconfig(libdex-1) >= 1.1
 BuildRequires:  pkgconfig(libgit2)
 BuildRequires:  pkgconfig(libpeas-2)
 BuildRequires:  pkgconfig(libspelling-1)
@@ -40,6 +40,10 @@ BuildRequires:  pkgconfig(template-glib-1.0)
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
 BuildRequires:  pkgconfig(webkitgtk-6.0)
 BuildRequires:  pkgconfig(yaml-0.1)
+BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libpanel-1)
+BuildRequires:  pkgconfig(readline)
 
 Requires:       libfoundry%{?_isa} = %{version}-%{release}
 
@@ -99,9 +103,12 @@ appstream-util validate-relax --nonet \
 %files -n libfoundry
 %doc README.md
 %doc NEWS
+%doc %{_mandir}/man1/*
 %license COPYING
 %{_libdir}/libfoundry-1.so.1{,.0.0}
+%{_libdir}/libfoundry-adw-1.so*
 %{_libdir}/girepository-1.0/Foundry-1.typelib
+%{_libdir}/girepository-1.0/FoundryAdw-1.typelib
 %dir %{_datadir}/foundry
 %{_datadir}/foundry/language-defaults
 %{_datadir}/glib-2.0/schemas/app.devsuite.foundry{,.*}.gschema.xml
@@ -113,12 +120,15 @@ appstream-util validate-relax --nonet \
 %files -n libfoundry-devel
 %dir %{_includedir}/libfoundry-1
 %{_includedir}/libfoundry-1/*.h
+%{_includedir}/libfoundry-adw-1/*.h
 %{_libdir}/libfoundry-1.so
 %dir %{_libdir}/libfoundry-1
 %dir %{_libdir}/libfoundry-1/include
 %{_libdir}/libfoundry-1/include/libfoundry-config.h
 %{_libdir}/pkgconfig/libfoundry-1.pc
+%{_libdir}/pkgconfig/libfoundry-adw-1.pc
 %{_datadir}/gir-1.0/Foundry-1.gir
+%{_datadir}/gir-1.0/FoundryAdw-1.gir
 
 %files -n libfoundry-gtk-devel
 %dir %{_includedir}/libfoundry-gtk-1

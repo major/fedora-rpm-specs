@@ -1,6 +1,6 @@
 Name:      arc
 Version:   5.21p
-Release:   32%{?dist}
+Release:   33%{?dist}
 Summary:   Arc archiver
 License:   GPL-1.0-or-later
 URL:       http://arc.sourceforge.net/
@@ -24,6 +24,8 @@ Patch7:    arc-5.21p-fcommon-fix.patch
 Patch8:    arc-5.21p-fix-function-prototypes.patch
 # Fix sharing differently sized storage to avoid LTO aliasing issues
 Patch9:    arc-5.21p-aliasing-fix.patch
+# Fix compilation with glibc-2.43
+Patch10:   arc-5.21p-glibc-2.43.patch
 
 BuildRequires: gcc make
 
@@ -50,11 +52,15 @@ install -m 0644 arc.1 marc.1 %{buildroot}%{_mandir}/man1/
 %files
 %doc LICENSE PATCHLEVEL Readme Arc521.doc
 %license COPYING
-%{_bindir}/*
+%{_bindir}/arc
+%{_bindir}/marc
 %{_mandir}/man1/*
 
 
 %changelog
+* Wed Jan 28 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 5.21p-33
+- Fix FTBFS (rhbz#2433870)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.21p-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

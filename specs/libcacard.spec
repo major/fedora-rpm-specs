@@ -1,16 +1,13 @@
 Name:           libcacard
-Version:        2.8.1
-Release:        13%{?dist}
+Version:        2.8.2
+Release:        1%{?dist}
 Summary:        CAC (Common Access Card) library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://gitlab.freedesktop.org/spice/libcacard
 Source0:        http://www.spice-space.org/download/libcacard/%{name}-%{version}.tar.xz
-Source1:        http://www.spice-space.org/download/libcacard/%{name}-%{version}.tar.xz.sig
-Source2:        gpgkey-A3DDE969.gpg
+Source1:        http://www.spice-space.org/download/libcacard/%{name}-%{version}.tar.xz.sha256sum
 Source3:        db2.crypt
-# https://gitlab.freedesktop.org/spice/libcacard/-/merge_requests/31
-Patch1:         libcacard-2.8.1-sort-certificates.patch
 Epoch:          3
 
 BuildRequires:  gcc
@@ -21,7 +18,6 @@ BuildRequires:  opensc
 BuildRequires:  gnutls-utils
 BuildRequires:  nss-tools
 BuildRequires:  openssl
-BuildRequires:  gnupg2
 BuildRequires:  meson
 BuildRequires:  gcc-c++
 BuildRequires:  pcsc-lite-devel
@@ -43,9 +39,10 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+pushd $(dirname %{SOURCE0})
+sha256sum -c %{SOURCE1}
+popd
 %setup -q
-%patch -P1 -p1
 cp %{SOURCE3} tests/
 
 %build
@@ -74,6 +71,9 @@ cp %{SOURCE3} tests/
 %{_libdir}/pkgconfig/libcacard.pc
 
 %changelog
+* Wed Jan 28 2026 Jakub Jelen <jjelen@redhat.com> - 3:2.8.2-1
+- New upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.8.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

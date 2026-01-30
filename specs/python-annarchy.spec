@@ -16,6 +16,7 @@ Summary:        Artificial Neural Networks architect
 License:        GPL-2.0-or-later AND MIT
 URL:            https://annarchy.github.io/
 Source:         %forgesource
+Patch:          drop-march-native.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Tests fail on ppc64le (under investigation)

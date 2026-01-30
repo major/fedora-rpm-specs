@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name: conan
-Version: 2.24.0
+Version: 2.25.0
 Release: %autorelease
 
 License: MIT
@@ -19,7 +19,6 @@ BuildRequires: python3-webtest
 BuildRequires: python3-bottle
 BuildRequires: python3-jwt
 BuildRequires: python3-pluginbase
-BuildRequires: python3-parameterized
 BuildRequires: git
 %endif
 

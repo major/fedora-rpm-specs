@@ -1,11 +1,12 @@
 Name:    buildbox
-Version: 1.3.44
+Version: 1.3.51
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 
 License: Apache-2.0
 URL:     https://buildgrid.gitlab.io/buildbox/buildbox-home/
 Source0: https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/%{version}/buildbox-%{version}.tar.bz2
+Patch:   0001-recc-Update-list-of-base-libraries-for-GCC-16.patch
 
 ExcludeArch: %{ix86}
 
@@ -52,6 +53,7 @@ Remote Execution API, also supporting the Remote Worker API.
 %files
 %license LICENSE
 %{_bindir}/buildbox-casd
+%{_bindir}/buildbox-casd-wrap
 %{_bindir}/buildbox-fuse
 %{_bindir}/buildbox-run
 %{_bindir}/buildbox-run-bubblewrap

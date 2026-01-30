@@ -4,7 +4,7 @@
 
 Name:           maven-doxia-sitetools
 Version:        2.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Doxia content generation framework
 License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
@@ -18,7 +18,7 @@ Source2:        https://downloads.apache.org/maven/KEYS
 
 Patch:          0001-Remove-dependency-on-velocity-tools.patch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(commons-io:commons-io)
@@ -120,6 +120,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 2.0.0-5
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

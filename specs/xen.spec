@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -81,6 +81,8 @@ Patch9: xen.python3.12.patch
 Patch10: dropped.regs.patch
 Patch11: xen.json.nocpuid.patch
 Patch12: xen.gcc16.fixes.patch
+Patch13: xsa477.patch
+Patch14: xsa479.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -269,6 +271,8 @@ This package contains files used in testing the xen builds
 %patch 10 -p1
 %patch 11 -p1
 %patch 12 -p1
+%patch 13 -p1
+%patch 14 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -824,6 +828,10 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Wed Jan 28 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.0-3
+  x86: buffer overrun with shadow paging + tracing [XSA-477, CVE-2025-58150]
+  x86: incomplete IBPB for vCPU isolation [XSA-479, CVE-2026-23553]
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

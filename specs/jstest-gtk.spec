@@ -1,6 +1,6 @@
-%global commit 17956d285fedcf476ea753ff850fa7adf51ba07c
+%global commit 92bdf8e945a6d14fdd0aa6fa961f6da34f5ac810
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20231001
+%global date 20250403
 
 Name:           jstest-gtk
 Version:        0.1.0
@@ -14,7 +14,6 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{version}.%{date}git%{shortcom
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
-BuildRequires:  libappstream-glib
 
 BuildRequires:  pkgconfig(gtkmm-3.0)
 BuildRequires:  pkgconfig(sigc++-1.2)
@@ -32,8 +31,6 @@ pressed, a way to remap axis and buttons and a way to calibrate your joystick.
 
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380664)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -43,7 +40,6 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
@@ -56,7 +52,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.svg
 %{_libexecdir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%{_metainfodir}/*.xml
 
 
 %changelog

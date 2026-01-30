@@ -38,7 +38,7 @@ Patch:          %{name}-disable-tests.patch
 BuildRequires:  diffutils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-base64-devel >= 3.1.0

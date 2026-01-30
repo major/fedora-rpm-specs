@@ -1,6 +1,6 @@
 Name:           glpk
 Version:        5.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        GNU Linear Programming Kit
 
 # GPL-3.0-or-later: the project as a whole
@@ -27,7 +27,7 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  gmp-devel
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  pkgconfig(libiodbc)
 BuildRequires:  pkgconfig(libmariadb)
@@ -142,6 +142,9 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 5.0-16
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

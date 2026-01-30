@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc7.47
+%define pkgrelease 0.rc7.260128g1f97d9dcf5364.49
 %define kversion 6
-%define tarfile_release 6.19-rc7
+%define tarfile_release 6.19-rc7-26-g1f97d9dcf5364
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.47%{?buildid}%{?dist}
+%define specrelease 0.rc7.260128g1f97d9dcf5364.49%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4658,9 +4658,25 @@ fi\
 #
 #
 %changelog
-* Mon Jan 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.47]
+* Wed Jan 28 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc7.260128g1f97d9dcf5364.49]
+- Linux v6.19.0-0.rc7.260128g1f97d9dcf5364
+
+* Wed Jan 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.1f97d9dcf536.49]
 - x86/vmware: Fix hypercall clobbers (Josh Poimboeuf)
 - rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
+
+* Wed Jan 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.1f97d9dcf536.48]
+- Set Fedora configs for 6.19 kernels (Justin M. Forbes)
+- configs: enable FUNCTION_GRAPH_RETVAL everywhere (Jerome Marchand)
+- configs: riscv: Enable ARCH_ESWIN for CentOS (Jennifer Berringer)
+- configs: riscv: Enable StarFive drivers for CentOS (Jennifer Berringer)
+- configs: riscv: Enable common hardware drivers for CentOS (Jennifer Berringer)
+- redhat: exclude DERIVATIVE_BUILD and DERIVATIVE_VERSION from self-test data (Jan Stancek)
+- Linux v6.19.0-0.rc7.1f97d9dcf536
+
+* Tue Jan 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.fcb70a56f4d8.47]
+- fedora: arm64: make pinctrl-msm8916 built-in (Sam Day)
+- Linux v6.19.0-0.rc7.fcb70a56f4d8
 
 * Mon Jan 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.46]
 - Linux v6.19.0-0.rc7

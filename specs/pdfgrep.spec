@@ -1,13 +1,15 @@
 Summary:        Tool to search text in PDF files
 Name:           pdfgrep
 Version:        2.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://pdfgrep.org/
 Source0:        https://pdfgrep.org/download/%{name}-%{version}.tar.gz
 Source1:        https://pdfgrep.org/download/%{name}-%{version}.tar.gz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/432FC753112F26D9EB48DDC1A17CF2CA697BEAF2
+
+Patch:          pdfgrep-2.2.0-disallow-ligatures.patch
 
 BuildRequires:  make
 BuildRequires:  gnupg2
@@ -37,7 +39,7 @@ colored output and finally also support for password protected PDF files.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -69,6 +71,10 @@ make check
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Wed Jan 28 2026 Marek Kasik <mkasik@redhat.com> - 2.2.0-9
+- Disallow ligatures in tests
+- Tests were failing due to "fi" ligature
+
 * Tue Jan 27 2026 Marek Kasik <mkasik@redhat.com> - 2.2.0-8
 - Rebuild for poppler 26.01.0
 

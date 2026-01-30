@@ -3,20 +3,27 @@
 ## NativeJIT code (fork) repository from COPASI team: https://github.com/copasi/copasi-dependencies/tree/master/src/NativeJIT
 ## Original NativeJIT repository: https://github.com/BitFunnel/NativeJIT
 
+%global commit 5e99f66f4fa33518ff522db83c139f324eeb6ba2
+%global gittag %{commit}
+%global shortcommit %(c=%{commit}; echo ${c:0:8})
+%global commitdate 20260128
+
 # This library works specifically on x86_64 systems with SSE4 (Streaming SIMD Extensions 4) 
 # See https://pagure.io/packaging-committee/issue/1044
 ExclusiveArch: x86_64
 
 Name:    nativejit
 Version: 0.1
-Release: 14%{?dist}
+Release: 15.%{commitdate}git%{shortcommit}%{?dist}
 Summary: Library for high-performance just-in-time compilation
 License: MIT
 URL:     https://github.com/copasi/copasi-dependencies/tree/master/src/NativeJIT
-Source0: https://gitlab.com/anto.trande/nativejit/-/archive/v%{version}/nativejit-v%{version}.tar.bz2
-Patch:   nativejit-v0.1-c++17.patch
+Source0: https://gitlab.com/anto.trande/nativejit/-/archive/%{commit}/%{name}-%{commit}.tar.gz
 
-BuildRequires: cmake3, gcc, gcc-c++, make
+BuildRequires: cmake
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: make
 BuildRequires: gtest-devel
 
 Provides: NativeJIT = 0:%{version}-%{release}
@@ -38,7 +45,7 @@ Requires: cmake%{?_isa}
 NativeJIT headers and development-related files, CMake config files.
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-%{commit}
 
 %build
 %cmake \
@@ -55,7 +62,7 @@ NativeJIT headers and development-related files, CMake config files.
 %check
 if grep -E '\bsse4_2\b' /proc/cpuinfo >/dev/null
 then
-  %ctest -- -VV
+  %ctest -VV
 else
   echo 'No SSE4.2 support on build host; skipping tests' 1>&2
 fi
@@ -75,6 +82,9 @@ fi
 %{_libdir}/cmake/nativejit*.cmake
 
 %changelog
+* Wed Jan 28 2026 Antonio Trande <sagitter@fedoraproject.org> - 0.1-15.20260128git5e99f66
+- Update to recent commit #5e99f66
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

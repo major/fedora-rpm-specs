@@ -25,7 +25,7 @@ Source2:        5DD58D70899C454A966D6A5175133C8F94F6E0CC.gpg
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.5
 BuildRequires:  ocaml-ounit2-devel

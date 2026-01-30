@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.0
-Release:	6%{?dist}
+Release:	8%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -219,6 +219,8 @@ Patch:		0056-libarrow-20.0.0.patch
 Patch:		0057-src-json_spirit-json_spirit_reader_template.h.patch
 Patch:		0058-src-CMakeLists.txt.patch
 Patch:		0059-iso646.patch
+Patch:		0061-gcc-16.patch
+Patch:		0062-src-rgw-driver-dbstore-CMakeLists.txt.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -256,11 +258,7 @@ BuildRequires:	gcc-c++
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	libatomic
 %endif
-%ifarch x86_64 aarch64
-%bcond_with ld_mold
-%else
-%bcond_with ld_mold
-%endif
+%bcond_without ld_mold
 %if 0%{with ld_mold}
 BuildRequires:	mold
 %endif
@@ -2742,6 +2740,12 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Wed Jan 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-8
+- ceph-20.2.0, rebuild with libarrow-23.0.0, side tag f44-build-side-127546
+
+* Wed Jan 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-7
+- ceph-20.2.0, rhbz#2433903
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:20.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

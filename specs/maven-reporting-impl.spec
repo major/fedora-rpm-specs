@@ -1,6 +1,6 @@
 Name:           maven-reporting-impl
 Version:        4.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Abstract classes to manage report generation
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-impl/
@@ -14,7 +14,7 @@ Source2:        https://downloads.apache.org/maven/KEYS
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven:maven-archiver)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
@@ -77,6 +77,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 4.0.0-6
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

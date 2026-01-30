@@ -30,6 +30,7 @@ BuildRequires:  python3-gstreamer1 >= 1.16
 BuildRequires:  python3-mutagen >= 1.44
 BuildRequires:  python3-setproctitle
 BuildRequires:  python3-pytest
+BuildRequires:  python3-typing-extensions
 
 Requires:       python3 >= 3.8
 Requires:       python3-bsddb3
@@ -142,6 +143,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Wed Jan 28 2026 Graham White <graham_alton@hotmail.com> - 4.2.1-2
+- Fix FTBFS due to missing typing-extensions dependency (#2434028)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

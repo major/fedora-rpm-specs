@@ -200,7 +200,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        147.0.1
-Release:        5%{?pre_tag}%{?dist}
+Release:        6%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -351,7 +351,7 @@ BuildRequires:  pipewire-devel
 %if !0%{?use_bundled_cbindgen}
 BuildRequires:  cbindgen
 %endif
-BuildRequires:  nodejs
+BuildRequires: %{_bindir}/node
 BuildRequires:  nasm >= 1.13
 BuildRequires:  libappstream-glib
 
@@ -909,12 +909,16 @@ echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
 %endif
 %if 0%{?build_with_pgo}
 # PGO build doesn't work with ccache
+echo "export CCACHE_DISABLE=1" >> .mozconfig
+echo "export GCOV_PREFIX=`pwd -P`/objdir" >> .mozconfig
+echo "export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))" >> .mozconfig
+echo "ac_add_options --enable-lto" >> .mozconfig
+echo "ac_add_options MOZ_PGO=1" >> .mozconfig
+
 export CCACHE_DISABLE=1
 export GCOV_PREFIX=`pwd -P`/objdir
 export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
-echo "ac_add_options --enable-lto" >> .mozconfig
-echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 
 %if %{with wasi_sdk}
@@ -1281,6 +1285,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jan 27 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-6
+- Updated dependency for nodejs rawhide change
+
 * Tue Jan 27 2026 Martin Stransky <stransky@redhat.com> - 147.0.1-5
 - Clean up firefox launch script and fix .mozilla location
   for mzbz#259356 / rhbz#2431665.

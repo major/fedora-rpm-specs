@@ -64,7 +64,8 @@ Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/merge_requests/29
 # https://gitlab.freedesktop.org/cairo/cairomm/-/commit/43580ed75bde0b7d6ad442c90a22f80b50ce844d
 Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/commit/43580ed75bde0b7d6ad442c90a22f80b50ce844d.patch
 
-BuildRequires:  gnupg2
+# For %%{gpgverify} macro
+BuildRequires:  gpgverify
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson

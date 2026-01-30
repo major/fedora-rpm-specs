@@ -3,8 +3,8 @@
 %endif
 
 Name:           eccodes
-Version:        2.44.0
-Release:        3%{?dist}
+Version:        2.45.0
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -60,7 +60,7 @@ Patch1:         eccodes-soversion.patch
 # https://jira.ecmwf.int/browse/SUP-2073
 # (and again, unfortunately this issue is not public)
 
-BuildRequires:  cmake3 >= 3.18
+BuildRequires:  cmake >= 3.18
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  /usr/bin/git
@@ -260,7 +260,10 @@ tar xf %SOURCE1
 popd
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380563)
+
+# In response to change proposal CMake 4.0 (rhbz#2380563)
+# upstream support has been requested in this feature request:
+# https://github.com/ecmwf/eccodes/issues/409
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 #-- The following features are disabled by default and not switched on:
@@ -275,7 +278,8 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # * PNG , support for PNG decoding/encoding
 # * ECCODES_OMP_THREADS , enable OMP threads
 # * EXTRA_TESTS , enable extended regression testing
-#
+# * EXTRA_TOOLS , enable the installation of tools for the METAR format
+
 #-- The following features are set to AUTO by default and
 #   explicitely switched on to ensure they don't vanish unnoticed
 #   in case of dependency problems during the build:
@@ -295,20 +299,30 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # when I try to build for armv7hl (other archs do not complain ......)
 # I have no idea what causes this difference in behaviour.
 
-%cmake3 -DINSTALL_LIB_DIR=%{_lib} \
-        -DENABLE_ECCODES_OMP_THREADS=ON \
-        -DENABLE_EXTRA_TESTS=ON \
-        -DENABLE_JPG=ON \
-        -DENABLE_PNG=ON \
-        -DENABLE_FORTRAN=ON \
-        -DENABLE_NETCDF=ON \
-        -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
-        -DECCODES_SOVERSION=%{so_version} \
-        -DECCODES_SOVERSION_F90=%{so_version_f90} \
-        -DCMAKE_Fortran_FLAGS="-fPIC"
+# Note: the option:
+#      -DENABLE_MEMFS=ON
+# reformats the definition tables into big binary blobs to be included
+# in the c code.
+# This reduces the install size from 160MB to 72MB (in version 2.45.0),
+# but it also makes it impossible for users to create and use their own
+# local table definitions. Therefore, to allow flexibility on the users
+# side, this option is not activated at the moment.
 
-# note the final '..' is no longer needed to the cmake3 call.
-# this is now hidden in the %%cmake3 macro
+%cmake -DINSTALL_LIB_DIR=%{_lib} \
+       -DENABLE_ECCODES_OMP_THREADS=ON \
+       -DENABLE_JPG=ON \
+       -DENABLE_PNG=ON \
+       -DENABLE_FORTRAN=ON \
+       -DENABLE_NETCDF=ON \
+       -DECCODES_INSTALL_EXTRA_TOOLS=ON \
+       -DENABLE_EXTRA_TESTS=ON \
+       -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
+       -DECCODES_SOVERSION=%{so_version} \
+       -DECCODES_SOVERSION_F90=%{so_version_f90} \
+       -DCMAKE_Fortran_FLAGS="-fPIC"
+
+# note the final '..' is no longer needed to the cmake call.
+# this is now hidden in the %%cmake macro
 
 %cmake_build
 
@@ -384,7 +398,6 @@ sed -i 's|^libs=.*$|libs=-L${libdir} -leccodes_f90 -leccodes|g' %{buildroot}/%{_
 
 #####################################################
 %check
-cd  %{_vpath_builddir}
 
 # notes:
 # * the LD_LIBRARY_PATH setting is required to let the tests
@@ -394,12 +407,13 @@ cd  %{_vpath_builddir}
 #   'eccodes_t_bufr_dump_(de|en)code_C' tests run.
 #   These tests compile on the fly generated C code, and
 #   without this setting the loader does not find the libraries.
-# * this is a 'non-standard' use of ctest3 so it does currently not
-#   work with the %%ctest macro.
+# * exporting the 2 environment variables below is required!
+#   without export the values are not provided to the executed tests! 
+#   (probably because the %%ctest macro starts with a blank line)
 
-LD_LIBRARY_PATH=%{buildroot}/%{_libdir} \
-LIBRARY_PATH=%{buildroot}/%{_libdir} \
-ctest3 -V %{?_smp_mflags}
+export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
+export LIBRARY_PATH=%{buildroot}/%{_libdir}
+%ctest -V %{?_smp_mflags}
 
 %files
 %license LICENSE
@@ -460,9 +474,15 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Wed Jan 28 2026 Jos de Kloe <josdekloe@gmail.com> - 2.45.0-2
+- Fix for cmake 4 compatibility
+
+* Wed Jan 28 2026 Jos de Kloe <josdekloe@gmail.com> - 2.45.0-1
+- Update to 2.45.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.44.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 
 * Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.44.0-2
 - Allow to build with CMake 4.0 (rhbz#2380563)

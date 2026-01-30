@@ -3,7 +3,7 @@
 
 Name:           tth
 Version:        4.16
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        TeX to HTML/MathML translators
 
 License:        GPL-2.0-only
@@ -26,7 +26,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  ghostscript
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  netpbm-progs
 BuildRequires:  tex(amssym.tex)
@@ -251,6 +251,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 4.16-9
+- BR gpgverify instead of gnupg2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,7 +10,7 @@ Summary: Simple kernel loader which boots from a FAT filesystem
 Name: syslinux
 Version: 6.04
 %define tarball_version 6.04-pre1
-Release: 0.34%{?dist}
+Release: 0.35%{?dist}
 License: GPL-2.0-or-later
 URL: http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project
 Source0: http://www.kernel.org/pub/linux/utils/boot/syslinux/%{name}-%{tarball_version}.tar.xz
@@ -24,6 +24,7 @@ Patch0007: 0007-Fix-backspace-when-editing-a-multiline-cmdline.patch
 Patch0008: 0008-Fix-build-with-GCC-14.patch
 Patch0009: 0009-Rewrite_Digest_SHA1_to_SHA.patch
 Patch0010: 0010-Fix-reported-SAST-findings.patch
+Patch0011: 0011-core-Makefile-allow-relocations-on-text-sections.patch
 
 # this is to keep rpmbuild from thinking the .c32 / .com / .0 / memdisk files
 # in noarch packages are a reason to stop the build.
@@ -259,6 +260,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 28 2026 Leo Sandoval <lsandova@redhat.com> - 6.04-0.35
+- Allow relocations on text sections
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-0.34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

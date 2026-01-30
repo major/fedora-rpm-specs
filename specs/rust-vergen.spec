@@ -14,6 +14,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/vergen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump git2 dependency from v0.19 to v0.20
 # * update gix dependency to 0.75
 Patch:          vergen-fix-metadata.diff
 

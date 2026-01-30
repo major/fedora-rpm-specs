@@ -30,16 +30,15 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	22.0.0
-Release:	3%{?dist}
+Version:	23.0.0
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://downloads.apache.org/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
-Patch0001:	0001-python-pyarrow-tests-read_record_patch.py.patch
-Patch0002:	0002-python-pyarrow-tests-test_ipc.py.patch
-Patch0003:	0003-cpp-src-arrow-util-byte_stream_split_internal.h.patch
+Patch:		0001-python-pyarrow-tests-read_record_patch.py.patch
+Patch:		0002-python-pyarrow-tests-test_ipc.py.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -115,10 +114,6 @@ fast data access without serialization overhead
 
 %files
 %{_libdir}/libarrow.so.*
-%exclude %{python3_sitearch}/benchmarks/*
-%exclude %{python3_sitearch}/cmake_modules/*
-%exclude %{python3_sitearch}/examples/*
-%exclude %{python3_sitearch}/scripts/*
 
 #--------------------------------------------------------------------
 
@@ -301,7 +296,7 @@ This package contains the libraries for Apache Arrow Flight.
 %{_libdir}/libarrow_flight.so.*
 %{_libdir}/libarrow-flight-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/ArrowFlight-1.0.typelib
+     %{_libdir}/girepository-1.0/ArrowFlight-23.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -323,6 +318,8 @@ Libraries and header files for Apache Arrow Flight.
 %{_libdir}/libarrow-flight-glib.so
 %{_libdir}/pkgconfig/arrow-flight.pc
 %{_libdir}/pkgconfig/arrow-flight-glib.pc
+%dir %{_datadir}/gir-1.0/
+     %{_datadir}/gir-1.0/ArrowFlight-23.0.gir
 %endif
 
 #--------------------------------------------------------------------
@@ -517,7 +514,7 @@ This package contains the libraries for Apache Arrow GLib.
 %files glib-libs
 %{_libdir}/libarrow-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Arrow-1.0.typelib
+     %{_libdir}/girepository-1.0/Arrow-23.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -541,8 +538,7 @@ Libraries and header files for Apache Arrow GLib.
 %dir %{_datadir}/arrow-glib/
      %{_datadir}/arrow-glib/*
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Arrow-1.0.gir
-     %{_datadir}/gir-1.0/ArrowFlight-1.0.gir
+     %{_datadir}/gir-1.0/Arrow-23.0.gir
 
 #--------------------------------------------------------------------
 
@@ -559,7 +555,7 @@ This package contains the libraries for Apache Arrow dataset GLib.
 %files dataset-glib-libs
 %{_libdir}/libarrow-dataset-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/ArrowDataset-1.0.typelib
+     %{_libdir}/girepository-1.0/ArrowDataset-23.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -579,7 +575,7 @@ Libraries and header files for Apache Arrow dataset GLib.
 %{_libdir}/libarrow-dataset-glib.so
 %{_libdir}/pkgconfig/arrow-dataset-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/ArrowDataset-1.0.gir
+     %{_datadir}/gir-1.0/ArrowDataset-23.0.gir
 
 #--------------------------------------------------------------------
 
@@ -595,8 +591,6 @@ This package contains the libraries for Gandiva GLib.
 
 %files -n gandiva-glib-libs
 %{_libdir}/libgandiva-glib.so.*
-%dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Gandiva-1.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -613,8 +607,6 @@ Libraries and header files for Gandiva GLib.
      %{_includedir}/gandiva-glib/*
 %{_libdir}/libgandiva-glib.so
 %{_libdir}/pkgconfig/gandiva-glib.pc
-%dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Gandiva-1.0.gir
 %endif
 
 %if %{with use_plasma}
@@ -631,8 +623,6 @@ This package contains the libraries for Plasma GLib.
 
 %files -n plasma-glib-libs
 %{_libdir}/libplasma-glib.so.*
-%dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Plasma-1.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -650,8 +640,6 @@ Libraries and header files for Plasma GLib.
      %{_includedir}/plasma-glib/*
 %{_libdir}/libplasma-glib.so
 %{_libdir}/pkgconfig/plasma-glib.pc
-%dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Plasma-1.0.gir
 %endif
 
 #--------------------------------------------------------------------
@@ -669,7 +657,7 @@ This package contains the libraries for Apache Parquet GLib.
 %files -n parquet-glib-libs
 %{_libdir}/libparquet-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Parquet-1.0.typelib
+     %{_libdir}/girepository-1.0/Parquet-23.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -689,7 +677,7 @@ Libraries and header files for Apache Parquet GLib.
 %{_libdir}/libparquet-glib.so
 %{_libdir}/pkgconfig/parquet-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Parquet-1.0.gir
+     %{_datadir}/gir-1.0/Parquet-23.0.gir
 
 #--------------------------------------------------------------------
 
@@ -857,6 +845,12 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 23.0.0-2
+- Rebuilt for abseil-cpp 20260107.0
+
+* Wed Jan 28 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-1
+- Arrow 23.0.0 GA f44-build-side-127546
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

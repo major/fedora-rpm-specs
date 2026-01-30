@@ -1,8 +1,8 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.26.10
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -59,8 +59,12 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %doc ChangeLog NEWS README.md RELEASE
 %{python3_sitearch}/gi/overrides/*
 %{_libdir}/gstreamer-1.0/libgstpython.*so
+%{_libdir}/gstreamer-1.0/python/gesotioformatter.py
 
 %changelog
+* Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
+- 1.28.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

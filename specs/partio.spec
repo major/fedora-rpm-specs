@@ -1,9 +1,8 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-%global         soversion 1.13.0
+%bcond          test 0
+%global         soversion 1.20.0
 
 Name:           partio
-Version:        1.19.2
+Version:        1.20.0
 Release:        %autorelease
 Summary:        Library for manipulating common animation particle
 
@@ -14,13 +13,12 @@ Source:         %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-# Disabled due to failure to get name
-#BuildRequires:  help2man
+BuildRequires:  help2man
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glut)
 BuildRequires:  pkgconfig(gtest)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  swig
+#BuildRequires:  swig
 
 %description
 C++ (with python bindings) library for easily reading/writing/manipulating 
@@ -75,14 +73,31 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 #Remove files from unversioned python directory
 rm -f %{buildroot}%{_libdir}/python/site-packages/*.py
 
+chmod +x %{buildroot}%{python3_sitearch}/*.py
+
 #Remove all tests containing arch-dependant binaries
 rm -rf %{buildroot}%{_datadir}/%{name}/test
+
+# Generate and install man pages
+install -d '%{buildroot}%{_mandir}/man1'
+for cmd in %{buildroot}%{_bindir}/*
+do
+  PYTHONPATH='%{buildroot}%{python3_sitearch}' \
+  LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+      help2man \
+      --no-info --no-discard-stderr --version-string='%{version}' \
+      --output="%{buildroot}%{_mandir}/man1/$(basename "${cmd}").1" \
+      "${cmd}"
+done
+
+%check
+%{?with_test:%ctest}
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/part{attr,convert,edit,info,inspect,json,view}
-%{_datadir}/swig/%{name}.i      
+%{_mandir}/man1/part{attr,convert,edit,info,inspect,json,view}.1*
 
 %files devel
 %{_includedir}/Partio{,Attribute,Iterator,Vec3}.h
@@ -96,7 +111,6 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/lib%{name}.so.{1,%{soversion}}
 
 %files -n python3-%{name}
-%{python3_sitearch}/_%{name}.so
 %pycached %{python3_sitearch}/*.py
 
 %changelog

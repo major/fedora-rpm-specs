@@ -29,7 +29,7 @@ BuildRequires:  findutils
 BuildRequires:  fltk-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  perl-generators

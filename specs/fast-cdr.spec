@@ -2,8 +2,8 @@
 %global soversion 2
 
 Name:       fast-cdr
-Version:    2.3.4
-Release:    2%{?dist}
+Version:    2.3.5
+Release:    1%{?dist}
 Summary:    Fast Common Data Representation (CDR) Serialization Library
 
 License:    Apache-2.0
@@ -54,6 +54,9 @@ Development files and libraries for %{name}
 %{_libdir}/cmake/fastcdr
 
 %changelog
+* Wed Jan 28 2026 Federico Pellegrin <fede@evolware.org> - 2.3.5-1
+- Bump to 2.3.5 (rhbz#2433317). Fixes rbhz#2381209 (CMake drop nonstd vars)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

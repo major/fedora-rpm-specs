@@ -19,7 +19,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.7_rc5
+Version:           2.7_rc6
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
@@ -237,6 +237,9 @@ done
 
 
 %changelog
+* Wed Jan 28 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_rc6
+- Update to upstream 2.7_rc6 release
+
 * Fri Jan 16 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_rc5
 - Update to upstream 2.7_rc5 release
 

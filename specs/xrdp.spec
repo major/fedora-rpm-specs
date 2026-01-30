@@ -22,8 +22,8 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.10.4
-Release:   5%{?dist}
+Version:   0.10.5
+Release:   1%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -44,9 +44,8 @@ Patch3:    xrdp-0.10.0-scripts-libexec.patch
 Patch4:    xrdp-0.9.6-script-interpreter.patch
 Patch5:    xrdp-0.9.16-arch.patch
 Patch6:    xrdp-0.9.18-vnc-uninit.patch
-Patch7:    xrdp-0.10.4-vmconnect.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
-Patch8:    xrdp-0.10.2-sesman-ini.patch
+Patch8:    xrdp-0.10.5-sesman-ini.patch
 %endif
 
 BuildRequires: make
@@ -352,6 +351,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Wed Jan 28 2026 Bojan Smojver <bojan@rexursive.com> - 1:0.10.5-1
+- Update to 0.10.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

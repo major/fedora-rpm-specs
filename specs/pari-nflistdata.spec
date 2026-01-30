@@ -1,6 +1,6 @@
 Name:           pari-nflistdata
 Version:        20220729
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        PARI/GP Computer Algebra System nflist extensions
 License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/packages.html
@@ -11,7 +11,7 @@ Source2:        gpgkey-42028EA404A2E9D80AC453148F0E7C2B4522E387.gpg
 
 BuildArch:      noarch
 
-BuildRequires:	gnupg2
+BuildRequires:	gpgverify
 
 %description
 This package is needed by nflist to list fields of small discriminant
@@ -39,6 +39,9 @@ cp -a nflistdata %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20220729-10
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20220729-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

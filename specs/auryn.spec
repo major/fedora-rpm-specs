@@ -136,7 +136,7 @@ sed -i '/^BUILDDIR/ d' test/*.sh
 sed -i 's|^.BUILDDIR/test/||' test/*.sh
 
 # Need to disable vector intrinsics on these architectures
-%ifarch %{arm} s390x aarch64 %{power64}
+%ifarch %{arm} s390x aarch64 %{power64} riscv64
     sed -i 's|^\(#define CODE_USE_SIMD_INSTRUCTIONS_EXPLICITLY\)|//\1|' src/auryn/auryn_definitions.h
 %endif
 

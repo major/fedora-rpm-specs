@@ -88,15 +88,20 @@ Obsoletes:      python3-trimesh+all < 4.0.0~~dev0-1
 %if %{with blender}
 # trimesh.interfaces.blender
 # Since 5.0.0, Blender doesn’t support big-endian architectures.
-BuildRequires:  (/usr/bin/blender or python3(s390-64))
-Recommends:     (/usr/bin/blender or python3(s390-64))
+#
+# This seems to work fine at least on primary arches, but not on riscv64:
+#   (/usr/bin/blender or python3(s390-64))
+# Some kind of bug with rich/boolean dependencies + file paths is suspected,
+# perhaps in libsolv, but not characterized well enough to file a useful bug
+# report. As a workaround, this works just fine.
+BuildRequires:  (blender or python3(s390-64))
+Recommends:     (blender or python3(s390-64))
 %endif
 # trimesh.graph
 BuildRequires:  /usr/bin/dot
 Recommends:     /usr/bin/dot
 # trimesh.exchange.ply
-%ifnarch s390x
-# ExportTest.test_export fails with:
+# On s390x, ExportTest.test_export fails with:
 #   subprocess.CalledProcessError: Command '['/usr/bin/draco_encoder', '-qp',
 #   '28', '-i', '/tmp/tmpd1uz557y.ply', '-o', '/tmp/tmpkbowi3es.drc']' died
 #   with <Signals.SIGABRT: 6>.
@@ -107,11 +112,9 @@ Recommends:     /usr/bin/dot
 #   gtest failure on s390x
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2165173
 # We conclude that draco is not necessarily usable on this platform.
-BuildRequires:  /usr/bin/draco_decoder
-Recommends:     /usr/bin/draco_decoder
-BuildRequires:  /usr/bin/draco_encoder
-Recommends:     /usr/bin/draco_encoder
-%endif
+# The executables we need are: /usr/bin/draco_decoder, /usr/bin/draco_encoder
+BuildRequires:  (draco or python3(s390-64))
+Recommends:     (draco or python3(s390-64))
 # “openscad”: trimesh.interfaces.scad
 # Library would also recognize “OpenSCAD”
 BuildRequires:  /usr/bin/openscad

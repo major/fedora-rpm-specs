@@ -10,8 +10,8 @@
 %{?el7:%global __python %__python3}
 
 Name:          charliecloud
-Version:       0.42
-Release:       3%{?dist}
+Version:       0.43
+Release:       1%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -75,9 +75,12 @@ Test fixtures for %{name}.
 %setup -q
 
 %build
-# Use old inlining behavior, see:
-# https://github.com/hpc/charliecloud/issues/735
-CFLAGS=${CFLAGS:-%optflags -fgnu89-inline}; export CFLAGS
+%set_build_flags
+# Suppress discarded-qualifiers warnings treated as errors, emitted by gcc on
+# f44 with json.c.
+export CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
+export CXXFLAGS="$CXXFLAGS -Wno-error=discarded-qualifiers"
+
 %configure --docdir=%{_pkgdocdir} \
            --libdir=%{_prefix}/lib \
            --with-python=/usr/bin/python3 \
@@ -88,6 +91,9 @@ CFLAGS=${CFLAGS:-%optflags -fgnu89-inline}; export CFLAGS
            --with-sphinx-build=%{_bindir}/sphinx-build
 
 %install
+%set_build_flags
+export CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
+export CXXFLAGS="$CXXFLAGS -Wno-error=discarded-qualifiers"
 %make_install
 
 # Remove bundled license and readme (prefer license and doc macros).
@@ -144,6 +150,9 @@ CFLAGS=${CFLAGS:-%optflags -fgnu89-inline}; export CFLAGS
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Wed Jan 28 2026 Jordan Ogas <jogas@lanl.gov> - 0.43-1
+- new version 0.43
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

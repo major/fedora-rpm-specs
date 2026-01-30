@@ -1,6 +1,6 @@
 Name:		pari-galdata
 Version:	20080411
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois resolvents
 License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
@@ -10,7 +10,7 @@ Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz.asc
 Source2:	gpgkey-4940AE28C5F8E8A35E4D8D287833ECF1B5444815.gpg
 BuildArch:	noarch
 
-BuildRequires:	gnupg2
+BuildRequires:	gpgverify
 
 %description
 This package contains the optional PARI package galdata, which provides the
@@ -33,6 +33,9 @@ cp -a data/galdata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20080411-31
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20080411-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

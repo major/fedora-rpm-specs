@@ -6,7 +6,7 @@
 
 Name:           wlroots%{compat_ver}
 Version:        %{compat_ver}.4
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -42,12 +42,12 @@ BuildRequires:  glslang
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.59.0
 
-BuildRequires:  (pkgconfig(libdisplay-info) >= 0.1.1 with pkgconfig(libdisplay-info) < 0.3)
 BuildRequires:  (pkgconfig(libliftoff) >= %{liftoff_ver} with pkgconfig(libliftoff) < 0.6)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gbm) >= 17.1.0
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(hwdata)
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.114
 BuildRequires:  pkgconfig(libinput) >= 1.21.0
 BuildRequires:  pkgconfig(libseat)
@@ -123,17 +123,4 @@ MESON_OPTIONS=(
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.17.4-3
-- Rebuild for libdisplay-info 0.2.0
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Aug 08 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.17.4-1
-- Initialize wlroots0.17 package from rpms/wlroots@17b823e
+%autochangelog

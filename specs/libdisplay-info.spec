@@ -1,10 +1,10 @@
 # See https://gitlab.freedesktop.org/emersion/libdisplay-info/-/merge_requests/149
 # for library versioning explanation.
-%global sover 2
+%global sover 3
 
 Name:           libdisplay-info
-Version:        0.2.0
-Release:        5%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        EDID and DisplayID library
 
 # Main license: MIT
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 23 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.0-1
+- Update to 0.3.0 (#2387864)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

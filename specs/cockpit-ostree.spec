@@ -1,7 +1,7 @@
 Name: cockpit-ostree
 Epoch: 1
-Version: 220
-Release: 3%{?dist}
+Version: 221
+Release: 1%{?dist}
 BuildArch: noarch
 Summary: Cockpit user interface for rpm-ostree
 License: LGPL-2.1-or-later
@@ -33,6 +33,10 @@ Cockpit component for managing software updates for ostree based systems.
 %{_datadir}/cockpit/*
 
 %changelog
+* Wed Jan 28 2026 Packit <hello@packit.dev> - 1:221-1
+- Packaging fixes and translation updates
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:220-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

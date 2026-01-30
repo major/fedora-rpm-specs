@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -16,7 +16,7 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.1.4
+%global upstream_version  2.1.7
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -32,7 +32,7 @@
 Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -165,6 +165,9 @@ OPT="-n"
 
 
 %changelog
+* Wed Jan 28 2026 Remi Collet <remi@remirepo.net> - 2.1.7-1
+- update to 2.1.7 (no change)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -33,8 +33,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.5.4
-Release: 2%{?dist}
+Version: 3.5.5
+Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -100,10 +100,8 @@ Patch0053: 0053-Allow-hybrid-MLKEM-in-FIPS-mode.patch
 %endif
 Patch0054: 0054-Temporarily-disable-SLH-DSA-FIPS-self-tests.patch
 Patch0055: 0055-Add-a-define-to-disable-symver-attributes.patch
-Patch0056: 0056-apps-speed.c-Disable-testing-of-composite-signature-.patch
-Patch0057: 0057-apps-speed.c-Support-more-signature-algorithms.patch
-Patch0058: 0058-Add-targets-to-skip-build-of-non-installable-program.patch
-Patch0059: 0059-RSA_encrypt-decrypt-with-padding-NONE-is-not-support.patch
+Patch0056: 0056-Add-targets-to-skip-build-of-non-installable-program.patch
+Patch0057: 0057-Disable-RSA-PKCS1.5-FIPS-POST-not-relevant-for-RHEL.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -476,6 +474,11 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Jan 28 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.5-1
+- Rebase to OpenSSL 3.5.5, resolving CVE-2025-15467, CVE-2025-15468,
+  CVE-2025-15469, CVE-2025-66199, CVE-2025-68160, CVE-2025-69418, CVE-2025-69420,
+  CVE-2025-69421, CVE-2025-69419, CVE-2026-22795, CVE-2026-22796, CVE-2025-11187
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

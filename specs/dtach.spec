@@ -1,11 +1,13 @@
 Summary: A simple program that emulates the detach feature of screen
 Name: dtach
 Version: 0.9
-Release: 23%{?dist}
+Release: 24%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://dtach.sourceforge.net
 Source: http://prdownloads.sourceforge.net/dtach/dtach-%{version}.tar.gz
+# https://github.com/crigler/dtach/pull/21.patch
+Patch: 21.patch
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -18,7 +20,7 @@ and the program under its control. Consequently, it works best with
 full-screen applications such as emacs.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -42,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Fri Feb 07 2025 Michael J Gruber <mjg@fedoraproject.org> - 0.9-24
+- fix FTBFS with gcc15 (rhbz#2340097)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

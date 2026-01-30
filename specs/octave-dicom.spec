@@ -26,6 +26,8 @@ Digital communications in medicine (DICOM) files.
 %autosetup -n %{octpkg}-%{version}
 
 %build
+# Update autoconf to handle RISC-V
+cp /usr/lib/rpm/redhat/config.{guess,sub} src/
 # Tell it where gdcm headers are
 export GDCM_CXXFLAGS="-I%{_includedir}/gdcm/"
 %octave_pkg_build

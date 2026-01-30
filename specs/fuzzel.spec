@@ -1,7 +1,7 @@
 Name:           fuzzel
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
-Summary:        Application launcher for wlroots based Wayland compositors
+Summary:        App launcher and fuzzy finder for Wayland, inspired by rofi
 
 License:        MIT
 URL:            https://codeberg.org/dnkl/fuzzel
@@ -14,7 +14,6 @@ BuildRequires:  gcc
 BuildRequires:  meson >= 0.58
 BuildRequires:  nanosvg-devel
 BuildRequires:  tllist-static
-
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(fcft) >= 3.3.1
 BuildRequires:  pkgconfig(fontconfig)
@@ -29,15 +28,8 @@ BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(xkbcommon)
 
 %description
-Fuzzel is a Wayland-native application launcher and fuzzy finder, inspired by rofi and dmenu.
-
-Features:
-  * Wayland native
-  * Rofi drun-like mode of operation
-  * dmenu mode where newline separated entries are read from stdin
-  * Emacs key bindings
-  * Icons!
-  * Remembers frequently launched applications
+Fuzzel is a Wayland-native application launcher and fuzzy finder, inspired by
+rofi and dmenu.
 
 
 %prep
@@ -45,7 +37,7 @@ Features:
 
 
 %build
-%meson                  \
+%meson \
   -Dsystem-nanosvg=enabled \
   %{nil}
 %meson_build

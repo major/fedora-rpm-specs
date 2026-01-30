@@ -28,6 +28,7 @@ Recommends: bash-completion
 %endif
 
 # Submitted upstream: https://github.com/matejak/argbash/pull/177
+Patch: 0001-Fix-uninitialized-wrapped-script-arrays-causing-shel.patch
 
 
 %description

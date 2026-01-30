@@ -1,4 +1,4 @@
-%global erlang_minver 25
+%global erlang_minver 26.2
 # We want to install into /usr/lib, even on 64-bit platforms
 %global _rabbit_libdir %{_exec_prefix}/lib/rabbitmq
 # Technically, we're noarch; but Elixir we're using is not.
@@ -6,8 +6,8 @@
 
 
 Name: rabbitmq-server
-Version: 4.0.7
-Release: 4%{?dist}
+Version: 4.2.3
+Release: 1%{?dist}
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -17,12 +17,13 @@ Source3: rabbitmq-server.logrotate
 # curl -O https://raw.githubusercontent.com/rabbitmq/rabbitmq-server-release/rabbitmq_v3_6_16/packaging/RPMS/Fedora/rabbitmq-server.tmpfiles
 Source5: rabbitmq-server.tmpfiles
 Source6: rabbitmq-server-cuttlefish
-Patch2: rabbitmq-server-0002-Use-default-EPMD-socket.patch
-Patch3: rabbitmq-server-0003-Use-proto_dist-from-command-line.patch
-Patch4: rabbitmq-server-0004-force-python3.patch
-Patch5: rabbitmq-server-0005-Partially-revert-Use-template-in-rabbitmq-script-wra.patch
+Patch: rabbitmq-server-0001-Use-default-EPMD-socket.patch
+Patch: rabbitmq-server-0002-Use-proto_dist-from-command-line.patch
+Patch: rabbitmq-server-0003-force-python3.patch
+Patch: rabbitmq-server-0004-Partially-revert-Use-template-in-rabbitmq-script-wra.patch
 
 URL: https://www.rabbitmq.com/
+BuildRequires: 7zip
 BuildRequires: elixir
 BuildRequires: erlang >= %{erlang_minver}
 # for %%gpgverify
@@ -176,6 +177,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Wed Jan 28 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-1
+- Ver. 4.2.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: cockpit-files
-Version: 34
-Release: 3%{?dist}
+Version: 35
+Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
 
@@ -23,6 +23,7 @@ BuildRequires:  libappstream-glib
 BuildRequires: gettext
 %if %{defined rebuild_bundle}
 BuildRequires: nodejs
+BuildRequires: %{_bindir}/node
 BuildRequires: nodejs-esbuild
 %endif
 
@@ -39,12 +40,12 @@ Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(lodash)) = 4.17.21
+Provides: bundled(npm(lodash)) = 4.17.23
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.3.0
+Provides: bundled(npm(tabbable)) = 6.4.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -60,9 +61,9 @@ A filesystem browser for Cockpit
 %build
 %if %{defined rebuild_bundle}
 rm -rf dist
-# HACK: node module packaging is currently broken in Fedora, should be in
+# HACK: node module packaging is broken in Fedora ≤ 43; should be in
 # common location, not major version specific one
-NODE_ENV=production NODE_PATH=$(echo /usr/lib/node_modules_*) ./build.js
+NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules_*) ./build.js
 %else
 # Use pre-built bundle on distributions without nodejs-esbuild
 %endif
@@ -86,6 +87,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jan 28 2026 Packit <hello@packit.dev> - 35-1
+- Packaging fixes and translation updates
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

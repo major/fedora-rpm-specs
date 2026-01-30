@@ -1,7 +1,7 @@
 Name:           maven-doxia
 Epoch:          0
 Version:        2.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -14,7 +14,7 @@ Source2:        https://downloads.apache.org/maven/KEYS
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(com.vladsch.flexmark:flexmark)
@@ -237,6 +237,9 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 0:2.0.0-5
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

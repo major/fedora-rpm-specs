@@ -78,7 +78,7 @@ BuildRequires:  binutils-devel
 BuildRequires:  bzip2
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(readline)

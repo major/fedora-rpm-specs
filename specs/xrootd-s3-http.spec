@@ -1,16 +1,11 @@
 Name:		xrootd-s3-http
-Version:	0.6.1
+Version:	0.6.3
 Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/133
-#		https://github.com/PelicanPlatform/xrootd-s3-http/issues/111
-Patch0:		0001-Fix-parallel-running-of-the-POSC-tests.patch
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/132
-Patch1:		0001-libXrdPelicanHttpCore-is-not-a-plugin.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -35,8 +30,6 @@ and HTTP backends through an XRootD server.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -68,7 +61,11 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
-* Tue Jan 20 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 0.6.1-1
+* Wed Jan 28 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.3-1
+- Update to version 0.6.3
+- Drop patches accepted upstream
+
+* Tue Jan 20 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.1-1
 - Update to version 0.6.1
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3

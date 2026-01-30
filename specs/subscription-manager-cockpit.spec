@@ -1,6 +1,6 @@
 Name: subscription-manager-cockpit
-Version: 11.1
-Release: 2%{?dist}
+Version: 13
+Release: 1%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
 Group: System Environment/Base
@@ -79,6 +79,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Wed Jan 28 2026 Packit <hello@packit.dev> - 13-1
+- Bug fixes and translation updates
+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

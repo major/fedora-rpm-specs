@@ -2,7 +2,7 @@
 %global pypi_name gitlab
 
 Name:           python-%{pypi_name}
-Version:        7.1.0
+Version:        8.0.0
 Release:        %autorelease
 Summary:        Interact with GitLab API
 
@@ -36,23 +36,8 @@ Documentation for gitlab
 %autosetup -p1 -n python_%{pypi_name}-%{version}
 
 # Relax some dependencies
-sed -i 's/requests==.*/requests/'                      requirements.txt
-sed -i 's/requests-toolbelt==.*/requests-toolbelt/'    requirements.txt
-sed -i 's/gql==.*/gql/'                                requirements.txt
-sed -i 's/httpx==.*/httpx/'                            requirements.txt
-
-sed -i 's/pytest==.*/pytest/'                          requirements-lint.txt requirements-test.txt
-sed -i 's/PyYaml==.*/PyYaml/'                          requirements-lint.txt requirements-test.txt
-sed -i 's/responses==.*/responses/'                    requirements-lint.txt requirements-test.txt
-sed -i 's/respx==.*/respx/'                            requirements-lint.txt requirements-test.txt
-
-sed -i 's/wheel==.*/wheel/'                            requirements-test.txt
-sed -i 's/coverage==.*/coverage/'                      requirements-test.txt
-sed -i 's/setuptools==.*/setuptools/'                  requirements-test.txt
-sed -i 's/pytest-cov==.*/pytest-cov/'                  requirements-test.txt
-sed -i 's/build==.*/build/'                            requirements-test.txt
-sed -i 's/trio==.*/trio/'                              requirements-test.txt
-sed -i 's/anyio==.*/anyio/'                            requirements-test.txt
+sed -i 's/pytest==9\.*/pytest>=8.4.2,<10/'             requirements-lint.txt requirements-test.txt
+sed -i 's/wheel==0\.*/wheel>=0.45.0,<1.0/'             requirements-test.txt
 
 # not available in rawhide 11 Aug 2022
 sed -i 's/pytest-console-scripts.*//'                  requirements-test.txt

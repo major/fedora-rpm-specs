@@ -1,6 +1,6 @@
 Name:           pari-nftables
 Version:        20080929
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        PARI/GP Computer Algebra System number field tables
 
 # See http://pari.math.u-bordeaux.fr/packages.html for license information.
@@ -15,7 +15,7 @@ Source2:        gpgkey-dd6754092ef692988cfcdcbad49a9c20edef8d6a.gpg
 ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  parallel
 
 %description
@@ -45,6 +45,9 @@ cp -a nftables %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20080929-12
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20080929-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

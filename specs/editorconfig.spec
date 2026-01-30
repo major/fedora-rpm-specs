@@ -15,8 +15,8 @@ editors.}
 
 Name:           editorconfig
 Summary:        Parser for EditorConfig files written in C
-Version:        0.12.9
-Release:        5%{?dist}
+Version:        0.12.10
+Release:        1%{?dist}
 
 # The entire source is BSD-2-Clause, except:
 #   BSD-3-Clause: src/lib/ini.h
@@ -33,6 +33,12 @@ Release:        5%{?dist}
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-1-Clause
 URL:            https://github.com/editorconfig/editorconfig-core-c
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+
+# Downstream-only: Do not compile with -Werror
+#
+# This makes sense upstream, but is too strict for downstream packaging
+# across various architectures, compiler versions, and so on.
+Patch0:         0001-Downstream-only-Do-not-compile-with-Werror.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -73,7 +79,7 @@ Summary:        Parser library for EditorConfig files (shared library)
 Provides:       bundled(inih) = 0^20110627git328c3d4
 %if %{without system_uthash}
 # src/lib/utarray.h:UTARRAY_VERSION
-Provides:       bundled(uthash) = 2.1.0
+Provides:       bundled(uthash) = 2.3.0
 %endif
 
 %description    libs %common_description
@@ -139,6 +145,9 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 
 
 %changelog
+* Thu Jan 22 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.10-1
+- Update to 0.12.10 (close RHBZ#2401398)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

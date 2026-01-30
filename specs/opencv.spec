@@ -58,8 +58,6 @@
 %bcond_without  libva
 %bcond_without  vulkan
 
-%define _lto_cflags %{nil}
-
 # If _cuda_version is unset
 %if 0%{!?_cuda_version:1} && 0%{?with_cuda:1}
 %global _cuda_version 11.2
@@ -69,13 +67,13 @@
 %endif
 
 Name:           opencv
-Version:        4.12.0
+Version:        4.13.0
 %global javaver %(foo=%{version}; echo ${foo//./})
 %global majorver %(foo=%{version}; a=(${foo//./ }); echo ${a[0]} )
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        21%{?dist}
+Release:        1%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -89,7 +87,7 @@ URL:            https://opencv.org
 Source0:        %{name}-clean-%{version}.tar.gz
 Source1:        %{name}_contrib-clean-%{version}.tar.gz
 %{?with_extras_tests:
-#Source2:        %{name}_extra-clean-%{version}.tar.gz
+Source2:        %{name}_extra-clean-%{version}.tar.gz
 }
 Source3:        face_landmark_model.dat.xz
 # SRC=v0.1.2d.zip ; wget https://github.com/opencv/ade/archive/$SRC; mv $SRC $(md5sum $SRC | cut -d' ' -f1)-$SRC
@@ -102,13 +100,7 @@ Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_com
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
-# Fix build with Qt 6.9, by Atri Bhattacharya (thanks)
-# https://github.com/opencv/opencv/issues/27223#issuecomment-2797750952
-Patch16:        qt69.patch
-# Fix build with FFmpeg 8
-Patch17:        https://github.com/opencv/opencv/pull/27691.patch
-# Fix detect Eigen3 > 3
-Patch18:        https://github.com/opencv/opencv/pull/27536.patch
+Patch4:         Fix-macro-definition-for-Power10-architecture.patch
 
 
 BuildRequires:  gcc-c++
@@ -165,11 +157,7 @@ BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libavdevice)
 }
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{?with_gstreamer:BuildRequires:  gstreamer1-devel gstreamer1-plugins-base-devel}
-%else
-%{?with_gstreamer:BuildRequires:  gstreamer-devel gstreamer-plugins-base-devel}
-%endif
 %{?with_xine:BuildRequires:  xine-lib-devel}
 %{?with_opencl:BuildRequires:  opencl-headers}
 BuildRequires:  libgphoto2-devel
@@ -404,16 +392,13 @@ This package contains Java bindings for the OpenCV library.
 # we don't use pre-built contribs except quirc
 pushd 3rdparty
 shopt -s extglob
-#rm -r !(openexr|openvx|quirc)
-rm -r !(openvx|quirc|flatbuffers)
+rm -r !(dlpack|quirc|flatbuffers)
 shopt -u extglob
 popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
-%patch -P 16 -p1 -b .qt69
-%patch -P 17 -p1 -b .ffmpeg8
-%patch -P 18 -p1 -b .eigen3
+%patch -P 4 -p1 -b .ppc_macro
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -441,11 +426,8 @@ cd modules/python/package
 %pyproject_buildrequires
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2381337)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # enabled by default if libraries are presents at build time:
 # GTK, GSTREAMER, 1394, V4L, eigen3
-# non available on Fedora: FFMPEG, XINE
 # disabling IPP because it is closed source library from intel
 
 %cmake \
@@ -625,6 +607,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Wed Jan 28 2026 Nicolas Chauvet <kwizart@gmail.com> - 4.13.0-1
+- Update to 4.13.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

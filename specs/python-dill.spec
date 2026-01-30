@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name: python-dill
-Version: 0.4.0
+Version: 0.4.1
 Release: %autorelease
 Summary: Serialize all of Python
 
@@ -9,9 +9,6 @@ License: BSD-3-Clause
 
 URL: https://github.com/uqfoundation/dill
 Source: %{pypi_source dill}
-
-# Pickle _contextvars.Context objects, for threads in Python 3.14+
-Patch: https://github.com/uqfoundation/dill/pull/717.patch
 
 BuildArch: noarch
 

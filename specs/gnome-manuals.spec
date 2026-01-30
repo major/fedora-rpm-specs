@@ -2,13 +2,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-manuals
-Version:        49.0
+Version:        50~alpha
 Release:        %autorelease
 Summary:        Install, Browse, and Search developer documentation
 License:        GPL-3.0-or-later
 
 URL:            https://gitlab.gnome.org/GNOME/manuals
-Source:         https://download.gnome.org/sources/manuals/49/manuals-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/manuals/50/manuals-%{tarball_version}.tar.xz
 
 ExcludeArch:    %{ix86}
 

@@ -16,10 +16,14 @@ Source0: https://sourceforge.net/projects/gnu-efi/files/gnu-efi-%{version}.tar.b
 # data into a different section than the code and to make the .text section RX."
 #Patch0048: 0048-ld-Don-t-warn-about-RWX-segment-maps.patch
 
+# use --output-target with objcopy
+Patch0048: 0049-objcopy-use-output-target-instead-of-target.patch
+
 ExclusiveArch: %{efi}
 BuildRequires: binutils
 BuildRequires: efi-srpm-macros >= 5-4
 BuildRequires: gcc
+BuildRequires: git git-core
 
 # We're explicitly *not* requiring glibc-headers, because it gets us
 # cross-arch dependency problems in "fedpkg mockbuild" from x86_64.
@@ -65,7 +69,7 @@ Summary: Utilities for EFI systems
 This package contains utilities for debugging and developing EFI systems.
 
 %prep
-%autosetup -p1
+%autosetup -S git_am
 
 %build
 %undefine _hardened_ldflags

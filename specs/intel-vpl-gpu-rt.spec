@@ -1,5 +1,5 @@
 Name:           intel-vpl-gpu-rt
-Version:        25.4.5
+Version:        26.1.0
 Release:        %autorelease
 Summary:        Intel Video Processing Library (Intel VPL) GPU Runtime
 License:        MIT

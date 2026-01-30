@@ -23,10 +23,14 @@ License:        GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 #   - config/install-sh
 SourceLicense:  %{license} AND FSFUL AND FSFULLR AND X11
 URL:            https://pari.math.u-bordeaux.fr/
+VCS:            git:https://pari.math.u-bordeaux.fr/git/gp2c.git
 Source0:        %{url}pub/pari/GP2C/gp2c-%{upver}.tar.gz
 Source1:        %{url}pub/pari/GP2C/gp2c-%{upver}.tar.gz.asc
 # Public key 0x4522e387, Bill Allombert <Bill.Allombert@math.u-bordeaux.fr>
 Source2:        gpgkey-42028EA404A2E9D80AC453148F0E7C2B4522E387.gpg
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -42,7 +46,7 @@ BuildRequires:  pari-devel
 
 BuildRequires:  tex(latex)
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 Requires:       gcc
 Requires:       pari-devel%{?_isa}
@@ -87,11 +91,11 @@ autoreconf --force --install --verbose
 # Build the documentation
 # The makefile does not invoke LaTex enough times, so do it manually
 cd doc
-pdflatex -interaction=batchmode gp2c.tex
-pdflatex -interaction=batchmode gp2c.tex
-pdflatex -interaction=batchmode gp2c.tex
-pdflatex -interaction=batchmode type.tex
-pdflatex -interaction=batchmode type.tex
+pdflatex -interaction=nonstopmode gp2c.tex
+pdflatex -interaction=nonstopmode gp2c.tex
+pdflatex -interaction=nonstopmode gp2c.tex
+pdflatex -interaction=nonstopmode type.tex
+pdflatex -interaction=nonstopmode type.tex
 cd -
 
 

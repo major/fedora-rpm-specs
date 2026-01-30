@@ -1,6 +1,6 @@
 Name:           python-eccodes
-Version:        2.43.0
-Release:        4%{?dist}
+Version:        2.45.0
+Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -105,6 +105,10 @@ rm -rf %sphinx_doc_path/.doctrees
 
 
 %changelog
+* Wed Jan 28 2026 Jos de Kloe <josdekloe@gmail.com> 2.45.0-1
+- move to upstream release 2.45.0
+ (skipped version 2.44.0 due to bug https://github.com/ecmwf/eccodes-python/issues/145)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

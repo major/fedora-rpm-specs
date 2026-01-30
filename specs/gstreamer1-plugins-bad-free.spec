@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -161,6 +161,8 @@ BuildRequires:  pkgconfig(zxing)
 %endif
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Provides:       gstreamer1-vaapi = %{version}-%{release}
+Obsoletes:      gstreamer1-vaapi < 1.26.10-3
 
 # mpeg2enc, mplex used to be shipped in -freeworld
 Conflicts: gstreamer1-plugins-bad-freeworld < 1:1.26.3-3
@@ -415,10 +417,15 @@ aren't tested well enough, or the code is not of good enough quality.
     -D rtmp=disabled \
     -D svthevcenc=disabled \
     -D svtjpegxs=disabled \
+    -D tflite=disabled \
+    -D tflite-edgetpu=disabled \
+    -D tflite-vsi=disabled \
     -D tinyalsa=disabled \
     -D voaacenc=disabled \
+    -D vmaf=disabled \
     -D wasapi=disabled -D wasapi2=disabled \
     -D wpe=disabled \
+    -D wpe2=disabled \
     -D x11=disabled \
     -D x265=disabled \
     %{nil}
@@ -618,7 +625,6 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstvideoparsersbad.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideosignal.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvmnc.so
-%{_libdir}/gstreamer-%{majorminor}/libgsty4mdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstinsertbin.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstunixfd.so
@@ -708,6 +714,7 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstdtsdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstflite.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgme.so
+%{_libdir}/gstreamer-%{majorminor}/libgsthip.so
 %{_libdir}/gstreamer-%{majorminor}/libgstladspa.so
 %if %{with ldac}
 %{_libdir}/gstreamer-%{majorminor}/libgstldac.so
@@ -771,6 +778,7 @@ EOF
 %{_libdir}/libgstcodecs-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstcuda-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstdxva-%{majorminor}.so.0{,.*}
+%{_libdir}/libgsthip.so.0{,.*}
 %{_libdir}/libgstinsertbin-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstisoff-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstmpegts-%{majorminor}.so.0{,.*}
@@ -795,6 +803,8 @@ EOF
 %{_libdir}/girepository-1.0/GstCodecs-1.0.typelib
 %{_libdir}/girepository-1.0/GstCuda-1.0.typelib
 %{_libdir}/girepository-1.0/GstDxva-1.0.typelib
+%{_libdir}/girepository-1.0/GstHip-1.0.typelib
+%{_libdir}/girepository-1.0/GstHipGL-1.0.typelib
 %{_libdir}/girepository-1.0/GstInsertBin-1.0.typelib
 %{_libdir}/girepository-1.0/GstMpegts-1.0.typelib
 %{_libdir}/girepository-1.0/GstMse-1.0.typelib
@@ -818,6 +828,8 @@ EOF
 %{_datadir}/gir-1.0/GstCodecs-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstCuda-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstDxva-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstHip-1.0.gir
+%{_datadir}/gir-1.0/GstHipGL-1.0.gir
 %{_datadir}/gir-1.0/GstInsertBin-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstMpegts-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstMse-%{majorminor}.gir
@@ -837,6 +849,7 @@ EOF
 %{_libdir}/libgstcodecparsers-%{majorminor}.so
 %{_libdir}/libgstcodecs-%{majorminor}.so
 %{_libdir}/libgstdxva-%{majorminor}.so
+%{_libdir}/libgsthip.so
 %{_libdir}/libgstinsertbin-%{majorminor}.so
 %{_libdir}/libgstisoff-%{majorminor}.so
 %{_libdir}/libgstmpegts-%{majorminor}.so
@@ -860,6 +873,7 @@ EOF
 %{_includedir}/gstreamer-%{majorminor}/gst/basecamerabinsrc
 %{_includedir}/gstreamer-%{majorminor}/gst/codecparsers
 %{_includedir}/gstreamer-%{majorminor}/gst/cuda/
+%{_includedir}/gstreamer-%{majorminor}/gst/hip
 %{_includedir}/gstreamer-%{majorminor}/gst/insertbin
 %{_includedir}/gstreamer-%{majorminor}/gst/interfaces/photography*
 %{_includedir}/gstreamer-%{majorminor}/gst/isoff/
@@ -880,6 +894,8 @@ EOF
 %{_libdir}/pkgconfig/gstreamer-bad-audio-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-cuda-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-codecparsers-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-hip-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-hip-gl-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-insertbin-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-mpegts-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-mse-%{majorminor}.pc
@@ -900,6 +916,9 @@ EOF
 
 
 %changelog
+* Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-2
+- Obsolete/provide gstreamer1-vaapi.
+
 * Tue Jan 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
 - 1.28.0
 

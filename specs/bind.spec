@@ -86,7 +86,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.44
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -117,6 +117,7 @@ Source46: named-setup-rndc.service
 Source48: setup-named-softhsm.sh
 Source49: named-chroot.files
 Source50: named.sysusers
+Source51: bind-chroot.tmpfiles.d
 
 # Common patches
 # FIXME: Is this still required?
@@ -671,6 +672,7 @@ done
 
 mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
 install -p -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
+install -p -m 644 %{SOURCE51} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}-chroot.conf
 
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d
 install -p -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
@@ -898,6 +900,7 @@ fi;
 %{_unitdir}/named-chroot.service
 %{_unitdir}/named-chroot-setup.service
 %{_libexecdir}/setup-named-chroot.sh
+%{_tmpfilesdir}/%{name}-chroot.conf
 %defattr(0664,root,named,-)
 %ghost %dev(c,1,3) %verify(not mtime) %{chroot_prefix}/dev/null
 %ghost %dev(c,1,8) %verify(not mtime) %{chroot_prefix}/dev/random
@@ -943,6 +946,10 @@ fi;
 %endif
 
 %changelog
+* Fri Dec 12 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.44-2
+- Create /var/named directories for bind-chroot (RHEL-132053)
+- Add forgotten _libdir/named into bind-chroot tmpfiles
+
 * Thu Jan 22 2026 Petr Menšík <pemensik@redhat.com> - 32:9.18.44-1
 - Update to 9.18.44 (rhbz#2431609)
 

@@ -1,6 +1,6 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
-Version: 2.8.3
+Version: 2.8.4
 Release: %autorelease
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup

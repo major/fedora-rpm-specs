@@ -1,6 +1,6 @@
 Name:		pari-elldata
 Version:	20210301
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	PARI/GP Computer Algebra System elliptic curves
 License:	GPL-2.0-or-later
 URL:		https://pari.math.u-bordeaux.fr/packages.html
@@ -11,7 +11,7 @@ Source2:	gpgkey-42028EA404A2E9D80AC453148F0E7C2B4522E387.gpg
 
 BuildArch:	noarch
 
-BuildRequires:	gnupg2
+BuildRequires:	gpgverify
 BuildRequires:	parallel
 
 %description
@@ -42,6 +42,9 @@ cp -a data/elldata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 20210301-13
+- BR gpgverify instead of gnupg2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20210301-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

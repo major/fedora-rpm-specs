@@ -70,8 +70,8 @@
 # use bundled library instead for now
 %bcond_with          liburiparser
 
-%global upver        8.5.2
-#global rcver        RC1
+%global upver        8.5.3
+%global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -80,7 +80,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 3%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1645,6 +1645,12 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Jan 28 2026 Remi Collet <remi@remirepo.net> - 8.5.3~RC1-2
+- Rebuilt for net-snmp 5.9.5.2 FTI #2433757
+
+* Wed Jan 28 2026 Remi Collet <remi@remirepo.net> - 8.5.3~RC1-1
+- update to 8.5.3RC1
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 8.5.2-3
 - Rebuilt for net-snmp 5.9.5.2
 

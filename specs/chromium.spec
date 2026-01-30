@@ -260,7 +260,7 @@
 %endif
 
 Name:	chromium
-Version: 144.0.7559.96
+Version: 144.0.7559.109
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1811,6 +1811,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 28 2026 Than Ngo <than@redhat.com> - 144.0.7559.109-1
+- Update to 144.0.7559.109
+  * CVE-2026-1504: Inappropriate implementation in Background Fetch API
+
 * Wed Jan 21 2026 Than Ngo <than@redhat.com> - 144.0.7559.96-1
 - Update to 144.0.7559.96
   * CVE-2026-1220: Race in V8
