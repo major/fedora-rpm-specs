@@ -1,6 +1,6 @@
 Name:           libssh
 Version:        0.11.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -10,6 +10,8 @@ Source1:        https://www.libssh.org/files/0.10/%{name}-%{version}.tar.xz.asc
 Source2:        https://www.libssh.org/files/0x03D5DF8CFDD3E8E7_libssh_libssh_org_gpgkey.asc#/%{name}.keyring
 Source3:        libssh_client.config
 Source4:        libssh_server.config
+# https://gitlab.com/libssh/libssh-mirror/-/merge_requests/718/
+Patch1:         libssh-0.11.3-workaround-softhsm.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -139,6 +141,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Thu Jan 29 2026 Jakub Jelen <jjelen@redhat.com> - 0.11.3-3
+- Backport workaround for SoftHSM 2.7.0 to unbreak build
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -24,7 +24,6 @@ A GStreamer-based RTSP server library.
 
 %package devel
 Summary:        Development files for %{name}
-License:        LGPLv2+
 Requires:       gstreamer1-devel%{?_isa} >= %{version}
 Requires:       gstreamer1-plugins-base-devel%{?_isa} >= %{version}
 Requires:       %{name}%{?_isa} = %{version}-%{release}

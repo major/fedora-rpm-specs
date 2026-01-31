@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(wayland-server) >= 1.23.1
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.15
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  pkgconfig(gmobile) >= 0.1.0
+BuildRequires:  pkgconfig(gmobile) >= 0.6.0
 BuildRequires:  pkgconfig(wlroots-0.19)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(json-glib-1.0)

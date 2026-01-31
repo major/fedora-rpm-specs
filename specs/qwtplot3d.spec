@@ -1,15 +1,15 @@
-%global commit b2655743d30ed3185f3c0e2626b33a1d29655216
+%global commit 3ba6d52783752c97793ab7fde14d204fcf6348e6
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210828
+%global commitdate 20260129
 
 Name:           qwtplot3d
 Epoch:          1
 Version:        0.3.0
-Release:        12.%{commitdate}git%{shortcommit}%{?dist}
+Release:        13.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original QwtPlot3D library
 License:        Zlib
 URL:            https://github.com/SciDAVis/%{name}
-Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:        https://gitlab.com/anto.trande/qwtplot3d/-/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 Patch0:         %{name}-qt6-build.patch
 Patch1:         %{name}-qt5-build.patch
@@ -62,8 +62,6 @@ developing applications that use %{name}-qt6.
 %package        -n %{name}-qt5
 Summary:        Extended version of the original QwtPlot3D Qt5 library
 Provides:       %{name}-qt5%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes:      %{name}-qt5 < 0:0.3.1a-18
-Obsoletes:      %{name}-qt4 < 0:0.3.1a-18
 
 %description    -n %{name}-qt5
 QwtPlot3D is not a program, but a feature-rich Qt/OpenGL-based C++
@@ -74,8 +72,6 @@ programmers.
 Summary:        Development files for %{name}
 Requires:       %{name}-qt5%{?_isa} = %{epoch}:%{version}-%{release}
 Provides:       %{name}-qt5-devel%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes:      %{name}-qt5-devel < 0:0.3.1a-18
-Obsoletes:      %{name}-qt4-devel < 0:0.3.1a-18
 
 %description    -n %{name}-qt5-devel
 The %{name}6-devel package contains Qt5 libraries and header files for
@@ -192,6 +188,9 @@ popd
 #
 
 %changelog
+* Thu Jan 29 2026 Antonio Trande <sagitter@fedoraproject.org> - 1:0.3.0-13.20260129git3ba6d52
+- Set cmake_minimum-required in CMakeLists.txt
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.0-12.20210828gitb265574
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

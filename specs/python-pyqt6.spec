@@ -128,7 +128,7 @@ sip-build \
   --dbus=%{_includedir}/dbus-1.0/ \
   --pep484-pyi \
   --qmake-setting 'QMAKE_CFLAGS_RELEASE="%{build_cflags}"' \
-  --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} `pkg-config --cflags dbus-python` -DQT_NO_INT128"' \
+  --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} `pkg-config --cflags dbus-python` -DQT_NO_INT128 -std=c++17"' \
   --qmake-setting 'QMAKE_LFLAGS_RELEASE="%{build_ldflags}"'
 
 %make_build -C build

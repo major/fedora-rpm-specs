@@ -5,8 +5,8 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           13.0.3
-Release:           2%{?dist}
+Version:           13.0.4
+Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -208,6 +208,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Thu Jan 29 2026 Robert Scheck <robert@fedoraproject.org> 13.0.4-1
+- Upgrade to 13.0.4 (#2432633)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -218,7 +221,7 @@ fi
 - Use 'systemctl try-reload-or-restart' in logrotate postrotate
   script (#2371331, thanks to Marcos Mello)
 - Do not use removed /etc/pki/tls/certs/ca-bundle.crt bundle file
-  for Fedora 42 >= and RHEL >= 11
+  for Fedora 43 >= and RHEL >= 11
 
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 13.0.2-3
 - Rebuilt for icu 77.1

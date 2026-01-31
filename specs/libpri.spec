@@ -38,7 +38,7 @@ Source2:        libpri.gpg
 #   https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=957470;filename=zero-sized-members.patch;msg=32
 Patch:          zero-sized-members.patch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 BuildRequires:  make
 BuildRequires:  gcc

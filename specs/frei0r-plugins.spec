@@ -3,11 +3,13 @@
 # Just explicitly disable this optimization until upstream
 # fixes the issue.
 # https://github.com/dyne/frei0r/issues/239
+%ifarch i686 x86_64
 %global optflags %{optflags} -mno-sse4.1
+%endif
 
 Name:           frei0r-plugins
 Version:        2.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -83,6 +85,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.5.1-5
+- Rebuilt for OpenCV 4.13
+
 * Fri Jan 16 2026 Stephen Gallagher <sgallagh@redhat.com> - 2.5.1-4
 - Disable broken SSE4.1 optimization
 

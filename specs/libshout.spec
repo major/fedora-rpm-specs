@@ -102,7 +102,6 @@ data, and prevents most bad data from getting to the icecast server.
 
 %package        devel
 Summary:        Header files for %{name} development
-License:        LGPLv2+
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel

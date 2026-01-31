@@ -10,20 +10,16 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.11.4
+Version:        3.11.6
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
-# The entire source is (Apache-2.0 OR MIT), except:
-#
-# MIT:
-# - include/yyjson/yyjson.c
-# - include/yyjson/yyjson.h
-#
-# Apache-2.0:
-# - src/serialize/writer/str/mod.rs
-# - src/serialize/writer/str/sse2.rs
-License:        (Apache-2.0 OR MIT) AND Apache-2.0 AND MIT
+# Most source files are either MPL-2.0 (“for files only modified by ijl”) or
+# (Apache-2.0 OR MIT), as indicated by SPDX-License-Identifier headers in
+# individual sources, resulting in upstream’s SPDX license expression (MPL-2.0
+# AND (Apache-2.0 OR MIT)). The exception is the yyjson sources,
+# include/yyjson/yyjson.{c,h}, which are both MIT.
+License:        MPL-2.0 AND (Apache-2.0 OR MIT) AND MIT
 URL:            https://github.com/ijl/orjson
 # We must be careful about the source archive.
 #
@@ -80,17 +76,17 @@ Summary:        %{summary}
 # BSL-1.0
 # MIT
 # MIT OR Apache-2.0
+# MPL-2.0 AND (Apache-2.0 OR MIT)
 # Unlicense OR MIT
 #
-# Note that this must include the terms of the base package License expression.
+# Note that this must include the terms of the base package License expression,
+# which are all in the first line of the expresion below.
 License:        %{shrink:
-                (Apache-2.0 OR MIT) AND
-                Apache-2.0 AND
+                MPL-2.0 AND (Apache-2.0 OR MIT) AND MIT AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 BSD-3-Clause AND
                 BSL-1.0 AND
-                MIT AND
                 (Unlicense OR MIT)
                 }
 

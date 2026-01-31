@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -203,6 +203,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1:3.1.9.0-4
+- Rebuilt for OpenCV 4.13
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

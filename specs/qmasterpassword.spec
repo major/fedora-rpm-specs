@@ -1,6 +1,6 @@
 Name:           qmasterpassword
 Version:        2.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Stateless graphical Master Password Manager
 
 %global project_name qMasterPassword
@@ -9,6 +9,7 @@ Summary:        Stateless graphical Master Password Manager
 License:        GPL-3.0-only
 URL:            https://github.com/bkueng/qMasterPassword
 Source0:        https://github.com/bkueng/%{project_name}/archive/%{git_tag}/%{project_name}-%{git_tag}.tar.gz
+Patch0:         qmasterpassword-2.0.3-identicon-fix-build-with-cplusplus20.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -33,7 +34,7 @@ platforms, like Android or iOS.
 
 
 %prep
-%setup -qn %{project_name}-%{version}
+%autosetup -n %{project_name}-%{version} -p1
 
 
 %build
@@ -76,6 +77,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{project_name
 
 
 %changelog
+* Thu Jan 29 2026 Stefan Becker <chemobejk@gmail.com> 2.0.3-4
+- add upstream patch to fix compilation with C++20 (bz #2435044)
+- take autosetup macro into use
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

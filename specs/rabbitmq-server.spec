@@ -1,3 +1,4 @@
+# Check here - https://www.rabbitmq.com/docs/which-erlang
 %global erlang_minver 26.2
 # We want to install into /usr/lib, even on 64-bit platforms
 %global _rabbit_libdir %{_exec_prefix}/lib/rabbitmq

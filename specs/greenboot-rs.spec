@@ -7,8 +7,8 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:		greenboot-rs
-Version:	0.16.1
-Release:	1%{?dist}
+Version:	0.16.2
+Release:	0%{?dist}
 Summary:	Generic Health Check Framework for systemd
 # Aggregated license of statically linked dependencies as per %%cargo_license_summary
 License:	BSD-3-Clause AND ISC AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
@@ -37,7 +37,6 @@ Summary:	%{summary}
 %{?systemd_requires}
 Requires:	systemd >= 240
 Requires:	rpm-ostree
-Requires:	bootupd
 Requires:	pam >= 1.4.0
 Recommends:	openssh
 
@@ -147,8 +146,11 @@ install -DpZm 0644 usr/lib/systemd/system/greenboot-healthcheck.service.d/10-net
 %{_unitdir}/greenboot-healthcheck.service.d/10-network-online.conf
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Wed Jan 21 2026 Sayan Paul <saypaul@redhat.com> - 0.16.2
+- restrict manual restart of healthcheck service
+- fixed error while running healtcheck inside container
+- removed bootupd dependency
+- fixed CI tests
 
 * Wed Dec 03 2025 Sayan Paul <saypaul@redhat.com> - 0.16.1
 - Ensure rollback trigger runs before systemd-update-done and only on updates

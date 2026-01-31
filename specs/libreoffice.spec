@@ -1,7 +1,7 @@
 # download path contains version without the last (fourth) digit
 %global libo_version 26.2.0
 # This is the last (fourth) digit of LO version
-%global libo_min_version 2
+%global libo_min_version 3
 # Set this to 1 if this is a prerelease build
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
@@ -737,7 +737,8 @@ Obsoletes: libreoffice-kde5 < 1:6.4.7.3
 Obsoletes: libreoffice-kde4-debuginfo < 1:6.3.0.0
 Obsoletes: libreoffice-kde5-debuginfo < 1:6.4.7.3
 %if (0%{?fedora} && 0%{?fedora} >= 44)
-Obsoletes: libreoffice-kf5 < 1:26.2.0.1
+Provides:  libreoffice-kf5 = 1:26.2.0.3
+Obsoletes: libreoffice-kf5 < 1:26.2.0.3
 %endif
 Supplements: (%{name}-core%{?_isa} and plasma-workspace)
 
@@ -2405,16 +2406,15 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{baseinstdir}/program/libkf5be1lo.so
 %{baseinstdir}/program/libvclplug_kf5lo.so
 %{baseinstdir}/program/libvclplug_qt5lo.so
-
+%else
+%exclude %{baseinstdir}/program/kf5.abignore
 %endif
 
 %if %{with kf6}
-
 %files kf6
 %{baseinstdir}/program/libavmediaqt6.so
 %{baseinstdir}/program/libvclplug_kf6lo.so
 %{baseinstdir}/program/libvclplug_qt6lo.so
-
 %endif
 
 %files -n libreofficekit

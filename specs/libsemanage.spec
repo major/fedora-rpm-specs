@@ -1,15 +1,15 @@
-%define libsepolver 3.9-1
-%define libselinuxver 3.9-1
+%define libsepolver 3.10-0
+%define libselinuxver 3.10-0
 
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
-Version: 3.9
-Release: 5%{?dist}
+Version: 3.10
+Release: 0.rc2.1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsemanage-%{version}.tar.gz.asc
-Source2: https://github.com/bachradsusi.gpg
-# git format-patch -N 3.9 -- libsemanage
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libsemanage-%{version}-rc2.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libsemanage-%{version}-rc2.tar.gz.asc
+Source2: https://github.com/perfinion.gpg
+# git format-patch -N 3.10-rc2 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -79,7 +79,7 @@ SELinux management applications.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n libsemanage-%{version}
+%autosetup -p 2 -n libsemanage-%{version}-rc2
 
 
 %build
@@ -157,7 +157,4 @@ cp %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

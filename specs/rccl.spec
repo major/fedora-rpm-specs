@@ -77,12 +77,13 @@
 # On 6.2
 # Problems reported with gfx10, removing gfx10 and default (gfx10 and gfx11) from build list
 #
-%global gpu_list %{rocm_gpu_list_rccl}
+# Linking runs out of memory, koji has < 32G
+%global gpu_list "gfx90a;gfx942;gfx1100;gfx1201"
 %global _gpu_list gfx1100
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -278,6 +279,12 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
+- Reduce gpu set
+
+* Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-4
+- Reduce gpu set
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 Name:           perl-Dancer
-Version:        1.3521
-Release:        8%{?dist}
+Version:        1.3522
+Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dancer
-Source0:        http://cpan.metacpan.org/authors/id/Y/YA/YANICK/Dancer-%{version}.tar.gz
+Source0:        http://cpan.metacpan.org/authors/id/B/BI/BIGPRESH/Dancer-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -186,16 +186,26 @@ make test
 
 %files
 %license LICENSE
-%doc AUTHORS Changes examples
+%doc AUTHORS Changes examples SECURITY.md
 %{_bindir}/dancer
-%{perl_vendorlib}/*
+%dir %{perl_vendorlib}/Dancer
+%{perl_vendorlib}/Dancer.pm
+%{perl_vendorlib}/Dancer/*
+%dir %{perl_vendorlib}/HTTP
+%dir %{perl_vendorlib}/HTTP/Tiny
+%{perl_vendorlib}/HTTP/Tiny/NoProxy.pm
 %{_mandir}/man1/dancer.1*
-%{_mandir}/man3/*
+%{_mandir}/man3/Dancer.3*
+%{_mandir}/man3/Dancer::*
+%{_mandir}/man3/HTTP::Tiny::NoProxy*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 29 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.3522-1
+- 1.3522 bump (rhbz#2433110)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3521-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

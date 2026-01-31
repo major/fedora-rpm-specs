@@ -10,7 +10,7 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .18
+%global subversion .19
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry

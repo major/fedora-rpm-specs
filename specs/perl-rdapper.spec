@@ -1,6 +1,6 @@
 Name:           perl-rdapper
-Version:        1.20
-Release:        2%{?dist}
+Version:        1.22
+Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/App-rdapper
@@ -34,7 +34,7 @@ BuildRequires:  perl(Net::ASN)
 BuildRequires:  perl(Net::DNS::Domain)
 BuildRequires:  perl(Net::IP)
 BuildRequires:  perl(Net::IDN::PP)
-BuildRequires:  perl(Net::RDAP) >= 0.35
+BuildRequires:  perl(Net::RDAP) >= 0.41
 BuildRequires:  perl(Net::RDAP::EPPStatusMap)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(POSIX)
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 29 2026 Petr Pisar <ppisar@redhat.com> - 1.22-1
+- 1.22 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

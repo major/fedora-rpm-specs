@@ -1,11 +1,11 @@
 Name:    pcp
-Version: 7.0.3
-Release: 2%{?dist}
+Version: 7.1.0
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
 
-Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
+Source0: https://github.com/performancecopilot/pcp/archive/%{version}/pcp-%{version}.tar.gz
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
@@ -2333,9 +2333,30 @@ PCP_GUI='pmchart|pmconfirm|pmdumptext|pmmessage|pmquery|pmsnap|pmtime'
 PCP_CONF=$BACKDIR/src/include/pcp.conf
 export PCP_CONF
 . $BACKDIR/src/include/pcp.env
-CFGFILELIST=`ls -1 $BACKDIR/debian/pcp-conf.{install,dirs}`
-LIBFILELIST=`ls -1 $BACKDIR/debian/lib*.{install,dirs} | grep -F -v -- -dev.`
-DEVFILELIST=`ls -1 $BACKDIR/debian/lib*-dev.{install,dirs}`
+CFGFILELIST=''
+for f in `echo $BACKDIR/debian/pcp-conf.{install,dirs}`
+do
+    [ -f "$f" ] && CFGFILELIST="$CFGFILELIST $f"
+done
+LIBFILELIST=''
+for f in `echo $BACKDIR/debian/lib*.{install,dirs}`
+do
+    case "$f"
+    in
+	*-dev.*)
+		# skip libpcp<foo>-dev.{install,dirs} ones, they'll
+		# be collected in $DEVFILELIST
+		;;
+	*)
+		[ -f "$f" ] && LIBFILELIST="$LIBFILELIST $f"
+		;;
+    esac
+done
+DEVFILELIST=''
+for f in `echo $BACKDIR/debian/lib*-dev.{install,dirs}`
+do
+    [ -f "$f" ] && DEVFILELIST="$DEVFILELIST $f"
+done
 
 # Package split: pcp{-conf,-libs,-libs-devel,-testsuite,-import-*,-export-*}...
 # The above list is ordered by file selection; files for each package are
@@ -3044,7 +3065,8 @@ done
     for s in pmcd pmlogger pmie; do
         systemctl --quiet is-enabled $s && systemctl --quiet restart $s || true
     done
-%else  # old-school methods follow
+%else
+# old-school methods follow
 %if !%{disable_systemd}
     systemctl restart pmcd pmlogger pmie >/dev/null 2>&1
     systemctl enable pmcd pmlogger pmie >/dev/null 2>&1
@@ -3422,6 +3444,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Wed Jan 28 2026 William Cohen <wcohen@redhat.com> - 7.1.0-1
+- Latest upstream release.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

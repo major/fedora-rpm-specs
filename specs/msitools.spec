@@ -1,4 +1,4 @@
-%define _version_suffix -bf14
+%define _version_suffix -a155
 
 # The mingw* RPMs are noarch, and the wxi data files are
 # arch independant, so it is a waste of CPU cycles to run
@@ -11,7 +11,7 @@
 %endif
 
 Name:           msitools
-Version:        0.106.31
+Version:        0.106.58
 Release:        %autorelease
 Summary:        Windows Installer tools
 
@@ -125,8 +125,6 @@ BuildRequires:  mingw32-hicolor-icon-theme
 BuildRequires:  mingw64-hicolor-icon-theme
 BuildRequires:  mingw32-icu
 BuildRequires:  mingw64-icu
-BuildRequires:  mingw32-ilmbase
-BuildRequires:  mingw64-ilmbase
 BuildRequires:  mingw32-jasper
 BuildRequires:  mingw64-jasper
 BuildRequires:  mingw32-json-glib

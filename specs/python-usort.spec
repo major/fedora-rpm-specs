@@ -12,16 +12,13 @@ without altering formatting. Code style is left as an exercise for linters and
 formatters.}
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
+Version:        1.1.3
 Release:        %autorelease
 Summary:        A small, safe import sorter
 
 License:        MIT
 URL:            https://github.com/facebook/usort
 Source:         %{pypi_source}
-# Drop python-toml dependency
-# https://github.com/facebook/usort/pull/320
-Patch:          %{url}/commit/6736c7a79153c53d05ccabd9e3f10a24d4e8e1a4.patch#/usort-convert-toml-dep.diff
 
 BuildArch:      noarch
 

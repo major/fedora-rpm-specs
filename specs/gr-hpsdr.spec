@@ -1,7 +1,7 @@
 Name:          gr-hpsdr
 URL:           https://github.com/Tom-McDermott/gr-hpsdr
 Version:       3.0
-Release:       40%{?dist}
+Release:       41%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -11,7 +11,7 @@ BuildRequires: cppunit-devel
 BuildRequires: doxygen
 BuildRequires: pybind11-devel
 BuildRequires: boost-filesystem
-BuildRequires: boost-system
+BuildRequires: boost-devel
 BuildRequires: python3-devel
 # gnuradio dependency
 BuildRequires: spdlog-devel
@@ -77,6 +77,10 @@ Documentation files for gr-hpsdr.
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Thu Jan 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-41
+- Fixed FTBFS
+  Resolves: rhbz#2434635
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

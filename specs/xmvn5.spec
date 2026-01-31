@@ -10,7 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source:         https://github.com/fedora-java/xmvn/releases/download/%{version}/xmvn-%{version}.tar.zst
-Source21:       toolchains-openjdk21.xml
 Source25:       toolchains-openjdk25.xml
 
 %if %{with bootstrap}
@@ -209,8 +208,6 @@ rm -rf %{buildroot}%{_datadir}/%{name}/{configuration.xml,config.d/,conf/toolcha
 
 # Toolchains
 ln -sf %{_jpbindingdir}/%{name}-toolchains.xml %{buildroot}%{_datadir}/%{name}/conf/toolchains.xml
-install -p -m 644 %{SOURCE21} %{buildroot}%{_datadir}/%{name}/conf/toolchains-openjdk21.xml
-%jp_binding --verbose --base-pkg %{name}-minimal --binding-pkg %{name}-toolchain-openjdk21 --variant openjdk21 --ghost %{name}-toolchains.xml --target %{_datadir}/%{name}/conf/toolchains-openjdk21.xml --requires java-21-openjdk-devel
 install -p -m 644 %{SOURCE25} %{buildroot}%{_datadir}/%{name}/conf/toolchains-openjdk25.xml
 %jp_binding --verbose --base-pkg %{name}-minimal --binding-pkg %{name}-toolchain-openjdk25 --variant openjdk25 --ghost %{name}-toolchains.xml --target %{_datadir}/%{name}/conf/toolchains-openjdk25.xml --requires java-25-openjdk-devel
 

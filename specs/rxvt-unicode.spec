@@ -1,6 +1,6 @@
 Name:           rxvt-unicode
 Version:        9.31
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Unicode version of rxvt
 
 License:        GPL-3.0-or-later
@@ -70,6 +70,7 @@ ln -s %{_datadir}/libev-source libev
 %endif
 
 %build
+CXXFLAGS="%{optflags} -std=gnu++11" \
 %configure \
     --enable-keepscrolling \
     --enable-selectionscrolling \
@@ -184,6 +185,9 @@ popd
 %{_libdir}/urxvt
 
 %changelog
+* Thu Jan 29 2026 Dave Cantrell <dcantrell@redhat.com> - 9.31-15
+- Pass -std=gnu+11 in CXXFLAGS (#2435089)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.31-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

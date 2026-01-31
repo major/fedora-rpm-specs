@@ -1,6 +1,6 @@
 Name:           rpminspect
-Version:        2.0
-Release:        5%{?dist}
+Version:        2.1
+Release:        %autorelease
 Summary:        Build deviation analysis and compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPL-3.0-or-later, and:
@@ -88,9 +88,16 @@ Recommends:     xhtml1-dtds
 Recommends:     html401-dtds
 %endif
 
-# Required to support things like %%autorelease in spec files
-%if 0%{?fedora} >= 33
-Recommends:     rpm_macro(autorelease)
+# Necessary to support preprocessing spec files for parsing.  The
+# package providing this dependency in turn pulls in other packages
+# that define macros.  This is similar to the rpm-build package
+# carrying a Requires on the same package.  It ensures the build
+# environment has all of the necessary macro definitions that the
+# package spec file may use.
+%if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
+Recommends:     system-rpm-config
+%else
+Requires:       system-rpm-config
 %endif
 
 # These programs are only required for the 'shellsyntax' functionality.
@@ -177,6 +184,7 @@ install -D -m 0644 libtoml/README.md %{buildroot}%{_pkgdocdir}/libtoml/README.md
 install -D -m 0644 libtoml/README.rpminspect %{buildroot}%{_pkgdocdir}/libtoml/README.rpminspect
 install -D -m 0644 libtoml/LICENSE %{buildroot}%{_defaultlicensedir}/%{name}/libtoml/LICENSE
 
+
 %meson_install
 %find_lang %{name}
 
@@ -211,6 +219,9 @@ install -D -m 0644 libtoml/LICENSE %{buildroot}%{_defaultlicensedir}/%{name}/lib
 
 
 %changelog
+* Thu Jan 29 2026 Dave Cantrell <dcantrell@redhat.com> - 2.1-
+- Upgrade to rpminspect-2.1
+
 * Thu Aug 14 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.0-5
 - Rebuilt for ICU 77.1
 

@@ -23,7 +23,8 @@ BuildOption(generate_buildrequires): -x test
 BuildOption(install): -L sphinx_book_theme
 
 BuildRequires:  nodejs-devel
-BuildRequires:  nodejs-npm
+BuildRequires:  /usr/bin/node
+BuildRequires:  /usr/bin/npm
 BuildRequires:  yarnpkg
 
 %global _description %{expand:

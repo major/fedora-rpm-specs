@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc7.260128g1f97d9dcf5364.49
+%define pkgrelease 0.rc7.260129g8dfce8991b95d.50
 %define kversion 6
-%define tarfile_release 6.19-rc7-26-g1f97d9dcf5364
+%define tarfile_release 6.19-rc7-32-g8dfce8991b95d
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260128g1f97d9dcf5364.49%{?buildid}%{?dist}
+%define specrelease 0.rc7.260129g8dfce8991b95d.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4658,12 +4658,16 @@ fi\
 #
 #
 %changelog
-* Wed Jan 28 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc7.260128g1f97d9dcf5364.49]
-- Linux v6.19.0-0.rc7.260128g1f97d9dcf5364
+* Thu Jan 29 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc7.260129g8dfce8991b95d.50]
+- Linux v6.19.0-0.rc7.260129g8dfce8991b95d
 
-* Wed Jan 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.1f97d9dcf536.49]
+* Thu Jan 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.8dfce8991b95.50]
 - x86/vmware: Fix hypercall clobbers (Josh Poimboeuf)
 - rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
+
+* Thu Jan 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.8dfce8991b95.49]
+- redhat/configs: Ship nft_osf.ko in Fedora, too (Phil Sutter)
+- Linux v6.19.0-0.rc7.8dfce8991b95
 
 * Wed Jan 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.1f97d9dcf536.48]
 - Set Fedora configs for 6.19 kernels (Justin M. Forbes)

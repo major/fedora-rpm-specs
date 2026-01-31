@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       3.10.0~rc3^%{git_suffix}
-Release:       12%{?dist}
+Release:       13%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -34,6 +34,9 @@ Obsoletes:     gr-fcdproplus < 3.8.0-5.20200807git06069c2e
 Summary:       GNURadio support for FUNcube Dongle Pro and FUNcube Dongle Pro+
 Source0:       %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
 Source1:       10-funcube.rules
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 GNURadio support for FUNcube Dongle Pro and FUNcube Dongle Pro+.
@@ -103,6 +106,9 @@ install -m0644 -D gr-funcube.sysusers.conf %{buildroot}%{_sysusersdir}/gr-funcub
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jan 27 2026 Jerry James <loganjerry@gmail.com> - 3.10.0~rc3^%{git_date}git%{git_short_commit}-13
+- Stop building for 32-bit x86
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0~rc3^20240726gitcbda6c6c-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

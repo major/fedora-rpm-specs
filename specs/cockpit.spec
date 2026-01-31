@@ -52,8 +52,14 @@
 %endif
 
 # distributions which ship nodejs-esbuild can rebuild the bundle during package build
+# allow override from command line (e.g. for development builds)
 %if 0%{?fedora} >= 42
-%define rebuild_bundle 1
+%{!?rebuild_bundle: %define rebuild_bundle 1}
+%endif
+
+# to avoid using asciidoc-py in RHEL and CentOS we use the prebuilt docs
+%if 0%{?rhel}
+%define bundle_docs 1
 %endif
 
 Name:           cockpit
@@ -62,8 +68,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        354
-Release:        3%{?dist}
+Version:        355
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
 
@@ -111,18 +117,18 @@ BuildRequires: openssh-clients
 BuildRequires: krb5-server
 BuildRequires: gdb
 
-%if %{defined rebuild_bundle}
+%if 0%{?rebuild_bundle}
 BuildRequires: nodejs
+BuildRequires: %{_bindir}/node
 BuildRequires: nodejs-esbuild
 %endif
 
-# For documentation
-%if 0%{?rhel} || 0%{?centos}
-# Only has legacy asciidoc-py and not asciidoctor.
-# asciidoc-py includes a2x package which can generate man-pages.
-BuildRequires: asciidoc
+%if !%{defined bundle_docs}
+%if 0%{?suse_version}
+BuildRequires: rubygem(asciidoctor)
 %else
 BuildRequires: asciidoctor
+%endif
 %endif
 
 BuildRequires:  selinux-policy
@@ -139,7 +145,7 @@ Requires: cockpit-system
 Recommends: (cockpit-storaged if udisks2)
 Recommends: (cockpit-packagekit if dnf)
 %if 0%{?suse_version} == 0
-Recommends: (dnf5-daemonserver if dnf5)
+Recommends: (dnf5daemon-server if dnf5)
 %endif
 Suggests: python3-pcp
 
@@ -164,12 +170,12 @@ BuildRequires:  python3-pytest-timeout
 
 %prep
 %setup -q -n cockpit-%{version}
-%if %{defined rebuild_bundle}
+%if 0%{?rebuild_bundle}
 %setup -q -D -T -a 1 -n cockpit-%{version}
 %endif
 
 %build
-%if %{defined rebuild_bundle}
+%if 0%{?rebuild_bundle}
 rm -rf dist
 # HACK: node module packaging is currently broken in Fedora ≤ 43, should be in
 # common location, not major version specific one
@@ -186,6 +192,9 @@ NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules
     --with-pamdir='%{pamdir}' \
 %if %{enable_multihost}
     --enable-multihost \
+%endif
+%if %{defined bundle_docs}
+    --disable-doc \
 %endif
 
 %make_build
@@ -209,6 +218,20 @@ install -p -m 644 %{pamconfig} $RPM_BUILD_ROOT%{pamconfdir}/cockpit
 
 rm -f %{buildroot}/%{_libdir}/cockpit/*.so
 install -D -p -m 644 AUTHORS COPYING README.md %{buildroot}%{_docdir}/cockpit/
+
+# We install the upstream pre-built docs as we can't build them
+%if %{defined bundle_docs}
+%define docbundledir %{_builddir}/%{name}-%{version}/doc/output/html
+install -d %{buildroot}%{_docdir}/cockpit/guide
+cp -rp %{docbundledir}/* %{buildroot}%{_docdir}/cockpit/guide/
+# Install pre-built man pages
+%define manbundledir %{_builddir}/%{name}-%{version}/doc/output/man
+for section in 1 5 8; do
+  for manpage in %{manbundledir}/*.${section}; do
+    install -D -p -m 644 "$manpage" %{buildroot}%{_mandir}/man${section}/$(basename "$manpage")
+  done
+done
+%endif
 
 # Build the package lists for resource packages
 # cockpit-bridge is the basic dependency for all cockpit-* packages, so centrally own the page directory
@@ -373,7 +396,7 @@ Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.3.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
-Provides: bundled(npm(lodash)) = 4.17.21
+Provides: bundled(npm(lodash)) = 4.17.23
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -447,7 +470,6 @@ authentication via sssd/FreeIPA.
 %{_unitdir}/system-cockpithttps.slice
 %{_prefix}/%{__lib}/tmpfiles.d/cockpit-ws.conf
 %{pamdir}/pam_ssh_add.so
-%{pamdir}/pam_cockpit_cert.so
 %{_libexecdir}/cockpit-ws
 %{_libexecdir}/cockpit-wsinstance-factory
 %{_libexecdir}/cockpit-tls
@@ -485,14 +507,6 @@ fi
 %systemd_post cockpit.socket cockpit.service
 # firewalld only partially picks up changes to its services files without this
 test -f %{_bindir}/firewall-cmd && firewall-cmd --reload --quiet || true
-
-# check for deprecated PAM config
-if test -f %{_sysconfdir}/pam.d/cockpit &&  grep -q pam_cockpit_cert %{_sysconfdir}/pam.d/cockpit; then
-    echo '**** WARNING:'
-    echo '**** WARNING: pam_cockpit_cert is a no-op and will be removed in a'
-    echo '**** WARNING: future release; remove it from your /etc/pam.d/cockpit.'
-    echo '**** WARNING:'
-fi
 
 # remove obsolete system user on upgrade (replaced with DynamicUser in version 330)
 if getent passwd cockpit-wsinstance >/dev/null; then
@@ -667,6 +681,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 29 2026 Packit <hello@packit.dev> - 355-1
+- ws: Remove obsolete pam_cockpit_cert module
+- shell: add StartTransientUnit as a sudo alternative
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 354-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           transmission
-Version:        4.0.6
-Release:        13%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -12,10 +12,9 @@ Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/
 # Fix the DBus name to match the app name for flatpak builds
 # https://github.com/transmission/transmission/pull/847
 Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
-Patch1:         %{name}-miniupnp228.patch
 # Proposed upstream: https://github.com/transmission/transmission/issues/7567
-Patch2:         0002-Make-compatible-with-CMake-4.0.patch
-Patch3:         7669.patch
+Patch1:         0002-Make-compatible-with-CMake-4.0.patch
+Patch2:         7669.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -100,7 +99,7 @@ Qt graphical interface of Transmission BitTorrent client.
 # unbundle
 pushd third-party
 find fast_float/ libb64/ libdeflate/ libevent/ libnatpmp/ libpsl/ \
-     miniupnpc/ utfcpp/ -type f -delete
+     utfcpp/ -type f -delete
 popd
 
 # fix icon location for Transmission Qt
@@ -129,7 +128,7 @@ CFLAGS="%{optflags} -fPIC"
 
 %install
 mkdir -p %{buildroot}%{_unitdir}
-install -m0644 daemon/transmission-daemon.service  %{buildroot}%{_unitdir}/
+install -m0644 redhat-linux-build/daemon/transmission-daemon.service  %{buildroot}%{_unitdir}/
 mkdir -p %{buildroot}%{_sharedstatedir}/transmission
 %cmake_install
 
@@ -199,6 +198,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.0-1
+- 4.1.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

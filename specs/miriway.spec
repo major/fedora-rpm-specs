@@ -1,6 +1,6 @@
 Name:           miriway
-Version:        25.12
-Release:        3%{?dist}
+Version:        26.01
+Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
@@ -107,6 +107,7 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 %{_bindir}/%{name}-run-shell
 %{_bindir}/%{name}-shell
 %{_bindir}/%{name}-terminal
+%{_datadir}/backgrounds/%{name}.png
 %dir %{_sysconfdir}/xdg/xdg-%{name}
 %config(noreplace) %{_sysconfdir}/xdg/xdg-%{name}/%{name}-shell.config
 
@@ -125,6 +126,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Thu Jan 29 2026 Shawn W Dunn <sfalken@opensuse.org> - 26.01-1
+- Update to 26.01
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

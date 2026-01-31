@@ -17,6 +17,10 @@ Source0:        %{pypi_source}
 
 # Patches
 
+# Submitted upstream at
+# https://github.com/tqdm/tqdm/pull/1700
+Patch: 0001-Adapt-filterwarnings-for-Python-3.14.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -1,10 +1,10 @@
 %global pypi_name PyQt6_WebEngine
 
-#define snap dev2503211447
+%define snap dev2510252014
 
 Name:          python-pyqt6-webengine
-Version:       6.10.0
-Release:       %autorelease
+Version:       6.10.1
+Release:       0.1%{?snap:^%{snap}}%{?dist}
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
@@ -55,7 +55,7 @@ sip-build \
   --target-dir=%{python3_sitearch} \
   --verbose \
   --qmake-setting 'QMAKE_CFLAGS_RELEASE="%{build_cflags}"' \
-  --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags}"' \
+  --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} -std=c++17"' \
   --qmake-setting 'QMAKE_LFLAGS_RELEASE="%{build_ldflags}"'
 
 %make_build -C build
@@ -88,4 +88,5 @@ done
 
 
 %changelog
-%autochangelog
+* Thu Jan 29 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.1-0.1
+- Update to snapshot of 6.10.1

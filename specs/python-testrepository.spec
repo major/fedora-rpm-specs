@@ -1,8 +1,8 @@
 %global pypi_name testrepository
 
 Name:           python-%{pypi_name}
-Version:        0.0.21
-Release:        4%{?dist}
+Version:        0.0.22
+Release:        1%{?dist}
 Summary:        A repository of test results
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -62,11 +62,14 @@ ln -s ./testr-%{python3_version} %{buildroot}%{_bindir}/testr
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst Apache-2.0
+%doc README.md Apache-2.0
 %{_bindir}/testr
 %{_bindir}/testr-%{python3_version}
 
 %changelog
+* Thu Jan 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.0.22-1
+- 0.0.22
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -883,6 +883,9 @@ done
 
 
 %changelog
+* Thu Jan 29 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.12.1-5
+- Rebuilt for libarrow 23.0.0
+
 * Tue Jan 27 2026 Marek Kasik <mkasik@redhat.com> - 3.12.1-4
 - Rebuild (poppler)
 - Statically link stdc++ due to undefined references

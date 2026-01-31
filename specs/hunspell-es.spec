@@ -7,7 +7,7 @@
 Name: hunspell-es
 Summary: Spanish hunspell dictionaries
 Version: 2.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source0: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_AR.oxt
 Source1: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_BO.oxt
@@ -25,12 +25,13 @@ Source12: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_MX.o
 Source13: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_NI.oxt
 Source14: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PA.oxt
 Source16: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PE.oxt
-Source17: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PR.oxt
-Source18: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PY.oxt
-Source19: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_SV.oxt
-Source20: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_US.oxt
-Source21: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_UY.oxt
-Source22: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_VE.oxt
+Source17: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PH.oxt
+Source18: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PR.oxt
+Source19: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_PY.oxt
+Source20: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_SV.oxt
+Source21: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_US.oxt
+Source22: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_UY.oxt
+Source23: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_VE.oxt
 
 URL: https://github.com/sbosio/rla-es/
 License: LGPL-3.0-or-later OR GPL-3.0-or-later OR MPL-1.1
@@ -53,6 +54,7 @@ Requires: hunspell-es-MX = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-NI = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-PA = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-PE = %{epoch}:%{version}-%{release}
+Requires: hunspell-es-PH = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-PR = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-PY = %{epoch}:%{version}-%{release}
 Requires: hunspell-es-SV = %{epoch}:%{version}-%{release}
@@ -176,6 +178,13 @@ Summary:        Peruvian Spanish hunspell dictionary
 %description    PE
 Peruvian Spanish hunspell dictionary
 
+%package        PH
+Requires:       hunspell
+Summary:        Philippines Spanish hunspell dictionary
+
+%description    PH
+Philippines Spanish hunspell dictionary
+
 %package        PR
 Requires:       hunspell
 Summary:        Puerto Rican Spanish hunspell dictionary
@@ -218,7 +227,7 @@ Summary:        Venezuelan Spanish hunspell dictionary
 %description    VE
 Venezuelan Spanish hunspell dictionary
 
-%define es_REGIONS es_AR es_BO es_CL es_CO es_CR es_CU es_DO es_EC es_ES es_GQ es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
+%define es_REGIONS es_AR es_BO es_CL es_CO es_CR es_CU es_DO es_EC es_ES es_GQ es_GT es_HN es_MX es_NI es_PA es_PE es_PH es_PR es_PY es_SV es_US es_UY es_VE
 
 %prep
 %setup -q -c -n hunspell-es
@@ -336,6 +345,12 @@ done
 %{_datadir}/%{dict_dirname}/es_PE.*
 
 
+%files PH
+%doc README.txt
+%license GPLv3.txt MPL-1.1.txt LGPLv3.txt
+%{_datadir}/%{dict_dirname}/es_PH.*
+
+
 %files PR
 %doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
@@ -372,6 +387,9 @@ done
 %{_datadir}/%{dict_dirname}/es_VE.*
 
 %changelog
+* Wed Jan 28 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:2.9-4
+- Added missing es_PH subpackage
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

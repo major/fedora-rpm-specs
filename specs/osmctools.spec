@@ -2,7 +2,7 @@
 
 Name:           osmctools
 Version:        0.9
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Tools to manipulate OpenStreetMap files
 
 # Debian man pages are GPLv2+
@@ -67,6 +67,9 @@ done
 
 
 %changelog
+* Thu Jan 29 2026 Steve Cossette <farchord@gmail.com> - 0.9-21
+- Rebuild for FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -28,8 +28,9 @@ BuildOption(install): -l jupytext jupytext_config
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:  nodejs24-devel
-BuildRequires:  nodejs24-npm
+BuildRequires:  nodejs-devel
+BuildRequires:  /usr/bin/node
+BuildRequires:  /usr/bin/npm
 BuildRequires:  pandoc
 
 # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2275382
@@ -132,11 +133,6 @@ export YARN_CACHE_FOLDER="$PWD/jupyterlab/.package-cache"
 export npm_config_nodedir=%{_includedir}/node
 export CFLAGS='%{build_cflags} -I%{_includedir}/node'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/node'
-
-# Jupyterlab looks for a binary named "node"
-mkdir -p bin
-ln -s %{_bindir}/node-24 bin/node
-PATH=$PATH:$PWD/bin
 
 %build -a
 # Build the documentation

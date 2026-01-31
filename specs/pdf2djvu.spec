@@ -1,6 +1,6 @@
 Name:           pdf2djvu
 Version:        0.9.19
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        PDF to DjVu converter
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -9,6 +9,8 @@ Source0:        https://github.com/jwilk/%{name}/releases/download/%{version}/%{
 # both patches are included in 0.9.19 release, remove these lines next commit
 # Patch0:         pdf2djvu-PDFDoc-constructor.patch
 # Patch1:         pdf2djvu-Destination-copy-constructor.patch
+Patch2:         pdf2djvu-poppler-version.patch
+Patch3:         pdf2djvu-poppler-26.01.0.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  djvulibre-devel djvulibre
@@ -51,6 +53,9 @@ install -p -m 644 -D {doc,%{buildroot}%{_mandir}/man1}/%{name}.1
 %{_mandir}/ru/man1/%{name}.1*
 
 %changelog
+* Thu Jan 29 2026 Marek Kasik <mkasik@redhat.com> - 0.9.19-18
+- Rebuild for poppler 26.01.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

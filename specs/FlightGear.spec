@@ -3,18 +3,17 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2024.1.3
-Release:        5%{?dist}
+Version:        2024.1.4
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/11398677078/artifacts/raw/fgbuild/flightgear-%{version}.tar.bz2
+Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/12799933767/artifacts/raw/fgbuild/flightgear-%{version}.tar.bz2
 Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch:          0002-Use-system-iaxclient-instead-of-bundled-one.patch
 Patch:          0003-make-fglauncher-a-static-library.patch
 Patch:          0004-desktop-use-fgfs-wrapper.patch
 Patch:          0005-make-fgqmlui-a-static-library.patch
 Patch:          0006-fgviewer-fix-crash-on-exit.patch
-Patch:          0007-Revert-Fix-deployment-bugs.patch
 
 URL:            http://www.flightgear.org/
 BuildRequires:  openal-soft-devel, SimGear-devel >= %{version}
@@ -83,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT/usr/appdir
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Wed Jan 28 2026 Fabrice Bellet <fabrice@bellet.info> - 2024.1.4-1
+- new upstream release
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2024.1.3-5
 - Rebuild with fltk 1.4.
 

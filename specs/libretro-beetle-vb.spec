@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/libretro/%{corename}-libretro
-%global commit 9d1bd03f21dac7897f65269e1095496331efce8b
+%global commit 8f837ebc077afdd6652efb2827fd8308a07113ca
 %global corename beetle-vb
 
 Name:           libretro-%{corename}

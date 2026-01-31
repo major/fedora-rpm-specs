@@ -72,7 +72,7 @@ Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/commit/2b73bbba0f
 # https://gitlab.freedesktop.org/cairo/cairomm/-/commit/871393804b0bdec39e365a59ceaed7aaee774355
 Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/commit/871393804b0bdec39e365a59ceaed7aaee774355.patch
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson

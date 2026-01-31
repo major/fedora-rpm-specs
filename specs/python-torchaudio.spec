@@ -50,7 +50,9 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/audio-v%{version}.t
 %endif
 
 # Limit to these because that is what torch is on
-ExclusiveArch:  aarch64 x86_64
+# failing to build 1/29/26
+# ExclusiveArch:  aarch64 x86_64
+ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

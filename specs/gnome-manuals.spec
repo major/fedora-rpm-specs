@@ -1,4 +1,4 @@
-%global appname app.devsuite.Manuals 
+%global appname org.gnome.Manuals
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-manuals

@@ -1,6 +1,6 @@
 Name:    angband
-Version: 4.2.5
-Release: 10%{?dist}
+Version: 4.2.6
+Release: %autorelease
 Summary: Popular roguelike role playing game
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -18,11 +18,11 @@ Source1: generate-tarball.sh
 Source2: fix-restricted.patch
 # Add warning when running on gnome desktop
 Source3: angband-sdl
+# Add launcher to pick where to save to
+Source4: angband-launcher
 
 # Specific Fedora restriction on chown usage during install process
 Patch0: angband-4.2.4-1-chown_fix.patch
-# https://github.com/angband/angband/pull/5751
-Patch1: angband-4.2.5-1-desktop_fix.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -51,8 +51,7 @@ Morgoth - "The Dark Enemy".
 
 %package data
 Summary: Angband data files
-# Automatically converted from old format: GPLv2 and CC-BY - review is highly recommended.
-License: GPL-2.0-only AND LicenseRef-Callaway-CC-BY
+License: GPL-2.0-only AND CC-BY-3.0 AND CC-BY-4.0
 BuildArch: noarch
 
 %description data
@@ -74,9 +73,27 @@ Documentation about the Angband game
 iconv -f iso8859-1 -t utf-8 \
     docs/version.rst > docs/version.rst.conv && \
     mv -f docs/version.rst.conv docs/version.rst
+desktop-file-edit \
+    --set-key="Exec" --set-value="angband-sdl" \
+    --set-key="TryExec" --set-value="angband-sdl" \
+    lib/icons/angband-sdl2.desktop
+cp lib/icons/angband-sdl2.desktop \
+    lib/icons/angband-launcher.desktop
+desktop-file-edit \
+    --set-name="Angband Launcher" \
+    --set-key="Exec" --set-value="angband-launcher" \
+    --set-key="TryExec" --set-value="angband-launcher" \
+    lib/icons/angband-launcher.desktop
 
 
 %build
+%configure \
+    --with-private-dirs \
+    --with-gamedata-in-lib \
+    --enable-sdl2 \
+    --enable-sdl2-mixer
+%make_build PROGNAME=%{name}_homedir
+
 %configure \
     --with-setgid=games \
     --with-gamedata-in-lib \
@@ -93,11 +110,10 @@ install -d $RPM_BUILD_ROOT/%{_var}/games/%{name}/archive
 install -d $RPM_BUILD_ROOT/%{_var}/games/%{name}/save
 install -d $RPM_BUILD_ROOT/%{_var}/games/%{name}/panic
 
-# Install both x11 and sdl2 desktop files
-rm ${RPM_BUILD_ROOT}%{_datadir}/applications/angband.desktop
+# Install desktop files
 desktop-file-install \
     --dir ${RPM_BUILD_ROOT}%{_datadir}/applications \
-    lib/icons/angband-sdl2.desktop
+    lib/icons/angband-launcher.desktop
 desktop-file-install \
     --dir ${RPM_BUILD_ROOT}%{_datadir}/applications \
     lib/icons/angband-x11.desktop
@@ -107,13 +123,19 @@ appstream-util validate-relax --nonet \
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man6/
 install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
 install -p -m 755 %{SOURCE3} $RPM_BUILD_ROOT%{_bindir}/angband-sdl
+install -p -m 755 %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/angband-launcher
+install -p -m 755 src/%{name}_homedir $RPM_BUILD_ROOT/%{_bindir}/%{name}_homedir
 
 
 %files
 %license docs/copying.rst
 %attr(2755,root,games) %{_bindir}/%{name}
-%{_bindir}/angband-sdl
-%{_datadir}/applications/*.desktop
+%attr(0755,root,root) %{_bindir}/%{name}-sdl
+%attr(0755,root,root) %{_bindir}/%{name}-launcher
+%attr(0755,root,root) %{_bindir}/%{name}_homedir
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{name}-x11.desktop
+%{_datadir}/applications/%{name}-launcher.desktop
 %{_metainfodir}/angband.metainfo.xml
 %dir %{_sysconfdir}/angband
 %dir %{_sysconfdir}/angband/customize
@@ -142,133 +164,4 @@ install -p -m 755 %{SOURCE3} $RPM_BUILD_ROOT%{_bindir}/angband-sdl
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jan 27 2025 Diego Herrera <dherrera@redhat.com> 4.2.5-7
-- Require xorg-x11-fonts-misc
-- Add extra warning when running Angband (SDL) on Gnome
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 4.2.5-5
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Sep 7 2023 Diego Herrera <dherrera@redhat.com> 4.2.5-1
-- Updated version to 4.2.5
-- Upstreamed assets
-- Enable x11 support
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Feb 23 2022 Diego Herrera <dherrera@redhat.com> 4.2.4-3
-- Fixed information on metainfo file
-
-* Tue Feb 22 2022 Diego Herrera <dherrera@redhat.com> 4.2.4-2
-- Removed scalable image
-
-* Tue Feb 22 2022 Diego Herrera <dherrera@redhat.com> 4.2.4-1
-- Updated version to 4.2.4
-- Removed upstreamed patches
-- Added metainfo file
-
-* Tue Jan 25 2022 Diego Herrera <dherrera@redhat.com> 4.2.3-6
-- Update desktop file
-- Use icons provided by source
-- Changed freetype minimal required version
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 10 2022 Diego Herrera <dherrera@redhat.com> 4.2.3-4
-- Added make as an expicit BuildRequires
-- Removed Requires that can be autodetected
-- Fixed licensing description
-- Use macros when needed
-- Separated doc files into a separate package
-- Added license to subpackages
-- Added some missing folders in the installation process
-
-* Mon Dec 13 2021 Diego Herrera <dherrera@redhat.com> 4.2.3-3
-- Move customize folder to sysconfdir
-- Add patch to keep the gamedata folder to datadir
-- Add references to upstream patches
-
-* Sun Dec 12 2021 Diego Herrera <dherrera@redhat.com> 4.2.3-2
-- Restored Adam Bolt's tileset
-- Fix typos and descriptions
-
-* Sat Dec 11 2021 Diego Herrera <dherrera@redhat.com> 4.2.3-1
-- Update to 4.2.3
-- Use setgid mode with games group
-- Change default renderer to SDL2
-- Apply upstream fixes to SDL2 implementation
-- Remove more restricted assets
-- Move game data to datadir
-
-* Sun Aug 25 2019 Wart <wart at kobold dot org> 4.2.0-1
-- Update to 4.2.0
-- Fix group creation
-- Fix desktop file
-- Update license naming
-- Add man page
-- Remove restricted tileset
-
-* Tue Aug 13 2019 Wart <wart at kobold dot org> 4.1.3-4
-- Use recommended dynamic allocation for the group
-
-* Sat Aug 10 2019 Wart <wart at kobold dot org> 4.1.3-3
-- Minor spec file cleanup
-
-* Wed Jul 24 2019 Wart <wart at kobold dot org> 4.1.3-2
-- Enable shared scoreboard file
-
-* Sun Jul 21 2019 Wart <wart at kobold dot org> 4.1.3-1
-- Update to 4.1.3
-
-* Sun Jul 21 2019 Wart <wart at kobold dot org> 3.0.6-5
-- Updates to build for Fedora 30
-
-* Wed Apr 4 2007 Wart <wart at kobold dot org> 3.0.6-4
-- Add BR: to allow X11 support
-
-* Tue Apr 3 2007 Wart <wart at kobold dot org> 3.0.6-3
-- Add icon name to .desktop files
-- Fix License tag
-- Move game data to /var/games/angband
-- Remove non-working -graphics desktop file
-
-* Mon Apr 2 2007 Wart <wart at kobold dot org> 3.0.6-2
-- Use custom group for setgid as added protection
-- Install extra graphics files
-- Add vendor to .desktop file installation
-
-* Thu Mar 29 2007 Wart <wart at kobold dot org> 3.0.6-1
-- Update to 3.0.6
-- Updated spec to Fedora Extras standards (again)
-
-* Sat Feb 25 2006 Wart <wart at kobold dot org> 3.0.3-5
-- Update. spec to Fedora Extras standards
+%autochangelog

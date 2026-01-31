@@ -1,22 +1,22 @@
 %define ruby_inc %(pkg-config --cflags ruby)
-%define libsepolver 3.9-1
+%define libsepolver 3.10-0
 
 Summary: SELinux library and simple utilities
 Name: libselinux
-Version: 3.9
-Release: 7%{?dist}
+Version: 3.10
+Release: 0.rc2.1%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz.asc
-Source2: https://github.com/bachradsusi.gpg
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libselinux-%{version}-rc2.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc2/libselinux-%{version}-rc2.tar.gz.asc
+Source2: https://github.com/perfinion.gpg
 Source3: selinuxconlist.8
 Source4: selinuxdefcon.8
 
 Url: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N 3.9 -- libselinux
+# $ git format-patch -N 3.10-rc2 -- libselinux
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
@@ -93,7 +93,7 @@ needed for developing SELinux applications.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n libselinux-%{version}
+%autosetup -p 2 -n libselinux-%{version}-rc2
 
 %build
 export DISABLE_RPM="y"
@@ -221,7 +221,4 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

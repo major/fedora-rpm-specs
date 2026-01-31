@@ -27,7 +27,7 @@ Source2:        libss7.gpg
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 %description
 libss7 is a userspace library that is used for providing SS7 protocol

@@ -8,6 +8,7 @@ License:        GPL-3.0-only AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://github.com/j-jorge/plee-the-bear/
 Source0:        https://github.com/j-jorge/plee-the-bear/archive/%{version}.tar.gz
 Patch3:         ptb-docbook2man.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  bear-factory-devel
 BuildRequires:  docbook-utils
@@ -20,8 +21,13 @@ BuildRequires:  libpng-devel
 BuildRequires:  gettext
 BuildRequires:  cmake
 BuildRequires:  chrpath
+
+%if 0%{?fedora} >= 44
+ExcludeArch:    %{ix86}
+%endif
 # Build is totally broken on ppc64
 ExcludeArch:    %{power64}
+
 
 %description
 Plee the Bear is a 2D platform game in the spirit of 1990s console games.

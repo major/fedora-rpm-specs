@@ -1,13 +1,16 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
 Version:       2.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
+Patch0:        0001-update-for-kscreen-6_6.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: git-core
 BuildRequires: pkgconfig(lxqt)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(xcb)
@@ -35,7 +38,7 @@ Requires:       lxqt-config
 This package provides translations for the lxqt-config package.
 
 %prep
-%autosetup
+%autosetup -S git_am
 
 %build
 %cmake
@@ -122,6 +125,9 @@ desktop-file-edit \
 %{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Thu Jan 29 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
+- Add 0001-update-for-kscreen-6_6.patch to fix FTBFS on F44
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

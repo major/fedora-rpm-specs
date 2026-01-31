@@ -245,6 +245,8 @@ License:        AGPL-3.0-only AND (Apache-2.0 OR MIT OR BSD-3-Clause OR GPL-2.0-
 
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+# Reported upstream https://gitlab.com/gabmus/envision/-/issues/256
+Patch0:           0001-fix-drop-RUSTFLAGS-override-from-cargo-clippy-test.patch
 
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 26

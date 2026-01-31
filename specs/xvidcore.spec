@@ -2,7 +2,7 @@
 
 Name:           xvidcore
 Version:        1.3.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        MPEG-4 Simple and Advanced Simple Profile codec
 License:        GPL-2.0-or-later
 URL:            https://www.xvid.com/
@@ -53,11 +53,19 @@ done
 %{__sed} -i -e 's|@$(|$(|g' build/generic/Makefile
 # Fix permissions
 %{__sed} -i -e 's|644 $(BUILD_DIR)/$(SHARED_LIB)|755 $(BUILD_DIR)/$(SHARED_LIB)|g' build/generic/Makefile
+# Drop mmx version over the sse2
+# fails to build on i686 with:
+# /usr/bin/ld.bfd: bitstream/x86_asm/cbp_mmx.o: warning: relocation in read-only section `.text'
+# /usr/bin/ld.bfd: error: read-only segment has dynamic relocations
+rm src/bitstream/x86_asm/cbp_mmx.asm
+sed -i -e 's|bitstream/x86_asm/cbp_mmx.asm||' build/generic/sources.inc
+
 
 %build
 cd build/generic
 %configure
-%make_build
+# Our LDFLAGS are overriden by the makefiles - fixes build with f44 rhbz#2435201
+%make_build SPECIFIC_LDFLAGS="--shared %{?build_ldflags} -lm"
 
 
 %install
@@ -77,6 +85,9 @@ find %{buildroot} -name "*.a" -delete
 
 
 %changelog
+* Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.3.7-16
+- Fix build with f44 rhbz#2435201
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

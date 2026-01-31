@@ -3,7 +3,7 @@
 %global appstream_id io.github.syllo.nvtop
 
 Name:           nvtop
-Version:        3.2.0
+Version:        3.3.1
 Release:        %autorelease
 Summary:        GPU process monitoring for various devices
 
@@ -13,10 +13,6 @@ Summary:        GPU process monitoring for various devices
 License:        GPL-3.0-or-later and BSD-3-Clause
 URL:            https://github.com/Syllo/nvtop
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Syllo/nvtop/pull/370
-Patch0:         %{name}-fix-icon-path.diff
-# https://github.com/Syllo/nvtop/pull/369
-Patch1:         %{name}-fix-appstream-path.diff
 
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils

@@ -46,6 +46,7 @@ Source5: https://download.libreswan.org/cavs/ikev2.fax.bz2
 %endif
 
 Patch1: libreswan-4.15-ipsec_import.patch
+Patch2: libreswan-5.3-unused-but-set-variable.patch
 
 BuildRequires: audit-libs-devel
 BuildRequires: bison

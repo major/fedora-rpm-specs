@@ -5,6 +5,10 @@ Summary:        The Python interface to the Valkey key-value store
 License:        MIT
 URL:            https://github.com/valkey-io/valkey-py
 Source:         %{url}/archive/v%{version}/python-valkey-%{version}.tar.gz
+# Fix test to work with Valkey versions lower than 9
+# Upstream issue (merged but not released yet)
+# https://github.com/valkey-io/valkey-py/pull/239
+Patch0:         fix-tests-with-version-lower-than-9.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

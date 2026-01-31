@@ -1,4 +1,4 @@
-%global version 0.15.0
+%global version 0.16.1
 %global reponame WasmEdge
 %global capi_soname 0
 %global capi_version 0.1.0
@@ -12,8 +12,8 @@ Summary: High performance WebAssembly Virtual Machine
 License: Apache-2.0 AND CC0-1.0
 URL:     https://github.com/%{reponame}/%{reponame}
 Source0: %{url}/releases/download/%{version}/%{reponame}-%{version}-src.tar.gz
-# Patch from https://github.com/WasmEdge/WasmEdge/commit/37cc9fa19bd23edbbdaa9252059b17f191fa4d17
-Patch0: 0001-fix-runtime-refine-the-overflow-detection-when-wrapp.patch
+# Patch from https://github.com/WasmEdge/WasmEdge/commit/3b9c754fbe96289452ef76951e783e5a7d7eacc7
+Patch0: 0001-fix-refactor-Poller-context-handling-to-use-pointer-instead-of-wrapper.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: git
@@ -104,6 +104,19 @@ cd ..
 %{_includedir}/%{name}/int128.h
 %{_includedir}/%{name}/version.h
 %{_includedir}/%{name}/wasmedge.h
+%{_includedir}/%{name}/wasmedge_ast.h
+%{_includedir}/%{name}/wasmedge_basic.h
+%{_includedir}/%{name}/wasmedge_compiler.h
+%{_includedir}/%{name}/wasmedge_configure.h
+%{_includedir}/%{name}/wasmedge_context.h
+%{_includedir}/%{name}/wasmedge_deprecated.h
+%{_includedir}/%{name}/wasmedge_execution.h
+%{_includedir}/%{name}/wasmedge_experimental.h
+%{_includedir}/%{name}/wasmedge_instance.h
+%{_includedir}/%{name}/wasmedge_plugin.h
+%{_includedir}/%{name}/wasmedge_tools.h
+%{_includedir}/%{name}/wasmedge_value.h
+%{_includedir}/%{name}/wasmedge_vm.h
 %{_libdir}/lib%{name}.so
 
 %changelog

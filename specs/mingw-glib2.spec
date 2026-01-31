@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.87.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -11,13 +11,20 @@ URL:            http://www.gtk.org
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 Source0:        http://download.gnome.org/sources/glib/%{release_version}/glib-%{version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4978
+Patch0:         CVE-2026-1484.patch
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4980
+Patch1:         CVE-2026-1485.patch
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4983
+Patch2:         CVE-2026-1489.patch
+
 BuildArch:      noarch
 
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
-BuildRequires:  mingw32-filesystem >= 107
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-win-iconv
@@ -26,7 +33,7 @@ BuildRequires:  mingw32-libffi
 BuildRequires:  mingw32-pcre2
 BuildRequires:  mingw32-zlib
 
-BuildRequires:  mingw64-filesystem >= 107
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-win-iconv
@@ -294,6 +301,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 29 2026 Sandro Mani <manisandro@gmail.com> - 2.87.1-3
+- Backport fixes for CVE-2026-1484, CVE-2026-1485, CVE-2026-1489
+
 * Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.87.1-2
 - Remove ancient, obsolete downstream patch from 2012 (RHBZ#2431179)
 

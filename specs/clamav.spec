@@ -26,7 +26,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.4.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -335,7 +335,7 @@ This package contains files which are needed to run the clamav-milter.
 %cargo_prep
 cd libclamav_rust
 sed -i -e '/^base64 *=/s/= .*/= "0.22"/' Cargo.toml
-sed -i -e '/^bindgen *=/s/= .*/= "0.69"/' Cargo.toml
+sed -i -e '/^bindgen *=/s/= .*/= "0.72"/' Cargo.toml
 sed -i -e '/^cbindgen *=/s/= *".*"/= "0.26"/' Cargo.toml
 sed -i -e '/^onenote_parser *=/s/= *.*/= "0.3.1"/' Cargo.toml
 %cargo_prep
@@ -665,6 +665,9 @@ done
 
 
 %changelog
+* Thu Jan 29 2026 Fabio Valentini <decathorpe@gmail.com> - 1.4.3-6
+- Bump rust-bindgen version to 0.72 for compatibility with LLVM 22
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

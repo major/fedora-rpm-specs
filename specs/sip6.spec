@@ -1,8 +1,8 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.14.0
-Release:        2%{?dist}
+Version:        6.15.1
+Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -52,6 +52,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitelib}/sipbuild/
 
 %changelog
+* Thu Jan 29 2026 Jan Grulich <jgrulich@redhat.com> - 6.15.1-1
+- 6.15.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

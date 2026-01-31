@@ -24,7 +24,7 @@
 
 Name:           dnsmasq
 Version:        2.92
-Release:        4%{?extraversion:.%{extraversion}}%{?dist}
+Release:        5%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -51,6 +51,8 @@ Patch3:         dnsmasq-2.78-fips.patch
 Patch7:         dnsmasq-2.90-dbus-interfaces.patch
 # https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2026q1/018378.html
 Patch8:         https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=patch;h=f603a4f920e6953b11667d424956fd47373870e9#/dnsmasq-2.92-dnssec-wildcard.patch
+# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2026q1/018383.html
+Patch9:         https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=patch;h=1269f074f86bb959863012063060a3a082d37dc4#/dnsmasq-2.93-dnssec-rrsig-owner.patch
 
 
 Requires:       nettle
@@ -240,6 +242,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 22 2026 Petr Menšík <<pemensik@redhat.com>> - 2.92-5
+- Do not fail validation if signature owner name does not match (rbhz#2421820)
+
 * Fri Jan 16 2026 Petr Menšík <pemensik@redhat.com> - 2.92-1
 - Update to 9.29 (rhbz#2429567)
 

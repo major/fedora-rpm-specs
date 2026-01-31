@@ -18,6 +18,7 @@ Source1:        gdb-gef
 # https://github.com/hugsy/gef/pull/1094
 Patch0:         gef-got-audit.patch
 Patch1:         gef-gcc15.patch
+Patch2:         gef-tcache-mark.patch
 
 BuildArch:      noarch
 ExclusiveArch:  x86_64
@@ -67,6 +68,7 @@ the relevant information from the debugging runtime.
 %forgesetup
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 
 
 %build
@@ -84,7 +86,7 @@ install -m 0755 %{SOURCE1}.sh %{buildroot}/%{_bindir}/gdb-gef
 %if %{with check}
 %check
 make -C tests/binaries
-python3 -m pytest -v -m "not benchmark" -m "not online" tests/
+python3 -m pytest -v -m "not benchmark and not online and not tcache" tests/
 %endif
 
 

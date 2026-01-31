@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        115.git.%{git_revision}%{?dist}
+Release:        116.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPL-3.0-or-later
@@ -132,6 +132,7 @@ popd
 
 %endif
 
+export jb_cflags=-Wno-discarded-qualifiers
 ./jb configure \
   cc="%{__cc}" \
   cflags="$RPM_OPT_FLAGS -Wno-deprecated-declarations" \
@@ -231,6 +232,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 29 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 5.4-116.git.9ae8768
+- Still allow discarded qualifiers for compile (#2434807)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-115.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

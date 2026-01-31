@@ -4,7 +4,7 @@
 
 Name:           mcabber
 Version:        1.1.3
-Release:        0.10.%{date}git%{gitcommit}%{?dist}
+Release:        0.11.%{date}git%{gitcommit}%{?dist}
 Summary:        Console Jabber instant messaging client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -13,8 +13,8 @@ URL:            https://mcabber.com
 # Source0:        http://mcabber.com/files/%{name}-%{version}.tar.bz2
 Source0:        https://github.com/McKael/%{name}/tarball/%{gitcommit_full}
 
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  clang
 BuildRequires:  enchant-devel
 BuildRequires:  gpgme-devel
 BuildRequires:  ncurses-devel
@@ -43,7 +43,10 @@ Headers and miscellaneous files used for building projects using mcabber
 %build
 pushd %{name}
     bash autogen.sh
-    %configure --disable-dependency-tracking --enable-enchant --enable-otr
+    %configure --disable-dependency-tracking \
+               --enable-enchant \
+               --enable-otr \
+               CC=clang
     %make_build
 popd
 
@@ -70,6 +73,9 @@ popd
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jan 27 2026 Benson Muite <fed500@fedoraproject.org> - 1.1.3-0.11.20211025git87964c3
+- Build with clang to enable build to complete
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.10.20211025git87964c3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -30,11 +30,22 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
-# Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-LGPLv2
+# main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
+# ext/aes/gstaeshelper.h ext/curl/curltask.h and several others are MIT OR LGPL-2.1-or-later
+# ext/resindvd is MPL-1.1
+# ext/sctp is BSD-2-Clause AND BSD-3-Clause
+# ext/sctp/usrsctp/usrsctplib/netinet/sctp_ss_functions.c is BSD-2-Clause-Views
+# ext/sctp/usrsctp/usrsctplib/netinet/sctp_userspace.c is BSD-2-Clause AND DOC
+# gst/festival/gstfestival.c is MIT-Festival
+# gst/freeverb/gstfreeverb.c is LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
+# gst/mpegpsmux/mpegpsmux_h264.h is MPL-1.1 OR LGPL-2.0-or-later OR MIT
+# gst-libs/gst/codecparsers/dboolhuff.c is BSD-3-Clause WITH AdditionRef-Dart
+# sys/amfcode sys/dwrite/libcaption/ sys/qsv/libmfx/ are MIT
+# sys/v4l2codecs/linux/media.h plus few other filese in this directory are GPL-2.0-only WITH Linux-syscall-note
+License:        LGPL-2.1-or-later AND LGPL-2.0-or-later AND (MIT OR LGPL-2.1-or-later) AND MPL-1.1 AND BSD-2-Clause AND BSD-3-Clause AND BSD-2-Clause-Views AND (BSD-2-Clause AND DOC) AND MIT-Festival AND (LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain) AND (MPL-1.1 OR LGPL-2.0-or-later OR MIT) AND BSD-3-Clause WITH AdditionRef-Dart AND MIT AND GPL-2.0-only WITH Linux-syscall-note
 URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
 # git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
@@ -278,7 +289,6 @@ This package (%{name}-opencv) contains the OpenCV plugins.
 %if %{with openh264}
 %package -n gstreamer1-plugin-openh264
 Summary:        GStreamer OpenH264 plugin
-# Automatically converted from old format: LGPL-2.0-or-later AND BSD-2-Clause - review is highly recommended.
 License:        LGPL-2.0-or-later AND BSD-2-Clause
 # Prefer actual openh264 library over the noopenh264 stub
 Suggests:       openh264%{_isa}
@@ -916,6 +926,9 @@ EOF
 
 
 %changelog
+* Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.28.0-3
+- Rebuilt for OpenCV 4.13
+
 * Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-2
 - Obsolete/provide gstreamer1-vaapi.
 

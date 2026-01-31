@@ -1,12 +1,11 @@
 # fedora/remirepo spec file for qelectrotech
 #
-# Copyright (c) 2009-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2009-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global upver  0.9
 %undefine _package_note_file
 
 Name:        qelectrotech
@@ -28,19 +27,16 @@ Summary(pl): Edytor schematów elektrycznych
 Summary(pt): Um editor de esquemas eléctricos
 Summary(ru): Редактор электрических схем
 
-Epoch: 0
-# Upstream version is a float so 0.11 < 0.2 < 0.21 < 0.3
-# So use %.2f with upstream acknowledgment
-# Remember to check upver macro on each update
-Version:     0.90
-Release:     9%{?dist}
+Epoch:       0
+Version:     0.100
+Release:     1%{?dist}
 
 
 # Prog is GPLv2 - Symbols/Elements are Creative Commons Attribution
 License:    GPL-2.0-or-later
 
 Url:        http://qelectrotech.org/
-Source0:    https://git.tuxfamily.org/qet/qet.git/snapshot/qet-%{upver}.tar.gz
+Source0:    https://github.com/qelectrotech/qelectrotech-source-mirror/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:    make
 BuildRequires:    gcc
@@ -186,7 +182,7 @@ Colecção de elementos para QElectroTech.
 
 
 %prep
-%setup -q -n qet-%{upver}
+%setup -q
 
 sed -e s,/usr/local/,%{_prefix}/, \
     -e /QET_MAN_PATH/s,'man/','share/man', \
@@ -217,7 +213,7 @@ mv %{buildroot}%{_mandir}/fr.UTF-8 %{buildroot}%{_mandir}/fr
 desktop-file-install --vendor="" \
    --add-category=Electronics \
    --dir=%{buildroot}%{_datadir}/applications/ \
-         %{buildroot}%{_datadir}/applications/%{name}.desktop
+         %{buildroot}%{_datadir}/applications/*.desktop
 
 # QT translation provided by QT.
 rm -f %{buildroot}%{_datadir}/%{name}/lang/qt_*.qm
@@ -226,12 +222,13 @@ rm -f %{buildroot}%{_datadir}/%{name}/lang/qt_*.qm
 %find_lang qelectrotech --with-man
 cat qet.lang >>qelectrotech.lang
 
+
 %files -f %{name}.lang
 %doc CREDIT examples
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/*.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/icons/hicolor/*/*/*.png
 %dir %{_datadir}/%{name}
@@ -246,6 +243,16 @@ cat qet.lang >>qelectrotech.lang
 
 
 %changelog
+* Thu Jan 29 2026 Remi Collet <remi@remirepo.net> - 0.100-1
+- update to 0.100
+- re-license spec file to CECILL-2.1
+- report no usable sources tarball
+  https://github.com/qelectrotech/qelectrotech-source-mirror/issues/418
+- open https://bugzilla.redhat.com/2433755
+  Please build kf5-kcoreaddons for EPEL 10 (and 10.1)
+- open https://bugzilla.redhat.com/2433762
+  Please build kf5-kwidgetsaddons for EPEL-10 (and 10.1)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0:0.90-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

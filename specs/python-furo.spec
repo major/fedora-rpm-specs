@@ -20,7 +20,8 @@ BuildOption(install): -L furo
 
 BuildRequires:  make
 BuildRequires:  nodejs-devel
-BuildRequires:  nodejs-npm
+BuildRequires:  /usr/bin/node
+BuildRequires:  /usr/bin/npm
 BuildRequires:  python-sphinx-doc
 BuildRequires:  python3-docs
 BuildRequires:  yarnpkg

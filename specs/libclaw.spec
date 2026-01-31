@@ -1,6 +1,6 @@
 Name:           libclaw
 Version:        1.7.4
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        C++ Library of various utility functions
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -13,6 +13,10 @@ Patch2:         libclaw-1.7.4-gcc62.patch
 Patch3:         libclaw-1.7.4-noarch.patch
 # Fix errors found by GCC 7 (and Clang)
 Patch4:         libclaw-1.7.4-gcc7.patch
+# Fix example build with C++20 by avoiding reserved keyword 'concept' 
+Patch5:         libclaw-c++20-no-concept-keyword.patch
+
+
 BuildRequires:  gcc-c++
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
@@ -51,12 +55,7 @@ Wonderful).
 
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .nostrip
-%patch -P1 -p1 -b .libdir
-%patch -P2 -p1 -b .gcc62
-%patch -P3 -p1 -b .noarch
-%patch -P4 -p1 -b .gcc7
+%autosetup -p1
 
 
 %build
@@ -101,6 +100,9 @@ done
 
 
 %changelog
+* Thu Jan 29 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.7.4-45
+- Add libclaw-c++20-no-concept-keyword.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

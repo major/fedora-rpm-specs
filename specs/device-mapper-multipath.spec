@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
-Version: 0.13.0
-Release: 4%{?dist}
+Version: 0.13.1
+Release: 1%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 # readline uses GPL-3.0-only
 License: GPL-2.0-only AND GPL-3.0-only
@@ -8,8 +8,8 @@ URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
 # following command to generate the tarball
-# curl -L https://github.com/opensvc/multipath-tools/archive/0.13.0.tar.gz -o multipath-tools-0.13.0.tgz
-Source0: multipath-tools-0.13.0.tgz
+# curl -L https://github.com/opensvc/multipath-tools/archive/0.13.1.tar.gz -o multipath-tools-0.13.1.tgz
+Source0: multipath-tools-0.13.1.tgz
 Source1: multipath.conf
 Patch0001: 0001-RH-fixup-udev-rules-for-redhat.patch
 Patch0002: 0002-RH-Remove-the-property-blacklist-exception-builtin.patch
@@ -111,7 +111,7 @@ This package contains the files needed to develop applications that use
 device-mapper-multipath's libdmmp C API library
 
 %prep
-%autosetup -n multipath-tools-0.13.0 -p1
+%autosetup -n multipath-tools-0.13.1 -p1
 cp %{SOURCE1} .
 
 %build
@@ -234,6 +234,11 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Thu Jan 29 2026 Benjamin Marzinski <bmarzins@redhat.com> - 0.13.1-1
+- Update source to upstream release 0.13.1
+- Rebase redhat patches
+- Resolves bz #2433983
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

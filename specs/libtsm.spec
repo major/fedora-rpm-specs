@@ -1,5 +1,5 @@
 Name:           libtsm
-Version:        4.4.1
+Version:        4.4.2
 Release:        1%{?dist}
 Summary:        DEC-VT terminal emulator state machine
 License:        MIT AND LGPL-2.1-or-later
@@ -11,7 +11,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  xz
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(check)
-Patch1:         0000-add-nord-color-scheme.patch
 
 %description
 TSM is a state machine for DEC VT100-VT520 compatible terminal
@@ -61,6 +60,9 @@ in %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 29 2026  Jocelyn Falempe <jfalempe@redhat.com> - 4.4.2-1
+- Update to 4.4.2
+
 * Thu Jan 22 2026  Jocelyn Falempe <jfalempe@redhat.com> - 4.4.1-1
 - Update to 4.4.1
 

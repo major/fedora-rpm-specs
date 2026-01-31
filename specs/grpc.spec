@@ -820,6 +820,11 @@ sed -r -i 's/^([[:blank:]]*)(\$\{_gRPC_GFLAGS_LIBRARIES\})/'\
 '\1\2\n\1gtest\n\1gmock/' CMakeLists.txt
 %endif
 
+%if %{defined flatpak}
+# Fix hard-coded search paths of some libraries
+sed -r -i '/((RE2|ABSL)_INCLUDE|libabsl_)/s|/usr|%{_prefix}|' setup.py
+%endif
+
 # Extract the source tarballs needed for their .proto files, which upstream
 # expects to download at build time.
 %setup -q -T -D -b 2 -n grpc-%{srcversion}

@@ -46,8 +46,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.16.0
-%global srcversion %(echo '%{version}' | cut -d '^' -f 1)
+Version:        9.16.2
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -441,11 +440,11 @@ EOF
 
 
 %generate_buildrequires -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %build -p
-export SETUPTOOLS_SCM_PRETEND_VERSION='%{srcversion}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %install -a

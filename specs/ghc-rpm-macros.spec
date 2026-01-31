@@ -3,8 +3,8 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.9.3
-Release:        2%{?dist}
+Version:        2.9.4
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -208,6 +208,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 2.9.4-1
+- ghc-dep.sh: unbreak prof for ghc9.10+
+- ghc_executable_profiling: to configure having detailed backtraces
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

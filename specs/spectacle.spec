@@ -6,7 +6,7 @@ Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
 Version: 6.5.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -132,6 +132,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1:6.5.91-2
+- Rebuilt for OpenCV 4.13
+
 * Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 1:6.5.91-1
 - 6.5.91
 

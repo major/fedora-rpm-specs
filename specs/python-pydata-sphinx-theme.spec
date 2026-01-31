@@ -43,7 +43,8 @@ BuildRequires:  fontawesome-fonts-web
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  nodejs-devel
-BuildRequires:  nodejs-npm
+BuildRequires:  /usr/bin/node
+BuildRequires:  /usr/bin/npm
 BuildRequires:  yarnpkg
 
 Provides:       bundled(js-bootstrap) = 5.3.8

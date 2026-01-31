@@ -48,30 +48,6 @@ Provides:       eclipse-filesystem = %{version}-%{release}
 This package provides some basic directories into which Java packages
 install their content.
 
-%package -n maven-local-openjdk21
-Summary:        Macros and scripts for Maven packaging support
-Requires:       java-21-openjdk-devel
-Provides:       maven-local = %{version}-%{release}
-Requires:       %{name} = %{version}-%{release}
-Requires:       javapackages-local-openjdk21 = %{version}-%{release}
-Requires:       xmvn-minimal
-Requires:       xmvn-toolchain-openjdk21
-Requires:       mvn(org.fedoraproject.xmvn:xmvn-mojo)
-# Common Maven plugins required by almost every build. It wouldn't make
-# sense to explicitly require them in every package built with Maven.
-Requires:       mvn(org.apache.maven.plugins:maven-compiler-plugin)
-Requires:       mvn(org.apache.maven.plugins:maven-jar-plugin)
-Requires:       mvn(org.apache.maven.plugins:maven-resources-plugin)
-Requires:       mvn(org.apache.maven.plugins:maven-surefire-plugin)
-# Remove in Fedora 45
-Obsoletes:      maven-local < 6.3.0
-Obsoletes:      maven-local-openjdk8 < 6.2.0-29
-Obsoletes:      maven-local-openjdk11 < 6.2.0-29
-Obsoletes:      maven-local-openjdk17 < 6.2.0-29
-
-%description -n maven-local-openjdk21
-This package provides macros and scripts to support packaging Maven artifacts.
-
 %package -n maven-local-openjdk25
 Summary:        Macros and scripts for Maven packaging support
 Requires:       java-25-openjdk-devel
@@ -99,7 +75,7 @@ This package provides macros and scripts to support packaging Maven artifacts.
 %package -n ivy-local
 Summary:        Local mode for Apache Ivy
 Requires:       %{name} = %{version}-%{release}
-Requires:       javapackages-local = %{version}-%{release}
+Requires:       javapackages-local-openjdk25 = %{version}-%{release}
 Requires:       apache-ivy >= 2.3.0-8
 Requires:       xmvn-connector-ivy
 
@@ -115,21 +91,6 @@ Requires:       %{python_prefix}-lxml
 %description -n %{python_prefix}-javapackages
 Module for handling, querying and manipulating of various files for Java
 packaging in Linux distributions
-
-%package -n javapackages-local-openjdk21
-Summary:        Non-essential macros and scripts for Java packaging support
-Obsoletes:      javapackages-local < 6.3.0
-Provides:       javapackages-local = %{version}-%{release}
-Requires:       javapackages-common = %{version}-%{release}
-Requires:       xmvn-tools
-# Java build systems don't have hard requirement on java-devel, so it should be there
-Requires:       java-21-openjdk-devel
-Requires:       xmvn-generator
-Requires:       (ant-openjdk21 if ant)
-Obsoletes:      javapackages-generators < 6.3.0
-
-%description -n javapackages-local-openjdk21
-This package provides non-essential macros and scripts to support Java packaging.
 
 %package -n javapackages-local-openjdk25
 Summary:        Non-essential macros and scripts for Java packaging support
@@ -157,7 +118,7 @@ scripts to support Java packaging.
 
 %package -n javapackages-compat
 Summary:        Previously deprecated macros and scripts for Java packaging support
-Requires:       javapackages-local = %{version}-%{release}
+Requires:       javapackages-tools = %{version}-%{release}
 
 %description -n javapackages-compat
 This package provides previously deprecated macros and scripts to
@@ -170,7 +131,6 @@ support Java packaging as well as some additions to them.
 %configure --pyinterpreter=%{python_interpreter} \
     --rpmmacrodir=%{_rpmmacrodir} --rpmconfigdir=%{_rpmconfigdir} \
     --m2home=%{maven_home} \
-    --jvm=openjdk21=%{_jvmdir}/jre-21-openjdk \
     --jvm=openjdk25=%{_jvmdir}/jre-25-openjdk
 ./build
 
@@ -248,10 +208,6 @@ done
 %files -n javapackages-common -f files-common
 
 %files -n javapackages-compat -f files-compat
-
-%files -n javapackages-local-openjdk21 -f files-local-openjdk21
-
-%files -n maven-local-openjdk21
 
 %files -n javapackages-local-openjdk25 -f files-local-openjdk25
 

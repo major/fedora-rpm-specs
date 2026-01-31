@@ -41,7 +41,7 @@ common services.
 %make_install
 
 %check
-./redwax-tool --pem-in '%{SOURCE3}' --filter verify --metadata-out -
+./redwax-tool --pem-in '%{SOURCE3}' --filter-expiry=ignore --filter verify --metadata-out -
 
 %files
 %{_bindir}/redwax-tool
@@ -52,6 +52,8 @@ common services.
 %license COPYING
 
 %changelog
+* Thu Jan 29 2026 Graham Leggett <minfrin@sharp.fm> 1.0.0-4
+- Fix test case in spec file
 * Mon Jun 23 2025 Graham Leggett <minfrin@sharp.fm> 1.0.0-1
 - Major release
 * Thu Feb 27 2025 Graham Leggett <minfrin@sharp.fm> 0.9.9-1

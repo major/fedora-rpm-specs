@@ -126,9 +126,9 @@ cp -a %{SOURCE6} man/login.defs.d/HOME_MODE.xml
 %build
 autoreconf
 %configure \
-	--disable-account-tools-setuid \
-	--enable-logind=no \
-	--enable-man \
+        --disable-account-tools-setuid \
+        --enable-logind=no \
+        --enable-man \
         --enable-shadowgrp \
         --enable-shared \
         --with-audit \
@@ -140,7 +140,7 @@ autoreconf
         --with-yescrypt \
         --without-libbsd \
         --without-libcrack \
-	--without-nscd \
+        --without-nscd \
         --without-sssd
 %make_build
 

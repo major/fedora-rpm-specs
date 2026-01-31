@@ -4,12 +4,13 @@
 
 Name:		virglrenderer
 Version:	1.2.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	Virgl Rendering library.
 License:	MIT
 
 Source:         https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/%{version}/virglrenderer-%{version}.tar.bz2
+Patch0000:      0001-c11-threads-fix-build-on-c23.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -73,6 +74,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Thu Jan 29 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.2.0-4
+- Backport build fix, fixes FTBFS rhbz#2435177
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-nanobind
-Version:        2.10.2
+Version:        2.11.0
 Release:        %autorelease
 Summary:        Tiny and efficient C++/Python bindings
 

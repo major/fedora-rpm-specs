@@ -54,7 +54,7 @@ Source1:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz.sig
 #   --keyserver=hkps://keys.openpgp.org
 Source2:        xfontsel.gpg
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 BuildRequires:  autoconf
 BuildRequires:  automake

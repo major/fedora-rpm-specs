@@ -1,7 +1,7 @@
 Name:           fgrun
 Summary:        Graphical front-end for launching FlightGear flight simulator
 Version:        2016.3.1
-Release:        68%{?dist}
+Release:        69%{?dist}
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://gitlab.com/flightgear/fgrun
@@ -24,7 +24,12 @@ Patch:          0005-Fix-build-with-newer-simgear.patch
 Requires:       FlightGear, opengl-games-utils, hicolor-icon-theme
 BuildRequires:  gcc-c++
 BuildRequires:  SimGear-devel >= 2.6.0
-BuildRequires:  fltk1.3-devel fltk1.3-fluid plib-devel 
+%if 0%{?fedora} >= 44
+BuildRequires:  fltk1.3-devel fltk1.3-fluid
+%else
+BuildRequires:  fltk-devel fltk-fluid
+%endif
+BuildRequires:  plib-devel
 BuildRequires:  sg3_utils-devel OpenSceneGraph-devel mesa-libEGL-devel
 BuildRequires:  gettext boost-devel desktop-file-utils
 BuildRequires:  cmake
@@ -89,6 +94,9 @@ install -m 0644 %{SOURCE15} \
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Jan 28 2026 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-69
+- rebuild with newer SimGear
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 2016.3.1-68
 - Rebuild with fltk 1.3 compat package.
 

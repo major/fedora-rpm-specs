@@ -5,7 +5,7 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.56
+Version:        2.2.56.1
 Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
@@ -53,12 +53,12 @@ Requires: %{name} = %{version}-%{release}
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
-sed -i -r 's/psutil>=7.1.3/psutil>=5.8.0/' requirements.txt
-sed -i -r 's/aiofiles>=24.1.0,<25.0/aiofiles>=0.7/' requirements.txt
-sed -i -r 's/aiohttp>=3.10.11,<3.11/aiohttp>=3.9.3/' requirements.txt
-sed -i -r 's/aiohttp-cors>=0.7.0,<0.8/aiohttp-cors>=0.7.0/' requirements.txt
+sed -i -r 's/psutil>=7.2.1/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/aiofiles>=25.1.0,<26.0/aiofiles>=0.7/' requirements.txt
+sed -i -r 's/aiohttp>=3.13.3,<3.14/aiohttp>=3.9.3/' requirements.txt
+sed -i -r 's/aiohttp-cors>=0.8.1,<0.9/aiohttp-cors>=0.7.0/' requirements.txt
 sed -i -r 's/Jinja2>=3.1.6,<3.2/jinja2>=2.11.3/' requirements.txt
-sed -i -r 's/jsonschema>=4.23,<4.24/jsonschema>=3.2.0/' requirements.txt
+sed -i -r 's/jsonschema>=4.25.1,<4.26/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/platformdirs>=2.4.0,<3/platformdirs>=2.4.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
 sed -i -r "s/async-timeout>=5.0.1,<5.1/async-timeout>=4.0.2; python_version < '3.11'/" requirements.txt
@@ -146,6 +146,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Thu Jan 29 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.56.1-1
+- Update to 2.2.56.1
+
 * Thu Jan 22 2026 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.56-1
 - Update to 2.2.56
 

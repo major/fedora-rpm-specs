@@ -14,7 +14,7 @@
 %endif
 
 Name: CppMicroServices
-Version: 3.8.5
+Version: 3.8.9
 Release: %autorelease
 Summary: C++ components for building service-oriented applications
 Url: http://cppmicroservices.org/
@@ -41,21 +41,18 @@ Source0: https://github.com/CppMicroServices/CppMicroServices/archive/refs/tags/
 #
 # Patches maintained in:
 #
-#  https://github.com/berrange/CppMicroServices/commits/fedora-dist/
+#  https://github.com/berrange/CppMicroServices/commits/dist-git-{version}
 #
 Patch: 0001-Fully-use-system-boost.patch
 Patch: 0002-Use-system-jsoncpp-library.patch
-Patch: 0003-Use-system-linenoise-library.patch
-Patch: 0004-Use-system-civetweb-package.patch
-Patch: 0005-Use-system-spdlog-package.patch
-Patch: 0006-Removed-unused-absl-package.patch
-Patch: 0007-Replace-use-of-removed-htmlescape-function-from-sphi.patch
-Patch: 0008-Remove-broken-docs-python-monkeypatching.patch
-# https://github.com/CppMicroServices/CppMicroServices/pull/1057
-Patch: 0009-framework-include-cppmicroservces-add-missing-cstdin.patch
-Patch: 0010-Fix-for-system-libraries-for-gmock-google-benchmark.patch
-Patch: 0011-Use-fPIC-on-all-architectures-not-just-x86_64.patch
-Patch: 0012-Disable-JSON-comment-test.patch
+Patch: 0003-Use-system-spdlog-package.patch
+Patch: 0004-Replace-use-of-removed-htmlescape-function-from-sphi.patch
+Patch: 0005-Remove-broken-docs-python-monkeypatching.patch
+Patch: 0006-Fix-for-system-libraries-for-gmock-google-benchmark.patch
+Patch: 0007-Fix-inconsistent-public-private-class-name-usage.patch
+Patch: 0008-Disable-JSON-comment-test.patch
+Patch: 0009-Disable-use-of-Werror.patch
+Patch: 0010-Remove-use-of-docutils.error_reporting.patch
 
 # Regardless of the above issue wrt system libraries, the following
 # are likely to need carrying as bundled libraries indefinitely in
@@ -75,9 +72,7 @@ BuildRequires: gcc-c++
 BuildRequires: doxygen
 BuildRequires: cmake
 BuildRequires: boost-devel
-BuildRequires: civetweb-devel
 BuildRequires: jsoncpp-devel
-BuildRequires: linenoise-devel
 BuildRequires: rapidjson-devel
 BuildRequires: spdlog-devel
 BuildRequires: python3-sphinx
@@ -123,18 +118,11 @@ This provides the library documentation
 %prep
 %autosetup -p1
 
-# No longer used by code:
-#   https://github.com/CppMicroServices/CppMicroServices/pull/1058
-rm -rf third_party/absl
-
 # Patched to use Fedora package
 rm -rf third_party/benchmark
 
 # Patched to use Fedora package
 rm -rf third_party/boost
-
-# Patched to use Fedora package
-rm -rf third_party/civetweb
 
 # Not really third party code AFAICT, so not
 # applicable to unbundle
@@ -149,13 +137,6 @@ rm -rf third_party/googletest
 # Patched to use Fedora package
 rm -rf third_party/json
 rm -rf third_party/jsoncpp.cpp
-
-# Never actually used by the code:
-#   https://github.com/CppMicroServices/CppMicroServices/pull/1059
-rm -rf third_party/libtelnet*
-
-# Patched to use Fedora package
-rm -rf third_party/linenoise*
 
 # Has local modifications adding features that are not
 # in upstream so can't use standard Fedora package
@@ -213,6 +194,8 @@ rm -rf third_party/spdlog
 
 %install
 %cmake_install
+# Not needed for pre-packaged builds
+rm -f %{buildroot}/%{_bindir}/change_namespace
 
 %check
 %if %{with_tests}
@@ -233,11 +216,8 @@ rm -rf third_party/spdlog
 %{_libdir}/libusAsyncWorkServiced.so
 # NB: not a versioned library :-(
 %{_libdir}/libusEMd.so
-%{_libdir}/libusHttpServiced.so.*
 # NB: not a versioned library :-(
 %{_libdir}/libusServiceComponentd.so
-%{_libdir}/libusShellServiced.so.*
-%{_libdir}/libusWebConsoled.so.*
 
 %files devel
 %{_datadir}/cppmicroservices3
@@ -245,28 +225,17 @@ rm -rf third_party/spdlog
 %{_bindir}/SCRCodeGen3
 %{_bindir}/jsonschemavalidator
 %{_bindir}/usResourceCompiler3
-%{_bindir}/usShell3
 %{_libdir}/libConfigurationAdmind.so
 %{_libdir}/libCppMicroServicesd.so
 %{_libdir}/libDeclarativeServicesd.so
 %{_libdir}/libLogServiced.so
-%{_libdir}/libusHttpServiced.so
-%{_libdir}/libusShellServiced.so
-%{_libdir}/libusWebConsoled.so
 %{_mandir}/man1/usResourceCompiler3.1*
-%{_mandir}/man1/usShell3.1*
 %{_mandir}/man3/cppmicroservices-asyncworkservice.3*
 %{_mandir}/man3/cppmicroservices-configadmin.3*
 %{_mandir}/man3/cppmicroservices-ds.3*
 %{_mandir}/man3/cppmicroservices-framework.3*
-%{_mandir}/man3/cppmicroservices-httpservice.3*
 %{_mandir}/man3/cppmicroservices-logservice.3*
-%{_mandir}/man3/cppmicroservices-shellservice.3*
-%{_mandir}/man3/cppmicroservices-webconsole.3*
 %{_mandir}/man3/cppmicroservices.3*
-%{_mandir}/man7/cppmicroservices-httpservice.7*
-%{_mandir}/man7/cppmicroservices-shellservice.7*
-%{_mandir}/man7/cppmicroservices-webconsole.7*
 %{_mandir}/man7/cppmicroservices.7*
 
 %files docs

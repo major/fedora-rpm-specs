@@ -159,7 +159,7 @@ Patch:          0003-ukify-omit-.osrel-section-when-os-release-is-empty.patch
 # Upstream PR: https://github.com/systemd/systemd/pull/40329
 Patch:          0004-stub-Fix-NULL-pointer-deref-when-there-are-no-initrd.patch
 
-Patch:          https://github.com/systemd/systemd/pull/40440.patch
+Patch:          40440.patch
 %endif
 
 %ifarch %{ix86} x86_64 aarch64 riscv64
@@ -939,6 +939,8 @@ CONFIGURE_OPTS=(
         -Dsbat-distro-url=https://github.com/systemd/systemd
         -Dsbat-distro=upstream
         -Dsbat-distro-summary='Upstream build from git'
+        -Defi-stub-extra-sections=500
+        -Defi-addon-extra-sections=100
 %endif
 )
 
@@ -1272,8 +1274,8 @@ systemctl --no-reload preset systemd-journald-audit.socket &>/dev/null || :
                         sleep.target
                         suspend-then-hibernate.target
                         suspend.target
-                        system-systemd\\x2dcryptsetup.slice
-                        system-systemd\\x2dveritysetup.slice
+                        system-systemd\\\\x2dcryptsetup.slice
+                        system-systemd\\\\x2dveritysetup.slice
                         systemd-backlight@.service
                         systemd-binfmt.service
                         systemd-bless-boot.service

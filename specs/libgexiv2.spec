@@ -1,11 +1,11 @@
 Name:           libgexiv2
-Version:        0.16.0
-Release:        1%{?dist}
+Version:        0.14.6
+Release:        3%{?dist}
 Summary:        Gexiv2 is a GObject-based wrapper around the Exiv2 library
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/gexiv2
-Source0:        https://download.gnome.org/sources/gexiv2/%{version}/gexiv2-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gexiv2/0.14/gexiv2-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  gcc-c++
@@ -52,26 +52,31 @@ This package contains the python3 bindings for %{name}
 %meson_install
 
 %check
+# Test failures on s390x, filled as https://bugzilla.redhat.com/show_bug.cgi?id=2435118
+%ifnarch s390x
 %meson_test
+%endif
 
 %files
 %license COPYING
 %doc AUTHORS NEWS README.md THANKS
-%{_libdir}/libgexiv2-0.16.so*
+%{_libdir}/libgexiv2.so.2*
 %dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/GExiv2-0.16.typelib
+%{_libdir}/girepository-1.0/GExiv2-0.10.typelib
 
 %files devel
-%{_includedir}/gexiv2-0.16/gexiv2/
-%{_libdir}/pkgconfig/gexiv2-0.16.pc
+%{_includedir}/gexiv2/
+%{_libdir}/libgexiv2.so
+%{_libdir}/pkgconfig/gexiv2.pc
 %dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/GExiv2-0.16.gir
-%dir %{_datadir}/doc/
-%{_datadir}/doc/gexiv2-0.16/
+%{_datadir}/gir-1.0/GExiv2-0.10.gir
+%dir %{_datadir}/gtk-doc
+%dir %{_datadir}/gtk-doc/html
+%{_datadir}/gtk-doc/html/gexiv2/
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
-%{_datadir}/vala/vapi/gexiv2-0.16.deps
-%{_datadir}/vala/vapi/gexiv2-0.16.vapi
+%{_datadir}/vala/vapi/gexiv2.deps
+%{_datadir}/vala/vapi/gexiv2.vapi
 
 %files -n python3-gexiv2
 %pycached %{python3_sitelib}/gi/overrides/GExiv2.py

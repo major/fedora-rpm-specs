@@ -31,7 +31,7 @@ Source1:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz.sig
 # was obtained on 2021-02-23.
 Source2:        %{name}.gpg
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 BuildRequires:  autoconf
 BuildRequires:  automake

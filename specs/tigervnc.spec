@@ -2,7 +2,8 @@
 %global selinuxtype targeted
 %global modulename vncsession
 
-%bcond server 1
+%bcond ffmpeg %[0%{?fedora} || 0%{?epel} || 0%{?eln}]
+%bcond xserver %[!(0%{?rhel} >= 10)]
 
 Name:           tigervnc
 Version:        1.16.0
@@ -26,7 +27,7 @@ Source5:        vncserver
 # Downstream patches
 Patch1:         tigervnc-vncsession-restore-script-systemd-service.patch
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 # https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 Patch2:         tigervnc-sbin-bin-merge.patch
 %endif
@@ -48,7 +49,7 @@ BuildRequires:  zlib-devel
 
 # TigerVNC 1.4.x requires fltk 1.3.3 for keyboard handling support
 # See https://github.com/TigerVNC/tigervnc/issues/8, also bug #1208814
-%if 0%{?fedora} >= 44
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 BuildRequires:  fltk1.3-devel
 %else
 BuildRequires:  fltk-devel
@@ -61,13 +62,13 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libXrender-devel
 BuildRequires:  pixman-devel
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?epel} || 0%{?eln}
 # Icons
 BuildRequires:  ImageMagick
 %endif
 
 
-%if %{with server}
+%if %{with xserver}
 # X11/graphics dependencies
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -91,6 +92,10 @@ BuildRequires:  xorg-x11-server-devel
 BuildRequires:  xorg-x11-server-source
 BuildRequires:  xorg-x11-util-macros
 BuildRequires:  xorg-x11-xtrans-devel
+%endif
+
+%if %{with ffmpeg}
+# Codecs
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswscale)
@@ -217,13 +222,13 @@ runs properly under an environment with SELinux enabled.
 
 %patch -P1 -p1 -b .vncsession-restore-script-systemd-service
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 %patch -P2 -p1 -b .sbin-bin-merge
 %endif
 
 # Upstream patches
 
-%if %{with server}
+%if %{with xserver}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
 pushd unix/xserver
 for all in `find . -type f -perm -001`; do
@@ -237,7 +242,7 @@ cat ../xserver120.patch | patch -p1
 %endif
 popd
 %else
-sed -i -e '/add_subdirectory.*vnc/d' unix/CMakeLists.txt
+sed -i -r '/add_subdirectory.(|x0)vncserver/d' unix/CMakeLists.txt
 %endif
 
 # Downstream patches
@@ -262,7 +267,7 @@ mkdir -p %{__cmake_builddir}
 
 %cmake_build
 
-%if %{with server}
+%if %{with xserver}
 pushd unix/xserver
 
 autoreconf -fiv
@@ -306,7 +311,7 @@ popd
 %cmake_install
 rm -f %{buildroot}%{_docdir}/%{name}-%{version}/{README.rst,LICENCE.TXT}
 
-%if %{with server}
+%if %{with xserver}
 pushd unix/xserver/hw/vnc
 %make_install TIGERVNC_BUILDDIR="`pwd`/../../../../%{__cmake_builddir}"
 popd
@@ -336,7 +341,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/vncviewer.desktop
 
 %find_lang %{name} %{name}.lang
 
-%if %{with server}
+%if %{with xserver}
 # remove unwanted files
 rm -f  %{buildroot}%{_libdir}/xorg/modules/extensions/libvnc.la
 
@@ -379,7 +384,7 @@ fi
 %{_mandir}/man1/vncviewer.1*
 %{_datadir}/metainfo/org.tigervnc.vncviewer.metainfo.xml
 
-%if %{with server}
+%if %{with xserver}
 %files x11-server
 %config(noreplace) %{_sysconfdir}/pam.d/tigervnc
 %config(noreplace) %{_sysconfdir}/tigervnc/vncserver-config-defaults
@@ -391,7 +396,7 @@ fi
 %{_bindir}/vncserver
 %{_bindir}/x0vncserver
 %{_bindir}/Xvnc
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
 %{_bindir}/vncsession
 %else
 %{_sbindir}/vncsession

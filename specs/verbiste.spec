@@ -1,4 +1,4 @@
-%if 0%{?rhel} && 0%{?rhel} >= 7
+%if 0%{?rhel} >= 7 || 0%{?fedora} >= 44
 %bcond_with gnome
 %else
 %bcond_without gnome
@@ -7,7 +7,7 @@
 
 Name:           verbiste
 Version:        0.1.49
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        French conjugation system
 License:        GPL-2.0-or-later
 URL:            http://sarrazip.com/dev/verbiste.html
@@ -142,6 +142,9 @@ rm -f %{buildroot}%{_datadir}/locale/locale.alias
 %endif
 
 %changelog
+* Thu Jan 29 2026 Didier Fabert <didier.fabert@gmail.com> - 0.1.49-6
+- Fix f44 build (bugzilla #2435175)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

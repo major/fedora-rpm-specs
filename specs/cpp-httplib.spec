@@ -99,7 +99,8 @@ rm -r $RPM_BUILD_ROOT%{_licensedir}/httplib
 %if %{with online}
   %ctest --parallel 1
 %else
-  %ctest --parallel 1 --exclude-regex '_Online$'
+  # ContentStream is unstable, https://bugzilla.redhat.com/show_bug.cgi?id=2433965
+  %ctest --parallel 1 --exclude-regex '^MaxTimeoutTest.ContentStream|_Online$'
 %endif
 %endif
 

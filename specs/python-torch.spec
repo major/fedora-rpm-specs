@@ -54,16 +54,14 @@
 %bcond_without onnx
 %bcond_without protobuf
 %bcond_without setuptools
+%bcond_without sympy
 %else
 %bcond_with eigen3
 %bcond_with onnx
 %bcond_with protobuf
 %bcond_with setuptools
-%endif
-
-# 1/23/26
-# nothing provides (python3.14dist(mpmath) < 1.4~~ with python3.14dist(mpmath) >= 1.1) needed by python3-sympy-1.14.0-10.fc44.noarch from fedora
 %bcond_with sympy
+%endif
 
 Name:           python-%{pypi_name}
 %if %{with gitcommit}
@@ -133,7 +131,13 @@ Source110:      https://github.com/pypa/setuptools/archive/refs/tags/v%{st_ver}.
 
 %global pt_arches x86_64 aarch64
 ExclusiveArch:  %pt_arches
+# Switch to clang temporarily on aarch64, GCC 16 + PyTorch 2.9.1 has problems
+# See rhbz#2431943 for more info
+%ifarch aarch64
+%global toolchain clang
+%else
 %global toolchain gcc
+%endif
 %global _lto_cflags %nil
 
 BuildRequires:  cmake
@@ -144,8 +148,14 @@ BuildRequires:  eigen3-devel
 BuildRequires:  flexiblas-devel
 BuildRequires:  fmt-devel
 BuildRequires:  foxi-devel
+%if "%{toolchain}" == "gcc"
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
+%endif
+%if "%{toolchain}" == "clang"
+BuildRequires:  clang
+BuildRequires:  flang
+%endif
 
 %if %{with gloo}
 BuildRequires:  gloo-devel

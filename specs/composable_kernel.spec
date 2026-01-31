@@ -77,42 +77,42 @@
 %global build_compile_db OFF
 %endif
 
-%bcond_without ck_contraction
+%bcond_with ck_contraction
 %if %{with ck_contraction}
 %global build_ck_contraction ON
 %else
 %global build_ck_contraction OFF
 %endif
 
-%bcond_without ck_conv
+%bcond_with ck_conv
 %if %{with ck_conv}
 %global build_ck_conv ON
 %else
 %global build_ck_conv OFF
 %endif
 
-%bcond_without ck_gemm
+%bcond_with ck_gemm
 %if %{with ck_gemm}
 %global build_ck_gemm ON
 %else
 %global build_ck_gemm OFF
 %endif
 
-%bcond_without ck_mha
+%bcond_with ck_mha
 %if %{with ck_mha}
 %global build_ck_mha ON
 %else
 %global build_ck_mha OFF
 %endif
 
-%bcond_without ck_other
+%bcond_with ck_other
 %if %{with ck_other}
 %global build_ck_other ON
 %else
 %global build_ck_other OFF
 %endif
 
-%bcond_without ck_reduction
+%bcond_with ck_reduction
 %if %{with ck_reduction}
 %global build_ck_reduction ON
 %else
@@ -142,7 +142,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -372,6 +372,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-7
+- Disable gpu library building
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -13,6 +13,9 @@ Source1:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.as
 Source2:       https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 Source3:       pkcs11-provider.conf
+# https://github.com/latchset/pkcs11-provider/pull/669
+# https://github.com/softhsm/SoftHSMv2/issues/842
+Patch1:        pkcs11-provider-workaround-softhsm-2.7.0.patch
 
 BuildRequires: openssl-devel >= 3.0.7
 BuildRequires: gcc

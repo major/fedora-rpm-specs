@@ -1,6 +1,6 @@
 Name:           xorgxrdp
-Version:        0.10.4
-Release:        3%{?dist}
+Version:        0.10.5
+Release:        1%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -11,7 +11,7 @@ BuildRequires:  make
 BuildRequires:  nasm
 BuildRequires:  xorg-x11-server-devel
 BuildRequires:  xorg-x11-server-Xorg
-BuildRequires:  xrdp-devel >= 1:0.10.3
+BuildRequires:  xrdp-devel >= 1:%{version}
 %if 0%{?fedora} > 0 && 0%{?fedora} <= 24
 BuildRequires:  libXfont-devel
 %else
@@ -29,7 +29,7 @@ BuildRequires:  libtool
 Conflicts: %{name}-glamor
 %endif
 
-Requires:       xrdp >= 1:0.10.3
+Requires:       xrdp >= 1:%{version}
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
@@ -42,7 +42,7 @@ Summary:        Implementation of xrdp backend as Xorg modules with glamor
 RemovePathPostfixes: .glamor
 Conflicts: %{name}
 
-Requires:       xrdp >= 1:0.10.3
+Requires:       xrdp >= 1:%{version}
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 Requires:       xorg-x11-server-Xorg
@@ -134,6 +134,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Thu Jan 29 2026 Bojan Smojver <bojan@rexursive.com> - 0.10.5-1
+- Update to 0.10.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

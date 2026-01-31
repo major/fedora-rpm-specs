@@ -1,6 +1,6 @@
 Name:           python-aiostream
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generator-based operators for asynchronous iteration
 
 License:        GPL-3.0-only
@@ -63,6 +63,9 @@ sed -r \
 
 
 %changelog
+* Thu Jan 29 2026 Michel Lind <salimma@fedoraproject.org> - 0.7.0-3
+- Lower setuptools requirement further to accomodate EPEL 10
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -72,10 +72,11 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # itself or any sub-packages
 # diff from SUSE: replaced qemu with qemu-kvm, qemu-tools with
 # qemu-img, qemu-x86 with qemu-system-i386, xorg-x11-Xvnc with
-# tigervnc-server-minimal (provider of /usr/bin/Xvnc)
+# file dep on /usr/bin/Xvnc (as it's in different packages in
+# different releases)
 # SUSE just has 'ipxe-bootimgs', we have -aarch64 and -x86
 # The following line is generated from dependencies.yaml (upstream)
-%define test_base_requires %main_requires cpio icewm ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat tigervnc-server-minimal xterm xterm-console
+%define test_base_requires %main_requires cpio icewm ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 socat /usr/bin/Xvnc xterm xterm-console
 # The following line is generated from dependencies.yaml (upstream)
 %define test_version_only_requires perl(Mojo::IOLoop::ReadWriteProcess) >= 0.28
 # diff from SUSE: it's python3-pillow-tk, not python3-Pillow-tk, and
@@ -271,6 +272,12 @@ fi
 %files devel
 
 %changelog
+* Thu Jan 29 2026 Adam Williamson <awilliam@redhat.com> - 5^20260123git72cabd0-3
+- Depend on /usr/bin/Xvnc not tigervnc-server-minimal (#2435305)
+
+* Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 5^20260123git72cabd0-2
+- Rebuilt for OpenCV 4.13
+
 * Tue Jan 20 2026 Adam Williamson <awilliam@redhat.com> - 5^20260123git72cabd0-1
 - Update to latest git, re-sync spec
 - Drop merged patches

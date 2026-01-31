@@ -1,12 +1,15 @@
-Summary: A Router Advertisement daemon
 Name: radvd
 Version: 2.20
 Release: %autorelease
-
+Summary: A Router Advertisement daemon
 License: radvd
-URL: http://www.litech.org/radvd/
-Source0: %{url}dist/%{name}-%{version}.tar.xz
-Source1: radvd.sysusers
+URL: https://radvd.litech.org
+
+Source0: https://radvd.litech.org/dist/%{name}-%{version}.tar.xz
+Source1: https://radvd.litech.org/dist/%{name}-%{version}.tar.xz.asc
+# Robin Hugh Johnson's public key
+Source2: https://github.com/robbat2.gpg
+Source3: radvd.sysusers
 
 # allow glibc strlcpy, avoid libbsd dependency
 Patch0: https://github.com/radvd-project/radvd/pull/256.patch
@@ -24,6 +27,7 @@ BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 BuildRequires: autoconf
 BuildRequires: automake
+BuildRequires: gpgverify
 
 %description
 radvd is the router advertisement daemon for IPv6.  It listens to router
@@ -37,8 +41,8 @@ Install radvd if you are setting up IPv6 network and/or Mobile IPv6
 services.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-autoreconf -fiv
 
 for F in CHANGES; do
     iconv -f iso-8859-1 -t utf-8 < "$F" > "${F}.new"
@@ -47,6 +51,7 @@ for F in CHANGES; do
 done
 
 %build
+autoreconf -fiv
 export CFLAGS="$RPM_OPT_FLAGS -fPIE " 
 export LDFLAGS='-pie -Wl,-z,relro,-z,now,-z,noexecstack,-z,nodlopen'
 %configure \
@@ -68,7 +73,7 @@ install -m 644 redhat/SysV/radvd.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/
 install -d -m 755 %{buildroot}%{_tmpfilesdir}
 install -p -m 644 redhat/systemd/radvd-tmpfs.conf %{buildroot}%{_tmpfilesdir}/radvd.conf
 install -m 644 redhat/systemd/radvd.service %{buildroot}%{_unitdir}
-install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/radvd.conf
+install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/radvd.conf
 
 %check
 make check
@@ -92,7 +97,9 @@ make check
 %{_sysusersdir}/radvd.conf
 %dir %attr(755,radvd,radvd) /run/radvd/
 %doc radvd.conf.example
-%{_mandir}/*/*
+%{_mandir}/man5/radvd.conf.5*
+%{_mandir}/man8/radvd.8*
+%{_mandir}/man8/radvdump.8*
 %{_sbindir}/radvd
 %{_sbindir}/radvdump
 

@@ -35,7 +35,7 @@ BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
 BuildRequires:  tex(latex)
 
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 
 #https://fedorahosted.org/fpc/ticket/174
 Provides: bundled(gnulib) = 30.5.2012

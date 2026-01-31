@@ -11,18 +11,15 @@
 %global mpm prefork
 %endif
 
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
-%bcond_without pcre2
-%bcond_with pcre
-%else
-%bcond_with pcre2
-%bcond_without pcre
-%endif
+%bcond pcre2 %[0%{?fedora} > 35 || 0%{?rhel} > 9]
+%bcond pcre %{without pcre2}
+%bcond engine %[0%{?fedora} < 41 && 0%{?rhel} < 10]
+%bcond worker %[0%{?fedora} < 44 && 0%{?rhel} < 11]
 
-%if 0%{?fedora} > 40 || 0%{?rhel} > 9
-%bcond_with engine
+%if %{with worker}
+%global mpms event prefork worker
 %else
-%bcond_without engine
+%global mpms event prefork
 %endif
 
 # Similar issue to https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -31,7 +28,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.66
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -99,6 +96,7 @@ Patch27: httpd-2.4.64-sslprotdefault.patch
 Patch28: httpd-2.4.43-logjournal.patch
 Patch29: httpd-2.4.63-r1912477+.patch
 Patch30: httpd-2.4.64-separate-systemd-fns.patch
+Patch31: httpd-2.4.66-index-utf8.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -311,8 +309,17 @@ s|@BUG_REPORT_URL@|%{bugurl}|g
    xmlto man ${f}.xml
 done
 
+sed '/^#LoadModule mpm_%{mpm}_module /s/^#//' > 00-mpm.conf < \
+    $RPM_SOURCE_DIR/00-mpm.conf
+# Remove worker MPM LoadModule from 00-mpm.conf if not built
+if echo %{mpms} | grep -q -v worker; then
+    sed -i '/^. worker MPM/,/LoadModule mpm_worker/d' 00-mpm.conf
+fi
+touch -r $RPM_SOURCE_DIR/00-mpm.conf 00-mpm.conf
+
 : Building with MMN %{mmn}, MMN-ISA %{mmnisa}
-: Default MPM is %{mpm}, vendor string is '%{vstring}'
+: Default MPM is %{mpm}, MPM list: %{mpms}
+: Vendor string is '%{vstring}'
 : Regex Engine: PCRE=%{with pcre} PCRE2=%{with pcre2}
 : mod_ssl ENGINE support: %{with engine}
 
@@ -343,7 +350,7 @@ autoheader && autoconf || exit 1
         --datadir=%{contentdir} \
         --enable-layout=Fedora \
         --with-installbuilddir=%{_libdir}/httpd/build \
-        --enable-mpms-shared=all \
+        --enable-mpms-shared="%{mpms}" \
         --with-apr=%{_prefix} --with-apr-util=%{_prefix} \
         --enable-suexec --with-suexec \
         --enable-suexec-capabilities \
@@ -412,10 +419,8 @@ for f in 00-base.conf 00-mpm.conf 00-lua.conf 01-cgi.conf 00-dav.conf \
         $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.modules.d/$f
 done
 
-sed -i '/^#LoadModule mpm_%{mpm}_module /s/^#//' \
-     $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.modules.d/00-mpm.conf
-touch -r $RPM_SOURCE_DIR/00-mpm.conf \
-     $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.modules.d/00-mpm.conf
+install -m 644 -p 00-mpm.conf \
+        $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.modules.d/00-mpm.conf
 
 # install systemd override drop directory
 # Web application packages can drop snippets into this location if
@@ -670,8 +675,8 @@ for f in $RPM_BUILD_ROOT%{_libdir}/httpd/modules/*.so; do
     echo PASS: Module $m is configured and loaded.
   fi
 done
-# Ensure every loaded mod_* is actually built
-mods=`grep -h ^LoadModule $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.modules.d/*.conf | sed 's,.*modules/,,'`
+# Ensure every mod_* referenced from a LoadModule is actually built
+mods=`grep -Eh '^.?LoadModule' $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.modules.d/*.conf | sed 's,.*modules/,,'`
 for m in $mods; do
   f=$RPM_BUILD_ROOT%{_libdir}/httpd/modules/${m}
   if ! test -x $f; then
@@ -846,6 +851,10 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Jan 27 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-3
+- disable worker mpm for Fedora > 43
+- autoindex.conf: add Charset=UTF-8 to default IndexOptions
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.66-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

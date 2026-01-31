@@ -1,6 +1,6 @@
 Name:          oath-toolkit
-Version:       2.6.13
-Release:       2%{?dist}
+Version:       2.6.14
+Release:       1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 Summary:       One-time password components
@@ -20,7 +20,7 @@ Source1:       https://download.savannah.nongnu.org/releases/%{name}/%{name}-%{v
 # gpg2 --armor --export D73CF638C53C06BE > keyring.asc
 Source2:       keyring.asc
 URL:           https://www.nongnu.org/oath-toolkit/
-Patch0:        oath-toolkit-2.6.12-lockfile.patch
+Patch:        oath-toolkit-2.6.14-lockfile.patch
 
 %description
 The OATH Toolkit provide components for building one-time password
@@ -189,6 +189,10 @@ mkdir -p -m 0600 %{buildroot}%{_sysconfdir}/liboath
 %{_libdir}/security/pam_oath.so
 
 %changelog
+* Thu Jan 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.6.14-1
+- New version
+  Resolves: rhbz#2433388
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

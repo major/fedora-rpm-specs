@@ -16,7 +16,7 @@
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
 Version:          0.9.6
-Release:          28.%{git_suffix}%{?dist}
+Release:          29.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and AGPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND AGPL-3.0-or-later
 BuildRequires:    autoconf
@@ -36,6 +36,7 @@ BuildRequires:    python3
 BuildRequires:    make
 Summary:          Utility functions for OsmocomBB, OpenBSC and related projects
 Source0:          %{name}-%{version}-%{git_suffix}.tar.bz2
+ExcludeArch:      %{ix86}
 
 %description
 A collection of common code used in various sub-projects inside the Osmocom
@@ -103,6 +104,9 @@ make check
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Thu Jan 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.9.6-29.20250331git84dcf736
+- Stopped building on 32 bit
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-28.20250331git84dcf736
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

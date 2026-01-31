@@ -481,8 +481,6 @@ echo "junit hamcrest/core ant/ant-junit4" > %{buildroot}%{_sysconfdir}/%{name}.d
 # JDK bindings
 install -d -m 755 %{buildroot}%{_javaconfdir}/
 ln -sf %{_jpbindingdir}/ant.conf %{buildroot}%{_javaconfdir}/ant.conf
-echo 'JAVA_HOME=%{_jvmdir}/jre-21-openjdk' > %{buildroot}%{_javaconfdir}/ant-openjdk21.conf
-%jp_binding --verbose --variant openjdk21 --ghost ant.conf --target %{_javaconfdir}/ant-openjdk21.conf --provides %{name}-jdk-binding --requires java-21-openjdk-headless --recommends java-21-openjdk-devel
 echo 'JAVA_HOME=%{_jvmdir}/jre-25-openjdk' > %{buildroot}%{_javaconfdir}/ant-openjdk25.conf
 %jp_binding --verbose --variant openjdk25 --ghost ant.conf --target %{_javaconfdir}/ant-openjdk25.conf --provides %{name}-jdk-binding --requires java-25-openjdk-headless --recommends java-25-openjdk-devel
 touch %{buildroot}%{_javaconfdir}/ant-unbound.conf

@@ -116,7 +116,7 @@ and GNU Automake).
 %package ltdl
 Summary:  Runtime libraries for GNU Libtool Dynamic Module Loader
 Provides: %{name}-libs = %{version}-%{release}
-License:  LGPLv2+
+License:  LGPL-2.0-or-later WITH Libtool-exception
 
 
 %description ltdl
@@ -133,7 +133,7 @@ the rest of the GNU Autotools (including GNU Autoconf and GNU Automake).
 Summary: Tools needed for development using the GNU Libtool Dynamic Module Loader
 Requires: automake = %automake_version
 Requires: %{name}-ltdl = %{version}-%{release}
-License:  LGPLv2+
+License:  LGPL-2.0-or-later WITH Libtool-exception
 
 
 %description ltdl-devel

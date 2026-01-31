@@ -1,7 +1,7 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
-Version:        2024.1.3
-Release:        3%{?dist}
+Version:        2024.1.4
+Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -62,6 +62,9 @@ done
 %{_datadir}/flightgear
 
 %changelog
+* Wed Jan 28 2026 Fabrice Bellet <fabrice@bellet.info> - 2024.1.4-1
+- new upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

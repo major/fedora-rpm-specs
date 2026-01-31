@@ -1,11 +1,11 @@
 Name:           SimGear
-Version:        2024.1.3
-Release:        3%{?dist}
+Version:        2024.1.4
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
 URL:            https://gitlab.com/flightgear/simgear
-Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/11398677078/artifacts/raw/sgbuild/simgear-%{version}.tar.bz2
+Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/12799933767/artifacts/raw/sgbuild/simgear-%{version}.tar.bz2
 Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch:          0002-fix-support-for-aarch64.patch
 BuildRequires:  gcc-c++
@@ -70,6 +70,9 @@ rm -rf simgear/xml/*.h simgear/xml/*.c
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Wed Jan 28 2026 Fabrice Bellet <fabrice@bellet.info> - 2024.1.4-1
+- new upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
