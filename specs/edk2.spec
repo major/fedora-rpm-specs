@@ -144,6 +144,13 @@ Patch0023: 0023-OvmfPkg-MemDebugLogLib-use-AcquireSpinLockOrFail.patch
 Patch0024: 0024-BaseTools-EfiRom-fix-compiler-warning.patch
 Patch0025: 0025-OvmfPkg-PlatformInitLib-reserve-igvm-parameter-area.patch
 Patch0026: 0026-OvmfPkg-X86QemuLoadImageLib-flip-default-for-EnableL.patch
+Patch0027: 0027-BaseTools-StringFuncs-fix-gcc-16-warning.patch
+Patch0028: 0028-MdeModulePkg-CustomizedDisplayLib-fix-gcc-16-warning.patch
+Patch0029: 0029-MdeModulePkg-SmbiosMeasurementDxe-fix-gcc-16-warning.patch
+Patch0030: 0030-MdeModulePkg-DisplayEngineDxe-fix-gcc-16-warning.patch
+Patch0031: 0031-MdeModulePkg-VarCheckHiiLib-fix-gcc-16-warning.patch
+Patch0032: 0032-MdeModulePkg-CapsuleOnDiskLoadPei-fix-gcc-16-warning.patch
+Patch0033: 0033-SecurityPkg-Remove-unused-variable.patch
 
 
 # needed by %prep

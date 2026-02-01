@@ -72,7 +72,7 @@ MinGW Windows pcap library.
 %patch -P0 -p0 -b .build
 %patch -P2 -p0 -b .mingw-w64
 
-find . -type f -print0 |xargs -0 dos2unix
+find . -type f -print0 |xargs -0 dos2unix || true
 pushd wpcap/libpcap/Win32/Include/
 mv ip6_misc.h IP6_misc.h
 popd

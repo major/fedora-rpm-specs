@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.7
-Release:       14%{?dist}
+Release:       15%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -10,6 +10,7 @@ Source0:       https://sourceforge.net/projects/tboot/files/%{name}/%{name}-%{ve
 Patch0:        tboot-gcc14.patch
 Patch1:        openssl-no-engine.patch
 Patch2:        tboot-sbin.patch
+Patch3:        tboot-1.11.7-len.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -76,6 +77,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Fri Jan 30 2026 Dave Cantrell <dcantrell@redhat.com> - 1:1.11.7-15
+- Remove unused 'len' variable (#2435138)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

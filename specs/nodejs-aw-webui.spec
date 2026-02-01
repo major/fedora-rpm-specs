@@ -24,7 +24,7 @@ Source5:        https://raw.githubusercontent.com/ActivityWatch/media/cb597f7c2e
 
 BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
-BuildRequires:  nodejs-npm
+BuildRequires:  nodejs-npm, /usr/bin/npm
 BuildRequires:  nodejs-devel
 BuildRequires:  fdupes
 

@@ -4,7 +4,7 @@
 
 Name:           procenv
 Version:        0.60
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Utility to show process environment
 
 License:        GPL-3.0-or-later
@@ -12,11 +12,9 @@ URL:            https://github.com/jamesodhunt/procenv
 Source0:        https://github.com/jamesodhunt/procenv/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires:  expat, libcap-devel, libselinux-devel, check-devel, gcc
-# Only used for testing; not in EL6.
-%{!?el6:BuildRequires:  perl(JSON::PP)}
-%ifnarch %{arm}
 BuildRequires:  numactl-devel
-%endif
+# Only used for testing
+BuildRequires:  perl(JSON::PP)
 
 %description
 This package contains a command-line tool that displays as much
@@ -29,7 +27,7 @@ process runs in, and for comparing system environments.
 
 %build
 # See https://github.com/jamesodhunt/procenv/issues/39
-export CFLAGS="$CFLAGS -Wno-error=address"
+export CFLAGS="$CFLAGS -Wno-error=address -Wno-error=discarded-qualifiers"
 %configure
 %make_build
 
@@ -47,6 +45,9 @@ make check
 %license COPYING
 
 %changelog
+* Fri Jan 30 2026 Dave Love <loveshack@fedoraproject.org> - 0.60-15
+- Fix FTBFS in F44
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

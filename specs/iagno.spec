@@ -1,21 +1,22 @@
 Name:           iagno
-Version:        3.38.1
-Release:        15%{?dist}
+Version:        50.alpha
+Release:        1%{?dist}
 Summary:        GNOME Reversi game
 
 # Automatically converted from old format: GPLv3+ and CC-BY-SA - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Iagno
-Source0:        https://download.gnome.org/sources/iagno/3.38/iagno-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/iagno/50/iagno-%{version}.tar.xz
 # Backported from upstream
-Patch0:         0001-Don-t-alter-or-try-to-write-GtkChild-fields.patch
-Patch1:         0001-Reference-of-GtkChild-fields-is-handled-by-GtkBuilde.patch
+#Patch0:         0001-Don-t-alter-or-try-to-write-GtkChild-fields.patch
+#Patch1:         0001-Reference-of-GtkChild-fields-is-handled-by-GtkBuilde.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  glib2-devel
 BuildRequires:  gsound-devel
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  libcanberra-devel
 BuildRequires:  itstool
@@ -57,11 +58,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Reversi.
 %{_datadir}/iagno/
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Reversi.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Reversi-symbolic.svg
-%{_datadir}/metainfo/org.gnome.Reversi.appdata.xml
+%{_datadir}/metainfo/org.gnome.Reversi.metainfo.xml
 %{_mandir}/man6/iagno.6*
 
 
 %changelog
+* Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 50~alpha-1
+- Update to 50.alpha
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A GNU archiving program
 Name: cpio
 Version: 2.15
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/cpio/
 Source0: https://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.bz2
@@ -45,7 +45,7 @@ Provides: bundled(gnulib)
 Provides: bundled(paxutils)
 Provides: /bin/cpio
 BuildRequires: gcc
-BuildRequires: texinfo, autoconf, automake, gettext, gettext-devel, rmt
+BuildRequires: texinfo, autoconf, automake, gettext, gettext-devel
 BuildRequires: make
 BuildRequires: gnupg2
 
@@ -82,7 +82,6 @@ export CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE6
 %install
 %make_install
 
-rm -f $RPM_BUILD_ROOT%{_libexecdir}/rmt
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/*.1*
 install -c -p -m 0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_mandir}/man1
@@ -106,6 +105,9 @@ make check || {
 %{_infodir}/*.info*
 
 %changelog
+* Fri Jan 30 2026 Honza Horak <hhorak@redhat.com> - 2.15-9
+- Remove the unused rmt build-time dependency (fixes FTBFS, fedora#2433964)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

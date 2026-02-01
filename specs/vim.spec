@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 2086
+%define patchlevel 2114
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -92,6 +92,19 @@ Patch6: vim-python3-tests.patch
 Patch7: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
 Patch8: vim-8.0-copy-paste.patch
+# upstream test suite expects mouse to be set in some tests...
+Patch9: vim-9.1-copy-paste.patch
+# since F42+, if you let glibc to give you random port, it will give you two random ports
+# - one for IPv4 address, another for IPv6 address by default. Vim counts on the port being
+# the same, because the fake server used for testing (python script simulating netbeans or
+# another language server with language server procotol - LSP) saves the port into a file
+# for Vim to pick it up and use the informantion when connecting to the server. However,
+# the problem appears when client gets localhost resolved into IPv4 address, but used
+# the port which is used by fake server for IPv6 address.
+# Since such tests are only mocking the real life behavior and in the real life Vim gets
+# connection information by a different way, enforcing IPv4 in the test to prevent mismatch
+# is a viable solution.
+Patch10: vim-test-port-mismatch.patch
 
 
 # patch only when hunspell is enabled
@@ -396,6 +409,8 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 6 -p1 -b .python-tests
 %patch -P 7 -p1 -b .fips-warning
 %patch -P 8 -p1 -b .copypaste
+%patch -P 9 -p1 -b .newcopy
+%patch -P 10 -p1 -b .test-port-mismatch
 
 %if %{withhunspell}
 %patch -P 10000 -p1
@@ -755,7 +770,7 @@ rm -rf %{buildroot}/%{_datadir}/vim/%{vimdir}/doc/vim2html.pl
 rm -f %{buildroot}/%{_datadir}/vim/%{vimdir}/tutor/tutor.gr.utf-8~
 
 # Remove not UTF-8 manpages
-for i in pl.ISO8859-2 it.ISO8859-1 ru.KOI8-R fr.ISO8859-1 da.ISO8859-1 de.ISO8859-1 tr.ISO8859-9; do
+for i in pl.ISO8859-2 it.ISO8859-1 ru.KOI8-R fr.ISO8859-1 da.ISO8859-1 de.ISO8859-1 tr.ISO8859-9 sv.ISO8859-1; do
   rm -rf %{buildroot}/%{_mandir}/$i
 done
 
@@ -763,7 +778,7 @@ done
 mv %{buildroot}/%{_mandir}/ru.UTF-8 %{buildroot}/%{_mandir}/ru
 
 # Remove duplicate man pages
-for i in fr.UTF-8 it.UTF-8 pl.UTF-8 da.UTF-8 de.UTF-8 tr.UTF-8; do
+for i in fr.UTF-8 it.UTF-8 pl.UTF-8 da.UTF-8 de.UTF-8 tr.UTF-8 sv.UTF-8; do
   rm -rf %{buildroot}/%{_mandir}/$i
 done
 
@@ -898,6 +913,7 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %lang(ja) %{_mandir}/ja/man1/*
 %lang(pl) %{_mandir}/pl/man1/*
 %lang(ru) %{_mandir}/ru/man1/*
+%lang(sv) %{_mandir}/sv/man1/*
 %lang(tr) %{_mandir}/tr/man1/*
 
 %files minimal
@@ -995,6 +1011,13 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Jan 30 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2114-1
+- patchlevel 2114
+- added Swedish translation
+
+* Fri Jan 30 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2086-2
+- fix some of test suite failures
+
 * Fri Jan 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2086-1
 - patchlevel 2086
 

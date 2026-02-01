@@ -1,5 +1,5 @@
 Name:           python-datasets
-Version:        4.4.2
+Version:        4.5.0
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 
@@ -24,8 +24,9 @@ BuildRequires:  python3dist(pytest-xdist)
 ExcludeArch:    %{ix86}
 
 # Define our own pytorch_arches macro until we have one system-wide.
+# TODO: temporarily disable aarch64 to avoid issues with PyTorch?
 %if %{undefined pytorch_arches}
-%global pytorch_arches %{x86_64} %{arm64}
+%global pytorch_arches x86_64
 %endif
 
 # Extras that depend on PyTorch should only exist on arches with PyTorch
@@ -69,13 +70,12 @@ BuildArch:      noarch
 
 %prep
 %autosetup -p1 -n datasets-%{version}
-# TODO: improve sed lines to remove the need for changes when the upper bound is updated
 # Relax dill version bound for distro purposes
-sed -i "s/dill>=0.4.1,<0.3.9/dill>=0.4.1/" setup.py
+sed -i "s/\"dill.*\",/\"dill\",/" setup.py
 # Relax multiprocess version bound for distro purposes
-sed -i "s/multiprocess<0.70.19/multiprocess/" setup.py
+sed -i "s/\"multiprocess.*\",/\"multiprocess\",/" setup.py
 # Relax fsspec version bound for distro purposes
-sed -i "s/fsspec\[http\]>=2023.1.0,<=2025.10.0/fsspec\[http\]>=2023.1.0/" setup.py
+sed -i "s/\"fsspec\[http\].*\",/\"fsspec\[http\]\",/" setup.py
 # Drop shebangs from files that are not executable
 # TODO: report this issue upstream
 sed -i "1d" src/datasets/commands/datasets_cli.py

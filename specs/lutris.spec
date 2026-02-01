@@ -16,8 +16,10 @@ Patch0:         game-installation-fix.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 Requires:       cabextract
-Requires:       gtk3, psmisc, xorg-x11-server-Xephyr, xrandr
+Requires:       gtk3, psmisc
 Requires:       hicolor-icon-theme
+# According to the INSTALL.rst upstream docs, lutris requires either (xorg-x11-server-Xephyr, xrandr)
+# or gnome-desktop3. Considering we are mainly using Wayland now, gnome-desktop3 should be sufficient.
 Requires:       gnome-desktop3
 Requires:       python3-distro
 Requires:       python3-cairo
@@ -31,11 +33,11 @@ BuildRequires:  libX11-devel
 
 %if 0%{?fedora} || 0%{?rhel} < 10
 %ifarch x86_64
-Requires:       mesa-dri-drivers(x86-32)
-Requires:       mesa-vulkan-drivers(x86-32)
-Requires:       vulkan-loader(x86-32)
-Requires:       mesa-libGL(x86-32)
-Requires:       libXScrnSaver(x86-32)
+Recommends:     mesa-dri-drivers(x86-32)
+Recommends:     mesa-vulkan-drivers(x86-32)
+Recommends:     vulkan-loader(x86-32)
+Recommends:     mesa-libGL(x86-32)
+Recommends:     libXScrnSaver(x86-32)
 Recommends:     pipewire(x86-32)
 Recommends:     libFAudio(x86-32)
 Recommends:     wine-pulseaudio(x86-32)

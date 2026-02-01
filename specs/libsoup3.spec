@@ -15,6 +15,9 @@ License: LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/libsoup/3.6/libsoup-%{version}.tar.xz
 
+# Downstream patch, needed due to glib2 gnutls-hmac.patch
+Patch:   no-ntlm-in-fips-mode.patch
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=2367183
 Patch:   CVE-2025-4948.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2359343

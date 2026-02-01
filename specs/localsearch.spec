@@ -55,7 +55,7 @@ BuildRequires:  pkgconfig(enca)
 %endif
 BuildRequires:  pkgconfig(exempi-2.0)
 BuildRequires:  pkgconfig(flac)
-BuildRequires:  pkgconfig(gexiv2)
+BuildRequires:  pkgconfig(gexiv2-0.16)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)

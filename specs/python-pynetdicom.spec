@@ -1,4 +1,4 @@
-%bcond check 1
+%bcond check 0
 
 %global forgeurl https://github.com/pydicom/pynetdicom
 
@@ -8,11 +8,11 @@ networking protocol. Working with pydicom, it allows the easy creation of
 DICOM Service Class Users (SCUs) and Service Class Providers (SCPs).}
 
 Name:           python-pynetdicom
-Version:        2.1.1
+Version:        3.0.4
 
 %forgemeta
 
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT
@@ -23,7 +23,7 @@ Source:         %{forgesource}
 # specifically allowing version 3. Upstream is also working toward a release
 # with pydicom 3 support; see the comment in
 # https://github.com/pydicom/pynetdicom/pull/965.
-Patch:          pynetdicom-2.1.1-pydicom-3.patch
+# Patch:          pynetdicom-2.1.1-pydicom-3.patch
 
 BuildArch:      noarch
 

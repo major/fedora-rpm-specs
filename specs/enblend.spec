@@ -36,7 +36,7 @@ like Hugin to do that.
 
 %package doc
 Summary: Usage Documentation for enblend and enfuse
-License: GFDL
+License: GFDL-1.2-or-later
 
 %description doc
 PDF usage documentation for the enblend and enfuse command line tools

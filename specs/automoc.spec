@@ -7,10 +7,9 @@
 
 Name:           automoc
 Version:        1.0
-Release:        0.52.%{?beta_tag}%{?dist}
+Release:        0.53.%{?beta_tag}%{?dist}
 Summary:        Automatic moc for Qt 4
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            http://www.kde.org
 Source0:        ftp://ftp.kde.org/pub/kde/stable/automoc4/%{beta}/automoc4-%{beta}.tar.bz2
 
@@ -89,6 +88,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Mon Jan 19 2026 Than Ngo <than@redhat.com> - 1.0-0.53.rc3
+- Update License
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.52.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

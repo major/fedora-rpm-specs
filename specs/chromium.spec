@@ -621,7 +621,7 @@ BuildRequires: minizip-compat-devel
 %endif
 
 %if %{system_nodejs}
-BuildRequires: nodejs
+BuildRequires: nodejs, /usr/bin/node
 %endif
 
 %if ! %{bootstrap}

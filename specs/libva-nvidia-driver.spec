@@ -5,7 +5,7 @@
 %global upstream_name nvidia-vaapi-driver
 
 Name:           libva-nvidia-driver
-Version:        0.0.14%{?shortcommit0:^%{date}git%{shortcommit0}}
+Version:        0.0.15%{?shortcommit0:^%{date}git%{shortcommit0}}
 Release:        %autorelease
 Summary:        A VA-API implemention using NVIDIA's NVDEC
 

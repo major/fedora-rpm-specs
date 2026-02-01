@@ -17,6 +17,9 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Allow building against the system-provided `xxhash.h`
 Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
+# Fix `textrel2` test on Fedora 44 (https://github.com/rui314/mold/pull/1547)
+Patch1:         0002-Fix-textrel2-test-on-Fedora-44.patch
+
 BuildRequires:  blake3-devel
 BuildRequires:  cmake
 %if %{use_gcc_toolset}

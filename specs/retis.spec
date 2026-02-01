@@ -1,14 +1,14 @@
-Name:		retis
-Version:	1.5.2
-Release:	3%{?dist}
-Summary:	Tracing packets in the Linux networking stack
-License:	GPL-2.0-only
+Name:           retis
+Version:        1.5.2
+Release:        %autorelease
+Summary:        Tracing packets in the Linux networking stack
+License:        GPL-2.0-only
 
-URL:		https://github.com/retis-org/retis
-Source:		https://github.com/retis-org/retis/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/retis-org/retis
+Source:         https://github.com/retis-org/retis/archive/v%{version}/%{name}-%{version}.tar.gz
 # Manually created to use the rpm profile when building and installing the
 # release target.
-Patch:		retis-release-profile.diff
+Patch:          retis-release-profile.diff
 # Manually created to:
 # - Remove the rbpf dependency (was in the unused 'debug' feature).
 # - Remove the dev-dependencies.
@@ -17,28 +17,28 @@ Patch:		retis-release-profile.diff
 # - Relax the dependency on cargo-platform (only required for c8s).
 # - Relax the dependency on pnet_packet to allow 0.35:
 #   https://github.com/retis-org/retis/pull/524
-Patch:		retis-fix-deps.diff
+Patch:          retis-fix-deps.diff
 # Manually created to remove CFLAGS for BPF targets as the default ones are
 # incompatible with the 'bpf' target (e.g. -mtls-dialect=gnu or
 # -mbranch-protection).
-Patch:		retis-cflags.diff
+Patch:          retis-cflags.diff
 # Manually created to fix a build error linked to using libbpf-rs 0.24.4, which
 # is not reproducible upstream while using newer versions.
-Patch:		retis-libbpf-rs-fix.diff
+Patch:          retis-libbpf-rs-fix.diff
 
-ExclusiveArch:	x86_64 aarch64
+ExclusiveArch:  x86_64 aarch64
 
-Requires:	elfutils-libelf
-Requires:	python3
-Requires:	zlib
+Requires:       elfutils-libelf
+Requires:       python3
+Requires:       zlib
 
-BuildRequires:	rust-packaging
-BuildRequires:	clang
-BuildRequires:	git
-BuildRequires:	jq
-BuildRequires:	llvm
-BuildRequires:	make
-BuildRequires:	python3-devel
+BuildRequires:  rust-packaging
+BuildRequires:  clang
+BuildRequires:  git
+BuildRequires:  jq
+BuildRequires:  llvm
+BuildRequires:  make
+BuildRequires:  python3-devel
 
 %description
 Tracing packets in the Linux networking stack, using eBPF and interfacing with
@@ -69,13 +69,4 @@ rm -f %{buildroot}/libbpf.a
 %{_sysconfdir}/retis/profiles
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 1.5.2-1
-- Rebuilt for Python 3.14
-
 %autochangelog

@@ -1,8 +1,8 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.37.2
-Release:          2%{?dist}
+Version:          0.38.0
+Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -53,6 +53,13 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Fri Jan 30 2026 Packit <hello@packit.dev> - 0.38.0-1
+- polkitd: Add RegisterAuthenticationAgentWithOptions
+- logind: Add SetWallMessage
+- README: Update outdated and broken examples, move to addCleanup()
+- Move all license comments to SPDX-License-Identifier
+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

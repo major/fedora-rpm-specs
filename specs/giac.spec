@@ -8,6 +8,13 @@
 
 %bcond_without flexiblas
 
+# giac is not ready for FLTK-1.4.4
+%if 0%{?fedora} < 44
+%bcond_without fltk
+%else
+%bcond_with fltk
+%endif
+
 %global _lto_cflags %{nil}
 
 %global subversion .19
@@ -92,7 +99,9 @@ BuildRequires: libcurl-devel
 BuildRequires: libpng-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libsamplerate-devel
+%if %{with fltk}
 BuildRequires: fltk-devel
+%endif
 BuildRequires: libXinerama-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -127,7 +136,9 @@ It consists of:
 %package devel
 Summary: C++ development files for libgiac
 Requires: %{name}%{?_isa} = %{version}-%{release}
+%if %{with fltk}
 Requires: fltk-devel%{?_isa}
+%endif
 Requires: gsl-devel%{?_isa}
 Requires: mpfi-devel%{?_isa}
 Requires: ntl-devel%{?_isa}
@@ -248,7 +259,10 @@ export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
  --enable-ntl=yes --enable-gmpxx=yes --enable-cocoa=autodetect \
  --enable-gui=yes --disable-rpath \
 %ifarch %{power64}
- --disable-micropy
+ --disable-micropy \
+%endif
+%if %{without fltk}
+ --disable-fltk
 %endif
 
 # The --disable-rpath option of configure was not enough to get rid of the hardcoded libdir

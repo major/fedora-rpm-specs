@@ -74,6 +74,8 @@ Source5:       %{name}-cleaner.sh
 Patch0:        gdal_utils.patch
 
 Patch1:        gdal-3.12.1-poppler-26.01.0.patch
+# Fix/workaround undefined reference to `std::__get_once_callable()' with mingw-gcc-16.x
+# FIXME Retest with future gcc versions
 Patch2:        gdal-3.12.1-statically-link-stdc++.patch
 
 BuildRequires: cmake

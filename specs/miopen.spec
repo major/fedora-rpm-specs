@@ -115,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -204,6 +204,17 @@ Provides:       miopen%{pkg_suffix} = %{version}-%{release}
 # Use ROCm devel at runtime
 Requires:       rocm-hip%{pkg_suffix}-devel
 Requires:       rocrand%{pkg_suffix}-devel
+# Also needs c++ to work
+# From pytorch-examples/word_language_model
+# MIOpen(HIP): Error [BuildHip] HIPRTC status = HIPRTC_ERROR_COMPILATION (6), source file: MIOpenDropoutHIP.cpp
+# MIOpen(HIP): Warning [BuildHip] In file included from /tmp/comgr-78a343/input/MIOpenDropoutHIP.cpp:32:
+# In file included from /tmp/comgr-78a343/include/miopen_rocrand.hpp:45:
+# In file included from /usr/include/rocrand/rocrand_xorwow.h:24:
+# /usr/include/rocrand/rocrand_common.h:39:10: fatal error: 'utility' file not found
+#   39 | #include <utility>
+#      |          ^~~~~~~~~
+Requires:       gcc-c++
+
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -395,6 +406,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
+- requires gcc-c++
+
 * Fri Jan 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Rebuild for boost 1.90
 

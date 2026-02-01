@@ -91,6 +91,12 @@ mkdir -vp %{buildroot}/%{_mandir}/man1/
 sed -i '/^  /d; /^.SH "NAME"/,+1c.SH "NAME"\nprometheus-node-exporter \\- The Prometheus Node-Exporter' \
     %{buildroot}/%{_mandir}/man1/%{shortname}.1
 
+# Workaround to fix ppc64le's unknown race condition.
+# There are other solutions like not using the same binary but that means copying the binary to a different place. This is simpler.
+# Message error in logs looks like:
+# debugedit: Failed to open input file '/builddir/build/BUILDROOT/node-exporter-1.9.1-2.el10_2.ppc64le/usr/bin/prometheus-node-exporter': Text file busy
+sleep 1
+
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}

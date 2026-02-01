@@ -1,6 +1,6 @@
 
 Name: rst2pdf
-Version: 0.103.1
+Version: 0.104
 Release: %autorelease
 Summary: Tool for transforming reStructuredText to PDF
 License: MIT
@@ -17,9 +17,6 @@ Tool for transforming reStructuredText to PDF using ReportLab
 
 %prep
 %autosetup -n %{name}-%{version} -p 1
-# Remove version limit for packaging and docutils
-sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
-sed -i 's/"docutils.*"/"docutils"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -92,6 +92,10 @@ Patch16:        atuin-update-paseto-paserk.patch
 # * https://github.com/atuinsh/atuin/pull/2982
 # * Downstream, we *allow* rather than *requiring* 6.0.0.
 Patch17:        atuin-relax-directories.patch
+# * chore(deps): update whoami dependency to v2
+# * https://github.com/atuinsh/atuin/pull/3118
+# * Without changes to Cargo.lock
+Patch18:        atuin-whoami2.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check} && %{with pgtests}

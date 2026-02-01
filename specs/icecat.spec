@@ -195,7 +195,7 @@ BuildRequires: libvpx-devel >= %{libvpx_version}
 %endif
 BuildRequires: libzip-devel
 BuildRequires: mesa-libGL-devel
-BuildRequires: nodejs
+BuildRequires: nodejs, /usr/bin/node
 BuildRequires: nasm >= 1.13
 BuildRequires: strace
 

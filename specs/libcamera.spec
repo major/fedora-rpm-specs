@@ -1,6 +1,6 @@
 Name:    libcamera
-Version: 0.6.0
-Release: 3%{?dist}
+Version: 0.7.0
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -12,9 +12,6 @@ Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
 Patch01: 0001-disable-rpi-pisp.patch
-# Fix initial black image / flickering on IPU6 ov02c10 laptops
-# https://lists.libcamera.org/pipermail/libcamera-devel/2025-December/056017.html
-Patch02: 0001-ipa-simple-agc-Make-sure-activeState.agc-expo-again-.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -124,7 +121,9 @@ Python bindings for %{name}
 # cam/qcam crash with LTO
 %global _lto_cflags %{nil}
 export CFLAGS="%{optflags} -Wno-deprecated-declarations"
-export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
+# Set also max-devirt-targets=1 to prevent compilation errors,
+# maybe due to https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120345.
+export CXXFLAGS="%{optflags} -Wno-deprecated-declarations --param=max-devirt-targets=1"
 
 # Build and include the virtual and vimc pipelines. This also builds tests but
 # those do not get included in any packages.
@@ -134,6 +133,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
     %{?rhel:-Dlibunwind=disabled} \
     -Dtest=true \
     -Ddocumentation=disabled \
+    -Drpi-awb-nn=disabled \
     %{nil}
 %meson_build
 
@@ -164,7 +164,7 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
 # We leave the version here explicitly to know when it bumps
-%{_libdir}/libcamera*.so.0.6
+%{_libdir}/libcamera*.so.0.7
 %{_libdir}/libcamera*.so.%{version}
 %{_udevrulesdir}/70-libcamera.rules
 
@@ -200,6 +200,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jan 29 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.0-1
+- Update to version 0.7.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

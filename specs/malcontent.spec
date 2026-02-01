@@ -1,14 +1,19 @@
 Name:           malcontent
-Version:        0.13.0
-Release:        4%{?dist}
+Version:        0.14.alpha
+Release:        2%{?dist}
 Summary:        Parental controls implementation
 
 License:        LGPL-2.1-only AND CC-BY-3.0
 URL:            https://gitlab.freedesktop.org/pwithnall/malcontent/
-Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://tecnocode.co.uk/downloads/malcontent/malcontent-0.14.alpha.tar.xz
+Source1:        https://gitlab.gnome.org/pwithnall/libgsystemservice/-/archive/0.3.0/libgsystemservice-0.3.0.tar.bz2
+Source2:        gvdb.tar.xz
+Source3:        http://www.corpit.ru/mjt/tinycdb/tinycdb-0.81.tar.gz
 
 BuildRequires:  gettext
+BuildRequires:  gi-docgen
 BuildRequires:  meson
+BuildRequires:  cmake
 BuildRequires:  git
 BuildRequires:  gcc
 BuildRequires:  itstool
@@ -23,7 +28,14 @@ BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(appstream)
 BuildRequires:  pkgconfig(flatpak)
 BuildRequires:  pkgconfig(glib-testing-0)
+BuildRequires:  pkgconfig(gnome-desktop-4)
 BuildRequires:  pam-devel
+BuildRequires:  gtk-doc
+BuildRequires:  libsoup3-devel
+
+Provides:       bundled(gvdb)
+Provides:       bundled(libgsystemservice)
+Provides:       bundled(tinycdb)
 
 Requires: polkit
 
@@ -86,11 +98,23 @@ Summary:        Libraries for %{name}
 %description libs
 This package contains libmalcontent.
 
+%package doc
+Summary:        Documentation for %{name}
+
+%description doc
+This package documentation for libmalcontent.
+
+
 %prep
 %autosetup -p1 -S git
+tar -xf %{SOURCE1} -C subprojects
+mv subprojects/libgsystemservice-0.3.0 subprojects/libgsystemservice
+tar -xf %{SOURCE2} -C subprojects
+tar -xf %{SOURCE3} -C subprojects
+cp subprojects/packagefiles/tinycdb/meson.build subprojects/tinycdb-0.81
 
 %build
-%meson -Dui=enabled
+%meson -Dui=enabled -Dinstalled_tests=false
 %meson_build
 
 %install
@@ -108,6 +132,30 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.freed
 %{_datadir}/dbus-1/interfaces/
 %{_datadir}/polkit-1/actions/*.policy
 %{_datadir}/polkit-1/rules.d/com.endlessm.ParentalControls.rules
+%{_libexecdir}/malcontent-timer-extension-agent
+%{_libexecdir}/malcontent-timerd
+%{_libexecdir}/malcontent-webd
+%{_libexecdir}/malcontent-webd-update
+%{_datadir}/dbus-1/services/org.freedesktop.MalcontentControl.service
+%{_datadir}/dbus-1/system-services/org.freedesktop.MalcontentTimer1.ExtensionAgent.service
+%{_datadir}/dbus-1/system-services/org.freedesktop.MalcontentTimer1.service
+%{_datadir}/dbus-1/system-services/org.freedesktop.MalcontentWeb1.service
+%{_datadir}/dbus-1/system.d/org.freedesktop.MalcontentTimer1.ExtensionAgent.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.MalcontentTimer1.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.MalcontentWeb1.conf
+%{_mandir}/man8/malcontent-timer-extension-agent.8*
+%{_mandir}/man8/malcontent-timerd.8*
+%{_mandir}/man8/malcontent-webd.8*
+%{_unitdir}/malcontent-timer-extension-agent.service
+%{_unitdir}/malcontent-timerd.service
+%{_unitdir}/malcontent-webd-update.service
+%{_unitdir}/malcontent-webd-update.timer
+%{_unitdir}/malcontent-webd.service
+%{_sysusersdir}/malcontent-timer-extension-agent.conf
+%{_sysusersdir}/malcontent-timerd.conf
+%{_sysusersdir}/malcontent-webd.conf
+%exclude %{_libexecdir}/installed-tests/malcontent-webd-update-1/malcontent-webd-template.py
+
 
 %files control
 %license COPYING
@@ -155,8 +203,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.freed
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/girepository-1.0/Malcontent-0.typelib
 %{_libdir}/libmalcontent-0.so.*
+%{_libdir}/libnss_malcontent.so*
+
+%files doc
+%{_docdir}/libmalcontent-0
+%{_docdir}/libmalcontent-ui-1
+
 
 %changelog
+* Thu Jan 22 2026 Jan Horak <jhorak@redhat.com> - 0.14.alpha-2
+- Update to 0.14.alpha
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

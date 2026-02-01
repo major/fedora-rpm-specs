@@ -34,7 +34,8 @@ BuildArch:  noarch
 ExclusiveArch: %{ix86} x86_64 aarch64 ppc64le riscv64 noarch
 
 BuildRequires: clang lld wasi-libc-devel
-BuildRequires: nodejs-devel npm
+BuildRequires: nodejs-devel
+BuildRequires: nodejs-npm, /usr/bin/npm
 %if %{with wasm_opt}
 BuildRequires: binaryen
 %endif

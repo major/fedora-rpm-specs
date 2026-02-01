@@ -14,7 +14,7 @@ BuildRequires:  pkgconfig(cunit)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires: make
 # for tests
-%{?!_without_tests:BuildRequires: nodejs}
+%{?!_without_tests:BuildRequires: nodejs, /usr/bin/node}
 
 
 %description

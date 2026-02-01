@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20260115
-%global gitrev 1a9a51aca25eaad91d80869c43859274fe5e1096
+%global DATE 20260127
+%global gitrev 88e56c901955c95798995dfb5ceefb6cb993eb66
 %global gcc_version 16.0.1
 %global gcc_major 16
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -993,6 +993,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Mon Jan 26 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-2
+- Update to 16.0.1 (20260127)
+
 * Wed Jan 21 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-1
 - Update to 16.0.1 (20260115)
 

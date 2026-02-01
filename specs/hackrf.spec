@@ -1,5 +1,5 @@
 Name:           hackrf
-Version:        2026.01.2
+Version:        2026.01.3
 Release:        1%{?dist}
 Summary:        HackRF Utilities
 
@@ -145,6 +145,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jan 30 2026 Steven A. Falco <stevenfalco@gmail.com> - 2026.01.3-1
+- Update to 2026.01.3
+
 * Sat Jan 17 2026 Steven A. Falco <stevenfalco@gmail.com> - 2026.01.2-1
 - Update to 2026.01.2
 

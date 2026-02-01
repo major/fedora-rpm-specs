@@ -445,8 +445,8 @@ BuildRequires:    python%{python3_pkgversion}-devel
 # For cockpit
 %if %{with cockpit}
 BuildRequires:    rsync
-BuildRequires:    npm
-BuildRequires:    nodejs
+BuildRequires:    /usr/bin/npm
+BuildRequires:    /usr/bin/node
 %endif
 
 # For autosetup -S git

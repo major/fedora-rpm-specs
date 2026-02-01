@@ -69,13 +69,16 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+%global gpu_list %{rocm_gpu_list_default}
+%global _gpu_list gfx1100
+
 Name:           hipcub%{pkg_suffix}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
@@ -173,6 +176,8 @@ gpu=`rocm_agent_enumerator | head -n 1`
     -DBUILD_TEST=%{build_test} \
 %if %{with check}
     -DAMDGPU_TARGETS=${gpu} \
+%else
+    -DAMDGPU_TARGETS=${gpu_list} \
 %endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DROCM_SYMLINK_LIBS=OFF
@@ -212,6 +217,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
+- Use default gpu list
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

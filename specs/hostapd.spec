@@ -2,7 +2,7 @@
 
 Name:           hostapd
 Version:        2.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
@@ -14,6 +14,8 @@ Source3:        %{name}.conf.5
 Source4:        %{name}.sysconfig
 Source5:        %{name}.init
 
+# use pkcs11-provider instead of OpenSSL engine
+Patch1: OpenSSL-Use-pkcs11-provider-when-OPENSSL_NO_ENGINE-i.patch
 
 BuildRequires:  libnl3-devel
 BuildRequires:  openssl-devel
@@ -26,6 +28,7 @@ BuildRequires: make
 Requires(post):     systemd
 Requires(preun):    systemd
 Requires(postun):   systemd
+Requires: pkcs11-provider >= 1.0
 %endif
 
 %if 0%{?rhel} == 6
@@ -73,6 +76,7 @@ sed \
     -e '/^#CONFIG_IEEE80211R=y/s/^#//' \
     -e '/^#CONFIG_IEEE80211AC=y/s/^#//' \
     -e '/^#CONFIG_IEEE80211AX=y/s/^#//' \
+    -e '/^#CONFIG_IEEE80211BE=y/s/^#//' \
     -e '/^#CONFIG_FULL_DYNAMIC_VLAN=y/s/^#//' \
     -e '/^#CONFIG_LIBNL32=y/s/^#//' \
     -e '/^#CONFIG_ACS=y/s/^#//' \
@@ -192,6 +196,10 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Thu Jan 29 2026 Davide Caratti <dcaratti@redhat.com> - 2.11-5
+- Enable CONFIG_IEEE80211BE
+- Use pkcs11-provider to resolve PKCS11 URIs
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

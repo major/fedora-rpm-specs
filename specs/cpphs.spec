@@ -46,7 +46,7 @@ turn off macro-expansion.
 
 %package -n ghc-%{name}
 Summary:        Haskell %{name} library
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description -n ghc-%{name}
 This package provides the Haskell %{name} shared library.

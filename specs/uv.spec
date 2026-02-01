@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.26
+Version:        0.9.28
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -146,14 +146,6 @@ Source1:        uv.toml
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Add linux distro env vars to passthrough
-# https://github.com/astral-sh/uv/pull/17515
-Patch:          %{url}/pull/17515.patch
-
-# Gate build_backend::build_with_all_metadata on pypi feature
-# https://github.com/astral-sh/uv/pull/17520
-Patch:          %{url}/pull/17520.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

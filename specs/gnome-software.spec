@@ -2,9 +2,9 @@
 %global flatpak_version 1.14.1
 %global fwupd_version 1.6.2
 %global glib2_version 2.76.0
-%global gtk4_version 4.16.0
+%global gtk4_version 4.17.5
 %global json_glib_version 1.6.0
-%global libadwaita_version 1.6.0
+%global libadwaita_version 1.8.0
 %global libxmlb_version 0.3.4
 %global packagekit_version 1.2.5
 %global dnf5_version 5.2.16
@@ -29,7 +29,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   50~alpha
+Version:   50~beta
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
@@ -42,9 +42,6 @@ Source0:   https://download.gnome.org/sources/gnome-software/50/%{name}-%{tarbal
 # it the ./update-patch.sh script
 Patch:     0001-dnf5-plugin.patch
 %endif
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2416542
-Patch:     0002-rhbug2416542-crash-under-gs_flatpak_refine_wildcard.patch
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -240,6 +237,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/gnome-software
 %{_datadir}/applications/gnome-software-local-file-flatpak.desktop
 %{_datadir}/applications/gnome-software-local-file-fwupd.desktop
+%{_datadir}/applications/gnome-software-local-file-metainfo.desktop
 %if %{with packagekit} || %{with rpmostree} || %{with dnf5}
 %{_datadir}/applications/gnome-software-local-file-packagekit.desktop
 %endif

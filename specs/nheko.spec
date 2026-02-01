@@ -11,6 +11,8 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch100: %{name}-0.12.1-search-for-qt-6.10.0-private-modules.patch
 # https://github.com/Nheko-Reborn/nheko/commit/2769642d3c7bd3c0d830b2f18ef6b3bf6a710bf4
 Patch101: %{name}-0.12.1-fix-most-reply-rendering-issues-with-qt-6.9.2.patch
+# https://github.com/Nheko-Reborn/nheko/commit/93ce60d6f14679ab9f34edec166e9ad1884d3edd
+Patch102: 0001-Qt-6.10-compat.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42

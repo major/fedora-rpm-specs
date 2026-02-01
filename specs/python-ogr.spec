@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.60.0
+Version:        0.60.1
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Jan 30 2026 Packit <hello@packit.dev> - 0.60.1-1
+- The method `get_rate_limit_remaining()` now also supports repository-specific checks for GitHub. (#972)
+- Resolves: rhbz#2435481
+
 * Mon Jan 19 2026 Packit <hello@packit.dev> - 0.60.0-1
 - A new method `get_rate_limit_remaining()` to check rate limit thresholds has been added to the service API. (#970)
 - Resolves: rhbz#2430818

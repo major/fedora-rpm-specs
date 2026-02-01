@@ -22,7 +22,7 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
-BuildRequires:  nodejs
+BuildRequires:  nodejs, /usr/bin/node
 BuildRequires:  nodejs-devel
 
 %description %{common_description}

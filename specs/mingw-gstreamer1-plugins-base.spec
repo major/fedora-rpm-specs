@@ -3,8 +3,8 @@
 %global         api_version      1.0
 
 Name:           mingw-gstreamer1-plugins-base
-Version:        1.26.10
-Release:        2%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 media framework base plug-ins
 
 License:        LGPL-2.0-or-later
@@ -132,7 +132,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 # Win32
 %files -n mingw32-gstreamer1-plugins-base -f mingw32-gst-plugins-base-%{api_version}.lang
 %license COPYING
-%doc AUTHORS README.md REQUIREMENTS
+%doc README.md
 
 %{mingw32_bindir}/gst-device-monitor-%{api_version}.exe
 %{mingw32_bindir}/gst-play-%{api_version}.exe
@@ -174,7 +174,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 # Win64
 %files -n mingw64-gstreamer1-plugins-base -f mingw64-gst-plugins-base-%{api_version}.lang
 %license COPYING
-%doc AUTHORS README.md REQUIREMENTS
+%doc README.md
 
 %{mingw64_bindir}/gst-device-monitor-%{api_version}.exe
 %{mingw64_bindir}/gst-play-%{api_version}.exe
@@ -214,6 +214,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_datadir}/gst-plugins-base
 
 %changelog
+* Fri Jan 30 2026 Sandro Mani <manisandro@gmail.com> - 1.28.0-1
+- Update to 1.28.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

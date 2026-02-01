@@ -43,7 +43,8 @@ ExclusiveArch: %{lua:
 }
 
 BuildRequires: clang lld make wasi-libc-devel
-BuildRequires: nodejs-devel npm
+BuildRequires: nodejs-devel
+BuildRequires: nodejs-npm, /usr/bin/npm
 %if %{with wasm_opt}
 BuildRequires: binaryen
 %endif

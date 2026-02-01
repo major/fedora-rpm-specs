@@ -3,8 +3,8 @@
 # TODO: BR: perl(HTTP::Tiny::Mech) and perl(WWW::Mechanize::Cached) when available
 
 Name:		perl-MetaCPAN-Client
-Version:	2.037000
-Release:	2%{?dist}
+Version:	2.038000
+Release:	1%{?dist}
 Summary:	A comprehensive, DWIM-featured client to the MetaCPAN API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://github.com/CPAN-API/metacpan-client
@@ -89,6 +89,7 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client.3*
 %{_mandir}/man3/MetaCPAN::Client::Author.3*
 %{_mandir}/man3/MetaCPAN::Client::Cover.3*
+%{_mandir}/man3/MetaCPAN::Client::CVE.3*
 %{_mandir}/man3/MetaCPAN::Client::Distribution.3*
 %{_mandir}/man3/MetaCPAN::Client::DownloadURL.3*
 %{_mandir}/man3/MetaCPAN::Client::Favorite.3*
@@ -108,6 +109,10 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Types.3*
 
 %changelog
+* Fri Jan 30 2026 Paul Howarth <paul@city-fan.org> - 2.038000-1
+- Update to 2.038000
+  - Support CVE index
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.037000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
