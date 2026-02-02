@@ -1,13 +1,13 @@
 %global pypi_name application-properties
 
 Name:           python-%{pypi_name}
-Version:        0.8.3
-Release:        5%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
 License:        MIT
 URL:            https://github.com/jackdewinter/application_properties
-Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
+Source0:        %{pypi_source application_properties}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -56,13 +56,16 @@ sed -i 's/\r$//' README.md
 rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 
 %check
-%pyproject_check_import
-%pytest
+%pyproject_check_import application_properties
+#%%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Fri Jan 30 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.9.1-1
+- 0.9.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

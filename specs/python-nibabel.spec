@@ -20,6 +20,7 @@ Release:        %autorelease
 Summary:        Python package to access a cacophony of neuro-imaging file formats
 %global tag %{version}
 %forgemeta
+# spdx checked
 License:        MIT and PDDL-1.0
 URL:            http://nipy.org/nibabel/
 Source0:        %forgesource

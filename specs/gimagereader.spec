@@ -33,6 +33,7 @@ BuildRequires: gtkspellmm30-devel
 BuildRequires: json-glib-devel
 BuildRequires: poppler-glib-devel
 BuildRequires: python3-gobject
+BuildRequires: gobject-introspection
 
 BuildRequires: poppler-qt6-devel
 BuildRequires: qt6-qtbase-devel

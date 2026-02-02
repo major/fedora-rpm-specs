@@ -32,7 +32,7 @@ BuildRequires:	pkgconfig(gtk4-wayland) >= 4.12.5
 BuildRequires:	pkgconfig(phosh-plugins) >= 0.23.0
 BuildRequires:	pkgconfig(phosh-settings) >= 0.40.0
 BuildRequires:	pkgconfig(json-glib-1.0) >= 1.6.2
-BuildRequires:	pkgconfig(libadwaita-1) >= 1.6
+BuildRequires:	pkgconfig(libadwaita-1) >= 1.7
 BuildRequires:	pkgconfig(wayland-client) >= 1.14
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:	pkgconfig(gnome-desktop-4) >= 44
@@ -72,6 +72,7 @@ install -d %{buildroot}%{_datadir}/phosh-tweaks
 %find_lang %{name}
 
 %check
+# FIXME: how to handle XDG_RUNTIME_DIR properly
 export XDG_RUNTIME_DIR=/tmp/runtime-dir
 dbus-run-session sh <<'SH'
 %meson_test

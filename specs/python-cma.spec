@@ -1,13 +1,12 @@
 %global srcname cma
 Name:           python-cma
-Version:        4.4.1
+Version:        4.4.2
 Release:        %autorelease
 Summary:        Covariance Matrix Adaptation Evolution Strategy numerical optimizer
 
 License:        BSD-3-Clause
 URL:            https://cma-es.github.io/
 Source0:        %{pypi_source}
-Patch:          license.patch
 
 BuildRequires:  python3-devel
 BuildArch:      noarch

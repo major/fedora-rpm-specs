@@ -11,8 +11,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:          budgie-control-center
-Version:       2.0.0
-Release:       3%{?dist}
+Version:       2.1.0
+Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # GPL-2.0-or-later: the entire project
@@ -43,6 +43,7 @@ Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 License:       GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/BuddiesOfBudgie/budgie-control-center
 Source0:       %{url}/releases/download/v%{version_no_tilde}/budgie-control-center-%{version_no_tilde}.tar.xz
+Source1:       introduction.list
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -173,6 +174,7 @@ This package contains architecture-agnostic common assets for ${name}
 
 %install
 %meson_install
+install -p -m 644 %{SOURCE1} %{buildroot}%{_datadir}/%{name}/introduction/introduction.list
 mkdir -p %{buildroot}%{_datadir}/budgie/wm-properties
 rm -rf %{buildroot}%{_datadir}/budgie/autostart
 rm -rf %{buildroot}%{_datadir}/budgie/cursor-fonts
@@ -218,6 +220,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/pixmaps/budgie-faces/legacy/*.jpg
 %{_datadir}/pixmaps/budgie-faces/legacy/*.png
 %{_datadir}/pixmaps/budgie-logo.png
+%{_datadir}/%{name}/introduction/introduction.template
+%{_datadir}/%{name}/introduction/introduction.list
 %{_datadir}/%{name}/keybindings/*.xml
 %{_datadir}/%{name}/keyfile/labwc_keyfile.ini
 %{_datadir}/%{name}/pixmaps/noise-texture-light.png
@@ -230,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_na
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sat Jan 31 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.1.0-1
+- Update to 2.1.0 release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

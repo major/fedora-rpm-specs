@@ -11,11 +11,12 @@
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
 Version: 1.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
 Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.4.2.tar.gz#/%{name}-%{version}.tar.gz
+Patch0: 0001-fix-constness.patch
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -64,6 +65,7 @@ Install NetworkManager-ssh-selinux policy
 
 %prep
 %setup -q
+%patch 0 -p1
 
 %build
 if [ ! -f configure ]; then
@@ -132,6 +134,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype} &> /dev/null
 
 %changelog
+* Sat Jan 31 2026 Dan Fruehauf <malkodan@gmail.com> - 1.4.2-4
+- Fix compilation error on f44
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

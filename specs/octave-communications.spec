@@ -12,6 +12,9 @@ Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.ta
 Source1:        mkdoc
 Source2:        mktexi
 
+# currently no octave-signal due to no octave-control on aarch64
+ExcludeArch:    aarch64
+
 BuildRequires: make
 BuildRequires:  octave-devel
 BuildRequires:  octave-signal >= 1.0.0

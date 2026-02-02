@@ -12,7 +12,9 @@ Source0:        %{url}/archive/v%{version}.tar.gz#/%{pypi_name}-%{pypi_version}.
 
 BuildArch:      noarch
 # Pytorch only on X86_64 and aarch64
-ExclusiveArch:  x86_64 aarch64
+# Fail to build 1/31/26
+# ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  x86_64
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(numpy)

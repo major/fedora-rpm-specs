@@ -3,6 +3,7 @@ Version:        2.6.1
 Release:        %autorelease
 Summary:        Micro framework for building nature-inspired algorithms
 
+# spdx checked
 License:        MIT
 URL:            https://github.com/NiaOrg/NiaPy
 Source:         %{url}/archive/v%{version}/NiaPy-%{version}.tar.gz

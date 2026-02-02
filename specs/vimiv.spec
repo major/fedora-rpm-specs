@@ -3,6 +3,7 @@ Version:    0.9.1
 Release:    34%{?dist}
 Summary:    An image viewer with vim-like keybindings
 
+# spdx
 License:    MIT
 URL:        http://karlch.github.io/%{name}
 Source0:    https://github.com/karlch/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz

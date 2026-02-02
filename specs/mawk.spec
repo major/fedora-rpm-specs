@@ -1,4 +1,4 @@
-%global	pver	20250131
+%global	pver	20260129
 
 Name:		mawk
 Version:	1.3.4
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 %{_mandir}/man7/mawk-*.7*
 
 %changelog
+* Sat Jan 31 2026 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20260129
+- upgrade to 1.3.4-20260129
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.4-6.20250131
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

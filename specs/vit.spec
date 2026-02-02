@@ -6,6 +6,7 @@ Summary:        Visual Interactive Taskwarrior full-screen terminal interface
 
 %forgemeta
 
+# spdx
 License:        MIT
 URL:            %forgeurl
 Source0:        %forgesource

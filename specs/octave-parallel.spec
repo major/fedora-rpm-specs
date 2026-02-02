@@ -1,13 +1,13 @@
 %global octpkg parallel
 
 Name:           octave-%{octpkg}
-Version:        4.0.1
-Release:        11%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        Parallel execution package for cluster computers for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://octave.sourceforge.io/parallel/
-Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Source0:        https://downloads.sourceforge.net/project/octave/Octave%20Forge%20Packages/Individual%20Package%20Releases/%{octpkg}-%{version}.tar.gz
 # Fix build with octave 8.1 - https://savannah.gnu.org/bugs/?63922
 Patch0:         octave-parallel-octave8.1.patch
 
@@ -73,6 +73,9 @@ rm -rf  %{buildroot}/%{octpkgdir}/doc
 %{octpkgdir}/bin/octave-pserver
 
 %changelog
+* Sat Jan 31 2026 Thomas Sailer <fedora@tsailer.ch> - 4.0.2-1
+- Update to 4.0.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

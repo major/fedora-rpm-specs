@@ -236,7 +236,7 @@
 %global chromium_major 144
 %global chromium_branch 7559
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 96
+%global chromium_minor 109
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
 %global cef_commit e135be2c924b8368b95c4d637528fe3604f70df9
 %global cef_branch %{chromium_branch}
@@ -621,7 +621,7 @@ BuildRequires: minizip-compat-devel
 %endif
 
 %if %{system_nodejs}
-BuildRequires: nodejs
+BuildRequires: nodejs, /usr/bin/node
 %endif
 
 %if ! %{bootstrap}

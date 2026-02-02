@@ -18,7 +18,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.16.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -203,6 +203,10 @@ Requires: tex(adjustbox.sty)
 Requires: tex(amssymb.sty)
 Requires: tex(stackengine.sty)
 Requires: tex(ulem.sty)
+Requires: tex(xltabular.sty)
+Requires: tex(tabularray.sty)
+Requires: tex(enumitem.sty)
+Requires: tex(alphalph.sty)
 # From doc/doxygen_manual.tex
 Requires: tex(ifthen.sty)
 Requires: tex(array.sty)
@@ -243,6 +247,8 @@ Requires: tex(xtab.sty)
 Requires: texlive-bibtex
 Requires: texlive-makeindex
 Requires: texlive-epstopdf
+# fonts
+Requires: texlive-collection-fontsrecommended
 %endif
 
 %description latex
@@ -350,6 +356,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Sat Jan 31 2026 Than Ngo <than@redhat.com> - 2:1.16.1-2
+- Fix rhbz#2435249, missing dependency
+
 * Mon Jan 26 2026 Than Ngo <than@redhat.com> - 2:1.16.1-1
 - Fix rhbz#2427243, Update to 1.16.1
 

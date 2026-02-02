@@ -1,13 +1,13 @@
 %global octpkg miscellaneous
 
 Name:           octave-%{octpkg}
-Version:        1.3.1
-Release:        6%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        Miscellaneous functions for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://octave.sourceforge.io/miscellaneous/
-Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Source0:        https://github.com/gnu-octave/%{name}/releases/download/release-%{version}/%{octpkg}-%{version}.tar.gz
 Source1:        octave-miscellaneous-python.patch
 
 BuildRequires:  octave-devel
@@ -65,6 +65,9 @@ rm -rf %{buildroot}/%{octpkgdir}/test
 %license %{octpkgdir}/packinfo/COPYING
 
 %changelog
+* Sat Jan 31 2026 Thomas Sailer <fedora@tsailer.ch> - 1.3.2-1
+- Update to 1.3.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

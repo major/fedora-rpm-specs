@@ -2,7 +2,7 @@
 %bcond_without perl_CPAN_Meta_Requirements_enables_optional_test
 
 Name:           perl-CPAN-Meta-Requirements
-Version:        2.144
+Version:        2.145
 Release:        1%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -94,6 +94,10 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Sat Jan 31 2026 Paul Howarth <paul@city-fan.org> - 2.145-1
+- Update to 2.145 (rhbz#2435673)
+  - Correct "normalization of 0" code to work correctly with vstrings (GH#46)
+
 * Fri Jan 23 2026 Paul Howarth <paul@city-fan.org> - 2.144-1
 - Update to 2.144 (rhbz#2432229)
   - Remove code meant to cope with running on v5.8, when v5.10 is the minimum

@@ -3,8 +3,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-good
-Version:        1.26.10
-Release:        3%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPL-2.0-or-later
@@ -139,7 +139,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 # Mingw32
 %files -n mingw32-gstreamer1-plugins-good -f mingw32-gstreamer1-plugins-good.lang
 %license COPYING
-%doc AUTHORS README.md REQUIREMENTS
+%doc README.md
 
 # Equaliser presets
 %{mingw32_datadir}/gstreamer-%{api_version}/presets/
@@ -193,8 +193,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavenc.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavpack.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavparse.dll
-%{mingw32_libdir}/gstreamer-%{api_version}/libgsty4menc.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstadaptivedemux2.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgsty4m.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstxingmux.dll
 
 # gstreamer1-plugins with external dependencies but in the main package
@@ -209,7 +209,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 # Mingw64
 %files -n mingw64-gstreamer1-plugins-good -f mingw64-gstreamer1-plugins-good.lang
 %license COPYING
-%doc AUTHORS README.md REQUIREMENTS
+%doc README.md
 
 # Equaliser presets
 %{mingw64_datadir}/gstreamer-%{api_version}/presets/
@@ -263,8 +263,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavenc.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavpack.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavparse.dll
-%{mingw64_libdir}/gstreamer-%{api_version}/libgsty4menc.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstadaptivedemux2.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgsty4m.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstxingmux.dll
 
 # gstreamer1-plugins with external dependencies but in the main package
@@ -277,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sat Jan 31 2026 Sandro Mani <manisandro@gmail.com> - 1.28.0-1
+- Update to 1.28.0
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

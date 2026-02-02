@@ -175,7 +175,7 @@ BuildRequires: bison
 BuildRequires: flex
 BuildRequires: perl-interpreter
 
-BuildRequires: nodejs >= 14.9
+BuildRequires: nodejs >= 14.9, /usr/bin/node
 BuildRequires: krb5-devel
 BuildRequires: git-core
 

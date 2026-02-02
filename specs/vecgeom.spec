@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global forgeurl https://gitlab.cern.ch/VecGeom/VecGeom
-Version:        1.2.7
+Version:        2.0.0
 %global tag v%{version}
 %forgemeta
 
@@ -16,8 +16,6 @@ Summary:        A vectorized geometry library for particle-detector simulation
 License:        Apache-2.0 AND MIT AND (Apache-2.0 OR MIT)
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# add soversion to the library
-# modified from https://gitlab.cern.ch/VecGeom/VecGeom/-/merge_requests/889
 Patch0:         vecgeom-add-soversion.patch
 
 BuildRequires:  gcc-c++
@@ -47,9 +45,8 @@ The %{name}-devel package contains development files for %{name}.
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DVECGEOM_GDML=ON \
-
+    -DCMAKE_SKIP_INSTALL_RPATH=ON
 %cmake_build
 
 %install
@@ -66,8 +63,8 @@ The %{name}-devel package contains development files for %{name}.
 %files
 %license LICENSE.txt APACHE-LICENSE-2.0.txt
 %doc README.md
-%{_libdir}/libvecgeom.so.1.2*
-%{_libdir}/libvgdml.so.1.2*
+%{_libdir}/libvecgeom.so.2*
+%{_libdir}/libvgdml.so.2*
 
 %files devel
 %{_includedir}/VecGeom/

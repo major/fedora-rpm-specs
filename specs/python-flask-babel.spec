@@ -8,12 +8,15 @@
 
 Name:           python-%{pkg_name}
 Version:        4.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
 License:        BSD-3-Clause
 URL:            https://github.com/mitsuhiko/%{pkg_name}/
-Source0:        https://github.com/python-babel/flask-babel/archive/v%{version}/%{pkg_name}-%{version}.tar.gz
 BuildArch:      noarch
+Source0:        https://github.com/python-babel/flask-babel/archive/v%{version}/%{pkg_name}-%{version}.tar.gz
+# Proposed fix for list-translations() ordering in tests (#2433806)
+# https://github.com/python-babel/flask-babel/pull/242
+Patch0:         0001-Fix-list-translations-ordering-in-tests.patch
 
 # For documentation
 %if %{with docs}
@@ -78,6 +81,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Sat Jan 31 2026 Sandro Mani <manisandro@gmail.com> - 4.1.0-3
+- Add fix for list-translations() ordering in tests (#2433806)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

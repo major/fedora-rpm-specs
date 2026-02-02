@@ -6,8 +6,8 @@ Version:        0.2.0
 Release:        %{autorelease}
 Summary:        Use emoji codes in your Sphinx documentation
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# spdx
+License:        BSD-3-Clause
 URL:            https://pypi.org/pypi/sphinxemoji
 Source0:        %{pypi_source sphinxemoji}
 # Not included in the pypi tar so we get it from the GitHub repository

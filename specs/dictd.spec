@@ -7,7 +7,7 @@
 Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
 Version:   1.13.3
-Release:   4%{?dist}
+Release:   5%{?dist}
 License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Source0:   https://github.com/cheusov/dictd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:   dictd.service
@@ -147,6 +147,9 @@ install -m0644 -D dictd.sysusers.conf %{buildroot}%{_sysusersdir}/dictd.conf
 %{_datadir}/selinux/*/dictd2.pp
 
 %changelog
+* Fri Jan 30 2026 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 1.13.3-5
+- Rebuilt for FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

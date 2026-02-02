@@ -25,8 +25,8 @@ Summary:        Fast and scalable spike sorting of large-scale extracellular rec
 %global tag  %{version}
 %forgemeta
 
-# Automatically converted from old format: CeCILL - review is highly recommended.
-License:        LicenseRef-Callaway-CeCILL
+# spdx
+License:        CECILL-2.1
 URL:            %forgeurl
 Source0:        %forgesource
 

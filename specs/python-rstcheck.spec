@@ -6,6 +6,7 @@ Release:    %autorelease
 Summary:    Checks syntax of reStructuredText and code blocks nested within it
 %forgemeta
 
+# spdx
 License:    MIT
 URL:        %forgeurl
 Source0:    %forgesource

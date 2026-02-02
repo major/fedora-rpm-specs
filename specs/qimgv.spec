@@ -1,38 +1,38 @@
 %bcond_with kde
-%bcond_with mpv
+
+%global gitdate       20260119
+%global commit        3127a2d211b124ad4fcf853d01e6df9323bdfdc3
+%global short_commit  %(c="%{commit}"; echo ${c:0:7})
 
 Name:           qimgv
-Version:        1.0.3
+Version:        1.0.3^%{gitdate}git%{short_commit}
 Release:        %autorelease
 Summary:        Image viewer. Fast, easy to use. Optional video support
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/easymodo/qimgv
-Source0:        %{url}/archive/v%{version}-alpha/%{name}-%{version}-alpha.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{short_commit}.tar.gz
 
-# Add AppData installation via Cmake and update manifest
-# https://github.com/easymodo/qimgv/pull/408
-Patch0:         https://github.com/easymodo/qimgv/pull/408.patch
-
-BuildRequires:  cmake >= 3.13
-BuildRequires:  desktop-file-utils
-BuildRequires:  gcc-c++ >= 9
-BuildRequires:  libappstream-glib
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  opencv-devel
 
-BuildRequires:  cmake(exiv2)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core) >= 5.12
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:  cmake(Qt6LinguistTools)
+
 %if %{with kde}
-BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(KF6WindowSystem)
 %endif
-%if %{with mpv}
+BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  pkgconfig(mpv)
-%endif
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 Requires:       hicolor-icon-theme
 
@@ -52,47 +52,29 @@ Key features:
   * Folder view mode
   * Ability to run shell scripts
 
-
-%if %{with mpv}
-%package        freeworld
-Summary:        Video support for %{name}
-
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    freeworld
-Video support for %{name}.
-%endif
-
-
 %prep
-%autosetup -n %{name}-%{version}-alpha -p1
-
-# Remove bundled translations because it doesn't work anyway with current Qt ver
-sed -e '/translations/d' -i qimgv/resources.qrc
-
-# Use default for Fedora build flags
-sed -e 's/ -O3//g' -i CMakeLists.txt
-
+%autosetup -p1 -C
 
 %build
 %cmake \
     -G Ninja \
-    -DVIDEO_SUPPORT:BOOL=%{?with_mpv:ON}%{!?with_mpv:OFF} \
-    -DKDE_SUPPORT:BOOL=%{?with_kde:ON}%{!?with_kde:OFF} \
+    -DEXIV2=ON \
+    -DVIDEO_SUPPORT=ON \
     -DOPENCV_SUPPORT=ON \
-%ninja_build -C %{_vpath_builddir}
-
+    -DKDE_SUPPORT:BOOL=%{?with_kde:ON}%{!?with_kde:OFF} \
+    -DUSE_QT5=OFF
+%cmake_build
 
 %install
-%ninja_install -C %{_vpath_builddir}
+%cmake_install
 
+%find_lang qimgv --with-qt --all-name
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-
-%files
+%files -f qimgv.lang
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
@@ -100,12 +82,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_metainfodir}/*.xml
-
-%if %{with mpv}
-%files freeworld
-%{_libdir}/lib%{name}_player_mpv.so*
-%endif
-
+%{_libdir}/%{name}/player_mpv.so
 
 %changelog
 %autochangelog

@@ -150,7 +150,7 @@ BuildRequires: krb5-devel
 BuildRequires: libicu-devel >= 65
 %endif
 BuildRequires: libjpeg-devel
-BuildRequires: nodejs
+BuildRequires: nodejs, /usr/bin/node
 %if 0%{?pipewire}
 BuildRequires:  pkgconfig(libpipewire-0.3)
 %endif

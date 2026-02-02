@@ -26,7 +26,7 @@ ExcludeArch:    %{ix86}
 # Define our own pytorch_arches macro until we have one system-wide.
 # TODO: temporarily disable aarch64 to avoid issues with PyTorch?
 %if %{undefined pytorch_arches}
-%global pytorch_arches x86_64
+%global pytorch_arches x86_64 aarch64
 %endif
 
 # Extras that depend on PyTorch should only exist on arches with PyTorch

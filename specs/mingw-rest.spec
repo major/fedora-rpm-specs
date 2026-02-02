@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-rest
-Version:        0.8.0
-Release:        26%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        A library for access to RESTful web services
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -12,7 +12,8 @@ Source0:        http://download.gnome.org/sources/rest/0.8/rest-%{version}.tar.x
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  meson
+BuildRequires:  ninja-build
 BuildRequires:  mingw32-filesystem >= 98
 BuildRequires:  mingw64-filesystem >= 98
 BuildRequires:  mingw32-gcc
@@ -20,11 +21,13 @@ BuildRequires:  mingw64-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw32-glib2
-BuildRequires:  mingw32-libsoup
+BuildRequires:  mingw32-libsoup3
 BuildRequires:  mingw32-libxml2
 BuildRequires:  mingw64-glib2
-BuildRequires:  mingw64-libsoup
+BuildRequires:  mingw64-libsoup3
 BuildRequires:  mingw64-libxml2
+BuildRequires:  mingw32-json-glib
+BuildRequires:  mingw64-json-glib
 
 %description
 This library was designed to make it easier to access web services that
@@ -94,49 +97,58 @@ this library is attempting to support.
 %prep
 %setup -q -n rest-%{version}
 
-%build
-%mingw_configure                            \
-    --disable-gtk-doc                       \
-    --enable-introspection=no               \
-    --enable-static
+%global meson_flags %{shrink: \
+    -Dgtk_doc=false \
+    -Dintrospection=false \
+    -Dexamples=false \
+}
 
-%mingw_make %{?_smp_mflags} V=1
+%build
+export MINGW_BUILDDIR_SUFFIX=static
+%mingw_meson %{meson_flags} --default-library=static
+%mingw_ninja
+export MINGW_BUILDDIR_SUFFIX=shared
+%mingw_meson %{meson_flags} --default-library=shared
+%mingw_ninja
 
 %install
-%mingw_make install "DESTDIR=$RPM_BUILD_ROOT" INSTALL="install -p"
-
-# Libtool files don't need to be bundled
-find $RPM_BUILD_ROOT -name "*.la" -delete
+export MINGW_BUILDDIR_SUFFIX=static
+%mingw_ninja_install
+export MINGW_BUILDDIR_SUFFIX=shared
+%mingw_ninja_install
 
 %files -n mingw32-rest
 %license COPYING
-%doc AUTHORS README
-%{mingw32_bindir}/librest-0.7-0.dll
-%{mingw32_libdir}/librest-0.7.dll.a
-%{mingw32_bindir}/librest-extras-0.7-0.dll
-%{mingw32_libdir}/librest-extras-0.7.dll.a
+%doc AUTHORS README.md
+%{mingw32_bindir}/librest-1.0-0.dll
+%{mingw32_libdir}/librest-1.0.dll.a
+%{mingw32_bindir}/librest-extras-1.0-0.dll
+%{mingw32_libdir}/librest-extras-1.0.dll.a
 %{mingw32_libdir}/pkgconfig/rest*
-%{mingw32_includedir}/rest-0.7
+%{mingw32_includedir}/rest-1.0
 
 %files -n mingw32-rest-static
-%{mingw32_libdir}/librest-0.7.a
-%{mingw32_libdir}/librest-extras-0.7.a
+%{mingw32_libdir}/librest-1.0.a
+%{mingw32_libdir}/librest-extras-1.0.a
 
 %files -n mingw64-rest
 %license COPYING
-%doc AUTHORS README
-%{mingw64_bindir}/librest-0.7-0.dll
-%{mingw64_libdir}/librest-0.7.dll.a
-%{mingw64_bindir}/librest-extras-0.7-0.dll
-%{mingw64_libdir}/librest-extras-0.7.dll.a
+%doc AUTHORS README.md
+%{mingw64_bindir}/librest-1.0-0.dll
+%{mingw64_libdir}/librest-1.0.dll.a
+%{mingw64_bindir}/librest-extras-1.0-0.dll
+%{mingw64_libdir}/librest-extras-1.0.dll.a
 %{mingw64_libdir}/pkgconfig/rest*
-%{mingw64_includedir}/rest-0.7
+%{mingw64_includedir}/rest-1.0
 
 %files -n mingw64-rest-static
-%{mingw64_libdir}/librest-0.7.a
-%{mingw64_libdir}/librest-extras-0.7.a
+%{mingw64_libdir}/librest-1.0.a
+%{mingw64_libdir}/librest-extras-1.0.a
 
 %changelog
+* Thu Jan 29 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.9.1-1
+- Update to v0.9.1, fixes FTBFS rhbz#2434820
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

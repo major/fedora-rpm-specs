@@ -1,14 +1,15 @@
 Name:           ladspa-tap-plugins
-Version:        0.7.0
-Release:        39%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Tom's Audio Processing plugin
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://tap-plugins.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/tap-plugins/tap-plugins-%{version}.tar.gz
-BuildRequires:  gcc
+URL:            https://tomscii.sig7.se/tap-plugins
+# Sourceforge project no longer has the tarbals, use Debian's _orig tarbal instead
+# Source0:      https://downloads.sourceforge.net/tap-plugins/tap-plugins-%%{version}.tar.gz
+Source0:        tap-plugins_%{version}.orig.tar.gz
+BuildRequires:  gcc make
 BuildRequires:  ladspa-devel
-BuildRequires: make
 Requires:       ladspa
 Obsoletes:      tap-plugins <= 0.7.0-1
 Provides:       tap-plugins = %{version}-%{release}
@@ -20,7 +21,7 @@ professional DAW environment such as Ardour.
 
 
 %prep
-%setup -q -n tap-plugins-%{version}
+%autosetup -p1 -n tap-plugins-%{version}
 # use the system version of ladspa.h
 %{__rm} ladspa.h
 ln -s /usr/include/ladspa.h .
@@ -37,7 +38,6 @@ ln -s /usr/include/ladspa.h .
           INSTALL_LRDF_DIR=%{buildroot}%{_datadir}/ladspa/rdf/ install
 
 
-
 %files
 %doc CREDITS README
 %license COPYING
@@ -46,6 +46,10 @@ ln -s /usr/include/ladspa.h .
 
 
 %changelog
+* Sat Jan 31 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.0.0-1
+- New upstream 1.0.0 release
+- Fix missing symbols when trying to use plugins (rhbz#2368336)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

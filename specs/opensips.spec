@@ -21,6 +21,7 @@ Patch: opensips-0008-Fix-const-correctness-warnings-in-HTTP-and-FreeSWITC.patch
 Patch: opensips-0009-Fix-uninitialized-va_list-warning-on-ppc64le-and-i68.patch
 Patch: opensips-0010-Fix-format-specifier-warnings-on-32-bit-architecture.patch
 Patch: opensips-0011-Fix-pointer-truncation-warning-on-32-bit-architectur.patch
+Patch: opensips-0012-Fix-C90-style-declaration-warnings-in-snmpstats-modu.patch
 
 URL:      https://opensips.org
 
@@ -819,6 +820,7 @@ protocol.
 %package  snmpstats
 Summary:  SNMP management interface for the OpenSIPS
 Requires: %{name}%{?_isa} = %{version}-%{release}
+BuildRequires: libnl3-devel
 BuildRequires: net-snmp-devel
 
 %description snmpstats

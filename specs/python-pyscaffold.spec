@@ -5,6 +5,7 @@ Version:        4.6
 Release:        %autorelease
 Summary:        Template tool for putting up the scaffold of a Python project
 
+# spdx
 # The entire source is MIT, except for the template files under
 # pyscaffold.templates, which are 0BSD.
 License:        MIT and 0BSD

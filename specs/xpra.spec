@@ -24,7 +24,7 @@
 %global build_opts -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-vpx %{?with_debug:-C--global-option=--with-debug} %{?with_openh264:-C--global-option=--with-openh264} -C--global-option=--without-cuda_rebuild -C--global-option=--with-client -C--global-option=--without-qt6_client -C--global-option=--without-pyglet_client -C--global-option=--without-enc_x264
 
 Name:           xpra
-Version:        6.4.1
+Version:        6.4.2
 Release:        %autorelease
 Epoch:          1
 Summary:        Remote display server for applications and desktops
@@ -131,7 +131,7 @@ network bandwidth constraints.
 
 %package -n %{name}-client-gnome
 Summary:			Gnome integration for the xpra client
-Requires:			%{name}-client-gtk3 = 1:%{version}-%{release}
+Requires:			%{name}-client-gtk3%{?_isa} = 1:%{version}-%{release}
 Requires:			gnome-shell-extension-appindicator
 
 %description -n %{name}-client-gnome
@@ -143,6 +143,7 @@ is required for querying and activating keyboard input sources.
 %package -n %{name}-client-gtk3
 Summary:			GTK3 xpra client
 BuildRequires:		xclip
+Requires:			%{name}%{?_isa} = 1:%{version}-%{release}
 
 %description -n %{name}-client-gtk3
 This package contains the GTK3 xpra client.

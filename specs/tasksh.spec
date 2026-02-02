@@ -5,6 +5,7 @@ Version:        1.2.0
 Release:        19%{?dist}
 Summary:        Shell command that wraps Taskwarrior commands
 
+# spdx
 License:        MIT
 URL:            https://taskwarrior.org/
 Source0:        https://taskwarrior.org/download/%{name}-%{version}.tar.gz

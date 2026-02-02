@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -41,8 +41,12 @@ Provides: /usr/sbin/rpc.mountd
 Provides: /usr/sbin/rpc.nfsd
 %endif
 
-# Automatically converted from old format: MIT and GPLv2 and GPLv2+ and BSD - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-BSD
+# The main code is GPL-2.0-or-later
+# some code, e.g. utils/gssd/ is BSD-3-Clause
+# some code, e.g. utils/blkmapd/ is BSD-2-Clause
+# utils/gssd/gss_util.c HPND-export-US-modify AND HPND-sell-variant
+# utils/nfsdctl is GPL-2.0-only WITH Linux-syscall-note OR BSD-3-Clause
+License: GPL-2.0-only AND GPL-2.0-or-later AND BSD-3-Clause AND BSD-2-Clause AND (HPND-export-US-modify AND HPND-sell-variant) AND (GPL-2.0-only WITH Linux-syscall-note OR BSD-3-Clause)
 BuildRequires: make
 BuildRequires: libevent-devel libcap-devel libuuid-devel
 BuildRequires: libtirpc-devel >= 1.3.4 libblkid-devel
@@ -163,8 +167,7 @@ including mount.nfs4, umount.nfs4, and nfsidmap.
 %package -n libnfsidmap
 Summary: NFSv4 User and Group ID Mapping Library
 Provides: libnfsidmap%{?_isa} = %{epoch}:%{version}-%{release}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause
 BuildRequires: pkgconfig, openldap-devel
 BuildRequires: automake, libtool
 Requires: openldap
@@ -174,6 +177,7 @@ Library that handles mapping between names and ids for NFSv4.
 
 %package -n libnfsidmap-devel
 Summary: Development files for the libnfsidmap library
+License: BSD-3-Clause
 Requires: libnfsidmap%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
 
@@ -475,6 +479,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Sat Jan 31 2026 Steve Dickson <steved@redhat.com> 2.8.4-4
+- Updated the NVR and changelog for SPDX license update
+
 * Fri Jan 23 2026 Scott Mayhew <smayhew@redhat.com> 2.8.4-3
 - Remove /var/lib/nfs/v4recovery (legacy client tracking has been disabled
   since the v6.8 kernel)

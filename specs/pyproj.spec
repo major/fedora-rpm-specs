@@ -6,21 +6,22 @@
 
 Name:           pyproj
 Version:        3.7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
-# see: https://github.com/pyproj4/pyproj/issues/1501
-Patch1:         pyproj-proj-9.6.2.patch
+# see: https://github.com/pyproj4/pyproj/issues/1553
+# and: https://github.com/pyproj4/pyproj/pull/1557
+Patch1:         pyproj-proj-9.7.1.patch
 
 BuildRequires:  gcc
 BuildRequires:  proj-devel >= %{minimal_needed_proj_version}
 BuildRequires:  proj >= %{minimal_needed_proj_version}
 
-# these next 4 are no longer needed and taken care of automagically
+# these next 3 lines are no longer needed and taken care of automagically
 #BuildRequires:  make
 #BuildRequires:  python3-cython
 #BuildRequires:  python3-certifi
@@ -63,6 +64,10 @@ Optimized for numpy arrays.
 Summary: %summary
 
 Requires:  proj >= %{minimal_needed_proj_version}
+
+# Add shapely as (optional/weak) dependency.
+# For details see: https://github.com/pyproj4/pyproj/issues/1470
+Recommends: python3-shapely
 
 # ensure python provides are provided when python3 becomes the default runtime
 %{?python_provide:%python_provide python3-%{name}}
@@ -181,6 +186,10 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Sat Jan 31 2026 Jos de Kloe <josdekloe@gmail.com> 3.7.2-5
+- Import upstream patch to fix problem introduced by upgrade proj to v9.7.1
+- Remove old patch for proj v9.6.2 that is no longer needed.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -190,7 +199,7 @@ cp ../pyproj-%{version}/pytest.ini .
 * Mon Sep 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.7.2-2
 - Re-enable xarray integration tests
 
-* Fri Sep 12 2025 Jos de Kloe <josdekloe@gmail.com> 3.7.2
+* Fri Sep 12 2025 Jos de Kloe <josdekloe@gmail.com> 3.7.2-1
 - Update to 3.7.2; 2 tests are still disabled due to a regression in proj 9.6.2
 - Introduce new style pyproject macros
 

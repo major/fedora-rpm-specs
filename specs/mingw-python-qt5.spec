@@ -5,7 +5,7 @@
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
 Version:        5.15.12
-Release:        0.2%{?snap:.%snap}%{?dist}
+Release:        0.3%{?snap:.%snap}%{?dist}
 BuildArch:      noarch
 
 # Some examples are BSD-3-Clause and MIT, but examples are not packaged
@@ -107,6 +107,9 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 
 
 %changelog
+* Sat Jan 31 2026 Sandro Mani <manisandro@gmail.com> - 5.15.12-0.3.dev2507081429
+- Rebuild (sip)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-0.2.dev2507081429
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

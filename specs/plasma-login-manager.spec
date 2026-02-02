@@ -9,7 +9,7 @@
 
 Name:           plasma-login-manager
 Version:        6.5.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause and CC0-1.0 and (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later
 Summary:        QML based login manager from KDE
 
@@ -33,6 +33,12 @@ Source13:       plasmalogin.conf
 # upstream patches
 
 # proposed patches
+# https://invent.kde.org/plasma/plasma-login-manager/-/merge_requests/102
+# Fixes various idle timeout related bugs:
+# https://invent.kde.org/plasma/plasma-login-manager/-/issues/42
+# https://invent.kde.org/plasma/plasma-login-manager/-/issues/43
+# https://invent.kde.org/plasma/plasma-login-manager/-/issues/44
+Patch500:       102.patch
 
 # downstream patches
 ## plasmalogin.service: +EnvironmentFile=-/etc/sysconfig/plasmalogin
@@ -72,6 +78,8 @@ BuildRequires:  cmake(KF6KirigamiPlatform)
 BuildRequires:  cmake(PlasmaQuick)
 BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(LibKWorkspace)
+BuildRequires:  cmake(LibKLookAndFeel)
+BuildRequires:  cmake(KF6Screen)
 # verify presence to pull defaults from /etc/login.defs
 BuildRequires:  shadow-utils
 BuildRequires:  systemd
@@ -219,6 +227,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_plasmalogin.desk
 
 
 %changelog
+* Fri Jan 30 2026 Adam Williamson <awilliam@redhat.com> - 6.5.91-2
+- Backport MR #102 to fix idle timeout issues
+
 * Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
 - 6.5.91
 

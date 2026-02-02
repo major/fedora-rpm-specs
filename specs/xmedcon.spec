@@ -6,9 +6,12 @@ Summary:        A medical image conversion utility and library
 # Please refer to http://xmedcon.sourceforge.net/pub/readme/README for details
 # None of the libraries are bundled, they are appear to be modified versions of code taken
 # from the respective sources
-# License needs more looking into to confirm correctness. All licenses are FOSS compatible though
-# Automatically converted from old format: LGPLv2+ and Copyright only and MIT and BSD and libtiff - review is highly recommended.
-License:        LGPL-2.1-or-later AND LicenseRef-Callaway-Copyright-only AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD and libtiff
+# Breakdown
+# ./source: GPLv2+
+# ./libs/nifti: Public Domain
+# ./libs/tpc: LGPLv2.1+
+# spdx verified
+License:        GPL-2.0-or-later and LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            http://xmedcon.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Source1:        %{name}.desktop

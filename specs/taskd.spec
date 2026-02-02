@@ -2,6 +2,7 @@ Name:           taskd
 Version:        1.1.0
 Release:        28%{?dist}
 Summary:        Secure server providing multi-user, multi-client access to task data
+# spdx
 License:        MIT
 URL:            https://github.com/goldenHairDafo/taskd/
 Source0:        http://taskwarrior.org/download/%{name}-%{version}.tar.gz

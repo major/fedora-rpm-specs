@@ -3,7 +3,7 @@
 %bcond network 0
 
 Name:           python-pooch
-Version:        1.8.2
+Version:        1.9.0
 Release:        %autorelease
 Summary:        A friend to fetch your data files
 
@@ -13,9 +13,6 @@ Summary:        A friend to fetch your data files
 License:        BSD-3-Clause
 URL:            https://www.fatiando.org/pooch
 Source:         %forgesource
-# Include `tests/data/` in wheel
-# https://github.com/fatiando/pooch/pull/421
-Patch:          https://github.com/fatiando/pooch/pull/421.patch
 # Exclude `doc/` from wheel
 # https://github.com/fatiando/pooch/pull/423
 Patch:          https://github.com/fatiando/pooch/pull/423.patch
@@ -37,18 +34,16 @@ Summary:        %{summary}
 %description -n python3-pooch %_description
 
 
+%pyproject_extras_subpkg -n python3-pooch progress xxhash sftp
+
+
 %prep
 %forgeautosetup -p1
-
-# Remove coverage dependencies
-sed -i \
-  -e '/cov/ d' \
-  env/requirements-test.txt
 
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -x progress,xxhash%{?network:,sftp} env/requirements-test.txt
+%pyproject_buildrequires -x progress,xxhash,sftp,test
 
 
 %build
@@ -62,7 +57,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 
 %check
-%pytest -v ${k+-k }"${k-}" %{?!network:-m 'not network'}
+%pytest -v -rs %{!?with_network:-m 'not network'}
 
 
 %files -n python3-pooch -f %{pyproject_files}

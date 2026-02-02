@@ -1,16 +1,19 @@
 %global octpkg signal
 
 Name:           octave-%{octpkg}
-Version:        1.4.6
-Release:        6%{?dist}
+Version:        1.4.7
+Release:        1%{?dist}
 Summary:        Signal processing tools for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://octave.sourceforge.net/signal/
-Source0:        http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Source0:        https://github.com/gnu-octave/%{name}/releases/download/%{version}/%{octpkg}-%{version}.tar.gz
 
 # buildsys seems broken for s390x
 ExcludeArch:    s390x
+
+# currently no octave-control on aarch64
+ExcludeArch:    aarch64
 
 BuildRequires:  octave-devel >= 6:3.8.0
 BuildRequires:  octave-control >= 2.4.5
@@ -59,14 +62,16 @@ done;
 %{octpkgdir}/*.m
 %{octpkgdir}/private/*.m
 %{octpkgdir}/packinfo
-%doc %{octpkgdir}/packinfo/COPYING
 %{_metainfodir}/io.sourceforge.octave.signal.metainfo.xml
 %{octpkgdir}/PKG_ADD
 %{octpkgdir}/PKG_DEL
 %doc %{octpkgdir}/doc
-
+%{octpkgdir}/compatibility/pre-11.0.0
 
 %changelog
+* Sat Jan 31 2026 Thomas Sailer <fedora@tsailer.ch> - 1.4.7-1
+- update to 1.4.7
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

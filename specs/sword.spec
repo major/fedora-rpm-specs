@@ -3,7 +3,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Free Bible Software Project
 License:        GPL-2.0-only AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND LGPL-2.0-or-later AND Zlib AND LGPL-2.1-or-later AND (0BSD OR MIT-0 OR MIT)
 URL:            http://www.crosswire.org/sword/
@@ -16,6 +16,8 @@ Source2:        LICENSE_README
 Patch0:         cmake-perl-bindings.diff
 # Patch1 emailed to upstream
 Patch1:         migrate-to-setuptools.diff
+# Patch2 is hopefully temporary, upstream has been notified of it
+Patch2:         wchar_t_madness.patch
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  openssl-devel
@@ -164,6 +166,9 @@ make tests
 
 
 %changelog
+* Sat Jan 31 2026 Aaron Rainbolt <arraybolt3@fedoraproject.org> - 1:1.9.0-38
+- Fix build errors caused by trying to print non-UTF-8 output to cout
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

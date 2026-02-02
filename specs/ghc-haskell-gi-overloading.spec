@@ -19,6 +19,7 @@ Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-rpm-macros
+BuildRequires:  ghc-Cabal-devel
 # End cabal-rpm deps
 
 %description
@@ -34,10 +35,6 @@ Requires:       ghc-compiler = %{ghc_version}
 %description devel
 This package provides the Haskell %{pkg_name} library
 development files.
-
-This package disables overloading in haskell-gi generated bindings.
-Overloading does not work in ghc-8.2.x, due to a bug in GHC. See
-https://ghc.haskell.org/trac/ghc/ticket/14396
 
 
 %prep

@@ -8,7 +8,8 @@ Version:        2.5.1
 Release:        %autorelease
 Summary:        %{sum}
 
-License:        MIT
+# spdx
+License:        BSD-3-Clause
 
 URL:            %{forgeurl}
 %global tag  %{version}

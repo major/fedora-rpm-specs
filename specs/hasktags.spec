@@ -9,7 +9,7 @@
 
 Name:           %{pkg_name}
 Version:        0.73.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Produces ctags "tags" and etags "TAGS" files for Haskell programs
 
 License:        BSD-3-Clause
@@ -165,6 +165,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 0.73.0-2
+- Rebuild
+
 * Thu Jan 01 2026 Jens Petersen <petersen@redhat.com> - 0.73.0-1
 - update to 0.73
 

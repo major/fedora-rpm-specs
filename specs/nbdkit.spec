@@ -54,8 +54,8 @@
 %global source_directory 1.47-development
 
 Name:           nbdkit
-Version:        1.47.1
-Release:        2%{?dist}
+Version:        1.47.2
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -85,9 +85,6 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
-
-# Fix for broken test, upstream in nbdkit >= 1.47.2
-Patch:          0001-tests-test-ocaml-debug-hexdump.sh-Fix-test-that-plug.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1585,6 +1582,9 @@ fi
 
 
 %changelog
+* Sat Jan 31 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.2-1
+- New upstream development version 1.47.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.47.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

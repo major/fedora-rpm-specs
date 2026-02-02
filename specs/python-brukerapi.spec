@@ -2,10 +2,13 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
+#
+# For simplicity, starting with F44, we merged the examples into the library
+# package and stopped building the PDF documentation.
+%bcond doc %[ %{defined fc43} || %{defined fc42} || %{defined el10} || %{defined el9} ]
 
 Name:           python-brukerapi
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Python package providing I/O interface for Bruker data sets
 
@@ -25,34 +28,8 @@ Source11:       bruker-filter.1
 Source12:       bruker-report.1
 Source13:       bruker-split.1
 
-# Change description-file to description_file in setup.cfg
-# https://github.com/isi-nmr/brukerapi-python/pull/16
-Patch:          %{url}/pull/16.patch
-
-# Fix invalid and unintended regex escape sequences
-# https://github.com/isi-nmr/brukerapi-python/pull/18
-Patch:          %{url}/pull/18.patch
-
-# Fix a few typos in comments and in documentation and help text
-# https://github.com/isi-nmr/brukerapi-python/pull/20
-Patch:          %{url}/pull/20.patch
-
-# Fix misspelled SchemaRawdata.seralize method
-#
-# Add a compatibility alias for the old misspelled name.
-#
-# https://github.com/isi-nmr/brukerapi-python/pull/21
-Patch:          %{url}/pull/21.patch
-
-# Explicitly distribute brukerapi.config
-#
-# Fixes a warning from setuptools about ambiguous configuration
-#
-# https://github.com/isi-nmr/brukerapi-python/pull/22
-Patch:          %{url}/pull/22.patch
-
 BuildSystem:            pyproject
-%if %{with doc_pdf}
+%if %{with doc}
 BuildOption(generate_buildrequires): docs/requirements.txt
 %endif
 BuildOption(install):   -l brukerapi
@@ -61,7 +38,7 @@ BuildArch:      noarch
 
 BuildRequires:  %{py3_dist pytest}
 
-%if %{with doc_pdf}
+%if %{with doc}
 BuildRequires:  make
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  python3-sphinx-latex
@@ -77,9 +54,14 @@ A Python package providing I/O interface for Bruker data sets.}
 %package -n python3-brukerapi
 Summary:        %{summary}
 
+%if %{without doc}
+Obsoletes:      python-brukerapi-doc < 0.1.10-1
+%endif
+
 %description -n python3-brukerapi %{common_description}
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation and examples for python-brukerapi
 
@@ -87,7 +69,6 @@ Summary:        Documentation and examples for python-brukerapi
 
 
 %build -a
-%if %{with doc_pdf}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
@@ -109,10 +90,17 @@ k="${k-}${k+ and }not test_data_save"
 
 
 %files -n python3-brukerapi -f %{pyproject_files}
+%if %{without doc}
+%doc CHANGELOG.rst
+%doc README.rst
+%doc examples/
+%endif
+
 %{_bindir}/bruker
 %{_mandir}/man1/bruker*.1*
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
 
@@ -121,7 +109,6 @@ k="${k-}${k+ and }not test_data_save"
 
 %doc examples/
 
-%if %{with doc_pdf}
 %doc docs/build/latex/brukerapi.pdf
 %endif
 

@@ -3,8 +3,8 @@
 %global pkgname poppler
 
 Name:          mingw-%{pkgname}
-Version:       25.07.0
-Release:       4%{?dist}
+Version:       26.01.0
+Release:       1%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
@@ -14,15 +14,13 @@ Source0:       http://poppler.freedesktop.org/%{pkgname}-%{version}.tar.xz
 
 # Downstream fix for CVE-2017-9083 (#1453200)
 Patch1:        poppler_CVE-2017-9083.patch
-# Backport patch for CVE-2025-52885
-Patch2:        https://gitlab.freedesktop.org/poppler/poppler/-/commit/4ce27cc826bf90cc8dbbd8a8c87bd913cccd7ec0.patch
 
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gettext-devel
 BuildRequires: perl(File::Temp)
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-boost
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libjpeg-turbo
@@ -36,7 +34,7 @@ BuildRequires: mingw32-qt5-qtbase-devel
 BuildRequires: mingw32-qt6-qtbase
 BuildRequires: mingw32-curl
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-boost
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libjpeg-turbo
@@ -154,6 +152,9 @@ MinGW Windows C++ Poppler library.
 %build
 export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
 export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
+# FIXME: gcc-16 does not properly export std::__get_once_callable
+export MINGW32_LDFLAGS="%{mingw32_ldflags} -static-libstdc++"
+export MINGW64_LDFLAGS="%{mingw64_ldflags} -static-libstdc++"
 
 %mingw_cmake \
   -DENABLE_CMS=lcms2 \
@@ -182,7 +183,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw32-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw32_bindir}/libpoppler-151.dll
+%{mingw32_bindir}/libpoppler-156.dll
 %{mingw32_includedir}/poppler/
 %exclude %{mingw32_includedir}/poppler/cpp/
 %exclude %{mingw32_includedir}/poppler/glib/
@@ -209,7 +210,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %{mingw32_libdir}/pkgconfig/poppler-qt6.pc
 
 %files -n mingw32-%{pkgname}-cpp
-%{mingw32_bindir}/libpoppler-cpp-2.dll
+%{mingw32_bindir}/libpoppler-cpp-3.dll
 %{mingw32_includedir}/poppler/cpp/
 %{mingw32_libdir}/libpoppler-cpp.dll.a
 %{mingw32_libdir}/pkgconfig/poppler-cpp.pc
@@ -217,7 +218,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw64-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw64_bindir}/libpoppler-151.dll
+%{mingw64_bindir}/libpoppler-156.dll
 %{mingw64_includedir}/poppler/
 %exclude %{mingw64_includedir}/poppler/cpp/
 %exclude %{mingw64_includedir}/poppler/glib/
@@ -244,13 +245,16 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %{mingw64_libdir}/pkgconfig/poppler-qt6.pc
 
 %files -n mingw64-%{pkgname}-cpp
-%{mingw64_bindir}/libpoppler-cpp-2.dll
+%{mingw64_bindir}/libpoppler-cpp-3.dll
 %{mingw64_includedir}/poppler/cpp/
 %{mingw64_libdir}/libpoppler-cpp.dll.a
 %{mingw64_libdir}/pkgconfig/poppler-cpp.pc
 
 
 %changelog
+* Fri Jan 30 2026 Sandro Mani <manisandro@gmail.com> - 26.01.0-1
+- Update to 26.01.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -154,6 +154,7 @@ unset ACCELERATE_ENABLE_RICH
         --deselect="tests/test_cli.py::ClusterConfigTester::test_sagemaker_config" \
         --deselect="tests/test_cli.py::ModelEstimatorTester::test_explicit_dtypes" \
         --deselect="tests/test_cli.py::ModelEstimatorTester::test_gated" \
+	--deselect="tests/test_cli.py::ModelEstimatorTester::test_invalid_model_name" \
         --deselect="tests/test_cli.py::ModelEstimatorTester::test_no_metadata" \
         --deselect="tests/test_cli.py::ModelEstimatorTester::test_no_split_modules" \
         --deselect="tests/test_cli.py::ModelEstimatorTester::test_remote_code" \

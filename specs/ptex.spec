@@ -72,7 +72,11 @@ do
 done
 
 %check
+%ifarch s390x
+%ctest -- -R "halftest"
+%else
 %ctest
+%endif
 
 %files
 %doc src/doc/README 

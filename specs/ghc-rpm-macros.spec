@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.9.4
+Version:        2.10
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -208,6 +208,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sat Jan 31 2026 Jens Petersen <petersen@redhat.com> - 2.10-1
+- redefine ghc_version with lua
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 2.9.4-1
 - ghc-dep.sh: unbreak prof for ghc9.10+
 - ghc_executable_profiling: to configure having detailed backtraces

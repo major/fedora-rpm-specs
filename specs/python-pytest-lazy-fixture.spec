@@ -6,6 +6,7 @@ Version:        0.6.3
 Release:        %autorelease
 Summary:        Use fixtures in pytest.mark.parametrize
 
+# spdx
 License:        MIT
 URL:            https://github.com/tvorog/pytest-lazy-fixture
 Source0:        %{pypi_source pytest-lazy-fixture}

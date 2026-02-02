@@ -2,11 +2,11 @@
 
 Name:           python-%{srcname}
 Version:        0.1.23
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Generates rosinstall files
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# spdx
+License:        BSD-3-Clause
 URL:            http://wiki.ros.org/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %changelog
+* Sat Jan 31 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.1.23-15
+- Update license to spdx
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.23-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

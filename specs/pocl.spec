@@ -30,8 +30,11 @@ BuildRequires: clang(major) = %{llvm_ver}
 BuildRequires: clang-devel(major) = %{llvm_ver}
 BuildRequires: compiler-rt(major) = %{llvm_ver}
 BuildRequires: llvm-devel(major) = %{llvm_ver}
+# required for SPIR-V support
+# TODO: add a major provide to spirv-llvm-translator
 BuildRequires: spirv-llvm-translator-devel >= %{llvm_ver}, spirv-llvm-translator-devel < %[%{llvm_ver} + 1]
 
+# basic deps
 BuildRequires: glew-devel
 BuildRequires: hwloc-devel
 BuildRequires: libedit-devel
@@ -42,6 +45,7 @@ BuildRequires: ocl-icd-devel
 BuildRequires: uthash-devel
 BuildRequires: zlib-devel
 
+# build system deps
 BuildRequires: cmake
 BuildRequires: libtool
 BuildRequires: ninja-build
@@ -92,29 +96,55 @@ cp thirdparty/STC/LICENSE STC-LICENSE
 
 
 %build
+# We build PoCL as an OpenCL ICD
+# We build the tests but not the examples
+# We build poclcc to allow pre-compilation of OpenCL kernel binaries
+# We pass the distro flags when complining OpenCL kernels
+# We build all the drivers in OpenCL Conformance mode, which disables all
+#    experimental and incomplete extensions.
+# Device Drivers we build:
+# - CPU driver (the default for PoCL)
+#    - with OpenMP support
+#    - on i686/x86_64/ppc64le, use the generic CPU option for Linux distros
+#       - this builds in support for different levels of optional instructions
+#    - on aarch64 and riscv64, just target the most generic CPU possible
+#       - ideally, upstream will add "distro" support eventually
+#    - without FP16 support (not compatible with conformance)
+#    - without vectorizing builtins (not compatible with conformance)
+#    - without predefined kernels from onnxruntime, OpenCV, etc (not conformant)
+# Device Drivers we don't build:
+# - CPU driver using TBB (seems feasible - TODO make a PR for the TBB driver)
+# - AMD HSA (deprecated, CPU only)
+# - NVIDIA CUDA (for the usual reasons)
+# - Fixed-Function Accelerators/alamif (no demand from users)
+# - Proxy (not compatible with PoCL as an OpenCL ICD)
+# - Vulkan (incomplete and not maintained)
+# - Level Zero (feasible - see https://src.fedoraproject.org/rpms/pocl/pull-request/28 )
+# - Remote (seems feasible - TODO make a PR for the Remote driver)
 %global __cc_clang clang-%{llvm_ver}
 %global __cxx_clang clang++-%{llvm_ver}
 %global __cpp_clang clang-cpp-%{llvm_ver}
 %cmake -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_ICD:BOOL=ON \
-    -DENABLE_CUDA:BOOL=OFF \
+    -DPOCL_ICD_ABSOLUTE_PATH:BOOL=OFF \
+    -DPOCL_INSTALL_ICD_VENDORDIR=%{_sysconfdir}/OpenCL/vendors \
     -DENABLE_TESTS:BOOL=ON \
     -DENABLE_EXAMPLES:BOOL=OFF \
-    -DPOCL_INSTALL_ICD_VENDORDIR=%{_sysconfdir}/OpenCL/vendors \
+    -DENABLE_POCLCC:BOOL=ON \
     -DEXTRA_KERNEL_CXX_FLAGS="%{optflags}" \
-%ifarch %{ix86} %{x86_64} ppc64le
+    -DENABLE_CONFORMANCE:BOOL=ON \
+    -DENABLE_HOST_CPU_DEVICES:BOOL=ON \
+    -DENABLE_HOST_CPU_DEVICES_OPENMP:BOOL=ON \
+%ifarch %{ix86} x86_64 ppc64le
     -DKERNELLIB_HOST_CPU_VARIANTS=distro \
 %endif
-%ifarch %{arm64}
+%ifarch aarch64
     -DLLC_HOST_CPU="cortex-a53" \
 %endif
 %ifarch riscv64
     -DLLC_HOST_CPU="generic-rv64" \
 %endif
-    -DWITH_LLVM_CONFIG="llvm-config-%{llvm_ver}" \
-    -DPOCL_ICD_ABSOLUTE_PATH:BOOL=OFF \
-    -DENABLE_POCL_BUILDING:BOOL=ON
+    -DWITH_LLVM_CONFIG="llvm-config-%{llvm_ver}"
 %cmake_build
 
 %install
@@ -122,15 +152,10 @@ cp thirdparty/STC/LICENSE STC-LICENSE
 
 %check
 # Upstream supports running tests only on x86_64, but test everything anyway
-%ifarch %{arm64} ppc64le s390x
-# on non-x86, the fp16 tests fail since it isn't supported (technically it's unfinished on x86 too)
-%global pocl_arched_test_excludes |^kernel/test_halfs_loopvec$|^kernel/test_halfs_cbs$|^kernel/test_printf_vectors_halfn_loopvec$|^kernel/test_printf_vectors_halfn_cbs$
-%else
-%global pocl_arched_test_excludes %{nil}
-%endif
 # PoCL doesn't support s390x, see rhbz#2396306. The tests fail badly (endian issues?) but removing a main arch from a package is a pain.
 %ifnarch s390x
-%ctest -E '^workgroup/conditional_barrier_dynamic$%{pocl_arched_test_excludes}'
+# Run all tests except those expected to fail on the CPU driver
+%ctest -LE 'cpu_fail'
 %endif
 
 %files

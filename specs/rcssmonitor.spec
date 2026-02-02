@@ -1,6 +1,6 @@
 Name:           rcssmonitor
 Version:        19.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        RoboCup 2D Soccer Simulator Monitor
 
 # rcss/ libraries are under LGPLv2+
@@ -10,6 +10,9 @@ URL:            http://sourceforge.net/projects/sserver/
 Source0:        http://downloads.sourceforge.net/sserver/%{name}-%{version}.tar.gz
 # Source 1 is created by me.
 Source1:        %{name}.desktop
+# ref: https://github.com/simdjson/simdjson/pull/2187
+# Fix compilation error in base_formatter template class
+Patch0:         rcssmonitor-19.0.0-simdjson-pr2187-no-member-in-template-class.patch
 Provides:       rcsslogplayer = %{version}-%{release}
 Obsoletes:      rcsslogplayer <= 15.1.1-30
 
@@ -38,6 +41,7 @@ you will need to install %{name}-devel.
 
 %prep
 %setup -q
+%patch -P0 -p1
 sed -i.flagfix "/CMAKE_CXX_FLAGS/d" CMakeLists.txt
 
 %build
@@ -66,6 +70,9 @@ desktop-file-install \
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 19.0.0-7
+- Backport patch from simdjson wrt no member error in template class
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

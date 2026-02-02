@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -43,6 +43,7 @@ BuildRequires:  giflib-devel
 BuildRequires:  glew-devel
 # Only available on RPM Fusion
 BuildRequires:  libheif-devel
+BuildRequires:  libultrahdr-devel
 BuildRequires:  turbojpeg-devel
 BuildRequires:  libjxl-devel
 BuildRequires:  libpng-devel
@@ -203,6 +204,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jan 31 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.9.0-5
+- Add Ultra HDR support.
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1:3.1.9.0-4
 - Rebuilt for OpenCV 4.13
 

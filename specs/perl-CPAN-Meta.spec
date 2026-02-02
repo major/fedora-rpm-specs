@@ -1,10 +1,11 @@
 Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
-Version:        2.150011
+Version:        2.150012
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Meta-%{version}.tar.gz
+Patch0:         CPAN-Meta-2.150012-requirements.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -63,7 +64,11 @@ structure stored in the META.json file is described in CPAN::Meta::Spec.
 %prep
 %setup -q -n CPAN-Meta-%{version}
 
-# silence rpmlint warnings
+# Fix test to work with CPAN::Meta::Requirements 2.145
+# https://github.com/Perl-Toolchain-Gang/CPAN-Meta/issues/145
+%patch -P0
+
+# Silence rpmlint warnings
 perl -MConfig -pi -e 's,^#!.*perl,$Config{startperl},' t/*.t
 
 %build
@@ -98,6 +103,12 @@ make test
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Mon Jan 26 2026 Paul Howarth <paul@city-fan.org> - 2.150012-1
+- Update to 2.150012 (rhbz#2432714)
+  - Distribution metadata update
+- Add workaround for test issues with CPAN::Meta::Requirements ≥ 2.144
+  https://github.com/Perl-Toolchain-Gang/CPAN-Meta/issues/145
+
 * Fri Jan 23 2026 Paul Howarth <paul@city-fan.org> - 2.150011-1
 - Update to 2.150011 (rhbz#2432163)
   - Improved example of testing a minimum prerequisite version of a module
