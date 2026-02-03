@@ -2,7 +2,7 @@
 # all bcond 1 for production builds:
 # - performance build (disable for quick build)
 %bcond perfbuild 1
-%bcond build_hadrian 0
+%bcond build_hadrian 1
 %bcond manual 1
 # disabled by default
 %bcond debug_flavor 0
@@ -16,7 +16,11 @@
 %undefine with_haddock
 %endif
 
+# disable to allow parallel install of ghcX.Y-X.Y.(Z+1) and ghc-X.Y.Z
+%if 1
 %global ghc_major 9.10
+%global ghc_obsoletes_name ghc%{ghc_major}
+%endif
 %global ghc_patchlevel 3
 
 %global base_ver 4.20.2.0
@@ -62,7 +66,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 151%{?dist}
+Release: 152%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -833,6 +837,10 @@ make test
 
 
 %changelog
+* Sun Feb 01 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-152
+- obsolete ghc9.10
+- reenable building hadrian
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-151
 - rebuild against self with existing hadrian
 

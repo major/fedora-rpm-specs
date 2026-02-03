@@ -1,6 +1,6 @@
 Name: mk-configure
 Version: 0.38.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A build system on top of bmake
 License: BSD-2-Clause AND BSD-4-Clause AND ISC
 # Licenses listed in the doc/LICENSE file
@@ -11,6 +11,7 @@ Source0: https://github.com/cheusov/mk-configure/archive/%{version}/%{name}-%{ve
 Source1: mkcmake.macros
 
 Patch0: 0001-ignore-incompatible-pointer-types-errors.patch
+Patch1: prototype-fix.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -113,6 +114,9 @@ env bmake test-tests
 %doc %{_docdir}/mk-configure/examples
 
 %changelog
+* Sun Feb 1 2026 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 0.38.3-8
+- Fix prototype check after glibc and gcc update
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

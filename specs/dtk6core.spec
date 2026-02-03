@@ -1,9 +1,9 @@
 Name:           dtk6core
-Version:        6.0.47
+Version:        6.7.32
 Release:        %autorelease
 Summary:        Deepin tool kit core modules
 License:        LGPL-3.0-or-later
-URL:            https://github.com/linuxdeepin/dtk6core
+URL:            https://github.com/linuxdeepin/dtkcore
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
@@ -18,7 +18,7 @@ BuildRequires:  cmake(Qt6ToolsTools)
 BuildRequires:  cmake(Qt6Concurrent)
 
 BuildRequires:  cmake(Dtk6Log)
-BuildRequires:  cmake(DtkBuildHelper)
+BuildRequires:  cmake(DtkBuildHelper) >= %{version}
 BuildRequires:  cmake(spdlog)
 
 BuildRequires:  pkgconfig(icu-uc)
@@ -39,12 +39,12 @@ Requires:       dtkcommon-devel%{_isa}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 # comply with dtkcore in Fedora and dtk6core in Arch Linux
 sed -i 's|/etc/os-version|/etc/dde-version|' src/dsysinfo.cpp
 
 %build
-%cmake -GNinja -DDTK_VERSION=%{version}
+%cmake -GNinja -DDTK5=OFF -DBUILD_WITH_SYSTEMD=ON
 %cmake_build
 
 %install

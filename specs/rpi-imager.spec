@@ -1,12 +1,11 @@
 Name:           rpi-imager
-Version:        1.9.6
+Version:        2.0.6
 Release:        %autorelease
 Summary:        Graphical user-interface to write disk images and format SD cards
 License:        Apache-2.0
 URL:            https://github.com/raspberrypi/rpi-imager
 Source0:        %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
-# adopted from OpenMandriva Linux
-Patch0:         https://github.com/OpenMandrivaAssociation/rpi-imager/raw/refs/heads/master/rpi-imager-1.9.6-remove-vendoring.patch
+Patch0:         https://gitlab.archlinux.org/archlinux/packaging/packages/rpi-imager/-/raw/main/remove-vendoring.patch
 
 # https://github.com/raspberrypi/rpi-imager/blob/v1.9.0/src/CMakeLists.txt#L235
 ExcludeArch:    s390x
@@ -51,7 +50,8 @@ pushd src
 %cmake -GNinja \
     -DBUILD_SHARED_LIBS=OFF \
     -DENABLE_CHECK_VERSION=OFF \
-    -DENABLE_TELEMETRY=OFF
+    -DENABLE_TELEMETRY=OFF \
+    -DGENERATE_TIMEZONES_FROM_IANA=OFF
 %cmake_build
 popd
 
@@ -68,9 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %license license.txt
 %doc README.md
 %{_bindir}/rpi-imager
-%{_datadir}/applications/org.raspberrypi.rpi-imager.desktop
-%{_datadir}/icons/hicolor/128x128/apps/rpi-imager.png
-%{_metainfodir}/org.raspberrypi.rpi-imager.metainfo.xml
+%{_datadir}/applications/com.raspberrypi.rpi-imager.desktop
+%{_datadir}/icons/hicolor/scalable/apps/rpi-imager.svg
+%{_metainfodir}/com.raspberrypi.rpi-imager.metainfo.xml
 
 %changelog
 %autochangelog

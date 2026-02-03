@@ -99,6 +99,9 @@ Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 # downstream-only - WiVRn specific Monado patches
 Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-st-oxr-push-XrEventDataInteractionProfileChanged-whe.patch
 
+# https://github.com/WiVRn/WiVRn/pull/755
+# Fix missing unistd.h include for close() function (GCC 15+ fix)
+Patch1000:      wivrn-gcc-includes-fix.patch
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
 # https://src.fedoraproject.org/rpms/envision/blob/rawhide/f/envision.spec
@@ -218,6 +221,9 @@ and to assist in pairing the headset with the server.
 
 %prep
 %forgesetup
+
+# Apply Fedora-specific WiVRn patches
+%patch -P1000 -p1
 
 # Extract libraries that are bundled
 mkdir -p _deps/monado-src

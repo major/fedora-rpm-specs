@@ -2,7 +2,7 @@
 An extension to use emoji codes in your Sphinx documentation.}
 
 Name:           python-sphinxemoji
-Version:        0.2.0
+Version:        0.3.2
 Release:        %{autorelease}
 Summary:        Use emoji codes in your Sphinx documentation
 
@@ -10,8 +10,6 @@ Summary:        Use emoji codes in your Sphinx documentation
 License:        BSD-3-Clause
 URL:            https://pypi.org/pypi/sphinxemoji
 Source0:        %{pypi_source sphinxemoji}
-# Not included in the pypi tar so we get it from the GitHub repository
-Source1:        https://github.com/sphinx-contrib/emojicodes/raw/master/LICENSE
 
 BuildArch:      noarch
 
@@ -25,8 +23,6 @@ BuildRequires:  python3-devel
 
 %prep
 %autosetup -n sphinxemoji-%{version}
-
-cp %{SOURCE1} .
 
 %generate_buildrequires
 %pyproject_buildrequires

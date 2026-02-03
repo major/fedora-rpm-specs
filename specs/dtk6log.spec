@@ -1,9 +1,9 @@
 Name:           dtk6log
-Version:        0.0.6
+Version:        6.7.32
 Release:        %autorelease
 Summary:        Simple, convenient and thread safe logger for Qt-based C++ apps
 License:        LGPL-2.1-or-later
-URL:            https://github.com/linuxdeepin/dtk6log
+URL:            https://github.com/linuxdeepin/dtklog
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
@@ -25,14 +25,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
-%cmake \
-    -DBUILD_WITH_SYSTEMD=ON \
-    -DBUILD_WITH_QT6=ON \
-    -DDLOG_VERSION=%{version} \
-
+%cmake -DDTK5=OFF -DBUILD_WITH_SYSTEMD=ON
 %cmake_build
 
 %install

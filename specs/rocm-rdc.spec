@@ -40,7 +40,7 @@
 
 Name:           rocm-rdc
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Data Center Tool
 
 URL:            https://github.com/ROCm/%{upstreamname}
@@ -157,6 +157,9 @@ chmod a+x %{buildroot}%{_libexecdir}/rdc/authentication/*.sh
 
 
 %changelog
+* Sun Feb 01 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.1-2
+- Rebuilt for abseil-cpp 20260107.0
+
 * Fri Jan 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
 - Initial package
 

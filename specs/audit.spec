@@ -1,7 +1,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 4.1.2
-Release: 6%{?dist}
+Version: 4.1.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -41,7 +41,7 @@ applications to use the audit framework.
 Summary: Header files for libaudit
 License: LGPL-2.0-or-later
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: kernel-headers >= 5.0
+Requires: kernel-headers >= 5.15
 
 %description libs-devel
 The audit-libs-devel package contains the header files needed for
@@ -301,6 +301,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Sun Feb 01 2026 Steve Grubb <sgrubb@redhat.com> 4.1.3-1
+- New upstream release
+
 * Tue Jan 27 2026 Steve Grubb <sgrubb@redhat.com> 4.1.2-6
 - Change awk to gawk
 

@@ -1,15 +1,17 @@
+%global         gitrev 9fe40f8
+%global         autohell autoconf automake
 Name:           sigrok-firmware-fx2lafw
-Version:        0.1.7
-Release:        15%{?dist}
+Version:        0.1.7.git%{gitrev}
+Release:        1
 Summary:        Firmware for logic analyzers based on the Cypress EZ-USB FX2(LP) chip
 # Combined and LGPLv2+ and GPLv2+
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
+# {url}/gitweb/?p={name}.git;a=snapshot;h={hash};sf=zip
 URL:            http://www.sigrok.org
-Source0:        %{url}/download/source/%{name}/%{name}-%{version}.tar.gz
+Source0:        %{name}-%{gitrev}.zip
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make %{autohell}
 BuildRequires:  sdcc
 
 Requires:       sigrok-firmware-filesystem
@@ -22,9 +24,10 @@ This firmware package is needed to use libsigrok with Cypress EZ-USB FX2(LP)
 based logic analyzers (the fx2lafw driver in libsigrok).
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{gitrev}
 
 %build
+autoreconf --force --install
 %configure
 make %{?_smp_mflags}
 
@@ -36,6 +39,9 @@ make %{?_smp_mflags}
 %{_datadir}/sigrok-firmware/fx2lafw-*.fw
 
 %changelog
+* Sun Feb 01 2026 Alexandru Gagniuc <mr.nuke.me@gmail.com> - 0.1.7.git9fe40f8-1
+- Update to upstream git snapshot to resolve build issues
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           dtk6gui
-Version:        6.0.47
+Version:        6.7.32
 Release:        %autorelease
 Summary:        Deepin Toolkit, gui module for DDE look and feel
 License:        LGPL-3.0-or-later
-URL:            https://github.com/linuxdeepin/dtk6gui
+URL:            https://github.com/linuxdeepin/dtkgui
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
@@ -41,10 +41,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
-%cmake -GNinja -DDTK_VERSION=%{version}
+%cmake -GNinja -DDTK5=OFF
 %cmake_build
 
 %install

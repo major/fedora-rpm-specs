@@ -17,11 +17,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.24-stable
+%global source_directory 1.25-development
 
 Name:           libnbd
-Version:        1.24.0
-Release:        2%{?dist}
+Version:        1.25.1
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -401,6 +401,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Sun Feb 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.1-1
+- New upstream development version 1.25.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

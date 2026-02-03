@@ -16,7 +16,7 @@
 
 Name:           python-pandas
 Version:        2.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -342,8 +342,9 @@ Recommends:     python3dist(pyarrow) >= 10.0.1
 # Access data in the cloud
 BuildRequires:  python3dist(fsspec) >= 2022.11
 Recommends:     python3dist(fsspec) >= 2022.11
-BuildRequires:  python3dist(gcsfs) >= 2022.11
-Recommends:     python3dist(gcsfs) >= 2022.11
+# gcsfs 2025.12.0 introduces a dependency on google-cloud-storage-control
+# BuildRequires:  python3dist(gcsfs) >= 2022.11
+# Recommends:     python3dist(gcsfs) >= 2022.11
 # python-pandas-gbq is not currently packaged:
 # BuildRequires:  python3dist(pandas-gbq) >= 0.19
 # Recommends:     python3dist(pandas-gbq) >= 0.19
@@ -710,6 +711,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Sun Feb 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.3-5
+- Drop gcsfs as python bindings have been orphaned
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

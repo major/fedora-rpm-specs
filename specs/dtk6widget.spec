@@ -1,9 +1,9 @@
 Name:           dtk6widget
-Version:        6.0.47
+Version:        6.7.32
 Release:        %autorelease
 Summary:        Deepin base graphical widgets library
 License:        LGPL-3.0-or-later
-URL:            https://github.com/linuxdeepin/dtk6widget
+URL:            https://github.com/linuxdeepin/dtkwidget
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
@@ -44,12 +44,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
-%cmake -GNinja \
-    -DQCH_INSTALL_DESTINATION=%{_qt6_docdir} \
-    -DDTK_VERSION=%{version} \
+%cmake -GNinja -DDTK5=OFF -DQCH_INSTALL_DESTINATION=%{_qt6_docdir}
 %cmake_build
 
 %install
@@ -62,6 +60,9 @@ This package contains development files for %{name}.
 %{_libdir}/libdtk6widget.so.6*
 %dir %{_libdir}/dtk6
 %{_libdir}/dtk6/DWidget/
+%dir %{_libexecdir}/dtk6/DWidget
+%dir %{_libexecdir}/dtk6/DWidget/bin
+%{_libexecdir}/dtk6/DWidget/bin/dtk6-svgc
 
 %files devel
 %{_libdir}/libdtk6widget.so

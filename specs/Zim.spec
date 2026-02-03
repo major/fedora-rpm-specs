@@ -19,6 +19,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
 BuildRequires:  gtk3, python3-pyxdg
+BuildRequires:  gobject-introspection 
 # for tests
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  glibc-langpack-en

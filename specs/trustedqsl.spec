@@ -4,7 +4,7 @@
 %global libtqslver 2.6
 
 Name:           trustedqsl
-Version:        2.8.3
+Version:        2.8.4
 Release:        1%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Mon Feb 02 2026 Richard Shaw <hobbes1069@gmail.com> - 2.8.4-1
+- Update to 2.8.4.
+
 * Sun Jan 25 2026 Richard Shaw <hobbes1069@gmail.com> - 2.8.3-1
 - Update to 2.8.3.
 

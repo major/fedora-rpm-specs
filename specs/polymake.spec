@@ -178,7 +178,7 @@ Provides:       bundled(sympol) = 0.1.9
 %global __requires_exclude perl\\\(namespaces.*\\\)
 
 # Major version number
-%global majver  %(cut -dr -f1 <<< %{version})
+%global majver  %{gsub %version ^(%d*)r.*$ %1}
 
 %description
 Polymake is a tool to study the combinatorics and the geometry of convex
@@ -289,8 +289,13 @@ chmod -R u+w %{buildroot}%{_prefix}
 # JuPyMake and jupyter-polymake are built and installed separately
 rm -fr %{buildroot}%{_datadir}/%{name}/resources/{JuPyMake,jupyter-polymake}
 
-# Fix package notes breakage
-sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ninja
+# Do not require polymake users to use Fedora's build flags
+sed -e '/^CFLAGS/s@%{build_cflags}@%{extension_cflags}@' \
+    -e '/^CXXFLAGS/s@%{build_cxxflags}@%{extension_cxxflags}@' \
+    -e '/^LDFLAGS/s@%{build_ldflags}@%{extension_ldflags}@' \
+    -e '/^LDsharedFLAGS/s@-Wl,-z,relro.*@%{extension_ldflags}@' \
+    -e '/^LDcallableFLAGS/s@-Wl,-z,relro.*@%{extension_ldflags}@' \
+    -i %{buildroot}%{_libdir}/%{name}/config.ninja
 
 %check
 export COLUMNS=80

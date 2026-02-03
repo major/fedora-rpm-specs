@@ -388,6 +388,8 @@ Installing this package causes %{name}-*-prof packages corresponding to
 ( cd hadrian
   cabal-tweak-flag selftest False
   cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+  cabal-tweak-dep-ver Cabal '< 3.11' '< 3.13'
+  cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
   cabal-tweak-dep-ver directory '>= 1.3.9.0' '>= 1.3.6'
 )
 

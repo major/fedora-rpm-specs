@@ -54,7 +54,9 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.6+
+%if 0%{?fedora} < 44
 %global ghcboot_major 9.10
+%endif
 %global ghcboot ghc%{?ghcboot_major}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105

@@ -17,8 +17,9 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-pyqt6
 BuildRequires:  qt6-linguist
-BuildRequires:  qt-devel
-BuildRequires:  qt6-qtbase-devel
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Widgets)
 BuildRequires:  desktop-file-utils
 BuildRequires:  help2man
 

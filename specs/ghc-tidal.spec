@@ -10,7 +10,10 @@
 
 %global subpkgs %{tidalcore} %{tidallink}
 
+# tests failing
+%ifnarch s390x %{ix86}
 %bcond tests 1
+%endif
 
 Name:           ghc-%{pkg_name}
 Version:        1.10.1

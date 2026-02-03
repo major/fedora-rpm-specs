@@ -5,17 +5,17 @@
 %global pkgver %{pkg_name}-%{version}
 %{?haskell_setup}
 
-%global citeproc citeproc-0.8.1.3
+%global citeproc citeproc-0.9.0.1
 %global commonmark commonmark-0.2.6.1
 %global commonmarkextensions commonmark-extensions-0.2.6
 %global commonmarkpandoc commonmark-pandoc-0.2.3
-%global digits digits-0.3.1
-%global djot djot-0.1.2.2
-%global gridtables gridtables-0.1.0.0
+%global digits digits-0.3.2
+%global djot djot-0.1.2.4
+%global gridtables gridtables-0.1.1.0
 %global ipynb ipynb-0.2
 %global jirawikimarkup jira-wiki-markup-1.5.1
 %global orderedcontainers ordered-containers-0.2.4
-%global typst typst-0.7
+%global typst typst-0.8.0.2
 %global unicodecollation unicode-collation-0.1.3.6
 
 %global subpkgs %{commonmark} %{commonmarkextensions} %{commonmarkpandoc} %{digits} %{djot} %{gridtables} %{ipynb} %{jirawikimarkup} %{orderedcontainers} %{typst} %{unicodecollation} %{citeproc}
@@ -23,9 +23,9 @@
 # testsuite missing deps: tasty-golden
 
 Name:           ghc-%{pkg_name}
-Version:        3.6.4
+Version:        3.7.0.2
 # can only be reset when all subpkgs bumped
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Haskell %{name} library
 
 License:        GPL-2.0-or-later
@@ -47,8 +47,8 @@ Source12:       https://hackage.haskell.org/package/%{unicodecollation}/%{unicod
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
-BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-rpm-macros-extra
+BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-Glob-devel
 BuildRequires:  ghc-JuicyPixels-devel
 BuildRequires:  ghc-aeson-devel
@@ -353,14 +353,11 @@ This package provides pandoc's common data files.
 %setup -q -n %{pkgver} -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12
 # End cabal-rpm setup
 
-# Not in scope: ‘runTests’
-rm %{digits}/Setup.lhs
-
-( cd %{gridtables}
-  cabal-tweak-dep-ver text '< 2.1' '< 2.2'
-)
 ( cd %{jirawikimarkup}
   cabal-tweak-dep-ver text '< 2.1' '< 2.2'
+)
+( cd %{unicodecollation}
+  cabal-tweak-dep-ver base '< 4.20' '< 4.21'
 )
 
 
@@ -413,6 +410,9 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 
 %changelog
+* Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 3.7.0.2-38
+- https://hackage.haskell.org/package/pandoc-3.7.0.2/changelog
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

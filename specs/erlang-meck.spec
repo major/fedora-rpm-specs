@@ -1,7 +1,7 @@
 %global realname meck
 
 Name:		erlang-%{realname}
-Version:	1.0.0
+Version:	1.1.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	A mocking library for Erlang
@@ -9,8 +9,9 @@ License:	Apache-2.0
 URL:		https://github.com/eproxus/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-meck-0001-Disable-erlang-unite-test-output-highlighting.patch
-Patch2:		erlang-meck-0002-Revert-Support-Erlang-27.0.patch
+Patch:		erlang-meck-0001-Disable-erlang-unite-test-output-highlighting.patch
+Patch:		erlang-meck-0002-Temporary-disable-ex_doc-and-rebar3_ex_doc.patch
+Patch:		erlang-meck-0003-Fix-tests-with-short-domain-names-default.patch
 BuildRequires:	erlang-hamcrest
 BuildRequires:	erlang-rebar3
 # WARNING this library calls to unexported cover:compile_beam/2,

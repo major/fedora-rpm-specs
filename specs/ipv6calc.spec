@@ -33,6 +33,7 @@ License:	GPL-2.0-only
 Source:		https://github.com/pbiering/%{name}/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 %else
 Source:		https://github.com/pbiering/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:		ipv6calc-4.4.0-9b6aebd3.patch
 %endif
 BuildRequires:	automake make
 BuildRequires:	gcc
@@ -380,6 +381,9 @@ fi
 
 
 %changelog
+* Sun Feb 01 2026 Peter Bieringer <pb@bieringer.de> - 4.4.0-2
+- Fix for BZ#2434685
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

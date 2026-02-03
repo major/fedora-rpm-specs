@@ -55,7 +55,9 @@
 
 # bootstrap needs 9.8+ (time)
 # use 9.10 to avoid F43 ghc-9.8 i686 Unique Word64 divergence
+%if 0%{?fedora} < 44
 %global ghcboot_major 9.10
+%endif
 %global ghcboot ghc%{?ghcboot_major}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105
@@ -554,7 +556,7 @@ ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
 # -j224 caused rts "resource exhausted (Too many open files)"
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
-# --hash-unit-ids should be redundant for 9.14 release flavor
+# use hash-unit-ids flavour for 9.14
 %{hadrian} %{?_smp_mflags} --flavour=%{hadrian_flavour}%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug} %{hadrian_docs} binary-dist-dir --hash-unit-ids
 
 

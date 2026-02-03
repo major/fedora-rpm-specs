@@ -13,8 +13,7 @@ Source0:	https://github.com/argotorg/%{name}/archive/v%{version}/%{name}-%{versi
 SourceLicense:	GPL-3.0-only and MIT
 License:	GPL-3.0-only
 # Fedora-specific patches
-Patch:		solidity-0001-Use-static-linking-for-internal-libs.patch
-Patch:		solidity-0002-Don-t-override-Fedora-specific-CXXFLAGS.patch
+Patch:		solidity-0001-Don-t-override-Fedora-specific-CXXFLAGS.patch
 BuildRequires:	boost-devel >= 1.83.0
 BuildRequires:	cmake >= 3.0
 BuildRequires:	cmake(fmt) >= 10.1.1
@@ -41,7 +40,8 @@ echo %{git_hash} > commit_hash.txt
 	-DIGNORE_VENDORED_DEPENDENCIES:BOOL=ON \
 	-DBoost_USE_STATIC_LIBS:BOOL=OFF \
 	-DSTRICT_Z3_VERSION:BOOL=OFF \
-	-DTESTS:BOOL=OFF
+	-DTESTS:BOOL=OFF \
+	-DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
 
 help2man --no-discard-stderr --no-info "%{__cmake_builddir}/solc/solc" --version-string=%{version} --output=solc.1

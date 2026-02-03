@@ -1,6 +1,6 @@
 %bcond autoreconf 1
 
-%global upver 0.0.14
+%global upver 0.0.14pl1
 
 Name:           gp2c
 Version:        %{gsub %{upver} pl .}

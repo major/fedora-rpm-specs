@@ -1,42 +1,20 @@
 Name:           rauc
-Version:        1.14
-Release:        %autorelease -b 12
+Version:        1.15.1
+Release:        %autorelease -b 1
 Summary:        Safe and secure software updates for embedded Linux
 
 License:        LGPL-2.1-or-later AND CC0-1.0
 URL:            https://rauc.io/
 Source0:        https://github.com/rauc/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-# Deprecated OpenSSL engine support
-# https://github.com/rauc/rauc/issues/1688
-# https://github.com/rauc/rauc/pull/1690
-# https://github.com/rauc/rauc/commit/be102bd6d57dcc37c388c9df9a99d093acf43279
-# Upstream: PR has landed and will be included in release 1.15
-Patch0:         rauc_patch0_no_openssl_engine.patch
-
 # Debian: grub_editenv
 # Fedora: grub2_editenv
 # Upstream: Work has not yet begun
-Patch1:         rauc_patch1_grub_editenv_debian_compat_fix.patch
+Patch0:         rauc_patch0_grub_editenv_debian_compat_fix.patch
 
-# 5 tests does not work on F43/Rawhide due to OpenSSL x509 issue
-# Tests work on F42 and lower.
+# 1 test does not work due to network access
 # Upstream: Work has not yet begun
-Patch2:         rauc_patch2_disable_openssl_x509_issue_on_f43.patch
-
-# RPM lint E: incorrect-fsf-address
-# Upstream: Fixed in commit "fe86f27 COPYING: remove old FSF postal address"
-#           and will be included in release 1.15
-# https://github.com/rauc/rauc/commit/fe86f277258dfe96d0f9ac9bfa930733598d7160
-Patch3:         rauc_patch3_license_incorrect_fsf_address.patch
-
-# License issue in de.pengutronix.rauc.Installer.xml and text for CC0-1.0
-# https://github.com/rauc/rauc/issues/1713
-# https://github.com/rauc/rauc/pull/1720
-# https://github.com/rauc/rauc/commit/99355aa198daf2c0aff7fbf2ba981fd7355047ca
-# https://github.com/rauc/rauc/commit/fccfec046497f909a5d872fd45c337b8ebea7050
-# Upstream: PR has landed and will be included in release 1.15
-Patch4:         rauc_patch4_license_issue_xml.patch
+Patch1:         rauc_patch1_disable_http_test.patch
 
 # Exclude architectures that does not have grub2-tools-minimal package
 ExcludeArch:    s390 s390x i686
@@ -64,8 +42,10 @@ BuildRequires:  e2fsprogs
 BuildRequires:  fakeroot
 BuildRequires:  grub2-tools-minimal
 BuildRequires:  openssl
-BuildRequires:  python3-pytest
 BuildRequires:  python3-dasbus
+BuildRequires:  python3-pyasn1
+BuildRequires:  python3-pyasn1-modules
+BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
 BuildRequires:  squashfs-tools
 
@@ -95,16 +75,10 @@ Service is not installed as that is only needed on device.
 
 %prep
 %autosetup -v -N
-# Fedora deprecated OpenSSL Engine
-%patch -P 0 -b .orig
 # Debian vs. Fedora grub2 packaging difference
+%patch -P 0 -b .orig
+# rauc:pytest-http fails with Connection refused on 127.0.0.1
 %patch -P 1 -b .orig
-# OpenSSL X509 test fails on F43/Rawhide (work on F42 and earlier)
-%patch -P 2 -b .orig
-# License incorrect-fsf-address
-%patch -P 3 -b .orig
-# License issue in de.pengutronix.rauc.Installer.xml and text for CC0-1.0
-%patch -P 4 -b .orig
 # Debian vs. Fedora grub2 packaging difference
 cd test/bin
 ln -sf grub-editenv grub2-editenv
@@ -113,6 +87,7 @@ ln -sf grub-editenv grub2-editenv
 %meson \
         -Dfuzzing=false \
         -Dhtmldocs=false \
+        -Dmanpages=true \
         -Dservice=false \
         -Dstreaming=false \
         -Dnetwork=false \
@@ -163,9 +138,14 @@ cp -p -r docs/texinfo/%{name}-figures %{buildroot}%{_datadir}/help/en/%{name}
 %doc %lang(en) %{_datadir}/help/en/%{name}
 
 %changelog
+* Sun Feb 1 2026 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.15.1-1
+- Update package from 1.14 to 1.15.1
+- Remove upstreamed patches
+- Rework disabled tests patch
+
 * Mon Jul 21 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-12
-- Update patch 4 with CC0-1.0.txt and include it in rauc %license
-- Add COPYING to rauc-doc %license
+- Update patch 4 with CC0-1.0.txt and include it in rauc license
+- Add COPYING to rauc-doc license
 - Fix license as LGPL-2.1-or-later not LGPL-2.1-only
 
 * Sat Jul 12 2025 Bruno Thomsen <bruno.thomsen@gmail.com> - 1.14-11

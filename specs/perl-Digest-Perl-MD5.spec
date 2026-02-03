@@ -1,6 +1,6 @@
 Name:		perl-Digest-Perl-MD5
-Version:	1.9
-Release:	35%{?dist}
+Version:	1.91
+Release:	1%{?dist}
 Summary:	Perl implementation of Ron Rivest's MD5 Algorithm
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-Perl-MD5
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Digest/Digest-Perl-MD5-%{ve
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(integer)
@@ -32,26 +31,36 @@ A pure-perl implementation of Ron Rivest's MD5 Algorithm.
 %setup -q -n Digest-Perl-MD5-%{version}
 
 # Remove spurious exec permissions
-chmod -c -x lib/Digest/Perl/MD5.pm
+chmod -c -x lib/Digest/Perl/MD5.pm README.md
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
-make test
+MD5_SPEED_TEST=500000 make test
 
 %files
-%doc CHANGES
+%doc CHANGES README.md
 %{perl_vendorlib}/Digest/
 %{_mandir}/man3/Digest::Perl::MD5.3*
 
 %changelog
+* Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 1.91-1
+- Update to 1.91 (rhbz#2435728)
+  Performance and maintenance release:
+  - ~11%% performance improvement on 64-bit systems (reduced masking overhead)
+  - Added GitHub Actions CI workflows
+  - Code reformatted with perltidy
+- Use %%{make_build} and %%{make_install}
+- Run 500,000 iterations rather than the default 50,000 for the speed test
+- Package README.md
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

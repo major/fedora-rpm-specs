@@ -102,6 +102,9 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25662
 Patch5: hp2ps-C-gnu17.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch6: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
 # distutils gone in python 3.12
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
@@ -445,8 +448,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 %patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-%patch -P4 -p1 -b .orig7
-%patch -P5 -p1 -b .orig7
+%patch -P4 -p1 -b .orig4
+%patch -P5 -p1 -b .orig5
+%patch -P6 -p1 -b .orig6
 
 %patch -P8 -p1 -b .orig
 %patch -P9 -p1 -b .orig

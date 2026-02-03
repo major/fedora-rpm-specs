@@ -339,6 +339,7 @@ BuildRequires: gcc-gfortran
 BuildRequires: make
 BuildRequires: libX11-devel
 BuildRequires: python3-devel
+BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-setuptools
 BuildRequires: pcre2-devel
 %if %{with hdf5}

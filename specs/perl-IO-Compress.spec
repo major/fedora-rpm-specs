@@ -13,8 +13,8 @@
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.214
-Release:        2%{?dist}
+Version:        2.217
+Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress
@@ -211,6 +211,9 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 2.217-1
+- 2.217 bump (rhbz#2435525)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.214-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

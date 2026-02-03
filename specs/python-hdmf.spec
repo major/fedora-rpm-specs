@@ -35,7 +35,7 @@ Documentation of HDMF can be found at https://hdmf.readthedocs.io}
 %global schema_version 1.8.0
 
 Name:           python-hdmf
-Version:        4.2.0
+Version:        4.3.1
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 

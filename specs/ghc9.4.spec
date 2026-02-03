@@ -108,6 +108,9 @@ Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089b
 Patch7: ghc-compiler-enable-build-id.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
 Patch8: ghc-configure-c99.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2430571
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 
 # fixes for autoconf-2.70+ with gcc16
 # https://bugzilla.redhat.com/show_bug.cgi?id=2427789
@@ -446,6 +449,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 
 %patch -P10 -p1 -b .orig
 %patch -P11 -p1 -b .orig

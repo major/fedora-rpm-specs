@@ -1,8 +1,8 @@
 %global pypi_name ciso8601
 
 Name:           python-%{pypi_name}
-Version:        2.3.2
-Release:        4%{?dist}
+Version:        2.3.3
+Release:        1%{?dist}
 Summary:        Fast ISO8601 date time parser
 
 License:        MIT
@@ -20,7 +20,6 @@ than other Python libraries.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytz)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 
@@ -32,23 +31,28 @@ than other Python libraries.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
 %pytest -v
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGELOG.md README.rst
-%{python3_sitearch}/%{pypi_name}/
-%{python3_sitearch}/%{pypi_name}.*.so
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.3-1
+- Update to 2.3.3 (rhbz#2389809)
+- Migrate to new python build macros (rhbz#2377513)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
