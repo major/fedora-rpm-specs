@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libetonyek
-Version: 0.1.12
+Version: 0.1.13
 Release: %autorelease
 Summary: A library for import of Apple iWork documents
 
@@ -26,6 +26,7 @@ BuildRequires: pkgconfig(librevenge-stream-0.0)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(zlib)
+BuildRequires: autoconf automake libtool gettext-devel
 
 %description
 %{name} is library for import of Apple iWork documents. It supports
@@ -58,6 +59,7 @@ supported: CSV, HTML, SVG, text, and raw.
 %autosetup -p0
 
 %build
+autoreconf -fiv
 %configure --disable-silent-rules --disable-static --disable-werror --with-mdds=3.0
 sed -i \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \

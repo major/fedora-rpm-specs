@@ -23,7 +23,7 @@ file..}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Read uboot environment via Go
 
 License:        MIT
@@ -67,6 +67,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.4-24
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

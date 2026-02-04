@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -115,6 +115,9 @@ done
 for f in $(find pyscf -name \*.dat); do
     install -D -p -m 644 $f %{buildroot}%{python3_sitearch}/$f
 done
+for f in $(find pyscf -name \*.json); do
+    install -D -p -m 644 $f %{buildroot}%{python3_sitearch}/$f
+done
 # Install compiled libraries
 for f in $(find pyscf -name \*.so); do
     install -D -p -m 755 $f %{buildroot}%{python3_sitearch}/$f
@@ -131,6 +134,9 @@ done
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Mon Feb 02 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.12.0-3
+- Add missing basis set metadata.
+
 * Thu Jan 22 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.12.0-2
 - Filter out dependency on internal library.
 

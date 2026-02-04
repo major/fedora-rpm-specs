@@ -2,12 +2,15 @@
 
 Name:           weston
 Version:        14.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        MIT and CC-BY-SA-3.0
 URL:            http://wayland.freedesktop.org/
 Source0:        https://gitlab.freedesktop.org/wayland/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
+
+# Allow libdisplay-info 0.3.0 as a build dependency
+Patch0:         weston-14.0.2-allow-libdisplay-info-0.3.0.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -213,6 +216,9 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Tue Jan 27 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 14.0.2-4
+- Rebuild for libdisplay-info 0.3.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

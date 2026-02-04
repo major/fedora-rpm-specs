@@ -4,7 +4,7 @@
 %global giturl  https://gitlab.inria.fr/fpottier/menhir
 
 Name:           ocaml-menhir
-Version:        20250912
+Version:        20260122
 Release:        %autorelease
 Summary:        LR(1) parser generator for OCaml
 
@@ -24,8 +24,9 @@ BuildRequires:  ocaml-dune
 BuildRequires:  ImageMagick
 BuildRequires:  hevea
 BuildRequires:  tex(latex)
-BuildRequires:  tex(comment.sty)
 BuildRequires:  tex(moreverb.sty)
+BuildRequires:  tex(ptmr8t.tfm)
+BuildRequires:  tex(stmaryrd.sty)
 %endif
 
 Provides:       bundled(ocaml-fix) = 20230505
@@ -38,9 +39,9 @@ Obsoletes:      coq-menhirlib < 20230608-1
 
 %description
 Menhir is a LR(1) parser generator for the Objective Caml programming
-language.  That is, Menhir compiles LR(1) grammar specifications down to
-OCaml code.  Menhir was designed and implemented by François Pottier and
-Yann Régis-Gianas.
+language.  That is, Menhir compiles LR(1) grammar specifications down to OCaml
+code.  Menhir was designed and implemented by François Pottier and Yann
+Régis-Gianas.
 
 %package     -n ocaml-menhirlib
 Summary:        Runtime library for parsers produced by Menhir
@@ -57,8 +58,8 @@ License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 Requires:       ocaml-menhirlib%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-menhirlib-devel
-This ocaml-menhirlib-devel package contains libraries and signature
-files for building applications with a parser produced by Menhir.
+This ocaml-menhirlib-devel package contains libraries and signature files for
+building applications with a parser produced by Menhir.
 
 %prep
 %autosetup -n menhir-%{version}
@@ -69,10 +70,11 @@ files for building applications with a parser produced by Menhir.
 %if %{with manual}
 cd doc
 rm manual.pdf
-pdflatex manual
+pdflatex -interaction=nonstopmode manual
 bibtex manual
-pdflatex manual
-pdflatex manual
+pdflatex -interaction=nonstopmode manual
+pdflatex -interaction=nonstopmode manual
+pdflatex -interaction=nonstopmode manual
 cd -
 %endif
 
@@ -101,13 +103,13 @@ EOF
 %{_mandir}/man1/menhir.1*
 %{ocamldir}/menhir/
 %{ocamldir}/menhirCST/
+%{ocamldir}/menhirGLR/
 %{ocamldir}/menhirSdk/
 
 %files -n ocaml-menhirlib -f .ofiles-menhirLib
 %license LICENSE
 
 %files -n ocaml-menhirlib-devel -f .ofiles-menhirLib-devel
-%{ocamldir}/menhirLib/menhirLib.ml
 
 %changelog
 %autochangelog

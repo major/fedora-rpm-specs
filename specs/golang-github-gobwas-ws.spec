@@ -14,7 +14,7 @@ Tiny WebSocket library for Go.}
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tiny WebSocket library
 
 License:        MIT
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.4.0-8
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

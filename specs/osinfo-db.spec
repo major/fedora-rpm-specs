@@ -7,11 +7,10 @@
 
 Summary: osinfo database files
 Name: osinfo-db
-Version: 20250124
+Version: 20251212
 Release: %autorelease
 License: GPL-2.0-or-later
-Source0: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz
-Source1: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz.asc
+Source: https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
 URL: http://libosinfo.org/
 BuildRequires: intltool
 BuildRequires: osinfo-db-tools

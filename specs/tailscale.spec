@@ -21,7 +21,7 @@ Version:                1.92.5
 The easiest, most secure way to use WireGuard and 2FA.}
 
 Name:           tailscale
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The easiest, most secure way to use WireGuard and 2FA
 
 # main source code is BSD-3-Clause
@@ -964,6 +964,9 @@ install -dpm 600 %{buildroot}%{_localstatedir}/cache/tailscale
 
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 1.92.5-3
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Mon Jan 19 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.92.5-2
 - Add tailscale-systray.service unit for user desktop systray support
 

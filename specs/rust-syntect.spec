@@ -6,7 +6,7 @@
 %global crate syntect
 
 Name:           rust-syntect
-Version:        5.2.0
+Version:        5.3.0
 Release:        %autorelease
 Summary:        High quality syntax highlighting and code intelligence
 

@@ -11,7 +11,7 @@ Version:        171
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -408,6 +408,9 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 171-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Tue Jan 27 2026 Packit <hello@packit.dev> - 171-1
 Changes with 171
 ----------------

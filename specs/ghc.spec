@@ -34,6 +34,13 @@
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
+# bootstrap needs 9.6+ (& hadrian needs Cabal-3.10)
+# (for ix86 use 9.6 to avoid 9.8 Unique Word64 issues)
+%ifarch %{ix86}
+%global ghcboot_major 9.6
+%endif
+%global ghcboot ghc%{?ghcboot_major}
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105
 # https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
 # debugedit-5.2 adds 1-3 hours to koji build times
@@ -66,7 +73,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 152%{?dist}
+Release: 153%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -95,8 +102,18 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
+# ppc64le (included in debian and 9.16)
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24145
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578
+Patch30: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578.patch
+
 # riscv64
 Patch40: https://src.opensuse.org/pool/ghc/raw/branch/factory/riscv64-ncg.patch
+
+# ppc64le
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435862
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26870
+Patch45: ghc-9.10-rts.cabal-ppc64le.patch
 
 # https://github.com/haskell/directory/pull/184
 Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184.patch
@@ -109,29 +126,29 @@ Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
-BuildRequires: ghc-compiler > 9.6
+BuildRequires: %{ghcboot}-compiler
 # for ABI hash checking
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
 BuildRequires: ghc-rpm-macros-extra
-BuildRequires: ghc-array-devel
-BuildRequires: ghc-binary-devel
-BuildRequires: ghc-bytestring-devel
-BuildRequires: ghc-containers-devel
-BuildRequires: ghc-deepseq-devel
-BuildRequires: ghc-directory-devel
-BuildRequires: ghc-filepath-devel
-BuildRequires: ghc-ghc-boot-th-devel
-BuildRequires: ghc-pretty-devel
-BuildRequires: ghc-process-devel
-BuildRequires: ghc-stm-devel
-BuildRequires: ghc-template-haskell-devel
-BuildRequires: ghc-text-devel
-BuildRequires: ghc-time-devel
-BuildRequires: ghc-transformers-devel
-BuildRequires: ghc-unix-devel
-BuildRequires: ghc-xhtml-devel
+BuildRequires: %{ghcboot}-array-devel
+BuildRequires: %{ghcboot}-binary-devel
+BuildRequires: %{ghcboot}-bytestring-devel
+BuildRequires: %{ghcboot}-containers-devel
+BuildRequires: %{ghcboot}-deepseq-devel
+BuildRequires: %{ghcboot}-directory-devel
+BuildRequires: %{ghcboot}-filepath-devel
+BuildRequires: %{ghcboot}-ghc-boot-th-devel
+BuildRequires: %{ghcboot}-pretty-devel
+BuildRequires: %{ghcboot}-process-devel
+BuildRequires: %{ghcboot}-stm-devel
+BuildRequires: %{ghcboot}-template-haskell-devel
+BuildRequires: %{ghcboot}-text-devel
+BuildRequires: %{ghcboot}-time-devel
+BuildRequires: %{ghcboot}-transformers-devel
+BuildRequires: %{ghcboot}-unix-devel
+BuildRequires: %{ghcboot}-xhtml-devel
 BuildRequires: alex
 BuildRequires: binutils
 BuildRequires: gcc-c++
@@ -420,9 +437,14 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
+%patch -P30 -p1 -b .orig
+
 %ifarch riscv64
 %patch -P40 -p1 -b .orig
 %endif
+
+# ppc
+%patch -P45 -p1 -b .orig45
 
 # https://github.com/haskell/directory/pull/184
 (
@@ -436,6 +458,8 @@ cd libraries/directory
 export CC=%{_bindir}/gcc
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
+
+export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
 # note lld breaks build-id
 # /usr/bin/debugedit: Cannot handle 8-byte build ID
@@ -837,9 +861,14 @@ make test
 
 
 %changelog
+* Mon Feb 02 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-153
+- ppc64le rts: fix asm inclusion (#2435862, thanks Bertram Felgenhauer)
+
 * Sun Feb 01 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-152
 - obsolete ghc9.10
 - reenable building hadrian
+- ppc64le NCG: add an upstream patch for the clrrxi instruction
+- boot again from Rawhide (#2435862)
 
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-151
 - rebuild against self with existing hadrian

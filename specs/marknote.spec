@@ -1,6 +1,6 @@
 Name:          marknote
 Version:       1.4.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A simple markdown note management app for KDE
 URL:           https://apps.kde.org/%{name}/
@@ -40,6 +40,8 @@ Requires:      qt6qml(org.kde.iconthemes)
 Requires:      qt6qml(org.kde.kirigamiaddons.components)
 Requires:      qt6qml(org.kde.kitemmodels)
 Requires:      qt6qml(org.kde.sonnet)
+Requires:      qt6qml(org.kde.desktop)
+Requires:      qt6qml(org.kde.kirigami)
 
 %description
 Marknote lets you create rich text notes and easily organize them
@@ -74,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/qlogging-categories6/marknote.categories
 
 %changelog
+* Mon Feb 02 2026 Steve Cossette <farchord@gmail.com> - 1.4.1-2
+- Added missing runtime deps
+
 * Fri Jan 23 2026 Steve Cossette <farchord@gmail.com> - 1.4.1-1
 - 1.4.1
 

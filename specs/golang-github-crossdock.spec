@@ -15,7 +15,7 @@ A Go client for Crossdock.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.21%{?dist}
+Release:        0.22%{?dist}
 Summary:        Go client for Crossdock
 
 License:        MIT
@@ -58,6 +58,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.22
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

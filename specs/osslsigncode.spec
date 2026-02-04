@@ -14,7 +14,7 @@
 %global tag %{version}
 
 Name:       osslsigncode
-Version:    2.11
+Version:    2.12
 %forgemeta
 Release:    %autorelease
 Summary:    OpenSSL-based Authenticode signing for PE, CAB, CAT, MSI, APPX

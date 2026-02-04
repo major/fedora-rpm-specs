@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -933,6 +933,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Mon Feb 02 2026 Wim Taymans <wtaymans@redhat.com> - 1.5.85-3
+- Rebuild for libcamera.
+
 * Wed Jan 28 2026 Wim Taymans <wtaymans@redhat.com> - 1.5.85-2
 - Rebuild for onnxruntime.
 

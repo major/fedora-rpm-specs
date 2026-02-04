@@ -1,14 +1,14 @@
 %global giturl  https://github.com/mojohaus/l10n-maven-plugin
 
 Name:           l10n-maven-plugin
-Version:        1.1.0
+Version:        1.2.0
 Release:        %{autorelease}
 Summary:        Localization Tools Maven Plugin
 License:        Apache-2.0
 
 URL:            https://www.mojohaus.org/l10n-maven-plugin/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -43,7 +43,7 @@ Provides:       bundled(js-jquery) = 3.7.1
 API documentation for %{name}.
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{name}-%{version}
 
 %build
 %mvn_build

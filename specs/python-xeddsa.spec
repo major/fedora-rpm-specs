@@ -1,12 +1,11 @@
 Name:           python-xeddsa
-Version:        1.1.0
-Release:        8%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Python implementation of the XEdDSA signature scheme
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          relax-setuptools.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -74,6 +73,9 @@ install -pDm0644 docs/texinfo/xeddsa.xml \
 
 
 %changelog
+* Mon Feb 02 2026 Benson Muite <fed500@fedoraproject.org> - 1.2.0-1
+- Update to 1.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.4
-Release: 4%{?dist}
+Release: 4.rc3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -14,6 +14,8 @@ Source2: lockd.conf
 Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
 Source5: 10-nfsv3.conf
+
+Patch001: nfs-utils.2.8.5-rc3.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch102: nfs-utils-1.2.5-idmap-errmsg.patch
@@ -43,7 +45,6 @@ Provides: /usr/sbin/rpc.nfsd
 
 # The main code is GPL-2.0-or-later
 # some code, e.g. utils/gssd/ is BSD-3-Clause
-# some code, e.g. utils/blkmapd/ is BSD-2-Clause
 # utils/gssd/gss_util.c HPND-export-US-modify AND HPND-sell-variant
 # utils/nfsdctl is GPL-2.0-only WITH Linux-syscall-note OR BSD-3-Clause
 License: GPL-2.0-only AND GPL-2.0-or-later AND BSD-3-Clause AND BSD-2-Clause AND (HPND-export-US-modify AND HPND-sell-variant) AND (GPL-2.0-only WITH Linux-syscall-note OR BSD-3-Clause)
@@ -51,7 +52,7 @@ BuildRequires: make
 BuildRequires: libevent-devel libcap-devel libuuid-devel
 BuildRequires: libtirpc-devel >= 1.3.4 libblkid-devel
 BuildRequires: krb5-libs >= 1.4 autoconf >= 2.57 openldap-devel >= 2.2
-BuildRequires: automake, libtool, gcc, device-mapper-devel
+BuildRequires: automake, libtool, gcc
 BuildRequires: krb5-devel, libmount-devel, libxml2-devel
 BuildRequires: sqlite-devel
 BuildRequires: python3-devel
@@ -308,7 +309,6 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv3.conf
 %systemd_preun nfs-client.target nfs-server.service
 %systemd_preun auth-rpcgss-module.service
 %systemd_preun fsidd.service
-%systemd_preun nfs-blkmap.service
 %systemd_preun rpc-gssd.service
 %systemd_preun rpc-statd-notify.service
 %systemd_preun var-lib-nfs-rpc_pipefs.mount
@@ -457,14 +457,11 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %config(noreplace) %{_sysconfdir}/request-key.d/id_resolver.conf
 %attr(0644,root,root) %config(noreplace) %{_datadir}/nfs-utils/nfsmount.conf.d/10-nfsv4.conf
 %config(noreplace) %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
-%{_sbindir}/blkmapd
 %{_sbindir}/mount.nfs4
 %{_sbindir}/nfsidmap
 %{_sbindir}/umount.nfs4
-%{_mandir}/*/blkmapd.8.gz
 %{_mandir}/*/nfs.5.gz
 %{_mandir}/*/nfsidmap.8.gz
-%{_pkgdir}/*/nfs-blkmap.service
 
 %files -n nfs-python-utils
 %{_sbindir}/mountstats
@@ -479,6 +476,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Sat Jan 31 2026 Steve Dickson <steved@redhat.com> 2.8.4-4.rc3
+- Updated to the latest RC release: nfs-utils-2-8-5-rc3
+
 * Sat Jan 31 2026 Steve Dickson <steved@redhat.com> 2.8.4-4
 - Updated the NVR and changelog for SPDX license update
 

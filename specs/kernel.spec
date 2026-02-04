@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc7.260129g8dfce8991b95d.50
+%define pkgrelease 0.rc8.54
 %define kversion 6
-%define tarfile_release 6.19-rc7-32-g8dfce8991b95d
+%define tarfile_release 6.19-rc8
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.260129g8dfce8991b95d.50%{?buildid}%{?dist}
+%define specrelease 0.rc8.54%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4658,12 +4658,22 @@ fi\
 #
 #
 %changelog
-* Thu Jan 29 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.19.0-0.rc7.260129g8dfce8991b95d.50]
-- Linux v6.19.0-0.rc7.260129g8dfce8991b95d
-
-* Thu Jan 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.8dfce8991b95.50]
+* Mon Feb 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.54]
 - x86/vmware: Fix hypercall clobbers (Josh Poimboeuf)
-- rust: Add -fdiagnostics-show-context to bindgen_skip_c_flags (Siddhesh Poyarekar)
+
+* Mon Feb 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.53]
+- [gitlab-ci] tag-cki-gating: refactor to use GIT_STRATEGY=empty (Patrick Talbert)
+- efi: Fix swapped arguments to bsearch() in efi_status_to_*() (Dongdong Tao)
+- Linux v6.19.0-0.rc8
+
+* Sun Feb 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.162b42445b58.52]
+- Linux v6.19.0-0.rc7.162b42445b58
+
+* Sat Jan 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.ad9a728a3388.51]
+- Linux v6.19.0-0.rc7.ad9a728a3388
+
+* Fri Jan 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.4d310797262f.50]
+- Linux v6.19.0-0.rc7.4d310797262f
 
 * Thu Jan 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc7.8dfce8991b95.49]
 - redhat/configs: Ship nft_osf.ko in Fedora, too (Phil Sutter)

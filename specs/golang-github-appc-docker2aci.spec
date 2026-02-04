@@ -18,7 +18,7 @@ dependencies.}
 %global godocs          CHANGELOG.md README.md Documentation
 
 Name:           %{goname}
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library and CLI tool to convert Docker images to ACIs
 
 # Upstream license specification: Apache-2.0
@@ -72,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.17.2-25
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

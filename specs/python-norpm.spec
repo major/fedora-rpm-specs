@@ -1,6 +1,6 @@
 Name:           python-norpm
 Version:        1.8
-Release:        2%?dist
+Release:        3%?dist
 Summary:        RPM Macro Expansion in Python
 
 License:        LGPL-2.1-or-later
@@ -31,6 +31,24 @@ Summary:        %summary
 %prep
 %autosetup -p1 -n norpm-%version
 
+%if 0%{?rhel} == 9
+cat > setup.py <<EOF
+from setuptools import setup
+setup(
+    name='norpm',
+    version='%version',
+    packages=['norpm', 'norpm.cli'],
+    install_requires=['ply'],
+    entry_points={
+        'console_scripts': [
+            'norpm-expand-specfile = norpm.cli.expand_specfile:_main',
+            'norpm-conditions-for-arch-statements = norpm.cli.conditions_for_arch_statements:_main',
+        ],
+    },
+)
+EOF
+%endif
+
 
 %generate_buildrequires
 %pyproject_buildrequires -g test
@@ -57,6 +75,9 @@ Summary:        %summary
 
 
 %changelog
+* Mon Feb 02 2026 Pavel Raiskup <praiskup@redhat.com> - 1.8-3
+- add support for epel9 builds
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

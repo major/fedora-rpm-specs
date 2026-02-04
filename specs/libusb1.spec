@@ -61,8 +61,8 @@ This package contains API documentation for %{name}.
 
 %package        tests-examples
 Summary:        Tests and examples for %{name}
-# The fxload example is GPLv2+, the rest is LGPLv2+, like libusb itself.
-License:        LGPLv2+ and GPLv2+
+# The fxload example is GPL-2.0-or-later, the rest is LGPL-2.1-or-later, like libusb itself.
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       libusbx-tests-examples = %{version}-%{release}
 Obsoletes:      libusbx-tests-examples < %{version}-%{release}

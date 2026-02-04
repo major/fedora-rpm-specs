@@ -18,7 +18,7 @@ See SPEC.md for details of the specification itself.}
                         POLICY.md README.md SPEC.md
 
 Name:           %{goname}
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        App Container Specification and Tooling
 
 # Upstream license specification: Apache-2.0
@@ -71,6 +71,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.8.11-29
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.11-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,12 +6,14 @@
 
 Name:    bluez
 Version: 5.85
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
+# https://patchwork.kernel.org/project/bluetooth/patch/20260129125948.2724071-2-hadess@hadess.net/
+Patch0: 0001-build-Don-t-install-btmgmt-man-page-as-tool-isn-t.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -165,11 +167,6 @@ install -m0755 attrib/gatttool $RPM_BUILD_ROOT%{_bindir}
 # Red Hat Bugzilla bug #1699680
 install -m0755 tools/avinfo $RPM_BUILD_ROOT%{_bindir}
 
-# btmgmt is not installed by "make install", but it is useful for debugging
-# some issues and to set the MAC address on HCIs which don't have their
-# MAC address configured 
-install -m0755 tools/btmgmt $RPM_BUILD_ROOT%{_bindir}
-
 # Remove libtool archive
 find $RPM_BUILD_ROOT -name '*.la' -delete
 
@@ -238,13 +235,11 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_bindir}/bluemoon
 %{_bindir}/bluetoothctl
 %{_bindir}/btattach
-%{_bindir}/btmgmt
 %{_bindir}/btmon
 %{_bindir}/hex2hcd
 %{_bindir}/mpris-proxy
 %{_mandir}/man1/bluetoothctl.1.*
 %{_mandir}/man1/bluetoothctl-*.1.*
-%{_mandir}/man1/btmgmt.1.*
 %{_mandir}/man1/btattach.1.*
 %{_mandir}/man1/btmon.1.*
 %{_mandir}/man8/bluetoothd.8.*
@@ -334,6 +329,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Thu Jan 29 2026 Bastien Nocera <bnocera@redhat.com> - 5.85-4
+- Don't install btmgmt, bluetoothctl's mgmt sub-menu can do the same things
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.85-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

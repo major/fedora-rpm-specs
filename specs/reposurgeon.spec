@@ -3,7 +3,7 @@
 
 Name:           reposurgeon
 Version:        5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD-2-Clause
 URL:            http://www.catb.org/~esr/reposurgeon/
@@ -93,6 +93,9 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 5.3-5
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,7 +4,7 @@ URL:     https://github.com/intel/intel-one-mono
 
 %global fontlicense       OFL-1.1-RFN
 
-%global fontlicenses      license
+%global fontlicenses      OFL.txt
 %global fontdocs          README.md
 %global fontdocsex        %{fontlicenses}
 

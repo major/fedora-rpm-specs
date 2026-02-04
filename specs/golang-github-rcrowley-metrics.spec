@@ -20,7 +20,7 @@ Go port of coda hale's metrics library.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.44%{?dist}
+Release:        0.45%{?dist}
 Summary:        Go port of coda hale's metrics library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -64,6 +64,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.45
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

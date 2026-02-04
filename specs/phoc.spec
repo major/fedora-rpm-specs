@@ -40,6 +40,8 @@ BuildRequires:  dbus-daemon
 BuildRequires:  mutter-common
 BuildRequires:  xorg-x11-server-Xwayland
 
+Requires:       gmobile >= 0.6.0
+
 ExcludeArch:  %{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415699
 ExcludeArch:  s390x

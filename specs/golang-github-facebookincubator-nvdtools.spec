@@ -22,7 +22,7 @@ distributed by National Vulnerability Database (NVD)}
                         vulndb/sqlutil/README.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{common_summary}
 
 # Upstream license specification: Apache-2.0
@@ -97,6 +97,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.1.4-21
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

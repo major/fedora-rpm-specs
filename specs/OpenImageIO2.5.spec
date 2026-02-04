@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -139,6 +139,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Mon Feb 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.5.19.1-8
+- Rebuilt for ptex 2.5.1 (close RHBZ#2435886)
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 2.5.19.1-7
 - Rebuilt for OpenCV 4.13
 

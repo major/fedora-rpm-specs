@@ -2,7 +2,7 @@
 
 Name:		magic
 Version:	8.3.595
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -33,7 +33,11 @@ BuildRequires:	libGLw-devel
 BuildRequires:	libXext-devel
 BuildRequires:	libXi-devel
 BuildRequires:	libXmu-devel
+%if 0%{?fedora} >= 44
+BuildRequires:	pkgconfig(tk) >= 9
+%else
 BuildRequires:	pkgconfig(tk) <= 8.999
+%endif
 BuildRequires:	m4
 BuildRequires:	desktop-file-utils
 %if 0%{?fedora}
@@ -107,10 +111,10 @@ sed -i scripts/configure \
 %build
 cd %{name}-%{version}
 
-%if 0%{?fedora} >= 42
-WISH_EXE=$(ls -1d %{_bindir}/wish8.* | tail -n 1)
+%if 0%{?fedora} >= 44
+WISH_EXE=$(ls -1d %{_bindir}/wish9.* | tail -n 1)
 %else
-WISH_EXE=%{_bindir}/wish
+WISH_EXE=$(ls -1d %{_bindir}/wish8.* | tail -n 1)
 %endif
 %configure \
 	--with-wish=$WISH_EXE \
@@ -188,6 +192,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Mon Feb 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.595-2
+- F-44: use tk9
+
 * Mon Jan 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.595-1
 - 8.3.595
 

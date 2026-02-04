@@ -1,13 +1,11 @@
 Name:           python-doubleratchet
-Version:        1.2.0
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        Python implementation of the Double Ratchet algorithm
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Do not include examples or documentation in package
-Patch:          %{url}/commit/0c92ecd39d2ad262c96e2d07660f1d0f6226eabd.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -71,9 +69,7 @@ install -pDm0644 docs/texinfo/doubleratchet.xml \
 
 %check
 %pyproject_check_import
-# Skip failing test
-# https://github.com/Syndace/python-doubleratchet/issues/7
-%pytest tests -k "not test_kdf_chain"
+%pytest tests 
 
 
 
@@ -85,6 +81,9 @@ install -pDm0644 docs/texinfo/doubleratchet.xml \
 
 
 %changelog
+* Mon Feb 02 2026 Benson Muite <fed500@fedoraproject.org> - 1.3.0-1
+- Update to 1.3.0
+
 * Mon Jan 26 2026 Benson Muite <fed500@fedoraproject.org> - 1.2.0-1
 - Update to 1.2.0
 

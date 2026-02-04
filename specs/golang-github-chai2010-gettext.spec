@@ -14,7 +14,7 @@ Package Gettext implements a basic GNU's gettext library.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        GNU gettext for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.0.2-21
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

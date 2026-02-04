@@ -2,7 +2,7 @@
 %global         autohell autoconf automake
 Name:           sigrok-firmware-fx2lafw
 Version:        0.1.7.git%{gitrev}
-Release:        1
+Release:        1%{?dist}
 Summary:        Firmware for logic analyzers based on the Cypress EZ-USB FX2(LP) chip
 # Combined and LGPLv2+ and GPLv2+
 License:        GPL-2.0-or-later

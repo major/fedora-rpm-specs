@@ -24,7 +24,7 @@
 
 Name:           manifest-tool
 Version:        2.0.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 #Release:        5.git{shortcommit}{?dist}
 Summary:        A command line tool used for creating manifest list objects
 License:        Apache-2.0
@@ -102,6 +102,9 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/%{name}
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 2.0.8-12
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

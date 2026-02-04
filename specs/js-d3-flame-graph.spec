@@ -21,7 +21,7 @@ Source3:        list_bundled_nodejs_packages.py
 Patch1:         001-remove-unused-frontend-crypto-and-patch-md4.patch
 
 BuildRequires:  web-assets-devel
-BuildRequires:  nodejs
+BuildRequires:  nodejs, /usr/bin/node
 
 %if 0%{?fedora}
 Requires:       web-assets-filesystem

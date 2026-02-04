@@ -2,8 +2,7 @@ Name:           glew
 Version:        2.2.0
 Release:        12%{?dist}
 Summary:        The OpenGL Extension Wrangler Library
-# Automatically converted from old format: BSD and MIT - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
+License:        BSD-3-Clause AND MIT AND MIT-Khronos-old
 URL:            https://github.com/nigels-com/glew
 
 Source0:        https://github.com/nigels-com/glew/releases/download/glew-%{version}/glew-%{version}.tgz

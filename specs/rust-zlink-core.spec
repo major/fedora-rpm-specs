@@ -5,7 +5,7 @@
 %global crate zlink-core
 
 Name:           rust-zlink-core
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Core crate of the zlink project
 
@@ -35,6 +35,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

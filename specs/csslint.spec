@@ -19,7 +19,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
 
 Requires:       /usr/bin/node
-BuildRequires:  nodejs-devel
+BuildRequires:  nodejs-devel, /usr/bin/node
 
 
 %description

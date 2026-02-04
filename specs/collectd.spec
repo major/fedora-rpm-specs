@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 61%{?dist}
+Release: 62%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -29,8 +29,11 @@ Patch2: %{name}-remove-des-support-from-snmp-plugin.patch
 Patch3: %{name}-py311-dont-include-longintrepr.patch
 Patch4: collectd-c99.patch
 Patch5: collectd-c99-2.patch
+%if 0%{?fedora}
 Patch6: collectd-5.12.0-automake-1.18.patch
+%endif
 
+BuildRequires: automake
 BuildRequires: perl-devel
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
@@ -198,13 +201,14 @@ BuildRequires: OpenIPMI-devel
 %description ipmi
 This plugin for collectd provides IPMI support.
 
-
+%if 0%{?fedora}
 %package iptables
 Summary:       Iptables plugin for collectd
 Requires:      collectd = %{version}-%{release}
 BuildRequires: iptables-devel
 %description iptables
 This plugin collects data from iptables counters.
+%endif
 
 
 %package ipvs
@@ -662,6 +666,11 @@ touch src/pinba.proto
 %ifnarch x86_64
     --disable-xencpu \
 %endif
+%if 0%{?rhel}
+    --disable-onewire \
+    --disable-xencpu \
+    --disable-iptables \
+%endif
     --disable-xmms \
     --disable-zone \
 %ifarch %{java_arches}
@@ -983,8 +992,10 @@ make check
 %config(noreplace) %{_sysconfdir}/collectd.d/ipmi.conf
 
 
+%if 0%{?fedora}
 %files iptables
 %{_libdir}/collectd/iptables.so
+%endif
 
 
 %files ipvs
@@ -1198,6 +1209,9 @@ make check
 
 
 %changelog
+* Mon Feb 02 2026 Jonathan Wright <jonathan@almalinux.org> - 5.12.0-62
+- More (final) spec file updates for EPEL10
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 5.12.0-61
 - Rebuilt for net-snmp 5.9.5.2
 

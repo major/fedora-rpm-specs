@@ -5,7 +5,7 @@
 %global crate zlink-macros
 
 Name:           rust-zlink-macros
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Macros providing the high-level zlink API
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -109,11 +110,9 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * Do not run doc tests, as they would require zlink (circular dependency).
+# * Do not run doc or proxy tests, as they would require zlink (circular
+#   dependency).
 %cargo_test -- --lib
-# MANUALLY ADDED
-# The proxy tests require zlink which would introduce a circular dependency. We
-# skip them this way.
 %cargo_test -- --test doc_comments
 %cargo_test -- --test enum_errors
 %cargo_test -- --test introspect-custom-type
@@ -124,7 +123,6 @@ use the "std" feature of the "%{crate}" crate.
 %cargo_test -- --test reply-error-empty
 %cargo_test -- --test reply-error-simple
 %cargo_test -- --test tuple_variant_errors
-# /MANUALLY ADDED
 %endif
 
 %changelog

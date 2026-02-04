@@ -20,6 +20,8 @@ Summary:    Library for working with RPM manifests
 License:    LGPL-2.1-or-later
 URL:        %{forgeurl}
 Source:     %{forgesource}
+# Fix building with GCC 16, bug #2434767, proposed upstream
+Patch1:     0001-build-Turn-compiler-warnings-into-errors-only-for-ou.patch
 
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  cmake >= 3.13

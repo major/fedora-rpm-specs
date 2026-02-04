@@ -17,7 +17,7 @@ Package for building REST-style Web Services using Go.}
 %global godocs          examples CHANGES.md README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Package for building REST-style Web Services using Go
 
 License:        MIT
@@ -46,6 +46,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 3.8.0-11
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -208,10 +208,12 @@ rm -f %{buildroot}/%{_bindir}/change_namespace
 
 %files
 %license LICENSE
-%{_libdir}/libConfigurationAdmind.so.*
-%{_libdir}/libCppMicroServicesd.so.*
-%{_libdir}/libDeclarativeServicesd.so.*
-%{_libdir}/libLogServiced.so.*
+# These three change ABI on pretty much every release. Use
+# full SONAME version to remind of need to rebuild deps
+%{_libdir}/libConfigurationAdmind.so.1.3.13
+%{_libdir}/libCppMicroServicesd.so.3.8.9
+%{_libdir}/libDeclarativeServicesd.so.1.5.16
+%{_libdir}/libLogServiced.so.1.0.0
 # NB: not a versioned library :-(
 %{_libdir}/libusAsyncWorkServiced.so
 # NB: not a versioned library :-(

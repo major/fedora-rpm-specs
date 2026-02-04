@@ -1,7 +1,7 @@
 Summary:       Epplets for Enlightenment, DR16
 Name:          e16-epplets
-Version:       0.17
-Release:       8%{?dist}
+Version:       0.18
+Release:       1%{?dist}
 # Automatically converted from old format: MIT with advertising and GPL+ and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-MIT-with-advertising AND GPL-1.0-or-later AND GPL-2.0-or-later
 URL:           http://www.enlightenment.org/
@@ -32,10 +32,10 @@ developing epplets for Enlightenment, DR16
 %build
 %{__sed} -i -e 's/-rpath $(libdir)//' epplets/Makefile.in
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 rm -f %{buildroot}%{_libdir}/libepplet{,_glx}.{a,la}
 
 %ldconfig_scriptlets
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libepplet{,_glx}.{a,la}
 %{_libdir}/libepplet_glx.so
 
 %changelog
+* Mon Feb 02 2026 Terje Røsten <terjeros@gmail.com> - 0.18-1
+- 0.18
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

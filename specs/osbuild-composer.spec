@@ -25,7 +25,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -662,6 +662,9 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 160-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Wed Jan 21 2026 Packit <hello@packit.dev> - 160-1
 Changes with 160
 ----------------

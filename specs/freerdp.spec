@@ -29,7 +29,7 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.21.0
+Version:        3.22.0
 Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
@@ -373,6 +373,13 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Mon Feb 02 2026 Ondrej Holy <oholy@redhat.com> - 2:3.22.0-1
+- Update to 3.22.0 (CVE-2026-23948, CVE-2026-24682, CVE-2026-24683,
+  CVE-2026-24676, CVE-2026-24677, CVE-2026-24678, CVE-2026-24684,
+  CVE-2026-24679, CVE-2026-24681, CVE-2026-24675, CVE-2026-24491,
+  CVE-2026-24680)
+  Resolves: rhbz#2433803
+
 * Tue Jan 20 2026 Ondrej Holy <oholy@redhat.com> - 2:3.21.0-1
 - Update to 3.21.0 (CVE-2026-23530, CVE-2026-23531, CVE-2026-23532,
   CVE-2026-23533, CVE-2026-23534, CVE-2026-23732, CVE-2026-23883,

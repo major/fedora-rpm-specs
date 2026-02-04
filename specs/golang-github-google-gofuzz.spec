@@ -15,7 +15,7 @@ Gofuzz is a library for populating Go objects with random values.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Fuzz testing for Go
 
 License:        Apache-2.0
@@ -47,6 +47,9 @@ Patch0:         0001-Fix-int-overflow.patch
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.2.0-15
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

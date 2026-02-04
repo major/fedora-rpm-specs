@@ -1,19 +1,21 @@
 %{?mingw_package_header}
 
 Name: mingw-libgovirt
-Version: 0.3.8
-Release: 13%{?dist}
+Version: 0.3.9
+Release: 1%{?dist}
 Summary: MinGW support for a GObject library for interacting with oVirt REST API
 
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/libgovirt
 Source: http://download.gnome.org/sources/libgovirt/0.3/libgovirt-%{version}.tar.xz
+Patch: 0001-build-sys-add-introspection-option.patch
 
 BuildArch: noarch
 
 Requires: pkgconfig
 Requires: glib2-devel
-BuildRequires: make
+BuildRequires: meson
+BuildRequires: ninja-build
 BuildRequires: glib2-devel
 BuildRequires: intltool
 BuildRequires: mingw32-gcc
@@ -63,18 +65,15 @@ parameters needed to make a SPICE/VNC connection to them.
 %{?mingw_debug_package}
 
 %prep
-%setup -q -n libgovirt-%{version}
+%autosetup -p1 -n libgovirt-%{version}
 
 %build
-%mingw_configure                            \
-    --disable-gtk-doc                       \
-    --with-introspection=no                 \
-    --enable-static
+%mingw_meson --default-library=both -Dintrospection=disabled
 
-%mingw_make %{?_smp_mflags} V=1
+%mingw_ninja
 
 %install
-%mingw_make_install "DESTDIR=$RPM_BUILD_ROOT" "INSTALL=install -p"
+%mingw_ninja_install
 
 %mingw_find_lang libgovirt --all-name
 
@@ -106,6 +105,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/libgovirt.a
 
 %changelog
+* Mon Feb 02 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.3.9-1
+- new version, fix FTBFS rhbz#2435888
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

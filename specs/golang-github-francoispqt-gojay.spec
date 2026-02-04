@@ -23,7 +23,7 @@ Unsafe API.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Fastest JSON encoder/decoder with powerful stream API for Golang
 
 License:        MIT
@@ -78,6 +78,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.2.13-23
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

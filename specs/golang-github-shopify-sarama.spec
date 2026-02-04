@@ -14,7 +14,7 @@ Sarama is an MIT-licensed Go client library for Apache Kafka version 0.8 (and la
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Go library for Apache Kafka 0.8, and up
 
 License:        MIT
@@ -89,6 +89,9 @@ rm -rf kerberos_client_test.go
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.27.2-20
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

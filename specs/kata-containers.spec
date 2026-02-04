@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}
+Release:    1%{?rcrel}%{?dist}.1
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -390,6 +390,9 @@ fi
 
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 3.25.0-1.1
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Tue Jan 20 2026 Christophe de Dinechin <dinechin@redhat.com> - 3.25.0-1
 - kata-containers 3.25.0
 

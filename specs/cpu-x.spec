@@ -8,7 +8,7 @@ Version:        5.4.0
 Release:        %autorelease
 Summary:        Free software that gathers information on CPU, motherboard and more
 
-ExclusiveArch:  i686 x86_64 aarch64
+ExclusiveArch:  x86_64 aarch64
 
 License:        GPL-3.0-or-later
 URL:            https://thetumultuousunicornofdarkness.github.io/CPU-X/

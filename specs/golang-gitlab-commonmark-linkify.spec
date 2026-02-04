@@ -18,7 +18,7 @@ Package linkify provides a way to find what looks like links in plain text.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.23%{?dist}
+Release:        0.24%{?dist}
 Summary:        Find what looks like links in plain text
 
 # Upstream license specification: BSD-2-Clause
@@ -60,6 +60,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0-0.24
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

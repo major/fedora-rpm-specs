@@ -9,8 +9,8 @@
 %global db_ver %(sed '/DB_VERSION_STRING/!d;s/.*Berkeley DB[[:space:]]*\\([^:]*\\):.*/\\1/' /usr/include/db.h 2>/dev/null || echo 4.0.0)
 
 Name:           perl-BerkeleyDB
-Version:        0.66
-Release:        5%{?dist}
+Version:        0.67
+Release:        1%{?dist}
 Summary:        Interface to Berkeley DB
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BerkeleyDB
@@ -62,6 +62,11 @@ Requires:       perl(XSLoader)
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(util\\)
+
+
 %description
 BerkeleyDB is a module that allows Perl programs to make use of the
 facilities provided by Berkeley DB version 2 or greater (note: if
@@ -73,10 +78,25 @@ number of database formats. BerkeleyDB provides an interface to all
 four of the database types (hash, btree, queue and recno) currently
 supported by Berkeley DB.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n BerkeleyDB-%{version}
 
 chmod -c -x Changes README
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -91,7 +111,30 @@ install -D -m755 dbinfo %{buildroot}%{_bindir}/dbinfo
 # Remove files we don't want packaged
 rm %{buildroot}%{perl_vendorarch}/{mkconsts,scan}.pl
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove release tests
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/meta*
+# Do not change dir when blib does not exist
+perl -i -pe "s{(chdir 't' if -d 't';)}{# \$1}" %{buildroot}%{_libexecdir}/%{name}/t/examples*.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -103,7 +146,14 @@ make test
 %{perl_vendorarch}/auto/BerkeleyDB/
 %{_mandir}/man3/BerkeleyDB.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Feb 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.67-1
+- 0.67 bump (rhbz#2435820)
+- Package tests
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

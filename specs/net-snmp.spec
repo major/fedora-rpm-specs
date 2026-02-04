@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.5.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -122,6 +122,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-agent-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: elfutils-devel, rpm-devel, elfutils-libelf-devel, openssl-devel
 Requires: redhat-rpm-config
+Requires: libnl3-devel
 Requires: lm_sensors-devel
 # pull perl development libraries, net-snmp agent libraries may link to them
 Requires: perl-devel%{?_isa}
@@ -505,6 +506,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Thu Jan 29 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.9.5.2-4
+- Add net-snmp-devel dependency on libnl3-devel
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

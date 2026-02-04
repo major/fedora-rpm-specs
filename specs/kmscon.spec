@@ -1,6 +1,6 @@
 Name:           kmscon
-Version:        9.3.0
-Release:        2%{?dist}
+Version:        9.3.1
+Release:        1%{?dist}
 Summary:        Linux KMS/DRM based virtual Console Emulator
 License:        MIT
 URL:            https://github.com/kmscon/kmscon/
@@ -25,15 +25,6 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 
-Patch2: 0001-Fix-build-on-i686.patch
-
-# Needed to enable kmscon by default with systemd
-Patch10: https://github.com/kmscon/kmscon/pull/246.patch
-Patch11: https://github.com/kmscon/kmscon/pull/245.patch
-
-# Fix locale on minimal Fedora install
-Patch12: https://github.com/kmscon/kmscon/pull/252.patch
-
 # Fix agetty launch option
 Patch20: 0001-kmsconvt-fix-agetty-launch-option.patch
 
@@ -42,14 +33,22 @@ Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
 It is an attempt to replace the in-kernel VT implementation with a userspace
 console.
 
+%package pango
+Summary: This adds pango support to kmscon
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description pango
+This package provide the pango plugin to kmscon
+mod-pango.so
+
 %package gl
 Summary: This adds opengl support to kmscon
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description gl
 This package provides 2 plugins for kmscon:
-mod-drm3d
-mod-gltex
+mod-drm3d.so
+mod-gltex.so
 
 %prep
 %autosetup -p1
@@ -83,7 +82,6 @@ mod-gltex
 %{_bindir}/%{name}
 %{_bindir}/kmscon-launch-gui
 %{_libdir}/kmscon/mod-unifont.so
-%{_libdir}/kmscon/mod-pango.so
 %dir %{_libexecdir}/kmscon
 %{_libexecdir}/kmscon/kmscon
 %{_mandir}/man1/kmscon.1*
@@ -92,11 +90,18 @@ mod-gltex
 %{_unitdir}/kmsconvt@.service
 %config /etc/kmscon/kmscon.conf.example
 
+%files pango
+%{_libdir}/kmscon/mod-pango.so
+
 %files gl
 %{_libdir}/kmscon/mod-drm3d.so
 %{_libdir}/kmscon/mod-gltex.so
 
 %changelog
+* Mon Feb 2 2026 Jocelyn Falempe <jfalempe@redhat.com> - 9.3.1-1
+- Bump version to 9.3.1
+  * split kmscon-pango to its own package, to have less dependency
+
 * Tue Jan 27 2026 Jocelyn Falempe <jfalempe@redhat.com> - 9.3.0-2
 - Add systemd install unit, so it can be enabled by default.
 

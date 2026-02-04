@@ -1,16 +1,16 @@
-%global libsepolver 3.9-1
+%global libsepolver 3.10-1
 
 Name:           secilc
-Version:        3.9
-Release:        3%{?dist}
+Version:        3.10
+Release:        1%{?dist}
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
 URL:            https://github.com/SELinuxProject/selinux/wiki
 Source0:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/secilc-%{version}.tar.gz
 Source1:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/secilc-%{version}.tar.gz.asc
-Source2:        https://github.com/bachradsusi.gpg
-# fedora-selinux/selinux: git format-patch -N 3.9 -- secilc
+Source2:        https://github.com/perfinion.gpg
+# fedora-selinux/selinux: git format-patch -N 3.10 -- secilc
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -70,7 +70,4 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

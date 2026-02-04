@@ -1,6 +1,6 @@
 Name:           perl-App-Cme
-Version:        1.043
-Release:        3%{?dist}
+Version:        1.044
+Release:        1%{?dist}
 Summary:        Check or edit configuration data with Config::Model
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/App-Cme
@@ -46,6 +46,7 @@ BuildRequires:  perl(YAML::PP)
 # Tests
 BuildRequires:  perl(App::Cmd::Tester)
 BuildRequires:  perl(Config::Model::Backend::Yaml)
+BuildRequires:  perl(Config::Model::Tester::Setup)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(English)
 BuildRequires:  perl(File::Spec)
@@ -138,6 +139,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.044-1
+- 1.044 bump (rhbz#2435532)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.043-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -186,15 +186,11 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %files gtk
 %{_libdir}/libzbargtk.so.*
 %{_bindir}/zbarcam-gtk
-%dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/ZBar-1.0.typelib
 
 %files gtk-devel
 %{_libdir}/libzbargtk.so
 %{_libdir}/pkgconfig/zbar-gtk.pc
 %{_includedir}/zbar/zbargtk.h
-%dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/ZBar-1.0.gir
 
 %files qt
 %{_libdir}/libzbarqt.so.*

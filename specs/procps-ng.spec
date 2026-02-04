@@ -3,14 +3,12 @@
 
 Summary: System and process monitoring utilities
 Name: procps-ng
-Version: 4.0.4
-Release: 10%{?dist}
+Version: 4.0.6
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://sourceforge.net/projects/procps-ng/
 
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
-
-Patch1: free-overcommit-note.patch
 
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -122,8 +120,8 @@ make check
 %make_install
 
 # these are created by make, yet empty. This causes rpmbuild errors.
-rm -rf %{buildroot}%{_mandir}/pl/man5
-rm -rf %{buildroot}%{_mandir}/{fr,de,pt_BR}/man3
+rm -rf %{buildroot}%{_mandir}/{pl,fr,pt_BR}/man5
+rm -rf %{buildroot}%{_mandir}/{fr,de,pt_BR,pl,zh_CN}/man3
 # kill is delivered with util-linux pkg along with i18n manpage
 rm -rf %{buildroot}%{_mandir}/{fr,de,pt_BR,ro,sv,uk}/man1/kill.1
 
@@ -139,7 +137,7 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files
 %doc AUTHORS bugs.md FAQ NEWS README.md
 %license COPYING COPYING.LIB
-%{_libdir}/libproc2.so.*
+%{_libdir}/libproc2.so.1{,.*}
 %{_bindir}/*
 %if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/pidof
@@ -161,6 +159,9 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Fri Jan 30 2026 Jan Rybar <jrybar@redhat.com> - 4.0.6-1
+- Rebase to procps-ng-4.0.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

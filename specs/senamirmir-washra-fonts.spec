@@ -2,7 +2,7 @@
 %global archivename washra_fonts4-1
 
 Version: 4.1
-Release: 40%{?dist}
+Release: 41%{?dist}
 URL:     http://www.senamirmir.org/projects/typography/typeface.html
 
 %global foundry           Senamirmir
@@ -112,7 +112,7 @@ design that served as inspiration for this work.}
 %global fontpkgheader8    %{expand:
 Obsoletes: senamirmir-washra-yigezu-bisrat-gothic-fonts < %{version}-%{release}
 }
-%global fonts8            yigezubisratGothic.ttf
+%global fonts8            yigezubisratgothic.ttf
 %global fontconfngs8      %{SOURCE18}
 %global fontdescription8  %{expand:
 %{common_description}
@@ -178,6 +178,9 @@ This package provides optional documentation files shipped with
 %doc *.doc *.pdf
 
 %changelog
+* Mon Feb 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 4.1-41
+- Correct the font file name to yigezubisratgothic.ttf
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

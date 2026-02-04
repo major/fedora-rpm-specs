@@ -16,6 +16,9 @@ Patch:          0001-Use-float-instead-of-np.float.patch
 Patch:          0002-setup-fix-git-invocation-for-exlinks-add-override.patch
 Patch:          0001-Fix-use-of-unknown-escape-seqeuences.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 

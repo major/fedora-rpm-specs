@@ -5,7 +5,7 @@
 %bcond tests %[%{undefined rhel}]
 
 Name:           python-%{modname}
-Version:        4.67.1
+Version:        4.67.2
 Release:        %autorelease
 Summary:        Fast, Extensible Progress Meter
 
@@ -16,10 +16,6 @@ URL:            https://github.com/tqdm/tqdm
 Source0:        %{pypi_source}
 
 # Patches
-
-# Submitted upstream at
-# https://github.com/tqdm/tqdm/pull/1700
-Patch: 0001-Adapt-filterwarnings-for-Python-3.14.patch
 
 BuildArch:      noarch
 

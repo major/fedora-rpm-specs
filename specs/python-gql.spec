@@ -54,6 +54,7 @@ sed -i -E '/tests_requires\s*=\s*\[/,/]/ {
   s/"pytest==[^"]*"/"pytest"/
   s/"pytest-asyncio==[^"]*"/"pytest-asyncio"/
   s/"pytest-cov==[^"]*"/"pytest-cov"/
+  s/"vcrpy==[^"]*"/"vcrpy"/
 }' setup.py
 
 %generate_buildrequires

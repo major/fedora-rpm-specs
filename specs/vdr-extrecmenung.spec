@@ -14,13 +14,13 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        2.0.14
-Release:        7%{?dist}
+Version:        2.1.15
+Release:        1%{?dist}
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/kamel5/extrecmenung
-Source0:        https://gitlab.com/kamel5/extrecmenung/-/archive/v%{version}/extrecmenung-v%{version}.tar.gz
+Source0:        %{url}/-/archive/v%{version}/%{pname}-v%{version}.tar.bz2
 Source1:        %{name}.conf
 
 BuildRequires:  make
@@ -57,6 +57,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Mon Feb 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.1.15-1
+- Update 2.1.15
+
 * Mon Jan 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.14-7
 - Rebuilt for new VDR API version 2.7.8
 

@@ -17,7 +17,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -265,6 +265,9 @@ cd $PWD/_build/src/%{goipath}
 %ghost %dir /var/cache/image-builder
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 47-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Packit <hello@packit.dev> - 47-1
 Changes with 47
 ----------------

@@ -16,7 +16,7 @@ This repository holds utilities and libraries for debugging Go programs.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.28%{?dist}
+Release:        0.29%{?dist}
 Summary:        Go debugging tools
 
 # Upstream license specification: BSD-3-Clause
@@ -60,6 +60,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0-0.29
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

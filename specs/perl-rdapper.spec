@@ -1,5 +1,8 @@
+# Disable tests which depend on the Internet
+%bcond_with perl_rdapper_enables_online_test
+
 Name:           perl-rdapper
-Version:        1.22
+Version:        1.23
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,6 +11,8 @@ URL:            https://metacpan.org/dist/App-rdapper
 # from <https://github.com/jodrell/rdapper>, announced by the author
 # at <https://www.ietf.org/mail-archive/web/weirds/current/msg01981.html>.
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBROWN/App-rdapper-%{version}.tar.gz
+# Skip on-line tests if no Internet is available, in upstream after 1.23
+Patch0:         App-rdapper-1.23-use-LWP-Online-for-tests.patch
 BuildArch:      noarch
 BuildRequires:  bash
 BuildRequires:  coreutils
@@ -48,6 +53,9 @@ BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(common::sense)
 BuildRequires:  perl(File::Spec)
+%if %{with perl_rdapper_enables_online_test}
+BuildRequires:  perl(LWP::Online)
+%endif
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 Requires:       perl(List::Util) >= 1.33
@@ -76,6 +84,11 @@ with "%{_libexecdir}/%{name}/test".
 %autosetup -p1 -n App-rdapper-%{version}
 # Remove pregenerated files
 rm locale/*/LC_MESSAGES/*.mo
+# Remove disabled tests
+%if %{without perl_rdapper_enables_online_test}
+rm t/02.test.t
+perl -i -ne 'print $_ unless m{\A\Qt/02.test.t\E}' MANIFEST
+%endif
 
 %build
 ./mkmo.sh
@@ -123,6 +136,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 02 2026 Petr Pisar <ppisar@redhat.com> - 1.23-1
+- 1.23 bump
+
 * Thu Jan 29 2026 Petr Pisar <ppisar@redhat.com> - 1.22-1
 - 1.22 bump
 

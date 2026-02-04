@@ -31,6 +31,7 @@ BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
 BuildRequires: osinfo-db
 BuildRequires: git
+Requires: gobject-introspection
 Requires: hwdata
 Requires: osinfo-db
 Requires: osinfo-db-tools

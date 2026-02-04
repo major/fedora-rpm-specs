@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.3.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # From 'go_vendor_license report' output.
@@ -392,6 +392,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 4.3.7-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 David Trudgian <dtrudg@sylabs.io> - 4.3.7-1
 - Upgrade to 4.3.7 upstream version.
 

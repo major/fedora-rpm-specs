@@ -227,7 +227,7 @@ export CFLAGS="$CFLAGS -ffloat-store -fexcess-precision=standard"
 export CFLAGS="$CFLAGS -std=gnu17"
 %endif
 
-%if 0%{?fedora} > 42
+%if 0%{?fedora} > 42 || 0%{?rhel} > 10
 export CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
 %endif
 

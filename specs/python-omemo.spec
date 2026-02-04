@@ -1,14 +1,11 @@
 Name:           python-omemo
-Version:        2.0.0
-Release:        3%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Python implementation of the OMEMO Encryption protocol
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
 Source:         https://github.com/Syndace/%{name}/archive/v%{version}/python-omemo-%{version}.tar.gz
-# Do not package examples and docs in python directories
-# https://github.com/Syndace/python-omemo/pull/38
-Patch:          do-not-put-examples-docs-in-python-path.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -44,7 +41,10 @@ are offline.
 %autosetup -n %{name}-%{version}
 
 %generate_buildrequires
+# cli package needs newer version of python-prettytable
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435941
 %pyproject_buildrequires
+#-x omemo,cli
 
 %build
 %pyproject_wheel
@@ -56,7 +56,9 @@ are offline.
 
 
 %check
-%pyproject_check_import
+# Checking import of all submodules requires newer version of prettytable
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435941
+%pyproject_check_import -t
 # tests requires python-oldmemo-backend-signal, that introduce cyclic
 # dependancy: Disabling.
 
@@ -66,6 +68,9 @@ are offline.
 
 
 %changelog
+* Mon Feb 02 2026 Benson Muite <fed500@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

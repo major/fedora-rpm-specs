@@ -1,5 +1,5 @@
 Name:		vile
-Version:	9.8za
+Version:	9.8zb
 Release:	8%{?dist}
 Summary:	VI Like Emacs
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -8,7 +8,7 @@ URL:		https://invisible-island.net/vile/
 Source0:	https://invisible-island.net/archives/vile/current/%{name}-%{version}.tgz
 BuildRequires:	make
 BuildRequires:	ncurses-devel
-BuildRequires:  libxcrypt-devel
+BuildRequires:	libxcrypt-devel
 BuildRequires:	flex
 BuildRequires:	gcc
 BuildRequires:	desktop-file-utils
@@ -71,6 +71,9 @@ DESKTOP_FLAGS=--vendor='' \
 make %{?_smp_mflags} xvile
 touch vile
 
+%check
+make check
+
 %install
 make install DESTDIR=%{buildroot} INSTALL='install -p' TARGET='xvile'
 make install DESTDIR=%{buildroot} INSTALL='install -p' TARGET='vile'
@@ -116,6 +119,9 @@ popd
 
 
 %changelog
+* Mon Feb 02 2026 Thomas E. Dickey <dickey@invisible-island.net> - 9.8zb-1
+- Update to 9.8zb (RHBZ#2435863)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.8za-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

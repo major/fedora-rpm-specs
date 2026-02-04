@@ -10,7 +10,7 @@ An open source, self-hosted implementation of the Tailscale control server.}
 
 Name:           headscale
 Version:        0.26.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Self-hosted implementation of the Tailscale control server
 
 License:        BSD-2-Clause AND MIT AND Apache-2.0 AND MPL-2.0 AND BSD-2-Clause-Views AND ISC AND BSD-3-Clause AND ISC
@@ -500,6 +500,9 @@ install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/headscale/config.yam
 
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0.26.1-8
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

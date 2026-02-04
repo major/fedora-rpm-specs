@@ -1,6 +1,6 @@
-%global pkgver 2.2.19
+%global pkgver 2.4.0
 #global prerel rc1
-%global baserelease 3
+%global baserelease 1
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -157,6 +157,35 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Mon Feb  2 2026 Paul Howarth <paul@city-fan.org> - 2.4.0-1
+- Update to 2.4.0 (rhbz#2435810)
+  - Bluefish 2.4.0 has some new features and many small improvements; it is no
+    longer  a 2.2 release because backwards compatibility with the 2.0 series
+    of Bluefish has been removed
+  - If you upgrade from 2.0 straight to 2.4, your config files and project
+    files are no longer 100%% correctly loaded
+  - Starting from 2.4, Bluefish will place config files no longer in ~/.bluefish
+    - On Linux it will be ~/.config and ~/.local/
+    - On Windows it will be LocalAppData and RoamingAppData
+    - On OSX it will be ~/Library/Application Support
+  - The biggest new feature, still experimental, is that you can edit two
+    documents side-by-side
+  - You can change opening and ending tags in XML or HTML simultaneously if you
+    hit [ctrl][t]
+  - You can more easily save the current contents to a template
+  - For new users, and also active in new projects, is a UI selection dialog,
+    where you can choose between a UI optimised for web development,
+    programming or just have everything enabled or disabled; this will help
+    new Bluefish users to customize Bluefish in an easier way
+  - There are a few fixes as well:
+    - Selecting lines by dragging in the margin works more reliably
+    - Paste special works more reliably
+    - Line comments in Python are better detected, which is visible in the
+      syntax highlighting
+    - The toggle comment function is improved
+    - The Windows build has better error messages when starting external
+      commands fails
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

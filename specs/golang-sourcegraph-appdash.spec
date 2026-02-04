@@ -27,7 +27,7 @@ for HTTP (client and server) and SQL are provided, and you can write your own.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.22%{?dist}
+Release:        0.23%{?dist}
 Summary:        Application tracing system for Go, based on Google's Dapper
 
 License:        MIT
@@ -76,6 +76,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 0-0.23
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

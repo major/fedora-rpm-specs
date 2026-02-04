@@ -14,7 +14,7 @@ Isochronous Round-Trip Tester.}
 %global godocs          CHANGES.md README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Isochronous Round-Trip Tester
 
 # Upstream license specification: GPL-2.0-only
@@ -65,6 +65,9 @@ install -m 0644 -vp %{gosourcedir}/doc/*.1 %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0.9.1-18
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Space arcade game for multiple players
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -17,6 +17,7 @@ Source3:        xpilot-ng-sdl.appdata.xml
 Source4:        xpilot-ng-server.service
 Source5:        xpilot-ng.sysconfig
 Source6:        xpilot-ng.logrotate
+Source7:        xpilot-ng-server.conf
 Source10:       logwatch.logconf.xpilot
 Source11:       logwatch.script.xpilot
 Source12:       logwatch.serviceconf.xpilot
@@ -36,6 +37,7 @@ BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  expat-devel SDL_ttf-devel SDL_image-devel zlib-devel
 BuildRequires:  libXt-devel libGLU-devel
 BuildRequires:  openal-soft-devel freealut-devel automake
+BuildRequires:  systemd-rpm-macros
 Requires:       %{name}-data = %{version}-%{release} hicolor-icon-theme
 Provides:       %{name}-engine = %{version}-%{release}
 
@@ -68,7 +70,7 @@ Data files for %{name}.
 Summary:        Server for hosting xpilot games
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       logrotate
-Requires(pre):  shadow-utils
+%{?sysusers_requires_compat}
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -144,6 +146,9 @@ install -p -D -m 600 lib/password.txt $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/pas
 install -p -D -m 644 %{SOURCE6} \
     $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/%{name}-server
 
+# Install sysusers file
+install -p -D -m 0644 %{SOURCE7} %{buildroot}%{_sysusersdir}/xpilot-ng-server.conf
+
 # Replace bundled fonts with system fonts
 
 rm $RPM_BUILD_ROOT%{_datadir}/%{name}/fonts/FreeSansBoldOblique.ttf
@@ -159,11 +164,7 @@ install -pD -m 0644 %{SOURCE12} $RPM_BUILD_ROOT%{logwatch_conf}/services/%{name}
 install -pD -m 0644 %{SOURCE13} $RPM_BUILD_ROOT%{logwatch_scripts}/shared/applyxpilotdate
 
 %pre server
-getent group xpilot >/dev/null || groupadd -r xpilot
-getent passwd xpilot >/dev/null || \
-useradd -r -g xpilot -d %{_datadir}/%{name} -s /sbin/nologin \
-    -c "xpilot game server" xpilot
-exit 0
+%sysusers_create_compat %{SOURCE7}
 
 %post server
 %systemd_post xpilot-ng-server.service
@@ -197,6 +198,7 @@ exit 0
 %{_mandir}/man6/xpilot-ng-x11.6.gz
 
 %files server
+%{_sysusersdir}/xpilot-ng-server.conf
 %{_bindir}/xpilot-ng-xp-mapedit
 %{_bindir}/xpilot-ng-server
 /lib/systemd/system/xpilot-ng-server.service
@@ -221,6 +223,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 2 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 4.7.3-38
+- Use sysusers to create xpilot user for xpilot-ng-server (rhbz#2432687)
+
 * Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 4.7.3-37
 - Fix FTBFS (rhbz#2341581, rhbz#2385745)
 

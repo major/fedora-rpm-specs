@@ -1,7 +1,7 @@
-Summary: A GNU general-purpose parser generator
+Summary: GNU general-purpose parser generator
 Name: bison
 Version: 3.8.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # An SPDX license string check done against bison-3.8.2 found strings
 # corresponding to the following licenses across the bison source tree:
@@ -28,7 +28,7 @@ BuildRequires: autoconf
 BuildRequires: flex
 BuildRequires: gnupg2
 
-URL: http://www.gnu.org/software/%{name}/
+URL: https://www.gnu.org/software/%{name}/
 BuildRequires: m4 >= 1.4
 BuildRequires: make
 #java-1.7.0-openjdk-devel
@@ -102,10 +102,12 @@ make check
 %make_install
 
 # Remove unpackaged files.
-rm -f %{buildroot}/%{_bindir}/yacc
-rm -f %{buildroot}/%{_infodir}/dir
-rm -f %{buildroot}/%{_mandir}/man1/yacc*
-rm -rf %{buildroot}/%{_docdir}/%{name}/examples/*
+rm -f %{buildroot}%{_bindir}/yacc
+rm -f %{buildroot}%{_infodir}/dir
+rm -f %{buildroot}%{_mandir}/man1/yacc*
+rm -rf %{buildroot}%{_docdir}/%{name}/examples/*
+rm -f %{buildroot}%{_docdir}/%{name}/COPYING
+rm -f %{buildroot}%{_docdir}/%{name}/TODO
 
 %find_lang %{name}
 %find_lang %{name}-runtime
@@ -116,7 +118,8 @@ gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 # The distribution contains also source files.  These are used by m4
 # when the target parser file is generated.
 %files -f %{name}.lang -f %{name}-gnulib.lang
-%doc AUTHORS ChangeLog NEWS README THANKS TODO COPYING
+%license COPYING
+%doc AUTHORS ChangeLog NEWS README THANKS
 %{_mandir}/*/bison*
 %{_datadir}/bison
 %{_infodir}/bison.info*
@@ -124,14 +127,16 @@ gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/bison.info*
 %{_datadir}/aclocal/bison*.m4
 
 %files -f %{name}-runtime.lang runtime
-%doc COPYING
+%license COPYING
 
 %files devel
-%doc COPYING
-%defattr(-,root,root)
+%license COPYING
 %{_libdir}/liby.a
 
 %changelog
+* Mon Feb 02 2026 Robert Scheck <robert@fedoraproject.org> - 3.8.2-15
+- Remove TODO file, install COPYING file correctly in /usr/share/licenses
+
 * Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 3.8.2-14
 - Backport upstream fix for GCC 16 (RHBZ#2429571)
 

@@ -1,5 +1,5 @@
 Name:           langtable
-Version:        0.0.69
+Version:        0.0.70
 Release:        %autorelease
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)

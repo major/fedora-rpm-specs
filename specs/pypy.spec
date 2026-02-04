@@ -9,17 +9,19 @@ Version:        %{basever}.20
 Release:        %autorelease
 Summary:        Python implementation with a Just-In-Time compiler
 
-# PyPy is MIT
-# Python standard library is Python
-# pypy/module/unicodedata is UCD
-# Bundled pycparser is is BSD
-# Bundled pycparser.ply is BSD
-# Bundled bits from cryptography are ASL 2.0 or BSD
 # LGPL and another free license we'd need to ask spot about are present in some
 # java jars that we're not building with atm (in fact, we're deleting them
 # before building).  If we restore those we'll have to work out the new
 # licensing terms
-License:        MIT and Python and UCD and BSD and (ASL 2.0 or BSD)
+# PyPy is MIT
+# Python standard library is Python-2.0.1
+# pyrepl is MIT-CMU
+# pypy/module/unicodedata is Unicode-3.0
+# Bundled cffi is is MIT
+# Bundled pycparser is is BSD-3-Clause
+# Bundled pycparser.ply is BSD-3-Clause
+# Bundled bits from cryptography are Apache-2.0 OR BSD-3-Clause
+License:        MIT AND MIT-CMU AND Python-2.0.1 AND Unicode-3.0 AND BSD-3-Clause AND (Apache-2.0 OR BSD-3-Clause)
 URL:            https://www.pypy.org/
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -334,36 +336,36 @@ CPU architecture.
 Summary:  Run-time libraries used by PyPy implementations of Python
 
 %if %{without rpmwheels}
-# PyPy is MIT and Python and UCD and BSD and (ASL 2.0 or BSD) (see the main package license)
+# PyPy is MIT AND MIT-CMU AND Python-2.0.1 AND Unicode-3.0 AND BSD-3-Clause AND (Apache-2.0 OR BSD-3-Clause) (see the main package license)
 # setuptools is MIT and bundles:
-#   packaging: BSD or ASL 2.0
+#   packaging: BSD-2-Clause OR Apache-2.0
 #   pyparsing: MIT
 #   six: MIT
 # pip is MIT and bundles:
 #   appdirs: MIT
-#   distlib: Python
-#   distro: ASL 2.0
+#   distlib: Python-2.0.1
+#   distro: Apache-2.0
 #   html5lib: MIT
 #   six: MIT
-#   colorama: BSD
-#   CacheControl: ASL 2.0
-#   msgpack-python: ASL 2.0
+#   colorama: BSD-3-Clause
+#   CacheControl: Apache-2.0
+#   msgpack-python: Apache-2.0
 #   lockfile: MIT
 #   progress: ISC
-#   ipaddress: Python
-#   packaging: ASL 2.0 or BSD
+#   ipaddress: Python-2.0.1
+#   packaging: BSD-2-Clause OR Apache-2.0
 #   pep517: MIT
 #   pyparsing: MIT
 #   pytoml: MIT
-#   retrying: ASL 2.0
-#   requests: ASL 2.0
-#   chardet: LGPLv2
-#   idna: BSD
+#   retrying: Apache-2.0
+#   requests: Apache-2.0
+#   chardet: LGPL-2.0-or-later
+#   idna: BSD-3-Clause
 #   urllib3: MIT
-#   certifi: MPLv2.0
+#   certifi: MPL-2.0
 #   setuptools: MIT
-#   webencodings: BSD
-License: MIT and Python and UCD and BSD and (ASL 2.0 or BSD) and BSD and ASL 2.0 and ISC and LGPLv2 and MPLv2.0 and (ASL 2.0 or BSD)
+#   webencodings: BSD-3-Clause
+License: MIT AND MIT-CMU AND Python-2.0.1 AND Unicode-3.0 AND BSD-3-Clause AND (Apache-2.0 OR BSD-3-Clause) AND (BSD-2-Clause OR Apache-2.0) AND Apache-2.0 AND ISC AND LGPL-2.0-or-later AND MPL-2.0
 %endif
 
 # We supply an emacs mode for the JIT viewer.

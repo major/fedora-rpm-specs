@@ -10,7 +10,7 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.11.6
+Version:        3.11.7
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -39,6 +39,10 @@ URL:            https://github.com/ijl/orjson
 Source0:        orjson-%{version}-filtered.tar.xz
 # ./get_source ${COMMIT} (or ${TAG})
 Source1:        get_source
+
+# Still allow PyO3 0.27 for now (upstream wants 0.28):
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435852
+Patch:          orjson-3.11.7-pyo3-0.27.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -70,7 +74,6 @@ Summary:        %{summary}
 # Output of %%{cargo_license_summary}:
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSL-1.0
@@ -83,7 +86,6 @@ Summary:        %{summary}
 # which are all in the first line of the expresion below.
 License:        %{shrink:
                 MPL-2.0 AND (Apache-2.0 OR MIT) AND MIT AND
-                (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 BSD-3-Clause AND
                 BSL-1.0 AND
@@ -126,7 +128,7 @@ sed -i '/pytest-random-order/d' test/requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:test/requirements.txt}
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 
 %build

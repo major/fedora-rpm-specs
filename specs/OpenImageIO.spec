@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.9.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -204,6 +204,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Feb 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1:3.1.9.0-6
+- Rebuilt for ptex 2.5.1 (close RHBZ#2435885)
+
 * Sat Jan 31 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.9.0-5
 - Add Ultra HDR support.
 

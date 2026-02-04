@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python module for parsing semi-structured text into python tables
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -30,7 +30,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
 Requires:       python3-six
 
 %description -n python3-%{pypi_name}
@@ -65,6 +64,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/textfsm
 
 %changelog
+* Sun Feb 01 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.3-12
+- Remove unnecessary BuildRequires on deprecated python-pytest-runner
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

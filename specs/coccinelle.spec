@@ -22,7 +22,7 @@ Version:       1.3.1
 %endif
 
 Name:           coccinelle
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -208,9 +208,6 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/python/coccilib
 rm -f $RPM_BUILD_ROOT%{_bindir}/spatch.byte
 rm -f $RPM_BUILD_ROOT%{_bindir}/spatch.opt
 
-# Some sort of package metadata that we don't need.
-rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/io.github.coccinelle.coccinelle.metainfo.xml
-
 # Move the libdir stuff into a subdirectory.
 pushd $RPM_BUILD_ROOT%{_libdir}
 mkdir coccinelle
@@ -269,6 +266,7 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 %{_mandir}/man1/*.1*
 %{_mandir}/man3/*.3*
 %{python3_sitelib}/coccilib/
+%{_metainfodir}/io.github.coccinelle.coccinelle.metainfo.xml
 
 
 %files bash-completion
@@ -288,6 +286,10 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Mon Feb 02 2026 Jerry James <loganjerry@gmail.com> - 1.3.1-4
+- Rebuild for ocaml-menhir 20260122
+- Install the metainfo
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

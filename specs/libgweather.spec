@@ -1,14 +1,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libgweather
-Version:        4.4.4
+Version:        4.5.0
 Release:        %autorelease
 Summary:        A library for weather information
 
 # libgweather/third-party/kdtree.c is BSD-3-Clause
 License:        GPL-2.0-or-later AND BSD-3-Clause
 URL:            https://wiki.gnome.org/Projects/LibGWeather
-Source:         https://download.gnome.org/sources/libgweather/4.4/libgweather-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/libgweather/4.5/libgweather-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -21,6 +21,8 @@ BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  python3-gobject-base
 BuildRequires:  vala
+BuildRequires:  pkgconfig(gweather-locations)
+Requires:       gweather-locations
 
 # Renamed in F40
 Obsoletes:      libgweather4 < %{version}-%{release}
@@ -54,6 +56,8 @@ Provides:       libgweather4-devel-doc%{_isa} = %{version}-%{release}
 The %{name}-doc package contains documentation for developing
 applications that use %{name}.
 
+%global debug_package %{nil}
+
 %prep
 %autosetup -p1 -n libgweather-%{tarball_version}
 
@@ -72,11 +76,6 @@ applications that use %{name}.
 %{_libdir}/libgweather-4.so.0*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GWeather-4.0.typelib
-%dir %{_libdir}/libgweather-4
-%{_libdir}/libgweather-4/Locations.bin
-%dir %{_datadir}/libgweather-4
-%{_datadir}/libgweather-4/Locations.xml
-%{_datadir}/libgweather-4/locations.dtd
 %{_datadir}/glib-2.0/schemas/org.gnome.GWeather4.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.GWeather4.gschema.xml
 

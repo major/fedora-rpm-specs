@@ -19,12 +19,12 @@
 ### Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ################################################################################
 
-%global toolsbuild      24696409
+%global toolsbuild      25056151
 %global toolsdaemon     vmtoolsd
 %global vgauthdaemon    vgauthd
 
 Name:             open-vm-tools
-Version:          13.0.0
+Version:          13.0.10
 Release:          %autorelease
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0-only AND W3C AND LGPL-2.1-only AND ICU AND ISC AND MIT
@@ -36,6 +36,8 @@ Source2:          %{vgauthdaemon}.service
 Source3:          run-vmblock\x2dfuse.mount
 Source4:          open-vm-tools.conf
 Source5:          vmtoolsd.pam
+
+Patch0:           open-vm-tools-gcc16.patch
 
 ExclusiveArch:    %{ix86} x86_64 aarch64
 
@@ -149,7 +151,7 @@ useful for verifying the functioning of %{name} in VMware virtual
 machines.
 
 %prep
-%autosetup -p2 -n %{name}-%{version}-%{toolsbuild}
+%autosetup -p1 -n %{name}-%{version}-%{toolsbuild}
 
 %build
 autoreconf -vif

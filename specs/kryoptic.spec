@@ -37,6 +37,7 @@ Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 # Allow constant_time_eq 0.4: https://github.com/latchset/kryoptic/pull/393
 Patch:          kryoptic-fix-metadata.diff
 Patch:          kryoptic-cryptoki-0.11.patch
+Patch:          kryoptic-asn1-0.22.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/influxdata/influxdb-client-python
 
 Name:           python-influxdb-client
-Version:        1.49.0
+Version:        1.50.0
 %forgemeta
 Release:        %autorelease
 Summary:        Python client library for the InfluxDB 2.0 and 1.8+

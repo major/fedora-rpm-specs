@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The top-level license files apply to the non-free main distribution of
@@ -287,6 +287,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Mon Feb 02 2026 Jerry James <loganjerry@gmail.com> - 2.3.3-32
+- Rebuild for ocaml-menhir 20260122
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

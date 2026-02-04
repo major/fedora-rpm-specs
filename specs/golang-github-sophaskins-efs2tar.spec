@@ -17,7 +17,7 @@ entirely on NetBSD's sys/fs/efs.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        A tool to convert SGI efs filesystems to tarballs
 
 # Upstream license specification: BSD-2-Clause
@@ -66,6 +66,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0-0.19
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

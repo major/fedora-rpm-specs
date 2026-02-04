@@ -4,12 +4,12 @@
 %forgemeta
 
 Version: 2.003
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           Production Type
 %global fontlicense       OFL-1.1
-%global fontlicenses      OFL.txt
+%global fontlicenses      ofl.txt
 %global fontdocs          *txt *md
 %global fontdocsex        %{fontlicenses}
 
@@ -43,6 +43,9 @@ Source10: 57-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Mon Feb 02 2026 Parag Nemade <pnemade AT redhat DOT com> - 2.003-16
+- Fix the license file name
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.003-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
