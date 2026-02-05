@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.12.1
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -74,9 +74,6 @@ Source5:       %{name}-cleaner.sh
 Patch0:        gdal_utils.patch
 
 Patch1:        gdal-3.12.1-poppler-26.01.0.patch
-# Fix/workaround undefined reference to `std::__get_once_callable()' with mingw-gcc-16.x
-# FIXME Retest with future gcc versions
-Patch2:        gdal-3.12.1-statically-link-stdc++.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -885,6 +882,9 @@ done
 
 
 %changelog
+* Tue Feb 03 2026 Sandro Mani <manisandro@gmail.com> - 3.12.1-8
+- Drop gdal-3.12.1-statically-link-stdc++.patch
+
 * Sun Feb 01 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 3.12.1-7
 - Rebuilt with poppler 26, mingw-poppler 26, and libarrow 23 all together
 

@@ -1,16 +1,16 @@
 Name:           beets
-Version:        2.5.1
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
 URL:            http://pypi.org/project/beets/
 Source0:        %{pypi_source beets}
-Patch0:         rhbz2407232.patch
 
-BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pydata-sphinx-theme
 BuildRequires:  python3dist(poetry-core) >= 1
+BuildRequires:  python-requests-ratelimiter
+
 # Sphinx extras used by upstream docs
 BuildRequires:  python3dist(sphinxcontrib-htmlhelp)
 BuildRequires:  python3dist(sphinxcontrib-serializinghtml)
@@ -25,9 +25,11 @@ BuildRequires:  python3-mock
 BuildRequires:  pytest
 BuildRequires:  python3-pytest-timeout
 
+
 BuildRequires:  make
 BuildArch:      noarch
 
+Requires:       python-packaging
 Provides:       beets-plugins = %{version}-%{release}
 Obsoletes:      beets-plugins < %{version}
 
@@ -63,6 +65,9 @@ both text and html formats.
 # Tarball has wrong basedir https://github.com/beetbox/beets/issues/5284
 %autosetup -p1 -n beets-%{version}
 
+# Drop optional sphinx_toolbox extension (not packaged in Fedora)
+sed -i '/sphinx_toolbox.more_autodoc.autotypeddict/d' docs/conf.py
+
 %generate_buildrequires
 %pyproject_buildrequires -r
 
@@ -76,7 +81,6 @@ env PYTHONPATH=.. sphinx-build-3 -b text -d _build/doctrees . _build/text
 popd
 
 %check
-# Minimal sanity: upstream sets __version__ in 2.5.1
 PYTHONPATH=. python3 - <<'PY'
 import beets
 assert beets.__version__ == "%{version}", f"got {beets.__version__}"
@@ -92,6 +96,7 @@ install -Dm0644 docs/_build/man/beet.1 \
   %{buildroot}%{_mandir}/man1/beet.1
 install -Dm0644 docs/_build/man/beetsconfig.5 \
   %{buildroot}%{_mandir}/man5/beetsconfig.5
+
 # Copy only HTML docs
 mkdir -p %{buildroot}%{_docdir}/%{name}
 cp -a docs/_build/html %{buildroot}%{_docdir}/%{name}/html

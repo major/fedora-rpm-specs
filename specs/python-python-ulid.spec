@@ -19,6 +19,24 @@ Source10:       ulid.1
 Source11:       ulid-build.1
 Source12:       ulid-show.1
 
+# Depend on typing-extensions for Python<3.11; avoid it otherwise
+#
+# Conditionalize the import of `typing_extensions`, needed only in Python 3.10
+# and older; use `typing` instead for Python 3.11 and later. Add a dependency
+# on `typing-extensions`, appropriately conditioned on the Python interpreter
+# version.
+#
+# Based on https://github.com/mdomke/python-ulid/pull/47 and
+# https://github.com/mdomke/python-ulid/pull/47#issuecomment-3431221960.
+#
+# Fixes https://github.com/mdomke/python-ulid/issues/44.
+#
+# Without changes to uv.lock, since we don’t use the lockfile and to avoid
+# merge conflicts.
+#
+# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2436255.
+Patch:          0001-Depend-on-typing-extensions-for-Python-3.11-avoid-it.patch
+
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -x pydantic
 BuildOption(install):   -l ulid

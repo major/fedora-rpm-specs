@@ -5,8 +5,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-clocks
-Version:        50~alpha
-Release:        1%{?dist}
+Version:        50~beta
+Release:        2%{?dist}
 Summary:        Clock application designed for GNOME 3
 
 # Sources are under GPL-2.0-or-later, Appdata is under CC0-1.0 and help is
@@ -70,6 +70,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.clocks.d
 %{_datadir}/sounds/gnome/default/alarms/*.oga
 
 %changelog
+* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
+- Update to 50.beta
+
 * Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 50~alpha-1
 - Update to 50.alpha
 

@@ -3,7 +3,7 @@
 Summary: A tool for generating scanners (text pattern recognizers)
 Name: flex
 Version: 2.6.4
-Release: 23%{?dist}
+Release: 24%{?dist}
 
 # An SPDX license string check done against flex-2.6.4 using fossology
 # found strings corresponding to the licenses noted below across the flex
@@ -133,6 +133,9 @@ echo ============END TESTING===========
 %{_libdir}/*.a
 
 %changelog
+* Tue Feb 03 2026 Arjun Shankar <arjun@redhat.com> - 2.6.4-24
+- Rebuild
+
 * Mon Feb 02 2026 Arjun Shankar <arjun@redhat.com> - 2.6.4-23
 - Minor packaging improvements
 

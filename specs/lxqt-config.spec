@@ -1,31 +1,33 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
-Version:       2.3.0
-Release:       3%{?dist}
+Version:       2.3.1
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Patch0:        0001-update-for-kscreen-6_6.patch
-
 BuildRequires: cmake
+BuildRequires: desktop-file-utils
+BuildRequires: fdupes
 BuildRequires: gcc-c++
 BuildRequires: git-core
-BuildRequires: pkgconfig(lxqt)
-BuildRequires: pkgconfig(zlib)
-BuildRequires: pkgconfig(xcb)
-BuildRequires: pkgconfig(x11)
-BuildRequires: pkgconfig(xi)
-BuildRequires: pkgconfig(libudev)
-BuildRequires: pkgconfig(xcursor)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(KF6Screen)
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: desktop-file-utils
-BuildRequires: xorg-x11-drv-libinput-devel
 BuildRequires: lxqt-menu-data
 BuildRequires: perl
+
+BuildRequires: cmake(KF6Screen)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(lxqt)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(zlib)
+
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(libudev)
+BuildRequires: pkgconfig(xcb)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xi)
+BuildRequires: pkgconfig(xorg-libinput)
+BuildRequires: pkgconfig(x11)
+
 
 %description
 %{summary}.
@@ -40,8 +42,10 @@ This package provides translations for the lxqt-config package.
 %prep
 %autosetup -S git_am
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -50,19 +54,10 @@ for cfgapp in monitor input file-associations appearance cursor brightness local
 if [ -f %{buildroot}%{_datadir}/applications/lxqt-config-${cfgapp}.desktop ]; then
 sed -i "/^GenericName.*/d" %{buildroot}%{_datadir}/applications/lxqt-config-${cfgapp}.desktop
 sed -i "/^Comment.*/d" %{buildroot}%{_datadir}/applications/lxqt-config-${cfgapp}.desktop
-desktop-file-edit \
-    --remove-category=LXQt --add-category=X-LXQt \
-    --remove-category=Help --add-category=X-Help \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
-    %{buildroot}%{_datadir}/applications/lxqt-config-${cfgapp}.desktop
 fi
 done
-desktop-file-edit \
-    --remove-category=LXQt --add-category=X-LXQt \
-    --remove-category=Help --add-category=X-Help \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
-    %{buildroot}%{_datadir}/applications/lxqt-config.desktop
 
+%fdupes %{buildroot}%{_datadir}/lxqt/translations
 
 %find_lang lxqt-config --with-qt
 %find_lang lxqt-config-appearance --with-qt
@@ -72,6 +67,14 @@ desktop-file-edit \
 %find_lang lxqt-config-input --with-qt
 %find_lang lxqt-config-locale --with-qt
 %find_lang lxqt-config-monitor --with-qt
+
+%check
+for cfgapp in appearance file-associations input monitor monitor-autostart locale brightness touchpad-autostart; do
+if [ -f %{buildroot}%{_datadir}/applications/lxqt-config-${cfgapp}.desktop ]; then
+desktop-file-validate %{buildroot}%{_datadir}/applications/lxqt-config-${cfgapp}.desktop
+fi
+done
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %license LICENSE
@@ -107,24 +110,11 @@ desktop-file-edit \
 %dir %{_datadir}/lxqt/translations/lxqt-config-file-associations
 %dir %{_datadir}/lxqt/translations/lxqt-config-input
 %dir %{_datadir}/lxqt/translations/lxqt-config-locale
-%{_datadir}/lxqt/translations/lxqt-config-brightness/lxqt-config-brightness_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-brightness/lxqt-config-brightness_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-cursor/lxqt-config-cursor_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-cursor/lxqt-config-cursor_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-file-associations/lxqt-config-file-associations_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-file-associations/lxqt-config-file-associations_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-input/lxqt-config-input_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-input/lxqt-config-input_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-locale/lxqt-config-locale_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-locale/lxqt-config-locale_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-monitor/lxqt-config-monitor_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-monitor/lxqt-config-monitor_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-appearance/lxqt-config-appearance_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-appearance/lxqt-config-appearance_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config/lxqt-config_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Tue Feb 03 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.1-1
+- Update to 2.3.1
+
 * Thu Jan 29 2026 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-3
 - Add 0001-update-for-kscreen-6_6.patch to fix FTBFS on F44
 

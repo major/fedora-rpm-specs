@@ -34,7 +34,7 @@
 Name:           pulseaudio
 Summary:        Improved Linux Sound Server
 Version:        %{pa_major}%{?pa_minor:.%{pa_minor}}
-Release:        8%{?snap:.%{snap}git%{shortcommit}}%{?dist}
+Release:        9%{?snap:.%{snap}git%{shortcommit}}%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.freedesktop.org/wiki/Software/PulseAudio
 %if 0%{?gitrel}
@@ -58,9 +58,18 @@ Patch201: pulseaudio-autostart.patch
 Patch206: pulseaudio-11.1-autospawn_disable.patch
 
 ## upstream patches
-
+# https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/801
+Patch0001: 0001-alsa-ucm-Check-UCM-verb-before-working-with-device-s.patch
+# https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/802
+Patch0002: 0002-alsa-ucm-Replace-port-device-UCM-context-assertion-w.patch
+# https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/810
+Patch0003: 0003-Don-t-log-battery-level-and-dock-status-every-minute.patch
 # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/812
-Patch1:   0001-tests-Don-t-run-volume-tests-with-impossible-alignme.patch
+Patch0004: 0004-tests-Don-t-run-volume-tests-with-impossible-alignme.patch
+# https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/828
+Patch0005: 0005-rtp-recv-Remove-inappropriate-byte-order-conversion.patch
+# "array out-of-bounds" sure sounds bad
+Patch0006: 0006-stream-fix-array-out-of-bounds-in-stream_get_timing_.patch
 
 ## upstreamable patches
 
@@ -257,7 +266,12 @@ This package contains GDM integration hooks for the PulseAudio sound server.
 %setup -q -T -b0 -n %{name}-%{version}%{?gitrel:-%{gitrel}-g%{shortcommit}}
 
 ## upstream patches
-%patch 1 -p1 -b .volume_test
+%patch 1 -p1 -b .ucm1
+%patch 2 -p1 -b .ucm2
+%patch 3 -p1 -b .battery_log
+%patch 4 -p1 -b .volume_test
+%patch 5 -p1 -b .byte_order
+%patch 6 -p1 -b .array_oob
 
 ## upstreamable patches
 
@@ -665,6 +679,9 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Feb 03 2026 Adam Williamson <awilliam@redhat.com> - 17.0-9
+- Backport several upstream fixes including RHBZ #2322910
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

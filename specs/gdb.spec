@@ -220,11 +220,6 @@ BuildRequires: %{?scl_testing_prefix}gcc %{?scl_testing_prefix}gcc-c++ %{?scl_te
 BuildRequires: gcc-objc
 %endif
 
-# We don't support gcc-gdb-plugin on RHEL anymore.
-%if 0%{!?rhel:1}
-BuildRequires: gcc-gdb-plugin%{?_isa}
-%endif
-
 BuildRequires: systemtap-sdt-devel
 BuildRequires: opencl-headers ocl-icd-devel%{bits_local} ocl-icd-devel%{bits_other}
 
@@ -439,8 +434,9 @@ COMMON_GDB_CONFIGURE_FLAGS="\
         --with-lzma                                             \
         --with-debuginfod                                       \
 %if 0%{?rhel:1}
-        --disable-libctf
+        --disable-libctf                                        \
 %endif
+        --disable-gdb-compile
 "
 
 # The base set of targets that Fedora and RHEL support.  These are the
@@ -936,6 +932,11 @@ fi
 # endif scl
 
 %changelog
+* Tue Feb 3 2026 Kevin Buettner <kevinb@redhat.com>
+- Remove gcc-gdb-plugin BuildRequires and build with --disable-gdb-compile
+  due to this feature's brokenness. Tests using this feature skip cleanly
+  without timeouts.  Reduces binary size and attack surface.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

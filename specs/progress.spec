@@ -1,6 +1,6 @@
 Name:		progress
 Version:	0.17
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Coreutils Viewer
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -48,6 +48,9 @@ install -pm 0644 *.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/*.1*
 
 %changelog
+* Tue Feb  3 2026 Florian Lehner <dev@der-flo.net> - 0.17-6
+- Bump package version
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

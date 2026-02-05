@@ -6,7 +6,7 @@
 %bcond uvloop 0
 
 Name:           python-aiohttp
-Version:        3.13.1
+Version:        3.13.3
 Release:        %autorelease
 Summary:        Python HTTP client/server for asyncio
 
@@ -149,6 +149,11 @@ k="${k-}${k+ and }not test_import_time"
 
 %if %{without gunicorn}
 k="${k-}${k+ and }not test_no_warnings[aiohttp.worker]"
+%endif
+
+%ifarch s390x
+# Work around https://bugzilla.redhat.com/show_bug.cgi?id=2434949
+k="${k-}${k+ and }not test_send_compress_text_notakeover"
 %endif
 
 %pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'

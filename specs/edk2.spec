@@ -23,8 +23,7 @@
 
 %define PLATFORMS_COMMIT 1e64c1109ae2
 
-%define OPENSSL_VER    3.5.0
-%define OPENSSL_COMMIT 63b528e6476ff36efcf2cda5c083f3f3d7cf9210
+%define OPENSSL_VER    3.5.5
 
 %define DBXDATE        20251016
 
@@ -79,7 +78,7 @@ URL:        http://www.tianocore.org
 # | xz -9ev >/tmp/edk2-$COMMIT.tar.xz
 Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
-Source2: openssl-rhel-%{OPENSSL_COMMIT}.tar.xz
+Source2: openssl-%{OPENSSL_VER}.tar.gz
 Source4: edk2-platforms-%{PLATFORMS_COMMIT}.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 Source6: dtc-1.7.0.tar.xz
@@ -172,6 +171,7 @@ BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(File::Compare)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(JSON)
+BuildRequires:  perl(Time::Piece)
 
 %if %{build_ovmf}
 # Only OVMF includes 80x86 assembly files (*.nasm*).
@@ -387,8 +387,8 @@ git config am.keepcr true
 %autosetup -T -D -n edk2-%{GITCOMMIT} -S git_am
 
 cp -a -- %{SOURCE1} .
-tar -C CryptoPkg/Library/OpensslLib -a -f %{SOURCE2} -x
-# extract softfloat into place
+# extract tarballs into place
+tar -xf %{SOURCE2} --strip-components=1 --directory CryptoPkg/Library/OpensslLib/openssl
 tar -xf %{SOURCE5} --strip-components=1 --directory RedfishPkg/Library/JsonLib/jansson
 tar -xf %{SOURCE6} --strip-components=1 --directory MdePkg/Library/BaseFdtLib/libfdt
 # include paths pointing to unused submodules

@@ -39,6 +39,7 @@ URL:            https://gitlab.com/kraxel/virt-firmware-rs
 Source:         https://gitlab.com/kraxel/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 Patch1:		downgrade-dialoguer.patch
+Patch2:		0001-tmt-pick-one-kernel-in-case-multiple-are-present.patch
 
 ExclusiveArch:  x86_64 aarch64 riscv64
 BuildRequires:  cargo-rpm-macros >= 24
@@ -69,13 +70,13 @@ sed -i Cargo.toml -e '/efi-apps/d'
 %endif
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f std,json,pem,udev
+%cargo_generate_buildrequires -f std,json,pem,udev,authenticode
 
 %build
 %cargo_prep
 %cargo_build -- --package virtfw-efi-tools --features udev
 %cargo_build -- --package virtfw-efi-tools
-%cargo_build -- --package virtfw-igvm-tools
+%cargo_build -- --package virtfw-igvm-tools --features authenticode
 %cargo_build -- --package virtfw-varstore --features std,json,pem
 %if %{with efi_apps}
 %cargo_build -- --package virtfw-efi-apps --target $(uname -m)-unknown-uefi

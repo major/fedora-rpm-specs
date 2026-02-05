@@ -85,8 +85,6 @@ Source49: named-chroot.files
 # Common patches
 # Red Hat specific documentation is not relevant to upstream
 Patch1: bind-9.16-redhat_doc.patch
-# Downstream only. TODO: find a cause and remove this workaround
-Patch3: bind-9.21-unittest-isc_rwlock-s390x.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
@@ -413,6 +411,11 @@ gzip doc/changelog/changelog-*.rst
 #systemtest_prepare_build build
 
 %check
+# reduce test loops (from default 100) for isc/{mutex/spinlock/rwlock}
+# to allow rwlock(isc_rwlock_benchmark) to finish within the 300 seconds
+# timeout limit on platforms (riscv64,s390x) where it is slow
+# TODO: find out why it is slow
+export ISC_BENCHMARK_LOOPS=20
 %if %{with UNITTEST} || %{with SYSTEMTEST}
   # Tests require initialization of pkcs11 token
   eval "$(bash %{SOURCE48} -A "`pwd`/softhsm-tokens")"

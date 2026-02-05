@@ -1,8 +1,8 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.595
-Release:	2%{?dist}
+Version:	8.3.599
+Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Tue Feb 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.599-1
+- 8.3.599
+
 * Mon Feb 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.595-2
 - F-44: use tk9
 

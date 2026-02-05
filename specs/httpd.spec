@@ -28,7 +28,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.66
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -89,14 +89,13 @@ Patch20: httpd-2.4.48-r1842929+.patch
 Patch21: httpd-2.4.64-mod_systemd.patch
 Patch22: httpd-2.4.53-export.patch
 Patch23: httpd-2.4.43-corelimit.patch
-Patch24: httpd-2.4.54-icons.patch
+Patch24: httpd-2.4.66-autoindex.patch
 Patch25: httpd-2.4.43-cachehardmax.patch
 Patch26: httpd-2.4.43-sslciphdefault.patch
 Patch27: httpd-2.4.64-sslprotdefault.patch
 Patch28: httpd-2.4.43-logjournal.patch
 Patch29: httpd-2.4.63-r1912477+.patch
 Patch30: httpd-2.4.64-separate-systemd-fns.patch
-Patch31: httpd-2.4.66-index-utf8.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -851,6 +850,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Feb 03 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-4
+- autoindex.conf: disable Indexes for /icons/ by default
+
 * Tue Jan 27 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-3
 - disable worker mpm for Fedora > 43
 - autoindex.conf: add Charset=UTF-8 to default IndexOptions

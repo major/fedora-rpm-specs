@@ -5,8 +5,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        50~alpha
-Release:        1%{?dist}
+Version:        50~beta.1
+Release:        2%{?dist}
 Summary:        Process and resource monitor
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -74,6 +74,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta.1-2
+- Update to 50.beta.1
+
 * Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 50~alpha-1
 - Update to 50.alpha
 

@@ -6,7 +6,12 @@
 %bcond_with pthread
 #
 
-#https://github.com/LLNL/sundials/issues/97
+# Enable Python support
+# sundials4py is in beta and is subject to breaking changes
+%bcond_without python
+#
+
+# https://github.com/LLNL/sundials/issues/97
 %define _lto_cflags %{nil}
 
 %global with_mpich 1
@@ -56,31 +61,28 @@
 
 %if 0%{?fedora} || 0%{?rhel} >= 10
 # KLU support
-%global with_klu   1
-%global with_klu64 1
-##########
-# Fortran
-%if 0%{?with_klu64}
-%global with_fortran 1
-%endif
-%if 0%{?with_klu}
-%global with_fortran 0
-%endif
-##########
-%endif
-%if 0%{?fedora}
-%ifarch s390x x86_64 %{power64} %{arm64} riscv64
-%global with_klu64 1
-%global with_fortran 1
-%endif
 %ifarch %{arm} %{ix86}
 %global with_klu 1
+%global with_klu64 0
 %global with_fortran 0
 %endif
+%ifarch s390x x86_64 %{power64} %{arm64} riscv64
+%global with_klu 1
+%global with_klu64 1
+%global with_fortran 1
 %endif
+%endif
+##########
+##########
 %if 0%{?rhel} && 0%{?rhel} == 8
 %global with_klu 1
 %global with_fortran 0
+%endif
+##########
+##########
+%if 0%{?rhel} && 0%{?rhel} == 9
+%global with_klu64 1
+%global with_fortran 1
 %endif
 ##########
 # SOVERSIONs (*_SOVERSION from CMakeLists.txt):
@@ -99,7 +101,7 @@
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
-Version:    7.5.0
+Version:    7.6.0
 Release:    %autorelease
 License:    BSD-3-Clause
 URL:        https://computation.llnl.gov/projects/%{name}/
@@ -111,8 +113,9 @@ Patch0:     %{name}-5.5.0-set_superlumt_name.patch
 # This patch rename superLUMT64 library
 Patch1:     %{name}-5.5.0-set_superlumt64_name.patch
 
-Patch2:     %{name}-change_petsc_variable.patch
 Patch3:     %{name}-klu64.patch
+
+Patch4:     %{name}-7.6.0-set_python_cmake_flags.patch
 
 BuildRequires: make
 %if 0%{?with_fortran}
@@ -166,6 +169,25 @@ Provides:   %{name}-fortran-static = %{version}-%{release}
 SUNDIALS is a SUite of Non-linear DIfferential/ALgebraic equation Solvers
 for use in writing mathematical software.
 This package contains the developer files (.so file, header files).
+
+# Python binding is in beta and is subject to breaking changes
+%if %{with python}
+%package -n    python3-sundials4py
+Summary:       Python binding of Sundials
+BuildRequires: python3-pip
+BuildRequires: pyproject-rpm-macros
+BuildRequires: python3-nanobind
+BuildRequires: python3-scikit-build-core >= 0.4.3
+BuildRequires: python3-pytest
+BuildRequires: python3-numpy >= 2.0.0
+Requires:      %{name}-devel%{?_isa} = %{version}-%{release}
+%py_provides   python3-sundials
+
+%description -n python3-sundials4py
+Official Python bindings for the SUNDIALS suite of nonlinear and
+differential/algebraic equation solvers.
+sundials4py is in beta and is subject to breaking changes.
+%endif
 #############################################################################
 #########
 %if 0%{?with_openmpi}
@@ -251,13 +273,16 @@ Requires: gcc-gfortran%{?_isa}
 #############################################################################
 
 %package doc
-Summary:    Suite of nonlinear solvers (documentation)
+Summary:   Suite of nonlinear solvers (documentation)
 BuildArch: noarch
 Obsoletes: sundials-doc < 0:6.6.2-5
+Requires:  python3-sundials4py
+Requires:  python3-sphinx-latex
+
 %description doc
 SUNDIALS is a SUite of Non-linear DIfferential/ALgebraic equation Solvers
 for use in writing mathematical software.
-This package contains the documentation files.
+This package contains the documentation source files.
 
 %prep
 %setup -qc
@@ -275,6 +300,10 @@ pushd %{name}-%{version}
 %patch 3 -p1 -b .klu64
 %endif
 
+%if %{with python}
+%patch 4 -p1 -b .backup
+%endif
+
 mv src/arkode/README.md src/README-arkode.md
 mv src/cvode/README.md src/README-cvode.md
 mv src/cvodes/README.md src/README-cvodes.md
@@ -282,6 +311,14 @@ mv src/ida/README.md src/README-ida.md
 mv src/idas/README.md src/README.idas.md
 mv src/kinsol/README.md src/README-kinsol.md
 popd
+
+%if %{with python}
+cp -a sundials-%{version} sundials-%{version}-python
+#generate_buildrequires
+pushd sundials-%{version}-python
+%pyproject_buildrequires
+popd
+%endif
 
 %if 0%{?with_openmpi}
 cp -a sundials-%{version} buildopenmpi_dir
@@ -327,6 +364,7 @@ export FFLAGS="%{build_fflags} -fPIC"
 %cmake -B sundials-%{version}/build -S sundials-%{version} \
  -DCMAKE_C_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
  -DCMAKE_Fortran_FLAGS_RELEASE:STRING="%{optflags} -I$INCBLAS" \
+ -DPETSC_EXECUTABLE_RUNS:BOOL=OFF \
 %endif
 %if 0%{?with_klu64}
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
@@ -381,10 +419,17 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DSUPERLUDIST_ENABLE:BOOL=OFF \
  -DHYPRE_ENABLE:BOOL=OFF \
  -DEXAMPLES_INSTALL:BOOL=OFF \
- -DSUNDIALS_BUILD_WITH_MONITORING:BOOL=ON -Wno-dev
+ -DSUNDIALS_BUILD_WITH_MONITORING:BOOL=ON -Wno-dev \
+ -DSUNDIALS_ENABLE_PYTHON:BOOL=OFF
 
 %define _vpath_builddir sundials-%{version}/build
 %cmake_build
+
+%if %{with python}
+pushd sundials-%{version}-python
+%pyproject_wheel
+popd
+%endif
 
 #############################################################################
 #######
@@ -450,7 +495,7 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
- -DPETSC_ENABLE:BOOL=OFF \
+ -DPETSC_EXECUTABLE_RUNS:BOOL=OFF \
 %endif
 %if 0%{?with_klu}
  -DSUNDIALS_INDEX_SIZE:STRING=32 \
@@ -587,7 +632,7 @@ export FFLAGS="%{build_fflags} -fPIC"
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
- -DPETSC_ENABLE:BOOL=OFF \
+ -DPETSC_EXECUTABLE_RUNS:BOOL=OFF \
 %endif
 %if 0%{?with_klu}
  -DSUNDIALS_INDEX_SIZE:STRING=32 \
@@ -689,17 +734,27 @@ rm -f %{buildroot}%{_prefix}/LICENSE
 rm -f %{buildroot}%{_includedir}/sundials/LICENSE
 rm -f %{buildroot}%{_includedir}/sundials/NOTICE
 
+%if %{with python}
+pushd %{name}-%{version}-python
+%pyproject_install
+%pyproject_save_files -l sundials4py -L
+popd
+
+# Duplicated static libraries and header files
+rm -rf %{buildroot}%{python3_sitearch}/%{_lib}
+rm -rf %{buildroot}%{python3_sitearch}/include
+%endif
+
 %check
 %if 0%{?with_openmpi}
 %if 0%{?with_openmpicheck}
 %{_openmpi_load}
 %define _vpath_builddir buildopenmpi_dir/build
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 %if %{with debug}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ctest -- -VV --output-on-failure --debug
+%ctest -VV --debug
 %else
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ctest -E 'test_sunlinsol_superlumt'
+%ctest
 %endif
 %{_openmpi_unload}
 %endif
@@ -711,12 +766,11 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %if 0%{?with_mpichcheck}
 %{_mpich_load}
 %define _vpath_builddir buildmpich_dir/build
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 %if %{with debug}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ctest -- -VV --output-on-failure --debug
+%ctest -VV --debug
 %else
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-%ctest -E 'test_sunlinsol_superlumt'
+%ctest
 %endif
 %{_mpich_unload}
 %endif
@@ -726,13 +780,20 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 
 %if 0%{?with_sercheck}
 %define _vpath_builddir sundials-%{version}/build
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %if %{with debug}
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-%ctest -- -VV --output-on-failure --debug
+%ctest -VV --debug
 %else
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-%ctest -E 'test_sunlinsol_superlumt'
+%ctest
 %endif
+
+%if %{with python}
+pushd %{name}-%{version}-python
+%pyproject_check_import
+%pytest
+popd
+%endif
+
 %endif
 ## if with_sercheck
 
@@ -790,9 +851,6 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %if %{with pthread}
 %{_libdir}/libsundials_fnvecpthreads.so
 %endif
-%if 0%{?with_superlumt}
-%{_libdir}/libsundials_sunlinsolsuperlumt.so
-%endif
 %endif
 %{_includedir}/nvector/
 %{_includedir}/sunmatrix/
@@ -846,6 +904,19 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/sundials/sundials_core.h*
 %{_includedir}/sundials/sundials_errors.h
 %{_includedir}/sundials/sundials_types_deprecated.h
+%{_includedir}/sundials/sundials_adaptcontroller.hpp
+%{_includedir}/sundials/sundials_adjointcheckpointscheme.hpp
+%{_includedir}/sundials/sundials_adjointstepper.hpp
+%{_includedir}/sundials/sundials_classview.hpp
+%{_includedir}/sundials/sundials_domeigestimator.hpp
+%{_includedir}/sundials/sundials_logger.hpp
+%{_includedir}/sundials/sundials_stepper.hpp
+
+%if %{with python}
+%files -n python3-sundials4py -f %{pyproject_files}
+%license sundials-%{version}/LICENSE
+%doc sundials-%{version}/README.md
+%endif
 
 %if 0%{?with_openmpi}
 %files openmpi
@@ -1024,12 +1095,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 
 %files doc
 %license sundials-%{version}/LICENSE
-%doc sundials-%{version}/README.md
+%doc sundials-%{version}/*.md
 %doc sundials-%{version}/NOTICE
-%doc sundials-%{version}/doc/arkode/*.pdf
-%doc sundials-%{version}/doc/ida*/*.pdf
-%doc sundials-%{version}/doc/cvode*/*.pdf
-%doc sundials-%{version}/doc/kinsol/*.pdf
+%doc sundials-%{version}/CODEOWNERS
+%doc sundials-%{version}/doc/
 
 
 %changelog

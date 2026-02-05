@@ -5,13 +5,13 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.0.1
+%global doc_version 9.0.2
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 Name:              valkey
-Version:           9.0.1
-Release:           2%{?dist}
+Version:           9.0.2
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -443,6 +443,10 @@ fi
 
 
 %changelog
+* Tue Feb  3 2026 Remi Collet <remi@remirepo.net> - 9.0.2-1
+- Valkey 9.0.2 - February 3, 2026
+- Upgrade urgency HIGH: There are critical bugs that may affect a subset of users.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

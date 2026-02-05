@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-file-iterator5
 #
-# Copyright (c) 2009-2025 Christof Damian, Remi Collet
+# Copyright (c) 2009-2026 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,11 +11,11 @@
 # disabled until phpunit11 available
 %bcond_without       tests
 
-%global gh_commit    118cfaaa8bc5aef3287bf315b6060b1174754af6
+%global gh_commit    2f3a64888c814fc235386b7387dd5b5ed92ad903
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-file-iterator
-%global gh_date      2024-08-27
+%global gh_date      2026-02-02
 %global php_home     %{_datadir}/php
 # Packagist
 %global pk_vendor    phpunit
@@ -27,8 +27,8 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.1.0
-Release:        5%{?dist}
+Version:        5.1.1
+Release:        1%{?dist}
 Summary:        FilterIterator implementation based on a list of suffixes, version %{major}
 
 License:        BSD-3-Clause
@@ -39,12 +39,10 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 %if %{with tests}
 # From composer.json, "require-dev"
-#        "phpunit/phpunit": "^11.0"
-BuildRequires:  phpunit11
+#        "phpunit/phpunit": "^11.3"
+BuildRequires:  phpunit11 >= 11.3
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -52,8 +50,6 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "php": ">=8.2"
 Requires:       php(language) >= 8.2
 # From phpcompatinfo report for 4.0.0
-Requires:       php-pcre
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -91,7 +87,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit11 || ret=1
@@ -111,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  3 2026 Remi Collet <remi@remirepo.net> - 5.1.1-1
+- update to 5.1.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,14 +21,14 @@
 %global udisks2_version 1.97
 
 Name:    gvfs
-Version: 1.58.0
+Version: 1.59.1
 Release: %autorelease
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
 URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.58/gvfs-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gvfs/1.59/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -418,10 +418,6 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_libexecdir}/gvfs-goa-volume-monitor
 %{_datadir}/dbus-1/services/org.gtk.vfs.GoaVolumeMonitor.service
 %{_datadir}/gvfs/remote-volume-monitors/goa.monitor
-%if ! (0%{?rhel} >= 10)
-%{_datadir}/gvfs/mounts/google.mount
-%{_libexecdir}/gvfsd-google
-%endif
 %if ! 0%{?rhel}
 %{_datadir}/gvfs/mounts/onedrive.mount
 %{_libexecdir}/gvfsd-onedrive

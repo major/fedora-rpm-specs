@@ -6,7 +6,7 @@
 %global bundled_rust_deps 0
 
 Name:           clevis-pin-trustee
-Version:        0.0.1
+Version:        0.1.0
 Release:        %autorelease
 Summary:        Clevis PIN for Trustee attestation
 

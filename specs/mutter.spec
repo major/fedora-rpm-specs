@@ -152,6 +152,13 @@ Requires: libei%{?_isa} >= %{libei_version}
 The %{name}-tests package contains tests that can be used to verify
 the functionality of the installed %{name} package.
 
+%package devkit
+Summary: Mutter Development Kit
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devkit
+Viewer for nested mutter instances.
+
 %prep
 %autosetup -S git -n %{name}-%{tarball_version}
 
@@ -191,19 +198,21 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %{_udevrulesdir}/61-mutter.rules
 
 %files devel
-%{_datadir}/applications/org.gnome.Mutter.Mdk.desktop
-%{_datadir}/glib-2.0/schemas/org.gnome.mutter.devkit.gschema.xml
-%{_datadir}/icons/hicolor/*/apps/org.gnome.Mutter.Mdk*
 %{_includedir}/mutter-%{mutter_api_version}/
 %{_libdir}/lib*.so
 %{_libdir}/mutter-%{mutter_api_version}/*.gir
 %{_libdir}/pkgconfig/*
-%{_libexecdir}/mutter-devkit
 
 %files tests
 %{_datadir}/installed-tests/mutter-%{mutter_api_version}
 %{_datadir}/mutter-%{mutter_api_version}/tests
 %{_libexecdir}/installed-tests/mutter-%{mutter_api_version}
+
+%files devkit
+%{_datadir}/applications/org.gnome.Mutter.Mdk.desktop
+%{_datadir}/glib-2.0/schemas/org.gnome.mutter.devkit.gschema.xml
+%{_datadir}/icons/hicolor/*/apps/org.gnome.Mutter.Mdk*
+%{_libexecdir}/mutter-devkit
 
 %changelog
 %autochangelog

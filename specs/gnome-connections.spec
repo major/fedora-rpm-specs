@@ -6,8 +6,8 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        49.0
-Release:        3%{?dist}
+Version:        50~beta
+Release:        2%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
+- Update to 50.beta
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

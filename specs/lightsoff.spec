@@ -1,14 +1,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           lightsoff
-Version:        48.1
-Release:        3%{?dist}
+Version:        50~beta
+Release:        2%{?dist}
 Summary:        GNOME Lightsoff game
 
 # Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Lightsoff
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 
 
 %changelog
+* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
+- Update to 50.beta
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 48.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

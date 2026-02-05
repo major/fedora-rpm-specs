@@ -85,6 +85,11 @@ sed -i -e '/types-python-dateutil/ d' \
 # tox.ini calls requirements.txt which doesn't work
 rm -f tox.ini
 
+%if %{fedora} <= 42
+# correct license declaration: errors on F42
+sed -i -e '/^license/ d' pyproject.toml
+%endif
+
 # Correct shebangs in tools
 find . -type f -exec sed -i "s|#!/usr/bin/env.*python$|#!%{python3}|" '{}' ';'
 

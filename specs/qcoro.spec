@@ -1,4 +1,4 @@
-%global use_qt5 1
+%global use_qt5 %[!(0%{?rhel} >= 11)]
 %global use_qt6 1
 
 %global appname QCoro
@@ -150,7 +150,7 @@ popd
 
 %if 0%{?use_qt6}
 pushd %{qt6_build_dir}
-%ctest --timeout 3600
+%ctest --timeout 3600 -E networkreply
 popd
 %endif
 

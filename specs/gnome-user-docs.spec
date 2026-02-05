@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        49.1
+Version:        50~beta
 Release:        2%{?dist}
 Summary:        GNOME User Documentation
 
 License:        CC-BY-SA-3.0
 URL:            https://help.gnome.org/
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
+- Update to 50.beta
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

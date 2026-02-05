@@ -8,14 +8,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	49.1
+Version:	50~beta
 Release:	%autorelease
 Summary:	A simple text editor for the GNOME desktop
 
 # Code is GPL-3.0-or-later and the Appdata is CC0-1.0
 License:	GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
-Source0:	https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	pkgconfig(editorconfig)
 BuildRequires:	pkgconfig(enchant-2) >= %{enchant_version}

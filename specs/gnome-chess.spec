@@ -3,13 +3,13 @@
 %global libadwaita_version 1.5
 
 Name:           gnome-chess
-Version:        49.2
+Version:        50~beta
 Release:        %autorelease
 Summary:        GNOME Chess game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Chess
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext

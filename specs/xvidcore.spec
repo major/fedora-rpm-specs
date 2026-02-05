@@ -2,17 +2,19 @@
 
 Name:           xvidcore
 Version:        1.3.7
-Release:        16%{?dist}
+Release:        19%{?dist}
 Summary:        MPEG-4 Simple and Advanced Simple Profile codec
 License:        GPL-2.0-or-later
 URL:            https://www.xvid.com/
 Source0:        https://downloads.xvid.com/downloads/%{name}-%{version_no_tilde}.tar.bz2
 # fix build with -std=gnu23, reported upstream
 Patch0:         %{name}-c23.patch
+Patch1:         0001-Add-CET-enabling-note.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
-%ifarch %{ix86} x86_64
+# Drop ASM on i686, produces texrel
+%ifarch x86_64
 BuildRequires:  nasm >= 2.0
 %endif
 
@@ -53,19 +55,16 @@ done
 %{__sed} -i -e 's|@$(|$(|g' build/generic/Makefile
 # Fix permissions
 %{__sed} -i -e 's|644 $(BUILD_DIR)/$(SHARED_LIB)|755 $(BUILD_DIR)/$(SHARED_LIB)|g' build/generic/Makefile
-# Drop mmx version over the sse2
-# fails to build on i686 with:
-# /usr/bin/ld.bfd: bitstream/x86_asm/cbp_mmx.o: warning: relocation in read-only section `.text'
-# /usr/bin/ld.bfd: error: read-only segment has dynamic relocations
-rm src/bitstream/x86_asm/cbp_mmx.asm
-sed -i -e 's|bitstream/x86_asm/cbp_mmx.asm||' build/generic/sources.inc
-
 
 %build
 cd build/generic
-%configure
+%configure \
+%ifarch %{ix86}
+  --disable-assembly
+%endif
+
 # Our LDFLAGS are overriden by the makefiles - fixes build with f44 rhbz#2435201
-%make_build SPECIFIC_LDFLAGS="--shared %{?build_ldflags} -lm"
+%make_build LDFLAGS+="%{?build_ldflags}"
 
 
 %install
@@ -85,6 +84,15 @@ find %{buildroot} -name "*.a" -delete
 
 
 %changelog
+* Tue Feb 03 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.3.7-19
+- Drop ASM on i686 as it produces TEXTREL
+
+* Tue Feb 03 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.3.7-18
+- Revert mmx code drop
+
+* Tue Feb 03 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.3.7-17
+- Fixup build with LDFLAGS
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.3.7-16
 - Fix build with f44 rhbz#2435201
 

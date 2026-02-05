@@ -19,7 +19,7 @@ Source3:        %{npm_name}-%{version}-bundled-licenses.txt
 BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
 
-BuildRequires:  nodejs-devel
+BuildRequires:  nodejs-devel, /usr/bin/node
 
 Requires:       nodejs
 

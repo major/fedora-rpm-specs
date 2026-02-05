@@ -51,9 +51,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.34~alpha1
+Version:        1.5.34~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -62,7 +62,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -575,6 +574,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Feb 04 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~beta1-1
+- Add IBUS_INPUT_HINT_HIDDEN_TEXT
+- Show Emoji annotations in GNOME
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.34~alpha1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

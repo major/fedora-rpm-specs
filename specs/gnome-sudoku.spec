@@ -2,8 +2,8 @@
 
 Name:           gnome-sudoku
 Epoch:          1
-Version:        50~alpha
-Release:        1%{?dist}
+Version:        50~beta
+Release:        2%{?dist}
 Summary:        GNOME Sudoku game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -61,6 +61,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Sudoku.d
 
 
 %changelog
+* Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 1:50~beta-2
+- Update to 50.beta
+
 * Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 1:50~alpha-1
 - Update to 50.alpha
 

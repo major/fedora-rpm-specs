@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.10
+Version:        2.10.2
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -74,6 +74,9 @@ Obsoletes: %1 < %2, %1-common < %2\
 %global ghc_obsoletes_lib()\
 Obsoletes: ghc-%1 < %2, ghc-%1-devel < %2, ghc-%1-doc < %2, ghc-%1-prof < %2
 
+%global ghc_obsoletes_lib_eq()\
+Obsoletes: ghc-%1 = %2, ghc-%1-devel = %2, ghc-%1-doc = %2, ghc-%1-prof = %2
+
 # ideally packages should be obsoleted by some relevant package
 # this is a last resort when there is no such appropriate package
 %package -n ghc-obsoletes
@@ -123,6 +126,26 @@ Summary:        Dummy package to obsolete deprecated Haskell packages
 %ghc_obsoletes_lib fclabels 2.0.5.2
 %ghc_obsoletes_lib system-fileio 0.3.16.7
 %ghc_obsoletes_lib libiserv 9.8
+%endif
+%if 0%{?fedora} >= 44
+%ghc_obsoletes_lib breakpoint 0.1.5
+%ghc_obsoletes_lib bytestring-nums 0.3.6.0
+%ghc_obsoletes_lib data-default-instances-containers 0.1.0.4
+%ghc_obsoletes_lib data-default-instances-dlist 0.0.1.3
+%ghc_obsoletes_lib data-default-instances-old-locale 0.0.1.3
+%ghc_obsoletes_lib_eq deepseq 0.5.1
+%ghc_obsoletes_lib deferred-folds 0.9.18.8
+%ghc_obsoletes_lib isomorphism-class 0.3.1
+%ghc_obsoletes_lib lawful-conversions 0.1.7
+%ghc_obsoletes_lib markdown-unlit 0.6.0.1
+%ghc_obsoletes_lib mintty 0.1.4.0
+%ghc_obsoletes_lib ormolu 0.7.7
+%ghc_obsoletes_lib pager 0.1.1.1
+%ghc_obsoletes_lib quickcheck-instances 0.3.33
+%ghc_obsoletes_lib text-builder 0.6.8
+%ghc_obsoletes_lib text-builder-dev 0.3.10
+%ghc_obsoletes_lib th-env 0.1.1.0
+%ghc_obsoletes_lib with-location 0.1.0.0
 %endif
 
 %description -n ghc-obsoletes
@@ -208,6 +231,14 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Tue Feb 03 2026 Jens Petersen <petersen@redhat.com> - 2.10.2-1
+- add obsoletes for F44
+- fixup ghc.attr __ghc_path: misplaced backslace
+
+* Tue Feb 03 2026 Jens Petersen <petersen@redhat.com> - 2.10.1-1
+- allow stderr from ghc_version
+- ghcplatform: use ppc64le for now (#2435862, needed for F44 Cabal-3.12+ hadrian)
+
 * Sat Jan 31 2026 Jens Petersen <petersen@redhat.com> - 2.10-1
 - redefine ghc_version with lua
 

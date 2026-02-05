@@ -1,36 +1,28 @@
-%global short_name	pgpool-II
-%if 0%{?rhel} && 0%{?rhel} <= 6
-%global systemd_enabled 0
-%else
-%global systemd_enabled 1
-%endif
-
+%global _build_id_links none
+%global sname	pgpool-II
 %global _varrundir %{_rundir}/pgpool
 
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
-Name:			postgresql-%{short_name}
-Version:		4.5.1
-Release:		7%{?dist}
+Name:			postgresql-%{sname}
+Version:		4.7.0
+Release:		1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:		LicenseRef-Callaway-BSD
 
-URL:			http://pgpool.net
-Source0:		http://www.pgpool.net/mediawiki/images/%{short_name}-%{version}.tar.gz
+URL:			https://pgpool.net
+Source0:		https://www.pgpool.net/mediawiki/images/%{sname}-%{version}.tar.gz
 Source1:		pgpool.service
 Source2:		pgpool.sysconfig
-Source3:		pgpool.init
-
-# Stop building i686 architecture
-ExcludeArch: %{ix86}
+Source6:		%{sname}-sysusers.conf
+Source7:		%{sname}-tmpfiles.d
 
 BuildRequires:		make
 BuildRequires:		gcc
 BuildRequires:		clang-devel llvm-devel
 BuildRequires:		postgresql-server-devel
-BuildRequires:		pam-devel, libmemcached-awesome-devel, openssl-devel
+BuildRequires:		pam-devel libmemcached-awesome-devel openssl-devel
 BuildRequires:		libxcrypt-devel
 
-%if %{systemd_enabled}
 BuildRequires:		systemd
 
 # We require this to be present for %%{_prefix}/lib/tmpfiles.d
@@ -39,33 +31,16 @@ Requires(post):		systemd-sysv
 Requires(post):		systemd
 Requires(preun):	systemd
 Requires(postun):	systemd
-%else
-Requires(post):		chkconfig
-Requires(preun):	chkconfig
-# This is for /sbin/service
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-%endif
-Provides:		postgresql-pgpool = 3.4.3
-Obsoletes:		postgresql-pgpool <= 3.4.2
 
 %description
-pgpool-II is a inherited project of pgpool (to classify from
-pgpool-II, it is sometimes called as pgpool-I). For those of
-you not familiar with pgpool-I, it is a multi-functional
-middle ware for PostgreSQL that features connection pooling,
-replication and load balancing functions. pgpool-I allows a
-user to connect at most two PostgreSQL servers for higher
-availability or for higher search performance compared to a
-single PostgreSQL server.
-
-pgpool-II, on the other hand, allows multiple PostgreSQL
-servers (DB nodes) to be connected, which enables queries
-to be executed simultaneously on all servers. In other words,
-it enables "parallel query" processing. Also, pgpool-II can
-be started as pgpool-I by changing configuration parameters.
-pgpool-II that is executed in pgpool-I mode enables multiple
-DB nodes to be connected, which was not possible in pgpool-I.
+Pgpool-II is a middleware that works between PostgreSQL servers and a
+PostgreSQL database client. It provides the following features:
+ * Connection Pooling
+ * Replication
+ * Load Balancing
+ * Limiting Exceeding Connections
+ * Watchdog
+ * In Memory Query Cache
 
 %package devel
 Summary:	The development files for pgpool-II
@@ -91,7 +66,7 @@ ExcludeArch: %{ix86}
 Postgresql extensions libraries and sql files for pgpool-II.
 
 %prep
-%setup -q -n %{short_name}-%{version}
+%setup -q -n %{sname}-%{version}
 
 %build
 %configure \
@@ -101,7 +76,7 @@ Postgresql extensions libraries and sql files for pgpool-II.
 	--with-pam \
 	--with-openssl \
 	--with-memcached=%{_includedir}/libmemcached \
-	--sysconfdir=%{_sysconfdir}/%{short_name}/
+	--sysconfdir=%{_sysconfdir}/%{sname}/
 
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Removing_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -118,77 +93,40 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_install -C src/sql/pgpool-recovery
 %make_install -C src/sql/pgpool-regclass
 
-install -d %{buildroot}%{_datadir}/%{short_name}
-install -d %{buildroot}%{_sysconfdir}/%{short_name}
-mv %{buildroot}/%{_sysconfdir}/%{short_name}/pcp.conf.sample %{buildroot}%{_sysconfdir}/%{short_name}/pcp.conf
-mv %{buildroot}/%{_sysconfdir}/%{short_name}/pgpool.conf.sample %{buildroot}%{_sysconfdir}/%{short_name}/pgpool.conf
-mv %{buildroot}/%{_sysconfdir}/%{short_name}/pool_hba.conf.sample %{buildroot}%{_sysconfdir}/%{short_name}/pool_hba.conf
-mv %{buildroot}/%{_sysconfdir}/%{short_name}/failover.sh.sample %{buildroot}%{_sysconfdir}/%{short_name}/failover.sh
-mv %{buildroot}/%{_sysconfdir}/%{short_name}/pgpool_remote_start.sample %{buildroot}%{_sysconfdir}/%{short_name}/pgpool_remote_start
-mv %{buildroot}/%{_sysconfdir}/%{short_name}/recovery_1st_stage.sample %{buildroot}%{_sysconfdir}/%{short_name}/recovery_1st_stage
+%{__install} -d %{buildroot}%{_datadir}/%{sname}
+%{__install} -d %{buildroot}%{_sysconfdir}/%{sname}
+%{__mv} %{buildroot}/%{_sysconfdir}/%{sname}/pcp.conf.sample %{buildroot}%{_sysconfdir}/%{sname}/pcp.conf
+%{__mv} %{buildroot}/%{_sysconfdir}/%{sname}/pgpool.conf.sample %{buildroot}%{_sysconfdir}/%{sname}/pgpool.conf
+%{__mv} %{buildroot}/%{_sysconfdir}/%{sname}/pool_hba.conf.sample %{buildroot}%{_sysconfdir}/%{sname}/pool_hba.conf
+%{__mv} %{buildroot}/%{_sysconfdir}/%{sname}/failover.sh.sample %{buildroot}%{_sysconfdir}/%{sname}/failover.sh
+%{__mv} %{buildroot}/%{_sysconfdir}/%{sname}/pgpool_remote_start.sample %{buildroot}%{_sysconfdir}/%{sname}/pgpool_remote_start
+%{__mv} %{buildroot}/%{_sysconfdir}/%{sname}/recovery_1st_stage.sample %{buildroot}%{_sysconfdir}/%{sname}/recovery_1st_stage
 
-%if %{systemd_enabled}
-install -d %{buildroot}%{_unitdir}
-install -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/pgpool.service
+%{__install} -d %{buildroot}%{_unitdir}
+%{__install} -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/pgpool.service
 
-# ... and make a tmpfiles script to recreate it at reboot.
-mkdir -p $RPM_BUILD_ROOT%{_tmpfilesdir}
-cat > $RPM_BUILD_ROOT%{_tmpfilesdir}/%{name}.conf <<EOF
-d %{_varrundir} 0755 root root -
-EOF
+%{__install} -m 0644 -D %{SOURCE6} %{buildroot}%{_sysusersdir}/%{sname}.conf
 
-%else
-install -d %{buildroot}%{_sysconfdir}/init.d
-install -m 755 %{SOURCE3} %{buildroot}%{_sysconfdir}/init.d/pgpool
-%endif
+%{__mkdir} -p %{buildroot}/%{_tmpfilesdir}
+%{__install} -m 0644 %{SOURCE7} %{buildroot}/%{_tmpfilesdir}/%{name}.conf
 
-install -d %{buildroot}%{_sysconfdir}/sysconfig
-install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/pgpool
+%{__install} -d %{buildroot}%{_sysconfdir}/sysconfig
+%{__install} -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/pgpool
 
 # nuke libtool archive and static lib
-rm -f %{buildroot}%{_libdir}/libpcp.{a,la}
+%{__rm} -f %{buildroot}%{_libdir}/libpcp.{a,la}
 
 %post
 /sbin/ldconfig
-%if %{systemd_enabled}
 %systemd_post pgpool.service
-%else
-# This adds the proper /etc/rc*.d links for the script
-/sbin/chkconfig --add pgpool
-%endif
 %tmpfiles_create %{_tmpfilesdir}/%{name}.conf
 
 %preun
-%if %{systemd_enabled}
 %systemd_preun pgpool.service
-%else
-if [ $1 -eq 0 ] ; then
-    /sbin/service pgpool stop >/dev/null 2>&1
-    /sbin/chkconfig --del pgpool
-fi
-%endif
 
-%postun 
+%postun
 /sbin/ldconfig
-%if %{systemd_enabled}
 %systemd_postun_with_restart pgpool.service
-%else
-if [ $1 -ge 1 ] ; then
-    /sbin/service pgpool condrestart >/dev/null 2>&1 || :
-fi
-%endif
-
-%if %{systemd_enabled}
-%triggerun -- pgpool < 3.1-1
-# Save the current service runlevel info
-# User must manually run systemd-sysv-convert --apply pgpool
-# to migrate them to systemd targets
-/usr/bin/systemd-sysv-convert --save pgpool >/dev/null 2>&1 ||:
-
-# Run these because the SysV package being removed won't do them
-/sbin/chkconfig --del pgpool >/dev/null 2>&1 || :
-/bin/systemctl try-restart pgpool.service >/dev/null 2>&1 || :
-%endif
 
 %files
 %doc README TODO COPYING AUTHORS ChangeLog NEWS
@@ -199,6 +137,8 @@ fi
 %{_bindir}/watchdog_setup
 %{_bindir}/pcp_attach_node
 %{_bindir}/pcp_detach_node
+%{_bindir}/pcp_invalidate_query_cache
+%{_bindir}/pcp_log_rotate
 %{_bindir}/pcp_node_count
 %{_bindir}/pcp_node_info
 %{_bindir}/pcp_pool_status
@@ -212,19 +152,16 @@ fi
 %{_bindir}/pcp_reload_config
 %{_bindir}/wd_cli
 %{_bindir}/pg_md5
-%dir %{_datadir}/%{short_name}
-%{_datadir}/%{short_name}/insert_lock.sql
+%dir %{_datadir}/%{sname}
+%{_datadir}/%{sname}/insert_lock.sql
 %{_libdir}/libpcp.so.*
-%{_datadir}/%{short_name}/pgpool.pam
-%if %{systemd_enabled}
+%{_datadir}/%{sname}/pgpool.pam
+%{_sysusersdir}/%{sname}.conf
 %ghost %{_varrundir}
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/pgpool.service
-%else
-%{_sysconfdir}/init.d/pgpool
-%endif
-%dir %{_sysconfdir}/%{short_name}
-%attr(644,root,root) %config(noreplace) %{_sysconfdir}/%{short_name}/*
+%dir %{_sysconfdir}/%{sname}
+%attr(644,root,root) %config(noreplace) %{_sysconfdir}/%{sname}/*
 %config(noreplace) %{_sysconfdir}/sysconfig/pgpool
 
 %files devel
@@ -254,6 +191,12 @@ fi
 
 
 %changelog
+* Tue Feb 3 2026 Devrim Gunduz <devrim@gunduz.org> - 4.7.0-1
+- Update to 4.7.0 per changes described at:
+  https://www.pgpool.net/docs/latest/en/html/release-4-7-0.html
+- Add sysusers.d config file to allow rpm to create users/groups automatically.
+- Modernise spec file
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

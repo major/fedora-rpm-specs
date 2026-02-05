@@ -42,6 +42,9 @@ Various tools that use %{name}.
 iconv -f ISO8859-1 -t UTF-8 AUTHORS > tmp; mv tmp AUTHORS
 
 %build
+%ifarch %{ix86}
+export  LDFLAGS+="-Wl,-z,notext"
+%endif
 autoreconf -fiv
 %configure --disable-static
 # Get rid of the /usr/lib64 RPATH on 64bit (as of 0.0.5)

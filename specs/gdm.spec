@@ -29,6 +29,7 @@ Source2:        gdm.sysusers
 Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch:          0001-data-add-system-dconf-databases-to-gdm-profile.patch
 Patch:          0001-Add-headless-session-files.patch
+Patch:          0001-fix-crash-local-display-factory.patch
 
 BuildRequires:  dconf
 BuildRequires:  desktop-file-utils

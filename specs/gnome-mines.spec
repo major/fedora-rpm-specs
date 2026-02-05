@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           gnome-mines
-Version:        49.0.1
+Version:        50~beta
 Release:        %autorelease
 Summary:        GNOME Mines Sweeper game
 

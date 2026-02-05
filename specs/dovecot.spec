@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.2
 %global prever %{nil}
-Release: 4%{?dist}
+Release: 5%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -48,6 +48,9 @@ Patch18: dovecot-2.3.15-valbasherr.patch
 # Fedora/RHEL specific, drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
 Patch23: dovecot-2.4.1-nolibotp.patch
 Patch24: dovecot-2.4.2-fixbuild.patch
+# temporary workaround for s390x build test failure
+# https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/FZBVU55TK5332SMZSSDNWIVJCWGUAJQS/
+Patch25: dovecot-2.4.2-ftbfs-workaround.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
@@ -154,6 +157,7 @@ mv dovecot-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 18 -p1 -b .valbasherr
 %patch -P 23 -p2 -b .nolibotp
 %patch -P 24 -p1 -b .fixbuild
+%patch -P 25 -p1 -b .ftbfs-workaround
 cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
@@ -479,6 +483,9 @@ make check ||:
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Feb 03 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.2-5
+- add workaround for test failure
+
 * Tue Jan 27 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.2-4
 - add /var/lib/dovecot to tmpfiles for image mode
 

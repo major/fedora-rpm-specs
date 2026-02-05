@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/xournalpp/xournalpp
 
 Name:           xournalpp
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:        GPL-2.0-or-later
@@ -130,4 +130,3 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.github.%{n
 
 %changelog
 %autochangelog
-

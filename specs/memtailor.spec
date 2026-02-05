@@ -1,5 +1,5 @@
 Name:           memtailor
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        C++ library of special-purpose memory allocators
 

@@ -4,12 +4,14 @@
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
 Version:        3.18.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/T/TU/TURNSTEP/DBD-Pg-%{version}.tar.gz 
 URL:            https://metacpan.org/release/DBD-Pg
+# C23 compliance (GH#148)
+Patch0:         DBD-Pg-3.18.0-C23-compliance-per-github-pull-request-148.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -86,6 +88,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBD-Pg-%{version}
+%patch -P0 -p1
+
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*.pl; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -95,7 +99,7 @@ done
 %build
 unset AUTOMATED_TESTING DBDPG_GCCDEBUG PERL_MM_USE_DEFAULT \
     POSTGRES_HOME POSTGRES_INCLUDE POSTGRES_LIB
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags} -std=gnu17" NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -154,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.18.0-10
+- Apply fix for C23 compilers
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

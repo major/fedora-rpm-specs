@@ -2,8 +2,8 @@
 %global repo onedrive
 
 Name:           onedrive
-Version:        2.5.9
-Release:        2%{?dist}
+Version:        2.5.10
+Release:        1%{?dist}
 Summary:        OneDrive Free Client written in D
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -62,6 +62,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Fri Jan 30 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.5.10-1
+- Update to 2.5.10 (#2435478)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

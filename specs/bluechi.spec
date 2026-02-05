@@ -10,8 +10,8 @@
 
 
 Name:		bluechi
-Version:	1.2.1
-Release:	3%{?dist}
+Version:	1.2.2
+Release:	1%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
 URL:		https://github.com/eclipse-bluechi/bluechi
@@ -356,6 +356,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Tue Feb 03 2026 Packit <hello@packit.dev> - 1.2.2-1
+- Update to version 1.2.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

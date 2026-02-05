@@ -6,7 +6,7 @@
 %global libadwaita_version 1.6~beta
 
 Name:           nautilus
-Version:        50~alpha
+Version:        50~beta
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
@@ -49,6 +49,8 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  /usr/bin/appstream-util
 # needed by test/automated/displayless
 BuildRequires:  localsearch
+BuildRequires:  pkgconfig(glycin-gtk4-2)
+BuildRequires:  pkgconfig(blueprint-compiler)
 
 Requires:       glib2%{_isa} >= %{glib2_version}
 Requires:       gnome-autoar%{_isa} >= %{gnome_autoar_version}

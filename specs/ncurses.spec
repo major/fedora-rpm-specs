@@ -1,15 +1,14 @@
 %bcond compat_libs %[!(0%{?rhel} >= 10) || %{defined eln}]
 %bcond gpm %[!(0%{?rhel} >= 10)]
-%global revision 20250614
 
 Summary: Ncurses support utilities
 Name: ncurses
-Version: 6.5
-Release: 9.%{revision}%{?dist}
+Version: 6.6
+Release: 1%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
-Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
-Source1: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz.asc
+Source0: https://invisible-mirror.net/archives/ncurses/ncurses-%{version}.tar.gz
+Source1: https://invisible-mirror.net/archives/ncurses/ncurses-%{version}.tar.gz.asc
 Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072.asc
 
 Patch8: ncurses-config.patch
@@ -71,10 +70,6 @@ This package contains C++ bindings of the ncurses ABI version 6 libraries.
 
 %package base
 Summary: Descriptions of common terminals
-# rxvt-unicode-256color entry used to be in rxvt-unicode and briefly
-# in rxvt-unicode-terminfo
-Conflicts: rxvt-unicode < 9.22-15
-Obsoletes: rxvt-unicode-terminfo < 9.22-18
 BuildArch: noarch
 
 %description base
@@ -113,7 +108,7 @@ The ncurses-static package includes static libraries of the ncurses library.
 %prep
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 
-%setup -q -n %{name}-%{version}-%{revision}
+%setup -q -n %{name}-%{version}
 
 %patch -P8 -p1 -b .config
 %patch -P9 -p1 -b .libs
@@ -160,9 +155,6 @@ for abi in %{?with_compat_libs:5} 6; do
         %make_build libs
         [ $progs = yes ] && %make_build -C progs
 
-        # force use of stdbool.h for compatibility with older standards
-        sed -i '/^#define NCURSES_ENABLE_STDBOOL_H/s/0/1/' include/curses.h
-
         popd
     done
 done
@@ -189,7 +181,7 @@ for termname in \
     alacritty ansi dumb foot\* linux vt100 vt100-nav vt102 vt220 vt52 \
     Eterm\* aterm bterm cons25 cygwin eterm\* gnome gnome-256color hurd jfbterm \
     kitty konsole konsole-256color mach\* mlterm mrxvt nsterm putty{,-256color} pcansi \
-    rxvt{,-\*} screen{,-\*color,.[^mlp]\*,.linux,.mlterm\*,.putty{,-256color},.mrxvt} \
+    rxvt{,-\*} screen{,5,-\*color,.[^mlp]\*,.linux,.mlterm\*,.putty{,-256color},.mrxvt} \
     st{,-\*color} sun teraterm teraterm2.3 tmux{,-\*} vte vte-256color vwmterm \
     wsvt25\* xfce xterm xterm-\*
 do
@@ -292,6 +284,11 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Tue Feb 03 2026 Miroslav Lichvar <mlichvar@redhat.com> 6.6-1
+- update to 6.6
+- move screen5 terminfo entry to -base (#2435327)
+- drop old conflict with rxvt-unicode
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-9.20250614
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

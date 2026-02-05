@@ -10,11 +10,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    961bc913d42fe24a257bfff826a5068079ac7782
+%global gh_commit    3d1cd096ef6bea4bf2762ba586e35dbd317cbfd5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-file-iterator
-%global gh_date      2025-02-07
+%global gh_date      2026-02-02
 %global php_home     %{_datadir}/php
 # Packagist
 %global pk_vendor    phpunit
@@ -26,8 +26,8 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.0.0
-Release:        4%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        FilterIterator implementation based on a list of suffixes, version %{major}
 
 License:        BSD-3-Clause
@@ -86,7 +86,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit12 || ret=1
@@ -106,6 +106,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  3 2026 Remi Collet <remi@remirepo.net> - 6.0.1-1
+- update to 6.0.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

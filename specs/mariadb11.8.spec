@@ -4,7 +4,7 @@
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
-%{!?mariadb_default:%global mariadb_default 0}
+%{!?mariadb_default:%global mariadb_default 1}
 
 # Regression tests may take a long time (many cores recommended), skip them by
 %{!?runselftest:%global runselftest 1}
@@ -160,7 +160,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          4%{?with_debug:.debug}%{?dist}
+Release:          100%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1833,6 +1833,10 @@ fi
 %endif
 
 %changelog
+* Tue Feb 03 2026 Michal Schorm <mschorm@redhat.com> - 3:11.8.5-100
+- Disable the 'distribution default' in MariaDB 10.11 (package 'mariadb10.11')
+- Enable the 'distribution default' in MariaDB 11.8 in this package
+
 * Sat Jan 24 2026 Michal Schorm <mschorm@redhat.com> - 3:11.8.5-4
 - Fedora 44 change: Remove 'community-mysql' names
 

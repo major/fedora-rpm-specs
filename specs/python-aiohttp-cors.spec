@@ -24,9 +24,7 @@ BuildArch:      noarch
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 # For tes suite
 BuildRequires: python3-pytest
@@ -67,20 +65,23 @@ sed -i 's/error/default/' pytest.ini
 rm setup.cfg
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l aiohttp_cors
 
 %check
+%pyproject_check_import
 %{python3} -m pytest -v --ignore tests/integration/test_real_browser.py
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGES.rst
-%{python3_sitelib}/aiohttp_cors
-%{python3_sitelib}/aiohttp_cors-*.egg-info/
 
 %changelog
 %autochangelog

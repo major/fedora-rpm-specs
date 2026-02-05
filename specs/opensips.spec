@@ -820,7 +820,6 @@ protocol.
 %package  snmpstats
 Summary:  SNMP management interface for the OpenSIPS
 Requires: %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: libnl3-devel
 BuildRequires: net-snmp-devel
 
 %description snmpstats

@@ -7,7 +7,7 @@
 
 
 Name:           perl-Compress-Raw-Zlib
-Version:        2.217
+Version:        2.218
 Release:        1%{?dist}
 Summary:        Low-level interface to the zlib compression library
 # Zlib.xs:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
@@ -16,7 +16,7 @@ Summary:        Low-level interface to the zlib compression library
 # zlib-src: Zlib
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 URL:            https://metacpan.org/release/Compress-Raw-Zlib
-Source0:        https://cpan.metacpan.org/modules/by-module/Compress/Compress-Raw-Zlib-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMQS/Compress-Raw-Zlib-%{version}.tar.gz
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -163,6 +163,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.218-1
+- 2.218 bump (rhbz#2436314)
+
 * Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 2.217-1
 - 2.217 bump (rhbz#2435736)
 

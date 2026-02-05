@@ -2,14 +2,16 @@
 
 %if !0%{?fedora} || 0%{?fedora} >= 44
 %bcond remove_german_man8 1
+%bcond remove_french_man8 1
 %else
 %bcond remove_german_man8 0
+%bcond remove_french_man8 0
 %endif
 
 Summary: Basic networking tools
 Name: net-tools
 Version: 2.0
-Release: 0.76.%{checkout}%{?dist}
+Release: 0.77.%{checkout}%{?dist}
 License: GPL-2.0-or-later
 URL: http://sourceforge.net/projects/net-tools/
 
@@ -141,6 +143,11 @@ rm -rf %{buildroot}%{_mandir}/pt/man5
 rm -rf %{buildroot}%{_mandir}/de/man8
 %endif
 
+%if %{with remove_french_man8}
+# man-pages-fr-4.29.1 has these, avoid file conflicts
+rm -rf %{buildroot}%{_mandir}/fr/man8
+%endif
+
 # install systemd unit file
 install -D -p -m 644 %{SOURCE9} %{buildroot}%{_unitdir}/arp-ethers.service
 
@@ -168,6 +175,9 @@ install -D -p -m 644 %{SOURCE9} %{buildroot}%{_unitdir}/arp-ethers.service
 %attr(0644,root,root)   %{_unitdir}/arp-ethers.service
 
 %changelog
+* Tue Feb 03 2026 Adam Williamson <awilliam@redhat.com> - 2.0-0.77.20160912git
+- Don't ship French man8 in F44+ (rhbz#2399744 again)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.76.20160912git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

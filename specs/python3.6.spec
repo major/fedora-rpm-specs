@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 51%{?dist}
+Release: 52%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -866,6 +866,46 @@ Patch465: 00465-tarfile-cves.patch
 #
 # tarfile now validates archives to ensure member offsets are non-negative (GH-137027)
 Patch467: 00467-tarfile-cve-2025-8194.patch
+
+# 00473 # e05f1f3d8ad066ef84e8353328bff5fa9403a241
+# CVE-2026-0865
+#
+# gh-143916: Reject control characters in wsgiref.headers.Headers  (GH-143917)
+#
+# * Add 'test.support' fixture for C0 control characters
+# * gh-143916: Reject control characters in wsgiref.headers.Headers
+Patch473: 00473-cve-2026-0865.patch
+
+# 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
+# CVE-2025-15366
+#
+# gh-143921: Reject control characters in IMAP commands
+#
+# (cherry-picked from commit 6262704b134db2a4ba12e85ecfbd968534f28b45)
+Patch474: 00474-cve-2025-15366.patch
+
+# 00475 # 2dc1bd28c0d5e9af4336a10bd64b895bd84bd946
+# CVE-2025-15367
+#
+# gh-143923: Reject control characters in POP3 commands
+#
+# (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
+Patch475: 00475-cve-2025-15367.patch
+
+# 00476 # 7caaa0b2486d0f5a1bdf12bb9b9f1393560ee303
+# CVE-2026-1299
+#
+# gh-144125: email: verify headers are sound in BytesGenerator
+#
+#
+#
+# The fix for the CVE uncovered a known issue in handling
+# policy.linesep lengths fixed by:
+#
+# bpo-34424: Handle different policy.linesep lengths correctly. (#8803)
+#
+# (cherry-picked from commit 45b2f8893c1b7ab3b3981a966f82e42beea82106)
+Patch476: 00476-cve-2026-1299.patch
 
 # (New patches go here ^^^)
 #
@@ -2168,6 +2208,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jan 29 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-52
+- Security fixes for CVE-2026-0865, CVE-2025-15366, CVE-2025-15367, CVE-2026-1299
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

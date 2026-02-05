@@ -1,6 +1,6 @@
 Name:           acpica-tools
 Version:        20251212
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -31,9 +31,9 @@ Patch00:	unaligned.patch
 Patch01:	template.patch
 Patch04:        cve-2017-13695.patch
 Patch05:        str-trunc-warn.patch
-Patch06:	dbtest.patch
 Patch07:	dangling-ptr.patch
 Patch08:	uuid-len.patch
+Patch09: 0001-Fix-unused-attribute-error.patch
 #Patch11:	0002-Correct-dumping-of-SLIC-tables.patch
 #Patch12:	0003-PHAT-FW-health-table-can-be-zero-length.patch
 
@@ -201,6 +201,10 @@ fi
 
 
 %changelog
+* Mon Feb 02 2026 Stephen Gallagher <sgallagh@redhat.com> - 20251212-4
+- Fix build failure from -Werror=unused-but-set-variable
+- Drop broken s390x patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20251212-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

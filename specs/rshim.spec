@@ -22,6 +22,10 @@ BuildRequires: systemd-rpm-macros
 Requires: kmod(cuse.ko)
 Suggests: kernel-modules-extra
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# fuse3 requires a 64bit off_t (-D_FILE_OFFSET_BITS=64 on 32bit)
+ExcludeArch: %{ix86}
+
 %description
 This is the user-space driver to access the BlueField SoC via the rshim
 interface. It provides ways to push boot stream, debug the target or login

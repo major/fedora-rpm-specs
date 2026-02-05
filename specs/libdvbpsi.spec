@@ -6,7 +6,7 @@ Name:		libdvbpsi
 Version:	1.3.3
 Release:	18%{?dist}
 License:	LGPL-2.1-or-later
-URL:		http://www.videolan.org/developers/libdvbpsi.html
+URL:		https://www.videolan.org/developers/libdvbpsi.html
 Source0:        https://code.videolan.org/videolan/libdvbpsi/-/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 
 BuildRequires:	gcc
