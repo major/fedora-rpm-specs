@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        a8bf21c15e09745f7b570a3b0154bf70bad478bc
+%global gh_commit        bfb859a4c03836a0a95d69f41a81f5a76d5f6bfb
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 1.3.7
+%global upstream_version 1.3.8
 #global upstream_prever  rc3
 
 %global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
@@ -137,6 +137,9 @@ done
 
 
 %changelog
+* Wed Feb  4 2026 Remi Collet <remi@remirepo.net> - 1.3.8-1
+- update to 1.3.8
+
 * Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 1.3.7-1
 - update to 1.3.7
 

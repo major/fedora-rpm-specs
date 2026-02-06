@@ -41,6 +41,8 @@ Patch0: 	install-nvram-only.patch
 Patch1:		detect-efi-size.patch
 # Fix building on AArch64 natively
 Patch2:		fix-aarch64-efi-build.patch
+# Replaces outdated objcopy target option
+Patch3:		fix-target-option.patch
 
 ExclusiveArch:  %{efi}
 # rEFInd doesn't work on 32-bit arm

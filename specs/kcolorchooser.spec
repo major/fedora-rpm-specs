@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kcolorchooser
 Summary: A color chooser 
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
@@ -56,6 +56,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

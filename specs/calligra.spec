@@ -8,8 +8,8 @@
 #global external_lilypond_fonts 1
 
 Name:    calligra 
-Version: 25.12.1
-Release: 4%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: An integrated office suite
 
 License: GPL-2.0-or-later AND GPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause AND BSD-2-Clause
@@ -25,9 +25,6 @@ Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/calli
 ## upstream patches
 
 ## upstreamable patches
-# Fix build with Poppler 26.01
-# https://github.com/KDE/calligra/commit/3b79e0a4c3bfcae02f8403a098b2d008e3bb8a6b
-Patch0:   3b79e0a4c3bfcae02f8403a098b2d008e3bb8a6b.patch
 
 ## downstream patches
 Patch200: calligra-disable_products.patch
@@ -515,6 +512,9 @@ done
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Mon Jan 19 2026 Steve Cossette <farchord@gmail.com> - 25.12.1-4
 - Bump for poppler update
 

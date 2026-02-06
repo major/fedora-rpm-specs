@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 License: LGPL-2.0-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/sdk/%{name}.git
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-xdebug3
 #
-# Copyright (c) 2010-2025 Remi Collet
+# Copyright (c) 2010-2026 Remi Collet
 # Copyright (c) 2006-2009 Christopher Stone
 #
 # License: MIT
@@ -16,11 +16,11 @@
 %global pie_vend   xdebug
 %global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  32dcc3da7bbff171f67e803f28ef4c098f8e2caf
+%global gh_commit  af9280fff4eeb014309f8f66633c5e8f40e88b04
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.5.0
+%global upstream_version 3.5.1
 #global upstream_prever  alpha3
 #global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -31,7 +31,7 @@
 Name:           %{php_base}-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 License:        Xdebug-1.03
@@ -216,6 +216,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Wed Feb  4 2026 Remi Collet <remi@remirepo.net> - 3.5.1-1
+- update to 3.5.1 (no change on Linux)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

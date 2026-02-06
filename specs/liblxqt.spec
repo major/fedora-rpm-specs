@@ -13,6 +13,9 @@ Url:		https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	macros.lxqt
 
+# See https://github.com/lxqt/liblxqt/pull/372
+Patch0:         0001-Support-logout-in-SystemdProvider.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: libXScrnSaver-devel

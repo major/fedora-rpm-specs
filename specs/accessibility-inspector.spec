@@ -6,8 +6,8 @@
 ExcludeArch: %{ix86}
 
 Name:           accessibility-inspector
-Version:        25.12.1
-Release:        3%{?dist}
+Version:        25.12.2
+Release:        1%{?dist}
 Summary:        KDE Accessbility Inspector
 # LGPL: code
 # CC0: metadata
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

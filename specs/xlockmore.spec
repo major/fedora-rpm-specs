@@ -1,6 +1,6 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
-Version: 5.86
+Version: 5.87
 Release: 2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -13,6 +13,7 @@ BuildRequires: mesa-libGL-devel mesa-libGLU-devel
 BuildRequires: desktop-file-utils libXdmcp-devel
 BuildRequires: motif-devel gtk2-devel
 BuildRequires: libXau-devel
+Patch0: xlockmore-ignore-void.patch
 %if 0%{?rhel}
 Requires: gnome-icon-theme
 %else
@@ -38,6 +39,7 @@ GTK based frontend for xlockmore.
 
 %prep
 %setup -q
+%patch -P 0 -p 1
 
 %{__sed} -i -e "s,/lib,/%{_lib},g;s,-Wno-format,,g;" configure
 
@@ -114,6 +116,9 @@ desktop-file-install \
 %{_bindir}/xglock
 
 %changelog
+* Wed Feb 04 2026 Adrian Reber <adrian@lisas.de> - 5.87-2
+- Updated to 5.87 (#2435197)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.86-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

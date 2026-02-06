@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
 URL:     https://apps.kde.org/kajongg/
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

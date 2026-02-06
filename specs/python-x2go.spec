@@ -60,7 +60,7 @@ Python applications by providing a Python-based X2Go client API.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

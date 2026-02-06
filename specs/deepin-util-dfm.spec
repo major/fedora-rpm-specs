@@ -1,7 +1,7 @@
 %global repo util-dfm
 
 Name:           deepin-util-dfm
-Version:        1.3.43
+Version:        1.3.47
 Release:        %autorelease
 Summary:        Utilities of deepin file manager
 # the library is mainly under GPL-3.0-or-later, except:
@@ -9,6 +9,7 @@ Summary:        Utilities of deepin file manager
 License:        GPL-3.0-or-later AND ClArtistic AND BSD-3-Clause AND BSD-4-Clause
 URL:            https://github.com/linuxdeepin/util-dfm
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
+Patch0:         https://github.com/linuxdeepin/util-dfm/pull/256.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -76,6 +77,10 @@ A Toolkit of dfm6-search.
 %package -n     dfm6-search-devel
 Summary:        Development files for dfm6-search
 Requires:       dfm6-search%{?_isa} = %{version}-%{release}
+# https://github.com/linuxdeepin/util-dfm/blob/master/misc/dfm-search/dfm-searchConfig.cmake.in
+Requires:       boost-devel
+Requires:       pkgconfig(liblucene++)
+Requires:       pkgconfig(liblucene++-contrib)
 %description -n dfm6-search-devel
 This package contains development files for dfm6-search.
 
@@ -83,12 +88,6 @@ This package contains development files for dfm6-search.
 %autosetup -p1 -n %{repo}-%{version}
 
 sed -i 's|Boostsystem Threads||' misc/dfm-search/dfm-search.pc.in
-
-# use Fedora build flags
-sed -i 's/-O0//; s/-O3//' \
-    src/dfm-io/CMakeLists.txt \
-    src/dfm-burn/CMakeLists.txt \
-    src/dfm-search/CMakeLists.txt
 
 %build
 %cmake -DVERSION=%{version}

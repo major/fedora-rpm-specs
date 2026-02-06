@@ -1,7 +1,7 @@
 Name:    libkdegames
 Summary: Common code and data for many KDE games
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 # libKF5KDEGames is LGPLv2, libKF5KDEGamesPrivate is GPLv2+
 # Automatically converted from old format: LGPLv2 and GPLv2+ - review is highly recommended.
@@ -110,6 +110,9 @@ Requires: kf6-kwidgetsaddons-devel
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

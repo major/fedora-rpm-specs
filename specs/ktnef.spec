@@ -1,6 +1,6 @@
 Name:    ktnef
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: The KTNef Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -66,6 +66,9 @@ find ./po -type f -name libktnef5.po -execdir mv {} libktnef6.po \;
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

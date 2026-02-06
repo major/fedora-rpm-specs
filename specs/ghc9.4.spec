@@ -119,6 +119,9 @@ Patch10: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11942.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026 (bindist autoconf)
 Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12026.patch
 
+# Cabal-syntax for ghc-9.10
+Patch12: Cabal-syntax-ghc9.10.patch
+
 # arm patches
 # https://github.com/haskell/text/issues/396
 # reverts https://github.com/haskell/text/pull/405
@@ -437,6 +440,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 ( cd hadrian
   cabal-tweak-flag selftest False
   cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+  cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
 )
 
 %patch -P1 -p1 -b .orig
@@ -453,6 +457,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %patch -P10 -p1 -b .orig
 %patch -P11 -p1 -b .orig
+%patch -P12 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -504,13 +509,17 @@ rm libffi-tarballs/libffi-*.tar.gz
 %if %{with hadrian}
 (cd libraries/Cabal/Cabal-syntax
  cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+ cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
  cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
+ cabal-tweak-dep-ver filepath '< 1.5' '< 1.6'
  cabal-tweak-dep-ver text '< 2.1' '< 2.2'
  cabal-tweak-dep-ver unix '< 2.8' '< 2.9'
 )
 (cd libraries/Cabal/Cabal
  cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+ cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
  cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
+ cabal-tweak-dep-ver filepath '< 1.5' '< 1.6'
  cabal-tweak-dep-ver text '< 2.1' '< 2.2'
  cabal-tweak-dep-ver unix '< 2.8' '< 2.9'
 )

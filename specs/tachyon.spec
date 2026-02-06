@@ -10,7 +10,7 @@
 Summary: Parallel / Multiprocessor Ray Tracing System
 Name: tachyon
 Version: 0.99.5
-Release: 4%{?beta}%{?dist}
+Release: 5%{?beta}%{?dist}
 URL: http://jedi.ks.uiuc.edu/~johns/raytracer/
 Source0: http://jedi.ks.uiuc.edu/~johns/raytracer/files/%{version}%{beta}/%{name}-%{version}%{beta}.tar.gz
 # generated with help2man and hand-edited
@@ -89,7 +89,7 @@ chmod 644 demosrc/trackball.{c,h}
 # delete private symlinks
 rm -v scenes/{imaps,tpoly,vol}
 # work around unsupported -m32 gcc option
-%ifarch aarch64
+%ifarch aarch64 riscv64
 sed -i -e 's/-m32 //g' unix/Make-arch
 sed -i -e 's/-m64 //g' unix/Make-arch
 %endif
@@ -140,6 +140,9 @@ install -pm644 src/{hash,tachyon{,_dep},util}.h $RPM_BUILD_ROOT%{_includedir}/ta
 %{_datadir}/tachyon
 
 %changelog
+* Wed Feb 04 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.99.5-5
+- drop -m32/64 flags also on riscv64
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

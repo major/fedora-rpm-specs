@@ -1,15 +1,15 @@
 %global appname io.elementary.wingpanel
 
-%global commit      799090429d747ac9baf4f4e021b48da743c00761
+%global commit      cd4852e3a28fa5b14dc2ea88810a4754d7e1d226
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate     20250611
+%global gitdate     20260127
 
 %global _description %{expand:
 Stylish top panel that holds indicators and spawns an application
 launcher.}
 
 Name:           wingpanel
-Version:        8.0.3^%{gitdate}.git%{shortcommit}
+Version:        8.0.4^%{gitdate}.git%{shortcommit}
 Release:        %autorelease
 Summary:        Stylish top panel
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -23,18 +23,18 @@ BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  vala
 
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+BuildRequires:  pkgconfig(libmutter-17)
+BuildRequires:  pkgconfig(mutter-clutter-17)
+BuildRequires:  pkgconfig(mutter-cogl-17)
+BuildRequires:  pkgconfig(mutter-mtk-17)
+%endif
+
+%if 0%{?fedora} == 42
 BuildRequires:  pkgconfig(libmutter-16)
 BuildRequires:  pkgconfig(mutter-clutter-16)
 BuildRequires:  pkgconfig(mutter-cogl-16)
 BuildRequires:  pkgconfig(mutter-mtk-16)
-%endif
-%if 0%{?fedora} == 41
-BuildRequires:  pkgconfig(libmutter-15)
-BuildRequires:  pkgconfig(mutter-clutter-15)
-BuildRequires:  pkgconfig(mutter-cogl-15)
-BuildRequires:  pkgconfig(mutter-cogl-pango-15)
-BuildRequires:  pkgconfig(mutter-mtk-15)
 %endif
 
 BuildRequires:  pkgconfig(gala)

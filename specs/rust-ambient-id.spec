@@ -5,7 +5,7 @@
 %global crate ambient-id
 
 Name:           rust-ambient-id
-Version:        0.0.7
+Version:        0.0.8
 Release:        %autorelease
 Summary:        Detects ambient OIDC credentials in a variety of environments
 

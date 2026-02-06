@@ -6,7 +6,7 @@
 
 Name:           dxf2gcode
 Version:        %{date}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        2D drawings to CNC machine compatible G-Code converter
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-MIT
@@ -19,13 +19,9 @@ BuildRequires:  /usr/bin/git
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  qt5-linguist
 BuildRequires:  /usr/bin/pyuic5
 BuildRequires:  /usr/bin/pyrcc5
-BuildRequires:  python3dist(pyopengl)
-BuildRequires:  python3dist(pyqt5)
-BuildRequires:  python3dist(configobj)
 
 Requires:       /usr/bin/pdftops
 Requires:       /usr/bin/pstoedit
@@ -51,6 +47,11 @@ compatible GCode. It has the following features:
 
 %prep
 %autosetup -S git
+# Original setup.py file is for windows platform only
+cp -af st-setup.py setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
@@ -58,11 +59,11 @@ compatible GCode. It has the following features:
 python3 ./make_py_uic.py 5
 # regenerate translation files
 lrelease-qt5 i18n/*.ts
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 %find_lang %{name} --with-qt --without-mo
@@ -80,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Wed Feb 04 2026 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20240509-11
+- Migrate to new macros (rhbz#2377247)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240509-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global baserelease 14
+%global baserelease 15
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
@@ -194,6 +194,7 @@ Source1:       pacemaker.sysusers
 
 # upstream commits
 Patch0:        0001-Low-various-Use-const-for-a-few-string-pointer-varia.patch
+Patch1:        0002-Fix-build-Handle-CMocka-deprecations.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -765,6 +766,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Wed Feb 04 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-15
+- Handle CMocka deprecations
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

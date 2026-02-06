@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name: conan
-Version: 2.25.1
+Version: 2.25.2
 Release: %autorelease
 
 License: MIT

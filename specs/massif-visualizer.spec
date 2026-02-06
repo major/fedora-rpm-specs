@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:           massif-visualizer
 Summary:        Visualizer for Massif heap memory profiler data files
-Version:        25.12.1
-Release:        2%{?dist}
+Version:        25.12.2
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://apps.kde.org/massif_visualizer/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

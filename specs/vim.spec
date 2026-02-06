@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 2114
+%define patchlevel 2128
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -78,7 +78,6 @@ Source9: vim-default-editor.sh
 Source10: vim-default-editor.csh
 Source11: vim-default-editor.fish
 Source12: view_wrapper
-Source13: vi_wrapper
 
 
 Patch1: vim-7.0-fixkeys.patch
@@ -608,15 +607,10 @@ make auto/osdef.h auto/gui_gtk_gresources.h auto/wayland/wlr-data-control-unstab
 # does it for us, so there is no need to do it in Vim
 %make_install BINDIR=%{_bindir} STRIP=/bin/true
 
-# make install creates vim binary and view symlink, they will be wrappers
-# so remove them here
-rm -f %{buildroot}%{_bindir}/{vim,view}
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{16x16,32x32,48x48,64x64}/apps
-mkdir -p %{buildroot}%{_libexecdir}
-install -m755 minimal-vim %{buildroot}%{_libexecdir}/vi
+install -m755 minimal-vim %{buildroot}%{_bindir}/vi
 install -m755 enhanced-vim %{buildroot}%{_bindir}/vim
 install -m755 %{SOURCE12} %{buildroot}%{_bindir}/view
-install -m755 %{SOURCE13} %{buildroot}%{_bindir}/vi
 
 %if %{with gui}
 make installgtutorbin  DESTDIR=%{buildroot} BINDIR=%{_bindir}
@@ -709,9 +703,9 @@ rm %{buildroot}/%{_datadir}/icons/{hicolor,locolor}/*/apps/gvim.png
 %endif
 
 ( cd %{buildroot}
-  ln -sf ../..%{_libexecdir}/vi .%{_bindir}/rvi
-  ln -sf ../..%{_libexecdir}/vi .%{_bindir}/rview
-  ln -sf ../..%{_libexecdir}/vi .%{_bindir}/ex
+  ln -sf ../..%{_bindir}/vi .%{_bindir}/rvi
+  ln -sf ../..%{_bindir}/vi .%{_bindir}/rview
+  ln -sf ../..%{_bindir}/vi .%{_bindir}/ex
   ln -sf vim .%{_bindir}/rvim
   ln -sf vim .%{_bindir}/vimdiff
   perl -pi -e "s,%{buildroot},," .%{_mandir}/man1/vim.1 .%{_mandir}/man1/vimtutor.1
@@ -880,6 +874,7 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %lang(sk.cp1250) %{_datadir}/%{name}/%{vimdir}/lang/sk.cp1250
 %lang(sr) %{_datadir}/%{name}/%{vimdir}/lang/sr
 %lang(sv) %{_datadir}/%{name}/%{vimdir}/lang/sv
+%lang(ta) %{_datadir}/%{name}/%{vimdir}/lang/ta
 %lang(tr) %{_datadir}/%{name}/%{vimdir}/lang/tr
 %lang(uk) %{_datadir}/%{name}/%{vimdir}/lang/uk
 %lang(uk.cp1251) %{_datadir}/%{name}/%{vimdir}/lang/uk.cp1251
@@ -923,7 +918,6 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %{_bindir}/rview
 %{_bindir}/vi
 %{_bindir}/view
-%{_libexecdir}/vi
 %{_mandir}/man1/vi.*
 %{_mandir}/man1/ex.*
 %{_mandir}/man1/rvi.*
@@ -1011,6 +1005,12 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Wed Feb 04 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2128-1
+- patchlevel 2128
+
+* Tue Feb 03 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2114-2
+- make /usr/bin/vi executable again to be able to use it with sudo option NOEXEC
+
 * Fri Jan 30 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2114-1
 - patchlevel 2114
 - added Swedish translation

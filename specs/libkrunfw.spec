@@ -8,8 +8,7 @@ Name:           libkrunfw
 Version:        5.2.0
 Release:        1%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
-# Automatically converted from old format: LGPLv2 and GPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2 AND GPL-2.0-only
+License:        LGPL-2.1-only AND GPL-2.0-only
 URL:            https://github.com/containers/libkrunfw
 Source0:        https://github.com/containers/libkrunfw/archive/refs/tags/v%{version}.tar.gz
 # This package bundles a customized Linux kernel in a format that can only be

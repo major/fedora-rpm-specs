@@ -52,6 +52,12 @@ test %nnuehash2 = "$(sha256sum %{SOURCE2} | cut -c1-12)"
 #%%autosetup -n%%{name}-%%{version}-linux
 %autosetup -p1 -n%{srcname}-sf_%{version}
 
+# Disable minimum GCC version check, as it only guards against
+# a bug that only affects Windows - see:
+# https://github.com/official-stockfish/Stockfish/issues/3216
+# This is currently only required for EPEL8 build to pass.
+sed -i '/#error/d' src/types.h
+
 # Verify the NNUE net checksums match the defaults defined in the sources
 grep -Fq '#define EvalFileDefaultNameBig "nn-%{nnuehash1}.nnue"' src/evaluate.h
 grep -Fq '#define EvalFileDefaultNameSmall "nn-%{nnuehash2}.nnue"' src/evaluate.h

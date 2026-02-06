@@ -14,6 +14,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 %if %{with check}
 BuildRequires:  perl(Clone)
 BuildRequires:  perl(Compress::Zlib)
+BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Math::VectorReal)
 BuildRequires:  perl(Set::Object)
 BuildRequires:  perl(Test::Exception)

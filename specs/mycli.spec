@@ -1,17 +1,23 @@
+#global         server_tests   1
+
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.43.1
-Release:        2%{?dist}
+Version:        1.49.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
 Patch:          0001-Revert-to-sqlglot-5.1.3.patch
 Patch:          0002-Revert-to-older-toml-format.patch
-Patch:          0003-Relax-click-reqs.patch
+Patch:          0003-Relax-various-reqs.patch
+Patch:          0004-Fix-tox-config-and-some-test-fixes.patch
+Patch:          0005-Disable-more-test-which-requires-db-server.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-tox-current-env
+BuildRequires:  python3-uv
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3dist(pytest) >= 2.7.0
 BuildRequires:  python3dist(behave) >= 1.2.4
@@ -26,6 +32,10 @@ BuildRequires:  python3dist(pycryptodomex)
 BuildRequires:  python3dist(pymysql) >= 0.9.2
 BuildRequires:  python3dist(pyperclip)
 BuildRequires:  python3dist(sshtunnel)
+# Test infra:
+%{?server_tests:BuildRequires:  mysql-server}
+BuildRequires:  tox
+BuildRequires:  uv
 Suggests:       python3-mycli+ssh
 %py_provides    python3-%{pypi_name}
 
@@ -52,7 +62,43 @@ syntax highlighting.
 %pyproject_save_files %{pypi_name}
 
 %check
+
+db_env () {
+    export PYTEST_HOST=127.0.0.1
+    export PYTEST_USER=root
+    export PYTEST_PASSWORD=root
+    export PYTEST_PORT=3333
+    export DATADIR=$(mktemp -d /tmp/myclitest.XXXXXX)
+}
+
+db_setup () {
+    mysqld --no-defaults --datadir=$DATADIR --initialize-insecure
+    mysqld --no-defaults --datadir=$DATADIR --socket=$DATADIR/my.sock --port=$PYTEST_PORT -D
+    mysql -uroot --password='' --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e 'CREATE DATABASE mycli_test_db;'
+    mysql -uroot --password='' --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e 'CREATE DATABASE test;'
+    mysql -uroot --password='' --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e "set password='"$PYTEST_PASSWORD"';"
+}
+db_teardown () {
+    mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e 'SHUTDOWN;'
+    count=0
+    while [ $count -lt 15 ] ; do
+	sleep 1
+	grep -q 'Shutdown complete' $DATADIR/*.err && break
+	((count+=1))
+    done
+    rm -rf $DATADIR/*
+    rm -r  $DATADIR
+}
+
+%if 0%{?server_tests}
+db_env
+db_setup
+echo :$PYTEST_USER:$PYTEST_PASSWORD:$PYTEST_PORT:
+mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=3333 -e 'SELECT version();'
+%endif
+
 %pytest --ignore=test/test_parseutils.py
+%{?server_tests:db_teardown}
 
 %files -f %{pyproject_files}
 %license LICENSE.txt
@@ -60,16 +106,19 @@ syntax highlighting.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Wed Feb 04 2026 Terje Røsten <terjeros@gmail.com> - 1.49.0-1
+- 1.49.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.43.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Sun Jan  4 2026 Dick Marinus <dick@mrns.nl> 1.43.1-1
+* Sun Jan 04 2026 Dick Marinus <dick@mrns.nl> 1.43.1-1
 - 1.43.1
 
-* Tue Nov 25 2025 Terje Rosten <terjeros@gmail.com> - 1.41.2-1
+* Tue Nov 25 2025 Terje Røsten <terjeros@gmail.com> - 1.41.2-1
 - 1.41.2
 
-* Mon Nov 17 2025 Terje Rosten <terjeros@gmail.com> - 1.41.1-1
+* Mon Nov 17 2025 Terje Røsten <terjeros@gmail.com> - 1.41.1-1
 - 1.41.1
 
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.37.1-3

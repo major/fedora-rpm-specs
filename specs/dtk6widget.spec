@@ -45,6 +45,7 @@ This package contains development files for %{name}.
 
 %prep
 %autosetup -p1 -C
+sed -i 's|/dtk@DTK_VERSION_MAJOR@/DWidget||' misc/DtkWidget.pc.in
 
 %build
 %cmake -GNinja -DDTK5=OFF -DQCH_INSTALL_DESTINATION=%{_qt6_docdir}

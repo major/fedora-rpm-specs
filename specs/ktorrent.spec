@@ -6,8 +6,8 @@
 ExcludeArch: %{ix86}
 
 Name:    ktorrent
-Version: 25.12.1
-Release: 3%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: A BitTorrent program
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

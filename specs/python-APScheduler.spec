@@ -8,7 +8,7 @@ restarted, it will then run all the jobs it should have run while it was
 offline.}
 
 Name:           python-APScheduler
-Version:        3.11.0
+Version:        3.11.2
 Release:        %autorelease
 Summary:        In-process task scheduler with Cron-like capabilities
 
@@ -31,8 +31,7 @@ BuildRequires:  python3-devel
 # up and running. Upstream provides a docker compose to spawn
 # services before running these tests.
 rm tests/test_jobstores.py
-# Skip missing dependencies in Fedora 42
-sed -i 's/    "anyio >= 4.5.2",//' pyproject.toml
+# Skip missing dependency in Fedora 43
 sed -i 's/,rethinkdb//' pyproject.toml
 
 %generate_buildrequires

@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           colord-kde
-Version:        25.12.1
-Release:        3%{?dist}
+Version:        25.12.2
+Release:        1%{?dist}
 Summary:        Colord support for KDE
 
 License:        CC0-1.0 AND LGPL-3.0-or-later
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/{colordkdeiccimp
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

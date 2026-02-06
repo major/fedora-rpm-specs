@@ -1,6 +1,6 @@
-%global abiver 2.56
+%global abiver 2.57
 Name:           librealsense
-Version:        2.56.5
+Version:        2.57.6
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
@@ -19,8 +19,10 @@ Patch2:         librealsense.use-system-pybind11.patch
 Patch3:         librealsense.remove-invalid-unused-code.patch
 # https://github.com/morxa/librealsense/tree/rsutils-shared-library
 Patch4:         librealsense.rsutils-shared-library.patch
-# https://github.com/morxa/librealsense/tree/use-system-pybind11
+# https://github.com/morxa/librealsense/tree/use-system-json
 Patch5:         librealsense.use-system-json.patch
+# https://github.com/morxa/librealsense/tree/utf8-string-literals
+Patch6:         librealsense.utf8-string-literals.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)
@@ -146,12 +148,16 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-depth-quality
 %{_bindir}/rs-distance
 %{_bindir}/rs-embed
+%{_bindir}/rs-embedded-filters
 %{_bindir}/rs-enumerate-devices
+%{_bindir}/rs-eth-config
 %{_bindir}/rs-fw-logger
 %{_bindir}/rs-fw-update
 %{_bindir}/rs-gl
 %{_bindir}/rs-hdr
 %{_bindir}/rs-hello-realsense
+%{_bindir}/rs-infrared
+%{_bindir}/rs-labeled-pointcloud
 %{_bindir}/rs-measure
 %{_bindir}/rs-motion
 %{_bindir}/rs-multicam

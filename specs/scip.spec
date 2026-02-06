@@ -1,7 +1,7 @@
 %global giturl  https://github.com/scipopt/scip
 
 Name:           scip
-Version:        10.0.0
+Version:        10.0.1
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 
@@ -24,10 +24,6 @@ Patch:          %{name}-headers.patch
 Patch:          %{name}-uninitialized-memory.patch
 # Use zlib-ng directly rather than via the compatibility interface
 Patch:          %{name}-zlib-ng.patch
-# Fix two bugs in SCIPcreateConsBasicSOCNonlinear
-Patch:          https://github.com/scipopt/scip/pull/181.patch
-# The dtoa code needs to know if the CPU is big endian
-Patch:          https://github.com/scipopt/scip/pull/184.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

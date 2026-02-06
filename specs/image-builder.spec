@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        47
+Version:        48
 
 %gometa
 
@@ -17,7 +17,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -147,7 +147,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.233.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.234.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -265,6 +265,21 @@ cd $PWD/_build/src/%{goipath}
 %ghost %dir /var/cache/image-builder
 
 %changelog
+* Wed Feb 04 2026 Packit <hello@packit.dev> - 48-1
+Changes with 48
+----------------
+  - Add pxe-tar-xz to bib types and add boot tests for f43, stream9, and stream10 (#436)
+    - Author: Brian C. Lane, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Support rootless bootc-image-builder (#445)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - chore: fix constant format string (#438)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - tests: Fix bootc pxe testing (#439)
+    - Author: Brian C. Lane, Reviewers: Simon de Vlieger
+
+— Somewhere on the Internet, 2026-02-04
+
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 47-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

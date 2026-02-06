@@ -3,7 +3,7 @@
 
 # https://github.com/kardianos/service
 %global goipath         github.com/kardianos/service
-Version:                1.2.2
+Version:                1.2.4
 %global debug_package   %{nil}
 
 %gometa

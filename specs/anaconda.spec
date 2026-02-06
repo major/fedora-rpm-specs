@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.17
+Version: 44.18
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -519,6 +519,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 03 2026 Packit <hello@packit.dev> - 44.18-1
+- Always restorecon user home directory after creating it (awilliam)
+- Replace direct inst call with DRACUT_NO_XATTR=1 workaround (k.koukiou)
+- Restructure readthedocs documentation with audience-based organization
+  (k.koukiou)
+- dracut: Include systemd-sysroot-fstab-check binary in initramfs (k.koukiou)
+
 * Tue Jan 27 2026 Packit <hello@packit.dev> - 44.17-1
 - rescue: Change 'immutable' to 'atomic' in warning message (k.koukiou)
 - Only show compatible translations in text mode (mkolman)

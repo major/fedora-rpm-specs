@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python MQTT version 3.1/3.1.1/5.0 client class
 
 License:        EPL-1.0
@@ -26,7 +26,6 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest-runner
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -57,6 +56,9 @@ and/or network bandwidth is at a premium.
 %doc CONTRIBUTING.md README.rst *.html
 
 %changelog
+* Mon Jan 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0-8
+- Remove unnecessary BuildRequires on deprecated python-pytest-runner
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

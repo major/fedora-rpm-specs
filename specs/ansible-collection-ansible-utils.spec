@@ -2,8 +2,8 @@
 %global collection_name utils
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        6.0.0
-Release:        3%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        Ansible Network Collection for Common Code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -37,6 +37,9 @@ find -type f -name '.gitignore' -print -delete
 %{ansible_collection_files}
 
 %changelog
+* Wed Feb 04 2026 Orion Poplawski <orion@nwra.com> - 6.0.1-1
+- Update to 6.0.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

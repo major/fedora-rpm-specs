@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  755a8e027
+%global commit  1bce6d5c8
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -21,7 +21,7 @@ Patch:          %{name}-rpath.patch
 Patch:          %{name}-popcount.patch
 # Fix out-of-bounds vector accesses
 Patch:          %{name}-vector.patch
-# Unbundle cli11, pdqsort, and zstr
+# Unbundle amd, cli11, metis, pdqsort, rcm, and zstr
 Patch:          %{name}-unbundle.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -29,14 +29,18 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  cli11-static
 BuildRequires:  cmake
+BuildRequires:  cmake(AMD)
 BuildRequires:  cmake(catch2)
 BuildRequires:  doctest-static
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
+BuildRequires:  libatomic
+BuildRequires:  metis-devel
 BuildRequires:  ninja-build
 BuildRequires:  pdqsort-static
 BuildRequires:  pkgconfig(coindatanetlib)
 BuildRequires:  pkgconfig(coindatasample)
+BuildRequires:  pkgconfig(flexiblas)
 BuildRequires:  python3-devel
 BuildRequires:  zstr-static
 
@@ -44,6 +48,11 @@ BuildRequires:  zstr-static
 # extensively from the upstream version:
 # https://github.com/feldmeier/FilereaderLP/
 Provides:       bundled(FilereaderLP)
+
+# A bundled version of rcm is included, but it has been modified from the
+# upstream version.  It has been extracted from sparsepak:
+# https://people.sc.fsu.edu/~jburkardt/f77_src/sparsepak/sparsepak.html
+Provides:       bundled(rcm)
 
 %description
 HiGHS is a high performance serial and parallel solver for large scale sparse
@@ -95,14 +104,18 @@ sed -i 's,n/a,%{commit},' CMakeLists.txt
 rm extern/catch.hpp
 ln -s %{_includedir}/catch2/catch_all.hpp extern/catch.hpp
 
-# Ensure the bundled cli11, pdqsort, and zstr are not used
-rm -fr app/CLI11.hpp extern/{pdqsort,zstr}
+# Ensure the bundled amd, cli11, metis, pdqsort, and zstr are not used
+rm -fr extern/{CLI11.hpp,amd,metis,pdqsort,zstr}
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
 
 %build
-%cmake
+%cmake \
+    -DBLAS_INCLUDE_DIRS:FILEPATH=%{_includedir} \
+    -DBLAS_LIBRARIES:FILEPATH=%{_libdir}/libflexiblas.so \
+    -DBLAS_ROOT:FILEPATH=%{_prefix} \
+    -DHIPO:BOOL=ON
 %cmake_build
 
 # Build the python interface
@@ -122,7 +135,8 @@ help2man -N --version-string=%{version} -o %{buildroot}%{_mandir}/man1/highs.1 \
 %pyproject_save_files -L highspy
 
 # Remove files and directories that are installed in the wrong place
-rm -fr %{buildroot}%{python3_sitearch}/{bin,include,lib64}
+rm -fr %{buildroot}%{python3_sitearch}/{bin,include,lib64,*.md,*.txt}
+rm %{buildroot}%{_prefix}/*.{md,txt}
 
 # Instead of linking with and installing a private copy of the library,
 # fix up the installed python tree to use the installed library
@@ -140,7 +154,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files
 %doc AUTHORS FEATURES.md README.md
-%license LICENSE.txt
+%license LICENSE.txt THIRD_PARTY_NOTICES.md
 %{_bindir}/highs
 %{_libdir}/libhighs.so.1{,.*}
 %{_mandir}/man1/highs.1*

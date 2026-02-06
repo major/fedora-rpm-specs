@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    juk
 Summary: Music player
-Version: 25.12.1
-Release: 3%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # handbook doc: GFDL-1.2-no-invariants-or-later
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.juk.deskt
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

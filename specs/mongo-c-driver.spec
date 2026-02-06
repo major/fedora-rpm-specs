@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for mongo-c-driver
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.30.6
+%global up_version   1.30.7
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -30,14 +30,12 @@
 Name:      mongo-c-driver
 Summary:   Client library written in C for MongoDB
 Version:   %{up_version}%{?up_prever:~%{up_prever}}
-Release:   3%{?dist}
+Release:   1%{?dist}
 # See THIRD_PARTY_NOTICES
 License:   Apache-2.0 AND ISC AND MIT AND Zlib
 URL:       https://github.com/%{gh_owner}/%{gh_project}
 
 Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/refs/tags/%{up_version}%{?up_prever:-%{up_prever}}.tar.gz
-
-Patch0:    upstream.patch
 
 BuildRequires: cmake >= 3.15
 BuildRequires: gcc
@@ -134,7 +132,6 @@ Documentation: http://mongoc.org/libbson/%{version}/
 
 %prep
 %setup -q -n %{gh_project}-%{up_version}%{?up_prever:-%{up_prever}}
-%patch -P0 -p1
 
 
 %build
@@ -278,6 +275,9 @@ exit $ret
 
 
 %changelog
+* Wed Feb  4 2026 Remi Collet <remi@remirepo.net> - 1.30.7-1
+- update to 1.30.7
+
 * Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 1.30.6-3
 - re-enable man pages using upstream patch for new docutils
 

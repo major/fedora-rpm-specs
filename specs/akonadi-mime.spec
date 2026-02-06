@@ -1,6 +1,6 @@
 Name:    akonadi-mime
-Version: 25.12.1
-Release: 3%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: The Akonadi Mime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -85,6 +85,9 @@ find ./po -type f -name libakonadi-kmime5-serializer.po -execdir mv {} libakonad
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
-%global shell_version %%(cut -d "." -f 1 <<<%{version})
+%global shell_version %%(cut -d "~" -f 1 <<<%{version})
 
 Name:           gnome-shell-extension-background-logo
-Version:        49.0
+Version:        50~beta
 Release:        %autorelease
 Summary:        Background logo extension for GNOME Shell
 

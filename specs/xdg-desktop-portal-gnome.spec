@@ -11,6 +11,9 @@ License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}
 Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
+# For: https://gitlab.gnome.org/GNOME/libgxdp/-/merge_requests/11
+Patch:          gschema-typo.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext

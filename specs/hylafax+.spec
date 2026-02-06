@@ -9,7 +9,7 @@
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
 Version:   7.0.11
-Release:   5%{?dist}
+Release:   6%{?dist}
 # Automatically converted from old format: libtiff and BSD with advertising - review is highly recommended.
 License:   libtiff AND LicenseRef-Callaway-BSD-with-advertising
 URL:       http://hylafax.sourceforge.net
@@ -95,6 +95,7 @@ fax clients which may reside on machines different from the server.
 %autosetup -p1 -n hylafax-%{version}
 
 %build
+cp /usr/lib/rpm/redhat/config.{guess,sub} .
 # - Can't use the configure macro because HylaFAX configure script does
 #   not understand the config options used by that macro
 STRIP=':' \
@@ -428,6 +429,9 @@ fi
 %dir %{faxspool}/etc
 
 %changelog
+* Wed Feb 04 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 7.0.11-6
+- update gnu-config files to make it build on riscv64
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

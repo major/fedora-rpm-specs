@@ -12,7 +12,7 @@
 
 Name:          leptonica
 Version:       1.87.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
@@ -21,6 +21,11 @@ Source0:       https://github.com/DanBloomberg/leptonica/archive/%{version}/%{na
 # Add soversion suffix on win32
 # Don't add _<CONFIG> suffix to pkgconfig filename
 Patch0:        leptonica_cmake.patch
+# https://github.com/DanBloomberg/leptonica/issues/785
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435534
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=123978
+# workaround a miscompilation bug in GCC 16 that breaks tesseract
+Patch1:        0001-Workaround-GCC-16-miscompilation-issue-785-RHBZ-2435.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -186,6 +191,9 @@ MinGW Windows Leptonica library.
 
 
 %changelog
+* Wed Feb 04 2026 Adam Williamson <awilliam@redhat.com> - 1.87.0-3
+- Workaround a GCC 16 miscompilation bug (#2435534)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.87.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

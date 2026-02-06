@@ -1,6 +1,6 @@
 Name:    kio-extras
-Version: 25.12.1
-Release: 3%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -132,6 +132,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        gRPC for GCP extensions
 
 License:        Apache-2.0
@@ -11,7 +11,8 @@ URL:            https://github.com/GoogleCloudPlatform/grpc-gcp-python/
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(wheel)
 BuildArch:      noarch
 
 %description
@@ -33,27 +34,33 @@ Summary:        %{summary}
 rm -rf *.egg-info
 
 
+%generate_buildrequires
+cd src
+ln -sf ../template/version.py .
+%pyproject_buildrequires
+
+
 %build
-pushd src/
-ln -s ../template/version.py .
-%py3_build
-popd
+cd src
+%pyproject_wheel
 
 
 %install
-pushd src/
-%py3_install
-popd
+cd src
+%pyproject_install
 
 
 %files -n python3-%{srcname}
 %doc src/{CHANGELOG.rst,README.md}
 %license src/LICENSE
 %{python3_sitelib}/grpc_gcp/
-%{python3_sitelib}/grpcio_gcp-*.egg-info/
+%{python3_sitelib}/grpcio_gcp-%{version}.dist-info/
 
 
 %changelog
+* Wed Feb 04 2026 Major Hayden <major@redhat.com> - 0.2.2-23
+- Migrate to pyproject macros (rhbz#2377758)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

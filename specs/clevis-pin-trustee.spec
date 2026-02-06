@@ -1,10 +1,6 @@
 # SPDX-FileCopyrightText: Sergio Arroutbi <sarroutb@redhat.com>
 #
 # SPDX-License-Identifier: MIT
-
-# Fedora: Use system Rust libraries as josekit 0.7.4+ is available
-%global bundled_rust_deps 0
-
 Name:           clevis-pin-trustee
 Version:        0.1.0
 Release:        %autorelease
@@ -27,9 +23,6 @@ URL:            https://github.com/latchset/clevis-pin-trustee
 Source0:        https://github.com/latchset/%{name}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  cargo-rpm-macros
-BuildRequires:  openssl-devel
-# rust-tempfile required for test execution
-BuildRequires:  rust-tempfile+default-devel
 
 # Runtime dependencies
 Requires:       clevis
@@ -46,7 +39,7 @@ fetching encryption keys from Trustee servers after successful attestation.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -t
 
 %build
 # Build using cargo macros

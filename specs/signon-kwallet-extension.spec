@@ -5,8 +5,8 @@
 ExcludeArch: %{ix86}
 
 Name:    signon-kwallet-extension
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: KWallet integration for Sign-on framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ Supplements:    (kf6-kwallet and signon)
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

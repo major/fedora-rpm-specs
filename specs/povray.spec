@@ -38,7 +38,7 @@ POV-Ray is a free, full-featured ray tracer.
 
 %package scenes
 Summary:        POV-Ray example scenes
-License:        CC-BY-SA
+License:        CC-BY-3.0 AND CC-BY-SA-3.0
 BuildArch:      noarch
 
 %description scenes

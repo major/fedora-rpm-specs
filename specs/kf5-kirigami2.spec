@@ -14,7 +14,7 @@ Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 # templates/kirigami/src/contents/ui/About.qml: File is mislabeled as "GPL-2.1-or-later"
 # in this version's source, but has been updated upstream to LGPL-2.1-or-later
-License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND GPL-2.1-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT AND LGPL-2.1-or-later
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT AND LGPL-2.1-or-later
 URL:     https://techbase.kde.org/Kirigami
 
 %global majmin %majmin_ver_kf5

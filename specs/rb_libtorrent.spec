@@ -5,7 +5,13 @@ Version:	2.0.11
 Release:	5%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
-License:	BSD
+# Most of the code is BSD-3-Clause
+# with few exceptions. e.g.
+# include/libtorrent/aux_/invariant_check.hpp is BSL-1.0
+# src/ed25519/ is Zlib
+# for LicenseRef-Fedora-Public-Domain see https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/820/diffs
+# include/libtorrent/aux_/route.h is APSL-2.0 AND BSD-4-Clause-UC
+License:	Zlib AND BSD-3-Clause AND BSL-1.0 AND LicenseRef-Fedora-Public-Domain AND (APSL-2.0 AND BSD-4-Clause-UC)
 URL:		https://www.libtorrent.org
 Source0:	%{git_url}/releases/download/v%{version}/libtorrent-rasterbar-%{version}.tar.gz
 Source1:	%{name}-README-renames.Fedora
@@ -32,7 +38,7 @@ well as being very easy to use both as a user and developer.
 
 %package 	devel
 Summary:	Development files for %{name}
-License:	BSD and zlib and Boost
+License:	Zlib AND BSD-3-Clause AND BSL-1.0 AND LicenseRef-Fedora-Public-Domain AND (APSL-2.0 AND BSD-4-Clause-UC)
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 ## FIXME: Same include directory. :(
 Conflicts:	libtorrent-devel
@@ -52,7 +58,7 @@ a given source or header file is released under.
 
 %package	examples
 Summary:	Example clients using %{name}
-License:	BSD
+License:	BSD-3-Clause
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	examples
@@ -64,6 +70,8 @@ included documentation for more details.)
 %package	python3
 Summary:	Python bindings for %{name}
 # Automatically converted from old format: Boost - review is highly recommended.
+# Most of the code is BSL-1.0
+# but few are BSD-3-Clause e.g. bindings/python/src/error_code.cpp
 License:	BSL-1.0
 BuildRequires:	python3-devel
 BuildRequires:	pkgconfig(python3)

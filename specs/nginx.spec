@@ -56,7 +56,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.28.1
+Version:           1.28.2
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
@@ -66,7 +66,6 @@ URL:               https://nginx.org
 Source0:           https://nginx.org/download/nginx-%{version}.tar.gz
 Source1:           https://nginx.org/download/nginx-%{version}.tar.gz.asc
 # Keys are found here: https://nginx.org/en/pgp_keys.html
-Source2:           https://nginx.org/keys/maxim.key
 Source3:           https://nginx.org/keys/arut.key
 Source4:           https://nginx.org/keys/pluknet.key
 Source5:           https://nginx.org/keys/sb.key
@@ -258,7 +257,7 @@ Requires:          zlib-devel
 
 %prep
 # Combine all keys from upstream into one file
-cat %{S:2} %{S:3} %{S:4} %{S:5} %{S:6} > %{_builddir}/%{name}.gpg
+cat %{S:3} %{S:4} %{S:5} %{S:6} > %{_builddir}/%{name}.gpg
 %{gpgverify} --keyring='%{_builddir}/%{name}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp %{SOURCE200} %{SOURCE10} %{SOURCE12} %{SOURCE18} %{SOURCE220} .
@@ -556,7 +555,6 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/nginx
 %attr(770,%{nginx_user},root) %dir %{_localstatedir}/lib/nginx
 %attr(770,%{nginx_user},root) %dir %{_localstatedir}/lib/nginx/tmp
-%attr(711,root,root) %dir %{_localstatedir}/log/nginx
 %{_tmpfilesdir}/nginx.conf
 %ghost %attr(640,%{nginx_user},root) %{_localstatedir}/log/nginx/access.log
 %ghost %attr(640,%{nginx_user},root) %{_localstatedir}/log/nginx/error.log
@@ -573,6 +571,7 @@ fi
 %dir %{_sysconfdir}/nginx/default.d
 %dir %{_sysconfdir}/systemd/system/nginx.service.d
 %dir %{_unitdir}/nginx.service.d
+%attr(711,root,root) %dir %{_localstatedir}/log/nginx
 %{_sysusersdir}/nginx.conf
 
 %if %{with geoip}

@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        160
+Version:        161
 
 %gometa
 
@@ -25,7 +25,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -92,8 +92,8 @@ Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) =
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.17
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.62.5
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.279.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.64.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.281.0
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.17
@@ -136,9 +136,9 @@ Provides: bundled(golang(github.com/envoyproxy/go-control-plane/envoy)) = 1.32.4
 Provides: bundled(golang(github.com/envoyproxy/protoc-gen-validate)) = 1.2.1
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/getkin/kin-openapi)) = 0.133.0
-Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.40.0
-Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.40.0
-Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.40.0
+Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.41.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.41.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.41.0
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
@@ -212,7 +212,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.486
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.230.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.231.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -230,7 +230,7 @@ Provides: bundled(golang(github.com/segmentio/ksuid)) = 1.0.4
 Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.6.6
 Provides: bundled(golang(github.com/sigstore/protobuf-specs)) = 0.4.1
 Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.9.5
-Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
+Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.4
 Provides: bundled(golang(github.com/skratchdot/open-golang)) = eef8423
 Provides: bundled(golang(github.com/smallstep/pkcs7)) = 0.1.1
 Provides: bundled(golang(github.com/sony/gobreaker)) = dd874f9
@@ -662,6 +662,21 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Feb 04 2026 Packit <hello@packit.dev> - 161-1
+Changes with 161
+----------------
+  - Update snapshots to 20260118 (#4985)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - chore: bump dependencies via gobump (#4988)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - packit: Build RHEL10 RPMs for x86 and ARM in COPR (#4982)
+    - Author: Simon Steinbeiß, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - worker: add job to generate bootc manifests [HMS-10006] (#4977)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-02-04
+
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 160-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

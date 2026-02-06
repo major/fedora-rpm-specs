@@ -158,8 +158,6 @@ Patch:          0002-machined-continue-without-resolve.hook-socket.patch
 Patch:          0003-ukify-omit-.osrel-section-when-os-release-is-empty.patch
 # Upstream PR: https://github.com/systemd/systemd/pull/40329
 Patch:          0004-stub-Fix-NULL-pointer-deref-when-there-are-no-initrd.patch
-
-Patch:          40440.patch
 %endif
 
 %ifarch %{ix86} x86_64 aarch64 riscv64
@@ -1249,7 +1247,6 @@ systemctl --no-reload preset systemd-journald-audit.socket &>/dev/null || :
 %global udev_services %{shrink:
                         cryptsetup-pre.target
                         cryptsetup.target
-                        getty@.service
                         hibernate.target
                         hybrid-sleep.target
                         initrd-cleanup.service
@@ -1328,6 +1325,7 @@ systemctl --no-reload preset systemd-journald-audit.socket &>/dev/null || :
                         systemd-suspend.service
                         systemd-sysctl.service
                         systemd-timesyncd.service
+                        systemd-tmpfiles-clear.service
                         systemd-tmpfiles-setup-dev-early.service
                         systemd-tmpfiles-setup-dev.service
                         systemd-udev-load-credentials.service

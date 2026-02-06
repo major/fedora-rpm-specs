@@ -43,7 +43,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.128.0
+Version:        0.128.1
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -61,8 +61,8 @@ Source14:       fastapi-login.1
 
 # ⬆️ Bump Starlette to <`0.53.0`
 # https://github.com/fastapi/fastapi/pull/14695
-# Rebased on 0.128.0
-Patch:          0001-Bump-Starlette-to-0.52.0.patch
+# Rebased on 0.128.1
+Patch:          0001-Bump-Starlette-to-0.53.0.patch
 
 BuildArch:      noarch
 
@@ -72,38 +72,38 @@ Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 
 BuildRequires:  python3-devel
 
-# Since requirements-tests.txt and requirements-docs-tests.txt contain
-# overly-strict version bounds and many unwanted
-# linting/coverage/typechecking/formatting dependencies
+# Since dependency groups contain overly-strict version bounds and some
+# unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
 # we just list the test dependencies we *do* want manually rather than trying
-# to patch the requirements files. We preserve upstream’s lower bounds but
-# remove upper bounds, as we must try to make do with what we have.
+# to patch pyproject.toml. We preserve upstream’s lower bounds but remove upper
+# bounds, as we must try to make do with what we have.
 #
-# requirements-docs-tests.txt:
-# # For mkdocstrings and tests
+# docs-tests:
 BuildRequires:  %{py3_dist httpx} >= 0.23
-# requirements-tests.txt:
-BuildRequires:  %{py3_dist pytest} >= 7.1.3
-BuildRequires:  %{py3_dist dirty-equals} >= 0.9
-%if %{with sqlmodel}
-BuildRequires:  %{py3_dist sqlmodel} >= 0.0.27
-%endif
-BuildRequires:  %{py3_dist flask} >= 1.1.2
-%if %{with strawberry_graphql}
-BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
-%endif
+# (we don’t actually need ruff)
+# tests:
 BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
-%if %{with pyjwt}
-BuildRequires:  %{py3_dist PyJWT} >= 2.9
-%endif
-BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
-%if %{with pwdlib}
-BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
-%endif
+BuildRequires:  %{py3_dist dirty-equals} >= 0.9
+BuildRequires:  %{py3_dist flask} >= 1.1.2
 %if %{with inline_snapshot}
 BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
 %endif
+%if %{with pwdlib}
+BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
+%endif
+%if %{with pyjwt}
+BuildRequires:  %{py3_dist pyjwt} >= 2.9
+%endif
+BuildRequires:  %{py3_dist pytest} >= 7.1.3
+BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
+%if %{with sqlmodel}
+BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31
+%endif
+%if %{with strawberry_graphql}
+BuildRequires:  %{py3_dist strawberry-graphql} >= 0.200
+%endif
+BuildRequires:  %{py3_dist a2wsgi} >= 1.9
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}
@@ -736,6 +736,9 @@ ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/*"
 %if %{without strawberry_graphql}
 ignore="${ignore-} --ignore=tests/test_tutorial/test_graphql/test_tutorial001.py"
 %endif
+
+# We aren’t interested in running tests for the development scripts.
+ignore="${ignore-} --ignore-glob=scripts/tests/*"
 
 # Ignore all DeprecationWarning messages, as they pop up from various
 # dependencies in practice. Upstream deals with this by tightly controlling

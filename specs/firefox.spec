@@ -351,7 +351,7 @@ BuildRequires:  pipewire-devel
 %if !0%{?use_bundled_cbindgen}
 BuildRequires:  cbindgen
 %endif
-BuildRequires: %{_bindir}/node
+BuildRequires:  /usr/bin/node
 BuildRequires:  nasm >= 1.13
 BuildRequires:  libappstream-glib
 
@@ -576,7 +576,7 @@ This package contains results of tests executed during build.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P81 -p1 -b .firefox-gcc-15.0-s390
-%if 0%{?fedora} >= 44
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %patch -P82 -p1 -b .build-c11-threads-avail
 %patch -P83 -p1 -b .build-seccomp
 %endif

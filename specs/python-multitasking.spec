@@ -1,7 +1,7 @@
 %global         srcname     multitasking
 
 Name:           python-%{srcname}
-Version:        0.0.11
+Version:        0.0.12
 Release:        %autorelease
 Summary:        Non-blocking Python methods using decorators
 License:        Apache-2.0

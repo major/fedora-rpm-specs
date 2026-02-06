@@ -1,6 +1,6 @@
 Name:           khealthcertificate
-Version:        25.12.1
-Release:        2%{?dist}
+Version:        25.12.2
+Release:        1%{?dist}
 License:        W3C-20150513 AND LGPL-2.0-or-later AND BSD-3-Clause AND CC0-1.0 AND MIT AND Apache-2.0
 Summary:        Handling of digital vaccination, test and recovery certificates.
 Url:            https://invent.kde.org/pim/khealthcertificate
@@ -54,6 +54,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/*.so
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

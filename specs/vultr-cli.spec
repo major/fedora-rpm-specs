@@ -3,7 +3,7 @@
 
 # https://github.com/vultr/vultr-cli
 %global goipath         github.com/vultr/vultr-cli/v3
-Version:                3.7.0
+Version:                3.8.0
 
 %gometa -L -f
 

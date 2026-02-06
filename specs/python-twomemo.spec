@@ -1,5 +1,5 @@
 Name:           python-twomemo
-Version:        1.1.0
+Version:        2.1.0
 Release:        %{autorelease}
 Summary:        Implementation of the namespace `urn:xmpp:omemo:2` for python-omemo
 

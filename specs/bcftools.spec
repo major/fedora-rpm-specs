@@ -1,6 +1,6 @@
 Name: bcftools
-Version: 1.15.1
-Release: 17%{?dist}
+Version: 1.23
+Release: 1%{?dist}
 Summary: Tools for genomic variant calling and manipulating VCF/BCF files
 
 # This software is available under a choice of one of two licenses,
@@ -14,9 +14,9 @@ License: GPL-3.0-or-later
 # https:// is better than http://.
 URL: https://www.htslib.org/
 Source0: https://github.com/samtools/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
-# Fix test_vcf_plugin tests.
-# https://github.com/samtools/bcftools/commit/0676ccfb710778129f0337aa4ea3fa014f7c97fb
-Patch0: bcftools-1.15.1-aarch64-fix-vcf_plugin-tests.patch
+# Remove invalid `-errors` from PERL_LIBS to fix linker warnings.
+# https://github.com/samtools/bcftools/issues/2495
+Patch0: bcftools-1.23-perl-fix-stray-errors-ldflags.patch
 
 BuildRequires: gcc
 BuildRequires: gsl-devel
@@ -29,6 +29,8 @@ BuildRequires: perl(FindBin)
 BuildRequires: perl(Getopt::Long)
 BuildRequires: zlib-devel
 BuildRequires: make
+BuildRequires: autoconf
+BuildRequires: automake
 # bcftools had been included in samtools version 0.X.
 # https://github.com/samtools/samtools/commit/e7ae7f96c7e78a2dd6eabdaed57037c483951929
 Conflicts: samtools < 1.0
@@ -56,6 +58,9 @@ sed -i '1s|/usr/bin/env python3\{0,1\}|%{__python3}|' misc/*.py
 
 
 %build
+# needed because we patch configure.ac
+autoreconf -fiv
+
 %configure CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}" \
   --prefix=%{_prefix} \
   --with-htslib=system \
@@ -89,17 +94,25 @@ make test
 # to problems when the name changes or something additional is installed.
 %{_bindir}/bcftools
 %{_bindir}/color-chrs.pl
+%{_bindir}/gff2gff
 %{_bindir}/gff2gff.py
 %{_bindir}/guess-ploidy.py
 %{_bindir}/plot-roh.py
 %{_bindir}/plot-vcfstats
+%{_bindir}/roh-viz
 %{_bindir}/run-roh.pl
 %{_bindir}/vcfutils.pl
+%{_bindir}/vrfs-variances
 %{_libexecdir}/bcftools
 %{_mandir}/man1/bcftools.1*
 
 
 %changelog
+* Mon Jan 26 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.23-1
+- Updated to 1.23
+- Removed obsolete vcf_plugin_tests patch
+- Remove invalid `-errors` from PERL_LIBS to fix linker warnings
+
 * Mon Jan 26 2026 Jun Aruga <jaruga@redhat.com> - 1.15.1-17
 - RISC-V has /lib64/lp64d/ symlink which confuses ldd.
 

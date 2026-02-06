@@ -2,7 +2,8 @@
 %bcond check 1
 
 # https://github.com/kubernetes-sigs/kind
-%global goipath         github.com/kubernetes-sigs/kind
+%global goipath         sigs.k8s.io/kind
+%global forgeurl        https://github.com/kubernetes-sigs/kind
 Version:                0.31.0
 
 %gometa -L -f
@@ -36,7 +37,7 @@ Kubernetes IN Docker - local clusters for testing Kubernetes.
 
 %build
 %global gomodulesmode GO111MODULE=on
-%gobuild -o %{gobuilddir}/bin/%{name} main.go
+%gobuild -o %{gobuilddir}/bin/kind %{goipath}
 %{gobuilddir}/bin/%{name} completion bash > %{name}.bash
 %{gobuilddir}/bin/%{name} completion fish > %{name}.fish
 %{gobuilddir}/bin/%{name} completion zsh  > %{name}.zsh

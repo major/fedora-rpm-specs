@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kdesdk-thumbnailers
 Summary: Thumbnailers for KDE
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -64,6 +64,9 @@ gettext translation templates
 %{_qt6_plugindir}/kf6/thumbcreator/pothumbnail.so
 
 %changelog	
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

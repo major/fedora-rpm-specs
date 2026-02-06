@@ -6,8 +6,8 @@
 ExcludeArch: %{ix86}
 
 Name:    yakuake
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -95,6 +95,9 @@ desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

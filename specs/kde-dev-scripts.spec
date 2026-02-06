@@ -1,7 +1,7 @@
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND BSD-2-Clause
 URL:     https://invent.kde.org/sdk/%{name}.git
@@ -135,6 +135,9 @@ rm -fv %{buildroot}%{_kf6_bindir}/krazy-licensecheck
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

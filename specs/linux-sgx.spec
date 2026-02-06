@@ -47,7 +47,6 @@
 
 %global with_aesm 0
 %global with_host_tinyxml2 0
-%global with_pccsadmin 1
 %if 0%{?fedora}
 %global with_aesm 1
 %global with_host_tinyxml2 1
@@ -58,60 +57,66 @@
 %global with_sysusers_scripts 1
 %endif
 
+# Change after running pccs-nodejs-bundler
+%define node_modules_date 20260204
+
 ############################################################
 #
 # A note about versions
 #
 # When rebasing to new linux-sgx releases, bump all the following
 # versions based on what the new release depends on (see various
-# git submodule tags and code files).
+# "git submodule status --recursive" tags and/or code files).
 #
-%global linux_sgx_version 2.26
-# From SGX git submodule
-%global dcap_version 1.23
-# From DCAP git submodule
-%global dcap_qvl_version 1.21
-# From DCAP git submodule
-%global dcap_qvs_version 1.1.0-2885
-# From SGX external/sgxssl/prepare_sgxssl.sh
-%global sgx_ssl_version 3.1.6_Rev1
-# From SGX git submodule
+# The 'download.sh' script can be used to automate downloading
+# of new tarballs after updating the versions, as well as stripping
+# non-permitted content from some tarballs.
+#
+%global linux_sgx_version 2.27
+# From submodule: external/dcap_source
+%global dcap_version 1.24
+# From submodule: external/dcap_source/QuoteVerification/QVL
+# NB: follows DCAP versioning, but may skip releases
+%global dcap_qvl_version 1.24
+# From script: external/sgxssl/prepare_sgxssl.sh
+# Should match: external/dcap_source/QuoteVerification/prepare_sgxssl.sh
+%global sgx_ssl_version 3.0_Rev5.1
+# From submodule: external/ippcp_internal/ipp-crypto
 %global ipp_crypto_version 2021.12.1
-# From SGX git submodule
+# From submodule: external/sgx-emm/emm_src
 %global sgx_emm_version 1.0.3
+# From submodule: external/dcap_source/QuoteGeneration/pccs
+# NB: follows DCAP versioning, but may skip releases
+%global pccs_version 1.24
 
-# From SGX external/sgxssl/prepare_sgxssl.sh
-%global openssl_version 3.1.6
-# From SGX git submodule
+# From script: external/sgxssl/prepare_sgxssl.sh
+# Should match: external/dcap_source/QuoteVerification/prepare_sgxssl.sh
+%global openssl_version 3.0.17
+# From submodule: external/cbor/libcbor
 %global libcbor_version 0.10.2
-# From protobuf third_party/abseil-cpp
+# From submodule: external/protobuf/protobuf_code/third_party/abseil-cpp
 %global abseil_cpp_version 20230125.3
-# From DCAP git submodule
+# From submodule: external/dcap_source/external/jwt-cpp
 %global jwt_cpp_version 0.6.0
-# From DCAP git submodule
-%global wamr_version 1.0.0
-# From SGX external/tinyxml2
+# From submodule: external/dcap_source/external/wasm-micro-runtime
+%global wamr_version 2.4.3
+# From code: external/tinyxml2/
 %global tinyxml2_version 10.0.0
 
-# From SGX external/epid-sdk/CHANGELOG.md
+# From docs: external/epid-sdk/CHANGELOG.md
 %global epid_version 6.0.0
-# From SGX external/rdrand/src/configure.ac
+# From script: external/rdrand/src/configure.ac
 %global rdrand_version 1.1
 %global vtune_version 2018
 
-# From SGX external/dcap_source/QuoteGeneration/pccs/package_lock.json
-# NB: node_modules/@yuuang/ffi-rs-linux-x64-gnu will likely pull the
-# version higher than what is declared for 'ffi-rs' itself.
-%global node_ffi_rs_version 1.2.6
-
 # enclaves from prebuilt_dcap_NNN.tar.gz - DCAP version numbers,
 # except for pce, which is actually an SGX enclave just bundled
-# with the DCAP enclaves
+# with the DCAP enclaves.
 %global enclave_pce_version 2.25
 %global enclave_ide_version 1.22
 %global enclave_qe3_version 1.22
 %global enclave_tdqe_version 1.22
-%global enclave_qve_version 1.22
+%global enclave_qve_version 1.24
 
 # Whether to build & ship unsigned enclaves with latest distro
 # tool-chain, as opposed to a reproducible build done in other
@@ -135,8 +140,7 @@
 # Note this package has removed the unapproved crypto this
 # enclave links to in upstream builds, to make it possible
 # to ship in Fedora.
-# XXX disabled until time to investigate jwt-cpp build errors
-%global with_enclave_qve 0
+%global with_enclave_qve 1
 
 
 %global _with_enclave_pce %{expr:%{with_enclaves} ? %{with_enclave_pce} : 0}
@@ -165,8 +169,11 @@ License: %{shrink:
   %dnl node_modules
   0BSD AND
 
-  %dnl sdk/tlibcxx, external/ippcp_internal, external/epid-sdk, node_modules, node-ffi-rs vendor
+  %dnl sdk/tlibcxx, external/ippcp_internal, external/epid-sdk, node_modules
   Apache-2.0 AND
+
+  %dnl node_modules
+  BlueOak-1.0.0 AND
 
   %dnl sdk/cpprt, sdk/tlibc, node_modules
   BSD-2-Clause AND
@@ -183,10 +190,10 @@ License: %{shrink:
   %dnl psd/urts/linux/isgx_user.h
   GPL-2.0-only AND
 
-  %dnl sdk/tlibc, sdk/pthread, node_modules, node-ffi-rs vendor
+  %dnl sdk/tlibc, sdk/pthread, node_modules
   ISC AND
 
-  %dnl external/cbor/libcbor, sdk/*, node_modules, node-ffi-rs vendor
+  %dnl external/cbor/libcbor, sdk/*, node_modules
   MIT AND
 
   %dnl sdk/tlibc/stdlib/malloc.c
@@ -204,11 +211,11 @@ License: %{shrink:
   %dnl sdk/tlibc/math
   SunPro AND
 
-  %dnl node-ffi-rs vendor
-  Unicode-3.0 AND
-
-  %dnl node_modules, node-ffi-rs vendor
+  %dnl node_modules
   Unlicense AND
+
+  %dnl node_modules
+  WTFPL AND
 
   %dnl sdk/tlibc
   LicenseRef-Fedora-Public-Domain
@@ -227,7 +234,7 @@ Source0: https://github.com/intel/linux-sgx/archive/refs/tags/sgx_%{linux_sgx_ve
 # not distribute.
 Source1: repack.sh
 
-Source2: https://github.com/intel/SGXDataCenterAttestationPrimitives/archive/refs/tags/DCAP_%{dcap_version}.tar.gz
+Source2: https://github.com/intel/confidential-computing.tee.dcap/archive/refs/tags/DCAP_%{dcap_version}.tar.gz
 Provides: bundled(dcap) = %{dcap_version}
 
 # Upload tarball is:
@@ -246,11 +253,11 @@ Provides: bundled(ipp-crypto) = %{ipp_crypto_version}
 Source6: https://github.com/intel/sgx-emm/archive/refs/tags/sgx-emm-%{sgx_emm_version}.tar.gz
 Provides: bundled(sgx-emm) = %{sgx_emm_version}
 
-Source7: https://github.com/intel/SGX-TDX-DCAP-QuoteVerificationLibrary/archive/refs/heads/DCAP/%{dcap_qvl_version}.tar.gz#/dcap-qvl-%{dcap_qvl_version}.tar.gz
+Source7: https://github.com/intel/confidential-computing.tee.dcap.qvl/archive/refs/tags/DCAP_%{dcap_qvl_version}.tar.gz#/dcap-qvl-%{dcap_qvl_version}.tar.gz
 Provides: bundled(dcap-qvl} = %{dcap_qvl_version}
 
-Source8: https://github.com/intel/SGX-TDX-DCAP-QuoteVerificationService/archive/refs/tags/v%{dcap_qvs_version}.tar.gz#/dcap-qvs-%{dcap_qvs_version}.tar.gz
-Provides: bundled(dcap-qvs} = %{dcap_qvs_version}
+Source8: https://github.com/intel/confidential-computing.tee.dcap.pccs/archive/refs/tags/DCAP_%{pccs_version}.tar.gz#/pccs-%{pccs_version}.tar.gz
+Provides: bundled(pccs} = %{pccs_version}
 
 
 ############################################################
@@ -296,14 +303,7 @@ Source51: pccs.service
 # as record of what was used to create Source54
 Source52: pccs-nodejs-bundler
 # Pre-created using Source53
-Source53: dcap-%{dcap_version}-pccs-node-modules.tar.xz
-
-# RPM build doesn't run this, but we want it in the src.rpm
-# as record of what was used to create Source55 & Source56
-Source54: pccs-node-ffi-rs-bundler
-Source55: node-ffi-rs-%{node_ffi_rs_version}.tar.gz
-Source56: node-ffi-rs-%{node_ffi_rs_version}-vendor.tar.gz
-
+Source53: pccs-%{dcap_version}-%{node_modules_date}-node-modules.tar.xz
 
 ############################################################
 # External projects that have been copied in tarballs as bundles
@@ -318,7 +318,7 @@ Provides: bundled(vtune) = 2018
 ############################################################
 # Distro integration patches
 
-# 0000-0099 -> against linux-sgx.git
+# 0000-0099 -> against confidential-computing.sgx-sgx.git
 #
 # Maintained in: https://github.com/berrange/linux-sgx/tree/dist-git-%{linux_sgx_version}-hostsw
 #
@@ -329,25 +329,25 @@ Patch0002: 0002-Add-support-for-building-against-host-CppMicroServic.patch
 Patch0003: 0003-Improve-make-debuggability.patch
 Patch0004: 0004-Support-disabling-use-of-git-for-ippcp-code.patch
 Patch0005: 0005-disable-openmp-protobuf-sample_crypto-builds.patch
-# https://github.com/intel/linux-sgx/pull/1063
-Patch0006: 0006-Fix-compat-with-gcc-14.patch
 # https://github.com/intel/linux-sgx/pull/1056
-Patch0007: 0007-Fix-escaping-of-regexes-in-sgx-asm-pp.patch
+Patch0006: 0006-Fix-escaping-of-regexes-in-sgx-asm-pp.patch
 # https://github.com/intel/linux-sgx/pull/1064
-Patch0008: 0008-psw-prefer-dev-sgx_provision-dev-sgx_enclave.patch
-Patch0009: 0009-psw-fix-soname-for-libuae_service.so-library.patch
-Patch0010: 0010-pcl-remove-redundant-use-of-bool-type.patch
-Patch0011: 0011-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
-Patch0012: 0012-psw-make-aesm_service-build-verbose.patch
-Patch0013: 0013-Fix-modern-C-function-prototype-compliance.patch
-Patch0014: 0014-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
-Patch0015: 0015-fix-BOM-for-pccs-with-DCAP-1.23.patch
-Patch0016: 0016-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
+Patch0007: 0007-psw-prefer-dev-sgx_provision-dev-sgx_enclave.patch
+Patch0008: 0008-psw-fix-soname-for-libuae_service.so-library.patch
+Patch0009: 0009-pcl-remove-redundant-use-of-bool-type.patch
+Patch0010: 0010-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
+Patch0011: 0011-psw-make-aesm_service-build-verbose.patch
+Patch0012: 0012-Fix-modern-C-function-prototype-compliance.patch
+Patch0013: 0013-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
+Patch0014: 0014-fix-BOM-for-pccs-with-DCAP.patch
+Patch0015: 0015-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
+Patch0016: 0016-Add-impl-of-__cxa_call_terminate.patch
+Patch0017: 0017-fix-BOM-for-mpa_manage-mpa_registration-files.patch
 # Optional patches
 Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
 
 
-# 0100-0199 -> against SGXDataCenterAttestationPrimitives.git
+# 0100-0199 -> against confidential-computing.tee.dcap.git
 #
 # Maintained in https://github.com/berrange/SGXDataCenterAttestationPrimitives/tree/dist-git-%{dcap_version}-hostsw
 #
@@ -358,14 +358,14 @@ Patch0102: 0102-Support-build-time-setting-of-enclave-load-directory.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/434
 Patch0103: 0103-Look-for-versioned-sgx_urts-library-in-PCKRetrievalT.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/429
-Patch0104: 0104-pccsadmin-only-import-pypac-module-on-Windows.patch
+Patch0104: 0104-pcsclient-only-import-pypac-module-on-Windows.patch
 Patch0105: 0105-Look-for-PCKRetrievalTool-config-file-in-etc.patch
 Patch0106: 0106-Honour-CFLAGS-CXXFLAGS-LDFLAGS-for-various-tools-and.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/428
 Patch0107: 0107-qgs-add-space-between-program-name-first-arg-in-usag.patch
 Patch0108: 0108-qgs-protect-against-format-strings-in-QL-log-message.patch
 Patch0109: 0109-qgs-add-debug-parameter-to-control-logging.patch
-Patch0110: 0110-pccsadmin-remove-leftover-debugging-print-args-state.patch
+Patch0110: 0110-pcsclient-remove-leftover-debugging-print-args-state.patch
 Patch0111: 0111-Fix-soname-version-for-libsgx_qe3_logic.so-library.patch
 Patch0112: 0112-Workaround-broken-GCC-15.patch
 Patch0113: 0113-Don-t-disable-cf-protection-for-qgs.patch
@@ -373,20 +373,22 @@ Patch0114: 0114-Delete-broken-checks-for-GCC-version-that-break-fsta.patch
 #Patch0115: 0115-Use-distro-provided-rapidjson-package.patch
 Patch0116: 0116-Don-t-stomp-on-VERBOSE-variable.patch
 Patch0117: 0117-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
-Patch0118: 0118-pccs-sanitize-paths-to-all-resources.patch
-Patch0119: 0119-pccs-only-pass-ApiKey-if-it-is-set.patch
-Patch0120: 0120-pccsadmin-make-keyring-module-optional.patch
-Patch0121: 0121-pccsadmin-convert-from-asn1-to-pyasn1-python-module.patch
-Patch0122: 0122-pccsadmin-fully-switch-to-pycryptography-for-CRL-ver.patch
-Patch0123: 0123-pccsadmin-use-more-of-pycryptography-instead-of-pyop.patch
-Patch0124: 0124-pccsadmin-prefer-pycryptography-over-pyopenssl.patch
-Patch0125: 0125-pccsadmin-add-fallback-for-when-pyopenssl-is-not-ava.patch
-Patch0126: 0126-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
+Patch0118: 0118-pcsclient-make-keyring-module-optional.patch
+Patch0119: 0119-pcsclient-convert-from-asn1-to-pyasn1-python-module.patch
+Patch0120: 0120-pcsclient-fully-switch-to-pycryptography-for-CRL-ver.patch
+Patch0121: 0121-pcsclient-use-more-of-pycryptography-instead-of-pyop.patch
+Patch0122: 0122-pcsclient-prefer-pycryptography-over-pyopenssl.patch
+Patch0123: 0123-pcsclient-add-fallback-for-when-pyopenssl-is-not-ava.patch
+Patch0124: 0124-pcsclient-ignore-errors-trying-to-clear-the-keyring.patch
 # https://github.com/intel/confidential-computing.tee.dcap/pull/485
-Patch0127: 0127-PCS-Client-Tool-Migrate-from-deprecated-pkg_resource.patch
+Patch0125: 0125-PCS-Client-Tool-Migrate-from-deprecated-pkg_resource.patch
 # https://github.com/intel/confidential-computing.tee.dcap/pull/487
-Patch0128: 0128-qgs-add-compat-for-boost-1.87-which-drops-asio-io_se.patch
-Patch0129: 0129-qgs-add-compat-for-boost-1.89-which-deprecated-deadl.patch
+Patch0126: 0126-qgs-add-compat-for-boost-1.87-which-drops-asio-io_se.patch
+Patch0127: 0127-qgs-add-compat-for-boost-1.89-which-deprecated-deadl.patch
+Patch0128: 0128-use-system-gtest-gmock-libraries.patch
+Patch0129: 0129-Disable-PcsClientTool-package-build.patch
+Patch0130: 0130-disable-building-of-WASM-SIMDE-code.patch
+Patch0131: 0131-pcsclient-fix-name-of-input-file-in-cache-command-he.patch
 
 
 # 0200-0299 -> against intel-sgx-ssl.git
@@ -405,6 +407,17 @@ Patch0203: 0203-Disable-sm2-and-sm4-crypto-algorithms.patch
 #
 Patch0300: 0300-Drop-min-openssl-from-3.0.8-to-3.0.7.patch
 Patch0301: 0301-Drop-Werror-from-build-flags.patch
+
+
+# 0400-0499 -> against confidential-computing.tee.dcap.pccs.git
+#
+# Maintained in https://github.com/berrange/confidential-computing.tee.dcap.pccs/tree/dist-git-%{pccs_version}
+#
+Patch0400: 0400-service-sanitize-paths-to-all-resources.patch
+Patch0401: 0401-pccsadmin-remove-leftover-debugging-print-args-state.patch
+Patch0402: 0402-pccsadmin-make-keyring-module-optional.patch
+Patch0403: 0403-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
+Patch0404: 0404-service-force-override-tar-module-to-7.0.0-series.patch
 
 BuildRequires: sgx-rpm-macros
 BuildRequires: autoconf
@@ -429,12 +442,20 @@ BuildRequires: perl(FindBin)
 BuildRequires: perl(lib)
 BuildRequires: perl(IPC::Cmd)
 BuildRequires: nasm
-BuildRequires: nodejs
+BuildRequires: nodejs, /usr/bin/node
 BuildRequires: nodejs-devel
 %if 0%{?rhel} == 9
 BuildRequires: npm
 %else
-BuildRequires: nodejs-npm
+# XXX nodejs-packaging needs fixing to auto-add 'Requires: nodejs(abi) == XX'
+# then this can be reduced to only 'BuildRequires: nodejs, /usr/bin/node'
+# See also https://src.fedoraproject.org/rpms/linux-sgx/pull-request/6
+# Match this version with later 'Requires: nodejsXX' against sgx-pccs
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+BuildRequires: nodejs24-devel, /usr/bin/node, /usr/bin/npm
+%else
+BuildRequires: nodejs-devel, /usr/bin/node, /usr/bin/npm
+%endif
 %endif
 BuildRequires: nodejs-packaging
 BuildRequires: python-unversioned-command
@@ -450,11 +471,8 @@ BuildRequires: CppMicroServices-devel
 BuildRequires: protobuf-compiler
 BuildRequires: protobuf-devel
 BuildRequires: boost-devel
-%if 0%{?rhel}
-BuildRequires: rust-toolset
-%else
-BuildRequires: cargo-rpm-macros
-%endif
+BuildRequires: gtest-devel
+BuildRequires: gmock-devel
 
 # If dpkg-architecture exists in $PATH, the Makefile
 # will change all the install paths, breaking this
@@ -546,7 +564,11 @@ This package contains the  Architectural Enclave Service Manager
 
 %package -n sgx-pccs
 Summary: SGX Provisioning Certificate Caching Service
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
+Requires: nodejs24
+%else
 Requires: nodejs
+%endif
 Requires: sgx-common = %{version}-%{release}
 
 %description -n sgx-pccs
@@ -555,6 +577,23 @@ SGX Provisioning Certificate Caching Service
 
 %package -n sgx-pccs-admin
 Summary: SGX Provisioning Certificate Caching Service Admin Tool
+%if 0%{?fedora}
+Requires: python3-keyring
+%endif
+Requires: python3-requests
+Requires: python3-urllib3
+Requires: python3-packaging
+Requires: sgx-libs = %{version}-%{release}
+# pccs admin tool can be used against a remote pccs
+# so don't force a hard dep
+Recommends: sgx-pccs = %{version}-%{release}
+
+%description -n sgx-pccs-admin
+SGX Provisioning Certificate Caching Service Admin Tool
+
+
+%package -n sgx-pcs-client
+Summary: SGX Provisioning Certificate Service Client Tool
 Requires: python3-pyasn1
 Requires: python3-cryptography
 %if 0%{?fedora}
@@ -566,13 +605,9 @@ Requires: python3-packaging
 %if 0%{?rhel}
 Requires: openssl
 %endif
-Requires: sgx-libs = %{version}-%{release}
-# pccs admin tool can be used against a remote pccs
-# so don't force a hard dep
-Recommends: sgx-pccs = %{version}-%{release}
 
-%description -n sgx-pccs-admin
-SGX Provisioning Certificate Caching Service Admin Tool
+%description -n sgx-pcs-client
+SGX Provisioning Certificate Service Client Tool
 
 
 %package -n sgx-pckid-tool
@@ -643,7 +678,7 @@ in applications
 
 
 %prep
-%setup -q -n linux-sgx-sgx_%{linux_sgx_version}
+%setup -q -n confidential-computing.sgx-sgx_%{linux_sgx_version}
 
 %autopatch -m 0 -M 49 -p1
 %if !%{with_aesm}
@@ -699,15 +734,10 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
   )
 
   (
-    cd QuoteVerification/QuoteVerificationService
-
-    tar zxf %{SOURCE8} --strip 1
-  )
-
-  (
     cd external/jwt-cpp
 
     tar zxf %{SOURCE12} --strip 1
+    patch -p1 < ../0001-Add-a-macro-to-disable-time-support-in-jwt-for-SGX.patch
   )
 
   (
@@ -734,6 +764,14 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
   cd external/ippcp_internal/ipp-crypto
   tar zxf %{SOURCE5} --strip 1
   %autopatch -m 300 -M 399 -p1
+)
+
+############################################################
+# pccs
+(
+  cd external/dcap_source/QuoteGeneration/pccs
+  tar zxf %{SOURCE8} --strip 1
+  %autopatch -m 400 -M 499 -p1
 )
 
 ############################################################
@@ -957,10 +995,10 @@ LDFLAGS="%{build_ldflags}" \
 (
     # PCCS NodeJS deps bundle
 
-    cd external/dcap_source
+    cd external/dcap_source/QuoteGeneration/pccs
     tar Jxvf %{SOURCE53}
 
-    cd QuoteGeneration/pccs
+    cd service
 
     perl -i -p -e 's,"sqlite%":"internal","sqlite%":"/usr",' node_modules/sqlite3/binding.gyp
     perl -i -p -e 's,\(sqlite\)/lib,(sqlite)/lib64,' node_modules/sqlite3/binding.gyp
@@ -977,15 +1015,6 @@ LDFLAGS="%{build_ldflags}" \
     find node_modules -type f -exec chmod -x {} \;
 
     chrpath --delete node_modules/sqlite3/build/Release/node_sqlite3.node
-
-    tar zxvf %{SOURCE55}
-    (
-      cd node-ffi-rs-%{node_ffi_rs_version}
-      tar zxvf %{SOURCE56}
-      %cargo_prep -v vendor
-      %cargo_build
-      mv target/rpm/libffi_rs.so ../node_modules/ffi-rs/ffi-rs.linux-x64-gnu.node
-    )
 )
 
 
@@ -1001,24 +1030,10 @@ done
 rm -f %{vroot}/sgxsdk/lib64/libsgx_urts.so.2
 
 
-# Pull together all license files relevant to the code
-# that is known to be built into the enclaves
+# Pull together all license files relevant to the code that is shipped
+# Err on the side of pulling in much too much, rather than miss something
 mkdir licenses
-for f in License.txt \
-         external/epid-sdk/LICENSE.txt \
-         external/epid-sdk/ext/argtable3/LICENSE \
-         sdk/compiler-rt/LICENSE.TXT \
-         sdk/cpprt/linux/libunwind/LICENSE \
-         sdk/gperftools/gperftools-2.7/COPYING \
-         sdk/tlibcxx/LICENSE.TXT \
-         external/dcap_source/License.txt \
-         external/dcap_source/QuoteGeneration/ThirdPartyLicenses.txt \
-         external/dcap_source/tools/PCKRetrievalTool/License.txt \
-         external/dcap_source/tools/PCKRetrievalTool/ThirdPartyLicenseIndex.txt \
-         external/dcap_source/tools/PccsAdminTool/License.txt \
-         external/dcap_source/tools/SGXPlatformRegistration/inf/MPA_Network_Components/License.txt \
-         external/dcap_source/tools/SGXPlatformRegistration/inf/MPA_UEFI_Components/License.txt \
-         external/dcap_source/tools/SGXPlatformRegistration/license.txt
+for f in $(find -type f | grep -E -i '(license|copying)')
 do
   d=$(dirname $f)
   mkdir -p licenses/$d
@@ -1193,7 +1208,7 @@ rmdir %{buildroot}/root/opt/intel/sgx-aesm-service
 %__install -d %{buildroot}%{_sysconfdir}/pccs/ssl
 %__install -d %{buildroot}%{nodejs_sitearch}/pccs
 
-mv %{buildroot}/root/opt/intel/sgx-dcap-pccs/lib/libPCKCertSelection.so \
+mv external/dcap_source/tools/PCKCertSelection/out/libPCKCertSelection.so \
    %{buildroot}%{_libdir}/libPCKCertSelection.so.1
 ln -s libPCKCertSelection.so.1 %{buildroot}%{_libdir}/libPCKCertSelection.so
 
@@ -1208,7 +1223,7 @@ rmdir %{buildroot}/root/opt/intel/sgx-dcap-pccs
 
 (
     # Node JS deps bundle
-    cd external/dcap_source/QuoteGeneration/pccs
+    cd external/dcap_source/QuoteGeneration/pccs/service
     rm -f install.sh README.md
 
     # So find-debuginfo processes it
@@ -1231,10 +1246,9 @@ chmod +x %{buildroot}%{_bindir}/pccs
 ############################################################
 # Host PCCS admin tool
 
-%if %{with_pccsadmin}
 %__install -d %{buildroot}%{_datadir}/pccsadmin
-cp external/dcap_source/tools/PccsAdminTool/pccsadmin.py %{buildroot}%{_datadir}/pccsadmin/pccsadmin.py
-cp -a external/dcap_source/tools/PccsAdminTool/lib %{buildroot}%{_datadir}/pccsadmin/lib
+cp external/dcap_source/QuoteGeneration/pccs/PccsAdminTool/pccsadmin.py %{buildroot}%{_datadir}/pccsadmin/pccsadmin.py
+cp -a external/dcap_source/QuoteGeneration/pccs/PccsAdminTool/lib %{buildroot}%{_datadir}/pccsadmin/lib
 
 cat > %{buildroot}%{_bindir}/pccsadmin <<EOF
 #!/bin/sh
@@ -1242,7 +1256,22 @@ cat > %{buildroot}%{_bindir}/pccsadmin <<EOF
 exec python3 %{_datadir}/pccsadmin/pccsadmin.py "\$@"
 EOF
 chmod +x %{buildroot}%{_bindir}/pccsadmin
-%endif
+
+
+############################################################
+# Host PCS client tool
+
+%__install -d %{buildroot}%{_datadir}/pcsclient
+cp external/dcap_source/tools/PcsClientTool/pcsclient.py %{buildroot}%{_datadir}/pcsclient/pcsclient.py
+cp -a external/dcap_source/tools/PcsClientTool/lib %{buildroot}%{_datadir}/pcsclient/lib
+
+cat > %{buildroot}%{_bindir}/pcsclient <<EOF
+#!/bin/sh
+
+exec python3 %{_datadir}/pcsclient/pcsclient.py "\$@"
+EOF
+chmod +x %{buildroot}%{_bindir}/pcsclient
+
 
 ############################################################
 # Host PCK ID tool
@@ -1727,11 +1756,14 @@ fi
 %attr(0700,pccs,pccs) %dir %{_localstatedir}/log/pccs
 
 
-%if %{with_pccsadmin}
 %files -n sgx-pccs-admin
 %{_bindir}/pccsadmin
 %{_datadir}/pccsadmin
-%endif
+
+
+%files -n sgx-pcs-client
+%{_bindir}/pcsclient
+%{_datadir}/pcsclient
 
 
 %files -n sgx-pckid-tool

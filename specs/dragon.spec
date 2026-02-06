@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    dragon
 Summary: Media player
-Version: 25.12.1
-Release: 3%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # docs: GFDL
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

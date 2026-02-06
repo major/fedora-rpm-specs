@@ -1,8 +1,8 @@
 %global app_id  org.kde.kimagemapeditor
 
 Name:           kimagemapeditor
-Version:        25.12.1
-Release:        2%{?dist}
+Version:        25.12.2
+Release:        1%{?dist}
 Summary:        HTML image map editor
 License:        GPL-2.0-or-later
 URL:            https://apps.kde.org/kimagemapeditor/
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.
 
 
 %changelog
+* Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

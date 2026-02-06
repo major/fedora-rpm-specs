@@ -1,6 +1,6 @@
 Name:           cockpit-image-builder
-Version:        86
-Release:        3%{?dist}
+Version:        90
+Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
 License:        Apache-2.0
@@ -46,6 +46,63 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 4 2026 Packit <hello@packit.dev> - 90-1
+Changes with 90
+----------------
+  - Image mode compose request (HMS-10010) (#4009)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - ImagesTable/Status: fix on-prem error messages (HMS-10099) (#4030)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova, Simon Steinbeiß
+  - Move image-mode image type filtering to cockpitApi (HMS-10098) (#4028)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Wizard: Add password validation to inline alert in Users step (HMS-10078) (#4007)
+    - Author: Michal Gold, Reviewers: Klara Simickova
+  - Wizard: Combine alert and empty state in Additional Packages step (HMS-10126) (#4052)
+    - Author: Michal Gold, Reviewers: Gianluca Zuccarelli
+  - Wizard: Fix aria issues (HMS-10108) (#4039)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard: Fix crash when searching for group with repeatable build (HMS-10111) (#4042)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard: Fix padding of popover button for package groups (HMS-10112) (#4043)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard: Remove validation for non-required empty input (HMS-10081) (#4011)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard: Update hostname step description (HMS-10138) (#4062)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - build(deps): bump lodash from 4.17.21 to 4.17.23 (#4016)
+    - Author: {}, Reviewers: Klara Simickova
+  - build(deps): bump the minor-and-patch group with 16 updates (#4040)
+    - Author: {}, Reviewers: Klara Simickova
+  - build(deps): bump the minor-and-patch group with 7 updates (#4063)
+    - Author: {}, Reviewers: Michal Gold
+  - build(deps-dev): bump @types/node from 24.10.2 to 25.0.10 (#4041)
+    - Author: {}, Reviewers: Klara Simickova
+  - chore(deps): update build-tools digest to 7e1d036 (#4058)
+    - Author: {}, Reviewers: Michal Gold
+  - chore(deps): update konflux references (#4031)
+    - Author: {}, Reviewers: Klara Simickova
+  - cockpit: Add mountpoint policies for the image mode (HMS-10101) (#4037)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - cockpit: Filter image mode targets and customizations (HMS-10021) (#4008)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - cockpit: Fix crash in edit mode (HMS-10092) (#4023)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - cockpit: Fix useFlag import (HMS-10091) (#4022)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - cockpit: Gate blueprint mode label for on-prem only (HMS-10125) (#4051)
+    - Author: Klara Simickova, Reviewers: Michal Gold
+  - cockpit: Update validation for required Users step (HMS-9996) (#4034)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - playwright: Remove redundant next in target select (#4026)
+    - Author: Tomáš Koscielniak, Reviewers: Klara Simickova
+  - src: Rename "suffix" to "subpath" (HMS-10109) (#4038)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - vitest.config: remove sourcemap errors (HMS-10120) (#4048)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+
+— Somewhere on the Internet, 2026-02-04
+
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 86-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

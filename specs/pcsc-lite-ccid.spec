@@ -2,7 +2,7 @@
 %global pcsc_lite_ver 1.8.9
 
 Name:           pcsc-lite-ccid
-Version:        1.7.0
+Version:        1.7.1
 Release:        2%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
@@ -55,10 +55,15 @@ cp -p src/openct/LICENSE LICENSE.openct
 
 
 %post
-/bin/systemctl try-restart pcscd.service >/dev/null 2>&1 || :
+%systemd_postun_with_restart pcscd.service
+
+
+%preun
+%systemd_preun pcscsd.service
+
 
 %postun
-/bin/systemctl try-restart pcscd.service >/dev/null 2>&1 || :
+%systemd_postun_with_restart pcscd.service
 
 
 %files
@@ -71,6 +76,9 @@ cp -p src/openct/LICENSE LICENSE.openct
 
 
 %changelog
+* Wed Feb 04 2026 Jakub Jelen <jjelen@redhat.com> - 1.7.1-2
+- New upstream release (#2436751)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
