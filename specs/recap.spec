@@ -6,7 +6,7 @@
 
 Name: recap
 Version: 2.1.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Generates reports of various system information
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -52,6 +52,9 @@ network connections.
 %install
 export PREFIX=%{_prefix}
 export DESTDIR=%{buildroot}
+%if %{defined fedora} && 0%{?fedora} >= 42
+export BINPATH=/bin
+%endif
 make install-base
 make install-man
 
@@ -76,9 +79,15 @@ fi
 %dir %{_localstatedir}/log/recap
 %dir %{_localstatedir}/log/recap/backups
 %dir %{_localstatedir}/log/recap/snapshots
+%if %{defined fedora} && 0%{?fedora} < 42
 %{_sbindir}/recap
 %{_sbindir}/recaplog
 %{_sbindir}/recaptool
+%else
+%{_bindir}/recap
+%{_bindir}/recaplog
+%{_bindir}/recaptool
+%endif
 
 # systemd unit files
 %if %{with timers}
@@ -118,6 +127,9 @@ fi
 
 
 %changelog
+* Thu Feb  5 2026 Tony Garcia <tonysk8@gmx.net> - 2.1.0-22
+- Switch to /usr/bin on Fedora 42+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

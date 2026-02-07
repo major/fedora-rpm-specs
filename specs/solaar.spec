@@ -3,7 +3,7 @@
 %global app_id io.github.pwr_solaar.solaar
 
 Name:           solaar
-Version:        1.1.18
+Version:        1.1.19
 Release:        %autorelease
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr-Solaar/Solaar

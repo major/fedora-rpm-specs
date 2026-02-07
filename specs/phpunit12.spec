@@ -10,14 +10,14 @@
 
 %bcond_without       tests
 
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 10
+%if 0%{?fedora} == 42 || 0%{?fedora} == 43 || 0%{?rhel} == 10
 %bcond_without       defcmd
 %else
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    37ddb96c14bfee10304825edbb7e66d341ec6889
-%global gh_date      2026-01-27
+%global gh_commit    83d4c158526c879b4c5cf7149d27958b6d912373
+%global gh_date      2026-02-05
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    5
 
-%global upstream_version 12.5.8
+%global upstream_version 12.5.9
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -53,7 +53,7 @@ BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.4            with php-c
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.5.2    with php-composer(phpunit/php-code-coverage) < 13)
-BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
+BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0.1     with php-composer(phpunit/php-file-iterator) < 7)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
 BuildRequires:  (php-composer(phpunit/php-timer) >= 8.0.0             with php-composer(phpunit/php-timer) < 9)
@@ -64,6 +64,7 @@ BuildRequires:  (php-composer(sebastian/environment) >= 8.0.3         with php-c
 BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.2            with php-composer(sebastian/exporter) < 8)
 BuildRequires:  (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
+BuildRequires:  (php-composer(sebastian/recursion-context) >= 7.0.1   with php-composer(sebastian/recursion-context) < 8)
 BuildRequires:  (php-composer(sebastian/type) >= 6.0.3                with php-composer(sebastian/type) < 7)
 BuildRequires:  (php-composer(sebastian/version) >= 6.0.0             with php-composer(sebastian/version) < 7)
 BuildRequires:  (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
@@ -88,7 +89,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^12.5.2",
-#        "phpunit/php-file-iterator": "^6.0.0",
+#        "phpunit/php-file-iterator": "^6.0.1",
 #        "phpunit/php-invoker": "^6.0.0",
 #        "phpunit/php-text-template": "^5.0.0",
 #        "phpunit/php-timer": "^8.0.0",
@@ -99,6 +100,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/exporter": "^7.0.2",
 #        "sebastian/global-state": "^8.0.2",
 #        "sebastian/object-enumerator": "^7.0.0",
+#        "sebastian/recursion-context": "^7.0.1",
 #        "sebastian/type": "^6.0.3",
 #        "sebastian/version": "^6.0.0",
 #        "staabm/side-effects-detector": "^1.0.5"
@@ -114,7 +116,7 @@ Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-c
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpunit/php-code-coverage) >= 12.5.2    with php-composer(phpunit/php-code-coverage) < 13)
-Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
+Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0.1     with php-composer(phpunit/php-file-iterator) < 7)
 Requires:       (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 Requires:       (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
 Requires:       (php-composer(phpunit/php-timer) >= 8.0.0             with php-composer(phpunit/php-timer) < 9)
@@ -125,11 +127,12 @@ Requires:       (php-composer(sebastian/environment) >= 8.0.3         with php-c
 Requires:       (php-composer(sebastian/exporter) >= 7.0.2            with php-composer(sebastian/exporter) < 8)
 Requires:       (php-composer(sebastian/global-state) >= 8.0.2        with php-composer(sebastian/global-state) < 9)
 Requires:       (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
+Requires:       (php-composer(sebastian/recursion-context) >= 7.0.1   with php-composer(sebastian/recursion-context) < 8)
 Requires:       (php-composer(sebastian/type) >= 6.0.3                with php-composer(sebastian/type) < 7)
 Requires:       (php-composer(sebastian/version) >= 6.0.0             with php-composer(sebastian/version) < 7)
 Requires:       (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 # recommends latest versions
-# none
+Recommends:     phpunit13
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 12.0.0
@@ -139,6 +142,8 @@ Requires:       php-phar
 
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 Provides:       php-composer(phpunit/phpunit) = %{version}
+%endif
+%if %{with defcmd}
 Provides:       phpunit                       = %{version}-%{release}
 %endif
 
@@ -181,6 +186,7 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/SebastianBergmann/Exporter7/autoload.php',
     '%{php_home}/SebastianBergmann/GlobalState8/autoload.php',
     '%{php_home}/SebastianBergmann/ObjectEnumerator7/autoload.php',
+    '%{php_home}/SebastianBergmann/RecursionContext7/autoload.php',
     '%{php_home}/SebastianBergmann/Type6/autoload.php',
     '%{php_home}/SebastianBergmann/Version6/autoload.php',
     '%{php_home}/staabm/SideEffectsDetector/autoload.php',
@@ -284,6 +290,11 @@ exit $ret
 
 
 %changelog
+* Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 12.5.9-1
+- update to 12.5.9
+- raise dependency on phpunit/php-file-iterator 6.0.1
+- re-add dependency on sebastian/recursion-context 7.0.1
+
 * Tue Jan 27 2026 Remi Collet <remi@remirepo.net> - 12.5.8-1
 - update to 12.5.8
 

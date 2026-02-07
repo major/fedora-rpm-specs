@@ -1,7 +1,7 @@
 %global giturl  https://github.com/scipopt/gcg
 
 Name:           gcg
-Version:        4.0.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Branch-and-price and column generation
 
@@ -83,6 +83,9 @@ export CXXFLAGS='%{build_cxxflags} -DNDEBUG'
 
 %install
 %cmake_install
+
+# We install the license file elsewhere
+rm -fr %{buildroot}%{_datadir}/licenses/%{name}
 
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}

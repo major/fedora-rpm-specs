@@ -2,32 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate nu-cli
+%global crate fancy-regex
 
-Name:           rust-nu-cli
-Version:        0.99.1
+Name:           rust-fancy-regex0.13
+Version:        0.13.0
 Release:        %autorelease
-Summary:        CLI-related functionality for Nushell
+Summary:        An implementation of regexes, supporting a relatively rich set of features
 
 License:        MIT
-URL:            https://crates.io/crates/nu-cli
+URL:            https://crates.io/crates/fancy-regex
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * temporarily bump reedline from 0.36.0 to 0.37.0
-# * Update to rstest 0.26: https://github.com/nushell/nushell/pull/16359
-# * Allow which 7 and 8: https://github.com/nushell/nushell/pull/14489,
-#   https://github.com/nushell/nushell/pull/16045
-# * Update lscolors from 0.17 to 0.20:
-#   https://github.com/nushell/nushell/pull/15737
-# * Update fancy-regex from 0.13 to 0.16:
-#   https://github.com/nushell/nushell/commit/0e3ca7b355bd62f1cfc372b414defd528da04718,
-#   https://github.com/nushell/nushell/commit/1e2fa68db0f7e877fe9c4cd95ab16f1c0df793e8
-Patch:          nu-cli-fix-metadata.diff
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          fancy-regex-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-CLI-related functionality for Nushell.}
+An implementation of regexes, supporting a relatively rich set of
+features, including backreferences and look-around.}
 
 %description %{_description}
 
@@ -42,6 +35,10 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/AUTHORS
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
+%doc %{crate_instdir}/PERFORMANCE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -57,40 +54,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nu-plugin-engine-devel
+%package     -n %{name}+perf-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nu-plugin-engine-devel %{_description}
+%description -n %{name}+perf-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nu-plugin-engine" feature of the "%{crate}" crate.
+use the "perf" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nu-plugin-engine-devel
+%files       -n %{name}+perf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+plugin-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+plugin-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "plugin" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+plugin-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+system-clipboard-devel
+%package     -n %{name}+track_caller-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+system-clipboard-devel %{_description}
+%description -n %{name}+track_caller-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "system-clipboard" feature of the "%{crate}" crate.
+use the "track_caller" feature of the "%{crate}" crate.
 
-%files       -n %{name}+system-clipboard-devel
+%files       -n %{name}+track_caller-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unicode-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unicode-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unicode" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unicode-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -108,8 +117,7 @@ use the "system-clipboard" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * other tests depend on unshipped fixtures
-%cargo_test -- --lib
+%cargo_test
 %endif
 
 %changelog

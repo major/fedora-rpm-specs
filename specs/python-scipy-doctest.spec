@@ -1,5 +1,5 @@
 Name:           python-scipy-doctest
-Version:        2.0.1
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Configurable, whitespace-insensitive, floating-point-aware doctest helpers
 

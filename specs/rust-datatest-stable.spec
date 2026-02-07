@@ -13,12 +13,15 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/datatest-stable
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow fancy-regex 0.13 (wants 0.14, latest as of this writing is 0.17):
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2321464
+# * Allow all fancy-regex releases between 0.13 and 0.17, inclusive: “Update
+#   fancy-regex dependency to 0.17”
+#   https://github.com/nextest-rs/datatest-stable/pull/450
 # * Exclude some unnecessary files from the crate:
 #   https://github.com/nextest-rs/datatest-stable/pull/424. Excluding scripts/
 #   in particular avoids an unwanted dependency on bash.
 Patch:          datatest-stable-fix-metadata.diff
+# * Update trybuild output for ui test for Rust 1.93
+Patch10:        https://github.com/nextest-rs/datatest-stable/pull/449.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

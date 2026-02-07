@@ -1,10 +1,10 @@
-%global rawhide_release 44
+%global rawhide_release 45
 %global updates_testing_enabled 0
 
 Summary:        Fedora package repositories
 Name:           fedora-repos
-Version:        44
-Release:        0.2%{?eln:.eln%{eln}}
+Version:        45
+Release:        0.1%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -409,6 +409,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Wed Feb 04 2026 Patrik Polakovic <patrik@alphamail.org> - 45-0.1
+- Rawhide is now F45
+
 * Tue Feb 03 2026 Patrik Polakovic <patrik@alphamail.org> 44-0.2
 - Add RPM-GPG-KEY-fedora-46-primary
 - Add fedora-46-ima.der for IMA signing

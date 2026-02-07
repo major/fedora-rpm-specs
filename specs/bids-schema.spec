@@ -3,7 +3,7 @@
 %bcond check_jsonschema 0
 
 Name:           bids-schema
-Version:        1.1.6
+Version:        1.2.0
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -75,6 +75,8 @@ Source3:        bids-error-examples-%{error_examples_commit}-filtered.tar.zst
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       bst.1
 Source11:       bst-export.1
+Source12:       bst-export-metaschema.1
+Source13:       bst-pre-receive-hook.1
 
 BuildArch:      noarch
 
@@ -196,7 +198,7 @@ rm -rvf '%{buildroot}%{python3_sitelib}/bidsschematools/tests'
 
 # Install the man pages
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE10}' '%{SOURCE11}'
+    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
 
 # Install documentation. (Since we use %%doc with an absolute path for the
 # README.md file in the schema directory, we must use absolute paths for all

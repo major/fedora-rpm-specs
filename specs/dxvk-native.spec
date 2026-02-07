@@ -1,6 +1,6 @@
 Name:           dxvk-native
-Version:        2.5.3
-Release:        3%{?dist}
+Version:        2.7.1
+Release:        1%{?dist}
 Summary:        Vulkan-based D3D11 and D3D9 implementation for Linux
 
 License:        Zlib
@@ -151,6 +151,9 @@ cp %{mingw64_includedir}/_mingw_unicode.h include/native/directx
 
 
 %changelog
+* Sun Jan 25 2026 Ethan Lee <flibitijibibo@gmail.com> - 2.7.1-1
+- Update to 2.7.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

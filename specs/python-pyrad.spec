@@ -5,7 +5,7 @@ care of all the details like building RADIUS packets, sending them and decoding
 responses.}
 
 Name:           python-%{pypi_name}
-Version:        2.5.2
+Version:        2.5.4
 Release:        %autorelease
 Summary:        Python RADIUS client
 License:        BSD-3-Clause

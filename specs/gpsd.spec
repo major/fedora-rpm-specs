@@ -15,7 +15,7 @@ Name:           gpsd-epel
 Name:           gpsd
 %endif
 Version:        3.27.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -56,6 +56,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  qt-devel
 %endif
 BuildRequires:  libusb1-devel
+BuildRequires:  gobject-introspection
 
 Requires:       udev
 %{?systemd_requires}
@@ -250,6 +251,9 @@ rm -f %{buildroot}%{_libdir}/libQgpsmm* \
 %endif
 rm -rf %{buildroot}%{_docdir}/gpsd
 
+%check
+%{scons} check
+
 %if %{with_core}
 %post
 %systemd_post gpsd.service gpsd.socket
@@ -379,7 +383,10 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
-* Mon Jan 19 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.27.5-1
+* Thu Feb 05 2026 Carl George <carlwgeorge@fedoraproject.org> - 1:3.27.5-3
+- Run upstream tests in %%check
+
+* Mon Jan 19 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.27.5-2
 - update to 3.27.5
 - drop compat subpackage
 

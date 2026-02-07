@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc8.54
+%define pkgrelease 0.rc8.260205gf14faaf3a1fb.57
 %define kversion 6
-%define tarfile_release 6.19-rc8
+%define tarfile_release 6.19-rc8-45-gf14faaf3a1fb
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc8.54%{?buildid}%{?dist}
+%define specrelease 0.rc8.260205gf14faaf3a1fb.57%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -934,6 +934,7 @@ BuildRequires: asciidoc
 
 %if %{with toolchain_clang}
 BuildRequires: clang
+BuildRequires: lld
 %endif
 
 %if %{with clang_lto}
@@ -4658,8 +4659,19 @@ fi\
 #
 #
 %changelog
-* Mon Feb 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.54]
+* Thu Feb 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.f14faaf3a1fb.57]
 - x86/vmware: Fix hypercall clobbers (Josh Poimboeuf)
+
+* Thu Feb 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.f14faaf3a1fb.56]
+- Consolidate configs to common for 6.19 (Justin M. Forbes)
+- redhat/configs: Set CONFIG_PTP_S390=y (Mete Durlu) [RHEL-141647]
+- Linux v6.19.0-0.rc8.f14faaf3a1fb
+
+* Wed Feb 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.5fd0a1df5d05.55]
+- Linux v6.19.0-0.rc8.5fd0a1df5d05
+
+* Tue Feb 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.6bd9ed02871f.54]
+- Linux v6.19.0-0.rc8.6bd9ed02871f
 
 * Mon Feb 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.53]
 - [gitlab-ci] tag-cki-gating: refactor to use GIT_STRATEGY=empty (Patrick Talbert)

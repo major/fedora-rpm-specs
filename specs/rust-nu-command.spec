@@ -34,6 +34,9 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * Allow indicatif 0.18: https://github.com/nushell/nushell/pull/16248
 # * Allow dirs 6:
 #   https://github.com/nushell/nushell/commit/007b223acc1f0dd57ebbefc101ce1a6e46f707d0
+# * Update fancy-regex from 0.13 to 0.16:
+#   https://github.com/nushell/nushell/commit/0e3ca7b355bd62f1cfc372b414defd528da04718,
+#   https://github.com/nushell/nushell/commit/1e2fa68db0f7e877fe9c4cd95ab16f1c0df793e8
 Patch:          nu-command-fix-metadata.diff
 # * Allow compiling with quick-xml 0.33+
 # * https://github.com/nushell/nushell/pull/14354

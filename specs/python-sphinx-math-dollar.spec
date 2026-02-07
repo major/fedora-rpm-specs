@@ -1,8 +1,8 @@
 %global giturl  https://github.com/sympy/sphinx-math-dollar
 
 Name:           python-sphinx-math-dollar
-Version:        1.2.1
-Release:        18%{?dist}
+Version:        1.3
+Release:        %autorelease
 Summary:        Sphinx extension to enable LaTeX math with $$
 
 # MIT: All files with the following exception.
@@ -12,9 +12,6 @@ License:        MIT AND CC0-1.0
 URL:            https://www.sympy.org/sphinx-math-dollar/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinx-math-dollar-%{version}.tar.gz
-# Declare the extension to be parallel-safe
-# https://github.com/sympy/sphinx-math-dollar/commit/c58c1457f494f77a1a84ecbd3187a735aec73b2b
-Patch:          %{name}-extension.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -79,100 +76,4 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 1.2.1-17
-- Use the pyproject declarative buildsystem
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.1-16
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.1-15
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-13
-- Rebuilt for Python 3.14
-
-* Mon Apr 28 2025 Jerry James <loganjerry@gmail.com> - 1.2.1-12
-- Declare the extension to be parallel-safe
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 1.2.1-9
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.2.1-5
-- Add CC0-1.0 to License tag due to versioneer
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.1-5
-- Rebuilt for Python 3.12
-
-* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.2.1-4
-- Dynamically generate BuildRequires
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.2.1-3
-- Convert License tags to SPDX
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.2.1-2
-- Rebuilt for Python 3.11
-
-* Mon Apr 25 2022 Jerry James <loganjerry@gmail.com> - 1.2.1-1
-- Version 1.2.1
-- Drop all patches
-
-* Thu Feb 17 2022 Miro Hrončok <mhroncok@redhat.com> - 1.2-7
-- Drop the dependency on upstream dead sphinx-testing, use sphinx.testing instead
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 20 2021 Jerry James <loganjerry@gmail.com> - 1.2-5
-- Add -versioneer patch to fix FTBFS with python 3.11
-- Update python macros
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.2-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Sep 18 2020 Jerry James <loganjerry@gmail.com> - 1.2-1
-- Version 1.2
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.1.1-3
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jan  2 2020 Jerry James <loganjerry@gmail.com> - 1.1.1-1
-- Initial RPM
+%autochangelog

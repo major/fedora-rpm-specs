@@ -1,5 +1,5 @@
 Name:		libzpc
-Version:	1.4.1
+Version:	1.5.0
 Release:	%autorelease
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 

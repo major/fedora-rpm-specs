@@ -6,7 +6,7 @@
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
 Version: 6.6.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -16,6 +16,7 @@ Source1: x-cinnamon-mimeapps.list
 ExcludeArch: %{ix86}
 
 Patch0:   set_font_defaults.patch
+Patch1:   %url/pull/265.patch#/update-gvc.patch
 
 Requires: redhat-menus
 
@@ -96,6 +97,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Thu Feb 05 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-4
+- Add upstream pull request to fix cvc issues
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -41,6 +41,8 @@ Patch4:         0005-Fix-rusqlite-dependency-to-the-one-used-in-Fedora.patch
 Patch5:         0006-Remove-criterion.patch
 # https://github.com/ActivityWatch/aw-server-rust/pull/545
 Patch6:         0007-Allow-dirs-6.patch
+# https://github.com/ActivityWatch/aw-server-rust/pull/558
+Patch7:         0008-Allow-fancy-regex-versions-through-0.17.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

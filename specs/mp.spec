@@ -4,14 +4,15 @@
 %else
 %global with_jacop     0
 %endif
-%global with_gecode    1
+
+# gecode is no longer available
+%global with_gecode    0
 %global with_highs     1
 %global with_scip      1
 %endif
 
 %if 0%{?rhel}
 %global with_jacop     0
-%global with_gecode    0
 %global with_highs     0
 %global with_scip      0
 %endif
@@ -40,7 +41,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 18%{?dist}
+Release: 19%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -246,6 +247,9 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Thu Feb 05 2026 Antonio Trande <sagitter@fedoraproject.org.com> - 20240319-19
+- Disable gecode (rhbz#2436665)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20240319-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

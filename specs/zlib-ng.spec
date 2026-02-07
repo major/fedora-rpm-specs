@@ -18,7 +18,7 @@
 %global supported_abi_test aarch64 ppc64le x86_64
 
 Name:		zlib-ng
-Version:	2.3.2
+Version:	2.3.3
 Release:	%autorelease
 Summary:	Zlib replacement with optimizations
 License:	Zlib

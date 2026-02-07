@@ -19,6 +19,9 @@ Source:		https://github.com/%{srcname}/%{srcname}/archive/v%{version}%{?prerelea
 #[PATCH] Fix Linux aarch64 support on GCC with lax vector conversions
 # https://github.com/embree/embree/pull/408/commits/ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a
 Patch:		ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a.patch
+# https://github.com/RenderKit/embree/issues/486
+# https://github.com/RenderKit/embree/commit/cda4cf1919bb2a748e78915fbd6e421a1056638d
+Patch:		cda4cf1919bb2a748e78915fbd6e421a1056638d.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++

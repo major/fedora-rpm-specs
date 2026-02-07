@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    3d8ee89d83c1c60a275a0c1885f11370a4d86461
+%global gh_commit    6331d57bd847d883652012a5c3594aa03aea4c50
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.3.6
+Version:        2.3.8
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -27,7 +27,7 @@ BuildArch:      noarch
 %if %{with_tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.5.58
+BuildRequires:  phpunit10 >= 10.5.63
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-pcre
 %endif
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 2.3.8-1
+- update to 2.3.8 (no change)
+
 * Mon Jan 26 2026 Remi Collet <remi@remirepo.net> - 2.3.6-1
 - update to 2.3.6
 

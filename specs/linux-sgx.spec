@@ -442,11 +442,6 @@ BuildRequires: perl(FindBin)
 BuildRequires: perl(lib)
 BuildRequires: perl(IPC::Cmd)
 BuildRequires: nasm
-BuildRequires: nodejs, /usr/bin/node
-BuildRequires: nodejs-devel
-%if 0%{?rhel} == 9
-BuildRequires: npm
-%else
 # XXX nodejs-packaging needs fixing to auto-add 'Requires: nodejs(abi) == XX'
 # then this can be reduced to only 'BuildRequires: nodejs, /usr/bin/node'
 # See also https://src.fedoraproject.org/rpms/linux-sgx/pull-request/6
@@ -454,8 +449,8 @@ BuildRequires: npm
 %if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 BuildRequires: nodejs24-devel, /usr/bin/node, /usr/bin/npm
 %else
+# npm in RHEL 9, nodejs-npm in RHEL 10 and F<44
 BuildRequires: nodejs-devel, /usr/bin/node, /usr/bin/npm
-%endif
 %endif
 BuildRequires: nodejs-packaging
 BuildRequires: python-unversioned-command

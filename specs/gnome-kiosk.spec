@@ -5,7 +5,7 @@
 %global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
 %global gtk4_version                            3.24.27
-%global mutter_version                          50~alpha
+%global mutter_version                          50~beta
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
@@ -17,7 +17,7 @@
 %endif
 
 Name:           gnome-kiosk
-Version:        50~alpha
+Version:        50~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 

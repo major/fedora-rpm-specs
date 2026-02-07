@@ -4,14 +4,12 @@
 %bcond test 0
 
 Name:           libstoragemgmt
-Version:        1.10.2
-Release:        9%{?dist}
+Version:        1.10.3
+Release:        1%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
 Source0:        https://github.com/libstorage/libstoragemgmt/releases/download/%{version}/%{name}-%{version}.tar.gz
-Patch1:         0001_systemd_ug.patch
-Patch2:         0002_include_integration_script.patch
 Requires:       python3-%{name}%{_isa}
 Requires:       ledmon-libs
 
@@ -31,7 +29,6 @@ BuildRequires:  libconfig-devel
 BuildRequires:  systemd-devel
 BuildRequires:  procps
 BuildRequires:  sqlite-devel
-BuildRequires:  python3-six
 BuildRequires:  python3-devel
 BuildRequires:  ledmon-devel
 
@@ -64,7 +61,6 @@ developing applications that use %{name}.
 %package        -n python3-%{name}
 Summary:        Python 3 client libraries and plug-in support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       python3-six
 
 # If obsoleted packages are installed, we need to meet it's requirement
 # of having the correct version of this package functionality installed too as
@@ -182,7 +178,6 @@ plugin selection for locally managed storage.
 ./autogen.sh
 
 %configure \
-    --with-python3 \
 %ifnarch %{valgrind_arches}
     --without-mem-leak-test \
 %endif
@@ -466,6 +461,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Thu Feb 5 2026 Tony Asleson <tasleson@redhat.com> - 1.10.3-1
+- Upgrade to 1.10.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

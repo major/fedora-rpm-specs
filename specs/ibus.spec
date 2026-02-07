@@ -53,7 +53,7 @@
 Name:           ibus
 Version:        1.5.34~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -62,6 +62,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -574,6 +575,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Feb 05 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~beta1-2
+- Support input purpose and hits to ibus-wayland
+
 * Wed Feb 04 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~beta1-1
 - Add IBUS_INPUT_HINT_HIDDEN_TEXT
 - Show Emoji annotations in GNOME

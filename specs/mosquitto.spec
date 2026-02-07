@@ -1,32 +1,39 @@
 %global with_tests 0
 
 Name:           mosquitto
-Version:        2.0.22
-Release:        7%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
 URL:            https://mosquitto.org/
 Source0:        https://mosquitto.org/files/source/%{name}-%{version}.tar.gz
 Source1:        mosquitto-sysusers.conf
-# https://github.com/eclipse-mosquitto/mosquitto/pull/3150
-Patch:          0001-Fix-the-libdir-location-in-the-pkgconf-files.patch
 Patch:          mosquitto-fix-service.patch
 
+BuildRequires:  asciidoc
 BuildRequires:  c-ares-devel
 BuildRequires:  cjson-devel
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  libargon2-devel
+BuildRequires:  libedit-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  libwebsockets-devel
 BuildRequires:  libxslt
-BuildRequires:  cmake
 BuildRequires:  openssl-devel
 %if 0%{?fedora}
 BuildRequires:  openssl-devel-engine
 %endif
+BuildRequires:  sqlite-devel
 BuildRequires:  systemd-devel
 %if 0%{?with_tests}
 BuildRequires:  CUnit-devel
+BuildRequires:  gmock-devel
+BuildRequires:  gtest-devel
+BuildRequires:  libmicrohttpd-devel
+BuildRequires:  python3-psutil
+BuildRequires:  uthash-devel
 %endif
 #BuildRequires:  uthash-devel
 Provides: bundled(uthash)
@@ -65,6 +72,11 @@ sed -i "s/websockets_shared/websockets/" src/CMakeLists.txt
        -DWITH_SYSTEMD=ON \
        -DWITH_SRV=ON \
        -DWITH_TLS=ON \
+%if 0%{?with_tests}
+       -DWITH_TESTS=ON \
+%else
+       -DWITH_TESTS=OFF \
+%endif
        %nil
 
 %cmake_build
@@ -89,7 +101,7 @@ make test
 %dir %attr(750,mosquitto,mosquitto) %{_sysconfdir}/%{name}
 %dir %attr(750,mosquitto,mosquitto) %{_localstatedir}/log/%{name}
 %dir %attr(750,mosquitto,mosquitto) %{_rundir}/%{name}
-%config(noreplace) %attr(640,mosquitto,mosquitto) %{_sysconfdir}/%{name}/%{name}.conf
+%ghost %config(noreplace) %attr(640,mosquitto,mosquitto) %{_sysconfdir}/%{name}/%{name}.conf
 %config %attr(640,mosquitto,mosquitto) %{_sysconfdir}/%{name}/*.example
 %{_bindir}/%{name}*
 %if 0%{?rhel}
@@ -97,13 +109,14 @@ make test
 %endif
 %{_libdir}/libmosquitto*.so.1
 %{_libdir}/libmosquitto*.so.%{version}
-%{_libdir}/mosquitto_dynamic_security.so
+%{_libdir}/mosquitto_*.so
 %{_sysusersdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %{_mandir}/man*/%{name}*
 %{_mandir}/man7/mqtt.7.*
 
 %files devel
+%{_includedir}/mosquitto/
 %{_includedir}/mosquitto*.h
 %{_includedir}/mqtt*.h
 %{_libdir}/libmosquitto*.so
@@ -111,6 +124,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Thu Feb 05 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1.1-1
+- Update to 2.1.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

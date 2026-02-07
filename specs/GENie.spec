@@ -17,8 +17,8 @@ Summary:        Project generator tool
 License:        BSD-3-Clause AND MIT
 URL:            https://github.com/bkaradzic/GENie
 Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-# https://github.com/bkaradzic/GENie/pull/478
-# Enable builds on i686 and aarch64
+# https://github.com/bkaradzic/GENie/pull/478 + local edits
+# Enable builds on i686, aarch64 and riscv64
 Patch:          arch.patch
 
 BuildRequires:  compat-lua-devel

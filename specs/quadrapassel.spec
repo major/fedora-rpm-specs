@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           quadrapassel
-Version:        50~alpha
+Version:        50~beta
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 
@@ -27,6 +27,8 @@ BuildRequires:  librsvg2-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  vala
+BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(openal)
 
 %description
 The Russian game of falling geometric shapes.

@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        50~alpha
+Version:        50~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -22,6 +22,10 @@ Patch: gnome-shell-favourite-apps-firefox.patch
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
+
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/4068
+# fix crash caused by trying to promisify removed symbol
+Patch: 4068.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7

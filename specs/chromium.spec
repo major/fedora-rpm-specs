@@ -260,7 +260,7 @@
 %endif
 
 Name:	chromium
-Version: 144.0.7559.109
+Version: 144.0.7559.132
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -838,6 +838,9 @@ BuildRequires: libevdev-devel
 BuildRequires: simdutf-devel
 %endif
 
+# esbuild is needed
+BuildRequires: golang-github-evanw-esbuild
+
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
@@ -1179,15 +1182,16 @@ Qt6 UI for chromium.
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
 
 # Add correct path for nodejs binary
+mkdir -p third_party/node/linux/node-linux-x64/bin
 %if ! %{system_nodejs}
-  ln -s ../../../node-%{nodejs_version}/node-%{nodejs_version}-linux-x64 third_party/node/linux/node-linux-x64
+  ln -s ../../../../../node-%{nodejs_version}/node third_party/node/linux/node-linux-x64/bin/node
 %else
-  mkdir -p third_party/node/linux/node-linux-x64/bin
   ln -s $(which node) third_party/node/linux/node-linux-x64/bin/node
 %endif
 
-# Get rid of the prebuilt esbuild binary
-rm -rf third_party/devtools-frontend/src/third_party/esbuild
+# Add correct path for esbuild binary
+mkdir -p third_party/devtools-frontend/src/third_party/esbuild
+ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
 
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
@@ -1351,6 +1355,8 @@ CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
 CHROMIUM_CORE_GN_DEFINES+=' v8_enable_backtrace=true'
+# disable devtools buildle
+CHROMIUM_CORE_GN_DEFINES+=' devtools_bundle=false'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1811,6 +1817,14 @@ fi
 %endif
 
 %changelog
+* Thu Feb 05 2026 Than Ngo <than@redhat.com> - 144.0.7559.132-1
+- Update to 144.0.7559.132
+  * CVE-2026-1861: Heap buffer overflow in libvpx
+  * CVE-2026-1862: Type Confusion in V8
+- Add BR on esbuild
+- Disable devtool bundle
+- Update scripts for downloading the source
+
 * Wed Jan 28 2026 Than Ngo <than@redhat.com> - 144.0.7559.109-1
 - Update to 144.0.7559.109
   * CVE-2026-1504: Inappropriate implementation in Background Fetch API

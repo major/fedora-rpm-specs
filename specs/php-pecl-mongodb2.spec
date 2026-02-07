@@ -16,13 +16,13 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.1.7
+%global upstream_version  2.1.8
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
-%global minimal_libmongo  1.30.6
+%global minimal_libmongo  1.30.7
 %global minimal_libcrypt  1.12.0
 
 # Build dependencies
@@ -165,6 +165,9 @@ OPT="-n"
 
 
 %changelog
+* Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 2.1.8-1
+- update to 2.1.8
+
 * Wed Jan 28 2026 Remi Collet <remi@remirepo.net> - 2.1.7-1
 - update to 2.1.7 (no change)
 

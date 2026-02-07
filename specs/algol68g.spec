@@ -6,8 +6,8 @@
 
 Name: algol68g
 Summary: Algol 68 Genie compiler-interpreter
-Version: 3.10.9
-Release: 3%{?dist}
+Version: 3.10.10
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html
@@ -56,6 +56,9 @@ that has continuing responsibility for Algol 60 and Algol 68.
 %exclude %{_pkgdocdir}/COPYING
 
 %changelog
+* Thu Feb 05 2026 Oleg Girko <ol@infoserver.lv> - 3.10.10-1
+- Update to 3.10.10
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

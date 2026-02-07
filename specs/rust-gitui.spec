@@ -28,6 +28,8 @@ Source:         %{crates_source}
 #   https://github.com/gitui-org/gitui/commit/369ea6a140438fdbaf29ff31f3fea8195603b5e8
 # * allow dirs 6:
 #   https://github.com/gitui-org/gitui/commit/9781608584151ae4932515b8d356f77110e24a0a
+# * Bump two-face from 0.4.4 to 0.5.1:
+#   https://github.com/gitui-org/gitui/pull/2828
 Patch:          gitui-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
