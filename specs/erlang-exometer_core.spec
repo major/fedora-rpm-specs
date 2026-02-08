@@ -1,7 +1,7 @@
 %global realname exometer_core
 
 Name:		erlang-%{realname}
-Version:	1.7.1
+Version:	2.0.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Easy and efficient instrumentation of Erlang code
@@ -9,7 +9,10 @@ License:	MPL-2.0
 URL:		https://github.com/feuerlabs/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-exometer_core-0001-FIXME-disable-plugins-for-Rebar3.patch
+Patch:		erlang-exometer_core-0001-Metric-names-might-be-tuples-they-have-to-be-escaped.patch
+Patch:		erlang-exometer_core-0002-Add-test-case-for-erisata-fix_name_tuples.patch
+Patch:		erlang-exometer_core-0003-exometer_report-Fix-static-subscriber-spec-with-Extr.patch
+Patch:		erlang-exometer_core-0004-FIXME-disable-plugins-for-Rebar3.patch
 BuildRequires:	erlang-edown
 BuildRequires:	erlang-hut
 BuildRequires:	erlang-meck

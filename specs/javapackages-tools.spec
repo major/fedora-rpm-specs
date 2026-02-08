@@ -62,11 +62,6 @@ Requires:       mvn(org.apache.maven.plugins:maven-compiler-plugin)
 Requires:       mvn(org.apache.maven.plugins:maven-jar-plugin)
 Requires:       mvn(org.apache.maven.plugins:maven-resources-plugin)
 Requires:       mvn(org.apache.maven.plugins:maven-surefire-plugin)
-# Remove in Fedora 45
-Obsoletes:      maven-local < 6.3.0
-Obsoletes:      maven-local-openjdk8 < 6.2.0-29
-Obsoletes:      maven-local-openjdk11 < 6.2.0-29
-Obsoletes:      maven-local-openjdk17 < 6.2.0-29
 
 %description -n maven-local-openjdk25
 This package provides macros and scripts to support packaging Maven artifacts.

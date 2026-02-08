@@ -1,5 +1,5 @@
 Name:           retis
-Version:        1.5.2
+Version:        1.6.3
 Release:        %autorelease
 Summary:        Tracing packets in the Linux networking stack
 License:        GPL-2.0-only
@@ -12,19 +12,10 @@ Patch:          retis-release-profile.diff
 # Manually created to:
 # - Remove the rbpf dependency (was in the unused 'debug' feature).
 # - Remove the dev-dependencies.
-# - Relax the bindgen version requirement to allow using the one packaged in
-#   Fedora.
-# - Relax the dependency on cargo-platform (only required for c8s).
-# - Relax the dependency on pnet_packet to allow 0.35:
-#   https://github.com/retis-org/retis/pull/524
+# - Downgrade the libbpf-rs/cargo and pcap dependencies.
 Patch:          retis-fix-deps.diff
-# Manually created to remove CFLAGS for BPF targets as the default ones are
-# incompatible with the 'bpf' target (e.g. -mtls-dialect=gnu or
-# -mbranch-protection).
-Patch:          retis-cflags.diff
-# Manually created to fix a build error linked to using libbpf-rs 0.24.4, which
-# is not reproducible upstream while using newer versions.
-Patch:          retis-libbpf-rs-fix.diff
+# Manually created to downgrade the elf dependency and fix its use.
+Patch:          retis-downgrade-elf.diff
 
 ExclusiveArch:  x86_64 aarch64
 
@@ -56,8 +47,8 @@ make release %{?_smp_mflags}
 
 %install
 env CARGO_INSTALL_OPTS="--no-track" make install
-install -m 0755 -d %{buildroot}%{_sysconfdir}/retis/profiles
-install -m 0644 retis/profiles/* %{buildroot}%{_sysconfdir}/retis/profiles
+install -m 0755 -d %{buildroot}%{_datadir}/retis/profiles
+install -m 0644 retis/profiles/* %{buildroot}%{_datadir}/retis/profiles
 rm -rf %{buildroot}/include
 rm -rf %{buildroot}/pkgconfig
 rm -f %{buildroot}/libbpf.a
@@ -66,7 +57,7 @@ rm -f %{buildroot}/libbpf.a
 %license retis/LICENSE
 %doc README.md
 %{_bindir}/retis
-%{_sysconfdir}/retis/profiles
+%{_datadir}/retis/profiles
 
 %changelog
 %autochangelog

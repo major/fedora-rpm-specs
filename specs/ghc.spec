@@ -34,13 +34,6 @@
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
-# bootstrap needs 9.6+ (& hadrian needs Cabal-3.10)
-# (for ix86 use 9.6 to avoid 9.8 Unique Word64 issues)
-%ifarch %{ix86}
-%global ghcboot_major 9.6
-%endif
-%global ghcboot ghc%{?ghcboot_major}
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105
 # https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
 # debugedit-5.2 adds 1-3 hours to koji build times
@@ -73,7 +66,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 153%{?dist}
+Release: 154%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -126,29 +119,29 @@ Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
-BuildRequires: %{ghcboot}-compiler
+BuildRequires: ghc-compiler > 9.6
 # for ABI hash checking
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra
-BuildRequires: %{ghcboot}-array-devel
-BuildRequires: %{ghcboot}-binary-devel
-BuildRequires: %{ghcboot}-bytestring-devel
-BuildRequires: %{ghcboot}-containers-devel
-BuildRequires: %{ghcboot}-deepseq-devel
-BuildRequires: %{ghcboot}-directory-devel
-BuildRequires: %{ghcboot}-filepath-devel
-BuildRequires: %{ghcboot}-ghc-boot-th-devel
-BuildRequires: %{ghcboot}-pretty-devel
-BuildRequires: %{ghcboot}-process-devel
-BuildRequires: %{ghcboot}-stm-devel
-BuildRequires: %{ghcboot}-template-haskell-devel
-BuildRequires: %{ghcboot}-text-devel
-BuildRequires: %{ghcboot}-time-devel
-BuildRequires: %{ghcboot}-transformers-devel
-BuildRequires: %{ghcboot}-unix-devel
-BuildRequires: %{ghcboot}-xhtml-devel
+BuildRequires: ghc-rpm-macros-extra >= 2.11
+BuildRequires: ghc-array-devel
+BuildRequires: ghc-binary-devel
+BuildRequires: ghc-bytestring-devel
+BuildRequires: ghc-containers-devel
+BuildRequires: ghc-deepseq-devel
+BuildRequires: ghc-directory-devel
+BuildRequires: ghc-filepath-devel
+BuildRequires: ghc-ghc-boot-th-devel
+BuildRequires: ghc-pretty-devel
+BuildRequires: ghc-process-devel
+BuildRequires: ghc-stm-devel
+BuildRequires: ghc-template-haskell-devel
+BuildRequires: ghc-text-devel
+BuildRequires: ghc-time-devel
+BuildRequires: ghc-transformers-devel
+BuildRequires: ghc-unix-devel
+BuildRequires: ghc-xhtml-devel
 BuildRequires: alex
 BuildRequires: binutils
 BuildRequires: gcc-c++
@@ -459,8 +452,6 @@ export CC=%{_bindir}/gcc
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
 
-export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
-
 # note lld breaks build-id
 # /usr/bin/debugedit: Cannot handle 8-byte build ID
 # https://bugzilla.redhat.com/show_bug.cgi?id=2116508
@@ -515,6 +506,7 @@ ln -sf ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
 %global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
+# 9.16 will have/support eg 'quick+with_profiled_libs'
 %global hadrian_flavor %[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm}%{?hadrian_debug}
 # dropping --hash-unit-ids for f44 ghc-9.10
 %{hadrian} %{?_smp_mflags} --flavour=%{hadrian_flavor} %{hadrian_docs} binary-dist-dir
@@ -538,7 +530,7 @@ make install
 )
 
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo "%{ghclibplatform}*" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 %if %{with haddock}
 # remove short hashes
@@ -565,7 +557,7 @@ done
 
 echo "%%dir %{ghclibdir}" >> %{name}-base.files
 echo "%%dir %{ghcliblib}" >> %{name}-base.files
-echo "%%dir %ghclibplatform" >> %{name}-base.files
+echo "%%dir %{ghclibplatform}*" >> %{name}-base.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
@@ -591,7 +583,7 @@ echo "%%dir %ghclibplatform" >> %{name}-base.files
 echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 
 # add rts libs
-for i in %{buildroot}%{ghclibplatform}/libHSrts*ghc%{ghc_version}.so; do
+for i in %{buildroot}%{ghclibplatform}*/libHSrts*ghc%{ghc_version}.so; do
 if [ "$(basename $i)" != "libHSrts-%{rts_ver}-ghc%{ghc_version}.so" ]; then
 echo $i >> %{name}-base.files
 fi
@@ -625,7 +617,7 @@ rm %{buildroot}%{ghcliblib}/package.conf.d/.stamp
 rm %{buildroot}%{ghcliblib}/package.conf.d/*.conf.copy
 
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24121
-rm %{buildroot}%{ghclibdir}/share/doc/%ghcplatform/*/LICENSE
+rm %{buildroot}%{ghclibdir}/share/doc/%{ghcplatform}*/*/LICENSE
 
 %if %{defined ghc_major}
 (
@@ -655,7 +647,7 @@ cp -p utils/completion/ghc.bash %{buildroot}%{_datadir}/bash-completion/completi
 %check
 export LANG=C.utf8
 # stolen from ghc6/debian/rules:
-export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
+export LD_LIBRARY_PATH=$(echo %{buildroot}%{ghclibplatform}*):
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
 $GHC --info
 # simple sanity checks that the compiler actually works
@@ -861,6 +853,9 @@ make test
 
 
 %changelog
+* Fri Feb 06 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-154
+- fix prof deps generation with ghc-rpm-macros-2.11
+
 * Mon Feb 02 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-153
 - ppc64le rts: fix asm inclusion (#2435862, thanks Bertram Felgenhauer)
 

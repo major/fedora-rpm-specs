@@ -6,7 +6,7 @@
 %global crate diesel
 
 Name:           rust-diesel
-Version:        2.3.5
+Version:        2.3.6
 Release:        %autorelease
 Summary:        Safe, extensible ORM and Query Builder for PostgreSQL, SQLite, and MySQL
 
@@ -17,7 +17,6 @@ Source:         %{crates_source}
 Patch:          diesel-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unavailable "libsqlite3-sys/bundled_bindings" dependency
-# * temporarily downgrade downcast-rs from v2 to v1
 Patch:          diesel-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

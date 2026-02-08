@@ -109,11 +109,6 @@ OrderWithRequires: xmvn-minimal
 # maven-slf4j-provider.jar, together with Maven-specific additions.
 Provides:       bundled(slf4j) = %{bundled_slf4j_version}
 
-# Remove in Fedora 45
-Obsoletes:      maven-openjdk8 < 1:3.9.9-2
-Obsoletes:      maven-openjdk11 < 1:3.9.9-2
-Obsoletes:      maven-openjdk17 < 1:3.9.9-2
-
 %description lib
 Core part of Apache Maven that can be used as a library.
 

@@ -5,7 +5,7 @@
 %global crate zmij
 
 Name:           rust-zmij
-Version:        1.0.12
+Version:        1.0.19
 Release:        %autorelease
 Summary:        Double-to-string conversion algorithm based on Schubfach and yy
 

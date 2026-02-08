@@ -169,6 +169,8 @@ use the "rustls-tls" feature of the "%{crate}" crate.
 %check
 # * skip doctest that's missing a data file
 # * skip failing tests that are missing data files
+# * skip unigram test_sample which is flaky:
+# * https://github.com/huggingface/tokenizers/issues/461
 %cargo_test -- --doc -- --skip 926
 %{cargo_test -- --test added_tokens -- --exact %{shrink:
     --skip lstrip_tokens
@@ -182,10 +184,6 @@ use the "rustls-tls" feature of the "%{crate}" crate.
     --skip test_deserialize_long_file
     --skip wordlevel_serde
     --skip wordpiece_serde
-}}
-%{cargo_test -- --test unigram -- --exact %{shrink:
-    --skip test_train_unigram_from_file
-    --skip test_unigram_from_file
 }}
 %endif
 

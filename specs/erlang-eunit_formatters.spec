@@ -1,7 +1,7 @@
 %global realname eunit_formatters
 
 Name:     erlang-%{realname}
-Version:  0.5.0
+Version:  0.6.0
 Release:  %autorelease
 BuildArch:noarch
 Summary:  Better output format for eunit test suites

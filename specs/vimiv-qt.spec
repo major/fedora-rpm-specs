@@ -34,7 +34,7 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-qt5-devel
+BuildRequires:  python3-pyqt6-devel
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 
@@ -44,9 +44,8 @@ BuildRequires:  %{py3_dist pytest-bdd}
 BuildRequires:  %{py3_dist flaky}
 %endif
 # Not listed in setup.py
-Requires: python3-piexif
-# python3-qt5-base is pulled in but SVG requires python3-qt5
-Requires: python3-qt5
+Recommends: %{py3_dist piexif}
+
 # For icons
 Requires: hicolor-icon-theme
 
@@ -63,13 +62,19 @@ Obsoletes:  vimiv < 0.9.1-14
 %prep
 %autosetup -n vimiv-qt-%{version} -p1
 rm -rf vimiv-qt.egg-info
+
+# Comment out to remove /usr/bin/env shebangs
+# Can use something similar to correct/remove /usr/bin/python shebangs also
+# find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
+
+# update req
+sed -i 's/"PyQt5>=.*"/"PyQt6"/' setup.py
+cat setup.py
+
 # Don't do the python bit there
 mv -v misc/Makefile .
 sed -i '/python3 setup.py install/ d' Makefile
 sed -i '/LICENSE/ d' Makefile
-# Comment out to remove /usr/bin/env shebangs
-# Can use something similar to correct/remove /usr/bin/python shebangs also
-# find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %generate_buildrequires
 %pyproject_buildrequires

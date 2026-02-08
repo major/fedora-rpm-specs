@@ -25,7 +25,7 @@ Source11:	https://gitlab.com/Rich-Harris/buble/raw/master/rollup.config.js
 BuildArch:	noarch
 ExclusiveArch: %{nodejs_arches} noarch
 
-BuildRequires:	nodejs-devel
+BuildRequires:	nodejs-devel, /usr/bin/node
 
 %description
 The blazing fast, batteries-included ES2015 compiler

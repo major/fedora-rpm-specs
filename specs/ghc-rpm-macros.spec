@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.10.2
+Version:        2.11
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -231,9 +231,12 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Fri Feb 06 2026 Jens Petersen <petersen@redhat.com> - 2.11-1
+- ghcplatform is now a constant without a glob to fix prof deps generation
+
 * Tue Feb 03 2026 Jens Petersen <petersen@redhat.com> - 2.10.2-1
 - add obsoletes for F44
-- fixup ghc.attr __ghc_path: misplaced backslace
+- fixup ghc.attr __ghc_path: misplaced backslash
 
 * Tue Feb 03 2026 Jens Petersen <petersen@redhat.com> - 2.10.1-1
 - allow stderr from ghc_version

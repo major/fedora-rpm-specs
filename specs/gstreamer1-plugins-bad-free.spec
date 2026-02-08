@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -645,6 +645,7 @@ EOF
 %if %{with extras}
 %{_libdir}/gstreamer-%{majorminor}/libgstfbdevsink.so
 %endif
+%{_libdir}/gstreamer-%{majorminor}/libgsthip.so
 %if %{with vpl}
 %{_libdir}/gstreamer-%{majorminor}/libgstmsdk.so
 %{_libdir}/gstreamer-%{majorminor}/libgstqsv.so
@@ -724,7 +725,6 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstdtsdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstflite.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgme.so
-%{_libdir}/gstreamer-%{majorminor}/libgsthip.so
 %{_libdir}/gstreamer-%{majorminor}/libgstladspa.so
 %if %{with ldac}
 %{_libdir}/gstreamer-%{majorminor}/libgstldac.so
@@ -926,6 +926,9 @@ EOF
 
 
 %changelog
+* Fri Feb 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.28.0-4
+- Move HIP plugin to main package
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 1.28.0-3
 - Rebuilt for OpenCV 4.13
 

@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        8.1
-Release:        9%{?dist}
+Version:        8.2
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Fri Feb 06 2026 Kim Walisch <walki@fedoraproject.org> - 8.2-1
+- Fix missing version in .pc file
+
 * Mon Jan 26 2026 Kim Walisch <walki@fedoraproject.org> - 8.1-9
 - S2_easy.cpp: Fix "#pragma omp master" deprecated in OpenMP 5.1
 - Fix incorrect release number in previous changelog entry

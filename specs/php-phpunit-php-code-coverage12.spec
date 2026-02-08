@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage12
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    4a9739b51cbcb355f6e95659612f92e282a7077b
+%global gh_commit    b015312f28dd75b75d3422ca37dff2cd1a565e8d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-12-24
+%global gh_date      2026-02-06
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,8 +25,8 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.5.2
-Release:        2%{?dist}
+Version:        12.5.3
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  6 2026 Remi Collet <remi@remirepo.net> - 12.5.3-1
+- update to 12.5.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

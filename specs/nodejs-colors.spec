@@ -14,7 +14,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
 
 BuildRequires:  nodejs-packaging
-BuildRequires:  nodejs(engine)
+BuildRequires:  nodejs(engine), /usr/bin/node
 
 %description
 %{summary}.

@@ -3,11 +3,13 @@ Version:	0.11.0
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:	GPL-3.0-only
+License:	GPL-3.0-or-later
 URL:		https://%{name}.github.io
 Source0:	https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	endless-sky-wrapper
+# placeholder instead of files covered by non-free license
+Source2:        non-free.jpg
+Source3:        non-free.png
 # Replace /usr/games with /usr/bin and /usr/share/games with /usr/share per
 # https://fedoraproject.org/wiki/SIGs/Games/Packaging.
 # Patch not submitted upstream. Upstream conforms to Debian packaging
@@ -47,9 +49,10 @@ culture is more civilized than your own...
 
 %package data
 Summary:	Game data for %{name}
-# Sound and images appear to be a mix of Public Domain and CC-BY-SA licensing
-# See copyright for details.
-License:	Public Domain and CC-BY-SA
+# Sound and images appear to be a mix of Public Domain and CC-BY-SA-4.0 licensing
+# See 'copyright' file for details.
+# some files are LicenseRef-Unsplash - they are removed in prep
+License:	LicenseRef-Fedora-Public-Domain AND CC-BY-SA-4.0 AND CC0-1.0 AND CC-BY-SA-3.0
 BuildArch:	noarch
 
 
@@ -60,6 +63,51 @@ Images, sound, and game data for %{name}.
 %prep
 %autosetup -p1
 
+# remove files that are licensed under LicenseRef-Unsplash
+for i in \
+ images/land/beach18* \
+ images/land/canyon16* \
+ images/land/clouds11* \
+ images/land/clouds14* \
+ images/land/clouds15* \
+ images/land/desert19* \
+ images/land/fog15* \
+ images/land/forest13* \
+ images/land/forest14* \
+ images/land/forest15* \
+ images/land/hills13* \
+ images/land/lava15* \
+ images/land/mountain33* \
+ images/land/mountain41* \
+ images/land/mountain45* \
+ images/land/peripheria* \
+ images/land/sky14* \
+ images/land/snow26* \
+ images/land/snow27* \
+ images/land/snow28* \
+ images/land/snow29* \
+ images/land/snow30* \
+ images/land/snow33* \
+ images/land/snow36* \
+ images/land/snow37* \
+ images/land/snow38* \
+ images/land/snow39* \
+ images/land/station53* \
+ images/land/station54* \
+ images/land/station55* \
+ images/land/station56* \
+ images/land/station57* \
+ images/land/water28* \
+ images/land/water30* \
+ images/land/water31* \
+ images/land/water32* ; do
+  rm -f "$i"
+  cp -a %{SOURCE2} "$i"
+done
+for i in images/land/mountain38.png; do
+  rm -f "$i"
+  cp -a %{SOURCE3} "$i"
+done
 
 %build
 %cmake -DES_USE_VCPKG=OFF

@@ -262,7 +262,7 @@ Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %package Irish
 Summary: Irish(ga) language support for KDE3
-Obsoletes: kde-i18n-Gaeilge
+Obsoletes: kde-i18n-Gaeilge =< 3.5.10-45
 Provides: %{name}-ga = %{version}-%{release}
 Requires: %{name} = %{epoch}:%{version}-%{release}
 %description Irish
@@ -1644,6 +1644,9 @@ rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/libkicker.mo
 
 
 %changelog
+* Fri Feb 06 2026 Than Ngo <than@redhat.com> - 1:3.5.10-46
+- Fix rhbz#2434703, FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.10-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

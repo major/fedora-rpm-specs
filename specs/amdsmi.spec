@@ -19,8 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
@@ -53,7 +53,7 @@
 
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    5%{?dist}
+Release:    1%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -65,10 +65,6 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.ta
 # found in the upstream kernel.
 %global esmi_ver 4.2
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
-Patch1:     0002-option-use-system-gtest.patch
-Patch2:     0003-test-client-includes-for-gcc-15.patch
-# SUSE 15.6 does not have filesystem
-Patch3:     0001-amdsmi-remove-unneeded-include-fileystem.patch
 # https://github.com/ROCm/amdsmi/pull/165
 Patch4:     0001-Fix-compilation-with-libdrm-2.4.130.patch
 
@@ -79,6 +75,7 @@ BuildRequires: gcc-c++
 BuildRequires: kernel-devel
 BuildRequires: libdrm-devel
 BuildRequires: python3-devel
+BuildRequires: rocm-filesystem%{pkg_suffix}
 
 %if %{with test}
 %if 0%{?suse_version}
@@ -229,6 +226,9 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:		blis
 Version:	2.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
 License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
@@ -34,8 +34,8 @@ BuildRequires:	make
 # might be relevant in future for other targets with HBM.  It should
 # support other targets, but only x86_64 is packaged.
 %ifarch x86_64
-# removed from RHEL10
-%if 0%{?el8}%{?el9}%{?fedora}
+# removed from RHEL10 and Fedora 44
+%if 0%{?el8}%{?el9}
 BuildRequires: memkind-devel
 %endif
 %endif

@@ -8,6 +8,8 @@ Summary:        Sphinx extension for HTML help files
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source:         %{pypi_source sphinxcontrib_htmlhelp}
+# Compatibility with Sphinx 9+
+Patch:          https://github.com/sphinx-doc/sphinxcontrib-htmlhelp/pull/44.patch
 BuildArch:      noarch
 
 BuildRequires:  gettext

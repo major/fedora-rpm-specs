@@ -8,17 +8,14 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.32
-%global crio_spec_ver   1.32.12
+%global crio_spec_ver   1.32.13
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.32.12
+%global crio_tag        v1.32.13
 %global golangver       1.23.4
 
 # Related: github.com/cri-o/cri-o/issues/3684
 %global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')_Release:%{release}
-
-# set service name - removes dash from cri-o
-%global service_name    crio
 
 # Commit for the builds
 # Uncomment if needed for commit based release
@@ -79,8 +76,8 @@ Obsoletes:      ocid <= 0.3
 Provides:       ocid = %{version}-%{release}
 
 # block install of other versioned cri-o rpms
-Provides:       %{service_name} = %{version}-%{release}
-Conflicts:      %{service_name}
+Provides:       crio = %{version}-%{release}
+Conflicts:      crio
 
 %description %{common_description}
 
@@ -94,16 +91,19 @@ Conflicts:      %{service_name}
 %go_vendor_license_buildrequires -c %{S:2}
 
 # remove local from service file path
-sed -i 's/\/local//' contrib/systemd/%{service_name}.service
-sed -i 's/\/local//' contrib/systemd/%{service_name}-wipe.service
+sed -i 's/\/local//' contrib/systemd/crio.service
+sed -i 's/\/local//' contrib/systemd/crio-wipe.service
 
 # **********************************
 %build
 
-# See https://github.com/cri-o/cri-o/issues/8860. The linker setting
+# See https://github.com/cri-o/cri-o/issues/8860. The undefs linker setting
 # resolves the error noted in this issue. See
 # /usr/share/doc/redhat-rpm-config/buildflags.md for more information.
-%global __golang_extldflags -Wl,-z,undefs
+# See also https://github.com/cri-o/cri-o/discussions/9748 for a note on
+# a failing build in rawhide (f44 and f45). The solution is the notext
+# linker setting as documented at https://bugzilla.redhat.com/show_bug.cgi?id=2428281.
+%global __golang_extldflags -Wl,-z,undefs -Wl,-z,notext
 
 # buildtags, create global to reuse in check section
 %global buildtags  $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/seccomp_tag.sh) $(hack/selinux_tag.sh) $(hack/libsubid_tag.sh) exclude_graphdriver_devicemapper
@@ -115,7 +115,7 @@ export GO_LDFLAGS=" -X  %{goipath}/internal/version.buildDate=%{build_timestamp}
 %global currentgoldflags   %{nil}
 
 # crio currently only subdirectory
-%gobuild -o %{gobuilddir}/bin/%{service_name} %{goipath}/cmd/%{service_name}
+%gobuild -o %{gobuilddir}/bin/crio %{goipath}/cmd/crio
 # for cmd in cmd/* ; do
 #  %%gobuild -trimpath -o %%{gobuilddir}/bin/$(basename $cmd) %%{goipath}/$cmd
 # done
@@ -135,14 +135,14 @@ GO_MD2MAN=go-md2man %make_build docs
 %install
 
 # generate systemd unit files
-sed -i 's/\/local//' contrib/systemd/%{service_name}.service
-%{gobuilddir}/bin/%{service_name} \
+sed -i 's/\/local//' contrib/systemd/crio.service
+%{gobuilddir}/bin/crio \
       --selinux \
       --cni-plugin-dir /opt/cni/bin \
       --cni-plugin-dir "%{_libexecdir}/cni" \
       --enable-metrics \
       --metrics-port 9537 \
-      config > %{service_name}.conf
+      config > crio.conf
 
 %go_vendor_license_install -c %{S:2}
 
@@ -153,7 +153,7 @@ install -m 0755 -vp %{gobuilddir}/bin/crio %{buildroot}%{_bindir}/
 install -m 0755 -vp ./bin/pinns            %{buildroot}%{_bindir}/
 
 # libexec
-install -m 0755 -vd                %{buildroot}%{_libexecdir}/%{service_name}
+install -m 0755 -vd                %{buildroot}%{_libexecdir}/crio
 
 # shared state
 install -m 0755 -vd                %{buildroot}%{_sharedstatedir}/containers
@@ -181,16 +181,16 @@ install -p -m 0644 contrib/cni/10-crio-bridge.conflist %{buildroot}%{_sysconfdir
 install -p -m 0644 contrib/cni/99-loopback.conflist %{buildroot}%{_sysconfdir}/cni/net.d/200-loopback.conflist
 
 echo "+++ INSTALLING service files"
-install -d -m 0755 %{buildroot}%{_sysconfdir}/%{service_name}
+install -d -m 0755 %{buildroot}%{_sysconfdir}/crio
 install -dp %{buildroot}%{_datadir}/containers/oci/hooks.d
 install -dp %{buildroot}%{_datadir}/oci-umount/oci-umount.d
-install -p -m 0644 crio.conf %{buildroot}%{_sysconfdir}/%{service_name}
-install -p -m 0644 crio-umount.conf %{buildroot}%{_datadir}/oci-umount/oci-umount.d/%{service_name}-umount.conf
+install -p -m 0644 crio.conf %{buildroot}%{_sysconfdir}/crio
+install -p -m 0644 crio-umount.conf %{buildroot}%{_datadir}/oci-umount/oci-umount.d/crio-umount.conf
 
 echo "+++ INSTALLING systemd files"
 install -d -m 0755 %{buildroot}%{_unitdir}
-install -p -m 0644 contrib/systemd/crio.service %{buildroot}%{_unitdir}/%{service_name}.service
-install -p -m 0644 contrib/systemd/crio-wipe.service %{buildroot}%{_unitdir}/%{service_name}-wipe.service
+install -p -m 0644 contrib/systemd/crio.service %{buildroot}%{_unitdir}/crio.service
+install -p -m 0644 contrib/systemd/crio-wipe.service %{buildroot}%{_unitdir}/crio-wipe.service
 
 
 echo "+++ INSTALLING manpages"
@@ -237,30 +237,30 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 %doc MAINTAINERS.md README.md SECURITY.md awesome.md
 %doc code-of-conduct.md cri.md
 
-%{_bindir}/%{service_name}
+%{_bindir}/crio
 %{_bindir}/pinns
 
-%{_mandir}/man5/%{service_name}.conf*5*
-%{_mandir}/man8/%{service_name}*.8*
+%{_mandir}/man5/crio.conf*5*
+%{_mandir}/man8/crio*.8*
 
-%dir %{_sysconfdir}/%{service_name}
-%config(noreplace) %{_sysconfdir}/%{service_name}/%{service_name}.conf
-%config(noreplace) %{_sysconfdir}/cni/net.d/100-%{service_name}-bridge.conflist
+%dir %{_sysconfdir}/crio
+%config(noreplace) %{_sysconfdir}/crio/crio.conf
+%config(noreplace) %{_sysconfdir}/cni/net.d/100-crio-bridge.conflist
 %config(noreplace) %{_sysconfdir}/cni/net.d/200-loopback.conflist
 %config(noreplace) %{_sysconfdir}/crictl.yaml
-%dir %{_libexecdir}/%{service_name}
-%{_unitdir}/%{service_name}.service
-%{_unitdir}/%{service_name}-wipe.service
+%dir %{_libexecdir}/crio
+%{_unitdir}/crio.service
+%{_unitdir}/crio-wipe.service
 %dir %{_sharedstatedir}/containers
 %dir %{_datadir}/containers
 %dir %{_datadir}/containers/oci
 %dir %{_datadir}/containers/oci/hooks.d
 %dir %{_datadir}/oci-umount
 %dir %{_datadir}/oci-umount/oci-umount.d
-%{_datadir}/oci-umount/oci-umount.d/%{service_name}-umount.conf
-%{bash_completions_dir}/%{service_name}*
-%{fish_completions_dir}/%{service_name}*.fish
-%{zsh_completions_dir}/_%{service_name}*
+%{_datadir}/oci-umount/oci-umount.d/crio-umount.conf
+%{bash_completions_dir}/crio*
+%{fish_completions_dir}/crio*.fish
+%{zsh_completions_dir}/_crio*
 
 
 # **********************************

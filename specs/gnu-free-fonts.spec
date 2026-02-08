@@ -3,7 +3,7 @@
 
 Name:      %{fontname}-fonts
 Version:   20120503
-Release:   37%{?dist}
+Release:   38%{?dist}
 Summary:   Free UCS Outline Fonts
 
 License:   GPL-3.0-or-later WITH Font-exception-2.0
@@ -20,6 +20,7 @@ Source8:   %{fontname}-serif.metainfo.xml
 Patch0:    gnu-free-fonts-devanagari-rendering.patch
 Patch1:    gnu-free-sans-square-dot-glyph-fix.patch
 Patch2:    python3.patch
+Patch3:    hints.patch
 
 BuildArch: noarch
 BuildRequires: make
@@ -141,6 +142,9 @@ install -Dm 0644 -p %{SOURCE8} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Feb 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 20120503-38
+- no-hints patch, BZ 2435265
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20120503-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

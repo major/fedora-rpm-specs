@@ -20,9 +20,6 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 2.0.2-8
-# Remove in Fedora 45
-Obsoletes:      cdi-api < 2.0.2-16
-Provides:       cdi-api = %{version}-%{release}
 
 %description
 Jakarta Contexts Dependency Injection specifies a means for obtaining

@@ -1,7 +1,7 @@
 %global realname folsom
 
 Name:		erlang-%{realname}
-Version:	1.0
+Version:	1.1
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Erlang-based metrics system

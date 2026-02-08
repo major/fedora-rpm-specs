@@ -12,7 +12,7 @@ Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.3
 %global version_doc_major_minor 4.13
 %global version_doc %{version_doc_major_minor}.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
@@ -28,6 +28,9 @@ Patch4:         InsightToolkit-pr1599-fix-invalid-const-member-func.patch
 # https://github.com/InsightSoftwareConsortium/ITK/pull/1920/files: remove use of triangle from vxl (patched out in vxl system package also)
 # backported
 Patch5:         InsightToolkit-remove-vxl-netlib.patch
+
+# fix __riscv define
+Patch6:         fix-riscv.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -278,6 +281,9 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Fri Feb 06 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 4.13.3-32
+- fix build on RISC-V
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

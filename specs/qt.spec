@@ -43,7 +43,7 @@ Summary: Qt toolkit
 Name:    qt
 Epoch:   1
 Version: 4.8.7
-Release: 83%{?dist}
+Release: 84%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: (LGPLv2 with exceptions or GPLv3 with exceptions) and ASL 2.0 and BSD and FTL and MIT - review is highly recommended.
@@ -776,6 +776,7 @@ export CXXFLAGS="$CXXFLAGS $RPM_OPT_FLAGS"
 export CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
 export LDFLAGS="$LDFLAGS $RPM_LD_FLAGS"
 export MAKEFLAGS="%{?_smp_mflags}"
+export CXX="$CXX -std=gnu++98"
 
 ./configure -v \
   -confirm-license \
@@ -1419,6 +1420,9 @@ fi
 
 
 %changelog
+* Fri Feb 06 2026 Than Ngo <than@redhat.com> - 1:4.8.7-84
+- Fix rhbz#2435046, FTBFS
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.7-83
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,4 +1,3 @@
-
 %if 0%{?fedora} > 17 || 0%{?rhel} > 6
 %global systemd_login1 1
 %endif
@@ -19,7 +18,7 @@ Summary: KDE Workspace
 Name:    kde-workspace
 Epoch:   1
 Version: 4.11.22
-Release: 46%{?dist}
+Release: 47%{?dist}
 
 License: GPL-2.0-only
 URL:     https://github.com/KDE/%{name}
@@ -79,7 +78,6 @@ Patch59: kdm-settings-new_rundir.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: kdelibs4-devel >= 4.14.4
-BuildRequires: kdelibs4-webkit-devel
 BuildRequires: kactivities-devel
 BuildRequires: libjpeg-devel
 BuildRequires: pam-devel
@@ -581,6 +579,9 @@ rm -rfv %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/colors/
 
 
 %changelog
+* Fri Feb 06 2026 Than Ngo <than@redhat.com> - 1:4.11.22-47
+- Fix rhbz#2434707, FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.11.22-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

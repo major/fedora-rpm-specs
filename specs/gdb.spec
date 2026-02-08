@@ -45,7 +45,7 @@ Version: 17.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -932,6 +932,10 @@ fi
 # endif scl
 
 %changelog
+* Wed Feb 4 2026 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commit 70b66cf338b14336 to fix RH BZ 2402580.
+  This backport will not be needed once we rebase to GDB 18.
+
 * Tue Feb 3 2026 Kevin Buettner <kevinb@redhat.com>
 - Remove gcc-gdb-plugin BuildRequires and build with --disable-gdb-compile
   due to this feature's brokenness. Tests using this feature skip cleanly

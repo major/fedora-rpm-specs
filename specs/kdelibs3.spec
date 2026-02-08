@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 134%{?dist}
+Release: 135%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -195,9 +195,6 @@ Requires: shadow-utils
 #Requires: sudo
 BuildRequires: sudo
 
-%if 0%{?fedora}
-%define libkdnssd libkdnssd
-%endif
 BuildRequires: xorg-x11-proto-devel libX11-devel
 %define _with_rgbfile --with-rgbfile=%{_datadir}/X11/rgb.txt
 Requires: iceauth
@@ -725,6 +722,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Fri Feb 06 2026 Than Ngo <than@redhat.com> - 3.5.10-135
+- Drop libkdnssd
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-134
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

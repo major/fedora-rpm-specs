@@ -5,7 +5,7 @@
 %global crate nasm-rs
 
 Name:           rust-nasm-rs
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Run NASM during your Cargo build
 

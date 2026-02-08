@@ -8,7 +8,7 @@ Name:    arts
 Summary: aRts (analog realtime synthesizer) - the KDE sound system 
 Epoch:   8
 Version: 1.5.10
-Release: 67%{?dist}
+Release: 68%{?dist}
 
 License: LGPL-2.0-or-later
 Url: http://www.kde.org
@@ -130,7 +130,7 @@ make -f admin/Makefile.common cvs
 %build
 unset QTDIR && . /etc/profile.d/qt.sh
 
-export CXXFLAGS="%{optflags} -Wno-error=narrowing"
+export CXXFLAGS="%{optflags} -Wno-error=narrowing --std=gnu++17"
 
 %configure \
   --includedir=%{_includedir}/kde \
@@ -222,6 +222,9 @@ test -z "$(chrpath --list %{buildroot}%{_bindir}/artsd 2>/dev/null | grep RPATH=
 
 
 %changelog
+* Fri Feb 06 2026 Than Ngo <than@redhat.com> - 8:1.5.10-68
+- Fix rhbz#2433872 - FTBFS
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8:1.5.10-67
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

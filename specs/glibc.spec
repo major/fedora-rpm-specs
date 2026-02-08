@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1391,11 +1391,15 @@ build()
 	# compatibility with applications that expect DT_HASH e.g. Epic Games
 	# Easy Anti-Cheat.  This is temporary as applications move to
 	# supporting only DT_GNU_HASH.  This was initially enabled in Fedora
-	# 37.  We must use 'env' because it is the only way to pass, via the
-	# environment, two variables that set the initial Makefile values for
-	# LDFLAGS used to build shared objects and the dynamic loader.
+	# 37.  We also enable package notes via _package_note_flags for all
+	# binaries (DSOs and programs).
+	# We must use 'env' because it is the only way to pass, via the
+	# environment, variables that set the initial Makefile values for
+	# LDFLAGS used to build shared objects, the dynamic loader, and
+	# auxiliary programs.
 	env LDFLAGS.so="-Wl,--hash-style=both" \
 		LDFLAGS-rtld="-Wl,--hash-style=both" \
+		LDFLAGS="$LDFLAGS %{?_package_note_flags}" \
 		%make_build -r %{glibc_make_flags}
 	popd
 }
@@ -2399,6 +2403,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jan 27 2026 Frédéric Bérat <fberat@redhat.com> - 2.43-2
+- Enable package notes for glibc and its DSOs (RHBZ#2362272)
+
 * Mon Jan 26 2026 Frédéric Bérat <fberat@redhat.com> - 2.43-1
 - Auto-sync with upstream branch master,
   commit 144ba302089cff5a2f2e1c9e1280faea9da9f8cc:

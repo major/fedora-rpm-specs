@@ -1,21 +1,31 @@
+%global dxbc_spirv_commit 31b74bfb99c39ddaaaf6490cfce30046c38913e4
+
 Name:           dxvk-native
 Version:        2.7.1
 Release:        1%{?dist}
-Summary:        Vulkan-based D3D11 and D3D9 implementation for Linux
-
+Summary:        Vulkan-based D3D8~D3D11 implementation for Linux
+# dxvk-native and dxbc-spirv
+SourceLicense:  Zlib and MIT
 License:        Zlib
 URL:            https://github.com/doitsujin/dxvk
 Source0:        %{url}/archive/v%{version}/dxvk-%{version}.tar.gz
-# Allow building with libdisplay-info 0.2.0
-Patch1001:      dxvk-libdisplay-info-0.2.0.patch
+# Needs to be packaged separately eventually, used at build-time
+Source1:        https://github.com/doitsujin/dxbc-spirv/archive/%{dxbc_spirv_commit}/dxbc-spirv-%{dxbc_spirv_commit}.tar.gz
+
+# Fix glfw3 meson request
+Patch0101:      https://github.com/doitsujin/dxvk/pull/5491.patch
+Patch0102:      https://github.com/doitsujin/dxvk/pull/5494.patch
+
+# Allow building with libdisplay-info 0.3.0
+Patch1001:      dxvk-libdisplay-info-0.3.0.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson >= 0.58
 BuildRequires:  glslang
-BuildRequires:  SDL3-devel
-BuildRequires:  SDL2-devel
-BuildRequires:  glfw-devel
+BuildRequires:  pkgconfig(sdl3)
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(glfw3)
 BuildRequires:  vulkan-loader-devel
 BuildRequires:  spirv-headers-devel
 BuildRequires:  mingw64-headers
@@ -27,7 +37,7 @@ Requires:       SDL2%{?_isa}
 Requires:       glfw%{?_isa}
 
 # Requires x86-specific headers for now...
-ExclusiveArch:  %{ix86} x86_64
+ExclusiveArch:  %{ix86} %{x86_64}
 
 %description
 DXVK Native is a port of DXVK to Linux which allows it
@@ -52,9 +62,9 @@ files for building applications that use %{name}.
 %prep
 %autosetup -n dxvk-%{version} -p1
 
-# Fix version construct
-# Fixed pending: https://github.com/doitsujin/dxvk/pull/4679
-sed -e "s/v%{version}/%{version}/" -i meson.build
+mkdir -p subprojects/dxbc-spirv
+# Prepare subprojects/dxbc-spirv
+tar -xf %{SOURCE1} -C subprojects/dxbc-spirv --strip-components=1
 
 # Copy the MinGW DirectX headers to include/native/directx/
 cp %{mingw64_includedir}/d3d10_1.h include/native/directx
@@ -151,8 +161,10 @@ cp %{mingw64_includedir}/_mingw_unicode.h include/native/directx
 
 
 %changelog
-* Sun Jan 25 2026 Ethan Lee <flibitijibibo@gmail.com> - 2.7.1-1
+* Fri Feb 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.7.1-1
 - Update to 2.7.1
+- Add patches to fix the build
+- Add extra source for build-only dxbc-spirv submodule
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

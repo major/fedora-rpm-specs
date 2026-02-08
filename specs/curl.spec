@@ -12,7 +12,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.18.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -20,6 +20,11 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# update timer unconditionally in multi_remove_handle
+# rubygem-ethon: FTBFS in Fedora Rawhide
+# https://bugzilla.redhat.com/show_bug.cgi?id=2405328
+Patch001: 0001-curl-8.18.0-multi-update-timer-unconditionally-in-multi_remove_h.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -442,6 +447,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Feb 04 2026 Jan Macku <jamacku@redhat.com> - 8.18.0-4
+- Fix rubygem-ethon: FTBFS in Fedora Rawhide (#2405328)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -43,7 +43,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.128.1
+Version:        0.128.3
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -58,11 +58,6 @@ Source11:       fastapi-dev.1
 Source12:       fastapi-run.1
 Source13:       fastapi-deploy.1
 Source14:       fastapi-login.1
-
-# ⬆️ Bump Starlette to <`0.53.0`
-# https://github.com/fastapi/fastapi/pull/14695
-# Rebased on 0.128.1
-Patch:          0001-Bump-Starlette-to-0.53.0.patch
 
 BuildArch:      noarch
 

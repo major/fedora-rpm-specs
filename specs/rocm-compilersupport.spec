@@ -42,10 +42,10 @@
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 3
 # Upstream tags are based on rocm releases:
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 20
+%global llvm_maj_ver 22
 %global llvm_version_suffix .rocm
 
 %endif
@@ -127,13 +127,12 @@
 %global build_gold OFF
 %endif
 
-
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}.1
 %else
-Release:        13.rocm%{rocm_version}%{?dist}
+Release:        1.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -152,18 +151,16 @@ Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/rocm-compi
 %endif
 Source1:        rocm-compilersupport.prep.in
 
-# Subject: [PATCH] [gold] Fix compilation (#130334)
-Patch1:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
 # Link comgr with static versions of llvm's libraries
-Patch2:         0001-comgr-link-with-static-llvm.patch
+Patch1:         0001-comgr-link-with-static-llvm.patch
 # On Fedora the assert came in gcc 15, on RHEL 10.2 gcc 14
 # Reduce the gcc version check below
-Patch3:         0001-rocm-llvm-work-around-new-assert-in-array.patch
+Patch2:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 # https://github.com/ROCm/llvm-project/issues/301
-Patch4:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
-Patch5:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
+Patch3:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
+Patch4:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415065
-Patch6:         0001-lld-workaround-.gnu.version-change.patch
+Patch5:         0001-lld-workaround-.gnu.version-change.patch
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -411,6 +408,18 @@ Requires:      perl(Sys::Hostname)
 %else
 %autosetup -p1 -n %{upstreamname}-rocm-%{rocm_version}
 %endif
+
+# Remove third-party
+#
+# Need SipHash.h
+# .../llvm/lib/Support/SipHash.cpp:15:10: fatal error: siphash/SipHash.h: No such file or directory
+#   15 | #include "siphash/SipHash.h"
+# move siphash out of the way
+mv third-party/siphash .
+# remove everything else
+rm -rf third-party/*
+# move siphash back
+mv siphash third-party/
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,flang,flang-rt,libclc,lldb,llvm-libgcc,mlir,polly}
@@ -790,20 +799,6 @@ pushd .
 %cmake_install
 popd
 
-%if %{without compat}
-# Make directories users of rocm-rpm-modules will install to
-%global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx950 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103 gfx1150 gfx1151 gfx1152 gfx1153 gfx1200 gfx1201
-for gpu in %{modules_gpu_list}
-do
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/include
-done
-mkdir -p %{buildroot}%{_libdir}/rocm/lib/cmake
-mkdir -p %{buildroot}%{_libdir}/rocm/bin
-mkdir -p %{buildroot}%{_libdir}/rocm/include
-%endif
-
 rm -rf %{buildroot}%{pkg_prefix}/hip
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/packages/*
 
@@ -831,7 +826,6 @@ rm -f %{buildroot}%{pkg_prefix}/bin/hipvars.pm
 # Extra docs
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/ROCm-Device-Libs/LICENSE.TXT
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/LICENSE.txt
-rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/NOTICES.txt
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/README.md
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/LICENSE.txt
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
@@ -852,7 +846,7 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 
 
 %files -n %{comgr_name}
-%license amd/comgr/LICENSE.txt amd/comgr/NOTICES.txt
+%license amd/comgr/LICENSE.txt
 %doc amd/comgr/README.md
 %{pkg_prefix}/%{pkg_libdir}/libamd_comgr.so.*
 
@@ -869,124 +863,6 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 
 # ROCM LLVM
 %files -n %{rocm_llvm_name}-filesystem
-%dir %{_libdir}/rocm
-%if %{without compat}
-# For rocm-rpm-modules
-%dir %{_libdir}/rocm/bin
-%dir %{_libdir}/rocm/include
-%dir %{_libdir}/rocm/lib
-%dir %{_libdir}/rocm/gfx8
-%dir %{_libdir}/rocm/gfx8/bin
-%dir %{_libdir}/rocm/gfx8/include
-%dir %{_libdir}/rocm/gfx8/lib
-%dir %{_libdir}/rocm/gfx8/lib/cmake
-%dir %{_libdir}/rocm/gfx9
-%dir %{_libdir}/rocm/gfx9/bin
-%dir %{_libdir}/rocm/gfx9/include
-%dir %{_libdir}/rocm/gfx9/lib
-%dir %{_libdir}/rocm/gfx9/lib/cmake
-%dir %{_libdir}/rocm/gfx10
-%dir %{_libdir}/rocm/gfx10/bin
-%dir %{_libdir}/rocm/gfx10/include
-%dir %{_libdir}/rocm/gfx10/lib
-%dir %{_libdir}/rocm/gfx10/lib/cmake
-%dir %{_libdir}/rocm/gfx11
-%dir %{_libdir}/rocm/gfx11/bin
-%dir %{_libdir}/rocm/gfx11/include
-%dir %{_libdir}/rocm/gfx11/lib
-%dir %{_libdir}/rocm/gfx11/lib/cmake
-%dir %{_libdir}/rocm/gfx12
-%dir %{_libdir}/rocm/gfx12/bin
-%dir %{_libdir}/rocm/gfx12/include
-%dir %{_libdir}/rocm/gfx12/lib
-%dir %{_libdir}/rocm/gfx12/lib/cmake
-%dir %{_libdir}/rocm/gfx906
-%dir %{_libdir}/rocm/gfx906/bin
-%dir %{_libdir}/rocm/gfx906/include
-%dir %{_libdir}/rocm/gfx906/lib
-%dir %{_libdir}/rocm/gfx906/lib/cmake
-%dir %{_libdir}/rocm/gfx908
-%dir %{_libdir}/rocm/gfx908/bin
-%dir %{_libdir}/rocm/gfx908/include
-%dir %{_libdir}/rocm/gfx908/lib
-%dir %{_libdir}/rocm/gfx908/lib/cmake
-%dir %{_libdir}/rocm/gfx90a
-%dir %{_libdir}/rocm/gfx90a/bin
-%dir %{_libdir}/rocm/gfx90a/include
-%dir %{_libdir}/rocm/gfx90a/lib
-%dir %{_libdir}/rocm/gfx90a/lib/cmake
-%dir %{_libdir}/rocm/gfx942
-%dir %{_libdir}/rocm/gfx942/bin
-%dir %{_libdir}/rocm/gfx942/include
-%dir %{_libdir}/rocm/gfx942/lib
-%dir %{_libdir}/rocm/gfx942/lib/cmake
-%dir %{_libdir}/rocm/gfx950
-%dir %{_libdir}/rocm/gfx950/bin
-%dir %{_libdir}/rocm/gfx950/include
-%dir %{_libdir}/rocm/gfx950/lib
-%dir %{_libdir}/rocm/gfx950/lib/cmake
-%dir %{_libdir}/rocm/gfx1031
-%dir %{_libdir}/rocm/gfx1031/bin
-%dir %{_libdir}/rocm/gfx1031/include
-%dir %{_libdir}/rocm/gfx1031/lib
-%dir %{_libdir}/rocm/gfx1031/lib/cmake
-%dir %{_libdir}/rocm/gfx1036
-%dir %{_libdir}/rocm/gfx1036/bin
-%dir %{_libdir}/rocm/gfx1036/include
-%dir %{_libdir}/rocm/gfx1036/lib
-%dir %{_libdir}/rocm/gfx1036/lib/cmake
-%dir %{_libdir}/rocm/gfx1100
-%dir %{_libdir}/rocm/gfx1100/bin
-%dir %{_libdir}/rocm/gfx1100/include
-%dir %{_libdir}/rocm/gfx1100/lib
-%dir %{_libdir}/rocm/gfx1100/lib/cmake
-%dir %{_libdir}/rocm/gfx1101
-%dir %{_libdir}/rocm/gfx1101/bin
-%dir %{_libdir}/rocm/gfx1101/include
-%dir %{_libdir}/rocm/gfx1101/lib
-%dir %{_libdir}/rocm/gfx1101/lib/cmake
-%dir %{_libdir}/rocm/gfx1102
-%dir %{_libdir}/rocm/gfx1102/bin
-%dir %{_libdir}/rocm/gfx1102/include
-%dir %{_libdir}/rocm/gfx1102/lib
-%dir %{_libdir}/rocm/gfx1102/lib/cmake
-%dir %{_libdir}/rocm/gfx1103
-%dir %{_libdir}/rocm/gfx1103/bin
-%dir %{_libdir}/rocm/gfx1103/include
-%dir %{_libdir}/rocm/gfx1103/lib
-%dir %{_libdir}/rocm/gfx1103/lib/cmake
-%dir %{_libdir}/rocm/gfx1150
-%dir %{_libdir}/rocm/gfx1150/bin
-%dir %{_libdir}/rocm/gfx1150/include
-%dir %{_libdir}/rocm/gfx1150/lib
-%dir %{_libdir}/rocm/gfx1150/lib/cmake
-%dir %{_libdir}/rocm/gfx1151
-%dir %{_libdir}/rocm/gfx1151/bin
-%dir %{_libdir}/rocm/gfx1151/include
-%dir %{_libdir}/rocm/gfx1151/lib
-%dir %{_libdir}/rocm/gfx1151/lib/cmake
-%dir %{_libdir}/rocm/gfx1152
-%dir %{_libdir}/rocm/gfx1152/bin
-%dir %{_libdir}/rocm/gfx1152/include
-%dir %{_libdir}/rocm/gfx1152/lib
-%dir %{_libdir}/rocm/gfx1152/lib/cmake
-%dir %{_libdir}/rocm/gfx1153
-%dir %{_libdir}/rocm/gfx1153/bin
-%dir %{_libdir}/rocm/gfx1153/include
-%dir %{_libdir}/rocm/gfx1153/lib
-%dir %{_libdir}/rocm/gfx1153/lib/cmake
-%dir %{_libdir}/rocm/gfx1200
-%dir %{_libdir}/rocm/gfx1200/bin
-%dir %{_libdir}/rocm/gfx1200/include
-%dir %{_libdir}/rocm/gfx1200/lib
-%dir %{_libdir}/rocm/gfx1200/lib/cmake
-%dir %{_libdir}/rocm/gfx1201
-%dir %{_libdir}/rocm/gfx1201/bin
-%dir %{_libdir}/rocm/gfx1201/include
-%dir %{_libdir}/rocm/gfx1201/lib
-%dir %{_libdir}/rocm/gfx1201/lib/cmake
-%endif
-# For llvm
 %dir %{bundle_prefix}
 %dir %{bundle_prefix}/bin
 %dir %{bundle_prefix}/include
@@ -1028,6 +904,7 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %{bundle_prefix}/bin/amdgpu-arch
 %{bundle_prefix}/bin/dsymutil
 %{bundle_prefix}/bin/llvm*
+%{bundle_prefix}/bin/offload-arch
 %{bundle_prefix}/bin/opt
 %{bundle_prefix}/bin/reduce-chunk-list
 %{bundle_prefix}/bin/sancov
@@ -1147,6 +1024,10 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %endif
 
 %changelog
+* Thu Feb 5 2026 Tom Rix <Tom.Rix@amd.com> 22-1.rocm7.2.0
+- Update to 7.2.0
+- Use rocm-filesystem via rocm-cmake
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20-13.rocm7.1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

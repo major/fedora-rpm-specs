@@ -26,7 +26,7 @@
 
 Name:           mozjs%{major}
 Version:        140.6.0
-Release:        %autorelease
+Release:        %autorelease -b3
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND GPL-3.0-or-later

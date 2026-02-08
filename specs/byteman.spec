@@ -17,8 +17,9 @@ Name:             byteman
 Version:          4.0.26
 Release:          3%{?dist}
 Summary:          Java agent-based bytecode injection tool
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:          LicenseRef-Callaway-LGPLv2+
+# most of the code is LGPL-2.1-or-later
+# agent/src/main/java/org/jboss/byteman/agent/adapter/RuleGeneratorAdapter.java is BSD-3-Clause
+License:          LGPL-2.1-or-later AND BSD-3-Clause
 URL:              http://www.jboss.org/byteman
 # wget -O 4.0.16.tar.gz https://github.com/bytemanproject/byteman/archive/4.0.16.tar.gz
 Source0:          https://github.com/bytemanproject/byteman/archive/%{version}.tar.gz

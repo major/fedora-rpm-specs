@@ -6,7 +6,7 @@
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
 Version: 6.6.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -97,6 +97,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Fri Feb 06 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-5
+- Update cvc patch
+
 * Thu Feb 05 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.2-4
 - Add upstream pull request to fix cvc issues
 

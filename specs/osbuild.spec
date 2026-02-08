@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        171
+Version:        172
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -11,7 +11,7 @@ Version:        171
 %global         debug_package %{nil}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -20,12 +20,16 @@ Source0:        %{forgesource}
 Source1:        https://github.com/osbuild/initrd/releases/download/%{osbuild_initrd_version}/osbuild-initrd-%{osbuild_initrd_version}.tar.gz
 Summary:        A build system for OS images
 
+# There is no golang support for i686 on centos and RHEL
+%if 0%{?rhel} || 0%{?centos}
+ExcludeArch:    i686
+%endif
+
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd
-BuildRequires:  golang
 
 # for tests
 BuildRequires:  python3-iniparse
@@ -55,7 +59,7 @@ Requires:       util-linux
 Requires:       python3-%{pypi_name} = %{version}-%{release}
 Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires:       python3-librepo
-Requires:       %{name}-initrd
+Requires:       %{name}-initrd = %{version}-%{release}
 
 # This is required for `osbuild`, for RHEL-10 and above
 # the stdlib tomllib module can be used instead
@@ -124,6 +128,7 @@ to build OSTree based images.
 
 %package        initrd
 Summary:        osbuild initrd for vm support
+BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 
 %description    initrd
 Osbuild initrd used for in-vm support.
@@ -408,6 +413,23 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Fri Feb 06 2026 Tomáš Hozza <thozza@redhat.com> - 172-1
+Changes with 172
+----------------
+  - SPEC: initrd sub-package fixups and exclude i686 arch on el (#2334)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2333)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20260201 (#2330)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - osbuild-mpp: Refactor to use osbuild.solver module (#2331)
+    - Author: Mark Kemel, Reviewers: Nobody
+  - test_objectstore: add time.sleep(0.1) to solve flaky tests (#2318)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-02-06
+
+
 * Tue Feb 03 2026 Maxwell G <maxwell@gtmx.me> - 171-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 

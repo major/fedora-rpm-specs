@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	53%{?dist}
+Release:	54%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -608,6 +608,11 @@ fi
 %endif
 
 %changelog
+* Wed Feb 4 2026 Nicolas Frayer <nfrayer@redhat.com> - 2.12-54
+- Fix several security issues about module unloading and file handling
+- Resolves: #CVE-2025-54770 #CVE-2025-54771 #CVE-2025-61661
+- Resolves: #CVE-2025-61662 #CVE-2025-61663 #CVE-2025-61664
+
 * Wed Jan 21 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.12-53
 - Revert "Add support for Linux EFI stub loading on arm architectures"
   this fixes aarch64 kernels with stubble-/systemd-stub not booting

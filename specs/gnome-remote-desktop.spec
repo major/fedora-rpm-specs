@@ -12,13 +12,13 @@
 %global pipewire_version 0.3.49
 
 Name:           gnome-remote-desktop
-Version:        49.2
+Version:        50~beta
 Release:        %autorelease
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-remote-desktop
-Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
@@ -133,7 +133,6 @@ GNOME desktop environment.
 %{_userunitdir}/%{systemd_unit_handover}
 %{_unitdir}/%{systemd_unit_system}
 %{_unitdir}/gnome-remote-desktop-configuration.service
-%{_datadir}/applications/org.gnome.RemoteDesktop.Handover.desktop
 %{_datadir}/dbus-1/system-services/org.gnome.RemoteDesktop.Configuration.service
 %{_datadir}/dbus-1/system.d/org.gnome.RemoteDesktop.conf
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.gschema.xml

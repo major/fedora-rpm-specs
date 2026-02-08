@@ -3,12 +3,12 @@
 %global libqat_soversion  4
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          25.08.0
-Release:          4%{?dist}
+Version:          26.02.0
+Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
-License:          BSD-3-Clause AND ( BSD-3-Clause OR GPL-2.0-only )
+License:          BSD-3-Clause
 URL:              https://github.com/intel/%{name}
 Source0:          https://github.com/intel/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:    systemd gcc make autoconf autoconf-archive automake libtool systemd-devel openssl-devel zlib-devel nasm numactl-devel
@@ -57,11 +57,6 @@ QuickAssist Technology user space library (qatlib).
 %prep
 %autosetup -p1
 
-# Create a sysusers.d config file
-cat >qatlib.sysusers.conf <<EOF
-g qat -
-EOF
-
 %build
 autoreconf -vif
 %configure --enable-legacy-algorithms
@@ -82,12 +77,20 @@ install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
 
 %post          service
 %systemd_post qat.service
+if [ -S /run/udev/control ] ; then
+    udevadm control --reload || :
+    udevadm trigger || :
+fi
 
 %preun         service
 %systemd_preun qat.service
 
 %postun        service
 %systemd_postun_with_restart qat.service
+if [ -S /run/udev/control ] ; then
+    udevadm control --reload || :
+    udevadm trigger || :
+fi
 
 %files
 %doc INSTALL README.md
@@ -134,10 +137,14 @@ install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
 %{_sbindir}/qatmgr
 %{_sbindir}/qat_init.sh
 %{_unitdir}/qat.service
+%{_udevrulesdir}/99-qat-vfio.rules
 %{_mandir}/man8/qatmgr.8*
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Fri Feb 06 2026 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 26.02.0-1
+- Update to qatlib 26.02.0
+
 * Thu Jan 22 2026 Vladislav Dronov <vdronov@redhat.com> - 25.08.0-4
 - Update to qatlib 25.08.0 @ 686d209b
 

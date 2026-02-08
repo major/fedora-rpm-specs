@@ -19,9 +19,6 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.0.5-8
-# Remove in Fedora 45
-Obsoletes:      atinject < 1.0.5-14
-Provides:       atinject = %{version}-%{release}
 
 %description
 Jakarta Dependency Injection specifies a means for obtaining objects

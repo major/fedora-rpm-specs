@@ -172,7 +172,7 @@ EOF
 %pyproject_buildrequires -x tests
 
 %build
-export CFLAGS="%{optflags} -I%{_includedir}/security"
+export CFLAGS="%{optflags} -I%{_includedir}/security %(pkgconf --cflags pygobject-3.0)"
 %pyproject_wheel %{build_opts}
 
 %install

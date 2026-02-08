@@ -152,7 +152,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release rc1
+%global pre_release rc2
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -238,8 +238,6 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Patch0:         0001-printing-Fix-compilation-error-for-native-32-bit-tim.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

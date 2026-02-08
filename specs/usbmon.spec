@@ -1,12 +1,12 @@
 Name:		usbmon
 Version:	6.1
-Release:	23%{dist}
+Release:	24%{dist}
 Summary:	A basic front-end to usbmon
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
-URL:		http://people.redhat.com/zaitcev/linux/
-Source:		http://people.redhat.com/zaitcev/linux/%{name}-%{version}.tar.gz
+URL:		https://gitlab.com/desnesn/usbmon/
+Source:		https://gitlab.com/desnesn/usbmon/SOURCES/%{name}-%{version}.tar.gz
 
 BuildRequires:	gcc
 BuildRequires:	make
@@ -35,6 +35,9 @@ install -p -m 755 -t $RPM_BUILD_ROOT/%{_sbindir} usbmon
 %{_mandir}/man8/usbmon.8*
 
 %changelog
+* Thu Feb 05 2026 Desnes Nunes <desnesn@redhat.com> - 6.1-24
+- Upstream repository update
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

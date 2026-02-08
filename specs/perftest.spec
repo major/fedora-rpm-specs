@@ -9,6 +9,7 @@ Release:        %autorelease
 License:        GPL-2.0-only OR BSD-2-Clause
 Source:		https://github.com/linux-rdma/perftest/releases/download/25.10.0-0.128/perftest-25.10.0-0.128.gd01b183.tar.gz
 Url:            https://github.com/linux-rdma/perftest
+Patch0:		Perftest-Fix-RDMA-CM-DMAH-bug.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -31,6 +32,7 @@ RDMA networks.
 
 %setup -q -n %{name}-%{tarball_ver}
 find src -type f -iname '*.[ch]' -exec chmod a-x '{}' ';'
+%autopatch -p1
 
 %build
 %configure

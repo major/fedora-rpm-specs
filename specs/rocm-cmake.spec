@@ -23,7 +23,7 @@
 # there is no debug package - this is just cmake modules
 %global debug_package %{nil}
 
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -40,7 +40,7 @@
 
 Name:     %{pkg_name}
 Version:  %{rocm_version}
-Release:  3%{?dist}
+Release:  1%{?dist}
 Summary:  CMake modules for common build and development tasks for ROCm
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
@@ -50,7 +50,10 @@ Patch0:   0001-rocm-cmake-follow-cmake-install-rules.patch
 
 BuildArch: noarch
 BuildRequires: cmake
+BuildRequires: rocm-filesystem%{pkg_suffix}
+
 Requires: cmake
+Requires: rocm-filesystem%{pkg_suffix}
 
 %description
 rocm-cmake is a collection of CMake modules for common build and development
@@ -85,6 +88,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-cmake/LICENSE
 %{pkg_prefix}/share/rocmcmakebuildtools/
 
 %changelog
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

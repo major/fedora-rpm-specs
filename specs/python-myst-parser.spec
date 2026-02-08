@@ -1,7 +1,7 @@
 %global pypi_name myst-parser
 
 Name:           python-%{pypi_name}
-Version:        4.0.1
+Version:        5.0.0
 Release:        %autorelease
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
@@ -10,8 +10,8 @@ License:        MIT
 URL:            https://github.com/executablebooks/MyST-Parser
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
-# https://github.com/executablebooks/MyST-Parser/issues/1057
-Patch:          Adjust-test-output-to-docutils-0.22.patch
+# Run tests successfully
+Patch:          https://github.com/executablebooks/MyST-Parser/pull/1090.patch
 
 BuildArch:      noarch
 
@@ -48,7 +48,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n MyST-Parser-%{version}
-sed -i 's/docutils>=0\.19,<0\.22/docutils>=0.19/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -61,10 +60,7 @@ sed -i 's/docutils>=0\.19,<0\.22/docutils>=0.19/' pyproject.toml
 %pyproject_save_files myst_parser
 
 %check
-# All skipped tests fail with sphinx 8.2 & pygments 2.19 - differences in HTML output
-# https://github.com/executablebooks/MyST-Parser/issues/1030
-%pytest -k "not test_sphinx_directives and not test_references_singlehtml \
-  and not test_extended_syntaxes and not test_includes and not test_fieldlist_extension"
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

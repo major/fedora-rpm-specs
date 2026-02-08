@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc8.260205gf14faaf3a1fb.57
+%define pkgrelease 0.rc8.260206gb7ff7151e653.58
 %define kversion 6
-%define tarfile_release 6.19-rc8-45-gf14faaf3a1fb
+%define tarfile_release 6.19-rc8-142-gb7ff7151e653
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc8.260205gf14faaf3a1fb.57%{?buildid}%{?dist}
+%define specrelease 0.rc8.260206gb7ff7151e653.58%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -1447,6 +1447,24 @@ the real-time properties of Linux. Instead of testing Linux as a black box,
 rtla leverages kernel tracing capabilities to provide precise information
 about the properties and root causes of unexpected results.
 
+%if %{with_debuginfo}
+%package -n rtla-debuginfo
+%if 0%{gemini}
+Epoch: %{gemini}
+%endif
+Summary: Debug information for package rtla
+Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
+AutoReqProv: no
+%description -n rtla-debuginfo
+This package provides debug information for the rtla package.
+
+# Note that this pattern only works right to match the .build-id
+# symlinks because of the trailing nonmatching alternation and
+# the leading .*, because of find-debuginfo.sh's buggy handling
+# of matching the pattern against the symlinks file.
+%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/rtla(\.debug)?|.*%%{_bindir}/hwnoise(\.debug)?|.*%%{_bindir}/osnoise(\.debug)?|.*%%{_bindir}/timerlat(\.debug)?|XXX' -o rtla-debuginfo.list}
+%endif
+
 %package -n rv
 Summary: RV: Runtime Verification
 %description -n rv
@@ -1455,7 +1473,22 @@ complements classical exhaustive verification techniques (such as model
 checking and theorem proving) with a more practical approach for
 complex systems.
 The rv tool is the interface for a collection of monitors that aim
-analysing the logical and timing behavior of Linux.
+to analyze the logical and timing behavior of Linux.
+
+%if %{with_debuginfo}
+%package -n rv-debuginfo
+Summary: Debug information for package rv
+Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
+AutoReqProv: no
+%description -n rv-debuginfo
+This package provides debug information for the rv package.
+
+# Note that this pattern only works right to match the .build-id
+# symlinks because of the trailing nonmatching alternation and
+# the leading .*, because of find-debuginfo.sh's buggy handling
+# of matching the pattern against the symlinks file.
+%{expand:%%global _find_debuginfo_opts %{?_find_debuginfo_opts} -p '.*%%{_bindir}/rv(\.debug)?|XXX' -o rv-debuginfo.list}
+%endif
 
 # with_tools
 %endif
@@ -3674,10 +3707,10 @@ install -m755 slabinfo %{buildroot}%{_bindir}/slabinfo
 install -m755 page_owner_sort %{buildroot}%{_bindir}/page_owner_sort
 popd
 pushd tools/verification/rv/
-%{tools_make} DESTDIR=%{buildroot} install
+%{tools_make} DESTDIR=%{buildroot} STRIP=/bin/true install
 popd
 pushd tools/tracing/rtla/
-%{tools_make} DESTDIR=%{buildroot} install
+%{tools_make} DESTDIR=%{buildroot} STRIP=/bin/true install
 rm -f %{buildroot}%{_bindir}/hwnoise
 rm -f %{buildroot}%{_bindir}/osnoise
 rm -f %{buildroot}%{_bindir}/timerlat
@@ -4454,6 +4487,10 @@ fi\
 %{_mandir}/man1/rtla-timerlat.1.gz
 %{_mandir}/man1/rtla.1.gz
 
+%if %{with_debuginfo}
+%files -f rtla-debuginfo.list -n rtla-debuginfo
+%endif
+
 %files -n rv
 %{_bindir}/rv
 %{_mandir}/man1/rv-list.1.gz
@@ -4462,6 +4499,10 @@ fi\
 %{_mandir}/man1/rv-mon.1.gz
 %{_mandir}/man1/rv-mon-sched.1.gz
 %{_mandir}/man1/rv.1.gz
+
+%if %{with_debuginfo}
+%files -f rv-debuginfo.list -n rv-debuginfo
+%endif
 
 # with_tools
 %endif
@@ -4659,8 +4700,16 @@ fi\
 #
 #
 %changelog
-* Thu Feb 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.f14faaf3a1fb.57]
+* Fri Feb 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.b7ff7151e653.58]
 - x86/vmware: Fix hypercall clobbers (Josh Poimboeuf)
+
+* Fri Feb 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.b7ff7151e653.57]
+- redhat/dracut-virt.conf: omit drm drivers in UKI initrd (Li Tian) [RHEL-147296]
+- Prevent stripping of rtla and rv binaries during install (John Kacur)
+- Fix rtla and rv debuginfo package definitions (John Kacur)
+- Add debuginfo package for rtla tool (John Kacur)
+- Add debuginfo package for rv tool (John Kacur)
+- Linux v6.19.0-0.rc8.b7ff7151e653
 
 * Thu Feb 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.f14faaf3a1fb.56]
 - Consolidate configs to common for 6.19 (Justin M. Forbes)

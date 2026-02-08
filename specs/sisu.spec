@@ -55,8 +55,6 @@ style dependency injection.
 
 %package maven-plugin
 Summary:        Sisu plugin for Apache Maven
-# Remove in Fedora 45
-Obsoletes:      sisu-mojos < 1:0.9.0~M3
 
 %description maven-plugin
 The Sisu Plugin for Maven provides mojos to generate
