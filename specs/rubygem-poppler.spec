@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of poppler-glib
 Name:		rubygem-%{gem_name}
-Version:	4.3.4
-Release:	2%{?dist}
+Version:	4.3.5
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -74,7 +74,7 @@ grep -rl '#!.*/usr/bin' sample | \
 find sample/ -name \*.rb | xargs chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.4|>= 4.3.4|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.5|>= 4.3.5|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -150,6 +150,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Sat Feb 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.5-1
+- 4.3.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

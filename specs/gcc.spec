@@ -1,5 +1,5 @@
-%global DATE 20260127
-%global gitrev 88e56c901955c95798995dfb5ceefb6cb993eb66
+%global DATE 20260207
+%global gitrev d0931013c96ee1d31f50489e902cc63b08d0c0be
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.5%{?dist}
+Release: %{gcc_release}.6%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -322,7 +322,6 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
-Patch13: gcc16-pr123273.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -3970,6 +3969,52 @@ end
 %endif
 
 %changelog
+* Sat Feb  7 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.6
+- update from trunk
+  - PRs ada/89159, ada/121316, ada/123580, ada/123832, ada/123857, ada/123861,
+	ada/123867, ada/123902, algol68/123959, analyzer/98447,
+	analyzer/116228, analyzer/116865, analyzer/117491, analyzer/122623,
+	analyzer/123880, c/101312, c/102846, c/123500, c/123583, c/123882,
+	c++/38612, c++/102613, c++/102846, c++/110871, c++/110872, c++/113968,
+	c++/114450, c++/121832, c++/122169, c++/122785, c++/123557,
+	c++/123611, c++/123614, c++/123659, c++/123695, c++/123738,
+	c++/123752, c++/123790, c++/123818, c++/123825, c++/123837,
+	c++/123845, c++/123866, c++/123871, c++/123913, c++/123918,
+	c++/123920, c++/123934, c++/123964, c++/123977, c++/124002,
+	cobol/119332, d/116975, d/120096, d/121477, d/122817, d/123046,
+	d/123263, d/123264, d/123349, d/123407, d/123419, d/123422, d/123798,
+	debug/110885, debug/123376, debug/123886, diagnostics/110522,
+	fortran/117303, fortran/123868, fortran/123941, fortran/123952,
+	gcov-profile/121084, gcov-profile/121123, gcov-profile/121409,
+	gcov-profile/123855, ipa/106260, ipa/111036, ipa/116296, ipa/123226,
+	ipa/123416, ipa/123619, libffi/117635, libgomp/113213, libgomp/121813,
+	libitm/69018, libstdc++/86164, libstdc++/114865, libstdc++/117404,
+	libstdc++/120567, libstdc++/123921, middle-end/49330,
+	middle-end/97898, middle-end/118608, middle-end/121661,
+	middle-end/122689, middle-end/123447, middle-end/123575,
+	middle-end/123826, middle-end/123869, middle-end/123876,
+	middle-end/123887, middle-end/123892, middle-end/123978, other/123841,
+	rtl-optimization/106859, rtl-optimization/119982,
+	rtl-optimization/122170, rtl-optimization/123294,
+	rtl-optimization/123322, rtl-optimization/123833,
+	rtl-optimization/123922, target/36503, target/117048, target/121571,
+	target/122097, target/122343, target/123016, target/123206,
+	target/123245, target/123548, target/123604, target/123766,
+	target/123779, target/123806, target/123807, target/123824,
+	target/123870, target/123910, target/123969, target/123971,
+	testsuite/123559, testsuite/123936, translation/89915,
+	tree-optimization/109410, tree-optimization/110043,
+	tree-optimization/114274, tree-optimization/114969,
+	tree-optimization/116747, tree-optimization/121104,
+	tree-optimization/121726, tree-optimization/122197,
+	tree-optimization/122537, tree-optimization/123537,
+	tree-optimization/123596, tree-optimization/123672,
+	tree-optimization/123849, tree-optimization/123864,
+	tree-optimization/123897, tree-optimization/123898,
+	tree-optimization/123925, tree-optimization/123940,
+	tree-optimization/123958, tree-optimization/123983,
+	tree-optimization/123986
+
 * Tue Jan 27 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.5
 - update from trunk
   - PRs algol68/123733, algol68/123785, c++/101140, c++/122494, c++/122609,

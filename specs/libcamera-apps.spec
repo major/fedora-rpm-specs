@@ -1,6 +1,6 @@
 Name:    libcamera-apps
-Version: 1.11.0
-Release: 4%{?dist}
+Version: 1.11.1
+Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/rpicam-apps
@@ -53,6 +53,9 @@ Headers for developing against libcamera-apps.
     -Denable_qt=enabled \
     -Denable_libav=enabled \
     -Denable_hailo=disabled \
+%ifarch aarch64
+    -Dneon_flags=arm64 \
+%endif
 %ifnarch aarch64
     -Ddisable_rpi_features=true \
 %endif
@@ -79,6 +82,10 @@ Headers for developing against libcamera-apps.
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Sat Feb 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.11.1-1
+- Update to 1.11.1
+- Enable NEON for aarch64
+
 * Fri Jan 30 2026 Milan Zamazal <mzamazal@redhat.com> - 1.11.0-4
 - Rebuilt for libcamera 0.7
 

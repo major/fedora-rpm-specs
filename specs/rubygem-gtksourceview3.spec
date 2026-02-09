@@ -3,8 +3,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.3.4
-Release:	2%{?dist}
+Version:	4.3.5
+Release:	1%{?dist}
 
 Summary:	Ruby binding of gtksourceview-3.x
 # SPDX confirmed
@@ -48,7 +48,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs -0 chmod 0644
 
 # Relax ruby-gnome2 internal dependency
-sed -i -e 's|= 4\.3\.4|>= 4.3.4|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.5|>= 4.3.5|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -118,6 +118,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Feb 07 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.5-1
+- 4.3.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

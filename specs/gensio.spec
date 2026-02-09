@@ -1,4 +1,4 @@
-Version:        3.0.1
+Version:        3.0.2
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta
@@ -20,6 +20,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  OpenIPMI-devel
 BuildRequires:  openssl-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(libsctp)

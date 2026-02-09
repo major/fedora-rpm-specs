@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        9.1.0
+Version:        9.2.1
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -185,7 +185,7 @@ sed -i -e '/^#![ ]*\//, 1d' src/calibre/*/*.py
 sed -i -e '/^#!\//, 1d' src/calibre/*.py
 sed -i -e '/^#!\//, 1d' src/css_selectors/*.py
 sed -i -e '/^#!\//, 1d' src/polyglot/*.py
-sed -i -e '/^#!\//, 1d' src/templite/*.py
+#sed -i -e '/^#!\//, 1d' src/templite/*.py
 sed -i -e '/^#!\//, 1d' src/tinycss/*/*.py
 sed -i -e '/^#!\//, 1d' src/tinycss/*.py
 sed -i -e '/^#!\//, 1d' resources/default_tweaks.py

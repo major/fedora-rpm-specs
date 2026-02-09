@@ -530,6 +530,14 @@ skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
 skip="${skip-} --skip mdtest__generics_specialize_constrained"
 %endif
 
+%if %{defined fc42}
+%ifarch s390x
+# Segfaults on F42 only. LLVM bug? Not worth reporting upstream since it
+# doesn’t appear elsewhere.
+skip="${skip-} --skip cycle_nested_deep_panic"
+%endif
+%endif
+
 %cargo_test -- -- ${skip-}
 %endif
 

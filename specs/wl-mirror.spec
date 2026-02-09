@@ -1,5 +1,5 @@
 Name:           wl-mirror
-Version:        0.18.3
+Version:        0.18.4
 Release:        %autorelease
 Summary:        Simple Wayland output mirror client
 
@@ -8,12 +8,11 @@ URL:            https://github.com/Ferdi265/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 # Ferdinand Bachmann <ferdinand.bachmann@yrlf.at> at keys.openpgp.org
-Source2:        gpgkey-BC1D9BD570235175.asc
-Source3:        gpgkey-A4FAD9CEDA213AF3.asc
+Source2:        gpgkey-A4FAD9CEDA213AF3.asc
 
 BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  gpgverify
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
@@ -36,8 +35,7 @@ wl-mirror attempts to provide a solution to sway's lack of output
 mirroring by mirroring an output onto a client surface.
 
 %prep
-cat %{SOURCE2} %{SOURCE3} > %{_builddir}/%{name}.gpg
-%{gpgverify} --keyring='%{_builddir}/%{name}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 # remove bundled wayland-protocols, just in case
 rm -rf proto/wayland-protocols

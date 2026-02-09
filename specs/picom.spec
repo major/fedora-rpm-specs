@@ -7,16 +7,13 @@ ExcludeArch: %{ix86}
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           picom
-Version:        12.5
+Version:        13
 Release:        %autorelease
 Summary:        Lightweight compositor for X11
 
 License:        MPL-2.0 AND MIT
 URL:            https://github.com/yshui/picom
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Hide picom desktop file by default
-Patch1:         https://github.com/yshui/picom/pull/1155.patch#/picom.desktop-Hide-from-menus-by-default.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils
@@ -98,8 +95,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %files
 %license COPYING LICENSES/MPL-2.0 LICENSES/MIT
 %doc README.md CONTRIBUTORS %{name}.sample.conf
-%{_bindir}/%{name}*
-%{_bindir}/compton*
+%{_bindir}/%{name}
+%{_bindir}/%{name}-inspect
+%{_bindir}/%{name}-trans
+%{_bindir}/compton
+%{_bindir}/compton-trans
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.png
 %{_datadir}/icons/hicolor/scalable/*/*.svg
@@ -107,6 +107,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 %files devel
+%{_includedir}/%{name}/*.h
 %{_libdir}/pkgconfig/%{name}-api.pc
 
 

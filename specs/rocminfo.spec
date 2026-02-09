@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocminfo
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -40,12 +40,12 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm system info utility
 
 License:    NCSA
-URL:        https://github.com/ROCm/rocminfo
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:     0001-adjust-CMAKE_CXX_FLAGS.patch
 
 ExclusiveArch:  x86_64
@@ -63,7 +63,7 @@ Requires:       kmod
 ROCm system info utility
 
 %prep
-%autosetup -n %{upstreamname}-rocm-%{version} -p1
+%autosetup -p1 -n %{upstreamname}
 
 %if 0%{?fedora} || 0%{?rhel}
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} rocm_agent_enumerator
@@ -101,10 +101,13 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Thu Jan 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Fix OpenSUSE
 
 * Tue Dec 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2

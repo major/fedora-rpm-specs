@@ -148,7 +148,7 @@ BuildRequires: %{ghcboot}-compiler
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.7.5
+BuildRequires: ghc-rpm-macros-extra >= 2.11
 BuildRequires: %{ghcboot}-array-devel
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
@@ -582,7 +582,7 @@ make install
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo "%{ghclibplatform}*" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
@@ -621,7 +621,7 @@ done
 
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 echo "%%dir %{ghcliblib}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
-echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %{ghclibplatform}*" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
@@ -649,7 +649,7 @@ echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 %endif
 
 # add rts libs
-for i in %{buildroot}%{ghclibplatform}/libHSrts*ghc%{ghc_version}.so; do
+for i in %{buildroot}%{ghclibplatform}*/libHSrts*ghc%{ghc_version}.so; do
 if [ "$(basename $i)" != "libHSrts-%{rts_ver}-ghc%{ghc_version}.so" ]; then
 echo $i >> %{name}-base.files
 fi
@@ -688,7 +688,7 @@ rm %{buildroot}%{ghcliblib}/package.conf.d/.stamp
 rm %{buildroot}%{ghcliblib}/package.conf.d/*.conf.copy
 
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24121
-rm %{buildroot}%{ghclibdir}/share/doc/%ghcplatform/*/LICENSE
+rm %{buildroot}%{ghclibdir}/share/doc/%{ghcplatform}*/*/LICENSE
 
 %if %{without haddock}
 rm %{buildroot}%{ghc_html_libraries_dir}/gen_contents_index
@@ -716,7 +716,7 @@ chmod a-x %{buildroot}%{ghcliblib}/{dyld,post-link}.mjs
 %check
 export LANG=C.utf8
 # stolen from ghc6/debian/rules:
-export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
+export LD_LIBRARY_PATH=$(echo %{buildroot}%{ghclibplatform}*):
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
 $GHC --info
 # simple sanity checks that the compiler actually works
@@ -870,8 +870,8 @@ make test
 %verify(not size mtime) %{ghc_html_libraries_dir}/synopsis.png
 %endif
 %dir %{ghclibdir}/share
-%dir %{ghclibdir}/share/%ghcplatform
-%{ghclibdir}/share/%ghcplatform/haddock-api-%{haddock_api_ver}
+%dir %{ghclibdir}/share/%{ghcplatform}*
+%{ghclibdir}/share/%{ghcplatform}*/haddock-api-%{haddock_api_ver}
 %if %{with manual}
 %{_mandir}/man1/ghc-%{ghc_major}.1*
 %endif

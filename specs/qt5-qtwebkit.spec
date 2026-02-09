@@ -18,7 +18,7 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.97%{?prerel}%{?dist}
+Release:        0.98%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
 License:        LGPL-2.0-only AND BSD-3-Clause
@@ -40,6 +40,8 @@ Patch10:        qtwebkit-icu76.patch
 
 # Enable RISC-V (riscv64)
 Patch11:        https://github.com/qtwebkit/qtwebkit/commit/d9824ec806b6c6171862a7ba758fc28e6a20aada.patch
+# Fix FTBFS
+Patch12:        qtwebkit-ftbfs-gcc16.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -275,6 +277,9 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Sat Feb 07 2026 Than Ngo <than@redhat.com> - 5.212.0-0.98alpha4
+- Fix rhbz#2435048, FTBFS
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.212.0-0.97alpha4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -15,8 +15,8 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.35.0
-Release:        3%{?dist}
+Version:        1.36.1
+Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -39,7 +39,6 @@ Source1:        https://evilpiepirate.org/%{name}/%{name}-vendored-%{version}.ta
 Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13AB336D8DCA6E76.asc
 
 # Upstream patches
-Patch0001:      https://github.com/koverstreet/bcachefs-tools/commit/17f2ba49b7bd3dd34ec317b01be5fb1cd52be3ef.patch
 
 # Upstreamable patches
 
@@ -216,6 +215,11 @@ rm -rf %{buildroot}%{_usrsrc}
 
 
 %changelog
+* Sat Feb 07 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.36.1-1
+- Update to version 1.36.1
+  Resolves: rhbz#2430357
+- Drop patch included in this release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

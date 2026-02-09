@@ -4,7 +4,7 @@ Name:           cmakelang
 Version:        0.6.13
 Release:        %autorelease
 Summary:        Quality Assurance (QA) tools for cmake
-License:        GPL-3.0-only
+License:        GPL-3.0-only AND Python-2.0.1
 URL:            https://github.com/cheshirekow/%{srcname}
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -17,6 +17,10 @@ Patch:          0006-Update-TestConfigInclude._test_passed-to-support-Pyt.patch
 
 # Non-Debian but in line with `0004-Compatibility-with-argparse-manpage.patch`:
 Patch:          0008-Make-ctest_to.py-compatible-with-argparse-manpage.patch
+
+# Fix compatibility with Python 3.15 (#2433805); added code licensed under
+# `Python-2.0.1`:
+Patch:          0009-Make-lexer-compatible-with-Python-3.15.patch
 
 # Make pip editable installs work (avoid multiple .egg_infos):
 # https://github.com/cheshirekow/cmake_format/pull/338

@@ -18,7 +18,7 @@ Version:        %{version_code}
 %else
 Version:        %{version_beta}~%{version_suffix}
 %endif
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 %if ! 0%{?beta}
   %global archive_type dist
@@ -92,6 +92,13 @@ Patch8:         fpc-3.2.2--fallback-to-localhost-when-no-dns-server-specified.pa
 # https://gitlab.com/freepascal.org/fpc/source/-/commit/397293f09f7a3e116119ab629687c64aae507539.patch
 Patch9:         fpc-3.2.2--compiletime-check-is-usage.patch
 
+# When building pas2js on i386 and ppc64le, fpc generates an executable with text relocations.
+# Since binutils-2.45.50-15.fc44, this is rejected by default
+# and requires passing some linker flags to explicitly allow it.
+#
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2428281
+Patch10:        fpc-3.2.4--pas2js-relocation.patch
+
 # FPC uses its own architecture names that do not align with the ones used by Fedora.
 %global arm_ppc ppcarm
 %global arm_ppcross ppcrossarm
@@ -162,11 +169,13 @@ BuildRequires:  gcc
 
 BuildRequires:  glibc-devel
 BuildRequires:  make
+BuildRequires:  tex(enumitem.sty)
 BuildRequires:  tex(imakeidx.sty)
 BuildRequires:  tex(latex)
 BuildRequires:  tex(tex)
 BuildRequires:  tex(upquote.sty)
-BuildRequires:  tetex-fonts
+BuildRequires:  tex(utf8x.def)
+BuildRequires:  texlive-collection-fontsrecommended
 
 # Cross-compiling for i386 is currently supported only on x86_64,
 # as it requires support for 80-bit floating point numbers,
@@ -407,20 +416,11 @@ automatical-code generation purposes.
 
 
 %prep
-%setup -n fpcbuild-%{archive_suffix} -q
+%autosetup -p1 -n fpcbuild-%{archive_suffix}
 
 %if 0%{?bootstrap}
 unzip %{SOURCE100}
 %endif
-
-pushd fpcsrc
-%patch -P0
-%patch -P1
-%patch -P5 -p1
-%patch -P6 -p2
-%patch -P8 -p1
-%patch -P9 -p1
-popd
 
 
 %build
@@ -819,6 +819,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Sat Feb 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.4~rc1-3
+- Fix FTBFS (rhbz#2434049)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4~rc1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

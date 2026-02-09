@@ -1,12 +1,11 @@
 Name:           onednn
-Version:        3.10.2
+Version:        3.11
 Release:        %autorelease
 Summary:     The oneAPI Deep Neural Network Library
 
 License:         Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 URL:               https://github.com/uxlfoundation/oneDNN
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
-Patch0:         https://github.com/uxlfoundation/oneDNN/pull/4364.patch
 
 # This package only work in 64bit arches for now
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x

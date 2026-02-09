@@ -27,8 +27,8 @@
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
 %global rocm_major 7
-%global rocm_minor 1
-%global rocm_patch 1
+%global rocm_minor 2
+%global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname clr
@@ -95,7 +95,7 @@
 
 Name:           %{pkg_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
@@ -422,6 +422,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -71,7 +71,7 @@ Patch: 0008-guard-RVPS-import-in-config-tests.patch
 
 %if %{with bundle_rust_deps}
 BuildRequires:  rust-toolset
-BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(openssl)
 %else
 BuildRequires:  cargo-rpm-macros
 %endif

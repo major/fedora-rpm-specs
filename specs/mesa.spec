@@ -80,7 +80,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-Version:        25.3.4
+Version:        25.3.5
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
 URL:            http://www.mesa3d.org
@@ -113,8 +113,6 @@ Source13:       https://crates.io/api/v1/crates/syn/%{rust_syn_ver}/download#/sy
 Source14:       https://crates.io/api/v1/crates/unicode-ident/%{rust_unicode_ident_ver}/download#/unicode-ident-%{rust_unicode_ident_ver}.tar.gz
 Source15:       https://crates.io/api/v1/crates/rustc-hash/%{rustc_hash_ver}/download#/rustc-hash-%{rustc_hash_ver}.tar.gz
 
-# Teflon: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/38532
-Patch12:        mesa-38532.patch
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc

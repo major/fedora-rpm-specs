@@ -1,4 +1,4 @@
-Version:        4.6.6
+Version:        4.6.7
 
 %global forgeurl https://github.com/cminyard/ser2net
 %forgemeta

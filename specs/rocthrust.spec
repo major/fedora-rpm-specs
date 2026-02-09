@@ -28,8 +28,8 @@
 %endif
 
 %global upstreamname rocthrust
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -72,7 +72,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Thrust libary
 
@@ -95,11 +95,11 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 # ./thrust/detail/allocator/allocator_traits.h is dual Apache 2.0 and MIT
 # ./thrust/detail/complex contains BSD 2 clause licensed headers
 
-%if %{with gitcommit}
 URL:            https://github.com/ROCm/rocm-libraries
+
+%if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
@@ -211,6 +211,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocthrust/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocthrust/
 
 %changelog
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

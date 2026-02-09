@@ -1,7 +1,7 @@
 Name:       beakerlib
 Summary:    A shell-level integration testing library
-Version:    1.32
-Release:    3%{?dist}
+Version:    1.33
+Release:    1%{?dist}
 License:    GPL-2.0-only
 BuildArch:  noarch
 URL:        https://github.com/%{name}
@@ -129,11 +129,8 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 %{_datadir}/vim/vimfiles/after/syntax/beakerlib.vim
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Fri Feb 6 2026 Dalibor Pospisil <dapospis@redhat.com> - 1.33
+- added support for libraries referenced using name only
 
 * Thu Dec 11 2025 Dalibor Pospisil <dapospis@redhat.com> - 1.32
 - introduction of the new way to foist the os-relase and thus present
@@ -150,7 +147,7 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 - fixed rlIsRHELLike on systems without /etc/os-release, e.g. RHEL-6
 - some minor updates
 
-* Wed Nov 11 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31.3-1
+* Mon Nov 11 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31.3-1
 - Ensure the dashes are removed from the test name prefix, by seberm
 
 * Wed Jul 17 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31.2-1

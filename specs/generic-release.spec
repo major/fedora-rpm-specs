@@ -3,7 +3,7 @@
 %if 0%{?fedora}
 %global dist_version %{fedora}
 %else
-%global dist_version 44
+%global dist_version 45
 %endif
 
 Summary:	Generic release files
@@ -190,6 +190,10 @@ install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
 
 
 %changelog
+* Sat Feb 07 2026 Tom Callaway <spot@fedoraproject.org> - 45-0.2
+- holding very very still so i can be invisible
+- bump to 45
+
 * Tue Sep 09 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - %{fedora}-0.2
 - 44. I don't see anyone here (rhbz#2388040)
 

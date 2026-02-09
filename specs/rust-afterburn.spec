@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -159,6 +159,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Sat Feb 07 2026 Fabio Valentini <decathorpe@gmail.com> - 5.10.0-3
+- Rebuild for RUSTSEC-2026-{0007,0008,0009} and CVE-2026-25537
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-blobfile
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Read GCS, ABS and local paths with the same interface
 

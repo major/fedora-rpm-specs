@@ -1,15 +1,7 @@
-%if 0%{?fedora} >= 42
-%global tracker localsearch
-%global trackerdevel tinysparql-devel
-%else
-%global tracker tracker3
-%global trackerdevel tracker3-devel
-%endif
-
 Name:              netatalk
 Epoch:             5
-Version:           4.2.4
-Release:           3%{?dist}
+Version:           4.4.1
+Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -18,12 +10,15 @@ URL:               http://netatalk.sourceforge.net
 Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.xz
 Source1:           netatalk.pam-system-auth
 
+Patch0:            netatalk-AfpErr2name.patch
+
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 BuildRequires:     avahi-devel
 BuildRequires:     bison
+BuildRequires:     bstring-devel
 BuildRequires:     coreutils
 BuildRequires:     cracklib-devel
 BuildRequires:     dbus-devel
@@ -58,8 +53,8 @@ BuildRequires:     rpm
 BuildRequires:     sed
 BuildRequires:     systemd
 BuildRequires:     systemtap-sdt-devel
-BuildRequires:     %{tracker}
-BuildRequires:     %{trackerdevel}
+BuildRequires:     localsearch
+BuildRequires:     tinysparql-devel
 BuildRequires:     cups-devel
 
 Requires:     dconf
@@ -156,6 +151,9 @@ This package contains the HTML documentation for %{name}.
 %prep
 %autosetup -p 1
 
+# Remove bundled bstring
+rm -rf subprojects/bstring-*
+
 # Don't build the japanese docs
 sed -i 's\install: true\install: false\' doc/translated/ja/meson.build
 
@@ -226,7 +224,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 
 %files
 %license COPYING COPYRIGHT
-%doc CONTRIBUTORS.txt NEWS.txt INSTALL.txt README.txt SECURITY.txt
+%doc CONTRIBUTORS.txt NEWS.txt INSTALL.txt README.txt SECURITY.txt CODE_OF_CONDUCT.txt
 
 %dir %{_sysconfdir}/netatalk
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/netatalk-dbus.conf
@@ -240,7 +238,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_sbindir}/cnid_metad
 %{_sbindir}/netatalk
 
-%{_bindir}/ad
+%{_bindir}/nad
 %{_bindir}/afpldaptest
 %{_bindir}/afppasswd
 %{_bindir}/afpstats
@@ -253,7 +251,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_libdir}/netatalk/uams_*.so
 %{_libdir}/libatalk.so.19{,.*}
 
-%{_mandir}/man1/ad.1*
+%{_mandir}/man1/nad.1*
 %{_mandir}/man1/afpldaptest.1*
 %{_mandir}/man1/afppasswd.1*
 %{_mandir}/man1/afpstats.1*
@@ -277,7 +275,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_localstatedir}/lib/netatalk
 
 %files devel
-%doc %{_pkgdocdir}/DEVELOPER.txt
+%doc %{_pkgdocdir}/CONTRIBUTING.txt
 %dir %{_includedir}/atalk
 %{_includedir}/atalk/*.h
 %{_libdir}/libatalk.so
@@ -314,7 +312,6 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 
 %if 0%{?fedora}
 %files appletalk
-%doc %{_pkgdocdir}/APPLETALK.txt
 %config(noreplace) %{_sysconfdir}/netatalk/atalkd.conf
 %config(noreplace) %{_sysconfdir}/netatalk/macipgw.conf
 %config(noreplace) %{_sysconfdir}/netatalk/papd.conf
@@ -332,6 +329,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_bindir}/nbpunrgstr
 %{_bindir}/pap
 %{_bindir}/papstatus
+%{_bindir}/rtmpqry
 
 %{_mandir}/man1/aecho.1*
 %{_mandir}/man1/getzones.1*
@@ -340,6 +338,7 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %{_mandir}/man1/nbprgstr.1*
 %{_mandir}/man1/nbpunrgstr.1*
 %{_mandir}/man1/pap.1*
+%{_mandir}/man1/rtmpqry.1*
 
 %{_mandir}/man5/atalkd.conf.5*
 %{_mandir}/man5/macipgw.conf.5*
@@ -361,9 +360,12 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 
 %files doc
 %license COPYING COPYRIGHT
-%doc %{_pkgdocdir}/htmldocs
+%doc %{_pkgdocdir}/manual
 
 %changelog
+* Sat Feb 07 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.4.1-1
+- 4.4.1 release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5:4.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

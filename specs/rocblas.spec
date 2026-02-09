@@ -27,8 +27,8 @@
 %endif
 
 %global upstreamname rocblas
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -151,15 +151,7 @@
 %global gpu_list %{rocm_gpu_list_default}
 %global _gpu_list gfx1100
 
-%if %{with compat}
 %bcond_without bundled_tensile
-%else
-%if 0%{?suse_version}
-%bcond_without bundled_tensile
-%else
-%bcond_with bundled_tensile
-%endif
-%endif
 
 Name:           rocblas%{pkg_suffix}
 Summary:        BLAS implementation for ROCm
@@ -172,7 +164,7 @@ Release:        3%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 

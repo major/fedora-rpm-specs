@@ -3,16 +3,14 @@
 %global pkgname yaml-cpp
 
 Name:           mingw-%{pkgname}
-Version:        0.8.0
-Release:        2%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        A YAML parser and emitter for C++
 License:        MIT
 URL:            https://github.com/jbeder/yaml-cpp
-Source0:        https://github.com/jbeder/yaml-cpp/archive/%{version}/yaml-cpp-%{version}.tar.gz
-# Add missing cstdint include
-Patch0:         yaml-cpp-includes.patch
+Source0:        https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-%{version}/yaml-cpp-%{version}.tar.gz
 # Raise minimum cmake version
-Patch1:         yaml-cpp-cmakever.patch
+# Patch1:         yaml-cpp-cmakever.patch
 
 BuildArch:      noarch
 
@@ -48,7 +46,7 @@ yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
 
 
 %prep
-%autosetup -p1 -n %{pkgname}-%{version}
+%autosetup -p1 -n %{pkgname}-%{pkgname}-%{version}
 
 
 %build
@@ -62,7 +60,7 @@ yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
 
 %files -n mingw32-%{pkgname}
 %license LICENSE
-%{mingw32_bindir}/lib%{pkgname}-0.8.dll
+%{mingw32_bindir}/lib%{pkgname}-0.9.dll
 %{mingw32_libdir}/lib%{pkgname}.dll.a
 %{mingw32_includedir}/%{pkgname}/
 %{mingw32_libdir}/cmake/%{pkgname}/
@@ -70,7 +68,7 @@ yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
 
 %files -n mingw64-%{pkgname}
 %license LICENSE
-%{mingw64_bindir}/lib%{pkgname}-0.8.dll
+%{mingw64_bindir}/lib%{pkgname}-0.9.dll
 %{mingw64_libdir}/lib%{pkgname}.dll.a
 %{mingw64_includedir}/%{pkgname}/
 %{mingw64_libdir}/cmake/%{pkgname}/
@@ -78,6 +76,9 @@ yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
 
 
 %changelog
+* Fri Feb 06 2026 Sandro Mani <manisandro@gmail.com> - 0.9.0-1
+- Update to 0.9.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

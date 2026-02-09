@@ -8,7 +8,7 @@
 
 Name:           plasma-setup
 Version:        6.5.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -106,7 +106,7 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 %systemd_postun %{name}.service
 
 
-%triggerun -- fedora-release < 44
+%triggerun -- fedora-release-common < 44
 # When upgrading to Fedora 44, mark the system as configured if /etc/reconfigSys doesn't exist
 if [ ! -f "%{_sysconfdir}/reconfigSys" ]; then
    touch %{_sysconfdir}/plasma-setup-done
@@ -134,6 +134,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 07 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.5.91-2
+- Update trigger to fire on system upgrade of fedora-release-common
+
 * Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
 - 6.5.91
 

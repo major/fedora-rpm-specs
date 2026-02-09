@@ -27,8 +27,8 @@
 %global date0 20250926
 %endif
 
-%global upstreamname hipCUB
-%global rocm_release 7.1
+%global upstreamname hipcub
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -78,18 +78,17 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
 License:        MIT and BSD-3-Clause
+URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm
-Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 BuildRequires:  cmake
@@ -143,7 +142,7 @@ Precompiled self-tests for %{name}
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/hipcub
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 #
@@ -217,6 +216,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Sat Feb 7 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-5
 - Use default gpu list
 

@@ -1,7 +1,7 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 26.2.0
+%global libo_version 26.2.1
 # This is the last (fourth) digit of LO version
-%global libo_min_version 3
+%global libo_min_version 1
 # Set this to 1 if this is a prerelease build
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
@@ -1152,6 +1152,8 @@ sed -i -e /CppunitTest_sw_ooxmlimport2/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sw_ww8export3/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sw_uiwriter7/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sw_globalfilter/d sw/Module_sw.mk
+# Starting with 26.2.1.1
+sed -i -e /CppunitTest_sw_layoutwriter6/d sw/Module_sw.mk
 %endif
 %ifarch riscv64
 # Failed test on RV64

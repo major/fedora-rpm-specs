@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -34,7 +34,7 @@
 
 Name:           %{pkg_name}
 Version:        %{rocm_version}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -61,6 +61,7 @@ Source17:       default.rhel
 Source18:       gfx12
 Source19:       gfx950
 Source30:       rocm-7.1
+Source31:       rocm-7.2
 
 # Just some files
 %global debug_package %{nil}
@@ -87,8 +88,8 @@ Requires:       Modules
 %else
 Requires: environment(modules)
 Requires: cmake-filesystem
-Requires: rocm-llvm-filesystem
 %endif
+Requires: rocm-filesystem%{pkg_suffix}
 
 %description modules
 This package contains ROCm environment modules for switching
@@ -122,6 +123,7 @@ install -pm 644 %{SOURCE18} modules
 install -pm 644 %{SOURCE19} modules
 # compat modules
 install -pm 644 %{SOURCE30} modules
+install -pm 644 %{SOURCE31} modules
 
 %install
 mkdir -p %{buildroot}%{_rpmmacrodir}/
@@ -147,6 +149,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

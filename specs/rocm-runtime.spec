@@ -26,8 +26,8 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -61,18 +61,12 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    6%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-# Depends on
-# https://github.com/torvalds/linux/commit/15bd4958fe38e763bc17b607ba55155254a01f55
-# Look for 'queue cwsr size 0x%x not sufficient for node cwsr size' in
-# drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-Patch:      0001-hsakmt-bump-vgpr-count-for-gfx1151-1807-1986.patch
 
 ExclusiveArch:  x86_64
 
@@ -185,7 +179,7 @@ cd libhsakmt/tests/kfdtest
 %cmake_install
 %endif
 
-rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-runtime64/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-rocr/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE.md
 
 %if %{without static}
@@ -224,10 +218,13 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Thu Jan 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
+* Thu Jan 1 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
 - Add --with static
 - Disable packaging libhsakmt.a on SUSE
 

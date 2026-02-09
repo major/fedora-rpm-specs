@@ -21,7 +21,7 @@
 #
 
 %global upstreamname aqlprofile
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -61,15 +61,15 @@
 
 Name:           aqlprofile%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Architected Queuing Language Profiling Library
 License:        MIT
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -117,7 +117,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 
 # Do not hardcode CMAKE_BUILD_TYPE
 # https://github.com/ROCm/aqlprofile/issues/12
@@ -158,6 +158,9 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %endif
 
 %changelog
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

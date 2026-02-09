@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.25.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -180,6 +180,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Sat Feb 07 2026 Fabio Valentini <decathorpe@gmail.com> - 0.25.0-4
+- Rebuild for RUSTSEC-2026-{0007,0008,0009} and CVE-2026-25537
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -24,6 +24,7 @@ Patch:          bat-fix-metadata-auto.diff
 #   https://github.com/sharkdp/bat/commit/d7b10b4352ebf519c9af85d461e84c0021f91f7e,
 #   and allow etcetera 0.11: https://github.com/sharkdp/bat/pull/3464
 # * allow console 0.16: https://github.com/sharkdp/bat/pull/3351
+# * bump git2 dependency to v0.20: https://github.com/sharkdp/bat/commit/01680e4
 Patch:          bat-fix-metadata.diff
 # * port from path_abs to path-absolutize:
 #   https://github.com/sharkdp/bat/pull/1025

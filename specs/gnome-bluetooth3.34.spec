@@ -36,7 +36,8 @@ monitor and use Bluetooth devices using the old 3.34 gnome-bluetooth API.
 
 %package libs
 Summary:	GTK+ Bluetooth device selection widgets
-License:	LGPLv2+
+# lib/bluetooth-settings-obexpush.c and lib/pin.c are GPL-2.0-or-later
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 
 %description libs
 This package contains libraries needed for applications that
@@ -45,7 +46,7 @@ gnome-bluetooth API.
 
 %package libs-devel
 Summary:	Development files for %{name}-libs
-License:	LGPLv2+
+License:	LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 

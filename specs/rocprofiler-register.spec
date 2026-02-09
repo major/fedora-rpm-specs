@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocprofiler-register
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -60,7 +60,7 @@
 
 Name:           rocprofiler-register%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A rocprofiler helper library
 License:        MIT AND BSD-3-Clause
 
@@ -74,6 +74,7 @@ Source1:        https://github.com/google/glog/archive/refs/tags/v%{glog_version
 BuildRequires:  cmake
 BuildRequires:  fmt-devel
 BuildRequires:  gcc-c++
+BuildRequires:  rocm-filesystem%{pkg_suffix}
 
 # BSD-3-Clause
 # rocprofile needs a newer glog
@@ -165,6 +166,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/rocprofiler-register/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

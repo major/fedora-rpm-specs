@@ -1,5 +1,5 @@
 Name:           feedbackd
-Version:        0.8.8
+Version:        0.8.9
 Release:        %autorelease
 Summary:        Feedback library for GNOME
 
@@ -27,6 +27,7 @@ BuildRequires:  systemd-rpm-macros
 %{?sysusers_requires_compat}
 
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
+Requires:       wireplumber >= 0.5.13
 
 ExcludeArch:    %{ix86}
 
@@ -54,7 +55,7 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-v%{version}
 
 %conf
-%meson
+%meson -Dmedia-roles=true
 
 %build
 %meson_build
@@ -89,6 +90,7 @@ developing applications that use %{name}.
 %{_datadir}/dbus-1/services/org.sigxcpu.Feedback.service
 %{_datadir}/feedbackd
 %{_datadir}/glib-2.0/schemas/org.sigxcpu.feedbackd.gschema.xml
+%{_datadir}/wireplumber/wireplumber.conf.d/media-role-nodes.conf
 %{_sysusersdir}/feedbackd.conf
 %{_userunitdir}/fbd-alert-slider.service
 

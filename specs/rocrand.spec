@@ -26,8 +26,8 @@
 %global date0 20250926
 %endif
 
-%global upstreamname rocRAND
-%global rocm_release 7.1
+%global upstreamname rocrand
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -123,20 +123,16 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm random number generator
 
-%if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
-%else
-Url:            https://github.com/ROCm/rocRAND
-%endif
+URL:            https://github.com/ROCm/rocm-libraries
 License:        MIT AND BSD-3-Clause
 %if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 BuildRequires:  cmake
@@ -215,7 +211,7 @@ Requires:       %{rocrand_name}%{?_isa} = %{version}-%{release}
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/rocrand
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 
@@ -276,6 +272,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

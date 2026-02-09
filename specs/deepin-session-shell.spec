@@ -1,37 +1,28 @@
-%global repo dde-session-shell-snipe
-
 Name:           deepin-session-shell
-Version:        6.0.21
+Version:        6.0.52
 Release:        %autorelease
 Summary:        Deepin Desktop Environment - session-shell module
 License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-session-shell-snipe
-Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
-# Use registered OnlyShowIn value
-Patch0:         https://github.com/linuxdeepin/dde-session-shell-snipe/pull/376.patch
+Source0:        %{url}/archive/%{version}/dde-session-shell-snipe-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Network)
-# BuildRequires:  cmake(Qt5WebEngineWidgets)
-# lrelease-qt5
-BuildRequires:  qt5-linguist
-
-BuildRequires:  cmake(DtkWidget)
-BuildRequires:  cmake(DtkCMake)
-BuildRequires:  cmake(DtkCore)
-BuildRequires:  cmake(DtkTools)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Dtk6Core)
+BuildRequires:  cmake(Dtk6Widget)
+BuildRequires:  cmake(Dtk6Tools)
 BuildRequires:  cmake(GTest)
 
+BuildRequires:  pkgconfig(pam)
+BuildRequires:  pkgconfig(liblightdm-qt6-3)
 BuildRequires:  pkgconfig(xcb-ewmh)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
@@ -40,11 +31,9 @@ BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xtst)
-BuildRequires:  pkgconfig(gsettings-qt)
-BuildRequires:  pkgconfig(liblightdm-qt5-3)
-BuildRequires:  pam-devel
-BuildRequires:  openssl-devel
-BuildRequires:  deepin-pw-check-devel
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(libssl)
+BuildRequires:  pkgconfig(libcrypto)
 
 BuildRequires:  desktop-file-utils
 
@@ -73,12 +62,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -p1 -n %{repo}-%{version}
+%autosetup -p1 -C
 
-sed -i 's|lrelease|lrelease-qt5|' translate_generation.sh
-sed -i 's|/usr/lib/x86_64-linux-gnu|%{_libdir}|' \
-    files/wayland/deepin-greeter-wayland \
-    files/wayland/lightdm-deepin-greeter-wayland
+sed -i 's|/usr/lib|%{_libdir}|' CMakeLists.txt
 
 %build
 %cmake -GNinja -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
@@ -86,36 +72,37 @@ sed -i 's|/usr/lib/x86_64-linux-gnu|%{_libdir}|' \
 
 %install
 %cmake_install
-%find_lang dde-session-shell --with-qt
-rm %{buildroot}%{_datadir}/dde-session-shell/translations/dde-session-shell.qm
 chmod +x %{buildroot}%{_bindir}/deepin-greeter
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%files -f dde-session-shell.lang
+%files
 %doc README.md
 %license LICENSE
-%{_bindir}/dde-lock
-%{_bindir}/lightdm-deepin-greeter
-%{_bindir}/deepin-greeter
-%dir %{_prefix}/lib/dde-session-shell
-%dir %{_prefix}/lib/dde-session-shell/modules
-%{_prefix}/lib/dde-session-shell/modules/libvirtualkeyboard.so
-%dir %{_datadir}/dde-session-shell
-%{_datadir}/dde-session-shell/dde-session-shell.conf
-%{_datadir}/deepin-authentication/
-%{_datadir}/applications/dde-lock.desktop
-%{_datadir}/xgreeters/lightdm-deepin-greeter.desktop
-%{_datadir}/dbus-1/services/org.deepin.dde.*.service
-%{_datadir}/glib-2.0/schemas/*.xml
-%{_datadir}/dsg/configs/org.deepin.dde.lightdm-deepin-greeter/*.json
-%{_datadir}/dsg/configs/org.deepin.dde.lock/*.json
-%{_sysconfdir}/pam.d/dde-lock
 %{_sysconfdir}/deepin/greeters.d/00-xrandr
 %{_sysconfdir}/deepin/greeters.d/10-cursor-theme
 %{_sysconfdir}/deepin/greeters.d/lightdm-deepin-greeter
+%dir %{_sysconfdir}/lightdm/deepin
 %{_sysconfdir}/lightdm/deepin/qt-theme.ini
+%{_sysconfdir}/pam.d/dde-lock
+%{_sysconfdir}/pam.d/deepin-lightdm-autologin
+%{_bindir}/dde-lock
+%{_bindir}/deepin-greeter
+%{_bindir}/lightdm-deepin-greeter
+%{_libdir}/security/pam_inhibit_autologin.so
+%{_datadir}/applications/dde-lock.desktop
+%{_datadir}/dbus-1/services/org.deepin.dde.LockFront1.service
+%{_datadir}/dbus-1/services/org.deepin.dde.ShutdownFront1.service
+%{_datadir}/dde-session-shell/
+%{_datadir}/deepin-authentication/privileges/lightdm-deepin-greeter.conf
+%{_datadir}/deepin-debug-config/deepin-debug-config.d/org.deepin.dde.session-shell.json
+%{_datadir}/deepin-log-viewer/deepin-log.conf.d/org.deepin.dde.session-shell.json
+%{_datadir}/dsg/configs/org.deepin.dde.lightdm-deepin-greeter/
+%{_datadir}/dsg/configs/org.deepin.dde.lock/
+%{_datadir}/dsg/configs/org.deepin.dde.session-shell/
+%{_datadir}/lightdm/lightdm.conf.d/50-deepin.conf
+%{_datadir}/xgreeters/lightdm-deepin-greeter.desktop
 
 %files devel
 %{_includedir}/dde-session-shell/

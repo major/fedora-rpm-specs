@@ -19,20 +19,22 @@
 %global _firewalld_dir %{_prefix}/lib/firewalld
 
 Name:           et
-Version:        6.2.8
+Version:        6.2.11
 Release:        %autorelease
 Summary:        Remote shell that survives IP roaming and disconnect
 
 License:        Apache-2.0
 URL:            https://mistertea.github.io/EternalTerminal/
-Source0:        https://github.com/MisterTea/EternalTerminal/archive/et-v%{version}.tar.gz
+Source0:        https://github.com/MisterTea/EternalTerminal/archive/et-v%{version}/EternalTerminal-%{version}.tar.gz
 Source1:        et.xml
-Patch:          et-unbundle-deps.diff
+Patch0:         et-use-system-dependency.patch
 
-BuildRequires:  boost-devel
-BuildRequires:  cmake3
-BuildRequires:  firewalld-filesystem
+ExcludeArch: %{ix86}
+
 BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  boost-devel
+BuildRequires:  firewalld-filesystem
 # -static BR required for tracking of header-only libraries
 BuildRequires:  cpp-httplib-devel
 BuildRequires:  cpp-httplib-static
@@ -44,6 +46,7 @@ BuildRequires:  catch-devel
 BuildRequires:  gflags-devel
 BuildRequires:  json-devel
 BuildRequires:  json-static
+BuildRequires:  simpleini-devel
 BuildRequires:  libatomic
 BuildRequires:  libcurl-devel
 BuildRequires:  libsodium-devel
@@ -73,9 +76,6 @@ Provides:       bundled(PlatformFolders) = 4.0.0
 # external/sentry-native/include/sentry.h
 Provides:       bundled(sentry-native) = 0.6.0
 %endif
-# external/simpleini/SimpleIni.h
-# can't use system simpleini - missing ConvertUTF.c
-Provides:       bundled(simpleini) = 4.17
 # https://github.com/r-lyeh-archived/sole
 Provides:       bundled(sole) = 1.0.1
 Provides:       bundled(ThreadPool) = 0
@@ -105,7 +105,8 @@ rm -rf external_imported/cpp-httplib
 rm -rf external_imported/cxxopts
 
 # Unbundle easyloggingpp
-rm -rf external_imported/easyloggingpp
+mkdir -p external_imported/easyloggingpp/src
+ln -sf %{_includedir} external_imported/easyloggingpp/src
 
 # Unbundle “JSON for Modern C++”
 rm -rf external_imported/json
@@ -115,14 +116,15 @@ rm -rf external_imported/json
 #sed -r -i 's@\$\{.*\}/json/include@%{_includedir}/nlohmann@' \
 #    CMakeLists.txt
 
+# Unbundle simpleini
+rm -rf external_imported/simpleini
 
 %build
 %cmake \
 %ifarch ppc64le s390x
-  -DDISABLE_SENTRY:BOOL=TRUE \
+  -DDISABLE_SENTRY=ON \
 %endif
-  -DDISABLE_VCPKG:BOOL=TRUE \
-  -DUSE_SYSTEM_PKGS:BOOL=TRUE
+  -DDISABLE_VCPKG=ON
 %cmake_build
 
 
@@ -136,6 +138,9 @@ install -m 0644 -p systemctl/et.service %{buildroot}%{_unitdir}/et.service
 install -m 0644 -p etc/et.cfg %{buildroot}%{_sysconfdir}/et.cfg
 install -m 0644 %{SOURCE1} %{buildroot}%{_firewalld_dir}/services/et.xml
 
+rm -vf %{buildroot}%{_bindir}/crashpad_handler
+rm -rf %{buildroot}%{_libdir}/cmake/sentry
+rm -vf %{buildroot}%{_libdir}/*.a
 
 %if %{with tests}
 %check
