@@ -1,7 +1,5 @@
-%global pypi_name pyftpdlib
-
-Name:           python-%{pypi_name}
-Version:        2.1.0
+Name:           python-pyftpdlib
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Very fast asynchronous FTP server library
 
@@ -17,8 +15,7 @@ Source:         %forgesource
 BuildArch:      noarch
 
 BuildRequires:  help2man
-BuildRequires:  python3-devel
-
+BuildRequires:  tomcli
 
 %global desc %{expand: \
 Python FTP server library provides a high-level portable interface to
@@ -49,11 +46,10 @@ written in C. It usually tends to scale better because whereas vsftpd
 and proftpd use multiple processes to achieve concurrency, pyftpdlib
 only uses one.}
 
-%description 
-%{desc}
+%description %{desc}
 
 
-%package -n python3-%{pypi_name}
+%package -n python3-pyftpdlib
 Summary:        %{summary}
 Provides:       ftpbench = %{?epoch:%{epoch}:}%{version}-%{release}
 # Package falls back to not supporting SSL if not installed
@@ -61,19 +57,19 @@ Recommends:     python3dist(pyftpdlib[ssl])
 # Optional dependency for `ftpbench`
 Suggests:       python3dist(psutil)
 
-%description -n python3-%{pypi_name} %{desc}
+%description -n python3-pyftpdlib %{desc}
 
 
-%pyproject_extras_subpkg -n python3-%{pypi_name} ssl
+%pyproject_extras_subpkg -n python3-pyftpdlib ssl
 
 
 %prep
 %forgeautosetup -p1
 
 # Don't use pytest-instafail (not in Fedora)
-sed -r \
-    -e '/instafail/d' \
-    -i pyproject.toml setup.py
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
+    'pytest-instafail\b.*'
+sed -r -i 's/(--instafail|-p instafail)//' pyproject.toml
 
 
 %generate_buildrequires
@@ -86,8 +82,7 @@ sed -r \
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
+%pyproject_save_files -l pyftpdlib
 
 mkdir -p %{buildroot}%{_mandir}/man1
 %{py3_test_envvars} \
@@ -97,6 +92,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 
 
 %check
+%pyproject_check_import
+
 # Tests fail in Koji, but not in Copr or with mock
 k="${k-}${k+ and }not test_mlst"
 k="${k-}${k+ and }not test_nlst"
@@ -105,7 +102,7 @@ k="${k-}${k+ and }not test_nlst"
         ${k+-k }"${k-}"
 
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-pyftpdlib -f %{pyproject_files}
 %doc HISTORY.rst README.rst
 %{_bindir}/ftpbench
 %{_mandir}/man1/ftpbench.1*

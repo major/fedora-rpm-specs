@@ -5,7 +5,7 @@
 Name:           texlive-collection-binextra
 Epoch:          12
 Version:        svn75830
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TeX auxiliary programs
 
 License:        LPPL-1.3c
@@ -201,7 +201,7 @@ lualatex --shell-escape %! HV lualatex --shell-escape \documentclass[...]{...}
 
 %package -n texlive-show-pdf-tags
 Summary:        Extract PDF tags from tagged PDF files
-Version:        svn76606
+Version:        svn77604
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -265,6 +265,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlp*
 %doc %{_texmf_main}/doc/support/show-pdf-tags/
 
 %changelog
+* Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75830-5
+- update show-pdf-tags
+
 * Thu Jan 15 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75830-4
 - fix runtexfile summary length to be under 80 chars
 

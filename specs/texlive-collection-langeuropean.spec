@@ -5,7 +5,7 @@
 Name:           texlive-collection-langeuropean
 Epoch:          12
 Version:        svn73414
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Other European languages
 
 License:        LPPL-1.3c
@@ -263,7 +263,7 @@ with babel.
 
 %package -n texlive-babel-breton
 Summary:        Babel contributed support for Breton
-Version:        svn30257
+Version:        svn77470
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -352,8 +352,8 @@ Friulan either with babel or with polyglossia.
 
 %package -n texlive-babel-hungarian
 Summary:        Babel support for Hungarian
-Version:        svn75084
-License:        LPPL-1.3c AND GPL-2.0-or-later
+Version:        svn77586
+License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       tex(magyar.ldf) = %{tl_version}
@@ -656,8 +656,8 @@ user. As an example, a class file hrdipl.cls (designed for the graduation
 thesis at the University of Zagreb) and sample thesis documents are included.
 
 %package -n texlive-huaz
-Summary:        Automatic definite articles for Hungarian
-Version:        svn77345
+Summary:        Automatic Hungarian definite articles and suffixes
+Version:        svn77576
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -672,6 +672,8 @@ determined by the pronunciation of the subsequent word. The definite article is
 "az", if the first phoneme of the pronounced word is a vowel, otherwise it is
 "a". The huaz package helps the user to insert automatically the correct
 definite article for cross-references and other commands containing text.
+Another service offered by the package is the automatic suffixing of numbers
+and cross-references, also based on their pronunciation.
 
 %package -n texlive-hulipsum
 Summary:        Hungarian dummy text (Lorum ipse)
@@ -1116,7 +1118,7 @@ Hyphenation patterns for Welsh in T1/EC and UTF-8 encodings.
 
 %package -n texlive-kaytannollista-latexia
 Summary:        Practical manual for LaTeX (Finnish)
-Version:        svn73292
+Version:        svn77555
 License:        CC-BY-SA-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2017,7 +2019,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-danish
-%license other-free.txt
+%license lppl1.3c.txt
+%license mit.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-dutch
@@ -2025,18 +2028,22 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-estonian
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-finnish
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-friulan
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-hungarian
 %license other-free.txt
+%license gpl2.txt
+%license lgpl2.1.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 %doc %{_texmf_main}/doc/generic/huhyphen/
 %doc %{_texmf_main}/doc/generic/hyph-utf8/
@@ -2046,7 +2053,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-irish
-%license other-free.txt
+%license gpl2.txt
+%license mit.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-kurmanji
@@ -2054,11 +2062,13 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-latin
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-latvian
-%license other-free.txt
+%license lgpl2.1.txt
+%license gpl2.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-lithuanian
@@ -2073,11 +2083,13 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-occitan
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-piedmontese
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-romanian
@@ -2085,11 +2097,13 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-romansh
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-slovenian
-%license other-free.txt
+%license lppl1.3c.txt
+%license mit.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-swedish
@@ -2105,7 +2119,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-welsh
-%license other-free.txt
+%license lppl1.3c.txt
+%license mit.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-kaytannollista-latexia
@@ -2164,6 +2179,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/turkmen/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-4
+- Update babel-breton babel-hungarian huaz kaytannollista-latexia
+- fix licensing files
+
 * Sat Jan 24 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-3
 - fix descriptions, licensing, update to latest versions for components
 

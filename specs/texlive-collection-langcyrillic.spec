@@ -5,7 +5,7 @@
 Name:           texlive-collection-langcyrillic
 Epoch:          12
 Version:        svn69727
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cyrillic
 
 License:        LPPL-1.3c
@@ -1262,7 +1262,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-mongolian
-%license other-free.txt
+%license lppl1.3c.txt
+%license mit.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-russian
@@ -1274,7 +1275,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-hyphen-ukrainian
-%license other-free.txt
+%license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/hyph-utf8/
 
 %files -n texlive-lcyw
@@ -1407,6 +1409,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/xecyrmongolian/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn69727-4
+- fix licensing files
+
 * Thu Jan 15 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn69727-3
 - fix descriptions, licensing
 

@@ -1,10 +1,9 @@
 %bcond kf6_pim 1
-%bcond plasma_keyboard %[0%{?fedora} >= 44 || 0%{?rhel} >= 11]
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.5.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -255,7 +254,7 @@ Requires:       ocean-sound-theme
 Requires:        polkit-kde
 
 # onscreen keyboard
-Requires:        (plasma-keyboard%{?_isa} or maliit-keyboard%{?_isa})
+Requires:        plasma-keyboard%{?_isa}
 
 # lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
 Requires:        qt6-qtvirtualkeyboard
@@ -362,11 +361,7 @@ Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
 Requires:       kwin-wayland
 Requires:       layer-shell-qt
-%if %{with plasma_keyboard}
 Requires:       plasma-keyboard
-%else
-Requires:       maliit-keyboard
-%endif
 Supplements:    (sddm and plasma-workspace)
 %if ! (0%{?fedora} && 0%{?fedora} < 38)
 # Replace sddm-x11 with sddm-wayland-plasma
@@ -666,6 +661,9 @@ fi
 
 
 %changelog
+* Sun Feb 08 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.5.91-2
+- Unconditionally require plasma-keyboard
+
 * Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 6.5.91-1
 - 6.5.91
 

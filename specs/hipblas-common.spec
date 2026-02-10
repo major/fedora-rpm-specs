@@ -27,8 +27,8 @@
 %global date0 20250926
 %endif
 
-%global upstreamname hipBLAS-common
-%global rocm_release 7.1
+%global upstreamname hipblas-common
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -51,17 +51,16 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
 License:        MIT
+URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 BuildRequires:  cmake
@@ -91,7 +90,7 @@ Provides:       %{name}-static = %{version}-%{release}
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/hipblas-common
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 %build
@@ -125,6 +124,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas-common/LICENSE.md
 %{pkg_prefix}/share/cmake/hipblas-common/
 
 %changelog
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

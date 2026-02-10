@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        4.4.0
-Release:        3%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -10,10 +10,11 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
+Patch0:         https://github.com/baresip/baresip/commit/c09b9ff1d11edf9609c8f91f9bf1c4a1c1d3b767.patch#/baresip-4.5.0-disable-peerconn-test.patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 4.4.0
+BuildRequires:  libre-devel >= 4.5.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -235,6 +236,9 @@ This module provides the JACK Audio Connection Kit audio driver.
 %package mqtt
 Summary:        MQTT management module for baresip
 BuildRequires:  mosquitto-devel
+%if 0%{?fedora} >= 44
+BuildRequires:  cjson-devel
+%endif
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description mqtt
@@ -463,7 +467,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.24*
+%{_libdir}/lib%{name}.so.25*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -616,6 +620,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sun Feb 08 2026 Robert Scheck <robert@fedoraproject.org> 4.5.0-1
+- Upgrade to 4.5.0 (#2433734)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

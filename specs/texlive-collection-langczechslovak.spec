@@ -5,7 +5,7 @@
 Name:           texlive-collection-langczechslovak
 Epoch:          12
 Version:        svn54074
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Czech/Slovak
 
 License:        LPPL-1.3c
@@ -352,6 +352,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/texlive/texlive-cz/
 
 %changelog
+* Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-4
+- bump for rebuild
+
 * Thu Jan 15 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-3
 - fix descriptions, update to latest components
 

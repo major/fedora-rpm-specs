@@ -5,7 +5,7 @@
 
 Name:           uglify-js
 Version:        3.19.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        JavaScript parser, mangler/compressor and beautifier toolkit
 License:        BSD-2-Clause
 URL:            https://github.com/mishoo/UglifyJS
@@ -21,6 +21,7 @@ Obsoletes:      uglify-js3 < 3.14.5-2
 
 Provides:       nodejs-uglify-js3 = %{version}-%{release}
 
+BuildRequires:  /usr/bin/node
 BuildRequires:  nodejs
 BuildRequires:  nodejs-packaging
 BuildRequires:  web-assets-devel
@@ -134,8 +135,14 @@ end
 
 
 %changelog
+* Mon Feb 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.19.3-6
+- Add BuildRequires /usr/bin/node
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Tue Nov 11 2025 Tomas Juhasz <tjuhasz@redhat.com> - 3.19.3-4
+- Rebuilt for nodejs-packaging
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

@@ -19,8 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname origami
 
@@ -44,14 +44,14 @@
 
 Name:       rocm-origami%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Summary:    Analytical GEMM Solution Selection
 
 License:    MIT
 URL:        https://github.com/ROCm/rocm-libraries
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # License file is not in the 7.1.0 tag, but is here
-Source2:    https://github.com/ROCm/rocm-libraries/tree/develop/shared/origami/LICENSE.md
+# Source2:    https://github.com/ROCm/rocm-libraries/tree/develop/shared/origami/LICENSE.md
 
 #
 # Workaround this hipblaslt build issue
@@ -105,7 +105,7 @@ Requires: %{origami_name}%{?_isa} = %{version}-%{release}
 %autosetup -p3 -n %{upstreamname}
 
 # The license file
-cp %{SOURCE2} .
+# cp %{SOURCE2} .
 
 # Use system rocm-cmake, no downloading
 sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/dependencies.cmake
@@ -128,7 +128,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/origami/LICENSE.md
 %files -n %{origami_name}
 %doc README.md
 %license LICENSE.md
-%{pkg_prefix}/%{pkg_libdir}/liborigami.so.0{,.*}
+%{pkg_prefix}/%{pkg_libdir}/liborigami.so.1{,.*}
 
 %files devel
 %{pkg_prefix}/include/origami/
@@ -136,6 +136,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/origami/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/liborigami.so
 
 %changelog
+* Wed Jan 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

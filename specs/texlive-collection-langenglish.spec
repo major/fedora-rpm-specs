@@ -5,7 +5,7 @@
 Name:           texlive-collection-langenglish
 Epoch:          12
 Version:        svn74022
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        US and UK English
 
 License:        LPPL-1.3c
@@ -1581,6 +1581,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-knuth-hint
 %license pd.txt
+%license knuth.txt
 %doc %{_texmf_main}/doc/generic/knuth-hint/
 
 %files -n texlive-knuth-pdf
@@ -1784,6 +1785,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/yet-another-guide-latex2e/
 
 %changelog
+* Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74022-4
+- fix licensing file
+
 * Tue Jan 20 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74022-3
 - drop drawing-with-metapost (license "OpenPublication" is non-free)
 - fix summaries

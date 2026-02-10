@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.119.0
+Version: 1.119.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -98,7 +98,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 2 1.10.6
 
 %global rolename3 timesync
-%deftag 3 1.11.2
+%deftag 3 1.11.3
 
 %global rolename4 kdump
 %deftag 4 1.5.1
@@ -107,7 +107,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 5 1.17.9
 
 %global rolename6 storage
-%deftag 6 1.19.3
+%deftag 6 1.19.4
 
 %global rolename7 metrics
 %deftag 7 1.14.1
@@ -166,7 +166,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 24 1.5.2
 
 %global rolename25 postgresql
-%deftag 25 1.5.0
+%deftag 25 1.5.1
 
 %global rolename26 systemd
 %deftag 26 1.3.6
@@ -181,7 +181,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 29 1.1.6
 
 %global rolename30 snapshot
-%deftag 30 1.6.3
+%deftag 30 1.6.4
 
 %global rolename31 gfs2
 %deftag 31 1.0.5
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Sat Feb  7 2026 Packit <hello@packit.dev> - 1.119.1-1
+- Update to upstream version 1.119.1
+
 * Thu Jan  29 2026 Packit <hello@packit.dev> - 1.119.0-1
 - Update to upstream version 1.119.0
 

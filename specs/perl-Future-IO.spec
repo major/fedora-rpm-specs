@@ -1,10 +1,10 @@
 Name:           perl-Future-IO
-Version:        0.18
+Version:        0.19
 Release:        1%{?dist}
 Summary:        Future-returning IO core methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Future-IO
+URL:            https://metacpan.org/dist/Future-IO
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-IO-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -25,7 +25,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::ExpectAndCheck)
-BuildRequires:  perl(Test::Future::IO::Impl) >= 0.16
+BuildRequires:  perl(Test::Future::IO::Impl) >= 0.17
 BuildRequires:  perl(Test::Pod) >= 1.00
 
 %{?perl_default_filter}
@@ -56,6 +56,9 @@ their results asynchronously via Future instances.
 %{_mandir}/man3/Future*
 
 %changelog
+* Sun Feb 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.19-1
+- Update to 0.19
+
 * Sun Jan 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.18-1
 - Update to 0.18
 

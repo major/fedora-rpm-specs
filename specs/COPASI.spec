@@ -1,4 +1,4 @@
-%global buildid    298
+%global buildid    300
 %global octpkg  COPASI
 
 %global with_python  1
@@ -31,7 +31,7 @@ ExcludeArch:   %{ix86}
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.45.%{buildid}
+Version: 4.46.%{buildid}
 Release: %autorelease
 
 ## Artistic 2.0 is main license
@@ -48,9 +48,13 @@ Source0: https://github.com/copasi/COPASI/archive/Build-%{buildid}/%{name}-Build
 Source1: %{name}.appdata.xml
 
 %if 0%{?with_qwt6}
-BuildRequires: qwt-devel
+BuildRequires: qwt-qt6-devel
+BuildRequires: qt6-qtbase-devel
 BuildRequires: qcustomplot-qt6-devel
-%endif
+BuildRequires: libmml-qt6-devel
+BuildRequires: qt6-qtdatavis3d-devel
+BuildRequires: qt6-qt5compat-devel
+%else
 BuildRequires: qwt-qt5-devel
 BuildRequires: qwtplot3d-qt5-devel >= 0.3.1a-4
 BuildRequires: qt5-qtbase-devel
@@ -58,10 +62,13 @@ BuildRequires: qt5-qtwebkit-devel
 BuildRequires: qt5-qtdatavis3d-devel
 BuildRequires: qcustomplot-qt5-devel
 BuildRequires: libmml-qt5-devel
+%endif
+BuildRequires: cups-devel
 BuildRequires: freeglut-devel
 BuildRequires: libsbml-devel
 BuildRequires: libsedml-devel >= 2:2.0.19-0.1
-BuildRequires: libnuml-devel, libnuml-static
+BuildRequires: libnuml-devel
+BuildRequires: libnuml-static
 BuildRequires: libCombine-devel
 BuildRequires: zipper-devel
 BuildRequires: libsbw-devel
@@ -78,7 +85,9 @@ BuildRequires: swig
 BuildRequires: expat-devel
 BuildRequires: f2c
 BuildRequires: flex
-BuildRequires: cmake, gcc, gcc-c++
+BuildRequires: cmake
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: bison
 BuildRequires: bzip2-devel
 BuildRequires: ImageMagick
@@ -110,8 +119,8 @@ Patch1: %{name}-find_QWT5-QTMML-SBW.patch
 # This patch sets paths to find QWT6, QTMML, SBW files on Fedora
 Patch3: %{name}-find_QWT6-QTMML-SBW.patch
 
-# This patch sets paths to find QTPLOT3D-QT4 files on Fedora
-Patch2: %{name}-set_QWTPLOT3D_QT4.patch
+# This patch sets paths to find QTPLOT3D-QT6 files on Fedora
+Patch2: %{name}-set_QWTPLOT3D_QT6.patch
 
 # This patch sets paths to find QTPLOT3D-QT5 files on Fedora
 Patch5: %{name}-set_QWTPLOT3D_QT5.patch
@@ -121,9 +130,6 @@ Patch6: %{name}-libCombine_paths.patch
 
 # This patch sets paths to find libcroosguid2 files on Fedora
 Patch7: %{name}-find_crossguid2.patch
-
-# This patch forces the use of C++17 standard
-Patch8: %{name}-use_c++17.patch
 
 # This patch sets paths to find libsedml files on Fedora
 Patch9: %{name}-find_libsedml.patch
@@ -140,13 +146,11 @@ Patch13: %{name}-qwt62.patch
 # This patch fixes a missing header request
 Patch14: %{name}-4.41.283-fix_missing_header.patch
 
-# This patch sets path to find qcustomplot-qt5 libraries on Fedora
+# This patch sets path to find qcustomplot libraries on Fedora
 Patch15: %{name}-find_qcp_libs.patch
+Patch16: %{name}-find_qcp_qt6_libs.patch
 
-# Allow CMake 4.0 builds
-# https://github.com/copasi/COPASI/pull/11
-Patch20: %{name}-cmake4.patch
-Patch21: %{name}-bug3304.patch
+Patch17: %{name}-find_libsbml.patch
 
 %description
 COPASI is a software application for simulation and analysis of biochemical
@@ -279,36 +283,46 @@ done
 %patch -P 0 -p0 -b .fix_install_libpaths
 %patch -P 6 -p0 -b .libCombine_paths
 %patch -P 7 -p0 -b .find_crossguid2
-%patch -P 8 -p1 -b .use_c++17
 %patch -P 9 -p0 -b .find_libsedml
 %patch -P 10 -p0 -b .find_sbw
 %patch -P 13 -p1 -b .qwt
 %patch -P 14 -p1 -b .backup
-%patch -P 15 -p1 -b .backup
-%patch -P 20 -p1 -b .cmake4
-%patch -P 21 -p1 -b .backup
+%patch -P 17 -p1 -b .find_libsbml
 
 %if 0%{?with_python}
 %patch -P 11 -p1 -b .porting_to_python310
 %endif
 
 %if 0%{?with_qwt6}
-%patch -P 3 -p0
+%patch -P 3 -p0 -b .find_sbw-qt6
+%patch -P 2 -p0 -b .QWTPLOT3D_QT6
+%patch -P 16 -p1 -b .backup
 %else
-%patch -P 1 -p0
+%patch -P 1 -p0 -b .backup
+%patch -P 5 -p0 -b .QWTPLOT3D_QT5
+%patch -P 15 -p1 -b .backup
 %endif
 
 # Set Qwt libdir
 sed -e 's|@@libdir@@|%{_libdir}|g' -i CMakeModules/FindQWT.cmake
 
-%patch -P 5 -p0 -b .QWTPLOT3D_QT5
+%if 0%{?without_qwt6}
 # Set QTPLOT3D-QT5 paths
 sed -e 's|@@qtplot3d_includedir@@|%{_qt5_headerdir}/qwtplot3d-qt5|g' -i CMakeModules/FindQWTPLOT3D.cmake
 sed -e 's|@@qtplot3d_libdir@@|%{_qt5_libdir}|g' -i CMakeModules/FindQWTPLOT3D.cmake
+%else
+sed -e 's|@@qtplot3d_includedir@@|%{_qt6_headerdir}/qwtplot3d-qt5|g' -i CMakeModules/FindQWTPLOT3D.cmake
+sed -e 's|@@qtplot3d_libdir@@|%{_qt6_libdir}|g' -i CMakeModules/FindQWTPLOT3D.cmake
+%endif
 
+%if 0%{?without_qwt6}
 # Set QtMmlQt5 paths
 sed -e 's|@@_libmml_includedir@@|%{_qt5_headerdir}/libmml-qt5|g' -i CMakeModules/FindMML.cmake
 sed -e 's|@@_libmml_libdir@@|%{_qt5_libdir}|g' -i CMakeModules/FindMML.cmake
+%else
+sed -e 's|@@_libmml_includedir@@|%{_qt6_headerdir}/libmml-qt6|g' -i CMakeModules/FindMML.cmake
+sed -e 's|@@_libmml_libdir@@|%{_qt6_libdir}|g' -i CMakeModules/FindMML.cmake
+%endif
 
 # Exclude obsolete functions
 # http://tracker.copasi.org/show_bug.cgi?id=2810#c1
@@ -356,10 +370,24 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
 %endif
  -DCSHARP_COMPILER:FILEPATH=%{_bindir}/mcs \
 %if 0%{?with_qwt6}
- -DQWT_VERSION_STRING:STRING="%(pkg-config --modversion qwt)" \
-%endif
+ -DSELECT_QT=Qt6 \
  -DENABLE_JIT:BOOL=OFF \
+ -DQt6Widgets_UIC_EXECUTABLE:FILEPATH=%{_qt6_libdir}/qt6/libexec/uic \
+ -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt6 \
+ -DQWT_VERSION_STRING:STRING="%(pkg-config --modversion Qt6Qwt6)" \
+ -DQWT_LIBRARY:FILEPATH=%{_qt6_libdir}/libqwt-qt6.so \
+ -DQWT_INCLUDE_DIR:PATH=%{_qt6_headerdir}/qwt \
+ -DMML_INCLUDE_DIR:PATH=%{_qt6_headerdir}/libmml-qt6 -DMML_LIBRARY:FILEPATH=%{_qt6_libdir}/libmml-qt6.so \
+%else
  -DSELECT_QT=Qt5 \
+ -DENABLE_JIT:BOOL=OFF \
+ -DQt5Widgets_UIC_EXECUTABLE:FILEPATH=%{_qt5_libdir}/qt5/bin/uic \
+ -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt5 \
+ -DQWT_VERSION_STRING:STRING="%(pkg-config --modversion Qt5Qwt6)" \
+ -DQWT_LIBRARY:FILEPATH=%{_qt5_libdir}/libqwt-qt5.so \
+ -DQWT_INCLUDE_DIR:PATH=%{_qt5_headerdir}/qwt \
+ -DMML_INCLUDE_DIR:PATH=%{_qt5_headerdir}/libmml-qt5 -DMML_LIBRARY:FILEPATH=%{_qt5_libdir}/libmml.so \
+%endif
 %if 0%{?with_raptor}
  -DCOPASI_USE_RAPTOR:BOOL=ON -DRAPTOR_INCLUDE_DIR:PATH=%{_includedir}/raptor2 -DRAPTOR_LIBRARY:FILEPATH=%{_libdir}/libraptor2.so \
 %else
@@ -370,12 +398,7 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
  -DCOPASI_INSTALL_C_API=OFF -DCombine_DIR:PATH=%{_libdir}/cmake \
  -DCMAKE_SHARED_LINKER_FLAGS:STRING="%{__global_ldflags} -pthread" \
  -DCMAKE_EXE_LINKER_FLAGS:STRING="%{__global_ldflags} -pthread" \
- -DQT_QMAKE_EXECUTABLE:FILEPATH=%{_bindir}/qmake-qt5 \
- -DQWT_VERSION_STRING:STRING="%(pkg-config --modversion Qt5Qwt6)" \
- -DQWT_LIBRARY:FILEPATH=%{_qt5_libdir}/libqwt-qt5.so \
- -DQWT_INCLUDE_DIR:PATH=%{_qt5_headerdir}/qwt \
  -DBUILD_GUI:BOOL=ON -DBUILD_COPASISBW:BOOL=ON -DENABLE_MML:BOOL=ON -DENABLE_USE_SBMLUNIT=ON \
- -DMML_INCLUDE_DIR:PATH=%{_qt5_headerdir}/libmml-qt5 -DMML_LIBRARY:FILEPATH=%{_qt5_libdir}/libmml.so \
  -DENABLE_SBW_INTEGRATION=ON -DBUILD_CXX_EXAMPLES=OFF \
  -DENABLE_COPASI_BANDED_GRAPH:BOOL=ON -DENABLE_COPASI_SEDML:BOOL=ON \
  -DENABLE_COPASI_NONLIN_DYN_OSCILLATION:BOOL=ON -DENABLE_COPASI_EXTUNIT:BOOL=ON \
@@ -393,7 +416,12 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DENABLE_GPROF:BOOL=OFF \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DENABLE_FLEX_BISON:BOOL=ON -DBISON_EXECUTABLE:FILEPATH=%{_bindir}/bison \
- -DPREFER_STATIC:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=YES -DCOPASI_USE_QCUSTOMPLOT:BOOL=ON
+ -DPREFER_STATIC:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=YES -DCOPASI_USE_QCUSTOMPLOT:BOOL=ON \
+%if 0%{?with_qwt6}
+ -DWITH_DATAVISUALIZATION_NAMESPACES:BOOL=OFF
+%else
+ -DWITH_DATAVISUALIZATION_NAMESPACES:BOOL=ON
+%endif
 
 %cmake_build
 

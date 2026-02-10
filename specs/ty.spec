@@ -1,17 +1,21 @@
+# Currently, ty is developed together with ruff in
+# https://github.com/astral-sh/ruff. The repository
+# https://github.com/astral-sh/ty contains only the ty-specific bits, and
+# depends on the ruff repository as a git submodule.  We therefore *must*
+# “bundle” ruff, and this spec file is based closely on (and mirrors the
+# structure of) the one for ruff.
+
 %bcond check 1
 
-Name:           ruff
-Version:        0.15.0
-# The ruff package has a permanent exception to the Updates Policy in Fedora,
-# so it can be updated in stable releases across SemVer boundaries (subject to
-# good judgement and actual compatibility of any reverse dependencies). See
-# https://docs.fedoraproject.org/en-US/fesco/Updates_Policy/#_other_packages,
-# https://pagure.io/fesco/issue/3197. It also has a corresponding exception in
-# EPEL, but only in leading branches and only until version 1.0; see
-# https://pagure.io/epel/issue/350.
+Name:           ty
+Version:        0.0.15
 Release:        %autorelease
-Summary:        Extremely fast Python linter and code formatter
+Summary:        Extremely fast Python type checker and language server
 
+# The license of the ty project is MIT. Other source licenses come from ruff.
+# The comments below will generally be synchronized with those in the ruff spec
+# file.
+#
 # The license of the ruff project is MIT, except:
 #
 # As described in https://github.com/astral-sh/ruff/pull/20222, the README
@@ -154,23 +158,21 @@ License:        %{shrink:
     Zlib
     }
 
-URL:            https://github.com/astral-sh/ruff
-Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
+URL:            https://github.com/astral-sh/ty
+Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
-# Currently, ruff must use a fork of lsp-types
-# (https://github.com/gluon-lang/lsp-types), as explained in:
-#   Add README disclaimer
-#   https://github.com/gluon-lang/lsp-types/commit/ddc7dc8
-# which says,
-#   This fork is a temporary solution for supporting Jupyter Notebooks for our
-#   new LSP server, `ruff server`.
-#   This fork is not actively maintained by Astral.
-# We asked for a status update in:
-#   Path to not forking lsp-types?
-#   https://github.com/astral-sh/ruff/issues/20449
-# Upstream has not ruled out “unforking,” but indicates they are in no
-# particular hurry to do so. We therefore bundle the fork as prescribed in:
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+# Regarding bundling ruff, see the comments at the beginning of the spec file.
+%global ruff_git https://github.com/astral-sh/ruff
+%global ruff_rev f055f39345ab85d747c3ce348e21274ee2870632
+%global ruff_baseversion 0.15.0
+%global ruff_snapdate 20260204
+Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
+
+# Currently, ruff must use a fork of lsp-types,
+# https://github.com/astral-sh/ruff/issues/20449. Upstream has not ruled out
+# “unforking,” but indicates they are in no particular hurry to do so. We
+# therefore bundle the fork; full details and justification are in the ruff
+# package.
 %global lsp_types_git https://github.com/astral-sh/lsp-types
 %global lsp_types_rev 3512a9f33eadc5402cfab1b8f7340824c8ca1439
 %global lsp_types_baseversion 0.95.1
@@ -179,9 +181,7 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 
 # For now, ruff still needs to use a git snapshot of salsa because it
 # frequently needs bug fixes faster than the salsa release cycle delivers them;
-# see https://github.com/astral-sh/ruff/pull/17566#issuecomment-2823146473. We
-# therefore bundle the fork as prescribed in
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+# see https://github.com/astral-sh/ruff/pull/17566#issuecomment-2823146473.
 #
 # Check https://github.com/salsa-rs/salsa/blob/%%{salsa_rev}/Cargo.toml to
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
@@ -199,17 +199,19 @@ Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
 %global typeshed_snapdate 20260130
 
-# Downstream patch: always find the system-wide ruff executable
+# Downstream patch: always find the system-wide ty executable
 #
 # The following issue is for uv, but the situation is exactly the same.
 #
 # “Should uv.find_uv_bin() be able to find /usr/bin/uv?”
 #  https://github.com/astral-sh/uv/issues/4451
-Patch:          0001-Downstream-patch-always-find-the-system-wide-ruff-ex.patch
+Patch:          0001-Downstream-patch-always-find-the-system-wide-ty-exec.patch
+
+# Downstream patches for ruff, copied from the ruff package
 # * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
-Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
+Patch102:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch103:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -221,6 +223,11 @@ BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
+
+# See the notes about Source100.
+%global ruff_snapinfo %{ruff_snapdate}git%{sub %{ruff_rev} 1 7}
+%global ruff_version %{ruff_baseversion}^%{ruff_snapinfo}
+Provides:       bundled(ruff) = %{ruff_version}
 
 # This is a fork of lsp-types; see the notes about Source200.
 %global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
@@ -244,7 +251,7 @@ Provides:       bundled(typeshed) = %{typeshed_version}
 # Forked from annotate-snippets upstream at some point after v0.11.5:
 # https://github.com/astral-sh/ruff/pull/15359
 #
-# In crates/ruff_annotate_snippets/README.md, upstream writes:
+# In ruff/crates/ruff_annotate_snippets/README.md, upstream writes:
 #
 #   This is a fork of the [`annotate-snippets` crate]. The principle motivation
 #   for this fork, at the time of writing, is [issue #167]. Specifically, we
@@ -268,28 +275,21 @@ Provides:       bundled(crate(annotate-snippets)) = 0.11.5
 Provides:       bundled(crate(lsp-types)) = 0.95.1
 
 %global common_description %{expand:
-An extremely fast Python linter and code formatter, written in Rust.
-
-Ruff aims to be orders of magnitude faster than alternative tools while
-integrating more functionality behind a single, common interface.
-
-Ruff can be used to replace Flake8 (plus dozens of plugins), Black, isort,
-pydocstyle, pyupgrade, autoflake, and more, all while executing tens or
-hundreds of times faster than any individual tool.}
+An extremely fast Python type checker and language server, written in Rust.}
 
 %description %{common_description}
 
 
-%package -n python3-ruff
-Summary:        Importable Python module for ruff
+%package -n python3-ty
+Summary:        Importable Python module for ty
 
 BuildArch:      noarch
 
-Requires:       ruff = %{version}-%{release}
+Requires:       ty = %{version}-%{release}
 
-%description -n python3-ruff %{common_description}
+%description -n python3-ty %{common_description}
 
-This package provides an importable Python module for ruff.
+This package provides an importable Python module for ty.
 
 
 %prep
@@ -297,6 +297,20 @@ This package provides an importable Python module for ruff.
 %autopatch -p1 -M99
 
 %cargo_prep
+
+# See comments above Source100:
+%setup -q -T -D -b 100 -n ty-%{version}
+# Replace the empty directory corresponding to a git submodule with the
+# extracted ruff source tree.
+rmdir ruff
+mv ../ruff-%{ruff_rev} ruff
+pushd ruff
+%autopatch -p1 -m100 -M199
+# We have to adjust this both in the top-level pyproject.toml and in the ruff
+# pyproject.toml. (TODO: Is this really true?)
+tomcli set pyproject.toml false tool.maturin.strip
+%cargo_prep
+popd
 
 # Usage: git2path SELECTOR PATH
 # Replace a git dependency with a path dependency in Cargo.toml
@@ -307,21 +321,24 @@ git2path() {
 }
 
 # See comments above Source200:
-%setup -q -T -D -b 200 -n ruff-%{version}
-# Adding the crate to the workspace (in this case implicitly, by moving it
+%setup -q -T -D -b 200 -n ty-%{version}
+# Adding the crate to the workspace (in this case implicitly, by linking it
 # under crates/) means %%cargo_generate_buildrequires can handle it correctly.
-mv ../lsp-types-%{lsp_types_rev} crates/lsp-types
+mv ../lsp-types-%{lsp_types_rev} ruff/crates/lsp-types
+pushd ruff
 git2path workspace.dependencies.lsp-types crates/lsp-types
 pushd crates/lsp-types
 %autopatch -p1 -m200 -M299
 popd
-install -t LICENSE.bundled/lsp-types -D -p -m 0644 crates/lsp-types/LICENSE
+popd
+install -t LICENSE.bundled/lsp-types -D -p -m 0644 ruff/crates/lsp-types/LICENSE
 
 # See comments above Source300:
-%setup -q -T -D -b 300 -n ruff-%{version}
-mv ../salsa-%{salsa_rev} crates/salsa
-mv crates/salsa/components/salsa-macro-rules crates/salsa-macro-rules
-mv crates/salsa/components/salsa-macros crates/salsa-macros
+%setup -q -T -D -b 300 -n ty-%{version}
+mv ../salsa-%{salsa_rev} ruff/crates/salsa
+mv ruff/crates/salsa/components/salsa-macro-rules ruff/crates/salsa-macro-rules
+mv ruff/crates/salsa/components/salsa-macros ruff/crates/salsa-macros
+pushd ruff
 git2path workspace.dependencies.salsa crates/salsa
 pushd crates/salsa
 %autopatch -p1 -m300 -M399
@@ -364,7 +381,8 @@ tomcli set crates/salsa/Cargo.toml del features.shuttle
 tomcli set crates/salsa/Cargo.toml del dependencies.shuttle
 # Remove bundled, pre-compiled mermaid JavaScript to prove it is not used.
 rm crates/salsa/book/mermaid.min.js
-install -t LICENSE.bundled/salsa -D -p -m 0644 crates/salsa/LICENSE-*
+popd
+install -t LICENSE.bundled/salsa -D -p -m 0644 ruff/crates/salsa/LICENSE-*
 
 # Loosen some version bounds. We retain this comment and the following example
 # even when there are currently no dependencies that need to be adjusted.
@@ -377,9 +395,9 @@ install -t LICENSE.bundled/salsa -D -p -m 0644 crates/salsa/LICENSE-*
 
 # Collect license files of vendored dependencies in the main source archive
 install -t LICENSE.bundled/typeshed -D -p -m 0644 \
-    crates/ty_vendored/vendor/typeshed/LICENSE
+    ruff/crates/ty_vendored/vendor/typeshed/LICENSE
 install -t LICENSE.bundled/annotate_snippets -D -p -m 0644 \
-    crates/ruff_annotate_snippets/LICENSE-*
+    ruff/crates/ruff_annotate_snippets/LICENSE-*
 
 # Patch out foreign (e.g. Windows-only) dependencies. Follow symbolic links so
 # that we also patch the bundled crates we just finished setting up.
@@ -388,15 +406,15 @@ find -L . -type f -name Cargo.toml -print \
 
 # Drop unused subproject crates.
 # binary crate for running micro-benchmarks.
-rm -rv crates/ruff_benchmark
+rm -rv ruff/crates/ruff_benchmark
 # binary crate containing utilities used in the development of Ruff itself
-rm -rv crates/ruff_dev
+rm -rv ruff/crates/ruff_dev
 # library crate for exposing Ruff as a WebAssembly module. Powers the
 # [Ruff Playground](https://play.ruff.rs/).
-rm -rv crates/ruff_wasm crates/ty_wasm
+rm -rv ruff/crates/ruff_wasm ruff/crates/ty_wasm
 
 # Verify we have the correct snapshot hash for typeshed
-typeshed_rev_file='crates/ty_vendored/vendor/typeshed/source_commit.txt'
+typeshed_rev_file='ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt'
 typeshed_rev_in_source="$(cat "${typeshed_rev_file}")"
 if [[ '%{typeshed_rev}' != "${typeshed_rev_in_source}" ]]
 then
@@ -411,13 +429,13 @@ EOF
 fi
 
 # Verify we have the correct base version for salsa
-salsa_version_in_source="$(tomcli get crates/salsa/Cargo.toml package.version)"
+salsa_version_in_source="$(tomcli get ruff/crates/salsa/Cargo.toml package.version)"
 if [[ '%{salsa_baseversion}' != "${salsa_version_in_source}" ]]
 then
   cat 1>&2 <<EOF
 Mismatch between %%{salsa_baseversion}:
   %{salsa_baseversion}
-and version in crates/salsa/Cargo.toml:
+and version in ruff/crates/salsa/Cargo.toml:
   ${salsa_version_in_source}
 Please update %%{salsa_baseversion} in the spec file!
 EOF
@@ -436,41 +454,50 @@ fi
 #
 # Since maturin always checks for dev-dependencies, we need -t so that they are
 # generated even when the “check” bcond is disabled.
+pushd ruff >/dev/null
 %cargo_generate_buildrequires -a -t
+pushd crates/ty >/dev/null
+%cargo_generate_buildrequires -a -t
+popd >/dev/null
+popd >/dev/null
 %pyproject_buildrequires
 
 
 %build
+export RUSTFLAGS='%{build_rustflags}'
 %pyproject_wheel
 
+LDEPS="${PWD}/LICENSE.dependencies"
+pushd ruff
 %{cargo_license_summary}
-%{cargo_license} > LICENSE.dependencies
+%{cargo_license} > "${LDEPS}"
+popd
 
 
 %install
 %pyproject_install
-%pyproject_save_files ruff
+%pyproject_save_files ty
 
 if [ '%{python3_sitearch}' != '%{python3_sitelib}' ]
 then
   # Maturin is really designed to build compiled Python extensions, but (when
-  # the ruff executable is not bundled in the Python package) the ruff Python
-  # library is actually pure-Python, and the python3-ruff subpackage can be
+  # the ty executable is not bundled in the Python package) the ty Python
+  # library is actually pure-Python, and the python3-ty subpackage can be
   # noarch. We can’t tell maturin to install to the appropriate site-packages
   # directory, but we can fix the installation path manually.
   install -d %{buildroot}%{python3_sitelib}
-  mv %{buildroot}%{python3_sitearch}/ruff* %{buildroot}%{python3_sitelib}
+  mv %{buildroot}%{python3_sitearch}/ty* %{buildroot}%{python3_sitelib}
   sed -r -i 's@%{python3_sitearch}@%{python3_sitelib}@' %{pyproject_files}
 fi
 
 # generate and install shell completions
-target/rpm/ruff generate-shell-completion bash > ruff.bash
-target/rpm/ruff generate-shell-completion fish > ruff.fish
-target/rpm/ruff generate-shell-completion zsh > _ruff
+ruff/target/rpm/ty generate-shell-completion bash > ty.bash
+ruff/target/rpm/ty generate-shell-completion fish > ty.fish
+ruff/target/rpm/ty generate-shell-completion zsh > _ty
 
-install -Dpm 0644 ruff.bash -t %{buildroot}/%{bash_completions_dir}
-install -Dpm 0644 ruff.fish -t %{buildroot}/%{fish_completions_dir}
-install -Dpm 0644 _ruff -t %{buildroot}/%{zsh_completions_dir}
+install -Dpm 0644 ty.bash -t %{buildroot}/%{bash_completions_dir}
+install -Dpm 0644 ty.fish -t %{buildroot}/%{fish_completions_dir}
+install -Dpm 0644 _ty -t %{buildroot}/%{zsh_completions_dir}
 
 
 %check
@@ -533,7 +560,9 @@ skip="${skip-} --skip cycle_nested_deep_panic"
 %endif
 %endif
 
+pushd ruff
 %cargo_test -- -- ${skip-}
+popd
 %endif
 
 %pyproject_check_import
@@ -541,18 +570,17 @@ skip="${skip-} --skip cycle_nested_deep_panic"
 
 %files
 %license LICENSE LICENSE.dependencies LICENSE.bundled/
-%doc BREAKING_CHANGES.md
 %doc CHANGELOG.md
 %doc README.md
 
-%{_bindir}/ruff
+%{_bindir}/ty
 
-%{bash_completions_dir}/ruff.bash
-%{fish_completions_dir}/ruff.fish
-%{zsh_completions_dir}/_ruff
+%{bash_completions_dir}/ty.bash
+%{fish_completions_dir}/ty.fish
+%{zsh_completions_dir}/_ty
 
 
-%files -n python3-ruff -f %{pyproject_files}
+%files -n python3-ty -f %{pyproject_files}
 
 
 %changelog

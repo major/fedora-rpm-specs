@@ -62,7 +62,7 @@
 %endif
 
 # 9.2 needs llvm 9-12
-%global llvm_major 12
+%global llvm_major 14
 %if %{with hadrian}
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
@@ -77,7 +77,7 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -150,6 +150,9 @@ Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1733030
 # https://gitlab.haskell.org/ghc/ghc/-/issues/16998
 Patch18: Disable-unboxed-arrays.patch
+
+# Cabal for ghc-9.10
+Patch19: Cabal-ghc9.10.patch
 
 # Debian patches:
 Patch24: buildpath-abi-stability.patch
@@ -489,6 +492,8 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P18 -p1 -b .orig
 %endif
 
+%patch -P19 -p1 -b .orig
+
 # debian
 %patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
@@ -506,14 +511,20 @@ rm libffi-tarballs/libffi-*.tar.gz
 %if %{with hadrian}
 ( cd hadrian
   cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+  cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
+  cabal-tweak-dep-ver QuickCheck '< 2.15' '< 2.16'
 )
-(cd libraries/Cabal/Cabal
- cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
- cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
- cabal-tweak-dep-ver text '< 2.1' '< 2.2'
- cabal-tweak-dep-ver unix '< 2.8' '< 2.9'
+( cd libraries/Cabal/Cabal
+  cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+  cabal-tweak-dep-ver containers '< 0.7' '< 0.8'
+  cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
+  cabal-tweak-dep-ver filepath '< 1.5' '< 1.6'
+  cabal-tweak-dep-ver text '< 2.1' '< 2.2'
+  cabal-tweak-dep-ver unix '< 2.8' '< 2.9'
 )
 %endif
+
+sed -i -e "s/LlvmMaxVersion=13/LlvmMaxVersion=15/" configure.ac
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
@@ -1065,6 +1076,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Feb 04 2026 Jens Petersen <petersen@redhat.com> - 9.2.8-32
+- bump to llvm 14
+- rebuild booting with ghc-9.10
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.8-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

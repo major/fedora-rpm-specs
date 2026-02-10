@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname RCCL
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -77,13 +77,13 @@
 # On 6.2
 # Problems reported with gfx10, removing gfx10 and default (gfx10 and gfx11) from build list
 #
-# Linking runs out of memory, koji has < 32G
-%global gpu_list "gfx90a;gfx942;gfx1100;gfx1201"
+# 7.1.1 Linking runs out of memory, koji has < 32G
+%global gpu_list %{rocm_gpu_list_rccl}
 %global _gpu_list gfx1100
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -279,6 +279,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Sun Feb 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-5
 - Reduce gpu set
 

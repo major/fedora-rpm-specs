@@ -1,6 +1,6 @@
 Name:           ascii
-Version:        3.30
-Release:        6%{?dist}
+Version:        3.31
+Release:        1%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
 BuildRequires:  xmlto, gcc
@@ -33,10 +33,13 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %files
 %{_mandir}/man1/ascii.1*
 %{_bindir}/ascii
-%doc README NEWS.adoc ascii.adoc
+%doc README.adoc NEWS.adoc ascii.adoc
 %license COPYING
 
 %changelog
+* Sun Feb 08 2026 Didier Fabert <didier.fabert@gmail.com> - 3.31-1
+- Update to 3.31 version
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.30-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -53,7 +56,7 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
 * Tue May 28 2024 Didier Fabert <didier.fabert@gmail.com> - 3.30-1
-- Update to 3.20 version
+- Update to 3.30 version
 
 * Fri Feb 16 2024 Didier Fabert <didier.fabert@gmail.com> - 3.20-1
 - Update to 3.20 version

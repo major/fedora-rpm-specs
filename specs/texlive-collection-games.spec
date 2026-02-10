@@ -5,7 +5,7 @@
 Name:           texlive-collection-games
 Epoch:          12
 Version:        svn76381
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Games typesetting
 
 License:        LPPL-1.3c
@@ -986,7 +986,7 @@ questions, with hidden answers inside.
 
 %package -n texlive-rpgicons
 Summary:        Icons for tabletop role-playing games
-Version:        svn77109
+Version:        svn77525
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1599,6 +1599,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-jeuxcartes
 %license lppl1.3c.txt
+%license lgpl2.1.txt
+%license pd.txt
+%license cc-by-sa-4.txt
+%license mit.txt
 %{_texmf_main}/tex/latex/jeuxcartes/
 %doc %{_texmf_main}/doc/latex/jeuxcartes/
 
@@ -1620,6 +1624,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-mahjong
 %license mit.txt
+%license pd.txt
 %{_texmf_main}/tex/latex/mahjong/
 %doc %{_texmf_main}/doc/latex/mahjong/
 
@@ -1785,6 +1790,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-twoxtwogame
 %license apache2.txt
+%license cc-by-4.txt
 %{_texmf_main}/tex/latex/twoxtwogame/
 %doc %{_texmf_main}/doc/latex/twoxtwogame/
 
@@ -1816,6 +1822,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/xskak/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76381-3
+- Update rpgicons, fix licensing files
+
 * Tue Jan 20 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76381-2
 - fix licensing
 - validate appdata

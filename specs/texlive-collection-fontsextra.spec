@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsextra
 Epoch:          12
 Version:        svn77044
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Additional fonts
 
 License:        LPPL-1.3c
@@ -847,8 +847,9 @@ Source825:        yinit-otf.metainfo.xml
 # Patches
 Patch0:         texlive-droid-fixmono.patch
 
-# Special license file
+# Special license files
 Source826:        yfonts-t1-license-email.pdf
+
 BuildRequires:  texlive-base
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
@@ -7172,7 +7173,7 @@ Shobhika.
 
 %package -n texlive-simpleicons
 Summary:        Simple Icons for LaTeX
-Version:        svn77382
+Version:        svn77541
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -8043,7 +8044,7 @@ access to all its features.
 # Extract license files
 tar -xf %{SOURCE1}
 
-# Copy special license file for yfonts-t1
+# Copy special license files
 cp %{SOURCE826} .
 
 %build
@@ -8981,12 +8982,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-aboensis
 %license ofl.txt
+%license lppl1.3c.txt
+%license cc-by-4.txt
+%license pd.txt
 %{_texmf_main}/fonts/opentype/public/aboensis/
 %{_texmf_main}/tex/latex/aboensis/
 %doc %{_texmf_main}/doc/fonts/aboensis/
 
 %files -n texlive-academicons
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/academicons/
 %{_texmf_main}/fonts/map/dvips/academicons/
 %{_texmf_main}/fonts/opentype/public/academicons/
@@ -8998,6 +9003,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-accanthis
 %license gpl2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/accanthis/
 %{_texmf_main}/fonts/map/dvips/accanthis/
 %{_texmf_main}/fonts/opentype/arkandis/accanthis/
@@ -9009,6 +9015,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-adforn
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/arkandis/adforn/
 %{_texmf_main}/fonts/enc/dvips/adforn/
 %{_texmf_main}/fonts/map/dvips/adforn/
@@ -9019,6 +9026,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-adfsymbols
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/arkandis/adfsymbols/
 %{_texmf_main}/fonts/enc/dvips/adfsymbols/
 %{_texmf_main}/fonts/map/dvips/adfsymbols/
@@ -9029,6 +9037,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-aesupp
 %license lppl1.3c.txt
+%license gpl3.txt
 %{_texmf_main}/fonts/enc/dvips/aesupp/
 %{_texmf_main}/fonts/map/dvips/aesupp/
 %{_texmf_main}/fonts/opentype/public/aesupp/
@@ -9039,6 +9048,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-alegreya
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/alegreya/
 %{_texmf_main}/fonts/map/dvips/alegreya/
 %{_texmf_main}/fonts/opentype/huerta/alegreya/
@@ -9061,6 +9071,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-algolrevived
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/algolrevived/
 %{_texmf_main}/fonts/map/dvips/algolrevived/
 %{_texmf_main}/fonts/opentype/public/algolrevived/
@@ -9082,6 +9093,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-almendra
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/almendra/
 %{_texmf_main}/fonts/map/dvips/almendra/
 %{_texmf_main}/fonts/tfm/public/almendra/
@@ -9101,6 +9113,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-andika
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/andika/
 %{_texmf_main}/fonts/map/dvips/andika/
 %{_texmf_main}/fonts/tfm/SIL/andika/
@@ -9160,6 +9173,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-archivo
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/archivo/
 %{_texmf_main}/fonts/map/dvips/archivo/
 %{_texmf_main}/fonts/opentype/public/archivo/
@@ -9193,6 +9207,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-arsenal
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/arsenal/
 %{_texmf_main}/tex/latex/arsenal/
 %doc %{_texmf_main}/doc/fonts/arsenal/
@@ -9206,6 +9221,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-arvo
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/arvo/
 %{_texmf_main}/fonts/map/dvips/arvo/
 %{_texmf_main}/fonts/tfm/public/arvo/
@@ -9255,6 +9271,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-atkinson
 %license other-free.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/atkinson/
 %{_texmf_main}/fonts/map/dvips/atkinson/
 %{_texmf_main}/fonts/opentype/public/atkinson/
@@ -9315,6 +9332,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-baskervaldadf
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/public/baskervaldadf/
 %{_texmf_main}/fonts/enc/dvips/baskervaldadf/
 %{_texmf_main}/fonts/map/dvips/baskervaldadf/
@@ -9326,6 +9344,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-baskervaldx
 %license gpl2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/baskervaldx/
 %{_texmf_main}/fonts/enc/dvips/baskervaldx/
 %{_texmf_main}/fonts/map/dvips/baskervaldx/
@@ -9340,6 +9359,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-baskervillef
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/baskervillef/
 %{_texmf_main}/fonts/map/dvips/baskervillef/
 %{_texmf_main}/fonts/opentype/public/baskervillef/
@@ -9411,6 +9431,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-berenisadf
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/arkandis/berenisadf/
 %{_texmf_main}/fonts/enc/dvips/berenisadf/
 %{_texmf_main}/fonts/map/dvips/berenisadf/
@@ -9445,6 +9466,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-bitter
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/bitter/
 %{_texmf_main}/fonts/map/dvips/bitter/
 %{_texmf_main}/fonts/tfm/huerta/bitter/
@@ -9485,6 +9507,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-boondox
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/map/dvips/boondox/
 %{_texmf_main}/fonts/tfm/public/boondox/
 %{_texmf_main}/fonts/type1/public/boondox/
@@ -9510,6 +9533,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cabin
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/cabin/
 %{_texmf_main}/fonts/map/dvips/cabin/
 %{_texmf_main}/fonts/opentype/impallari/cabin/
@@ -9523,6 +9547,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-caladea
 %license apache2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/caladea/
 %{_texmf_main}/fonts/map/dvips/caladea/
 %{_texmf_main}/fonts/tfm/huerta/caladea/
@@ -9547,6 +9572,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cantarell
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/cantarell/
 %{_texmf_main}/fonts/map/dvips/cantarell/
 %{_texmf_main}/fonts/opentype/gnome/cantarell/
@@ -9576,6 +9602,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cascadia-code
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/cascadia-code/
 %{_texmf_main}/fonts/map/dvips/cascadia-code/
 %{_texmf_main}/fonts/opentype/public/cascadia-code/
@@ -9592,6 +9619,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-ccicons
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/ccicons/
 %{_texmf_main}/fonts/map/dvips/ccicons/
 %{_texmf_main}/fonts/opentype/public/ccicons/
@@ -9619,6 +9647,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-charissil
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/charissil/
 %{_texmf_main}/fonts/map/dvips/charissil/
 %{_texmf_main}/fonts/tfm/SIL/charissil/
@@ -9637,6 +9666,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-chivo
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/chivo/
 %{_texmf_main}/fonts/map/dvips/chivo/
 %{_texmf_main}/fonts/opentype/public/chivo/
@@ -9650,6 +9680,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cinzel
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/cinzel/
 %{_texmf_main}/fonts/map/dvips/cinzel/
 %{_texmf_main}/fonts/tfm/ndiscovered/cinzel/
@@ -9661,6 +9692,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-clara
 %license ofl.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/enc/dvips/clara/
 %{_texmf_main}/fonts/map/dvips/clara/
 %{_texmf_main}/fonts/opentype/public/clara/
@@ -9674,6 +9706,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-clearsans
 %license apache2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/clearsans/
 %{_texmf_main}/fonts/map/dvips/clearsans/
 %{_texmf_main}/fonts/tfm/intel/clearsans/
@@ -9698,6 +9731,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cm-mf-extra-bold
 %license gpl2.txt
+%license pd.txt
 %{_texmf_main}/fonts/source/public/cm-mf-extra-bold/
 %{_texmf_main}/fonts/tfm/public/cm-mf-extra-bold/
 
@@ -9783,6 +9817,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cochineal
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/cochineal/
 %{_texmf_main}/fonts/enc/dvips/cochineal/
 %{_texmf_main}/fonts/map/dvips/cochineal/
@@ -9797,6 +9832,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-coelacanth
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/coelacanth/
 %{_texmf_main}/fonts/map/dvips/coelacanth/
 %{_texmf_main}/fonts/opentype/public/coelacanth/
@@ -9810,6 +9846,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-comfortaa
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/comfortaa/
 %{_texmf_main}/fonts/map/dvips/comfortaa/
 %{_texmf_main}/fonts/tfm/aajohan/comfortaa/
@@ -9840,6 +9877,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-concmath-otf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/concmath-otf/
 %{_texmf_main}/tex/latex/concmath-otf/
 %doc %{_texmf_main}/doc/fonts/concmath-otf/
@@ -9853,6 +9891,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cooperhewitt
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/cooperhewitt/
 %{_texmf_main}/fonts/map/dvips/cooperhewitt/
 %{_texmf_main}/fonts/opentype/public/cooperhewitt/
@@ -9864,6 +9903,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-cormorantgaramond
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/cormorantgaramond/
 %{_texmf_main}/fonts/map/dvips/cormorantgaramond/
 %{_texmf_main}/fonts/tfm/catharsis/cormorantgaramond/
@@ -9875,6 +9915,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-countriesofeurope
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/countriesofeurope/
 %{_texmf_main}/fonts/enc/dvips/countriesofeurope/
 %{_texmf_main}/fonts/map/dvips/countriesofeurope/
@@ -9904,6 +9945,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-crimson
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/crimson/
 %{_texmf_main}/fonts/map/dvips/crimson/
 %{_texmf_main}/fonts/opentype/kosch/crimson/
@@ -9917,6 +9959,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-crimsonpro
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/crimsonpro/
 %{_texmf_main}/fonts/map/dvips/crimsonpro/
 %{_texmf_main}/fonts/tfm/public/crimsonpro/
@@ -10027,6 +10070,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-domitian
 %license other-free.txt
+%license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/domitian/
 %{_texmf_main}/fonts/map/dvips/domitian/
 %{_texmf_main}/fonts/opentype/public/domitian/
@@ -10077,6 +10122,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-droid
 %license lppl1.3c.txt
+%license apache2.txt
 %{_texmf_main}/fonts/enc/dvips/droid/
 %{_texmf_main}/fonts/map/dvips/droid/
 %{_texmf_main}/fonts/tfm/ascender/droid/
@@ -10088,6 +10134,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-dsserif
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/dsserif/
 %{_texmf_main}/fonts/map/dvips/dsserif/
 %{_texmf_main}/fonts/tfm/public/dsserif/
@@ -10123,6 +10170,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-ebgaramond
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/ebgaramond/
 %{_texmf_main}/fonts/map/dvips/ebgaramond/
 %{_texmf_main}/fonts/opentype/public/ebgaramond/
@@ -10178,6 +10226,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-electrumadf
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/public/electrumadf/
 %{_texmf_main}/fonts/enc/dvips/electrumadf/
 %{_texmf_main}/fonts/map/dvips/electrumadf/
@@ -10211,6 +10260,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-erewhon
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/erewhon/
 %{_texmf_main}/fonts/enc/dvips/erewhon/
 %{_texmf_main}/fonts/map/dvips/erewhon/
@@ -10225,6 +10275,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-erewhon-math
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/erewhon-math/
 %{_texmf_main}/tex/latex/erewhon-math/
 %doc %{_texmf_main}/doc/fonts/erewhon-math/
@@ -10261,6 +10312,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-etbb
 %license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/etbb/
 %{_texmf_main}/fonts/enc/dvips/etbb/
 %{_texmf_main}/fonts/map/dvips/etbb/
@@ -10275,6 +10327,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-euler-math
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/euler-math/
 %{_texmf_main}/tex/latex/euler-math/
 %doc %{_texmf_main}/doc/fonts/euler-math/
@@ -10293,6 +10346,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fbb
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/fbb/
 %{_texmf_main}/fonts/map/dvips/fbb/
 %{_texmf_main}/fonts/opentype/public/fbb/
@@ -10306,6 +10360,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fdsymbol
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/fdsymbol/
 %{_texmf_main}/fonts/map/dvips/fdsymbol/
 %{_texmf_main}/fonts/opentype/public/fdsymbol/
@@ -10350,6 +10405,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fira
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/fira/
 %{_texmf_main}/fonts/map/dvips/fira/
 %{_texmf_main}/fonts/opentype/public/fira/
@@ -10381,6 +10437,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fonetika
 %license gpl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/fonetika/
 %{_texmf_main}/fonts/map/dvips/fonetika/
 %{_texmf_main}/fonts/tfm/public/fonetika/
@@ -10401,6 +10458,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fontawesome5
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/fontawesome5/
 %{_texmf_main}/fonts/map/dvips/fontawesome5/
 %{_texmf_main}/fonts/opentype/public/fontawesome5/
@@ -10411,6 +10469,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fontawesome6
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/fontawesome6/
 %{_texmf_main}/fonts/map/dvips/fontawesome6/
 %{_texmf_main}/fonts/opentype/public/fontawesome6/
@@ -10421,6 +10480,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fontawesome7
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/fontawesome7/
 %{_texmf_main}/fonts/map/dvips/fontawesome7/
 %{_texmf_main}/fonts/opentype/public/fontawesome7/
@@ -10456,6 +10516,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-forum
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/forum/
 %{_texmf_main}/fonts/map/dvips/forum/
 %{_texmf_main}/fonts/opentype/public/forum/
@@ -10515,6 +10576,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-garamond-libre
 %license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/garamond-libre/
 %{_texmf_main}/fonts/map/dvips/garamond-libre/
 %{_texmf_main}/fonts/opentype/public/garamond-libre/
@@ -10535,6 +10597,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-gelasio
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/gelasio/
 %{_texmf_main}/fonts/map/dvips/gelasio/
 %{_texmf_main}/fonts/opentype/sorkin/gelasio/
@@ -10546,6 +10609,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-gelasiomath
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/map/dvips/gelasiomath/
 %{_texmf_main}/fonts/tfm/public/gelasiomath/
 %{_texmf_main}/fonts/type1/public/gelasiomath/
@@ -10663,6 +10727,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-gillius
 %license gpl2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/gillius/
 %{_texmf_main}/fonts/map/dvips/gillius/
 %{_texmf_main}/fonts/opentype/arkandis/gillius/
@@ -10682,6 +10747,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-gofonts
 %license bsd.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/gofonts/
 %{_texmf_main}/fonts/map/dvips/gofonts/
 %{_texmf_main}/fonts/tfm/bh/gofonts/
@@ -10715,6 +10781,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-gudea
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/gudea/
 %{_texmf_main}/fonts/map/dvips/gudea/
 %{_texmf_main}/fonts/tfm/public/gudea/
@@ -10760,6 +10827,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-heuristica
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/heuristica/
 %{_texmf_main}/fonts/map/dvips/heuristica/
 %{_texmf_main}/fonts/opentype/public/heuristica/
@@ -10786,6 +10854,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-hindmadurai
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/hindmadurai/
 %{_texmf_main}/fonts/map/dvips/hindmadurai/
 %{_texmf_main}/fonts/opentype/public/hindmadurai/
@@ -10797,6 +10866,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-ibarra
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/ibarra/
 %{_texmf_main}/fonts/map/dvips/ibarra/
 %{_texmf_main}/fonts/tfm/public/ibarra/
@@ -10829,6 +10899,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-inconsolata
 %license ofl.txt
+%license apache2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/inconsolata/
 %{_texmf_main}/fonts/map/dvips/inconsolata/
 %{_texmf_main}/fonts/opentype/public/inconsolata/
@@ -10839,6 +10911,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-inconsolata-nerd-font
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/truetype/public/inconsolata-nerd-font/
 %{_texmf_main}/tex/latex/inconsolata-nerd-font/
 %doc %{_texmf_main}/doc/fonts/inconsolata-nerd-font/
@@ -10855,6 +10928,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-inriafonts
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/inriafonts/
 %{_texmf_main}/fonts/map/dvips/inriafonts/
 %{_texmf_main}/fonts/opentype/public/inriafonts/
@@ -10869,6 +10943,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-inter
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/inter/
 %{_texmf_main}/fonts/map/dvips/inter/
 %{_texmf_main}/fonts/opentype/public/inter/
@@ -10916,12 +10991,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-jetbrainsmono-otf
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/opentype/SIL/jetbrainsmono-otf/
 %{_texmf_main}/tex/latex/jetbrainsmono-otf/
 %doc %{_texmf_main}/doc/fonts/jetbrainsmono-otf/
 
 %files -n texlive-josefin
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/josefin/
 %{_texmf_main}/fonts/map/dvips/josefin/
 %{_texmf_main}/fonts/tfm/public/josefin/
@@ -10933,12 +11010,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-juliamono
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/truetype/public/juliamono/
 %{_texmf_main}/tex/latex/juliamono/
 %doc %{_texmf_main}/doc/fonts/juliamono/
 
 %files -n texlive-junicode
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/junicode/
 %{_texmf_main}/fonts/map/dvips/junicode/
 %{_texmf_main}/fonts/opentype/public/junicode/
@@ -10950,6 +11029,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-junicodevf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/truetype/public/junicodevf/
 %{_texmf_main}/tex/lualatex/junicodevf/
 %doc %{_texmf_main}/doc/fonts/junicodevf/
@@ -10961,6 +11041,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-kpfonts
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/public/kpfonts/
 %{_texmf_main}/fonts/enc/dvips/kpfonts/
 %{_texmf_main}/fonts/map/dvips/kpfonts/
@@ -10972,6 +11053,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-kpfonts-otf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/kpfonts-otf/
 %{_texmf_main}/tex/latex/kpfonts-otf/
 %doc %{_texmf_main}/doc/fonts/kpfonts-otf/
@@ -10992,6 +11074,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-lato
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/lato/
 %{_texmf_main}/fonts/map/dvips/lato/
 %{_texmf_main}/fonts/tfm/typoland/lato/
@@ -11003,12 +11086,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-lete-sans-math
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/lete-sans-math/
 %{_texmf_main}/tex/latex/lete-sans-math/
 %doc %{_texmf_main}/doc/fonts/lete-sans-math/
 
 %files -n texlive-lexend
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/truetype/public/lexend/
 %{_texmf_main}/tex/latex/lexend/
 %doc %{_texmf_main}/doc/fonts/lexend/
@@ -11021,6 +11106,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-libertine
 %license gpl2.txt
+%license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/libertine/
 %{_texmf_main}/fonts/map/dvips/libertine/
 %{_texmf_main}/fonts/opentype/public/libertine/
@@ -11057,6 +11144,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-libertinus-type1
 %license gpl2.txt
+%license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/libertinus-type1/
 %{_texmf_main}/fonts/map/dvips/libertinus-type1/
 %{_texmf_main}/fonts/tfm/public/libertinus-type1/
@@ -11067,6 +11156,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-libertinust1math
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/libertinust1math/
 %{_texmf_main}/fonts/enc/dvips/libertinust1math/
 %{_texmf_main}/fonts/map/dvips/libertinust1math/
@@ -11078,6 +11168,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-librebaskerville
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/librebaskerville/
 %{_texmf_main}/fonts/map/dvips/librebaskerville/
 %{_texmf_main}/fonts/tfm/impallari/librebaskerville/
@@ -11089,6 +11180,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-librebodoni
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/librebodoni/
 %{_texmf_main}/fonts/map/dvips/librebodoni/
 %{_texmf_main}/fonts/opentype/impallari/librebodoni/
@@ -11102,6 +11194,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-librecaslon
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/librecaslon/
 %{_texmf_main}/fonts/map/dvips/librecaslon/
 %{_texmf_main}/fonts/opentype/impallari/librecaslon/
@@ -11115,6 +11208,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-librefranklin
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/librefranklin/
 %{_texmf_main}/fonts/map/dvips/librefranklin/
 %{_texmf_main}/fonts/opentype/impallari/librefranklin/
@@ -11128,6 +11222,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-libris
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/public/libris/
 %{_texmf_main}/fonts/enc/dvips/libris/
 %{_texmf_main}/fonts/map/dvips/libris/
@@ -11148,6 +11243,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-linguisticspro
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/linguisticspro/
 %{_texmf_main}/fonts/map/dvips/linguisticspro/
 %{_texmf_main}/fonts/opentype/public/linguisticspro/
@@ -11161,6 +11257,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-lobster2
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/lobster2/
 %{_texmf_main}/fonts/map/dvips/lobster2/
 %{_texmf_main}/fonts/opentype/impallari/lobster2/
@@ -11174,6 +11271,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-logix
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/logix/
 %{_texmf_main}/fonts/truetype/public/logix/
 %{_texmf_main}/tex/latex/logix/
@@ -11183,6 +11281,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-luciole
 %license cc-by-4.txt
+%license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/luciole/
 %{_texmf_main}/fonts/truetype/public/luciole/
 %{_texmf_main}/tex/latex/luciole/
@@ -11190,6 +11290,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-luwiantype
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/truetype/public/luwiantype/
 %{_texmf_main}/tex/latex/luwiantype/
 %doc %{_texmf_main}/doc/fonts/luwiantype/
@@ -11215,12 +11316,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-lydtype
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/truetype/public/lydtype/
 %{_texmf_main}/tex/latex/lydtype/
 %doc %{_texmf_main}/doc/fonts/lydtype/
 
 %files -n texlive-magra
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/magra/
 %{_texmf_main}/fonts/map/dvips/magra/
 %{_texmf_main}/fonts/tfm/public/magra/
@@ -11231,6 +11334,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-marcellus
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/marcellus/
 %{_texmf_main}/fonts/map/dvips/marcellus/
 %{_texmf_main}/fonts/tfm/public/marcellus/
@@ -11287,6 +11391,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-merriweather
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/merriweather/
 %{_texmf_main}/fonts/map/dvips/merriweather/
 %{_texmf_main}/fonts/opentype/sorkin/merriweather/
@@ -11320,6 +11425,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-miama
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/miama/
 %{_texmf_main}/fonts/enc/dvips/miama/
 %{_texmf_main}/fonts/map/dvips/miama/
@@ -11333,6 +11439,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-mintspirit
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/mintspirit/
 %{_texmf_main}/fonts/map/dvips/mintspirit/
 %{_texmf_main}/fonts/opentype/arkandis/mintspirit/
@@ -11346,6 +11453,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-missaali
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/missaali/
 %{_texmf_main}/tex/latex/missaali/
 %doc %{_texmf_main}/doc/fonts/missaali/
@@ -11376,12 +11484,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-monaspace-otf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/monaspace-otf/
 %{_texmf_main}/tex/latex/monaspace-otf/
 %doc %{_texmf_main}/doc/fonts/monaspace-otf/
 
 %files -n texlive-montserrat
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/montserrat/
 %{_texmf_main}/fonts/map/dvips/montserrat/
 %{_texmf_main}/fonts/opentype/public/montserrat/
@@ -11393,6 +11503,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-mpfonts
 %license knuth.txt
+%license lppl1.3c.txt
+%license ofl.txt
+%license pd.txt
 %{_texmf_main}/fonts/map/dvips/mpfonts/
 %{_texmf_main}/fonts/type3/mpfonts/
 %doc %{_texmf_main}/doc/fonts/mpfonts/
@@ -11440,6 +11553,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-newtxsf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/map/dvips/newtxsf/
 %{_texmf_main}/fonts/tfm/public/newtxsf/
 %{_texmf_main}/fonts/type1/public/newtxsf/
@@ -11449,6 +11563,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-newtxtt
 %license gpl3.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/newtxtt/
 %{_texmf_main}/fonts/map/dvips/newtxtt/
 %{_texmf_main}/fonts/tfm/public/newtxtt/
@@ -11465,6 +11580,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-nimbus15
 %license other-free.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/nimbus15/
 %{_texmf_main}/fonts/enc/dvips/nimbus15/
 %{_texmf_main}/fonts/map/dvips/nimbus15/
@@ -11486,6 +11602,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-noto
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/noto/
 %{_texmf_main}/fonts/map/dvips/noto/
 %{_texmf_main}/fonts/tfm/google/noto/
@@ -11502,6 +11619,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-notomath
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/map/dvips/notomath/
 %{_texmf_main}/fonts/tfm/public/notomath/
 %{_texmf_main}/fonts/type1/public/notomath/
@@ -11511,6 +11629,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-nunito
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/nunito/
 %{_texmf_main}/fonts/map/dvips/nunito/
 %{_texmf_main}/fonts/opentype/public/nunito/
@@ -11592,6 +11711,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-oldstandard
 %license ofl.txt
+%license lppl1.3c.txt
+%license fdl.txt
 %{_texmf_main}/fonts/enc/dvips/oldstandard/
 %{_texmf_main}/fonts/map/dvips/oldstandard/
 %{_texmf_main}/fonts/opentype/public/oldstandard/
@@ -11603,6 +11724,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-opensans
 %license apache2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/opensans/
 %{_texmf_main}/fonts/map/dvips/opensans/
 %{_texmf_main}/fonts/tfm/ascender/opensans/
@@ -11620,6 +11742,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-oswald
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/oswald/
 %{_texmf_main}/fonts/map/dvips/oswald/
 %{_texmf_main}/fonts/tfm/public/oswald/
@@ -11677,6 +11800,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-pennstander-otf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/pennstander-otf/
 %{_texmf_main}/fonts/truetype/public/pennstander-otf/
 %{_texmf_main}/tex/latex/pennstander-otf/
@@ -11712,6 +11836,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-playfair
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/playfair/
 %{_texmf_main}/fonts/map/dvips/playfair/
 %{_texmf_main}/fonts/opentype/public/playfair/
@@ -11725,6 +11850,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-plex
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/plex/
 %{_texmf_main}/fonts/map/dvips/plex/
 %{_texmf_main}/fonts/opentype/ibm/plex/
@@ -11751,6 +11877,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-poiretone
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/poiretone/
 %{_texmf_main}/fonts/map/dvips/poiretone/
 %{_texmf_main}/fonts/tfm/public/poiretone/
@@ -11809,6 +11936,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-qualitype
 %license ofl.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/opentype/public/qualitype/
 %doc %{_texmf_main}/doc/fonts/qualitype/
 %{_datadir}/fonts/qualitype
@@ -11816,6 +11944,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-quattrocento
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/quattrocento/
 %{_texmf_main}/fonts/map/dvips/quattrocento/
 %{_texmf_main}/fonts/tfm/impallari/quattrocento/
@@ -11827,6 +11956,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-raleway
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/raleway/
 %{_texmf_main}/fonts/map/dvips/raleway/
 %{_texmf_main}/fonts/opentype/impallari/raleway/
@@ -11847,6 +11977,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-rit-fonts
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/rit-fonts/
 %{_texmf_main}/fonts/truetype/public/rit-fonts/
 %{_texmf_main}/tex/latex/rit-fonts/
@@ -11854,6 +11985,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-roboto
 %license apache2.txt
+%license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/roboto/
 %{_texmf_main}/fonts/map/dvips/roboto/
 %{_texmf_main}/fonts/opentype/google/roboto/
@@ -11865,6 +11998,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-romandeadf
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/fonts/afm/public/romandeadf/
 %{_texmf_main}/fonts/enc/dvips/romandeadf/
 %{_texmf_main}/fonts/map/dvips/romandeadf/
@@ -11993,6 +12127,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-sourcecodepro
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/sourcecodepro/
 %{_texmf_main}/fonts/map/dvips/sourcecodepro/
 %{_texmf_main}/fonts/opentype/adobe/sourcecodepro/
@@ -12004,6 +12139,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-sourcesanspro
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/sourcesanspro/
 %{_texmf_main}/fonts/map/dvips/sourcesanspro/
 %{_texmf_main}/fonts/opentype/adobe/sourcesanspro/
@@ -12015,6 +12151,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-sourceserifpro
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/sourceserifpro/
 %{_texmf_main}/fonts/map/dvips/sourceserifpro/
 %{_texmf_main}/fonts/opentype/adobe/sourceserifpro/
@@ -12026,6 +12163,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-spectral
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/spectral/
 %{_texmf_main}/fonts/map/dvips/spectral/
 %{_texmf_main}/fonts/tfm/production/spectral/
@@ -12048,6 +12186,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-srbtiks
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/srbtiks/
 %{_texmf_main}/fonts/map/dvips/srbtiks/
 %{_texmf_main}/fonts/tfm/public/srbtiks/
@@ -12097,6 +12236,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-stickstoo
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/stickstoo/
 %{_texmf_main}/fonts/enc/dvips/stickstoo/
 %{_texmf_main}/fonts/map/dvips/stickstoo/
@@ -12108,6 +12248,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-stix
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/stix/
 %{_texmf_main}/fonts/map/dvips/stix/
 %{_texmf_main}/fonts/opentype/public/stix/
@@ -12124,6 +12265,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-stix2-type1
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/stix2-type1/
 %{_texmf_main}/fonts/map/dvips/stix2-type1/
 %{_texmf_main}/fonts/tfm/public/stix2-type1/
@@ -12198,6 +12340,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-theanodidot
 %license lppl1.3c.txt
+%license ofl.txt
 %{_texmf_main}/fonts/enc/dvips/theanodidot/
 %{_texmf_main}/fonts/map/dvips/theanodidot/
 %{_texmf_main}/fonts/tfm/public/theanodidot/
@@ -12209,6 +12352,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-theanomodern
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/theanomodern/
 %{_texmf_main}/fonts/map/dvips/theanomodern/
 %{_texmf_main}/fonts/tfm/public/theanomodern/
@@ -12220,6 +12364,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-theanooldstyle
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/theanooldstyle/
 %{_texmf_main}/fonts/map/dvips/theanooldstyle/
 %{_texmf_main}/fonts/tfm/public/theanooldstyle/
@@ -12231,6 +12376,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-tinos
 %license apache2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/tinos/
 %{_texmf_main}/fonts/map/dvips/tinos/
 %{_texmf_main}/fonts/tfm/google/tinos/
@@ -12256,11 +12402,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-twemoji-colr
 %license cc-by-sa-4.txt
+%license apache2.txt
 %{_texmf_main}/fonts/truetype/public/twemoji-colr/
 %doc %{_texmf_main}/doc/fonts/twemoji-colr/
 
 %files -n texlive-txfontsb
 %license gpl2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/txfontsb/
 %{_texmf_main}/fonts/enc/dvips/txfontsb/
 %{_texmf_main}/fonts/map/dvips/txfontsb/
@@ -12303,6 +12451,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-universalis
 %license gpl2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/enc/dvips/universalis/
 %{_texmf_main}/fonts/map/dvips/universalis/
 %{_texmf_main}/fonts/opentype/arkandis/universalis/
@@ -12361,6 +12510,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-xcharter-math
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/xcharter-math/
 %{_texmf_main}/tex/latex/xcharter-math/
 %doc %{_texmf_main}/doc/fonts/xcharter-math/
@@ -12379,6 +12529,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-yfonts-otf
 %license ofl.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/opentype/public/yfonts-otf/
 %{_texmf_main}/tex/latex/yfonts-otf/
 %doc %{_texmf_main}/doc/fonts/yfonts-otf/
@@ -12401,6 +12552,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-ysabeau
 %license ofl.txt
+%license other-free.txt
+%license pd.txt
 %{_texmf_main}/fonts/enc/dvips/ysabeau/
 %{_texmf_main}/fonts/map/dvips/ysabeau/
 %{_texmf_main}/fonts/opentype/public/ysabeau/
@@ -12417,6 +12570,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/zlmtt/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77044-3
+- fix licensing files
+- update simpleicons
+
 * Tue Jan 20 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77044-2
 - fix licensing tags
 - Validate AppData files

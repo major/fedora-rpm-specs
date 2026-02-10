@@ -5,7 +5,7 @@
 Name:           texlive-collection-basic
 Epoch:          12
 Version:        svn72890
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Essential programs and files
 
 License:        LPPL-1.3c
@@ -454,7 +454,7 @@ documents.
 
 %package -n texlive-modes
 Summary:        A collection of Metafont mode_def's
-Version:        svn69113
+Version:        svn77365
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -522,7 +522,7 @@ TeX Live documentation (common elements)
 
 %package -n texlive-texlive-msg-translations
 Summary:        Translations of the TeX Live installer and TeX Live Manager
-Version:        svn75868
+Version:        svn77513
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -616,13 +616,13 @@ cp -f %{buildroot}%{_texmf_main}/tex/generic/config/language.us.def %{buildroot}
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
+# Clean out enctex INSTALL files (useless)
+rm -rf %{buildroot}%{_texmf_main}/doc/generic/enctex/INSTALL*
+
 # Apply etex patch
 pushd %{buildroot}%{_texmf_main}/tex/plain/etex/
 patch -p0 < %{_sourcedir}/etex-addlanguage-fix-bz1215257.patch
 popd
-
-# Clean out enctex INSTALL files (useless)
-rm -rf %{buildroot}%{_texmf_main}/doc/generic/enctex/INSTALL*
 
 # Fix Python shebangs
 %py3_shebang_fix %{buildroot}%{_texmf_main}/*
@@ -651,6 +651,9 @@ rm -rf %{buildroot}%{_texmf_main}/doc/generic/enctex/INSTALL*
 
 %files -n texlive-colorprofiles
 %license lppl1.3c.txt
+%license mit.txt
+%license pd.txt
+%license other-free.txt
 %{_texmf_main}/tex/generic/colorprofiles/
 %doc %{_texmf_main}/doc/generic/colorprofiles/
 
@@ -766,6 +769,9 @@ rm -rf %{buildroot}%{_texmf_main}/doc/generic/enctex/INSTALL*
 %doc %{_texmf_main}/doc/generic/unicode-data/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-8
+- Update modes, texlive-msg-translations
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:svn72890-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocWMMA
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -66,8 +66,8 @@
 # Only offically supported are called out here
 # library/include/rocwmma/internal/config.hpp
 # Adjust our list
-%global _gpu_list "gfx908;gfx90a;gfx942;gfx950;gfx1100;gfx1101;gfx1102;gfx1151;gfx1200;gfx1201"
-%global gpu_list gfx1100
+%global gpu_list "gfx908;gfx90a;gfx942;gfx950;gfx1100;gfx1101;gfx1102;gfx1151;gfx1200;gfx1201"
+%global _gpu_list gfx1100
 
 # Building the tests may run out of memory for both compile and link
 # The normal build is just headers so whatever we do here will not matter
@@ -76,7 +76,7 @@
 
 Name:           rocwmma%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -212,6 +212,7 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %files devel
 %license LICENSE.md
 %{pkg_prefix}/include/rocwmma
+%{pkg_prefix}/%{pkg_libdir}/cmake/rocwmma
 
 %if %{with test}
 %files test
@@ -220,6 +221,9 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %endif
 
 %changelog
+* Tue Jan 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

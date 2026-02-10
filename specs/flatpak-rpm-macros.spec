@@ -1,5 +1,5 @@
 Name:           flatpak-rpm-macros
-Version:        43
+Version:        44
 Release:        %autorelease
 Summary:        Macros for building RPMS for flatpaks
 Source0:        macros.flatpak.in

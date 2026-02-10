@@ -21,7 +21,7 @@
 #
 %global upstreamname HIPIFY
 
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -43,7 +43,7 @@
 
 Name:           hipify%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -112,6 +112,9 @@ rm -rf %{buildroot}%{pkg_prefix}/include
 %{pkg_prefix}/libexec/hipify/
 
 %changelog
+* Sun Jan 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

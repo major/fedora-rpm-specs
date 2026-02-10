@@ -1,11 +1,18 @@
 %bcond tests 1
 
+%global commit f400be159bbd7c016ba5dc591a43753b193eadab
+%global snapdate 20260203
+
 Name:           hatch
-Version:        1.16.3
+Version:        1.16.3%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
+%if %{undefined commit}
 %global tag hatch-v%{version}
+%else
+%global tag %{commit}
+%endif
 %global archivename hatch-%{tag}
 
 # The entire source is (SPDX) MIT. Apache-2.0 license text in the tests is used
@@ -108,10 +115,22 @@ Features:
   • Responsive CLI, ~2-3x faster than equivalent tools
 
 
+%if %{defined commit}
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%(echo '%{version}' | cut -d '^' -f 1)'
+%endif
+
+
 %prep -a
 # https://hatch.pypa.io/latest/config/environment/
 tomcli get hatch.toml -F newline-list envs.hatch-test.extra-dependencies |
   tee _envs.hatch-test.extra-dependencies.txt
+
+
+%if %{defined commit}
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%(echo '%{version}' | cut -d '^' -f 1)'
+%endif
 
 
 %install -a
@@ -193,6 +212,13 @@ k="${k-}${k+ and }not test_verbose_output_to_stderr"
 # https://github.com/pypa/hatch/issues/2167
 # https://bugzilla.redhat.com/show_bug.cgi?id=2432349
 k="${k-}${k+ and }not (TestUserAgent and test_user_agent_header_format)"
+
+# Expected output has been updated for packaging 26; we skip these until
+# python-packaging is updated,
+# https://bugzilla.redhat.com/show_bug.cgi?id=2431859.
+k="${k-}${k+ and }not (TestDependencies and test_project_dependencies_context_formatting)"
+k="${k-}${k+ and }not (TestDependencies and test_context_formatting)"
+k="${k-}${k+ and }not test_context_formatting"
 
 %pytest -k "${k-}" ${ignore-} -vv
 %endif

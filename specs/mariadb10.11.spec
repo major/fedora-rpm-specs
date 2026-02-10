@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%define package_version 10.11.15
+%define package_version 10.11.16
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.11.15
+%global last_tested_version 10.11.16
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -160,7 +160,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          100%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1844,6 +1844,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 07 2026 Michal Schorm <mschorm@redhat.com> - 3:10.11.16-1
+- Rebase to 10.11.16
+
 * Tue Feb 03 2026 Michal Schorm <mschorm@redhat.com> - 3:10.11.15-100
 - Disable the 'distribution default' in MariaDB 10.11 in this package
 - Enable the 'distribution default' in MariaDB 11.8 (package 'mariadb11.8')

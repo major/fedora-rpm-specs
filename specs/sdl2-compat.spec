@@ -1,4 +1,4 @@
-%global sdl3_minver 3.2.12
+%global sdl3_minver 3.4.0
 
 # Features disabled for RHEL
 %if 0%{?rhel}
@@ -8,7 +8,7 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.32.62
+Version:        2.32.64
 Release:        1%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
@@ -167,6 +167,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Sun Feb 08 2026 Neal Gompa <ngompa@fedoraproject.org> - 2.32.64-1
+- Update to 2.32.64
+
 * Mon Feb 02 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.32.62-1
 - Update to 2.32.62
 

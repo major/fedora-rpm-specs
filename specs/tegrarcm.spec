@@ -1,5 +1,7 @@
+%global gitcommit0 debbac012a3f67bd0864a0f4ad8bfe8e4e57844e
+
 Name:           tegrarcm
-Version:        1.8
+Version:        1.9
 Release:        %autorelease
 Summary:        Send code to a Tegra device in recovery mode
 
@@ -9,10 +11,9 @@ Summary:        Send code to a Tegra device in recovery mode
 # Firmware Exception:
 # https://fedoraproject.org/wiki/Licensing#Binary_Firmware
 # See "LICENSE" for details.
-# Automatically converted from old format: BSD and Redistributable, no modification permitted - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Redistributable-no-modification-permitted
-URL:            https://github.com/NVIDIA/tegrarcm
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+License:        BSD-3-Clause AND LicenseRef-Fedora-Firmware
+URL:            https://gitlab.com/grate-driver/tegrarcm
+Source0:        %{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -34,7 +35,7 @@ device.
 
 
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-v%{version}-%{gitcommit0}
 ./autogen.sh
 
 

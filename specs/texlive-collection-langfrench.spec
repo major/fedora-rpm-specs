@@ -5,7 +5,7 @@
 Name:           texlive-collection-langfrench
 Epoch:          12
 Version:        svn72499
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        French
 
 License:        LPPL-1.3c
@@ -1472,6 +1472,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/expose-expl3-dunkerque-2019/
 
 %files -n texlive-facture
+%license other-free.txt
 %{_texmf_main}/tex/xelatex/facture/
 %doc %{_texmf_main}/doc/xelatex/facture/
 
@@ -1548,6 +1549,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-panneauxroute
 %license lppl1.3c.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/panneauxroute/
 %doc %{_texmf_main}/doc/latex/panneauxroute/
 
@@ -1564,6 +1566,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-proflycee
 %license lppl1.3c.txt
+%license cc-zero-1.txt
+%license mit.txt
+%license other-free.txt
 %{_texmf_main}/metapost/proflycee/
 %{_texmf_main}/tex/latex/proflycee/
 %doc %{_texmf_main}/doc/latex/proflycee/
@@ -1622,6 +1627,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/visualtikz/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-4
+- fix licensing files
+
 * Sat Jan 24 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72499-3
 - fix descriptions, licensing
 

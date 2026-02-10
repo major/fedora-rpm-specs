@@ -5,7 +5,7 @@
 Name:           texlive-collection-latexrecommended
 Epoch:          12
 Version:        svn77082
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LaTeX recommended packages
 
 License:        LPPL-1.3c
@@ -935,7 +935,7 @@ languages; patches to make (La)TeX formulae embeddable in SGML; use maths
 
 %package -n texlive-koma-script
 Summary:        A bundle of versatile classes and packages
-Version:        svn76995
+Version:        svn77575
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1225,7 +1225,7 @@ token with the \lstMakeShortInline command).
 
 %package -n texlive-ltx-talk
 Summary:        A class for typesetting presentations
-Version:        svn77437
+Version:        svn77585
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1253,7 +1253,7 @@ without additional steps.
 
 %package -n texlive-lua-unicode-math
 Summary:        OpenType Math font support for LuaLaTeX
-Version:        svn77378
+Version:        svn77584
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1506,7 +1506,7 @@ displayed in landscape orientation by conforming PDF viewers.
 
 %package -n texlive-pdfmanagement-testphase
 Summary:        LaTeX PDF management testphase bundle
-Version:        svn76847
+Version:        svn77467
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2392,6 +2392,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-beamer
 %license lppl1.3c.txt
+%license gpl2.txt
+%license fdl.txt
 %{_texmf_main}/tex/latex/beamer/
 %doc %{_texmf_main}/doc/latex/beamer/
 
@@ -2630,6 +2632,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-polyglossia
 %license mit.txt
+%license lppl1.3c.txt
+%license cc-zero-1.txt
 %{_texmf_main}/fonts/misc/xetex/fontmapping/
 %{_texmf_main}/tex/latex/polyglossia/
 %doc %{_texmf_main}/doc/latex/polyglossia/
@@ -2687,6 +2691,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-translator
 %license lppl1.3c.txt
+%license gpl2.txt
 %{_texmf_main}/tex/latex/translator/
 %doc %{_texmf_main}/doc/latex/translator/
 
@@ -2738,6 +2743,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/xelatex/xunicode/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77082-2
+- fix licensing files
+- update koma-script, ltx-talk, lua-unicode-math, pdfmanagement-testphase
+
 * Sat Jan 24 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77082-1
 - Update to svn77082
 - fix descriptions, licensing

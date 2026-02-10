@@ -21,8 +21,8 @@
 #
 
 # Upstream tags are based on rocm releases:
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -41,7 +41,7 @@
 %endif
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 20
+%global llvm_maj_ver 22
 %global upstreamname llvm-project
 
 %global toolchain clang
@@ -57,7 +57,7 @@
 
 Name:           rocm-omp%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -232,6 +232,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

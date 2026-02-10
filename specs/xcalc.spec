@@ -1,5 +1,5 @@
 Name:           xcalc
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Scientific Calculator X11 Client
 
@@ -22,6 +22,7 @@ BuildRequires:  libXpm-devel
 Requires:       xorg-x11-xbitmaps
 Requires:       xorg-x11-fonts-75dpi
 Requires:       xorg-x11-fonts-100dpi
+Requires:       xorg-x11-fonts-misc
 
 
 %description

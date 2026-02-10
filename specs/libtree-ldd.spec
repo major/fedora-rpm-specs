@@ -9,6 +9,8 @@ URL:            https://github.com/haampie/libtree
 Source0:        %{url}/archive/v%{version}/libtree-%{version}.tar.gz
 Patch0: libtree-ldd-c99.patch
 
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 

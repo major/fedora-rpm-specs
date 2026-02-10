@@ -1,6 +1,6 @@
 Name:    libkcompactdisc 
-Version: 25.12.1
-Release: 2%{?dist}
+Version: 25.12.2
+Release: 1%{?dist}
 Summary: A KDE compact disc library
 
 # License for this library is very nebulous.
@@ -72,6 +72,9 @@ Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 
 
 %changelog
+* Sun Feb 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.2-1
+- 25.12.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           goverlay
-Version:        1.7.3
+Version:        1.7.4
 Release:        %autorelease
 Epoch:          1
 Summary:        Graphical interface to configure MangoHud, vkBasalt, and OptiScaler

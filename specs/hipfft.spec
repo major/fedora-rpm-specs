@@ -26,8 +26,8 @@
 %global date0 20250926
 %endif
 
-%global upstreamname hipFFT
-%global rocm_release 7.1
+%global upstreamname hipfft
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -86,17 +86,16 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm FFT marshalling library
 License:        MIT
+URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 # https://github.com/ROCm/rocm-libraries/issues/2400
@@ -111,7 +110,7 @@ BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
-BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocprim%{pkg_suffix}-static
 BuildRequires:  rocfft%{pkg_suffix}-devel
@@ -168,7 +167,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/hipfft
 %else
-%autosetup -n %{upstreamname}-rocm-%{version} -p 1
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 # CMake Error at clients/tests/CMakeLists.txt:87 (find_package):
@@ -247,6 +246,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

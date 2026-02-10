@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsrecommended
 Epoch:          12
 Version:        svn54074
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Recommended fonts
 
 License:        LPPL-1.3c
@@ -865,6 +865,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 
 %files -n texlive-fpl
 %license gpl2.txt
+%license lppl1.3c.txt
 %{_texmf_main}/fonts/afm/public/fpl/
 %{_texmf_main}/fonts/type1/public/fpl/
 %doc %{_texmf_main}/doc/fonts/fpl/
@@ -1098,6 +1099,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/zapfding/
 
 %changelog
+* Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-5
+- fix licensing file
+
 * Tue Jan 20 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-4
 - fix licensing tags
 - validate AppData

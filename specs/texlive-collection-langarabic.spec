@@ -5,7 +5,7 @@
 Name:           texlive-collection-langarabic
 Epoch:          12
 Version:        svn76980
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Arabic
 
 License:        LPPL-1.3c
@@ -1318,6 +1318,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-arabluatex
 %license gpl3.txt
+%license cc-by-sa-4.txt
 %{_texmf_main}/tex/lualatex/arabluatex/
 %doc %{_texmf_main}/doc/lualatex/arabluatex/
 
@@ -1403,6 +1404,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-luabidi
 %license lppl1.3c.txt
+%license mit.txt
 %{_texmf_main}/tex/lualatex/luabidi/
 %doc %{_texmf_main}/doc/lualatex/luabidi/
 
@@ -1474,6 +1476,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/support/xindy-persian/
 
 %changelog
+* Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76980-2
+- fix licensing files
+
 * Wed Jan 14 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76980-1
 - Update to svn76980
 - fix descriptions

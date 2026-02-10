@@ -30,8 +30,8 @@
 %endif
 
 %global upstreamname composablekernel
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -142,7 +142,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -208,7 +208,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 cd projects/composablekernel
 %patch -P1 -p1
 %else
-%autosetup -p1 -n %{upstreamname}
+%autosetup -p3 -n %{upstreamname}
 %endif
 
 # do not error on warnings
@@ -372,6 +372,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Sun Feb 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-7
 - Disable gpu library building
 

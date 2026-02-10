@@ -5,7 +5,7 @@
 Name:           texlive-collection-langgerman
 Epoch:          12
 Version:        svn74675
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        German
 
 License:        LPPL-1.3c
@@ -185,7 +185,7 @@ German (old and new orthography).
 
 %package -n texlive-babel-german
 Summary:        Babel support for documents written in German
-Version:        svn77469
+Version:        svn77543
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1067,6 +1067,8 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-autotype
 %license other-free.txt
+%license lppl1.3c.txt
+%license mit.txt
 %{_texmf_main}/tex/lualatex/autotype/
 %doc %{_texmf_main}/doc/lualatex/autotype/
 
@@ -1094,6 +1096,7 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 
 %files -n texlive-dehyph-exptl
 %license mit.txt
+%license lppl1.3c.txt
 %{_texmf_main}/tex/generic/dehyph-exptl/
 %doc %{_texmf_main}/doc/generic/dehyph-exptl/
 
@@ -1264,6 +1267,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/voss-mathcol/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-5
+- Update babel-german, fix licensing files
+
 * Mon Jan 26 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn74675-4
 - remove l2tabu (OPL is non-free)
 - update babel-german

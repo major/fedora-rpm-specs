@@ -54,7 +54,7 @@
 %global source_directory 1.47-development
 
 Name:           nbdkit
-Version:        1.47.3
+Version:        1.47.4
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,6 +85,10 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Upstream patches to fix various problems on 32 bit.
+Patch:          0001-vram-Cast-cl_ulong-to-uint64_t-before-printing.patch
+Patch:          0002-tests-test-sparse-random-blocksize.sh-Reduce-maximum.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1582,6 +1586,9 @@ fi
 
 
 %changelog
+* Sun Feb 08 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.4-1
+- New upstream development version 1.47.4
+
 * Sun Feb 01 2026 Richard W.M. Jones <rjones@redhat.com> - 1.47.3-1
 - New upstream development version 1.47.3
 

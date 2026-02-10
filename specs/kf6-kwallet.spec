@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.22.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -44,6 +44,7 @@ BuildRequires:  pkgconfig(libsecret-1)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kf6-filesystem
 Requires:       pinentry-gui
+Requires:       qca-qt6-ossl%{?_isa}
 
 %description
 KWallet is a secure and unified container for user passwords.
@@ -51,7 +52,6 @@ KWallet is a secure and unified container for user passwords.
 %package        libs
 Summary:        KWallet framework libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qca-qt6-ossl%{?_isa}
 %description    libs
 Provides API to access KWallet data from applications.
 
@@ -125,6 +125,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Mon Feb 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.22.0-3
+- Move qca-qt6-ossl dependency to main package
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:           texlive-collection-bibtexextra
 Epoch:          12
 Version:        svn75480
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        BibTeX additional styles
 
 License:        LPPL-1.3c
@@ -644,7 +644,7 @@ package to work.
 
 %package -n texlive-beebe
 Summary:        A collection of bibliographies
-Version:        svn77367
+Version:        svn77590
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1118,7 +1118,7 @@ with English and German.
 
 %package -n texlive-biblatex-bath
 Summary:        Harvard referencing style as recommended by the University of Bath Library
-Version:        svn74864
+Version:        svn77530
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2386,7 +2386,7 @@ fields to manage such system.
 
 %package -n texlive-biblatex-swiss-legal
 Summary:        Bibliography and citation styles following Swiss legal practice
-Version:        svn77296
+Version:        svn77463
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2967,7 +2967,7 @@ are compatible with natbib.
 
 %package -n texlive-gbt7714
 Summary:        BibTeX implementation of China's bibliography style standard GB/T 7714-2015
-Version:        svn75577
+Version:        svn77401
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4603,6 +4603,7 @@ popd
 
 %files -n texlive-icite
 %license gpl3.txt
+%license cc-by-sa-4.txt
 %{_texmf_main}/tex/latex/icite/
 %doc %{_texmf_main}/doc/latex/icite/
 
@@ -4794,6 +4795,9 @@ popd
 %doc %{_texmf_main}/doc/bibtex/zootaxa-bst/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-5
+- update beebe, biblatex-bath, biblatex-swiss-legal, gbt7714
+
 * Thu Jan 15 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-4
 - more license fixes
 - newer beebe

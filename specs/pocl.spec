@@ -41,7 +41,7 @@ BuildRequires: libedit-devel
 BuildRequires: libtool-ltdl-devel
 BuildRequires: mesa-libEGL-devel
 BuildRequires: mesa-libGL-devel
-BuildRequires: ocl-icd-devel
+BuildRequires: pkgconfig(OpenCL)
 BuildRequires: uthash-devel
 BuildRequires: zlib-devel
 

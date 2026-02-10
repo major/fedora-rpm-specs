@@ -21,7 +21,7 @@
 #
 %global upstreamname rocJPEG
 
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -71,7 +71,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -210,6 +210,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

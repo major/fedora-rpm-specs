@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:           hcxtools
-Version:        7.0.1
+Version:        7.1.2
 %forgemeta
 Release:        %autorelease
 Summary:        Set of tools to convert packets from capture files to hash files
@@ -83,6 +83,7 @@ install -Dpm 0644 man/%{name}.1 -t %{buildroot}%{_mandir}/man1/
 %{_bindir}/hcxhashtool
 %{_bindir}/hcxpcapngtool
 %{_bindir}/hcxpmktool
+%{_bindir}/hcxpottool
 %{_bindir}/hcxpsktool
 %{_bindir}/hcxwltool
 %{_bindir}/whoismac

@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 43.101
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -105,7 +105,7 @@ Summary: Run initial-setup GUI on Plasma Wayland
 Provides: firstboot(gui-backend)
 Conflicts: firstboot(gui-backend)
 Requires: kwin-wayland
-Requires: maliit-keyboard
+Requires: plasma-keyboard
 Requires: xorg-x11-server-Xwayland
 Requires: initial-setup-gui >= 0.3.99
 Supplements: ((initial-setup or initial-setup-gui) and kwin-wayland)
@@ -227,6 +227,9 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Sun Feb 08 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-3
+- Correctly require plasma-keyboard
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 43.101-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

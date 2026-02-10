@@ -1903,7 +1903,7 @@ function customisejdkTzdata() {
     if [ -d ${imagepath} ] ; then
         # Use system-wide tzdata
         mv ${imagepath}/lib/tzdb.dat{,.upstream}
-        ln -s %{_datadir}/javazi-1.8/tzdb.dat ${imagepath}/lib/tzdb.dat
+        ln -s %{javazidir}/tzdb.dat ${imagepath}/lib/tzdb.dat
     fi
 }
 

@@ -99,7 +99,7 @@ sed --in-place /seccomp_control_open/d seccomp/Makefile
 # Remember all source files for the examples, save before building
 ls --format=single-column --directory [a-z]* > dirs_examples
 find $(cat dirs_examples) -type f -printf '%h %f\n' > source_examples
-%ifnarch aarch64 s390x
+%ifnarch aarch64 riscv64 s390x
 %make_build INCLUDE_NONATOMIC_UINT64=true
 %else
 %make_build

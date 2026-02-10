@@ -5,7 +5,7 @@
 Name:           texlive-collection-langjapanese
 Epoch:          12
 Version:        svn76651
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Japanese
 
 License:        LPPL-1.3c
@@ -809,7 +809,7 @@ Japanese version of A Short Introduction to LaTeX2e
 
 %package -n texlive-luatexja
 Summary:        Typeset Japanese with Lua(La)TeX
-Version:        svn77296
+Version:        svn77538
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -877,7 +877,7 @@ Either of the Plain and LaTeX2e formats may be used with the package.
 
 %package -n texlive-luwa-ul
 Summary:        Provides underlines and other highlighting which can be used in vertical mode
-Version:        svn77260
+Version:        svn77595
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1890,6 +1890,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/zxjatype/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-2
+- Update luatexja luwa-ul
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76651-1
 - update to svn76651, fix descriptions, update components
 

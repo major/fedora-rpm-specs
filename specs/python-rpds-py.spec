@@ -2,7 +2,7 @@
 %global modname rpds_py
 
 Name:           python-rpds-py
-Version:        0.29.0
+Version:        0.30.0
 Release:        %autorelease
 Summary:        Python bindings to the Rust rpds crate
 # Full license breakdown in LICENSES.dependencies

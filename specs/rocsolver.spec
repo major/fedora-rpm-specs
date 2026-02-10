@@ -27,8 +27,8 @@
 %endif
 
 %global upstreamname rocsolver
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -120,7 +120,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -128,10 +128,6 @@ Summary:        Next generation LAPACK implementation for ROCm platform
 # But reviewing LICENSE.md, this is only for AMD
 # Later in the file are BSD 3-Clause for LAPACK and MAGMA
 License:        BSD-3-Clause AND BSD-2-Clause
-
-# Only x86_64 works right now:
-ExclusiveArch:  x86_64
-
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
@@ -145,6 +141,9 @@ Patch0:         0001-rocsolver-ninja-job-pools.patch
 # Patch1:         0001-rocsolver-offload-compress.patch
 # https://github.com/ROCm/rocSOLVER/pull/962
 Patch2:         0001-rocsolver-parallel-jobs.patch
+
+# Only x86_64 works right now:
+ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -369,6 +368,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

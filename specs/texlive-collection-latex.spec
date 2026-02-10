@@ -5,7 +5,7 @@
 Name:           texlive-collection-latex
 Epoch:          12
 Version:        svn77034
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LaTeX fundamental packages
 
 License:        LPPL-1.3c
@@ -305,7 +305,7 @@ files.
 
 %package -n texlive-babel
 Summary:        Multilingual support for LaTeX, LuaLaTeX, XeLaTeX, and Plain TeX
-Version:        svn77397
+Version:        svn77491
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -516,16 +516,23 @@ Provides:       tex(babel-galician.tex) = %{tl_version}
 Provides:       tex(babel-ganda.tex) = %{tl_version}
 Provides:       tex(babel-geez.tex) = %{tl_version}
 Provides:       tex(babel-georgian.tex) = %{tl_version}
+Provides:       tex(babel-german-at-1901.tex) = %{tl_version}
 Provides:       tex(babel-german-at.tex) = %{tl_version}
+Provides:       tex(babel-german-austria-1901.tex) = %{tl_version}
 Provides:       tex(babel-german-austria-traditional.tex) = %{tl_version}
 Provides:       tex(babel-german-austria.tex) = %{tl_version}
+Provides:       tex(babel-german-ch-1901.tex) = %{tl_version}
 Provides:       tex(babel-german-ch.tex) = %{tl_version}
+Provides:       tex(babel-german-de-1901.tex) = %{tl_version}
 Provides:       tex(babel-german-de.tex) = %{tl_version}
+Provides:       tex(babel-german-germany-1901.tex) = %{tl_version}
 Provides:       tex(babel-german-germany.tex) = %{tl_version}
+Provides:       tex(babel-german-switzerland-1901.tex) = %{tl_version}
 Provides:       tex(babel-german-switzerland-traditional.tex) = %{tl_version}
 Provides:       tex(babel-german-switzerland.tex) = %{tl_version}
 Provides:       tex(babel-german-traditional.tex) = %{tl_version}
 Provides:       tex(babel-german.tex) = %{tl_version}
+Provides:       tex(babel-germanb.tex) = %{tl_version}
 Provides:       tex(babel-gothic.tex) = %{tl_version}
 Provides:       tex(babel-greek.tex) = %{tl_version}
 Provides:       tex(babel-guarani.tex) = %{tl_version}
@@ -652,6 +659,7 @@ Provides:       tex(babel-nepali.tex) = %{tl_version}
 Provides:       tex(babel-newari.tex) = %{tl_version}
 Provides:       tex(babel-newzealand.tex) = %{tl_version}
 Provides:       tex(babel-ngerman.tex) = %{tl_version}
+Provides:       tex(babel-ngermanb.tex) = %{tl_version}
 Provides:       tex(babel-ngiemboon.tex) = %{tl_version}
 Provides:       tex(babel-ngomba.tex) = %{tl_version}
 Provides:       tex(babel-nheengatu.tex) = %{tl_version}
@@ -1315,7 +1323,7 @@ start of a float environment.
 
 %package -n texlive-hyperref
 Summary:        Extensive support for hypertext in LaTeX
-Version:        svn75759
+Version:        svn77528
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2368,6 +2376,8 @@ mv %{buildroot}%{_texmf_main}/fonts/map/dvips/psnfss/psnfss.map %{buildroot}%{_t
 
 %files -n texlive-ltxmisc
 %license gpl2.txt
+%license lppl1.3c.txt
+%license pd.txt
 %{_texmf_main}/tex/latex/ltxmisc/
 
 %files -n texlive-lua-uni-algos
@@ -2451,6 +2461,10 @@ mv %{buildroot}%{_texmf_main}/fonts/map/dvips/psnfss/psnfss.map %{buildroot}%{_t
 %doc %{_texmf_main}/doc/latex/url/
 
 %changelog
+* Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77034-2
+- Update babel, hyperref
+- fix licensing files
+
 * Fri Jan 23 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77034-1
 - Update to svn77034
 - fix licensing tags
