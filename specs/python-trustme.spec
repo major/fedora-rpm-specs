@@ -2,7 +2,7 @@
 %bcond docs %{undefined rhel}
 
 Name:           python-trustme
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        #1 quality TLS certs while you wait, for the discerning tester
 License:        MIT OR Apache-2.0

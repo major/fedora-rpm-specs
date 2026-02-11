@@ -1,7 +1,7 @@
 Name: hwdata
 Summary: Hardware identification and configuration data
-Version: 0.403
-Release: 2%{?dist}
+Version: 0.404
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://github.com/vcrhonek/hwdata/archive/v%{version}.tar.gz
 URL:    https://github.com/vcrhonek/hwdata
@@ -42,8 +42,8 @@ The %{name}-devel package contains files for developing applications that use
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.403-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Thu Feb 05 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 0.404-1
+- Update pci and vendor ids
 
 * Fri Jan 02 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 0.403-1
 - Update pci, usb and vendor ids

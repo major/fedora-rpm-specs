@@ -1,11 +1,13 @@
 Name:           spice
 Version:        0.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implements the SPICE protocol
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://www.spice-space.org/
 Source0:        http://www.spice-space.org/download/releases/%{name}-%{version}.tar.bz2
+Patch0000:      0001-test-gst-Fix-compilation-error.patch
+Patch0001:      0001-test-display-base-Fix-C-designated-initializer-for-a.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=613529
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -97,6 +99,9 @@ using spice-server, you will need to install spice-server-devel.
 
 
 %changelog
+* Thu Jan 29 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.16.0-4
+- Fix FTBFS in rawhide. rhbz#2435119
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

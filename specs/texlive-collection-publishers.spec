@@ -5,7 +5,7 @@
 Name:           texlive-collection-publishers
 Epoch:          12
 Version:        svn77587
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Publisher styles, theses, etc.
 
 License:        LPPL-1.3c
@@ -1353,7 +1353,7 @@ of how to use the class.
 
 %package -n texlive-asmeconf
 Summary:        A LaTeX template for ASME conference papers
-Version:        svn77335
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1375,7 +1375,7 @@ guidelines for conference papers.
 
 %package -n texlive-asmejour
 Summary:        A template for ASME journal papers
-Version:        svn76996
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2844,7 +2844,7 @@ are immediately usable and convenient to customize.
 
 %package -n texlive-har2nat
 Summary:        Replace the harvard package with natbib
-Version:        svn54080
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3689,7 +3689,7 @@ to change the layout of the text but should leave the title page as it is.
 
 %package -n texlive-llncs
 Summary:        Document class and bibliography style for Lecture Notes in Computer Science (LNCS)
-Version:        svn74287
+Version:        svn77677
 License:        CC-BY-4.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3721,7 +3721,7 @@ for Springer's LNCS series).
 
 %package -n texlive-lni
 Summary:        Official class for the "Lecture Notes in Informatics"
-Version:        svn73766
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3811,7 +3811,7 @@ merely one developed by an author in close co-operation with Mentis.
 
 %package -n texlive-mitthesis
 Summary:        A LaTeX template for an MIT thesis
-Version:        svn77563
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4197,7 +4197,7 @@ style serves both for printed and for electronic books.
 
 %package -n texlive-novel
 Summary:        Class for printing fiction, such as novels
-Version:        svn71113
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4415,7 +4415,7 @@ facilitating mathematical entry based on the styles used by the Open University
 
 %package -n texlive-oup-authoring-template
 Summary:        A general template for journals published by Oxford University Press (OUP)
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4863,7 +4863,6 @@ Requires:       tex(iftex.sty)
 Requires:       tex(scrlayer-scrpage.sty)
 Requires:       tex(scrletter.sty)
 Requires:       tex(trimclip.sty)
-Requires:       tex(uarial.sty)
 Requires:       tex(xcolor.sty)
 Provides:       tex(beamercolorthemeRWTH.sty) = %{tl_version}
 Provides:       tex(beamerfontthemeRWTH.sty) = %{tl_version}
@@ -5500,7 +5499,7 @@ is based on that published by SAS Institute (2021).
 
 %package -n texlive-sysuthesis
 Summary:        LaTeX thesis template for Sun Yat-sen University
-Version:        svn76945
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5998,7 +5997,7 @@ documentation as well as several tutorials.
 
 %package -n texlive-tugboat
 Summary:        LaTeX macros for TUGboat articles
-Version:        svn77362
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6078,7 +6077,7 @@ This is an "unofficial" official class.
 
 %package -n texlive-ualberta
 Summary:        A LaTeX template for the University of Alberta
-Version:        svn77463
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6503,7 +6502,7 @@ publication performed by a student.
 
 %package -n texlive-univie-ling
 Summary:        Papers, theses and research proposals in (Applied) Linguistics at Vienna University
-Version:        svn72484
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6653,7 +6652,7 @@ formatted, consistent U.S. Patent Application using LaTeX and/or LyX.
 
 %package -n texlive-ut-thesis
 Summary:        University of Toronto thesis style
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6714,7 +6713,7 @@ The University of Western Australia.
 
 %package -n texlive-uwa-letterhead
 Summary:        The letterhead of the University of Western Australia
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6740,7 +6739,7 @@ works with XeLaTeX and LuaLaTeX.
 
 %package -n texlive-uwa-pcf
 Summary:        A Participant Consent Form (PCF) for a human research protocol at the University of Western Australia
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6755,7 +6754,7 @@ works with XeLaTeX and LuaLaTeX. It depends on the uwa-letterhead package.
 
 %package -n texlive-uwa-pif
 Summary:        A Participant Information Form (PIF) for a human research protocol at the University of Western Australia
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -9278,6 +9277,11 @@ popd
 %doc %{_texmf_main}/doc/latex/york-thesis/
 
 %changelog
+* Mon Feb  9 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77587-2
+- remove Requires: tex(uarial.sty), it is optional in the code and not provided by texlive (bz437624)
+- update asmeconf asmejour har2nat llncs lni mitthesis novel oup-authoring-template sysuthesis tugboat
+  ualberta univie-ling ut-thesis uwa-letterhead uwa-pcf uwa-pif
+
 * Wed Feb 04 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77587-1
 - Update to svn77587, fix descriptions, licensing, update components
 

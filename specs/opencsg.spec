@@ -1,5 +1,5 @@
 Name:           opencsg
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Library for Constructive Solid Geometry using OpenGL
 # Most source code is GPL-2.0-or-later.

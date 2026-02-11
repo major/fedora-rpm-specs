@@ -20,8 +20,8 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-qtbase
-Version:        6.10.1
-Release:        2%{?dist}
+Version:        6.10.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -281,6 +281,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/Qt6Xml.prl
 %dir %{mingw32_libdir}/qt6/
 %dir %{mingw32_libdir}/qt6/bin/
+%{mingw32_libdir}/qt6/bin/qt_cyclonedx_generator.py
 %{mingw32_libdir}/qt6/bin/qt-cmake-private
 %{mingw32_libdir}/qt6/bin/qt-cmake-private-install.cmake
 %{mingw32_libdir}/qt6/bin/qt-cmake-standalone-test
@@ -458,6 +459,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/Qt6Xml.prl
 %dir %{mingw64_libdir}/qt6/
 %dir %{mingw64_libdir}/qt6/bin/
+%{mingw64_libdir}/qt6/bin/qt_cyclonedx_generator.py
 %{mingw64_libdir}/qt6/bin/qt-cmake-private
 %{mingw64_libdir}/qt6/bin/qt-cmake-private-install.cmake
 %{mingw64_libdir}/qt6/bin/qt-cmake-standalone-test
@@ -583,6 +585,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
+- 6.10.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

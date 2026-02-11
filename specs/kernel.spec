@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.19.0
 %define specversion 6.19.0
 %define patchversion 6.19
-%define pkgrelease 0.rc8.260206gb7ff7151e653.58
+%define pkgrelease 59
 %define kversion 6
-%define tarfile_release 6.19-rc8-142-gb7ff7151e653
+%define tarfile_release 6.19
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc8.260206gb7ff7151e653.58%{?buildid}%{?dist}
+%define specrelease 59%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.19.0
 
@@ -4700,8 +4700,11 @@ fi\
 #
 #
 %changelog
-* Fri Feb 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.b7ff7151e653.58]
-- x86/vmware: Fix hypercall clobbers (Josh Poimboeuf)
+* Mon Feb 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-59]
+- Linux v6.19.0
+
+* Sun Feb 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.e7aa57247700.58]
+- Linux v6.19.0-0.rc8.e7aa57247700
 
 * Fri Feb 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.19.0-0.rc8.b7ff7151e653.57]
 - redhat/dracut-virt.conf: omit drm drivers in UKI initrd (Li Tian) [RHEL-147296]

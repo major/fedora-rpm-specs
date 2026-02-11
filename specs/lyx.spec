@@ -12,7 +12,7 @@ BuildRequires: fontpackages-devel
 
 Name:    lyx
 Version: 2.4.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -23,6 +23,8 @@ Source1: lyxrc.dist
 
 # font metainfo file
 Source20: %{fontname}.metainfo.xml
+
+Patch0:  0001-Fix-compilation-with-Qt-6.10.patch
 
 %if 0%{?autotools}
 BuildRequires: automake libtool
@@ -63,7 +65,6 @@ BuildRequires: pkgconfig(Qt5Svg)
 BuildRequires: pkgconfig(Qt5X11Extras)
 %endif
 
-BuildRequires: texlive-texmf-fonts
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
 BuildRequires: zlib-devel
@@ -95,11 +96,9 @@ Requires: tex-dtl
 Requires: tex(cprotect.sty)
 # LaTeX packages required to compile the User's Manual
 Requires: tex(dvips)
-Requires: tex(esint.map)
 Requires: tex(esint.sty)
 Requires: tex(latex)
 Requires: tex(nomencl.sty)
-Requires: tex(simplecv.cls)
 Requires: tex(ulem.sty)
 Requires: tex(xcolor.sty)
 Recommends: texlive-collection-latexrecommended
@@ -248,6 +247,9 @@ make -k check ||:
 
 
 %changelog
+* Mon Feb 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4-4
+- Drop requires on dropped texlive packages
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

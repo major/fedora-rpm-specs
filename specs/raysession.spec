@@ -1,7 +1,7 @@
 
 Name:           raysession
 Version:        0.17.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Session manager for audio software
 License:        GPL-2.0-only
 URL:            https://github.com/Houston4444/RaySession
@@ -31,6 +31,7 @@ Requires:       python3-pyxdg
 Requires:       python-jack-client
 Requires:       python3-pyqt6
 Requires:       python3-legacy-cgi
+Requires:       python3-QtPy
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
 
@@ -535,6 +536,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %exclude %{_datadir}/%{name}/session_templates/with_jack_config/ray-scripts/.jack_config_script
 
 %changelog
+* Mon Feb 9 2026 Erich Eickmeyer <erich@ericheickemyer.com> - 0.17.2-8
+- Add additional runtime Requires for python3-QtPy
+
 * Mon Jan 19 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-7
 - Refactor install section: introduce DATADIR, PY_SITELIB, PY_LEGACY variables
 - Consolidate .pth and compat shim installation into loops

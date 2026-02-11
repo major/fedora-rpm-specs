@@ -1,7 +1,7 @@
 %global irr_version 1.9.0mt13
 %global minetest_game_version 5.8.0
 Name:     minetest
-Version:  5.15.0
+Version:  5.15.1
 Release:  1%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
@@ -223,6 +223,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Mon Feb 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.15.1-1
+- 5.15.1
+
 * Tue Jan 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.15.0-1
 - 5.15.0
 

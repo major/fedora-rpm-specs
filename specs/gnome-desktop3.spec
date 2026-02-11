@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    gnome-desktop3
-Version: 44.4
+Version: 44.5
 Release: %autorelease
 Summary: Library with common API for various GNOME modules
 

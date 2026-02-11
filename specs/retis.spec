@@ -19,9 +19,7 @@ Patch:          retis-downgrade-elf.diff
 
 ExclusiveArch:  x86_64 aarch64
 
-Requires:       elfutils-libelf
 Requires:       python3
-Requires:       zlib
 
 BuildRequires:  rust-packaging
 BuildRequires:  clang
@@ -54,7 +52,7 @@ rm -rf %{buildroot}/pkgconfig
 rm -f %{buildroot}/libbpf.a
 
 %files
-%license retis/LICENSE
+%license LICENSE
 %doc README.md
 %{_bindir}/retis
 %{_datadir}/retis/profiles

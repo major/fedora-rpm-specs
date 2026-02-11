@@ -4,7 +4,7 @@
 %bcond doc 0
 
 Name:           python-pyproject-metadata
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        PEP 621 metadata parsing
 

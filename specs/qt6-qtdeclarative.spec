@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.10.1
-Release: 4%{?dist}
+Version: 6.10.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -36,8 +36,6 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 # https://codereview.qt-project.org/c/qt/qtdeclarative/+/678924
 Patch0:  qtdeclarative-quickshapes-make-module-public.patch
-Patch1:  qtdeclarative-qtqml-invalidate-fallback-lookups-after-each-call-from-aot-code.patch
-Patch2:  qtdeclarative-qtqml-do-not-clear-objects-propertycaches-on-last-gc-run.patch
 
 ## upstreamable patches
 
@@ -738,6 +736,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
+- 6.10.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

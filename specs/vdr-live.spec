@@ -12,12 +12,12 @@
 %elif 0%{?fedora} == 43
 %global vdr_version 2.7.7
 %elif 0%{?fedora} >= 44
-%global vdr_version 2.7.8
+%global vdr_version 2.7.9
 %endif
 
 Name:           vdr-live
 Version:        3.5.4
-Release:        0.4.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.5.%{gitdate}git%{shortcommit0}%{?dist}
 # Release:        2%%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
@@ -91,6 +91,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.4-0.5.20260202gitca482f1
+- Rebuilt for new VDR API version 2.7.9
+
 * Tue Feb 03 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.4-0.4.20260202gitca482f1
 - Update to 3.5.4-0.4.20260202gitca482f1
 

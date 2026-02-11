@@ -12,8 +12,8 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.12.2
-Release:        3%{?dist}
+Version:        4.12.3
+Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -46,6 +46,8 @@ Requires:       coreutils
 Provides:       bundled(blake3) = 1.5.1
 Provides:       bundled(span-lite) = 0.11.0
 Provides:       bundled(cxxurl)
+
+ExcludeArch:    %{ix86}
 
 %description
 ccache is a compiler cache.  It speeds up recompilation of C/C++ code
@@ -238,6 +240,10 @@ done\
 
 
 %changelog
+* Sat Feb 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.12.3-1
+- 4.12.3
+- Drop 32-bit because cpp-httplib did.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

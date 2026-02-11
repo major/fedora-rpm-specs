@@ -5,7 +5,7 @@
 
 Name:		mingw-libsoup
 Version:	2.74.3
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	MinGW library for HTTP and XML-RPC functionality
 
 License:	LGPL-2.0-only
@@ -67,6 +67,12 @@ Patch17:         CVE-2025-11021.patch
 # Backport patch for CVE-2025-14523
 # https://gitlab.gnome.org/GNOME/libsoup/-/commit/2137d6f75a32a6facb2ffc2062f11a8d9748e0c2
 Patch18:        CVE-2025-14523.patch
+# Backport fix for CVE-2026-0716
+# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/494
+Patch19:        CVE-2026-0716.patch
+# Backport fix for CVE-2026-0719
+# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/493
+Patch20:        CVE-2026-0719.patch
 
 BuildArch:      noarch
 
@@ -202,6 +208,9 @@ rm -f %{buildroot}%{mingw64_libdir}/*.la
 %{mingw64_libdir}/pkgconfig/libsoup-gnome-2.4.pc
 
 %changelog
+* Sat Feb 07 2026 Sandro Mani <manisandro@gmail.com> - 2.74.3-17
+- Backport fixes for CVE-2026-0716 and CVE-2026-0719
+
 * Sat Jan 17 2026 Sandro Mani <manisandro@gmail.com> - 2.74.3-16
 - Backport patch for CVE-2025-14523
 

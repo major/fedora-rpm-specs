@@ -3,17 +3,17 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.50.0
+Version:        1.51.1
 Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
-Patch:          0001-Revert-to-sqlglot-5.1.3.patch
-Patch:          0002-Revert-to-older-toml-format.patch
-Patch:          0003-Relax-various-reqs.patch
-Patch:          0004-Fix-tox-config-and-some-test-fixes.patch
-Patch:          0005-Disable-more-test-which-requires-db-server.patch
+Patch:          0001-Revert-to-older-toml-format.patch
+Patch:          0002-Fix-tox-config-and-some-test-fixes.patch
+Patch:          0003-Disable-more-test-which-requires-db-server.patch
+Patch:          0004-Revert-to-sqlglot-5.1.3.patch
+Patch:          0005-Relax-various-reqs.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -102,6 +102,9 @@ mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=3333 -
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Mon Feb 09 2026 Terje Røsten <terjeros@gmail.com> - 1.51.1-1
+- 1.51.1
+
 * Sat Feb 07 2026 Terje Røsten <terjeros@gmail.com> - 1.50.0-1
 - 1.50.0
 

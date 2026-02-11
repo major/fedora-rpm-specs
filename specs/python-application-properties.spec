@@ -1,7 +1,7 @@
 %global pypi_name application-properties
 
 Name:           python-%{pypi_name}
-Version:        0.9.1
+Version:        0.9.2
 Release:        1%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
@@ -63,6 +63,9 @@ rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 %doc README.md
 
 %changelog
+* Mon Feb 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.9.2-1
+- 0.9.2
+
 * Fri Jan 30 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.9.1-1
 - 0.9.1
 

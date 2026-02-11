@@ -128,7 +128,7 @@ Release:        1%{?dist}
 Summary:        ROCm random number generator
 
 URL:            https://github.com/ROCm/rocm-libraries
-License:        MIT AND BSD-3-Clause
+License:        MIT AND BSD-3-Clause AND 0BSD
 %if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else

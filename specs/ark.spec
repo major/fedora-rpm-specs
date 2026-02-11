@@ -11,8 +11,9 @@ Summary: Archive manager
 Version: 25.12.2
 Release: 1%{?dist}
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
+# icons are LGPL-3.0-only
+# code is GPL-2.0-or-later
+License: GPL-2.0-or-later AND LGPL-3.0-only
 URL:     https://www.kde.org/applications/utilities/ark/
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -89,8 +90,9 @@ rar and lha (if appropriate command-line programs are installed).
 
 %package libs
 Summary: Runtime libraries for %{name}
-# libkerfuffle is BSD, plugins are mix of BSD and GPLv2+
-License: BSD and GPLv2+
+# libkerfuffle is BSD-2-Clause, plugins are mix of BSD-2-Clause AND GPL-2.0-or-later
+# kerfuffle/qstringtokenizer.* is MIT
+License: BSD-2-Clause AND GPL-2.0-or-later AND MIT
 Requires: %{name} = %{version}-%{release}
 Obsoletes: kdeutils-ark-libs < 6:4.7.80
 Provides:  kdeutils-ark-libs = 6:%{version}-%{release}

@@ -3,10 +3,14 @@
 Summary: Tethered shooting & control of digital cameras
 Name: entangle
 Version: 3.0
-Release: 11%{?dist}
+Release: %autorelease
 License: GPL-3.0-or-later
 Source: https://entangle-photo.org/download/sources/%{name}-%{version}.tar.xz
 Patch: 0001-meson-fix-build-for-meson-0.60.0.patch
+Patch: 0001-Adapt-to-changing-gexiv2-APIs.patch
+Patch: 0001-build-Use-either-libgirepository-2.0-or-libgireposit.patch
+Patch: 0001-meson-use-compile-check-for-girepository.patch
+Patch: 0001-meson-fix-GExiv2-GIR-name.patch
 URL: https://entangle-photo.org/
 
 BuildRequires: glib2-devel >= 2.36.0
@@ -42,7 +46,7 @@ and 'hands off' shooting directly from the controlling computer.
 %autosetup -p1
 
 %build
-%meson -Denable-gtk-doc=true
+%meson -Denable-gtk-doc=true || ( cat %{_vpath_builddir}/meson-logs/meson-log.txt; exit 1 )
 %meson_build
 
 %install
@@ -110,105 +114,4 @@ rm -f %{buildroot}%{_libdir}/libentangle_frontend.so
 %{_libdir}/girepository-1.0/Entangle-0.1.typelib
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jan 30 2024 Daniel P. Berrange <berrange@redhat.com> - 3.0-7
-- Switch to libpeas1 dep
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0-2
-- LibRaw rebuild
-
-* Tue Aug  2 2022 Daniel P. Berrange <berrange@redhat.com> - 3.0-1
-- Update to 3.0 release
-
-* Tue Aug  2 2022 Daniel P. Berrange <berrange@redhat.com> - 2.0-12
-- Fix meson incompatibility (rhbz#2113204)
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-7
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon May 11 2020 Gwyn Ciesla <gwync@protonmail.com> - 2.0-5
-- Rebuild for new LibRaw
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Jan 13 2019 Daniel P. Berrange <berrange@redhat.com> - 2.0-1
-- Update to 2.0 release
-
-* Tue Jul 31 2018 Florian Weimer <fweimer@redhat.com> - 1.0-7
-- Rebuild with fixed binutils
-
-* Fri Jul 27 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.0-6
-- Rebuild for new binutils
-
-* Thu Jul 26 2018 Adam Williamson <awilliam@redhat.com> - 1.0-5
-- Rebuild for new libraw
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Jan 06 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.0-2
-- Remove obsolete scriptlets
-
-* Tue Oct 10 2017 Daniel P. Berrange <berrange@redhat.com> - 1.0-1
-- Update to 1.0 release
-
-* Fri Aug 25 2017 Daniel P. Berrange <berrange@redhat.com> - 0.7.2-1
-- Update to 0.7.2 release
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+%autochangelog

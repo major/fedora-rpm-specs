@@ -55,7 +55,6 @@ Source8: tmpfiles-unbound.conf
 Source9: example.com.key
 Source10: example.com.conf
 Source11: block-example.com.conf
-Source12: https://data.iana.org/root-anchors/icannbundle.pem
 Source13: root.anchor
 Source14: unbound.sysconfig
 Source15: unbound-anchor.timer
@@ -82,18 +81,28 @@ Patch1:   unbound-fedora-config.patch
 Patch2:   unbound-1.24-swig-function.patch
 # https://github.com/NLnetLabs/unbound/pull/1381
 Patch3:   unbound-1.24-quic-on-demand-only.patch
+# https://github.com/NLnetLabs/unbound/pull/1349
+Patch4:   %{forgeurl0}/pull/1349.patch#/unbound-1.25-tls-crypto-policy.patch
+# https://github.com/NLnetLabs/unbound/pull/1401
+Patch5:   %{forgeurl0}/pull/1401.patch#/unbound-1.25-tls-crypto-policy-default.patch
 
-BuildRequires: gcc, make
+BuildRequires: gcc
+BuildRequires: make
 BuildRequires: openssl-devel
-BuildRequires: libevent-devel expat-devel
+BuildRequires: libevent-devel
+BuildRequires: expat-devel
 BuildRequires: pkgconfig
 
 # Required for configure regeneration
-BuildRequires: automake autoconf libtool
+BuildRequires: automake
+BuildRequires: autoconf
+BuildRequires: libtool
 BuildRequires: autoconf-archive
 # Regenerate config parser too
-BuildRequires: bison flex byacc
-BuildRequires: dns-root-data
+BuildRequires: bison
+BuildRequires: flex
+BuildRequires: byacc
+BuildRequires: dns-root-data >= 2026260100
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: gnupg2
@@ -165,7 +174,7 @@ The devel package contains the unbound library and the include files
 %package libs
 Summary: Libraries used by the unbound server and client applications
 Recommends: %{name}-anchor
-Requires: dns-root-data
+Requires: dns-root-data >= 2026260100
 %if ! 0%{with_python2}
 # Make explicit conflict with no longer provided python package
 Obsoletes: python2-unbound < 1.9.3
@@ -268,7 +277,7 @@ in initramfs.
             --enable-sha2 --disable-gost --enable-ecdsa \\\
             --with-rootkey-file=%{_sharedstatedir}/%{name}/root.key \\\
             --with-username=unbound \\\
-            --enable-linux-ip-local-port-range \\\
+            --enable-linux-ip-local-port-range --enable-system-tls \\\
             --with-dynlibmodule \\\
 #
 
@@ -345,7 +354,7 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/unbound.service
 install -p -m 0644 %{SOURCE7} %{buildroot}%{_unitdir}/unbound-keygen.service
 install -p -m 0644 %{SOURCE15} %{buildroot}%{_unitdir}/unbound-anchor.timer
 install -p -m 0644 %{SOURCE17} %{buildroot}%{_unitdir}/unbound-anchor.service
-install -p -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/unbound
+ln -sr %{buildroot}%{_datadir}/dns-root-data/icannbundle.pem %{buildroot}%{_sysconfdir}/unbound
 install -p -m 0644 %{SOURCE14} %{buildroot}%{_sysconfdir}/sysconfig/unbound
 install -p -D -m 0644 %{SOURCE20} %{buildroot}%{_sysusersdir}/%{name}.conf
 %if %{with_munin}
@@ -525,7 +534,7 @@ popd
 %config %verify(not link owner group size mtime mode md5) %{_sharedstatedir}/%{name}/root.key
 # just left for backwards compat with user changed unbound.conf files - format is different!
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/root.key
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/dnssec-root.key
+%config(noreplace) %{_sysconfdir}/%{name}/dnssec-root.key
 %attr(0644,root,root) %{_tmpfilesdir}/unbound-libs.conf
 
 %files anchor

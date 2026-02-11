@@ -5,7 +5,7 @@
 %global crate sequoia-openpgp
 
 Name:           rust-sequoia-openpgp
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        OpenPGP data types and associated machinery
 
@@ -16,8 +16,6 @@ Source:         %{crates_source}
 Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * Allow bzip2 0.6:
-#   https://gitlab.com/sequoia-pgp/sequoia/-/merge_requests/1806
 Patch:          sequoia-openpgp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

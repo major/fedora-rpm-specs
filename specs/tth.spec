@@ -3,7 +3,7 @@
 
 Name:           tth
 Version:        4.16
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        TeX to HTML/MathML translators
 
 License:        GPL-2.0-only
@@ -35,18 +35,18 @@ BuildRequires:  tex(epsfig.sty)
 BuildRequires:  tex(fullpage.sty)
 BuildRequires:  tex(graphicx.sty)
 BuildRequires:  tex(hyperref.sty)
-BuildRequires:  tex(language.dat)
+BuildRequires:  tex(language.def)
 BuildRequires:  tex(makeidx.sty)
 BuildRequires:  tex(manmac.tex)
 BuildRequires:  tex(natbib.sty)
 BuildRequires:  tex-bibtex
-BuildRequires:  tex-cm
 BuildRequires:  tex-dvips
-BuildRequires:  tex-ec
 BuildRequires:  tex-gsftopk
 BuildRequires:  tex-latex-bin
 BuildRequires:  tex-makeindex
 BuildRequires:  tex-mfware
+BuildRequires:  texlive-cm
+BuildRequires:  texlive-ec
 
 Requires:       coreutils
 Requires:       ghostscript
@@ -57,23 +57,23 @@ Requires:       tex(epsfig.sty)
 Requires:       tex(fullpage.sty)
 Requires:       tex(graphicx.sty)
 Requires:       tex(hyperref.sty)
-Requires:       tex(language.dat)
+Requires:       tex(language.def)
 Requires:       tex(makeidx.sty)
 Requires:       tex(manmac.tex)
 Requires:       tex(natbib.sty)
 Requires:       tex-bibtex
-Requires:       tex-cm
 Requires:       tex-dvips
-Requires:       tex-ec
 Requires:       tex-gsftopk
-Requires:       tex-helvetic
 Requires:       tex-latex-bin
 Requires:       tex-makeindex
 Requires:       tex-mfware
-Requires:       tex-rsfs
-Requires:       tex-symbol
 Requires:       tex-tex
-Requires:       tex-times
+Requires:       texlive-cm
+Requires:       texlive-ec
+Requires:       texlive-helvetic
+Requires:       texlive-rsfs
+Requires:       texlive-symbol
+Requires:       texlive-times
 Requires:       %{name}-tex = %{version}-%{release}
 
 %description
@@ -109,15 +109,15 @@ Requires:       tex(hyperref.sty)
 Requires:       tex(makeidx.sty)
 Requires:       tex(natbib.sty)
 Requires:       tex-bibtex
-Requires:       tex-cm
 Requires:       tex-dvips
-Requires:       tex-helvetic
 Requires:       tex-latex-bin
 Requires:       tex-makeindex
-Requires:       tex-rsfs
-Requires:       tex-symbol
 Requires:       tex-tex
-Requires:       tex-times
+Requires:       texlive-cm
+Requires:       texlive-helvetic
+Requires:       texlive-rsfs
+Requires:       texlive-symbol
+Requires:       texlive-times
 Requires:       %{name}-tex = %{version}-%{release}
 
 %description libs
@@ -251,6 +251,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Mon Feb 09 2026 Jerry James <loganjerry@gmail.com> - 4.16-10
+- Fix FTBFS with TeXLive 2025
+
 * Wed Jan 28 2026 Jerry James <loganjerry@gmail.com> - 4.16-9
 - BR gpgverify instead of gnupg2
 

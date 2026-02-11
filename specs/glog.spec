@@ -1,18 +1,20 @@
 Name:           glog
-Version:        0.3.5
-Release:        25%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        A C++ application logging library
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# main source code is BSD-3-Clause
+# Apache-2.0
+#   src/fuzz_demangle.cc
+License:        BSD-3-Clause AND Apache-2.0
 URL:            https://github.com/google/glog
 Source0:        https://github.com/google/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  gcc
-BuildRequires:  autoconf, gflags-devel >= 2.1.0
-BuildRequires: make
-Requires:       gflags
-Requires:       gflags-devel >= 2.1.0
+BuildRequires:  cmake(GTest)
+BuildRequires:  gmock-devel
+BuildRequires:  cmake(gflags)
+
 
 %description
 Google glog is a library that implements application-level
@@ -24,6 +26,7 @@ streams and various helper macros.
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 
+
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -32,32 +35,46 @@ developing applications that use %{name}.
 %prep
 %autosetup
 
+
+%conf
+%cmake -DWITH_PKGCONFIG=ON
+
+
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-autoconf
-%configure --disable-static
-%make_build
+%cmake_build
+
 
 %install
-%make_install
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-rm -rf $RPM_BUILD_ROOT/%{_docdir}/%{name}-%{version}
+%cmake_install
 
-%ldconfig_scriptlets
+
+%check
+# upstream tests are cranky
+# https://github.com/google/glog/issues/630
+# https://github.com/google/glog/issues/709
+# https://github.com/google/glog/issues/813
+# https://github.com/google/glog/issues/887
+%ctest --exclude-regex 'logging|stacktrace|symbolize'
+
 
 %files
-%doc ChangeLog COPYING README
-%{_libdir}/libglog.so.*
+%license COPYING
+%doc ChangeLog README.rst
+%{_libdir}/libglog.so.%{version}
+%{_libdir}/libglog.so.2
+
 
 %files devel
-%doc doc/designstyle.css doc/glog.html
 %{_libdir}/libglog.so
 %{_libdir}/pkgconfig/libglog.pc
-%dir %{_includedir}/glog
-%{_includedir}/glog/*
+%{_includedir}/glog
+%{_libdir}/cmake/glog
 
 
 %changelog
+* Mon Feb 09 2026 Carl George <carlwgeorge@fedoraproject.org> - 0.7.1-1
+- Update to version 0.7.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

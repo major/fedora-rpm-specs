@@ -42,6 +42,7 @@ for building applications that use libofx.
 chmod 644 ./doc/ofx_sample_files/*
 
 %build
+export CXXFLAGS="$CXXFLAGS -std=c++17"
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_lib}
 %cmake_build
 

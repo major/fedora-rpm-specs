@@ -43,15 +43,15 @@ BuildRequires:  tex(fancyvrb.sty)
 BuildRequires:  tex(geometry.sty)
 BuildRequires:  tex(grfext.sty)
 BuildRequires:  tex(pslatex.sty)
-BuildRequires:  tex(psnfss.map)
 BuildRequires:  tex(tex)
-BuildRequires:  tex-cm-super
-BuildRequires:  tex-ec
-BuildRequires:  tex-helvetic
 BuildRequires:  tex-latex-bin
-BuildRequires:  tex-rsfs
-BuildRequires:  tex-symbol
-BuildRequires:  tex-times
+BuildRequires:  texlive-cm-super
+BuildRequires:  texlive-ec
+BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-psnfss
+BuildRequires:  texlive-rsfs
+BuildRequires:  texlive-symbol
+BuildRequires:  texlive-times
 
 Requires:       gap-core
 # For xmllint
@@ -116,15 +116,15 @@ Requires:       tex(fancyvrb.sty)
 Requires:       tex(geometry.sty)
 Requires:       tex(grfext.sty)
 Requires:       tex(pslatex.sty)
-Requires:       tex(psnfss.map)
 Requires:       tex(tex)
-Requires:       tex-cm-super
-Requires:       tex-ec
-Requires:       tex-helvetic
 Requires:       tex-latex-bin
-Requires:       tex-rsfs
-Requires:       tex-symbol
-Requires:       tex-times
+Requires:       texlive-cm-super
+Requires:       texlive-ec
+Requires:       texlive-helvetic
+Requires:       texlive-psnfss
+Requires:       texlive-rsfs
+Requires:       texlive-symbol
+Requires:       texlive-times
 
 # Needed to fetch BibTeX entries from MathSciNet
 Suggests:       gap-pkg-io

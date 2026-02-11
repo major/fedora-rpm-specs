@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        1.16.2
-Release:        9%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -16,14 +16,6 @@ BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-psutil
-# python3-sentry-sdk in Fedora 41 is old and is blocked:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2291914
-# Also, upstream does not support Python 3.13:
-# https://github.com/getsentry/sentry-python/issues/2664
-# https://github.com/getsentry/sentry-python/pull/3200
-# Enable Sentry SDK for current non-rawhide distros
-%{?fc39:BuildRequires:  python3dist(sentry-sdk)}
-%{?fc40:BuildRequires:  python3dist(sentry-sdk)}
 BuildRequires:  redis
 %endif
 
@@ -58,11 +50,9 @@ Python 3 version.
 %if %{with tests}
 %{_bindir}/redis-server --bind 127.0.0.1 --port 6379 &
 REDIS_SERVER_PID=$!
-%if 0%{?fedora} >= 41
-# See comment about python3-sentry-sdk above
-pytest_deselect="--deselect=tests/test_sentry.py::TestSentry::test_failure_capture"
-%endif
-%pytest -v $pytest_deselect
+# Set the default timezone to UTC otherwise unit tests fail.
+export TZ=UTC
+%pytest -v
 %{_bindir}/redis-cli shutdown nosave force now
 # Wait for redis-server termination (the command above is async)
 wait $REDIS_SERVER_PID
@@ -76,6 +66,10 @@ wait $REDIS_SERVER_PID
 %{_bindir}/rqworker
 
 %changelog
+* Mon Feb 09 2026 Charalampos Stratakis <cstratak@redhat.com> - 2.6.1-1
+- Update to 2.6.1
+Resolves: rhbz#2322157, rhbz#2342234, rhbz#2435021, rhbz#2414802
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

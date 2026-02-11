@@ -1,4 +1,4 @@
-%global candidate rc1
+%global candidate rc2
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.04
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -50,6 +50,9 @@ Patch14:  p3450-fix-board.patch
 Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 # Fix AllWinner
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
+# RPi
+Patch17:  rpi-pass-the-Video-Core-logs-DT-parameter-through.patch
+Patch18:  rpi-pinctrl-bcm283x-Fix-GPIO-pull-state-register-values-for-BCM2711.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -307,6 +310,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Mon Feb 09 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.3.rc2
+- Update to 2026.04 RC2
+
 * Tue Jan 27 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.2.rc1
 - Update to 2026.04 RC1
 

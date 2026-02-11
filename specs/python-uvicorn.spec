@@ -13,7 +13,7 @@
 %endif
 
 Name:           python-uvicorn
-Version:        0.38.0
+Version:        0.40.0
 Release:        %autorelease
 Summary:        The lightning-fast ASGI server
 License:        BSD-3-Clause
@@ -43,11 +43,12 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-pytest-xdist+psutil
-BuildRequires:  python3-a2wsgi
+BuildRequires:  python3-trustme
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-httpx
-BuildRequires:  python3-trustme
+BuildRequires:  python3-a2wsgi
 BuildRequires:  python3-wsproto
+BuildRequires:  python3-websockets
 
 
 %description -n python3-uvicorn %{common_description}

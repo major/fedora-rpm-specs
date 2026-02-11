@@ -171,8 +171,13 @@ fi
 %ghost %{_datadir}/guile/%{mver}/slib
 %dir %{_datadir}/guile/site
 %if %{with emacs}
+%ifnarch %{ix86}
 %dir %{_datadir}/emacs/site-lisp
 %{_datadir}/emacs/site-lisp/*.el
+%else
+%dir %{_prefix}/lib/emacs/site-lisp
+%{_prefix}/lib/emacs/site-lisp/*.el
+%endif
 %endif
 %{_mandir}/man1/guile%{mver}.1*
 

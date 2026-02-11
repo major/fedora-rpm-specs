@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           foundry
-Version:        1.1~alpha
+Version:        1.1~beta
 Release:        %autorelease
 Summary:        IDE library and command-line companion tool
 
@@ -81,7 +81,7 @@ Requires:       libfoundry-gtk%{?_isa} = %{version}-%{release}
 This package contains the development headers for libfoundry-gtk.
 
 %prep
-%autosetup -n foundry-%{tarball_version} -p1 
+%autosetup -n foundry-%{tarball_version} -p1
 
 %build
 %meson
@@ -93,11 +93,13 @@ This package contains the development headers for libfoundry-gtk.
 %check
 %meson_test
 appstream-util validate-relax --nonet \
-    $RPM_BUILD_ROOT/%{_datadir}/metainfo/app.devsuite.Foundry.metainfo.xml
+    $RPM_BUILD_ROOT/%{_datadir}/metainfo/org.gnome.Foundry.metainfo.xml
 
-%files
+%find_lang %{name} --all-name --with-gnome
+
+%files -f %{name}.lang
 %{_bindir}/foundry
-%{_datadir}/metainfo/app.devsuite.Foundry.metainfo.xml
+%{_datadir}/metainfo/org.gnome.Foundry.metainfo.xml
 %{bash_completions_dir}/foundry
 
 %files -n libfoundry
@@ -111,7 +113,7 @@ appstream-util validate-relax --nonet \
 %{_libdir}/girepository-1.0/FoundryAdw-1.typelib
 %dir %{_datadir}/foundry
 %{_datadir}/foundry/language-defaults
-%{_datadir}/glib-2.0/schemas/app.devsuite.foundry{,.*}.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.foundry{,.*}.gschema.xml
 
 %files -n libfoundry-gtk
 %{_libdir}/libfoundry-gtk-1.so.1{,.0.0}

@@ -9,8 +9,8 @@
 %global crate zincati
 
 Name:           rust-zincati
-Version:        0.0.30
-Release:        5%{?dist}
+Version:        0.0.32
+Release:        1%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -22,8 +22,6 @@ Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}
 # git diff --no-prefix zincati-*/Cargo.toml
 #Patch0:         fedora-zincati-cargo-manifest-overrides.diff
 %endif
-
-Patch0:         0001-cincinnati-fix-updates-nodes-comparison-logic.patch
 
 # Skip 32 bits architectures, see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046993
@@ -153,6 +151,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Mon Feb 02 2026 Packit <hello@packit.dev> - 0.0.32-1
+- New upstream release
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.30-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

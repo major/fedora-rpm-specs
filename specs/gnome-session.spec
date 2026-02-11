@@ -3,7 +3,7 @@
 %define po_package gnome-session
 
 Name:           gnome-session
-Version:        50~alpha
+Version:        50~beta
 Release:        %autorelease
 Summary:        GNOME session manager
 

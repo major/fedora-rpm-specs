@@ -2,16 +2,19 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        0.32.14
-Release:        2%{?dist}
+Version:        33~alpha
+Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
+
+%global tarball_version %%(echo %{version} | tr '~' '.')
 
 # LGPLv2+ for the code
 # CC-BY-SA for some of the icons
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
-Source0:        https://download.gnome.org/sources/shotwell/0.32/shotwell-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/shotwell/%{tarball_version}/shotwell-%{tarball_version}.tar.xz
 
+BuildRequires:  cmake
 BuildRequires:  vala
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib >= 0.7.3
@@ -52,6 +55,7 @@ BuildRequires:  pkgconfig(libxml-2.0) >= 2.6.32
 BuildRequires:  pkgconfig(sqlite3) >= 3.5.9
 BuildRequires:  pkgconfig(webkit2gtk-4.1) >= 2.26
 BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libportal-gtk4)
 %if %{with facedetect}
 BuildRequires:  pkgconfig(opencv4)
 BuildRequires:  gcc-c++
@@ -73,7 +77,7 @@ making it easy to experiment and correct errors.
 
 
 %prep
-%autosetup -p1
+%autosetup -n shotwell-%{tarball_version} -p1
 
 
 %build
@@ -133,6 +137,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shot
 
 
 %changelog
+* Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 33~alpha-1
+- Update to 33-alpha
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

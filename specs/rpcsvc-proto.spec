@@ -20,8 +20,8 @@ Name:           rpcsvc-proto
 Version:        1.4
 Release:        19%{?dist}
 Summary:        RPC protocol definitions
-# Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+
+# sources were initially copied from glibc and not the original Sun sources and glibc is LGPL-2.1-or-later
+License:        BSD-3-Clause AND LGPL-2.1-or-later
 Url:            https://github.com/thkukuk/rpcsvc-proto
 Source0:        https://github.com/thkukuk/rpcsvc-proto/releases/v%{version}/%{name}-%{version}.tar.xz
 

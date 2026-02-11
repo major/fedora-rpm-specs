@@ -6,7 +6,7 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.45.90
+Version: 2.46
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -120,8 +120,8 @@ URL: https://sourceware.org/binutils
 # They are a "snapshot" of the about to be released branch sources, rather than
 # a snapshot of the mainline development sources.
 
-# %%define source official-release
-%define source even-pre-release
+%define source official-release
+# %%define source even-pre-release
 # %%define source odd-pre-release
 # %%define source snapshot
 # %%define source tarball
@@ -216,8 +216,8 @@ URL: https://sourceware.org/binutils
 #----------------------------------------------------------------------------
 
 %if "%{source}" == "official-release"
-# Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%%{version}.tar.xz
-Source0: https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
+# Source0: https://ftp.gnu.org/gnu/binutils/binutils-%%{version}.tar.xz
 %elif "%{source}" == "even-pre-release"
 Source0: binutils-with-gold-%{version}.tar.xz
 %elif "%{source}" == "odd-pre-release"
@@ -345,10 +345,6 @@ Patch19: binutils-gold-empty-dwp.patch
 Patch20: binutils-ld-default-z-text.patch
 
 #----------------------------------------------------------------------------
-
-# Purpose:  Fix an issue with object attributes for the AArch64 target.
-# Lifetime: TEMPORARY - should be fixed by the 2.46 release.
-Patch97: binutils-aarch64-obj-attr.patch
 
 # Purpose:  Remove the Build protected-func-2 without PIE linker tests
 #            as these are currently failing.
@@ -1495,6 +1491,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Feb 09 2026 Nick Clifton <nickc@redhat.com> - 2.46-1
+- Rebase to GNU Binutils 2.46.
+
 * Tue Jan 27 2026 Nick Clifton <nickc@redhat.com> - 2.45.90-1
 - Rebase to pre-release snapshot.
 

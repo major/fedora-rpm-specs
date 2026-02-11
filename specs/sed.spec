@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.9
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-or-later
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -11,6 +11,7 @@ Source1: http://sed.sourceforge.net/sedfaq.txt
 Patch0: sed-b-flag.patch
 Patch1: sed-c-flag.patch
 Patch2: sed-covscan-annotations.patch
+Patch3: sed-regexp-cache-size.patch
 BuildRequires: make
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
@@ -73,6 +74,16 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Mon Feb 09 2026  Jakub Martisko <jamartis@redhat.com> - 4.9-8
+- lib/dfa.c: Increase the maximum size of the transitions table
+- After changes introduced between sed 4.2 and 4.4, some regexps
+  started to hit the table size limits. This lead to repeated deletion
+  and rebuilding of the table, leading to massive performance drops.
+  While the core issue is still present, this change should at least
+  help by moving the threshold of the regexp complexity that triggers the 
+  table rebuilds.
+- Related: RHEL-144026
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

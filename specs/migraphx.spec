@@ -20,11 +20,11 @@
 # THE SOFTWARE.
 #
 %global upstreamname AMDMIGraphX
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%global bundled_llvm_version 21.0.0
+%global bundled_llvm_version 22.0.0
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -49,7 +49,7 @@
 
 Name:           migraphx
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        AMD's graph optimization engine
 License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 
@@ -213,6 +213,14 @@ cp -p external/llvm-project/LICENSE.TXT ../LICENSE.llvm-project.TXT
 # rm llvm-project bits we do not need
 # llvm build is internal to rocMLIR, so we can not remove as much as we would like
 rm -rf external/llvm-project/{amd,bolt,clang-tools-extra,clang/test,compiler-rt,flang,flang-rt,libclc,libcxx,lldb,llvm-libgcc,polly}
+cd ..
+
+# /usr/bin/ld, 2.24.50 segfaults
+# Segmentation fault         (core dumped) /usr/bin/ld -r -o
+#   /migraphx/build/src/targets/gpu/migraphx/kernels/algorithm.hpp.o -z noexecstack
+#   --format=binary migraphx/kernels/algorithm.hpp
+# Remove -z noexecstack 
+sed -i -e 's@-z noexecstack@@' cmake/Embed.cmake
 
 %build
 
@@ -308,6 +316,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/migraphx/LICENSE
 %{_libdir}/cmake/migraphx/
 
 %changelog
+* Tue Jan 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

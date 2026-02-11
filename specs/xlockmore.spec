@@ -1,7 +1,7 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
-Version: 5.87
-Release: 2%{?dist}
+Version: 5.88
+Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://sillycycle.com/xlockmore.html
@@ -116,6 +116,9 @@ desktop-file-install \
 %{_bindir}/xglock
 
 %changelog
+* Mon Feb 09 2026 Adrian Reber <adrian@lisas.de> - 5.88-1
+- Updated to 5.88 (#2425617)
+
 * Wed Feb 04 2026 Adrian Reber <adrian@lisas.de> - 5.87-2
 - Updated to 5.87 (#2435197)
 

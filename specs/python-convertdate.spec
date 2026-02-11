@@ -1,7 +1,7 @@
 %global pypi_name convertdate
 
 Name:           python-%{pypi_name}
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Python module to convert date formats and calculating holidays
 
@@ -44,7 +44,6 @@ Julian, Mayan and Persian.
 %files -n python3-%{pypi_name}
 %doc HISTORY.rst README.md
 %license LICENSE
-%{_bindir}/censusgeocode
 %{python3_sitelib}/%{pypi_name}-*.dist-info
 %{python3_sitelib}/%{pypi_name}/
 

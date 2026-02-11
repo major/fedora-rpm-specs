@@ -1,12 +1,18 @@
+# The upstream 4.3.20.1 tag points to commit c1dcedc, but that commit is still
+# version 4.3.20 in the code.  Use the correct commit which bumps the version
+# to 4.3.20.1 in the code.
+%global commit          d3dab6819dc92fa12da4616207c48fdbb1b86f21
+%global shortcommit     %{sub %{commit} 1 7}
+
 Summary: A utility to collect various Linux performance data
 Name: collectl
-Version: 4.3.5
-Release: 10%{?dist}
+Version: 4.3.20.1
+Release: 1%{?dist}
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
-Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.src.tar.gz
+URL: https://github.com/sharkcz/collectl
+Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: %{name}.service
 Source2: %{name}.sysconfig
-URL: http://collectl.sourceforge.net
 BuildArch: noarch
 BuildRequires: perl-generators
 BuildRequires: systemd
@@ -20,14 +26,10 @@ A utility to collect Linux performance data
 
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{commit}
 
 # rename directory for easier inclusion
 mv docs html
-
-
-%build
-# nothing to do
 
 
 %install
@@ -63,7 +65,8 @@ install -p -m 644  %{SOURCE2}        $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{n
 
 
 %files
-%doc ARTISTIC COPYING GPL RELEASE-collectl html
+%license ARTISTIC COPYING GPL
+%doc RELEASE-collectl html
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
@@ -76,6 +79,9 @@ install -p -m 644  %{SOURCE2}        $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{n
 
 
 %changelog
+* Fri Feb 06 2026 Carl George <carlwgeorge@fedoraproject.org> - 4.3.20.1-1
+- Update to version 4.3.20.1 rhbz#2149728
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

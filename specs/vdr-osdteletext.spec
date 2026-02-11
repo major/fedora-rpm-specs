@@ -14,12 +14,12 @@
 %elif 0%{?fedora} == 43
 %global vdr_version 2.7.7
 %elif 0%{?fedora} >= 44
-%global vdr_version 2.7.8
+%global vdr_version 2.7.9
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.3.2
-Release:        0.5.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.6.%{gitdate}git%{shortcommit0}%{?dist}
 # Release:        21%%{?dist}
 Summary:        OSD teletext plugin for VDR
 
@@ -78,6 +78,9 @@ install -Dpm 644 teletext2.ttf \
 %attr(-,%{vdr_user},root) %{vdr_rundir}/%{pname}/
 
 %changelog
+* Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.3.2-0.6.20211217gitcae4629
+- Rebuilt for new VDR API version 2.7.9
+
 * Mon Jan 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.3.2-0.5.20211217gitcae4629
 - Rebuilt for new VDR API version 2.7.8
 

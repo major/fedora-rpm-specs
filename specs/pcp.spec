@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 7.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -9,6 +9,8 @@ Source0: https://github.com/performancecopilot/pcp/archive/%{version}/pcp-%{vers
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
+
+Patch1: pcp-selinux.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -3444,6 +3446,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Feb 9 2026 William Cohen <wcohen@redhat.com> - 7.1.0-2
+- Selinux policy fix for services.
+
 * Wed Jan 28 2026 William Cohen <wcohen@redhat.com> - 7.1.0-1
 - Latest upstream release.
 

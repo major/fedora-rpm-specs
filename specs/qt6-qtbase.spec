@@ -47,8 +47,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.10.1
-Release: 4%{?dist}
+Version: 6.10.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -440,7 +440,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.10.1
+Version: 6.10.2
 EOF
 
 # rpm macros
@@ -647,6 +647,7 @@ make check -k ||:
 %{_qt6_libexecdir}/tracegen
 %{_qt6_libexecdir}/tracepointgen
 %{_qt6_libexecdir}/qlalr
+%{_qt6_libexecdir}/qt_cyclonedx_generator.py
 %{_qt6_libexecdir}/qvkgen
 %{_qt6_libexecdir}/rcc
 %{_qt6_libexecdir}/uic
@@ -967,6 +968,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
+- 6.10.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

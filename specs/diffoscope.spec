@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       310
+Version:       312
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPL-3.0-or-later
@@ -116,7 +116,7 @@ BuildRequires: help2man
 BuildRequires: make
 BuildRequires: git
 %ifarch %{java_arches}
-BuildRequires: java-21-devel
+BuildRequires: java-25-openjdk-devel
 %endif
 
 Recommends:    %toolz

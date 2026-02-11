@@ -30,6 +30,10 @@ BuildRequires:  xwayland-run
 BuildRequires:  mutter
 BuildRequires:  mesa-dri-drivers
 
+# https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/518
+# https://bugzilla.redhat.com/show_bug.cgi?id=2437484
+Patch:          fix-main-context-iteration.patch
+
 %description
 The %{name} package provides a convenient wrapper for the GObject library
 for use in Python programs.

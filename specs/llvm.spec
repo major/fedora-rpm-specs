@@ -467,7 +467,9 @@ Source1001: changelog
 # behind the latest packaged LLVM version.
 
 #region CLANG patches
-Patch101: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
+Patch2100: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
+Patch2200: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
+Patch2300: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch2002: 20-131099.patch
 

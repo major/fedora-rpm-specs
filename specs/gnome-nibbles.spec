@@ -2,13 +2,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-nibbles
-Version:        4.4.2
+Version:        4.5.0
 Release:        %autorelease
 Summary:        GNOME Nibbles game
 # Source code is under GPLv3+, help is under CC-BY-SA, Appdata is under CC0.
 License:        GPL-3.0-or-later AND CC0-1.0 AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Nibbles
-Source0:        https://download.gnome.org/sources/gnome-nibbles/4.4/gnome-nibbles-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-nibbles/4.5/gnome-nibbles-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

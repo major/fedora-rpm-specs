@@ -4,7 +4,7 @@
 
 Version:       4.35c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.35c
+%global commit   afbcb07e7602791390adfc63932efcd14d39bab8
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -194,6 +194,7 @@ test -n '%{clang_major}'
 %{_bindir}/afl-cc
 %{_bindir}/afl-c++
 %{_bindir}/afl-cmin
+%{_bindir}/afl-cmin.awk
 %{_bindir}/afl-cmin.bash
 %{_bindir}/afl-cmin.py
 %{_bindir}/afl-fuzz
@@ -226,6 +227,7 @@ test -n '%{clang_major}'
 %{_mandir}/man8/afl-addseeds.8*
 %{_mandir}/man8/afl-analyze.8*
 %{_mandir}/man8/afl-cmin.8*
+%{_mandir}/man8/afl-cmin.awk.8*
 %{_mandir}/man8/afl-cmin.bash.8*
 %{_mandir}/man8/afl-cmin.py.8*
 %{_mandir}/man8/afl-fuzz.8*
@@ -291,6 +293,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Mon Feb 09 2026 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 4.35c-4
+- Update for LLVM22
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.35c-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

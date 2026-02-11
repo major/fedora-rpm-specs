@@ -5,7 +5,7 @@
 %global         tarball_name     azure_core
 
 Name:           python-%{srcname}
-Version:        1.35.1
+Version:        1.38.0
 Release:        %autorelease
 Summary:        Azure Core shared client library for Python
 

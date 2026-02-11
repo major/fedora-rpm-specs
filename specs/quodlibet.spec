@@ -13,6 +13,13 @@ Source3:	README.fedora
 
 # https://github.com/quodlibet/quodlibet/pull/4741
 Patch:		https://github.com/quodlibet/quodlibet/commit/93d2de93663245bd3b2aadc2ea6085991cd7da35.patch
+# https://github.com/quodlibet/quodlibet/pull/4843
+Patch:		https://github.com/quodlibet/quodlibet/commit/85631a63fe1b431adacc2a4245f2c59cb8145975.patch
+# https://github.com/quodlibet/quodlibet/pull/4845
+Patch:		https://github.com/quodlibet/quodlibet/commit/5cecd9b3579d27ebe594d20f8841d531261a7daf.patch
+# https://github.com/quodlibet/quodlibet/pull/4846
+Patch:		https://github.com/quodlibet/quodlibet/commit/2742dc8da188d4da4a45f775540a04b00f847d05.patch
+Patch:		https://github.com/quodlibet/quodlibet/commit/060c938a13249c2809fece6e8e11c088783887f8.patch
 
 BuildArch:	noarch
 

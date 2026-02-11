@@ -10,11 +10,11 @@
 
 %global api_version_major 2
 %global api_version_minor 0
-%global api_version_patch 8
+%global api_version_patch 9
 %global api_version %{api_version_major}.%{api_version_minor}.%{api_version_patch}
 
 Name: janus
-Version: 1.3.3
+Version: 1.4.0
 Release: %autorelease
 Summary: An open source WebRTC server designed and developed by Meetecho
 
@@ -633,6 +633,8 @@ find %{buildroot} -type f -iname '*.la' -delete
 %{_includedir}/%{name}/transports/transport.h
 %{_includedir}/%{name}/utils.h
 
+# pkg-config file
+%{_libdir}/pkgconfig/%{name}-gateway.pc
 
 %files tools
 # binaries

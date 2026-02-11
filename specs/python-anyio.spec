@@ -13,6 +13,17 @@ License:        MIT
 URL:            https://github.com/agronholm/anyio
 Source:         %{pypi_source %{srcname}}
 
+# fix: handle Python 3.15 path API changes
+# https://github.com/agronholm/anyio/pull/1065
+#
+# Fixes:
+#
+# A few path-related test regressions in Python 3.15.0a5
+# https://github.com/agronholm/anyio/issues/1061
+#
+# Only the commit with the fix, not the commit to update versionhistory.rst.
+Patch:          0001-fix-handle-Python-3.15-path-API-changes.patch
+
 BuildArch:      noarch
 
 BuildRequires:  tomcli
@@ -68,12 +79,6 @@ tomcli set pyproject.toml lists delitem \
 %check
 # https://github.com/agronholm/anyio/pull/1020#issuecomment-3477923712
 k="${k-}${k+ and }not (TestCapacityLimiter and test_bad_init_value[trio])"
-
-%if v"0%{?python3_version}" >= v"3.15"
-# https://github.com/agronholm/anyio/issues/1061
-k="${k-}${k+ and }not (TestPath and test_properties)"
-k="${k-}${k+ and }not (TestPath and test_is_reserved)"
-%endif
 
 %pytest -Wdefault -m "not network" -k "${k-}" -rsx -v
 

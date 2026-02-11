@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.11
-Release:        3%{?dist}
+Version:        9.12
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -64,7 +64,8 @@ Requires: python3dist(azure-mgmt-resource) >= 24
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(bcrypt) >= 4.3
 Requires: python3dist(boto3) >= 1.42
-Requires: python3dist(cryptography) >= 45.0.4
+Requires: python3dist(certifi) >= 2025.7.9
+Requires: python3dist(cryptography) >= 46
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
 Requires: python3dist(flask-login) >= 0
@@ -72,12 +73,12 @@ Requires: python3dist(flask-mail) >= 0
 Requires: python3dist(flask-migrate) >= 4
 Requires: python3dist(flask-paranoid) >= 0
 Requires: python3dist(flask-security-too) >= 5.6.2
-Requires: python3dist(flask-socketio) >= 5.5
+Requires: python3dist(flask-socketio) >= 5.6
 Requires: python3dist(flask-sqlalchemy) >= 3.0.5
 Requires: python3dist(flask-wtf) >= 1.2
 Requires: python3dist(flask) >= 3.1
 Requires: python3dist(google-api-python-client) >= 2
-Requires: python3dist(google-auth-oauthlib) >= 1.2.3
+Requires: python3dist(google-auth-oauthlib) >= 1.2.4
 Requires: python3dist(gssapi) >= 1.7.3
 Requires: python3dist(jsonformatter) >= 0.3.4
 Requires: python3dist(keyring) >= 25
@@ -86,7 +87,7 @@ Requires: python3dist(libgravatar) >= 1
 Requires: python3dist(paramiko) >= 3.5.1
 Requires: python3dist(passlib) >= 1
 Requires: python3dist(psutil) >= 7
-Requires: python3dist(psycopg) >= 3.3
+Requires: python3dist(psycopg) >= 3.3.2
 Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2025
@@ -95,8 +96,8 @@ Requires: python3dist(setuptools) >= 80
 Requires: python3dist(sqlalchemy) >= 2
 Requires: python3dist(sqlparse) >= 0
 Requires: python3dist(sshtunnel) >= 0
-Requires: python3dist(typer) >= 0.20
-Requires: python3dist(urllib3) >= 2.5
+Requires: python3dist(typer) >= 0.21
+Requires: python3dist(urllib3) >= 2.6
 Requires: python3dist(user-agents) >= 2.2
 Requires: python3dist(werkzeug) >= 3.1
 Requires: python3dist(wtforms) >= 3.0.1
@@ -258,6 +259,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Feb 06 2026 Sandro Mani <manisandro@gmail.com> - 9.12-1
+- Update to 9.12
+
 * Tue Jan 27 2026 Sandro Mani <manisandro@gmail.com> - 9.11-3
 - Refresh bundle, fixes CVE-2025-13465
 

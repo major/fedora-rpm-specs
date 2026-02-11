@@ -1,5 +1,5 @@
-%global DATE 20260207
-%global gitrev d0931013c96ee1d31f50489e902cc63b08d0c0be
+%global DATE 20260209
+%global gitrev 84d3ab5b7a17705ce87440bb6aeb491aea5fbbd1
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.6%{?dist}
+Release: %{gcc_release}.7%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3969,6 +3969,15 @@ end
 %endif
 
 %changelog
+* Mon Feb  9 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.7
+- update from trunk
+  - PRs ada/121576, ada/124025, c++/123616, c++/123640, c++/123823,
+	c++/123889, c++/123984, d/123995, d/124026, fortran/85547,
+	fortran/122949, fortran/123545, fortran/123673, fortran/123961,
+	rtl-optimization/123796, target/123911, target/123926,
+	testsuite/124036, tree-optimization/117217, tree-optimization/123225,
+	tree-optimization/124034
+
 * Sat Feb  7 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.6
 - update from trunk
   - PRs ada/89159, ada/121316, ada/123580, ada/123832, ada/123857, ada/123861,

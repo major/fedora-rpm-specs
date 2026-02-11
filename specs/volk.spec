@@ -1,15 +1,12 @@
 Name:          volk
-Version:       3.2.0
-Release:       9%{?dist}
+Version:       3.3.0
+Release:       1%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       LGPL-3.0-or-later
 URL:           https://github.com/gnuradio/%{name}
 Source0:       https://github.com/gnuradio/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:       https://github.com/gnuradio/volk/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:       https://github.com/gnuradio/volk/releases/download/v2.4.1/gpg_volk_release_key.asc
-# Patches:
-#  https://github.com/gnuradio/volk/issues/794
-Patch1:        0001-rotator2-disable-SSE-4.1-kernels-wildly-incorrect-re.patch
 
 BuildRequires: gnupg2
 BuildRequires: make
@@ -105,6 +102,10 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Feb 09 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.3.0-1
+- New version
+  Resolves: rhbz#2437661
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

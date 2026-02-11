@@ -6,14 +6,13 @@
 
 Name: hunspell-hu
 Summary: Hungarian hunspell dictionaries
-Version: 1.8.1
-Release: 2%{?dist}
-Source: http://downloads.sourceforge.net/project/magyarispell/Magyar%20Ispell/%{version}/magyarispell-%{version}.tar.gz
+Version: 1.9
+Release: 1%{?dist}
+Source0: https://github.com/LibreOffice/dictionaries/raw/refs/heads/master/hu_HU/hu_HU.dic
+Source1: https://github.com/LibreOffice/dictionaries/raw/refs/heads/master/hu_HU/hu_HU.aff
 URL: http://magyarispell.sourceforge.net
+# License information extracted from hu_HU.aff file
 License: LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1
-BuildRequires: make
-BuildRequires: recode
-BuildRequires: m4
 
 BuildArch: noarch
 
@@ -24,21 +23,23 @@ Supplements: (hunspell and langpacks-hu)
 Hungarian hunspell dictionaries.
 
 %prep
-%autosetup -n magyarispell-%{version}
+%autosetup -c -T
 
 %build
-make myspell
+# nothing to build here
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p hu_HU.dic hu_HU.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
+mkdir -p %{buildroot}%{_datadir}/%{dict_dirname}
+cp -p %{SOURCE0} %{SOURCE1} %{buildroot}%{_datadir}/%{dict_dirname}
 
 
 %files
-%doc README COPYING
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Feb 07 2026 Parag Nemade <pnemade AT redhat DOT com> - 1.9-1
+- Updated to new version from libreoffice repository
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

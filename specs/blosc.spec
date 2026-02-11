@@ -8,6 +8,8 @@ Version: 1.21.6
 Release: %autorelease
 License: BSD-3-Clause
 Source: https://github.com/Blosc/c-blosc/archive/v%{version}/blosc-%{version}.tar.gz
+# Dummy cmake config mimicking the conan package
+Source2: c-blosc-config.cmake
 Patch:  blosc-gcc11.patch
 Patch:  blosc-gcc23.patch
 Patch:  https://github.com/Blosc/c-blosc/commit/051b9d2cb9437e375dead8574f66d80ebce47bee.patch#/blosc-CMake4.0.patch
@@ -85,6 +87,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %install
 %cmake_install
+install -d %{buildroot}%{_libdir}/cmake/c-blosc
+install -p %{SOURCE2} %{buildroot}%{_libdir}/cmake/c-blosc
 
 %if %{with bench}
 install -p bench/plot-speeds.py* -Dt %{buildroot}/%{_pkgdocdir}/bench/
@@ -105,6 +109,7 @@ install -p bench/plot-speeds.py %{buildroot}/%{_bindir}/%{name}-plot-times
 %{_libdir}/pkgconfig/blosc.pc
 %{_includedir}/blosc.h
 %{_includedir}/blosc-export.h
+%{_libdir}/cmake/c-blosc/
 
 %if %{with bench}
 %files bench

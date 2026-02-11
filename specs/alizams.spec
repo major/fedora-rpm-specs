@@ -66,7 +66,6 @@ rm -fr CG/glew/
 %cmake \
   -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
   -DALIZA_QT_VERSION:STRING=5 \
-  -DALIZA_QT5_COREGL:BOOL=ON \
   -DALIZA_USE_SYSTEM_BULLET:BOOL=ON \
   -DALIZA_USE_SYSTEM_LCMS2:BOOL=ON \
   -DMDCM_USE_SYSTEM_ZLIB:BOOL=ON \
@@ -74,6 +73,9 @@ rm -fr CG/glew/
   -DMDCM_USE_SYSTEM_CHARLS:BOOL=ON \
   -DMDCM_USE_SYSTEM_UUID:BOOL=ON \
   -DITK_DIR=%{_libdir}/cmake/InsightToolkit \
+%ifnarch x86_64
+  -DALIZA_DISABLE_SIMDMATH:BOOL=ON \
+%endif
 %cmake_build -v
 
 %install

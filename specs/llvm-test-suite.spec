@@ -66,12 +66,15 @@ suite can be run with any compiler, not just clang.
 	utils/*.py \
 	CollectDebugInfoUsingLLDB.py \
 	CompareDebugInfo.py \
-	tools/get-report-time \
 	FindMissingLineNo.py \
 	MicroBenchmarks/libs/benchmark/googletest/googlemock/test/*.py \
 	MicroBenchmarks/libs/benchmark/googletest/googletest/test/*.py \
 	MicroBenchmarks/libs/benchmark/tools/*.py
 
+# get-report-time was removed in llvm-test-suite 23.
+if [ -f tools/get-report-time ]; then
+%py3_shebang_fix tools/get-report-time
+fi
 
 chmod -R -x+X ABI-Testsuite
 

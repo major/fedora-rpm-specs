@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -15,6 +15,8 @@ Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 # Proposed upstream: https://github.com/transmission/transmission/issues/7567
 Patch1:         0002-Make-compatible-with-CMake-4.0.patch
 Patch2:         7669.patch
+# https://github.com/transmission/transmission/pull/8277, to be removed in 4.1.1 or 4.2.0
+Patch3:         0003-Fix_cannot_add_magnet_links_in_GTK_client.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -198,6 +200,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sun Feb 08 2026 Federico Pellegrin <fede@evolware.org> - 4.1.0-2
+- Apply upstream patch to fix important bug in adding magnet links in GTK client
+
 * Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.0-1
 - 4.1.0
 

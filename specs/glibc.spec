@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.43-4-g144ba30208
-%global glibcversion 2.43
+%global glibcsrcdir glibc-2.43.9000-54-gaf79874ffd
+%global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2403,6 +2403,66 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Feb 09 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-1
+- Auto-sync with upstream branch master,
+  commit af79874ffd4d1f79bd0c040257320d1a6fe6a452:
+- SHARED-FILES: Update Unicode version to 17.0.0. (Carlos O'Donell)
+- malloc: Remove unused tcache code from unsorted bin scan (Wilco Dijkstra)
+- tests: aarch64: clean up BTI and GCS tests (Yury Khrustalev)
+- tests: aarch64: move BTI tests to linux/aarch64 folder (Yury Khrustalev)
+- tst-{pthread|sched}-affinity-inheritance: Only use in-mask CPUs in affinity mask. (Stefan Liebler)
+- hurd: Take cancel_lock in critical section (Samuel Thibault)
+- malloc: Extend malloc function hiding to tst-memalign-{2,3} (BZ #32366) (Adhemerval Zanella)
+- elf: Build tst-gnu2-tls2 iff compiler supports TLS descriptor (Adhemerval Zanella)
+- x86: Fix for cache computation on Hygon under hypervisors (Jiamei Xie)
+- support: Also put libaudit, libcap into the testroot if present (Florian Weimer)
+- Rules: Set up test infrastructure if tests-container is set (Florian Weimer)
+- hurd: Test FPU preservation on double-signal delivery (Samuel Thibault)
+- hurd: handling pending signals could result in corruption of FPU state (Mike Kelly)
+- gnulib: sync comment from upstream (Paul Eggert)
+- AArch64: Add if('fastmath') to math-vector-fortran.h [BZ #33226] (Wilco Dijkstra)
+- AArch64: Optimize memcpy for Kunpeng 950 processor (Weihong Ye)
+- Don't include <bits/openat2.h> directly (bug 33848) (Andreas Schwab)
+- posix: avoid a cast in regex syntax bit definitions (Collin Funk)
+- elf: Add test case for LD_PROFILE/LD_PROFILE_OUTPUT interaction (Florian Weimer)
+- support: Add support_spawn_wrap and related functionality (Florian Weimer)
+- arm: Fix tst-gnu2-tls2 (Adhemerval Zanella)
+- linux: use PIDFD_GET_INFO ioctl for pidfd_getpid() if available (Luca Boccassi)
+- elf: Fix ambiguous error message for --f in sotruss [BZ #25257] (Avinal Kumar)
+- powerpc: Add math-use-builtins-f{max,min}.h (Adhemerval Zanella)
+- math: Optimize f{max,min}imum_mag_num{f,l,f128} (Adhemerval Zanella)
+- math: Optimize f{max,min}imum_mag{f,l,f128} (Adhemerval Zanella)
+- math: Optimize f{max,min}imum_num{f,l,f,f128} (Adhemerval Zanella)
+- math: Optimize f{max,min}imum{f,l,f128} (Adhemerval Zanella)
+- math: Order signed zeros in f{max,min}mag{f,l,f128} (Adhemerval Zanella)
+- math: Order signed zeros in f{max,min}{f,l,f128} (Adhemerval Zanella)
+- i386: Remove f{max,min} assembly implementations (Adhemerval Zanella)
+- x86_64: Remove f{max,min} assembly implementations (Adhemerval Zanella)
+- math: Simplify f{max,min}mag template (Adhemerval Zanella)
+- math: Simplify f{max,min} template (Adhemerval Zanella)
+- x86: Add __issignalingl inline (Adhemerval Zanella)
+- math: Add __issignaling inline (Wilco Dijkstra)
+- manual: Document //TRANSLIT and //IGNORE support in iconv_open [BZ #3794] (Avinal Kumar)
+- manual: Document that iconv buffers may not overlap (Florian Weimer)
+- stdio-common: Assume support for 'long long' (Alejandro Colomar)
+- hurd: copy over start/end and entry too on fork (Samuel Thibault)
+- manual: Fix some typos in the Threads chapter. (Collin Funk)
+- manual: Fix some typos in the Low-Level Terminal Interface chapter. (Collin Funk)
+- riscv: Disable multiarch memset variants when !IS_IN(libc) (Yao Zihong)
+- ﻿riscv: Disable multiarch memcpy variants when !IS_IN(libc) (Yao Zihong)
+- posix: Run tst-wordexp-reuse-mem test (Florian Weimer)
+- manual: Updates for the dynamic linker hardening recommendations (Florian Weimer)
+- dlfcn: Add dlinfo request type RTLD_DI_ORIGIN_PATH (bug #24298) (Arjun Shankar)
+- po: Incorporate translatins (nl updated, ar new) (Andreas K. Hüttel)
+- Fix ldbl-128ibm ceill, floorl, roundl and truncl zero-sign handling (Aurelien Jarno)
+- malloc: Correct Makefile sorting glitches (Florian Weimer)
+- support: Reinitialize containers if /etc is present (Florian Weimer)
+- support: Add support_hardcoded_paths_in_test (Florian Weimer)
+- support: Fix memory leaks in support_subprogram, support_subprogram_wait (Florian Weimer)
+- stdlib: Do not run tst-system subtest with RLIMIT_NPROC as root (Florian Weimer)
+- version.h: Increase version number (Andreas K. Hüttel)
+- NEWS: add 2.44 section (Andreas K. Hüttel)
+
 * Tue Jan 27 2026 Frédéric Bérat <fberat@redhat.com> - 2.43-2
 - Enable package notes for glibc and its DSOs (RHBZ#2362272)
 

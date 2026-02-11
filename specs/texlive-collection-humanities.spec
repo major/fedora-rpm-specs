@@ -5,7 +5,7 @@
 Name:           texlive-collection-humanities
 Epoch:          12
 Version:        svn75384
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Humanities packages
 
 License:        LPPL-1.3c
@@ -1603,6 +1603,9 @@ popd
 %doc %{_texmf_main}/doc/latex/xyling/
 
 %changelog
+* Mon Feb  9 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75384-4
+- rebuild to land outside the side tag
+
 * Mon Jan 12 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75384-3
 - fix descriptions, update components
 

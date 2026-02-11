@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.60.1
+Version:        0.61.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,9 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Feb 09 2026 Packit <hello@packit.dev> - 0.61.0-1
+- Ogr now supports Forgejo issues, comments and comment reactions. (#959)
+
 * Fri Jan 30 2026 Packit <hello@packit.dev> - 0.60.1-1
 - The method `get_rate_limit_remaining()` now also supports repository-specific checks for GitHub. (#972)
 - Resolves: rhbz#2435481

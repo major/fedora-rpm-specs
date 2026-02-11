@@ -24,17 +24,17 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    10
+%global apiver    12
 
 Name:           vdr
-Version:        2.7.8
+Version:        2.7.9
 Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.8;sf=tbz2
-# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.8;sf=tbz2"
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.9;sf=tbz2
+# wget --content-disposition "http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.9;sf=tbz2"
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -68,9 +68,13 @@ Patch3:         %{name}-1.7.21-plugin-missing.patch
 Patch4:         %{name}-2.4.0-paths.patch
 # http://vdrportal.de/board/thread.php?postid=343665#post343665
 Patch5:         12_osdbase-maxitems.patch
-# https://www.vdr-portal.de/forum/thread/135091-installation-eines-vdr-plugins-nativ-auf-coreelec-boxen/?postID=1379567#post1379567
-Patch11:	03-MainMenuHooks-v1.0.1.patch
-Patch15:        %{name}-2.7.4-fedora-pkgconfig.patch
+Patch6:         %{name}-2.7.4-fedora-pkgconfig.patch
+# https://www.vdr-portal.de/file-download/40760/
+Patch11:	%{name}-%{version}-MainMenuHooks-v1_0_5.diff
+# https://www.vdr-portal.de/file-download/40769/
+Patch16:        %{name}-%{version}-remove-leftover-path.diff
+# https://www.vdr-portal.de/file-download/40772/
+Patch17:        %{name}-%{version}-last-replayed-per-folder-05.diff
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff
 Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
 
@@ -193,8 +197,10 @@ sed \
     -e 's|__VIDEODIR__|%{videodir}|'   \
     %{PATCH4} | %{__patch} -p1
 %patch 5 -p1
+%patch 6 -p1
 %patch 11 -p1
-%patch 15 -p1
+%patch 16 -p0
+%patch 17 -p0
 %patch 99 -p1
 
 # Patch APIVERSION TO 2.4.8 to match VDRVERSION
@@ -552,6 +558,11 @@ systemctl daemon-reload
 
 
 %changelog
+* Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.7.9-1
+- Update to 2.7.9
+- Add vdr-2.7.9-remove-leftover-path.diff
+- Add vdr-2.7.9-last-replayed-per-folder-05.diff
+
 * Thu Jan 22 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.7.8-1
 - Update to 2.7.8
 

@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate lalrpop
+%global crate cliclack
 
-Name:           rust-lalrpop
-Version:        0.22.2
+Name:           rust-cliclack
+Version:        0.3.8
 Release:        %autorelease
-Summary:        Convenient LR(1) parser generator
+Summary:        Beautiful, minimal, opinionated CLI prompts inspired by the Clack NPM package
 
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/lalrpop
+License:        MIT
+URL:            https://crates.io/crates/cliclack
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * prevent unused lalrpop binary from being built and shipped
-Patch:          lalrpop-fix-metadata.diff
+# * relax console dependency from ^0.15.8 to >=0.15.8,<=0.17.0
+Patch:          cliclack-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Convenient LR(1) parser generator.}
+Beautiful, minimal, opinionated CLI prompts inspired by the Clack NPM
+package.}
 
 %description %{_description}
 
@@ -33,8 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,30 +48,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+lexer-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+lexer-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "lexer" feature of the "%{crate}" crate.
-
-%files       -n %{name}+lexer-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unicode-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unicode-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unicode" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unicode-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
