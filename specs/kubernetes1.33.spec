@@ -16,13 +16,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.33
-%global k8s_ver                 1.33.7
+%global k8s_ver                 1.33.8
 # major:minor version substring
 %global k8s_minver              1.33
 %global k8s_nextver             1.34
-%global k8s_tag                 v1.33.7
+%global k8s_tag                 v1.33.8
 # golang 'built with' version
-%global golangver               1.24.10
+%global golangver               1.24.12
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash

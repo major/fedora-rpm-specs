@@ -1,16 +1,11 @@
 # -*- rpm-spec -*-
 Summary: A GObject library for interacting with oVirt REST API
 Name: libgovirt
-Version: 0.3.9
-Release: 10%{?dist}%{?extra_release}
+Version: 0.3.11
+Release: 1%{?dist}%{?extra_release}
 License: LGPL-2.1-or-later
 Source0: http://download.gnome.org/sources/libgovirt/0.3/%{name}-%{version}.tar.xz
-Source1: http://download.gnome.org/sources/libgovirt/0.3/%{name}-%{version}.tar.xz.sig
-Source2: etrunko-57E1C130.keyring
 URL: https://gitlab.gnome.org/GNOME/libgovirt
-
-Patch1: 0001-Fix-i18n-generation.patch
-Patch2: 0001-tests-Workaround-libproxy-bug.patch
 
 BuildRequires: meson
 BuildRequires: pkgconfig(glib-2.0)
@@ -19,10 +14,8 @@ BuildRequires: pkgconfig(gobject-introspection-1.0)
 #needed for make check
 BuildRequires: glib-networking
 BuildRequires: dconf
-#needed for GPG signature check
 BuildRequires: gettext
 BuildRequires: git
-BuildRequires: gnupg2
 
 %description
 libgovirt is a library that allows applications to use oVirt REST API
@@ -43,7 +36,6 @@ parameters needed to make a SPICE/VNC connection to them.
 Libraries, includes, etc. to compile with the libgovirt library
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -S git_am
 
 %build
@@ -71,6 +63,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{_datadir}/gir-1.0/GoVirt-1.0.gir
 
 %changelog
+* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.11-1
+- Release 0.3.11
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

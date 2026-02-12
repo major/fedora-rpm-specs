@@ -20,8 +20,8 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.32.0
-Release:        11%{?dist}
+Version:        7.36.1
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -32,7 +32,7 @@ URL:            http://www.mltframework.org/
 Source0:        https://github.com/mltframework/mlt/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Fix build with FFmpeg 8
 # https://github.com/mltframework/mlt/pull/1142
-Patch0:         mlt-ffmpeg8.patch
+#Patch0:         mlt-ffmpeg8.patch
 
 %if 0%{?fedora} > 43
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -44,12 +44,6 @@ BuildRequires:  cmake
 BuildRequires:  sed
 BuildRequires:  frei0r-devel
 BuildRequires:  opencv-devel
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Network)
 BuildRequires:  cmake(Qt6CoreTools)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6GuiTools)
@@ -67,6 +61,7 @@ BuildRequires:  SDL_image-devel
 BuildRequires:  SDL2_image-devel
 %endif
 #BuildRequires:  gtk2-devel
+BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  pipewire-jack-audio-connection-kit-devel
 BuildRequires:  libatomic
 BuildRequires:  libogg-devel
@@ -117,7 +112,6 @@ BuildRequires: php-devel
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
 %endif
 
-Requires:      (%{name}-qt5%{?_isa} = %{version}-%{release} if qt5-qtbase%{?_isa})
 Requires:      (%{name}-qt6%{?_isa} = %{version}-%{release} if qt6-qtbase%{?_isa})
 
 %description
@@ -128,12 +122,6 @@ It provides a toolkit for broadcasters, video editors,media players,
 transcoders, web streamers and many more types of applications. The
 functionality of the system is provided via an assortment of ready to use
 tools, xml authoring components, and an extendible plug-in based API.
-
-%package qt5
-Summary:        Qt5 support for MLT
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%description qt5
-This packages includes Qt5 support modules to MLT.
 
 %package qt6
 Summary:        Qt6 support for MLT
@@ -204,7 +192,7 @@ rm -r src/win32/
        %{?with_opencv: -DMOD_OPENCV:BOOL=ON}  \
        -DMOD_GLAXNIMATE:BOOL=ON  \
        -DMOD_GLAXNIMATE_QT6:BOOL=ON  \
-       -DMOD_QT:BOOL=ON \
+       -DMOD_QT:BOOL=OFF \
        -DMOD_QT6:BOOL=ON \
        %{?with_ndi: -DMOD_NDI:BOOL=ON -DNDI_SDK_INCLUDE_PATH=%{_includedir}/ndi-sdk -DNDI_SDK_LIBRARY_PATH=%{_libdir} -DNDI_INCLUDE_DIR=%{_includedir}/ndi-sdk -DNDI_LIBRARY_DIR=%{_libdir}}
 
@@ -255,10 +243,6 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %{_libdir}/mlt-7/libmltndi.so
 %endif
 
-%files qt5
-%{_libdir}/mlt-7/libmltglaxnimate.so
-%{_libdir}/mlt-7/libmltqt.so
-
 %files qt6
 %{_libdir}/mlt-7/libmltglaxnimate-qt6.so
 %{_libdir}/mlt-7/libmltqt6.so
@@ -289,6 +273,10 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Tue Feb 10 2026 Martin Gansser <martinkg@fedoraproject.org> - 7.36.1-1
+- Update to version 7.36.1
+- Set MOD_QT to off
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 7.32.0-11
 - Rebuilt for OpenCV 4.13
 

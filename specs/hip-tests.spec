@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname hip-tests
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -66,7 +66,7 @@
 
 Name:       hip-tests%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    HIP tests
 
 License:    MIT AND BSL-1.0 AND Apache-2.0
@@ -84,6 +84,7 @@ URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch1:     0001-hip-tests-build-on-fedora.patch
 Patch2:     0001-hip-tests-link-with-libamd64.patch
+Patch3:     0001-hip-tests-disable-spv.patch
 
 ExclusiveArch:  x86_64
 
@@ -102,7 +103,7 @@ BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
-BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}.0
+BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 
 # Boost Software License 1.0
 # https://github.com/catchorg/Catch2/blob/v2.13.4/LICENSE.txt
@@ -202,6 +203,9 @@ rm -rf %{buildroot}%%{pkg_prefix}/libexec/hip-tests/catch_tests/saxpy.h
 %{pkg_prefix}/libexec/hip-tests/
 
 %changelog
+* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

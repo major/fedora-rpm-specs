@@ -117,7 +117,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        521%{?dist}
+Release:        522%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -182,6 +182,18 @@ Patch12:        perl-5.27.8-hints-linux-Add-lphtread-to-lddlflags.patch
 
 # Pass the correct CFLAGS to dtrace
 Patch13:        perl-5.28.0-Pass-CFLAGS-to-dtrace.patch
+
+# Fix handling daylight savings in strftime(), in upstream after 5.42.0,
+# bug #2384501, <https://github.com/Perl/perl5/issues/23878>.
+Patch14:        perl-5.42.0-posix.t-Properly-populate-optional-fields-to-strtime.patch
+Patch15:        perl-5.42.0-locale.c-Silence-unused-variable-compiler-warning.patch
+Patch16:        perl-5.42.0-locale.c-Slight-comment-clarification.patch
+Patch17:        perl-5.42.0-locale.c-ints_to_tm-Fix-if-s.patch
+Patch18:        perl-5.42.0-my_strftime-Properly-take-daylight-savings-into-acco.patch
+Patch19:        perl-5.42.0-POSIX.xs-Properly-take-daylight-savings-into-account.patch
+Patch20:        perl-5.42.0-POSIX-t-time.t-Extract-common-code-to-single-place.patch
+Patch21:        perl-5.42.0-POSIX-t-time.t-tzset-works-on-Windows-not-MingW.patch
+Patch22:        perl-5.42.0-perlapi-Add-extensive-strftime-documentation.patch
 
 # Link XS modules to libperl.so with EU::CBuilder on Linux, bug #960048
 Patch200:       perl-5.16.3-Link-XS-modules-to-libperl.so-with-EU-CBuilder-on-Li.patch
@@ -4223,6 +4235,15 @@ you're not running VMS, this module does nothing.
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
+%patch -P15 -p1
+%patch -P16 -p1
+%patch -P17 -p1
+%patch -P18 -p1
+%patch -P19 -p1
+%patch -P20 -p1
+%patch -P21 -p1
+%patch -P22 -p1
 %patch -P200 -p1
 %patch -P201 -p1
 %patch -P202 -p1
@@ -4244,6 +4265,15 @@ perl -x patchlevel.h \
     'Fedora Patch11: Replace EU::MakeMaker dependency with EU::MM::Utils in IPC::Cmd (bug #1129443)' \
     'Fedora Patch12: Link XS modules to pthread library to fix linking with -z defs' \
     'Fedora Patch13: Pass the correct CFLAGS to dtrace' \
+    'Fedora Patch14: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch15: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch16: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch17: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch18: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch19: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch20: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch21: Fix handling daylight savings in strftime() (GH#23878)' \
+    'Fedora Patch22: Fix handling daylight savings in strftime() (GH#23878)' \
     'Fedora Patch200: Link XS modules to libperl.so with EU::CBuilder on Linux' \
     'Fedora Patch201: Link XS modules to libperl.so with EU::MM on Linux' \
     'Fedora Patch202: Add definition of OPTIMIZE to .ph files' \
@@ -7283,6 +7313,9 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Tue Feb 10 2026 Petr Pisar <ppisar@redhat.com> - 4:5.42.0-522
+- Fix handling daylight savings in strftime() (bug #2384501)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4:5.42.0-521
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

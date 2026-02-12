@@ -5,7 +5,7 @@
 %global crate ambient-id
 
 Name:           rust-ambient-id
-Version:        0.0.8
+Version:        0.0.10
 Release:        %autorelease
 Summary:        Detects ambient OIDC credentials in a variety of environments
 
@@ -59,6 +59,18 @@ use the "astral-reqwest-middleware" feature of the "%{crate}" crate.
 %files       -n %{name}+astral-reqwest-middleware-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+native-tls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+native-tls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "native-tls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+native-tls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+reqwest-middleware-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -69,6 +81,18 @@ This package contains library source intended for building other packages which
 use the "reqwest-middleware" feature of the "%{crate}" crate.
 
 %files       -n %{name}+reqwest-middleware-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -416,7 +416,6 @@ BuildRequires:    libdb-devel
 
 # The following are needed to build the snmp ldap-agent
 BuildRequires:    net-snmp-devel
-BuildRequires:    libnl3-devel
 BuildRequires:    bzip2-devel
 BuildRequires:    openssl-devel
 # the following is for the pam passthru auth plug-in
@@ -517,6 +516,37 @@ Patch:            0002-Issue-Revise-paged-result-search-locking.patch
 Patch:            0003-Issue-7108-Fix-shutdown-crash-in-entry-cache-destruc.patch
 Patch:            0004-Issue-7172-Index-ordering-mismatch-after-upgrade-717.patch
 Patch:            0005-Issue-7172-2nd-Index-ordering-mismatch-after-upgrade.patch
+Patch:            0006-Issue-6753-Port-ticket-548-test-7101.patch
+Patch:            0007-Issue-7152-ns-slapd-fails-to-shutdown-when-deferred-.patch
+Patch:            0008-Issue-7169-Fix-automember_plugin-CI-test-failures-71.patch
+Patch:            0009-Issue-6758-Use-OUIA-selectors-for-WebUI-plugin-tests.patch
+Patch:            0010-Issue-7196-DynamicCertificates-returns-empty-DER-719.patch
+Patch:            0011-Issue-7189-DSBLE0007-generates-incorrect-remediation.patch
+Patch:            0012-Issue-7170-Support-of-PQC-keys-7188.patch
+Patch:            0013-Bump-lodash-from-4.17.21-to-4.17.23-in-src-cockpit-3.patch
+Patch:            0014-Issue-7198-Web-console-doesn-t-show-sub-suffix-when-.patch
+Patch:            0015-Issue-7014-memberOf-ignored-deferred-updates-with-LM.patch
+Patch:            0016-Issue-7184-argparse.HelpFormatter-_format_actions_us.patch
+Patch:            0017-Issue-6947-Revise-time-skew-check-in-healthcheck-too.patch
+Patch:            0018-Issue-7201-Syscall-overhead-in-LMDB-import-writer-th.patch
+Patch:            0019-Issue-7096-2nd-During-replication-online-total-init-.patch
+Patch:            0020-Issue-7206-Should-log-whether-TLS-key-is-PQC-or-not-.patch
+Patch:            0021-Issue-7027-2nd-389-ds-base-OpenScanHub-Leaks-Detecte.patch
+Patch:            0022-Issue-7213-MDB_BAD_VALSIZE-error-while-handling-VLV-.patch
+Patch:            0023-Issue-6753-Port-ticket-47781-test-7210.patch
+Patch:            0024-Issue-7194-Repl-Log-Analysis-Add-CSN-propagation-det.patch
+Patch:            0025-Issue-6753-Port-ticket-48896-test.patch
+Patch:            0026-Issue-6810-Fix-PAM-PTA-test-7219.patch
+Patch:            0027-Issue-7076-Fix-revert_cache-never-called-in-modrdn-7.patch
+Patch:            0028-Issue-6951-Dynamic-Certificate-refresh-phase-4-Updat.patch
+Patch:            0029-Issue-7224-CI-Test-Simplify-test_reserve_descriptor_.patch
+Patch:            0030-Issue-7178-Bundled-jemalloc-fails-to-build-with-GCC-.patch
+Patch:            0031-Issue-7121-2nd-LeakSanitizer-various-leaks-during-re.patch
+Patch:            0032-Issue-7223-Revert-index-scan-limits-for-system-index.patch
+Patch:            0033-Issue-7223-Add-upgrade-function-to-remove-nsIndexIDL.patch
+Patch:            0034-Issue-7223-Add-upgrade-function-to-remove-ancestorid.patch
+Patch:            0035-Issue-7223-Detect-and-log-index-ordering-mismatch-du.patch
+Patch:            0036-Issue-7223-Add-dsctl-index-check-command-for-offline.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes
@@ -886,40 +916,42 @@ fi
 # Reload our sysctl before we restart (if we can)
 sysctl --system &> $output; true
 
-# Gather the running instances so we can restart them
+# Gather running instances, stop them, run index-check, then restart
 instbase="%{_sysconfdir}/%{pkgname}"
+instances=""
 ninst=0
-for dir in $instbase/slapd-* ; do
-    echo dir = $dir >> $output 2>&1 || :
+
+for dir in "$instbase"/slapd-* ; do
+    echo "dir = $dir" >> "$output" 2>&1 || :
     if [ ! -d "$dir" ] ; then continue ; fi
     case "$dir" in *.removed) continue ;; esac
-    basename=`basename $dir`
-    inst="%{pkgname}@`echo $basename | sed -e 's/slapd-//g'`"
-    echo found instance $inst - getting status  >> $output 2>&1 || :
-    if /bin/systemctl -q is-active $inst ; then
-       echo instance $inst is running >> $output 2>&1 || :
+    basename=$(basename "$dir")
+    inst="%{pkgname}@${basename#slapd-}"
+    inst_name="${basename#slapd-}"
+    echo "found instance $inst - getting status" >> "$output" 2>&1 || :
+    if /bin/systemctl -q is-active "$inst" ; then
+       echo "instance $inst is running - stopping for upgrade" >> "$output" 2>&1 || :
        instances="$instances $inst"
+       /bin/systemctl stop "$inst" >> "$output" 2>&1 || :
     else
-       echo instance $inst is not running >> $output 2>&1 || :
+       echo "instance $inst is not running" >> "$output" 2>&1 || :
     fi
-    ninst=`expr $ninst + 1`
+    # Run index-check on all instances (running or not)
+    # This fixes index ordering mismatches from older versions
+    dsctl "$inst_name" index-check --fix >> "$output2" 2>&1 || :
+    ninst=$((ninst + 1))
 done
+
 if [ $ninst -eq 0 ] ; then
-    echo no instances to upgrade >> $output 2>&1 || :
-    exit 0 # have no instances to upgrade - just skip the rest
-else
-    # restart running instances
-    echo shutting down all instances . . . >> $output 2>&1 || :
-    for inst in $instances ; do
-        echo stopping instance $inst >> $output 2>&1 || :
-        /bin/systemctl stop $inst >> $output 2>&1 || :
-    done
-    for inst in $instances ; do
-        echo starting instance $inst >> $output 2>&1 || :
-        /bin/systemctl start $inst >> $output 2>&1 || :
-    done
+    echo "no instances to upgrade" >> "$output" 2>&1 || :
+    exit 0
 fi
 
+# Restart previously running instances
+for inst in $instances ; do
+    echo "starting instance $inst" >> "$output" 2>&1 || :
+    /bin/systemctl start "$inst" >> "$output" 2>&1 || :
+done
 
 %preun
 if [ $1 -eq 0 ]; then # Final removal

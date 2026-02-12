@@ -43,7 +43,6 @@ BuildRequires:  make
 BuildRequires:  scdoc >= 1.10
 BuildRequires:  sed
 BuildRequires:  systemd-rpm-macros
-%{?sysusers_requires_compat}
 
 %if %{with selinux}
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
@@ -135,8 +134,6 @@ install -D -m 0644 -vp selinux/%{name}.pp.bz2 \
 %endif
 
 
-%pre
-%sysusers_create_compat %{SOURCE103}
 
 %post
 %systemd_post %{name}.service

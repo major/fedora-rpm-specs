@@ -1,5 +1,5 @@
 Name:		xrootd-s3-http
-Version:	0.6.3
+Version:	0.6.4
 Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
@@ -61,6 +61,9 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
+* Tue Feb 10 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.4-1
+- Update to version 0.6.4
+
 * Wed Jan 28 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.3-1
 - Update to version 0.6.3
 - Drop patches accepted upstream

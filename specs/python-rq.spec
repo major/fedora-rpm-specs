@@ -10,6 +10,11 @@ License:        BSD-2-Clause
 URL:            https://python-rq.org
 Source:         https://github.com/rq/rq/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+# Backport upstream fixes for python3.14 multiprocessing
+Patch: https://github.com/rq/rq/pull/2359.patch
+Patch: https://github.com/rq/rq/commit/df29cf6.patch
+Patch: https://github.com/rq/rq/commit/615525b.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

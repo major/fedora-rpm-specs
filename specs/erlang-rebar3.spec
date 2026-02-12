@@ -5,7 +5,7 @@
 %global bootstrap 1
 
 Name:     erlang-%{realname}
-Version:  3.24.0
+Version:  3.26.0
 Release:  %autorelease
 Summary:  Tool for working with Erlang projects
 License:  Apache-2.0 and MIT
@@ -13,11 +13,11 @@ URL:      https://github.com/erlang/%{realname}
 VCS:      git:%{url}.git
 Source0:  %{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 Source1:  rebar3.escript
-Patch1:   erlang-rebar3-0001-Skip-deps.patch
-Patch2:   erlang-rebar3-0002-Unbundle-hex_core-ver.-0.7.1.patch
-Patch3:   erlang-rebar3-0003-WIP-ignore-deps-on-demand.patch
-Patch4:   erlang-rebar3-0004-WIP-prefer-locally-installed-plugins.patch
-Patch5:   erlang-rebar3-0005-WIP-don-t-update-packages-if-IGNORE_MISSING_DEPS-is-.patch
+Patch:    erlang-rebar3-0001-Skip-deps.patch
+Patch:    erlang-rebar3-0002-Unbundle-hex_core-ver.-0.7.1.patch
+Patch:    erlang-rebar3-0003-WIP-ignore-deps-on-demand.patch
+Patch:    erlang-rebar3-0004-WIP-prefer-locally-installed-plugins.patch
+Patch:    erlang-rebar3-0005-WIP-don-t-update-packages-if-IGNORE_MISSING_DEPS-is-.patch
 %if 0%{?bootstrap}
 # noop
 %else

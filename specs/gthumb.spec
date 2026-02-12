@@ -3,7 +3,7 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        3.12.9
+Version:        3.12.10
 Release:        %autorelease
 Summary:        Image viewer, editor, organizer
 

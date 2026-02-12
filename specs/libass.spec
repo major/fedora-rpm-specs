@@ -36,6 +36,12 @@ developing applications that use %{name}.
 %autosetup -p1
 
 %build
+# relocations in .text from nasm-compiled code on i686 only
+# https://bugzilla.redhat.com/show_bug.cgi?id=2428281
+%ifarch %{ix86}
+LDFLAGS="$LDFLAGS -Wl,-z,notext"
+%endif
+
 %configure --disable-static
 %make_build
 

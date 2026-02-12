@@ -7,7 +7,7 @@
 
 Name:           tigervnc
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -143,6 +143,8 @@ Requires(preun): systemd
 Requires(postun): systemd
 Obsoletes:      tigervnc-server < %{version}-%{release}
 Provides:       tigervnc-server = %{version}-%{release}
+Obsoletes:      tigervnc-server-minimal < %{version}-%{release}
+Provides:       tigervnc-server-minimal = %{version}-%{release}
 
 %description x11-server
 The VNC system allows you to access the same desktop from a wide
@@ -171,8 +173,6 @@ Requires:       mesa-dri-drivers
 Requires:       tigervnc-license
 Requires:       xkbcomp
 Requires:       xkeyboard-config
-Obsoletes:      tigervnc-server-minimal < %{version}-%{release}
-Provides:       tigervnc-server-minimal = %{version}-%{release}
 
 %description server-common
 Common tools used by both X11 and Wayland TigerVNC servers,
@@ -438,6 +438,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Feb 10 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.0-2
+- Move obsoletes/provides for tigervnc-server-minimal to tigervnc-server-x11
+
 * Tue Jan 27 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.0-1
 - 1.16.0
 

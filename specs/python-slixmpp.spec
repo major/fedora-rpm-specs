@@ -3,16 +3,18 @@
 
 
 Name:           python-slixmpp
-Version:        1.12.0
-Release:        2%{?dist}
+Version:        1.13.2
+Release:        1%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
 URL:            https://codeberg.org/poezio/%{srcname}
-Source0:        https://codeberg.org/poezio/%{srcname}/archive/slix-%{version}.tar.gz
+Source0:        %{pypi_source slixmpp}
 
 BuildRequires:  make
 BuildRequires:  python3-devel
+# Needed to set version
+BuildRequires:  python3-setuptools_scm
 # Optional dependencies
 BuildRequires:  python3-aiohttp
 BuildRequires:  python3-cryptography
@@ -39,6 +41,17 @@ remove all threads.
 %package -n python3-%{srcname}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
+License:   %{shrink:
+((MIT OR Apache-2.0) AND Unicode-3.0) AND
+(Apache-2.0 OR MIT) AND
+(MIT) AND
+(MIT OR Apache-2.0) AND
+(MIT OR Apache-2.0 OR Zlib) AND
+(MPL-2.0) AND
+(Unicode-3.0) AND
+(Unlicense OR MIT) AND
+(Zlib OR Apache-2.0 OR MIT)}
+
 %description -n python3-%{srcname}
 Slixmpp is an MIT licensed XMPP library for Python 3.5+. It is a fork
 of SleekXMPP. Goals is to only rewrite the core of the library (the low
@@ -63,10 +76,8 @@ This package contains documentation in docbook format.
 
 
 %prep
-%autosetup -n %{srcname}
+%autosetup -n %{srcname}-%{version}
 %cargo_prep
-sed -i '18d' slixmpp/plugins/xep_0055/search.py
-sed -i '17d' slixmpp/plugins/xep_0055/search.py
 
 %generate_buildrequires
 %cargo_generate_buildrequires -a -t
@@ -114,6 +125,9 @@ install -pDm0644 docs/texinfo/slixmpp.xml \
 
 
 %changelog
+* Mon Feb 09 2026 Benson Muite <fed500@fedoraproject.org> - 1.13.2-1
+- Update to 1.13.2 rhbz#2437573
+
 * Sun Jan 25 2026 Benson Muite <fed500@fedoraproject.org> - 1.12.0-2
 - Remove unneeded permissions command
 

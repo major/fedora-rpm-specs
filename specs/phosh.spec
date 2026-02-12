@@ -1,9 +1,8 @@
-%global gvc_url https://gitlab.gnome.org/guidog/libgnome-volume-control
-%global gvc_commit 1cdc1cb2d622d64e9ad2781093bcc63719c5ea5b
+%global gvc_commit 664eba4c054ecc4a140f0ef01ae9297422b71fdc
 %global libcall_ui_version v0.1.5
 
 Name:		phosh
-Version:	0.52.1
+Version:	0.53~rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -11,7 +10,7 @@ URL:		https://gitlab.gnome.org/World/Phosh/phosh
 Source0:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
-Source1:	%{gvc_url}/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
+Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
 # Similar situation as gvc
 Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_version}/libcall-ui-%{libcall_ui_version}.tar.gz
 Source3:	phosh
@@ -65,13 +64,13 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	xmlstarlet
 
-Requires:	gnome-session
+Requires:	gnome-session >= 49.0
 Requires:	gnome-settings-daemon >= 49.0
-Requires:	gnome-shell-common
+Requires:	gnome-shell-common >= 49.0
 Requires:	hicolor-icon-theme
 Requires:	lato-fonts
 Requires:	mutter-common
-Requires:	phoc >= 0.45.0
+Requires:	phoc >= 0.52.0
 Requires:	phosh-osk = 1.0
 Requires:	xorg-x11-server-Xwayland
 

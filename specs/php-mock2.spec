@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-mock2
 #
-# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    e134d210e4707c29724ebc7fe50d220123f0fdd9
+%global gh_commit    b59734f19765296bb0311942850d02288a224890
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-08-18
+%global gh_date      2026-02-06
 %global gh_owner     php-mock
 %global gh_project   php-mock
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock%{major}
-Version:        2.6.2
-Release:        2%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
 License:        WTFPL
@@ -28,7 +28,7 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 7.4
 %if %{with_tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.0 || ^9.0 || ^10.0|| ^11.0 || ^12.0",
+#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.0 || ^9.0 || ^10.0|| ^11.0 || ^12.0 || ^13.0",
 #        "squizlabs/php_codesniffer": "^3.5"
 BuildRequires: phpunit8
 BuildRequires: phpunit9
@@ -37,13 +37,16 @@ BuildRequires: phpunit10
 BuildRequires: phpunit11
 BuildRequires: phpunit12
 %endif
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+BuildRequires: phpunit13
+%endif
 %endif
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": "^5.6 || ^7.0 || ^8.0",
-#        "phpunit/php-text-template": "^1 || ^2 || ^3 || ^4 || ^5")
+#        "phpunit/php-text-template": "^1 || ^2 || ^3 || ^4 || ^5 || ^6")
 Requires:       php(language) >= 5.6
 Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 6)
 # From phpcompatinfo report from version 2.0.0
@@ -84,7 +87,16 @@ require_once '%{_datadir}/php/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Autoload::addPsr4('phpmock\\', __DIR__);
 \Fedora\Autoloader\Autoload::addPsr4('phpmock\\', dirname(dirname(__DIR__)) . '/tests/phpmock%{major}');
-if (PHP_VERSION_ID >= 80300) {
+if (PHP_VERSION_ID >= 80400) {
+	$deps = [
+        '%{_datadir}/php/SebastianBergmann/Template6/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template5/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template4/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template3/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template2/autoload.php',
+        '%{_datadir}/php/Text/Template/Autoload.php',
+    ];
+} else if (PHP_VERSION_ID >= 80300) {
 	$deps = [
         '%{_datadir}/php/SebastianBergmann/Template5/autoload.php',
         '%{_datadir}/php/SebastianBergmann/Template4/autoload.php',
@@ -140,6 +152,7 @@ if [ -x %{_bindir}/phpunit8 ]; then
 	for cmd in php php80 php81 php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit8 \
+		  --do-not-cache-result \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
 		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php --verbose rpm/tests || ret=1
 	  fi
@@ -150,6 +163,7 @@ if [ -x %{_bindir}/phpunit9 ]; then
 	for cmd in php php80 php81 php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit9 \
+		  --do-not-cache-result \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
 		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php --verbose rpm/tests || ret=1
 	  fi
@@ -160,6 +174,7 @@ if [ -x %{_bindir}/phpunit10 ]; then
 	for cmd in php php81 php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit10 \
+		  --do-not-cache-result \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
 		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php rpm/tests || ret=1
 	  fi
@@ -170,6 +185,7 @@ if [ -x %{_bindir}/phpunit11 ]; then
 	for cmd in php  php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit11 \
+		  --do-not-cache-result \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
 		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php rpm/tests || ret=1
 	  fi
@@ -179,7 +195,19 @@ fi
 if [ -x %{_bindir}/phpunit12 ]; then
 	for cmd in php php83 php84 php85;do
 	  if which $cmd; then
-		$cmd %{_bindir}/phpunit11 \
+		$cmd %{_bindir}/phpunit12 \
+		  --do-not-cache-result \
+		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
+		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php rpm/tests || ret=1
+	  fi
+	done
+fi
+
+if [ -x %{_bindir}/phpunit13 ]; then
+	for cmd in php php84 php85;do
+	  if which $cmd; then
+		$cmd %{_bindir}/phpunit13 \
+          --do-not-cache-result \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
 		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php rpm/tests || ret=1
 	  fi
@@ -200,6 +228,10 @@ exit $ret
 
 
 %changelog
+* Fri Feb  6 2026 Remi Collet <remi@remirepo.net> - 2.7.0-1
+- update to 2.7.0
+- allow phpunit13
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

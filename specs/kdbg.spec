@@ -1,7 +1,7 @@
 Name: kdbg
 Summary: A GUI for gdb, the GNU debugger, and KDE
 Version: 3.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source: http://download.sourceforge.net/kdbg/%{name}-%{version}.tar.gz
 # No version specified.
@@ -11,17 +11,18 @@ URL: http://www.kdbg.org/
 Requires: gdb
 Requires: xterm
 
-BuildRequires: qt5-qtbase-devel
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: extra-cmake-modules
 BuildRequires: desktop-file-utils
-BuildRequires: gettext
-BuildRequires: make
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6WindowSystem)
 
 %description
 KDbg is a K Desktop Environment (KDE) GUI for gdb, the GNU debugger.
@@ -33,17 +34,14 @@ requires X and KDE to be installed in order to run.
 %setup -q
 
 %build
-# don't install icons, which are included in oxygen-icon-theme
-rm -f kdbg/pics/*action-debug-run*
-
-%cmake_kf5
+%cmake_kf6 -DBUILD_FOR_KDE_VERSION=6
 
 %cmake_build
 
 %install
 %cmake_install
 
-%find_lang %{name}
+%find_lang %{name} --with-html
 
 %files -f %{name}.lang
 %doc BUGS COPYING README TODO ReleaseNotes-*
@@ -51,13 +49,13 @@ rm -f kdbg/pics/*action-debug-run*
 %{_bindir}/*
 %{_datadir}/kxmlgui5/%{name}
 %{_datadir}/applications/*
-%{_kf5_datadir}/%{name}
+%{_kf6_datadir}/%{name}
 %{_datadir}/icons/*/*/*/*
-%lang(de) %{_docdir}/HTML/de/%{name}
-%lang(en) %{_docdir}/HTML/en/%{name}
-%lang(ru) %{_docdir}/HTML/ru/%{name}
 
 %changelog
+* Sun Jan 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.2.0-3
+- Build with KF6
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

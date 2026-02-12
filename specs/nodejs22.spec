@@ -80,7 +80,7 @@
 # === Backwards compatibility ===
 # Obsolete un-versioned default stream RPMs; can be removed when F43 is EOL
 %define obsolete_default_stream_rpm() %{expand:\
-Obsoletes: nodejs%{?1:-%{1}} < %{?2}%{!?2:%{node_evr}}
+Obsoletes: nodejs%{?1:-%{1}} < %{?2}%{!?2:1:22.22.0-4%{?dist}}
 Provides:  nodejs%{?1:-%{1}} = %{?2}%{!?2:%{node_evr}}
 }
 
@@ -253,7 +253,9 @@ Requires:       nodejs%{node_version_major}         = %{node_evr}
 Recommends:     nodejs%{node_version_major}-docs    = %{node_evr}
 Provides:       npm = %{npm_evr}
 Provides:       npm(npm) = %{npm_version}
-%obsolete_default_stream_rpm npm %{npm_evr}
+
+Obsoletes:      nodejs-npm < 1:10.9.4-1.22.22.0.4%{?dist}
+Provides:       nodejs-npm = %{npm_evr}
 
 %description    npm
 npm is a package manager for node.js. You can use it to install and publish

@@ -10,13 +10,13 @@ RTSP or SIP clients and servers, and have been used to add streaming support to
 existing media player applications.}
 
 Name:           live555
-Version:        2025.12.26
+Version:        2026.01.12
 Release:        %autorelease
 Summary:        RTP/RTCP/RTSP/SIP multimedia streaming libraries
 
 License:        LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:            http://live555.com/liveMedia
-Source:         %{url}/public/live.%{version}.tar.gz
+Source:         https://download.live555.com/live.%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

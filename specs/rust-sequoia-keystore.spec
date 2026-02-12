@@ -5,7 +5,7 @@
 %global crate sequoia-keystore
 
 Name:           rust-sequoia-keystore
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Sequoia's private key store server
 

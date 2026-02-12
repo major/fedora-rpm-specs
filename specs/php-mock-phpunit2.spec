@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-mock-phpunit2
 #
-# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    c074f7a260cb80bdc7cf0823dc23174bc49064e1
+%global gh_commit    701df15b183f25af663af134eb71353cd838b955
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-11-19
+%global gh_date      2026-02-06
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.14.0
-Release:        2%{?dist}
+Version:        2.15.0
+Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -38,6 +38,9 @@ BuildRequires:  phpunit10 >= 10.0.17
 BuildRequires:  phpunit11
 BuildRequires:  phpunit12 >= 12.0.9
 %endif
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+BuildRequires:  phpunit13
+%endif
 # TODO phpunit11 but requires php 8.2
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
@@ -45,7 +48,7 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": ">=7",
-#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11 || ^12.0.9",
+#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11 || ^12.0.9 || ^13",
 #        "php-mock/php-mock-integration": "^3.0"
 #    "conflict": {
 #        "phpunit/phpunit-mock-objects": "3.2.0"
@@ -109,7 +112,7 @@ ret=0
 
 if [ -x %{_bindir}/phpunit8 ]; then
 : Run upstream test suite with phpunit8
-for cmd in php php81 php82 php82 php84 php85; do
+for cmd in php php82 php82 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
@@ -118,7 +121,7 @@ fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
 : Run upstream test suite with phpunit9
-for cmd in php php81 php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -127,7 +130,7 @@ fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
 : Run upstream test suite with phpunit10
-for cmd in php php81 php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit10 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -148,11 +151,22 @@ done
 fi
 
 if [ -x %{_bindir}/phpunit12 ]; then
-: Run upstream test suite with phpunit11
+: Run upstream test suite with phpunit12
 for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit12 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
+       || ret=1
+  fi
+done
+fi
+
+if [ -x %{_bindir}/phpunit13 ]; then
+: Run upstream test suite with phpunit13
+for cmd in php php84 php85; do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit13 \
+       --filter '^((?!(testPreserveArgumentDefaultValue|testExpects)).)*$' \
        || ret=1
   fi
 done
@@ -171,6 +185,10 @@ exit $ret
 
 
 %changelog
+* Fri Feb  6 2026 Remi Collet <remi@remirepo.net> - 2.15.0-1
+- update to 2.15.0
+- allow phpunit13
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

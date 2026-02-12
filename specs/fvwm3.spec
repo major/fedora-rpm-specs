@@ -12,6 +12,8 @@ Source0:	https://github.com/fvwmorg/%{name}/archive/%{version}/%{name}-%{version
 Source1:	%{name}.desktop
 # Fedora-specific
 Patch:		%{name}-0001-Use-mimeopen-instead-of-EDITOR.patch
+# Upstreamed fix for CVE-2025-65637
+Patch:		%{name}-0002-build-deps-bump-github.com-sirupsen-logrus-in-bin-Fv.patch
 BuildRequires:	asciidoctor
 BuildRequires:	desktop-file-utils
 BuildRequires:	fribidi-devel

@@ -6,13 +6,13 @@
 
 Name:    bluez
 Version: 5.86
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-# https://patchwork.kernel.org/project/bluetooth/list/?series=1052425
+# https://patchwork.kernel.org/project/bluetooth/list/?series=1052631
 Patch1: big-endian-5.86.patch
 
 BuildRequires: dbus-devel >= 1.6
@@ -329,6 +329,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Tue Feb 10 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-2
+- Use simpler big endian bug fix
+
 * Mon Feb 09 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-1
 - Update to 5.86
 

@@ -1,7 +1,7 @@
 %global giturl  https://github.com/ESSS/pytest-regressions
 
 Name:           python-pytest-regressions
-Version:        2.9.1
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Pytest fixtures for writing regression tests
 
@@ -51,10 +51,11 @@ Summary:        %{summary}
 # - _static/plus.png: BSD-2-Clause
 # - _static/pygments.css: MIT
 # - _static/searchtools.js: BSD-2-Clause
+# - _static/sphinx_highlight.js: BSD-2-Clause
 # - _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
-# - _static/underscore*.js: MIT
 License:        MIT AND BSD-2-Clause
 Summary:        Documentation for %{name}
+Provides:       bundled(js-jquery)
 
 %description    doc
 Documentation for %{name}.

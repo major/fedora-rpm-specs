@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 100%{?dist}
+Release: 101%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -3210,12 +3210,14 @@ lua script may be used from the command line; a bash version is
 provided.
 
 %package -n %{shortname}-git-latexdiff
-Version: svn54732
+Version: svn75878
 Provides: texlive-git-latexdiff = %{epoch}:%{source_date}-%{release}
 Summary: Call latexdiff on two Git revisions of a file
 License: BSD-3-Clause
 Requires: texlive-base texlive-kpathsea
 Requires: git, texlive-latexdiff
+# shell
+BuildArch: noarch
 
 %description -n %{shortname}-git-latexdiff
 git-latexdiff is a tool to graphically visualize differences
@@ -11874,6 +11876,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:20250308-101
+- update git-latexdiff to svn75878 (bz2435847)
+- fix texlive-git-latexdiff to be noarch package (it is just shell)
+
 * Fri Jan 23 2026 Than Ngo <than@redhat.com> - 12:20250308-100
 - Fix rhbz#2431538, FTBFS with gcc-16
 

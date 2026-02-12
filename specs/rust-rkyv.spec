@@ -5,7 +5,7 @@
 %global crate rkyv
 
 Name:           rust-rkyv
-Version:        0.8.14
+Version:        0.8.15
 Release:        %autorelease
 Summary:        Zero-copy deserialization framework for Rust
 

@@ -1,14 +1,13 @@
 Name:           accel-ppp
-Version:        1.13.0
+Version:        1.14.0
 Release:        %autorelease
 Summary:        High-performance VPN and broadband protocol server
 License:        GPL-2.0-Only OR GPL-2.0-Or-Later OR MIT
 URL:            https://accel-ppp.org/
 Source:         https://github.com/accel-ppp/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		0001-Use-PCRE2-instead-of-PCRE.patch
-Patch1:		0002-Add-Fedora-CPack-option.patch
-Patch2:		0003-Allow-building-in-source-directory-needed-for-EPEL8.patch
-Patch3:		0004-Add-EPEL-10-CPack-option.patch
+Patch0:		0001-Add-Fedora-CPack-option.patch
+Patch1:		0002-Allow-building-in-source-directory-needed-for-EPEL8.patch
+Patch2:		0003-Add-EPEL-10-CPack-option.patch
 ExcludeArch:	%{ix86}
 
 BuildRequires:  cmake

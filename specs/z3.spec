@@ -11,12 +11,13 @@
 # the koji builders have available.
 %bcond test 0
 
-%global giturl  https://github.com/Z3Prover/z3
-
 Name:           z3
-Version:        4.15.4
+Version:        4.15.7
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
+
+%global giturl  https://github.com/Z3Prover/z3
+%global majver  %{gsub %version ^(%d*%.%d*)%..*$ %1}
 
 License:        MIT
 URL:            https://github.com/Z3Prover/z3/wiki
@@ -24,6 +25,8 @@ VCS :           git:%{giturl}.git
 Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
 # Do not try to build or install native OCaml artifacts on bytecode-only arches
 Patch:          %{name}-ocaml.patch
+# Fix up the s390x docs so they look like other arches
+Patch:          %{name}-s390x-doc.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -74,37 +77,19 @@ Header files for building applications that use z3.
 # examples/tptp/tptp5.tab.c
 # examples/tptp/tptp5.tab.c
 # Other licenses are due to files installed by doxygen.
-# html/bc_s.png: GPL-1.0-or-later
-# html/bdwn.png: GPL-1.0-or-later
-# html/closed.png: GPL-1.0-or-later
-# html/doc.png: GPL-1.0-or-later
+# html/clipboard.js: MIT
+# html/cookie.js: MIT
 # html/doxygen.css: GPL-1.0-or-later
 # html/doxygen.svg: GPL-1.0-or-later
 # html/dynsections.js: MIT
-# html/folderclosed.png: GPL-1.0-or-later
-# html/folderopen.png: GPL-1.0-or-later
 # html/jquery.js: MIT
-# html/nav_f.png: GPL-1.0-or-later
-# html/nav_g.png: GPL-1.0-or-later
-# html/nav_h.png: GPL-1.0-or-later
-# html/open.png: GPL-1.0-or-later
+# html/navtree.css: GPL-1.0-or-later
 # html/search/search.css: GPL-1.0-or-later
 # html/search/search.js: MIT
-# html/search/search_l.png: GPL-1.0-or-later
-# html/search/search_m.png: GPL-1.0-or-later
-# html/search/search_r.png: GPL-1.0-or-later
-# html/splitbar.png: GPL-1.0-or-later
-# html/sync_off.png: GPL-1.0-or-later
-# html/sync_on.png: GPL-1.0-or-later
-# html/tab_a.png: GPL-1.0-or-later
-# html/tab_b.png: GPL-1.0-or-later
-# html/tab_h.png: GPL-1.0-or-later
-# html/tab_s.png: GPL-1.0-or-later
 # html/tabs.css: GPL-1.0-or-later
 License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-1.0-or-later
 Summary:        API documentation for Z3
-# FIXME: this should be noarch, but we end up with different numbers of inheritance
-# graphs on different architectures.  Why?
+BuildArch:      noarch
 
 %description doc
 API documentation for Z3.
@@ -149,7 +134,7 @@ Python 3 interface to z3.
 %prep
 %autosetup -N -n %{name}-%{name}-%{version}
 %ifnarch %{ocaml_native_compiler}
-%patch -P0 -p1
+%patch 0 -p1
 %endif
 
 %conf
@@ -167,9 +152,8 @@ sed \
   -i scripts/mk_util.py
 
 # Comply with the Java packaging guidelines and fill in the version for python
-majver=$(cut -d. -f-2 <<< %{version})
 sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so"),' \
-    -e "s/'so'/'so.$majver'/" \
+    -e "s/'so'/'so.%{majver}'/" \
     -i scripts/update_api.py
 
 # Turn off HTML timestamps for reproducible builds
@@ -191,6 +175,19 @@ export PYTHON=%{python3}
   -DZ3_USE_LIB_GMP:BOOL=ON
 
 %cmake_build
+
+# Remove meaningless memory addresses from the pydoc documentation
+# See https://github.com/python/cpython/issues/83572
+sed -ri 's/, handle [0-9a-fA-F]+//' \
+    %{_vpath_builddir}/doc/api/html/z3{,.z3{,num,poly,printer,rcf,util}}.html
+sed -ri 's/ at 0x[0-9a-fA-F]+//g' \
+    %{_vpath_builddir}/doc/api/html/z3.z3core.html
+# For unknown reasons, the s390x documentation build has fewer newlines than
+# the builds on other architectures.  Make the outputs match so the doc
+# package can be noarch.
+%ifarch s390x
+patch -p1 -T -d %{_vpath_builddir} < %{PATCH1}
+%endif
 
 # The cmake build system does not build the OCaml interface.  Do that manually.
 #

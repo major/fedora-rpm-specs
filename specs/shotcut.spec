@@ -3,8 +3,8 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        25.12.30
-Release:        3%{?dist}
+Version:        26.1.30
+Release:        1%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -45,7 +45,6 @@ License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
 
 URL:            http://www.shotcut.org/
 Source0:        https://github.com/mltframework/shotcut/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         sharedframe_mlt32_fix.diff
 
 ExcludeArch:    %{ix86}
 
@@ -69,8 +68,8 @@ BuildRequires:  pkgconfig(Qt6QuickControls2)
 BuildRequires:  pkgconfig(Qt6WebSockets)
 BuildRequires:  pkgconfig(Qt6Xml)
 BuildRequires:  pkgconfig(Qt6Linguist)
-BuildRequires:  pkgconfig(mlt++-7) >= 7.32.0
-BuildRequires:  pkgconfig(mlt-framework-7) >= 7.32.0
+BuildRequires:  pkgconfig(mlt++-7) >= 7.36.0
+BuildRequires:  pkgconfig(mlt-framework-7) >= 7.36.0
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  webvfx-devel
 BuildRequires:  fftw-devel
@@ -242,6 +241,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Tue Feb 10 2026 Martin Gansser <martinkg@fedoraproject.org> - 26.1.30-1
+- Update to version 26.1.30
+
 * Thu Jan 29 2026 Martin Gansser <martinkg@fedoraproject.org> - 25.12.30-3
 - Rebuild for rawhide
 

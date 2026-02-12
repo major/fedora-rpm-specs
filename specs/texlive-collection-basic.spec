@@ -5,7 +5,7 @@
 Name:           texlive-collection-basic
 Epoch:          12
 Version:        svn72890
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Essential programs and files
 
 License:        LPPL-1.3c
@@ -114,7 +114,7 @@ macros, Computer Modern fonts, and configuration for common drivers; no LaTeX.
 
 %package -n texlive-amsfonts
 Summary:        TeX fonts from the American Mathematical Society
-Version:        svn61937
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -265,7 +265,7 @@ other engine sources, keeping e-TeX stable.
 
 %package -n texlive-etex-pkg
 Summary:        E-TeX support package
-Version:        svn41784
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -359,7 +359,7 @@ machine-readable files.
 
 %package -n texlive-ifplatform
 Summary:        Conditionals to test which platform is being used
-Version:        svn45533
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -379,7 +379,7 @@ distinguish between various classes of Unix systems.
 
 %package -n texlive-iftex
 Summary:        Am I running under pdfTeX, XeTeX or LuaTeX?
-Version:        svn73115
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -441,7 +441,7 @@ parsing routines.
 
 %package -n texlive-mflogo
 Summary:        LaTeX support for Metafont logo fonts
-Version:        svn42428
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -522,7 +522,7 @@ TeX Live documentation (common elements)
 
 %package -n texlive-texlive-msg-translations
 Summary:        Translations of the TeX Live installer and TeX Live Manager
-Version:        svn77513
+Version:        svn77642
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -769,6 +769,9 @@ popd
 %doc %{_texmf_main}/doc/generic/unicode-data/
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-9
+- Update amsfonts, etex-pkg, ifplatform, iftex, mflogo, texlive-msg-translations
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn72890-8
 - Update modes, texlive-msg-translations
 

@@ -4,7 +4,7 @@
 
 Name:           texlive-collection-mathscience
 Epoch:          12
-Version:        svn77507
+Version:        svn77561
 Release:        1%{?dist}
 Summary:        Mathematics, natural sciences, computer science packages
 
@@ -492,118 +492,120 @@ Source473:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/s
 Source474:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sclang-prettifier.doc.tar.xz
 Source475:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratchx.tar.xz
 Source476:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/scratchx.doc.tar.xz
-Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sesamanuel.tar.xz
-Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sesamanuel.doc.tar.xz
-Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfg.tar.xz
-Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfg.doc.tar.xz
-Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shuffle.tar.xz
-Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shuffle.doc.tar.xz
-Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplebnf.tar.xz
-Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplebnf.doc.tar.xz
-Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpler-wick.tar.xz
-Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpler-wick.doc.tar.xz
-Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simples-matrices.tar.xz
-Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simples-matrices.doc.tar.xz
-Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplewick.tar.xz
-Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplewick.doc.tar.xz
-Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sistyle.tar.xz
-Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sistyle.doc.tar.xz
-Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunits.tar.xz
-Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunits.doc.tar.xz
-Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunitx.tar.xz
-Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunitx.doc.tar.xz
-Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skmath.tar.xz
-Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skmath.doc.tar.xz
-Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spalign.tar.xz
-Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spalign.doc.tar.xz
-Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spbmark.tar.xz
-Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spbmark.doc.tar.xz
-Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stanli.tar.xz
-Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stanli.doc.tar.xz
-Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex.tar.xz
-Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex.doc.tar.xz
-Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex2.tar.xz
-Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex2.doc.tar.xz
-Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistics.tar.xz
-Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistics.doc.tar.xz
-Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistik.tar.xz
-Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistik.doc.tar.xz
-Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statmath.tar.xz
-Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statmath.doc.tar.xz
-Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/steinmetz.tar.xz
-Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/steinmetz.doc.tar.xz
-Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stmaryrd.tar.xz
-Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stmaryrd.doc.tar.xz
-Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/string-diagrams.tar.xz
-Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/string-diagrams.doc.tar.xz
-Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/structmech.tar.xz
-Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/structmech.doc.tar.xz
-Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/struktex.tar.xz
-Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/struktex.doc.tar.xz
-Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/substances.tar.xz
-Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/substances.doc.tar.xz
-Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subsupscripts.tar.xz
-Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subsupscripts.doc.tar.xz
-Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subtext.tar.xz
-Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subtext.doc.tar.xz
-Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/susy.tar.xz
-Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/susy.doc.tar.xz
-Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syllogism.tar.xz
-Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syllogism.doc.tar.xz
-Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympytexpackage.tar.xz
-Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympytexpackage.doc.tar.xz
-Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/synproof.tar.xz
-Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/synproof.doc.tar.xz
-Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t-angles.tar.xz
-Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t-angles.doc.tar.xz
-Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tablor.tar.xz
-Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tablor.doc.tar.xz
-Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/temporal-logic.tar.xz
-Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/temporal-logic.doc.tar.xz
-Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensind.tar.xz
-Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensind.doc.tar.xz
-Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensor.tar.xz
-Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensor.doc.tar.xz
-Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensormatrix.tar.xz
-Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensormatrix.doc.tar.xz
-Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tex-ewd.tar.xz
-Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tex-ewd.doc.tar.xz
-Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textgreek.tar.xz
-Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textgreek.doc.tar.xz
-Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textopo.tar.xz
-Source556:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textopo.doc.tar.xz
-Source557:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thermodynamics.tar.xz
-Source558:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thermodynamics.doc.tar.xz
-Source559:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmbox.tar.xz
-Source560:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmbox.doc.tar.xz
-Source561:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmtools.tar.xz
-Source562:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmtools.doc.tar.xz
-Source563:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiscreen.tar.xz
-Source564:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiscreen.doc.tar.xz
-Source565:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-interval.tar.xz
-Source566:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-interval.doc.tar.xz
-Source567:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turnstile.tar.xz
-Source568:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turnstile.doc.tar.xz
-Source569:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitsdef.tar.xz
-Source570:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitsdef.doc.tar.xz
-Source571:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venn.tar.xz
-Source572:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venn.doc.tar.xz
-Source573:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/witharrows.tar.xz
-Source574:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/witharrows.doc.tar.xz
-Source575:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xymtex.tar.xz
-Source576:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xymtex.doc.tar.xz
-Source577:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yhmath.tar.xz
-Source578:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yhmath.doc.tar.xz
-Source579:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/youngtab.tar.xz
-Source580:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/youngtab.doc.tar.xz
-Source581:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yquant.tar.xz
-Source582:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yquant.doc.tar.xz
-Source583:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ytableau.tar.xz
-Source584:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ytableau.doc.tar.xz
-Source585:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zeckendorf.tar.xz
-Source586:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zeckendorf.doc.tar.xz
-Source587:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zx-calculus.tar.xz
-Source588:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zx-calculus.doc.tar.xz
+Source477:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seqcalc.tar.xz
+Source478:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/seqcalc.doc.tar.xz
+Source479:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sesamanuel.tar.xz
+Source480:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sesamanuel.doc.tar.xz
+Source481:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfg.tar.xz
+Source482:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sfg.doc.tar.xz
+Source483:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shuffle.tar.xz
+Source484:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/shuffle.doc.tar.xz
+Source485:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplebnf.tar.xz
+Source486:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplebnf.doc.tar.xz
+Source487:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpler-wick.tar.xz
+Source488:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simpler-wick.doc.tar.xz
+Source489:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simples-matrices.tar.xz
+Source490:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simples-matrices.doc.tar.xz
+Source491:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplewick.tar.xz
+Source492:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/simplewick.doc.tar.xz
+Source493:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sistyle.tar.xz
+Source494:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sistyle.doc.tar.xz
+Source495:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunits.tar.xz
+Source496:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunits.doc.tar.xz
+Source497:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunitx.tar.xz
+Source498:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/siunitx.doc.tar.xz
+Source499:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skmath.tar.xz
+Source500:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/skmath.doc.tar.xz
+Source501:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spalign.tar.xz
+Source502:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spalign.doc.tar.xz
+Source503:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spbmark.tar.xz
+Source504:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spbmark.doc.tar.xz
+Source505:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stanli.tar.xz
+Source506:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stanli.doc.tar.xz
+Source507:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex.tar.xz
+Source508:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex.doc.tar.xz
+Source509:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex2.tar.xz
+Source510:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statex2.doc.tar.xz
+Source511:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistics.tar.xz
+Source512:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistics.doc.tar.xz
+Source513:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistik.tar.xz
+Source514:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statistik.doc.tar.xz
+Source515:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statmath.tar.xz
+Source516:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/statmath.doc.tar.xz
+Source517:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/steinmetz.tar.xz
+Source518:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/steinmetz.doc.tar.xz
+Source519:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stmaryrd.tar.xz
+Source520:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/stmaryrd.doc.tar.xz
+Source521:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/string-diagrams.tar.xz
+Source522:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/string-diagrams.doc.tar.xz
+Source523:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/structmech.tar.xz
+Source524:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/structmech.doc.tar.xz
+Source525:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/struktex.tar.xz
+Source526:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/struktex.doc.tar.xz
+Source527:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/substances.tar.xz
+Source528:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/substances.doc.tar.xz
+Source529:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subsupscripts.tar.xz
+Source530:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subsupscripts.doc.tar.xz
+Source531:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subtext.tar.xz
+Source532:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/subtext.doc.tar.xz
+Source533:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/susy.tar.xz
+Source534:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/susy.doc.tar.xz
+Source535:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syllogism.tar.xz
+Source536:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/syllogism.doc.tar.xz
+Source537:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympytexpackage.tar.xz
+Source538:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sympytexpackage.doc.tar.xz
+Source539:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/synproof.tar.xz
+Source540:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/synproof.doc.tar.xz
+Source541:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t-angles.tar.xz
+Source542:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/t-angles.doc.tar.xz
+Source543:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tablor.tar.xz
+Source544:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tablor.doc.tar.xz
+Source545:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/temporal-logic.tar.xz
+Source546:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/temporal-logic.doc.tar.xz
+Source547:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensind.tar.xz
+Source548:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensind.doc.tar.xz
+Source549:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensor.tar.xz
+Source550:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensor.doc.tar.xz
+Source551:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensormatrix.tar.xz
+Source552:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tensormatrix.doc.tar.xz
+Source553:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tex-ewd.tar.xz
+Source554:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tex-ewd.doc.tar.xz
+Source555:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textgreek.tar.xz
+Source556:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textgreek.doc.tar.xz
+Source557:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textopo.tar.xz
+Source558:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/textopo.doc.tar.xz
+Source559:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thermodynamics.tar.xz
+Source560:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thermodynamics.doc.tar.xz
+Source561:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmbox.tar.xz
+Source562:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmbox.doc.tar.xz
+Source563:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmtools.tar.xz
+Source564:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/thmtools.doc.tar.xz
+Source565:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiscreen.tar.xz
+Source566:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tiscreen.doc.tar.xz
+Source567:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-interval.tar.xz
+Source568:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tkz-interval.doc.tar.xz
+Source569:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turnstile.tar.xz
+Source570:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/turnstile.doc.tar.xz
+Source571:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitsdef.tar.xz
+Source572:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/unitsdef.doc.tar.xz
+Source573:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venn.tar.xz
+Source574:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/venn.doc.tar.xz
+Source575:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/witharrows.tar.xz
+Source576:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/witharrows.doc.tar.xz
+Source577:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xymtex.tar.xz
+Source578:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xymtex.doc.tar.xz
+Source579:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yhmath.tar.xz
+Source580:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yhmath.doc.tar.xz
+Source581:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/youngtab.tar.xz
+Source582:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/youngtab.doc.tar.xz
+Source583:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yquant.tar.xz
+Source584:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yquant.doc.tar.xz
+Source585:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ytableau.tar.xz
+Source586:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ytableau.doc.tar.xz
+Source587:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zeckendorf.tar.xz
+Source588:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zeckendorf.doc.tar.xz
+Source589:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zx-calculus.tar.xz
+Source590:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/zx-calculus.doc.tar.xz
 
 # Patches
 Patch0:         texlive-bz#1442706-python-path.patch
@@ -855,6 +857,7 @@ Requires:       texlive-sasnrdisplay
 Requires:       texlive-sciposter
 Requires:       texlive-sclang-prettifier
 Requires:       texlive-scratchx
+Requires:       texlive-seqcalc
 Requires:       texlive-sesamanuel
 Requires:       texlive-sfg
 Requires:       texlive-shuffle
@@ -936,7 +939,7 @@ an interface that makes changing from one to another a one-line change.
 
 %package -n texlive-accents
 Summary:        Multiple mathematical accents
-Version:        svn51497
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1004,7 +1007,7 @@ xcolor.
 
 %package -n texlive-algorithm2e
 Summary:        Floating algorithm environment with algorithmic keywords
-Version:        svn44846
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1049,7 +1052,7 @@ language.
 
 %package -n texlive-algorithms
 Summary:        A suite of tools for typesetting algorithms in pseudo-code
-Version:        svn76389
+Version:        svn77677
 License:        LGPL-2.1-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1124,7 +1127,7 @@ over multiple lines.
 
 %package -n texlive-aligned-overset
 Summary:        Fix alignment at \overset or \underset
-Version:        svn47290
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1139,7 +1142,7 @@ the alignment position for the amsmath aligned math environments.
 
 %package -n texlive-amscdx
 Summary:        Enhanced commutative diagrams
-Version:        svn51532
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1209,7 +1212,7 @@ and kvoptions.
 
 %package -n texlive-aspen
 Summary:        Simple crypto notation in LaTeX
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1254,7 +1257,7 @@ of tikzpicture environments.
 
 %package -n texlive-autobreak
 Summary:        Simple line breaking of long formulae
-Version:        svn43337
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1433,7 +1436,7 @@ labelling of compounds and reference to labelled compounds.
 
 %package -n texlive-bracealign
 Summary:        Align braces under and over math expressions
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1475,7 +1478,7 @@ variables.
 
 %package -n texlive-bussproofs
 Summary:        Proof trees in the style of the sequent calculus
-Version:        svn54080
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1522,7 +1525,7 @@ specifically, it allows for typesetting of entire (sub)deductions.
 
 %package -n texlive-bytefield
 Summary:        Create illustrations for network protocol specifications
-Version:        svn74416
+Version:        svn77677
 License:        LPPL-1.3a
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1607,7 +1610,7 @@ diagram, as shown with some examples in the documentation.
 
 %package -n texlive-ccfonts
 Summary:        Support for Concrete text and math fonts in LaTeX
-Version:        svn61431
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1713,7 +1716,7 @@ solutions
 
 %package -n texlive-chemformula
 Summary:        Command for typesetting chemical formulas and reactions
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1747,7 +1750,7 @@ and/or defines a new macro \Ch for that purpose.
 
 %package -n texlive-chemgreek
 Summary:        Upright Greek letters in chemistry
-Version:        svn53437
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1795,7 +1798,7 @@ packages.
 
 %package -n texlive-chemnum
 Summary:        A method for numbering chemical compounds
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2115,7 +2118,7 @@ Concrete Roman text fonts.
 
 %package -n texlive-concrete
 Summary:        Concrete Roman fonts
-Version:        svn57963
+Version:        svn77677
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2340,7 +2343,7 @@ than the LaTeX default.
 
 %package -n texlive-delimset
 Summary:        Typeset and declare sets of delimiters with convenient size control
-Version:        svn74779
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2353,7 +2356,7 @@ mode whose size can be adjusted conveniently.
 
 %package -n texlive-derivative
 Summary:        Nice and easy derivatives
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2375,7 +2378,7 @@ them easy to use and understand.
 
 %package -n texlive-diffcoeff
 Summary:        Write differential coefficients easily and consistently
-Version:        svn77136
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2509,7 +2512,7 @@ PGF mathematical engine.
 
 %package -n texlive-ebproof
 Summary:        Formal proofs in the style of sequent calculus
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2524,7 +2527,7 @@ point. Various options allow complete control over spacing, styles of inference
 rules, placement of labels, etc. The package requires expl3 and xparse.
 
 %package -n texlive-econometrics
-Summary:        Simplify mathematic notation in economic and econometric writing
+Summary:        Defines some commands that simplify mathematic notation in economic and econometric writing
 Version:        svn39396
 License:        LPPL-1.3c
 Requires:       texlive-base
@@ -2619,7 +2622,7 @@ and xparse.
 
 %package -n texlive-eqnarray
 Summary:        More generalised equation arrays with numbering
-Version:        svn20641
+Version:        svn77677
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2634,7 +2637,7 @@ requires the array package.
 
 %package -n texlive-eqnlines
 Summary:        Single- and multiline equations
-Version:        svn77363
+Version:        svn77679
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2701,7 +2704,7 @@ package extends the functionalities of the curve2e package.
 
 %package -n texlive-extarrows
 Summary:        Extra Arrows beyond those provided in amsmath
-Version:        svn54400
+Version:        svn77677
 License:        LGPL-2.1-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2716,7 +2719,7 @@ package: \xlongequal, \xLongleftarrow, \xLongrightarrow, \xLongleftrightarrow,
 
 %package -n texlive-extpfeil
 Summary:        Extensible arrows in mathematics
-Version:        svn16243
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2732,7 +2735,7 @@ The package provides some more extensible arrows (usable in the same way as
 
 %package -n texlive-faktor
 Summary:        Typeset quotient structures with LaTeX
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2780,7 +2783,7 @@ and the activities.
 
 %package -n texlive-fitch
 Summary:        LaTeX macros for Fitch-style natural deduction
-Version:        svn69160
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2895,7 +2898,7 @@ compared to other BNF packages).
 
 %package -n texlive-fouridx
 Summary:        Left sub- and superscripts in maths mode
-Version:        svn32214
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3006,7 +3009,7 @@ several macros.
 
 %package -n texlive-ghsystem
 Summary:        Globally harmonised system of chemical (etc) naming
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3321,7 +3324,7 @@ also work on standard Linux distros.
 
 %package -n texlive-interval
 Summary:        Format mathematical intervals, ensuring proper spacing
-Version:        svn50265
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3499,7 +3502,7 @@ customize karnaughmaps and a proper LaTeX package.
 
 %package -n texlive-keytheorems
 Summary:        An l3keys interface to amsthm
-Version:        svn77073
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3547,7 +3550,7 @@ provides a tabular-like input syntax and support for drawing bundles
 
 %package -n texlive-letterswitharrows
 Summary:        Draw arrows over math letters
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3653,7 +3656,7 @@ notational conventions).
 
 %package -n texlive-longdivision
 Summary:        Typesets long division
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3843,7 +3846,7 @@ mode. Example definitions (chosen to show the package's flexibility, are:
 
 %package -n texlive-mathpartir
 Summary:        Typesetting sequences of math formulas, e.g. type inference rules
-Version:        svn76924
+Version:        svn77677
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3936,7 +3939,7 @@ easy styling.
 
 %package -n texlive-mattens
 Summary:        Matrices/tensor typesetting
-Version:        svn62326
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4255,7 +4258,7 @@ or that of Kalish and Montague.
 
 %package -n texlive-nath
 Summary:        Natural mathematics notation
-Version:        svn15878
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4297,7 +4300,7 @@ the package name: the "n" stands for "new", the "X" is a roman 10.)
 
 %package -n texlive-nicematrix
 Summary:        Improve the typesetting of mathematical matrices with PGF
-Version:        svn77270
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4361,7 +4364,7 @@ represent number sets. Several predefined presets for common number sets.
 
 %package -n texlive-numerica
 Summary:        Numerically evaluate mathematical expressions in LaTeX form
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4395,7 +4398,7 @@ turn requires l3kernel , l3packages, and the amsmath and mathtools packages.
 
 %package -n texlive-numerica-tables
 Summary:        Create multi-column tables of mathematical functions
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4483,7 +4486,7 @@ arydshln, and tipa (optionally).
 
 %package -n texlive-oubraces
 Summary:        Braces over and under a formula
-Version:        svn21833
+Version:        svn77677
 License:        BSD-1-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4674,7 +4677,7 @@ entries; Double cross and double dot (binary) operators for tensors.
 
 %package -n texlive-physics3
 Summary:        Modularized package for easy setting of physical formulas
-Version:        svn77503
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4775,7 +4778,7 @@ packages.
 
 %package -n texlive-polexpr
 Summary:        A parser for polynomial expressions
-Version:        svn63337
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4801,7 +4804,7 @@ computation of a greatest common divisor is now available directly in
 
 %package -n texlive-prftree
 Summary:        Macros for building proof trees
-Version:        svn54080
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4865,7 +4868,7 @@ from theorems to proofs, restate theorems, add comments in appendix...
 
 %package -n texlive-prooftrees
 Summary:        Forest-based proof trees (symbolic logic)
-Version:        svn77411
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5023,7 +5026,7 @@ TikZ box in which they are contained.
 
 %package -n texlive-quiver
 Summary:        Draw commutative diagrams exported from https://q.uiver.app
-Version:        svn75606
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5434,6 +5437,22 @@ documents. This may be particularly useful for Math Teachers and IT
 specialists. The package depends on the following other LaTeX packages: calc,
 fp, ifsym, multido, tikz, xargs, and xstring.
 
+%package -n texlive-seqcalc
+Summary:        A package for declarative sequent-calculus proofs
+Version:        svn77561
+License:        LPPL-1.3c
+Requires:       texlive-base
+Requires:       texlive-kpathsea
+Requires:       tex(bussproofs.sty)
+Provides:       tex(seqcalc.sty) = %{tl_version}
+
+%description -n texlive-seqcalc
+This package provides a structured wrapper around the bussproofspackage. It
+provides a declarative interface for sequent calculus proofs, including rule
+declaration, rule application, formula normalization, shortcuts, and optional
+standard rule sets. The goal is to simplify the construction of proof trees
+while keeping the underlying bussproofs layout untouched.
+
 %package -n texlive-sesamanuel
 Summary:        Class and package for sesamath books or paper
 Version:        svn36613
@@ -5599,7 +5618,7 @@ maintenance-only support, now.
 
 %package -n texlive-siunitx
 Summary:        A comprehensive (SI) units package
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5642,7 +5661,7 @@ re-definitions of existing commands.
 
 %package -n texlive-spalign
 Summary:        Typeset matrices and arrays with spaces and semicolons as delimiters
-Version:        svn42225
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5788,7 +5807,7 @@ as well as a welcome help for novice users.
 
 %package -n texlive-steinmetz
 Summary:        Print Steinmetz notation
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5801,7 +5820,7 @@ inside an angle symbol> The package makes use of pict2e.
 
 %package -n texlive-stmaryrd
 Summary:        St Mary Road symbols for theoretical computer science
-Version:        svn22027
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6042,7 +6061,7 @@ interval.
 
 %package -n texlive-tensind
 Summary:        Typeset tensors
-Version:        svn51481
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6053,7 +6072,7 @@ Typesets tensors with dots filling gaps and fine tuning of index placement.
 
 %package -n texlive-tensor
 Summary:        Typeset tensors
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6094,7 +6113,7 @@ calculational proofs and Dijkstra's "guarded command language".
 
 %package -n texlive-textgreek
 Summary:        Upright greek letters in text
-Version:        svn44192
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6152,7 +6171,7 @@ and more general changes in notation are also possible through package options.
 
 %package -n texlive-thmbox
 Summary:        Decorate theorem statements
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6167,7 +6186,7 @@ environment.
 
 %package -n texlive-thmtools
 Summary:        Extensions to theorem environments
-Version:        svn67018
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6242,7 +6261,7 @@ spaces, and optional overlap for open brackets.
 
 %package -n texlive-turnstile
 Summary:        Typeset the (logic) turnstile notation
-Version:        svn64967
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6287,7 +6306,7 @@ MetaPost macros for venn diagrams.
 
 %package -n texlive-witharrows
 Summary:        "Aligned" math environments with arrows for comments
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6355,7 +6374,7 @@ believed that this systematic design allows XyMTeX to operate as a practical
 
 %package -n texlive-yhmath
 Summary:        Extended maths fonts for LaTeX
-Version:        svn54377
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6368,7 +6387,7 @@ package for using them.
 
 %package -n texlive-youngtab
 Summary:        Typeset Young-Tableaux
-Version:        svn73766
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6416,7 +6435,7 @@ circuits.
 
 %package -n texlive-ytableau
 Summary:        Many-featured Young tableaux and Young diagrams
-Version:        svn73766
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6433,7 +6452,7 @@ provided both at package load and configurably.
 
 %package -n texlive-zeckendorf
 Summary:        Knuth Fibonacci multiplication, Zeckendorf and Bergman representations of big integers
-Version:        svn76884
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7069,6 +7088,8 @@ tar -xf %{SOURCE585} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE586} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE587} -C %{buildroot}%{_texmf_main}
 tar -xf %{SOURCE588} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE589} -C %{buildroot}%{_texmf_main}
+tar -xf %{SOURCE590} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
@@ -7263,6 +7284,7 @@ popd
 %doc %{_texmf_main}/doc/latex/calculation/
 
 %files -n texlive-cartonaugh
+%license other-free.txt
 %{_texmf_main}/tex/latex/cartonaugh/
 %doc %{_texmf_main}/doc/latex/cartonaugh/
 
@@ -7789,6 +7811,7 @@ popd
 %doc %{_texmf_main}/doc/latex/karnaugh/
 
 %files -n texlive-karnaugh-map
+%license other-free.txt
 %{_texmf_main}/tex/latex/karnaugh-map/
 %doc %{_texmf_main}/doc/latex/karnaugh-map/
 
@@ -7912,6 +7935,7 @@ popd
 %doc %{_texmf_main}/doc/latex/matlab-prettifier/
 
 %files -n texlive-matrix-skeleton
+%license other-free.txt
 %{_texmf_main}/tex/latex/matrix-skeleton/
 %doc %{_texmf_main}/doc/latex/matrix-skeleton/
 
@@ -7947,6 +7971,7 @@ popd
 
 %files -n texlive-mgltex
 %license gpl3.txt
+%license other-free.txt
 %{_texmf_main}/tex/latex/mgltex/
 %doc %{_texmf_main}/doc/latex/mgltex/
 
@@ -8286,6 +8311,11 @@ popd
 %{_texmf_main}/tex/latex/scratchx/
 %doc %{_texmf_main}/doc/latex/scratchx/
 
+%files -n texlive-seqcalc
+%license lppl1.3c.txt
+%{_texmf_main}/tex/latex/seqcalc/
+%doc %{_texmf_main}/doc/latex/seqcalc/
+
 %files -n texlive-sesamanuel
 %license lppl1.3c.txt
 %{_texmf_main}/tex/latex/sesamanuel/
@@ -8581,6 +8611,9 @@ popd
 %doc %{_texmf_main}/doc/latex/zx-calculus/
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77561-2
+- Update to svn77561
+
 * Thu Jan 29 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77507-1
 - update to svn77507, fix descriptions, licensing, update components
 

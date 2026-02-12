@@ -1,5 +1,5 @@
 Name:           mathicgb
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        Groebner basis computations
 
@@ -75,6 +75,7 @@ make check
 
 %files
 %doc README.md doc/description.txt doc/slides.pdf
+%license gpl-2.0.txt gpl-3.0.txt
 %{_bindir}/mgb
 %{_mandir}/man1/mgb.1*
 

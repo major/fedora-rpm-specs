@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:		tayga
 Version:	0.9.6
-Release:	0.2%{?dist}
+Release:	0.3%{?dist}
 Summary:	Simple, no-fuss NAT64
 
 License:	GPL-2.0-or-later
@@ -49,7 +49,7 @@ sed -i '
 
 
 %check
-%make_build test
+%make_build test CFLAGS="%{optflags} -Wno-error=unused-but-set-variable -Wno-error=discarded-qualifiers"
 
 
 %install
@@ -85,6 +85,9 @@ install -p -D -m 0644 scripts/tayga@.service %{buildroot}/%{_unitdir}/%{name}.se
 
 
 %changelog
+* Tue Feb 10 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.9.6-0.3
+- Added workaround for fedora > 43 while waiting for upstream
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

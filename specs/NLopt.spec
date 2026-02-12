@@ -16,11 +16,11 @@
 %endif
 %global guile_pkg    %(echo guile%{?guile_ver} | sed -e 's!\\\.!!g')
 
-%global relversion 2.10.0
+%global relversion 2.10.1
 Name:              NLopt
-Version:           2.10.0
+Version:           2.10.1
 %global tag        v%{version}
-Release:           9%{?dist}
+Release:           1%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -60,11 +60,7 @@ URL:               http://ab-initio.mit.edu/%{lc_name}
 Source0:           https://github.com/stevengj/%{lc_name}/archive/%{tag}/%{lc_name}-%{version}.tar.gz
 
 # Kill RPATH.
-Patch0:            nlopt-2.9.1-kill_rpath.patch
-# Enable build for Octave
-# https://github.com/stevengj/nlopt/pull/597
-# backported to release 2.10.0
-Patch1:            octave-build.patch
+Patch0:            nlopt-2.10.1-kill_rpath.patch
 
 BuildRequires:     cmake3
 BuildRequires:     gcc
@@ -304,6 +300,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Tue Feb 10 2026 Benson Muite <fed500@fedoraproject.org> - 2.10.1-1
+- Update to 2.10.1 rhbz#2438359
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

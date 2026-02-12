@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    ad14159f92910b0f0e3928c13e9b2077529de091
-%global gh_date      2026-02-05
+%global gh_commit    a997a653a82845f1240d73ee73a8a4e97e4b0607
+%global gh_date      2026-02-10
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.51
+%global upstream_version 11.5.53
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -299,6 +299,12 @@ exit $ret
 
 
 %changelog
+* Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 11.5.53-1
+- update to 11.5.53
+
+* Mon Feb  9 2026 Remi Collet <remi@remirepo.net> - 11.5.52-1
+- update to 11.5.52
+
 * Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 11.5.51-1
 - update to 11.5.51
 - raise dependency on phpunit/php-file-iterator 5.1.1

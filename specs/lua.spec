@@ -1,20 +1,20 @@
-%global major_version 5.4
+%global major_version 5.5
 # Normally, this is the same as version, but... not always.
-%global test_version 5.4.8
+%global test_version 5.5.0
 # If you are incrementing major_version, enable bootstrapping and adjust accordingly.
 # Version should be the latest prior build. If you don't do this, RPM will break and
 # everything will grind to a halt.
-%global bootstrap 0
-%global bootstrap_major_version 5.3
-%global bootstrap_version %{bootstrap_major_version}.6
+%global bootstrap 1
+%global bootstrap_major_version 5.4
+%global bootstrap_version %{bootstrap_major_version}.8
 
 # Place rpm-macros into proper location.
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 
 Name:           lua
-Version:        %{major_version}.8
-Release:        5%{?dist}
+Version:        %{major_version}.0
+Release:        1%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -27,19 +27,21 @@ Source2:        https://www.lua.org/ftp/lua-%{bootstrap_version}.tar.gz
 Source3:        https://www.lua.org/tests/lua-%{test_version}-tests.tar.gz
 # multilib
 Source4:        luaconf.h
-Patch0:         %{name}-5.4.0-beta-autotoolize.patch
+Patch0:         %{name}-5.5.0-autotoolize.patch
 Patch1:         %{name}-5.4.6-idsize.patch
 #Patch2:         %%{name}-5.3.0-luac-shared-link-fix.patch
 Patch3:         %{name}-5.2.2-configure-linux.patch
 Patch4:         %{name}-5.3.0-configure-compat-module.patch
 %if 0%{?bootstrap}
-Patch5:         %{name}-5.3.0-autotoolize.patch
-Patch6:		%{name}-5.3.5-luac-shared-link-fix.patch
+Patch5:         %{name}-5.4.8-autotoolize.patch
+Patch6:		%{name}-5.4.8-luac-shared-link-fix.patch
+Patch7:		%{name}-5.4.8-bug1.patch
+Patch8:		%{name}-5.4.8-bug2.patch
+Patch9:		%{name}-5.4.8-bug3.patch
 %endif
 # https://www.lua.org/bugs.html
-Patch10:	lua-5.4.8-bug1.patch
-Patch11:	lua-5.4.8-bug2.patch
-Patch12:	lua-5.4.8-bug3.patch
+Patch10:	lua-5.5.0-bug1.patch
+Patch11:	lua-5.5.0-bug2.patch
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
 BuildRequires:  make
@@ -80,6 +82,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description static
 This package contains the static version of liblua for %{name}.
 
+%if 0%{?bootstrap}
+%package -n %{name}%{bootstrap_major_version}-libs
+Summary:        Compat libraries for %{name}%{bootstrap_major_version}
+Provides:       lua(abi) = %{bootstrap_major_version}
+
+%description -n %{name}%{bootstrap_major_version}-libs
+This package contains compatibility libraries for lua %{bootstrap_major_version}..
+%endif
 
 %prep
 %if 0%{?bootstrap}
@@ -97,10 +107,9 @@ mv src/luaconf.h src/luaconf.h.template.in
 # Bug patches here
 %patch -P10 -p1 -b .bug1
 %patch -P11 -p1 -b .bug2
-%patch -P12 -p1 -b .bug3
 
-# Put proper version in configure.ac, patch0 hardcodes 5.3.0
-sed -i 's|5.3.0|%{version}|g' configure.ac
+# Put proper version in configure.ac, patch0 hardcodes 5.5.0
+sed -i 's|5.5.0|%{version}|g' configure.ac
 autoreconf -ifv
 
 
@@ -112,6 +121,9 @@ mv src/luaconf.h src/luaconf.h.template.in
 %patch -P3 -p1 -z .configure-linux
 %patch -P4 -p1 -z .configure-compat-all
 %patch -P6 -p1 -b .luac-shared-link-fix
+%patch -P7 -p1 -b .54bug1
+%patch -P8 -p1 -b .54bug2
+%patch -P9 -p1 -b .54bug3
 autoreconf -i
 cd ..
 %endif
@@ -185,7 +197,7 @@ popd
 %endif
 
 %files
-%doc README doc/*.html doc/*.css doc/*.gif doc/*.png
+%doc README doc/*.html doc/*.css doc/*.png
 %{_bindir}/lua
 %{_bindir}/luac
 %{_mandir}/man1/lua*.1*
@@ -201,6 +213,8 @@ popd
 %dir %{_datadir}/lua/%{major_version}
 
 %if 0%{?bootstrap}
+%files -n %{name}%{bootstrap_major_version}-libs
+%license mit.txt
 %dir %{_libdir}/lua/%{bootstrap_major_version}
 %{_libdir}/liblua-%{bootstrap_major_version}.so
 %dir %{_datadir}/lua/%{bootstrap_major_version}
@@ -216,6 +230,10 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 5.5.0-1
+- update to 5.5.0
+- make lua5.4-libs as a compat bootstrap
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

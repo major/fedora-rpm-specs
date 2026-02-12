@@ -43,7 +43,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.128.5
+Version:        0.128.7
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -64,10 +64,6 @@ BuildArch:      noarch
 # Downstream-only: run test_fastapi_cli without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
-
-# ✅ Fix parameterized tests with snapshots
-# https://github.com/fastapi/fastapi/pull/14875
-Patch:          %{url}/pull/14875.patch
 
 BuildRequires:  python3-devel
 

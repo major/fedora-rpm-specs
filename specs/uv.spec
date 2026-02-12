@@ -11,7 +11,14 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.30
+Version:        0.10.2
+# The uv package has a permanent exception to the Updates Policy in Fedora, so
+# it can be updated in stable releases across SemVer boundaries (subject to
+# good judgement and actual compatibility of any reverse dependencies). See
+# https://docs.fedoraproject.org/en-US/fesco/Updates_Policy/#_other_packages,
+# https://pagure.io/fesco/issue/3262. It also has a corresponding exception in
+# EPEL, but only in leading branches and only until version 1.0; see
+# https://pagure.io/epel/issue/317.
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -418,28 +425,28 @@ tomcli set crates/uv-extract/Cargo.toml del features.static
 # Disable several default features that control which tests are compiled and
 # executed, and which are not usable in offline builds:
 #
-# - crates-io: Introduces a testing dependency on crates.io.
-# - git: Introduces a testing dependency on Git. This sounds innocuous – we
-#   have git! – but in fact, it controls tests of git dependencies, which
+# - test-crates-io: Introduces a testing dependency on crates.io.
+# - test-git: Introduces a testing dependency on Git. This sounds innocuous –
+#   we have git! – but in fact, it controls tests of git dependencies, which
 #   implies accessing remote repositories, e.g. on GitHub.
-# - git-lfs: as for git, but also require Git Large File Storage; again, this
-#   implies accessing remote repositories
-# - pypi: Introduces a testing dependency on PyPI.
-# - python-managed: Introduces a testing dependency on managed Python
+# - test-git-lfs: as for git, but also require Git Large File Storage; again,
+#   this implies accessing remote repositories
+# - test-pypi: Introduces a testing dependency on PyPI.
+# - test-python-managed: Introduces a testing dependency on managed Python
 #   installations. (These are pre-compiled Pythons downloaded from the
 #   Internet.)
-# - r2: Introduces a testing dependency on R2.
+# - test-r2: Introduces a testing dependency on R2.
 #
 # These are OK:
-# - python: Introduces a testing dependency on a local Python installation.
-# - slow-tests: Include "slow" test cases.
+# - test-python: Introduces a testing dependency on a local Python installation.
+# - test-slow: Include "slow" test cases.
 # - test-ecosystem: Includes test cases that require ecosystem packages
 #
 # Note that the python-patch feature, which ”introduces a dependency on a local
 # Python installation with specific patch versions,” is already not among the
 # default features.
-tomcli set crates/uv/Cargo.toml lists delitem features.default-tests \
-    '(crates-io|git(-lfs)?|pypi|python-managed|r2)'
+tomcli set crates/uv/Cargo.toml lists delitem features.test-defaults \
+    'test-(crates-io|git(-lfs)?|pypi|python-managed|r2)'
 
 %if %{without it}
 # Integration tests (it crate) nearly all require specific Python interpreter

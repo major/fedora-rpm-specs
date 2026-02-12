@@ -5,12 +5,10 @@
 %global pkgname  %{modname}-logging
 %global srcname  %{modname}_logging
 
-%if 0%{?epel} <= 9
 # pytest fails with some weird import path error in EPEL 9
-%bcond tests 0
-%else
-%bcond tests 1
-%endif
+%bcond tests %[0%{?epel} != 9]
+# Change the build backend in EPEL because `setuptools>=77` is needed
+%bcond hatch %[0%{?epel} && 0%{?epel} <= 10]
 
 Name:           python-%{pkgname}
 Version:        3.4.0
@@ -24,6 +22,9 @@ Source0:        %{pypi_source %{srcname}}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+%if %{with hatch}
+BuildRequires:  tomcli
+%endif
 
 %global _description %{expand:
 Support for Python logging facility.}
@@ -38,9 +39,11 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version}
 
-%if 0%{?rhel}
-# relax setuptools requirement in EPEL
-sed -i 's/setuptools>=77/setuptools/' pyproject.toml
+%if %{with hatch}
+tomcli set pyproject.toml lists str "build-system.requires" "hatchling" "hatch-vcs" "coherent.licensed"
+tomcli set pyproject.toml str "build-system.build-backend" "hatchling.build"
+tomcli set pyproject.toml str "tool.hatch.version.source" "vcs"
+tomcli set pyproject.toml lists str "tool.hatch.build.targets.wheel.packages" %{modname}
 %endif
 
 %generate_buildrequires

@@ -26,8 +26,8 @@
 %global date0 20250926
 %endif
 
-%global upstreamname MIOpen
-%global rocm_release 7.1
+%global upstreamname miopen
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -115,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -128,13 +128,11 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fed
 #   src/kernel_cache.cpp
 # Public Domain
 #   src/md5.cpp
-
+URL:            https://github.com/ROCm/rocm-libraries
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
 # So we do not thrash memory
@@ -245,7 +243,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 cd projects/miopen
 %patch -P1 -p1
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 # Readme has executable bit
@@ -406,6 +404,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Tue Feb 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.0-6
 - requires gcc-c++
 

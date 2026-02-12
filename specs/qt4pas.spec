@@ -1,14 +1,19 @@
 Name:           qt4pas
 Version:        2.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Free Pascal Qt4 Binding
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            http://users.telenet.be/Jan.Van.hijfte/qtforfpc/fpcqt4.html
 Source0:        http://users.telenet.be/Jan.Van.hijfte/qtforfpc/V%{version}/%{name}-V%{version}_Qt4.5.3.tar.gz
-BuildRequires: make
+
+# Remove webview component / webkit dependency
+Patch0: 0000-no-webkit.patch
+
+BuildRequires:  gcc-c++
+BuildRequires:  make
 BuildRequires:  pkgconfig(QtNetwork)
-BuildRequires:  pkgconfig(QtWebKit)
+
 Requires:       fpc-src
 
 ExclusiveArch:  %{fpc_arches}
@@ -30,7 +35,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -qn %{name}-V%{version}_Qt4.5.3
+%autosetup -p1 -n %{name}-V%{version}_Qt4.5.3
 
 %build
 %qmake_qt4 Qt4Pas.pro
@@ -48,6 +53,9 @@ make install INSTALL_ROOT=%{buildroot}
 %{_libdir}/libQt4Pas.so
 
 %changelog
+* Tue Feb 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.5-35
+- Add a patch to remove webview component (qtwebkit is now retired)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           sudo-rs
-Version:        0.2.11
+Version:        0.2.12
 Release:        %autorelease
 Summary:        Memory safe implementation of sudo and su
 

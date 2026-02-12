@@ -1,8 +1,8 @@
 %global jsname jquery-ui
 
 Name:		js-%{jsname}
-Version:	1.14.1
-Release:	4%{?dist}
+Version:	1.14.2
+Release:	1%{?dist}
 Summary:	jQuery user interface
 
 License:	MIT
@@ -16,10 +16,12 @@ Source1:	%{jsname}-%{version}-node-modules.tar.gz
 Source2:	create-source.sh
 
 BuildArch:	noarch
+BuildRequires:	/usr/bin/node
 BuildRequires:	nodejs >= 1:16
 BuildRequires:	web-assets-devel
 BuildRequires:	python3
 BuildRequires:	python3-rcssmin
+BuildRequires:	uglify-js
 Requires:	js-jquery >= 1.12.0
 Requires:	web-assets-filesystem
 
@@ -32,7 +34,10 @@ themes built on top of the jQuery JavaScript Library.
 rm -rf dist
 
 %build
-./node_modules/grunt-cli/bin/grunt -v requirejs:js concat:css uglify:main
+./node_modules/grunt-cli/bin/grunt -v requirejs:js concat:css
+
+# Provide a compressed version of the javascript file
+uglifyjs dist/jquery-ui.js -c -m --comments '/! jQuery UI/' > dist/jquery-ui.min.js
 
 # Provide a compressed version of the cascading style sheet
 python3 -m rcssmin -b < dist/jquery-ui.css > dist/jquery-ui.min.css
@@ -49,6 +54,10 @@ install -m 644 -p themes/base/images/* %{buildroot}%{_jsdir}/%{jsname}/images
 %doc AUTHORS.txt CONTRIBUTING.md README.md
 
 %changelog
+* Sat Feb 07 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.14.2-1
+- Update to version 1.14.2
+- Add BuildRequires /usr/bin/node
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

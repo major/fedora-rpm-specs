@@ -3,10 +3,11 @@
 Name:		mupdf
 %global libname libmupdf
 %global pypiname mupdf
-Version:	1.26.9
-%global somajor 26
-%global sominor 9
+Version:	1.27.1
+%global somajor 27
+%global sominor 1
 %global soname %{somajor}.%{sominor}
+%global pkgconfig %{_libdir}/pkgconfig
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
 Release:	%autorelease
@@ -17,14 +18,6 @@ Source0:	http://mupdf.com/downloads/archive/%{name}-%{upversion}-source.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}-gl.desktop
 
-# Upstream patches from master branch:
-# Deal with multiple clang versions
-Patch:		0001-scripts-wrap-parse.py-get_args-improve-caching-of-re.patch
-Patch:		0001-scripts-wrap-parse.py-get_args-fix-for-libclang-20.patch
-# rhbz#2391345
-Patch:		0001-Bug-708838-Do-not-resolve-Last-object-in-outline-nod.patch
-# rhbz#2397703 and siblings
-Patch:		0001-Bug-708720-Fix-NULL-dereference-in-HTML-layout.patch
 # Fedora specific patches:
 # Do not bug me if Artifex relies on local fork
 Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch
@@ -39,12 +32,13 @@ Patch:		0001-pdf_choice_widget_options2-avoid-core-dump-with-_GLI.patch
 # Do not apply CXXFLAGS to swig
 # https://github.com/ArtifexSoftware/mupdf/pull/56
 Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
-# Work around pyproject_hooks frpm pip 25 meddling with path
-# https://github.com/ArtifexSoftware/mupdf/pull/68
-Patch:		0001-Work-around-pip-25-pyproject_hooks-1.2.0-path-meddli.patch
 # Be more helpful with the new warning in 1.26.x
 # https://github.com/ArtifexSoftware/mupdf/pull/74
 Patch:		0001-pdf_font-report-font-name-in-warning.patch
+# Upstreamable:
+Patch:		0001-mupdfwrap_test-adjust-to-mupdf-1.27.x.patch
+# Upstream master branch:
+Patch:		0001-Bug-709029-Fix-incorrect-error-case-free-of-pixmap.patch
 
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
@@ -65,7 +59,7 @@ BuildRequires:	zxing-cpp-devel zint-devel
 Provides:	bundled(lcms2-devel) = lcms2.16^65.gf75fad7
 # muPDF needs the muJS sources for the build even if we build against the system
 # version so bundling them is the safer choice.
-Provides:	bundled(mujs-devel) = 1.3.5
+Provides:	bundled(mujs-devel) = 1.3.7^2.g33c83d8
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
 Provides:	bundled(extract) = 10.05
 
@@ -161,6 +155,22 @@ export MUPDF_SETUP_BUILD_DIR=build/shared-release
 export MUPDF_SETUP_VERSION=%{version}
 %pyproject_wheel
 
+# Create pkgconfig file:
+cat > mupdf.pc << EOF
+prefix=%{_prefix}
+exec_prefix=%{_exec_prefix}
+libdir=%{_libdir}
+includedir=%{_includedir}
+
+Name: mupdf
+Description: Library for rendering PDF documents
+Requires.private: freetype2
+Version: %{version}
+Libs: -L${libdir} -lmupdf
+Libs.private: -lmujs -lgumbo -lopenjp2 -ljbig2dec -ljpeg -lz -lm
+Cflags: -I${includedir}
+EOF
+
 %install
 make DESTDIR=%{buildroot} install install-shared-c install-shared-c++ prefix=%{_prefix} libdir=%{_libdir} pydir=%{python3_sitearch} SO_INSTALL_MODE=755
 %pyproject_install
@@ -172,6 +182,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 install -p -m644 docs/logo/mupdf-logo.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/mupdf.svg
 install -p -m644 docs/logo/mupdf-logo.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/mupdf-gl.svg
+mkdir -p %{buildroot}/%{pkgconfig}
+install -p -m 0644 mupdf.pc %{buildroot}/%{pkgconfig}
 find %{buildroot}/%{_mandir} -type f -exec chmod 0644 {} \;
 find %{buildroot}/%{_includedir} -type f -exec chmod 0644 {} \;
 cd %{buildroot}/%{_bindir} && ln -s %{name}-x11 %{name}
@@ -191,6 +203,7 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %{py3_test_envvars} %{python3} scripts/
 %files devel
 %{_includedir}/%{name}
 %{_libdir}/%{libname}.so
+%{pkgconfig}/mupdf.pc
 
 %files libs
 %license COPYING

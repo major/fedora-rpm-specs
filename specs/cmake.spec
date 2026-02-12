@@ -47,7 +47,12 @@
 %bcond_without bundled_cppdap
 
 # Run tests
+# ... except i686.
+%ifnarch i686
 %bcond_without test
+%else
+%bcond_with test
+%endif
 
 # Enable X11 tests
 %bcond_without X11_test
@@ -66,7 +71,7 @@
 
 %global major_version 4
 %global minor_version 2
-%global patch_version 1
+%global patch_version 3
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 1
@@ -116,6 +121,8 @@ Source6:        %{name}.req
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 # TODO: Find better wat to handle this
 Patch100:       %{name}-findruby.patch
+# apply upstream fix for FindLua.cmake which is ... not getting pulled into their tarballs?!?
+Patch101:	https://github.com/Kitware/CMake/commit/261b7b933c6604095687d473503e24bae6ec0d6f.patch
 
 # TODO: Remove this patch
 # Patch for renaming on EPEL
@@ -604,6 +611,10 @@ popd
 
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 4.2.3-1
+- update to 4.2.3
+- apply upstream fix for FindLua to find Lua 5.5
+
 * Wed Feb 04 2026 Cristian Le <git@lecris.dev> - 4.2.1-1
 - cmake-4.2.1
   Fixes rhbz#2355426

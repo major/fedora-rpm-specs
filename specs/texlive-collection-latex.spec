@@ -5,7 +5,7 @@
 Name:           texlive-collection-latex
 Epoch:          12
 Version:        svn77034
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LaTeX fundamental packages
 
 License:        LPPL-1.3c
@@ -128,6 +128,9 @@ Source109:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/u
 Source110:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uniquecounter.doc.tar.xz
 Source111:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/url.tar.xz
 Source112:        https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/url.doc.tar.xz
+
+# Patches
+Patch0:         tools-2026-02-10.patch
 BuildRequires:  texlive-base
 Requires:       texlive-base
 Requires:       texlive-ae
@@ -218,7 +221,7 @@ the bitmapped EC fonts are now available, via the CM-super, Latin Modern and
 
 %package -n texlive-amscls
 Summary:        AMS document classes for LaTeX
-Version:        svn55378
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -237,7 +240,7 @@ amscls-doc.
 
 %package -n texlive-amsmath
 Summary:        AMS mathematical facilities for LaTeX
-Version:        svn76708
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -264,7 +267,7 @@ and ntheorem, for specifying theorem (and similar) definitions.
 
 %package -n texlive-atbegshi
 Summary:        Execute stuff at \shipout time
-Version:        svn53051
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -281,7 +284,7 @@ LaTeX or with plain TeX.
 
 %package -n texlive-atveryend
 Summary:        Hooks at the very end of a document
-Version:        svn72507
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -293,7 +296,7 @@ hooks.
 
 %package -n texlive-auxhook
 Summary:        Hooks for auxiliary files
-Version:        svn53173
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -943,7 +946,7 @@ typographical rules.
 
 %package -n texlive-babel-english
 Summary:        Babel support for English
-Version:        svn70799
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -981,7 +984,7 @@ change the typography of the bibliographies.
 
 %package -n texlive-bigintcalc
 Summary:        Integer calculations on very large numbers
-Version:        svn53172
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -994,7 +997,7 @@ can exceed TeX's number limits.
 
 %package -n texlive-bitset
 Summary:        Handle bit-vector datatype
-Version:        svn53837
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1011,7 +1014,7 @@ manipulated.
 
 %package -n texlive-bookmark
 Summary:        A new bookmark (outline) organization for hyperref
-Version:        svn69084
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1055,7 +1058,7 @@ create 'slashed' characters for physicists.
 
 %package -n texlive-colortbl
 Summary:        Add colour to LaTeX tables
-Version:        svn75287
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1068,7 +1071,7 @@ The package allows rows and columns to be coloured, and even individual cells.
 
 %package -n texlive-epstopdf-pkg
 Summary:        Call epstopdf "on the fly"
-Version:        svn71084
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1104,7 +1107,7 @@ to e-TeX's commands. For example, eTeX's \unexpanded is provided as
 
 %package -n texlive-etoolbox
 Summary:        E-TeX tools for LaTeX
-Version:        svn76474
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1124,7 +1127,7 @@ of the LaTeX kernel.
 
 %package -n texlive-fancyhdr
 Summary:        Extensive control of page headers and footers in LaTeX2e
-Version:        svn73783
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1174,7 +1177,7 @@ figure.
 
 %package -n texlive-geometry
 Summary:        Flexible and complete interface to document dimensions
-Version:        svn61719
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1199,7 +1202,7 @@ with pdf(La)TeX).
 
 %package -n texlive-gettitlestring
 Summary:        Clean up title references
-Version:        svn53170
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1262,7 +1265,7 @@ versions use the pdfTeX option as before.
 
 %package -n texlive-grfext
 Summary:        Manipulate the graphics package's list of extensions
-Version:        svn53024
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1292,7 +1295,7 @@ package appears.
 
 %package -n texlive-hycolor
 Summary:        Implements colour for packages hyperref and bookmark
-Version:        svn53584
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1306,7 +1309,7 @@ hyperref and bookmark. It is not intended as package for the user.
 
 %package -n texlive-hypcap
 Summary:        Adjusting the anchors of captions
-Version:        svn71912
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1323,7 +1326,7 @@ start of a float environment.
 
 %package -n texlive-hyperref
 Summary:        Extensive support for hypertext in LaTeX
-Version:        svn77528
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1407,7 +1410,7 @@ the author's kvoptions, ltxcmds and refcount packages.
 
 %package -n texlive-intcalc
 Summary:        Expandable arithmetic operations with integers
-Version:        svn53168
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1419,7 +1422,7 @@ e-TeX extension \numexpr if it is available.
 
 %package -n texlive-kvdefinekeys
 Summary:        Define keys for use in the kvsetkeys package
-Version:        svn53193
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1431,7 +1434,7 @@ to define keys for use by kvsetkeys.
 
 %package -n texlive-kvoptions
 Summary:        Key value format for package options
-Version:        svn63622
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1448,7 +1451,7 @@ key-value format for their package options.
 
 %package -n texlive-kvsetkeys
 Summary:        Key value parser with default handler support
-Version:        svn64632
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1613,7 +1616,7 @@ configuration files for LaTeX-related formats
 
 %package -n texlive-letltxmacro
 Summary:        Let assignment for LaTeX macros
-Version:        svn53022
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1627,7 +1630,7 @@ macros.
 
 %package -n texlive-ltxcmds
 Summary:        Some LaTeX kernel commands for general use
-Version:        svn69032
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1683,7 +1686,7 @@ user-level functionality provided.
 
 %package -n texlive-mfnfss
 Summary:        Packages to typeset oldgerman and pandora fonts in LaTeX
-Version:        svn46036
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1698,7 +1701,7 @@ Pandora fonts is also available via the pandora-latex package.
 
 %package -n texlive-natbib
 Summary:        Flexible bibliography support
-Version:        svn20668
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1715,7 +1718,7 @@ custom-bib are designed from the start to be compatible with natbib.
 
 %package -n texlive-pagesel
 Summary:        Select pages of a document for output
-Version:        svn75712
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1728,7 +1731,7 @@ Selects single pages, ranges of pages, odd pages or even pages for output.
 
 %package -n texlive-pdfescape
 Summary:        Implements pdfTeX's escape features using TeX or e-TeX
-Version:        svn53082
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1742,7 +1745,7 @@ This package implements pdfTeX's escape features (\pdfescapehex,
 
 %package -n texlive-pdftexcmds
 Summary:        LuaTeX support for pdfTeX utility functions
-Version:        svn55777
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1780,13 +1783,13 @@ result, pslatex is widely considered obsolete.
 
 %package -n texlive-psnfss
 Summary:        Font support for common PostScript fonts
-Version:        svn54694
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Requires:       texlive-graphics
 Requires:       texlive-symbol
 Requires:       texlive-zapfding
-Requires:       texlive-graphics
 Requires:       tex(keyval.sty)
 Provides:       tex(avant.sty) = %{tl_version}
 Provides:       tex(bookman.sty) = %{tl_version}
@@ -1842,7 +1845,7 @@ commands. The package is now largely superseded by pict2e.
 
 %package -n texlive-refcount
 Summary:        Counter operations with label references
-Version:        svn53164
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1860,7 +1863,7 @@ plain TeX to create one.
 
 %package -n texlive-rerunfilecheck
 Summary:        Checksum based rerun checks on auxiliary files
-Version:        svn75559
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1878,7 +1881,7 @@ changed. It is based on MD5 checksum provided by pdfTeX, LuaTeX, XeTeX.
 
 %package -n texlive-stringenc
 Summary:        Converting a string between different encodings
-Version:        svn52982
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1999,7 +2002,7 @@ theorem, trace, varioref, verbatim, xr, and xspace.
 
 %package -n texlive-uniquecounter
 Summary:        Provides unlimited unique counter
-Version:        svn53162
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2014,7 +2017,7 @@ not limited.
 
 %package -n texlive-url
 Summary:        Verbatim with URL-sensitive line breaks
-Version:        svn32528
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2156,6 +2159,11 @@ tar -xf %{SOURCE112} -C %{buildroot}%{_texmf_main}
 
 # Remove tlpobj files
 rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
+
+# Apply tools patch
+pushd %{buildroot}%{_texmf_main}
+patch -p0 < %{_sourcedir}/tools-2026-02-10.patch
+popd
 
 # Rename .map files to .oldmap to avoid updmap-sys
 mv %{buildroot}%{_texmf_main}/fonts/map/dvips/psnfss/psnfss.map %{buildroot}%{_texmf_main}/fonts/map/dvips/psnfss/psnfss.oldmap
@@ -2461,6 +2469,15 @@ mv %{buildroot}%{_texmf_main}/fonts/map/dvips/psnfss/psnfss.map %{buildroot}%{_t
 %doc %{_texmf_main}/doc/latex/url/
 
 %changelog
+* Mon Feb 09 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77034-3
+- update latex2e tools to the latest upstream version as of 2026-02-10 (bz2437303)
+  this is mostly longtable, array, and varioref
+- update amscls amsmath atbegshi atveryend auxhook babel-english bigintcalc bitset
+  bookmark colortbl epstopdf-pkg etoolbox fancyhdr geometry gettitlestring grfext
+  hycolor hypcap hyperref intcalc kvdefinekeys kvoptions kvsetkeys letltxmacro
+  ltxcmds mfnfss natbib pagesel pdfescape pdftexcmds psnfss refcount
+  rerunfilecheck stringenc uniquecounter url
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77034-2
 - Update babel, hyperref
 - fix licensing files

@@ -34,6 +34,7 @@ BuildRequires:  texlive-anysize
 BuildRequires:  texlive-appendix
 BuildRequires:  texlive-changebar
 BuildRequires:  texlive-fancybox
+BuildRequires:  texlive-footmisc
 BuildRequires:  texlive-jknapltx
 BuildRequires:  texlive-multirow
 BuildRequires:  texlive-overpic
@@ -53,6 +54,7 @@ Requires:       texlive-bibtopic
 Requires:       texlive-changebar
 Requires:       texlive-ec
 Requires:       texlive-fancybox
+Requires:       texlive-footmisc
 Requires:       texlive-jknapltx
 Requires:       texlive-multirow
 Requires:       texlive-overpic

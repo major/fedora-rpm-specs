@@ -1,6 +1,6 @@
 Name:           python-typing-extensions
 Version:        4.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
 License:        PSF-2.0
@@ -10,6 +10,14 @@ Source:         %{pypi_source typing_extensions}
 # fix test on 3.14
 # https://github.com/python/typing_extensions/pull/683
 Patch:          https://github.com/python/typing_extensions/pull/683.patch
+
+# Remove no_type_check_decorator from __all__ for Python >= 3.15
+# https://github.com/python/typing_extensions/pull/699
+Patch:          https://github.com/python/typing_extensions/commit/2638b86aad.patch
+
+# Remove no_type_check_decorator from _typing_names, followup of the above
+# https://github.com/python/typing_extensions/pull/723
+Patch:          https://github.com/python/typing_extensions/pull/723.patch
 
 BuildArch:      noarch
 
@@ -67,6 +75,10 @@ cd src
 
 
 %changelog
+* Mon Feb 09 2026 Miro Hrončok <mhroncok@redhat.com> - 4.15.0-4
+- Fix for Python 3.15.0a3+
+- Fixes: rhbz#2416981
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

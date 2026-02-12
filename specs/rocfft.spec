@@ -129,7 +129,7 @@ Version:        %{rocm_version}
 Release:        1%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
-License:        MIT
+License:        MIT AND 0BSD
 
 URL:            https://github.com/ROCm/rocm-libraries
 %if %{with gitcommit}

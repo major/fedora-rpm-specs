@@ -1,5 +1,5 @@
 Name:           mathic
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        Data structures for Groebner basis computations
 
@@ -88,7 +88,7 @@ make check
 
 %files
 %doc README.md
-%license lgpl-2.1.txt
+%license lgpl-2.0.txt lgpl-2.1.txt lgpl-3.0.txt
 %{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel

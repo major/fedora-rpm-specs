@@ -1,4 +1,4 @@
-Version: 1.14.29
+Version: 1.18.0
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
 Release: 1%{?dist}
@@ -52,7 +52,7 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %license COPYING
 %doc THANKS
 %{_libdir}/libixml.so.11*
-%{_libdir}/libupnp.so.17*
+%{_libdir}/libupnp.so.20*
 
 %files devel
 %{_includedir}/upnp/
@@ -61,6 +61,12 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{_libdir}/pkgconfig/libupnp.pc
 
 %changelog
+* Tue Feb 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.18.0-1
+- 1.18.0
+
+* Tue Feb 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.14.30-1
+- 1.14.30
+
 * Mon Feb 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.14.29-1
 - 1.14.29
 

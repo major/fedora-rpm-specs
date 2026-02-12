@@ -5,7 +5,7 @@
 Name:           texlive-collection-bibtexextra
 Epoch:          12
 Version:        svn75480
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        BibTeX additional styles
 
 License:        LPPL-1.3c
@@ -532,7 +532,7 @@ Bibliographic style references in style of Australian Journal of Linguistics.
 
 %package -n texlive-amsrefs
 Summary:        A LaTeX-based replacement for BibTeX
-Version:        svn61937
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -566,7 +566,7 @@ entry's annotate field as part of the printed output.
 
 %package -n texlive-apacite
 Summary:        Citation style following the rules of the APA
-Version:        svn76790
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -628,7 +628,7 @@ adjust the outcome according to one's own preferences.
 
 %package -n texlive-authordate
 Summary:        Author/date style citation styles
-Version:        svn76790
+Version:        svn77677
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -768,7 +768,7 @@ alpha.bst, as well as two style files derived from abbrv.bst and unsrt.bst
 
 %package -n texlive-biblatex
 Summary:        Sophisticated Bibliographies in LaTeX
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1227,7 +1227,7 @@ of journals). A comprehensive set of examples of use is included.
 
 %package -n texlive-biblatex-chicago
 Summary:        Chicago style files for BibLaTeX
-Version:        svn70955
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1333,7 +1333,7 @@ sort the entries on a CV.
 
 %package -n texlive-biblatex-dw
 Summary:        Humanities styles for BibLaTeX
-Version:        svn66579
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1374,7 +1374,7 @@ historische-zeitschrift, with the necessary modifications.
 
 %package -n texlive-biblatex-ext
 Summary:        Extended BibLaTeX standard styles
-Version:        svn75609
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1750,7 +1750,7 @@ The package offers BibLaTeX support for citations in German legal texts.
 
 %package -n texlive-biblatex-juradiss
 Summary:        BibLaTeX stylefiles for German law theses
-Version:        svn56502
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2191,7 +2191,7 @@ the minor formatting variations between the AIP and APS bibliography styles.
 
 %package -n texlive-biblatex-publist
 Summary:        BibLaTeX bibliography support for publication lists
-Version:        svn77020
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2386,7 +2386,7 @@ fields to manage such system.
 
 %package -n texlive-biblatex-swiss-legal
 Summary:        Bibliography and citation styles following Swiss legal practice
-Version:        svn77463
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2414,7 +2414,7 @@ outdated and does not work properly with newer versions of BibLaTeX.
 
 %package -n texlive-biblatex-trad
 Summary:        "Traditional" BibTeX styles with BibLaTeX
-Version:        svn58169
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2485,7 +2485,7 @@ on the numeric style and requires biber.
 
 %package -n texlive-biblatex2bibitem
 Summary:        Convert BibLaTeX-generated bibliography to bibitems
-Version:        svn67201
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2502,7 +2502,7 @@ provided by this package solves the problem.
 
 %package -n texlive-biblist
 Summary:        Print a BibTeX database
-Version:        svn17116
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2536,7 +2536,7 @@ file.
 
 %package -n texlive-bibtopic
 Summary:        Include multiple bibliographies in a document
-Version:        svn15878
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2570,7 +2570,7 @@ entries in bibliographies produced by the bibtopic package.
 
 %package -n texlive-bibunits
 Summary:        Multiple bibliographies in one document
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2669,7 +2669,7 @@ simultaneously.
 
 %package -n texlive-chicago
 Summary:        A "Chicago" bibliography style
-Version:        svn76790
+Version:        svn77677
 License:        Knuth-CTAN
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2730,7 +2730,7 @@ that follows given recommendations.
 
 %package -n texlive-citeall
 Summary:        Cite all entries of a bbl created with BibLaTeX
-Version:        svn45975
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2772,7 +2772,7 @@ way, decolonizing academia.
 
 %package -n texlive-collref
 Summary:        Collect blocks of references into a single reference
-Version:        svn74757
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2893,7 +2893,19 @@ Requires:       texlive-kpathsea
 Requires:       tex(ulem.sty)
 Provides:       tex(aer.sty) = %{tl_version}
 Provides:       tex(aertt.sty) = %{tl_version}
+Provides:       tex(agecon.cls) = %{tl_version}
+Provides:       tex(ajae.cls) = %{tl_version}
+Provides:       tex(apecon.cls) = %{tl_version}
 Provides:       tex(cje.sty) = %{tl_version}
+Provides:       tex(ecca.cls) = %{tl_version}
+Provides:       tex(erae.cls) = %{tl_version}
+Provides:       tex(itaxpf.cls) = %{tl_version}
+Provides:       tex(jrurstud.cls) = %{tl_version}
+Provides:       tex(njf.cls) = %{tl_version}
+Provides:       tex(oegatb.cls) = %{tl_version}
+Provides:       tex(pocoec.cls) = %{tl_version}
+Provides:       tex(regstud.cls) = %{tl_version}
+Provides:       tex(worlddev.cls) = %{tl_version}
 
 %description -n texlive-economic
 The bundle offers macros and BibTeX styles for the American Economic Review
@@ -3003,7 +3015,7 @@ History Faculty of the University of Freiburg (Germany).
 
 %package -n texlive-harvard
 Summary:        Harvard citation package for use with LaTeX2e
-Version:        svn77050
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3168,7 +3180,7 @@ Journal of Molecular Biology.
 
 %package -n texlive-jmb
 Summary:        BibTeX style for the Journal of Theoretical Biology
-Version:        svn76790
+Version:        svn77677
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3199,7 +3211,7 @@ package are provided.
 
 %package -n texlive-jurabib
 Summary:        Extended BibTeX citation support for the humanities and legal texts
-Version:        svn76524
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3316,7 +3328,7 @@ key into the margin.
 
 %package -n texlive-multibib
 Summary:        Multiple bibliographies within one document
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3343,7 +3355,7 @@ harvard and oxford.
 
 %package -n texlive-nar
 Summary:        BibTeX style for Nucleic Acid Research
-Version:        svn76790
+Version:        svn77677
 License:        LicenseRef-Bibtex
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3366,7 +3378,7 @@ alongside natbib for citations.
 
 %package -n texlive-nmbib
 Summary:        Multiple versions of a bibliography, with different sort orders
-Version:        svn71138
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3381,7 +3393,7 @@ compatibility with the natbib package, and provides other improvements.
 
 %package -n texlive-notes2bib
 Summary:        Integrating notes into the bibliography
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3413,7 +3425,7 @@ on the web starting from BibTeX files.
 
 %package -n texlive-oscola
 Summary:        BibLaTeX style for the Oxford Standard for the Citation of Legal Authorities
-Version:        svn54328
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3485,7 +3497,7 @@ writing of articles with a chemistry content.
 
 %package -n texlive-showtags
 Summary:        Print the tags of bibliography entries
-Version:        svn20336
+Version:        svn77677
 License:        LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3508,7 +3520,7 @@ entry. The styles are adapted from standard ones or from natbib ones.
 
 %package -n texlive-splitbib
 Summary:        Split and reorder your bibliography
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3531,6 +3543,8 @@ Requires:       tex(footmisc.sty)
 Requires:       tex(nowidow.sty)
 Requires:       tex(setspace.sty)
 Provides:       tex(turabian-formatting.sty) = %{tl_version}
+Provides:       tex(turabian-researchpaper.cls) = %{tl_version}
+Provides:       tex(turabian-thesis.cls) = %{tl_version}
 
 %description -n texlive-turabian-formatting
 The turabian-formatting package provides Chicago-style formatting based on Kate
@@ -3571,7 +3585,7 @@ Linguistics at the Bergische Universitat Wuppertal.
 
 %package -n texlive-usebib
 Summary:        A simple bibliography processor
-Version:        svn25969
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3640,7 +3654,7 @@ The Chicago Manual of Style.
 
 %package -n texlive-xcite
 Summary:        Use citation keys from a different document
-Version:        svn53486
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4795,6 +4809,14 @@ popd
 %doc %{_texmf_main}/doc/bibtex/zootaxa-bst/
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-6
+- Update amsrefs apacite authordate biblatex biblatex-chicago biblatex-dw
+  biblatex-ext biblatex-juradiss biblatex-publist biblatex-swiss-legal
+  biblatex-trad biblatex2bibitem biblist bibtopic bibunits chicago
+  citeall collref harvard jmb jurabib multibib nar nmbib notes2bib oscola
+  showtags splitbib usebib xcite
+- add cls Provides
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75480-5
 - update beebe, biblatex-bath, biblatex-swiss-legal, gbt7714
 

@@ -7,7 +7,7 @@
 
 Name:           fedpkg
 Version:        1.47
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,7 @@ Recommends:     fedora-packager
 Recommends:     fedpkg-completion
 
 Patch0:         0001-request-unretirement-fix-unittests.patch
+Patch1:         0002-Check-the-correct-sorting-of-imports-from-now-on.patch
 
 %description
 Provides the fedpkg command for working with dist-git
@@ -94,6 +95,9 @@ register-python-argcomplete --shell bash fedpkg > fedpkg.bash
 %if 0%{?with_hatchling}
 # argcomplete version in EPEL8 does not have support for fish
 register-python-argcomplete --shell fish fedpkg > fedpkg.fish
+%if 0%{?rhel} != 9
+register-python-argcomplete --shell zsh fedpkg > fedpkg.zsh
+%endif
 %endif
 
 %install
@@ -108,6 +112,9 @@ register-python-argcomplete --shell fish fedpkg > fedpkg.fish
 %{__install} -D -p -m 0644 fedpkg.bash -t %{buildroot}%{bash_completions_dir}
 %if 0%{?with_hatchling}
 %{__install} -D -p -m 0644 fedpkg.fish -t %{buildroot}%{fish_completions_dir}
+%if 0%{?rhel} != 9
+%{__install} -D -p -m 0644 fedpkg.zsh %{buildroot}%{zsh_completions_dir}/_fedpkg
+%endif
 # config file /etc/rpkg/fedpkg.conf is extracted to %{buildroot}/usr/etc/... by pyproject_install
 %{__install} -d %{buildroot}%{_sysconfdir}
 mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
@@ -142,10 +149,19 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 %config(noreplace) %{bash_completions_dir}/fedpkg.bash
 %if 0%{?with_hatchling}
 %config(noreplace) %{fish_completions_dir}/fedpkg.fish
+%if 0%{?rhel} != 9
+%config(noreplace) %{zsh_completions_dir}/_fedpkg
+%endif
 %endif
 
 
 %changelog
+* Tue Feb 10 2026 Tom Hughes <tom@compton.nu> - 1.47-5
+- Add zsh auto completion
+
+* Tue Feb 10 2026 Ondřej Nosek <onosek@redhat.com> - 1.47-4
+- Patch: Check the correct sorting of imports from now on
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.47-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

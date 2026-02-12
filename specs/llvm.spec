@@ -3143,6 +3143,12 @@ fi
 }}
 %endif
 
+%if %{maj_ver} >= 23
+%{expand_bins %{expand:
+    llubi
+}}
+%endif
+
 %{expand_mans %{expand:
     bugpoint
     clang-tblgen
@@ -3205,6 +3211,12 @@ fi
 %{expand_mans %{expand:
     llvm-ir2vec
     llvm-offload-binary
+}}
+%endif
+
+%if %{maj_ver} >= 23
+%{expand_mans %{expand:
+    llubi
 }}
 %endif
 

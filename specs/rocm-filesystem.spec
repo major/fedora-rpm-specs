@@ -26,12 +26,15 @@
 
 Name:           rocm-filesystem
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        ROCm directories
 
 Url:            https://fedoraproject.org
 License:        MIT
+
+# the devel subpackage is only headers and cmake infra
+BuildArch: noarch
 
 %description
 %{summary}
@@ -173,5 +176,8 @@ mkdir -p %{buildroot}%{_libdir}/rocm/include
 %dir %{_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Tue Feb 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- This is a noarch package
+
 * Wed Feb 4 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Initial package

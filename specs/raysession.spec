@@ -1,7 +1,7 @@
 
 Name:           raysession
 Version:        0.17.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Session manager for audio software
 License:        GPL-2.0-only
 URL:            https://github.com/Houston4444/RaySession
@@ -68,74 +68,12 @@ cp %{SOURCE1} ./
 
 %build
 %set_build_flags
-make LRELEASE=lrelease-qt6 %{?_smp_mflags}
-
-## Build Qt resource Python modules if possible
-if command -v pyrcc6 >/dev/null 2>&1 || \
-   python3 -c "import PyQt6.pyrcc_main" >/dev/null 2>&1 || \
-   command -v pyside6-rcc >/dev/null 2>&1 || \
-   python3 -c "import PySide6.scripts.rcc" >/dev/null 2>&1 || \
-   command -v rcc >/dev/null 2>&1; then
-  RC_CMD_TYPE=""
-  if command -v pyrcc6 >/dev/null 2>&1; then
-    RC_CMD_TYPE="pyrcc6"
-    RC_CMD="pyrcc6 -o"
-  elif python3 -c "import PyQt6.pyrcc_main" >/dev/null 2>&1; then
-    RC_CMD_TYPE="pyqt6"
-    RC_CMD="python3 -m PyQt6.pyrcc_main -o"
-  elif command -v pyside6-rcc >/dev/null 2>&1; then
-    RC_CMD_TYPE="pyside6"
-    RC_CMD="pyside6-rcc -o"
-  elif python3 -c "import PySide6.scripts.rcc" >/dev/null 2>&1; then
-    RC_CMD_TYPE="pyside6mod"
-    RC_CMD="python3 -m PySide6.scripts.rcc -o"
-  elif command -v rcc >/dev/null 2>&1; then
-    RC_CMD_TYPE="rcc"
-    # rcc doesn't generate Python modules; create a binary .rcc and a small
-    # Python loader that registers the binary resource at runtime.
-    RC_CMD="rcc -binary -o"
-  else
-    RC_CMD_TYPE=""
-    RC_CMD=""
-  fi
-
-  if [ -n "$RC_CMD" ] && [ -f "resources/resources.qrc" ]; then
-    mkdir -p src/gui || true
-    if [ "$RC_CMD_TYPE" = "rcc" ]; then
-      $RC_CMD src/gui/resources.rcc resources/resources.qrc || true
-      cat > src/gui/resources_rc.py <<'PYR'
-from PyQt6.QtCore import QResource
-import os
-try:
-    QResource.registerResource(os.path.join(os.path.dirname(__file__), 'resources.rcc'))
-except Exception:
-    pass
-PYR
-    else
-      $RC_CMD src/gui/resources_rc.py resources/resources.qrc || true
-    fi
-    chmod 644 src/gui/resources_rc.py || true
-    [ -f src/gui/resources.rcc ] && chmod 644 src/gui/resources.rcc || true
-  fi
-  if [ -n "$RC_CMD" ] && [ -f "HoustonPatchbay/resources/resources.qrc" ]; then
-    mkdir -p HoustonPatchbay/source/patchbay || true
-    if [ "$RC_CMD_TYPE" = "rcc" ]; then
-      $RC_CMD HoustonPatchbay/source/patchbay/resources.rcc HoustonPatchbay/resources/resources.qrc || true
-      cat > HoustonPatchbay/source/patchbay/resources_rc.py <<'PYR'
-from PyQt6.QtCore import QResource
-import os
-try:
-    QResource.registerResource(os.path.join(os.path.dirname(__file__), 'resources.rcc'))
-except Exception:
-    pass
-PYR
-    else
-      $RC_CMD HoustonPatchbay/source/patchbay/resources_rc.py HoustonPatchbay/resources/resources.qrc || true
-    fi
-    chmod 644 HoustonPatchbay/source/patchbay/resources_rc.py || true
-    [ -f HoustonPatchbay/source/patchbay/resources.rcc ] && chmod 644 HoustonPatchbay/source/patchbay/resources.rcc || true
-  fi
-fi
+# Find Qt6 rcc binary - on Fedora it lives in qt6 libexec, not in PATH
+RCC_BIN=$(which rcc-qt6 2>/dev/null \
+         || which rcc 2>/dev/null \
+         || find %{_libdir}/qt6 /usr/lib64/qt6 /usr/lib/qt6 -name rcc -type f 2>/dev/null | head -1 \
+         || echo rcc)
+make LRELEASE=lrelease-qt6 RCC="$RCC_BIN" %{?_smp_mflags}
 
 %install
 %make_install PREFIX=%{_prefix}
@@ -413,50 +351,44 @@ if [ -f "%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/source/patchbay/resourc
   sed -i '1i# HoustonPatchbay resource loader' "%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/source/patchbay/resources_rc.py" || true
 fi
 
-## Generate resources_rc.py from .qrc if possible
-if command -v pyrcc6 >/dev/null 2>&1 || \
-   python3 -c "import PyQt6.pyrcc_main" >/dev/null 2>&1 || \
-   command -v pyside6-rcc >/dev/null 2>&1 || \
-   python3 -c "import PySide6.scripts.rcc" >/dev/null 2>&1; then
-  # Generate top-level GUI resources (try builddir first, then buildroot)
-  if command -v pyrcc6 >/dev/null 2>&1; then
-    RC_CMD="pyrcc6 -o"
-  elif python3 -c "import PyQt6.pyrcc_main" >/dev/null 2>&1; then
-    RC_CMD="python3 -m PyQt6.pyrcc_main -o"
-  elif command -v pyside6-rcc >/dev/null 2>&1; then
-    RC_CMD="pyside6-rcc -o"
-  elif python3 -c "import PySide6.scripts.rcc" >/dev/null 2>&1; then
-    RC_CMD="python3 -m PySide6.scripts.rcc -o"
-  else
-    RC_CMD=""
+## Regenerate resources_rc.py from .qrc only if make failed to produce one
+# The upstream Makefile uses 'rcc -g python' which is the correct method.
+# Only attempt regeneration if the file is missing or is a no-op stub.
+RCC_BIN=$(which rcc-qt6 2>/dev/null \
+         || which rcc 2>/dev/null \
+         || find %{_libdir}/qt6 /usr/lib64/qt6 /usr/lib/qt6 -name rcc -type f 2>/dev/null | head -1 \
+         || true)
+
+GUI_RES_INST="%{buildroot}%{_datadir}/%{name}/src/gui/resources_rc.py"
+if [ -n "$RCC_BIN" ]; then
+  # Regenerate main GUI resources if the file is missing or a stub
+  if [ ! -s "$GUI_RES_INST" ] || grep -q '^# Stub' "$GUI_RES_INST" 2>/dev/null; then
+    for qrc in \
+      "%{_builddir}/RaySession-%{version}/resources/resources.qrc" \
+      "%{buildroot}%{_datadir}/%{name}/resources/resources.qrc"; do
+      if [ -f "$qrc" ]; then
+        mkdir -p "$(dirname "$GUI_RES_INST")" || true
+        $RCC_BIN -g python "$qrc" | sed 's/ PySide. / qtpy /' > "$GUI_RES_INST" || true
+        chmod 644 "$GUI_RES_INST" || true
+        break
+      fi
+    done
   fi
 
-  for qrc in \
-    "%{_builddir}/RaySession-%{version}/resources/resources.qrc" \
-    "%{buildroot}%{_datadir}/%{name}/resources/resources.qrc"; do
-    if [ -f "$qrc" ]; then
-      out="%{buildroot}%{_datadir}/%{name}/src/gui/resources_rc.py"
-      mkdir -p "$(dirname "$out")" || true
-      rm -f "$out" || true
-      [ -n "$RC_CMD" ] && $RC_CMD "$out" "$qrc" || true
-      chmod 644 "$out" || true
-      break
-    fi
-  done
-
-  # Generate HoustonPatchbay resources (try builddir first, then buildroot)
-  for qrc in \
-    "%{_builddir}/RaySession-%{version}/HoustonPatchbay/resources/resources.qrc" \
-    "%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/resources/resources.qrc"; do
-    if [ -f "$qrc" ]; then
-      out="%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/source/patchbay/resources_rc.py"
-      mkdir -p "$(dirname "$out")" || true
-      rm -f "$out" || true
-      [ -n "$RC_CMD" ] && $RC_CMD "$out" "$qrc" || true
-      chmod 644 "$out" || true
-      break
-    fi
-  done
+  # Regenerate HoustonPatchbay resources if missing or a stub
+  PB_RES_INST="%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/source/patchbay/resources_rc.py"
+  if [ ! -s "$PB_RES_INST" ] || grep -q '^# Stub\|^# HoustonPatchbay resource loader' "$PB_RES_INST" 2>/dev/null; then
+    for qrc in \
+      "%{_builddir}/RaySession-%{version}/HoustonPatchbay/resources/resources.qrc" \
+      "%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/resources/resources.qrc"; do
+      if [ -f "$qrc" ]; then
+        mkdir -p "$(dirname "$PB_RES_INST")" || true
+        $RCC_BIN -g python "$qrc" | sed 's/ PySide. / qtpy /' > "$PB_RES_INST" || true
+        chmod 644 "$PB_RES_INST" || true
+        break
+      fi
+    done
+  fi
 fi
 
 ## Overwrite upstream COPYING with GPL-2
@@ -536,7 +468,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %exclude %{_datadir}/%{name}/session_templates/with_jack_config/ray-scripts/.jack_config_script
 
 %changelog
-* Mon Feb 9 2026 Erich Eickmeyer <erich@ericheickemyer.com> - 0.17.2-8
+* Tue Feb 10 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-9
+- Improve resource handling: ensure Qt resources and fonts are
+  correctly compiled/installed so icons and application fonts load
+  at runtime (fix rcc detection and safe regeneration behavior).
+
+* Mon Feb 9 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-8
 - Add additional runtime Requires for python3-QtPy
 
 * Mon Jan 19 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-7

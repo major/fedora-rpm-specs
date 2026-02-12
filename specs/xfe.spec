@@ -1,7 +1,7 @@
 %global	hash_thread1	2501673c
 %global	hash_thread2	5d70
 
-%global	main_version	2.1.3
+%global	main_version	2.1.4
 
 %global	use_gcc_strict_sanitize	0
 
@@ -172,6 +172,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Tue Feb 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.4-1
+- 2.1.4
+
 * Mon Jan 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.3-1
 - 2.1.3
 

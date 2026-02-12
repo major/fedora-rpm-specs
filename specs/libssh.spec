@@ -1,17 +1,15 @@
 Name:           libssh
-Version:        0.11.3
-Release:        3%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
 
-Source0:        https://www.libssh.org/files/0.10/%{name}-%{version}.tar.xz
-Source1:        https://www.libssh.org/files/0.10/%{name}-%{version}.tar.xz.asc
+Source0:        https://www.libssh.org/files/0.12/%{name}-%{version}.tar.xz
+Source1:        https://www.libssh.org/files/0.12/%{name}-%{version}.tar.xz.asc
 Source2:        https://www.libssh.org/files/0x03D5DF8CFDD3E8E7_libssh_libssh_org_gpgkey.asc#/%{name}.keyring
 Source3:        libssh_client.config
 Source4:        libssh_server.config
-# https://gitlab.com/libssh/libssh-mirror/-/merge_requests/718/
-Patch1:         libssh-0.11.3-workaround-softhsm.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -19,6 +17,9 @@ BuildRequires:  gnupg2
 BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig
 BuildRequires:  zlib-devel
+BuildRequires:  pkcs11-provider
+BuildRequires:  libfido2-devel
+# for testing
 BuildRequires:  krb5-devel
 BuildRequires:  krb5-server
 BuildRequires:  krb5-workstation
@@ -30,10 +31,9 @@ BuildRequires:  uid_wrapper
 BuildRequires:  priv_wrapper
 BuildRequires:  openssh-clients
 BuildRequires:  openssh-server
+BuildRequires:  openssh-sk-dummy
 BuildRequires:  nmap-ncat
-BuildRequires:  pkcs11-provider
 BuildRequires:  p11-kit-devel
-BuildRequires:  p11-kit-server
 BuildRequires:  opensc
 BuildRequires:  softhsm
 BuildRequires:  gnutls-utils
@@ -86,6 +86,7 @@ The %{name}-config package provides the default configuration files for %{name}.
     -DGSSAPI_TESTING=ON \
     -DWITH_PKCS11_URI=ON \
     -DWITH_PKCS11_PROVIDER=ON \
+    -DWITH_FIDO2=ON \
     -DGLOBAL_CLIENT_CONFIG="%{_sysconfdir}/libssh/libssh_client.config" \
     -DGLOBAL_BIND_CONFIG="%{_sysconfdir}/libssh/libssh_server.config"
 
@@ -141,6 +142,15 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Tue Feb 10 2026 Jakub Jelen <jjelen@redhat.com> - 0.12.0-1
+- New upstream release fixing following security issues:
+  - CVE-2025-14821: libssh loads configuration files from the C:\etc directory on Windows
+  - CVE-2026-0964: SCP Protocol Path Traversal in ssh_scp_pull_request()
+  - CVE-2026-0965: Possible Denial of Service when parsing unexpected configuration files
+  - CVE-2026-0966: Buffer underflow in ssh_get_hexa() on invalid input
+  - CVE-2026-0967: Specially crafted patterns could cause DoS
+  - CVE-2026-0968: OOB Read in sftp_parse_longname()
+
 * Thu Jan 29 2026 Jakub Jelen <jjelen@redhat.com> - 0.11.3-3
 - Backport workaround for SoftHSM 2.7.0 to unbreak build
 

@@ -74,6 +74,8 @@ Patch:		libidn2.patch
 Patch:		lua-math.patch
 # avoid "stale plugin cache" warnings in flatpaks
 Patch:		flatpak-cache.patch
+# fix build with gstreamer-1.28
+Patch:		gstreamer128.patch
 
 %{load:%{S:1}}
 %global __provides_exclude_from ^%{vlc_plugindir}/.*$

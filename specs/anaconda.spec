@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.18
+Version: 44.19
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -81,7 +81,7 @@ Summary: Core of the Anaconda installer
 # core/signal.py is under MIT
 License: GPL-2.0-or-later AND MIT
 Requires: python3-libs
-%if 0%{?rhel} > 10 || 0%{?fedora} > 40
+%if 0%{?rhel} > 10 || 0%{?fedora} > 40 || %{defined eln}
 Requires: python3-crypt-r
 %endif
 Requires: python3-libdnf5 >= %{dnfver}
@@ -519,6 +519,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 10 2026 Packit <hello@packit.dev> - 44.19-1
+- spec: Require python3-crypt-r also on ELN (k.koukiou)
+- Fix user input in driver disk menu is not displayed (adamkankovsky)
+
 * Tue Feb 03 2026 Packit <hello@packit.dev> - 44.18-1
 - Always restorecon user home directory after creating it (awilliam)
 - Replace direct inst call with DRACUT_NO_XATTR=1 workaround (k.koukiou)

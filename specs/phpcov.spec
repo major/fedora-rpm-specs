@@ -1,6 +1,6 @@
 # fedora/remirepo spec file for phpcov
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,7 +10,7 @@
 %bcond_without tests
 
 
-%global gh_commit    d77e3bacb5124db8a7e8d090228bfc56f2e692f8
+%global gh_commit    74b950835e1b012ec422f112492929b2c832ffe5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpcov
@@ -24,8 +24,8 @@
 
 
 Name:           %{pk_project}
-Version:        11.0.3
-Release:        2%{?dist}
+Version:        12.0.0
+Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
 License:        BSD-3-Clause
@@ -37,33 +37,33 @@ Source1:        makesrc.sh
 Patch0:         %{gh_project}-rpm.patch
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 8.3
+BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  phpunit12 >= 12.4.4
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.5.0 with php-composer(phpunit/php-code-coverage) < 13)
-BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0    with php-composer(phpunit/php-file-iterator) < 7)
-BuildRequires:  (php-composer(sebastian/cli-parser)      >= 4.2    with php-composer(sebastian/cli-parser)      < 5)
-BuildRequires:  (php-composer(sebastian/diff)            >= 7.0    with php-composer(sebastian/diff)            < 8)
-BuildRequires:  (php-composer(sebastian/version)         >= 6.0    with php-composer(sebastian/version)         < 7)
+BuildRequires:  phpunit13
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 13.0.1 with php-composer(phpunit/php-code-coverage) < 14)
+BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
+BuildRequires:  (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
+BuildRequires:  (php-composer(sebastian/diff)            >= 8.0.0  with php-composer(sebastian/diff)            < 9)
+BuildRequires:  (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 BuildRequires:  php-pecl(Xdebug) >= 3
 %endif
 
 # from composer.json
-#        "php": ">=8.3",
-#        "phpunit/phpunit": "^12.4.4",
-#        "phpunit/php-code-coverage": "^12.5.0",
-#        "phpunit/php-file-iterator": "^6.0",
-#        "sebastian/cli-parser": "^4.2",
-#        "sebastian/diff": "^7.0",
-#        "sebastian/version": "^6.0"
-Requires:       php(language) >= 8.3
-Requires:       phpunit12 >= 12.4.4
-Requires:       (php-composer(phpunit/php-code-coverage) >= 12.5.0 with php-composer(phpunit/php-code-coverage) < 13)
-Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0    with php-composer(phpunit/php-file-iterator) < 7)
-Requires:       (php-composer(sebastian/cli-parser)      >= 4.2    with php-composer(sebastian/cli-parser)      < 5)
-Requires:       (php-composer(sebastian/diff)            >= 7.0    with php-composer(sebastian/diff)            < 8)
-Requires:       (php-composer(sebastian/version)         >= 6.0    with php-composer(sebastian/version)         < 7)
+#        "php": ">=8.4",
+#        "phpunit/phpunit": "^13.0.0",
+#        "phpunit/php-code-coverage": "^13.0.1",
+#        "phpunit/php-file-iterator": "^7.0.0",
+#        "sebastian/cli-parser": "^5.0.0",
+#        "sebastian/diff": "^8.0.0",
+#        "sebastian/version": "^7.0.0"
+Requires:       php(language) >= 8.4
+Requires:       phpunit13
+Requires:       (php-composer(phpunit/php-code-coverage) >= 13.0.1 with php-composer(phpunit/php-code-coverage) < 14)
+Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.0  with php-composer(phpunit/php-file-iterator) < 8)
+Requires:       (php-composer(sebastian/cli-parser)      >= 5.0.0  with php-composer(sebastian/cli-parser)      < 6)
+Requires:       (php-composer(sebastian/diff)            >= 8.0.0  with php-composer(sebastian/diff)            < 9)
+Requires:       (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
 # from phpcompatinfo report for version 4.0.0
 # none
 
@@ -91,12 +91,12 @@ phpab \
 cat << 'EOF' | tee -a src/autoload.php
 // Dependencies
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/PHPUnit12/autoload.php',
-    '%{php_home}/%{ns_vendor}/CodeCoverage12/autoload.php',
-    '%{php_home}/%{ns_vendor}/FileIterator6/autoload.php',
-    '%{php_home}/%{ns_vendor}/CliParser4/autoload.php',
-    '%{php_home}/%{ns_vendor}/Diff7/autoload.php',
-    '%{php_home}/%{ns_vendor}/Version6/autoload.php',
+    '%{php_home}/PHPUnit13/autoload.php',
+    '%{php_home}/%{ns_vendor}/CodeCoverage13/autoload.php',
+    '%{php_home}/%{ns_vendor}/FileIterator7/autoload.php',
+    '%{php_home}/%{ns_vendor}/CliParser5/autoload.php',
+    '%{php_home}/%{ns_vendor}/Diff8/autoload.php',
+    '%{php_home}/%{ns_vendor}/Version7/autoload.php',
 ]);
 EOF
 
@@ -124,9 +124,9 @@ rm tests/end-to-end/merge/valid-directory-with-text-report-stdout.phpt
 rm tests/end-to-end/patch-coverage/valid-arguments-with-valid-path-prefix.phpt
 
 ret=0
-for cmd in php php83 php84 php85; do
+for cmd in php php84 php85; do
   if which $cmd; then
-    $cmd $EXT -d xdebug.mode=coverage %{_bindir}/phpunit12 --testsuite end-to-end || ret=1
+    $cmd $EXT -d xdebug.mode=coverage %{_bindir}/phpunit13 --testsuite end-to-end || ret=1
   fi
 done
 exit $ret;
@@ -144,6 +144,16 @@ exit $ret;
 
 
 %changelog
+* Fri Feb  6 2026 Remi Collet <remi@remirepo.net> - 12.0.0-1
+- update to 12.0.0
+- raise dependency on PHP 8.4
+- raise dependency on phpunit/phpunit 13
+- raise dependency on phpunit/php-code-coverage 13
+- raise dependency on phpunit/php-file-iterator 7
+- raise dependency on sebastian/cli-parser 5
+- raise dependency on sebastian/diff 8
+- raise dependency on sebastian/version 7
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

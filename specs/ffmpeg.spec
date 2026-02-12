@@ -23,6 +23,9 @@
 # Fails due to asm issue
 %ifarch %{ix86} %{arm}
 %bcond lto 0
+# relocations in .text from nasm-compiled code on i686 only
+# https://bugzilla.redhat.com/show_bug.cgi?id=2428281
+%global _pkg_extra_ldflags "-Wl,-z,notext"
 %else
 %bcond lto 1
 %endif

@@ -49,16 +49,16 @@
 %global archive_topdir %{name}-%{version}%{?prerel2}
 %endif
 
-#%%global prerelease rc
-#%%global prereleasenum 1
+%global prerelease rc
+%global prereleasenum 1
 
 %global prerel1 %{?prerelease:.%{prerelease}%{prereleasenum}}
 %global prerel2 %{?prerelease:-%{prerelease}.%{prereleasenum}}
 
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
-Version: 2.26.0
-Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Version: 2.27.0
+Release: 0.1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -319,7 +319,7 @@ make install-ppd DESTDIR="%{buildroot}" BINDIR="%{_bindir}" \
   SBINDIR="%{_sbindir}" DOCDIR="%{docdir}" %{make_python_arg}
 
 # manual
-make install-html DESTDIR=%{buildroot} DOCDIR=%{docdir}
+make install-html DESTDIR=%{buildroot} DOCDIR=%{docdir} %{make_python_arg}
 
 # conditional support for grub2, grub2 is not available on all architectures
 # and tuned is noarch package, thus the following hack is needed
@@ -648,6 +648,20 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Tue Feb 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.27.0-0.1.rc1
+- new release
+  - cpu-partitioning: autodetect dracut hook directory, systemd workaround
+    resolves: RHEL-40619
+  - openshift: optimize TCP settings for high throughput and low latency
+  - profiles: Set boost=1 in *-performance profiles
+  - sap-hana: force latency to 70 us, not to C-states
+    resolves: RHEL-142285
+  - man: fixed instance_acquire_devices example in tuned-adm man
+    resolves: RHEL-90575
+  - spec: use correct python interpreter for documentation installation
+  - sysctl: add reapply_sysctl_exclude option
+  - ppd: ask tuned recommend for base profile
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

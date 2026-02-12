@@ -3,20 +3,13 @@
 %global xdg_desktop_portal_version 1.19.1
 
 Name:           xdg-desktop-portal-gnome
-Version:        50~alpha
+Version:        50~beta
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GNOME
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}
 Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
-
-# For: https://gitlab.gnome.org/GNOME/libgxdp/-/merge_requests/11
-# Fixes a crash
-Patch:          gschema-typo.patch
-# For: https://gitlab.gnome.org/GNOME/libgxdp/-/merge_requests/13
-# Fixes no text appearing in portal dialogs
-Patch:          0001-settings-Properly-translate-text-scaling-factor.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
