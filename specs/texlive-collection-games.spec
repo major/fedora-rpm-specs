@@ -5,7 +5,7 @@
 Name:           texlive-collection-games
 Epoch:          12
 Version:        svn76381
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Games typesetting
 
 License:        LPPL-1.3c
@@ -256,7 +256,7 @@ chess problems (mostly using rotated images of pieces) and other boards.
 
 %package -n texlive-chessboard
 Summary:        Print chess boards
-Version:        svn72795
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -300,7 +300,7 @@ animated chessboard, for those whose PDF viewer can display animations.
 
 %package -n texlive-chessfss
 Summary:        A package to handle chess fonts
-Version:        svn19440
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -986,7 +986,7 @@ questions, with hidden answers inside.
 
 %package -n texlive-rpgicons
 Summary:        Icons for tabletop role-playing games
-Version:        svn77525
+Version:        svn77702
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1010,6 +1010,7 @@ Requires:       texlive-base
 Requires:       texlive-kpathsea
 Requires:       tex(calc.sty)
 Requires:       tex(diagram.sty)
+Provides:       tex(schwalbe.cls) = %{tl_version}
 Provides:       tex(schwalbe.sty) = %{tl_version}
 Provides:       tex(swruler.sty) = %{tl_version}
 
@@ -1055,7 +1056,7 @@ environment will not work in the argument of another command.
 
 %package -n texlive-skak
 Summary:        Fonts and macros for typesetting chess games
-Version:        svn61719
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1267,6 +1268,7 @@ Provides:       tex(tikzlibrarywargame.hex.code.tex) = %{tl_version}
 Provides:       tex(tikzlibrarywargame.natoapp6c.code.tex) = %{tl_version}
 Provides:       tex(tikzlibrarywargame.util.code.tex) = %{tl_version}
 Provides:       tex(wargame.sty) = %{tl_version}
+Provides:       tex(wgexport.cls) = %{tl_version}
 
 %description -n texlive-wargame
 This package can help make classic Hex'n'Counter wargames using LaTeX. The
@@ -1320,7 +1322,7 @@ or parts of games and show diagrams with special positions.
 
 %package -n texlive-xskak
 Summary:        An extension to the skak package for chess typesetting
-Version:        svn51432
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1822,6 +1824,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/latex/xskak/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76381-4
+- generate provides for .cls files
+- update chessboard chessfss rpgicons skak xskak
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76381-3
 - Update rpgicons, fix licensing files
 

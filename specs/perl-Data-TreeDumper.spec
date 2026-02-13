@@ -1,10 +1,10 @@
-Name:       perl-Data-TreeDumper 
-Version:    0.41
-Release:    7%{?dist}
+Name:       perl-Data-TreeDumper
+Version:    0.43
+Release:    1%{?dist}
 # see TreeDumper.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Improved replacement for Data::Dumper
-Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Data-TreeDumper-%{version}.tar.gz 
+Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Data-TreeDumper-%{version}.tar.gz
 Url:        https://metacpan.org/release/Data-TreeDumper
 BuildArch:  noarch
 
@@ -17,7 +17,7 @@ BuildRequires: perl(Check::ISA)
 BuildRequires: perl(Class::ISA)
 BuildRequires: perl(constant)
 BuildRequires: perl(Devel::Size) >= 0.58
-BuildRequires: perl(Exporter) 
+BuildRequires: perl(Exporter)
 BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires: perl(Sort::Naturally)
 BuildRequires: perl(strict)
@@ -32,8 +32,8 @@ Requires: perl(Term::Size) >= 0.2
 %description
 Data::Dumper and other modules do a great job of dumping data structures.
 Their output, however, often takes more brain power to understand than the
-data itself.  When dumping large amounts of data, the output can be 
-overwhelming and it can be difficult to see the relationship between each 
+data itself.  When dumping large amounts of data, the output can be
+overwhelming and it can be difficult to see the relationship between each
 piece of the dumped data.
 
 Data::TreeDumper also dumps data in a tree-like fashion but hopefully in a
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Data::TreeDumper*.3*
 
 %changelog
+* Wed Feb 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.43-1
+- 0.43 bump (rhbz#2436032)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -155,7 +155,7 @@
 
 Name:           rocblas%{pkg_suffix}
 Summary:        BLAS implementation for ROCm
-License:        MIT AND BSD-3-Clause
+License:        MIT AND BSD-3-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}

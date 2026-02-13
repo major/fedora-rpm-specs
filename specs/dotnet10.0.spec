@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.102-sb1
+%global upstream_tag v10.0.103
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.2
-%global aspnetcore_runtime_version 10.0.2
-%global sdk_version 10.0.102
+%global runtime_version 10.0.3
+%global aspnetcore_runtime_version 10.0.3
+%global sdk_version 10.0.103
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -77,7 +77,7 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        .NET %{dotnetver} Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -115,8 +115,6 @@ Patch0:         runtime-re-enable-implicit-rejection.patch
 Patch1:         runtime-openssl-sha1.patch
 # fix an error caused by combining Fedora's CFLAGS with how .NET builds some assembly files
 Patch2:         runtime-disable-fortify-on-ilasm-parser.patch
-# https://github.com/dotnet/runtime/issues/119706#issuecomment-3292624673
-Patch3:         runtime-119706-clang-21.patch
 
 
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
@@ -125,11 +123,7 @@ ExclusiveArch:  aarch64 ppc64le s390x x86_64
 %if ! %{use_bundled_brotli}
 BuildRequires:  brotli-devel
 %endif
-%if 0%{?fedora} >= 43 || 0%{?rhel} > 10
-BuildRequires:  clang20
-%else
 BuildRequires:  clang
-%endif
 BuildRequires:  cmake
 BuildRequires:  coreutils
 %if %{without bootstrap}
@@ -936,6 +930,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Feb 11 2026 Omair Majid <omajid@redhat.com> - 10.0.103-1
+- Update to .NET SDK 10.0.103 and Runtime 10.0.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.102-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

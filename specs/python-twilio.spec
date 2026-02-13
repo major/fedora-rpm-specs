@@ -2,13 +2,15 @@
 %global pypi_name twilio
 
 Name:           python-%{pypi_name}
-Version:        9.9.0
-Release:        2%{?dist}
+Version:        9.10.1
+Release:        %autorelease
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT
 URL:            https://github.com/twilio/twilio-python
 Source0:        %{url}/archive/%{version}/%{github_name}-%{version}.tar.gz
+# https://github.com/twilio/twilio-python/pull/908
+Patch0:         python-twilio-rm-python-mock-usage.diff
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -17,7 +19,6 @@ BuildRequires:  python3-jwt
 BuildRequires:  python3dist(aiounittest)
 BuildRequires:  python3dist(cryptography)
 BuildRequires:  python3dist(django)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(multidict)
 BuildRequires:  python3dist(pytest)
 
@@ -65,7 +66,4 @@ rm tests/cluster/test_cluster.py
 %doc README.md
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

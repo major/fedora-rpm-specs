@@ -3,13 +3,16 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python API client for OPNsense
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            https://github.com/mtreinish/pyopnsense
 Source0:        %{pypi_source}
+# Maintainers, please upstream
+Patch0:         python-opnsense-rm-python-mock-usage.diff
+
 BuildArch:      noarch
 
 %description
@@ -22,7 +25,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(coverage)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(pbr)
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(setuptools)
@@ -42,7 +44,7 @@ BuildRequires:  python3dist(sphinx)
 Documentation for pyopnsense.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
 %build
@@ -67,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.3.0-22
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

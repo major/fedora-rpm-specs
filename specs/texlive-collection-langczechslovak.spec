@@ -5,7 +5,7 @@
 Name:           texlive-collection-langczechslovak
 Epoch:          12
 Version:        svn54074
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Czech/Slovak
 
 License:        LPPL-1.3c
@@ -106,6 +106,7 @@ Requires:       tex(verbatim.sty)
 Requires:       tex(xevlna.sty)
 Requires:       tex(zwpagelayout.sty)
 Provides:       tex(cnbwp-manual.sty) = %{tl_version}
+Provides:       tex(cnbwp.cls) = %{tl_version}
 
 %description -n texlive-cnbwp
 The package supports proper formatting of Working Papers of the Czech National
@@ -133,7 +134,10 @@ Requires:       texlive-kpathsea
 Requires:       tex(color.sty)
 Requires:       tex(graphicx.sty)
 Provides:       tex(csbulacronym.sty) = %{tl_version}
+Provides:       tex(csbulletin.cls) = %{tl_version}
+Provides:       tex(csbulobalka.cls) = %{tl_version}
 Provides:       tex(csbulobalka.sty) = %{tl_version}
+Provides:       tex(csbulv1.cls) = %{tl_version}
 
 %description -n texlive-csbulletin
 The package provides the class for articles for the CSTUG Bulletin (Zpravodaj
@@ -352,6 +356,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/texlive/texlive-cz/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-5
+- Add provides for .cls files
+
 * Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-4
 - bump for rebuild
 

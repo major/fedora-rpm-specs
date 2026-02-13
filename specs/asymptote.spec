@@ -1,6 +1,6 @@
 Name:           asymptote
-Version:        3.01
-Release:        5%{?dist}
+Version:        3.06
+Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -45,10 +45,8 @@ Patch1:         asymptote-2.73-info-path-fix.patch
 Patch2:         asymptote-3.00-flexiblas.patch
 # Unbundle glew
 Patch3:         asymptote-3.00-unbundle-glew.patch
-# Fix lspcpp compile
-Patch4:		asymptote-3.00-lspcpp-compilefix.patch
 # Fix gc linking
-Patch5:		asymptote-3.00-gc-link-fix.patch
+Patch4:		asymptote-3.00-gc-link-fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -59,10 +57,10 @@ BuildRequires:  gc-devel >= 6.8
 BuildRequires:  gsl-devel
 BuildRequires:  flexiblas-devel
 BuildRequires:  tex(latex) tex(epsf.tex)
-BuildRequires:  tex(cm-super-t1.enc)
 BuildRequires:  tex(media9.sty)
 BuildRequires:  tex(parskip.sty)
 BuildRequires:  tex(type1cm.sty)
+BuildRequires:  tex(type1ec.sty)
 BuildRequires:  texlive-dvisvgm
 BuildRequires:  ghostscript >= 9.55
 BuildRequires:  texinfo-tex
@@ -117,8 +115,7 @@ that LaTeX does for scientific text.
 %patch -P1 -p1 -b .path-fix
 %patch -P2 -p1 -b .flexiblas
 %patch -P3 -p1 -b .glew
-%patch -P4 -p1 -b .compilefix
-%patch -P5 -p1 -b .gcfix
+%patch -P4 -p1 -b .gcfix
 sed -i 's/\r//' doc/CAD1.asy
 
 # Make sure the bundled glew cannot be used
@@ -128,6 +125,15 @@ rm -rf GL
 iconv -f iso-8859-1 -t utf-8 -o examples/interpolate1.asy{.utf8,}
 mv examples/interpolate1.asy{.utf8,}
 autoreconf -i
+
+# Remove useless shebangs
+for f in GUI/*.py; do
+  if [ "$f" != "GUI/xasy.py" ]; then
+    sed -i.orig '/\/usr\/bin\/env python3/d' $f
+    touch -r $f.orig $f
+    rm $f.orig
+  fi
+done
 
 %build
 export CPPFLAGS='-I%{_includedir}/eigen3 -I%{_includedir}/tirpc'
@@ -208,6 +214,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Wed Feb 04 2026 Jerry James <loganjerry@gmail.com> - 3.06-1
+- Update to 3.06
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.01-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

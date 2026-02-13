@@ -29,8 +29,8 @@
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.21.2
-Release:	2%{?dist}
+Version:	3.21.3
+Release:	1%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -2048,6 +2048,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 3.21.3-1
+- update to 3.21.3
+
 * Thu Jan 22 2026 Tom Callaway <spot@fedoraproject.org> - 3.21.2-2
 - rebuild for poppler 26
 

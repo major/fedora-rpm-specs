@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Polyfill package for Flake8 plugins
 
 License:        MIT
@@ -11,6 +11,9 @@ Source0:        https://gitlab.com/pycqa/%{srcname}/-/archive/%{version}/%{srcna
 
 # Submitted upstream as pycqa/flake8-polyfill#1
 Patch0:         %{name}-1.0.2-pytest-4-compatibility.patch
+
+# Maintainers, please upstream
+Patch1:         python-flake8-polyfill-rm-python-mock-usage.patch
 
 BuildArch:      noarch
 
@@ -23,7 +26,6 @@ Flake8 plugins that intend to support Flake8 2.x and 3.x simultaneously.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-flake8
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
@@ -64,6 +66,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 1.0.2-30
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

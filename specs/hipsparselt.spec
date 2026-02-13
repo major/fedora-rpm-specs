@@ -34,9 +34,9 @@
 %global date0 20250926
 %endif
 
-%global upstreamname hipSPARSELt
-%global rocm_release 7.1
-%global rocm_patch 1
+%global upstreamname hipsparselt
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -65,9 +65,6 @@
 #
 # When keeping sync the hipblaslt project patch is difficult,
 # use the hipblaslt repo tag, not the tensilelit_tag file
-# This it the hipblaslt 7.1.1 repo tag
-%global hipblaslt_commit 7c0ea90bd75ec971502a9232373f8ae7484a5cfa
-%global hipblaslt_scommit %(c=%{hipblaslt_commit}; echo ${c:0:7})
 
 %global toolchain rocm
 # hipcc does not support some clang flags
@@ -95,9 +92,7 @@
 %global tensile_verbose 1
 
 # match hipblaslt
-%global gpu_list %{rocm_gpu_list_hipblaslt}
-# For testing
-%global _gpu_list "gfx1100"
+%global gpu_list "gfx942;gfx950"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -130,21 +125,20 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
+URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
-Url:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
-Url:            https://github.com/ROCm/%{upstreamname}
-Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
-# TODO : track down the gitcommit for this
-Source1:        https://github.com/ROCm/hipBLASLt/archive/%{hipblaslt_commit}/hipBLASLt-%{hipblaslt_scommit}.tar.gz
+# Force sync to same version of hipblaslt
+Source1:        %{url}/releases/download/rocm-%{version}/hipblaslt.tar.gz#/hipblaslt-%{version}.tar.gz
 # This are patches from the hiblaslt package for patching tensile
 Source2:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 Source3:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
@@ -259,17 +253,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/hipsparselt
 %else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}
 %endif
 
 tar xf %{SOURCE1}
-mv hipBLASLt-%{hipblaslt_commit} hipBLASLt
-cd hipBLASLt
+cd hipblaslt
 
-patch -p1 < %{SOURCE2}
-patch -p1 < %{SOURCE3}
-patch -p1 < %{SOURCE4}
-patch -p1 < %{SOURCE5}
+patch -p3 < %{SOURCE2}
+patch -p3 < %{SOURCE3}
+patch -p3 < %{SOURCE4}
+patch -p3 < %{SOURCE5}
 
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
@@ -304,19 +297,17 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
 # change looking for cblas to flexiblas
 sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' clients/CMakeLists.txt
-sed -i -e 's@lapack cblas@flexiblas@' clients/gtest/CMakeLists.txt
 
 # We are building from a tarball, not a git repo
-sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' hipBLASLt/cmake/dependencies.cmake
-sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' cmake/Dependencies.cmake
+sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' hipblaslt/cmake/dependencies.cmake
 
 %build
 %if %{with gitcommit}
 cd projects/hipsparselt
 %endif
 
-HIPBLASLT_PATH=$PWD/hipBLASLt
-cd hipBLASLt
+HIPBLASLT_PATH=$PWD/hipblaslt
+cd hipblaslt
 # disable openmp
 sed -i -e 's@option(HIPBLASLT_ENABLE_OPENMP "Use OpenMP to improve performance." ON)@option(HIPBLASLT_ENABLE_OPENMP "Use OpenMP to improve performance." OFF)@' CMakeLists.txt
 
@@ -359,6 +350,8 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
        -DHIPSPARSELT_HIPBLASLT_PATH=${HIPBLASLT_PATH} \
+       -DHIPSPARSELT_ENABLE_CLIENT=OFF \
+       -DHIPSPARSELT_ENABLE_OPENMP=OFF \
        -DROCM_SYMLINK_LIBS=OFF \
        -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
        -DTensile_TEST_LOCAL_PATH=${TL} \

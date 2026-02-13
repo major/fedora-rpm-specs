@@ -3,14 +3,13 @@
 %endif
 
 Name:		virglrenderer
-Version:	1.2.0
-Release:	4%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 
 Summary:	Virgl Rendering library.
 License:	MIT
 
 Source:         https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/%{version}/virglrenderer-%{version}.tar.bz2
-Patch0000:      0001-c11-threads-fix-build-on-c23.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -74,6 +73,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Wed Feb 11 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.3.0-1
+- new version v1.3.0, fixes rhbz#2438458
+
 * Thu Jan 29 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.2.0-4
 - Backport build fix, fixes FTBFS rhbz#2435177
 

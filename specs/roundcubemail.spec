@@ -11,14 +11,14 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.12
-#global upstream_prever      rc
+%global upstream_version     1.7
+%global upstream_prever      rc3
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
 Name: roundcubemail
 Version:  %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:  2%{?dist}
+Release:  1%{?dist}
 Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 
 # Since 0.8 beta, the main code has been GPLv3+ with exceptions and
@@ -46,12 +46,12 @@ Source4: roundcubemail-README-rpm.txt
 Source5: roundcubemail-bundled.php
 
 # Non-upstreamable: Adjusts config path to Fedora policy
-Patch1: roundcubemail-1.6-confpath.patch
+Patch1: roundcubemail-1.7-confpath.patch
 
 
 BuildArch: noarch
 BuildRequires: gnupg2
-BuildRequires: php(language) >= 7.3
+BuildRequires: php(language) >= 8.1
 # For test
 BuildRequires: php-cli
 BuildRequires: composer-generators
@@ -65,15 +65,12 @@ Requires:  php(httpd)
 Requires: httpd
 Requires: mod_php
 %endif
-Requires: php(language) >= 7.3
+Requires: php(language) >= 8.1
 Requires: php-ctype
 Requires: php-curl
-Requires: php-date
 Requires: php-dom
 Requires: php-fileinfo
-Requires: php-filter
 Requires: php-gd
-Requires: php-hash
 Requires: php-iconv
 Requires: php-intl
 Requires: php-json
@@ -81,14 +78,10 @@ Requires: php-ldap
 Requires: php-libxml
 Requires: php-mbstring
 Requires: php-openssl
-Requires: php-pcre
 Requires: php-pdo
 Requires: php-posix
-Requires: php-reflection
-Requires: php-session
 Requires: php-simplexml
 Requires: php-sockets
-Requires: php-spl
 Requires: php-tokenizer
 # mailcap for /etc/mime.types
 Requires: mailcap
@@ -119,7 +112,7 @@ Suggests:   php-pam
 # Bundled JS libraries
 # see https://github.com/roundcube/roundcubemail/blob/master/jsdeps.json
 # License Apache-2.0
-Provides: bundled(js-lessjs) = 3.13.0
+Provides: bundled(js-lessjs) = 4.4.2
 # License GPLv3
 Provides: bundled(js-publickey) = 0e011cb1
 # License LGPL
@@ -128,8 +121,7 @@ Provides: bundled(js-tinymce) = 5.10.9
 # License MIT
 Provides: bundled(js-bootstrap) = 4.5.3
 Provides: bundled(js-codemirror) = 5.58.3
-Provides: bundled(js-jquery) = 3.5.1
-Provides: bundled(js-jstimezonedetect) = 1.0.7
+Provides: bundled(js-jquery) = 3.7.1
 # License Unkown
 Provides: bundled(js-tinymce-langs) = 5.10.9
 
@@ -220,8 +212,7 @@ popd
 
 # clean up the buildroot
 rm -r %{buildroot}%{roundcubedir}/{config,logs,temp}
-rm -r %{buildroot}%{roundcubedir}/{CHANGELOG.md,INSTALL,LICENSE,README.md,UPGRADING}
-rm    %{buildroot}%{roundcubedir}/composer.json-dist
+rm -r %{buildroot}%{roundcubedir}/README.md
 
 
 %check
@@ -253,9 +244,9 @@ fi
 
 
 %files
-%license LICENSE
-%doc CHANGELOG.md INSTALL README.md UPGRADING README-rpm.txt
-%doc composer.json-dist
+%license docs/LICENSE.md
+%doc README.md
+%doc docs
 %{roundcubedir}
 %dir %{_sysconfdir}/%{name}
 # OLD config files from previous version
@@ -280,6 +271,10 @@ fi
 
 
 %changelog
+* Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 1.7~rc3-1
+- update to 1.7-rc3
+- raise dependency on PHP 8.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

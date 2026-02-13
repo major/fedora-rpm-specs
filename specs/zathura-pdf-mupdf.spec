@@ -1,12 +1,14 @@
 Name:             zathura-pdf-mupdf
 
 Version:          0.4.4
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          PDF support for zathura via mupdf
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}/
 Source0:          %{url}/download/%{name}-%{version}.tar.xz
-Patch1:           0001-configure-for-shared-mupdf-build.patch
+# Upstream patch from 0.4.6 adjusting to shared mupdf library
+Patch1:           0001-Update-Debian-build-branch-recent-packaging-changes-.patch
+Patch2:           0001-configure-for-shared-mupdf-build.patch
 
 BuildRequires:    binutils
 BuildRequires:    cairo-devel
@@ -54,6 +56,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-mupdf.metainfo.xml
 
 %changelog
+* Tue Feb 10 2026 Michael J Gruber <mjg@fedoraproject.org> - 0.4.4-9
+- Rebuild (mupdf)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

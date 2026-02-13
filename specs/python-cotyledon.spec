@@ -2,13 +2,17 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://cotyledon.readthedocs.io
 Source0:        %{pypi_source}
+# Upstream code already uses unittest.mock but the metadata still specifies mock
+# Maintainers, please upstream
+Patch0:         python-cotyledon-rm-python-mock-usage.diff
+
 BuildArch:      noarch
 
 %package -n python3-%{pypi_name}
@@ -59,6 +63,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 2.0.0-6
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

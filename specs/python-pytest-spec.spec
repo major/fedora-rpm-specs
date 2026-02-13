@@ -10,7 +10,7 @@ Available features:\
 
 Name:           python-%{pypi_name}
 Version:        5.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPL-2.0-or-later
@@ -27,7 +27,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3dist(mock)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -55,6 +54,9 @@ rm -rf setup.cfg
 %license LICENSE.txt
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 5.2.0-3
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

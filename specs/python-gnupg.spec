@@ -3,8 +3,7 @@ Version:        0.5.4
 Release:        %autorelease
 Summary:        A wrapper for the Gnu Privacy Guard (GPG or GnuPG)
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://gnupg.readthedocs.io/
 Source0:        https://github.com/vsajip/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/vsajip/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc

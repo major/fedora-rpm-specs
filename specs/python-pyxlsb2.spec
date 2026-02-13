@@ -1,6 +1,6 @@
 Name:           python-pyxlsb2
 Version:        0.0.9
-%global         baserelease     0.9
+%global         baserelease     0.10
 Summary:        Excel 2007+ Binary Workbook (xlsb) parser
 
 
@@ -47,17 +47,14 @@ Source0:        https://github.com/%{gituser}/%{gitname}/releases/download/%{git
 Release:        %{baserelease}.%{gitdate}git%{shortcommit}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-%{gitdate}-%{shortcommit}.tar.gz
 %endif
+# Maintainers, please upstream
+Patch0:         python-pyxlsb2-rm-python-mock-usage.diff
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 
 # Needed for the %%check
 BuildRequires:  python%{python3_pkgversion}-pytest
-
-# python mock module not yet in rhel9
-%if (0%{?fedora}) || ( 0%{?rhel} && 0%{?rhel} != 9  )
-BuildRequires:  python%{python3_pkgversion}-mock
-%endif
 
 %description %_description
 
@@ -76,9 +73,9 @@ Summary:        %{summary}
 
 %prep
 %if %{with release}
-%autosetup -n pyxlsb2-%{version}
+%autosetup -n pyxlsb2-%{version} -p1
 %else
-%autosetup -n pyxlsb2-%{commit}
+%autosetup -n pyxlsb2-%{commit} -p1
 %endif
 # Remove bundled egg-info
 rm -rf pyxlsb2.egg-info
@@ -95,14 +92,7 @@ FAILING="not test_stringify and not test_sheets and not test_rows"
 # Failing on s390x platform
 FAILING="$FAILING and not test_read_string and not test_read_string_u and not test_get_string"
 
-%if 0%{?rhel} && 0%{?rhel} == 9
-# missing python module mock on rhel9
-FAILING="$FAILING and not formula_test and not worksheet_test"
-
-%pytest -sv -k "$FAILING" &&
-%else
 %pytest -sv -k "$FAILING"
-%endif
 
 
 %files -n python%{python3_pkgversion}-pyxlsb2
@@ -112,6 +102,9 @@ FAILING="$FAILING and not formula_test and not worksheet_test"
 %{python3_sitelib}/pyxlsb2-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.0.9-0.10.20220509git0a1ff1b
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-0.9.20220509git0a1ff1b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

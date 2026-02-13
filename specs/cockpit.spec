@@ -1,18 +1,6 @@
 #
 # Copyright (C) 2014-2020 Red Hat, Inc.
-#
-# Cockpit is free software; you can redistribute it and/or modify it
-# under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation; either version 2.1 of the License, or
-# (at your option) any later version.
-#
-# Cockpit is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License
-# along with Cockpit; If not, see <https://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 #
 
 # This file is maintained at the following location:
@@ -64,11 +52,10 @@
 
 Name:           cockpit
 Summary:        Web Console for Linux servers
-
-License:        LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND GPL-3.0-and-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        355
+Version:        356
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -103,7 +90,7 @@ BuildRequires: krb5-devel >= 1.11
 BuildRequires: glib-networking
 BuildRequires: sed
 
-BuildRequires: glib2-devel >= 2.50.0
+BuildRequires: glib2-devel >= 2.68.0
 # this is for runtimedir in the tls proxy ace21c8879
 BuildRequires: systemd-devel >= 235
 %if 0%{?suse_version}
@@ -217,7 +204,7 @@ mkdir -p $RPM_BUILD_ROOT%{pamconfdir}
 install -p -m 644 %{pamconfig} $RPM_BUILD_ROOT%{pamconfdir}/cockpit
 
 rm -f %{buildroot}/%{_libdir}/cockpit/*.so
-install -D -p -m 644 AUTHORS COPYING README.md %{buildroot}%{_docdir}/cockpit/
+install -D -p -m 644 AUTHORS README.md %{buildroot}%{_docdir}/cockpit/
 
 # We install the upstream pre-built docs as we can't build them
 %if %{defined bundle_docs}
@@ -316,9 +303,8 @@ It offers network configuration, log inspection, diagnostic reports, SELinux
 troubleshooting, interactive command-line sessions, and more.
 
 %files
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_docdir}/cockpit/AUTHORS
-%{_docdir}/cockpit/COPYING
 %{_docdir}/cockpit/README.md
 %{_datadir}/metainfo/org.cockpit_project.cockpit.appdata.xml
 %{_datadir}/icons/hicolor/128x128/apps/cockpit.png
@@ -334,7 +320,7 @@ The Cockpit bridge component installed server side and runs commands on the
 system on behalf of the web based user interface.
 
 %files bridge -f base.list
-%license COPYING
+%license LICENSES/GPL-3.0.txt
 %doc %{_mandir}/man1/cockpit-bridge.1.gz
 %{_bindir}/cockpit-bridge
 %{_libexecdir}/cockpit-askpass
@@ -350,9 +336,8 @@ deploy Cockpit on their machines as well as helps developers who want to
 embed or extend Cockpit.
 
 %files doc
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %exclude %{_docdir}/cockpit/AUTHORS
-%exclude %{_docdir}/cockpit/COPYING
 %exclude %{_docdir}/cockpit/README.md
 %{_docdir}/cockpit
 
@@ -385,13 +370,13 @@ Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
-Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
-Provides: bundled(npm(@xterm/xterm)) = 5.5.0
+Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
+Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.3.0
@@ -411,14 +396,13 @@ Provides: bundled(npm(uuid)) = 13.0.0
 This package contains the Cockpit shell and system configuration interfaces.
 
 %files system -f system.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %dir %{_datadir}/cockpit/shell/images
 
 %package ws
 Summary: Cockpit Web Service
-Requires: glib-networking
 Requires: openssl
-Requires: glib2 >= 2.50.0
+Requires: glib2 >= 2.68.0
 Requires: (%{name}-ws-selinux = %{version}-%{release} if selinux-policy-base)
 Recommends: sscg >= 2.3
 Recommends: system-logos
@@ -437,7 +421,7 @@ If sssd-dbus is installed, you can enable client certificate/smart card
 authentication via sssd/FreeIPA.
 
 %files ws -f static.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %doc %{_mandir}/man1/cockpit-desktop.1.gz
 %doc %{_mandir}/man5/cockpit.conf.5.gz
 %doc %{_mandir}/man8/cockpit-ws.8.gz
@@ -531,7 +515,7 @@ Requires(post): policycoreutils
 SELinux policy module for the cockpit-ws package.
 
 %files ws-selinux
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
 %{_mandir}/man8/%{name}_session_selinux.8cockpit.*
 %{_mandir}/man8/%{name}_ws_selinux.8cockpit.*
@@ -568,7 +552,7 @@ BuildArch: noarch
 The Cockpit component for configuring kernel crash dumping.
 
 %files kdump -f kdump.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_datadir}/metainfo/org.cockpit_project.cockpit_kdump.metainfo.xml
 
 # sosreport is not supported on opensuse yet
@@ -585,7 +569,7 @@ The Cockpit component for creating diagnostic reports with the
 sosreport tool.
 
 %files sosreport -f sosreport.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_datadir}/metainfo/org.cockpit_project.cockpit_sosreport.metainfo.xml
 %{_datadir}/icons/hicolor/64x64/apps/cockpit-sosreport.png
 %endif
@@ -603,7 +587,7 @@ BuildArch: noarch
 The Cockpit component for managing networking.  This package uses NetworkManager.
 
 %files networkmanager -f networkmanager.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_datadir}/metainfo/org.cockpit_project.cockpit_networkmanager.metainfo.xml
 
 %endif
@@ -625,7 +609,7 @@ This package contains the Cockpit user interface integration with the
 utility setroubleshoot to diagnose and resolve SELinux issues.
 
 %files selinux -f selinux.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_datadir}/metainfo/org.cockpit_project.cockpit_selinux.metainfo.xml
 
 %endif
@@ -653,7 +637,7 @@ BuildArch: noarch
 The Cockpit component for managing storage.  This package uses udisks.
 
 %files -n cockpit-storaged -f storaged.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 %{_datadir}/metainfo/org.cockpit_project.cockpit_storaged.metainfo.xml
 
 %post storaged
@@ -677,10 +661,15 @@ The Cockpit components for installing OS updates and Cockpit add-ons,
 via PackageKit.
 
 %files -n cockpit-packagekit -f packagekit.list
-%license COPYING
+%license LICENSES/LGPL-2.1.txt
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 11 2026 Packit <hello@packit.dev> - 356-1
+- systemd: Allow editing timers created by Cockpit
+- Convert license headers to SPDX format
+
+
 * Thu Jan 29 2026 Packit <hello@packit.dev> - 355-1
 - ws: Remove obsolete pam_cockpit_cert module
 - shell: add StartTransientUnit as a sudo alternative

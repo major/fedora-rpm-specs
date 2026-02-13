@@ -64,6 +64,11 @@ Patch:      https://github.com/sphinx-doc/sphinx/pull/13527.patch
 # Compatibility with docutils 0.22+
 Patch:      https://github.com/sphinx-doc/sphinx/pull/13610.patch
 Patch:      https://github.com/sphinx-doc/sphinx/pull/13883.patch
+# Use new package name for roman-numerals
+# Fixes https://bugzilla.redhat.com/2438819
+# https://github.com/sphinx-doc/sphinx/commit/2c3e22e3e8e743960
+# Temporary backport before we update to Sphinx 9, rebased
+Patch:      2c3e22e3e8e743960.patch
 
 BuildArch:     noarch
 

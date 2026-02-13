@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname MIVisionX
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -71,7 +71,7 @@
 
 Name:           mivisionx%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -210,6 +210,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/mivisionx/test
 %{pkg_prefix}/%{pkg_libdir}/libvxu.so
 
 %changelog
+* Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 7.1.0-8
 - Rebuilt for OpenCV 4.13
 

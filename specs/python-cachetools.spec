@@ -1,5 +1,5 @@
 Name:           python-cachetools
-Version:        7.0.0
+Version:        7.0.1
 Release:        %autorelease
 Summary:        Extensible memoizing collections and decorators
 

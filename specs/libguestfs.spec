@@ -34,7 +34,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.59.2
+Version:       1.59.3
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -160,9 +160,6 @@ BuildRequires: rubygem(rdoc)
 BuildRequires: rubygem(test-unit)
 BuildRequires: rubygem(irb)
 BuildRequires: php-devel
-BuildRequires: gobject-introspection-devel
-BuildRequires: gjs
-BuildRequires: vala
 %endif
 %ifarch %{golang_arches}
 BuildRequires: golang
@@ -358,9 +355,6 @@ For developers:
 
 Language bindings:
 
-%if !0%{?rhel}
-libguestfs-gobject-devel  GObject bindings and GObject Introspection
-%endif
 %ifarch %{golang_arches}
            golang-guestfs  Go language bindings
 %endif
@@ -375,7 +369,6 @@ libguestfs-gobject-devel  GObject bindings and GObject Introspection
        python3-libguestfs  Python 3 bindings
 %if !0%{?rhel}
           ruby-libguestfs  Ruby bindings
-          libguestfs-vala  Vala language bindings
 %endif
 
 
@@ -583,38 +576,6 @@ Requires:      lua
 
 %description -n lua-guestfs
 lua-guestfs contains Lua bindings for %{name}.
-
-
-%package gobject
-Summary:       GObject bindings for %{name}
-Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description gobject
-%{name}-gobject contains GObject bindings for %{name}.
-
-To develop software against these bindings, you need to install
-%{name}-gobject-devel.
-
-
-%package gobject-devel
-Summary:       GObject bindings for %{name}
-Requires:      %{name}-gobject = %{epoch}:%{version}-%{release}
-
-%description gobject-devel
-%{name}-gobject contains GObject bindings for %{name}.
-
-This package is needed if you want to write software using the
-GObject bindings.  It also contains GObject Introspection information.
-
-
-%package vala
-Summary:       Vala for %{name}
-Requires:      %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:      vala
-
-
-%description vala
-%{name}-vala contains GObject bindings for %{name}.
 %endif
 
 
@@ -724,7 +685,6 @@ fi
   --without-java \
   --disable-erlang \
 %if 0%{?rhel}
-  --disable-gobject \
   --disable-lua \
   --disable-php \
   --disable-ruby \
@@ -1037,26 +997,6 @@ rm ocaml/html/.gitignore
 %doc lua/examples/LICENSE
 %{_libdir}/lua/*/guestfs.so
 %{_mandir}/man3/guestfs-lua.3*
-
-
-%files gobject
-%{_libdir}/libguestfs-gobject-1.0.so.0*
-%{_libdir}/girepository-1.0/Guestfs-1.0.typelib
-
-
-%files gobject-devel
-%{_libdir}/libguestfs-gobject-1.0.so
-%{_includedir}/guestfs-gobject.h
-%dir %{_includedir}/guestfs-gobject
-%{_includedir}/guestfs-gobject/*.h
-%{_datadir}/gir-1.0/Guestfs-1.0.gir
-%{_libdir}/pkgconfig/libguestfs-gobject-1.0.pc
-%{_mandir}/man3/guestfs-gobject.3*
-
-
-%files vala
-%{_datadir}/vala/vapi/libguestfs-gobject-1.0.deps
-%{_datadir}/vala/vapi/libguestfs-gobject-1.0.vapi
 %endif
 
 
@@ -1082,6 +1022,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Feb 11 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.3-1
+- New upstream development version 1.59.3
+- Remove GObject and Vala bindings
+
 * Mon Jan 26 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.59.2-1
 - New upstream development version 1.59.2
 

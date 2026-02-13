@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.36.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -126,6 +126,8 @@ tools, xml authoring components, and an extendible plug-in based API.
 %package qt6
 Summary:        Qt6 support for MLT
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      mlt-qt5 < %{version}-%{release}
+Provides:       mlt-qt5 = %{version}-%{release}
 %description qt6
 This packages includes Qt6 support modules to MLT.
 
@@ -192,7 +194,6 @@ rm -r src/win32/
        %{?with_opencv: -DMOD_OPENCV:BOOL=ON}  \
        -DMOD_GLAXNIMATE:BOOL=ON  \
        -DMOD_GLAXNIMATE_QT6:BOOL=ON  \
-       -DMOD_QT:BOOL=OFF \
        -DMOD_QT6:BOOL=ON \
        %{?with_ndi: -DMOD_NDI:BOOL=ON -DNDI_SDK_INCLUDE_PATH=%{_includedir}/ndi-sdk -DNDI_SDK_LIBRARY_PATH=%{_libdir} -DNDI_INCLUDE_DIR=%{_includedir}/ndi-sdk -DNDI_LIBRARY_DIR=%{_libdir}}
 
@@ -273,6 +274,10 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Wed Feb 11 2026 Martin Gansser <martinkg@fedoraproject.org> - 7.36.1-2
+- QT5 Support was dropped
+- Obsoletes mlt-qt5 subpackage
+
 * Tue Feb 10 2026 Martin Gansser <martinkg@fedoraproject.org> - 7.36.1-1
 - Update to version 7.36.1
 - Set MOD_QT to off

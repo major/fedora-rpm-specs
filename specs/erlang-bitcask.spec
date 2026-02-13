@@ -9,10 +9,10 @@ URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 Source1:	bitcask.licensing
-Patch1:		erlang-bitcask-0001-Don-t-use-deprecated-erlang-now-0.patch
-Patch2:		erlang-bitcask-0002-Remove-eqc-we-still-don-t-use-them.patch
-Patch3:		erlang-bitcask-0003-Remove-pc-target.patch
-Patch4:		erlang-bitcask-0004-Fix-type-mismatch-on-x86-32-bit.patch
+Patch:		erlang-bitcask-0001-Don-t-use-deprecated-erlang-now-0.patch
+Patch:		erlang-bitcask-0002-Remove-eqc-we-still-don-t-use-them.patch
+Patch:		erlang-bitcask-0003-Remove-pc-target.patch
+Patch:		erlang-bitcask-0004-Fix-32-bit-portability-issues-in-NIF-code.patch
 BuildRequires:	erlang-cuttlefish
 BuildRequires:	erlang-meck
 BuildRequires:	erlang-rebar3
@@ -29,9 +29,9 @@ BuildRequires:	gcc
 
 # FIXME we don't have a port compiler plugin for rebar3 yet
 mkdir -p priv
-gcc $CFLAGS -c -I%{_libdir}/erlang/usr/include c_src/bitcask_nifs.c -o c_src/bitcask_nifs.o
-gcc $CFLAGS -c -I%{_libdir}/erlang/usr/include c_src/erl_nif_util.c -o c_src/erl_nif_util.o
-gcc $CFLAGS -c -I%{_libdir}/erlang/usr/include c_src/murmurhash.c -o c_src/murmurhash.o
+gcc $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include c_src/bitcask_nifs.c -o c_src/bitcask_nifs.o
+gcc $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include c_src/erl_nif_util.c -o c_src/erl_nif_util.o
+gcc $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include c_src/murmurhash.c -o c_src/murmurhash.o
 gcc $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei c_src/bitcask_nifs.o c_src/erl_nif_util.o c_src/murmurhash.o -o priv/bitcask.so
 
 %install

@@ -3,8 +3,8 @@
 Summary:       A library of functions for manipulating PNG image format files
 Name:          libpng
 Epoch:         2
-Version:       1.6.53
-Release:       2%{?dist}
+Version:       1.6.54
+Release:       1%{?dist}
 License:       zlib
 URL:           http://www.libpng.org/pub/png/
 
@@ -111,6 +111,9 @@ make check
 %{_bindir}/pngfix
 
 %changelog
+* Wed Feb 11 2026 Michal Hlavinka <mhlavink@redhat.com> - 2:1.6.54-1
+- updated to 1.6.54
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6.53-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

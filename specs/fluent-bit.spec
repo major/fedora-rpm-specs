@@ -1,21 +1,11 @@
 Name: fluent-bit
-Version: 3.2.8
+Version: 4.2.2
 Release: %autorelease
 Summary: Fluent Bit is a super fast, lightweight, and highly scalable logging and metrics processor and forwarder.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/fluent/fluent-bit
 Source0: https://github.com/fluent/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0: fluent-bit-cmake-c99.patch
-Patch1: fluent-bit-cmake-c99-2.patch
-Patch3: 0002-Bypass-incompatible-pointer-types-for-Kubernetes-Eve.patch
-Patch4: librdkafka-no-openssl-engine.patch
-# avoid issue due to two incompatible copies of zstd
-# https://github.com/fluent/fluent-bit/issues/10139
-# lightly tweaked to make changes to CMakeLists.txt apply
-# from upstream commit 5f409f55ec667b525716be4afd54b5485c9d55c1
-Patch5: 0001-build-use-the-system-provided-libzstd-if-found.patch
 
 
 BuildRequires: pkgconfig

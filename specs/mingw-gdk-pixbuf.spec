@@ -4,8 +4,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gdk-pixbuf
-Version:        2.44.4
-Release:        4%{?dist}
+Version:        2.44.5
+Release:        1%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -140,6 +140,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Wed Feb 11 2026 Sandro Mani <manisandro@gmail.com> - 2.44.5-1
+- Update to 2.44.5
+
 * Tue Jan 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.44.4-4
 - Fix paths and remove JPEG 2000 in loaders.cache (RHBZ#2431201)
 

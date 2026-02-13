@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Extremely fast Python type checker and language server
 
@@ -163,9 +163,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev f055f39345ab85d747c3ce348e21274ee2870632
+%global ruff_rev 012ec6339058587319bec7d6505a085650138b8e
 %global ruff_baseversion 0.15.0
-%global ruff_snapdate 20260204
+%global ruff_snapdate 20260210
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -187,9 +187,9 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev e9b9ddd4bec50ac777e9353bbb8f1180e5669d89
-%global salsa_baseversion 0.25.2
-%global salsa_snapdate 20260202
+%global salsa_rev 53421c2fff87426fa0bb51cab06632b87646de13
+%global salsa_baseversion 0.26.0
+%global salsa_snapdate 20260207
 Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.

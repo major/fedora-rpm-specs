@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.81.0
+Version:        2.83.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -123,6 +123,9 @@ sed -i 's/azure-mgmt-resource==23.3/azure-mgmt-resource>=24.0/' src/azure-cli/re
 sed -i 's/azure-appconfiguration==1.7/azure-appconfiguration>=1.7,<2/' src/azure-cli/setup.py
 sed -i 's/azure-appconfiguration==1.7/azure-appconfiguration>=1.7,<2/' src/azure-cli/requirements.py3.Linux.txt
 
+sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28,<13/' src/azure-cli/setup.py
+sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28,<13/' src/azure-cli/requirements.py3.Linux.txt
+
 # Namespace packages are no longer needed after Python 3.7, but upstream
 # insists on carrying them.
 sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
@@ -148,9 +151,10 @@ sed -i 's/msal\[broker\]/msal/' src/azure-cli/setup.py
 sed -i 's/msal\[broker\]/msal/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/msal\[broker\]/msal/' src/azure-cli-core/setup.py
 
-# Temporarily allow newer -core and -common versions in rawhide.
+# Be more flexible about the required azure-core
 sed -i 's/^azure-core==.*$/azure-core>=1.28.0,<2/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^azure-common==.*$/azure-common>=1.1.28,<2/' src/azure-cli/requirements.py3.Linux.txt
+sed -i 's/azure-core~=1.35.0/azure-core>=1.35.0,<2/' src/azure-cli-core/setup.py
 
 # Allow slightly older versions.
 sed -i 's/^cryptography>=.*$/oauthlib>=37.0.2/' src/azure-cli/requirements.py3.Linux.txt

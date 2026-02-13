@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsextra
 Epoch:          12
 Version:        svn77044
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Additional fonts
 
 License:        LPPL-1.3c
@@ -1240,7 +1240,7 @@ Additional fonts
 
 %package -n texlive-aboensis
 Summary:        A late medieval OpenType cursive font
-Version:        svn62977
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c AND CC-BY-4.0 AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1264,7 +1264,7 @@ spacing.
 
 %package -n texlive-academicons
 Summary:        Font containing high quality icons of online academic profiles
-Version:        svn76366
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1292,7 +1292,7 @@ commands can be found in the manual.
 
 %package -n texlive-accanthis
 Summary:        Accanthis fonts, with LaTeX support
-Version:        svn64844
+Version:        svn77677
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1312,7 +1312,7 @@ Bembo. The support files are suitable for use with all LaTeX engines.
 
 %package -n texlive-adforn
 Summary:        OrnementsADF font with TeX/LaTeX support
-Version:        svn74834
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1327,7 +1327,7 @@ under LPPL. (See README, manifest.txt.)
 
 %package -n texlive-adfsymbols
 Summary:        SymbolsADF with TeX/LaTeX support
-Version:        svn74819
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1358,7 +1358,7 @@ bundle do not need this support.
 
 %package -n texlive-alegreya
 Summary:        Alegreya fonts with LaTeX support
-Version:        svn75301
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1382,7 +1382,7 @@ black, small caps and five number styles are available.
 
 %package -n texlive-alfaslabone
 Summary:        The Alfa Slab One font face with support for LaTeX and pdfLaTeX
-Version:        svn57452
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1400,7 +1400,7 @@ is only a Regular font face. It's useful for book-chapter headlines.
 
 %package -n texlive-algolrevived
 Summary:        A revival of Frutiger's Algol alphabet
-Version:        svn71368
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1437,7 +1437,7 @@ only the main forms but also a lot of varieties.
 
 %package -n texlive-almendra
 Summary:        Almendra fonts with LaTeX support
-Version:        svn64539
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1486,7 +1486,7 @@ complex Arabic texts will now be much easier to input and to proofread.
 
 %package -n texlive-andika
 Summary:        Andika fonts with support for all LaTeX engines
-Version:        svn64540
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1533,7 +1533,7 @@ Condensed" released under the GPL by URW, with supporting files for use with
 
 %package -n texlive-antt
 Summary:        Antykwa Torunska: a Type 1 family of a Polish traditional type
-Version:        svn18651
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1596,7 +1596,7 @@ with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-arev
 Summary:        Fonts and LaTeX support files for Arev Sans
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1626,7 +1626,7 @@ support packages. Others are cmbright, hvmath and kerkis.
 
 %package -n texlive-arimo
 Summary:        Arimo sans serif fonts with LaTeX support
-Version:        svn68950
+Version:        svn77677
 License:        Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1645,7 +1645,7 @@ serif design which is metrically compatible with Arial.
 
 %package -n texlive-arsenal
 Summary:        Open Type font by Andrij Shevchenko
-Version:        svn77099
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1667,7 +1667,7 @@ needs LuaLaTeX or XeLaTeX.
 
 %package -n texlive-arsenal-math
 Summary:        Arsenal Math OpenType fonts
-Version:        svn77272
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1732,7 +1732,7 @@ is issued if an OTF-capable engine is not detected.
 
 %package -n texlive-ascii-font
 Summary:        Use the ASCII "font" in LaTeX
-Version:        svn29989
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1772,7 +1772,7 @@ and some additional symbols. The font is distributed as Metafont source.
 
 %package -n texlive-atkinson
 Summary:        Support for the Atkinson Hyperlegible family of fonts
-Version:        svn77391
+Version:        svn77677
 License:        LicenseRef-AHFL AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1825,7 +1825,7 @@ The encoding mainly follows the standard T1 encoding.
 
 %package -n texlive-aurical
 Summary:        Calligraphic fonts for use with LaTeX in T1 encoding
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1880,7 +1880,7 @@ and a set of examples; for some codes, a small Perl script is needed.
 
 %package -n texlive-baskervaldadf
 Summary:        Baskervald ADF fonts collection with TeX/LaTeX support
-Version:        svn72484
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1922,7 +1922,7 @@ Includes OpenType and PostScript fonts, as well as LaTeX support files.
 
 %package -n texlive-baskervillef
 Summary:        Fry's Baskerville look-alike, with math support
-Version:        svn73381
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1946,7 +1946,7 @@ newtxmath.
 
 %package -n texlive-bbding
 Summary:        A symbol (dingbat) font and LaTeX macros for its use
-Version:        svn17186
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1960,7 +1960,7 @@ bundle.
 
 %package -n texlive-bbm
 Summary:        "Blackboard-style" cm fonts
-Version:        svn15878
+Version:        svn77677
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1987,7 +1987,7 @@ blackboard bold, and lots of math alphabets for using the fonts within maths.
 
 %package -n texlive-bbold
 Summary:        Sans serif blackboard bold
-Version:        svn17187
+Version:        svn77677
 License:        BSD-3-Clause
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2018,7 +2018,7 @@ business.
 
 %package -n texlive-bboldx
 Summary:        Extension of the bbold package with a Blackboard Bold alphabet
-Version:        svn65424
+Version:        svn77677
 License:        Borceux
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2043,7 +2043,7 @@ bundle).
 
 %package -n texlive-bera
 Summary:        Bera fonts
-Version:        svn20031
+Version:        svn77677
 License:        Bitstream-Vera
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2064,7 +2064,7 @@ family is a repackaging, for use with TeX, of the Bitstream Vera family.
 
 %package -n texlive-berenisadf
 Summary:        Berenis ADF fonts and TeX/LaTeX support
-Version:        svn72484
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2116,7 +2116,7 @@ implementation.
 
 %package -n texlive-bitter
 Summary:        The Bitter family of fonts with LaTeX support
-Version:        svn67598
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2167,7 +2167,7 @@ support is offered for use with OT1, IL2 and OM* encodings.
 
 %package -n texlive-bonum-otf
 Summary:        Support for the OpenType font Bonum
-Version:        svn76342
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2225,7 +2225,7 @@ centuries).
 
 %package -n texlive-boondox
 Summary:        Mathematical alphabets derived from the STIX fonts
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2273,7 +2273,7 @@ AAA_readme.tex fully describes the package and sample.tex illustrates its use.
 
 %package -n texlive-cabin
 Summary:        A humanist Sans Serif font, with LaTeX support
-Version:        svn68373
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2299,7 +2299,7 @@ default text font. The fontaxes package is required for use with [pdf]LaTeX.
 
 %package -n texlive-caladea
 Summary:        Support for the Caladea family of fonts
-Version:        svn64549
+Version:        svn77677
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2340,7 +2340,7 @@ This is a conversion (using mf2pt1) of Peter Vanroose's handwriting font.
 
 %package -n texlive-cantarell
 Summary:        LaTeX support for the Cantarell font family
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2360,7 +2360,7 @@ using FontForge from its sources, for full support with Dvips.
 
 %package -n texlive-carlito
 Summary:        Support for Carlito sans-serif fonts
-Version:        svn76790
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2393,7 +2393,7 @@ are ready-to-use replacements for the Metafont originals.
 
 %package -n texlive-cascadia-code
 Summary:        The Cascadia Code font with support for LaTeX and pdfLaTeX
-Version:        svn68485
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2413,7 +2413,7 @@ Cascadia Code as the typewriter font (\ttdefault).
 
 %package -n texlive-cascadiamono-otf
 Summary:        Fontspec support for the OpenType font CascadiaMono
-Version:        svn76343
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2431,7 +2431,7 @@ fontspec), which is a variant of CascadiaCode, but without ligatures.
 
 %package -n texlive-ccicons
 Summary:        LaTeX support for Creative Commons icons
-Version:        svn54512
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2483,7 +2483,7 @@ available via CTAN.
 
 %package -n texlive-cfr-lm
 Summary:        Enhanced support for the Latin Modern fonts
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2572,7 +2572,7 @@ Omnibus-Type.
 
 %package -n texlive-cinzel
 Summary:        LaTeX support for Cinzel and Cinzel Decorative fonts
-Version:        svn64550
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2596,7 +2596,7 @@ italic-selection commands in the package's LaTeX support.
 
 %package -n texlive-clara
 Summary:        A serif font family
-Version:        svn75301
+Version:        svn77677
 License:        OFL-1.1 AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2705,7 +2705,7 @@ Computer Modern font family in blackboard bold.
 
 %package -n texlive-cmbright
 Summary:        Computer Modern Bright fonts
-Version:        svn75712
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2733,7 +2733,7 @@ via autotracing.
 
 %package -n texlive-cmll
 Summary:        Symbols for linear logic
-Version:        svn17964
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2814,7 +2814,7 @@ Modern font.
 
 %package -n texlive-cochineal
 Summary:        Cochineal fonts with LaTeX support
-Version:        svn70528
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2847,7 +2847,7 @@ and PostScript formats.
 
 %package -n texlive-coelacanth
 Summary:        Coelacanth fonts with LaTeX support
-Version:        svn64558
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2870,7 +2870,7 @@ family for general book typesetting.
 
 %package -n texlive-comfortaa
 Summary:        Sans serif font, with LaTeX support
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2889,7 +2889,7 @@ includes both the TrueType fonts, and conversions to Adobe Type 1 format.
 
 %package -n texlive-comicneue
 Summary:        Use Comic Neue with TeX(-alike) systems
-Version:        svn54891
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2919,7 +2919,7 @@ support is offered by the concmath package.
 
 %package -n texlive-concmath-otf
 Summary:        Concrete based OpenType Math font
-Version:        svn76683
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2991,7 +2991,7 @@ with italics.
 
 %package -n texlive-countriesofeurope
 Summary:        A font with the images of the countries of Europe
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3013,7 +3013,7 @@ same cartographic scale.
 
 %package -n texlive-courier-scaled
 Summary:        Provides a scaled Courier font
-Version:        svn24940
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3027,7 +3027,7 @@ serif).
 
 %package -n texlive-courierten
 Summary:        Courier 10 Pitch BT with LaTeX support
-Version:        svn55436
+Version:        svn77677
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3103,7 +3103,7 @@ diagram) in the documentation.
 
 %package -n texlive-cuprum
 Summary:        Cuprum font family support for LaTeX
-Version:        svn49909
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3115,7 +3115,7 @@ http://jovanny.ru).
 
 %package -n texlive-cyklop
 Summary:        The Cyclop typeface
-Version:        svn77161
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3198,7 +3198,7 @@ dantelogo.sty provides an interface for LuaLaTeX/XeLaTeX/pdfLaTeX.
 
 %package -n texlive-dejavu
 Summary:        LaTeX support for the DejaVu fonts
-Version:        svn31771
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3220,7 +3220,7 @@ features are expected.
 
 %package -n texlive-dejavu-otf
 Summary:        Support for the ttf and otf DejaVu fonts
-Version:        svn75301
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3258,7 +3258,7 @@ A Metafont font that can produce die faces in 2D or with various 3D effects.
 
 %package -n texlive-dictsym
 Summary:        DictSym font and macro package
-Version:        svn69720
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3274,7 +3274,7 @@ macro package makes the symbols accessible as LaTeX commands.
 
 %package -n texlive-dingbat
 Summary:        Two dingbat symbol fonts
-Version:        svn27918
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3287,7 +3287,7 @@ the niceframe fonts bundle.
 
 %package -n texlive-domitian
 Summary:        Drop-in replacement for Palatino
-Version:        svn55286
+Version:        svn77677
 License:        AGPL-3.0-or-later WITH PS-or-PDF-font-exception-20170817 OR LPPL-1.3c OR OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3308,7 +3308,7 @@ and hinting has been improved.
 
 %package -n texlive-doublestroke
 Summary:        Typeset mathematical double stroke symbols
-Version:        svn15878
+Version:        svn77677
 License:        LicenseRef-DoubleStroke
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3381,7 +3381,7 @@ flexible ellipsis package.
 
 %package -n texlive-droid
 Summary:        LaTeX support for the Droid font families
-Version:        svn54512
+Version:        svn77677
 License:        LPPL-1.3c AND Apache-2.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3408,7 +3408,7 @@ foundry.
 
 %package -n texlive-dsserif
 Summary:        A double-struck serifed font for mathematical use
-Version:        svn60898
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3448,7 +3448,7 @@ names.
 
 %package -n texlive-dutchcal
 Summary:        A reworking of ESSTIX13, adding a bold version
-Version:        svn54080
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3476,7 +3476,7 @@ the fonts are not available under a free licence, as the macros are.
 
 %package -n texlive-ebgaramond
 Summary:        LaTeX support for EBGaramond fonts
-Version:        svn71069
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3497,7 +3497,7 @@ LuaLaTeX users; configuration files for use with microtype are provided.
 
 %package -n texlive-ebgaramond-maths
 Summary:        Limited LaTeX support for ebgaramond in maths
-Version:        svn74169
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3601,7 +3601,7 @@ and Jaini.
 
 %package -n texlive-electrumadf
 Summary:        Electrum ADF fonts collection
-Version:        svn72484
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3663,7 +3663,7 @@ Encapsulated PostScript and PDF formats.
 
 %package -n texlive-erewhon
 Summary:        Font package derived from Heuristica and Utopia
-Version:        svn75452
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3687,7 +3687,7 @@ matching that of UtopiaStd.
 
 %package -n texlive-erewhon-math
 Summary:        Utopia based OpenType Math font
-Version:        svn76878
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3726,7 +3726,7 @@ between ordered pairs by using Metafont.
 
 %package -n texlive-esstix
 Summary:        PostScript versions of the ESSTIX, with macro support
-Version:        svn22426
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3744,7 +3744,7 @@ double-struck (blackboard bold) in maths mode.
 
 %package -n texlive-esvect
 Summary:        Vector arrows
-Version:        svn32098
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3783,7 +3783,7 @@ Both otf and pfb are provided.
 
 %package -n texlive-euler-math
 Summary:        OpenType version of Hermann Zapf's Euler maths font
-Version:        svn76681
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3801,7 +3801,7 @@ and XeLaTeX users.
 
 %package -n texlive-eulervm
 Summary:        Euler virtual math fonts
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3832,7 +3832,7 @@ Includes two additional characters needed for Concrete Math (ca. 1991).
 
 %package -n texlive-fbb
 Summary:        A free Bembo-like font
-Version:        svn55728
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3857,7 +3857,7 @@ libertine option.
 
 %package -n texlive-fdsymbol
 Summary:        A maths symbol font
-Version:        svn74247
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3872,7 +3872,7 @@ Typotheque, but it might also fit other contemporary typefaces.
 
 %package -n texlive-fetamont
 Summary:        Extended version of Knuth's logo typeface
-Version:        svn43812
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3901,7 +3901,7 @@ macros for their use are also provided.
 
 %package -n texlive-fge
 Summary:        A font for Frege's Grundgesetze der Arithmetik
-Version:        svn71737
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3913,7 +3913,7 @@ LaTeX package (fge) is included.
 
 %package -n texlive-fira
 Summary:        Fira fonts with LaTeX support
-Version:        svn64422
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -3949,7 +3949,7 @@ More support is offered by the firamath-otf package.
 
 %package -n texlive-firamath-otf
 Summary:        Use OpenType math font Fira Math
-Version:        svn68233
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4013,7 +4013,7 @@ XeTeX or LuaTeX.
 
 %package -n texlive-fontawesome5
 Summary:        Font Awesome 5 with LaTeX support
-Version:        svn63207
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4032,7 +4032,7 @@ and XeLaTeX or LuaLaTeX is used.
 
 %package -n texlive-fontawesome6
 Summary:        Font Awesome 6 with LaTeX support
-Version:        svn76339
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4152,7 +4152,7 @@ with FontForge and GNU make.
 
 %package -n texlive-forum
 Summary:        Forum fonts with LaTeX support
-Version:        svn64566
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4176,7 +4176,7 @@ just a regular weight and an artificially emboldened bold.
 
 %package -n texlive-fourier
 Summary:        Using Utopia fonts in LaTeX documents
-Version:        svn72243
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4199,7 +4199,7 @@ Incorporated.
 
 %package -n texlive-fouriernc
 Summary:        Use New Century Schoolbook text with Fourier maths fonts
-Version:        svn29646
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4213,7 +4213,7 @@ fonts installed.
 
 %package -n texlive-frcursive
 Summary:        French cursive hand fonts
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4250,7 +4250,7 @@ This package provides access to the 'frimurer' cipher for use with LaTeX.
 
 %package -n texlive-garamond-libre
 Summary:        The Garamond Libre font face
-Version:        svn71058
+Version:        svn77677
 License:        MIT AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4290,7 +4290,7 @@ Python script. Issues, bug reports and other contributions are welcome.
 
 %package -n texlive-gelasio
 Summary:        LaTeX support for the Gelasio family of fonts
-Version:        svn71047
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4311,7 +4311,7 @@ its Regular and Bold weights. Medium and SemiBold weights have been added.
 
 %package -n texlive-gelasiomath
 Summary:        Math and small cap additions to Gelasio fonts
-Version:        svn73362
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4344,7 +4344,7 @@ distributed as Metafont source.
 
 %package -n texlive-gentium-otf
 Summary:        Support Gentium fonts for LuaLaTeX and XeLaTeX
-Version:        svn75790
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4381,7 +4381,7 @@ text.
 
 %package -n texlive-gfsartemisia
 Summary:        A modern Greek font design
-Version:        svn19469
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4398,7 +4398,7 @@ alphabets. LaTeX support is provided, using the OT1, T1 and LGR encodings.
 
 %package -n texlive-gfsbodoni
 Summary:        A Greek and Latin font based on Bodoni
-Version:        svn28484
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4413,7 +4413,7 @@ themselves are provided in Adobe Type 1 and OpenType formats.
 
 %package -n texlive-gfscomplutum
 Summary:        A Greek font with a long history
-Version:        svn19469
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4428,7 +4428,7 @@ of majuscules.
 
 %package -n texlive-gfsdidot
 Summary:        A Greek font based on Didot's work
-Version:        svn69112
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4459,7 +4459,7 @@ The classic version of GFSDidot provided for Unicode TeX engines.
 
 %package -n texlive-gfsneohellenic
 Summary:        A font in the Neo-Hellenic style
-Version:        svn63944
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4475,7 +4475,7 @@ OT1, T1 and LGR encodings.
 
 %package -n texlive-gfsneohellenicmath
 Summary:        A math font in the Neo-Hellenic style
-Version:        svn63928
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4495,7 +4495,7 @@ distributed (both text and math) under the OFL license.
 
 %package -n texlive-gfssolomos
 Summary:        A Greek-alphabet font
-Version:        svn18651
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4521,7 +4521,7 @@ author's talk at TUG 2010.
 
 %package -n texlive-gillius
 Summary:        Gillius fonts with LaTeX support
-Version:        svn64865
+Version:        svn77677
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4556,7 +4556,7 @@ stroke).
 
 %package -n texlive-gofonts
 Summary:        GoSans and GoMono fonts with LaTeX support
-Version:        svn64358
+Version:        svn77677
 License:        BSD-3-Clause AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4733,7 +4733,7 @@ package is loaded with \usepackage{hep-math-font}.
 
 %package -n texlive-heros-otf
 Summary:        Using the OpenType fonts TeX Gyre Heros>
-Version:        svn64695
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4751,7 +4751,7 @@ defined.
 
 %package -n texlive-heuristica
 Summary:        Fonts extending Utopia, with LaTeX support files
-Version:        svn69649
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4819,7 +4819,7 @@ Type Foundry, with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-ibarra
 Summary:        LaTeX support for the Ibarra Real Nova family of fonts
-Version:        svn71059
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4840,7 +4840,7 @@ Joaquin Ibarra was the printer.
 
 %package -n texlive-ifsym
 Summary:        A collection of symbols
-Version:        svn24868
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4877,7 +4877,7 @@ Small-Cap fonts.
 
 %package -n texlive-inconsolata
 Summary:        A monospaced font, with support files for use with TeX
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4896,7 +4896,7 @@ LaTeX font definition and other relevant files.
 
 %package -n texlive-inconsolata-nerd-font
 Summary:        Inconsolata Nerd Font with support for XeLaTeX or LuaLaTeX
-Version:        svn76924
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4924,7 +4924,7 @@ for use with LaTeX.
 
 %package -n texlive-inriafonts
 Summary:        Inria fonts with LaTeX support
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4948,7 +4948,7 @@ associated files. These were created using autoinst.
 
 %package -n texlive-inter
 Summary:        The inter font face with support for LaTeX, XeLaTeX, and LuaLaTeX
-Version:        svn68966
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -4986,7 +4986,7 @@ was done with ttf2pt1.
 
 %package -n texlive-iwona
 Summary:        A two-element sans-serif font
-Version:        svn19611
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5036,7 +5036,7 @@ support is based on the Belleek fonts.
 
 %package -n texlive-jetbrainsmono-otf
 Summary:        Package (or only fontspec config files) support for the OpenType font JetBrains
-Version:        svn73401
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5055,7 +5055,7 @@ jetbrainscode-thin for thin version.
 
 %package -n texlive-josefin
 Summary:        Josefin fonts with LaTeX support
-Version:        svn64569
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5074,7 +5074,7 @@ corresponding italics.
 
 %package -n texlive-juliamono
 Summary:        Support for the TrueType font JuliaMono
-Version:        svn76734
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5091,7 +5091,7 @@ file.
 
 %package -n texlive-junicode
 Summary:        A TrueType and OpenType font family for mediaevalists
-Version:        svn76210
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5112,7 +5112,7 @@ but the basic textual features are also available with (pdf)LaTeX.
 
 %package -n texlive-junicodevf
 Summary:        A TrueType variable font family for mediaevalists
-Version:        svn76209
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5145,7 +5145,7 @@ letters.
 
 %package -n texlive-kpfonts
 Summary:        A complete set of fonts for text and mathematics
-Version:        svn72680
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5171,7 +5171,7 @@ appearance from their parent.
 
 %package -n texlive-kpfonts-otf
 Summary:        OpenType versions of the kpfonts (Type1) designed by Christophe Caignaert
-Version:        svn76746
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5194,7 +5194,7 @@ the 'List of glyphs'.
 
 %package -n texlive-kurier
 Summary:        A two-element sans-serif typeface
-Version:        svn19612
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5215,7 +5215,7 @@ files defining fonts for LaTeX.
 
 %package -n texlive-lato
 Summary:        Lato font family and LaTeX support
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5237,7 +5237,7 @@ using FontForge for full support with Dvips.
 
 %package -n texlive-lete-sans-math
 Summary:        Lato-based OpenType Math font for LuaTeX and XeTeX
-Version:        svn76200
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5252,7 +5252,7 @@ documents. Note: "Lato" means "Summer" in Polish, same as "l'ete" in French.
 
 %package -n texlive-lexend
 Summary:        The Lexend fonts for XeLaTeX and LuaLaTeX through fontspec
-Version:        svn57564
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5284,7 +5284,7 @@ in some schemes.
 
 %package -n texlive-libertine
 Summary:        Use of Linux Libertine and Biolinum fonts with LaTeX
-Version:        svn73037
+Version:        svn77677
 License:        GPL-2.0-or-later AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5336,7 +5336,7 @@ Supported encodings: LGR, T2A, T2B, T2C, OT2.
 
 %package -n texlive-libertinus
 Summary:        Wrapper to use the correct libertinus package according to the used TeX engine
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5367,7 +5367,7 @@ LuaTeX, XeTeX or MS Word 2007+.
 
 %package -n texlive-libertinus-otf
 Summary:        Support for Libertinus OpenType
-Version:        svn77115
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5404,7 +5404,7 @@ processing engines (LaTeX with dvips or dvipdfmx, or pdfLaTeX).
 
 %package -n texlive-libertinust1math
 Summary:        A Type 1 font and LaTeX support for Libertinus Math
-Version:        svn71428
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5423,7 +5423,7 @@ letters.
 
 %package -n texlive-librebaskerville
 Summary:        The Libre Baskerville family of fonts with LaTeX support
-Version:        svn64421
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5463,7 +5463,7 @@ based on the 19th century Morris Fuller Benton's.
 
 %package -n texlive-librecaslon
 Summary:        Libre Caslon fonts, with LaTeX support
-Version:        svn64432
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5483,7 +5483,7 @@ artificially generated BoldItalic variant has been added.
 
 %package -n texlive-librefranklin
 Summary:        LaTeX support for the Libre-Franklin family of fonts
-Version:        svn64441
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5504,7 +5504,7 @@ Nhung Nguyen.
 
 %package -n texlive-libris
 Summary:        Libris ADF fonts, with LaTeX support
-Version:        svn72484
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5539,7 +5539,7 @@ deciphered.
 
 %package -n texlive-linguisticspro
 Summary:        LinguisticsPro fonts with LaTeX support
-Version:        svn64858
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5560,7 +5560,7 @@ font family, by Andreas Nolda.
 
 %package -n texlive-lobster2
 Summary:        Lobster Two fonts, with support for all LaTeX engines
-Version:        svn64442
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5599,7 +5599,7 @@ logic.
 
 %package -n texlive-luciole
 Summary:        Luciole OpenType fonts for LuaTeX and XeTeX
-Version:        svn76679
+Version:        svn77677
 License:        CC-BY-4.0 AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5637,7 +5637,7 @@ transcriptions.
 
 %package -n texlive-lxfonts
 Summary:        Set of slide fonts based on CM
-Version:        svn73728
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5705,7 +5705,7 @@ support for LaTeX and pdfLaTeX.
 
 %package -n texlive-marcellus
 Summary:        Marcellus fonts with LaTeX support
-Version:        svn64451
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5728,7 +5728,7 @@ silently substituted for bold.
 
 %package -n texlive-mathabx
 Summary:        Three series of mathematical symbols
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5799,7 +5799,7 @@ as an extension to Mathdesign's Utopia bundle.
 
 %package -n texlive-mdsymbol
 Summary:        Symbol fonts to match Adobe Myriad Pro
-Version:        svn28399
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5818,7 +5818,7 @@ other contemporary typefaces.
 
 %package -n texlive-merriweather
 Summary:        Merriweather and MerriweatherSans fonts, with LaTeX support
-Version:        svn75301
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5860,7 +5860,7 @@ then be called individually from LaTeX documents via dedicated commands.
 
 %package -n texlive-mfb-oldstyle
 Summary:        MFB Oldstyle serif fonts
-Version:        svn71982
+Version:        svn77677
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5882,7 +5882,7 @@ old-style figures are available only for the regular font.
 
 %package -n texlive-miama
 Summary:        The Miama Nueva handwriting font with LaTeX support
-Version:        svn73481
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5895,7 +5895,7 @@ latin, cyrillic, and greek. It comes complete with LaTeX support.
 
 %package -n texlive-mintspirit
 Summary:        LaTeX support for MintSpirit font families
-Version:        svn64461
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5944,7 +5944,7 @@ easier to achieve the classic incunabula look.
 
 %package -n texlive-mlmodern
 Summary:        A blacker Type 1 version of Computer Modern, with multilingual support
-Version:        svn57458
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -5982,7 +5982,7 @@ needed.
 
 %package -n texlive-monaspace-otf
 Summary:        OpenType MonaSpace fonts with fontspec support
-Version:        svn77006
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6000,7 +6000,7 @@ https://monaspace.githubnext.com for further information.
 
 %package -n texlive-montserrat
 Summary:        Montserrat sans serif, otf and pfb, with LaTeX support files
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6043,7 +6043,7 @@ be used for printing. Note: do NOT add the map file to updmap!
 
 %package -n texlive-mweights
 Summary:        Support for multiple-weight font packages
-Version:        svn53520
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6059,7 +6059,7 @@ provides a solution to these difficulties.
 
 %package -n texlive-newcomputermodern
 Summary:        Computer Modern fonts including matching non-latin alphabets
-Version:        svn77296
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6075,7 +6075,7 @@ weight of Computer Modern, it provides a Book weight for heavier printing.
 
 %package -n texlive-newpx
 Summary:        Alternative uses of the PX fonts, with improved metrics
-Version:        svn76713
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6113,7 +6113,7 @@ enabled.
 
 %package -n texlive-newtx
 Summary:        Alternative uses of the TX fonts, with improved metrics
-Version:        svn73393
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6154,7 +6154,7 @@ garamond-alike text-with-maths combination.
 
 %package -n texlive-newtxsf
 Summary:        Sans-math fonts for use with newtx
-Version:        svn69597
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6169,7 +6169,7 @@ sans serif Roman and Greek letters with most symbols taken from newtxmath
 
 %package -n texlive-newtxtt
 Summary:        Enhancement of typewriter fonts from newtx
-Version:        svn70620
+Version:        svn77677
 License:        GPL-3.0-only AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6231,7 +6231,7 @@ using MetaPost, is also provided.
 
 %package -n texlive-noto
 Summary:        Support for Noto fonts
-Version:        svn64351
+Version:        svn77677
 License:        LPPL-1.3c AND OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6265,7 +6265,7 @@ Noto Color Emoji supports all emoji defined in the latest Unicode version.
 
 %package -n texlive-notomath
 Summary:        Math support for Noto fonts
-Version:        svn71429
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6286,7 +6286,7 @@ Bold weights only.)
 
 %package -n texlive-nunito
 Summary:        The Nunito font face with support for LaTeX and pdfLaTeX
-Version:        svn57429
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6381,7 +6381,7 @@ necessary fonts are also provided.
 
 %package -n texlive-old-arrows
 Summary:        Computer Modern old-style arrows with smaller arrowheads
-Version:        svn42872
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6434,7 +6434,7 @@ and pdfTeX.
 
 %package -n texlive-opensans
 Summary:        The Open Sans font family, and LaTeX support
-Version:        svn54512
+Version:        svn77677
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6483,7 +6483,7 @@ Kalapi Gajjar, Cyreal, with support for LaTeX and pdfLaTeX.
 
 %package -n texlive-overlock
 Summary:        Overlock sans fonts with LaTeX support
-Version:        svn64495
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6506,7 +6506,7 @@ Regular weight.
 
 %package -n texlive-pacioli
 Summary:        Fonts designed by Fra Luca de Pacioli in 1497
-Version:        svn24947
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6520,7 +6520,7 @@ in a .dtx file, together with LaTeX support.
 
 %package -n texlive-pagella-otf
 Summary:        Using the OpenType fonts TeX Gyre Pagella
-Version:        svn64705
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6537,7 +6537,7 @@ typefaces like bold math and slanted text are also defined
 
 %package -n texlive-paratype
 Summary:        LaTeX support for free fonts by ParaType
-Version:        svn68624
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6560,7 +6560,7 @@ replacement of the two packages ptsans and ptserif.
 
 %package -n texlive-pennstander-otf
 Summary:        OpenType versions of the pennstander fonts (with math support)
-Version:        svn77285
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6604,7 +6604,7 @@ the fonts' use are provided, both for LaTeX 2.09 and for current LaTeX.
 
 %package -n texlive-pigpen
 Summary:        A font for the pigpen (or masonic) cipher
-Version:        svn69687
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6619,7 +6619,7 @@ Type 1 file), and macros for its use.
 
 %package -n texlive-playfair
 Summary:        Playfair Display fonts with LaTeX support
-Version:        svn64857
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6645,7 +6645,7 @@ and initialisms.
 
 %package -n texlive-plex
 Summary:        Support for IBM Plex fonts
-Version:        svn77018
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6669,7 +6669,7 @@ weights: Regular, Light, ExtraLight, Thin, Bold, Text, Medium and SemiBold
 
 %package -n texlive-plex-otf
 Summary:        Support for the OpenType font IBM Plex
-Version:        svn74719
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6724,7 +6724,7 @@ There is currently just a regular weight and an artificially emboldened bold.
 
 %package -n texlive-poltawski
 Summary:        Antykwa Poltawskiego Family of Fonts
-Version:        svn67718
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6808,7 +6808,7 @@ variant for each invocation.
 
 %package -n texlive-pxtxalfa
 Summary:        Virtual maths alphabets based on pxfonts and txfonts
-Version:        svn60847
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6837,7 +6837,7 @@ Colletti, these fonts have been released as free and open-source.
 
 %package -n texlive-quattrocento
 Summary:        Quattrocento and Quattrocento Sans fonts with LaTeX support
-Version:        svn64372
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6861,7 +6861,7 @@ Quattrocento Sans is the perfect sans-serif companion for Quattrocento.
 
 %package -n texlive-raleway
 Summary:        Use Raleway with TeX(-alike) systems
-Version:        svn74901
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6919,7 +6919,7 @@ in LaTeX documents with XeTeX or LuaTeX is also provided.
 
 %package -n texlive-roboto
 Summary:        Support for the Roboto family of fonts
-Version:        svn64350
+Version:        svn77677
 License:        Apache-2.0 AND OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -6943,7 +6943,7 @@ Google.
 
 %package -n texlive-romandeadf
 Summary:        Romande ADF fonts and LaTeX support
-Version:        svn72484
+Version:        svn77677
 License:        LPPL-1.3c AND GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7013,7 +7013,7 @@ ancient Roman calligraphic script -- created with Metafont.
 
 %package -n texlive-sansmathaccent
 Summary:        Correct placement of accents in sans-serif maths
-Version:        svn53628
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7029,7 +7029,7 @@ sfmath package.
 
 %package -n texlive-sansmathfonts
 Summary:        Extended Computer Modern sans serif fonts
-Version:        svn72563
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7069,7 +7069,7 @@ bbm fonts.
 
 %package -n texlive-schola-otf
 Summary:        Using the OpenType fonts TeX Gyre schola
-Version:        svn64734
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7086,7 +7086,7 @@ typefaces like bold math and slanted text are also defined
 
 %package -n texlive-scholax
 Summary:        Extension of TeXGyreSchola (New Century Schoolbook) with math support
-Version:        svn61836
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7173,7 +7173,7 @@ Shobhika.
 
 %package -n texlive-simpleicons
 Summary:        Simple Icons for LaTeX
-Version:        svn77541
+Version:        svn77677
 License:        CC0-1.0
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7203,7 +7203,7 @@ mode.
 
 %package -n texlive-sourcecodepro
 Summary:        Use SourceCodePro with TeX(-alike) systems
-Version:        svn74885
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7226,7 +7226,7 @@ supporting their use in LaTeX (Type 1) and XeLaTeX/LuaLaTeX (OTF).
 
 %package -n texlive-sourcesanspro
 Summary:        Use SourceSansPro with TeX(-alike) systems
-Version:        svn54892
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7248,7 +7248,7 @@ supporting their use in LaTeX (Type 1) and XeLaTeX/LuaLaTeX (OTF).
 
 %package -n texlive-sourceserifpro
 Summary:        Use SourceSerifPro with TeX(-alike) systems
-Version:        svn54512
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7269,7 +7269,7 @@ OpenType fonts and selects the latter when using XeLaTeX or LuaLaTeX.
 
 %package -n texlive-spectral
 Summary:        Spectral fonts with LaTeX support
-Version:        svn64528
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7290,7 +7290,7 @@ available in seven weights of roman and italic, with small caps.
 
 %package -n texlive-splentinex
 Summary:        Splentinex fonts
-Version:        svn76841
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7350,7 +7350,7 @@ Adobe Type 1 format and LaTeX support.
 
 %package -n texlive-step
 Summary:        A free Times-like font
-Version:        svn57307
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7383,7 +7383,7 @@ Greek.
 
 %package -n texlive-stickstoo
 Summary:        A reworking of STIX2
-Version:        svn72368
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7434,7 +7434,7 @@ available royalty-free under the SIL Open Font License.
 
 %package -n texlive-stix2-type1
 Summary:        Type1 versions of the STIX Two OpenType fonts
-Version:        svn57448
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7457,7 +7457,7 @@ versions of the fonts.
 
 %package -n texlive-superiors
 Summary:        Attach superior figures to a font family
-Version:        svn69387
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7516,7 +7516,7 @@ in cmr10), accented characters used in the Czech, Slovak and Polish languages.
 
 %package -n texlive-tempora
 Summary:        Greek and Cyrillic to accompany Times
-Version:        svn39596
+Version:        svn77677
 License:        GPL-2.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7554,7 +7554,7 @@ provided for all the supported fonts.
 
 %package -n texlive-termes-otf
 Summary:        Using the OpenType fonts TeX Gyre Termes
-Version:        svn64733
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7660,7 +7660,7 @@ supposedly became his wife.
 
 %package -n texlive-tinos
 Summary:        Tinos fonts with LaTeX support
-Version:        svn68950
+Version:        svn77677
 License:        Apache-2.0 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7703,7 +7703,7 @@ The package is part of the TeXPower bundle.
 
 %package -n texlive-trajan
 Summary:        Fonts from the Trajan column in Rome
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7743,7 +7743,7 @@ modifications of the GNU Freefont.
 
 %package -n texlive-txuprcal
 Summary:        Upright calligraphic font based on TX calligraphic
-Version:        svn76924
+Version:        svn77677
 License:        GPL-3.0-only
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7757,7 +7757,7 @@ allow arbitrary scaling.
 
 %package -n texlive-typicons
 Summary:        Font containing a set of web-related icons
-Version:        svn37623
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7803,7 +7803,7 @@ supplied in a LaTeX documented source (.dtx) file.
 
 %package -n texlive-universalis
 Summary:        Universalis font, with support
-Version:        svn64505
+Version:        svn77677
 License:        GPL-2.0-or-later AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7857,7 +7857,7 @@ supersedes the pzccal package.
 
 %package -n texlive-venturisadf
 Summary:        Venturis ADF fonts collection
-Version:        svn72484
+Version:        svn77677
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7921,7 +7921,7 @@ LaTeX font support files. The fonts themselves are provided in both Adobe Type
 
 %package -n texlive-xcharter-math
 Summary:        XCharter-based OpenType Math font for LuaTeX and XeTeX
-Version:        svn76745
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7950,7 +7950,7 @@ and unicode-math packages.
 
 %package -n texlive-yfonts
 Summary:        Support for old German fonts
-Version:        svn50755
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -7962,7 +7962,7 @@ Gothic, Schwabacher, Fraktur and the baroque initials.
 
 %package -n texlive-yfonts-otf
 Summary:        OpenType version of the Old German fonts designed by Yannis Haralambous
-Version:        svn76885
+Version:        svn77677
 License:        OFL-1.1 AND LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -8002,7 +8002,7 @@ files for yinit are in the yinit package.
 
 %package -n texlive-ysabeau
 Summary:        Ysabeau fonts with LaTeX support for traditional TeX engines
-Version:        svn77373
+Version:        svn77677
 License:        OFL-1.1 AND WTFPL AND LicenseRef-Fedora-Public-Domain
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -8027,7 +8027,7 @@ fonts are provided only to use with the fontspec package.
 
 %package -n texlive-zlmtt
 Summary:        Use Latin Modern Typewriter fonts
-Version:        svn64076
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -12570,6 +12570,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/fonts/zlmtt/
 
 %changelog
+* Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77044-4
+- Update almost every component (thanks upstream)
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77044-3
 - fix licensing files
 - update simpleicons

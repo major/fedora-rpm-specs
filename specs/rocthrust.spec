@@ -80,7 +80,7 @@ Summary:        ROCm Thrust libary
 # https://en.opensuse.org/openSUSE:Accepted_licences
 # Uses 'Public Domain' but this is not a spdx tag and hangs up the SLE 15.7 autochecker
 # The license should also include Public Domain
-License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT AND 0BSD
 %else
 # https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
 # Uses 'LicenseRef-Fedora-Public-Domain'

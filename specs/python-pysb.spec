@@ -15,6 +15,8 @@ URL:            https://pysb.org/
 %forgemeta
 # https://github.com/pysb/pysb/issues/555
 Source:         %{forgesource}
+# Maintainers, please upstream
+Patch:          python-pysb-rm-python-mock-usage.diff
 
 BuildArch:      noarch
 
@@ -65,7 +67,6 @@ Requires:       python3-networkx
 %package doc
 Summary:        HTML documentation for %{name}
 Requires:       python3-pysb = %{version}-%{release}
-BuildRequires:  python3-mock
 Provides:       bundled(jquery)
 Obsoletes:      %{name}-docs <= 1.0.1
 

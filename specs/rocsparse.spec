@@ -131,7 +131,7 @@ Version:        %{rocm_version}
 Release:        1%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
-License:        MIT
+License:        MIT AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}

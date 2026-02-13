@@ -83,7 +83,7 @@ Summary:        Mesa graphics libraries
 Version:        26.0.0~rc3
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
-URL:            http://www.mesa3d.org
+URL:            https://mesa3d.org
 
 # The "Version" field for release candidates has the format: A.B.C~rcX
 # However, the tarball has the format: A.B.C-rcX.

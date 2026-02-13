@@ -1,15 +1,15 @@
 Name:           jdupes
-Version:        1.30.0
-Release:        2%{?dist}
+Version:        1.31.1
+Release:        1%{?dist}
 Summary:        Duplicate file finder and an enhanced fork of 'fdupes'
 
 License:        MIT
-URL:            https://codeberg.org/jbruchon/jdupes
-Source0:        https://codeberg.org/jbruchon/jdupes/archive/jdupes-v%{version}.tar.gz
+URL:            https://codeberg.org/jbruchon/%{name}
+Source0:        https://codeberg.org/jbruchon/%{name}/archive/v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  libjodycode-devel >= 4.0.1
+BuildRequires:  libjodycode-devel >= 4.1.2
 
 %description
 jdupes is a program for identifying and taking actions upon duplicate
@@ -44,6 +44,9 @@ prompting the user."
 
 
 %changelog
+* Wed Feb 11 2026 Dave Cantrell <dcantrell@redhat.com> - 1.31.1-1
+- Upgrade to jdupes-1.31.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.87.1
-Release:        3%{?dist}
+Version:        2.87.2
+Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -301,6 +301,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Wed Feb 11 2026 Sandro Mani <manisandro@gmail.com> - 2.87.2-1
+- Update to 2.87.2
+
 * Thu Jan 29 2026 Sandro Mani <manisandro@gmail.com> - 2.87.1-3
 - Backport fixes for CVE-2026-1484, CVE-2026-1485, CVE-2026-1489
 

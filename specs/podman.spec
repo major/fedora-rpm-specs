@@ -63,7 +63,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.7.1
+Version: 5.8.0~rc1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -254,7 +254,7 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="f845d14e941889ba4c071f35233d09b29d363c75"
+GIT_COMMIT="cf2514451d4d51d1f44a663292019e3651c7ecbe"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first
@@ -323,6 +323,9 @@ cp -pav test/system %{buildroot}%{_datadir}/%{name}/test/
 %ifarch %{machine_arches}
 # symlink virtiofsd in %%{name} libexecdir for machine subpackage
 ln -s ../virtiofsd %{buildroot}%{_libexecdir}/%{name}
+%if !%{defined qemu}
+ln -s ../qemu-kvm %{buildroot}%{_libexecdir}/%{name}/qemu-system-%{arch}
+%endif
 %endif
 
 #define license tag if not already defined
@@ -385,6 +388,9 @@ ln -s ../virtiofsd %{buildroot}%{_libexecdir}/%{name}
 %files machine
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/virtiofsd
+%if !%{defined qemu}
+%{_libexecdir}/%{name}/qemu-system-%{arch}
+%endif
 %endif
 
 %changelog

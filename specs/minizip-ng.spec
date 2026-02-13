@@ -28,7 +28,7 @@ BuildRequires: zlib-devel
 BuildRequires: bzip2-devel
 BuildRequires: libzstd-devel
 BuildRequires: xz-devel
-%if ! (0%{?rhel} >= 10)
+%if ! (0%{?fedora} >= 41 || 0%{?rhel} >= 10)
 BuildRequires: openssl-devel-engine
 %endif
 
@@ -151,7 +151,6 @@ _EOF_
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libminizip-ng.so.4
 %{_libdir}/libminizip-ng.so.4{,.*}
 
 

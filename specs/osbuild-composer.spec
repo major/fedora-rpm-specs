@@ -8,11 +8,11 @@
 %bcond_with relax_requires
 
 # The minimum required osbuild version
-%global min_osbuild_version 163
+%global min_osbuild_version 170
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        161
+Version:        162
 
 %gometa
 
@@ -212,7 +212,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.486
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.231.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.236.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -535,9 +535,6 @@ cd $PWD/_build/src/%{goipath}
 %package core
 Summary:    The core osbuild-composer binary
 Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
-# This version needs to get bumped everytime the osbuild-depsolve-dnf json
-# API changes in incompatible ways
-Requires:   osbuild-dnf-json-api = 8
 Provides:   %{name}-dnf-json = %{version}-%{release}
 Obsoletes:  %{name}-dnf-json < %{version}-%{release}
 
@@ -662,6 +659,29 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Feb 11 2026 Packit <hello@packit.dev> - 162-1
+Changes with 162
+----------------
+  - Add Transactions and Modules fields to depsolve job result (HMS-9090) (#5006)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - Move workers to rhel 10 (HMS-9987) (#4975)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Simon de Vlieger
+  - Update snapshots to 20260201 (#4997)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - cloudapi/v2: allow upload types for pxe & network installer (HMS-10178) (#5004)
+    - Author: Gianluca Zuccarelli, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  - go.mod: bump osbuild/images to v0.236.0 (HMS-10105) (#4990)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Ondřej Budai
+  - templates/packer: fix registration script (#5007)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Lukáš Zapletal
+  - tests: Update Upgrade test to RHEL 9.8 from 9.7 (#4999)
+    - Author: Tomáš Koscielniak, Reviewers: Brian C. Lane, Tomáš Hozza
+  - tools/build-rpms: build rpms on rhel 10 (#5005)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-02-11
+
+
 * Wed Feb 04 2026 Packit <hello@packit.dev> - 161-1
 Changes with 161
 ----------------

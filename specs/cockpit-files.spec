@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 35
+Version: 36
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -22,8 +22,7 @@ BuildRequires:  libappstream-glib
 %endif
 BuildRequires: gettext
 %if %{defined rebuild_bundle}
-BuildRequires: nodejs
-BuildRequires: %{_bindir}/node
+BuildRequires: /usr/bin/node
 BuildRequires: nodejs-esbuild
 %endif
 
@@ -33,10 +32,10 @@ Requires: cockpit-bridge >= 318
 Obsoletes: cockpit-navigator < 0.5.11
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.4
@@ -87,6 +86,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 11 2026 Packit <hello@packit.dev> - 36-1
+- Convert license headers to SPDX format
+
+
 * Wed Jan 28 2026 Packit <hello@packit.dev> - 35-1
 - Packaging fixes and translation updates
 

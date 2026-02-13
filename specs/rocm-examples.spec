@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocm-examples
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -64,7 +64,7 @@
 
 Name:           rocm-examples%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -79,11 +79,14 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  hipblas%{pkg_suffix}-devel
+BuildRequires:  hipblaslt%{pkg_suffix}-devel
 BuildRequires:  hipcub%{pkg_suffix}-devel
 BuildRequires:  hipfft%{pkg_suffix}-devel
 BuildRequires:  hipify%{pkg_suffix}
 BuildRequires:  hiprand%{pkg_suffix}-devel
 BuildRequires:  hipsolver%{pkg_suffix}-devel
+BuildRequires:  hipsparse%{pkg_suffix}-devel
+BuildRequires:  libtiff-devel
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
@@ -94,6 +97,7 @@ BuildRequires:  rocfft%{pkg_suffix}-devel
 BuildRequires:  rocsolver%{pkg_suffix}-devel
 BuildRequires:  rocsparse%{pkg_suffix}-devel
 BuildRequires:  rocthrust%{pkg_suffix}-devel
+BuildRequires:  rocwmma%{pkg_suffix}-devel
 
 %if 0%{?suse_version}
 BuildRequires:  benchmark-devel
@@ -159,6 +163,12 @@ sed -i -e 's@add_subdirectory(module_api)@message("no module_api")@'    HIP-Basi
 # Some custom commands need to use hip_flags
 sed -i -e 's@${CMAKE_HIP_COMPILER}@${CMAKE_HIP_COMPILER} -I%{pkg_prefix}/include@' HIP-Basic/llvm_ir_to_executable/CMakeLists.txt
 
+# No support for these libraries, no cmake knobs to turn them off
+sed -i '/hipTensor/d' Libraries/CMakeLists.txt
+sed -i '/rocProfiler-SDK/d' Libraries/CMakeLists.txt
+# Do not want to fight through open mp requirement
+sed -i '/rocWMMA/d' Libraries/CMakeLists.txt
+
 %build
 
 export ROCM_ROOT=%{pkg_prefix}
@@ -188,6 +198,9 @@ export ROCM_ROOT=%{pkg_prefix}
 %{pkg_prefix}/bin/*
 
 %changelog
+* Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

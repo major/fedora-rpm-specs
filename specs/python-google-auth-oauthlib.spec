@@ -13,7 +13,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3dist(click)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(pytest)
 
 %description

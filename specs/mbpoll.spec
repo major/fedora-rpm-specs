@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/epsilonrt/mbpoll
 
 Name:     mbpoll
-Version:  1.5.2
+Version:  1.5.4
 Release:  %autorelease
 Summary:  Command line utility to communicate with ModBus slave (RTU or TCP)
 %forgemeta
@@ -40,6 +40,7 @@ program while being fully independent and open source.
 %license COPYING
 %doc README.md AUTHORS
 %{_bindir}/mbpoll
+%{_mandir}/man1/mbpoll.1*
 
 %changelog
 %autochangelog

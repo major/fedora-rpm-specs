@@ -39,10 +39,10 @@ test servers.
 %{_mandir}/man8/bonnie++.8*
 %{_mandir}/man8/getc_putc.8.*
 %{_mandir}/man8/zcav.8*
-%{_sbindir}/bonnie++
-%{_sbindir}/getc_putc
-%{_sbindir}/getc_putc_helper
-%{_sbindir}/zcav
+%{_bindir}/bonnie++
+%{_bindir}/getc_putc
+%{_bindir}/getc_putc_helper
+%{_bindir}/zcav
 %{_bindir}/bon_csv2html
 %{_bindir}/bon_csv2txt
 %{_bindir}/generate_randfile

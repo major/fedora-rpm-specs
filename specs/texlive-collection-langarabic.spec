@@ -5,7 +5,7 @@
 Name:           texlive-collection-langarabic
 Epoch:          12
 Version:        svn76980
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Arabic
 
 License:        LPPL-1.3c
@@ -170,7 +170,7 @@ typesetting, in a publicly available form.
 
 %package -n texlive-arabi
 Summary:        (La)TeX support for Arabic and Farsi, compliant with Babel
-Version:        svn44662
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -245,6 +245,7 @@ Version:        svn59594
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(arabic-book.cls) = %{tl_version}
 
 %description -n texlive-arabic-book
 This document class provides both Arabic and English support for TeX/LaTeX.
@@ -317,9 +318,13 @@ Provides:       tex(aoutput.sty) = %{tl_version}
 Provides:       tex(aparse.sty) = %{tl_version}
 Provides:       tex(apatch.sty) = %{tl_version}
 Provides:       tex(arababel.sty) = %{tl_version}
+Provides:       tex(arabart.cls) = %{tl_version}
 Provides:       tex(arabaux.sty) = %{tl_version}
+Provides:       tex(arabbook.cls) = %{tl_version}
 Provides:       tex(arabchrs.sty) = %{tl_version}
 Provides:       tex(arabext.sty) = %{tl_version}
+Provides:       tex(arabrep.cls) = %{tl_version}
+Provides:       tex(arabrep1.cls) = %{tl_version}
 Provides:       tex(arabskel.sty) = %{tl_version}
 Provides:       tex(arabsymb.sty) = %{tl_version}
 Provides:       tex(arabtex.sty) = %{tl_version}
@@ -393,7 +398,7 @@ The font is also a Graphite-only font. It does not support OpenType rendering.
 
 %package -n texlive-bidi
 Summary:        Bidirectional typesetting in plain TeX and LaTeX, using XeTeX or LuaTeX
-Version:        svn77301
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -468,8 +473,11 @@ Provides:       tex(bidi.tex) = %{tl_version}
 Provides:       tex(bidi2in1.sty) = %{tl_version}
 Provides:       tex(bidicode.sty) = %{tl_version}
 Provides:       tex(bidiftnxtra.sty) = %{tl_version}
+Provides:       tex(bidimoderncv.cls) = %{tl_version}
 Provides:       tex(bidipoem.sty) = %{tl_version}
 Provides:       tex(biditools.sty) = %{tl_version}
+Provides:       tex(biditufte-book.cls) = %{tl_version}
+Provides:       tex(biditufte-handout.cls) = %{tl_version}
 Provides:       tex(bidituftefloat.sty) = %{tl_version}
 Provides:       tex(bidituftegeneralstructure.sty) = %{tl_version}
 Provides:       tex(bidituftehyperref.sty) = %{tl_version}
@@ -587,7 +595,7 @@ many other commonly-used packages.
 
 %package -n texlive-bidihl
 Summary:        Experimental bidi-aware text highlighting
-Version:        svn37795
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -674,6 +682,7 @@ Version:        svn29803
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(imsproc.cls) = %{tl_version}
 
 %description -n texlive-imsproc
 The class typesets papers for IMS (Iranian Mathematical Society) conference
@@ -718,7 +727,7 @@ article
 
 %package -n texlive-kurdishlipsum
 Summary:        A 'lipsum' package for the Kurdish language
-Version:        svn47518
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -766,6 +775,7 @@ Version:        svn74912
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(mohe-book.cls) = %{tl_version}
 
 %description -n texlive-mohe-book
 The mohe-book LaTeX class is a specialized template designed to streamline the
@@ -950,6 +960,7 @@ Provides:       tex(simurgh-chkeng.sty) = %{tl_version}
 Provides:       tex(simurgh-clss.sty) = %{tl_version}
 Provides:       tex(simurgh-counters.sty) = %{tl_version}
 Provides:       tex(simurgh-cptns.sty) = %{tl_version}
+Provides:       tex(simurgh-doc.cls) = %{tl_version}
 Provides:       tex(simurgh-empheq.sty) = %{tl_version}
 Provides:       tex(simurgh-extarticle.sty) = %{tl_version}
 Provides:       tex(simurgh-extbook.sty) = %{tl_version}
@@ -1041,7 +1052,7 @@ may be selected in an optional argument to the environment.
 
 %package -n texlive-xepersian
 Summary:        Persian for LaTeX, using LuaTeX or XeTeX
-Version:        svn77228
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1112,6 +1123,7 @@ Provides:       tex(url-xetex-xepersian.def) = %{tl_version}
 Provides:       tex(varioref-xetex-xepersian.def) = %{tl_version}
 Provides:       tex(xepersian-localize-commands-xetex-xepersian.def) = %{tl_version}
 Provides:       tex(xepersian-localize-environments-xetex-xepersian.def) = %{tl_version}
+Provides:       tex(xepersian-magazine.cls) = %{tl_version}
 Provides:       tex(xepersian-multiplechoice.sty) = %{tl_version}
 Provides:       tex(xepersian.sty) = %{tl_version}
 
@@ -1124,7 +1136,7 @@ experience in TeX.
 
 %package -n texlive-xepersian-hm
 Summary:        Fixes kashida feature in xepersian package
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1476,6 +1488,10 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/support/xindy-persian/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76980-3
+- Update arabi bidi bidihl kurdishlipsum xepersian xepersian-hm
+- add .cls Provides
+
 * Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn76980-2
 - fix licensing files
 

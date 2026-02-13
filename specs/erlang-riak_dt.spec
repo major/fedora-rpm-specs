@@ -9,7 +9,8 @@ License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-riak_dt-0001-A-couple-of-failing-tests-which-look-to-be-caused-by.patch
+Patch:		erlang-riak_dt-0001-A-couple-of-failing-tests-which-look-to-be-caused-by.patch
+Patch:		erlang-riak_dt-0001-FIXME-disable-plugins.patch
 BuildRequires:	erlang-rebar3
 
 %description

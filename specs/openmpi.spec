@@ -56,7 +56,15 @@ Version:        5.0.9
 Release:        %autorelease
 Summary:        Open Message Passing Interface
 # Automatically converted from old format: BSD and MIT and Romio - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND LicenseRef-Romio
+# main code is BSD-3-Clause-Open-MPI
+# 3rd-party/romio341 is mpich2
+# 3rd-party/treematch is BSD-3-Clause
+# oshmem/mca/memheap/ptmalloc/malloc.c is LicenseRef-Fedora-Public-Domain
+# opal/util/qsort.c is BSD-4-Clause-UC
+# java/ (in subpackage) is Apache-2.0
+# 3rd-party/openpmix/src/mca/psec/munge/psec_munge.c is LGPL-2.0-or-later
+# doc/ see bellow in subpackage
+License:        BSD-3-Clause-Open-MPI AND mpich2 AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND BSD-4-Clause-UC
 URL:            http://www.open-mpi.org/
 ExcludeArch:    %{ix86}
 
@@ -173,6 +181,7 @@ Contains development headers and libraries for openmpi.
 
 %package doc
 Summary:        HTML documentation for openmpi
+License:        BSD-3-Clause AND BSD-3-Clause-Open-MPI AND mpich2 AND MIT AND (MIT OR GPL-2.0-or-later) AND (OFL-1.1 AND MIT)
 BuildArch:      noarch
 
 %description doc
@@ -181,6 +190,7 @@ HTML documentation for openmpi.
 %if %{with java}
 %package java
 Summary:        Java library
+License:        Apache-2.0
 Requires:       %{name} = %{version}-%{release}
 Requires:       java-25-headless
 
@@ -189,6 +199,7 @@ Java library.
 
 %package java-devel
 Summary:        Java development files for openmpi
+License:        Apache-2.0
 Requires:       %{name}-java = %{version}-%{release}
 Requires:       java-25-devel
 

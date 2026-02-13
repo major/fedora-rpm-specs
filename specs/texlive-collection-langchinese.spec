@@ -5,7 +5,7 @@
 Name:           texlive-collection-langchinese
 Epoch:          12
 Version:        svn77432
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Chinese
 
 License:        LPPL-1.3c
@@ -220,7 +220,7 @@ LaTeX2e. The package aims to supersede HLaTeX fonts bundle.
 
 %package -n texlive-ctex
 Summary:        LaTeX classes and packages for Chinese typesetting
-Version:        svn71527
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -296,12 +296,17 @@ Provides:       tex(ctex-zhmap-mac.tex) = %{tl_version}
 Provides:       tex(ctex-zhmap-ubuntu.tex) = %{tl_version}
 Provides:       tex(ctex-zhmap-windows.tex) = %{tl_version}
 Provides:       tex(ctex.sty) = %{tl_version}
+Provides:       tex(ctexart.cls) = %{tl_version}
+Provides:       tex(ctexbeamer.cls) = %{tl_version}
+Provides:       tex(ctexbook.cls) = %{tl_version}
 Provides:       tex(ctexcap.sty) = %{tl_version}
 Provides:       tex(ctexheading.sty) = %{tl_version}
 Provides:       tex(ctexhook.sty) = %{tl_version}
 Provides:       tex(ctexpatch.sty) = %{tl_version}
+Provides:       tex(ctexrep.cls) = %{tl_version}
 Provides:       tex(ctexsize.sty) = %{tl_version}
 Provides:       tex(ctexspa.def) = %{tl_version}
+Provides:       tex(ctxdoc.cls) = %{tl_version}
 Provides:       tex(ctxdocstrip.tex) = %{tl_version}
 
 %description -n texlive-ctex
@@ -335,6 +340,7 @@ Provides:       tex(exam-zh-math.sty) = %{tl_version}
 Provides:       tex(exam-zh-question.sty) = %{tl_version}
 Provides:       tex(exam-zh-symbols.sty) = %{tl_version}
 Provides:       tex(exam-zh-textfigure.sty) = %{tl_version}
+Provides:       tex(exam-zh.cls) = %{tl_version}
 
 %description -n texlive-exam-zh
 Although there are already several excellent exam packages or classes like exam
@@ -365,7 +371,10 @@ Version:        svn67231
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(fdudoc.cls) = %{tl_version}
 Provides:       tex(fdulogo.sty) = %{tl_version}
+Provides:       tex(fduthesis-en.cls) = %{tl_version}
+Provides:       tex(fduthesis.cls) = %{tl_version}
 Provides:       tex(fduthesis.def) = %{tl_version}
 
 %description -n texlive-fduthesis
@@ -374,7 +383,7 @@ make it easy to write theses both in Chinese and English.
 
 %package -n texlive-hanzibox
 Summary:        Boxed Chinese characters with Pinyin above and translation below
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -420,7 +429,7 @@ Eplain. The book is also available in French and Chinese translations.
 
 %package -n texlive-install-latex-guide-zh-cn
 Summary:        A short introduction to LaTeX installation written in Chinese
-Version:        svn77231
+Version:        svn77681
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -472,6 +481,8 @@ Requires:       tex(ifluatex.sty)
 Requires:       tex(luatexbase.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xparse.sty)
+Provides:       tex(ltc-book.cls) = %{tl_version}
+Provides:       tex(ltc-guji.cls) = %{tl_version}
 Provides:       tex(luatex-cn-banxin.sty) = %{tl_version}
 Provides:       tex(luatex-cn-font-autodetect.sty) = %{tl_version}
 Provides:       tex(luatex-cn-splitpage.sty) = %{tl_version}
@@ -486,7 +497,7 @@ elements of traditional Chinese books, and interlinear notes.
 
 %package -n texlive-lxgw-fonts
 Summary:        A CJK font family with a comprehensive character set
-Version:        svn77400
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -506,6 +517,7 @@ Version:        svn56224
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(nanicolle.cls) = %{tl_version}
 
 %description -n texlive-nanicolle
 This package provides a LaTeX class nanicolle.cls for typesetting collection
@@ -522,6 +534,7 @@ Version:        svn50492
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(njurepo.cls) = %{tl_version}
 
 %description -n texlive-njurepo
 This LaTeX document class provides a thesis template for Nanjing University in
@@ -572,6 +585,7 @@ Version:        svn75712
 License:        MIT
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(qyxf-book.cls) = %{tl_version}
 
 %description -n texlive-qyxf-book
 qyxf-book is a LaTeX document class (template) developed by Qian Yuan Xue Fu
@@ -627,6 +641,9 @@ Provides:       tex(sjtu-thesis-de.def) = %{tl_version}
 Provides:       tex(sjtu-thesis-en.def) = %{tl_version}
 Provides:       tex(sjtu-thesis-ja.def) = %{tl_version}
 Provides:       tex(sjtu-thesis-zh.def) = %{tl_version}
+Provides:       tex(sjtuarticle.cls) = %{tl_version}
+Provides:       tex(sjtureport.cls) = %{tl_version}
+Provides:       tex(sjtuthesis.cls) = %{tl_version}
 
 %description -n texlive-sjtutex
 SJTUTeX aims to establish a simple and easy-to-use collection of document
@@ -722,7 +739,7 @@ and ApTeX. Both LaTeX and plain TeX are supported.
 
 %package -n texlive-xpinyin
 Summary:        Automatically add pinyin to Chinese characters
-Version:        svn76924
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -822,7 +839,7 @@ together with a simple DVIPDFMx font mapping of Fandol fonts for DVIPDFMx.
 
 %package -n texlive-zhnumber
 Summary:        Typeset Chinese representations of numbers
-Version:        svn66115
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1208,6 +1225,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %doc %{_texmf_main}/doc/generic/zhspacing/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-5
+- Update ctex hanzibox lxgw-fonts xpinyin zhnumber
+- Add provides for .cls files
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn77432-4
 - Update to svn77432, fix licensing files
 

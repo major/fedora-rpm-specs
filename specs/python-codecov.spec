@@ -15,6 +15,9 @@ License:        Apache-2.0
 URL:            https://github.com/codecov/codecov-python
 # PyPI doesn't include tests so use the GitHub tarball instead
 Source0:        %{url}/archive/v%{version}/codecov-python-%{version}.tar.gz
+# Maintainers, please upstream
+Patch0:         python-codecov-rm-python-mock-usage.diff
+
 BuildArch:      noarch
 
 BuildRequires:  sed
@@ -22,7 +25,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(ddt)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(requests)
 
 %description
@@ -38,7 +40,7 @@ Summary:        %{summary}
 %{common_description}
 
 %prep
-%autosetup -n codecov-python-%{version}
+%autosetup -p1 -n codecov-python-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 # Remove unneeded shebang

@@ -5,7 +5,7 @@
 Name:           texlive-collection-langeuropean
 Epoch:          12
 Version:        svn73414
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Other European languages
 
 License:        LPPL-1.3c
@@ -239,7 +239,7 @@ of the README file.
 
 %package -n texlive-babel-albanian
 Summary:        Support for Albanian within babel
-Version:        svn57005
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -251,7 +251,7 @@ system).
 
 %package -n texlive-babel-bosnian
 Summary:        Babel contrib support for Bosnian
-Version:        svn38174
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -276,7 +276,7 @@ British typographic rules.
 
 %package -n texlive-babel-croatian
 Summary:        Babel contributed support for Croatian
-Version:        svn35198
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -288,7 +288,7 @@ conventions, if Croatian is not the main language of the document).
 
 %package -n texlive-babel-danish
 Summary:        Babel contributed support for Danish
-Version:        svn57642
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -301,7 +301,7 @@ if Danish is not the main language of the document).
 
 %package -n texlive-babel-dutch
 Summary:        Babel contributed support for Dutch
-Version:        svn60362
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -328,7 +328,7 @@ standard "LaTeX names".
 
 %package -n texlive-babel-finnish
 Summary:        Babel support for Finnish
-Version:        svn57643
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -340,7 +340,7 @@ Finnish with babel.
 
 %package -n texlive-babel-friulan
 Summary:        Babel/Polyglossia support for Friulan(Furlan)
-Version:        svn39861
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -377,7 +377,7 @@ standard "LaTeX names".
 
 %package -n texlive-babel-irish
 Summary:        Babel support for Irish
-Version:        svn30277
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -461,7 +461,7 @@ babel.
 
 %package -n texlive-babel-norsk
 Summary:        Babel support for Norwegian
-Version:        svn70691
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -500,7 +500,7 @@ standard "LaTeX names".
 
 %package -n texlive-babel-romanian
 Summary:        Babel support for Romanian
-Version:        svn58776
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -512,7 +512,7 @@ babel. Translations to Romanian of standard "LaTeX names" are provided.
 
 %package -n texlive-babel-romansh
 Summary:        Babel/Polyglossia support for the Romansh language
-Version:        svn30286
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -524,7 +524,7 @@ Romansh either with babel or with polyglossia.
 
 %package -n texlive-babel-samin
 Summary:        Babel support for Samin
-Version:        svn69604
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -540,7 +540,7 @@ defined, as well as translations to Norsk of standard "LaTeX names".
 
 %package -n texlive-babel-scottish
 Summary:        Babel support for Scottish Gaelic
-Version:        svn69610
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -554,7 +554,7 @@ of standard "LaTeX names".
 
 %package -n texlive-babel-slovenian
 Summary:        Babel support for typesetting Slovenian
-Version:        svn75181
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -568,7 +568,7 @@ standard "LaTeX names".
 
 %package -n texlive-babel-swedish
 Summary:        Babel support for typesetting Swedish
-Version:        svn57647
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -590,7 +590,7 @@ The package provides support, within babel, of the Turkish language.
 
 %package -n texlive-babel-welsh
 Summary:        Babel support for Welsh
-Version:        svn73855
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -647,6 +647,7 @@ Requires:       tex(optional.sty)
 Requires:       tex(paralist.sty)
 Requires:       tex(xcolor.sty)
 Requires:       tex(xkeyval.sty)
+Provides:       tex(fsbispit.cls) = %{tl_version}
 Provides:       tex(fsbmath.sty) = %{tl_version}
 Provides:       tex(hrlatex.sty) = %{tl_version}
 
@@ -1252,7 +1253,7 @@ do not implement Swedish collation.
 
 %package -n texlive-turkmen
 Summary:        Babel support for Turkmen
-Version:        svn17748
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -2179,6 +2180,13 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/turkmen/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-5
+- Update babel-albanian babel-bosnian babel-croatian babel-danish babel-dutch
+  babel-finnish babel-friulan babel-irish babel-norsk babel-romanian
+  babel-romansh babel-samin babel-scottish babel-slovenian babel-swedish
+  babel-welsh turkmen
+- Add provides for .cls files
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn73414-4
 - Update babel-breton babel-hungarian huaz kaytannollista-latexia
 - fix licensing files

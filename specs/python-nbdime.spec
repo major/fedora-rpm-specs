@@ -1,7 +1,7 @@
 %global giturl  https://github.com/jupyter/nbdime
 
 Name:           python-nbdime
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Diff and merge of Jupyter notebooks
 
@@ -20,6 +20,9 @@ Patch:          %{name}-unbundle-fontawesome.patch
 Patch:          %{name}-d3-dispatch.patch
 # Work around a typescript error with an object of type 'string | undefined'
 Patch:          %{name}-undefined-string.patch
+# Remove unused dependency on python-mock
+# https://github.com/jupyter/nbdime/pull/808
+Patch:          %{name}-rm-python-mock-usage.diff
 
 # The build uses nx 16.10.0 (https://github.com/nrwl/nx), which has native
 # components for x86_64 and aarch64 only.  Check later releases to see if
@@ -87,9 +90,9 @@ Requires:       python-jupyter-filesystem
 # Needed to replace the bundled fonts
 Requires:       fontawesome-fonts-web
 
-Provides:       npm(nbdime) = 7.0.3
+Provides:       npm(nbdime) = 7.0.4
 Provides:       bundled(npm(@codemirror/autocomplete)) = 6.20.0
-Provides:       bundled(npm(@codemirror/commands)) = 6.10.1
+Provides:       bundled(npm(@codemirror/commands)) = 6.10.2
 Provides:       bundled(npm(@codemirror/lang-cpp)) = 6.0.3
 Provides:       bundled(npm(@codemirror/lang-css)) = 6.3.1
 Provides:       bundled(npm(@codemirror/lang-html)) = 6.4.11
@@ -107,30 +110,30 @@ Provides:       bundled(npm(@codemirror/language)) = 6.12.1
 Provides:       bundled(npm(@codemirror/legacy-modes)) = 6.5.2
 Provides:       bundled(npm(@codemirror/search)) = 6.6.0
 Provides:       bundled(npm(@codemirror/state)) = 6.5.4
-Provides:       bundled(npm(@codemirror/view)) = 6.39.11
-Provides:       bundled(npm(@jupyter/ydoc)) = 3.3.4
-Provides:       bundled(npm(@jupyterlab/apputils)) = 4.6.2
-Provides:       bundled(npm(@jupyterlab/cells)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/codeeditor)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/codemirror)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/coreutils)) = 6.5.2
-Provides:       bundled(npm(@jupyterlab/docregistry)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/documentsearch)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/filebrowser)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/mathjax-extension)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/nbformat)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/notebook)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/observables)) = 5.5.2
-Provides:       bundled(npm(@jupyterlab/outputarea)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/rendermime)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/services)) = 7.5.2
-Provides:       bundled(npm(@jupyterlab/statedb)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/statusbar)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/theme-light-extension)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/toc)) = 6.5.2
-Provides:       bundled(npm(@jupyterlab/translation)) = 4.5.2
-Provides:       bundled(npm(@jupyterlab/ui-components)) = 4.5.2
-Provides:       bundled(npm(@lezer/common)) = 1.5.0
+Provides:       bundled(npm(@codemirror/view)) = 6.39.13
+Provides:       bundled(npm(@jupyter/ydoc)) = 3.4.0
+Provides:       bundled(npm(@jupyterlab/apputils)) = 4.6.4
+Provides:       bundled(npm(@jupyterlab/cells)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/codeeditor)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/codemirror)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/coreutils)) = 6.5.4
+Provides:       bundled(npm(@jupyterlab/docregistry)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/documentsearch)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/filebrowser)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/mathjax-extension)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/nbformat)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/notebook)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/observables)) = 5.5.4
+Provides:       bundled(npm(@jupyterlab/outputarea)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/rendermime)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/services)) = 7.5.4
+Provides:       bundled(npm(@jupyterlab/statedb)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/statusbar)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/theme-light-extension)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/toc)) = 6.5.4
+Provides:       bundled(npm(@jupyterlab/translation)) = 4.5.4
+Provides:       bundled(npm(@jupyterlab/ui-components)) = 4.5.4
+Provides:       bundled(npm(@lezer/common)) = 1.5.1
 Provides:       bundled(npm(@lezer/cpp)) = 1.1.5
 Provides:       bundled(npm(@lezer/css)) = 1.3.0
 Provides:       bundled(npm(@lezer/generator)) = 1.8.0
@@ -139,7 +142,7 @@ Provides:       bundled(npm(@lezer/html)) = 1.3.13
 Provides:       bundled(npm(@lezer/java)) = 1.1.3
 Provides:       bundled(npm(@lezer/javascript)) = 1.5.4
 Provides:       bundled(npm(@lezer/json)) = 1.0.3
-Provides:       bundled(npm(@lezer/lr)) = 1.4.7
+Provides:       bundled(npm(@lezer/lr)) = 1.4.8
 Provides:       bundled(npm(@lezer/markdown)) = 1.6.3
 Provides:       bundled(npm(@lezer/php)) = 1.0.5
 Provides:       bundled(npm(@lezer/python)) = 1.1.18
@@ -151,14 +154,14 @@ Provides:       bundled(npm(@lumino/commands)) = 2.3.3
 Provides:       bundled(npm(@lumino/coreutils)) = 2.2.2
 Provides:       bundled(npm(@lumino/disposable)) = 2.1.5
 Provides:       bundled(npm(@lumino/domutils)) = 2.0.4
-Provides:       bundled(npm(@lumino/dragdrop)) = 2.1.7
+Provides:       bundled(npm(@lumino/dragdrop)) = 2.1.8
 Provides:       bundled(npm(@lumino/keyboard)) = 2.0.4
 Provides:       bundled(npm(@lumino/messaging)) = 2.0.4
 Provides:       bundled(npm(@lumino/polling)) = 2.1.5
 Provides:       bundled(npm(@lumino/properties)) = 2.0.4
 Provides:       bundled(npm(@lumino/signaling)) = 2.1.5
 Provides:       bundled(npm(@lumino/virtualdom)) = 2.0.4
-Provides:       bundled(npm(@lumino/widgets)) = 2.7.3
+Provides:       bundled(npm(@lumino/widgets)) = 2.7.5
 Provides:       bundled(npm(@marijn/find-cluster-break)) = 1.0.2
 Provides:       bundled(npm(alertify.js)) = 1.0.12
 Provides:       bundled(npm(call-bind)) = 1.0.8

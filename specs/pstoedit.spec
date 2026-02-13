@@ -12,6 +12,9 @@ Patch0:         pstoedit-pkglibdir.patch
 # drvpptx.cpp:68:1: note: 'std::unique_ptr' is defined in header '<memory>'; did you forget to '#include <memory>'?
 Patch1:         pstoedit-fix-gcc12.patch
 
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  gd-devel
 BuildRequires:  dos2unix
@@ -52,6 +55,7 @@ applications
 dos2unix doc/*.htm doc/readme.txt
 
 %build
+autoreconf -fiv
 %configure --disable-static --enable-docs=no --with-libzip-include=%{_includedir} \
            --with-magick --with-libplot
 %make_build

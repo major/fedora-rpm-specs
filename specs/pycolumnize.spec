@@ -2,12 +2,14 @@
 
 Name:           pycolumnize
 Version:        0.3.10
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Python module to align in columns a simple list
 
 License:        MIT
 URL:            https://github.com/rocky/pycolumnize
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# Maintainers, please upstream
+Patch0:         pycolumnize-rm-python-mock-usage.diff
 BuildArch:      noarch
 
 %description
@@ -20,7 +22,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(mock)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -28,7 +29,7 @@ A Python module to format a simple (i.e. not nested) list into aligned columns.
 A string with embedded newline characters is returned.
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Remove the dependency on nose
 sed -i /nose/d setup.py
@@ -50,6 +51,9 @@ sed -i /nose/d setup.py
 %{python3_sitelib}/%{pypi_name}.py*
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.3.10-21
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

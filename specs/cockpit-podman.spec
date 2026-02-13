@@ -1,22 +1,9 @@
+# SPDX-License-Identifier: LGPL-2.1-or-later
 #
 # Copyright (C) 2017-2020 Red Hat, Inc.
-#
-# Cockpit is free software; you can redistribute it and/or modify it
-# under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation; either version 2.1 of the License, or
-# (at your option) any later version.
-#
-# Cockpit is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License
-# along with Cockpit; If not, see <http://www.gnu.org/licenses/>.
-#
 
 Name:           cockpit-podman
-Version:        120
+Version:        121
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -43,8 +30,7 @@ BuildRequires: gettext
 BuildRequires: libappstream-glib-devel
 %endif
 %if %{defined rebuild_bundle}
-BuildRequires: nodejs
-BuildRequires: %{_bindir}/node
+BuildRequires: /usr/bin/node
 BuildRequires: nodejs-esbuild
 %endif
 
@@ -58,13 +44,13 @@ Requires:       libcriu2
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
-Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
-Provides: bundled(npm(@xterm/xterm)) = 5.5.0
+Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
+Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(ipaddr.js)) = 2.3.0
@@ -107,6 +93,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 11 2026 Packit <hello@packit.dev> - 121-1
+- Convert license headers to SPDX format
+
+
 * Wed Jan 28 2026 Packit <hello@packit.dev> - 120-1
 - Packaging fixes and translation updates
 

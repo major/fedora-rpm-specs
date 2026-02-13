@@ -12,7 +12,7 @@ Supports both python 2 and 3 (tested with 2.7 and 3.5) }
 Summary: %{sum}
 Name: python-%{srcname}
 Version: 0.2.8
-Release: 16%{?dist}
+Release: 17%{?dist}
 Source0: https://gitlab.com/tgc-dk/%{srcname}/repository/archive.tar.gz?ref=%{version}#/%{srcname}-%{version}.tar.gz
 Source1: testdata-0.2.8.tar.gz
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -23,7 +23,6 @@ URL: https://gitlab.com/tgc-dk/pysword
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 %{desc}
@@ -40,19 +39,26 @@ Obsoletes:      python-%{srcname} < 0.2.7-7
 %autosetup -n %{srcname}-%{version}
 %autosetup -N -T -D -a 1 -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pysword
 
-%files -n python3-%{srcname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/pysword/
-%{python3_sitelib}/pysword-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Feb 11 2026 Tim Bentley <tim.bentley@openlp.org> - 0.2.8-17
+- Resolve Bugzilla 2378102
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

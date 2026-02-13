@@ -1,5 +1,5 @@
 Name:           libell
-Version:        0.81
+Version:        0.82
 Release:        %autorelease
 Summary:        Embedded Linux library
 License:        LGPL-2.0-or-later

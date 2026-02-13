@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-doctrine-deprecations
 #
-# SPDX-FileCopyrightText:  Copyright 2021-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2021-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38
+%global gh_commit    d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
@@ -21,8 +21,8 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.5
-Release:        3%{?dist}
+Version:        1.1.6
+Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
@@ -36,10 +36,10 @@ BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json
 #    "require-dev": {
-#        "doctrine/coding-standard": "^9 || ^12 || ^13",
-#        "phpstan/phpstan": "1.4.10 || 2.1.11",
+#        "doctrine/coding-standard": "^9 || ^12 || ^14",
+#        "phpstan/phpstan": "1.4.10 || 2.1.30",
 #        "phpstan/phpstan-phpunit": "^1.0 || ^2",
-#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12",
+#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12.4 || ^13.0",
 #        "psr/log": "^1 || ^2 || ^3"
 BuildRequires: (php-composer(psr/log) >= 1.0   with php-composer(psr/log) < 4)
 %global phpunit %{_bindir}/phpunit12
@@ -125,7 +125,7 @@ cat << 'EOF' | tee -a vendor/autoload.php
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" "php81 %{_bindir}/phpunit10" "php82 %{_bindir}/phpunit11" "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit12"; do
+for cmd in "php %{phpunit}" "php82 %{_bindir}/phpunit11" "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit12" "php85 %{_bindir}/phpunit13"; do
   if which $cmd; then
     set $cmd
     $1 -d auto_prepend_file=vendor/autoload.php \
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Mon Feb  9 2026 Remi Collet <remi@remirepo.net> - 1.1.6-1
+- update to 1.1.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

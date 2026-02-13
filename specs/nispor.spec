@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.27
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        Apache-2.0
@@ -11,7 +11,6 @@ Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{n
 Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/nispor-vendor-%{version}.tar.xz
 BuildRequires:  make
 BuildRequires:  pkg-config
-BuildRequires:  python3-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 %if 0%{?rhel}
@@ -26,14 +25,14 @@ BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4
 BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
 BuildRequires:  (crate(mptcp-pm/default) >= 0.1.4 with crate(mptcp-pm/default) < 0.2)
-BuildRequires:  (crate(rtnetlink/default) >= 0.18.0 with crate(rtnetlink/default) < 0.19)
+BuildRequires:  (crate(rtnetlink/default) >= 0.20.0 with crate(rtnetlink/default) < 0.21)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
 BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 0.10)
 BuildRequires:  (crate(tokio/macros) >= 1.19 with crate(tokio/macros) < 2.0)
 BuildRequires:  (crate(tokio/rt) >= 1.19 with crate(tokio/rt) < 2.0)
-BuildRequires:  (crate(wl-nl80211/default) >= 0.3 with crate(wl-nl80211/default) < 0.4)
+BuildRequires:  (crate(wl-nl80211/default) >= 0.4 with crate(wl-nl80211/default) < 0.5)
 BuildRequires:  (crate(pretty_assertions/default) >= 1.2 with crate(pretty_assertions/default) < 2)
 %endif
 
@@ -60,23 +59,6 @@ This package contains library source intended for building other packages
 which use "%{name}" crate with default feature.
 %endif
 
-%package -n     python3-%{name}
-Summary:        %{summary}
-Requires:       nispor = %{?epoch:%{epoch}:}%{version}-%{release}
-BuildArch:      noarch
-
-%description -n python3-%{name}
-
-This package contains python3 binding of %{name}.
-
-%package        devel
-Summary:        %{summary}
-Requires:       nispor%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description devel
-
-This package contains C binding of %{name}.
-
 %prep
 %autosetup -n %{name}-%{version_no_tilde} -p1 %{?rhel:-a1}
 
@@ -87,9 +69,6 @@ This package contains C binding of %{name}.
 %endif
 
 %generate_buildrequires
-pushd src/python >/dev/null
-%pyproject_buildrequires
-popd >/dev/null
 
 %build
 %cargo_build
@@ -98,10 +77,6 @@ popd >/dev/null
 %if 0%{?rhel}
 %cargo_vendor_manifest
 %endif
-
-pushd src/python
-%pyproject_wheel
-popd
 
 %install
 %if ! 0%{?rhel}
@@ -118,11 +93,7 @@ rm ../../Cargo.toml
 popd
 %endif
 
-env SKIP_PYTHON_INSTALL=1 PREFIX=%{_prefix} LIBDIR=%{_libdir} %make_install
-
-pushd src/python
-%pyproject_install
-popd
+env PREFIX=%{_prefix} %make_install
 
 %if %{with check}
 %check
@@ -137,17 +108,6 @@ popd
 %license cargo-vendor.txt
 %endif
 %{_bindir}/npc
-%{_libdir}/libnispor.so.*
-
-%files -n       python3-%{name}
-%license LICENSE
-%{python3_sitelib}/nispor*
-
-%files devel
-%license LICENSE
-%{_libdir}/libnispor.so
-%{_includedir}/nispor.h
-%{_libdir}/pkgconfig/nispor.pc
 
 %if ! 0%{?rhel}
 %files -n       rust-%{name}-devel

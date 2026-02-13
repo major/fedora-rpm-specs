@@ -3,12 +3,14 @@
 
 Name:           python-%{pypi_name}
 Version:        5.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
 URL:            https://github.com/kiorky/croniter
 Source0:        %{pypi_source}
+# Maintainers, please upstream
+Patch0:         python-croniter-rm-python-mock-usage.diff
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -50,6 +52,9 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 %doc README.rst
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 5.0.1-7
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

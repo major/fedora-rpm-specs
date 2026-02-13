@@ -2,11 +2,13 @@
 
 Name:           python-%{modname}
 Version:        1.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Docker layer squashing tool
 License:        MIT
 URL:            https://github.com/goldmann/docker-squash
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+# Maintainers, please upstream
+Patch0:         python-docker-squash-rm-python-mock-usage.patch
 
 BuildArch:      noarch
 
@@ -21,7 +23,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  python3-mock
 BuildRequires:  python3-six
 BuildRequires:  python3-docker
 Requires:       python3-six
@@ -36,7 +37,7 @@ Obsoletes:      python3-docker-scripts <= 1.0.0-0.2.rc2
 Python 3 version.
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -p1 -n %{modname}-%{version}
 
 %build
 %py3_build
@@ -55,6 +56,9 @@ py.test-%{python3_version} -v tests/test_unit*.py
 %{python3_sitelib}/docker_squash-*.egg-info/
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 1.1.0-14
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

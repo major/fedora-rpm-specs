@@ -4,11 +4,11 @@
 
 %bcond docs %{defined fedora}
 
-# mupdf barcode support is available on Fedora copr git build only
-%bcond barcode %[ %{defined fedora} && %["%copr_projectname" == "mupdf-git"] ] 
+# mupdf barcode support is available on Fedora only
+%bcond barcode 0%{?fedora} 
 
 Name:		python-%{pypi_name}
-Version:	1.26.5
+Version:	1.27.1
 Release:	%autorelease
 Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -23,6 +23,7 @@ Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 Patch:		0001-tests-adjust-to-verbose-font-warning.patch
 Patch:		0001-adjust-tests-to-tesseract-5.5.1.patch
+Patch:		0001-tests-conftest-do-not-call-pip.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)
@@ -44,6 +45,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	mupdf-devel mupdf-cpp-devel
 BuildRequires:	freetype-devel
 BuildRequires:	python3-mupdf
+Buildrequires:	python3-mypy
 
 %global _description %{expand:
 This is PyMuPDF, a Python binding for MuPDF - a lightweight PDF and XPS
@@ -129,6 +131,8 @@ SKIP="$SKIP and not test_spikes"
 SKIP="$SKIP and not test_4180 and not test_4613 and not test_htmlbox1"
 # test downloads data from the internet
 SKIP="$SKIP and not test_4445 and not test_4457 and not test_4533 and not test_4702"
+# test requires additional packages
+SKIP="$SKIP and not test_4751"
 # Fedora's swig returns different results
 SKIP="$SKIP and not test_4392"
 %if %{without barcode}
@@ -141,8 +145,16 @@ SKIP="$SKIP and not test_3087"
 # test_htmlbox1 fails on s390 s390x (bigendian unicode problem?)
 SKIP="$SKIP and not test_htmlbox1"
 %endif
+%ifarch %{ix86}
+# test gives the same failure on i686 as on pyodide
+SKIP="$SKIP and not test_4435"
+%endif
 # spuriously failing tests (several archs)
 SKIP="$SKIP and not test_insert and not test_3087"
+# tests are known to fail with mupdf 1.27.x (reported)
+sed -i -e '/^import pymupdf/i import pytest' tests/test_nonpdf.py
+sed -i -e '/^def test_layout/i @pytest.mark.xfail(reason="mupdf 1.27.x", strict=True)' tests/test_nonpdf.py
+sed -i -e '/^def test_pageids/i @pytest.mark.xfail(reason="mupdf 1.27.x", strict=True)' tests/test_nonpdf.py
 export PYMUPDF_SYSINSTALL_TEST=1
 %pytest -k "$SKIP"
 

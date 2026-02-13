@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        19.0.0
-Release:        0.1%{?dist}
+Release:        0.2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -222,6 +222,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Wed Feb 11 2026 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Thu Jan 29 2026 Sandro Mani <manisandro@gmail.com> - 19.0.0-0.1.beta1
 - Update to 19.0.0-beta1
 

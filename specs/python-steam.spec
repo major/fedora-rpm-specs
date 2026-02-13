@@ -17,7 +17,6 @@ BuildRequires: python3-devel
 %if %{with tests}
 BuildRequires: python3dist(gevent-eventemitter) >= 2.1
 BuildRequires: python3dist(gevent) >= 1.3.0
-BuildRequires: python3dist(mock)
 BuildRequires: python3dist(protobuf) >= 3.0.0
 BuildRequires: python3dist(pytest-cov)
 BuildRequires: python3dist(pytest)

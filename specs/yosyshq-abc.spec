@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 799ba632239b2a4db2bacda81de4e6efdc486b0c
+%global commit0 734f64d5b907158dc4337ee82b3b74566d74ba08
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20260115
+%global snapdate 20260205
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,8 +23,8 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.61
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.62
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
 # The bundled CUDD code is BSD-3-Clause.
@@ -171,6 +171,9 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Thu Feb 05 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.62-1.20260205git734f64d
+- update to 0.62 snapshot
+
 * Fri Jan 16 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.61-2.20260115git799ba63
 - drop i686 due to incompatible upstream changes
 

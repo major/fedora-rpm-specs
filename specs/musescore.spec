@@ -1,6 +1,6 @@
 # The version of MuseScore itself
 %global musescore_ver             4.6.5
-%global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
+%global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
 # Font versions.  Use otfinfo -v to extract these values.
@@ -17,19 +17,13 @@
 %global gootville_text_font_ver   1.2
 %global soundfont_ver             0.2.0
 
-# VST SDK
-%global vstgit  https://github.com/steinbergmedia/vst3
-%global vstvers 3.8.0
-%global vstbld  66
-%global vstvstr %{vstvers}_build_%{vstbld}
-
 # NOTE: The Release tag can be reset to one only if ALL version numbers above
 # increase.  This is unlikely to happen.  Resign yourself to bumping the release
 # number indefinitely.
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        35%{?dist}
+Release:        36%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -55,7 +49,6 @@ Release:        35%{?dist}
 # - src/framework/global/thirdparty/kors_modularity/LICENSE
 # - src/framework/global/thirdparty/kors_msgpack/LICENSE
 # - src/framework/global/thirdparty/kors_profiler/LICENSE
-# - src/framework/vst/sdk
 # BSL-1.0
 # - code from the utf8cpp header-only library
 # BSD-2-Clause
@@ -208,13 +201,6 @@ Source6:        65-%{fontpkgname6}.conf
 Source7:        65-%{fontpkgname7}.conf
 Source8:        65-%{fontpkgname8}.conf
 Source9:        65-%{fontpkgname9}.conf
-# VST SDK files
-Source10:       %{vstgit}sdk/archive/v%{vstvstr}/vst3sdk-%{vstvers}.tar.gz
-Source11:       %{vstgit}_base/archive/v%{vstvstr}/vst3_base-%{vstvers}.tar.gz
-Source12:       %{vstgit}_cmake/archive/v%{vstvstr}/vst3_cmake-%{vstvers}.tar.gz
-Source13:       %{vstgit}_pluginterfaces/archive/v%{vstvstr}/vst3_pluginterfaces-%{vstvers}.tar.gz
-Source14:       %{vstgit}_public_sdk/archive/v%{vstvstr}/vst3_public_sdk-%{vstvers}.tar.gz
-
 
 # Unbundle dr_libs, gtest, lame, liblouis, pugixml, stb, and utf8cpp.
 # We cannot unbundle KDDockWidgets because the Fedora package builds the
@@ -240,11 +226,13 @@ Patch:          %{name}-tinyxml2-11.patch
 Patch:          %{name}-fluidsynth-2.3.7.patch
 # https://github.com/KDAB/KDDockWidgets/commit/5a86cf69207bfbcc683343b2faf1d3466be2af56.patch
 # https://github.com/musescore/MuseScore/pull/30422
-Patch:          musescore-fix-build-against-qt-6-10.patch
+Patch:          %{name}-fix-build-against-qt-6-10.patch
 # Fix build with FFmpeg 8
 Patch:          %{name}-ffmpeg8.patch
 # Fix a CVE in the bundled fluidsynth
 Patch:          %{name}-CVE-2025-56225.patch
+# Enable building with the Fedora VST 3 SDK package
+Patch:          %{name}-vst.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -275,9 +263,6 @@ BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
 BuildRequires:  dr_libs-static
 BuildRequires:  fdupes
-# NOTE: Might be a bug in flac packaging, but flac CMake files
-# require /usr/bin/flac
-BuildRequires:  flac
 BuildRequires:  font(bravura)
 BuildRequires:  font(bravuratext)
 BuildRequires:  font(campania)
@@ -319,6 +304,7 @@ BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  qt6-doctools
 BuildRequires:  stb_vorbis-static
 BuildRequires:  utf8cpp-static
+BuildRequires:  vst3sdk-devel
 
 # Test dependencies
 #BuildRequires:  mesa-dri-drivers
@@ -380,9 +366,6 @@ Provides:       bundled(kors_profiler) = 1.2
 # upstream: https://github.com/DDMAL/libmei
 Provides:       bundled(libmei) = 3.1.0
 
-# It might be possible to unbundle vst3sdk.
-Provides:       bundled(vst3sdk) = 3.8.0
-
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore < 4.0
 Provides:       mscore = %{musescore_ver}-%{release}
@@ -392,7 +375,7 @@ Obsoletes:      mscore-doc < 4.0
 Provides:       mscore-doc = %{musescore_ver}-%{release}
 
 %description
-MuseScore is a free cross platform WYSIWYG music notation program. Some
+MuseScore is a free cross platform WYSIWYG music notation program.  Some
 highlights:
 
     * WYSIWYG, notes are entered on a "virtual note sheet"
@@ -419,21 +402,14 @@ License:        MIT
 BuildArch:      noarch
 
 %description    soundfont
-This is a scaled-down version of MuseScore_General-HQ.sf2 that replaces
-some of the larger instruments to save memory and CPU on older PCs.
-This SoundFont is currently a work-in-progress.  Some samples are
-derived from FluidR3Mono.
+This is a scaled-down version of MuseScore_General-HQ.sf2 that replaces some
+of the larger instruments to save memory and CPU on older PCs.  This SoundFont
+is currently a work-in-progress.  Some samples are derived from FluidR3Mono.
 
 %fontpkg -a
 
 %prep
 %autosetup -n MuseScore-%{musescore_ver} -p1
-# Unpack the VST SDK
-tar -xf %{SOURCE10} -C src/framework/vst/sdk
-tar -xf %{SOURCE11} --strip-components=1 -C src/framework/vst/sdk/vst3sdk-%{vstvstr}/base
-tar -xf %{SOURCE12} --strip-components=1 -C src/framework/vst/sdk/vst3sdk-%{vstvstr}/cmake
-tar -xf %{SOURCE13} --strip-components=1 -C src/framework/vst/sdk/vst3sdk-%{vstvstr}/pluginterfaces
-tar -xf %{SOURCE14} --strip-components=1 -C src/framework/vst/sdk/vst3sdk-%{vstvstr}/public.sdk
 
 %conf
 # Remove bundled stuff
@@ -468,8 +444,8 @@ cd ..
 
 %build
 # Build the actual program
-export CFLAGS='%{build_cflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz'
-export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz'
+export CFLAGS='%{build_cflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz -I%{_includedir}/vst3sdk'
+export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz -I%{_includedir}/vst3sdk'
 # now binding breaks RTLD_LAZY, used by Muse Sounds
 export LDFLAGS='%{build_ldflags} -Wl,-z,lazy'
 %cmake \
@@ -488,7 +464,6 @@ export LDFLAGS='%{build_ldflags} -Wl,-z,lazy'
     -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL:BOOL=OFF \
     -DMUSE_MODULE_NETWORK_WEBSOCKET:BOOL=ON \
     -DMUSE_MODULE_VST:BOOL=ON \
-    -DMUSE_MODULE_VST_VST3_SDK_PATH=$PWD/src/framework/vst/sdk/vst3sdk-%{vstvstr} \
     -DMUSE_PIPEWIRE_AUDIO_DRIVER:BOOL=ON \
     -DQT_NO_PRIVATE_MODULE_WARNING:BOOL=ON
 PREFIX=%{_prefix} VERBOSE=1 %cmake_build
@@ -796,6 +771,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Wed Feb 11 2026 Jerry James <loganjerry@gmail.com> - 4.6.5-36
+- Unbundle VST3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -805,13 +783,13 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 * Thu Dec 18 2025 Jerry James <loganjerry@gmail.com> - 4.6.5-33
 - Version 4.6.5
 
-* Thu Dec 04 2025 Jerry James  <loganjerry@gmail.com> - 4.6.4-32
+* Thu Dec 04 2025 Jerry James <loganjerry@gmail.com> - 4.6.4-32
 - Version 4.6.4
 
 * Wed Nov 12 2025 Adam Williamson <awilliam@redhat.com> - 4.6.3-31
 - Rebuild for ffmpeg 8 again
 
-* Tue Nov 11 2025 Jerry James  <loganjerry@gmail.com> - 4.6.3-30
+* Tue Nov 11 2025 Jerry James <loganjerry@gmail.com> - 4.6.3-30
 - Version 4.6.3
 - Enable the VST module
 - Fix installation of some of the SMuFL fonts

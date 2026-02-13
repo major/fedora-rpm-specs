@@ -9,6 +9,8 @@ Summary:        Mwclient is a client to the MediaWiki API
 License:        MIT
 URL:            https://github.com/%{github_owner}/%{github_name}
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/v%{version}.tar.gz
+# Maintainers, please upstream
+Patch0:         python-mwclient-rm-python-mock-usage.diff
 BuildArch:      noarch
 
 %description

@@ -5,7 +5,7 @@
 Name:           texlive-collection-fontsrecommended
 Epoch:          12
 Version:        svn54074
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Recommended fonts
 
 License:        LPPL-1.3c
@@ -292,7 +292,7 @@ Adobe's Palatino).
 
 %package -n texlive-lm
 Summary:        Latin modern fonts in outline formats
-Version:        svn67718
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -335,7 +335,7 @@ available using the manfnt package
 
 %package -n texlive-marvosym
 Summary:        Martin Vogel's Symbols (marvosym) font
-Version:        svn29349
+Version:        svn77677
 License:        OFL-1.1
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -351,7 +351,7 @@ together with support files for TeX (LaTeX).
 
 %package -n texlive-mathpazo
 Summary:        Fonts to typeset mathematics to match Palatino
-Version:        svn52663
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -427,7 +427,7 @@ Adobe's Palatino).
 
 %package -n texlive-pxfonts
 Summary:        Palatino-like fonts in support of mathematics
-Version:        svn15878
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -558,7 +558,7 @@ Adobe's Palatino).
 
 %package -n texlive-tipa
 Summary:        Fonts and macros for IPA phonetics characters
-Version:        svn29349
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -582,7 +582,7 @@ versions are provided for both the T3 and the TS3 fonts.
 
 %package -n texlive-txfonts
 Summary:        Times-like fonts in support of mathematics
-Version:        svn15878
+Version:        svn77677
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -601,7 +601,7 @@ macros for use with LaTeX.
 
 %package -n texlive-utopia
 Summary:        Adobe Utopia fonts
-Version:        svn15878
+Version:        svn77677
 License:        LicenseRef-Utopia
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -641,7 +641,7 @@ Converted (Adobe Type 1) outlines of the wasy fonts.
 
 %package -n texlive-wasysym
 Summary:        LaTeX support for the wasy fonts
-Version:        svn54080
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1099,6 +1099,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.metainfo
 %{_texmf_main}/tex/latex/zapfding/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-6
+- Update lm marvosym mathpazo pxfonts tipa txfonts utopia wasysym
+
 * Sun Feb  8 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn54074-5
 - fix licensing file
 

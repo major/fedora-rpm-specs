@@ -413,6 +413,23 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Fri Feb 06 2026 Packit <hello@packit.dev> - 172-1
+Changes with 172
+----------------
+  - SPEC: initrd sub-package fixups and exclude i686 arch on el (#2334)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2333)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20260201 (#2330)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - osbuild-mpp: Refactor to use osbuild.solver module (#2331)
+    - Author: Mark Kemel, Reviewers: Nobody
+  - test_objectstore: add time.sleep(0.1) to solve flaky tests (#2318)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-02-06
+
+
 * Fri Feb 06 2026 Tomáš Hozza <thozza@redhat.com> - 172-1
 Changes with 172
 ----------------

@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.11.1
+Version:       2.11.2
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -367,6 +367,9 @@ done
 
 
 %changelog
+* Wed Feb 11 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.11.2-1
+- New upstream development branch version 2.11.2
+
 * Tue Jan 27 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.11.1-1
 - New upstream development branch version 2.11.1
 - Requires libguestfs >= 1.59.2 (for xfs_info2)

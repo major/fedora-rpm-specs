@@ -1,6 +1,6 @@
 Name:           python-firehose
 Version:        0.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Library for working with output from static code analyzers
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -12,6 +12,9 @@ BuildArch:      noarch
 # https://github.com/fedora-static-analysis/firehose/pull/42
 Patch0:         0001-Remove-calls-to-deprecated-plistlib-function.patch
 
+# Maintainers, please upstream
+Patch1:         python-firehose-rm-python-mock-usage.patch
+
 BuildRequires:  libxml2
 # ^^^: for xmllint
 # ^^^: used during selftests
@@ -19,8 +22,6 @@ BuildRequires:  libxml2
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
-BuildRequires:  python3-mock
-# ^^^: used during selftests
 
 %global _description\
 "firehose" is a Python package intended for managing the results from\
@@ -73,6 +74,9 @@ chmod +x %{buildroot}/%{python3_sitelib}/firehose/parsers/gcc.py
 
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.5-37
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 
 Name:    gammaray
 Version: 3.1.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A tool for examining internals of Qt applications
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -321,6 +321,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/GammaRay.desktop
 
 
 %changelog
+* Wed Feb 11 2026 Jan Grulich <jgrulich@redhat.com> - 3.1.0-19
+- Rebuild (qt6)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

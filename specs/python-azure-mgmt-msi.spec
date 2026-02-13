@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-msi
 
 Name:           python-%{srcname}
-Version:        7.0.0
+Version:        7.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure MSI Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source azure_mgmt_msi %{version}}
 
 BuildArch:      noarch
 
@@ -38,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_mgmt_msi-%{version}
 
 
 %generate_buildrequires
@@ -60,7 +60,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

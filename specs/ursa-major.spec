@@ -6,13 +6,14 @@
 
 Name:       ursa-major
 Version:    0.5.1
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    A utility for working with module's koji tags in koji's tag inheritance.
 
 Group:      Development/Tools
 License:    MIT
 URL:        https://pagure.io/ursa-major
 Source0:    https://files.pythonhosted.org/packages/source/u/%{name}/%{name}-%{version}.tar.gz
+Patch0:     ursa-major-rm-python-mock-usage.diff
 
 BuildArch:      noarch
 # libmodulemd is not available for ppc or i686
@@ -32,7 +33,6 @@ BuildRequires:  python3-requests
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-psutil
 BuildRequires:  python3-pytest
-BuildRequires:  python3-mock
 %else
 BuildRequires:  python2-devel
 BuildRequires:  python2-koji
@@ -131,7 +131,7 @@ to talk with Fedora's stage instances (Koji, MBS).
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 # old setuptools not support environment marker
@@ -198,6 +198,9 @@ py.test
 
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.5.1-9
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

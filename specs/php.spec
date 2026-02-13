@@ -67,11 +67,16 @@
 
 # liburiparser version 1.0.0 required
 %global liburiparser_ver 1.0.0
+%if 0%{?fedora}
+# use system liburiparser when available
+%bcond_without       liburiparser
+%else
 # use bundled library instead for now
 %bcond_with          liburiparser
+%endif
 
 %global upver        8.5.3
-%global rcver        RC1
+#global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -80,7 +85,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1645,6 +1650,10 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Feb 11 2026 Remi Collet <remi@remirepo.net> - 8.5.3-1
+- Update to 8.5.3 - http://www.php.net/releases/8_5_3.php
+- use system liburiparser
+
 * Wed Jan 28 2026 Remi Collet <remi@remirepo.net> - 8.5.3~RC1-2
 - Rebuilt for net-snmp 5.9.5.2 FTI #2433757
 
@@ -1662,7 +1671,6 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 * Mon Jan  5 2026 Remi Collet <remi@remirepo.net> - 8.5.2~RC1-1
 - update to 8.5.2RC1
-- use system liburiparser
 
 * Wed Dec 17 2025 Remi Collet <remi@remirepo.net> - 8.5.1-1
 - Update to 8.5.1 - http://www.php.net/releases/8_5_1.php

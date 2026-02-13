@@ -1,6 +1,8 @@
+%bcond tests    %{defined fedora}
+
 Name:           python-b2sdk
 Version:        1.21.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
@@ -24,34 +26,49 @@ FUSE filesystems, storage backend drivers for backup applications etc).}
 %package -n python3-b2sdk
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
+%if %{with tests}
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-pytest-lazy-fixture
+BuildRequires:  python3-pyfakefs
+%endif
 
 %description -n python3-b2sdk %_description
 
 %prep
 %autosetup -p1 -n b2sdk-%{version}
-rm -rf b2sdk.egg-info
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
-rm -rf %{buildroot}%{python3_sitelib}/test
+%pyproject_install
+%pyproject_save_files -l b2sdk
 
 
-%files -n python3-b2sdk
+%check
+%pyproject_check_import
+%if %{with tests}
+%pytest test/unit
+%endif
+
+
+%files -n python3-b2sdk -f %{pyproject_files}
 %doc CHANGELOG.md
 %doc README.md
-%license LICENSE
-%{python3_sitelib}/b2sdk-*.egg-info/
-%{python3_sitelib}/b2sdk/
 
 
 %changelog
+* Wed Feb 11 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.21.0-14
+- Port to pyproject macros rhbz#2377501
+- Run upstream unit tests on Fedora
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

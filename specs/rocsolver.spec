@@ -127,7 +127,7 @@ Summary:        Next generation LAPACK implementation for ROCm platform
 # License check reports BSD 2-Clause
 # But reviewing LICENSE.md, this is only for AMD
 # Later in the file are BSD 3-Clause for LAPACK and MAGMA
-License:        BSD-3-Clause AND BSD-2-Clause
+License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}

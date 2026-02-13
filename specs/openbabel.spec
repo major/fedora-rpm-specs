@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 44%{?dist}
+Release: 45%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -67,7 +67,7 @@ Patch14: %{name}-set_cxx17_standard.patch
 BuildRequires: make
 BuildRequires: boost-devel
 BuildRequires: swig
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: dos2unix
 BuildRequires: desktop-file-utils
 BuildRequires: eigen3-devel
@@ -257,7 +257,8 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DENABLE_TESTS:BOOL=ON \
  -DOPTIMIZE_NATIVE=OFF \
  -DGLIBC_24_COMPATIBLE:BOOL=OFF \
- -DEIGEN3_INCLUDE_DIR:PATH=%{_includedir}/eigen3 -DEIGEN3_VERSION:STRING=%(pkgconf --with-path %{_datadir}/pkgconfig --modversion eigen3)
+ -DEIGEN3_INCLUDE_DIR:PATH=%(pkgconf --variable=prefix eigen3)/include/eigen3 \
+ -DEIGEN3_VERSION:STRING=%(pkgconf --modversion eigen3)
 
 %cmake_build
 
@@ -346,6 +347,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Wed Feb 11 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-45
+- Fix BR cmake
+
 * Sun Jan 18 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-44
 - Fix rhbz#2430674
 

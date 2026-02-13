@@ -5,7 +5,7 @@
 %global         tarball_name     azure_mgmt_keyvault
 
 Name:           python-%{srcname}
-Version:        12.1.0
+Version:        13.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Keyvault Management Client Library for Python
 License:        MIT

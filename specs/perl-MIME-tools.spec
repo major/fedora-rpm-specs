@@ -1,7 +1,7 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.515
-Release:	5%{?dist}
+Version:	5.517
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
 Source0:	https://cpan.metacpan.org/modules/by-module/MIME/MIME-tools-%{version}.tar.gz
@@ -135,6 +135,15 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Wed Feb 11 2026 Paul Howarth <paul@city-fan.org> - 5.517-1
+- Update to 5.517
+  - Handle MIME parameters of the form param= better (i.e. a parameter with no
+    value at all); it's treated the same as param="" rather than aborting the
+    parse
+  - Diagnose additional types of malformed MIME as ambiguous; specifically, an
+    empty boundary parameter like boundary= or boundary="" is treated as
+    ambiguous
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.515-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

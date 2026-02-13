@@ -22,6 +22,11 @@
 #
 #    Therefore, from now on, I will refer to Artifex Software as to 'upstream'.
 #
+#    Note (2026): (URW)++ became URW Type Foundry and joined MyFonts under
+#    Monotype [https://www.myfonts.com/collections/urw-foundry/]. The situation
+#    is the same as before - open source fonts are presented by Artifex and
+#    since the old URL does not work anymore, I will use Artifex Github as URL.
+#
 # 2) Upstream has its own git repository for Core Font Set Level 2 sources:
 #    > https://github.com/ArtifexSoftware/urw-base35-fonts
 #
@@ -138,22 +143,22 @@ by (URW)++ company, and are mainly utilized by applications using Ghostscript.
 Name:             %{fontname}-fonts
 Summary:          Core Font Set containing 35 freely distributable fonts from (URW)++
 Version:          20200910
-Release:          27%{?dist}
+Release:          28%{?dist}
 
 # NOTE: (URW)++ holds the copyright, but Artifex Software has obtained rights to
 #       release these fonts under GNU Affero General Public License (version 3).
 #       Also contains subpackage legacy with older version of the fonts (with GPLv2.0+ license) still needed by a few applications.
 License:          AGPL-3.0-only AND GPL-2.0-or-later
 
-URL:              https://www.urwpp.de/en/
+URL:              https://github.com/ArtifexSoftware/urw-base35-fonts
 Source:           https://github.com/ArtifexSoftware/urw-base35-fonts/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:          urw-fonts-1.0.7pre44.tar.bz2
 
 BuildArch:        noarch
 
 Patch01:          urw-base35-fonts-20200910-dont-config-d050000l-as-fantasy-font.patch
-Patch02:					urw-base35-fonts-20200910-Nimbus-Mono-substitution.patch
-Patch03:					urw-base35-fonts-20200910-add-alias-to-Century.patch
+Patch02:          urw-base35-fonts-20200910-Nimbus-Mono-substitution.patch
+Patch03:          urw-base35-fonts-20200910-add-alias-to-Century.patch
 
 BuildRequires:    fontpackages-devel
 BuildRequires:    libappstream-glib
@@ -403,6 +408,9 @@ mkfontdir   %{legacydir}
 # =============================================================================
 
 %changelog
+* Wed Feb 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 20200910-28
+- fix URL (fedora#2424687)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20200910-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

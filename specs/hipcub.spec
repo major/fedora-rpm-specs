@@ -82,7 +82,7 @@ Release:        1%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
-License:        MIT and BSD-3-Clause
+License:        MIT AND BSD-3-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.21
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python cross-platform network interface discovery (ifconfig/ipconfig/ip)
 
 License:        BSD-3-Clause
@@ -11,6 +11,8 @@ Source0:        https://github.com/ftao/%{name}/archive/releases/%{version}/%{na
 
 # Not yet submitted upstream
 Patch0:         %{name}-0.21-drop-nose.patch
+# Maintainers, please upstream
+Patch1:         %{name}-rm-python-mock-usage.patch
 
 BuildArch:      noarch
 
@@ -69,6 +71,9 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.21-24
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

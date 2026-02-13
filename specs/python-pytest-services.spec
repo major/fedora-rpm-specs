@@ -8,6 +8,8 @@ Summary:        Services plugin for pytest
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{pypi_source %{srcname}}
+# Maintainers, please upstream
+Patch0:         python-pytest-services-rm-python-mock-usage.diff
 
 BuildArch:      noarch
 

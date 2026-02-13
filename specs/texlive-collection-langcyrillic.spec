@@ -5,7 +5,7 @@
 Name:           texlive-collection-langcyrillic
 Epoch:          12
 Version:        svn69727
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cyrillic
 
 License:        LPPL-1.3c
@@ -293,6 +293,8 @@ Version:        svn43417
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(disser.cls) = %{tl_version}
+Provides:       tex(gost732.cls) = %{tl_version}
 
 %description -n texlive-disser
 Disser comprises a document class and set of templates for typesetting
@@ -308,6 +310,7 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(eskd.cls) = %{tl_version}
 
 %description -n texlive-eskd
 The class offers modern Russian text formatting, in accordance with accepted
@@ -347,6 +350,7 @@ Provides:       tex(eskdexplan.sty) = %{tl_version}
 Provides:       tex(eskdfont.sty) = %{tl_version}
 Provides:       tex(eskdfootnote.sty) = %{tl_version}
 Provides:       tex(eskdfreesize.sty) = %{tl_version}
+Provides:       tex(eskdgraph.cls) = %{tl_version}
 Provides:       tex(eskdhash.sty) = %{tl_version}
 Provides:       tex(eskdindent.sty) = %{tl_version}
 Provides:       tex(eskdinfo.sty) = %{tl_version}
@@ -359,6 +363,8 @@ Provides:       tex(eskdsect.sty) = %{tl_version}
 Provides:       tex(eskdspec.sty) = %{tl_version}
 Provides:       tex(eskdspecii.sty) = %{tl_version}
 Provides:       tex(eskdstamp.sty) = %{tl_version}
+Provides:       tex(eskdtab.cls) = %{tl_version}
+Provides:       tex(eskdtext.cls) = %{tl_version}
 Provides:       tex(eskdtitle.sty) = %{tl_version}
 Provides:       tex(eskdtitlebase.sty) = %{tl_version}
 Provides:       tex(eskdtotal.sty) = %{tl_version}
@@ -1409,6 +1415,9 @@ rm -rf %{buildroot}%{_texmf_main}/tlpkg/tlpobj/*.tlpobj
 %doc %{_texmf_main}/doc/latex/xecyrmongolian/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn69727-5
+- Add provides for .cls files
+
 * Sun Feb 08 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn69727-4
 - fix licensing files
 

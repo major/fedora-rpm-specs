@@ -37,6 +37,8 @@ Patch6:         485.patch
 # functools.partial is now a method descriptor https://github.com/python/cpython/issues/121027
 # instead of utcnow() use datetime.datetime.now(tz=datetime.UTC)
 Patch7:         remove_deprecations_in_python_3_13.patch
+# Maintainers, please upstream
+Patch8:         python-httpretty-rm-python-mock-usage.patch
 
 BuildArch:      noarch
 
@@ -60,7 +62,6 @@ BuildRequires:  python3-wheel
 BuildRequires:  python3-boto3
 BuildRequires:  python3-httplib2
 BuildRequires:  python3-httpx
-BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
 BuildRequires:  python3-sure

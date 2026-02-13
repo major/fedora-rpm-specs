@@ -45,11 +45,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.2
+%global general_version %{pybasever}.3
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -362,7 +362,7 @@ Source11: idle3.appdata.xml
 Source30: download-jit-stencils-from-koji.sh
 # This %%if-hack makes it easier to do step 1. from the above.
 # Use `fedpkg sources --force` to get the conditionally defined sources from the lookaside cache.
-%if %{without jit_build_stencils} || %{exists:%{_sourcedir}/Python-%{upstream_version}-x86_64-optimized-jit_stencils.h}
+%if (%{with jit} && %{without jit_build_stencils}) || %{exists:%{_sourcedir}/Python-%{upstream_version}-x86_64-optimized-jit_stencils.h}
 Source31: Python-%{upstream_version}-aarch64-debug-jit_stencils.h
 Source32: Python-%{upstream_version}-aarch64-optimized-jit_stencils.h
 Source33: Python-%{upstream_version}-x86_64-debug-jit_stencils.h
@@ -415,6 +415,34 @@ Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 # in the conditionalized skip to a release available in CentOS Stream 10,
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
+
+# 00474 # 0d9da266d5ecb31d8a417a0a5daa251a2d99389f
+# CVE-2025-15366
+#
+# Downstream only: Reject control characters in IMAP commands
+Patch474: 00474-cve-2025-15366.patch
+
+# 00475 # 91e12ebfb2a88b265f3764a0d852b6fa53b2386a
+# CVE-2025-15367
+#
+# Downstream only: Reject control characters in POP3 commands
+Patch475: 00475-cve-2025-15367.patch
+
+# 00477 # f9f53e560d161531a0c3476c08ee26b89a628bde
+# Raise an error when importing stdlib modules compiled for a different Python version
+#
+# This is a downstream workaround "implementing"
+# https://github.com/python/cpython/pull/137212 -
+# the mechanism for the check exists in Python 3.15+, where it needs to be
+# added to the standard library modules.
+# In Fedora, we need it also in previous Python versions, as we experience
+# segmentation fault when importing stdlib modules after update while
+# Python is running.
+#
+# _tkinter, _tracemalloc and readline are not calling PyModuleDef_Init,
+# which is modified with this patch, hence they need a
+# direct call to the check function.
+Patch477: 00477-raise-an-error-when-importing-stdlib-modules-compiled-for-a-different-python-version.patch
 
 # (New patches go here ^^^)
 #
@@ -1054,9 +1082,6 @@ BuildPython() {
   # Since we changed directories, we need to tell %%configure where to look.
   %global _configure $topdir/configure
 
-  # A workaround for https://bugs.python.org/issue39761
-  export DFLAGS=" "
-
 %configure \
   --with-platlibdir=%{_lib} \
   --enable-ipv6 \
@@ -1472,20 +1497,9 @@ CheckPython() {
 
   # Run the upstream test suite
   # --timeout=2700: kill test running for longer than 45 minutes
-  # test_freeze_simple_script is skipped, because it fails without bundled libs.
-  #  the freeze tool is only usable from the source checkout anyway,
-  #  we don't ship it in the RPM package.
   # test_check_probes is failing since it was introduced in 3.12.0rc1,
   # the test is skipped until it is fixed in upstream.
   # see: https://github.com/python/cpython/issues/104280#issuecomment-1669249980
-  # test_signal is skipped due to https://github.com/python/cpython/issues/118989
-  # test.test_concurrent_futures.test_deadlock tends to time out on s390x and ppc64le in
-  # freethreading{,-debug} build, skipping it to shorten the build time
-  # see: https://github.com/python/cpython/issues/121719
-  # test_interrupt and test_interrupt_no_handler
-  # reported in https://github.com/python/cpython/issues/133651
-  # test_margin_is_sufficient
-  # reported in https://github.com/python/cpython/issues/140222
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1493,18 +1507,7 @@ CheckPython() {
     %else
     --timeout=2700 \
     %endif
-    -i test_freeze_simple_script \
     -i test_check_probes \
-    -i test_interrupt \
-    -i test_interrupt_no_handler \
-    -i test_margin_is_sufficient \
-    %ifarch %{mips64}
-    -x test_ctypes \
-    %endif
-    %ifarch s390x ppc64le
-    -x test_signal \
-    -i test_deadlock \
-    %endif
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
 
@@ -1994,6 +1997,10 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Feb 04 2026 Karolina Surma <ksurma@redhat.com> - 3.14.3-1
+- Update to Python 3.14.3
+- Fix CVE-2025-15366, CVE-2025-15367
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -10,7 +10,7 @@ support the Transifex service for translation with Sphinx (not packaged yet).
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sphinx utility that make it easy to translate and to apply translation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -33,7 +33,6 @@ BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-click
 BuildRequires:  python%{python3_pkgversion}-babel
 BuildRequires:  python%{python3_pkgversion}-sphinx
-BuildRequires:  python%{python3_pkgversion}-mock
 Requires:       python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-six
 Requires:       python%{python3_pkgversion}-click
@@ -86,6 +85,9 @@ rm tests/test_*transifex*.py
 
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 2.3.2-5
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

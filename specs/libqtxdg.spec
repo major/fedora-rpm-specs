@@ -2,7 +2,7 @@ Name:           libqtxdg
 Summary:        QtXdg, a Qt6 implementation of XDG standards
 Version:        4.3.0
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://lxqt-project.org
@@ -68,6 +68,9 @@ Files used for developing and building software that uses qtxdg.
 %{_qt6_archdatadir}/plugins/iconengines/libQt6XdgIconPlugin.so
 
 %changelog
+* Wed Feb 11 2026 Jan Grulich <jgrulich@redhat.com> - 4.3.0-4
+- Rebuild (qt6)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

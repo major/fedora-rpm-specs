@@ -21,11 +21,11 @@
 #
 
 %global upstreamname rccl-tests
-%global commit0 5272cd16efeeb5012f17e5541a39af9de6aa9eae
+%global commit0 a52452e891d5dc07c83cf4edaea01ae4ab684b3a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251211
+%global date0 20260116
 
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -58,7 +58,7 @@
 
 Name:           rccl-tests%{pkg_suffix}
 Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        RCCL tests
 
 Url:            https://github.com/ROCm/rccl-tests
@@ -131,6 +131,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl-tests/LICENSE.txt
 %{pkg_prefix}/bin/*_perf
 
 %changelog
+* Sun Jan 25 2026 Tom Rix <Tom.Rix@amd.com> - git20260116.a52452e-1
+- Update source
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - git20251211.5272cd1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname TransferBench
@@ -37,6 +37,7 @@
 
 # Not all hw is supported
 %global gpu_list "gfx906;gfx908;gfx90a;gfx942;gfx950;gfx1030;gfx1100;gfx1101;gfx1102;gfx1150;gfx1151;gfx1200;gfx1201"
+%global _gpu_list "gfx1100"
 
 Name:       rocm-transferbench
 Version:    %{rocm_version}
@@ -87,5 +88,8 @@ rm -f %{buildroot}%{_prefix}/share/doc/transferbench/LICENSE.md
 %{_bindir}/TransferBench
 
 %changelog
+* Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Initial package

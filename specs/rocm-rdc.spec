@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname rdc
-%global rocm_release 7.1
-%global rocm_patch 1
+%global rocm_release 7.2
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -40,7 +40,7 @@
 
 Name:           rocm-rdc
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Data Center Tool
 
 URL:            https://github.com/ROCm/%{upstreamname}
@@ -157,6 +157,9 @@ chmod a+x %{buildroot}%{_libexecdir}/rdc/authentication/*.sh
 
 
 %changelog
+* Wed Feb 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sun Feb 01 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.1-2
 - Rebuilt for abseil-cpp 20260107.0
 

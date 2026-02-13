@@ -76,6 +76,8 @@ Patch:		lua-math.patch
 Patch:		flatpak-cache.patch
 # fix build with gstreamer-1.28
 Patch:		gstreamer128.patch
+# fix build with libupnp-1.18
+Patch:		libupnp118.patch
 
 %{load:%{S:1}}
 %global __provides_exclude_from ^%{vlc_plugindir}/.*$

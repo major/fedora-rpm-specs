@@ -9,6 +9,8 @@ Patch1:		virtualenv-versionlift.patch
 # Replace parameterized with built-in pytest functionality
 # https://github.com/andreafrancia/trash-cli/pull/373
 Patch2:         trash-cli-0.24.5.26-no-parameterized.patch
+# remove python-mock usage
+Patch3:         trash-cli-rm-python-mock-usage.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

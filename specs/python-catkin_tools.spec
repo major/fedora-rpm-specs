@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Command line tools for working with catkin
 
 License:        Apache-2.0
@@ -10,6 +10,8 @@ URL:            http://catkin-tools.readthedocs.org
 Source0:        https://github.com/catkin/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # From https://github.com/catkin/catkin_tools/commit/8ef11ff40514ea9cdb973e4f8486fcc26f5eadcf
 Patch0:         %{srcname}-0.9.5-sphinx8.patch
+# Maintainers, please upstream
+Patch1:         %{name}-rm-python-mock-usage.patch
 
 BuildArch:      noarch
 
@@ -33,7 +35,6 @@ Summary:        %{summary}
 BuildRequires:  cmake
 BuildRequires:  python%{python3_pkgversion}-catkin_pkg >= 0.3.0
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-osrf-pycommon >= 0.1.1
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-PyYAML
@@ -95,6 +96,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.9.4-13
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

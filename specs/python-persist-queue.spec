@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A single process, persistent multi-producer, multi-consumer queue
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -43,7 +43,6 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-mock
 BuildRequires:  python3-nose2
 BuildRequires:  python3-msgpack
 BuildRequires:  python3-setuptools
@@ -101,6 +100,9 @@ nose2 persistqueue.tests.test_queue
 %endif
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.8.0-15
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

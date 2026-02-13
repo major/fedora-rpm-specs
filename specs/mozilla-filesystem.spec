@@ -1,8 +1,12 @@
 Name:           mozilla-filesystem
 Version:        1.9
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Mozilla filesytem layout
 License:        MPL-1.1
+
+# Firefox/Thunderbird moved to XDG dirs (mzbz#259356)
+Conflicts:      firefox < 147.0
+Conflicts:      thunderbird < 147.0
 
 %description
 This package provides some directories required by packages which use
@@ -15,14 +19,17 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/usr/{lib,%{_lib}}/mozilla/{plugins,extensions,native-messaging-hosts}
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mozilla/extensions
-mkdir -p $RPM_BUILD_ROOT/etc/skel/.mozilla/{plugins,extensions}
+mkdir -p $RPM_BUILD_ROOT/etc/skel/.config/mozilla/{plugins,extensions}
 
 %files
 /usr/lib*/mozilla
 %{_datadir}/mozilla
-/etc/skel/.mozilla
+/etc/skel/.config/mozilla
 
 %changelog
+* Wed Feb 11 2026 Martin Stransky <stransky@redhat.com> - 1.9-38
+- Updated /etc/skel for new Firefox profile dir ~/.config/mozilla (rhbz#2433809).
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

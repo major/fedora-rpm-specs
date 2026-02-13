@@ -7,6 +7,7 @@ Summary:        Visual Studio Team Services Continuous Delivery Manager
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
 Source0:        %pypi_source
+Patch0:         %{name}-rm-python-mock-usage.diff
 
 BuildArch:      noarch
 
@@ -27,7 +28,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 # Fix wrong line endings in the README.rst.
 sed -i 's/\r$//' README.rst

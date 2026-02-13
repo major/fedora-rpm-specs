@@ -14,7 +14,7 @@
 
 Name: rpkg-util
 Version: 3.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: RPM packaging utility
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -30,6 +30,8 @@ VCS: git+ssh://git@pagure.io/rpkg-util.git#55d05bb00449c2816114732e70911b53bbf97
 # git checkout rpkg-util-3.3-1
 # ./rpkg spec --sources
 Source0: rpkg-util-55d05bb0.tar.gz
+# upstream is deprecated, probably not worth forwarding
+Patch0:  rpkg-util-rm-python-mock-usage.diff
 
 BuildArch: noarch
 
@@ -47,7 +49,6 @@ BuildArch: noarch
 BuildRequires: python3
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
-BuildRequires: python3-mock
 BuildRequires: python3-pytest
 BuildRequires: python3-munch
 BuildRequires: python3-rpm-macros
@@ -93,6 +94,7 @@ as well as unpacked one.
 
 %prep
 %setup -T -b 0 -q -n rpkg-util
+%patch 0 -p1  
 
 version=%version
 version=${version//.${version#*.*.}/}
@@ -131,6 +133,9 @@ cp -a rpkg.bash %{buildroot}%{_datarootdir}/bash-completion/completions/
 %{_mandir}/*/*
 
 %changelog
+* Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 3.3-8
+- Rebuilt without python-mock
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

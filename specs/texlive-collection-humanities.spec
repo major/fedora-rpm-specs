@@ -5,7 +5,7 @@
 Name:           texlive-collection-humanities
 Epoch:          12
 Version:        svn75384
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Humanities packages
 
 License:        LPPL-1.3c
@@ -415,7 +415,7 @@ the related eledpar package. The package is now superseded by reledmac.
 
 %package -n texlive-expex
 Summary:        Linguistic examples and glosses, with reference capabilities
-Version:        svn44499
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -461,7 +461,7 @@ macros that ExPex provides.
 
 %package -n texlive-gb4e
 Summary:        Linguistic tools
-Version:        svn19216
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -533,6 +533,7 @@ License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       tex(alphanum.sty) = %{tl_version}
+Provides:       tex(jura.cls) = %{tl_version}
 
 %description -n texlive-jura
 Implements the standard layout for German term papers in law (one-and-half
@@ -563,6 +564,9 @@ Requires:       tex(calc.sty)
 Requires:       tex(ifthen.sty)
 Requires:       tex(xspace.sty)
 Provides:       tex(jurabase.sty) = %{tl_version}
+Provides:       tex(jurabook.cls) = %{tl_version}
+Provides:       tex(juraovw.cls) = %{tl_version}
+Provides:       tex(juraurtl.cls) = %{tl_version}
 
 %description -n texlive-juramisc
 A collection of classes for typesetting court sentences, legal opinions, books
@@ -681,7 +685,7 @@ covers a range of subfields in formal linguistics.
 
 %package -n texlive-linguex
 Summary:        Format linguists' examples
-Version:        svn30815
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -700,8 +704,8 @@ macros of tree-dvips, but overcoming some of the older package's shortcomings.
 
 %package -n texlive-linguistix
 Summary:        Enhanced support for linguistics
-Version:        svn77153
-License:        GPL-3.0-or-later AND GFDL-1.3-or-later
+Version:        svn77571
+License:        GPL-3.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       tex(linguistix-american.sty) = %{tl_version}
@@ -710,9 +714,11 @@ Provides:       tex(linguistix-british.sty) = %{tl_version}
 Provides:       tex(linguistix-english.sty) = %{tl_version}
 Provides:       tex(linguistix-fixpex.sty) = %{tl_version}
 Provides:       tex(linguistix-fonts.sty) = %{tl_version}
+Provides:       tex(linguistix-glossing.sty) = %{tl_version}
 Provides:       tex(linguistix-greek.sty) = %{tl_version}
 Provides:       tex(linguistix-ipa.sty) = %{tl_version}
 Provides:       tex(linguistix-languages.sty) = %{tl_version}
+Provides:       tex(linguistix-leipzig.sty) = %{tl_version}
 Provides:       tex(linguistix-logos.sty) = %{tl_version}
 Provides:       tex(linguistix-marathi.sty) = %{tl_version}
 Provides:       tex(linguistix-nfss.sty) = %{tl_version}
@@ -726,9 +732,10 @@ following packages: LinguisTiX-base: A base package used by other LinguisTiX
 siblings LinguisTiX-fixpex: Solves the compatibility bug between expex and
 unicode-math LinguisTiX-fonts: General text in the New Computer Modern font
 family LinguisTiX-ipa: IPA text in the New Computer Modern font family
-LinguisTiX-languages: Support for modern multilingual typesetting
-LinguisTiX-logos: For printing the logos of the LinguisTiX bundle
-LinguisTiX-nfss: Extra control over NFSS
+LinguisTiX-glossing: Accessible interlinear glossing LinguisTiX-leipzig:
+Leipzig-style glossing with tagging LinguisTiX-languages: Support for modern
+multilingual typesetting LinguisTiX-logos: For printing the logos of the
+LinguisTiX bundle LinguisTiX-nfss: Extra control over NFSS
 
 %package -n texlive-liturg
 Summary:        Support for typesetting Catholic liturgical texts
@@ -821,7 +828,7 @@ variants and translation subvariants are provided.
 
 %package -n texlive-parallel
 Summary:        Typeset parallel texts
-Version:        svn15878
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -866,6 +873,7 @@ Version:        svn15878
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(plari.cls) = %{tl_version}
 
 %description -n texlive-plari
 Plari (the name comes from the Finnish usage for the working copy of a play) is
@@ -878,6 +886,7 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(play.cls) = %{tl_version}
 Provides:       tex(play.sty) = %{tl_version}
 
 %description -n texlive-play
@@ -902,7 +911,7 @@ titles and first lines, and automatic generation of a table of contents.
 
 %package -n texlive-poetry
 Summary:        Facilities for typesetting poetry and poetical structure
-Version:        svn53129
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -962,7 +971,7 @@ development of the existing qobitree package, offering a new front end.
 
 %package -n texlive-reledmac
 Summary:        Typeset scholarly editions
-Version:        svn77199
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1009,6 +1018,7 @@ Version:        svn15878
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(rtklage.cls) = %{tl_version}
 
 %description -n texlive-rtklage
 RATeX is a newly developed bundle of packages and classes provided for German
@@ -1022,6 +1032,7 @@ License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
 Provides:       tex(hardmarg.sty) = %{tl_version}
+Provides:       tex(screenplay.cls) = %{tl_version}
 
 %description -n texlive-screenplay
 The class implements the format recommended by the Academy of Motion Picture
@@ -1050,6 +1061,7 @@ Version:        svn76924
 License:        GPL-2.0-or-later
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(sides.cls) = %{tl_version}
 
 %description -n texlive-sides
 This is a LaTeX class for typesetting stage plays, based on the plari class
@@ -1063,6 +1075,7 @@ Version:        svn62929
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
+Provides:       tex(stage.cls) = %{tl_version}
 
 %description -n texlive-stage
 Stage.cls is a LaTeX class for creating plays of any length in a standard
@@ -1135,7 +1148,7 @@ and gloss macros.
 
 %package -n texlive-verse
 Summary:        Aids for typesetting simple verse
-Version:        svn69835
+Version:        svn77677
 License:        LPPL-1.3c
 Requires:       texlive-base
 Requires:       texlive-kpathsea
@@ -1603,6 +1616,10 @@ popd
 %doc %{_texmf_main}/doc/latex/xyling/
 
 %changelog
+* Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75384-5
+- Update expex gb4e linguex linguistix parallel poetry verse
+- Add cls Provides
+
 * Mon Feb  9 2026 Tom Callaway <spot@fedoraproject.org> - 12:svn75384-4
 - rebuild to land outside the side tag
 

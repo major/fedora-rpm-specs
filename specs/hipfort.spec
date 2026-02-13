@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname hipfort
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -49,7 +49,7 @@
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -162,6 +162,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

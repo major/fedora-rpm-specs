@@ -4,14 +4,15 @@
 %bcond network_tests 0
 
 Name:           python-msal
-Version:        1.34.0
+Version:        1.35.0~b1
+%global         git_version    1.35.0b1
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 
 # SPDX
 License:        MIT
 URL:            https://github.com/AzureAD/microsoft-authentication-library-for-python
-Source:         %{url}/archive/%{version}/microsoft-authentication-library-for-python-%{version}.tar.gz
+Source:         %{url}/archive/%{git_version}/microsoft-authentication-library-for-python-%{git_version}.tar.gz
 
 BuildArch:      noarch
 
@@ -49,7 +50,7 @@ Obsoletes:      python3-msal+broker < 1.33.0-1
 
 
 %prep
-%autosetup -n microsoft-authentication-library-for-python-%{version}
+%autosetup -n microsoft-authentication-library-for-python-%{git_version}
 
 # - We can’t generate BR’s from a requirements file with “-e .” in it.
 # - We don’t need or want to run benchmarks (tests/test_benchmark.py), so don’t
@@ -89,6 +90,7 @@ k="${k-}${k+ and }not TestTelemetryMaintainingOfflineState"
 k="${k-}${k+ and }not TestClientApplicationWillGroupAccounts"
 k="${k-}${k+ and }not TestClientCredentialGrant"
 k="${k-}${k+ and }not TestScopeDecoration"
+k="${k-}${k+ and }not (MismatchingScopeTestCase and test_token_should_be_cached_with_response_scope)"
 k="${k-}${k+ and }not (TestAuthority and test_unknown_host_wont_pass_instance_discovery)"
 k="${k-}${k+ and }not (TestAuthority and test_wellknown_host_and_tenant)"
 k="${k-}${k+ and }not (TestAuthority and test_wellknown_host_and_tenant_using_new_authority_builder)"
