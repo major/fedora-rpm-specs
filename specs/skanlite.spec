@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           skanlite
 Version:        25.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.21
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python cross-platform network interface discovery (ifconfig/ipconfig/ip)
 
 License:        BSD-3-Clause
@@ -27,7 +27,6 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  iproute
@@ -71,6 +70,9 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %changelog
+* Thu Feb 12 2026 Maxwell G <maxwell@gtmx.me> - 0.21-25
+- Fully remove python3-mock build dependency
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 0.21-24
 - Rebuilt without python-mock
 

@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-platformdirs
-Version:        4.4.0
+Version:        4.6.0
 Release:        %autorelease
 Summary:        A small Python package for determining appropriate platform-specific dirs
 License:        MIT
@@ -36,13 +36,15 @@ BuildRequires:  python3-devel
 
 %if %{with tests}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem project.optional-dependencies.test 'pytest-cov\b.*'
-tomcli set pyproject.toml lists delitem project.optional-dependencies.test 'covdefaults\b.*'
+for dep in covdefaults diff-cover pytest-cov
+do
+    tomcli set pyproject.toml lists delitem dependency-groups.test "${dep}\b.*"
+done
 %endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x test}
+%pyproject_buildrequires %{?with_tests:-g test}
 
 
 %build

@@ -9,10 +9,10 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit b0699371cbaf521527f2f63ca9bba597383cc597
+%global nscl_commit ebb33f48e8f990d9fab64064c579017bd54d71f5
 
 Name:           mozilla-noscript
-Version:        13.5.5
+Version:        13.5.12
 Release:        %autorelease
 Summary:        JavaScript white list extension for Mozilla Firefox
 
@@ -27,7 +27,7 @@ Source2:        https://github.com/hackademix/nscl/archive/%{nscl_commit}/nscl-%
 Patch0:         %{name}-fedora.patch
 
 BuildRequires:  libappstream-glib
-BuildRequires:  nodejs
+BuildRequires:  nodejs, /usr/bin/node
 BuildRequires:  publicsuffix-list
 BuildRequires:  zip
 Requires:       mozilla-filesystem

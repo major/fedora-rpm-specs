@@ -2,8 +2,8 @@
 
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
-Version:        6.22.0
-Release:        3%{?dist}
+Version:        6.23.0
+Release:        1%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -98,6 +98,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
+- 6.23.0
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.22.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

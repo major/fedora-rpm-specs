@@ -1,6 +1,13 @@
+# Test dependencies too old for RHEL 10
+%if 0%{?rhel}
+%bcond tests 0
+%else
+%bcond tests 1
+%endif
+
 Name: pulp-cli
-Version: 0.36.0
-Release: 4%{?dist}
+Version: 0.37.0
+Release: 1%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
 License: GPL-2.0-or-later
@@ -38,7 +45,11 @@ sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 sed -r -i 's/,[[:blank:]]*<[^;]+//' test_requirements.txt
 
 %generate_buildrequires
+%if %{with tests}
 %pyproject_buildrequires test_requirements.txt
+%else
+%pyproject_buildrequires
+%endif
 
 
 %build
@@ -68,9 +79,11 @@ for shell_path in \
 done
 
 
+%if %{with tests}
 %check
 %pyproject_check_import pulp_cli
 %pytest -m help_page
+%endif
 
 
 %files -n pulp-cli -f %{pyproject_files}
@@ -86,6 +99,10 @@ done
 
 
 %changelog
+* Thu Feb 12 2026 Simone Caronni <negativo17@gmail.com> - 0.37.0-1
+- Update to 0.37.0.
+- Make tests conditional and disable them on RHEL 10 (dependencies too old).
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

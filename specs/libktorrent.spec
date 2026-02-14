@@ -1,7 +1,7 @@
 Name:           libktorrent
 Summary:        Torrent downloading library for KDE 6 applications
 Version:        25.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 # CC0 is only for CI tooling, BSD3 for cmake macros, MIT for win32 support code
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/network/%{name}
@@ -73,6 +73,9 @@ Requires:       cmake(Qt6Network)
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

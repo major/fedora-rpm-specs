@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           minuet
 Version:        25.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
 #and BSD license for cmake/FindFluidSynth.cmake
@@ -104,6 +104,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.desk
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

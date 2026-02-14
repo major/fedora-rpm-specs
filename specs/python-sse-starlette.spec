@@ -41,7 +41,8 @@ Summary:        %{summary}
 %prep
 %autosetup -n sse-starlette-%{version} -p1
 
-# Relax daphne dependency
+# Relax daphne upper bound constraint - daphne 4.2.x works fine in upstream but
+# we need lower constraint to allow it to build for F43
 tomcli set pyproject.toml arrays replace project.optional-dependencies.daphne "daphne>=([0-9]+\.[0-9]+\.[0-9]+)" "daphne>=4.1,<4.3"
 
 %pyproject_extras_subpkg -n python3-sse-starlette %{extras}

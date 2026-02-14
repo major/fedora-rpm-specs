@@ -1,6 +1,6 @@
 Name:    akonadi-search
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 # Rust crate licensing:
@@ -111,6 +111,9 @@ cd ../../..
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

@@ -5,14 +5,15 @@
 %global crate entropy
 
 Name:           rust-entropy
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Calculates the Shannon entropy of arrays of bytes and strings
 
 License:        MIT
 URL:            https://crates.io/crates/entropy
 Source:         %{crates_source}
-# Unneeded developer dependency
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
 Patch:          entropy-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

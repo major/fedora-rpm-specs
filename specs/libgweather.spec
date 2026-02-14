@@ -56,8 +56,6 @@ Provides:       libgweather4-devel-doc%{_isa} = %{version}-%{release}
 The %{name}-doc package contains documentation for developing
 applications that use %{name}.
 
-%global debug_package %{nil}
-
 %prep
 %autosetup -p1 -n libgweather-%{tarball_version}
 

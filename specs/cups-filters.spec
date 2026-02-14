@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -167,7 +167,7 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/posttrans.sh << EOF
 #!/usr/bin/bash
 
-if \$(grep -q -R 'FoomaticRIPCommandLine\|FoomaticRipOptionSetting' %{_sysconfdir}/cups/ppd)
+if grep -q -R 'FoomaticRIPCommandLine\|FoomaticRipOptionSetting' %{_sysconfdir}/cups/ppd
 then
   tmpfile=\$(mktemp -p /var/tmp foomatic-scan.XXXXXXXX)
 
@@ -365,6 +365,9 @@ fi
 
 
 %changelog
+* Thu Feb 12 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-15
+- remove unneeded command substitution in postrans script
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

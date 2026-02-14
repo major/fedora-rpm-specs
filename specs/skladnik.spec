@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           skladnik
 Version:        25.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Warehouse keeper game
 # GPL: code
 # GFDL: docs
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

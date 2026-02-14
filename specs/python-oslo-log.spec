@@ -27,7 +27,7 @@ Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
 Version:        6.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OpenStack Oslo Log library
 
 License:        Apache-2.0
@@ -68,7 +68,6 @@ Documentation for the Oslo Log handling library.
 Summary:    Tests for the Oslo Log handling library
 
 Requires:       python3-%{pkg_name} = %{version}-%{release}
-Requires:       python3-mock
 Requires:       python3-oslotest
 Requires:       python3-oslo-config >= 2:5.2.0
 Requires:       python3-subunit
@@ -176,6 +175,10 @@ rm -f oslo_log/tests/unit/test_rate_limit.py
 %license LICENSE
 
 %changelog
+* Thu Feb 12 2026 Michel Lind <salimma@fedoraproject.org> - 6.1.2-10
+- Remove unused and deprecated python3-mock dependency
+- Drop unused patches
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

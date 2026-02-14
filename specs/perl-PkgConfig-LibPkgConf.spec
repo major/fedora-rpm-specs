@@ -7,7 +7,7 @@
 
 Name:           perl-PkgConfig-LibPkgConf
 Version:        0.11
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Interface to pkg-config files via libpkgconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PkgConfig-LibPkgConf
@@ -19,6 +19,8 @@ Patch0:         PkgConfig-LibPkgConf-0.11-adapt_to_pkgconf_1.9.4.patch
 # file name, proposed to an upstream, bug #2172714,
 # <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>
 Patch1:         PkgConfig-LibPkgConf-0.11-Fix-resolving-flags-for-packages-with-a-name-differe.patch
+# Adapt to pkgconf-2.5.0, applies on top of 1.9.4 patch
+Patch2:         PkgConfig-LibPkgConf-0.11-adapt_to_pkgconf_2.5.0.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -140,6 +142,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Feb 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.11-27
+- Rebuilt for pkgconf-2.5.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

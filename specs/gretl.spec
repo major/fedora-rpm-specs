@@ -45,6 +45,9 @@ BuildRequires:	readline-devel
 BuildRequires:	xdg-utils
 BuildRequires:	tex(latex)
 BuildRequires:	texlive-multirow
+BuildRequires:	texlive-rsfs
+BuildRequires:	texlive-palatino
+BuildRequires:	texlive-mathpazo
 
 Requires: gnuplot
 Requires: gtksourceview3

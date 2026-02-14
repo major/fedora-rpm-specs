@@ -1,9 +1,5 @@
-# This package corresponds to three PyPI projects (typer-slim, typer,
-# typer-cli) all co-developed in one repository. Since the three are versioned
-# identically and released at the same time, it makes sense to build them from
-# a single source package.
 Name:           python-typer
-Version:        0.21.2
+Version:        0.23.0
 Release:        %autorelease
 Summary:        Build great CLIs; easy to code; based on Python type hints
 
@@ -23,9 +19,10 @@ Source11:       typer-utils.1
 #   PYTHONPATH="${PWD}" typer x utils docs --help.
 Source12:       typer-utils-docs.1
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(install):   -l typer
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 # Since the “tests” dependency group contains overly-strict version bounds and
 # many unwanted linting/coverage/typechecking/formatting dependencies
@@ -43,42 +40,16 @@ developers will love creating. Based on Python type hints.}
 %description %{common_description}
 
 
-%package -n     python3-typer-slim
-Summary:        %{summary}
-
-%if %[ %{defined fc42} || %{defined fc43} ]
-# The python3-typer-slim package was introduced in F41; it corresponds roughly
-# to the python3-typer (vs. python3-typer+all) in F40.
-Obsoletes:      python3-typer < 0.12.1-1
-Conflicts:      python3-typer < 0.12.1-1
-%endif
-
-%description -n python3-typer-slim %{common_description}
-
-
 %package -n     python3-typer
 Summary:        %{summary}
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
-Requires:       python3-typer-cli = %{version}-%{release}
-Requires:       python3-typer-slim = %{version}-%{release}
-
-%if %[ %{defined fc42} || %{defined fc43} ]
-# The python3-typer+all metapackage package was removed in F41; since
-# python3-typer-slim was introduced, python3-typer is the closest replacement.
-Obsoletes:      python3-typer+all < 0.12.1-1
-Conflicts:      python3-typer+all < 0.12.1-1
+%if %{defined fc44} || %{defined fc45} || %{defined fc46}
+Obsoletes:      python3-typer-slim < 0.23.0-1
+Obsoletes:      python3-typer-slim+standard < 0.23.0-1
+Obsoletes:      python3-typer-cli < 0.23.0-1
 %endif
 
-%description -n python3-typer %{common_description}
-
-
-%package -n     python3-typer-cli
-Summary:        %{summary}
-
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
-Requires:       python3-typer-slim = %{version}-%{release}
-
+%if %{defined fc44} || %{defined fc45}
 # A file conflict existed between erlang-dialyzer and python3-typer-cli. It was
 # resolved by renaming erlang-dialyzer’s typer executable to erlang-typer:
 # https://src.fedoraproject.org/rpms/erlang/pull-request/6
@@ -91,49 +62,12 @@ Requires:       python3-typer-slim = %{version}-%{release}
 # File conflicts: /usr/bin/typer between erlang-dialyzer and python3-typer-cli
 # https://bugzilla.redhat.com/show_bug.cgi?id=2359567
 Conflicts:      erlang-dialyzer < 26.2.5.13-2
+%endif
 
-%description -n python3-typer-cli %{common_description}
-
-This package only provides a command typer in the shell with the same
-functionality of python -m typer.
-
-The only reason why this is a separate package is to allow developers to opt
-out of the typer command by installing typer-slim, that doesn’t include
-typer-cli.
+%description -n python3-typer %{common_description}
 
 
-%pyproject_extras_subpkg -n python3-typer-slim -i %{python3_sitelib}/typer_slim-%{version}.dist-info standard
-
-
-%prep
-%autosetup -n typer-%{version} -p1
-
-
-%generate_buildrequires
-export TIANGOLO_BUILD_PACKAGE='typer-slim'
-%pyproject_buildrequires -x standard
-(
-  export TIANGOLO_BUILD_PACKAGE='typer'
-  %pyproject_buildrequires
-) | grep -vE '\btyper\b'
-(
-  export TIANGOLO_BUILD_PACKAGE='typer-cli'
-  %pyproject_buildrequires
-) | grep -vE '\btyper\b'
-
-
-%build
-export TIANGOLO_BUILD_PACKAGE='typer-slim'
-%pyproject_wheel
-export TIANGOLO_BUILD_PACKAGE='typer'
-%pyproject_wheel
-export TIANGOLO_BUILD_PACKAGE='typer-cli'
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-
+%install -a
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
 
@@ -151,7 +85,7 @@ export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
     > '%{buildroot}%{fish_completions_dir}/typer.fish'
 
 
-%check
+%check -a
 # See scripts/test.sh. We do not run the linters (scripts/lint.sh, i.e.,
 # mypy/black/isort).
 export TERMINAL_WIDTH=3000
@@ -178,21 +112,9 @@ export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 %pytest -k "${k-}" ${ignore-} -n auto -v -rs
 
 
-%files -n python3-typer-slim
-%license LICENSE
+%files -n python3-typer -f %{pyproject_files}
 %doc README.md
 %doc docs/release-notes.md
-
-%{python3_sitelib}/typer/
-%{python3_sitelib}/typer_slim-%{version}.dist-info/
-
-
-%files -n python3-typer
-%{python3_sitelib}/typer-%{version}.dist-info/
-
-
-%files -n python3-typer-cli
-%{python3_sitelib}/typer_cli-%{version}.dist-info/
 
 %{_bindir}/typer
 %{_mandir}/man1/typer*.1*

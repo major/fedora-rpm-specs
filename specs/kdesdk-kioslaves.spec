@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
 License: GPL-2.0-only AND GPL-2.0-or-later
@@ -64,6 +64,9 @@ KDE SDK kioslaves:
 
 
 %changelog	
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

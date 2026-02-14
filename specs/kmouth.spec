@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kmouth
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A program that speaks for you 
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmouth.de
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

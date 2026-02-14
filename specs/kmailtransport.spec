@@ -1,6 +1,6 @@
 Name:    kmailtransport
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMailTransport Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -83,6 +83,9 @@ find ./po -type f -name libmailtransport5.po -execdir mv {} libmailtransport6.po
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

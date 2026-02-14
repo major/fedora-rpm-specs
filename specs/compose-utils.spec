@@ -5,8 +5,8 @@
 %endif
 
 Name:       compose-utils
-Version:    0.1.50
-Release:    15%{?dist}
+Version:    0.1.51
+Release:    1%{?dist}
 Summary:    Utilities for working with composes
 
 License:    GPL-2.0-only
@@ -18,7 +18,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-productmd >= 1.33
 BuildRequires:  python%{python3_pkgversion}-freezegun
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-kobo
 BuildRequires:  python%{python3_pkgversion}-kobo-rpmlib >= 0.10.0
 BuildRequires:  python%{python3_pkgversion}-pytest
@@ -44,7 +43,7 @@ Python 3 libraries supporting tools for working with composes
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n compose_utils-%{version}
 
 
 %generate_buildrequires
@@ -80,6 +79,9 @@ Python 3 libraries supporting tools for working with composes
 
 
 %changelog
+* Thu Feb 12 2026 Lubomír Sedlář <lsedlar@redhat.com> - 0.1.51-1
+- Upstream dropped build dep on python3-mock
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.50-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

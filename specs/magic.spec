@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.599
+Version:	8.3.603
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Thu Feb 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.603-1
+- 8.3.603
+
 * Tue Feb 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.599-1
 - 8.3.599
 

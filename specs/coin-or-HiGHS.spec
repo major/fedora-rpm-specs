@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  1bce6d5c8
+%global commit  1d267d97c
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.13.0
+Version:        1.13.1
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -21,7 +21,7 @@ Patch:          %{name}-rpath.patch
 Patch:          %{name}-popcount.patch
 # Fix out-of-bounds vector accesses
 Patch:          %{name}-vector.patch
-# Unbundle amd, cli11, metis, pdqsort, rcm, and zstr
+# Unbundle amd, cli11, metis, pdqsort, and zstr
 Patch:          %{name}-unbundle.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -136,7 +136,7 @@ help2man -N --version-string=%{version} -o %{buildroot}%{_mandir}/man1/highs.1 \
 
 # Remove files and directories that are installed in the wrong place
 rm -fr %{buildroot}%{python3_sitearch}/{bin,include,lib64,*.md,*.txt}
-rm %{buildroot}%{_prefix}/*.{md,txt}
+rm -fr %{buildroot}%{_docdir}
 
 # Instead of linking with and installing a private copy of the library,
 # fix up the installed python tree to use the installed library

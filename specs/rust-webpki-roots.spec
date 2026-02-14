@@ -6,7 +6,7 @@
 %global crate webpki-roots
 
 Name:           rust-webpki-roots
-Version:        1.0.4
+Version:        1.0.6
 Release:        %autorelease
 Summary:        Mozilla's CA root certificates for use with webpki
 

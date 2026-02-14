@@ -1,7 +1,7 @@
 Name:    libksane
 Summary: SANE Library interface for KDE
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/graphics/%{name}
@@ -75,6 +75,9 @@ Obsoletes: %{name}-qt6-devel < 24.12.0
 %{_libdir}/cmake/KSaneWidgets6/
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

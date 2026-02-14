@@ -115,13 +115,19 @@ BuildRequires:  pkgconfig(openssl) >= 3.0.2
 %nodejs_declare_bundled -a  zlib        -p
 # Run-time dependencies of the main package
 Requires:   ca-certificates
+# We want any nodejs installed to gurantee the node command is present.
+# When multiple nodejs verisons are installed, we don't influence which command this is,
+# but the Recommedns bellow should make it so the "native" one is installed
+# by default when only one nodejs version is installed.
+# We deliberately use %%{_bindir} here as the file comes from this very build.
+Requires:   %{_bindir}/node
+
 # Required and/or recommended sub-packages
 Requires:   %{name}-libs%{?_isa}      = %{node_evr}
 Recommends: %{name}-bin               = %{node_evr}
 Recommends: %{name}-docs              = %{node_evr}
 Recommends: %{name}-full-i18n%{?_isa} = %{node_evr}
 Recommends: %{name}-npm              >= %{npm_evr}
-Recommends: %{name}-npm-bin          >= %{npm_evr}
 # Virtual provides
 Provides:   nodejs(abi) = %{node_soversion}, nodejs(abi%{node_version_major}) = %{node_soversion}
 Provides:   nodejs(engine) = %{node_version}
@@ -238,6 +244,10 @@ Requires:       nodejs%{node_version_major}         = %{node_evr}
 Recommends:     nodejs%{node_version_major}-docs    = %{node_evr}
 Provides:       npm = %{npm_evr}
 Provides:       npm(npm) = %{npm_version}
+
+# Similarily to the node command, we want a guranteed npm command here.
+Requires:       %{_bindir}/npm
+Recommends:     %{name}-npm-bin >= %{npm_evr}
 
 %description    npm
 npm is a package manager for node.js. You can use it to install and publish

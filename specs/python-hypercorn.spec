@@ -17,6 +17,9 @@ Source:         %{url}/archive/%{version}/hypercorn-%{version}.tar.gz
 # Downstream-only: Patch out coverage analysis.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
+# chore: remove unused mock dev dependency
+# https://github.com/pgjones/hypercorn/pull/343
+Patch:          %{url}/pull/343.patch
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): %{shrink:

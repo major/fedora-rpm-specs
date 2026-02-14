@@ -7,6 +7,13 @@ License:        Apache-2.0
 URL:            https://github.com/huggingface/huggingface_hub
 Source:         %{pypi_source huggingface_hub}
 
+# Change external dependency from typer-slim to typer
+# https://github.com/huggingface/huggingface_hub/pull/3797
+Patch:          %{url}/pull/3797.patch
+# [Internal] remove shellingham from the required dependencies
+# https://github.com/huggingface/huggingface_hub/pull/3798
+Patch:          %{url}/pull/3798.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

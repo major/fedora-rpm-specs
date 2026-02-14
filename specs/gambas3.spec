@@ -30,7 +30,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.21.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -118,6 +118,7 @@ Provides:	%{name}-gb-gui = %{version}-%{release}
 Obsoletes:	%{name}-gb-gui <= 3.4
 Provides:	%{name}-gb-test = %{version}-%{release}
 Obsoletes:	%{name}-gb-test <= 3.15.2
+Requires:	%{name}-gb-hash = %{version}-%{release}
 %if 0%{?qt4webkit}
 # do nothing extra
 %else
@@ -2048,6 +2049,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Feb 12 2026 Tom Callaway <spot@fedoraproject.org> - 3.21.3-2
+- add gambas3-gb-hash as Requires for gambas3-runtime
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 3.21.3-1
 - update to 3.21.3
 

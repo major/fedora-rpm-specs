@@ -112,6 +112,20 @@ sed -i '/py-deviceid/d' src/azure-cli-core/setup.py
 sed -i 's/azure-mgmt-hdinsight==9.0.0b3/azure-mgmt-hdinsight>=9,<10/' src/azure-cli/setup.py
 sed -i 's/azure-mgmt-hdinsight==9.0.0b3/azure-mgmt-hdinsight>=9,<10/' src/azure-cli/requirements.py3.Linux.txt
 
+# They insist on pinning betas to try my patience
+sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28.0b1,<13/' src/azure-cli/setup.py
+sed -i 's/azure-storage-blob==12.28.0b1/azure-storage-blob>=12.28.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
+
+sed -i 's/azure-storage-file-datalake==12.23.0b1/azure-storage-file-datalake>=12.23.0b1,<13/' src/azure-cli/setup.py
+sed -i 's/azure-storage-file-datalake==12.23.0b1/azure-storage-file-datalake>=12.23.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
+
+sed -i 's/azure-storage-file-share==12.24.0b1/azure-storage-file-share>=12.24.0b1,<13/' src/azure-cli/setup.py
+sed -i 's/azure-storage-file-share==12.24.0b1/azure-storage-file-share>=12.24.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
+
+sed -i 's/azure-storage-queue==12.15.0b1/azure-storage-queue>=12.15.0b1,<13/' src/azure-cli/setup.py
+sed -i 's/azure-storage-queue==12.15.0b1/azure-storage-queue>=12.15.0b1,<13/' src/azure-cli/requirements.py3.Linux.txt
+
+
 sed -i 's/azure-monitor-query==1.2.0/azure-monitor-query>=1.2,<2/' src/azure-cli/setup.py
 sed -i 's/azure-monitor-query==1.2.0/azure-monitor-query>=1.2,<2/' src/azure-cli/requirements.py3.Linux.txt
 

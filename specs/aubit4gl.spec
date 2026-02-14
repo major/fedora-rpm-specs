@@ -12,7 +12,7 @@
 
 Name:           aubit4gl
 Version:        %{latestversion}%{postrelease} 
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        IBM Informix 4GL compatible compiler
 
 # The entire source code is GPL-2.0-or-later except
@@ -47,6 +47,8 @@ BuildRequires: bison flex procps-ng
 # https://fedoraproject.org/wiki/Changes/SunRPCRemoval
 BuildRequires: rpcgen libtirpc-devel
 Requires: gcc
+Requires: ncurses
+Requires: libpq
 # These are not primary architectures, so not required to build on them.
 # https://fedoraproject.org/wiki/Architectures#Structure 
 ExcludeArch: i686 s390x ppc64le
@@ -186,6 +188,9 @@ make -C tools/test
 
 
 %changelog
+* Thu Feb 12 2026 Chad Lemmen <rpm@stansoft.org> - 1.6.3.p1-4
+- added requires for ncurses and libpq
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.p1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

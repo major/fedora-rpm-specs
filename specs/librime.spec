@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -13,8 +13,6 @@ Source1:        https://github.com/hchunhui/librime-lua/archive/refs/heads/maste
 Source2:        https://github.com/lotem/librime-octagram/archive/refs/heads/master.tar.gz#/librime-octagram.tar.gz
 # For the librime predict plugin
 Source3:        https://github.com/lotem/librime-predict/archive/refs/heads/master.tar.gz#/librime-predict.tar.gz
-
-Patch0:         librime-fixes-setup-log.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake, opencc-devel
@@ -134,6 +132,10 @@ popd
 
 
 %changelog
+* Thu Feb 12 2026 Peng Wu <pwu@redhat.com> - 1.16.1-2
+- Rebuilt for glog
+- Resolves: RHBZ#2438411
+
 * Wed Jan 21 2026 Peng Wu <pwu@redhat.com> - 1.16.1-1
 - Update to 1.16.1
 - Resolves: RHBZ#2431024

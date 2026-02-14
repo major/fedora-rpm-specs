@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           jaxb
-Version:        4.0.5
+Version:        4.0.6
 Release:        %autorelease
 Summary:        JAXB Reference Implementation
 License:        BSD-3-Clause

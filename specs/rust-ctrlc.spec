@@ -5,7 +5,7 @@
 %global crate ctrlc
 
 Name:           rust-ctrlc
-Version:        3.5.1
+Version:        3.5.2
 Release:        %autorelease
 Summary:        Easy Ctrl-C handler for Rust projects
 

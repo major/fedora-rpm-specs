@@ -2,8 +2,8 @@
 
 # Upstream moved to github
 %global forgeurl https://github.com/apalrd/tayga
-%global	date 20250731
-%global commit fb5c58f16adc79d1bda31b103b15fd8d55e7083f
+%global	date 20260212
+%global commit 7f00122b75d808f696df0efe481a8c8919ba9bd7
 %forgemeta
 
 # tayga no longer builds cleanly on 32bit
@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:		tayga
 Version:	0.9.6
-Release:	0.3%{?dist}
+Release:	1%{?dist}
 Summary:	Simple, no-fuss NAT64
 
 License:	GPL-2.0-or-later
@@ -56,8 +56,11 @@ sed -i '
 rm -rf %{buildroot}
 %make_install prefix=%{_prefix} sbindir=%{_sbindir}
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
+install -p -D -m 0644 tayga.conf.example %{buildroot}%{_sysconfdir}/%{name}/default.conf
 install -p -D -m 0644 %SOURCE1 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
+# Install a generic unit
+install -p -D -m 0644 scripts/tayga@.service %{buildroot}/%{_unitdir}/%{name}@.service
 # Install a default unit
 sed -i 's,%i,default,g' scripts/tayga@.service
 install -p -D -m 0644 scripts/tayga@.service %{buildroot}/%{_unitdir}/%{name}.service
@@ -85,6 +88,9 @@ install -p -D -m 0644 scripts/tayga@.service %{buildroot}/%{_unitdir}/%{name}.se
 
 
 %changelog
+* Thu Feb 12 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.9.6-1
+- Upstream 0.9.6 release
+
 * Tue Feb 10 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.9.6-0.3
 - Added workaround for fedora > 43 while waiting for upstream
 

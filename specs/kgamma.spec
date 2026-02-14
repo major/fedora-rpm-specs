@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    kgamma
 Summary: A monitor calibration tool
 Epoch:   1
-Version: 6.5.91
+Version: 6.6.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
@@ -66,6 +66,9 @@ Conflicts: kdegraphics < 7:4.6.95-10
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.0-1
+- 6.6.0
+
 * Tue Jan 27 2026 Steve Cossette <farchord@gmail.com> - 1:6.5.91-1
 - 6.5.91
 

@@ -43,14 +43,16 @@ cd code
 %cmake
 %cmake_build
 
-# For some reason, viprincomp is linked with libsoplex, even though
-# -Wl,-as-needed is in the link flags.  Relink to drop that dependency.
+%if "%{?_lto_cflags}" != ""
+# LTO inlines a few functions, leaving viprincomp with unneeded dependencies.
+# Relink to drop the unneeded dependencies.
 cd %{_vpath_builddir}
 g++ %{build_cxxflags} %{build_ldflags} \
     -Wl,--dependency-file=CMakeFiles/viprincomp.dir/link.d \
     CMakeFiles/viprincomp.dir/incompletify.cpp.o \
     -o viprincomp -lmpfr -lgmp
 cd ../..
+%endif
 
 %install
 #%%cmake_install does nothing, so install by hand

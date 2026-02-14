@@ -6,7 +6,7 @@
 %global crate goblin
 
 Name:           rust-goblin
-Version:        0.10.4
+Version:        0.10.5
 Release:        %autorelease
 Summary:        Impish, cross-platform, ELF, Mach-o, and PE binary parsing and loading crate
 

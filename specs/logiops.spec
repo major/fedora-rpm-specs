@@ -2,15 +2,14 @@
 
 Name:    logiops
 Version: 0.3.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
 %forgemeta
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License: GPL-3.0-only
+License: GPL-3.0-or-later
 URL:     %{forgeurl}
 
-Source:  %{forgesource}
+Source0:  %{forgesource}
 
 # Change from static to dynamic lib
 Patch0:  logiops-use-ipcgull-shared-lib.patch
@@ -37,8 +36,10 @@ This is currently only compatible with HID++ >2.0 devices.
 %patch -p1 0
 rmdir src/ipcgull
 
+%conf
+%cmake
+
 %build
-%{cmake}
 %{cmake_build}
 
 %install
@@ -63,6 +64,9 @@ rmdir src/ipcgull
 %doc logid.example.cfg
 
 %changelog
+* Thu Feb 12 2026 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.5-6
+- Use %cmake in %conf SPEC file and fix license type
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

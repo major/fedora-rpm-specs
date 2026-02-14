@@ -58,11 +58,11 @@ presentations via LibreOffice using a computer and projector.
 %pyproject_buildrequires
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-rm -rf %{buildroot}
-%{__python3} setup.py install --skip-build -O1 --root %{buildroot}
+%pyproject_install
+%pyproject_save_files -l openlp
 
 install -m644 -p -D resources/images/openlp-logo-16x16.png \
    %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/openlp.png
@@ -79,22 +79,18 @@ desktop-file-install \
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openlp.desktop
 
-#mv %{buildroot}%{_bindir}/openlp.py %{buildroot}%{_bindir}/openlp
-
 mkdir -p %{buildroot}%{_datadir}/openlp/i18n/
 mv resources/i18n/*.qm %{buildroot}%{_datadir}/openlp/i18n
 mkdir -p %{buildroot}%{_datadir}/mime/packages
 cp -p resources/openlp.xml %{buildroot}%{_datadir}/mime/packages
 
-%files
+%files -f %{pyproject_files}
 %doc copyright.txt LICENSE
 %{_bindir}/openlp
 %{_datadir}/mime/packages/openlp.xml
 %{_datadir}/applications/openlp.desktop
 %{_datadir}/icons/hicolor/*/apps/openlp.*
 %{_datadir}/openlp
-%{python3_sitelib}/openlp/
-%{python3_sitelib}/openlp-%{modname}.dist-info
 
 
 %changelog

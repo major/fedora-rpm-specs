@@ -1,6 +1,6 @@
 Name:           pimd
 Version:        2.3.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        The original PIM-SM multicast routing daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -10,15 +10,17 @@ URL:            http://troglobit.com/pimd.html
 Source0:        ftp://ftp.troglobit.com/pimd/%{name}-%{version}.tar.gz
 Source1:        %{name}.service
 
+Patch0000:      0000-bin-path.patch
+
 # https://fedorahosted.org/fpc/ticket/174
 Provides:       bundled(libite) = 1.4.2
 
 BuildRequires: make
+BuildRequires: git-core
 BuildRequires:      systemd gcc
 Requires(post):     systemd
 Requires(preun):    systemd
 Requires(postun):   systemd
-
 
 %description
 pimd is a lightweight, stand-alone PIM-SM/SSM multicast routing daemon
@@ -26,42 +28,32 @@ available under the free 3-clause BSD license. This is the restored
 original version from University of Southern California, by Ahmed Helmy,
 Rusty Eddy and Pavlin Ivanov Radoslavov.
 
-
 %prep
-%setup -q
-
+%autosetup -S git
 
 %build
 %configure
-export CFLAGS="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=${RPM_BUILD_ROOT}
-rm $RPM_BUILD_ROOT/usr/share/doc/pimd/LICENSE
-rm $RPM_BUILD_ROOT/usr/share/doc/pimd/LICENSE.mrouted
+%make_install
+rm %{buildroot}/usr/share/doc/pimd/LICENSE
+rm %{buildroot}/usr/share/doc/pimd/LICENSE.mrouted
 
 # Systemd unit files
 install -p -m 644 -D %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
-
-
 %post
 %systemd_post %{name}.service
-
 
 %preun
 %systemd_preun %{name}.service
 
-
 %postun
 %systemd_postun_with_restart %{name}.service
 
-
 %files
-%{_sbindir}/pimd
+%{_bindir}/pimd
 %{_mandir}/man8/*
 %license LICENSE LICENSE.mrouted
 %doc README.md README-config.md README.config.jp README-debug.md ChangeLog.org
@@ -70,8 +62,10 @@ install -p -m 644 -D %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 
-
 %changelog
+* Thu Feb 12 2026 Michal Ruprich <mruprich@redhat.com> - 2.3.2-29
+- Fixing FTBFS, minor specfile edits
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

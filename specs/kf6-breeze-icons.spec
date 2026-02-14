@@ -8,8 +8,8 @@
 
 Name:    kf6-%{framework}
 Summary: Breeze icon theme library
-Version: 6.22.0
-Release: 2%{?dist}
+Version: 6.23.0
+Release: 1%{?dist}
 
 # skladnik.svg is CC-BY-SA-4.0
 # folder-edit-sign-encrypt.svg is LGPL-2.1-or-later
@@ -192,6 +192,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 %endif
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
+- 6.23.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

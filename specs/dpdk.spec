@@ -9,7 +9,7 @@
 %global _vpath_builddir %{_vendor}-%{_target_os}-build
 
 Name: dpdk
-Version: 24.11.2
+Version: 24.11.4
 Release: %autorelease
 Epoch: 2
 URL: http://dpdk.org

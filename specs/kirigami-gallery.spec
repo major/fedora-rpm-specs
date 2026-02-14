@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kirigami-gallery
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Gallery application built using Kirigami
 License: LGPL-2.1-or-later
 URL:     https://apps.kde.org/en/kirigami2.gallery
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kirigami2.gal
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

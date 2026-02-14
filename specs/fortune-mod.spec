@@ -10,8 +10,8 @@
 %undefine __cmake_in_source_build
 
 Name:		fortune-mod
-Version:	3.26.0
-Release:	1%{?dist}
+Version:	3.26.1
+Release:	2%{?dist}
 Summary:	A program which will display a fortune
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -26,7 +26,6 @@ Source4:	http://www.splitbrain.org/Fortunes/hitchhiker/fortune-hitchhiker.tgz
 # originally at http://www.dibona.com/opensources/osfortune.tar.gz
 Source5:	osfortune.tar.gz
 Source6:	http://humorix.org/downloads/humorixfortunes-1.4.tar.gz
-Patch1:     fortune-mod-3.26.0--fix-build.patch
 
 BuildRequires:	perl(Cwd)
 BuildRequires:	perl(File::Find::Object)
@@ -67,7 +66,6 @@ wisdom each time they log in.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch -P 1 -p 1
 
 %build
 %cmake -DCOOKIEDIR=%{CookieDir} -DLOCALDIR=%{CookieDir} -DNO_OFFENSIVE=TRUE
@@ -138,6 +136,12 @@ chrpath -d %{buildroot}%{_bindir}/fortune
 %{_mandir}/man*/*
 
 %changelog
+* Thu Feb 12 2026 Shlomi Fish <shlomif@shlomifish.org> 3.26.1-2
+- Remove the patch application.
+
+* Thu Feb 12 2026 Shlomi Fish <shlomif@shlomifish.org> 3.26.1-1
+- New upstream version
+
 * Mon Jan 19 2026 Shlomi Fish <shlomif@shlomifish.org> 3.26.0-1
 - New upstream version
 

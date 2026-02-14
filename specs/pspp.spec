@@ -10,7 +10,9 @@ Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
 Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # Follow up to CVE-2022-39831
-Patch1:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
+Patch:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
+# CVE-2025-47229
+Patch:		pspp-0002-Fix-a-crash-in-RENAME-VARIABLES-when-changing-dict-c.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel

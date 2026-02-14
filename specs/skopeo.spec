@@ -9,26 +9,27 @@
 
 %global gomodulesmode GO111MODULE=on
 
-# No btrfs on RHEL
+# Distro and environment conditionals
 %if %{defined fedora}
+# Fedora conditionals
 %define build_with_btrfs 1
+%define conditional_epoch 1
+%if %{?fedora} >= 43
+%define sequoia 1
 %endif
-
-%if %{defined rhel}
+%else
+# RHEL conditionals
+%define conditional_epoch 2
 %define fips 1
 %endif
 
-# Only used in official koji builds
-# Copr builds set a separate epoch for all environments
-%if %{defined fedora}
-%define conditional_epoch 1
-%define fakeroot 1
-%else
-%define conditional_epoch 2
+# set higher Epoch only for podman-next builds
+%if %{defined copr_username} && "%{copr_username}" == "rhcontainerbot" && "%{copr_projectname}" == "podman-next"
+%define next_build 1
 %endif
 
 Name: skopeo
-%if %{defined copr_username}
+%if %{defined next_build}
 Epoch: 102
 %else
 Epoch: %{conditional_epoch}
@@ -39,7 +40,7 @@ Epoch: %{conditional_epoch}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.21.0
+Version: 1.22.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -68,20 +69,20 @@ BuildRequires: make
 BuildRequires: shadow-utils-subid-devel
 BuildRequires: sqlite-devel
 Requires: containers-common >= 4:1-21
+%if %{defined sequoia}
+Requires: podman-sequoia
+%endif
 
 %description
 Command line utility to inspect images and repositories directly on Docker
-registries without the need to pull them
+registries without the need to pull them.
 
 # NOTE: The tests subpackage is only intended for testing and will not be supported
 # for end-users and/or customers.
 %package tests
-Summary: Tests for %{name}
+Summary: Test dependencies for %{name}
 
 Requires: %{name} = %{epoch}:%{version}-%{release}
-%if %{defined fakeroot}
-Requires: fakeroot
-%endif
 Requires: gnupg
 Requires: jq
 Requires: golang
@@ -90,13 +91,12 @@ Requires: crun
 Requires: httpd-tools
 Requires: openssl
 Requires: squashfs-tools
-# bats is not present on RHEL and ELN so it shouldn't be a strong dep
+# bats and fakeroot are not present on RHEL and ELN so they shouldn't be strong deps
 Recommends: bats
+Recommends: fakeroot
 
 %description tests
-%{summary}
-
-This package contains system tests for %{name}
+This package installs system test dependencies for %{name}
 
 %prep
 %autosetup -Sgit %{name}-%{version}
@@ -130,6 +130,10 @@ export BUILDTAGS="$BASEBUILDTAGS exclude_graphdriver_btrfs"
 export BUILDTAGS="$BUILDTAGS libtrust_openssl"
 %endif
 
+%if %{defined sequoia}
+export BUILDTAGS="$BUILDTAGS containers_image_sequoia"
+%endif
+
 # unset LDFLAGS earlier set from set_build_flags
 LDFLAGS=''
 
@@ -141,10 +145,6 @@ make \
     DESTDIR=%{buildroot} \
     PREFIX=%{_prefix} \
     install-binary install-docs install-completions
-
-# system tests
-install -d -p %{buildroot}/%{_datadir}/%{name}/test/system
-cp -pav systemtest/* %{buildroot}/%{_datadir}/%{name}/test/system/
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
@@ -166,9 +166,8 @@ cp -pav systemtest/* %{buildroot}/%{_datadir}/%{name}/test/system/
 %dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_%{name}
 
+# Only test dependencies installed, no files.
 %files tests
-%license LICENSE vendor/modules.txt
-%{_datadir}/%{name}/test
 
 %changelog
 %autochangelog

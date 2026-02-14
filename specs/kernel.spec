@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.20.0
 %define specversion 6.20.0
 %define patchversion 6.20
-%define pkgrelease 0.rc0.260210g72c395024dac.1
+%define pkgrelease 0.rc0.260212g37a93dd5c49b5.4
 %define kversion 6
-%define tarfile_release 6.19-1452-g72c395024dac
+%define tarfile_release 6.19-8320-g37a93dd5c49b5
 # This is needed to do merge window version magic
 %define patchlevel 20
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260210g72c395024dac.1%{?buildid}%{?dist}
+%define specrelease 0.rc0.260212g37a93dd5c49b5.4%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.20.0
 
@@ -4700,6 +4700,22 @@ fi\
 #
 #
 %changelog
+* Thu Feb 12 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260212g37a93dd5c49b5.4]
+- Linux v6.20.0-0.rc0.260212g37a93dd5c49b5
+
+* Thu Feb 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.37a93dd5c49b.4]
+- Fix mismatch for CONFIG_POWER_SEQUENCING (Justin M. Forbes)
+- Linux v6.20.0-0.rc0.37a93dd5c49b
+
+* Thu Feb 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.c22e26bd0906.3]
+- Fix up a couple of mismatches with PREEMPT_LAZY and x86 SND_SOC_TAS2781_I2C for RHEL (Justin M. Forbes)
+- Turn on CONFIG_PREEMPT in pending to avoid mismatch (Justin M. Forbes)
+- Linux v6.20.0-0.rc0.c22e26bd0906
+
+* Wed Feb 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.72c395024dac.2]
+- Turn off CONFIG_SMB_KUNIT_TESTS in pending (Justin M. Forbes)
+- Trim the changelog for 7.0 (Justin M. Forbes)
+
 * Tue Feb 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.72c395024dac.1]
 - Reset RHEL_RELEASE for the 7.0 series (Justin M. Forbes)
 - redhat/configs: rename CONFIG_QCOM_QFPROM to CONFIG_NVMEM_QCOM_QFPROM (Eric Chanudet)
@@ -7874,3 +7890,10 @@ fi\
 - [initial commit] Add configs (Laura Abbott)
 - [initial commit] Add Makefiles (Laura Abbott)
 - Linux v6.20.0-0.rc0.72c395024dac
+
+###
+# The following Emacs magic makes C-c C-e use UTC dates.
+# Local Variables:
+# rpm-change-log-uses-utc: t
+# End:
+###

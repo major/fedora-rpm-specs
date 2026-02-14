@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        172
+Version:        173
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -311,18 +311,80 @@ install -p -m 0644 tools/solver-dnf.json %{buildroot}%{pkgdir}/solver.json
 # Since we can't be granular enough, skip tests based on the OS only.
 # This means some tests won't be run even though they could,
 # but that's an acceptable tradeoff.
+ignore_files=()
+skip_tests=()
+
 # x86_64-specific tests:
-# test/mod/test_util_sbom_spdx.py, test/mod/test_util_sbom_dnf.py, test/mod/test_testutil_dnf4.py
+# test/mod/test_util_sbom_spdx.py
+# test/mod/test_util_sbom_dnf.py
+# test/mod/test_testutil_dnf4.py
 # test/mod/test_solver_implementations.py
-# test_ioctl_toggle_immutable and test_rmtree_immutable fail on s390x
-# test_cache_full_behavior fails on ppc64le
-# tools/test/test_depsolve.py fails on C9S and EPEL9
-ignore="--ignore test/mod/test_util_sbom_spdx.py --ignore test/mod/test_util_sbom_dnf.py --ignore test/mod/test_testutil_dnf4.py --ignore test/mod/test_solver_implementations.py"
-skip="not test_ioctl_toggle_immutable and not test_rmtree_immutable and not test_cache_full_behavior"
-%if 0%{?rhel}
-ignore="$ignore --ignore tools/test/test_depsolve.py"
+%ifnarch x86_64
+ignore_files+=(
+    test/mod/test_util_sbom_spdx.py
+    test/mod/test_util_sbom_dnf.py
+    test/mod/test_testutil_dnf4.py
+    test/mod/test_solver_implementations.py
+)
 %endif
-%pytest %{?fedora:-n auto} -v %{?rhel:-m "not tomlwrite"} ${ignore:-} -k "${skip:-}"
+
+# fails on s390x:
+# test_ioctl_toggle_immutable
+# test_rmtree_immutable
+%ifarch s390x
+skip_tests+=(
+    test_ioctl_toggle_immutable
+    test_rmtree_immutable
+)
+%endif
+
+# fails on ppc64le:
+# TestAPI.test_exception - https://github.com/osbuild/osbuild/issues/2337
+# TestUtilJsonComm.test_send_and_recv_tons_of_data_is_fine - https://github.com/osbuild/osbuild/issues/2336
+# TestUtilJsonComm.test_sendmsg_errors_with_size_on_EMSGSIZE - https://github.com/osbuild/osbuild/issues/2342
+%ifarch ppc64le
+skip_tests+=(
+    "(TestAPI and test_exception)"
+    "(TestUtilJsonComm and test_send_and_recv_tons_of_data_is_fine)"
+    "(TestUtilJsonComm and test_sendmsg_errors_with_size_on_EMSGSIZE)"
+)
+%endif
+
+# fails on ppc64le and aarch64:
+# test_cache_full_behavior
+%ifarch ppc64le || aarch64
+skip_tests+=(
+    test_cache_full_behavior
+)
+%endif
+
+# fails on C9S and EPEL9:
+# tools/test/test_depsolve.py
+# test_dnf4_pkg_to_package - https://github.com/osbuild/osbuild/issues/2339
+%if 0%{?rhel} && 0%{?rhel} < 10
+ignore_files+=(
+    tools/test/test_depsolve.py
+)
+skip_tests+=(
+    test_dnf4_pkg_to_package
+)
+%endif
+
+ignore_args=()
+for file in "${ignore_files[@]}"; do
+    ignore_args+=(--ignore "$file")
+done
+
+skip_test_expr=""
+for test in "${skip_tests[@]}"; do
+    if [ "$skip_test_expr" != "" ]; then
+        skip_test_expr+=" and not $test"
+    else
+        skip_test_expr+="not $test"
+    fi
+done
+
+%pytest %{?fedora:-n auto} -v %{?rhel:-m "not tomlwrite"} ${ignore_args[@]} -k "${skip_test_expr}"
 %endif
 
 %files
@@ -332,6 +394,7 @@ ignore="$ignore --ignore tools/test/test_depsolve.py"
 %{_mandir}/man5/%{name}-manifest.5*
 %{_datadir}/osbuild/schemas
 %{pkgdir}
+%exclude %{pkgdir}/initrd
 %{_udevrulesdir}/*.rules
 # the following files are in the lvm2 sub-package
 %exclude %{pkgdir}/devices/org.osbuild.lvm2*
@@ -413,6 +476,23 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Feb 11 2026 Packit <hello@packit.dev> - 173-1
+Changes with 173
+----------------
+  - Revert "test_objectstore: add time.sleep(0.1) to solve flaky tests" (#2340)
+    - Author: Lukáš Zapletal, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - SPEC: disable tests that tend to fail during rpmbuild in Koji (HMS-9796) (#2338)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Update images dependency ref to latest (#2341)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - Update snapshots to 20260208 (#2335)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - stages/module-config: postfix with `.module` (#2344)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-02-11
+
+
 * Fri Feb 06 2026 Packit <hello@packit.dev> - 172-1
 Changes with 172
 ----------------

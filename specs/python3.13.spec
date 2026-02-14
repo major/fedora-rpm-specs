@@ -45,11 +45,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.11
+%global general_version %{pybasever}.12
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -393,6 +393,33 @@ Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 # in the conditionalized skip to a release available in CentOS Stream 10,
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
+
+# 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
+# CVE-2025-15366
+#
+# Reject control characters in IMAP commands
+Patch474: 00474-cve-2025-15366.patch
+
+# 00475 # d44fac01037662db286449a78c8fb819788f764c
+# CVE-2025-15367
+#
+# Reject control characters in POP3 commands
+Patch475: 00475-cve-2025-15367.patch
+
+# 00477 # 9c62c492e7f2e3b152dbf287c08d307c3f013221
+# Raise an error when importing stdlib modules compiled for a different Python version
+#
+# This is a downstream workaround "implementing" python#137212 -
+# the mechanism for the check exists in Python 3.15+, where it needs to be
+# added to the standard library modules.
+# In Fedora, we need it also in previous Python versions, as we experience
+# segmentation fault when importing stdlib modules after update while
+# Python is running.
+#
+# _curses, _tkinter, _tracemalloc and readline are not calling PyModuleDef_Init,
+# which is modified with this patch, hence they need a
+# direct call to the check function.
+Patch477: 00477-raise-an-error-when-importing-stdlib-modules-compiled-for-a-different-python-version.patch
 
 # (New patches go here ^^^)
 #
@@ -1793,6 +1820,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Feb 04 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.12-1
+- Update to 3.13.12
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

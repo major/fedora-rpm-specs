@@ -1,5 +1,5 @@
 Name:    testssl
-Version: 3.2.1
+Version: 3.2.3
 Release: %autorelease
 
 Summary: Testing TLS/SSL encryption

@@ -7,7 +7,7 @@
 %if ! 0%{?with_doc}
 %global excluded_brs %{excluded_brs} sphinx openstackdocstheme
 %endif
-%global with_doc 1
+%global with_doc 0
 
 %global pypi_name octaviaclient
 
@@ -16,7 +16,7 @@ Client for OpenStack Octavia (Load Balancer as a Service)
 
 Name:           python-%{pypi_name}
 Version:        3.8.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Client for OpenStack Octavia (Load Balancer as a Service)
 
 License:        Apache-2.0
@@ -69,7 +69,6 @@ Summary:        OpenStack Octavia client tests
 
 Requires:       python3-%{pypi_name} = %{version}-%{release}
 Requires:       python3-fixtures >= 1.3.1
-Requires:       python3-mock
 Requires:       python3-testtools
 Requires:       python3-subunit >= 0.0.18
 Requires:       python3-osc-lib >= 1.14.1
@@ -151,6 +150,9 @@ rm -f ./octaviaclient/tests/unit/test_hacking.py
 %{python3_sitelib}/%{pypi_name}/tests
 
 %changelog
+* Thu Feb 12 2026 Michel Lind <salimma@fedoraproject.org> - 3.8.0-7
+- Remove unused and deprecated python3-mock dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

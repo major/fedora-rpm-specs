@@ -4,7 +4,7 @@
 %global giturl  https://gitlab.inria.fr/fpottier/menhir
 
 Name:           ocaml-menhir
-Version:        20260203
+Version:        20260209
 Release:        %autorelease
 Summary:        LR(1) parser generator for OCaml
 
@@ -25,8 +25,8 @@ BuildRequires:  ImageMagick
 BuildRequires:  hevea
 BuildRequires:  tex(latex)
 BuildRequires:  tex(moreverb.sty)
-BuildRequires:  tex(ptmr8t.tfm)
 BuildRequires:  tex(stmaryrd.sty)
+BuildRequires:  texlive-times
 %endif
 
 Provides:       bundled(ocaml-fix) = 20250919

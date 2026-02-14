@@ -260,7 +260,7 @@
 %endif
 
 Name:	chromium
-Version: 144.0.7559.132
+Version: 145.0.7632.45
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -288,6 +288,9 @@ Patch23: chromium-143-revert-libpng_for_testonly.patch
 
 # Get around the problem of auto darkmode webcontent inverting and making them unreadable
 Patch30: chromium-143-autodarkmode-workaround.patch
+
+# disable enterprise_companion_integration_tests due to Unresolved dependencies
+Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
 
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
@@ -342,9 +345,6 @@ Patch142: chromium-143-python-3.9-ftbfs.patch
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
 
-# revert, it causes ramdom crash on aarch64
-Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
-
 # Disable rust nightly features
 Patch301: chromium-144-rust-libadler2.patch
 
@@ -377,6 +377,9 @@ Patch313: chromium-143-el9-rust_alloc_error_handler_should_panic.patch
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
 Patch314: chromium-136-rust-skrifa-build-error.patch
+
+# error with old rustc
+Patch315: chromium-145-rustc-ftbfs.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
@@ -470,6 +473,7 @@ Patch415: add-ppc64-pthread-stack-size.patch
 
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
+Patch419: 0009-sandbox-ignore-byte-span-error.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
@@ -516,6 +520,11 @@ Source12: node-%{nodejs_version}-stripped.tar.gz
 Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
+
+# https://github.com/rollup/rollup/blob/master/LICENSE-CORE.md
+# third_party/devtools-frontend/src/package-lock.json
+Source14: https://npm.skia.org/chrome-devtools/@rollup%2frollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.22.4.tgz
+Source15: https://npm.skia.org/chrome-devtools/@rollup%2frollup-linux-powerpc64le-gnu/-/rollup-linux-powerpc64le-gnu-4.22.4.tgz
 
 BuildRequires: clang
 BuildRequires: clang-tools-extra
@@ -1036,6 +1045,7 @@ Qt6 UI for chromium.
 
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
 %patch -P30 -p1 -b .autodarkmode-workaround
+%patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 %patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
@@ -1080,10 +1090,6 @@ Qt6 UI for chromium.
 
 %patch -P150 -p1 -b .qt6
 
-%ifarch aarch64 ppc64le
-%patch -P300 -p1 -R -b .revert-decommit-pooled-pages-by-default
-%endif
-
 %patch -P301 -p1 -b .rust-libadler2
 
 %if 0%{?rhel} == 8
@@ -1096,7 +1102,7 @@ Qt6 UI for chromium.
 %patch -P309 -p1 -b .el8-unsupport-rustc-flags
 %patch -P314 -p1 -b .rust-skrifa-build-error
 %endif
-
+%patch -P315 -p1 -b .rustc-ftbfs
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
 
@@ -1167,6 +1173,7 @@ Qt6 UI for chromium.
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
+%patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
 %endif
 
 %if 0%{?flatpak}
@@ -1180,6 +1187,16 @@ Qt6 UI for chromium.
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
+
+# unpack rollup binary for aarch64
+%ifarch aarch64
+tar xf %{SOURCE14} && mv package third_party/devtools-frontend/src/node_modules/@rollup/rollup-linux-arm64-gnu
+%endif
+
+#unpack rollup binary for ppc64le
+%ifarch ppc64le
+tar xf %{SOURCE15} && mv package third_party/devtools-frontend/src/node_modules/@rollup/rollup-linux-powerpc64le-gnu
+%endif 
 
 # Add correct path for nodejs binary
 mkdir -p third_party/node/linux/node-linux-x64/bin
@@ -1817,6 +1834,20 @@ fi
 %endif
 
 %changelog
+* Thu Feb 12 2026 Than Ngo <than@redhat.com> - 145.0.7632.45-1
+- Update to 145.0.7632.45
+  * CVE-2026-2313: Use after free in CSS
+  * CVE-2026-2314: Heap buffer overflow in Codecs
+  * CVE-2026-2315: Inappropriate implementation in WebGPU
+  * CVE-2026-2316: Insufficient policy enforcement in Frames
+  * CVE-2026-2317: Inappropriate implementation in Animation
+  * CVE-2026-2318: Inappropriate implementation in PictureInPicture
+  * CVE-2026-2319: Race in DevTools
+  * CVE-2026-2320: Inappropriate implementation in File input
+  * CVE-2026-2321: Use after free in Ozone
+  * CVE-2026-2322: Inappropriate implementation in File input
+  * CVE-2026-2323: Inappropriate implementation in Downloads
+
 * Thu Feb 05 2026 Than Ngo <than@redhat.com> - 144.0.7559.132-1
 - Update to 144.0.7559.132
   * CVE-2026-1861: Heap buffer overflow in libvpx

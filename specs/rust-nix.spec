@@ -5,7 +5,7 @@
 %global crate nix
 
 Name:           rust-nix
-Version:        0.30.1
+Version:        0.31.1
 Release:        %autorelease
 Summary:        Rust friendly bindings to *nix APIs
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/nix
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          nix-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax exact libc dependency
+Patch:          nix-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -496,35 +499,23 @@ use the "zerocopy" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# skip some tests:
-# * sys::test_resource::test_self_cpu_time:  flaky everywhere
-# * sys::test_socket::test_recvmsg_rxq_ovfl: flaky everywhere
-# * sys::test_socket::test_af_alg_cipher:    hardware dependent (ppc64le, s390x)
-#   # https://github.com/nix-rust/nix/issues/1352
-# * sys::test_aio::test_aio_suspend:         glibc assertion failure (ppc64le)
+# * sys::test_aio::test_aio_suspend:         glibc assertion failure
 #   Fatal glibc error: aio_suspend.c:102 (do_aio_misc_wait):
 #   assertion failed: status == 0 || status == EAGAIN
-%ifarch ppc64le
-%{cargo_test -a -- -- --exact %{shrink:
+# * sys::test_resource::test_self_cpu_time:  flaky everywhere
+# * sys::test_socket::test_af_alg_cipher:    hardware dependent (ppc64le, s390x)
+#   # https://github.com/nix-rust/nix/issues/1352
+# * sys::test_socket::test_recvmm2:          flaky everywhere
+# * sys::test_socket::test_recvmsg_rxq_ovfl: flaky everywhere
+# * 'src/sys/socket/mod.rs' doctests:        fails on RHEL 9 with EPERM
+%{cargo_test -a -- -- %{shrink:
     --skip sys::test_aio::test_aio_suspend
     --skip sys::test_resource::test_self_cpu_time
     --skip sys::test_socket::test_af_alg_cipher
+    --skip sys::test_socket::test_recvmm2
     --skip sys::test_socket::test_recvmsg_rxq_ovfl
+    --skip 'src/sys/socket/mod.rs'
 }}
-%endif
-%ifarch s390x
-%{cargo_test -a -- -- --exact %{shrink:
-    --skip sys::test_resource::test_self_cpu_time
-    --skip sys::test_socket::test_af_alg_cipher
-    --skip sys::test_socket::test_recvmsg_rxq_ovfl
-}}
-%endif
-%ifnarch ppc64le s390x
-%{cargo_test -a -- -- --exact %{shrink:
-    --skip sys::test_resource::test_self_cpu_time
-    --skip sys::test_socket::test_recvmsg_rxq_ovfl
-}}
-%endif
 %endif
 
 %changelog

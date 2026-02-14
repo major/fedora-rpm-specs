@@ -2,7 +2,7 @@
 
 Name:           libcint
 Version:        6.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        General Gaussian-type orbitals integrals for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -50,18 +50,24 @@ done
 
 %build
 export CFLAGS="%{optflags} -Wl,--as-needed"
-%cmake -DENABLE_EXAMPLE=1 -DWITH_F12=1 -DWITH_COULOMB_ERF=1 -DWITH_RANGE_COULOMB=1 -DENABLE_TEST=1 -DQUICK_TEST=1 -S . -B %{_host}
-%make_build -C %{_host}
+%cmake \
+  -DENABLE_EXAMPLE=1 \
+  -DWITH_F12=1 \
+  -DWITH_COULOMB_ERF=1 \
+  -DWITH_RANGE_COULOMB=1 \
+  -DENABLE_TEST=1 \
+  -DQUICK_TEST=1
+%cmake_build
 
 # Build documentation
 cd doc
 bash compile.sh
 
 %install
-%make_install -C %{_host}
+%cmake_install
 
 %check
-make -C %{_host} test ARGS=-V
+%ctest
 
 %files
 %doc README.rst ChangeLog
@@ -75,6 +81,9 @@ make -C %{_host} test ARGS=-V
 %{_libdir}/libcint.so
 
 %changelog
+* Thu Feb 12 2026 Cristian Le <git@lecris.dev> - 6.1.3-3
+- Allow building with Ninja (rhbz#2381035)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

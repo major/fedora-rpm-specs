@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -33,7 +33,7 @@ Patch4:         %{name}-scipy.patch
 Patch5:         %{name}-setuptools.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3 >= 3.16
+BuildRequires:  cmake >= 3.16
 BuildRequires:  /usr/bin/cython
 %global cython /usr/bin/cython
 BuildRequires:  fftw-devel
@@ -151,9 +151,9 @@ for mpi in mpich openmpi ; do
    module load mpi/${mpi}-%{_arch}
    old_LDFLAGS="${LDFLAGS}"
    export LDFLAGS="${LDFLAGS} -Wl,-rpath,${MPI_PYTHON3_SITEARCH}/%{name}md"
-   %{cmake3} %{defopts}
+   %{cmake} %{defopts}
    export LD_LIBRARY_PATH=$PWD/${mpi:-serial}/src/config
-   %cmake3_build
+   %cmake_build
    export LDFLAGS="${old_LDFLAGS}"
    module unload mpi/${mpi}-%{_arch}
 done
@@ -161,7 +161,7 @@ done
 %install
 for mpi in mpich openmpi ; do
    module load mpi/${mpi}-%{_arch}
-   %cmake3_install
+   %cmake_install
    module unload mpi/${mpi}-%{_arch}
 done
 
@@ -170,8 +170,8 @@ export CTEST_OUTPUT_ON_FAILURE=1
 for mpi in mpich openmpi ; do
    module load mpi/${mpi}-%{_arch}
    export LD_LIBRARY_PATH=${MPI_LIB}:%{buildroot}${MPI_PYTHON3_SITEARCH}/%{name}md
-   %cmake3_build --target check_unit_tests
-   %cmake3_build --target check_python_skip_long
+   %cmake_build --target check_unit_tests
+   %cmake_build --target check_python_skip_long
    module unload mpi/${mpi}-%{_arch}
 done
 
@@ -186,6 +186,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Thu Feb 12 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.2-19
+- Rebuilt for CMake 4.2
+
 * Fri Jan 16 2026 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.2-18
 - Rebuilt with newer Python dependencies
 

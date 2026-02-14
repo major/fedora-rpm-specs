@@ -6,12 +6,12 @@
 %endif
 
 Name:           perl-Devel-Size
-Version:        0.85
-Release:        4%{?dist}
+Version:        0.86
+Release:        1%{?dist}
 Summary:        Perl extension for finding the memory usage of Perl variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Size
-Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Size-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/Devel-Size-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 12 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.86-1
+- 0.86 bump (rhbz#2438404)
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.85-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

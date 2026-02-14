@@ -16,6 +16,9 @@ Summary:        Module for text manipulation
 License:        MIT
 URL:            https://github.com/jaraco/jaraco.text
 Source0:        %{pypi_source}
+# Replace typer-slim dependency with typer
+# https://github.com/jaraco/jaraco.text/pull/29
+Patch:          %{url}/pull/29.patch
 BuildArch:      noarch
  
 BuildRequires:  python3-devel

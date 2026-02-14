@@ -60,7 +60,10 @@ Patch1:       0002-services-conflict.patch
 ## (100-199) Patches for building from system Rust libraries (Fedora)
 # Update reqwest-retry to 0.8, retry-policies to 0.5
 # https://github.com/keylime/rust-keylime/pull/1165
-Patch100:     keylime-agent-rust-0.2.8-reqwest-retry-0.8.patch
+# Update reqwest from 0.12 to 0.13; update reqwest-middleware and reqwest-retry
+# at the same time.
+# https://github.com/keylime/rust-keylime/pull/1189
+Patch100:     keylime-agent-rust-0.2.8-reqwest-0.13.patch
 ## (200+) Patches for building from vendored Rust libraries (RHEL)
 
 ExclusiveArch:  %{rust_arches}

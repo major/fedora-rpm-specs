@@ -104,7 +104,6 @@ BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libneurosim-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
-BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  readline-devel

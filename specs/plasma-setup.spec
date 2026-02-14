@@ -7,8 +7,8 @@
 %global _hardened_build 1
 
 Name:           plasma-setup
-Version:        6.5.91
-Release:        2%{?dist}
+Version:        6.6.0
+Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        (GPL-2.0-or-later or GPL-3.0-or-later) and GPL-2.0-or-later and GPL-3.0-or-later and (LGPL-2.0-or-later or LGPL-3.0-or-later) and (LGPL-2.1-or-later or LGPL-3.0-or-later) and LGPL-2.1-or-later and BSD-2-Clause and CC0-1.0
 URL:            https://invent.kde.org/plasma/%{name}
@@ -134,6 +134,9 @@ exit 0
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.6.0-1
+- 6.6.0
+
 * Sat Feb 07 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.5.91-2
 - Update trigger to fire on system upgrade of fedora-release-common
 

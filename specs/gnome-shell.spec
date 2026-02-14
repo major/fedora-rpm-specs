@@ -27,6 +27,11 @@ Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 # fix crash caused by trying to promisify removed symbol
 Patch: 4068.patch
 
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/4070
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/9018
+# fix stuck state on boot due to promisify race
+Patch: 4070.patch
+
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7
 %define glib2_version 2.86.0

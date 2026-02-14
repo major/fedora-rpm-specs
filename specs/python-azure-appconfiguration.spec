@@ -10,12 +10,12 @@
 %global         srcname     azure-appconfiguration
 
 Name:           python-%{srcname}
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Microsoft App Configuration Data Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source azure_appconfiguration %{version}}
 
 BuildArch:      noarch
 
@@ -43,7 +43,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_appconfiguration-%{version}
 
 
 %generate_buildrequires

@@ -17,12 +17,17 @@ Source:         %{crates_source}
 #   maintained, and the project was archived.
 #   https://github.com/sharkdp/diskus/pull/59 This requires the source-code
 #   patch diskus-0.9.0-tempdir-tempfile.patch.
+# * Replace atty dependency with std::io::IsTerminal,
+#   https://github.com/sharkdp/diskus/pull/61. This requires the source-code
+#   patch diskus-0.9.0-no-atty.patch.
 Patch:          diskus-fix-metadata.diff
 # * Source-code changes to migrate tests from tempdir to tempfile
 Patch10:        diskus-0.9.0-tempdir-tempfile.patch
 # * Document --directories in the man page
 # * https://github.com/sharkdp/diskus/pull/60
 Patch11:        https://github.com/sharkdp/diskus/pull/60.patch
+# * Source-code change to drop the atty dependency
+Patch12:        diskus-0.9.0-no-atty.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,17 +1,19 @@
 %bcond tests    %{defined fedora}
 
 Name:           python-b2sdk
-Version:        1.21.0
-Release:        14%{?dist}
+Version:        2.10.2
+Release:        1%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
 URL:            https://github.com/Backblaze/b2-sdk-python
-Source0:        %{pypi_source b2sdk}
 BuildArch:      noarch
 
-# Fedora does not ship with version 5 or lower
-Patch0:         relax-setuptools_scm-version.patch
+# PyPI tarball is missing tests
+Source:         %{url}/archive/v%{version}/b2sdk-%{version}.tar.gz
+
+# https://github.com/Backblaze/b2-sdk-python/pull/560
+Patch:          0001-Fix-test_dir_without_exec_permission-on-Python-3.14.patch
 
 %global _description %{expand:
 Python library and a few handy utilities for easy access to all of the
@@ -29,27 +31,32 @@ BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
-BuildRequires:  python3-pytest-lazy-fixture
-BuildRequires:  python3-pyfakefs
+BuildRequires:  python3-pytest-lazy-fixtures
+BuildRequires:  python3-tenacity
+BuildRequires:  python3-tqdm
+BuildRequires:  python3-responses
 %endif
 
 %description -n python3-b2sdk %_description
 
+
 %prep
-%autosetup -p1 -n b2sdk-%{version}
+%autosetup -p 1 -n b2-sdk-python-%{version}
 
 
 %generate_buildrequires
+export PDM_BUILD_SCM_VERSION=%{version}
 %pyproject_buildrequires
 
 
 %build
+export PDM_BUILD_SCM_VERSION=%{version}
 %pyproject_wheel
 
 
 %install
 %pyproject_install
-%pyproject_save_files -l b2sdk
+%pyproject_save_files -L b2sdk
 
 
 %check
@@ -60,11 +67,15 @@ BuildRequires:  python3-pyfakefs
 
 
 %files -n python3-b2sdk -f %{pyproject_files}
+%license %{python3_sitelib}/b2sdk-%{version}.dist-info/licenses/LICENSE
 %doc CHANGELOG.md
 %doc README.md
 
 
 %changelog
+* Thu Feb 12 2026 Carl George <carlwgeorge@fedoraproject.org> - 2.10.2-1
+- Update to version 2.10.2 rhbz#2439204
+
 * Wed Feb 11 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.21.0-14
 - Port to pyproject macros rhbz#2377501
 - Run upstream unit tests on Fedora

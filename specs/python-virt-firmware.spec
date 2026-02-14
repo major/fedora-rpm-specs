@@ -1,12 +1,11 @@
 Name:           python-virt-firmware
-Version:        25.12
+Version:        26.2
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPL-2.0-only
 URL:            https://pypi.org/project/virt-firmware/
-Source0:        virt_firmware-%{version}.tar.gz
-Patch1:         0001-reorganize-esp-detection-catch-bootctl-failures.patch
+Source0:        %{pypi_source virt_firmware}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

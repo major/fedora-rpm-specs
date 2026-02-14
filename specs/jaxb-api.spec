@@ -1,5 +1,5 @@
 Name:           jaxb-api
-Version:        4.0.2
+Version:        4.0.5
 Release:        %autorelease
 Summary:        Jakarta XML Binding API
 License:        BSD-3-Clause

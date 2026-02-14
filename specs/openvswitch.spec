@@ -47,7 +47,7 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 3.6.0
+Version: 3.6.2
 Release: %autorelease
 
 # Nearly all of openvswitch is Apache-2.0.  The bugtool is LGPLv2+, and the

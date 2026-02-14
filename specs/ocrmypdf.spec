@@ -13,6 +13,11 @@ Source:         %pypi_source %{srcname}
 # Fedora specific.
 # We drop pi-heif for now, as it is optional.
 Patch:          0001-Remove-unnecessary-dependencies.patch
+# Replace typer-slim dependency with typer. Upstream has deprecated typer-slim,
+# and it’s now just a shallow wrapper around typer. Downstream-only because
+# upstream has switched to cyclopts,
+# https://github.com/ocrmypdf/OCRmyPDF/commit/4c7086c609eda08c75d4b146759e1daf608a3ead.
+Patch:          ocrmypdf-16.12.0-no-typer-slim.patch
 
 BuildArch:      noarch
 

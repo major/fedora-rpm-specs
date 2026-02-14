@@ -1,6 +1,6 @@
 Name:             backintime
-Version:          1.5.6
-Release:          3%{?dist}
+Version:          1.6.1
+Release:          1%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -11,8 +11,10 @@ BuildArch:        noarch
 BuildRequires:    cronie
 BuildRequires:    desktop-file-utils
 BuildRequires:    gettext
+BuildRequires:    man-db
 BuildRequires:    python-rpm-macros
 BuildRequires:    python%{python3_pkgversion}-devel
+BuildRequires:    rubygem-asciidoctor
 BuildRequires:    systemd
 Requires:         %{name}-common = %{version}-%{release}
 # we place additional icons
@@ -27,7 +29,7 @@ BuildRequires:    python%{python3_pkgversion}-pyqt6-base
 BuildRequires:    /usr/bin/ssh-agent
 BuildRequires:    /usr/bin/ps
 BuildRequires:    /usr/bin/rsync
-BuildRequires: make
+BuildRequires:    make
 
 %description
 Back In Time is a simple backup system for Linux inspired from 
@@ -42,7 +44,7 @@ Requires:         python%{python3_pkgversion}-keyring
 Requires:         python%{python3_pkgversion}-dbus
 Requires:         python%{python3_pkgversion}-packaging
 Requires:         fuse-sshfs
-Requires:         fuse-encfs
+Requires:         gocryptfs
 Requires:         bindfs
 Requires:         /usr/bin/ssh-agent
 Requires:         /usr/bin/ps
@@ -67,7 +69,6 @@ Obsoletes:        backintime-notify < 1.1.12-1
 %package          qt
 Summary:          Qt frontend for %{name}
 Requires:         %{name}-common = %{version}-%{release}
-Requires:         libnotify
 Requires:         polkit
 Requires:         python%{python3_pkgversion}-pyqt6
 Requires:         python%{python3_pkgversion}-SecretStorage
@@ -94,15 +95,12 @@ This package contains the Qt frontend of BackInTime.
 %prep
 %setup -q
 
-# Fix documentation directories.
-#sed -i -e "s|'%{name}-common'|'%{name}'|g" common/config.py
-#sed -i -e "s|%{name}-common|%{name}|g" common/configure qt/configure
-
 %build
 pushd common
 %configure \
     --python=%{__python3} 
 popd
+
 pushd qt
 %configure \
     --python=%{__python3} 
@@ -150,6 +148,7 @@ account         include         config-util
 session         include         config-util
 EOF
 
+rm %{buildroot}%{_mandir}/man5
 
 %check
 rm common/test/test_tools.py
@@ -158,7 +157,10 @@ rm common/test/test_sshtools.py
 rm common/test/test_lint.py qt/test/test_lint.py
 # remove test until PyFakeFS is not updated 
 rm common/test/test_uniquenessset.py
-make -C common test-v
+rm common/test/test_backintime.py
+rm common/test/test_snapshots.py
+%pytest common 
+%pytest qt
 
 %files common -f %{name}.lang
 %doc %{_datadir}/doc/%{name}-common/
@@ -171,6 +173,7 @@ make -C common test-v
 %{_datadir}/polkit-1/actions/net.launchpad.backintime.policy
 %{_datadir}/dbus-1/system.d/net.launchpad.backintime.serviceHelper.conf
 %{_datadir}/metainfo/io.github.bit_team.back_in_time.gui.metainfo.xml
+%{_datadir}/icons/hicolor/scalable/apps/backintime.svg
 %{_mandir}/man1/%{name}*
 
 %files plugins
@@ -191,6 +194,9 @@ make -C common test-v
 
 
 %changelog
+* Thu Feb 12 2026 Johannes Lips <hannes@fedoraproject.org> - 1.6.1-1
+- update to latest upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -346,7 +346,7 @@
 %global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        32
-%global rpmrelease      1
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -825,6 +825,7 @@ fi
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/policy/unlimited/default_US_export.policy
  %{etcjavadir -- %{?1}}/conf/security/policy/README.txt
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security.upstream
 %dir %{etcjavadir -- %{?1}}/conf/security/redhat
 %dir %{etcjavadir -- %{?1}}/conf/security/redhat/false
 %dir %{etcjavadir -- %{?1}}/conf/security/redhat/true

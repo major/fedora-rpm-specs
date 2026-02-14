@@ -2,7 +2,7 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  26.2
+%global wivrn_version  26.2.1
 #%%global commit0        
 %global tag0           v%%{wivrn_version}
 %global date           20260208
@@ -10,7 +10,7 @@
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        9dcc3e1de2f7449d9757f5db332c867b4d794fb3
+%global commit1        723652b545a79609f9f04cb89fcbf807d9d6451a
 %global monado_version 25.0.0
 
 %forgemeta
@@ -99,20 +99,7 @@ Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 # downstream-only - WiVRn specific Monado patches
 Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-st-oxr-push-XrEventDataInteractionProfileChanged-whe.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-d-solarxr-Fix-flatpak-socket-path.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-d-solarxr-Sync-at-fixed-rate.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-d-solarxr-Feed-device-poses-to-server.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-Don-t-get-pose-data-for-fast-path.patch
-
-# Fix FTBFS in wivrn-server-driver, missing includes for mutex
-# https://github.com/WiVRn/WiVRn/pull/773
-Patch1000:      wivrn-server-driver-add-missing-mutex-includes.patch
-# Fix FTBFS in wivrn-server-driver-polynomial-interpolator Xlib Eigen compat
-# https://github.com/WiVRn/WiVRn/pull/774
-Patch1001:      wivrn-server-driver-polynomial-interpolator-eigen-fix.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-Don-t-get-pose-data-for-fast-path.patch
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
 # https://src.fedoraproject.org/rpms/envision/blob/rawhide/f/envision.spec
@@ -233,10 +220,6 @@ and to assist in pairing the headset with the server.
 %prep
 %forgesetup
 
-# Apply Fedora-specific WiVRn patches
-%patch -P1000 -p1
-%patch -P1001 -p1
-
 # Extract libraries that are bundled
 mkdir -p _deps/monado-src
 tar -xvf %{SOURCE1} --strip-components 1 -C _deps/monado-src
@@ -250,9 +233,6 @@ pushd _deps/monado-src
 %patch -P0006 -p1
 %patch -P0007 -p1
 %patch -P0008 -p1
-%patch -P0009 -p1
-%patch -P0010 -p1
-%patch -P0011 -p1
 popd
 
 

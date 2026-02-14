@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    juk
 Summary: Music player
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # handbook doc: GFDL-1.2-no-invariants-or-later
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.juk.deskt
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

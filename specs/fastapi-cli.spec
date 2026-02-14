@@ -1,44 +1,38 @@
-# This package corresponds to two PyPI projects (fastapi-cli-slim, and
-# fastapi-cli) co-developed in one repository. Since the two are versioned
-# identically and released at the same time, it makes sense to build them from
-# a single source package. (The fastapi-slim and fastapi packages are versioned
-# and packaged separately.) The two published PyPI sdists differ only in their
-# pyproject.toml files: they have different names, and some of the dependencies
-# for fastapi-cli-slim belong to an optional extra.
-
 Name:           fastapi-cli
-Version:        0.0.20
+Version:        0.0.21
 Release:        %autorelease
 Summary:        Run and manage FastAPI apps from the command line with FastAPI CLI
 
 License:        MIT
 URL:            https://github.com/fastapi/fastapi-cli
-# The GitHub archive contains a few useful files that the PyPI sdist does not,
-# such as the release notes.
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Downstream-only: run test_script without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_script-without-coverage.patch
 
-BuildArch:      noarch
+BuildSystem:            pyproject
+BuildOption(generate_buildrequires): -x standard,standard-no-fastapi-cloud-cli,new
+BuildOption(install):   -l fastapi_cli
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
 
 %py_provides python3-fastapi-cli
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
-Requires:       fastapi-cli-slim = %{version}-%{release}
+%if %{defined fc44} || %{defined fc45} || %{defined fc46}
+# Removed in F44 after upstream deprecated fastapi-slim
+Obsoletes:      fastapi-cli-slim < 0.0.21-1
+%endif
 
-# Since requirements-tests.txt contains overly-strict version bounds and many
-# unwanted linting/coverage/typechecking/formatting dependencies
+# Since the “tests” dependency group contains overly-strict version bounds and
+# many unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
 # we just list the few test dependencies we *do* want manually rather than
-# trying to patch the requirements file. We preserve upstream’s lower bounds
-# but remove upper bounds, as we must try to make do with what we have.
+# trying to patch pyproject.toml. We preserve upstream’s lower bounds but
+# remove upper bounds, as we must try to make do with what we have.
 BuildRequires:  %{py3_dist pytest} >= 4.4
-BuildRequires:  %{py3_dist fastapi-slim}
-BuildRequires:  %{py3_dist uvicorn}
+BuildRequires:  %{py3_dist fastapi} >= 0.128
+BuildRequires:  %{py3_dist uvicorn} >= 0.39
 
 %global common_description %{expand:
 FastAPI CLI is a command line program fastapi that you can use to serve your
@@ -47,64 +41,55 @@ FastAPI app, manage your FastAPI project, and more.}
 %description %{common_description}
 
 
-%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info standard
-%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info standard-no-fastapi-cloud-cli
-%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info new
+%if %{defined fc44} || %{defined fc45} || %{defined fc46}
+# We don’t use “%%pyproject_extras_subpkg -n fastapi-cli …” because we want
+# to Obsolete the corresponding fastapi-cli-kslim extras.
+
+%package -n fastapi-cli+standard
+Summary: Metapackage for fastapi-cli: standard extras
+Requires: fastapi-cli = %{version}-%{release}
+Obsoletes: fastapi-cli-slim+standard < 0.0.21-1
+%description -n fastapi-cli+standard
+This is a metapackage bringing in standard extras requires for fastapi-cli.
+It makes sure the dependencies are installed.
+
+%files -n fastapi-cli+standard
+%ghost %dir %{python3_sitelib}/*.dist-info
+
+%package -n fastapi-cli+standard-no-fastapi-cloud-cli
+Summary: Metapackage for fastapi-cli: standard-no-fastapi-cloud-cli extras
+Requires: fastapi-cli = %{version}-%{release}
+Obsoletes: fastapi-cli-slim+standard-no-fastapi-cloud-cli < 0.0.21-1
+%description -n fastapi-cli+standard-no-fastapi-cloud-cli
+This is a metapackage bringing in standard-no-fastapi-cloud-cli extras requires
+for fastapi-cli. It makes sure the dependencies are installed.
+
+%files -n fastapi-cli+standard-no-fastapi-cloud-cli
+%ghost %dir %{python3_sitelib}/*.dist-info
+
+%package -n fastapi-cli+new
+Summary: Metapackage for fastapi-cli: new extras
+Requires: fastapi-cli = %{version}-%{release}
+Obsoletes: fastapi-cli-slim+new < 0.0.21-1
+%description -n fastapi-cli+new
+This is a metapackage bringing in new extras requires for fastapi-cli.
+It makes sure the dependencies are installed.
+
+%files -n fastapi-cli+new
+%ghost %dir %{python3_sitelib}/*.dist-info
+%else
+%pyproject_extras_subpkg -n fastapi-cli standard standard-no-fastapi-cloud-cli new
+%endif
 
 
-%package slim
-Summary:        %{summary}
-
-%py_provides python3-fastapi-cli-slim
-
-%description slim %{common_description}
+%check -a
+%pytest -v
 
 
-%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info standard
-%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info standard-no-fastapi-cloud-cli
-%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info new
-
-
-%prep
-%autosetup -p1
-
-
-%generate_buildrequires
-export TIANGOLO_BUILD_PACKAGE='fastapi-cli-slim'
-%pyproject_buildrequires -x standard,standard-no-fastapi-cloud-cli,new
-(
-  export TIANGOLO_BUILD_PACKAGE='fastapi-cli'
-  %pyproject_buildrequires
-) | grep -vE '\bfastapi-cli\b'
-
-
-%build
-export TIANGOLO_BUILD_PACKAGE='fastapi-cli-slim'
-%pyproject_wheel
-export TIANGOLO_BUILD_PACKAGE='fastapi-cli'
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-
-
-%check
-%pytest -k "${k-}" ${ignore-} -v
-
-
-%files
-%{python3_sitelib}/fastapi_cli-%{version}.dist-info/
-
-
-%files slim
-%license LICENSE
+%files -f %{pyproject_files}
 %doc CITATION.cff
 %doc README.md
 %doc release-notes.md
-
-%{python3_sitelib}/fastapi_cli/
-%{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info/
 
 
 %changelog

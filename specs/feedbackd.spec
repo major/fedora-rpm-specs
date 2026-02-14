@@ -5,8 +5,8 @@ Summary:        Feedback library for GNOME
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://gitlab.freedesktop.org/agx/feedbackd
-Source0:        https://gitlab.freedesktop.org/agx/feedbackd/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+URL:            https://gitlab.freedesktop.org/feedbackd/feedbackd
+Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  meson

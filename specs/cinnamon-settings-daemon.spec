@@ -1,8 +1,8 @@
 %global cinnamon_desktop_version 6.6.0
 
 Name:           cinnamon-settings-daemon
-Version:        6.6.2
-Release:        3%{?dist}
+Version:        6.6.3
+Release:        1%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -118,6 +118,9 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 %{_datadir}/polkit-1/actions/org.cinnamon.settings*.policy
 
 %changelog
+* Thu Feb 12 2026 Leigh Scott <leigh123linux@gmail.com> - 6.6.3-1
+- Update to 6.6.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

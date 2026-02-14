@@ -5,7 +5,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-gmpy2
-Version:        2.2.2
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Python interface to GMP, MPFR, and MPC
 
@@ -69,19 +69,21 @@ This package contains API documentation for gmpy2.
 %prep
 %autosetup -n gmpy2-%{version} -p1
 
-%conf
 %if %{with py3docs}
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
     -i docs/conf.py
 %endif
 
+# Permit use of setuptools 80
+sed -i 's/,<80//' pyproject.toml
+
 %build -p
 # Do not pass -pthread to the compiler or linker
 export LDSHARED="gcc -shared"
 
-%build -a
-PYTHONPATH=$PWD/$(ls -1d build/lib.linux*) make -C docs html
+%install -a
+PYTHONPATH=%{buildroot}%{python3_sitearch} make -C docs html
 
 %check
 %if %{with tests}
@@ -91,6 +93,7 @@ PYTHONPATH=$PWD/$(ls -1d build/lib.linux*) make -C docs html
 %endif
 
 %files -n python3-gmpy2 -f %{pyproject_files}
+%doc README.rst
 
 %files doc
 %doc docs/_build/html/*

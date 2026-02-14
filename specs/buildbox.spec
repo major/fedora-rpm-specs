@@ -20,6 +20,7 @@ BuildRequires: net-tools
 BuildRequires: ninja-build
 BuildRequires: pkgconfig(benchmark)
 BuildRequires: pkgconfig(fuse3)
+BuildRequires: pkgconfig(gflags)
 BuildRequires: pkgconfig(gmock_main)
 BuildRequires: pkgconfig(grpc)
 BuildRequires: pkgconfig(gtest)
@@ -33,6 +34,7 @@ BuildRequires: pkgconfig(tomlplusplus)
 BuildRequires: pkgconfig(uuid)
 
 Requires: bubblewrap
+Requires: gflags
 
 %description
 buildbox provides a set of building blocks to execute actions conforming to the

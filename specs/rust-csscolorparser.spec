@@ -5,7 +5,7 @@
 %global crate csscolorparser
 
 Name:           rust-csscolorparser
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        CSS color parser library
 

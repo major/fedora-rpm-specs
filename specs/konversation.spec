@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           konversation
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        A user friendly IRC client
 
 License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -137,6 +137,9 @@ fi
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

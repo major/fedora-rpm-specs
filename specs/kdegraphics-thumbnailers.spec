@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    kdegraphics-thumbnailers
 Summary: Thumbnailers for various graphic types
 Version: 25.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+,
 License: GPL-2.0-or-later
@@ -50,6 +50,9 @@ BuildRequires: cmake(KDcrawQt6)
 
 
 %changelog
+* Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
+- Full Stack Rebuild (kio abi break)
+
 * Wed Feb 04 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-1
 - 25.12.2
 

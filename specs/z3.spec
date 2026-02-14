@@ -12,7 +12,7 @@
 %bcond test 0
 
 Name:           z3
-Version:        4.15.7
+Version:        4.15.8
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 

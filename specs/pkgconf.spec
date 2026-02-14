@@ -19,11 +19,11 @@
 %endif
 
 # libpkgconf soversion major version
-%global libsomajor 5
+%global libsomajor 7
 
 Name:           pkgconf
-Version:        2.3.0
-Release:        4%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 # cli/getopt_long.c, libpkgconf/bsdstubs.c, libpkgconf/pkg.c and tests/* are ISC
@@ -223,9 +223,14 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 %files -n bomtool
 %{_bindir}/bomtool
+%{_mandir}/man1/bomtool.1*
 
 
 %changelog
+* Thu Feb 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.1-1
+- Update to 2.5.1
+- https://github.com/pkgconf/pkgconf/blob/pkgconf-2.5.1/NEWS
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

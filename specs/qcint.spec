@@ -2,7 +2,7 @@
 
 Name:           qcint
 Version:        6.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An optimized libcint branch for X86 platform with SSE3 intrinsics
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -45,11 +45,17 @@ find . -name *.c -exec sed -i 's|//ALL_CINT_FORTRAN_(cint|ALL_CINT_FORTRAN_(int|
 
 %build
 export CFLAGS="%{optflags} -msse3 -Wl,--as-needed"
-%cmake -DENABLE_EXAMPLE=1 -DWITH_F12=1 -DWITH_COULOMB_ERF=1 -DWITH_RANGE_COULOMB=1 -DQUICK_TEST=1 -DBUILD_MARCH_NATIVE=OFF -S . -B %{_host}
-%make_build -C %{_host}
+%cmake \
+    -DENABLE_EXAMPLE=1 \
+    -DWITH_F12=1 \
+    -DWITH_COULOMB_ERF=1 \
+    -DWITH_RANGE_COULOMB=1 \
+    -DQUICK_TEST=1 \
+    -DBUILD_MARCH_NATIVE=OFF
+%cmake_build
 
 %install
-%make_install -C %{_host}
+%cmake_install
 
 %ldconfig_scriptlets
 
@@ -64,6 +70,9 @@ export CFLAGS="%{optflags} -msse3 -Wl,--as-needed"
 %{_libdir}/libcint.so
 
 %changelog
+* Thu Feb 12 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.1.3-3
+- Switch to modern cmake macros.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
