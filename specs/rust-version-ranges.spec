@@ -13,8 +13,8 @@ License:        MPL-2.0
 URL:            https://crates.io/crates/version-ranges
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow older versions of the ron dev-dependency until the rust-ron package
-#   can be updated, https://bugzilla.redhat.com/show_bug.cgi?id=2391241. Upstream specifies 0.11; we allow as old as 0.10.
+# * bump ron dev-dependency from 0.11 to 0.12:
+#   https://github.com/pubgrub-rs/pubgrub/commit/0c7b84c
 Patch:          version-ranges-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

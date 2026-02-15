@@ -4,16 +4,14 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/xavierleroy/camlzip
 
 Name:           ocaml-zip
-Version:        1.13
-Release:        6%{?dist}
+Version:        1.14
+Release:        1%{?dist}
 Summary:        OCaml library for reading and writing zip, jar and gzip files
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
-%global upver %(sed 's/\\.//' <<< %{version})
-
 URL:            https://xavierleroy.org/software.html
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/archive/rel%{upver}.tar.gz
+Source:         %{giturl}/archive/v%{version}/camlzip-%{version}.tar.gz
 # Use zlib-ng directly rather than through the zlib compatibility API
 Patch:          %{name}-zlib-ng.patch
 
@@ -44,7 +42,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n camlzip-rel%{upver} -p1
+%autosetup -n camlzip-%{version} -p1
 
 # Do not try to overwrite the system ld.conf
 sed -i "s,ocamlfind install,& -ldconf $PWD/ld.conf," Makefile
@@ -95,6 +93,9 @@ cmp Makefile Makefile.uncompressed
 
 
 %changelog
+* Fri Feb 13 2026 Jerry James <loganjerry@gmail.com> - 1.14-1
+- Version 1.14
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

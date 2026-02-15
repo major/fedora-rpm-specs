@@ -19,7 +19,8 @@ Patch0:         PkgConfig-LibPkgConf-0.11-adapt_to_pkgconf_1.9.4.patch
 # file name, proposed to an upstream, bug #2172714,
 # <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>
 Patch1:         PkgConfig-LibPkgConf-0.11-Fix-resolving-flags-for-packages-with-a-name-differe.patch
-# Adapt to pkgconf-2.5.0, applies on top of 1.9.4 patch
+# Adapt to pkgconf-2.5.0, applies on top of 1.9.4 patch, proposed upstream,
+# <https://github.com/PerlAlien/PkgConfig-LibPkgConf/pull/17>
 Patch2:         PkgConfig-LibPkgConf-0.11-adapt_to_pkgconf_2.5.0.patch
 BuildRequires:  findutils
 BuildRequires:  gcc

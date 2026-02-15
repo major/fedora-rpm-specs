@@ -499,6 +499,8 @@ Patch: 0008-Revert-meson.build-Disallow-libnfs-v6-to-fix-the-bro.patch
 Patch: 0002-TEMPORARY-increase-test-timeout.patch
 # https://lists.nongnu.org/archive/html/qemu-devel/2026-01/msg01140.html
 Patch: 0001-meson-disable-libatomic-with-GCC-16.patch
+# https://lore.kernel.org/qemu-devel/c508fc1d4a4ccd8c9fb1e51b71df089e31115a53.1770309998.git.jpoimboe@kernel.org/
+Patch: 0009-hw-i386-vm-vmmouse-Fix-hypercall-clobbers.patch
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}

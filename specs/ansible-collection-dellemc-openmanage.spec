@@ -26,7 +26,8 @@ Source2:        gpgkey-42550ABD1E80D7C1BC0BAD851285491434D8786F.gpg
 Source3:        https://raw.githubusercontent.com/dell/dellemc-openmanage-ansible-modules/v%{version}/galaxy.yml
 
 # build_ignore development files, tests, and docs, downstream only
-Patch0:          build_ignore.patch
+Patch0:         build_ignore.patch
+Patch1:         https://github.com/dell/dellemc-openmanage-ansible-modules/pull/1074.patch#/use-stdlib-mock.patch
 
 BuildArch:      noarch
 
@@ -35,7 +36,6 @@ BuildRequires:  ansible-packaging
 %if %{with tests}
 BuildRequires:  ansible-packaging-tests
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3dist(mock)
 %endif
 
 # From bindep.txt

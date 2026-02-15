@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.16
+Version:        0.0.17
 Release:        %autorelease
 Summary:        Extremely fast Python type checker and language server
 
@@ -163,9 +163,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 012ec6339058587319bec7d6505a085650138b8e
-%global ruff_baseversion 0.15.0
-%global ruff_snapdate 20260210
+%global ruff_rev 10c082f616d8296df0cd3489a98db8c5d40628d1
+%global ruff_baseversion 0.15.1
+%global ruff_snapdate 20260213
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,

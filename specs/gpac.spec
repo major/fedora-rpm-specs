@@ -1,18 +1,17 @@
+%bcond check 0
+
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
-Version:     2.4.0
-Release:     12%{?dist}
+Version:     26.02.0
+Release:     1%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
 
 # drop -O3 from CFLAGS
 Patch0:      gpac-noopt.patch
-Patch1:      https://github.com/gpac/gpac/commit/8d7cac0bf9f9775cae1d43de7138206758f28b0c.patch#/gpac-ffmpeg6.patch
-Patch2:      https://github.com/gpac/gpac/commit/a005fd6eb7a9ede4d3356630cae3d6516c91b73e.patch#/gpac-fix-library-detection.patch
-Patch3:      https://github.com/gpac/gpac/commit/d9d5a145a5e1dc1aef44def91f99d1ee3f358dfa.patch#/gpac-lto-type-mismatch.patch
-Patch4:      https://github.com/gpac/gpac/commit/18863aa2176e423dae2a6d7e39ff6ed6a37b2b78.patch#/gpac-ffmpeg7.1.patch
-Patch5:      https://github.com/gpac/gpac/commit/4e9091c4568e4574eeaf8714256d20a916735603.patch#/gpac-ffmpeg8.patch
+# skip adding standard rpath
+Patch1:      gpac-norpath.patch
 
 BuildRequires:  SDL2-devel
 BuildRequires:  a52dec-devel
@@ -21,13 +20,17 @@ BuildRequires:  libGLU-devel
 BuildRequires:  freetype-devel >= 2.1.4
 BuildRequires:  faad2-devel
 BuildRequires:  libcaca-devel
+BuildRequires:  libcurl-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel >= 1.2.5
 BuildRequires:  libmad-devel
 BuildRequires:  libnghttp2-devel
+BuildRequires:  libnghttp3-devel
 BuildRequires:  xvidcore-devel >= 1.0.0
 BuildRequires:  pkgconfig(libavcodec) pkgconfig(libavdevice) pkgconfig(libavformat) pkgconfig(libavfilter) pkgconfig(libavutil) pkgconfig(libswscale)
 BuildRequires:  libxml2-devel
+# Requires ngtcp2 linked with quictls
+#BuildRequires:  ngtcp2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  openjpeg2-devel
 BuildRequires:  pulseaudio-libs-devel
@@ -105,7 +108,12 @@ popd
   --libdir=%{_lib} \
   --disable-oss \
   --enable-pic \
+%if %{with check}
+  --unittests \
+%endif
   --verbose
+
+sed -ie 's/DEBUGBUILD=no/DEBUGBUILD=yes/' config.mak
 
 #Avoid mess with setup.h
 cp -p config.h include/gpac
@@ -142,6 +150,11 @@ rm %{buildroot}%{_includedir}/gpac/config.h
 # do not include in gpac, only here to create doxygen group for doc ordering
 rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
+%if %{with check}
+%check
+%make_build unit_tests
+%endif
+
 %files
 %doc Changelog README.md
 %license COPYING
@@ -157,7 +170,7 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 %{_datadir}/icons/hicolor/*/apps/gpac.png
 
 %files libs
-%{_libdir}/libgpac.so.12{,.*}
+%{_libdir}/libgpac.so.16{,.*}
 %dir %{_libdir}/gpac
 %{_libdir}/gpac/gm_caca_out.so
 %{_libdir}/gpac/gm_ft_font.so
@@ -181,6 +194,12 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Sun Feb 08 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.02.0-1
+- update to 26.02.0 (resolves rhbz#2437065)
+- drop obsolete patches
+- avoid adding rpath
+- add support for cURL and HTTP/3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

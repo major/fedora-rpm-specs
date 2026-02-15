@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        7.0.0
+Version:        7.2.0
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -24,17 +24,7 @@ Source11:       get_test_data.sh
 Patch:          zip-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Drop unused benchmark-only / example-only dev-dependencies
-# * Remove the wasm_js feature from the getrandom dev-dependency. Our
-#   rust-getrandom does not provide this feature; see also “Unconditional use of
-#   getrandom’s wasm_js feature is counter to upstream guidance,”
-#   https://github.com/zip-rs/zip2/issues/336. Upstream fixed the issue for the
-#   dependency since 4.3.0, but not yet for the dev-dependency.
 # * Patch out the nt-time features; rust-nt-time not yet packaged
-# * Patch out ppmd support, even though it is in the default features. While the
-#   README.md for the ppmd-rust crate says “The code in this crate is in the
-#   public domain as the original code by their authors,” Cargo.toml lists the
-#   license as CC0-1.0, which is not precisely equivalent to the public-domain
-#   declaration in the README and is not-allowed for code in Fedora.
 # * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
 #   flate2/zlib-ng-compat, not packaged.
 # * Unpin generic-array; see https://github.com/zip-rs/zip2/pull/458 for the
@@ -42,6 +32,8 @@ Patch:          zip-fix-metadata-auto.diff
 #   concerned about deprecation warnings anyway.
 # * Update constant_time_eq from 0.3.1 to 0.4.2. Downstream-only for MSRV
 #   reasons.
+# * Remove WASM-only wasm-bindgen feature from time crate dependency
+# * Update lzma-rust2 to 0.16.1: https://github.com/zip-rs/zip2/pull/651
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
@@ -99,6 +91,30 @@ use the "_all-features" feature of the "%{crate}" crate.
 %files       -n %{name}+_all-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+_arbitrary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+_arbitrary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "_arbitrary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+_arbitrary-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+_bzip2_any-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+_bzip2_any-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "_bzip2_any" feature of the "%{crate}" crate.
+
+%files       -n %{name}+_bzip2_any-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+_deflate-any-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -145,6 +161,18 @@ This package contains library source intended for building other packages which
 use the "bzip2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bzip2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bzip2-rs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bzip2-rs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bzip2-rs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bzip2-rs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-devel
@@ -243,6 +271,18 @@ use the "deflate64" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+getrandom-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+getrandom-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "getrandom" feature of the "%{crate}" crate.
+
+%files       -n %{name}+getrandom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+jiff-02-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -277,6 +317,18 @@ This package contains library source intended for building other packages which
 use the "lzma" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lzma-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ppmd-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ppmd-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ppmd" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ppmd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+time-devel

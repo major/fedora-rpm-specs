@@ -14,6 +14,9 @@ License:	GPL-2.0-or-later AND BSD-3-Clause and CC-BY-3.0 and CC-BY-SA-3.0
 URL:		https://wiki.gnome.org/Apps/Weather
 Source0:	https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/216/
+Patch:          no-absolute-symlinks.patch
+
 BuildArch:	noarch
 
 BuildRequires:	desktop-file-utils
@@ -52,11 +55,6 @@ gnome-weather is a weather application for GNOME
 
 %install
 %meson_install
-
-# Avoid RPM build warning:
-#     absolute symlink: /usr/bin/gnome-weather -> /usr/share/org.gnome.Weather/org.gnome.Weather
-rm %{buildroot}%{_bindir}/gnome-weather
-ln -s ../share/org.gnome.Weather/org.gnome.Weather %{buildroot}%{_bindir}/gnome-weather
 
 %find_lang org.gnome.Weather
 

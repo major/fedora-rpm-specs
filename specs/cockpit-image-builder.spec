@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        90
+Version:        92
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -14,11 +14,13 @@ BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  nodejs
+BuildRequires:  /usr/bin/node
 
 Requires:       cockpit
 Requires:       cockpit-files
 Requires:       osbuild-composer >= 131
+
+Recommends:     cockpit-machines
 
 %description
 The image-builder-frontend generates custom images suitable for
@@ -46,6 +48,17 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Feb 13 2026 Packit <hello@packit.dev> - 92-1
+Changes with 92
+----------------
+  - ImageOutput: switch to dynamic bootc image selection (HMS-10191) (#4107)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - src/constants: add support for fedora 45 (#4109)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+
+— Somewhere on the Internet, 2026-02-13
+
+
 * Wed Feb 4 2026 Packit <hello@packit.dev> - 90-1
 Changes with 90
 ----------------

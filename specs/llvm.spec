@@ -627,7 +627,6 @@ BuildRequires:	gnupg2
 
 BuildRequires:	swig
 BuildRequires:	libxml2-devel
-BuildRequires:	doxygen
 
 # For clang-offload-packager
 BuildRequires: elfutils-libelf-devel
@@ -639,8 +638,8 @@ BuildRequires: libffi-devel
 BuildRequires:	perl-generators
 
 # According to https://fedoraproject.org/wiki/Packaging:Emacs a package
-# should BuildRequires: emacs if it packages emacs integration files.
-BuildRequires:	emacs
+# should BuildRequires: emacs-nw if it packages emacs integration files.
+BuildRequires:	emacs-nw
 
 BuildRequires:	libatomic
 
@@ -664,8 +663,6 @@ BuildRequires: python%{python3_pkgversion}-pybind11
 BuildRequires: python%{python3_pkgversion}-pyyaml
 BuildRequires: python%{python3_pkgversion}-nanobind-devel
 %endif
-
-BuildRequires:	graphviz
 
 # This is required because we need "ps" when running LLDB tests
 BuildRequires: procps-ng

@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        64
+Version:        65
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -24,6 +24,7 @@ BuildRequires: systemd-rpm-macros
 %define _unitdir /usr/lib/systemd/system
 
 Requires: cockpit-storaged
+Requires: cockpit-networkmanager
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
@@ -40,11 +41,11 @@ Requires: system-logos
 BuildRequires: desktop-file-utils
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
 Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.3.0
 Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -59,7 +60,7 @@ Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.8
+Provides: bundled(npm(react-dropzone)) = 14.4.0
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
@@ -128,6 +129,13 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Feb 12 2026 Packit <hello@packit.dev> - 65-1
+- Enable crash-reporting dialog (Resolves: rhbz#2431541)
+- Embed cockpit-networkmanager for future usage in boot.iso (hidden in Live)
+- docs: add customization documentation
+- license: Convert license headers to SPDX format
+
+
 * Tue Jan 27 2026 Packit <hello@packit.dev> - 64-1
 
 

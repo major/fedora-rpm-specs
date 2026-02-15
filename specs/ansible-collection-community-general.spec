@@ -1,6 +1,6 @@
 Name:           ansible-collection-community-general
-Version:        12.1.0
-Release:        3%{?dist}
+Version:        12.3.0
+Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
 # rg --pcre2 -g '!tests/sanity/extra/licenses.py' 'SPDX-License-Identifier: (?!GPL-3\.0-or-later)' | sort | sed 's|^|# |'
@@ -86,6 +86,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst CHANGELOG.md
 
 %changelog
+* Thu Feb 12 2026 Maxwell G <maxwell@gtmx.me> - 12.3.0-1
+- Update to 12.3.0. Fixes rhbz#2425788.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

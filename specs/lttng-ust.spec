@@ -13,8 +13,8 @@
 
 
 Name:           lttng-ust
-Version:        2.14.0
-Release:        5%{?dist}
+Version:        2.15.0
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause
 Summary:        LTTng Userspace Tracer library
@@ -27,12 +27,13 @@ Patch0:         lttng-gen-tp-shebang.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  g++
 BuildRequires:  gnupg2
 BuildRequires:  libtool
 BuildRequires:  libuuid-devel
 BuildRequires:  pkgconfig
 BuildRequires:  systemtap-sdt-devel
-BuildRequires:  userspace-rcu-devel >= 0.12.0
+BuildRequires:  userspace-rcu-devel >= 0.15.0
 %if %{with_numactl}
 BuildRequires:  numactl-devel
 %endif
@@ -137,6 +138,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Fri Feb 13 2026 Michael Jeanson <mjeanson@efficios.com> - 2.15.0-1
+- New upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

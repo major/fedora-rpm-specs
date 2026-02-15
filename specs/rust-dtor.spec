@@ -4,21 +4,23 @@
 %bcond check 0
 %global debug_package %{nil}
 
-%global crate ctor
+%global crate dtor
 
-Name:           rust-ctor
-Version:        0.4.3
+Name:           rust-dtor
+Version:        0.0.6
 Release:        %autorelease
-Summary:        __attribute__((constructor)) for Rust
+Summary:        __attribute__((destructor)) for Rust
 
 License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/ctor
+URL:            https://crates.io/crates/dtor
 Source:         %{crates_source}
+Source2:        https://github.com/mmastrac/rust-ctor/raw/117b4d1/LICENSE-APACHE
+Source3:        https://github.com/mmastrac/rust-ctor/raw/117b4d1/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-__attribute__((constructor)) for Rust.}
+__attribute__((destructor)) for Rust.}
 
 %description %{_description}
 
@@ -61,18 +63,6 @@ use the "__no_warn_on_missing_unsafe" feature of the "%{crate}" crate.
 %files       -n %{name}+__no_warn_on_missing_unsafe-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dtor-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dtor-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dtor" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dtor-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+proc_macro-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -100,6 +90,7 @@ use the "used_linker" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp -pav %{SOURCE2} %{SOURCE3} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

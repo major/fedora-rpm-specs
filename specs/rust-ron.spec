@@ -5,7 +5,7 @@
 %global crate ron
 
 Name:           rust-ron
-Version:        0.10.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Rusty Object Notation
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop missing option_set dev-dependency. Only one test needs it, and the
 #   crate is not otherwise widely used.
-# * Omit the test target that requires option_set.
-# * Omit the test targets that depends on private serde internals
 Patch:          ron-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -78,14 +76,35 @@ use the "integer128" feature of the "%{crate}" crate.
 %files       -n %{name}+integer128-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unicode-segmentation-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unicode-segmentation-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unicode-segmentation" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unicode-segmentation-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 # Remove the test source that requires option_set.
 rm tests/152_bitflags.rs
-# Remove test sources that use private serde internals
-rm tests/449_tagged_enum.rs
-rm tests/non_string_tag.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

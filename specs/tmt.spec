@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.66.0
+Version:        1.67.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -104,7 +104,8 @@ Requires:       podman
 # skip the whole sub-package, but that would need a more thorough impact
 # check. For now we at least allow this to be installed and fail at runtime.
 # Also, podman-machine is only present on x86_64 and aarch64
-%if 0%{?fedora} || 0%{?epel} > 9
+# TODO: re-enable podman-machine on epel10 once it is packaged
+%if 0%{?fedora}
 Requires:       (podman-machine if (filesystem(x86-64) or filesystem(aarch-64)))
 %endif
 

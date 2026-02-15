@@ -18,16 +18,7 @@ URL:            https://crates.io/crates/gitui
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove feature for building / statically linking vendored OpenSSL sources
-# * relax parking_lot_core dependency
-# * allow which 7 and 8: https://github.com/extrawurst/gitui/pull/2418,
-#   https://github.com/gitui-org/gitui/pull/2671
-# * update ron from 0.8 to 0.10
-#   (https://github.com/gitui-org/gitui/commit/5755c096b42553de98490cf788dff1a4925bc574,
-#   https://github.com/gitui-org/gitui/commit/aa513b40e191da181174836aac27545bd952a613)
-# * update struct-patch from 0.8 to 0.9
-#   https://github.com/gitui-org/gitui/commit/369ea6a140438fdbaf29ff31f3fea8195603b5e8
-# * allow dirs 6:
-#   https://github.com/gitui-org/gitui/commit/9781608584151ae4932515b8d356f77110e24a0a
+# * relax struct-patch dependency to allow both v0.9 and v0.10
 # * Bump two-face from 0.4.4 to 0.5.1:
 #   https://github.com/gitui-org/gitui/pull/2828
 Patch:          gitui-fix-metadata.diff

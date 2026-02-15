@@ -1,12 +1,12 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.19.0
-Release: 6%{?dist}
+Version: 4.19.3
+Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
-Source0: https://github.com/shadow-maint/shadow/releases/download/4.19.0/shadow-4.19.0.tar.xz
-Source1: https://github.com/shadow-maint/shadow/releases/download/4.19.0/shadow-4.19.0.tar.xz.asc
+Source0: https://github.com/shadow-maint/shadow/releases/download/4.19.3/shadow-4.19.3.tar.xz
+Source1: https://github.com/shadow-maint/shadow/releases/download/4.19.3/shadow-4.19.3.tar.xz.asc
 Source2: shadow-utils.useradd
 Source3: shadow-utils.login.defs
 Source4: shadow-bsd.txt
@@ -26,17 +26,8 @@ Patch0: shadow-4.15.0-manfix.patch
 Patch1: shadow-4.19.0-account-tools-setuid.patch
 # https://github.com/shadow-maint/shadow/commit/3e8c105f0703264e947d8c034b90419794955d49
 Patch2: shadow-4-19-useradd-support-btrfs.patch
-# https://github.com/shadow-maint/shadow/commit/3e8c105f0703264e947d8c034b90419794955d49
-Patch3: shadow-4.19.0-chkhash1.patch
-# https://github.com/shadow-maint/shadow/commit/9b67543987e3d140c86f1b8e2b5db5c10d8bc3c5
-Patch4: shadow-4.19.0-chkhash2.patch
-# https://github.com/shadow-maint/shadow/commit/958b4859991e700b61af2f9e07e3aa87ad1d9218
-Patch5: shadow-4.19.0-usermod-add-optimizations.patch
-# https://github.com/shadow-maint/shadow/pull/1520
-# Approved by upstream for 4.19.3 this weekend:
-# https://github.com/shadow-maint/shadow/issues/1521
-# Fixes the hash check to accept hashes with \ or n in the salt
-Patch6: 1520.patch
+# https://github.com/shadow-maint/shadow/commit/6be13b2f84a2c1a0d0f4129b5258b4b443e7f86c
+Patch3: shadow-4.19.3-chkhash.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -115,7 +106,7 @@ Requires: shadow-utils-subid = %{epoch}:%{version}-%{release}
 Development files for shadow-utils-subid.
 
 %prep
-%autosetup -p 1 -S git -n shadow-4.19.0
+%autosetup -p 1 -S git -n shadow-4.19.3
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -286,6 +277,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Feb 11 2026 Debarshi Ray <rishi@fedoraproject.org> - 2:4.19.3-1
+- Rebase to version 4.19.3
+  Resolves: #2426288
+
 * Tue Jan 27 2026 Adam Williamson <awilliam@redhat.com> - 2:4.19.0-6
 - chkhash.c: fix escaping in SHA-256 / SHA-512 / MD5 regexes
 

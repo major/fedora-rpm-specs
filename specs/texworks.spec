@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           texworks
-Version:        0.6.10
+Version:        0.6.11
 Release:        %autorelease
 Summary:        A simple IDE for authoring TeX documents
 License:        GPL-2.0-or-later

@@ -19,7 +19,7 @@
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	2
+%global	baserelease	3
 
 %if 0%{?usegitbare} >= 1
 # pre-master-45
@@ -98,6 +98,8 @@ BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	libXft-devel
 BuildRequires:	libXrender-devel
+
+BuildRequires:	fftw3-devel
 
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -500,6 +502,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Fri Feb 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.2-3
+- Enable system fftw3 support (bug 2439654)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 45.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

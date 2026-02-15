@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.34.1
+Version:        4.35.0
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -32,7 +32,6 @@ Source:         %{pypi_source tox}
 # Remove coverage options.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
 # Adjust setuptools-version specific ifs to check for setuptools version rather than Python version.
-# Ignore ResourceWarning: subprocess ... is still running (happens arbitrarily, possibly due to pytest-xdist usage)
 Patch:          fix-tests.patch
 
 BuildArch:      noarch
@@ -84,10 +83,7 @@ Summary:        %{summary}
 # the rule that Fedora packages may not require the alternative interpreters.)
 %if 0%{?fedora}
 Recommends:     python3.9
-Recommends:     python3.10
-Recommends:     pypy3-devel
 %endif
-Recommends:     python3-devel
 # Instead of adding new Pythons here, add `Supplements: tox` to them, see:
 # https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/NVVUXSVSPFQOWIGBE2JNI67HEO7R63ZQ/
 
@@ -129,9 +125,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 
 %if %{with tests}
 %check
+# A macro that returns a version of the installed Python package, as an RPM v-string, defaults to v"0"
+%define pyversion() v"%(%{python3} -c 'import importlib.metadata as im; print(im.version("%{1}"))' 2>/dev/null || echo 0)"
+
 # Upstream requires virtualenv >= 20.31 for tests, and no longer sets VIRTUALENV_WHEEL.
 # To support environments with older virtualenv, we set it manually:
-%if v"%(%{python3} -c 'import importlib.metadata as im; print(im.version("virtualenv"))' 2>/dev/null || echo 0)" < v"20.31"
+%if %{pyversion virtualenv} < v"20.31"
 export VIRTUALENV_WHEEL=bundle
 %endif
 
@@ -149,7 +148,7 @@ k="${k-}${k+ and }not test_str_convert_ok_py39"
 
 # https://github.com/tox-dev/tox/commit/698f1dd663
 # The tests fail with setuptools < 70.1
-%if v"%(%{python3} -c 'import importlib.metadata as im; print(im.version("setuptools"))' 2>/dev/null || echo 0)" < v"70.1"
+%if %{pyversion setuptools} < v"70.1"
 k="${k-}${k+ and }not test_result_json_sequential"
 k="${k-}${k+ and }not test_setuptools_package"
 k="${k-}${k+ and }not test_skip_develop_mode"
@@ -157,6 +156,14 @@ k="${k-}${k+ and }not test_tox_install_pkg_sdist"
 %else
 # this test fails with virtualenv < 20.31 with bundled wheel
 test -z $VIRTUALENV_WHEEL || k="${k-}${k+ and }not test_result_json_sequential"
+%endif
+
+# Skip tests only working with packaging 26+
+# Adjusted upstream in https://github.com/tox-dev/tox/pull/3673
+%if %{pyversion packaging} < v"26"
+k="${k-}${k+ and }not (test_req_file and name-extra-protocol)"
+k="${k-}${k+ and }not (test_req_file and whitespace and around)"
+k="${k-}${k+ and }not test_dependency_groups_bad_requirement"
 %endif
 
 # The following tests either need internet connection or installed tox

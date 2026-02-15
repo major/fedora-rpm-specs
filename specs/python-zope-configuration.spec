@@ -2,7 +2,7 @@
 
 Name:           python-zope-configuration
 Version:        5.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Zope Configuration Markup Language (ZCML)
 
 License:        ZPL-2.1
@@ -36,7 +36,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x docs,test
 
 
 %build
@@ -49,7 +49,7 @@ Summary:        %{summary}
 
 
 %check
-%tox
+%{py3_test_envvars} zope-testrunner --test-path=src
 
 
 %files -n python3-zope-configuration -f %{pyproject_files}
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Feb 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.1-10
+- Avoid tox dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

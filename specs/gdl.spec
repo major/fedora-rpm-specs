@@ -90,7 +90,7 @@ BuildRequires:  qhull-devel
 %endif
 BuildRequires:  udunits2-devel
 BuildRequires:  wxGTK%{?el8:3}-devel
-BuildRequires:  cmake3
+BuildRequires:  cmake
 # For tests
 # EL8 s390x missing xorg-x11-drv-dummy
 %if ! ( 0%{?rhel} >= 8 && "%{_arch}" == "s390x" )
@@ -173,12 +173,12 @@ export CXXFLAGS="%optflags -fcommon"
 mkdir build build-python
 #Build the standalone executable
 pushd build
-%cmake3 %{cmake_opts} ..
+%cmake %{cmake_opts} ..
 make #{?_smp_mflags}
 popd
 #Build the python module
 pushd build-python
-%cmake3 %{cmake_opts} -DPYTHON_MODULE=ON ..
+%cmake %{cmake_opts} -DPYTHON_MODULE=ON ..
 make #{?_smp_mflags}
 popd
 

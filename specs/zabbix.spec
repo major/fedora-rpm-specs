@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.4.6
-Release:        3%{?dist}
+Version:        7.4.7
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Fri Feb 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.7-1
+- 7.4.7
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1:7.4.6-3
 - Rebuilt for net-snmp 5.9.5.2
 

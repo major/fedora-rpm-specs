@@ -6,8 +6,8 @@
 
 Name:           CImg
 Epoch:          1
-Version:        3.6.6
-Release:        3%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
 # plugins/cimgmatlab.h: LGPLv3
@@ -79,6 +79,9 @@ make -C examples linux %{?_smp_mflags}
 %{_includedir}/%{name}/
 
 %changelog
+* Fri Feb 13 2026 josef radinger <cheese@nosuchhost.net> - 1:3.7.0-1
+- bump version
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

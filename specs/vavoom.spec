@@ -3,7 +3,7 @@
 
 Name:           vavoom
 Version:        1.33
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Enhanced Doom, Heretic, Hexen and Strife source port - meta package
 Source0:        http://downloads.sourceforge.net/vavoom/%{name}-%{version}.tar.bz2
 Source1:        doom.autodlrc
@@ -36,10 +36,11 @@ Patch4:         vavoom-1.33-default-iwaddir.patch
 Patch5:         vavoom-1.33-gcc6.patch
 Patch6:         vavoom-1.33-misc-fixes.patch
 # Incomplete patch to build with -std=c++11 not used as this crashes on exit
-Patch7:         vavoom-1.33-cx11.patch
+#Patch7:        vavoom-1.33-cx11.patch
 # Hack for crash on exit when building with -std=c++11, not used
-Patch8:         vavoom-1.33-crash-on-exit.patch
+#Patch8:        vavoom-1.33-crash-on-exit.patch
 Patch9:         vavoom-1.33-wxwidgets3.0.patch
+Patch10:        vavoom-1.33-cmake4.patch
 URL:            http://vavoom-engine.com/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -146,18 +147,15 @@ datafiles for you.
 
 
 %prep 
-%setup -q
-%patch -P0 -p1 -b .datadir
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P9 -p1
+%autosetup -p1
 
 
 %build
+# Allow for CMake 4.0
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+# Build looks too complicated to allow building with Ninja
+# Keep on using Makefile
+%global _cmake_generator "Unix Makefiles"
 # Build with -std=gnu++98, c++11 causes issues on exit, likely due to
 # bad interactions with the new / delete overloading in vc_object.cpp
 export CXXFLAGS="$RPM_OPT_FLAGS -std=gnu++98 -fno-strict-aliasing -Wno-unused -Wno-unused-but-set-variable -Wno-unused-result -Wno-sign-compare -Wno-reorder"
@@ -256,6 +254,10 @@ install -p -m 644 %{SOURCE22} $RPM_BUILD_ROOT%{_mandir}/man6
 
 
 %changelog
+* Fri Feb 13 2026 Cristian Le <git@lecris.dev> - 1.33-50
+- Allow to build with CMake 4.0 (rhbz#2381629)
+- Force using Makefile generator (rhbz#2381152)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

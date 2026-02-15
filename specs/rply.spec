@@ -46,6 +46,8 @@ cp %{SOURCE2} CMake/Modules/
 cp %{SOURCE3} CMake/export/CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381410)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_BUILD_TYPE:STRING="Release" \
        -DCMAKE_VERBOSE_MAKEFILE=ON
 

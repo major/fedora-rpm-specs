@@ -2,25 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rust-embed-impl
+%global crate norm
 
-Name:           rust-rust-embed-impl
-Version:        8.11.0
+Name:           rust-norm
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Custom Derive Macro which loads files into the rust binary
+Summary:        Collection of distance metrics on strings
 
 License:        MIT
-URL:            https://crates.io/crates/rust-embed-impl
+URL:            https://crates.io/crates/norm
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused compression and mime-guess features
-Patch:          rust-embed-impl-fix-metadata.diff
+# * - Remove criterion (benchmark only)
+Patch:          norm-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Rust Custom Derive Macro which loads files into the rust binary at
-compile time during release and loads the file from the fs during dev.}
+A collection of distance metrics on strings.}
 
 %description %{_description}
 
@@ -34,8 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/license
-%doc %{crate_instdir}/readme.md
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -50,64 +49,76 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug-embed-devel
+%package     -n %{name}+__any-metric-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug-embed-devel %{_description}
+%description -n %{name}+__any-metric-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug-embed" feature of the "%{crate}" crate.
+use the "__any-metric" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug-embed-devel
+%files       -n %{name}+__any-metric-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deterministic-timestamps-devel
+%package     -n %{name}+__benches-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+deterministic-timestamps-devel %{_description}
+%description -n %{name}+__benches-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "deterministic-timestamps" feature of the "%{crate}" crate.
+use the "__benches" feature of the "%{crate}" crate.
 
-%files       -n %{name}+deterministic-timestamps-devel
+%files       -n %{name}+__benches-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+include-exclude-devel
+%package     -n %{name}+__into-score-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+include-exclude-devel %{_description}
+%description -n %{name}+__into-score-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "include-exclude" feature of the "%{crate}" crate.
+use the "__into-score" feature of the "%{crate}" crate.
 
-%files       -n %{name}+include-exclude-devel
+%files       -n %{name}+__into-score-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+interpolate-folder-path-devel
+%package     -n %{name}+__tests-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+interpolate-folder-path-devel %{_description}
+%description -n %{name}+__tests-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "interpolate-folder-path" feature of the "%{crate}" crate.
+use the "__tests" feature of the "%{crate}" crate.
 
-%files       -n %{name}+interpolate-folder-path-devel
+%files       -n %{name}+__tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+shellexpand-devel
+%package     -n %{name}+fzf-v1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+shellexpand-devel %{_description}
+%description -n %{name}+fzf-v1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "shellexpand" feature of the "%{crate}" crate.
+use the "fzf-v1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+shellexpand-devel
+%files       -n %{name}+fzf-v1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fzf-v2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fzf-v2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fzf-v2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fzf-v2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -115,17 +126,17 @@ use the "shellexpand" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
-%cargo_build
+%cargo_build -a
 
 %install
-%cargo_install
+%cargo_install -a
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -a
 %endif
 
 %changelog

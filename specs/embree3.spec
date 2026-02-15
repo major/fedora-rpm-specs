@@ -74,6 +74,7 @@ The %{name}-examples package contains sample binaries using %{name}.
 %endif
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \

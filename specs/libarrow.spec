@@ -29,14 +29,19 @@
 %bcond_without have_re2
 %bcond_without have_utf8proc
 
+%global arrow_test_data_commit ca49b7795c09181c2915b0a5e762a8fac70f9556
+%global parquet_test_data_commit 92d45b0752487a4b55fb7f1581c8126ee3e73b0d
+
 Name:		libarrow
 Version:	23.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://downloads.apache.org/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
+Source1:	https://github.com/apache/arrow-testing/archive/%{arrow_test_data_commit}/apache-arrow-test-data-%{arrow_test_data_commit}.tar.gz
+Source2:	https://github.com/apache/parquet-testing/archive/%{parquet_test_data_commit}/apache-arrow-parquet-test-data-%{parquet_test_data_commit}.tar.gz
 Patch:		0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch:		0002-python-pyarrow-tests-test_ipc.py.patch
 
@@ -707,8 +712,30 @@ Development files for python3-pyarrow
 
 #--------------------------------------------------------------------
 
+%package testing
+Summary:	Testing files for Apache Arrow C++
+
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description testing
+Testing files for Apache Arrow C++
+
+%files testing
+%dir %{_libdir}/cmake/ArrowTesting
+     %{_libdir}/cmake/ArrowTesting/*.cmake
+%dir %{_libdir}/cmake/ArrowFlightTesting
+     %{_libdir}/cmake/ArrowFlightTesting/*.cmake
+%{_libdir}/libarrow_testing.so*
+%{_libdir}/libarrow_flight_testing.so*
+%{_libdir}/pkgconfig/arrow-testing.pc
+%{_libdir}/pkgconfig/arrow-flight-testing.pc
+
+#--------------------------------------------------------------------
+
 %prep
 %autosetup -p1 -n apache-arrow-%{version}
+%setup -q -n apache-arrow-%{version} -T -D -a 1
+%setup -q -n apache-arrow-%{version} -T -D -a 2
 # We do not need to (nor can we) build for an old version of numpy:
 sed -r -i 's/(oldest-supported-)(numpy)/\2/' python/pyproject.toml
 
@@ -740,7 +767,6 @@ pushd cpp
   -DARROW_PYTHON:BOOL=ON \
   -DARROW_JEMALLOC:BOOL=OFF \
   -DARROW_SIMD_LEVEL:STRING='NONE' \
-  -DGRPC_SOURCE="SYSTEM" \
   -Dxsimd_SOURCE="SYSTEM" \
 %if %{with use_s3}
   -DARROW_S3:BOOL=ON \
@@ -753,6 +779,7 @@ pushd cpp
   -DARROW_WITH_ZSTD:BOOL=ON \
   -DARROW_USE_XSIMD:BOOL=ON \
   -DARROW_BUILD_STATIC:BOOL=OFF \
+  -DARROW_BUILD_TESTS:BOOL=ON \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_COLOR_MAKEFILE:BOOL=OFF \
   -DARROW_USE_CCACHE:BOOL=OFF \
@@ -823,6 +850,16 @@ popd
 
 
 %check
+%ifarch x86_64
+# arrow-compute-aggregate-test fails on aarch64, ppc64le
+export \
+   ARROW_TEST_DATA=$PWD/arrow-testing-%{arrow_test_data_commit}/data \
+   PARQUET_TEST_DATA=$PWD/parquet-testing-%{parquet_test_data_commit}/data \
+   PYTHON=%{python3}
+pushd cpp
+%ctest
+popd
+%endif
 export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 # While https://github.com/apache/arrow/pull/13904 partially fixes
 # https://issues.apache.org/jira/browse/ARROW-17389, conftest.py is still
@@ -845,6 +882,10 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Feb 12 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-3
+- enable tests
+- originally by Elliott Sales de Andrade <quantum.analyst@gmail.com>
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 23.0.0-2
 - Rebuilt for abseil-cpp 20260107.0
 

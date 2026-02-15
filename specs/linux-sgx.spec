@@ -254,10 +254,10 @@ Source6: https://github.com/intel/sgx-emm/archive/refs/tags/sgx-emm-%{sgx_emm_ve
 Provides: bundled(sgx-emm) = %{sgx_emm_version}
 
 Source7: https://github.com/intel/confidential-computing.tee.dcap.qvl/archive/refs/tags/DCAP_%{dcap_qvl_version}.tar.gz#/dcap-qvl-%{dcap_qvl_version}.tar.gz
-Provides: bundled(dcap-qvl} = %{dcap_qvl_version}
+Provides: bundled(dcap-qvl) = %{dcap_qvl_version}
 
 Source8: https://github.com/intel/confidential-computing.tee.dcap.pccs/archive/refs/tags/DCAP_%{pccs_version}.tar.gz#/pccs-%{pccs_version}.tar.gz
-Provides: bundled(pccs} = %{pccs_version}
+Provides: bundled(pccs) = %{pccs_version}
 
 
 ############################################################
@@ -578,7 +578,7 @@ Requires: python3-keyring
 Requires: python3-requests
 Requires: python3-urllib3
 Requires: python3-packaging
-Requires: sgx-libs = %{version}-%{release}
+Requires: sgx-common = %{version}-%{release}
 # pccs admin tool can be used against a remote pccs
 # so don't force a hard dep
 Recommends: sgx-pccs = %{version}-%{release}

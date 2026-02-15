@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.19
+Version: 44.20
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -519,6 +519,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 13 2026 Packit <hello@packit.dev> - 44.20-1
+- Don't pass `-R /` to shadow commands (awilliam)
+  Resolves: rhbz#2435621
+- chore: Support multiple console= kernel entries (ppolawsk)
+- Include JS files to translations (baurthefirst)
+- glib: Fix TypeError in timeout callback (k.koukiou)
+- flatpak: tests: fix unreachable code (fsouza.bruno)
+- flatpak: Only override remote URLs when subscription module is available
+  (bciconel)
+- flatpak: Make installation failures non-blocking (bciconel)
+- Allow manual trigger for container-rebuild-action workflow (k.koukiou)
+
 * Tue Feb 10 2026 Packit <hello@packit.dev> - 44.19-1
 - spec: Require python3-crypt-r also on ELN (k.koukiou)
 - Fix user input in driver disk menu is not displayed (adamkankovsky)

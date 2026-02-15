@@ -104,7 +104,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -926,6 +926,9 @@ make test
 
 
 %changelog
+* Fri Feb 13 2026 Jens Petersen <petersen@redhat.com> - 9.14.1-4
+- rebuild with ghc-rpm-macros-2.11
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

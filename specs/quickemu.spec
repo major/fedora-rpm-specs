@@ -1,5 +1,5 @@
 Name:           quickemu
-Version:        4.9.8
+Version:        4.9.9
 Release:        %autorelease
 Summary:        Quickly create and run optimized Windows, macOS and Linux virtual machines
 License:        MIT

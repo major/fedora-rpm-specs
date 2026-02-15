@@ -5,8 +5,8 @@
 %bcond_with storj
 
 Name: filezilla
-Version: 3.69.5
-Release: 4%{?dist}
+Version: 3.69.6
+Release: 1%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
@@ -149,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Fri Feb 13 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.69.6-1
+- 3.69.6
+
 * Tue Feb 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.69.5-4
 - libfilezilla rebuild
 

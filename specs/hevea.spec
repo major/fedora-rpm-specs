@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:		hevea
-Version:	2.37
-Release:	3%{?dist}
+Version:	2.38
+Release:	1%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception: the project as a whole
@@ -98,6 +98,9 @@ ln -s %{_texmf_main}/tex/latex/hevea/hevea.sty examples
 
 
 %changelog
+* Fri Feb 06 2026 Jerry James <loganjerry@gmail.com> - 2.38-1
+- New upstream version 2.38
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

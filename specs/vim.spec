@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 2128
+%define patchlevel 2146
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1005,6 +1005,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Feb 13 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2146-1
+- patchlevel 2146
+
 * Wed Feb 04 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2128-1
 - patchlevel 2128
 

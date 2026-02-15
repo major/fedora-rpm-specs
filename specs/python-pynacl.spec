@@ -1,10 +1,10 @@
-%global pypi_name PyNaCl
+%global pypi_name pynacl
 %bcond_without check
 
 %global modname pynacl
 
 Name:           python-%{modname}
-Version:        1.5.0
+Version:        1.6.2
 Release:        %autorelease
 Summary:        Python binding to the Networking and Cryptography (NaCl) library
 
@@ -12,7 +12,6 @@ Summary:        Python binding to the Networking and Cryptography (NaCl) library
 License:        Apache-2.0
 URL:            https://github.com/pyca/pynacl
 Source0:        %{pypi_source}
-Patch0001:      0001-Fix-compatibility-with-Python-3.14.0a1-848.patch
 
 BuildRequires:  gcc
 BuildRequires:  libsodium-devel

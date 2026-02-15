@@ -53,6 +53,8 @@ BuildRequires:	swig python3-clang python3-devel
 BuildRequires:	zxing-cpp-devel zint-devel
 %endif
 
+Requires:	%{name}-libs%{_isa} = %{version}-%{release}
+
 # We need to build against the Artifex fork of lcms2 so that we are thread safe
 # (see bug #1553915). Artifex make sure to rebase against upstream, who refuse
 # to integrate Artifex's changes. 
@@ -102,12 +104,15 @@ C++ applications that use the mupdf library.
 
 %package cpp-libs
 Summary:	C++ Library files for %{name}
+Requires:	%{name}-libs%{_isa} = %{version}-%{release}
 
 %description cpp-libs
 The mupdf-cpp-libs package contains the mupdf C++ library files.
 
 %package -n python3-%{pypiname}
 Summary:	Python bindings for %{name}
+Requires:	%{name}-libs%{_isa} = %{version}-%{release}
+Requires:	%{name}-cpp-libs%{_isa} = %{version}-%{release}
 
 %description -n python3-%{pypiname}
 The python3-%{pypiname} package contains low level mupdf python bindings.

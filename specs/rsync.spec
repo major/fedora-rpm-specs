@@ -9,7 +9,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.4.1
-Release: 5%{?prerelease}%{?dist}
+Release: 6%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -45,6 +45,7 @@ License: GPL-3.0-or-later
 Patch1: rsync-3.2.2-runtests.patch
 Patch2: rsync-3.4.1-rrsync-man.patch
 Patch3: rsync-3.4.1-gcc15-fixes.patch
+Patch4: rsync-3.4.1-cve-2025-10158.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -91,6 +92,7 @@ patch -p1 -i patches/detect-renamed.diff
 patch -p1 -i patches/detect-renamed-lax.diff
 
 %patch 3 -p1 -b .gcc15
+%patch 4 -p1 -b .cve-2025-10158
 
 %build
 %configure \
@@ -148,6 +150,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Fri Feb 13 2026 Michal Ruprich <mruprich@redhat.com> - 3.4.1-6
+- Fix for CVE-2025-10158
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

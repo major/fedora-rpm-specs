@@ -1,5 +1,7 @@
 # macro for el10 minor version
+%if 0%{?rhel} == 10
 %define rhel_minor_version %(grep -oP '10\.[0-9.]*' /etc/redhat-release |  cut -d '.' -f2)
+%endif
 
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
@@ -46,7 +48,7 @@
 %endif
 
 # set nodejs_version
-%global nodejs_version v22.14.0
+%global nodejs_version v22.22.0
 
 %global system_nodejs 1
 # RHEL 9 needs newer nodejs
@@ -348,6 +350,9 @@ Patch150: chromium-124-qt6.patch
 # Disable rust nightly features
 Patch301: chromium-144-rust-libadler2.patch
 
+# Fix error with llwm < 21: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
+Patch302: chromium-145-static_assert.patch
+
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
 Patch305: chromium-124-el8-arm64-memory_tagging.patch
@@ -484,7 +489,7 @@ Patch502: flatpak-Expose-Widevine-into-the-sandbox.patch
 # nodejs patches
 %if ! %{system_nodejs}
 Patch510: 0001-Remove-unused-OpenSSL-config.patch
-Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
+Patch511: 0001-fips-disable-options.patch
 %endif
 
 # upstream patches
@@ -1091,6 +1096,10 @@ Qt6 UI for chromium.
 %patch -P150 -p1 -b .qt6
 
 %patch -P301 -p1 -b .rust-libadler2
+# alte llvm version < 21 on f42/el9/epel10.1
+%if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
+%patch -P302 -p1 -b .static_assert
+%endif
 
 %if 0%{?rhel} == 8
 %ifarch aarch64
@@ -1248,8 +1257,8 @@ export CXX=c++
 tar xf %{SOURCE12}
 pushd node-%{nodejs_version}
 patch -p1 < %{_sourcedir}/0001-Remove-unused-OpenSSL-config.patch
-patch -p1 < %{_sourcedir}/0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
-./configure --ninja --shared-openssl --openssl-conf-name=openssl_conf --enable-static --prefix=node-%{nodejs_version}-linux-x64
+patch -p1 < %{_sourcedir}/0001-fips-disable-options.patch
+./configure --ninja --shared-openssl --openssl-is-fips --openssl-conf-name=openssl_conf --enable-static --prefix=node-%{nodejs_version}-linux-x64
 ninja -j %{numjobs} -C %{chromebuilddir}
 make install
 popd

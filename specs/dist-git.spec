@@ -3,8 +3,8 @@
 %global installdir /var/lib/dist-git
 
 Name:           dist-git
-Version:        1.18
-Release:        6%{?dist}
+Version:        1.19
+Release:        1%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -26,17 +26,17 @@ Requires:       git
 Requires:       git-daemon
 Requires:       mod_ssl
 Requires:       crudini
+%if 0%{?rhel} && 0%{?rhel} < 10
+Requires(pre):  shadow-utils
+%endif
 
 Requires:       python3-requests
 Recommends:     python3-grokmirror
 Suggests:       python3-fedmsg
 Suggests:       fedora-messaging
-%if 0%{?rhel} == 8
-BuildRequires:  python3-nose
-%else
+
+BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-%endif
-BuildRequires:  python3-parameterized
 BuildRequires:  python3-requests
 
 # this should be Requires but see https://bugzilla.redhat.com/show_bug.cgi?id=1833810
@@ -75,11 +75,6 @@ This package includes SELinux support.
 %prep
 %setup -q
 
-# Create a sysusers.d config file
-cat >dist-git.sysusers.conf <<EOF
-g packager -
-EOF
-
 
 %build
 # ------------------------------------------------------------------------------
@@ -95,18 +90,18 @@ done
 cd -
 
 
-
+%pre
+%if 0%{?rhel} && 0%{?rhel} < 10
+# ------------------------------------------------------------------------------
+# Users and Groups
+# ------------------------------------------------------------------------------
+getent group packager > /dev/null || \
+    groupadd -r packager
+exit 0
+%endif
 
 %check
-%if 0%{?rhel} && 0%{?rhel} <= 8
-%if 0%{?rhel} < 8
-nosetests -v .
-%else
-nosetests-3 -v .
-%endif
-%else
-pytest -vv .
-%endif
+%pytest -vv .
 
 
 %install
@@ -127,6 +122,8 @@ mkdir -p   %{buildroot}%{_unitdir}
 cp -a configs/httpd/dist-git.conf %{buildroot}%{_sysconfdir}/httpd/conf.d/
 cp -a configs/httpd/dist-git/* %{buildroot}%{_sysconfdir}/httpd/conf.d/dist-git/
 cp -a configs/systemd/*        %{buildroot}%{_unitdir}/
+
+install -m0644 -D configs/sysusers.d/dist-git.conf %{buildroot}%{_sysusersdir}/dist-git.conf
 
 # ------------------------------------------------------------------------------
 # /var/lib/ ...... dynamic persistent files
@@ -167,8 +164,6 @@ done
 cd -
 
 hardlink -cv %{buildroot}%{_datadir}/selinux
-
-install -m0644 -D dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/dist-git.conf
 
 %post selinux
 for selinuxvariant in %{selinux_variants}
@@ -245,8 +240,8 @@ fi
 %{_bindir}/mkbranch_branching
 %{_bindir}/remove_unused_sources
 %{_bindir}/setup_git_package
-%{_sysusersdir}/dist-git.conf
 
+%{_sysusersdir}/dist-git.conf
 
 %files selinux
 %doc selinux/*
@@ -254,20 +249,9 @@ fi
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.18-3
+* Fri Feb 13 2026 Pavel Raiskup <pavel@raiskup.cz> 1.19-1
+- Avoid using parameterized and nose
 - Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Fri Sep 27 2024 Pavel Raiskup <praiskup@redhat.com> 1.18-1
 - replace test on _selinux_policy_version by macro that does it all

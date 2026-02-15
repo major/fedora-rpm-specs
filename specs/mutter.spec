@@ -30,6 +30,11 @@ Source0:       http://download.gnome.org/sources/%{name}/%{major_version}/%{name
 # https://pagure.io/fedora-workstation/issue/357
 Source1:       org.gnome.mutter.fedora.gschema.override
 
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4909
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/4608
+# Fixes a bug that caused openQA tests to often fail trying to click in the overview
+Patch:         4909.patch
+
 BuildRequires: cvt
 BuildRequires: desktop-file-utils
 BuildRequires: mesa-libEGL-devel

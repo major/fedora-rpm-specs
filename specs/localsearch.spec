@@ -44,6 +44,9 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
 Source0:        https://download.gnome.org/sources/%{name}/3.11/%{name}-%{tarball_version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/localsearch/-/merge_requests/657
+Patch:          no-absolute-symlinks.patch
+
 BuildRequires:  asciidoc
 BuildRequires:  gcc
 BuildRequires:  giflib-devel
@@ -133,11 +136,6 @@ This package contains various miners and metadata extractors for tinysparql.
 
 %install
 %meson_install
-
-# Avoid RPM build warning:
-#  absolute symlink: /usr/share/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service -> /usr/share/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service
-rm %{buildroot}%{_datadir}/localsearch3/miners/%{domain_ontology}.Tracker3.Miner.Files.service
-ln -sr %{buildroot}%{_datadir}/dbus-1/services/%{domain_ontology}.Tracker3.Miner.Files.service %{buildroot}%{_datadir}/localsearch3/miners/%{domain_ontology}.Tracker3.Miner.Files.service
 
 %find_lang localsearch3
 

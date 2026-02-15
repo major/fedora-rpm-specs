@@ -8,8 +8,8 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        5.0.3
-Release:        3%{?dist}
+Version:        5.0.6
+Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -111,6 +111,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Thu Feb 12 2026 Maxwell G <maxwell@gtmx.me> - 5.0.6-1
+- Update to 5.0.6. Fixes rhbz#2419729.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
