@@ -32,6 +32,8 @@ Source1:        %{url}/-/releases/%{version}/downloads/wlroots-%{version}.tar.gz
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 # Upstream patches
+# https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5261
+Patch:          backend-libinput-fix-build-with-libinput-1.31.patch
 
 # Fedora patches
 # Following patch is required for phoc.

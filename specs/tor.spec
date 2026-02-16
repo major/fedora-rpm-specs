@@ -6,15 +6,15 @@
 %global logdir      %{_localstatedir}/log/tor
 %global rundir      /run/tor
 
-%ifarch %{ix86} x86_64
+%ifarch %{ix86} x86_64 aarch64
 %bcond_without libseccomp
 %else
 %bcond_with libseccomp
 %endif
 
 Name:       tor
-Version:    0.4.8.21
-Release:    3%{?dist}
+Version:    0.4.9.5
+Release:    1%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -34,7 +34,6 @@ Source20:   README
 Source30:   tor.sysusers
 
 Patch0:     tor-0.4.8.4-torrc-ControlSocket-and-CookieAuthFile.patch
-Patch1:     tor-0.4.8.21-fix-glibc-seccomp-enum.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -169,6 +168,10 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Sat Feb 14 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9.5-1
+- Update to latest upstream release https://forum.torproject.org/t/stable-release-0-4-9-5/21227
+- Enable seccomp on aarch64, which is now supported
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

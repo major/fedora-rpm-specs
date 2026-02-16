@@ -1,12 +1,16 @@
 Name:           thorvg
-Version:        0.15.16
+Version:        1.0.1
 Release:        %{autorelease}
 Summary:        Lightweight vector-based scenes and animation drawing library
 
 License:        MIT
 URL:            https://www.thorvg.org/
-Source:         https://github.com/thorvg/thorvg/archive/v%{version}/thorvg-%{version}.tar.gz
-Patch:          binarynameconflicts.patch
+Source0:        https://github.com/thorvg/thorvg/archive/v%{version}/thorvg-%{version}.tar.gz
+# Obtained from pre-release version
+# https://github.com/thorvg/thorvg/blob/e15069de7afcc5e853edf1561e69d9b8383e2c6c/docs/Doxyfile
+# Waiting for licensing of new versions to be resolved
+# https://github.com/thorvg/thorvg.site/issues/4
+Source1:        Doxyfile
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -59,19 +63,22 @@ Docbook documentation for ThorVG.
 
 %prep
 %autosetup -n thorvg-%{version} -p1
+mkdir docs
+cp %{SOURCE1} docs/
 # Generate docbook documentation
 sed -i "s/GENERATE_DOCBOOK       = NO/GENERATE_DOCBOOK       = YES/g" docs/Doxyfile
 sed -i "s/# DOCBOOK_PROGRAMLISTING = NO/ DOCBOOK_PROGRAMLISTING = YES/g" docs/Doxyfile
 sed -i "s/GENERATE_HTML          = YES/GENERATE_HTML          = NO/g" docs/Doxyfile
+sed -i "s/PROJECT_NUMBER         = v0.15/PROJECT_NUMBER         = v%{VERSION}/g" docs/Doxyfile
 
 %build
-%meson -Dengines=all \
-       -Dexamples=true \
+%meson -Dengines="sw, gl" \
        -Dloaders=all \
        -Dsavers=all \
        -Dbindings=capi \
        -Dtools=all \
        -Dstrip=false \
+       -Dthreads=true \
        -Dtests=true
 %meson_build
 # documentation
@@ -93,20 +100,17 @@ done
 %files
 %license LICENSE
 %doc README.md
-%doc AUTHORS
+%doc CONTRIBUTORS.md
 %doc CONTRIBUTING.md
-%{_libdir}/libthorvg.so.0
-%{_libdir}/libthorvg.so.0.*
+%{_libdir}/libthorvg-1.so.{,1*}
 %{_bindir}/tvg-svg2png
-%{_bindir}/tvg-svg2tvg
+#{_bindir}/tvg-svg2tvg
 %{_bindir}/tvg-lottie2gif
 
 %files devel
-%{_includedir}/thorvg.h
-%{_includedir}/thorvg_capi.h
-%{_includedir}/thorvg_lottie.h
-%{_libdir}/libthorvg.so
-%{_libdir}/pkgconfig/thorvg.pc
+%{_includedir}/thorvg-1/
+%{_libdir}/libthorvg-1.so
+%{_libdir}/pkgconfig/thorvg-1.pc
 
 %files doc
 %license LICENSE

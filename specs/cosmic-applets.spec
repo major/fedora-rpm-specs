@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit d4f62852f3fdaf3b7f1c4a5fa87724d0314467b0
-%global commitdatestring 2026-01-27 10:38:23 -0700
-%global cosmic_minver 1.0.4
+%global commit 3df3f39c09b3ebb0c185ca88d41e1b8e6492a8fc
+%global commitdatestring 2026-02-10 18:57:00 +0100
+%global cosmic_minver 1.0.6
 
 Name:           cosmic-applets
-Version: 1.0.4
+Version: 1.0.6
 Release:        %autorelease
 Summary:        Applets for the COSMIC Desktop Environment
 
@@ -114,6 +114,9 @@ export VERGEN_GIT_SHA="%{commit}"
 %cargo_test
 %endif
 
+%post
+%systemd_user_post com.system76.CosmicStatusNotifierWatcher.service
+
 %files
 %license LICENSE
 %license LICENSE.dependencies
@@ -134,6 +137,8 @@ export VERGEN_GIT_SHA="%{commit}"
 %{_bindir}/cosmic-applet-tiling
 %{_bindir}/cosmic-applet-time
 %{_bindir}/cosmic-applet-workspaces
+%{_userunitdir}/com.system76.CosmicStatusNotifierWatcher.service
+%{_datadir}/dbus-1/services/com.system76.CosmicStatusNotifierWatcher.service
 %{_datadir}/applications/com.system76.CosmicAppList.desktop
 %{_datadir}/applications/com.system76.CosmicAppletA11y.desktop
 %{_datadir}/applications/com.system76.CosmicAppletAudio.desktop

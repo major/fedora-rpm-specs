@@ -8,7 +8,7 @@
 
 Name: rabbitmq-server
 Version: 4.2.3
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -22,9 +22,9 @@ Patch: rabbitmq-server-0001-Use-default-EPMD-socket.patch
 Patch: rabbitmq-server-0002-Use-proto_dist-from-command-line.patch
 Patch: rabbitmq-server-0003-force-python3.patch
 Patch: rabbitmq-server-0004-Partially-revert-Use-template-in-rabbitmq-script-wra.patch
+Patch: rabbitmq-server-0005-Switch-to-zip-instead-of-7zip.patch
 
 URL: https://www.rabbitmq.com/
-BuildRequires: 7zip
 BuildRequires: elixir
 BuildRequires: erlang >= %{erlang_minver}
 # for %%gpgverify
@@ -33,7 +33,6 @@ BuildRequires: hostname
 BuildRequires: libxslt
 BuildRequires: make
 BuildRequires: python3
-BuildRequires: python3-simplejson
 BuildRequires: rsync
 BuildRequires: systemd
 BuildRequires: xmlto
@@ -78,19 +77,16 @@ u rabbitmq - 'RabbitMQ messaging server' %{_localstatedir}/lib/rabbitmq -
 EOF
 
 %build
-#USE_SPECS="true" USE_PROPER_QC="false" make %%{?_smp_mflags}
-make VERSION="%{version}" V=1  # Doesn't support %%{?_smp_mflags}
+RABBITMQ_VERSION="%{version}" make V=1 # Doesn't support %%{?_smp_mflags}
 
 
 %install
-make install \
-	VERSION="%{version}" \
+RABBITMQ_VERSION="%{version}" make install \
 	DESTDIR=%{buildroot} \
 	PREFIX=%{_prefix} \
 	RMQ_ROOTDIR=%{_rabbit_libdir}
 
-make install-man \
-	VERSION="%{version}" \
+RABBITMQ_VERSION="%{version}" make install-man \
 	DESTDIR=%{buildroot} \
 	PREFIX=%{_prefix} \
 	RMQ_ROOTDIR=%{_rabbit_libdir}
@@ -178,6 +174,13 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Sat Feb 14 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-3
+- Fix version setting
+
+* Thu Jan 29 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-2
+- Remove simplejson (use standard json module in Python 3)
+- Remove 7zip dependency (use zip instead)
+
 * Wed Jan 28 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-1
 - Ver. 4.2.3
 

@@ -1,8 +1,8 @@
-%global commit 3792a0bedd6b807c7bc02f8055ee41389538417f
+%global commit 82b066d607d18ebf9b909d167b8ac06628cd97ff
 
 Name: remmina
-Version: 1.4.41
-Release: 2%{?dist}
+Version: 1.4.42
+Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -353,6 +353,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Sat Feb 14 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.42-1
+- Update to 1.4.41 rhbz#2439835
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

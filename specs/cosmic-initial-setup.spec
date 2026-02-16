@@ -8,12 +8,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 9f2a68d2cc870f647ef5eeb818f1a21da4e2cb44
-%global commitdatestring 2026-01-27 10:23:33 -0700
-%global cosmic_minver 1.0.4
+%global commit 8cabf71f7fdc7ab9b815dc4e16ec59ecc74a0193
+%global commitdatestring 2026-02-10 17:04:58 +0100
+%global cosmic_minver 1.0.6
 
 Name:           cosmic-initial-setup
-Version: 1.0.4
+Version: 1.0.6
 Release:        %autorelease
 Summary:        Initial setup application for the COSMIC desktop environment
 

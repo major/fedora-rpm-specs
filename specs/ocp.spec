@@ -1,12 +1,12 @@
 #global snapshot 0
-%global commit 8de33292d0833fc7337e8ad87b9cebaf7d618513
-%global commitdate 20260117
-%global gittag v3.1.1
+%global commit d9d81d02d47499d0a7c96abb6a92fb152a118a58
+%global commitdate 20260208
+%global gittag v3.1.3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	3.1.1%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	3%{?dist}
+Version:	3.1.3%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # Main ocp source is GPL-2.0-or-later.
@@ -28,7 +28,6 @@ Source4:	ocp-bundled-versions.sh
 Patch0:		ocp-0.2.106-ini-optimize.patch
 Patch1:		ocp-0.2.106-ini-rompaths.patch
 Patch2:		ocp-3.1.1-timidity-config-file.patch
-Patch3:		ocp-3.1.1-timidity-pat-file-comment.patch
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	bzip2-devel
@@ -187,6 +186,13 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Fri Feb 13 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.3-1
+- Update to 3.1.3
+
+* Fri Jan 30 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.2-1
+- Update to 3.1.2
+- No longer need ocp-3.1.1-timidity-pat-file-comment.patch
+
 * Sun Jan 18 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.1.1-3
 - Recommends: soundfont2-default virtual provide instead
 

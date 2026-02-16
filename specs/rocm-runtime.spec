@@ -61,10 +61,15 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm Runtime Library
 
-License:    NCSA
+License:    (NCSA AND BSD-3-Clause) AND (MIT AND BSD-2-Clause) AND (GPL-2.0-only WITH Linux-syscall-note)
+# Main license is NCSA AND BSD-3-Clause
+# libhsakmt is MIT AND BSD-2-Clause
+# Misc files:
+#  libhsakmt/include/hsakmt/linux/udmabuf.h
+#  GPL-2.0-only WITH Linux-syscall-note
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
@@ -140,6 +145,13 @@ sed -i -e 's@LLVM_LINK_LLVM_DYLIB@0@' libhsakmt/tests/kfdtest/CMakeLists.txt
 # gcc 15 include cstdint
 sed -i '/#include <memory>.*/a#include <cstdint>' runtime/hsa-runtime/core/inc/amd_elf_image.hpp
 
+# Remove source we are not using to make license review easier
+rm -rf rocrtst
+rm -f clang-format-diff.py
+
+# libhsakmt license
+cp -p libhsakmt/LICENSE.md LICENSE_libhsakmt.md
+
 %build
 
 export PATH=%{rocmllvm_bindir}:$PATH
@@ -192,7 +204,7 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 
 %files
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.txt LICENSE_libhsakmt.md
 %{pkg_prefix}/%{pkg_libdir}/libhsa-runtime64.so.1{,.*}
 
 %files devel
@@ -218,6 +230,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+
 * Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

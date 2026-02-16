@@ -2,22 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rsconf
+%global crate xterm-color
 
-Name:           rust-rsconf
-Version:        0.3.0
+Name:           rust-xterm-color
+Version:        1.0.2
 Release:        %autorelease
-Summary:        Helpers for testing for system headers, libraries, and symbols
+Summary:        Parses subset of X11 Color Strings for OSC color queries
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/rsconf
+URL:            https://crates.io/crates/xterm-color
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-The missing cargo API. A sane autoconf w/ build.rs helpers for testing
-for system headers, libraries, and symbols.}
+Parses the subset of X11 Color Strings emitted by terminals in response
+to OSC color queries.}
 
 %description %{_description}
 
@@ -31,9 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/license-apache.txt
+%license %{crate_instdir}/license-mit.txt
+%doc %{crate_instdir}/readme.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

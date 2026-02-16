@@ -34,6 +34,7 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 # Upstream patches
 # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5203
 Patch:          Fix-discarded-const-qualifier.patch
+Patch:          %{url}/-/commit/c1452d88.patch#/backend-libinput-fix-build-with-libinput-1.31.patch
 
 # Fedora patches
 # Following patch is required for phoc.

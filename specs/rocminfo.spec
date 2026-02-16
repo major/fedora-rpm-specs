@@ -40,10 +40,13 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm system info utility
 
-License:    NCSA
+License:    NCSA AND MIT
+# Main license is NCSA
+# This file is MIT
+#   rocm_agent_enumerator
 URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:     0001-adjust-CMAKE_CXX_FLAGS.patch
@@ -101,6 +104,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+
 * Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

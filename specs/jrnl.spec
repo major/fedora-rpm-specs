@@ -31,6 +31,10 @@ Patch:          jrnl-4.2-rich-14.patch
 # Rebased on v4.2.1, without changes to poetry.lock.
 Patch:          0001-For-Python-3.11-use-tomllib-for-tests.patch
 
+# Modify linewrap test to bypass minor inconsistency between Python versions
+# https://github.com/jrnl-org/jrnl/pull/2047
+Patch:          %{forgeurl}/pull/2047.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   jrnl
 BuildOption(generate_buildrequires): -t
@@ -71,11 +75,6 @@ install -D -t '%{buildroot}%{_mandir}/man1' -p -m 0644 'jrnl.1'
 
 
 %check -a
-# Python 3.13.11, 3.14.2 regression in
-# test_override_configured_linewrap_with_a_value_of_23
-# https://github.com/jrnl-org/jrnl/issues/2041
-k="${k-}${k+ and }not test_override_configured_linewrap_with_a_value_of_23"
-
 %tox -- -- -k "${k-}" -rs
 
 
@@ -83,10 +82,7 @@ k="${k-}${k+ and }not test_override_configured_linewrap_with_a_value_of_23"
 %license LICENSE.md
 
 %doc CHANGELOG.md
-%doc CODE_OF_CONDUCT.md
-%doc CONTRIBUTING.md
 %doc README.md
-%doc SECURITY.md
 %doc docs/
 
 %{_bindir}/jrnl

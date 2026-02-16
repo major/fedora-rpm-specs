@@ -132,7 +132,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}.1
 %else
-Release:        1.rocm%{rocm_version}%{?dist}
+Release:        2.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -249,7 +249,7 @@ The AMD Code Object Manager (Comgr) development package.
 %package -n %{hipcc_name}
 Summary:        HIP compiler driver
 Requires:       %{device_libs_name} = %{version}-%{release}
-Suggests:       rocminfo%{pkg_suffix}
+Requires:       rocminfo%{pkg_suffix}
 %if 0%{?suse_version}
 Provides:       hip = %{version}-%{release}
 Obsoletes:      hip <= %{version}-%{release}
@@ -1024,6 +1024,9 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %endif
 
 %changelog
+* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> 22-2.rocm7.2.0
+- hipcc requires rocminfo to find its default gpu
+
 * Thu Feb 5 2026 Tom Rix <Tom.Rix@amd.com> 22-1.rocm7.2.0
 - Update to 7.2.0
 - Use rocm-filesystem via rocm-cmake

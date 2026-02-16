@@ -40,7 +40,7 @@
 
 Name:     %{pkg_name}
 Version:  %{rocm_version}
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  CMake modules for common build and development tasks for ROCm
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
@@ -88,7 +88,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-cmake/LICENSE
 %{pkg_prefix}/share/rocmcmakebuildtools/
 
 %changelog
-* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0
+* Thu Feb 12 2026 Tom Rix <Tom>Rix@amd.com> - 7.2.0-2
+- Fix changelog
+
+* Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3

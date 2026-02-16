@@ -6,7 +6,7 @@
 
 Name:           wlroots
 Version:        0.19.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -39,6 +39,7 @@ Source3:        examples.meson.build
 # Upstream patches
 # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5203
 Patch:          Fix-discarded-const-qualifier.patch
+Patch:          %{url}/-/commit/c1452d88.patch#/backend-libinput-fix-build-with-libinput-1.31.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -143,6 +144,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Thu Feb 12 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.2-4
+- Apply upstream patch for libinput 1.31 compatibility
+
 * Sat Jan 24 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.2-3
 - Rebuild for libdisplay-info 0.3.0
 

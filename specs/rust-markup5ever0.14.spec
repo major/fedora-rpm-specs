@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rsconf
+%global crate markup5ever
 
-Name:           rust-rsconf
-Version:        0.3.0
+Name:           rust-markup5ever0.14
+Version:        0.14.1
 Release:        %autorelease
-Summary:        Helpers for testing for system headers, libraries, and symbols
+Summary:        Common code for xml5ever and html5ever
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/rsconf
+URL:            https://crates.io/crates/markup5ever
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-The missing cargo API. A sane autoconf w/ build.rs helpers for testing
-for system headers, libraries, and symbols.}
+Common code for xml5ever and html5ever.}
 
 %description %{_description}
 
@@ -33,7 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/local_names.txt
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

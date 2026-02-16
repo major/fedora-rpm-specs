@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 22926ea0acc3f601924e58156a9be6a488060f13
-%global commitdatestring 2026-01-27 10:35:10 -0700
-%global cosmic_minver 1.0.4
+%global commit a9da1dec91f32fb4f190ef8075889fbd5c4230d3
+%global commitdatestring 2026-02-09 14:25:40 -0700
+%global cosmic_minver 1.0.6
 
 Name:           cosmic-app-library
-Version: 1.0.4
+Version: 1.0.6
 Release:        %autorelease
 Summary:        App Library program for the COSMIC Desktop Environment
 
@@ -47,7 +47,7 @@ Requires:       cosmic-icon-theme >= %{cosmic_minver}
 %description %{_description}
 
 %prep
-%autosetup -n cosmic-applibrary-epoch-%{version_no_tilde} -p1 -a1
+%autosetup -n cosmic-app-library-epoch-%{version_no_tilde} -p1 -a1
 %cargo_prep -N
 # Check if .cargo/config.toml exists
 if [ -f .cargo/config.toml ]; then

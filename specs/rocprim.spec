@@ -80,9 +80,9 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
-Summary:        ROCm parallel primatives
+Summary:        ROCm parallel primitives
 
 License:        MIT AND BSD-3-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
@@ -123,7 +123,7 @@ The rocPRIM is a header-only library providing HIP parallel primitives
 for developing performant GPU-accelerated code on AMD ROCm platform.
 
 %package devel
-Summary:        ROCm parallel primatives
+Summary:        ROCm parallel primitives
 Provides:       rocprim%{pkg_suffix}-static = %{version}-%{release}
 
 # the devel subpackage is only headers and cmake infra
@@ -135,7 +135,7 @@ for developing performant GPU-accelerated code on AMD ROCm platform.
 
 %if %{with test}
 %package test
-Summary:        upstream tests for ROCm parallel primatives
+Summary:        upstream tests for ROCm parallel primitives
 Provides:       rocprim%{pkg_suffix}-test = %{version}-%{release}
 Requires:       rocprim%{pkg_suffix}-devel
 Requires:       gtest
@@ -216,6 +216,10 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfi
 
 
 %changelog
+* Sat Feb 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Fix spelling
+- Remove macro in changelog
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 
@@ -271,7 +275,7 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfi
 
 * Mon May 5 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.0-2
 - create test subpackage and add --with test flag
-- move during-build checks to %check section
+- move during-build checks to check section
 - change build to be noarch only for -devel subpackage so that arch-specific tests could be packaged in -test
 
 * Fri Apr 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-1

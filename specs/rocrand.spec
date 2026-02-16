@@ -101,7 +101,7 @@
   -DROCM_SYMLINK_LIBS=OFF
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -123,12 +123,32 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm random number generator
 
 URL:            https://github.com/ROCm/rocm-libraries
-License:        MIT AND BSD-3-Clause AND 0BSD
+License:        MIT AND 0BSD AND (MIT AND BSL-1.0) AND (MIT AND BSD-3-Clause)
+# The main license is MIT
+# These other licenses apply to these files
+# MIT AND BSL-1.0
+#   library/include/rocrand/rocrand_common.h
+# MIT AND BSD-3-Clause
+#   library/include/rocrand/rocrand_mtgp32.h
+#   library/include/rocrand/rocrand_mtgp32_11213.h
+#   library/include/rocrand/rocrand_philox4x32_10.h
+#   library/include/rocrand/rocrand_threefry2_impl.h
+#   library/include/rocrand/rocrand_threefry2x32_20.h
+#   library/include/rocrand/rocrand_threefry2x64_20.h
+#   library/include/rocrand/rocrand_threefry4_impl.h
+#   library/include/rocrand/rocrand_threefry4x32_20.h
+#   library/include/rocrand/rocrand_threefry4x64_20.h
+#   library/include/rocrand/rocrand_threefry_common.h
+#   library/src/rng/mt19937.hpp
+#   library/src/rng/mt19937_octo_engine.hpp
+#   library/src/rng/mtgp32.hpp
+#   library/src/rng/philox4x32_10.hpp
+
 %if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
@@ -214,12 +234,14 @@ cd projects/rocrand
 %autosetup -p1 -n %{upstreamname}
 %endif
 
-
 # On Tumbleweed Q3,2025
 # https://github.com/ROCm/rocm-libraries/issues/83
 # /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
 # Convert the c++11's to c++17
 sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp_wrapper,package}/}CMakeLists.txt
+
+# Remove some files not needed and reduce the licenses
+rm -rf test/fortran/fruit
 
 %build
 
@@ -256,7 +278,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/librocrand.so.1{,.*}
 %endif
 
-%files devel 
+%files devel
 %{pkg_prefix}/include/rocrand/
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocrand/
 %if %{with debug}
@@ -272,6 +294,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Fri Feb 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+- Cleanup whitespace
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

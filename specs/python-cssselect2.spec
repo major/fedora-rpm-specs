@@ -1,8 +1,8 @@
 %global srcname cssselect2
 
 Name:           python-%{srcname}
-Version:        0.8.0
-Release:        7%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        CSS selectors for Python ElementTree
 License:        BSD-3-Clause
 URL:            https://doc.courtbouillon.org/cssselect2/stable/
@@ -57,6 +57,9 @@ sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" -e "s/, 'ruff'//" pyproject.toml
 
 
 %changelog
+* Sat Feb 14 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 0.9.0-1
+- update to 0.9.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

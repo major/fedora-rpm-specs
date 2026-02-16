@@ -2,22 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rsconf
+%global crate html5ever
 
-Name:           rust-rsconf
-Version:        0.3.0
+Name:           rust-html5ever0.29
+Version:        0.29.0
 Release:        %autorelease
-Summary:        Helpers for testing for system headers, libraries, and symbols
+Summary:        High-performance browser-grade HTML5 parser
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/rsconf
+URL:            https://crates.io/crates/html5ever
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          html5ever-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-The missing cargo API. A sane autoconf w/ build.rs helpers for testing
-for system headers, libraries, and symbols.}
+High-performance browser-grade HTML5 parser.}
 
 %description %{_description}
 
@@ -46,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+trace_tokenizer-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+trace_tokenizer-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "trace_tokenizer" feature of the "%{crate}" crate.
+
+%files       -n %{name}+trace_tokenizer-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

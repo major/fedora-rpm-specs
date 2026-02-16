@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit b550b45da3fade3d1d2a018677be078bd7e7e6e9
-%global commitdatestring 2026-01-27 10:26:18 -0700
-%global cosmic_minver 1.0.4
+%global commit 3180f369ca1e59a93c201c41fdbfce443f8c2c74
+%global commitdatestring 2026-02-10 17:03:26 +0100
+%global cosmic_minver 1.0.6
 
 Name:           cosmic-screenshot
-Version: 1.0.4
+Version: 1.0.6
 Release:        %autorelease
 Summary:        Screenshot utility for the COSMIC Desktop Environment
 

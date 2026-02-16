@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -41,7 +41,7 @@ BuildArch:      noarch
 # we just list the few test dependencies we *do* want manually rather than
 # trying to patch the requirements file. We preserve upstream’s lower bounds
 # but remove upper bounds, as we must try to make do with what we have.
-BuildRequires:  %{py3_dist pytest} >= 4.4
+BuildRequires:  %{py3_dist pytest} >= 7
 BuildRequires:  %{py3_dist respx} >= 0.22
 BuildRequires:  %{py3_dist time-machine} >= 2.15
 

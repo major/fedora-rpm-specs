@@ -126,10 +126,10 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
-License:        MIT AND 0BSD
+License:        (MIT AND BSD-3-Clause) AND 0BSD
 
 URL:            https://github.com/ROCm/rocm-libraries
 %if %{with gitcommit}
@@ -300,6 +300,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Fri Feb 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

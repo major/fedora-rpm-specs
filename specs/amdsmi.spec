@@ -53,10 +53,15 @@
 
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    AMD System Management Interface
 
-License:    NCSA AND MIT AND BSD-3-Clause
+License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note)
+# Main license is MIT
+# 
+# This file is GPL-2.0
+# include/amd_smi/impl/amd_hsmp.h
+
 URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # esmi_ib_library is not suitable for packaging
@@ -226,6 +231,9 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+
 * Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

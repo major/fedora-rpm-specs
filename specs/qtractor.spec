@@ -1,5 +1,5 @@
 Name:           qtractor
-Version:        1.5.8
+Version:        1.5.11
 Release:        %autorelease
 Summary:        Audio/MIDI multi-track sequencer
 License:        GPL-2.0-or-later
@@ -73,8 +73,7 @@ workstation GUI, specially dedicated to the personal home-studio.
     -DCONFIG_LIBJACK=ON \
     -DCONFIG_LIBASOUND=ON \
     -DCONFIG_LV2_UI_GTK2=OFF \
-    -DCONFIG_LV2_UI_GTKMM2=OFF \
-
+    -DCONFIG_LV2_UI_GTKMM2=OFF
 %cmake_build
 
 %install
