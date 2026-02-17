@@ -1,7 +1,7 @@
 %global srcname flask-cors
 
 Name:           python-%{srcname}
-Version:        6.0.1
+Version:        6.0.2
 Release:        %autorelease
 Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 License:        MIT

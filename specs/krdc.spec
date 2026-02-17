@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    krdc
 Summary: Remote desktop client
 Version: 25.12.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -123,6 +123,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Feb 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.2-3
+- Rebuilt to fix wayland detection
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

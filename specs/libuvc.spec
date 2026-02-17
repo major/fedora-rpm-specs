@@ -59,6 +59,8 @@ This package contains examples making use of %{name}.
 %autosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380761)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DCMAKE_BUILD_TARGET=Shared \
 %if %{with examples}

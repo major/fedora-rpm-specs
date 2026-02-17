@@ -3,7 +3,7 @@
 
 Name:           mpv
 Version:        0.41.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # overall license is GPL-2.0-or-later and LGPL-2.1-or-later
 # BSD-2-Clause
@@ -251,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.41.0-3
+- Rebuild for libdisplay-info 0.3.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.41.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

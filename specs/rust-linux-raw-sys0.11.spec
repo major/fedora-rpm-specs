@@ -4,8 +4,8 @@
 
 %global crate linux-raw-sys
 
-Name:           rust-linux-raw-sys
-Version:        0.12.1
+Name:           rust-linux-raw-sys0.11
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -171,18 +171,6 @@ use the "if_packet" feature of the "%{crate}" crate.
 %files       -n %{name}+if_packet-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+if_tun-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+if_tun-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "if_tun" feature of the "%{crate}" crate.
-
-%files       -n %{name}+if_tun-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+image-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -337,18 +325,6 @@ This package contains library source intended for building other packages which
 use the "system" feature of the "%{crate}" crate.
 
 %files       -n %{name}+system-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+vm_sockets-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vm_sockets-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vm_sockets" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vm_sockets-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+xdp-devel

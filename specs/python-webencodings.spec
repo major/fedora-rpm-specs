@@ -7,8 +7,7 @@ Version: 0.5.1
 Release: 33%{?dist}
 BuildArch: noarch
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause
 Summary: Character encoding for the web
 URL: https://github.com/gsnedders/python-%{srcname}
 Source0: %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz

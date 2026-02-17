@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:     phoc
-Version:  0.53~rc1
+Version:  0.53.0
 Release:  %{autorelease}
 Summary:  Display compositor designed for phones
 
@@ -33,8 +33,7 @@ BuildRequires:  pkgconfig(gmobile) >= 0.6.0
 BuildRequires:  pkgconfig(wlroots-0.19)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(json-glib-1.0)
-# tests needs xvfb-run
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  /usr/bin/xvfb-run
 # tests need dbus-daemon, mutter gschemas and Xwayland
 BuildRequires:  dbus-daemon
 BuildRequires:  mutter-common

@@ -1,5 +1,5 @@
 Name:     phosh-tour
-Version:  0.52.0
+Version:  0.53.0
 Release:  %autorelease
 Summary:  Simple introduction to Phosh
 License:  GPL-3.0-or-later

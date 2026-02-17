@@ -1,15 +1,15 @@
 %global homedir %{_sharedstatedir}/%{name}
 
 Name:           mopidy
-Version:        4.0.0~a4
-Release:        5%{?dist}
+Version:        4.0.0~a12
+Release:        1%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        Apache-2.0
 URL:            https://mopidy.com/
 Source0:        %{pypi_source}
 Source1:        mopidy.conf
-Patch0:         0001-add-workaround-for-gstreamer-1.25.0-to-1.26.2.patch
+Patch0:         0001-fix-test-failure-in-mopidy-4.0.0a12.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -54,8 +54,9 @@ Documentation for Mopidy, an extensible music server written in Python.
 
 
 %prep
-%autosetup -n %{name}-4.0.0a4 -p1
+%autosetup -n %{name}-4.0.0a12 -p1
 #HACK! revert to %%autosetup -n %%{name}-%%{version} -p1
+rm -f setup.cfg # HACK: work around https://github.com/tox-dev/tox/issues/3602
 
 %generate_buildrequires
 %pyproject_buildrequires -p
@@ -125,6 +126,9 @@ install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
 
 
 %changelog
+* Sun Feb 15 2026 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a12-1
+- Update to 4.0.0a12 (RHBZ#2434828)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~a4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

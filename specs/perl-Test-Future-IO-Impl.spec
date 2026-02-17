@@ -1,5 +1,5 @@
 Name:           perl-Test-Future-IO-Impl
-Version:        0.17
+Version:        0.19
 Release:        1%{?dist}
 Summary:        Acceptance tests for Future::IO implementations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,9 @@ of Future::IO.
 %{_mandir}/man3/Test*
 
 %changelog
+* Sun Feb 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.19-1
+- Update to 0.19
+
 * Sun Jan 25 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.17-1
 - Update to 0.17
 

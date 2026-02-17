@@ -6,7 +6,7 @@
 
 Name:           miracle-wm
 Version:        0.8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
@@ -15,6 +15,8 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # bugfix: only install libmirrenderer-dev if it is available
 # https://github.com/miracle-wm-org/miracle-wm/pull/734
 Patch0:         734.patch
+# already fixed upstream
+Patch1:         miracle-wm-0.8.3-fix-for-gcc16.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -109,6 +111,9 @@ libraries for manipulating the configuration of %{name}.
 
 
 %changelog
+* Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.8.3-3
+- Add patch to fix build with GCC 16
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

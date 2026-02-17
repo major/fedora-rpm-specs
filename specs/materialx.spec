@@ -49,6 +49,10 @@ Patch1:         materialx-fix-python-setup-configure.patch
 # Fix installation paths - remove doc install (handled by RPM macros) and
 # fix incorrect MDL installation to absolute build path
 Patch2:         materialx-fix-install-paths.patch
+# Propagate CMake dependency for opengl/x11
+# https://github.com/AcademySoftwareFoundation/MaterialX/pull/2752
+Patch3:         2752.patch
+
 
 #========================================
 # Build Requirements

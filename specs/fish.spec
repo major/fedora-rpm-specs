@@ -1,4 +1,4 @@
-%global version_base 4.2.0
+%global version_base 4.4.0
 %dnl %global version_pre beta.1
 %dnl %global gitnum 1
 %dnl %global githash b82d0fcbcc44eb259cf2209b04f7a41c1f324e27
@@ -43,8 +43,6 @@ Source10:       https://github.com/fish-shell/rust-pcre2/archive/%{rust_pcre2_fi
 # Backports from upstream (0001~500)
 
 # Proposed upstream (501~1000)
-# https://github.com/fish-shell/fish-shell/pull/12222
-Patch501:       0501-Update-phf-from-0.12-to-0.13.patch
 
 # Downstream-only (1001+)
 Patch1001:      1001-cargo-Use-internal-copy-of-rust-pcre2-instead-of-fet.patch
@@ -116,7 +114,11 @@ echo "%{version}" > version
 for f in $(find share/tools -type f -name '*.py'); do
     sed -i -e '1{s@^#!.*@#!%{__python3}@}' "$f"
 done
+
+# Do horrible things in our quest to have fish work properly
+mv .cargo/config.toml fishshell-cargo-config.toml
 %cargo_prep
+cat fishshell-cargo-config.toml >> .cargo/config.toml
 
 
 %generate_buildrequires
@@ -125,7 +127,7 @@ done
 
 %conf
 %cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DBUILD_DOCS=ON \
+    -DWITH_DOCS=ON \
     -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
     -Dextra_completionsdir=%{_datadir}/%{name}/vendor_completions.d \
     -Dextra_functionsdir=%{_datadir}/%{name}/vendor_functions.d \
@@ -138,7 +140,7 @@ export CARGO_NET_OFFLINE=true
 # Cargo doesn't create this directory
 mkdir -p %{_vpath_builddir}
 
-%cmake_build -t all doc
+%cmake_build
 
 # We still need to slightly manually adapt the pkgconfig file and remove
 # some /usr/local/ references (RHBZ#1869376)

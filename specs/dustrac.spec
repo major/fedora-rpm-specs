@@ -16,8 +16,8 @@ Summary: Traditional top-down car racing game
 # - src/contrib/SimpleLogger - logging library
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND MIT
 
-Version: 2.1.1
-Release: 4%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 
 URL: https://juzzlin.github.io/DustRacing2D/
 Source0: https://github.com/juzzlin/DustRacing2D/archive/%{version}/DustRacing2D-%{version}.tar.gz
@@ -34,11 +34,12 @@ BuildRequires: libappstream-glib
 BuildRequires: pkgconfig
 
 BuildRequires: cmake(OpenAL)
-BuildRequires: cmake(Qt5LinguistTools)
-BuildRequires: cmake(Qt5OpenGL)
-BuildRequires: cmake(Qt5Sql)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Xml)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6OpenGL)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
 BuildRequires: glew-devel
 BuildRequires: glm-devel
 BuildRequires: pkgconfig(glu)
@@ -49,8 +50,8 @@ BuildRequires: fontconfig
 BuildRequires: %{fontlist}
 
 # Version info based on src/contrib/*/CHANGELOG
-Provides: bundled(Argengine) = 0.0.1
-Provides: bundled(SimpleLogger) = 1.4.0
+Provides: bundled(Argengine) = 1.3.0
+Provides: bundled(SimpleLogger) = 2.0.0
 
 Requires: %{name}-data = %{version}-%{release}
 
@@ -126,6 +127,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Tue Feb 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.0-1
+- Update to v2.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

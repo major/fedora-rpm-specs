@@ -1,10 +1,10 @@
-%global commit ed44d894beb7784ce9b767399d593d02b0916321
-%global commitdate 20250922
+%global commit bc45a73748d3db8d96d692ff791fa4f5aac22127
+%global commitdate 20260215
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           miracle-wm-config
 Version:        0~git.%{commitdate}.1.%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Miracle Window Manager system configuration
 
 License:        GPL-3.0-or-later
@@ -12,15 +12,8 @@ URL:            https://pagure.io/fedora-miracle/miracle-wm-config
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 Requires:       desktop-backgrounds-compat
-Requires:       jxl-pixbuf-loader
-Requires:       miracle-wm >= 0.7.1
-Requires:       swaybg
-Requires:       swaylock
-Requires:       swaync
-Requires:       nwg-bar >= 0.1.6-3
-Requires:       nwg-dock >= 0.4.1-3
-Requires:       nwg-drawer >= 0.4.9-2
-Requires:       nwg-panel >= 0.9.47
+Requires:       miracle-wm >= 0.8.3
+Requires:       DankMaterialShell >= 1.2.3
 
 BuildArch:      noarch
 
@@ -30,8 +23,10 @@ BuildArch:      noarch
 %files
 %license LICENSE
 %doc README.md
+%{_libexecdir}/miracle-wm-dms-session
 %dir %{_datadir}/miracle-wm
 %{_datadir}/miracle-wm/default-config/
+%{_datadir}/miracle-wm/DankMaterialShell-default-config/
 
 %dnl ----------------------------------------------------------------
 
@@ -81,7 +76,7 @@ to use Miracle-WM for the greeter display server.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -C
 
 
 %build
@@ -90,6 +85,11 @@ to use Miracle-WM for the greeter display server.
 %install
 mkdir -p %{buildroot}%{_datadir}/miracle-wm/
 cp -av miraclewm-config %{buildroot}%{_datadir}/miracle-wm/default-config
+cp -av DankMaterialShell-config %{buildroot}%{_datadir}/miracle-wm/DankMaterialShell-default-config
+rm %{buildroot}%{_datadir}/miracle-wm/DankMaterialShell-default-config/miracle-wm-dms-session
+
+mkdir -p %{buildroot}%{_libexecdir}
+install -pm 0755 DankMaterialShell-config/miracle-wm-dms-session %{buildroot}%{_libexecdir}/miracle-wm-dms-session
 
 mkdir -p %{buildroot}%{_libexecdir}/initial-setup
 install -pm 0755 initial-setup/run-gui-backend %{buildroot}%{_libexecdir}/initial-setup/
@@ -99,6 +99,9 @@ install -pm 0644 sddm/miracle-wm.conf %{buildroot}%{_prefix}/lib/sddm/sddm.conf.
 
 
 %changelog
+* Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20260215.1.bc45a73-1
+- Replace nwg-shell with DankMaterialShell
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git.20250922.1.ed44d89-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

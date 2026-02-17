@@ -48,7 +48,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.10.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -240,6 +240,11 @@ Requires: pkgconfig(vulkan)
 %endif
 # Optional dev dependency of Qt6::Gui
 Requires: pkgconfig(xkbcommon)
+# for Qt6::WaylandClient
+Requires: pkgconfig(wayland-server)
+Requires: pkgconfig(wayland-client)
+Requires: pkgconfig(wayland-cursor)
+Requires: pkgconfig(wayland-egl)
 Requires: qt6-rpm-macros
 %if 0%{?use_clang}
 Requires: clang >= 3.7.0
@@ -968,6 +973,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Sun Feb 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.10.2-2
+- Add wayland-devel dependencies for cmake(Qt6WaylandClient)
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

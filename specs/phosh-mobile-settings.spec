@@ -1,7 +1,7 @@
 %global gvc_commit 1cdc1cb2d622d64e9ad2781093bcc63719c5ea5b
 
 Name:		phosh-mobile-settings
-Version:	0.53~rc1
+Version:	0.53.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -10,8 +10,6 @@ Source0:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
 Source1:	https://gitlab.gnome.org/guidog/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
-# https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/merge_requests/314
-Patch0:	314.patch
 
 ExcludeArch:	%{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415478

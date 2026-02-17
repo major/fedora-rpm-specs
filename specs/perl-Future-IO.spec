@@ -1,5 +1,5 @@
 Name:           perl-Future-IO
-Version:        0.19
+Version:        0.20
 Release:        1%{?dist}
 Summary:        Future-returning IO core methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -56,6 +56,9 @@ their results asynchronously via Future instances.
 %{_mandir}/man3/Future*
 
 %changelog
+* Sun Feb 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.20-1
+- Update to 0.20
+
 * Sun Feb 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.19-1
 - Update to 0.19
 

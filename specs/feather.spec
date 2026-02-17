@@ -11,6 +11,8 @@ Source1:       https://featherwallet.org/files/releases/source/%{name}-%{version
 Source2:       gpgkey-featherwallet.gpg
 Source3:       feather.metainfo.xml
 
+Patch0:        cmath.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -30,7 +32,6 @@ BuildRequires: libzip-devel
 BuildRequires: boost-devel
 BuildRequires: boost-filesystem
 BuildRequires: boost-thread
-BuildRequires: boost-system
 BuildRequires: boost-regex
 BuildRequires: boost-chrono
 BuildRequires: libsodium-devel

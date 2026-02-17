@@ -4,7 +4,7 @@
 
 Name:           libsrm
 Version:        %{basever}%{?origrel:_%{origrel}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for building DRM/KMS applications
 
 License:        MIT
@@ -90,6 +90,9 @@ popd
 
 
 %changelog
+* Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.6.3_1-5
+- Rebuild for libdisplay-info 0.3.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3_1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

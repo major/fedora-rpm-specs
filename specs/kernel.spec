@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.20.0
 %define specversion 6.20.0
 %define patchversion 6.20
-%define pkgrelease 0.rc0.260213gcee73b1e840c1.6
+%define pkgrelease 0.rc0.260215gca4ee40bf13db.8
 %define kversion 6
-%define tarfile_release 6.19-9367-gcee73b1e840c1
+%define tarfile_release 6.19-10124-gca4ee40bf13db
 # This is needed to do merge window version magic
 %define patchlevel 20
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260213gcee73b1e840c1.6%{?buildid}%{?dist}
+%define specrelease 0.rc0.260215gca4ee40bf13db.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.20.0
 
@@ -4819,14 +4819,21 @@ fi\
 #
 #
 %changelog
-* Fri Feb 13 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260213gcee73b1e840c1.6]
-- Linux v6.20.0-0.rc0.260213gcee73b1e840c1
+* Sun Feb 15 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260215gca4ee40bf13db.8]
+- Linux v6.20.0-0.rc0.260215gca4ee40bf13db
 
-* Fri Feb 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.cee73b1e840c.6]
+* Sun Feb 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.ca4ee40bf13d.8]
 - redhat/kernel.spec.template: Make -uki-dtbloader provide kernel-core-uname-r (Hans de Goede)
 - redhat/kernel.spec.template: Add kernel-uki-dtbloader sub-package (Hans de Goede)
 - redhat/kernel.spec.template: Simplify uki-virt signing (Hans de Goede)
 - redhat/kernel.spec.template: Fix indentation of uki-virt generation code (Hans de Goede)
+
+* Sun Feb 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.ca4ee40bf13d.7]
+- Linux v6.20.0-0.rc0.ca4ee40bf13d
+
+* Sat Feb 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.770aaedb461a.6]
+- Fix up merge from master (Justin M. Forbes)
+- Linux v6.20.0-0.rc0.770aaedb461a
 
 * Fri Feb 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.cee73b1e840c.5]
 - Linux v6.20.0-0.rc0.cee73b1e840c

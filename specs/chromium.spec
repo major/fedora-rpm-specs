@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 145.0.7632.45
+Version: 145.0.7632.75
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -347,8 +347,11 @@ Patch142: chromium-143-python-3.9-ftbfs.patch
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
 
-# Disable rust nightly features
-Patch301: chromium-144-rust-libadler2.patch
+# fix FTFS caused by missing include file on aarch64/ppc64le
+Patch300: chromium-145-swiftshader-missing-include.patch
+
+# enable rustc_nightly_capability
+Patch301: chromium-145-rustc-enable-nightly.patch
 
 # Fix error with llwm < 21: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
 Patch302: chromium-145-static_assert.patch
@@ -1095,8 +1098,10 @@ Qt6 UI for chromium.
 
 %patch -P150 -p1 -b .qt6
 
-%patch -P301 -p1 -b .rust-libadler2
-# alte llvm version < 21 on f42/el9/epel10.1
+%patch -P300 -p1 -b .swiftshader-missing-include
+%patch -P301 -p1 -b .rustc-enable-nightly
+
+# llvm version < 21 on f42/el9/epel10.1
 %if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
 %patch -P302 -p1 -b .static_assert
 %endif
@@ -1843,6 +1848,10 @@ fi
 %endif
 
 %changelog
+* Sat Feb 14 2026 Than Ngo <than@redhat.com> - 145.0.7632.75-1
+-  Update to 145.0.7632.75
+   * CVE-2026-2441: Use after free in CSS
+
 * Thu Feb 12 2026 Than Ngo <than@redhat.com> - 145.0.7632.45-1
 - Update to 145.0.7632.45
   * CVE-2026-2313: Use after free in CSS

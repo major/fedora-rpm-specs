@@ -4,23 +4,23 @@ License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
 # Upstream keeps each colour variant of the theme in a separate git branch.
-%global git_date_master 20260123
-%global git_commit_master 65d3f2990979f0555611def05aecb961879dd28f
+%global git_date_master 20260210
+%global git_commit_master a5b3c824ec238f398a5b86e042d8fd74f5496244
 
-%global git_date_ambar 20260123
-%global git_commit_ambar 78d138d2448916da7441da9ed2771635343b3149
+%global git_date_ambar 20260210
+%global git_commit_ambar b85cd26c87c5d38b3265e4759ceacacf79e03d74
 
-%global git_date_ambar_blue 20260123
-%global git_commit_ambar_blue 40c5d110fcfe020d84f0377f60ae38d38ca6da8d
+%global git_date_ambar_blue 20260210
+%global git_commit_ambar_blue 0c3d02ce438606719db854697aaea87f13a0272a
 
-%global git_date_ambar_blue_dark 20260123
-%global git_commit_ambar_blue_dark 44eb19e502cd89aeae2240314da4b9420a658961
+%global git_date_ambar_blue_dark 20260210
+%global git_commit_ambar_blue_dark 3fe9cba71b5dbdfc442e2daa97f80115f530603b
 
-%global git_date_mars 20260123
-%global git_commit_mars a6d42c844c150ee4be4459bc9df9afdcc5d32caa
+%global git_date_mars 20260210
+%global git_commit_mars cff8c309d987cfbedddb62330f9df8d829031e46
 
-%global git_date_nova 20260123
-%global git_commit_nova 8772f6d345ed0e8f8c1ec28c45fba3ed62dfb2a9
+%global git_date_nova 20260210
+%global git_commit_nova 2c721ad4449ab9e80f4417450270507304ce14c4
 
 %global git_date %( \
 	( \
@@ -142,6 +142,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Sun Feb 15 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20260210-1
+- Update to latest git snapshots (2026-02-10)
+
 * Sat Jan 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20260123-1
 - Update to latest git snapshots (2026-01-23)
 

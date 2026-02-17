@@ -6,16 +6,13 @@
 %global crate libmonado
 
 Name:           rust-libmonado
-Version:        1.3.2
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Rust bindings to the libmonado library that controls Monado from other processes
 
 License:        MIT
 URL:            https://crates.io/crates/libmonado
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused build-dependencies
-Patch:          libmonado-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -49,6 +46,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,15 +1,35 @@
 Name:           global
-Version:        6.6.5
-Release:        18%{?dist}
+Version:        6.6.14
+Release:        1%{?dist}
 Summary:        Source code tag system
-# The entire source code is GPLv3+ except
-#   libglibc/ which is LGPLv2+
-#   gtags-cscope/ which is BSD
-#   libparser/ which is GPLv2+
-#   jquery/ which is MIT
-License:        GPLv3+ and LGPLv2+ and BSD and GPLv2+ and MIT
-URL:            http://www.gnu.org/software/global
-Source:         ftp://ftp.gnu.org/pub/gnu/global/global-%{version}.tar.gz
+# The entire source code is GPL-3.0-or-later except:
+# LGPL-2.0-or-later
+#   libglibc/fnmatch.{c,h}
+#   libglibc/regex.{c,h}
+#   libglibc/snprintf.c
+#   libltdl/*.{c,h}
+# LGPL-2.1-or-later
+#   libglibc/getopt{.c,1.c,.h,_int.h}
+#   libglibc/hash-string.{c,h}
+#   libglibc/obstack.{c,h}
+# BSD-3-Clause
+#   gtags-cscope/*.{c,h}
+#   libdb/bt_*.c
+#   libdb/{db,mpool}.{c,h}
+#   libdb/{btree,compat,extern,queue}.h
+# MIT
+#   htags/jquery
+# LicenseRef-Fedora-Public-Domain
+#   htags/icons/
+#   htags-refkit/htags_path2url.c
+#   plugin-factory/uctags-scheme.c
+# blessing
+#   libdb/sqlite3.{c,h}
+# GFDL-1.2-or-later
+#   doc/global.{info,texi}
+License:        GPL-3.0-or-later and LGPL-2.0-or-later and LGPL-2.1-or-later and BSD-3-Clause and MIT and LicenseRef-Fedora-Public-Domain and blessing and GFDL-1.2-or-later
+URL:            https://www.gnu.org/software/global
+Source:         https://ftp.gnu.org/pub/gnu/global/global-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
 BuildRequires:  libtool-ltdl-devel
@@ -19,7 +39,7 @@ BuildRequires:  emacs
 BuildRequires:  xemacs
 %endif
 BuildRequires:  sqlite-devel
-BuildRequires: make
+BuildRequires:  make
 Requires:       emacs-filesystem >= %{_emacs_version}
 %if 0%{?fedora} < 36
 Requires:       xemacs-filesystem >= %{_xemacs_version}
@@ -29,7 +49,7 @@ Obsoletes:      emacs-global-el <= 6.5.1-1
 Provides:       emacs-global = %{version}-%{release}
 Provides:       emacs-global-el = %{version}-%{release}
 
-Patch99:	global-6.6.5-fedora-c99.patch
+Patch0100:      libdb-dbpanic-function-pointers.patch
 
 %description
 GNU GLOBAL is a source code tag system that works the same way across
@@ -37,29 +57,26 @@ diverse environments. It supports C, C++, Yacc, Java, PHP and
 assembler source code.
 
 %package        ctags
-Summary:        Integration of Exuberant Ctags and Pygments with GLOBAL
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
+Summary:        Integration of Universal Ctags and Pygments with GLOBAL
 License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}, python3-pygments
 
 %description    ctags
 This package contains plug-ins that provides support for more languages
-through Pygments and Exuberant Ctags.
+through Pygments and Universal Ctags.
 
 %prep
 %autosetup -p1
-%py3_shebang_fix plugin-factory/pygments_parser.py.in
 touch -r configure.ac configure aclocal.m4 Makefile.in
 
 %build
-export PYTHON=%{__python3}
-%configure --with-posix-sort=/bin/sort --with-exuberant-ctags=/bin/ctags \
-           --localstatedir=/var/tmp/  --without-included-ltdl --with-sqlite3 \
-	   --disable-static 
-make %{?_smp_mflags}
+%configure --with-posix-sort=/usr/bin/sort --with-universal-ctags=/usr/bin/ctags \
+           --localstatedir=/var/tmp/ --without-included-ltdl --with-sqlite3 \
+           --with-python-interpreter=%{python3} --disable-static
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # Remove empty useless directory
 rm -f %{buildroot}%{_infodir}/dir
@@ -110,6 +127,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Sat Feb 14 2026 Matthew Krupcale <mkrupcale@gmail.com> - 6.6.14-1
+- Update to v6.6.14
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,10 +2,10 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  26.2.1
+%global wivrn_version  26.2.2
 #%%global commit0        
 %global tag0           v%%{wivrn_version}
-%global date           20260208
+%global date           20260214
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
@@ -100,6 +100,8 @@ Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-st-oxr-push-XrEventDataInteractionProfileChanged-whe.patch
 # downstream-only - WiVRn specific Monado patches
 Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-Don-t-get-pose-data-for-fast-path.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-don-t-verify-GL-stuff.patch
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
 # https://src.fedoraproject.org/rpms/envision/blob/rawhide/f/envision.spec
@@ -233,6 +235,7 @@ pushd _deps/monado-src
 %patch -P0006 -p1
 %patch -P0007 -p1
 %patch -P0008 -p1
+%patch -P0009 -p1
 popd
 
 

@@ -6,7 +6,7 @@
 %global crate arc-swap
 
 Name:           rust-arc-swap
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Atomically swappable Arc
 

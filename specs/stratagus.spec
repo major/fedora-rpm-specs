@@ -1,5 +1,3 @@
-%define __cmake_in_source_build 1
-
 Name:		stratagus
 Summary:	Real-time strategy gaming engine
 Version:	3.3.2
@@ -7,7 +5,6 @@ Release:	%autorelease
 License:	GPL-2.0-only
 URL:		https://github.com/Wargus/Stratagus
 Source0:	https://github.com/Wargus/Stratagus/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1:		stratagus-0001-Fix-binaries-path.patch
 BuildRequires:	SDL2-devel
 BuildRequires:	SDL2_image-devel
 BuildRequires:	SDL2_mixer-devel
@@ -21,7 +18,6 @@ BuildRequires:	libmng-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtheora-devel
 BuildRequires:	libvorbis-devel
-BuildRequires:	make
 BuildRequires:	sqlite-devel
 BuildRequires:	zlib-devel
 Provides:	bundled(guichan)
@@ -50,15 +46,12 @@ iconv -f iso8859-1 -t utf8 doc/guichan-copyright.txt > doc/guichan-copyright.utf
 %build
 # TODO: Please submit an issue to upstream (rhbz#2381466)
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
-mkdir build
-pushd build
-%cmake .. -DENABLE_DEV=ON -DLUA_INCLUDE_DIR=%{_includedir}/lua-5.1
-make %{?_smp_mflags}
-popd
+%cmake -DENABLE_DEV=ON -DLUA_INCLUDE_DIR=%{_includedir}/lua-5.1 -DGAMEDIR=%{_bindir}
+%cmake_build
 
 
 %install
-make install -C build DESTDIR=%{buildroot}
+%cmake_install
 
 
 %files
