@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.9.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -204,6 +204,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:3.1.9.0-7
+- LibRaw rebuild
+
 * Mon Feb 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1:3.1.9.0-6
 - Rebuilt for ptex 2.5.1 (close RHBZ#2435885)
 

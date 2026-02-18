@@ -343,6 +343,10 @@ Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 #  fix ftbfs caused by old python-3.9 on el8
 Patch142: chromium-143-python-3.9-ftbfs.patch
+ 
+# fix ftbfs caused by old rustc-1.88 on el9 and 10.1
+Patch143: chromium-145-rust-1.88-enable-unstable_features.patch
+Patch144: chromium-145-rust-1.88-undefined-symbol.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -1094,6 +1098,11 @@ Qt6 UI for chromium.
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
 %patch -P142 -p1 -b .python-3.9-ftbfs
+%endif
+
+%if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
+%patch -P143 -p1 -b .rust-1.88-enable-unstable_features
+%patch -P144 -p1 -b .rustc-1.88-undefined-symbol
 %endif
 
 %patch -P150 -p1 -b .qt6

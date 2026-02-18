@@ -4,7 +4,7 @@
 %global debug_package %{nil}
 
 
-%ifarch %{arm} %{mips} riscv64
+%ifarch %{arm} %{mips} riscv64 %{ix86}
 # MIPS and RISC-V does not have all dependencies for fop yet.
 # For some reason, fop hangs on arm, so for now don't generate docs by
 # default.
@@ -15,7 +15,7 @@
 
 
 Name:		erlang-%{realname}
-Version:	5.2.1
+Version:	5.2.2
 Epoch:		1
 Release:	%autorelease
 Summary:	Erlang CORBA libraries
@@ -23,13 +23,13 @@ License:	Apache-2.0
 URL:		https://github.com/erlang/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-corba-0001-Add-files-from-OTP-tree.patch
-Patch2:		erlang-corba-0002-Edit-OTP-files-to-allow-out-of-tree-build.patch
-Patch3:		erlang-corba-0003-Do-not-install-C-sources.patch
-Patch4:		erlang-corba-0004-Do-not-install-Java-sources.patch
-Patch5:		erlang-corba-0005-Do-not-install-erlang-sources.patch
-Patch6:		erlang-corba-0006-Do-not-install-examples.patch
-Patch7:		erlang-corba-0007-Fix-javadoc.patch
+Patch:		erlang-corba-0001-Add-files-from-OTP-tree.patch
+Patch:		erlang-corba-0002-Edit-OTP-files-to-allow-out-of-tree-build.patch
+Patch:		erlang-corba-0003-Do-not-install-C-sources.patch
+Patch:		erlang-corba-0004-Do-not-install-Java-sources.patch
+Patch:		erlang-corba-0005-Do-not-install-erlang-sources.patch
+Patch:		erlang-corba-0006-Do-not-install-examples.patch
+Patch:		erlang-corba-0007-Fix-javadoc.patch
 BuildRequires:	erlang-erl_docgen
 BuildRequires:	erlang-erl_interface
 BuildRequires:	erlang-erts

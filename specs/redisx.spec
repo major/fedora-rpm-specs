@@ -1,12 +1,12 @@
-%global upstream_version        1.0.2
+%global upstream_version        1.0.3
 
 Name:                   redisx
-Version:                1.0.2
+Version:                1.0.3
 Release:                %autorelease
 Summary:                An independent C/C++ Redis/Valkey client library and toolkit
 License:                Unlicense
-URL:                    https://smithsonian.github.io/redisx
-Source0:                https://github.com/Smithsonian/redisx/archive/refs/tags/v%{upstream_version}.tar.gz
+URL:                    https://sigmyne.github.io/redisx
+Source0:                https://github.com/Sigmyne/redisx/archive/refs/tags/v%{upstream_version}.tar.gz
 BuildRequires:          doxygen >= 1.13.0
 BuildRequires:          gcc
 BuildRequires:          libbsd-devel

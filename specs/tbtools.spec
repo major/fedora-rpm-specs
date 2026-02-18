@@ -7,7 +7,7 @@
 
 Name:     tbtools
 Summary:  Thunderbolt/USB4 debugging tools
-Version:  0.7.0
+Version:  0.8.0
 Release:  %autorelease
 # Most source files lack an explicit license
 # The main LICENSE file is MIT

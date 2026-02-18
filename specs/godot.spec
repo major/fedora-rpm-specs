@@ -13,7 +13,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.6
+Version:        4.6.1
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -272,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Feb 16 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.6.1-1
+- Version 4.6.1-stable
+
 * Mon Jan 26 2026 Rémi Verschelde <akien@fedoraproject.org> - 4.6-1
 - Version 4.6-stable
 

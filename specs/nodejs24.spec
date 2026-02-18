@@ -490,10 +490,7 @@ mv "${RPM_BUILD_ROOT}%{_bindir}/node" "${RPM_BUILD_ROOT}%{_bindir}/node-%{node_v
 
 # Make the sitelib into a private one; but keep providing (empty) common one
 mv "${RPM_BUILD_ROOT}%{nodejs_common_sitelib}" "${RPM_BUILD_ROOT}%{nodejs_private_sitelib}"
-# 2025-05-20 FIXME: Turning a symlink into a directory needs to be coordinated across all the active streams.
-# In order to not block this new packaging approach on the WASM unbundling effort,
-# do not provide the common sitelib for now.
-#mkdir "${RPM_BUILD_ROOT}%%{nodejs_common_sitelib}"
+mkdir "${RPM_BUILD_ROOT}%{nodejs_common_sitelib}"
 declare NPM_DIR="${RPM_BUILD_ROOT}%{nodejs_private_sitelib}/npm"
 
 # Adjust npm scripts to use the renamed interpreter
@@ -594,13 +591,22 @@ npm config list --json | jq --exit-status '.["update-notifier"] == false'
 bash '%{SOURCE10}' "${RPM_BUILD_ROOT}%{_bindir}/node-%{node_version_major}" test/ '%{SOURCE11}'
 
 
+%pretrans -p <lua>
+-- /usr/lib/node_modules was a symlink in F43 and lower. Can be removed once F43 is EOL.
+path = "%{nodejs_common_sitelib}"
+stat = posix.stat(path)
+if stat and stat.type == "link" then
+    os.remove(path)
+end
+
+
 %files
 %doc        README.md CHANGELOG.md GOVERNANCE.md onboarding.md
 %license    LICENSE
 %dir        %{nodejs_datadir}/
 %dir        %{nodejs_datadir}/man/
 %dir        %{nodejs_datadir}/man/man1/
-#%%dir        %%{nodejs_common_sitelib}/
+%dir        %{nodejs_common_sitelib}/
 %dir        %{nodejs_private_sitelib}/
 # Symlink to versioned binary
 %{_bindir}/node-%{node_version_major}

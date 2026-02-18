@@ -2,8 +2,8 @@
 %{?python_enable_dependency_generator}
 
 Name:           python-apt
-Version:        2.3.0
-Release:        17%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Python bindings for APT
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -73,6 +73,10 @@ rm -rf %{buildroot}%{python3_sitelib}/apt_*-stubs*
 
 
 %changelog
+* Mon Feb 16 2026 Terje Røsten <terjeros@gmail.com> - 3.1.0-1
+- Rebuild for so bump in apt 3.1.15
+- 3.1.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

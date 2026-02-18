@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        3.1.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -315,6 +315,9 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Mon Feb 16 2026 Terje Rosten <terjeros@gmail.com> - 3.1.15-2
+- Rebuild due to so name bump
+
 * Sun Feb 15 2026 Terje Rosten <terjeros@gmail.com> - 3.1.15-1
 - 3.1.15
 

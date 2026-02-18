@@ -78,6 +78,11 @@ Summary:        Standalone version of 7-Zip console that supports all formats
 %prep
 %autosetup -p1
 
+# avoid failures due to new warnings in latest GCC
+sed -i -e 's|-Werror||' CPP/7zip/7zip_gcc.mak
+# from 7zip-find-so-in-libexec.diff
+sed -i -e 's|__Z7_PREFIX__|%{_prefix}|g' CPP/7zip/UI/Common/ArchiveCommandLine.cpp
+
 
 %build
 # 7z.so

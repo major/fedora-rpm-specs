@@ -15,6 +15,9 @@ License:        BSD-2-Clause AND OFL-1.1-RFN AND Apache-2.0 AND OFL-1.1 AND MIT 
 URL:            https://www.mkdocs.org
 Source0:        %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Fix compatibility with click 8.3.0+
+Patch: https://github.com/mkdocs/mkdocs/pull/4065.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -5,7 +5,7 @@
 %global crate anstream
 
 Name:           rust-anstream
-Version:        0.6.21
+Version:        1.0.0
 Release:        %autorelease
 Summary:        IO stream adapters for writing colored text
 

@@ -5,7 +5,7 @@
 
 Name:           DankMaterialShell
 Version:        1.2.3
-Release:        2%{?dist}
+Release:        5%{?dist}
 Summary:        Desktop shell for Wayland compositors built on QuickShell
 
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-only AND ISC AND MIT AND MPL-2.0
@@ -20,27 +20,36 @@ Source1:        %{name}-%{version}-core-govendor.tar.bz2
 # Go Vendor Tools config
 Source2:        go-vendor-tools.toml
 
+# Fix screensaver inhibit support to fix anaconda crash
+Patch0:         https://github.com/AvengeMedia/DankMaterialShell/commit/be8f3adf015c0cb02e520b8af455786caa78aa54.patch
+
 BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
 
 BuildRequires:  systemd-rpm-macros
 
 Requires:       accountsservice
+Requires:       cups-pk-helper
 Requires:       hicolor-icon-theme
 Requires:       quickshell
 
+Requires:       (adw-gtk3-theme if gtk3)
 Requires:       cava
 Requires:       cliphist
 Requires:       danksearch
 Requires:       dgop
-Requires:       (adw-gtk3-theme if gtk3)
+Requires:       kf6-kimageformats
+Requires:       khal
 Requires:       matugen
 Requires:       (qt5ct if qt5-qtbase)
 Requires:       qt6ct
 Requires:       qt6-qtmultimedia
+Requires:       qt6-qtimageformats
 Requires:       wl-clipboard
 
 Recommends:     NetworkManager
+Recommends:     ppd-service
+Suggests:       tuned-ppd
 
 # Replace and provide the package names from avengemedia/dms
 Obsoletes:      dms < %{version}-%{release}
@@ -73,7 +82,7 @@ tar -xf %{S:1} -C core
 pushd core
 export dms_buildtime=$(date -d "@${SOURCE_DATE_EPOCH}" +%%Y-%%m-%%d_%%H:%%M:%%S)
 export GO_LDFLAGS="-X main.commit=fedora \
-                   -X main.Version='%{version}-%{release}' \
+                   -X main.Version=%{version}-%{release} \
                    -X main.buildTime=${dms_buildtime}"
 %global gomodulesmode GO111MODULE=on
 mkdir -p %{_vpath_builddir}/bin
@@ -138,6 +147,18 @@ pkill -USR1 -x dms || :
 %{_datadir}/icons/hicolor/scalable/apps/danklogo.svg
 
 %changelog
+* Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.3-5
+- Backport fix for screensaver inhibit support
+- Add dependencies to make various wallpaper format work
+- Add dependency for printer management support
+
+* Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.3-4
+- Add missing khal dependency
+
+* Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.3-3
+- Add dependency for ppd-service
+- Fix string for embedded package version
+
 * Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.3-2
 - Strengthen various dependencies
 

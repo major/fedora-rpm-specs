@@ -1,5 +1,5 @@
 Name:           fastapi-cli
-Version:        0.0.21
+Version:        0.0.23
 Release:        %autorelease
 Summary:        Run and manage FastAPI apps from the command line with FastAPI CLI
 
@@ -43,7 +43,7 @@ FastAPI app, manage your FastAPI project, and more.}
 
 %if %{defined fc44} || %{defined fc45} || %{defined fc46}
 # We don’t use “%%pyproject_extras_subpkg -n fastapi-cli …” because we want
-# to Obsolete the corresponding fastapi-cli-kslim extras.
+# to Obsolete the corresponding fastapi-cli-slim extras.
 
 %package -n fastapi-cli+standard
 Summary: Metapackage for fastapi-cli: standard extras

@@ -9,8 +9,8 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        2.0.0
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -39,9 +39,10 @@ BuildRequires:  ansible-packaging-tests
 cat << 'EOF' >> galaxy.yml
 build_ignore:
 - .azure-pipelines
+- .github
+- .gitignore
 - .package_note-%{name}*
 - .pyproject-builddir
-- .gitignore
 - changelogs/fragments/.keep
 - tests
 EOF
@@ -66,6 +67,31 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Mon Feb 16 2026 Paul Howarth <paul@city-fan.org> - 2.1.0-1
+- Update to 2.1.0 (rhbz#2440142)
+  - This is a minor release of the community.libvirt collection
+  - virt_install:
+    - Added support for memoryBacking source type configuration, including
+      memfd for shared memory (GH#228)
+    - Added support for primary value attribute (_value or value) in dynamic
+      dict options that require a primary value alongside additional attributes
+    - Enhanced cloud_init configuration handling for sub-options (meta-data,
+      user-data and network-config) to support both string and dictionary inputs
+    - Refactored common virt-install functionality into module_utils and
+      doc_fragments to enable code reuse between modules
+    - Fixed cloud_init configuration handling for meta-data, user-data and
+      network-config
+    - Fixed the dict-based options handling for events, resource and sysinfo
+      options
+  - virt_volume:
+    - New return key/value pairs 'Type', 'Capacity' and 'Allocation' were added
+      to command 'list_volumes' (GH#187)
+    - Added ability to resize volumes if defined capacity is different; if
+      volume already exists and defined capacity in XML differs, a resize is
+      attempted
+  - New module community.libvirt.virt_cloud_instance: Provision new virtual
+    machines from cloud images via libvirt
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

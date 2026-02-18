@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.4.328.1
+%global sdkver 1.4.341.0
 
 Name:           spirv-tools
-Version:        2025.4
+Version:        2026.1
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 
@@ -12,8 +12,9 @@ URL:            https://github.com/KhronosGroup/SPIRV-Tools
 Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 
 Patch0: fix-gcc12-build.patch
+Patch1: 0001-opt-Fix-build-issue-with-gcc-16.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 %if 0%{?rhel} == 7
@@ -48,16 +49,16 @@ Development files for %{name}
 %autosetup -p1 -n SPIRV-Tools-vulkan-sdk-%{sdkver}
 
 %build
-%cmake3 -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-        -DSPIRV-Headers_SOURCE_DIR=%{_prefix} \
-        -DPYTHON_EXECUTABLE=%{__python3} \
-        -DSPIRV_TOOLS_BUILD_STATIC=OFF \
-        -GNinja
-%cmake3_build
+%cmake -DCMAKE_BUILD_TYPE=Release \
+       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+       -DSPIRV-Headers_SOURCE_DIR=%{_prefix} \
+       -DPYTHON_EXECUTABLE=%{__python3} \
+       -DSPIRV_TOOLS_BUILD_STATIC=OFF \
+       -GNinja
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %ldconfig_scriptlets libs
 

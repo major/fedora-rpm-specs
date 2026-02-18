@@ -16,8 +16,12 @@ VCS:            https://github.com/twisted/twisted
 Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 # downstream-only disable tests that fail in the buildsystem or due to sha1
 Patch0:         python-twisted-25.5.0-disable-tests.patch
-# Temporary hack until https://github.com/twisted/twisted/issues/12430 is done
-Patch2:         Skip-tests-failing-with-Python-3.14.patch
+# https://github.com/twisted/twisted/pull/12508
+Patch1:         0001-Fix-asyncio-get_event_loop-for-Python-3-14.patch
+# https://github.com/twisted/twisted/pull/12511
+Patch2:         0002-Fix-web-client-urljoin-for-Python-3-14.patch
+# https://github.com/twisted/twisted/pull/12551
+Patch3:         0003-Fix-tests-for-Python-3-14-2.patch
 
 BuildArch:      noarch
 

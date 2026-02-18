@@ -6,7 +6,7 @@
 %global _lto_cflags %{nil}
 
 # There is a circular dep with opencascade
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 # OSMesa and X support are mutually exclusive.
 # TODO - buid separate OSMesa version if desired

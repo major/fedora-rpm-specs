@@ -112,6 +112,7 @@ Requires: filesystem-srpm-macros
 
 %if ! 0%{?rhel}
 Requires: ansible-srpm-macros
+Requires: erlang-srpm-macros
 Requires: fpc-srpm-macros
 Requires: gap-srpm-macros
 Requires: ghc-srpm-macros

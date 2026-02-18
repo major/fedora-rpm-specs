@@ -1,5 +1,5 @@
 Name:       ibus-table-others
-Version:    1.3.21
+Version:    1.3.22
 Release:    %autorelease
 Summary:    Various tables for IBus-Table
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL

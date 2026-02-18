@@ -1,4 +1,4 @@
-%global commit 01e0577914a75a2569c846778c2f93aa8e6feddd
+%global commit 04f10f650d514df88b76d25e83db360142c7b174
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 
@@ -13,7 +13,7 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -47,7 +47,7 @@ chmod a-x include/spirv/1.2/spirv.py
 
 
 %build
-%cmake3 -DCMAKE_INSTALL_LIBDIR=%{_lib} -GNinja
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_lib} -GNinja
 %cmake_build
 
 %install

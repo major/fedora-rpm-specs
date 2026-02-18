@@ -7,16 +7,14 @@
 %global __provides_exclude_from ^%{_libdir}/kid3/plugins/.*\\.so$
 
 Name:           kid3
-Version:        3.9.5
-Release:        8%{?dist}
+Version:        3.9.7
+Release:        1%{?dist}
 Summary:        Efficient KDE ID3 tag editor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://kid3.kde.org/
 Source0:        https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
-
-Patch0:         0001-taglib-zlib.patch
 
 BuildRequires:  extra-cmake-modules
 %if %{with kf6}
@@ -158,11 +156,7 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*x*/apps/kid3.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3.svgz
 %{_datadir}/applications/org.kde.kid3.desktop
-%if %{with kf6}
-%{_datadir}/kxmlgui6/%{name}
-%else
 %{_datadir}/kxmlgui5/%{name}
-%endif
 
 %files common -f %{name}-cli.lang
 %{_bindir}/kid3-cli
@@ -194,6 +188,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.9.7-1
+- Update to 3.9.7
+
 * Fri Jan 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.9.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

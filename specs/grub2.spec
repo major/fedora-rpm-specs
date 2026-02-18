@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	54%{?dist}
+Release:	55%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -608,6 +608,11 @@ fi
 %endif
 
 %changelog
+* Mon Feb 16 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-55
+- verifiers: Allocate EFI pages instead of grub_malloc for verified buffer
+- Resolves: #2427945
+- Resolves: #2263643
+
 * Wed Feb 4 2026 Nicolas Frayer <nfrayer@redhat.com> - 2.12-54
 - Fix several security issues about module unloading and file handling
 - Resolves: #CVE-2025-54770 #CVE-2025-54771 #CVE-2025-61661

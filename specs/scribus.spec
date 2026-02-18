@@ -66,10 +66,10 @@ BuildRequires:  python3-qt5-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3-tkinter
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
-%filter_provides_in %{_libdir}/%{name}/plugins
-%filter_setup
-
+%global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*$
 
 %description
 Scribus is an desktop open source page layout program with

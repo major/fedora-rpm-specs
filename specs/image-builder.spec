@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 167
+%global min_osbuild_version 171
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        48
+Version:        49
 
 %gometa
 
@@ -146,8 +146,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.234.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.23.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.238.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -157,7 +157,7 @@ Provides: bundled(golang(github.com/secure-systems-lab/go-securesystemslib)) = 0
 Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.6.6
 Provides: bundled(golang(github.com/sigstore/protobuf-specs)) = 0.4.1
 Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.9.5
-Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
+Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.4
 Provides: bundled(golang(github.com/smallstep/pkcs7)) = 0.1.1
 Provides: bundled(golang(github.com/spf13/cobra)) = 1.10.2
 Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.10
@@ -265,6 +265,27 @@ cd $PWD/_build/src/%{goipath}
 %ghost %dir /var/cache/image-builder
 
 %changelog
+* Thu Feb 12 2026 Packit <hello@packit.dev> - 49-1
+Changes with 49
+----------------
+  - Containerfile*: remove the GOPROXY override (#442)
+    - Author: Ondřej Budai, Reviewers: Brian C. Lane, Lukáš Zapletal, Sanne Raymaekers
+  - chore: bump dependencies via gobump (#446)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - go.mod: bump osbuild/images to v0.236.0 (HMS-10105) (#441)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - go.mod: update osbuild/images to v0.238.0 (HMS-9090) (#448)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - main: provide `--preview` to toggle preview state (HMS-9969) (#449)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - many: `force-repo-dir` instead of `force-data-dir` (#408)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - setup.ValidateHasContainerTags: support use in rootless containers (#447)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+
+— Somewhere on the Internet, 2026-02-12
+
+
 * Wed Feb 04 2026 Packit <hello@packit.dev> - 48-1
 Changes with 48
 ----------------

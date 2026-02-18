@@ -128,12 +128,22 @@ Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 # unregisterised
 Patch16: ghc-hadrian-C-backend-rts--qg.patch
 
+# ppc64le
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26870
+Patch20: ghc-rts.cabal-ppc64le.patch
+Patch21: ghc-platform-ppc64le.patch
+
 # Debian patches:
 # bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
 # see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
 #Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+# ppc64le (included in debian and 9.16)
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24145
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578
+Patch30: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -190,8 +200,10 @@ BuildRequires: elfutils-devel
 %if %{with use_lld}
 BuildRequires: lld%{llvm_major}
 %endif
+%ifnarch ppc64le
 BuildRequires: llvm%{llvm_major}
 BuildRequires: clang%{llvm_major}
+%endif
 
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
@@ -288,8 +300,10 @@ Requires: lld%{llvm_major}
 Requires: llvm%{llvm_major}
 Requires: clang%{llvm_major}
 %else
+%ifnarch ppc64le
 Suggests: llvm(major) = %{llvm_major}
 Suggests: clang(major) = %{llvm_major}
+%endif
 %endif
 
 %description compiler
@@ -476,10 +490,14 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 %endif
 
+%patch -P20 -p1 -b .orig
+%patch -P21 -p1 -b .orig
+
 #debian
 #%%patch -P24 -p1 -b .orig
 #%%patch -P26 -p1 -b .orig
 #%%patch -P27 -p1 -b .orig
+%patch -P30 -p1 -b .orig
 
 
 %build
@@ -928,6 +946,8 @@ make test
 %changelog
 * Fri Feb 13 2026 Jens Petersen <petersen@redhat.com> - 9.14.1-4
 - rebuild with ghc-rpm-macros-2.11
+- add ppc64le arch patches for ghc-platform and rts.cabal (#26870)
+- ppc64le NCG: add an upstream patch for the clrrxi instruction
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 Name:       ArpON
 Version:    3.0
-Release:    33%{?dist}
+Release:    34%{?dist}
 Summary:    ARP handler inspection
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -18,7 +18,6 @@ BuildRequires:  libpcap-devel
 BuildRequires:  cmake
 BuildRequires:  libnet-devel
 BuildRequires:  libdnet-devel
-BuildRequires: make
 
 %description
 ArpON (ARP handler inspection) is a Host-based solution that make the ARP
@@ -33,8 +32,9 @@ attack.
 %patch -P3 -p1
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_INSTALL_PREFIX="/" .
-%{__make} %{?_smp_mflags}
+%{cmake_build}
 
 %install
 %{__install} -D -pm 755 src/arpon %{buildroot}%{_sbindir}/arpon
@@ -51,6 +51,9 @@ attack.
 %{_mandir}/man8/arpon.8*
 
 %changelog
+* Thu Feb 12 2026 Cristian Le <git@lecris.dev> - 3.0-34
+- Allow CMake 4.0 build
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

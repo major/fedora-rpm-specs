@@ -262,24 +262,14 @@ Provides:       libEGL-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %package dri-drivers
 Summary:        Mesa-based DRI drivers
 Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-%if 0%{?with_va}
-Recommends:     %{name}-va-drivers%{?_isa}
-%endif
 Obsoletes:      %{name}-libglapi < 25.0.0~rc2-1
 Provides:       %{name}-libglapi >= 25.0.0~rc2-1
+Obsoletes:      %{name}-va-drivers < 26.0.0-5
+Provides:       %{name}-va-drivers >= 26.0.0-5
+Obsoletes:      %{name}-vaapi-drivers < 22.2.0-5
 
 %description dri-drivers
 %{summary}.
-
-%if 0%{?with_va}
-%package        va-drivers
-Summary:        Mesa-based VA-API video acceleration drivers
-Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      %{name}-vaapi-drivers < 22.2.0-5
-
-%description va-drivers
-%{summary}.
-%endif
 
 %package libgbm
 Summary:        Mesa gbm runtime library
@@ -652,9 +642,7 @@ ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
 %if 0%{?with_vulkan_hw}
 %{_libdir}/dri/zink_dri.so
 %endif
-
 %if 0%{?with_va}
-%files va-drivers
 %{_libdir}/dri/nouveau_drv_video.so
 %if 0%{?with_r600}
 %{_libdir}/dri/r600_drv_video.so

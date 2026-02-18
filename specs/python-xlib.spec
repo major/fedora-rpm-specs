@@ -1,13 +1,11 @@
 Name:           python-xlib
 Version:        0.33
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        X client library for Python
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/python-xlib/python-xlib
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:        xorg.conf
 # Use unittest.mock in py3.8+
 Patch0:         python-xlib-mock.patch
 # tests need to import tohex
@@ -23,7 +21,7 @@ BuildRequires:  make
 BuildRequires:  texinfo-tex
 BuildRequires:  tex(dvips)
 # For tests
-BuildRequires:  xorg-x11-drv-dummy
+BuildRequires:  xwayland-run
 
 %description
 The Python X Library is a complete X11R6 client-side implementation,
@@ -33,14 +31,9 @@ client applications in Python.
 %package -n python%{python3_pkgversion}-xlib
 Summary:        X client library for Python 3
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-setuptools_scm
-BuildRequires:  python%{python3_pkgversion}-six >= 1.10.0
 BuildRequires:  python%{python3_pkgversion}-tkinter
 BuildRequires:  python%{python3_pkgversion}-pytest
-Requires:       python%{python3_pkgversion}-six >= 1.10.0
 Suggests:       python%{python3_pkgversion}-tkinter
-%{?python_provide:%python_provide python%{python3_pkgversion}-xlib}
 
 %description -n python%{python3_pkgversion}-xlib
 The Python X Library is a complete X11R6 client-side implementation,
@@ -58,37 +51,28 @@ that tell you how to program with python-xlib.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 cd doc
 make html ps
 cd html
 rm Makefile
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files Xlib
 chmod a-x examples/*.py
 
 %check
-# Note - tests fail on big-endian, see https://github.com/python-xlib/python-xlib/issues/76
-cp %SOURCE1 .
-if [ -x /usr/libexec/Xorg ]; then
-   Xorg=/usr/libexec/Xorg
-elif [ -x /usr/libexec/Xorg.bin ]; then
-   Xorg=/usr/libexec/Xorg.bin
-else
-   Xorg=/usr/bin/Xorg
-fi
-$Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
-export DISPLAY=:99
-%pytest -v || (cat xorg.log && exit 1)
-kill %1 || :
-cat xorg.log
+%pyproject_check_import
+%global __pytest xwfb-run -- pytest
+%pytest -v
 
-%files -n python%{python3_pkgversion}-xlib
-%license LICENSE
+%files -n python%{python3_pkgversion}-xlib -f %{pyproject_files}
 %doc CHANGELOG.md README.rst TODO
-%{python3_sitelib}/*
 
 %files doc
 %license LICENSE
@@ -96,6 +80,10 @@ cat xorg.log
 
 
 %changelog
+* Mon Feb 16 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.33-17
+- Modernize spec for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+- Use xwfb-run instead of Xorg+drv-dummy for tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

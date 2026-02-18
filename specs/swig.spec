@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -205,6 +205,13 @@ for all in CHANGES README; do
 done
 
 %build
+%if %{golang}
+# Go tests are failing due to binutils changes related to linker setting as
+# documented at https://bugzilla.redhat.com/show_bug.cgi?id=2428281
+# Use workaround decribed in the bugzilla.
+export LDFLAGS="$LDFLAGS -Wl,-z,notext"
+%endif
+
 ./autogen.sh
 
 # Disable maximum compile warnings when octave is supported, because Octave
@@ -391,6 +398,10 @@ _EOF
 %endif
 
 %changelog
+* Mon Feb 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.1-3
+- Add workaround for failing build due to binutils changes related to
+  linker setting
+
 * Thu Jan 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.1-2
 - Add python3-swig with Python package metadata
 

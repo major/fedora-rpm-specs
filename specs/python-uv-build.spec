@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -133,6 +133,10 @@ find -L . -type f -name Cargo.toml -print \
 tomcli set pyproject.toml false tool.maturin.strip
 tomcli set Cargo.toml false profile.release.strip
 
+# Do not request static linking of anything (particularly, liblzma)
+tomcli set Cargo.toml lists delitem \
+    workspace.dependencies.xz2.features 'static'
+
 # We retain the following example even when there are currently no dependencies
 # that need to be adjusted.
 #
@@ -141,6 +145,13 @@ tomcli set Cargo.toml false profile.release.strip
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# zip
+#   wanted: >=2.2.3, <7.2
+#   currently packaged: 7.2
+#   pinned upstream due to different output on Windows; OK on Linux
+#   https://github.com/zip-rs/zip2/issues/656
+tomcli set Cargo.toml str workspace.dependencies.zip.version '>=2.2.3'
 
 %cargo_prep
 

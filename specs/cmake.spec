@@ -74,7 +74,7 @@
 %global patch_version 3
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -215,8 +215,13 @@ Requires:       %{name}-data = %{version}-%{release}
 Requires:       (%{name}-rpm-macros = %{version}-%{release} if rpm-build)
 Requires:       %{name}-filesystem%{?_isa} = %{version}-%{release}
 
-# Explicitly require make.  (rhbz#1862014)
+# TODO: Change to the latter design. Currently blocked by various `Requires: make` in dependency chains
+#   Also relevant for user configuration: https://gitlab.kitware.com/cmake/cmake/-/issues/26891
 Requires:       make
+
+# Explicitly require the generators with ninja-build as the default
+# Requires:       (ninja-build or make)
+# Suggests:       ninja-build
 
 # Provide the major version name
 Provides: %{orig_name}%{major_version} = %{version}-%{release}
@@ -288,6 +293,10 @@ Summary:        Common RPM macros for %{name}
 Requires:       rpm
 # when subpkg introduced
 Conflicts:      cmake-data < 3.10.1-2
+
+# Related to the ninja default generator, see the TODO note above on how this should be changed
+# Suggests:       ninja-build
+Requires:       ninja-build
 
 BuildArch:      noarch
 
@@ -611,6 +620,9 @@ popd
 
 
 %changelog
+* Mon Feb 16 2026 Cristian Le <git@lecris.dev> - 4.2.3-2
+- Default generator to Ninja (rhbz#2376112)
+
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 4.2.3-1
 - update to 4.2.3
 - apply upstream fix for FindLua to find Lua 5.5

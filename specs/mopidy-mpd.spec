@@ -1,11 +1,11 @@
 Name:           mopidy-mpd
-Version:        4.0.0~a1
-Release:        6%{?dist}
+Version:        4.0.0~a4
+Release:        1%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
 URL:            https://mopidy.com/ext/mpd/
-Source0:        https://files.pythonhosted.org/packages/source/m/mopidy-mpd/mopidy_mpd-4.0.0a1.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/m/mopidy-mpd/mopidy_mpd-4.0.0a4.tar.gz
 # package has been renamed from Mopidy-MPD to mopidy_mpd, pypi_source can't handle that.
 %dnl Source0:        %{pypi_source}
 
@@ -17,8 +17,8 @@ BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-pytest-mock
 BuildRequires:  tox
 BuildRequires:  python3-tox-current-env
-BuildRequires:  mopidy >= 4.0.0~a1
-Requires:       mopidy >= 4.0.0~a1
+BuildRequires:  mopidy >= 4.0.0~a10
+Requires:       mopidy >= 4.0.0~a10
 
 %description
 Frontend that provides a full MPD server implementation to make Mopidy
@@ -26,8 +26,9 @@ available from MPD clients.
 
 
 %prep
-%autosetup -n mopidy_mpd-4.0.0a1 -p1
+%autosetup -n mopidy_mpd-4.0.0a4 -p1
 #^TODO: revert to %%autosetup -n %%{name}-%%{version} -p1
+rm -f setup.cfg # HACK: work around https://github.com/tox-dev/tox/issues/3602
 
 %generate_buildrequires
 %pyproject_buildrequires -p
@@ -47,6 +48,9 @@ available from MPD clients.
 %doc README.md
 
 %changelog
+* Sun Feb 15 2026 Tobias Girstmair <t-fedora@girst.at> - 4.0.0~a4-1
+- Upgrade to latest prerelease (RHBZ#2416927) and rebuild due to FTBFS (RHBZ#2434829)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~a1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

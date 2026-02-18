@@ -2,10 +2,9 @@
 %bcond gbench %[ !0%{?rhel} ]
 %bcond gtest %[ !0%{?rhel} ]
 
-%global __cmake_in_source_build 1
 Name:           snappy
 Version:        1.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD-3-Clause
@@ -18,7 +17,6 @@ Patch0:         %{name}-thirdparty.patch
 # Do not forcibly disable RTTI
 Patch1:         %{name}-do-not-disable-rtti.patch
 
-BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 %{?with_gbench:BuildRequires:  google-benchmark-devel}
@@ -36,8 +34,6 @@ bigger.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake-filesystem
-Requires:       pkgconfig
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -50,8 +46,8 @@ developing applications that use %{name}.
 
 %build
 # gtest 1.17.0 requires C++17 or later
-%cmake -DCMAKE_CXX_STANDARD=17 %{!?with_gbench:-DSNAPPY_BUILD_BENCHMARKS=OFF} %{!?with_gtest:-DSNAPPY_BUILD_TESTS=OFF} .
-%make_build
+%cmake -DCMAKE_CXX_STANDARD=17 %{!?with_gbench:-DSNAPPY_BUILD_BENCHMARKS=OFF} %{!?with_gtest:-DSNAPPY_BUILD_TESTS=OFF}
+%cmake_build
 
 # create pkgconfig file
 cat << EOF >snappy.pc
@@ -71,13 +67,13 @@ EOF
 %install
 rm -rf %{buildroot}
 chmod 644 *.txt AUTHORS COPYING NEWS README.md
-%make_install
+%cmake_install
 install -m644 -D snappy.pc %{buildroot}%{_libdir}/pkgconfig/snappy.pc
 rm -rf %{buildroot}%{_datadir}/doc/snappy/
 rm -rf %{buildroot}%{_datadir}/doc/snappy-devel/
 
 %check
-ctest -V %{?_smp_mflags}
+%ctest
 
 
 %ldconfig_scriptlets
@@ -97,6 +93,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.2.2-5
+- Use standard CMake macros (rhbz#2381131)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

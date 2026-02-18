@@ -33,8 +33,8 @@
 %global parquet_test_data_commit 92d45b0752487a4b55fb7f1581c8126ee3e73b0d
 
 Name:		libarrow
-Version:	23.0.0
-Release:	3%{?dist}
+Version:	23.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -44,6 +44,7 @@ Source1:	https://github.com/apache/arrow-testing/archive/%{arrow_test_data_commi
 Source2:	https://github.com/apache/parquet-testing/archive/%{parquet_test_data_commit}/apache-arrow-parquet-test-data-%{parquet_test_data_commit}.tar.gz
 Patch:		0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch:		0002-python-pyarrow-tests-test_ipc.py.patch
+Patch:		0004-cpp-src-arrow-compute-kernels-CMakeLists.txt.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -850,8 +851,7 @@ popd
 
 
 %check
-%ifarch x86_64
-# arrow-compute-aggregate-test fails on aarch64, ppc64le
+%ifnarch s390x
 export \
    ARROW_TEST_DATA=$PWD/arrow-testing-%{arrow_test_data_commit}/data \
    PARQUET_TEST_DATA=$PWD/parquet-testing-%{parquet_test_data_commit}/data \
@@ -882,6 +882,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon Feb 16 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-4
+- temporarily disable arrow-compute-aggregate-test
+
 * Thu Feb 12 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-3
 - enable tests
 - originally by Elliott Sales de Andrade <quantum.analyst@gmail.com>

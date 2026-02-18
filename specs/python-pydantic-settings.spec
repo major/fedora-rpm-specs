@@ -14,7 +14,7 @@
 %global tag v%{version}
 
 Name:           python-pydantic-settings
-Version:        2.12.0
+Version:        2.13.0
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic
@@ -25,7 +25,6 @@ Source:         %{forgesource}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
 BuildRequires:  tomcli
 %if %{with tests}
 # See dependency-groups.testing in pyproject.toml.
@@ -79,17 +78,13 @@ tomcli set pyproject.toml lists delitem \
 
 %check
 %if %{with tests}
+# These would require python-pytest-examples, not packaged
 ignore="${ignore-} --ignore=tests/test_docs.py"
 
-# Trivial formatting differences in usage messages
-k="${k-}${k+ and }not test_cli_enums"
-k="${k-}${k+ and }not test_cli_help_default_or_none_model"
-k="${k-}${k+ and }not test_cli_help_union_of_models"
-k="${k-}${k+ and }not test_cli_kebab_case"
-k="${k-}${k+ and }not test_cli_mutually_exclusive_group"
-k="${k-}${k+ and }not test_cli_suppress"
-
-%pytest ${ignore-} -k "${k-}" -rs -v
+# Normally we would test solely against the installed package in the buildroot,
+# but TestTraversableSupport only works if importlib.resources can recognize
+# “tests” as a package. Thus we set PYTHONPATH:
+PYTHONPATH="${PWD}" %pytest ${ignore-} -k "${k-}" -rs -v
 %endif
 
 

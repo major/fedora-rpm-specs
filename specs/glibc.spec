@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-54-gaf79874ffd
+%global glibcsrcdir glibc-2.43.9000-69-g288b55f463
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2403,6 +2403,25 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Feb 16 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-2
+- Auto-sync with upstream branch master,
+  commit 288b55f4636f336cc336344e4215ead9c4d592fc:
+- hurd: calling alarm() whilst handling SIGALRM can deadlock. (Mike Kelly)
+- nss: Missing checks in __nss_configure_lookup, __nss_database_get (bug 28940) (Florian Weimer)
+- Linux: In getlogin_r, use utmp fallback only for specific errors (Florian Weimer)
+- nss: Introduce dedicated struct nss_database_for_fork type (Florian Weimer)
+- nscd: Add basic test (Florian Weimer)
+- support: Add support for starting and stopping nscd (Florian Weimer)
+- nscd: Pass TRY_AGAIN errors in the hosts cache to clients (Florian Weimer)
+- support: Add missing NSS formatting and checking functions (Florian Weimer)
+- support: Clean up NSS formatting and checking functions (Florian Weimer)
+- include: isolate __O_CLOEXEC flag for sys/mount.h and fcntl.h (DJ Delorie)
+- x86: Build tst-gnu2-tls2-x86* iff compiler supports TLS descriptor (Adhemerval Zanella)
+- hurd: _hurd_intr_rpc_mach_msg() might not preserve the correct reply port (Mike Kelly)
+- hppa: Fix type punning in sysdeps/hppa/dl-fptr.c [BZ 33888] (John David Anglin)
+- Use Linux 6.19 in build-many-glibcs.py (Joseph Myers)
+- x86-64: Use 32-bit zero idiom for shorter encoding (George Hu)
+
 * Mon Feb 09 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-1
 - Auto-sync with upstream branch master,
   commit af79874ffd4d1f79bd0c040257320d1a6fe6a452:

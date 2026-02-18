@@ -16,7 +16,7 @@
 %bcond dc1394 %{defined fedora}
 %bcond ldac %{defined fedora}
 %endif
-%ifnarch %{ix86} s390x
+%ifnarch %{ix86} riscv64 s390x
 %bcond onnx %{defined fedora}
 %endif
 # VPL runtimes (intel-mediasdk/intel-vpl-gpu-rt) are x86_64 only
@@ -30,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.28.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -926,6 +926,9 @@ EOF
 
 
 %changelog
+* Mon Feb 16 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.28.0-5
+- Disable onnx on riscv64 port
+
 * Fri Feb 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.28.0-4
 - Move HIP plugin to main package
 

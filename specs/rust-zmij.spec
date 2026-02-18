@@ -5,7 +5,7 @@
 %global crate zmij
 
 Name:           rust-zmij
-Version:        1.0.19
+Version:        1.0.21
 Release:        %autorelease
 Summary:        Double-to-string conversion algorithm based on Schubfach and yy
 
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          zmij-fix-metadata.diff
 # * remove reference to opt-level crate API
-Patch:          0001-drop-unnecessary-opt-level-crate-API-calls.patch
+Patch2:         0001-drop-unnecessary-opt-level-crate-API-calls.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

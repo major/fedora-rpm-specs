@@ -5,14 +5,23 @@
 # Not available in RHEL
 %bcond x11 %[%{undefined rhel}]
 
+%global commit dacfa9de829ac7cb173825f593236bf2c21f637e
+%global commitdate 20260209
+%global shortcommit %{sub %{commit} 1 7}
+
+%global tarversion %{?commit:%{commit}}%{!?commit:v%{version}}
+%global tarext tar.gz
+%global tarbasename %{name}-%{?commit:%{shortcommit}}%{!?commit:%{version}}
+
+
 Name:               quickshell
-Version:            0.2.1
-Release:            8%{?dist}
+Version:            0.2.1%{?commit:^git%{commitdate}.%{shortcommit}}
+Release:            1%{?dist}
 Summary:            Flexible QtQuick based desktop shell toolkit
 # Code is LGPL, Hyprland protocols are BSD-3-Clause, wlr protocols are HPND-sell-variant
 License:            LGPL-3.0-or-later and BSD-3-Clause and HPND-sell-variant
 URL:                https://quickshell.org/
-Source:             https://git.outfoxxed.me/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:             https://git.outfoxxed.me/%{name}/%{name}/archive/%{tarversion}.%{tarext}#/%{tarbasename}.%{tarext}
 
 BuildRequires:      cmake
 BuildRequires:      cmake(Qt6Core)
@@ -25,11 +34,13 @@ BuildRequires:      desktop-file-utils
 BuildRequires:      gcc-c++
 BuildRequires:      ninja-build
 BuildRequires:      pkgconfig(CLI11)
+BuildRequires:      pkgconfig(glib-2.0)
 BuildRequires:      pkgconfig(gbm)
 BuildRequires:      pkgconfig(jemalloc)
 BuildRequires:      pkgconfig(libdrm)
 BuildRequires:      pkgconfig(libpipewire-0.3)
 BuildRequires:      pkgconfig(pam)
+BuildRequires:      pkgconfig(polkit-agent-1)
 BuildRequires:      pkgconfig(wayland-client)
 BuildRequires:      pkgconfig(wayland-protocols)
 BuildRequires:      spirv-tools
@@ -70,6 +81,7 @@ a complete desktop environment.
         -DASAN=%{?with_asan:ON}%{!?with_asan:OFF} \
         -DCRASH_REPORTER=%{?with_breakpad:ON}%{!?with_breakpad:OFF} \
         -DX11=%{?with_x11:ON}%{!?with_x11:OFF} \
+        %{?commit:-DGIT_REVISION=%{commit}} \
         %{nil}
 
 %build
@@ -91,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_qt6_qmldir}/Quickshell/
 
 %changelog
+* Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.2.1^git20260209.dacfa9d-1
+- Bump to git snapshot
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

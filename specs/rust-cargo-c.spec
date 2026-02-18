@@ -7,10 +7,10 @@
 %endif
 
 %global crate cargo-c
-%global crate_version 0.10.18+cargo-0.92.0
+%global crate_version 0.10.19+cargo-0.93.0
 
 Name:           rust-cargo-c
-Version:        0.10.18
+Version:        0.10.19
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 
@@ -39,7 +39,6 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
 # Apache-2.0 OR Apache-2.0 WITH LLVM-exception
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
@@ -69,7 +68,6 @@ License:        %{shrink:
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
     Zlib AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 OR Apache-2.0 WITH LLVM-exception) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND

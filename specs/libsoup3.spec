@@ -7,7 +7,7 @@
 %endif
 
 Name:    libsoup3
-Version: 3.6.5
+Version: 3.6.6
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 
@@ -17,22 +17,6 @@ Source0: https://download.gnome.org/sources/libsoup/3.6/libsoup-%{version}.tar.x
 
 # Downstream patch, needed due to glib2 gnutls-hmac.patch
 Patch:   no-ntlm-in-fips-mode.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2367183
-Patch:   CVE-2025-4948.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2359343
-Patch:   CVE-2025-32908.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2359342
-Patch:   CVE-2025-32907.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2367552
-Patch:   CVE-2025-4969.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2367175
-Patch:   CVE-2025-4945.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2366513
-Patch:   CVE-2025-4476.patch
-Patch:   475.patch
-Patch:   0c8c8795f08abb95161c610a0a6dff22d45742d4.patch
-Patch:   0001-tld-test-update-after-changes-in-the-public-suffix-l.patch
 
 BuildRequires: gcc
 BuildRequires: gettext

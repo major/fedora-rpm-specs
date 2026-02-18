@@ -20,11 +20,15 @@
 # https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 %bcond merged_sbin 1
 
+# https://fedoraproject.org/wiki/Changes/Enforcing_signature_checking_by_default
+# Upstream defaults to enforcing in >= 6.0, this is backwards compat switch
+%bcond legacy_verify 0
+
 %define rpmhome /usr/lib/rpm
 
 %global rpmver 6.0.1
 #global snapver rc1
-%global baserelease 4
+%global baserelease 5
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -113,8 +117,6 @@ rpm-4.9.90-no-man-dirs.patch
 
 # Use systemd-sysusers due to https://github.com/shadow-maint/shadow/issues/940
 rpm-4.20-sysusers.patch
-# Back out of enforcing signature checking until the infra is updated
-rpm-6.0-vfylevel.patch
 # Back out to v4 package format by default until the infra is updated
 rpm-6.0-rpmformat.patch
 
@@ -347,6 +349,10 @@ change.
 
 %prep
 %autosetup -n rpm-%{srcver} -p1
+
+%if %{with legacy_verify}
+sed -i -e "s:%%_pkgverify_level all:%%_pkgverify_level digest:g" macros.in
+%endif
 
 %build
 %set_build_flags
@@ -624,6 +630,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Feb 16 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.1-5
+- Enable enforcing signature checking by default, make it easy to flip back
+  https://fedoraproject.org/wiki/Changes/Enforcing_signature_checking_by_default
+
 * Wed Feb 11 2026 Tom Callaway <spot@fedoraproject.org> - 6.0.1-4
 - actually rebuild against lua 5.5.0
 

@@ -880,32 +880,33 @@ local function wordwrap(text)
     local pos = 0
     local advance = ""
     for word in string.gmatch(line, "%s*[^%s]*\n?") do
-      local wl, bad = utf8.len(word)
+      local wd = word
+      local wl, bad = utf8.len(wd)
       if not wl then
         print("%{warn:Invalid UTF-8 sequence detected in:}" ..
-              "%{warn:" .. word .. "}" ..
+              "%{warn:" .. wd .. "}" ..
               "%{warn:It may produce unexpected results.}")
         wl = bad
       end
       if (pos == 0) then
-        advance, n = string.gsub(word, "^(%s*– ).*", "%1")
+        advance, n = string.gsub(wd, "^(%s*– ).*", "%1")
         if (n == 0) then
-          advance = string.gsub(word, "^(%s*).*", "%1")
+          advance = string.gsub(wd, "^(%s*).*", "%1")
         end
         advance = string.gsub(advance, "– ", "  ")
         pos = pos + wl
       elseif  (pos + wl  < 81) or
-             ((pos + wl == 81) and string.match(word, "\n$")) then
+             ((pos + wl == 81) and string.match(wd, "\n$")) then
         pos = pos + wl
       else
-        word = advance .. string.gsub(word, "^%s*", "")
+        wd = advance .. string.gsub(wd, "^%s*", "")
         output = output .. "\n"
-        pos = utf8.len(word)
+        pos = utf8.len(wd)
       end
-      output = output .. word
+      output = output .. wd
       if pos > 80 then
         pos = 0
-        if not string.match(word, "\n$") then
+        if not string.match(wd, "\n$") then
           output = output .. "\n"
         end
       end
@@ -1225,6 +1226,7 @@ done
 %changelog
 * Thu Feb 12 2026 Akira TAGOH <tagoh@redhat.com> - 20260201-1
 - Updates to monthly release of 2026.02.01.
+- Fix errors in lua script.
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

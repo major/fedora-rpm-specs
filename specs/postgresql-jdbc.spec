@@ -48,7 +48,7 @@
 
 Summary:        JDBC driver for PostgreSQL
 Name:           postgresql-jdbc
-Version:        42.7.8
+Version:        42.7.10
 Release:        %autorelease
 License:        BSD-2-Clause
 URL:            https://jdbc.postgresql.org/
@@ -86,14 +86,16 @@ PostgreSQL is an advanced Object-Relational database management system. The
 postgresql-jdbc package includes the .jar files needed for Java programs to
 access a PostgreSQL database.
 
-%package tests
+%package        tests
 Summary:        Tests for %{name}
+# NOTE Do not use yet, we would need special configuration for CI tests.
+# Requires:       postgresql-test-rpm-macros-any
 
-%description tests
+%description    tests
 This package contains tests for %{name}.
 
 %prep
-%autosetup -p1 -n postgresql-%{version}-jdbc-src
+%autosetup -p1 -C
 
 # remove any binary libs
 find -type f \( -name "*.jar" -or -name "*.class" \) -delete

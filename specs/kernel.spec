@@ -187,13 +187,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.20.0
 %define specversion 6.20.0
 %define patchversion 6.20
-%define pkgrelease 0.rc0.260215gca4ee40bf13db.8
+%define pkgrelease 0.rc0.260216g0f2acd3148e0e.8
 %define kversion 6
-%define tarfile_release 6.19-10124-gca4ee40bf13db
+%define tarfile_release 6.19-10445-g0f2acd3148e0e
 # This is needed to do merge window version magic
 %define patchlevel 20
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260215gca4ee40bf13db.8%{?buildid}%{?dist}
+%define specrelease 0.rc0.260216g0f2acd3148e0e.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.20.0
 
@@ -4819,14 +4819,18 @@ fi\
 #
 #
 %changelog
-* Sun Feb 15 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260215gca4ee40bf13db.8]
-- Linux v6.20.0-0.rc0.260215gca4ee40bf13db
+* Mon Feb 16 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260216g0f2acd3148e0e.8]
+- rv: Fix multiple definition of __pcpu_unique_da_mon_this (Gabriele Monaco)
+- Linux v6.20.0-0.rc0.260216g0f2acd3148e0e
 
-* Sun Feb 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.ca4ee40bf13d.8]
+* Mon Feb 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.0f2acd3148e0.8]
+- configs: enable Freescale MXS DMA engine (Jiri Benc)
+- redhat/dracut-virt.conf: remove erroneous spaces in omit_dracutmodules (Li Tian)
 - redhat/kernel.spec.template: Make -uki-dtbloader provide kernel-core-uname-r (Hans de Goede)
 - redhat/kernel.spec.template: Add kernel-uki-dtbloader sub-package (Hans de Goede)
 - redhat/kernel.spec.template: Simplify uki-virt signing (Hans de Goede)
 - redhat/kernel.spec.template: Fix indentation of uki-virt generation code (Hans de Goede)
+- Linux v6.20.0-0.rc0.0f2acd3148e0
 
 * Sun Feb 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.ca4ee40bf13d.7]
 - Linux v6.20.0-0.rc0.ca4ee40bf13d

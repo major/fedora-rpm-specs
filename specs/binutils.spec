@@ -6,7 +6,7 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.46
+Version: 2.46.50
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -120,10 +120,10 @@ URL: https://sourceware.org/binutils
 # They are a "snapshot" of the about to be released branch sources, rather than
 # a snapshot of the mainline development sources.
 
-%define source official-release
+# %%define source official-release
 # %%define source even-pre-release
 # %%define source odd-pre-release
-# %%define source snapshot
+%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -131,7 +131,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "ba5838a98fb")
+%define commit_id %(echo "2d306bf8a70")
 
 #----End of Configure Options------------------------------------------------
 
@@ -223,7 +223,7 @@ Source0: binutils-with-gold-%{version}.tar.xz
 %elif "%{source}" == "odd-pre-release"
 Source0: binutils-%%{version}.tar.xz
 %elif "%{source}" == "snapshot"
-Source0: binutils-with-gold-%{version}-%{commit_id}.tar.gz
+Source0: binutils-with-gold-%{version}-%{commit_id}.tar.xz
 %elif "%{source}" == "tarball"
 Source0: binutils-%{version}-%{commit_id}.tar.xz
 %endif
@@ -1491,6 +1491,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Feb 16 2026 Nick Clifton <nickc@redhat.com> - 2.46.50-1
+- Rebase to commit 2d306bf8a70
+
 * Mon Feb 09 2026 Nick Clifton <nickc@redhat.com> - 2.46-1
 - Rebase to GNU Binutils 2.46.
 

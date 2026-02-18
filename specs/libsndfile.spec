@@ -11,6 +11,10 @@ Patch0:		libsndfile-1.0.25-system-gsm.patch
 Patch1:	libsndfile-1.2.2-cve-2024-50612.patch
 Patch2:	libsndfile-1.2.2-stdbool.patch
 
+# Test sdlcomp_test_short fails with opus version 1.6
+# https://github.com/libsndfile/libsndfile/issues/1107
+Patch3: libsndfile-1.2.2-tests-opus.patch
+
 %if %{undefined rhel}
 # used to regenerate test .c sources from .def files
 BuildRequires:  autogen
@@ -67,6 +71,7 @@ This package contains command line utilities for libsndfile.
 %patch -P0 -p1 -b .system-gsm
 %patch -P 1 -p1 -b .cve-2024-50612
 %patch -P 2 -p1 -b .stdbool
+%patch -P 3 -p1 -b .tests-opus
 rm -r src/GSM610
 
 %build

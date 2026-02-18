@@ -1,6 +1,6 @@
 Name:           perl-Syntax-Highlight-Engine-Kate
-Version:        0.14
-Release:        24%{?dist}
+Version:        0.15
+Release:        1%{?dist}
 Summary:        Port to Perl of the syntax highlight engine of the Kate text editor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Highlight-Engine-Kate
@@ -9,12 +9,12 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(inc::Module::Install) >= 0.91
 BuildRequires:  perl(Module::Install::Metadata)
 BuildRequires:  perl(Module::Install::WriteAll)
-BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -43,34 +43,73 @@ BuildRequires:  perl(Time::HiRes)
 # Test::Pod 1.00 not used
 Requires:       perl(base)
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(TestHighlight\\)
+
 %description
 Syntax::Highlight::Engine::Kate is a port to perl of the syntax highlight
 engine of the Kate text editor.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Syntax-Highlight-Engine-Kate-%{version}
 find -type f -exec chmod -c -x {} +
 # Remove bundled modules
 rm -rf ./inc
-sed -i '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t samples %{buildroot}%{_libexecdir}/%{name}
+ln -s %{_docdir}/%{name}/REGISTERED %{buildroot}%{_libexecdir}/%{name}/REGISTERED
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README REGISTERED
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Syntax
+%dir %{perl_vendorlib}/Syntax/Highlight
+%dir %{perl_vendorlib}/Syntax/Highlight/Engine
+%{perl_vendorlib}/Syntax/Highlight/Engine/Kate*
+%{_mandir}/man3/Syntax::Highlight::Engine::Kate*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-1
+- 0.15 bump (rhbz#2440076)
+- Package tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

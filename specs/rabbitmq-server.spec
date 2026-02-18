@@ -8,7 +8,7 @@
 
 Name: rabbitmq-server
 Version: 4.2.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -77,16 +77,18 @@ u rabbitmq - 'RabbitMQ messaging server' %{_localstatedir}/lib/rabbitmq -
 EOF
 
 %build
-RABBITMQ_VERSION="%{version}" make V=1 # Doesn't support %%{?_smp_mflags}
+make PROJECT_VERSION=%{version} V=1 # Doesn't support %%{?_smp_mflags}
 
 
 %install
-RABBITMQ_VERSION="%{version}" make install \
+make install \
+	PROJECT_VERSION=%{version} \
 	DESTDIR=%{buildroot} \
 	PREFIX=%{_prefix} \
 	RMQ_ROOTDIR=%{_rabbit_libdir}
 
-RABBITMQ_VERSION="%{version}" make install-man \
+make install-man \
+	PROJECT_VERSION=%{version} \
 	DESTDIR=%{buildroot} \
 	PREFIX=%{_prefix} \
 	RMQ_ROOTDIR=%{_rabbit_libdir}
@@ -174,6 +176,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Mon Feb 16 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-4
+- Fix version setting (2nd try)
+
 * Sat Feb 14 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-3
 - Fix version setting
 

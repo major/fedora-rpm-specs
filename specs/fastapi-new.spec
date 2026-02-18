@@ -3,7 +3,7 @@
 %bcond network_tests 0
 
 Name:           fastapi-new
-Version:        0.0.4
+Version:        0.0.5
 Release:        %autorelease
 Summary:        Create a new FastAPI project in one command
 
@@ -17,11 +17,6 @@ Source10:       fastapi-new.1
 # Downstream-only: patch out coverage from script test
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-from-script-test.patch
-# Downstream-only: Drop spurious runtime dependency on prek
-#
-# This was added in 36321c1a and removed again in (unreleased) ed53c59f.
-# This patch should therefore only be needed until the next upstream release.
-Patch:          0001-Drop-spurious-runtime-dependency-on-prek.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L fastapi_new
@@ -30,12 +25,11 @@ BuildArch:      noarch
 
 %py_provides python3-fastapi-new
 
-# Since requirements-tests.txt contains overly-strict version bounds and
+# Since the “tests” dependency group contains overly-strict version bounds and
 # unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
-# and the dev extra also includes unwanted dependencies, we just list the few
-# test dependencies we *do* want manually.
-BuildRequires:  %{py3_dist pytest} >= 8
+# we just list the few test dependencies we *do* want manually.
+BuildRequires:  %{py3_dist pytest} >= 8.3.5
 
 # As described in README.md, uv is required; however, there is no dependency on
 # python3-uv, only an expectation that the uv executable is in PATH.

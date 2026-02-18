@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.29%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.30%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -126,7 +126,7 @@ rm -r Source/Lib* Source/ZLib Source/OpenEXR
 %build
 sh ./gensrclist.sh
 sh ./genfipsrclist.sh
-%ifarch %{power64} %{mips32} aarch64
+%ifarch %{power64} %{mips32} aarch64 i686 s390x
 %make_build -f Makefile.gnu CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" LDFLAGS="%{__global_ldflags}"
 %make_build -f Makefile.fip CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" LDFLAGS="%{__global_ldflags}"
 %else
@@ -176,6 +176,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.19.0-0.30.svn1909
+- LibRaw rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.29.svn1909
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

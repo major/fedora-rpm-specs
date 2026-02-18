@@ -1,22 +1,19 @@
+%global _lto_cflags %nil
+
 # guitarix has merged with gx_head branch and tarball is distributed as guitarix2
 # project name remains guitarix however
 %global altname gx_head
 %global altname2 guitarix2
 
 Name:           guitarix
-Version:        0.44.1
-Release:        16%{?dist}
+Version:        0.47.0
+Release:        1%{?dist}
 Summary:        A virtual guitar amplifier
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://guitarix.sourceforge.net/
-Source0:        http://sourceforge.net/projects/%{name}/files/%{name}/%{altname2}-%{version}.tar.xz
-# Patch merged upstream
-Patch0:         %{name}-mismatched-delete.patch
-# Patch merged upstream
-Patch1:         %{name}-python-3.11-ftbfs.patch
-# Patch sent upstream by Thomas Rodgers https://github.com/brummer10/guitarix/pull/120
-Patch2:         %{name}-cstdint-include.patch
+URL:            https://github.com/brummer10/%{name}
+Source0:        https://github.com/brummer10/%{name}/releases/download/V%{version}/%{altname2}-%{version}.tar.xz
+Patch0:         %{name}-cassert-include.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
@@ -50,6 +47,9 @@ BuildRequires:  libappstream-glib
 
 Requires:       clearlooks-compact-gnome-theme
 Requires:       google-roboto-condensed-fonts
+
+# LADSPA support has been removed
+Obsoletes:      ladspa-%{name}-plugins < %{version}
 
 %description
 Guitarix takes the signal from your guitar as any real amp would do:
@@ -107,18 +107,6 @@ Requires:       libgxw-devel%{?_isa} = %{version}-%{release}
 This package contains support for using the Guitarix GTK widget library
 with glade
 
-%package -n ladspa-%{name}-plugins
-Summary:        Collection of Ladspa plug-ins
-# ladspa/distortion.cpp and ladspa/guitarix-ladspa.cpp are BSD
-# The rest of ladspa/* is GPLv+
-License:        GPL+ and BSD
-Requires:       ladspa
-
-%description -n ladspa-%{name}-plugins
-This package contains the crybaby, distortion, echo, impulseresponse, monoamp,
-and monocompressor ladspa plug-ins that come together with guitarix, but can
-also be used by any other ladspa host.
-
 %package -n lv2-%{name}-plugins
 Summary:        Collection of LV2 guitarix plug-ins
 # ladspa/distortion.cpp and ladspa/guitarix-ladspa.cpp are BSD
@@ -145,7 +133,7 @@ guitarix, but can also be used by any other ladspa host.
 
 # The build system does not use these bundled libraries by default. But
 # just to make sure:
-rm -fr src/zita-convolver src/zita-resampler
+rm -fr src/zita-convolver* src/zita-resampler*
 sed -i -e 's|-O3||' wscript
 
 %build
@@ -157,7 +145,7 @@ CXXFLAGS+=" -mfxsr"
 
 ./waf -vv configure --prefix=%{_prefix} --libdir=%{_libdir}          \
       --shared-lib --lib-dev --no-ldconfig --glade-support           \
-      --ladspa --ladspadir=%{_libdir}/ladspa --lv2dir=%{_libdir}/lv2 \
+      --lv2dir=%{_libdir}/lv2 \
       --cxxflags-release="-DNDEBUG"
 ./waf -vv build %{?_smp_mflags}
 
@@ -213,14 +201,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_datadir}/%{name}/icons
 %{_datadir}/glade/catalogs/*
 
-%files -n ladspa-%{name}-plugins
-%{_libdir}/ladspa/*.so
-%{_datadir}/ladspa
-
 %files -n lv2-%{name}-plugins
 %{_libdir}/lv2/*
 
 %changelog
+* Mon Feb 16 2026 Guido Aulisi <guido.aulisi@inps.it> - 0.47.0-1
+- Update to 0.47.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

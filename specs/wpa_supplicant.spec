@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.11
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -49,6 +49,8 @@ Patch10: wpa_supplicant-Revert-Mark-authorization-completed-on-driver-indica.pat
 Patch11: wpa_supplicant-Send-signal-change-as-debug-msg.patch
 # use pkcs11-provider instead of OpenSSL engine
 Patch12: wpa_supplicant-OpenSSL-Use-pkcs11-provider-when-OPENSSL_NO_ENGINE-i.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2439303
+Patch13: wpa_supplicant-OpenSSL-Support-PEM-encoded-chain-from-ca_cert-blob.patch
 
 URL: http://w1.fi/wpa_supplicant/
 
@@ -219,6 +221,9 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Thu Feb 12 2026 Beniamino Galvani <bgalvani@redhat.com> - 1:2.11-10
+- Fix loading multiple certificates from the ca_cert blob (#2439303)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           pythran
-Version:        0.18.0
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Ahead of Time Python compiler for numeric kernels
 
@@ -22,14 +22,21 @@ Provides:       bundled(python3dist(networkx)) = 2.6.1
 URL:            https://github.com/serge-sans-paille/pythran
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Fix test failures:
-# - Use more generic way of checking bool value of an object
-# - Add support for numpy.frombuffer
-# - Do not test binary mode of numpy.fromstring for recent
-# - Adjust doc validation to recent python 3.13
-Patch:          https://github.com/serge-sans-paille/pythran/pull/2323.patch
-# - Provide a small workaround for gast not doing its portability job for dumping
-Patch:          https://github.com/serge-sans-paille/pythran/commit/05f6f2b24a.patch
+# Compatibility with 32 bits numpy
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2375.patch
+
+# Compatibility with ply post-3.11 version
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2402.patch
+
+# Fix directory structure for pytest discovery
+# Sent upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2403.patch
+
+# Fix 32 bit type conversion failures
+# Sent upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2404.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures
@@ -113,31 +120,18 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %check
-# https://bugzilla.redhat.com/show_bug.cgi?id=1747029#c12
-k="not test_numpy_negative_binomial"
-# https://github.com/serge-sans-paille/pythran/issues/2214
-k="$k and not (TestDoctest and test_tutorial)"
-# https://github.com/serge-sans-paille/pythran/pull/2310#issuecomment-2873711746
-k="$k and not test_ndenumerate and not test_ndindex1 and not test_ndindex2"
+k=""
 %if 0%{?__isa_bits} == 32
 # These tests cause memory (address space) exhaustion; see discussion in
 # https://src.fedoraproject.org/rpms/pythran/pull-request/28.
-for t in test_fftn_{8,16,17,20,22} \
+for t in test_fftn_{8,11,15,16,17,20,22} \
     test_{h,ih,ir}fft_{8,14} \
     test_{,i}fft_3d{,_axis,f64_axis,int64_axis} \
     test_numpy_random_bytes1 \
     test_convolve_2b
 do
-  k="$k and not ${t}"
+  k="${k:+$k and }not $t"
 done
-%endif
-%ifarch aarch64
-# the test is so flaky it makes the build fail almost all the time
-k="$k and not test_interp_8"
-%endif
-%ifarch %{power64}
-# https://github.com/serge-sans-paille/pythran/pull/1946#issuecomment-992460026
-k="$k and not test_setup_bdist_install3"
 %endif
 
 # Don’t run tests in parallel on 32-bit architecutres. Running tests in serial
@@ -148,7 +142,7 @@ k="$k and not test_setup_bdist_install3"
 %global use_pytest_xdist 1
 %endif
 
-%pytest %{?use_pytest_xdist:-n auto} -k "$k"
+%pytest %{?use_pytest_xdist:-n auto} ${k:+-k "$k"}
 
 
 %files -f %{pyproject_files}

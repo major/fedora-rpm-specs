@@ -7,6 +7,10 @@ License:        Apache-2.0
 URL:            https://pypi.org/project/mkdocs-click/
 Source:         %{pypi_source mkdocs_click}
 
+# Fix compatibility with click 8.3.0+
+# Sent upstream
+Patch: https://github.com/mkdocs/mkdocs-click/pull/95.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest

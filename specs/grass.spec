@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.4.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -197,14 +197,12 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--with-opengl \
 	--with-openmp \
 	--with-pdal \
-	--with-png \
 	--with-postgres \
 	--with-postgres-includes=%{_includedir}/pgsql \
 	--with-proj-share=%{_datadir}/proj \
 	--with-readline \
 	--with-regex \
 	--with-tiff \
-	--with-wxwidgets=%{_bindir}/wx-config \
 	--with-zstd
 
 
@@ -334,6 +332,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Mon Feb 16 2026 Markus Neteler <neteler@mundialis.de> - 8.4.2-6
+- Drop non-existing configure flags
+
 * Sun Feb 15 2026 Sandro Mani <manisandro@gmail.com> - 8.4.2-5
 - Rebuild (PDAL)
 

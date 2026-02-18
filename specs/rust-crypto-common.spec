@@ -5,22 +5,18 @@
 %global crate crypto-common
 
 Name:           rust-crypto-common
-Version:        0.1.7
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Common cryptographic traits
+Summary:        Common traits used by cryptographic algorithms
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/crypto-common
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax generic-array dependency:
-#   only pinned to 0.14.7 to avoid deprecation warnings
-Patch:          crypto-common-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Common cryptographic traits.}
+Common traits used by cryptographic algorithms.}
 
 %description %{_description}
 
@@ -76,16 +72,16 @@ use the "rand_core" feature of the "%{crate}" crate.
 %files       -n %{name}+rand_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+zeroize-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+zeroize-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "zeroize" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

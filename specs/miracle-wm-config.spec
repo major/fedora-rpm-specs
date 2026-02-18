@@ -1,9 +1,9 @@
-%global commit bc45a73748d3db8d96d692ff791fa4f5aac22127
-%global commitdate 20260215
+%global commit 9b1fe3f623bd204b358f91fc5fd9ccfd3c68b7f4
+%global commitdate 20260216
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           miracle-wm-config
-Version:        0~git.%{commitdate}.1.%{shortcommit}
+Version:        0~git.%{commitdate}.2.%{shortcommit}
 Release:        1%{?dist}
 Summary:        Miracle Window Manager system configuration
 
@@ -99,6 +99,12 @@ install -pm 0644 sddm/miracle-wm.conf %{buildroot}%{_prefix}/lib/sddm/sddm.conf.
 
 
 %changelog
+* Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20260216.2.9b1fe3f-1
+- Turn off dock autohide
+
+* Mon Feb 16 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20260216.1.3eb4fe6-1
+- Fix MiracleWM DMS launcher script
+
 * Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20260215.1.bc45a73-1
 - Replace nwg-shell with DankMaterialShell
 

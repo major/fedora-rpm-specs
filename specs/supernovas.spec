@@ -5,8 +5,8 @@ Version:         1.5.1
 Release:         %autorelease
 Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
 License:         Unlicense
-URL:             https://smithsonian.github.io/SuperNOVAS
-Source0:         https://github.com/Smithsonian/SuperNOVAS/archive/refs/tags/v%{upstream_version}.tar.gz
+URL:             https://sigmyne.github.io/SuperNOVAS
+Source0:         https://github.com/Sigmyne/SuperNOVAS/archive/refs/tags/v%{upstream_version}.tar.gz
 
 # No i686 calceph package to build against
 ExcludeArch:     %{ix86}

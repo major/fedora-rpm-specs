@@ -1,5 +1,5 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.24
+Version:        1.25
 Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -115,6 +115,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.25-1
+- 1.25 bump (rhbz#2439786)
+
 * Mon Jan 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.24-1
 - 1.24 bump (rhbz#2430738)
 

@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.86
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -14,6 +14,8 @@ URL:     http://www.bluez.org/
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
 # https://patchwork.kernel.org/project/bluetooth/list/?series=1052631
 Patch1: big-endian-5.86.patch
+# https://patchwork.kernel.org/project/bluetooth/patch/0b3d55690ff2f0ed72271f2760ace8f76a81fb43.1771160059.git.pav@iki.fi/
+Patch2: 0001-a2dp-start-connecting-sink-profile-before-source.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -329,6 +331,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Feb 16 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-3
+- Fix audio output not working in some circumstances
+
 * Tue Feb 10 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-2
 - Use simpler big endian bug fix
 

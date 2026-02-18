@@ -1,5 +1,5 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.052000
+Version:        0.053005
 Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
@@ -17,6 +17,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.0
 
 BuildRequires:  perl(Class::Method::Modifiers)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Devel::StackTrace)
 BuildRequires:  perl(Eval::TypeTiny)
@@ -57,7 +58,10 @@ BuildRequires:  perl(MooX::TypeTiny)
 BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Test::Moose)
 
+Requires:       perl(B)
 Recommends:     perl(Moo::_Utils)
+# N/A in Fedora: Review is prepared
+#Recommends:     perl(Sub::HandlesVia::XS) >= 0.002000
 
 %description
 If you've used Moose's native attribute traits, or MooX::HandlesVia before,
@@ -84,6 +88,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/Sub::HandlesVia*
 
 %changelog
+* Wed Feb 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.053005-1
+- 0.053005 bump (rhbz#2434844)
+
 * Mon Jan 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.052000-1
 - 0.052000 bump (rhbz#2413814)
 

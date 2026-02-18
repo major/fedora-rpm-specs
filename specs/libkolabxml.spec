@@ -49,7 +49,7 @@
 
 Name:           libkolabxml
 Version:        1.2.0
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Kolab XML format collection parser library
 
 License:        LGPL-3.0-or-later
@@ -60,6 +60,9 @@ Patch0:         libkolabxml-1.2.0-fix-for-swig4.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake >= 2.6
+# Makefile installation is hardcoded in the CMake file. Why though?
+%global _cmake_generator "Unix Makefiles"
+BuildRequires:  make
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -250,6 +253,9 @@ popd
 
 
 %changelog
+* Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.2.0-39
+- Force using Makefile generator (rhbz#2381043)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

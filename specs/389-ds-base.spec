@@ -297,7 +297,7 @@ Provides:  bundled(npm(json-stringify-safe)) = 5.0.1
 Provides:  bundled(npm(keyv)) = 4.5.4
 Provides:  bundled(npm(levn)) = 0.4.1
 Provides:  bundled(npm(locate-path)) = 6.0.0
-Provides:  bundled(npm(lodash)) = 4.17.21
+Provides:  bundled(npm(lodash)) = 4.17.23
 Provides:  bundled(npm(lodash.merge)) = 4.6.2
 Provides:  bundled(npm(loose-envify)) = 1.4.0
 Provides:  bundled(npm(memoize-one)) = 5.2.1
@@ -547,6 +547,20 @@ Patch:            0033-Issue-7223-Add-upgrade-function-to-remove-nsIndexIDL.patc
 Patch:            0034-Issue-7223-Add-upgrade-function-to-remove-ancestorid.patch
 Patch:            0035-Issue-7223-Detect-and-log-index-ordering-mismatch-du.patch
 Patch:            0036-Issue-7223-Add-dsctl-index-check-command-for-offline.patch
+Patch:            0037-Issue-7230-Regression-in-healtcheck-NssCheck-7235.patch
+Patch:            0038-Issue-3555-UI-Fix-audit-issue-with-npm-isaacs-brace-.patch
+Patch:            0039-Issue-7221-CI-tests-fix-some-flaky-tests.patch
+Patch:            0040-Issue-7233-test_produce_division_by_zero-fails-with-.patch
+Patch:            0041-Issue-7241-Drop-dateutil-7242.patch
+Patch:            0042-Issue-7231-Sync-repl-tests-fail-in-FIPS-mode-due-to-.patch
+Patch:            0043-Issue-7248-CLI-attribute-uniqueness-fix-usage-for-ex.patch
+Patch:            0044-Issue-CLI-dsctl-db2index-needs-some-hardening-with-M.patch
+Patch:            0045-Issue-7252-PQC-Need-to-iterate-on-SECOidTag-instead-.patch
+Patch:            0046-Issue-6951-Dynamic-Certificas-Refresh-CI-tests-7238.patch
+Patch:            0047-Issue-7184-2nd-argparse.HelpFormatter-_format_action.patch
+Patch:            0048-Issue-7213-2nd-MDB_BAD_VALSIZE-error-while-handling-.patch
+Patch:            0049-Issue-7223-Use-lexicographical-order-for-ancestorid-.patch
+Patch:            0050-Issue-3134-Fix-build-break-7260.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes

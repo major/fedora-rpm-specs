@@ -1,12 +1,12 @@
-%global upstream_version        1.1.0
+%global upstream_version        1.1.1
 
 Name:                   libxchange
-Version:                1.1.0
+Version:                1.1.1
 Release:                %autorelease
 Summary:                Structured data representation and JSON support for C/C++
 License:                Unlicense
-URL:                    https://smithsonian.github.io/xchange
-Source0:                https://github.com/Smithsonian/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
+URL:                    https://sigmyne.github.io/xchange
+Source0:                https://github.com/Sigmyne/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
 BuildRequires:          gcc
 BuildRequires:          sed
 BuildRequires:          doxygen >= 1.9.0

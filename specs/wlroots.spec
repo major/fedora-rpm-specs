@@ -1,13 +1,14 @@
 # Version of the .so library
-%global abi_ver 0.19
+%global abi_ver 0.20
 # libliftoff does not bump soname on API changes
 %global liftoff_ver 0.5.0
-%global tag     0.19.2
 
 Name:           wlroots
-Version:        0.19.2
-Release:        4%{?dist}
+Version:        0.20.0~rc2
+Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
+
+%global tag     %{gsub %{version} ~ -}
 
 # Source files/overall project licensed as MIT, but
 # - HPND-sell-variant
@@ -37,9 +38,6 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
-# https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5203
-Patch:          Fix-discarded-const-qualifier.patch
-Patch:          %{url}/-/commit/c1452d88.patch#/backend-libinput-fix-build-with-libinput-1.31.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -52,21 +50,21 @@ BuildRequires:  meson >= 1.3
 
 BuildRequires:  (pkgconfig(libliftoff) >= %{liftoff_ver} with pkgconfig(libliftoff) < 0.6)
 BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(gbm) >= 17.1.0
+BuildRequires:  pkgconfig(gbm) >= 21.1
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(libdisplay-info)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.122
+BuildRequires:  pkgconfig(libdisplay-info) >= 0.2.0
+BuildRequires:  pkgconfig(libdrm) >= 2.4.129
 BuildRequires:  pkgconfig(libinput) >= 1.21.0
 BuildRequires:  pkgconfig(libseat)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(pixman-1) >= 0.43.0
+BuildRequires:  pkgconfig(pixman-1) >= 0.46.0
 BuildRequires:  pkgconfig(vulkan) >= 1.2.182
 BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.41
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.47
 BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(wayland-server) >= 1.23.1
+BuildRequires:  pkgconfig(wayland-server) >= 1.24.0
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-composite)
@@ -79,9 +77,9 @@ BuildRequires:  pkgconfig(xcb-render)
 BuildRequires:  pkgconfig(xcb-renderutil)
 BuildRequires:  pkgconfig(xcb-res)
 BuildRequires:  pkgconfig(xcb-shm)
-BuildRequires:  pkgconfig(xcb-xfixes)
+BuildRequires:  pkgconfig(xcb-xfixes) >= 1.15
 BuildRequires:  pkgconfig(xcb-xinput)
-BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xkbcommon) >= 1.8.0
 BuildRequires:  pkgconfig(xwayland)
 # libliftoff does not bump soname on API changes
 Requires:       libliftoff%{?_isa} >= %{liftoff_ver}
@@ -124,6 +122,7 @@ MESON_OPTIONS=(
 
 %install
 %{meson_install}
+install -pm0644 -Dt '%{buildroot}/%{_pkgdocdir}/examples' examples/*.[ch]
 install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build'
 
 
@@ -144,6 +143,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sat Feb 14 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.20.0~rc2-1
+- Update to 0.20.0-rc2
+
 * Thu Feb 12 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.2-4
 - Apply upstream patch for libinput 1.31 compatibility
 

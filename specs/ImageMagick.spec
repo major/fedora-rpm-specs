@@ -13,8 +13,8 @@
 
 Name:           ImageMagick
 Epoch:          1
-Version:        7.1.1.47
-Release:        7%{?dist}
+Version:        7.1.2.13
+Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -423,6 +423,12 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.1.2.13-1
+- 7.1.2.13
+
+* Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:7.1.1.47-8
+- LibRaw rebuild
+
 * Sat Jan 31 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.1.47-7
 - Enable uhdr (Ultra HDR) support
 - Resolves: rhbz#2343774

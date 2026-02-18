@@ -19,8 +19,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 2.2.16
-Release: 3%{?dist}
+Version: 2.3.0
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -38,7 +38,6 @@ Patch9: mutt-1.9.0-ssl_ciphers.patch
 Patch10: mutt-1.9.4-lynx_no_backscapes.patch
 Patch12: mutt-1.9.5-nodotlock.patch
 Patch13: mutt-1.12.1-optusegpgagent.patch
-Patch14: mutt-configure-c99.patch
 
 Url: http://www.mutt.org
 Requires: mailcap, urlview
@@ -86,7 +85,6 @@ for selecting groups of messages.
 
 %patch -P10 -p1 -b .lynx_no_backscapes
 %patch -P12 -p1 -b .nodotlock
-%patch -P14 -p1
 
 autoreconf -fiv
 %patch -P1 -p1 -b .muttrc
@@ -219,6 +217,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Sun Feb 08 2026 Michal Hlavinka <mhlavink@redhat.com> - 5:2.3.0-1
+- updated to 2.3.0 (#2432625)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5:2.2.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

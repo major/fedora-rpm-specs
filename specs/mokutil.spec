@@ -1,13 +1,13 @@
 Name:           mokutil
 Version:        0.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 Summary:        Tool to manage UEFI Secure Boot MoK Keys
 License:        GPL-3.0-or-later
 URL:            https://github.com/lcp/mokutil
 Source0:        https://github.com/lcp/mokutil/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        mokutil.patches
-ExclusiveArch:  %{ix86} x86_64 aarch64 %{arm}
+ExclusiveArch:  %{ix86} x86_64 aarch64 %{arm} riscv64
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -48,6 +48,9 @@ mokutil provides a tool to manage keys for Secure Boot through the MoK
 %{_datadir}/bash-completion/completions/mokutil
 
 %changelog
+* Mon Feb 02 2026 David Abdurachmanov <davidlt@rivosinc.com>
+- Enable for riscv64
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

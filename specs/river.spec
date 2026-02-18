@@ -4,8 +4,8 @@
 %global zig_xkbcommon_ver 0.3.0
 
 Name:           river
-Version:        0.3.13
-Release:        2%{?dist}
+Version:        0.3.14
+Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
 # river: GPL-3.0-only
@@ -131,6 +131,9 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
+* Mon Feb 16 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.14-1
+- Update to 0.3.14
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

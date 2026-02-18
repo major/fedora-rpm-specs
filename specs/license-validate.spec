@@ -1,6 +1,6 @@
 Name:           license-validate
-Version:        25
-Release:        5%{?dist}
+Version:        27
+Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
 License:        MIT
@@ -22,7 +22,8 @@ BuildRequires:  libxslt
 # for test
 BuildRequires:  (python3dist(lark) or python3dist(lark-parser))
 Requires:       (python3dist(lark) or python3dist(lark-parser))
-
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  python3dist(specfile)
 
 %description
 Validate whether the license string conforms to Fedora Licensing.
@@ -54,6 +55,7 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 %check
 ./validate-grammar.py full-grammar-shortnames.lark
+%{pytest} test_license.py
 
 %files
 %license LICENSE
@@ -66,17 +68,17 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Mon Feb 16 2026 Miroslav Suchý <msuchy@redhat.com> 27-1
+- add BR python3-specfile
 
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 25-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Mon Feb 16 2026 Miroslav Suchý <msuchy@redhat.com> 26-1
+- in verbose mode always print the text of license
+- finally make transformer work
+- fixes and more tests
+- add test for BSD-3-Clause-Clear
+- add tests
+- rework handling not-allowed licensing with exception
+- do not print the long traceback with -v on mismatch
 
 * Sun Jun 30 2024 Miroslav Suchý <msuchy@redhat.com> 25-1
 - allow lowercase variants as part of spdx 3.0

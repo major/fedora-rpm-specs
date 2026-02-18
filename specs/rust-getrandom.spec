@@ -5,7 +5,7 @@
 %global crate getrandom
 
 Name:           rust-getrandom
-Version:        0.3.4
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Small cross-platform library for retrieving random data from system source
 
@@ -64,6 +64,18 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sys_rng-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sys_rng-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sys_rng" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sys_rng-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

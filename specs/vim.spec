@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -78,6 +78,8 @@ Source9: vim-default-editor.sh
 Source10: vim-default-editor.csh
 Source11: vim-default-editor.fish
 Source12: view_wrapper
+Source13: vim.sh
+Source14: vim.fish
 
 
 Patch1: vim-7.0-fixkeys.patch
@@ -796,13 +798,20 @@ sed -i -e "s/augroup fedora/augroup redhat/" %{buildroot}/%{_sysconfdir}/vimrc
 sed -i -e "s/augroup fedora/augroup redhat/" %{buildroot}/%{_sysconfdir}/virc
 %endif
 
-%if %{with default_editor}
+# adding vi->vim aliases per rhbz#2439657 for bash, ksh, zsh and fish
+# it won't work without bash reload and under sudo, but reporter was aware
 mkdir -p %{buildroot}/%{_sysconfdir}/profile.d
+install -p -m644 %{SOURCE13} %{buildroot}/%{_sysconfdir}/profile.d/vim.sh
+
+mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
+install -p -m644 %{SOURCE14} %{buildroot}/%{_datadir}/fish/vendor_functions.d/vim.fish
+
+%if %{with default_editor}
 install -p -m644 %{SOURCE9} %{buildroot}/%{_sysconfdir}/profile.d/vim-default-editor.sh
 install -p -m644 %{SOURCE10} %{buildroot}/%{_sysconfdir}/profile.d/vim-default-editor.csh
+
 mkdir -p %{buildroot}/%{_datadir}/fish/vendor_conf.d/
 install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-default-editor.fish
-mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %endif
 
 
@@ -930,6 +939,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %{_bindir}/vim
 %{_bindir}/vimdiff
 %{_bindir}/vimtutor
+%dir %{_datadir}/fish/vendor_functions.d/
+%{_datadir}/fish/vendor_functions.d/vim.fish
+%config(noreplace) %{_sysconfdir}/profile.d/vim.sh
 
 %files filesystem
 %{_rpmconfigdir}/macros.d/macros.vim
@@ -952,6 +964,7 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %dir %{_datadir}/%{name}/vimfiles/spell
 %dir %{_datadir}/%{name}/vimfiles/syntax
 %dir %{_datadir}/%{name}/vimfiles/tutor
+%dir %{_sysconfdir}/profile.d
 
 %if %{with gui}
 %files X11
@@ -1005,6 +1018,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Mon Feb 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2146-2
+- provide previous vi->vim alias (fedora#2439657)
+
 * Fri Feb 13 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2146-1
 - patchlevel 2146
 

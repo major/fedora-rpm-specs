@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.19
+Version:        0.5.20
 Release:        %autorelease
 Summary:        Install and play any video game easily
 
@@ -8,10 +8,6 @@ Summary:        Install and play any video game easily
 License:        GPL-3.0-only
 URL:            http://%{name}.net
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
-
-# Fix for game installations freezing
-# https://github.com/lutris/lutris/commit/4cef2407288fd0219eba684c7b24451eeaf35fef
-Patch0:         game-installation-fix.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
@@ -90,6 +86,7 @@ on Linux.
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/net.%{name}.Lutris.metainfo.xml
 %fdupes %{buildroot}%{python3_sitelib}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applications/net.%{name}.Lutris.desktop
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applications/net.%{name}.Lutris1.desktop
 %find_lang %{name} --with-man
 
 %check
@@ -103,6 +100,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/net.%{name}.Lutris.desktop
+%{_datadir}/applications/net.%{name}.Lutris1.desktop
 %{_datadir}/icons/hicolor/scalable/apps/net.lutris.Lutris.svg
 %{_datadir}/icons/hicolor/16x16/apps/net.lutris.Lutris.png
 %{_datadir}/icons/hicolor/22x22/apps/net.lutris.Lutris.png
@@ -111,6 +109,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/icons/hicolor/48x48/apps/net.lutris.Lutris.png
 %{_datadir}/icons/hicolor/64x64/apps/net.lutris.Lutris.png
 %{_datadir}/icons/hicolor/128x128/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/128x128/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/16x16/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/22x22/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/24x24/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/32x32/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/48x48/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/64x64/mimetypes/application-x-lutris.png
+%{_datadir}/icons/hicolor/scalable/mimetypes/application-x-lutris.svg
+%{_datadir}/mime/packages/application-x-lutris.xml
 %{_datadir}/man/man1/%{name}.1.gz
 %{_metainfodir}/net.lutris.Lutris.metainfo.xml
 %pycached %{python3_sitelib}/%{name}/optional_settings.py

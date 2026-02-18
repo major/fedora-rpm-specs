@@ -108,7 +108,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -974,6 +974,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Mon Feb 16 2026 Nick White <fedora@njw.name> - 8.0.1-4
+- Enable mov_text encoder and decoder
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		tuptime
 Version:	5.2.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -38,7 +38,6 @@ install -d %{buildroot}%{_bindir}/
 install -d %{buildroot}%{_unitdir}/
 install -d %{buildroot}%{_mandir}/man1/
 install -d %{buildroot}%{_sharedstatedir}/tuptime/
-install -d %{buildroot}%{_datadir}/tuptime/
 install -d %{buildroot}%{_sysusersdir}/
 cp src/tuptime %{buildroot}%{_bindir}/
 cp src/systemd/tuptime.service %{buildroot}%{_unitdir}/
@@ -46,9 +45,6 @@ cp src/systemd/tuptime-sync.service %{buildroot}%{_unitdir}/
 cp src/systemd/tuptime-sync.timer %{buildroot}%{_unitdir}/
 cp src/systemd/sysusers.d/tuptime.conf %{buildroot}%{_sysusersdir}/
 cp src/man/tuptime.1 %{buildroot}%{_mandir}/man1/
-cp misc/scripts/* %{buildroot}%{_datadir}/tuptime/
-chmod +x %{buildroot}%{_datadir}/tuptime/*.sh
-chmod +x %{buildroot}%{_datadir}/tuptime/*.py
 
 
 %post
@@ -80,11 +76,12 @@ chmod +x %{buildroot}%{_datadir}/tuptime/*.py
 %doc CHANGELOG README.md CONTRIBUTING.md
 %license LICENSE
 %{_mandir}/man1/tuptime.1.*
-%dir %{_datadir}/tuptime
-%{_datadir}/tuptime/*
 
 
 %changelog
+* Tue Feb 17 2026 Frank Crawford <frank@crawford.emu.id.au> - 5.2.5-2
+- Drop some unnecessary files from the production RPM
+
 * Sun Jan 25 2026 Frank Crawford <frank@crawford.emu.id.au> - 5.2.5-1
 - New upstream release (bz2432567)
 

@@ -3,7 +3,7 @@
 
 Name:           shotwell
 Version:        33~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -137,6 +137,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shot
 
 
 %changelog
+* Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 33~alpha-2
+- LibRaw rebuild
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 33~alpha-1
 - Update to 33-alpha
 

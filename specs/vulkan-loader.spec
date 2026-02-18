@@ -1,5 +1,5 @@
 Name:           vulkan-loader
-Version:        1.4.328.1
+Version:        1.4.341.0
 Release:        %autorelease
 Summary:        Vulkan ICD desktop loader
 
@@ -50,7 +50,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake3 -GNinja -DCMAKE_BUILD_TYPE=Release
+%cmake -GNinja -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
 

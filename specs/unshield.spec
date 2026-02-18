@@ -2,6 +2,7 @@ Name:          unshield
 Version:       1.6.2
 Release:       %autorelease
 Summary:       Extract CAB files from InstallShield installers
+SourceLicense: MIT and LicenseRef-RSA
 License:       MIT
 URL:           https://github.com/twogood/unshield
 VCS:           git:%{url}.git

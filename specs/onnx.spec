@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -104,6 +104,10 @@ install -p "./onnx/"*.proto -t "%{buildroot}/%{_includedir}/onnx/"
 
 %check
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
+%ifarch riscv64
+export PYTEST_ADDOPTS="-k 'not test_float8_e4m3fn_negative_nan and \
+not test_float8_e5m2_negative_nan and not test_maxpool_2d_uint8_cpu'"
+%endif
 %pytest
 
 %files libs
@@ -124,6 +128,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Tue Feb 10 2026 Marcin Juszkiewicz - 1.17.0-11
+- skip 3 tests on riscv64: test_float8_e4m3fn_negative_nan,
+  test_float8_e5m2_negative_nan, test_maxpool_2d_uint8_cpu
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,6 +6,7 @@
 %else
 %bcond rocm 0
 %endif
+%bcond vulkan 0
 
 # bundled GGML sources are missing ppc64le and s390x
 ExcludeArch:    ppc64le s390x
@@ -45,6 +46,10 @@ BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
+%if %{with systemd}
+BuildRequires:  systemd-rpm-macros
+%endif
+
 %if %{with rocm}
 BuildRequires:  hipblas-devel
 BuildRequires:  rocblas-devel
@@ -54,19 +59,51 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocminfo
-
-Requires:       hipblas
-Requires:       rocblas
 %endif
 
-%if %{with systemd}
-BuildRequires:  systemd-rpm-macros
+%if %{with vulkan}
+BuildRequires:  vulkan-loader-devel
+BuildRequires:  glslc
+%endif
 
-%{?systemd_requires}
+Requires:       %{name}-base%{?_isa} = %{version}-%{release}
+%if %{with rocm}
+Requires:       %{name}-rocm%{?_isa} = %{version}-%{release}
+%endif
+%if %{with vulkan}
+Requires:       %{name}-vulkan%{?_isa} = %{version}-%{release}
 %endif
 
 %description
 Get up and running with OpenAI gpt-oss, DeepSeek-R1, Gemma 3 and other models.
+
+%package base
+Summary:        The base ollama
+%if %{with systemd}
+%{?systemd_requires}
+%endif
+
+%description base
+%{summary}
+
+%if %{with rocm}
+%package rocm
+Summary:        The ROCm backend for ollama
+Requires:       hipblas
+Requires:       rocblas
+
+%description rocm
+%{summary}
+%endif
+
+%if %{with vulkan}
+%package vulkan
+Summary:        The Vulkan backend for ollama
+
+%description vulkan
+%{summary}
+%endif
+
 
 %prep
 %goprep -A
@@ -77,6 +114,11 @@ Get up and running with OpenAI gpt-oss, DeepSeek-R1, Gemma 3 and other models.
 mv app/README.md app-README.md
 mv integration/README.md integration-README.md
 mv llama/README.md llama-README.md
+
+# No knob to turn off vulkan
+%if %{without vulkan}
+sed -i -e 's@Vulkan_FOUND@FALSE@' CMakeLists.txt
+%endif
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -108,7 +150,7 @@ export LDFLAGS=
 %cmake_install
 
 # remove copies of system libraries
-runtime_removal="hipblas rocblas amdhip64 rocsolver amd_comgr hsa-runtime64 rocsparse tinfo rocprofiler-register drm drm_amdgpu numa elf"
+runtime_removal="hipblas rocblas amdhip64 rocsolver amd_comgr hsa-runtime64 rocsparse tinfo rocprofiler-register drm drm_amdgpu numa elf vulkan"
 for rr in $runtime_removal; do
     rm -rf %{buildroot}%{_prefix}/lib/ollama/lib${rr}*
 done
@@ -147,7 +189,10 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %systemd_postun_with_restart ollama.service
 %endif
 
-%files -f %{go_vendor_license_filelist}
+%files
+%doc README.md
+
+%files -f %{go_vendor_license_filelist} base
 %license vendor/modules.txt
 %doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
 %doc llama-README.md
@@ -166,15 +211,22 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %endif
 %{_bindir}/ollama
 
-%if %{with rocm}
-%{_prefix}/lib/ollama/libggml-hip.so
-%endif
-
 %if %{with systemd}
 %attr(0755,ollama,ollama) %dir  %{_var}/lib/ollama/
 %{_unitdir}/ollama.service
 %{_sysusersdir}/ollama.conf
 %endif
+
+%if %{with rocm}
+%files rocm
+%{_prefix}/lib/ollama/libggml-hip.so
+%endif
+
+%if %{with vulkan}
+%files vulkan
+%{_prefix}/lib/ollama/libggml-vulkan.so
+%endif
+
 
 %changelog
 %autochangelog
