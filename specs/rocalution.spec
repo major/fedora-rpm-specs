@@ -62,7 +62,7 @@
 %endif
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -84,7 +84,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -146,8 +146,10 @@ Host
 * HIP: Designed for ROCm-compatible devices
 * MPI: Designed for multi-node clusters and multi-GPU setups
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary: Libraries and headers for %{name}
@@ -174,6 +176,19 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 # /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
 sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMakeLists.txt
 %endif
+
+# rocalution.x86_64: E: undefined-non-weak-symbol /usr/lib64/librocalution_hip.so.1.0.0 _ZNK10rocalution10BaseVectorIdE5CheckEv	(/usr/lib64/librocalution_hip.so.1.0.0)
+# Need to add -lrocalution to link
+# Try this..
+# sed -i -e 's@rocalution_hip PRIVATE roc::rocblas@rocalution_hip PRIVATE roc::rocalution roc::rocblas@' src/CMakeLists.txt
+# Leads to
+# CMake Error: The inter-target dependency graph contains the following strongly connected component (cycle):
+#  "rocalution" of type SHARED_LIBRARY
+#    depends on "rocalution_hip" (weak)
+#  "rocalution_hip" of type SHARED_LIBRARY
+#    depends on "rocalution" (weak)
+# At least one of these targets is not a STATIC_LIBRARY.  Cyclic dependencies are allowed only among static libraries.
+# CMake Generate step failed.  Build files cannot be regenerated correctly.
 
 %build
 %cmake %{cmake_generator} \
@@ -222,6 +237,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocalution/LICENSE.md
 %endif
 
 %changelog
+* Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

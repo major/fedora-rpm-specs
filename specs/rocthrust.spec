@@ -61,7 +61,7 @@
 %endif
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 # Threaded compression reduces the build time.
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
@@ -72,9 +72,9 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
-Summary:        ROCm Thrust libary
+Summary:        ROCm Thrust library
 
 %if 0%{?suse_version}
 # https://en.opensuse.org/openSUSE:Accepted_licences
@@ -150,7 +150,7 @@ cd projects/rocthrust
 # The ROCMExportTargetsHeaderOnly.cmake file
 # generates a files that reference the install location of other files
 # Make this change so they match
-sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR %{pkg_libdir}/' cmake/ROCMExportTargetsHeaderOnly.cmake
+sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR share/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
 %if %{with gitcommit}
@@ -167,7 +167,7 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
-    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_LIBDIR=share \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
@@ -208,9 +208,13 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocthrust/LICENSE
 %license NOTICES.txt
 %endif
 %{pkg_prefix}/include/thrust
-%{pkg_prefix}/%{pkg_libdir}/cmake/rocthrust/
+%{pkg_prefix}/share/cmake/rocthrust/
 
 %changelog
+* Sun Feb 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- change cmake install location
+- fix whitespace
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

@@ -1,30 +1,33 @@
 Name: abook
-Version: 0.6.1
-Release: 32%{?dist}
+Version: 0.6.2
+Release: 1%{?dist}
 # GPL-2.0-or-later, except:
 # getopt.[ch]: LGPL-2.0-or-later
 # getopt1.c: LGPL-2.0-or-later
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
-URL: http://abook.sourceforge.net/
+URL: https://abook.sourceforge.io/
 Summary: Text-based addressbook program for mutt
-Source0: http://abook.sourceforge.net/devel/abook-%{version}.tar.gz
+Source0: https://abook.sourceforge.net/devel/abook-%{version}.tar.gz
 # preserve all fields by default
 Patch0: %{name}-preserve.patch
-# 0618ad6 fixed bug #6 (https://sourceforge.net/p/abook/bugs/6/)
-Patch1: 0001-fixed-bug-6.patch
-# 02ac0ce doc: manpage mention of the -f option + fix for bug #8 (https://sourceforge.net/p/abook/bugs/8/)
-Patch2: 0002-doc-manpage-mention-of-the-f-option-fix-for-bug-8.patch
-# fix compilation when used with GCC -std=gnu99 or -std=gnu11
-Patch3: abook-extern-inline.patch
 # Fix detection of wcwidth()
 Patch4: abook-wcwidth.patch
+# backport upstream patches
+Patch10: 0001-follow-symlinks-fix-bug-4.patch
+Patch11: 0002-Remove-inline-keyword-from-header.patch
+Patch12: 0003-optional-datafile-rewrite-omitted-if-no-change-happe.patch
+Patch13: 0004-Search-nickname-alias-as-well.patch
+Patch14: 0005-silenced-a-couple-of-GCC-stringop-overflow-warnings.patch
+Patch15: 0006-allcsv-Remove-header-line-s-leading-which-confuse-re.patch
+Patch16: 0007-fix-an-autoconf-problem-from-d89aeb1-lvformat-wasn-t.patch
+Patch17: 0008-fix-built-in-vcard-parsing.-Use-item_fput-to-set-fie.patch
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: gettext-devel
+BuildRequires: gcc
+BuildRequires: gettext
 BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: readline-devel
-BuildRequires: gcc
 Requires: webclient
 
 %description
@@ -32,7 +35,7 @@ Abook is a small and powerful text-based addressbook program
 designed for use with the mutt mail client.
 
 %prep
-%autosetup -p1
+%autosetup -c -p1
 autoreconf -vif
 
 %build
@@ -52,6 +55,12 @@ autoreconf -vif
 %{_mandir}/man5/abookrc.*
 
 %changelog
+* Mon Feb 16 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.6.2-1
+- update to 0.6.2 (resolves rhbz#2432808)
+- drop obsolete patches
+- backport upstream patches
+- use HTTPS in URLs
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

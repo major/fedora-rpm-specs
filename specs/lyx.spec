@@ -11,20 +11,18 @@ BuildRequires: fontpackages-devel
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    lyx
-Version: 2.4.4
-Release: 4%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url:     https://www.lyx.org/
-Source0: http://ftp.lyx.org/pub/lyx/stable/2.4.x/lyx-%{version}.tar.xz
+Source0: http://ftp.lyx.org/pub/lyx/stable/2.5.x/lyx-%{version}.tar.xz
 
 Source1: lyxrc.dist
 
 # font metainfo file
 Source20: %{fontname}.metainfo.xml
-
-Patch0:  0001-Fix-compilation-with-Qt-6.10.patch
 
 %if 0%{?autotools}
 BuildRequires: automake libtool
@@ -168,9 +166,6 @@ done
   --enable-build-type=release \
   --enable-optimization="%{optflags}" \
   --without-included-boost \
-%if 0%{?fedora}
-  --enable-qt6 \
-%endif
   --with-enchant \
   --with-hunspell
 
@@ -240,13 +235,16 @@ make -k check ||:
 %{_metainfodir}/org.%{name}.LyX.metainfo.xml
 %{_sysconfdir}/bash_completion.d/%{name}
 
-%_font_pkg
+%files fonts
 %{_fontdir}/*.ttf
 %license lib/fonts/BaKoMaFontLicense.txt
 %{_metainfodir}/%{fontname}.metainfo.xml
 
 
 %changelog
+* Tue Feb 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.5.0-1
+- 2.5.0
+
 * Mon Feb 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4-4
 - Drop requires on dropped texlive packages
 

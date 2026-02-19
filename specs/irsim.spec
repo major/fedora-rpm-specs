@@ -1,15 +1,18 @@
 %global _hardened_build 1
 Name:             irsim
-Version:          9.7.104
-Release:          19%{?dist}
+Version:          9.7.121
+Release:          1%{?dist}
 Summary:          Switch-level simulator used even for VLSI
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://opencircuitdesign.com/%{name}
 Source0:          http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
+
+Patch0:           0000-missing-headers.patch
+
 BuildRequires:    gcc
-BuildRequires:    tk-devel m4 libXt-devel
+BuildRequires:    tk8-devel m4 libXt-devel
 BuildRequires: make
 
 %description
@@ -20,21 +23,21 @@ bit more realistic than the ideal, using the RC time constants to predict the
 relative timing of events.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 # The sources heavily rely on implicit ints and implicit function
 # declarations and are not compatible with C99.
 %global build_type_safety_c 0
-%set_build_flags
+export CFLAGS="${CFLAGS} -std=gnu99"
+
 # ./configure kills CFLAGS
 # Invoke scripts/configure directly
 (cd scripts && %configure)
 %make_build
 
 %install
-%make_install
-mv %{buildroot}%{_libdir}/%{name}/doc/*.doc doc/
+%make_install INSTALL_BINDIR="%{_bindir}" INSTALL_LIBDIR="%{_libdir}"
 rm -rf %{buildroot}%{_libdir}/%{name}/doc/
 
 %files
@@ -46,6 +49,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/doc/
 %{_mandir}/man3/%{name}-analyzer.3.gz
 
 %Changelog
+* Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 9.7.121-1
+- Update to v9.7.121
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.7.104-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

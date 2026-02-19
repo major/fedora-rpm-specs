@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.04
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -53,6 +53,7 @@ Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
 Patch17:  rpi-pass-the-Video-Core-logs-DT-parameter-through.patch
 Patch18:  rpi-pinctrl-bcm283x-Fix-GPIO-pull-state-register-values-for-BCM2711.patch
+Patch19:  board-raspberry-add-FDT-for-bcm2712d0.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -310,6 +311,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Feb 17 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.4.rc2
+- Add initial bcm2712d0 identification
+
 * Mon Feb 09 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.3.rc2
 - Update to 2026.04 RC2
 

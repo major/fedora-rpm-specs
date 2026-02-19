@@ -99,7 +99,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -116,7 +116,7 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/26711
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26711 (subword division)
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15264
 Patch4: https://gitlab.haskell.org/ghc/ghc/-/commit/65370007e2d9f1976fbcfbb514917fb111117148.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2430571
@@ -126,12 +126,22 @@ Patch5: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
+# ppc64le
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26870
+Patch20: ghc-rts.cabal-ppc64le.patch
+Patch21: ghc-platform-ppc64le.patch
+
 # Debian patches:
 # bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
 # see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
 #Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+# ppc64le clrrxi (included in debian and 9.16)
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24145
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578
+Patch30: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11578.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -146,7 +156,7 @@ BuildRequires: %{ghcboot}-compiler
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.7.5
+BuildRequires: ghc-rpm-macros-extra >= 2.11
 BuildRequires: %{ghcboot}-array-devel
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
@@ -187,8 +197,10 @@ BuildRequires: elfutils-devel
 %if %{with use_lld}
 BuildRequires: lld%{llvm_major}
 %endif
+%ifnarch ppc64le
 BuildRequires: llvm%{llvm_major}
 BuildRequires: clang%{llvm_major}
+%endif
 
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
@@ -285,8 +297,10 @@ Requires: lld%{llvm_major}
 Requires: llvm%{llvm_major}
 Requires: clang%{llvm_major}
 %else
+%ifnarch ppc64le
 Suggests: llvm(major) = %{llvm_major}
 Suggests: clang(major) = %{llvm_major}
+%endif
 %endif
 
 %description compiler
@@ -475,10 +489,14 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 %endif
 
+%patch -P20 -p1 -b .orig
+%patch -P21 -p1 -b .orig
+
 #debian
 #%%patch -P24 -p1 -b .orig
 #%%patch -P26 -p1 -b .orig
 #%%patch -P27 -p1 -b .orig
+%patch -P30 -p1 -b .orig
 
 
 %build
@@ -579,7 +597,7 @@ make install
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo "%{ghclibplatform}*" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
@@ -618,7 +636,7 @@ done
 
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 echo "%%dir %{ghcliblib}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
-echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %{ghclibplatform}*" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
@@ -646,7 +664,7 @@ echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 %endif
 
 # add rts libs
-for i in %{buildroot}%{ghclibplatform}/libHSrts*ghc%{ghc_version}.so; do
+for i in %{buildroot}%{ghclibplatform}*/libHSrts*ghc%{ghc_version}.so; do
 if [ "$(basename $i)" != "libHSrts-%{rts_ver}-ghc%{ghc_version}.so" ]; then
 echo $i >> %{name}-base.files
 fi
@@ -685,7 +703,7 @@ rm %{buildroot}%{ghcliblib}/package.conf.d/.stamp
 rm %{buildroot}%{ghcliblib}/package.conf.d/*.conf.copy
 
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24121
-rm %{buildroot}%{ghclibdir}/share/doc/%ghcplatform/*/LICENSE
+rm %{buildroot}%{ghclibdir}/share/doc/%{ghcplatform}*/*/LICENSE
 
 %if %{without haddock}
 rm %{buildroot}%{ghc_html_libraries_dir}/gen_contents_index
@@ -713,7 +731,7 @@ chmod a-x %{buildroot}%{ghcliblib}/{dyld,post-link}.mjs
 %check
 export LANG=C.utf8
 # stolen from ghc6/debian/rules:
-export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
+export LD_LIBRARY_PATH=$(echo %{buildroot}%{ghclibplatform}*):
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
 $GHC --info
 # simple sanity checks that the compiler actually works
@@ -867,8 +885,8 @@ make test
 %verify(not size mtime) %{ghc_html_libraries_dir}/synopsis.png
 %endif
 %dir %{ghclibdir}/share
-%dir %{ghclibdir}/share/%ghcplatform
-%{ghclibdir}/share/%ghcplatform/haddock-api-%{haddock_api_ver}
+%dir %{ghclibdir}/share/%{ghcplatform}*
+%{ghclibdir}/share/%{ghcplatform}*/haddock-api-%{haddock_api_ver}
 %if %{with manual}
 %{_mandir}/man1/ghc-%{ghc_major}.1*
 %endif
@@ -923,6 +941,11 @@ make test
 
 
 %changelog
+* Fri Feb 13 2026 Jens Petersen <petersen@redhat.com> - 9.12.3-15
+- rebuild with ghc-rpm-macros-2.11
+- add ppc64le arch patches for ghc-platform and rts.cabal (#26870)
+- ppc64le NCG: add an upstream patch for the clrrxi instruction
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.12.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

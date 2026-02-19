@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        3.1.15
+Version:        3.1.16
 Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -28,7 +28,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.4
 BuildRequires:  ninja-build
 BuildRequires:  openssl-devel
-
 BuildRequires:  pkgconfig(gnutls) >= 3.4.6
 BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(liblzma)
@@ -38,6 +37,8 @@ BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libxxhash)
+%{?el9:BuildRequires: gcc-toolset-15}
+%{?el9:BuildRequires: gcc-toolset-15-gcc-plugin-annobin}
 
 # Package manager BRs
 BuildRequires:  dpkg-dev
@@ -71,6 +72,7 @@ BuildRequires:  expect
 %endif
 
 # For ensuring the user is created
+%{?el9:Requires(pre): shadow-utils}
 
 # Apt is essentially broken without dpkg
 Requires:       dpkg >= 1.17.14
@@ -179,10 +181,12 @@ u _apt - 'APT account for owning persistent & cache data' %{_sharedstatedir}/apt
 EOF
 
 %build
+%{?el9:source /opt/rh/gcc-toolset-15/enable}
 %cmake -GNinja
 %cmake_build
 
 %install
+%{?el9:source /opt/rh/gcc-toolset-15/enable}
 %cmake_install
 
 %find_lang %{name}
@@ -214,16 +218,24 @@ cat > %{buildroot}%{_sysconfdir}/logrotate.d/apt <<EOF
 }
 EOF
 
+%if 0%{?fedora} || 0%{?rhel} > 9
 install -m0644 -D apt.sysusers.conf %{buildroot}%{_sysusersdir}/apt.conf
-
+%endif
 
 %check
+%{?el9:source /opt/rh/gcc-toolset-15/enable}
 %ctest
 %if %{with check_integration}
 unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %endif
 
 # Create the _apt user+group for apt data
+%pre
+getent group _apt >/dev/null || groupadd -r _apt
+getent passwd _apt >/dev/null || \
+    useradd -r -g _apt -d %{_sharedstatedir}/apt -s /sbin/nologin \
+    -c "APT account for owning persistent & cache data" _apt
+exit 0
 
 %ldconfig_scriptlets libs
 
@@ -282,7 +294,9 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %{_mandir}/*/apt_preferences.*
 %{_mandir}/*/sources.list.*
 %doc %{_docdir}/%{name}/*
+%if 0%{?fedora} || 0%{?rhel} > 9
 %{_sysusersdir}/apt.conf
+%endif
 
 %files libs -f %{name}-libs.lang
 %license COPYING*
@@ -315,6 +329,13 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Tue Feb 17 2026 Terje Rosten <terjeros@gmail.com> - 3.1.16-2
+- Backport 3.1.16 to epel9
+
+* Tue Feb 17 2026 Packit <hello@packit.dev> - 3.1.16-1
+- Update to version 3.1.16
+- Resolves: rhbz#2440372
+
 * Mon Feb 16 2026 Terje Rosten <terjeros@gmail.com> - 3.1.15-2
 - Rebuild due to so name bump
 

@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -173,6 +173,8 @@ Patch0051: 0051-openssh-7.3p1-x11-max-displays.patch
 # PKCS#11 URIs (upstream #2817, seriously reworked on rebasing to 10.2)
 # https://github.com/Jakuje/openssh-portable/commits/jjelen-pkcs11
 Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2423900
+Patch0053: 0053-openssh-10.2p1-pam-auth.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-6.7p1-coverity.patch
 
@@ -575,6 +577,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Feb 16 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.2p1-3
+- Fix pam password authentication
+  Resolves: rhbz#2423900
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.2p1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

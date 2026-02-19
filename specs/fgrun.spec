@@ -1,9 +1,11 @@
 Name:           fgrun
 Summary:        Graphical front-end for launching FlightGear flight simulator
 Version:        2016.3.1
-Release:        69%{?dist}
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+Release:        70%{?dist}
+# GPL-2.0-or-later: everything except the following
+# LGPL-2.0-or-later: src/Fl_Table*
+# CC-BY-SA-3.0: the icon (Source10)
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            https://gitlab.com/flightgear/fgrun
 Source0:        https://gitlab.com/flightgear/fgrun/-/archive/version/%{version}/fgrun-version-%{version}.tar.bz2
 Source1:        %{name}.desktop
@@ -34,6 +36,9 @@ BuildRequires:  sg3_utils-devel OpenSceneGraph-devel mesa-libEGL-devel
 BuildRequires:  gettext boost-devel desktop-file-utils
 BuildRequires:  cmake
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description 
 FlightGear Launch Control is a graphical front-end for launching
 FlightGear flight simulator
@@ -43,7 +48,6 @@ FlightGear flight simulator
 cp -a %{SOURCE2} .
 
 %build 
-CXXFLAGS="$RPM_OPT_FLAGS -D_FILE_OFFSET_BITS=64"
 %cmake \
     -DSIMGEAR_SHARED=ON \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5
@@ -94,6 +98,10 @@ install -m 0644 %{SOURCE15} \
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Fri Feb 13 2026 Jerry James <loganjerry@gmail.com> - 2016.3.1-70
+- Stop building for 32-bit x86
+- Update the License field
+
 * Wed Jan 28 2026 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-69
 - rebuild with newer SimGear
 

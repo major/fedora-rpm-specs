@@ -19,7 +19,7 @@ ExcludeArch:    ppc64le s390x
 
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
-Version:                0.12.11
+Version:                0.15.6
 
 %gometa -L -f
 
@@ -197,6 +197,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
 %doc llama-README.md
 %{_prefix}/lib/ollama/libggml-base.so
+%{_prefix}/lib/ollama/libggml-base.so.0{,.*}
 %ifarch x86_64
 %{_prefix}/lib/ollama/libggml-cpu-alderlake.so
 %{_prefix}/lib/ollama/libggml-cpu-haswell.so

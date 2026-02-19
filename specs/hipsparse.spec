@@ -84,7 +84,7 @@
 %global build_fflags %{nil}
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -94,9 +94,9 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
-Summary:        ROCm SPARSE marshalling library
+Summary:        ROCm SPARSE marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
@@ -148,7 +148,7 @@ Provides:       hipsparse%{pkg_suffix} = %{version}-%{release}
 ExclusiveArch:  x86_64
 
 %description
-hipSPARSE is a SPARSE marshalling library with multiple
+hipSPARSE is a SPARSE marshaling library with multiple
 supported backends. It sits between your application and
 a 'worker' SPARSE library, where it marshals inputs to
 the backend library and marshals results to your
@@ -157,8 +157,10 @@ require the client to change, regardless of the chosen
 backend. Currently, hipSPARSE supports rocSPARSE and
 cuSPARSE backends.
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -278,6 +280,9 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{pkg_prefix}/
 %endif
 
 %changelog
+* Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

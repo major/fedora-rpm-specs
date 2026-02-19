@@ -2,8 +2,8 @@
 %global tag v%{version}
 
 Name:      lua-zlib
-Version:   1.2
-Release:   8%{?dist}
+Version:   1.4
+Release:   1%{?dist}
 Summary:   Simple streaming interface to zlib for Lua
 License:   MIT
 URL:       %{forgeurl}
@@ -43,12 +43,16 @@ lua test.lua
 
 
 %files
-%license README
-%doc README
+%license LICENCE
+%doc README.md
 %{lua_libdir}/zlib.so
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.4-1
+- update to 1.4
+- lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

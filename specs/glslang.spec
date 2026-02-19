@@ -1,7 +1,7 @@
-%global sdkver 1.4.328.1
+%global sdkver 1.4.341.0
 
 Name:           glslang
-Version:        16.0.0
+Version:        16.2.0
 Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 
@@ -12,7 +12,7 @@ Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/%{name}-sdk-%{sdkver}.
 #Patch3:         https://patch-diff.githubusercontent.com/raw/KhronosGroup/glslang/pull/1722.patch#/0001-pkg-config-compatibility.patch
 Patch3:         0001-pkg-config-compatibility.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  spirv-tools-devel
@@ -37,7 +37,7 @@ interpretation of the specifications for these languages.
 find . -name '*.h' -or -name '*.cpp' -or -name '*.hpp'| xargs chmod a-x
 
 %build
-%cmake3 -DBUILD_SHARED_LIBS=OFF
+%cmake -DBUILD_SHARED_LIBS=OFF
 %cmake_build
 
 %install

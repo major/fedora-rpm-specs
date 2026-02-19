@@ -11,15 +11,13 @@ Release: %autorelease -s %{gitdate}git%{shortcommit}
 License: BSD-3-Clause
 URL:     https://github.com/OpenChemistry/%{name}
 Source0: https://github.com/OpenChemistry/%{name}/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
+Patch0:  %{name}-fix_cmake_minimum_require.patch
 
 ## Main building
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel, qt5-rpm-macros
 BuildRequires: qt5-qtwebkit-devel
-%if 0%{?fedora}
-BuildRequires: qjson-qt5-devel
-%endif
 BuildRequires: qt5-qttools-devel
 BuildRequires: qt5-qtscript-devel
 BuildRequires: qt5-qtsvg-devel
@@ -74,11 +72,7 @@ BuildArch: noarch
 HTML documentation of %{name}.
 
 %prep
-%autosetup -n %{name}-%{gitcommit}
-
-%if 0%{?fedora}
-rm -rf thirdparty/qt5json
-%endif
+%autosetup -p1 -n %{name}-%{gitcommit}
 
 %build
 %cmake -Wno-dev \

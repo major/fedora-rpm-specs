@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        92
+Version:        93
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,27 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Feb 17 2026 Packit <hello@packit.dev> - 93-1
+Changes with 93
+----------------
+  - Add customization support labels to wizard steps (HMS-10201) (#4112)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Fix undefined distro handling for image-mode in requestMapper (HMS-10207) (#4118)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - ImagesTable: change permission of artifact dir on launch (#4122)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  - Wizard: Hide "Other" label when it's the only category (HMS-10198) (#4111)
+    - Author: Klara Simickova, Reviewers: Achilleas Koutsou
+  - Wizard: clean up AWS registration from SPUR notes (HMS-10107) (#4036)
+    - Author: Katarína Sieklová, Reviewers: Nobody
+  - build(deps): bump the minor-and-patch group with 16 updates (#4119)
+    - Author: {}, Reviewers: Klara Simickova
+  - build(deps-dev): bump qs from 6.14.1 to 6.14.2 (#4115)
+    - Author: {}, Reviewers: Michal Gold
+
+— Somewhere on the Internet, 2026-02-17
+
+
 * Fri Feb 13 2026 Packit <hello@packit.dev> - 92-1
 Changes with 92
 ----------------

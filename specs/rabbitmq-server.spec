@@ -7,8 +7,9 @@
 
 
 Name: rabbitmq-server
-Version: 4.2.3
-Release: 4%{?dist}
+Version: 4.2.4
+Release: 1%{?dist}
+Summary: The RabbitMQ server
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -22,7 +23,6 @@ Patch: rabbitmq-server-0001-Use-default-EPMD-socket.patch
 Patch: rabbitmq-server-0002-Use-proto_dist-from-command-line.patch
 Patch: rabbitmq-server-0003-force-python3.patch
 Patch: rabbitmq-server-0004-Partially-revert-Use-template-in-rabbitmq-script-wra.patch
-Patch: rabbitmq-server-0005-Switch-to-zip-instead-of-7zip.patch
 
 URL: https://www.rabbitmq.com/
 BuildRequires: elixir
@@ -37,10 +37,9 @@ BuildRequires: rsync
 BuildRequires: systemd
 BuildRequires: xmlto
 BuildRequires: zip
-Requires: logrotate
+Requires: erlang-eldap%{?_isa} >= %{erlang_minver}
 Requires: erlang-erts%{?_isa} >= %{erlang_minver}
 Requires: erlang-kernel%{?_isa} >= %{erlang_minver}
-Requires: erlang-eldap%{?_isa} >= %{erlang_minver}
 Requires: erlang-mnesia%{?_isa} >= %{erlang_minver}
 Requires: erlang-os_mon%{?_isa} >= %{erlang_minver}
 Requires: erlang-public_key%{?_isa} >= %{erlang_minver}
@@ -50,7 +49,8 @@ Requires: erlang-stdlib%{?_isa} >= %{erlang_minver}
 Requires: erlang-syntax_tools%{?_isa} >= %{erlang_minver}
 Requires: erlang-tools%{?_isa} >= %{erlang_minver}
 Requires: erlang-xmerl%{?_isa} >= %{erlang_minver}
-Summary: The RabbitMQ server
+Requires: logrotate
+Requires: util-linux
 # Users and groups
 Requires(pre): systemd
 Requires(post): systemd
@@ -77,18 +77,20 @@ u rabbitmq - 'RabbitMQ messaging server' %{_localstatedir}/lib/rabbitmq -
 EOF
 
 %build
-make PROJECT_VERSION=%{version} V=1 # Doesn't support %%{?_smp_mflags}
+make PROJECT_VERSION=%{version} ESCRIPT_ZIP="zip -9 -X" V=1 # Doesn't support %%{?_smp_mflags}
 
 
 %install
 make install \
 	PROJECT_VERSION=%{version} \
+	ESCRIPT_ZIP="zip -9 -X" \
 	DESTDIR=%{buildroot} \
 	PREFIX=%{_prefix} \
 	RMQ_ROOTDIR=%{_rabbit_libdir}
 
 make install-man \
 	PROJECT_VERSION=%{version} \
+	ESCRIPT_ZIP="zip -9 -X" \
 	DESTDIR=%{buildroot} \
 	PREFIX=%{_prefix} \
 	RMQ_ROOTDIR=%{_rabbit_libdir}
@@ -176,6 +178,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Tue Feb 17 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.4-1
+- Ver. 4.2.4
+
 * Mon Feb 16 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.3-4
 - Fix version setting (2nd try)
 

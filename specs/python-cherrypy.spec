@@ -14,6 +14,7 @@ Summary:        Pythonic, object-oriented web development framework
 License:        LicenseRef-Callaway-BSD
 URL:            https://cherrypy.dev/
 Source0:        https://files.pythonhosted.org/packages/source/C/%{camelname}/cherrypy-%{version}.tar.gz
+Patch0:         1f75bc9eed8e0e385f64f368bd69f58d96fb8c2b.patch
 
 BuildArch:      noarch
 

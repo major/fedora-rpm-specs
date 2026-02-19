@@ -436,7 +436,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 10.2.0
+Version: 10.2.1
 
 # Set for release candidate builds
 #global rcver rc4

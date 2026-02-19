@@ -3,17 +3,20 @@
 #
 
 # Bundled libraries versions
-%global molinillo_version 0.7.0
-%global optparse_version 0.2.0
-# TODO: Check the version if/when available in library.
-%global tsort_version 0.1.0
+%global rubygems_molinillo_version 0.8.0
+%global rubygems_net_http_version 0.7.0
+%global rubygems_net_protocol_version 0.2.2
+%global rubygems_optparse_version 0.8.0
+%global rubygems_resolv_version 0.7.0
+%global rubygems_securerandom_version 0.4.1
+%global rubygems_timeout_version 0.4.4
+%global rubygems_tsort_version 0.2.0
+%global rubygems_uri_version 1.1.1
 
 # Requires versions
-%global bundler_version 2.3.25
-%global io_console_version 0.5.6
-%global openssl_version 2.2.0
-%global psych_version 3.3.0
-%global rdoc_version 6.3.0
+%global bundler_version 4.0.6
+%global psych_version 5.3.1
+%global rdoc_version 7.0.3
 
 # The RubyGems library has to stay out of Ruby directory tree, since the
 # RubyGems should be share by all Ruby implementations.
@@ -35,18 +38,35 @@
 
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
-Version: 3.3.25
-Release: 208%{?dist}
-# BSD-2-Clause: lib/rubygems/tsort/
-# BSD-2-Clause OR RUBY: lib/rubygems/optparse/
+Version: 4.0.6
+Release: 1%{?dist}
+# BSD-2-Clause OR Ruby:
+#   lib/rubygems/net-http/
+#   lib/rubygems/net-protocol/
+#   lib/rubygems/optparse/
+#   lib/rubygems/resolv/
+#   lib/rubygems/securerandom/
+#   lib/rubygems/timeout/
+#   lib/rubygems/tsort/
+#   lib/rubygems/uri/
+# MIT: lib/rubygems/package_task.rb
 # MIT: lib/rubygems/resolver/molinillo
-License: (Ruby OR MIT) AND BSD-2-Clause AND (BSD-2-Clause OR RUBY) AND MIT
-
+# Ruby OR BSD-2-Clause OR GPL-1.0-or-later: lib/net/protocol.rb
+License: %{shrink:
+    (Ruby OR MIT) AND
+    BSD-2-Clause AND
+    (BSD-2-Clause OR Ruby) AND
+    (Ruby OR BSD-2-Clause OR GPL-1.0-or-later) AND
+    MIT
+}
 URL: https://rubygems.org/
 Source0: https://rubygems.org/rubygems/%{name}-%{version}.tgz
 # Sources from the works by Vít Ondruch <vondruch@redhat.com>
 # NOTE: Keep Source1 in sync with ruby.spec.
 Source1: operating_system.rb
+Source2: %{name}-%{version}-test-missing-files.tar.gz
+# %%SOURCE2 is created by $ bash %%SOURCE2 %%version
+Source3: rubygems-create-missing-test-files.sh
 # http://seclists.org/oss-sec/2013/q3/att-576/check_CVE-2013-4287_rb.bin
 # Slightly modified for exit status
 Source11: check_CVE-2013-4287.rb
@@ -59,17 +79,12 @@ Source12: check_CVE-2013-4363.rb
 # https://bugs.ruby-lang.org/issues/11002
 # NOTE: Keep this patch in sync with ruby.spec.
 Patch0: ruby-2.3.0-ruby_version.patch
-# Bundler installation does not respec `--destdir`. But we ship Bundler in
-# independent package, therefore just ignore the installation altogether.
-# https://github.com/rubygems/rubygems/issues/3604
-Patch1: rubygems-3.1.3-Avoid-Bundler-installation.patch
 
 
 Requires:   ruby(release)
-Recommends: rubygem(bundler) >= %{bundler_version}
+Recommends: rubygem(bundler) >= 4.0
 Recommends: rubygem(rdoc) >= %{rdoc_version}
-Recommends: rubygem(io-console) >= %{io_console_version}
-Requires:   rubygem(openssl) >= %{openssl_version}
+Recommends: rubygem(io-console)
 Requires:   rubygem(psych) >= %{psych_version}
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -82,11 +97,20 @@ BuildRequires: %{_bindir}/git
 BuildRequires: %{_bindir}/gcc
 BuildRequires: rubygem(rake)
 BuildRequires: rubygem(webrick)
+BuildRequires: rubygem(test-unit-ruby-core)
 %endif
 Provides:   gem = %{version}-%{release}
 Provides:   ruby(rubygems) = %{version}-%{release}
 # https://github.com/rubygems/rubygems/pull/1189#issuecomment-121600910
-Provides:   bundled(rubygem-molinillo) = %{molinillo_version}
+Provides:   bundled(rubygem-molinillo) = %{rubygems_molinillo_version}
+Provides:   bundled(rubygem-net-http) = %{rubygems_net_http_version}
+Provides:   bundled(rubygem-net-protocol) = %{rubygems_net_protocol_version}
+Provides:   bundled(rubygem-optparse) = %{rubygems_optparse_version}
+Provides:   bundled(rubygem-resolv) = %{rubygems_resolv_version}
+Provides:   bundled(rubygem-securerandom) = %{rubygems_securerandom_version}
+Provides:   bundled(rubygem-timeout) = %{rubygems_timeout_version}
+Provides:   bundled(rubygem-tsort) = %{rubygems_tsort_version}
+Provides:   bundled(rubygem-uri) = %{rubygems_uri_version}
 BuildArch:  noarch
 
 %description
@@ -103,10 +127,9 @@ BuildArch:  noarch
 Documentation for %{name}.
 
 %prep
-%setup -q
+%setup -q -b 2
 
 %patch 0 -p1
-%patch 1 -p1
 
 %build
 # Nothing
@@ -130,16 +153,8 @@ mv %{buildroot}/%{rubygems_dir}/lib/* %{buildroot}%{rubygems_dir}/.
 rmdir %{buildroot}%{rubygems_dir}/lib
 
 # Kill bundled certificates, as they should be part of ca-certificates.
-for cert in \
-  .document \
-  rubygems.org/GlobalSignRootCA.pem \
-  rubygems.org/GlobalSignRootCA_R3.pem
-do
-  rm %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/$cert
-  rm -d $(dirname %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/$cert) || :
-done
-# Ensure there is not forgotten any certificate.
-test ! "$(ls -A %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/ 2>/dev/null)"
+rm %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/rubygems.org/GlobalSign.pem
+rmdir %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/rubygems.org/
 
 # Install custom operating_system.rb.
 mkdir -p %{buildroot}%{rubygems_dir}/rubygems/defaults
@@ -154,7 +169,14 @@ mkdir -p %{buildroot}%{gem_dir}/specifications/default
 
 # Remove bundled bundler
 rm -vr %{buildroot}%{rubygems_dir}/bundler*
+rm -vr %{buildroot}%{rubygems_dir}/gems/bundler*
+rm %{buildroot}%{rubygems_dir}/specifications/default/bundler-*.gemspec
+rmdir %{buildroot}%{rubygems_dir}/specifications/default/
+rmdir %{buildroot}%{rubygems_dir}/specifications/
 
+# Remove unneeded .document file
+rm %{buildroot}%{rubygems_dir}/rubygems/ssl_certs/.document
+rm %{buildroot}%{rubygems_dir}/rubygems/vendor/.document
 
 %check
 # Create an empty operating_system.rb, so that the system's one doesn't get used,
@@ -163,16 +185,96 @@ mkdir -p lib/rubygems/defaults
 touch lib/rubygems/defaults/operating_system.rb
 
 # Check Bundler version.
-[ "`RUBYOPT=-Ibundler/lib ruby -rbundler/version -e 'puts Bundler::VERSION'| tail -1`" \
-  == '%{bundler_version}' ]
+RUBYOPT=-Ibundler/lib ruby -rbundler/version -e " \
+  puts '%%{bundler_version}: %{bundler_version}' ; \
+  puts %Q[Bundler::VERSION: #{Bundler::VERSION}] ; \
+  exit 1 if Bundler::VERSION != '%{bundler_version}' ; \
+"
 
-# Check Molinillo version correctness.
-[ "`RUBYOPT=-Ilib ruby -e 'module Gem; class Resolver; end; end; require %{rubygems/resolver/molinillo/lib/molinillo/gem_metadata}; puts Gem::Resolver::Molinillo::VERSION' | tail -1`" \
-  == '%{molinillo_version}' ]
+# Check Rubygems bundled dependencies versions.
 
-# Check optparse version correctness.
-[ "`RUBYOPT=-Ilib ruby -e 'require %{rubygems/optparse/lib/optparse}; puts Gem::OptionParser::Version' | tail -1`" \
-  == '%{optparse_version}' ]
+# Molinillo.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; class Resolver; end; end; \
+  require 'rubygems/vendor/molinillo/lib/molinillo/gem_metadata'; \
+  puts '%%{rubygems_molinillo_version}: %{rubygems_molinillo_version}'; \
+  puts %Q[Gem::Molinillo::VERSION: #{Gem::Molinillo::VERSION}]; \
+  exit 1 if Gem::Molinillo::VERSION != '%{rubygems_molinillo_version}'; \
+"
+
+# Net::HTTP.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; module Net; end; end; \
+  require 'rbconfig'; \
+  require 'rubygems/vendor/net-http/lib/net/http'; \
+  puts '%%{rubygems_net_http_version}: %{rubygems_net_http_version}'; \
+  puts %Q[Gem::Net::HTTP::VERSION: #{Gem::Net::HTTP::VERSION}]; \
+  exit 1 if Gem::Net::HTTP::VERSION != '%{rubygems_net_http_version}'; \
+"
+
+# Net::Protocol.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; module Net; end; end; \
+  require 'rubygems/vendor/net-protocol/lib/net/protocol'; \
+  puts '%%{rubygems_net_protocol_version}: %{rubygems_net_protocol_version}'; \
+  puts %Q[Gem::Net::Protocol::VERSION: #{Gem::Net::Protocol::VERSION}]; \
+  exit 1 if Gem::Net::Protocol::VERSION != '%{rubygems_net_protocol_version}'; \
+"
+
+# OptParse.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; end; \
+  require 'rubygems/vendor/optparse/lib/optparse'; \
+  puts '%%{rubygems_optparse_version}: %{rubygems_optparse_version}'; \
+  puts %Q[Gem::OptionParser::Version: #{Gem::OptionParser::Version}]; \
+  exit 1 if Gem::OptionParser::Version != '%{rubygems_optparse_version}'; \
+"
+
+# Resolv.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; end; \
+  require 'rbconfig'; \
+  require 'rubygems/vendor/resolv/lib/resolv'; \
+  puts '%%{rubygems_resolv_version}: %{rubygems_resolv_version}'; \
+  puts %Q[Gem::Resolv::VERSION: #{Gem::Resolv::VERSION}]; \
+  exit 1 if Gem::Resolv::VERSION != '%{rubygems_resolv_version}'; \
+"
+
+# SecureRandom.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; module Random; end; end; \
+  require 'rubygems/vendor/securerandom/lib/securerandom'; \
+  puts '%%{rubygems_securerandom_version}: %{rubygems_securerandom_version}'; \
+  puts %Q[Gem::SecureRandom::VERSION: #{Gem::SecureRandom::VERSION}]; \
+  exit 1 if Gem::SecureRandom::VERSION != '%{rubygems_securerandom_version}'; \
+"
+
+# Timeout.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; end; \
+  require 'rubygems/vendor/timeout/lib/timeout'; \
+  puts '%%{rubygems_timeout_version}: %{rubygems_timeout_version}'; \
+  puts %Q[Gem::Timeout::VERSION: #{Gem::Timeout::VERSION}]; \
+  exit 1 if Gem::Timeout::VERSION != '%{rubygems_timeout_version}'; \
+"
+
+# TSort
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; end; \
+  require 'rubygems/vendor/tsort/lib/tsort'; \
+  puts '%%{rubygems_tsort_version}: %{rubygems_tsort_version}'; \
+  puts %Q[Gem::TSort::VERSION: #{Gem::TSort::VERSION}]; \
+  exit 1 if Gem::TSort::VERSION != '%{rubygems_tsort_version}'; \
+"
+
+# URI.
+RUBYOPT=-Ilib ruby -e " \
+  module Gem; end; \
+  require 'rubygems/vendor/uri/lib/uri/version'; \
+  puts '%%{rubygems_uri_version}: %{rubygems_uri_version}'; \
+  puts %Q[Gem::URI::VERSION: #{Gem::URI::VERSION}]; \
+  exit 1 if Gem::URI::VERSION != '%{rubygems_uri_version}'; \
+"
 
 %if %{without bootstrap}
 # util directory with changelog generator are not shipped in release archive.
@@ -184,7 +286,7 @@ mv test/test_changelog_generator.rb{,.disabled}
 # and therefore raising warnings such as: "Ignoring json-2.5.1 because its
 # extensions are not built. Try: gem pristine json --version 2.5.1".
 # https://github.com/rubygems/rubygems/pull/4446
-export RUBYOPT="-I$(ruby -e 'size = $LOAD_PATH.size; %w(rake test-unit rdoc webrick).each {|r| require r}; puts $LOAD_PATH[...-size].join ?:')"
+export RUBYOPT="-I$(ruby -e 'size = $LOAD_PATH.size; %w(rake test-unit rdoc webrick core_assertions).each {|r| require r}; puts $LOAD_PATH[...-size].join ?:')"
 
 # Rakefile is not shipped anymore => emulate its content.
 # https://github.com/rubygems/rubygems/blob/v3.3.22/Rakefile#L56-L64
@@ -199,23 +301,17 @@ ruby %{SOURCE12}
 %endif
 
 %files
-%doc CODE_OF_CONDUCT.md
 %doc CHANGELOG.md
+%doc CODE_OF_CONDUCT.md
 %doc CONTRIBUTING.md
-%doc MAINTAINERS.txt
-%doc POLICIES.md
 %doc README.md
-%doc UPGRADING.md
+%doc SECURITY.md
 %license MIT.txt LICENSE.txt
 %{_bindir}/gem
 %dir %{rubygems_dir}
 %{rubygems_dir}/rubygems
 %{rubygems_dir}/rubygems.rb
-%exclude %{rubygems_dir}/rubygems/optparse/.*
-%license %{rubygems_dir}/rubygems/optparse/COPYING
-%license %{rubygems_dir}/rubygems/resolver/molinillo/LICENSE
-%exclude %{rubygems_dir}/rubygems/tsort/.*
-%license %{rubygems_dir}/rubygems/tsort/LICENSE.txt
+%license %{rubygems_dir}/rubygems/vendor/*/{LICENSE.txt,COPYING}
 
 # Explicitly include only RubyGems directory strucure to avoid accidentally
 # packaged content.
@@ -236,6 +332,9 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Sun Feb 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.6-1
+- Update to RubyGems 4.0.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.25-208
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

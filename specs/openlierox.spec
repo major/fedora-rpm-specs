@@ -4,7 +4,7 @@ Name:           openlierox
 # Because we downgraded from 0.59 to 0.58 as 0.59 never became stable
 Epoch:          1
 Version:        0.58
-Release:        0.38.%{prever}%{?dist}
+Release:        0.39.%{prever}%{?dist}
 Summary:        Addictive realtime multi-player 2D shoot-em-up
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -14,6 +14,7 @@ Source1:        %{name}.desktop
 Source2:        README.fedora
 Patch1:         openlierox-gcc13.patch
 Patch2:         openlierox-libxml2-buildfix.patch
+Patch3:         openlierox_CMake4.0.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  SDL_mixer-devel SDL_image-devel gd-devel
@@ -53,9 +54,6 @@ rm -rf share/gamedir/scripts share/gamedir/cfg/*.py
 
 %build
 %cmake -DDEBUG=OFF -DHAWKNL_BUILTIN=OFF -DBREAKPAD=OFF -DSYSTEM_DATA_DIR=%{_datadir}
-# The CMakefile is not written with out of tree builds in minds. It expects
-# this dir, which is part of the source-tree, to be present
-mkdir %{_vpath_builddir}/bin
 %cmake_build
 
 
@@ -92,6 +90,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 16 2026 Cristian Le <git@lecris.dev> - 1:0.58-0.39.rc5
+- Allow to build with Ninja (rhbz#2381087)
+- Allow to build with CMake 4.0 (rhbz#2381339)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.58-0.38.rc5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

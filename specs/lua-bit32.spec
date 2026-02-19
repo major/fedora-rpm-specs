@@ -1,6 +1,6 @@
 # see https://luarocks.org/modules/siffiejoe/bit32/5.3.5-1
 %global srcname lua-compat-5.3
-%global srcver 0.10
+%global srcver 0.14.4
 
 %global lua_pkg_name bit32
 
@@ -17,6 +17,7 @@ Summary:        Lua bit manipulation library
 License:        MIT
 URL:            https://luarocks.org/modules/siffiejoe/bit32
 Source0:        https://github.com/keplerproject/%{srcname}/archive/v%{srcver}.tar.gz#/%{srcname}-%{srcver}.tar.gz
+Patch0:		https://patch-diff.githubusercontent.com/raw/lunarmodules/lua-compat-5.3/pull/74.patch
 
 BuildRequires:  gcc
 BuildRequires:  lua-devel >= 5.1
@@ -41,7 +42,7 @@ Requires:       lua(abi) = %{lua51_version}
 
 
 %prep
-%autosetup -n %{srcname}-%{srcver}
+%autosetup -n %{srcname}-%{srcver} -p1
 
 
 %build

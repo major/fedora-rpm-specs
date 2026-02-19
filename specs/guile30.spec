@@ -13,7 +13,7 @@
 %global mver 3.0
 
 Name: guile30
-Version: 3.0.9
+Version: 3.0.11
 Release: %autorelease
 Summary: A GNU implementation of Scheme for application extensibility
 # Automatically converted from old format: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+ - review is highly recommended.

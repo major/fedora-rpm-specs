@@ -3,7 +3,7 @@
 
 Name:      lua-cassowary
 Version:   2.3.2
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   The cassowary constraint solver
 License:   Apache-2.0
 URL:       %{forgeurl}
@@ -56,6 +56,9 @@ assert(y.value == 10 or y.value == 13)'
 %{lua_pkgdir}/cassowary/
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 2.3.2-10
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           asc
 Version:        2.8.0.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Advanced Strategic Command
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -62,6 +62,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 2.8.0.2-30
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,15 +1,15 @@
-%global commit daf01bc7e1e3d65987ab0f6e2c93707170a686b3
+%global commit e0ab31454b1c55468af14d08740b51f11581a324
 %if 0%{?rhel} && 0%{?rhel} < 10
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %else
 %global shortcommit %{sub %{commit} 1 7}
 %endif
-%global commitdate 20251216
+%global commitdate 20260123
 
 
 Name:           steam-devices
 Version:        1.0.0.101^git%{commitdate}.%{shortcommit}
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        MIT
 Summary:        Device support for Steam-related hardware
 Url:            https://github.com/ValveSoftware/steam-devices/
@@ -42,6 +42,9 @@ install -Dpm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rule
 %{_udevrulesdir}/60-steam-vr.rules
 
 %changelog
+* Tue Feb 17 2026 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20260123.e0ab314-7
+- Update to latest snapshot.
+
 * Fri Jan 16 2026 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20251216.daf01bc-6
 - Update to latest snapshot.
 

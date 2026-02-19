@@ -1,7 +1,7 @@
 %global appid com.github.hugolabe.Wike
 
 Name:           wike
-Version:        3.1.1
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Wikipedia Reader for the GNOME Desktop
 
@@ -58,6 +58,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.metainfo.xml
 %dir %{_datadir}/dbus-1
 %dir %{_datadir}/dbus-1/services
+%{_datadir}/dbus-1/services/%{appid}.service
 %{_datadir}/dbus-1/services/%{appid}.SearchProvider.service
 %dir %{_datadir}/gnome-shell
 %dir %{_datadir}/gnome-shell/search-providers

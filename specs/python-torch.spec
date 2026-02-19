@@ -16,7 +16,7 @@
 %global pybind11_version 2.13.6
 %global rc_tag -rc9
 %else
-%global pypi_version 2.9.1
+%global pypi_version 2.10.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
@@ -128,6 +128,12 @@ Source100:      https://github.com/protocolbuffers/protobuf/archive/refs/tags/v%
 # Use ELN version
 %global st_ver 80.9.0
 Source110:      https://github.com/pypa/setuptools/archive/refs/tags/v%{st_ver}.tar.gz
+
+# FileNotFoundError: [Errno 2] No such file or directory:
+# '.../third_party/fbgemm/fbgemm_gpu/experimental/gen_ai/src/quantize/common/
+#   include/fbgemm_gpu/quantize/tuning_cache.cuh'
+# https://github.com/pytorch/pytorch/issues/175160
+Patch: 0001-python-torch-check-if-tuning_cache-exists.patch
 
 %global pt_arches x86_64 aarch64
 ExclusiveArch:  %pt_arches

@@ -18,8 +18,8 @@ The oslo.i18n library contain utilities for working with internationalization \
 or library.
 
 Name:           python-oslo-i18n
-Version:        6.7.1
-Release:        2%{?dist}
+Version:        6.7.2
+Release:        1%{?dist}
 Summary:        OpenStack i18n library
 License:        Apache-2.0
 URL:            https://github.com/openstack/%{pypi_name}
@@ -144,6 +144,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Tue Feb 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.7.2-1
+- 6.7.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

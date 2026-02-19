@@ -76,7 +76,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -107,6 +107,11 @@ Patch27: haddock-remove-googleapis-fonts.patch
 
 # riscv64
 Patch40: https://src.opensuse.org/pool/ghc/raw/branch/factory/riscv64-ncg.patch
+
+# ppc64le
+# https://bugzilla.redhat.com/show_bug.cgi?id=2435862
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26870
+Patch45: ghc-9.10-rts.cabal-ppc64le.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -443,6 +448,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P40 -p1 -b .orig
 %endif
 
+# ppc
+%patch -P45 -p1 -b .orig45
+
 # can switch to https://github.com/haskell/directory/pull/184 for 9.10.4
 rm libraries/directory/directory.buildinfo
 
@@ -507,7 +515,7 @@ ln -sf ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
-%if %{defined debug_flavor}
+%if %{with debug_flavor}
 %define hadrian_debug +debug_info
 %endif
 # + hadrian/dist/build/hadrian/hadrian -j224 --flavour=perf --docs=no-sphinx-pdfs binary-dist-dir --hash-unit-ids
@@ -544,7 +552,7 @@ make install
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo "%{ghclibplatform}*" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
@@ -576,7 +584,7 @@ done
 
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 echo "%%dir %{ghcliblib}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
-echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
+echo "%%dir %{ghclibplatform}*" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
@@ -604,7 +612,7 @@ echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 %endif
 
 # add rts libs
-for i in %{buildroot}%{ghclibplatform}/libHSrts*ghc%{ghc_version}.so; do
+for i in %{buildroot}%{ghclibplatform}*/libHSrts*ghc%{ghc_version}.so; do
 if [ "$(basename $i)" != "libHSrts-%{rts_ver}-ghc%{ghc_version}.so" ]; then
 echo $i >> %{name}-base.files
 fi
@@ -643,7 +651,7 @@ rm %{buildroot}%{ghcliblib}/package.conf.d/.stamp
 rm %{buildroot}%{ghcliblib}/package.conf.d/*.conf.copy
 
 # https://gitlab.haskell.org/ghc/ghc/-/issues/24121
-rm %{buildroot}%{ghclibdir}/share/doc/%ghcplatform/*/LICENSE
+rm %{buildroot}%{ghclibdir}/share/doc/%{ghcplatform}*/*/LICENSE
 
 (
 cd %{buildroot}%{_bindir}
@@ -667,7 +675,7 @@ chmod a-x %{buildroot}%{ghcliblib}/post-link.mjs
 %check
 export LANG=C.utf8
 # stolen from ghc6/debian/rules:
-export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
+export LD_LIBRARY_PATH=$(echo %{buildroot}%{ghclibplatform}*):
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
 $GHC --info
 # simple sanity checks that the compiler actually works
@@ -873,6 +881,9 @@ make test
 
 
 %changelog
+* Sat Feb 14 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-13
+- rebuild with ghc-rpm-macros-2.11
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.10.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -132,7 +132,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}.1
 %else
-Release:        2.rocm%{rocm_version}%{?dist}
+Release:        3.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -161,6 +161,8 @@ Patch3:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
 Patch4:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415065
 Patch5:         0001-lld-workaround-.gnu.version-change.patch
+# backport
+Patch6:         0001-SemaConcept.cpp-fix-MSVC-not-all-control-paths-retur.patch
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -829,6 +831,7 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/LICENSE.txt
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/amd_comgr/README.md
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/LICENSE.txt
 rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
+rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
@@ -883,6 +886,7 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %dir %{bundle_prefix}/lib/cmake
 %dir %{bundle_prefix}/lib/cmake/clang
 %dir %{bundle_prefix}/lib/cmake/llvm
+%dir %{bundle_prefix}/libexec
 %dir %{bundle_prefix}/share
 %dir %{bundle_prefix}/share/clang
 %dir %{bundle_prefix}/share/opt-viewer
@@ -1010,20 +1014,23 @@ rm -rf %{buildroot}%{pkg_prefix}/share/doc/hipcc/README.md
 %{bundle_prefix}/bin/scan-build
 %{bundle_prefix}/bin/scan-build-py
 %{bundle_prefix}/bin/scan-view
-%{bundle_prefix}/lib/libear/*
-%{bundle_prefix}/lib/libscanbuild/*
+%{bundle_prefix}/lib/libear/
+%{bundle_prefix}/lib/libscanbuild/
 %{bundle_prefix}/libexec/analyze-c++
 %{bundle_prefix}/libexec/analyze-cc
 %{bundle_prefix}/libexec/c++-analyzer
 %{bundle_prefix}/libexec/ccc-analyzer
 %{bundle_prefix}/libexec/intercept-c++
 %{bundle_prefix}/libexec/intercept-cc
-%{bundle_prefix}/share/man/man1/scan-build.1
-%{bundle_prefix}/share/scan-build/*
-%{bundle_prefix}/share/scan-view/*
+%{bundle_prefix}/share/scan-build/
+%{bundle_prefix}/share/scan-view/
 %endif
 
 %changelog
+* Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> 22-3.rocm7.2.0
+- Fix build on TW
+- Fix dir ownership of clang-analyzer
+
 * Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> 22-2.rocm7.2.0
 - hipcc requires rocminfo to find its default gpu
 

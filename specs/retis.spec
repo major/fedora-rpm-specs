@@ -1,5 +1,5 @@
 Name:           retis
-Version:        1.6.3
+Version:        1.6.4
 Release:        %autorelease
 Summary:        Tracing packets in the Linux networking stack
 License:        GPL-2.0-only

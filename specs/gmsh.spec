@@ -17,8 +17,8 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.15.0
-Release:    3%{?dist}
+Version:    4.15.1
+Release:    1%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -414,6 +414,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Tue Feb 17 2026 Sandro Mani <manisandro@gmail.com> - 4.15.1-1
+- Update to 4.15.1
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 4.15.0-3
 - Rebuild with fltk 1.4.
 

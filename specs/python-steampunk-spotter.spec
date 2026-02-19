@@ -4,7 +4,7 @@
 %bcond check 1
 
 Name:           python-%{srcname}
-Version:        5.9.0
+Version:        5.10.0
 Release:        %autorelease
 Summary:        Scan, analyze, enhance, and provide insights for your playbooks using Spotter
 License:        Apache-2.0

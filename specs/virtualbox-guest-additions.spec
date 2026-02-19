@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
-Version:    7.2.4
-Release:    2%{?dist}
+Version:    7.2.6
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -69,7 +69,7 @@ it is harmless and services would not run anyway.
 %autosetup -p1 -n VirtualBox-%{version}
 # Remove prebuilt binaries
 find -name '*.py[co]' -delete
-rm -r src/VBox/Additions/WINNT
+rm -r src/VBox/Additions/win
 rm -r src/VBox/Additions/os2
 rm -r kBuild/
 rm -r tools/
@@ -198,6 +198,9 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Sun Feb 01 2026 Alex Tereschenko <frozen.and.blue@gmail.com> - 7.2.6-1
+- Update Virtualbox Guest Additions to 7.2.6 (rhbz#2434018)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,23 +1,20 @@
-%global luaver 5.4
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		lua-ldoc
 Version:	1.5.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 BuildArch:	noarch
 Summary:	Lua documentation generator
-# the included css code is BSD licensed
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License:	LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+# the included css code is BSD licensed... but only used for testing
+License:	MIT
 URL:		https://github.com/lunarmodules/ldoc
 Source0:	https://github.com/lunarmodules/ldoc/archive/refs/tags/v%{version}.tar.gz
-BuildRequires:	lua >= %{luaver}
+Patch0:		https://github.com/lunarmodules/ldoc/commit/28d75b4cc335523f1b27c21f41ecfb44f475b12c.patch
+BuildRequires:	lua-devel >= %{lua_version}
 BuildRequires:	lua-markdown
 BuildRequires:	lua-penlight >= 1.4.0
 BuildRequires:	make
-Requires:	lua >= %{luaver}
+Requires:	lua >= %{lua_version}
 Requires:	lua-markdown
 Requires:	lua-penlight >= 1.4.0
 
@@ -47,16 +44,16 @@ Requires:	%{name} = %{version}-%{release}
 
 
 %install
-mkdir -p %{buildroot}%{luapkgdir}
+mkdir -p %{buildroot}%{lua_pkgdir}
 mkdir -p %{buildroot}%{_bindir}
 make install \
-  "LUA_SHAREDIR=%{luapkgdir}" \
+  "LUA_SHAREDIR=%{lua_pkgdir}" \
   "LUA_BINDIR=%{_bindir}" \
   "DESTDIR=%{buildroot}"
 
 # fix scripts
 sed -i %{buildroot}%{_bindir}/ldoc -e '1i#!/bin/sh'
-sed -i %{buildroot}%{luapkgdir}/ldoc.lua -e '1{/^#!/d}'
+sed -i %{buildroot}%{lua_pkgdir}/ldoc.lua -e '1{/^#!/d}'
 
 # create documentation
 lua ldoc.lua .
@@ -70,11 +67,11 @@ chmod u=rwX,go=rX -R public
 sed -i 's/\r//' COPYRIGHT
 
 # we depend on lua-markdown instead
-rm %{buildroot}%{luapkgdir}/ldoc/markdown.lua
+rm %{buildroot}%{lua_pkgdir}/ldoc/markdown.lua
 
 # cleanup
-rm %{buildroot}%{luapkgdir}/ldoc/SciTE.properties \
-   %{buildroot}%{luapkgdir}/ldoc/config.ld
+rm %{buildroot}%{lua_pkgdir}/ldoc/SciTE.properties \
+   %{buildroot}%{lua_pkgdir}/ldoc/config.ld
 
 # install docs
 mkdir -p %{buildroot}%{_pkgdocdir}
@@ -87,8 +84,8 @@ cp -av %{!?_licensedir:COPYRIGHT} README.html CHANGELOG.html public/* \
 %license COPYRIGHT
 %{_pkgdocdir}/README.html
 %{_bindir}/ldoc
-%{luapkgdir}/ldoc
-%{luapkgdir}/ldoc.lua
+%{lua_pkgdir}/ldoc
+%{lua_pkgdir}/ldoc.lua
 
 
 %files doc
@@ -101,6 +98,9 @@ cp -av %{!?_licensedir:COPYRIGHT} README.html CHANGELOG.html public/* \
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.5.0-9
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

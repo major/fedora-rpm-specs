@@ -1,13 +1,11 @@
 %global bpf_supported_arches aarch64 x86_64 ppc64le riscv64 s390x
 Summary: Alternate posix capabilities library
 Name: libcap-ng
-Version: 0.9
-Release: 7%{?dist}
+Version: 0.9.1
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/stevegrubb/libcap-ng
 Source0: %{name}-%{version}.tar.gz
-Patch0: kernel.patch
-Patch1: drop-captest.patch
 BuildRequires: gcc make
 BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 2.6.11 
@@ -60,8 +58,6 @@ to determine the necessary capabilities for a program.
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
 touch NEWS
 autoreconf -fv --install
 
@@ -121,6 +117,9 @@ make check
 %endif
 
 %changelog
+* Tue Feb 17 2026 Steve Grubb <sgrubb@redhat.com> 0.9.1-1
+- New upstream bugfix release
+
 * Mon Jan 26 2026 Steve Grubb <sgrubb@redhat.com> 0.9-7
 - Add Obsoletes libcap-ng-audit to remove old package
 

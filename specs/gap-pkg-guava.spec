@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/guava
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        3.20
+Version:        3.21
 Release:        %autorelease
 Summary:        Computing with error-correcting codes
 
@@ -28,9 +28,7 @@ BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  parallel
 
-Requires:       gap-core%{?_isa}
-
-Recommends:     gap-pkg-sonata
+Requires:       gap-pkg-sonata
 
 %global _docdir_fmt %{name}
 

@@ -5,7 +5,7 @@
 %global pkgdatadir %{_datadir}/dpkg
 
 Name:           dpkg
-Version:        1.22.20
+Version:        1.23.5
 Release:        %autorelease
 Summary:        Package maintenance system for Debian Linux
 # The entire source code is GPLv2+ with exception of the following
@@ -33,17 +33,13 @@ BuildRequires:  libtool
 BuildRequires:  libzstd-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
-BuildRequires:  perl-devel >= 5.32.1
+BuildRequires:  perl-devel >= 5.36.0
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-podlators
 BuildRequires:  po4a >= 0.59
 BuildRequires:  xz-devel
-%if 0%{?rhel} == 8 || 0%{?rhel} == 9
-BuildRequires:  zlib-devel
-%else
 BuildRequires:  zlib-ng-devel
-%endif
 
 # Need by make check
 BuildRequires: fakeroot
@@ -190,11 +186,7 @@ autoreconf -vif
     --with-libbz2 \
     --with-liblzma \
     --with-libselinux \
-%if 0%{?rhel} == 8 || 0%{?rhel} == 9
-    --with-libz \
-%else
     --with-libz-ng \
-%endif
     --with-libzstd
 
 %make_build

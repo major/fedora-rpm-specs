@@ -1,18 +1,15 @@
-%global luaver 5.4
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 Name:		lua-markdown
-Version:	0.32
-Release:	29%{?dist}
+Version:	0.33
+Release:	1%{?dist}
 BuildArch:	noarch
 Summary:	Markdown module for Lua
 License:	MIT
-URL:		http://www.frykholm.se/files/markdown.lua
-Source0:	http://www.frykholm.se/files/markdown.lua
-Source1:	http://www.frykholm.se/files/markdown-tests.lua
-Patch0:		lua-markdown-0.32-lua-5.2.patch
-BuildRequires:	lua >= %{luaver}
-Requires:	lua >= %{luaver}
+URL:		https://github.com/mpeterv/markdown
+Source0:	https://github.com/mpeterv/markdown/archive/refs/tags/%{version}.tar.gz
+Patch0:		https://github.com/mpeterv/markdown/pull/8.patch
+BuildRequires:	lua-devel
+BuildRequires:	lua >= %{lua_version}
+Requires:	lua >= %{lua_version}
 
 %description
 This is an implementation of the popular text markup language Markdown
@@ -21,10 +18,8 @@ easy to read text format to well-formatted HTML.
 
 
 %prep
-%setup -c -T
-cp -av %{SOURCE0} .
-cp -av %{SOURCE1} .
-%patch -P0 -p1 -b .lua-52
+%setup -q -n markdown-%{version}
+%patch -P0 -p1 -b .lua-55
 
 
 %build
@@ -32,15 +27,15 @@ cp -av %{SOURCE1} .
 
 
 %install
-mkdir -p %{buildroot}%{luapkgdir}
+mkdir -p %{buildroot}%{lua_pkgdir}
 mkdir -p %{buildroot}%{_bindir}
-cp -av markdown.lua %{buildroot}%{luapkgdir}
+cp -av markdown.lua %{buildroot}%{lua_pkgdir}
 
 # fix script
-sed -i %{buildroot}%{luapkgdir}/markdown.lua -e '1{/^#!/d}'
+sed -i %{buildroot}%{lua_pkgdir}/markdown.lua -e '1{/^#!/d}'
 
 # create a wrapper
-echo -en '#!/bin/sh\nlua %{luapkgdir}/markdown.lua "$@"' \
+echo -en '#!/bin/sh\nlua %{lua_pkgdir}/markdown.lua "$@"' \
   > %{buildroot}%{_bindir}/markdown.lua
 chmod +x %{buildroot}%{_bindir}/markdown.lua
 
@@ -50,11 +45,17 @@ lua markdown.lua -t
 
 
 %files
+%license LICENSE
+%doc README.md
 %{_bindir}/markdown.lua
-%{luapkgdir}/markdown.lua
+%{lua_pkgdir}/markdown.lua
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 0.33-1
+- update to 0.33
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

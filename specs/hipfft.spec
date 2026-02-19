@@ -86,10 +86,10 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
-Summary:        ROCm FFT marshalling library
-License:        MIT
+Summary:        ROCm FFT marshaling library
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
@@ -134,16 +134,18 @@ BuildRequires:  gtest-devel
 Provides:       hipfft%{pkg_suffix} = %{version}-%{release}
 
 %description
-hipFFT is an FFT marshalling library. Currently, hipFFT supports
+hipFFT is an FFT marshaling library. Currently, hipFFT supports
 the rocFFT backends
 
 hipFFT exports an interface that does not require the client to
 change, regardless of the chosen backend. It sits between the
-application and the backend FFT library, marshalling inputs into
+application and the backend FFT library, marshaling inputs into
 the backend and results back to the application.
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
@@ -246,6 +248,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Update license
+- Cleanup specfile
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

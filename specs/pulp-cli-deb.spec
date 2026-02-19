@@ -41,7 +41,7 @@ sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 # Remove upper version bound on packaging to enable building with new versions in Fedora
 sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 
-# Remove all upper bounds on test dependencies; we must use what we have
+# Remove all bounds on test dependencies; we must use what we have
 sed -r -Ei 's/^([a-zA-Z0-9._-]+).*/\1/' test_requirements.txt
 
 %generate_buildrequires

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           munge
-Version:        0.5.16
+Version:        0.5.18
 Release:        %autorelease
 Summary:        Enables uid & gid authentication across a host cluster
 
@@ -144,7 +144,7 @@ touch %{buildroot}%{_rundir}/munge/munged.pid
 
 %files libs
 %{_libdir}/libmunge.so.2
-%{_libdir}/libmunge.so.2.0.0
+%{_libdir}/libmunge.so.2.*
 
 %files devel
 %{_includedir}/munge.h

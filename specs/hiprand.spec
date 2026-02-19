@@ -77,7 +77,7 @@
 %bcond_with doc
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -87,7 +87,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        HIP random number generator
 License:        MIT AND BSD-3-Clause
@@ -126,14 +126,16 @@ Provides:       hiprand%{pkg_suffix} = %{version}-%{release}
 ExclusiveArch:  x86_64
 
 %description
-hipRAND is a RAND marshalling library, with multiple supported backends. It
-sits between the application and the backend RAND library, marshalling inputs
+hipRAND is a RAND marshaling library, with multiple supported backends. It
+sits between the application and the backend RAND library, marshaling inputs
 into the backend and results back to the application. hipRAND exports an
 interface that does not require the client to change, regardless of the chosen
 backend. Currently, hipRAND supports either rocRAND or cuRAND.
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        The hipRAND development package
@@ -243,6 +245,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

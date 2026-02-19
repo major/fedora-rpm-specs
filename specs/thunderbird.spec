@@ -75,10 +75,10 @@ ExcludeArch: armv7hl
 %endif
 
 # Fedora version number from which no extra Wayland package is built and Wayland is default, F40+.
-%global only_wayland 40
+%global only_wayland %[0%{?fedora} || 0%{?rhel} >= 10]
 
 # Where to place node-stdout-nonblocking-wrapper for build.
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 11
 # RPM 4.20 defines %builddir
 %global nodewrapperdir %{builddir}/bin
 %else
@@ -228,7 +228,7 @@ BuildRequires:  python3.11-devel
 %if !0%{?use_bundled_cbindgen}
 BuildRequires:  cbindgen
 %endif
-BuildRequires:  nodejs
+BuildRequires:  /usr/bin/node
 BuildRequires:  nasm >= 1.13
 
 %if 0%{?big_endian}
@@ -244,7 +244,7 @@ Suggests:       thunderbird-librnp-rnp%{?_isa}
 
 Suggests:       u2f-hidraw-policy
 
-%if 0%{?fedora} >= %{only_wayland}
+%if %{only_wayland}
 Obsoletes:      thunderbird-wayland < 115.11.0-1
 %endif
 
@@ -265,7 +265,7 @@ based on RNP.
 %{mozappdir}/rnp-cli
 %{mozappdir}/rnpkeys
 
-%if 0%{?fedora} < %{only_wayland}
+%if ! %{only_wayland}
 %package wayland
 Summary: Thunderbird Wayland launcher.
 Requires: %{name}
@@ -423,7 +423,7 @@ echo "ac_add_options --disable-crashreporter" >> .mozconfig
 
 echo 'export NODEJS="%{nodewrapperdir}/node-stdout-nonblocking-wrapper"' >> .mozconfig
 
-%if 0%{?fedora} >= %{only_wayland}
+%if %{only_wayland}
 echo 'export MOZ_APP_REMOTINGNAME=net.thunderbird.Thunderbird' >> .mozconfig
 %else
 echo 'export MOZ_APP_REMOTINGNAME=thunderbird' >> .mozconfig
@@ -585,7 +585,7 @@ done
            %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
 
 
-%if 0%{?fedora} < %{only_wayland}
+%if ! %{only_wayland}
 desktop-file-install --vendor mozilla \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE20}
@@ -615,7 +615,7 @@ sed -i -e 's|%FLATPAK_ENV_VARS%||' %{buildroot}%{_bindir}/thunderbird
 
 # Enable wayland by default on f40+
 # Overridable for rhbz#2283993 https://bugzilla.mozilla.org/show_bug.cgi?id=1898476
-%if 0%{?fedora} >= %{only_wayland}
+%if %{only_wayland}
 sed -i -e 's,__WAYLAND_X11_PLACEHOLDER__,export MOZ_ENABLE_WAYLAND="${MOZ_ENABLE_WAYLAND:-1}",g' $RPM_BUILD_ROOT/%{_bindir}/thunderbird 
 %else
 sed -i -e 's,__WAYLAND_X11_PLACEHOLDER__,,g' $RPM_BUILD_ROOT/%{_bindir}/thunderbird 

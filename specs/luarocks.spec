@@ -1,6 +1,6 @@
 Name:           luarocks
-Version:        3.9.2
-Release:        9%{?dist}
+Version:        3.13.0
+Release:        1%{?dist}
 Summary:        A deployment and management system for Lua modules
 
 License:        MIT
@@ -83,6 +83,10 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/luarocks/config-5.1.lua
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 3.13.0-1
+- update to 3.13.0
+- built against lua 5.5.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

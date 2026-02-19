@@ -12,7 +12,7 @@
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
 %global upstream_version     1.7
-%global upstream_prever      rc3
+%global upstream_prever      rc4
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
@@ -271,6 +271,9 @@ fi
 
 
 %changelog
+* Sat Feb 14 2026 Remi Collet <remi@remirepo.net> - 1.7~rc4-1
+- update to 1.7-rc4
+
 * Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 1.7~rc3-1
 - update to 1.7-rc3
 - raise dependency on PHP 8.1

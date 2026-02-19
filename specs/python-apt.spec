@@ -3,15 +3,17 @@
 
 Name:           python-apt
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for APT
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://tracker.debian.org/pkg/python-apt
 Source0:        https://salsa.debian.org/apt-team/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          python-apt-3.1.0-remove-stubs.patch
 
 # Requires Debian's apt
 BuildRequires:  apt-devel >= 2.0.0
+BuildRequires:  dpkg-dev
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
@@ -45,34 +47,33 @@ the sources.list configuration on the repository and the distro level.
 
 %prep
 %autosetup -p1
-
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 # Deal with python-apt not having proper default version set by using debver hack
 export DEBVER="%{version}"
-%py3_build
-
+%pyproject_wheel
 
 %install
 # Deal with python-apt not having proper default version set by using debver hack
 export DEBVER="%{version}"
-%py3_install
+%pyproject_install
+%pyproject_save_files -l apt aptsources apt_inst apt_pkg
 
-# Get rid of unused garbage
-rm -rf %{buildroot}%{python3_sitelib}/apt_*-stubs*
+%check
+%pyproject_check_import
 
-
-%files -n  python3-apt
+%files -n  python3-apt -f %{pyproject_files}
 %license COPYING.GPL
 %doc README.md
-%{python3_sitearch}/apt/
-%{python3_sitearch}/apt_*
-%{python3_sitearch}/aptsources/
-%{python3_sitearch}/python_apt-%{version}-py%{python3_version}.egg-info/
-%{_datadir}/%{name}/
-
+%{_datadir}/locale/*/LC_MESSAGES/python-apt.mo
+%{_datadir}/python-apt/
 
 %changelog
+* Mon Feb 16 2026 Terje Røsten <terjeros@gmail.com> - 3.1.0-2
+- Use modern Python macros
+
 * Mon Feb 16 2026 Terje Røsten <terjeros@gmail.com> - 3.1.0-1
 - Rebuild for so bump in apt 3.1.15
 - 3.1.0

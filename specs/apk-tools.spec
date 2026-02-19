@@ -1,12 +1,12 @@
 %global soversion 3.0.0
 
-%global luaver 5.4
+%global luaver 5.5
 
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 %global optflags %optflags -DOPENSSL_NO_ENGINE
 
 Name:           apk-tools
-Version:        3.0.3
+Version:        3.0.4
 Release:        1%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
@@ -148,6 +148,10 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.4-1
+- update to 3.0.4
+- lua 5.5
+
 * Tue Jan 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 3.0.3-1
 - Update to 3.0.3
 

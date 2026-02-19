@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.3.5
 
 Name:           pmbootstrap
-Version:        3.5.0
+Version:        3.9.0
 Release:        %autorelease
 Summary:        A sophisticated chroot/build/flash tool to develop and install postmarketOS
 
@@ -11,12 +11,11 @@ URL:            https://www.postmarketos.org
 # https://gitlab.com/postmarketOS/pmbootstrap/-/issues/2009
 Source0:        https://gitlab.postmarketos.org/postmarketOS/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
-
-# pmbootstrap obtains the native arch via from_machine_type
-# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.0.0/pmb/core/arch.py?ref_type=tags#L52
-# this function only supports the following arches and hence these must be the exclusive arch
-# see also: https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/issues/2501
-ExclusiveArch:  %x86_64 %arm64 armv6l armv7l armv8l noarch
+# s390x is currently unsupported:
+# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.9.0/pmb/core/arch.py#L84
+# which is then used in
+# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/blob/3.9.0/pmb/core/arch.py#L309
+ExcludeArch:    s390x
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(argcomplete)
@@ -55,11 +54,7 @@ rm -rf %{name}.egg-info
 %pyproject_save_files -l pmb
 
 %check
-pytest_args="not pkgrepo_pmaports and not random_valid_deviceinfos"
-# the valid_chroots test fails on non x86_64
-# https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/issues/2500
-if [[ ! $(uname -m) = "x86_64" ]]; then pytest_args+=" and not valid_chroots"; fi
-%pytest -k "${pytest_args}"
+%pytest -k "not pkgrepo_pmaports and not random_valid_deviceinfos"
 
 %files -f %{pyproject_files}
 %license LICENSE

@@ -4,8 +4,8 @@
 %global forgeurl https://github.com/weldr/lorax
 
 Name:           lorax
-Version:        44.4
-Release:        2%{?dist}
+Version:        45.0
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -187,8 +187,12 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Tue Feb 17 2026 Brian C. Lane <bcl@redhat.com> 45.0-1
+- maint: Switch default platform to F45 (bcl@redhat.com)
+- runtime-cleanup: keep policycoreutils /usr/bin for load_policy and setfiles (k.koukiou@gmail.com)
+- runtime-cleanup: update removals (yselkowi@redhat.com)
+- executils: Ignore utf-8 decode errors (bcl@redhat.com)
+- mkksiso: Add a --tmp argument to set temporary directory (bcl@redhat.com)
 
 * Mon Dec 01 2025 Brian C. Lane <bcl@redhat.com> 44.4-1
 - Exclude build on the i686 architecture (berrange@redhat.com)

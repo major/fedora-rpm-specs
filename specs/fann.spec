@@ -1,7 +1,7 @@
 Name:       fann
 Summary:    A fast artificial neural network library
 Version:    2.2.0
-Release:    38%{?dist}
+Release:    39%{?dist}
 License:    LGPL-2.0-or-later
 URL:        http://leenissen.dk/fann/wp/
 
@@ -12,7 +12,6 @@ Patch1:     fann-memcorruption.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
-BuildRequires: make
 
 %description
 Fast Artificial Neural Network (FANN) Library is written in ANSI C.
@@ -44,10 +43,10 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 		%{?_cmake_lib_suffix64} \
 	%endif
 
-make -C "%{_vpath_builddir}"
+%cmake_build
 
 %install
-make -C "%{_vpath_builddir}" DESTDIR=$RPM_BUILD_ROOT install
+%cmake_install
 find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 
 
@@ -76,6 +75,9 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 %{_includedir}/*.h
 
 %changelog
+* Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 2.2.0-39
+- Use standard CMake macros (rhbz#2380999)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

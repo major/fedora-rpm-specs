@@ -8,9 +8,13 @@ Epoch:   1
 Version: 25.12.2
 Release: 2%{?dist}
 
-# app: GPLv2+
-# lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
-License: GPL-2.0-or-later
+# app + lib: GPL-2.0-or-later
+# lib/jlibjpeg: IJG
+# lib/zoomcombobox: LGPL-2.1-or-later
+# lib/cms/iccjpeg.c: MIT
+# lib/flowlayout.cpp: GPL-2.0-only OR GPL-3.0-only (see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/718 )
+# doc: GFDL-1.2-only (but is not packaged)
+License: GPL-2.0-or-later AND IJG AND LGPL-2.1-or-later AND MIT AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/graphics/gwenview/
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -77,8 +81,12 @@ Conflicts: kde-l10n < 17.03
 
 %package  libs
 Summary:  Runtime files for %{name}
-# wrt (LGPLv2 or LGPLv3), KDE e.V. may determine that future GPL versions are accepted
-License:  IJG and LGPLv2+ and GPLv2+ and LGPLv2 or LGPLv3
+# lib/cms/iccjpeg.c: MIT
+# lib/jlibjpeg: IJG
+# lib/zoomcombobox: LGPL-2.1-or-later
+# lib/cms/iccjpeg.c: MIT
+# lib/flowlayout.cpp: GPL-2.0-only OR GPL-3.0-only (see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/718 )
+License:  IJG AND MIT AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 Requires: %{name} = %{epoch}:%{version}-%{release}
 %description libs
 %{summary}.

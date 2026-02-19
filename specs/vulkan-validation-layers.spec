@@ -1,5 +1,5 @@
 Name:           vulkan-validation-layers
-Version:        1.4.328.1
+Version:        1.4.341.0
 Release:        %autorelease
 Summary:        Vulkan validation layers
 
@@ -9,7 +9,7 @@ Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-ValidationLaye
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  glslang-devel
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -35,17 +35,19 @@ Vulkan validation layers
 
 %build
 # Decrease debuginfo verbosity to reduce memory consumption even more
+%ifarch %{ix86}
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %global optflags %(echo %{optflags} | sed 's/-O2 /-O1 /')
+%endif
 
-%cmake3 -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_WERROR=OFF \
-        -DGLSLANG_INSTALL_DIR=%{_prefix} \
-        -DBUILD_LAYER_SUPPORT_FILES:BOOL=ON \
-        -DUSE_ROBIN_HOOD_HASHING:BOOL=OFF \
-        -DSPIRV_HEADERS_INSTALL_DIR=%{_prefix} \
-        -DVULKAN_HEADERS_INSTALL_DIR=%{_prefix} \
-        -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}
+%cmake -DCMAKE_BUILD_TYPE=Release \
+       -DBUILD_WERROR=OFF \
+       -DGLSLANG_INSTALL_DIR=%{_prefix} \
+       -DBUILD_LAYER_SUPPORT_FILES:BOOL=ON \
+       -DUSE_ROBIN_HOOD_HASHING:BOOL=OFF \
+       -DSPIRV_HEADERS_INSTALL_DIR=%{_prefix} \
+       -DVULKAN_HEADERS_INSTALL_DIR=%{_prefix} \
+       -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}
 %cmake_build
 
 

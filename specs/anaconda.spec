@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.20
+Version: 44.21
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -519,6 +519,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 16 2026 Packit <hello@packit.dev> - 44.21-1
+- anaconda.conf: Add clk_ignore_unused, pd_ignore_unused to preserved_arguments
+  (johannes.goede)
+- storage/bootloader/utils: Make create_bls_entries() work with kernel-uki-
+  dtbloader (johannes.goede)
+- data/profile.d/fedora-kde-mobile: Set the correct payload settings (neal)
+
 * Fri Feb 13 2026 Packit <hello@packit.dev> - 44.20-1
 - Don't pass `-R /` to shadow commands (awilliam)
   Resolves: rhbz#2435621

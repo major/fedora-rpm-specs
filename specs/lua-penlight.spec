@@ -1,25 +1,24 @@
 Name:		lua-penlight
-Version:	1.14.0
-Release:	4%{?dist}
+Version:	1.15.0
+Release:	2%{?dist}
 Summary:	Penlight Lua Libraries
 License:	MIT
 URL:		https://github.com/lunarmodules/Penlight
 Source0:	https://github.com/lunarmodules/Penlight/archive/%{version}/Penlight-%{version}.tar.gz
-
-%global luaver 5.4
-%global luapkgdir %{_datadir}/lua/%{luaver}
+# https://github.com/lunarmodules/Penlight/pull/517
+Patch0:		lua-penlight-1.15.0-lua-5.5-fix.patch
 
 # there's a circular (build) dependency with lua-ldoc
 %bcond_without docs
 
 BuildArch:	noarch
-BuildRequires:	lua >= %{luaver}
+BuildRequires:	lua-devel
 BuildRequires:	lua-filesystem
 BuildRequires:	lua-markdown
 %if %{with docs}
 BuildRequires:	lua-ldoc
 %endif # with docs
-Requires:	lua >= %{luaver}
+Requires:	lua >= %{lua_version}
 Requires:	lua-filesystem
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -52,6 +51,7 @@ Requires:	%{name} = %{version}-%{release}
 
 %prep
 %setup -q -n Penlight-%{version}
+%patch -P0 -p1 -b .lua55
 
 
 %build
@@ -59,11 +59,11 @@ Requires:	%{name} = %{version}-%{release}
 
 
 %install
-mkdir -p %{buildroot}%{luapkgdir}
-cp -av lua/pl %{buildroot}%{luapkgdir}
+mkdir -p %{buildroot}%{lua_pkgdir}
+cp -av lua/pl %{buildroot}%{lua_pkgdir}
 
 # fix scripts
-chmod -x %{buildroot}%{luapkgdir}/pl/dir.lua
+chmod -x %{buildroot}%{lua_pkgdir}/pl/dir.lua
 
 # build and install README etc.
 mkdir -p %{buildroot}%{_pkgdocdir}
@@ -92,7 +92,7 @@ cp -av examples %{buildroot}%{_pkgdocdir}
 %{_pkgdocdir}/README.html
 %{_pkgdocdir}/CHANGELOG.html
 %{_pkgdocdir}/CONTRIBUTING.html
-%{luapkgdir}/pl
+%{lua_pkgdir}/pl
 
 
 %if %{with docs}
@@ -106,6 +106,15 @@ cp -av examples %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.15.0-2
+- rebuild with docs
+- fix ldoc.ltp for lua 5.5
+
+* Tue Feb 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.15.0-1
+- update to 1.15.0
+- rebuild for new lua 5.5
+- disable docs to break loop
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

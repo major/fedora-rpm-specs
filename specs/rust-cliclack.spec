@@ -5,16 +5,13 @@
 %global crate cliclack
 
 Name:           rust-cliclack
-Version:        0.3.8
+Version:        0.3.9
 Release:        %autorelease
 Summary:        Beautiful, minimal, opinionated CLI prompts inspired by the Clack NPM package
 
 License:        MIT
 URL:            https://crates.io/crates/cliclack
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax console dependency from ^0.15.8 to >=0.15.8,<=0.17.0
-Patch:          cliclack-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

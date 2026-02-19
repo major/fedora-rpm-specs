@@ -16,6 +16,7 @@ BuildRequires: gcc-c++
 BuildRequires: python3-devel
 BuildRequires: python3-mako
 BuildRequires: orc-devel
+BuildRequires: fmt-devel
 BuildRequires: sed
 %ifnarch s390x
 BuildRequires: google-cpu_features-devel

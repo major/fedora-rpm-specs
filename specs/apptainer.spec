@@ -45,7 +45,7 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.4.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -349,6 +349,9 @@ if ! ./mlocal/scripts/check-min-go-version go $GOVERSION; then
 fi
 %endif
 
+# enable FIPS support in go programs
+export GODEBUG=fips140=on
+
 ./scripts/compile-dependencies $(dirname %{SOURCE10})
 
 # Not all of these parameters currently have an effect, but they might be
@@ -489,6 +492,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Feb 17 2026 Dave Dykstra <dwd@cern.ch> - 1.4.5-3
+- Enable FIPS support.  Fixes BZ#2437258.
+
 * Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 1.4.5-5
 - Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
 
@@ -498,11 +504,11 @@ fi
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Wed Dec  2 2025 Dave Dykstra <dwd@cern.ch> - 1.4.5-2
+* Tue Dec  2 2025 Dave Dykstra <dwd@cern.ch> - 1.4.5-2
 - Include the real patches for e2fsprogs instead of empty files.  Fixes
   BZ#2417548.
 
-* Tue Dec  1 2025 Dave Dykstra <dwd@cern.ch> - 1.4.5
+* Mon Dec  1 2025 Dave Dykstra <dwd@cern.ch> - 1.4.5
 - Update to upstream 1.4.5
 
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 1.4.4-2

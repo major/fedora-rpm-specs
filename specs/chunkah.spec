@@ -1,7 +1,7 @@
 %global crate chunkah
 
 Name:           chunkah
-Version:        0.1.1
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        OCI building tool for content-based container image layers
 
@@ -49,6 +49,9 @@ tar xf %{SOURCE1}
 %{_bindir}/chunkah
 
 %changelog
+* Tue Feb 17 2026 Packit <hello@packit.dev> - 0.2.0-1
+- Update to version 0.2.0
+
 * Fri Jan 30 2026 Jonathan Lebon <jonathan@jlebon.com> - 0.1.1-1
 - Update to 0.1.1
 - Enable tests (vendor tarball now includes dev-dependencies)

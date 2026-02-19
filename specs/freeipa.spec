@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        5%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -228,6 +228,8 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{TARBALL_IPA_VERSIO
 #   gpg --armor --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
 Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
+Patch0001:      0001-SELinux-expand-policy-coverage-for-Kerberos-usage.patch
+Patch0002:      0002-ipa-sam-use-internal-Samba-method-to-populate-in-mem.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -296,7 +298,7 @@ BuildRequires:  libsss_certmap-devel
 BuildRequires:  libsss_nss_idmap-devel >= %{sssd_version}
 %if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 # Do not use nodejs22 on fedora < 41, https://pagure.io/freeipa/issue/9643
-BuildRequires: nodejs(abi) == 127
+BuildRequires: nodejs(abi) == 127, /usr/bin/node, /usr/bin/npm
 %elif 0%{?fedora} >= 39
 # Do not use nodejs20 on fedora < 39, https://pagure.io/freeipa/issue/9374
 BuildRequires:  nodejs(abi) < 127
@@ -1394,8 +1396,8 @@ if [ $1 -gt 1 ] ; then
                 if grep -E -q 'Include' $SSH_CLIENT_SYSTEM_CONF  2>/dev/null ; then
                     SSH_CLIENT_SYSTEM_CONF="/etc/ssh/ssh_config.d/04-ipa.conf"
                 fi
-                sed -E --in-place=.orig 's/^(GlobalKnownHostsFile \/var\/lib\/sss\/pubconf\/known_hosts)$/# disabled by ipa-client update\n# \1/' $SSH_CLIENT_SYSTEM_CONF
-                sed -E --in-place=.orig 's/(ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h)/# replaced by ipa-client update\n    KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H/' $SSH_CLIENT_SYSTEM_CONF
+                sed -E --in-place=.orig 's/^(GlobalKnownHostsFile \/var\/lib\/sss\/pubconf\/known_hosts)$/# disabled by ipa-client update\n# \1/' $SSH_CLIENT_SYSTEM_CONF || :
+                sed -E --in-place=.orig 's/(ProxyCommand \/usr\/bin\/sss_ssh_knownhostsproxy -p \%p \%h)/# replaced by ipa-client update\n    KnownHostsCommand \/usr\/bin\/sss_ssh_knownhosts \%H/' $SSH_CLIENT_SYSTEM_CONF || :
             fi
         fi
 
@@ -1965,7 +1967,20 @@ fi
 %endif
 
 %changelog
-* Thu Jan 22 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-2
+* Tue Feb 17 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-5
+- Update SELinux policy to allow relabel SSSD helpers during install (rpm_t)
+
+* Tue Feb 17 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-4
+- Update SELinux policy to allow relabel SSSD helpers during install
+
+* Tue Feb 17 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-3
+- Rebuild against MIT Kerberos 1.22.2
+- Fix build against NodeJS in F44/45
+- Allow SELinux policy for ipa-otpd in non-IPA environment (standalone SSSD)
+- Fix freeipa-client package scriptlet to not fail when config is missing
+- Resolves: rhbz#2439482
+
+* Thu Jan 22 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-2
 - Rebuild against Samba 4.24.0-RC1
 
 * Fri Jan 16 2026 Rob Crittenden <rcritten@redhat.com> - 4.13.1-0.1

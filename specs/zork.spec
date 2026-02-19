@@ -32,7 +32,7 @@ and Norm Schryer (AT&T Bell Labs).
 
 %build
 %make_build \
-    CFLAGS="%{optflags}" \
+    CFLAGS="%{optflags} -std=c17" \
     DATADIR="%{_datadir}/%{name}" \
     LDFLAGS="%{__global_ldflags}"
 

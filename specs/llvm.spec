@@ -630,11 +630,10 @@ BuildRequires:	libxml2-devel
 
 # For clang-offload-packager
 BuildRequires: elfutils-libelf-devel
-BuildRequires: perl
-BuildRequires: perl-Data-Dumper
-BuildRequires: perl-Encode
 BuildRequires: libffi-devel
 
+# For scan-build
+BuildRequires: perl-interpreter
 BuildRequires:	perl-generators
 
 # We only need the emacs packaging macros, which are part of emacs-common.

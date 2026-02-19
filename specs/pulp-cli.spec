@@ -7,30 +7,30 @@
 
 Name: pulp-cli
 Version: 0.37.0
-Release: 1%{?dist}
+Release: %autorelease
 Summary: Command line interface to talk to the Pulp 3 REST API
-
 License: GPL-2.0-or-later
-URL: https://github.com/pulp/pulp-cli
-Source: %{url}/archive/%{version}/pulp-cli-%{version}.tar.gz
-
+URL: https://github.com/pulp/%{name}
 BuildArch: noarch
+
+Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: python3-devel
+
+Recommends: pulp-cli-deb
 Recommends: python3-pygments
 Recommends: python3-click-shell
 Recommends: python3-secretstorage
 
-%global _description %{expand:
-pulp-cli provides the "pulp" command, able to communicate with the Pulp3 API in
+%description
+%{name} provides the "pulp" command, able to communicate with the Pulp3 API in
 a more natural way than plain http. Specifically, resources can not only be
 referenced by their href, but also their natural key (e.g. name). It also
-handles waiting on tasks on behalf of the user.}
-
-%description %_description
+handles waiting on tasks on behalf of the user.
 
 
 %prep
-%autosetup -p1 -n pulp-cli-%{version}
+%autosetup -p1
 
 # Remove the Python version upper bound to enable building with new versions in Fedora
 sed -i '/requires-python =/s/,<3\.[0-9]\+//' pyproject.toml
@@ -41,8 +41,8 @@ sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 # Remove upper version bound on packaging to enable building with new versions in Fedora
 sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
 
-# Remove all upper bounds on test dependencies; we must use what we have
-sed -r -i 's/,[[:blank:]]*<[^;]+//' test_requirements.txt
+# Remove all bounds on test dependencies; we must use what we have
+sed -r -Ei 's/^([a-zA-Z0-9._-]+).*/\1/' test_requirements.txt
 
 %generate_buildrequires
 %if %{with tests}
@@ -86,7 +86,7 @@ done
 %endif
 
 
-%files -n pulp-cli -f %{pyproject_files}
+%files -f %{pyproject_files}
 %license LICENSE
 %doc README.*
 %{_bindir}/pulp
@@ -99,74 +99,4 @@ done
 
 
 %changelog
-* Thu Feb 12 2026 Simone Caronni <negativo17@gmail.com> - 0.37.0-1
-- Update to 0.37.0.
-- Make tests conditional and disable them on RHEL 10 (dependencies too old).
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Oct 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36.0-3
-- Remove upper version bounds for all test dependencies
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.36.0-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Thu Sep 04 2025 Matthias Dellweg <x9c4@redhat.com> - 0.36.0-1
-- new version
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.34.0-3
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jul 09 2025 Matthias Dellweg <x9c4@redhat.com> - 0.34.0-1
-- new version
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.32.1-3
-- Rebuilt for Python 3.14
-
-* Fri May 02 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-2
-- Removed upper bound on required packaging. (thanks lbalhar)
-- rebuilt
-
-* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-1
-- new version
-
-* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.0-1
-- new version
-
-* Thu Mar 20 2025 Matthias Dellweg <x9c4@redhat.com> - 0.31.1-1
-- new version
-- Removed upper bound on build-required setuptools.
-
-* Thu Feb 06 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-3
-- Rebuilt without upper python version bound.
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-1
-- new version
-
-* Tue Oct 22 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.2-4
-- Bump setuptools build requirement.
-
-* Wed Oct 09 2024 Lumír Balhar <lbalhar@redhat.com> - 0.29.2-3
-- Allow newer tomli-w
-
-* Wed Sep 25 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.2-2
-- Added shell completion macros.
-
-* Tue Sep 24 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.2-1
-- new version
-
-* Tue Sep 17 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.1-1
-- new version
-
-* Tue Sep 17 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.0-1
-- Bump version to 0.29.0.
-
-* Wed Sep 11 2024 Matthias Dellweg <x9c4@redhat.com> - 0.28.3-1
-- Initial specfile
+%autochangelog

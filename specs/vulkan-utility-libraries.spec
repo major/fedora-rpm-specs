@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           vulkan-utility-libraries
-Version:        1.4.328.1
+Version:        1.4.341.0
 Release:        %autorelease
 Summary:        Vulkan utility libraries
 
@@ -11,7 +11,7 @@ Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Utility-Librar
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  vulkan-headers
 
@@ -32,11 +32,11 @@ Provides:       vulkan-validation-layers-devel%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n Vulkan-Utility-Libraries-vulkan-sdk-%{version}
 
 %build
-%cmake3 -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
-        -DBUILD_TESTS:BOOL=OFF \
-        -DVUL_WERROR:BOOL=OFF \
-        -DUPDATE_DEPS:BOOL=OFF
+%cmake -DCMAKE_BUILD_TYPE=Release \
+       -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+       -DBUILD_TESTS:BOOL=OFF \
+       -DVUL_WERROR:BOOL=OFF \
+       -DUPDATE_DEPS:BOOL=OFF
 %cmake_build
 
 %install

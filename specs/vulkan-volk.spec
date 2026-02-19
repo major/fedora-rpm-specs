@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           vulkan-volk
-Version:        1.4.328.1
+Version:        1.4.341.0
 Release:        %autorelease
 Summary:        Meta loader for Vulkan API
 
@@ -10,7 +10,7 @@ URL:            https://github.com/zeux/volk
 Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Volk-sdk-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  vulkan-headers
 
 %description
@@ -29,9 +29,9 @@ Conflicts:      volk-devel
 %autosetup -n volk-vulkan-sdk-%{version} -p1
 
 %build
-%cmake3 -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
-        -DVOLK_INSTALL:BOOL=ON
+%cmake -DCMAKE_BUILD_TYPE=Release \
+       -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+       -DVOLK_INSTALL:BOOL=ON
 %cmake_build
 
 %install

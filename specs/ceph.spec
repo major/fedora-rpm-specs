@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.2.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -221,6 +221,8 @@ Patch:		0058-src-CMakeLists.txt.patch
 Patch:		0059-iso646.patch
 Patch:		0061-gcc-16.patch
 Patch:		0062-src-rgw-driver-dbstore-CMakeLists.txt.patch
+Patch:		0063-src-jaegertracing-opentelemetry-cpp-CMakeLists.txt.patch
+Patch:		0064-src-rgw-rgw_lua_utils.cc.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -255,6 +257,7 @@ BuildRequires:	cmake > 3.5
 BuildRequires:	fuse3-devel
 BuildRequires:	grpc-devel
 BuildRequires:	gcc-c++
+BuildRequires:	libzstd-devel
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	libatomic
 %endif
@@ -1466,6 +1469,7 @@ env | sort
 %if 0%{with ocf}
     -DWITH_OCF:BOOL=ON \
 %endif
+    -DWITH_SYSTEM_ZSTD:BOOL=ON \
 %if 0%{?fedora} || 0%{?rhel} >= 10
     -DWITH_SYSTEM_ROCKSDB:BOOL=OFF \
 %endif
@@ -2740,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Feb 17 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-9
+- ceph-20.2.0, rebuild with libarrow-23.0.1, cmake-4-isms, lua-5.5
+
 * Wed Jan 28 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-8
 - ceph-20.2.0, rebuild with libarrow-23.0.0, side tag f44-build-side-127546
 

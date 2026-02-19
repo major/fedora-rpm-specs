@@ -13,7 +13,7 @@
 %global __node_deps_path ^%{_bindir}/%{name}$
 
 Name:           forgejo
-Version:        13.0.4
+Version:        14.0.2
 Release:        %autorelease
 Summary:        A lightweight software forge
 
@@ -51,7 +51,7 @@ Source9:        forgejo.sysconfig
 Source10:       forgejo-node-deps-provides.py
 Source11:       forgejo-node-get-licenses.py
 
-Patch0:         forgejo-10.0.1-app.ini.tmpl.patch
+Patch0:         forgejo-14.0.2-app.ini.tmpl.patch
 
 ExclusiveArch:  %golang_arches_future
 

@@ -1,13 +1,17 @@
 Name:           aoetools
-Version:        36
-Release:        35%{?dist}
+Version:        37
+Release:        1%{?dist}
 Summary:        ATA over Ethernet Tools
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://aoetools.sourceforge.net
-Source0:        http://downloads.sourceforge.net/aoetools/%{name}-%{version}.tar.gz
+
+%global git_tag %{name}-%{version}
+Source0:        https://github.com/OpenAoE/aoetools/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        60-aoe.rules
+
 Patch0:         %{name}-makefile.patch
+
 BuildRequires:  gcc
 BuildRequires:  systemd
 BuildRequires: make
@@ -17,7 +21,7 @@ The aoetools are programs that assist in using ATA over Ethernet on
 systems with version 2.6 and newer Linux kernels.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{git_tag}
 
 %build
 %make_build
@@ -25,19 +29,22 @@ systems with version 2.6 and newer Linux kernels.
 %install
 %{!?_udevrulesdir: %global _udevrulesdir %{_sysconfdir}/udev/rules.d}
 
-%make_install
+%make_install SBINDIR="%{_bindir}"
 mkdir -pm 755 %{buildroot}/%{_udevrulesdir}
 install -pm 644 %{SOURCE1} %{buildroot}/%{_udevrulesdir}
 
 %files
 %doc COPYING HACKING NEWS README devnodes.txt
-%{_sbindir}/aoe*
-%{_sbindir}/coraid-update
+%{_bindir}/aoe*
+%{_bindir}/coraid-update
 %{_mandir}/man8/aoe*.8*
 %{_mandir}/man8/coraid-update.8*
 %config(noreplace) %{_udevrulesdir}/*
 
 %changelog
+* Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 37-1
+- Update to v37
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 36-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

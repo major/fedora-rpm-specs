@@ -1,23 +1,14 @@
 Name:           bwa
-Version:        0.7.17
-Release:        18%{?dist}
+Version:        0.7.19
+Release:        1%{?dist}
 Summary:        Burrows-Wheeler Alignment tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
-URL:            http://bio-bwa.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/bio-%{name}/%{name}-%{version}.tar.bz2
-# Fix building against GCC 10.
-# https://github.com/lh3/bwa/commit/2a1ae7b6f34a96ea25be007ac9d91e57e9d32284
-Patch0:         bwa-fix-build-gcc10.patch
-# Enable non-x86_64 CPU architectures with simde.
-# https://github.com/lh3/bwa/pull/283
-Patch1:         bwa-simde.patch
+URL:            https://github.com/lh3/bwa
+Source0:        https://github.com/lh3/%{name}/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  perl-generators
-%ifnarch x86_64
-BuildRequires:  simde-devel
-%endif
 BuildRequires:  zlib-devel
 BuildRequires: make
 
@@ -29,19 +20,12 @@ for read shorter than 150bp and the other for longer reads.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
 
 
 %build
 # Set -O3 for the better performance.
 # https://github.com/lh3/bwa/pull/278
 CFLAGS="%{optflags} -O3"
-%ifnarch x86_64
-# See Makefile in the pull request.
-# https://github.com/lh3/bwa/pull/283
-CFLAGS="${CFLAGS} -DUSE_SIMDE -DSIMDE_ENABLE_NATIVE_ALIASES -fopenmp-simd -DSIMDE_ENABLE_OPENMP"
-%endif
 %make_build CFLAGS="${CFLAGS}"
 
 
@@ -72,6 +56,10 @@ install -m 0644 bwa.1 %{buildroot}/%{_mandir}/man1/bwa.1
 
 
 %changelog
+* Sat Feb  7 2026 Rasmus Ory Nielsen <ron@ron.dk> - 0.7.19-1
+- Updated to 0.7.19
+- Removed outdated patches
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.17-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

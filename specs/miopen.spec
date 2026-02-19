@@ -93,7 +93,7 @@
 %bcond_without tensile
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -115,7 +115,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -199,7 +199,10 @@ BuildRequires:  ninja
 
 Provides:       miopen%{pkg_suffix} = %{version}-%{release}
 
-# Use ROCm devel at runtime
+# MIOpen compiles on the fly, so it needs ROCm devel at runtime
+# This rpmlint
+#   miopen.x86_64: E: devel-dependency rocm-hip-devel
+# is a false positive
 Requires:       rocm-hip%{pkg_suffix}-devel
 Requires:       rocrand%{pkg_suffix}-devel
 # Also needs c++ to work
@@ -377,8 +380,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %fdupes %{buildroot}%{pkg_prefix}
 %endif
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %files
 %if %{with gitcommit}
@@ -404,6 +409,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Tue Feb 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

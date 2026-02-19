@@ -1,13 +1,13 @@
 Name: python-pulp-glue
 Version: 0.37.0
-Release: 1%{?dist}
+Release: %autorelease
 Summary: The version agnostic Pulp 3 client library in python
-
 License: GPL-2.0-or-later
 URL: https://github.com/pulp/pulp-cli
+BuildArch: noarch
+
 Source: %{url}/archive/%{version}/pulp-cli-%{version}.tar.gz
 
-BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 
@@ -69,65 +69,4 @@ sed -i '/"multidict/s/,<[0-9.]\+//' pyproject.toml
 
 
 %changelog
-* Thu Feb 12 2026 Simone Caronni <negativo17@gmail.com> - 0.37.0-1
-- Update to 0.37.0.
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.36.0-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Thu Sep 04 2025 Matthias Dellweg <x9c4@redhat.com> - 0.36.0-1
-- new version
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.34.0-3
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jul 09 2025 Matthias Dellweg <x9c4@redhat.com> - 0.34.0-1
-- new version
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.32.1-4
-- Rebuilt for Python 3.14
-
-* Mon May 05 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-3
-- Remove version constraint on multidict. (thanks romaingeissler1a)
-- rebuilt
-
-* Fri May 02 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-2
-- Removed upper bound on required packaging. (thanks lbalhar)
-
-* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.1-1
-- new version
-
-* Mon Apr 07 2025 Matthias Dellweg <x9c4@redhat.com> - 0.32.0-1
-- new version
-
-* Thu Mar 20 2025 Matthias Dellweg <x9c4@redhat.com> - 0.31.1-1
-- new version
-- Removed upper bound on build-required setuptools.
-
-* Sun Jan 26 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-3
-- Rebuilt with adding tests.
-- Removed upper bound on required Python. (thanks ksurma)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-1
-- new version
-
-* Tue Sep 24 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.2-1
-- new version
-
-* Tue Sep 17 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.1-1
-- new version
-
-* Tue Sep 17 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.0-1
-- Bump version to 0.29.0.
-
-* Wed Sep 11 2024 Matthias Dellweg <x9c4@redhat.com> - 0.28.3-1
-- Initial specfile
+%autochangelog

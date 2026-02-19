@@ -19,8 +19,8 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgresql%{pgversion}-postgis
-Version:       3.6.1
-Release:       3%{?dist}
+Version:       3.6.2
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -493,6 +493,9 @@ fi
 
 
 %changelog
+* Tue Feb 17 2026 Sandro Mani <manisandro@gmail.com> - 3.6.2-1
+- Update to 3.6.2
+
 * Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.6.1-3
 - Drop support for i686
 

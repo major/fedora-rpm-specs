@@ -71,7 +71,7 @@ gn gen build --args="\
   perfetto_use_system_zlib=true \
   perfetto_enable_git_rev_version_header=false \
   extra_cflags=\"${CFLAGS}\" \
-  extra_cxxflags=\"${CXXFLAGS}\" \
+  extra_cxxflags=\"${CXXFLAGS} -Wno-error=array-bounds\" \
   extra_ldflags=\"${LDFLAGS}\" \
   cc=\"${CC}\" \
   cxx=\"${CXX}\" \

@@ -1,5 +1,5 @@
 Name:       nnn
-Version:    5.1
+Version:    5.2
 Release:    %autorelease
 Summary:    The missing terminal file browser for X
 

@@ -1,6 +1,7 @@
 # remirepo/Fedora spec file for php-webmozart-assert
 #
-# Copyright (c) 2016-2025 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2020-2025 Remi Collet
+# Copyright (c) 2016-2020 Shawn Iwinski
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -12,8 +13,9 @@
 %global bootstrap 0
 %global github_owner     webmozart
 %global github_name      assert
-%global github_version   2.1.2
-%global github_commit    ce6a2f100c404b2d32a1dd1270f9b59ad4f57649
+%global github_version   2.1.4
+%global github_commit    b39f1870fc7c3e9e4a26106df5053354b9260a33
+%global github_short     %(c=%{github_commit}; echo ${c:0:7})
 %global major            2
 
 %global composer_vendor  webmozart
@@ -38,7 +40,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Assertions to validate method input/output with nice error messages
 
 License:       MIT
@@ -46,7 +48,7 @@ URL:           https://github.com/%{github_owner}/%{github_name}
 
 # GitHub export does not include tests.
 # Run php-webmozart-assert-get-source.sh to create full source.
-Source0:       %{name}-%{github_version}-%{github_commit}.tar.gz
+Source0:       %{name}-%{github_version}-%{github_short}.tar.gz
 Source1:       %{name}-get-source.sh
 
 BuildArch:     noarch
@@ -143,6 +145,12 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Feb 17 2026 Remi Collet <remi@remirepo.net> - 2.1.4-1
+- update to 2.1.4
+
+* Sat Feb 14 2026 Remi Collet <remi@remirepo.net> - 2.1.3-1
+- update to 2.1.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

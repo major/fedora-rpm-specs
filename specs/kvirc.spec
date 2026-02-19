@@ -1,6 +1,6 @@
 Name:             kvirc
 Version:          5.2.10
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Free portable IRC client
 License:          GPL-2.0-or-later WITH kvirc-openssl-exception
 URL:              https://www.kvirc.net/
@@ -15,7 +15,7 @@ BuildRequires:    glib2-devel
 BuildRequires:    perl-devel
 BuildRequires:    perl-ExtUtils-Embed
 BuildRequires:    python3-devel
-BuildRequires:    cmake3
+BuildRequires:    cmake
 BuildRequires:    ninja-build
 BuildRequires:    extra-cmake-modules
 BuildRequires:    desktop-file-utils
@@ -61,7 +61,7 @@ many IRC addicted developers around the world.
 %autosetup -p1 -n KVIrc-%{version}
 
 %build
-%{cmake3}  \
+%cmake  \
 -GNinja \
 -DCMAKE_SKIP_RPATH=ON \
 -DQT_VERSION_MAJOR=6 \
@@ -131,6 +131,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Tue Feb 17 2026 Cristian Le <git@lecris.dev> - 5.2.10-3
+- Use standard CMake macros
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -55,13 +55,13 @@
 %endif
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
-%define _source_payload	w7T0.xzdio
-%define _binary_payload	w7T0.xzdio
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
+%define _source_payload w7T0.xzdio
+%define _binary_payload w7T0.xzdio
 
 Name:           roctracer%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
@@ -127,8 +127,10 @@ ROC-tracer
   * roctxRangePush
   * roctxRangePop
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        The %{name} development package
@@ -226,6 +228,13 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/LICENSE.md
 %endif
 
 %changelog
+* Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Fix ldconfig
+- Fix whitespace
+
+* Sat Feb 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

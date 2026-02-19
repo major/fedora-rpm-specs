@@ -76,7 +76,7 @@
 
 Name:           rocwmma%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -188,7 +188,7 @@ fi
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_CXX_FLAGS="-O2 -I%{pkg_prefix}/include" \
     -DCMAKE_EXE_LINKER_FLAGS="-L%{pkg_prefix}/%{pkg_libdir} -lamdhip64" \
-    -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+    -DCMAKE_INSTALL_LIBDIR=share \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DGPU_TARGETS=%{gpu_list} \
     -DROCM_SYMLINK_LIBS=OFF \
@@ -212,7 +212,7 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %files devel
 %license LICENSE.md
 %{pkg_prefix}/include/rocwmma
-%{pkg_prefix}/%{pkg_libdir}/cmake/rocwmma
+%{pkg_prefix}/share/cmake/rocwmma
 
 %if %{with test}
 %files test
@@ -221,6 +221,9 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %endif
 
 %changelog
+* Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Change cmake install location
+
 * Tue Jan 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

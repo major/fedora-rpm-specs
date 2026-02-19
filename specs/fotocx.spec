@@ -23,6 +23,7 @@ BuildRequires: lcms2-devel
 BuildRequires: libchamplain-devel
 BuildRequires: clutter-gtk-devel
 BuildRequires: make
+BuildRequires: libjxl-devel
 
 # Presence checked at build time
 Requires: perl-Image-ExifTool

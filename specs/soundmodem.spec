@@ -1,6 +1,6 @@
 Name: soundmodem
 Version: 0.20
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Soundcard Packet Radio Modem
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -14,6 +14,7 @@ Patch2: %{name}-0.20-void.patch
 Patch3: %{name}-0.20-i386-fix.patch
 Patch4: %{name}-0.20-gcc10-fix.patch
 Patch5: soundmodem-hamlib42.patch
+Patch6: soundmodem-0.20-sighandler.patch
 ExcludeArch:   i686
 # Requires: /sbin/ifconfig /sbin/route /sbin/arp
 BuildRequires: make
@@ -90,6 +91,9 @@ mv %{buildroot}%{_includedir}/simd.h %{buildroot}%{_includedir}/%{name}
 %{_includedir}/%{name}
 
 %changelog
+* Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.20-38
+- Fix FTBFS (add a patch to fix signal handler signatures)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

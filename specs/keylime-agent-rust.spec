@@ -15,7 +15,7 @@
 %endif
 
 Name:           keylime-agent-rust
-Version:        0.2.8
+Version:        0.2.9
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        The Keylime agent
 
@@ -50,20 +50,16 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 #       --platform aarch64-unknown-linux-gnu \
 #       --platform i686-unknown-linux-gnu \
 #       --platform s390x-unknown-linux-gnu \
-#       --exclude-crate-path "libloading#tests"
-#   tar jcf rust-keylime-%%{version}-vendor.tar.xz vendor
-Source1:        rust-keylime-%{version}-vendor.tar.xz
+#       --exclude-crate-path "libloading#tests" \
+#       --prefix=vendor --format=tar.zstd
+#   cp vendor.tar.zstd ../rust-keylime-%%{version}-vendor.tar.zstd
+Source1:        rust-keylime-%{version}-vendor.tar.zstd
 ## (0-99) General patches
 # Drop deprecated features and workaround unavailable components
 Patch0:       0001-rust-keylime-metadata.patch
-Patch1:       0002-services-conflict.patch
+# Remove the check that requires /usr/libexec/keylime to be available
+Patch1:       0002-rust-keylime-do-not-require-usr-libexec.patch
 ## (100-199) Patches for building from system Rust libraries (Fedora)
-# Update reqwest-retry to 0.8, retry-policies to 0.5
-# https://github.com/keylime/rust-keylime/pull/1165
-# Update reqwest from 0.12 to 0.13; update reqwest-middleware and reqwest-retry
-# at the same time.
-# https://github.com/keylime/rust-keylime/pull/1189
-Patch100:     keylime-agent-rust-0.2.8-reqwest-0.13.patch
 ## (200+) Patches for building from vendored Rust libraries (RHEL)
 
 ExclusiveArch:  %{rust_arches}
@@ -171,7 +167,8 @@ The Keylime IMA emulator for testing with emulated TPM
 # Add back the line below if patches are added (do not forget the '%')
 # autopatch -m 200 -p1
 %else
-%autopatch -m 100 -M 199 -p1
+# Add back the line below if patches are added (do not forget the '%')
+# autopatch -m 100 -M 199 -p1
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -189,7 +186,6 @@ The Keylime IMA emulator for testing with emulated TPM
 
 mkdir -p %{buildroot}/%{_sharedstatedir}/keylime
 mkdir -p --mode=0700 %{buildroot}/%{_rundir}/keylime
-mkdir -p --mode=0700 %{buildroot}/%{_libexecdir}/keylime
 mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/keylime
 mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/keylime/agent.conf.d
 
@@ -246,7 +242,6 @@ chown -R keylime:keylime %{_sysconfdir}/keylime
 %config(noreplace) %attr(400,keylime,keylime) %{_sysconfdir}/keylime/agent.conf
 %attr(700,keylime,keylime) %dir %{_rundir}/keylime
 %attr(700,keylime,keylime) %{_sharedstatedir}/keylime
-%attr(700,keylime,keylime) %{_libexecdir}/keylime
 
 %files
 %license LICENSE.dependencies

@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        49
+Version:        50
 
 %gometa
 
@@ -147,7 +147,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.23.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.238.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.240.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -262,9 +262,24 @@ cd $PWD/_build/src/%{goipath}
 %doc README.md
 %{_bindir}/image-builder
 %{_tmpfilesdir}/image-builder.conf
-%ghost %dir /var/cache/image-builder
+%ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Tue Feb 17 2026 Packit <hello@packit.dev> - 50-1
+Changes with 50
+----------------
+  - SPEC: define default permissions for /var/cache/image-builder (#454)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - build(deps): bump actions/cache from 4 to 5 (#434)
+    - Author: {}, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - deps: bump Go to 1.24.12 and use new Go functions (#452)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - go.mod: update osbuild/images to v0.240.0 (#456)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-02-17
+
+
 * Thu Feb 12 2026 Packit <hello@packit.dev> - 49-1
 Changes with 49
 ----------------

@@ -74,7 +74,7 @@
 %global build_fflags %{nil}
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -84,9 +84,9 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
-Summary:        ROCm BLAS marshalling library
+Summary:        ROCm BLAS marshaling library
 License:        MIT
 URL:            https://github.com/ROCm/rocm-libraries
 
@@ -132,10 +132,10 @@ Provides:       hipblas%{pkg_suffix} = %{version}-%{release}
 ExclusiveArch:  x86_64
 
 %description
-hipBLAS is a Basic Linear Algebra Subprograms (BLAS) marshalling
+hipBLAS is a Basic Linear Algebra Subprograms (BLAS) marshaling
 library, with multiple supported backends. It sits between the
-application and a 'worker' BLAS library, marshalling inputs into
-the backend library and marshalling results back to the
+application and a 'worker' BLAS library, marshaling inputs into
+the backend library and marshaling results back to the
 application. hipBLAS exports an interface that does not require
 the client to change, regardless of the chosen backend. Currently,
 hipBLAS supports rocBLAS and cuBLAS as backends.
@@ -235,6 +235,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

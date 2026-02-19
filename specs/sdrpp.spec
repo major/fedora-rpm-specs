@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
@@ -178,6 +178,9 @@ appstream-util validate-relax \
 
 
 %changelog
+* Wed Feb 18 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.1-5
+- Rebuilt for new volk
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

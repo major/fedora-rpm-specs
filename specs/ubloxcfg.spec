@@ -1,9 +1,9 @@
 %global forgeurl https://github.com/phkehl/ubloxcfg
-%global commit a46d97c21fa775160e5ed170443a8f3e4d7249c9
+%global commit 3c10e5c476e4fdab397d604e38d659b655849fbc
 %forgemeta
 
 Name:           ubloxcfg
-Version:        1.13
+Version:        1.16
 Release:        %autorelease
 Summary:        u-blox 9 positioning receivers configuration library and tool
 
@@ -11,14 +11,19 @@ Summary:        u-blox 9 positioning receivers configuration library and tool
 License:        GPL-3.0-only AND LGPL-3.0-only AND LicenseRef-Callaway-BSD
 URL:            %forgeurl
 Source0:        %forgesource
+# Preparing a PR fix for upstream
+Patch1:         ubloxcfg-Fix-lib64-install-for-build-files.patch
 
+# Leaf package, dropping
+ExcludeArch: %{ix86}
 BuildRequires:  doxygen
 BuildRequires:  gcc
-BuildRequires:  make
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  sed
 BuildRequires:  perl
 BuildRequires:  perl-Data-Float
 BuildRequires:  perl-Path-Tiny
-BuildRequires:  sed
 
 %description
 This package implements a library (API) to deal with the new configuration
@@ -37,6 +42,7 @@ This package contains development headers and files for %{name}.
 
 %package        doc
 Summary:        Documentation for %{name}
+Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
 %description    doc
@@ -44,53 +50,56 @@ This package contains documentation for %{name}.
 
 %prep
 %forgesetup
-# remove bundled perl libraries
-rm -r 3rdparty/perl
+%patch -P1 -p1
+
 # drop hardcoded CFLAGS
-sed -e 's/-m32//g' -e 's/-m64//g' -e 's/-O3//g' -i Makefile
+sed -e 's/-O3//g' -i */CMakeLists.txt
+# copy various docs to be unique names
+cp ff/LICENSE ff-LICENSE
+cp ubloxcfg/LICENSE ubloxcfg-LICENSE
+cp cfgtool/LICENSE cfgtool-LICENSE
+cp cfgtool/README.md cfgtool-README.md
+cp ff/README.md ff-README.md
 
 %build
-%set_build_flags
-%make_build V= LDFLAGS_library="-Wl,-soname,libubloxcfg.so.0.0.0 -shared -lm" \
-  libubloxcfg.so
-%make_build V= cfgtool doc
+%cmake
+%cmake_build
+doxygen ubloxcfg/
 
 %install
-install -Dpm0755 output/cfgtool-release %{buildroot}%{_bindir}/cfgtool
-install -Dpm0644 -t %{buildroot}%{_includedir}/%{name} ubloxcfg/*.h ff/*.h
-install -Dpm0755 output/libubloxcfg.so %{buildroot}%{_libdir}/libubloxcfg.so.0.0.0
-ln -s libubloxcfg.so.0.0.0 %{buildroot}%{_libdir}/libubloxcfg.so.0
-ln -s libubloxcfg.so.0 %{buildroot}%{_libdir}/libubloxcfg.so
-
-mkdir -p %{buildroot}%{_libdir}/pkgconfig
-sed \
-  -e 's:^prefix=.*$:prefix=%{_prefix}:' \
-  -e 's:^libdir=.*$:libdir=${exec_prefix}/%{_lib}:' \
-  ubloxcfg/libubloxcfg.pc > %{buildroot}%{_libdir}/pkgconfig/libubloxcfg.pc
+%cmake_install
+rm -rf %{buildroot}/usr/share/doc/
 
 %check
-make test_m%{__isa_bits}
-%ifarch s390x
-# Ignore test failures on s390x for now
-./output/test_m%{__isa_bits}-release || true
+%ifarch s390x x86_64
+# Ignore test failures on s390x/x86_64 for now
+make test || true
 %else
-./output/test_m%{__isa_bits}-release
+make test
 %endif
 
 %files
-%license ff/COPYING ubloxcfg/LICENSE 3rdparty/stuff/crc24q.LICENSE
-%doc README.md cfgtool.txt
+%license cfgtool-LICENSE ff-LICENSE ubloxcfg-LICENSE
+%doc README.md cfgtool-README.md ff-README.md
+%doc tools/99-ftdi-ublox.rules tools/evk-f9p-base.cfg
+%doc tools/fwdownload.txt cfgtool/cfgtool.txt
 %{_bindir}/cfgtool
-%{_libdir}/lib%{name}.so.0*
+%{_bindir}/ubloxcfg-test
+%{_libdir}/libff.so.0*
+%{_libdir}/libubloxcfg.so.0*
 
 %files devel
-%{_includedir}/%{name}
-%{_libdir}/lib%{name}.so
-%{_libdir}/pkgconfig/lib%{name}.pc
+%{_includedir}/ff/
+%{_includedir}/ubloxcfg/
+%{_libdir}/libff.so
+%{_libdir}/libubloxcfg.so
+%{_libdir}/pkgconfig/ff.pc
+%{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/ff/
+%{_libdir}/cmake/ubloxcfg/
 
 %files doc
-%license ubloxcfg/LICENSE
-%doc output/ubloxcfg_html
+%doc html/
 
 %changelog
 %autochangelog

@@ -11,6 +11,10 @@ Source0:        https://github.com/curl/trurl/releases/download/%{name}-%{versio
 # https://github.com/curl/trurl/issues/394
 Patch:          uppercase-hex.patch
 
+# Fix discarded qualifiers
+# https://github.com/curl/trurl/issues/430
+Patch:          fix-discarded-qualifiers.patch
+
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libcurl)

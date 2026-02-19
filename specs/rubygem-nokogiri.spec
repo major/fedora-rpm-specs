@@ -1,7 +1,7 @@
-%global	mainver		1.19.0
+%global	mainver		1.19.1
 #%%global	prever		.rc4
 
-%global	baserelease		3
+%global	baserelease		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -276,6 +276,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Tue Feb 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.1-1
+- 1.19.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

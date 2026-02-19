@@ -3,10 +3,13 @@
 Name:           FlightGear-Atlas
 Summary:        Flightgear map tools
 Version:        0.5.0
-Release:        0.97%{snapshot}%{?dist}
+Release:        0.98%{snapshot}%{?dist}
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+# The README claims that Atlas is distributed under GPL version 2.0 or later,
+# and COPYING contains the text of GPL 2.0.  However, the source files have
+# headers that identify the license as GPL version 3.0 or later, all except
+# src/GetMap.cxx.
+License:        GPL-3.0-or-later AND GPL-2.0-or-later
 Source0:        Atlas-%{version}%{snapshot}.tar.bz2
 Source1:        Atlas-0.5.0-default-maps.tar.bz2
 Patch0:         Atlas-0.5.0-fix-unused-but-set-variable-warning.patch
@@ -25,6 +28,9 @@ BuildRequires: make
 Requires:       FlightGear-data
 Obsoletes:      fgfs-Atlas < 0.3.1-10
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 Atlas aims to produce and display high quality charts of the world for
 users of FlightGear, an open source flight simulator. This is achieved
@@ -41,11 +47,10 @@ find -type f -name '*.[hc]xx' -exec chmod a-x {} \;
         --with-fgbase=%{_datadir}/flightgear \
         --datadir=%{_datadir}/flightgear \
         --enable-simgear-shared
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 install -d $RPM_BUILD_ROOT%{_datadir}/flightgear
 tar jxf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/flightgear
 
@@ -63,11 +68,17 @@ install -m 0644 src/data/airplane_image.png \
         $RPM_BUILD_ROOT%{_datadir}/flightgear/Atlas
 
 %files
-%doc AUTHORS COPYING NEWS README
+%doc AUTHORS NEWS README
+%license COPYING
 %{_bindir}/*
 %{_datadir}/flightgear/Atlas
 
 %changelog
+* Fri Feb 13 2026 Jerry James <loganjerry@gmail.com> - 0.5.0-0.98.cvs20141002
+- Stop building for 32-bit x86
+- Update the License field
+- Minor spec file cleanups
+
 * Wed Jan 28 2026 Fabrice Bellet <fabrice@bellet.info> - 0.5.0-0.97.cvs20141002
 - rebuild with newer SimGear
 

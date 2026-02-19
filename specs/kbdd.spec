@@ -1,6 +1,6 @@
 Name:           kbdd
 Version:        0.7.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Per window keyboard layout
 
 # Upstream license ticket https://github.com/qnikst/kbdd/issues/48
@@ -8,6 +8,10 @@ Summary:        Per window keyboard layout
 License:        GPL-3.0-or-later
 URL:            https://github.com/qnikst/kbdd
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Backport from upstream:
+# https://github.com/qnikst/kbdd/commit/4d79f6ddf6ad3d4c4d79a31fe278e21980db54f3.patch
+Patch0:         0000-conflicting-types.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -24,7 +28,7 @@ Simple daemon and library to make per window layout using XKB
 (X KeyBoard Extension).
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 autoreconf -vfi
@@ -42,6 +46,9 @@ autoreconf -vfi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.1-25
+- Add a patch to fix "conflicting types" compilation error
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

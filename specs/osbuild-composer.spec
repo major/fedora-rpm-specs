@@ -8,11 +8,11 @@
 %bcond_with relax_requires
 
 # The minimum required osbuild version
-%global min_osbuild_version 170
+%global min_osbuild_version 171
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        162
+Version:        163
 
 %gometa
 
@@ -93,7 +93,7 @@ Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.64.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.281.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.289.0
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.17
@@ -120,7 +120,7 @@ Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.1
 Provides: bundled(golang(github.com/containers/storage)) = 1.59.1
 Provides: bundled(golang(github.com/coreos/go-semver)) = 0.3.1
-Provides: bundled(golang(github.com/coreos/go-systemd/v22)) = 22.6.0
+Provides: bundled(golang(github.com/coreos/go-systemd/v22)) = 22.7.0
 Provides: bundled(golang(github.com/cyberphone/json-canonicalization)) = 19d51d7
 Provides: bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.4.1
 Provides: bundled(golang(github.com/davecgh/go-spew)) = d8f796a
@@ -136,9 +136,9 @@ Provides: bundled(golang(github.com/envoyproxy/go-control-plane/envoy)) = 1.32.4
 Provides: bundled(golang(github.com/envoyproxy/protoc-gen-validate)) = 1.2.1
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/getkin/kin-openapi)) = 0.133.0
-Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.41.0
-Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.41.0
-Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.41.0
+Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.42.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.42.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.42.0
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
@@ -211,8 +211,8 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.486
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.22.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.236.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.23.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.239.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -659,6 +659,41 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Tue Feb 17 2026 Packit <hello@packit.dev> - 163-1
+Changes with 163
+----------------
+  - Update osbuild dependency commit ID (#5012)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - Update snapshots to 20260215 (#5024)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - chore(deps): update konflux references (#4984)
+    - Author: {}, Reviewers: Sanne Raymaekers, Tomáš Hozza
+  - chore(deps): update quay.io/konflux-ci/konflux-vanguard/task-rpms-signature-scan:0.2 docker digest to 2f3015a (#4983)
+    - Author: {}, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - chore: bump dependencies via gobump (#5002)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - chore: bump dependencies via gobump (#5025)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - cloudapi/v2: add distro metadata endpoint (HMS-9643) (#4991)
+    - Author: Tomáš Koscielniak, Reviewers: Nobody
+  - github: new workflow for updating osbuild commit on schedule (#5011)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Sanne Raymaekers, Tomáš Hozza
+  - gitlab: run notifications only on main (#5020)
+    - Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - go.mod: bump images to 239 (HMS-9984) (#5018)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - go.mod: update osbuild/images to v0.238.0 for multi-stage RPM installation support (HMS-9090) (#5015)
+    - Author: Tomáš Hozza, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - templates/packer: increase timeout of ExecStop(Post) commands (#5009)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal
+  - test/rhel-upgrade: bump target versions and refactor repo override (#5017)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - tools/appsre-ansible: fix rpmbuild for osbuild (#5022)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-02-17
+
+
 * Wed Feb 11 2026 Packit <hello@packit.dev> - 162-1
 Changes with 162
 ----------------

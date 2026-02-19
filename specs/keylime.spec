@@ -1,20 +1,22 @@
-%global policy_version 42.1.2
+%global policy_version 43.1.1
 
 %global with_selinux 1
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 7.13.1
+Version: 7.14.1
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
 URL:            https://github.com/keylime/keylime
 Source0:        https://github.com/keylime/keylime/archive/refs/tags/v%{version}.tar.gz
-Source1:        %{name}.sysusers
 # The selinux policy for keylime is distributed via this repo: https://github.com/RedHat-SP-Security/keylime-selinux
-Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
+Source1:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
+Source2:        %{name}.sysusers
+Source3:        %{name}.tmpfiles
 
-Patch: 0001-Update-selinux-policy.patch
+Patch: 0001-Fix-timestamp-conversion-to-use-UTC-timezone.patch
+Patch: 0002-Fix-efivar-availability-check-in-test_create_mb_poli.patch
 
 # Main program: Apache-2.0
 # Icons: MIT
@@ -23,11 +25,29 @@ License: Apache-2.0 AND MIT
 BuildArch: noarch
 
 BuildRequires: git-core
-BuildRequires: swig
+BuildRequires: openssl
 BuildRequires: openssl-devel
 BuildRequires: python3-devel
 BuildRequires: python3-dbus
+BuildRequires: python3-jinja2
+BuildRequires: python3-cryptography
+BuildRequires: python3-docutils
+BuildRequires: python3-gpg
+BuildRequires: python3-pip
+BuildRequires: python3-pyasn1
+BuildRequires: python3-pyasn1-modules
+BuildRequires: python3-requests
+BuildRequires: python3-tornado
+BuildRequires: python3-sqlalchemy
+BuildRequires: python3-lark-parser
+BuildRequires: python3-psutil
+BuildRequires: python3-pyyaml
+BuildRequires: python3-jsonschema
+BuildRequires: python3-setuptools
 BuildRequires: systemd-rpm-macros
+BuildRequires: rpm-sign
+BuildRequires: createrepo_c
+BuildRequires: tpm2-tools
 
 Requires: python3-%{name} = %{version}-%{release}
 Requires: %{name}-base = %{version}-%{release}
@@ -183,7 +203,7 @@ The keylime tools package includes miscelaneous tools.
 
 
 %prep
-%autosetup -S git -n %{name}-%{version} -a2
+%autosetup -S git -n %{name}-%{version} -a1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -198,6 +218,12 @@ bzip2 -9 %{name}.pp
 %endif
 
 %pyproject_wheel
+
+mkdir -p manpages
+rst2man --syntax-highlight=none docs/man/keylime_tenant.1.rst manpages/keylime_tenant.1
+rst2man --syntax-highlight=none docs/man/keylime-policy.1.rst manpages/keylime-policy.1
+rst2man --syntax-highlight=none docs/man/keylime_registrar.8.rst manpages/keylime_registrar.8
+rst2man --syntax-highlight=none docs/man/keylime_verifier.8.rst manpages/keylime_verifier.8
 
 %install
 %pyproject_install
@@ -214,7 +240,8 @@ done
 mkdir -p %{buildroot}/%{_datadir}/%{name}/scripts
 for s in create_runtime_policy.sh \
          create_mb_refstate \
-         ek-openssl-verify; do
+         ek-openssl-verify \
+         keylime_oneshot_attestation; do
     install -Dpm 755 scripts/${s} \
         %{buildroot}/%{_datadir}/%{name}/scripts/${s}
 done
@@ -236,20 +263,65 @@ install -Dpm 644 ./services/%{name}_verifier.service \
 install -Dpm 644 ./services/%{name}_registrar.service \
     %{buildroot}%{_unitdir}/%{name}_registrar.service
 
-cp -r ./tpm_cert_store %{buildroot}%{_sharedstatedir}/%{name}/
+# TPM cert store is deployed to both /usr/share/keylime/tpm_cert_store
+# and then /var/lib/keylime/tpm_cert_store.
+for cert_store_dir in %{_datadir} %{_sharedstatedir}; do
+    mkdir -p %{buildroot}/"${cert_store_dir}"/%{name}
+    cp -r ./tpm_cert_store %{buildroot}/"${cert_store_dir}"/%{name}/
+done
 
-install -p -d %{buildroot}/%{_tmpfilesdir}
-cat > %{buildroot}/%{_tmpfilesdir}/%{name}.conf << EOF
-d %{_rundir}/%{name} 0700 %{name} %{name} -
-EOF
+# Install the sysusers + tmpfiles.d configuration.
+install -p -D -m 0644 %{SOURCE2} %{buildroot}/%{_sysusersdir}/%{name}.conf
+install -p -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/%{name}.conf
 
-install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
+# Install manpages
+install -d %{buildroot}%{_mandir}/man1
+install -d %{buildroot}%{_mandir}/man8
+install -m 644 manpages/keylime_tenant.1 %{buildroot}%{_mandir}/man1/
+install -m 644 manpages/keylime-policy.1 %{buildroot}%{_mandir}/man1/
+install -m 644 manpages/keylime_registrar.8 %{buildroot}%{_mandir}/man8/
+install -m 644 manpages/keylime_verifier.8 %{buildroot}%{_mandir}/man8/
 
 %pyproject_save_files -l %{name}
 
+%check
+# Create the default configuration files to be used by the tests.
+# Also set the associated environment variables so that the tests
+# will actually use them.
+CONF_TEMP_DIR="$(mktemp -d)"
+
+%{python3} -m keylime.cmd.convert_config --out "${CONF_TEMP_DIR}" --templates templates/
+export KEYLIME_VERIFIER_CONFIG="${CONF_TEMP_DIR}/verifier.conf"
+export KEYLIME_TENANT_CONFIG="${CONF_TEMP_DIR}/tenant.conf"
+export KEYLIME_REGISTRAR_CONFIG="${CONF_TEMP_DIR}/registrar.conf"
+export KEYLIME_CA_CONFIG="${CONF_TEMP_DIR}/ca.conf"
+export KEYLIME_LOGGING_CONFIG="${CONF_TEMP_DIR}/logging.conf"
+
+# Run the tests.
+%{python3} -m unittest
+
+# Cleanup.
+[ "${CONF_TEMP_DIR}" ] && rm -rf "${CONF_TEMP_DIR}"
+for e in KEYLIME_VERIFIER_CONFIG \
+         KEYLIME_TENANT_CONFIG \
+         KEYLIME_REGISTRAR_CONFIG \
+         KEYLIME_CA_CONFIG \
+         KEYLIME_LOGGING_CONFIG; do
+    unset "${e}"
+done
+exit 0
+
+%pre base
+%sysusers_create_compat %{SOURCE2}
+exit 0
 
 %post base
-/usr/bin/keylime_upgrade_config --component ca --component logging >/dev/null
+for c in ca logging; do
+    [ -e /etc/keylime/"${c}.conf" ] || continue
+    /usr/bin/keylime_upgrade_config --component "${c}" \
+                                    --input /etc/keylime/"${c}.conf" \
+                                    >/dev/null
+done
 exit 0
 
 %posttrans base
@@ -275,16 +347,39 @@ fi
 exit 0
 
 %post verifier
-/usr/bin/keylime_upgrade_config --component verifier >/dev/null
+[ -e /etc/keylime/verifier.conf ] && \
+    /usr/bin/keylime_upgrade_config --component verifier \
+                                    --input /etc/keylime/verifier.conf \
+                                    >/dev/null
 %systemd_post %{name}_verifier.service
+exit 0
 
 %post registrar
-/usr/bin/keylime_upgrade_config --component registrar >/dev/null
+[ -e /etc/keylime/registrar.conf ] && \
+    /usr/bin/keylime_upgrade_config --component registrar \
+                                    --input /etc/keylime/registrar.conf /
+                                    >/dev/null
 %systemd_post %{name}_registrar.service
+exit 0
 
 %post tenant
-/usr/bin/keylime_upgrade_config --component tenant >/dev/null
+[ -e /etc/keylime/tenant.conf ] && \
+    /usr/bin/keylime_upgrade_config --component tenant \
+                                    --input /etc/keylime/tenant.conf \
+                                    >/dev/null
 exit 0
+
+%preun verifier
+%systemd_preun %{name}_verifier.service
+
+%preun registrar
+%systemd_preun %{name}_registrar.service
+
+%postun verifier
+%systemd_postun_with_restart %{name}_verifier.service
+
+%postun registrar
+%systemd_postun_with_restart %{name}_registrar.service
 
 %if 0%{?with_selinux}
 # SELinux contexts are saved so that only affected files can be
@@ -314,21 +409,6 @@ if [ $1 -eq 0 ]; then
 fi
 %endif
 
-%preun verifier
-%systemd_preun %{name}_verifier.service
-
-%preun registrar
-%systemd_preun %{name}_registrar.service
-
-%preun tenant
-%systemd_preun %{name}_registrar.service
-
-%postun verifier
-%systemd_postun_with_restart %{name}_verifier.service
-
-%postun registrar
-%systemd_postun_with_restart %{name}_registrar.service
-
 %files verifier
 %license LICENSE
 %attr(500,%{name},%{name}) %dir %{_sysconfdir}/%{name}/verifier.conf.d
@@ -336,6 +416,7 @@ fi
 %{_bindir}/%{name}_verifier
 %{_bindir}/%{name}_ca
 %{_unitdir}/keylime_verifier.service
+%{_mandir}/man8/keylime_verifier.8*
 
 %files registrar
 %license LICENSE
@@ -343,6 +424,7 @@ fi
 %config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{name},%{name}) %{_sysconfdir}/%{name}/registrar.conf
 %{_bindir}/%{name}_registrar
 %{_unitdir}/keylime_registrar.service
+%{_mandir}/man8/keylime_registrar.8*
 
 %if 0%{?with_selinux}
 %files selinux
@@ -356,6 +438,7 @@ fi
 %attr(500,%{name},%{name}) %dir %{_sysconfdir}/%{name}/tenant.conf.d
 %config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{name},%{name}) %{_sysconfdir}/%{name}/tenant.conf
 %{_bindir}/%{name}_tenant
+%{_mandir}/man1/keylime_tenant.1*
 
 %files -n python3-%{name} -f %{pyproject_files}
 %license LICENSE
@@ -365,6 +448,7 @@ fi
 %{_bindir}/keylime_create_policy
 %{_bindir}/keylime_sign_runtime_policy
 %{_bindir}/keylime-policy
+%{_mandir}/man1/keylime-policy.1*
 
 
 %files tools
@@ -374,17 +458,21 @@ fi
 %files base
 %license LICENSE
 %doc README.md
+%attr(500,%{name},%{name}) %dir %{_sysconfdir}/%{name}
 %attr(500,%{name},%{name}) %dir %{_sysconfdir}/%{name}/{ca,logging}.conf.d
 %config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{name},%{name}) %{_sysconfdir}/%{name}/ca.conf
 %config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{name},%{name}) %{_sysconfdir}/%{name}/logging.conf
 %attr(700,%{name},%{name}) %dir %{_rundir}/%{name}
 %attr(700,%{name},%{name}) %dir %{_sharedstatedir}/%{name}
+%attr(755,root,root) %dir %{_datadir}/%{name}/tpm_cert_store
+%attr(644,root,root) %{_datadir}/%{name}/tpm_cert_store/*.pem
 %attr(500,%{name},%{name}) %dir %{_sharedstatedir}/%{name}/tpm_cert_store
 %attr(400,%{name},%{name}) %{_sharedstatedir}/%{name}/tpm_cert_store/*.pem
 %{_tmpfilesdir}/%{name}.conf
 %{_sysusersdir}/%{name}.conf
 %{_datadir}/%{name}/scripts/create_runtime_policy.sh
 %{_datadir}/%{name}/scripts/ek-openssl-verify
+%{_datadir}/%{name}/scripts/keylime_oneshot_attestation
 %{_datadir}/%{name}/templates
 %{_bindir}/keylime_upgrade_config
 

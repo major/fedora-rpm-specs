@@ -275,7 +275,6 @@ Summary:        Node.js JavaScript runtime – unversioned symlinks
 Group:          Development/Languages
 BuildArch:      noarch
 Requires:       nodejs%{node_version_major} = %{node_evr}
-Requires:       (nodejs%{node_version_major}-npm-bin if nodejs%{node_version_major}-npm)
 Provides:       alternative-for(nodejs-bin) = %{node_evr}
 Conflicts:      alternative-for(nodejs-bin)
 
