@@ -873,13 +873,7 @@ Requires: u2f-hidraw-policy
 
 Requires: chromium-common%{_isa} = %{version}-%{release}
 
-# el9: x86_64, aarch64
-# el10, fedora: x86_64, aarch64, ppc64le
-%if 0%{?fedora} || 0%{?rhel} >= 10
 ExclusiveArch: x86_64 aarch64 ppc64le
-%else
-ExclusiveArch: x86_64 aarch64
-%endif
 
 # Bundled bits (I'm sure I've missed some)
 Provides: bundled(bintrees) = 1.0.1

@@ -1,14 +1,12 @@
 Name:           perl-Protocol-HTTP2
-Version:        1.11
-Release:        5%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 Summary:        HTTP/2 protocol implementation (RFC 7540)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Protocol-HTTP2
 Source0:        https://cpan.metacpan.org/authors/id/C/CR/CRUX/Protocol-HTTP2-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
-BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
@@ -73,7 +71,6 @@ perl Build.PL --installdirs=vendor
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
-find %{buildroot}%{_mandir} -type f -empty -delete
 %{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -103,6 +100,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 18 2026 Petr Pisar <ppisar@redhat.com> - 1.12-1
+- 1.12 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

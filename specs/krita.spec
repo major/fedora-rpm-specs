@@ -4,6 +4,8 @@
 %global zug_version 0.1.1
 %global immer_version 0.8.1
 %global lager_version 0.1.1
+%global raqm_version 0.10.1
+%global gmic_version 3.6.4.1
 
 # Work around for eigen3 trying to enforce power10.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1996330
@@ -12,8 +14,8 @@
 %endif
 
 Name:           krita
-Version:        5.2.14
-Release:        3%{?dist}
+Version:        5.2.15
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -22,19 +24,20 @@ Source0:        https://download.kde.org/%{?pre:un}stable/krita/%{versiondir}%{?
 Source1:        https://github.com/arximboldi/zug/archive/v%{zug_version}/zug-%{zug_version}.tar.gz
 Source2:        https://github.com/arximboldi/immer/archive/v%{immer_version}/immer-%{immer_version}.tar.gz
 Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/lager-%{lager_version}.tar.gz
+Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_version}/gmic-%{gmic_version}.tar.gz
 
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
-Patch1: krita-5.2.13-appstream_validate.patch
+Patch1: krita-5.2.15-appstream_validate.patch
 
 ## upstream patches
 
-%if 0%{?fedora} > 39
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-%endif
 
+BuildRequires:  chrpath
+BuildRequires:  gcc-c++
 BuildRequires:  extra-cmake-modules >= %{kf5_ver}
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  cmake(KF5Archive)
@@ -57,6 +60,7 @@ BuildRequires:  cmake(Qt5Multimedia)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5Xml)
 BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  cmake(Qt5LinguistTools)
 
 BuildRequires:  boost-devel
 BuildRequires:  giflib-devel >= 5
@@ -115,10 +119,16 @@ Requires: python3-qt5-base
 %{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
 %endif
 
-Obsoletes:      calligra-krita < 3.0
-Provides:       calligra-krita = %{version}-%{release}
+Requires: hicolor-icon-theme
 
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Provides: bundled(zug) = %{zug_version}
+Provides: bundled(immer) = %{immer_version}
+Provides: bundled(lager) = %{lager_version}
+Provides: bundled(raqm) = %{raqm_version}
+Provides: bundled(CImg) = %{gmic_version}
+Provides: bundled(gmic) = %{gmic_version}
+
+Obsoletes: %{name}-libs < %{version}-%{release}
 
 %description
 Krita is a sketching and painting program.
@@ -127,25 +137,9 @@ It was created with the following types of art in mind:
 - texture or matte painting
 - illustrations and comics
 
-%package        libs
-Summary:        Shared libraries for %{name}
-Obsoletes:      calligra-krita-libs < 3.0
-Provides:       calligra-krita-libs = %{version}-%{release}
-Requires:       %{name} = %{version}-%{release}
-
-%description    libs
-%{summary}.
-
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    devel
-%{summary}.
-
 
 %prep
-%setup -q -n %{name}-%{version}%{?pre:-%{pre}} -a 1 -a 2 -a 3
+%setup -q -n %{name}-%{version}%{?pre:-%{pre}} -a 1 -a 2 -a 3 -a 4
 %autopatch -p1
 
 %build
@@ -177,13 +171,28 @@ DESTDIR=$(pwd) cmake --install lager --prefix /
 
 %cmake_build
 
+# build gmic
+CXXFLAGS+=" -I$(pwd)/plugins/extensions/qmic" \
+%cmake -DGMIC_QT_HOST=krita-plugin \
+       -DENABLE_SYSTEM_GMIC=FALSE \
+       -DKIS_IMAGE_INTERFACE_DIR="$(pwd)/%{__cmake_builddir}/plugins/extensions/qmic" \
+       -DKIS_IMAGE_INTERFACE_LIBRARY="$(pwd)/%{__cmake_builddir}/plugins/extensions/qmic/libkritaqmicinterface.so" \
+       -B gmic-qt -S gmic-v%{gmic_version}/gmic-qt
+%__cmake --build gmic-qt %{_smp_mflags} --verbose
 
 %install
 %cmake_install
 
+# install gmic
+DESTDIR=%{buildroot} %__cmake --install gmic-qt
+rm -f %{buildroot}%{_datadir}/gmic/*.gmz
+chrpath --delete %{buildroot}%{_libdir}/kritaplugins/krita_gmic_qt.so
+
 ## unpackaged files
-# omit headers, avoid need for -devel subpkg for now
+# only KisQmicPluginInterface installs headers for building the gmic plugin,
+# which is handled in-build
 rm -fv %{buildroot}%{_includedir}/*
+rm -fv %{buildroot}%{_libdir}/libkrita*.so
 
 %find_lang %{name} --all-name --with-html
 
@@ -200,6 +209,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 %{_kf5_bindir}/krita
 %{_kf5_bindir}/krita_version
 %{_kf5_libdir}/kritaplugins/
+%{_kf5_libdir}/libkrita*.so.*
 %{_kf5_metainfodir}/org.kde.krita.appdata.xml
 %{_kf5_datadir}/applications/org.kde.krita.desktop
 %{_kf5_datadir}/applications/krita*.desktop
@@ -213,15 +223,11 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 %{_kf5_libdir}/krita-python-libs/
 %endif
 
-%files libs
-%{_kf5_libdir}/libkrita*.so.*
-
-#files devel
-%{_kf5_libdir}/libkrita*.so
-#{_includedir}/*.h*
-
 
 %changelog
+* Wed Feb 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.2.15-1
+- 5.2.15
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.2.14-3
 - LibRaw rebuild
 

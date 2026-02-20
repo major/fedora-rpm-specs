@@ -4,12 +4,14 @@
 
 Name:           eog-plugins
 Version:        44.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A collection of plugins for the eog image viewer
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/EyeOfGnome/Plugins
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+
+Patch0:         eog-plugins-disable-postasa-plugin-by-default.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(champlain-gtk-0.12)
@@ -17,7 +19,6 @@ BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(eog)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(libexif)
-BuildRequires:  pkgconfig(libgdata)
 BuildRequires:  pkgconfig(libpeas-1.0)
 BuildRequires:  intltool
 BuildRequires:  meson
@@ -30,10 +31,11 @@ Requires:       eog-plugin-fullscreenbg%{?_isa} = %{version}-%{release}
 Requires:       eog-plugin-light-theme%{?_isa} = %{version}-%{release}
 Requires:       eog-plugin-map%{?_isa} = %{version}-%{release}
 Requires:       eog-plugin-maximize-windows%{?_isa} = %{version}-%{release}
-Requires:       eog-plugin-postasa%{?_isa} = %{version}-%{release}
 Requires:       eog-plugin-pythonconsole%{?_isa} = %{version}-%{release}
 Requires:       eog-plugin-send-by-mail%{?_isa} = %{version}-%{release}
 Requires:       eog-plugin-slideshowshuffle%{?_isa} = %{version}-%{release}
+
+Obsoletes:      eog-plugin-postasa < %{version}-%{release}
 
 %description
 It's a collection of plugins for use with the Eye of GNOME Image Viewer.
@@ -109,14 +111,6 @@ Requires:       libpeas-loader-python3%{?_isa}
 
 %description -n eog-plugin-maximize-windows
 The eog maximize-windows plugin.
-
-%package -n     eog-plugin-postasa
-Summary:        eog postasa plugin
-Requires:       %{name}-data = %{version}-%{release}
-Requires:       eog%{?_isa}
-
-%description -n eog-plugin-postasa
-The eog postasa plugin.
 
 %package -n     eog-plugin-pythonconsole
 Summary:        eog pythonconsole plugin
@@ -210,11 +204,6 @@ The eog slideshowshuffle plugin.
 %{_libdir}/eog/plugins/maximize-windows.plugin
 %{_metainfodir}/eog-maximize-windows.appdata.xml
 
-%files -n eog-plugin-postasa
-%{_libdir}/eog/plugins/libpostasa.so
-%{_libdir}/eog/plugins/postasa.plugin
-%{_metainfodir}/eog-postasa.appdata.xml
-
 %files -n eog-plugin-pythonconsole
 %{_libdir}/eog/plugins/pythonconsole.plugin
 %{_libdir}/eog/plugins/pythonconsole/
@@ -235,6 +224,9 @@ The eog slideshowshuffle plugin.
 %{_metainfodir}/eog-slideshowshuffle.appdata.xml
 
 %changelog
+* Wed Feb 18 2026 Jan Grulich <jgrulich@redhat.com> - 44.1-7
+- Drop postasa plugin following upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 44.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

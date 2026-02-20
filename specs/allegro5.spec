@@ -1,20 +1,42 @@
 Name:		allegro5
-Version:	5.2.7
-Release:	16%{?dist}
+Version:	5.2.11.3
+Release:	1%{?dist}
 Summary:	A game programming library
 License:	zlib
 URL:		http://liballeg.org/
-Source0:	https://github.com/liballeg/allegro5/releases/download/%{version}.0/allegro-%{version}.0.tar.gz
+Source0:	https://github.com/liballeg/allegro5/releases/download/%{version}/allegro-%{version}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	alsa-lib-devel cmake dumb-devel flac-devel freetype-devel
-BuildRequires:	gtk3-devel libICE-devel libjpeg-devel libpng-devel
-BuildRequires:	libtheora-devel libvorbis-devel libXcursor-devel
-BuildRequires:	libXext-devel libXxf86vm-devel libXrandr-devel
-BuildRequires:	libXinerama-devel libXpm-devel mesa-libGL-devel
-BuildRequires:	mesa-libGLU-devel openal-soft-devel physfs-devel
-BuildRequires:	pulseaudio-libs-devel opus-devel opusfile-devel libwebp-devel
+BuildRequires:	alsa-lib-devel
+BuildRequires:	cmake
+BuildRequires:	dumb-devel
+BuildRequires:	enet-devel
+BuildRequires:	flac-devel
 BuildRequires:	freeimage-devel
+BuildRequires:	freetype-devel
+BuildRequires:	gtk3-devel
+BuildRequires:	libICE-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libopenmpt-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libtheora-devel
+BuildRequires:	libvorbis-devel
+BuildRequires:	libwebp-devel
+BuildRequires:	libXcursor-devel
+BuildRequires:	libXext-devel
+BuildRequires:	libXxf86vm-devel
+BuildRequires:	libXrandr-devel
+BuildRequires:	libXinerama-devel
+BuildRequires:	libXpm-devel
+BuildRequires:	mesa-libGL-devel
+BuildRequires:	mesa-libGLU-devel
+BuildRequires:	openal-soft-devel
+BuildRequires:	physfs-devel
+BuildRequires:	pulseaudio-libs-devel
+BuildRequires:	opus-devel
+BuildRequires:	opusfile-devel
+
+%global so_version %(c="%{version}"; echo "${c%.*}")
 
 %description
 Allegro is a cross-platform library intended for use in computer games
@@ -139,7 +161,7 @@ addon.
 
 
 %prep
-%autosetup -p1 -n allegro-%{version}.0
+%autosetup -p1 -n allegro-%{version}
 
 
 %build
@@ -182,17 +204,17 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 %doc CHANGES-5.?.txt CONTRIBUTORS.txt README.txt
 %license LICENSE.txt
 %{_libdir}/liballegro.so.5.2
-%{_libdir}/liballegro.so.%{version}
+%{_libdir}/liballegro.so.%{so_version}
 %{_libdir}/liballegro_color.so.5.2
-%{_libdir}/liballegro_color.so.%{version}
+%{_libdir}/liballegro_color.so.%{so_version}
 %{_libdir}/liballegro_font.so.5.2
-%{_libdir}/liballegro_font.so.%{version}
+%{_libdir}/liballegro_font.so.%{so_version}
 %{_libdir}/liballegro_main.so.5.2
-%{_libdir}/liballegro_main.so.%{version}
+%{_libdir}/liballegro_main.so.%{so_version}
 %{_libdir}/liballegro_memfile.so.5.2
-%{_libdir}/liballegro_memfile.so.%{version}
+%{_libdir}/liballegro_memfile.so.%{so_version}
 %{_libdir}/liballegro_primitives.so.5.2
-%{_libdir}/liballegro_primitives.so.%{version}
+%{_libdir}/liballegro_primitives.so.%{so_version}
 
 %files devel
 %doc docs/html/refman
@@ -210,6 +232,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 %{_libdir}/liballegro_main.so
 %{_libdir}/liballegro_memfile.so
 %{_libdir}/liballegro_primitives.so
+%{_libdir}/cmake/allegro/
 %{_libdir}/pkgconfig/allegro-5*.pc
 %{_libdir}/pkgconfig/allegro_color-5*.pc
 %{_libdir}/pkgconfig/allegro_font-5*.pc
@@ -221,7 +244,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-acodec
 %{_libdir}/liballegro_acodec.so.5.2
-%{_libdir}/liballegro_acodec.so.%{version}
+%{_libdir}/liballegro_acodec.so.%{so_version}
 
 %files addon-acodec-devel
 %{_includedir}/allegro5/allegro_acodec.h
@@ -230,7 +253,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-audio
 %{_libdir}/liballegro_audio.so.5.2
-%{_libdir}/liballegro_audio.so.%{version}
+%{_libdir}/liballegro_audio.so.%{so_version}
 
 %files addon-audio-devel
 %{_includedir}/allegro5/allegro_audio.h
@@ -239,7 +262,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-dialog
 %{_libdir}/liballegro_dialog.so.5.2
-%{_libdir}/liballegro_dialog.so.%{version}
+%{_libdir}/liballegro_dialog.so.%{so_version}
 
 %files addon-dialog-devel
 %{_includedir}/allegro5/allegro_native_dialog.h
@@ -248,7 +271,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-image
 %{_libdir}/liballegro_image.so.5.2
-%{_libdir}/liballegro_image.so.%{version}
+%{_libdir}/liballegro_image.so.%{so_version}
 
 %files addon-image-devel
 %{_includedir}/allegro5/allegro_image.h
@@ -257,7 +280,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-physfs
 %{_libdir}/liballegro_physfs.so.5.2
-%{_libdir}/liballegro_physfs.so.%{version}
+%{_libdir}/liballegro_physfs.so.%{so_version}
 
 %files addon-physfs-devel
 %{_includedir}/allegro5/allegro_physfs.h
@@ -266,7 +289,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-ttf
 %{_libdir}/liballegro_ttf.so.5.2
-%{_libdir}/liballegro_ttf.so.%{version}
+%{_libdir}/liballegro_ttf.so.%{so_version}
 
 %files addon-ttf-devel
 %{_includedir}/allegro5/allegro_ttf.h
@@ -275,7 +298,7 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %files addon-video
 %{_libdir}/liballegro_video.so.5.2
-%{_libdir}/liballegro_video.so.%{version}
+%{_libdir}/liballegro_video.so.%{so_version}
 
 %files addon-video-devel
 %{_includedir}/allegro5/allegro_video.h
@@ -284,6 +307,9 @@ install -p -m 644 docs/man/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 
 %changelog
+* Tue Feb 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.2.11.3-1
+- Update to v5.2.11.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

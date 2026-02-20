@@ -1,5 +1,5 @@
 %global project_version_prime 5
-%global project_version_major 3
+%global project_version_major 4
 %global project_version_minor 0
 %global project_version_micro 0
 
@@ -7,19 +7,11 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-test_conf.cpp-make-comparing-size_type-cross-platfor.patch
-Patch2:         0002-python_plugins_loader-disable-sign-compare-check-err.patch
-Patch3:         0003-Move-libdnf5-conf-config.h-creation-after-feature-de.patch
-Patch4:         0004-ruby-bindings-ignore-unused-but-set-variable-warning.patch
-Patch5:         0005-copr_plugin-silence-error-variable-val-set-but-not-u.patch
-Patch6:         0006-progressbar-remove-unused-message_index-variable.patch
-Patch7:         0007-Add-a-couple-of-missing-includes-to-fix-builds.patch
-Patch8:         0008-Replace-all-std-format-with-fmt-format.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -93,8 +85,14 @@ Provides:       dnf5-command(versionlock)
 %bcond_without plugin_rhsm
 %bcond_without plugin_manifest
 %bcond_without python_plugins_loader
-%bcond_without plugin_local
 
+%if 0%{?rhel} >= 10
+%bcond_with plugin_local
+%else
+%bcond_without plugin_local
+%endif
+
+%bcond_without acl
 %bcond_without comps
 %bcond_without modulemd
 %bcond_without systemd
@@ -133,11 +131,7 @@ Provides:       dnf5-command(versionlock)
 
 %global libmodulemd_version 2.5.0
 %global librepo_version 1.20.0
-%if %{with focus_new}
-    %global libsolv_version 0.7.30
-%else
-    %global libsolv_version 0.7.25
-%endif
+%global libsolv_version 0.7.35
 %global sqlite_version 3.35.0
 %global swig_version 4
 
@@ -159,10 +153,14 @@ BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(librepo) >= %{librepo_version}
 BuildRequires:  pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:  pkgconfig(libsolvext) >= %{libsolv_version}
-BuildRequires:  pkgconfig(rpm) >= 4.17.0
+BuildRequires:  pkgconfig(rpm) >= 4.19.0
 BuildRequires:  pkgconfig(sqlite3) >= %{sqlite_version}
 BuildRequires:  toml11-static
 BuildRequires:  zlib-devel
+
+%if %{with acl}
+BuildRequires:  pkgconfig(libacl)
+%endif
 
 %if %{with clang}
 BuildRequires:  clang
@@ -371,7 +369,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man7/dnf*-system-state.7.*
 %{_mandir}/man7/dnf*-changes-from-dnf4.7.*
 %{_mandir}/man5/dnf*.conf.5.*
-%{_mandir}/man5/dnf*.conf-vendorpolicy.5.*
+%{_mandir}/man5/dnf*.conf-vendorpolicy*.5.*
 %{_mandir}/man5/dnf*.conf-todo.5.*
 %{_mandir}/man5/dnf*.conf-deprecated.5.*
 %endif
@@ -419,6 +417,7 @@ Package management library.
 %dir %{_datadir}/dnf5/repos.d
 %dir %{_datadir}/dnf5/vars.d
 %dir %{_datadir}/dnf5/vendors.d
+%dir %{_datadir}/dnf5/libdnf.plugins.conf.d
 %dir %{_sysconfdir}/dnf/vendors.d
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.2*
@@ -437,6 +436,7 @@ Package management library.
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/packages.toml
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/system.toml
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/transaction_history.sqlite{,-shm,-wal}
+%verify(not md5 size mtime) %attr(0664, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/system-repo.lock
 %license lgpl-2.1.txt
 %ghost %attr(0755, root, root) %dir %{_var}/cache/libdnf5
 %ghost %attr(0755, root, root) %dir %{_sharedstatedir}/dnf
@@ -933,7 +933,6 @@ License:        LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
-Requires:       pkgconfig(libpkgmanifest)
 Provides:       dnf5-command(manifest)
 
 %description plugin-manifest
@@ -975,6 +974,7 @@ DNF5 plugin for working with RPM package manifest files.
     -DWITH_PLUGIN_MANIFEST=%{?with_plugin_manifest:ON}%{!?with_plugin_manifest:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
     \
+    -DWITH_ACL=%{?with_acl:ON}%{!?with_acl:OFF} \
     -DWITH_COMPS=%{?with_comps:ON}%{!?with_comps:OFF} \
     -DWITH_MODULEMD=%{?with_modulemd:ON}%{!?with_modulemd:OFF} \
     -DWITH_SYSTEMD=%{?with_systemd:ON}%{!?with_systemd:OFF} \
@@ -1035,7 +1035,8 @@ for file in \
     environments.toml groups.toml modules.toml nevras.toml packages.toml \
     system.toml \
     transaction_history.sqlite transaction_history.sqlite-shm \
-    transaction_history.sqlite-wal
+    transaction_history.sqlite-wal \
+    system-repo.lock
 do
     touch %{buildroot}%{_prefix}/lib/sysimage/libdnf5/$file
 done
@@ -1090,6 +1091,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Feb 17 2026 Packit <hello@packit.dev> - 5.4.0.0-1
+- Update to version 5.4.0.0
+
 * Tue Jan 20 2026 Petr Pisar <ppisar@redhat.com> - 5.3.0.0-7
 - Fix building with GCC 16 (bug #2427953)
 

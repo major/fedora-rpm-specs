@@ -2,7 +2,7 @@
 %bcond mingw 1
 
 Name:           openjph
-Version:        0.25.3
+Version:        0.26.3
 Release:        %autorelease
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
@@ -117,7 +117,7 @@ BuildArch:     noarch
 
 %files -n lib%{name}
 %license LICENSE
-%{_libdir}/lib%{name}.so.0.25
+%{_libdir}/lib%{name}.so.0.26
 %{_libdir}/lib%{name}.so.%{version}
 
 %files -n lib%{name}-devel
@@ -129,7 +129,7 @@ BuildArch:     noarch
 %if %{with mingw}
 %files -n mingw32-lib%{name}
 %license LICENSE
-%{mingw32_bindir}/lib%{name}-0.25.dll
+%{mingw32_bindir}/lib%{name}-0.26.dll
 %{mingw32_libdir}/lib%{name}.dll.a
 %{mingw32_libdir}/cmake/%{name}
 %{mingw32_libdir}/pkgconfig/%{name}.pc
@@ -141,7 +141,7 @@ BuildArch:     noarch
 
 %files -n mingw64-lib%{name}
 %license LICENSE
-%{mingw64_bindir}/lib%{name}-0.25.dll
+%{mingw64_bindir}/lib%{name}-0.26.dll
 %{mingw64_libdir}/lib%{name}.dll.a
 %{mingw64_libdir}/cmake/%{name}
 %{mingw64_libdir}/pkgconfig/%{name}.pc

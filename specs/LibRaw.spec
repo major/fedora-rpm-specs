@@ -11,7 +11,6 @@ Patch0: LibRaw-pkgconfig.patch
 
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(lcms2)
-BuildRequires: pkgconfig(jasper)
 BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: autoconf automake libtool
@@ -57,7 +56,6 @@ LibRaw sample programs
 autoreconf -if
 %configure \
     --enable-examples=yes \
-    --enable-jasper \
     --enable-jpeg \
     --enable-lcms \
     --enable-openmp \

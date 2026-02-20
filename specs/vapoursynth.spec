@@ -1,5 +1,5 @@
 Name:       vapoursynth
-Version:    72
+Version:    73
 Release:    %autorelease
 Summary:    Video processing framework with simplicity in mind
 License:    LGPL-2.1-only
@@ -81,7 +81,7 @@ ln -sf .libs build
 find %{buildroot} -type f -name "*.la" -delete
 
 %pyproject_install
-%pyproject_save_files %{name}
+%pyproject_save_files -l %{name}
 
 # Create plugin directory
 mkdir -p %{buildroot}%{_libdir}/%{name}
@@ -112,6 +112,8 @@ export LD_LIBRARY_PATH=build
 
 %files -n python3-%{name} -f %{pyproject_files}
 %{python3_sitearch}/%{name}.so
+%{python3_sitearch}/cython
+%{python3_sitearch}/vsscript
 
 %changelog
 %autochangelog

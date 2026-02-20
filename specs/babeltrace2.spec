@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -8,6 +8,8 @@ Source0:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}
 Source1:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}.tar.bz2.asc
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
+
+Patch0:         0001-Fix-bt2.TraceCollectionMessageIterator-avoid-circula.patch
 
 BuildRequires:  autoconf >= 2.69
 BuildRequires:  automake >= 1.13
@@ -121,6 +123,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.md
 
 
 %changelog
+* Wed Feb 18 2026 Michael Jeanson <mjeanson@efficios.com> - 2.1.2-6
+- Add patch to fix a failure in the lttng-tools test suite
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -9,6 +9,7 @@ Requires(preun): systemd
 Requires(postun): systemd
 BuildRequires: make
 BuildRequires: gcc
+BuildRequires: gcc-g++
 BuildRequires: libtool
 BuildRequires: automake
 BuildRequires: autoconf
@@ -43,6 +44,9 @@ Header files for adding MPTCP path manager support to applications
 autoreconf --install --symlink --force
 %configure --enable-debug=info
 %make_build V=1
+
+%check
+make check
 
 %install
 install -d %{buildroot}/%{_libexecdir}

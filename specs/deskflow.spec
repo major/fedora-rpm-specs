@@ -1,15 +1,18 @@
+# Disable X11 for RHEL 10+
+%bcond x11 %[%{undefined rhel} || 0%{?rhel} < 10]
+
 %global rdnn_name org.deskflow.deskflow
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.25.0
-Release:	3%{?dist}
+Version:	1.26.0
+Release:	1%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
 URL:		https://github.com/%{name}/%{name}
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-ExcludeArch:	i686
+ExcludeArch:	%{ix86}
 
 BuildRequires:	cmake >= 3.24
 BuildRequires:	desktop-file-utils
@@ -22,10 +25,11 @@ BuildRequires:	cmake(Qt6LinguistTools) >= %{qt6ver}
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
-BuildRequires:	pkgconfig(ice)
 BuildRequires:	pkgconfig(libei-1.0) >= 1.3
 BuildRequires:	pkgconfig(libnotify)
 BuildRequires:	pkgconfig(libportal) >= 0.8.0
+%if %{with x11}
+BuildRequires:	pkgconfig(ice)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
@@ -35,6 +39,7 @@ BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(xkbfile)
 BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xtst)
+%endif
 Requires:	hicolor-icon-theme
 
 %description
@@ -52,8 +57,11 @@ key press to switch focus to a different system.
 %autosetup -p1
 
 
+%conf
+%cmake -DSKIP_BUILD_TESTS=1 %{!?with_x11:-DBUILD_X11_SUPPORT=OFF}
+
+
 %build
-%cmake -DSKIP_BUILD_TESTS=1
 %cmake_build
 
 
@@ -100,6 +108,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Wed Feb 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.26.0-1
+- Update to 1.26.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

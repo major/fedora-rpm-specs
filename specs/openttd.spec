@@ -2,7 +2,7 @@
 #global prever RC1
 
 Name:           openttd
-Version:        15.1
+Version:        15.2
 Release:        %autorelease
 Summary:        Transport system simulation game
 

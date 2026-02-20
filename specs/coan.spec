@@ -51,7 +51,7 @@ for i in AUTHORS LICENSE.BSD README ChangeLog ; do
 done
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
+export CXXFLAGS="-std=c++14 -Wno-deprecated -Wno-deprecated-declarations -fpermissive $RPM_OPT_FLAGS"
 autoreconf -vi
 %configure
 %make_build

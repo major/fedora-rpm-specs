@@ -25,6 +25,12 @@ License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+## Backports from current upstream
+# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/124
+Patch:          0001-compositor-Neuter-native-keybindings-by-default.patch
+# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/130
+Patch:          0001-systemd-sessions-Start-accessibility-settings.patch
+
 %if %{with x11}
 Provides:       firstboot(windowmanager) = %{name}
 %endif
@@ -99,7 +105,7 @@ A basic notification daemon for gnome-kiosk.
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build
-%meson -Daccessibility-panel=true -Dinput-selector=true -Dnotification-daemon=true
+%meson -Daccessibility-panel=true -Dnotification-daemon=true
 %meson_build
 
 %install

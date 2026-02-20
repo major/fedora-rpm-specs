@@ -2,7 +2,7 @@
 %global sum A powerful and robust template system for Python
 
 Name:           python-empy
-Version:        4.2
+Version:        4.2.1
 Release:        %autorelease
 Summary:        %{sum}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.

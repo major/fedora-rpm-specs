@@ -7,7 +7,7 @@
 %global pg_config       %{_bindir}/pg_config
 
 Name:           postgresql%{pgversion}-%{shortname}
-Version:        2.5.1
+Version:        3.0.5
 Release:        %autorelease
 Summary:        Mask or replace personally identifiable information (PII) or sensitive data
 

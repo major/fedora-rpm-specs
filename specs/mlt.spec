@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.36.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -54,12 +54,7 @@ BuildRequires:  cmake(Qt6WidgetsTools)
 BuildRequires:  cmake(Qt6SvgWidgets)
 BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  SDL-devel
 BuildRequires:  SDL2-devel
-%if ! (0%{?rhel} == 8)
-BuildRequires:  SDL_image-devel
-BuildRequires:  SDL2_image-devel
-%endif
 #BuildRequires:  gtk2-devel
 BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  pipewire-jack-audio-connection-kit-devel
@@ -274,6 +269,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Wed Feb 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.36.1-3
+- Drop unused SDL dependencies
+
 * Wed Feb 11 2026 Martin Gansser <martinkg@fedoraproject.org> - 7.36.1-2
 - QT5 Support was dropped
 - Obsoletes mlt-qt5 subpackage

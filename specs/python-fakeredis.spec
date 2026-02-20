@@ -1,7 +1,7 @@
 %global extras json,lua,valkey
 
 Name:           python-fakeredis
-Version:        2.33.0
+Version:        2.34.0
 Release:        %autorelease
 Summary:        A python implementation of Redis Protocol API
 

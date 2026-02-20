@@ -13,6 +13,8 @@ Source3:	README.fedora
 
 # https://github.com/quodlibet/quodlibet/pull/4741
 Patch:		https://github.com/quodlibet/quodlibet/commit/93d2de93663245bd3b2aadc2ea6085991cd7da35.patch
+# https://github.com/quodlibet/quodlibet/pull/4810
+Patch:		https://github.com/quodlibet/quodlibet/commit/07640949b5d7bfdf501d04da81d5f7785cb041b9.patch
 # https://github.com/quodlibet/quodlibet/pull/4843
 Patch:		https://github.com/quodlibet/quodlibet/commit/85631a63fe1b431adacc2a4245f2c59cb8145975.patch
 # https://github.com/quodlibet/quodlibet/pull/4845

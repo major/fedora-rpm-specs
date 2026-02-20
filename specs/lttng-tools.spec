@@ -8,7 +8,7 @@
 
 
 Name:           lttng-tools
-Version:        2.14.1
+Version:        2.15.0
 Release:        1%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
@@ -20,14 +20,16 @@ Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
 Source4:        lttng-tools.sysusers.conf
 
+Patch0:         0001-tests-fix-ust-ctl-fuzz-with-Wl-z-now.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  g++
 BuildRequires:  kmod-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel >= 2.7.6
-BuildRequires:  lttng-ust-devel >= 2.14.0
-BuildRequires:  lttng-ust-devel < 2.15.0
+BuildRequires:  lttng-ust-devel >= 2.15.0
+BuildRequires:  lttng-ust-devel < 2.16.0
 BuildRequires:  make
 BuildRequires:  popt-devel >= 1.13
 BuildRequires:  systemd-units
@@ -96,7 +98,7 @@ make %{?_smp_mflags} V=1
 %check
 # Tests (eg. test_nprocesses) were failing with the default open files limit (1024)
 ulimit -n 4096
-make check
+make --keep-going check
 
 %install
 make DESTDIR=%{buildroot} install
@@ -147,6 +149,7 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %{_mandir}/man1/lttng-list-triggers.1.gz
 %{_mandir}/man1/lttng-load.1.gz
 %{_mandir}/man1/lttng-metadata.1.gz
+%{_mandir}/man1/lttng-reclaim-memory.1.gz
 %{_mandir}/man1/lttng-regenerate.1.gz
 %{_mandir}/man1/lttng-remove-trigger.1.gz
 %{_mandir}/man1/lttng-rotate.1.gz
@@ -194,6 +197,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Wed Feb 18 2026 Michael Jeanson <mjeanson@efficios.com> - 2.15.0-1
+- New upstream release
+
 * Fri Jan 30 2026 Michael Jeanson <mjeanson@efficios.com> - 2.14.1-1
 - New upstream release
 - Add a version bound dependency to the python bindings package

@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.9.0
-Release:        7%{?dist}
+Release:        9%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -204,6 +204,12 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Feb 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:3.1.9.0-9
+- Rebuild for LibRaw
+
+* Wed Feb 18 2026 Simone Caronni <negativo17@gmail.com> - 1:3.1.9.0-8
+- Rebuild for OpenJPH update.
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:3.1.9.0-7
 - LibRaw rebuild
 

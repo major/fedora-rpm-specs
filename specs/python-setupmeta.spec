@@ -6,7 +6,7 @@ This package aims to simplify that and bring some DRY principle to python
 packaging.}
 
 Name:           python-setupmeta
-Version:        3.8.0
+Version:        3.9.0
 Release:        %{autorelease}
 Summary:        Simplify your setup.py
 

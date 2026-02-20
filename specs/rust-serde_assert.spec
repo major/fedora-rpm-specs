@@ -2,21 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate thiserror-impl
+%global crate serde_assert
 
-Name:           rust-thiserror-impl
-Version:        2.0.18
+Name:           rust-serde_assert
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Implementation detail of the thiserror crate
+Summary:        Testing library for serde Serialize and Deserialize implementations
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/thiserror-impl
+URL:            https://crates.io/crates/serde_assert
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax claims dependency from ^0.7.1 to >=0.7.1,<0.8.0
+Patch:          serde_assert-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
-Implementation detail of the `thiserror` crate.}
+Testing library for serde Serialize and Deserialize implementations.}
 
 %description %{_description}
 
@@ -32,6 +36,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,6 +54,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Find all files that have CRLF line endings (Windows)
+find . -type f -exec dos2unix --keepdate {} +
 %cargo_prep
 
 %generate_buildrequires

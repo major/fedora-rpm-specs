@@ -111,9 +111,6 @@ Requires:       ocaml-runtime%{?_isa} = %{version}-%{release}
 BuildRequires:  ocaml-srpm-macros >= 10
 Requires:       ocaml-srpm-macros >= 10
 
-# Bundles an MD5 implementation in runtime/caml/md5.h and runtime/md5.c
-Provides:       bundled(md5-plumb)
-
 Provides:       ocaml(compiler) = %{version}
 
 %if %{native_compiler}
@@ -141,6 +138,9 @@ License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND LicenseR
 Summary:        OCaml runtime environment
 Requires:       util-linux
 Provides:       ocaml(runtime) = %{version}
+
+# Bundles an MD5 implementation in runtime/caml/md5.h and runtime/md5.c
+Provides:       bundled(md5-plumb)
 
 %description runtime
 OCaml is a high-level, strongly-typed, functional and object-oriented
@@ -259,7 +259,7 @@ sed -i '/^EXTRACAMLFLAGS=/aLINKOPTS=-cclib -lm' otherlibs/unix/Makefile
     --disable-native-compiler \
     --disable-native-toplevel \
 %endif
-%ifarch x86_64
+%ifarch %{x86_64} %{arm64}
 %if 0%{?_include_frame_pointers}
     --enable-frame-pointers \
 %endif

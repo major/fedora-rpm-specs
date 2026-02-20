@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 6%{?dist}
 License: Python
 
 
@@ -409,6 +409,37 @@ Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 # * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
 # * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
 Patch471: 00471-cve-2025-12084.patch
+
+# 00473 # 7e68b796abe391a467dba42b6641053aac726d67
+# CVE-2026-0865
+#
+#  gh-143916: Reject control characters in wsgiref.headers.Headers  (GH-143917)
+#
+# * Add 'test.support' fixture for C0 control characters
+# * gh-143916: Reject control characters in wsgiref.headers.Headers
+Patch473: 00473-cve-2026-0865.patch
+
+# 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
+# CVE-2025-15366
+#
+# gh-143921: Reject control characters in IMAP commands
+#
+# (cherry-picked from commit 6262704b134db2a4ba12e85ecfbd968534f28b45)
+Patch474: 00474-cve-2025-15366.patch
+
+# 00475 # 00384c03f44af74c955a44637eee0b66f717a487
+# CVE-2025-15367
+#
+# gh-143923: Reject control characters in POP3 commands
+#
+# (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
+Patch475: 00475-cve-2025-15367.patch
+
+# 00476 # efbfd1798bf8c1a9845546a0ed9193f94661dd1b
+# CVE-2026-1299
+#
+# gh-144125: email: verify headers are sound in BytesGenerator
+Patch476: 00476-cve-2026-1299.patch
 
 # (New patches go here ^^^)
 #
@@ -1899,6 +1930,12 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Feb 10 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.25-6
+- Security fix for CVE-2026-1299
+
+* Mon Feb 09 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.25-5
+- Security fixes for CVE-2026-0865, CVE-2025-15366 and CVE-2025-15367
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.25-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

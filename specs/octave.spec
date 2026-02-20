@@ -242,7 +242,8 @@ export JAVA_HOME=%{java_home}
 # JIT support is still experimental, and causes a segfault on ARM.
 # --enable-float-truncate - https://savannah.gnu.org/bugs/?40560
 # sundials headers need to know where to find suitesparse headers
-export CPPFLAGS=-I%{_includedir}/suitesparse
+# qscintilla may not be installed in the same prefix as qt6 (rhbz#2436599)
+export CPPFLAGS="-I%{_includedir}/suitesparse -I%{_qt6_includedir}"
 # Disable _GLIBCXX_ASSERTIONS for now
 # https://savannah.gnu.org/bugs/?55547
 export CXXFLAGS="$(echo %optflags | sed s/-Wp,-D_GLIBCXX_ASSERTIONS//)"

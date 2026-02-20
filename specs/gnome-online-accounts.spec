@@ -14,6 +14,8 @@ License:	LGPL-2.0-or-later AND CC-BY-SA-4.0
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
 Source0:	https://download.gnome.org/sources/%{name}/3.57/%{name}-%{version}.tar.xz
 
+Patch0:	        gnome-online-accounts-disable-google-provider.patch
+
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(gcr-4)
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
@@ -74,7 +76,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson \

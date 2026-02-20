@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -105,7 +105,7 @@ Requires:       texlive-xstring
 Requires:       texlive-hyphenat
 Requires:       tex(t2aenc.def)
 Requires:       texlive-lh
-Requires:       texlive-xetex-def
+Requires:       texlive-xetex
 Requires:       texlive-framed
 Requires:       texlive-polyglossia
 Requires:       texlive-multirow
@@ -481,6 +481,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 18 2026 Thomas Sailer <fedora@tsailer.ch> - 20230429-32
+- fix requires
+
 * Sun Jan 25 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 20230429-31
 - Drop support for i686
 

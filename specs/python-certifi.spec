@@ -1,5 +1,5 @@
 Name:           python-certifi
-Version:        2025.07.09
+Version:        2026.01.04
 Release:        %autorelease
 Summary:        Python package for providing Mozilla's CA Bundle
 

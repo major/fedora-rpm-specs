@@ -3,8 +3,8 @@
 %global forgeurl https://gitlab.gnome.org/World/AbiWord
 
 Name: abiword
-Version: 3.0.7
-Release: 4%{?dist}
+Version: 3.0.8
+Release: 1%{?dist}
 %global tag release-%{version}
 %forgemeta
 
@@ -23,9 +23,9 @@ ExcludeArch:    %{ix86}
 Patch0: abiword-2.6.0-windowshelppaths.patch
 Patch1: abiword-2.8.3-desktop.patch
 Patch2: abiword-2.6.0-boolean.patch
-Patch3: abiword-3.0.0-librevenge.patch
 Patch4: abiword-3.0.2-explicit-python.patch
 Patch5: abiword-3.0.4-pygobject.patch
+Patch6: boost-includes.patch
 
 BuildRequires: aiksaurus-devel
 BuildRequires: aiksaurus-gtk-devel
@@ -114,9 +114,9 @@ Python bindings for developing with libabiword
 # patch abiword
 %patch -P 1 -p1 -b .desktop
 %patch -P 2 -p1 -b .boolean
-%patch -P 3 -p0 -b .librevenge
 %patch -P 4 -p1 -b .explicit_python
 %patch -P 5 -p1 -b .pygo
+%patch -P 6 -p0 -b .boost
 
 %build
 # Needed while explicit-python.patch touches gi-overrides/Makefile.am
@@ -178,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Wed Feb 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.8-1
+- 3.0.8
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

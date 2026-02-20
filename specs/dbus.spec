@@ -18,7 +18,7 @@
 
 Name:    dbus
 Epoch:   1
-Version: 1.16.0
+Version: 1.16.2
 Release: %autorelease
 Summary: D-BUS message bus
 
@@ -404,7 +404,7 @@ fi
 %files libs
 %{!?_licensedir:%global license %%doc}
 %license COPYING
-%{_libdir}/*dbus-1*.so.*
+%{_libdir}/libdbus-1.so.3{,.*}
 
 %files tests
 %{_libexecdir}/dbus-1/installed-tests

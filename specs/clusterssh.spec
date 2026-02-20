@@ -1,5 +1,5 @@
 Name:          clusterssh
-Version:       4.18
+Version:       4.18_03
 Release:       %autorelease
 %define modname App-ClusterSSH
 %define modver v%{version}
@@ -75,7 +75,7 @@ tasks, for example multiple hosts requiring the same configuration within a
 cluster. Not limited to use with clusters, however.
 
 %prep
-%autosetup -p1 -n %{modname}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 perl Build.PL installdirs=vendor

@@ -3,12 +3,12 @@
 Summary: Trace extension module for the crash utility
 Name: crash-trace-command
 Version: 3.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL-2.0-only
 Source: https://github.com/fujitsu/crash-trace/archive/v%{version}/%{name}-%{version}.tar.gz
 URL: https://github.com/fujitsu/crash-trace
 ExclusiveOS: Linux
-ExclusiveArch: aarch64 ppc64le s390x x86_64
+ExclusiveArch: aarch64 ppc64le riscv64 s390x x86_64
 BuildRequires: crash-devel >= 7.2.0-2
 BuildRequires: gcc
 Requires: trace-cmd
@@ -16,6 +16,7 @@ Requires: crash >= 7.2.0-2
 
 Patch0001: 0001-Makefile-set-DT_SONAME-to-trace.so.patch
 Patch0002: 0002-Makefile-fix-build-failure-on-aarch64-and-ppc64le.patch
+Patch0003: 0003-Makefile-fix-build-failure-on-riscv64.patch
 
 %description
 Command for reading ftrace data from a dump file.
@@ -37,6 +38,9 @@ install -m 0755 -t %{buildroot}%{_libdir}/crash/extensions %{_builddir}/%{repona
 %license COPYING
 
 %changelog
+* Mon Feb 16 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 3.0-16
+- Enable the RISC-V 64-bit architecture port
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.120.2
+Version: 1.120.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -95,7 +95,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 1 1.6.6
 
 %global rolename2 selinux
-%deftag 2 1.11.0
+%deftag 2 1.11.1
 
 %global rolename3 timesync
 %deftag 3 1.11.4
@@ -110,7 +110,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 6 1.19.4
 
 %global rolename7 metrics
-%deftag 7 1.14.1
+%deftag 7 1.14.2
 
 %global rolename8 tlog
 %deftag 8 1.4.5
@@ -142,13 +142,13 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 16 1.7.1
 
 %global rolename17 ha_cluster
-%deftag 17 1.29.0
+%deftag 17 1.29.1
 
 %global rolename18 vpn
 %deftag 18 1.6.16
 
 %global rolename19 firewall
-%deftag 19 1.11.4
+%deftag 19 1.11.5
 
 %global rolename20 cockpit
 %deftag 20 1.7.4
@@ -169,7 +169,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 25 1.5.1
 
 %global rolename26 systemd
-%deftag 26 1.3.6
+%deftag 26 1.3.7
 
 %global rolename27 keylime_server
 %deftag 27 1.2.4
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed Feb 18 2026 Packit <hello@packit.dev> - 1.120.3-1
+- Update to upstream version 1.120.3
+
 * Thu Feb  12 2026 Packit <hello@packit.dev> - 1.120.2-1
 - Update to upstream version 1.120.2
 

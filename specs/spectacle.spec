@@ -1,3 +1,7 @@
+# For direct library dependencies
+%if "%{__isa_bits}" == "64"
+%global lib64_suffix ()(64bit)
+%endif
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -6,7 +10,7 @@ Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
 Version: 6.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -25,6 +29,9 @@ Source1: https://download.kde.org/%{stable}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}
 
 
 ## downstream patches
+### Local workaround while waiting for a better fix
+### Cf. https://bugs.kde.org/show_bug.cgi?id=516162
+Patch1001: spectacle-6.6.0-tesseract-fedora-centos-libs.patch
 
 %global majmin %(echo %{version} | cut -d. -f1,2)
 
@@ -79,6 +86,9 @@ BuildRequires:  systemd-devel
 
 # Animated tray icon: https://pagure.io/fedora-kde/SIG/issue/601
 Recommends:     qt6-qtimageformats%{?_isa}
+# 6.6.0: Scanning capabilities
+# Cf. https://bugs.kde.org/show_bug.cgi?id=516162
+Recommends:     (libtesseract.so.5.5%{?lib64_suffix} or libtesseract.so.5.3.4%{?lib64_suffix})
 
 # f26+ upgrade path
 %if 0%{?fedora} > 25
@@ -132,6 +142,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Wed Feb 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 1:6.6.0-2
+- Add workaround to fix OCR support (rhbz#2435519)
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.0-1
 - 6.6.0
 

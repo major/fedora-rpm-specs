@@ -3,7 +3,7 @@
 
 Name:           mpv
 Version:        0.41.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # overall license is GPL-2.0-or-later and LGPL-2.1-or-later
 # BSD-2-Clause
@@ -251,6 +251,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Feb 18 2026 Simone Caronni <negativo17@gmail.com> - 0.41.0-4
+- Rebuild for updated VapourSynth.
+
 * Sun Feb 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.41.0-3
 - Rebuild for libdisplay-info 0.3.0
 

@@ -6,7 +6,7 @@ Name:           python-%{pypi_name}
 Version:        1.0.1
 %global tag %{version}
 %forgemeta
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Resolve abstract dependencies into concrete ones
 
 License:        ISC
@@ -14,6 +14,12 @@ URL:            %{forgeurl}
 Source:         %{forgesource}
 # Avoid commentjson/json5 build dependency just for a couple tests
 Patch:          %{url}/pull/141.patch#/remove-commentjson-dep.patch
+# Drop wheel from direct build dependencies
+# https://github.com/sarugaku/resolvelib/pull/175 rebased
+Patch:          remove-wheel-dep.patch
+# Correct PythonInputProvider._iter_matches to fix tests with packaging 26.0
+# https://github.com/sarugaku/resolvelib/pull/201 rebased
+Patch:          packaging-26-fix.patch
 
 BuildArch:      noarch
 
@@ -62,6 +68,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Feb 13 2026 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-13
+- Remove unused build dependency on wheel
+- Fix tests with packaging 26.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

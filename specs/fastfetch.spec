@@ -1,6 +1,6 @@
 Name:           fastfetch
-Version:        2.57.1
-Release:        2%{?dist}
+Version:        2.59.0
+Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
 License:        MIT
@@ -111,6 +111,10 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Wed Feb 18 2026 Jonathan Wright <jonathan@almalinux.org> - 2.59.0-1
+- update to 2.59.0 rhbz#2385354
+- Fix issue with Plasma 6.6 rhbz#2440585 rhbz#2440584
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.57.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,7 +21,6 @@ BuildRequires:  python-sphinx-copybutton
 BuildRequires:  python3-jellyfish
 BuildRequires:  gstreamer1-plugins-good
 BuildRequires:  python3-responses
-BuildRequires:  python3-mock
 BuildRequires:  pytest
 BuildRequires:  python3-pytest-timeout
 

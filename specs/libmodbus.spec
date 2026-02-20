@@ -1,9 +1,8 @@
 Name: libmodbus
-Version: 3.1.11
-Release: 5%{?dist}
+Version: 3.1.12
+Release: 1%{?dist}
 Summary: A Modbus library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License: LGPL-2.1-or-later
 URL: http://www.libmodbus.org/
 
 Source0: https://github.com/stephane/libmodbus/releases/download/v%{version}/libmodbus-%{version}.tar.gz
@@ -45,18 +44,20 @@ find %{buildroot} -type f -name "*.la" -delete
 %ldconfig_scriptlets
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license COPYING*
-%doc AUTHORS NEWS README.md
+%doc AUTHORS NEWS.md README.md
 %{_libdir}/libmodbus.so.*
 
 %files devel
 %{_includedir}/modbus/
-
 %{_libdir}/pkgconfig/libmodbus.pc
 %{_libdir}/libmodbus.so
 
 %changelog
+* Wed Feb 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.1.12-1
+- Update to 3.1.12
+- Minor spec cleanups
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

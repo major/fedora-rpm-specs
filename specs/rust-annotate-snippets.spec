@@ -5,7 +5,7 @@
 %global crate annotate-snippets
 
 Name:           rust-annotate-snippets
-Version:        0.12.11
+Version:        0.12.12
 Release:        %autorelease
 Summary:        Format diagnostic reports, including highlighting snippets of text
 
@@ -60,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "simd" feature of the "%{crate}" crate.
 
 %files       -n %{name}+simd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+testing-colors-devel

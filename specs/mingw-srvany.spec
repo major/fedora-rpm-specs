@@ -6,7 +6,7 @@
 
 Name:	        mingw-srvany
 Version:        1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Utility for creating services for Windows
 
 License:        GPL-2.0-or-later
@@ -70,12 +70,12 @@ make DESTDIR=$RPM_BUILD_ROOT install bindir=%{_datadir}/virt-tools
 
 
 %files -n mingw32-srvany
-%doc COPYING
+%license COPYING
 %{mingw32_bindir}/rhsrvany.exe
 %{mingw32_bindir}/pnp_wait.exe
 
 %files redistributable
-%doc COPYING
+%license COPYING
 %dir %{_datadir}/virt-tools/
 %{_datadir}/virt-tools/rhsrvany.exe
 %{_datadir}/virt-tools/pnp_wait.exe
@@ -84,6 +84,9 @@ make DESTDIR=$RPM_BUILD_ROOT install bindir=%{_datadir}/virt-tools
 
 
 %changelog
+* Wed Feb 18 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1-13
+- Use %%license instead of %%doc for the license file
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,20 +1,19 @@
 Name:           bygfoot
-Version:        2.3.5
-Release:        9%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Football management game
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.bygfoot.com
 Source0:        https://gitlab.com/bygfoot/bygfoot/-/archive/%{version}/bygfoot-%{version}.tar.bz2
 Source1:        bygfoot.desktop
-Patch0:         bygfoot-c99-1.patch
-Patch1:         bygfoot-c99-2.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk2-devel gettext
 BuildRequires:  ninja-build cmake
 BuildRequires:  json-c-devel
+BuildRequires:  sqlite-devel
 Requires: bygfoot-data
 
 %description
@@ -44,7 +43,7 @@ bygfoot country definitions and other game files.
 %global _lto_cflags %(echo %{_lto_cflags} | sed 's/-ffat-lto-objects//')
 %endif
 
-%cmake -G Ninja
+%cmake -G Ninja -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -62,6 +61,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/bygfoot
 
 %changelog
+* Tue Feb 17 2026 Tom Stellard <tom@stellard.net> - 3.0.0-1
+- 3.0.0 Release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

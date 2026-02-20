@@ -5,8 +5,8 @@ Release:        21%{?dist}
 Summary:        Interface api to ResultsDB
 
 License:        GPL-2.0-or-later
-URL:            https://pagure.io/taskotron/resultsdb_api
-Source0:        https://qa.fedoraproject.org/releases/resultsdb_api/resultsdb_api-%{version}.tar.gz
+URL:            https://forge.fedoraproject.org/quality/resultsdb_api
+Source0:        https://files.pythonhosted.org/packages/source/r/resultsdb-api/resultsdb_api-%{version}.tar.gz
 
 BuildArch:      noarch
 

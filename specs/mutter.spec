@@ -35,6 +35,11 @@ Source1:       org.gnome.mutter.fedora.gschema.override
 # Fixes a bug that caused openQA tests to often fail trying to click in the overview
 Patch:         4909.patch
 
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4886
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/4604
+# Fixes a crash often triggered when using popup menus
+Patch:         4886.patch
+
 BuildRequires: cvt
 BuildRequires: desktop-file-utils
 BuildRequires: mesa-libEGL-devel

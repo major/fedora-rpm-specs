@@ -26,12 +26,14 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://claws-mail.org
 Source0:        https://claws-mail.org/releases/%{name}-%{version}.tar.xz
+
+Patch1: claws-mail-summaryview-scroll-fix.diff
 
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
@@ -422,6 +424,7 @@ exporting of your meetings or all your calendars.
 
 %prep
 %setup -q
+%patch 1 -p1 -b .thawtest
 
 %if 0%{?fedora} > 20
 %patch 11 -p1 -b.syscrypto
@@ -652,6 +655,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Sun Jan 18 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-8
+- Merge "thaw tree before selecting node" patch from upstream #4898
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

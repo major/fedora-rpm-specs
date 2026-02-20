@@ -9,7 +9,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        1.95.1
+Version:        2.21.0
 Release:        %autorelease
 Summary:        The official Python library for the OpenAI API
 

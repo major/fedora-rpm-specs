@@ -12,8 +12,8 @@
 
 Name:             tcsh
 Summary:          An enhanced version of csh, the C shell
-Version:          6.24.14
-Release:          5%{?dist}
+Version:          6.24.16
+Release:          1%{?dist}
 License:          BSD-3-Clause
 
 URL:              http://www.tcsh.org/
@@ -44,7 +44,6 @@ BuildRequires:    ncurses-devel
 
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
-Patch001: tcsh-6.24.14-Fix-defined-name-It-is-UTF16_STRINGS-not-UTF16_STRIN.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -179,6 +178,9 @@ fi
 # =============================================================================
 
 %changelog
+* Wed Feb 18 2026 Jan Macku <jamacku@redhat.com> - 6.24.16-1
+- Update to new version
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.24.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

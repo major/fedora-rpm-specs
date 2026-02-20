@@ -1,5 +1,5 @@
 Name:           obs-studio-plugin-droidcam
-Version:        2.4.1
+Version:        2.4.3
 Release:        %autorelease
 Summary:        Use your phone as a camera in OBS Studio
 
@@ -8,9 +8,6 @@ Summary:        Use your phone as a camera in OBS Studio
 License:        GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            https://droidcam.app/obs
 Source0:        https://github.com/dev47apps/droidcam-obs-plugin/archive/%{version}/droidcam-obs-plugin-%{version}.tar.gz
-# This should be fixed in the next release: 
-# https://github.com/dev47apps/droidcam-obs-plugin/blob/161cb95b8dc5fe77185e52a9783dc45c6d137165/src/ffmpeg_decode.cc#L122-L127
-Patch0: ffmpeg8.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -26,7 +23,7 @@ BuildRequires:  pkgconfig(Qt6Svg)
 BuildRequires:  pkgconfig(Qt6Widgets)
 
 Requires:       obs-studio%{?_isa}
-Supplements:    obs-studio%{?_isa}
+Enhances:       obs-studio%{?_isa}
 
 
 %description

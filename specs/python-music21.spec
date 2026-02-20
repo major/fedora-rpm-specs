@@ -49,7 +49,6 @@ BuildRequires:  python3-Levenshtein
 BuildRequires:  python3-more-itertools
 Requires:       python3-chardet
 Requires:       python3-jsonpickle
-Requires:       python3-mock
 Requires:       python3-webcolors
 Requires:       python3-xlrd
 Requires:       python3-six

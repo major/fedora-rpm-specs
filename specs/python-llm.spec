@@ -4,13 +4,18 @@
 Summary:        Tool and Python library for interacting with Large Language Models
 Name:           python-llm
 Version:        0.28
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm
 Source:         https://github.com/simonw/llm/archive/%{version}/llm-%{version}.tar.gz
 Patch:          python-llm-0.28-relax-click.patch
 Patch:          python-llm-0.27.1-disable-tests.patch
 Patch:          python-llm-0.27.1-sqlite-3.51.patch
+
+# Fix compatibility with click 8.2+
+# Backported from upstream PR
+Patch:          https://github.com/simonw/llm/pull/1333.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}
@@ -86,6 +91,9 @@ export ISOLATED_CI_ENV=1
 %endif
 
 %changelog
+* Tue Feb 17 2026 Charalampos Stratakis <cstratak@redhat.com> - 0.28-3
+- Fix compatibility with click 8.2+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

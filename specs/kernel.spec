@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.20.0
 %define specversion 6.20.0
 %define patchversion 6.20
-%define pkgrelease 0.rc0.260217g9702969978695.10
+%define pkgrelease 0.rc0.260218g2961f841b025f.11
 %define kversion 6
-%define tarfile_release 6.19-10669-g9702969978695
+%define tarfile_release 6.19-11564-g2961f841b025f
 # This is needed to do merge window version magic
 %define patchlevel 20
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260217g9702969978695.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.260218g2961f841b025f.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.20.0
 
@@ -4822,11 +4822,14 @@ fi\
 #
 #
 %changelog
-* Tue Feb 17 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260217g9702969978695.10]
-- Linux v6.20.0-0.rc0.260217g9702969978695
+* Wed Feb 18 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260218g2961f841b025f.11]
+- Linux v6.20.0-0.rc0.260218g2961f841b025f
 
-* Tue Feb 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.970296997869.10]
+* Wed Feb 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.2961f841b025.11]
 - rv: Fix multiple definition of __pcpu_unique_da_mon_this (Gabriele Monaco)
+
+* Wed Feb 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.2961f841b025.10]
+- Linux v6.20.0-0.rc0.2961f841b025
 
 * Tue Feb 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.970296997869.9]
 - Linux v6.20.0-0.rc0.970296997869

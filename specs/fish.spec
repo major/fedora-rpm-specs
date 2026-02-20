@@ -1,4 +1,4 @@
-%global version_base 4.4.0
+%global version_base 4.5.0
 %dnl %global version_pre beta.1
 %dnl %global gitnum 1
 %dnl %global githash b82d0fcbcc44eb259cf2209b04f7a41c1f324e27

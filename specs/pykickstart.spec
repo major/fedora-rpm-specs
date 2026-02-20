@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.68
-Release:   2%{?dist}
+Version:   3.69
+Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -23,6 +23,8 @@ BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
 BuildRequires: python3-pytest
+BuildRequires: python3-pytest-xdist
+BuildRequires: python3-pytest-cov
 
 # Only required when building with runtests
 %if %{with runtests}
@@ -77,6 +79,19 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Wed Feb 18 2026 Brian C. Lane <bcl@redhat.com> - 3.69-1
+- Makefile: Drop coverage-report.log (bcl)
+- Add Fedora 45 support (bcl)
+- tests: Use pytest-cov to support coverage of parallel tests from pytest-xdist (bcl)
+- workflows: Use latest released py3.14 and py3.12 (bcl)
+- test: Use pytest-xdist to run tests in parallel (bcl)
+- tests: Use ThreadingHTTPServer and threads for load and include tests (bcl)
+- tests: Mark helper classes as not tests (bcl)
+- bootc: Add bootc command to the RHEL10 handler (bcl)
+- rdp: Add rdp support to the RHEL10 handler (bcl)
+- raid: Update RHEL10 handler to match rhel10-branch (bcl)
+- Fix handling filesystem labels with spaces (marmarek)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.68-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

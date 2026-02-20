@@ -6,7 +6,7 @@
 
 Name:           orangefs
 Version:        2.10.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parallel network file system client
 URL:            https://www.orangefs.org/
 # BSD (2 clause) maint/config/ssl.m4
@@ -69,6 +69,9 @@ BuildRequires: ghostscript-tools-dvipdf
 BuildRequires: latex2html
 BuildRequires: texlive
 BuildRequires: texlive-dvips
+BuildRequires: texlive-charter
+BuildRequires: texlive-courier
+BuildRequires: texlive-times
 %description
 OrangeFS (formerly PVFS2) is a high-performance parallel
 network file system designed for use on high performance computing
@@ -307,6 +310,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}
 %{_docdir}/orangefs/random/SystemInterfaceTesting.pdf
 
 %changelog
+* Wed Feb 18 2026 Terje Rosten <terjeros@gmail.com> - 2.10.1-3
+- Fix tex buildreqs
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

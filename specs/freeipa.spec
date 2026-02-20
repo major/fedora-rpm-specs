@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        5%{?rc_version:.%rc_version}%{?dist}
+Release:        6%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1967,6 +1967,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 18 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-6
+- More changes to SELinux policy to help upgrade SSSD helpers' contexts
+
 * Tue Feb 17 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-5
 - Update SELinux policy to allow relabel SSSD helpers during install (rpm_t)
 

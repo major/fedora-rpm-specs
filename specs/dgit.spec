@@ -1,20 +1,20 @@
 Name:           dgit
-Version:        13.17
+Version:        14.8
 Release:        %autorelease
 Summary:        Integration between git and Debian-style archives
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://browse.dgit.debian.org/dgit.git/
 Source0:        https://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.gz
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-podlators
-BuildRequires:  make
-Requires:       devscripts
-Requires:       curl
-Requires:       git
-Requires:       dpkg-dev
-Requires:       tar
 Requires:       coreutils
+Requires:       curl
+Requires:       devscripts
+Requires:       dpkg-dev
+Requires:       git
+Requires:       tar
 BuildArch:      noarch
 
 %description
@@ -54,6 +54,7 @@ make install DESTDIR="%{buildroot}" \
 %{_bindir}/dgit
 %{_bindir}/git-playtree-setup
 %{_bindir}/mini-git-tag-fsck
+%{_bindir}/tag2upload-fetch-inputs
 %{_bindir}/tag2upload-obtain-origs
 %{_datadir}/%{name}
 %{_mandir}/man1/dgit*.1*

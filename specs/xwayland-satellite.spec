@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           xwayland-satellite
-Version:        0.8
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Rootless Xwayland integration for Wayland compositors
 
@@ -45,14 +45,14 @@ License:        %{shrink:
 
 URL:            https://github.com/Supreeeme/xwayland-satellite
 Source0:        %{url}/archive/v%{version}/xwayland-satellite-%{version}.tar.gz
+
+# generated using vendor.sh
 Source1:        xwayland-satellite-%{version}-vendor.tar.xz
+Source2:        vendor.sh
 
 # * fix executable path in systemd unit:
 #   the executable gets installed to /usr/bin, not /usr/local/bin
 Patch:          0001-fix-executable-path-in-systemd-unit.patch
-# * allow loading window decoration font at runtime instead of embedding it:
-#   https://github.com/Supreeeme/xwayland-satellite/pull/327
-Patch:          0001-optionally-load-decoration-font-at-runtime-instead-o.patch
 
 ExcludeArch:    %{ix86}
 

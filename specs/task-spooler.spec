@@ -1,10 +1,16 @@
 Name:           task-spooler
-Version:        1.0.2
-Release:        10%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Personal job scheduler
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+# Licence headers in code files say:
+# > Please find the license in the provided COPYING file.
+# COPYING contains the GPL-2.0 text.
+# There's no mention of "or later version" anywhere.
+#
+# tsp.1 is subject to "LDP GENERAL PUBLIC LICENSE".
+License:        GPL-2.0-only AND LicenseRef-LDP-1
+
 URL:            http://vicerveza.homeunix.net/~viric/soft/ts
 Source0:        %{url}/ts-%{version}.tar.gz
 
@@ -24,7 +30,7 @@ output, or for whatever reason it's better not to run them at the same time.
 
 
 %build
-%set_build_flags
+export CFLAGS="${CFLAGS} -ansi"
 %make_build
 
 
@@ -42,6 +48,9 @@ mv %{buildroot}%{_mandir}/man1/ts.1 %{buildroot}%{_mandir}/man1/tsp.1
 
 
 %changelog
+* Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-1
+- Update to v1.0.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,6 @@
 %global libarchive_version 3.0.22
 %global libcdio_paranoia_version 0.78.2
 %global libgcrypt_version 1.2.2
-%global libgdata_version 0.18.0
 %global libgphoto2_version 2.5.0
 %global libimobiledevice_version 1.2
 %global libmtp_version 1.1.15
@@ -203,8 +202,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(goa-1.0) >= %{goa_version}
 %if ! (0%{?rhel} >= 10)
-BuildRequires: pkgconfig(libgdata) >= %{libgdata_version}
-Requires: libgdata%{?_isa} >= %{libgdata_version}
 BuildRequires: pkgconfig(msgraph-1)
 %endif
 
@@ -237,7 +234,6 @@ file services.
        -Dgcrypt=false \
 %endif
 %if 0%{?rhel} >= 10
-       -Dgoogle=false \
        -Dcdda=false \
 %endif
         %{nil}

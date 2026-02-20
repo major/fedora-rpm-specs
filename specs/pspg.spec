@@ -1,7 +1,7 @@
 Summary:	A unix pager optimized for psql
 Name:		pspg
-Version:	5.8.11
-Release:	3%{?dist}
+Version:	5.8.16
+Release:	1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		https://github.com/okbob/%{name}
@@ -40,6 +40,13 @@ columns, and lot of color themes are included.
 
 
 %changelog
+* Wed Feb 18 2026 Pavel Raiskup <praiskup@redhat.com> - 5.8.16-1
+- https://github.com/okbob/pspg/releases/tag/5.8.16
+- https://github.com/okbob/pspg/releases/tag/5.8.15
+- https://github.com/okbob/pspg/releases/tag/5.8.14
+- https://github.com/okbob/pspg/releases/tag/5.8.13
+- https://github.com/okbob/pspg/releases/tag/5.8.12
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

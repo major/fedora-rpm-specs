@@ -14,8 +14,8 @@ Summary: 2D retro platformer inspired by Sonic games
 # - src/third_party/utf8.h
 License: GPL-3.0-or-later AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 
-Version: 0.6.1.2
-Release: 5%{?dist}
+Version: 0.6.1.3
+Release: 1%{?dist}
 
 URL: https://opensurge2d.org
 Source0: https://github.com/alemart/opensurge/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -27,13 +27,14 @@ BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: make
 
-BuildRequires: pkgconfig(allegro-5)
-BuildRequires: pkgconfig(allegro_acodec-5)
-BuildRequires: pkgconfig(allegro_audio-5)
-BuildRequires: pkgconfig(allegro_dialog-5)
-BuildRequires: pkgconfig(allegro_image-5)
-BuildRequires: pkgconfig(allegro_physfs-5)
-BuildRequires: pkgconfig(allegro_ttf-5)
+%global allegro_min_ver 5.2.11
+BuildRequires: pkgconfig(allegro-5)        >= %allegro_min_ver
+BuildRequires: pkgconfig(allegro_acodec-5) >= %allegro_min_ver
+BuildRequires: pkgconfig(allegro_audio-5)  >= %allegro_min_ver
+BuildRequires: pkgconfig(allegro_dialog-5) >= %allegro_min_ver
+BuildRequires: pkgconfig(allegro_image-5)  >= %allegro_min_ver
+BuildRequires: pkgconfig(allegro_physfs-5) >= %allegro_min_ver
+BuildRequires: pkgconfig(allegro_ttf-5)    >= %allegro_min_ver
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(physfs)
 BuildRequires: pkgconfig(surgescript)
@@ -135,6 +136,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Wed Feb 18 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.1.3-1
+- Update to v0.6.1.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Cross platform C++ game library
 Name:           ClanLib
 Version:        2.3.7
-Release:        37%{?dist}
+Release:        38%{?dist}
 License:        zlib
 URL:            http://www.clanlib.org/
 Source0:        http://www.clanlib.org/download/releases-2.0/%{name}-%{version}.tgz
@@ -32,7 +32,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libGLU-devel xorg-x11-proto-devel libXrender-devel
 Requires:       fontconfig-devel libjpeg-devel libpng-devel libXxf86vm-devel
-Requires:       mikmod-devel alsa-lib-devel sqlite-devel pcre-devel
+Requires:       mikmod-devel alsa-lib-devel sqlite-devel
 Provides:       clanlib-devel = %{version}-%{release}
 
 %description devel
@@ -89,6 +89,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Wed Feb 18 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 2.3.7-38
+- Drop pcre-devel from -devel subpackage Requires. This is no longer necessary
+  now that the clanRegExp lib is no longer build.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

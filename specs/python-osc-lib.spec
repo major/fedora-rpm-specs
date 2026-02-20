@@ -21,7 +21,7 @@
 
 Name:       python-%{library}
 Version:    3.1.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    OpenStack library for writing OSC plugins
 License:    Apache-2.0
 URL:        https://github.com/openstack/%{library}/
@@ -55,7 +55,6 @@ Summary:    OpenStack osc-lib library tests
 
 Requires:   python3-%{library} = %{version}-%{release}
 Requires:   python3-fixtures
-Requires:   python3-mock
 Requires:   python3-stestr
 Requires:   python3-testtools
 Requires:   python3-requests-mock
@@ -145,6 +144,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Feb 12 2026 Michel Lind <salimma@fedoraproject.org> - 3.1.0-8
+- Remove unused and deprecated python3-mock dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

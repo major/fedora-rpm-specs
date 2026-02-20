@@ -16,9 +16,7 @@ Patch:         python-eth-stdlib-0002-Clarify-licensing-terms.patch
 # Fedora-specific. We do not do code coverage during builds.
 Patch:         python-eth-stdlib-0003-Disable-pytest-coverage.patch
 # https://github.com/skellet0r/eth-stdlib/pull/26
-%if 0%{?fedora} > 42
 Patch:         python-eth-stdlib-0004-Fix-for-modern-poetry.patch
-%endif
 BuildRequires: python3-dotenv
 BuildRequires: python3-hypothesis
 BuildRequires: python3-pytest

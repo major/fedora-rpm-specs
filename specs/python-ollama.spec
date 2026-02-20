@@ -1,7 +1,7 @@
 %global pypi_name ollama
 
 Name:           python-%{pypi_name}
-Version:        0.4.7
+Version:        0.6.1
 Release:        %autorelease
 Summary:        The official Python client for Ollama
 

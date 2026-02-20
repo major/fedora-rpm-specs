@@ -31,13 +31,16 @@ BuildRequires:  python3-pyatspi
 BuildRequires:  python3-speechd
 BuildRequires:  /usr/bin/desktop-file-validate
 
-Requires:       libwnck3
 Requires:       python3-brlapi
 Requires:       python3-dasbus
 Requires:       python3-louis
 Requires:       python3-pyatspi
 Requires:       python3-speechd
 Requires:       speech-dispatcher
+%if 0%{?fedora}
+# only needed in X11 sessions
+Recommends:     libwnck3
+%endif
 
 %description
 Orca is a screen reader that provides access to the graphical desktop via

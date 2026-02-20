@@ -1,15 +1,14 @@
-# Qt6 builds for testing
-%bcond_without qt6
-
 # Package language files
 %bcond_without lang
 
+%global app_id  org.openchemistry.Avogadro2
+
 Name:           avogadro2
-Version:        1.102.1
+Version:        1.103.0
 Release:        %autorelease
 Summary:        Advanced molecular editor
 License:        BSD-3-Clause
-URL:            http://avogadro.openmolecules.net/
+URL:            https://two.avogadro.cc/
 Source0:        https://github.com/OpenChemistry/avogadroapp/archive/%{version}/avogadroapp-%{version}.tar.gz
 Source1:        https://github.com/OpenChemistry/avogadro-i18n/archive/refs/tags/avogadro-i18n-%{version}.tar.gz
 
@@ -32,17 +31,10 @@ BuildRequires:  doxygen
 BuildRequires:  eigen3-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  glew-devel
-%if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  JKQtPlotter-devel
-%else
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  JKQtPlotter-qt5-devel
-%endif
 %if 0%{?fedora}
 BuildRequires:  libappstream-glib
 %endif
@@ -51,10 +43,6 @@ Requires: %{python3}
 Requires: openbabel%{?_isa} >= 3.1.1
 Requires: xtb%{?_isa}
 Requires: avogadro2-libs%{?_isa} >= 0:%{version}
-
-# Avogadro-1.2.0 requires openbabel2,
-# openababel2 is no longer available in Fedora 36+
-Obsoletes: avogadro < 0:1.95.1
 Provides: avogadro = 0:%{version}-%{release}
 
 %description
@@ -147,6 +135,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 
 %prep
 %setup -n avogadroapp-%{version} -a 1 -q
+
 %patch -P 0 -p1 -b .backup
 
 %if %{with lang}
@@ -155,7 +144,7 @@ mv avogadroapp/avogadroapp-ca@valencia.qm avogadroapp/avogadroapp-ca_VA.qm
 mv avogadrolibs/avogadrolibs-ca@valencia.qm avogadrolibs/avogadrolibs-ca_VA.qm
 %endif
 
-%build
+%conf
 export CFLAGS="%{optflags} -I%{_includedir}/%{name}"
 export CXXFLAGS="%{optflags} -I%{_includedir}/%{name}"
 # RHBZ #1996330
@@ -165,17 +154,16 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -Wno-dev \
  -DAvogadro_ENABLE_RPC:BOOL=OFF \
-%if %{with qt6}
  -DQT_VERSION:STRING=6 \
-%else
- -DQT_VERSION:STRING=5 \
-%endif
- -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DENABLE_RPATH:BOOL=ON \
  -DENABLE_TESTING:BOOL=OFF \
  -DAvogadroLibs_DIR:PATH=%{_libdir} \
  -DBUILD_DOCUMENTATION:BOOL=ON \
- -DCMAKE_INSTALL_LOCALEDIR:PATH=%{_datadir}/%{name}/i18n
+ -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir}/%{name} \
+ -DCMAKE_INSTALL_LOCALEDIR:PATH=%{_datadir}/%{name}/i18n \
+ -DUSE_PLOTTER:BOOL=ON
+
+%build
 %cmake_build
 
 %install
@@ -184,10 +172,8 @@ rm -rf %{buildroot}%{_datadir}/doc
 
 chrpath -d %{buildroot}%{_bindir}/%{name}
 
-mv %{buildroot}%{_datadir}/applications/org.openchemistry.Avogadro2.desktop %{buildroot}%{_datadir}/applications/Avogadro2.desktop
-desktop-file-edit --set-key=Exec --set-value='env QT_QPA_PLATFORM=wayland LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
- --set-key=Icon --set-value=%{_datadir}/icons/%{name}/avogadro2_128.png \
- %{buildroot}%{_datadir}/applications/Avogadro2.desktop
+desktop-file-edit --set-key=Exec --set-value='env LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
+ %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}
 cp -a avogadro/icons/* %{buildroot}%{_datadir}/icons/%{name}/
@@ -213,17 +199,17 @@ fi
 %endif
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
-%{_datadir}/applications/Avogadro2.desktop
-%{_metainfodir}/*.metainfo.xml
+%{_datadir}/applications/%{app_id}.desktop
+%{_metainfodir}/%{app_id}.metainfo.xml
 %{_datadir}/icons/%{name}/
-%{_datadir}/icons/hicolor/*x*/apps/*Avogadro2.png
-%{_datadir}/icons/hicolor/scalable/apps/*Avogadro2.svg
+%{_datadir}/icons/hicolor/*x*/apps/%{app_id}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{app_id}.svg
 %if %{with lang}
 %dir %{_datadir}/%{name}
 %exclude %{_datadir}/%{name}/i18n

@@ -1,5 +1,5 @@
 Name:           python-cucumber-tag-expressions
-Version:        9.0.0
+Version:        9.1.0
 Release:        %autorelease
 Summary:        Provides a tag-expression parser and evaluation logic for cucumber/behave
 
@@ -7,12 +7,6 @@ License:        MIT
 URL:            https://github.com/cucumber/tag-expressions
 # The GitHub archive has test data files; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/tag-expressions-%{version}.tar.gz
-
-# Downstream-only: loosen the lower bound on uv_build
-#
-# It was aggressively updated by upstream automation; we can use an older
-# version until we catch up.
-Patch:          0001-Downstream-only-loosen-the-lower-bound-on-uv_build.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l cucumber_tag_expressions

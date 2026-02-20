@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 43.101
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -66,9 +66,7 @@ Requires: breeze-cursor-theme
 %package plasmalogin
 Summary: Configuration files for Plasma Login Manager
 Requires: plasma-login-manager >= 0.21.0~git1.20260112
-%if 0%{?version_maj:1}
-Requires: f%{version_maj}-backgrounds-kde
-%endif
+Requires: system-backgrounds-kde
 Supplements: (%{name} and plasma-login-manager)
 %description plasmalogin
 %{summary}.
@@ -227,6 +225,9 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Wed Feb 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-4
+- Add backgrounds dep on plasmalogin subpackage
+
 * Sun Feb 08 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-3
 - Correctly require plasma-keyboard
 
