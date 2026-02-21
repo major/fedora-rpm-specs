@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.10.7
-Release: 3%{?dist}
+Version: 3.10.8
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -853,6 +853,10 @@ fi
 %endif
 
 %changelog
+* Thu Feb 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.10.8-1
+- New version
+  Resolves: rhbz#2440818
+
 * Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2:3.10.7-3
 - Added a RHEL-specific patch to remove an OpenSSL version mismatch warning.
   Resolves: RHEL-128018

@@ -32,7 +32,7 @@ pulls dependencies using an API.
 %prep
 %setup -q -n classpathless-compiler-%{version}
 
-%java_remove_annotations -s -n SuppressFBWarnings .
+jurand -i -s -a . -n SuppressFBWarnings
 
 %pom_remove_dep :spotbugs-annotations
 

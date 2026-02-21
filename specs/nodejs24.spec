@@ -3,7 +3,7 @@
 %{load:%{_sourcedir}/nodejs.srpm.macros}
 
 # === Versions of any software shipped in the main nodejs tarball
-%nodejs_define_version node 1:24.13.0-%{autorelease} -p
+%nodejs_define_version node 1:24.13.1-%{autorelease} -p
 
 # Special release for sub-packages with their own version string.
 # The complex release string ensures that the subpackage release is always increasing,
@@ -15,44 +15,44 @@
 # expect anything between the markers to be overwritten on any update.
 
 # BEGIN automatic-version-macros  # DO NOT REMOVE THIS LINE!
-# Version from node-v24.13.0/src/node_version.h
+# Version from node-v24.13.1/src/node_version.h
 %global node_soversion 137
 
-# Version from node-v24.13.0/deps/ada/ada.h
-%nodejs_define_version ada 3.3.0
-# Version from node-v24.13.0/deps/brotli/c/common/version.h
-%nodejs_define_version brotli 1.1.0
-# Version from node-v24.13.0/deps/cares/include/ares_version.h
+# Version from node-v24.13.1/deps/ada/ada.h
+%nodejs_define_version ada 3.4.2
+# Version from node-v24.13.1/deps/brotli/c/common/version.h
+%nodejs_define_version brotli 1.2.0
+# Version from node-v24.13.1/deps/cares/include/ares_version.h
 %nodejs_define_version c_ares 1.34.6
-# Version from node-v24.13.0/deps/histogram/include/hdr/hdr_histogram_version.h
+# Version from node-v24.13.1/deps/histogram/include/hdr/hdr_histogram_version.h
 %nodejs_define_version histogram 0.11.9
-# Version from node-v24.13.0/tools/icu/current_ver.dep
-%nodejs_define_version icu 77.1 -p
-# Version from node-v24.13.0/deps/uv/include/uv/version.h
+# Version from node-v24.13.1/tools/icu/current_ver.dep
+%nodejs_define_version icu 78.2 -p
+# Version from node-v24.13.1/deps/uv/include/uv/version.h
 %nodejs_define_version libuv 1.51.0
-# Version from node-v24.13.0/deps/llhttp/include/llhttp.h
+# Version from node-v24.13.1/deps/llhttp/include/llhttp.h
 %nodejs_define_version llhttp 9.3.0
-# Version from node-v24.13.0/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%nodejs_define_version nghttp2 1.67.1
-# Version from node-v24.13.0/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
+# Version from node-v24.13.1/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
+%nodejs_define_version nghttp2 1.68.0
+# Version from node-v24.13.1/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %nodejs_define_version nghttp3 1.6.0
-# Version from node-v24.13.0/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
+# Version from node-v24.13.1/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
 %nodejs_define_version ngtcp2 1.11.0
-# Version from node-v24.13.0/deps/cjs-module-lexer/src/package.json
-%nodejs_define_version nodejs-cjs-module-lexer 2.1.0
-# Version from node-v24.13.0/lib/punycode.js
+# Version from node-v24.13.1/deps/cjs-module-lexer/src/package.json
+%nodejs_define_version nodejs-cjs-module-lexer 2.2.0
+# Version from node-v24.13.1/lib/punycode.js
 %nodejs_define_version nodejs-punycode 2.1.0
-# Version from node-v24.13.0/deps/undici/src/package.json
+# Version from node-v24.13.1/deps/undici/src/package.json
 %nodejs_define_version nodejs-undici 7.18.2
-# Version from node-v24.13.0/deps/npm/package.json
-%nodejs_define_version npm 1:11.6.2-%{nodejs_subpackage_release}
-# Version from node-v24.13.0/deps/sqlite/sqlite3.h
-%nodejs_define_version sqlite 3.50.4
-# Version from node-v24.13.0/deps/uvwasi/include/uvwasi.h
+# Version from node-v24.13.1/deps/npm/package.json
+%nodejs_define_version npm 1:11.8.0-%{nodejs_subpackage_release}
+# Version from node-v24.13.1/deps/sqlite/sqlite3.h
+%nodejs_define_version sqlite 3.51.2
+# Version from node-v24.13.1/deps/uvwasi/include/uvwasi.h
 %nodejs_define_version uvwasi 0.0.23
-# Version from node-v24.13.0/deps/v8/include/v8-version.h
+# Version from node-v24.13.1/deps/v8/include/v8-version.h
 %nodejs_define_version v8 3:13.6.233.17-%{nodejs_subpackage_release} -p
-# Version from node-v24.13.0/deps/zlib/zlib.h
+# Version from node-v24.13.1/deps/zlib/zlib.h
 %nodejs_define_version zlib 1.3.1
 # END automatic-version-macros  # DO NOT REMOVE THIS LINE!
 
@@ -140,8 +140,8 @@ Provides:   nodejs(engine) = %{node_version}
 Source:         node-v%{node_version}-stripped.tar.gz
 # Sources 001-099: reserved for additional sources to be installed
 # - Full ICU database data
-Source001:      https://github.com/unicode-org/icu/releases/download/release-%{icu_version_major}-%{icu_version_minor}/icu4c-%{icu_version_major}_%{icu_version_minor}-data-bin-b.zip
-Source002:      https://github.com/unicode-org/icu/releases/download/release-%{icu_version_major}-%{icu_version_minor}/icu4c-%{icu_version_major}_%{icu_version_minor}-data-bin-l.zip
+Source001:      https://github.com/unicode-org/icu/releases/download/release-%{icu_version_major}.%{icu_version_minor}/icu4c-%{icu_version_major}.%{icu_version_minor}-data-bin-b.zip
+Source002:      https://github.com/unicode-org/icu/releases/download/release-%{icu_version_major}.%{icu_version_minor}/icu4c-%{icu_version_major}.%{icu_version_minor}-data-bin-l.zip
 # - Downstream/distribution configuration files
 Source003:      nodejs.pc.in
 Source004:      v8.pc.in
@@ -162,7 +162,6 @@ Source101:      nodejs.srpm.macros
 0001-Remove-unused-OpenSSL-config.patch
 0005-v8-highway-Fix-for-GCC-15-compiler-error-on-PPC8-PPC.patch
 0001-fips-disable-options.patch
-0001-expose-libplatform-symbols-in-shared-libnode.patch
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime
@@ -648,7 +647,7 @@ end
 %{_libdir}/pkgconfig/v8-%{v8_version_major}.%{v8_version_minor}.pc
 
 %files      full-i18n
-%doc        full-icu/icu4c-%{icu_version_major}_%{icu_version_minor}-data-bin-?-README.md
+%doc        full-icu/icu4c-%{icu_version_major}.%{icu_version_minor}-data-bin-?-README.md
 %license    full-icu/LICENSE
 %dir        %{nodejs_datadir}/
 %{nodejs_datadir}/icudata/

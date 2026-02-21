@@ -40,8 +40,7 @@ pre-existing objects that you do not have source-code of.
 %pom_remove_plugin :maven-compiler-plugin
 
 %pom_remove_dep -r :error_prone_annotations
-%java_remove_annotations gson extras -s \
-  -p com[.]google[.]errorprone[.]annotations[.] \
+jurand -i -s -a gson extras -p com[.]google[.]errorprone[.]annotations[.]
 
 # The test EnumWithObfuscatedTest requires the plugins copy-rename-maven-plugin, proguard-maven-plugin and maven-resources-plugin to work correctly because it tests Gson interaction with a class obfuscated by ProGuard.
 # https://github.com/google/gson/issues/2045

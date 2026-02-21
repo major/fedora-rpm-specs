@@ -42,7 +42,7 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 
 %pom_remove_dep org.jetbrains:annotations scram-parent
 
-%java_remove_annotations . -s -n NotNull -n Unmodifiable -n Nullable
+jurand -i -s -a . -n NotNull -n Unmodifiable -n Nullable
 
 %mvn_package com.ongres.scram:scram-aggregator __noinstall
 %mvn_package com.ongres.scram:scram-parent __noinstall

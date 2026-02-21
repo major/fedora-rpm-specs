@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 1.3.0
-Release: 1%{?dist}
+Version: 1.4.0
+Release: 3%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -54,11 +54,11 @@ Requires: %{name}%{?_isa} = %{version}
 #sed 's/ -Werror//' -i CMakeLists.txt
 
 %build
-%cmake3
-%cmake3_build
+%cmake
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 # Run the ldconfig
 %ldconfig_scriptlets
@@ -75,6 +75,18 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Thu Feb 19 2026 Derek Weitzel <dweitzel@unl.edu> - 1.4.0-3
+- Replace cmake3 with cmake macros
+
+* Thu Feb 19 2026 Derek Weitzel <dweitzel@unl.edu> - 1.4.0-2
+- Add keycache.allow_in_memory config option with in-memory SQLite fallback
+- Add persistent anchor connection for shared in-memory SQLite database
+- Improve error messages when keycache file cannot be read or written
+- Add integration test for keycache not-writable error message
+- Improve cache directory permission tests to handle common deployment misconfigurations
+- Implement keycache location retrieval and update library to 0.0.3
+- Fix typo in SQLite file extension in integration and main tests
+
 * Thu Dec 11 2025 Brian Bockelman <bbockelman@morgridge.org> - 1.3.0-1
 - Add scitokens-generate-jwks CLI for key generation.
 - Add environment variable-based configuration on library initialization.

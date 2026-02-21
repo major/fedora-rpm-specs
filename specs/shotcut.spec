@@ -3,7 +3,7 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        26.1.30
+Version:        26.2.16
 Release:        1%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+

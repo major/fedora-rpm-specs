@@ -6,9 +6,9 @@
 %{?haskell_setup}
 
 Name:           ghc-%{pkg_name}
-Version:        0.1.3.1
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Cabal file wrapper library
+Summary:        Cabal compatibility wrapper library
 
 License:        BSD-3-Clause
 URL:            https://hackage.haskell.org/package/simple-cabal

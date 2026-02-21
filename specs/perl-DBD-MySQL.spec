@@ -7,11 +7,15 @@ ExcludeArch: %{ix86}
 # Disable leak tests
 %bcond_with perl_DBD_MySQL_enables_leak_test
 
+%if 0%{?rhel} >= 10
+%global mysqlname mysql8.4
+%else
 %global mysqlname mysql
+%endif
 
 Name:           perl-DBD-MySQL
 Version:        5.013
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -192,6 +196,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.013-3
+- MySQL does not provide unversioned mysql packages in RHEL
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.013-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

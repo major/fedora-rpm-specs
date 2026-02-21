@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        173
+Version:        174
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -170,11 +170,7 @@ Requires:       python3-dnf
 %if 0%{?fedora}
 Requires:       python3-rich
 Requires:       python3-attrs
-%if 0%{?fedora} > 40
-Requires:       python3dist(typer-slim[standard])
-%else
 Requires:       python3-typer
-%endif
 %endif
 
 %description    tools
@@ -476,6 +472,19 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Thu Feb 19 2026 Packit <hello@packit.dev> - 174-1
+## What's Changed
+ * Fix packaging conflict in initrd directory causing downgrade failures by @thozza in https://github.com/osbuild/osbuild/pull/2347
+ * stages/bootc.install-to-fs: add bootupd-skip-boot-uuid option by @jbtrystram in https://github.com/osbuild/osbuild/pull/2345
+ * qemu: Don't always pass -cpu host by @alexlarsson in https://github.com/osbuild/osbuild/pull/2356
+ * spec: drop typer-slim dependency and use only python3-typer by @achilleas-k in https://github.com/osbuild/osbuild/pull/2358
+ * qemu: Handle container storage.conf not listing graphroot by @alexlarsson in https://github.com/osbuild/osbuild/pull/2357
+ * stages/erofs: quiet stdout by @supakeen in https://github.com/osbuild/osbuild/pull/2359
+ * qemu: Default to 3GB vm instead of 4GB by @alexlarsson in https://github.com/osbuild/osbuild/pull/2361
+
+
+ **Full Changelog**: https://github.com/osbuild/osbuild/compare/v173...v174
+
 * Wed Feb 11 2026 Packit <hello@packit.dev> - 173-1
 Changes with 173
 ----------------

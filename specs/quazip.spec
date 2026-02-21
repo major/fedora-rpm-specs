@@ -2,7 +2,11 @@
 # EPEL - only Qt5 packages
 %bcond_with	qt4
 %bcond_without	qt5
+%if %{rhel} >= 9
+%bcond_without	qt6
+%else
 %bcond_with	qt6
+%endif
 %else
 # Fedora - build everything
 %bcond_without	qt4

@@ -2,7 +2,7 @@
 %bcond_with perl_rdapper_enables_online_test
 
 Name:           perl-rdapper
-Version:        1.23
+Version:        1.24
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -11,8 +11,6 @@ URL:            https://metacpan.org/dist/App-rdapper
 # from <https://github.com/jodrell/rdapper>, announced by the author
 # at <https://www.ietf.org/mail-archive/web/weirds/current/msg01981.html>.
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBROWN/App-rdapper-%{version}.tar.gz
-# Skip on-line tests if no Internet is available, in upstream after 1.23
-Patch0:         App-rdapper-1.23-use-LWP-Online-for-tests.patch
 BuildArch:      noarch
 BuildRequires:  bash
 BuildRequires:  coreutils
@@ -136,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 19 2026 Petr Pisar <ppisar@redhat.com> - 1.24-1
+- 1.24 bump
+
 * Mon Feb 02 2026 Petr Pisar <ppisar@redhat.com> - 1.23-1
 - 1.23 bump
 

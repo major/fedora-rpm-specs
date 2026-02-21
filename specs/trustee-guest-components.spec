@@ -4,37 +4,41 @@
 %global projectname guest-components
 
 Name:           trustee-guest-components
-Version:        0.15.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Tools that run in confidential VMs, attest and get secrets from Trustee
 
 # License lines copied from the build
-#Apache-2.0
-#Apache-2.0 OR BSL-1.0
-#Apache-2.0 OR MIT
-#Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-#BSD-2-Clause OR Apache-2.0 OR MIT
-#ISC
-#MIT
-#(MIT OR Apache-2.0) AND Unicode-DFS-2016
-#MPL-2.0
-#Unicode-3.0
-#Unlicense OR MIT
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# ISC
+# MIT
+# MIT OR Apache-2.0
+# MPL-2.0
+# Unicode-3.0
+# Unlicense OR MIT
 
 # License lines above, but sorted within and between lines
-#Apache-2.0
-#Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT
-#Apache-2.0 OR BSD-2-Clause OR MIT
-#Apache-2.0 OR BSL-1.0
-#Apache-2.0 OR MIT
-#(Apache-2.0 OR MIT) AND Unicode-DFS-2016
-#ISC
-#MIT
-#MIT OR Unlicense
-#MPL-2.0
-#Unicode-3.0
+# Apache-2.0
+# Apache-2.0 AND ISC AND (Apache-2.0 OR MIT)
+# Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT
+# Apache-2.0 OR BSD-2-Clause OR MIT
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# ISC
+# MIT
+# MIT OR Unlicense
+# MPL-2.0
+# Unicode-3.0
+# Unicode-DFS-2016 AND (Apache-2.0 OR MIT)
 
-License:        Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND Unicode-DFS-2016) AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0
+License:        Apache-2.0 AND Apache-2.0 AND ISC AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT)
+
 
 # LICENSE.dependencies contains a full license breakdown
 
@@ -55,22 +59,6 @@ Patch5:         0005-Fedora-remove-ttrpc-dependency.patch
 Patch6:         0006-Fedora-remove-jwt-simple-dependency.patch
 # * remove dependency testcontainers - not in Fedora
 Patch7:         0007-Fedora-remove-testcontainers-dependency.patch
-# * tempfile version is 3.23
-Patch8:         0008-Fedora-tempfile-3.23.patch
-# * tokio version is 1.48
-Patch9:         0009-Fedora-tokio-1.48.patch
-# * zeroize version is 1.8.2
-Patch10:        0010-Fedora-zeroize-1.8.2.patch
-# * kbs-types 0.13.0
-Patch11:        0011-Fedora-kbs-types-0.13.0.patch
-# * serde_version is 3.12.0
-Patch12:        0012-Fedora-serde_with-3.12.0.patch
-# * picky-asn1-x509 is 0.14.5
-Patch13:        0013-Fedora-picky-asn1-x509-0.14.5.patch
-# * refactor: adapt to kbs-types InitData/RuntimeData type changes
-Patch14:        0014-Fedora-refactor-adapt-to-kbs-types-InitData-RuntimeD.patch
-# * resolve Tee serialization mismatch with kbs-types
-Patch15:        0015-Fedora-resolve-Tee-serialization-mismatch-with-kbs-t.patch
 
 ExclusiveArch:  x86_64
 BuildRequires:  cargo-rpm-macros >= 24

@@ -1,6 +1,6 @@
 Name:           dhcpdump
-Version:        1.9
-Release:        8%{?dist}
+Version:        1.10
+Release:        1%{?dist}
 Summary:        Parse DHCP packets
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 
 %changelog
+* Thu Feb 19 2026 Boian Bonev <bbonev@ipacct.com> - 1.10-1
+- New upstream release 1.10
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

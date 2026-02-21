@@ -2,7 +2,7 @@
 
 Name:           chunkah
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        OCI building tool for content-based container image layers
 
 # chunkah itself is MIT OR Apache-2.0
@@ -11,6 +11,8 @@ License:        MIT OR Apache-2.0
 URL:            https://github.com/jlebon/chunkah
 Source0:        %{url}/releases/download/v%{version}/%{crate}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
+Patch0:         0001-scan-sort-xattrs-for-reproducibility.patch
+Patch1:         0002-scan-skip-trusted.-xattrs.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel
@@ -49,12 +51,4 @@ tar xf %{SOURCE1}
 %{_bindir}/chunkah
 
 %changelog
-* Tue Feb 17 2026 Packit <hello@packit.dev> - 0.2.0-1
-- Update to version 0.2.0
-
-* Fri Jan 30 2026 Jonathan Lebon <jonathan@jlebon.com> - 0.1.1-1
-- Update to 0.1.1
-- Enable tests (vendor tarball now includes dev-dependencies)
-
-* Wed Jan 28 2026 Jonathan Lebon <jonathan@jlebon.com> - 0.1.0-1
-- Initial package
+%autochangelog

@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.10.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -36,6 +36,7 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 # https://codereview.qt-project.org/c/qt/qtdeclarative/+/678924
 Patch0:  qtdeclarative-quickshapes-make-module-public.patch
+Patch1:  qtdeclarative-qtqml-do-not-clear-objects-propertycaches-on-last-gc-run.patch
 
 ## upstreamable patches
 
@@ -736,6 +737,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Thu Feb 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-2
+- QtQml: Do not clear objects propertyCaches on last GC run
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

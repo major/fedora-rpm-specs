@@ -160,7 +160,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -228,6 +228,8 @@ Patch13:          %{majorname}-libfmt.patch
 Patch14:          %{majorname}-mtr.patch
 #   Patch15: mark RISC-V64 as 64-bit architecture
 Patch15:          mark-RISC-V64-as-64-bit-architecture.patch
+#   Patch16: fixup for SISGSEGV while using skip-grant-tables
+Patch16:          upstream_87309d3d4bb8f48910d05b0ca5ee989bcdd6b053.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -873,6 +875,8 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 %patch -P15 -p1
+
+%patch -P16 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1844,6 +1848,10 @@ fi
 %endif
 
 %changelog
+* Mon Feb 16 2026 Pavol Sloboda <psloboda@redhat.com> - 3:10.11.16-2
+- Added a fix for SIGSEGV when using skip-grant-tables
+- Resolves: RHBZ#2438390
+
 * Sat Feb 07 2026 Michal Schorm <mschorm@redhat.com> - 3:10.11.16-1
 - Rebase to 10.11.16
 

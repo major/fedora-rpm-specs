@@ -1,5 +1,5 @@
-%global git_commit 84dcf73625513af44e711b2c99e21ee2c33b7eff
-%global git_date 20250331
+%global git_commit 8450f365f86954db5ed81db28802ff994763707e
+%global git_date 20260129
 
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
@@ -7,7 +7,8 @@
 # export name=%%{name}
 # export version=%%{version}
 # export git_commit=%%{git_commit}
-# export git_suffix=%%{git_suffix}
+# export git_short_commit=`echo $git_commit | cut -c -8`
+# export git_suffix=${git_date}git${git_short_commit}
 # git clone git://git.osmocom.org/libosmocore.git
 # cd ${name}
 # git archive --format=tar --prefix=${name}-${version}/ ${git_commit} | \
@@ -15,8 +16,8 @@
 
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
-Version:          0.9.6
-Release:          29.%{git_suffix}%{?dist}
+Version:          1.12.0
+Release:          1.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and AGPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND AGPL-3.0-or-later
 BuildRequires:    autoconf
@@ -36,7 +37,8 @@ BuildRequires:    python3
 BuildRequires:    make
 Summary:          Utility functions for OsmocomBB, OpenBSC and related projects
 Source0:          %{name}-%{version}-%{git_suffix}.tar.bz2
-ExcludeArch:      %{ix86}
+# upstream dropped support for s390x and it is broken
+ExcludeArch:      %{ix86} s390x
 
 %description
 A collection of common code used in various sub-projects inside the Osmocom
@@ -73,10 +75,7 @@ autoreconf -fi
 find %{buildroot} -name '*.la' -exec rm -f {} \;
 
 %check
-# reported upstream
-%ifnarch s390x
 make check
-%endif
 
 %files
 %doc %{_docdir}/%{name}
@@ -104,6 +103,11 @@ make check
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Thu Feb 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.12.0-1.20260129git8450f365
+- New version
+- Fixed FTBFS
+  Resolves: rhbz#2434766
+
 * Thu Jan 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.9.6-29.20250331git84dcf736
 - Stopped building on 32 bit
 

@@ -2,7 +2,7 @@
 %bcond gpgcheck 1
 
 Name:          pkcs11-provider
-Version:       1.1
+Version:       1.2.0
 Release:       %autorelease
 Summary:       A PKCS#11 provider for OpenSSL 3.0+
 License:       Apache-2.0
@@ -13,9 +13,9 @@ Source1:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.as
 Source2:       https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 Source3:       pkcs11-provider.conf
-# https://github.com/latchset/pkcs11-provider/pull/669
-# https://github.com/softhsm/SoftHSMv2/issues/842
-Patch1:        pkcs11-provider-workaround-softhsm-2.7.0.patch
+# https://github.com/latchset/pkcs11-provider/pull/689
+Patch1:        0001-Fix-i686-build-failures-in-cipher.c.patch
+
 
 BuildRequires: openssl-devel >= 3.0.7
 BuildRequires: gcc

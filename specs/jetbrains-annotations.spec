@@ -1,7 +1,7 @@
 %global giturl  https://github.com/JetBrains/java-annotations
 
 Name:           jetbrains-annotations
-Version:        26.0.2
+Version:        26.1.0
 Release:        %autorelease
 Summary:        Annotations for JVM-based languages
 

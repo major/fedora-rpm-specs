@@ -23,7 +23,8 @@ URL:            https://www.speed-dreams.net
 # ------------------------------------------------------------------------------
 Source0:        %{name}-%{version}.tar.xz
 
-ExcludeArch:    s390x
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86} s390x
 
 Provides:       %{name} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-robots-base = %{epoch}:%{version}

@@ -48,11 +48,11 @@
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 # Requires actual HW, so disabled by default.
-# Tests also have issues and possibly requires ffmpeg from rpmfusion to work 
+# Tests also have issues and possibly requires ffmpeg from rpmfusion to work
 %bcond_with check
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -71,7 +71,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -127,8 +127,10 @@ ExclusiveArch:  x86_64
 rocDecode is a high-performance video decode SDK for AMD GPUs. Using the
 rocDecode API, you can access the video decoding features available on your GPU.
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary: The rocDecode development package
@@ -197,6 +199,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

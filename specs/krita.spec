@@ -1,122 +1,126 @@
 %global krita_python 1
-%global kf5_ver 5.44.0
 %global versiondir %(echo %{version} | cut -d. -f1-3)
-%global zug_version 0.1.1
-%global immer_version 0.8.1
-%global lager_version 0.1.1
+%global zug_version 0.1.2
+%global immer_version 0.9.1
+%global lager_version 0.1.2
 %global raqm_version 0.10.1
-%global gmic_version 3.6.4.1
-
-# Work around for eigen3 trying to enforce power10.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1996330
-%ifarch ppc64 ppc64le
-%global optflags %(echo %{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA)
-%endif
+%global gmic_version 3.6.6.2
 
 Name:           krita
-Version:        5.2.15
+Version:        6.0.0~beta2
 Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
 URL:            https://krita.org
-Source0:        https://download.kde.org/%{?pre:un}stable/krita/%{versiondir}%{?pre:-%{pre}}/krita-%{version}%{?pre:-%{pre}}.tar.xz
+Source0:        https://download.kde.org/unstable/krita/%{version_no_tilde}/krita-%{version_no_tilde}.tar.xz
 Source1:        https://github.com/arximboldi/zug/archive/v%{zug_version}/zug-%{zug_version}.tar.gz
 Source2:        https://github.com/arximboldi/immer/archive/v%{immer_version}/immer-%{immer_version}.tar.gz
 Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/lager-%{lager_version}.tar.gz
 Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_version}/gmic-%{gmic_version}.tar.gz
 
+## upstream patches
+# https://invent.kde.org/graphics/krita/-/merge_requests/2657
+Patch: 0001-KoStreamedMath-fix-build-on-XSIMD_NO_SUPPORTED_ARCHI.patch
+
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
-Patch1: krita-5.2.15-appstream_validate.patch
-
-## upstream patches
+Patch: krita-6.0.0-appstream_validate.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  chrpath
 BuildRequires:  gcc-c++
-BuildRequires:  extra-cmake-modules >= %{kf5_ver}
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5Archive)
-BuildRequires:  cmake(KF5Completion)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5GuiAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5ItemModels)
-BuildRequires:  cmake(KF5ItemViews)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5KDcraw)
-
-BuildRequires:  qt5-qtbase-devel >= 5.12.0
-BuildRequires:  qt5-qtbase-private-devel >= 5.12.0
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5LinguistTools)
-
-BuildRequires:  boost-devel
-BuildRequires:  giflib-devel >= 5
-BuildRequires:  libtiff-devel
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  ninja-build
-BuildRequires:  pkgconfig(fftw3)
-BuildRequires:  pkgconfig(eigen3)
-BuildRequires:  pkgconfig(exiv2)
-BuildRequires:  pkgconfig(gsl)
-BuildRequires:  pkgconfig(kseexpr)
-BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(libheif)
-BuildRequires:  pkgconfig(libinput)
-BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libjxl)
-BuildRequires:  pkgconfig(libopenjp2)
-BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(libraw)
-BuildRequires:  pkgconfig(libturbojpeg)
-BuildRequires:  pkgconfig(libwebp)
-BuildRequires:  pkgconfig(OpenColorIO)
-BuildRequires:  pkgconfig(OpenEXR)
-BuildRequires:  pkgconfig(poppler-qt5)
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+# KF6
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6ItemViews)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Crash)
+# Qt6
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6OpenGL)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:  cmake(Qt6SvgWidgets)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6CorePrivate)
+BuildRequires:  cmake(Qt6GuiPrivate)
+BuildRequires:  cmake(Qt6WaylandClientPrivate)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickWidgets)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6DBus)
+# other deps
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-util)
 BuildRequires:  pkgconfig(xi)
-BuildRequires:  quazip-qt5-devel
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  boost-devel
+BuildRequires:  pkgconfig(gsl)
+BuildRequires:  cmake(WebP)
+BuildRequires:  cmake(kseexpr) >= 6
 BuildRequires:  zlib-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  libappstream-glib
+BuildRequires:  pkgconfig(OpenEXR)
+BuildRequires:  libtiff-devel
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libturbojpeg)
+BuildRequires:  giflib-devel >= 5
+BuildRequires:  pkgconfig(libheif)
+BuildRequires:  cmake(OpenJPEG)
+BuildRequires:  pkgconfig(libjxl)
+BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  cmake(Mlt7)
-BuildRequires:  pkgconfig(libmypaint)
-BuildRequires:  pkgconfig(fribidi) >= 1.0.6
-BuildRequires:  catch2-devel
 BuildRequires:  cmake(sdl2)
-BuildRequires:  pkgconfig(libunibreak)
-BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(fontconfig)
-BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libmypaint)
-BuildRequires:  cmake(xsimd)
+BuildRequires:  cmake(Eigen3)
+BuildRequires:  pkgconfig(exiv2)
+BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(xsimd)
+BuildRequires:  pkgconfig(poppler-qt6)
+BuildRequires:  cmake(QuaZip-Qt6)
+BuildRequires:  cmake(KDcrawQt6)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(harfbuzz)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(libunibreak)
+# transitive dependency of Qt6WaylandClient, missing in some versions
+BuildRequires:  pkgconfig(wayland-client)
+# raqm deps
+BuildRequires:  pkgconfig(fribidi) >= 1.0.6
+# zug deps
+BuildRequires:  cmake(Catch2)
+# gmic deps
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  cmake(Qt6LinguistTools)
 
 %if 0%{?krita_python}
 BuildRequires:  python3-devel
-BuildRequires:  python3-qt5-devel
-BuildRequires:  python3-sip-devel
-BuildRequires:  sip
+BuildRequires:  python3-pyqt6-devel
+BuildRequires:  sip6
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2328811
-%if v"0%{?python3_version}" >= v"3.13"
-Requires: python3-legacy-cgi
-%endif
-
-Requires: python3-qt5-base
-%{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
+Requires: python3-pyqt6-base
 %endif
 
 Requires: hicolor-icon-theme
@@ -139,8 +143,11 @@ It was created with the following types of art in mind:
 
 
 %prep
-%setup -q -n %{name}-%{version}%{?pre:-%{pre}} -a 1 -a 2 -a 3 -a 4
+%setup -q -n %{name}-%{version_no_tilde} -a 1 -a 2 -a 3 -a 4
 %autopatch -p1
+# fix gmic
+sed -i -e 's/lrelease-qt5/lrelease-qt6/g' \
+  gmic-v%{gmic_version}/gmic-qt/translations/lrelease.sh
 
 %build
 # build zug
@@ -165,8 +172,9 @@ DESTDIR=$(pwd) cmake --install immer --prefix /
 DESTDIR=$(pwd) cmake --install lager --prefix /
 
 # build krita
-%cmake_kf5 -G Ninja \
+%cmake_kf6 -G Ninja \
    -DCMAKE_PREFIX_PATH=$(pwd) \
+   -DBUILD_WITH_QT6:BOOL=ON \
    -DBUILD_TESTING:BOOL=OFF
 
 %cmake_build
@@ -176,7 +184,7 @@ CXXFLAGS+=" -I$(pwd)/plugins/extensions/qmic" \
 %cmake -DGMIC_QT_HOST=krita-plugin \
        -DENABLE_SYSTEM_GMIC=FALSE \
        -DKIS_IMAGE_INTERFACE_DIR="$(pwd)/%{__cmake_builddir}/plugins/extensions/qmic" \
-       -DKIS_IMAGE_INTERFACE_LIBRARY="$(pwd)/%{__cmake_builddir}/plugins/extensions/qmic/libkritaqmicinterface.so" \
+       -DKIS_IMAGE_INTERFACE_LIBRARY="$(pwd)/%{__cmake_builddir}/bin/libkritaqmicinterface.so" \
        -B gmic-qt -S gmic-v%{gmic_version}/gmic-qt
 %__cmake --build gmic-qt %{_smp_mflags} --verbose
 
@@ -198,33 +206,36 @@ rm -fv %{buildroot}%{_libdir}/libkrita*.so
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.krita.appdata.xml 
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.krita.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.desktop
 
 
 %files -f %{name}.lang
 %doc README.md
 %license COPYING*
-%config(noreplace) %{_sysconfdir}/xdg/kritarc
-%{_kf5_bindir}/krita
-%{_kf5_bindir}/krita_version
-%{_kf5_libdir}/kritaplugins/
-%{_kf5_libdir}/libkrita*.so.*
-%{_kf5_metainfodir}/org.kde.krita.appdata.xml
-%{_kf5_datadir}/applications/org.kde.krita.desktop
-%{_kf5_datadir}/applications/krita*.desktop
-%{_kf5_datadir}/color-schemes/*
-%{_kf5_datadir}/color/icc/*
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/krita/
-%{_kf5_datadir}/kritaplugins/
+%{_kf6_bindir}/krita
+%{_kf6_bindir}/krita_version
+%{_kf6_libdir}/kritaplugins/
+%{_kf6_libdir}/libkrita*.so.*
+%{_kf6_qmldir}/org/krita/
+%{_kf6_metainfodir}/org.kde.krita.appdata.xml
+%{_kf6_datadir}/applications/org.kde.krita.desktop
+%{_kf6_datadir}/applications/krita*.desktop
+%{_kf6_datadir}/color-schemes/*
+%{_kf6_datadir}/color/icc/*
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/krita/
+%{_kf6_datadir}/kritaplugins/
 %if 0%{?krita_python}
-%{_kf5_bindir}/kritarunner
-%{_kf5_libdir}/krita-python-libs/
+%{_kf6_bindir}/kritarunner
+%{_kf6_libdir}/krita-python-libs/
 %endif
 
 
 %changelog
+* Thu Feb 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0~beta2-1
+- 6.0.0-beta2
+
 * Wed Feb 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.2.15-1
 - 5.2.15
 

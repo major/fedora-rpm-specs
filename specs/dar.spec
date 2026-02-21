@@ -7,7 +7,7 @@
 %define with_static %{?_with_static: 1} %{?!_with_static: 0}
 
 Name:           dar
-Version:        2.8.1
+Version:        2.8.3
 Release:        %autorelease
 Summary:        Software for making/restoring incremental CD/DVD backups
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

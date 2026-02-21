@@ -4,7 +4,7 @@
 Name:           civetweb
 Summary:        Embedded C/C++ web server
 Version:        1.16
-Release:        12%{?dev:%{dev}}%{?dist}
+Release:        13%{?dev:%{dev}}%{?dist}
 License:        MIT
 Url:            https://github.com/civetweb/civetweb
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -64,6 +64,12 @@ mkdir -p %{buildroot}%{_docdir}/civetweb
 %{_datadir}/pkgconfig/*
 
 %changelog
+* Thu Feb 19 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.16-13
+- civetweb 1.16, handle cmake-4 doesn't support cmake < 3.5 
+- upstream, civetweb-1.16+ has updated to minimum cmake-3.10, and there
+  don't seem to be any adverse effects building civetweb with that change.
+  And someday there might even be a civetweb-1.17.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

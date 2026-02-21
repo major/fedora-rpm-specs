@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 101%{?dist}
+Release: 102%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -8333,7 +8333,7 @@ process.
 
 %package -n %{shortname}-uptex
 Version: svn73848
-Provides: texlive-uptex = %{epoch}:%{source_date}-%{release}
+Provides: texlive-uplatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-doc = %{epoch}:%{source_date}-%{release}
@@ -11876,6 +11876,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Thu Feb 19 2026 Tom Callaway <spot@fedoraproject.org> - 12:20250308-102
+- fix provides for texlive-uplatex (bz2437564)
+
 * Tue Feb 10 2026 Tom Callaway <spot@fedoraproject.org> - 12:20250308-101
 - update git-latexdiff to svn75878 (bz2435847)
 - fix texlive-git-latexdiff to be noarch package (it is just shell)

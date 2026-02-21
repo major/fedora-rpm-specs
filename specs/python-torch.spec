@@ -443,6 +443,15 @@ sed -i -e 's@    checkout_nccl()@    True@' tools/build_pytorch_libs.py
 # Disable the use of check_submodule's in the setup.py, we are a tarball, not a git repo
 sed -i -e 's@check_submodules()$@#check_submodules()@' setup.py
 
+# Disable the USE_MIMALLOC option, which is now default on AArch64
+# The comments in setup.py say that the env var is respected.
+# This seems to be wrong on AArch64, where the default is overriden to ON.
+# TODO: File an upstream bug about this misbehavior.
+# TODO: Consider unbundling mimalloc since upstream says it's faster.
+%ifarch aarch64
+sed -i -e 's@set(USE_MIMALLOC ON)@set(USE_MIMALLOC OFF)@' CMakeLists.txt
+%endif
+
 # Release comes fully loaded with third party src
 # Remove what we can
 #

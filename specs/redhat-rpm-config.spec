@@ -8,7 +8,7 @@ Name: redhat-rpm-config
 # If the branches haven't diverged yet, keep the Fedora release number from
 # the older branch. When the branch diverges, bump the Version to the Fedora
 # release number.
-Version: 343
+Version: 344
 Release: %autorelease
 # config.guess, config.sub are GPL-3.0-or-later WITH Autoconf-exception-generic
 License: GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic

@@ -10,6 +10,10 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-webdav
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-webdav-%{version}.tar.gz
 
+# chore: Allow webdav4 0.11
+# https://github.com/snakemake/snakemake-storage-plugin-webdav/pull/11
+Patch:          %{url}/pull/11.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_storage_plugin_webdav
 

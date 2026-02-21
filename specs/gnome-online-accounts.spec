@@ -14,7 +14,7 @@ License:	LGPL-2.0-or-later AND CC-BY-SA-4.0
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
 Source0:	https://download.gnome.org/sources/%{name}/3.57/%{name}-%{version}.tar.xz
 
-Patch0:	        gnome-online-accounts-disable-google-provider.patch
+Patch0:	        gnome-online-accounts-disable-google-files-feature.patch
 
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(gcr-4)

@@ -7,8 +7,12 @@ ExcludeArch: %{ix86}
 %global pkgnamepatch mysql
 
 
-# Set if this package will be the default one in distribution
+# Set if this package will be the default one in distribution (never in RHEL)
+%if 0%{?rhel}
+%global mysql_default 0
+%else
 %{!?mysql_default:%global mysql_default 1}
+%endif
 
 # Regression tests may take a long time (many cores recommended), skip them by
 # passing --nocheck to rpmbuild or by setting runselftest to 0 if defining
@@ -95,7 +99,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1092,6 +1096,9 @@ popd
 %endif
 
 %changelog
+* Thu Feb 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 8.4.8-3
+- Never provide unversioned packages in RHEL
+
 * Fri Jan 23 2026 Michal Schorm <mschorm@redhat.com> - 8.4.8-2
 - Fedora 44 change: Remove 'community-mysql' names
 

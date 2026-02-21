@@ -1,5 +1,8 @@
 %global debug_package %{nil}
 
+# Tests require virtualenv and pytest-* extensions not included in RHEL
+%bcond tests %[0%{?fedora} || 0%{?epel}]
+
 # On epel python hatch/trove classifier check may fail because of old package
 # Fedora checks should be sufficient though.
 %bcond no_classifier_check 0%{?rhel}
@@ -53,7 +56,7 @@ cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject
 %if %{with no_classifier_check}
 export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
 %endif
-%pyproject_buildrequires -x test,test-meta,test-numpy
+%pyproject_buildrequires %{?with_tests:-x test,test-meta,test-numpy}
 
 
 %build
@@ -70,8 +73,10 @@ export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
 
 %check
 %pyproject_check_import
+%if %{with tests}
 %pytest \
     -m "not network"
+%endif
 
 
 %files -n python3-scikit-build-core -f %{pyproject_files}

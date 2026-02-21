@@ -1,7 +1,7 @@
 # Main Django, i.e. whether this is the main Django version in the distribution
 # that owns /usr/bin/django-admin and other unique paths
-# based on Python packaging, see e.g. python3.13
-%if 0%{?fedora} >= 42 && 0%{?fedora} < 44
+# based on Python packaging, see e.g. python3.14
+%if 0%{?fedora} >= 44
 %bcond main_django 1
 %else
 %bcond main_django 0
@@ -20,7 +20,7 @@
 %bcond old_setuptools 0
 %endif
 
-Version:        5.2.11
+Version:        6.0.2
 %global major_ver %(echo %{version} | cut -d. -f1)
 Name:           python-django%{major_ver}
 
@@ -51,9 +51,9 @@ Source:         %{name}.rpmlintrc
 # AssertionError: &lt; div&gt; != <div>
 # - &lt; div&gt;   
 # + <div>
-Patch1000:      django-py314-skip-failing-tests.diff
+#Patch1000:      django-py314-skip-failing-tests.diff
 # setuptools 77 is only needed to support the new license metadata
-Patch1001:      django-allow-setuptools-ge-69.diff
+#Patch1001:      django-allow-setuptools-ge-69.diff
 # This allows to build the package without tests, e.g. when bootstrapping new Python version
 %bcond tests    1
 
@@ -127,7 +127,7 @@ Conflicts:      python-django-impl
 %autosetup -N -n django-%{version}
 %autopatch -p1 -M 999
 %if %{without all_tests}
-%autopatch -p1 1000
+#autopatch -p1 1000
 %endif
 %if %{with old_setuptools}
 %autopatch -p1 1001
@@ -142,10 +142,11 @@ popd
 
 # Use non optimised psycopg for tests
 # Not available in Fedora
-sed -i 's/psycopg\[binary\]>=3\.1\.8/psycopg>=3.1.8/' tests/requirements/postgres.txt
+sed -i 's/psycopg\[binary\]>=3\.1\./psycopg>=3.1./' tests/requirements/postgres.txt
 
 # Remove unnecessary test BRs
 sed -i '/^pywatchman\b/d' tests/requirements/py3.txt
+sed -i '/^selenium\b/d' tests/requirements/py3.txt
 sed -i '/^tzdata$/d' tests/requirements/py3.txt
 
 # Remove deps on code checkers/linters
@@ -214,9 +215,7 @@ cd tests
 
 %files -n %{pkgname} -f %{pyproject_files}
 %doc AUTHORS README.rst
-%doc %{python3_sitelib}/django/contrib/admin/static/admin/img/README.txt
 %license %{python3_sitelib}/django/contrib/admin/static/admin/css/vendor/select2/LICENSE-SELECT2.md
-%license %{python3_sitelib}/django/contrib/admin/static/admin/img/LICENSE
 %license %{python3_sitelib}/django/contrib/admin/static/admin/js/vendor/jquery/LICENSE.txt
 %license %{python3_sitelib}/django/contrib/admin/static/admin/js/vendor/select2/LICENSE.md
 %license %{python3_sitelib}/django/contrib/admin/static/admin/js/vendor/xregexp/LICENSE.txt

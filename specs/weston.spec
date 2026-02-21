@@ -1,21 +1,20 @@
-%global apiver 14
+%global apiver 15
 
 Name:           weston
-Version:        14.0.2
-Release:        4%{?dist}
+Version:        15.0.0
+Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        MIT and CC-BY-SA-3.0
 URL:            http://wayland.freedesktop.org/
 Source0:        https://gitlab.freedesktop.org/wayland/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
 
-# Allow libdisplay-info 0.3.0 as a build dependency
-Patch0:         weston-14.0.2-allow-libdisplay-info-0.3.0.patch
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
+BuildRequires:  glslang
 BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  lua-devel
 BuildRequires:  pam-devel
 # ninja-build is a dependency from meson
 BuildRequires:  meson
@@ -57,6 +56,7 @@ BuildRequires:  pkgconfig(mtdev) >= 1.1.0
 BuildRequires:  (pkgconfig(neatvnc) >= 0.7.0 with pkgconfig(neatvnc) < 0.10.0)
 BuildRequires:  pkgconfig(pangocairo)
 BuildRequires:  pkgconfig(pixman-1) >= 0.25.2
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client) >= 1.22.0
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
@@ -141,14 +141,14 @@ Common headers for weston
 %{_bindir}/wcap-decode
 %dir %{_libdir}/weston
 %{_libdir}/weston/desktop-shell.so
-%{_libdir}/weston/fullscreen-shell.so
 %{_libdir}/weston/hmi-controller.so
 %{_libdir}/weston/ivi-shell.so
-%{_libdir}/weston/screen-share.so
+%{_libdir}/weston/lua-shell.so
 %{_libdir}/weston/systemd-notify.so
 %{_libdir}/weston/kiosk-shell.so
 %{_libdir}/weston/libexec_weston.so*
 %{_libexecdir}/weston-*
+%{_libexecdir}/shell.lua
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
 %{_mandir}/man7/*.7*
@@ -171,6 +171,7 @@ Common headers for weston
 %{_libdir}/libweston-%{apiver}/remoting-plugin.so
 %{_libdir}/libweston-%{apiver}/rdp-backend.so
 %{_libdir}/libweston-%{apiver}/vnc-backend.so
+%{_libdir}/libweston-%{apiver}/vulkan-renderer.so
 %{_libdir}/libweston-%{apiver}/wayland-backend.so
 %{_libdir}/libweston-%{apiver}/x11-backend.so
 %{_libdir}/libweston-%{apiver}/xwayland.so
@@ -181,6 +182,7 @@ Common headers for weston
 %{_bindir}/weston-calibrator
 %{_bindir}/weston-clickdot
 %{_bindir}/weston-cliptest
+%{_bindir}/weston-color
 %{_bindir}/weston-constraints
 %{_bindir}/weston-dnd
 %{_bindir}/weston-editor
@@ -197,9 +199,12 @@ Common headers for weston
 %{_bindir}/weston-simple-dmabuf-egl
 %{_bindir}/weston-simple-dmabuf-feedback
 %{_bindir}/weston-simple-dmabuf-v4l
+%{_bindir}/weston-simple-dmabuf-vulkan
 %{_bindir}/weston-simple-egl
 %{_bindir}/weston-simple-shm
+%{_bindir}/weston-simple-timing
 %{_bindir}/weston-simple-touch
+%{_bindir}/weston-simple-vulkan
 %{_bindir}/weston-smoke
 %{_bindir}/weston-stacking
 %{_bindir}/weston-subsurfaces
@@ -216,6 +221,10 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Thu Feb 19 2026 Erico Nunes <ernunes@redhat.com> - 15.0.0-1
+- Update to 15.0.0
+- Drop upstreamed libdisplay-info patch
+
 * Tue Jan 27 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 14.0.2-4
 - Rebuild for libdisplay-info 0.3.0
 

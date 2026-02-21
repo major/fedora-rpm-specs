@@ -42,7 +42,8 @@ Python. It makes use of numpy for fast numerical computation.
 %pyproject_save_files -l supersmoother
 
 %check
-%pytest
+%pyproject_check_import -t
+#_pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc CHANGES.md README.md

@@ -2,7 +2,7 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:           pl
-Version:        10.0.0
+Version:        10.0.1
 Release:        %autorelease
 Summary:        ISO/Edinburgh-style Prolog interpreter
 
@@ -24,9 +24,7 @@ Patch2:         swipl-8.2.0-unbundle-libstemmer.patch
 # Expose inclpr plugin dependency on the math library to RPM
 Patch3:         swipl-9.2.7-inclpr-math.patch
 # Use zlib-ng directly rather than via the zlib compatibility interface
-Patch4:         swipl-9.2.9-zlib-ng.patch
-# Fix detection of the secure_getenv function
-Patch5:         swipl-10.0.0-secure-getenv.patch
+Patch4:         swipl-10.0.1-zlib-ng.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -94,6 +92,9 @@ BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  tex(latex)
 BuildRequires:  tex(a4wide.sty)
 BuildRequires:  tex(tabulary.sty)
+BuildRequires:  texlive-courier
+BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-times
 %endif
 
 %global _desc %{expand:SWI-Prolog is a fast and powerful ISO/Edinburgh-style Prolog compiler with a

@@ -1,5 +1,5 @@
 Name:           python-webdav4
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        WebDAV client library with an fsspec-based filesystem and a CLI
 

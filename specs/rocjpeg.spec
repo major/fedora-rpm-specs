@@ -52,7 +52,7 @@
 %bcond_with check
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -71,7 +71,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -130,8 +130,10 @@ rocJPEG is a high performance JPEG decode SDK for AMD GPUs. Using
 the rocJPEG API, you can access the JPEG decoding features available
 on your GPU.
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary: The development package for %{name}
@@ -184,6 +186,7 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
 %install
 %cmake_install
 
+# Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg-asan/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocjpeg-dev/LICENSE
@@ -192,6 +195,8 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-dev/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-test/LICENSE
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1/LICENSE
+rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 
 # Need to install first
 %if %{with check}
@@ -210,6 +215,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

@@ -10,9 +10,9 @@
 %global shortname cblrpm
 
 Name:           cabal-rpm
-Version:        2.3.0
+Version:        2.3.2
 # can only be reset when subpkg bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
 License:        GPL-3.0-or-later
@@ -31,6 +31,7 @@ BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-cached-json-file-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extra-devel
+BuildRequires:  ghc-fedora-krb-devel
 BuildRequires:  ghc-filepath-devel
 #BuildRequires:  ghc-html-entities-devel
 BuildRequires:  ghc-http-client-devel
@@ -51,6 +52,7 @@ BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-cached-json-file-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-extra-prof
+BuildRequires:  ghc-fedora-krb-prof
 BuildRequires:  ghc-filepath-prof
 #BuildRequires:  ghc-html-entities-prof
 BuildRequires:  ghc-http-client-prof
@@ -164,6 +166,9 @@ ln -s %{name}.1 %{buildroot}%{_mandir}/man1/%{shortname}.1
 
 
 %changelog
+* Thu Feb 19 2026 Jens Petersen <petersen@redhat.com> - 2.3.2-8
+- https://hackage.haskell.org/package/cabal-rpm-2.3.2/changelog
+
 * Fri Jan 30 2026 Jens Petersen <petersen@redhat.com> - 2.3.0-7
 - Rebuild
 

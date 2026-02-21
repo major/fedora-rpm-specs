@@ -1,5 +1,5 @@
 Name:           jurand
-Version:        1.3.5
+Version:        1.4.0
 Release:        %autorelease
 Summary:        A tool for manipulating Java symbols
 License:        Apache-2.0
@@ -26,7 +26,6 @@ rather than applying simple regular expressions on the source code.
 %install
 export buildroot=%{buildroot}
 export bindir=%{_bindir}
-export rpmmacrodir=%{_rpmmacrodir}
 export mandir=%{_mandir}
 
 ./install.sh
@@ -35,8 +34,6 @@ export mandir=%{_mandir}
 make test
 
 %files -f target/installed_files
-%dir %{_rpmconfigdir}
-%dir %{_rpmmacrodir}
 %license LICENSE NOTICE
 %doc README.adoc
 

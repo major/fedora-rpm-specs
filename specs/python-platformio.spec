@@ -6,7 +6,7 @@
 %bcond tests 0
 
 Name:           python-%{pypi_name}
-Version:        6.1.18
+Version:        6.1.19
 Release:        %autorelease
 Summary:        Professional collaborative platform for embedded development
 
@@ -18,19 +18,6 @@ Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Patch1:         platformio-default-telemetry-off.patch
 # Fedora: neuter update logic for platformio itself
 Patch2:         platformio-short-circuit-upgrades.patch
-# Fedora: drop linters from test dependencies
-Patch3:         platformio-no-linters.patch
-# Update deps
-Patch4:         %{forgeurl}/commit/6cf8b8172feb33fc2cb59b83f3bb29d44db8922f.patch
-# Allow starlette versions through 0.48
-# https://github.com/platformio/platformio-core/pull/5256
-Patch5:         platformio-starlette-0.48.patch
-# Update starlette and uvicorn dependencies (upper bounds)
-# https://github.com/platformio/platformio-core/pull/5300
-Patch6:         platformio-starlette-0.50.patch
-# Allow starlette versions through 0.52
-# https://github.com/platformio/platformio-core/pull/5350
-Patch7:         platformio-starlette-0.52.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-zumba-json-serializer
 #
-# SPDX-FileCopyrightText:  Copyright 2021-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2021-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    1b1b2302d46692f317021ee4b9cc06b1311b7333
+%global gh_commit    bf26227879adefce75eb9651040d8982be97b881
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
@@ -18,8 +18,8 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.2.2
-Release:        2%{?dist}
+Version:        3.2.3
+Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
 License:        MIT
@@ -95,7 +95,7 @@ EOF
 
 ret=0
 # ignore tests relying on SuperClosure (deprecated and removed from repo)
-for cmdarg in "php %{phpunit}" "php81 %{_bindir}/phpunit10" php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit11} \
@@ -119,6 +119,9 @@ exit $ret
 
 
 %changelog
+* Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 3.2.3-1
+- update to 3.2.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %else
 %bcond rocm 0
 %endif
-%bcond vulkan 0
+%bcond vulkan 1
 
 # bundled GGML sources are missing ppc64le and s390x
 ExcludeArch:    ppc64le s390x

@@ -1,18 +1,11 @@
 Name:           xwayland-run
-Version:        0.0.4
-Release:        14%{?dist}
+Version:        0.0.5
+Release:        1%{?dist}
 Summary:        Set of utilities to run headless X/Wayland clients
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.freedesktop.org/ofourdan/xwayland-run
 Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/19
-Patch1: 0001-wlheadless-Ignore-os.waitpid-1-0-error.patch
-# https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/21
-Patch2: 0002-wlheadless-Set-sensible-defaults-for-XDG-dirs.patch
-# https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/22
-Patch3: 0003-wlheadless-Wait-for-the-compositor.patch
 
 BuildArch:      noarch
 
@@ -67,6 +60,10 @@ Xwayland and various Wayland compositor headless.
 
 
 %changelog
+* Thu Feb 19 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.0.5-1
+- Update to 0.0.5
+- Drop patches included in this release
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

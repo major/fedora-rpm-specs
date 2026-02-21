@@ -139,6 +139,12 @@ Source0:    README
 # %%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # %%obsolete foo 3.5-7
 
+
+# Retired during F36, blocks /usr/sbin/ merge
+%obsolete_ticket https://src.fedoraproject.org/rpms/wireless-tools/c/88b85a0fb8977aeeacdc422e47c38abd3ff31f2a?branch=rawhide
+%obsolete wireless-tools 1:29-28
+%obsolete wireless-tools-devel 1:29-28
+
 # Remove in F43
 # Retired during F41, prevents upgrade to F41 because it requires libfmt.so.10
 %obsolete_ticket https://src.fedoraproject.org/rpms/rstudio/c/67a9644580937f93325961293246e49d79c648c2?branch=rawhide

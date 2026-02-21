@@ -17,8 +17,8 @@
 %define rdnsname %{urdnsname}3
 
 Name:           godot3
-Version:        3.6.1
-Release:        3%{?dist}
+Version:        3.6.2
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -30,10 +30,6 @@ Source0:        https://github.com/godotengine/godot-builds/releases/download/%{
 Source1:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{uname}-%{uversion}.tar.xz.sha256
 
 Patch0:         godot3-dist-files-rebranding.patch
-# https://github.com/godotengine/godot/pull/100389
-Patch1:         godot3-miniupnp228.patch
-# Partial port of https://github.com/godotengine/godot/pull/90482
-Patch3:         godot3-mbedtls3-90482.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
@@ -206,7 +202,21 @@ simply by pointing to the location of the game's data package.
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="bullet embree freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 wslay zlib zstd"
+to_unbundle="bullet freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 wslay zlib zstd"
+
+disable_modules=""
+# The denoise module depends on OIDN which is x86_64 only (in the vendored version).
+# Godot's own logic to disable it on other arches is a bit brittle when it comes to cross-compiling currently.
+%ifnarch x86_64
+disable_modules+=" module_denoise_enabled=no"
+%endif
+
+# The raycast module requires embree which is aarch64 and x86_64 only.
+%ifnarch aarch64 x86_64
+disable_modules+=" module_raycast_enabled=no"
+%else
+to_unbundle+=" embree"
+%endif
 
 system_libs=""
 for lib in $to_unbundle; do
@@ -214,13 +224,7 @@ for lib in $to_unbundle; do
     rm -rf thirdparty/$lib
 done
 
-# The denoise module depends on OIDN which is x86_64 only (in the vendored version).
-# Godot's own logic to disable it on other arches is a bit brittle when it comes to cross-compiling currently.
-%ifnarch x86_64
-%define disable_modules module_denoise_enabled=no
-%endif
-
-%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs lto=full use_static_cpp=no progress=no %{?disable_modules}
+%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs lto=full use_static_cpp=no progress=no $disable_modules
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"
@@ -284,6 +288,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Thu Feb 19 2026 Rémi Verschelde <akien@fedoraproject.org> - 3.6.2-1
+- Version 3.6.2-stable
+
+* Tue Jan 27 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 3.6.1-4
+- disable raycase module on architectures without embree
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

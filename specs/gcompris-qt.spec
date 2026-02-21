@@ -1,13 +1,14 @@
 Name:           gcompris-qt
-Version:        25.1.1
-Release:        3%{?dist}
+Version:        26.0
+Release:        1%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
 License:        AGPL-3.0-only
 URL:            http://gcompris.net
 Source0:        https://download.kde.org/stable/gcompris/qt/src/%{name}-%{version}.tar.xz
-# cmake, ignore private modules if they don't exist
-Patch0:         https://invent.kde.org/education/gcompris/-/commit/8494eeb53f5528f102813f03e57b6e4bec07ce38.patch
+Source1:        https://download.kde.org/stable/gcompris/qt/src/%{name}-%{version}.tar.xz.sig
+# Download from https://collaborate.kde.org/s/8GpWjyHg5xBTQFS
+Source2:        0x63d7264c05687d7e.asc
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -25,8 +26,8 @@ BuildRequires:  cmake(Qt6Sensors)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6QuickControls2Basic)
 BuildRequires:  cmake(Qt6QuickTemplates2)
-BuildRequires:  cmake(Qt6Charts)
-BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Graphs)
+BuildRequires:  cmake(Qt6Quick3D)
 BuildRequires:  cmake(Qt6QmlWorkerScript)
 BuildRequires:  cmake(Qt6WaylandClient)
 BuildRequires:  wayland-devel
@@ -39,7 +40,7 @@ Requires:       qt6-qtmultimedia
 Requires:       qt6-qtdeclarative
 Requires:       qt6-qtsvg
 Requires:       qt6-qtimageformats
-Requires:       qt6-qtcharts
+Requires:       qt6-qtgraphs
 Requires:       qt6-qtsensors
 Requires:       qt6-qtwayland
 Requires:       hicolor-icon-theme
@@ -72,13 +73,16 @@ More than 100 activities are available.
 
 
 %prep
-%autosetup -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' \
+  --data='%{SOURCE0}'
+%autosetup
 
 
 %build
 # qml-box2d in not available in Fedora
 %cmake_kf6 \
-  -DQML_BOX2D_MODULE=disabled
+  -DQML_BOX2D_MODULE=disabled \
+  -DBUILD_SERVER=OFF
 %cmake_build
 
 
@@ -110,6 +114,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.gc
 
 
 %changelog
+* Sun Feb 15 2026 Andrea Musuruane <musuruan@gmail.com> - 26.0-1
+- Updated to new upstream release
+- Check signature
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

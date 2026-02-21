@@ -3,7 +3,7 @@
 
 Name: freetype
 Version: 2.14.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A free and portable font rendering engine
 License: (FTL OR GPL-2.0-or-later) AND BSD-3-Clause AND MIT AND MIT-Modern-Variant AND LicenseRef-Fedora-Public-Domain AND Zlib
 URL: http://www.freetype.org
@@ -16,8 +16,6 @@ Source3: ftconfig.h
 Patch0:  freetype-2.3.0-enable-spr.patch
 # Enable otvalid and gxvalid modules
 Patch1:  freetype-2.2.1-enable-valid.patch
-# Enable additional demos
-Patch2:  freetype-2.5.2-more-demos.patch
 
 Patch3:  freetype-2.6.5-libtool.patch
 
@@ -79,10 +77,6 @@ FreeType.
 %patch 0  -p1 -b .enable-spr
 %patch 1  -p1 -b .enable-valid
 
-pushd ft2demos-%{version}
-%patch 2  -p1 -b .more-demos
-popd
-
 %patch 3 -p1 -b .libtool
 %patch 4 -p1 -b .multilib
 %patch 5 -p1 -b .internal-outline
@@ -111,30 +105,18 @@ make TOP_DIR=".."
 popd
 %endif
 
-# Convert FTL.txt and example3.cpp to UTF-8
-pushd docs
-iconv -f latin1 -t utf-8 < FTL.TXT > FTL.TXT.tmp && \
-touch -r FTL.TXT FTL.TXT.tmp && \
-mv FTL.TXT.tmp FTL.TXT
-
-iconv -f iso-8859-1 -t utf-8 < "tutorial/example3.cpp" > "tutorial/example3.cpp.utf8"
-touch -r tutorial/example3.cpp tutorial/example3.cpp.utf8 && \
-mv tutorial/example3.cpp.utf8 tutorial/example3.cpp
-popd
-
-
 %install
 
 %make_install gnulocaledir=$RPM_BUILD_ROOT%{_datadir}/locale
 
 {
-  for ftdemo in ftbench ftchkwd ftmemchk ftpatchk fttimer ftdump ftlint ftvalid ; do
+  for ftdemo in ftbench ftdump ftlint ftvalid ttdebug ; do
       builds/unix/libtool --mode=install install -m 755 ft2demos-%{version}/bin/$ftdemo $RPM_BUILD_ROOT/%{_bindir}
   done
 }
 %if %{with_xfree86}
 {
-  for ftdemo in ftdiff ftgamma ftgrid ftmulti ftstring fttimer ftview ; do
+  for ftdemo in ftdiff ftgamma ftgrid ftmulti ftsdf ftstring ftview ; do
       builds/unix/libtool --mode=install install -m 755 ft2demos-%{version}/bin/$ftdemo $RPM_BUILD_ROOT/%{_bindir}
   done
 }
@@ -142,13 +124,13 @@ popd
 
 # man pages for freetype-demos
 {
-  for ftdemo in ftbench ftdump ftlint ftvalid ; do
+  for ftdemo in ftbench ftdump ftlint ftvalid ttdebug ; do
       builds/unix/libtool --mode=install install -m 644 ft2demos-%{version}/man/${ftdemo}.1 $RPM_BUILD_ROOT/%{_mandir}/man1
   done
 }
 %if %{with_xfree86}
 {
-  for ftdemo in ftdiff ftgamma ftgrid ftmulti ftstring ftview ; do
+  for ftdemo in ftdiff ftgamma ftgrid ftmulti ftsdf ftstring ftview ; do
       builds/unix/libtool --mode=install install -m 644 ft2demos-%{version}/man/${ftdemo}.1 $RPM_BUILD_ROOT/%{_mandir}/man1
   done
 }
@@ -185,28 +167,28 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 
 %files demos
 %{_bindir}/ftbench
-%{_bindir}/ftchkwd
-%{_bindir}/ftmemchk
-%{_bindir}/ftpatchk
-%{_bindir}/fttimer
 %{_bindir}/ftdump
 %{_bindir}/ftlint
 %{_bindir}/ftvalid
+%{_bindir}/ttdebug
 %{_mandir}/man1/ftbench.1.gz
 %{_mandir}/man1/ftdump.1.gz
 %{_mandir}/man1/ftlint.1.gz
 %{_mandir}/man1/ftvalid.1.gz
+%{_mandir}/man1/ttdebug.1.gz
 %if %{with_xfree86}
 %{_bindir}/ftdiff
 %{_bindir}/ftgamma
 %{_bindir}/ftgrid
 %{_bindir}/ftmulti
+%{_bindir}/ftsdf
 %{_bindir}/ftstring
 %{_bindir}/ftview
 %{_mandir}/man1/ftdiff.1.gz
 %{_mandir}/man1/ftgamma.1.gz
 %{_mandir}/man1/ftgrid.1.gz
 %{_mandir}/man1/ftmulti.1.gz
+%{_mandir}/man1/ftsdf.1.gz
 %{_mandir}/man1/ftstring.1.gz
 %{_mandir}/man1/ftview.1.gz
 %endif
@@ -227,6 +209,13 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_mandir}/man1/*
 
 %changelog
+* Thu Feb 19 2026 Alexei Podtelezhnikov <apodtele@gmail.com> - 2.14.1-3
+- Various spec fixes:
+-   * Remove redundant UTF-8 conversions
+-   * Do not build outdated demos
+-   * Build ftsdf and ttdebug demos
+- Resolves: #2440529
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

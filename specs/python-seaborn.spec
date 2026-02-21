@@ -12,6 +12,7 @@ Source0: %{pypi_source}
 # Use system python-husl
 Patch0: seaborn-husl.patch
 Patch1: seaborn-docscrape.patch
+Patch2: seaborn-numpy-removals.patch
 BuildArch: noarch
 
 BuildRequires: python3-devel

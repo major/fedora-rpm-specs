@@ -1,21 +1,6 @@
-# This is taken from gnutls.spec
-%define srpmhash() %{lua:
-local files = rpm.expand("%_specdir/libgcrypt.spec")
-for i, p in ipairs(patches) do
-   files = files.." "..p
-end
-for i, p in ipairs(sources) do
-   files = files.." "..p
-end
-local sha256sum = assert(io.popen("cat "..files.."| sha256sum"))
-local hash = sha256sum:read("*a")
-sha256sum:close()
-print(string.sub(hash, 0, 16))
-}
-
 Name: libgcrypt
-Version: 1.11.2
-Release: 2%{?dist}
+Version: 1.12.0
+Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
@@ -27,12 +12,11 @@ Patch5: libgcrypt-1.11.0-marvin.patch
 
 %global gcrylibdir %{_libdir}
 %global gcrysoname libgcrypt.so.20
-%global hmackey orboDeJITITejsirpADONivirpUkvarP
 
 License: BSD-3-Clause AND (BSD-3-Clause OR GPL-2.0-only) AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT-Modern-Variant
 Summary: A general-purpose cryptography library
 BuildRequires: gcc
-BuildRequires: gawk, libgpg-error-devel >= 1.11, pkgconfig
+BuildRequires: gawk, libgpg-error-devel >= 1.56, pkgconfig
 # This is needed only when patching the .texi doc.
 BuildRequires: texinfo
 BuildRequires: autoconf, automake, libtool
@@ -66,46 +50,29 @@ applications using libgcrypt.
 export DIGESTS='crc gostr3411-94 md4 md5 rmd160 sha1 sha256 sha512 sha3 tiger whirlpool stribog blake2'
 export CIPHERS='arcfour blowfish cast5 des aes twofish serpent rfc2268 seed camellia idea salsa20 gost28147 chacha20'
 
-eval $(sed -n 's/^\(\(NAME\|VERSION_ID\)=.*\)/OS_\1/p' /etc/os-release)
-export FIPS_MODULE_NAME="$OS_NAME ${OS_VERSION_ID%%.*} %name"
-
 autoreconf -f
 %configure --disable-static \
 %ifarch sparc64
      --disable-asm \
 %endif
      --enable-noexecstack \
-     --enable-hmac-binary-check=%{hmackey} \
      --disable-jent-support \
      --disable-O-flag-munging \
      --enable-digests="$DIGESTS" \
      --enable-ciphers="$CIPHERS" \
-     --enable-marvin-workaround \
-     --with-fips-module-version="$FIPS_MODULE_NAME %{version}-%{srpmhash}"
+     --enable-marvin-workaround
 sed -i -e '/^sys_lib_dlsearch_path_spec/s,/lib /usr/lib,/usr/lib /lib64 /usr/lib64 /lib,g' libtool
 %make_build
 
 %check
 make check
-# try in faked FIPS mode too
-LIBGCRYPT_FORCE_FIPS_MODE=1 make check
 
 %define libpath $RPM_BUILD_ROOT%{gcrylibdir}/%{gcrysoname}.?.?
 
-PROFILE=%{?dist} annocheck --ignore-unknown --verbose --profile=${PROFILE:1} %{libpath}
-
-# Add generation of HMAC checksums of the final stripped binaries 
-%define __spec_install_post \
-    %{?__debug_package:%{__debug_install_post}} \
-    %{__arch_install_post} \
-    %{__os_install_post} \
-    cd src \
-    sed -i -e 's|FILE=.*|FILE=\\\$1|' gen-note-integrity.sh \
-    READELF=readelf AWK=awk ECHO_N="-n" bash gen-note-integrity.sh %{libpath} > %{libpath}.hmac \
-    objcopy --update-section .note.fdo.integrity=%{libpath}.hmac %{libpath} %{libpath}.new \
-    mv -f %{libpath}.new %{libpath} \
-    rm -f %{libpath}.hmac
-%{nil}
+# Disabled now due to failing in F44
+# https://github.com/rpminspect/rpminspect/issues/1546
+# export PROFILE=%{?dist}
+# annocheck --ignore-unknown --verbose --profile=${PROFILE:1} %{libpath}
 
 %install
 %make_install

@@ -164,6 +164,8 @@ Source:         xmlunit.tar.zst
 Source:         xmvn.tar.zst
 Source:         xz-java.tar.zst
 
+Patch:          0001-Switch-Dola-to-Lua-5.5.patch
+
 BuildRequires:  byaccj
 BuildRequires:  java-25-openjdk-devel
 BuildRequires:  jurand

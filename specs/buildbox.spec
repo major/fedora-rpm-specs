@@ -1,13 +1,11 @@
 Name:    buildbox
-Version: 1.3.52
+Version: 1.3.53
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 
 License: Apache-2.0
 URL:     https://buildgrid.gitlab.io/buildbox/buildbox-home/
 Source0: https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/%{version}/buildbox-%{version}.tar.bz2
-Patch:   0001-recc-Fix-base-library-check.patch
-Patch:   0002-recc-Update-list-of-base-libraries-for-GCC-16.patch
 
 ExcludeArch: %{ix86}
 

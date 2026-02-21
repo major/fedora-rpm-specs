@@ -1,12 +1,12 @@
 %global _hardened_build 1
 
 Name:           libvarlink
-Version:        24
+Version:        24.0.1
 Release:        %autorelease
 Summary:        Varlink C Library
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://github.com/varlink/%{name}
-Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -41,7 +41,11 @@ export LC_CTYPE=C.utf8
 # https://github.com/varlink/libvarlink/issues/63
 %ifarch ppc64le
 test_list=$(%meson_test --list) 2> /dev/null
+%if 0%{?fedora} || 0%{?rhel} > 10
+test_list=${test_list//libvarlink:test-symbols}
+%else
 test_list=${test_list//test-symbols}
+%endif
 %meson_test $test_list
 %else
 %meson_test

@@ -49,7 +49,7 @@
 
 Name:           migraphx
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's graph optimization engine
 License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 
@@ -158,9 +158,6 @@ License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 URL:            https://github.com/ROCm/AMDMIGraphX
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        https://github.com/ROCm/rocMLIR/archive/rocm-%{version}.tar.gz#/rocMLIR-%{version}.tar.gz
-# Need to manually patch Source1
-# https://github.com/ROCm/rocMLIR/pull/1953
-# Source100:      0001-rocmlir-add-job-pools.patch
 
 # https://github.com/ROCm/AMDMIGraphX/issues/4368
 Patch1:         0001-migraphx-check-if-use_hipblaslt-before-call-gfx_defa.patch
@@ -316,6 +313,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/migraphx/LICENSE
 %{_libdir}/cmake/migraphx/
 
 %changelog
+* Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Tue Jan 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

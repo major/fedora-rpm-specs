@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.40.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -1135,6 +1135,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Feb 19 2026 Dan Horák <dan[at]danny.cz> - 2:2.40.0-4
+- ccw_init - handle portno option in NM configs and use DRIVER environment variable
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2:2.40.0-3
 - Rebuilt for net-snmp 5.9.5.2
 

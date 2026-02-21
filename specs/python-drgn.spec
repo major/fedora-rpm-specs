@@ -14,7 +14,7 @@ drgn exposes the types and variables in a program for easy, expressive
 scripting in Python.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.33
+Version:        0.1.0
 Release:        %autorelease
 Summary:        Programmable debugger
 
@@ -39,6 +39,7 @@ BuildRequires:  bzip2-devel
 BuildRequires:  elfutils-devel
 BuildRequires:  elfutils-debuginfod-client-devel
 BuildRequires:  libkdumpfile-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  zlib-devel
 BuildRequires:  xz-devel
 # These are needed when building from git snapshots
@@ -124,6 +125,7 @@ install -D -p -m 0644 man/*.1 -t %{buildroot}%{_mandir}/man1/
 %license LICENSES
 %doc README.rst
 %{_bindir}/drgn
+%{_bindir}/drgn-crash
 %{_datadir}/drgn
 %{python3_sitearch}/_%{pypi_name}.pyi
 %{python3_sitearch}/_%{pypi_name}.cpython*.so

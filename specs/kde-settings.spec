@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 43.101
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -30,7 +30,11 @@ Obsoletes: kde-settings-ksplash < 24-2
 Obsoletes: kde-settings-minimal < 24-3
 
 Requires: kde-filesystem
+%if 0%{?el10}
+Requires: xdg-user-dirs >= 0.18-7
+%else
 Requires: xdg-user-dirs >= 0.18-9
+%endif
 ## add breeze deps here? probably, need more too -- rex
 Requires: breeze-icon-theme
 # Baseline mimeapps associations, e.g. LibreOffice
@@ -225,6 +229,9 @@ test -e %{_datadir}/wallpapers/Default || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Feb 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-5
+- Handle correct xdg-user-dirs versioned dependency for EL10
+
 * Wed Feb 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 43.101-4
 - Add backgrounds dep on plasmalogin subpackage
 

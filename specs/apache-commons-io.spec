@@ -44,7 +44,7 @@ sed -i '/<argLine>/d' pom.xml
 %mvn_alias : org.apache.commons:
 
 %pom_remove_dep org.junit-pioneer:junit-pioneer
-%java_remove_annotations src -s -n DefaultLocale
+jurand -i -s -a src -n DefaultLocale
 
 %pom_remove_dep com.google.jimfs:jimfs
 rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderParamFileTest.java

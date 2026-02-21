@@ -19,6 +19,8 @@ Patch:          0002-Ensure-os_install_post-commands-are-NL-terminated.patch
 Patch:          0003-Switch-to-OpenJDK-for-runtime.patch
 # https://github.com/mizdebsk/dola/pull/42
 Patch:          0004-Add-commons-lang3-to-dola-generator-classpath.patch
+# Not forwarded upstream yet
+Patch:          0005-Switch-to-Lua-5.5.patch
 
 Requires:       %{name}-bsx = %{version}-%{release}
 Requires:       %{name}-generator = %{version}-%{release}

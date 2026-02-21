@@ -1,5 +1,12 @@
 # Run optional test
 %{bcond_without perl_Alien_Build_enables_optional_test}
+# Support Alien::cmake3, this works only with cmake < 4,
+# <https://github.com/PerlAlien/Alien-Build/issues/432>.
+%if 0%{?fedora} < 44
+%{bcond_without perl_Alien_Build_enables_cmake}
+%else
+%{bcond_with perl_Alien_Build_enables_cmake}
+%endif
 # Exhibit FFI::Platypus in Test::Alien
 %if !%{defined perl_bootstrap}
 # Build cycle: perl-FFI-Platypus → perl-Alien-Build
@@ -8,7 +15,7 @@
 
 Name:           perl-Alien-Build
 Version:        2.84
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -41,7 +48,7 @@ BuildRequires:  perl(File::Which) >= 1.10
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-%if !%{defined perl_bootstrap}
+%if %{with perl_Alien_Build_enables_cmake} && !%{defined perl_bootstrap}
 # t/alien_build_plugin_build_cmake.t executes gcc via cmake (bug #923024)
 # Build cycle: perl-Alien-cmake3 → perl-Alien-Build
 BuildRequires:  perl(Alien::cmake3) >= 0.02
@@ -142,7 +149,7 @@ Requires:       make
 # A subset of Alien-Build modules is packaged in perl-Alien-Base to minimize
 # dependencies.
 Requires:       perl-Alien-Base = %{?epoch:%{epoch}:}%{version}-%{release}
-%if !%{defined perl_bootstrap}
+%if %{with perl_Alien_Build_enables_cmake} && !%{defined perl_bootstrap}
 # Build cycle: perl-Alien-cmake3 → perl-Alien-Build
 Requires:       perl(Alien::cmake3) >= 0.02
 %endif
@@ -301,11 +308,20 @@ rm t/alien_build_plugin_pkgconfig_{commandline,makestatic,pp}.t
 %patch -p1 -P 1
 rm lib/Alien/Build/Plugin/Digest/SHAPP.pm
 rm t/alien_build_plugin_digest_shapp.t
+%if !%{with perl_Alien_Build_enables_cmake} && !%{defined perl_bootstrap}
+    # Remove CMake support
+    rm lib/Alien/Build/Plugin/Build/CMake.pm
+    perl -i -ne 'print $_ unless m{\b\Qlib/Alien/Build/Plugin/Build/CMake.pm\E\b}' Makefile.PL MANIFEST
+    perl -i -ne 'print $_ unless m{\b\QAlien::Build::Plugin::Build::CMake\E\b}' t/01_use.t
+%endif
 # Remove unused tests
 for F in \
     t/alien_build_plugin_probe_vcpkg.t \
     t/bin/ftpd \
     t/bin/httpd \
+%if !%{with perl_Alien_Build_enables_cmake} || %{defined perl_bootstrap}
+    t/alien_build_plugin_build_cmake.t \
+%endif
 %if !%{with perl_Alien_Build_enables_optional_test} || %{defined perl_bootstrap}
     t/alien_base__system_installed.t \
 %endif
@@ -444,6 +460,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 19 2026 Petr Pisar <ppisar@redhat.com> - 2.84-5
+- Remove CMake plugin if CMake has version 4 (bug #2440944)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.84-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

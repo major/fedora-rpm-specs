@@ -1,25 +1,25 @@
 %global appname KSeExpr
 
 Name: kseexpr
-Version: 4.0.4.0
-Release: 9%{?dist}
+Version: 6.0.0.0
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later
 Summary: The embeddable expression engine fork for Krita
 URL: https://invent.kde.org/graphics/%{name}
 Source0: %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
 
 BuildRequires: bison
 BuildRequires: cmake
-BuildRequires: extra-cmake-modules >= 5.52.0
+BuildRequires: extra-cmake-modules
 BuildRequires: flex
 BuildRequires: gcc-c++
-BuildRequires: ninja-build
+BuildRequires: kf6-rpm-macros
 BuildRequires: sed
 
 %description
@@ -42,18 +42,19 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %autosetup -n %{name}-v%{version} -p1
 
 %build
-%cmake_kf5 -G Ninja \
+%cmake_kf6 \
     -DCMAKE_BUILD_TYPE=Release \
     -DUSE_PREGENERATED_FILES:BOOL=OFF
 %cmake_build
 
 %install
 %cmake_install
+%find_lang seexpr2 --with-qt
 
-%files
+%files -f seexpr2.lang
 %doc README.md
 %license LICENSE.txt
-%{_libdir}/lib%{appname}*.so.4*
+%{_libdir}/lib%{appname}*.so.6{,.*}
 
 %files devel
 %{_includedir}/%{appname}/
@@ -63,6 +64,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Feb 10 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0.0-1
+- 6.0.0.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

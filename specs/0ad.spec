@@ -12,7 +12,7 @@
 
 # Does not build with mozjs-78
 # source/scriptinterface/ScriptTypes.h:85:2: error: #error Your compiler is trying to use an untested minor version of the SpiderMonkey library. If you are a package maintainer, please make sure to check very carefully that this version does not change the behaviour of the code executed by SpiderMonkey. Different parts of the game (e.g. the multiplayer mode) rely on deterministic behaviour of the JavaScript engine. A simple way for testing this would be playing a network game with one player using the old version and one player using the new version. Another way for testing is running replays and comparing the final hash (check trac.wildfiregames.com/wiki/Debugging#Replaymode). For more information check this link: trac.wildfiregames.com/wiki/Debugging#Outofsync
-%bcond_without	system_mozjs115
+%bcond_without	system_mozjs128
 
 # Remember to rerun licensecheck after every update:
 #	https://bugzilla.redhat.com/show_bug.cgi?id=818401#c46
@@ -26,8 +26,8 @@
 %global __requires_exclude ^(libAtlasUI.*\.so|libCollada.*\.so|libmozjs78.*\.so)
 
 Name:		0ad
-Version:	0.27.1
-Release:	8%{?dist}
+Version:	0.28.0
+Release:	1%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -73,10 +73,6 @@ Source1:	%{name}-licensecheck.txt
 # and disabled options were not added to the manual page.
 Source2:	%{name}.6
 
-# Patches to bundled mozjs for Python 3.11 and setuptools 60+ compatibility
-Source3:	0001-Bug-1654457-Update-virtualenv-to-20.0.31.-r-mhentges.patch
-Source4:	0001-Python-Build-Use-r-instead-of-rU-file-read-modes.patch
-
 Source5:        premake-core-5.0.0-beta7.tar.gz
 
 Requires:	%{name}-data = %{version}
@@ -113,7 +109,7 @@ BuildRequires:	valgrind-devel
 BuildRequires:	wxGTK-devel
 BuildRequires:	/usr/bin/appstream-util
 
-%if %{without system_mozjs115}
+%if %{without system_mozjs128}
 # bundled mozjs
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(libffi)
@@ -125,7 +121,7 @@ BuildRequires:	/usr/bin/zip
 # for patching bundled mozjs
 BuildRequires:	git-core
 %else
-BuildRequires:	pkgconfig(mozjs-115)
+BuildRequires:	pkgconfig(mozjs-128)
 %endif
 
 # bundled mozjs: For build time tests only
@@ -134,31 +130,14 @@ BuildRequires:	perl-devel
 
 ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64 ppc64le
 
-%if %{without system_mozjs115}
-Provides: bundled(mozjs) = 115
+%if %{without system_mozjs128}
+Provides: bundled(mozjs) = 128
 %endif
 
 # Only do fcollada debug build with enabling debug maintainer mode
 # It also prevents assumption there that it is building in x86
 Patch1:		%{name}-debug.patch
 Patch2:		%{name}-check.patch
-Patch3:		%{name}-python311.patch
-Patch4:		0001-Fix-the-removal-of-implicit-conversions-in-libfmt-10.patch
-Patch5:		0001-Fix-compilation-with-GCC-13.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2255223
-Patch6:		0ad-gcc-14.patch
-Patch7:		0001-Fix-build-with-libxml2-v2.12.1.patch
-# https://gitea.wildfiregames.com/0ad/0ad/commit/38e3f5cec04f29f747515248ca3f002bd1cc52a8
-Patch8:     %{name}-miniupnp228.patch
-# https://gitea.wildfiregames.com/0ad/0ad/commit/5643e90b19ea443d69b3d83dab5b79bd2c7ca8db
-Patch9:		0ad-icu76.patch
-# https://gitea.wildfiregames.com/0ad/0ad/pulls/7234
-# pulled from https://gitlab.archlinux.org/archlinux/packaging/packages/0ad/-/blob/a26-20/49507c04e027b0d48e050bfc38ae2b631d7403c7.patch
-# due to 500 errors upstream
-Patch10:        49507c04e027b0d48e050bfc38ae2b631d7403c7.patch
-# Re-enable ppc64le
-Patch11:        638c04987ef134edea2b87d5f97996219206cebb.patch
-Patch12:        59cb3cd67b2b51a5bcc9d052d8d77e2f2a4b89b7.patch
 
 %description
 0 A.D. (pronounced "zero ey-dee") is a free, open-source, cross-platform
@@ -181,22 +160,6 @@ hobbyist game developers, since 2001.
 #%%patch -P1 -p0
 %endif
 #%%patch -P2 -p0
-
-# Patch bundled mozjs for Python 3.11 and setuptools 60+ compatibility
-#%%patch -P3 -p1
-#sed -e 's|__SOURCE3__|%{SOURCE3}|' \
-#    -e 's|__SOURCE4__|%{SOURCE4}|' \
-#    -i libraries/source/spidermonkey/patch.sh
-
-#%%patch -P4 -p1
-#%%patch -P5 -p1
-#%%patch -P6 -p1
-#%%patch -P7 -p1
-#%%patch -P8 -p1
-#%%patch -P9 -p1
-#%%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
 
 cp %{SOURCE5} libraries/source/premake-core/
 
@@ -226,7 +189,7 @@ build/workspaces/update-workspaces.sh	\
     --bindir=%{_bindir}			\
     --datadir=%{_datadir}/%{name}	\
     --libdir=%{_libdir}/%{name}		\
-%if %{with system_mozjs115}
+%if %{with system_mozjs128}
     --with-system-mozjs			\
 %endif
 %if %{with system_nvtt}
@@ -256,11 +219,11 @@ for name in nvcore nvimage nvmath nvtt; do
 done
 %endif
 
-%if %{without system_mozjs115}
+%if %{without system_mozjs128}
 %if %{with debug}
-name=mozjs115-ps-debug
+name=mozjs128-ps-debug
 %else
-name=mozjs115-ps-release
+name=mozjs128-ps-release
 %endif
 install -p -m 755 binaries/system/lib${name}.so %{buildroot}%{_libdir}/%{name}/lib${name}.so
 %endif
@@ -310,6 +273,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Wed Feb 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-1
+- 0.28.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

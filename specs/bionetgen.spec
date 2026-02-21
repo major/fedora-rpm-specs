@@ -12,8 +12,15 @@ License:        GPL-3.0-only AND BSD-3-Clause AND MIT
 URL:            https://github.com/RuleWorld/bionetgen
 Source0:        https://github.com/RuleWorld/bionetgen/archive/BioNetGen-%{version}/bionetgen-BioNetGen-%{version}.tar.gz
 
+# This patch fixes the link to libsundials_fcvode.a
 Patch0:         %{name}-fix_linker.patch
+
+# This patch sets cmake_minimum-required() of Sundials
 Patch1:         %{name}-fix_cmake_minimum.patch
+
+# This patch fixes C99 compatibility and sets cmake_minimum-required() of Sundials Fortran tests
+# https://github.com/RuleWorld/bionetgen/issues/262
+# https://bugzilla.redhat.com/show_bug.cgi?id=2380479
 Patch2:         %{name}-cmake-c99.patch
 
 %if 0%{without bundled_sundials}
@@ -167,8 +174,24 @@ cp -a bionetgen-BioNetGen-%{version} mpich
 %endif
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380479)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+# Build sundials static libraries
+%if %{with bundled_sundials}
+
+export CFLAGS="${CFLAGS//-Werror=format-security/-Wno-error=format-security}"
+pushd bionetgen-BioNetGen-%{version}/bng2/Network3/cvode-2.6.0
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release \
+ -DCMAKE_MODULE_LINKER_FLAGS:STRING="%{__global_ldflags}" \
+ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+ -DEXAMPLES_ENABLE=OFF -DEXAMPLES_INSTALL=OFF \
+ -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON \
+ -DMPI_ENABLE:BOOL=OFF \
+ -DFCMIX_ENABLE:BOOL=ON
+%cmake_build
+popd
+%endif
+#
+
 CFLAGS="$CFLAGS -Wno-unused-variable -Wno-unused-but-set-variable -std=gnu17"
 CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations"
 
@@ -179,33 +202,17 @@ cd muparser_v2_2_4
 %configure --enable-shared=no --enable-static=yes --enable-samples=no
 %make_build
 cd ../
+#
 
 # Compile mathutils static library
 make -j1 -C src/util/mathutils
-
-# Build sundials static libraries
-%if %{with bundled_sundials}
-
-export CFLAGS="${CFLAGS//-Werror=format-security/-Wno-error=format-security}"
-mkdir -p cvode-2.6.0/build
-%define _vpath_builddir cvode-2.6.0/build
-%cmake -S cvode-2.6.0 -B cvode-2.6.0/build -DCMAKE_MODULE_LINKER_FLAGS:STRING="%{__global_ldflags}" \
- -DCMAKE_INSTALL_PREFIX=%{_prefix} \
- -DEXAMPLES_ENABLE=OFF -DEXAMPLES_INSTALL=OFF \
- -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON \
- -DMPI_ENABLE:BOOL=OFF \
- -DFCMIX_ENABLE:BOOL=ON
-%cmake_build
-%endif
+#
 
 export CFLAGS="$CFLAGS -I../src/util/mathutils -I../cvode-2.6.0/include -I../muparser_v2_2_4/include"
-export CXXFLAGS="${CXXFLAGS//-Werror=format-security/-Wno-error=format-security} -I../src/util/mathutils -I../cvode-2.6.0/include -I../cvode-2.6.0/include/cvode -I../cvode-2.6.0/build/include  -I../cvode-2.6.0/src/cvode/fcmix -L../src/util/mathutils -I../muparser_v2_2_4/include -L../muparser_v2_2_4/lib -L../cvode-2.6.0/build/src/cvode/fcmix -L../cvode-2.6.0/build/src/sundials -L../cvode-2.6.0/build/src/cvode -L../cvode-2.6.0/build/src/nvec_ser"
-mkdir -p build
-%define _vpath_builddir build
+export CXXFLAGS="${CXXFLAGS//-Werror=format-security/-Wno-error=format-security} -I../src/util/mathutils -I../cvode-2.6.0/include -I../cvode-2.6.0/include/cvode -I../cvode-2.6.0/%_vpath_builddir/include  -I../cvode-2.6.0/src/cvode/fcmix -L../src/util/mathutils -I../muparser_v2_2_4/include -L../muparser_v2_2_4/lib -L../cvode-2.6.0/%_vpath_builddir/src/cvode/fcmix -L../cvode-2.6.0/%_vpath_builddir/src/sundials -L../cvode-2.6.0/%_vpath_builddir/src/cvode -L../cvode-2.6.0/%_vpath_builddir/src/nvec_ser"
 %cmake  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON
 %cmake_build
-popd
 
 %if 0%{with mpi}
 pushd openmpi/bng2/Network3
@@ -227,7 +234,7 @@ popd
 
 
 %install
-pushd bionetgen-BioNetGen-%{version}/bng2/Network3/build
+pushd bionetgen-BioNetGen-%{version}/bng2/Network3/%_vpath_builddir
 mkdir -vp %{buildroot}%{_bindir}
 install -pm 755 run_network %{buildroot}%{_bindir}/
 popd
@@ -252,11 +259,11 @@ rm -f %{buildroot}%{perl_vendorlib}/BioNetGen/Models2/run_network
 %check
 pushd bionetgen-BioNetGen-%{version}/bng2/Models2
 %ifarch %{arm}
-install -pm 755 ../Network3/build/run_network -D ./bin/run_network_armv7l-linux
-install -pm 755 ../Network3/build/run_network -D ../bin/run_network_armv7l-linux
+install -pm 755 ../Network3/%_vpath_builddir/run_network -D ./bin/run_network_armv7l-linux
+install -pm 755 ../Network3/%_vpath_builddir/run_network -D ../bin/run_network_armv7l-linux
 %else
-install -pm 755 ../Network3/build/run_network -D ./bin/run_network_%{_target_cpu}-linux
-install -pm 755 ../Network3/build/run_network -D ../bin/run_network_%{_target_cpu}-linux
+install -pm 755 ../Network3/%_vpath_builddir/run_network -D ./bin/run_network_%{_target_cpu}-linux
+install -pm 755 ../Network3/%_vpath_builddir/run_network -D ../bin/run_network_%{_target_cpu}-linux
 %endif
 echo "Running some tests ..."
 ../BNG2.pl CaOscillate_Func.bngl CaOscillate_Sat.bngl catalysis.bngl egfr_net.bngl egfr_net_red.bngl egfr_path.bngl energy_example1.bngl fceri_ji.bngl test_continue.bngl
