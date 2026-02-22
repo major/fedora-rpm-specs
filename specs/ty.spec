@@ -9,6 +9,11 @@
 
 Name:           ty
 Version:        0.0.17
+# The ty package has a permanent exception to the Updates Policy in Fedora,
+# so it can be updated in stable releases across SemVer boundaries (subject to
+# good judgement and actual compatibility of any reverse dependencies). See
+# https://docs.fedoraproject.org/en-US/fesco/Updates_Policy/#_other_packages,
+# https://pagure.io/fesco/issue/3564.
 Release:        %autorelease
 Summary:        Extremely fast Python type checker and language server
 

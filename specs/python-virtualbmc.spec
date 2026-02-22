@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.2.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -11,6 +11,8 @@ Source0: https://tarballs.opendev.org/openstack/%{srcname}/%{srcname}-%{version}
 Source1: 60-vbmcd.rules
 Source2: vbmcd.service
 Source3: vbmcd.sysusers
+# https://bugs.launchpad.net/virtualbmc/+bug/2142312
+Patch0: %{name}-3.2.0_multiprocess_fork.patch
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: systemd-rpm-macros

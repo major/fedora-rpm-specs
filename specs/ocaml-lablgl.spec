@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-lablgl
 Epoch:          1
 Version:        1.07
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
@@ -146,6 +146,9 @@ popd
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1:1.07-21
+- OCaml 5.4.1 rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.07-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

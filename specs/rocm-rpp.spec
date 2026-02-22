@@ -42,7 +42,7 @@
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -62,7 +62,7 @@
 
 Name:           rocm-rpp%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -138,7 +138,9 @@ sed -i -e '/COMPONENT test/d' CMakeLists.txt
 
 # Remove third_party libs
 # https://github.com/ROCm/rpp/issues/602
-rm -rf libs/third_party
+rm -rf third_party
+# with third_party removed, no license file to install
+sed -i -e '/CPACK_RESOURCE_FILE_FFTS_LICENSE/d' CMakeLists.txt
 
 # Problems building mivsionx
 # CMake Error at /usr/lib64/cmake/rpp/rpp-config.cmake:28 (message):
@@ -197,6 +199,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rpp/LICENSE
 %endif
 
 %changelog
+* Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Fix removing third_party
+
 * Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

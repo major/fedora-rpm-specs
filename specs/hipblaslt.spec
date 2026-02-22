@@ -89,7 +89,7 @@
 # https://github.com/ROCm/hipBLASLt/issues/908
 
 # Compression type and level for source/binary package payloads.
-#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+#  "w7T0.xzdio" xz level 7 using %%{getncpus} threads
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
@@ -126,7 +126,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -157,7 +157,11 @@ Patch4:         0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
 # compile and link jobpools
 Patch5:         0001-hipblaslt-cmake-compile-and-link-pools.patch
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
+%if 0%{?fedora} || 0%{?suse_version}
+BuildRequires:  fdupes
+%endif
 BuildRequires:  gcc-c++
 %if 0%{?suse_version}
 BuildRequires:  gcc-fortran
@@ -439,8 +443,23 @@ cd projects/hipblaslt
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
 
+# hipblaslt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipblaslt/library/extop_gfx1201.co
+%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipblaslt/library/Kernels.so-000-*.hsaco
+%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipblaslt/library/extop_*.co
+
+# hipblaslt.x86_64: E: binary-or-shlib-defines-rpath /usr/lib64/libhipblaslt.so.1.2 (RUNPATH: $ORIGIN/../lib:$ORIGIN/../llvm/lib:$ORIGIN/../lib:$ORIGIN/../lib/hipblaslt/lib)
+chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
+
+# hipblaslt-devel.x86_64: W: cross-directory-hard-link /usr/include/hipblaslt/hipblaslt-export.h /usr/include/hipblaslt-export.h
+# Clean up dupes:
+%if 0%{?fedora} || 0%{?suse_version}
+%fdupes %{buildroot}%{pkg_prefix}
+%endif
+
+%if 0%{?suse_version}
 %post  -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %files
 %if %{with gitcommit}
@@ -468,6 +487,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Tue Jan 27 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

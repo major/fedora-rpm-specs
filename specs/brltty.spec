@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -675,6 +675,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 6.9-2
+- OCaml 5.4.1 rebuild
+
 * Tue Feb 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.9-1
 - 6.9
 

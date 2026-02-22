@@ -18,7 +18,7 @@
 
 Name:           ocaml-dune
 Version:        3.21.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -494,6 +494,9 @@ cd -
 %files -n ocaml-top-closure-devel -f .ofiles-top-closure-devel
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 3.21.1-3
+- OCaml 5.4.1 rebuild
+
 * Thu Feb 12 2026 Jerry James <loganjerry@gmail.com> - 3.21.1-2
 - Remove incorrect obsoletes
 

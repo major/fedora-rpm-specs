@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -398,6 +398,9 @@ _EOF
 %endif
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 4.4.1-4
+- OCaml 5.4.1 rebuild
+
 * Mon Feb 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.1-3
 - Add workaround for failing build due to binutils changes related to
   linker setting

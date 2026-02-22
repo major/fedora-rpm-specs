@@ -10,7 +10,7 @@ Summary:        Simple package build system for OCaml
 
 %forgemeta
 
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
 VCS:            git:%{url}.git
@@ -77,6 +77,9 @@ help2man \
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.11-11
+- OCaml 5.4.1 rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

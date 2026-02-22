@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlp5
 Version:        8.04.00
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -116,6 +116,9 @@ make -C test all
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 8.04.00-5
+- OCaml 5.4.1 rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.04.00-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

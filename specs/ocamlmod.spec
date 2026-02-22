@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlmod
 Version:        0.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generate OCaml modules from source files
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -60,6 +60,9 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlmod \
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.1-4
+- OCaml 5.4.1 rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

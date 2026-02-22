@@ -1,53 +1,35 @@
-%global systemd (0%{?fedora} >= 18) || (0%{?rhel} >= 7)
-# F21+ and RHEL8+ have systemd 211+ which offers RuntimeDirectory
-# use that instead of tmpfiles.d
-%global systemd_runtimedir (0%{?fedora} >= 21) || (0%{?rhel} >= 8)
-%global tmpfiles ((0%{?fedora} >= 15) || (0%{?rhel} == 7)) && !%{systemd_runtimedir}
-
-%global baserelease 24
-%global pre_rel Beta3
+%global baserelease 1
+#global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
 Name: openarc
-Version: 1.0.0
+Version: 1.3.0
 Release: %{?pre_rel:0.}%{baserelease}%{?pre_rel:.%pre_rel}%{?dist}
 # Automatically converted from old format: BSD and Sendmail - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND Sendmail-8.23
-URL: https://github.com/trusteddomainproject/OpenARC
-# actually https://github.com/trusteddomainproject/OpenARC/archive/rel-openarc-1-0-0-Beta3.tar.gz but our local tarball is misnamed
-Source0:  openarc-1.0.0.Beta3.tar.gz
-Patch0:   openarc-headerdebug.patch
-# https://github.com/trusteddomainproject/OpenARC/pull/121
-# Fixes Microsoft Office 365 signature validation
-Patch1:   0001-Remove-t-from-the-list-of-required-AS-tags.patch
-
-BuildRequires: make
-BuildRequires: libtool gcc
-BuildRequires: pkgconfig(openssl)
-BuildRequires: pkgconfig(libbsd)
-BuildRequires: pkgconfig(jansson)
-
-# sendmail-devel renamed for F25+
-%if 0%{?fedora} > 25
-BuildRequires: sendmail-milter-devel
-%else
-BuildRequires: sendmail-devel
-%endif
+URL: https://github.com/flowerysong/OpenARC
+Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: autoconf
 BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: libtool
+BuildRequires: make
+BuildRequires: pkgconfig(jansson)
+BuildRequires: pkgconfig(libbsd)
+BuildRequires: pkgconfig(libidn2)
+BuildRequires: pkgconfig(openssl)
+BuildRequires: sendmail-milter-devel
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires: systemd-rpm-macros
+%else
+BuildRequires: systemd
+%endif
+
 
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
 Requires: libopenarc = %{version}-%{release}
-%if %systemd
-# Required for systemd
 %{?systemd_requires}
-BuildRequires: systemd
-%else
-# Required for SysV
-Requires(post): chkconfig
-Requires(preun): chkconfig, initscripts
-%endif
 Requires: group(mail)
 
 
@@ -71,8 +53,9 @@ Requires: lib%{name}%{?_isa} = %{version}-%{release}
 This package contains the static libraries, headers, and other support files
 required for developing applications against libopenarc.
 
+
 %prep
-%autosetup -n OpenARC-rel-openarc-1-0-0-Beta3 -p1
+%autosetup -p1
 
 # Previously, a non-system group was created :(, sysusers does not support this
 # Create a sysusers.d config file
@@ -83,9 +66,15 @@ EOF
 
 
 %build
+%if 0%{?fedora} >= 42
+# Workaround bug in libmilter/mfapi.h with gcc15
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2336394
+export CFLAGS="%{optflags} --std=gnu17"
+%endif
 autoreconf --install
 %configure --disable-static
 %make_build
+
 
 %install
 %make_install
@@ -94,9 +83,8 @@ mkdir -p -m 0750 %{buildroot}%{_rundir}/%{name}
 rm -r %{buildroot}%{_prefix}/share/doc/openarc
 rm %{buildroot}/%{_libdir}/*.la
 
-
 cat > %{buildroot}%{_sysconfdir}/openarc.conf <<EOF
-## See openarc.conf(5) or %{_docdir}/%{name}%{?rhel:-%{version}}/openarc.conf.sample for more
+## See openarc.conf(5) or %{_docdir}/%{name}/openarc.conf.sample for more
 #PidFile %{_rundir}/%{name}/%{name}.pid
 Syslog  yes
 UserID  openarc:openarc
@@ -124,110 +112,61 @@ cat > %{buildroot}%{_sysconfdir}/%{name}/PeerList <<EOF
 EOF
 chmod 0640 %{buildroot}%{_sysconfdir}/%{name}/PeerList
 
-%if %systemd
 install -d -m 0755 %{buildroot}%{_unitdir}
-cat > %{buildroot}%{_unitdir}/%{name}.service << 'EOF'
-[Unit]
-Description=Authenticated Receive Chain (ARC) Milter
-Documentation=man:%{name}(8) man:%{name}.conf(5) http://www.trusteddomain.org/%{name}/
-After=network.target nss-lookup.target syslog.target
-
-[Service]
-Type=simple
-%if %{systemd_runtimedir}
-RuntimeDirectory=%{name}
-RuntimeDirectoryMode=0750
-%endif
-EnvironmentFile=-%{_sysconfdir}/sysconfig/%{name}
-ExecStart=/usr/sbin/%{name} -f $OPTIONS
-ExecStartPost=/sbin/restorecon -r -F %{_rundir}/%{name}
-ExecReload=/bin/kill -USR1 $MAINPID
-Restart=on-failure
-User=%{name}
-Group=%{name}
-UMask=0007
-ProtectSystem=strict
-ProtectHome=true
-
-[Install]
-WantedBy=multi-user.target
-EOF
-%else
-mkdir -p %{buildroot}%{_initrddir}
-install -m 0755 contrib/init/redhat/%{name} %{buildroot}%{_initrddir}/%{name}
-%endif
-
-%if %{tmpfiles}
-install -p -d %{buildroot}%{_tmpfilesdir}
-cat > %{buildroot}%{_tmpfilesdir}/%{name}.conf <<EOF
-D %{_rundir}/%{name} 0750 %{name} %{name} -
-EOF
-%endif
+install -m 0644 contrib/systemd/openarc.service %{buildroot}%{_unitdir}/
 
 install -m0644 -D openarc.sysusers.conf %{buildroot}%{_sysusersdir}/openarc.conf
 
+
 %post
-
-%if %systemd
 %systemd_post %{name}.service
-%else
-/sbin/chkconfig --add %{name} || :
-%endif
-
 
 %preun
-%if %systemd
 %systemd_preun %{name}.service
-%else
-if [ $1 -eq 0 ]; then
-    service %{name} stop >/dev/null || :
-    /sbin/chkconfig --del %{name} || :
-fi
-exit 0
-%endif
 
 %postun
-%if %systemd
 %systemd_postun_with_restart %{name}.service
-%endif
+
 
 %ldconfig_scriptlets -n libopenarc
 
+
 %files
 %license LICENSE LICENSE.Sendmail
-%doc README RELEASE_NOTES %{name}/%{name}.conf.sample
+%doc README.md CHANGELOG.md %{name}/%{name}.conf.sample
 %dir %attr(0755,root,%{name}) %{_sysconfdir}/%{name}
 %config(noreplace) %attr(0644,root,%{name}) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %attr(0440,%{name},%{name}) %{_sysconfdir}/%{name}/PeerList
-
-%if %{tmpfiles}
-%{_tmpfilesdir}/%{name}.conf
-%endif
-%if !%{tmpfiles} && !%{systemd_runtimedir}
-%dir %attr(0750,%{name},%{name}) %{_rundir}/%{name}
-%endif
-
-%if %{systemd}
 %{_unitdir}/%{name}.service
-%else
-%{_initrddir}/%{name}
-%endif
-%{_mandir}/*/*
-%{_sbindir}/*
+%{_mandir}/man1/openarc-keygen.1*
+%{_mandir}/man5/openarc.conf.5*
+%{_mandir}/man8/openarc.8*
+%{_bindir}/openarc-keygen
+%{_sbindir}/openarc
 %{_sysusersdir}/openarc.conf
-
 
 %files -n libopenarc
 %license LICENSE LICENSE.Sendmail
-%{_libdir}/*.so.0
-%{_libdir}/*.so.0.0.0
+%{_libdir}/libopenarc.so.1
+%{_libdir}/libopenarc.so.1.1.0
 
 %files -n libopenarc-devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_includedir}/openarc/
+%{_libdir}/libopenarc.so
+%{_libdir}/pkgconfig/openarc.pc
+
 
 %changelog
+* Wed Feb 04 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.0-1
+- Update to 1.3.0
+
+* Wed Feb 04 2026 Xavier Bachelot <xavier@bachelot.org> - 1.2.2-1
+- Update to 1.2.2
+
+* Wed Feb 04 2026 Xavier Bachelot <xavier@bachelot.org> - 1.2.1-1
+- Update to 1.2.1
+- Various cleanups
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.24.Beta3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

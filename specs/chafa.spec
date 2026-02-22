@@ -1,5 +1,5 @@
 Name:           chafa
-Version:        1.14.5
+Version:        1.18.1
 Release:        %autorelease
 %global sum     Image-to-text converter for terminal
 Summary:        %{sum}
@@ -96,7 +96,7 @@ find %{buildroot} -name "*.la" -delete
 %doc AUTHORS
 %license COPYING.LESSER
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.9.5
+%{_libdir}/lib%{name}.so.0.11.1
 
 %files static
 %doc AUTHORS

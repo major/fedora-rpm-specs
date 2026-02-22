@@ -21,7 +21,7 @@
 
 Name:           libnbd
 Version:        1.25.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -401,6 +401,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.2-2
+- OCaml 5.4.1 rebuild
+
 * Tue Feb 17 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.2-1
 - New upstream development version 1.25.2
 

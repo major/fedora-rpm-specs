@@ -1,8 +1,10 @@
+%bcond qt5 %[!(0%{?rhel} >= 10)]
+
 %global sover 2.4
 
 Name:           kddockwidgets
 Version:        2.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Qt dock widget library
 
 License:        GPL-3.0-only AND GPL-2.0-only AND BSD-3-Clause
@@ -12,10 +14,12 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
+%if %{with qt5}
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5X11Extras)
 BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  qt5-qtbase-private-devel
+%endif
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  qt6-qtbase-private-devel
@@ -71,6 +75,7 @@ developing applications that use %{name}-qt6.
 
 
 %build
+%if %{with qt5}
 %global _vpath_builddir %{_target_platform}-qt5
 %cmake \
     -G Ninja \
@@ -78,6 +83,7 @@ developing applications that use %{name}-qt6.
     -DECM_MKSPECS_INSTALL_DIR=%{_qt5_archdatadir}/mkspecs/modules \
     -DKDDockWidgets_QT6=OFF
 %cmake_build
+%endif
 
 %global _vpath_builddir %{_target_platform}-qt6
 # qhelpgenerator needs to be in $PATH to be detected
@@ -91,9 +97,11 @@ export PATH=$(%{_qt6_qmake} -query QT_HOST_LIBEXECS):$PATH
 %cmake_build
 
 %install
+%if %{with qt5}
 %global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
 rm -r %{buildroot}%{_datadir}/doc
+%endif
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
@@ -102,6 +110,7 @@ mv %{buildroot}%{_docdir}/KDDockWidgets-qt6/*.qch %{buildroot}%{_qt6_docdir}/
 mv %{buildroot}%{_docdir}/KDDockWidgets-qt6/*.tags %{buildroot}%{_qt6_docdir}/
 rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 
+%if %{with qt5}
 %files
 %license LICENSES/* LICENSE.txt
 %doc CONTRIBUTORS.txt Changelog README.md
@@ -113,6 +122,7 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 %{_libdir}/cmake/KDDockWidgets
 %{_libdir}/libkddockwidgets.so
 %{_qt5_archdatadir}/mkspecs/modules/qt_KDDockWidgets.pri
+%endif
 
 %files qt6
 %license LICENSES/* LICENSE.txt
@@ -133,6 +143,9 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 
 
 %changelog
+* Fri Feb 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-5
+- Disable qt5 for EPEL 10+
+
 * Wed Feb 11 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.0-4
 - Rebuild (qt6)
 

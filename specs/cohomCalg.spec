@@ -1,6 +1,6 @@
 Name:           cohomCalg
 Version:        0.32
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Sheaf cohomologies for line bundles on toric varieties
 
 License:        GPL-3.0-or-later
@@ -23,6 +23,9 @@ BuildRequires:  tex(latex)
 BuildRequires:  tex(extdash.sty)
 BuildRequires:  tex(hyperxmp.sty)
 BuildRequires:  tex(totpages.sty)
+BuildRequires:  texlive-rsfs
+BuildRequires:  texlive-txfonts
+BuildRequires:  texlive-utopia
 
 %description
 This package computes sheaf cohomologies for line bundles on toric varieties.
@@ -82,6 +85,9 @@ popd
 %doc manual/latex_source/manual.pdf
 
 %changelog
+* Fri Feb 20 2026 Jerry James <loganjerry@gmail.com> - 0.32-22
+- Adapt to recent TeXLive changes
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

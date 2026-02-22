@@ -5,13 +5,14 @@
 %global pypi_name pystemd
 
 Name:           python-%{pypi_name}
-Version:        0.14.0
+Version:        0.15.3
 Release:        %autorelease
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/pystemd
-Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Patch:          pystemd-revert-license-change.diff
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libsystemd)
@@ -59,10 +60,14 @@ sed -i '/pystemd\/.*\.c$/d' %{pyproject_files}
 
 
 %check
+# e2e: no DBUS
 # tests/test_daemon.py: This test fails in mock because systemd isn't running
 # tests/test_version.py: This test requires additional dependencies (cstq)
 # test_pickle.py::test_loaded_unit: no DBUS
 %pytest -v \
+  --ignore e2e/test_dbus.py \
+  --ignore e2e/test_manager.py \
+  --ignore e2e/test_pystemd_run.py \
   --ignore tests/test_daemon.py \
   --ignore tests/test_version.py \
   --deselect=tests/test_pickle.py::test_loaded_unit \

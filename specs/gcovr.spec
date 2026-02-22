@@ -3,7 +3,7 @@
 %bcond_without  docs
 
 Name:           gcovr
-Version:        8.3
+Version:        8.6
 Release:        %autorelease
 Summary:        A code coverage report generator using GNU gcov
 
@@ -52,7 +52,7 @@ Documentation of gcovr.
 %autosetup
 
 # Relax the strict version requirements.
-sed -i -e "s/hatchling==1.26.1/hatchling/" -e "s/hatch-vcs==0.4.0/hatch-vcs/" -e "s/hatch-fancy-pypi-readme==24.1.0/hatch-fancy-pypi-readme/" pyproject.toml
+sed -i -e "s/hatchling==1.27.0/hatchling/" -e "s/hatch-vcs==0.5.0/hatch-vcs/" -e "s/hatch-fancy-pypi-readme==25.1.0/hatch-fancy-pypi-readme/" pyproject.toml
 
 %generate_buildrequires
 # Let hatch-vcs/setuptools_scm determine version outside of SCM
@@ -64,6 +64,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
+# can't run tests, require unpackaged dependencies
+%dnl %check
+%dnl %pytest
 
 %install
 %pyproject_install

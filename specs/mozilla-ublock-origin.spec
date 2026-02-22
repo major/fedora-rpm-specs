@@ -6,12 +6,11 @@
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
 Name:           mozilla-ublock-origin
-Version:        1.68.0
+Version:        1.69.0
 Release:        %autorelease
 Summary:        An efficient blocker for Firefox
 
-# Automatically converted from old format: GPLv3 and MIT and OFL and Unlicense - review is highly recommended.
-License:        GPL-3.0-only AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-OFL AND Unlicense
+License:        BSD-2-Clause AND GPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-Fedora-UltraPermissive AND MIT AND MPL-2.0 AND OFL-1.1 AND Unlicense
 URL:            https://github.com/gorhill/uBlock
 Source0:        https://github.com/gorhill/uBlock/archive/%{version}/uBlock-%{version}.tar.gz
 Source1:        mozilla-ublock-origin.metainfo.xml

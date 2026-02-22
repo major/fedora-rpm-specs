@@ -1,7 +1,11 @@
 %if 0%{?rhel}
-# EPEL - only Qt5 packages
+# EPEL - no Qt4 at all, Qt5 only up to 9, and Qt6 in 9+
 %bcond_with	qt4
+%if %{rhel} >= 10
+%bcond_with	qt5
+%else
 %bcond_without	qt5
+%endif
 %if %{rhel} >= 9
 %bcond_without	qt6
 %else

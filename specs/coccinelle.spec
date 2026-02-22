@@ -22,7 +22,7 @@ Version:       1.3.1
 %endif
 
 Name:           coccinelle
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -286,6 +286,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-5
+- OCaml 5.4.1 rebuild
+
 * Mon Feb 02 2026 Jerry James <loganjerry@gmail.com> - 1.3.1-4
 - Rebuild for ocaml-menhir 20260122
 - Install the metainfo

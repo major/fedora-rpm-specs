@@ -86,7 +86,7 @@ BuildRequires:  pkgconfig(tcl)
 BuildRequires:  pkgconfig(tk)
 BuildRequires:  pkgconfig(xaw7)
 BuildRequires:  tex(latex)
-BuildRequires:  tex-ec
+BuildRequires:  texlive-ec
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
 BuildRequires:  emacs-nw

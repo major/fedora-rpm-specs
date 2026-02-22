@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-ocplib-simplex
 Epoch:          1
 Version:        0.4.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -87,6 +87,9 @@ make local-tests
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1:0.4.1-16
+- OCaml 5.4.1 rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

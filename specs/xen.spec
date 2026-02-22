@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.21.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -828,6 +828,9 @@ fi
 %{_libexecdir}/xen/tests/*
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 4.21.0-4
+- OCaml 5.4.1 rebuild
+
 * Wed Jan 28 2026 Michael Young <m.a.young@durham.ac.uk> - 4.21.0-3
   x86: buffer overrun with shadow paging + tracing [XSA-477, CVE-2025-58150]
   x86: incomplete IBPB for vCPU isolation [XSA-479, CVE-2026-23553]

@@ -64,7 +64,7 @@
 
 Name:           rocm-examples%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -192,12 +192,20 @@ export ROCM_ROOT=%{pkg_prefix}
 %install
 %cmake_install
 
+# This will cause problems when they are removed
+# rocm-examples.x86_64: W: non-executable-in-bin /usr/bin/myKernel.hsaco 644
+# rocm-examples.x86_64: W: non-executable-in-bin /usr/bin/vcpy_isa.hsaco 644
+rm -f %{buildroot}%{pkg_prefix}/bin/*.hsaco
+
 %files
 %license LICENSE.md
 %doc README.md
 %{pkg_prefix}/bin/*
 
 %changelog
+* Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

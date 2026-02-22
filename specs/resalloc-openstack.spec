@@ -15,8 +15,8 @@
 
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
-Version:    9.8
-Release:    10%{?dist}
+Version:    9.9
+Release:    1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc-openstack
@@ -33,7 +33,7 @@ Requires: %pythonpfx-keystoneauth1
 Requires: %pythonpfx-neutronclient
 Requires: %pythonpfx-novaclient
 
-Source0: https://github.com/praiskup/%name/releases/download/v%version/%name-%version.tar.gz
+Source0: https://github.com/praiskup/%name/releases/download/v%version/%pkgname-%version.tar.gz
 
 %description
 Resource allocator spawner/terminator scripts for OpenStack virtual machines,
@@ -47,7 +47,7 @@ general might be used separately.
 
 
 %prep
-%setup -q
+%setup -q -n %pkgname-%version
 
 
 %build
@@ -79,6 +79,9 @@ general might be used separately.
 
 
 %changelog
+* Fri Feb 20 2026 Pavel Raiskup <praiskup@redhat.com> - 9.9-1
+- new upstream release (enforcing ipv4 connection)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

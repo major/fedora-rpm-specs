@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sha
 Version:        1.15.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Binding to the SHA cryptographic functions
 
 License:        ISC
@@ -61,6 +61,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.15.4-18
+- OCaml 5.4.1 rebuild
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

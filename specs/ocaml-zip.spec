@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zip
 Version:        1.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for reading and writing zip, jar and gzip files
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -93,6 +93,9 @@ cmp Makefile Makefile.uncompressed
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.14-2
+- OCaml 5.4.1 rebuild
+
 * Fri Feb 13 2026 Jerry James <loganjerry@gmail.com> - 1.14-1
 - Version 1.14
 

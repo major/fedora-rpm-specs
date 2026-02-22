@@ -45,8 +45,8 @@ ExcludeArch: %{ix86}
 %global rcver %{nil}
 
 Name:           ocaml
-Version:        5.4.0
-Release:        2%{?dist}
+Version:        5.4.1
+Release:        1%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -68,7 +68,7 @@ Source2:        ocaml_files.py
 #
 # https://pagure.io/fedora-ocaml
 #
-# Current branch: fedora-44-5.4.0
+# Current branch: fedora-45-5.4.1
 #
 # ALTERNATIVELY add a patch to the end of the list (leaving the
 # existing patches unchanged) adding a comment to note that it should
@@ -463,6 +463,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.4.1-1
+- New upstream version 5.4.0 (RHBZ#2440356)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

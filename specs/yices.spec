@@ -35,6 +35,9 @@ BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  tex(latex)
+BuildRequires:  texlive-courier
+BuildRequires:  texlive-helvetic
+BuildRequires:  texlive-times
 
 # See Source1 comment
 Provides:       bundled(cudd) = 3.0.0

@@ -37,22 +37,19 @@
 %global pkg_module default
 %endif
 %if 0%{?suse_version}
-%global origami_name liborigami0%{pkg_suffix}
+%global origami_name liborigami1%{pkg_suffix}
 %else
 %global origami_name rocm-origami%{pkg_suffix}
 %endif
 
 Name:       rocm-origami%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Analytical GEMM Solution Selection
 
 License:    MIT
 URL:        https://github.com/ROCm/rocm-libraries
 Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-# License file is not in the 7.1.0 tag, but is here
-# Source2:    https://github.com/ROCm/rocm-libraries/tree/develop/shared/origami/LICENSE.md
-
 #
 # Workaround this hipblaslt build issue
 # CMake Error at /usr/lib64/cmake/origami/origami-config.cmake:11 (message):
@@ -104,9 +101,6 @@ Requires: %{origami_name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p3 -n %{upstreamname}
 
-# The license file
-# cp %{SOURCE2} .
-
 # Use system rocm-cmake, no downloading
 sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/dependencies.cmake
 
@@ -136,6 +130,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/origami/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/liborigami.so
 
 %changelog
+* Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Fix TW build
+
 * Wed Jan 28 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

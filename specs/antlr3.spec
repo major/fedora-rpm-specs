@@ -1,7 +1,6 @@
 %global antlr_version 3.5.3
-%global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 17
+%global baserelease 18
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond bootstrap 0
@@ -20,7 +19,22 @@ Name:           antlr3
 Epoch:          1
 Version:        %{antlr_version}
 Release:        %{baserelease}%{?dist}
+# Sources are BSD-3-Clause with the following exceptions:
+# BSD-3-Clause OR GPL-1.0-or-later OR Artistic-1.0-Perl:
+#   runtime/Perl5/Build.PL, runtime/Perl5/lib/ANTLR/Runtime.pm
+# Apache-2.0: antlr-ant/main/antlr3-task/antlr3-src/org/apache/tools/ant/antlr/ANTLR3.java
+# MIT: runtime/CSharp2/Sources/Antlr3.Runtime/Antlr.Runtime.JavaExtensions/Check.cs
+# FSFAP: runtime/C/INSTALL
+# LicenseRef-Fedora-Public-Domain: runtime/Python/xmlrunner.py
+# LicenseRef-Unicode-legacy-source-code (not allowed in Fedora):
+#    runtime/C/include/antlr3convertutf.h
+#    runtime/C/src/antlr3convertutf.c
+#    runtime/Cpp/include/antlr3convertutf.hpp
+# Unknown: runtime/CSharp2/LICENSE.TXT and runtime/Delphi/LICENSE.TXT add a
+#   copyleft clause to BSD-3-Clause.  SPDX has no name for it.  We don't ship
+#   anything derived from C# or Delphi files in the binary RPM.
 License:        BSD-3-Clause
+SourceLicense:  %{license} AND (BSD-3-Clause OR GPL-1.0-or-later OR Artistic-1.0-Perl) AND Apache-2.0 AND MIT AND FSFAP AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.antlr3.org/
 VCS:            git:%{giturl}.git
 
@@ -78,12 +92,20 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
 
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
-# https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
+# This can be removed when F48 reaches EOL
+# The C/C++ backend contains files with the not-allowed
+# LicenseRef-Unicode-legacy-source-code license
+Obsoletes:      %{name}-C < 3.5.3-18
+Obsoletes:      %{name}-C-devel < 3.5.3-18
+Obsoletes:      %{name}-C++-devel < 3.5.3-18
+Obsoletes:      %{name}-C-docs < 3.5.3-18
+Provides:       %{name}-C = %{version}-%{release}
+Provides:       %{name}-C-devel = %{version}-%{release}
+Provides:       %{name}-C++-devel = %{version}-%{release}
+Provides:       %{name}-C-docs = %{version}-%{release}
 
 %description
 ANother Tool for Language Recognition, is a language tool that provides a
@@ -94,7 +116,6 @@ target languages.
 %package        tool
 Summary:        ANother Tool for Language Recognition
 License:        BSD-3-Clause AND Apache-2.0
-BuildArch:      noarch
 Provides:       %{name} = %{epoch}:%{antlr_version}-%{release}
 Obsoletes:      %{name} < %{epoch}:%{antlr_version}-%{release}
 Requires:       %{name}-java = %{epoch}:%{antlr_version}-%{release}
@@ -110,14 +131,12 @@ target languages.
 
 %package        java
 Summary:        Java run-time support for ANTLR-generated parsers
-BuildArch:      noarch
 
 %description    java
 Java run-time support for ANTLR-generated parsers
 
 %package        javadoc
 Summary:        API documentation for %{name}
-BuildArch:      noarch
 
 %description    javadoc
 %{summary}.
@@ -126,78 +145,9 @@ BuildArch:      noarch
 Summary:        Javascript run-time support for ANTLR-generated parsers
 Version:        %{javascript_runtime_version}
 Release:        %{antlr_version}.%{baserelease}%{?dist}
-BuildArch:      noarch
 
 %description    javascript
 Javascript run-time support for ANTLR-generated parsers
-
-%package        C
-Summary:        C run-time support for ANTLR-generated parsers
-Version:        %{c_runtime_version}
-Release:        %{antlr_version}.%{baserelease}%{?dist}
-
-%description    C
-C run-time support for ANTLR-generated parsers
-
-%package        C-devel
-Summary:        Header files for the C bindings for ANTLR-generated parsers
-Requires:       %{name}-C = %{epoch}:%{c_runtime_version}-%{release}
-Version:        %{c_runtime_version}
-Release:        %{antlr_version}.%{baserelease}%{?dist}
-
-
-%description    C-devel
-Header files for the C bindings for ANTLR-generated parsers
-
-%package        C-docs
-# The content is BSD-3-Clause.  Other licenses are due to files installed by
-# doxygen.
-# api/bc_s.png: GPL-1.0-or-later
-# api/bdwn.png: GPL-1.0-or-later
-# api/closed.png: GPL-1.0-or-later
-# api/doc.png: GPL-1.0-or-later
-# api/doxygen.css: GPL-1.0-or-later
-# api/doxygen.svg: GPL-1.0-or-later
-# api/dynsections.js: MIT
-# api/folderclosed.png: GPL-1.0-or-later
-# api/folderopen.png: GPL-1.0-or-later
-# api/jquery.js: MIT
-# api/menu.js: MIT
-# api/menudata.js: MIT
-# api/nav_f.png: GPL-1.0-or-later
-# api/nav_g.png: GPL-1.0-or-later
-# api/nav_h.png: GPL-1.0-or-later
-# api/navtree.css: GPL-1.0-or-later
-# api/navtree.js: MIT
-# api/open.png: GPL-1.0-or-later
-# api/resize.js: MIT
-# api/splitbar.png: GPL-1.0-or-later
-# api/sync_off.png: GPL-1.0-or-later
-# api/sync_on.png: GPL-1.0-or-later
-# api/tab_a.png: GPL-1.0-or-later
-# api/tab_b.png: GPL-1.0-or-later
-# api/tab_h.png: GPL-1.0-or-later
-# api/tab_s.png: GPL-1.0-or-later
-# api/tabs.css: GPL-1.0-or-later
-License:        BSD-3-Clause AND GPL-1.0-or-later AND MIT
-Summary:        API documentation for the C run-time support for ANTLR-generated parsers
-BuildArch:      noarch
-BuildRequires:  graphviz
-BuildRequires:  doxygen
-Requires:       %{name}-C = %{epoch}:%{c_runtime_version}-%{release}
-Version:        %{c_runtime_version}
-Release:        %{antlr_version}.%{baserelease}%{?dist}
-
-%description    C-docs
-This package contains doxygen documentation with instruction on how to use the
-C target in ANTLR and complete API description of the C run-time support for
-ANTLR-generated parsers.
-
-%package        C++-devel
-Summary:        C++ runtime support for ANTLR-generated parsers
-
-%description    C++-devel
-C++ runtime support for ANTLR-generated parsers.
 
 %prep
 %autosetup -p1 -n antlr3-%{antlr_version} -a 1
@@ -258,22 +208,6 @@ cp -p %{SOURCE15} %{SOURCE16} .m2/antlr/antlr/%{antlr2_version}
 %build
 %mvn_build -f
 
-# Build the C runtime
-pushd runtime/C
-autoreconf -i
-%configure --disable-abiflags --enable-debuginfo \
-%if 0%{?__isa_bits} == 64
-    --enable-64bit
-%else
-    %{nil}
-%endif
-
-sed -i 's#CFLAGS = .*#CFLAGS = %{build_cflags}#' Makefile
-%make_build
-doxygen -u # update doxygen configuration file
-doxygen # build doxygen documentation
-popd
-
 # build ant task
 pushd antlr-ant/main/antlr3-task/
 export CLASSPATH=$(build-classpath ant)
@@ -300,52 +234,16 @@ EOF
 # install wrapper script
 %jpackage_script org.antlr.Tool '' '' 'stringtemplate4/ST4.jar:antlr3.jar:antlr3-runtime.jar' antlr3 true
 
-# install C runtime
-pushd runtime/C
-%make_install
-rm $RPM_BUILD_ROOT%{_libdir}/libantlr3c.{a,la}
-pushd api/man/man3
-for file in `ls -1 * | grep -vi "^antlr3"`; do
-    mv $file antlr3-$file
-done
-sed -i -e 's,^\.so man3/pANTLR3,.so man3/antlr3-pANTLR3,' `grep -rl 'man3/pANTLR3' .`
-gzip *
-popd
-mv api/man/man3 $RPM_BUILD_ROOT%{_mandir}/
-rmdir api/man
-popd
-
 # install javascript runtime
 pushd antlr-javascript-runtime-%{javascript_runtime_version}
 install -pm 644 *.js $RPM_BUILD_ROOT%{_datadir}/antlr/
 popd
-
-# install C++ runtime (header only)
-mkdir -p $RPM_BUILD_ROOT/%{_includedir}/%{name}
-install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 
 %files tool -f .mfiles-tool
 %doc README.txt tool/{LICENSE.txt,CHANGES.txt}
 %{_bindir}/antlr3
 %{_javadir}/ant/ant-antlr3.jar
 %config(noreplace) %{_sysconfdir}/ant.d/ant-antlr3
-
-%files C
-%doc tool/LICENSE.txt
-%{_libdir}/libantlr3c.so
-
-%files C-devel
-%{_mandir}/man3/ANTLR3*
-%{_mandir}/man3/antlr3*
-%{_includedir}/antlr3*.h
-
-%files C-docs
-%doc runtime/C/api
-
-%files C++-devel
-%doc tool/LICENSE.txt
-%{_includedir}/antlr3*.hpp
-%{_includedir}/antlr3*.inl
 
 %files java -f .mfiles-java
 %doc tool/LICENSE.txt
@@ -358,6 +256,10 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Fri Feb 20 2026 Jerry James <loganjerry@gmail.com> - 1:3.5.3-18
+- Remove the C and C++ backends
+- They contain files with a disallowed license
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -562,7 +464,7 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 * Tue Aug 21 2012 Miloš Jakubíček <xjakub@fi.muni.cz> - 3.4-11
 - Now really compile for Java 1.6 everything
 
- *Sat Aug 18 2012 Miloš Jakubíček <xjakub@fi.muni.cz> - 3.4-10
+* Sat Aug 18 2012 Miloš Jakubíček <xjakub@fi.muni.cz> - 3.4-10
 - Explicitly compile for Java 1.5, to (maybe?) fix BZ#842572
 
 * Mon Aug 6 2012 Alexander Kurtakov <akurtako@redhat.com> 3.4-9

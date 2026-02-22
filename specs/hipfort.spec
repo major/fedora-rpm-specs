@@ -49,7 +49,7 @@
 
 Name:           hipfort%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -162,6 +162,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
 
 %changelog
+* Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Fix so version
+
 * Fri Jan 30 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

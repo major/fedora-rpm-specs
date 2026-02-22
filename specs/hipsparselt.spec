@@ -125,7 +125,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -158,6 +158,7 @@ Source11:       %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robi
 BuildRequires:  ninja-build
 %endif
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  hipcc%{pkg_suffix}
@@ -384,6 +385,12 @@ chmod a+x %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/Kernels*.h
 # file /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco 
 # /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco: ELF 64-bit LSB shared object, AMD GPU architecture version 1, dynamically linked, BuildID[sha1]=99e2194d9647da308804928d27ea1f336bfd76cc, stripped
 
+# hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/extop_gfx942.co
+%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/hipsparselt/library/extop_*.co
+
+# hipsparselt.x86_64: E: binary-or-shlib-defines-rpath /usr/lib64/libhipsparselt.so.0.2 (RUNPATH: $ORIGIN/../lib:$ORIGIN/../llvm/lib:$ORIGIN/../lib:$ORIGIN/../lib/hipsparselt/lib)
+chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipsparselt.so.*
+
 %if %{with test}
 # hipsparselt-test's rpath is pretty messed up
 # chrpath -l /usr/bin/hipsparselt-test 
@@ -414,6 +421,12 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %changelog
+* Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
+* Wed Feb 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Updat to 7.2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Summary: TFMX & Future Composer input plugin for Audacious
 Name: audacious-plugin-fc
 Version: 0.9.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Provides: audacious-plugins-fc = %{version}-%{release}
 URL: https://github.com/mschwendt/audacious-plugins-fc
 License: GPL-2.0-or-later
@@ -18,7 +18,7 @@ Source0: https://github.com/mschwendt/audacious-plugins-fc/releases/download/%{v
 Patch0: audacious-plugins-fc-0.9.4-uri.patch
 
 BuildRequires: pkgconfig(audacious) >= 3.8
-BuildRequires: libtfmxaudiodecoder-devel
+BuildRequires: pkgconfig(libtfmxaudiodecoder)
 BuildRequires: pkgconfig
 BuildRequires: libtool automake
 BuildRequires: gcc-c++ make
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.xml
 
 
 %changelog
+* Fri Feb 20 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 0.9.4-5
+- switch to pkgconfig(..) BR
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -9,7 +9,9 @@
 ## END CEF
 
 # macro for el10 minor version
+%if 0%{?rhel} == 10
 %define rhel_minor_version %(grep -oP '10\.[0-9.]*' /etc/redhat-release |  cut -d '.' -f2)
+%endif
 
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
@@ -56,7 +58,7 @@
 %endif
 
 # set nodejs_version
-%global nodejs_version v22.14.0
+%global nodejs_version v22.22.0
 
 %global system_nodejs 1
 # RHEL 9 needs newer nodejs
@@ -233,15 +235,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 144
-%global chromium_branch 7559
+%global chromium_major 145
+%global chromium_branch 7632
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 109
+%global chromium_minor 75
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit e135be2c924b8368b95c4d637528fe3604f70df9
+%global cef_commit 265860dc5724fecedcb00178b5937d6d70378b67
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 11
+%global cef_patch 25
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -282,6 +284,9 @@ Patch23: chromium-143-revert-libpng_for_testonly.patch
 
 # Get around the problem of auto darkmode webcontent inverting and making them unreadable
 Patch30: chromium-143-autodarkmode-workaround.patch
+
+# disable enterprise_companion_integration_tests due to Unresolved dependencies
+Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
 
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
@@ -332,15 +337,22 @@ Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 #  fix ftbfs caused by old python-3.9 on el8
 Patch142: chromium-143-python-3.9-ftbfs.patch
+ 
+# fix ftbfs caused by old rustc-1.88 on el9 and 10.1
+Patch143: chromium-145-rust-1.88-enable-unstable_features.patch
+Patch144: chromium-145-rust-1.88-undefined-symbol.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
 
-# revert, it causes ramdom crash on aarch64
-Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
+# fix FTFS caused by missing include file on aarch64/ppc64le
+Patch300: chromium-145-swiftshader-missing-include.patch
 
-# Disable rust nightly features
-Patch301: chromium-144-rust-libadler2.patch
+# enable rustc_nightly_capability
+Patch301: chromium-145-rustc-enable-nightly.patch
+
+# Fix error with llwm < 21: invalid application of 'sizeof' to an incomplete type 'gfx::Transform'
+Patch302: chromium-145-static_assert.patch
 
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
@@ -371,6 +383,9 @@ Patch313: chromium-143-el9-rust_alloc_error_handler_should_panic.patch
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
 Patch314: chromium-136-rust-skrifa-build-error.patch
+
+# error with old rustc
+Patch315: chromium-145-rustc-ftbfs.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
@@ -464,6 +479,7 @@ Patch415: add-ppc64-pthread-stack-size.patch
 
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
+Patch419: 0009-sandbox-ignore-byte-span-error.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
@@ -474,7 +490,7 @@ Patch502: flatpak-Expose-Widevine-into-the-sandbox.patch
 # nodejs patches
 %if ! %{system_nodejs}
 Patch510: 0001-Remove-unused-OpenSSL-config.patch
-Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
+Patch511: 0001-fips-disable-options.patch
 %endif
 
 # upstream patches
@@ -482,7 +498,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
-Patch902: cef-disable-broken-patches.patch
 ## END CEF
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -510,6 +525,11 @@ Source12: node-%{nodejs_version}-stripped.tar.gz
 Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
+
+# https://github.com/rollup/rollup/blob/master/LICENSE-CORE.md
+# third_party/devtools-frontend/src/package-lock.json
+Source14: https://npm.skia.org/chrome-devtools/@rollup%2frollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.22.4.tgz
+Source15: https://npm.skia.org/chrome-devtools/@rollup%2frollup-linux-powerpc64le-gnu/-/rollup-linux-powerpc64le-gnu-4.22.4.tgz
 
 ## CEF: CEF-specific sources
 Source22: https://github.com/chromiumembedded/cef/archive/%{cef_commit}.tar.gz
@@ -845,6 +865,9 @@ BuildRequires: libevdev-devel
 BuildRequires: simdutf-devel
 %endif
 
+# esbuild is needed
+BuildRequires: golang-github-evanw-esbuild
+
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
@@ -1007,6 +1030,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P23 -p1 -R -b .revert-libpng_for_testonly
 %patch -P30 -p1 -b .autodarkmode-workaround
+%patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 %patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
@@ -1049,13 +1073,20 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P142 -p1 -b .python-3.9-ftbfs
 %endif
 
-%patch -P150 -p1 -b .qt6
-
-%ifarch aarch64 ppc64le
-%patch -P300 -p1 -R -b .revert-decommit-pooled-pages-by-default
+%if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
+%patch -P143 -p1 -b .rust-1.88-enable-unstable_features
+%patch -P144 -p1 -b .rustc-1.88-undefined-symbol
 %endif
 
-%patch -P301 -p1 -b .rust-libadler2
+%patch -P150 -p1 -b .qt6
+
+%patch -P300 -p1 -b .swiftshader-missing-include
+%patch -P301 -p1 -b .rustc-enable-nightly
+
+# llvm version < 21 on f42/el9/epel10.1
+%if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
+%patch -P302 -p1 -b .static_assert
+%endif
 
 %if 0%{?rhel} == 8
 %ifarch aarch64
@@ -1067,7 +1098,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P309 -p1 -b .el8-unsupport-rustc-flags
 %patch -P314 -p1 -b .rust-skrifa-build-error
 %endif
-
+%patch -P315 -p1 -b .rustc-ftbfs
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
 
@@ -1138,6 +1169,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
+%patch -P419 -p1 -b .0009-sandbox-ignore-byte-span-error
 %endif
 
 %if 0%{?flatpak}
@@ -1153,7 +1185,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %if ! %{bundlelibxml}
 %patch -P901 -p1 -b .cef-no-libxml-visibility-patch
 %endif
-%patch -P902 -p1 -b .cef-disable-broken-patches
 
 # Redirect the git version stuff to use the version file contents instead
 cat >>cef/VERSION.in <<EOF
@@ -1215,16 +1246,27 @@ EOF
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
 
+# unpack rollup binary for aarch64
+%ifarch aarch64
+tar xf %{SOURCE14} && mv package third_party/devtools-frontend/src/node_modules/@rollup/rollup-linux-arm64-gnu
+%endif
+
+#unpack rollup binary for ppc64le
+%ifarch ppc64le
+tar xf %{SOURCE15} && mv package third_party/devtools-frontend/src/node_modules/@rollup/rollup-linux-powerpc64le-gnu
+%endif 
+
 # Add correct path for nodejs binary
+mkdir -p third_party/node/linux/node-linux-x64/bin
 %if ! %{system_nodejs}
-  ln -s ../../../node-%{nodejs_version}/node-%{nodejs_version}-linux-x64 third_party/node/linux/node-linux-x64
+  ln -s ../../../../../node-%{nodejs_version}/node third_party/node/linux/node-linux-x64/bin/node
 %else
-  mkdir -p third_party/node/linux/node-linux-x64/bin
   ln -s $(which node) third_party/node/linux/node-linux-x64/bin/node
 %endif
 
-# Get rid of the prebuilt esbuild binary
-rm -rf third_party/devtools-frontend/src/third_party/esbuild
+# Add correct path for esbuild binary
+mkdir -p third_party/devtools-frontend/src/third_party/esbuild
+ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
 
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
@@ -1264,8 +1306,8 @@ export CXX=c++
 tar xf %{SOURCE12}
 pushd node-%{nodejs_version}
 patch -p1 < %{_sourcedir}/0001-Remove-unused-OpenSSL-config.patch
-patch -p1 < %{_sourcedir}/0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
-./configure --ninja --shared-openssl --openssl-conf-name=openssl_conf --enable-static --prefix=node-%{nodejs_version}-linux-x64
+patch -p1 < %{_sourcedir}/0001-fips-disable-options.patch
+./configure --ninja --shared-openssl --openssl-is-fips --openssl-conf-name=openssl_conf --enable-static --prefix=node-%{nodejs_version}-linux-x64
 ninja -j %{numjobs} -C %{chromebuilddir}
 make install
 popd
@@ -1379,6 +1421,8 @@ CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
 CHROMIUM_CORE_GN_DEFINES+=' v8_enable_backtrace=true'
+# disable devtools buildle
+CHROMIUM_CORE_GN_DEFINES+=' devtools_bundle=false'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines

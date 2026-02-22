@@ -12,7 +12,7 @@ ExcludeArch:    %{ix86}
 
 Name:           unison
 Version:        2.53.7
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -47,7 +47,7 @@ BuildRequires:  ocaml-cairo-devel
 %if %{with doc}
 BuildRequires:  hevea
 BuildRequires:  lynx
-BuildRequires:  tex-ec
+BuildRequires:  texlive-ec
 BuildRequires:  tex-latex
 %endif
 
@@ -151,6 +151,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %endif
 
 %changelog
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.53.7-7
+- Bump release and rebuild
+
+* Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.53.7-6
+- OCaml 5.4.1 rebuild
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -10,7 +10,16 @@ License:        MIT
 URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm
 # We use the GitHub archive instead of the PyPI sdist to get CHANGELOG.md and
 # the tests.
-Source:         %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
+# Man page hand-written for Fedora in groff_man(7) format based on --help.
+Source1:        generate-slurm-partition-config.1
+
+# refactor: Remove useless shebang line from cli.py
+# https://github.com/snakemake/snakemake-executor-plugin-slurm/pull/413
+Patch:          %{url}/pull/413.patch
+# fix: Add direct dependency on PyYAML
+# https://github.com/snakemake/snakemake-executor-plugin-slurm/pull/414
+Patch:          %{url}/pull/414.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_executor_plugin_slurm
@@ -46,6 +55,10 @@ Requires:       slurm
 %description -n python3-snakemake-executor-plugin-slurm %{common_description}
 
 
+%install -a
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+
+
 %check -a
 %if %{with tests}
 # These tests seem to want to talk to a real cluster controller:
@@ -71,6 +84,9 @@ k="${k-}${k+ and }not test_simple_workflow"
 %license LICENSE
 %doc CHANGELOG.md
 %doc README.md
+
+%{_bindir}/generate-slurm-partition-config
+%{_mandir}/man1/generate-slurm-partition-config.1*
 
 
 %changelog

@@ -67,11 +67,12 @@
 %global build_compress OFF
 %endif
 
-%if 0%{?fedora}
-%bcond_without test
-%else
+# Some parts of install are not legal, make test optional
+# Ex
+# rocblas-test.x86_64: E: script-without-shebang /usr/bin/rocblas_clients_readme.txt
+# rocblas-test.x86_64: E: script-without-shebang /usr/bin/rocblas_common.yaml
+# rocblas-test.x86_64: E: script-without-shebang /usr/bin/rocblas_extras.yaml
 %bcond_with test
-%endif
 %if %{with test}
 %global build_test ON
 %else
@@ -164,7 +165,7 @@ Release:        3%{?dist}
 Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
@@ -457,7 +458,11 @@ cd projects/rocblas
 
 %cmake_install
 
+# Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocblas/LICENSE.md
+
+# rocblas.x86_64: W: unstripped-binary-or-object /usr/lib64/rocblas/library/Kernels.so-000-gfx1010.hsaco
+%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocblas/library/*.hsaco
 
 %check
 %if %{with test}
@@ -496,6 +501,14 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sun Feb 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- strip hsaco files
+- make test optional
+
+* Wed Feb 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+- Add smoke test
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

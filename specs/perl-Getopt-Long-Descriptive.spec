@@ -1,7 +1,7 @@
 Name:           perl-Getopt-Long-Descriptive
 Summary:        Getopt::Long with usage text
-Version:        0.116
-Release:        4%{?dist}
+Version:        0.117
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long-Descriptive
 Source0:        https://cpan.metacpan.org/modules/by-module/Getopt/Getopt-Long-Descriptive-%{version}.tar.gz
@@ -29,6 +29,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(CPAN::Meta::Check) >= 0.011
 BuildRequires:  perl(CPAN::Meta::Requirements)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings) >= 0.005
@@ -64,6 +65,12 @@ make test
 %{_mandir}/man3/Getopt::Long::Descriptive::Usage.3*
 
 %changelog
+* Fri Feb 20 2026 Paul Howarth <paul@city-fan.org> - 0.117-1
+- Update to 0.117 (rhbz#2441109)
+  - Add experimental generation of bash/zsh completion scripts for GLD-powered
+    programs; this code might go away or change or break in the future, don't
+    rely on it
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.116-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

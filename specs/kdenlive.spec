@@ -54,7 +54,6 @@ BuildRequires: cmake(Qt6UiPlugin)
 BuildRequires: cmake(Qt5Widgets)
 BuildRequires: cmake(Qt6NetworkAuth)
 
-BuildRequires: librttr-devel
 BuildRequires: pkgconfig(libv4l2)
 BuildRequires: pkgconfig(mlt++-7) >= 7.12.0
 BuildRequires: cmake(OpenTimelineIO)

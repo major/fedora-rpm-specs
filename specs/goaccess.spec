@@ -7,7 +7,7 @@
 %endif
 
 Name:           goaccess
-Version:        1.9.4
+Version:        1.10.1
 Release:        %autorelease
 Summary:        Real-time web log analyzer and interactive viewer
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
