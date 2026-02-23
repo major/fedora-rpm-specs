@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-snakemake-executor-plugin-slurm
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs to a SLURM cluster
 
@@ -13,13 +13,6 @@ URL:            https://github.com/snakemake/snakemake-executor-plugin-slurm
 Source0:        %{url}/archive/v%{version}/snakemake-executor-plugin-slurm-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help.
 Source1:        generate-slurm-partition-config.1
-
-# refactor: Remove useless shebang line from cli.py
-# https://github.com/snakemake/snakemake-executor-plugin-slurm/pull/413
-Patch:          %{url}/pull/413.patch
-# fix: Add direct dependency on PyYAML
-# https://github.com/snakemake/snakemake-executor-plugin-slurm/pull/414
-Patch:          %{url}/pull/414.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L snakemake_executor_plugin_slurm

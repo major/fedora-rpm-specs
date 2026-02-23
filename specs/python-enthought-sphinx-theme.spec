@@ -2,7 +2,7 @@
 %global modname enthought_sphinx_theme
 
 Name:           python-%{srcname}
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Sphinx theme for Enthought projects
 

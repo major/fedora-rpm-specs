@@ -83,7 +83,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -140,8 +140,10 @@ algorithms and have been optimized for throughput and latency. For
 best performance, small operations can be either batched into
 larger operations or aggregated through the API.
 
+%if 0%{?suse_version}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        Headers and libraries for %{name}
@@ -264,8 +266,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %{pkg_prefix}/bin/rcclras
 
 %files data
-%{pkg_prefix}/share/rccl/msccl-algorithms/
-%{pkg_prefix}/share/rccl/msccl-unit-test-algorithms/
+%{pkg_prefix}/share/rccl/
 
 %files devel
 %doc README.md
@@ -279,6 +280,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Cleanup specfile
+
 * Sun Feb 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

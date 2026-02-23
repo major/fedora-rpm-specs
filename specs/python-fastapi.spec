@@ -17,7 +17,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.129.0
+Version:        0.129.2
 Release:        %autorelease
 Summary:        FastAPI framework
 
@@ -66,7 +66,9 @@ BuildRequires:  %{py3_dist pwdlib[argon2]} >= 0.2.1
 %if %{with pyjwt}
 BuildRequires:  %{py3_dist pyjwt} >= 2.9
 %endif
-BuildRequires:  %{py3_dist pytest} >= 7.1.3
+# Upstream wants >= 9.0.0! But this is not really needed yet.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2413573
+BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
 %if %{with sqlmodel}
 BuildRequires:  %{py3_dist sqlmodel} >= 0.0.31

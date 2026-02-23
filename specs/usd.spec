@@ -375,6 +375,11 @@ Requires:       usd-libs%{?_isa} = %{version}-%{release}
 # Unbundled, and exposed in the API:
 Requires:       cli11-devel cli11-static
 Requires:       robin-map-devel robin-map-static
+# Needed by cmake config
+Requires:       cmake(OpenSubdiv)
+%if %{with materialx}
+Requires:       cmake(materialx)
+%endif
 
 %description devel
 This package contains the C++ header files and symbolic links to the shared

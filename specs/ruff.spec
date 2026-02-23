@@ -533,6 +533,8 @@ skip="${skip-} --skip cycle_nested_deep_panic"
 %endif
 %endif
 
+# Avoid flaky “text file busy” errors in insta tests
+export RUST_TEST_THREADS=1
 %cargo_test -- -- ${skip-}
 %endif
 

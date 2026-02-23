@@ -1,5 +1,3 @@
-%undefine __cmake_in_source_build
-
 # State Nov 11 2020, LTO causes
 # TestXMLHyperTreeGridIO.cxx.o (symbol from plugin): undefined reference to symbol
 # '_ZZNSt8__detail18__to_chars_10_implIjEEvPcjT_E8__digits@@LLVM_11'
@@ -86,7 +84,7 @@ URL: https://vtk.org/
 BuildRequires:  cmake
 # Allow for testing with different cmake generators.
 # make still seems to be faster than ninja, but has failed at times.
-%global cmake_gen %{nil}
+%global _cmake_generator "Unix Makefiles"
 BuildRequires:  gcc-c++
 %if %{with java}
 BuildRequires: java-devel
@@ -706,7 +704,7 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
 %endif
 
 
-%cmake %{cmake_gen} \
+%cmake \
  %{vtk_cmake_options} \
  -DVTK_BUILD_DOCUMENTATION:BOOL=ON \
  -DVTK_BUILD_EXAMPLES:BOOL=ON \
@@ -722,7 +720,7 @@ do
   module load mpi/$mpi-%{_arch}
   # CMAKE_INSTALL_LIBDIR -> ARCHIVE_DESTINATION must not be an absolute path
   # VTK_MODULE_ENABLE_VTK_FiltersParallelStatistics need MPI modules at the moment
-  %cmake %{cmake_gen} \
+  %cmake \
    %{vtk_cmake_options} \
    -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \

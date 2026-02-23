@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.25.33
+Version:	2.25.34
 Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
@@ -112,12 +112,17 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %{_datadir}/vim/vim*
 %{_libdir}/%{name}/%{version}/ccache/lily/
 
-%_font_pkg -n emmentaler emmentaler*otf
+%files emmentaler-fonts
+%dir %{_datadir}/fonts/lilypond/
+%{_datadir}/fonts/lilypond/emmentaler*otf
 
 %files fonts-common
 %doc COPYING
 
 %changelog
+* Sat Feb 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.34-1
+- 2.25.34
+
 * Sat Feb 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.33-1
 - 2.25.33
 

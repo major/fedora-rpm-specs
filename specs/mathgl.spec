@@ -25,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.3
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -76,10 +76,9 @@ Patch11:       mathgl-flexiblas.patch
 Requires:      %{name}-common = %{version}-%{release}
 
 # mandatory packages
-BuildRequires: make
 BuildRequires: gsl-devel libpng-devel flexiblas-devel
 BuildRequires: desktop-file-utils
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: perl(Storable)
 
 # optional packages
@@ -378,6 +377,7 @@ sed -i -e "s,Version:.*,Version: %{version}," lang/DESCRIPTION
 
 %build
 
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 OMP_NUM_THREADS=1
 export OMP_NUM_THREADS
 
@@ -433,7 +433,7 @@ export CXX=mpicxx
 
 # MPI install libs only
 %define installing() \
-make install DESTDIR=%{buildroot}%{_libdir}/$MPI_COMPILER_NAME -C %{_target_platform}_$MPI_COMPILER_NAME INSTALL="install -p"; \
+DESTDIR=%{buildroot}%{_libdir}/$MPI_COMPILER_NAME %__cmake --install %{_target_platform}_$MPI_COMPILER_NAME; \
 mkdir -p %{buildroot}%{_libdir}/$MPI_COMPILER_NAME/lib/ \
 mv %{buildroot}%{_libdir}/$MPI_COMPILER_NAME/%{_libdir}/libmgl* %{buildroot}%{_libdir}/$MPI_COMPILER_NAME/lib/; \
 mkdir -p %{buildroot}%{_includedir}/$MPI_COMPILER/mgl2; \
@@ -631,6 +631,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Fri Feb 13 2026 Cristian Le <git@lecris.dev> - 8.0.3-8
+- Allow CMake 4.0 build (rhbz#2380891)
+- Use generator independent macros (rhbz#2381069)
+
 * Sat Jan 24 2026 Richard Shaw <hobbes1069@gmail.com> - 8.0.3-7
 - Rebuild with fltk 1.4.
 

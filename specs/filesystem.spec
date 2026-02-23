@@ -5,8 +5,9 @@ Name: filesystem
 Version: 3.18
 Release: %autorelease
 License: LicenseRef-Fedora-Public-Domain
-URL: https://pagure.io/filesystem
-Source1: https://pagure.io/filesystem/raw/master/f/lang-exceptions
+# This package is a downstream-only project
+URL: https://src.fedoraproject.org/rpms/filesystem
+Source1: lang-exceptions
 Source2: iso_639.sed
 Source3: iso_3166.sed
 Source4: sbin-filenames
@@ -79,7 +80,7 @@ Paths=(
         afs boot dev \
         etc/{X11/{applnk,fontpath.d,xinit/{xinitrc,xinput}.d},xdg/autostart,opt,pm/{config.d,power.d,sleep.d},skel,sysconfig,keys/ima,pki,bash_completion.d,default,rwtab.d,statetab.d} \
         home media mnt opt root run srv tmp \
-        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig,pm-utils/{module.d,power.d,sleep.d}},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
+        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
         var/{adm,empty,ftp,lib/{games,misc,rpm-state},local,log,nis,preserve,spool/{mail,lpd},tmp,db,cache/bpf,opt,games,yp}
 )
 for i in "${Paths[@]}"; do
@@ -444,7 +445,7 @@ end
 %dir /etc/statetab.d
 /home
 /lib
-%ifarch x86_64 ppc64 sparc64 s390x aarch64 ppc64le mips64 mips64el riscv64
+%ifarch x86_64 ppc64 sparc64 s390x aarch64 ppc64le mips64 mips64el riscv64 loongarch64
 /%{_lib}
 %endif
 /media
@@ -488,13 +489,12 @@ end
 %ghost /usr/lib/debug/usr/.dwz
 %ghost /usr/lib/debug/sbin
 %attr(555,root,root) /usr/lib/games
-%ifarch x86_64 ppc64 sparc64 s390x aarch64 ppc64le mips64 mips64el riscv64
+%ifarch x86_64 ppc64 sparc64 s390x aarch64 ppc64le mips64 mips64el riscv64 loongarch64
 %dir %attr(555,root,root) /usr/%{_lib}
 %attr(555,root,root) /usr/%{_lib}/games
 %endif
 %attr(555,root,root) /usr/%{_lib}/bpf
 %attr(555,root,root) /usr/%{_lib}/X11
-%attr(555,root,root) /usr/%{_lib}/pm-utils
 %ifarch riscv64
 /usr/%{_lib}/lp64d
 %endif

@@ -2,12 +2,11 @@
 
 Name:           dippi
 Summary:        Calculate display info like DPI and aspect ratio
-Version:        4.2.0
+Version:        5.0.2
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
-#   - data/metadata.metainfo.xml.in is CC0-1.0, which is allowed for content
-#     only
-License:        GPL-3.0-only AND CC0-1.0
+#   - data/metadata.metainfo.xml.in is CC0-1.0, allowed for content only
+License:        GPL-3.0-or-later AND CC0-1.0
 
 URL:            https://github.com/cassidyjames/dippi
 Source:         %{url}/archive/%{version}/dippi-%{version}.tar.gz
@@ -15,6 +14,7 @@ Source:         %{url}/archive/%{version}/dippi-%{version}.tar.gz
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  blueprint-compiler
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 
@@ -39,6 +39,7 @@ Summary(en_GB): Calculate display info like DPI and aspect ratio
 Summary(es):    Cálculo de datos de la pantalla como los PPP y la relación de aspecto
 Summary(fr_CA): Calculez les informations de l’écran comme le DPI ou le ratio
 Summary(fr):    Calculez des informations sur l'écran comme le DPI ou le ratio
+Summary(hr):    Izračunavanje podataka ekrana kao DPI
 Summary(it):    Calcola le informazioni di visualizzazione come DPI
 Summary(lt):    Apskaičiuoti tokią ekrano informaciją kaip taškus colyje (DPI) ir proporcijas
 Summary(nl):    Bereken scherminformatie, zoals DPI en beeldverhouding
@@ -202,6 +203,27 @@ Vous dit si la densité d’un écran est :
   • Idéale pour HiDPI,
   • assez haute pour HiDPI, ou
   • DPI trop haut
+
+%description -l hr
+Analiziraj bilo koji ekran. Unesi nekoliko jednostavnih detalja i izračunaj
+omjer, DPI i druge detalje određenog ekrana. Izvrsno za odlučivanje kupnje
+laptopa ili eksternog monitora i hoće li se smatrati HiDPI-jem.
+
+Puno praktičnih funkcija:
+  • Saznaj je li ekran dobar izbor na temelju njegove veličine i rezolucije
+  • Dobij savjet o različitim gustoćama
+  • Saznaj logičku rezoluciju
+  • Razlikuj laptop i desktop ekrane
+  • Apsolutno jednostavno: sve u slatkom malom prozoru
+
+Otkriva gustoću ekrana:
+  • Vrlo nizak DPI,
+  • Prilično nizak DPI,
+  • Idealno za LoDPI,
+  • Potencijalno problematično,
+  • Idealno za HiDPI,
+  • Prilično visoko za HiDPI, ili
+  • Previsok DPI
 
 %description -l it
 Analizza qualsiasi display. Inserisci alcuni semplici dettagli e scopri le

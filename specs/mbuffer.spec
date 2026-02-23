@@ -1,5 +1,5 @@
 Name:           mbuffer
-Version:        20251025
+Version:        20260221
 Release:        %autorelease
 Summary:        Measuring Buffer is an enhanced version of buffer
 

@@ -1,6 +1,6 @@
 Name:           python-norpm
-Version:        1.8
-Release:        3%?dist
+Version:        1.9
+Release:        1%?dist
 Summary:        RPM Macro Expansion in Python
 
 License:        LGPL-2.1-or-later
@@ -38,7 +38,7 @@ setup(
     name='norpm',
     version='%version',
     packages=['norpm', 'norpm.cli'],
-    install_requires=['ply'],
+    install_requires=['lark-parser'],
     entry_points={
         'console_scripts': [
             'norpm-expand-specfile = norpm.cli.expand_specfile:_main',
@@ -75,6 +75,9 @@ EOF
 
 
 %changelog
+* Sat Feb 21 2026 Pavel Raiskup <praiskup@redhat.com> - 1.9-1
+- New upstream release
+
 * Mon Feb 02 2026 Pavel Raiskup <praiskup@redhat.com> - 1.8-3
 - add support for epel9 builds
 

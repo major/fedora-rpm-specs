@@ -2,25 +2,37 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  26.2.2
-#%%global commit0        
-%global tag0           v%%{wivrn_version}
-%global date           20260214
+%global tag0           v%{version}
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
 %global commit1        723652b545a79609f9f04cb89fcbf807d9d6451a
-%global monado_version 25.0.0
+%global monado_version 25.1.0
 
 %forgemeta
 
 Name:           wivrn
-Version:        %{wivrn_version}
+Version:        26.2.3
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 
-License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CECILL-C AND CC0-1.0 AND CC-BY-4.0 AND MIT-Khronos-old AND Unlicense AND Zlib AND GPL-2.0-or-later AND MIT AND OFL-1.1
+License:        %{shrink:
+    Apache-2.0
+    AND BSD-2-Clause
+    AND BSD-3-Clause
+    AND BSL-1.0
+    AND CC-BY-4.0
+    AND CC0-1.0
+    AND CECILL-C
+    AND GPL-2.0-or-later
+    AND GPL-3.0-or-later
+    AND MIT
+    AND MIT-Khronos-old
+    AND OFL-1.1
+    AND Unlicense
+    AND Zlib
+}
 # CECILL-C
 # _deps/monado-src/src/external/imgui/imgui/imconfig.h
 # CC0-1.0 AND Apache-2.0
@@ -82,8 +94,6 @@ Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
 
 # Check for new/removed patches when updating: https://github.com/WiVRn/WiVRn/tree/master/patches/monado/ (check the tag)
 # Make sure to re-pull the patches every release. They are rebased and need to be updated!
-# For tagged releases: https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%%{tag0}/patches/monado/
-# For commit releases: https://raw.githubusercontent.com/WiVRn/WiVRn/%%{commit0}/patches/monado/
 # downstream-only - WiVRn specific Monado patches
 Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
 # downstream-only - WiVRn specific Monado patches
@@ -220,7 +230,7 @@ and to assist in pairing the headset with the server.
 
 
 %prep
-%forgesetup
+%setup -q -n WiVRn-%{version}
 
 # Extract libraries that are bundled
 mkdir -p _deps/monado-src
@@ -293,7 +303,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/%{name}/libopenxr_wivrn.so
 %{_libdir}/%{name}/libmonado_wivrn.so
 %{_libdir}/%{name}/libmonado_wivrn.so.25
-%{_libdir}/%{name}/libmonado_wivrn.so.25.0.0
+%{_libdir}/%{name}/libmonado_wivrn.so.25.1.0
 %{_datarootdir}/openxr/1/openxr_wivrn.json
 %{_userunitdir}/wivrn.service
 %{_prefix}/lib/firewalld/services/wivrn.xml

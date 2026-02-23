@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           4.0.0
-Release:           7%{?dist}
+Release:           8%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -14,6 +14,10 @@ Source2:           ddclient.service
 Source3:           ddclient.sysconfig
 Source4:           ddclient.NetworkManager
 Source5:           ddclient-tmpfiles.conf
+# disable t/ssl-validate.pl test due upstream unresolved issues
+# https://github.com/ddclient/ddclient/issues/812
+# https://github.com/ddclient/ddclient/issues/815
+Patch0:            0-disable-test-ssl-validate.patch
 
 BuildArch:         noarch
 
@@ -58,7 +62,8 @@ updates for multiple addresses, MX, wildcards, abuse avoidance, retrying
 the failed updates and sending update status to syslog and through e-mail.
 
 %prep
-%autosetup -p 1
+%autosetup -p 0
+
 # Send less mail by default, eg. not on every shutdown.
 sed -e 's|^mail=|#mail=|' -i ddclient.conf.in
 ./autogen
@@ -143,6 +148,9 @@ fi
 
 
 %changelog
+* Sun Feb 22 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.0.0-8
+- disable t/ssl-validate.pl test due upstream unresolved issues rhbz#2433977
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

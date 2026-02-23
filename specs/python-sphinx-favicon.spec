@@ -2,7 +2,7 @@
 %global modname sphinx_favicon
 
 Name:           python-%{srcname}
-Version:        1.0.1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Sphinx extension to add custom favicons
 

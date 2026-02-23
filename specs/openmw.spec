@@ -169,6 +169,8 @@ Various utility tools for developing and debugging with OpenMW
 
 %conf
 # Prepare the cmake
+# Minimum CMake version is now 3.5, and bullet builds with this.
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # topdir<number> is set for each source by %%forgemeta.
 %cmake -G Ninja \
     -DBUILD_OPENMW_TESTS:BOOL=ON \

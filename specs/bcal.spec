@@ -1,14 +1,11 @@
 Name:       bcal
-Version:    2.4
+Version:    2.5
 Release:    %autorelease
 Summary:    Storage conversion and expression calculator
 
 License:    GPL-3.0-or-later
 URL:        https://github.com/jarun/bcal
 Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Patch for GCC 15 compatibility
-# https://github.com/jarun/bcal/pull/39
-Patch:      0001-Add-fix-to-use-with-GCC-15.patch
 
 # Only available for 64bits system
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x riscv64

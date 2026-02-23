@@ -1,6 +1,6 @@
 Name:             umockdev
-Version:          0.19.4
-Release:          2%{?dist}
+Version:          0.19.5
+Release:          1%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,11 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sat Feb 21 2026 Packit <hello@packit.dev> - 0.19.5-1
+- ioctl: Forward standard termios calls to real pty (fixes tests with Rust coreutils)
+- ioctl: Implement POSIX-compliant errno handling
+
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

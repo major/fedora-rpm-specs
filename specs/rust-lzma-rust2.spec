@@ -12,7 +12,7 @@
 %global crate lzma-rust2
 
 Name:           rust-lzma-rust2
-Version:        0.16.1
+Version:        0.16.2
 Release:        %autorelease
 Summary:        LZMA / LZMA2 / LZIP / XZ compression ported from 'tukaani xz for java'
 
@@ -58,18 +58,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crc-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crc-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crc" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+encoder-devel

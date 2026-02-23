@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mew
 Version:        0.1.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Modal Editing Witch
 
 License:        MIT
@@ -60,6 +60,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.0-36
+- Bump release and rebuild
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.1.0-35
 - OCaml 5.4.1 rebuild
 

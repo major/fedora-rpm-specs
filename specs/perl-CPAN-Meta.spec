@@ -1,11 +1,10 @@
 Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
-Version:        2.150012
+Version:        2.150013
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Meta-%{version}.tar.gz
-Patch0:         CPAN-Meta-2.150012-requirements.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -44,10 +43,6 @@ Requires:       perl(Encode)
 Requires:       perl(JSON::PP) >= 2.27300
 Requires:       perl(version) >= 0.88
 
-# Parse-CPAN-Meta merged into CPAN-Meta 2.150008
-# Provide not added in order to avoid either epoch bump or self-obsoletion
-Obsoletes:      perl-Parse-CPAN-Meta < 1:1.4422-2
-
 # Avoid doc-file dependencies
 %{?perl_default_filter}
 
@@ -63,10 +58,6 @@ structure stored in the META.json file is described in CPAN::Meta::Spec.
 
 %prep
 %setup -q -n CPAN-Meta-%{version}
-
-# Fix test to work with CPAN::Meta::Requirements 2.145
-# https://github.com/Perl-Toolchain-Gang/CPAN-Meta/issues/145
-%patch -P0
 
 # Silence rpmlint warnings
 perl -MConfig -pi -e 's,^#!.*perl,$Config{startperl},' t/*.t
@@ -103,6 +94,11 @@ make test
 %{_mandir}/man3/Parse::CPAN::Meta.3*
 
 %changelog
+* Sat Feb 21 2026 Paul Howarth <paul@city-fan.org> - 2.150013-1
+- Update to 2.150013 (rhbz#2441425)
+  - Fix an incompatibility with newer CPAN::Meta::Requirements (GH#145, GH#147)
+- Drop obsoletion of perl-Parse-CPAN-Meta introduced in 2016
+
 * Mon Jan 26 2026 Paul Howarth <paul@city-fan.org> - 2.150012-1
 - Update to 2.150012 (rhbz#2432714)
   - Distribution metadata update
