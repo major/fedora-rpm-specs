@@ -1,7 +1,7 @@
 Name:           perl-App-Cmd
 Summary:        Write command line apps with less suffering
-Version:        0.338
-Release:        2%{?dist}
+Version:        0.339
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/App-Cmd-%{version}.tar.gz 
@@ -9,35 +9,40 @@ Patch0:         App-Cmd-support-blib.patch
 URL:            https://metacpan.org/release/App-Cmd
 BuildArch:      noarch
 
+# build requirements
 BuildRequires:  make
 BuildRequires:  perl-interpreter >= 5.20.0
 BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
+BuildRequires:  perl(constant)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Load) >= 0.06
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Data::OptList)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(Getopt::Long::Descriptive) >= 0.084
-BuildRequires:  perl(IO::TieCombine) >= 1
-BuildRequires:  perl(IPC::Cmd)
+BuildRequires:  perl(Getopt::Long::Descriptive) >= 0.116
+BuildRequires:  perl(IO::TieCombine)
 BuildRequires:  perl(Module::Pluggable::Object)
 BuildRequires:  perl(String::RewritePrefix)
-BuildRequires:  perl(Sub::Exporter) >= 0.975
+BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Sub::Exporter::Util)
 BuildRequires:  perl(Sub::Install)
+BuildRequires:  perl(Text::Abbrev)
+# test requirements
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Text::Abbrev)
-BuildRequires:  perl(experimental)
 
-Requires:       perl(Getopt::Long::Descriptive) >= 0.084
-Requires:       perl(IO::TieCombine) >= 1
-Requires:       perl(Sub::Exporter) >= 0.975
+Requires:       perl(Getopt::Long::Descriptive) >= 0.116
+Requires:       perl(IO::TieCombine)
+Requires:       perl(Sub::Exporter)
 
 %{?perl_default_filter}
 
@@ -71,6 +76,9 @@ For information on how to start using App::Cmd, see App::Cmd::Tutorial.
 %{_mandir}/man3/App*.3*
 
 %changelog
+* Sun Feb 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.339-1
+- Update to 0.339
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.338-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

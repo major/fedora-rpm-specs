@@ -3,9 +3,9 @@ Version:        5.2.0
 Release:        %autorelease
 Summary:        Python character encoding detector
 
-# The entire source, after tests/ are filtered, is LGPL-2.0-or-later. See the
+# The entire source, after tests/ are filtered, is LGPL-2.1-or-later. See the
 # comment above Source0 for more details on tests/.
-License:        LGPL-2.0-or-later
+License:        LGPL-2.1-or-later
 URL:            https://github.com/chardet/chardet
 # A filtered source tarball, obtained by (see Source1):
 #
@@ -53,7 +53,7 @@ disabled.}
 %package -n python3-chardet
 Summary:        %{summary}
 
-# Removed in F41:
+# Removed in F41; keep the upgrade path through F43:
 Obsoletes:      python-chardet-doc < 5.2.0-12
 
 %description -n python3-chardet

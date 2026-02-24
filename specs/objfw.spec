@@ -3,7 +3,7 @@
 %global _lto_cflags %nil
 
 Name:          objfw
-Version:       1.4.4
+Version:       1.5
 Release:       1%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
@@ -196,6 +196,7 @@ make check
 %{_bindir}/objfw-new
 %{_includedir}/ObjFW
 %{_includedir}/ObjFWTest
+%{_libdir}/cmake/ObjFW
 %{_libdir}/libobjfw.so
 %{_libdir}/libobjfwtest.a
 %{_libdir}/objfw-config/ObjFWTest.oc

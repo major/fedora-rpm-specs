@@ -1,23 +1,39 @@
 # Minimum compatible version
-%global libdnf_minver 0.60
-%global tukit_minver 3.1.2
+%global libdnf5_minver 5.2.17.0
+%global tukit_minver 3.6.2
 
 Name:           libdnf-plugin-txnupd
-Version:        0.1.3
-Release:        17%{?dist}
-Summary:        libdnf plugin to implement transactional updates
+Version:        0.2.0
+Release:        1%{?dist}
+Summary:        libdnf5 plugin to implement transactional updates
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.com/VelocityLimitless/Projects/libdnf-plugin-txnupd
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Temporary until all supported releases have DNF 5.4+
+Patch1001:      libdnf-plugin-txnupd-Downgrade-dnf5-dependency.patch
+
 BuildRequires:  meson
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(libdnf) >= %{libdnf_minver}
+BuildRequires:  pkgconfig(libdnf5) >= %{libdnf5_minver}
 BuildRequires:  pkgconfig(tukit) >= %{tukit_minver}
 
+%description
+This package contains the plugin to implement transactional updates
+as a libdnf5 plugin. This plugin hooks into libdnf5 for DNF and
+PackageKit to enable this functionality in normal use.
+
+%package -n libdnf5-plugin-txnupd
+Summary:        libdnf5 plugin to implement transactional updates
+
+# Replace the old plugin
+Obsoletes:      %{name} < %{version}-%{release}
+Provides:       %{name} = %{version}-%{release}
+Provides:       %{name}%{?_isa} = %{version}-%{release}
+
 # We need a minimum version of these libraries beyond soname for working APIs
-Requires:       libdnf%{?_isa} >= %{libdnf_minver}
+Requires:       libdnf5%{?_isa} >= %{libdnf5_minver}
 Requires:       libtukit%{?_isa} >= %{tukit_minver}
 
 # We need the transactional update dracut module
@@ -26,23 +42,26 @@ Requires:       dracut-transactional-update
 # To ensure directories for configuration files are in place
 Requires:       dnf-data
 
-# This is intended to be used alongside MicroDNF and PackageKit
-Recommends:     (microdnf or PackageKit)
+# This is intended to be used alongside DNF5 and PackageKit
+Recommends:     (dnf5 or PackageKit)
 
 # Do not permit normal DNF snapper plugin on the same system
-Conflicts:      dnf-plugin-snapper
+Conflicts:      dnf5-actions-snapper
 
-%description
+%description -n libdnf5-plugin-txnupd
 This package contains the plugin to implement transactional updates
-as a libdnf plugin. This plugin hooks into the DNF "context" for
-Micro DNF and PackageKit to enable this functionality in normal use.
+as a libdnf5 plugin. This plugin hooks into libdnf5 for DNF5 and
+PackageKit to enable this functionality in normal use.
 
 %prep
 %autosetup -p1
 
 
-%build
+%conf
 %meson
+
+
+%build
 %meson_build
 
 
@@ -51,17 +70,21 @@ Micro DNF and PackageKit to enable this functionality in normal use.
 
 # Add configuration to mark this package as protected by libdnf
 mkdir -p %{buildroot}%{_sysconfdir}/dnf/protected.d
-echo "%{name}" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd.conf
+echo "libdnf5-plugin-txnupd" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd.conf
 
 
-%files
+%files -n libdnf5-plugin-txnupd
 %license LICENSE
 %doc README.md
-%{_libdir}/libdnf/plugins/txnupd.so
+%{_libdir}/libdnf5/plugins/txnupd.so
 %{_sysconfdir}/dnf/protected.d/txnupd.conf
+%{_sysconfdir}/dnf/libdnf5-plugins/txnupd.conf
 
 
 %changelog
+* Sun Feb 22 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
+- Rebase to 0.2.0 to port to libdnf5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

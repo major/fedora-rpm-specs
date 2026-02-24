@@ -32,7 +32,7 @@
 
 # This package is named ardour9 to allow parallel installation with other major versions of Ardour.
 Name:       ardour9
-Version:    9.0.0
+Version:    9.1.0
 
 # Compute version related macros.
 
@@ -312,6 +312,11 @@ symlinks -r -c %{buildroot}
 
 %check
 %if %{with tests}
+# Avoid messing with user configuration during tests
+rm -rf xdg-config-home
+mkdir xdg-config-home
+export XDG_CONFIG_HOME="${PWD}/xdg-config-home"
+
 WAFTPATH="$PWD/doc/waft"
 pushd libs/ardour
 sh "$WAFTPATH" --targets=libardour-tests

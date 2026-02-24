@@ -22,7 +22,6 @@ BuildRequires:	flex-static
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 
 
 %description
@@ -39,16 +38,11 @@ install -p -m 0644 disassembler/COPYING COPYING.disassembler
 install -p -m 0644 ssb_sprom/README README.ssb_sprom
 install -p -m 0644 ssb_sprom/COPYING COPYING.ssb_sprom
 
-# For py3_build/py3_install macros
-sed 's/py_modules=/version="%{version}", py_modules=/' debug/install.py > debug/setup.py
-
 
 %build
 CFLAGS="%{optflags}" %{make_build} -C assembler
 CFLAGS="%{optflags}" %{make_build} -C disassembler
 CFLAGS="%{optflags}" %{make_build} -C ssb_sprom
-cd debug
-%py3_build
 
 
 %install
@@ -60,8 +54,11 @@ install -p -m 0755 disassembler/b43-ivaldump %{buildroot}%{_bindir}
 install -p -m 0755 disassembler/brcm80211-fwconv %{buildroot}%{_bindir}
 install -p -m 0755 disassembler/brcm80211-ivaldump %{buildroot}%{_bindir}
 install -p -m 0755 ssb_sprom/ssb-sprom %{buildroot}%{_bindir}
-cd debug
-%py3_install
+# debug tools (pure Python, manual install)
+install -p -m 0755 debug/b43-beautifier %{buildroot}%{_bindir}
+install -p -m 0755 debug/b43-fwdump %{buildroot}%{_bindir}
+install -d %{buildroot}%{python3_sitelib}
+install -p -m 0644 debug/libb43.py %{buildroot}%{python3_sitelib}
 
 
 %files
@@ -76,7 +73,7 @@ cd debug
 %{_bindir}/brcm80211-fwconv
 %{_bindir}/brcm80211-ivaldump
 %{_bindir}/ssb-sprom
-%{python3_sitelib}/*
+%pycached %{python3_sitelib}/libb43.py
 
 
 %changelog

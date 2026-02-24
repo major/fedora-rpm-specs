@@ -1,87 +1,119 @@
 Name:           pstoedit
-Version:        4.02
+Version:        4.3
 Release:        %autorelease
 Summary:        Translates PostScript and PDF graphics into other vector formats
 License:        GPL-2.0-or-later
 URL:            http://www.pstoedit.net
-Source0:        https://sourceforge.net/projects/pstoedit/files/pstoedit/%{version}/pstoedit-%{version}.tar.gz
+Source0:        https://github.com/woglu/pstoedit/archive/refs/tags/%{version}/pstoedit-%{version}.tar.gz
 
 # Fix cflags of the pkg-config file
-Patch0:         pstoedit-pkglibdir.patch
+Patch0:         %{name}-pkglibdir.patch
 
 # drvpptx.cpp:68:1: note: 'std::unique_ptr' is defined in header '<memory>'; did you forget to '#include <memory>'?
-Patch1:         pstoedit-fix-gcc12.patch
+Patch1:         %{name}-fix-gcc12.patch
+
+# Force qmake to use optflags and to get debuginfo files
+Patch2:         %{name}-force_CXXFLAGS.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  gcc-c++
+BuildRequires:  gcc
 BuildRequires:  libtool
+BuildRequires:  chrpath
 BuildRequires:  make
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-babel
+BuildRequires:  texlive-babel-english
+BuildRequires:  texlive-texlive-scripts
+BuildRequires:  texlive-fancyhdr
+BuildRequires:  texlive-scheme-basic
+BuildRequires:  texlive-latex-base-dev
 BuildRequires:  gd-devel
 BuildRequires:  dos2unix
 BuildRequires:  ghostscript
 BuildRequires:  plotutils-devel
-BuildRequires:  %{?dts}gcc-c++, %{?dts}gcc
-BuildRequires:  libzip-devel
-%if ! (0%{?rhel} >= 8)
-BuildRequires:  ImageMagick-c++-devel
-%endif
 BuildRequires:  libEMF-devel
+BuildRequires:  libzip-devel
+BuildRequires:  ImageMagick-c++-devel
 Requires:       ghostscript%{?_isa}
 
 %description
 Pstoedit converts PostScript and PDF files to various vector graphic
 formats. The resulting files can be edited or imported into various
 drawing packages. Pstoedit comes with a large set of integrated format
-drivers
+drivers.
 
+%package gui
+Summary:        Qt GUI of %{name}
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  desktop-file-utils
+Requires:       %{name}%{?_isa} = 0:%{version}-%{release}
+
+%description gui
+PstoeditQtGui provides an alternative to the command driven operation. The
+GUI provides access to almost all options and features that are supported by
+pstoedit. In addition it supports the conversion of multiple files in one job
+and also provides some shortcuts to some of Ghostscript’s high level
+output devices.
 
 %package devel
-Summary:        Headers for developing programs that will use %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Summary:        Files for developing programs that will use %{name}
+Requires:       %{name}%{?_isa} = 0:%{version}-%{release}
 
 %description devel
-This package contains the header files needed for developing %{name}
-applications
+This package contains libraries and header files needed for
+developing %{name} applications.
 
 
 %prep
-%autosetup -N
+%autosetup -p1 -n pstoedit-%{version}
 
-%patch -P 0 -p1
-%if 0%{?fedora} || 0%{?rhel} > 9
-%patch -P 1 -p1
-%endif
-
-dos2unix doc/*.htm doc/readme.txt
+dos2unix doc/*.htm
 
 %build
-autoreconf -fiv
-%configure --disable-static --enable-docs=no --with-libzip-include=%{_includedir} \
-           --with-magick --with-libplot
+autoreconf -if --warnings=all
+
+# Force qmake to use optflags
+export OPTFLAGS="%{optflags}"
+%configure --disable-static --enable-docs=yes \
+           --with-magick --with-libplot --with-emf --with-gui
 %make_build
 
 %install
 %make_install
+
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 install -pm 644 doc/pstoedit.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
+chrpath -d $RPM_BUILD_ROOT%{_bindir}/pstoedit
+chrpath -d $RPM_BUILD_ROOT%{_bindir}/PstoeditQtGui
+
+# Leave just one main category
+desktop-file-edit --remove-category=Utility $RPM_BUILD_ROOT%{_datadir}/applications/PstoeditQtGui.desktop
+
 %files
-%doc doc/readme.txt doc/pstoedit.htm doc/changelog.htm doc/pstoedit.pdf
-%license copying
-%{_datadir}/pstoedit/
-%{_mandir}/man1/*
+%doc README.md doc/pstoedit.htm doc/changelog.htm doc/pstoedit.pdf
+%license LICENSE
 %{_bindir}/pstoedit
 %{_libdir}/libpstoedit.so.0.0.0
 %{_libdir}/libpstoedit.so.0
 %{_libdir}/pstoedit/
+%{_datadir}/pstoedit/
+%{_mandir}/man1/*
+
+%files gui
+%{_bindir}/PstoeditQtGui
+%{_datadir}/icons/hicolor/256x256/apps/pstoedit.png
+%{_datadir}/applications/PstoeditQtGui.desktop
 
 %files devel
 %doc doc/changelog.htm
 %{_includedir}/pstoedit/
 %{_libdir}/libpstoedit.so
 %{_libdir}/pkgconfig/*.pc
-%{_datadir}/aclocal/*.m4
 
 
 %changelog

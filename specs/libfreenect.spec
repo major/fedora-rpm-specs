@@ -1,6 +1,6 @@
 Name:           libfreenect
 Version:        0.7.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 # OpenNI driver is available as Apache-2.0
@@ -14,8 +14,8 @@ Source0:        https://github.com/OpenKinect/%{name}/archive/v%{version}/%{name
 Patch0:         %{name}-0.5.7-videogroup.patch
 # Freenect openni driver is a plugin lib, and doesn't need soversion symlinks
 Patch1:         %{name}-openni2.patch
-# Allow for proper libdir
-Patch3:         %{name}-0.4.2-libdir.patch
+# Allow for proper libdir and work with CMake 4.0
+Patch3:         %{name}-0.7.5-cmake.patch
 # BZ: https://bugzilla.redhat.com/show_bug.cgi?id=1143912
 Patch4:         secarch.patch
 # Fix the installation path for python libs
@@ -27,7 +27,7 @@ Patch6:         %{name}-0.7.5-notimestamp.patch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  freeglut-devel
 BuildRequires:  libusb1-devel
@@ -104,7 +104,7 @@ rm -rv platform/windows
 
 %patch -P 0 -p0 -b .videogroup
 %patch -P 1 -p1 -b .openni2
-%patch -P 3 -p0 -b .libdir
+%patch -P 3 -p1 -b .cmake
 %patch -P 4 -p1 -b .secarch
 %patch -P 5 -p1 -b .py3
 %patch -P 6 -p1 -b .tstamp
@@ -201,6 +201,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Sun Feb 22 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.7.5-7
+- Fix build with CMake 4.0 (resolves rhbz#2380720, rhbz#2381254)
+
 * Thu Jan 29 2026 Nicolas Chauvet <kwizart@gmail.com> - 0.7.5-6
 - Rebuilt for OpenCV 4.13
 

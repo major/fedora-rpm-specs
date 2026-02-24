@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20260110
+Version:	20260221
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -663,12 +663,13 @@ end
 %files -n qcom-firmware
 %license LICENSE.qcom LICENSE.qcom_yamato qcom/NOTICE.txt
 %dir %{_firmwarepath}/qcom
+%{_firmwarepath}/qcom/glymur/
+%{_firmwarepath}/qcom/kaanapali/
 %{_firmwarepath}/a300_p*
 %{_firmwarepath}/qcom/*.fw*
 %{_firmwarepath}/qcom/*.bin*
 %{_firmwarepath}/qcom/*.m*
 %{_firmwarepath}/qcom/apq*/
-%{_firmwarepath}/qcom/kaanapali/
 %{_firmwarepath}/qcom/qcm*/
 %{_firmwarepath}/qcom/qcs*/
 %{_firmwarepath}/qcom/qrb*/
@@ -723,6 +724,65 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sun Feb 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260221-1
+- Update to 20260221
+- qcom: vpu: fix SC7280 VPU Gen2 firmware and add compatibility symlink
+- amdgpu: DMCUB updates for various ASICs
+- qcom: Update DSP firmware for qcs8300 platform
+- cirrus: cs35l41: Add Firmware for ASUS Zenbook Laptop using CS35L41 HDA
+- qcom: Update DSP firmware for sa8775p platform
+- rtw89: 8851b: add format-1 for fw v0.29.41.5 with fw elements
+- rtw89: 8852a: add format-1 for fw v0.13.36.2 with fw elements
+- rtw89: 8852bt: add regd and diag_mac and update txpwr to R09
+- rtw89: 8852b: update txpwr element to R43
+- rtw89: 8852b: add format-2 with v0.29.29.15 and fw elements
+- Revert "rtw89: 8852b: update fw to v0.29.128.0 with format suffix -2"
+- xe: Update GUC to v70.58.0 for LNL, BMG, PTL
+- ath11k: WCN6855 hw2.0: update board-2.bin
+- ath11k: QCA6390 hw2.0: update board-2.bin
+- qcom: Add gpu firmwares for Glymur chipset
+- qcom: vpu: add video firmware for Glymur
+- qcom: add QUPv3 firmware for x1e80100 platform
+- Bluetooth: Add symbolic links for Intel Solar JfP2/1, Solar, Pulsar, AX201 firmware variants
+- ath10k: WCN3990 hw1.0: update board-2.bin
+- qcom: add ADSP, CDSP firmware for glymur platform
+- ASoC: tas2783: Add Firmware files for tas2783A
+- Update firmware file for Intel Solar core
+- mediatek MT7921: update bluetooth firmware to 20251223091725
+- rtl_bt: Update RTL8822C BT USB and UART firmware to 0x0673
+- ath12k: WCN7850 hw2.0: update board-2.bin
+- ath12k: QCN9274 hw2.0: update to WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+- ath11k: WCN6855 hw2.0: update board-2.bin
+- ath11k: QCA6698AQ hw2.1: update board-2.bin
+- Add firmware for airoha-npu-7581 driver used for MT7990 offloading
+- Add Dell ISH firmware for Intel panther lake systems
+- update Aeonsemi AS21x1x firmware to 1.9.1
+- rtl_nic: add firmware rtl8125cp-1 for RTL8125cp
+- ice: update DDP LAG package to 1.3.2.0
+- cirrus: cs35l56: Add WHENCE links for 17aa233c spkid0 firmware
+- rtw89: 8922a: update REGD R73-R08, txpwr R46 and element of diag MAC
+- rtw89: 8852c: update REGD R73-R60, txpwr R82 and element of diag MAC
+- Update firmware for NPU PHX, STX and STX HALO
+- qcom: Update ADSP and add CDSP firmware for qcs6490-radxa-dragon-q6a
+- qcom: Remove ADSP SensorPD json for Radxa Dragon Q6A
+- intel/ish: Add Lenovo ISH firmware support for X1 and X9 systems
+- cirrus: cs42l45: Add CS42L45 SDCA codec firmware for Lenovo laptops
+- cirrus: cs42l45: Add CS42L45 SDCA codec firmware for Dell laptops
+- cirrus: cs35l57 cs35l63: Add firmware for Cirrus Amps for some Lenovo laptops
+- cirrus: cs35l56 cs35l57: Add and update firmware for some Dell laptops
+- Intel IPU7: Update firmware binary for Panther Lake
+- update firmware for MT7921 WiFi device
+- Add firmware file for Intel ScorpiusGfp2 core
+- Update firmware file for Intel Scorpius/BlazarIGfP/BlazarI/BlazarU-HrPGfP/BlazarU core
+- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x06EB_C65F
+- Add firmware for airoha-npu-7583 driver
+- iwlwifi: add Bz/Sc, Hr/Gf FW for core102-56 release
+- iwlwifi: update ty/So/Ma firmwares for core102-56 release
+- xe: Add GSC 105.0.2.1301 for PTL
+- mediatek: rename MT8188 SCP firmware
+- qcom: Update DSP firmware for QCM6490 platform
+- qcom: sync audioreach firmwares from v1.0.1 build
+
 * Sun Jan 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260110-1
 - Update to 20260110
 - update firmware for MT7925 WiFi device

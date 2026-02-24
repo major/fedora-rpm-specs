@@ -1,14 +1,15 @@
 %global octpkg dicom
 
 Name:           octave-%{octpkg}
-Version:        0.6.1
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Dicom processing for Octave
 License:        GPL-3.0-or-later
-URL:            https://gnu-octave.github.io/packages/dicom/
-Source0:        https://downloads.sourceforge.net/project/octave/Octave%20Forge%20Packages/Individual%20Package%20Releases/%{octpkg}-%{version}.tar.gz
+URL:            https://gnu-octave.github.io/packages/%{octpkg}/
+Source0:        https://github.com/gnu-octave/octave-%{octpkg}/releases/download/release-%{version}/%{octpkg}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
+BuildRequires:  automake
 BuildRequires:  cmake
 BuildRequires:  octave-devel
 BuildRequires:  gdcm-devel
@@ -25,9 +26,14 @@ Digital communications in medicine (DICOM) files.
 %prep
 %autosetup -n %{octpkg}-%{version}
 
-%build
+%conf
+cd src
 # Update autoconf to handle RISC-V
-cp /usr/lib/rpm/redhat/config.{guess,sub} src/
+cp /usr/lib/rpm/redhat/config.{guess,sub} .
+# Needed to fix C++ flag detection
+autoreconf -f
+
+%build
 # Tell it where gdcm headers are
 export GDCM_CXXFLAGS="-I%{_includedir}/gdcm/"
 %octave_pkg_build

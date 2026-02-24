@@ -1,6 +1,6 @@
 Name:           parallel
 Summary:        Shell tool for executing jobs in parallel
-Version:        20260122
+Version:        20260222
 Release:        %autorelease
 # Automatically converted from old format: GFDL and GPLv3+ - review is highly recommended.
 License:        LicenseRef-Callaway-GFDL AND GPL-3.0-or-later

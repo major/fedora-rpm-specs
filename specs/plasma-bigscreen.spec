@@ -1,10 +1,10 @@
-%global commit 6a767b376cfb821e0098e5b28846fe83eecda6d6
-%global shortcommit 6a767b3
-%global gitdate 20251021.093642
+%global commit a1b44a8d9c27a527a0004cdd59db8c18f6cee3ba
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global gitdate 20260218.085444
 
 Name:          plasma-bigscreen
-Version:       6.4.80~%{gitdate}.%{shortcommit}
-Release:       3%{?dist}
+Version:       6.5.80^%{gitdate}.%{shortcommit}
+Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
@@ -38,9 +38,16 @@ BuildRequires: cmake(KF6Screen)
 BuildRequires: cmake(Plasma)
 BuildRequires: cmake(PlasmaActivities)
 BuildRequires: cmake(PlasmaActivitiesStats)
+BuildRequires: cmake(PlasmaWaylandProtocols)
 
 BuildRequires: cmake(LibKWorkspace)
 BuildRequires: cmake(QCoro6)
+BuildRequires: cmake(SDL3)
+BuildRequires: pkgconfig(libcec)
+BuildRequires: pkgconfig(wayland-client)
+BuildRequires: pkgconfig(wayland-server)
+BuildRequires: pkgconfig(wayland-cursor)
+BuildRequires: pkgconfig(wayland-egl)
 
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6Core)
@@ -51,6 +58,7 @@ BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6WebEngineCore)
 
 Requires:   %{name}-wayland = %{version}-%{release}
+Requires:   qt6qml(org.kde.plasma.private.nanoshell)
 
 
 %package  wayland
@@ -87,12 +95,12 @@ Conflicts: %{name}-x11 < %{version}-%{release}
 %check
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kcm_mediacenter_{audiodevice,bigscreen_settings,kdeconnect,wifi}.desktop
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.uvcviewer.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.{inputhandler,uvcviewer}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f plasma-bigscreen.lang
 %license LICENSES/*
-%{_kf6_bindir}/plasma-bigscreen-{common-env,envmanager,settings,swap-session,uvcviewer,wayland,webapp}
+%{_kf6_bindir}/plasma-bigscreen-{common-env,envmanager,settings,swap-session,uvcviewer,wayland,webapp,inputhandler}
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mediacenter_*.so
 %{_kf6_qmldir}/org/kde//bigscreen/
 %{_kf6_metainfodir}/org.kde.plasma.bigscreen.metainfo.xml
@@ -100,7 +108,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.bigscreen.homescreen/
 %{_kf6_datadir}/plasma/shells/org.kde.plasma.bigscreen/
 %{_kf6_datadir}/sounds/plasma-bigscreen/
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.biglauncher.xml
 %{_kf6_qtplugindir}/plasma/applets/org.kde.bigscreen.homescreen.so
+%{_kf6_qtplugindir}/kf6/kded/kded_plasma_bigscreen_start.so
+%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.inputhandler.desktop
 %{_kf6_datadir}/applications/kcm_mediacenter_*.desktop
 %{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
 %{_kf6_datadir}/applications/org.kde.plasma.bigscreen.uvcviewer.desktop
@@ -111,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Feb 19 2026 Steve Cossette <farchord@gmail.com> - 6.5.80^20260218.085444.a1b44a8-1
+- Updated to latest git snapshot
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.80~20251021.093642.6a767b3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.6.1
+Version:        2.6.2
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC

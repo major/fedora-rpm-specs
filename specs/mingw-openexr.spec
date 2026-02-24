@@ -3,8 +3,8 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.4.4
-Release:       3%{?dist}
+Version:       3.4.5
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -149,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Sun Feb 22 2026 Sandro Mani <manisandro@gmail.com> - 3.4.5-1
+- Update to 3.4.5
+
 * Thu Feb 19 2026 Simone Caronni <negativo17@gmail.com> - 3.4.4-3
 - Rebuilt for OpenJPH update.
 

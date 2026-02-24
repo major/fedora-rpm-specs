@@ -1,16 +1,14 @@
-%define __cmake_in_source_build 1
-
 Name:           sdcv
-Version:        0.5.4
-Release:        9%{?dist}
+Version:        0.5.5
+Release:        1%{?dist}
 Summary:        Console version of StarDict program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://sdcv.sourceforge.net/
 Source0:        http://github.com/Dushistov/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch1:         0000-invalid-conversion.patch
 
-BuildRequires: make
 BuildRequires:  cmake gcc-c++
 BuildRequires:  zlib-devel  glib2-devel gettext-devel
 BuildRequires:  readline-devel
@@ -24,16 +22,16 @@ SDCV - простая, консольная утилита работы
 со словарям в формате StarDict
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-%cmake .
-make %{?_smp_mflags}
-make lang %{?_smp_mflags}
+%cmake
+%cmake_build
+%cmake_build --target=lang
 
 
 %install
-make install DESTDIR=%{buildroot}
+%cmake_install
 %find_lang %{name}
 
 %files -f %{name}.lang
@@ -43,6 +41,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/uk/man1/sdcv.1.gz
 
 %changelog
+* Sun Feb 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.5-1
+- Update to v0.5.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

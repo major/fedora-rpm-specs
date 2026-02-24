@@ -14,7 +14,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	40%{?dist}
+Release:	41%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -132,7 +132,15 @@ exit 0
 
 pushd .%{gem_instdir}
 
-EXPECTED_TEST_MSG="184 runs, 17\(38\|44\|45\) assertions, 6 failures, [12] errors, 14 skips"
+DRI_VERSION=$(pkg-config --modversion dri)
+case $DRI_VERSION in
+	26.[012]* )
+		EXPECTED_TEST_MSG="184 runs, 1740 assertions, 7 failures, 1 errors, 13 skips"
+		;;
+	* )
+		EXPECTED_TEST_MSG="184 runs, 17\(38\|44\|45\) assertions, 6 failures, [12] errors, 14 skips"
+		;;
+esac
 
 export RUBYLIB=%{buildroot}%{gem_extdir_mri}/:$(pwd)/lib:$(pwd)
 # try twice
@@ -175,6 +183,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Sun Feb 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-41
+- Update testsuite for mesa 26
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

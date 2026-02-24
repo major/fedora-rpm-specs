@@ -6,11 +6,12 @@ Release:        1%{?dist}
 Summary:        Miscellaneous functions for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://octave.sourceforge.io/miscellaneous/
+URL:            https://gnu-octave.github.io/packages/miscellaneous/
 Source0:        https://github.com/gnu-octave/%{name}/releases/download/release-%{version}/%{octpkg}-%{version}.tar.gz
 Source1:        octave-miscellaneous-python.patch
 
 BuildRequires:  octave-devel
+BuildRequires:  automake
 BuildRequires:  dos2unix
 BuildRequires:  units
 BuildRequires:  python3-devel
@@ -27,10 +28,14 @@ Chebyshev, Hermite, Legendre and Laguerre polynomials, working with
 CSV data and for Latex export.
 
 %prep
-%setup -qcT
+%setup -q -n %{octpkg}-%{version}
+
+%conf
+cd src
+autoreconf -f
 
 %build
-%octave_pkg_build -T
+%octave_pkg_build
 
 %install
 %octave_pkg_install

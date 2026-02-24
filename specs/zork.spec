@@ -1,7 +1,7 @@
 Name:           zork
 Version:        1.0.3
-Release:        11%{?dist}
-Summary:        Public Domain original DUNGEON game (Zork I)
+Release:        12%{?dist}
+Summary:        Public Domain original DUNGEON game (AKA, Zork)
 
 License:        LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/devshane/zork
@@ -15,15 +15,9 @@ BuildRequires:  ncurses-devel
 
 
 %description
-Public Domain source code to the original DUNGEON game (Zork I). Released to
-the PD by Infocom. Includes source files, headers, and information.
-
-This version of Dungeon was modified from FORTRAN to C. The original was
-written in DEC FORTRAN, translated from MDL. It was then translated to f77 for
-UN*X systems, from which it was translated to C. The C translation was done
-with the help of f2c, the FORTRAN to C translator written by David Gay (AT&T
-Bell Labs), Stu Feldman (Bellcore), Mark Maimone (Carnegie-Mellon University),
-and Norm Schryer (AT&T Bell Labs).
+Public Domain Source Code for the Mainframe Game "Dungeon". This repository contains the Public Domain source code for
+Dungeon, the mainframe version of the game that served as the precursor to Infocom's commercial Zork trilogy. This
+codebase is a C port derived from the FORTRAN source of Zork 2.6.
 
 
 %prep
@@ -56,6 +50,10 @@ echo ".so dungeon.6" > %{buildroot}%{_mandir}/man6/zork.6
 
 
 %changelog
+* Sun Feb 22 2026 Justin Wheeler <jwheel@fedoraproject.org> - 1.0.3-12
+- Fix FTBFS. Thanks @limb for the hotfix.
+- Upstream work ongoing for improved support with newer versions of the C programming language and compilers.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

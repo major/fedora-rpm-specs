@@ -3,7 +3,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           budgie-session
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Budgie Desktop session manager
 

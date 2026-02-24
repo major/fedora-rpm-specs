@@ -4,7 +4,7 @@
 %bcond_without bundled_sundials
 
 Name:           bionetgen
-Version:        2.9.0
+Version:        2.9.3
 Release:        %autorelease
 Summary:        Software for rule-based modeling of biochemical systems
 # Bionetgen binary file is compiled against bundled muparser (MIT) and sundials-2.6.0 (BSD) libraries

@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:          mingw-objfw
-Version:       1.4.4
+Version:       1.5
 Release:       1%{?dist}
 Summary:       MinGW port of ObjFW
 
@@ -165,6 +165,7 @@ popd
 %{mingw32_includedir}/ObjFWRT
 %{mingw32_includedir}/ObjFWTLS
 %{mingw32_includedir}/ObjFWTest
+%{mingw32_libdir}/cmake/ObjFW
 %{mingw32_libdir}/libobjfw.dll.a
 %{mingw32_libdir}/libobjfwhid.dll.a
 %{mingw32_libdir}/libobjfwrt.dll.a
@@ -187,6 +188,7 @@ popd
 %{mingw64_includedir}/ObjFWRT
 %{mingw64_includedir}/ObjFWTLS
 %{mingw64_includedir}/ObjFWTest
+%{mingw64_libdir}/cmake/ObjFW
 %{mingw64_libdir}/libobjfw.dll.a
 %{mingw64_libdir}/libobjfwhid.dll.a
 %{mingw64_libdir}/libobjfwrt.dll.a
@@ -209,6 +211,7 @@ popd
 %{ucrt64_includedir}/ObjFWRT
 %{ucrt64_includedir}/ObjFWTLS
 %{ucrt64_includedir}/ObjFWTest
+%{ucrt64_libdir}/cmake/ObjFW
 %{ucrt64_libdir}/libobjfw.a
 %{ucrt64_libdir}/libobjfw.dll.a
 %{ucrt64_libdir}/libobjfwhid.a

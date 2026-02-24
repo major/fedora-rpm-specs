@@ -1,5 +1,5 @@
-%global git_commit 96bbdb53ed6b5bdf2e940f6068016a78afcc7852
-%global git_date 20240704
+%global git_commit 6067afde563c3946eebd94f146b3824ab7a97a9c
+%global git_date 20260213
 
 Name:		libyuv
 Summary:	YUV conversion and scaling functionality library
@@ -10,16 +10,17 @@ Url:		https://chromium.googlesource.com/libyuv/libyuv
 VCS:		git:%{url}
 Source0:	%{url}/+archive/%{git_commit}.tar.gz
 # Fedora-specific. Upstream isn't interested in these patches.
-Patch1:		libyuv-0001-Move-Linux-variables-to-the-top.patch
-Patch2:		libyuv-0002-Use-a-proper-so-version.patch
-Patch3:		libyuv-0003-Link-against-shared-library.patch
-Patch4:		libyuv-0004-Disable-static-library.patch
-Patch5:		libyuv-0005-Use-library-suffix-during-installation.patch
-Patch6:		libyuv-0006-Link-against-math-library-for-roundf.patch
+Patch:		libyuv-0001-Use-a-proper-so-version.patch
+Patch:		libyuv-0002-Link-against-shared-library.patch
+Patch:		libyuv-0003-Use-GNUInstallDirs-during-installation.patch
+Patch:		libyuv-0004-Use-CTest-switches-for-testing.patch
+Patch:		libyuv-0005-arch-s390x-disable-little-endian-tests.patch
+Patch:		libyuv-0006-Don-t-install-tools-and-static-lib.patch
 BuildRequires:	cmake
+BuildRequires:	cmake(GTest)
 BuildRequires:	gcc-c++
 BuildRequires:	gtest-devel
-BuildRequires:	libjpeg-devel
+BuildRequires:	pkgconfig(libjpeg)
 
 
 %description
@@ -73,8 +74,10 @@ rm -f %{buildroot}%{_bindir}/yuvconvert
 
 
 %check
-# FIXME fails again on s390 - we should use CTest via %%{ctest} macro
-# ./libyuv_unittest || true
+# FIXME fails again on s390
+%ifnarch s390x
+%{ctest}
+%endif
 
 
 %files

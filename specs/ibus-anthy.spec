@@ -17,7 +17,7 @@
 %endif
 
 Name:           ibus-anthy
-Version:        1.5.17
+Version:        1.5.18
 Release:        %autorelease
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
@@ -27,7 +27,6 @@ Source1:        https://github.com/ibus/%{name}/releases/download/%{version}/%{n
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
 BuildRequires:  anthy-unicode-devel

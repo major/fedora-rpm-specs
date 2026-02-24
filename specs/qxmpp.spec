@@ -1,10 +1,10 @@
-%global sover 7
+%global sover 8
 
 %bcond_without check
 %bcond_with all_tests
 
 Name:           qxmpp
-Version:        1.12.0
+Version:        1.14.2
 Release:        %autorelease
 Summary:        Cross-platform C++ XMPP client and server library
 
@@ -14,6 +14,9 @@ Summary:        Cross-platform C++ XMPP client and server library
 License:        LGPL-2.1-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://invent.kde.org/libraries/qxmpp
 Source0:        %{url}/-/archive/v%{version}/qxmpp-v%{version}.tar.gz
+# Generate docbook documentation instead of html
+# https://invent.kde.org/libraries/qxmpp/-/merge_requests/743
+Patch0:         docbook.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -35,25 +38,6 @@ API documentation, automatic tests and some examples.}
 
 %description
 %{_description}
-
-%package        qt5
-Summary:        QXmpp library for Qt5
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Xml)
-# optional for QXmpp OMEMO module
-BuildRequires:  qca-qt5-devel
-
-%description    qt5
-%{_description}
-
-%package        qt5-devel
-Summary:        Development Files for %{name}-qt5
-Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
-
-%description    qt5-devel
-This package contains libraries and header files for developing applications
-that use %{name}-qt5.
 
 %package        qt6
 Summary:        QXmpp library for Qt6
@@ -89,14 +73,10 @@ This package contains documentation for %{name}.
 OPTIONS=(
     -GNinja \
     -DBUILD_TESTS=ON \
-    -DBUILD_DOCUMENTATION=ON \
+    -DBUILD_DOCUMENTATION=OFF \
+    -DBUILD_DOCBOOK_DOCUMENTATION=ON \
     -DBUILD_OMEMO=ON \
 )
-%global _vpath_builddir %{_target_platform}-qt5
-%cmake \
-    ${OPTIONS[@]} \
-    -DQT_VERSION_MAJOR=5 \
-%cmake_build
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake \
@@ -105,24 +85,12 @@ OPTIONS=(
 %cmake_build
 
 %install
-%global _vpath_builddir %{_target_platform}-qt5
-%cmake_install
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
 
 %if %{with check}
 %check
-%global _vpath_builddir %{_target_platform}-qt5
-%if %{with all_tests}
-%ctest
-%else
-SKIP_TESTS=
-SKIP_TESTS='tst_qxmppiceconnection'
-SKIP_TESTS+='|tst_qxmppfileencryption'
-SKIP_TESTS+='|tst_qxmpptransfermanager'
-%endif
-
 %global _vpath_builddir %{_target_platform}-qt6
 %if %{with all_tests}
 %ctest
@@ -143,27 +111,6 @@ SKIP_TESTS+='|tst_qxmppjinglemessageinitiationmanager'
 
 %endif
 
-%files qt5
-%license LICENSES/*
-%doc README.md
-%{_libdir}/libQXmppQt5.so.%{sover}
-%{_libdir}/libQXmppQt5.so.%{version}
-%{_libdir}/libQXmppOmemoQt5.so.%{sover}
-%{_libdir}/libQXmppOmemoQt5.so.%{version}
-
-%files qt5-devel
-%{_libdir}/libQXmppQt5.so
-%{_libdir}/libQXmppOmemoQt5.so
-%dir %{_includedir}/QXmppQt5
-%{_includedir}/QXmppQt5/*.h
-%{_includedir}/QXmppQt5/*.cpp
-%{_includedir}/QXmppQt5/Omemo/
-%{_libdir}/cmake/QXmppQt5/
-%{_libdir}/cmake/QXmppOmemoQt5/
-%{_libdir}/cmake/QXmpp/
-%{_libdir}/pkgconfig/QXmppQt5.pc
-%{_libdir}/pkgconfig/qxmpp.pc
-
 %files qt6
 %license LICENSES/*
 %doc README.md
@@ -181,13 +128,11 @@ SKIP_TESTS+='|tst_qxmppjinglemessageinitiationmanager'
 %{_includedir}/QXmppQt6/Omemo/
 %{_libdir}/cmake/QXmppQt6/
 %{_libdir}/cmake/QXmppOmemoQt6/
-%{_libdir}/cmake/QXmpp/
 %{_libdir}/pkgconfig/QXmppQt6.pc
-%{_libdir}/pkgconfig/qxmpp.pc
 
 %files doc
-%dir %{_docdir}/qxmpp
-%{_docdir}/qxmpp/html/
+%dir  %{_datadir}/help/en
+%lang(en) %{_datadir}/help/en/qxmpp
 
 %changelog
 %autochangelog

@@ -2,7 +2,7 @@
 
 Name:           lterm
 Version:        1.5.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Terminal and multi protocol client
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -34,6 +34,7 @@ It is mainly used as SSH/Telnet client
 %autosetup -p1
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure --with-gtk2
 
 %install
@@ -55,6 +56,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Mon Feb 23 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.5.1-23
+- Fix FTBFS rhbz#2434799
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

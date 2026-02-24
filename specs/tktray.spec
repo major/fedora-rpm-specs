@@ -4,18 +4,19 @@
 Summary: System Tray Icon Support for Tk on X11
 Name: tktray
 Version: 1.3.9
-Release: 33%{?dist}
+Release: 34%{?dist}
 URL: http://code.google.com/p/tktray/
 Source0: http://tktray.googlecode.com/files/%{name}%{version}.tar.gz
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires: tk-devel,tcl-devel
+BuildRequires: gcc
 BuildRequires: libXext-devel, libX11-devel
-
-Requires: tk,tcl
-Requires: tcl(abi) = 8.6
+BuildRequires: tcl-devel < 1:9
+BuildRequires: tk-devel < 1:9
+Requires: tcl-devel < 1:9
+Requires: tk-devel < 1:9
+Requires: tcl(abi) < 1:9
 
 %description
 Tktray is an extension that is able to create system tray icons.
@@ -23,23 +24,18 @@ It follows http://www.freedesktop.org specifications when looking
 up the system tray manager.
 
 %prep
-
 %setup -q -n %{name}%{version}
-
 chmod 0644 ChangeLog license.terms docs/*
 
 %build
-
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure  --libdir=%{tcl_sitearch} \
 	--with-tcl=%{_libdir} \
 	--with-tk=%{_libdir}
-
 make %{?_smp_mflags} CFLAGS_DEFAULT="" CFLAGS_WARNING="-Wall" 
 
 %install
-rm -rf $RPM_BUILD_ROOT 
 make DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" install
-
 
 %files
 %doc ChangeLog license.terms docs/tktray.html
@@ -47,6 +43,9 @@ make DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" install
 %{_mandir}/*/*
 
 %changelog
+* Mon Feb 23 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.3.9-34
+- Fix FTBFS
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -7,7 +7,7 @@ ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64
 ExcludeArch:    ppc64 ppc64le
 
 Name:       protontricks
-Version:    1.13.1
+Version:    1.14.0
 Release:    %autorelease
 Summary:    Simple wrapper that does winetricks things for Proton enabled games
 BuildArch:  noarch

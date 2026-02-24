@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.6.1
+Version:        1.6.2
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -147,6 +147,12 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Sun Feb 22 2026 Alessandro Astone <ales.astone@gmail.com> - 1.6.2-1
+- Attempt to further fix initialization with Python 3.14
+- Fix desktop file update logic for headless apps
+- Add Vulkan support for xe kernel driver
+- Allow passing arguments to "waydroid logcat"
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

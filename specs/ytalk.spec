@@ -23,6 +23,7 @@ to other users as well as an easy-to-use menu of commands.
 %autosetup
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure
 %make_build
 

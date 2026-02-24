@@ -1,5 +1,5 @@
 Name:           bindfs
-Version:        1.18.3
+Version:        1.18.4
 Release:        %autorelease
 Summary:        Fuse filesystem to mirror a directory
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
