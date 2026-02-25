@@ -32,7 +32,7 @@
 
 # This package is named ardour9 to allow parallel installation with other major versions of Ardour.
 Name:       ardour9
-Version:    9.1.0
+Version:    9.2.0
 
 # Compute version related macros.
 
@@ -67,13 +67,13 @@ Source0:    Ardour-%{archive_version}.tar.bz2
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
 
-# Include major version in app name
-Patch0:     ardour9-mark-versionized.patch
-
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.
 Patch100:   %{name}-vst-lib64.patch
+
+# Include major version in app name (optional)
+Patch101:    ardour9-mark-versionized.patch
 
 %if %{with version_overlay}
 BuildRequires:  ImageMagick
@@ -172,7 +172,10 @@ engineers, musicians, soundtrack editors and composers.
 
 %prep
 %autosetup -S gendiff -N -n Ardour-%{archive_version}
-%autopatch -p1 %{!?with_apply_64bit_patches:-M 99}
+%if 0%{?PATCH0:1}
+%autopatch -p1 -M99
+%endif
+%autopatch -p1 %{?with_apply_64bit_patches:100} %{?with_version_overlay:101}
 
 %if %{with system_libs}
 # remove bundled library sources

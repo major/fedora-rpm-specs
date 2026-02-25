@@ -9,8 +9,8 @@
 
 Summary: Personal finance
 Name:    kmymoney
-Version: 5.2.1
-Release: 4%{?dist}
+Version: 5.2.2
+Release: 1%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -21,10 +21,6 @@ Source0: https://download.kde.org/stable/kmymoney/%{version}/kmymoney-%{version}
 ## backports from upstream
 
 ## upstreamable patches
-# enable using KIdentityManagement with PIM version >= 6.0.0
-# https://invent.kde.org/office/kmymoney/-/merge_requests/290
-Patch100: kmymoney-5.2.1-kidentitymanagementcore.patch
-Patch101: kmymoney-fix-build-against-qt-6-10.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -177,7 +173,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 %{_kf6_datadir}/checkprinting/
 %{_kf6_datadir}/config.kcfg/k*.kcfg
 %{_kf6_datadir}/kconf_update/kmymoney.upd
-%{_kf6_datadir}/kmymoney/
 %{_kf6_datadir}/icons/hicolor/*/*/*
 %{_kf6_datadir}/mime/packages/x-kmymoney.xml
 %{_mandir}/man1/kmymoney.1*
@@ -200,6 +195,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 
 
 %changelog
+* Mon Feb 23 2026 Steve Cossette <farchord@gmail.com> - 5.2.2-1
+- 5.2.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -15,6 +15,7 @@ URL:            https://hackage.haskell.org/package/simple-cabal
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
+Patch0:         allBuildInfo-haddock.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-rpm-macros
@@ -74,6 +75,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+%autopatch -p1
 # End cabal-rpm setup
 
 

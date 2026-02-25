@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        93
+Version:        94
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,17 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 18 2026 Packit <hello@packit.dev> - 94-1
+Changes with 94
+----------------
+  - Wizard/Review: fix section visibility for net-installer type (HMS-9568) (#4123)
+    - Author: Michal Gold, Reviewers: Klara Simickova
+  - cockpit: Re-organize Security step (HMS-10217) (#4125)
+    - Author: Klara Simickova, Reviewers: Lucas Garfield
+
+— Somewhere on the Internet, 2026-02-18
+
+
 * Tue Feb 17 2026 Packit <hello@packit.dev> - 93-1
 Changes with 93
 ----------------

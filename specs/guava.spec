@@ -13,9 +13,8 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/google/guava/archive/v%{version}/guava-%{version}.tar.gz
 
-Patch:          0001-Remove-unused-annotation-module-dependencies.patch
-Patch:          0002-Remove-NullMarked-filtering-and-annotation-collectio.patch
-Patch:          0003-Fix-invalid-Maven-attribute-values-in-compilerArgs.patch
+Patch:          0001-Remove-NullMarked-filtering-and-annotation-collectio.patch
+Patch:          0002-Fix-invalid-Maven-attribute-values-in-compilerArgs.patch
 
 BuildRequires:  jurand
 %if %{with bootstrap}
@@ -84,11 +83,13 @@ sed -i /Xplugin:ErrorProne/d pom.xml
 %pom_remove_dep -r :listenablefuture
 %pom_remove_dep -r :jspecify
 
-%java_remove_annotations guava guava-testlib -s \
+jurand -i -s -a guava guava-testlib \
   -p com[.]google[.]common[.]annotations[.] \
   -p com[.]google[.]errorprone[.]annotations[.] \
   -p com[.]google[.]j2objc[.]annotations[.] \
   -p org[.]jspecify[.]annotations[.] \
+  -m com[.]google[.].*[.]annotations \
+  -m org[.]jspecify
 
 %mvn_package "com.google.guava:failureaccess" guava
 

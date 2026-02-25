@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.31.0
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -161,6 +161,9 @@ intended to be run by users.
 
 
 %changelog
+* Mon Feb 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.31.0-2
+- Rebuilt for lua 5.5
+
 * Fri Feb 13 2026 Peter Hutterer <peter.hutterer@redhat.com> - 1.31.0-1
 - libinput 1.31.0
 

@@ -54,7 +54,7 @@ sed -i '/"multidict/s/,<[0-9.]\+//' pyproject.toml
 %pyproject_save_files pulp_glue
 
 %files -n python3-pulp-glue-deb -f %{pyproject_files}
-%license LICENSE
+%license ../LICENSE
 %doc README.*
 
 %changelog

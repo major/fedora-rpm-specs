@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -61,7 +61,6 @@ BuildRequires: audit-libs-devel
 BuildRequires: dbus-devel
 BuildRequires: lmdb-devel
 
-BuildRequires: uv
 BuildRequires: maturin
 BuildRequires: cargo-rpm-macros
 
@@ -209,6 +208,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Fri Feb 06 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-2
+- Remove bogus build dependency on uv
+
 * Sat Jan 31 2026 John Wass <jwass3@gmail.com> 1.5.1-1
 - New release
 

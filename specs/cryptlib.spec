@@ -3,14 +3,14 @@
 %global cryptlibdir %{_libdir}/%{name}
 
 Name:       cryptlib
-Version:    3.4.8  
-Release:    18%{?dist}
+Version:    3.4.9
+Release:    1%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://github.com/cryptlib/cryptlib      
-Source0:    https://senderek.ie/fedora/cryptlib-fedora-3.4.8.tar.gz
-Source1:    https://senderek.ie/fedora/cryptlib-fedora-3.4.8.tar.gz.sig
+Source0:    https://senderek.ie/fedora/cl349_fedora.zip     
+Source1:    https://senderek.ie/fedora/cl349_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -19,13 +19,8 @@ Source3:    https://senderek.ie/fedora/README-details
 Source4:    https://senderek.ie/fedora/cryptlib-tests.tar.gz
 Source5:    https://senderek.ie/fedora/cryptlib-perlfiles.tar.gz
 Source6:    https://senderek.ie/fedora/cryptlib-tools.tar.gz
-Source7:    https://senderek.ie/fedora/cryptlib-3.4.8-update.tar.gz
-Source8:    https://senderek.ie/fedora/cryptlib-3.4.8-update.tar.gz.sig
 
 # soname is now libcl.so.3.4
-Patch0:     m64patch
-Patch1:     gcc15patch
-Patch2:     riscv64patch
 
 ExclusiveArch: x86_64 aarch64 ppc64le riscv64
 
@@ -130,20 +125,14 @@ KEYRING=${KEYRING%%.asc}.gpg
 mkdir -p .gnupg
 gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
 gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
-gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE8} %{SOURCE7}
 
 rm -rf %{name}-%{version}
 mkdir %{name}-%{version}
 cd %{name}-%{version}
-/usr/bin/tar xvpzf %{SOURCE0}
-/usr/bin/tar xvpzf %{SOURCE7}
-
-%patch 0 -p1
-%patch 1 -p1
-%patch 2 -p1
+/usr/bin/unzip %{SOURCE0}
 
 # enable ADDFLAGS
-sed -i '97s/-I./-I. \$(ADDFLAGS)/' makefile
+sed -i '98s/-I./-I. \$(ADDFLAGS)/' makefile
 # enable JAVA in config
 sed -i 's/\/\* #define USE_JAVA \*\// #define USE_JAVA /' misc/config.h
 
@@ -186,7 +175,7 @@ FLAGS=${FLAGS//"-Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3"/}
 
 make clean
 make shared  ADDFLAGS="${FLAGS}"
-ln -s libcl.so.3.4.8 libcl.so
+ln -s libcl.so.3.4.9 libcl.so
 ln -s libcl.so libcl.so.3.4
 make stestlib  ADDFLAGS="%{optflags}"
 
@@ -206,9 +195,9 @@ javadoc cryptlib
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_datadir}/licenses/%{name}
 mkdir -p %{buildroot}%{_docdir}/%{name}
-cp %{_builddir}/%{name}-%{version}/libcl.so.3.4.8 %{buildroot}%{_libdir}
+cp %{_builddir}/%{name}-%{version}/libcl.so.3.4.9 %{buildroot}%{_libdir}
 cd %{buildroot}%{_libdir}
-ln -s libcl.so.3.4.8 libcl.so.3.4
+ln -s libcl.so.3.4.9 libcl.so.3.4
 ln -s libcl.so.3.4 libcl.so
 
 # install header files
@@ -291,7 +280,7 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
      echo "Running one basic test on the cryptlib library."
      cp %{buildroot}%{cryptlibdir}/c/sha2-test.c .
      sed -i '41s/<cryptlib\/cryptlib.h>/\".\/cryptlib.h\"/' sha2-test.c
-     gcc  -o sha2-test sha2-test.c -L. libcl.so.3.4.8
+     gcc  -o sha2-test sha2-test.c -L. libcl.so.3.4.9
      ./sha2-test
 %endif
 
@@ -300,7 +289,7 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %files
-%{_libdir}/libcl.so.3.4.8
+%{_libdir}/libcl.so.3.4.9
 %{_libdir}/libcl.so.3.4
 %{_libdir}/libcl.so
 
@@ -346,6 +335,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Feb 23 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9-1
+- update Cryptlib to version 3.4.9 and update cryptlib tools to version 1.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.8-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

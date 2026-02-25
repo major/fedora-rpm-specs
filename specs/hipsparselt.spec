@@ -125,7 +125,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -181,6 +181,7 @@ BuildRequires:  zlib-devel
 # For tensilelite
 %if 0%{?suse_version}
 BuildRequires:  python-rpm-macros
+BuildRequires:  %{python_module devel}
 BuildRequires:  %{python_module joblib}
 BuildRequires:  %{python_module msgpack}
 BuildRequires:  %{python_module PyYAML}
@@ -421,6 +422,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/bin/hipsparselt-test
 %endif
 
 %changelog
+* Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Fix TW
+
 * Fri Feb 20 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

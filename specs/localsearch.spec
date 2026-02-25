@@ -35,7 +35,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           localsearch
-Version:        3.11~alpha
+Version:        3.11~beta
 Release:        %autorelease
 Summary:        Localsearch and metadata extractors
 
@@ -43,9 +43,6 @@ Summary:        Localsearch and metadata extractors
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
 Source0:        https://download.gnome.org/sources/%{name}/3.11/%{name}-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/localsearch/-/merge_requests/657
-Patch:          no-absolute-symlinks.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -79,6 +76,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libzip)
 BuildRequires:  pkgconfig(poppler-glib)
 %if 0%{?with_totem_pl_parser}
 BuildRequires:  pkgconfig(totem-plparser)

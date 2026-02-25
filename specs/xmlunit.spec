@@ -85,7 +85,7 @@ rm -r xmlunit-core/src/main/java/org/xmlunit/builder/javax_jaxb\
 
 
 # Port to hamcrest 2.1
-jurand -i -a xmlunit-matchers -p org[.]hamcrest[.]Factory
+jurand -i -s -a xmlunit-matchers -p org[.]hamcrest[.]Factory
 
 %pom_disable_module xmlunit-assertj
 %pom_disable_module xmlunit-jakarta-jaxb-impl

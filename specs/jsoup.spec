@@ -57,9 +57,10 @@ tree.
 
 # Remove jspecify annotations which are used for static analysis only
 %pom_remove_dep :jspecify
-sed -i /org.jspecify/d src/main/java*/module-info.java
-%java_remove_annotations src/main/java src/main/java11 -s \
+
+jurand -i -s -a src/main/java src/main/java11 \
   -p org[.]jspecify[.]annotations[.] \
+  -m org[.]jspecify
 
 %build
 %mvn_build -j -f

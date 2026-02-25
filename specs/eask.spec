@@ -2,7 +2,7 @@
 %global npm_name  cli
 
 Name:           eask
-Version:        0.12.8
+Version:        0.12.9
 Release:        %{autorelease}
 Summary:        Emacs Lisp dependency manager
 License:        BlueOak-1.0.0 AND GPL-3.0-or-later AND ISC AND MIT

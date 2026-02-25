@@ -1,10 +1,10 @@
 %global catalogue /etc/X11/fontpath.d
 
-%global majorver 4.4
+%global majorver 4.5
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
-Version: 4.4ga6
-Release: 4%{?dist}
+Version: 4.5ga5
+Release: 1%{?dist}
 License: BSD-3-Clause AND HPND-sell-variant AND MIT AND Apache-2.0
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
@@ -65,7 +65,7 @@ Install the %{name}-text package if you need to access IBM hosts using an IBM
 
 
 %build
-%configure --enable-x3270 --enable-c3270 --enable-s3270 --enable-pr3287 --enable-playback
+%configure --enable-x3270 --enable-c3270 --enable-s3270 --enable-pr3287 --disable-tcl3270 --disable-b3270 --enable-playback
 make %{?_smp_mflags} CCOPTIONS="$RPM_OPT_FLAGS" LIBX3270DIR=%{_sysconfdir}
 
 
@@ -117,6 +117,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Feb 23 2026 Dan Horák <dan[at]danny.cz> - 4.5ga5-1
+- updated to 4.5ga5(rhbz#2368663)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4ga6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

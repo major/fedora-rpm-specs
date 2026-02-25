@@ -90,6 +90,11 @@ Source11: 51-edk2-aarch64-raw.json
 Source12: 52-edk2-aarch64-verbose-qcow2.json
 Source13: 53-edk2-aarch64-verbose-raw.json
 
+Source20: 90-edk2-ovmf-qemuvars-x64-sb-enrolled.json
+Source21: 91-edk2-ovmf-qemuvars-x64-sb.json
+Source22: 90-edk2-aarch64-qemuvars-sb-enrolled.json
+Source23: 91-edk2-aarch64-qemuvars-sb.json
+
 Source40: 30-edk2-ovmf-4m-qcow2-x64-sb-enrolled.json
 Source41: 31-edk2-ovmf-2m-raw-x64-sb-enrolled.json
 Source42: 40-edk2-ovmf-4m-qcow2-x64-sb.json
@@ -173,6 +178,10 @@ BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(Time::Piece)
 
+# For generating the variable store template with
+# the default certificates enrolled.
+BuildRequires:  python3-virt-firmware >= 24.2
+
 %if %{build_ovmf}
 # Only OVMF includes 80x86 assembly files (*.nasm*).
 BuildRequires:  nasm
@@ -182,10 +191,6 @@ BuildRequires:  nasm
 BuildRequires:  dosfstools
 BuildRequires:  mtools
 BuildRequires:  xorriso
-
-# For generating the variable store template with the default certificates
-# enrolled.
-BuildRequires:  python3-virt-firmware >= 24.2
 
 %if %{defined fedora}
 # generate igvm files (using igvm-wrap)
@@ -404,6 +409,7 @@ chmod -Rf a+rX,u+w,g-w,o-w .
 cp -a -- \
    %{SOURCE9} \
    %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
+   %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
    %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} %{SOURCE49} \
    %{SOURCE50} \
@@ -468,6 +474,12 @@ virt-fw-vars --input   %{RHELCFG}/ovmf/OVMF.inteltdx.fd \
              --output  %{RHELCFG}/ovmf/OVMF.inteltdx.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
+%if %{qemuvars}
+virt-fw-vars --output-json %{RHELCFG}/ovmf/vars.blank.json
+virt-fw-vars --output-json %{RHELCFG}/ovmf/vars.secboot.json \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
+             --enroll-redhat --secure-boot
+%endif
 build_iso %{RHELCFG}/ovmf
 cp DBXUpdate-%{DBXDATE}.x64.bin %{RHELCFG}/ovmf
 
@@ -487,6 +499,12 @@ virt-fw-vars --input   Fedora/ovmf/OVMF.inteltdx.fd \
              --output  Fedora/ovmf/OVMF.inteltdx.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
+%if %{qemuvars}
+virt-fw-vars --output-json Fedora/ovmf/vars.blank.json
+virt-fw-vars --output-json Fedora/ovmf/vars.secboot.json \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
+             --enroll-redhat --secure-boot
+%endif
 build_iso Fedora/ovmf
 cp DBXUpdate-%{DBXDATE}.x64.bin Fedora/ovmf
 
@@ -531,6 +549,12 @@ done
 %if %{build_aarch64}
 %if %{defined rhel}
 ./edk2-build.py --config edk2-build.%{rhelcfg} %{?silent} --release-date "$RELEASE_DATE" -m armvirt
+%if %{qemuvars}
+virt-fw-vars --output-json %{RHELCFG}/aarch64/vars.blank.json
+virt-fw-vars --output-json %{RHELCFG}/aarch64/vars.secboot.json \
+             --set-dbx DBXUpdate-%{DBXDATE}.aa64.bin \
+             --enroll-redhat --secure-boot
+%endif
 cp DBXUpdate-%{DBXDATE}.aa64.bin %{RHELCFG}/aarch64
 %else
 ./edk2-build.py --config edk2-build.fedora %{?silent} --release-date "$RELEASE_DATE" -m armvirt
@@ -539,6 +563,12 @@ virt-fw-vars --input   Fedora/aarch64/vars-template-pflash.raw \
              --output  Fedora/experimental/vars-template-secboot-testonly-pflash.raw \
              --set-dbx DBXUpdate-%{DBXDATE}.aa64.bin \
              --enroll-redhat --secure-boot --distro-keys rhel
+%if %{qemuvars}
+virt-fw-vars --output-json Fedora/aarch64/vars.blank.json
+virt-fw-vars --output-json Fedora/aarch64/vars.secboot.json \
+             --set-dbx DBXUpdate-%{DBXDATE}.aa64.bin \
+             --enroll-redhat --secure-boot
+%endif
 cp DBXUpdate-%{DBXDATE}.aa64.bin Fedora/aarch64
 %endif
 for raw in */aarch64/*.raw; do
@@ -617,6 +647,12 @@ install -m 0644 \
         61-edk2-ovmf-x64-amdsev.json \
         61-edk2-ovmf-x64-inteltdx.json \
         %{buildroot}%{_datadir}/qemu/firmware
+%if %{qemuvars}
+install -m 0644 \
+        90-edk2-ovmf-qemuvars-x64-sb-enrolled.json \
+        91-edk2-ovmf-qemuvars-x64-sb.json \
+        %{buildroot}%{_datadir}/qemu/firmware
+%endif
 %if %{defined fedora}
 install -m 0644 \
         50-edk2-ovmf-x64-microvm.json \
@@ -645,6 +681,12 @@ install -m 0644 \
         52-edk2-aarch64-verbose-qcow2.json \
         53-edk2-aarch64-verbose-raw.json \
         %{buildroot}%{_datadir}/qemu/firmware
+%if %{qemuvars}
+install -m 0644 \
+        90-edk2-aarch64-qemuvars-sb-enrolled.json \
+        91-edk2-aarch64-qemuvars-sb.json \
+        %{buildroot}%{_datadir}/qemu/firmware
+%endif
 
 # endif build_aarch64
 %endif
@@ -734,6 +776,9 @@ done
 %{_datadir}/qemu/firmware/61-edk2-ovmf-x64-inteltdx.json
 %if %{qemuvars}
 %{_datadir}/%{name}/ovmf/OVMF.qemuvars.fd
+%{_datadir}/%{name}/ovmf/vars.*.json
+%{_datadir}/qemu/firmware/90-edk2-ovmf-qemuvars-x64-sb-enrolled.json
+%{_datadir}/qemu/firmware/91-edk2-ovmf-qemuvars-x64-sb.json
 %endif
 %if %{defined fedora}
 %{_datadir}/%{name}/ovmf/MICROVM.fd
@@ -771,6 +816,9 @@ done
 %if %{qemuvars}
 %{_datadir}/%{name}/aarch64/QEMU_EFI-qemuvars-pflash.*
 %{_datadir}/%{name}/aarch64/QEMU_EFI.qemuvars.fd
+%{_datadir}/%{name}/aarch64/vars.*.json
+%{_datadir}/qemu/firmware/90-edk2-aarch64-qemuvars-sb-enrolled.json
+%{_datadir}/qemu/firmware/91-edk2-aarch64-qemuvars-sb.json
 %endif
 %if %{defined fedora}
 %{_datadir}/%{name}/aarch64/QEMU_EFI.kernel.fd

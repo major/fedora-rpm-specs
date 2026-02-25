@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-69-g288b55f463
+%global glibcsrcdir glibc-2.43.9000-76-g9af18a94e0
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2403,6 +2403,17 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Feb 23 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-3
+- Auto-sync with upstream branch master,
+  commit 9af18a94e051fce513972254bf97c12ae563841e:
+- hurd: Define _POSIX_TIMERS to 200809L (Samuel Thibault)
+- elf: Use dl-symbol-redir-ifunc.h instead _dl_strlen (Adhemerval Zanella)
+- posix: execvpe: skip $PATH components that are too long [BZ #33626] (Pádraig Brady)
+- Rename __unused fields to __glibc_reserved. (Jakub Jelinek)
+- aarch64: Tests for locking GCS (Yury Khrustalev)
+- aarch64: Lock GCS status at startup (Yury Khrustalev)
+- tests: aarch64: fix makefile dependencies for dlopen tests for BTI (Yury Khrustalev)
+
 * Mon Feb 16 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-2
 - Auto-sync with upstream branch master,
   commit 288b55f4636f336cc336344e4215ead9c4d592fc:

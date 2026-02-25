@@ -133,7 +133,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	9.5
+Version:	9.6
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -142,7 +142,6 @@ Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
 Patch:		0002-src-scripts-python.patch
-Patch:		0003-src-monitoring-dynamic_metrics.cc.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -971,6 +970,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Feb 23 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.6-1
+- NFS-Ganesha 9.6 GA
+
 * Mon Feb 9 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 9.5-1
 - NFS-Ganesha 9.5 GA
 

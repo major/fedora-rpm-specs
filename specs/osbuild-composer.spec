@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        163
+Version:        164
 
 %gometa
 
@@ -659,6 +659,17 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Feb 18 2026 Packit <hello@packit.dev> - 164-1
+Changes with 164
+----------------
+  - build(deps): bump actions/upload-artifact from 5 to 6 (#4961)
+    - Author: {}, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - chore(deps): update konflux references (#5023)
+    - Author: {}, Reviewers: Sanne Raymaekers, Tomáš Hozza
+
+— Somewhere on the Internet, 2026-02-18
+
+
 * Tue Feb 17 2026 Packit <hello@packit.dev> - 163-1
 Changes with 163
 ----------------

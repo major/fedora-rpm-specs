@@ -3,7 +3,7 @@
 
 Name:           shotwell
 Version:        33~alpha
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -27,6 +27,7 @@ BuildRequires:  pkgconfig(clutter-1.0)
 BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gcr-ui-3)
+BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(gdk-3.0) >= 3.22
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gdk-x11-3.0)
@@ -44,7 +45,6 @@ BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22
 BuildRequires:  pkgconfig(gudev-1.0) >= 145
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libexif) >= 0.6.16
-BuildRequires:  pkgconfig(libgdata)
 BuildRequires:  pkgconfig(libgphoto2) >= 2.5.0
 BuildRequires:  pkgconfig(libportal-gtk3) >= 0.5
 BuildRequires:  pkgconfig(libraw) >= 0.13.2
@@ -137,6 +137,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shot
 
 
 %changelog
+* Mon Feb 23 2026 Jan Grulich <jgrulich@redhat.com> - 33~alpha-3
+- Drop unused BR: pkgconfig(libgdata)
+
 * Mon Feb 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 33~alpha-2
 - LibRaw rebuild
 

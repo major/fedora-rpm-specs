@@ -3,7 +3,7 @@
 
 # https://github.com/noborus/ov
 %global goipath         github.com/noborus/ov
-Version:                0.50.2
+Version:                0.51.1
 
 %gometa -L -f
 

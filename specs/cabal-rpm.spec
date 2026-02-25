@@ -3,6 +3,8 @@
 
 %{?haskell_setup}
 
+%bcond html_entities %[%{undefined el9}]
+
 %global htmlentities html-entities-1.1.4.7
 
 %global subpkgs %{htmlentities}
@@ -105,6 +107,7 @@ current cabal-rpm packaging. It also handles Hackage revisions of packages.
 Standalone packages can also be made, built with cabal-install.
 
 
+%if %{with html_entities}
 %global main_version %{version}
 
 %if %{defined ghclibdir}
@@ -112,6 +115,7 @@ Standalone packages can also be made, built with cabal-install.
 %endif
 
 %global version %{main_version}
+%endif
 
 
 %prep
@@ -122,14 +126,18 @@ Standalone packages can also be made, built with cabal-install.
 
 %build
 # Begin cabal-rpm build:
+%if %{with html_entities}
 %ghc_libs_build %{subpkgs}
+%endif
 %ghc_bin_build
 # End cabal-rpm build
 
 
 %install
 # Begin cabal-rpm install
+%if %{with html_entities}
 %ghc_libs_install %{subpkgs}
+%endif
 %ghc_bin_install
 
 set noclobber

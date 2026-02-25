@@ -1,6 +1,6 @@
 Name:		gshutdown
 Version:	0.2        
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	GShutDown is an advanced shut down utility for GNOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -34,13 +34,13 @@ Also can be use under Xfce and KDE.
 %patch -P4 -p1
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 
 desktop-file-install					\
 	--vendor ""					\
@@ -63,6 +63,9 @@ desktop-file-install					\
 
 
 %changelog
+* Sun Feb 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2-44
+- Build with -std=gnu99
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

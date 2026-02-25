@@ -1,6 +1,10 @@
 # For fastmcp: disks, keyring, memory
+# For pydocket: redis
 # For tests: pydantic, elasticsearch
-%global extras disk,elasticsearch,keyring,memory,pydantic
+#
+# The `valkey` extras is ignored here because it depends on valkey-glide and it
+# is not present at the time in Fedora
+%global extras disk,elasticsearch,keyring,memory,pydantic,redis
 
 Name:           python-py-key-value
 Version:        0.3.0
@@ -13,8 +17,12 @@ Source:         %{url}/archive/%{version}/py-key-value-%{version}.tar.gz
 
 # Downstream-only dependency adjustments
 Patch:          0001-Fedora-dependency-adjustments.patch
+Patch1:         0002-Drop-the-docker-setup-from-redis-store-tests.patch
 
 BuildRequires:  python3-devel
+# For testing valkey/redis
+BuildRequires:  python3-valkey
+BuildRequires:  valkey
 
 %global _description %{expand:
 This library provides a pluggable interface for key-value stores with support
@@ -104,6 +112,10 @@ cd key-value/key-value-shared
 %pytest
 
 cd ../key-value-aio
+
+%{_bindir}/valkey-server --bind 127.0.0.1 --port 6380 &
+VALKEY_SERVER_PID=$!
+
 # Ignore tests that have missing dependencies, require a docker socket, or only
 # run on Windows.
 %pytest \
@@ -112,12 +124,11 @@ cd ../key-value-aio
     --ignore tests/stores/filetree \
     --ignore tests/stores/memcached \
     --ignore tests/stores/mongodb \
-    --ignore tests/stores/redis \
     --ignore tests/stores/rocksdb \
-    --ignore tests/stores/valkey \
     --ignore tests/stores/vault \
     --ignore tests/stores/windows_registry
 
+kill $VALKEY_SERVER_PID
 
 %files -n python3-py-key-value-shared
 %license LICENSE

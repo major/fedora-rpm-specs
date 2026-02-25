@@ -1,17 +1,29 @@
 Name:           tralics
-Version:        2.15.4
+Version:        3.0.0
 Release:        %autorelease
 Summary:        LaTeX to XML translator
 # Automatically converted from old format: CeCILL - review is highly recommended.
 License:        CECILL-2.1
-URL:            https://www-sop.inria.fr/marelle/tralics/
-Source0:        ftp://ftp-sop.inria.fr/marelle/tralics/src/%{name}-src-%{version}.tar.gz
-
-Patch0:         testkeyval.diff
+%define forgeurl https://github.com/tralics/tralics
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  texlive-collection-latexextra
+BuildRequires:  spdlog-devel
+
+Provides:       bundled(utfcpp) = 4.0.9
+# FIXME: unbundle spdlog when updated
+# (https://bugzilla.redhat.com/show_bug.cgi?id=2427058)
+Provides:       bundled(spdlog) = 1.17.0
+Provides:       bundled(ctre) = 3.10.0
+
+ExcludeArch:    %{ix86}
+
+%global _vpath_builddir build
 
 %description
 Tralics is a free software whose purpose is to convert a LaTeX document into 
@@ -20,33 +32,25 @@ annual activity report.
 
 %prep
 %autosetup -p1
-for f in Licence_CeCILL_V2-en.txt ChangeLog
-    do
-      iconv -f ISO-8859-15 -t utf-8	\
-      ${f} > ${f}.conv &&               \
-      touch -r ${f} ${f}.conv &&        \
-      mv -f ${f}.conv ${f}
-    done
-sed -i 's|tralics $(OBJECTS)|tralics $(OBJECTS) $(LDFLAGS)|' src/Makefile
+# unbundle spdlog
+# rm -r external/spdlog-*/*
+
+%conf
+%cmake
 
 %build
-%make_build -C src/ CPPFLAGS="%{optflags}                     \
-                    -DTRALICSDIR=\\\"%{_datadir}/%{name}\\\"  \
-                    -DCONFDIR=\\\"%{_sysconfdir}/%{name}\\\"" \
-                    LDFLAGS="%{?__global_ldflags}"
+%cmake
+%cmake_build
 
 %install
-rm -frv confdir/{README,COPYING}
-install -pDm755 src/%{name} %{buildroot}%{_bindir}/%{name}
-mkdir -p %{buildroot}%{_datadir}/%{name}
-install -pm644 confdir/* %{buildroot}%{_datadir}/%{name}/
+%cmake_install
 
 %check
-cd Test && ./alltests
+cd test && ./alltests
 
 %files
-%doc ChangeLog README
-%license COPYING Copyright Licence_CeCILL_V2-en.txt
+%doc README.md
+%license COPYING COPYRIGHT
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 

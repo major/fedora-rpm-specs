@@ -21,7 +21,7 @@
 #
 %global upstreamname rocAL
 
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -71,7 +71,7 @@
 
 Name:           rocal%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -153,6 +153,11 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 # rapidjson ToT
 tar xf %{SOURCE1}
+
+# remove some files to reduces license
+rm rapidjson-*/package.json
+# make sure we pick up this license
+cp -p rapidjson-*/license.txt license-json.txt
 
 # cmake 3.5 minimum
 sed -i -e 's@cmake_minimum_required(VERSION 2.8)@cmake_minimum_required(VERSION 3.5)@' rapidjson-%{rapidjson_commit}/example/CMakeLists.txt
@@ -246,7 +251,7 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librocal.s
 
 %files
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.txt license-json.txt
 %{pkg_prefix}/%{pkg_libdir}/librocal.so.2{,.*}
 
 %files devel
@@ -259,6 +264,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librocal.s
 %endif
 
 %changelog
+* Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

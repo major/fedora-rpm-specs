@@ -152,7 +152,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release rc2
+%global pre_release rc3
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif

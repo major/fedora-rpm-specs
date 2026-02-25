@@ -20,7 +20,7 @@
 Name:              NLopt
 Version:           2.10.1
 %global tag        v%{version}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -62,7 +62,7 @@ Source0:           https://github.com/stevengj/%{lc_name}/archive/%{tag}/%{lc_na
 # Kill RPATH.
 Patch0:            nlopt-2.10.1-kill_rpath.patch
 
-BuildRequires:     cmake3
+BuildRequires:     cmake
 BuildRequires:     gcc
 BuildRequires:     gcc-c++
 BuildRequires:     gcc-gfortran
@@ -188,7 +188,7 @@ done
 
 
 %build
-%cmake3                                     \
+%cmake                                     \
   -DNLOPT_CXX=ON                            \
   -DNLOPT_FORTRAN=ON                        \
   -DNLOPT_PYTHON=ON                         \
@@ -202,11 +202,11 @@ done
   -DINSTALL_PYTHON_DIR=%{python3_sitearch}  \
   -DINSTALL_M_DIR=%{octpkgdir}              \
   -DINSTALL_OCT_DIR=%{octpkglibdir}
-%cmake3_build
+%cmake_build
 
 
 %install
-%cmake3_install
+%cmake_install
 
 # We don't want these static-libs and libtool-dumplings
 find %{buildroot} -depth -name '*.*a' -print0 | xargs -0 rm -f
@@ -239,7 +239,7 @@ EOF
 
 
 %check
-%ctest3
+%ctest
 
 
 %ldconfig_scriptlets
@@ -300,6 +300,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Sat Feb 21 2026 Orion Poplawski <orion@nwra.com> - 2.10.1-2
+- Use cmake instead of cmake3
+
 * Tue Feb 10 2026 Benson Muite <fed500@fedoraproject.org> - 2.10.1-1
 - Update to 2.10.1 rhbz#2438359
 

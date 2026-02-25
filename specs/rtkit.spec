@@ -1,34 +1,24 @@
 Name:             rtkit
-Version:          0.11
-# -b is needed because of https://pagure.io/fedora-infra/rpmautospec/issue/228
-# Remove if the version is ever bumped (or rpmautospec fixed).
-Release:          %autorelease -b17
+Version:          v0.14
+Release:          %autorelease
 Summary:          Realtime Policy and Watchdog Daemon
 # The daemon itself is GPLv3+, the reference implementation for the client MIT
 # The LICENSE file incorrectly states that the client is under BSD.
 License:          GPL-3.0-or-later AND MIT
-URL:              http://git.0pointer.net/rtkit.git/
+URL:              https://gitlab.freedesktop.org/pipewire/rtkit
 Requires:         dbus
 Requires:         polkit
-BuildRequires:    make
-BuildRequires:    systemd-devel
+BuildRequires:    ninja-build
+BuildRequires:    meson
+BuildRequires:    gcc
+BuildRequires:    xxd
 BuildRequires:    systemd-rpm-macros
+BuildRequires:    pkgconfig(libsystemd)
+BuildRequires:    pkgconfig(systemd)
 BuildRequires:    dbus-devel >= 1.2
 BuildRequires:    libcap-devel
 BuildRequires:    polkit-devel
-BuildRequires:    autoconf automake libtool
-Source0:          http://0pointer.de/public/%{name}-%{version}.tar.xz
-Source1:          rtkit.sysusers
-Patch:            rtkit-mq_getattr.patch
-Patch:            0001-SECURITY-Pass-uid-of-caller-to-polkit.patch
-Patch:            rtkit-controlgroup.patch
-
-# Temporarily disable -Werror=format-security since it breaks the build
-Patch:            format-security.patch
-
-Patch:            0001-Fix-borked-error-check.patch
-Patch:            0001-systemd-update-sd-daemon.-ch.patch
-Patch:            0002-Remove-bundled-copy-of-sd-daemon.-ch.patch
+Source0:          https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch:            remove-debug-messages.patch
 
@@ -43,22 +33,19 @@ processes.
 %autosetup -p1
 
 %build
-autoreconf -fvi
-%configure --with-systemdsystemunitdir=%{_unitdir}
-%make_build
-./rtkit-daemon --introspect > org.freedesktop.RealtimeKit1.xml
+%meson \
+  -D systemd_systemunitdir=%{_unitdir}			\
+  -D installed_tests=false				\
+  %{nil}
+%meson_build
+%{_vpath_builddir}/rtkit-daemon --introspect >org.freedesktop.RealtimeKit1.xml
 
 %install
-%make_install
-install -Dm0644 org.freedesktop.RealtimeKit1.xml %{buildroot}%{_datadir}/dbus-1/interfaces/org.freedesktop.RealtimeKit1.xml
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/rtkit.conf
+install -Dm0644 org.freedesktop.RealtimeKit1.xml -t %{buildroot}%{_datadir}/dbus-1/interfaces/
+%meson_install
 
 # Relocate dbus policy to /usr
 mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d
-mv %{buildroot}%{_sysconfdir}/dbus-1/system.d/org.freedesktop.RealtimeKit1.conf %{buildroot}%{_datadir}/dbus-1/system.d
-rmdir %{buildroot}%{_sysconfdir}/dbus-1/system.d
-rmdir %{buildroot}%{_sysconfdir}/dbus-1
-rmdir %{buildroot}%{_sysconfdir}
 
 
 %post

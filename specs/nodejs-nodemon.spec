@@ -5,16 +5,13 @@
 %global enable_tests 0
 
 Name:          nodejs-%{npm_name}
-Version:       3.1.11
+Version:       3.1.14
 Release:       %autorelease
 Summary:       Simple monitor script for use during development of a node.js app
 License:       ISC AND MIT
 URL:           https://github.com/remy/nodemon
 Source0:       %{npm_name}-v%{version}-bundled.tar.gz
 
-# Patch in the fix for unlimited resource allocation of dependency
-# Source: https://github.com/micromatch/braces/commit/415d660c3002d1ab7e63dbf490c9851da80596ff
-Patch:         0001-CVE-2024-4068-fix.patch
 
 BuildRequires: nodejs-devel
 BuildRequires: nodejs-packaging

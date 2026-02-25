@@ -10,7 +10,7 @@ Patch0:		cocot-c99.patch
 Summary:	COde COnverter on Tty
 
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
 %description
 Cocot is a kanji code conversion program, running as a filter between
 a terminal (tty) and a process running on it.  Cocot can be used with
@@ -22,12 +22,12 @@ iconv -f EUC-JP -t UTF-8 --output README.ja.UTF-8 README.ja
 mv README.ja.UTF-8 README.ja
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 
 %files
 %doc AUTHORS COPYING NEWS README README.ja

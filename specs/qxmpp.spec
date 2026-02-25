@@ -47,6 +47,8 @@ BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6Core5Compat)
 # optional for QXmpp OMEMO module
 BuildRequires:  qca-qt6-devel
+# calls
+BuildRequires:  pkgconfig(gstreamer-1.0)
 
 %description    qt6
 %{_description}
@@ -76,6 +78,7 @@ OPTIONS=(
     -DBUILD_DOCUMENTATION=OFF \
     -DBUILD_DOCBOOK_DOCUMENTATION=ON \
     -DBUILD_OMEMO=ON \
+    -DWITH_GSTREAMER=ON \
 )
 
 %global _vpath_builddir %{_target_platform}-qt6
@@ -95,8 +98,8 @@ OPTIONS=(
 %if %{with all_tests}
 %ctest
 %else
-SKIP_TESTS=
-SKIP_TESTS='tst_qxmppdiscoverymanager'
+SKIP_TESTS='tst_qxmppcallmanager'
+SKIP_TESTS+='|tst_qxmppdiscoverymanager'
 SKIP_TESTS+='|tst_qxmppiceconnection'
 SKIP_TESTS+='|tst_qxmpppubsubmanager'
 SKIP_TESTS+='|tst_qxmpprostermanager'

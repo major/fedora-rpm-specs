@@ -19,7 +19,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 5%{?dist}
+Release: 6%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -44,9 +44,9 @@ BuildRequires: emacs
 BuildRequires: librsvg2, libX11-devel, libXt-devel, lua-devel, m17n-lib
 BuildRequires: openspecfun-devel
 BuildRequires: pango-devel, tex(latex), tex(subfigure.sty)
-BuildRequires: tex(cm-super-t1.enc), tex-tex4ht, texinfo
+BuildRequires: texlive-cm-super, tex-tex4ht, texinfo
 BuildRequires: /usr/bin/texi2dvi
-BuildRequires: zlib-devel, libjpeg-turbo-devel, tex(ecrm1000.tfm), latex2html
+BuildRequires: zlib-devel, libjpeg-turbo-devel, texlive-ec, latex2html
 BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qt5compat-devel
 BuildRequires: qt6-qtsvg-devel
@@ -310,6 +310,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Mon Feb 23 2026 Orion Poplawski <orion@nwra.com> - 6.0.3-6
+- Fix tex BuildRequires
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

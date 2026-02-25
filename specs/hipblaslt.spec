@@ -49,7 +49,7 @@
 %global pkg_module default
 %endif
 %if 0%{?suse_version}
-%global hipblaslt_name libhipblaslt0%{pkg_suffix}
+%global hipblaslt_name libhipblaslt1%{pkg_suffix}
 %else
 %global hipblaslt_name hipblaslt%{pkg_suffix}
 %endif
@@ -126,7 +126,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -187,6 +187,7 @@ BuildRequires:  zlib-devel
 # For tensilelite
 %if 0%{?suse_version}
 BuildRequires:  python-rpm-macros
+BuildRequires:  %{python_module devel}
 BuildRequires:  %{python_module joblib}
 BuildRequires:  %{python_module msgpack}
 BuildRequires:  %{python_module PyYAML}
@@ -470,7 +471,7 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
 %license LICENSE.md
 %endif
 
-%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
+%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.1{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipblaslt/
 
 %files devel
@@ -487,6 +488,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
 %endif
 
 %changelog
+* Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Fix TW
+
 * Thu Feb 19 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

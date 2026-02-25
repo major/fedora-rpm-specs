@@ -1,16 +1,16 @@
 Name:		dt
-Version:	21.27.git8d78d78
-Release:	17%{?dist}
+Version:	26
+Release:	1%{?dist}
 Summary:	Generic data test program
 License:	MIT
 URL:		https://github.com/RobinTMiller/dt
-BuildRequires:  gcc, libuuid-devel
-BuildRequires: make
-# Generated from new official github repo
-# https://github.com/RobinTMiller/dt by command:
-# git archive --format=tar.xz --prefix=dt.v21.27.git8d78d78/ 8d78d78 > dt-source-v21.27.git8d78d78.tar.xz
-Source0: dt-source-v%{version}.tar.xz
-Patch0: dt-manpage.patch
+
+%global git_tag dt.v%{version}
+Source0:	%{URL}/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
+
+BuildRequires:	gcc
+BuildRequires:	libuuid-devel
+BuildRequires:	make
 
 %description
 dt is a generic data test program used to verify proper operation of
@@ -35,20 +35,24 @@ scripts and config data are installed in %{_datadir}/%{name}.
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/.*$
 %prep
-%setup -q -n dt.v%{version}
-%patch -P0 -p1
+%autosetup -p1 -n %{name}-%{git_tag}
 
 %build
 mkdir tmp
 cd tmp
-make %{?_smp_mflags} CFLAGS="%{optflags} -I.. -DAIO -DMMAP -D__linux__ -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -DSCSI" -f ../Makefile.linux VPATH=.. OS=linux
+%make_build \
+	CFLAGS="%{optflags} -I.. -DAIO -DMMAP -D__linux__ -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -DSCSI -DNVME -std=gnu99" \
+	LIBS="-luuid" \
+	OS=linux \
+	VPATH=.. \
+	-f ../Makefile.linux
 
 %install
-install -d -m755 $RPM_BUILD_ROOT%{_sbindir}
+install -d -m755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m755 $RPM_BUILD_ROOT%{_mandir}/man8
 install -d -m755 $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -d -m755 $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}/html
-install -m755 tmp/dt $RPM_BUILD_ROOT%{_sbindir}
+install -m755 tmp/dt $RPM_BUILD_ROOT%{_bindir}
 install -m644 Documentation/dt.man $RPM_BUILD_ROOT%{_mandir}/man8/%{name}.8
 install -m755 Scripts/dt? $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -m644 data/pattern_* $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -58,11 +62,17 @@ install -m644 html/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}/html
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc Documentation/dt-UsersGuide.txt Documentation/ReleaseNotes-dt*.txt html
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man8/%{name}.*.gz
 
 %changelog
+* Mon Feb 23 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 26-1
+- Update to v26
+
+* Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 25-1
+- Update to v25
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21.27.git8d78d78-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

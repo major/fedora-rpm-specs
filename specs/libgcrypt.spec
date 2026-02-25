@@ -1,5 +1,5 @@
 Name: libgcrypt
-Version: 1.12.0
+Version: 1.12.1
 Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
@@ -141,6 +141,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Mon Feb 23 2026 Jakub Jelen <jjelen@redhat.com> - 1.12.1-1
+- New bugfix upstream release (#2435259)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

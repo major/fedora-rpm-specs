@@ -120,9 +120,9 @@ and above. This package provides Bill of Materials module for Guice.
 %prep
 %autosetup -p1 -C
 
-%java_remove_annotations core/src/ \
-  -p ^com.google.common.annotations. \
-  -p ^com.google.errorprone.annotations. \
+jurand -i -s -a core/src/ \
+  -p com[.]google[.]common[.]annotations[.] \
+  -p com[.]google[.]errorprone[.]annotations[.] \
 
 # We don't have struts2 in Fedora yet.
 %pom_disable_module struts2 extensions

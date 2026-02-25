@@ -5,8 +5,8 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.5.9
-Release:        3%{?dist}
+Version:        4.5.11
+Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -480,6 +480,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Mon Feb 23 2026 Guido Aulisi <guido.aulisi@gmail.com> - 4.5.11-1
+- Update to 4.5.11
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

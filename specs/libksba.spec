@@ -2,8 +2,8 @@
 
 Summary: CMS and X.509 library
 Name:    libksba
-Version: 1.6.7
-Release: 5%{?dist}
+Version: 1.6.8
+Release: 1%{?dist}
 
 # The library is licensed under LGPLv3+ or GPLv2+,
 # the rest of the package under GPLv3+
@@ -90,6 +90,9 @@ make check
 
 
 %changelog
+* Mon Feb 23 2026 Jakub Jelen <jjelen@redhat.com> - 1.6.8-1
+- New upstream release (#2441949)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/phkehl/ubloxcfg
-%global commit 3c10e5c476e4fdab397d604e38d659b655849fbc
+%global commit 499048ba8b3b9d0ca5d752c56f14c48117ebbb8e
 %forgemeta
 
 Name:           ubloxcfg
@@ -8,11 +8,11 @@ Release:        %autorelease
 Summary:        u-blox 9 positioning receivers configuration library and tool
 
 # Automatically converted from old format: GPLv3 and LGPLv3 and BSD - review is highly recommended.
-License:        GPL-3.0-only AND LGPL-3.0-only AND LicenseRef-Callaway-BSD
+License:        GPL-3.0-only AND LGPL-3.0-only
 URL:            %forgeurl
 Source0:        %forgesource
 # Preparing a PR fix for upstream
-Patch1:         ubloxcfg-Fix-lib64-install-for-build-files.patch
+Patch0:         001-rpath-remove.patch
 
 # Leaf package, dropping
 ExcludeArch: %{ix86}
@@ -50,7 +50,7 @@ This package contains documentation for %{name}.
 
 %prep
 %forgesetup
-%patch -P1 -p1
+%autopatch -p1
 
 # drop hardcoded CFLAGS
 sed -e 's/-O3//g' -i */CMakeLists.txt

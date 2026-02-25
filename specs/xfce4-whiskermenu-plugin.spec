@@ -2,7 +2,7 @@
 %global minorversion	2.10
 
 Name:		xfce4-whiskermenu-plugin
-Version:	2.10.0
+Version:	2.10.1
 Release:	%autorelease
 Summary:	An alternate application launcher for Xfce
 

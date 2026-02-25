@@ -18,12 +18,14 @@ Version: 5.0.0
 BuildArch: noarch
 
 Name:      fonts-rpm-macros
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Build-stage rpm automation for fonts packages
 
 License:   GPL-3.0-or-later
 URL:       https://docs.fedoraproject.org/en-US/packaging-guidelines/FontsPolicy/
 Source:    %{forgesource}
+# Avoid assigning to a const lua variable
+Patch0:    https://pagure.io/fonts-rpm-macros/pull-request/31.patch
 
 Requires:  fonts-srpm-macros = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:  fonts-filesystem  = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -94,6 +96,7 @@ macros provided by fonts-rpm-macros to create fonts packages.
 
 %prep
 %forgesetup
+%patch -P0 -p1
 %writevars -f rpm/macros.d/macros.fonts-srpm _fontbasedir _fontconfig_masterdir _fontconfig_confdir _fontconfig_templatedir
 for template in templates/rpm/*\.spec ; do
   target=$(echo "${template}" | sed "s|^\(.*\)\.spec$|\1-bare.spec|g")
@@ -156,6 +159,9 @@ install -m 0755 -vp   bin/* %{buildroot}%{_bindir}
 %doc %{ftcgtemplatedir}/*txt
 
 %changelog
+* Mon Feb 23 2026 Parag Nemade <pnemade AT redhat DOT com> - 1:5.0.0-3
+- Fix for Avoid assigning to a const lua variable
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

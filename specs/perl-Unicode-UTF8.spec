@@ -9,8 +9,8 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.63
-Release:	2%{?dist}
+Version:	0.64
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
@@ -90,6 +90,15 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Mon Feb 23 2026 Paul Howarth <paul@city-fan.org> - 0.64-1
+- Update to 0.64
+  - Unicode::UTF8 now allows noncharacters; they receive no special handling
+    and are processed like any other code point
+  - According to Corrigendum #9, noncharacters (the values U+nFFFE and U+nFFFF
+    (where n is from 0 to 10^16) and the values U+FDD0..U+FDEF) are permanently
+    reserved but should be allowed in interchange:
+    https://www.unicode.org/versions/corrigendum9.html
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

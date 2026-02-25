@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 145.0.7632.75
+Version: 145.0.7632.109
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1384,7 +1384,7 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
-CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level} blink_symbol_level=%{debug_level}'
+CHROMIUM_CORE_GN_DEFINES+=' symbol_level=0 blink_symbol_level=0'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
@@ -1851,8 +1851,14 @@ fi
 %endif
 
 %changelog
+* Mon Feb 23 2026 Than Ngo <than@redhat.com> - 145.0.7632.109-1
+- Update to 145.0.7632.109
+  * CVE-2026-2648: Heap buffer overflow in PDFium
+  * CVE-2026-2649: Integer overflow in V8
+  * CVE-2026-2650: Heap buffer overflow in Media
+
 * Sat Feb 14 2026 Than Ngo <than@redhat.com> - 145.0.7632.75-1
--  Update to 145.0.7632.75
+- Update to 145.0.7632.75
    * CVE-2026-2441: Use after free in CSS
 
 * Thu Feb 12 2026 Than Ngo <than@redhat.com> - 145.0.7632.45-1

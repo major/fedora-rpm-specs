@@ -2,7 +2,9 @@
 # “standard”, “standard-no-fastapi-cloud-cli”, and “all” extras.
 %bcond bootstrap 0
 
-%bcond orjson 1
+# Should we test deprecated UJSONResponse and ORJSONResponse?
+# Or should we avoid the dependencies on python-ujson and python-orjson?
+%bcond deprecated_responses 1
 # Not yet packaged: https://pypi.org/project/pwdlib/
 # (Used for a few tests.)
 %bcond pwdlib 0
@@ -17,7 +19,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.129.2
+Version:        0.131.0
 Release:        %autorelease
 Summary:        FastAPI framework
 
@@ -55,6 +57,12 @@ BuildRequires:  python3-devel
 # docs-tests:
 BuildRequires:  %{py3_dist httpx} >= 0.23
 # (we don’t actually need ruff)
+%if %{with deprecated_responses}
+# For UJSONResponse
+BuildRequires:  %{py3_dist ujson} >= 5.8
+# For ORJSONResponse
+BuildRequires:  %{py3_dist orjson} >= 3.9.3
+%endif
 # tests:
 BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
 BuildRequires:  %{py3_dist dirty-equals} >= 0.9
@@ -167,11 +175,6 @@ It makes sure the dependencies are installed.
 # “standard-no-fastapi-cloud-cli”, and “all” extras metapackages.
 sed -r -i 's/("fastapi-cli?\b.*",)/# \1/' pyproject.toml
 %endif
-%if %{without orjson}
-# Comment out all dependencies on orjson (for ORJSONResponse). Note that this
-# removes it from the “all” extra metapackage.
-sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
-%endif
 %if %{without uvicorn}
 # Comment out all dependencies on uvicorn. Note that this removes it from the
 # “all” extra metapackage.
@@ -208,9 +211,10 @@ export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
 ignore="${ignore-} --ignore=tests/test_fastapi_cli.py"
 %endif
 
-%if %{without orjson}
-k="${k-}${k+ and }not test_orjson_non_str_keys"
+%if %{without deprecated_responses}
 ignore="${ignore-} --ignore=tests/test_default_response_class.py"
+ignore="${ignore-} --ignore=tests/test_deprecated_responses.py"
+ignore="${ignore-} --ignore=tests/test_orjson_response_class.py"
 ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutorial001.py"
 ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutorial001b.py"
 ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutorial009c.py"

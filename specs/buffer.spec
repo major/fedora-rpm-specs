@@ -1,14 +1,9 @@
-#
-# $Id$
-#
-%define debug_package %{nil}
-
 Summary:        This program speeds up writing tapes on remote tape drives
 Summary(fr):    Ce programme accélère l'écriture des bandes sur des périphériques distants
 
 Name:           buffer
 Version:        1.19
-Release:        34%{?dist}
+Release:        35%{?dist}
 License:        GPL-1.0-or-later
 Url:            http://hello-penguin.com/software/buffer
 Source:         http://hello-penguin.com/software/buffer/%{name}-%{version}.tar.gz
@@ -17,9 +12,9 @@ Patch0:         01-debian-patches.all.gz
 Patch1:         02-fedora-patch.all.gz
 Patch2:         03-GPL.patch.all.gz
 
-
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
+
 %description
 This is a program designed to speed up writing tapes on remote tape drives.
 When this program is put "in the pipe", two processes are started.
@@ -36,16 +31,13 @@ standard.
 Les deux processus communiquent au travers de mémoire partagée.
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
+%autosetup -p1
 
 %build
-%make_build CFLAGS="%{optflags} -Dultrix"
+%make_build CFLAGS="%{optflags} -Dultrix -std=gnu90"
 
 %install
-install -p -m 755 -D buffer --strip %{buildroot}/%{_bindir}/buffer
+install -p -m 755 -D buffer %{buildroot}/%{_bindir}/buffer
 install -p -m 644 -D buffer.man %{buildroot}/%{_mandir}/man1/buffer.1
 
 %files
@@ -55,6 +47,10 @@ install -p -m 644 -D buffer.man %{buildroot}/%{_mandir}/man1/buffer.1
 %{_mandir}/man1/buffer.1*
 
 %changelog
+* Sun Feb 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.19-35
+- Build with -std=gnu90
+- Do not strip debug symbols from the executable
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

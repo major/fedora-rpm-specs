@@ -12,7 +12,6 @@ Source0:        https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libgnome-games-support-2)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
 BuildRequires:  desktop-file-utils

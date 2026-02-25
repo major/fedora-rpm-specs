@@ -187,18 +187,18 @@ Summary: The Linux kernel
 #  the --with-release option overrides this setting.)
 %define debugbuildsenabled 1
 # define buildid .local
-%define specrpmversion 6.20.0
-%define specversion 6.20.0
-%define patchversion 6.20
-%define pkgrelease 0.rc0.260219g2b7a25df823dc.12
-%define kversion 6
-%define tarfile_release 6.19-11658-g2b7a25df823dc
+%define specrpmversion 7.0.0
+%define specversion 7.0.0
+%define patchversion 7.0
+%define pkgrelease 0.rc1.15
+%define kversion 7
+%define tarfile_release 7.0-rc1
 # This is needed to do merge window version magic
-%define patchlevel 20
+%define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.260219g2b7a25df823dc.12%{?buildid}%{?dist}
+%define specrelease 0.rc1.15%{?buildid}%{?dist}
 # This defines the kabi tarball version
-%define kabiversion 6.20.0
+%define kabiversion 7.0.0
 
 # If this variable is set to 1, a bpf selftests build failure will cause a
 # fatal kernel package build error
@@ -1132,6 +1132,7 @@ Source103: rhelimaca1.x509
 Source104: rhelima.x509
 Source105: rhelima_centos.x509
 Source106: fedoraimaca.x509
+Source107: nvidiajetsonsoc.x509
 
 %if 0%{?fedora}%{?eln}
 %define ima_ca_cert %{SOURCE106}
@@ -2292,7 +2293,8 @@ truncate -s0 ../certs/rhel.pem
 openssl x509 -inform der -in %{SOURCE100} -out rheldup3.pem
 openssl x509 -inform der -in %{SOURCE101} -out rhelkpatch1.pem
 openssl x509 -inform der -in %{SOURCE102} -out nvidiagpuoot001.pem
-cat rheldup3.pem rhelkpatch1.pem nvidiagpuoot001.pem >> ../certs/rhel.pem
+openssl x509 -inform der -in %{SOURCE107} -out  nvidiajetsonsoc.pem
+cat rheldup3.pem rhelkpatch1.pem nvidiagpuoot001.pem nvidiajetsonsoc.pem >> ../certs/rhel.pem
 # rhelkeys
 %endif
 %if %{signkernel}
@@ -4478,6 +4480,7 @@ fi\
 %{_includedir}/perf/evlist.h
 %{_includedir}/perf/evsel.h
 %{_includedir}/perf/mmap.h
+%{_includedir}/perf/schedstat-*.h
 %{_includedir}/perf/threadmap.h
 %{_mandir}/man3/libperf.3.gz
 %{_mandir}/man7/libperf-counting.7.gz
@@ -4822,54 +4825,26 @@ fi\
 #
 #
 %changelog
-* Thu Feb 19 2026 Justin M. Forbes <jforbes@fedoraproject.org> [6.20.0-0.rc0.260219g2b7a25df823dc.12]
-- Linux v6.20.0-0.rc0.260219g2b7a25df823dc
+* Mon Feb 23 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.15]
+- add missing perf header files (Scott Weaver)
+- A couple more quick important 7.0 config updates for Fedora (Justin M. Forbes)
+- A couple of quick important 7.0 config updates for Fedora (Justin M. Forbes)
 
-* Thu Feb 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.2b7a25df823d.12]
-- rv: Fix multiple definition of __pcpu_unique_da_mon_this (Gabriele Monaco)
-
-* Thu Feb 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.2b7a25df823d.11]
-- Linux v6.20.0-0.rc0.2b7a25df823d
-
-* Wed Feb 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.2961f841b025.10]
-- Linux v6.20.0-0.rc0.2961f841b025
-
-* Tue Feb 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.970296997869.9]
-- Linux v6.20.0-0.rc0.970296997869
-
-* Mon Feb 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.0f2acd3148e0.8]
+* Mon Feb 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.15]
+- redhat/configs: enable CONFIG_AQTION on all archs (Michal Schmidt) [RHEL-150853]
+- Add signing key for Nvidia Jetson (Enrique Belarte)
 - configs: enable Freescale MXS DMA engine (Jiri Benc)
 - redhat/dracut-virt.conf: remove erroneous spaces in omit_dracutmodules (Li Tian)
 - redhat/kernel.spec.template: Make -uki-dtbloader provide kernel-core-uname-r (Hans de Goede)
 - redhat/kernel.spec.template: Add kernel-uki-dtbloader sub-package (Hans de Goede)
 - redhat/kernel.spec.template: Simplify uki-virt signing (Hans de Goede)
 - redhat/kernel.spec.template: Fix indentation of uki-virt generation code (Hans de Goede)
-- Linux v6.20.0-0.rc0.0f2acd3148e0
-
-* Sun Feb 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.ca4ee40bf13d.7]
-- Linux v6.20.0-0.rc0.ca4ee40bf13d
-
-* Sat Feb 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.770aaedb461a.6]
 - Fix up merge from master (Justin M. Forbes)
-- Linux v6.20.0-0.rc0.770aaedb461a
-
-* Fri Feb 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.cee73b1e840c.5]
-- Linux v6.20.0-0.rc0.cee73b1e840c
-
-* Thu Feb 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.37a93dd5c49b.4]
 - Fix mismatch for CONFIG_POWER_SEQUENCING (Justin M. Forbes)
-- Linux v6.20.0-0.rc0.37a93dd5c49b
-
-* Thu Feb 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.c22e26bd0906.3]
 - Fix up a couple of mismatches with PREEMPT_LAZY and x86 SND_SOC_TAS2781_I2C for RHEL (Justin M. Forbes)
 - Turn on CONFIG_PREEMPT in pending to avoid mismatch (Justin M. Forbes)
-- Linux v6.20.0-0.rc0.c22e26bd0906
-
-* Wed Feb 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.72c395024dac.2]
 - Turn off CONFIG_SMB_KUNIT_TESTS in pending (Justin M. Forbes)
 - Trim the changelog for 7.0 (Justin M. Forbes)
-
-* Tue Feb 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.20.0-0.rc0.72c395024dac.1]
 - Reset RHEL_RELEASE for the 7.0 series (Justin M. Forbes)
 - redhat/configs: rename CONFIG_QCOM_QFPROM to CONFIG_NVMEM_QCOM_QFPROM (Eric Chanudet)
 - redhat/dracut-virt.conf: omit drm drivers in UKI initrd (Li Tian) [RHEL-147296]
@@ -8042,11 +8017,4 @@ fi\
 - [initial commit] Add scripts (Laura Abbott)
 - [initial commit] Add configs (Laura Abbott)
 - [initial commit] Add Makefiles (Laura Abbott)
-- Linux v6.20.0-0.rc0.72c395024dac
-
-###
-# The following Emacs magic makes C-c C-e use UTC dates.
-# Local Variables:
-# rpm-change-log-uses-utc: t
-# End:
-###
+- Linux v7.0.0-0.rc1

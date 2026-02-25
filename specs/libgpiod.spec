@@ -2,8 +2,8 @@
 %global with_python 1
 
 Name:          libgpiod
-Version:       2.2.2
-Release:       6%{?candidate:.%{candidate}}%{?dist}
+Version:       2.2.3
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -185,14 +185,15 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/gpiod-glib.pc
 %{_includedir}/gpiod.*
 %{_includedir}/gpiodcxx/
-%{_includedir}/generated-gpiodbus.h
 %{_includedir}/gpiod-glib.h
 %{_includedir}/gpiod-glib/
-%{_includedir}/gpiodbus.h
 %{_datadir}/gir-1.0/Gpiodglib-1.0.gir
 
 
 %changelog
+* Mon Feb 23 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.3-1
+- Update to 2.2.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

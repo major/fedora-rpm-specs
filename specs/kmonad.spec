@@ -56,6 +56,7 @@ BuildRequires:  ghc-hspec-devel
 BuildRequires:  ghc-hspec-discover-devel
 %endif
 BuildRequires:  help2man
+BuildRequires:  systemd-rpm-macros
 # End cabal-rpm deps
 
 BuildRequires:  systemd-rpm-macros

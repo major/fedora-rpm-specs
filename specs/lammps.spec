@@ -25,7 +25,7 @@ Version:        20250722
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -68,7 +68,7 @@ BuildRequires:  gsl-devel
 BuildRequires:  voro++-devel
 BuildRequires:  %{blaslib}-devel
 BuildRequires:  hdf5-devel
-BuildRequires:  cmake3 >= 3.16
+BuildRequires:  cmake
 BuildRequires:  ocl-icd-devel
 BuildRequires:  opencl-headers
 BuildRequires:  tbb-devel
@@ -230,7 +230,7 @@ set -e
 for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
   #python wrapper isn't mpi specific
-  %{cmake3} \
+  %{cmake} \
   -C cmake/presets/all_on.cmake \
   -C cmake/presets/nolib.cmake \
   %{cmake_blas_flags} \
@@ -375,6 +375,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sun Feb 22 2026 Orion Poplawski <orion@nwra.com> - 20250722-4
+- Use cmake instead of cmake3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20250722-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

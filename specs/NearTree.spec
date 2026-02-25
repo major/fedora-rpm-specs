@@ -42,6 +42,11 @@ developing applications that use NearTree.
 mv README_NearTree.txt README_NearTree.txt.orig
 tr -d \\r < README_NearTree.txt.orig > README_NearTree.txt
 
+# current build-breaking errors are typos in TNear.h at lines 8731 and 10056
+# m_pt_Right should be m_ptRight. Let's patch both lines.
+sed -i 's/pt->m_pt_Right/pt->m_ptRight/g' TNear.h
+
+
 %build
 make all CFLAGS="%{optflags} -ansi -pedantic -DCNEARTREE_SAFE_TRIANG=1" %{?_smp_mflags}
 

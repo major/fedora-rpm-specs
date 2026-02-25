@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
@@ -275,7 +275,12 @@ by python 3 in an SELinux environment.
 %package devel
 Summary: SELinux policy core policy devel utilities
 Requires: policycoreutils-python-utils = %{version}-%{release}
-Requires: /usr/bin/make python3-dnf
+Requires: /usr/bin/make
+%if 0%{?fedora} || 0%{?rhel} >= 11
+Requires: python3-libdnf5
+%else
+Requires: python3-dnf
+%endif
 Requires: (selinux-policy-devel if selinux-policy)
 
 %description devel
@@ -459,7 +464,4 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
-* Mon Feb 02 2026 Petr Lautrbach <lautrbach@redhat.com> - 3.10-1
-- SELinux userspace 3.10 release
-
 %add_changelog %SOURCE3

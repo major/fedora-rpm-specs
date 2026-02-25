@@ -9,10 +9,11 @@ Name:           sdl12-compat
 Version:        1.2.74
 Release:        1%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
-# mp3 decoder code is MIT-0/PD
-# SDL_opengl.h is zlib and MIT
-# Automatically converted from old format: zlib and (Public Domain or MIT-0) and MIT - review is highly recommended.
-License:        Zlib AND (LicenseRef-Callaway-Public-Domain OR MIT-0) AND LicenseRef-Callaway-MIT
+# main code is Zlib
+# mp3 decoder code is MIT-0 OR Unlicense OR CC0-1.0
+# SDL_opengl.h is Zlib AND MIT
+# SDL12_compat.c is Zlib AND LicenseRef-Fedora-Public-Domain
+License:        Zlib AND (MIT-0 OR Unlicense OR CC0-1.0) AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/libsdl-org/sdl12-compat
 Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 # Multilib aware-header stub

@@ -23,7 +23,6 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.78.0
 BuildRequires:  pkgconfig(gsound) >= 1.0.2
 BuildRequires:  pkgconfig(gtk4) >= 4.13.4
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.5.0
-BuildRequires:  pkgconfig(libgnome-games-support-2) >= 2.0.0
 
 %description
 Pilot a worm around a maze trying to collect diamonds and at the same time

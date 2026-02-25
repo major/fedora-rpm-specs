@@ -1,7 +1,7 @@
 
 Name:           raysession
-Version:        0.17.2
-Release:        9%{?dist}
+Version:        0.17.3
+Release:        1%{?dist}
 Summary:        Session manager for audio software
 License:        GPL-2.0-only
 URL:            https://github.com/Houston4444/RaySession
@@ -73,7 +73,7 @@ RCC_BIN=$(which rcc-qt6 2>/dev/null \
          || which rcc 2>/dev/null \
          || find %{_libdir}/qt6 /usr/lib64/qt6 /usr/lib/qt6 -name rcc -type f 2>/dev/null | head -1 \
          || echo rcc)
-make LRELEASE=lrelease-qt6 RCC="$RCC_BIN" %{?_smp_mflags}
+make LRELEASE=lrelease-qt6 RCC="$RCC_BIN"
 
 %install
 %make_install PREFIX=%{_prefix}
@@ -92,6 +92,12 @@ if [ -f "%{buildroot}%{_sysconfdir}/bash_completion.d/ray_completion.sh" ]; then
   sed -i '1{/^#!/d}' "%{buildroot}%{_sysconfdir}/bash_completion.d/ray_completion.sh"
   chmod -x "%{buildroot}%{_sysconfdir}/bash_completion.d/ray_completion.sh" || true
 fi
+
+## Strip buildroot paths from all bash-completion scripts
+find "%{buildroot}" -path '*/bash-completion/completions/*' -type f -exec \
+  sed -i "s|%{buildroot}||g" '{}' ';' || true
+find "%{buildroot}" -path '*/bash_completion.d/*' -type f -exec \
+  sed -i "s|%{buildroot}||g" '{}' ';' || true
 
 ## Rewrite symlinks to remove buildroot prefix
 if [ -d "%{buildroot}" ]; then
@@ -433,7 +439,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %config(noreplace) %{_sysconfdir}/xdg/raysession/*
-%config(noreplace) %{_sysconfdir}/bash_completion.d/ray_completion.sh
+%{_datadir}/bash-completion/completions/*
 %{_mandir}/man1/*
 
 %if %{defined python3_sitelib}
@@ -460,14 +466,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 ## Exclude duplicate upstream data
 %exclude %{_datadir}/%{name}/data/share/applications/*
-%exclude %{_datadir}/%{name}/manual/*
-%exclude %{_datadir}/%{name}/HoustonPatchbay/manual/*
-%exclude %{_datadir}/%{name}/HoustonPatchbay/themes/.directory
-%exclude %{_datadir}/%{name}/manual/.directory
-%exclude %{_datadir}/%{name}/session_templates/with_jack_config/ray-scripts/.directory
-%exclude %{_datadir}/%{name}/session_templates/with_jack_config/ray-scripts/.jack_config_script
 
 %changelog
+* Sun Feb 22 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.3-1
+- New upstream release
+
 * Tue Feb 10 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.2-9
 - Improve resource handling: ensure Qt resources and fonts are
   correctly compiled/installed so icons and application fonts load

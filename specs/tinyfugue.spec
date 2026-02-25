@@ -3,7 +3,7 @@
 
 Name:           tinyfugue
 Version:        5.0
-Release:        0.116.b8%{?dist}
+Release:        0.117.b8%{?dist}
 Summary:        A MU* client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -48,7 +48,8 @@ rm -rfv src/pcre-2.08
 
 %build
 # Don't error out on the harmless conString* to String* assignments
-export CPPFLAGS="${CFLAGS} -Wno-incompatible-pointer-types"
+# and missing return values in signal handlers
+export CPPFLAGS="${CFLAGS} -Wno-incompatible-pointer-types -Wno-return-mismatch -Wno-return-type"
 %configure \
     --enable-core \
     --enable-inet6 \
@@ -72,6 +73,9 @@ install -D -p -m 644 src/tf.1.nroffman %{buildroot}%{_mandir}/man1/tf.1
 %{_mandir}/man1/tf.1*
 
 %changelog
+* Tue Feb 24 2026 Petr Šabata <contyk@redhat.com> - 5.0-0.117.b8
+- Disable -Wreturn-mismatch and -Wreturn-type errors in signal handlers
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.116.b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

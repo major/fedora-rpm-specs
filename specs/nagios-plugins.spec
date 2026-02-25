@@ -22,9 +22,9 @@
 Name: nagios-plugins
 Version: 2.4.12
 %if 0%{?fromgit}
-Release: 3.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 4.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 3%{?dist}
+Release: 4%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -627,7 +627,7 @@ Provides check_wave support for Nagios.
 	--with-ps-command="`which ps` -eo 's uid pid ppid vsz rss pcpu etime comm args'" \
 	--with-ps-format='%s %d %d %d %d %d %f %s %s %n' \
 	--with-ps-cols=10 \
-	--with-ping-command='%{_bindir}/ping -n -U -w %d -c %d %s' \
+	--with-ping-command='%{_bindir}/ping -4 -n -U -w %d -c %d %s' \
 	--with-ping6-command='%{_sbindir}/ping6 -n -U -w %d -c %d %s' \
 	--enable-extra-opts \
 	--with-ps-varlist='procstat,&procuid,&procpid,&procppid,&procvsz,&procrss,&procpcpu,procetime,procprog,&pos'
@@ -874,6 +874,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Mon Feb 23 2026 Guido Aulisi <guido.aulisi@gmail.com> - 2.4.12-4
+- Fix ping problem when using dualstacked dns name #2414403 (patch from ETES GmbH)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

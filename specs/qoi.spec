@@ -1,14 +1,16 @@
-%global commit bf7b41c2ff3f24a2031193b62aa76d35e8842b5a
-%global snapdate 20240518
+%global commit 6fff9b70dd79b12f808b0acc5cb44fde9998725e
+%global snapdate 20260214
 
 Name: qoi
 Version: 0^%{snapdate}
-Release: 5%{?dist}
+Release: 1%{?dist}
 Summary: The "Quite OK Image Format" for fast, lossless image compression
 
 License: MIT
 URL: https://github.com/phoboslab/qoi
 Source0: %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+
+Patch0: qoi-fix-stb-headers.diff
 
 BuildRequires: gcc
 BuildRequires: libpng-devel
@@ -55,6 +57,9 @@ install -p qoi.h %{buildroot}/%{_includedir}
 %{_includedir}/qoi.h
 
 %changelog
+* Mon Feb 23 2026 ErrorNoInternet <errornointernet@envs.net> - 0^20260214-1
+- Bump commit to 6fff9b70dd79b12f808b0acc5cb44fde9998725e
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20240518-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

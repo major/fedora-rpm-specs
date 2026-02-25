@@ -1,7 +1,7 @@
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
-Version:		0.9.5
-Release:		9%{?dist}
+Version:		0.9.6
+Release:		2%{?dist}
 License:		LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
@@ -26,7 +26,9 @@ BuildRequires:		python3-devel
 BuildRequires:		python3-cython
 BuildRequires:		python-unversioned-command
 BuildRequires:		sqlite-devel
+BuildRequires:		faad2-devel
 BuildRequires:		flac-devel
+BuildRequires:		pkgconfig(libavcodec)
 BuildRequires:		libofa-devel
 BuildRequires:		libcdio-paranoia-devel
 BuildRequires:		libdiscid-devel
@@ -62,7 +64,8 @@ BuildRequires:		SDL-devel
 BuildRequires:		glib2-devel
 BuildRequires:		readline-devel
 BuildRequires:		ncurses-devel
-BuildRequires:		mac-devel
+# Plugin doesn't work, needs changes to use upstream mac.
+# BuildRequires:		mac-devel
 BuildRequires:		fluidsynth-devel
 BuildRequires:		opusfile-devel
 BuildRequires:		libmms-devel
@@ -221,6 +224,12 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}
 %{ruby_vendorarchdir}/xmmsclient_glib.so
 
 %changelog
+* Mon Feb 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.6-2
+- add missing build dependencies on faad2 and libavcodec
+
+* Mon Feb 23 2026 Tom Callaway <spot@fedoraproject.org> - 0.9.6-1
+- update to 0.9.6
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

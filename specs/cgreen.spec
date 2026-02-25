@@ -39,6 +39,7 @@ A runner for the Cgreen unit testing and mocking framework.
 %autosetup -p1
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCGREEN_WITH_HTML_DOCS=ON
 %cmake_build
 

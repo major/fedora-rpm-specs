@@ -62,7 +62,6 @@ like flanger, phaser or auto-wah.
 
 %package -n libgxw
 Summary:        Guitarix GTK library
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later 
 
 %description -n libgxw
@@ -70,7 +69,6 @@ This package contains the Guitarix GTK widget library
 
 %package -n libgxwmm
 Summary:        Guitarix GTK C++ library
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later 
 
 %description -n libgxwmm
@@ -78,7 +76,6 @@ This package contains the Guitarix GTK C++ widget library
 
 %package -n libgxw-devel
 Summary:        Development files for libgxw
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later 
 Requires:       libgxw%{?_isa} = %{version}-%{release}
 
@@ -88,7 +85,6 @@ widget library
 
 %package -n libgxwmm-devel
 Summary:        Development files for libgxwmm
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later 
 Requires:       libgxwmm%{?_isa} = %{version}-%{release}
 
@@ -98,7 +94,6 @@ library
 
 %package -n gxw-glade
 Summary:        Guitarix GTK library glade support
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later 
 Requires:       glade
 Requires:       libgxw-devel%{?_isa} = %{version}-%{release}
@@ -109,10 +104,7 @@ with glade
 
 %package -n lv2-%{name}-plugins
 Summary:        Collection of LV2 guitarix plug-ins
-# ladspa/distortion.cpp and ladspa/guitarix-ladspa.cpp are BSD
-# The rest of ladspa/* is GPLv+
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later 
+License:        GPL-2.0-or-later AND ISC
 Requires:       lv2
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 

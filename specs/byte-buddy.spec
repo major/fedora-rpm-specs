@@ -100,7 +100,7 @@ rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTe
 
 # Drop build dep on findbugs annotations, used only by the above check plugins
 %pom_remove_dep -r :findbugs-annotations
-%java_remove_annotations byte-buddy-agent byte-buddy-dep byte-buddy-maven-plugin -n SuppressFBWarnings
+jurand -i -s -a byte-buddy-agent byte-buddy-dep byte-buddy-maven-plugin -n SuppressFBWarnings
 
 %pom_remove_dep org.ow2.asm:asm-deprecated
 

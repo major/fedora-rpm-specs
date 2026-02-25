@@ -10,7 +10,7 @@ Version:                0.23.0
 %gometa
 
 %global foundry           Google
-%global fontlicense       BSD
+%global fontlicense       BSD-3-Clause
 %global fontlicenses      font/gofont/ttfs/README
 
 %global fontfamily1       Go

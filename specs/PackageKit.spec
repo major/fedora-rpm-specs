@@ -8,19 +8,15 @@
 
 Summary:   Package management service
 Name:      PackageKit
-Version:   1.3.3
+Version:   1.3.4
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later AND FSFAP
 URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 
 # Backports from upstream (1~500)
-## Implement DependsOn and RequiredBy for dnf backend
-Patch0001:    https://github.com/PackageKit/PackageKit/commit/38c7cfbcd6f3202770685cd2439770523117d2bf.patch
-## Fix crashes from GNOME Software
-Patch0002:    https://github.com/PackageKit/PackageKit/pull/930.patch
-## https://github.com/PackageKit/PackageKit/pull/931
-Patch0003:    PackageKit-1.3.3-Initial-DNF5-Backend.patch
+## Fix turning off the Python backend
+Patch0001:    https://github.com/PackageKit/PackageKit/commit/11c5f1f34f48b58ee10acec839dd01a31728704b.patch
 
 # Patches proposed upstream (501~1000)
 ## Alias "dnf" to "dnf5"
@@ -30,7 +26,7 @@ Patch0501:    PackageKit-alias-dnf-to-dnf5.patch
 # Downstream only patches (1001+)
 ## https://pagure.io/fedora-workstation/issue/233
 ## https://github.com/PackageKit/PackageKit/pull/404
-Patch1001:    package-inst+rem-password-prompt.patch
+Patch1001:    package-inst+rem-sysupgrade-password-prompt.patch
 
 ## Fedora patches (2001~3000)
 Patch2001:    PackageKit-0.3.8-Fedora-Vendor.conf.patch
@@ -39,6 +35,8 @@ Patch2001:    PackageKit-0.3.8-Fedora-Vendor.conf.patch
 Patch3001:    PackageKit-0.3.8-RHEL-Vendor.conf.patch
 
 BuildRequires: docbook-utils
+BuildRequires: docbook5-schemas
+BuildRequires: docbook5-style-xsl
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gettext
@@ -251,7 +249,7 @@ using PackageKit.
         -Dgtk_doc=true \
         -Dpython_backend=false \
         -Dpackaging_backend=%{?with_dnf4:dnf,}dnf5 \
-        -Dpkgctl=true \
+        -Dlegacy_tools=true \
         -Dlocal_checkout=false
 
 %build
@@ -297,9 +295,11 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %endif
 %dir %{_localstatedir}/cache/PackageKit
 %{_datadir}/bash-completion/completions/pkcon
+%{_datadir}/bash-completion/completions/pkgcli
 %dir %{_libdir}/packagekit-backend
 %config(noreplace) %{_sysconfdir}/PackageKit/PackageKit.conf
 %config(noreplace) %{_sysconfdir}/PackageKit/Vendor.conf
+%{_datadir}/man/man1/pkgcli.1*
 %{_datadir}/man/man1/pkcon.1*
 %{_datadir}/man/man1/pkmon.1*
 %{_datadir}/polkit-1/actions/*.policy
@@ -309,9 +309,9 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_metainfodir}/org.freedesktop.packagekit.metainfo.xml
 %{_libexecdir}/packagekitd
 %{_libexecdir}/packagekit-direct
+%{_bindir}/pkgcli
 %{_bindir}/pkmon
 %{_bindir}/pkcon
-%{_bindir}/pkgctl
 %exclude %{_libdir}/libpackagekit*.so.*
 %{_libdir}/packagekit-backend/libpk_backend_dummy.so
 %{_libdir}/packagekit-backend/libpk_backend_test_*.so

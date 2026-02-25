@@ -51,6 +51,8 @@ desktop-file-install	\
 --set-name="Xfce Theme Manager"	\
 %{buildroot}/%{_datadir}/applications/%{pkgname}.desktop
 
+%check
+make check
 
 %files
 %doc ChangeLog* Xfce-Theme-Manager/resources/docs/gpl-3.0.txt

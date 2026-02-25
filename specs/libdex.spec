@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    libdex
-Version: 1.1~alpha
+Version: 1.1~rc
 Release: %autorelease
 Summary: a library supporting "Deferred Execution" for GNOME and GTK
 

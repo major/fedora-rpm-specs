@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.05
-Release: 3%{?dist}
+Version: 13.06
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Feb 23 2026 Nick Clifton  <nickc@redhat.com> - 13.06-1
+- Annocheck: Add more files to the gcc heuristics list.  (RHEL-150659)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.05-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
