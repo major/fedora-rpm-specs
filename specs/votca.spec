@@ -2,7 +2,7 @@ Name:           votca
 Version:        2025.1
 %global         uversion %{version}
 %global         sover 2025
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
@@ -26,7 +26,7 @@ ExcludeArch: %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  fdupes
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  expat-devel
 BuildRequires:  fftw-devel
 BuildRequires:  eigen3-devel
@@ -258,6 +258,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Tue Feb 24 2026 Orion Poplawski <orion@nwra.com> - 2025.1-6
+- BR cmake instead of cmake3
+
 * Sat Jan 31 2026 Christoph Junghans <junghans@votca.org> - 2025.1-5
 - Rebuild for gromacs-2026
 - Fixes: rhbz#2432566

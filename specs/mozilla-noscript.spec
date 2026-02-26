@@ -27,7 +27,7 @@ Source2:        https://github.com/hackademix/nscl/archive/%{nscl_commit}/nscl-%
 Patch0:         %{name}-fedora.patch
 
 BuildRequires:  libappstream-glib
-BuildRequires:  nodejs, /usr/bin/node
+BuildRequires:  /usr/bin/node
 BuildRequires:  publicsuffix-list
 BuildRequires:  zip
 Requires:       mozilla-filesystem

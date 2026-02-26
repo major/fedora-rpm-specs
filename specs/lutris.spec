@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.20
+Version:        0.5.21
 Release:        %autorelease
 Summary:        Install and play any video game easily
 

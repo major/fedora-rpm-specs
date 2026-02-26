@@ -5,7 +5,7 @@
 %global crate chrono
 
 Name:           rust-chrono
-Version:        0.4.42
+Version:        0.4.44
 Release:        %autorelease
 Summary:        Date and time library for Rust
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          chrono-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * remove WASM- and Windows-specific features
+# * remove WASM- and Windows-specific features and dependencies
 Patch:          chrono-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -272,8 +272,8 @@ use the "unstable-locales" feature of the "%{crate}" crate.
 %check
 # * skip tests specific to Android and OpenHarmony
 %{cargo_test -- --lib -- %{shrink:
-    --skip android
-    --skip ohos
+    --skip _android_
+    --skip _ohos_
 }}
 %cargo_test -- --doc
 %cargo_test -- --test dateutils

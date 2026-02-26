@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.20.2
+Version:        2.20.3
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -45,7 +45,6 @@ Provides:       bundled(python3dist(six)) = 1.17.0
 # SPDX-License-Identifier: BSD-2-Clause
 Provides:       bundled(python3dist(wrapt)) = 1.17.2
 
-BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
 # This is only used in %%prep to relax the required setuptools version,
 # which is not necessary in RHEL 10+.
@@ -254,6 +253,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Feb 24 2026 Maxwell G <maxwell@gtmx.me> - 2.20.3-1
+- Update to 2.20.3. Fixes rhbz#2442079.
+
 * Thu Feb 12 2026 Maxwell G <maxwell@gtmx.me> - 2.20.2-1
 - Update to 2.20.2. Fixes rhbz#2435360.
 

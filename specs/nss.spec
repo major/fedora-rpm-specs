@@ -1,5 +1,5 @@
 %global nspr_version 4.38.2
-%global nss_version 3.120.1
+%global nss_version 3.121.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+4]
+%global nspr_release %[%baserelease+5]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -145,7 +145,6 @@ Patch66:          nss-3.118-ml-dsa-tls-test.patch
 Patch67:          nss-3.118-ml-dsa-unittests.patch
 
 Patch70:          nss-3.118.1-fix-test-typo.patch
-Patch71:          nss-3.118.1-add-const-qual-for-gcc15.patch
 
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
@@ -1100,6 +1099,9 @@ fi
 
 
 %changelog
+* Tue Feb 24 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.121.0-1
+- Update NSS to 3.121.0
+
 * Wed Feb 18 2026 Frantisek Krenzelok <fkrenzel@redhat.com> - 3.120.1-1
 - Update NSS to 3.120.1
 

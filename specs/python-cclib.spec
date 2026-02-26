@@ -74,7 +74,7 @@ BuildRequires:  python3-versioningit
 rm -rf  cclib.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel

@@ -46,8 +46,8 @@
 
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
-Version:          5.3.2
-Release:          3%{?dist}
+Version:          5.4.0
+Release:          1%{?dist}
 
 License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 
@@ -269,6 +269,9 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 %{_mandir}/man3/*
 %{_infodir}/*awk*.info*
 
+#Excluding this file for now to avoid possible naming conflicts with other packages.
+%exclude %{_infodir}/notes.info.gz
+
 %doc NEWS README POSIX.STD README_d/README.multibyte
 %license COPYING LICENSE.GPLv2 LICENSE.LGPLv2 LICENSE.BSD
 
@@ -292,6 +295,11 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Mon Feb 23 2026 Jakub Martisko <jamartis@redhat.com> - 5.4.0-1
+- New upstream release - 5.4.0
+- Excluding the notes.info.gz file for now (asked the upstream to rename it to gawk_notes.info)
+- https://lists.gnu.org/archive/html/bug-gawk/2026-02/msg00025.html
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

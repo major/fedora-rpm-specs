@@ -10,7 +10,7 @@
 %bcond_with tests
 
 Name:              valkey
-Version:           9.0.2
+Version:           9.0.3
 Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
@@ -443,6 +443,10 @@ fi
 
 
 %changelog
+* Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 9.0.3-1
+- Valkey 9.0.3 - February 23, 2026
+- Upgrade urgency SECURITY: This release includes security fixes
+
 * Tue Feb  3 2026 Remi Collet <remi@remirepo.net> - 9.0.2-1
 - Valkey 9.0.2 - February 3, 2026
 - Upgrade urgency HIGH: There are critical bugs that may affect a subset of users.

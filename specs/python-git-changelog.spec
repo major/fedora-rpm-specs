@@ -1,12 +1,12 @@
-%bcond check 0
+%bcond check 1
 
 Name:           python-git-changelog
-Version:        2.7.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Automatic Changelog generator using Jinja2 templates
 License:        ISC
 URL:            https://github.com/pawamoy/git-changelog
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/git-changelog-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -14,9 +14,9 @@ BuildOption(prep): -n git-changelog-%{version}
 %if %{with check}
 BuildRequires:  python3dist(pytest)
 # griffe not packaged
-BuildRequires:  python3dist(griffe)
+#BuildRequires:  python3dist(griffe)
 # mkdocstrings not packaged
-BuildRequires:  python3dist(mkdocstrings)
+#BuildRequires:  python3dist(mkdocstrings)
 BuildRequires:  python3dist(pytest-gitconfig)
 %endif
 BuildOption(install): -l git_changelog
@@ -42,13 +42,14 @@ Summary:        %{summary}
 
 %prep -a
 %autosetup -n git-changelog-%{version} -S git
-sed -i 's/Jinja2>=[0-9]\+\.[0-9]\+/Jinja2/' pyproject.toml
-sed -i 's/platformdirs>=[0-9]\+\.[0-9]\+/platformdirs/' pyproject.toml
 git tag %{version}
 
-%if %{with check}
 %check
-%pytest
+%pyproject_check_import
+%if %{with check}
+# Requires griffe and mkdocstrings, both not packaged
+ignore="${ignore-} --ignore=tests/test_api.py"
+%pytest -v -rs ${ignore-}
 %endif
 
 %files -n python3-git-changelog -f %{pyproject_files}

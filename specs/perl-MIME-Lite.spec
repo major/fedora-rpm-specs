@@ -1,5 +1,5 @@
 Name:           perl-MIME-Lite
-Version:        3.035
+Version:        3.038
 Release:        %autorelease
 Summary:        MIME::Lite - low-calorie MIME generator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -9,28 +9,30 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
+# Run-time:
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Email::Date::Format)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Email::Date::Format) >= 1.000
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FileHandle)
-BuildRequires:  perl(lib)
-BuildRequires:  perl(Mail::Address)
-BuildRequires:  perl(MIME::Types) >= 1.28
 BuildRequires:  perl(Net::SMTP)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+# Tests:
+BuildRequires:  perl(Test::More)
+# Recommends tests:
+BuildRequires:  perl(MIME::Types) >= 1.28
 # not detected by automated find-requires:
-Requires:       perl(Email::Date::Format)
-Requires:       perl(MIME::Types) >= 1.28
+Requires:       perl(Email::Date::Format) >= 1.000
+Recommends:     perl(MIME::Types) >= 1.28
+Recommends:     perl(Mail::Address) >= 1.62
 
 %{?perl_default_filter}
 
 %description
-MIME::Lite is intended as a simple, standalone module for generating (not 
+MIME::Lite is intended as a simple, standalone module for generating (not
 parsing!) MIME messages... Specifically, it allows you to output a simple,
 decent single- or multi-part message with text or binary attachments.  It does
 not require that you have the Mail:: or MIME:: modules installed.
@@ -49,7 +51,6 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n MIME-Lite-%{version}
 sed -i 's/\r//' examples/*
 sed -i 's/\r//' contrib/*
-sed -i 's/\r//' COPYING
 chmod a-x examples/* contrib/*
 # Help generators to recognize Perl scripts
 for F in $(find t/ -name '*.t'); do
@@ -69,7 +70,6 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cp -a testin %{buildroot}%{_libexecdir}/%{name}
 # Remove author tests
-rm -f %{buildroot}%{_libexecdir}/%{name}/t/pod*
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
@@ -81,10 +81,10 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files
-%doc changes.pod examples contrib COPYING LICENSE
-%exclude %{perl_vendorlib}/MIME/changes.pod
+%doc Changes examples contrib
+%license LICENSE
 %{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/MIME::Lite.3pm.gz
 
 %files tests
 %{_libexecdir}/%{name}

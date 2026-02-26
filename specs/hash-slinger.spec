@@ -2,13 +2,11 @@
 
 Summary: Generate and verify various DNS records such as SSHFP, TLSA and OPENPGPKEY
 Name: hash-slinger
-Version: 3.4
-Release: 4%{?dist}
+Version: 3.5
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Url:  https://github.com/letoams/%{name}/
 Source:  %{url}archive/%{version}/%{name}-%{version}.tar.gz
-# Handle M2Crypto no longer being available
-Patch:   tlsa-disable.patch
 %if %{with man}
 # Only to regenerate the man page, which is shipped per default
 Buildrequires: xmlto
@@ -17,8 +15,7 @@ BuildRequires: python3-devel, make
 Requires: python3 >= 3.4
 Requires: python3-dns, python3-unbound
 Requires: openssh-clients >= 4, python3-gnupg >= 0.3.7
-# Refer to patch tlsa-disable.patch
-Recommends: python3-m2crypto
+Requires: python3-cryptography
 BuildArch: noarch
 Obsoletes: sshfp < 2.0
 Provides: sshfp  = %{version}
@@ -52,6 +49,10 @@ This package has incorporated the old 'sshfp' and 'swede' commands/packages
 %doc %{_mandir}/man1/*
 
 %changelog
+* Tue Feb 24 2026 Frank Crawford <frank@crawford.emu.id.au> - 3.5-1
+- Updated to 3.5
+- Reenable tlsa using python3-cryptography - BZ2318306 and BZ2367115
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

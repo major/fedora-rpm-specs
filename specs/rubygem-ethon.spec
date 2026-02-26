@@ -2,23 +2,22 @@
 %global gem_name ethon
 
 Name: rubygem-%{gem_name}
-Version: 0.17.0
-Release: 2%{?dist}
+Version: 0.18.0
+Release: 1%{?dist}
 Summary: Libcurl wrapper
 License: MIT
 URL: https://github.com/typhoeus/ethon
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/typhoeus/ethon.git && cd ethon
-# git archive -v -o ethon-0.17.0-spec.tar.gz v0.17.0 spec/
+# git archive -v -o ethon-0.18.0-spec.tar.gz v0.18.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
-# This prevents test errors in Typhoeus:
-# https://github.com/typhoeus/typhoeus/issues/710
-# https://github.com/felipedmesquita/ethon/pull/13
-Patch0: rubygem-ethon-0.17.0-fix-on-headers-regression.patch
-Patch1: rubygem-ethon-0.17.0-fix-on-headers-regression-test.patch
+Requires: (libcurl.so.4()(64bit) if libc.so.6()(64bit))
+Requires: (libcurl.so.4 if libc.so.6)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
+BuildRequires: (libcurl.so.4()(64bit) if libc.so.6()(64bit))
+BuildRequires: (libcurl.so.4 if libc.so.6)
 BuildRequires: rubygem(ffi) => 1.3.0
 # https://github.com/typhoeus/ethon/blob/453c6f0ba37a7d42978c90f2399f5c2cd66b32a6/spec/ethon/easy/queryable_spec.rb#L164
 BuildRequires: rubygem(mime-types) => 1.18
@@ -44,12 +43,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-%patch 0 -p1
-
-( cd %{builddir}
-%patch 1 -p1
-)
-
 %build
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
@@ -73,9 +66,7 @@ sed -i -e "/require 'bundler'/ s/^/#/" \
        -e "/Bundler.setup/ s/^/#/" \
        spec/spec_helper.rb
 
-# `rackup` is preloaded by Bundler in upstream test suite. Load it explicitly
-# here.
-rspec -r rackup spec
+rspec spec
 )
 
 %files
@@ -92,6 +83,11 @@ rspec -r rackup spec
 %{gem_instdir}/ethon.gemspec
 
 %changelog
+* Tue Feb 24 2026 Vít Ondruch <vondruch@redhat.com> - 0.18.0-1
+- Update to Ethon 0.18.0.
+  Resolves: rhbz#2411926
+- Add `libcurl.so.4` requires to make the dependency explicit.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

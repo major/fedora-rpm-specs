@@ -7,7 +7,7 @@ Version:        3.58.1
 Release:        %autorelease
 Summary:        GNOME Flashback panel
 
-License:        GPL-2.0-or-later and LGPL-2.1-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GnomePanel
 Source:         https://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
 
@@ -75,7 +75,7 @@ there is usually a list of open applications.
 # libs package
 %package        libs
 Summary:        Libraries for %{name}
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description    libs
 Libraries for %{name}.

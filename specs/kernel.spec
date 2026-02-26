@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc1.15
+%define pkgrelease 0.rc1.260224g7dff99b354601.17
 %define kversion 7
-%define tarfile_release 7.0-rc1
+%define tarfile_release 7.0-rc1-2-g7dff99b354601
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.15%{?buildid}%{?dist}
+%define specrelease 0.rc1.260224g7dff99b354601.17%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4825,10 +4825,17 @@ fi\
 #
 #
 %changelog
-* Mon Feb 23 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.15]
+* Tue Feb 24 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260224g7dff99b354601.17]
+- Linux v7.0.0-0.rc1.260224g7dff99b354601
+
+* Tue Feb 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.7dff99b35460.17]
 - add missing perf header files (Scott Weaver)
+
+* Tue Feb 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.7dff99b35460.16]
+- Reset the changelog for 7.0-rc1 (Justin M. Forbes)
 - A couple more quick important 7.0 config updates for Fedora (Justin M. Forbes)
 - A couple of quick important 7.0 config updates for Fedora (Justin M. Forbes)
+- Linux v7.0.0-0.rc1.7dff99b35460
 
 * Mon Feb 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.15]
 - redhat/configs: enable CONFIG_AQTION on all archs (Michal Schmidt) [RHEL-150853]
@@ -8018,3 +8025,10 @@ fi\
 - [initial commit] Add configs (Laura Abbott)
 - [initial commit] Add Makefiles (Laura Abbott)
 - Linux v7.0.0-0.rc1
+
+###
+# The following Emacs magic makes C-c C-e use UTC dates.
+# Local Variables:
+# rpm-change-log-uses-utc: t
+# End:
+###

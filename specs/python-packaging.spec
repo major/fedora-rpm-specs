@@ -21,7 +21,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        25.0
+Version:        26.0
 Release:        %autorelease
 Summary:        Core utilities for Python packages
 
@@ -43,6 +43,7 @@ BuildRequires:  python%{python3_pkgversion}-flit-core
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pretend
+BuildRequires:  python%{python3_pkgversion}-tomli-w
 %endif
 %if %{with docs}
 BuildRequires:  python%{python3_pkgversion}-sphinx

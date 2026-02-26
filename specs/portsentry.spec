@@ -1,7 +1,7 @@
 Name:		portsentry
 
 %global forgeurl https://github.com/portsentry/portsentry
-%global version0 2.0.6
+%global version0 2.0.7
 %forgemeta
 Version:	%forgeversion
 Release:	%autorelease
@@ -12,8 +12,6 @@ License:	BSD-2-Clause AND BSD-1-Clause AND CPL-1.0
 URL:		https://portsentry.xyz/
 Source0:	%forgesource
 Source1:	fail2ban-jail.conf
-# https://github.com/portsentry/portsentry/pull/189
-Patch0:		discard-const.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc

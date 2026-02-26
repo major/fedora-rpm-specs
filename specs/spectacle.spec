@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.6.0
-Release: 2%{?dist}
+Version: 6.6.1
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -142,6 +142,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Tue Feb 24 2026 Steve Cossette <farchord@gmail.com> - 1:6.6.1-1
+- 6.6.1
+
 * Wed Feb 18 2026 Neal Gompa <ngompa@fedoraproject.org> - 1:6.6.0-2
 - Add workaround to fix OCR support (rhbz#2435519)
 

@@ -1,5 +1,5 @@
 %global mainver 5.0
-%global datever 20251014
+%global datever 20260119
 
 Name:           cdk
 Version:        %{mainver}.%{datever}

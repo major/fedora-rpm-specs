@@ -91,7 +91,7 @@ defined Builder and/or Scanner objects.
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires
 
 
 %build

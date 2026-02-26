@@ -4,13 +4,14 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       125
-Release:       3%{?dist}
+Version:       126
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Source1:       https://github.com/WebAssembly/testsuite/archive/%{wats_commit}/testsuite-%{wats_shortcommit}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
+Patch1:        https://github.com/WebAssembly/binaryen/pull/8362.patch
 # third_party/llvm-project/MD5.cpp: bcrypt-Solar-Designer
 # third_party/llvm-project/include/llvm/Support/MD5.h: bcrypt-Solar-Designer
 License:       Apache-2.0 AND bcrypt-Solar-Designer
@@ -110,6 +111,10 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Sun Feb 22 2026 Dominik Mierzejewski <dominik@greysector.net> - 126-1
+- update to 126 (resolves rhbz#2439791)
+- backport upstream fix for https://github.com/WebAssembly/binaryen/issues/8360
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 125-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

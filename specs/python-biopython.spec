@@ -40,7 +40,7 @@ biology.
 %autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

@@ -113,7 +113,7 @@ PREFIX=/usr
 EXECPREFIX=/usr
 INSTALLROOT=
 CC=cc
-CFLAGS=${RPM_OPT_FLAGS} -I/usr/include/tirpc -fPIC -Wall -W -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline
+CFLAGS=${RPM_OPT_FLAGS} -I/usr/include/tirpc -fPIC -Wall -W -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline -std=gnu17
 LDFLAGS=-pie -Wl,-z,relro,-z,now -ltirpc
 LIBS=-lsystemd
 USE_GLIBC=1

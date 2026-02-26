@@ -169,7 +169,7 @@ g xpra -
 EOF
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires
 
 %build
 export CFLAGS="%{optflags} -I%{_includedir}/security %(pkgconf --cflags pygobject-3.0)"

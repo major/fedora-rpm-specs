@@ -13,6 +13,9 @@ URL:            https://github.com/snakemake/snakemake-interface-common
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-interface-common-%{version}.tar.gz
 
+# Do not upper-bound the version of packaging
+Patch:          %{url}/pull/89.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l snakemake_interface_common
 %if %{without bootstrap}
@@ -34,13 +37,6 @@ BuildRequires:  %{py3_dist pytest}
 Summary:        %{summary}
 
 %description -n python3-snakemake-interface-common %{common_description}
-
-
-%prep -a
-# Downstream-only: Remove upper SemVer bound on packaging, e.g. "packaging
-# >=24.0,<26.0"; we must work with what we have, and SemVer breaks in packaging
-# are unlikely to cause problems in practice.
-sed -r -i 's/(packaging >=[[:alnum:].]+),<[[:alnum:].]+/\1/' pyproject.toml
 
 
 %check -a

@@ -15,7 +15,6 @@ Source:         %{url}/archive/%{version}/pyproject-metadata-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): -x test%{?with_doc:,docs}
 BuildOption(install): -l pyproject_metadata
 
 BuildRequires:  %{py3_dist pytest}

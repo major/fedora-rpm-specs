@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -43,6 +43,8 @@ Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.a
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 # Adapt tests to glib2-2.87.0, in upstream after 2.15.2, bug #2423153
 Patch0:         modulemd-2.15.2-tests-Adapt-to-glib-2.87.0.patch
+# Adapt tests to pygobject 3.55.0, in upstream after 2.15.2, bug #2440570
+Patch1:         modulemd-2.15.2-tests-Adapt-to-pygobject-3.55.0.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.47
@@ -191,6 +193,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Tue Feb 24 2026 Petr Pisar <ppisar@redhat.com> - 2.15.2-7
+- Adapt tests to pygobject 3.55.0 (bug #2440570)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %bcond micromamba 0
 
 Name:           libmamba
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
@@ -14,6 +14,8 @@ Source0:        https://github.com/mamba-org/mamba/archive/%{version}/%{name}-%{
 Patch:          libmamba-fedora.patch
 # Fix for gcc 16 - https://github.com/mamba-org/mamba/pull/4132
 Patch:          libmamba-gcc16.patch
+# Fix build wih libmamba-spdlog - https://github.com/mamba-org/mamba/pull/4172
+Patch:          libmamba-export.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -160,6 +162,7 @@ help2man %{_vpath_builddir}/micromamba/micromamba > %{_vpath_builddir}/micromamb
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DBUILD_LIBMAMBA=ON \
   -DBUILD_LIBMAMBAPY=ON \
+  -DBUILD_LIBMAMBA_SPDLOG=ON \
   -DBUILD_MAMBA=OFF \
   -DBUILD_MICROMAMBA=OFF \
   -DBUILD_EXE=OFF \
@@ -175,6 +178,7 @@ export CMAKE_BUILD_PARALLEL_LEVEL=%{_smp_build_ncpus}
 %{pyproject_wheel %{shrink:
   -C cmake.build-type=RelWithDebInfo
   -C cmake.define.libmamba_ROOT=$(pwd)/../%{_vpath_builddir}/libmamba
+  -C cmake.define.libmamba-spdlog_ROOT=$(pwd)/../%{_vpath_builddir}/libmamba-spdlog
 }}
 cd -
 %cmake \
@@ -249,6 +253,7 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 %{_includedir}/mamba/
 %{_libdir}/libmamba.so
 %{_libdir}/cmake/%{name}/
+%{_libdir}/cmake/%{name}-spdlog/
 
 %files -n mamba
 # TODO - better ownership of vendor_conf.d

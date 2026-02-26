@@ -10,7 +10,7 @@ Version:        1.69.0
 Release:        %autorelease
 Summary:        An efficient blocker for Firefox
 
-License:        BSD-2-Clause AND GPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-Fedora-UltraPermissive AND MIT AND MPL-2.0 AND OFL-1.1 AND Unlicense
+License:        BSD-2-Clause AND GPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-Fedora-UltraPermissive AND MIT AND MPL-2.0 AND OFL-1.1 AND Unlicense
 URL:            https://github.com/gorhill/uBlock
 Source0:        https://github.com/gorhill/uBlock/archive/%{version}/uBlock-%{version}.tar.gz
 Source1:        mozilla-ublock-origin.metainfo.xml
@@ -28,7 +28,7 @@ BuildArch:      noarch
 ExcludeArch:    ppc64 s390x
 BuildRequires:  binaryen
 BuildRequires:  libappstream-glib
-BuildRequires:  nodejs
+BuildRequires:  /usr/bin/node
 BuildRequires:  python3
 BuildRequires:  wabt
 # lib/csstree https://github.com/csstree/csstree MIT

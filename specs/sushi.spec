@@ -4,7 +4,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           sushi
-Version:        46.0
+Version:        50~rc.1
 Release:        %autorelease
 Summary:        A quick previewer for Nautilus
 
@@ -59,7 +59,7 @@ file manager.
 %{_libexecdir}/org.gnome.NautilusPreviewer
 %{_libdir}/sushi/
 %{_datadir}/dbus-1/services/org.gnome.NautilusPreviewer.service
-%{_metainfodir}/org.gnome.NautilusPreviewer.appdata.xml
+%{_metainfodir}/org.gnome.NautilusPreviewer.metainfo.xml
 %{_datadir}/sushi/
 
 

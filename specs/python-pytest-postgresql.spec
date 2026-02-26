@@ -39,7 +39,7 @@ process and client.
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x tests
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel

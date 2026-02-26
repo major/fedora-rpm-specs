@@ -9,7 +9,7 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.64
+Version:	0.65
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
@@ -23,16 +23,18 @@ BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(ExtUtils::ParseXS) >= 3.18
 BuildRequires:	perl(inc::Module::Install)
 %if %{with perl_Unicode_UTF8_enables_ReadmeFromPod}
 BuildRequires:	perl(Module::Install::ReadmeFromPod)
 %endif
+BuildRequires:	perl(Module::Install::XSUtil)
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
-BuildRequires:	perl(XSLoader)
+BuildRequires:	perl(XSLoader) >= 0.02
 # Test Suite
 BuildRequires:	perl(Encode) >= 1.9801
 BuildRequires:	perl(IO::File)
@@ -50,7 +52,7 @@ BuildRequires:	perl(Variable::Magic)
 %endif
 # Dependencies
 Requires:	perl(Exporter)
-Requires:	perl(XSLoader)
+Requires:	perl(XSLoader) >= 0.02
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -90,6 +92,14 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Tue Feb 24 2026 Paul Howarth <paul@city-fan.org> - 0.65-1
+- Update to 0.65
+  - C99-compliant compiler is now required for Unicode::UTF8
+  - Scan 16 bytes at a time to detect non-ASCII bytes, falling back to sequence
+    validation for non-ASCII input; this approach resulted in a 900%% throughput
+    improvement on English text and a 200%% improvement on Swedish text compared
+    to Encode.pm
+
 * Mon Feb 23 2026 Paul Howarth <paul@city-fan.org> - 0.64-1
 - Update to 0.64
   - Unicode::UTF8 now allows noncharacters; they receive no special handling

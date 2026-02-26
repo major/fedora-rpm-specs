@@ -66,7 +66,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 154%{?dist}
+Release: 155%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -88,6 +88,8 @@ Patch4: disable-Cabal-upperbounds-check-warning.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2430571
 # https://gitlab.haskell.org/ghc/ghc/-/issues/26792 (hadrian speedhack)
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15370.patch
+# https://github.com/haskell/cabal/issues/9734
+Patch6: Cabal-configure-ghc-version-warning.patch
 
 # for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -419,6 +421,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P3 -p1 -b .orig
 %patch -P4 -p1 -b .orig
 %patch -P5 -p1 -b .orig
+%patch -P6 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -853,6 +856,9 @@ make test
 
 
 %changelog
+* Tue Feb 24 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-155
+- Cabal: quieten newer ghc version unsupported warnings
+
 * Fri Feb 06 2026 Jens Petersen <petersen@redhat.com> - 9.10.3-154
 - fix prof deps generation with ghc-rpm-macros-2.11
 

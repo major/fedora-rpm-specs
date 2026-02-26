@@ -1,6 +1,5 @@
 %global commit f29c1fa51cfe3771ad156a05cc3962d4ffbbe102
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global __cmake_in_source_build 1
 
 #TODO - Build with mpi support
 
@@ -30,7 +29,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           gdl
-Version:        1.1.1
+Version:        1.1.3
 Release:        %autorelease
 Summary:        GNU Data Language
 
@@ -42,9 +41,6 @@ Source1:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
-# Always build plplot statically
-# https://github.com/gnudatalanguage/gdl/pull/1996
-Patch2:         gdl-static.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
@@ -97,7 +93,6 @@ BuildRequires:  cmake
 BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  metacity
 %endif
-BuildRequires: make
 Requires:       %{name}-common = %{version}-%{release}
 Provides:       %{name}-runtime = %{version}-%{release}
 # Need to match hdf5 compile time version
@@ -142,7 +137,6 @@ rm -rf src/antlr src/libdivide.h
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
 %patch -P1 -p1 -b .antlr
-%patch -P2 -p1 -b .static
 
 pushd src
 for f in *.g
@@ -151,6 +145,7 @@ do
 done
 popd
 
+%global _vpath_builddir %{_target_platform}-${variant}
 %global __python %{__python3}
 %global python_sitearch %{python3_sitearch}
 %global cmake_opts \\\
@@ -169,80 +164,85 @@ popd
 #           --with-mpich=%{_libdir}/mpich2 \
 
 %build
+# TODO: Temporary workaround until 1.1.2 is released
+# https://github.com/gnudatalanguage/gdl/commit/b648a63c5070f38e90167f858a79ba6f01dad1d3
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
 export CXXFLAGS="%optflags -fcommon"
-mkdir build build-python
+
 #Build the standalone executable
-pushd build
-%cmake %{cmake_opts} ..
-make #{?_smp_mflags}
-popd
-#Build the python module
-pushd build-python
-%cmake %{cmake_opts} -DPYTHON_MODULE=ON ..
-make #{?_smp_mflags}
-popd
+variant=default
+%cmake %{cmake_opts}
+%cmake_build
+
+variant=python
+%cmake %{cmake_opts} -DPYTHON_MODULE=ON
+%cmake_build
 
 
 %install
-pushd build
-%make_install
-popd
-pushd build-python
-%make_install
+variant=default
+%cmake_install
+
+variant=python
+%cmake_install
 # Install the python module in the right location
 install -d -m 0755 $RPM_BUILD_ROOT%{python_sitearch}
 %if "%{_lib}" != "lib"
 mv $RPM_BUILD_ROOT%{_prefix}/lib/python*/site-packages/GDL.so \
   $RPM_BUILD_ROOT%{python_sitearch}/GDL.so
 %endif
-popd
 
 
 # EL8 s390x missing xorg-x11-drv-dummy
 %if ! ( 0%{?rhel} >= 8 && "%{_arch}" == "s390x" )
 %check
+variant=default
 export PLPLOT_LIB=$RPM_BUILD_ROOT%{_datadir}/gnudatalanguage
-cd build
-cp %SOURCE1 .
+cp %SOURCE1 %{_vpath_builddir}
 if [ -x /usr/libexec/Xorg ]; then
    Xorg=/usr/libexec/Xorg
 elif [ -x /usr/libexec/Xorg.bin ]; then
    Xorg=/usr/libexec/Xorg.bin
 else
    # Strip suid root
-   cp /usr/bin/Xorg .
+   cp /usr/bin/Xorg %{_vpath_builddir}
    Xorg=./Xorg
 fi
-$Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
+$Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir %{_vpath_builddir} :99 &
 export DISPLAY=:99
 
 metacity &
 sleep 2
-# test_tic_toc is unstable everywhere - https://github.com/gnudatalanguage/gdl/issues/209
-# byte_conversion/bytscl - https://github.com/gnudatalanguage/gdl/issues/1079
-# test_l64 - https://github.com/gnudatalanguage/gdl/issues/1075
-# test_elmhes/formats - https://github.com/gnudatalanguage/gdl/issues/1833
+# test_idlneturl - Requires net access
 # test_bugs_poly2d fails on non-x86_64 - https://github.com/gnudatalanguage/gdl/issues/1993
+# byte_conversion/bytscl - https://github.com/gnudatalanguage/gdl/issues/1079
+# test_gdl2gdl - timeouts - dropped upstream - https://github.com/gnudatalanguage/gdl/issues/2148
+# test_elmhes/formats - https://github.com/gnudatalanguage/gdl/issues/1833
+# test_l64 - https://github.com/gnudatalanguage/gdl/issues/1075
+# test_rounding - https://github.com/gnudatalanguage/gdl/issues/2177
+# test_tic_toc is unstable everywhere - https://github.com/gnudatalanguage/gdl/issues/209
 %ifarch aarch64
-failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|tic_toc)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|gdl2gdl|idlneturl|tic_toc)"
 %endif
 %ifarch ppc64le
 # gaussfit - https://github.com/gnudatalanguage/gdl/issues/1695
-failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|gaussfit|matrix_multiply|tic_toc)"
+# plot_ranges - https://github.com/gnudatalanguage/gdl/issues/2176
+failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|gaussfit|gdl2gdl|idlneturl|matrix_multiply|plot_ranges|rounding|tic_toc)"
 %endif
 %ifarch riscv64
-failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|tic_toc)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|gdl2gdl|idlneturl|tic_toc)"
 %endif
 %ifarch s390x
 # test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
 # save_restore - https://github.com/gnudatalanguage/gdl/issues/1655
-failing_tests="test_(bugs_poly2d|byte_conversion|bytsc|elmhes|formats|hdf5|tic_toc|save_restore)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytsc|elmhes|formats|gdl2gdl|hdf5|idlneturl|rounding|tic_toc|save_restore)"
 %endif
 %ifarch x86_64
-failing_tests="test_tic_toc"
+failing_tests="test_(gdl2gdl|idlneturl|tic_toc)"
 %endif
-make test VERBOSE=1 ARGS="-V -E '$failing_tests'"
-make test VERBOSE=1 ARGS="-V -R '$failing_tests' --timeout 600" || :
+%ctest -E "$failing_tests"
+%ctest -R "$failing_tests" --timeout 600 || :
 kill %1 || :
 cat xorg.log
 %endif

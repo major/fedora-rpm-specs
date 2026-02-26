@@ -1,7 +1,7 @@
 # download path contains version without the last (fourth) digit
 %global libo_version 26.2.1
 # This is the last (fourth) digit of LO version
-%global libo_min_version 1
+%global libo_min_version 2
 # Set this to 1 if this is a prerelease build
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
@@ -2101,7 +2101,8 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/xpdfimport
 %{baseinstdir}/share/registry/pdfimport.xcd
 
-%_font_pkg -n %{fontname} opens___.ttf
+%files opensymbol-fonts
+%{_datadir}/fonts/opensymbol/opens___.ttf
 %doc instdir/LICENSE
 
 %files calc

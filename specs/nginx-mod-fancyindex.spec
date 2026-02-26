@@ -1,5 +1,5 @@
 Name:           nginx-mod-fancyindex
-Version:        0.5.2
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Nginx FancyIndex module
 

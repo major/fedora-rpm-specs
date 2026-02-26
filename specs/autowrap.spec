@@ -44,7 +44,7 @@ Obsoletes: python2-autowrap < 0:%{version}-%{release}
 rm -rf %{name}-release-%{version}/autowrap/data_files/boost
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel

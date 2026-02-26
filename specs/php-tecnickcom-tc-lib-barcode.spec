@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    605b92bfaf8ed2cba18a1c6603d90bc828aa3d5b
+%global gh_commit    c2d8a6534c6df75e9811c89c85132c2e402c22c6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.24
+Version:        2.4.26
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -26,8 +26,8 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 %if %{with tests}
 # For tests
-%global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.5.63
+%global phpunit %{_bindir}/phpunit11
+BuildRequires:  phpunit11 >= 11.5.55
 BuildRequires:  php(language) >= 8.1
 BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.3    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 BuildRequires:  php-bcmath
@@ -113,12 +113,12 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
+for cmdarg in php php82 "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit13" "php85 %{_bindir}/phpunit13"; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
-      $1 ${2:-%{_bindir}/phpunit10} --migrate-configuration || :
-      $1 ${2:-%{_bindir}/phpunit10} \
+      $1 ${2:-%{phpunit}} --migrate-configuration || :
+      $1 ${2:-%{phpunit}} \
         --filter '^((?!(testGetSvg|testGetPng)).)*$' \
         --no-coverage --stderr || ret=1
    fi
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 2.4.26-1
+- update to 2.4.26
+
 * Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 2.4.24-1
 - update to 2.4.24 (no change)
 

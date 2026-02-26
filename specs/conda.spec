@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        25.11.1
+Version:        26.1.1
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -185,11 +185,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/cli/test_main_export.py::test_export_regular_format_consistency - AssertionError: Should have conda packages to test
 # tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-yaml-yaml_safe_load] - AssertionError: Should have conda dependencies
 # tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-json-loads] - AssertionError: Should have conda dependencies
+# tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-yaml-loads] - AssertionError: Should have conda dependencies
 # tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--yaml_safe_load] - conda.exceptions.CondaHTTPError
 # tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[JSON---format=json-loads] - conda.exceptions.CondaHTTPError
 # tests/cli/test_main_export.py::test_export_explicit_format_validation_errors - conda.exceptions.CondaHTTPError
 # tests/cli/test_main_export.py::test_export_multiple_platforms - conda.exceptions.CondaHTTPError
 # tests/cli/test_main_export.py::test_export_single_platform_different_platform - conda.exceptions.CondaHTTPError
+# tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--loads] - conda.exceptions.CondaHTTPError
 # The /usr base env does not have last_modified
 # tests/cli/test_main_info.py::test_info_json - AssertionError: assert False
 # tests/cli/test_main_install.py::test_build_version_shows_as_changed - conda.exceptions.CondaHTTPError
@@ -208,6 +210,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/env/installers/test_conda_installer_explicit.py::test_installer_installs_explicit - conda.CondaMultiError
 # tests/env/specs/test_explicit.py::test_environment - conda.CondaMultiError
 # tests/env/test_create.py::test_create_env_from_non_existent_plugin - conda.exceptions.CondaHTTPError
+# tests/gateways/test_repodata_gateway.py::test_repodata_fetch_jsondecodeerror - simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0); got "not json" - likely network
 # tests/models/test_environment.py::test_extrapolate - conda.exceptions.CondaHTTPError
 # tests/models/test_environment.py::test_explicit_packages - conda.CondaMultiError
 # tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[-\u2705] - conda.exceptions.CondaHTTPError
@@ -215,9 +218,11 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[conda 1.11, otherpackages==1-\u274c] - conda.exceptions.CondaHTTPError
 # tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check["conda"-\u274c] - conda.exceptions.CondaHTTPError
 # tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check[imnotinstalledyet-\u274c] - conda.exceptions.CondaHTTPError
-# tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[True] - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
-# tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[False] - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
-# tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_not_supported - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[True] - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[False] - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_not_supported - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+# tests/plugins/test_health_checks.py::test_fix_user_cancels_no_warning - conda.exceptions.DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment.
+
 # tests/plugins/test_transaction_hooks.py::test_transaction_hooks_invoked - conda.exceptions.CondaHTTPError
 # These are network errors
 # tests/plugins/test_transaction_hooks.py::test_pre_transaction_raises_exception - AssertionError: Regex pattern did not match.
@@ -261,7 +266,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/testing/test_fixtures.py::test_env - requires network tests to succeed
 # tests/testing/test_fixtures.py::test_tmp_channel - requires network access
 # tests/trust/test_signature_verification.py requires conda_content_trust - not yet packaged
-py.test-%{python3_version} -vv -rfs -m "not integration" \
+py.test-%{python3_version} -vv -rfs  -W ignore::PendingDeprecationWarning -m "not integration" \
     --deselect=tests/test_activate.py::test_activate_same_environment \
     --deselect=tests/test_activate.py::test_build_activate_dont_activate_unset_var \
     --deselect=tests/test_activate.py::test_build_activate_dont_use_PATH \
@@ -303,11 +308,13 @@ py.test-%{python3_version} -vv -rfs -m "not integration" \
     --deselect=tests/cli/test_main_export.py::test_export_regular_format_consistency \
     --deselect=tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-yaml-yaml_safe_load] \
     --deselect=tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-json-loads] \
+    --deselect=tests/cli/test_main_export.py::test_export_pip_dependencies_handling[environment-yaml-loads] \
     --deselect=tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--yaml_safe_load] \
     --deselect=tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[JSON---format=json-loads] \
     --deselect=tests/cli/test_main_export.py::test_export_explicit_format_validation_errors \
     --deselect=tests/cli/test_main_export.py::test_export_multiple_platforms \
     --deselect=tests/cli/test_main_export.py::test_export_single_platform_different_platform \
+    --deselect=tests/cli/test_main_export.py::test_export_with_pip_dependencies_integration[YAML--loads] \
     --deselect=tests/cli/test_main_install.py::test_build_version_shows_as_changed \
     --deselect=tests/cli/test_main_list.py::test_fields_all \
     --deselect=tests/cli/test_main_list.py::test_fields_invalid \
@@ -325,12 +332,13 @@ py.test-%{python3_version} -vv -rfs -m "not integration" \
     --deselect=tests/env/installers/test_conda_installer_explicit.py::test_installer_installs_explicit \
     --deselect=tests/env/specs/test_explicit.py::test_environment \
     --deselect=tests/env/test_create.py::test_create_env_from_non_existent_plugin \
+    --deselect=tests/gateways/test_repodata_gateway.py::test_repodata_fetch_jsondecodeerror \
     --deselect=tests/models/test_environment.py::test_extrapolate \
     --deselect=tests/models/test_environment.py::test_explicit_packages \
-    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_pinned_will_formatted_check \
-    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[True] \
-    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_supported[False] \
-    --deselect=tests/plugins/subcommands/doctor/test_health_checks.py::test_file_locking_not_supported \
+    --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[True] \
+    --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_supported[False] \
+    --deselect=tests/plugins/subcommands/doctor/health_checks/test_file_locking.py::test_file_locking_not_supported \
+    --deselect=tests/plugins/test_health_checks.py::test_fix_user_cancels_no_warning \
     --deselect=tests/plugins/test_transaction_hooks.py::test_transaction_hooks_invoked \
     --deselect=tests/plugins/test_transaction_hooks.py::test_pre_transaction_raises_exception \
     --deselect=tests/plugins/test_transaction_hooks.py::test_post_transaction_raises_exception \
@@ -341,6 +349,7 @@ py.test-%{python3_version} -vv -rfs -m "not integration" \
     --deselect=tests/cli/test_config.py::test_conda_config_validate_sslverify_truststore \
     --deselect=tests/cli/test_conda_argparse.py::test_list_through_python_api \
     --deselect=tests/cli/test_main_clean.py \
+    --deselect=tests/cli/test_main_info.py::test_compute_prefix_size \
     --deselect=tests/cli/test_main_info.py::test_info_python_output \
     --deselect=tests/cli/test_main_info.py::test_info_conda_json \
     --deselect=tests/cli/test_main_info.py::test_info_json \

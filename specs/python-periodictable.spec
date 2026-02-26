@@ -56,7 +56,7 @@ BuildRequires:  python3-pyparsing
 %autosetup -n %{pname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

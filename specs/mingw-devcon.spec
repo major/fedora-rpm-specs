@@ -20,7 +20,8 @@ Source0:        devcon%{shortcommit}.tar.gz
 Source1:        https://github.com/microsoft/Windows-driver-samples/raw/refs/heads/main/LICENSE
 Source2:        Makefile
 
-# Fix an error message in devcon.  Not upstream yet.
+# Fix an error message in devcon.
+# https://github.com/microsoft/Windows-driver-samples/pull/1350
 Patch1:         0001-devcon-In-MSG_FAILURE-show-the-cmd-name.patch
 
 BuildRequires:  make

@@ -7,15 +7,13 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2026.02.04
+Version:        2026.02.21
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
 License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
-# fix cookie test failing with python 3.14.3 due to stricter parsing
-Patch:          https://github.com/yt-dlp/yt-dlp/pull/15862.patch
 
 BuildArch:      noarch
 

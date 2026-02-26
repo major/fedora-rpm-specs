@@ -13,7 +13,6 @@ Source:         %{forgeurl}/archive/%{version}/pipx-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -l pipx
-BuildOption(generate_buildrequires): -x full,graph,junit,sarif
 
 BuildArch:      noarch
 

@@ -2,7 +2,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-manuals
-Version:        50~alpha
+Version:        50~rc
 Release:        %autorelease
 Summary:        Install, Browse, and Search developer documentation
 License:        GPL-3.0-or-later

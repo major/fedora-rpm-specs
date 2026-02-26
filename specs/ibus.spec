@@ -53,7 +53,7 @@
 Name:           ibus
 Version:        1.5.34~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -441,13 +441,17 @@ fi
 %posttrans
 dconf update || :
 
+# see https://bugzilla.redhat.com/show_bug.cgi?id=2439813
+# for use of `env -i`
 %transfiletriggerin -- %{_datadir}/ibus/component
 [ -x %{_bindir}/ibus ] && \
-  %{_bindir}/ibus write-cache --system &>/dev/null || :
+  env -i %{_bindir}/ibus write-cache --system &>/dev/null || :
 
+# see https://bugzilla.redhat.com/show_bug.cgi?id=2439813
+# for use of `env -i`
 %transfiletriggerpostun -- %{_datadir}/ibus/component
 [ -x %{_bindir}/ibus ] && \
-  %{_bindir}/ibus write-cache --system &>/dev/null || :
+  env -i %{_bindir}/ibus write-cache --system &>/dev/null || :
 
 
 %ldconfig_scriptlets libs
@@ -575,6 +579,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Feb 24 2026 Adam Williamson <awilliam@redhat.com> - 1.5.34~beta-3
+- Run triggers in env -i to avoid hang during install (#2439813)
+
 * Thu Feb 05 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~beta1-2
 - Support input purpose and hits to ibus-wayland
 

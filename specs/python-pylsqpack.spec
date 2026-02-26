@@ -52,7 +52,7 @@ to read or write HTTP/3 headers compressed with QPACK.
 rm -rf src/%{pypi_name}.egg-info
 %if %{with pyproject}
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires
 %endif
 
 %build

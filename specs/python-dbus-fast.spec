@@ -1,5 +1,5 @@
 Name:           python-dbus-fast
-Version:        2.45.1
+Version:        4.0.0
 Release:        %autorelease
 Summary:        A faster version of dbus-next
 License:        MIT
@@ -55,7 +55,10 @@ sed -i 's/Cython>=3,<3.1.0/Cython>=3/' pyproject.toml
 
 %check
 %global __pytest dbus-run-session -- %{__pytest}
-%pytest --no-cov --ignore tests/benchmarks
+%pytest \
+    --no-cov \
+    --ignore tests/benchmarks \
+    -o filterwarnings=default
 
 %pyproject_check_import
 

@@ -20,8 +20,8 @@
 %global source_directory 1.25-development
 
 Name:           libnbd
-Version:        1.25.2
-Release:        2%{?dist}
+Version:        1.25.3
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -401,6 +401,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Feb 24 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.3-1
+- New upstream development version 1.25.3
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.2-2
 - OCaml 5.4.1 rebuild
 

@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 145.0.7632.109
+Version: 145.0.7632.116
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1851,6 +1851,12 @@ fi
 %endif
 
 %changelog
+* Tue Feb 24 2026 Than Ngo <than@redhat.com> - 145.0.7632.116-1
+- Update to 145.0.7632.116
+  * CVE-2026-3061: Out of bounds read in Media
+  * CVE-2026-3062: Out of bounds read and write in Tint
+  * CVE-2026-3063: Inappropriate implementation in DevTools
+
 * Mon Feb 23 2026 Than Ngo <than@redhat.com> - 145.0.7632.109-1
 - Update to 145.0.7632.109
   * CVE-2026-2648: Heap buffer overflow in PDFium

@@ -2,7 +2,7 @@
 %global modname jsonschema_path
 
 Name:           python-%{srcname}
-Version:        0.3.4
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Object-oriented JSONSchema
 

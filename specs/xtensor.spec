@@ -1,11 +1,10 @@
 %undefine __cmake_in_source_build
 
 Name:           xtensor
-Version:        0.27.0
+Version:        0.27.1
 Release:        %autorelease
 Summary:        C++ tensors with broadcasting and lazy computing
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://xtensor.readthedocs.io/
 
 %global github  https://github.com/QuantStack/xtensor
@@ -58,6 +57,8 @@ find -name '*.npy' -exec %{__python3} -c "import numpy as np; arr = np.load('{}'
 
 %install
 %cmake_install
+rm %{buildroot}%{_prefix}/etc/xeus-cpp/tags.d/xtensor.json
+rm %{buildroot}%{_datadir}/xeus-cpp/tagfiles/xtensor.tag
 
 %check
 %cmake_build --target xtest

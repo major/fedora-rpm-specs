@@ -12,7 +12,7 @@ Patch0:		lis-1.5.60-optflags.patch
 BuildRequires:	autoconf
 BuildRequires:	chrpath
 BuildRequires:	gcc-gfortran
-BuildRequires: make
+BuildRequires:	make
 
 %description
 Lis, a Library of Iterative Solvers for linear systems, is a scalable parallel
@@ -52,6 +52,7 @@ This package contains the developer documentation for lis.
 %patch -P0 -p0 -b .optflags
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 export CC=gcc
 autoconf --force
 
@@ -61,7 +62,7 @@ pushd omp
 %configure --disable-static --enable-shared \
     --enable-saamg \
     --enable-quad --disable-rpath
-make %{?_smp_mflags}
+%make_build
 popd
 
 %install

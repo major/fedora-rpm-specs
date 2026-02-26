@@ -84,10 +84,10 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm BLAS marshaling library
-License:        MIT
+License:        MIT AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
 %if %{with gitcommit}
@@ -116,11 +116,10 @@ BuildRequires:  rocsolver%{pkg_suffix}-devel
 %if %{with test}
 BuildRequires:  gtest-devel
 %if 0%{?suse_version}
-BuildRequires:  blas-devel
 BuildRequires:  cblas-devel
 BuildRequires:  lapack-devel
 %else
-BuildRequires:  blas-static
+BuildRequires:  blis-devel
 BuildRequires:  lapack-static
 BuildRequires:  python3-pyyaml
 %endif
@@ -184,8 +183,11 @@ cd projects/hipblas
 %endif
 
 %cmake \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_Fortran_COMPILER=gfortran \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
@@ -194,15 +196,12 @@ cd projects/hipblas
     -DCMAKE_BUILD_TYPE=%build_type \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
-    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-    -DBUILD_FORTRAN_CLIENTS=OFF \
-    -DBLAS_LIBRARY=cblas
+    -DBUILD_FORTRAN_CLIENTS=OFF
 
 %cmake_build
 
@@ -235,6 +234,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Tue Feb 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Fix --with test
+
 * Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

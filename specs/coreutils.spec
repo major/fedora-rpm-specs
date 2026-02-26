@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -155,6 +155,12 @@ find tests -name '*.sh' -perm 0644 -print -exec chmod 0755 '{}' '+'
 # with coreutils 9.6 and bundled gettext 0.19.2 from gettext-common-devel.
 sed -i "s/0.19.2/$(rpm -q --queryformat '%%{VERSION}\n' gettext-devel)/" bootstrap.conf configure.ac
 
+%if 0%{?rhel}
+# Temporarily disable test-getaddrinfo from gnulib because it malfunctions in
+# the environment used to bootstrap RHEL.
+sed -i 's/TESTS += test-getaddrinfo//' gnulib-tests/gnulib.mk
+%endif
+
 autoreconf -fiv
 
 %build
@@ -276,6 +282,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Tue Feb 24 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.10-2
+- enable the execution of the downstream df/direct.sh test
+- temporarily disable test-getaddrinfo on RHEL builds
+
 * Thu Feb 05 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.10-1
 - rebase to the latest upstream release (rhbz#2436690)
 - enable manual URLs in --help

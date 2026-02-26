@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           foundry
-Version:        1.1~beta
+Version:        1.1~rc
 Release:        %autorelease
 Summary:        IDE library and command-line companion tool
 

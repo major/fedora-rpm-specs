@@ -14,6 +14,9 @@ Patch:          libsixel-fix-bash-completions.patch
 # https://github.com/saitoha/libsixel/issues/200
 Patch:          libsixel-fix-cve-2025-9300.patch
 
+# https://github.com/saitoha/libsixel/issues/207
+Patch:          libsixel-fix-cve-2025-61146.patch
+
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gdlib)

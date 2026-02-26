@@ -36,11 +36,13 @@ sed -i.m64 's/\-m64 //' makefile_linuxLP64_utf8
 %configure
 
 %if "%{_lib}" == "lib64"
-CFLAGS="%{optflags} -c -DREADLINE -DSUPPORT_UTF8 -DLINUX -DNEWLISP64" \
-        make -f makefile_linuxLP64_utf8 %{?_smp_mflags}
+    NEWLISP_FLAGS="-c -DREADLINE -DSUPPORT_UTF8 -DNEWLISP64 -DLINUX"
+    %make_build -f makefile_linuxLP64_utf8 -j1 \
+    CFLAGS="%{optflags} -std=gnu17 -fPIC -fno-strict-aliasing $NEWLISP_FLAGS"
 %else
-CFLAGS="%{optflags} -c -DREADLINE -DSUPPORT_UTF8 -DLINUX" \
-        make -f makefile_linux_utf8 %{?_smp_mflags}
+    NEWLISP_FLAGS="-c -DREADLINE -DSUPPORT_UTF8 -DLINUX"
+    %make_build -f makefile_linux_utf8 -j1 \
+    CFLAGS="%{optflags} -std=gnu17 -fPIC -fno-strict-aliasing $NEWLISP_FLAGS"
 %endif
 
 %install

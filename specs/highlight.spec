@@ -1,6 +1,6 @@
 Name:           highlight
 Summary:        Universal source code to formatted text converter
-Version:        4.18
+Version:        4.19
 Release:        %autorelease
 License:        GPL-3.0-only
 URL:            http://www.andre-simon.de/

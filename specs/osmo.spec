@@ -1,32 +1,15 @@
-# 'rel' is always the release number.
-# If you're building from SVN, set 'svn' to the SVN revision. If not, set it to 0
-%global rel 3
-%global svn 0 
-%if %{svn}
-# svn co https://osmo-pim.svn.sourceforge.net/svnroot/osmo-pim/trunk osmo-pim
-# tar cvJf osmo-%{svn}.tar.xz osmo-pim/ --exclude=".svn*"
-%global release 4.%{rel}.svn%{svn}%{?dist}.12
-%global tarname %{name}-%{svn}.tar.xz
-%global _dirname osmo-pim
-%else
-%global release %{rel}%{?dist}
-%global tarname %{name}-%{version}.tar.gz
-%global _dirname %{name}-%{version}
-%endif
-
 Summary:        Personal organizer
 Summary(pl):    Osobisty organizer
 Summary(de):    Persönlicher Organizer
 Name:           osmo
 Version:        0.4.4
-Release:        %{release}
+Release:        5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Group:          Applications/Productivity
 URL:            http://osmo-pim.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}-pim/%{tarname}
+Source0:        http://downloads.sourceforge.net/%{name}-pim/%{name}-%{version}.tar.gz
 
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+Patch0:         0000-incompatible-pointer-types.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext-devel
@@ -39,7 +22,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  libgringotts-devel
 BuildRequires:  libgcc
-BuildRequires:	gcc
+BuildRequires:  gcc
 BuildRequires:  libtar-devel
 # for the SyncML plugin - disabled due to broken libsyncml (adamw 2012/09)
 # BuildRequires:  libsyncml-devel
@@ -53,9 +36,6 @@ Requires:       alsa-utils
 Requires:       gtk3
 Requires:       gtkspell3
 Requires:       webkit2gtk4.1
-Requires:       libgringotts
-Requires:       libtar
-Requires:       libxml2
 Requires:       gettext
 
 
@@ -85,9 +65,8 @@ viele Parameter einstellen, um die Vorlieben des Benutzers zu treffen.
 
 
 %prep
-%setup -q -n %{_dirname}
-#%patch0 -p1 -b .configure
-#%patch10 -p1 -b .aplay
+%autosetup -p1
+
 # Use webkit2gtk-4.1
 # https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
 sed -i configure.ac -e 's|webkit2gtk-4.0|webkit2gtk-4.1|'
@@ -97,15 +76,16 @@ autoreconf -vif
 %build
 %configure --enable-backup=yes --enable-printing=yes \
   --with-contacts --with-tasks --with-notes
-make %{?_smp_mflags}
+%make_build
 
+
+%check
+make check
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 
 # icon
 mv %{buildroot}%{_datadir}/pixmaps/%{name}.png \
@@ -125,10 +105,6 @@ desktop-file-install \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -143,7 +119,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING README TRANSLATORS
 %{_bindir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
@@ -155,6 +130,13 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/sounds/osmo/alarm.wav
 
 %changelog
+* Wed Feb 25 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.4.4-5
+- spec cleanup, added check session, silent fedpkg lint
+
+* Sun Feb 22 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.4.4-4
+- Add a patch to fix FTBFS
+- Clean up spec file
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
@@ -224,7 +206,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 - version bump with webkit2gtk and gtk3 included.
 - Added 'BuildRequires: gtk3-devel' and 'BuildRequires: gtkspell3-devel' and 'BuildRequires:gettext-devel'.
 - Note: changed to 0.4.0 and tar-balled to avoid "-1" again at 0.4.0-1 (downloaded tarball from upstream is osmo-0.4.0-1.tar.gz
-									
+
 * Tue Mar 21 2017 Ranjan Maitra <aarem AT fedoraproject DOT org> - 0.2.14-0.12
 - removed dependency webkitgtk, also removes contacts tab: unclear what can be done about this unless there is upstream development.
 * Wed Feb 1 2017 Ranjan Maitra <aarem AT fedoraproject DOT org> - 0.2.14-0.11

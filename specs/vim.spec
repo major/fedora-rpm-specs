@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 2146
+%define patchlevel 045
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -25,8 +25,8 @@
 # https://github.com/vim/vim/pull/3507
 %define _fortify_level 1
 
-%define baseversion 9.1
-%define vimdir vim91
+%define baseversion 9.2
+%define vimdir vim92
 
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1018,6 +1018,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Tue Feb 24 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.045-1
+- patchlevel 045
+
 * Mon Feb 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.2146-2
 - provide previous vi->vim alias (fedora#2439657)
 

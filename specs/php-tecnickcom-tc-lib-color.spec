@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    6331d57bd847d883652012a5c3594aa03aea4c50
+%global gh_commit    7eed5344ed57a3d55b56bebbd1329bd0e8fe597a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.3.8
+Version:        2.3.9
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -26,8 +26,8 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 %if %{with_tests}
 # For tests
-%global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.5.63
+%global phpunit %{_bindir}/phpunit11
+BuildRequires:  phpunit11 >= 11.5.55
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-pcre
 %endif
@@ -86,7 +86,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in php php82 php83 php84 php85; do
+for cmdarg in php php82 "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit13" "php85 %{_bindir}/phpunit13"; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 2.3.9-1
+- update to 2.3.9 (no change)
+
 * Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 2.3.8-1
 - update to 2.3.8 (no change)
 

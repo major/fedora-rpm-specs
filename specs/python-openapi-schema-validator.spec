@@ -1,7 +1,5 @@
-%bcond tests 1
-
 Name:           python-openapi-schema-validator
-Version:        0.6.3
+Version:        0.7.0
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 
@@ -11,17 +9,13 @@ URL:            https://github.com/python-openapi/openapi-schema-validator
 Source:         %{url}/archive/%{version}/openapi-schema-validator-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(install):   -L openapi_schema_validator
+BuildOption(install):   -l openapi_schema_validator
 
 BuildArch:      noarch
 
-%if %{with tests}
 # See [tool.poetry.dev-dependencies] in pyproject.toml, which also includes
-# coverage/formatter/linter/typechecker type dependencies that we do not need
-# or want. Upstream pins a major version of pytest, but we do not have that
-# luxury.
-BuildRequires:  %{py3_dist pytest} >= 7
-%endif
+# coverage/formatter/linter/typechecker type dependencies that we do not want.
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 Openapi-schema-validator is a Python library that validates schema against:
@@ -47,13 +41,10 @@ sed -r -i '/^--cov\b/d' pyproject.toml
 
 
 %check -a
-%if %{with tests}
 %pytest
-%endif
 
 
 %files -n python3-openapi-schema-validator -f %{pyproject_files}
-%license LICENSE
 %doc README.rst
 
 

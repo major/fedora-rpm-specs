@@ -158,6 +158,14 @@ Source2:        get_assets
 # original assets in order to then modify them. The signal for this behavior is
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-9.1.1-modified-assets.patch
+# Downstream-only: do not upper-bound packaging version
+#
+# Upstream added the upper bound in
+# 5ae43aa7ae108b7b87cee524a6015dc3d228dc17 to work around some unspecified
+# “pixi solving caveat.” Whatever was going there (and it doesn’t seem to
+# have been written down), it doesn’t affect us downstream, and we must
+# work with what we have in any case.
+Patch:          0001-Downstream-only-do-not-upper-bound-packaging-version.patch
 
 BuildSystem:            pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI

@@ -12,7 +12,6 @@ Source:         %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -L niaaml_gui
-BuildOption(generate_buildrequires): -x full,graph,junit,sarif
 
 BuildArch:      noarch
 

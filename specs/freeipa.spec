@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        6%{?rc_version:.%rc_version}%{?dist}
+Release:        8%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1967,6 +1967,12 @@ fi
 %endif
 
 %changelog
+* Tue Feb 24 2026 Adam Williamson <awilliam@redhat.com> - 4.13.1-8
+- Rebuild against Samba 4.24.0-RC3
+
+* Tue Feb 24 2026 Adam Williamson <awilliam@redhat.com> - 4.13.1-7
+- Rebuild with no changes to keep version ahead of F44
+
 * Wed Feb 18 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-6
 - More changes to SELinux policy to help upgrade SSSD helpers' contexts
 

@@ -8,7 +8,8 @@ URL:            http://idle3-tools.sourceforge.net/
 Source0:        http://sourceforge.net/projects/idle3-tools/files/%{name}-%{version}.tgz
 BuildRequires:  gcc
 BuildRequires:  kernel-headers
-BuildRequires: make
+BuildRequires:  make
+Patch0:         sbindir_bindir.patch
 
 %description
 Idle3-tools provides a linux/unix utility that can disable, get and set the
@@ -23,19 +24,17 @@ WARNING: THIS SOFTWARE IS EXPERIMENTAL AND NOT WELL TESTED. IT ACCESSES LOW
 LEVEL INFORMATION OF YOUR HARDDRIVE. USE AT YOUR OWN RISK.
 
 %prep
-%setup -q
+%autosetup
 
 %build
-CFLAGS="${RPM_OPT_FLAGS}" make %{?_smp_mflags} \
-    LDFLAGS="${RPM_LD_FLAGS}" STRIP=/bin/true
+%make_build LDFLAGS="${RPM_LD_FLAGS}" STRIP=/bin/true
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %make_install binprefix=/usr
 
 %files
 %doc COPYING
-%{_sbindir}/idle3ctl
+%{_bindir}/idle3ctl
 %{_mandir}/man8/idle3ctl*
 
 %changelog

@@ -1,6 +1,6 @@
 Name:           httptunnel
 Version:        3.3
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Tunnels a data stream in HTTP requests
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -30,13 +30,13 @@ recode AUTHORS iso-8859-15
 recode ChangeLog iso-8859-15
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 
 
@@ -48,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.3-41
+- Use "-std=gnu99" when building
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

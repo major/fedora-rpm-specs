@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.5.0
+%global package_version 2.5.1
 
 %global oldname vault
 
 Name: openbao
-Version: 2.5.0
+Version: 2.5.1
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -274,7 +274,7 @@ Provides: bundled(golang(github.com/nicolai86/scaleway_sdk)) = v1.10.2_0.2018062
 Provides: bundled(golang(github.com/oklog/run)) = v1.2.0
 Provides: bundled(golang(github.com/okta/okta_sdk_golang/v2)) = v2.20.0
 Provides: bundled(golang(github.com/openbao/go_kms_wrapping/entropy/v2)) = v2.1.0
-Provides: bundled(golang(github.com/openbao/go_kms_wrapping/v2)) = v2.6.0
+Provides: bundled(golang(github.com/openbao/go_kms_wrapping/v2)) = v2.7.0
 Provides: bundled(golang(github.com/openbao/go_kms_wrapping/wrappers/aead/v2)) = v2.3.0
 Provides: bundled(golang(github.com/openbao/go_kms_wrapping/wrappers/alicloudkms/v2)) = v2.2.0
 Provides: bundled(golang(github.com/openbao/go_kms_wrapping/wrappers/awskms/v2)) = v2.3.0
@@ -351,10 +351,10 @@ Provides: bundled(golang(go.etcd.io/bbolt)) = v1.4.3
 Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = v1.2.1
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = v0.61.0
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = v0.61.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = v1.39.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.39.0
+Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.40.0
+Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.40.0
+Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = v1.40.0
+Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.40.0
 Provides: bundled(golang(go.uber.org/goleak)) = v1.3.0
 Provides: bundled(golang(go.uber.org/multierr)) = v1.11.0
 Provides: bundled(golang(go.uber.org/zap)) = v1.27.1

@@ -4,13 +4,13 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.22.0
+Version:        0.23.0~b1
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
-Source:         %{pypi_source %{modname}}
+Source:         %{pypi_source %{modname} 0.23.0b1}
 
 # Allow Starlette 0.50, 0.51, 0.52
 # Not upstreamable until a FastAPI release supports 0.52
@@ -52,7 +52,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{modname}-%{version} -p1
+%autosetup -n %{modname}-0.23.0b1 -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 # We cannot respect a SemVer or version range pin on FastAPI; it updates

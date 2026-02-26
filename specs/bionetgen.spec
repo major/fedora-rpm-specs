@@ -57,6 +57,14 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 Requires:       bionetgen-perl = %{version}-%{release}
 
+# Modern `sundials` releases are not continuosly supported  
+# https://github.com/RuleWorld/bionetgen/issues/190
+%if 0%{with bundled_sundials}
+Provides: bundled(libsundials_cvode) = 2.6.0
+Provides: bundled(libsundials_fcvode) = 2.6.0
+Provides: bundled(libsundials_nvecserial) = 2.6.0
+%endif
+
 # BioNetGen does not namespace its perl modules
 %global __provides_exclude perl\\(.*BNG.*|Cache|CartesianProduct|Compartment.*|Component.*|Console|EnergyPattern|Expression|Function|HNauty|Map|ModelWrapper|Molecule*|Observable|Param*|PatternGraph|Population*|RateLaw|RefineRule|Rxn*|SBMLMultiAux|Species*|Visualization*|XML::*|XMLReader\\)
 %global __requires_exclude perl\\(.*BNG.*|Cache|CartesianProduct|Compartment.*|Component.*|Console|EnergyPattern|Expression|Function|HNauty|Map|ModelWrapper|Molecule*|Observable|Param*|PatternGraph|Population*|RateLaw|RefineRule|Rxn*|SBMLMultiAux|Species*|Visualization*|XML::*|XMLReader\\)

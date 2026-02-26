@@ -8,7 +8,7 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.6.0
+Version: 6.6.1
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -112,10 +112,8 @@ Recommends: %{name}-flatpak = %{version}-%{release}
 Recommends: fedora-appstream-metadata
 %endif
 
-# Enable -offline-updates by default for f34+
-%if 0%{?fedora} > 33
+# Enable -offline-updates by default
 Recommends: %{name}-offline-updates = %{version}-%{release}
-%endif
 
 # handle upgrade path
 %if ! 0%{?snap}
@@ -313,6 +311,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Tue Feb 24 2026 Steve Cossette <farchord@gmail.com> - 6.6.1-1
+- 6.6.1
+
+* Tue Feb 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.6.0-2
+- Enable offline-updates by default everywhere
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.6.0-1
 - 6.6.0
 

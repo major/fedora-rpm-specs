@@ -12,6 +12,9 @@ License:        MIT AND (BSD-2-Clause OR Apache-2.0)
 URL:            https://github.com/nexB/pip-requirements-parser
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
+# Compatibility patch for packaging 26.0
+Patch:          https://github.com/aboutcode-org/pip-requirements-parser/pull/28.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)

@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -21,6 +21,7 @@ Source5:    https://senderek.ie/fedora/cryptlib-perlfiles.tar.gz
 Source6:    https://senderek.ie/fedora/cryptlib-tools.tar.gz
 
 # soname is now libcl.so.3.4
+Patch0:     m64patch
 
 ExclusiveArch: x86_64 aarch64 ppc64le riscv64
 
@@ -131,6 +132,9 @@ mkdir %{name}-%{version}
 cd %{name}-%{version}
 /usr/bin/unzip %{SOURCE0}
 
+# patches and updates
+%patch 0 -p1
+
 # enable ADDFLAGS
 sed -i '98s/-I./-I. \$(ADDFLAGS)/' makefile
 # enable JAVA in config
@@ -172,6 +176,7 @@ cp /etc/alternatives/java_sdk/include/linux/jni_md.h .
 FLAGS="%{optflags}"
 FLAGS=${FLAGS//"-Wp,-D_GLIBCXX_ASSERTIONS"/}
 FLAGS=${FLAGS//"-Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3"/}
+
 
 make clean
 make shared  ADDFLAGS="${FLAGS}"
@@ -217,6 +222,9 @@ cp %{_builddir}/%{name}-%{version}/README %{buildroot}%{_docdir}/%{name}/README
 echo "No tests performed." > %{_builddir}/%{name}-%{version}/stestlib.log
 cp %{_builddir}/%{name}-%{version}/stestlib.log %{buildroot}%{_docdir}/%{name}/stestlib.log
 cp %{SOURCE3} %{buildroot}%{_docdir}/%{name}
+cp %{_builddir}/%{name}-%{version}/README.md %{buildroot}%{cryptlibdir}
+cp %{_builddir}/%{name}-%{version}/architecture.md %{buildroot}%{cryptlibdir}
+cp %{_builddir}/%{name}-%{version}/SECURITY.md %{buildroot}%{cryptlibdir}
 
 # install javadoc
 mkdir -p %{buildroot}%{_javadocdir}/%{name}
@@ -335,6 +343,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Feb 24 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9-2
+- apply new m64patch
+
 * Mon Feb 23 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9-1
 - update Cryptlib to version 3.4.9 and update cryptlib tools to version 1.2
 

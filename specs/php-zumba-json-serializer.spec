@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    bf26227879adefce75eb9651040d8982be97b881
+%global gh_commit    fb113cafb08cd6c70f8134db586bde166a7abae0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
@@ -18,7 +18,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.2.3
+Version:        3.2.4
 Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
@@ -34,7 +34,8 @@ BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-json
 BuildRequires:  php-mbstring
 # For tests, from composer.json "require-dev": {
-#        "phpunit/phpunit": ">=8.0 <12.0"
+#        "phpunit/phpunit": ">=8.0 <12.0,"
+#        "opis/closure": "^3.0 || ^4.0"
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 BuildRequires:  phpunit11
 %global phpunit %{_bindir}/phpunit11
@@ -119,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 3.2.4-1
+- update to 3.2.4
+
 * Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 3.2.3-1
 - update to 3.2.3
 

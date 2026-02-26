@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.6.0
+%define radicale_version  3.6.1
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -532,6 +532,9 @@ fi
 
 
 %changelog
+* Tue Feb 24 2026 Peter Bieringer <pb@bieringer.de>  - 3.6.1-1
+- Update to 3.6.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

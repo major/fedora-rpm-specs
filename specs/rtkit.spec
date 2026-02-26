@@ -1,11 +1,14 @@
 Name:             rtkit
-Version:          v0.14
+Version:          0.14
 Release:          %autorelease
 Summary:          Realtime Policy and Watchdog Daemon
 # The daemon itself is GPLv3+, the reference implementation for the client MIT
 # The LICENSE file incorrectly states that the client is under BSD.
 License:          GPL-3.0-or-later AND MIT
-URL:              https://gitlab.freedesktop.org/pipewire/rtkit
+%define forgeurl https://gitlab.freedesktop.org/pipewire/rtkit
+%define tag v%{version}
+%forgemeta
+URL:              %{forgeurl}
 Requires:         dbus
 Requires:         polkit
 BuildRequires:    ninja-build
@@ -18,7 +21,7 @@ BuildRequires:    pkgconfig(systemd)
 BuildRequires:    dbus-devel >= 1.2
 BuildRequires:    libcap-devel
 BuildRequires:    polkit-devel
-Source0:          https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:          %{forgesource}
 
 Patch:            remove-debug-messages.patch
 
@@ -30,7 +33,7 @@ mechanism to allow real-time scheduling to be used by normal user
 processes.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
 %meson \

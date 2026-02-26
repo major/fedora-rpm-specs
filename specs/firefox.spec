@@ -108,7 +108,11 @@ ExcludeArch: i686
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 11
 %global build_with_pgo    0
+%else
+%global build_with_pgo    1
+%endif
 %endif
 %endif
 %if 0%{?flatpak}
@@ -153,9 +157,9 @@ ExcludeArch: i686
 %endif
 
 %if %{?system_nss}
-%global nspr_version 4.37
+%global nspr_version 4.38.2
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.119
+%global nss_version 3.120.1
 %global nss_build_version %{nss_version}
 %endif
 
@@ -257,6 +261,7 @@ Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
 Patch82:        build-c11-threads-avail.patch
 Patch83:        build-seccomp.patch
+Patch84:        dstdint-compile-error.patch
 
 
 # Fedora specific patches
@@ -580,6 +585,7 @@ This package contains results of tests executed during build.
 %patch -P82 -p1 -b .build-c11-threads-avail
 %patch -P83 -p1 -b .build-seccomp
 %endif
+%patch -P84 -p1 -b .dstdint-compile-error
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
@@ -1285,6 +1291,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+
+* Mon Feb 23 2026 Bojan Smojver <bojan@rexursive.com> - 148.0-1
+- Add patch for dstdint compilation problem
+
 * Mon Feb 23 2026 Martin Stransky <stransky@redhat.com> - 148.0-1
 - Update to latest upstream (148.0)
 

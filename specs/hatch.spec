@@ -1,10 +1,10 @@
 %bcond tests 1
 
-%global commit f400be159bbd7c016ba5dc591a43753b193eadab
-%global snapdate 20260203
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#global snapdate YYYYMMDD
 
 Name:           hatch
-Version:        1.16.3%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
+Version:        1.16.4%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -212,13 +212,6 @@ k="${k-}${k+ and }not test_verbose_output_to_stderr"
 # https://github.com/pypa/hatch/issues/2167
 # https://bugzilla.redhat.com/show_bug.cgi?id=2432349
 k="${k-}${k+ and }not (TestUserAgent and test_user_agent_header_format)"
-
-# Expected output has been updated for packaging 26; we skip these until
-# python-packaging is updated,
-# https://bugzilla.redhat.com/show_bug.cgi?id=2431859.
-k="${k-}${k+ and }not (TestDependencies and test_project_dependencies_context_formatting)"
-k="${k-}${k+ and }not (TestDependencies and test_context_formatting)"
-k="${k-}${k+ and }not test_context_formatting"
 
 %pytest -k "${k-}" ${ignore-} -vv
 %endif

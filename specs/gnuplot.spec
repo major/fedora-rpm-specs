@@ -19,7 +19,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 6%{?dist}
+Release: 7%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -29,6 +29,8 @@ Patch1: gnuplot-4.2.0-fonts.patch
 # Fix out of tree parallel builds
 # https://sourceforge.net/p/gnuplot/gnuplot-main/merge-requests/32/
 Patch2: gnuplot-make.patch
+# Fix for lua 5.5 - https://sourceforge.net/p/gnuplot/bugs/2859/
+Patch3: https://sourceforge.net/p/gnuplot/bugs/_discuss/thread/c76f097014/7d60/attachment/possible_lua_fix.patch
 Patch5: gnuplot-5.0.0-lua_checkint.patch
 Patch7: gnuplot-5.2.2-doc.patch
 
@@ -129,7 +131,7 @@ plotting tool
 %package latex
 Summary: Configuration for LaTeX typesetting using gnuplot
 Requires: %{name} = %{version}-%{release}
-Requires: tex(latex), tex(cm-super-t1.enc), tex(ecrm1000.tfm), tex(utf8x.def), tex-preview
+Requires: tex(latex), texlive-cm-super, texlive-ec, tex(utf8x.def), tex-preview
 BuildArch: noarch
 
 %description latex
@@ -140,6 +142,7 @@ plotting tool.
 %setup -q
 %patch -P1 -p1 -b .font
 %patch -P2 -p1 -b .make
+%patch -P3 -p1 -b .lua5.5
 %patch -P5 -p1 -b .checkint
 %patch -P7 -p1 -b .doc
 sed -i -e 's:"/usr/lib/X11/app-defaults":"%{x11_app_defaults_dir}":' src/gplt_x11.c
@@ -310,6 +313,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Tue Feb 24 2026 Orion Poplawski <orion@nwra.com> - 6.0.3-7
+- Add upstream fix for lua 5.5
+
 * Mon Feb 23 2026 Orion Poplawski <orion@nwra.com> - 6.0.3-6
 - Fix tex BuildRequires
 

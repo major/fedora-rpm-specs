@@ -1,6 +1,6 @@
 Name:           firewalk
 Version:        5.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Active reconnaissance network security tool
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -27,6 +27,7 @@ to determine what layer 4 protocols a given IP forwarding device will pass.
 cp -f %{_datadir}/automake-*/config.* .
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 %configure
 %make_build
 
@@ -40,6 +41,9 @@ install -Dp -m 0644 man/firewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/firewalk.8
 %{_mandir}/man?/*
 
 %changelog
+* Tue Feb 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.0-40
+- Build with -std=gnu99
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

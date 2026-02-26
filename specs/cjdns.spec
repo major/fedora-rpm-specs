@@ -144,9 +144,9 @@ Patch23: cjdns.flagdup.patch
 Patch100: cjdns-add-riscv64-support.patch
 
 %if %{use_marked}
-BuildRequires:  nodejs, nodejs-marked, python3
+BuildRequires:  nodejs, /usr/bin/node, nodejs-marked, python3
 %else
-BuildRequires:  nodejs, pandoc, python3
+BuildRequires:  nodejs, /usr/bin/node, pandoc, python3
 %endif
 
 # Automated package review hates explicit BR on make, but it *is* needed

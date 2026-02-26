@@ -32,7 +32,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        13.3.0
+Version:        13.4.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
@@ -161,6 +161,9 @@ mv docs %{buildroot}%{_pkgdocdir}/ansible_collections
 
 
 %changelog
+* Tue Feb 24 2026 Maxwell G <maxwell@gtmx.me> - 13.4.0-1
+- Update to 13.4.0. Fixes rhbz#2426289.
+
 * Thu Feb 12 2026 Maxwell G <maxwell@gtmx.me> - 13.3.0-1
 - Update to 13.3.0. Fixes rhbz#2426289.
 

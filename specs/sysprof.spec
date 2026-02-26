@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        50~beta
+Version:        50~rc
 Release:        %autorelease
 Summary:        A system-wide Linux profiler
 

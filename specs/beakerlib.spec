@@ -1,6 +1,6 @@
 Name:       beakerlib
 Summary:    A shell-level integration testing library
-Version:    1.33
+Version:    1.33.1
 Release:    1%{?dist}
 License:    GPL-2.0-only
 BuildArch:  noarch
@@ -39,10 +39,16 @@ Requires:   tar
 Requires:   gzip
 Requires:   util-linux
 Requires:   which
-%if 0%{?fedora}
-Requires:   dnf-utils
+%if 0%{?fedora} || 0%{?rhel} >= 11
+Requires:   dnf5-command(download)
+Requires:   dnf5-command(repoquery)
+%else
+%if 0%{?rhel} >= 8
+Requires:   dnf-command(download)
+Requires:   dnf-command(repoquery)
 %else
 Requires:   yum-utils
+%endif
 %endif
 Requires:   /usr/bin/bc
 Requires:   /usr/bin/time
@@ -129,6 +135,9 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 %{_datadir}/vim/vimfiles/after/syntax/beakerlib.vim
 
 %changelog
+* Tue Feb 24 2026 Dalibor Pospisil <dapospis@redhat.com> - 1.33.1
+- updated the dnf/yum rpm dependencies, by yselkowitz
+
 * Fri Feb 6 2026 Dalibor Pospisil <dapospis@redhat.com> - 1.33
 - added support for libraries referenced using name only
 

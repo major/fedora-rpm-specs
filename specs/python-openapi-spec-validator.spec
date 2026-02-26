@@ -2,13 +2,17 @@
 %global modname openapi_spec_validator
 
 Name:           python-%{srcname}
-Version:        0.7.2
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 
 License:        Apache-2.0
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
+
+# Relax jsonschema dependency
+# Fedora still has 4.23
+Patch:          relax_jsonschema_dep.patch
 
 BuildArch:      noarch
 

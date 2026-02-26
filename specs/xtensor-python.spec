@@ -1,19 +1,15 @@
 %undefine __cmake_in_source_build
 
 Name:           xtensor-python
-Version:        0.28.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Python bindings for xtensor
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://xtensor-python.readthedocs.io/
 
 %global github  https://github.com/QuantStack/xtensor-python
 Source0:        %{github}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{github}/pull/324.diff
-Patch1:         %{github}/pull/326.diff
-Patch2:         %{github}/pull/325.diff
-Patch3:         %{github}/pull/327.diff
+Patch0:         %{github}/pull/331.diff
 
 # because xtensor does so for armv7hl, ppc64le and s390x
 ExcludeArch:    armv7hl ppc64le s390x
@@ -65,13 +61,13 @@ Requires:       python3-numpy
 %cmake_install
 
 %check
-%make_build -C %{_vpath_builddir} xtest
+%cmake_build --target xtest
 
 %files devel
 %doc README.md
 %license LICENSE
 %{_includedir}/%{name}/
-%{_libdir}/cmake/%{name}/
+%{_datadir}/cmake/%{name}/
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog

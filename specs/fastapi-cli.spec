@@ -1,5 +1,5 @@
 Name:           fastapi-cli
-Version:        0.0.23
+Version:        0.0.24
 Release:        %autorelease
 Summary:        Run and manage FastAPI apps from the command line with FastAPI CLI
 
@@ -20,7 +20,7 @@ BuildArch:      noarch
 %py_provides python3-fastapi-cli
 
 %if %{defined fc44} || %{defined fc45} || %{defined fc46}
-# Removed in F44 after upstream deprecated fastapi-slim
+# Removed in F44 after upstream deprecated, then removed fastapi-slim
 Obsoletes:      fastapi-cli-slim < 0.0.21-1
 %endif
 

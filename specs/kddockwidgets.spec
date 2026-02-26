@@ -4,7 +4,7 @@
 
 Name:           kddockwidgets
 Version:        2.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Qt dock widget library
 
 License:        GPL-3.0-only AND GPL-2.0-only AND BSD-3-Clause
@@ -143,6 +143,9 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 
 
 %changelog
+* Tue Feb 24 2026 Steve Cossette <farchord@gmail.com> - 2.4.0-6
+- Rebuild for Qt 6.10.2
+
 * Fri Feb 20 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-5
 - Disable qt5 for EPEL 10+
 

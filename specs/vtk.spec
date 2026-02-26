@@ -36,14 +36,23 @@
 %endif
 # s390x on EL8 does not have xorg-x11-drv-dummy
 %if 0%{?rhel}
+%if 0%{?rhel} >= 10
+%bcond_without xwayland
+%else
 %ifarch s390x
 %bcond_with    xdummy
 %else
 %bcond_without xdummy
 %endif
+%endif
+%else
+%if 0%{?fedora} >= 44
+%bcond_without xwayland
 %else
 %bcond_without xdummy
 %endif
+%endif
+%bcond_without xwayland
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without flexiblas
@@ -182,6 +191,9 @@ BuildRequires:  netcdf-openmpi-devel
 %if %{with xdummy}
 BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  mesa-dri-drivers
+%endif
+%if %{with xwayland}
+BuildRequires:  xwayland-run
 %endif
 Requires: hdf5 = %{_hdf5_version}
 
@@ -837,6 +849,7 @@ export QA_RPATHS=18
 %ifnarch s390x
 %check
 cp %SOURCE2 .
+export FLEXIBLAS=netlib
 %if %{with xdummy}
 if [ -x /usr/libexec/Xorg ]; then
    Xorg=/usr/libexec/Xorg
@@ -846,8 +859,19 @@ fi
 $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
 export DISPLAY=:99
 %endif
-export FLEXIBLAS=netlib
-%ctest --verbose || :
+# %%ctest starts with a newline so we need the backslash
+# xwayland-run needs XDG_RUNTIME_DIR set
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+  export XDG_RUNTIME_DIR=${PWD}/tmp
+  mkdir -m 0700 $XDG_RUNTIME_DIR
+fi
+
+cat > ctest_wrap <<EOF
+#!/bin/bash
+%ctest --verbose
+EOF
+chmod a+x ctest_wrap
+%{?with_xwayland:wlheadless-run -- xwayland-run -- }./ctest_wrap || :
 %if %{with xdummy}
 kill %1 || :
 cat xorg.log

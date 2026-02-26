@@ -14,7 +14,7 @@
 Name:           cabal-rpm
 Version:        2.3.2
 # can only be reset when subpkg bumped
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
 License:        GPL-3.0-or-later
@@ -85,11 +85,11 @@ Requires:       rpm-build
 # for rpmdev-bumpspec and spectool
 Requires:       rpmdevtools
 Requires:       wget
-# for repoquery
-%if 0%{?fedora} || 0%{?rhel} > 7
-Requires:       dnf-plugins-core
+# for dnf repoquery
+%if 0%{?fedora} || 0%{?rhel} >= 11
+Requires:       dnf5-command(repoquery)
 %else
-Requires:       yum-utils
+Requires:       dnf-command(repoquery)
 %endif
 # for stack list
 Recommends:     stack > 2.7
@@ -174,6 +174,9 @@ ln -s %{name}.1 %{buildroot}%{_mandir}/man1/%{shortname}.1
 
 
 %changelog
+* Thu Feb 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.2-9
+- Update repoquery dependencies
+
 * Thu Feb 19 2026 Jens Petersen <petersen@redhat.com> - 2.3.2-8
 - https://hackage.haskell.org/package/cabal-rpm-2.3.2/changelog
 

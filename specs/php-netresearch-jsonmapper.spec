@@ -1,15 +1,15 @@
 # remirepo/fedora spec file for php-netresearch-jsonmapper
 #
-# Copyright (c) 2017-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2026 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_without       tests
 
-%global gh_commit    8c64d8d444a5d764c641ebe97e0e3bc72b25bf6c
+%global gh_commit    980674efdda65913492d29a8fd51c82270dd37bb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     cweiske
 %global gh_project   jsonmapper
@@ -22,8 +22,8 @@
 %global major        5
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        5.0.0
-Release:        4%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Map nested JSON structures onto PHP classes, version %{major}
 
 License:        OSL-3.0
@@ -112,7 +112,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in "php %{phpunit}" php81 php82 php83 php84; do
+for cmd in "php %{phpunit}" php82 php83 php84 php85; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit10} \
@@ -135,6 +135,10 @@ exit $ret
 
 
 %changelog
+* Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 5.0.1-1
+- update to 5.0.1
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

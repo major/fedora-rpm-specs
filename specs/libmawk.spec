@@ -1,14 +1,12 @@
 Name:           libmawk
-Version:        1.0.3
-Release:        12%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Embed awk scripting language in any application written in C
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://repo.hu/projects/libmawk
 Source0:        http://repo.hu/projects/libmawk/releases/%{name}-%{version}.tar.gz
-Patch0: libmawk-configure-c99.patch
-Patch1: libmawk-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -36,7 +34,7 @@ HTML documentation for %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 
 %build
@@ -71,6 +69,9 @@ HTML documentation for %{name}.
 
 
 %changelog
+* Wed Feb 25 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.0.5-1
+- Update to 1.0.5 fix FTBFS rhbz#2268946
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

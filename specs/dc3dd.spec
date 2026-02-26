@@ -61,6 +61,7 @@ sed -i -e 's|\r||g' ChangeLog
 
 
 %build
+export CFLAGS="${CFLAGS} -std=gnu99"
 autoreconf -vif #BZ925238 - support aarch64
 # TODO check the --enable-hdparm option
 %configure 
