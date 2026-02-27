@@ -45,7 +45,7 @@ Version: 17.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -932,6 +932,20 @@ fi
 # endif scl
 
 %changelog
+* Wed Feb 25 2026 Kevin Buettner <kevinb@redhat.com>
+- Backport upstream commit d2cc16cd7fc from Jan Vrany to fix
+  FAILs in gdb.base/fileio.exp caused by macro expansion of
+  path components in OUTDIR.
+
+* Tue Feb 24 2026 Kevin Buettner <kevinb@redhat.com>
+- Backport upstream commit c1da013915e from Kevin Buettner to fix
+  gcore failures caused by glibc 2.42 guard page changes (RHBZ 2413405).
+
+* Mon Feb 16 2026 Guinevere Larsen <guinevere@redhat.com>
+- Backport upstream commit f08ffbbf269 to fix RHBZ 2435950
+  This reverts a new feature that was never properly approved
+  for merging in upstream GDB.
+
 * Wed Feb 11 2026 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commits 0fa4f62568b1deeb, ccd56e22703c094e, and
   c09ebee0d3ae9148 to address RHEL-86890.  These backports will not be

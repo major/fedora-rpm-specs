@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump serial_test dev-dependency from 2.0 to 3.1
 Patch:          cbindgen-fix-metadata.diff
+Patch:          0001-Ignore-non-c-typedef-for-linkage-warnings-during-tes.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

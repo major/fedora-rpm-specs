@@ -72,7 +72,7 @@ sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/invariant-2.2.4-expected.json
 
 %generate_buildrequires
-%pyproject_buildrequires -x docs
+%pyproject_buildrequires
 
 %build
 # NOTE: Upstream's wheels include the license cache as a Python pickle, so

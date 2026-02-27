@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 285
+%global baseversion 286
 
 %undefine _auto_set_build_flags
 
@@ -51,7 +51,7 @@ BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinxcontrib-rsvgconverter
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  rapidjson-devel
-BuildRequires:  SDL2_ttf-devel
+BuildRequires:  SDL3_ttf-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  utf8proc-devel
 BuildRequires:  zlib-devel
@@ -221,6 +221,7 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
 %endif
     NOWERROR=1 \
     OPTIMIZE=2 \
+    OSD=sdl3 \
     PYTHON_EXECUTABLE=python3 \
     QT_HOME=%{_libdir}/qt6 \
     VERBOSE=1 \

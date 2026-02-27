@@ -1,10 +1,9 @@
 # disable in source builds on EPEL <9
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 
 Name:       csmock
-Version:    3.8.3
-Release:    3%{?dist}
+Version:    3.8.4
+Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPL-3.0-or-later
@@ -16,7 +15,7 @@ Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{versi
 # gpg --output kdudka.pgp --armor --export kdudka@redhat.com
 Source2:    kdudka.pgp
 
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gnupg2
 BuildRequires: help2man
 
@@ -211,13 +210,13 @@ This package contains the unicontrol plug-in for csmock.
 %autosetup
 
 %build
-%cmake3                                       \
+%cmake                                        \
     -DVERSION='%{name}-%{version}-%{release}' \
     -DPython3_EXECUTABLE='%{__python3}'
-%cmake3_build
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 # needed to create the csmock RPM
 %files
@@ -340,6 +339,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Wed Feb 25 2026 Kamil Dudka <kdudka@redhat.com> - 3.8.4-1
+- update to latest upstream
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

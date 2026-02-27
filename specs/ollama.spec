@@ -40,6 +40,7 @@ Source11:       ollama.sysusers
 %endif
 
 Patch1:         0001-ollama-handle-load.patch
+Patch2:         0001-ollama-crush-integration.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  fdupes

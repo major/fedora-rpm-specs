@@ -8,12 +8,6 @@
 # or by globally setting:
 #global _opencl 1
 
-# Disable server support in RHEL
-# https://bugzilla.redhat.com/show_bug.cgi?id=1639165
-%if 0%{?fedora} || 0%{?rhel} >= 10
-%global _with_server 1
-%endif
-
 # Force uwac to be static to avoid conflicts with freerdp2
 # FIXME: Disable this once all freerdp2 consumers are ported to freerdp3
 %global _with_static_uwac 1
@@ -29,7 +23,7 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.22.0
+Version:        3.23.0
 Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
@@ -64,13 +58,13 @@ BuildRequires:  libXi-devel
 BuildRequires:  libXinerama-devel
 BuildRequires:  libxkbfile-devel
 BuildRequires:  libXrandr-devel
-%{?_with_server:BuildRequires:  libXtst-devel}
+BuildRequires:  libXtst-devel
 BuildRequires:  libXv-devel
 %{?_with_opencl:BuildRequires: opencl-headers >= 3.0}
 %{?_with_opencl:BuildRequires: ocl-icd-devel}
 %{?_with_openh264:BuildRequires:  pkgconfig(openh264)}
 %{?_with_x264:BuildRequires:  x264-devel}
-%{?_with_server:BuildRequires:  pam-devel}
+BuildRequires:  pam-devel
 BuildRequires:  xmlto
 BuildRequires:  zlib-devel
 BuildRequires:  multilib-rpm-config
@@ -140,7 +134,6 @@ Requires:       cmake >= 3.13
 The %{name}-devel package contains libraries and header files for developing
 applications that use %{name}-libs.
 
-%{?_with_server:
 %package        server
 Summary:        Server support for %{name}
 Requires:       libwinpr%{?_isa} = %{?epoch}:%{version}-%{release}
@@ -149,7 +142,6 @@ Requires:       %{name}-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description    server
 The %{name}-server package contains servers which can export a desktop via
 the RDP protocol.
-}
 
 %package -n     libwinpr
 Summary:        Windows Portable Runtime
@@ -178,10 +170,12 @@ developing applications that use %{name}-libwinpr.
 find . -name "*.h" -exec chmod 664 {} \;
 find . -name "*.c" -exec chmod 664 {} \;
 
-%build
+%conf
 %cmake \
     -DBUILD_TESTING=ON \
     -DBUILD_TESTING_NO_H264=ON \
+    -DCHANNEL_RDP2TCP=ON \
+    -DCHANNEL_RDP2TCP_CLIENT=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
@@ -211,11 +205,12 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_PCSC=ON \
     -DWITH_PKCS11=ON \
     -DWITH_PULSE=ON \
+    -DWITH_RDTK=ON \
     -DWITH_SAMPLE=OFF \
-    -DWITH_SERVER=%{?_with_server:ON}%{?!_with_server:OFF} \
-    -DWITH_SERVER_INTERFACE=%{?_with_server:ON}%{?!_with_server:OFF} \
-    -DWITH_SHADOW_X11=%{?_with_server:ON}%{?!_with_server:OFF} \
-    -DWITH_SHADOW_MAC=%{?_with_server:ON}%{?!_with_server:OFF} \
+    -DWITH_SERVER=ON \
+    -DWITH_SERVER_INTERFACE=ON \
+    -DWITH_SHADOW_X11=ON \
+    -DWITH_SHADOW_MAC=ON \
     -DWITH_SOXR=%{?_with_soxr:ON}%{?!_with_soxr:OFF} \
     -DWITH_SWSCALE=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_TIMEZONE_COMPILED=OFF \
@@ -232,7 +227,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_XI=ON \
     -DWITH_XINERAMA=ON \
     -DWITH_XRENDER=ON \
-    -DWITH_XTEST=%{?_with_server:ON}%{?!_with_server:OFF} \
+    -DWITH_XTEST=ON \
     -DWITH_XV=ON \
     -DWITH_ZLIB=ON \
 %ifarch x86_64
@@ -259,6 +254,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWINPR_UTILS_IMAGE_JPEG=ON \
     %{nil}
 
+%build
 %cmake_build
 
 %check
@@ -294,12 +290,10 @@ find %{buildroot} -name "*.a" -delete
 %{_datadir}/FreeRDP/
 %{_libdir}/freerdp3/
 %{_libdir}/libfreerdp-client3.so.*
-%{?_with_server:
 %{_libdir}/libfreerdp-server3.so.*
 %{_libdir}/libfreerdp-server-proxy3.so.*
 %{_libdir}/libfreerdp-shadow3.so.*
 %{_libdir}/libfreerdp-shadow-subsystem3.so.*
-}
 %{_libdir}/libfreerdp3.so.*
 %{?!_with_static_uwac:
 %{_libdir}/libuwac0.so.*
@@ -315,22 +309,18 @@ find %{buildroot} -name "*.a" -delete
 %{_includedir}/rdtk0/
 %{_libdir}/cmake/FreeRDP3/
 %{_libdir}/cmake/FreeRDP-Client3/
-%{?_with_server:
 %{_libdir}/cmake/FreeRDP-Proxy3/
 %{_libdir}/cmake/FreeRDP-Server3/
 %{_libdir}/cmake/FreeRDP-Shadow3/
-}
 %{?!_with_static_uwac:
 %{_libdir}/cmake/uwac0/
 }
 %{_libdir}/cmake/rdtk0/
 %{_libdir}/libfreerdp-client3.so
-%{?_with_server:
 %{_libdir}/libfreerdp-server3.so
 %{_libdir}/libfreerdp-server-proxy3.so
 %{_libdir}/libfreerdp-shadow3.so
 %{_libdir}/libfreerdp-shadow-subsystem3.so
-}
 %{_libdir}/libfreerdp3.so
 %{?!_with_static_uwac:
 %{_libdir}/libuwac0.so
@@ -338,23 +328,19 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/librdtk0.so
 %{_libdir}/pkgconfig/freerdp3.pc
 %{_libdir}/pkgconfig/freerdp-client3.pc
-%{?_with_server:
 %{_libdir}/pkgconfig/freerdp-server3.pc
 %{_libdir}/pkgconfig/freerdp-server-proxy3.pc
 %{_libdir}/pkgconfig/freerdp-shadow3.pc
-}
 %{?!_with_static_uwac:
 %{_libdir}/pkgconfig/uwac0.pc
 }
 %{_libdir}/pkgconfig/rdtk0.pc
 
-%{?_with_server:
 %files server
 %{_bindir}/freerdp-proxy
 %{_bindir}/freerdp-shadow-cli
 %{_mandir}/man1/freerdp-proxy.1*
 %{_mandir}/man1/freerdp-shadow-cli.1*
-}
 
 %files -n libwinpr
 %license LICENSE
@@ -373,6 +359,15 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Feb 25 2026 Neal Gompa <ngompa@fedoraproject.org> - 2:3.23.0-1
+- Update to 3.23.0 (CVE-2026-26965, CVE-2026-26955, CVE-2026-26271,
+  CVE-2026-25997, CVE-2026-25959, CVE-2026-25955, CVE-2026-25954,
+  CVE-2026-25953, CVE-2026-25952, CVE-2026-25942, CVE-2026-25941)
+  Resolves: rhbz#2442589
+- Small spec cleanups
+- Enable rdp2tcp channel support
+
+
 * Mon Feb 02 2026 Ondrej Holy <oholy@redhat.com> - 2:3.22.0-1
 - Update to 3.22.0 (CVE-2026-23948, CVE-2026-24682, CVE-2026-24683,
   CVE-2026-24676, CVE-2026-24677, CVE-2026-24678, CVE-2026-24684,

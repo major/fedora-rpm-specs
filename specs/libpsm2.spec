@@ -53,7 +53,7 @@
 Summary: Intel PSM Libraries
 Name: libpsm2
 Version: 12.0.1
-Release: 4%{?dist}
+Release: %autorelease
 # Automatically converted from old format: BSD or GPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-BSD OR GPL-2.0-only
 URL: https://github.com/cornelisnetworks/opa-psm2/
@@ -96,12 +96,17 @@ Development files for the Intel PSM library
 %description compat
 Support for MPIs linked with PSM versions < 2
 
+%patchlist
+# upstream commits PSM2_12.0.1..master
+0001-Fix-strlcat-multiple-definition-build-error.patch
+0002-Fix-unaligned-heap-allocations-of-aligned-structs.patch
+
 %prep
-%setup -q -n opa-psm2-PSM2_%{version}
+%autosetup -p1 -n opa-psm2-PSM2_%{version}
 
 %build
 %{set_build_flags}
-%{make_build}
+%{make_build} WERROR=
 
 %install
 %make_install DISTRO=%{?rhel:rhel}%{!?rhel:fedora}
@@ -137,144 +142,4 @@ rm -f %{buildroot}%{_libdir}/*.a
 %endif
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Nov 12 2024 Kamal Heib <kheib@redhat.com> - 12.0.1-1
-- Rebase to upstream release PSM2_12.0.1
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 11.2.230-6
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.230-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.230-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.230-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.230-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Feb 01 2023 Kamal Heib <kheib@redhat.com> - 11.2.230
-- Rebase to upstream release PSM2_11.2.230
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.229-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Aug 02 2022 Michal Schmidt <mschmidt@redhat.com> - 11.2.229-1
-- Rebase to upstream release PSM2_11.2.229
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.206-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.206-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Dec 07 2021 Honggang Li <honli@redhat.com> - 11.2.206-1
-- Rebase to latest upstream release PSM2_11.2.206
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.185-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 17 2021 Honggang Li <honli@redhat.com> - 11.2.185-1
-- Rebase to latest upstream release PSM2_11.2.185
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.86-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Oct 19 2020 Jeff Law <law@redhat.com> - 11.2.86-7
-- Avoid out of bounds array index diagnostic with gcc-11
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.86-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 13 2020 Merlin Mathesius <mmathesi@redhat.com> - 11.2.86-5
-- Minor updates to enable building for ELN
-
-* Mon Feb 10 2020 Honggang Li <honli@redhat.com> - 11.2.86-4
-- Fix FTBFS in Fedora rawhide/f32
-- Resolves: bz1799597
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.86-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jan 17 2020 Tom Stellard <tstellar@redhat.com> - 11.2.86-2
-- Use make_build macro
-
-* Thu Oct 03 2019 Honggang Li <honli@redhat.com> - 11.2.86-1
-- Rebase to latest upstream release PSM2_11.2.86
-- Resolves: bz1758390
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.78-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.78-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jan 31 2019 Honggang Li <honli@redhat.com> - 11.2.78-1
-- Rebase to latest upstream release PSM2_11.2.77
-- Resolves: bz1671190
-
-* Mon Oct  8 2018 Honggang Li <honli@redhat.com> - 11.2.23-1
-- Rebase to latest upstream release 11.2.23
-- Resolves: bz1637273
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 10.3.58-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Jun 22 2018 Honggang Li <honli@redhat.com> - 10.3.58-1
-- Rebase to latest upstream release 10.3.58.
-- Resolves: bz1594073
-
-* Thu Mar 15 2018 - 10.3.8-5
-- Fix partial injection of Fedora build flags.
-- Double the sizeof array fdesc to fix a gcc compiling issue.
-- Resolves: bz1556062
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 10.3.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jan  4 2018 Honggang Li <honli@redhat.com> - 10.3.8-3
-- Filter PSM1 library as private library
-- Resolves: bz1530979
-
-* Fri Dec 15 2017 Honggang Li <honli@redhat.com> - 10.3.8-2
-- Minor enhancement
-- Resolves: bz1526261
-
-* Tue Dec 12 2017 Honggang Li <honli@redhat.com> - 10.3.8-1
-- Rebase to latest upstream release
-- Resolves: bz1524846
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.103_1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.103_1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Apr 13 2017 Honggang Li <honli@redhat.com> - 10.2.103_1-1
-- Rebase to latest upstream master branch.
-- Fix build failures caught by gcc 7.x.
-- Resolves: bz1423872
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Jun 13 2016 Michal Schmidt <mschmidt@redhat.com> - 10.2.2-2
-- Remove redundant %%setup -n argument.
-- Packaging Guidelines: Never use "(R)" in description.
-
-* Tue Jun 07 2016 Paul Reger <paul.j.reger@intel.com> - 10.2.2-1
-- Fix build failures only.
-
-* Tue Apr 05 2016 Paul Reger <paul.j.reger@intel.com> - 10.2.1-1
-- Upstream PSM2 source code for Fedora.
+%autochangelog

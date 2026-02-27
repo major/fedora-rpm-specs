@@ -5,8 +5,8 @@ URL:     https://networkmanager.dev/
 Group:   System Environment/Base
 
 Epoch:   1
-Version: 1.55.91
-Release: 3%{?dist}
+Version: 1.56.0
+Release: 1%{?dist}
 
 ###############################################################################
 
@@ -92,6 +92,11 @@ Release: 3%{?dist}
 %else
 %bcond_without iwd
 %endif
+%if 0%{?fedora} <= 44 || 0%{?rhel} <= 10
+%bcond_without polkit_noauth_group
+%else
+%bcond_with polkit_noauth_group
+%endif
 
 ###############################################################################
 
@@ -167,7 +172,8 @@ Source7: 70-nm-connectivity.conf
 Source8: readme-ifcfg-rh.txt
 Source9: readme-ifcfg-rh-migrated.txt
 
-#Patch1: 0001-some.patch
+Patch1: 0001-polkit-noauth-group.patch
+Patch2: 0002-secret-permission-fixes.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -652,6 +658,9 @@ Preferably use nmcli instead.
 	-Dselinux=true \
 	-Dpolkit=true  \
 	-Dconfig_auth_polkit_default=true \
+%if %{with polkit_noauth_group}
+	-Dpolkit_noauth_group=wheel \
+%endif
 	-Dconcheck=true \
 %if 0%{?fedora}
 	-Dlibpsl=true \
@@ -903,6 +912,9 @@ fi
 %{_datadir}/dbus-1/system-services/org.freedesktop.nm_dispatcher.service
 %{_datadir}/dbus-1/system-services/org.freedesktop.nm_priv_helper.service
 %{_datadir}/polkit-1/actions/*.policy
+%if %{with polkit_noauth_group}
+%{_datadir}/polkit-1/rules.d/org.freedesktop.NetworkManager.rules
+%endif
 %{_prefix}/lib/udev/rules.d/*.rules
 %{_prefix}/lib/firewalld/zones/nm-shared.xml
 # systemd stuff
@@ -1059,6 +1071,11 @@ fi
 
 
 %changelog
+* Wed Feb 25 2026 Beniamino Galvani <bgalvani@redhat.com> - 1:1.56.0-1
+- Update to 1.56.0 release
+- Enable polkit_noauth_group=wheel (rhbz#2437985)
+- Fix bugs related to secrets handling and permissions
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.55.91-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

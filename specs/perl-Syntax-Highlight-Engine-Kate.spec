@@ -1,5 +1,5 @@
 Name:           perl-Syntax-Highlight-Engine-Kate
-Version:        0.15
+Version:        0.16
 Release:        1%{?dist}
 Summary:        Port to Perl of the syntax highlight engine of the Kate text editor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -36,6 +36,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Test::Differences) >= 0.61
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 1.00
 BuildRequires:  perl(Test::Warn) >= 0.30
 BuildRequires:  perl(Time::HiRes)
@@ -106,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-1
+- 0.16 bump (rhbz#2440593)
+
 * Mon Feb 16 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-1
 - 0.15 bump (rhbz#2440076)
 - Package tests

@@ -22,7 +22,7 @@
 %bcond latex_tests 1
 
 Name:       python-sphinx
-%global     general_version 8.2.3
+%global     general_version 9.1.0
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
@@ -56,19 +56,6 @@ Patch:      sphinx-test_theming.patch
 # This is a downstream-only change - rejected upstream.
 # https://github.com/sphinx-doc/sphinx/pull/11747
 Patch:      Make-the-first-party-extensions-optional.patch
-
-# Compatibility with Python 3.14
-Patch:      https://github.com/sphinx-doc/sphinx/commit/8962398b761c3d85a.patch
-Patch:      https://github.com/sphinx-doc/sphinx/commit/e01e42f5fc738815b.patch
-Patch:      https://github.com/sphinx-doc/sphinx/pull/13527.patch
-# Compatibility with docutils 0.22+
-Patch:      https://github.com/sphinx-doc/sphinx/pull/13610.patch
-Patch:      https://github.com/sphinx-doc/sphinx/pull/13883.patch
-# Use new package name for roman-numerals
-# Fixes https://bugzilla.redhat.com/2438819
-# https://github.com/sphinx-doc/sphinx/commit/2c3e22e3e8e743960
-# Temporary backport before we update to Sphinx 9, rebased
-Patch:      2c3e22e3e8e743960.patch
 
 BuildArch:     noarch
 
@@ -367,8 +354,8 @@ This package contains documentation in the HTML format.
 sed -i -e '/pytest-xdist/d' pyproject.toml
 %endif
 
-# Support for docutils 0.22+
-sed -i -e 's/docutils>=0.20,<0.22/docutils>=0.20,<0.23/' pyproject.toml
+# sphinx 9.1.0 requires pytest >= 9, which we don't have in Fedora yet
+sed -i '/"pytest>=/ s/>=[^",]*//' pyproject.toml
 
 # Drop test-dependency on defusedxml,
 # use xml from the standard library instead.
@@ -392,12 +379,12 @@ _EOF
 %endif
 
 %if %{without imagemagick_tests}
-rm tests/test_extensions/test_ext_imgconverter.py
+rm -r tests/test_ext_imgconverter/
 %endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x test}
+%pyproject_buildrequires %{?with_tests:-g test}
 
 
 %build

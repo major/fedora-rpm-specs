@@ -4825,7 +4825,7 @@ fi\
 #
 #
 %changelog
-* Tue Feb 24 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260224g7dff99b354601.17]
+* Wed Feb 25 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260224g7dff99b354601.17]
 - Linux v7.0.0-0.rc1.260224g7dff99b354601
 
 * Tue Feb 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.7dff99b35460.17]

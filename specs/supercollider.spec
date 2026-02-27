@@ -1,15 +1,15 @@
 # build options
 %{!?qt5_qtwebengine_arches:%global qt5_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 %ifarch %ix86 x86_64
-%define cmakearch -DSUPERNOVA=ON
+%define cmakearch -DSC_EL=ON -DSC_VIM=ON -DSUPERNOVA=ON
 %else
-%define cmakearch -DSUPERNOVA=OFF -DSSE=OFF -DSSE2=OFF -DNOVA_SIMD=ON -DSC_WII=OFF
+%define cmakearch -DSC_EL=ON -DSC_VIM=ON -DSUPERNOVA=OFF -DSSE=OFF -DSSE2=OFF -DNOVA_SIMD=ON -DSC_WII=OFF
 %endif
 
 Summary: Object oriented programming environment for real-time audio and video processing
 Name: supercollider
-Version: 3.13.0
-Release: 4%{?dist}
+Version: 3.14.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://supercollider.github.io/
@@ -30,6 +30,7 @@ BuildRequires: emacs
 BuildRequires: fftw3-devel
 BuildRequires: gcc-c++
 BuildRequires: jack-audio-connection-kit-devel
+BuildRequires: libappstream-glib
 BuildRequires: libatomic
 BuildRequires: libcurl-devel
 BuildRequires: libicu-devel
@@ -80,13 +81,6 @@ Requires: supercollider%{?_isa} = %{version}-%{release}
 %description emacs
 SuperCollider support for the Emacs text editor.
 
-%package gedit
-Summary: SuperCollider support for GEdit
-Requires: supercollider%{?_isa} = %{version}-%{release}
-
-%description gedit
-SuperCollider support for the GEdit text editor.
-
 %package vim
 Summary: SuperCollider support for Vim
 Requires: supercollider%{?_isa} = %{version}-%{release}
@@ -113,7 +107,7 @@ export CXXFLAGS="%{build_cxxflags} -fext-numeric-literals -fPIC"
        -DSYSTEM_YAMLCPP=ON \
        -DCMAKE_BUILD_TYPE=Release \
        -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-       %{cmakearch} %{?geditver} \
+       %{cmakearch} \
        ..
 %cmake_build
 
@@ -131,6 +125,7 @@ rm -Rf %{buildroot}/%{_datadir}/icons/hicolor/*x*
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/SuperColliderIDE.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files
 %doc README*
@@ -163,6 +158,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/SuperColliderIDE.des
 %{_datadir}/applications/SuperColliderIDE.desktop
 %{_datadir}/icons/hicolor/scalable/apps/sc_ide.svg
 %{_datadir}/mime/packages/supercollider.xml
+%{_metainfodir}/online.supercollider.SuperCollider.metainfo.xml
 
 %files devel
 %{_includedir}/SuperCollider
@@ -174,11 +170,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/SuperColliderIDE.des
 %files vim
 %{_datadir}/SuperCollider/Extensions/scide_scvim/SCVim.sc
 
-%files gedit
-%{_libdir}/gedit*/plugins/*
-%{_datadir}/gtksourceview*/language-specs/supercollider.lang
-
 %changelog
+* Wed Feb 25 2026 Tristan Cacqueray <tdecacqu@redhat.com> - 3.14.1-1
+- Bump to 3.14.1 and remove gedit sub-package.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

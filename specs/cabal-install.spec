@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        3.12.1.0
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The command-line interface for Cabal and Hackage
 
 License:        BSD-3-Clause
@@ -243,6 +243,9 @@ install -pm 644 -D -t %{buildroot}%{_sysconfdir}/profile.d/ %{SOURCE10}
 
 
 %changelog
+* Tue Feb 24 2026 Jens Petersen <petersen@redhat.com> - 3.12.1.0-2
+- rebuild to quieten newer ghc version warnings (#9734)
+
 * Mon Jan 26 2026 Jens Petersen <petersen@redhat.com> - 3.12.1.0-7
 - https://github.com/haskell/cabal/blob/master/release-notes/cabal-install-3.12.1.0.md
 

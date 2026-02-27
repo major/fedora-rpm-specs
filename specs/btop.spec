@@ -1,8 +1,19 @@
 %undefine _hardened_build
 
+# AMD GPU support needs rocm-smi, but it is not available on all architectures.
+%if %{defined rhel}
+%ifarch x86_64
+%bcond_without amdgpu
+%endif
+%else
+%ifarch x86_64 aarch64 ppc64le riscv64
+%bcond_without amdgpu
+%endif
+%endif
+
 Name:           btop
 Version:        1.4.6
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -35,11 +46,9 @@ BuildRequires:  gcc-toolset-14-binutils
 %endif
 
 # AMD GPU support
-%if 0%{?fedora}
-%ifnarch i686 s390x
+%if %{with amdgpu}
 BuildRequires:  rocm-smi-devel
 Recommends: rocm-smi
-%endif
 %endif
 
 Requires:       hicolor-icon-theme
@@ -91,6 +100,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 
 
 %changelog
+* Wed Feb 25 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.4.6-6
+- Limit EPEL builds to x86_64 to match rocm-smi rhbz#2442214
+
+* Tue Feb 24 2026 Carl George <carlwgeorge@fedoraproject.org> - 1.4.6-5
+- Enable AMD GPU support on EPEL rhbz#2442214
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

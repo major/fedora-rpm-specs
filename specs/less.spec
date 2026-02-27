@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 691
-Release: 2%{?dist}
+Version: 692
+Release: 1%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 %global lesspipe_version 2.22
@@ -22,6 +22,8 @@ BuildRequires: autoconf automake libtool
 BuildRequires: make
 # for lesspipe make test
 BuildRequires: perl-Archive-Tar
+# for less-color's Perl dependencies
+BuildRequires: perl-generators
 # for lesspipe
 Recommends: (less-color = %{version}-%{release} if perl-interpreter)
 Recommends: unzip
@@ -107,6 +109,12 @@ popd
 %{_bindir}/vimcolor
 
 %changelog
+* Wed Feb 25 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-1
+- updated to 692 (#2437657)
+
+* Wed Feb 25 2026 Michal Hlavinka <mhlavink@redhat.com> - 691-3
+- rebuild with updated dependencies for color subpackage (PR#14)
+
 * Tue Jan 27 2026 Michal Hlavinka <mhlavink@redhat.com> - 691-2
 - update lesspipe.sh to 2.22
 

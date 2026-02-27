@@ -1,13 +1,15 @@
 # Run optional tests
 %if ! (0%{?rhel})
+%bcond_without perl_XML_XPath_enables_load_test
 %bcond_without perl_XML_XPath_enables_optional_test
 %else
+%bcond_with perl_XML_XPath_enables_load_test
 %bcond_with perl_XML_XPath_enables_optional_test
 %endif
 
 Name:           perl-XML-XPath
 Version:        1.48
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        XPath parser and evaluator for Perl
 # XML/XPath.pm, XML/XPath/PerlSAX.pm, REAME: GPL-1.0-or-later OR Artistic-1.0-Perl
 # Others: Artistic-2.0
@@ -38,7 +40,9 @@ BuildRequires:  perl(XML::Parser) >= 2.23
 BuildRequires:  perl(constant)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(open)
+%if %{with perl_XML_XPath_enables_load_test}
 BuildRequires:  perl(Path::Tiny) >= 0.076
+%endif
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
@@ -81,6 +85,9 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n XML-XPath-%{version}
 
+%if %{without perl_XML_XPath_enables_load_test}
+rm -f t/00load.t
+%endif
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -103,7 +110,9 @@ EOF
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a examples t %{buildroot}%{_libexecdir}/%{name}
+%if %{with perl_XML_XPath_enables_load_test}
 rm %{buildroot}%{_libexecdir}/%{name}/t/00load.t
+%endif
 rm %{buildroot}%{_libexecdir}/%{name}/t/manifest.t
 rm %{buildroot}%{_libexecdir}/%{name}/t/meta-*.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
@@ -128,6 +137,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.48-11
+- Conditionalize load test
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

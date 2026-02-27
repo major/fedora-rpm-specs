@@ -15,7 +15,7 @@ Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         6a6718b3342b6c5e282a4e33325b9f97908a0692.patch
 
 BuildRequires:  gcc
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(libusb-1.0)
@@ -54,10 +54,11 @@ sed -i 's|static char serialnumber\[28\]|static char serialnumber\[STLINK_SERIAL
 sed -i 's|CMP0153|CMP0042|' CMakeLists.txt
 
 %build
-%cmake3 \
+%cmake \
     -DSTLINK_UDEV_RULES_DIR="%{_udevrulesdir}" \
     -DSTLINK_STATIC_LIB=OFF \
-    -DSTLINK_GENERATE_MANPAGES=ON
+    -DBUILD_TESTING=OFF \
+    -DSTLINK_GENERATE_MANPAGES=OFF
 %cmake_build
 
 %install
@@ -66,6 +67,7 @@ sed -i 's|CMP0153|CMP0042|' CMakeLists.txt
 rm %{buildroot}%{_libdir}/lib%{name}.a
 
 %check
+%cmake check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 
 

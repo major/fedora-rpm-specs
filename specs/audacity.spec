@@ -13,7 +13,7 @@
 Name: audacity
 
 Version: 3.7.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -148,6 +148,7 @@ export WX_CONFIG=wx-config-3.0
 %endif
 
 %cmake \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DwxWidgets_CONFIG_EXECUTABLE="$(which wx-config-3.2)" \
     -DAUDACITY_BUILD_LEVEL:STRING=2 \
     -Daudacity_conan_enabled=Off \
@@ -293,6 +294,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Wed Feb 25 2026 Ian McInerney <mcianster@gmail.com> - 3.7.7-5
+- Force building in release with debug info to disable assertions (RHBZ 2382559)
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

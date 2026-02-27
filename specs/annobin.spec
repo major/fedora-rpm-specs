@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.06
+Version: 13.07
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Feb 24 2026 Nick Clifton  <nickc@redhat.com> - 13.07-1
+- Annocheck: Process the .ARM.attributes section.
+
 * Mon Feb 23 2026 Nick Clifton  <nickc@redhat.com> - 13.06-1
 - Annocheck: Add more files to the gcc heuristics list.  (RHEL-150659)
 

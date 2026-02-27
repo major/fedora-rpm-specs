@@ -1,6 +1,5 @@
 # disable in source builds on EPEL <9
 %undefine __cmake_in_source_build
-%undefine __cmake3_in_source_build
 
 # python2 is not available on RHEL > 7 and Fedora
 %if 0%{?rhel} > 7 || 0%{?fedora}
@@ -9,8 +8,8 @@
 %bcond_without python2
 %endif
 
-# build csdiff-static on 64bit RHEL-10+ and Fedora
-%if 0%{?__isa_bits} == 64 && (0%{?rhel} > 9 || 0%{?fedora})
+# build csdiff-static on 64bit RHEL-8+ and Fedora
+%if 0%{?__isa_bits} == 64 && (0%{?rhel} > 7 || 0%{?fedora})
 %bcond_without static
 %else
 %bcond_with static
@@ -20,8 +19,8 @@
 %bcond_without python3
 
 Name:       csdiff
-Version:    3.5.5
-Release:    5%{?dist}
+Version:    3.5.6
+Release:    1%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPL-3.0-or-later
@@ -49,7 +48,11 @@ BuildRequires: boost1.78-devel
 BuildRequires: boost-devel
 %endif
 
+%if 0%{?rhel} == 7
 BuildRequires: cmake3
+%else
+BuildRequires: cmake
+%endif
 BuildRequires: gcc-c++
 BuildRequires: gnupg2
 BuildRequires: help2man
@@ -71,7 +74,11 @@ defect lists using various filtering predicates.
 %if %{with static}
 %package static
 Summary:        Statically linked csgrep-static executable
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
+BuildRequires:  boost1.78-static
+%else
 BuildRequires:  boost-static
+%endif
 BuildRequires:  glibc-static
 BuildRequires:  libstdc++-static
 
@@ -117,20 +124,41 @@ code scan defect lists to find out added or fixed defects.
 export BOOST_INCLUDEDIR=/usr/include/boost169
 export BOOST_LIBRARYDIR=/usr/lib64/boost169
 %endif
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
+# Set paths for CMake's FindBoost
+export BOOST_INCLUDEDIR=/usr/include/boost1.78
+export BOOST_LIBRARYDIR=/usr/lib64/boost1.78
+%endif
 
 make version.cc
-%cmake3                                    \
+%if 0%{?rhel} == 7
+%cmake3                                  \
+%else
+%cmake                                   \
+%endif
     -DCSGREP_STATIC=%{?with_static:ON}     \
     -DPYCSDIFF_PYTHON2=%{?with_python2:ON} \
     -DPYCSDIFF_PYTHON3=%{?with_python3:ON} \
     -DVERSION='%{name}-%{version}-%{release}'
+%if 0%{?rhel} == 7
 %cmake3_build
+%else
+%cmake_build
+%endif
 
 %install
+%if 0%{?rhel} == 7
 %cmake3_install
+%else
+%cmake_install
+%endif
 
 %check
+%if 0%{?rhel} == 7
 %ctest3
+%else
+%ctest
+%endif
 
 %files
 %doc README
@@ -169,6 +197,9 @@ make version.cc
 %endif
 
 %changelog
+* Wed Feb 25 2026 Kamil Dudka <kdudka@redhat.com> - 3.5.6-1
+- update to latest upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

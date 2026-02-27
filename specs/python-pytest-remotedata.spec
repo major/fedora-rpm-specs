@@ -35,7 +35,7 @@ Summary:        %{sum}
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

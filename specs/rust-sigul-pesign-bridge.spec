@@ -40,6 +40,7 @@ License:        Unicode-DFS-2016 AND (MIT OR Apache-2.0) AND (Apache-2.0 WITH LL
 
 # Enables signature validation on signed objects
 Recommends:     sbsigntools
+Requires:       pesign
 
 
 %post -n sigul-pesign-bridge

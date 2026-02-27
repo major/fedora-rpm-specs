@@ -1,5 +1,5 @@
 Name:           python-id
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        A tool for generating OIDC identities
 

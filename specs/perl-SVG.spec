@@ -1,6 +1,6 @@
 Name:           perl-SVG
-Version:        2.87
-Release:        11%{?dist}
+Version:        2.88
+Release:        1%{?dist}
 Summary:        An extension to generate stand-alone or inline SGV
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SVG
@@ -81,13 +81,16 @@ make test
 %files
 %license LICENSE
 %doc README Changes examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/SVG*
+%{_mandir}/man3/SVG*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.88-1
+- 2.88 bump (rhbz#2441939)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.87-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

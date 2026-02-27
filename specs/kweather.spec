@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           kweather
 Version:        25.12.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Convergent KDE weather application
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_qtplugindir}/plasma/applets/org.kde.plasma.%{name}_1x4.so
 
 %changelog
+* Thu Feb 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 25.12.2-3
+- Rebuild (libplasma)
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

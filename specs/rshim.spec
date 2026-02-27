@@ -3,7 +3,7 @@
 #
 
 Name: rshim
-Version: 2.5.3
+Version: 2.6.6
 Release: %autorelease
 Summary: User-space driver for Mellanox BlueField SoC
 # Most code dual licensed: GPL-2.0 or BSD-3-Clause
@@ -11,8 +11,6 @@ Summary: User-space driver for Mellanox BlueField SoC
 License: (GPL-2.0-only OR BSD-3-Clause) AND MIT
 URL: https://github.com/mellanox/rshim-user-space
 Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{version}.tar.gz
-# https://github.com/Mellanox/rshim-user-space/pull/276
-Patch0: 0001-remove-wrong-use-of-struct-termio.patch
 
 BuildRequires: gcc, autoconf, automake, make
 BuildRequires: pkgconfig(libpci), pkgconfig(libusb-1.0), pkgconfig(fuse3)
@@ -42,6 +40,11 @@ via the virtual console or network interface.
 %install
 %make_install
 
+# Leave /etc for the user's configs and overrides
+mkdir -p %{buildroot}%{_prefix}/lib/systemd/network
+mv %{buildroot}/etc/systemd/network/10-tmfifo-net.link \
+   %{buildroot}%{_prefix}/lib/systemd/network/
+
 %post
 %systemd_post rshim.service
 
@@ -55,18 +58,21 @@ via the virtual console or network interface.
 %license LICENSE
 %doc README.md
 %config(noreplace) %{_sysconfdir}/rshim.conf
-%{_sbindir}/rshim
+%{_sbindir}/bf-pldm-ver
 %{_sbindir}/bf-reg
 %{_sbindir}/bfb-install
 %{_sbindir}/bfb-tool
 %{_sbindir}/fwpkg_unpack.py
 %{_sbindir}/mlx-mkbfb
+%{_sbindir}/rshim
 %{_unitdir}/rshim.service
 %{_mandir}/man1/mlx-mkbfb.1.gz
-%{_mandir}/man8/rshim.8.gz
+%{_mandir}/man8/bf-pldm-ver.8.gz
 %{_mandir}/man8/bf-reg.8.gz
 %{_mandir}/man8/bfb-install.8.gz
 %{_mandir}/man8/bfb-tool.8.gz
+%{_mandir}/man8/rshim.8.gz
+%{_prefix}/lib/systemd/network/10-tmfifo-net.link
 
 %changelog
 %autochangelog

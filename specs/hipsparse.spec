@@ -94,7 +94,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm SPARSE marshaling library
 License:        MIT
@@ -129,6 +129,7 @@ BuildRequires:  rocsparse%{pkg_suffix}-devel
 BuildRequires:  gtest
 %else
 BuildRequires:  gtest-devel
+BuildRequires:  python3dist(pyyaml)
 %endif
 BuildRequires:  rocblas%{pkg_suffix}-devel
 %endif
@@ -277,9 +278,13 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{pkg_prefix}/
 %files test
 %{pkg_prefix}/bin/hipsparse*
 %{pkg_prefix}/share/hipsparse/
+%{pkg_prefix}/libexec/hipsparse/
 %endif
 
 %changelog
+* Wed Feb 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Fix --with test
+
 * Tue Feb 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

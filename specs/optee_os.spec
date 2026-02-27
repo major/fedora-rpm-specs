@@ -3,7 +3,7 @@
 
 Name:      optee_os
 Version:   4.9.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -13,8 +13,10 @@ Summary:   Trusted side of the TEE
 License:   BSD-2-Clause AND Apache-2.0 AND (BSD-2-Clause AND BSD-3-Clause) AND (BSD-2-Clause AND MIT) AND (BSD-2-Clause AND MIT-CMU) AND BSD-3-Clause AND BSD-Source-Code AND BSL-1.0 AND (GPL-2.0 OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0 or BSD-3-Clause) AND (GPL-2.0+ or BSD-3-Clause) AND (GPL-2.0 OR MIT) AND (GPL-2.0+ OR MIT) AND ISC AND MIT AND Unlicense AND (Unlicense AND BSD-2-Clause) AND Zlib
 
 URL:       https://www.trustedfirmware.org
-Source:    https://github.com/OP-TEE/optee_os/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:   https://github.com/OP-TEE/optee_os/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:   aarch64-platforms
 
+BuildRequires: dtc
 BuildRequires: gcc
 BuildRequires: gcc-arm-linux-gnu
 BuildRequires: make
@@ -45,57 +47,26 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+cp %SOURCE1 .
+
 %build
 %undefine _auto_set_build_flags
 
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j721e CFG_ARM64_core=y O=out/k3-j721e
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y CFG_CONSOLE_UART=0x8 O=out/k3-j784s4
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-am62x CFG_ARM64_core=y CFG_WITH_SOFTWARE_PRNG=y O=out/k3-am62x
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=rockchip-rk3399 CFG_ARM64_core=y O=out/rockchip-rk3399
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=rockchip-rk3588 CFG_ARM64_core=y O=out/rockchip-rk3588
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=sunxi-sun50i_a64 CFG_ARM64_core=y O=out/sunxi-sun50i_a64
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=versal CFG_ARM64_core=y O=out/versal
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=zynqmp CFG_ARM64_core=y O=out/zynqmp
+for platform in $(cat aarch64-platforms)
+do
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM="$(echo $platform)" CFG_ARM64_core=y O=builds/$(echo $platform)
+done
 
 %install
 mkdir -p %{buildroot}%{_datadir}/%{name}
 
-%ifarch aarch64
-# At the moment we just support adding tee-raw.bin
-mkdir -p %{buildroot}%{_datadir}/%{name}/k3-j721e/
-install -p -m 0644 out/k3-j721e/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/k3-j721e/
-install -p -m 0644 out/k3-j721e/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-j721e/
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/k3-j784s4/
-install -p -m 0644 out/k3-j784s4/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/k3-j784s4/
-install -p -m 0644 out/k3-j784s4/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-j784s4/
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/k3-am62x/
-install -p -m 0644 out/k3-am62x/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/k3-am62x/
-install -p -m 0644 out/k3-am62x/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/k3-am62x/
-
-# rockchip expects the .elf
-mkdir -p %{buildroot}%{_datadir}/%{name}/rockchip-rk3399
-install -p -m 0644 out/rockchip-rk3399/core/tee.elf /%{buildroot}%{_datadir}/%{name}/rockchip-rk3399
-install -p -m 0644 out/rockchip-rk3399/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/rockchip-rk3399
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/rockchip-rk3588
-install -p -m 0644 out/rockchip-rk3588/core/tee.elf /%{buildroot}%{_datadir}/%{name}/rockchip-rk3588
-install -p -m 0644 out/rockchip-rk3588/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/rockchip-rk3588
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
-install -p -m 0644 out/sunxi-sun50i_a64/core/tee-raw.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
-install -p -m 0644 out/sunxi-sun50i_a64/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/versal
-install -p -m 0644 out/versal/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/versal/
-install -p -m 0644 out/versal/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/versal/
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/zynqmp/
-install -p -m 0644 out/zynqmp/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/zynqmp/
-install -p -m 0644 out/zynqmp/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/zynqmp/
-
-%endif
+for platform in $(cat aarch64-platforms)
+do
+  mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $platform)/
+  install -p -m 0644 builds/$(echo $platform)/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/$(echo $platform)/
+  # rockchip expects the .elf
+  install -p -m 0644 builds/$(echo $platform)/core/tee.elf /%{buildroot}%{_datadir}/%{name}/$(echo $platform)
+done
 
 %files -n optee-os-firmware-armv8
 %license LICENSE
@@ -103,6 +74,9 @@ install -p -m 0644 out/zynqmp/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{
 %{_datadir}/%{name}
 
 %changelog
+* Wed Feb 25 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.9.0-2
+- Enable new platforms, slight build reorg
+
 * Tue Jan 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.9.0-1
 - Update to 4.9.0
 

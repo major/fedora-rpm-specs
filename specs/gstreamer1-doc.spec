@@ -7,15 +7,16 @@ BuildArch:      noarch
 Summary:        GStreamer documentation
 
 # All tutorial code is licensed under any of the following licenses (your choice):
-#  2-clause BSD license ("simplified BSD license") (LICENSE.BSD)
+#  BSD-2-Clause license ("simplified BSD license") (LICENSE.BSD)
 #  MIT license (LICENSE.MIT)
-#  LGPL v2.1 (LICENSE.LGPL-2.1)
+#  LGPL-2.1-or-later (LICENSE.LGPL-2.1)
 # Application Developer Manual and Plugin Writer's Guide
-#  Open Publication License v1.0 (LICENSE.OPL), for historical reasons.
+#  OPUBL-1.0 (LICENSE.OPL), for historical reasons.
+#  this is not-allowed license with an exception, see https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/827
 # Documentation
-#  Creative Commons CC-BY-SA-4.0 license, but some parts of the documentation
+#  CC-BY-SA-4.0, but some parts of the documentation
 #  may still be licensed differently (e.g. LGPLv2.1) for historical reasons.
-License:        (BSD or MIT or LGPLv2+) and Open Publication and CC-BY-SA
+License:        (BSD-2-Clause or MIT OR LGPL-2.1-or-later) AND OPUBL-1.0 AND CC-BY-SA-4.0
 URL:            http://gstreamer.freedesktop.org/
 Source0:        https://gstreamer.freedesktop.org/src/gstreamer-docs/gstreamer-docs-%{version}.tar.xz
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.21
+Version: 44.22
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -519,6 +519,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 24 2026 Packit <hello@packit.dev> - 44.22-1
+- test: normalize comma-separated values in dnf repo config check (rvykydal)
+- Fix ostree container deploy failing on non-ASCII pathnames (me)
+
 * Mon Feb 16 2026 Packit <hello@packit.dev> - 44.21-1
 - anaconda.conf: Add clk_ignore_unused, pd_ignore_unused to preserved_arguments
   (johannes.goede)

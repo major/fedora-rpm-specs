@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:           sprout
-Version:        0.0.26
-Release:        2%{?dist}
+Version:        0.0.28
+Release:        1%{?dist}
 Summary:        Configurable and programmable UEFI bootloader
 SourceLicense:  Apache-2.0
 # Apache-2.0
@@ -72,6 +72,10 @@ install -v -m 644 target/%{_target_cpu}-unknown-uefi/rpm/sprout.efi %{buildroot}
 
 
 %changelog
+* Tue Feb 10 2026 Packit <hello@packit.dev> - 0.0.28-1
+- Update to version 0.0.28
+- Resolves: rhbz#2424837
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

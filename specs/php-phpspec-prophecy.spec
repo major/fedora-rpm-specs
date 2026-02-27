@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    7ab965042096282307992f1b9abff020095757f0
+%global gh_commit    0da07c10d5fe64cd0c748f0523b47599400f2ed1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
@@ -15,7 +15,7 @@
 %bcond_with          phpspec
 
 Name:           php-phpspec-prophecy
-Version:        1.25.0
+Version:        1.26.0
 Release:        1%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
@@ -27,7 +27,7 @@ Source2:        makesrc.sh
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
 %if %{with tests}
-BuildRequires:  (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
+BuildRequires:  (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 7)
 BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 9)
 BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 9)
 BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
@@ -48,13 +48,13 @@ BuildRequires:  php-fedora-autoloader-devel
 
 # from composer.json, "requires": {
 #        "php":                               "8.2.* || 8.3.* || 8.4.*",
-#        "phpdocumentor/reflection-docblock": "^5.2",
+#        "phpdocumentor/reflection-docblock": "^5.2 || ^6.0",
 #        "sebastian/comparator":              "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
 #        "doctrine/instantiator":             "^1.2 || ^2.0",
 #        "sebastian/recursion-context":       "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
 #        "symfony/deprecation-contracts":     "^2.5 || ^3.1"
 Requires:       php(language) >= 8.2
-Requires:       (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
+Requires:       (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 7)
 Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 9)
 Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 9)
 Requires:       (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
@@ -92,7 +92,10 @@ if (PHP_VERSION_ID > 80400) {
 }
 \Fedora\Autoloader\Dependencies::required([
     $inst,
-    '%{_datadir}/php/phpDocumentor/Reflection/DocBlock5/autoload.php',
+    [
+        '%{_datadir}/php/phpDocumentor/Reflection/DocBlock6/autoload.php',
+        '%{_datadir}/php/phpDocumentor/Reflection/DocBlock5/autoload.php',
+    ],
 ]);
 if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from phpunit, v1 from phpspec
 	$inst = [
@@ -197,6 +200,10 @@ exit $ret
 
 
 %changelog
+* Wed Feb 25 2026 Remi Collet <remi@remirepo.net> - 1.26.0-1
+- update to 1.26.0
+- allow phpdocumentor/reflection-docblock version 6
+
 * Tue Feb 10 2026 Remi Collet <remi@remirepo.net> - 1.25.0-1
 - update to 1.25.0
 - allow phpunit13

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -434,6 +434,31 @@ Patch471: 00471-cve-2025-12084.patch
 # therefore the amount of consumed memory is proportional to the amount
 # of sent data.
 Patch472: 00472-cve-2025-13836.patch
+
+# 00473 # dd705786aa0c1ccfde913858598e34e1f196be2e
+# CVE-2026-0865
+#
+#  gh-143916: Reject control characters in wsgiref.headers.Headers  (GH-143917)
+#
+# * Add 'test.support' fixture for C0 control characters
+# * gh-143916: Reject control characters in wsgiref.headers.Headers
+Patch473: 00473-cve-2026-0865.patch
+
+# 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
+# CVE-2025-15366
+#
+# gh-143921: Reject control characters in IMAP commands
+#
+# (cherry-picked from commit 6262704b134db2a4ba12e85ecfbd968534f28b45)
+Patch474: 00474-cve-2025-15366.patch
+
+# 00475 # 3748209a316662d4e85981ca1a7418547a1d25c6
+# CVE-2025-15367
+#
+# gh-143923: Reject control characters in POP3 commands
+#
+# (cherry-picked from commit b234a2b67539f787e191d2ef19a7cbdce32874e7)
+Patch475: 00475-cve-2025-15367.patch
 
 # (New patches go here ^^^)
 #
@@ -1767,6 +1792,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Feb 06 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.12-4
+- Security fixes for CVE-2026-0865, CVE-2025-15366 and CVE-2025-15367
+
 * Fri Jan 16 2026 Lumír Balhar <lbalhar@redhat.com> - 3.12.12-3
 - Security fix for CVE-2025-13836
 

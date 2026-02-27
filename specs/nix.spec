@@ -7,9 +7,9 @@
 %bcond tests 0
 
 Name:           nix
-# 2.32 needs boost >= 1.87 (https://bugzilla.redhat.com/show_bug.cgi?id=2406036)
-# (https://github.com/NixOS/nix/pull/14340)
-Version:        2.31.3
+# 2.32 needs boost >= 1.87 (available in F44+)
+# 2.33 needs aws-crt-cpp
+Version:        2.32.5
 Release:        %autorelease
 Summary:        A purely functional package manager
 
@@ -21,15 +21,6 @@ Source2:        registry.json
 Source3:        README.md
 Source4:        nix.sysusers
 Source5:        nix-filesystem.conf
-# soversion patches:
-# https://github.com/NixOS/nix/pull/13995
-Patch0:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/13995.patch
-# https://github.com/NixOS/nix/pull/14001
-Patch1:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14001.patch
-# https://github.com/NixOS/nix/pull/14005
-Patch2:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14005.patch
-# https://github.com/NixOS/nix/pull/14018
-Patch3:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14018.patch
 # disable mdbook
 # https://github.com/NixOS/nix/issues/14548
 Patch4:         nix-disable-mdbook.patch
@@ -45,7 +36,7 @@ Patch6:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/1492
 BuildRequires:  bison
 BuildRequires:  blake3-devel
 BuildRequires:  bzip2-devel
-BuildRequires:  boost-devel
+BuildRequires:  boost-devel >= 1.87
 BuildRequires:  boost-url
 BuildRequires:  brotli-devel
 %ifarch x86_64 aarch64 ppc64le

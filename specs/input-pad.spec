@@ -15,7 +15,7 @@ Name:       input-pad
 Version:    1.1.0
 Release:    %autorelease
 Summary:    On-screen Input Pad to Send Characters with Mouse
-License:    LGPL-2.0-or-later
+License:    LGPL-2.1-or-later
 URL:        https://github.com/fujiwarat/input-pad/wiki
 Source0:    https://github.com/fujiwarat/input-pad/releases/download/%{version}/%{name}-%{version}.tar.gz
 # Patch0:     %%{name}-HEAD.patch

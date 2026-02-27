@@ -7,7 +7,7 @@
 %bcond_with check
 %endif
 
-%global ignedgecommit a2587490b2a9a215ad12cf15866025efbe027552
+%global ignedgecommit 6be7c9429bca08066f5bbfa0cb8086421c0c538c
 %global ignedgeshortcommit %(c=%{ignedgecommit}; echo ${c:0:7})
 
 # https://github.com/coreos/ignition
@@ -233,7 +233,7 @@ engineering and uploaded to the Ignition GitHub releases page.
 %package edge
 
 Summary:  Enablement glue for Ignition on IoT/Edge systems
-License:  Apache-2.0
+License:  MIT
 
 %description edge
 This package contains dracut modules, services and binaries needed to enable
@@ -363,7 +363,7 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %endif
 
 %files edge
-%license %{golicenses}
+%license ignition-edge-%{ignedgecommit}/LICENSE
 %doc %{godocs}
 %{dracutlibdir}/modules.d/35ignition-edge/*
 %{dracutlibdir}/modules.d/10coreos-sysctl/*

@@ -47,7 +47,7 @@ mv version.py src/sphinx_argparse_cli/
 chmod 644 src/sphinx_argparse_cli/version.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x build-system -t
+%pyproject_buildrequires -t
 
 
 %build

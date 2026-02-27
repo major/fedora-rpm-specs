@@ -1,5 +1,5 @@
 Name:           gnome-radio
-Version:        71.0
+Version:        72.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
@@ -49,6 +49,8 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_bindir}/org.gnome.Radio
 %{_bindir}/radio-icy
 %{_datadir}/applications/gnome-radio.desktop
+%{_datadir}/applications/gtk-radio.desktop
+%{_datadir}/applications/org.gnome.Radio.desktop
 %{_datadir}/gnome-radio/doc/AAMOT.txt.xz
 %{_datadir}/gnome-radio/doc/Aamot-2020.txt.xz
 %{_datadir}/gnome-radio/gnome-radio-48.0.dtd
@@ -60,6 +62,8 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/gtk-radio/gtk-radio-550.3.dtd
 %{_datadir}/gtk-radio/gtk-radio.xml
 %{_datadir}/icons/hicolor/scalable/apps/gnome-radio.svg
+%{_datadir}/icons/hicolor/scalable/apps/gtk-radio.svg
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Radio.svg
 %{_datadir}/locale/ca/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/cs/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/locale/da/LC_MESSAGES/gnome-radio.mo
@@ -91,6 +95,8 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %{_datadir}/locale/zh_CN/LC_MESSAGES/gnome-radio.mo
 %{_datadir}/man/man1/gnome-radio.1.gz
 %{_datadir}/metainfo/gnome-radio.appdata.xml
+%{_datadir}/metainfo/gtk-radio.appdata.xml
+%{_datadir}/metainfo/org.gnome.Radio.appdata.xml
 %doc README AUTHORS
 
 %changelog

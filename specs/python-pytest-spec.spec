@@ -9,8 +9,8 @@ Available features:\
 - Remove test_ and underscores for every test.
 
 Name:           python-%{pypi_name}
-Version:        5.2.0
-Release:        3%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ rm -rf setup.cfg
 %license LICENSE.txt
 
 %changelog
+* Wed Feb 25 2026 Federico Pellegrin <fede@evolware.org> - 6.0.0-1
+- Bump to 6.0.0 (rhbz#2441815)
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 5.2.0-3
 - Rebuilt without python-mock
 

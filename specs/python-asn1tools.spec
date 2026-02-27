@@ -14,8 +14,6 @@ BuildRequires: python3-prompt-toolkit
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
 BuildOption(install): -l %{pypi_name}
-# No python-bitstruct module available
-ExcludeArch:   s390x
 
 %description
 %{summary}.

@@ -53,7 +53,7 @@ Requires: python3-arrow
 sed -i 's#python -c#%{__python3} -c#' Makefile
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x testing}
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel

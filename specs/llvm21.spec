@@ -1,8 +1,8 @@
 #region globals
 #region version
-%global maj_ver 22
+%global maj_ver 21
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 8
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -38,7 +38,7 @@
 
 # Build compat packages llvmN instead of main package for the current LLVM
 # version. Used on Fedora.
-%bcond_with compat_build
+%bcond_without compat_build
 # Bundle compat libraries for a previous LLVM version, as part of llvm-libs and
 # clang-libs. Used on RHEL.
 %bcond_with bundle_compat_lib
@@ -467,9 +467,7 @@ Source1001: changelog
 # behind the latest packaged LLVM version.
 
 #region CLANG patches
-Patch2100: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
-Patch2200: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
-Patch2300: 0001-23-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
+Patch101: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch2002: 20-131099.patch
 
@@ -627,17 +625,20 @@ BuildRequires:	gnupg2
 
 BuildRequires:	swig
 BuildRequires:	libxml2-devel
+BuildRequires:	doxygen
 
 # For clang-offload-packager
 BuildRequires: elfutils-libelf-devel
+BuildRequires: perl
+BuildRequires: perl-Data-Dumper
+BuildRequires: perl-Encode
 BuildRequires: libffi-devel
 
-# For scan-build
-BuildRequires: perl-interpreter
 BuildRequires:	perl-generators
 
-# We only need the emacs packaging macros, which are part of emacs-common.
-BuildRequires:	emacs-common
+# According to https://fedoraproject.org/wiki/Packaging:Emacs a package
+# should BuildRequires: emacs if it packages emacs integration files.
+BuildRequires:	emacs
 
 BuildRequires:	libatomic
 
@@ -661,6 +662,8 @@ BuildRequires: python%{python3_pkgversion}-pybind11
 BuildRequires: python%{python3_pkgversion}-pyyaml
 BuildRequires: python%{python3_pkgversion}-nanobind-devel
 %endif
+
+BuildRequires:	graphviz
 
 # This is required because we need "ps" when running LLDB tests
 BuildRequires: procps-ng
@@ -2514,9 +2517,6 @@ function reset_test_opts()
 
     # Some test (e.g. mlir) require this to be set.
     unset PYTHONPATH
-
-    # We use them in some cases.
-    unset LIT_NUM_SHARDS LIT_RUN_SHARD
 }
 
 # Convert array of test names into a regex.
@@ -2577,25 +2577,7 @@ export LIT_XFAIL="tools/UpdateTestChecks"
 reset_test_opts
 export LIT_XFAIL="$LIT_XFAIL;clang/test/CodeGen/profile-filter.c"
 
-%ifarch %ix86
-# These tests have been reaching a limit on small i386 servers.
-# We don't know exactly which limit is being reached, but python prints
-# "RuntimeError: can't start new thread". The issue appears to be related to
-# a large number of threads being created very closely while running Sema*
-# tests. The failing tests vary from time to time and are usually simple
-# tests. The execution appears to recover later, with new threads getting
-# created and completing the execution of the remaining tests.
-# In order to reduce the number of threads getting created, we split the
-# tests in 5 shards, ensuring that less than 5K tests will be executed each
-# time.
-export LIT_NUM_SHARDS=5
-for i in $(seq $LIT_NUM_SHARDS); do
-  export LIT_RUN_SHARD=$i
-  %cmake_build --target check-clang
-done
-%else
 %cmake_build --target check-clang
-%endif
 #endregion Test Clang
 
 #region Test Clang Tools
@@ -3159,13 +3141,6 @@ fi
 }}
 %endif
 
-%if %{maj_ver} >= 23
-%{expand_bins %{expand:
-    llubi
-    llvm-gpu-loader
-}}
-%endif
-
 %{expand_mans %{expand:
     bugpoint
     clang-tblgen
@@ -3228,12 +3203,6 @@ fi
 %{expand_mans %{expand:
     llvm-ir2vec
     llvm-offload-binary
-}}
-%endif
-
-%if %{maj_ver} >= 23
-%{expand_mans %{expand:
-    llubi
 }}
 %endif
 
@@ -3737,9 +3706,26 @@ fi
 }}
 %{install_bindir}/flang-%{maj_ver}
 %{expand_includes %{expand:
-    flang/*.mod
+    flang/__cuda_builtins.mod
+    flang/__cuda_device.mod
+    flang/__fortran_builtins.mod
+    flang/__fortran_ieee_exceptions.mod
+    flang/__fortran_type_info.mod
+    flang/__ppc_intrinsics.mod
+    flang/__ppc_types.mod
+    flang/cooperative_groups.mod
+    flang/ieee_arithmetic.mod
+    flang/ieee_exceptions.mod
+    flang/ieee_features.mod
+    flang/iso_c_binding.mod
+    flang/iso_fortran_env.mod
+    flang/mma.mod
+    flang/cudadevice.mod
+    flang/iso_fortran_env_impl.mod
+    flang/omp_lib.mod
+    flang/omp_lib_kinds.mod
+    flang/flang_debug.mod
 }}
-
 %{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg
 %ifarch x86_64
 %{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-flang.cfg

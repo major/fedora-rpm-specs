@@ -1,7 +1,7 @@
 # kdump-utils has no debug source
 %global debug_package %{nil}
 Name: kdump-utils
-Version: 1.0.59
+Version: 1.0.60
 Release: %autorelease
 Summary: Kernel crash dump collection utilities
 
@@ -102,6 +102,7 @@ fi
 %dir %{_sysconfdir}/kdump
 %dir %{_sysconfdir}/kdump/pre.d
 %dir %{_sysconfdir}/kdump/post.d
+%dir %{_sysconfdir}/kdump/emergency.d
 %dir %{_sharedstatedir}/kdump
 %{_mandir}/man8/kdumpctl.8*
 %{_mandir}/man8/mkdumprd.8*

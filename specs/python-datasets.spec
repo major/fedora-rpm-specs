@@ -1,5 +1,5 @@
 Name:           python-datasets
-Version:        4.5.0
+Version:        4.6.0
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 

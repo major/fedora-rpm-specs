@@ -3,7 +3,7 @@
 Name:           f2c
 Summary:        A Fortran 77 to C/C++ conversion program
 Version:        20210928
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        MIT
 
 URL:            http://www.netlib.org/f2c/
@@ -16,6 +16,7 @@ Source4:        http://www.netlib.org/f2c/fc
 # Patch makefile to build a shared library
 Patch0:         f2c-20110801.patch
 Patch1:         libf2c-20110801-format-security.patch
+Patch2:         use-glibc-to-check-fpu.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -87,6 +88,9 @@ install -Dpm 0755 fc %{buildroot}%{_bindir}/f77
 
 
 %changelog
+* Wed Feb 25 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 20210928-13
+- Use glibc to check FPU exceptions - this way it builds fine on riscv64.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20210928-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

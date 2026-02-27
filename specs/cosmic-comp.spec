@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 2ea1186723cde954f5b2b697a8ae0a45e836548c
-%global commitdatestring 2026-02-06 11:58:27 -0800
-%global cosmic_minver 1.0.6
+%global commit 3f68eee8465be0e4e16422ff7335b5463d9aad6b
+%global commitdatestring 2026-02-24 00:55:49 +0100
+%global cosmic_minver 1.0.8
 
 Name:           cosmic-comp
-Version: 1.0.6
+Version: 1.0.8
 Release:        %autorelease
 Summary:        Compositor for the COSMIC Desktop Environment
 
@@ -28,8 +28,6 @@ Source0:        https://github.com/pop-os/cosmic-comp/archive/epoch-%{version_no
 Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
-
-Patch: https://github.com/pop-os/cosmic-comp/compare/epoch-1.0.6...3f6a9ab8ca1b1bc998554993efabdf2e71acecf1.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

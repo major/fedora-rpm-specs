@@ -14,8 +14,9 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        2.1.15
-Release:        2%{?dist}
+Version:        2.0.15
+Release:        3%{?dist}
+Epoch:          1
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPL-2.0-or-later
@@ -27,7 +28,7 @@ BuildRequires:  make
 BuildRequires:  gettext
 BuildRequires:  gcc-c++
 BuildRequires:  vdr-devel >= %{vdr_version}
-Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
+Requires:       vdr(abi)%{?_isa} = %{epoch}:%{vdr_apiversion}
 
 %description
 This plugin provides a powerful replacement for VDR's default
@@ -57,11 +58,15 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
-* Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.1.15-2
+* Tue Feb 24 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-3
+- Correct Tag version to 2.0.15
+- Add epoch to allow install older version
+
+* Mon Feb 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-2
 - Rebuilt for new VDR API version 2.7.9
 
-* Mon Feb 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.1.15-1
-- Update 2.1.15
+* Mon Feb 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-1
+- Update 2.0.15
 
 * Mon Jan 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.14-7
 - Rebuilt for new VDR API version 2.7.8

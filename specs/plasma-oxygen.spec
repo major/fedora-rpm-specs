@@ -1,9 +1,7 @@
 %global         base_name oxygen
-%if 0%{?rhel} && 0%{?rhel} >= 10
-%bcond_with kf5
-%else
-%bcond_without kf5
-%endif
+
+# Disable kf5 support for RHEL 10+
+%bcond kf5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

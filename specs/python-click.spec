@@ -2,9 +2,8 @@
 
 Name:           python-click
 Epoch:          1
-Version:        8.1.7
-# reset the -b when updating to a new version
-Release:        %autorelease -b 10
+Version:        8.3.1
+Release:        %autorelease
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
@@ -34,7 +33,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:requirements/tests.in}
+%pyproject_buildrequires %{?with_tests:-g tests}
 
 
 %build
@@ -54,8 +53,8 @@ Summary:        %{summary}
 
 
 %files -n python%{python3_pkgversion}-click -f %pyproject_files
-%license LICENSE.rst
-%doc README.rst CHANGES.rst
+%license LICENSE.txt
+%doc README.md CHANGES.rst
 
 
 %changelog

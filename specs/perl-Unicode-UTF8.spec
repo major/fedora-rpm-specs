@@ -9,7 +9,7 @@
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.65
+Version:	0.66
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
@@ -92,13 +92,19 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Wed Feb 25 2026 Paul Howarth <paul@city-fan.org> - 0.66-1
+- Update to 0.66
+  - Rewrote the UTF-8 validator using a shift-based DFA from
+    https://github.com/chansen/c-utf8-valid by the same author; benchmarks show
+    up to 10x faster decoding compared with Encode.pm
+
 * Tue Feb 24 2026 Paul Howarth <paul@city-fan.org> - 0.65-1
 - Update to 0.65
   - C99-compliant compiler is now required for Unicode::UTF8
   - Scan 16 bytes at a time to detect non-ASCII bytes, falling back to sequence
     validation for non-ASCII input; this approach resulted in a 900%% throughput
     improvement on English text and a 200%% improvement on Swedish text compared
-    to Encode.pm
+    with Encode.pm
 
 * Mon Feb 23 2026 Paul Howarth <paul@city-fan.org> - 0.64-1
 - Update to 0.64
