@@ -2,7 +2,7 @@
 
 Name: efibootmgr
 Version: 18
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: EFI Boot Manager
 License: GPL-2.0-or-later
 URL: https://github.com/rhboot/%{name}/
@@ -51,6 +51,9 @@ git config --local --add efibootmgr.efidir %{efi_vendor}
 %doc README
 
 %changelog
+* Thu Feb 19 2026 Josue David Hernandez Gutierrez <josherna@redhat.com>
+- get_entry: return entry if it was found before reaching the end of the list
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

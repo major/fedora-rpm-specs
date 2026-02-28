@@ -37,6 +37,8 @@ Requires:       python3-louis
 Requires:       python3-pyatspi
 Requires:       python3-speechd
 Requires:       speech-dispatcher
+# For the battery and system usage information commands
+Recommends:     python3-psutil
 %if 0%{?fedora}
 # only needed in X11 sessions
 Recommends:     libwnck3

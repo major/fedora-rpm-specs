@@ -11,7 +11,7 @@
 
 Name:              fastnetmon
 Version:           1.2.1
-Release:           32.%{date}git%{shortcommit0}%{?dist}
+Release:           33.%{date}git%{shortcommit0}%{?dist}
 
 Summary:           DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -41,6 +41,8 @@ Patch0:            fastnetmon-pr968-g++13-header.patch
 # fastnetmon: FTBFS in Fedora Rawhide/F44 with Boost 1.90
 # https://bugzilla.redhat.com/show_bug.cgi?id=2429533
 Patch1:            0001-Boost-migration-patch-by-Marek-Zarychta.-Closes-1027.patch
+# Added new logic to find Mongo-C v2 library
+Patch2:            mongoc2.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -135,6 +137,10 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %doc README.md SECURITY.md THANKS.md
 
 %changelog
+* Thu Feb 26 2026 Remi Collet <remi@fedoraproject.org> - 1.2.1-33.20220528git420e7b8
+- rebuild with libbson and libmongc v2
+- add upstream patch to fix FTBFS #2440923
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-32.20220528git420e7b8
 - Rebuilt for abseil-cpp 20260107.0
 

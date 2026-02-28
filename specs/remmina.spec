@@ -1,7 +1,7 @@
-%global commit 82b066d607d18ebf9b909d167b8ac06628cd97ff
+%global commit 7be0cf2348d149c6bf5bd882fe91d3bec7d6aebb
 
 Name: remmina
-Version: 1.4.42
+Version: 1.4.43
 Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
@@ -353,6 +353,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Thu Feb 26 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.43-1
+- Update to 1.4.43 rhbz#2441368
+
 * Sat Feb 14 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.42-1
 - Update to 1.4.41 rhbz#2439835
 

@@ -1,7 +1,7 @@
 %global pypi_name typecode
 
 Name:           python-%{pypi_name}
-Version:        30.0.2
+Version:        30.1.0
 Release:        %autorelease
 Summary:        Comprehensive filetype and mimetype detection
 
@@ -25,7 +25,6 @@ Summary:        Comprehensive filetype and mimetype detection
 License:        Apache-2.0 AND (Apache-2.0 AND MIT) AND (BSD-2-Clause-Views AND MIT) AND (Apache-2.0 AND BSD-2-Clause) AND MIT AND Python-2.0
 URL:            https://github.com/aboutcode-org/typecode
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-Patch:          0001-Unbundle-pygments.patch
 
 BuildArch:      noarch
 BuildRequires:  file-libs
@@ -33,6 +32,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-copybutton)
+BuildRequires:  python3dist(sphinx-reredirects)
 BuildRequires:  python3dist(typecode-libmagic-system-provided)
 
 %global common_description %{expand:
@@ -72,9 +73,13 @@ This package is providing the documentation for %{pypi_name}.
 %autosetup -p1 -n %{pypi_name}-%{version}
 # remove bundled pygments
 rm -rfv src/typecode/_vendor
+sed -i 's|typecode._vendor.pygments|pygments|g' $(grep -rl typecode._vendor.pygments)
+sed -i '/install_requires =/a\    pygments' setup.cfg
 # We change fallback_version to our actual version
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
 sed -i 's|typecode_libmagic >= 5.39.210223|typecode-libmagic-system-provided|' setup.cfg
+# Disable Sphinx plugin that's not packaged in Fedora
+sed -i '/sphinx_rtd_dark_mode/d' docs/source/conf.py
 
 %generate_buildrequires
 %pyproject_buildrequires

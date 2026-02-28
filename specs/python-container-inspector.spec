@@ -2,15 +2,13 @@
 %global pypi_name_with_underscore %(echo "%{pypi_name}" | sed "s/-/_/g")
 
 Name:           python-%{pypi_name}
-Version:        33.0.1
+Version:        33.1.0
 Release:        %autorelease
 Summary:        Suite of analysis utilities and command line tools for Docker container images
 
 License:        Apache-2.0
 URL:            https://github.com/aboutcode-org/container-inspector
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# Disable Sphinx extra theme
-Patch:          0001-Revert-Added-docs-server-script-dark-mode-copybutton.patch
 
 BuildArch:      noarch
 BuildRequires:  help2man
@@ -19,6 +17,7 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-reredirects)
 BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-copybutton)
 
 %global common_description %{expand:
 container-inspector is a suite of analysis utilities and command line tools
@@ -70,6 +69,8 @@ This package is providing the documentation for %{pypi_name}.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
+# Disable Sphinx plugin that's not packaged in Fedora
+sed -i '/sphinx_rtd_dark_mode/d' docs/source/conf.py
 
 %generate_buildrequires
 %pyproject_buildrequires

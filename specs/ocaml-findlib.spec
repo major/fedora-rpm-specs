@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-findlib
 Version:        1.9.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -104,6 +104,9 @@ sed -i '/etc/d' .ofiles
 
 
 %changelog
+* Thu Feb 26 2026 Richard W.M. Jones <rjones@redhat.com> - 1.9.8-8
+- Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 1.9.8-7
 - OCaml 5.4.1 rebuild
 

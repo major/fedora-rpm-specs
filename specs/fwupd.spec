@@ -18,7 +18,7 @@
 %global enable_dummy 1
 
 # fwupd.efi is only available on these arches
-%ifarch i686 x86_64 aarch64 riscv64
+%ifarch x86_64 aarch64 riscv64
 %global have_uefi 1
 %endif
 
@@ -42,7 +42,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.19
+Version:   2.0.20
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd

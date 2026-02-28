@@ -139,6 +139,7 @@ Patch83:        build-seccomp.patch
 Patch84:        build-minimal-lexical.patch
 Patch85:        build-libcubeb.patch
 Patch86:        build-missing-gitmodules.patch
+Patch87:        dstdint-compile-error.patch
 
 # PPC fix
 
@@ -327,6 +328,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P84 -p1 -b .minimal-lexical
 %patch -P85 -p1 -b .libcubeb
 %patch -P86 -p1 -b .missing-gitmodules
+%patch -P87 -p1 -b .dstdint-compile-error
 
 #patch -P 1200 -p1 -b .rustflags-commasplit
 

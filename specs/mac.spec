@@ -1,11 +1,13 @@
 Name:           mac
-Version:        10.18
+Version:        12.35
 Release:        %autorelease
 Summary:        Monkey's Audio Codec
 
 License:        BSD-3-Clause
 URL:            https://monkeysaudio.com
 Source:         %{url}/files/MAC_%(echo "%{version}" | tr -d .)_SDK.zip
+Patch:          mac-cmake4.patch
+Patch:          mac-default-linux.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -35,10 +37,10 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -c %{name}
+%autosetup -c %{name} -p1
 
 # Drop prebuilt binaries and unused vendored dependencies
-rm -r '3rd Party' Shared/{32,64} Source/'DirectShow Filter'
+rm -r '3rd Party' Shared/{32,64}
 
 # Convert readme to UTF-8 and fix EOL encoding
 iconv -f iso8859-1 -t utf-8 Readme.txt > Readme.txt.conv && \
@@ -56,13 +58,13 @@ sed -i 's/\r$//' Readme.txt
 %{_bindir}/mac
 
 %files libs
-%license License.rtf
+%license License.txt
 %doc Readme.txt
-%{_libdir}/*.so.10*
+%{_libdir}/libMAC.so.14
 
 %files devel
 %{_includedir}/MAC/
-%{_libdir}/*.so
+%{_libdir}/libMAC.so
 
 %changelog
 %autochangelog

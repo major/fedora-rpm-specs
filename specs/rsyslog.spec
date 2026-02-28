@@ -37,7 +37,7 @@
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2510.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -755,6 +755,9 @@ done
 
 
 %changelog
+* Thu Feb 26 2026 Remi Collet <remi@remirepo.net> - 8.2510.0-4
+- rebuild with mongo-c-driver version 2
+
 * Fri Jan 23 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 8.2510.0-3
 - Rebuilt for net-snmp 5.9.5.2
 

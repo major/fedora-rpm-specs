@@ -4,7 +4,7 @@
 
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{sname}
-Version:		4.7.0
+Version:		4.7.1
 Release:		1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:		LicenseRef-Callaway-BSD
@@ -114,7 +114,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{__install} -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/pgpool
 
 # nuke libtool archive and static lib
-%{__rm} -f %{buildroot}%{_libdir}/libpcp.{a,la}
+%{__rm} -f %{buildroot}%{_libdir}/libpgpoolpcp.{a,la}
 
 %post
 /sbin/ldconfig
@@ -154,7 +154,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{_bindir}/pg_md5
 %dir %{_datadir}/%{sname}
 %{_datadir}/%{sname}/insert_lock.sql
-%{_libdir}/libpcp.so.*
+%{_libdir}/libpgpoolpcp.so.*
 %{_datadir}/%{sname}/pgpool.pam
 %{_sysusersdir}/%{sname}.conf
 %ghost %{_varrundir}
@@ -169,7 +169,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{_includedir}/pcp.h
 %{_includedir}/pool_process_reporting.h
 %{_includedir}/pool_type.h
-%{_libdir}/libpcp.so
+%{_libdir}/libpgpoolpcp.so
 
 %files extensions
 %{_libdir}/pgsql/pgpool-recovery.so
@@ -191,6 +191,10 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 
 %changelog
+* Thu Feb 20 2026 Devrim Gunduz <devrim@gunduz.org> - 4.7.1-1
+- Update to 4.7.1 per changes described at:
+  https://www.pgpool.net/docs/latest/en/html/release-4-7-1.html
+
 * Tue Feb 3 2026 Devrim Gunduz <devrim@gunduz.org> - 4.7.0-1
 - Update to 4.7.0 per changes described at:
   https://www.pgpool.net/docs/latest/en/html/release-4-7-0.html

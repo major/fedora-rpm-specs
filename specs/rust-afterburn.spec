@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/afterburn
 Source0:        %{crates_source}
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
+Source2:        90-afterburn-authorized-keys-file.conf
 
 # build(deps): bump mailparse from 0.15.0 to 0.16.1
 # (Only the Cargo.toml portion, not the Cargo.lock portion)
@@ -80,6 +81,7 @@ License:        Apache-2.0 AND 0BSD AND BSD-3-Clause AND MIT AND (Apache-2.0 OR 
 %{_unitdir}/afterburn-firstboot-checkin.service
 %{_unitdir}/afterburn-sshkeys@.service
 %{_unitdir}/afterburn-sshkeys.target
+%{_sysconfdir}/ssh/sshd_config.d/90-afterburn-authorized-keys-file.conf
 
 %post        -n %{crate}
 %systemd_post afterburn.service
@@ -153,12 +155,18 @@ install -Dpm0644 -t %{buildroot}%{_unitdir} \
 mkdir -p %{buildroot}%{dracutmodulesdir}
 cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 
+install -d -p %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/
+install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-afterburn-authorized-keys-file.conf
+
 %if %{with check}
 %check
 %cargo_test
 %endif
 
 %changelog
+* Tue Feb 24 2026 Joel Capitao <jcapitao@redhat.com> - 5.10.0-4
+- Ship OpenSSH config file specifying AuthorizedKeysFile
+
 * Sat Feb 07 2026 Fabio Valentini <decathorpe@gmail.com> - 5.10.0-3
 - Rebuild for RUSTSEC-2026-{0007,0008,0009} and CVE-2026-25537
 

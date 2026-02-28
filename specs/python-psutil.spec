@@ -2,26 +2,18 @@
 %bcond xdist %[%{defined fedora} && %{undefined bootstrap}]
 
 Name:           python-psutil
-Version:        7.0.0
+Version:        7.2.2
 Release:        %autorelease
 Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/giampaolo/psutil
 Source:         %{url}/archive/release-%{version}/psutil-%{version}.tar.gz
-#
-# Don't treat sockets as paths
-# Reported upstream: https://github.com/giampaolo/psutil/pull/2435
-#
-Patch:          python-psutil-sockets-are-not-paths.patch
-#
-# Fix tests when run with pytest-xdist
-# Reported upstream: https://github.com/giampaolo/psutil/pull/2587
-Patch:          0001-Ignore-environment-variables-set-by-pytest-xdist.patch
 
 BuildRequires:  gcc
-BuildRequires:  sed
+BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  sed
 # Test dependencies
 BuildRequires:  procps-ng
 BuildRequires:  python%{python3_pkgversion}-pytest
@@ -39,6 +31,9 @@ ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 
 %package -n python%{python3_pkgversion}-psutil
 Summary:        %{summary}
+# psutil.tests dropped in 7.2.0
+# see https://raw.githubusercontent.com/giampaolo/psutil/refs/tags/release-7.2.0/HISTORY.rst
+Obsoletes:      python%{python3_pkgversion}-psutil-tests < 7.0.0-10
 
 %description -n python%{python3_pkgversion}-psutil
 psutil is a module providing an interface for retrieving information on all
@@ -72,11 +67,8 @@ done
 # We want to run it on other build systems, hence the explicit skip for
 # the particular buildhost
 %if "%{_buildhost}" == "zuulci-mockbuild.redhat.com"
- sed -i "s/test_disk_partitions/notest_disk_partitions/" psutil/tests/test_system.py
+ sed -i "s/test_disk_partitions/notest_disk_partitions/" tests/test_system.py
 %endif
-
-# Don't run and install tests for unpackaged scripts
-rm psutil/tests/test_scripts.py
 
 
 %generate_buildrequires
@@ -85,11 +77,14 @@ rm psutil/tests/test_scripts.py
 
 %build
 %pyproject_wheel
+# to trigger build_ext needed for testing
+# see https://github.com/giampaolo/psutil/issues/2637
+make build
 
 
 %install
 %pyproject_install
-%pyproject_save_files psutil
+%pyproject_save_files -l psutil
 
 
 # Ignore tests when building with flatpak-module-tools to avoid build failures
@@ -134,18 +129,25 @@ k="${k-}${k+ and }not emulate_power_undetermined"
 # Setting GITHUB_ACTIONS to convince the test suite this is a CI.
 # That way, some unreliable tests are skipped and some timeouts are extended.
 
-# Note: We deliberately bypass the Makefile here to test the installed modules.
-GITHUB_ACTIONS=1 %{pytest} %{?with_xdist:-n auto} "${k:+-k $k}" --pyargs psutil.tests
+# --deselect notes
+# TestDiskAPIs: FileNotFoundError: [Errno 2] No such file or directory: '/sys/fs/cgroup/net_cls'
+# TestMiscAPIs: flaky assert 0 > 0
 
+# --ignore notes
+# tests/test_memleaks: depends on unpackaged psleak
+
+# Note: We deliberately bypass the Makefile here to test the installed modules.
+GITHUB_ACTIONS=1 %{pytest} -v %{?with_xdist:-n auto} "${k:+-k $k}" --pyargs tests \
+  --deselect tests/test_system.py::TestDiskAPIs::test_disk_partitions \
+  --deselect tests/test_system.py::TestMiscAPIs::test_heap_info \
+  --ignore tests/test_memleaks.py \
+  ;
 %endif
 
 
 %files -n python%{python3_pkgversion}-psutil -f %{pyproject_files}
 %doc CREDITS HISTORY.rst README.rst
 %exclude %{python3_sitearch}/psutil/tests
-
-%files -n python%{python3_pkgversion}-psutil-tests
-%{python3_sitearch}/psutil/tests/
 
 
 %changelog

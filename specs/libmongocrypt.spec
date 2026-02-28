@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for libmongocrypt
 #
-# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -14,8 +14,8 @@
 
 Name:      %{libname}
 Summary:   The companion C library for client side encryption in drivers
-Version:   1.15.2
-Release:   2%{?dist}
+Version:   1.17.2
+Release:   1%{?dist}
 
 # see kms-message/THIRD_PARTY_NOTICES
 # kms-message/src/kms_b64.c is ISC
@@ -28,16 +28,13 @@ Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{version}.tar.g
 
 # drop all reference to static libraries
 Patch0:    %{libname}-static.patch
-# fix FTBFS -Werror=discarded-qualifiers
-# https://jira.mongodb.org/browse/MONGOCRYPT-873
-Patch1:    %{libname}-build.patch
 
 BuildRequires: cmake >= 3.12
 BuildRequires: gcc
 BuildRequires: gcc-c++
 # pkg-config may pull compat-openssl10
 BuildRequires: openssl-devel
-BuildRequires: cmake(bson-1.0) >= 1.11
+BuildRequires: cmake(bson) >= 2.2
 # for documentation
 BuildRequires: doxygen
 BuildRequires: make
@@ -90,7 +87,9 @@ doxygen ./doc/Doxygen
 
 
 %check
+%ifnarch %{ix86}
 %ctest
+%endif
 
 if grep -r static %{buildroot}%{_libdir}/cmake; then
   : cmake configuration file contain reference to static library
@@ -117,6 +116,9 @@ fi
 
 
 %changelog
+* Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 1.17.2-1
+- update to 1.17.2
+
 * Wed Jan 21 2026 Remi Collet <remi@remirepo.net> - 1.15.2-2
 - fix fix assignment discards ‘const’ qualifier from pointer target type
   reported as https://jira.mongodb.org/browse/MONGOCRYPT-873

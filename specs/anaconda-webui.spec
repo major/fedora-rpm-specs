@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        65
+Version:        66
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -60,7 +60,7 @@ Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.4.0
+Provides: bundled(npm(react-dropzone)) = 14.4.1
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
@@ -129,6 +129,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Feb 26 2026 Packit <hello@packit.dev> - 66-1
+- Add show/hide toggle for Bugzilla API key field (Resolves: rhbz#2442575)
+- Fix user description not being sent to Bugzilla (Resolves: rhbz#2442593)
+
+
 * Thu Feb 12 2026 Packit <hello@packit.dev> - 65-1
 - Enable crash-reporting dialog (Resolves: rhbz#2431541)
 - Embed cockpit-networkmanager for future usage in boot.iso (hidden in Live)

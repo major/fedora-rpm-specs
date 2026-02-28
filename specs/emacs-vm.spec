@@ -20,6 +20,7 @@ Summary(sv): Emacs postläsare VM
 Name: emacs-vm
 %global forgeurl https://gitlab.com/emacs-vm/vm/
 %global version0 8.3.2
+%global commit edecae201ca7261e0d5adedded25cea0bbaea432
 %forgemeta
 Version: %forgeversion
 Release: %autorelease

@@ -6,7 +6,7 @@
 %bcond tests 1
 
 Name:           scancode-toolkit
-Version:        32.4.1
+Version:        32.5.0
 Release:        %autorelease
 Summary:        Scan code and detect licenses, copyrights, and more
 
@@ -21,10 +21,6 @@ Patch:          0001-tests-fix-pytest-traceback.patch
 # See note in https://github.com/aboutcode-org/scancode-toolkit/issues/4541
 # about why pkginfo2 was removed.
 Patch:          0002-Replace-pkginfo2-with-pkginfo.patch
-# Based on https://github.com/aboutcode-org/scancode-toolkit/pull/4539
-Patch:          0003-packagedcode-don-t-use-removed-ast-module-attributes.patch
-# Based on https://github.com/aboutcode-org/scancode-toolkit/pull/4532
-Patch:          0004-packagedcode-replace-unmaintained-toml-with-tomllib-.patch
 
 # scancode has dependencies that are not compatible with ix86
 ExcludeArch:    %{ix86}
@@ -67,6 +63,8 @@ sed -Ei \
     -e "s/^( *)(click .*);python_version<'3\.10'/\1\2/" \
     -e "/^ *click .*;python_version>='3\.10'/d" \
     -e 's/spdx_tools ==/spdx_tools ~=/' \
+    -e 's/normality <.*/normality/' \
+    -e 's/(fingerprints.*), <=.*/\1/' \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/invariant-2.2.4-expected.json
@@ -174,9 +172,8 @@ export PYTHONPATH="$(pwd)/src"
 %doc AUTHORS.rst CHANGELOG.rst CODE_OF_CONDUCT.rst
 %doc CONTRIBUTING.rst README.rst ROADMAP.rst
 %license NOTICE apache-2.0.LICENSE cc-by-4.0.LICENSE
-%{_bindir}/scancode
-%{_bindir}/scancode-license-data
-%{_bindir}/scancode-reindex-licenses
+
+%{_bindir}/scancode*
 # TODO: Should these extra utility binaries be included in the package?
 # They are installed as console_scripts but may not be meant for end-user
 # consumption.

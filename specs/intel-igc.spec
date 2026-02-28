@@ -79,6 +79,8 @@ tar -xf %{SOURCE1}
 %autosetup -n intel-graphics-compiler-%{version} -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380657)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS:BOOL=OFF \

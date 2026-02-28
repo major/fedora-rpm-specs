@@ -46,7 +46,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.4.1
-Release:        1%{?dist}
+Release:        4%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -77,6 +77,12 @@ Source2:        ocaml_files.py
 # Fedora-specific patches
 Patch:          0001-Don-t-add-rpaths-to-libraries.patch
 Patch:          0002-configure-Allow-user-defined-C-compiler-flags.patch
+
+# Fix for arm64 frame pointers
+# https://github.com/ocaml/ocaml/issues/14574
+# https://github.com/ocaml/ocaml/pull/14589
+# Upstream 6cda6d8a928ada5dd0f58de229d3cb193cfdff53
+Patch:          0003-Merge-pull-request-14589-from-xavierleroy-arm64-addi.patch
 
 BuildRequires:  make
 BuildRequires:  git-core
@@ -463,8 +469,11 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Thu Feb 26 2026 Richard W.M. Jones <rjones@redhat.com> - 5.4.1-4
+- Backport fix for arm64 frame pointers
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.4.1-1
-- New upstream version 5.4.0 (RHBZ#2440356)
+- New upstream version 5.4.1 (RHBZ#2440356)
 
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild

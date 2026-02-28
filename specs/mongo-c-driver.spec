@@ -9,8 +9,8 @@
 %global gh_owner     mongodb
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
-%global libver       1.0
-%global up_version   1.30.7
+%global soname       2
+%global up_version   2.2.2
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -56,7 +56,8 @@ BuildRequires: openssl
 %endif
 %if %{with libmongocrypt}
 # grep VERSION_LESS src/*/CMakeLists.txt
-BuildRequires: cmake(mongocrypt) >= 1.12.0
+# use 1.17 to ensure libbson2 is used
+BuildRequires: cmake(mongocrypt) >= 1.17
 %endif
 BuildRequires: perl-interpreter
 # From man pages
@@ -93,8 +94,14 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   pkgconfig
 Requires:   cmake-filesystem
 Requires:   pkgconfig(libzstd)
+Requires:   cmake(bson) = %{version}
 %if %{with libmongocrypt}
 Requires:   cmake(mongocrypt)
+%endif
+Requires:   openssl-devel
+Requires:   pkgconfig(libsasl2)
+%if %{with libutf8proc}
+Requires:   pkgconfig(libutf8proc)
 %endif
 
 %description devel
@@ -142,7 +149,6 @@ Documentation: http://mongoc.org/libbson/%{version}/
     -DENABLE_SSL:STRING=OPENSSL \
     -DENABLE_SASL:STRING=CYRUS \
     -DENABLE_MONGODB_AWS_AUTH:STRING=ON \
-    -DENABLE_AUTOMATIC_INIT_AND_CLEANUP:BOOL=OFF \
     -DENABLE_CRYPTO_SYSTEM_PROFILE:BOOL=ON \
 %if %{with manpages}
     -DENABLE_MAN_PAGES:BOOL=ON \
@@ -225,30 +231,25 @@ make check || ret=1
 [ -s server.pid ] && kill $(cat server.pid)
 %endif
 
-if grep -r static %{buildroot}%{_libdir}/cmake/*%{libver}; then
-  : cmake configuration file contain reference to static library
-  ret=1
-fi
 exit $ret
 
 
 
 %files
-%{_bindir}/mongoc-stat
+%{_bindir}/mongoc2-stat
 
 %files libs
 %license COPYING
 %license THIRD_PARTY_NOTICES
-%{_libdir}/%{libname}-%{libver}.so.*
+%{_libdir}/%{libname}2.so.%{soname}
+%{_libdir}/%{libname}2.so.%{soname}.*
 
 %files devel
 %doc src/%{libname}/examples
 %doc NEWS
-%{_includedir}/%{libname}-%{libver}
-%{_libdir}/%{libname}-%{libver}.so
-%{_libdir}/pkgconfig/%{libname}-*.pc
-%{_libdir}/cmake/%{libname}-%{libver}
-%{_libdir}/cmake/mongoc-%{libver}
+%{_includedir}/mongoc-%{version}
+%{_libdir}/%{libname}2.so
+%{_libdir}/pkgconfig/mongoc2.pc
 %{_libdir}/cmake/mongoc-%{version}
 %if %{with manpages}
 %{_mandir}/man3/mongoc*
@@ -257,17 +258,16 @@ exit $ret
 %files -n libbson
 %license COPYING
 %license THIRD_PARTY_NOTICES
-%{_libdir}/libbson*.so.*
+%{_libdir}/libbson2.so.%{soname}
+%{_libdir}/libbson2.so.%{soname}.*
 
 %files -n libbson-devel
 %doc src/libbson/examples
 %doc src/libbson/NEWS
-%{_includedir}/libbson-%{libver}
+%{_includedir}/bson-%{version}
 %{_libdir}/libbson*.so
-%{_libdir}/cmake/libbson-%{libver}
-%{_libdir}/cmake/bson-%{libver}
 %{_libdir}/cmake/bson-%{version}
-%{_libdir}/pkgconfig/libbson-*.pc
+%{_libdir}/pkgconfig/bson2.pc
 %if %{with manpages}
 %{_mandir}/man3/bson*
 %{_mandir}/man3/libbson*
@@ -275,6 +275,9 @@ exit $ret
 
 
 %changelog
+* Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 2.2.2-1
+- update to 2.2.2
+
 * Wed Feb  4 2026 Remi Collet <remi@remirepo.net> - 1.30.7-1
 - update to 1.30.7
 

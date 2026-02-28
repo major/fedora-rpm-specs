@@ -29,13 +29,13 @@
 %endif
 
 # hippc is clang based, the toolchain is gcc, remove the gcc options that are not supported on clang
-%global rocm_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
+%global rocm_cxxflags %(echo %{optflags} | sed -E 's/-specs=[^ ]+//g; s/-Wno-complain-wrong-lang//g; s/-fexceptions//g; s/-fstack-clash-protection//g; s/-fcf-protection//g; s/-ffat-lto-objects//g; s/-Xarch_host//g; s/-mtls-dialect=[^ ]+//g; s/-flto=auto//g; s/-grecord-gcc-switches/-frecord-command-line/g; s/-Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3//g; s/-Wp,-D_GLIBCXX_ASSERTIONS//g; s/-mno-omit-leaf-frame-pointer//g; s/[[:space:]]+/ /g')
 %endif
 
 Name:           kokkos
-Version:        4.6.02
-%global         sover 4.6
-Release:        3%{?dist}
+Version:        4.7.02
+%global         sover 4.7
+Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -200,6 +200,9 @@ module purge
 
 
 %changelog
+* Sat Feb 21 2026 Richard Berger <richard.berger@outlook.com> - 4.7.02-1
+- Version bump to v4.7.02
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.02-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

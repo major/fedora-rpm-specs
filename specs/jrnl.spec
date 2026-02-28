@@ -1,5 +1,5 @@
 Name:           jrnl
-Version:        4.2.1
+Version:        4.3
 Release:        %autorelease
 Summary:        Collect your thoughts and notes without leaving the command line
 
@@ -13,30 +13,16 @@ Source:         %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
 # We must integrate with new Python interpreter versions whether upstream
 # is ready or not.
 Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
-
-# Update dependency rich to v14
-# https://github.com/jrnl-org/jrnl/pull/1989
-# Update dependency rich to >=14.1.0, <14.2.0
-# https://github.com/jrnl-org/jrnl/pull/2013
+# Downstream-only: do not upper-bound the version of rich
 #
-# We have combined the two mentioned PR’s and modified the patch to include
-# only changes to pyproject.toml, omitting those to poetry.lock since they are
-# unnecessary (for Fedora) and likely to cause conflicts. Furthermore, we have
-# widened the ersion range as suggested upstream in
-# https://github.com/jrnl-org/jrnl/pull/2013#issuecomment-3146456826.
-Patch:          jrnl-4.2-rich-14.patch
-
-# For Python 3.11, use `tomllib` for tests
-# https://github.com/jrnl-org/jrnl/pull/2028
-# Rebased on v4.2.1, without changes to poetry.lock.
-Patch:          0001-For-Python-3.11-use-tomllib-for-tests.patch
-
-# Modify linewrap test to bypass minor inconsistency between Python versions
-# https://github.com/jrnl-org/jrnl/pull/2047
-Patch:          %{forgeurl}/pull/2047.patch
+# Upstream limits this to the current minor version, but we must integrate
+# with new releases whether upstream is ready or not. We would rather deal
+# with a few possible, usually-minor test failures than a sudden failure
+# to install.
+Patch:          0002-Downstream-only-do-not-upper-bound-the-version-of-ri.patch
 
 BuildSystem:            pyproject
-BuildOption(install):   jrnl
+BuildOption(install):   -l jrnl
 BuildOption(generate_buildrequires): -t
 
 BuildArch:      noarch
@@ -53,9 +39,6 @@ encryption.
 
 
 %prep -a
-# Unpin pytest; see https://github.com/jrnl-org/jrnl/issues/1879.
-sed -r -i 's/(pytest\b.*),<=?[[:digit:].]+/\1/' pyproject.toml
-
 dos2unix --keepdate \
     SECURITY.md \
     docs/external-editors.md \
@@ -64,23 +47,27 @@ dos2unix --keepdate \
     docs/reference-config-file.md
 
 
-%build -a
+%install -a
 # https://github.com/jrnl-org/jrnl/issues/74
 # https://github.com/jrnl-org/jrnl/issues/1274
-help2man --no-info '%{python3} -m jrnl' --output='jrnl.1'
-
-
-%install -a
-install -D -t '%{buildroot}%{_mandir}/man1' -p -m 0644 'jrnl.1'
+install -d '%{buildroot}%{_mandir}/man1'
+%{py3_test_envvars} help2man --no-info jrnl \
+    --output='%{buildroot}%{_mandir}/man1/jrnl.1'
 
 
 %check -a
+# https://github.com/jrnl-org/jrnl/issues/2060#issuecomment-3964203676
+k="${k-}${k+ and }not test_install_jrnl_with_custom_expanded_default_journal_path"
+k="${k-}${k+ and }not test_install_jrnl_with_custom_relative_default_journal_path"
+k="${k-}${k+ and }not test_install_jrnl_with_default_options"
+k="${k-}${k+ and }not test_install_jrnl_with_encrypted_default_journal"
+k="${k-}${k+ and }not test_install_jrnl_with_encrypted_default_journal_with_no_entries"
+k="${k-}${k+ and }not test_update_version_number_in_config_file_when_running_newer_version"
+
 %tox -- -- -k "${k-}" -rs
 
 
 %files -f %{pyproject_files}
-%license LICENSE.md
-
 %doc CHANGELOG.md
 %doc README.md
 %doc docs/

@@ -121,6 +121,7 @@ BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  subversion-devel
 

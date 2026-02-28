@@ -13,7 +13,7 @@ Summary:        A TigerVNC remote display system
 %global _hardened_build 1
 
 License:        GPL-2.0-or-later
-URL:            http://www.tigervnc.com
+URL:            https://www.tigervnc.com
 
 Source0:        https://github.com/TigerVNC/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        xvnc.service

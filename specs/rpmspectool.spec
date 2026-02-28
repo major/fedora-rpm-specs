@@ -54,8 +54,8 @@ PYTESTINI
 %pyproject_save_files %{name}
 sed -i -e 's|^\(.*/COPYING\)|%%license \1|g' %{pyproject_files}
 
-mkdir -p %{buildroot}%{_datadir}/bash-completion/
-cp shell-completions/bash/rpmspectool %{buildroot}%{_datadir}/bash-completion/
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+cp shell-completions/bash/rpmspectool %{buildroot}%{_datadir}/bash-completion/completions/
 
 %check
 %pytest -v

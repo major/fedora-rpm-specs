@@ -1,14 +1,12 @@
 %bcond check 1
 
 Name:           kaidan
-Version:        0.13.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        A XMPP client based on KDE Framework
 License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/network/kaidan
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
-
-Patch0:         kaidan-fix-build-against-qt-6-10.patch
 
 %if 0%{?fedora} || 0%{?epel} > 7
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
@@ -45,8 +43,9 @@ BuildRequires:  cmake(KF6QQC2DesktopStyle)
 
 BuildRequires:  cmake(QXmppQt6)
 BuildRequires:  cmake(KDSingleApplication-qt6)
-BuildRequires:  libicu-devel
 BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  libicu-devel
+BuildRequires:  pkgconfig(gstreamer-1.0)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib

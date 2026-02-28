@@ -1,7 +1,7 @@
 Summary:        Very fast network log-on cracker
 Name:           hydra
 Version:        9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        AGPL-3.0-only
 URL:            https://github.com/vanhauser-thc/thc-hydra
 VCS:            git:https://github.com/vanhauser-thc/thc-hydra
@@ -16,6 +16,8 @@ Patch1:         hydra-fix-dpl4hydra-dir.patch
 Patch100:       0000-port-xhydra-gtk3.patch
 Patch101:       0000-more-hydra-gtk.patch
 Patch102:       0000-hydra-gtk-last.patch
+# Upstream Fix for libbson2/libmongc2
+Patch103:       libmongoc2.patch
 
 BuildRequires:  afpfs-ng-devel
 BuildRequires:  apr-devel
@@ -97,6 +99,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xhydra.desktop
 %{_mandir}/man1/xhydra.1*
 
 %changelog
+* Thu Feb 26 2026 Remi Collet <remi@fedoraproject.org> - 9.6-3
+- rebuild with libbson and libmongc v2
+- add upstream patch to fix FTBFS #2440913
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

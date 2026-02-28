@@ -6,7 +6,7 @@
 %bcond man 1
 
 %global srcname pip
-%global base_version 25.3
+%global base_version 26.0.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -50,12 +50,6 @@ Source0:        https://github.com/pypa/pip/archive/%{upstream_version}/%{srcnam
 # We cannot use RPM-packaged python-setuptools-wheel because upstream pins to <80.
 # See https://github.com/pypa/pip/pull/13357 for rationale.
 Source1:        https://files.pythonhosted.org/packages/0d/6d/b4752b044bf94cb802d88a888dc7d288baaf77d7910b7dedda74b5ceea0c/setuptools-79.0.1-py3-none-any.whl
-
-# wheel.whl
-# We cannot use RPM-packaged python-wheel-wheel because we intent to drop that package in wheel 0.46+.
-# That version of wheel has runtime dependencies and is generally useless as a standalone wheel.
-# See https://github.com/pypa/pip/pull/13382 as an attempt to drop the requirement from pip tests.
-Source2:        https://files.pythonhosted.org/packages/0b/2c/87f3254fd8ffd29e4c02732eee68a83a1d3c346ae39bc6822dcbcb697f2b/wheel-0.45.1-py3-none-any.whl
 
 # flit_core.whl
 # This is not built as RPM-packaged wheel in Fedora at all.
@@ -123,15 +117,15 @@ Packages" or "Pip Installs Python".
 # You can generate it with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
-Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.3
-Provides: bundled(python%{1}dist(certifi)) = 2025.10.5
+Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.4
+Provides: bundled(python%{1}dist(certifi)) = 2026.1.4
 Provides: bundled(python%{1}dist(dependency-groups)) = 1.3.1
 Provides: bundled(python%{1}dist(distlib)) = 0.4
 Provides: bundled(python%{1}dist(distro)) = 1.9
-Provides: bundled(python%{1}dist(idna)) = 3.10
+Provides: bundled(python%{1}dist(idna)) = 3.11
 Provides: bundled(python%{1}dist(msgpack)) = 1.1.2
-Provides: bundled(python%{1}dist(packaging)) = 25
-Provides: bundled(python%{1}dist(platformdirs)) = 4.5
+Provides: bundled(python%{1}dist(packaging)) = 26
+Provides: bundled(python%{1}dist(platformdirs)) = 4.5.1
 Provides: bundled(python%{1}dist(pygments)) = 2.19.2
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
 Provides: bundled(python%{1}dist(requests)) = 2.32.5
@@ -226,10 +220,13 @@ sed -Ei '/(pytest-(cov|xdist|rerunfailures|subket)|proxy\.py)/d' pyproject.toml
 # Remove unused pytest-subket options
 sed -Ei '/(--disable-socket|--allow-unix-socket|--allow-hosts=localhost)/d' pyproject.toml
 
+# Disable --cov option since we don't use it in Fedora
+sed -i 's/"--cov"/"--cov", default=None/' tests/conftest.py
+
 %if %{with tests}
 # tests expect wheels in here
 mkdir tests/data/common_wheels
-cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} tests/data/common_wheels
+cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} tests/data/common_wheels
 %endif
 
 

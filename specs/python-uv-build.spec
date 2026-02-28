@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.10.4
+Version:        0.10.6
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -20,7 +20,6 @@ Summary:        The uv build backend
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
-# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSD-2-Clause
 # Apache-2.0 OR BSL-1.0
@@ -29,7 +28,6 @@ Summary:        The uv build backend
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Zlib OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
 # Unicode-3.0
@@ -43,7 +41,6 @@ License:        %{shrink:
                 }
 %global extra_crate_licenses %{shrink:
                 0BSD AND
-                (0BSD OR MIT OR Apache-2.0) AND
                 Apache-2.0 AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR MIT OR Zlib) AND
@@ -145,13 +142,6 @@ tomcli set Cargo.toml lists delitem \
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# zip
-#   wanted: >=2.2.3, <7.2
-#   currently packaged: 7.2
-#   pinned upstream due to different output on Windows; OK on Linux
-#   https://github.com/zip-rs/zip2/issues/656
-tomcli set Cargo.toml str workspace.dependencies.zip.version '>=2.2.3'
 
 %cargo_prep
 

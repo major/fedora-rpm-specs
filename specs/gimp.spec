@@ -288,6 +288,16 @@ Patch2:         gimp-2.99.19-no-phone-home-default.patch
 # use external help browser directly if help browser plug-in is not built
 Patch3:         gimp-2.99.19-external-help-browser.patch
 
+# Upstream patches:
+
+# Fixes for loading PSD files from the gimp-3-0 branch
+# https://gitlab.gnome.org/GNOME/gimp/-/commit/17b1a18dcee7b8f697f198e05da9fbb551b953ab
+Patch4:         0001-plug-ins-Guard-against-memory-overflow-in-PSD-load.patch
+# https://gitlab.gnome.org/GNOME/gimp/-/commit/51a2d65a2df403f6da582173e0ddd7904356f5ae
+Patch5:         0002-plug-ins-fix-15812-PSD-loader-heap-buffer-overflow.patch
+# https://gitlab.gnome.org/GNOME/gimp/-/commit/65956310e10ec798e7171bcd6a17460f72ceac1e
+Patch6:         0003-plug-ins-fix-crash-due-to-uninitialized-ptr_array.patch
+
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -359,6 +369,10 @@ EOF
 %patch 1 -p1 -b .cm-system-monitor-profile-by-default
 %patch 2 -p1 -b .no-phone-home-default
 %patch 3 -p1 -b .external-help-browser
+
+%patch 4 -p1 -b .psd-overflow-1
+%patch 5 -p1 -b .psd-overflow-2
+%patch 6 -p1 -b .psd-uninitialized-array
 
 %build
 # Use hardening compiler/linker flags because gimp is likely to deal with files

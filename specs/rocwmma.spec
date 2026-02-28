@@ -66,7 +66,7 @@
 # Only offically supported are called out here
 # library/include/rocwmma/internal/config.hpp
 # Adjust our list
-%global gpu_list "gfx908;gfx90a;gfx942;gfx950;gfx1100;gfx1101;gfx1102;gfx1151;gfx1200;gfx1201"
+%global gpu_list "gfx908;gfx90a;gfx942;gfx950;gfx1100;gfx1101;gfx1102;gfx1151;gfx1150;gfx1200;gfx1201"
 %global _gpu_list gfx1100
 
 # Building the tests may run out of memory for both compile and link
@@ -76,7 +76,7 @@
 
 Name:           rocwmma%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -137,6 +137,10 @@ Summary:        Tests for %{name}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+# Remove parallel-jobs, it interfers with ninja jobs and attempts to reduce memory usage
+# https://github.com/ROCm/rocm-libraries/issues/4949
+sed -i -e 's@-parallel-jobs=4@@' CMakeLists.txt
+
 %build
 cat /proc/cpuinfo
 cat /proc/meminfo
@@ -156,7 +160,7 @@ if [ ${COMPILE_JOBS} = 1 ]; then
 fi
 
 # Take into account memmory usage per core, do not thrash real memory
-BUILD_MEM=2
+BUILD_MEM=4
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
 MEM_MB=`eval "expr ${MEM_KB} / 1024"`
@@ -218,9 +222,14 @@ rm -f %{buildroot}%{pkg_prefix}/bin/rocwmma/*.cmake
 %files test
 %{pkg_prefix}/bin/*_test
 %{pkg_prefix}/bin/*-validate
+%{pkg_prefix}/bin/rocwmma/
 %endif
 
 %changelog
+* Thu Feb 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Increase build memory requirements
+- Fix --with test
+
 * Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Change cmake install location
 

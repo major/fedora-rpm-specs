@@ -149,7 +149,9 @@ Patch:          38769.patch
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2415701
 Patch:          0002-machined-continue-without-resolve.hook-socket.patch
 
+# Fixes after v260-rc1
 Patch:          0003-rpm-systemd-update-helper-use-enqueue-marked-jobs.patch
+Patch:          0001-core-socket-fix-reversed-symlink-direction-in-error-.patch
 
 %endif
 
@@ -1186,6 +1188,10 @@ fi \
 %post
 systemd-machine-id-setup &>/dev/null || :
 
+# This is for upgrades from previous versions before getty@.service needed to be enabled
+[ $1 -gt 1 ] && systemctl is-enabled getty@tty1.service &>/dev/null && \
+    touch %{_localstatedir}/lib/rpm-state/systemd-getty-was-active || :
+
 [ $1 -eq 1 ] || exit 0
 
 # create /var/log/journal only on initial installation,
@@ -1213,6 +1219,8 @@ if [ $1 -ge 2 ]; then
   systemctl daemon-reexec || :
 
   systemd-tmpfiles --create &>/dev/null || :
+
+  rm -f %{_localstatedir}/lib/rpm-state/systemd-getty-was-active || :
 fi
 
 %systemd_posttrans_with_restart systemd-timedated.service systemd-hostnamed.service systemd-journald.service systemd-localed.service systemd-userdbd.service
@@ -1230,16 +1238,15 @@ fi
 # This is for upgrades from previous versions before systemd restart was moved to %%postun
 systemctl daemon-reexec || :
 
-%triggerpostun -- systemd < 253~rc1-2
-# This is for upgrades from previous versions where systemd-journald-audit.socket
-# had a static enablement symlink.
-# We use %%triggerpostun here because rpm doesn't allow a second %%triggerun with
-# a different package version.
-systemctl --no-reload preset systemd-journald-audit.socket &>/dev/null || :
+%triggerpostun -- systemd < 260~rc1
+if [ -f %{_localstatedir}/lib/rpm-state/systemd-getty-was-active ]; then
+    systemctl --no-reload enable getty@.service || :
+fi
 
 %global udev_services %{shrink:
                         cryptsetup-pre.target
                         cryptsetup.target
+                        getty@.service
                         hibernate.target
                         hybrid-sleep.target
                         initrd-cleanup.service

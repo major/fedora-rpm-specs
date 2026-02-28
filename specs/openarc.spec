@@ -1,4 +1,4 @@
-%global baserelease 1
+%global baserelease 2
 #global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
@@ -9,6 +9,7 @@ Release: %{?pre_rel:0.}%{baserelease}%{?pre_rel:.%pre_rel}%{?dist}
 License: LicenseRef-Callaway-BSD AND Sendmail-8.23
 URL: https://github.com/flowerysong/OpenARC
 Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1: openarc-sysusers.conf
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -25,6 +26,7 @@ BuildRequires: systemd-rpm-macros
 %else
 BuildRequires: systemd
 %endif
+%{?sysusers_requires_compat}
 
 
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
@@ -56,13 +58,6 @@ required for developing applications against libopenarc.
 
 %prep
 %autosetup -p1
-
-# Previously, a non-system group was created :(, sysusers does not support this
-# Create a sysusers.d config file
-cat >openarc.sysusers.conf <<EOF
-u openarc - - %{_localstatedir}/lib/%{name} -
-m openarc mail
-EOF
 
 
 %build
@@ -115,8 +110,11 @@ chmod 0640 %{buildroot}%{_sysconfdir}/%{name}/PeerList
 install -d -m 0755 %{buildroot}%{_unitdir}
 install -m 0644 contrib/systemd/openarc.service %{buildroot}%{_unitdir}/
 
-install -m0644 -D openarc.sysusers.conf %{buildroot}%{_sysusersdir}/openarc.conf
+install -m0644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/openarc.conf
 
+
+%pre
+%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post %{name}.service
@@ -157,6 +155,9 @@ install -m0644 -D openarc.sysusers.conf %{buildroot}%{_sysusersdir}/openarc.conf
 
 
 %changelog
+* Fri Feb 20 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.0-2
+- Fix user/group creation for older releases
+
 * Wed Feb 04 2026 Xavier Bachelot <xavier@bachelot.org> - 1.3.0-1
 - Update to 1.3.0
 

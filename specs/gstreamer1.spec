@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -119,7 +119,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %files -f gstreamer-%{majorminor}.lang
 %license COPYING
-%doc NEWS README.md README.static-linking RELEASE
+%doc README.md README.static-linking RELEASE
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
 %{_libdir}/libgstcheck-%{majorminor}.so.*
@@ -209,6 +209,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-1
+- 1.28.1
+
 * Tue Jan 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
 - 1.28.0
 

@@ -1,5 +1,5 @@
 Name: sqm-scripts
-Version: 1.7.0
+Version: 1.7.2
 Release: 1%{?dist}
 Summary: Traffic shaper scripts for Smart Queue Management
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -42,6 +42,9 @@ queue length management (AQM), traffic shaping/rate limiting, and QoS
 %{_tmpfilesdir}/sqm.conf
 
 %changelog
+* Thu Feb 26 2026 Toke Høiland-Jørgensen <toke@redhat.com> - 1.7.2-1
+- Version 1.7.2 (RHBZ#2441930)
+
 * Sun Feb 15 2026 Juan Orti Alcaine <jortialc@redhat.com> - 1.7.0-1
 - Version 1.7.0 (RHBZ#2439639)
 

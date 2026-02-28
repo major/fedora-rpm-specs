@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           rust-ptools
-Version:        0.2.14
+Version:        0.2.16
 Release:        %autorelease
 Summary:        Utilities for inspecting Linux processes
 
@@ -14,6 +14,7 @@ URL:            https://github.com/basil/ptools
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(libdw)
 BuildRequires:  pkgconfig(libsystemd)
 
 %global _description %{expand:
@@ -28,6 +29,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 License:        Apache-2.0 AND MIT
 # LICENSE.dependencies contains a full license breakdown
+Requires:       elfutils-libs
 Requires:       systemd-libs
 # Some ptools are already provided by other packages:
 # glibc-common: pldd(1)
@@ -53,6 +55,7 @@ Recommends:     python3-linux-procfs
 %{_bindir}/prun
 %{_bindir}/psig
 %{_bindir}/pstop
+%{_bindir}/ptime
 %{_bindir}/ptree
 %{_bindir}/pwait
 %{_mandir}/man1/pargs.1*
@@ -64,6 +67,7 @@ Recommends:     python3-linux-procfs
 %{_mandir}/man1/prun.1*
 %{_mandir}/man1/psig.1*
 %{_mandir}/man1/pstop.1*
+%{_mandir}/man1/ptime.1*
 %{_mandir}/man1/ptree.1*
 %{_mandir}/man1/pwait.1*
 
@@ -82,6 +86,9 @@ Recommends:     python3-linux-procfs
 %install
 %cargo_install
 install -Dpm 644 -t %{buildroot}%{_mandir}/man1 target/man/*.1
+# TODO package pstack
+rm -f %{buildroot}%{_bindir}/pstack
+rm -f %{buildroot}%{_mandir}/man1/pstack.1
 
 %if %{with check}
 %check

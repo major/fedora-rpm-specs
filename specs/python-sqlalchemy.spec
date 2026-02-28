@@ -1,7 +1,7 @@
 %global srcname SQLAlchemy
 %global canonicalname %{py_dist_name %{srcname}}
 Name:           python-%{canonicalname}
-Version:        2.0.46
+Version:        2.0.47
 
 # Mypy plugin is deprecated in 2.0. mypy is not in RHEL.
 # Some mypy plugin tests fail with mypy 1.14.1:

@@ -34,7 +34,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -258,7 +258,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 %files -f gst-plugins-good-%{majorminor}.lang
 %license COPYING
-%doc NEWS README.md README.static-linking RELEASE
+%doc README.md README.static-linking RELEASE
 %{_metainfodir}/gstreamer-good.appdata.xml
 %if 0
 %doc %{_datadir}/gtk-doc/html/gst-plugins-good-plugins-%{majorminor}
@@ -373,6 +373,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-1
+- 1.28.1
+
 * Tue Jan 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
 - 1.28.0
 

@@ -1,7 +1,7 @@
 %global pypi_name commoncode
 
 Name:           python-%{pypi_name}
-Version:        32.3.0
+Version:        32.4.2
 Release:        %autorelease
 Summary:        Common functions and utilities for handling paths, dates, files and hashes
 

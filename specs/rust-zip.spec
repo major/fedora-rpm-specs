@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        7.2.0
+Version:        8.1.0
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -27,13 +27,6 @@ Patch:          zip-fix-metadata-auto.diff
 # * Patch out the nt-time features; rust-nt-time not yet packaged
 # * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
 #   flate2/zlib-ng-compat, not packaged.
-# * Unpin generic-array; see https://github.com/zip-rs/zip2/pull/458 for the
-#   upstream rationale, but we cannot use an old version and are not so
-#   concerned about deprecation warnings anyway.
-# * Update constant_time_eq from 0.3.1 to 0.4.2. Downstream-only for MSRV
-#   reasons.
-# * Remove WASM-only wasm-bindgen feature from time crate dependency
-# * Update lzma-rust2 to 0.16.1: https://github.com/zip-rs/zip2/pull/651
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
@@ -77,18 +70,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+_all-features-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+_all-features-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "_all-features" feature of the "%{crate}" crate.
-
-%files       -n %{name}+_all-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+_arbitrary-devel
@@ -269,6 +250,18 @@ This package contains library source intended for building other packages which
 use the "deflate64" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deflate64-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deprecated-time-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deprecated-time-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deprecated-time" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deprecated-time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+getrandom-devel

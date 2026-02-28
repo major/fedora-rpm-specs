@@ -12,7 +12,7 @@
 %global _jpbindingdir %{_datadir}/jpbinding
 
 Name:           javapackages-tools
-Version:        6.4.1
+Version:        6.5.1
 Release:        %autorelease
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause
@@ -21,10 +21,7 @@ BuildArch:      noarch
 
 Source:         https://github.com/fedora-java/javapackages/archive/%{version}.tar.gz
 
-Patch:          0001-Disable-dependency-generators.patch
-
 BuildRequires:  coreutils
-BuildRequires:  make
 BuildRequires:  rubygem-asciidoctor
 BuildRequires:  %{python_prefix}-devel
 BuildRequires:  %{python_prefix}-lxml
@@ -126,21 +123,18 @@ support Java packaging as well as some additions to them.
 %configure --pyinterpreter=%{python_interpreter} \
     --rpmmacrodir=%{_rpmmacrodir} --rpmconfigdir=%{_rpmconfigdir} \
     --m2home=%{maven_home} \
-    --jvm=openjdk25=%{_jvmdir}/jre-25-openjdk
+    --jvm=openjdk25=%{_jvmdir}/jre-25-openjdk \
+    --without-gradle \
+%if %{without ivy}
+    --without-ivy \
+%endif
+    --without-generators
 ./build
 
 %install
 ./install
 
 sed -e 's/.[17]$/&*/' -i files-*
-
-rm -rf %{buildroot}%{_bindir}/gradle-local
-rm -rf %{buildroot}%{_datadir}/gradle-local
-rm -rf %{buildroot}%{_mandir}/man7/gradle_build.7
-%if %{without ivy}
-rm -rf %{buildroot}%{_sysconfdir}/ivy
-rm -rf %{buildroot}%{_sysconfdir}/ant.d
-%endif
 
 %if 0%{?flatpak}
 # make both /app (runtime deps) and /usr (build-only deps) builds discoverable

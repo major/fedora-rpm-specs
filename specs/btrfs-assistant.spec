@@ -7,6 +7,11 @@ License:        GPL-3.0-or-later
 URL:            https://gitlab.com/%{name}/%{name}
 Source0:        https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://gitlab.com/btrfs-assistant/btrfs-assistant/-/merge_requests/87
+Patch0:         btrfs-assistant-no-error-on-warn.patch
+# https://gitlab.com/btrfs-assistant/btrfs-assistant/-/commit/95e413ddadce43b9d3cd87300190b35026a597c6
+Patch1:         btrfs-assistant-fix-restore-subvolume-button.patch
+
 Requires:       hicolor-icon-theme
 Requires:       polkit
 

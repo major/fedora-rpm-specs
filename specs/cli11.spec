@@ -1,3 +1,5 @@
+# TODO: Package the C++20 module
+
 # There are no ELF objects in this package, so turn off debuginfo generation.
 %global debug_package %{nil}
 
@@ -5,7 +7,7 @@
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
-Version:        2.6.1
+Version:        2.6.2
 Release:        %autorelease
 Summary:        Command line parser for C++11
 
@@ -63,7 +65,7 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %cmake \
     -DCLI11_BUILD_DOCS:BOOL=TRUE \
     -DCLI11_BUILD_TESTS:BOOL=TRUE \
-    -DCMAKE_CXX_STANDARD=17
+    -DCMAKE_CXX_STANDARD=20
 %cmake_build
 
 # Build the documentation

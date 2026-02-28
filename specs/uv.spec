@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.10.4
+Version:        0.10.6
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -486,13 +486,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# zip
-#   wanted: >=2.2.3, <7.2
-#   currently packaged: 7.2
-#   pinned upstream due to different output on Windows; OK on Linux
-#   https://github.com/zip-rs/zip2/issues/656
-tomcli set Cargo.toml str workspace.dependencies.zip.version '>=2.2.3'
 
 %cargo_prep
 

@@ -17,7 +17,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 26.01.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
 Source0: https://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -95,6 +95,7 @@ compile applications based on poppler.
 %package glib
 Summary: Glib wrapper for poppler
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: gobject-introspection
 
 %description glib
 %{summary}.
@@ -289,6 +290,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Sun Feb 01 2026 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 26.01.0-3
+- Add gobject-introspection Requires back to glib subpackage
+
 * Mon Jan 19 2026 Marek Kasik <mkasik@redhat.com> - 26.01.0-2
 - Include <climits> to fix build
 - Related: #2386218

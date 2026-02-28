@@ -1,19 +1,19 @@
-%global gitdate 20240405
-%global commit0 326382805641d340c9902689b549e4488682f553
+%global gitdate 20250224
+%global commit0 b114cf23da4411d19c1f1600a98bfab5369fd950
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global orig_name org.kde.windowbuttons
 
 Name:           applet-window-buttons
-Version:        0.12.0^%{gitdate}.%{shortcommit0}
-Release:        7%{?dist}
+Version:        0.14.0^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
 Summary:        Plasma 6 applet to show window buttons in panels
 License:        GPL-2.0-or-later
 URL:            https://github.com/moodyhunter/applet-window-buttons6
 Source0:        https://github.com/moodyhunter/applet-window-buttons6/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 
-# https://github.com/moodyhunter/applet-window-buttons6/pull/22
-Patch0:         kdecoration3.patch
+# http://github.com/moodyhunter/applet-window-buttons6/pull/31
+Patch0:         plasma6.6.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -39,6 +39,7 @@ BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(KDecoration3)
+BuildRequires:  kwin-devel
 
 Provides:       applet-window-buttons6 = %{version}-%{release}
 
@@ -57,22 +58,20 @@ support Plasma panels.
 %install
 %cmake_install
 
-# Bad icon name
-sed -i "/<icon type=\"stock\">/d" %{buildroot}%{_datadir}/metainfo/%{orig_name}.appdata.xml
-
-
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{orig_name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/metadata.desktop
 
 %files
 %license LICENSE
 %{_kf6_datadir}/plasma/plasmoids/%{orig_name}
 %{_qt6_qmldir}/org/kde/appletdecoration
-%{_kf6_metainfodir}/%{orig_name}.appdata.xml
 
 
 %changelog
+* Thu Feb 26 2026 Alessandro Astone <ales.astone@gmail.com> - 0.14.0^20250224.b114cf2-1
+- New git snapshot
+- Add proposed patch for Plasma 6.6 compatibility
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0^20240405.3263828-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

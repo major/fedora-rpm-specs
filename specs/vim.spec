@@ -1,5 +1,11 @@
-%bcond_without gui
+%bcond_with hunspell
 
+%bcond_without flakytests
+%bcond_without gui
+%bcond_without lua
+%bcond_without netbeans
+%bcond_without perl
+%bcond_without selinux
 
 %if 0%{?fedora}
 %bcond_without default_editor
@@ -11,13 +17,18 @@
 %bcond_with libsodium_crypt
 %endif
 
+%if 0%{?flatpak}
+%bcond_with ruby
+%else
+%bcond_without ruby
+%endif
 
-%define patchlevel 045
-%define withnetbeans 1
+%if %{with gui}
+%bcond_without desktop_file
+%else
+%bcond_with desktop_file
+%endif
 
-%define withhunspell 0
-%define withlua 1
-%define withperl 1
 
 # VIm upstream wants to build with FORTIFY_SOURCE=1,
 # because higher levels causes crashes of valid code constructs
@@ -26,27 +37,13 @@
 %define _fortify_level 1
 
 %define baseversion 9.2
+# get bug url from /etc/os-release
+%define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
+%define patchlevel 045
 %define vimdir vim92
 
-
-%if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
-%define WITH_SELINUX 1
-%endif
-
-%if %{with gui}
-%define desktop_file 1
-%else
-%define desktop_file 0
-%endif
-
-%if %{desktop_file}
+%if %{with desktop_file}
 %define desktop_file_utils_version 0.2.93
-%endif
-
-%if 0%{?flatpak}
-%define withruby 0
-%else
-%define withruby 1
 %endif
 
 
@@ -54,7 +51,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -92,9 +89,8 @@ Patch6: vim-python3-tests.patch
 # fips warning (Fedora downstream patch)
 Patch7: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
-Patch8: vim-8.0-copy-paste.patch
-# upstream test suite expects mouse to be set in some tests...
-Patch9: vim-9.1-copy-paste.patch
+# as result, upstream test suite expects mouse to be set in some tests...
+Patch8: vim-9.1-copy-paste.patch
 # since F42+, if you let glibc to give you random port, it will give you two random ports
 # - one for IPv4 address, another for IPv6 address by default. Vim counts on the port being
 # the same, because the fake server used for testing (python script simulating netbeans or
@@ -105,11 +101,15 @@ Patch9: vim-9.1-copy-paste.patch
 # Since such tests are only mocking the real life behavior and in the real life Vim gets
 # connection information by a different way, enforcing IPv4 in the test to prevent mismatch
 # is a viable solution.
-Patch10: vim-test-port-mismatch.patch
+Patch9: vim-test-port-mismatch.patch
 
-
+# Patch10000+ - Patches which applied in certain conditions:
 # patch only when hunspell is enabled
 Patch10000: vim-7.0-hunspell.patch
+# remove stopinsert test for clientserver functionality - it sometimes fails in CI
+# and sometimes not, which makes it difficult to investigate. Covered in 'flakytests'
+# so we can remove it conditionally in CI
+Patch10001: vim-9.2-remove-flakytests.patch
 
 
 # uses autoconf in spec file
@@ -144,7 +144,7 @@ BuildRequires: python3-clang
 BuildRequires: python3-devel
 
 
-%if %{desktop_file}
+%if %{with desktop_file}
 # for /usr/bin/desktop-file-install
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 Requires: desktop-file-utils
@@ -155,7 +155,7 @@ Requires: desktop-file-utils
 BuildRequires: gpm-devel
 %endif
 
-%if %{withhunspell}
+%if %{with hunspell}
 BuildRequires: hunspell-devel
 %endif
 
@@ -165,12 +165,12 @@ BuildRequires: libsodium-devel
 %endif
 
 # for lua plugin
-%if "%{withlua}" == "1"
+%if %{with lua}
 BuildRequires: lua-devel
 %endif
 
 # for perl plugin
-%if "%{withperl}" == "1"
+%if %{with perl}
 BuildRequires: perl-devel
 BuildRequires: perl-generators
 BuildRequires: perl(ExtUtils::Embed)
@@ -178,13 +178,13 @@ BuildRequires: perl(ExtUtils::ParseXS)
 %endif
 
 # for ruby plugin
-%if "%{withruby}" == "1"
+%if %{with ruby}
 BuildRequires: ruby
 BuildRequires: ruby-devel
 %endif
 
 # selinux support
-%if %{WITH_SELINUX}
+%if %{with selinux}
 BuildRequires: libselinux-devel
 %endif
 
@@ -253,15 +253,15 @@ Suggests: python3-libs
 
 # suggest python3, python2, lua, ruby and perl packages because of their 
 # embedded functionality in Vim/GVim
-%if "%{withlua}" == "1"
+%if %{with lua}
 Suggests: lua-libs
 %endif
 
-%if "%{withperl}" == "1"
+%if %{with perl}
 Suggests: perl-devel
 %endif
 
-%if "%{withruby}" == "1"
+%if %{with ruby}
 Suggests: ruby
 Suggests: ruby-libs
 %endif
@@ -363,15 +363,15 @@ Suggests: python3-libs
 
 # suggest python3, python2, lua, ruby and perl packages because of their 
 # embedded functionality in Vim/GVim
-  %if "%{withlua}" == "1"
+  %if %{with lua}
 Suggests: lua-libs
   %endif
 
-  %if "%{withperl}" == "1"
+  %if %{with perl}
 Suggests: perl-devel
   %endif
 
-  %if "%{withruby}" == "1"
+  %if %{with ruby}
 Suggests: ruby
 Suggests: ruby-libs
   %endif
@@ -410,11 +410,14 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch -P 6 -p1 -b .python-tests
 %patch -P 7 -p1 -b .fips-warning
 %patch -P 8 -p1 -b .copypaste
-%patch -P 9 -p1 -b .newcopy
-%patch -P 10 -p1 -b .test-port-mismatch
+%patch -P 9 -p1 -b .test-port-mismatch
 
-%if %{withhunspell}
+%if %{with hunspell}
 %patch -P 10000 -p1
+%endif
+
+%if %{without flakytests}
+%patch -P 10001 -p1 -b .flakytests
 %endif
 
 
@@ -438,31 +441,44 @@ cp -f os_unix.h os_unix.h.save
 #                      cannot be represented by one byte - Asian languages, Unicode
 # --disable-netbeans - disabling socket interface for integrating Vim into NetBeans IDE
 # --enable-selinux - enabling selinux support
-# --enable-Ninterp - enabling internal interpreter
+# --enable-Ninterp - enabling internal interpreter, where N can be perl, python3, ruby, lua, tcl
 # --with-x - yes if we want X11 support (graphical Vim for X11)
 # --with-tlib - which terminal library to use
 # --disable-gpm - disabling support for General Purpose Mouse - Linux mouse daemon
+# --disable-canberra - disable sounds support
+# --enable-year2038 - enable support for timestamps after 2038
+# --disable-libsodium - disable additional encryption support
+# --without-wayland - without Wayland protocol support
+# --enable-fips-warning - shows warning when using Vim encryption, which is not FIPS certified
 
 perl -pi -e "s/vimrc/virc/"  os_unix.h
-%configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/virc\"'" \
-  --prefix=%{_prefix} --with-features=tiny --with-x=no \
-  --enable-multibyte \
-  --disable-netbeans \
-%if %{WITH_SELINUX}
-  --enable-selinux \
-%else
-  --disable-selinux \
-%endif
-  --disable-pythoninterp --disable-perlinterp --disable-tclinterp \
-  --with-tlib=ncurses --enable-gui=no --disable-gpm --exec-prefix=/ \
-  --with-compiledby="<bugzilla@redhat.com>" \
-  --with-modified-by="<bugzilla@redhat.com>" \
-  --enable-fips-warning \
+%configure \
+  CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/virc\"'" \
   --enable-fail-if-missing \
-  --disable-canberra \
-  --without-wayland \
+  --enable-fips-warning \
+  --enable-gui=no \
+  --enable-multibyte \
   --enable-year2038 \
-  --disable-libsodium
+  --exec-prefix=/ \
+  --disable-canberra \
+  --disable-gpm \
+  --disable-libsodium \
+  --disable-netbeans \
+  --disable-perlinterp \
+  --disable-pythoninterp \
+  --disable-tclinterp \
+  --prefix=%{_prefix} \
+  --with-compiledby="%{bugurl}" \
+  --with-features=tiny \
+  --with-modified-by="%{bugurl}" \
+  --with-tlib=ncurses \
+  --with-x=no \
+  --without-wayland \
+%if %{with selinux}
+  --enable-selinux
+%else
+  --disable-selinux
+%endif
 
 %make_build
 cp vim minimal-vim
@@ -471,57 +487,67 @@ make clean
 
 mv -f os_unix.h.save os_unix.h
 
-%configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
- --prefix=%{_prefix} --with-features=huge \
- --enable-python3interp=dynamic \
+# --with-python3-stable-abi - python tends to change abi between minor version, but
+#                             ensures some abi is kept stable for some time. Use it
+#                             to prevent FTBFS that often.
+# --enable-cscope - enable support for cscope, tool for browsing C/C++/Java code
+
+%configure \
+  CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
+  --enable-cscope \
+  --enable-fail-if-missing \
+  --enable-fips-warning \
+  --enable-gui=no \
+  --enable-multibyte \
+  --enable-python3interp=dynamic \
+  --enable-year2038 \
+  --exec-prefix=%{_prefix} \
+  --disable-canberra \
+  --disable-tclinterp \
+  --prefix=%{_prefix} \
+  --with-compiledby="%{bugurl}" \
+  --with-features=huge \
+  --with-modified-by="%{bugurl}" \
   --with-python3-stable-abi \
- --disable-tclinterp \
- --with-x=no \
- --enable-gui=no --exec-prefix=%{_prefix} --enable-multibyte \
- --enable-cscope --with-modified-by="<bugzilla@redhat.com>" \
- --with-tlib=ncurses \
- --enable-fips-warning \
- --with-compiledby="<bugzilla@redhat.com>" \
+  --with-tlib=ncurses \
+  --with-x=no \
+  --without-wayland \
 %if %{with gpm}
- --enable-gpm \
+  --enable-gpm \
 %else
- --disable-gpm \
-%endif
-%if "%{withnetbeans}" == "1"
-  --enable-netbeans \
-%else
-  --disable-netbeans \
-%endif
-%if %{WITH_SELINUX}
-  --enable-selinux \
-%else
-  --disable-selinux \
-%endif
-%if "%{withperl}" == "1"
-  --enable-perlinterp=dynamic \
-  --with-xsubpp=$(which xsubpp) \
-%else
-  --disable-perlinterp \
-%endif
-%if "%{withruby}" == "1"
-  --enable-rubyinterp=dynamic \
-%else
-  --disable-rubyinterp \
-%endif
-%if "%{withlua}" == "1"
-  --enable-luainterp=dynamic \
-%else
-  --disable-luainterp \
+  --disable-gpm \
 %endif
 %if %{with libsodium_crypt}
   --enable-libsodium \
 %else
   --disable-libsodium \
 %endif
-  --enable-fail-if-missing \
-  --without-wayland \
-  --enable-year2038 \
-  --disable-canberra
+%if %{with lua}
+  --enable-luainterp=dynamic \
+%else
+  --disable-luainterp \
+%endif
+%if %{with netbeans}
+  --enable-netbeans \
+%else
+  --disable-netbeans \
+%endif
+%if %{with perl}
+  --enable-perlinterp=dynamic \
+  --with-xsubpp=$(which xsubpp) \
+%else
+  --disable-perlinterp \
+%endif
+%if %{with ruby}
+  --enable-rubyinterp=dynamic \
+%else
+  --disable-rubyinterp \
+%endif
+%if %{with selinux}
+  --enable-selinux
+%else
+  --disable-selinux
+%endif
 
 %make_build
 cp vim enhanced-vim
@@ -531,60 +557,66 @@ cp vim enhanced-vim
 # More configure options:
 # --enable-xim - enabling X Input Method - international input module for X,
 #                it is for multibyte languages in Vim with X
-# --enable-termtruecolor - use terminal with true colors
+# --enable-gtk3-check - checks for GTK3
+# --enable-socketserver - using unix domain socket for inter-Vim processes communication
 
-%configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
-  --with-features=huge \
-  --enable-python3interp=dynamic \
-  --with-python3-stable-abi \
-  --disable-tclinterp --with-x=yes \
-  --enable-xim --enable-multibyte \
-  --with-tlib=ncurses \
-  --enable-gtk3-check --enable-gui=gtk3 \
+%configure \
+  CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
+  --enable-canberra \
+  --enable-cscope \
+  --enable-fail-if-missing \
   --enable-fips-warning \
-  --with-compiledby="<bugzilla@redhat.com>" --enable-cscope \
-  --with-modified-by="<bugzilla@redhat.com>" \
+  --enable-gtk3-check \
+  --enable-gui=gtk3 \
+  --enable-multibyte \
+  --enable-python3interp=dynamic \
+  --enable-socketserver \
+  --enable-xim \
+  --enable-year2038 \
+  --disable-tclinterp \
+  --with-compiledby="%{bugurl}" \
+  --with-features=huge \
+  --with-modified-by="%{bugurl}" \
+  --with-python3-stable-abi \
+  --with-tlib=ncurses \
+  --with-wayland \
+  --with-x=yes \
   %if %{with gpm}
   --enable-gpm \
   %else
   --disable-gpm \
-  %endif
-  %if "%{withnetbeans}" == "1"
-  --enable-netbeans \
-  %else
-  --disable-netbeans \
-  %endif
-  %if %{WITH_SELINUX}
-  --enable-selinux \
-  %else
-  --disable-selinux \
-  %endif
-  %if "%{withperl}" == "1"
-  --enable-perlinterp=dynamic \
-  --with-xsubpp=$(which xsubpp) \
-  %else
-  --disable-perlinterp \
-  %endif
-  %if "%{withruby}" == "1"
-  --enable-rubyinterp=dynamic \
-  %else
-  --disable-rubyinterp \
-  %endif
-  %if "%{withlua}" == "1"
-  --enable-luainterp=dynamic \
-  %else
-  --disable-luainterp \
   %endif
   %if %{with libsodium_crypt}
   --enable-libsodium \
   %else
   --disable-libsodium \
   %endif
-  --enable-fail-if-missing \
-  --with-wayland \
-  --enable-year2038 \
-  --enable-socketserver \
-  --enable-canberra
+  %if %{with lua}
+  --enable-luainterp=dynamic \
+  %else
+  --disable-luainterp \
+  %endif
+  %if %{with netbeans}
+  --enable-netbeans \
+  %else
+  --disable-netbeans \
+  %endif
+  %if %{with perl}
+  --enable-perlinterp=dynamic \
+  --with-xsubpp=$(which xsubpp) \
+  %else
+  --disable-perlinterp \
+  %endif
+  %if %{with ruby}
+  --enable-rubyinterp=dynamic \
+  %else
+  --disable-rubyinterp \
+  %endif
+  %if %{with selinux}
+  --enable-selinux
+  %else
+  --disable-selinux
+  %endif
 
 %make_build
 cp vim gvim
@@ -633,8 +665,8 @@ install -p -m644 %{SOURCE6} \
 #
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/metainfo
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/gvim.appdata.xml <<"EOF"
+mkdir -p %{buildroot}%{_datadir}/metainfo
+cat > %{buildroot}%{_datadir}/metainfo/gvim.appdata.xml <<"EOF"
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Richard Hughes <richard@hughsie.com> -->
 <!--
@@ -729,7 +761,7 @@ rm %{buildroot}/%{_datadir}/icons/{hicolor,locolor}/*/apps/gvim.png
   ln -sf gvim ./%{_bindir}/rgview
   ln -sf gvim ./%{_bindir}/vimx
 
-  %if "%{desktop_file}" == "1"
+  %if %{with desktop_file}
     desktop-file-install \
         --dir %{buildroot}/%{_datadir}/applications \
         %{buildroot}/%{_datadir}/applications/gvim.desktop
@@ -968,7 +1000,7 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 %if %{with gui}
 %files X11
-  %if "%{desktop_file}" == "1"
+  %if %{with desktop_file}
 %{_datadir}/metainfo/*.appdata.xml
 /%{_datadir}/applications/*
 %exclude /%{_datadir}/applications/vim.desktop
@@ -1018,6 +1050,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Thu Feb 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.045-2
+- rebuilt
+
 * Tue Feb 24 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.045-1
 - patchlevel 045
 

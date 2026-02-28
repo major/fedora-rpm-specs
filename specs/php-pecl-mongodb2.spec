@@ -16,18 +16,18 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.1.8
+%global upstream_version  2.2.1
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
-%global minimal_libmongo  1.30.7
-%global minimal_libcrypt  1.12.0
+%global minimal_libmongo  2.2.2
+%global minimal_libcrypt  1.17.2
 
 # Build dependencies
-%global system_libmongo   1.30
-%global system_libcrypt   1.12
+%global system_libmongo   2.2.2
+%global system_libcrypt   1.17.2
 
 Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
@@ -43,8 +43,8 @@ BuildRequires:  gcc
 BuildRequires:  php-devel >= 8.1
 BuildRequires:  php-pear
 BuildRequires:  php-json
-BuildRequires:  pkgconfig(libbson-1.0)    >= %{system_libmongo}
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= %{system_libmongo}
+BuildRequires:  pkgconfig(bson2)          >= %{system_libmongo}
+BuildRequires:  pkgconfig(mongoc2)        >= %{system_libmongo}
 BuildRequires:  pkgconfig(libmongocrypt)  >= %{system_libcrypt}
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -165,6 +165,10 @@ OPT="-n"
 
 
 %changelog
+* Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 2.2.1-1
+- update to 2.2.1
+- raise dependency on libmongoc 2.2.2 and libmongocrypt 1.17.2
+
 * Thu Feb  5 2026 Remi Collet <remi@remirepo.net> - 2.1.8-1
 - update to 2.1.8
 

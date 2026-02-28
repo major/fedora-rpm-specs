@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc1.260224g7dff99b354601.17
+%define pkgrelease 0.rc1.260226gf4d0ec0aa20d4.17
 %define kversion 7
-%define tarfile_release 7.0-rc1-2-g7dff99b354601
+%define tarfile_release 7.0-rc1-25-gf4d0ec0aa20d4
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260224g7dff99b354601.17%{?buildid}%{?dist}
+%define specrelease 0.rc1.260226gf4d0ec0aa20d4.17%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -1531,6 +1531,7 @@ This package provides debug information for the rv package.
 %package selftests-internal
 Summary: Kernel samples and selftests
 Requires: binutils, bpftool, fuse-libs, iproute-tc, iputils, keyutils, nmap-ncat, python3
+Provides: %{name}-selftests-internal-present
 %description selftests-internal
 Kernel sample programs and selftests.
 
@@ -1668,6 +1669,7 @@ Provides: %{name}%{?1:-%{1}}-modules-internal-uname-r = %{KVERREL}%{uname_suffix
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Supplements: (%{name}-selftests-internal-present and %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}})\
 AutoReq: no\
 AutoProv: yes\
 %description %{?1:%{1}-}modules-internal\
@@ -4825,11 +4827,14 @@ fi\
 #
 #
 %changelog
-* Wed Feb 25 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260224g7dff99b354601.17]
-- Linux v7.0.0-0.rc1.260224g7dff99b354601
+* Thu Feb 26 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260226gf4d0ec0aa20d4.17]
+- Linux v7.0.0-0.rc1.260226gf4d0ec0aa20d4
 
-* Tue Feb 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.7dff99b35460.17]
-- add missing perf header files (Scott Weaver)
+* Thu Feb 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.f4d0ec0aa20d.17]
+- redhat/configs: unify CONFIG_CAN for RHEL and Fedora (Radu Rendec)
+- redhat: add a weak relationship between modules-internal and selftests (Jan Stancek)
+- new config in drivers/phy (Izabela Bakollari)
+- Linux v7.0.0-0.rc1.f4d0ec0aa20d
 
 * Tue Feb 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.7dff99b35460.16]
 - Reset the changelog for 7.0-rc1 (Justin M. Forbes)

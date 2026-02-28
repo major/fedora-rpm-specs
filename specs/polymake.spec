@@ -50,6 +50,8 @@ Patch:          %{name}-soplex.patch
 Patch:          %{name}-Singular-4.3.2.patch
 # Build the bundled sympol against system cddlib and lrslib
 Patch:          %{name}-sympol.patch
+# Use libson/libmongc version 2
+Patch:          %{name}-mongoc2.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.
@@ -97,7 +99,7 @@ BuildRequires:  perl(XML::SAX::Base)
 BuildRequires:  perl(XML::Writer)
 BuildRequires:  permlib-devel
 BuildRequires:  pkgconfig(eigen3)
-BuildRequires:  pkgconfig(libmongoc-1.0)
+BuildRequires:  pkgconfig(mongoc2)
 BuildRequires:  pkgconfig(libnauty)
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  pkgconfig(Singular)

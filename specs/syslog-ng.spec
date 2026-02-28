@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -654,6 +654,9 @@ fi
 
 
 %changelog
+* Thu Feb 26 2026 Remi Collet <remi@remirepo.net> - 4.10.2-5
+- rebuild with mongo-c-driver version 2
+
 * Wed Jan 28 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.10.2-3
 - Rebuilt for abseil-cpp 20260107.0
 

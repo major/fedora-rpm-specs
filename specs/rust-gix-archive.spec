@@ -15,7 +15,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-archive
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax zip version to allow 6.0.0 and 7.0.0; not offered upstream because
+# * relax zip version to allow 6.x, 7.x, and 8.x; not offered upstream because
 #   upstream switched to rawzip in gix-archive 0.25 instead.
 Patch:          gix-archive-fix-metadata.diff
 

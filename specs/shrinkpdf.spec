@@ -1,14 +1,12 @@
 Name:           shrinkpdf
-Version:        0
-Release:        21%{?dist}
+Version:        1.2
+Release:        2%{?dist}
 Summary:        Simple wrapper around Ghostscript to shrink PDFs
 
-# License is BSD (3 clause)
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            http://www.alfredklomp.com/programming/%{name}
-# script is embedded in upstream page, simply copy+paste into text file
-Source0:        %{url}/%{name}.sh
+# License mentioned in README.md
+License:        BSD-3-Clause
+URL:            https://github.com/aklomp/%{name}
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -23,23 +21,31 @@ Requires:       coreutils
 A simple wrapper around Ghostscript to shrink PDFs (as in reduce
 file size) under Linux. The script feeds a PDF through Ghostscript,
 which performs lossy recompression by such methods as downsampling
-the images to 72 DPI. The result should be (but not always is) a much
-smaller file.
+the images to the given resolution (default of 72 DPI). The result
+should be (but not always is) a much smaller file.
 
 
 %prep
+%setup -q -n %{name}-%{version}
 
 %build
 
 %install
-install -p -m0755 %SOURCE0 -D %{buildroot}%{_bindir}/%{name}
-
+install -p -m 0755 %{name}.sh -D %{buildroot}%{_bindir}/%{name}
 
 %files
+%doc README.md
 %{_bindir}/%{name}
 
 
 %changelog
+* Thu Feb 26 2026 Raphael Groner <raphgro@fedoraproject.org> - 1.2-2
+- adjust license BSD
+
+* Wed Feb 25 2026 Marcel Metz <me@marcel-metz.net> - 1.2-1
+- Updated upstream: Project was moved to https://github.com/aklomp/shrinkpdf
+- New upstream release 1.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

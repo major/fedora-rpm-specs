@@ -3,7 +3,7 @@
 
 # https://github.com/golangci/golangci-lint
 %global goipath         github.com/golangci/golangci-lint/v2
-Version:                2.7.1
+Version:                2.10.1
 
 %gometa -L -f
 
@@ -26,9 +26,8 @@ BuildRequires:  go-vendor-tools
 Fast linters runner for Go.
 
 %prep
-%goprep -A
-%setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
+%goprep -p1
+tar -xf %{S:1}
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -56,7 +55,6 @@ find -name '*_integration_test.go' -print -delete
 %endif
 
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc CHANGELOG.md README.md
 %{_bindir}/golangci-lint
 

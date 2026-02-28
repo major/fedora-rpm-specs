@@ -29,8 +29,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.28.0
-Release:        5%{?dist}
+Version:        1.28.1
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -540,7 +540,7 @@ EOF
 
 %files -f gst-plugins-bad-%{majorminor}.lang
 %license COPYING
-%doc NEWS README.md README.static-linking RELEASE
+%doc README.md README.static-linking RELEASE
 
 %{_metainfodir}/gstreamer-bad-free.metainfo.xml
 %{_bindir}/gst-transcoder-%{majorminor}
@@ -810,6 +810,7 @@ EOF
 %{_libdir}/girepository-1.0/CudaGst-1.0.typelib
 %{_libdir}/girepository-1.0/GstAnalytics-1.0.typelib
 %{_libdir}/girepository-1.0/GstBadAudio-1.0.typelib
+%{_libdir}/girepository-1.0/GstCodecParsers-1.0.typelib
 %{_libdir}/girepository-1.0/GstCodecs-1.0.typelib
 %{_libdir}/girepository-1.0/GstCuda-1.0.typelib
 %{_libdir}/girepository-1.0/GstDxva-1.0.typelib
@@ -835,6 +836,7 @@ EOF
 %{_datadir}/gir-1.0/CudaGst-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstAnalytics-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstBadAudio-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstCodecParsers-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstCodecs-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstCuda-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstDxva-%{majorminor}.gir
@@ -926,6 +928,9 @@ EOF
 
 
 %changelog
+* Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-1
+- 1.28.1
+
 * Mon Feb 16 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.28.0-5
 - Disable onnx on riscv64 port
 

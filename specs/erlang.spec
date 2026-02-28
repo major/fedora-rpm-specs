@@ -27,6 +27,8 @@
 %global __with_examples 1
 %ifarch %{java_arches}
 %global __with_java 1
+# cat lib/jinterface/vsn.mk
+%global jinterface_ver 1.14
 %else
 %global __with_java 0
 %endif
@@ -69,7 +71,7 @@
 
 Name:		erlang
 Version:	26.2.5.17
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -450,7 +452,9 @@ A set of services such as a Web server and a HTTP client etc.
 %package jinterface
 Summary: A library for accessing Java from Erlang
 BuildRequires: java-devel
-Requires: javapackages-tools
+BuildRequires: javapackages-common
+BuildRequires: xmvn-tools
+Requires: javapackages-filesystem
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 
 %description jinterface
@@ -879,8 +883,10 @@ cd $RPM_BUILD_ROOT%{_libdir}/erlang/lib
 for i in * ; do
     mv -v $i/doc $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/lib/$i || true
     # symlink 'chunks' in the code path for EEP-48 compliance (rhbz#2068758)
-    mkdir $i/doc
-    ln -s %{_docdir}/%{name}-%{version}/lib/$i/chunks $i/doc/
+    if [ -d $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/lib/$i/chunks ]; then
+        mkdir $i/doc
+        ln -s %{_docdir}/%{name}-%{version}/lib/$i/chunks $i/doc/
+    fi
 done
 popd
 cp -av AUTHORS LICENSE.txt README.md $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
@@ -933,13 +939,19 @@ do
 done
 
 %if %{__with_java}
-# symlink *.jar files to appropriate places for subpackages
 install -m 0755 -d "$RPM_BUILD_ROOT%{_javadir}/%{name}"
 
 # erlang-jinterface
 jinterface_lib_dir="$(ls -d1 $RPM_BUILD_ROOT%{_libdir}/erlang/lib/jinterface-*/ | sed "s,^$RPM_BUILD_ROOT,,")"
 test -d "$RPM_BUILD_ROOT$jinterface_lib_dir"
-ln -s "${jinterface_lib_dir}priv/OtpErlang.jar" "$RPM_BUILD_ROOT%{_javadir}/%{name}/"
+mv -v "$RPM_BUILD_ROOT${jinterface_lib_dir}priv/OtpErlang.jar" "$RPM_BUILD_ROOT%{_javadir}/%{name}/"
+# symlink *.jar files to appropriate places for subpackages
+ln -s "%{_javadir}/%{name}/OtpErlang.jar" "$RPM_BUILD_ROOT${jinterface_lib_dir}priv/OtpErlang.jar"
+
+sed 's;%%VSN%%;%{jinterface_ver};' lib/jinterface/java_src/pom.xml.src > lib/jinterface/pom.xml
+%mvn_artifact lib/jinterface/pom.xml %{buildroot}%{_javadir}/%{name}/OtpErlang.jar
+%mvn_file org.erlang.otp:jinterface erlang/OtpErlang
+%mvn_install
 %endif # __with_java
 
 # systemd-related stuff
@@ -1331,6 +1343,8 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 %files jinterface
 %dir %{_javadir}/%{name}/
 %{_javadir}/%{name}/OtpErlang.jar
+%{_mavenpomdir}/*
+%{_datadir}/maven-metadata/erlang.xml
 %{_libdir}/erlang/lib/jinterface-*/
 %if %{with doc}
 %{_mandir}/man3/jinterface.*
@@ -1992,6 +2006,12 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Thu Feb 26 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.17-3
+- Fix broken links to non-existing chunks
+
+* Thu Feb 26 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.17-2
+- Fix maven installation
+
 * Sat Feb 21 2026 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.17-1
 - Ver. 26.2.5.17
 

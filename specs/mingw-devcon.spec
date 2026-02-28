@@ -6,7 +6,7 @@
 
 Name:           mingw-devcon
 Version:        0~%{date}git%{shortcommit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool to display and manipulate Windows devices
 
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/ZSVCFJFVMLTODFKGV352TYHH5ZQODJXD/
@@ -126,6 +126,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/virt-tools/{x86,x64}/
 
 
 %changelog
+* Thu Feb 26 2026 Richard W.M. Jones <rjones@redhat.com> - 0-6
+- Fix Makefile so it includes the whole message catalog
+
 * Mon Feb 23 2026 Richard W.M. Jones <rjones@redhat.com> - 0-5
 - Initial packaging (RHBZ#2440652)
 - Link the binaries statically so they don't require libstdc++.dll

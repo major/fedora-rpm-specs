@@ -6,6 +6,8 @@ Summary:        Safely evaluate AST nodes without side effects
 License:        MIT
 URL:            http://github.com/alexmojaki/pure_eval
 Source0:        %{pypi_source pure_eval}
+# Compatibility with Python 3.15
+Patch:          https://github.com/alexmojaki/pure_eval/commit/d70a873553d31.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

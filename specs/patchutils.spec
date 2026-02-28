@@ -1,11 +1,10 @@
 Summary: A collection of programs for manipulating patch files
 Name: patchutils
-Version: 0.4.4
-Release: 3%{?dist}
+Version: 0.4.5
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/patchutils/
 Source0: http://cyberelk.net/tim/data/patchutils/stable/%{name}-%{version}.tar.xz
-Patch0: patchutils-0.4.4-ftbfs-gnulib.patch
 Obsoletes: interdiff <= 0.0.10
 Provides: interdiff = 0.0.11
 Requires: patch
@@ -45,6 +44,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Thu Feb 26 2026 Tim Waugh <twaugh@redhat.com> - 0.4.5-1
+- 0.4.5.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,10 +1,15 @@
 %global __provides_exclude_from ^%{_libdir}/collectd/.*\\.so$
 %undefine _strict_symbol_defs_build
 
+# FTBFS 2440914
+%bcond_with mongo
+# FTBFS 2440548
+%bcond_with mosquitto
+
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 62%{?dist}
+Release: 63%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://collectd.org/
@@ -288,12 +293,14 @@ This plugin connects to a Modbus "slave" via Modbus/TCP
 and reads register values.
 
 
+%if %{with mosquitto}
 %package mqtt
 Summary:       MQTT plugin for collectd
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 BuildRequires: mosquitto-devel
 %description mqtt
 The MQTT plugin publishes and subscribes to MQTT topics.
+%endif
 
 
 %package mysql
@@ -525,12 +532,14 @@ BuildRequires: librdkafka-devel
 This sends values to Kafka, a distributed messaging system.
 
 
+%if %{with mongo}
 %package write_mongodb
 Summary:       MongoDB output plugin for collectd
 Requires:      %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: mongo-c-driver-devel
+BuildRequires: mongo-c-driver-devel < 2
 %description write_mongodb
 This plugin sends values to MongoDB.
+%endif
 
 
 %package write_prometheus
@@ -677,6 +686,16 @@ touch src/pinba.proto
     --with-java \
 %else
     --disable-java \
+%endif
+%if %{with mongo}
+    --enable-write_mongodb \
+%else
+    --disable-write_mongodb \
+%endif
+%if %{with mongo}
+    --enable-mqtt \
+%else
+    --disable-mqtt \
 %endif
     --disable-write_stackdriver \
     --with-python=%{_bindir}/python3 \
@@ -1032,8 +1051,10 @@ make check
 %{_libdir}/collectd/modbus.so
 
 
+%if %{with mosquitto}
 %files mqtt
 %{_libdir}/collectd/mqtt.so
+%endif
 
 
 %files mysql
@@ -1169,8 +1190,10 @@ make check
 %{_libdir}/%{name}/write_kafka.so
 
 
+%if %{with mongo}
 %files write_mongodb
 %{_libdir}/%{name}/write_mongodb.so
+%endif
 
 
 %files write_prometheus
@@ -1209,6 +1232,10 @@ make check
 
 
 %changelog
+* Thu Feb 26 2026 Remi Collet <remi@fedoraproject.org> - 5.12.0-63
+- disable write_mongodb FTBFS #2440914
+- disable mqtt FTBFS #2440548
+
 * Mon Feb 02 2026 Jonathan Wright <jonathan@almalinux.org> - 5.12.0-62
 - More (final) spec file updates for EPEL10
 

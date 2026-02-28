@@ -2,7 +2,7 @@
 %global maj 0
 
 Name:       lilv
-Version:    0.26.2
+Version:    0.26.4
 Release:    %autorelease
 Summary:    An LV2 Resource Description Framework Library
 

@@ -1,8 +1,8 @@
 %global         _firmwarepath    /usr/lib/firmware
 
 Name:           wireless-regdb
-Version:        2025.10.07
-Release:        2%{?dist}
+Version:        2026.02.04
+Release:        1%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
 License:        ISC
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.02.04-1
+- 2026.02.04
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.10.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

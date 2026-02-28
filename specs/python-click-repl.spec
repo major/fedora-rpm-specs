@@ -10,6 +10,10 @@ URL:            https://github.com/untitaker/click-repl
 Source0:        %{url}/archive/%{version}.tar.gz
 BuildArch:      noarch
 
+# Fix compatibility with click 8.2+
+# Sent upstream
+Patch:          https://github.com/click-contrib/click-repl/pull/132.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-click
 BuildRequires:  python3-pytest

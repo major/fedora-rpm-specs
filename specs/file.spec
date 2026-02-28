@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.46
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -59,6 +59,11 @@ Patch7: file-5.47-buffer-overrun-2.patch
 
 # upstream commit: https://github.com/file/file/commit/b3384a1fbfa1fee99986e5750ab8e700de4f24ad
 Patch8: file-5.47-stack-overrun.patch
+
+# fix TypeError when Python process exits with magic module (rhbz#2419719)
+# upstream commit: https://github.com/file/file/commit/9c049efdfdaca96cc5d4400f15b65feb9be3a57f
+# upstream commit: https://github.com/file/file/commit/141dde1fe573e6c42800d12affb94c927b44da3e
+Patch9: file-5.47-python-magic-close-fix.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -241,6 +246,9 @@ make -C tests check
 %endif
 
 %changelog
+* Tue Feb 17 2026 Vincent Mihalkovic <vmihalko@redhat.com> - 5.46-10
+- Fix TypeError when Python process exits with magic module (rhbz#2419719)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.46-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Driver for QPDL/SPL2 printers (Samsung and several Xerox printers)
 Name: splix
 Version: 2.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-only
 URL: https://openprinting.github.io/splix/
 Source0: https://github.com/OpenPrinting/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -72,6 +72,9 @@ CXXFLAGS="%{optflags} -fno-strict-aliasing" \
 %{_datadir}/cups/drv/splix
 
 %changelog
+* Thu Feb 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2.0.1-6
+- Incorrect CMS profiles path, compilation issue (fedora#2442616)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

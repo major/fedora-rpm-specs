@@ -11,6 +11,7 @@ Source0:    https://developers.yubico.com/yubikey-val/Releases/yubikey-val-%{ver
 Source1:    yubikey-val.conf
 # Remove --group from install
 Patch0:     yubikey-val-install.patch
+Patch1:     yubikey-val-sbindir-bindir.patch
 BuildArch:  noarch
 
 BuildRequires: make
@@ -33,6 +34,7 @@ Munin plugins for the YubiKey Validation Server.
 %prep
 %setup -q
 %patch -P0 -p1 -b .install
+%patch -P1 -p1 -b .sbindir-bindir
 
 %build
 
@@ -52,7 +54,7 @@ install -p -m 0644 %SOURCE1 $RPM_BUILD_ROOT%{_httpd_confdir}/yubikey-val.conf
 %config(noreplace) %attr(0640,root,apache) %{_sysconfdir}/yubico/val/ykval-config.php
 %config(noreplace) %{_httpd_confdir}/yubikey-val.conf
 %{_datadir}/yubikey-val/
-%{_sbindir}/*
+%{_bindir}/*
 %{_mandir}/man1/*.1*
 
 %files munin

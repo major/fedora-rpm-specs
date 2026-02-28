@@ -117,6 +117,20 @@ Supplements:    moby-engine
 This package installs %{summary}.
 
 
+%package rootless-extras
+Summary:        Rootless extras for Moby
+BuildArch:      noarch
+Requires:       moby-engine = %{version}-%{release}
+Requires:       rootlesskit
+Requires:       (slirp4netns or passt)
+Suggests:       slirp4netns
+Supplements:    moby-engine
+
+%description rootless-extras %{common_description}
+
+This package provides supplementary scripts that run dockerd as a non-root user.
+
+
 # We name this package docker-cli, as that's the name of the upstream project.
 # moby-engine is github.com/moby/moby.
 %package -n docker-cli
@@ -247,6 +261,8 @@ install -Dpm 0644 contrib/init/systemd/* -t %{buildroot}%{_unitdir}
 # Install sysusers config
 install -Dpm 0644 moby-engine-systemd-sysusers.conf %{buildroot}%{_sysusersdir}/moby-engine.conf
 install -Dpm 644 man/man8/*.8 -t %{buildroot}%{_mandir}/man8/
+# Install rootless extras
+install -Dpm 0755 contrib/dockerd-rootless* -t %{buildroot}%{_bindir}
 
 # docker-cli
 cd %{cli_dir}
@@ -364,6 +380,11 @@ cd %{cli_dir}
 %license %{engine_dir}/AUTHORS
 %license %{engine_dir}/LICENSE
 %license %{engine_dir}/NOTICE
+
+
+%files rootless-extras
+%{_bindir}/dockerd-rootless.sh
+%{_bindir}/dockerd-rootless-setuptool.sh
 
 
 %files -n docker-cli -f %{cli_dir}/%{go_vendor_license_filelist}

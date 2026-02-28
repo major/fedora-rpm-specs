@@ -2,7 +2,7 @@
 %bcond  qt5           1
 
 Name:           kvantum
-Version:        1.1.5
+Version:        1.1.6
 Release:        %autorelease
 Summary:        SVG-based theme engine for Qt, KDE and LXQt
 
@@ -23,9 +23,7 @@ BuildRequires:  pkgconfig(Qt6Gui)
 BuildRequires:  pkgconfig(Qt6Linguist)
 BuildRequires:  pkgconfig(Qt6Svg)
 BuildRequires:  pkgconfig(Qt6Widgets)
-%if 0%{?fedora} >= 40
 BuildRequires:  cmake(KF6WindowSystem)
-%endif
 %if %{with qt5}
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Designer)
@@ -38,6 +36,7 @@ BuildRequires:  kde-filesystem
 
 Requires:       hicolor-icon-theme
 Requires:       %{name}-data = %{version}-%{release}
+Requires:       qt6qml(org.kde.desktop)
 
 %if %{with qt5}
 Recommends:     (%{name}-qt5 if qt5-qtbase-gui)

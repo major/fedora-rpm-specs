@@ -1,7 +1,7 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
@@ -56,12 +56,15 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 %files -n python3-gstreamer1
 %license COPYING
-%doc ChangeLog NEWS README.md RELEASE
+%doc ChangeLog README.md RELEASE
 %{python3_sitearch}/gi/overrides/*
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 %{_libdir}/gstreamer-1.0/python/gesotioformatter.py
 
 %changelog
+* Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-1
+- new version
+
 * Wed Jan 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.0-1
 - 1.28.0
 
