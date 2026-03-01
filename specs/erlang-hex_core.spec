@@ -1,7 +1,7 @@
 %global realname hex_core
 
 Name:     erlang-%{realname}
-Version:  0.12.0
+Version:  0.12.2
 Release:  %autorelease
 Summary:  Reference implementation of Hex specifications
 License:  Apache-2.0
@@ -10,7 +10,6 @@ VCS:      git:%{url}.git
 Source0:  %{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
 Patch:    erlang-hex_core-0001-Disable-non-deterministic-tarball-checksum-tests.patch
 BuildArch:     noarch
-BuildRequires: erlang-gpb
 BuildRequires: erlang-proper
 BuildRequires: erlang-rebar3
 BuildRequires: erlang-rebar3-gpb

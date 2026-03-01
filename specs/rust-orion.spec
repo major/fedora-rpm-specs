@@ -5,7 +5,7 @@
 %global crate orion
 
 Name:           rust-orion
-Version:        0.17.12
+Version:        0.17.13
 Release:        %autorelease
 Summary:        Usable, easy and safe pure-Rust crypto
 
@@ -122,6 +122,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

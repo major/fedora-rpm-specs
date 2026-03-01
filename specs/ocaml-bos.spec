@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bos
 Version:        0.2.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Basic OS interaction for OCaml
 
 License:        ISC
@@ -72,6 +72,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-35
+- Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-34
 - OCaml 5.4.1 rebuild
 

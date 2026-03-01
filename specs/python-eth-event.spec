@@ -1,22 +1,21 @@
 %global pypi_name eth_event
 
 Name:          python-eth-event
-Version:       1.2.6
+Version:       1.4.6
 Release:       %autorelease
-BuildArch:     noarch
 Summary:       Tools for Ethereum event decoding and topic generation
 License:       MIT
 URL:           https://github.com/iamdefinitelyahuman/eth-event
-Source0:       %{pypi_source %pypi_name}
-# https://github.com/iamdefinitelyahuman/eth-event/issues/32
-Patch:         python-eth-event-0001-Readd-test-files-missing-in-PyPi.patch
-Patch:         python-eth-event-0002-Update-to-hexbytes-1.0.0.patch
-# Fedora-specific
-Patch:         python-eth-event-0003-Relax-deps.patch
-BuildRequires: python3-pytest
-BuildRequires: python3-pytest-cov
+VCS:           git:%{url}.git
+Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Patch:         python-eth-event-0001-Relax-deps.patch
+BuildRequires: gcc
+BuildRequires: python3dist(eth-abi)
+BuildRequires: python3dist(eth-utils)
+BuildRequires: python3dist(mypy[mypyc])
+BuildRequires: python3dist(pytest)
+BuildRequires: python3dist(pytest-cov)
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description
@@ -29,10 +28,11 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%pytest
+%pytest --ignore=benchmarks/
 
 %files -n python3-eth-event -f %{pyproject_files}
 %doc README.md
+%{python3_sitearch}/*.so
 
 %changelog
 %autochangelog

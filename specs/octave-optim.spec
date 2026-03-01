@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.6.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A non-linear optimization tool kit for Octave
 # C++ and .m are GPLv3+, documentation is GFDL
 # Automatically converted from old format: GPLv3+ and GFDL - review is highly recommended.
@@ -71,6 +71,9 @@ rm -rf  %{buildroot}/%{octpkgdir}/doc
 %doc doc/development/interfaces.txt
 
 %changelog
+* Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 1.6.2-17
+- Rebuild for octave 11.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

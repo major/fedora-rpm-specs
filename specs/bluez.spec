@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.86
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -14,8 +14,10 @@ URL:     http://www.bluez.org/
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
 # https://patchwork.kernel.org/project/bluetooth/list/?series=1052631
 Patch1: big-endian-5.86.patch
-# https://patchwork.kernel.org/project/bluetooth/patch/0b3d55690ff2f0ed72271f2760ace8f76a81fb43.1771160059.git.pav@iki.fi/
-Patch2: 0001-a2dp-start-connecting-sink-profile-before-source.patch
+# https://patchwork.kernel.org/project/bluetooth/patch/ba0e71b91a24557f088b015a349c6ccee6260ec2.1771258477.git.pav@iki.fi/
+Patch2: 0001-a2dp-connect-source-profile-after-sink.patch
+# https://patchwork.kernel.org/project/bluetooth/list/?series=1058931
+Patch3: bluetoothctl-no-output.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -169,6 +171,12 @@ install -m0755 attrib/gatttool $RPM_BUILD_ROOT%{_bindir}
 # Red Hat Bugzilla bug #1699680
 install -m0755 tools/avinfo $RPM_BUILD_ROOT%{_bindir}
 
+# btmgmt is not installed by "make install", but it is useful for debugging
+# some issues and to set the MAC address on HCIs which don't have their
+# MAC address configured 
+install -m0755 tools/btmgmt $RPM_BUILD_ROOT%{_bindir}
+install -m0644 doc/btmgmt.1 $RPM_BUILD_ROOT%{_mandir}/man1/
+
 # Remove libtool archive
 find $RPM_BUILD_ROOT -name '*.la' -delete
 
@@ -237,11 +245,13 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_bindir}/bluemoon
 %{_bindir}/bluetoothctl
 %{_bindir}/btattach
+%{_bindir}/btmgmt
 %{_bindir}/btmon
 %{_bindir}/hex2hcd
 %{_bindir}/mpris-proxy
 %{_mandir}/man1/bluetoothctl.1.*
 %{_mandir}/man1/bluetoothctl-*.1.*
+%{_mandir}/man1/btmgmt.1.*
 %{_mandir}/man1/btattach.1.*
 %{_mandir}/man1/btmon.1.*
 %{_mandir}/man8/bluetoothd.8.*
@@ -331,6 +341,12 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Feb 27 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-4
+- Re-add btmgmt as it does not require bluetoothd to be running,
+  unlike bluetoothctl mgmt
+- Update audio output patch to be upstream version
+- Fix "bluetoothctl list" empty output (Closes: #2440346)
+
 * Mon Feb 16 2026 Bastien Nocera <bnocera@redhat.com> - 5.86-3
 - Fix audio output not working in some circumstances
 

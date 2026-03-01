@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2026.04
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  0.5%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -37,6 +37,7 @@ Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch8:   uefi-enable-https-boot-by-default.patch
+Patch9:   efi_loader-disk-Add-EFI_PARTITION_INFO_PROTOCOL-support-for-MBR.patch
 
 # Device improvments
 # USB-PD improvements
@@ -54,6 +55,7 @@ Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 Patch17:  rpi-pass-the-Video-Core-logs-DT-parameter-through.patch
 Patch18:  rpi-pinctrl-bcm283x-Fix-GPIO-pull-state-register-values-for-BCM2711.patch
 Patch19:  board-raspberry-add-FDT-for-bcm2712d0.patch
+Patch20:  ARM-RPi5-Enable-PCIe.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -75,6 +77,7 @@ BuildRequires:  swig
 %if %{with toolsonly}
 %ifarch aarch64
 BuildRequires:  arm-trusted-firmware-armv8
+BuildRequires:  optee-os-firmware-armv8
 BuildRequires:  crust-firmware
 BuildRequires:  python3-pyelftools
 BuildRequires:  xxd
@@ -311,6 +314,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Fri Feb 27 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.5.rc3
+- Update to 2026.04 RC3
+
 * Tue Feb 17 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.04-0.4.rc2
 - Add initial bcm2712d0 identification
 

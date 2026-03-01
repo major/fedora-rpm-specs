@@ -2,22 +2,21 @@
 %bcond_without perl_Geo_IPfree_enables_optional_test
 
 %global cpan_name Geo-IPfree
-%global cpan_version 1.160000
+%global cpan_version 1.160001
 %global cpan_author ATOOMIC
 Name:           perl-%{cpan_name}
 # Normalize version to dotted format
 Version:        %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:        13%{?dist}
+Release:        1%{?dist}
 Summary:        Look up the country of an IPv4 Address
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
 Source0:        https://cpan.metacpan.org/authors/id/%(echo '%{cpan_author}' | sed 's=\(.\)\(.\)=\1/\1\2/\1\2=')/%{cpan_name}-%{cpan_version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -96,13 +95,19 @@ make test
 %files
 %license LICENSE
 %doc Changes misc README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Geo
+%{perl_vendorlib}/Geo/IPfree.pm
+%{perl_vendorlib}/Geo/IPfree.pod
+%{perl_vendorlib}/Geo/ipscountry.dat
+%{_mandir}/man3/Geo::IPfree.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 27 2026 Petr Pisar <ppisar@redhat.com> - 1.160.001-1
+- 1.160001 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.160.000-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

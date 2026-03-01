@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -64,6 +64,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-27
+- Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-26
 - OCaml 5.4.1 rebuild
 

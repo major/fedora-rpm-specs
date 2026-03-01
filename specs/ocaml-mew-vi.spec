@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mew-vi
 Version:        0.5.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Modal Editing Witch, VI interpreter
 
 License:        MIT
@@ -56,6 +56,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-36
+- Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
+
 * Sat Feb 21 2026 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-35
 - OCaml 5.4.1 rebuild
 

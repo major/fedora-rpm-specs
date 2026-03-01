@@ -4,7 +4,7 @@ BuildArch:      noarch
 BuildRequires:  meson
 BuildRequires:  fonts-rpm-macros
 
-Version: 49.0
+Version: 50.0
 Release: %autorelease
 License: OFL-1.1
 URL:     https://gitlab.gnome.org/GNOME/adwaita-fonts.git
@@ -38,7 +38,7 @@ Adwaita Mono is a customized version of the Iosevka font, designed to match Inte
 }
 
 
-Source0:    https://download.gnome.org/sources/adwaita-fonts/49/adwaita-fonts-%{tarball_version}.tar.xz
+Source0:    https://download.gnome.org/sources/adwaita-fonts/50/adwaita-fonts-%{tarball_version}.tar.xz
 Source1:    59-adwaita-sans-fonts.conf
 Source2:    59-adwaita-mono-fonts.conf
 

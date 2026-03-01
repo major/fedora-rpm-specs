@@ -5,57 +5,50 @@
 %global srcname freeipa
 
 Name:           python-%{srcname}
-Version:        1.0.8
-Release:        10%{?dist}
+Version:        1.0.10
+Release:        1%{?dist}
 Summary:        Lightweight FreeIPA client
 
 License:        MIT
 URL:            https://python-freeipa.readthedocs.io/
 Source0:        https://github.com/opennode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Ignore code coverage in tests
+Patch:          python-freeipa-1.0.10-no-cov.patch
 BuildArch:      noarch
 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist requests}
-BuildRequires:  %{py3_dist responses}
-BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  python3dist(pytest) >= 8.3.4
+BuildRequires:  python3dist(responses)
+
+BuildSystem:            pyproject
+BuildOption(install):   -L python_freeipa
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
-python-freeipa is lightweight FreeIPA client.
+python-freeipa is a lightweight FreeIPA client.
 
 %package -n     python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary} for Python %{python3_version}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
-python-freeipa is lightweight FreeIPA client.
+python-freeipa is a lightweight FreeIPA client.
 
 This package provides the Python %{python3_version} variant.
 
-%prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-
-# Fix version
-sed -e "s/version='1.0.6',/version='%{version}',/" -i setup.py
-
-%build
-%py3_build
-
-%install
-%py3_install
-
 %check
-%pytest src/python_freeipa/tests/*.py
+%pytest
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license LICENSE.md
-%doc README.rst
-%{python3_sitelib}/python_freeipa/
-%{python3_sitelib}/python_freeipa-%{version}-py%{python3_version}.egg-info/
+%doc README.md
 
 %changelog
+* Sat Feb 28 2026 Nils Philippsen <nils@redhat.com> - 1.0.10-1
+- Update to 1.0.10
+- Modernize build
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

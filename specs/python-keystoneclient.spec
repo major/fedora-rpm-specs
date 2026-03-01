@@ -18,7 +18,7 @@ Identity API.
 Name:       python-keystoneclient
 Epoch:      1
 Version:    5.5.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Client library for OpenStack Identity API
 License:    Apache-2.0
 URL:        https://launchpad.net/python-keystoneclient
@@ -59,7 +59,6 @@ Summary:  Python API and CLI for OpenStack Keystone (tests)
 
 Requires:  python3-%{sname} = %{epoch}:%{version}-%{release}
 Requires:  python3-fixtures
-Requires:  python3-mock
 Requires:  python3-oauthlib
 Requires:  python3-oslotest
 Requires:  python3-stestr
@@ -150,6 +149,9 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %{python3_sitelib}/%{sname}/tests
 
 %changelog
+* Thu Feb 12 2026 Michel Lind <salimma@fedoraproject.org> - 1:5.5.0-7
+- Remove unused and deprecated python3-mock dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

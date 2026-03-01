@@ -73,8 +73,8 @@ sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/in
 %pyproject_buildrequires
 
 %build
-# NOTE: Upstream's wheels include the license cache as a Python pickle, so
-# let's build that here. Without this file, scancode tries to write the cache
+# NOTE: Upstream's wheels include the license and package cache as a Python pickle, so
+# let's build that here. Without these files, scancode tries to write the cache
 # to site-packages itself which it doesn't have permissions for.
 # TODO: Upstream's approach to caching is problematic.
 # It treats pickles as a portable data format and tries to write a new cache to
@@ -83,6 +83,8 @@ sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/in
 # This should be fixed to prefer a user-writable cache directory.
 PYTHONPATH="$(pwd)/src" %{python3} -m licensedcode.reindex
 test -f src/licensedcode/data/cache/license_index/index_cache
+PYTHONPATH="$(pwd)/src" %{python3} -m packagedcode.cache
+test -f src/packagedcode/data/cache/package_patterns_index/index_cache
 %pyproject_wheel
 
 # generate html docs

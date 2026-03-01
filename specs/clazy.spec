@@ -1,7 +1,7 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
 Version:        1.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
 
@@ -57,6 +57,9 @@ refactoring.
 
 
 %changelog
+* Fri Feb 27 2026 Jan Grulich <jgrulich@redhat.com> - 1.17-2
+- Rebuild (LLVM-22)
+
 * Thu Feb 26 2026 Jan Grulich <jgrulich@redhat.com> - 1.17-1
 - 1.17
 

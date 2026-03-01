@@ -15,6 +15,7 @@
 %global with_sasl2	yes
 %global with_milter	yes
 %global with_ldap	yes
+%global with_smtputf8	yes
 %if 0%{?rhel} < 9
 %global with_nis	yes
 %else
@@ -41,7 +42,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -140,6 +141,9 @@ Requires: /usr/sbin/saslauthd
 %if "%{with_ldap}" == "yes"
 BuildRequires: openldap-devel
 BuildRequires: openssl-devel
+%endif
+%if "%{with_smtputf8}" == "yes"
+BuildRequires: libicu-devel
 %endif
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts: NetworkManager < 1.20
@@ -310,6 +314,13 @@ cat >> redhat.config.m4 << EOF
 APPENDDEF(\`confMAPDEF', \`-DLDAPMAP -DLDAP_DEPRECATED')dnl
 APPENDDEF(\`confENVDEF', \`-DSM_CONF_LDAP_MEMFREE=1')dnl
 APPENDDEF(\`confLIBS', \`-lldap -llber -lssl -lcrypto')dnl
+EOF
+%endif
+
+%if "%{with_smtputf8}" == "yes"
+cat >> redhat.config.m4 << EOF
+APPENDDEF(\`confENVDEF',\`-DUSE_EAI')dnl
+APPENDDEF(\`confLIBS', \`-licuuc')dnl
 EOF
 %endif
 
@@ -754,6 +765,9 @@ exit 0
 
 
 %changelog
+* Wed Feb 25 2026 Xavier Bachelot <xavier@bachelot.org> - 8.18.2-3
+- Enable support for SMTPUTF8 (RFC 6531)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

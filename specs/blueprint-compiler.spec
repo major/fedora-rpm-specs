@@ -1,5 +1,5 @@
 Name:           blueprint-compiler
-Version:        0.19.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        A markup language for GTK user interfaces
 
@@ -7,7 +7,7 @@ Summary:        A markup language for GTK user interfaces
 
 License:        LGPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/blueprint-compiler
-Source0:        https://download.gnome.org/sources/%{name}/0.19/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/0.20/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 

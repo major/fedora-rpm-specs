@@ -1,15 +1,12 @@
-%global __cmake_in_source_build 1
-
 Name:           tcmu-runner
 # Automatically converted from old format: LGPLV2+ or ASL 2.0 - review is highly recommended.
 License:        LGPL-2.1-or-later OR Apache-2.0
 Summary:        A daemon that supports LIO userspace backends
 Version:        1.5.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 URL:            https://github.com/open-iscsi/tcmu-runner
 Source:         https://github.com/open-iscsi/tcmu-runner/archive/v%{version}.tar.gz
 Patch0:         read_conf.patch
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  cmake glib2-devel libnl3-devel glusterfs-api-devel kmod-devel zlib-devel librbd-devel
 BuildRequires:  gperftools-devel systemd
@@ -44,12 +41,12 @@ Development header(s) for developing against libtcmu.
 %build
 # TODO: Please submit an issue to upstream (rhbz#2381481)
 export CMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake -DSUPPORT_SYSTEMD=ON .
-make %{?_smp_mflags}
+%cmake -DSUPPORT_SYSTEMD=ON
+%cmake_build
 gzip --stdout tcmu-runner.8 > tcmu-runner.8.gz
 
 %install
-make install DESTDIR=%{buildroot}
+%cmake_install
 mkdir -p %{buildroot}%{_mandir}/man8/
 install -m 644 tcmu-runner.8.gz %{buildroot}%{_mandir}/man8/
 mkdir -p %{buildroot}%{_includedir}
@@ -84,6 +81,9 @@ cp -a libtcmu.h libtcmu_common.h libtcmu_log.h tcmu-runner.h %{buildroot}%{_incl
 
 
 %changelog
+* Sat Feb 14 2026 Cristian Le <git@lecris.dev> - 1.5.4-15
+- Use standard CMake macros (rhbz#2381145)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

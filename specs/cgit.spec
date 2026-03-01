@@ -1,7 +1,7 @@
 # Review bug: https://bugzilla.redhat.com/479723
 
 # Defaults
-%global gitver      2.34.1
+%global gitver      2.53.0
 %global cachedir    %{_localstatedir}/cache/%{name}
 %global filterdir   %{_libexecdir}/%{name}/filters
 %global scriptdir   %{_localstatedir}/www/cgi-bin
@@ -34,8 +34,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           cgit
-Version:        1.2.3
-Release:        23%{?dist}
+Version:        1.3
+Release:        1%{?dist}
 Summary:        A fast web interface for git
 
 License:        GPL-2.0-only
@@ -67,22 +67,6 @@ Source93:        https://www.kernel.org/pub/software/scm/git/git-%{gitver}.tar.s
 
 # All supported releases use highlight version 3.
 Patch0:         0001-use-highlight-3-by-default.patch
-
-# Improve test suite's support for older tar versions
-# https://lists.zx2c4.com/pipermail/cgit/2020-August/004513.html
-Patch1:         https://git.zx2c4.com/cgit/patch/?id=bd6f5683f#/0001-t0107-support-older-and-or-non-GNU-tar.patch
-
-# Update to current git
-#
-# This is a compilation of patches Christian Hesse has sent to the cgit list.
-# It was created somewhat manually by reviewing the number of patches since the
-# last update to git-2.25.1 (14).  Then patch was generated via:
-#
-# git log --grep=git: --format='%h' --reverse -14 origin/ch/for-jason |
-# while read c _; do
-#     git format-patch -1 --ignore-submodules --no-signature --stdout $c
-# done >~/src/dist/fedora/cgit/cgit-1.2.3-update-to-git-2.34.1.patch
-Patch2:         cgit-1.2.3-update-to-git-2.34.1.patch
 
 # Note the bundled git, per the packaging guidelines
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#bundling
@@ -231,6 +215,9 @@ install -Dp -m0644 httpd.conf %{buildroot}%{httpdconfd}/%{name}.conf
 
 
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.3-1
+- update to 1.3, lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

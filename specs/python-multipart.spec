@@ -1,11 +1,5 @@
-%global common_description %{expand:
-This module provides a parser for the multipart/form-data format.
-It can read from a file, a socket or a WSGI environment.
-The parser can be used to replace cgi.FieldStorage to work around its
-limitations.}
-
 Name:           python-multipart
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Parser for multipart/form-data
 License:        MIT
@@ -13,8 +7,13 @@ URL:            https://github.com/defnull/multipart
 Source:         %{pypi_source multipart}
 BuildArch:      noarch
 
+%global _description %{expand:
+This module provides a fast incremental non-blocking parser for
+multipart/form-data [HTML5, RFC7578], as well as blocking alternatives for
+easier use in WSGI or CGI applications.}
 
-%description %{common_description}
+
+%description %_description
 
 
 %package -n python3-multipart
@@ -25,7 +24,7 @@ BuildRequires:  python3-pytest
 Conflicts:      python3-python-multipart
 
 
-%description -n python3-multipart %{common_description}
+%description -n python3-multipart %_description
 
 
 %prep

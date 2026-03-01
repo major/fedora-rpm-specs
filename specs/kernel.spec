@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc1.260226gf4d0ec0aa20d4.17
+%define pkgrelease 0.rc1.260227ga75cb869a8ccc.18
 %define kversion 7
-%define tarfile_release 7.0-rc1-25-gf4d0ec0aa20d4
+%define tarfile_release 7.0-rc1-164-ga75cb869a8ccc
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260226gf4d0ec0aa20d4.17%{?buildid}%{?dist}
+%define specrelease 0.rc1.260227ga75cb869a8ccc.18%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4827,8 +4827,11 @@ fi\
 #
 #
 %changelog
-* Thu Feb 26 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260226gf4d0ec0aa20d4.17]
-- Linux v7.0.0-0.rc1.260226gf4d0ec0aa20d4
+* Fri Feb 27 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260227ga75cb869a8ccc.18]
+- Linux v7.0.0-0.rc1.260227ga75cb869a8ccc
+
+* Fri Feb 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.a75cb869a8cc.18]
+- Linux v7.0.0-0.rc1.a75cb869a8cc
 
 * Thu Feb 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.f4d0ec0aa20d.17]
 - redhat/configs: unify CONFIG_CAN for RHEL and Fedora (Radu Rendec)

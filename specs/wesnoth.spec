@@ -1,5 +1,5 @@
 Name:           wesnoth
-Version:        1.19.20
+Version:        1.19.21
 Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
@@ -193,6 +193,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Thu Feb 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.21-1
+- 1.19.21
+
 * Wed Jan 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.20-1
 - 1.19.20
 

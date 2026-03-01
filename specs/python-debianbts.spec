@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        2.8.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python interface to Debian's Bug Tracking System
 
 License:        MIT
@@ -26,7 +26,6 @@ Debian's Bug Tracking System.
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{rpmname}}
 
-Requires:       python3dist(mock)
 Requires:       python3dist(pysimplesoap)
 Requires:       python3dist(setuptools)
 
@@ -61,6 +60,9 @@ cp -p %{SOURCE1} .
 %{python3_sitelib}/python_debianbts-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Feb 12 2026 Michel Lind <salimma@fedoraproject.org> - 2.8.2-24
+- Remove unused and deprecated python3-mock dependency
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

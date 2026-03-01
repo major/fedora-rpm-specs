@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/elalish/manifold
 %global pypiname manifold3d
 
-Version:        3.3.2
+Version:        3.4.0
 %forgemeta
 Name:           manifold
 Release:        %autorelease
@@ -35,8 +35,8 @@ BuildRequires:  pkgconfig(assimp)
 BuildRequires:  pkgconfig(gtest)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  polyclipping2-devel
-BuildRequires:  python3-devel
 %if %{with python}
+BuildRequires:  python3-devel
 BuildRequires:  python3-nanobind-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
@@ -178,7 +178,6 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{pytest}
 %{python3_sitearch}/manifold3d*.so
 %{python3_sitearch}/manifold3d-%{version}.dist-info/
 %endif
-
 
 %files doc
 %license LICENSE

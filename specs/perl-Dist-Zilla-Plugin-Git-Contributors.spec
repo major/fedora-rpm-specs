@@ -2,8 +2,8 @@
 %bcond_without perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test
 
 Name:           perl-Dist-Zilla-Plugin-Git-Contributors
-Version:        0.038
-Release:        3%{?dist}
+Version:        0.039
+Release:        1%{?dist}
 Summary:        Add contributor names from git to your distribution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git-Contributors
@@ -12,7 +12,7 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.8
+BuildRequires:  perl(:VERSION) >= 5.13.10
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 BuildRequires:  perl(strict)
@@ -142,6 +142,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 27 2026 Petr Pisar <ppisar@redhat.com> - 0.039-1
+- 0.039 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.038-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

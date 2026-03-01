@@ -1,22 +1,21 @@
-%define luaver 5.4
-%define luapkgdir %{_datadir}/lua/%{luaver}
 %global commit 7a86bc22066858afeb23845a191a6ab680b46233
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           lua-json
 Version:        1.3.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        JSON Parser/Constructor for Lua
 License:        MIT
 URL:            https://github.com/harningt/luajson
 Source0:        https://github.com/harningt/luajson/archive/%{version}/luajson-%{version}.tar.gz
 # Support for lpeg 1.1.0
 Patch0:         https://github.com/harningt/luajson/pull/48.patch
-BuildRequires:  lua >= %{luaver}, lua-lpeg >= 0.8.1
+BuildRequires:  lua-devel
+BuildRequires:  lua-lpeg >= 0.8.1
 # for checks
 BuildRequires:  lua-filesystem >= 1.4.1, lua-lunit >= 0.4
-BuildRequires: make
-Requires:       lua(abi) >= %{luaver}, lua-lpeg >= 0.8.1
+BuildRequires:  make
+Requires:       lua(abi) >= %{lua_version}, lua-lpeg >= 0.8.1
 BuildArch:      noarch
 
 %description
@@ -28,8 +27,8 @@ LuaJSON is a customizable JSON decoder/encoder, using LPEG for parsing.
 %build
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{luapkgdir}
-cp -pr lua/* $RPM_BUILD_ROOT%{luapkgdir}
+mkdir -p $RPM_BUILD_ROOT%{lua_pkgdir}
+cp -pr lua/* $RPM_BUILD_ROOT%{lua_pkgdir}
 
 %check
 make check-regression
@@ -39,9 +38,12 @@ make check-regression
 
 %files
 %doc LICENSE docs/LuaJSON.txt docs/ReleaseNotes-1.0.txt
-%{luapkgdir}/*
+%{lua_pkgdir}/*
 
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.3.4-12
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

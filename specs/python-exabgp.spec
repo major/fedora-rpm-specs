@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        5.0.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -13,6 +13,12 @@ Source4:        exabgp.systemd.exabgp@.service
 Patch0001:      0001-Fix-handle_connection-return-value-and-md5-parameter.patch
 Patch0002:      0002-Fix-inject_operational-afi_safi-bug-peer.py-api_shut.patch
 Patch0003:      0003-Fix-Duplicate-attribute-crash-attribute.ID-on-bytes.patch
+Patch0004:      0004-fix-Defer-signal-handling-until-reactor-is-ready-bac.patch
+Patch0005:      0005-fix-Auto-enable-adj-rib-out-when-route-refresh-capab.patch
+Patch0006:      0006-fix-Update-RIB-when-neighbor-offline-during-config-r.patch
+Patch0007:      0007-fix-Update-test-to-match-1126-backport-behavior-fixe.patch
+Patch0008:      0008-feat-Add-router-id-to-JSON-API-neighbor-output-1357.patch
+Patch0009:      0009-style-Apply-ruff-formatting-to-5.0-branch.patch
 Patch0100:      0100-Adjust-python-versions.patch
 
 BuildArch:      noarch
@@ -125,6 +131,12 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Fri Feb 27 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.1-5
+- Rebuilt for artifacts
+
+* Fri Feb 27 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.1-4
+- Update to post 5.0.1 release fixes
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

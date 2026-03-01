@@ -14,9 +14,10 @@ Source:         %url/archive/v%{version}/%{github_name}-%{version}.tar.gz
 # https://github.com/spdx/tools-python/pull/841
 # https://github.com/spdx/tools-python/commit/6817ca7056cadfd71c5619b7d75452461e4bbb18
 Patch:          0001-Update-excepted-typecheck-error-after-beartype-updat.patch
-# relationship_writer: properly access __annotations__ dict #858
-# https://github.com/spdx/tools-python/pull/858
-Patch:          0002-relationship_writer-properly-access-__annotations__-.patch
+# fix annotation access from class instance to class
+# https://github.com/spdx/tools-python/pull/867
+# https://github.com/spdx/tools-python/commit/e9019e039eae296ee99b506597a97fdafdb88d33
+Patch:          0002-issue-866-fix-annotation-access-from-class-instance-.patch
 
 BuildArch:      noarch
 BuildRequires:  help2man

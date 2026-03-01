@@ -1,5 +1,5 @@
 # From src/version.h:#define OCTAVE_API_VERSION
-%global octave_api api-v60
+%global octave_api api-v61
 
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
@@ -36,7 +36,7 @@
 
 Name:           octave
 Epoch:          6
-Version:        10.3.0
+Version:        11.1.0
 Release:        %autorelease
 Summary:        A high-level language for numerical computations
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -140,12 +140,11 @@ BuildRequires:  texlive-collection-fontsrecommended
 BuildRequires:  texlive-ec
 BuildRequires:  texlive-metapost
 %endif
+BuildRequires:  wayland-devel
 BuildRequires:  zlib-devel
 # For check
 BuildRequires:  mesa-libGL
-%ifnarch s390 s390x
-BuildRequires:  xorg-x11-drv-dummy
-%endif
+BuildRequires:  xwayland-run
 BuildRequires:  zip
 
 Requires:       epstool
@@ -380,24 +379,15 @@ cp -p %SOURCE1 %{buildroot}%{macrosdir}
 
 %check
 cp %SOURCE2 .
-if [ -x /usr/libexec/Xorg ]; then
-   Xorg=/usr/libexec/Xorg
-else
-   Xorg=/usr/libexec/Xorg.bin
-fi
-$Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf :99 &
-sleep 2
-export DISPLAY=:99
 export FLEXIBLAS=netlib
 %ifarch ppc64le riscv64
 # liboctave/array/dMatrix.cc-tst segfaults
 # riscv: image/getframe.m ...............................................LLVM ERROR: Relocation type not implemented yet!
-make check || :
+wlheadless-run -- make check || :
 %else
-make check
+wlheadless-run -- make check
 %endif
 
-%ldconfig_scriptlets
 
 %files
 %license COPYING
@@ -412,9 +402,9 @@ make check
 %{_bindir}/octave*
 %dir %{_libdir}/octave/
 %dir %{_libdir}/octave/%{version}
-%{_libdir}/octave/%{version}/liboctave.so.12*
-%{_libdir}/octave/%{version}/liboctgui.so.13*
-%{_libdir}/octave/%{version}/liboctinterp.so.13*
+%{_libdir}/octave/%{version}/liboctave.so.13*
+%{_libdir}/octave/%{version}/liboctgui.so.14*
+%{_libdir}/octave/%{version}/liboctinterp.so.15*
 %{_libdir}/octave/%{version}/liboctmex.so.1*
 %{_libdir}/octave/%{version}/mkoctfile-%{version}
 %{_libdir}/octave/%{version}/oct/

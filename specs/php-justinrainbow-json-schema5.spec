@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-justinrainbow-json-schema5
 #
-# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -14,7 +14,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    b5a44b6391a3bbb75c9f2b73e1ef03d6045e1e20
+%global gh_commit    2f7abf648939847a789c55c206d4cb9dd0d53e2c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     justinrainbow
 %global gh_project   json-schema
@@ -34,8 +34,8 @@
 %global eolv2        0
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.3.1
-Release:        2%{?dist}
+Version:        5.3.2
+Release:        1%{?dist}
 Summary:        A library to validate a json schema
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -155,7 +155,7 @@ php bin/validate-json-test \
 
 : Upstream test suite
 ret=0
-for cmd in php php81 php82 php83 php84 php85; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
    $cmd -d memory_limit=1G %{_bindir}/phpunit -d memory_limit=1G --verbose || ret=1
   fi
@@ -176,6 +176,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb 27 2026 Remi Collet <remi@remirepo.net> - 5.3.2-1
+- update to 5.3.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -49,7 +49,6 @@ BuildRequires:  python3-argcomplete
 #BuildRequires:  python3-asynctest -- not packaged in Fedora
 BuildRequires:  python3-decorator
 BuildRequires:  python3-jinja2
-BuildRequires:  python3-mock
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pexpect
 BuildRequires:  python3-pytest-xdist

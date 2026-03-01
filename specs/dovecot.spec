@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.2
 %global prever %{nil}
-Release: 5%{?dist}
+Release: 6%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -44,6 +44,7 @@ Patch16: dovecot-2.4.1-opensslhmac3.patch
 # FTBFS
 Patch17: dovecot-2.3.15-fixvalcond.patch
 Patch18: dovecot-2.3.15-valbasherr.patch
+Patch19: dovecot-2.4.2-lua-5.5.patch
 
 # Fedora/RHEL specific, drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
 Patch23: dovecot-2.4.1-nolibotp.patch
@@ -155,6 +156,7 @@ mv dovecot-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 16 -p2 -b .opensslhmac3
 %patch -P 17 -p2 -b .fixvalcond
 %patch -P 18 -p1 -b .valbasherr
+%patch -P 19 -p1 -b .lua55
 %patch -P 23 -p2 -b .nolibotp
 %patch -P 24 -p1 -b .fixbuild
 %patch -P 25 -p1 -b .ftbfs-workaround
@@ -483,6 +485,9 @@ make check ||:
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1:2.4.2-6
+- rebuild for lua 5.5
+
 * Tue Feb 03 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.2-5
 - add workaround for test failure
 

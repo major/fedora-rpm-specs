@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mdx
 Version:        2.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -84,6 +84,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 2.5.1-6
+- Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 2.5.1-5
 - OCaml 5.4.1 rebuild
 

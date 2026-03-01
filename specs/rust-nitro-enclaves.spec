@@ -2,25 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate wayland-client
+%global crate nitro-enclaves
 
-Name:           rust-wayland-client
-Version:        0.31.12
+Name:           rust-nitro-enclaves
+Version:        0.6.1
 Release:        %autorelease
-Summary:        Bindings to the standard C implementation of the wayland protocol, client side
+Summary:        Library for AWS Nitro Enclaves
 
-License:        MIT
-URL:            https://crates.io/crates/wayland-client
+License:        Apache-2.0
+URL:            https://crates.io/crates/nitro-enclaves
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * remove example code with undeclared wayland-protocols dependency
-Patch:          wayland-client-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Bindings to the standard C implementation of the wayland protocol,
-client side.}
+Library for AWS Nitro Enclaves.}
 
 %description %{_description}
 
@@ -34,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+log-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+log-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
-
-%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

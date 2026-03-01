@@ -1,6 +1,6 @@
 Name:		domoticz
 Version:	2025.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -244,6 +244,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 2025.2-5
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2025.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

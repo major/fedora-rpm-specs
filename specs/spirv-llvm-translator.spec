@@ -1,8 +1,8 @@
-%global commit a79c852b36785588032a2dd7c39aa15ec4d24b20
+%global commit 18066de5787ffba4d5287a8b3e15c7c276271148
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        21.1.3
+Version:        22.1.0
 Release:        %autorelease
 Summary:        LLVM to SPIRV Translator
 

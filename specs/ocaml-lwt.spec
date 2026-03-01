@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lwt
 Version:        5.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -173,6 +173,9 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Fri Feb 27 2026 Richard W.M. Jones <rjones@redhat.com> - 5.9.1-6
+- Rebuild for OCaml 5.4.1 with aarch64 frame pointers fix
+
 * Fri Feb 20 2026 Richard W.M. Jones <rjones@redhat.com> - 5.9.1-5
 - OCaml 5.4.1 rebuild
 

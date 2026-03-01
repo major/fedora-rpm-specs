@@ -11,6 +11,7 @@ URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-pc
 BuildRequires:	gcc-c++
 
 %description
@@ -18,15 +19,9 @@ BuildRequires:	gcc-c++
 
 %prep
 %autosetup -p1 -n %{realname}-%{version}
-rm -f rebar.config
 
 %build
 %{erlang3_compile}
-
-# FIXME we don't have a port compiler plugin for rebar3 yet
-mkdir -p ./priv
-g++ c_src/ebloom_nifs.cpp $CFLAGS -fPIC -c -I%{_libdir}/erlang/usr/include -o c_src/ebloom_nifs.o
-g++ c_src/ebloom_nifs.o $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei -o priv/ebloom_nifs.so
 
 %install
 %{erlang3_install}

@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -577,6 +577,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Fri Feb 27 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-5
+- Cleanup of the previous commit
+
 * Thu Feb 26 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.2p1-4
 - Hybrid ML-KEM key exchange can be unavailable in FIPS mode. Correctly skip them.
 

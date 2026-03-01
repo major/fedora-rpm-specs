@@ -115,7 +115,10 @@ export TZ=UTC
 # The ignored files use freezegun
 %pytest %{!?with_datetime_tests:\
   -k "not (babel.dates.format_time or babel.dates.get_timezone_name)" \
-  --ignore tests/test_dates.py --ignore tests/messages/test_frontend.py}
+  --ignore tests/test_dates.py \
+  --ignore tests/messages/frontend/test_cli.py \
+  --ignore tests/messages/frontend/test_extract.py \
+  --ignore tests/messages/frontend/test_init.py}
 %endif
 
 %files

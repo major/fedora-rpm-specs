@@ -23,12 +23,13 @@
 
 Name:           conky
 Version:        1.22.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
 URL:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         conky-1.22.2-lua-5.5.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -62,6 +63,7 @@ It just keeps on given'er. Yeah.
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .lua55
 
 # remove executable bits from files included in %{_docdir}
 chmod a-x extras/convert.lua
@@ -123,8 +125,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 %{_datadir}/icons/hicolor/*/apps/conky*
 %{_mandir}/man1/conky.1*
 
-
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 1.22.2-4
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,5 @@
 %global realname riak_ensemble
 
-
 Name:		erlang-%{realname}
 Version:	3.0.10
 Release:	%autorelease
@@ -9,17 +8,11 @@ License:	Apache-2.0
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/riak_kv-%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-riak_ensemble-0001-Disable-rebar3-plugins-for-now.patch
 BuildRequires:	erlang-eleveldb
 BuildRequires:	erlang-lager
 BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-pc
 BuildRequires:	gcc
-# Remove when https://bugzilla.redhat.com/show_bug.cgi?id=1770256 is resolved
-#ExcludeArch: s390x
-# There is a problem with tests passing and I don't know how to debug it (and I
-# doubt a lot of people care about this arch in particular anyway).
-ExcludeArch: ppc64le
-
 
 %description
 A consensus library that supports creating multiple consensus groups
@@ -32,32 +25,22 @@ Paxos entity. However, this isn't accomplished by having each key maintain its
 own Paxos group. Instead, an ensemble emulates per-key consensus through a
 combination of per-key and per-ensemble state.
 
-
 %prep
 %autosetup -p1 -n %{realname}-riak_kv-%{version}
-
 
 %build
 %{erlang3_compile}
 
-# FIXME we don't have a port compiler plugin for rebar3 yet
-mkdir -p priv
-gcc $CFLAGS -c -I%{_libdir}/erlang/usr/include c_src/riak_ensemble_clock.c -o c_src/riak_ensemble_clock.o
-gcc $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei c_src/riak_ensemble_clock.o -o priv/riak_ensemble.so
-
 %install
 %{erlang3_install}
 
-
 %check
 %{erlang3_test}
-
 
 %files
 %license LICENSE
 %doc doc/ README.md
 %{erlang_appdir}/
-
 
 %changelog
 %autochangelog

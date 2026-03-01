@@ -2,8 +2,8 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20250805
-Release:        2%{?dist}
+Version:        1.20260226
+Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
@@ -28,6 +28,8 @@ URL:            https://metacpan.org/dist/Mail-DMARC
 # contains minified historical jqgrid. Distributing minified code is against
 # Fedora packaging guidelines. Current <https://github.com/tonytomov/jqGrid>
 # is non-free CC-BY-NC-3.0.
+# Mail-DMARC-1.20260226 moved to an on-line DataTables, but left the jqgrid
+# files in the archive <https://github.com/msimerson/mail-dmarc/issues/271>.
 Source0:        Mail-DMARC-%{version}_repackaged.tar.gz
 Source1:        repackage.sh
 BuildArch:      noarch
@@ -252,6 +254,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 27 2026 Petr Pisar <ppisar@redhat.com> - 1.20260226-1
+- 1.20260226 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.20250805-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

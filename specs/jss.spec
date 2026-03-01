@@ -13,13 +13,13 @@ Name:           jss
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 0.1
+%global         release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global         phase beta1
+#global         phase beta1
 
 %global enable_nss_version_pqc_def_flag -DENABLE_NSS_VERSION_PQC_DEF=ON
 
@@ -396,6 +396,9 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
+* Fri Feb 27 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.9.0-1
+- Rebase to JSS 5.9.0
+
 * Fri Jan 16 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.9.0-0.1.beta1
 - Rebase to JSS 5.9.0-0.1.beta1
 

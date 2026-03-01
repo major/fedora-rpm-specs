@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        348
+Version:        349.1
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -118,6 +118,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Feb 27 2026 Packit <hello@packit.dev> - 349.1-1
+- fix extra-args related regression in "Create and edit"
+
+
 * Wed Feb 11 2026 Packit <hello@packit.dev> - 348-1
 - Convert license headers to SPDX format
 

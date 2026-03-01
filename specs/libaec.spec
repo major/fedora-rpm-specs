@@ -1,5 +1,5 @@
 Name:           libaec
-Version:        1.1.5
+Version:        1.1.6
 Release:        1%{?dist}
 Summary:        Adaptive Entropy Coding library
 License:        LicenseRef-Callaway-BSD
@@ -52,8 +52,8 @@ Static variant of libaec (Adaptive Entropy Coding library).
 %ctest
 
 %files
-%doc README.md README.SZIP CHANGELOG.md
-%license LICENSE.txt doc/patent.txt
+%doc README.md CHANGELOG.md
+%license LICENSE.txt
 %{_libdir}/lib*.so.*
 
 %files devel
@@ -67,6 +67,10 @@ Static variant of libaec (Adaptive Entropy Coding library).
 %{_libdir}/cmake/%{name}/*_static*
 
 %changelog
+* Fri Feb 27 2026 Christoph Junghans <junghans@votca.org> - 1.1.6-1
+- Version bump to v1.1.6
+- Fixes: rhbz#2442255
+
 * Sat Jan 31 2026 Christoph Junghans <junghans@votca.org> - 1.1.5-1
 - Version bump v1.1.5
 - Fixes: rhbz#2432324

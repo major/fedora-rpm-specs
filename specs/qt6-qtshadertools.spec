@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt Shader Tools module builds on the SPIR-V Open Source Ecosystem
 Name:    qt6-%{qt_module}
 Version: 6.10.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -40,11 +40,6 @@ BuildRequires: qt6-qtbase-private-devel
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
 
 Provides: bundled(spirv-cross)
-
-# This disabling is to workaround build failures on riscv64
-%ifarch riscv64
-%global debug_package %{nil}
-%endif
 
 %description
 %{summary}.
@@ -129,6 +124,9 @@ popd
 %{_qt6_libdir}/pkgconfig/Qt6ShaderTools.pc
 
 %changelog
+* Fri Feb 27 2026 Marcin Juszkiewicz <marcin@juszkiewicz.com.pl> - 6.10.2-2
+- drop riscv64 workaround - we have debugs now
+
 * Mon Feb 09 2026 Jan Grulich <jgrulich@redhat.com> - 6.10.2-1
 - 6.10.2
 

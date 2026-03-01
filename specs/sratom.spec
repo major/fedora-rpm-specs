@@ -1,7 +1,7 @@
 %global maj 0
 
 Name:       sratom
-Version:    0.6.20
+Version:    0.6.22
 Release:    %autorelease
 Summary:    A C library for serializing LV2 plugins
 

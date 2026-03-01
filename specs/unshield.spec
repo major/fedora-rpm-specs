@@ -7,10 +7,11 @@ License:       MIT
 URL:           https://github.com/twogood/unshield
 VCS:           git:%{url}.git
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
+BuildSystem:   cmake
+BuildOption(conf): -DUSE_OUR_OWN_MD5=OFF
 
 %description
 This tool allows the extraction of InstallShield format cabinet files (which
@@ -26,16 +27,6 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 %description devel
 The %{name}-devel package contains the files needed for development with
 %{name}.
-
-%prep
-%autosetup -p1 -n %{name}-%{version}
-
-%build
-%cmake -DUSE_OUR_OWN_MD5=OFF
-%cmake_build
-
-%install
-%cmake_install
 
 %files
 %license LICENSE

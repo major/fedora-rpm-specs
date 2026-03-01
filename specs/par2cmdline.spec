@@ -1,5 +1,5 @@
 Name: par2cmdline
-Version: 1.0.0
+Version: 1.1.1
 Release: %autorelease
 Summary: PAR 2.0 compatible file verification and repair tool
 
@@ -30,9 +30,6 @@ multi-part archives.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
-# Remove executable permission from text files.
-chmod -x configure.ac
-
 
 %build
 %configure
@@ -55,6 +52,9 @@ make check-TESTS
 %{_bindir}/par2repair
 %{_bindir}/par2verify
 %{_mandir}/man1/par2.1*
+%{_mandir}/man1/par2create.1*
+%{_mandir}/man1/par2repair.1*
+%{_mandir}/man1/par2verify.1*
 
 
 %changelog

@@ -2,19 +2,19 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 21.1.8
+%global libclc_version 22.1.0
 #global rc_ver 3
-%global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
+%global src_tarball_dir llvm-project-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
 Name:           libclc
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 URL:            https://libclc.llvm.org
-Source0:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz
-Source1:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz.sig
+Source0:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{src_tarball_dir}.tar.xz
+Source1:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{src_tarball_dir}.tar.xz.sig
 Source2:        release-keys.asc
 
 BuildRequires:  clang-devel >= %{version}
@@ -74,29 +74,32 @@ developing applications that use %{name}.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{libclc_srcdir} -p2
+%autosetup -n %{src_tarball_dir}
 
 %build
 export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %set_build_flags
+cd libclc
 %cmake -DCMAKE_INSTALL_DATADIR:PATH=%{_lib}
 
 %cmake_build
 
 %install
+cd libclc
 %cmake_install
 
 %check
+cd libclc
 %cmake_build --target test
 
 %files
-%license LICENSE.TXT
-%doc README.md CREDITS.TXT
+%license libclc/LICENSE.TXT
+%doc libclc/README.md libclc/CREDITS.TXT
 %{_libdir}/%{shortname}/*.bc
 
 %files spirv
-%license LICENSE.TXT
-%doc README.md CREDITS.TXT
+%license libclc/LICENSE.TXT
+%doc libclc/README.md libclc/CREDITS.TXT
 %dir %{_libdir}/%{shortname}
 %{_libdir}/%{shortname}/spirv-mesa3d-.spv
 %{_libdir}/%{shortname}/spirv64-mesa3d-.spv

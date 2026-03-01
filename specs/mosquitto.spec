@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -54,6 +54,8 @@ like the Arduino.
 %package devel
 Requires:     %{name}%{?_isa} = %{version}-%{release}
 Summary:      Development files for %{name}
+# /usr/include/mosquitto/libcommon_cjson.h:31:10: fatal error: cjson/cJSON.h: No such file or directory
+Requires:     cjson-devel%{?_isa}
 
 %description devel
 Development headers and libraries for %{name}.
@@ -124,6 +126,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 2.1.2-2
+- add explicit Requires on cjson-devel to mosquitto-devel (header assumes the cjson headers are also present)
+
 * Mon Feb 09 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1.2-1
 - Update to 2.1.2
 

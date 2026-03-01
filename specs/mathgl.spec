@@ -25,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.3
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -631,6 +631,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 8.0.3-9
+- Rebuild for octave 11.1
+
 * Fri Feb 13 2026 Cristian Le <git@lecris.dev> - 8.0.3-8
 - Allow CMake 4.0 build (rhbz#2380891)
 - Use generator independent macros (rhbz#2381069)

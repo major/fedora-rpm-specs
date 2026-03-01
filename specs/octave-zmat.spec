@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.9.8
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A portable data compression/decompression toolbox for MATLAB/Octave
 # Automatically converted from old format: GPLv3+ or BSD - review is highly recommended.
 License:        GPL-3.0-or-later OR LicenseRef-Callaway-BSD
@@ -97,6 +97,9 @@ rm -rf src
 %{octpkgdir}/packinfo
 
 %changelog
+* Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 0.9.8-20
+- Rebuild for octave 11.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

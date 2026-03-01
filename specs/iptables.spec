@@ -10,8 +10,8 @@
 Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
-Version: 1.8.11
-Release: 13%{?dist}
+Version: 1.8.12
+Release: 1%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -25,12 +25,10 @@ Source9: arptables.service
 Source10: ebtables.service
 Source11: ebtables-helper
 Source12: ebtables-config
-# Patch to fix -C handling, already upstream
-# https://git.netfilter.org/iptables/patch/?id=40406dbfaefbc204134452b2747bae4f6a122848
-Patch1: iptables-1.8.11-fix-interface-comparisons.patch
-# Patch to fix overly strict command option checking
-# https://git.netfilter.org/iptables/patch/?id=192c3a6bc18f206895ec5e38812d648ccfe7e281
-Patch2: iptables-1.8.11-command-options-fix.patch
+
+# Already upstreamed fix to revert refuse to run under file capabilities
+# https://bugzilla.netfilter.org/show_bug.cgi?id=1830
+Patch: revert-capabilities-fix-docker.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -476,6 +474,10 @@ fi
 
 
 %changelog
+* Sat Feb 21 2026 Kevin Fenzi <kevin@scrye.com> - 1.8.12-1
+- Update to 1.8.12. Fixes rhbz#2440980
+- Add patch to revert refuse to run under file capabilities and fix docker.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.11-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

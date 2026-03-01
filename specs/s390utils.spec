@@ -16,8 +16,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.40.0
-Release:        4%{?dist}
+Version:        2.41.0
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -445,7 +445,7 @@ Requires:       s390utils-se-data = %{epoch}:%{version}-%{release}
 BuildRequires:  perl-generators
 BuildRequires:  ncurses-devel
 BuildRequires:  glibc-static
-BuildRequires:  cryptsetup-devel >= 2.0.3
+BuildRequires:  cryptsetup-devel >= 2.8.2
 BuildRequires:  json-c-devel
 BuildRequires:  rpm-devel
 BuildRequires:  libxml2-devel
@@ -1135,6 +1135,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Feb 27 2026 Dan Horák <dan[at]danny.cz> - 2:2.41.0-1
+- rebased to 2.41.0 (rhbz#2440223)
+
 * Thu Feb 19 2026 Dan Horák <dan[at]danny.cz> - 2:2.40.0-4
 - ccw_init - handle portno option in NM configs and use DRIVER environment variable
 

@@ -1,14 +1,12 @@
 %global srcname rdflib
 
-%bcond docs 0
 %bcond tests 0
 %if 0%{?fedora}
-%bcond docs 1
 %bcond tests 1
 %endif
 
 Name:           python-%{srcname}
-Version:        7.1.4
+Version:        7.6.0
 Release:        %autorelease
 Summary:        Python library for working with RDF
 License:        BSD-3-Clause
@@ -23,13 +21,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
 %endif
-%if %{with docs}
-BuildRequires:  python3dist(myst-parser)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-autodoc-typehints)
-BuildRequires:  python3dist(sphinxcontrib-apidoc)
-BuildRequires:  python3dist(typing-extensions)
-%endif
+
+BuildSystem:            pyproject
+BuildOption(install):   -L %{srcname}
 
 %description
 RDFLib is a pure Python package for working with RDF. RDFLib contains most
@@ -42,6 +36,7 @@ Queries and Update statements - and SPARQL function extension mechanisms.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+Obsoletes:      python%{python3_pkgversion}-%{srcname}-docs < 7.6
 
 %description -n python%{python3_pkgversion}-%{srcname}
 RDFLib is a pure Python package for working with RDF. RDFLib contains most
@@ -51,14 +46,6 @@ interface which can be backed by any one of a number of Store implementations,
 store implementations for in-memory, persistent on disk (Berkeley DB) and
 remote SPARQL endpoints, a SPARQL 1.1 implementation - supporting SPARQL 1.1
 Queries and Update statements - and SPARQL function extension mechanisms.
-
-%if %{with docs}
-%package -n python%{python3_pkgversion}-%{srcname}-docs
-Summary:        Documentation for %{srcname}
-
-%description -n python%{python3_pkgversion}-%{srcname}-docs
-Documentation for %{srcname}, a Python library for working with RDF.
-%endif
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
@@ -101,13 +88,6 @@ sed -i '1s=^#!/usr/bin/\(python\|env python\).*=#!%{__python3}='  \
     %{buildroot}%{python3_sitelib}/rdflib/tools/rdfpipe.py \
     %{buildroot}%{python3_sitelib}/rdflib/plugins/parsers/notation3.py
 
-%if %{with docs}
-# generate html docs
-PYTHONPATH=%{buildroot}%{python3_sitelib} sphinx-build-3 -b html -d docs/_build/doctree docs docs/_build/html
-# remove the sphinx-build-3 leftovers
-rm -rf docs/_build/html/.{doctrees,buildinfo}
-%endif
-
 %pyproject_save_files -L %{srcname}
 
 %if %{with tests}
@@ -132,12 +112,7 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 %{_bindir}/rdfgraphisomorphism
 %{_bindir}/rdfpipe
 %{_bindir}/rdfs2dot
-
-%if %{with docs}
-%files -n python%{python3_pkgversion}-%{srcname}-docs
-%license LICENSE
-%doc docs/_build/html
-%endif
+%{_bindir}/sparqlquery
 
 %changelog
 %autochangelog

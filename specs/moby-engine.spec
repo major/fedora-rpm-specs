@@ -85,7 +85,7 @@ Requires:       docker-cli = %{version}-%{release}
 # moby-filesystem owns the libexecdir/docker directory
 Requires:       moby-filesystem = %{version}-%{release}
 # tini-static is used as the docker-init binary
-Requires:       tini-static
+Requires:       /usr/bin/tini-static
 
 # Other runtime packages (sorted)
 Requires:       container-selinux
@@ -250,12 +250,21 @@ cd %{cli_dir}
 dynbinary manpages
 
 %install
+# moby-filesystem
+mkdir -p %{buildroot}%{_libexecdir}/docker
+mkdir %{buildroot}%{_libexecdir}/docker/cli-plugins
+
 # moby-engine
 cd %{engine_dir}
 # Install licenses
 %go_vendor_license_install -c %{S:200}
 # Install binaries
 install -Dpm 0755 bundles/dynbinary*/* -t %{buildroot}%{_bindir}
+# Create docker-init -> tini-static symlink
+# We explicitly set "--init-path /usr/bin/tini-static" in docker.service,
+# but in case users use dockerd-rootless or override the systemd unit,
+# we should make sure that docker-init is still discoverable.
+ln -s %{_bindir}/tini-static %{buildroot}%{_libexecdir}/docker/docker-init
 # Install systemd configuration
 install -Dpm 0644 contrib/init/systemd/* -t %{buildroot}%{_unitdir}
 # Install sysusers config
@@ -278,10 +287,6 @@ install -Dpm 644 contrib/completion/fish/docker.fish -t %{buildroot}%{fish_compl
 install -Dpm 644 man/man1/*.1 -t %{buildroot}%{_mandir}/man1/
 install -Dpm 644 man/man5/*.5 -t %{buildroot}%{_mandir}/man5/
 cd -
-
-# moby-filesystem
-mkdir -p %{buildroot}%{_libexecdir}/docker
-mkdir %{buildroot}%{_libexecdir}/docker/cli-plugins
 
 # moby-rpm-macros
 install -Dpm 0644 macros.moby -t %{buildroot}%{_rpmmacrodir}
@@ -374,6 +379,7 @@ cd %{cli_dir}
 %{_unitdir}/docker.service
 %{_unitdir}/docker.socket
 %{_mandir}/man8/dockerd.8*
+%{_libexecdir}/docker/docker-init
 
 
 %files nano

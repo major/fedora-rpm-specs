@@ -1,7 +1,7 @@
 %global somajor 8
 
 Name:           transactional-update
-Version:        6.0.0
+Version:        6.0.6
 Release:        2%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
@@ -39,7 +39,9 @@ way with btrfs and snapshots.
 %package -n tukit
 Summary:        Tool for doing transactional updates using Btrfs snapshots
 License:        GPL-2.0-or-later
+Conflicts:      tukit < 6.0.6-2
 Requires:       libtukit%{?_isa} = %{version}-%{release}
+Requires:       (tukit-snapper-plugin = %{version}-%{release} if snapper)
 
 %description -n tukit
 tukit is a simple tool to make changes to a system in an atomic way
@@ -59,6 +61,23 @@ with btrfs and snapshots.
 %{_unitdir}/create-dirs-from-rpmdb.service
 %{_libexecdir}/prepare-nextroot-for-softreboot
 %{_unitdir}/prepare-nextroot-for-softreboot.service
+
+#--------------------------------------------------------------------
+
+%package -n tukit-snapper-plugin
+Summary:        Snapper plugin for creating r/w /etc subvolumes
+License:        GPL-2.0-or-later
+Requires:       snapper
+Requires:       tukit = %{version}-%{release}
+Conflicts:      tukit < 6.0.6-2
+BuildArch:      noarch
+
+%description -n tukit-snapper-plugin
+This package contains the snapper plugin for creating /etc subvolumes on a
+read-only system.
+
+%files -n tukit-snapper-plugin
+%license COPYING gpl-2.0.txt
 %{_libexecdir}/snapper/plugins/50-etc
 
 #--------------------------------------------------------------------
@@ -183,6 +202,13 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Fri Feb 27 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.0.6-2
+- Split snapper plugin into its own subpackage
+
+* Mon Jan 19 2026 Packit <hello@packit.dev> - 6.0.6-1
+- Update to version 6.0.6
+- Resolves: rhbz#2426852
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

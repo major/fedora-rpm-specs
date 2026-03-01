@@ -1,7 +1,3 @@
-%global luaver 5.4
-%global lualibdir %{_libdir}/lua/%{luaver}
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 %global luacompatver 5.1
 %global luacompatlibdir %{_libdir}/lua/%{luacompatver}
 %global luacompatpkgdir %{_datadir}/lua/%{luacompatver}
@@ -10,7 +6,7 @@
 
 Name:		lua-lgi
 Version:	0.9.2
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Lua bindings to GObject libraries
 # Automatically converted from old format: MIT - review is highly recommended.
 License:	MIT
@@ -22,11 +18,28 @@ Patch0:		lgi-0.9.2-fix-s390x.patch
 Patch1:		lgi-0.9.2-fix-gobject-warnings.patch
 # see gh#249
 Patch2:		lgi-0.9.2-lua54.patch
+# fix for glib 2.87
+Patch3:		https://github.com/lgi-devs/lgi/pull/352.patch
+# fix for lua 5.5
+Patch4:		lua-lgi-0.9.2-lua-5.5.patch
+# no Gdk.Atom
+Patch5:		lua-lgi-0.9.2-no-gdk-atom.patch
+# remove unused var "record"
+Patch6:		lua-lgi-0.9.2-unused.patch
+# Use g_memdup2 when available
+Patch7:		lua-lgi-0.9.2-g_memdup2.patch
+# no-synclock
+Patch8:		lua-lgi-0.9.2-gdk4-no-synclock.patch
+# gtk4
+Patch9:		lua-lgi-0.9.2-gtk4.patch
+# modern glib2 typeclass fix
+Patch10:	lua-lgi-0.9.2-modern-glib-typeclass.patch
+
 BuildRequires:	pkgconfig(gobject-introspection-1.0) >= 0.10.8
 BuildRequires:	pkgconfig(gmodule-2.0)
 BuildRequires:	pkgconfig(libffi)
-BuildRequires:	lua >= %{luaver}
-BuildRequires:	lua-devel >= %{luaver}
+BuildRequires:	lua >= %{lua_version}
+BuildRequires:	lua-devel >= %{lua_version}
 BuildRequires:	lua-markdown
 # for the testsuite:
 BuildRequires:	pkgconfig(gio-2.0)
@@ -78,11 +91,11 @@ cp -a . %{lua51dir}
 
 %build
 export CFLAGS="%{optflags} -DLUA_COMPAT_APIINTCASTS"
-%configure || :
+# %%configure || :
 make %{?_smp_mflags}
 
 pushd %{lua51dir}
-%configure || :
+# %%configure || :
 make LUA_CFLAGS=-I%{luacompatincludedir} %{?_smp_mflags}
 popd
 
@@ -92,12 +105,12 @@ markdown.lua README.md docs/*.md
 
 %install
 mkdir -p \
-  %{buildroot}%{lualibdir} \
-  %{buildroot}%{luapkgdir}
+  %{buildroot}%{lua_libdir} \
+  %{buildroot}%{lua_pkgdir}
 make install \
   "PREFIX=%{_prefix}" \
-  "LUA_LIBDIR=%{lualibdir}" \
-  "LUA_SHAREDIR=%{luapkgdir}" \
+  "LUA_LIBDIR=%{lua_libdir}" \
+  "LUA_SHAREDIR=%{lua_pkgdir}" \
   "DESTDIR=%{buildroot}"
 
 pushd %{lua51dir}
@@ -122,7 +135,7 @@ find %{buildroot}%{_pkgdocdir} -type f \
 
 %check
 export CFLAGS="%{optflags} -DLUA_COMPAT_APIINTCASTS"
-%configure || :
+# %%configure || :
 # report failing tests, don't fail the build
 timeout 60s xvfb-run -a -w 1 make check || :
 
@@ -138,9 +151,9 @@ popd
 %dir %{_pkgdocdir}
 %license LICENSE
 %{_pkgdocdir}/*.html
-%{luapkgdir}/lgi.lua
-%{luapkgdir}/lgi
-%{lualibdir}/lgi
+%{lua_pkgdir}/lgi.lua
+%{lua_pkgdir}/lgi
+%{lua_libdir}/lgi
 
 
 %files compat
@@ -155,6 +168,9 @@ popd
 
 
 %changelog
+* Fri Feb 27 2026 Tom Callaway <spot@fedoraproject.org> - 0.9.2-25
+- lua 5.5 and other modernizations
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

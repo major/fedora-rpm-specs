@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPL-3.0-or-later
 URL:            https://gnu-octave.github.io/packages/control/
@@ -69,6 +69,9 @@ done;
 
 
 %changelog
+* Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 4.2.1-2
+- Rebuild for octave 11.1
+
 * Thu Jan 22 2026 Thomas Sailer <fedora@tsailer.ch> - 4.2.1-1
 - Update to 4.2.1
 

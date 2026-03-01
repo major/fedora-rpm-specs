@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Signal processing tools for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -69,6 +69,9 @@ done;
 %{octpkgdir}/compatibility/pre-11.0.0
 
 %changelog
+* Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 1.4.7-2
+- Rebuild for octave 11.1
+
 * Sat Jan 31 2026 Thomas Sailer <fedora@tsailer.ch> - 1.4.7-1
 - update to 1.4.7
 

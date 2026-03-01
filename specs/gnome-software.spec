@@ -29,8 +29,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   50~beta
-Release:   6%{?dist}
+Version:   50~rc
+Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -44,7 +44,6 @@ Patch:     0001-dnf5-plugin.patch
 %endif
 
 Patch:     0002-plain-package-update-notification.patch
-Patch:     0003-i1859-adopt-app-after-refine.patch
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -301,7 +300,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.software.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.software-fedora.gschema.override
 %{_libexecdir}/gnome-software-cmd
-%{_libexecdir}/gnome-software-restarter
 %{_userunitdir}/gnome-software.service
 
 %if %{with dkms}

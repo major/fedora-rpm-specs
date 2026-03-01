@@ -16,13 +16,13 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.1
+%global           release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase beta1
+#global           phase beta1
 
 %undefine         timestamp
 %undefine         commit_id
@@ -2082,6 +2082,9 @@ fi
 
 ################################################################################
 %changelog
+* Fri Feb 27 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.0-1
+- Rebase to PKI 11.9.0
+
 * Tue Jan 20 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.0-0.1.beta1.3
 - Rebuilt with new version for resteasy
 

@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.2.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Communications for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -81,6 +81,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/@galois/*.m
 %{octpkgdir}/comms.info
 
 %changelog
+* Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 1.2.7-5
+- Rebuild for octave 11.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

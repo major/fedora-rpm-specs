@@ -13,8 +13,8 @@
 %global bootstrap 0
 %global github_owner     webmozart
 %global github_name      assert
-%global github_version   2.1.5
-%global github_commit    79155f94852fa27e2f73b459f6503f5e87e2c188
+%global github_version   2.1.6
+%global github_commit    ff31ad6efc62e66e518fbab1cde3453d389bcdc8
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 %global major            2
 
@@ -145,6 +145,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Feb 27 2026 Remi Collet <remi@remirepo.net> - 2.1.6-1
+- update to 2.1.6
+
 * Thu Feb 19 2026 Remi Collet <remi@remirepo.net> - 2.1.5-1
 - update to 2.1.5
 

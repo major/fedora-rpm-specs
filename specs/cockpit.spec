@@ -52,10 +52,10 @@
 
 Name:           cockpit
 Summary:        Web Console for Linux servers
-License:        LGPL-2.1-or-later AND GPL-3.0-and-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
+License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        356
+Version:        357
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -665,6 +665,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Feb 27 2026 Packit <hello@packit.dev> - 357-1
+- lib: Use browser context menu on shift
+- bridge: support Python 3.14 on old kernels (RHEL 8)
+
+
 * Wed Feb 11 2026 Packit <hello@packit.dev> - 356-1
 - systemd: Allow editing timers created by Cockpit
 - Convert license headers to SPDX format
