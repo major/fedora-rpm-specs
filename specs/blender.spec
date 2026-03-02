@@ -422,10 +422,12 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %{python3} doc/manpage/blender.1.py \
 %endif
 
 # Additional installs
-install -Dm755 release/bin/%{name}-softwaregl %{buildroot}%{_bindir}/%{name}-softwaregl
 mkdir -p %{buildroot}%{macrosdir}
 install -pm 644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
 sed -i 's/@VERSION@/%{blender_api}/g' %{buildroot}%{macrosdir}/macros.%{name}
+# XXX: This script is completely broken for /usr/bin/ installs
+# install -Dm755 release/bin/%{name}-softwaregl %{buildroot}%{_bindir}/%{name}-softwaregl
+
 
 # Metainfo
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \
@@ -444,7 +446,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Bl
 %files -f %{name}.lang
 %license COPYING doc/license/*-license.txt release/text/copyright.txt
 %doc release/text/readme.html
-%{_bindir}/%{name}{,-softwaregl,-thumbnailer}
+%{_bindir}/%{name}{,-thumbnailer}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/%{blender_api}/
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*

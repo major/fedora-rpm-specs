@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.58
+Version:        2.2.59
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -11,6 +11,8 @@ Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.g
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
 Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version}.tar.xz
+# Remove this patch once Fedora shipps rust-toml 1.0.3+
+Patch0:         0001-Change-dependent-toml-version-from-1.0.3-to-1.0.patch
 # Force nmstate-libs upgrade along with nmstate rpm when installed
 # https://issues.redhat.com/browse/RHEL-52890
 Requires:       (nmstate-libs%{?_isa} = %{version}-%{release} if nmstate-libs)
@@ -40,7 +42,7 @@ BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
 BuildRequires:  (crate(zbus/default) >= 5.1 with crate(zbus/default) < 6.0)
 BuildRequires:  (crate(zvariant/default) >= 5.1 with crate(zvariant/default) < 6.0)
 BuildRequires:  (crate(nix/default) >= 0.30 with crate(nix/default) < 0.31)
-BuildRequires:  (crate(toml/default) >= 0.9 with crate(toml/default) < 1.0)
+BuildRequires:  (crate(toml/default) >= 1.0 with crate(toml/default) < 2.0)
 BuildRequires:  (crate(tokio/default) >= 1.3 with crate(tokio/default) < 2.0)
 BuildRequires:  (crate(tokio/net) >= 1.3 with crate(tokio/net) < 2.0)
 BuildRequires:  (crate(tokio/rt) >= 1.3 with crate(tokio/rt) < 2.0)

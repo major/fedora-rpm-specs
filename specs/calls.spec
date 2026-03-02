@@ -1,16 +1,14 @@
-%global libcall_ui_commit f66056ace818ff19b507335634dd67138a92c77f
+%global libcall_ui_commit 3a2044f8e7c45387954ed35d22c6b6309e6751d6
 
 Name:       calls
-Version:    49.1.1
-Release:    7%{?dist}
+Version:    50~rc.0
+Release:    1%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:        https://gitlab.gnome.org/GNOME/calls
-Source0:    https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:    https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 Source1:    https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
-# https://gitlab.gnome.org/GNOME/calls/-/merge_requests/807
-Patch0:     807.patch
 
 ExcludeArch:    %{ix86}
 
@@ -19,10 +17,9 @@ BuildRequires:  meson
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  dbus-daemon
-
 BuildRequires:  pkgconfig(libcallaudio-0.1)
-BuildRequires:  pkgconfig(gobject-2.0) >= 2.74
-BuildRequires:  pkgconfig(glib-2.0) >= 2.74
+BuildRequires:  pkgconfig(gobject-2.0) >= 2.76
+BuildRequires:  pkgconfig(glib-2.0) >= 2.76
 BuildRequires:  pkgconfig(gtk4) >= 4.12
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.6
 BuildRequires:  pkgconfig(gsound)
@@ -33,17 +30,19 @@ BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(libfeedback-0.0) >= 0.0.1
 BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gmobile) >= 0.3.0
 BuildRequires:  gstreamer1-plugins-good-gtk
 BuildRequires:  sofia-sip-glib-devel
 BuildRequires:  systemd-rpm-macros
-
 BuildRequires:  desktop-file-utils
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  /usr/bin/xauth
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-docutils
+BuildRequires:  mobile-broadband-provider-info-devel
 
 Requires:  hicolor-icon-theme
+Requires:  mobile-broadband-provider-info
 
 Recommends: feedbackd
 
@@ -54,9 +53,9 @@ Provides: gnome-calls%{?_isa} = %{version}-%{release}
 A phone dialer and call handler.
 
 %prep
-%autosetup -a1 -p1 -n %{name}-v%{version}
+%autosetup -a1 -p1 -n %{name}-v%{version_no_tilde _}
 
-mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
+mv libcall-ui-%{libcall_ui_commit} subprojects/libcall-ui
 
 %conf
 %meson
@@ -116,10 +115,4 @@ SH
 %license COPYING
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 49.1.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
 %autochangelog

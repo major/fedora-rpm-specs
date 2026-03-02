@@ -1,6 +1,6 @@
 Name: rancid
-Version: 3.13
-Release: 17%{?dist}
+Version: 3.14
+Release: 1%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD-3-Clause
@@ -9,7 +9,6 @@ Source0: https://shrubbery.net/pub/%{name}/%{name}-%{version}.tar.gz
 Source1: %{name}.cron
 Patch0: %{name}-Makefile.patch
 Patch1: %{name}-configure-no-ping-test.patch
-Patch2: %{name}-3.13-dnos10-psu-filter.patch
 
 BuildRequires: automake, autoconf
 BuildRequires: make
@@ -125,6 +124,10 @@ install -m0644 -D rancid.sysusers.conf %{buildroot}%{_sysusersdir}/rancid.conf
 
 
 %changelog
+* Sat Feb 28 2026 Charles R. Anderson <cra@alum.wpi.edu> - 3.14-1
+- Update to 3.14
+- Drop rancid-3.13-dnos10-psu-filter.patch
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

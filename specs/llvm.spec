@@ -1332,9 +1332,7 @@ Flang runtime libraries.
 #region LLVM preparation
 
 %py3_shebang_fix \
-	llvm/test/BugPoint/compile-custom.ll.py \
-	llvm/tools/opt-viewer/*.py \
-	llvm/utils/update_cc_test_checks.py
+	llvm/tools/opt-viewer/*.py
 
 #endregion LLVM preparation
 

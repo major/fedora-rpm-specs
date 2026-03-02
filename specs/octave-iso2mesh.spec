@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.9.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -26,6 +26,9 @@ Patch0:         iso2mesh-1.9.6-CMakeCMP0064.patch
 # https://github.com/fangq/iso2mesh/issues/86
 Patch1:         octave-iso2mesh-superlu7.patch
 Patch2:         octave-iso2mesh-c99.patch
+# Fix meshfix cmake
+# https://github.com/fangq/meshfix/pull/3
+Patch3:         octave-iso2mesh-meshfix.patch
 
 ExcludeArch:    armv7hl
 BuildRequires:  cmake
@@ -78,6 +81,9 @@ rm -rf tools/meshfix
 rm -rf tools/tetgen
 mv ../cork-0.9.1 tools/cork
 mv ../meshfix-1.2.2 tools/meshfix
+cd tools/meshfix
+%patch -P 3 -p1
+cd -
 mv ../tetgen1.5.1 tools/tetgen
 %patch -P 1 -p1
 %patch -P 2 -p1
@@ -103,6 +109,9 @@ sed -e "s|-Wall|%{optflags}|;s|^LIBS = |&$RPM_LD_FLAGS |" \
 
 # Link FlexiBLAS instead of BLAS
 sed -e "s| blas| flexiblas|" -i tools/meshfix/CMakeLists.txt
+
+# https://codeberg.org/TetGen/TetGen/pulls/10
+sed -e "/^cmake_minimum_required/s/2.6/3.5/" -i tools/tetgen/CMakeLists.txt
 
 # Fix tetgen build flags
 sed -e "s|^\(CXXFLAGS = \).*|\1%{optflags} $RPM_LD_FLAGS|" \
@@ -172,6 +181,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Sat Feb 28 2026 Orion Poplawski <orion@nwra.com> - 1.9.8-7
+- Fix cmake build (FTBFS rhbz#2380958)
+
 * Fri Feb 27 2026 Orion Poplawski <orion@nwra.com> - 1.9.8-7
 - Rebuild for octave 11.1
 

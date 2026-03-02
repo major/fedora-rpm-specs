@@ -4,7 +4,8 @@ Release:        4%{?dist}
 Summary:        Boot performance graphing tool
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
+# src/siphash24.c is LicenseRef-Fedora-Public-Domain
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/systemd/systemd-bootchart
 Source0:        https://github.com/systemd/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 

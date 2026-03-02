@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2026.1
+Version:        1.2026.2
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description

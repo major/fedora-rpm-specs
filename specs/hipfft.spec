@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname hipfft
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -81,25 +84,16 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           %{hipfft_name}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
+%if %{with preview}
+Release:        1%{?dist}
+%else
 Release:        2%{?dist}
 %endif
 Summary:        ROCm FFT marshaling library
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
-
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
-
-# https://github.com/ROCm/rocm-libraries/issues/2400
-Patch1:         0001-hipfft-hipfftw-soversion.patch
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 # Only x86_64 works right now
 ExclusiveArch:  x86_64
@@ -165,12 +159,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/hipfft
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
+
+# https://github.com/ROCm/rocm-libraries/issues/2400
+sed -i '/rocm_set_soversion(hipfft .*/a\
+  rocm_set_soversion(hipfftw ${hipfft_SOVERSION})' library/CMakeLists.txt
 
 # CMake Error at clients/tests/CMakeLists.txt:87 (find_package):
 #   No "FindHIP.cmake" found in CMAKE_MODULE_PATH.
@@ -178,10 +171,6 @@ cd projects/hipfft
 sed -i -e 's@find_package( HIP MODULE REQUIRED )@find_package( HIP REQUIRED )@' clients/tests/CMakeLists.txt
 
 %build
-%if %{with gitcommit}
-cd projects/hipfft
-%endif
-
 %cmake \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
@@ -202,11 +191,7 @@ cd projects/hipfft
 
 %cmake_build
 
-
 %install
-%if %{with gitcommit}
-cd projects/hipfft
-%endif
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfft/LICENSE.md
@@ -225,13 +210,8 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %files
-%if %{with gitcommit}
-%license projects/hipfft/LICENSE.md
-%doc projects/hipfft/README.md
-%else
 %license LICENSE.md
 %doc README.md
-%endif
 
 %{pkg_prefix}/%{pkg_libdir}/libhipfft.so.0{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libhipfftw.so.0{,.*}

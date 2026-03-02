@@ -14,8 +14,7 @@ Version:	3.26.1
 Release:	2%{?dist}
 Summary:	A program which will display a fortune
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-4-Clause-UC
 URL:		https://github.com/shlomif/fortune-mod
 Source0:	https://www.shlomifish.org/open-source/projects/fortune-mod/arcs/fortune-mod-%{version}.tar.xz
 Source1:	kernelnewbies-fortunes.tar.gz

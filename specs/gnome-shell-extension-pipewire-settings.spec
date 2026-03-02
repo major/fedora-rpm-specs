@@ -4,7 +4,7 @@
 
 Name:           gnome-shell-extension-pipewire-settings
 Version:        9~git%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Minimal PipeWire configuration menu for GNOME Shell
 
 License:        GPL-3.0-or-later
@@ -14,7 +14,7 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 BuildArch:      noarch
 BuildRequires:  gnome-shell-rpm-generators
 
-Requires: gnome-shell(api) = 49
+Requires: gnome-shell(api) = 50
 
 %description
 A drop-down menu for GNOME Shell for configuring the PipeWire quantum and
@@ -42,5 +42,8 @@ cp -a pipewire-settings@gaheldev.github.com %{buildroot}%{_datadir}/gnome-shell/
 %{_datadir}/gnome-shell/extensions/pipewire-settings@gaheldev.github.com/
 
 %changelog
+* Sat Feb 28 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 9~git20251228.41bbf18-2
+- Bump gnome-shell version
+
 * Fri Jan 16 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 9~git20251228.41bbf18-1
 - Initial release.

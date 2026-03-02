@@ -1,9 +1,9 @@
 %global _build_id_links none
 %global __requires_exclude ^libjabber\\.so.*$
-%global libcmatrix_version 0.0.3
+%global libcmatrix_version 0.0.4
 
 Name:    chatty
-Version: 0.8.8
+Version: 0.8.9
 Release: %{autorelease}
 Summary: A libpurple messaging client
 
@@ -18,8 +18,6 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_versi
 # We do not want to provide a private library, which is from another
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
-# https://gitlab.gnome.org/World/Chatty/-/merge_requests/1481
-Patch1:  1481.patch
 
 ExcludeArch:    %{ix86}
 
@@ -57,6 +55,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  /usr/bin/xauth
 BuildRequires:  at-spi2-core
+BuildRequires:  systemd-rpm-macros
 
 Requires:  hicolor-icon-theme
 
@@ -120,6 +119,7 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %{_datadir}/bash-completion/completions/chatty
 %{_datadir}/help/C/chatty/index.page
 %{_libdir}/libjabber.so.0
+%{_userunitdir}/sm.puri.Chatty-daemon.service
 %{_sysconfdir}/ld.so.conf.d/chatty.conf
 %doc README.md
 %license COPYING

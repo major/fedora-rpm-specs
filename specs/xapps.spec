@@ -1,12 +1,12 @@
 Name:           xapps
 Version:        3.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:        http://packages.linuxmint.com/pool/main/f/flags/flags_1.0.2.tar.xz
+Source1:        http://packages.linuxmint.com/pool/main/f/flags/flags_1.0.4.tar.xz
 Patch0:         watcher_fix_libexec.patch
 
 ExcludeArch:    %{ix86}
@@ -124,6 +124,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Sat Feb 28 2026 Leigh Scott <leigh123linux@gmail.com> - 3.2.2-3
+- Update flags
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

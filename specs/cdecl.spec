@@ -9,8 +9,8 @@ Summary: Translator for C gibberish
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/QBYRCIMQDXAD2ZKUWKKYSTDB6T6GW2SO/
 License: GPL-3.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-PublicDomain
 
-Version: 18.6
-Release: 3%{?dist}
+Version: 18.7
+Release: 1%{?dist}
 
 URL: https://github.com/paul-j-lucas/cdecl/
 Source0: %{URL}releases/download/cdecl-%{version}/cdecl-%{version}.tar.gz
@@ -19,7 +19,7 @@ Source0: %{URL}releases/download/cdecl-%{version}/cdecl-%{version}.tar.gz
 # One of them involves getting the terminal path via ctermid(3) and then
 # opening the file. This works in a regular user session and seems to
 # work in upstream's CI environment. However, in mock & koji, the file
-# is not accessible, causing the relevant test to fail.
+# is not accessible, causing some tests to fail.
 Patch0: cterm-no-such-dev.patch
 
 BuildRequires: diffutils
@@ -69,6 +69,9 @@ make -C test/ check || { cat test/test-suite.log; exit 1; }
 
 
 %changelog
+* Sat Feb 28 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 18.7-1
+- Update to v18.7
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
