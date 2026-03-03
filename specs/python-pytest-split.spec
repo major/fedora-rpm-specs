@@ -2,18 +2,13 @@
 
 Name:           python-pytest-split
 Summary:        Pytest plugin to split the test suite into sub-suites
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 
 License:         MIT
 URL:             https://github.com/jerry-git/pytest-split
 Source:          %{url}/archive/refs/tags/%{version}/pytest-split-%{version}.tar.gz
 BuildArch:       noarch
-
-# The upstream patch for Python 3.14 test issue #2325447
-# https://github.com/jerry-git/pytest-split/pulls/107
-# It can be removed in the next upstream release > 0.10.0
-Patch0:          107.patch
 
 BuildRequires:   python3-devel
 BuildRequires:   help2man

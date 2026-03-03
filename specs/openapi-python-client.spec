@@ -1,5 +1,5 @@
 Name:           openapi-python-client
-Version:        0.27.1
+Version:        0.28.2
 Release:        %autorelease
 Summary:        Generate modern Python clients from OpenAPI
 
@@ -7,11 +7,6 @@ License:        MIT
 URL:            https://github.com/openapi-generators/openapi-python-client
 Source:         %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
 Source1:        openapi-python-client.man1
-
-# Remove upper bounds from dependencies due to
-# strict upper bound policy of the upstream project
-# https://bugzilla.redhat.com/show_bug.cgi?id=2405298
-Patch:          remove-dep-upper-bounds.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling
@@ -40,6 +35,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n openapi-python-client-%{version}
+# Remove upper bounds from dependencies
+# https://bugzilla.redhat.com/show_bug.cgi?id=2405298
+sed -i 's/,<[0-9.]*"/"/g' pyproject.toml
 
 
 %generate_buildrequires

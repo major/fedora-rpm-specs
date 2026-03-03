@@ -5,7 +5,7 @@
 %global crate glib
 
 Name:           rust-glib
-Version:        0.21.5
+Version:        0.22.2
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library
 
@@ -62,6 +62,78 @@ use the "compiletests" feature of the "%{crate}" crate.
 %files       -n %{name}+compiletests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+futures-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-channel-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-channel-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-channel" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-channel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-core-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-executor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-executor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-executor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-executor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-task-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-task-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-task" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-task-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-util-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-util-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-util" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-util-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+gio-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -96,6 +168,18 @@ This package contains library source intended for building other packages which
 use the "log" feature of the "%{crate}" crate.
 
 %files       -n %{name}+log-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+log_kv-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+log_kv-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "log_kv" feature of the "%{crate}" crate.
+
+%files       -n %{name}+log_kv-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+log_macros-devel
@@ -300,6 +384,18 @@ This package contains library source intended for building other packages which
 use the "v2_86" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_86-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_88-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v2_88-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_88" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_88-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

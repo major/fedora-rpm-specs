@@ -1,12 +1,10 @@
 Name:          clusterssh
-Version:       4.18_03
+Version:       4.18_06
 Release:       %autorelease
-%define modname App-ClusterSSH
-%define modver v%{version}
 Summary:       Secure concurrent multiple server terminal control
 License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://github.com/duncs/clusterssh
-Source0:       https://cpan.metacpan.org/authors/id/D/DU/DUNCS/%{modname}-%{version}.tar.gz
+Source0:       https://github.com/duncs/clusterssh/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:     noarch
 Requires:      xterm
 # 2016-05-16 attempt to fix rhbz #1025913 (crash w/o fonts)
@@ -75,7 +73,7 @@ tasks, for example multiple hosts requiring the same configuration within a
 cluster. Not limited to use with clusters, however.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 
 %build
 perl Build.PL installdirs=vendor

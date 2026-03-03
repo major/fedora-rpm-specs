@@ -3,7 +3,7 @@
 %global api_version 1.0
 
 Name:           mingw-gstreamer1
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?dist}
 Summary:        MinGW Windows Streaming-Media Framework Runtime
 
@@ -182,6 +182,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 1.28.1-1
+- Update to 1.28.1
+
 * Fri Jan 30 2026 Sandro Mani <manisandro@gmail.com> - 1.28.0-1
 - Update to 1.28.0
 

@@ -2,7 +2,7 @@
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.217
+Version:	2.219
 Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -129,6 +129,17 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Mar  1 2026 Paul Howarth <paul@city-fan.org> - 2.219-1
+- Update to 2.219
+  - Add PERL_UNUSED_DECL for trace to silence clang warning
+  - Fix indentation in Lzma.xs that triggers a clang warning
+  - Remove vestigial references to Pod::Markdown (GH#14)
+  - Fix POD typo
+  - Document that flush returns LZMA_STREAM_END on success, rather then LZMA_OK
+    (GH#16)
+  - Remove unused constants (GH#17)
+  - Documentation improvements (GH#15)
+
 * Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 2.217-1
 - Update to 2.217
   - Test updates, no functional changes

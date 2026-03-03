@@ -1,6 +1,6 @@
 Name:           dh-autoreconf
-Version:        21
-Release:        4%{?dist}
+Version:        22
+Release:        1%{?dist}
 Summary:        debhelper add-on to call autoreconf and clean up after the build
 
 BuildArch:      noarch
@@ -30,7 +30,7 @@ right time.
 
 
 %prep
-%autosetup -p1 -n work
+%autosetup -p1 -C
 
 
 %build
@@ -44,7 +44,6 @@ pod2man --section=7 dh-autoreconf.pod dh-autoreconf.7
 install -Dpm 0755 dh_autoreconf %{buildroot}%{_bindir}/dh_autoreconf
 install -Dpm 0755 dh_autoreconf_clean %{buildroot}%{_bindir}/dh_autoreconf_clean
 install -Dpm 0644 autoreconf.pm %{buildroot}%{perl_vendorlib}/Debian/Debhelper/Sequence/autoreconf.pm
-install -Dpm 0644 autoreconf.mk %{buildroot}%{_datadir}/cdbs/1/rules/autoreconf.mk
 install -Dpm 0644 ltmain-as-needed.diff %{buildroot}%{_datadir}/%{name}/ltmain-as-needed.diff
 install -Dpm 0644 dh_autoreconf.1 %{buildroot}%{_mandir}/man1/dh_autoreconf.1
 install -Dpm 0644 dh_autoreconf_clean.1 %{buildroot}%{_mandir}/man1/dh_autoreconf_clean.1
@@ -56,7 +55,6 @@ install -Dpm 0644 dh-autoreconf.7 %{buildroot}%{_mandir}/man7/dh-autoreconf.7
 %{_bindir}/dh_autoreconf
 %{_bindir}/dh_autoreconf_clean
 %{perl_vendorlib}/*
-%{_datadir}/cdbs/1/rules/autoreconf.mk
 %{_datadir}/%{name}/
 %{_mandir}/man1/dh_autoreconf.1*
 %{_mandir}/man1/dh_autoreconf_clean.1*
@@ -64,6 +62,9 @@ install -Dpm 0644 dh-autoreconf.7 %{buildroot}%{_mandir}/man7/dh-autoreconf.7
 
 
 %changelog
+* Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 22-1
+- Update to 22
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

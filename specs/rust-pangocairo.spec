@@ -5,7 +5,7 @@
 %global crate pangocairo
 
 Name:           rust-pangocairo
-Version:        0.21.5
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Rust bindings for the PangoCairo library
 

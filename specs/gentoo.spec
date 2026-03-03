@@ -1,6 +1,6 @@
 Name:           gentoo
 Version:        0.20.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Graphical file management program written in GTK+3
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -12,6 +12,8 @@ Source1:        gentoo.desktop
 Source2:        gentoo.png
 # Remove duplicated translations
 Patch0:         %{name}-0.19.12-locales.patch
+# https://salsa.debian.org/debian/gentoo/-/blob/master/debian/patches/gcc-15.patch
+Patch1:         %{name}-0.20.7-c23-bool.patch
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk3-devel >= 3.12
@@ -31,6 +33,7 @@ some of its look and feel from the classic Amiga file manager
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 # Remove duplicated translations, keep only UTF-8
 pushd po
 mv ja{_JP.UTF-8,}.po
@@ -71,6 +74,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_mandir}/man1/gentoo.1*
 
 %changelog
+* Sun Mar 01 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.20.7-26
+- Fix build with C23
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.7-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

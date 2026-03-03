@@ -1,8 +1,7 @@
 Name:           perl-MooX-Cmd
-Version:        0.017
-Release:        30%{?dist}
+Version:        1.000
+Release:        1%{?dist}
 Summary:        Giving an easy Moo style way to make command organized CLI apps
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Cmd
 Source0:        https://cpan.metacpan.org/authors/id/R/RE/REHSACK/MooX-Cmd-%{version}.tar.gz
@@ -62,29 +61,37 @@ Requires:       perl(Test::More) >= 0.98
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Test::More\\)$
 
 %description
-Works together with MooX::Options for every command on its own, so options
-are parsed for the specific context and used for the instantiation:
+This module eases the writing of command line utilities, accepting commands and
+sub-commands and so on. These commands can form a tree, which is mirrored in the
+package structure. On invocation each command along the path through the tree
+(starting from the top-level command through to the most specific one) is
+instantiated.
 
 %prep
 %setup -q -n MooX-Cmd-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
-%doc Changes README.md
+%doc Changes LICENSE README.md
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Mar 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.000-1
+- Update to 1.000
+- Update %%description
+- Switch to %%{make_build} and %%{make_install}
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.017-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

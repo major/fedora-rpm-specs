@@ -1,16 +1,17 @@
 Name:		worker
-Version:	5.3.1
+Version:	5.4.0
 Release:	%autorelease
 Summary:	File Manager for the X11
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://boomerangsworld.de/worker
 Source0:	http://boomerangsworld.de/cms/%{name}/downloads/%{name}-%{version}.tar.zst
-Patch0: 	Patch0-Fix-For-Python3.patch
+Patch0:		Patch0-Fix-For-Python3.patch
 BuildRequires:	dbus-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	file-devel
 BuildRequires:	gcc-c++
+BuildRequires:	imlib2-devel
 BuildRequires:	libudisks2-devel
 BuildRequires:	libX11-devel
 BuildRequires:	libXft-devel
@@ -33,8 +34,12 @@ for f in ChangeLog man/fr/worker.1 man/it/worker.1; do
 done
 
 %build
+export CXXFLAGS="$CXXFLAGS -Wno-unused-but-set-variable"
 %configure
 %make_build
+
+%check
+make check
 
 %install
 %make_install

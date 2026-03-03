@@ -1,5 +1,8 @@
 %global pypi_name hddfancontrol
 
+# silent rpmlint W: no-manual-page-for-binary
+%global __provides_exclude_from %{_bindir}/hddfancontrol-.*
+
 Name:           %{pypi_name}
 Version:        1.6.2
 Release:        %autorelease
@@ -22,7 +25,6 @@ BuildRequires:  python3-pytest
 BuildRequires:  systemd
 Requires:       hdparm
 Requires:       hddtemp
-Requires:       python3-docutils
 
 %py_provides    python3-%{pypi_name}
 
@@ -44,6 +46,10 @@ according to hard drive temperature on Linux.
 %pyproject_save_files -l hddfancontrol
 cp %{buildroot}/%{_bindir}/hddfancontrol %{buildroot}/%{_bindir}/hddfancontrol-3
 ln -sf %{_bindir}/hddfancontrol-3 %{buildroot}/%{_bindir}/hddfancontrol-%{python3_version}
+
+# silent rpmlint E: non-executable-script
+chmod 755 %{buildroot}%{python3_sitelib}/hddfancontrol/__init__.py
+chmod 755 %{buildroot}%{python3_sitelib}/hddfancontrol/__main__.py
 
 # Remove the "tests" directory that gets installed systemwide.
 rm -rf %{buildroot}%{python3_sitelib}/tests

@@ -22,7 +22,7 @@ BuildRequires: motif-devel
 BuildRequires: lesstif-devel
 %endif
 BuildRequires: dos2unix, libax25-devel, curl-devel, proj-devel, libXpm-devel
-BuildRequires: python3-devel, gpsman, gdal-devel, libdb-devel
+BuildRequires: python3-devel, gdal-devel, libdb-devel
 BuildRequires: desktop-file-utils, xfontsel, hdf5-devel
 BuildRequires: autoconf, automake, shapelib-devel
 

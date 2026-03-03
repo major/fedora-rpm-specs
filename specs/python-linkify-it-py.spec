@@ -1,11 +1,13 @@
-# It is not currently possible to build the documentation, because Fedora
-# lacks sphinx_book_theme.
+# NOTE: Building documentation requires python-sphinx-book-theme, which
+# introduces a circular dependency: python-linkify-it-py ->
+# python-sphinx-book-theme -> myst-nb -> python-myst-parser ->
+# python-linkify-it-py
 
 %global giturl  https://github.com/tsutsu3/linkify-it-py
 
 Name:           python-linkify-it-py
-Version:        2.0.3
-Release:        10%{?dist}
+Version:        2.1.0
+Release:        %autorelease
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -38,7 +40,6 @@ Summary:        Link recognition library with full Unicode support
 %prep
 %autosetup -n linkify-it-py-%{version}
 
-%generate_buildrequires -p
 # Do not run coverage tools in RPM builds
 sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
 
@@ -49,66 +50,4 @@ sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
 %doc CHANGELOG.md README.md
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Oct 17 2025 Jerry James <loganjerry@gmail.com> - 2.0.3-9
-- Do not run coverage tools in RPM builds
-- Use the pyproject declarative buildsystem
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.3-8
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.3-7
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.3-5
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.0.3-2
-- Rebuilt for Python 3.13
-
-* Sun Feb  4 2024 Jerry James <loganjerry@gmail.com> - 2.0.3-1
-- Version 2.0.3
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Oct 24 2023 Karolina Surma <ksurma@redhat.com> - 2.0.2-4
-- Stop removing the SPECPARTS directory, it doesn't exist
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 21 2023 Orion Poplawski <orion@nwra.com> - 2.0.2-2
-- Remove empty SPECPARTS directory that breaks build
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.2-2
-- Rebuilt for Python 3.12
-
-* Tue May  2 2023 Jerry James <loganjerry@gmail.com> - 2.0.2-1
-- Version 2.0.2
-
-* Mon May  1 2023 Jerry James <loganjerry@gmail.com> - 2.0.1-1
-- Version 2.0.1
-
-* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-2
-- Dynamically generate BuildRequires
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Aug 25 2022 Jerry James <loganjerry@gmail.com> - 2.0.0-1
-- Initial RPM
+%autochangelog

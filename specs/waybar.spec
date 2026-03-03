@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.14.0
-Release:        3%{?dist}
+Version:        0.15.0
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -21,6 +21,11 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 #  - Remove several modules from the config
 #  - Switch font to monospace
 Patch:          waybar-fedora-config-changes.patch
+
+# Fix for hot update loop that can spike CPU and
+# destabilize rendering in drawer/group setups
+# https://github.com/Alexays/Waybar/pull/4838
+Patch:          fix-treat-missing-interval-as-once.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -97,6 +102,9 @@ Recommends:     font(fontawesome6brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sat Feb 07 2026 Tomasz Hołubowicz <mail@alternateved.com> - 0.15.0-1
+- Update to 0.15.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

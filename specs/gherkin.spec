@@ -11,12 +11,12 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        38.0.0
+Version:        39.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 38
-%global c_soversion 38
+%global cpp_soversion 39
+%global c_soversion 39
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
@@ -29,6 +29,10 @@ Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 # based on a cursory inspection of gherkin-generate-tokens.cpp.
 Source10:       gherkin.1
 Source11:       gherkin-generate-tokens.1
+
+# Update cmake_minimum_required for C to 3.12; support CMake 4
+# https://github.com/cucumber/gherkin/pull/546
+Patch:          %{url}/pull/546.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -11,7 +11,7 @@ Summary:       Enables SQLite to support spatial data
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:           https://www.gaia-gis.it/fossil/libspatialite
-Source0:       http://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-%{version}.tar.gz
+Source0:       https://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-%{version}.tar.gz
 
 # Move private libs to Libs.private in pkg-config file (#1926868)
 Patch0:        libspatialite_pkgconfig.patch

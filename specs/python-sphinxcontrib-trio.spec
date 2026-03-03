@@ -1,14 +1,14 @@
 %global srcname sphinxcontrib-trio
+%global pkgname sphinxcontrib_trio
 
 Name:           python-%{srcname}
-Version:        1.1.2
-Release:        27%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Make Sphinx better at documenting Python functions and methods
 # Automatically converted from old format: MIT or ASL 2.0 - review is highly recommended.
 License:        LicenseRef-Callaway-MIT OR Apache-2.0
 URL:            https://github.com/python-trio/sphinxcontrib-trio
-Source0:        %{pypi_source}
-Patch0:         python-sphinxcontrib-trio-1.1.2.patch
+Source0:        %{pypi_source %{pkgname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-cssselect
@@ -42,7 +42,7 @@ Summary: %{summary}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n %{pkgname}-%{version}
 
 
 %generate_buildrequires
@@ -57,7 +57,7 @@ rst2html README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files -l sphinxcontrib_trio
+%pyproject_save_files -l %{pkgname}
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -73,6 +73,9 @@ rst2html README.rst README.html
 
 
 %changelog
+* Sun Mar 01 2026 Thomas Moschny <thomas.moschny@gmx.de> - 1.2.0-1
+- Update to 1.2.0.
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

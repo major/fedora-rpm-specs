@@ -1,5 +1,7 @@
+%bcond check 1
+
 Name: coeurl
-Version: 0.3.1
+Version: 0.3.2
 Release: %autorelease
 
 License: MIT
@@ -10,6 +12,13 @@ Source0: %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz#/%{name}-%{vers
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42
 ExcludeArch: %{ix86}
+%endif
+
+%if %{with check}
+BuildRequires: cmake
+BuildRequires: doctest-devel
+BuildRequires: openssl
+BuildRequires: python3dist(flask)
 %endif
 
 BuildRequires: fmt-devel
@@ -39,17 +48,30 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %build
 %meson \
     -Dwerror=false \
+%if %{with check}
+    -Dtests=true \
+%else
     -Dtests=false \
+%endif
     -Dexamples=false
 %meson_build
 
 %install
 %meson_install
 
+%if %{with check}
+%check
+scripts/run_testserver.sh &
+scripts/run_tls_testserver.sh &
+# self-signed cert generation takes a few seconds
+sleep 5
+%meson_test
+%endif
+
 %files
 %doc CHANGELOG.md README.md
 %license LICENSE
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0.3
 
 %files devel
 %{_libdir}/lib%{name}.so

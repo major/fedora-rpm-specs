@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-zlib
-Version:        1.3.1
-Release:        6%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        MinGW Windows zlib compression library
 
 License:        Zlib
@@ -17,13 +17,13 @@ BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  make
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 
-BuildRequires:  ucrt64-filesystem >= 95
+BuildRequires:  ucrt64-filesystem
 BuildRequires:  ucrt64-gcc
 
 
@@ -90,7 +90,6 @@ MINGW64_CMAKE_ARGS=-DINSTALL_PKGCONFIG_DIR=%{mingw64_libdir}/pkgconfig \
 UCRT64_CMAKE_ARGS=-DINSTALL_PKGCONFIG_DIR=%{ucrt64_libdir}/pkgconfig \
 %mingw_cmake
 %mingw_make_build
-%mingw_make_build
 
 
 %install
@@ -100,6 +99,9 @@ UCRT64_CMAKE_ARGS=-DINSTALL_PKGCONFIG_DIR=%{ucrt64_libdir}/pkgconfig \
 rm -rf %{buildroot}%{mingw32_mandir}
 rm -rf %{buildroot}%{mingw64_mandir}
 rm -rf %{buildroot}%{ucrt64_mandir}
+rm -rf %{buildroot}%{mingw32_docdir}
+rm -rf %{buildroot}%{mingw64_docdir}
+rm -rf %{buildroot}%{ucrt64_docdir}
 
 
 # Win32
@@ -109,6 +111,7 @@ rm -rf %{buildroot}%{ucrt64_mandir}
 %{mingw32_libdir}/libz.dll.a
 %{mingw32_bindir}/zlib1.dll
 %{mingw32_libdir}/pkgconfig/zlib.pc
+%{mingw32_libdir}/cmake/zlib/
 
 %files -n mingw32-zlib-static
 %{mingw32_libdir}/libz.a
@@ -120,6 +123,7 @@ rm -rf %{buildroot}%{ucrt64_mandir}
 %{mingw64_libdir}/libz.dll.a
 %{mingw64_bindir}/zlib1.dll
 %{mingw64_libdir}/pkgconfig/zlib.pc
+%{mingw64_libdir}/cmake/zlib/
 
 %files -n mingw64-zlib-static
 %{mingw64_libdir}/libz.a
@@ -131,12 +135,16 @@ rm -rf %{buildroot}%{ucrt64_mandir}
 %{ucrt64_libdir}/libz.dll.a
 %{ucrt64_bindir}/zlib1.dll
 %{ucrt64_libdir}/pkgconfig/zlib.pc
+%{ucrt64_libdir}/cmake/zlib/
 
 %files -n ucrt64-zlib-static
 %{ucrt64_libdir}/libz.a
 
 
 %changelog
+* Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 1.3.2-1
+- Update to 1.3.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

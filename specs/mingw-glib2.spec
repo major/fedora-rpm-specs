@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.87.2
+Version:        2.87.3
 Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
@@ -10,13 +10,6 @@ URL:            http://www.gtk.org
 # first two digits of version
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 Source0:        http://download.gnome.org/sources/glib/%{release_version}/glib-%{version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4978
-Patch0:         CVE-2026-1484.patch
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4980
-Patch1:         CVE-2026-1485.patch
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4983
-Patch2:         CVE-2026-1489.patch
 
 BuildArch:      noarch
 
@@ -301,6 +294,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sun Mar 01 2026 Sandro Mani <manisandro@gmail.com> - 2.87.3-1
+- Update to 2.87.3
+
 * Wed Feb 11 2026 Sandro Mani <manisandro@gmail.com> - 2.87.2-1
 - Update to 2.87.2
 

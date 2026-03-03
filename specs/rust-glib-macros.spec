@@ -6,7 +6,7 @@
 %global crate glib-macros
 
 Name:           rust-glib-macros
-Version:        0.21.5
+Version:        0.22.2
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library, proc macros crate
 
@@ -45,6 +45,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+proc-macro-crate-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+proc-macro-crate-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "proc-macro-crate" feature of the "%{crate}" crate.
+
+%files       -n %{name}+proc-macro-crate-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+proc_macro_crate-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+proc_macro_crate-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "proc_macro_crate" feature of the "%{crate}" crate.
+
+%files       -n %{name}+proc_macro_crate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

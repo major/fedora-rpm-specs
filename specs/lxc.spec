@@ -12,8 +12,8 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:           lxc
-Version:        6.0.5
-Release:        2%{?dist}
+Version:        6.0.6
+Release:        1%{?dist}
 Summary:        Linux Resource Containers
 # Automatically converted from old format: LGPLv2+ and GPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only
@@ -277,6 +277,9 @@ cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-net
 
 
 %changelog
+* Sun Mar 01 2026 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.6-1
+- Update to 6.0.6.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
