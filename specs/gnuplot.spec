@@ -1,6 +1,6 @@
 %global major 6
 %global minor 0
-%global patchlevel 3
+%global patchlevel 4
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
@@ -19,7 +19,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 7%{?dist}
+Release: 1%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -313,6 +313,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Mon Mar  2 2026 Tom Callaway <spot@fedoraproject.org> - 6.0.4-1
+- update to 6.0.4
+
 * Tue Feb 24 2026 Orion Poplawski <orion@nwra.com> - 6.0.3-7
 - Add upstream fix for lua 5.5
 

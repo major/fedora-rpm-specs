@@ -149,13 +149,13 @@ This is the MinGW build of libsoup3
 %meson_install
 install -m 644 -D tests/libsoup.supp %{buildroot}%{_datadir}/libsoup-3.0/libsoup.supp
 
+%find_lang libsoup-3.0
+
 %if %{with_mingw}
 %mingw_ninja_install
 %mingw_find_lang libsoup-3.0
 %mingw_debug_install_post
 %endif
-
-%find_lang libsoup-3.0
 
 %ifnarch s390x
 %check

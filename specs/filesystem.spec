@@ -8,13 +8,13 @@ License: LicenseRef-Fedora-Public-Domain
 # This package is a downstream-only project
 URL: https://src.fedoraproject.org/rpms/filesystem
 Source1: lang-exceptions
-Source2: iso_639.sed
-Source3: iso_3166.sed
+Source2: glibc-SUPPORTED.locales
+Source3: iso_639-2.locales
 Source4: sbin-filenames
 Source5: filesystem.attr
 Source6: filesystem.req
 Source7: macros.filesystem
-BuildRequires: iso-codes
+BuildRequires: iso-codes jq git wget
 Requires(pre): setup
 
 # Last standalone version of basesystem was basesystem-11-22.fc42.
@@ -71,8 +71,6 @@ rm -f $RPM_BUILD_DIR/filelist
 %install
 rm -rf %{buildroot}
 mkdir %{buildroot}
-install -p -c -m755 %SOURCE2 %{buildroot}/iso_639.sed
-install -p -c -m755 %SOURCE3 %{buildroot}/iso_3166.sed
 
 cd %{buildroot}
 
@@ -80,7 +78,7 @@ Paths=(
         afs boot dev \
         etc/{X11/{applnk,fontpath.d,xinit/{xinitrc,xinput}.d},xdg/autostart,opt,pm/{config.d,power.d,sleep.d},skel,sysconfig,keys/ima,pki,bash_completion.d,default,rwtab.d,statetab.d} \
         home media mnt opt root run srv tmp \
-        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
+        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p,2const,2type,3const,3head,3type},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
         var/{adm,empty,ftp,lib/{games,misc,rpm-state},local,log,nis,preserve,spool/{mail,lpd},tmp,db,cache/bpf,opt,games,yp}
 )
 for i in "${Paths[@]}"; do
@@ -112,58 +110,36 @@ mkdir -p usr/sbin
 mkdir -p usr/local/sbin
 %endif
 
-sed -n -f %{buildroot}/iso_639.sed /usr/share/xml/iso-codes/iso_639.xml \
-  >%{buildroot}/iso_639.tab
-sed -n -f %{buildroot}/iso_3166.sed /usr/share/xml/iso-codes/iso_3166.xml \
-  >%{buildroot}/iso_3166.tab
-
-grep -v "^$" %{buildroot}/iso_639.tab | grep -v "^#" | while read a b c d ; do
-    [[ "$d" =~ "^Reserved" ]] && continue
-    [[ "$d" =~ "^No linguistic" ]] && continue
-
-    locale=$c
-    if [ "$locale" = "XX" ]; then
-        locale=$b
-    fi
-    echo "%lang(${locale})	/usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
+# Create locale, man and own help directories for every locale supported by glibc and ISO 639-2
+while read locale; do
+    echo "%ghost /usr/share/help/${locale}" >> $RPM_BUILD_DIR/filelist
+    # Skip glibc built-in locale C
+    [ "$locale" = "C" ] && continue
+    echo "%lang(${locale}) /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
     echo "%lang(${locale}) %ghost %config(missingok) /usr/share/man/${locale}" >>$RPM_BUILD_DIR/filelist
-done
-cat %{SOURCE1} | grep -v "^#" | grep -v "^$" | while read loc ; do
-    locale=$loc
-    locality=
-    special=
-    [[ "$locale" =~ "@" ]] && locale=${locale%%%%@*}
-    [[ "$locale" =~ "_" ]] && locality=${locale##*_}
-    [[ "$locality" =~ "." ]] && locality=${locality%%%%.*}
-    [[ "$loc" =~ "_" ]] || [[ "$loc" =~ "@" ]] || special=$loc
+    mkdir -p -m 755 %{buildroot}/usr/share/locale/$locale/LC_MESSAGES
+    mkdir -p -m 755 %{buildroot}/usr/share/man/$locale/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}
+done < <(cat %{SOURCE2} %{SOURCE3} | grep -E -v '^#|^[[:space:]]*$' | sort | uniq)
 
-    # If the locality is not official, skip it
-    if [ -n "$locality" ]; then
-        grep -q "^$locality" %{buildroot}/iso_3166.tab || continue
+# Create and own locale directories for which we ship translations
+# TODO: do not create them, just own them
+while read locale; do
+    # Do not create directories for locales with charset definition, just own them
+    if [[ "$locale" =~ "own_charset" ]]; then
+        charset=${locale##own_charset:}
+        echo "%ghost /usr/share/locale/$charset" >>$RPM_BUILD_DIR/filelist
+        continue
     fi
-    # If the locale is not official and not special, skip it
-    if [ -z "$special" ]; then
-        egrep -q "[[:space:]]${locale%%_*}[[:space:]]" \
-           %{buildroot}/iso_639.tab || continue
+    if [ -z "`grep \"/usr/share/locale/${locale}$\" $RPM_BUILD_DIR/filelist`" ]; then
+       # TODO echo "%lang(${locale}) %ghost /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
+       echo "%lang(${locale}) /usr/share/locale/${locale}" >> $RPM_BUILD_DIR/filelist
+       echo "%lang(${locale}) %ghost %config(missingok) /usr/share/man/${locale}" >> $RPM_BUILD_DIR/filelist
+       mkdir -p -m 755 %{buildroot}/usr/share/locale/$locale/LC_MESSAGES
+       mkdir -p -m 755 %{buildroot}/usr/share/man/$locale/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}
     fi
-    echo "%lang(${locale})	/usr/share/locale/${loc}" >> $RPM_BUILD_DIR/filelist
-    echo "%lang(${locale})  %ghost %config(missingok) /usr/share/man/${loc}" >> $RPM_BUILD_DIR/filelist
-done
+done < <(cat %{SOURCE1} | grep -E -v '^#|^[[:space:]]*$')
 
-rm -f %{buildroot}/iso_639.tab
-rm -f %{buildroot}/iso_639.sed
-rm -f %{buildroot}/iso_3166.tab
-rm -f %{buildroot}/iso_3166.sed
-
-cat $RPM_BUILD_DIR/filelist | grep "locale" | while read a b ; do
-    mkdir -p -m 755 %{buildroot}/$b/LC_MESSAGES
-done
-
-cat $RPM_BUILD_DIR/filelist | grep "/share/man" | while read a b c d; do
-    mkdir -p -m 755 %{buildroot}/$d/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}
-done
-
-for i in man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p}; do
+for i in man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p,2const,2type,3const,3head,3type}; do
    echo "/usr/share/man/$i" >>$RPM_BUILD_DIR/filelist
 done
 

@@ -1,7 +1,5 @@
 %global forgeurl https://github.com/beartype/beartype
-%global commit a3a0fff60e4549bf5bbd1d8209458efdf9035747
-%global date 20240712
-%global version0 0.21.0
+%global version0 0.22.9
 %forgemeta
 
 Name:           python-beartype
@@ -52,7 +50,8 @@ find %{buildroot}/%{python3_sitelib} -type f -name \*.py -print0 | xargs -0  sed
 
 %check
 %pyproject_check_import
-%pytest beartype_test
+# test_api_typing: https://github.com/beartype/beartype/issues/620
+%pytest beartype_test -k 'not test_api_typing'
 
 %files -n python3-beartype -f %{pyproject_files}
 %license LICENSE

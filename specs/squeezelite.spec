@@ -1,10 +1,10 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   72e1fd8abfa9b2f8e9636f033247526920878718
+%global commit   e977d1045f5f4c1a51ba0d66387f26fd19a2f42a
 %forgemeta
 
 
 Name:            squeezelite
-Version:         2.0.0.1541
+Version:         2.0.0.1561
 Release:         %autorelease
 Summary:         Headless music player for streaming from Lyrion Music Server
 
@@ -19,8 +19,6 @@ Source2:         %{name}.user.service
 Source3:         %{name}.service.7.md
 Source4:         %{name}.sysconfig
 Source5:         org.lyrion.%{name}.metainfo.xml
-Source6:         https://raw.githubusercontent.com/CDrummond/squeezelite/refs/tags/0.8.0/fastlane/metadata/android/en-US/images/icon.png
-
 
 BuildRequires:   /usr/bin/appstream-util
 BuildRequires: make
@@ -86,14 +84,14 @@ install -p -D -t %{buildroot}/%{_mandir}/man7 -m 0644 %{name}.service.7
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 install -p -D -m 0644 %{SOURCE5} \
         %{buildroot}/%{_metainfodir}/org.lyrion.%{name}.metainfo.xml
-install -p -D -m 0644 %{SOURCE6} \
-        %{buildroot}/%{_datadir}/icons/hicolor/512x512/%{name}.png
 
 install -m0644 -D squeezelite.sysusers.conf %{buildroot}%{_sysusersdir}/squeezelite.conf
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+appstream-util validate-relax --nonet \
+               %{buildroot}%{_metainfodir}/*.metainfo.xml \
+    || :
 
 
 %files
@@ -108,7 +106,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/%{name}.service
 %{_userunitdir}/%{name}.service
 %{_sysusersdir}/squeezelite.conf
-%{_datadir}/icons/hicolor/512x512/%{name}.png
 %{_metainfodir}/org.lyrion.%{name}.metainfo.xml
 
 

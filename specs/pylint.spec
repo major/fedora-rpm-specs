@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 4.0.4
+%global basever 4.0.5
 #%%global prever b0
-Version:        4.0.4
+Version:        4.0.5
 %forgemeta
 
 Name:           pylint

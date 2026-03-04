@@ -4,7 +4,7 @@
 %global snap 20130812
 
 # rpmdev-bumpspec / releng automation compatible
-%global baserelease 55
+%global baserelease 56
 
 Summary:	A C++ port of Lucene
 Name:		clucene
@@ -50,6 +50,7 @@ Patch55: 0002-Avoid-deadlock-in-TestIndexSearcher.patch
 # Upstream at <https://sourceforge.net/p/clucene/code/merge-requests/3/> "Fix
 # missing #include <time.h>":
 Patch56: 0001-Fix-missing-include-time.h.patch
+Patch57: pkgconfig.patch
 
 %description
 CLucene is a C++ port of the popular Apache Lucene search engine
@@ -94,6 +95,7 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 %patch -P54 -p1 -b .return-value
 %patch -P55 -p1 -b .avoid-deadlock
 %patch -P56 -p1 -b .missing-include
+%patch -P57 -p1 -b .pkgconfig
 
 # nuke bundled code
 rm -rfv src/ext/{boost/,zlib/}
@@ -159,6 +161,9 @@ time make -C %{_target_platform} test ARGS="--timeout 300 --output-on-failure" |
 
 
 %changelog
+* Mon Mar 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.3.3.4-56.20130812.e8e3d20git
+- Patch invalid path out of .pc
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3.4-55.20130812.e8e3d20git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

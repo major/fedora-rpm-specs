@@ -5,7 +5,7 @@
 %global crate gdk4-x11
 
 Name:           rust-gdk4-x11
-Version:        0.10.3
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Rust bindings of the GDK4 X11 library
 

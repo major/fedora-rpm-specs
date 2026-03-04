@@ -5,7 +5,7 @@
 %global crate moka
 
 Name:           rust-moka
-Version:        0.12.13
+Version:        0.12.14
 Release:        %autorelease
 Summary:        Fast and concurrent cache library inspired by Java Caffeine
 
@@ -49,30 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-lock-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-lock-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-lock" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-lock-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+event-listener-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+event-listener-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "event-listener" feature of the "%{crate}" crate.
-
-%files       -n %{name}+event-listener-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+future-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -83,30 +59,6 @@ This package contains library source intended for building other packages which
 use the "future" feature of the "%{crate}" crate.
 
 %files       -n %{name}+future-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+futures-util-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+futures-util-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "futures-util" feature of the "%{crate}" crate.
-
-%files       -n %{name}+futures-util-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+log-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+log-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
-
-%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+logging-devel
@@ -167,23 +119,7 @@ use the "sync" feature of the "%{crate}" crate.
 #   https://github.com/moka-rs/moka/pull/387. We reported this upstream as
 #   “Flaky failures in ensure_gc_runs_when_dropping_cache,”
 #   https://github.com/moka-rs/moka/issues/539.
-# * Test cht::segment::tests::drop_many_values_concurrent has flaky unexplained
-#   falures, frequent (~20%?) on x86_64 and rare (<5%?) on ppc64le. For
-#   simplicity, we skip this on all architectures. Failure is: thread
-#   'cht::segment::tests::drop_many_values_concurrent' (2210) panicked at
-#   src/cht/segment.rs:1554:13: assertion `left == right` failed, left: 65536,
-#   right: 131072
-# * Test test_try_get_with fails flakily on s390x only (~20%?). For simplicity,
-#   we skip this on all architectures. Many instances of thread
-#   'test_try_get_with' (3292) panicked at tests/entry_api_tokio.rs:209:17:
-#   assertion failed: value.is_ok(), one instance of thread 'test_try_get_with'
-#   (3292) panicked at tests/entry_api_tokio.rs:221:5: assertion `left == right`
-#   failed: left: 2; right: 1
-%{cargo_test -f future,sync -- -- --exact %{shrink:
-    --skip future::cache::tests::ensure_gc_runs_when_dropping_cache
-    --skip cht::segment::tests::drop_many_values_concurrent
-    --skip test_try_get_with
-}}
+%cargo_test -f future,sync -- -- --exact --skip future::cache::tests::ensure_gc_runs_when_dropping_cache
 %endif
 
 %changelog

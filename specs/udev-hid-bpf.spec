@@ -31,7 +31,25 @@ Release:        %autorelease
 Summary:        HID-BPF quirk loader tool
 
 SourceLicense:  GPL-2.0-only
-License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND BSD-2-Clause AND (BSD-3-Clause OR MIT OR Apache-2.0) AND GPL-2.0-only AND (LGPL-2.1-only OR BSD-2-Clause) AND MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT)
+# Licenses of statically linked Rust dependencies:
+#
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0 OR MIT
+# BSD-2-Clause
+# GPL-2.0-only
+# LGPL-2.1-only OR BSD-2-Clause
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        %{shrink:
+    GPL-2.0-only AND
+    BSD-2-Clause AND
+    MIT AND
+    Unicode-DFS-2016 AND
+    (LGPL-2.1-only OR BSD-2-Clause) AND
+    (MIT OR Apache-2.0) AND
+    (Unlicense OR MIT)
+    }
 URL:            https://gitlab.freedesktop.org/libevdev/udev-hid-bpf/
 Source0:        https://gitlab.freedesktop.org/libevdev/%{name}/-/archive/%{tarball}/%{name}-%{tarball}.tar.bz2
 # To recreate tarball:
@@ -41,6 +59,10 @@ Source1:        %{name}-%{upstream_version}-%{upstream_version_date}-vendor.tar.
 
 Patch01:        0001-Bump-the-cargo-test-timeout-to-500s.patch
 Patch02:        0001-Cargo.toml-drop-libbpf-sys-to-1.5.0.patch
+# Update stderrlog dependency from 0.5 to 0.6
+# https://gitlab.freedesktop.org/libevdev/udev-hid-bpf/-/merge_requests/223
+# Here, we still allow 0.5 as well for compatibility with vendored deps.
+Patch03:        udev-hid-bpf-2.2.0-20251121-stderrlog-0.6.patch
 
 %if 0%{?rhel}
 BuildRequires:  rust-toolset

@@ -2,23 +2,17 @@
 # altair, coconut
 %bcond doc 0
 
-# Build from git HEAD until a version supporting Sphinx 9 is released
-%global commit  d7012c43b1ec57c2be6eaca455540f1cfdac4735
-%global shortcommit %{sub %{commit} 1 7}
-%global gitdate 20260203
 %global giturl  https://github.com/executablebooks/MyST-NB
 
 Name:           myst-nb
-Version:        1.3.0^%{gitdate}.%{shortcommit}
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Jupyter Notebook Sphinx reader
 
 License:        BSD-3-Clause
 URL:            https://myst-nb.readthedocs.io/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-# Preliminary support for Sphinx 9 and docutils 0.22, may still be buggy
-Patch:          %{giturl}/pull/704.patch
+Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  help2man
 %if %{with doc}
@@ -51,13 +45,20 @@ Documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n MyST-NB-%{commit} -p1
+%autosetup -n MyST-NB-%{version} -p1
 
 # Do not run coverage tools in RPM builds
 sed -i '/coverage/d;/pytest-cov/d' pyproject.toml
 
-# Permit newer versions of matplotlib
-sed -i 's/==/>=/' pyproject.toml
+# Permit newer versions of matplotlib for testing only.  The newer version of
+# matplotlib causes some changes in test output; pyproject.toml says:
+#   Matplotlib outputs are sensitive to the matplotlib version
+sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
+sed -e 's/c8709f293454a3bd1403356f37bbab536df1c4d65becfd4cdcf84adf951c6820/6eb6048123e3f61d57d1974b38656227f18e9cb97543c8d59b4418c7c2d40a17/g' \
+    -e 's/9af310c61f9e96d898144e35f0dc3bf6757626c2072ad98732a4d71c1ec5ec59/321b226a9bda4595da09f9389cea3b97e91b9c089e9bab3feae10e2100fc5c38/g' \
+    -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
+       tests/test_execute/test_custom_convert_{auto,cache}.xml \
+       tests/test_execute/test_custom_convert_multiple_extensions_{auto,cache}.xml
 
 %build -a
 %if %{with doc}
@@ -81,9 +82,8 @@ makeman mystnb-docutils-xml 'Generate docutils-native XML from MyST sources'
 makeman mystnb-quickstart 'Create a basic MyST-NB project'
 makeman mystnb-to-jupyter 'Convert a text-based notebook to a Jupyter notebook'
 
-# TODO: Tests are disabled until a version supporting Sphinx 9 is released
-#%%check
-#%%pytest -v
+%check
+%pytest -v
 
 %files -n myst-nb -f %{pyproject_files}
 %doc CHANGELOG.md README.md

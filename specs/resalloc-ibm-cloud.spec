@@ -4,8 +4,8 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 }
 
 Name:           resalloc-ibm-cloud
-Version:        3.4
-Release:        2%{?dist}
+Version:        3.5
+Release:        1%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
 License:        GPL-2.0-or-later
@@ -52,11 +52,13 @@ BuildRequires:  pyproject-rpm-macros
 %{_bindir}/resalloc-ibm-cloud-powervs-list-deleting-vms
 %{_bindir}/resalloc-ibm-cloud-powervs-list-vms
 %{_bindir}/resalloc-ibm-cloud-powervs-vm
+%{_bindir}/resalloc-ibm-cloud-powervs-cleanup-ips
 
 
 %changelog
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Mon Mar 02 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 3.5-1
+- powervs: fix ports cleaning by cleaning them manually on delete
+  (j1.kyjovsky@gmail.com)
 
 * Fri Oct 03 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 3.4-1
 - fix: ensure correct storage pool assignment with both volumes and VMs

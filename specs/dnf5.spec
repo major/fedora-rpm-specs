@@ -7,12 +7,13 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch1:         0001-Honor-localpkg_gpgcheck-in-RPM-transaction-per-eleme.patch
+Patch2:         0002-Fix-segmentation-fault-in-cmd_requires_privileges.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1093,6 +1094,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Mon Mar 02 2026 Petr Pisar <ppisar@redhat.com> - 5.4.0.0-3
+- Fix segmentation fault in bash completion (bug #2443105)
+
 * Thu Feb 19 2026 Petr Pisar <ppisar@redhat.com> - 5.4.0.0-2
 - Honor localpkg_gpgcheck in RPM transaction per-element policy (bug #2440722)
 

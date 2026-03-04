@@ -1,15 +1,13 @@
 # Run optional test
 %if ! (0%{?rhel})
 %bcond_without perl_Unicode_UTF8_enables_optional_test
-%bcond_without perl_Unicode_UTF8_enables_ReadmeFromPod
 %else
 %bcond_with perl_Unicode_UTF8_enables_optional_test
-%bcond_with perl_Unicode_UTF8_enables_ReadmeFromPod
 %endif
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
-Version:	0.66
+Version:	0.68
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
@@ -22,13 +20,8 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
+BuildRequires:	perl(Devel::AssertC99)
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:	perl(ExtUtils::ParseXS) >= 3.18
-BuildRequires:	perl(inc::Module::Install)
-%if %{with perl_Unicode_UTF8_enables_ReadmeFromPod}
-BuildRequires:	perl(Module::Install::ReadmeFromPod)
-%endif
-BuildRequires:	perl(Module::Install::XSUtil)
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
@@ -37,20 +30,24 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(XSLoader) >= 0.02
 # Test Suite
 BuildRequires:	perl(Encode) >= 1.9801
+BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(Test::Fatal) >= 0.006
 BuildRequires:	perl(Test::More) >= 0.47
+BuildRequires:	perl(utf8)
 %if %{with perl_Unicode_UTF8_enables_optional_test}
 # Optional Tests
+BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Taint::Runtime) >= 0.03
 BuildRequires:	perl(Test::LeakTrace) >= 0.10
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Variable::Magic)
 %endif
 # Dependencies
+Requires:	perl(Carp)
 Requires:	perl(Exporter)
 Requires:	perl(XSLoader) >= 0.02
 
@@ -63,15 +60,6 @@ specified by Unicode and ISO/IEC 10646:2011.
 
 %prep
 %setup -q -n Unicode-UTF8-%{version}
-
-# Unbundle inc::Module::Install, we'll use system version instead
-rm -rvf inc/
-perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
-%if %{without perl_Unicode_UTF8_enables_ReadmeFromPod}
-# ReadmeFromPod is primarily needed when building from the upstream sources,
-# the distribution tarball already includes the generated README
-perl -i -ne 'print $_ unless m{::ReadmeFromPod|^readme_from}' Makefile.PL
-%endif
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
@@ -86,12 +74,21 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
+%license LICENSE
 %doc Changes README
 %{perl_vendorarch}/Unicode/
 %{perl_vendorarch}/auto/Unicode/
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Mon Mar  2 2026 Paul Howarth <paul@city-fan.org> - 0.68-1
+- Update to 0.68
+  - Fix SIMD feature gating for x86; avoid SSE2 intrinsics on non-SSE2 i686
+    builds
+  - Use Dist::Zilla for the distro
+- Package new LICENSE file
+- Drop hacks related to use of Module::Install, no longer needed
+
 * Wed Feb 25 2026 Paul Howarth <paul@city-fan.org> - 0.66-1
 - Update to 0.66
   - Rewrote the UTF-8 validator using a shift-based DFA from

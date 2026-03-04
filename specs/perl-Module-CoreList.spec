@@ -1,7 +1,7 @@
 Name:           perl-Module-CoreList
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        5.20260119
+Version:        5.20260220
 Release:        1%{?dist}
 Summary:        What modules are shipped with versions of perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -105,22 +105,25 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
-* Tue Jan 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.20260119-1
+* Mon Mar 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20260220-1
+- 5.20260220 bump (rhbz#2441544)
+
+* Tue Jan 20 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20260119-1
 - 5.20260119 bump (rhbz#2430994)
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.20251220-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Mon Jan 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.20251220-1
+* Mon Jan 05 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20251220-1
 - 5.20251220 bump (rhbz#2424158)
 
-* Mon Nov 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20251120-1
+* Mon Nov 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20251120-1
 - 5.20251120 bump (rhbz#2416074)
 
-* Fri Oct 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20251022-1
+* Fri Oct 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20251022-1
 - 5.20251022 bump (rhbz#2406067)
 
-* Mon Sep 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20250923-1
+* Mon Sep 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20250923-1
 - 5.20250923 bump (rhbz#2397602)
 
 * Mon Aug 25 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.20250820-1

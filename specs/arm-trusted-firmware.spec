@@ -1,4 +1,6 @@
 #global candidate rc1
+# LTS has slightly adjusted naming
+%global lts 1
 
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
@@ -13,13 +15,14 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.14.0
-Release: 3%{?candidate:.%{candidate}}%{?dist}
+Version: 2.14.1
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
-Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-%{version}%{?candidate:-%{candidate}}.tar.gz
+Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}%{?lts:-lts}-v%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
+Patch1:  0001-fix-rk3576-shorten-names-to-fit-into-the-allocated-s.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -56,7 +59,7 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %endif
 
 %prep
-%autosetup -n %{pname}-%{version}%{?candidate:-%{candidate}} -p1
+%autosetup -n %{pname}%{?lts:-lts}-v%{version}%{?candidate:-%{candidate}} -p1
 
 cp %SOURCE1 .
 
@@ -73,9 +76,9 @@ do
 # At the moment we're only making the secure firmware (bl31) (except qemu_sbsa)
 case $(echo $soc) in
   "k3")
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=generic SPD=opteed bl31
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=j784s4 SPD=opteed K3_USART=0x8 bl31
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=lite SPD=opteed bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) ENABLE_PIE=0 TARGET_BOARD=generic SPD=opteed bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) ENABLE_PIE=0 TARGET_BOARD=j784s4 SPD=opteed K3_USART=0x8 bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) ENABLE_PIE=0 TARGET_BOARD=lite SPD=opteed bl31
     ;;
   "qemu_sbsa")
     make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) all fip
@@ -131,6 +134,11 @@ done
 %endif
 
 %changelog
+* Thu Feb 19 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14.1-1
+- Update to 2.14.1
+- Fix for TI K3 builds
+- Enable rk3576 SoCs
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,9 +1,10 @@
 Name:           python-datasets
-Version:        4.6.0
+Version:        4.6.1
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 
-# TODO: Investigate code origin of src/datasets/packaged_modules/
+# It appears that src/datasets/packaged_modules/ containes custom code.
+# From the name, I was concerned it was third-party but that does not seem true.
 License:        Apache-2.0
 URL:            https://github.com/huggingface/datasets
 Source:         %{pypi_source datasets}

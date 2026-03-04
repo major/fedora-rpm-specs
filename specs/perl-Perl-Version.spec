@@ -1,6 +1,6 @@
 Name:           perl-Perl-Version
-Version:        1.018
-Release:        3%{?dist}
+Version:        1.019
+Release:        1%{?dist}
 Summary:        Parse and manipulate Perl version strings
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
@@ -30,6 +30,7 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version) >= 0.77
@@ -101,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.019-1
+- 1.019 bump (rhbz#2442513)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.018-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

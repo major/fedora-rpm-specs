@@ -1,5 +1,5 @@
 %global llvm_version 20
-%global soversion 111
+%global soversion 112
 
 # bootstrapping is used for updating LDC to a newer version: it relies on an
 # older, working LDC compiler in the buildroot, which is then used to build a
@@ -12,8 +12,8 @@
 
 Name:           ldc
 Epoch:          1
-Version:        1.41.0
-Release:        3%{?dist}
+Version:        1.42.0
+Release:        1%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -146,6 +146,9 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Sun Mar 01 2026 Kalev Lember <kalevlember@gmail.com> - 1:1.42.0-1
+- Update to 1.42.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.41.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

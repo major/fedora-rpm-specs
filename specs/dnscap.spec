@@ -1,6 +1,6 @@
 %global filesurl https://www.dns-oarc.net/files/%{name}
 Name:           dnscap
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        Network capture utility designed specifically for DNS traffic
 License:        BSD-3-Clause AND ISC
@@ -61,6 +61,17 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 %doc CONTRIBUTORS CHANGES README.md
 
 %changelog
+* Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2.5.2-1
+- Updated to version 2.5.2
+- Upstream change notes:
+  * This patch release fixes compatibility with GNU/Hurd and fixes running
+    tests in parallel.
+  * Commits:
+    ea9c431 GNU/Hurd
+    67800d4 Paralell tests take 2
+    57dd3e0 Plugins tests
+    f5246e4 strptime
+
 * Mon Jan 26 2026 Fedor Vorobev <fvorobev@redhat.com> - 2.5.1-1
 - Updated to version 2.5.1
 - Upstream change notes:

@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc1.260227ga75cb869a8ccc.18
+%define pkgrelease 0.rc2.21
 %define kversion 7
-%define tarfile_release 7.0-rc1-164-ga75cb869a8ccc
+%define tarfile_release 7.0-rc2
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.260227ga75cb869a8ccc.18%{?buildid}%{?dist}
+%define specrelease 0.rc2.21%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -1133,6 +1133,7 @@ Source104: rhelima.x509
 Source105: rhelima_centos.x509
 Source106: fedoraimaca.x509
 Source107: nvidiajetsonsoc.x509
+Source108: nvidiabfdpu.x509
 
 %if 0%{?fedora}%{?eln}
 %define ima_ca_cert %{SOURCE106}
@@ -2295,8 +2296,9 @@ truncate -s0 ../certs/rhel.pem
 openssl x509 -inform der -in %{SOURCE100} -out rheldup3.pem
 openssl x509 -inform der -in %{SOURCE101} -out rhelkpatch1.pem
 openssl x509 -inform der -in %{SOURCE102} -out nvidiagpuoot001.pem
-openssl x509 -inform der -in %{SOURCE107} -out  nvidiajetsonsoc.pem
-cat rheldup3.pem rhelkpatch1.pem nvidiagpuoot001.pem nvidiajetsonsoc.pem >> ../certs/rhel.pem
+openssl x509 -inform der -in %{SOURCE107} -out nvidiajetsonsoc.pem
+openssl x509 -inform der -in %{SOURCE108} -out nvidiabfdpu.pem
+cat rheldup3.pem rhelkpatch1.pem nvidiagpuoot001.pem nvidiajetsonsoc.pem nvidiabfdpu.pem >> ../certs/rhel.pem
 # rhelkeys
 %endif
 %if %{signkernel}
@@ -4827,8 +4829,19 @@ fi\
 #
 #
 %changelog
-* Fri Feb 27 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc1.260227ga75cb869a8ccc.18]
-- Linux v7.0.0-0.rc1.260227ga75cb869a8ccc
+* Mon Mar 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.21]
+- Add signing key for Nvidia Bluefield GPU (Enrique Belarte Luque)
+- Linux v7.0.0-0.rc2
+
+* Sun Mar 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.eb71ab2bf722.20]
+- [gitlab-ci] delay start rawhide clang pipelines by 3 mins. (Simone Tollardo)
+- fedora: Updates for the 7.0 merge (Peter Robinson)
+- fedora: disable Kaanapali by default (Peter Robinson)
+- fedora: minor beeper cleanups (Peter Robinson)
+- Linux v7.0.0-0.rc1.eb71ab2bf722
+
+* Sat Feb 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.4d349ee5c778.19]
+- Linux v7.0.0-0.rc1.4d349ee5c778
 
 * Fri Feb 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc1.a75cb869a8cc.18]
 - Linux v7.0.0-0.rc1.a75cb869a8cc

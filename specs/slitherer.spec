@@ -7,7 +7,7 @@
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple QtWebView based runner for Anaconda installer Web UI
 
 License:        MPL-2.0 and BSD-3-Clause
@@ -27,6 +27,8 @@ BuildRequires:  cmake(Qt6WebView) >= %{qt_minver}
 Requires:       anaconda-webui
 # Only Fedora Workstation doesn't want this by default
 Supplements:    (anaconda-webui unless fedora-release-workstation)
+# Ensure that QtWebEngine has the fix for QTBUG-142823
+Requires:      qt6-qtwebengine%{?_isa} >= 6.10.1-5
 
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
@@ -61,6 +63,9 @@ ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
 
 
 %changelog
+* Mon Mar 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20251108.d230dba-4
+- Add dependency to ensure QtWebEngine has fix for QTBUG-142823
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20251108.d230dba-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

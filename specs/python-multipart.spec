@@ -20,8 +20,16 @@ easier use in WSGI or CGI applications.}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-# This package uses the same import namespace:
+%if %{defined fc43}
+# This package originally used the same import namespace:
 Conflicts:      python3-python-multipart
+# Upstream for the other package switched the primary import name to “import
+# python_multipart,” leaving “import multipart” as a compatibility shim that
+# redirects to *this* multipart package if and only if it is installed. From
+# Fedora 44, our python3-python-multipart no longer installs that compatibility
+# shim (even though upstream still offers it) and therefore the Conflicts may
+# be removed.
+%endif
 
 
 %description -n python3-multipart %_description

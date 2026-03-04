@@ -8,9 +8,11 @@ URL:            https://github.com/Kludex/python-multipart
 Source:         %{pypi_source python_multipart}
 
 BuildSystem:            pyproject
-BuildOption(install):   -l python_multipart multipart
+BuildOption(install):   -l python_multipart
 
 BuildArch:      noarch
+
+BuildRequires:  tomcli
 
 # See testenv.deps from
 # https://github.com/Kludex/python-multipart/blob/%%{version}/tox.ini.  Because
@@ -29,6 +31,10 @@ Python-Multipart is a streaming multipart parser for Python.}
 %package -n python3-python-multipart
 Summary:        %{summary}
 
+%description -n python3-python-multipart %{common_description}
+
+
+%prep -a
 # Prior to Fedora 41, the python-multipart package provided this library,
 # https://pypi.org/project/python-multipart/. In Fedora 41, the
 # python-python-multipart package was introduced and python-multipart was
@@ -54,14 +60,14 @@ Summary:        %{summary}
 # compatibility hack in this package is a directory (multipart/) and the other
 # package is a single-file module (multipart.py). However, anything that uses
 # this package via “import multipart” will be broken if the other package is
-# installed, so we maintain the RPM conflict at least until all dependent
-# packages have been adapted to use “import python_multipart”, and perhaps
-# until upstream removes the compatibility hack in a future version.
-Conflicts:      python3-multipart
-# Ensure proper upgrade path from the old package
-Obsoletes:      python3-multipart < 0.1
-
-%description -n python3-python-multipart %{common_description}
+# installed.
+#
+# Now that all dependent packages have been adapted to use “import
+# python_multipart”, we can remove the Conflicts; but to avoid new dependencies
+# using “import multipart,” we must ensure we do not provide the compatibility
+# hack even though upstream still does so.
+tomcli set pyproject.toml lists delitem \
+    tool.hatch.build.targets.wheel.packages multipart
 
 
 %check -a

@@ -1,19 +1,16 @@
 Name:           perl-TimeDate
-Version:        2.33
+Version:        2.34
 Epoch:          1
-Release:        18%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module for time and date manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TimeDate
 Source0:        https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/TimeDate-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-# glibc-common for iconv tool
-BuildRequires:  glibc-common
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.4
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
@@ -24,8 +21,8 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(vars)
 # Tests:
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 
 %description
@@ -46,9 +43,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n TimeDate-%{version}
-# ChangeLog is ISO-8859-1 encoded
-iconv -f iso-8859-1 -t utf8 < ChangeLog > ChangeLog.utf8
-mv ChangeLog.utf8 ChangeLog
 # Bogus exec permissions on some language modules
 chmod -x lib/Date/Language/{Russian_cp1251,Russian_koi8r,Turkish}.pm
 
@@ -79,16 +73,28 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files 
-%doc README ChangeLog
-%{perl_vendorlib}/Date/
-%{perl_vendorlib}/Time/
+%doc README Changes
+%license LICENSE
+%dir %{perl_vendorlib}/Date/
+%{perl_vendorlib}/Date/Format*
+%{perl_vendorlib}/Date/Language*
+%{perl_vendorlib}/Date/Parse.pm
+%dir %{perl_vendorlib}/Time/
+%{perl_vendorlib}/Time/Zone.pm
 %{perl_vendorlib}/TimeDate.pm
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/Date::Format*.3*
+%{_mandir}/man3/Date::Language*.3*
+%{_mandir}/man3/Date::Parse*.3*
+%{_mandir}/man3/Time::Zone*.3*
+%{_mandir}/man3/TimeDate*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.34-1
+- 2.34 bump (rhbz#2443502)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.33-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

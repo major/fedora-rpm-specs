@@ -1,6 +1,6 @@
 Name:           freeciv
-Version:        3.2.2
-Release:        2%{?dist}
+Version:        3.2.3
+Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPL-2.0-or-later
@@ -112,6 +112,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Mon Mar 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.2.3-1
+- 3.2.3
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

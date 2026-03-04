@@ -1,6 +1,6 @@
 Name:           fityk
 Version:        1.3.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Non-linear curve fitting and data analysis
 License:        GPL-2.0-or-later
 URL:            http://fityk.nieto.pl/
@@ -8,6 +8,9 @@ URL:            http://fityk.nieto.pl/
 Source0:        https://github.com/wojdyr/%{name}/archive/v%{version}/%{name}-%{version}.tar.bz2
 # patch to check for cmpfit dependency
 Patch0:         cmpfit_config.patch
+# lua 5.5
+# https://github.com/wojdyr/fityk/pull/64
+Patch1:		fityk-1.3.2-lua-5.5.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmpfit-devel
@@ -48,6 +51,7 @@ use of %{name}, you will need to install %{name}-devel.
 %prep
 %setup -q
 %patch -P0 -p0
+%patch -P1 -p1 -b .lua55
 
 #mv {S:1} doc/
 #tar xf {S:2}
@@ -55,9 +59,6 @@ use of %{name}, you will need to install %{name}-devel.
 
 # remove pre-built documentation
 rm -fr doc/html
-
-# change lua version in configure file
-sed -i 's/AX_PROG_LUA(5.1, 5.4)/AX_PROG_LUA(5.1, 5.5)/' configure.ac
 
 #unbundle cmpfit
 rm -fr fityk/cmpfit
@@ -132,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Mon Mar  2 2026 Tom Callaway <spot@fedoraproject.org> - 1.3.2-13
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

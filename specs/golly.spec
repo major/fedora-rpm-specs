@@ -1,6 +1,6 @@
 Name:       golly
-Version:    4.3
-Release:    5%{?dist}
+Version:    5.0
+Release:    1%{?dist}
 Summary:    Cellular automata simulator (includes Conway's Game of Life)
 # The license for the code is GPLv2+ and for the included python parts Python-2.0.1
 #    see  /usr/share/licenses/golly/License.html
@@ -10,9 +10,12 @@ License:    GPL-2.0-or-later AND Python-2.0.1
 URL:        https://golly.sourceforge.net/
 Source0:    https://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.tar.gz
 # patch to use system lua library rather than bundled
-Patch1:     golly-4.3-lua-dyn.patch
+Patch1:     golly-5.0-lua-dyn.patch
 # patch to avoid using deprecated Python modules
 Patch2:     golly-4.3-python.patch
+# popcount is a std:: function now, this local var naming is ambiguous
+# rename the local var to clear it up
+Patch3:     golly-5.0-ambiguous-popcount.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  wxGTK-devel
@@ -126,6 +129,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/Rules/TreeGenerators/
 
 %changelog
+* Mon Mar  2 2026 Tom Callaway <spot@fedoraproject.org> - 5.0-1
+- update to 5.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

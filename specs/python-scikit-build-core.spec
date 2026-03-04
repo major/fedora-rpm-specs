@@ -3,12 +3,11 @@
 # Tests require virtualenv and pytest-* extensions not included in RHEL
 %bcond tests %[0%{?fedora} || 0%{?epel}]
 
-# On epel python hatch/trove classifier check may fail because of old package
-# Fedora checks should be sufficient though.
-%bcond no_classifier_check 0%{?rhel}
+# Whether to run additional tests, enabled by default
+%bcond optional_tests 1
 
 Name:           python-scikit-build-core
-Version:        0.11.5
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 
@@ -39,7 +38,7 @@ Requires:       cmake
 Requires:       ninja-build
 BuildArch:      noarch
 
-Provides:       bundled(python3dist(pyproject-metadata)) = 0.9.1
+Provides:       bundled(python3dist(pyproject-metadata)) = 0.11.0
 
 Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 
@@ -53,16 +52,12 @@ cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject
 
 
 %generate_buildrequires
-%if %{with no_classifier_check}
 export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
-%endif
-%pyproject_buildrequires %{?with_tests:-x test,test-meta,test-numpy}
+%pyproject_buildrequires %{?with_tests:-g test-core%{?with_optional_tests:,test}}
 
 
 %build
-%if %{with no_classifier_check}
 export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
-%endif
 %pyproject_wheel
 
 
@@ -74,6 +69,7 @@ export HATCH_METADATA_CLASSIFIERS_NO_VERIFY=1
 %check
 %pyproject_check_import
 %if %{with tests}
+# Additional tests from optional_tests are automatically skipped/picked-up by pytest
 %pytest \
     -m "not network"
 %endif

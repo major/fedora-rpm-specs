@@ -294,8 +294,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 12.0.0
-Release: 3%{?dist}
+Version: 12.1.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -303,10 +303,6 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
-
-# Fix IPv6 connections to ESXi
-# Upstream in > 12.0.0
-Patch: 0001-esx-Allow-connecting-to-IPv6-server.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -1895,13 +1891,16 @@ exit 0
 %pre daemon-driver-secret
 %libvirt_sysconfig_pre virtsecretd
 %libvirt_systemd_unix_pre virtsecretd
+%libvirt_systemd_oneshot_pre virt-secret-init-encryption
 
 %posttrans daemon-driver-secret
 %libvirt_sysconfig_posttrans virtsecretd
 %libvirt_systemd_unix_posttrans virtsecretd
+%libvirt_systemd_unix_posttrans virt-secret-init-encryption
 
 %preun daemon-driver-secret
 %libvirt_systemd_unix_preun virtsecretd
+%libvirt_systemd_unix_preun virt-secret-init-encryption
 
 %pre daemon-driver-storage-core
 %libvirt_sysconfig_pre virtstoraged
@@ -2252,12 +2251,17 @@ exit 0
 %config(noreplace) %{_sysconfdir}/libvirt/virtsecretd.conf
 %{_datadir}/augeas/lenses/virtsecretd.aug
 %{_datadir}/augeas/lenses/tests/test_virtsecretd.aug
+%{_datadir}/augeas/lenses/libvirt_secrets.aug
+%{_datadir}/augeas/lenses/tests/test_libvirt_secrets.aug
+%config(noreplace) %{_sysconfdir}/libvirt/secret.conf
 %{_unitdir}/virtsecretd.service
+%{_unitdir}/virt-secret-init-encryption.service
 %{_unitdir}/virtsecretd.socket
 %{_unitdir}/virtsecretd-ro.socket
 %{_unitdir}/virtsecretd-admin.socket
 %attr(0755, root, root) %{_sbindir}/virtsecretd
 %dir %attr(0700, root, root) %{_sysconfdir}/libvirt/secrets/
+%dir %attr(0700, root, root) %{_localstatedir}/lib/libvirt/secrets/
 %ghost %dir %attr(0700, root, root) %{_rundir}/libvirt/secrets/
 %{_libdir}/libvirt/connection-driver/libvirt_driver_secret.so
 %{_mandir}/man8/virtsecretd.8*
@@ -2345,6 +2349,7 @@ exit 0
 %dir %attr(0751, %{qemu_user}, %{qemu_group}) %{_localstatedir}/lib/libvirt/qemu/ram/
 %dir %attr(0751, %{qemu_user}, %{qemu_group}) %{_localstatedir}/lib/libvirt/qemu/save/
 %dir %attr(0751, %{qemu_user}, %{qemu_group}) %{_localstatedir}/lib/libvirt/qemu/snapshot/
+%dir %attr(0751, %{qemu_user}, %{qemu_group}) %{_localstatedir}/lib/libvirt/qemu/varstore/
 %dir %attr(0750, root, root) %{_localstatedir}/cache/libvirt/qemu/
 %{_datadir}/augeas/lenses/libvirtd_qemu.aug
 %{_datadir}/augeas/lenses/tests/test_libvirtd_qemu.aug
@@ -2693,8 +2698,10 @@ exit 0
 %{mingw64_mandir}/man7/virkey*.7*
 %endif
 
-
 %changelog
+* Mon Mar  2 2026 Daniel P. Berrangé <berrange@redhat.com> - 12.1.0-1
+- Update to 12.1.0
+
 * Mon Jan 26 2026 Richard W.M. Jones <rjones@redhat.com> - 12.0.0-3
 - Backport fix for IPv6 connections to ESXi
 

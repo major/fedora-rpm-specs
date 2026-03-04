@@ -11,10 +11,10 @@
 
 Name:          charliecloud
 Version:       0.43
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
-License:       Apache-2.0
+License:       Apache-2.0 and fsf-unlimited
 URL:           https://%{name}.io/v%{version}
 Source0:       https://gitlab.com/charliecloud/charliecloud/-/package_files/232789969/download#/charliecloud-%{version}.tar.gz
 BuildRequires: gcc rsync bash findutils
@@ -36,7 +36,7 @@ For more information: https://charliecloud.io
 
 %package       docs
 Summary:       Charliecloud man pages
-License:       BSD and ASL 2.0
+License:       Apache-2.0, bsd-simplified, MIT, and ofi-1.1
 BuildArch:     noarch
 Obsoletes:     %{name}-docs < %{version}-%{release}
 BuildRequires: python%{python3_pkgversion}-sphinx
@@ -47,7 +47,7 @@ Html and man page documentation for %{name}.
 
 %package image
 Summary:       Charliecloud container image manipulation tools
-License:       ASL 2.0 and MIT
+License:       Apache-2.0 and MIT
 BuildRequires: python3-devel
 BuildRequires: python%{python3_pkgversion}-requests
 Requires:      %{name}
@@ -150,6 +150,9 @@ export CXXFLAGS="$CXXFLAGS -Wno-error=discarded-qualifiers"
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Mon Mar 02 2026 Jordan Ogas <jogas@lanl.gov> - 0.43-2
+- Update License tags to match new SPDX format
+
 * Wed Jan 28 2026 Jordan Ogas <jogas@lanl.gov> - 0.43-1
 - new version 0.43
 

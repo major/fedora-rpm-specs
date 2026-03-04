@@ -117,6 +117,10 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 # Remove script we don't want packaged
 rm -f %{buildroot}%{perl_vendorarch}/Net/ptrtstrun.pl
 
+# Remove private key and related script from documentation
+rm -f examples/cb-testi.pl
+rm -f examples/server_key.pem
+
 %check
 unset RELEASE_TESTING
 make test

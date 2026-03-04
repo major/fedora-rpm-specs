@@ -13,6 +13,8 @@ Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 Patch:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
 # CVE-2025-47229
 Patch:		pspp-0002-Fix-a-crash-in-RENAME-VARIABLES-when-changing-dict-c.patch
+# Sent upsteam
+Patch:		pspp-0003-PATCH-Fix-xgettext-version-check-for-gettext-1.0.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel

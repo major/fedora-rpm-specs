@@ -1,6 +1,6 @@
 Summary: A utility for converting amounts from one unit to another
 Name: units
-Version: 2.25
+Version: 2.26
 Release: 1%{?dist}
 Source: https://ftp.gnu.org/gnu/units/%{name}-%{version}.tar.gz
 URL: https://www.gnu.org/software/units/units.html
@@ -60,6 +60,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Mon Mar 02 2026 Jan Macku <jamacku@redhat.com> - 2.26-1
+- new upstream release
+
 * Mon Jan 19 2026 Jan Macku <jamacku@redhat.com> - 2.25-1
 - new upstream release
 

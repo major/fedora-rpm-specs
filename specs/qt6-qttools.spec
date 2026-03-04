@@ -32,6 +32,9 @@ Patch1: qttools-run-qttools-with-qt6-suffix.patch
 # 32-bit MIPS needs explicit -latomic
 Patch2: qttools-add-libatomic.patch
 
+# Support LLVM/Clang 22
+Patch3: qdoc-support-newer-clang.patch
+
 ## upstream patches
 
 Source20: assistant.desktop
@@ -155,6 +158,7 @@ Requires: %{name}-common = %{version}-%{release}
 %ifarch %{mips32}
 %patch -P2 -p1 -b .libatomic
 %endif
+%patch -P3 -p1 -b .llvm22
 
 %build
 %cmake_qt6 \

@@ -18,8 +18,6 @@ BuildOption(install):   -l hatch_vcs
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  git-core

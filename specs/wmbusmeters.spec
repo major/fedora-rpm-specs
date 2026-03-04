@@ -4,7 +4,7 @@ Name:                  wmbusmeters
 %global forgeurl       https://github.com/weetmuts/%{name}
 
 %if %{with_tag}
-%global tag            1.20.0
+%global tag            2.0.0
 Version:               %{tag}
 %else
 %global date           20210813
@@ -106,6 +106,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Mon Mar 02 2026 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 2.0.0-1
+- Update to 2.0.0 (rhbz#2443681)
+
 * Tue Feb 03 2026 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.20.0-1
 - Update to 1.20.0 (rhbz#2433637)
 

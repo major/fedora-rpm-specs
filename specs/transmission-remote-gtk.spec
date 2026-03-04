@@ -11,6 +11,8 @@ Summary:        GTK remote control for the Transmission BitTorrent client
 License:        GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/transmission-remote-gtk/transmission-remote-gtk
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
+# https://github.com/transmission-remote-gtk/transmission-remote-gtk/pull/274
+Patch0:        212863751d4d5ff204185915ee1707c8e40996ca.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

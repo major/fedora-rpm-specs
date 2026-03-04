@@ -2,36 +2,14 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20260226
+Version:        1.20260301
 Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
-## Not used at build time and not in binary package
-# repackage.sh:                 GPL-2.0-or-later
-## Stripped from the original upstream archive
-# share/html/js:                MIT OR GPL-1.0-or-later
-# share/html/plugins/grid.addons.js.gz:         MIT OR GPL-1.0-or-later
-# share/html/plugins/grid.postext.js.gz:        MIT OR GPL-1.0-or-later
-# share/html/plugins/grid.setcolumns.js.gz:     MIT OR GPL-1.0-or-later
-# share/html/plugins/jquery.contextmenu.js.gz:  MIT OR GPL-1.0-or-later
-# share/html/plugins/jquery.searchFilter.js.gz: MIT OR GPL-2.0-only
-# share/html/plugins/jquery.tablednd.js.gz:     "Licensed like jQuery", i.e. MIT
-# share/html/plugins/ui.multiselect.js.gz:      MIT OR GPL-1.0-or-later
-# other files under share/html except of share/html/index.html are part of
-# jqgrid.
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
-SourceLicense:  %{license} AND GPL-2.0-or-later
 URL:            https://metacpan.org/dist/Mail-DMARC
-# Original upstream Source0 URL
-# https://cpan.metacpan.org/authors/id/M/MS/MSIMERSON/Mail-DMARC-%%{version}.tar.gz
-# contains minified historical jqgrid. Distributing minified code is against
-# Fedora packaging guidelines. Current <https://github.com/tonytomov/jqGrid>
-# is non-free CC-BY-NC-3.0.
-# Mail-DMARC-1.20260226 moved to an on-line DataTables, but left the jqgrid
-# files in the archive <https://github.com/msimerson/mail-dmarc/issues/271>.
-Source0:        Mail-DMARC-%{version}_repackaged.tar.gz
-Source1:        repackage.sh
+Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSIMERSON/Mail-DMARC-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -60,6 +38,7 @@ BuildRequires:  perl(Email::Sender::Transport::Test)
 BuildRequires:  perl(Email::Simple)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(English)
+BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::ShareDir) >= 1.00
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(HTTP::Request)
@@ -146,6 +125,7 @@ performing internal tests.
 
 %package tests
 Summary:        Tests for %{name}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-HTTP = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-Test = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -254,6 +234,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 02 2026 Petr Pisar <ppisar@redhat.com> - 1.20260301-1
+- 1.20260301 bump
+
 * Fri Feb 27 2026 Petr Pisar <ppisar@redhat.com> - 1.20260226-1
 - 1.20260226 bump
 

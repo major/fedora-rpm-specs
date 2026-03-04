@@ -8,7 +8,7 @@ Summary: Image browser and viewer
 Name: geeqie
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-Version: 2.6.1
+Version: 2.7
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -51,6 +51,7 @@ BuildRequires: lcms2-devel
 BuildRequires: exiv2-devel
 BuildRequires: lirc-devel
 BuildRequires: libarchive-devel
+BuildRequires: libheif-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libjxl-devel
 BuildRequires: libtiff-devel
@@ -145,7 +146,7 @@ desktop-file-install \
 %find_lang %name
 
 mv %{buildroot}/usr/share/metainfo %{buildroot}%{_datadir}/appdata
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie.Geeqie.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -155,11 +156,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie
 %{_prefix}/lib/%{name}/
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/%{name}/
-%{_datadir}/pixmaps/%{name}.png
+# %%{_datadir}/pixmaps/%%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/org.geeqie.Geeqie.svg
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/org.geeqie.Geeqie.desktop
-%{_datadir}/applications/org.geeqie.cache-maintenance.desktop
-%{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
+# %%{_datadir}/applications/org.geeqie.cache-maintenance.desktop
+%{_datadir}/appdata/org.geeqie.Geeqie.metainfo.xml
 %{bash_completions_dir}/%{name}
 
 

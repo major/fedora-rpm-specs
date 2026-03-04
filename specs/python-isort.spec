@@ -2,8 +2,8 @@
 %global srcname isort
 
 Name:               python-%{modname}
-Version:            7.0.0
-Release:            2%{?dist}
+Version:            8.0.1
+Release:            1%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Mon Mar 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 8.0.1-1
+- 8.0.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

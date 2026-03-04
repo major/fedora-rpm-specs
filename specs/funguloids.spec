@@ -18,7 +18,7 @@
 
 Name:           funguloids
 Version:        1.06
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Space-Flying-Mushroom-Picking-Simulator game
 License:        zlib
 URL:            http://funguloids.sourceforge.net
@@ -174,6 +174,9 @@ EOF
 
 
 %changelog
+* Mon Mar  2 2026 Tom Callaway <spot@fedoraproject.org> - 1.06-51
+- rebuild for lua 5.5
+
 * Sat Jan 24 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 1.06-50
 - Fix FTBFS (rhbz#2384606)
 

@@ -11,9 +11,12 @@ Summary:        Create bespoke OS images
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/mkosi
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Keep all patches inside this ifdef to avoid breaking builds from main
+%if %{without obs}
 Patch:          0001-verity-do-not-copy-signing-cert-in-addons-portables-.patch
+%endif
 
 BuildArch:      noarch
 
@@ -87,7 +90,7 @@ After the package is installed, the plugin can be enabled by adding
 configuration for the addon to `/etc/mkosi-addon` or `/run/mkosi-addon`.
 
 %prep
-%autosetup -C %{!?with_obs:-p1}%{?with_obs:-N}
+%autosetup -p1 -n %{name}-%{version}
 
 %if %{undefined suse_version}
 %generate_buildrequires

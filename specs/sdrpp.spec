@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
@@ -30,6 +30,7 @@ Patch6:         desktop-file.patch
 ExcludeArch:    i686
 
 BuildRequires:  cmake
+BuildRequires:  boost-devel
 BuildRequires:  gcc-c++
 BuildRequires:  fftw-devel glew-devel volk-devel glfw-devel
 BuildRequires:  portaudio-devel libiio-devel rtaudio-devel
@@ -39,6 +40,7 @@ BuildRequires:  rapidjson-devel rapidjson-static
 BuildRequires:  json-devel json-static
 BuildRequires:  libcorrect-devel
 BuildRequires:  libzstd-devel
+BuildRequires:  uhd-devel
 # Enforce the the minimum EVR to contain fixes for all of:
 # CVE-2021-28021
 # CVE-2021-42715
@@ -133,13 +135,15 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Not building Falcon9 decoder as it requires ffplay which is in rpmfusion
 # Not building hardware support which does not have libraries in Fedora
 # Building for new PortAudio
-%cmake -DOPT_BUILD_AIRSPY_SOURCE=OFF -DOPT_BUILD_AIRSPYHF_SOURCE=OFF \
+%cmake -DOPT_BUILD_AIRSPY_SOURCE=OFF \
+       -DOPT_BUILD_AIRSPYHF_SOURCE=OFF \
        -DOPT_BUILD_BLADERF_SOURCE=OFF \
        -DOPT_BUILD_PLUTOSDR_SOURCE=OFF \
        -DOPT_BUILD_NEW_PORTAUDIO_SINK=ON \
        -DOPT_BUILD_M17_DECODER=ON \
 	   -DUSE_INTERNAL_LIBCORRECT=OFF \
 	   -DOPT_BUILD_SOAPY_SOURCE=ON \
+	   -DOPT_BUILD_USRP_SOURCE=ON \
        -DBUILD_SHARED_LIBS=0
 
 %cmake_build
@@ -178,6 +182,9 @@ appstream-util validate-relax \
 
 
 %changelog
+* Mon Mar 02 2026 Richard Shaw <hobbes1069@gmail.com> - 1.2.1-6
+- Rebuild for UHD/USRP support.
+
 * Wed Feb 18 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.1-5
 - Rebuilt for new volk
 

@@ -1,6 +1,6 @@
 Name:		putty
 Version:	0.83
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/putty/
@@ -22,6 +22,8 @@ BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	cmake
 Requires:	hicolor-icon-theme
+# https://bugzilla.redhat.com/show_bug.cgi?id=2442271
+Requires:	gdk-pixbuf2-modules-extra
 
 %description
 Putty is a SSH, Telnet & Rlogin client - this time for Linux.
@@ -64,6 +66,10 @@ install -m644 -D -p %{SOURCE3} %{buildroot}%{_metainfodir}/uk.org.greenend.chiar
 %{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %changelog
+* Mon Mar 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.83-4
+- Fixed invisible login prompt
+  Resolves: rhbz#2442271
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.83-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

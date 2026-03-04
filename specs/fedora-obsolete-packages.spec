@@ -1412,6 +1412,10 @@ Source0:    README
 %obsolete javascriptcoregtk4.0 2.47.2-4
 %obsolete javascriptcoregtk4.0-devel 2.47.2-4
 
+# Remove in F47
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2440104
+%obsolete perl-Alien-cmake3 0.10-3
+%obsolete perl-Alien-cmake3-tests 0.10-3
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

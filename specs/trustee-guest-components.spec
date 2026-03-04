@@ -23,21 +23,20 @@ Summary:        Tools that run in confidential VMs, attest and get secrets from 
 # Unicode-3.0
 # Unlicense OR MIT
 
-# License lines above, but sorted within and between lines
+# License lines above, but sorted and simplified
 # Apache-2.0
-# Apache-2.0 AND ISC AND (Apache-2.0 OR MIT)
 # Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT
 # Apache-2.0 OR BSD-2-Clause OR MIT
 # Apache-2.0 OR BSL-1.0
-# Apache-2.0 OR MIT
 # ISC
 # MIT
 # MIT OR Unlicense
 # MPL-2.0
 # Unicode-3.0
-# Unicode-DFS-2016 AND (Apache-2.0 OR MIT)
+# Unicode-DFS-2016
 
-License:        Apache-2.0 AND Apache-2.0 AND ISC AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT)
+License:        Apache-2.0 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSD-2-Clause OR MIT) AND (Apache-2.0 OR BSL-1.0) AND ISC AND MIT AND (MIT OR Unlicense) AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016
+
 
 
 # LICENSE.dependencies contains a full license breakdown

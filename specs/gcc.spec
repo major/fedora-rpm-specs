@@ -1,5 +1,5 @@
-%global DATE 20260209
-%global gitrev 84d3ab5b7a17705ce87440bb6aeb491aea5fbbd1
+%global DATE 20260302
+%global gitrev bca2854ff82e2bbc823242aea960bafd8b8d4109
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.7%{?dist}
+Release: %{gcc_release}.8%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -322,6 +322,7 @@ Patch9: gcc16-Wno-format-security.patch
 Patch10: gcc16-rh1574936.patch
 Patch11: gcc16-d-shared-libphobos.patch
 Patch12: gcc16-pr119006.patch
+Patch13: gcc16-tcl9.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -2379,7 +2380,7 @@ for d in . $FULLLSUBDIR; do
   mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/debug%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/$d
   for f in `find $d -maxdepth 1 -a \
 		\( -name libasan.a -o -name libatomic.a \
-		-o -name libcaf_single.a \
+		-o -name libcaf_single.a -o -name libcaf_shmem.a \
 		-o -name libgcc.a -o -name libgcc_eh.a \
 		-o -name libgcov.a -o -name libgfortran.a \
 		-o -name libgo.a -o -name libgobegin.a \
@@ -3287,6 +3288,7 @@ end
 %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/f951
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgfortran.spec
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libcaf_single.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libcaf_shmem.a
 %ifarch sparcv9 sparc64 ppc ppc64 ppc64p7
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgfortran.a
 %endif
@@ -3294,6 +3296,7 @@ end
 %ifarch sparcv9 ppc
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libcaf_single.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libcaf_shmem.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgfortran.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/libgfortran.so
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/64/finclude
@@ -3301,6 +3304,7 @@ end
 %ifarch %{multilib_64_archs}
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libcaf_single.a
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libcaf_shmem.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgfortran.a
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/libgfortran.so
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/32/finclude
@@ -3969,6 +3973,58 @@ end
 %endif
 
 %changelog
+* Mon Mar  2 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.8
+- update from trunk
+  - PRs ada/124016, ada/124054, ada/124106, ada/124179, ada/124192,
+	ada/124201, ada/124224, ada/124226, ada/124282, ada/124285,
+	algol68/124028, algol68/124049, algol68/124115, analyzer/108400,
+	analyzer/111099, analyzer/113496, analyzer/117369, analyzer/121928,
+	analyzer/123973, analyzer/123981, analyzer/124055, analyzer/124073,
+	analyzer/124104, analyzer/124116, analyzer/124139, analyzer/124188,
+	analyzer/124195, analyzer/124232, c/87591, c/105555, c/119651,
+	c/123365, c/123472, c/123716, c++/98939, c++/101670, c++/102397,
+	c++/119756, c++/120685, c++/120974, c++/121500, c++/121822,
+	c++/122318, c++/122621, c++/123143, c++/123440, c++/123608,
+	c++/123612, c++/123641, c++/123642, c++/123660, c++/123661,
+	c++/123662, c++/123989, c++/124012, c++/124045, c++/124070,
+	c++/124096, c++/124119, c++/124150, c++/124153, c++/124173,
+	c++/124184, c++/124204, c++/124215, c++/124227, cobol/119455,
+	cobol/121499, cobol/122839, cobol/123238, demangler/106641,
+	diagnostics/122001, diagnostics/124014, fortran/78187, fortran/80012,
+	fortran/88076, fortran/99250, fortran/108663, fortran/120505,
+	fortran/121360, fortran/121429, fortran/122491, fortran/123943,
+	fortran/123947, fortran/123949, fortran/124071, fortran/124080,
+	fortran/124208, fortran/124235, fortran/124286, ipa/122856,
+	ipa/123229, ipa/123629, libfortran/88076, libfortran/123366,
+	libstdc++/105580, libstdc++/113450, libstdc++/119745,
+	libstdc++/121402, libstdc++/121771, libstdc++/123176,
+	libstdc++/123875, libstdc++/123908, libstdc++/123991,
+	libstdc++/124015, libstdc++/124024, libstdc++/124124,
+	middle-end/113436, middle-end/123386, middle-end/124056,
+	middle-end/124250, middle-end/124280, other/88472,
+	rtl-optimization/116053, rtl-optimization/116600,
+	rtl-optimization/120169, rtl-optimization/121191,
+	rtl-optimization/123048, rtl-optimization/123381,
+	rtl-optimization/123994, rtl-optimization/124062,
+	rtl-optimization/124079, target/57261, target/80881, target/112400,
+	target/113453, target/115042, target/119979, target/120233,
+	target/120234, target/120241, target/120888, target/122448,
+	target/123137, target/123195, target/123285, target/123556,
+	target/123624, target/124048, target/124094, target/124098,
+	target/124134, target/124136, target/124138, target/124147,
+	target/124162, target/124167, target/124194, target/124236,
+	target/124294, testsuite/103515, testsuite/115827, testsuite/123191,
+	testsuite/124064, translation/118988, tree-optimization/90036,
+	tree-optimization/95825, tree-optimization/99959,
+	tree-optimization/107690, tree-optimization/110091,
+	tree-optimization/114375, tree-optimization/117935,
+	tree-optimization/121103, tree-optimization/122297,
+	tree-optimization/124038, tree-optimization/124068,
+	tree-optimization/124086, tree-optimization/124099,
+	tree-optimization/124108, tree-optimization/124130,
+	tree-optimization/124132, tree-optimization/124142,
+	tree-optimization/124288
+
 * Mon Feb  9 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.7
 - update from trunk
   - PRs ada/121576, ada/124025, c++/123616, c++/123640, c++/123823,

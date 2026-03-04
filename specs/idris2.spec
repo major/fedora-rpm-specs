@@ -13,7 +13,7 @@
 %bcond test 0
 
 # ppc64le s390x i686 give linking error with chez-scheme:
-# - Exception: (while loading libc.so) /lib/libc.so: invalid ELF header
+# - Exception: (while loading libc.so) /lib64/libc.so: invalid ELF header
 %ifarch ppc64le %{ix86}
 # build with racket instead of chez-scheme
 %bcond racket 1
@@ -110,7 +110,7 @@ make -C docs html
 
 %install
 export PATH=%{buildroot}/bin:$PATH
-make install DESTDIR=%{buildroot} PREFIX=%{_libdir}
+make install install-api DESTDIR=%{buildroot} PREFIX=%{_libdir}
 
 mkdir %{buildroot}%{_bindir}
 %if %{without racket}

@@ -1,5 +1,5 @@
 Name:           tree-sitter-elixir
-Version:        0.3.4
+Version:        0.3.5
 Release:        %{autorelease}
 License:        Apache-2.0
 URL:            https://github.com/elixir-lang/%{name}

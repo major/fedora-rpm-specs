@@ -5,7 +5,7 @@
 %global crate gdk4
 
 Name:           rust-gdk4
-Version:        0.10.3
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Rust bindings of the GDK 4 library
 
@@ -129,6 +129,18 @@ This package contains library source intended for building other packages which
 use the "v4_20" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_20-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_22-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v4_22-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_22" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_22-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_4-devel
