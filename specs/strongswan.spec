@@ -10,7 +10,7 @@
 %global forgeurl0 https://github.com/strongswan/strongswan
 
 Name:           strongswan
-Version:        6.0.2
+Version:        6.0.4
 Release:        %autorelease
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -25,9 +25,6 @@ Source3:        tmpfiles-strongswan.conf
 Patch1:         strongswan-5.9.7-error-no-format.patch
 # Use isolation to prevent pip attempting to download during build
 Patch2:         strongswan-6.0.2-no-isolation.patch
-# Remove MD2, which causes test case failures due to fedora crypto policies
-# https://github.com/strongswan/strongswan/commit/b3011e8e87a1fad1bfb026448fc37b80b7cfc007
-Patch3:         strongswan-6.0.2-no-md5-b3011e8e.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -358,11 +355,10 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %{_sbindir}/strongswan
 %{_sbindir}/swanctl
 %{_libdir}/strongswan/*.so.*
-%{_libdir}/strongswan/plugins/*.so.*
+%{_libdir}/strongswan/plugins/*.so
 %exclude %{_libdir}/strongswan/libimcv.so.*
 %exclude %{_libdir}/strongswan/libtnccs.so.*
 %exclude %{_libdir}/strongswan/libipsec.so.*
-%{_libdir}/strongswan/plugins/*.so
 %exclude %{_libdir}/strongswan/plugins/libstrongswan-sqlite.so
 %exclude %{_libdir}/strongswan/plugins/libstrongswan-*tnc*.so
 %exclude %{_libdir}/strongswan/plugins/libstrongswan-kernel-libipsec.so

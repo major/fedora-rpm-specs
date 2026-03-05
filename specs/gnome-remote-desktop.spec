@@ -12,7 +12,7 @@
 %global pipewire_version 0.3.49
 
 Name:           gnome-remote-desktop
-Version:        50~beta
+Version:        50~rc
 Release:        %autorelease
 Summary:        GNOME Remote Desktop screen share service
 

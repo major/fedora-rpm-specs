@@ -1,5 +1,5 @@
 Name:           python-openapi-schema-validator
-Version:        0.7.3
+Version:        0.8.1
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 

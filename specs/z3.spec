@@ -7,12 +7,15 @@
 # unless somebody is really, really persuasive and available to help fix it
 # if it breaks.
 
+# A Go interface is now available, but Fedora no longer builds Go library
+# packages (https://docs.fedoraproject.org/en-US/packaging-guidelines/Golang/).
+
 # Tests are off by default because some of the tests require more memory than
 # the koji builders have available.
 %bcond test 0
 
 Name:           z3
-Version:        4.15.8
+Version:        4.16.0
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -256,7 +259,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.15{,.*}
+%{_libdir}/libz3.so.4.16{,.*}
 
 %files devel
 %{_includedir}/z3/

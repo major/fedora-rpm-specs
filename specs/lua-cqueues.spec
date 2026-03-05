@@ -10,13 +10,17 @@
 
 Name:           lua-%{luapkgname}
 Version:        20200603
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Stackable Continuation Queues for the Lua Programming Language
 
 License:        MIT
 URL:            https://github.com/wahern/%{luapkgname}
 Source0:        https://github.com/wahern/%{luapkgname}/archive/rel-%{version}/%{name}-%{version}.tar.gz
 Patch0:         lua-cqueues-20200603-lua-5.4.patch
+# C23 fixes
+Patch1:		https://patch-diff.githubusercontent.com/raw/wahern/cqueues/pull/264.patch
+# lua 5.5
+Patch2:		lua-cqueues-20200603-lua-5.5.patch
 BuildRequires:  gcc
 BuildRequires:  m4
 BuildRequires:  make
@@ -81,6 +85,8 @@ for the Lua Programming Language
 %prep
 %setup -q -n %{luapkgname}-rel-%{version}
 %patch -P0 -p1 -b .lua54
+%patch -P1 -p1 -b .c23
+%patch -P2 -p1 -b .lua55
 
 %build
 export CFLAGS="%{?optflags} -fPIC"
@@ -126,6 +132,9 @@ sed -i '1 s|^#!/.*$|#!/usr/bin/lua|' %{buildroot}%{_pkgdocdir}/examples/*
 %license LICENSE
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 20200603-16
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20200603-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

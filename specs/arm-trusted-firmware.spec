@@ -16,7 +16,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.14.1
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Release: 2%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -115,7 +115,7 @@ do
 done
 
 # Rockchips wants the bl31.elf, plus rk3399 wants power management co-processor bits
-for soc in rk3399 rk3368 rk3328 rk3568 rk3588
+for soc in rk3399 rk3368 rk3328 rk3568 rk3576 rk3588
 do
  for file in bl31/bl31.elf m0/rk3399m0.bin m0/rk3399m0.elf
  do
@@ -134,6 +134,9 @@ done
 %endif
 
 %changelog
+* Tue Mar 03 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14.1-2
+- Actually ship rk3576
+
 * Thu Feb 19 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14.1-1
 - Update to 2.14.1
 - Fix for TI K3 builds

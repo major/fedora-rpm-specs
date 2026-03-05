@@ -28,7 +28,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.66
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -850,6 +850,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Mar 03 2026 Tom Callaway <spot@fedoraproject.org> - 2.4.66-5
+- rebuild for lua 5.5
+
 * Tue Feb 03 2026 Joe Orton  <jorton@redhat.com> - 2.4.66-4
 - autoindex.conf: disable Indexes for /icons/ by default
 

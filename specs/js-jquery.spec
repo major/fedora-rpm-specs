@@ -20,7 +20,7 @@ Patch1:         %{name}-disable-gzip-js.patch
 
 BuildRequires:  web-assets-devel
 BuildRequires:  nodejs-packaging
-BuildRequires:  nodejs
+BuildRequires:  nodejs, /usr/bin/node
 
 Provides:       jquery = %{version}-%{release}
 Provides:       %{name}-static = %{version}-%{release}

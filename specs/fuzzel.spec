@@ -1,5 +1,5 @@
 Name:           fuzzel
-Version:        1.14.0
+Version:        1.14.1
 Release:        %autorelease
 Summary:        App launcher and fuzzy finder for Wayland, inspired by rofi
 

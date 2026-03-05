@@ -4,9 +4,7 @@ Name:           ipe
 Version:        7.2.30
 Release:        %autorelease
 Summary:        Drawing editor for creating figures in PDF or PostScript formats
-# GPLv2, with an exception for the CGAL libraries.
-# Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
-License:        LicenseRef-Callaway-GPLv2+-with-exceptions
+License:        GPL-3.0-or-later WITH CGAL-linking-exception
 URL:            http://ipe.otfried.org/
 Source0:        https://github.com/otfried/%{name}/archive/refs/tags/v%{version}.tar.gz
 Source1:        %{name}.desktop

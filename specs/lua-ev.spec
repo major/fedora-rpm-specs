@@ -3,7 +3,7 @@ Name:           lua-ev
 License:        MIT
 
 Version:        1.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 URL:            https://github.com/brimworks/lua-ev
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -20,7 +20,7 @@ Event loop programming with Lua.
 %autosetup -n %{name}-%{version} 
 
 %build
-%cmake -DINSTALL_CMOD=%{lua_libdir}
+%cmake -DINSTALL_CMOD=%{lua_libdir} -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -42,6 +42,9 @@ lua -e 'ev = require "ev"; print(ev.version())'
 %{lua_libdir}/ev.so
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 1.5-12
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

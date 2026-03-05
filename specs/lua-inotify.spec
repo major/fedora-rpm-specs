@@ -1,10 +1,7 @@
-%global luaver 5.4
-%global lualibdir %{_libdir}/lua/%{luaver}
-
 Name:           lua-inotify
 Epoch:          1
 Version:        0.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Inotify bindings for Lua
 
 License:        MIT
@@ -12,8 +9,8 @@ URL:            http://hoelz.ro/projects/linotify
 Source0:        https://github.com/hoelzro/linotify/archive/%{version}.tar.gz#/linotify-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  lua-devel >= %{luaver}
-BuildRequires: make
+BuildRequires:  lua-devel >= %{lua_version}
+BuildRequires:  make
 
 %description
 This is linotify, a binding for Linux's inotify library to Lua.
@@ -35,16 +32,19 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -fPIC"
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL_PATH=%{lualibdir}
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL_PATH=%{lua_libdir}
 
 
 %files
 %license COPYRIGHT
 %doc README.md Changes
-%{lualibdir}/inotify.so
+%{lua_libdir}/inotify.so
 
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 1:0.5-15
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

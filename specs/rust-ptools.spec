@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           rust-ptools
-Version:        0.2.16
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Utilities for inspecting Linux processes
 
@@ -52,6 +52,7 @@ Recommends:     python3-linux-procfs
 %{_bindir}/penv
 %{_bindir}/pfiles
 %{_bindir}/plgrp
+%{_bindir}/plimit
 %{_bindir}/prun
 %{_bindir}/psig
 %{_bindir}/pstop
@@ -64,6 +65,7 @@ Recommends:     python3-linux-procfs
 %{_mandir}/man1/penv.1*
 %{_mandir}/man1/pfiles.1*
 %{_mandir}/man1/plgrp.1*
+%{_mandir}/man1/plimit.1*
 %{_mandir}/man1/prun.1*
 %{_mandir}/man1/psig.1*
 %{_mandir}/man1/pstop.1*

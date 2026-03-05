@@ -411,6 +411,10 @@ ln -sf /%{_lib}/libgcc_s.so.1 gcc/libgcc.so.1
 
 mv -f %{buildroot}%{_prefix}/%{_lib}/libgomp.spec $FULLPATH/
 
+sed -e 's,\.\./include/,../../../../include/,' \
+  %{buildroot}%{_prefix}/%{_lib}/libstdc++.modules.json \
+  > $FULLPATH/libstdc++.modules.json
+
 sh %{SOURCE1} %{gcc_target_platform}/libstdc++-v3/src/.libs/libstdc++.so.6.* $FULLPATH/libstdc++.so \
   %{gcc_target_platform}/libstdc++-v3/src/libstdc++-symbols.ver %{_prefix}/%{_lib}/libstdc++.so.6
 rm -f %{gcc_target_platform}/libstdc++-v3/src/.libs/libstdc++.so
@@ -539,6 +543,7 @@ rm -rf %{buildroot}%{_prefix}/share/locale || :
 rm -rf %{buildroot}%{_mandir}/man7 || :
 rm -rf %{buildroot}%{_prefix}/%{_lib}/*.so || :
 rm -rf %{buildroot}%{_prefix}/%{_lib}/*.spec || :
+rm -f %{buildroot}%{_prefix}/%{_lib}/libstdc++.modules.json || :
 rm -rf %{buildroot}%{_prefix}/%{_lib}/*.o || :
 %ifarch ppc64le
 rm -rf $FULLPATH/{e,n}crt{i,n}.o || :

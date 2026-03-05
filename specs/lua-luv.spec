@@ -6,7 +6,7 @@
 %bcond_with luajit
 %endif
 
-%global lua_incdir %{_includedir}/lua-%{lua_version}
+%global lua_incdir %{_includedir}
 %global lua_builddir obj-lua%{lua_version}
 
 %global lua_51_version 5.1
@@ -21,7 +21,7 @@
 %global luajit_builddir obj-luajit
 
 %global real_version 1.51.0
-%global extra_version 0
+%global extra_version 2
 
 %if 0%{?rhel} && 0%{?rhel} < 9
 # EPEL8's cmake macros have _vpath_builddir defined
@@ -59,9 +59,9 @@ Source0:        https://github.com/luvit/luv/archive/%{real_version}-%{extra_ver
 Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
 Patch1:         lua-luv-disable-udp-test.patch
-# Thread test fails on i686, see https://github.com/luvit/luv/issues/751
-# https://github.com/luvit/luv/pull/770
-Patch2:         lua-luv-fix-heap-use-after-free.patch
+# Fix build with lua 5.5
+# https://github.com/luvit/luv/pull/800
+Patch2:         luv-cmake-lua55.patch
 
 
 %description
@@ -100,8 +100,8 @@ Requires:       lua(abi) = %{lua_51_version}
 
 %if %{with luajit}
 %package -n luajit%{luajit_version}-luv
-Summary:        Bare libuv bindings for lua 5.1
-Requires:       lua(abi) = %{lua_51_version}
+Summary:        Bare libuv bindings for luajit
+Requires:       luajit
 
 %description -n luajit%{luajit_version}-luv
 %{_description}

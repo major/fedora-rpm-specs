@@ -1,5 +1,5 @@
-Version:        1.7.0
-Release:        1%{?dist}
+Version:        1.8.0
+Release:        %autorelease
 URL:            https://vercel.com/font
 
 %global foundry vercel
@@ -71,8 +71,4 @@ Source13:       63-vercel-geist-mono-vf.conf
 %fontfiles -a
 
 %changelog
-* Thu Jan 29 2026 Basil Crow <me@basilcrow.com> - 1.7.0-1
-- 1.7.0
-
-* Mon Jan 19 2026 Basil Crow <me@basilcrow.com> - 1.6.0-1
-- Initial packaging
+%autochangelog

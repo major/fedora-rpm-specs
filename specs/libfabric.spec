@@ -31,9 +31,6 @@ BuildRequires:  libibverbs-devel
 BuildRequires:  librdmacm-devel
 %endif
 %ifarch x86_64
-%if 0%{?fedora} || 0%{?rhel} == 7
-BuildRequires:  infinipath-psm-devel
-%endif
 %if 0%{?fedora} || (0%{?rhel} >= 7 && 0%{?rhel} < 10)
 BuildRequires:  libpsm2-devel
 %endif

@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.194
-%global baserelease 3
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -102,6 +102,13 @@ Patch2: elfutils-0.194-alloc-jobs.patch
 
 # Fix const warning from newer GCC.
 Patch3: elfutils-0.194-fix-const.patch
+
+# Work around ET_REL files with sh_addr fields set to non-zero
+Patch4: elfutils-0.194-sh_addr-non-zero.patch
+
+# Recognize SHT_AARCH64_ATTRIBUTES.
+# https://sourceware.org/bugzilla/show_bug.cgi?id=33923
+Patch5: elfutils-0.194-aarch64-Recognize-SHT_AARCH64_ATTRIBUTES.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -525,6 +532,12 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Tue Mar 03 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.194-5
+- Add elfutils-0.194-aarch64-Recognize-SHT_AARCH64_ATTRIBUTES.patch
+
+* Tue Mar 03 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.194-4
+- Add elfutils-0.194-sh_addr-non-zero.patch
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.194-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

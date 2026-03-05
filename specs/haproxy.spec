@@ -7,8 +7,8 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        3.0.5
-Release:        5%{?dist}
+Version:        3.0.17
+Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPL-2.0-or-later
@@ -21,6 +21,9 @@ Source3:        %{name}.logrotate
 Source4:        %{name}.sysconfig
 Source5:        %{name}.sysusers
 Source6:        halog.1
+
+# https://github.com/haproxy/haproxy/commit/1c0f781994a89b5cbd7b4b893c23e6d2b75b1764
+Patch0:		haproxy-3.0.17-lua-5.5.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxcrypt-devel
@@ -51,6 +54,8 @@ availability environments. Indeed, it can:
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .lua55
+
 %build
 
 make %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_SLZ=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_PROMEX=1 DEFINE=-DMAX_SESS_STKCTR=12 ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
@@ -128,6 +133,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.17-1
+- update to 3.0.17, lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

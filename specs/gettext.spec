@@ -7,8 +7,8 @@
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.26
-Release: 4%{?dist}
+Version: 1.0
+Release: 1%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -29,9 +29,6 @@ Source: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source2: msghack.py
 Source3: msghack.1
 
-Patch1: gettext-0.21.1-covscan.patch
-Patch2: gettext-0.26-c23.diff
-Patch3: gettext-0.26-stdcountof-h.patch
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
 BuildRequires: automake
@@ -197,9 +194,6 @@ Substitutes the values of environment variables.
 
 %prep
 %setup -q
-%patch 1 -p1 -b .orig~
-%patch 2 -p1 -b .orig~
-%patch 3 -p1 -b .orig~
 autoreconf
 
 # Defeat libtextstyle attempt to bundle libxml2.  The comments
@@ -324,6 +318,8 @@ make check LIBUNISTRING=-lunistring
 %doc gettext-tools/man/msg*.1.html
 %doc gettext-tools/man/recode*.1.html
 %doc gettext-tools/man/xgettext.1.html
+%doc gettext-tools/man/po-fetch.1.html
+%doc gettext-tools/man/spit.1.html
 %doc gettext-tools/doc/FAQ.html
 %doc gettext-tools/doc/tutorial.html
 %{_bindir}/msgattrib
@@ -340,6 +336,9 @@ make check LIBUNISTRING=-lunistring
 %{_bindir}/msgmerge
 %{_bindir}/msgunfmt
 %{_bindir}/msguniq
+%{_bindir}/msgpre
+%{_bindir}/po-fetch
+%{_bindir}/spit
 %{_bindir}/recode-sr-latin
 %{_bindir}/xgettext
 %{_infodir}/gettext*
@@ -350,6 +349,8 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msg*
 %{_mandir}/man1/recode*.1*
 %{_mandir}/man1/xgettext.1*
+%{_mandir}/man1/po-fetch.1*
+%{_mandir}/man1/spit.1*
 %{_libdir}/%{name}
 %if %{with java}
 %exclude %{_libdir}/%{name}/gnu.gettext.*
@@ -430,8 +431,8 @@ make check LIBUNISTRING=-lunistring
 %files libs
 %{_libdir}/libasprintf.so.0*
 %{_libdir}/libgettextpo.so.0*
-%{_libdir}/libgettextlib-0.*.so
-%{_libdir}/libgettextsrc-0.*.so
+%{_libdir}/libgettextlib-1.*.so
+%{_libdir}/libgettextsrc-1.*.so
 %if %{with jar}
 %{_datadir}/%{name}/libintl.jar
 %endif
@@ -458,6 +459,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Wed Feb 25 2026 Manish Tiwari <matiwari@redhat.com> - 1.0-1
+- Update to 1.0 release
+- https://savannah.gnu.org/news/?id=10853
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

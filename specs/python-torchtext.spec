@@ -73,25 +73,23 @@ with text processing functionality needed for AI.
 
 rm -rf third_party/*
 
-%build
-# Building uses python3_sitearch/torch/utils/cpp_extension.py
-# cpp_extension.py does a general linking with all the pytorch libs which
-# leads warnings being reported by rpmlint.
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
-%if %{with test}
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files -l torchtext
+
 %check
+%if %{with test}
+%pyproject_check_import
 %pytest -sv
 %endif
 
-%install
-%py3_install
-
-%files -n python3-%{pypi_name}
-%license LICENSE
-%doc README.rst
-%{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/%{pypi_name}-*.egg-info/
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
 %autochangelog

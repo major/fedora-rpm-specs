@@ -30,9 +30,6 @@ BuildRequires: clang(major) = %{llvm_ver}
 BuildRequires: clang-devel(major) = %{llvm_ver}
 BuildRequires: compiler-rt(major) = %{llvm_ver}
 BuildRequires: llvm-devel(major) = %{llvm_ver}
-# required for SPIR-V support
-# TODO: add a major provide to spirv-llvm-translator
-BuildRequires: spirv-llvm-translator-devel >= %{llvm_ver}, spirv-llvm-translator-devel < %[%{llvm_ver} + 1]
 
 # basic deps
 BuildRequires: glew-devel

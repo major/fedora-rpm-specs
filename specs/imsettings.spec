@@ -1,6 +1,6 @@
 Name:		imsettings
-Version:	1.8.10
-Release:	5%{?dist}
+Version:	1.8.11
+Release:	2%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -13,7 +13,7 @@ BuildRequires:	libX11-devel
 BuildRequires:	xfconf-devel, libgxim-devel >= 0.5.0
 %endif
 BuildRequires: make
-Source0:	https://bitbucket.org/tagoh/%{name}/downloads/%{name}-%{version}.tar.bz2
+Source0:	https://gitlab.com/tagoh/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.bz2
 ## Fedora specific: run IM for certain languages only
 Patch0:		%{name}-constraint-of-language.patch
 ## Fedora specific: Disable XIM support
@@ -22,9 +22,9 @@ Patch1:		%{name}-disable-xim.patch
 Patch2:		%{name}-xinput-xcompose.patch
 %if 0%{?rhel}
 Patch4:		%{name}-glib.patch
+## backport
+Patch5:		%{name}-disable-kde.patch
 %endif
-## Backport patch
-Patch7:		%{name}-disable-cinnamon.patch
 
 Summary:	Delivery framework for general Input Method configuration
 Requires:	xorg-x11-xinit >= 1.0.2-22.fc8
@@ -252,6 +252,7 @@ fi
 %{_bindir}/imsettings-list
 %{_bindir}/imsettings-reload
 %{_bindir}/imsettings-switch
+%{_bindir}/imsettings-boot.sh
 %{_libexecdir}/imsettings-check
 %{_libexecdir}/imsettings-daemon
 %{_libexecdir}/xinputinfo.sh
@@ -318,6 +319,16 @@ fi
 %endif
 
 %changelog
+* Wed Mar  4 2026 Akira TAGOH <tagoh@redhat.com> - 1.8.11-2
+- Disable imsettings for KDE
+
+* Tue Mar  3 2026 Akira TAGOH <tagoh@redhat.com> - 1.8.11-1
+- New upstream release.
+- Fix D-Bus session lifetime issue.
+  Resolves: rhbz#2402652
+- Reset gtk-im-module gsettings key if no actions required for imsettings
+  Resolves: rhbz#2402681
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

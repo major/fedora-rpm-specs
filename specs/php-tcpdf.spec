@@ -1,23 +1,23 @@
 # remirepo/Fedora spec file for php-tcpdf
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    7a2701251e5d52fc3d508fd71704683eb54f5939
+%global gh_commit    e1e2ade18e574e963473f53271591edd8c0033ec
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
-%global gh_date      2025-11-21
+%global gh_date      2026-03-03
 %global gh_project   TCPDF
 %global real_name    tcpdf
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.10.1
-Release:        2%{?dist}
+Version:        6.11.2
+Release:        1%{?dist}
 
 URL:            http://www.tcpdf.org
 License:        LGPL-3.0-or-later
@@ -100,91 +100,109 @@ By default, TCPDF uses the GD library which is know as slower than ImageMagick
 solution. You can optionally install php-pecl-imagick; TCPDF will use it.
 
 
-%package dejavu-lgc-sans-fonts
+%package dejavu-lgc-sans
 Summary:        DejaVu LGC sans-serif fonts for tcpdf
 BuildRequires:  dejavu-lgc-sans-fonts
 Requires:       %{name} = %{version}-%{release}
 Requires:       dejavu-lgc-sans-fonts
+Obsoletes:      %{name}-dejavu-lgc-sans-fonts < 6.11
+Provides:       %{name}-dejavu-lgc-sans-fonts = %{version}
 
-%description dejavu-lgc-sans-fonts
+%description dejavu-lgc-sans
 This package allow to use system DejaVu LGC sans-serif variable-width
 font faces in TCPDF.
 
-%package dejavu-lgc-sans-mono-fonts
+%package dejavu-lgc-sans-mono
 Summary:        DejaVu LGC mono-spaced fonts for tcpdf
 BuildRequires:  dejavu-lgc-sans-mono-fonts
 Requires:       %{name} = %{version}-%{release}
 Requires:       dejavu-lgc-sans-mono-fonts
+Obsoletes:      %{name}-dejavu-lgc-sans-mono-fonts < 6.11
+Provides:       %{name}-dejavu-lgc-sans-mono-fonts = %{version}
 
-%description dejavu-lgc-sans-mono-fonts
+%description dejavu-lgc-sans-mono
 This package allow to use system DejaVu LGC sans-serif mono-spaced
 font faces in TCPDF.
 
-%package dejavu-lgc-serif-fonts
+%package dejavu-lgc-serif
 Summary:        DejaVu LGC serif fonts for tcpdf
 BuildRequires:  dejavu-lgc-serif-fonts
 Requires:       %{name} = %{version}-%{release}
 Requires:       dejavu-lgc-serif-fonts
+Obsoletes:      %{name}-dejavu-lgc-serif-fonts < 6.11
+Provides:       %{name}-dejavu-lgc-serif-fonts = %{version}
 
-%description dejavu-lgc-serif-fonts
+%description dejavu-lgc-serif
 This package allow to use system DejaVu LGC serif variable-width
 font faces in TCPDF.
 
-%package dejavu-sans-fonts
+%package dejavu-sans
 Summary:        DejaVu sans-serif fonts for tcpdf
 BuildRequires:  dejavu-sans-fonts
 Requires:       %{name} = %{version}-%{release}
 Requires:       dejavu-sans-fonts
+Obsoletes:      %{name}-dejavu-sans-fonts < 6.11
+Provides:       %{name}-dejavu-sans-fonts = %{version}
 
-%description dejavu-sans-fonts
+%description dejavu-sans
 This package allow to use system DejaVu sans-serif variable-width
 font faces in TCPDF.
 
-%package dejavu-sans-mono-fonts
+%package dejavu-sans-mono
 Summary:        DejaVu mono-spaced fonts for tcpdf
 BuildRequires:  dejavu-sans-mono-fonts
 Requires:       %{name} = %{version}-%{release}
 Requires:       dejavu-sans-mono-fonts
+Obsoletes:      %{name}-dejavu-sans-mono-fonts < 6.11
+Provides:       %{name}-dejavu-sans-mono-fonts = %{version}
 
-%description dejavu-sans-mono-fonts
+%description dejavu-sans-mono
 This package allow to use system DejaVu sans-serif mono-spaced
 font faces in TCPDF.
 
-%package dejavu-serif-fonts
+%package dejavu-serif
 Summary:        DejaVu serif fonts for tcpdf
 BuildRequires:  dejavu-serif-fonts
 Requires:       %{name} = %{version}-%{release}
 Requires:       dejavu-serif-fonts
+Obsoletes:      %{name}-dejavu-serif-fonts < 6.11
+Provides:       %{name}-dejavu-serif-fonts = %{version}
 
-%description dejavu-serif-fonts
+%description dejavu-serif
 This package allow to use system DejaVu serif variable-width
 font faces in TCPDF.
 
-%package gnu-free-mono-fonts
+%package gnu-free-mono
 Summary:        GNU FreeFonts mono-spaced for tcpdf
 BuildRequires:  gnu-free-mono-fonts
 Requires:       gnu-free-mono-fonts
 Requires:       %{name} = %{version}-%{release}
+Obsoletes:      %{name}-gnu-free-mono-fonts < 6.11
+Provides:       %{name}-gnu-free-mono-fonts = %{version}
 
-%description gnu-free-mono-fonts
+%description gnu-free-mono
 This package allow to use system GNU FreeFonts mono-spaced font faces in TCPDF.
 
-%package gnu-free-sans-fonts
+%package gnu-free-sans
 Summary:        GNU FreeFonts sans-serif for tcpdf
 BuildRequires:  gnu-free-sans-fonts
 Requires:       gnu-free-sans-fonts
 Requires:       %{name} = %{version}-%{release}
+Obsoletes:      %{name}-gnu-free-sans-fonts < 6.11
+Provides:       %{name}-gnu-free-sans-fonts = %{version}
 
-%description gnu-free-sans-fonts
+%description gnu-free-sans
 This package allow to use system GNU FreeFont sans-serif font faces in TCPDF.
 
-%package gnu-free-serif-fonts
+%package gnu-free-serif
 Summary:        GNU FreeFonts serif for tcpdf
 BuildRequires:  gnu-free-serif-fonts
 Requires:       gnu-free-serif-fonts
 Requires:       %{name} = %{version}-%{release}
+Obsoletes:      %{name}-gnu-free-serif-fonts < 6.11
+Provides:       %{name}-gnu-free-serif-fonts = %{version}
 
-%description gnu-free-serif-fonts
+%description gnu-free-serif
 This package allow to use system GNU FreeFont serif font faces in TCPDF.
 
 
@@ -283,36 +301,40 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 %config(noreplace) %{_sysconfdir}/php.d/opcache-%{name}.blacklist
 %config(noreplace) %{_sysconfdir}/php-zts.d/opcache-%{name}.blacklist
 
-%files dejavu-lgc-sans-fonts
+%files dejavu-lgc-sans
 %{_datadir}/php/%{real_name}/fonts/dejavulgcsans*
 %exclude %{_datadir}/php/%{real_name}/fonts/dejavulgcsansmono*
 
-%files dejavu-lgc-sans-mono-fonts
+%files dejavu-lgc-sans-mono
 %{_datadir}/php/%{real_name}/fonts/dejavulgcsansmono*
 
-%files dejavu-lgc-serif-fonts
+%files dejavu-lgc-serif
 %{_datadir}/php/%{real_name}/fonts/dejavulgcserif*
 
-%files dejavu-sans-fonts
+%files dejavu-sans
 %{_datadir}/php/%{real_name}/fonts/dejavusans*
 %exclude %{_datadir}/php/%{real_name}/fonts/dejavusansmono*
 
-%files dejavu-sans-mono-fonts
+%files dejavu-sans-mono
 %{_datadir}/php/%{real_name}/fonts/dejavusansmono*
 
-%files dejavu-serif-fonts -f dejavu-serif.lst
+%files dejavu-serif -f dejavu-serif.lst
 
-%files gnu-free-mono-fonts
+%files gnu-free-mono
 %{_datadir}/php/%{real_name}/fonts/freemono*
 
-%files gnu-free-sans-fonts
+%files gnu-free-sans
 %{_datadir}/php/%{real_name}/fonts/freesans*
 
-%files gnu-free-serif-fonts
+%files gnu-free-serif
 %{_datadir}/php/%{real_name}/fonts/freeserif*
 
 
 %changelog
+* Tue Mar  3 2026 Remi Collet <remi@remirepo.net> - 6.11.2-1
+- update to 6.11.2
+- rename fonts subpackages to respect guidelines #2372651
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

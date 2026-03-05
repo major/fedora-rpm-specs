@@ -7,14 +7,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 49.1
+Version: 50~rc
 Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:     https://wiki.gnome.org/Apps/EyeOfGnome
-Source0: https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
-Patch0:  libpeas1_pygobject352.patch
+Source0: https://download.gnome.org/sources/%{name}/50/%{name}-%{tarball_version}.tar.xz
+
+Patch0:  eog-lower-requires-libpeas-version.patch
 
 BuildRequires: pkgconfig(exempi-2.0)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
@@ -138,6 +139,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Tue Mar 03 2026 Jan Grulich <jgrulich@redhat.com> - 50~rc-1
+- Update to 50.rc
+
 * Mon Jan 19 2026 Jan Horak <jhorak@redhat.com> - 49.1-1
 - Update to 49.1
 

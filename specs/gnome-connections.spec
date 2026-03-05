@@ -6,8 +6,8 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        50~beta
-Release:        2%{?dist}
+Version:        50~rc
+Release:        1%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Tue Mar 03 2026 Jan Grulich <jgrulich@redhat.com> - 50~rc-1
+- Update to 50.rc
+
 * Tue Feb 03 2026 Jan Horak <jhorak@redhat.com> - 50~beta-2
 - Update to 50.beta
 

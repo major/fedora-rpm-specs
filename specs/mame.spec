@@ -42,6 +42,10 @@ BuildRequires:  libXinerama-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  lua-devel >= 5.3.0
 BuildRequires:  make
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91420
+%ifarch riscv64
+BuildRequires:  mold
+%endif
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  portaudio-devel
 BuildRequires:  portmidi-devel
@@ -209,6 +213,11 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@-g@-g1@")
 #FPC guidelines exception request
 #https://pagure.io/packaging-committee/issue/1075
 RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
+
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91420
+%ifarch riscv64
+RPM_LD_FLAGS+=" -fuse-ld=mold"
+%endif
 
 #mame fails to build with LTO enabled
 #according to upstream LTO would not help much anyway:

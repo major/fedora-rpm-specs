@@ -6,7 +6,7 @@
 Summary:        Bindings of libevent to Lua
 Name:           lua-event
 Version:        0.4.6
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        MIT
 URL:            https://github.com/harningt/luaevent/
 Source0:        https://github.com/harningt/luaevent/archive/v%{version}/luaevent-%{version}.tar.gz
@@ -82,6 +82,9 @@ lua -e \
 %endif
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 0.4.6-19
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

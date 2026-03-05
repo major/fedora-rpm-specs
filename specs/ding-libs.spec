@@ -1,31 +1,27 @@
 Name: ding-libs
-Version: 0.6.2
-Release: 61%{?dist}
+Version: 0.7.0
+Release: 62%{?dist}
 Summary: "Ding is not GLib" assorted utility libraries
 License: LGPL-3.0-or-later
-URL: https://pagure.io/SSSD/ding-libs
-Source0: https://releases.pagure.org/SSSD/ding-libs/%{name}-%{version}.tar.gz
+URL: https://github.com/SSSD/ding-libs/
+Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 # If a new upstream release changes some, but not all of these
 # version numbers, remember to keep the Release tag in order to
 # allow clean upgrades!
-%global path_utils_version 0.2.1
 %global dhash_version 0.5.0
-%global collection_version 0.7.0
-%global ref_array_version 0.1.5
-%global basicobjects_version 0.1.1
-%global ini_config_version 1.3.1
+%global ini_config_version 2.0.0
 
 ### Patches ###
 
 ### Dependencies ###
 # ding-libs is a meta-package that will pull in all of its own
 # sub-packages
-Requires: libpath_utils = %{path_utils_version}-%{release}
+Obsoletes: libpath_utils <= 0.2.1
+Obsoletes: libcollection <= 0.7.0
+Obsoletes: libbasicobjects <= 0.1.1
+Obsoletes: libref_array <= 0.1.5
 Requires: libdhash = %{dhash_version}-%{release}
-Requires: libcollection = %{collection_version}-%{release}
-Requires: libref_array = %{ref_array_version}-%{release}
-Requires: libbasicobjects = %{basicobjects_version}-%{release}
 Requires: libini_config = %{ini_config_version}-%{release}
 
 ### Build Dependencies ###
@@ -43,8 +39,7 @@ BuildRequires: check-devel
 BuildRequires: make
 
 %description
-A meta-package that pulls in libcollection, libdhash, libini_config,
-librefarray libbasicobjects, and libpath_utils.
+A meta-package that pulls in libdhash and libini_config.
 
 %package devel
 Summary: Development packages for ding-libs
@@ -52,51 +47,16 @@ License: LGPL-3.0-or-later
 
 # ding-libs is a meta-package that will pull in all of its own
 # sub-packages
-Requires: libpath_utils-devel = %{path_utils_version}-%{release}
+Obsoletes: libpath_utils-devel <= 0.2.1
+Obsoletes: libcollection-devel <= 0.7.0
+Obsoletes: libbasicobjects-devel <= 0.1.1
+Obsoletes: libref_array-devel <= 0.1.5
 Requires: libdhash-devel = %{dhash_version}-%{release}
-Requires: libcollection-devel = %{collection_version}-%{release}
-Requires: libref_array-devel = %{ref_array_version}-%{release}
-Requires: libbasicobjects-devel = %{basicobjects_version}-%{release}
 Requires: libini_config-devel = %{ini_config_version}-%{release}
 
 %description devel
-A meta-package that pulls in development libraries for libcollection,
-libdhash, libini_config, librefarray and libpath_utils.
-
-##############################################################################
-# Path Utils
-##############################################################################
-
-%package -n libpath_utils
-Summary: Filesystem Path Utilities
-License: LGPL-3.0-or-later
-Version: %{path_utils_version}
-
-%description -n libpath_utils
-Utility functions to manipulate filesystem pathnames
-
-%package -n libpath_utils-devel
-Summary: Development files for libpath_utils
-Requires: libpath_utils = %{path_utils_version}-%{release}
-License: LGPL-3.0-or-later
-Version: %{path_utils_version}
-
-%description -n libpath_utils-devel
-Utility functions to manipulate filesystem pathnames
-
-%ldconfig_scriptlets -n libpath_utils
-
-%files -n libpath_utils
-%doc COPYING COPYING.LESSER
-%{_libdir}/libpath_utils.so.1
-%{_libdir}/libpath_utils.so.1.0.1
-
-%files -n libpath_utils-devel
-%{_includedir}/path_utils.h
-%{_libdir}/libpath_utils.so
-%{_libdir}/pkgconfig/path_utils.pc
-%doc path_utils/README.path_utils
-%doc path_utils/doc/html/
+A meta-package that pulls in development libraries for
+libdhash and libini_config.
 
 
 ##############################################################################
@@ -138,162 +98,50 @@ time properties
 
 
 ##############################################################################
-# collection
-##############################################################################
-%package -n libcollection
-Summary: Collection data-type for C
-License: LGPL-3.0-or-later
-Version: %{collection_version}
-
-%description -n libcollection
-A data-type to collect data in a hierarchical structure for easy iteration
-and serialization
-
-%package -n libcollection-devel
-Summary: Development files for libcollection
-License: LGPL-3.0-or-later
-Requires: libcollection = %{collection_version}-%{release}
-Version: %{collection_version}
-
-%description -n libcollection-devel
-A data-type to collect data in a hierarchical structure for easy iteration
-and serialization
-
-%ldconfig_scriptlets -n libcollection
-
-
-%files -n libcollection
-%doc COPYING
-%doc COPYING.LESSER
-%{_libdir}/libcollection.so.*
-
-%files -n libcollection-devel
-%{_includedir}/collection.h
-%{_includedir}/collection_tools.h
-%{_includedir}/collection_queue.h
-%{_includedir}/collection_stack.h
-%{_libdir}/libcollection.so
-%{_libdir}/pkgconfig/collection.pc
-%doc collection/doc/html/
-
-
-##############################################################################
-# ref_array
-##############################################################################
-
-%package -n libref_array
-Summary: A refcounted array for C
-License: LGPL-3.0-or-later
-Version: %{ref_array_version}
-
-%description -n libref_array
-A dynamically-growing, reference-counted array
-
-%package -n libref_array-devel
-Summary: Development files for libref_array
-Requires: libref_array = %{ref_array_version}-%{release}
-License: LGPL-3.0-or-later
-Version: %{ref_array_version}
-
-%description -n libref_array-devel
-A dynamically-growing, reference-counted array
-
-%ldconfig_scriptlets -n libref_array
-
-%files -n libref_array
-%doc COPYING
-%doc COPYING.LESSER
-%{_libdir}/libref_array.so.1
-%{_libdir}/libref_array.so.1.2.1
-
-%files -n libref_array-devel
-%{_includedir}/ref_array.h
-%{_libdir}/libref_array.so
-%{_libdir}/pkgconfig/ref_array.pc
-%doc refarray/README.ref_array
-%doc refarray/doc/html/
-
-##############################################################################
-# basicobjects
-##############################################################################
-
-%package -n libbasicobjects
-Summary: Basic object types for C
-License: GPL-3.0-or-later
-Version: %{basicobjects_version}
-
-%description -n libbasicobjects
-Basic object types
-
-%package -n libbasicobjects-devel
-Summary: Development files for libbasicobjects
-License: GPL-3.0-or-later
-Version: %{basicobjects_version}
-Requires: libbasicobjects = %{basicobjects_version}-%{release}
-
-%description -n libbasicobjects-devel
-Basic object types
-
-%ldconfig_scriptlets -n libbasicobjects
-
-%files -n libbasicobjects
-%doc COPYING
-%doc COPYING.LESSER
-%{_libdir}/libbasicobjects.so.0
-%{_libdir}/libbasicobjects.so.0.1.0
-
-%files -n libbasicobjects-devel
-%{_includedir}/simplebuffer.h
-%{_libdir}/libbasicobjects.so
-%{_libdir}/pkgconfig/basicobjects.pc
-
-##############################################################################
 # ini_config
 ##############################################################################
 
 %package -n libini_config
 Summary: INI file parser for C
 License: LGPL-3.0-or-later
-Requires: libcollection%{?_isa} = %{collection_version}-%{release}
-Requires: libref_array%{?_isa} = %{ref_array_version}-%{release}
-Requires: libbasicobjects%{?_isa} = %{basicobjects_version}-%{release}
-Requires: libpath_utils%{?_isa} = %{path_utils_version}-%{release}
+Obsoletes: libpath_utils <= 0.2.1
+Obsoletes: libcollection <= 0.7.0
+Obsoletes: libbasicobjects <= 0.1.1
+Obsoletes: libref_array <= 0.1.5
 Version: %{ini_config_version}
 
 %description -n libini_config
-Library to process config files in INI format into a libcollection data
-structure
+Library to process config files in INI format
 
 %package -n libini_config-devel
 Summary: Development files for libini_config
 License: LGPL-3.0-or-later
+Obsoletes: libpath_utils-devel <= 0.2.1
+Obsoletes: libcollection-devel <= 0.7.0
+Obsoletes: libbasicobjects-devel <= 0.1.1
+Obsoletes: libref_array-devel <= 0.1.5
 Requires: libini_config = %{ini_config_version}-%{release}
-Requires: libcollection-devel = %{collection_version}-%{release}
-Requires: libref_array-devel = %{ref_array_version}-%{release}
-Requires: libbasicobjects-devel = %{basicobjects_version}-%{release}
 Version: %{ini_config_version}
 
 %description -n libini_config-devel
-Library to process config files in INI format into a libcollection data
-structure
+Library to process config files in INI format
 
 %ldconfig_scriptlets -n libini_config
 
 %files -n libini_config
 %doc COPYING
 %doc COPYING.LESSER
-%{_libdir}/libini_config.so.5
-%{_libdir}/libini_config.so.5.2.1
+%{_libdir}/libini_config.so.8
+%{_libdir}/libini_config.so.8.0.0
 
 %files -n libini_config-devel
-%{_includedir}/ini_config.h
 %{_includedir}/ini_configobj.h
-%{_includedir}/ini_valueobj.h
-%{_includedir}/ini_comment.h
 %{_includedir}/ini_configmod.h
+%{_includedir}/ref_array.h
 %{_libdir}/libini_config.so
 %{_libdir}/pkgconfig/ini_config.pc
 %doc ini/doc/html/
+%doc refarray/README.ref_array
 
 
 ##############################################################################
@@ -331,6 +179,9 @@ rm -f \
 rm -f */doc/html/installdox
 
 %changelog
+* Mon Mar  2 2026 Alexey Tikhonov <atikhono@redhat.com> - 0.7.0-62
+- New upstream release 0.7.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

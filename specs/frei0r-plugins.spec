@@ -8,7 +8,7 @@
 %endif
 
 Name:           frei0r-plugins
-Version:        2.5.4
+Version:        2.5.5
 Release:        %autorelease
 Summary:        Frei0r - a minimalist plugin API for video effects
 

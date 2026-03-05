@@ -2173,9 +2173,6 @@ chmod a+x %{buildroot}%{install_datadir}/scan-view/{Reporter.py,startfile.py}
 rm -vf %{buildroot}%{install_datadir}/clang/clang-format-bbedit.applescript
 rm -vf %{buildroot}%{install_datadir}/clang/clang-format-sublime.py*
 
-# Remove unpackaged files
-rm -Rvf %{buildroot}%{install_datadir}/clang-doc
-
 # TODO: What are the Fedora guidelines for packaging bash autocomplete files?
 rm -vf %{buildroot}%{install_datadir}/clang/bash-autocomplete.sh
 
@@ -3471,6 +3468,7 @@ fi
     clang/clang-include-fixer.py*
     clang/clang-tidy-diff.py*
     clang/run-find-all-symbols.py*
+    clang-doc/*
 }}
 
 %files -n %{pkg_name_clang}-tools-extra-devel

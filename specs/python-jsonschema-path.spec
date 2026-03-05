@@ -2,7 +2,7 @@
 %global modname jsonschema_path
 
 Name:           python-%{srcname}
-Version:        0.4.4
+Version:        0.4.5
 Release:        %autorelease
 Summary:        Object-oriented JSONSchema
 
@@ -46,7 +46,7 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files %{modname}
+%pyproject_save_files -l %{modname}
 
 
 %check
@@ -54,7 +54,6 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
 %doc README.rst
 
 

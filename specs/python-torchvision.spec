@@ -32,12 +32,8 @@ URL:            https://github.com/pytorch/vision
 Source0:        %{url}/archive/%{commit0}/vision-%{shortcommit0}.tar.gz
 %else
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/vision-v%{version}.tar.gz
-# https://github.com/pytorch/vision/pull/8096/commits/86620bd84b872b76db0acafec167949dca03a29e
-#Patch1:         0001-AV_CODEC_CAP_INTRA_ONLY-is-not-defined.patch
 %endif
-# Need at least -g debugging
-# Find where ffmpeg header and libs are
-# Patch0:         0001-prepare-python-torchvision-setup-for-fedora.patch
+# get the hip version, step on the cuda version
 Patch1:         0001-A-better-cuda-version.patch
 # Fix build with FFmpeg 8
 Patch2:         %{name}-ffmpeg8.patch
@@ -64,7 +60,17 @@ BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(setuptools)
 
 %if %{with test}
-BuildRequires: python3dist(pytest)
+BuildRequires:  python3dist(pytest)
+%endif
+
+%ifarch x86_64
+BuildRequires:  hipblas-devel
+BuildRequires:  hipblaslt-devel
+BuildRequires:  hipsolver-devel
+BuildRequires:  hipsparse-devel
+BuildRequires:  rocm-core-devel
+BuildRequires:  rocprim-devel
+BuildRequires:  rocthrust-devel
 %endif
 
 Requires:      python3dist(numpy)

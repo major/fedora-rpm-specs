@@ -105,6 +105,8 @@ Patch4:         paraview-resources.patch
 # Fix build with Qt 6.10.1
 # https://gitlab.kitware.com/paraview/qttesting/-/commit/c11a762df71d9f44698b93a0aab5dceb59c90e63
 Patch5:         c11a762df71d9f44698b93a0aab5dceb59c90e63.diff
+# https://gitlab.kitware.com/paraview/paraview/-/commit/cd7e633df299c29e8e76c34df83d8c67dfb386a1
+Patch6:         cd7e633df299c29e8e76c34df83d8c67dfb386a1.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
@@ -149,6 +151,7 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libxml2-devel
+BuildRequires:  libXcursor-devel
 BuildRequires:  libXt-devel
 BuildRequires:  netcdf-cxx-devel
 BuildRequires:  cmake(nlohmann_json)
@@ -527,7 +530,6 @@ do
   %cmake_build
   module purge
 done
-%cmake_build -t ParaViewPythonDoc
 
 
 %install

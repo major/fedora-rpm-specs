@@ -1,8 +1,12 @@
 %global srcname openapi-spec-validator
 %global modname openapi_spec_validator
 
+# Test the jsonschema-rs validator backend?
+# Not yet packaged: python-jsonschema-rs
+%bcond jsonschema_rs 0
+
 Name:           python-%{srcname}
-Version:        0.8.1
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 
@@ -12,12 +16,18 @@ Source:         %{pypi_source %{modname}}
 
 # Relax jsonschema dependency
 # Fedora still has 4.23
+# Loosen the upper bound on the jsonschema dependency to <5.0.0; we cannot
+# respect upstream’s choice to pin this dependency to a particular minor
+# release number.
 Patch:          relax_jsonschema_dep.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+%if %{with jsonschema_rs}
+BuildRequires:  python3dist(jsonschema-rs)
+%endif
 
 %global _description %{expand:
 OpenAPI Spec Validator is a Python library that validates OpenAPI Specs against
@@ -49,15 +59,18 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files %{modname}
+%pyproject_save_files -l %{modname}
 
 
 %check
 %pytest -m 'not network'
+%if %{with jsonschema_rs}
+OPENAPI_SPEC_VALIDATOR_SCHEMA_VALIDATOR_BACKEND=jsonschema-rs \
+    %pytest -m 'not network'
+%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
 %doc README.rst
 %{_bindir}/%{srcname}
 

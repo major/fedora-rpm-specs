@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.25.11
+%global downstream_so_version 0.26.3
 
 %bcond alembic       1
 %bcond draco         1
@@ -25,7 +25,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        25.11
+Version:        26.03
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -33,6 +33,9 @@ Summary:        3D VFX pipeline interchange file format
 #
 # Apache-2.0:
 #   - pxr/imaging/hgiVulkan/spirv_reflect.{cpp,h}
+#   - pxr/imaging/plugin/hdEmbree/pxrPbrt/pbrtUtils.h
+#   - pxr/imaging/plugin/hdEmbree/pxrIES/pxr-IES.patch
+#   - pxr/imaging/plugin/hdEmbree/pxrIES/ies.{cpp,h}
 # BSD-3-Clause:
 #   - pxr/base/gf/ilmbase_*
 #   - pxr/base/js/rapidjson/msinttypes/ (removed in %%prep)
@@ -57,15 +60,13 @@ Summary:        3D VFX pipeline interchange file format
 #   - pxr/imaging/garch/khrplatform.h
 #   - pxr/imaging/hgiVulkan/vk_mem_alloc.h
 #   - pxr/imaging/plugin/hioOpenEXR/OpenEXR/deflate/ (removed in %%prep)
-#   - third_party/renderman-26/plugin/rmanArgsParser/pugixml/ (removed in %%prep)
-#   - third_party/renderman-27/plugin/rmanArgsParser/pugixml/ (removed in %%prep)
+#   - third_party/renderman/plugin/rmanArgsParser/pugixml/ (removed in %%prep)
 # MIT OR Unlicense:
 #   - pxr/imaging/hio/stb/
 # Pixar AND GPL-3.0-or-later WITH Bison-exception-2.2:
 #   - pxr/usd/sdf/path.tab.{cpp,h}
 #   - pxr/usd/sdf/textFileFormat.tab.{cpp,h}
-#   - third_party/renderman-26/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
-#   - third_party/renderman-27/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
+#   - third_party/renderman/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
 #
 # Additionally, the following would be listed above but are removed in %%prep:
 #
@@ -322,6 +323,39 @@ Provides:       bundled(openexr) = 3.2.0
 # effort to remove the Boost dependency. While pxr_boost::python is derived
 # from boost::python, it is not intended to remain compatible with it.
 Provides:       bundled(boost) = 1.85.0
+# From LICENSE.txt:
+# ===========================================================
+# PBRT (Sampling functions)
+# ============================================================
+# USD includes code derived from the pbrt-v4 library, retrieved from
+# https://github.com/mmp/pbrt-v4/tree/8c19f304558fd7681e2fef2c395a689d0106fb05, which was
+# provided subject to the unmodified Apache 2.0 license. For details, see
+# https://github.com/mmp/pbrt-v4/blob/8c19f304558fd7681e2fef2c395a689d0106fb05/LICENSE.txt
+#
+# The bundled routines in pxr/imaging/plugin/hdEmbree/pxrPbrt/pbrtUtils.h are
+# just a handful of small internal utility functions. It would not be
+# reasonable to add a dependency on the full pbrt ray tracer even if these were
+# exposed in a public API.
+Provides:       bundled(pbrt-v4) = 4~20251208.8c19f30
+# From LICENSE.txt:
+# ============================================================
+# Cycles (IES reader)
+# ============================================================
+# USD includes classes from the Blender Foundation's Cycles project, retrieved from
+# https://projects.blender.org/blender/cycles/src/commit/0be21d452506ec90259b9063c28b5a6fc1cac6a1,
+# which was provided subject to the unmodified Apache 2.0 license. For details, see
+# https://projects.blender.org/blender/cycles/src/commit/0be21d452506ec90259b9063c28b5a6fc1cac6a1/LICENSE
+#
+# These are not a candidate for unbundling because they are internal utility
+# functions not available in the public API. There are also some minor
+# modifications for OpenUSD, documented in
+# pxr/imaging/plugin/hdEmbree/pxrIES/pxr-IES.patch.
+#
+# Is this commit a post-release snapshot of 4.5.0, or a pre-release snapshot of
+# 5.0.0? How can we tell? There doesn’t seem to be a project version number
+# embedded in the source tree. Since this commit hash is only two commits ahead
+# of the v4.5.0 tag, we consider it a 4.5.0 post-release.
+Provides:       bundled(cycles) = 4.5.0^20251210.0be21d4
 
 # We are currently able to unbundle these and use system libraries, but we
 # retain the virtual Provides, commented out, as documentation and in case we
@@ -334,8 +368,7 @@ Provides:       bundled(boost) = 1.85.0
 # Version from: pxr/base/tf/pxrCLI11/README.md
 # Provides:       bundled(cli11) = 2.3.1
 # Version from:
-# third_party/renderman-26/plugin/rmanArgsParser/pugixml/pugiconfig.hpp
-# third_party/renderman-27/plugin/rmanArgsParser/pugixml/pugiconfig.hpp
+# third_party/renderman/plugin/rmanArgsParser/pugixml/pugiconfig.hpp
 # (header comment)
 # Provides:       bundled(pugixml) = 1.9
 # Version from: pxr/base/js/rapidjson/rapidjson.h
@@ -359,8 +392,8 @@ Provides:       bundled(boost) = 1.85.0
 # https://chromium.googlesource.com/libyuv/libyuv and find the commit hash that
 # corresponds to a particular serial number.
 # LIBYUV_VERSION 1895 = commit a97746349b244efd54ab1eb0c0a7366717b33f39
-# Provides:       bundled(libyuv) = 0^20240812gita977463
-# Version from pxr/imaging/plugin/hioAvif/aom/config/aom_version.h
+# Provides:       bundled(libyuv) = 0^20240812.a977463
+# Version from pxr/imaging/plugin/hioAvif/config/aom_version.h
 # Provides:       bundled(aom) = 3.0.0
 
 %description libs
@@ -479,9 +512,9 @@ cat > pxr/base/tf/pxrCLI11/CLI11.h <<'EOF'
 namespace pxr_CLI = CLI;
 EOF
 # Remove the bundled copy of pugixml.
-find third_party/renderman-*/plugin/rmanArgsParser/pugixml/ \
+find third_party/renderman/plugin/rmanArgsParser/pugixml/ \
     -type f ! -name '*.hpp' -print -delete
-for hdr in third_party/renderman-*/plugin/rmanArgsParser/pugixml/*.hpp
+for hdr in third_party/renderman/plugin/rmanArgsParser/pugixml/*.hpp
 do
   cat > "${hdr}" <<EOF
 #include <$(basename "${hdr}")>

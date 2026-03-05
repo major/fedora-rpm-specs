@@ -5,13 +5,14 @@
 
 Name:		lsyncd
 Version:	2.3.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	File change monitoring and synchronization daemon
 License:	GPL-2.0-or-later AND CC-BY-3.0
 URL:		https://axkibe.github.io/lsyncd/
 Source0:	https://github.com/axkibe/%{name}/archive/%{gittag0}/%{name}-%{version}.tar.gz
 
 Patch0:		cmake-DOCDIR.patch
+Patch1:		lsyncd-2.3.1-lua-5.5.patch
 
 Source1:	lsyncd.sysconfig
 Source2:	lsyncd.logrotate
@@ -81,6 +82,9 @@ install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_sysctldir}/50-lsyncd.conf
 %{_unitdir}/lsyncd.service
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 2.3.1-11
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

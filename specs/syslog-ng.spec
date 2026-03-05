@@ -1,14 +1,14 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 10
-%global syslog_ng_patch_ver 2
+%global syslog_ng_minor_ver 11
+%global syslog_ng_patch_ver 0
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 5%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -83,7 +83,7 @@ BuildRequires:  python3-tornado
 %bcond_without examples
 %endif
 
-%bcond_with snmp
+%bcond_without snmp
 
 %if %{with bpf}
 BuildRequires: libbpf-devel
@@ -654,6 +654,10 @@ fi
 
 
 %changelog
+* Mon Mar 02 2026 Peter Czanik <peter@czanik.hu> - 4.11.0-1
+- update to 4.11.0
+- re-enable SNMP support
+
 * Thu Feb 26 2026 Remi Collet <remi@remirepo.net> - 4.10.2-5
 - rebuild with mongo-c-driver version 2
 

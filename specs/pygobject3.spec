@@ -4,13 +4,13 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.55.3
+Version:        3.56.0
 Release:        %autorelease
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.55/pygobject-%{version}.tar.gz
+Source0:        https://download.gnome.org/sources/pygobject/3.56/pygobject-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(girepository-2.0) >= %{glib2_version}
@@ -29,10 +29,6 @@ BuildRequires:  gtk3
 BuildRequires:  xwayland-run
 BuildRequires:  mutter
 BuildRequires:  mesa-dri-drivers
-
-# https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/518
-# https://bugzilla.redhat.com/show_bug.cgi?id=2437484
-Patch:          fix-main-context-iteration.patch
 
 %description
 The %{name} package provides a convenient wrapper for the GObject library

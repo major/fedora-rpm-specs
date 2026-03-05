@@ -1,4 +1,4 @@
-%global	pver	20260129
+%global	pver	20260302
 
 Name:		mawk
 Version:	1.3.4
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 %{_mandir}/man7/mawk-*.7*
 
 %changelog
+* Tue Mar 03 2026 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20260302
+- upgrade to 1.3.4-20260302
+
 * Sat Jan 31 2026 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20260129
 - upgrade to 1.3.4-20260129
 

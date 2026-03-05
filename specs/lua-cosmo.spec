@@ -3,13 +3,14 @@
 
 Name:      lua-cosmo
 Version:   16.06.04
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   Safe templates for Lua
 License:   MIT
 URL:       %{forgeurl}
 
 %forgemeta
 Source:    %{forgesource}
+Patch0:    https://patch-diff.githubusercontent.com/raw/mascarenhas/cosmo/pull/16.patch
 
 BuildArch:     noarch
 Requires:      lua-lpeg
@@ -26,6 +27,7 @@ without without the downside of allowing arbitrary code in the templates.
 
 %prep
 %forgesetup
+%patch -P0 -p1 -b .lua55
 
 %build
 # Nothing to do here
@@ -46,6 +48,9 @@ lua tests/test_cosmo.lua
 %{lua_pkgdir}/cosmo/
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 16.06.04-10
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 16.06.04-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -34,6 +34,7 @@ Summary:        Purely functional programming language with first class types
 License:        BSD-3-Clause
 URL:            https://www.idris-lang.org
 Source0:        https://github.com/idris-lang/Idris2/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         idris2-api-mk.patch
 
 # i686: idris_signal.c:21:1: error: static assertion failed: "when not lock free, atomic functions are not async-signal-safe"
 # ppc64le & s390x: Exception: (while loading libc.so) /lib64/libc.so: invalid ELF header
@@ -94,6 +95,7 @@ The package provide the runtime support library for idris2.
 
 %prep
 %setup -q -n Idris2-%{version}
+%autopatch -p1
 
 
 %build
@@ -110,7 +112,7 @@ make -C docs html
 
 %install
 export PATH=%{buildroot}/bin:$PATH
-make install install-api DESTDIR=%{buildroot} PREFIX=%{_libdir}
+make install DESTDIR=%{buildroot} PREFIX=%{_libdir}
 
 mkdir %{buildroot}%{_bindir}
 %if %{without racket}
@@ -124,6 +126,8 @@ mv %{buildroot}%{_libdir}/%{name}-%{version}/lib/libidris2_support.so %{buildroo
 
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 LD_LIBRARY_PATH="%{buildroot}%{_libdir}:" %{buildroot}%{_bindir}/idris2 --bash-completion-script %{name} | sed "s/dirnames/default/" > %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+
+make install-api DESTDIR=%{buildroot} PREFIX=%{_libdir} IDRIS2_PACKAGE_PATH=%{buildroot}%{_libdir}/%{name}-%{version} LD_LIBRARY_PATH="%{buildroot}%{_libdir}:"
 
 
 %if %{with test}

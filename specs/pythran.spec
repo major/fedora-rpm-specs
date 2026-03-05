@@ -26,6 +26,10 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Resolved upstream
 Patch: https://github.com/serge-sans-paille/pythran/pull/2375.patch
 
+# Skip numpy float128 tests when numpy doesn't support them
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2398.patch
+
 # Compatibility with ply post-3.11 version
 # Resolved upstream
 Patch: https://github.com/serge-sans-paille/pythran/pull/2402.patch
@@ -35,8 +39,24 @@ Patch: https://github.com/serge-sans-paille/pythran/pull/2402.patch
 Patch: https://github.com/serge-sans-paille/pythran/pull/2403.patch
 
 # Fix 32 bit type conversion failures
-# Sent upstream
+# Resolved upstream
 Patch: https://github.com/serge-sans-paille/pythran/pull/2404.patch
+
+# Reduce test_numpy_random_bytes1 sample size
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2407.patch
+
+# Reduce C++ code generation during testing
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2413.patch
+
+# Widen tolerance in test_numpy_random_bytes1
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2414.patch
+
+# Widen tolerance in random distribution tests
+# Resolved upstream
+Patch: https://github.com/serge-sans-paille/pythran/pull/2415.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures
@@ -120,29 +140,19 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %check
-k=""
 %if 0%{?__isa_bits} == 32
-# These tests cause memory (address space) exhaustion; see discussion in
-# https://src.fedoraproject.org/rpms/pythran/pull-request/28.
-for t in test_fftn_{8,11,15,16,17,20,22} \
-    test_{h,ih,ir}fft_{8,14} \
-    test_{,i}fft_3d{,_axis,f64_axis,int64_axis} \
-    test_numpy_random_bytes1 \
-    test_convolve_2b
-do
-  k="${k:+$k and }not $t"
-done
-%endif
-
-# Don’t run tests in parallel on 32-bit architecutres. Running tests in serial
+# Skip C++ regeneration for determinism verification to reduce
+# memory usage on 32-bit systems where address space is limited.
+PYTHRAN_SKIP_DETERMINISM_CHECK=1 \
+%else
+# Don’t run tests in parallel on 32-bit architectures. Running tests in serial
 # makes memory errors, which occur in some tests on 32-bit architectures, more
 # reproducible, and makes the output when they occur less confusing: we tend to
 # get individual test failures rather than a pytest INTERNALERROR.
-%if 0%{?__isa_bits} != 32
 %global use_pytest_xdist 1
 %endif
 
-%pytest %{?use_pytest_xdist:-n auto} ${k:+-k "$k"}
+%pytest %{?use_pytest_xdist:-n auto}
 
 
 %files -f %{pyproject_files}

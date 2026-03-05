@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        50~beta.7
+Version:        50~rc
 Release:        %autorelease
 Summary:        Assistive technology for people with visual impairments
 
@@ -77,6 +77,8 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 %{_datadir}/icons/hicolor/*/apps/orca.png
 %{_datadir}/icons/hicolor/scalable/apps/orca.svg
 %{_datadir}/icons/hicolor/symbolic/apps/orca-symbolic.svg
+%{_datadir}/applications/orca.desktop
+%{_datadir}/glib-2.0/schemas/org.gnome.Orca.gschema.xml
 %{_sysconfdir}/xdg/autostart/orca-autostart.desktop
 %{_mandir}/man1/orca.1*
 %{_userunitdir}/orca.service

@@ -1,8 +1,8 @@
 %global pypi_name cotyledon
 
 Name:           python-%{pypi_name}
-Version:        2.0.0
-Release:        6%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -19,6 +19,7 @@ BuildArch:      noarch
 Summary:        Cotyledon provides a framework for defining long-running services
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python-unversioned-command
 
 %description -n python3-%{pypi_name}
 Cotyledon provides a framework for defining long-running services.
@@ -63,6 +64,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Tue Mar 03 2026 Alfredo Moralejo <amoralej@redhat.com> - 2.2.0-1
+- Update to 2.2.0
+
 * Wed Feb 11 2026 Michel Lind <salimma@fedoraproject.org> - 2.0.0-6
 - Rebuilt without python-mock
 

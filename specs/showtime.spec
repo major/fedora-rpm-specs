@@ -4,7 +4,7 @@
 %global blueprint_compiler_version 0.18
 
 Name:           showtime
-Version:        50~beta
+Version:        50~rc
 
 Release:        %autorelease
 Summary:        Modern video player built using GTK4

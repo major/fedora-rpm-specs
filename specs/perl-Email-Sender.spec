@@ -1,23 +1,24 @@
 Name:           perl-Email-Sender
 Epoch:          1
 Version:        2.601
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A library for sending email
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Email-Sender
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-Sender-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Capture::Tiny) >= 0.08
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Email::Abstract) >= 3.006
-BuildRequires:  perl(Email::Address)
+BuildRequires:  perl(Email::Address::XS)
 BuildRequires:  perl(Email::Simple) >= 1.998
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(Exporter)
@@ -31,29 +32,24 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(List::MoreUtils)
+BuildRequires:  perl(List::Util) >= 1.45
 BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Moo) >= 1.000008
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(MooX::Types::MooseLike::Base)
-BuildRequires:  perl(Net::SMTP)
-BuildRequires:  perl(Net::SMTP::SSL)
-BuildRequires:  perl(Pod::Coverage::TrustPod)
+BuildRequires:  perl(Net::SMTP) >= 3.07
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Sub::Exporter::Util)
 BuildRequires:  perl(Sub::Override)
 BuildRequires:  perl(Sys::Hostname)
-BuildRequires:  perl(Test::MinimumVersion)
 BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::More) >= 0.96
-BuildRequires:  perl(Test::Pod) >= 1.41
 BuildRequires:  perl(Throwable::Error) >= 0.200003
 BuildRequires:  perl(Try::Tiny)
+BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(Email::Abstract) >= 3.006
-Requires:       perl(Net::SMTP::SSL)
 Requires:       perl(Throwable::Error) >= 0.200003
 
 %{?perl_default_filter}
@@ -75,15 +71,19 @@ suitable for serious use, for a variety of reasons.
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-RELEASE_TESTING=1 %{make_build} test
+%{make_build} test
 
 %files
 %doc Changes README
 %license LICENSE
-%{perl_vendorlib}/Email*
-%{_mandir}/man3/Email*
+%dir %{perl_vendorlib}/Email
+%{perl_vendorlib}/Email/Sender*
+%{_mandir}/man3/Email::Sender*
 
 %changelog
+* Tue Mar 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.601-7
+- Update list of dependencies
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.601-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

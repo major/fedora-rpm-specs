@@ -1,15 +1,14 @@
 %global srcname fido2
 
 Name:           python-%{srcname}
-Version:        2.0.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
 # Main code is BSD
-# pyu2f is APLv2
+# pyu2f (fido2/hid) is APLv2
 # public_suffix_list.dat is MPLv2
-# Automatically converted from old format: BSD and ASL 2.0 and MPLv2.0 - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND Apache-2.0 AND MPL-2.0
+License:        BSD-2-Clause AND Apache-2.0 AND MPL-2.0
 URL:            https://github.com/Yubico/python-fido2
 Source0:        https://github.com/Yubico/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 

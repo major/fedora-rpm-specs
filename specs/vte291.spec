@@ -19,7 +19,7 @@
 %endif
 
 Name:           vte291
-Version:        0.83.90
+Version:        0.83.91
 Release:        %autorelease
 Summary:        GTK terminal emulator library
 

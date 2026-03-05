@@ -1,5 +1,5 @@
-%global commit d6e1d922fb7f5c2e0052da566a8a30f0e6b8f613
-%global snapdate 20251216
+%global commit fa931f3285ced10ace628f7f1ac951e1951e7ea6
+%global snapdate 20260302
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -16,25 +16,9 @@ URL:            https://github.com/mackron/dr_libs
 # See LICENSE.
 License:        Unlicense OR MIT-0
 
-%global dr_flac_version 0.13.2^%{snapinfo}
-# We package a pre-release of 0.7.3; this is the same as 0.7.2, plus:
-#   dr_mp3: Fix an error in drmp3_open_and_read_pcm_frames_s16() and family.
-#
-#   This fixes an issue where an invalid pointer can be returned when memory
-#   allocation fails.
-#
-#   https://github.com/mackron/dr_libs/commit/d6e1d922fb7f5c2e0052da566a8a30f0e6b8f613
-#
-# which fixes the issue reported in:
-#
-#   Fixed the issue of returning a wild pointer when MP3 memory allocation
-#   fails during reading.
-#
-#   https://github.com/mackron/dr_libs/pull/293
-#
-# TODO: change ~ to ^ once we are no longer packaging a pre-release
-%global dr_mp3_version 0.7.3~%{snapinfo}
-%global dr_wav_version 0.14.3^%{snapinfo}
+%global dr_flac_version 0.13.3^%{snapinfo}
+%global dr_mp3_version 0.7.3^%{snapinfo}
+%global dr_wav_version 0.14.5^%{snapinfo}
 
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
@@ -124,7 +108,7 @@ Documentation for dr_libs.
 %prep
 %autosetup -n dr_libs-%{commit}
 
-# Omit the "playback" tests. We cannot run these anyway, so we would hae to
+# Omit the "playback" tests. We cannot run these anyway, so we would have to
 # skip them, and by not even compiling them, we can avoid a BuildRequires on
 # miniaudio.
 sed -r -i 's/^([[:blank:]]*)(.*_playback)/\1# \2/' CMakeLists.txt

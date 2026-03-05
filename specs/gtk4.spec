@@ -26,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.21.5
+Version:        4.21.6
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -72,11 +72,6 @@ Summary:        GTK graphical user interface library
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1.0 AND MIT AND MIT-open-group AND HPND-sell-variant AND GPL-2.0-or-later AND GPL-3.0-or-later AND OFL-1.1
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.20/gtk-%{version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/9476
-# https://gitlab.gnome.org/GNOME/gtk/-/issues/8038
-# Should fix GNOME Tour window height at 1024x768
-Patch:          0001-textureutils-Fix-SVG-texture-height.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

@@ -9,10 +9,11 @@ Summary: A lightweight text editor written in Lua, adapted from lite
 License: MIT and OFL
 URL:     https://lite-xl.com/
 Source:  https://github.com/lite-xl/lite-xl/archive/refs/tags/v%{version}.tar.gz
+Patch0:  lite-xl-2.1.8-lua-5.5.patch
 
 BuildRequires: gcc
 BuildRequires: meson
-BuildRequires: (pkgconfig(lua) >= 5.4 with pkgconfig(lua) < 5.5)
+BuildRequires: (pkgconfig(lua) >= 5.4 with pkgconfig(lua) < 5.6)
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(sdl3)

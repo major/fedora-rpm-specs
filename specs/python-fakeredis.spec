@@ -9,6 +9,15 @@ License:        BSD-3-Clause
 URL:            https://github.com/cunla/fakeredis-py
 Source:         %{pypi_source fakeredis}
 
+# The `lupa` library ships with bundled lua versions in upstream, which, makes
+# this code work as-is, but in our downstream versions of `python3-lupa`, we
+# are packaging it without any lua source (--no-bundle), in that case, neither
+# lupa or fakeredis have a way to indicate the location of lua sources when
+# installed on the system. This patch aims to use `lupa.LuaRuntime()` directly,
+# as it correctly picks the LuaJIT and Lua 5.1 that is installed alongside with
+# python3-lupa.
+Patch:          patch-script-mixing-to-use-luaruntime-directly.diff
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # Test dependencies
@@ -51,9 +60,7 @@ Summary:        %{summary}
 
 
 %check
-# fakeredis scripting mixin imports optional Lua runtimes (lupa.lua54) which
-# are not always present in Fedora builds
-%pyproject_check_import -e fakeredis.commands_mixins.scripting_mixin
+%pyproject_check_import
 
 %{_bindir}/valkey-server --bind 127.0.0.1 --port 6390 &
 VALKEY_SERVER_PID=$!

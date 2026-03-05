@@ -5,7 +5,7 @@
 %global bootstrap 1
 
 Name:     erlang-%{realname}
-Version:  3.26.0
+Version:  3.27.0
 Release:  %autorelease
 Summary:  Tool for working with Erlang projects
 License:  Apache-2.0 and MIT
@@ -63,8 +63,6 @@ Erlang libraries, applications, and systems in a repeatable manner.
 
 %prep
 %autosetup -p1 -n %{realname}-%{version}
-# Remove bundled hex_core v. 0.10.1
-rm -rf apps/rebar/src/vendored/
 
 %build
 ebin_paths=$(perl -e 'print join(":", grep { !/rebar/} (glob("%{_libdir}/erlang/lib/*/ebin"), glob("%{_datadir}/erlang/lib/*/ebin")))')
