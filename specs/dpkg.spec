@@ -8,14 +8,7 @@ Name:           dpkg
 Version:        1.23.5
 Release:        %autorelease
 Summary:        Package maintenance system for Debian Linux
-# The entire source code is GPLv2+ with exception of the following
-# lib/dpkg/md5.c, lib/dpkg/md5.h - Public domain
-# lib/dpkg/showpkg.c, dselect/methods/multicd, lib/dpkg/utils.c, lib/dpkg/showpkg.c - GPLv2
-# dselect/methods/ftp - GPL no version info
-# scripts/Dpkg/Gettext.pm - BSD
-# lib/compat/obstack.h, lib/compat/gettext.h,lib/compat/obstack.c - LGPLv2+
-# Automatically converted from old format: GPLv2 and GPLv2+ and LGPLv2+ and Public Domain and BSD - review is highly recommended.
-License:        GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-BSD
+License:        GPL-2.0-only AND GPL-2.0-or-later AND FSFAP AND FSFULLR
 URL:            https://tracker.debian.org/pkg/dpkg
 Source0:        http://ftp.debian.org/debian/pool/main/d/dpkg/%{name}_%{version}.tar.xz
 

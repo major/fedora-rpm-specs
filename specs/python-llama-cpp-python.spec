@@ -28,9 +28,8 @@ Summary:        Simple Python bindings for @ggerganov's llama.cpp library
 URL:            https://github.com/abetlen/llama-cpp-python
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 Source1:        %{llama_repo}/archive/%{llama_commit}.tar.gz#/%{llama_archive}
-Patch1:         0001-don-t-build-llava.patch
-Patch2:         0002-search-for-libllama-so-in-usr-lib64.patch
-Patch3:         https://github.com/abetlen/llama-cpp-python/pull/1718.patch#/0003-drop-optional-dependency-of-scikit-build-core.patch
+Patch1:         0002-search-for-libllama-so-in-usr-lib64.patch
+Patch2:         https://github.com/abetlen/llama-cpp-python/pull/1718.patch#/0003-drop-optional-dependency-of-scikit-build-core.patch
 
 %bcond_without test
 
@@ -73,8 +72,8 @@ High-level Python API for text completion.
 OpenAI compatible web server
 
 # Extract the contents of the specific llama-cpp tarball into the /vendor/llama.cpp within
-# the python bindings directory. Since llama-cpp cmake build is allowed (patch 0001),
-# the llama-cpp cmake build will also be triggered.
+# the python bindings directory. The llama-cpp cmake build will be triggered, which now
+# includes llava vision support.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version} -Sgit
 tar -xf %{SOURCE1} --strip-components=1 --directory %{_builddir}/%{pypi_name}-%{version}/vendor/llama.cpp

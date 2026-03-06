@@ -3058,7 +3058,6 @@ fi
 %license llvm/LICENSE.TXT
 
 %{expand_bins %{expand:
-    bugpoint
     dsymutil
     FileCheck
     llc
@@ -3159,10 +3158,13 @@ fi
     llubi
     llvm-gpu-loader
 }}
+%else
+%{expand_bins %{expand:
+    bugpoint
+}}
 %endif
 
 %{expand_mans %{expand:
-    bugpoint
     clang-tblgen
     dsymutil
     FileCheck
@@ -3229,6 +3231,10 @@ fi
 %if %{maj_ver} >= 23
 %{expand_mans %{expand:
     llubi
+}}
+%else
+%{expand_mans %{expand:
+    bugpoint
 }}
 %endif
 

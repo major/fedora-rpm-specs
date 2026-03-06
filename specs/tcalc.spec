@@ -1,11 +1,13 @@
 Name:           tcalc
 Version:        2.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        The terminal calculator
 
 License:        GPL-3.0-or-later
 URL:            http://sites.google.com/site/mohammedisam2000/home/projects
 Source:         %{url}/%{name}-%{version}.tar.gz
+
+Patch0:         0000-fix-compilation-errors.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -28,7 +30,7 @@ argument.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -53,6 +55,9 @@ mv test test2 examples/
 %{_infodir}/%{name}.info*
 
 %changelog
+* Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.1-25
+- Add a patch to fix compilation errors
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

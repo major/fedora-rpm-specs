@@ -8,6 +8,8 @@ URL:            https://stdlibs.omnilib.dev
 Source:         %{pypi_source stdlibs}
 # use tomllib instead of the deprecated toml
 Patch:          stdlibs-use-tomllib.diff
+# _missing_stdlib_info should be ignored
+Patch:          https://github.com/omnilib/stdlibs/pull/180.patch#/stdlibs-py315.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

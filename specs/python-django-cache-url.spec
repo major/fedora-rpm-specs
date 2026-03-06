@@ -1,13 +1,14 @@
 %global pypi_name django-cache-url
+%global modname django_cache_url
 
 Name:           python-%{pypi_name}
-Version:        3.4.5
+Version:        3.4.6
 Release:        %autorelease
 Summary:        Use Cache URLs in your Django application
 
 License:        MIT
 URL:            https://github.com/epicserve/django-cache-url
-Source:         %{pypi_source}
+Source:         %{pypi_source %modname}
 
 BuildArch:      noarch
 
@@ -29,7 +30,7 @@ CACHE_URL environment variable to configure your Django application.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{modname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -41,7 +42,7 @@ CACHE_URL environment variable to configure your Django application.
 
 %install
 %pyproject_install
-%pyproject_save_files -l django_cache_url
+%pyproject_save_files -l %{modname}
 
 
 %check

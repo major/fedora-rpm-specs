@@ -36,6 +36,9 @@ Patch:          0001-set-license-in-crate-metadata.patch
 # https://github.com/adrianreber/mirrorlist-server/pull/336
 Patch:          0002-Bump-console-dependency-from-0.15-to-0.16-to-match-i.patch
 Patch:          0003-Relax-ipnetwork-dependency-to-allow-both-v0.20-and-v.patch
+# already bumped upstream to 3.0.1, we want to be able to use both 2.0.4 and 3.x
+# https://github.com/adrianreber/mirrorlist-server/commit/9b1324a3e6a2f0cf450a239a762c1d534fe6267e
+Patch:          0004-Relax-dns-lookup-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

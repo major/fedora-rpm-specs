@@ -1,6 +1,6 @@
 Name:          awf-gtk4
-Version:       3.2.0
-Release:       3%{?dist}
+Version:       4.0.0
+Release:       1%{?dist}
 Summary:       Theme preview application for GTK 4
 Summary(fr):   Application d'aperçu de thème pour GTK 4
 License:       GPL-3.0-or-later
@@ -16,22 +16,22 @@ BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: gtk4-devel
 Requires:      gtk4
-Requires:      libnotify >= 0.7.0
 Requires:      hicolor-icon-theme
+Requires:      libnotify >= 0.7.0
 
 %description %{expand:
-A widget factory is a theme preview application for GTK. It displays the
-various widget types provided by GTK in a single window allowing to see
+A widget factory is a theme preview application for GTK and Qt. It
+displays the various widget types in a single window allowing to see
 the visual effect of the applied theme.
 
-This package provides the GTK 4 version.}
+This package provides the program for GTK 4.}
 
 %description -l fr %{expand:
-La fabrique à widgets est une application d'aperçu de thème pour GTK. Elle
-affiche les différents types de widgets fournis par GTK dans une seule
+La fabrique à widgets est une application d'aperçu de thème pour GTK
+et Qt. Elle affiche les différents types de widgets dans une seule
 fenêtre permettant de voir l'effet visuel du thème appliqué.
 
-Ce paquet fournit la version GTK 4.}
+Ce paquet fournit le programme pour GTK 4.}
 
 
 %prep
@@ -75,6 +75,9 @@ done
 
 
 %changelog
+* Tue Mar 03 2026 Fabrice Creuzot <code@luigifab.fr> - 4.0.0-1
+- New upstream release
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

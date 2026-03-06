@@ -3,7 +3,7 @@
 
 Name:           avgtime
 Version:        0.5.1
-Release:        0.50.git%{verdate}%{?dist}
+Release:        0.51.git%{verdate}%{?dist}
 Summary:        Time a command and print average, standard deviation
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -55,6 +55,9 @@ cp -a avgtime $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Wed Mar 04 2026 Kalev Lember <kalevlember@gmail.com> - 0.5.1-0.51.git20150501
+- Rebuilt for ldc 1.42
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-0.50.git20150501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

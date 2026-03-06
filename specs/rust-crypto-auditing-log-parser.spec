@@ -4,13 +4,14 @@
 %global crate crypto-auditing-log-parser
 
 Name:           rust-crypto-auditing-log-parser
-Version:        0.2.4
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Event log parser for crypto-auditing project
 
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/crypto-auditing-log-parser
 Source:         %{crates_source}
+Source1:        query.conf
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -41,7 +42,9 @@ License:        GPL-3.0-or-later AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR 
 %license LICENSE
 %license LICENSE.dependencies
 %doc README.md
-%{_bindir}/crypto-auditing-log-parser
+%{_bindir}/crau-query
+%config(noreplace) %{_sysconfdir}/crypto-auditing/query.conf
+%dir %{_sysconfdir}/crypto-auditing/
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
@@ -57,6 +60,9 @@ License:        GPL-3.0-or-later AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR 
 
 %install
 %cargo_install
+
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/crypto-auditing
+install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/crypto-auditing
 
 %if %{with check}
 %check

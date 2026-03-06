@@ -1,16 +1,22 @@
-%global commit 694d4ced7e97f349cd4f54dbfc8c8a69982a54e4
-%global date 20200724
+%global commit 24f889aaabe33bc390b993d737d830b8dd367e61
+%global date 20250205
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:       daala
-Version:    0
-Release:    %autorelease -s %{date}git%{shortcommit}
+Version:    0^%{date}git%{shortcommit}
+Release:    %autorelease
 Summary:    Daala video compression
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD
+# tools/daalainfo.c: GNU General Public License
+# tools/jpegyuv.c: BSD 3-Clause License
+# tools/upload.py: Apache License 2.0
+# tools/yuvjpeg.c: BSD 3-Clause License
+# include/daala/daala_integer.h: BSD 3-Clause License
+# src/tests/test_coef_coder.c: GNU General Public License v2.0 or later
+# The rest is BSD 2-Clause License
+License:    BSD-2-Clause AND BSD-3-Clause AND Apache-2.0 AND GPL-1.0-or-later
 URL:        http://xiph.org/daala/
 
-Source0:    https://gitlab.xiph.org/xiph/%{name}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:    https://gitlab.xiph.org/xiph/daala/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake

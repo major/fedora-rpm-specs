@@ -1,12 +1,12 @@
-%global somajor 9
+%global somajor 12
 %global sominor 0
 %global sotiny  0
 %global soversion %{somajor}.%{sominor}.%{sotiny}
 
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
-Version:		1.15.0
-Release:		5%{?dist}
+Version:		1.16.0
+Release:		1%{?dist}
 License:		BSD-3-Clause
 URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
@@ -22,8 +22,6 @@ BuildRequires:		make
 BuildRequires:		nasm
 %endif
 BuildRequires:		doxygen, perl(Getopt::Long)
-
-Patch1:                 0001-vpx_codec_enc_init_multi-fix-double-free-on-init-fai.patch
 
 %description
 libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications
@@ -49,7 +47,6 @@ and decoder.
 %prep
 %setup -q -n libvpx-%{version}
 %patch -P0 -p1 -b .fortify-source-on
-%patch -P1 -p1 -b .0001
 
 %build
 
@@ -205,6 +202,9 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Wed Mar 04 2026 Wim Taymans <wtaymans@redhat.com> - 1.16.0-1
+- Update to 1.16.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

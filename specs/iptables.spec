@@ -10,7 +10,7 @@
 Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
-Version: 1.8.12
+Version: 1.8.13
 Release: 1%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
@@ -25,10 +25,6 @@ Source9: arptables.service
 Source10: ebtables.service
 Source11: ebtables-helper
 Source12: ebtables-config
-
-# Already upstreamed fix to revert refuse to run under file capabilities
-# https://bugzilla.netfilter.org/show_bug.cgi?id=1830
-Patch: revert-capabilities-fix-docker.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -474,6 +470,9 @@ fi
 
 
 %changelog
+* Wed Mar 04 2026 Phil Sutter <psutter@redhat.com> - 1.8.13-1
+- new version
+
 * Sat Feb 21 2026 Kevin Fenzi <kevin@scrye.com> - 1.8.12-1
 - Update to 1.8.12. Fixes rhbz#2440980
 - Add patch to revert refuse to run under file capabilities and fix docker.

@@ -1,5 +1,8 @@
+# Needed for EPEL 8
+%undefine __cmake_in_source_build
+
 Name:		xrootd-s3-http
-Version:	0.6.4
+Version:	0.6.5
 Release:	1%{?dist}
 Summary:	S3/HTTP/Globus filesystem plugins for XRootD
 
@@ -31,6 +34,9 @@ and HTTP backends through an XRootD server.
 %prep
 %setup -q
 
+# Drop json version requirement for EPEL 8
+sed 's!nlohmann_json 3.11.2 QUIET!nlohmann_json QUIET!' -i CMakeLists.txt
+
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DXROOTD_EXTERNAL_TINYXML2:BOOL=ON \
@@ -40,8 +46,8 @@ and HTTP backends through an XRootD server.
 %cmake_build
 
 %check
-# s3 tests require network (https://s3.us-east-1.amazonaws.com)
-%ctest -- -E 'S3|s3'
+# s3-unit test require network (https://s3.us-east-1.amazonaws.com)
+%ctest -- -E 's3-unit'
 
 %install
 %cmake_install
@@ -61,6 +67,9 @@ rm %{buildroot}%{_libdir}/libXrdPelicanHttpCore.so
 %license LICENSE
 
 %changelog
+* Wed Mar 04 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.5-1
+- Update to version 0.6.5
+
 * Tue Feb 10 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.4-1
 - Update to version 0.6.4
 

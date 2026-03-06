@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 2.2.2
-Release: 2%{?dist}
+Version: 2.3.0
+Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source:  https://downloads.apache.org/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -86,7 +86,6 @@ echo "RPM_OPT_FLAGS: $RPM_OPT_FLAGS"
 export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference -Wno-error=stringop-overflow"
 
 %cmake \
-    -DOVERRIDE_INSTALL_PREFIX=/usr \
     -DCMAKE_COLOR_MAKEFILE:BOOL=OFF \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
     -DINSTALL_LIBDIR:PATH=%{_libdir} \
@@ -96,7 +95,6 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference -Wno-error=stringo
     -DLZ4_HOME="$(pkg-config --variable=prefix liblz4)" \
     -DZLIB_HOME="$(pkg-config --variable=prefix zlib)" \
     -DZSTD_HOME="$(pkg-config --variable=prefix libzstd)" \
-    -DGTEST_HOME="$(pkg-config --variable=prefix gtest)" \
     -DPROTOBUF_HOME="$(pkg-config --variable=prefix protobuf)" \
     -Dorc_VERSION="%{version}" \
     -DBUILD_CPP_TESTS=off \
@@ -135,6 +133,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Tue Mar 3 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.3.0-1
+- Apache ORC 2.3.0 GA
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

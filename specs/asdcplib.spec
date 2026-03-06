@@ -1,17 +1,14 @@
-%global gittag rel_2_13_0
+%global gittag rel_2_13_2
 
 Name:           asdcplib
-Version:        2.13.0
+Version:        2.13.2
 Release:        %autorelease
 Summary:        AS-DCP file access libraries
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://www.cinecert.com/asdcplib/
 
 Source0:        https://github.com/cinecert/%{name}/archive/%{gittag}/%{name}-%{version}.tar.gz
 Source1:        %{name}.pc
-Patch0:         https://github.com/cinecert/asdcplib/commit/07376d400d9db0cd1d816539a813fd1aea27c5dc.patch
-Patch1:         https://github.com/cinecert/asdcplib/commit/ffb6121b0d3503047e491316cff02c61868cf4b5.patch
 
 ExcludeArch:    %{ix86} %{arm}
 

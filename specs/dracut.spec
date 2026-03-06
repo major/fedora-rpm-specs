@@ -7,8 +7,8 @@
 %global __requires_exclude pkg-config
 
 Name: dracut
-Version: 108
-Release: 5%{?dist}
+Version: 109
+Release: 1%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -34,27 +34,15 @@ Patch3:  0003-fix-kernel-install-do-not-generate-an-initrd-when-on.patch
 # revert: "fix(rescue): make rescue always no-hostonly"
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch4:  0004-revert-fix-rescue-make-rescue-always-no-hostonly.patch
-# fix(dracut-install): initize fts pointer
-# Author: Pavel Valena <pvalena@redhat.com>
-Patch5:  0005-fix-dracut-install-initize-fts-pointer.patch
 # feat: add openssl module
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch6:  0006-feat-add-openssl-module.patch
+Patch5:  0005-feat-add-openssl-module.patch
 # fix(ossl): ignore compiler warnings
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch7:  0007-fix-ossl-ignore-compiler-warnings.patch
+Patch6:  0006-fix-ossl-ignore-compiler-warnings.patch
 # Revert "feat(fips): include openssl's fips.so and openssl.cnf"
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch8:  0008-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
-# Revert "feat(systemd-sysusers): run systemd-sysusers as part
-# Author: Adam Williamson <awilliam@redhat.com>
-Patch9:  0009-Revert-feat-systemd-sysusers-run-systemd-sysusers-as.patch
-# fix(systemd-sysusers): reapply "feat(systemd-sysusers): run systemd-sysusers
-# Author: Pavel Valena <pvalena@redhat.com>
-Patch10: 0010-fix-systemd-sysusers-reapply-feat-systemd-sysusers-r.patch
-# fix: partial revert for hostonly sloppy mode
-# Author: Jo Zzsi <jozzsicsataban@gmail.com>
-Patch11: 0011-fix-partial-revert-for-hostonly-sloppy-mode.patch
+Patch7:  0007-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -251,7 +239,7 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/log/dracut.log
 mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/initramfs
 mkdir -p $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d
 
-install -m 0644 dracut.conf.d/fedora.conf.example $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/01-dist.conf
+install -m 0644 dracut.conf.d/fedora/01-dist.conf $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/01-dist.conf
 rm -f $RPM_BUILD_ROOT%{_mandir}/man?/*suse*
 
 echo 'hostonly="no"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/02-generic-image.conf
@@ -326,7 +314,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/11systemd-resolved
 %{dracutlibdir}/modules.d/11systemd-sysext
 %{dracutlibdir}/modules.d/11systemd-sysctl
-%{dracutlibdir}/modules.d/68systemd-sysusers
+%{dracutlibdir}/modules.d/78systemd-sysusers
 %{dracutlibdir}/modules.d/11systemd-timedated
 %{dracutlibdir}/modules.d/11systemd-timesyncd
 %{dracutlibdir}/modules.d/11systemd-tmpfiles
@@ -355,6 +343,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/70dm
 %{dracutlibdir}/modules.d/70dmraid
 %{dracutlibdir}/modules.d/70kernel-modules
+%{dracutlibdir}/modules.d/70kernel-modules-export
 %{dracutlibdir}/modules.d/70kernel-modules-extra
 %{dracutlibdir}/modules.d/70lvm
 %{dracutlibdir}/modules.d/70mdraid
@@ -487,6 +476,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Jan 22 2026 Pavel Valena <pvalena@redhat.com> - 109-1
+- Rebase to dracut-109
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 108-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.42.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -47,6 +47,7 @@ BuildRequires:  zlib-devel
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # Require gcc for linking
 Requires:       gcc
+Requires:       zlib-devel
 # Recommend compiler-rt for PGO, sanitizers and fuzzing
 Recommends:     compiler-rt%{?llvm_version}
 
@@ -146,6 +147,9 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Wed Mar 04 2026 Kalev Lember <kalevlember@gmail.com> - 1:1.42.0-2
+- Require zlib-devel for -lz
+
 * Sun Mar 01 2026 Kalev Lember <kalevlember@gmail.com> - 1:1.42.0-1
 - Update to 1.42.0
 

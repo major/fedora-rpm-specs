@@ -5,7 +5,7 @@
 %global crate crypto-auditing-agent
 
 Name:           rust-crypto-auditing-agent
-Version:        0.2.4
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Event collector agent for crypto-auditing project
 
@@ -13,7 +13,7 @@ License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/crypto-auditing-agent
 Source:         %{crates_source}
 Source1:        agent.conf
-Source2:        crypto-auditing-agent.service
+Source2:        crau-agent.service
 Source3:	crypto-auditing.sysusers
 Patch:		rust-crypto-auditing-agent-0.2.4-no-probe.patch
 
@@ -60,11 +60,11 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND MIT AND Uni
 %license LICENSE.LGPL-2.1
 %license LICENSE.dependencies
 %doc README.md
-%{_bindir}/crypto-auditing-agent
+%{_bindir}/crau-agent
 %attr(0755,root,root) %dir %{_sysconfdir}/crypto-auditing
 %config(noreplace) %{_sysconfdir}/crypto-auditing/agent.conf
 %dir %{_sysconfdir}/crypto-auditing/
-%{_unitdir}/crypto-auditing-agent.service
+%{_unitdir}/crau-agent.service
 %{_sysusersdir}/crypto-auditing.conf
 %attr(0755,crypto-auditing,crypto-auditing) %dir %{_localstatedir}/log/crypto-auditing
 
@@ -106,13 +106,13 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/crypto-auditing
 %sysusers_create_compat %{SOURCE3}
 
 %post -n %{crate}
-%systemd_post crypto-auditing-agent.service
+%systemd_post crau-agent.service
 
 %preun -n %{crate}
-%systemd_preun crypto-auditing-agent.service
+%systemd_preun crau-agent.service
 
 %postun -n %{crate}
-%systemd_postun_with_restart crypto-auditing-agent.service
+%systemd_postun_with_restart crau-agent.service
 
 %changelog
 %autochangelog

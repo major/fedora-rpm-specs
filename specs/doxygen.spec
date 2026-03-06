@@ -18,7 +18,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.16.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -356,6 +356,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Wed Mar 04 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2:1.16.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Changes/LLVM-22
+
 * Sat Jan 31 2026 Than Ngo <than@redhat.com> - 2:1.16.1-2
 - Fix rhbz#2435249, missing dependency
 

@@ -262,7 +262,7 @@
 %endif
 
 Name:	chromium
-Version: 145.0.7632.116
+Version: 145.0.7632.159
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -341,7 +341,7 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
-#  fix ftbfs caused by old python-3.9 on el8
+# fix ftbfs caused by old python-3.9 on el9
 Patch142: chromium-143-python-3.9-ftbfs.patch
  
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
@@ -1851,6 +1851,9 @@ fi
 %endif
 
 %changelog
+* Wed Mar 04 2026 Than Ngo <than@redhat.com> - 145.0.7632.159-1
+- Update to 145.0.7632.159
+
 * Tue Feb 24 2026 Than Ngo <than@redhat.com> - 145.0.7632.116-1
 - Update to 145.0.7632.116
   * CVE-2026-3061: Out of bounds read in Media

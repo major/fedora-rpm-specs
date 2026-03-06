@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.10.7
+Version:        0.10.8
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -449,6 +449,9 @@ tomcli set crates/uv-extract/Cargo.toml del features.static
 # default features.
 tomcli set crates/uv/Cargo.toml lists delitem features.test-defaults \
     'test-(crates-io|git(-lfs)?|pypi|python-managed|r2)'
+# - -test-osv: Introduces a testing dependency on osv.dev.
+tomcli set crates/uv-audit/Cargo.toml lists delitem features.default \
+    'test-(osv)'
 
 %if %{without it}
 # Integration tests (it crate) nearly all require specific Python interpreter

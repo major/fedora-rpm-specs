@@ -1,7 +1,3 @@
-%{!?luaver: %global luaver %(lua -e "print(string.sub(_VERSION, 5))" || echo 0)}
-%global lualibdir %{_libdir}/lua/%{luaver}
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 %global luacompatver 5.1
 %global luacompatlibdir %{_libdir}/lua/%{luacompatver}
 %global luacompatpkgdir %{_datadir}/lua/%{luacompatver}
@@ -9,15 +5,14 @@
 %global luapkgname luaossl
 
 Name:           lua-%{luapkgname}
-Version:        20200709
-Release:        10%{?dist}
+Version:        20250929
+Release:        1%{?dist}
 Summary:        Most comprehensive OpenSSL module in the Lua universe
 
 License:        MIT
 URL:            https://github.com/wahern/%{luapkgname}
 Source0:        https://github.com/wahern/%{luapkgname}/archive/rel-%{version}/%{name}-%{version}.tar.gz
-
-Patch1:         openssl-3-compat.patch
+Patch0:         lua-luaossl-20250929-lua-5.5.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -30,7 +25,7 @@ BuildRequires:  lua-devel
 BuildRequires:  compat-lua-devel
 %endif
 
-Requires:       lua(abi) = %{luaver}
+Requires:       lua(abi) = %{lua_version}
 
 %description
 luaossl is a comprehensive binding to OpenSSL for Lua 5.1, 5.2, and later.
@@ -58,20 +53,19 @@ for the Lua Programming Language
 
 %prep
 %setup -q -n %{luapkgname}-rel-%{version}
-
-%patch -P1 -p1
+%patch -P0 -p1 -b .lua55
 
 %build
 export CFLAGS="%{?optflags} -fPIC"
 export LDFLAGS="%{?build_ldflags}"
-make LUA_APIS="%{luaver}" %{?_smp_mflags} prefix=%{_prefix} libdir=%{_libdir}
+make LUA_APIS="%{lua_version}" %{?_smp_mflags} prefix=%{_prefix} libdir=%{_libdir}
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 make LUA_APIS="%{luacompatver}" %{?_smp_mflags} prefix=%{_prefix} libdir=%{_libdir} CFLAGS="$CFLAGS -I%{_includedir}/lua-%{luacompatver}"
 %endif
 
 %install
-make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} install%{luaver}
+make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} install%{lua_version}
 install -d -m 0755 %{buildroot}%{_pkgdocdir}
 install -p -m 0644 doc/luaossl.pdf %{buildroot}%{_pkgdocdir}/luaossl.pdf
 
@@ -80,9 +74,9 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} install%{luacompat
 %endif
 
 %files
-%{luapkgdir}/openssl
-%{luapkgdir}/openssl.lua
-%{lualibdir}/_openssl.so
+%{lua_pkgdir}/openssl
+%{lua_pkgdir}/openssl.lua
+%{lua_libdir}/_openssl.so
 %license LICENSE
 
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -97,6 +91,10 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} install%{luacompat
 %{_pkgdocdir}
 
 %changelog
+* Tue Mar  3 2026 Tom Callaway <spot@fedoraproject.org> - 20250929-1
+- update to 20250929
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20200709-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

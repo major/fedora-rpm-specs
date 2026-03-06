@@ -1,6 +1,6 @@
 Name:           glibd
 Version:        2.4.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        D bindings for the GLib C Utility Library
 
 License:        LGPL-3.0-or-later
@@ -67,6 +67,9 @@ export DFLAGS="%{_d_optflags}"
 
 
 %changelog
+* Wed Mar 04 2026 Kalev Lember <kalevlember@gmail.com> - 2.4.3-9
+- Rebuilt for ldc 1.42
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

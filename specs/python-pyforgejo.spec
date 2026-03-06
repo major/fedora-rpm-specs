@@ -1,8 +1,8 @@
 %global pypi_name pyforgejo
 
 Name:           python-%{pypi_name}
-Version:        2.0.5
-Release:        2%{?dist}
+Version:        2.0.7
+Release:        1%{?dist}
 Summary:        A client library for accessing the Forgejo API
 
 License:        MIT
@@ -47,6 +47,10 @@ A client library for accessing the Forgejo API
 %license LICENSE
 
 %changelog
+* Tue Mar 03 2026 Packit <hello@packit.dev> - 2.0.7-1
+- Update to version 2.0.7
+- Resolves: rhbz#2444295
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

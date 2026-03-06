@@ -1,6 +1,6 @@
 Name:           filebench
 Version:        1.4.9.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A model based file system workload generator
 
 License:        CDDL-1.1
@@ -32,7 +32,7 @@ cp -p %{SOURCE2} .
 
 %build
 %configure
-make CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
+make CFLAGS="$RPM_OPT_FLAGS -std=c99" %{?_smp_mflags}
 
 
 %install
@@ -49,6 +49,9 @@ install -m 644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Mon Feb 16 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.4.9.1-28
+- Explicitly use C99 standard when compiling
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

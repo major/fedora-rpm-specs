@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20251211
-%global	gitcommit		b50ca792f254939978f0ffd3126e3d9ab770a10a
+%global	gitdate		20260228
+%global	gitcommit		77338a76808d0e1b36461a94d16f0a45c83b64e9
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		7e674061492924b3dfbc884c4c9503ecab9887b2
+%global	gitcommit_free		6812b00935495786e28ebe901bfb8304dbee457c
 %else
 # currently 41.0 branch
 %global	gitdate		20250313
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20251211
-%global	tarballtime	2210
+%global	tarballdate	20260301
+%global	tarballtime	1637
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainver		53.0
+%global	mainver		53.1
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	2%{?dist}
+Release:	1%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -72,7 +72,7 @@ Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
 Patch1:	ugene-49.1-narrowing-for-unsigned-char.patch
-Patch3:	ugene-52.1.x-RegionSelectorController-overload.patch
+Patch3:	ugene-52.1.x-QObject-connect-overload.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
@@ -296,6 +296,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Mar 04 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 53.1-1
+- 53.1
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 53.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -21,34 +21,23 @@
 #
 
 # For building earlier snapshots of the compiler
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 1b0eada6b0ee93e2e694c8c146d23fca90bc11c5
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251024
-
-# The package follows LLVM's major version, but API version is still important:
-%global comgr_maj_api_ver 3
-# Upstream tags are based on rocm releases:
-%global rocm_release 7.1
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
 %global rocm_patch 0
-# What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 20
-%global llvm_version_suffix .rocm
-
+%global pkg_src therock-%{rocm_release}
 %else
-# Normal release
-
-# The package follows LLVM's major version, but API version is still important:
-%global comgr_maj_api_ver 3
-# Upstream tags are based on rocm releases:
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
+# The package follows LLVM's major version, but API version is still important:
+%global comgr_maj_api_ver 3
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 22
 %global llvm_version_suffix .rocm
 
-%endif
 # local, fedora
 %global _comgr_full_api_ver %{comgr_maj_api_ver}.0
 # mock, suse
@@ -74,7 +63,7 @@
 %global pkg_libdir lib
 %global pkg_libdir_suffix %{nil}
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %else
 %global amd_device_libs_prefix %{_libdir}/rocm/llvm/lib/clang/%{llvm_maj_ver}/lib
 %global bundle_prefix %{_libdir}/rocm/llvm
@@ -129,10 +118,10 @@
 
 Name:           %{pkg_name}
 Version:        %{llvm_maj_ver}
-%if %{with gitcommit}
-Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}.1
+%if %{with preview}
+Release:        0.rocm%{rocm_version}%{?dist}
 %else
-Release:        3.rocm%{rocm_version}%{?dist}
+Release:        4.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -144,11 +133,7 @@ Url:            https://github.com/ROCm/llvm-project
 # llvm is Apache-2.0 WITH LLVM-exception OR NCSA
 # hipcc is MIT, comgr and device-libs are NCSA:
 License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/llvm-project-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
-%endif
+Source0:        %{url}/archive/refs/tags/%{pkg_src}.tar.gz#/rocm-compilersupport-%{rocm_version}.tar.gz
 Source1:        rocm-compilersupport.prep.in
 
 # Link comgr with static versions of llvm's libraries
@@ -161,8 +146,10 @@ Patch3:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
 Patch4:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2415065
 Patch5:         0001-lld-workaround-.gnu.version-change.patch
+%if %{without preview}
 # backport
 Patch6:         0001-SemaConcept.cpp-fix-MSVC-not-all-control-paths-retur.patch
+%endif
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -405,11 +392,7 @@ Requires:      perl(Sys::Hostname)
 %endif
 
 %prep
-%if %{with gitcommit}
-%autosetup -p1 -n %{upstreamname}-%{commit0}
-%else
-%autosetup -p1 -n %{upstreamname}-rocm-%{rocm_version}
-%endif
+%autosetup -p1 -n %{upstreamname}-%{pkg_src}
 
 # Remove third-party
 #
@@ -1027,6 +1010,9 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 %endif
 
 %changelog
+* Wed Mar 4 2026 Tom Rix <Tom.Rix@amd.com> 22-4.rocm7.2.0
+- Change --with gitcommit to --with preview
+
 * Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> 22-3.rocm7.2.0
 - Fix build on TW
 - Fix dir ownership of clang-analyzer

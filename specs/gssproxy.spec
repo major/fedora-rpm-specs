@@ -19,6 +19,8 @@ Source2:        gssproxy.sock.compat.conf
 Patch0001: 0001-Fix-various-issues-detected-by-static-analysis.patch
 Patch0002: 0002-Make-systemd-use-0700-mode-on-cache-folders.patch
 Patch0003: 0003-gssproxy-Change-daemon-to-Type-notify-with-systemd.patch
+Patch0004: 0004-Remove-unneeded-include-in-configure-script.patch
+Patch0005: 0005-Don-t-check-for-libref_array-explicitly.patch
 
 ### Dependencies ###
 Requires: krb5-libs >= 1.12.0

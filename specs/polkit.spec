@@ -4,11 +4,17 @@
 Summary: An authorization framework
 Name: polkit
 Version: 127
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
 Source1: polkit.sysusers
+
+Patch1: 0001-polkit-agent-helper-service-simplify-sandbox-rules.patch
+Patch2: 0002-agent-helper-Send-standard-error-to-journal.patch
+Patch3: 0004-polkitsubject-Fix-GVariant-ref-leak-for-pidfd-withou.patch
+Patch4: 0005-Aisle-www.aisle.com-reported-an-issue-with-unsanitiz.patch
+Patch5: 0006-Add-Kazakh-translation.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -162,6 +168,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Wed Mar 04 2026 Jan Rybar <jrybar@redhat.com> - 127-3
+- backport of significant upstream patches
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 127-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

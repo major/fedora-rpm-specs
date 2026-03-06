@@ -79,6 +79,7 @@ Linux kernel.
 
 %package libipsec
 Summary: Strongswan's libipsec backend
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description libipsec
 The kernel-libipsec plugin provides an IPsec backend that works entirely
 in userland, using TUN devices and its own IPsec implementation libipsec.
@@ -89,20 +90,21 @@ Requires:       dbus
 Obsoletes:      strongswan-NetworkManager < 0:5.0.4-5
 Conflicts:      strongswan-NetworkManager < 0:5.0.4-5
 Conflicts:      NetworkManager-strongswan < 1.4.2-1
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description charon-nm
 NetworkManager plugin integrates a subset of Strongswan capabilities
 to NetworkManager.
 
 %package sqlite
 Summary: SQLite support for strongSwan
-Requires: strongswan = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description sqlite
 The sqlite plugin adds an SQLite database backend to strongSwan.
 
 %package tnc-imcvs
 Summary: Trusted network connect (TNC)'s IMC/IMV functionality
-Requires: strongswan = %{version}-%{release}
-Requires: strongswan-sqlite = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-sqlite%{?_isa} = %{version}-%{release}
 %description tnc-imcvs
 This package provides Trusted Network Connect's (TNC) architecture support.
 It includes support for TNC client and server (IF-TNCCS), IMC and IMV message

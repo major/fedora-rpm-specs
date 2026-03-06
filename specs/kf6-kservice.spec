@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Summary: KDE Frameworks 6 Tier 3 solution for advanced plugin and service introspection
-Version: 6.23.0
+Version: 6.23.1
 Release: 1%{?dist}
 
 # The following licenses are in the LICENSES folder but go unused: GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-only, LicenseRef-KDE-Accepted-GPL
@@ -12,7 +12,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
-BuildRequires:  extra-cmake-modules >= %{version}
+BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(KF6Config)
@@ -95,6 +95,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kservicetypes6
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Wed Mar 04 2026 Steve Cossette <farchord@gmail.com> - 6.23.1-1
+- 6.23.1
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

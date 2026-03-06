@@ -3,7 +3,7 @@
 # Some test dependencies are missing
 %bcond_with tests
 Name:           python-django-rest-framework
-Version:        3.16.0
+Version:        3.16.1
 Release:        %autorelease
 Summary:        Web APIs for Django, made easy
 
@@ -78,6 +78,9 @@ find . -name *.po -exec rm -f '{}' \;
 
 
 %check
+export DJANGO_SETTINGS_MODULE=rest_framework.settings
+%pyproject_check_import -e rest_framework.authtoken.admin -e rest_framework.authtoken.management.commands.drf_create_token -e rest_framework.authtoken.models -e rest_framework.authtoken.views -e rest_framework.urls
+
 %if %{with tests}
 %tox
 %endif

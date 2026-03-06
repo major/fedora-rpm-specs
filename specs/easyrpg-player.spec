@@ -40,7 +40,7 @@ URL: https://easyrpg.org
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND (Unlicense OR MIT-0) AND (MIT AND CC0-1.0) AND BSD-3-Clause AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
 Version: 0.8.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -70,9 +70,13 @@ BuildRequires: libappstream-glib
 BuildRequires: rubygem-asciidoctor
 
 # This library doesn't have pkgconfig info
-# Version 0.13.17 fixes a possible crash when reading from MS-ADPCM encoded
-# files; we want this fix since such crashes may represent security issues.
-BuildRequires: dr_wav-devel >= 0.13.17
+# Version 0.14.5 fixes CVE-2026-29022
+%if %{defined fc42}
+# The fix was backported:
+BuildRequires: dr_wav-devel >= 0.13.17^20241216git660795b-4
+%else
+BuildRequires: dr_wav-devel >= 0.14.5
+%endif
 
 BuildRequires: pkgconfig(fluidsynth)
 BuildRequires: pkgconfig(fmt)
@@ -149,6 +153,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Wed Mar 04 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.1.1-5
+- Rebuilt with updated dr_wav to fix CVE-2026-29022
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

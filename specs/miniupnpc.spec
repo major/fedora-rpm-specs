@@ -10,7 +10,7 @@ Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
 Version:    2.3.3
 Release:    %autorelease
-License:    LicenseRef-Callaway-BSD
+License:    BSD-3-Clause
 URL:        http://miniupnp.free.fr/
 
 BuildRequires:  cmake >= 3.5.0

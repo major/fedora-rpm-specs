@@ -346,7 +346,7 @@
 %global top_level_dir_name   %{vcstag}-
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        32
-%global rpmrelease      3
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1887,10 +1887,13 @@ done # end of release / debug cycle loop
 function customisejdkProperties() {
     local imagepath=${1}
     local suffix=${2}
+    local secpath=${imagepath}/conf/security
     if [ -d ${imagepath} ] ; then
+        # keep original for any possible usecases (eg jmodless jlinking)
+        cp -v "${secpath}"/java.security{,.upstream}
         # Install crypto-policies FIPS configuration files and append
         # include line to java.security
-        bash -ex %{SOURCE32} ${imagepath}/conf/security %{_libdir}/%{sdkdir -- ${suffix}}/libnssadapter.so
+        bash -ex %{SOURCE32} ${secpath} %{_libdir}/%{sdkdir -- ${suffix}}/libnssadapter.so
     fi
 }
 

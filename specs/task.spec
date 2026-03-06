@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/GothenburgBitFactory/taskwarrior
 
 Name:           task
-Version:        3.4.1
+Version:        3.4.2
 Release:        %autorelease
 Summary:        Taskwarrior - a command-line TODO list manager
 
@@ -80,6 +80,9 @@ help you stay organized, and get through your work.
 
 %prep
 %autosetup -n %{name}-%{version} -p1 -a1
+
+# since new vendored version was generated without this too
+rm -f Cargo.lock
 
 echo "Running cargo prep"
 %{cargo_prep -v vendor}

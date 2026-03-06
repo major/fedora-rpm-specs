@@ -2,7 +2,7 @@
 # they never had snoopy <= 2.4.x,
 # so we need to keep it for the duration of the lifecycle, but we can drop this
 # in Fedora >= 42 and RHEL >= 10
-%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 10)
+%if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without compat
 %else
 %bcond_with compat
@@ -10,7 +10,7 @@
 
 Name:           snoopy
 Version:        2.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A preload library to send shell commands to syslog
 License:        GPL-2.0-or-later
 URL:            https://github.com/a2o/snoopy
@@ -19,6 +19,7 @@ Source1:        snoopy-disable
 Source2:        snoopy-enable
 
 # Upstream patches (0001~0500)
+Patch0:         https://github.com/a2o/snoopy/commit/77afb175f45b03d7a92f88a90f664d8be083baf5.patch#/snoopy-glibc-2_43.diff
 
 # Proposed upstream patches (0501~1000)
 
@@ -127,6 +128,10 @@ rm %{buildroot}%{_libdir}/libsnoopy.la
 
 
 %changelog
+* Wed Mar 04 2026 Michel Lind <salimma@fedoraproject.org> - 2.5.2-4
+- Fix FTBFS on releases with glibc >= 2.43; Resolves: rhbz#2435113
+- Drop compat conditionals for Fedora >= 42, 41 is EOL
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

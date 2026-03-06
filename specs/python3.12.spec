@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.12
+%global general_version %{pybasever}.13
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -413,36 +413,6 @@ Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
 # Since on Fedora we always compile with frame pointers the BTI/PAC
 # hardware protections can be enabled without losing Perf unwinding.
 Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
-
-# 00471 # 37c05f26d11e8e24f2a760167015a267996b1d69
-# CVE-2025-12084
-#
-# * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
-# * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
-Patch471: 00471-cve-2025-12084.patch
-
-# 00472 # 2ba215eaba508b2cdd7c3acfdf3b9a6e32872274
-# CVE-2025-13836
-#
-# [3.12] gh-119451: Fix a potential denial of service in http.client (GH-119454) (#142140)
-#
-# gh-119451: Fix a potential denial of service in http.client (GH-119454)
-#
-# Reading the whole body of the HTTP response could cause OOM if
-# the Content-Length value is too large even if the server does not send
-# a large amount of data. Now the HTTP client reads large data by chunks,
-# therefore the amount of consumed memory is proportional to the amount
-# of sent data.
-Patch472: 00472-cve-2025-13836.patch
-
-# 00473 # dd705786aa0c1ccfde913858598e34e1f196be2e
-# CVE-2026-0865
-#
-#  gh-143916: Reject control characters in wsgiref.headers.Headers  (GH-143917)
-#
-# * Add 'test.support' fixture for C0 control characters
-# * gh-143916: Reject control characters in wsgiref.headers.Headers
-Patch473: 00473-cve-2026-0865.patch
 
 # 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
 # CVE-2025-15366
@@ -1792,6 +1762,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Mar 03 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.13-1
+- Update to 3.12.13
+
 * Fri Feb 06 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.12-4
 - Security fixes for CVE-2026-0865, CVE-2025-15366 and CVE-2025-15367
 

@@ -1,18 +1,13 @@
 %global srcname vcs2l
 
 Name:           python-%{srcname}
-Version:        1.1.6
+Version:        1.1.7
 Release:        %autorelease
 Summary:        Command line tool designed to make working with multiple repositories easier
 
 License:        Apache-2.0
 URL:            https://github.com/ros-infrastructure/vcs2l/
 Source0:        https://github.com/ros-infrastructure/vcs2l/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Merged upstream as ros-infrastructure/vcs2l#81, pending release
-Patch0:         find_packages.patch
-# Merged upstream as ros-infrastructure/vcs2l#82, pending release
-Patch1:         temp_url.patch
 
 BuildArch:      noarch
 
@@ -58,7 +53,7 @@ Recommends:     git
 
 %install
 %pyproject_install
-%pyproject_save_files -l vcs2l
+%pyproject_save_files -l vcs2l vcstool
 
 # Move bash completion to the proper location
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions

@@ -560,7 +560,7 @@ Patch:            0054-Issue-7223-Remove-integerOrderingMatch-requirement-f.patc
 Patch:            0055-Issue-7236-Fix-GSSAPI-tests-7237.patch
 Patch:            0056-Issue-6753-Port-ticket-49039-test.patch
 Patch:            0057-Issue-5853-Update-concread-to-0.5.10.patch
-Patch:            0058-Issue-7271-plugins-that-create-threads-need-to-updat.patch
+#Patch:            0058-Issue-7271-plugins-that-create-threads-need-to-updat.patch
 Patch:            0059-Issue-7273-In-a-chaining-environment-binding-as-remo.patch
 Patch:            0060-Issue-7279-UI-Fix-typo-in-export-certificate-dialog-.patch
 Patch:            0061-Issue-7275-UI-Improve-password-policy-field-validati.patch

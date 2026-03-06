@@ -2,25 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate dns-lookup
+%global crate xara
 
-Name:           rust-dns-lookup
-Version:        3.0.1
+Name:           rust-xara
+Version:        0.3.1
 Release:        %autorelease
-Summary:        Simple dns resolving api, much like rust's unstable api
+Summary:        Read-only XAR archive and macOS PKG package parser
 
-# Upstream license specification: MIT/Apache-2.0
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/dns-lookup
+License:        MIT
+URL:            https://crates.io/crates/xara
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          dns-lookup-fix-metadata-auto.diff
+# * https://github.com/Dil4rd/dpp/pull/2
+Source2:        https://github.com/Dil4rd/dpp/raw/refs/tags/v0.3.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A simple dns resolving api, much like rust's unstable api. Also includes
-getaddrinfo and getnameinfo wrappers for libc variants.}
+Read-only XAR archive and macOS PKG package parser.}
 
 %description %{_description}
 
@@ -34,8 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,8 +49,21 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+extract-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+extract-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "extract" feature of the "%{crate}" crate.
+
+%files       -n %{name}+extract-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p %SOURCE2 .
 %cargo_prep
 
 %generate_buildrequires

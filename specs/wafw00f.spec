@@ -1,6 +1,6 @@
 Name:           wafw00f
-Version:        2.3.2
-Release:        2%{?dist}
+Version:        2.4.2
+Release:        1%{?dist}
 Summary:        Tool to identifies and fingerprints Web Application Firewall (WAF)
 
 
@@ -17,7 +17,8 @@ WAFW00F identifies and fingerprints Web Application Firewall (WAF) products.
 
 %prep
 %autosetup -n %{name}-%{version}
-sed -i -e '/^#!\//, 1d' {wafw00f/*.py,wafw00f/*/*.py}
+# Fix ambiguous python shebangs
+%py3_shebang_fix wafw00f/bin/wafw00f
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -36,6 +37,9 @@ sed -i -e '/^#!\//, 1d' {wafw00f/*.py,wafw00f/*/*.py}
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Thu Feb 19 2026 Filipe Rosset <rosset.filipe@gmail.com> - 2.4.2-1
+- Bump to 2.4.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

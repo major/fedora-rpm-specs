@@ -9,7 +9,7 @@ project template.}
 %bcond_without tests
 
 Name:      %{pkgname}
-Version:   2.6.0
+Version:   2.7.1
 %forgemeta
 Release:   %autorelease
 Summary:   CLI utility to create projects from templates
@@ -50,10 +50,18 @@ Requires: python3-arrow
 
 %prep
 %autosetup -n %{srcname}-%{version}
-sed -i 's#python -c#%{__python3} -c#' Makefile
+# TBC if this is a problem with Python macros or with upstream, [build-system]
+# seems not to be mandatory albeit recommended, but py-spec macros will try
+# to go for setup.py if it is missing
+cat <<EOF >> pyproject.toml
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+EOF
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

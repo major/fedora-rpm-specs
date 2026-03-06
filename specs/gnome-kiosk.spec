@@ -17,19 +17,13 @@
 %endif
 
 Name:           gnome-kiosk
-Version:        50~beta
+Version:        50~rc
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-
-## Backports from current upstream
-# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/124
-Patch:          0001-compositor-Neuter-native-keybindings-by-default.patch
-# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/130
-Patch:          0001-systemd-sessions-Start-accessibility-settings.patch
 
 %if %{with x11}
 Provides:       firstboot(windowmanager) = %{name}

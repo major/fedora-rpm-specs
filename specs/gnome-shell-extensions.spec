@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-shell-extensions
-Version:        50~alpha
+Version:        50~rc
 Release:        %autorelease
 Summary:        Modify and extend GNOME Shell functionality and behavior
 

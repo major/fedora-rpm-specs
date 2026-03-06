@@ -31,7 +31,7 @@
 %if %{with compat}
 # install to /usr/lib64/rocm/rocm-<major>.<minor>
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %else
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}

@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -15,6 +15,7 @@ Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 # Proposed upstream: https://github.com/transmission/transmission/issues/7567
 Patch1:         0002-Make-compatible-with-CMake-4.0.patch
 Patch2:         7669.patch
+Patch3:         144871ed5ec62d9b45f28774923ac83532eb1a2d.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -196,6 +197,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Tue Mar 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.1-2
+- Patch for remote RPC crash
+
 * Wed Feb 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.1-1
 - 4.1.1
 

@@ -61,11 +61,14 @@ old operating systems and software that are designed for IBM PC compatibles.
 %prep
 %autosetup -p1 -b 1
 
-# Use our build flags
+# Use our build flags, freeze the standard version, and disable strict aliasing rules
 sed -i configure.ac \
-  -e 's:CFLAGS="-O3 -fcommon":CFLAGS="-fcommon %{build_cflags}":' \
-  -e 's:CXXFLAGS="-O3 -fcommon":CXXFLAGS="-fcommon %{build_cxxflags}":'
-echo 'pcem_LDFLAGS = %{build_ldflags}' >> src/Makefile.am
+  -e 's:CFLAGS="-O3 -fcommon":CFLAGS="-fcommon %{build_cflags} -std=gnu11 -Wno-strict-aliasing":' \
+  -e 's:CXXFLAGS="-O3 -fcommon":CXXFLAGS="-fcommon %{build_cxxflags} -std=gnu++11 -Wno-strict-aliasing":'
+echo 'pcem_LDFLAGS = %{build_ldflags}' >>src/Makefile.am
+
+# Rename variable conflicting with global function
+sed -r -i 's/\bpause\b/pause_var/g' src/*.[ch]
 
 # Reorganize bundled project licenses
 cp -p src/minivhd/CREDITS.md CREDITS.minivhd

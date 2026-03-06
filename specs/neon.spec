@@ -7,15 +7,14 @@
 
 Summary: An HTTP and WebDAV client library
 Name: neon
-Version: 0.36.0
+Version: 0.37.0
 Release: %autorelease
 License: LGPL-2.0-or-later
 URL: https://notroj.github.io/neon/
 Source0: https://notroj.github.io/neon/neon-%{version}.tar.gz
 Patch0: neon-0.34.0-multilib.patch
-Patch1: neon-0.36.0-test-warnings.patch
 BuildRequires: expat-devel, openssl-devel, zlib-devel, krb5-devel
-BuildRequires: pkgconfig, make, gcc, xmlto
+BuildRequires: pkgconfig, make, gcc, xmlto, libntlm-devel
 %if %{with pkcs11}
 BuildRequires: pakchois-devel
 %endif
@@ -31,8 +30,8 @@ BuildRequires: /usr/bin/perl, /usr/bin/openssl, /usr/bin/certutil
 neon is an HTTP and WebDAV client library, with a C interface;
 providing a high-level interface to HTTP and WebDAV methods along
 with a low-level interface for HTTP request handling.  neon
-supports persistent connections, proxy servers, basic, digest and
-Kerberos authentication, and has complete SSL support.
+supports persistent connections, proxy servers, Basic, Digest and
+Kerberos authentication, and has complete SSL/TLS support.
 
 %package devel
 Summary: Development libraries and C header files for the neon library
@@ -54,6 +53,9 @@ sed -i '/^install-docs/s/install-html//' Makefile.in
 %configure --with-expat --enable-shared --disable-static \
         --enable-warnings \
         --with-ssl=openssl --enable-threadsafe-ssl=posix \
+%ifarch s390x
+        --without-libntlm \
+%endif
 %if %{with libproxy}
         --with-libproxy \
 %else

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.43.9000-76-g9af18a94e0
+%global glibcsrcdir glibc-2.43.9000-94-g4b5a74412e
 %global glibcversion 2.43.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -348,6 +348,7 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2426825.patch
+Patch25: glibc-open_tree_clone.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
@@ -2403,6 +2404,22 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Mar 02 2026 Florian Weimer <fweimer@redhat.com> - 2.43.9000-4
+- Add glibc-open_tree_clone.patch for compatibility with Linux 7 UAPI headers.
+- Auto-sync with upstream branch master,
+  commit 4b5a74412ee6ebb69a289acd8a94ef8ddcc6baa8:
+- Vectorise inverse hyperbolic special cases
+- AArch64: Single and Double precision entire exp family, SVE and AdvSIMD optimisations
+- manual: Document that EOPNOTSUPP and ENOTSUP are equal, not distinct (BZ 2363)
+- AArch64: Vectorise SVE log/log2/log10 single and double precision special cases.
+- AArch64: Single and Double precision hyperbolics, SVE and AdvSIMD optimisations
+- malloc: alignment might change in future versions
+- Say malloc (0) != NULL is now common; resection
+- Document malloc alignment
+- Document max_align_t
+- manual: Fix typo in documentation of iconv character set options
+- libio: Fix deadlock between freopen, fflush (NULL) and fclose (bug 24963)
+
 * Mon Feb 23 2026 Frédéric Bérat <fberat@redhat.com> - 2.43.9000-3
 - Auto-sync with upstream branch master,
   commit 9af18a94e051fce513972254bf97c12ae563841e:

@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        26.1
+Version:        26.3
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -39,7 +39,6 @@ URL:            https://gitlab.com/kraxel/virt-firmware-rs
 Source:         https://gitlab.com/kraxel/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 Patch1:		downgrade-dialoguer.patch
-Patch2:		0001-tmt-pick-one-kernel-in-case-multiple-are-present.patch
 
 ExclusiveArch:  x86_64 aarch64 riscv64
 BuildRequires:  cargo-rpm-macros >= 24

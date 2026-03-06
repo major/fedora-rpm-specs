@@ -34,7 +34,7 @@
 
 Name:		libarrow
 Version:	23.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -882,6 +882,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Mar 4 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-5
+- rebuild with liborc-2.3.0
+
 * Mon Feb 16 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 23.0.0-4
 - temporarily disable arrow-compute-aggregate-test
 

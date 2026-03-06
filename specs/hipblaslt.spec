@@ -40,7 +40,7 @@
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}
@@ -126,7 +126,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -149,7 +149,7 @@ Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robi
 # yappi is used in tensilelite to generate profiling data, we are not using that in the build
 Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 # change hard coded vendor paths to fedoras
-Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
+# Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
 # https://github.com/ROCm/rocm-libraries/issues/2422
 Patch3:         0001-hipblaslt-find-origami-package.patch
 # do not try to fetch, point to the nanobind tarball
@@ -291,6 +291,24 @@ sed -i -e 's@virtualenv_install@#virtualenv_install@'                          C
 
 # Disable trying to download rocm-cmake
 sed -i -e 's@if(NOT ROCmCMakeBuildTools_FOUND)@if(FALSE)@' cmake/dependencies.cmake
+
+# compat has this issue
+# /usr/lib64/rocm/rocm-7.2/llvm/bin/amdclang++ -x hip .../device-library/matrix-transform/matrix_transform.cpp
+# In file included from /builddir/build/BUILD/hipblaslt7.2-7.2.0-build/hipblaslt/device-library/matrix-transform/matrix_transform.cpp:26:
+# /builddir/build/BUILD/hipblaslt7.2-7.2.0-build/hipblaslt/device-library/matrix-transform/matrix_transform.h:27:10: fatal error: 'hip/hip_bfloat16.h' file not found
+#   27 | #include <hip/hip_bfloat16.h>
+#      |          ^~~~~~~~~~~~~~~~~~~~
+#
+# Add include path to the custom build command
+sed -i -e 's@${CMAKE_CXX_COMPILER} -x hip @${CMAKE_CXX_COMPILER} -x hip -I%{pkg_prefix}/include @' device-library/matrix-transform/CMakeLists.txt
+# Similar on tensile command
+sed -i -e 's@"--offload-device-only",@"--offload-device-only", "-I%{pkg_prefix}/include",@' tensilelite/Tensile/Toolchain/Component.py
+
+# tensile path to tools need to change
+sed -i -e 's@globalParameters["ROCmPath"] = "/opt/rocm"@globalParameters["ROCmPath"] = "%{pkg_prefix}"@' tensilelite/Tensile/Common/GlobalParameters.py
+sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' tensilelite/Tensile/Toolchain/Validators.py
+sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' tensilelite/Tensile/Toolchain/Validators.py
+
 
 %if %{with nanobind}
 # Disable download of nanobind
@@ -488,6 +506,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.*
 %endif
 
 %changelog
+* Wed Mar 4 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Rework fedora path handling for compat
+
 * Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Fix TW
 

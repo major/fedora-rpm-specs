@@ -1,17 +1,12 @@
 Name: squashfs-tools
-Version: 4.6.1
+Version: 4.7.4
 Summary: Utility for the creation of squashfs filesystems
 %global forgeurl https://github.com/plougher/%{name}
 %global tag %{version}
 %forgemeta
 URL:	 %{forgeurl}
 Source:  %{forgesource}
-# https://github.com/plougher/squashfs-tools/pull/231
-# https://github.com/plougher/squashfs-tools/issues/230
-# https://bugzilla.redhat.com/show_bug.cgi?id=2178510
-# Fix a crash caused by an out-of-bounds access that was inadvertently
-# re-introduced in a memory leak fix
-Release: 8%{dist}
+Release: 1%{dist}
 License: GPL-2.0-or-later
 
 BuildRequires: make
@@ -40,8 +35,11 @@ CFLAGS="%optflags" XZ_SUPPORT=1 LZO_SUPPORT=1 LZMA_XZ_SUPPORT=1 LZ4_SUPPORT=1 ZS
 pushd squashfs-tools
 make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL_MANPAGES_DIR=%{buildroot}%{_mandir}/man1 install
 
+%check
+[[ $(squashfs-tools/mksquashfs -version) =~ "%{version}" ]]
+
 %files
-%doc ACKNOWLEDGEMENTS README* CHANGES COPYING USAGE* ACTIONS-README
+%doc ACKNOWLEDGEMENTS README* CHANGES COPYING
 
 %{_mandir}/man1/mksquashfs.1.gz
 %{_mandir}/man1/unsquashfs.1.gz
@@ -54,6 +52,9 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Sun Feb  1 2026 Dick Marinus <dick@mrns.nl> - 4.7.4-1
+- Update to 4.7.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

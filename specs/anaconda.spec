@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.22
+Version: 44.24
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -519,6 +519,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 04 2026 Packit <hello@packit.dev> - 44.24-1
+- Fix crash when org.freedesktop.ScreenSaver Inhibit is unavailable (k.koukiou)
+  Resolves: rhbz#2440367
+
 * Tue Feb 24 2026 Packit <hello@packit.dev> - 44.22-1
 - test: normalize comma-separated values in dnf repo config check (rvykydal)
 - Fix ostree container deploy failing on non-ASCII pathnames (me)

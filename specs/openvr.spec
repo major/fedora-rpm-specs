@@ -1,7 +1,3 @@
-# Release 2.7.1 is not tagged:
-%global commit ebd425331229365dc3ec42d1bb8b2cc3c2332f81
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 # Samples aren't supported on i686
 %ifarch i686
 %bcond_with samples
@@ -15,13 +11,14 @@ vendors without requiring that applications have specific knowledge of the
 hardware they are targeting.}
 
 Name:           openvr
-Version:        2.7.1
+Version:        2.12.14
 Release:        %autorelease
 Summary:        OpenVR SDK
-
 License:        BSD-3-Clause
 URL:            https://github.com/ValveSoftware/openvr
-Source:         %{url}/archive/%{commit}.tar.gz#/%{name}-%{shortcommit}.tar.gz
+
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
 # Use GNUInstallDirs to determine lib install path
 Patch:          %{url}/pull/1511.patch
 # Add ability to build with system installed jsoncpp
@@ -32,10 +29,11 @@ Patch:          openvr-skip-steamvr-check.patch
 Patch:          openvr-use-system-sdl2-vulkan.patch
 # Define soversion for the OpenVR API library
 Patch:          openvr-api-soversion.patch
+# Fix samples build errors (removed API types, mismatched enums)
+Patch:          openvr-fix-samples-build.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-
 BuildRequires:  jsoncpp-devel
 
 %if %{with samples}
@@ -87,7 +85,7 @@ This package provides various sample programs and drivers using OpenVR.
 %endif
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1
 
 # Delete prebuilt binaries and libraries
 rm -r bin lib samples/bin/{android*,linux*,win*}
@@ -108,9 +106,6 @@ sed -i 's:../cube_texture.png:%{_datadir}/%{name}/cube_texture.png:' \
   samples/hellovr_opengl/hellovr_opengl_main.cpp \
   samples/hellovr_vulkan/hellovr_vulkan_main.cpp
 
-# Disable broken simplehmd driver
-# https://bugzilla.redhat.com/show_bug.cgi?id=2275022
-sed -i '/simplehmd/d' samples/drivers/drivers/CMakeLists.txt
 %endif
 
 %build
