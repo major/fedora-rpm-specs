@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc2.21
+%define pkgrelease 0.rc2.260305gc107785c7e8db.24
 %define kversion 7
-%define tarfile_release 7.0-rc2
+%define tarfile_release 7.0-rc2-90-gc107785c7e8db
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.21%{?buildid}%{?dist}
+%define specrelease 0.rc2.260305gc107785c7e8db.24%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4829,6 +4829,21 @@ fi\
 #
 #
 %changelog
+* Thu Mar 05 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc2.260305gc107785c7e8db.24]
+- Linux v7.0.0-0.rc2.260305gc107785c7e8db
+
+* Thu Mar 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.c107785c7e8d.24]
+- Linux v7.0.0-0.rc2.c107785c7e8d
+
+* Wed Mar 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.0031c06807cf.23]
+- Linux v7.0.0-0.rc2.0031c06807cf
+
+* Tue Mar 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.af4e9ef3d784.22]
+- redhat/configs: automotive: enable NVMEM_S32G_OCOTP (Jared Kangas)
+- redhat/scripts: remove remnants of git notes usage and dead code (Jan Stancek)
+- New configs in fs/smb (Fedora Kernel Team)
+- Linux v7.0.0-0.rc2.af4e9ef3d784
+
 * Mon Mar 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.21]
 - Add signing key for Nvidia Bluefield GPU (Enrique Belarte Luque)
 - Linux v7.0.0-0.rc2

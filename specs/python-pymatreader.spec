@@ -7,7 +7,7 @@
 %forgemeta
 
 Name:           python-pymatreader
-Version:        1.0.0
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Convenient reader for Matlab mat files
 

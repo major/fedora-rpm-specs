@@ -5,7 +5,7 @@
 %global crate drm-sys
 
 Name:           rust-drm-sys
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Bindings to the Direct Rendering Manager API
 
@@ -16,9 +16,10 @@ Source:         %{crates_source}
 Patch:          drm-sys-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * regenerate bindings by default
-# * bump bindgen build-dependency from 0.69 to 0.72:
+# * bump bindgen build-dependency from 0.70 to 0.72:
 #   https://github.com/Smithay/drm-rs/commit/1276382
 #   https://github.com/Smithay/drm-rs/pull/234
+# * bump linux-raw-sys dependency from v0.9 to v0.12
 Patch:          drm-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

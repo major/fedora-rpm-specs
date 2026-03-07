@@ -1,5 +1,5 @@
 Name:           pspp
-Version:        2.0.1
+Version:        2.1.0
 Release:        %autorelease
 Summary:        A program for statistical analysis of sampled data
 License:        GPL-3.0-or-later
@@ -11,10 +11,9 @@ Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # Follow up to CVE-2022-39831
 Patch:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
-# CVE-2025-47229
-Patch:		pspp-0002-Fix-a-crash-in-RENAME-VARIABLES-when-changing-dict-c.patch
-# Sent upsteam
-Patch:		pspp-0003-PATCH-Fix-xgettext-version-check-for-gettext-1.0.patch
+# Will be proposed upstream
+Patch:		pspp-0002-Revert-update-gnulib-version-to-latest-from-stable-2.patch
+Patch:		pspp-0003-MATRIX-Use-int64_t-instead-of-long-for-sequence-rang.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel
@@ -101,8 +100,7 @@ rm -f %{buildroot}%{_datadir}/icons/hicolor/icon-theme.cache
 
 
 %check
-echo $LC_NUMERIC
-LC_NUMERIC=C make check
+make check
 
 
 %files -f %{name}.lang

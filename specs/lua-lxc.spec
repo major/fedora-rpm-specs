@@ -1,17 +1,8 @@
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global luaver 5.4
-%else
-%global luaver 5.1
-%endif
-%global lualibdir %{_libdir}/lua/%{luaver}
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 Name:           lua-lxc
 Version:        3.0.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Lua binding for LXC
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://linuxcontainers.org/lxc
 Source0:        https://linuxcontainers.org/downloads/lxc/%{name}-%{version}.tar.gz
 BuildRequires:  pkgconfig
@@ -47,11 +38,14 @@ The lua-lxc package contains the Lua binding for LXC.
 %files
 %license COPYING
 %doc AUTHORS ChangeLog MAINTAINERS NEWS README
-%{lualibdir}/lxc
-%{luapkgdir}/lxc.lua
+%{lua_libdir}/lxc
+%{lua_pkgdir}/lxc.lua
 
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 3.0.2-22
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -2,24 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate picky-asn1-der
+%global crate selectors
 
-Name:           rust-picky-asn1-der
-Version:        0.5.5
+Name:           rust-selectors0.25
+Version:        0.25.0
 Release:        %autorelease
-Summary:        ASN.1-DER subset for serde
+Summary:        CSS Selectors matching for Rust
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/picky-asn1-der
+License:        MPL-2.0
+URL:            https://crates.io/crates/selectors
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop all dev-dependencies that are unused in published crates
-Patch:          picky-asn1-der-fix-metadata.diff
+# * bump phf dep to 0.11
+Patch:          selectors-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An ASN.1-DER subset for serde.}
+CSS Selectors matching for Rust.}
 
 %description %{_description}
 
@@ -33,9 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+# FIXME: no license files detected
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,16 +49,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug_log-devel
+%package     -n %{name}+bench-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug_log-devel %{_description}
+%description -n %{name}+bench-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug_log" feature of the "%{crate}" crate.
+use the "bench" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug_log-devel
+%files       -n %{name}+bench-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

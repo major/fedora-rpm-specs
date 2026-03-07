@@ -4,8 +4,8 @@
 
 %global crate nalgebra
 
-Name:           rust-nalgebra
-Version:        0.34.1
+Name:           rust-nalgebra0.33
+Version:        0.33.2
 Release:        %autorelease
 Summary:        General-purpose linear algebra library
 
@@ -17,6 +17,7 @@ Source:         %{crates_source}
 Patch:          nalgebra-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 General-purpose linear algebra library with transformations and
@@ -426,7 +427,8 @@ use the "std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-find -type f -executable -exec chmod -v -x '{}' +
+# fix CLRF line endings
+find . -type f -exec dos2unix --keepdate '{}' +
 
 %generate_buildrequires
 %cargo_generate_buildrequires -f compare,debug,macros,rand

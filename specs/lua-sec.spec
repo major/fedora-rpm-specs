@@ -6,7 +6,7 @@
 Summary:        Lua binding for OpenSSL library
 Name:           lua-sec
 Version:        1.3.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        MIT
 URL:            https://github.com/brunoos/luasec
 Source0:        https://github.com/brunoos/luasec/archive/v%{version}/luasec-%{version}.tar.gz
@@ -116,6 +116,9 @@ lua-%{lua_compat_version} -e \
 %endif
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 1.3.2-9
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

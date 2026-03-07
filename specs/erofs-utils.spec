@@ -17,7 +17,7 @@
 %bcond zstd     1
 
 Name:           erofs-utils
-Version:        1.9
+Version:        1.9.1
 Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
@@ -25,7 +25,6 @@ License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.
 URL:            https://erofs.docs.kernel.org/
 
 Source:         https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/snapshot/%{name}-%{version}.tar.gz
-Patch:          https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/patch?id=bb4d440337258ea8a047779c9ca4875c73806ee7#/%{name}-%{version}-fix-manpages.patch
 
 BuildRequires:  %[ "%{toolchain}" == "clang" ? "clang compiler-rt" : "gcc" ]
 BuildRequires:  libtool
@@ -121,6 +120,9 @@ autoreconf -fi
 
 
 %changelog
+* Thu Mar 05 2026 David Michael <fedora.dm0@gmail.com> - 1.9.1-1
+- Update to the 1.9.1 release.
+
 * Wed Feb 18 2026 David Michael <fedora.dm0@gmail.com> - 1.9-1
 - Update to the 1.9 release.
 

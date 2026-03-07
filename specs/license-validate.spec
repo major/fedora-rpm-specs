@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        29
+Version:        30
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -69,6 +69,9 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Thu Mar 05 2026 Miroslav Suchý <msuchy@redhat.com> 30-1
+- typo
+
 * Fri Feb 27 2026 Miroslav Suchý <msuchy@redhat.com> 29-1
 - use expandend value when parsing spec
 

@@ -20,30 +20,42 @@
 # THE SOFTWARE.
 #
 
-# ROCclr loads comgr at run time by soversion, so this needs to be checked when
-# updating this package as it's used for the comgr requires for opencl and hip:
-%global comgr_maj_api_ver 3
-# See the file "rocclr/device/comgrctx.cpp" for reference:
-# https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
+%global upstreamname clr
 
+%bcond_with preview
+%if %{with preview}
+%global rocm_major 7
+%global rocm_minor 11
+%global rocm_patch 0
+%global rocm_release %{rocm_major}.%{rocm_minor}
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_major 7
 %global rocm_minor 2
 %global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
-%global upstreamname clr
 
 %bcond_with compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
 %global pkg_suffix %{nil}
 %endif
 %global pkg_name rocclr%{pkg_suffix}
+
+# ROCclr loads comgr at run time by soversion, so this needs to be checked when
+# updating this package as it's used for the comgr requires for opencl and hip:
+%global comgr_maj_api_ver 3
+# See the file "rocclr/device/comgrctx.cpp" for reference:
+# https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
 %global toolchain clang
 
@@ -95,15 +107,19 @@
 
 Name:           %{pkg_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
+%endif
 Summary:        ROCm Compute Language Runtime
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old
 # The main license is MIT
 # OpenCL parts are licensed with Khronos AND Apache-2.0
 URL:            https://github.com/ROCm/rocm-systems
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # TODO: it would be nice to separate this into its own package:
-Source1:        %{url}/releases/download/rocm-%{version}/hip.tar.gz#/hip-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{pkg_src}/hip.tar.gz#/hip-%{version}.tar.gz
 
 # a fix for building blender
 Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
@@ -166,6 +182,9 @@ BuildRequires:  python3-cppheaderparser
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
 BuildRequires:  rocm-compilersupport%{pkg_suffix}-macros
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel >= %{rocm_release}
+%if %{with preview}
+BuildRequires:  simde-devel
+%endif
 BuildRequires:  zlib-devel
 
 # ROCclr relies on some x86 intrinsics
@@ -384,11 +403,19 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %license opencl/LICENSE.md
 %config(noreplace) %{_sysconfdir}/OpenCL/vendors/amdocl64.icd
 %endif
+%if %{with preview}
+%{pkg_prefix}/%{pkg_libdir}/opencl/libamdocl64.so.%{rocm_major}{,.*}
+%else
 %{pkg_prefix}/%{pkg_libdir}/libamdocl64.so.%{rocm_major}{,.*}
+%endif
 %{pkg_prefix}/%{pkg_libdir}/libcltrace.so.%{rocm_major}{,.*}
 
 %files -n rocm-opencl%{pkg_suffix}-devel
+%if %{with preview}
+%{pkg_prefix}/%{pkg_libdir}/opencl/libamdocl64.so
+%else
 %{pkg_prefix}/%{pkg_libdir}/libamdocl64.so
+%endif
 %{pkg_prefix}/%{pkg_libdir}/libcltrace.so
 %{pkg_prefix}/include/%{name}
 
@@ -424,6 +451,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
 * Mon Feb 23 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Cleanup specfile
 

@@ -22,19 +22,24 @@
 
 %global upstreamname rocr-runtime
 
-#Image support is x86 only
-%ifarch x86_64
-%global enableimage 1
-%endif
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}/
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %else
 %global pkg_libdir %{_lib}
 %global pkg_prefix %{_prefix}
@@ -61,7 +66,11 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
+%endif
 Summary:    ROCm Runtime Library
 
 License:    (NCSA AND BSD-3-Clause) AND (MIT AND BSD-2-Clause) AND (GPL-2.0-only WITH Linux-syscall-note)
@@ -71,9 +80,14 @@ License:    (NCSA AND BSD-3-Clause) AND (MIT AND BSD-2-Clause) AND (GPL-2.0-only
 #  libhsakmt/include/hsakmt/linux/udmabuf.h
 #  GPL-2.0-only WITH Linux-syscall-note
 URL:        https://github.com/ROCm/rocm-systems
-Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 ExclusiveArch:  x86_64
+
+# Image support is x86 only
+%ifarch x86_64
+%global enableimage 1
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -191,8 +205,10 @@ cd libhsakmt/tests/kfdtest
 %cmake_install
 %endif
 
+# Extra licenses
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hsa-rocr/LICENSE.md
 rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}/LICENSE.md
+rm -f %{buildroot}%{pkg_prefix}/share/doc/rocr/LICENSE.md
 
 %if %{without static}
 rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhsakmt.a
@@ -230,6 +246,9 @@ rm -f %{buildroot}%{pkg_prefix}/%{pkg_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
 * Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Update license
 

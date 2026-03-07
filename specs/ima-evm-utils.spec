@@ -8,7 +8,7 @@
 
 Name:    ima-evm-utils
 Version: 1.6.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: IMA/EVM support utilities
 License: GPL-2.0-or-later
 Url:     https://github.com/linux-integrity/
@@ -145,6 +145,9 @@ install -D %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/ima-setup
 %{_libdir}/libimaevm.so
 
 %changelog
+* Thu Mar 05 2026 Coiby Xu <coxu@redhat.com> - 1.6.2-9
+- Don't allow files in tmpfs to be executed
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

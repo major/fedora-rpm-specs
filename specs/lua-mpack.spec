@@ -1,7 +1,3 @@
-%global lua_version 5.4
-%global lua_libdir %{_libdir}/lua/%{lua_version}
-%global lua_pkgdir %{_datadir}/lua/%{lua_version}
-
 %global lua_compat_version 5.1
 %global lua_compat_libdir %{_libdir}/lua/%{lua_compat_version}
 %global lua_compat_pkgdir %{_datadir}/lua/%{lua_compat_version}

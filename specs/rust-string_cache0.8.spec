@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate picky-asn1-der
+%global crate string_cache
 
-Name:           rust-picky-asn1-der
-Version:        0.5.5
+Name:           rust-string_cache0.8
+Version:        0.8.9
 Release:        %autorelease
-Summary:        ASN.1-DER subset for serde
+Summary:        String interning library for Rust, developed as part of the Servo project
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/picky-asn1-der
+URL:            https://crates.io/crates/string_cache
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop all dev-dependencies that are unused in published crates
-Patch:          picky-asn1-der-fix-metadata.diff
+# * drop unused, optional support for malloc_size_of
+Patch:          string_cache-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An ASN.1-DER subset for serde.}
+A string interning library for Rust, developed as part of the Servo
+project.}
 
 %description %{_description}
 
@@ -35,7 +36,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,16 +51,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug_log-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug_log-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug_log" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug_log-devel
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_support-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_support-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_support" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_support-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

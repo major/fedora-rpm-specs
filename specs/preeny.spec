@@ -1,12 +1,19 @@
 Name:             preeny
 URL:              https://github.com/zardus/preeny
 Version:          0.1
-Release:          23%{?dist}
+Release:          24%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
-BuildRequires:    coreutils, make, gcc, libini_config-devel
+BuildRequires:    coreutils
+BuildRequires:    make
+BuildRequires:    gcc
+BuildRequires:    libini_config-devel
 Summary:          Some helpful preload libraries for pwning stuff
 Source0:          https://github.com/zardus/preeny/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://github.com/zardus/preeny/commit/bc048654b9c4c417a3ff8c27e986edee3e07ebef
+Patch:            preeny-0.1-warning-fix.patch
+# https://github.com/zardus/preeny/pull/89
+Patch:            preeny-0.1-libini_config-api-convert.patch
 
 %description
 Preeny helps you pwn noobs by making it easier to interact with services
@@ -15,12 +22,11 @@ a server application to a console one using clever/hackish tricks, and can
 even patch binaries.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-export CFLAGS="%{optflags}"
-export LDFLAGS="%{?__global_ldflags}"
-make %{?_smp_mflags}
+%{set_build_flags}
+%{make_build}
 
 %install
 cd src
@@ -35,6 +41,10 @@ install -pt %{buildroot}%{_libdir}/%{name} *.so
 %{_libdir}/%{name}/*.so
 
 %changelog
+* Thu Mar 05 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.1-24
+- Switched to new libini_config API
+- Minor spec cleanup
+
 * Wed Jan 21 2026 Kevin Fenzi <kevin@scrye.com> - 0.1-23
 - Rebuild due to buildsystem issue
 

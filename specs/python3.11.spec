@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.14
+%global general_version %{pybasever}.15
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -347,34 +347,6 @@ Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 # This resolves the issue of failing tests when a system is
 # stressed on OpenSSL 3.5.
 Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
-
-# 00471 # f7ffc7e947b58a4d33c7f5bb69674af20fe4875d
-# CVE-2025-12084
-#
-# * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
-# * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
-Patch471: 00471-cve-2025-12084.patch
-
-# 00472 # 2ba215eaba508b2cdd7c3acfdf3b9a6e32872274
-# CVE-2025-13836
-#
-# gh-119451: Fix a potential denial of service in http.client (GH-119454)
-#
-# Reading the whole body of the HTTP response could cause OOM if
-# the Content-Length value is too large even if the server does not send
-# a large amount of data. Now the HTTP client reads large data by chunks,
-# therefore the amount of consumed memory is proportional to the amount
-# of sent data.
-Patch472: 00472-cve-2025-13836.patch
-
-# 00473 # 3c13163c5c0be4d073b081f19ad52c007c126d53
-# CVE-2026-0865
-#
-#  gh-143916: Reject control characters in wsgiref.headers.Headers  (GH-143917)
-#
-# * Add 'test.support' fixture for C0 control characters
-# * gh-143916: Reject control characters in wsgiref.headers.Headers
-Patch473: 00473-cve-2026-0865.patch
 
 # 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
 # CVE-2025-15366
@@ -1720,6 +1692,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Mar 03 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.15-1
+- Update to 3.11.15
+
 * Mon Feb 09 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.14-5
 - Security fixes for CVE-2026-0865, CVE-2025-15366 and CVE-2025-15367
 

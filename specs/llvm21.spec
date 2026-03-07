@@ -1858,12 +1858,14 @@ fi
   -DLLVM_VP_COUNTERS_PER_SITE=8
 
 %if %{defined host_clang_maj_ver}
-%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
-  -DLLVM_PROFDATA=%{_bindir}/llvm-profdata-%{host_clang_maj_ver}
+%global profdata %{_bindir}/llvm-profdata-%{host_clang_maj_ver}
+%global cxxfilt %{_bindir}/llvm-cxxfilt-%{host_clang_maj_ver}
 %else
-%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
-  -DLLVM_PROFDATA=%{_bindir}/llvm-profdata
+%global profdata %{_bindir}/llvm-profdata
+%global cxxfilt %{_bindir}/llvm-cxxfilt
 %endif
+%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
+  -DLLVM_PROFDATA=%{profdata}
 
 # TODO(kkleine): Should we see warnings like:
 # "function control flow change detected (hash mismatch)"
@@ -1882,7 +1884,7 @@ fi
 %cmake_build --target generate-profdata
 
 # Show top 10 functions in the profile
-llvm-profdata show --topn=10 %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata | llvm-cxxfilt
+%{profdata} show --topn=10 %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata | %{cxxfilt}
 
 cp %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata $RPM_BUILD_DIR/result.profdata
 

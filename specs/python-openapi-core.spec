@@ -3,18 +3,19 @@
 %global srcname openapi-core
 %global modname openapi_core
 
+%global commit 4cfa26d1fbde422fbe4138b23c7268dd869240ac
+%global snapdate 20260303
+
 Name:           python-%{srcname}
-Version:        0.23.0~b1
+Version:        0.23.0~b1^%{snapdate}.%{sub %{commit} 1 7}
+%global srcversion %(echo '%{version}' | cut -d '^' -f 1 | tr -d '~')
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
-Source:         %{pypi_source %{modname} 0.23.0b1}
-
-# Allow Starlette 0.50, 0.51, 0.52
-# Not upstreamable until a FastAPI release supports 0.52
-Patch:          allow_starlette_0.52.patch
+# Source:         %%{pypi_source %%{modname} %%{srcversion}}
+Source:         %{url}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -52,7 +53,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{modname}-0.23.0b1 -p1
+%autosetup -C -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 # We cannot respect a SemVer or version range pin on FastAPI; it updates
@@ -83,7 +84,7 @@ tomcli set pyproject.toml lists delitem \
 
 %install
 %pyproject_install
-%pyproject_save_files %{modname}
+%pyproject_save_files -l %{modname}
 
 
 %check
@@ -91,11 +92,10 @@ tomcli set pyproject.toml lists delitem \
 ignore="${ignore-} --ignore=tests/integration/contrib/falcon"
 %endif
 
-%pytest ${ignore-}
+%pytest -k "${k-}" ${ignore-}
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 

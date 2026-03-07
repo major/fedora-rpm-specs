@@ -1,5 +1,5 @@
-%global DATE 20260302
-%global gitrev bca2854ff82e2bbc823242aea960bafd8b8d4109
+%global DATE 20260305
+%global gitrev da9795f681c5add73add41595bb6713b45c77d4e
 %global gcc_version 16.0.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -158,7 +158,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.8%{?dist}
+Release: %{gcc_release}.9%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3973,6 +3973,20 @@ end
 %endif
 
 %changelog
+* Thu Mar  5 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.9
+- update from trunk
+  - PRs c/122572, c++/123408, c++/123665, c++/123810, c++/124229, c++/124306,
+	c++/124324, c++/124368, cobol/119456, fortran/124330, ipa/60674,
+	libfortran/124330, libstdc++/117402, libstdc++/119197,
+	libstdc++/122217, libstdc++/124363, middle-end/45273,
+	rtl-optimization/123786, rtl-optimization/124041,
+	rtl-optimization/124351, target/64835, target/124165, target/124315,
+	target/124335, target/124336, target/124341, target/124349,
+	target/124366, target/124367, testsuite/122961, testsuite/124320,
+	testsuite/124359, tree-optimization/119568
+  - fix -flto -g handling of aarch64 AEABI attributes
+    (#2439677, PR target/124365)
+
 * Mon Mar  2 2026 Jakub Jelinek <jakub@redhat.com> 16.0.1-0.8
 - update from trunk
   - PRs ada/124016, ada/124054, ada/124106, ada/124179, ada/124192,

@@ -220,11 +220,7 @@ Obsoletes:      thunderbird-lightning-gdata <= 1:3.3.0.14
 BuildRequires:  rust
 BuildRequires:  cargo
 BuildRequires:  rust-version_check-devel
-%if 0%{?fedora} >= 40
-BuildRequires:  clang17-devel
-%else
 BuildRequires:  clang-devel
-%endif
 BuildRequires:  python3.11-devel
 %if !0%{?use_bundled_cbindgen}
 BuildRequires:  cbindgen

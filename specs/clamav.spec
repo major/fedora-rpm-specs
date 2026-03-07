@@ -25,8 +25,8 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.4.3
-Release:    6%{?dist}
+Version:    1.4.4
+Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -48,11 +48,11 @@ Source5:    clamd-README
 # Check the first line of the file for version or run file *cvd
 # Attention file < 5.33-7 have bugs see https://bugzilla.redhat.com/show_bug.cgi?id=1539107
 #http://database.clamav.net/main.cvd
-Source10:   main-62.cvd
+Source10:   main-63.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-27673.cvd
+Source11:   daily-27930.cvd
 #http://database.clamav.net/bytecode.cvd
-Source12:   bytecode-336.cvd
+Source12:   bytecode-339.cvd
 #for update
 Source200:  freshclam-sleep
 Source201:  freshclam.sysconfig
@@ -82,7 +82,7 @@ Patch7:     https://salsa.debian.org/clamav-team/clamav/-/raw/unstable/debian/pa
 #   upstream yet due to MSRV
 Patch8:     clamav-rust-dependency-versions.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gettext-devel
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -384,7 +384,7 @@ export LDFLAGS=$(echo %{?__global_ldflags} | sed '/-Wl,--as-needed/!s/$/ -Wl,--a
 # IPv6 check is buggy and does not work when there are no IPv6 interface on build machine
 export have_cv_ipv6=yes
 
-%cmake3 \
+%cmake \
 %if 0%{?fedora} || 0%{?rhel} >= 8
     -DRUSTFLAGS="%build_rustflags" \
 %else
@@ -401,7 +401,7 @@ export have_cv_ipv6=yes
 
 # TODO: check periodically that CLAMAVUSER is used for freshclam only
 
-%cmake3_build
+%cmake_build
 
 cd libclamav_rust
 %cargo_license_summary
@@ -410,7 +410,7 @@ cd libclamav_rust
 
 %install
 rm -rf _doc*
-%cmake3_install
+%cmake_install
 
 install -d -m 0755 \
     %{buildroot}%{_tmpfilesdir} \
@@ -504,12 +504,12 @@ install -m0644 -D clamav-milter.sysusers.conf %{buildroot}%{_sysusersdir}/clamav
 %ifarch s390x
 # Tests fail on s390x
 # https://github.com/Cisco-Talos/clamav/issues/759
-%ctest3 -E valgrind || :
+%ctest -E valgrind || :
 %else
-%ctest3 -E valgrind
+%ctest -E valgrind
 %endif
 # valgrind tests fail https://github.com/Cisco-Talos/clamav/issues/584
-%ctest3 -R valgrind || :
+%ctest -R valgrind || :
 
 
 %post
@@ -665,6 +665,9 @@ done
 
 
 %changelog
+* Wed Mar 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.4-1
+- Update to 1.4.4
+
 * Thu Jan 29 2026 Fabio Valentini <decathorpe@gmail.com> - 1.4.3-6
 - Bump rust-bindgen version to 0.72 for compatibility with LLVM 22
 

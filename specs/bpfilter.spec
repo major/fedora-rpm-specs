@@ -6,6 +6,8 @@ Summary:    BPF-based packet filtering framework
 License:    GPL-2.0-only
 URL:        https://bpfilter.io
 Source:     https://github.com/facebook/bpfilter/archive/refs/tags/v%{version}.tar.gz#/bpfilter-%{version}.tar.gz
+# _will_return (which is a private function) now takes another argument
+Patch:      bpfilter-fix-for-cmocka2.diff
 
 BuildRequires: bison
 BuildRequires: clang

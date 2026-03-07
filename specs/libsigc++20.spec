@@ -1,6 +1,3 @@
-# first two digits of version
-%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
-
 Name:           libsigc++20
 Version:        2.12.1
 Release:        7%{?dist}
@@ -8,7 +5,7 @@ Summary:        Typesafe signal framework for C++
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libsigcplusplus/libsigcplusplus
-Source0:        https://download.gnome.org/sources/libsigc++/%{release_version}/libsigc++-%{version}.tar.xz
+Source0:        https://github.com/libsigcplusplus/libsigcplusplus/releases/download/%{version}/libsigc++-%{version}.tar.xz
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  doxygen

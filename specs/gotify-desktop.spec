@@ -11,36 +11,53 @@ Version:        1.3.7
 Release:        %autorelease
 Summary:        Small Gotify daemon to receive and forward messages
 
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
-# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# GPL-3.0-only
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
 #
-# Creative Commons Attribution Public License (v4.0)
+# Creative Commons Attribution Public License (v4.0) (CC-BY-4.0)
 # -----------------------------------------------------------------
 # gotify-logo-small.svg
 #
 # LICENSE.dependencies contains a full license breakdown
-License:        GPL-3.0-only AND CC-BY-4.0 AND Apache-2.0 AND BSD-3-Clause AND MIT AND MPL-2.0 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
-SourceLicense:  GPL-3.0-only
+License:        %{shrink:
+    GPL-3.0-only AND CC-BY-4.0 AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    MIT AND
+    MPL-2.0 AND
+    Unicode-3.0 AND
+    (0BSD OR MIT OR Apache-2.0)
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Zlib OR Apache-2.0) AND
+    (Unlicense OR MIT)
+    }
+SourceLicense:  GPL-3.0-only AND CC-BY-4.0
 
 URL:            https://github.com/desbma/gotify-desktop
 Source0:         https://github.com/desbma/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # * SVG icon
 Source2:        https://raw.githubusercontent.com/gotify/logo/master/gotify-logo-small.svg
 # Manually created patch for downstream crate metadata changes
-Patch:          gotify-desktop-add-license.diff
+# - Add SPDX license
+# - Allow simple_logger v5
+#   https://github.com/desbma/gotify-desktop/commit/7315ef6c550189ec60525f7611c3f1093f8a164e
+Patch:          gotify-desktop-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  desktop-file-utils

@@ -1,20 +1,21 @@
 %global the_so_name mosquitto.so
 
 Name:           lua-mosquitto
-Version:        0.3
-Release:        16%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 License:        MIT
 Summary:        Lua bindings to libmosquitto
 Url:            https://github.com/flukso/%{name}/
 Source:         https://github.com/flukso/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
+# https://github.com/flukso/lua-mosquitto/pull/39
+Patch0:         lua-mosquitto-0.4.1-checkinteger.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
 BuildRequires:  lua >= 5.1
 BuildRequires:  lua-devel >= 5.1
 BuildRequires:  mosquitto-devel
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       lua(abi) = %{lua_version}
 
@@ -27,6 +28,7 @@ Eclipse Mosquitto message broker (https://mosquitto.org) API.
 %prep
 %setup -q
 
+%patch -P0 -p1 -b .checkinteger
 
 %build
 # To make sure we are using proper flags
@@ -47,6 +49,9 @@ export OPT=
 
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 0.4.1-1
+- update to 0.4.1, rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

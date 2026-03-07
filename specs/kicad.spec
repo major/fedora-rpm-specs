@@ -1,8 +1,8 @@
-%global candidate rc1
+%global candidate rc2
 
 Name:           kicad
 Version:        10.0.0
-Release:        0.2.%{candidate}%{?dist}
+Release:        0.3.%{candidate}%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -155,12 +155,9 @@ pushd %{name}-templates-%{version}/
 popd
 
 # Symbol libraries
-#
-# These are currently pre-packed, but later releases may change that, in which
-# case we will have to do the packing while building.
 pushd %{name}-symbols-%{version}/
 %cmake \
-    -DKICAD_PACK_SYM_LIBRARIES=OFF
+    -DKICAD_PACK_SYM_LIBRARIES=ON
 %cmake_build
 popd
 
@@ -265,6 +262,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Mar 05 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:10.0.0-0.3.rc2
+- Update to 10.0.0-rc2
+
 * Thu Feb 12 2026 Steven A. Falco <stevenfalco@gmail.com> - 1:10.0.0-0.2.rc1
 - Correct doc errors
 

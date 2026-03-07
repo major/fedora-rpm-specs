@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.93.1
+Version:        1.94.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.92.0
-%global bootstrap_channel 1.92.0
-%global bootstrap_date 2025-12-11
+%global bootstrap_version 1.93.0
+%global bootstrap_channel 1.93.0
+%global bootstrap_date 2026-01-22
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -46,34 +46,25 @@ ExclusiveArch:  %{rust_arches}
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 # See src/llvm-project/cmake/Modules/LLVMVersion.cmake for bundled version.
 %global min_llvm_version 20.0.0
-%global bundled_llvm_version 21.1.5
+%global bundled_llvm_version 21.1.8
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.9, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.9.0
+%global min_libgit2_version 1.9.2
 %global next_libgit2_version 1.10.0~
-%global bundled_libgit2_version 1.9.1
+%global bundled_libgit2_version 1.9.2
 %if 0%{?fedora} >= 41
 %bcond_with bundled_libgit2
 %else
 %bcond_without bundled_libgit2
 %endif
 
-# Try to use system oniguruma (only used at build time for rust-docs)
-# src/tools/rustbook -> ... -> onig_sys v69.9.1 needs at least 6.9.3
-%global min_oniguruma_version 6.9.3
-%if 0%{?rhel} && 0%{?rhel} < 9
-%bcond_without bundled_oniguruma
-%else
-%bcond_with bundled_oniguruma
-%endif
-
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
-%global bundled_sqlite3_version 3.50.2
+%global bundled_sqlite3_version 3.51.1
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without bundled_sqlite3
 %else
@@ -143,7 +134,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.93.0-unbundle-sqlite.patch
+Patch6:         rustc-1.94.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
@@ -151,6 +142,12 @@ Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 # bootstrap: always propagate `CARGO_TARGET_{host}_LINKER`
 # https://github.com/rust-lang/rust/pull/152077
 Patch8:         0001-bootstrap-always-propagate-CARGO_TARGET_-host-_LINKE.patch
+
+# Fixes for LLVM 22 compatibility
+# https://github.com/rust-lang/rust/pull/151410
+Patch9:         0001-Update-amdgpu-data-layout.patch
+Patch10:        0002-Avoid-passing-addrspacecast-to-lifetime-intrinsics.patch
+Patch11:        0003-Don-t-use-evex512-with-LLVM-22.patch
 
 ### RHEL-specific patches below ###
 
@@ -161,7 +158,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.93.0-disable-libssh2.patch
+Patch100:       rustc-1.94.0-disable-libssh2.patch
 
 # When building wasi, prevent linking a compiler-rt builtins library we don't have.
 Patch1000:	wasi-no-link-builtins.patch
@@ -279,10 +276,6 @@ BuildRequires:  pkgconfig(zlib)
 
 %if %{without bundled_libgit2}
 BuildRequires:  (pkgconfig(libgit2) >= %{min_libgit2_version} with pkgconfig(libgit2) < %{next_libgit2_version})
-%endif
-
-%if %{without bundled_oniguruma}
-BuildRequires:  pkgconfig(oniguruma) >= %{min_oniguruma_version}
 %endif
 
 %if %{without bundled_sqlite3}
@@ -725,6 +718,9 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %endif
 %patch -P7 -p1
 %patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -762,10 +758,6 @@ rm -rf src/tools/rustc-perf/collector/*-benchmarks/
 
 %if %without bundled_libgit2
 %clear_dir vendor/libgit2-sys*/libgit2/
-%endif
-
-%if %without bundled_oniguruma
-%clear_dir vendor/onig_sys*/oniguruma/
 %endif
 
 %if %without bundled_sqlite3
@@ -820,7 +812,6 @@ end}
 %global rust_env %{shrink:
   %{?rustflags:RUSTFLAGS="%{rustflags}"}
   %{rustc_target_cpus}
-  %{!?with_bundled_oniguruma:RUSTONIG_SYSTEM_LIBONIG=1}
   %{!?with_bundled_sqlite3:LIBSQLITE3_SYS_USE_PKG_CONFIG=1}
   %{!?with_disabled_libssh2:LIBSSH2_SYS_USE_PKG_CONFIG=1}
   %{?llvm_path:PATH="%{llvm_path}:$PATH"}
@@ -1152,16 +1143,18 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %dir %{rustlibdir}/%{rust_triple}
 %dir %{rustlibdir}/%{rust_triple}/lib
 %{rustlibdir}/%{rust_triple}/lib/*.rlib
+%{rustlibdir}/%{rust_triple}/lib/*.rmeta
 %{rustlibdir}/%{rust_triple}/lib/*.so
 %license build/manifests/std/cargo-vendor.txt
 %license %{_pkgdocdir}/COPYRIGHT-library.html
 
-%global target_files()      \
-%files std-static-%1        \
-%dir %{rustlibdir}          \
-%dir %{rustlibdir}/%1       \
-%dir %{rustlibdir}/%1/lib   \
-%{rustlibdir}/%1/lib/*.rlib \
+%global target_files()        \
+%files std-static-%1          \
+%dir %{rustlibdir}            \
+%dir %{rustlibdir}/%1         \
+%dir %{rustlibdir}/%1/lib     \
+%{rustlibdir}/%1/lib/*.rlib   \
+%{rustlibdir}/%1/lib/*.rmeta  \
 %license build/manifests/std-%1/cargo-vendor.txt
 
 %if %target_enabled i686-pc-windows-gnu

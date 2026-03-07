@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.19
+%global general_version %{pybasever}.20
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -349,15 +349,6 @@ Patch452: 00452-properly-apply-exported-cflags-for-dtrace-systemtap-builds.patch
 # This resolves the issue of failing tests when a system is
 # stressed on OpenSSL 3.5.
 Patch462: 00462-fix-pyssl_seterror-handling-ssl_error_syscall.patch
-
-# 00473 # e0df4af4663a200a370a7c7b2391588396bcf20f
-# CVE-2026-0865
-#
-#  gh-143916: Reject control characters in wsgiref.headers.Headers  (GH-143917)
-#
-# * Add 'test.support' fixture for C0 control characters
-# * gh-143916: Reject control characters in wsgiref.headers.Headers
-Patch473: 00473-cve-2026-0865.patch
 
 # 00474 # 837ddca0372fa87ff9cee47142200caa21e77def
 # CVE-2025-15366
@@ -1674,6 +1665,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Mar 03 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.20-1
+- Update to 3.10.20
+
 * Mon Feb 09 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.19-4
 - Security fixes for CVE-2026-0865, CVE-2025-15366 and CVE-2025-15367
 

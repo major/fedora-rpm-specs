@@ -1,10 +1,6 @@
-%global luaver 5.4
-%global lualibdir %{_libdir}/lua/%{luaver}
-%global luapkgdir %{_datadir}/lua/%{luaver}
-
 Name:           lua-md5
 Version:        1.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cryptographic Library for MD5 hashes for Lua
 
 License:        MIT
@@ -12,10 +8,10 @@ URL:            https://github.com/keplerproject/md5
 Source0:        https://github.com/keplerproject/md5/archive/1.3.tar.gz
 # https://github.com/keplerproject/md5/commit/ceb84044ad481409ea1179f1bed98440c29abb59
 
-BuildRequires:  lua >= %{luaver}, lua-devel >= %{luaver}
-Requires:       lua >= %{luaver}
+BuildRequires:  lua >= %{lua_version}, lua-devel >= %{lua_version}
+Requires:       lua >= %{lua_version}
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
 
 %description
 MD5 offers basic cryptographic facilities for Lua: a hash (digest)
@@ -32,19 +28,22 @@ make CFLAGS="%{optflags} -fPIC"
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{lualibdir}
-mkdir -p %{buildroot}%{luapkgdir}
-make install LUA_DIR=%{buildroot}%{luapkgdir} LUA_LIBDIR=%{buildroot}%{lualibdir}
+mkdir -p %{buildroot}%{lua_libdir}
+mkdir -p %{buildroot}%{lua_pkgdir}
+make install LUA_DIR=%{buildroot}%{lua_pkgdir} LUA_LIBDIR=%{buildroot}%{lua_libdir}
 
 
 
 %files
 %doc README.md doc/us/*
-%{luapkgdir}/*
-%{lualibdir}/*
+%{lua_pkgdir}/*
+%{lua_libdir}/*
 
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 1.3-14
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

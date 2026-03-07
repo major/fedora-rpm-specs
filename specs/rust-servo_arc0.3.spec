@@ -4,14 +4,19 @@
 
 %global crate servo_arc
 
-Name:           rust-servo_arc
-Version:        0.4.3
+Name:           rust-servo_arc0.3
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Fork of std::sync::Arc with some extra functionality and without weak references
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/servo_arc
 Source:         %{crates_source}
+# Add license files from upstream git repo as they seem to have gone missing in the 0.3.0 crate
+# https://github.com/servo/servo/issues/30455
+Source1:        https://raw.githubusercontent.com/servo/servo/master/components/servo_arc/LICENSE-APACHE
+Source2:        https://raw.githubusercontent.com/servo/servo/master/components/servo_arc/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -33,7 +38,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -84,21 +88,11 @@ use the "servo" feature of the "%{crate}" crate.
 %files       -n %{name}+servo-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+track_alloc_size-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+track_alloc_size-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "track_alloc_size" feature of the "%{crate}" crate.
-
-%files       -n %{name}+track_alloc_size-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp %{SOURCE1} .
+cp %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

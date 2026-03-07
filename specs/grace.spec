@@ -10,7 +10,6 @@ Name:           grace
 Version:        5.1.25
 Release:        46%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 # cephes is LGPL, see also Source3 and Source4
 URL:            http://plasma-gate.weizmann.ac.il/Grace/
@@ -50,7 +49,7 @@ making figures for publications.
 
 %package        devel
 Summary:        Files needed for grace development
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Provides:       %{name}-static = %{version}-%{release}
 %description    devel

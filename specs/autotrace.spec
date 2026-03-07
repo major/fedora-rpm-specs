@@ -74,9 +74,6 @@ autoreconf -ivf
 make check
 
 
-%ldconfig_scriptlets
-
-
 %files -f %{name}.lang
 %license COPYING COPYING.LIB
 %doc AUTHORS ChangeLog FAQ NEWS README.md THANKS TODO

@@ -19,9 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+
 %global upstreamname rocminfo
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -29,7 +40,7 @@
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
 %global pkg_skip_rpath OFF
 %global pkg_rpath %{_prefix}/lib64/rocm/rocm-%{rocm_release}/lib
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %else
 %global pkg_prefix %{_prefix}
 %global pkg_skip_rpath ON
@@ -40,7 +51,12 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+%if %{with preview}
+Release:    0%{?dist}
+%else
+Release:    3%{?dist}
+%endif
+
 Summary:    ROCm system info utility
 
 License:    NCSA AND MIT
@@ -48,7 +64,7 @@ License:    NCSA AND MIT
 # This file is MIT
 #   rocm_agent_enumerator
 URL:        https://github.com/ROCm/rocm-systems
-Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:     0001-adjust-CMAKE_CXX_FLAGS.patch
 
 ExclusiveArch:  x86_64
@@ -104,6 +120,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
 * Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Update license
 

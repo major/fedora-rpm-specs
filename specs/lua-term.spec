@@ -1,12 +1,12 @@
 %global luaminver 5.2
 
 #global commit 76d7c992a22d4481969a977ad36d6d35d3b2ca6f
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
+#global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 
 Name:           lua-term
 Version:        0.08
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Terminal functions for Lua
 
 License:        MIT
@@ -56,6 +56,9 @@ cp -p core.so %{buildroot}%{lualibdir}/term/
 
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 0.08-8
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

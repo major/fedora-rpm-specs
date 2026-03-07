@@ -1,6 +1,6 @@
 Name:           lua-sql
-Version:        2.5.0
-Release:        15%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Database connectivity for the Lua programming language
 
 License:        MIT
@@ -13,7 +13,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  sqlite-devel >= 3.0
 BuildRequires:  mariadb-connector-c-devel openssl-devel
 BuildRequires:  libpq-devel
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       lua-sql-mysql%{?_isa} = %{version}-%{release}
 Requires:       lua-sql-postgresql%{?_isa} = %{version}-%{release}
@@ -96,6 +96,9 @@ make install PREFIX=$RPM_BUILD_ROOT%{_prefix} LUA_LIBDIR=$RPM_BUILD_ROOT%{lua_li
 
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 2.7.0-1
+- update to 2.7.0, rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

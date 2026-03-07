@@ -1,16 +1,16 @@
 Summary: Lightweight C++ API library for Lua
 Name: lutok
-Version: 0.4
-Release: 31%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
-URL: http://code.google.com/p/lutok/
-Source0: http://lutok.googlecode.com/files/lutok-%{version}.tar.gz
+Version: 0.6.2
+Release: 1%{?dist}
+License: BSD-3-Clause
+URL: https://github.com/freebsd/lutok
+Source0:https://github.com/freebsd/lutok/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1: README.Fedora
 Requires: lua >= 5.2
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
-BuildRequires: libatf-c++-devel >= 0.20
+BuildRequires: libatf-c++-devel >= 0.21
+BuildRequires: libatf-sh-devel >= 0.21
 BuildRequires: lua-devel >= 5.2
 BuildRequires: make
 
@@ -42,7 +42,7 @@ cp -p %{SOURCE1} README.Fedora
 %configure --docdir=%{_defaultdocdir}/lutok-doc-%{version} \
            --disable-static \
            --htmldir=%{_defaultdocdir}/lutok-doc-%{version}/html \
-           --without-doxygen
+           --without-doxygen --enable-atf
 # Drop the default RPATH
 # See: https://docs.fedoraproject.org/en-US/packaging-guidelines/#_beware_of_rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -61,7 +61,7 @@ make install DESTDIR=%{buildroot} doc_DATA= testsdir=%{_testsdir}
 rm %{buildroot}%{_libdir}/liblutok.la
 
 %files
-%doc AUTHORS COPYING NEWS README
+%doc AUTHORS COPYING NEWS README.md
 %{_libdir}/liblutok.so.3
 %{_libdir}/liblutok.so.3.0.0
 
@@ -110,6 +110,11 @@ details on how to run the installed tests.
 %{_testsdir}
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 0.6.2-1
+- update to 0.6.2
+- correct license tag
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

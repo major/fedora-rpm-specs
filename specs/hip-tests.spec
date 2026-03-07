@@ -28,7 +28,7 @@
 %if %{with compat}
 %global pkg_libdir lib
 %global pkg_prefix %{_prefix}/lib64/rocm/rocm-%{rocm_release}
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %global pkg_module rocm%{pkg_suffix}
 %else
 %global pkg_libdir %{_lib}

@@ -35,7 +35,6 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{llvm_t
 %else
 Source0:	%{test_suite_srcdir}.tar.xz
 %endif
-Source1:	license-files.txt
 Source2:	pkg_test_suite.sh
 Source3:	changelog
 %if %{with snapshot_build}
@@ -79,7 +78,10 @@ fi
 chmod -R -x+X ABI-Testsuite
 
 # Merge Licenses into a single file
-cat %{SOURCE1} | while read FILE; do
+
+find . \( -iname 'LICENSE*' -or -iname 'COPYING*' \) -not -path './LICENSE.TXT' | \
+sort | \
+while read FILE; do
 	echo $FILE >> LICENSE.TXT
 	cat ./$FILE >> LICENSE.TXT
 done

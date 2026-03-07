@@ -1,7 +1,7 @@
-%global commit 5c769634b5b8d9fb643f198f3f6ea49abdf305fd
+%global commit b00e4a318fc7e4074b67f75dbb22373e1e07c56b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20250724
-%bcond bundled_dr_libs 1
+%global date 20260117
+%bcond bundled_dr_libs 0
 
 Name:           SDL3_sound
 Version:        3.0.0~%{date}git%{shortcommit}
@@ -23,12 +23,12 @@ BuildRequires:  SDL3-devel
 # https://github.com/icculus/SDL_sound/issues/42
 Provides:       bundled(libmodplug) = 0.8.9.1
 %if %{with bundled_dr_libs}
-Provides:       bundled(dr_flac) = 0.13.0
-Provides:       bundled(dr_mp3) = 0.7.0
+Provides:       bundled(dr_flac) = 0.13.3
+Provides:       bundled(dr_mp3) = 0.7.3
 %else
 # Header-only libraries (thus the -static)
-BuildRequires:  dr_flac-static >= 0.13.0
-BuildRequires:  dr_mp3-static >= 0.7.0
+BuildRequires:  dr_flac-static >= 0.13.3
+BuildRequires:  dr_mp3-static >= 0.7.3
 %endif
 # This has been forked; see "#ifdef __SDL_SOUND_INTERNAL__"
 Provides:       bundled(stb_vorbis) = 1.22
@@ -79,24 +79,19 @@ doxygen docs/Doxyfile
 %install
 %cmake_install
 # Add namespaces to man pages (livna bug #1181)
+rm -rf man3
 cp -a docs/man/man3 man3
 pushd man3
 mv actual.3 Sound_Sample::actual.3
 mv author.3 Sound_DecoderInfo::author.3
 mv buffer.3 Sound_Sample::buffer.3
 mv buffer_size.3 Sound_Sameple::buffer_size.3
-mv channels.3 Sound_AudioInfo::channels.3
 mv decoder.3 Sound_Sample::decoder.3
 mv description.3 Sound_DecoderInfo::description.3
 mv desired.3 Sound_Sample::desired.3
 mv extensions.3 Sound_DecoderInfo::extensions.3
 mv flags.3 Sound_Sample::flags.3
-mv format.3 Sound_AudioInfo::format.3
-mv major.3 Sound_Version::major.3
-mv minor.3 Sound_Version::minor.3
 mv opaque.3 Sound_Sample::opaque.3
-mv patch.3 Sound_Version::patch.3
-mv rate.3 Sound_AudioInfo::rate.3
 mv url.3 Sound_DecoderInfo::url.3
 popd
 
@@ -107,7 +102,7 @@ mv man3 %{buildroot}/%{_mandir}
 %license LICENSE.txt
 %doc docs/CREDITS.txt README.md
 %{_bindir}/playsound
-%{_libdir}/libSDL3_sound.so.3{,.*}
+%{_libdir}/libSDL3_sound.so.0{,.*}
 
 %files devel
 %doc docs/html

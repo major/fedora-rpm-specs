@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        66
+Version:        67
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -129,6 +129,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Mar 05 2026 Packit <hello@packit.dev> - 67-1
+- error reporting: add optional 'Restrict access to the report' via Bugzilla groups (Resolves: rhbz#2443308)
+- error reporting: Fix 'Cannot parse given Error object' crash in error handler (Resolves: rhbz#2444078)
+
+
 * Thu Feb 26 2026 Packit <hello@packit.dev> - 66-1
 - Add show/hide toggle for Bugzilla API key field (Resolves: rhbz#2442575)
 - Fix user description not being sent to Bugzilla (Resolves: rhbz#2442593)

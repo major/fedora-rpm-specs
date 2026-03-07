@@ -1,6 +1,3 @@
-%{!?luaver: %global luaver %(lua -e "print(string.sub(_VERSION, 5))" || echo 0)}
-%global lualibdir %{_libdir}/lua/%{luaver}
-
 %global luacompatver 5.1
 %global luacompatlibdir %{_libdir}/lua/%{luacompatver}
 
@@ -8,7 +5,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Lua bindings to Public Suffix List library
 
 License:        MIT
@@ -26,7 +23,7 @@ BuildRequires:  compat-lua
 BuildRequires:  compat-lua-devel
 %endif
 
-Requires:       lua(abi) = %{luaver}
+Requires:       lua(abi) = %{lua_version}
 
 %description
 Lua bindings to libpsl, a C library that handles the Public Suffix List (PSL).
@@ -62,8 +59,8 @@ gcc -shared %{?build_ldflags} -o psl-%{luacompatver}.so psl/psl.o $(pkg-config -
 %endif
 
 %install
-install -d -m 0755 %{buildroot}%{lualibdir}
-install -p -m 0755 psl.so %{buildroot}%{lualibdir}/psl.so
+install -d -m 0755 %{buildroot}%{lua_libdir}
+install -p -m 0755 psl.so %{buildroot}%{lua_libdir}/psl.so
 %if 0%{?fedora} || 0%{?rhel} > 7
 install -d -m 0755 %{buildroot}%{luacompatlibdir}
 install -p -m 0755 psl-%{luacompatver}.so %{buildroot}%{luacompatlibdir}/psl.so
@@ -71,7 +68,7 @@ install -p -m 0755 psl-%{luacompatver}.so %{buildroot}%{luacompatlibdir}/psl.so
 
 %files
 %license LICENSE
-%{lualibdir}/psl.so
+%{lua_libdir}/psl.so
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 %files -n lua%{luacompatver}-%{luapkgname}
@@ -80,6 +77,9 @@ install -p -m 0755 psl-%{luacompatver}.so %{buildroot}%{luacompatlibdir}/psl.so
 %endif
 
 %changelog
+* Thu Mar  5 2026 Tom Callaway <spot@fedoraproject.org> - 0.3-19
+- rebuild for lua 5.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

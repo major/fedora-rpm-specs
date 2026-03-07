@@ -1,6 +1,10 @@
+%global commit 1be041bc77d2039c5a856352b64deef9693ec316
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20260117
+
 Name:           SDL2_sound
-Version:        2.0.4
-Release:        7%{?dist}
+Version:        2.0.5^%{date}git%{shortcommit}
+Release:        1%{?dist}
 Summary:        An abstract soundfile decoder library
 # src/dr_{flac,mp3}.h: Unlicense or MIT-0
 # src/stb_vorbis.h: MIT or Unlicense
@@ -8,14 +12,11 @@ Summary:        An abstract soundfile decoder library
 # src/timidity: LGPL-2.1-or-later or Artistic-1.0-Perl (See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/589)
 License:        Zlib AND LGPL-2.1-or-later AND (Unlicense OR MIT-0) AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
 URL:            http://www.icculus.org/SDL_sound
+%if 0%{?commit:1}
+Source0:        https://github.com/icculus/SDL_sound/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%else
 Source0:        https://github.com/icculus/SDL_sound/archive/v%{version}/%{name}-%{version}.tar.gz
-# updated dr_libs from mainstream.
-# https://github.com/icculus/SDL_sound/commit/74bc83aa5c842ef74b2bc0b51dd1f53a09dc94cb
-#
-# This updates dr_flac from 0.12.42 to 0.12.43 and dr_mp3 from  0.6.38 to
-# 0.6.40. Version 0.12.43 of dr_flac fixes a possible buffer overflow during
-# decoding.
-Patch0:         https://github.com/icculus/SDL_sound/commit/74bc83aa5c842ef74b2bc0b51dd1f53a09dc94cb.patch
+%endif
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -29,8 +30,8 @@ Provides:       bundled(libmodplug) = 0.8.9.1
 # 2.x lacks both this routine and the SDL_IO_SEEK_CUR needed for its
 # implementation, SDL_SeekIO(x, 0, SDL_IO_SEEK_CUR). Instead, we fall back to
 # using the bundled dr_flac and dr_mp3 libraries.
-Provides:       bundled(dr_flac) = 0.12.43
-Provides:       bundled(dr_mp3) = 0.6.40
+Provides:       bundled(dr_flac) = 0.13.3
+Provides:       bundled(dr_mp3) = 0.7.3
 # This has been forked; see "#ifdef __SDL_SOUND_INTERNAL__"
 Provides:       bundled(stb_vorbis) = 1.22
 # SDL_mixer fork, stripped further, see https://github.com/icculus/SDL_sound/tree/main/src/timidity/CHANGES
@@ -61,7 +62,11 @@ Conflicts:      SDL_sound-devel
 This package contains the headers and libraries for SDL_sound development.
 
 %prep
+%if 0%{?commit:1}
+%autosetup -n SDL_sound-%{commit} -p1
+%else
 %autosetup -n SDL_sound-%{version} -p1
+%endif
 
 %build
 %cmake \
@@ -74,6 +79,7 @@ doxygen docs/Doxyfile
 %install
 %cmake_install
 # Add namespaces to man pages (livna bug #1181)
+rm -rf man3
 cp -a docs/man/man3 man3
 pushd man3
 mv actual.3 Sound_Sample::actual.3
@@ -115,6 +121,11 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Thu Mar 05 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0.5^20260117git1be041b-1
+- update to 20260117 snapshot from stable-2.0 branch
+- fixes CVE-2025-14369 (resolves rhbz#2431177)
+- fixes rpmbuild -bi --short-circuit
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

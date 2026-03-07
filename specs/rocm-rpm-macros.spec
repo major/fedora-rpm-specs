@@ -26,7 +26,7 @@
 
 %bcond_with compat
 %if %{with compat}
-%global pkg_suffix -%{rocm_release}
+%global pkg_suffix %{rocm_release}
 %else
 %global pkg_suffix %{nil}
 %endif

@@ -5,13 +5,16 @@
 %global crate erased-serde
 
 Name:           rust-erased-serde
-Version:        0.4.9
+Version:        0.4.10
 Release:        %autorelease
 Summary:        Type-erased Serialize and Serializer traits
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/erased-serde
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          erased-serde-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

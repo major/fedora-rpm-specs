@@ -3,11 +3,14 @@
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
 Version:        2.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/dbcli/cli_helpers
 Source0:        https://github.com/dbcli/cli_helpers/archive/v%{version}/cli_helpers-%{version}.tar.gz
+# Fix compatibility with tabulate 0.10.0
+# https://github.com/dbcli/cli_helpers/pull/107
+Patch:          %{url}/pull/107.patch
 BuildArch:      noarch
 BuildRequires:  python3-configobj
 BuildRequires:  python3-devel
@@ -33,7 +36,7 @@ Requires:       python3-wcwidth
 %pyproject_extras_subpkg -n python3-cli-helpers styles
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -54,6 +57,9 @@ PYTHONPATH=build/lib/ py.test-3
 %doc AUTHORS CHANGELOG README.rst
 
 %changelog
+* Thu Mar 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.1-2
+- Fix compatibility with tabulate 0.10.0
+
 * Wed Feb 18 2026 Terje Rosten <terjeros@gmail.com> - 2.10.1-1
 - 2.10.1
 

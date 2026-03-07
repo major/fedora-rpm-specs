@@ -2,7 +2,7 @@
 
 Name:             flent
 Version:          2.2.0
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -13,7 +13,7 @@ Source0:          %{pypi_source}
 BuildArch:        noarch
 BuildRequires:    python3-devel python3-sphinx desktop-file-utils libappstream-glib python3-setuptools make
 Recommends:       python3-matplotlib python3-matplotlib-qt5 python3-pyside2 python3-QtPy
-Requires:         fping netperf golang-github-heistp-irtt
+Requires:         fping netperf irtt
 
 %description
 The FLExible Network Tester is a Python wrapper to run multiple simultaneous
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Thu Mar 5 2026 Toke Høiland-Jørgensen <toke@toke.dk> 2.2.0-9
+- Update dependency to new 'irtt' package
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

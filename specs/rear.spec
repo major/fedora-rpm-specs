@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -51,7 +51,31 @@ Patch126: rear-print-disk-mapping-with-sizes-RHEL-83241.patch
 Patch127: rear-support-aarch64-uefi-RHEL-56045.patch
 
 # Copy a sshd helper to the rescue ramdisk, necessary on EL10
+# https://github.com/rear/rear/commit/8497de2d8a029460b0e47119b0664f0d254c97ac
 Patch128: rear-sshd-el10-RHEL-109270.patch
+
+# fix support for PowerNV machines without PPC PReP partitions
+# https://github.com/rear/rear/commit/79a3b50a0effcf4c1a43e9dfe1b8d0427ee0bf02
+Patch129: rear-fix-powerNV-support-RHEL-134218.patch
+
+# fix duplicate execution of automated recovery
+# https://github.com/rear/rear/commit/8a122cb5cfc28ce8c83baa963ad12f1c42e1c908
+# https://github.com/rear/rear/commit/fe5397d9da7ab95abfa93533c2cb3efd61f6ca05
+Patch130: rear-fix-duplicate-auto-recovery-RHEL-110659.patch
+
+# fix sorting of stage scripts
+# https://github.com/rear/rear/commit/95ecb7e024aa187ea6babd49eac1b4c9c3aba106
+Patch131: rear-fix-script-sorting-RHEL-132181.patch
+
+# add support for dbus broker
+# https://github.com/rear/rear/commit/61d294b9635b3c71bd58409e810bccb705b1220c
+Patch132: rear-dbus-broker-RHEL-134213.patch
+
+# EL9-only
+# Patch133:
+# Patch134:
+# Patch135:
+# Patch136:
 
 ######################
 # downstream patches #
@@ -198,6 +222,12 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Thu Mar 05 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-7
+- fix support for PowerNV machines without PPC PReP partitions (RHEL-134218)
+- fix duplicate execution of automated recovery (RHEL-110659)
+- fix sorting of stage scripts (RHEL-132181)
+- add support for dbus-broker (RHEL-134213)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

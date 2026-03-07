@@ -1,20 +1,7 @@
 # Disable LTO for ppc64
 %ifarch %{power64}
-%global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %global _lto_cflags %{nil}
-%global _smp_mflags -j1
 %endif
-
-# https://github.com/mixxxdj/mixxx/issues/14714
-# https://bugreports.qt.io/browse/QTBUG-135623
-#
-# /builddir/build/BUILD/mixxx-2.5.2-build/mixxx-2.5.2/src/sources/soundsourceflac.cpp: In member function ‘void mixxx::SoundSourceFLAC::flacError(FLAC__StreamDecoderErrorStatus)’:
-# /builddir/build/BUILD/mixxx-2.5.2-build/mixxx-2.5.2/src/sources/soundsourceflac.cpp:571:12: error: enumeration value ‘FLAC__STREAM_DECODER_ERROR_STATUS_OUT_OF_BOUNDS’ not handled in switch [-Werror=switch]
-#   571 |     switch (status) {
-#      |            ^
-# /builddir/build/BUILD/mixxx-2.5.2-build/mixxx-2.5.2/src/sources/soundsourceflac.cpp:571:12: error: enumeration value ‘FLAC__STREAM_DECODER_ERROR_STATUS_MISSING_FRAME’ # not handled in switch [-Werror=switch]
-
-%global optflags %{optflags} -Wno-array-bounds -Wno-error=switch
 
 # Optional: Package version suffix for pre-releases, e.g. "beta" or "rc"
 #global extraver beta
@@ -41,7 +28,7 @@
 
 Name:           mixxx
 Version:        2.5.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mixxx is open source software for DJ'ing
 # main sources are under GPL-2.0-or-later, except:
 # lib/fidlib LGPL-2.1
@@ -72,7 +59,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  appstream
 BuildRequires:  protobuf-compiler
 BuildRequires:  cmake
-BuildRequires:  ccache
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  gtest-devel
@@ -80,7 +66,6 @@ BuildRequires:  gmock-devel
 BuildRequires:  google-benchmark-devel
 
 # Build Requirements
-BuildRequires:  chrpath
 # The runtime libraries of FAAD2 are needed during the build for testing
 BuildRequires:  faad2-libs
 BuildRequires:  pkgconfig(libavcodec)
@@ -137,9 +122,7 @@ other formats as audio input. Playback can be controlled
 through the GUI or with external controllers including
 MIDI and HID devices.
 
-
 %prep
-
 %autosetup -p1 -n %{name}-%{sources}
 
 echo "#pragma once" > src/build.h
@@ -156,8 +139,7 @@ mkdir -p %{__cmake_builddir}/downloads
 cp %{SOURCE1} %{__cmake_builddir}/downloads
 cp %{SOURCE2} %{__cmake_builddir}/downloads
 
-%build
-
+%conf
 %cmake \
   -GNinja \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -181,11 +163,10 @@ cp %{SOURCE2} %{__cmake_builddir}/downloads
   -DVINYLCONTROL=ON \
   -DWAVPACK=ON
 
+%build
 %cmake_build
 
-
 %install
-
 # Install build artifacts
 %cmake_install
 
@@ -196,47 +177,19 @@ desktop-file-install \
   res/linux/org.mixxx.Mixxx.desktop
 
 # Delete unpackaged/unused files and directories
-rm -rf \
-  %{buildroot}%{_prefix}%{_sysconfdir}/ \
+rm -rv \
   %{buildroot}%{_datadir}/doc/ \
   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}_macos.svg \
-  %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}_ios.svg 
-
+  %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}_ios.svg
 
 %check
-
-# TODO: Enable EngineBufferE2ETest after spurious failures have been resolved.
-# TODO: Enable LoopingControlTest after spurious failures have been resolved.
-#%%global ctest_exclude_regex EngineBufferE2ETest|LoopingControlTest
-
-%ifarch x86_64
-  %global ctest_timeout_secs 180
-%endif
-
-# TODO: Enable ControllerEngine NaN tests on ARM after the cause for
-# the failing tests has been found and fixed.
-%ifarch %{arm32} %{arm64}
-  %global ctest_timeout_secs 300
-  #%%global ctest_exclude_regex %{?ctest_exclude_regex:%{ctest_exclude_regex}|}setValue_IgnoresNaN|setParameter_NaN|MovingInterquartileMeanTest
-%endif
-
-%ifarch %{power64}
-  %global ctest_timeout_secs 240
-%endif
-
-# Run tests
-%if "%{?ctest_exclude_regex}" == ""
-  %ctest --timeout %ctest_timeout_secs || :
-%else
-  %ctest --timeout %ctest_timeout_secs --exclude-regex "%ctest_exclude_regex"
-%endif
+%ctest
 
 # Validate AppStream data
 appstreamcli \
   validate \
   --no-net \
   %{buildroot}%{_metainfodir}/org.mixxx.Mixxx.metainfo.xml
-
 
 %files
 %license COPYING LICENSE
@@ -257,6 +210,12 @@ appstreamcli \
 %endif
 
 %changelog
+* Mon Mar 02 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.5.4-4
+- Clean-up: drop no longer necessary work-arounds
+- Remove redundant spacing
+- Move cmake call to conf section
+- Drop unnecessary BR: ccache and chrpath
+
 * Sun Jan 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/TagLib2
 

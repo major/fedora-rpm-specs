@@ -12,7 +12,7 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.12.3
+Version:        4.13
 Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
@@ -240,6 +240,9 @@ done\
 
 
 %changelog
+* Thu Mar 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.13-1
+- 4.13
+
 * Sat Feb 07 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.12.3-1
 - 4.12.3
 - Drop 32-bit because cpp-httplib did.

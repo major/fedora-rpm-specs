@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 44.24
-Release: 1%{?dist}
+Release: 3%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,6 +12,9 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
+
+# backport CLI option PR (#6929) so that GNOME Kiosk can land in Rawhide
+Patch: 0001-Add-enable-vt-switch-when-running-gnome-kiosk.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -519,6 +522,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 05 2026 Adam Williamson <awilliam@redhat.com> - 44.24-3
+- Fix argument order in enable-vt-switch patch
+
+* Thu Mar 05 2026 Martin Kolman <mkolman@redhat.com> - 44.24-2
+- Add --enable-vt-switch when running gnome-kiosk
+ Related: rhbz#2440563
+
 * Wed Mar 04 2026 Packit <hello@packit.dev> - 44.24-1
 - Fix crash when org.freedesktop.ScreenSaver Inhibit is unavailable (k.koukiou)
   Resolves: rhbz#2440367

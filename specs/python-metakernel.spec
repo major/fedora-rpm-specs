@@ -1,12 +1,10 @@
-%global __requires_exclude python.*dist\\((jupyter-kernel-test|pytest-cov|pytest-timeout)\\)
-
 Name:		python-metakernel
 #		The python and echo subpackages have their own version
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.30.4
-Release:	2%{?dist}
+Version:	0.31.0
+Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -17,14 +15,22 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 #		Address failing tests with Python 3.13
 #		https://github.com/Calysto/metakernel/issues/279
 #		https://github.com/Calysto/metakernel/pull/280
+#		https://github.com/Calysto/metakernel/pull/342
 Patch0:		0001-Test-compatibility-with-Python-3.13.patch
+#		Fix testpaths for newer pytest versions
+#		https://github.com/pytest-dev/pytest/issues/12605
+#		https://github.com/Calysto/metakernel/pull/343
+Patch1:		0001-Fix-testpaths-for-newer-pytest-versions.patch
 BuildArch:	noarch
 
 #		For testing:
+BuildRequires:	python3dist(ipywidgets)
 BuildRequires:	python3dist(pytest)
 BuildRequires:	python3dist(pytest-timeout)
 BuildRequires:	python3dist(requests)
 BuildRequires:	python3dist(ipyparallel)
+BuildRequires:	python3dist(matplotlib)
+BuildRequires:	python3dist(portalocker)
 BuildRequires:	python3dist(pydot)
 BuildRequires:	man
 #		For documentation
@@ -44,22 +50,13 @@ distributed processing, downloads, and much more).
 Summary:	Metakernel for Jupyter
 %py_provides	python3-metakernel
 Obsoletes:	python3-metakernel-bash < 0.19.1-24
+Obsoletes:	python3-metakernel-tests < 0.29.3-2
+Obsoletes:	python3-metakernel+test < 0.31.0
 
 %description -n python3-metakernel
 A Jupyter/IPython kernel template which includes core magic functions
 (including help, command and file path completion, parallel and
 distributed processing, downloads, and much more).
-
-%package -n python3-metakernel+test
-Summary:	Tests for python3-metakernel
-%py_provides	python3-metakernel+test
-%py_provides	python3-metakernel-tests
-Obsoletes:	python3-metakernel-tests < 0.29.3-2
-Requires:	python3-metakernel = %{version}-%{release}
-Requires:	man
-
-%description -n python3-metakernel+test
-This package contains the tests of python3-metakernel.
 
 %package doc
 Summary:	Documentation for python-metakernel
@@ -69,7 +66,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	80%{?dist}
+Release:	81%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -80,7 +77,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	80%{?dist}
+Release:	81%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -92,6 +89,9 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 %prep
 %setup -q -n metakernel-%{pkgversion}
 %patch -P0 -p1
+%patch -P1 -p1
+# Allow older pytest versions
+sed -e /minversion/d -e /strict/d -i pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -116,21 +116,10 @@ popd
 %pyproject_install
 rm %{buildroot}%{python3_sitelib}/metakernel/magics/README.md
 
-for f in tests/test_expect.py; do
-  sed '/\/usr\/bin\/env/d' -i %{buildroot}%{python3_sitelib}/metakernel/${f}
-done
-
-PYTHONPATH=metakernel_python \
-  python3 -m metakernel_python install --name python3-metakernel-python \
-  --prefix %{buildroot}%{_prefix}
-PYTHONPATH=metakernel_echo \
-  python3 -m metakernel_echo install --name python3-metakernel-echo \
-  --prefix %{buildroot}%{_prefix}
-
 %check
 # The completion magic test checks for the existence of ~/.bashrc
 touch ~/.bashrc
-PYTHONPATH=metakernel_python ipcluster start -n 3 --location localhost &
+PYTHONPATH=.:metakernel_python ipcluster start -n 3 --location localhost &
 pid=$!
 pytest -v --color=no
 ipcluster stop
@@ -138,21 +127,9 @@ wait $pid
 
 %files -n python3-metakernel
 %license LICENSE.txt
-%doc README.rst
+%doc README.md
 %{python3_sitelib}/metakernel-*.*-info
-%dir %{python3_sitelib}/metakernel
-%{python3_sitelib}/metakernel/*.py
-%{python3_sitelib}/metakernel/__pycache__
-%{python3_sitelib}/metakernel/images
-%dir %{python3_sitelib}/metakernel/magics
-%{python3_sitelib}/metakernel/magics/*.py
-%{python3_sitelib}/metakernel/magics/__pycache__
-%{python3_sitelib}/metakernel/utils
-
-%files -n python3-metakernel+test
-%ghost %{python3_sitelib}/metakernel-*.*-info
-%{python3_sitelib}/metakernel/tests
-%{python3_sitelib}/metakernel/magics/tests
+%{python3_sitelib}/metakernel
 
 %files doc
 %license LICENSE.txt
@@ -160,17 +137,19 @@ wait $pid
 
 %files -n python3-metakernel-python
 %{python3_sitelib}/metakernel_python-*.*-info
-%{python3_sitelib}/metakernel_python.py
-%{python3_sitelib}/__pycache__/metakernel_python.*
-%{_datadir}/jupyter/kernels/python3-metakernel-python
+%{python3_sitelib}/metakernel_python
+%{_datadir}/jupyter/kernels/metakernel_python
 
 %files -n python3-metakernel-echo
 %{python3_sitelib}/metakernel_echo-*.*-info
-%{python3_sitelib}/metakernel_echo.py
-%{python3_sitelib}/__pycache__/metakernel_echo.*
-%{_datadir}/jupyter/kernels/python3-metakernel-echo
+%{python3_sitelib}/metakernel_echo
+%{_datadir}/jupyter/kernels/metakernel_echo
 
 %changelog
+* Tue Mar 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.31.0-1
+- Update to version 0.31.0
+- Drop test package - tests are no longer installed
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
