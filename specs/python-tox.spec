@@ -28,6 +28,10 @@ License:        MIT
 URL:            https://tox.readthedocs.io/
 Source:         %{pypi_source tox}
 
+# Adjust for virtualenv 21 API changes, from upsteam, rebased.
+# https://github.com/tox-dev/tox/commit/a9533f575f
+Patch:          virtualenv-21.patch
+
 # Remove usage of devpi-process.
 # Remove coverage options.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.

@@ -1851,8 +1851,18 @@ fi
 %endif
 
 %changelog
-* Wed Mar 04 2026 Than Ngo <than@redhat.com> - 145.0.7632.159-1
+* Wed Mar 06 2026 Than Ngo <than@redhat.com> - 145.0.7632.159-1
 - Update to 145.0.7632.159
+  * CVE-2026-3536: Integer overflow in ANGLE
+  * CVE-2026-3537: Object lifecycle issue in PowerVR
+  * CVE-2026-3538: Integer overflow in Skia
+  * CVE-2026-3539: Object lifecycle issue in DevTools
+  * CVE-2026-3540: Inappropriate implementation in WebAudio
+  * CVE-2026-3541: Inappropriate implementation in CSS
+  * CVE-2026-3542: Inappropriate implementation in WebAssembly
+  * CVE-2026-3543: Inappropriate implementation in V8
+  * CVE-2026-3544: Heap buffer overflow in WebCodecs
+  * CVE-2026-3545: Insufficient data validation in Navigation
 
 * Tue Feb 24 2026 Than Ngo <than@redhat.com> - 145.0.7632.116-1
 - Update to 145.0.7632.116

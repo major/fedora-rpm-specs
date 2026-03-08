@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname rocsolver
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -115,12 +118,11 @@
 %endif
 
 Name:           rocsolver%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -130,11 +132,7 @@ Summary:        Next generation LAPACK implementation for ROCm platform
 License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 # https://github.com/ROCm/rocSOLVER/pull/652
 Patch0:         0001-rocsolver-ninja-job-pools.patch
@@ -230,15 +228,7 @@ Requires:       %{rocsolver_name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocsolver
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1 
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 # As of 6.4, there are 2 long running hip jobs
 # There are ~20 gpu targets
@@ -273,9 +263,6 @@ fi
 sed -i -e "s@-parallel-jobs=4@-parallel-jobs=${HIP_JOBS}@" library/src/CMakeLists.txt
 
 %build
-%if %{with gitcommit}
-cd projects/rocsolver
-%endif
 
 cat /proc/cpuinfo
 cat /proc/meminfo
@@ -338,21 +325,13 @@ fi
 %endif
 
 %install
-%if %{with gitcommit}
-cd projects/rocsolver
-%endif
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 
 %files  -n %{rocsolver_name}
-%if %{with gitcommit}
-%license projects/rocsolver/LICENSE.md
-%doc projects/rocsolver/README.md
-%else
 %license LICENSE.md
 %doc README.md
-%endif
 
 %{pkg_prefix}/%{pkg_libdir}/librocsolver.so.0{,.*}
 
@@ -368,6 +347,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Mon Feb 16 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Fix whitespace
 

@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate socket2
+%global crate calendrical_calculations
 
-Name:           rust-socket2
-Version:        0.6.3
+Name:           rust-calendrical_calculations
+Version:        0.2.3
 Release:        %autorelease
-Summary:        Utilities for handling networking sockets
+Summary:        Calendrical calculations in Rust
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/socket2
+License:        Apache-2.0
+URL:            https://crates.io/crates/calendrical_calculations
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          socket2-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Utilities for handling networking sockets with a maximal amount of
-configuration possible intended.}
+Calendrical calculations in Rust.}
 
 %description %{_description}
 
@@ -33,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,16 +46,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+all-devel
+%package     -n %{name}+logging-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+all-devel %{_description}
+%description -n %{name}+logging-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "all" feature of the "%{crate}" crate.
+use the "logging" feature of the "%{crate}" crate.
 
-%files       -n %{name}+all-devel
+%files       -n %{name}+logging-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

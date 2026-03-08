@@ -1,6 +1,6 @@
 Name:           harfbuzz
 Version:        13.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -31,6 +31,8 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-icu%{?_isa} = %{version}-%{release}
 Requires:       %{name}-cairo%{?_isa} = %{version}-%{release}
+Requires:       %{name}-raster%{?_isa} = %{version}-%{release}
+Requires:       %{name}-vector%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -49,6 +51,20 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    cairo
 This package contains Harfbuzz Cairo support library.
+
+%package        raster
+Summary:        Harfbuzz Raster support library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    raster
+This package contains Harfbuzz Raster support library.
+
+%package        vector
+Summary:        Harfbuzz Vector support library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    vector
+This package contains Harfbuzz Vector support library.
 
 %prep
 %autosetup -p1
@@ -73,6 +89,10 @@ This package contains Harfbuzz Cairo support library.
 
 %ldconfig_scriptlets cairo
 
+%ldconfig_scriptlets raster
+
+%ldconfig_scriptlets vector
+
 %files
 %license COPYING
 %doc NEWS AUTHORS README.md
@@ -88,17 +108,22 @@ This package contains Harfbuzz Cairo support library.
 %{_bindir}/hb-view
 %{_bindir}/hb-shape
 %{_bindir}/hb-subset
+%{_bindir}/hb-vector
 %{_includedir}/harfbuzz/
 %{_libdir}/libharfbuzz.so
 %{_libdir}/libharfbuzz-gobject.so
 %{_libdir}/libharfbuzz-cairo.so
 %{_libdir}/libharfbuzz-icu.so
+%{_libdir}/libharfbuzz-raster.so
 %{_libdir}/libharfbuzz-subset.so
+%{_libdir}/libharfbuzz-vector.so
 %{_libdir}/pkgconfig/harfbuzz.pc
 %{_libdir}/pkgconfig/harfbuzz-cairo.pc
 %{_libdir}/pkgconfig/harfbuzz-gobject.pc
 %{_libdir}/pkgconfig/harfbuzz-icu.pc
+%{_libdir}/pkgconfig/harfbuzz-raster.pc
 %{_libdir}/pkgconfig/harfbuzz-subset.pc
+%{_libdir}/pkgconfig/harfbuzz-vector.pc
 %{_libdir}/cmake/harfbuzz/
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/HarfBuzz-0.0.gir
@@ -109,7 +134,18 @@ This package contains Harfbuzz Cairo support library.
 %files cairo
 %{_libdir}/libharfbuzz-cairo.so.*
 
+%files raster
+%{_libdir}/libharfbuzz-raster.so.*
+
+%files vector
+%{_libdir}/libharfbuzz-vector.so.*
+
 %changelog
+* Thu Mar 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 13.0.0-2
+- Upstream added new binary hb-vector
+- Upstream added new pkgconfig files harfbuzz-raster.pc and harfbuzz-vector.pc
+- Added new subpackages harfbuzz-raster and harfbuzz-vector
+
 * Thu Mar 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 13.0.0-1
 - Update to 13.0.0 version (#2444670)
 

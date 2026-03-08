@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.28.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -273,6 +273,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-2
+- Bump EVR
+
 * Wed Feb 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-1
 - 0.28.0
 

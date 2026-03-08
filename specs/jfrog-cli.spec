@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.92.0
+Version:                2.95.0
 
 %gometa -L -f
 
@@ -27,9 +27,8 @@ JFrog CLI is a client that provides a simple interface that automates access to
 the JFrog products.
 
 %prep
-%goprep -A
-%setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
+%goprep -p1
+tar -xf %{S:1}
 # these tests require access to Artifactory instance
 rm -v \
   access_test.go \

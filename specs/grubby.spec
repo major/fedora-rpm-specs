@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 87%{?dist}
+Release: 88%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPL-2.0-or-later
 Source1: grubby-bls
@@ -79,6 +79,9 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/kernel
 
 %changelog
+* Thu Mar  5 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 8.40-88
+- Fix 10-devicetree.install failure when /boot is fat
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.40-87
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -45,6 +45,8 @@ BuildRequires:  kojan-xml
 BuildRequires:  maven4
 Requires:       %{name}-minimal = %{version}-%{release}
 Requires:       maven4
+# TODO Remove in Fedora 47
+Obsoletes:      %{name}-toolchain-openjdk21 < 5.1.0-9
 
 %description
 This package provides extensions for Apache Maven that can be used to

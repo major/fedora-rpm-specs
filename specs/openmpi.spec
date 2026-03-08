@@ -73,6 +73,10 @@ Source0:        https://www.open-mpi.org/software/ompi/v5.0/downloads/openmpi-%{
 Source1:        openmpi.module.in
 Source3:        openmpi.pth.py3
 Source4:        macros.openmpi
+# Fix always inline failure - https://github.com/open-mpi/ompi/pull/13756
+Patch:          openmpi-inline.patch
+# Fix brace initialization - https://github.com/open-mpi/ompi/pull/13758
+Patch:          openmpi-braces.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -103,9 +107,7 @@ Obsoletes:      %{name}-java < %{version}-%{release}
 Obsoletes:      %{name}-java-devel < %{version}-%{release}
 %endif
 # Old libevent causes issues
-%if !0%{?el7}
 BuildRequires:  libevent-devel
-%endif
 BuildRequires:  libfabric-devel
 %ifnarch s390x
 BuildRequires:  papi-devel
@@ -130,9 +132,7 @@ BuildRequires:  libpsm2-devel
 BuildRequires:  ucx-devel
 %endif
 BuildRequires:  zlib-devel
-%if !0%{?el7}
 BuildRequires:  rpm-mpi-hooks
-%endif
 %if %{with sphinx}
 # For docs
 BuildRequires:  /usr/bin/sphinx-build
@@ -141,10 +141,6 @@ BuildRequires:  python3-sphinx_rtd_theme
 %endif
 
 Provides:       mpi
-%if 0%{?rhel} == 7
-# Need this for /etc/profile.d/modules.sh
-Requires:       environment-modules
-%endif
 Requires:       environment(modules)
 Requires:       prrte
 # openmpi currently requires ssh to run
@@ -168,13 +164,11 @@ researchers. For more information, see http://www.open-mpi.org/ .
 Summary:	Development files for openmpi
 Requires:	%{name} = %{version}-%{release}, gcc-gfortran
 Provides:	mpi-devel
-%if !0%{?el7}
 Requires:	rpm-mpi-hooks
 # Make sure this package is rebuilt with correct Python version when updating
 # Otherwise mpi.req from rpm-mpi-hooks doesn't work
 # https://bugzilla.redhat.com/show_bug.cgi?id=1705296
 Requires:	(python(abi) = %{python3_version} if python3)
-%endif
 
 %description devel
 Contains development headers and libraries for openmpi.
@@ -250,11 +244,9 @@ OpenMPI support for Python 3.
 	--enable-memchecker \
 %endif
 	--with-hwloc=/usr \
-%if !0%{?el7}
 	--with-libevent=external \
 %if %{with pmix}
 	--with-pmix=external \
-%endif
 %endif
 
 %make_build V=1
@@ -350,9 +342,6 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 %{_mandir}/%{namearch}/man7/Open-MPI.7*
 %{_libdir}/%{name}/lib/*.so.40*
 %{_libdir}/%{name}/lib/*.so.80*
-%if 0%{?el7}
-%{_libdir}/%{name}/lib/pmix/
-%endif
 %{_mandir}/%{namearch}/man1/mpirun.1*
 %{_mandir}/%{namearch}/man1/mpisync.1*
 %{_mandir}/%{namearch}/man1/ompi*
@@ -365,9 +354,6 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 %dir %{_libdir}/%{name}/share/openmpi
 %{_libdir}/%{name}/share/openmpi/amca-param-sets
 %{_libdir}/%{name}/share/openmpi/help*.txt
-%if 0%{?el7}
-%{_libdir}/%{name}/share/pmix/
-%endif
 
 %files devel
 %dir %{_includedir}/%{namearch}

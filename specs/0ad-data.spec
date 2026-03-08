@@ -2,7 +2,7 @@
 
 Name:		0ad-data
 Version:	0.28.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Data Files for 0 AD
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:	LicenseRef-Callaway-CC-BY-SA
@@ -49,6 +49,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-2
+- Bump EVR
+
 * Wed Feb 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.28.0-1
 - 0.28.0
 

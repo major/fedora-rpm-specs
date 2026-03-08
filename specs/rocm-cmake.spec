@@ -20,11 +20,17 @@
 # THE SOFTWARE.
 #
 
-# there is no debug package - this is just cmake modules
-%global debug_package %{nil}
-
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -38,13 +44,20 @@
 %endif
 %global pkg_name rocm-cmake%{pkg_suffix}
 
+# there is no debug package - this is just cmake modules
+%global debug_package %{nil}
+
 Name:     %{pkg_name}
 Version:  %{rocm_version}
-Release:  2%{?dist}
+%if %{with preview}
+Release:  0%{?dist}
+%else
+Release:  3%{?dist}
+%endif
 Summary:  CMake modules for common build and development tasks for ROCm
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
-Source:   %{url}/archive/rocm-%{version}.tar.gz#/rocm-cmake-rocm-%{version}.tar.gz
+Source:   %{url}/archive/%{pkg_src}.tar.gz#/rocm-cmake-rocm-%{version}.tar.gz
 # https://github.com/ROCm/rocm-cmake/issues/276
 Patch0:   0001-rocm-cmake-follow-cmake-install-rules.patch
 
@@ -64,7 +77,7 @@ rocm-cmake is not required for building libraries or programs that use ROCm; it
 is required for building some of the libraries that are a part of ROCm.
 
 %prep
-%autosetup -p1 -n rocm-cmake-rocm-%{version}
+%autosetup -p1 -n rocm-cmake-%{pkg_src}
 
 # Another hardcoding of the libdir
 sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' share/rocmcmakebuildtools/cmake/ROCMCreatePackage.cmake
@@ -88,7 +101,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-cmake/LICENSE
 %{pkg_prefix}/share/rocmcmakebuildtools/
 
 %changelog
-* Thu Feb 12 2026 Tom Rix <Tom>Rix@amd.com> - 7.2.0-2
+* Thu Mar 5 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+
+* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Fix changelog
 
 * Sat Jan 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1

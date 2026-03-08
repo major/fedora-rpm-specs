@@ -190,13 +190,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.0.0
 %define specversion 7.0.0
 %define patchversion 7.0
-%define pkgrelease 0.rc2.260305gc107785c7e8db.24
+%define pkgrelease 0.rc2.260306g5ee8dbf54602d.25
 %define kversion 7
-%define tarfile_release 7.0-rc2-90-gc107785c7e8db
+%define tarfile_release 7.0-rc2-272-g5ee8dbf54602d
 # This is needed to do merge window version magic
 %define patchlevel 0
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.260305gc107785c7e8db.24%{?buildid}%{?dist}
+%define specrelease 0.rc2.260306g5ee8dbf54602d.25%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.0.0
 
@@ -4829,8 +4829,11 @@ fi\
 #
 #
 %changelog
-* Thu Mar 05 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc2.260305gc107785c7e8db.24]
-- Linux v7.0.0-0.rc2.260305gc107785c7e8db
+* Fri Mar 06 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.0-0.rc2.260306g5ee8dbf54602d.25]
+- Linux v7.0.0-0.rc2.260306g5ee8dbf54602d
+
+* Fri Mar 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.5ee8dbf54602.25]
+- Linux v7.0.0-0.rc2.5ee8dbf54602
 
 * Thu Mar 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.0.0-0.rc2.c107785c7e8d.24]
 - Linux v7.0.0-0.rc2.c107785c7e8d

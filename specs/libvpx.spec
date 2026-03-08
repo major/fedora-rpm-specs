@@ -6,7 +6,7 @@
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
 Version:		1.16.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		BSD-3-Clause
 URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
@@ -202,6 +202,9 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Fri Mar 06 2026 Wim Taymans <wtaymans@redhat.com> - 1.16.0-2
+- Rebuild in side-tag
+
 * Wed Mar 04 2026 Wim Taymans <wtaymans@redhat.com> - 1.16.0-1
 - Update to 1.16.0
 

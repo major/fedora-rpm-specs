@@ -2,24 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate socket2
+%global crate outref
 
-Name:           rust-socket2
-Version:        0.6.3
+Name:           rust-outref
+Version:        0.5.2
 Release:        %autorelease
-Summary:        Utilities for handling networking sockets
+Summary:        Out reference
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/socket2
+License:        MIT
+URL:            https://crates.io/crates/outref
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          socket2-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * ignore unneeded files, see:
+# * https://github.com/Nugine/outref/commit/e87569ef6938875df2fabdbc8e0217570fd4060e
+Patch:          outref-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Utilities for handling networking sockets with a maximal amount of
-configuration possible intended.}
+Out reference.}
 
 %description %{_description}
 
@@ -33,8 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CODE_OF_CONDUCT.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +50,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+all-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+all-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "all" feature of the "%{crate}" crate.
-
-%files       -n %{name}+all-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

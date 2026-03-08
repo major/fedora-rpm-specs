@@ -12,12 +12,16 @@ HTML, LaTeX, PDFs, etc.}
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Interrogate a codebase for docstring coverage
 
 License:        MIT
 URL:            https://github.com/econchick/interrogate
 Source0:        %{pypi_source}
+# Support (and require) tabulate version 0.10.0
+# https://github.com/econchick/interrogate/pull/189
+# Rebased on 1.7.0.
+Patch:          0001-Support-tabulate-version-0.10.0.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -46,7 +50,7 @@ Summary:  %{summary}
 Documentation for interrogate
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -76,6 +80,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Thu Mar 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-9
+- Support (and require) tabulate version 0.10.0
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

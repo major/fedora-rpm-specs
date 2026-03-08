@@ -2,7 +2,7 @@
 
 Name:           gnome-shell-extension-freon
 Epoch:          2
-Version:        58
+Version:        60
 %global srcversion EGO-%{version}
 Release:        %autorelease
 Summary:        GNOME Shell extension to display system temperature, voltage, and fan speed
@@ -10,18 +10,12 @@ Summary:        GNOME Shell extension to display system temperature, voltage, an
 License:        GPL-2.0-only
 URL:            %{forgeurl}/wiki
 Source:         %{forgeurl}/archive/%{srcversion}/%{name}-%{srcversion}.tar.gz
-# Mark compatible with GNOME Shell 49
-Patch:          %{forgeurl}/pull/296.patch
+# Mark compatible with GNOME Shell 50
+# https://github.com/UshakovVasilii/gnome-shell-extension-freon/pull/309
+Patch:          %{forgeurl}/pull/309.patch
 
 BuildRequires:  glib2
-
-# Dependencies described here:
-# https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki/Dependency
-%if 0%{?fedora} >= 42
 BuildRequires:  gnome-shell-rpm-generators
-%else
-Requires:       gnome-shell >= 45
-%endif
 
 Requires:       gnome-shell-extension-common
 Requires:       lm_sensors
@@ -45,7 +39,7 @@ and they will appear in the GNOME Shell top bar.
 %prep
 %autosetup -n %{name}-%{srcversion} -p1
 
-cat > ./README-fedora.md << EOF
+cat > ./README-fedora.md << "EOF"
 **NOTE** that if you want to see GPU temperature, you will need to
 install the vendor's official driver and any related packages. (Nouveau
 unfortunately won't work for Nvidia cards.)

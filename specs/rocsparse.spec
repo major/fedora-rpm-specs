@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname rocsparse
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -123,22 +126,17 @@
 %global _gpu_list gfx1100
 
 Name:           rocsparse%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
 License:        MIT AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -221,12 +219,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocsparse
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 # On Tumbleweed Q3,2025
 # /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
@@ -234,10 +227,6 @@ cd projects/rocsparse
 sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' {,clients/}CMakeLists.txt
 
 %build
-%if %{with gitcommit}
-cd projects/rocsparse
-%endif
-
 %cmake %{cmake_generator} %{cmake_config} \
     -DGPU_TARGETS=%{gpu_list} \
 %if %{with test}
@@ -247,10 +236,6 @@ cd projects/rocsparse
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/rocsparse
-%endif
-
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocsparse/LICENSE.md
@@ -274,13 +259,8 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %files -n %{rocsparse_name}
-%if %{with gitcommit}
-%doc projects/rocsparse/README.md
-%license projects/rocsparse/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
 
 %{pkg_prefix}/%{pkg_libdir}/librocsparse.so.1{,.*}
 
@@ -299,6 +279,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Sat Feb 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Fix whitespace
 

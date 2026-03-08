@@ -1,11 +1,12 @@
 Name:           libgexiv2
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Gexiv2 is a GObject-based wrapper around the Exiv2 library
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/gexiv2
 Source0:        https://download.gnome.org/sources/gexiv2/%{version}/gexiv2-%{version}.tar.xz
+Patch: 0001-gexiv2-fix-package-name-in-gir-file-to-have-0.16-suf.patch
 
 BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  gcc-c++
@@ -80,6 +81,9 @@ This package contains the python3 bindings for %{name}
 %pycached %{python3_sitelib}/gi/overrides/GExiv2.py
 
 %changelog
+* Tue Feb 10 2026 Daniel P. Berrangé <berrange@redhat.com> - 0.16.0-2
+- Fix package name in GExiv2-0.16.gir file (rhbz #2438020)
+
 * Fri Jan 30 2026 Jan Horak <jhorak@redhat.com> - 0.16.0-1
 - Update to version 0.16
 

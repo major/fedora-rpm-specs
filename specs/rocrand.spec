@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname rocrand
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -118,12 +121,11 @@
 %endif
 
 Name:           rocrand%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -149,11 +151,7 @@ License:        MIT AND 0BSD AND (MIT AND BSL-1.0) AND (MIT AND BSD-3-Clause)
 #   library/src/rng/mtgp32.hpp
 #   library/src/rng/philox4x32_10.hpp
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -227,12 +225,7 @@ Requires:       %{rocrand_name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocrand
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 # On Tumbleweed Q3,2025
 # https://github.com/ROCm/rocm-libraries/issues/83
@@ -244,21 +237,12 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp
 rm -rf test/fortran/fruit
 
 %build
-
-%if %{with gitcommit}
-cd projects/rocrand
-%endif
-
 %cmake %{cmake_generator} %{cmake_config} \
        -DAMDGPU_TARGETS=%{gpu_list} \
 
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/rocrand
-%endif
-
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
@@ -294,6 +278,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Fri Feb 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Update license
 - Cleanup whitespace

@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate socket2
+%global crate icu_calendar_data
 
-Name:           rust-socket2
-Version:        0.6.3
+Name:           rust-icu_calendar_data
+Version:        2.1.1
 Release:        %autorelease
-Summary:        Utilities for handling networking sockets
+Summary:        Data for the icu_calendar crate
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/socket2
+License:        Unicode-3.0
+URL:            https://crates.io/crates/icu_calendar_data
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          socket2-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Utilities for handling networking sockets with a maximal amount of
-configuration possible intended.}
+Data for the icu_calendar crate.}
 
 %description %{_description}
 
@@ -33,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+all-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+all-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "all" feature of the "%{crate}" crate.
-
-%files       -n %{name}+all-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

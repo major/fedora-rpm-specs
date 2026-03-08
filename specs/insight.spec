@@ -1,6 +1,17 @@
-%global ver		13.0.50
-%global snap		20220502
-%global gnulibsnap	20220627
+%global ver		18.0.50
+%global snap		20260306
+%global gnulibsnap	20220501
+
+#	The base set of targets that Fedora and RHEL support. These are the
+#	targets that every insight build, regardless of host architecture,
+#	supports debugging. This means that these targets can be used as
+#	remote debug targets.
+%global enabled_target	aarch64-linux-gnu,powerpc-linux-gnu,riscv64-linux-gnu,s390-linux-gnu,x86_64-redhat-linux-gnu
+
+#	Fedora, and older RHEL also have 32-bit ARM support.
+%if 0%{?fedora:1} || (0%{?rhel:1} && 0%{?rhel} < 10)
+%global	enabled_target	%{enabled_target},arm-linux-gnu
+%endif
 
 #	Turn off the brp-python-bytecompile automagic
 %global	_python_bytecompile_extra	0
@@ -18,7 +29,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	28%{?dist}
+Release:	1%{?dist}
 Summary:	Graphical debugger based on GDB
 # Automatically converted from old format: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND GPL-1.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL
@@ -34,7 +45,7 @@ Provides:	bundled(libiberty) = %{snap}
 Provides:	bundled(md5-gcc) = %{snap}
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-%if 0%{?fedora} < 42
+%if 0%{?fedora} != 42
 BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 %else
@@ -46,6 +57,7 @@ BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel >= 6.0
 BuildRequires:	expat-devel
 BuildRequires:	gmp-devel
+BuildRequires:	mpfr-devel
 BuildRequires:	python3-devel
 BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
@@ -72,38 +84,12 @@ BuildRequires: make
 
 #	Insight patches.
 
-Patch1:		insight-11.0.50-relocate.patch
+Patch1:		insight-18.0.50-relocate.patch
+Patch2:		insight-18.0.50-libtool_tag.patch
 
 #	Some patches from gdb. See gdb spec file for info.
 
-Patch101:	insight-13.0-gdb-6.3-gstack-20050411.patch
-Patch102:	gdb-6.5-bz185337-resolve-tls-without-debuginfo-v2.patch
-Patch103:	insight-13.0-gdb-6.6-buildid-locate.patch
-Patch104:	gdb-6.6-buildid-locate-solib-missing-ids.patch
-Patch105:	insight-13.0-gdb-6.6-buildid-locate-rpm.patch
-Patch106:	gdb-6.6-buildid-locate-rpm-librpm-workaround.patch
-Patch107:	gdb-6.6-buildid-locate-misleading-warning-missing-debuginfo-rhbz981154.patch
-Patch108:	gdb-fedora-libncursesw.patch
-Patch109:	gdb-6.6-buildid-locate-rpm-scl.patch
-Patch110:	gdb-container-rh-pkg.patch
-Patch111:	gdb-linux_perf-bundle.patch
-Patch112:	gdb-libexec-add-index.patch
-
-#	Additional patches.
-
-Patch201:	insight-13.0-symtab_no_format_overflow.patch
-Patch202:	insight-13.0-bfd-CVE-2022-4285,patch
-Patch203:	insight-13.0-print-check-value.patch
-Patch204:	insight-13.0-distutils.patch
-Patch205:	insight-13.0-noselfmove.patch
-Patch206:	insight-configure-c99.patch
-Patch207:	insight-13.0-bfd-CVE-2023-1972.patch
-Patch208:	insight-13.0-gdb-python313.patch
-Patch209:	insight-13.0.50-calloc.patch
-Patch210:	insight-13.0.50-C++20.patch
-Patch211:	insight-13.0.50-bool.patch
-Patch212:	insight-13.0.50-cve-2025-11082.patch
-Patch213:	insight-13.0.50-cve-2025-11083.patch
+#	None yet.
 
 
 %description
@@ -120,33 +106,7 @@ the latest GDB version.
 %setup -q -n insight-%{version}
 
 %patch 1 -p1 -b .relocate
-
-%patch 101 -p1
-%patch 102 -p1
-%patch 103 -p1
-%patch 104 -p1
-%patch 105 -p1
-%patch 106 -p1
-%patch 107 -p1
-%patch 108 -p1
-%patch 109 -p1
-%patch 110 -p1
-%patch 111 -p1
-%patch 112 -p1
-
-%patch 201 -p1
-%patch 202 -p1
-%patch 203 -p1
-%patch 204 -p1
-%patch 205 -p1
-%patch 206 -p1
-%patch 207 -p1
-%patch 208 -p1
-%patch 209 -p1
-%patch 210 -p1
-%patch 211 -p1
-%patch 212 -p1
-%patch 213 -p1
+%patch 2 -p1 -b .libtool_tag
 
 
 #-------------------------------------------------------------------------------
@@ -155,7 +115,7 @@ the latest GDB version.
 
 TOPDIR=`pwd`
 
-#	Need a complete reconfiguration after unbundling.
+#	Need a complete reconfiguration after relocating final items.
 
 autogen Makefile.def
 autoreconf
@@ -166,7 +126,7 @@ for location in gdb/gdbtk/plugins libgui
 do	(
 		cd $location
 		aclocal -I "${TOPDIR}/config"
-		automake
+		automake --add-missing
 		autoconf
 	)
 done
@@ -199,6 +159,7 @@ LDFLAGS="${LDFLAGS:-%{?build_ldflags}}" ; export LDFLAGS
 		--disable-gas						\
 		--disable-gold						\
 		--disable-gprof						\
+		--disable-gprofng					\
 		--disable-ld						\
 		--disable-rpath						\
 		--disable-sim						\
@@ -213,7 +174,6 @@ LDFLAGS="${LDFLAGS:-%{?build_ldflags}}" ; export LDFLAGS
 		--with-python=%{__python3}				\
 		--with-tclinclude="${TCL_SRC_DIR}"			\
 		--with-tkinclude="${TK_SRC_DIR}"			\
-		--without-libunwind					\
 		--enable-64-bit-bfd					\
 		--with-babeltrace					\
 		--without-guile						\
@@ -233,7 +193,7 @@ LDFLAGS="${LDFLAGS:-%{?build_ldflags}}" ; export LDFLAGS
 %endif
 		--with-auto-load-dir='$debugdir:$datadir/auto-load'	\
 		--with-auto-load-safe-path='$debugdir:$datadir/auto-load' \
-		--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu \
+		--enable-targets=%{enabled_target}			\
 		%{_target_platform}
 
 make %{?_smp_mflags}
@@ -341,7 +301,7 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 %defattr(-, root, root, -)
 %doc gdb/NEWS gdb/gdbtk/README gdb/gdbtk/plugins/HOW-TO COPYING COPYING3
-%{_bindir}/*
+%{_bindir}/insight
 %{_datadir}/insight
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
@@ -350,10 +310,26 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Fri Mar  6 2026 Patrick Monnerat <patrick@monnerat.net>  18.0.50.20260306-1
+- New upstream snapshot.
+- Fixes CVEs 2025-11494, 2025-11495, 2026-2341, 2026-3441, 2026-3442.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2402843
+  https://bugzilla.redhat.com/show_bug.cgi?id=2402846
+  https://bugzilla.redhat.com/show_bug.cgi?id=2438918
+  https://bugzilla.redhat.com/show_bug.cgi?id=2443834
+- Fixes CVEs 2025-69644, 2025-69645, 2025-69646.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2445281
+  https://bugzilla.redhat.com/show_bug.cgi?id=2445284
+  https://bugzilla.redhat.com/show_bug.cgi?id=2446276
+- Fixes FTBFS.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2434680
+- Relax BR of itcl/itk/iwidgets.
+- Patch "libtool_tag" to force C++ language tagging in libtool.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Tue Sep 30 2025 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-27
 - Patch "cve-2025-11082" fixes CVS 2025-11082.

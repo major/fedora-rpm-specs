@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.24
-Release: 3%{?dist}
+Version: 44.25
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,9 +12,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-
-# backport CLI option PR (#6929) so that GNOME Kiosk can land in Rawhide
-Patch: 0001-Add-enable-vt-switch-when-running-gnome-kiosk.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -522,6 +519,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 06 2026 Packit <hello@packit.dev> - 44.25-1
+- Workaround rsync xattr errors on KIWI boxed-build ISOs (adamkankovsky)
+- Make --enable-vt-switch backwards compatible with older gnome-kiosk
+  (k.koukiou)
+- Add --enable-vt-switch when running gnome-kiosk (mkolman)
+- Fix asyncio deprecation warnings flooding logs in text mode (bciconel)
+- Hub: Fix grid layout alignment in Hub (yueyuankun)
+- liveinst: prevent launching multiple installer instances (k.koukiou)
+  Resolves: rhbz#2440264
+- doc: update documentation for webui boot.iso build and PR inclusion
+  (rvykydal)
+
 * Thu Mar 05 2026 Adam Williamson <awilliam@redhat.com> - 44.24-3
 - Fix argument order in enable-vt-switch patch
 

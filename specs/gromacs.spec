@@ -30,7 +30,7 @@ ExcludeArch:    i686 armv7hl s390x
 %endif
 
 Name:		gromacs
-Version:	2026.0
+Version:	2026.1
 Release:	1%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,7 +42,7 @@ Source1:	https://ftp.gromacs.org/manual/manual-%{version}%{?_rc}.pdf
 Source2:	https://ftp.gromacs.org/regressiontests/regressiontests-%{version}%{?_rc}.tar.gz
 Source3:	gromacs-README.fedora
 BuildRequires:	gcc-c++
-BuildRequires:  cmake3 >= 3.18.4
+BuildRequires:  cmake
 BuildRequires:	%{blaslib}-devel
 BuildRequires:	fftw-devel
 BuildRequires:	gsl-devel
@@ -266,7 +266,7 @@ for p in '' _d ; do
     mkdir -p ${mpi:-serial}${p}
     pushd ${mpi:-serial}${p}
     test -z "${mpi}" && cp -al ../regressiontests* tests/ # use with -DREGRESSIONTEST_PATH=${PWD}/tests below
-    %{cmake3} %{defopts} \
+    %{cmake} %{defopts} \
       $(test -n "${mpi}" && echo %{mpi} -DGMX_BINARY_SUFFIX=${MPI_SUFFIX}${p} -DGMX_LIBS_SUFFIX=${MPI_SUFFIX}${p} -DCMAKE_INSTALL_BINDIR=${MPI_BIN} -DCMAKE_INSTALL_LIBDIR=${MPI_LIB}) \
       $(test -z "${mpi}" && echo "-DREGRESSIONTEST_PATH=${PWD}/tests") \
       $(test -n "$p" && echo %{double} || echo %{?single})
@@ -377,6 +377,10 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Fri Mar 06 2026 Christoph Junghans <junghans@votca.org> - 2026.1-1
+- Version bump to v2026.1
+- Fixes: rhbz#2445176
+
 * Mon Jan 19 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2026.0-1
 - Update to 2026.0
 - Fixes: rhbz#2430950

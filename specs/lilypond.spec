@@ -4,7 +4,7 @@
 
 Name:		lilypond
 Version:	2.25.34
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -120,6 +120,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.34-2
+- Bump EVR
+
 * Sat Feb 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.34-1
 - 2.25.34
 

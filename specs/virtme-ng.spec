@@ -3,12 +3,12 @@
 # EPEL 9: fails on a weird error in %%pyproject_install
 # EPEL 10: missing rust-uzers
 %bcond optimized_init 0
+# No python-mcp yet in EPEL
+%bcond mcp 0
 %else
 %bcond optimized_init 1
+%bcond mcp %[0%{?fedora} >= 43]
 %endif
-
-# https://pypi.org/project/mcp/ not yet packaged for Fedora
-%bcond mcp 0
 
 %global forgeurl https://github.com/arighi/virtme-ng
 

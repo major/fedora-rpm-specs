@@ -5,16 +5,13 @@
 %global crate ossl
 
 Name:           rust-ossl
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        OpenSSL version 3+ bindings to modern EVP APIs
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/ossl
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax bindgen dependency to allow both v0.71 and v0.72
-Patch:          ossl-fix-metadata.diff
 Patch2:         0001-Unconditionally-link-with-system-OpenSSL.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -50,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dummy-integrity-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dummy-integrity-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dummy-integrity" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dummy-integrity-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+dynamic-devel
@@ -122,6 +107,18 @@ This package contains library source intended for building other packages which
 use the "ossl350" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ossl350-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ossl400-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ossl400-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ossl400" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ossl400-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rfc9580-devel

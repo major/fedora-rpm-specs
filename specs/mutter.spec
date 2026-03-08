@@ -27,9 +27,6 @@ License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
-# https://pagure.io/fedora-workstation/issue/357
-Source1:       org.gnome.mutter.fedora.gschema.override
-
 BuildRequires: cvt
 BuildRequires: desktop-file-utils
 BuildRequires: mesa-libEGL-devel
@@ -168,7 +165,6 @@ Viewer for nested mutter instances.
 
 %install
 %meson_install
-install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 
 %find_lang %{name}
 
@@ -191,7 +187,6 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 
 %files common
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
-%{_datadir}/glib-2.0/schemas/org.gnome.mutter.fedora.gschema.override
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.wayland.gschema.xml
 %{_datadir}/gnome-control-center/keybindings/50-mutter-*.xml

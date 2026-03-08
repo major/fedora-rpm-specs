@@ -210,7 +210,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        8%{?rc_version:.%rc_version}%{?dist}
+Release:        9%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -230,6 +230,8 @@ Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
 Patch0001:      0001-SELinux-expand-policy-coverage-for-Kerberos-usage.patch
 Patch0002:      0002-ipa-sam-use-internal-Samba-method-to-populate-in-mem.patch
+Patch0003:      freeipa-fix-passkey-crash.patch
+Patch0004:      freeipa-sssd-mfa-selinux-policy-update.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1967,6 +1969,11 @@ fi
 %endif
 
 %changelog
+* Fri Mar  6 2026 Alexander Bokovoy <abokovoy@redhat.com> - 4.13.1-9
+- Rebuild against ini_config ABI change
+- Fix SELinux policy for SSSD MFA helpers
+- Fix cases when passkey child was crashing when called from ipa-otpd
+
 * Tue Feb 24 2026 Adam Williamson <awilliam@redhat.com> - 4.13.1-8
 - Rebuild against Samba 4.24.0-RC3
 

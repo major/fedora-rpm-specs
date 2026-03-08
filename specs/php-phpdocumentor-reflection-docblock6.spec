@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    2f5cbed597cb261d1ea458f3da3a9ad32e670b1e
+%global gh_commit    897b5986ece6b4f9d8413fea345c7d49c757d6bf
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpDocumentor
 %global gh_project   ReflectionDocBlock
@@ -14,7 +14,7 @@
 %bcond_without       tests
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
-Version:        6.0.1
+Version:        6.0.2
 Release:        1%{?dist}
 Summary:        DocBlock parser
 
@@ -174,6 +174,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Mar  3 2026 Remi Collet <remi@remirepo.net> - 6.0.2-1
+- update to 6.0.2
+
 * Wed Feb 25 2026 Remi Collet <remi@remirepo.net> - 6.0.1-1
 - update to 6.0.1
 - rename to php-phpdocumentor-reflection-docblock6

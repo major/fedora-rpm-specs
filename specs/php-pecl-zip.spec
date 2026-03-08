@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-zip
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -13,14 +13,14 @@
 %global pie_vend         pecl
 %global pie_proj         zip
 %global ini_name         40-%{pecl_name}.ini
-%global upstream_version 1.22.7
+%global upstream_version 1.22.8
 #global upstream_prever  RC6
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:      A ZIP archive management extension
 Name:         %{php_base}-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      4%{?dist}
+Release:      1%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
@@ -136,6 +136,9 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 
 %changelog
+* Fri Mar  6 2026 Remi Collet <remi@remirepo.net> - 1.22.8-1
+- update to 1.22.8
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

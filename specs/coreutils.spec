@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -31,6 +31,14 @@ Patch103: coreutils-python3.patch
 
 # df --direct
 Patch104: coreutils-df-direct.patch
+
+# tests: fix "Hangup" termination of non-interactive runs
+# https://github.com/coreutils/coreutils/commit/8fab3c6d30d812cd681e51221bae27930f62615a
+Patch200: coreutils-9.10-fix-tests-hangup.patch
+
+# fold: fix output truncation with 0xFF bytes in input
+# https://github.com/coreutils/coreutils/commit/a85e9182b1d173c26205dada54133cd9e9174fc1
+Patch201: coreutils-9.10-fold-xFF-truncation.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -282,6 +290,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Thu Mar 05 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.10-3
+- fix possible hangups during testsuite execution
+- rewrite (un)expand multibyte support using the mbbuf module (rhbz#2443041)
+
 * Tue Feb 24 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.10-2
 - enable the execution of the downstream df/direct.sh test
 - temporarily disable test-getaddrinfo on RHEL builds

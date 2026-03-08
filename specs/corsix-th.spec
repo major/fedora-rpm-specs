@@ -11,9 +11,9 @@ Summary:        Open source clone of Theme Hospital
 
 # For a breakdown of the licensing, see LICENSE.txt
 # The entire source code is MIT except:
-# BSD:          CMake scripts
-# GPLv3+:       SpriteEncoder
-License:        MIT AND BSD AND GPL-3.0-or-later
+# BSD-3-Clause:           CMake scripts
+# GPL-3.0-or-later:       SpriteEncoder
+License:        MIT AND BSD-3-Clause AND GPL-3.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

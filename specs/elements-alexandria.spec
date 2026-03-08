@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
 Version:        2.32.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
 URL:            https://github.com/astrorama/Alexandria
@@ -82,7 +82,8 @@ Documentation for package %{name}
 %autosetup -n Alexandria-%{version} -p1
 
 %build
-export VERBOSE=1
+# TODO: Please submit an issue to upstream (rhbz#2380566)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 EXTRA_CMAKE_FLAGS="-DUSE_ENV_FLAGS=ON"
 %if 0%{?fedora} >= 30
 EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DPYTHON_EXPLICIT_VERSION=3"
@@ -90,22 +91,21 @@ EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DPYTHON_EXPLICIT_VERSION=3"
 EXTRA_CMAKE_FLAGS="${EXTRA_CMAKE_FLAGS} -DPYTHON_EXPLICIT_VERSION=2"
 %endif
 # Build
-%cmake -B "%{_vpath_builddir}" -DELEMENTS_BUILD_TESTS=ON -DELEMENTS_INSTALL_TESTS=OFF -DSQUEEZED_INSTALL:BOOL=ON -DINSTALL_DOC:BOOL=ON \
+%cmake -DELEMENTS_BUILD_TESTS=ON -DELEMENTS_INSTALL_TESTS=OFF -DSQUEEZED_INSTALL:BOOL=ON -DINSTALL_DOC:BOOL=ON \
     -DUSE_SPHINX=OFF --no-warn-unused-cli \
     -DCMAKE_LIB_INSTALL_SUFFIX=%{_lib} -DUSE_VERSIONED_LIBRARIES=ON ${EXTRA_CMAKE_FLAGS}
 # Copy cppreference-doxygen-web.tag.xml into the build directory
 mkdir -p "%{_vpath_builddir}/doc/doxygen"
 cp -v "%{SOURCE1}" "%{_vpath_builddir}/doc/doxygen"
 
-%make_build -C "%{_vpath_builddir}"
+%cmake_build
 
 %install
-export VERBOSE=1
-%make_install -C "%{_vpath_builddir}"
+%cmake_install
 rm -fv "%{buildroot}/%{_libdir}/"*BoostTest.so*
 
 %check
-make test -C "%{_vpath_builddir}"
+%ctest
 
 %files
 %license LICENSE
@@ -193,6 +193,10 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Fri Feb 13 2026 Cristian Le <git@lecris.dev> - 2.32.0-7
+- Allow to build with CMake 4.0 (rhbz#2380566)
+- Use standard CMake macros (rhbz#2380995)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

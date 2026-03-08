@@ -2,12 +2,14 @@
 
 Name:           gnome-todo
 Version:        43.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Personal task manager for GNOME
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/Endeavour/
 Source0:        https://gitlab.gnome.org/World/Endeavour/-/archive/%{tarball_version}/Endeavour-%{tarball_version}.tar.bz2
+Patch0:         endeavour-girepository.patch
+Patch1:         endeavour-fix-tests-build.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -15,6 +17,7 @@ BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(girepository-2.0)
 BuildRequires:  pkgconfig(goa-1.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
@@ -71,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_datadir}/gir-1.0/Gtd-1.0.gir
 
 %changelog
+* Fri Mar 06 2026 Jan Grulich <jgrulich@redhat.com> - 43.0-4
+- Fix build against libgirepository-2.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

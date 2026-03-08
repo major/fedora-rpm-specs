@@ -5,19 +5,21 @@
 %global crate libz-sys
 
 Name:           rust-libz-sys
-Version:        1.1.23
+Version:        1.1.24
 Release:        %autorelease
 Summary:        Low-level bindings to the system libz library (also known as zlib)
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/libz-sys
 Source:         %{crates_source}
+# * Replace the upstream script for building zlib with one that unconditionally
+#   links the system one. The result is so trivial and has so little in common
+#   with the original that it makes sense to ship an alternative source rather
+#   than a patch.
+Source10:       build.rs
 # Manually created patch for downstream crate metadata changes
 # * drop features for zlib-ng support and statically linking libz
 Patch:          libz-sys-fix-metadata.diff
-# * remove code related to building vendored zlib / zlib-ng sources
-# * unconditionally use pkg-config to link with system libz
-Patch2:         0001-unconditionally-use-pkg-config-to-link-with-system-z.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(zlib)
@@ -85,6 +87,8 @@ use the "stock-zlib" feature of the "%{crate}" crate.
 # remove bundled zlib and zlib-ng sources
 rm -r src/zlib/
 rm -r src/zlib-ng/
+# replace the build script
+cp -p '%{SOURCE10}' .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

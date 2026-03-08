@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        50~alpha
+Version:        50~rc
 Release:        %autorelease
 Summary:        Adwaita icon theme
 

@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname rocfft
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -121,22 +124,17 @@
 %global _gpu_list gfx1100
 
 Name:           rocfft%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        (MIT AND BSD-3-Clause) AND 0BSD
 
 URL:            https://github.com/ROCm/rocm-libraries
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -221,20 +219,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocfft
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 # Do not care so much about the sqlite version
 sed -i -e 's@SQLite3 3.50.2 @SQLite3 @' cmake/sqlite.cmake
 
 %build
-%if %{with gitcommit}
-cd projects/rocfft
-%endif
 
 # ensuring executables are PIE enabled
 export LDFLAGS="${LDFLAGS} -pie"
@@ -251,10 +241,6 @@ export LDFLAGS="${LDFLAGS} -pie"
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/rocfft
-%endif
-
 %cmake_install
 
 # we don't need the rocfft_rtc_helper binary, don't package it
@@ -278,13 +264,8 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %files -n %{rocfft_name}
-%if %{with gitcommit}
-%doc projects/rocfft/README.md
-%license projects/rocfft/LICENSE.md
-%else
 %doc README.md
 %license LICENSE.md
-%endif
 
 %{pkg_prefix}/%{pkg_libdir}/librocfft.so.0{,.*}
 
@@ -300,6 +281,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Fri Feb 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Update license
 

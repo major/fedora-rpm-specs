@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           hatch
-Version:        1.16.4%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
+Version:        1.16.5%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 

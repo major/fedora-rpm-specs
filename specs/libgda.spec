@@ -3,7 +3,7 @@
 Name:           libgda
 Epoch:          1
 Version:        6.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPL-2.0-or-later
@@ -12,6 +12,7 @@ Source:         http://ftp.gnome.org/pub/GNOME/sources/%{name}/6.0/%{name}-%{ver
 
 Patch0:         mariadb.patch
 Patch1:         signed-int.patch
+Patch2:         libgda-fix-build-order.patch
 
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
@@ -39,7 +40,6 @@ BuildRequires:    vala
 BuildRequires:    make
 BuildRequires:    gnome-common
 BuildRequires:    meson
-BuildRequires:    valadoc
 BuildRequires:    openldap-devel
 BuildRequires:    mariadb-connector-c-devel
 BuildRequires:    libpq-devel
@@ -138,7 +138,7 @@ iconv --from=ISO-8859-1 --to=UTF-8 AUTHORS > AUTHORS.new && \
 touch -r AUTHORS AUTHORS.new && mv AUTHORS.new AUTHORS
 
 %build
-%meson -Djson=true -Dldap=true -Ddoc=true -Dexperimental=true -Dhelp=true -Dui=true -Dlibsoup=true -Dlibsecret=true -Dflatpak=false -Dsqlcipher=true -Dgraphviz=true
+%meson -Djson=true -Dldap=true -Ddoc=false -Dexperimental=true -Dhelp=true -Dui=true -Dlibsoup=true -Dlibsecret=true -Dflatpak=false -Dsqlcipher=true -Dgraphviz=true
 #-Dtools=true
 #        -Dexamples=false \
 
@@ -172,9 +172,6 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_datadir}/%{name}-%{apiver}/information_schema.xml
 
 %files devel
-%dir %{_datadir}/gtk-doc/
-%dir %{_datadir}/gtk-doc/html/
-%doc %{_datadir}/gtk-doc/html/%{name}-%{apiver}
 %{_datadir}/gir-1.0/Gda-%{apiver}.gir
 %dir %{_includedir}/%{name}-%{apiver}/
 %{_includedir}/%{name}-%{apiver}/%{name}
@@ -189,8 +186,6 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/libgda-%{apiver}.vapi
 %{_datadir}/vala/vapi/libgda-%{apiver}.deps
-%{_datadir}/devhelp/books/Gda-%{apiver}/
-%{_datadir}/devhelp/books/Gdaui-%{apiver}/
 %{_includedir}/%{name}-%{apiver}/providers/
 
 
@@ -212,7 +207,6 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_datadir}/vala/vapi/libgdaui-%{apiver}.vapi
 
 %files tools
-%doc %{_datadir}/gtk-doc/html/libgdaui-%{apiver}/
 %{_bindir}/gda-*
 %{_bindir}/org.gnome.gda.*
 %{_bindir}/trml2html.py
@@ -233,6 +227,9 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_libdir}/libgda-%{apiver}/providers/libgda-sqlcipher-%{apiver}.so
 
 %changelog
+* Fri Mar 06 2026 Jan Grulich <jgrulich@redhat.com> - 1:6.0.0-14
+- Disable documentation to fix the build
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

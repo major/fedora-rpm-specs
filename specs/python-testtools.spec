@@ -15,15 +15,14 @@
 %bcond twisted %{undefined rhel}
 
 Name:           python-testtools
-Version:        2.7.2
+Version:        2.8.5
 Release:        %autorelease
 Summary:        Extensions to the Python standard library unit testing framework
+
 License:        MIT
 URL:            https://github.com/testing-cabal/testtools
 Source:         %{pypi_source testtools}
-# https://github.com/testing-cabal/testtools/pull/387
-Patch:          0001-Prepare-tests-for-upcoming-twisted-version.patch
-Patch:          https://github.com/testing-cabal/testtools/commit/79fa5d41a05c423cf43a65d2b347c7c566bcdfa5.patch#/testtools-fix-eq-for-py314.patch
+
 BuildArch:      noarch
 
 %global common_description %{expand:
@@ -85,9 +84,10 @@ make -C doc html
 %check
 %if %{with bootstrap}
 # Exclude modules that import things that are not available during bootstrap.
-%pyproject_check_import -e 'testtools.tests*' -e testtools.twistedsupport
+%pyproject_check_import -e testtools.twistedsupport
 %else
-%{py3_test_envvars} %{python3} -m testtools.run testtools.tests.test_suite
+%pyproject_check_import
+%{py3_test_envvars} %{python3} -m testtools.run -v tests.test_suite
 %endif
 
 

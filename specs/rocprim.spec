@@ -20,16 +20,19 @@
 # THE SOFTWARE.
 #
 
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname rocprim
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -75,22 +78,17 @@
 %global _gpu_list gfx1100
 
 Name:           rocprim%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
 %else
-Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
+Version:        %{rocm_version}
 Summary:        ROCm parallel primitives
 
 License:        MIT AND BSD-3-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
@@ -145,12 +143,7 @@ tests for the rocPRIM package
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocprim
-%else
 %autosetup -n %{upstreamname} -p1
-%endif
 
 # In file included from rocPRIM-rocm-6.4.2/test/rocprim/test_texture_cache_iterator.cpp:26: 
 # ../rocprim/include/rocprim/iterator/texture_cache_iterator.hpp:231:13: error:
@@ -160,10 +153,6 @@ sed -i -e 's@add_rocprim_test("rocprim.texture_cache_iterator"@#add_rocprim_test
 grep texture_cach test/rocprim/CMakeLists.txt
 
 %build
-%if %{with gitcommit}
-cd projects/rocprim
-%endif
-
 %cmake \
     -DBUILD_TEST=%{build_test} \
     -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
@@ -181,10 +170,6 @@ cd projects/rocprim
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/rocprim
-%endif
-
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocprim/LICENSE.md
@@ -195,15 +180,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfi
 %endif
 
 %files devel
-%if %{with gitcommit}
-%doc projects/rocprim/README.md
-%license projects/rocprim/LICENSE.md
-%license projects/rocprim/NOTICES.txt
-%else
 %doc README.md
 %license LICENSE.md
 %license NOTICES.txt
-%endif
 %{pkg_prefix}/include/rocprim/
 %{pkg_prefix}/share/cmake/rocprim/
 
@@ -216,6 +195,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{pkg_prefix}/bin/rocprim/CTestTestfi
 
 
 %changelog
+* Fri Mar 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Sat Feb 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Fix spelling
 - Remove macro in changelog

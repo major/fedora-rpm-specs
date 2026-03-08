@@ -1,6 +1,6 @@
 Name:           lilypond-doc
 Version:        2.25.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML documentation for LilyPond
 
 License:        GPL-3.0-only
@@ -34,6 +34,9 @@ mkdir -p $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Mar 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.34-2
+- Bump EVR
+
 * Sat Feb 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.25.34-1
 - 2.25.34
 

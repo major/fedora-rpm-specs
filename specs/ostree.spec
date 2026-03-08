@@ -19,6 +19,9 @@ URL: https://ostreedev.github.io/ostree/
 ExcludeArch:    %{ix86}
 %endif
 
+# Needed for https://src.fedoraproject.org/rpms/dracut/pull-request/90
+Patch0: 0001-boot-dracut-use-systemdsystemunitdir-instead-of-syst.patch
+
 BuildRequires: make
 BuildRequires: git
 # We always run autogen.sh

@@ -34,6 +34,10 @@ Requires:       findutils
 
 Provides:       jpackage-utils = %{version}-%{release}
 
+# TODO Remove in Fedora 47
+Obsoletes:      javapackages-local-openjdk21 < 6.5.1-3
+Obsoletes:      maven-local-openjdk21 < 6.5.1-3
+
 %description
 This package provides macros and scripts to support Java packaging.
 

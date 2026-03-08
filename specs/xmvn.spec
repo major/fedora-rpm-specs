@@ -47,6 +47,8 @@ Requires:       %{name}-minimal = %{version}-%{release}
 Requires:       maven
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 4.3.0-15
+# TODO Remove in Fedora 47
+Obsoletes:      %{name}-toolchain-openjdk21 < 4.3.0-25
 
 %description
 This package provides extensions for Apache Maven that can be used to

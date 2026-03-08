@@ -94,6 +94,8 @@ Suggests:       %{name}-openjdk25 = %{version}-%{release}
 
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1:1.10.15-21
+# TODO Remove in Fedora 47
+Obsoletes:      %{name}-openjdk21 < 1:1.10.15-38
 
 %description
 Apache Ant is a Java library and command-line tool whose mission is to

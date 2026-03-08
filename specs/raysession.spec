@@ -1,6 +1,6 @@
 
 Name:           raysession
-Version:        0.17.3
+Version:        0.17.4
 Release:        1%{?dist}
 Summary:        Session manager for audio software
 License:        GPL-2.0-only
@@ -468,6 +468,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %exclude %{_datadir}/%{name}/data/share/applications/*
 
 %changelog
+* Fri Mar 6 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.4-1
+- New upstream release
+
 * Sun Feb 22 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.3-1
 - New upstream release
 

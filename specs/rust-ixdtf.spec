@@ -2,24 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate socket2
+%global crate ixdtf
 
-Name:           rust-socket2
-Version:        0.6.3
+Name:           rust-ixdtf
+Version:        0.6.4
 Release:        %autorelease
-Summary:        Utilities for handling networking sockets
+Summary:        Parser for Internet eXtended DateTime Format
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/socket2
+License:        Unicode-3.0
+URL:            https://crates.io/crates/ixdtf
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          socket2-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Drop benchmark-only criterion dev-dependency
+Patch:          ixdtf-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Utilities for handling networking sockets with a maximal amount of
-configuration possible intended.}
+Parser for Internet eXtended DateTime Format.}
 
 %description %{_description}
 
@@ -33,8 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,16 +49,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+all-devel
+%package     -n %{name}+duration-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+all-devel %{_description}
+%description -n %{name}+duration-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "all" feature of the "%{crate}" crate.
+use the "duration" feature of the "%{crate}" crate.
 
-%files       -n %{name}+all-devel
+%files       -n %{name}+duration-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

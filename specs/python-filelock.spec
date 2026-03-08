@@ -8,7 +8,7 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        3.15.4
+Version:        3.20.3
 Release:        %autorelease
 Summary:        A platform independent file lock
 

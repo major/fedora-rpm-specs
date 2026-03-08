@@ -91,6 +91,8 @@ Requires(postun): alternatives
 
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1:3.9.9-13
+# TODO Remove in Fedora 47
+Obsoletes:      %{name}-openjdk21 < 1:3.9.11-12
 
 %description
 Maven is a software project management and comprehension tool. Based on the

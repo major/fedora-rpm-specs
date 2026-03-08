@@ -12,7 +12,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        29.2.1
+%global version0        29.3.0
 %{lua:
     local version0 = rpm.expand("%{version0}"):gsub("~", "-")
     rpm.define("tag0 " .. "docker-v" .. version0)
@@ -371,7 +371,6 @@ cd %{cli_dir}
 
 
 %files -f %{engine_dir}/%{go_vendor_license_filelist}
-%license %{engine_dir}/vendor/modules.txt
 %doc %{engine_dir}/README.md
 %{_bindir}/docker-proxy
 %{_bindir}/dockerd
@@ -394,7 +393,6 @@ cd %{cli_dir}
 
 
 %files -n docker-cli -f %{cli_dir}/%{go_vendor_license_filelist}
-%license %{cli_dir}/vendor/modules.txt
 %doc %{cli_dir}/README.md
 %{_bindir}/docker
 %{_mandir}/man1/docker*.1*

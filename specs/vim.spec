@@ -39,7 +39,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 045
+%define patchlevel 112
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -417,7 +417,9 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %endif
 
 %if %{without flakytests}
-%patch -P 10001 -p1 -b .flakytests
+# there is upstream change in the test, stop removing the test for now
+# and see if the error reappears
+#%%patch -P 10001 -p1 -b .flakytests
 %endif
 
 
@@ -1050,8 +1052,14 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Fri Mar 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.112-2
+- fix tests which expect mouse=a
+
+* Fri Mar 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.112-1
+- patchlevel 112
+
 * Thu Feb 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.045-2
-- rebuilt
+- SPEC file cleanup
 
 * Tue Feb 24 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.045-1
 - patchlevel 045

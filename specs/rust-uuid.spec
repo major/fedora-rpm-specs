@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.21.0
+Version:        1.22.0
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -18,11 +18,7 @@ Patch:          uuid-fix-metadata-auto.diff
 # * drop unused optional dependency for borsh support
 # * drop unused optional dependency for zerocopy support
 # * drop WASM-specific features and dependencies
-# * Drop macro-diagnostics feature; this would require packaging the
-#   uuid-macro-internal crate. For now, it’s easier to patch out any
-#   dependencies on this feature, which is safe because it only affects the
-#   quality of compilation error diagnostics, not the functionality of
-#   succesfully-compiled code.
+# * drop macro-diagnostics feature - it is now deprecated and a noop
 Patch:          uuid-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

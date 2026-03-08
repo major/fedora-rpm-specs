@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 52%{?dist}
+Release: 53%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -906,6 +906,15 @@ Patch475: 00475-cve-2025-15367.patch
 #
 # (cherry-picked from commit 45b2f8893c1b7ab3b3981a966f82e42beea82106)
 Patch476: 00476-cve-2026-1299.patch
+
+# 00471 # e3d4476ede73ee3ebef54cc1afd6177689762ac4
+# CVE-2025-12084
+#
+# * gh-142145: Remove quadratic behavior in node ID cache clearing (GH-142146)
+# * gh-142754: Ensure that Element & Attr instances have the ownerDocument attribute (GH-142794)
+#
+# Co-authoded-by: Lumír Balhar <lbalhar@redhat.com>
+Patch471: 00471-cve-2025-12084.patch
 
 # (New patches go here ^^^)
 #
@@ -2208,6 +2217,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Feb 26 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-53
+- Security fix for CVE-2025-12084
+
 * Thu Jan 29 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-52
 - Security fixes for CVE-2026-0865, CVE-2025-15366, CVE-2025-15367, CVE-2026-1299
 
