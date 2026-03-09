@@ -1,6 +1,6 @@
 Name:           createrepo-agent
-Version:        0.4.2
-Release:        8%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        Rapidly and repeatedly generate RPM repository metadata
 
 License:        Apache-2.0
@@ -15,8 +15,23 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gpg-error)
 BuildRequires:  pkgconfig(gpgme)
 BuildRequires:  pkgconfig(libassuan)
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pytest}
 
 %description
+createrepo-agent is a tool for rapidly iterating on clusters of associated
+RPM repositories. It leverages Assuan IPC to create a daemon process which
+caches the metadata for each sub-repository in the cluster so that it
+doesn't need to be re-loaded and parsed each time a change is made. The
+most notable implementation of the Assuan protocol is gpg-agent, which
+gives createrepo-agent its name.
+
+
+%package -n python3-createrepo-agent
+Summary:        %{summary}
+Requires:       createrepo-agent%{?_isa} = %{version}-%{release}
+
+%description -n python3-createrepo-agent
 createrepo-agent is a tool for rapidly iterating on clusters of associated
 RPM repositories. It leverages Assuan IPC to create a daemon process which
 caches the metadata for each sub-repository in the cluster so that it
@@ -48,8 +63,15 @@ gives createrepo-agent its name.
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 
+%files -n python3-createrepo-agent
+%{python3_sitearch}/createrepo_agent.so
+%{python3_sitearch}/createrepo_agent-%{version}.dist-info/
+
 
 %changelog
+* Fri Mar 06 2026 Scott K Logan <logans@cottsay.net> - 0.5.1-1
+- Update to 0.5.1
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

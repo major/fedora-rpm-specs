@@ -1,7 +1,4 @@
 %bcond_without tests
-# we do not build docs since current docs are immature
-
-
 %bcond_without doc_pdf
 
 %global pypi_name succulent
@@ -17,8 +14,8 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.4.1
-Release:        6%{?dist}
+Version:        0.4.3
+Release:        1%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -28,8 +25,7 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-BuildRequires:  python3-toml-adapt
+BuildRequires:  tomcli
 BuildRequires:  python3-pytest
 
 %if %{with doc_pdf}
@@ -58,12 +54,11 @@ Summary:        Documentation and examples for %{name}
 %autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
-# optional step but let's ensure that there is no problems with python, pandas and Flask versions
-toml-adapt -path pyproject.toml -a change -dep python -ver X
-toml-adapt -path pyproject.toml -a change -dep flask -ver X
-toml-adapt -path pyproject.toml -a change -dep pandas -ver X
-toml-adapt -path pyproject.toml -a change -dep lxml -ver X
-toml-adapt -path pyproject.toml -a change -dep numpy -ver X
+# Drop version pinning (we use the versions available in Fedora)
+for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
+do
+  tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -96,6 +91,9 @@ toml-adapt -path pyproject.toml -a change -dep numpy -ver X
 %endif
 
 %changelog
+* Sat Mar 7 2026 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.4.3-1
+- Update to 0.4.3
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -238,12 +238,12 @@
 %global chromium_major 145
 %global chromium_branch 7632
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 75
+%global chromium_minor 159
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 265860dc5724fecedcb00178b5937d6d70378b67
+%global cef_commit 51162e83c6f21779c0a3bc110589aff9ead2af33
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 25
+%global cef_patch 28
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -335,7 +335,7 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
-#  fix ftbfs caused by old python-3.9 on el8
+# fix ftbfs caused by old python-3.9 on el9
 Patch142: chromium-143-python-3.9-ftbfs.patch
  
 # fix ftbfs caused by old rustc-1.88 on el9 and 10.1
@@ -1416,7 +1416,7 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
-CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level} blink_symbol_level=%{debug_level}'
+CHROMIUM_CORE_GN_DEFINES+=' symbol_level=0 blink_symbol_level=0'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'

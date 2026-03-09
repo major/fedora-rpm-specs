@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20260127
-%global gitrev 88e56c901955c95798995dfb5ceefb6cb993eb66
+%global DATE 20260305
+%global gitrev da9795f681c5add73add41595bb6713b45c77d4e
 %global gcc_version 16.0.1
 %global gcc_major 16
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -41,9 +41,6 @@ Source0:        %{srcdir}.tar.xz
 Patch0:         0020-libgomp-Don-t-hard-code-MS-printf-attributes.patch
 # Add missing stdlib.h include
 Patch1:         mingw-gcc_include-stdlib.patch
-# Add missing std::call_once exports
-# https://gcc.gnu.org/cgit/gcc/commit/?id=be6dad0edf123fc5cf953c248ca02cfcd7592094
-Patch2:         mingw-gcc_add-missing-exports.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -636,7 +633,6 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{mingw32_libdir}/libatomic.a
 %{mingw32_libdir}/libatomic.dll.a
 %{mingw32_libdir}/libatomic_asneeded.a
-%{mingw32_libdir}/libatomic_asneeded.so
 %{mingw32_libdir}/libgcc_s.a
 %{mingw32_libdir}/libssp.a
 %{mingw32_libdir}/libssp.dll.a
@@ -647,6 +643,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtfastmath.o
+%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/libcaf_shmem.a
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/libgcc.a
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/libgcc_eh.a
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/libgcov.a
@@ -686,7 +683,6 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{mingw64_libdir}/libatomic.a
 %{mingw64_libdir}/libatomic.dll.a
 %{mingw64_libdir}/libatomic_asneeded.a
-%{mingw64_libdir}/libatomic_asneeded.so
 %{mingw64_libdir}/libgcc_s.a
 %{mingw64_libdir}/libssp.a
 %{mingw64_libdir}/libssp.dll.a
@@ -697,6 +693,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtfastmath.o
+%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/libcaf_shmem.a
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/libgcc.a
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/libgcc_eh.a
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/libgcov.a
@@ -736,7 +733,6 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{ucrt64_libdir}/libatomic.a
 %{ucrt64_libdir}/libatomic.dll.a
 %{ucrt64_libdir}/libatomic_asneeded.a
-%{ucrt64_libdir}/libatomic_asneeded.so
 %{ucrt64_libdir}/libgcc_s.a
 %{ucrt64_libdir}/libssp.a
 %{ucrt64_libdir}/libssp.dll.a
@@ -747,6 +743,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtfastmath.o
+%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/libcaf_shmem.a
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/libgcc.a
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/libgcc_eh.a
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/libgcov.a
@@ -996,6 +993,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-5
+- Update to 16.0.1 snapshot 20260305
+
 * Sat Feb 21 2026 Sandro Mani <manisandro@gmail.com> - 16.0.1-4
 - Add mingw-gcc_add-missing-exports.patch (gnubz#123908)
 

@@ -1,5 +1,5 @@
 Name:           pspp
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        A program for statistical analysis of sampled data
 License:        GPL-3.0-or-later
@@ -14,6 +14,8 @@ Patch:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
 # Will be proposed upstream
 Patch:		pspp-0002-Revert-update-gnulib-version-to-latest-from-stable-2.patch
 Patch:		pspp-0003-MATRIX-Use-int64_t-instead-of-long-for-sequence-rang.patch
+Patch:		pspp-0004-Revert-MATRIX-Skip-test-for-too-large-matrices-on-32.patch
+Patch:		pspp-0005-Revert-tests-skip-test-MATRIX-very-large-matrices-on.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel

@@ -1,20 +1,11 @@
-%global commit0 0558d54cdbc563706d44671ba7d846fc12b96485
-%global date 20250324
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
-
 Name:           egl-x11
-Version:        1.0.4%{!?tag:~%{date}git%{shortcommit0}}
+Version:        1.0.5
 Release:        %autorelease
 Summary:        NVIDIA XLib and XCB EGL Platform Library
 License:        Apache-2.0
 URL:            https://github.com/NVIDIA/egl-x11
 
-%if 0%{?tag:1}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:        %{url}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
 # Allow building with an older meson:
 Patch0:         egl-x11-meson-0.58.patch
 
@@ -39,11 +30,7 @@ This is an EGL platform library for the NVIDIA driver to support XWayland via
 xlib (using EGL_KHR_platform_x11) or xcb (using EGL_EXT_platform_xcb).
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
 %meson \

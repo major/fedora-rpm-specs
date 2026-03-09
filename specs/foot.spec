@@ -3,8 +3,8 @@
 %global fcft_minver 3.3.1
 
 Name:           foot
-Version:        1.25.0
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 # Main package license: MIT
@@ -15,9 +15,7 @@ Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
 # Daniel Eklöf (Git signing) <daniel@ekloef.se>
 Source2:        gpgkey-5BBD4992C116573F.asc
-
-# https://codeberg.org/dnkl/foot/pulls/2240
-Patch0:         0001-Fix-discarded-const-qualifiers-from-string-functions.patch
+Source3:        org.codeberg.dnkl.foot.metainfo.xml
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -98,8 +96,8 @@ Requires:       ncurses-base
 
 %install
 %meson_install
-install -D -pv -m0644 -t %{buildroot}%{_metainfodir} \
-    org.codeberg.dnkl.foot.metainfo.xml
+install -D -pv -m0644 %{SOURCE3} \
+    %{buildroot}%{_metainfodir}/org.codeberg.dnkl.foot.metainfo.xml
 # Will be installed to correct location with rpm macros
 rm %{buildroot}%{_docdir}/%{name}/LICENSE
 
@@ -149,6 +147,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sat Mar 07 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.26.0-1
+- Update to 1.26.0 (#2444132)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

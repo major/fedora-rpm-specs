@@ -3,8 +3,8 @@
 %global pkgname exiv2
 
 Name:          mingw-%{pkgname}
-Version:       0.28.7
-Release:       2%{?dist}
+Version:       0.28.8
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 License:       GPL-2.0-or-later
 BuildArch:     noarch
@@ -106,6 +106,9 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 
 
 %changelog
+* Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 0.28.8-1
+- Update to 0.28.8
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 Name:		distribution-gpg-keys
-Version:	1.117
+Version:	1.118
 Release:	1%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
-URL:		https://github.com/xsuchy/distribution-gpg-keys
+URL:		https://github.com/rpm-software-management/distribution-gpg-keys
 # Sources can be obtained by
-# git clone git://github.com/xsuchy/distribution-gpg-keys.git
+# git git://github.com/rpm-software-management/distribution-gpg-keys.git
 # cd distribution-gpg-keys
 # tito build --tgz
 Source0:	%{name}-%{version}.tar.gz
@@ -53,6 +53,11 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
+* Sat Mar 07 2026 Miroslav Suchý <msuchy@redhat.com> 1.118-1
+- update copr keys
+- Add symlinks to rpmfusion 44, 45 and 46
+- update source url
+
 * Tue Feb 03 2026 Pavel Raiskup <pavel@raiskup.cz> 1.117-1
 - Add Fedora 46 key
 - Add Remi's key for 2026 (Fedora 44 and 45)

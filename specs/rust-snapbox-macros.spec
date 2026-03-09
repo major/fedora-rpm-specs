@@ -5,7 +5,7 @@
 %global crate snapbox-macros
 
 Name:           rust-snapbox-macros
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Snapshot testing toolbox
 

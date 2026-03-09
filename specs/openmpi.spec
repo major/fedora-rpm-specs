@@ -52,7 +52,7 @@
 %bcond autogen 0
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        5.0.9
+Version:        5.0.10
 Release:        %autorelease
 Summary:        Open Message Passing Interface
 # Automatically converted from old format: BSD and MIT and Romio - review is highly recommended.
@@ -313,7 +313,6 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 %dir %{_libdir}/%{name}/bin
 %dir %{_libdir}/%{name}/lib
 %dir %{_libdir}/%{name}/lib/openmpi
-%dir %{_libdir}/%{name}/lib/openmpi/cmake
 %dir %{_libdir}/%{name}/include
 %dir %{_mandir}/%{namearch}
 %dir %{_mandir}/%{namearch}/man*

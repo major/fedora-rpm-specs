@@ -4,15 +4,14 @@
 %bcond network_tests 0
 
 Name:           python-msal
-Version:        1.35.0~b1
-%global         git_version    1.35.0b1
+Version:        1.35.1
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 
 # SPDX
 License:        MIT
 URL:            https://github.com/AzureAD/microsoft-authentication-library-for-python
-Source:         %{url}/archive/%{git_version}/microsoft-authentication-library-for-python-%{git_version}.tar.gz
+Source:         %{url}/archive/%{version}/microsoft-authentication-library-for-python-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -50,7 +49,7 @@ Obsoletes:      python3-msal+broker < 1.33.0-1
 
 
 %prep
-%autosetup -n microsoft-authentication-library-for-python-%{git_version}
+%autosetup -n microsoft-authentication-library-for-python-%{version}
 
 # - We can’t generate BR’s from a requirements file with “-e .” in it.
 # - We don’t need or want to run benchmarks (tests/test_benchmark.py), so don’t
@@ -104,12 +103,13 @@ k="${k-}${k+ and }not TestRemoveTokensForClient"
 # Without network access, these even error during test collection!
 ignore="${ignore-} --ignore=tests/test_cryptography.py"
 ignore="${ignore-} --ignore=tests/test_e2e.py"
+ignore="${ignore-} --ignore=tests/test_e2e_manual.py"
 %else
 # This test requires browser interaction.
 k="${k-}${k+ and }not (SshCertTestCase and test_ssh_cert_for_user_should_work_with_any_account)"
 # Obviously, the python-cryptography package may sometimes lag upstream.
 k="${k-}${k+ and }not (CryptographyTestCase and test_should_be_run_with_latest_version_of_cryptography)"
-%if 0%{?epel9}
+%if %{defined el9}
 # python-dotenv is too old
 ignore="${ignore-} --ignore=tests/test_e2e.py"
 %endif

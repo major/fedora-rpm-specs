@@ -5,7 +5,7 @@
 %global crate tryfn
 
 Name:           rust-tryfn
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        File-driven snapshot testing for a function
 

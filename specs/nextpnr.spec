@@ -1,11 +1,11 @@
-%global commit c46f2bbd86e73f9254051dabc573380a7dc157fd
+%global commit 8c40db213a99b68ffb1d48628fb68eb040b8dab0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20251205
+%global snapdate 20260304
 
 Name:		nextpnr
 Version:	1
-Release:	63.%{snapdate}git%{shortcommit}%{?dist}
+Release:	64.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 # Automatically converted from old format: ISC and BSD and MIT and (MIT or Public Domain) - review is highly recommended.
@@ -88,6 +88,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Wed Mar 04 2026 Gabriel Somlo <gsomlo@gmail.com> - 1-64.20260304git8c40db2
+- update to newer snapshot
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1-63.20251205gitc46f2bb
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,10 +1,10 @@
-%global commit0 1717fa01800a0893983c9aa3aa04f12d728cf540
+%global commit0 3bc26ff4d055adfbba8b424508ab4a36405ffc0b
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20260205
+%global snapdate 20260304
 
 Name:           yosys
-Version:        0.62
+Version:        0.63
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -39,12 +39,13 @@ BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.62
+BuildRequires:  yosyshq-abc >= 0.63
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
 BuildRequires:  txt2man
 BuildRequires:  gtkwave
+BuildRequires:  gtest-devel
 
 # required for documentation:
 BuildRequires: graphviz
@@ -63,7 +64,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.57
+Requires:       yosyshq-abc >= 0.63
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -174,6 +175,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Wed Mar 04 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.63.1.20260304git3bc26ff
+- update to 0.63 snapshot
+
 * Thu Feb 05 2026 Gabriel Somlo <gsomlo@gmail.com> - 0.62.1.20260205git1717fa0
 - update to 0.62 snapshot
 

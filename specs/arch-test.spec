@@ -1,6 +1,7 @@
 # This package installs binaries of different ISA's at the same time.
 # Follow the Debian package to set it noarch and bypass binaries-in-noarch check.
 %global _binaries_in_noarch_packages_terminate_build   0
+%global __debug_package %{nil}
 
 Name:           arch-test
 Version:        0.22
@@ -76,6 +77,7 @@ VERSION=%{version}
 MIPS=mips64-linux-gnu
 POWERPC=powerpc64-linux-gnu
 ARM=arm-linux-gnu
+RISCV=riscv64-linux-gnu
 EOF
 
 

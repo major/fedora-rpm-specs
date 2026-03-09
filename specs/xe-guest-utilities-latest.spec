@@ -3,7 +3,7 @@
 
 Summary: XAPI Virtual Machine Monitoring Scripts
 Name:    %{upstream_name}-latest
-Version: 8.4.0
+Version: 10.0.1
 Release: %autorelease
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD

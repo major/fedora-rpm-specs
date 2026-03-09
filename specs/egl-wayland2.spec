@@ -1,21 +1,12 @@
-%global commit0 1893c371d074c5a648a65e198c4e0eee80d2d7f1
-%global date 20260109
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
-
 Name:           egl-wayland2
-Version:        1.0.1%{!?tag:~%{date}git%{shortcommit0}}
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Dma-buf-based Wayland external platform library
 # src/wayland/dma-buf.h is GPL 2, rest is Apache 2.0
 License:        Apache-2.0 and GPL-2.0
 URL:            https://github.com/NVIDIA/%{name}
 
-%if 0%{?tag:1}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-%endif
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  meson
@@ -39,11 +30,7 @@ This is a new implementation of the EGL External Platform Library for Wayland
 interface, which simplifies a lot of the library and improves window resizing.
 
 %prep
-%if 0%{?tag:1}
 %autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
 
 %build
 %meson

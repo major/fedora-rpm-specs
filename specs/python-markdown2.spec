@@ -1,7 +1,7 @@
 %global srcname markdown2
 
 Name:           python-%{srcname}
-Version:        2.5.4
+Version:        2.5.5
 Release:        %autorelease
 Summary:        A fast and complete Python implementation of Markdown
 License:        MIT
@@ -55,6 +55,9 @@ find %{buildroot}%{python3_sitelib} \
   \( -name '*.py' -o -name 'py.*' \) \
   -exec sed -i '1{/^#!/d}' {} \; \
   -exec chmod u=rw,go=r {} \;
+
+# superfluous
+rm -vf %{buildroot}/usr/testing/tox.ini
 
 %pyproject_save_files -l %{srcname}
 

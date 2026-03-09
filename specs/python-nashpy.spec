@@ -10,7 +10,7 @@ on 2 player games: Support enumeration, Best response polytope vertex
 enumeration, Lemke Howson algorithm.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.41
+Version:        0.0.43
 Release:        %autorelease
 Summary:        A library to compute equilibria of 2 player normal form games
 
@@ -56,7 +56,6 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n %{pretty_name}-%{version}
-
 
 %generate_buildrequires	
 %pyproject_buildrequires

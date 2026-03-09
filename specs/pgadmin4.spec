@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.12
-Release:        2%{?dist}
+Version:        9.13
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -64,7 +64,7 @@ Requires: python3dist(azure-mgmt-resource) >= 24
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(bcrypt) >= 4.3
 Requires: python3dist(boto3) >= 1.42
-Requires: python3dist(certifi) >= 2025.7.9
+Requires: python3dist(certifi) >= 2026.1.4
 Requires: python3dist(cryptography) >= 46
 Requires: python3dist(flask-babel) >= 4
 Requires: python3dist(flask-compress) >= 1
@@ -86,17 +86,17 @@ Requires: python3dist(ldap3) >= 2
 Requires: python3dist(libgravatar) >= 1
 Requires: python3dist(paramiko) >= 3.5.1
 Requires: python3dist(passlib) >= 1
-Requires: python3dist(psutil) >= 7
-Requires: python3dist(psycopg) >= 3.3.2
+Requires: python3dist(psutil) >= 7.2
+Requires: python3dist(psycopg) >= 3.3.3
 Requires: python3dist(pyotp) >= 2
 Requires: python3dist(python-dateutil) >= 2
 Requires: python3dist(pytz) >= 2025
 Requires: python3dist(qrcode) >= 8
-Requires: python3dist(setuptools) >= 80
+Requires: python3dist(setuptools) >= 80.10.2
 Requires: python3dist(sqlalchemy) >= 2
 Requires: python3dist(sqlparse) >= 0
 Requires: python3dist(sshtunnel) >= 0
-Requires: python3dist(typer) >= 0.21
+Requires: python3dist(typer) >= 0.24
 Requires: python3dist(urllib3) >= 2.6
 Requires: python3dist(user-agents) >= 2.2
 Requires: python3dist(werkzeug) >= 3.1
@@ -259,6 +259,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 9.13-1
+- Update to 9.13
+
 * Sat Feb 21 2026 Sandro Mani <manisandro@gmail.com> - 9.12-2
 - Refresh vendor bundle, fixes svelte CVEs
 

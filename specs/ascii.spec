@@ -1,10 +1,12 @@
 Name:           ascii
-Version:        3.31
+Version:        3.32
 Release:        1%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
-BuildRequires:  xmlto, gcc
+BuildRequires:  xmlto
+BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  rubygem-asciidoctor
 
 License:        BSD-2-Clause
 Summary:        Interactive ascii name and synonym chart
@@ -37,6 +39,10 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %license COPYING
 
 %changelog
+* Sat Mar 07 2026 Didier Fabert <didier.fabert@gmail.com> - 3.32-1
+- Update to 3.32 version
+- Add rubygem-asciidoctor build requires
+
 * Sun Feb 08 2026 Didier Fabert <didier.fabert@gmail.com> - 3.31-1
 - Update to 3.31 version
 

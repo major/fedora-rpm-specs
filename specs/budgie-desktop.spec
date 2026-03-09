@@ -7,7 +7,7 @@
 %global vala_version 0.56.18
 
 Name:           budgie-desktop
-Version:        10.10.1
+Version:        10.10.2
 Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
@@ -54,6 +54,7 @@ BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(vapigen) >= %{vala_version}
 BuildRequires:  budgie-desktop-view
 BuildRequires:  desktop-file-utils
+BuildRequires:  egl-utils
 BuildRequires:  gammastep
 BuildRequires:  grim
 BuildRequires:  gcc
@@ -73,6 +74,7 @@ BuildRequires:  swayidle
 BuildRequires:  wlopm
 Requires:       budgie-desktop-services
 Requires:       budgie-session
+Requires:       egl-utils
 Requires:       gammastep
 Requires:       grim
 Requires:       gnome-settings-daemon
@@ -226,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sat Mar 07 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.2-1
+- Update to 10.10.2 stable
+
 * Sat Jan 31 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.1-1
 - Update to 10.10.1 stable
 

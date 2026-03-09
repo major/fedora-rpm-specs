@@ -4,19 +4,18 @@
 
 %global crate signal-hook
 
-Name:           rust-signal-hook
-Version:        0.4.3
+Name:           rust-signal-hook0.3
+Version:        0.3.18
 Release:        %autorelease
 Summary:        Unix signal handling
 
-License:        MIT OR Apache-2.0
+# Upstream license specification: Apache-2.0/MIT
+License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/signal-hook
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * add lazy_static dev-dependency (needed to replace un-published test utility)
+# * bump serial_test dev-dependency from v0.7 to v3
 Patch:          signal-hook-fix-metadata.diff
-# * include un-published test helper code from upstream
-Patch10:        0001-include-un-published-test-helper-code-from-upstream.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

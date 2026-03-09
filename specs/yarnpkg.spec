@@ -8,11 +8,11 @@
 # don't require bundled modules
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
-%global bundledate 20260126
+%global bundledate 20260308
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -92,6 +92,9 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 
 
 %changelog
+* Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 1.22.22-17
+- Refresh vendor bundle
+
 * Tue Jan 27 2026 Sandro Mani <manisandro@gmail.com> - 1.22.22-16
 - Refresh bundle, fixes CVE-2025-13465
 

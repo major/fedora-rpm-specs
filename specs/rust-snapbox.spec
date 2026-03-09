@@ -8,7 +8,7 @@
 %global crate snapbox
 
 Name:           rust-snapbox
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Snapshot testing toolbox
 
@@ -17,6 +17,11 @@ URL:            https://crates.io/crates/snapbox
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          snapbox-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax document-features dependency to allow v0.2.11
+# * relax filetime dependency to allow v0.2.26
+# * relax regex dependency to allow v1.12.2
+Patch:          snapbox-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 

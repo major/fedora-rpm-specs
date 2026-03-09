@@ -3,7 +3,7 @@
 
 Name:           nicotine+
 Version:        3.3.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A graphical client for Soulseek
 
 # - pynicotine/external/tinytag.py is MIT
@@ -21,6 +21,7 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
 # Needed for tests
+BuildRequires:  gobject-introspection
 BuildRequires:  gtk4
 # Runtime dependencies are not declared in setup.py but are actually required
 # (see doc/DEPENDENCIES.md)
@@ -77,6 +78,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Sat Mar 07 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.10-6
+- Add missing BuildRequires on gobject-introspection (fix #2434863)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

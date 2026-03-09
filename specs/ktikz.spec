@@ -2,7 +2,7 @@
 
 Name:           ktikz
 Version:        0.13.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        KDE Editor for the TikZ language
 
 # ktikz/qtikz are GPLv2+, documentation is GFDL
@@ -43,10 +43,10 @@ Requires:       poppler-utils
 # Minimum TeX dependencies
 Requires:       tex-latex-bin
 Requires:       tex(preview.sty)
+# Includes PGF documentation, required to display PGF documentation from the
+# help menu
 Requires:       tex(pgf.sty)
 Requires:       tex(tikz.sty)
-# Required to display PGF documentation
-Requires:       tex-pgf-doc
 Requires:       xdg-utils
 # Required for the KTikZ SVG icon
 Requires:       oflb-prociono-fonts
@@ -72,10 +72,10 @@ Requires:       qt5-assistant
 # Minimum TeX dependencies
 Requires:       tex-latex-bin
 Requires:       tex(preview.sty)
+# Includes PGF documentation, required to display PGF documentation from the
+# help menu
 Requires:       tex(pgf.sty)
 Requires:       tex(tikz.sty)
-# Required to display PGF documentation
-Requires:       tex-pgf-doc
 Requires:       xdg-utils
 # Required for the QTikZ SVG icon
 Requires:       oflb-prociono-fonts
@@ -181,6 +181,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/qtikz.
 
 
 %changelog
+* Sat Mar 07 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.13.2-15
+- Fix RHBZ #2437557
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -74,6 +74,8 @@ Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 Patch0105:      0105-libobs-opengl-Reject-external-only-modifiers.patch
 ## From: https://github.com/obsproject/obs-studio/pull/12951
 Patch0106:      0106-fix-shutdown-crash.patch
+## From: https://github.com/obsproject/obs-studio/pull/13198
+Patch0107:      0107-linux-v4l2-Fix-spurious-fd-closing.patch
 
 # WIP code to improve new CEF support (based on upstream dev tree)
 ## From: https://github.com/asahilina/obs-browser/tree/lockdown
@@ -83,6 +85,8 @@ Patch0203:      0203-WIP-Lock-down-Chrome-Runtime-Lock-down-URLs-and-comm.patch
 Patch0204:      0204-WIP-Enable-Chrome-Runtime.patch
 Patch0205:      0205-WIP-Chrome-Runtime-Data-migration.patch
 Patch0206:      0206-WIP-Lock-down-Chrome-Runtime-Misc-changes.patch
+## From: https://github.com/obsproject/obs-browser/pull/517
+Patch0250:      0250-Update-to-C-20.patch
 
 # Downstream Fedora patches
 ## Use fdk-aac by default
@@ -404,6 +408,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sat Mar 07 2026 Hoshino Lina <lina@lina.yt> - 32.0.4-4
+- Fix crashes due to spurious fd closing with v4l2loopback
+- Fix build with CEF-145
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 32.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

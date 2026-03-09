@@ -5,7 +5,7 @@
 Implementation of Firefly Algorithm (FA) for optimization.}
 
 Name:           python-%{new_name}
-Version:        0.4.6
+Version:        0.4.7
 Release:        %autorelease
 Summary:        Implementation of Firefly Algorithm in Python
 

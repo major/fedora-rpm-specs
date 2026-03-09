@@ -1,12 +1,12 @@
 %bcond tests 1
 
 Name:           python-lazy-loader
-Version:        0.4
+Version:        0.5
 Release:        %autorelease
 Summary:        Populate library namespace without incurring immediate import costs
 
 License:        BSD-3-Clause
-URL:            https://github.com/scientific-python/lazy_loader
+URL:            https://github.com/scientific-python/lazy-loader
 Source:         %{pypi_source lazy_loader}
 
 BuildSystem:            pyproject
@@ -17,11 +17,11 @@ BuildArch:      noarch
 %if %{with tests}
 # The “test” extra includes unwanted linters, etc.; we manually BR pytest
 # rather than patching out all the others from pyproject.toml.
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
 # These are required for some of the tests, but are not captured in the
 # metadata, so we must BR them manually as well:
-BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(scipy)
+BuildRequires:  %{py3_dist numpy}
+BuildRequires:  %{py3_dist scipy}
 %endif
 
 %global common_description %{expand:

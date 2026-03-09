@@ -2,8 +2,8 @@
 %bcond_with network
 
 Name:           python-%{pypi_name}
-Version:        0.13
-Release:        13%{?dist}
+Version:        0.13.2
+Release:        1%{?dist}
 Summary:        Extract the top level domain from the URL given
 
 License:        MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-or-later
@@ -19,8 +19,6 @@ taken from Mozilla.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-six
-BuildRequires:  python3-setuptools
 
 %if %{with network}
 BuildRequires: python3-coverage
@@ -45,16 +43,28 @@ BuildRequires:  python3-sphinx
 %description -n %{name}-doc
 Documentation for %{name}.
 
+
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
+
+# Upstream removed this file, but their tox configuration still references it.
+touch requirements/testing.txt
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build
+%pyproject_wheel
 PYTHONPATH=${PWD} sphinx-build-3 docs html
 rm -rf html/.{doctrees,buildinfo}
 
+
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
+
 
 %if %{with network}
 %check
@@ -63,12 +73,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v --pyargs 
  -k "not test_1_update_tld_names_command and not test_1_update_tld_names_mozilla_command and not test_18_update_tld_names_cli" 
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGELOG.rst CREDITS.rst README.rst
 %license LICENSE_GPL2.0.txt LICENSE_LGPL_2.1.txt LICENSE_MPL_1.1.txt
 %{_bindir}/update-tld-names
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 %exclude %{python3_sitelib}/%{pypi_name}/tests/
 
 %files -n %{name}-doc
@@ -76,6 +84,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v --pyargs 
 %license LICENSE_GPL2.0.txt LICENSE_LGPL_2.1.txt LICENSE_MPL_1.1.txt
 
 %changelog
+* Sat Mar 07 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.13.2-1
+- Update to v0.13.2
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

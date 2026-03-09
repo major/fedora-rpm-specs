@@ -1,5 +1,5 @@
 Name:           perl-Curses
-Version:        1.45
+Version:        1.46
 Release:        %autorelease
 Summary:        Perl bindings for ncurses
 

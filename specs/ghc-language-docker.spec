@@ -8,7 +8,7 @@
 %bcond tests 1
 
 Name:           ghc-%{pkg_name}
-Version:        14.0.1
+Version:        15.0.0
 Release:        %autorelease
 Summary:        Dockerfile parser, pretty-printer and embedded DSL
 
