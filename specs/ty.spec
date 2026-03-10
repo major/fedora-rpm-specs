@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.19
+Version:        0.0.21
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -168,9 +168,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 0e19fc9a61477e71abc4eb76f05a129b6b9ab873
-%global ruff_baseversion 0.15.2
-%global ruff_snapdate 20260220
+%global ruff_rev 94c0a20e3c5b1d9f221b6af800c1e9f649c77388
+%global ruff_baseversion 0.15.5
+%global ruff_snapdate 20260306
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Currently, ruff must use a fork of lsp-types,
@@ -179,9 +179,9 @@ Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 # therefore bundle the fork; full details and justification are in the ruff
 # package.
 %global lsp_types_git https://github.com/astral-sh/lsp-types
-%global lsp_types_rev 3512a9f33eadc5402cfab1b8f7340824c8ca1439
+%global lsp_types_rev e15db0593f0ecbbd80599c3f5880e4bf5da1ca0c
 %global lsp_types_baseversion 0.95.1
-%global lsp_types_snapdate 20240429
+%global lsp_types_snapdate 20260220
 Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
 # For now, ruff still needs to use a git snapshot of salsa because it
@@ -198,11 +198,11 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 1b3cec156330a93f6bb22b6636bca38c27f8f721
+%global typeshed_rev 843c1fd5a148da85e523c1b4ee680226f89986aa
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260214
+%global typeshed_snapdate 20260227
 
 # Downstream patch: always find the system-wide ty executable
 #

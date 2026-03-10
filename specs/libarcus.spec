@@ -50,8 +50,8 @@ between Cura and its backend and similar code.
 
 %package        devel
 
-# The cmake scripts are BSD
-License:        LGPLv3+ and BSD
+# The cmake scripts are BSD-3-Clause
+License:        LGPL-3.0-or-later AND BSD-3-Clause
 
 Summary:        Development files for libarcus
 Requires:       %{name}%{?_isa} = %{version}-%{release}

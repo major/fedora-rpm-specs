@@ -9,8 +9,8 @@ Summary:        C library for reading, creating, and modifying zip archives
 
 License:        BSD-3-Clause
 BuildArch:      noarch
-URL:            http://www.nih.at/libzip/index.html
-Source0:        http://www.nih.at/libzip/%{pkgname}-%{version}.tar.xz
+URL:            https://libzip.org/
+Source0:        https://libzip.org/download/libzip-%{version}.tar.xz
 # Add soversion suffix, as was the case previously with autotools build
 Patch0:         libzip_cmake.patch
 

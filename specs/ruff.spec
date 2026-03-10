@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.15.4
+Version:        0.15.5
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -115,7 +115,6 @@ SourceLicense:  %{shrink:
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # CC0-1.0
 # ISC
 # MIT
@@ -135,7 +134,6 @@ License:        %{shrink:
     MIT AND
     Apache-2.0 AND
     (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 OR MIT OR Zlib) AND
@@ -172,9 +170,9 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 # particular hurry to do so. We therefore bundle the fork as prescribed in:
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global lsp_types_git https://github.com/astral-sh/lsp-types
-%global lsp_types_rev 3512a9f33eadc5402cfab1b8f7340824c8ca1439
+%global lsp_types_rev e15db0593f0ecbbd80599c3f5880e4bf5da1ca0c
 %global lsp_types_baseversion 0.95.1
-%global lsp_types_snapdate 20240429
+%global lsp_types_snapdate 20260220
 Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
 # For now, ruff still needs to use a git snapshot of salsa because it
@@ -193,11 +191,11 @@ Source200:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 Source300:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 1b3cec156330a93f6bb22b6636bca38c27f8f721
+%global typeshed_rev 843c1fd5a148da85e523c1b4ee680226f89986aa
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260214
+%global typeshed_snapdate 20260227
 
 # Downstream patch: always find the system-wide ruff executable
 #

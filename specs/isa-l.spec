@@ -1,20 +1,11 @@
 Name:		isa-l
-Version:	2.31.1
-Release:	8%{?dist}
+Version:	2.32.0
+Release:	1%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
 URL:		https://github.com/intel/isa-l
 Source0:	%{url}/archive/v%{version}/isa-l-%{version}.tar.gz
-#		https://github.com/intel/isa-l/pull/310
-Patch0:		0001-Address-compiler-warnings-on-ppc64le-and-s390x.patch
-#		https://github.com/intel/isa-l/issues/311
-Patch1:		0001-igzip-fix-header-construction-in-Big-Endian-systems.patch
-#		https://github.com/intel/isa-l/pull/313
-Patch2:		0001-Address-type-mismatch-warnings-on-aarch64.patch
-#		https://github.com/intel/isa-l/issues/316
-#		https://github.com/intel/isa-l/pull/358
-Patch3:		0001-igzip-Fix-aarch64-registry-width-for-bfinal.patch
 
 ExcludeArch:	%{ix86}
 
@@ -22,7 +13,14 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	make
+%if %{?rhel}%{!?rhel:0} == 8
+#		Use a newer compiler for EPEL 8 - default fails for aarch64:
+#		fatal error: arm_sve.h: No such file or directory
+BuildRequires:	gcc-toolset-12-gcc
+BuildRequires:	gcc-toolset-12-annobin-plugin-gcc
+%else
 BuildRequires:	gcc
+%endif
 BuildRequires:	nasm
 
 %description
@@ -63,13 +61,14 @@ This package contains CLI tools.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
 
 %build
 autoreconf -v -f -i
+
+%if %{?rhel}%{!?rhel:0} == 8
+. /opt/rh/gcc-toolset-12/enable
+%endif
+
 %configure --disable-static
 %make_build
 
@@ -98,6 +97,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Sat Mar 07 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.32.0-1
+- Update to version 2.32.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

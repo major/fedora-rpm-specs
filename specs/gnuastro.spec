@@ -17,6 +17,7 @@ Patch0: gnuastro-dont-override-cflags.patch
 Patch1: gnuastro-skip-test.patch
 # https://savannah.gnu.org/bugs/?67232
 Patch2: gnuastro-i686.patch
+Patch3: gnuastro-skip-test2.patch
 
 ExcludeArch: %{ix86}
 

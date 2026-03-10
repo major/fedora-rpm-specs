@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.6.2
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
@@ -86,7 +86,8 @@ assert beets.__version__ == "%{version}", f"got {beets.__version__}"
 PY
 
 %pytest \
-  --deselect test/test_importer.py::ImportDuplicateAlbumTest::test_merge_duplicate_album
+  --deselect test/test_importer.py::ImportDuplicateAlbumTest::test_merge_duplicate_album \
+  --ignore test/plugins
 
 %install
 %pyproject_install

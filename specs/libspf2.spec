@@ -16,7 +16,7 @@ Name:		libspf2
 Version:	1.2.11
 Release:	20.20210922git%{git}%{?dist}
 Summary:	An implementation of the SPF specification
-License:	BSD or LGPLv2+
+License:	BSD-2-Clause OR LGPL-2.1-or-later
 Url:		http://www.libspf2.org/
 
 #Source0:	http://www.libspf2.org/spf/libspf2-%{version}.tar.gz
@@ -79,7 +79,6 @@ applications that use the libspf2 (Sender Policy Framework) library.
 
 %package -n perl-Mail-SPF_XS
 Summary:	An XS implementation of Mail::SPF
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 

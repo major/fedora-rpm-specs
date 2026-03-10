@@ -1,13 +1,13 @@
 Summary:       Web server access log visualizer
 Name:          logstalgia
-Version:       1.1.4
-Release:       12%{?dist}
+Version:       1.1.5
+Release:       1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
-URL:           http://code.google.com/p/logstalgia/
+URL:           https://github.com/acaudwell/Logstalgia
 Source0:       https://github.com/acaudwell/Logstalgia/releases/download/logstalgia-%{version}/logstalgia-%{version}.tar.gz
-BuildRequires: SDL2-devel
-BuildRequires: SDL2_image-devel
+BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: boost-devel
 BuildRequires: ftgl-devel
 BuildRequires: gcc-c++
@@ -15,11 +15,13 @@ BuildRequires: glew-devel
 BuildRequires: glm-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
+BuildRequires: libtool
 BuildRequires: make
 BuildRequires: pcre2-devel
+BuildRequires: SDL2-devel
+BuildRequires: SDL2_image-devel
 Requires:      gnu-free-mono-fonts
 Requires:      gnu-free-serif-fonts
-
 %description
 Logstalgia (aka ApachePong) replays or streams a standard website
 access log (eg access.log) as a retro arcade game-like simulation.
@@ -28,6 +30,7 @@ access log (eg access.log) as a retro arcade game-like simulation.
 %autosetup -p1
 
 %build
+autoreconf -f -i
 %configure \
 %ifarch ppc64le
   --with-boost-filesystem=boost_filesystem \
@@ -46,6 +49,9 @@ access log (eg access.log) as a retro arcade game-like simulation.
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Sat Mar 07 2026 Terje Rosten <terjeros@gmail.com> - 1.1.5-1
+- 1.1.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

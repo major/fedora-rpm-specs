@@ -10,8 +10,6 @@ License:        GPL-2.0-only OR GPL-3.0-only
 Summary:        Kirigami-based RSS reader
 Url:            https://invent.kde.org/network/alligator
 Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-# upstream validates with appstreamcli but not appstream-util
-Patch:          appstream-util-validate.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -58,8 +56,7 @@ chmod -x %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 
 %check
-# commented out until official release
-#appstream-util validate --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang

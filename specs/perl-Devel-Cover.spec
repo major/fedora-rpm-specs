@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cover
-Version:        1.51
-Release:        2%{?dist}
+Version:        1.52
+Release:        1%{?dist}
 Summary:        Code coverage metrics for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cover
@@ -36,6 +36,7 @@ BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
@@ -47,6 +48,7 @@ BuildRequires:  perl(JSON::MaybeXS)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(namespace::clean)
 BuildRequires:  perl(Parallel::Iterator)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(PPI::HTML) >= 1.07
@@ -71,7 +73,8 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(DBM::Deep)
 BuildRequires:  perl(experimental)
-BuildRequires:  perl(feature)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Moose)
@@ -129,6 +132,9 @@ make test
 %{_mandir}/man3/Devel::Cover*.3*
 
 %changelog
+* Sun Mar  8 2026 Paul Howarth <paul@city-fan.org> - 1.52-1
+- 1.52 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.51-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

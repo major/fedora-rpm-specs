@@ -1,7 +1,7 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.44.8
+Version:        4.0.0
 Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
@@ -23,9 +23,8 @@ Source5:        %{name}-server-README.fedora
 Patch0:         %{name}-serverprefix.patch
 # Pass --offline to yarn, plus replace deprecated md4 with sha256 in webpack sources
 Patch1:         %{name}-yarn-offline.patch
-
-# Applied by prepare_vendor.sh
-# CVE-2024-55565.prebundle.patch
+# Don't install pyproject.toml
+Patch2:         %{name}-no-install-pyproject.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -59,28 +58,27 @@ BuildRequires:  poly2tri-devel
 BuildRequires:  proj-devel
 BuildRequires:  protobuf-lite-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-qscintilla-qt5
-BuildRequires:  python3-qscintilla-qt5-devel
-BuildRequires:  python3-qt5-devel
+BuildRequires:  python3-qscintilla-qt6
+BuildRequires:  python3-qscintilla-qt6-devel
+BuildRequires:  python3-pyqt6-devel
 BuildRequires:  %{py3_dist sip} >= 5.3
 BuildRequires:  %{py3_dist PyQt-builder} >= 1
-BuildRequires:  qca-qt5-devel
-BuildRequires:  qscintilla-qt5-devel
-BuildRequires:  qt5-qt3d-devel
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtlocation-devel
-BuildRequires:  qt5-qtmultimedia-devel
-BuildRequires:  qt5-qtserialport-devel
-BuildRequires:  qt5-qttools-static
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  qtkeychain-qt5-devel
-BuildRequires:  qwt-qt5-devel
-%if 0%{?fedora} >= 43
-BuildRequires:  spatialindex2.0-devel
-%else
-BuildRequires:  spatialindex-devel
+BuildRequires:  qca-qt6-devel
+BuildRequires:  qscintilla-qt6-devel
+BuildRequires:  qt6-qt3d-devel
+BuildRequires:  qt6-qt5compat-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtlocation-devel
+BuildRequires:  qt6-qtmultimedia-devel
+BuildRequires:  qt6-qtserialport-devel
+BuildRequires:  qt6-qttools-static
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:  qt6-qtwebengine-devel
 %endif
+BuildRequires:  qtkeychain-qt6-devel
+BuildRequires:  qwt-qt6-devel
+BuildRequires:  spatialindex2.0-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  yarnpkg
@@ -91,7 +89,7 @@ BuildRequires:  yarnpkg
 Requires:       gpsbabel
 # As found in BZ#1396818
 #TODO: Not picked up by build system? Relevant?
-Requires:       qca-qt5-ossl
+Requires:       qca-qt6-ossl
 
 # We don't want to provide private Python extension libs
 %global __provides_exclude_from ^(%{python3_sitearch}|%{_libdir}/%{name}/plugins)/.*\.so(\.%{version})?$
@@ -136,8 +134,8 @@ Requires:       python3-OWSLib
 Requires:       python3-psycopg2
 Requires:       python3-pygments
 Requires:       python3-PyYAML
-Requires:       python3-qscintilla-qt5
-%{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
+Requires:       python3-qscintilla-qt6
+%{?_sip_api:Requires: python3-pyqt6-sip-api(%{_sip_api_major}) >= %{_sip_api}}
 Supplements:    %{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-qgis
@@ -178,6 +176,7 @@ sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 
 %cmake \
       %{_cmake_skip_rpath} \
       %["%{?_lib}" == "lib64" ? "-D LIB_SUFFIX=64" : ""] \
+      -D BUILD_WITH_QT6=ON \
       -D QGIS_LIB_SUBDIR=%{_lib} \
       -D QGIS_MANUAL_SUBDIR=/share/man \
       -D QGIS_CGIBIN_SUBDIR=%{_libexecdir}/%{name} \
@@ -191,6 +190,11 @@ sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 
       -D WITH_EPT:BOOL=TRUE \
       -D WITH_PDAL:BOOL=TRUE \
       -D WITH_QSPATIALITE:BOOL=TRUE \
+%ifarch %{qt6_qtwebengine_arches}
+      -D WITH_QTWEBENGINE:BOOL=TRUE \
+%else
+      -D WITH_QTWEBENGINE:BOOL=FALSE \
+%endif
       -D WITH_QWTPOLAR:BOOL=TRUE \
       -D WITH_INTERNAL_QWTPOLAR:BOOL=FALSE \
       -D WITH_SERVER:BOOL=TRUE \
@@ -255,7 +259,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 %{_libdir}/lib%{name}_gui.so.*
 %{_libdir}/lib%{name}_3d.so.*
 %{_libdir}/%{name}/
-%{_qt5_plugindir}/sqldrivers/libqsqlspatialite.so
+%{_qt6_plugindir}/sqldrivers/libqsqlspatialite.so
 %{_bindir}/%{name}
 %{_bindir}/%{name}_process
 %{_mandir}/man1/%{name}.1*
@@ -281,7 +285,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 %{_datadir}/%{name}/FindQGIS.cmake
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{?_qt5_plugindir}/designer/libqgis_customwidgets.so*
+%{?_qt6_plugindir}/designer/libqgis_customwidgets.so*
 
 %files grass
 %{_libdir}/lib%{name}grass*.so.*
@@ -295,7 +299,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 %{_libdir}/libqgispython.so.*
 %{_datadir}/%{name}/python/
 %{python3_sitearch}/%{name}/
-%{python3_sitearch}/PyQt5/uic/widget-plugins/
+%{python3_sitearch}/PyQt6/uic/widget-plugins/
 %exclude %{python3_sitearch}/%{name}/server/
 %exclude %{python3_sitearch}/%{name}/_server.so
 
@@ -312,6 +316,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Mar 07 2026 Sandro Mani <manisandro@gmail.com> - 4.0.0-1
+- Update to 4.0.0
+
 * Fri Mar 06 2026 Sandro Mani <manisandro@gmail.com> - 3.44.8-1
 - Update to 3.44.8
 

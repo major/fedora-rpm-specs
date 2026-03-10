@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -27,7 +27,6 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-static
 # KWinQpaPlugin (and others?)
 BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qtsensors-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qttools-static
 BuildRequires:  qt6-qtwayland-devel
@@ -119,6 +118,7 @@ Requires:       libplasma%{?_isa} >= %{plasma_version}
 Requires:       qt6-qtmultimedia%{?_isa}
 Requires:       qt6-qtdeclarative%{?_isa}
 Requires:       aurorae%{?_isa}
+Requires:       iio-sensor-proxy%{?_isa}
 
 # Before kwin was split out from kde-workspace into a subpackage
 Conflicts:      kde-workspace%{?_isa} < 4.11.14-2
@@ -274,6 +274,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Fri Mar 06 2026 Timothée Ravier <tim@siosm.fr> - 6.6.2-2
+- Require iio-sensor-proxy instead of qt6-qtsensors
+
 * Tue Mar 03 2026 Steve Cossette <farchord@gmail.com> - 6.6.2-1
 - 6.6.2
 

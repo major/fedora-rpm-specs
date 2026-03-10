@@ -1,8 +1,8 @@
 %global pkg_name httpagentparser
 
 Name:           python-%{pkg_name}
-Version:        1.9.5
-Release:        14%{?dist}
+Version:        1.9.9
+Release:        1%{?dist}
 Summary:        Extracts OS Browser etc information from http user agent string
 
 License:        MIT
@@ -48,10 +48,13 @@ Extracts OS Browser etc information from http user agent string.
 
 %files -n python3-%{pkg_name}  -f %{pyproject_files}
 %license LICENSE.txt
-%doc README.rst
+%doc README.md
 
 
 %changelog
+* Sun Mar 08 2026 Sandro Mani <manisandro@gmail.com> - 1.9.9-1
+- Update to 1.9.9
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

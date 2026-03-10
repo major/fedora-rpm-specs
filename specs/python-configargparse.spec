@@ -1,12 +1,12 @@
 Name:           python-configargparse
-Version:        1.7.1
+Version:        1.7.3
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 
 # SPDX
 License:        MIT
 URL:            https://github.com/bw2/ConfigArgParse
-Source:         %{url}/archive/%{version}/ConfigArgParse-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/ConfigArgParse-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -l configargparse
@@ -14,8 +14,11 @@ BuildOption(generate_buildrequires): -x yaml
 
 BuildArch:      noarch
 
-# See (obsolete) tests_require in setup.py:
+# See tests_require in setup.py; it also contains unwanted linters, coverage
+# analysis tools, etc.:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-subtests}
 
 %global common_description %{expand:
 A drop-in replacement for argparse that allows options to also be set via
@@ -42,7 +45,7 @@ Summary:        %{summary}
 
 
 %check -a
-%pytest -v
+%pytest -v -rs
 
 
 %files -n python3-configargparse -f %{pyproject_files}

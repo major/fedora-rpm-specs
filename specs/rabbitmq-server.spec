@@ -8,7 +8,7 @@
 
 Name: rabbitmq-server
 Version: 4.2.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The RabbitMQ server
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -111,6 +111,8 @@ for app in $(basename -a %{buildroot}%{_rabbit_libdir}/lib/rabbitmq_server-%{ver
        ln -s ../lib/rabbitmq_server-%{version}/sbin/${app} %{buildroot}%{_rabbit_libdir}/bin/${app}
 done
 
+ln -s ./lib/rabbitmq_server-%{version}/plugins %{buildroot}%{_rabbit_libdir}/plugins
+
 install -p -D -m 0755 %{S:3} %{buildroot}%{_rabbit_libdir}/bin/cuttlefish
 
 install -p -D -m 0755 scripts/rabbitmq-server.ocf %{buildroot}%{_exec_prefix}/lib/ocf/resource.d/rabbitmq/rabbitmq-server
@@ -178,6 +180,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Sun Mar  8 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.4-2
+- Fix plugin installation
+
 * Tue Feb 17 2026 Peter Lemenkov <lemenkov@gmail.com> - 4.2.4-1
 - Ver. 4.2.4
 

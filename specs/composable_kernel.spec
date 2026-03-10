@@ -77,6 +77,9 @@
 %global build_compile_db OFF
 %endif
 
+# Build what is needed for miopen
+%bcond_without miopen
+
 %bcond_with ck_contraction
 %if %{with ck_contraction}
 %global build_ck_contraction ON
@@ -84,7 +87,11 @@
 %global build_ck_contraction OFF
 %endif
 
+%if %{with miopen}
+%bcond_without ck_conv
+%else
 %bcond_with ck_conv
+%endif
 %if %{with ck_conv}
 %global build_ck_conv ON
 %else
@@ -142,7 +149,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        3%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -332,7 +339,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_conv} || %{with ck_gemm}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so.*
 %endif
-%if %{with ck_gemm} || %{with ck_conv} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
+%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so.*
 %endif
 %if %{with ck_other}
@@ -353,7 +360,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %if %{with ck_conv} || %{with ck_gemm}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_conv_operations.so
 %endif
-%if %{with ck_gemm} || %{with ck_mha} || %{with ck_conv} || %{with ck_reduction} || %{with ck_contraction}
+%if %{with ck_gemm} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
 %{pkg_prefix}/%{pkg_libdir}/libdevice_gemm_operations.so
 %endif
 %if %{with ck_other}
@@ -372,6 +379,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Build what is needed for miopen
+
 * Sun Feb 8 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

@@ -46,7 +46,7 @@ Source1:        jupyterlab.metainfo.xml
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # Needed for tests
-BuildRequires:  nodejs, /usr/bin/node
+BuildRequires:  nodejs
 BuildRequires:  npm
 # For validating desktop entry and appdata
 BuildRequires:  desktop-file-utils

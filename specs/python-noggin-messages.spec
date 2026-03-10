@@ -2,16 +2,13 @@
 %global modname noggin_messages
 
 Name:           python-%{srcname}
-Version:        1.0.3
-Release:        13%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Fedora Messaging message schemas for Noggin
 
 License:        MIT
 URL:            https://github.com/fedora-infra/%{srcname}
 Source0:        %{pypi_source}
-
-## Downstream fixes
-Patch1001:      0001-Revert-Include-additional-files-in-the-sdist.patch
 
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros >= 0-14
@@ -51,6 +48,9 @@ This package contains the fedora-messaging message schemas for Noggin.
 
 
 %changelog
+* Sun Mar 08 2026 Jonathan Wright <jonathan@almalinux.org> - 1.1.0-1
+- update to 1.1.10
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

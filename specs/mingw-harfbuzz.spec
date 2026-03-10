@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        12.3.2
+Version:        13.0.1
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -96,23 +96,30 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw32_bindir}/hb-info.exe
 %{mingw32_bindir}/hb-shape.exe
 %{mingw32_bindir}/hb-subset.exe
+%{mingw32_bindir}/hb-vector.exe
 %{mingw32_bindir}/hb-view.exe
 %{mingw32_bindir}/libharfbuzz-0.dll
 %{mingw32_bindir}/libharfbuzz-gobject-0.dll
 %{mingw32_bindir}/libharfbuzz-icu-0.dll
 %{mingw32_bindir}/libharfbuzz-subset-0.dll
 %{mingw32_bindir}/libharfbuzz-cairo-0.dll
+%{mingw32_bindir}/libharfbuzz-raster-0.dll
+%{mingw32_bindir}/libharfbuzz-vector-0.dll
 %{mingw32_includedir}/harfbuzz/
 %{mingw32_libdir}/libharfbuzz.dll.a
 %{mingw32_libdir}/libharfbuzz-gobject.dll.a
 %{mingw32_libdir}/libharfbuzz-icu.dll.a
 %{mingw32_libdir}/libharfbuzz-subset.dll.a
 %{mingw32_libdir}/libharfbuzz-cairo.dll.a
+%{mingw32_libdir}/libharfbuzz-raster.dll.a
+%{mingw32_libdir}/libharfbuzz-vector.dll.a
 %{mingw32_libdir}/pkgconfig/harfbuzz.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-gobject.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-icu.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-subset.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-cairo.pc
+%{mingw32_libdir}/pkgconfig/harfbuzz-raster.pc
+%{mingw32_libdir}/pkgconfig/harfbuzz-vector.pc
 %{mingw32_libdir}/cmake/harfbuzz/
 
 %files -n mingw32-harfbuzz-static
@@ -121,6 +128,8 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw32_libdir}/libharfbuzz-gobject.a
 %{mingw32_libdir}/libharfbuzz-icu.a
 %{mingw32_libdir}/libharfbuzz-subset.a
+%{mingw32_libdir}/libharfbuzz-raster.a
+%{mingw32_libdir}/libharfbuzz-vector.a
 
 # Win64
 %files -n mingw64-harfbuzz
@@ -128,23 +137,30 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_bindir}/hb-info.exe
 %{mingw64_bindir}/hb-shape.exe
 %{mingw64_bindir}/hb-subset.exe
+%{mingw64_bindir}/hb-vector.exe
 %{mingw64_bindir}/hb-view.exe
 %{mingw64_bindir}/libharfbuzz-0.dll
 %{mingw64_bindir}/libharfbuzz-gobject-0.dll
 %{mingw64_bindir}/libharfbuzz-icu-0.dll
 %{mingw64_bindir}/libharfbuzz-subset-0.dll
 %{mingw64_bindir}/libharfbuzz-cairo-0.dll
+%{mingw64_bindir}/libharfbuzz-raster-0.dll
+%{mingw64_bindir}/libharfbuzz-vector-0.dll
 %{mingw64_includedir}/harfbuzz/
 %{mingw64_libdir}/libharfbuzz.dll.a
 %{mingw64_libdir}/libharfbuzz-gobject.dll.a
 %{mingw64_libdir}/libharfbuzz-icu.dll.a
 %{mingw64_libdir}/libharfbuzz-subset.dll.a
 %{mingw64_libdir}/libharfbuzz-cairo.dll.a
+%{mingw64_libdir}/libharfbuzz-raster.dll.a
+%{mingw64_libdir}/libharfbuzz-vector.dll.a
 %{mingw64_libdir}/pkgconfig/harfbuzz.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-gobject.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-icu.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-subset.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-cairo.pc
+%{mingw64_libdir}/pkgconfig/harfbuzz-raster.pc
+%{mingw64_libdir}/pkgconfig/harfbuzz-vector.pc
 %{mingw64_libdir}/cmake/harfbuzz/
 
 %files -n mingw64-harfbuzz-static
@@ -153,9 +169,14 @@ export MINGW_BUILDDIR_SUFFIX=shared
 %{mingw64_libdir}/libharfbuzz-gobject.a
 %{mingw64_libdir}/libharfbuzz-icu.a
 %{mingw64_libdir}/libharfbuzz-subset.a
+%{mingw64_libdir}/libharfbuzz-raster.a
+%{mingw64_libdir}/libharfbuzz-vector.a
 
 
 %changelog
+* Sun Mar 08 2026 Sandro Mani <manisandro@gmail.com> - 13.0.1-1
+- Update to 13.0.1
+
 * Tue Jan 27 2026 Sandro Mani <manisandro@gmail.com> - 12.3.2-1
 - Update to 12.3.2
 

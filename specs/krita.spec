@@ -7,8 +7,8 @@
 %global gmic_version 3.6.6.2
 
 Name:           krita
-Version:        6.0.0~beta2
-Release:        2%{?dist}
+Version:        6.0.0~beta3
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -20,8 +20,6 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_version}/gmic-%{gmic_version}.tar.gz
 
 ## upstream patches
-# https://invent.kde.org/graphics/krita/-/merge_requests/2657
-Patch: 0001-KoStreamedMath-fix-build-on-XSIMD_NO_SUPPORTED_ARCHI.patch
 
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
@@ -233,6 +231,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sun Mar 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0~beta3-1
+- 6.0.0-beta3
+
 * Tue Mar 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 6.0.0~beta2-2
 - Bump NVR
 

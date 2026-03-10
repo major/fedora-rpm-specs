@@ -35,6 +35,10 @@ Source:         %{gosource}
 %prep
 %goprep -A
 
+# This is a separate module, which is for the services behind telemetry.go.dev,
+# which pulls in far too many dependencies, and we don't really need it.
+rm -rf godev
+
 %if %{without bootstrap}
 %generate_buildrequires
 %go_generate_buildrequires

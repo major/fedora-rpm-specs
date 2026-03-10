@@ -1,19 +1,27 @@
 %bcond_without check
 
 Name:           bcvk
-# Replaced by cargo xtask spec
-Version: 0.10.0
+Version:        0.11.0
 Release:        1%{?dist}
 Summary:        Bootable container VM toolkit
 
 # Apache-2.0 OR MIT
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/bootc-dev/bcvk
-Source0: bcvk-0.10.0.tar.zstd
-Source1: bcvk-0.10.0-vendor.tar.zstd
+Source0:        %{url}/releases/download/v%{version}/bcvk-%{version}.tar.zstd
+Source1:        %{url}/releases/download/v%{version}/bcvk-%{version}-vendor.tar.zstd
 
-# Only build for architectures with full support and testing
-ExclusiveArch:  x86_64 aarch64
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+Requires: binutils
+Requires: openssh-clients
+Requires: podman
+Requires: qemu-img
+Requires: qemu-kvm
+Requires: virtiofsd
+# libvirt-client is optional but recommended for 'bcvk libvirt' commands
+Recommends: libvirt-client
 
 BuildRequires: make
 BuildRequires: openssl-devel

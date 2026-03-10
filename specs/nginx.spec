@@ -131,8 +131,6 @@ Requires:          %{name}-core = %{epoch}:%{version}-%{release}
 BuildRequires:     systemd
 BuildRequires:     systemd-rpm-macros
 %{?systemd_requires}
-# For external nginx modules
-Provides:          nginx(abi) = %{nginx_abiversion}
 
 %description
 Nginx is a web server and a reverse proxy server for HTTP, SMTP, POP3 and
@@ -147,6 +145,8 @@ Requires:          nginx-mimetypes
 Requires:          openssl%{?openssl_pkgversion}-libs
 Requires(pre):     nginx-filesystem
 Conflicts:         nginx < 1:1.20.2-4
+# For external nginx modules
+Provides:          nginx(abi) = %{nginx_abiversion}
 
 %description core
 nginx minimal core

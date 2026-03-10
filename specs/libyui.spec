@@ -35,7 +35,7 @@ Version:  4.2.16
 Release:  29%{?dist}
 Summary:  GUI-abstraction library
 
-License:  (LGPLv2 or LGPLv3) and MIT
+License:  (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:      https://github.com/%{name}/%{name}
 Source0:  %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -257,7 +257,6 @@ libyui-terminal - useful for testing on headless machines
 # ruby-yui
 
 %package -n ruby-yui
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Ruby bindings for libyui
 Group:          Development/Ruby
@@ -275,7 +274,6 @@ interfaces (Qt, Gtk) and text based user interfaces (ncurses).
 # python3-yui
 
 %package -n python3-yui
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Python 3 bindings for libyui
 Group:          Development/Python
@@ -296,7 +294,6 @@ user interfaces (Qt, Gtk) and text based user interfaces (ncurses).
 # perl-yui
 
 %package -n perl-yui
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Perl bindings for libyui
 Group:          Development/Perl
