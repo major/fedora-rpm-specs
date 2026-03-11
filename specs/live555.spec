@@ -10,7 +10,7 @@ RTSP or SIP clients and servers, and have been used to add streaming support to
 existing media player applications.}
 
 Name:           live555
-Version:        2026.02.13
+Version:        2026.02.26
 Release:        %autorelease
 Summary:        RTP/RTCP/RTSP/SIP multimedia streaming libraries
 
@@ -34,6 +34,7 @@ This package contains development headers and libraries for live555.
 
 %package        tools
 Summary:        RTSP streaming tools using live555.com streaming libraries
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    tools %{common_description}
 
@@ -62,7 +63,7 @@ chmod +x %{buildroot}%{_libdir}/*.so*
 %license COPYING COPYING.LESSER
 %doc README
 %{_libdir}/libBasicUsageEnvironment.so.2{,.*}
-%{_libdir}/libgroupsock.so.30{,.*}
+%{_libdir}/libgroupsock.so.33{,.*}
 %{_libdir}/libliveMedia.so.117{,.*}
 %{_libdir}/libUsageEnvironment.so.3{,.*}
 

@@ -53,7 +53,7 @@ tar -xf %{S:1}
 export GO_LDFLAGS="-X github.com/prometheus/common/version.Version=%{version}  \
          -X github.com/prometheus/common/version.Revision=%{release} \
          -X github.com/prometheus/common/version.Branch=tarball      \
-         -X github.com/prometheus/common/version.BuildUser=Fedora
+         -X github.com/prometheus/common/version.BuildUser=Fedora \
          -X github.com/prometheus/common/version.BuildDate=$(date -u -d@$SOURCE_DATE_EPOCH +%%Y%%m%%d)"
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd

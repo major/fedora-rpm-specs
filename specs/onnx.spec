@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -17,8 +17,6 @@ Patch:     0003-Add-fixes-for-use-with-onnxruntime.patch
 # Add fixes for use with onnxruntime
 Patch:     0004-Remove-python-parameterized-dependency.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2212096
-ExcludeArch:    s390x
 %if %{undefined fc40} && %{undefined fc41}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -108,6 +106,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 export PYTEST_ADDOPTS="-k 'not test_float8_e4m3fn_negative_nan and \
 not test_float8_e5m2_negative_nan and not test_maxpool_2d_uint8_cpu'"
 %endif
+%ifarch s390x
+export PYTEST_ADDOPTS="-k 'not test_make_tensor_raw'"
+%endif
+
 %pytest
 
 %files libs
@@ -128,6 +130,9 @@ not test_float8_e5m2_negative_nan and not test_maxpool_2d_uint8_cpu'"
 %{_bindir}/check-node
 
 %changelog
+* Mon Feb 16 2026 Diego Herrera <dherrera@fedoraproject.org> - 1.17.0-12
+- Re-enable s390x
+
 * Tue Feb 10 2026 Marcin Juszkiewicz - 1.17.0-11
 - skip 3 tests on riscv64: test_float8_e4m3fn_negative_nan,
   test_float8_e5m2_negative_nan, test_maxpool_2d_uint8_cpu

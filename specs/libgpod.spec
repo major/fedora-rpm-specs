@@ -74,7 +74,7 @@ libgpod.
 
 %package doc
 Summary: API documentation for the libgpod library
-License: GFDL
+License: GFDL-1.1-or-later
 %if 0%{?fedora}
 BuildArch: noarch
 %endif

@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 
 Name:    kwalletmanager5
 Summary: Manage KDE passwords
-Version: 25.12.2
-Release: 2%{?dist}
+Version: 25.12.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kw
 
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

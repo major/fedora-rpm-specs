@@ -1,7 +1,7 @@
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
-Version: 25.12.2
-Release: 2%{?dist}
+Version: 25.12.3
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND BSD-2-Clause
 URL:     https://invent.kde.org/sdk/%{name}.git
@@ -135,6 +135,9 @@ rm -fv %{buildroot}%{_kf6_bindir}/krazy-licensecheck
 
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

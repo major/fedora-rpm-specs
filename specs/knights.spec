@@ -5,8 +5,8 @@
 ExcludeArch: %{ix86}
 
 Name:		knights
-Version:	25.12.2
-Release:	2%{?dist}
+Version:	25.12.3
+Release:	1%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/qlogging-categories6/knights.renamecategories
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

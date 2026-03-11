@@ -63,7 +63,8 @@ technology.
 
 %package activities
 Summary:        Activity files for %{name}
-License:        GPLv3 and MPLv2.0 and Public Domain and CC0 and CC-BY and CC-BY-SA and GFDL and OFL
+# see REUSE.toml for disambiguation
+License:        GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND MPL-2.0 AND LicenseRef-Fedora-Public-Domain AND CC0-1.0 AND CC-BY-SA-4.0 AND CC-BY-4.0 AND CC-BY-3.0 AND GFDL-1.2-or-later AND OFL-1.1 AND Unlicense
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 

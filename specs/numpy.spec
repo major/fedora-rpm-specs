@@ -19,7 +19,7 @@
 %global modname numpy
 
 Name:           numpy
-Version:        2.4.2
+Version:        2.4.3
 Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
@@ -38,7 +38,7 @@ Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-h
 # Fix FTBFS with GCC 16
 # Sent upstream:
 # https://github.com/numpy/x86-simd-sort/pull/225
-Patch:          fix-gcc-16-ftbfs.patch
+#Patch:          fix-gcc-16-ftbfs.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -261,6 +261,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Mon Mar 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.3-1
+- 2.4.3
+
 * Sat Jan 31 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.4.2-1
 - 2.4.2
 

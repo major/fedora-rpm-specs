@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 25.09.2
-Release: 3%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 82%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -57,14 +57,14 @@ License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit 296465ccd16e431dce703c9e7537d04ff0992b08
-%define ovsshortcommit 296465c
+%define ovscommit da6b84d691593e57951bcc5f2f916336c6e0d5cc
+%define ovsshortcommit da6b84d
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
 
-# ovn-patches: Uncomment when new patches are added.
-# Patch:     ovn.patch
+# ovn-patches:
+Patch:     ovn.patch
 
 # OpenvSwitch backports (400-) if required.
 # Address crpto policy for fedora
@@ -437,6 +437,12 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Mon Mar 9 2026 Dumitru Ceara <dceara@redhat.com> - 25.09.2-82
+- Updated the OVN sources to pick up the commits from v25.09.2 till the
+  tip of branch-25.09 (c7066edbc3985f06c6bfa45e3724088baa97c4bd).
+- Updated the OVS sources to the branch-25.09 OVS submodule
+  commit da6b84d691593e57951bcc5f2f916336c6e0d5cc.
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.09.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

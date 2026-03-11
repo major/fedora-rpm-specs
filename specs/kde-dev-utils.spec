@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 25.12.2
-Release: 2%{?dist}
+Version: 25.12.3
+Release: 1%{?dist}
 
 License: LGPL-2.0-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/sdk/%{name}.git
@@ -115,6 +115,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

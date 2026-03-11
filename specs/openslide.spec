@@ -6,6 +6,8 @@ Summary:	C library for reading virtual slides
 License:	LGPL-2.1-only
 URL:		https://openslide.org/
 Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# https://github.com/openslide/openslide/pull/706
+Patch0:		libtiff-partial-tile.patch
 
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(cairo)
@@ -60,7 +62,7 @@ with virtual slides.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -80,19 +82,21 @@ with virtual slides.
 %files
 %doc README.md CHANGELOG.md
 %license COPYING.LESSER
-%{_libdir}/*.so.1*
+%{_libdir}/lib%{name}.so.1*
 
 
 %files devel
 %doc doc/html
 %{_includedir}/%{name}/
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %files tools
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/%{name}-*
+%{_bindir}/slidetool
+%{_mandir}/man1/%{name}-*
+%{_mandir}/man1/slidetool.*
 
 
 %changelog

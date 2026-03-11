@@ -11,12 +11,12 @@ Name:             dogtag-pki
 # Upstream version number:
 %global           major_version 11
 %global           minor_version 9
-%global           update_version 0
+%global           update_version 1
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 1
+%global           release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 
 # To create a tarball from a version tag:
@@ -149,6 +149,8 @@ ExcludeArch: i686
 %define pki_uid 17
 %define pki_groupname pkiuser
 %define pki_gid 17
+
+%define tomcat_groupname tomcat
 
 # Create a home directory for PKI user at /home/pkiuser
 # to store rootless Podman container.
@@ -1272,6 +1274,7 @@ fi
 cat > %{product_id}.sysusers.conf <<EOF
 g %{pki_username} %{pki_gid}
 u %{pki_groupname} %{pki_uid} 'Certificate System' %{pki_homedir} -
+m %{pki_username} %{tomcat_groupname}
 EOF
 
 %endif
@@ -1848,6 +1851,8 @@ fi
 %{_sbindir}/pkidestroy
 %{_sbindir}/pki-server
 %{_sbindir}/pki-healthcheck
+%{_sbindir}/pki-tomcat-start
+%{_sbindir}/pki-tomcat-stop
 %{python3_sitelib}/pki/server/
 %{python3_sitelib}/pkihealthcheck-*.egg-info/
 %config(noreplace) %{_sysconfdir}/pki/healthcheck.conf
@@ -2082,6 +2087,12 @@ fi
 
 ################################################################################
 %changelog
+* Mon Mar 09 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.1-2
+- Fix missing binary and user group
+
+* Mon Mar 09 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.1-1
+- Rebase to PKI 11.9.1
+
 * Fri Feb 27 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.9.0-1
 - Rebase to PKI 11.9.0
 

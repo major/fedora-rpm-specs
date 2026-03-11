@@ -5,7 +5,7 @@
 %global crate zlink-smol
 
 Name:           rust-zlink-smol
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Zlink library for the smol runtime
 
@@ -105,6 +105,18 @@ This package contains library source intended for building other packages which
 use the "server" feature of the "%{crate}" crate.
 
 %files       -n %{name}+server-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+service-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+service-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "service" feature of the "%{crate}" crate.
+
+%files       -n %{name}+service-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tracing-devel

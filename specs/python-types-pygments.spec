@@ -1,11 +1,11 @@
 Name:           python-types-pygments
-Version:        2.17.0.0
+Version:        2.19.0.20251121
 Release:        %autorelease
 Summary:        Typing stubs for Pygments
 
 License:        Apache-2.0
 URL:            https://pypi.org/project/types-Pygments/
-Source:         %{pypi_source types-Pygments}
+Source:         %{pypi_source types_pygments}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -27,7 +27,7 @@ Summary:        %{summary}
 %description -n python3-types-pygments %_description
 
 %prep
-%autosetup -p1 -n types-Pygments-%{version}
+%autosetup -p1 -n types_pygments-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

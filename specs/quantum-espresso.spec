@@ -54,6 +54,8 @@ Source3:        %{forgesource2}
 
 # Allow building without git
 Patch:          https://gitlab.com/QEF/q-e/-/merge_requests/2561.patch
+# Make sure internal libraries are built as static
+Patch:          https://gitlab.com/QEF/q-e/-/merge_requests/2792.patch
 
 # Build system
 BuildRequires:  cmake

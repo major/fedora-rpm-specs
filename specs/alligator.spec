@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           alligator
-Version:        25.12.2
-Release:        2%{?dist}
+Version:        25.12.3
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
 Summary:        Kirigami-based RSS reader
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/qlogging-categories6/alligator.categories
 
 %changelog
+* Mon Mar 09 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

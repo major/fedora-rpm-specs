@@ -1,5 +1,5 @@
 Name:           python-async-lru
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Simple lru_cache for asyncio
 # SPDX

@@ -5,7 +5,7 @@
 %global crate zlink-macros
 
 Name:           rust-zlink-macros
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Macros providing the high-level zlink API
 
@@ -81,6 +81,18 @@ This package contains library source intended for building other packages which
 use the "proxy" feature of the "%{crate}" crate.
 
 %files       -n %{name}+proxy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+service-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+service-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "service" feature of the "%{crate}" crate.
+
+%files       -n %{name}+service-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -2,6 +2,8 @@
 
 %global binary_name hx
 %global runtime_directory_path %{_libdir}/helix/runtime
+# Remove in f47
+%global split_min_version 25.07.1-7
 
 Name:           helix
 Version:        25.07.1
@@ -70,13 +72,37 @@ BuildRequires:  git-core
 BuildRequires:  tomcli
 
 # Required to allow users to fetch and build grammars
-Requires:       git-core
-Requires:       gcc-c++
+Recommends:     git-core
+Recommends:     gcc-c++
 
 # Clipboard integration
 Recommends:     xsel
 Recommends:     wl-clipboard
 
+# Helix packages
+Recommends:     helix-parsers
+Recommends:     helix-themes
+
+# ensures upgrade path for existing installs
+Obsoletes: helix < %{split_min_version}
+
+%description
+A Kakoune / Neovim inspired editor, written in Rust.
+
+
+%package themes
+Summary: Helix themes
+Requires: helix%{?_isa} = %{version}-%{release}
+Conflicts: helix < %{split_min_version}
+
+%description themes
+Helix themes
+
+
+%package parsers
+Summary: Prebuilt tree-sitter parsers for Helix
+Requires: helix%{?_isa} = %{version}-%{release}
+Conflicts: helix < %{split_min_version}
 # Added manually
 Provides:       bundled(tree-sitter-sql)
 Provides:       bundled(tree-sitter-v)
@@ -320,23 +346,18 @@ Provides:       bundled(tree-sitter-yaml)
 Provides:       bundled(tree-sitter-yara)
 Provides:       bundled(tree-sitter-yuck)
 
-%description
-A Kakoune / Neovim inspired editor, written in Rust.
+%description parsers
+Prebuilt tree-sitter parsers for Helix
 
 
 %files
 %license LICENSE
 %license LICENSE.dependencies
-# Theme licenses
-%license LICENSE-themes-*
-# tree-sitter licenses
-%license LICENSE-tree-sitter-*
 %doc README.md CHANGELOG.md
 %{_bindir}/%{binary_name}
 # Added so the parent directory of the runtime directory is owned by this package
 %dir %{_libdir}/helix
-# We include the whole directory here because we always want to have all grammars + queries installed
-%{runtime_directory_path}
+%{runtime_directory_path}/tutor
 %{_datadir}/applications/Helix.desktop
 %{_metainfodir}/Helix.appdata.xml
 %{_datadir}/pixmaps/helix.png
@@ -346,9 +367,20 @@ A Kakoune / Neovim inspired editor, written in Rust.
 # There is also a completion script for elvish shell but elvish is not packaged for Fedora
 
 
+%files parsers
+%license LICENSE-tree-sitter-*
+%{runtime_directory_path}/grammars/
+%{runtime_directory_path}/queries/
+
+
+%files themes
+%license LICENSE-themes-*
+%{runtime_directory_path}/themes/
+
+
 %prep
 %autosetup -c -p1
-# Bump gix to version 0.73
+# Bump gix to version 0.75
 tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.75
 # Relax unicode-width lower bound
 tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
@@ -369,6 +401,7 @@ find runtime/grammars -name "COPYING*" -type f -not -path '*/docs/*' -exec /bin/
 chmod -x LICENSE-*
 %cargo_prep
 
+
 %generate_buildrequires
 %cargo_generate_buildrequires
 
@@ -386,8 +419,6 @@ export HELIX_DEFAULT_RUNTIME=%{runtime_directory_path}
 # We can't use %%cargo_install here because it does not support setting --path
 install -Dpm 0755 target/release/%{binary_name} %{buildroot}%{_bindir}/%{binary_name}
 
-# Install desktop file and icon
-# Use absolute path for binary
 sed -i \
     -e "s|Exec=hx %%F|Exec=%{_bindir}/%{binary_name} %%F|g" \
     -e "s|TryExec=hx|TryExec=%{_bindir}/%{binary_name}|g" contrib/Helix.desktop

@@ -1,5 +1,5 @@
 Name:           python-nose2
-Version:        0.15.1
+Version:        0.16.0
 Release:        %autorelease
 Summary:        The successor to nose, based on unittest2
 
@@ -13,10 +13,10 @@ Source0:        %{forgeurl}/archive/%{version}/nose2-%{version}.tar.gz
 Source1:        nose2.1
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -e %{toxenv}-nocov
 BuildOption(install):   -l nose2
-# We remove nose2.tests from the buildroot in %%install.
-BuildOption(check):     -e nose2.tests*
+# - We remove nose2.tests from the buildroot in %%install.
+# - The nose2.sphinxext module depends on docutils.
+BuildOption(check):     -e nose2.tests* -e nose2.sphinxext
 
 BuildArch:      noarch
 
@@ -36,13 +36,14 @@ understand.}
 %package -n python3-nose2
 Summary:        %{summary}
 
-# Removed for Fedora 43; we can remove the Obsoletes after Fedora 46.
+# Removed for Fedora 43; we can remove the Obsoletes after Fedora 45.
 Obsoletes:      python-nose2-doc < 0.15.1-9
+# Deprecated upstream (and renamed from coverage_plugin to coverage-plugin, a
+# breaking change) in 0.16.0. We dropped the extra at that time, from F44
+# onward. We can therefore remove the Obsoletes after Fedora 46.
+Obsoletes:      python-nose2-coverage_plugin < 0.16.0-1
 
 %description -n python3-nose2 %{common_description}
-
-
-%pyproject_extras_subpkg -n python3-nose2 coverage_plugin
 
 
 %prep -a
@@ -70,7 +71,12 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %check -a
-%tox -e %{default_toxenv}-nocov
+# Corresponds to !mp env in tox.ini
+PYTHONPATH="${PWD}" %{py3_test_envvars} %{python3} -m nose2 \
+    -v --pretty-assert
+# Corresponds to mp env in tox.ini
+PYTHONPATH="${PWD}" %{py3_test_envvars} %{python3} -m nose2 \
+    -v --plugin nose2.plugins.mp -N %{?_smp_build_ncpus}
 
 
 %files -n python3-nose2 -f %{pyproject_files}

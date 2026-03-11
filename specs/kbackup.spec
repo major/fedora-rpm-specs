@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kbackup
-Version:        25.12.2
-Release:        2%{?dist}
+Version:        25.12.3
+Release:        1%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale
 Summary(ru):    Простое, дружественное к пользователю резервное копирование
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

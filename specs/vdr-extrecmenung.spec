@@ -15,8 +15,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.0.15
-Release:        4%{?dist}
-Epoch:          1
+Release:        5%{?dist}
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPL-2.0-or-later
@@ -58,6 +57,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Mon Mar 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-5
+- Fix invalid vdr(abi) dependency (do not include epoch)
+
 * Mon Mar 02 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-4
 - Fix invalid vdr(abi) dependency (do not include epoch)
 - Fix FTI in rawhide (rhbz#2443538)

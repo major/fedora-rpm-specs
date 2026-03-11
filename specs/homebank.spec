@@ -2,11 +2,9 @@ Name:           homebank
 Version:        5.9.7
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all  
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://homebank.free.fr
-Source0:        http://homebank.free.fr/public/%{name}-%{version}.tar.gz
+URL:            https://gethomebank.org/
+Source0:        https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  atk-devel cairo-devel desktop-file-utils gettext gtk3-devel
 BuildRequires:  intltool libappstream-glib libofx-devel perl(XML::Parser)

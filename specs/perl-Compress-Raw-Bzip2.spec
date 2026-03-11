@@ -7,7 +7,7 @@
 
 Name:           perl-Compress-Raw-Bzip2
 Summary:        Low-level interface to bzip2 compression library
-Version:        2.217
+Version:        2.218
 Release:        1%{?dist}
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## unbundled
@@ -148,7 +148,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc Changes README
+%doc Changes README SECURITY.md
 %{perl_vendorarch}/auto/Compress/
 %{perl_vendorarch}/Compress/
 %{_mandir}/man3/Compress::Raw::Bzip2.3*
@@ -157,6 +157,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar  9 2026 Paul Howarth <paul@city-fan.org> - 2.218-1
+- 2.218 bump (rhbz#2445591)
+
 * Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 2.217-1
 - 2.217 bump (rhbz#2435735)
 

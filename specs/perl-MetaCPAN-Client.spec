@@ -3,7 +3,7 @@
 # TODO: BR: perl(HTTP::Tiny::Mech) and perl(WWW::Mechanize::Cached) when available
 
 Name:		perl-MetaCPAN-Client
-Version:	2.039000
+Version:	2.040000
 Release:	1%{?dist}
 Summary:	A comprehensive, DWIM-featured client to the MetaCPAN API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -109,6 +109,11 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Types.3*
 
 %changelog
+* Mon Mar  9 2026 Paul Howarth <paul@city-fan.org> - 2.040000-1
+- Update to 2.040000
+  - Use a boolean in reverse_deps term (GH#136)
+  - Allow JSON->true and JSON->false (GH#137)
+
 * Sat Feb 28 2026 Paul Howarth <paul@city-fan.org> - 2.039000-1
 - Update to 2.039000
   - Add more types that can be scrolled (GH#134)

@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        29%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        30%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -361,7 +361,10 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
-* Wed Jun 28 2026 Adrian Reber <adrian@lisas.de> - 1.2.13-29
+* Mon Mar 09 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.2.13-30
+- Rebuilt for libvpx 1.16.0
+
+* Wed Jan 28 2026 Adrian Reber <adrian@lisas.de> - 1.2.13-29
 - Rebuilt for libcdio-2.3.0
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-28

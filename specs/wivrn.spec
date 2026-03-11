@@ -127,6 +127,7 @@ BuildRequires:  kf6-kcoreaddons-devel
 BuildRequires:  kf6-ki18n-devel
 BuildRequires:  kf6-kiconthemes-devel
 BuildRequires:  kf6-kirigami-devel
+BuildRequires:  kf6-kirigami-addons-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  librsvg2-tools
 BuildRequires:  ninja-build
@@ -220,6 +221,7 @@ and most other Android based headsets
 Summary:        WiVRn dashboard
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       hicolor-icon-theme
+Requires:       kf6-kirigami-addons
 Requires:       qt6qml(org.kde.desktop)
 
 %description -n %{name}-dashboard

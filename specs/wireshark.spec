@@ -7,8 +7,8 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.6.3
-Release:	2%{?dist}
+Version:	4.6.4
+Release:	1%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -29,6 +29,7 @@ Patch6:   wireshark-0006-Move-tmp-to-var-tmp.patch
 Patch7:   wireshark-0007-cmakelists.patch
 Patch8:   wireshark-0008-pkgconfig.patch
 Patch9:   wireshark-0009-remove-strato-manpages.patch
+Patch10:  wireshark-0010-find-lua-5.5.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -129,6 +130,8 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
 Requires:	glibc-devel
 Requires:	glib2-devel
+Requires:	python3-ply
+Requires:	omniORB-devel
 
 %description devel
 The wireshark-devel package contains the header files, developer
@@ -173,10 +176,21 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.wireshark.Wiresha
 
 #install devel files (inspired by debian/wireshark-dev.header-files)
 install -d -m 0755  %{buildroot}%{_includedir}/wireshark
+install -m 0644 %{__cmake_builddir}/config.h %{buildroot}%{_includedir}/wireshark/config.h
 IDIR="%{buildroot}%{_includedir}/wireshark"
 mkdir -p %{buildroot}%{_udevrulesdir}
-install -m 644 %{SOURCE2}		%{buildroot}%{_udevrulesdir}
-install -Dpm 644 %{SOURCE3}		%{buildroot}%{_sysusersdir}/%{name}.conf
+install -m 0644 %{SOURCE2}		%{buildroot}%{_udevrulesdir}
+install -Dpm 0644 %{SOURCE3}		%{buildroot}%{_sysusersdir}/%{name}.conf
+
+#install asn2wrs.py, idl2wrs and make-plugin-reg.py tools
+mkdir -p %{buildroot}%{_libexecdir}/wireshark/pytools
+install -m 0755 tools/asn2wrs.py %{buildroot}%{_libexecdir}/wireshark/pytools/
+install -m 0755 tools/make-plugin-reg.py %{buildroot}%{_libexecdir}/wireshark/pytools/
+install -m 0755 tools/idl2wrs %{buildroot}%{_libexecdir}/wireshark/pytools/
+
+#install idl2wrs dependent scripts
+install -m 0644 tools/wireshark_be.py %{buildroot}%{_libexecdir}/wireshark/pytools/
+install -m 0644 tools/wireshark_gen.py %{buildroot}%{_libexecdir}/wireshark/pytools/
 
 touch %{buildroot}%{_bindir}/%{name}
 
@@ -279,8 +293,14 @@ fi
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}/*.cmake
+%dir %{_libexecdir}/wireshark/pytools
+%{_libexecdir}/wireshark/pytools/*.py
+%{_libexecdir}/wireshark/pytools/idl2wrs
 
 %changelog
+* Wed Mar 04 2026 Michal Ruprich <mruprich@redhat.com> - 1:4.6.4-1
+- New version 4.6.4
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -23,7 +23,7 @@
 
 Name:           bootc
 # Ensure this local build overrides anything else.
-Version:        1.12.1
+Version:        1.13.0
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -164,6 +164,9 @@ chmod +x %{?buildroot}/%{system_reinstall_bootc_install_podman_path}
 touch %{?buildroot}/%{_docdir}/bootc/baseimage/base/sysroot/.keepdir
 find %{?buildroot}/%{_docdir} ! -type d -printf '%{_docdir}/%%P\n' | sort > bootcdoclist.txt
 
+rm -f %{buildroot}/%{_datadir}/elvish/lib/bootc.elv
+rm -f %{buildroot}/%{_datadir}/powershell/Modules/Bootc/Bootc.psm1
+
 %if %{with check}
 %check
 if grep -qEe 'Seccomp:.*0$' /proc/self/status; then
@@ -190,6 +193,15 @@ fi
 %endif
 %{_unitdir}/*
 %{_mandir}/man*/*bootc*
+%if 0%{?rhel} && 0%{?rhel} <= 9
+%{_datadir}/bash-completion/completions/bootc
+%{_datadir}/zsh/site-functions/_bootc
+%{_datadir}/fish/vendor_completions.d/bootc.fish
+%else
+%{bash_completions_dir}/bootc
+%{zsh_completions_dir}/_bootc
+%{fish_completions_dir}/bootc.fish
+%endif
 
 %files -n system-reinstall-bootc
 %{_bindir}/system-reinstall-bootc

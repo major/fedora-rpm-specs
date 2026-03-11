@@ -39,7 +39,7 @@ License:        %{shrink:
     MIT AND
     MPL-2.0 AND
     Unicode-3.0 AND
-    (0BSD OR MIT OR Apache-2.0)
+    (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND

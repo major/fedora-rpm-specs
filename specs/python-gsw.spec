@@ -1,5 +1,5 @@
 Name:           python-gsw
-Version:        3.6.20
+Version:        3.6.21
 Release:        %autorelease
 Summary:        Gibbs Seawater Oceanographic Package of TEOS-10
 

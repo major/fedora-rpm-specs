@@ -1,7 +1,7 @@
 %global srcname pkgconfig
 
 Name:           python-%{srcname}
-Version:        1.5.5
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Python interface to the pkg-config command line tool
 
@@ -13,7 +13,7 @@ BuildArch:      noarch
 
 %description
 pkgconfig is a Python module to interface with the pkg-config command line
-tool and supports Python 2.6+.
+tool and supports Python 3.9+.
 
 It can be used to
 
@@ -35,7 +35,7 @@ BuildRequires:  python3-devel
 
 %description -n python3-%{srcname}
 pkgconfig is a Python module to interface with the pkg-config command line
-tool and supports Python 2.6+.
+tool and supports Python 3.9+.
 
 It can be used to
 

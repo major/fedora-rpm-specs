@@ -13,11 +13,14 @@ Summary:        A Fast Fourier Transform (FFT) library that tries to Keep it Sim
 Name:           kiss-fft
 License:        BSD-3-Clause
 
-Version:        %{srcver}.1.0
-Release:        10%{?dist}
+Version:        %{srcver}.2.0
+Release:        1%{?dist}
 
 URL:            https://github.com/mborgerding/%{srcname}
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+#Patch from upstream https://github.com/mborgerding/kissfft/commit/1b08316582049c3716154caefc0deab8758506e3
+Patch0:         %{name}-integer-overflow.patch
 
 BuildRequires:  cmake
 
@@ -70,7 +73,7 @@ or floating data types and can be incorporated into someone's C
 program in a few minutes with trivial licensing.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p 1 -n %{srcname}-%{version}
 
 %build
 %{set_build_flags}
@@ -153,6 +156,10 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Mar 09 2026 Guido Aulisi <guido.aulisi@inps.it> - 131.2.0-1
+- Update to 131.2.0
+- Fix for CVE-2025-34297
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 131.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

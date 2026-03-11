@@ -110,14 +110,6 @@
 %global have_virgl 1
 %endif
 
-%global have_pmem 0
-%ifarch x86_64 %{power64}
-%global have_pmem 1
-%endif
-%if 0%{?rhel} >= 10
-%global have_pmem 0
-%endif
-
 %global have_jack 1
 %if 0%{?rhel}
 %global have_jack 0
@@ -210,7 +202,6 @@
 %global have_numactl 0
 %global have_xen 0
 %global have_liburing 0
-%global have_pmem 0
 %global have_libblkio 0
 %global have_brlapi 0
 %global have_daxctl 0
@@ -557,9 +548,6 @@ BuildRequires: numactl-devel
 # qemu-pr-helper multipath support (requires libudev too)
 BuildRequires: device-mapper-multipath-devel
 BuildRequires: systemd-devel
-%endif
-%if %{have_pmem}
-BuildRequires: libpmem-devel
 %endif
 # qemu-keymap
 BuildRequires: pkgconfig(xkbcommon)
@@ -1892,9 +1880,6 @@ run_configure \
 %endif
 %if %{have_block_iscsi}
   --enable-libiscsi \
-%endif
-%if %{have_pmem}
-  --enable-libpmem \
 %endif
   --enable-libssh \
   --enable-libusb \

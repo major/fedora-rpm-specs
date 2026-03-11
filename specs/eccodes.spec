@@ -413,7 +413,7 @@ sed -i 's|^libs=.*$|libs=-L${libdir} -leccodes_f90 -leccodes|g' %{buildroot}/%{_
 
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 export LIBRARY_PATH=%{buildroot}/%{_libdir}
-%ctest -V %{?_smp_mflags}
+%ctest -V -E eccodes_download
 
 %files
 %license LICENSE

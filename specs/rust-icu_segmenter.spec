@@ -14,11 +14,14 @@ URL:            https://crates.io/crates/icu_segmenter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dev-dependency `criterion`.
-# * Restore dev-dependency `icu_properties` (version 2.0), which is path-based
-#   and was therefore removed by Cargo.toml normalization.
 Patch:          icu_segmenter-fix-metadata.diff
+# * https://github.com/unicode-org/icu4x/pull/7750/changes/58ff2a582fb5b2e87920c265c09db16b32c3dcea
+# * Part of: “In component crates, limit use of the icu crate to doctests,”
+#   https://github.com/unicode-org/icu4x/pull/7750.
+Patch10:        0001-In-icu_segmenter-limit-use-of-the-icu-crate-to-docte.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  tomcli
 
 %global _description %{expand:
 Unicode line breaking and text segmentation algorithms for text
@@ -114,6 +117,12 @@ use the "serde" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Restore dev-dependency icu_properties, which is path-based and was therefore
+# removed by Cargo.toml normalization. We script this rather than using a patch
+# because the version bound should be based on the ICU4X version, and we don’t
+# want to constantly update the patch.
+tomcli set Cargo.toml str dev-dependencies.icu_properties.version '~%{version}'
+
 %cargo_prep
 
 %generate_buildrequires
@@ -130,6 +139,12 @@ use the "serde" feature of the "%{crate}" crate.
 # * Very many doctests have circular dependencies on the top-level icu crate,
 #   enough that it would be very tedious to patch them all out.
 %cargo_test -- --lib
+%cargo_test -- --test cnn
+%cargo_test -- --test complex_word
+%cargo_test -- --test css_line_break
+%cargo_test -- --test locale
+%cargo_test -- --test spec_test
+%cargo_test -- --test word_rule_status
 %endif
 
 %changelog

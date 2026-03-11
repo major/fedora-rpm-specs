@@ -1,37 +1,33 @@
-# From GitLab tag: https://gitlab.com/LibreGames/jumpnbump/tags
-%global uploadhash 95acdae2a232513f068e260977371dcf
+%global rdnsname io.gitlab.LibreGames.jumpnbump
 
 Name:           jumpnbump
-Version:        1.61
-Release:        18%{?dist}
+Version:        1.70
+Release:        1%{?dist}
 Summary:        Cute multiplayer platform game with bunnies
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/LibreGames/jumpnbump
-Source0:        https://gitlab.com/LibreGames/jumpnbump/uploads/%{uploadhash}/%{name}-%{version}.tar.xz
-Patch0:         0001-Makefile-Set-fcommon-to-workaround-GCC-10-change.patch
+Source0:        https://gitlab.com/LibreGames/jumpnbump/-/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  bzip2-devel
 BuildRequires:  gcc
+BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(SDL2_mixer)
 BuildRequires:  pkgconfig(SDL2_net)
 BuildRequires:  pkgconfig(zlib)
 
-# For desktop file validation
+# For desktop and AppStream files validation
 BuildRequires:  desktop-file-utils
-# For AppStream metainfo validation
 BuildRequires:  libappstream-glib
 
 # For icon theme directories
 Requires:       hicolor-icon-theme
-# For music support, dlopen()'ed by SDL2_music
-Requires:       libmodplug
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
+# For music support, dlopen()'ed by SDL2_mixer
+Requires:       libmodplug
+Requires:       libxmp
+
+%if 0%{?fedora}
 Recommends:     %{name}-menu
-%else
-Requires:       %{name}-menu
 %endif
 
 %description
@@ -46,21 +42,12 @@ Summary:        Level selection and config menu for the Jump 'n Bump game
 BuildArch:      noarch
 
 BuildRequires:  gettext
-# For potential auto dep generation
-%if 0%{?rhel} == 7
-BuildRequires:  python36-devel
-%else
 BuildRequires:  python3-devel
-%endif
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       %{name} = %{version}-%{release}
-Requires:       %{_bindir}/convert
-%if 0%{?rhel} == 7
-Requires:       python36-gobject
-%else
+Requires:       python3-pillow
 Requires:       python3-gobject
-%endif
 
 %description menu
 Python 3/GTK+3 based level selection and configuration interface for the Jump 'n
@@ -70,28 +57,22 @@ Bump game.
 %autosetup -p1
 
 %build
-export CFLAGS="%{?__global_cflags}"
-export LDFLAGS="%{?__global_ldflags}"
+export CFLAGS="%{?build_cflags}"
+export LDFLAGS="%{?build_ldflags}"
 
-%make_build PREFIX=%{_prefix}
+%make_build PREFIX=%{_prefix} SYSINSTALL=1
 %make_build PREFIX=%{_prefix} -C menu
 
 %install
-%make_install PREFIX=%{_prefix}
+%make_install PREFIX=%{_prefix} SYSINSTALL=1
 %make_install PREFIX=%{_prefix} -C menu
-
-# Fix icon installation
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/96x96/apps
-mv %{buildroot}%{_datadir}/icons/%{name}.png %{buildroot}%{_datadir}/icons/hicolor/96x96/apps/
 
 %find_lang %{name}-menu
 
 %check
-# Validate desktop files
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}{,-menu}.desktop
-
-# Validate AppStream metainfo data
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
+# Validate desktop and AppStream files
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}{,-menu}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.metainfo.xml
 
 %files
 %doc AUTHORS ChangeLog docs/* README.md
@@ -101,9 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_bindir}/jnb*
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/jumpbump.dat
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/applications/%{rdnsname}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{rdnsname}.png
+%{_datadir}/metainfo/%{rdnsname}.metainfo.xml
 %{_mandir}/man6/%{name}.6*
 
 %files menu -f %{name}-menu.lang
@@ -111,9 +92,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %license COPYING
 %{_bindir}/%{name}-menu
 %{_datadir}/%{name}/%{name}_menu.glade
-%{_datadir}/applications/%{name}-menu.desktop
+%{_datadir}/applications/%{rdnsname}-menu.desktop
 
 %changelog
+* Mon Mar 09 2026 Rémi Verschelde <rverschelde@gmail.com> - 1.70-1
+- Version 1.70
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

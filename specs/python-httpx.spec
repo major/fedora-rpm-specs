@@ -8,6 +8,9 @@ Summary:        Next-generation HTTP client for Python
 License:        BSD-3-Clause
 URL:            https://github.com/encode/httpx
 Source0:        %{url}/archive/%{version}/httpx-%{version}.tar.gz
+# Adapt test_response_decode_text_using_autodetect for chardet 6.0
+# https://github.com/encode/httpx/pull/3773
+Patch:          %{url}/pull/3773.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -46,7 +49,7 @@ async APIs, and support for both HTTP/1.1 and HTTP/2.
 %{_mandir}/man1/httpx.1*
 
 %prep
-%autosetup -n httpx-%{version}
+%autosetup -n httpx-%{version} -p1
 # allow newer rich
 # upstream bumps this version by version (see e.g. https://github.com/encode/httpx/pull/3541)
 sed -i 's/rich>=10,<14/rich>=10/' pyproject.toml

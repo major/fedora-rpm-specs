@@ -5,7 +5,7 @@
 %global crate rawzip
 
 Name:           rust-rawzip
-Version:        0.4.3
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Zip archive reader and writer
 

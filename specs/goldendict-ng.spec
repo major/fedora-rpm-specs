@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/xiaoyifang/goldendict-ng
-%global commit ac11ceefde8284f890df65a9ae1a9734440d8063
+%global commit 4a4237d5e14e8d59c92a6d0f944ef219467542c5
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-Version:        2025.11.01
+Version:        2026.03.09
 %forgemeta
 
 Name:           goldendict-ng

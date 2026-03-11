@@ -1,17 +1,15 @@
 Name:           plantri
-Version:        5.5
+Version:        5.8
 Release:        %autorelease
 Summary:        Generate certain types of planar graphs
 
-%global upstreamver %(sed 's/\\.//g' <<< %{version})
+%global upstreamver %{gsub %version %. %{quote:}}
 
 License:        Apache-2.0
 URL:            https://users.cecs.anu.edu.au/~bdm/plantri/
 Source:         %{url}plantri%{upstreamver}.tar.gz
 # Eliminate many warnings about use of uninitialized variables
 Patch:          %{name}-uninitialized.patch
-# Adapt to changes in C23
-Patch:          %{name}-c23.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

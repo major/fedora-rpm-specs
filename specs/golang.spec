@@ -32,14 +32,14 @@
 # Golang build options.
 
 # Build golang using external/internal(close to cgo disabled) linking.
-%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x riscv64
+%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x riscv64 loongarch64
 %global external_linker 1
 %else
 %global external_linker 0
 %endif
 
 # Build golang with cgo enabled/disabled(later equals more or less to internal linking).
-%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x riscv64
+%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x riscv64 loongarch64
 %global cgo_enabled 1
 %else
 %global cgo_enabled 0
@@ -97,11 +97,14 @@
 %ifarch riscv64
 %global gohostarch  riscv64
 %endif
+%ifarch loongarch64
+%global gohostarch  loong64
+%endif
 
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.26
 #global go_prerelease rc3
-%global go_patch 0
+%global go_patch 1
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -252,7 +255,7 @@ Requires(preun): %{_sbindir}/update-alternatives
 # This is an odd issue, still looking for a better fix.
 Requires:       glibc
 Requires:       gcc
-Recommends:     git-core, subversion, mercurial
+Recommends:     git-core
 
 %description    bin
 %{summary}

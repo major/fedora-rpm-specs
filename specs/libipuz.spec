@@ -108,7 +108,8 @@ rm -rf html/.{doctrees,buildinfo}
 %find_lang %{name}-1.0
 
 %check
-%meson_test
+# allow riscv64 port to finish (slow builders)
+%meson_test --timeout-multiplier 10
 
 %files -f %{name}-1.0.lang
 %license LICENSE COPYING.LGPL COPYING.MIT

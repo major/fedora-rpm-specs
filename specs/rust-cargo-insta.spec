@@ -4,7 +4,7 @@
 %global crate cargo-insta
 
 Name:           rust-cargo-insta
-Version:        1.45.1
+Version:        1.46.3
 Release:        %autorelease
 Summary:        Review tool for the insta snapshot testing library for Rust
 
@@ -28,7 +28,6 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
@@ -39,7 +38,6 @@ License:        %{shrink:
     MIT AND
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
-    (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (Unlicense OR MIT)

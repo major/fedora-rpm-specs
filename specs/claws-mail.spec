@@ -1,4 +1,4 @@
-%global pluginapi 4.3.1.0
+%global pluginapi 4.4.0.0
 
 # dillo plugin crashes
 # Gtk-WARNING **: xx:xx:xx.xxx: GtkSocket: only works under X11
@@ -6,7 +6,7 @@
 # Segmentation fault (core dumped)
 %global with_dillo 0
 # added 20210720
-Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
+#Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 %global with_python2 0
 %global with_python3 1
@@ -25,15 +25,13 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 %endif
 
 Name:           claws-mail
-Version:        4.3.1
-Release:        8%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://claws-mail.org
 Source0:        https://claws-mail.org/releases/%{name}-%{version}.tar.xz
-
-Patch1: claws-mail-summaryview-scroll-fix.diff
 
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
@@ -655,6 +653,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Mon Mar 09 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.4.0-1
+- Upgrade to 4.4.0.
+
 * Sun Jan 18 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-8
 - Merge "thaw tree before selecting node" patch from upstream #4898
 

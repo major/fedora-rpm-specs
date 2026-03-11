@@ -2,7 +2,7 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20260301
+Version:        1.20260306
 Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -28,6 +28,7 @@ BuildRequires:  perl(Config::Tiny)
 # CPAN never used, bin/install_deps.pl not used and not installed.
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DBD::SQLite) >= 1.31
+# DBI not used at tests
 BuildRequires:  perl(DBIx::Simple) >= 1.35
 BuildRequires:  perl(Email::MIME)
 BuildRequires:  perl(Email::Sender)
@@ -71,6 +72,7 @@ BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(XML::LibXML)
 # Optional run-time:
+# GeoIP2::Database::Reader not used at tests
 BuildRequires:  perl(Net::HTTP)
 # Tests only:
 BuildRequires:  perl(Email::Sender::Transport::Failable)
@@ -89,6 +91,7 @@ Requires:       perl(DBD::SQLite) >= 1.31
 Requires:       perl(DBIx::Simple) >= 1.35
 Requires:       perl(Email::Sender::Simple) >= 1.300032
 Requires:       perl(File::ShareDir) >= 1.00
+Recommends:     perl(GeoIP2::Database::Reader)
 Requires:       perl(Mail::DKIM::PrivateKey)
 Requires:       perl(Mail::DKIM::Signer)
 Requires:       perl(Mail::DKIM::TextWrap)
@@ -100,7 +103,7 @@ Requires:       perl(Socket6) >= 0.23
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::ShareDir|DBIx::Simple|Email::Sender::Simple|Socket6)\\)$
 
 %description
-This module is a suite of tools for implementing DMARC. It adheres to the
+This Perl module is a suite of tools for implementing DMARC. It adheres to the
 2013 DMARC draft.
 
 %package HTTP
@@ -146,8 +149,8 @@ with "%{_libexecdir}/%{name}/test".
 rm t/17.Report.Aggregate.Schema.t
 perl -i -ne 'print $_ unless m{\Qt/17.Report.Aggregate.Schema.t\E}' MANIFEST
 %endif
-# Help generators to recognize Perl scripts
-for F in t/*.t; do
+# Correct shebangs and help generators to recognize Perl scripts
+for F in bin/dmarc_sqlite_to_mysql.pl t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -187,6 +190,9 @@ make test
 %files
 %license LICENSE
 %doc Changes.md DEVELOP.md example FAQ.md README.md TODO.md
+# Probably forgotten to be installed
+# <https://github.com/msimerson/mail-dmarc/issues/287>.
+%doc bin/dmarc_sqlite_to_mysql.pl
 %{_bindir}/dmarc_http_client
 %{_bindir}/dmarc_lookup
 %{_bindir}/dmarc_receive
@@ -234,6 +240,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 09 2026 Petr Pisar <ppisar@redhat.com> - 1.20260306-1
+- 1.20260306 bump
+
 * Mon Mar 02 2026 Petr Pisar <ppisar@redhat.com> - 1.20260301-1
 - 1.20260301 bump
 

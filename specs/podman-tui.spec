@@ -14,13 +14,14 @@
 
 # https://github.com/containers/podman-tui
 %global goipath github.com/containers/podman-tui
-Version: 1.10.0
+
+Version: 1.11.0
 %gometa
 
 %global goname podman-tui
 
 %global common_description %{expand:
-%{goname} is a terminal user interface for Podman v4 and v5.
+%{goname} is a terminal user interface for Podman.
 %{goname} is using podman.socket service to communicate with podman environment
 and SSH to connect to remote podman machines.
 }
@@ -33,7 +34,7 @@ Requires:  %{name} = %{version}-%{release}
 }
 
 Name: %{goname}
-Release: %autorelease
+Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary: Podman Terminal User Interface
 
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
@@ -92,7 +93,7 @@ export CGO_LDFLAGS="${CGO_LDFLAGS} -Wl,--allow-multiple-definition"
 
 %files
 %license %{golicenses}
-%doc     
+%doc
 %{_bindir}/*
 
 %changelog

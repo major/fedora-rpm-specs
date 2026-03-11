@@ -1,7 +1,7 @@
 %global srcname kiwisolver
 
 Name:           python-%{srcname}
-Version:        1.4.9
+Version:        1.5.0
 Release:        %autorelease
 Summary:        A fast implementation of the Cassowary constraint solver
 
@@ -58,7 +58,7 @@ Provides:       bundled(loki-lib)
 %{pytest} py/tests/
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 %changelog
 %autochangelog

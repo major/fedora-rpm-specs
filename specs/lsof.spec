@@ -1,7 +1,7 @@
 Summary: A utility which lists open files on a Linux/UNIX system
 Name: lsof
-Version: 4.98.0
-Release: 9%{?dist}
+Version: 4.99.6
+Release: 1%{?dist}
 License: lsof
 URL: https://github.com/lsof-org/lsof
 
@@ -17,7 +17,6 @@ Source1: upstream2downstream.sh
 
 # BZ#1260300 - move lsof man page to section 1
 Patch0: lsof-man-page-section.patch
-Patch1: f42-ftbfs.patch
 
 BuildRequires: gcc
 BuildRequires: libselinux-devel
@@ -36,8 +35,8 @@ about files that are open by the processes running on a UNIX system.
 %autosetup -n %{lsofrh} -S git
 
 %build
-%configure
-%make_build DEBUG="%{build_cflags} -I/usr/include/tirpc" CFGL="%{build_ldflags} -L./lib -llsof -lselinux -ltirpc"
+%configure --with-selinux --disable-liblsof
+%make_build
 # rebase to 4.93 introduced change in Lsof.8 with unhandled .so inclusion
 soelim -r Lsof.8 > lsof.1
 
@@ -53,6 +52,10 @@ install -p -m 0644 lsof.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/lsof.1
 %{_mandir}/man*/*
 
 %changelog
+* Fri Mar 06 2026 Jan Rybar <jrybar@redhat.com> - 4.99.6-1
+- rebase to lsof-4.99.6
+- upstream2downstream.sh needs alignment with the new codebase
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.98.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:      langpacks
-Version:   4.2
-Release:   6%{?dist}
+Version:   4.3
+Release:   1%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -163,8 +163,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -174,8 +173,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -185,8 +183,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -230,8 +227,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -241,8 +237,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -252,8 +247,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-cherokee-vf-fonts",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -263,8 +257,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -274,8 +267,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -285,8 +277,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -296,8 +287,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -307,8 +297,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-thaana-vf-fonts",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -318,8 +307,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -329,8 +317,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -353,8 +340,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -364,8 +350,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -375,8 +360,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -386,8 +370,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -397,8 +380,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -419,8 +401,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -430,8 +411,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -441,8 +421,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -452,8 +431,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -463,8 +441,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-gothic-fonts",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -525,8 +502,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -536,8 +512,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -547,8 +522,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-armenian-vf-fonts",
                 serif="google-noto-serif-armenian-vf-fonts",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -558,8 +532,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -569,9 +542,19 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="ii", fclang="ii", langname="Sichuan Yi", default={
+                sans="google-noto-sans-yi-fonts",
+                serif="",
+                mono="" },
+   recommends={ "sil-nuosu-fonts"
+              },
+   inputmethod="ibus-m17n",
    meta={ requires={},
           recommends={}
    },
@@ -580,8 +563,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -591,8 +573,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -602,8 +583,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-canadian-aboriginal-vf-fonts",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -613,12 +593,11 @@ local langpacks_package_list = {
                 sans="", -- Use core_font_package_list if you want to have common fonts for CJK
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="ibus-anthy",
    meta={ requires={},
           recommends={},
-           fedora_recommends={ "(uim-anthy if uim)" }
+          fedora_recommends={ "(uim-anthy if uim)" }
    },
  },
  { lang="kab", fclang="", langname="Kabyle", default={
@@ -648,8 +627,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -693,8 +671,7 @@ local langpacks_package_list = {
                 sans="", -- Use core_font_package_list if you want to have common fonts for CJK
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="ibus-hangul",
    meta={ requires={},
           recommends={}
@@ -704,8 +681,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -715,8 +691,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-lao-vf-fonts",
                 serif="google-noto-serif-lao-vf-fonts",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -726,8 +701,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -737,8 +711,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -760,8 +733,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -794,8 +766,7 @@ local langpacks_package_list = {
                 sans="google-noto-sans-meetei-mayek-vf-fonts",
                 serif="",
                 mono="" },
-   recommends={ "",
-              },
+   recommends={},
    inputmethod="ibus-m17n",
    meta={ requires={},
           recommends={}
@@ -818,8 +789,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -829,8 +799,7 @@ local langpacks_package_list = {
                 sans="sil-padauk-fonts",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -840,8 +809,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -864,8 +832,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -875,8 +842,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -886,8 +852,7 @@ local langpacks_package_list = {
                  sans="google-noto-sans-nko-fonts",
                  serif="",
                  mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -897,8 +862,7 @@ local langpacks_package_list = {
                 sans="",
                 serif="",
                 mono="" },
-   recommends={
-              },
+   recommends={},
    inputmethod="",
    meta={ requires={},
           recommends={}
@@ -1799,6 +1763,10 @@ DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.default-fo
 DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.langpacks-fonts.xml
 
 %changelog
+* Mon Mar 02 2026 Jens Petersen <petersen@redhat.com> - 4.3-1
+- add ii langpack for Sichuan Yi (Nuosu)
+- add README.md (#2237646)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

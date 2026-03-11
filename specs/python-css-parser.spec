@@ -10,6 +10,11 @@ License:        LGPL-3.0-only
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
+# Remove chardet test in response to regression in test_tryEncodings with
+# chardet 6.0.0, https://github.com/ebook-utils/css-parser/issues/14.
+# The patch comprises upstream commits 1205f11, 060e3cd, and 32e6055.
+Patch:          css-parser-1.0.10-chardet6.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

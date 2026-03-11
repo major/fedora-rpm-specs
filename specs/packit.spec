@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.15.0
+Version:        1.15.1
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Mar 06 2026 Packit <hello@packit.dev> - 1.15.1-1
+- We have fixed a bug that prevented running `sync_release()` on a `PackitAPI` instance initialized with `non_git_upstream=True` repeatedly due to an improper clean-up. (#2691)
+- Resolves: rhbz#2445195
+
 * Thu Feb 12 2026 Packit <hello@packit.dev> - 1.15.0-1
 - The `version_suffix` configuration option is now supported in Packit. This option is meant for appending information to the Version field in RPM spec files. This is useful for post-release snapshots following RPM versioning conventions. The `version_suffix` behaves similarly to the already existing `release_suffix` and also supports expansion of environment variables. (#2664)
 - Packit now supports `bodhi_extra_params` configuration option to customize creating Bodhi updates. (#2682)

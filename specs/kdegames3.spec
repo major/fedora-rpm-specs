@@ -52,7 +52,7 @@ kenolaba, kfouleggs, kpoker, ksirtet, ksmiletris, ksnakerace.
 %package libs
 Summary: %{name} runtime libraries
 Requires: kdelibs3 >= %{version}
-License: LGPLv2
+License: LGPL-2.0-only
 %description libs
 %{summary}.
 

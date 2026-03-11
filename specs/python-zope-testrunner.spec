@@ -5,7 +5,7 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        8.1
+Version:        8.2
 Release:        %autorelease
 Summary:        Zope testrunner script
 

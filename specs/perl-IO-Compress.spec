@@ -8,12 +8,12 @@
 %endif
 
 # Dependency version if different to this package version
-#global depver 2.201
+%global depver 2.218
 
 %{?perl_default_filter}
 
 Name:           perl-IO-Compress
-Version:        2.217
+Version:        2.219
 Release:        1%{?dist}
 Summary:        Read and write compressed data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -178,7 +178,7 @@ export TEST_SKIP_VERSION_CHECK=1
 make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 
 %files
-%doc Changes README examples/*
+%doc Changes README SECURITY.md examples/*
 %{_bindir}/streamzip
 %{_bindir}/zipdetails
 %{perl_privlib}/Compress/
@@ -211,6 +211,12 @@ make test COMPRESS_ZLIB_RUN_%{?with_long_tests:ALL}%{!?with_long_tests:MOST}=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar  9 2026 Paul Howarth <paul@city-fan.org> - 2.219-1
+- 2.219 bump (rhbz#2445768)
+
+* Mon Mar  9 2026 Paul Howarth <paul@city-fan.org> - 2.218-1
+- 2.218 bump (rhbz#2445605)
+
 * Sun Feb  1 2026 Paul Howarth <paul@city-fan.org> - 2.217-1
 - 2.217 bump (rhbz#2435525)
 

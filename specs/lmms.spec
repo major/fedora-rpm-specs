@@ -11,24 +11,21 @@ Release:        20%{?dist}
 Summary:        Linux MultiMedia Studio
 URL:            https://lmms.io/
 
-# - lmms itself is GPLv2+
+# - lmms itself is GPL-2.0-or-later
 # - third party code used by plugins:
-#   - drumsynth files: GPLv2+ or MIT
+#   - drumsynth files: GPL-2.0-or-later
 #   - for ladspa-effects (note that we only include cmt and swh in the
 #     binary rpm (see below):
-#     - caps: GPLv2
-#     - cmt: GPLv2(+?)
-#     - swh: GPLv2+
-#     - tap: GPLv2+
-#     - calf: GPLv2+ and LGPLv2+
+#     - caps: GPL-2.0-only
+#     - cmt: LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
+#     - swh: GPL-2.0-or-later
+#     - tap: GPL-2.0-or-later
+#     - calf: GPL-2.0-or-later AND LGPL-2.1-or-later
 #   - Portsmf (midi_import plugin): MIT
-#   - Blip_Buffer and Gb_Snd_Emu (papu plugin): LGPLv2.1+
-#   - reSID (sid plugin): GPLv2+
-#   - basename.c (vst_base): Copyright only
-#   - embedded zynaddsubfx plugin: GPLv2+
-#     - fltk (zynaddsubfx): LGPLv2+, with exceptions (but we use
-#       system's fltk)
-License:        GPLv2+ and GPLv2 and (GPLv2+ or MIT) and GPLv3+ and MIT and LGPLv2+ and (LGPLv2+ with exceptions) and Copyright only
+#   - Blip_Buffer and Gb_Snd_Emu (papu plugin): LGPL-2.1-or-later
+#   - reSID (sid plugin): GPL-2.0-or-later
+#   - embedded zynaddsubfx plugin: GPL-2.0-or-later
+License:        GPL-2.0-or-later AND GPL-2.0-only AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND LGPL-2.1-or-later
 
 # original tarfile can be found here:
 # https://github.com/LMMS/lmms/releases/download/v%%{version}/lmms_%%{version}.tar.xz

@@ -7,7 +7,7 @@
 
 # https://github.com/go-delve/delve
 %global goipath         github.com/go-delve/delve
-Version:                1.26.0
+Version:                1.26.1
 
 %global common_description %{expand:
 Delve is a debugger for the Go programming language. The goal of the project
@@ -37,8 +37,6 @@ Source2:        go-vendor-tools.toml
 BuildRequires:  go-vendor-tools
 BuildRequires:  lsof
 BuildRequires:  git
-
-Patch0001:  goversion.patch
 
 %description
 %{common_description}

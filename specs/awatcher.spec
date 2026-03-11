@@ -2,11 +2,11 @@
 %bcond check 0
 %global watcher_name aw-awatcher
 
-%global aw_server_rust_commit a0cdef90cf86cd8d2cc89723f5751c1123ae7e2b
+%global aw_server_rust_commit 656f3c97b3b5fb9be96b9e3a60f52c9e5cfdaf67
 %global aw_server_rust_short_commit %(c=%{aw_server_rust_commit}; echo ${c:0:7})
 
 Name:           awatcher
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        A window activity and idle watcher
 # (Apache-2.0 OR MIT) AND BSD-3-Clause

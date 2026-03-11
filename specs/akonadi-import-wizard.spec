@@ -2,8 +2,8 @@
 
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
-Version: 25.12.2
-Release: 2%{?dist}
+Version: 25.12.3
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.akonadiim
 %{_includedir}/KPim6/ImportWizard/
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

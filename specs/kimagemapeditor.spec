@@ -1,8 +1,8 @@
 %global app_id  org.kde.kimagemapeditor
 
 Name:           kimagemapeditor
-Version:        25.12.2
-Release:        2%{?dist}
+Version:        25.12.3
+Release:        1%{?dist}
 Summary:        HTML image map editor
 License:        GPL-2.0-or-later
 URL:            https://apps.kde.org/kimagemapeditor/
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.
 
 
 %changelog
+* Sun Mar 08 2026 Steve Cossette <farchord@gmail.com> - 25.12.3-1
+- 25.12.3
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 25.12.2-2
 - Full Stack Rebuild (kio abi break)
 

@@ -1,28 +1,19 @@
 Name:           votca
-Version:        2025.1
+Version:        2026
 %global         uversion %{version}
-%global         sover 2025
-Release:        6%{?dist}
+%global         sover 2026
+Release:        1%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
 Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
-# add support for Eigen3 v5, merged upstream, drop in next version bump
-Patch0:         https://github.com/votca/votca/pull/1189.diff
-# fix build with boost-1.90, merged upstream, drop in next version bump
-Patch1:         c5aa266b0bec5501d18c47e7b1430dce80c526b6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
+# no gromacs package on s390x
+ExcludeArch: %{ix86} s390x
 
 %global with_xtp 1
-
 %global with_gmx 1
-# no gromacs package on s390x
-# same for espressomd
-%ifarch s390x
-%global with_gmx 0
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  fdupes
@@ -34,7 +25,6 @@ BuildRequires:  boost-devel
 %if %{with_gmx}
 BuildRequires:  gromacs-devel
 %endif
-BuildRequires:  perl-generators
 BuildRequires:  hdf5-devel
 BuildRequires:  python3
 %if %{with_xtp}
@@ -45,29 +35,12 @@ BuildRequires:  libecpint-devel
 BuildRequires:  libint2-devel
 %endif
 
-# mpi packages only used for testing
-%if %{with_gmx}
-BuildRequires:  gromacs-openmpi
-# only needed to run gromacs
-BuildRequires:  openmpi-devel
-BuildRequires:  python3-espresso-openmpi
-%else
-%global _openmpi_load %{nil}
-%global _openmpi_unload %{nil}
-%endif
-
 #used for testing only
 %if %{with_gmx}
 BuildRequires:  gromacs
 %endif
-# no lammps on s390x as mpi is broken
-%ifnarch s390x
-BuildRequires:  lammps
-%endif
 BuildRequires:  python3-cma
 BuildRequires:  python3-pytest
-BuildRequires:  gnuplot
-BuildRequires:  psmisc
 
 Requires:   %{name}-common = %{version}-%{release}
 Requires:   %{name}-libs%{?_isa} = %{version}-%{release}
@@ -109,6 +82,7 @@ Obsoletes:      votca-tools-devel <= 2022~rc1
 Provides:       votca-tools-devel = %version-%release
 Obsoletes:      votca-xtp-devel <= 2022~rc1
 Provides:       votca-xtp-devel = %version-%release
+Obsoletes:      votca-csg-tutorials <= 2025.1
 
 %description devel
 %{votca_desc}
@@ -139,14 +113,6 @@ Provides:   votca-csg-common = %version-%release
 
 This package contains architecture independent data files for the VOTCA
 package.
-
-%package csg-tutorials
-Summary:    Architecture independent csg tutorial files for VOTCA
-BuildArch:  noarch
-Requires:   %{name} = %{version}-%{release}
-
-%description csg-tutorials
-%{votca_desc}
 
 This package contains architecture independent csg tutorial files
 for the VOTCA package.
@@ -193,33 +159,21 @@ This package contains bash completion support for the VOTCA package.
 %prep
 %autosetup -p1 -n %{name}-%{uversion}
 
-# we don't have an espressopp package in Fedora yet
-rm -rf csg-tutorials/spce/ibi_espressopp
-
 %build
-# load openmpi, so that cmake can find mdrun_openmpi for testing only
-%_openmpi_load
-# not a 100% sure why this is needed, but otherwise espressomd cannot be found
-export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
-
 %{cmake} -DCMAKE_BUILD_TYPE=Release -DINSTALL_RC_FILES=OFF -DENABLE_TESTING=ON -DBUILD_CSGAPPS=ON \
  -DBUILD_XTP=%{with_xtp} \
   -DENABLE_REGRESSION_TESTING=ON -DHDF5_C_COMPILER_EXECUTABLE=/usr/bin/h5cc -DINJECT_MARCH_NATIVE=OFF
 %cmake_build
-%_openmpi_unload
 
 %install
 %cmake_install
 # Install bash completion file
-%__install -D -m0644 %{__cmake_builddir}/csg/scripts/csg-completion.bash %{buildroot}%{_datadir}/bash-completion/completions/votca
+%__install -D -m0644 %{__cmake_builddir}/csg/src/tools//csg-completion.bash %{buildroot}%{_datadir}/bash-completion/completions/votca
 
 %fdupes %{buildroot}%{_prefix}
 
 %check
-%_openmpi_load
-export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %ctest
-%_openmpi_unload
 
 %files
 %{_bindir}/{votca,csg,xtp}_*
@@ -232,9 +186,6 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/votca/
 %exclude %{_datadir}/votca/*-tutorials/
 %exclude %{_datadir}/votca/xtp/
-
-%files csg-tutorials
-%{_datadir}/votca/csg-tutorials/
 
 %if %{with_xtp}
 %files xtp-tutorials
@@ -258,6 +209,11 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Mon Mar 09 2026 Christoph Junghans <junghans@votca.org> - 2026-1
+- Version bump to v2026
+- Drop s390x and some clean up
+- Fixes: rhbz#2445810
+
 * Tue Feb 24 2026 Orion Poplawski <orion@nwra.com> - 2025.1-6
 - BR cmake instead of cmake3
 
