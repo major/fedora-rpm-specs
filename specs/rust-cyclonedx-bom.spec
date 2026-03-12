@@ -19,7 +19,7 @@ Source10:       https://github.com/CycloneDX/cyclonedx-rust-cargo/raw/refs/tags/
 # * Update fluent-uri to 0.4.1:
 #   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/811; requires
 #   source-code change in cyclonedx-bom-0.8.0-fluent-uri-0.4.patch.
-# * Update base64 to 0.22, ordered-float to 5, strum to 0.27, thiserror to 2,
+# * Update base64 to 0.22, ordered-float to 5, strum to 0.28, thiserror to 2,
 #   and spdx to 0.13. Corresponds to “Update several dependencies across SemVer
 #   boundaries”, https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/812,
 #   which includes “Allow base64 0.22”,

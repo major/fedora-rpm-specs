@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Summary: A Tier 3 KDE Frameworks 6 module that provides indexing and search functionality
-Version: 6.23.0
+Version: 6.24.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND bzip2-1.0.6
@@ -12,9 +12,6 @@ Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{f
 Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 # Upstream Patches
-# Missing include for syscall()
-# https://invent.kde.org/frameworks/baloo/-/merge_requests/270
-Patch0:   270.patch
 
 ## upstreamable patches
 # http://bugzilla.redhat.com/1235026
@@ -153,6 +150,9 @@ cat baloo_file6.lang baloo_file_extractor6.lang \
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

@@ -1,4 +1,5 @@
 %bcond_with bootstrap
+%bcond_with dwarf5
 
 # build ids are not currently generated:
 # https://code.google.com/p/go/issues/detail?id=5238
@@ -292,6 +293,10 @@ Requires:       %{name} = %{version}-%{release}
 %autosetup -p1 -n go
 
 cp %{SOURCE1} ./src/runtime/
+
+%if %{with dwarf5}
+sed -i '/^GOEXPERIMENT=nodwarf5$/d' go.env
+%endif
 
 %build
 # print out system information

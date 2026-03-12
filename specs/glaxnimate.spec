@@ -1,11 +1,11 @@
 Name:    glaxnimate
 Summary: A simple vector graphics animation program
-Version: 0.5.80
-Release: 5%{?dist}
+Version: 0.6.0
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-3.0-or-later AND MIT AND BSD-2-Clause AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 URL:     https://glaxnimate.mattbas.org/
-Source0: https://download.kde.org/unstable/%{name}/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -38,6 +38,7 @@ BuildRequires: libarchive-devel
 
 BuildRequires: doxygen
 BuildRequires: python3-devel
+BuildRequires: pybind11-devel
 BuildRequires: potrace-devel
 
 Requires:      hicolor-icon-theme
@@ -75,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.glaxnimat
 %{_kf6_metainfodir}/org.kde.glaxnimate.metainfo.xml
 
 %changelog
+* Tue Mar 10 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.0-1
+- 0.6.0
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.80-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

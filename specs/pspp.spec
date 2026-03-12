@@ -7,6 +7,7 @@ URL:            https://www.gnu.org/software/pspp/
 VCS:            git://git.savannah.gnu.org/pspp.git
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
+# https://cgit.git.savannah.gnu.org/cgit/pspp.git/plain/Smake?h=40958ab818aa0f09435a72cb7da61f9931a2e694
 Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # Follow up to CVE-2022-39831

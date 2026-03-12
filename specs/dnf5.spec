@@ -7,13 +7,14 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch1:         0001-Honor-localpkg_gpgcheck-in-RPM-transaction-per-eleme.patch
 Patch2:         0002-Fix-segmentation-fault-in-cmd_requires_privileges.patch
+Patch3:         0003-dnf5daemon-server-Fix-daemon-crash-for-invalid-local.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1094,6 +1095,10 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Mar 10 2026 Petr Pisar <ppisar@redhat.com> - 5.4.0.0-4
+- Fix a crash in dnf5daemon-server when receiving an unknown locale from
+  a D-Bus client (CVE-2026-3836) (bug #2445771)
+
 * Mon Mar 02 2026 Petr Pisar <ppisar@redhat.com> - 5.4.0.0-3
 - Fix segmentation fault in bash completion (bug #2443105)
 

@@ -21,6 +21,8 @@ Patch:          0003-Switch-to-OpenJDK-for-runtime.patch
 Patch:          0004-Add-commons-lang3-to-dola-generator-classpath.patch
 # Not forwarded upstream yet
 Patch:          0005-Switch-to-Lua-5.5.patch
+# https://github.com/mizdebsk/dola/pull/53
+Patch:          0006-Allow-override-of-classworlds-configuration-dir.patch
 
 Requires:       %{name}-bsx = %{version}-%{release}
 Requires:       %{name}-generator = %{version}-%{release}

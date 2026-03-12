@@ -1,7 +1,7 @@
 %global framework kded
 
 Name:    kf6-%{framework}
-Version: 6.23.0
+Version: 6.24.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
@@ -78,6 +78,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

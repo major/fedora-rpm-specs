@@ -26,12 +26,13 @@ BuildRequires:    gmp-devel
 BuildRequires:    python3-pyqtgraph
 BuildRequires:    libunwind-devel
 BuildRequires:    pybind11-devel
-BuildRequires:    python3-PyQt4-devel
 # gnuradio dependency
 BuildRequires:    spdlog-devel
 # TODO: check whether qwt is needed
 # needs porting to qt5
+# https://github.com/bistromath/gr-air-modes/issues/113
 #BuildRequires:    qwt-qt5-devel
+#BuildRequires:    python3-PyQt4-devel
 Requires:         python3-numpy
 Requires:         python3-scipy
 Requires:         python3-zmq

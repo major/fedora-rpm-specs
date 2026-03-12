@@ -21,6 +21,7 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools
+Requires:       golang-bin
 
 %description
 Fast linters runner for Go.
@@ -34,6 +35,9 @@ tar -xf %{S:1}
 
 %build
 %global gomodulesmode GO111MODULE=on
+export GO_LDFLAGS="-X main.version=%{version}  \
+                   -X main.commit=Fedora \
+                   -X main.date=$(date -u -d "@${SOURCE_DATE_EPOCH}" +%Y-%m-%dT%H:%M:%SZ)"
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done

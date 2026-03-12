@@ -24,6 +24,8 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
 # * Allow tokei 14: https://github.com/o2sh/onefetch/pull/1669
+# * Allow strum 0.28:
+#   https://github.com/o2sh/onefetch/commit/77436556e6726704becafb221b24b2f2ea25dee1
 Patch:          onefetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -97,8 +99,8 @@ License:        %{shrink:
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 # Generate a man page (of adequate quality). This should match the one in
-# docs/onefetch.1, except that it is guaranteed to be up to date.
-# See also: https://github.com/o2sh/onefetch/pull/1376
+# docs/onefetch.1, except that it is guaranteed to be up to date. See also:
+# https://github.com/o2sh/onefetch/pull/1376
 help2man --no-info --output=onefetch.1 --name='%{summary}' target/rpm/onefetch
 
 %install

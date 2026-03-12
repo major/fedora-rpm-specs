@@ -57,8 +57,8 @@ rm -rv src/ujson/deps
 
 %build
 export UJSON_BUILD_NO_STRIP=1
-export UJSON_BUILD_DC_INCLUDES='%{_includedir}/double-conversion'
-export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
+export UJSON_BUILD_DC_INCLUDES="$(pkg-config --variable=includedir double-conversion)/double-conversion"
+export UJSON_BUILD_DC_LIBS="$(pkg-config --libs double-conversion)"
 %pyproject_wheel
 
 %install

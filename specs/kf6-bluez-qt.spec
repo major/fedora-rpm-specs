@@ -2,7 +2,7 @@
  
 Name:           kf6-%{framework}
 Summary:        A Qt wrapper for Bluez
-Version:        6.23.0
+Version:        6.24.0
 Release:        1%{?dist}
  
 License:        CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
@@ -83,6 +83,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

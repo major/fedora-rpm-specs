@@ -1,15 +1,13 @@
 Name:          giflib
 Summary:       A library and utilities for processing GIFs
-Version:       5.2.2
-Release:       9%{?dist}
+Version:       6.1.2
+Release:       1%{?dist}
 
 License:       MIT
 URL:           http://www.sourceforge.net/projects/%{name}/
 Source:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Downstream cmake support
 Source1:       CMakeLists.txt
-# Move quantize.c back into libgif.so (#1750122)
-Patch0:        giflib_quantize.patch
 # Fix several defects found by Coverity scan
 Patch1:        giflib_coverity.patch
 # Generate HTML docs with consistent section IDs to avoid multilib difference
@@ -17,8 +15,6 @@ Patch2:        giflib_html-docs-consistent-ids.patch
 # Rename getarg.h to gif_getarg.h
 # https://sourceforge.net/p/giflib/code/merge-requests/18/
 Patch3:        getarg.patch
-# Proposed patch for CVE-2025-31344
-Patch4:        https://raw.githubusercontent.com/OpenMandrivaAssociation/giflib/refs/heads/master/giflib-5.2.2-cve-2025-31344.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -116,7 +112,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %files
-%doc ChangeLog NEWS README
+%doc ChangeLog NEWS README.adoc
 %license COPYING
 %{_libdir}/libgif.so.7*
 
@@ -152,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Tue Mar 10 2026 Sandro Mani <manisandro@gmail.com> - 6.1.2-1
+- Update to 6.1.2
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

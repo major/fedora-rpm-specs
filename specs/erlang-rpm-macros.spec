@@ -1,5 +1,5 @@
 Name:		erlang-rpm-macros
-Version:	0.3.10
+Version:	0.3.11
 Release:	%autorelease
 Summary:	Macros for simplifying building of Erlang packages
 License:	MIT

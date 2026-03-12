@@ -12,7 +12,7 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.13
+Version:        4.13.1
 Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
@@ -119,7 +119,7 @@ install -m0644 README.md %{buildroot}%{_pkgdocdir}/
 
 
 %check
-%ctest
+%ctest -E remote_helper
 
 
 %define ccache_trigger(p:) \
@@ -240,6 +240,9 @@ done\
 
 
 %changelog
+* Mon Mar 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.13.1-1
+- 4.13.1
+
 * Thu Mar 05 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.13-1
 - 4.13
 

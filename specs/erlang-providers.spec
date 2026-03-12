@@ -10,22 +10,10 @@ VCS:      git:%{url}.git
 Source0:  %{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 BuildArch:  noarch
 BuildRequires: erlang-erlware_commons
-BuildRequires: erlang-rebar3
+BuildSystem: rebar3
 
 %description
 %{summary}.
-
-%prep
-%autosetup -n %{realname}-%{version}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-%{erlang3_test}
 
 %files
 %license LICENSE

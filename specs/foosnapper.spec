@@ -1,6 +1,6 @@
 Name:           foosnapper
-Version:        1.4
-Release:        3%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Automatic filesystem snapshotter
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foosnapper
@@ -53,6 +53,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Mar 10 2026 Kim B. Heino  <b@bbbs.net> - 1.5-1
+- Upgrade to 1.5
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

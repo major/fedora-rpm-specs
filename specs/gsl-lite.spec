@@ -9,7 +9,7 @@ originally based on Microsoft GSL.
 %global debug_package %{nil}
 
 Name:           gsl-lite
-Version:        0.43.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Header-only version of ISO C++ Guidelines Support Library (GSL)
 
@@ -65,12 +65,12 @@ developing applications that use %{name}.
 %license LICENSE
 %doc README.md CHANGES.txt
 %{_includedir}/%{name}/
+
 # Directory is co-owned with gsl-devel and guidelines-support-library-devel:
 %dir %{_includedir}/gsl/
 %{_includedir}/gsl/%{name}.hpp
 
-%{_libdir}/cmake/%{name}/
-
+%{_datadir}/cmake/%{name}/
 
 %changelog
 %autochangelog

@@ -1,9 +1,9 @@
 Name:           latexmk
-Version:        4.87
+Version:        4.88
 Release:        %autorelease
 Summary:        A make-like utility for LaTeX files
 
-%global upstreamver %(sed 's/\\.//' <<< %{version})
+%global upstreamver %{gsub %version %. %{quote:}}
 
 License:        GPL-2.0-or-later
 URL:            https://www.cantab.net/users/johncollins/latexmk/

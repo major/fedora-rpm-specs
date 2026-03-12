@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} && ! 0%{?flatpak}
 %global _with_docs 1
 %endif
 

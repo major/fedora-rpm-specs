@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.61.0
+Version:        0.61.1
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Mar 09 2026 Packit <hello@packit.dev> - 0.61.1-1
+- Force downstream synchronization of upstream configuration to enable side tagging in EPEL 10.
+- Resolves: rhbz#2437993
+
 * Mon Feb 09 2026 Packit <hello@packit.dev> - 0.61.0-1
 - Ogr now supports Forgejo issues, comments and comment reactions. (#959)
 

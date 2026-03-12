@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.4.2
+Version:       2.4.3
 Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
@@ -19,10 +19,6 @@ Source0:       %{pypi_source}
 Patch0:        mingw-numpy-longdoubleformat.patch
 # Mingw does not have endian.h
 Patch1:        mingw-numpy-endian.patch
-# Fix FTBFS with GCC 16
-# Sent upstream:
-# https://github.com/numpy/x86-simd-sort/pull/225
-Patch2:          fix-gcc-16-ftbfs.patch
 
 
 BuildRequires: gcc-c++
@@ -230,6 +226,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/_core/include/numpy/ %{buildroot}%{mingw
 
 
 %changelog
+* Tue Mar 10 2026 Sandro Mani <manisandro@gmail.com> - 2.4.3-1
+- Update to 2.4.3
+
 * Tue Feb 03 2026 Sandro Mani <manisandro@gmail.com> - 2.4.2-1
 - Update to 2.4.2
 

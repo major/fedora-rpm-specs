@@ -28,7 +28,8 @@ BuildRequires:  perl(Config::Tiny)
 # CPAN never used, bin/install_deps.pl not used and not installed.
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DBD::SQLite) >= 1.31
-# DBI not used at tests
+# DBI never used, bin/dmarc_sqlite_to_mysql.pl not used and only installed as
+# an example <https://github.com/msimerson/mail-dmarc/issues/287>.
 BuildRequires:  perl(DBIx::Simple) >= 1.35
 BuildRequires:  perl(Email::MIME)
 BuildRequires:  perl(Email::Sender)
@@ -190,8 +191,7 @@ make test
 %files
 %license LICENSE
 %doc Changes.md DEVELOP.md example FAQ.md README.md TODO.md
-# Probably forgotten to be installed
-# <https://github.com/msimerson/mail-dmarc/issues/287>.
+# Intended as an example <https://github.com/msimerson/mail-dmarc/issues/287>.
 %doc bin/dmarc_sqlite_to_mysql.pl
 %{_bindir}/dmarc_http_client
 %{_bindir}/dmarc_lookup

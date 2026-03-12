@@ -1,12 +1,12 @@
 %global fullname net.sourceforge.Lifeograph
 
 Name:       lifeograph
-Version:    3.0.2
+Version:    3.0.4
 Release:    %autorelease
 Summary:    A diary program
 
 License:    GPL-3.0-or-later
-URL:        http://%{name}.wikidot.com/start
+URL:        https://lifeograph.sourceforge.net/
 Source0:    https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake

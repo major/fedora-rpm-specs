@@ -3,22 +3,17 @@
 %global module_name openneuro
 
 Name:           python-%{module_name}
-Version:        2025.2.0
+Version:        2026.3.0
 Release:        %{autorelease}
 Summary:        A Python client for OpenNeuro
 
-%global forgeurl https://github.com/hoechenberger/openneuro-py
+%global forgeurl https://github.com/openneuro-py/openneuro-py
 %global tag v%{version}
 %forgemeta
 
 License:        GPL-3.0-only
 URL:            %forgeurl
 Source:         %forgesource
-
-# Replace typer-slim dependency with typer
-# https://github.com/hoechenberger/openneuro-py/pull/1
-# Rebased on 2025.2.0; without changes to uv.lock
-Patch:          openneuro-py-2025.2.0-no-typer-slim.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -42,7 +37,11 @@ Provides:       %{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
 %forgeautosetup -p1
 
 # Exclude tests from wheel
-sed -i '/^packages.*openneuro/a exclude = ["src/openneuro/tests"]' pyproject.toml
+sed -i \
+    -e '/^packages.*openneuro/a exclude = ["src/openneuro/tests"]' \
+    pyproject.toml
+
+cat pyproject.toml
 
 
 %generate_buildrequires

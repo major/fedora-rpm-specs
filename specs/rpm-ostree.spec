@@ -12,6 +12,7 @@ URL: https://github.com/coreos/rpm-ostree
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
 Patch0: 0001-rpmostreed-transaction-types-fix-override-reset.patch
+Patch1: 0001-Fix-silent-upgrade-failure-on-container-systems.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

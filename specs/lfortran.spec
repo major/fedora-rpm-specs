@@ -1,4 +1,4 @@
-Version:        0.60.0
+Version:        0.61.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -156,6 +156,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Tue Mar 10 2026 Packit <hello@packit.dev> - 0.61.0-1
+- Update to version 0.61.0
+- Resolves: rhbz#2446019
+
 * Tue Feb 10 2026 Benson Muite <fed500@fedoraproject.org> - 0.60.0-1
 - Update to version 0.60.0
 - Resolves: rhbz#2437488

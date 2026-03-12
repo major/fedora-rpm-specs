@@ -1,6 +1,6 @@
 Name:           wimlib
-Version:        1.14.4
-Release:        7%{?dist}
+Version:        1.14.5
+Release:        1%{?dist}
 Summary:        Open source Windows Imaging (WIM) library
 
 # wimlib is dual-licensed (GPL-3.0-or-later/LGPL-3.0-or-later) but is linked to
@@ -12,7 +12,7 @@ Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
 # Disable tests requiring mount privileges
 Patch0:         %{name}-1.14.3-tests.patch
 
-%if 0%{?fedora} > 41
+%if 0%{?fedora} <= 42
 BuildRequires:  autoconf
 BuildRequires:  libtool
 %endif
@@ -53,7 +53,7 @@ files in the Windows Imaging Format (WIM files).
 
 %build
 # Ensure build files match the installed Automake version
-%if 0%{?fedora} > 41
+%if 0%{?fedora} <= 42
 autoreconf -fiv
 %endif
 %configure \
@@ -92,6 +92,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Tue Mar 10 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.14.5-1
+- Update to 1.14.5
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

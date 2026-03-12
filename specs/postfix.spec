@@ -56,7 +56,7 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.10.8
+Version: 3.11.0
 Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
@@ -96,8 +96,8 @@ Source101: postfix-pam.conf
 
 # Patches
 
-Patch1: postfix-3.10.5-config.patch
-Patch2: postfix-3.9.0-files.patch
+Patch1: postfix-3.11.0-config.patch
+Patch2: postfix-3.11.0-files.patch
 Patch3: postfix-3.9.0-alternatives.patch
 # probably rhbz#428996
 Patch4: postfix-3.8.0-large-fs.patch
@@ -741,6 +741,7 @@ fi
 %attr(0755, root, root) %{postfix_daemon_dir}/pipe
 %attr(0755, root, root) %{postfix_daemon_dir}/post-install
 %attr(0644, root, root) %{postfix_config_dir}/postfix-files
+%attr(0755, root, root) %{postfix_daemon_dir}/postfix-non-bdb-script
 %attr(0755, root, root) %{postfix_daemon_dir}/postfix-script
 %attr(0755, root, root) %{postfix_daemon_dir}/postfix-tls-script
 %attr(0755, root, root) %{postfix_daemon_dir}/postfix-wrapper
@@ -853,6 +854,10 @@ fi
 %endif
 
 %changelog
+* Tue Mar 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.11.0-1
+- New version
+  Resolves: rhbz#2444870
+
 * Thu Feb 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.10.8-1
 - New version
   Resolves: rhbz#2440818

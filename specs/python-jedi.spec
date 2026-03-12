@@ -29,6 +29,11 @@ URL:            https://jedi.readthedocs.org
 Source0:        https://github.com/davidhalter/jedi/archive/v%{version}/jedi-%{version}.tar.gz
 Source1:        https://github.com/davidhalter/django-stubs/archive/%{django_stubs_commit}/django-stubs-%{django_stubs_commit}.tar.gz
 Source2:        https://github.com/davidhalter/typeshed/archive/%{typeshed_commit}/typeshed-%{typeshed_commit}.tar.gz
+
+# Patch to fix compatibility with Python 3.14 and 3.15
+# Proposed upstream partially: https://github.com/davidhalter/jedi/pull/2093
+Patch:          py_314_315_compatibility.patch
+
 BuildArch:      noarch
 
 %description %{common_description}
@@ -79,14 +84,10 @@ sed -i "/def __init__/s/__init__/setUp/" test/test_utils.py
 %check
 %if %{with tests}
 # %%pytest manipulates the sys.path
-# test_string_annotation does not work with Python 3.14
-# https://github.com/davidhalter/jedi/issues/2064
 %pytest -k "\
     not test_venv_and_pths and \
     not test_find_system_environments and \
-    not test_import and \
-    not test_string_annotation and \
-    not test_compiled_signature_annotation_string"
+    not test_import"
 %else
 %pyproject_check_import
 %endif

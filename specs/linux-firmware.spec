@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20260221
+Version:	20260309
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -724,6 +724,30 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Mar 10 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260309-1
+- Update to 20260309
+- mediatek MT7922: update bluetooth firmware to 20260224103448
+- update firmware for MT7922 WiFi device
+- cirrus: cs42l45: Add CS42L45 SDCA codec firmware for Dell laptops
+- cirrus: cs35l63: Add firmware for Cirrus CS35L63 for various Dell laptops
+- Remove duplicate fw and Rename Lenovo ISH LNLM firmware files accordingly
+- amdgpu: updates for various GPUs/ASICs
+- Add firmware file for Intel BlazarIGfp2 core
+- QCA: Update Bluetooth QCA6698 firmware to 2.1.2-00069
+- qcom: Update CDSP firmware for QCM6490 platform
+- add firmware for Lontium LT8713SX DP hub
+- qcom: sync audioreach firmwares from v1.0.2 build
+- qcom: update ADSP, CDSP firmware for sm8750  platform
+- qcom: update ADSP dtb.mbn for glymur platform
+- qca: Update Bluetooth WCN6750 1.1.3-00105 firmware to 1.1.3-00106
+- QCA: Update Bluetooth WCN6856 firmware 2.1.0-00659 to 2.1.0-00665
+- Renaming the file back for HP EliteBook X Flip G1i
+- amdnpu: Restore old NPU firmware for compatibility
+- cirrus: cs42l45: Add CS42L45 SDCA codec firmware for Dell laptops
+- lenovo: remove obsolete ish_lnlm_53c4ffad_2a17559f.bin firmware
+- update firmware for MT7902 BT device
+- update firmware for MT7902 WiFi device
+
 * Sun Feb 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260221-1
 - Update to 20260221
 - qcom: vpu: fix SC7280 VPU Gen2 firmware and add compatibility symlink

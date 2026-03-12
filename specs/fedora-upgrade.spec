@@ -1,6 +1,6 @@
 Name:		fedora-upgrade
-Version:	42.3
-Release:	2%{?dist}
+Version:	43.1
+Release:	1%{?dist}
 Summary:	Upgrade Fedora to next version using dnf upgrade (unofficial tool)
 
 License:	GPL-2.0-only
@@ -12,14 +12,7 @@ URL:		https://github.com/xsuchy/fedora-upgrade
 Source0:	%{name}-%{version}.tar.gz
 BuildArch:	noarch
 
-%if 0%{?fedora} >= 41
 Requires:       dnf5
-%else
-Requires:	dnf
-Requires:	dnf-plugins-core
-Recommends:	dnf-plugin-system-upgrade
-Requires:   dnf-utils
-%endif
 Requires:       sudo
 Requires:	cpio
 Requires:	rpmconf
@@ -44,7 +37,7 @@ https://fedoraproject.org/wiki/Upgrading
 %package -n remove-retired-packages
 Summary: Remove retired distribution's packages
 Requires: curl
-Requires: python3-dnf
+Requires: python3-libdnf5
 
 %description -n remove-retired-packages
 Script that removes packages removed from
@@ -87,8 +80,16 @@ install -m755 rpm-print-name-from-filename.py %{buildroot}%{_bindir}/rpm-print-n
 %license LICENSE
 
 %changelog
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+* Tue Mar 10 2026 Miroslav Suchý <msuchy@redhat.com> 43.1-1
+- bump version to 43
+
+* Tue Mar 10 2026 Miroslav Suchý <msuchy@redhat.com> 42.4-1
+- migrate from python3-dnf to python-libdnf5
+- use spdx id as license name
+- update link to documentation
+- add upgrade to F44
+- do not check if F43 is prerelease
+- simplify spec - remove f40- code
 
 * Mon Aug 18 2025 Miroslav Suchý <msuchy@redhat.com> 42.3-1
 - add upgrade to Fedora 43

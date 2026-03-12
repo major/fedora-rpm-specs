@@ -6,7 +6,7 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    1e11b9b6eb468b522fe604a42a9fdc8ee759bf8a
+%global gh_commit    fefffe762b02be155dcc32eec57feff8a49bc4b5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     JamesHeinrich
 %global gh_project   getID3
@@ -14,8 +14,8 @@
 %global pk_project   getid3
 
 Name:      php-%{pk_project}
-Version:   1.9.24
-Release:   2%{?dist}
+Version:   1.9.25
+Release:   1%{?dist}
 Epoch:     1
 License:   GPL-1.0-or-later OR LGPL-3.0-only OR MPL-2.0
 Summary:   The PHP media file parser
@@ -91,6 +91,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Tue Mar 10 2026 Remi Collet <remi@remirepo.net> - 1.9.25-1
+- update to 1.9.25
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

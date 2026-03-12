@@ -1,7 +1,7 @@
 %global framework kcmutils
 
 Name:    kf6-%{framework}
-Version: 6.23.0
+Version: 6.24.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
@@ -26,10 +26,12 @@ BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  cmake(KF6Kirigami)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
 
 Requires: kf6-filesystem
+Requires: qt6qml(org.kde.kirigami)
 
 %description
 KCMUtils provides various classes to work with KCModules. KCModules can be
@@ -104,6 +106,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

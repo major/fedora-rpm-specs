@@ -11,25 +11,25 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.15.0
+%define         main_ver      0.16.0
 #%%define         strtag        20200118
-%dnl %define         pre_ver       beta
+%define         pre_ver       alpha
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20260110
-%global         gitcommit     95c8d64c60e607aebb9097b9dd4b865670b1844c
+%global         gitdate       20260310
+%global         gitcommit     402dd7292b7d2999b473294292f985b5b25b8788
 %dnl %global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20260110
-%global         tarballtime   2319
+%global         tarballdate   20260310
+%global         tarballtime   2324
 
 ##########################################
 # Defined by vendor
 #
 %define         extra_rel     %{nil}
-%define         use_gitcommit_as_rel  0
+%define         use_gitcommit_as_rel  1
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
@@ -56,7 +56,7 @@
 ##########################################
 
 ##########################################
-%global		use_gcc_strict_sanitize	0
+%global		use_gcc_strict_sanitize	1
 
 %global		flagrel	%{nil}
 %if	0%{?use_cppcheck} >= 1
@@ -76,7 +76,7 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}%{gitver_rpm}
-Release:        2%{?dist}%{flagrel}
+Release:        1%{?dist}%{flagrel}
 Summary:        A 2ch browser
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -125,7 +125,7 @@ git clone ./%{reponame}.git
 cd JDim
 
 git config user.name "%{name} Fedora maintainer"
-git config user.email "%{name}-owner@fedoraproject.org"
+git config user.email "%{name}-maintainers@fedoraproject.org"
 
 %if 0%{?use_gitcommit_as_rel} >= 1
 git checkout -b %{main_ver}-fedora-local %{gitcommit}

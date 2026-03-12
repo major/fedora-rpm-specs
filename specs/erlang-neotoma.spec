@@ -9,24 +9,14 @@ License:	MIT
 URL:		https://github.com/seancribbs/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{realname}-%{version}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
+%install -a
 mkdir -p %{buildroot}%{erlang_appdir}/priv
 install -p -m 0644 priv/neotoma_parse.peg priv/peg_includes.hrl %{buildroot}%{erlang_appdir}/priv/
-
-%check
-%{erlang3_test}
 
 %files
 %license LICENSE

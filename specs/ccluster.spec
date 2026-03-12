@@ -1,18 +1,14 @@
 Name:           ccluster
-Version:        1.1.7
+Version:        1.1.8
 Release:        %autorelease
 Summary:        Cluster the roots of a univariate polynomial
+
+%global majver  %{gsub %version ^(%d*)%..*$ %1}
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rimbach/Ccluster
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix use of XOR where exponentiation was intended
-Patch:          https://github.com/rimbach/Ccluster/pull/74.patch
-# Prevent multiple definition errors when linking
-Patch:          https://github.com/rimbach/Ccluster/pull/75.patch
-# Adapt to flint 3.x
-Patch:          %{name}-flint3.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -54,23 +50,22 @@ applications that use %{name}.
 %autosetup -n Ccluster-%{version} -p1
 
 %conf
-# Install in the right place on 64-bit platforms
-if [ "%{_lib}" != lib ]; then
-  sed -i 's,^\(LIBDIR=\)lib,\1%{_lib},' Makefile.in
-fi
+# Use Fedora link flags and add an soname
+sed -i "s|-shared|& %{build_ldflags} -Wl,-h,libccluster.so.%{majver}|" Makefile.in
+# This is NOT an autoconf-generated configure script; do not use %%configure
+./configure \
+    --disable-static \
+    --prefix=%{_prefix} \
+    --with-arb=%{_prefix} \
+    --with-flint=%{_prefix} \
+    --with-gmp=%{_prefix} \
+    --with-mpfr=%{_prefix}
 
 %build
-CFLAGS='%{build_cflags} -I%{_includedir}/flint'
-CXXFLAGS='%{build_cxxflags} -I%{_includedir}/flint'
-# Use Fedora link flags and add an soname
-major=$(echo %{version} | cut -d. -f1)
-sed -i "s|-shared|& %{build_ldflags} -Wl,-h,libccluster.so.${major}|" Makefile.in
-# This is NOT an autoconf-generated configure script; do not use %%configure
-./configure --prefix=%{_prefix} --disable-static
 %make_build library bins AT= QUIET_CC= QUIET_AR=
 
 %install
-%make_install
+%make_install LIBDIR=%{_lib}
 
 %check
 PATH=$PATH:$PWD/test

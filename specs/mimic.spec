@@ -42,6 +42,8 @@ Development files for Mimic, a small, fast speech synthesis engine.
 # Disable LTO until GCC is fixed
 %define _lto_cflags %{nil}
 
+export CFLAGS="${CFLAGS} -std=gnu17 -Wno-error=unused-but-set-variable"
+
 autoreconf -vif
 %configure --enable-shared --with-audio=alsa --with-audio=pulseaudio
 %{make_build}

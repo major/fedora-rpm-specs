@@ -1,7 +1,7 @@
 %global framework kio
 
 Name:    kf6-%{framework}
-Version: 6.23.0
+Version: 6.24.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
@@ -232,6 +232,9 @@ Developer Documentation files for %{name} in HTML format
  
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

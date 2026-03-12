@@ -1,5 +1,5 @@
 Name:           Pencil2D
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Create traditional hand-drawn animation (cartoon)
 # For translations, check translations/*.ts.
@@ -116,16 +116,14 @@ URL:            https://www.pencil2d.org
 %global forgeurl https://github.com/pencil2d/pencil
 Source:         %{forgeurl}/archive/v%{version}/pencil-%{version}.tar.gz
 
-# Ensure QDebug is included for all qDebug uses
-# https://github.com/pencil2d/pencil/pull/1912
-Patch:          0001-Ensure-QDebug-is-included-for-all-qDebug-uses.patch
 # Use the latest GPLv2 license text
 # https://github.com/pencil2d/pencil/pull/1914
 # OK to patch license text downstream since the PR was merged upstream.
 Patch:          %{forgeurl}/pull/1914.patch
-# Fix Qt 6.10.1 compatibility
-# https://github.com/pencil2d/pencil/pull/1952
-Patch:          %{forgeurl}/pull/1952.patch
+
+# Downstream-only: Hide “Check for Updates” in the Help menu
+# Package users will update through the appropriate package manager.
+Patch:          0001-Downstream-only-Hide-Check-for-Updates-in-the-Help-m.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

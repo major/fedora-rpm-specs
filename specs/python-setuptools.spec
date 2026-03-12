@@ -47,6 +47,10 @@ Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 # brp-mangle-shebang script cannot mangle this and fails for many pkgs.
 Patch:          Revert-Always-rewrite-a-Python-shebang-to-python.patch
 
+# Avoid using (deprecated in Python 3.15) json.__version__ in tests,
+# merged upstream.
+Patch:          https://github.com/pypa/setuptools/pull/5194.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

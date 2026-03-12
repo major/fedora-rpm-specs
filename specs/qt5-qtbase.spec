@@ -788,44 +788,25 @@ make check -k ||:
 %if 0%{?qtchooser}
 %pre
 if [ $1 -gt 1 ] ; then
-# remove short-lived qt5.conf alternatives
-%{_sbindir}/update-alternatives  \
-  --remove qtchooser-qt5 \
-  %{_sysconfdir}/xdg/qtchooser/qt5-%{__isa_bits}.conf >& /dev/null ||:
-
-%{_sbindir}/update-alternatives  \
-  --remove qtchooser-default \
-  %{_sysconfdir}/xdg/qtchooser/qt5.conf >& /dev/null ||:
+  # remove short-lived qt5.conf alternatives
+  %{_sbindir}/update-alternatives --remove qtchooser-qt5 %{_sysconfdir}/xdg/qtchooser/qt5-%{__isa_bits}.conf >& /dev/null ||:
+  %{_sbindir}/update-alternatives --remove qtchooser-default %{_sysconfdir}/xdg/qtchooser/qt5.conf >& /dev/null ||:
 fi
 %endif
 
 %post
 %{?ldconfig}
 %if 0%{?qtchooser}
-%{_sbindir}/update-alternatives \
-  --install %{_sysconfdir}/xdg/qtchooser/5.conf \
-  qtchooser-5 \
-  %{_sysconfdir}/xdg/qtchooser/5-%{__isa_bits}.conf \
-  %{priority}
-
-%{_sbindir}/update-alternatives \
-  --install %{_sysconfdir}/xdg/qtchooser/default.conf \
-  qtchooser-default \
-  %{_sysconfdir}/xdg/qtchooser/5.conf \
-  %{priority}
+%{_sbindir}/update-alternatives --install %{_sysconfdir}/xdg/qtchooser/5.conf qtchooser-5 %{_sysconfdir}/xdg/qtchooser/5-%{__isa_bits}.conf %{priority}
+%{_sbindir}/update-alternatives --install %{_sysconfdir}/xdg/qtchooser/default.conf qtchooser-default %{_sysconfdir}/xdg/qtchooser/5.conf %{priority}
 %endif
 
 %postun
 %{?ldconfig}
 %if 0%{?qtchooser}
 if [ $1 -eq 0 ]; then
-%{_sbindir}/update-alternatives  \
-  --remove qtchooser-5 \
-  %{_sysconfdir}/xdg/qtchooser/5-%{__isa_bits}.conf
-
-%{_sbindir}/update-alternatives  \
-  --remove qtchooser-default \
-  %{_sysconfdir}/xdg/qtchooser/5.conf
+  %{_sbindir}/update-alternatives --remove qtchooser-5 %{_sysconfdir}/xdg/qtchooser/5-%{__isa_bits}.conf
+  %{_sbindir}/update-alternatives --remove qtchooser-default %{_sysconfdir}/xdg/qtchooser/5.conf
 fi
 %endif
 

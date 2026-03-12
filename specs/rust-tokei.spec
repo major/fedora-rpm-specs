@@ -22,7 +22,8 @@ Source10:       tokei.1
 #   allow 0.11,
 #   https://github.com/XAMPPRocky/tokei/pull/1253#issuecomment-3471595554
 # * Update strum/strum_macros to 0.27,
-#   https://github.com/XAMPPRocky/tokei/pull/1316
+#   https://github.com/XAMPPRocky/tokei/pull/1316, and then to 0.28.0,
+#   https://github.com/XAMPPRocky/tokei/pull/1336.
 # * Update toml to 0.9, downstream-only for MSRV reasons
 # * Update colored to 3.0, downstream-only for MSRV reasons
 Patch:          tokei-fix-metadata.diff

@@ -20,7 +20,7 @@
 
 Name:           buildbot
 Version:        4.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -39,6 +39,10 @@ Source8:        %{pypi_source buildbot_pkg}
 # Service template units for buildbot instances
 Source10:       buildbot-master@.service
 Source11:       buildbot-worker@.service
+
+# Fedora-specific systemd drop-ins (separate users, paths)
+Source12:       buildbot-master-fedora.conf
+Source13:       buildbot-worker-fedora.conf
 
 BuildArch:      noarch
 
@@ -153,6 +157,7 @@ done
 %dir %{_sharedstatedir}/buildbot
 %dir %attr(-, buildbot-master, buildbot-master) %{_sharedstatedir}/buildbot/master
 %{_unitdir}/buildbot-master@.service
+%{_unitdir}/buildbot-master@.service.d/fedora.conf
 
 # ---------------------------------------------------------------------
 %{_sysusersdir}/buildbot.conf
@@ -270,6 +275,7 @@ done
 %dir %{_sharedstatedir}/buildbot
 %dir %attr(-, buildbot-worker, buildbot-worker) %{_sharedstatedir}/buildbot/worker
 %{_unitdir}/buildbot-worker@.service
+%{_unitdir}/buildbot-worker@.service.d/fedora.conf
 %{_sysusersdir}/buildbot-worker.conf
 
 # ---------------------------------------------------------------------
@@ -392,9 +398,13 @@ popd
 # Purge windows-only files
 rm -vf %{buildroot}%{_bindir}/*windows*
 
-# Install systemd units
+# Install systemd units and Fedora drop-ins
 mkdir -p %{buildroot}%{_unitdir}
 cp -a %{S:10} %{S:11} %{buildroot}%{_unitdir}
+mkdir -p %{buildroot}%{_unitdir}/buildbot-master@.service.d
+install -m0644 %{S:12} %{buildroot}%{_unitdir}/buildbot-master@.service.d/fedora.conf
+mkdir -p %{buildroot}%{_unitdir}/buildbot-worker@.service.d
+install -m0644 %{S:13} %{buildroot}%{_unitdir}/buildbot-worker@.service.d/fedora.conf
 mkdir -p %{buildroot}%{_sharedstatedir}/buildbot/{master,worker}
 
 
@@ -405,6 +415,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Mon Mar 09 2026 Charalampos Stratakis <cstratak@redhat.com> - 4.3.0-7
+- Harden systemd template units
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

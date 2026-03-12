@@ -76,7 +76,7 @@ program, supporting multiple dictionary formats and online dictionaries.
 %forgeautosetup -p1
 
 # remove unneeded third-party libraries
-rm -r thirdparty/{fmt,qwebengine_ts,tomlplusplus}
+rm -rf thirdparty/{qwebengine_ts,tomlplusplus}
 
 %build
 %cmake \

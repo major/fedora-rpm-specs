@@ -8,10 +8,10 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.34
-%global crio_spec_ver   1.34.5
+%global crio_spec_ver   1.34.6
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.34.5
+%global crio_tag        v1.34.6
 %global golangver       1.24.6
 
 # Related: github.com/cri-o/cri-o/issues/3684
@@ -232,7 +232,6 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 
 # **********************************
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc docs ADOPTERS.md CONTRIBUTING.md GOVERNANCE.md
 %doc MAINTAINERS.md README.md SECURITY.md awesome.md
 %doc code-of-conduct.md cri.md

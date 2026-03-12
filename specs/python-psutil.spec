@@ -43,16 +43,6 @@ command line tools such as: ps, top, df, kill, free, lsof, free, netstat,
 ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 
 
-%package -n python%{python3_pkgversion}-psutil-tests
-Summary:        %{summary}, test suite
-Requires:       python%{python3_pkgversion}-psutil%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Recommends:     python%{python3_pkgversion}-pytest
-Requires:       procps-ng
-
-%description -n python%{python3_pkgversion}-psutil-tests
-The test suite for psutil.
-
-
 %prep
 %autosetup -p1 -n psutil-release-%{version}
 

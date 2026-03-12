@@ -12,6 +12,10 @@ Summary:        Detect and parse manifest files
 License:        MIT
 URL:            https://crates.io/crates/onefetch-manifest
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow strum 0.28:
+#   https://github.com/o2sh/onefetch/commit/77436556e6726704becafb221b24b2f2ea25dee1
+Patch:          onefetch-manifest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

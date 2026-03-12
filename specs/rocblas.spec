@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 de5c1aebb641af098d9310a9fcca5591a7c066c8
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251015
-%endif
-
 %global upstreamname rocblas
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -158,27 +161,32 @@ Name:           rocblas%{pkg_suffix}
 Summary:        BLAS implementation for ROCm
 License:        MIT AND BSD-3-Clause AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
-
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 
-Patch1:         0001-fixup-install-of-tensile-output.patch
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{pkg_src}/tensile.tar.gz#/tensile-%{version}.tar.gz
 
-# Bundled tensile
-Source1:        https://github.com/ROCmSoftwarePlatform/Tensile/archive/rocm-%{version}.tar.gz#/Tensile-%{version}.tar.gz
+%if %{with preview}
+Patch1:         0001-improve-the-warning-for-asm-caps-mismatches.patch
+Patch2:         0002-add-generic-gpu-targets.patch
+Patch3:         0003-improve-fallback-name-to-handle-generics.patch
+Patch4:         0004-generic-arches-need-a-solution-index.patch
+Patch5:         0005-rocblas-add-rocblas_internal_get_generic_arch_name.patch
+Patch6:         0006-rocblas-generalize-finding-tensile-for-generics.patch
+%else
+Patch1:         0001-fixup-install-of-tensile-output.patch
 Patch101:       0001-tensile-fedora-gpus.patch
 Patch102:       0001-tensile-gfx1153.patch
 Patch103:       0001-tensile-set-default-paths.patch
 Patch104:       0001-tensile-ignore-cache-check.patch
 Patch105:       0001-tensile-add-cmake-arches.patch
 Patch106:       0001-tensile-gfx1036.patch
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -336,24 +344,29 @@ Requires:       diffutils
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocblas
-%patch -P1 -p1 
-%else
 %setup -q -n %{upstreamname}
+%if %{with preview}
+%patch -P5 -p3
+%patch -P6 -p3
+%else
 %patch -P1 -p1
 %endif
 
 tar xf %{SOURCE1}
-mv Tensile-* Tensile
-cd Tensile
+cd tensile
+%if %{with preview}
+%patch -P1 -p3
+%patch -P2 -p3
+%patch -P3 -p3
+%patch -P4 -p3
+%else
 %patch -P101 -p1
 %patch -P102 -p1
 %patch -P103 -p1
 %patch -P104 -p1
 %patch -P105 -p1
 %patch -P106 -p1
+%endif
 
 #Fix a few things:
 chmod 755 Tensile/Configs/miopen/convert_cfg.py
@@ -384,8 +397,13 @@ sed -i -e '/rich/d' requirements.*
 sed -i -e '/msgpack/d' requirements.*
 
 # Generalize prefix
+%if %{with preview}
+sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' Tensile/Utilities/Toolchain.py
+sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' Tensile/Utilities/Toolchain.py
+%else
 sed -i -e 's@/usr/bin@%{pkg_prefix}/bin@' Tensile/Utilities/Toolchain.py
 sed -i -e 's@/usr/lib64/rocm/llvm/bin@%{rocmllvm_bindir}@' Tensile/Utilities/Toolchain.py
+%endif
 
 # Make sure hip/hip_runtime.h is found
 sed -i -e 's@"-D__HIP_HCC_COMPAT_MODE__=1"@"-D__HIP_HCC_COMPAT_MODE__=1","-I%{pkg_prefix}/include"@' Tensile/BuildCommands/SourceCommands.py
@@ -415,7 +433,7 @@ sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LI
 
 %if %{with tensile}
 %if %{with bundled_tensile}
-cd Tensile
+cd tensile
 TL=$PWD
 python3 setup.py install --root $TL
 TP=${TL}/usr/lib/python%{python3_version}/site-packages/Tensile/
@@ -423,10 +441,6 @@ cd ..
 %else
 TP=`/usr/bin/TensileGetPath`
 %endif
-%endif
-
-%if %{with gitcommit}
-cd projects/rocblas
 %endif
 
 CORES=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
@@ -452,10 +466,6 @@ export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/rocblas
-%endif
-
 %cmake_install
 
 # Extra license
@@ -478,13 +488,8 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %files -n %{rocblas_name}
-%if %{with gitcommit}
-%license projects/rocblas/LICENSE.md
-%doc projects/rocblas/README.md
-%else
 %license LICENSE.md
 %doc README.md
-%endif
 %{pkg_prefix}/%{pkg_libdir}/librocblas.so.5{,.*}
 %if %{with tensile}
 %{pkg_prefix}/%{pkg_libdir}/rocblas/
@@ -501,6 +506,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+- Use rocm-libraries for tensile source
+
 * Sun Feb 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - strip hsaco files
 - make test optional

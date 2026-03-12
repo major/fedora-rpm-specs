@@ -13,26 +13,31 @@
 %global pie_proj   apcu
 %global pecl_name  apcu
 %global ini_name   40-%{pecl_name}.ini
-%global sources    %{pecl_name}-%{version}
+
+# Github forge
+%global gh_vend    krakjoe
+%global gh_proj    %{pie_proj}
+%global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
+%global tag        v%{version}
 
 Name:           %{php_base}-pecl-apcu
 Summary:        APC User Cache
+License:        PHP-3.01
 Version:        5.1.28
-Release:        2%{?dist}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+%forgemeta
+Release:        3%{?dist}
+URL:            %{forgeurl}
+
+Source0:        %{forgesource}
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
 Source3:        %{pecl_name}.conf.php
-
-License:        PHP-3.01
-URL:            https://pecl.php.net/package/APCu
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  %{php_base}-devel
-BuildRequires:  php-pear
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -56,9 +61,6 @@ Provides:     php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
 APCu is userland caching: APC stripped of opcode caching.
 
 APCu only supports userland caching of variables.
-
-The %{?sub_prefix}php-pecl-apcu-bc package provides a drop
-in replacement for APC.
 
 
 %package devel
@@ -104,26 +106,21 @@ configuration, available on http://localhost/apcu-panel/
 
 
 %prep
-%setup -qc
+%forgesetup
 
-sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
-
-cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_APCU_VERSION/{s/.* "//;s/".*$//;p}' php_apc.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}.
    exit 1
 fi
-cd ..
 
 # Fix path to configuration file
 sed -e s:apc.conf.php:%{_sysconfdir}/apcu-panel/conf.php:g \
-    -i  %{sources}/apc.php
+    -i  apc.php
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -135,14 +132,10 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
 
 # Install extension and configuration
 %make_install
 install -D -m 644 %{SOURCE1} %{buildroot}%{php_inidir}/%{ini_name}
-
-# Install the package XML file
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 # Install the Control Panel
 # Pages
@@ -165,7 +158,6 @@ done
 
 
 %check
-cd %{sources}
 %{__php} -n \
    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
    -m | grep '^apcu$'
@@ -177,16 +169,17 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc NOTICE
+%doc README.md
+%doc TECHNOTES.txt
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %files devel
-%doc %{pecl_testdir}/%{pecl_name}
+%doc tests
 %{php_incldir}/ext/%{pecl_name}
 
 
@@ -203,6 +196,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Mar 10 2026 Remi Collet <remi@remirepo.net> - 5.1.28-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

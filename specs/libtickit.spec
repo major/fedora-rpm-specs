@@ -5,8 +5,8 @@
 %bcond_without unibilium
 
 Name:           lib%{libname}
-Version:        0.4.5
-Release:        3%{?dist}
+Version:        0.4.6
+Release:        1%{?dist}
 Summary:        Terminal Interface Construction Kit
 
 License:        MIT
@@ -80,6 +80,9 @@ make examples
 %{_mandir}/man7/%{libname}_*.7*
 
 %changelog
+* Tue Mar 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.4.6-1
+- 0.4.6 bump (rhbz#2446021)
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

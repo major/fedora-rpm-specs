@@ -19,16 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname hipblas
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -79,22 +82,17 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           hipblas%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        4%{?dist}
 %endif
 Summary:        ROCm BLAS marshaling library
 License:        MIT AND 0BSD
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -167,20 +165,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/hipblas
-%else
 %autosetup -p1 -n %{upstreamname}
-%endif
 
 # This is a tarball, no .git to query
 sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CMakeLists.txt
 
 %build
-%if %{with gitcommit}
-cd projects/hipblas
-%endif
 
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
@@ -206,21 +196,13 @@ cd projects/hipblas
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/hipblas
-%endif
 %cmake_install
 
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 
 %files  -n %{hipblas_name}
-%if %{with gitcommit}
-%license projects/hipblas/LICENSE.md
-%doc projects/hipblas/README.md
-%else
 %license LICENSE.md
 %doc README.md
-%endif
 %{pkg_prefix}/%{pkg_libdir}/libhipblas.so.3{,.*}
 
 %files devel
@@ -234,6 +216,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Change --with gitcommit to preview
+
 * Tue Feb 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Fix --with test
 

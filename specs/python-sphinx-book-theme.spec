@@ -1,7 +1,7 @@
 %global giturl  https://github.com/executablebooks/sphinx-book-theme
 
 Name:           python-sphinx-book-theme
-Version:        1.1.4
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Interactive book theme for Sphinx
 
@@ -13,10 +13,6 @@ Source0:        %{giturl}/archive/v%{version}/sphinx-book-theme-%{version}.tar.g
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        sphinx-book-theme-%{version}-vendor.tar.xz
 Source2:        sphinx-book-theme-%{version}-vendor-licenses.txt
-# Compatibility with docutils 0.22.3
-Patch:          %{giturl}/pull/919.patch
-# Adapt the tests to newer sphinx components
-Patch:          %{name}-test.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): -x test

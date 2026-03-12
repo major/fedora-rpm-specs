@@ -77,7 +77,7 @@ Obsoletes:      kf5-baloo < 5.21.0-4
 %package        devel
 Summary:        Development files for %{name}
 # KDE e.V. may determine that future LGPL versions are accepted
-License:        LGPLv2 or LGPLv3
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kf5-kcoreaddons-devel >= %{majmin}
 Requires:       kf5-kfilemetadata-devel >= %{majmin}
@@ -90,8 +90,8 @@ developing applications that use %{name}.
 %if %{without kf6_compat}
 %package        file
 Summary:        File indexing and search for Baloo
-# KDE e.V. may determine that future LGPL versions are accepted
-License:        LGPLv2 or LGPLv3
+# LicenseRef-KDE-Accepted-LGPL is LGPL-2.1-only OR LGPL-3.0-only - https://docs.fedoraproject.org/en-US/legal/license-field/#_licenseref_kde_accepted
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)
 %if 0%{?fedora}
 Obsoletes:      baloo-file < 5.0.1-2
 Provides:       baloo-file = %{version}-%{release}
@@ -106,7 +106,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %package        libs
 Summary:        Runtime libraries for %{name}
 # KDE e.V. may determine that future LGPL versions are accepted
-License:        LGPLv2 or LGPLv3
+License:        LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)
 %description    libs
 %{summary}.
 

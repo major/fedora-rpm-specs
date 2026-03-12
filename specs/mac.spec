@@ -1,5 +1,5 @@
 Name:           mac
-Version:        12.35
+Version:        12.50
 Release:        %autorelease
 Summary:        Monkey's Audio Codec
 

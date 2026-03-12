@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.6
-Release: 2%{?dist}
+Version: %{majorversion}.9
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 16
-%global prevversion %{prevmajorversion}.10
+%global prevversion %{prevmajorversion}.13
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1354,6 +1354,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Thu Feb 26 2026 Packit <hello@packit.dev> - 17.9-1
+- Update to version 17.9
+- Resolves: rhbz#2414833
+
 * Tue Jan 20 2026 Fedora Release Engineering <releng@fedoraproject.org> - 17.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

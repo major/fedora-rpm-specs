@@ -2,7 +2,7 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 6.23.0
+Version: 6.24.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -36,6 +36,8 @@ BuildRequires: cmake(KF6Declarative)
 Requires:      kf6-kdeclarative
 BuildRequires: cmake(KF6Prison)
 Requires:      kf6-prison
+BuildRequires: kf6-kitemmodels
+Requires:      qt6qml(org.kde.kitemmodels)
 
 
 Requires: hicolor-icon-theme
@@ -114,6 +116,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

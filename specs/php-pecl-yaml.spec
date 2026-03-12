@@ -14,23 +14,28 @@
 
 %global upstream_version 2.3.0
 #global upstream_prever  b2
-%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+
+# Github forge
+%global gh_vend          php
+%global gh_proj          pecl-file_formats-yaml
+%global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
+%global tag              %{upstream_version}%{?upstream_prever}
 
 Summary:       PHP Bindings for libyaml
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       2%{?dist}
+%forgemeta
+Release:       3%{?dist}
 License:       MIT
-URL:           https://pecl.php.net/package/%{pecl_name}
+URL:           %{forgeurl}
 
-Source0:       https://pecl.php.net/get/%{sources}.tgz
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel
-BuildRequires: php-pear
 BuildRequires: libyaml-devel
 
 Requires:      php(zend-abi) = %{php_zend_api}
@@ -52,25 +57,16 @@ LibYAML library.
 
 Documentation: https://php.net/yaml
 
-Package built for PHP %(%{__php} -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')%{?scl: as Software Collection (%{scl} by %{?scl_vendor}%{!?scl_vendor:rh})}.
-
 
 %prep
-%setup -c -q
+%forgesetup
 
-# Remove test file to avoid regsitration
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # Check upstream version (often broken)
 extver=$(sed -n '/#define PHP_YAML_VERSION/{s/.* "//;s/".*$//;p}' php_yaml.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
 fi
-cd ..
 
 cat << 'EOF' | tee %{ini_name}
 ; Enable %{summary} extension module
@@ -101,7 +97,6 @@ EOF
 
 
 %build
-cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -113,14 +108,10 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-: Install the XML package description
-install -Dpm 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
 : install the config file
 install -Dpm644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 : Install the extension
-cd %{sources}
 %make_install
 
 : Install the Documentation
@@ -130,8 +121,6 @@ done
 
 
 %check
-cd %{sources}
-
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
@@ -145,14 +134,19 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc CREDITS
+%doc README
+
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Tue Mar 10 2026 Remi Collet <remi@remirepo.net> - 2.3.0-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

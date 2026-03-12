@@ -5,8 +5,8 @@
 
 Name:           perl-%{cpan_name}
 Epoch:          2
-Version:        7.76
-Release:        522%{?dist}
+Version:        7.78
+Release:        1%{?dist}
 Summary:        Create a module Makefile
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -272,6 +272,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 10 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2:7.78-1
+- 7.78 bump (rhbz#2444242)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:7.76-522
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

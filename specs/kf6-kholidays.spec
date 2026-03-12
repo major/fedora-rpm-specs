@@ -1,7 +1,7 @@
 %global		framework kholidays
 
 Name:		kf6-%{framework}
-Version:	6.23.0
+Version:	6.24.0
 Release:	1%{?dist}
 Summary:	The KHolidays Library
 
@@ -20,6 +20,8 @@ BuildRequires: 	pkgconfig(Qt6Core)
 BuildRequires: 	pkgconfig(Qt6Qml)
 BuildRequires: 	qt6-qttools-static
 BuildRequires:	make
+BuildRequires:  flex
+BuildRequires:  bison
 
 %description
 The KHolidays library provides a C++ API that determines holiday
@@ -78,6 +80,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

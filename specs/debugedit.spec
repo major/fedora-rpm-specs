@@ -1,14 +1,14 @@
 Name: debugedit
-Version: 5.2
-Release: 6%{?dist}
+Version: 5.3
+Release: 1%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
 Source0: https://sourceware.org/pub/debugedit/%{version}/%{name}-%{version}.tar.xz
 Source1: https://sourceware.org/pub/debugedit/%{version}/%{name}-%{version}.tar.xz.sig
-Source2: gpgkey-5C1D1AA44BE649DE760A.gpg
+Source2: gpgkey-CBA20376A15C6FFC11CD.gpg
 
-BuildRequires: make gcc
+BuildRequires: make gcc gcc-c++
 BuildRequires: pkgconfig(libelf)
 BuildRequires: pkgconfig(libdw)
 BuildRequires: help2man
@@ -45,9 +45,6 @@ Requires: dwz
 Requires: grep
 
 %global _hardened_build 1
-
-Patch1: 0001-Add-debugedit-classify-ar-and-use-it-before-running-.patch
-Patch2: 0001-find-debuginfo-Use-64k-buffers-to-extract-ar-members.patch
 
 %description
 The debugedit project provides programs and scripts for creating
@@ -91,6 +88,12 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Tue Mar 10 2026 Mark Wielaard <mjw@fedoraproject.org> - 5.3-1
+- New upstream 5.3 release
+- Drop all local patches
+- Add new release gpg key
+- Add gcc-c++ as BuildRequires
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

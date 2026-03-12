@@ -232,7 +232,6 @@ TEST_TAGS=$((echo "test rpm_crashtraceback %{buildtags}") | sed -e 's/\s\+/,/g')
 
 # **********************************
 %files -f %{go_vendor_license_filelist}
-%license vendor/modules.txt
 %doc docs ADOPTERS.md CONTRIBUTING.md GOVERNANCE.md
 %doc MAINTAINERS.md README.md SECURITY.md awesome.md
 %doc code-of-conduct.md cri.md

@@ -7,7 +7,7 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        8.1.0
+Version:        8.2.1
 Release:        2%{?dist}
 Summary:        Python library for extracting streams from various websites
 
@@ -63,9 +63,7 @@ Supplements:    (%{name} and zsh)
 Zsh command line completion support for %{srcname}.
 
 
-%if 0%{?fedora} >= 42
 %pyproject_extras_subpkg -n %{name} decompress
-%endif
 
 
 %prep
@@ -137,6 +135,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Tue Mar 10 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 8.2.1-1
+- Update to 8.2.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

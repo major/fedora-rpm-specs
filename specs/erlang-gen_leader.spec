@@ -10,24 +10,12 @@ License:	ErlPL-1.1
 URL:		https://github.com/garret-smith/%{realname}_revival
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{git_commit}/%{realname}-%{version}.tar.gz
-BuildRequires:	erlang-rebar3
+BuildSystem:	rebar3
 
 %description
 This application implements a leader election behavior modeled after gen_server.
 This behavior intends to make it reasonably straightforward to implement a fully
 distributed server with master-slave semantics.
-
-%prep
-%autosetup -p1 -n %{realname}_revival-%{git_commit}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-%{erlang3_test}
 
 %files
 %doc README.markdown examples/

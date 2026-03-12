@@ -1,7 +1,7 @@
 %global framework kpackage
 
 Name:           kf6-%{framework}
-Version:        6.23.0
+Version:        6.24.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 library to load and install packages as plugins
 
@@ -87,6 +87,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kpackage/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Mar 10 2026 Steve Cossette <farchord@gmail.com> - 6.24.0-1
+- 6.24.0
+
 * Thu Feb 12 2026 Steve Cossette <farchord@gmail.com> - 6.23.0-1
 - 6.23.0
 

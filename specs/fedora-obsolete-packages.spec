@@ -1417,6 +1417,11 @@ Source0:    README
 %obsolete perl-Alien-cmake3 0.10-3
 %obsolete perl-Alien-cmake3-tests 0.10-3
 
+# Remove in F47
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2434904
+%obsolete perl-re-engine-PCRE 0.17-46
+%obsolete perl-re-engine-PCRE-tests 0.17-46
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 

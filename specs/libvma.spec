@@ -1,7 +1,13 @@
+# The upstream build system uses -Werror, so it is fragile w.r.t. new gcc versions.
+# Downgrade specific errors back to warnings. This works around build failures seen in:
+# https://src.fedoraproject.org/rpms/libvma/pull-request/10
+%global _pkg_extra_cflags -Wno-error=non-c-typedef-for-linkage -Wno-error=unused-but-set-variable
+%global _pkg_extra_cxxflags %{_pkg_extra_cflags}
+
 %{!?configure_options: %global configure_options %{nil}}
 
 Name: libvma
-Version: 9.8.80
+Version: 9.8.84
 Release: %autorelease
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 

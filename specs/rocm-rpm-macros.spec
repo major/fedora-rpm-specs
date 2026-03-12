@@ -20,8 +20,15 @@
 # THE SOFTWARE.
 #
 
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -34,12 +41,20 @@
 
 Name:           %{pkg_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
+%endif
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
 URL:            https://github.com/trixirt/rocm-rpm-macros
+%if %{with preview}
+Source0:        macros.rocm.preview
+%else
 Source0:        macros.rocm
+%endif
 Source1:        GPL
 # Modules
 Source2:        default
@@ -97,7 +112,7 @@ between different GPU families.
 
 %prep
 %setup -cT
-install -pm 644 %{SOURCE0} .
+install -pm 644 %{SOURCE0} macros.rocm
 install -pm 644 %{SOURCE1} .
 mkdir modules
 %if 0%{?rhel}
@@ -127,7 +142,7 @@ install -pm 644 %{SOURCE31} modules
 
 %install
 mkdir -p %{buildroot}%{_rpmmacrodir}/
-install -Dpm 644 %{SOURCE0} %{buildroot}%{_rpmmacrodir}/
+install -Dpm 644 %{SOURCE0} %{buildroot}%{_rpmmacrodir}/macros.rocm
 %if 0%{?suse_version}
 mkdir -p %{buildroot}%{_datadir}/modules/rocm/
 cp -p modules/* %{buildroot}%{_datadir}/modules/rocm/
@@ -149,6 +164,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Tue Mar 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Add --with preview
+
 * Fri Feb 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

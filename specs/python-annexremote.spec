@@ -47,7 +47,7 @@ chmod -x examples/git-annex-remote-directory
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires %{?with_tests:-x test}
+%pyproject_buildrequires %{?with_tests:-x tests}
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

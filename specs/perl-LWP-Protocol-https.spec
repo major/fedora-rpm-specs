@@ -2,8 +2,8 @@
 %bcond_with perl_LWP_Protocol_https_enables_internet_test
 
 Name:           perl-LWP-Protocol-https
-Version:        6.14
-Release:        5%{?dist}
+Version:        6.15
+Release:        1%{?dist}
 Summary:        Provide HTTPS support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Protocol-https
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.15-1
+- 6.15 bump
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

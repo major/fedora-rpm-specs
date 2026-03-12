@@ -39,7 +39,7 @@
 
 Name:           rocm-filesystem%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        ROCm directories
 
@@ -48,6 +48,11 @@ License:        MIT
 
 # the devel subpackage is only headers and cmake infra
 BuildArch: noarch
+
+%if %{with compat}
+BuildRequires: rocm-filesystem
+Requires: rocm-filesystem
+%endif
 
 %description
 %{summary}
@@ -73,6 +78,10 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/bin
 mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/include
 
 %files
+%if %{with compat}
+%dir %{pkg_prefix}/
+%dir %{pkg_prefix}/%{pkg_libdir}
+%endif
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/bin
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/include
@@ -189,6 +198,9 @@ mkdir -p %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocm/include
 %dir %{pkg_prefix}/%{pkg_libdir}/rocm/gfx1201/lib/cmake
 
 %changelog
+* Tue Mar 10 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- merge rocm-filesystem7.2 back
+
 * Tue Feb 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Add --with compat
 
