@@ -19,10 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+%global upstreamname amdsmi
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
-%global upstreamname amdsmi
 
 %bcond_with compat
 %if %{with compat}
@@ -53,7 +63,11 @@
 
 Name:       amdsmi%{pkg_suffix}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+%if %{with preview}
+Release:    0%{?dist}
+%else
+Release:    4%{?dist}
+%endif
 Summary:    AMD System Management Interface
 
 License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note)
@@ -62,8 +76,8 @@ License:    MIT AND (GPL-2.0-only WITH Linux-syscall-note)
 # This file is GPL-2.0
 # include/amd_smi/impl/amd_hsmp.h
 
-URL:        https://github.com/ROCm/%{upstreamname}
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # esmi_ib_library is not suitable for packaging
 # https://github.com/amd/esmi_ib_library/issues/13
 # This tag was choosen by the amdsmi project because 4.0+ introduced variables not
@@ -79,7 +93,10 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: kernel-devel
 BuildRequires: libdrm-devel
+# No python install in compat mode.
+%if %{without compat}
 BuildRequires: python3-devel
+%endif
 BuildRequires: rocm-filesystem%{pkg_suffix}
 
 %if %{with test}
@@ -90,7 +107,9 @@ BuildRequires: gtest-devel
 %endif
 %endif
 
+%if %{without compat}
 Requires:      python3dist(pyyaml)
+%endif
 
 # University of Illinois/NCSA Open Source License
 Provides: bundled(esmi_ib_library) = %{esmi_ver}
@@ -118,7 +137,7 @@ Requires:       libdrm-devel
 %endif
 
 %prep
-%autosetup -n %{upstreamname}-rocm-%{version} -p1
+%autosetup -p1 -n %{upstreamname}
 tar xf %{SOURCE1}
 mv esmi_ib_library-* esmi_ib_library
 # So we can pick up this license
@@ -169,6 +188,7 @@ sed -i 's@set(SHARE_INSTALL_PREFIX@#set(SHARE_INSTALL_PREFIX@' CMakeLists.txt
 %install
 %cmake_install
 
+%if %{without compat}
 mkdir -p %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
 if [ -d %{buildroot}%{pkg_prefix}/share/amd_smi/amdsmi ]; then
     mv %{buildroot}%{pkg_prefix}/share/amd_smi/amdsmi %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
@@ -177,6 +197,20 @@ else
     mv %{buildroot}%{pkg_prefix}/share/amdsmi %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
     mv %{buildroot}%{pkg_prefix}/share/pyproject.toml %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/
 fi
+
+# W: unstripped-binary-or-object /usr/lib/python3.13/site-packages/amdsmi/libamd_smi.so
+# Does an explict open, so can not just rm it
+# let's just strip it
+strip %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/*.so
+# E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
+chmod a+x %{buildroot}/%{pkg_prefix}/libexec/amdsmi_cli/amdsmi_*.py
+
+%else
+rm -f %{buildroot}/%{pkg_prefix}/bin/amd-smi
+rm -rf %{buildroot}/%{pkg_prefix}/libexec/amdsmi_cli
+rm -rf %{buildroot}/%{pkg_prefix}/share/amdsmi
+rm -rf %{buildroot}/%{pkg_prefix}/share/pyproject.toml
+%endif
 
 # Remove some things
 rm -rf %{buildroot}/%{pkg_prefix}/share/example
@@ -189,13 +223,6 @@ rm -f %{buildroot}%{pkg_prefix}/share/_version.py
 rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/_version.py
 rm -f %{buildroot}%{pkg_prefix}/share/setup.py
 rm -f %{buildroot}%{pkg_prefix}/share/amd_smi/setup.py
-
-# W: unstripped-binary-or-object /usr/lib/python3.13/site-packages/amdsmi/libamd_smi.so
-# Does an explict open, so can not just rm it
-# let's just strip it
-strip %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/*.so
-# E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
-chmod a+x %{buildroot}/%{pkg_prefix}/libexec/amdsmi_cli/amdsmi_*.py
 
 %if %{with test}
 # put the test files in a reasonable place
@@ -214,9 +241,11 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %license esmi_ib_library_License.txt 
 %{pkg_prefix}/%{pkg_libdir}/libamd_smi.so.*
 %{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.*
+%if %{without compat}
 %{pkg_prefix}/bin/amd-smi
 %{pkg_prefix}/libexec/amdsmi_cli
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
+%endif
 
 %files devel
 %{pkg_prefix}/include/amd_smi/
@@ -231,6 +260,13 @@ mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 %endif
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- No python for compat
+
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Add --with preview
+- Change URL to rocm-systems
+
 * Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - Update license
 

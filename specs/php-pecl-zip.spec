@@ -114,6 +114,7 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 %files
 %license LICENSE
+%doc composer.json
 %doc CREDITS
 %doc examples
 

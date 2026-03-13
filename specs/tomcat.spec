@@ -1,7 +1,7 @@
 %global jspspec 3.1
 %global major_version 10
 %global minor_version 1
-%global micro_version 47
+%global micro_version 52
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 6.0
 %global elspec 5.0
@@ -367,7 +367,7 @@ ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 %{baseconfdir}
 %{baselogdir}
 %{workdir}
-%attr(2770,tomcat,adm) %dir %{logdir}
+%attr(2750,tomcat,adm) %dir %{logdir}
 %attr(750,tomcat,tomcat) %dir %{cachedir}
 %attr(2775,tomcat,tomcat) %dir %{appdir}
 %attr(2775,tomcat,tomcat) %dir %{appdir}-javaee

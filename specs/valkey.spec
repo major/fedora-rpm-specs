@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           9.0.3
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -33,6 +33,9 @@ Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_versio
 Patch0:            %{name}-conf.patch
 # Workaround to https://github.com/valkey-io/valkey/issues/2678
 Patch1:            %{name}-loadmod.patch
+# Properly inherits linker flags for modules
+# See https://github.com/valkey-io/valkey/pull/3344
+Patch2:            %{name}-bindnow.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -184,6 +187,7 @@ Provides:          redis-doc = %{version}-%{release}
 %setup -n %{name}-%{version} -a50
 %patch -P0 -p1 -b .rpm
 %patch -P1 -p1 -b .loadmod
+%patch -P2 -p1 -b .bindnow
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -443,6 +447,10 @@ fi
 
 
 %changelog
+* Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 9.0.3-2
+- fix module linker flags using patch from
+  https://github.com/valkey-io/valkey/pull/3344
+
 * Tue Feb 24 2026 Remi Collet <remi@remirepo.net> - 9.0.3-1
 - Valkey 9.0.3 - February 23, 2026
 - Upgrade urgency SECURITY: This release includes security fixes

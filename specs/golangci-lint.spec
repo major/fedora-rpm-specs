@@ -3,7 +3,7 @@
 
 # https://github.com/golangci/golangci-lint
 %global goipath         github.com/golangci/golangci-lint/v2
-Version:                2.11.2
+Version:                2.11.3
 
 %gometa -L -f
 

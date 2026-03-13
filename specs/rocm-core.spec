@@ -20,8 +20,18 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocm-core
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -47,11 +57,15 @@
 
 Name:           %{core_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        2%{?dist}
+%endif
 Summary:        A utility to get the ROCm release version
 License:        MIT
 URL:            https://github.com/ROCm/rocm-systems
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -119,6 +133,9 @@ find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 %{pkg_prefix}/%{pkg_libdir}/cmake/rocm-core/
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Add --with preview
+
 * Thu Jan 29 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

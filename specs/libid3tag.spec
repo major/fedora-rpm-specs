@@ -32,6 +32,8 @@ ID3 tag library development files.
 %autosetup -p1 -n %{name}
 
 %build
+# FIXME: fixed upstream in next release
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

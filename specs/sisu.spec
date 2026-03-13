@@ -2,18 +2,15 @@
 
 Name:           sisu
 Epoch:          1
-Version:        0.9.0~M3
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Eclipse dependency injection framework
-# sisu is EPL-1.0, the bundled asm is BSD
-License:        EPL-1.0 AND BSD-3-Clause
+License:        EPL-2.0
 URL:            https://eclipse.org/sisu/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/eclipse-sisu/sisu-project/archive/refs/tags/milestones/0.9.0.M3.tar.gz#/sisu-%{version}.tar.gz
-
-Patch:          0001-Add-ASM-support-for-Java-24-and-25.patch
+Source0:        https://github.com/eclipse-sisu/sisu-project/archive/refs/tags/releases/%{version}.tar.gz#/sisu-%{version}.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -32,22 +29,22 @@ BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-build-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
-BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.osgi:osgi.core)
+BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-nop)
-BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 BuildRequires:  mvn(org.testng:testng)
 %endif
+
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1:0.9.0~M3-14
 Provides:       %{name}-inject = %{epoch}:%{version}-%{release}
 Provides:       %{name}-plexus = %{epoch}:%{version}-%{release}
-Provides:       bundled(objectweb-asm)
 
 %description
 Java dependency injection framework with backward support for plexus and bean
@@ -68,7 +65,6 @@ META-INF/sisu/javax.inject.Named index files for the Sisu container.
 
 %pom_remove_dep :junit-bom
 %pom_change_dep :plexus-utils :::provided org.eclipse.sisu.plexus
-%pom_change_dep :plexus-xml :::provided org.eclipse.sisu.plexus
 
 %pom_remove_plugin -r :bnd-maven-plugin
 %pom_remove_plugin -r :maven-jar-plugin
@@ -76,10 +72,15 @@ META-INF/sisu/javax.inject.Named index files for the Sisu container.
 %pom_remove_plugin -r :maven-enforcer-plugin
 %pom_remove_plugin -r :maven-dependency-plugin
 %pom_remove_plugin -r :maven-clean-plugin
+%pom_remove_plugin -r :spotless-maven-plugin
+%pom_remove_plugin -r :maven-invoker-plugin
+%pom_remove_plugin :sisu-maven-plugin .
+
+%pom_xpath_remove "pom:build/pom:extensions"
 
 %mvn_package :sisu-maven-plugin maven-plugin
-%mvn_alias :org.eclipse.sisu.inject :::no_asm:
 %mvn_alias :org.eclipse.sisu.plexus org.sonatype.sisu:sisu-inject-plexus org.codehaus.plexus:plexus-container-default
+%mvn_alias :org.eclipse.sisu.inject :::no_asm:
 
 %build
 %mvn_build -j -f

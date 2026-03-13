@@ -6,7 +6,7 @@
 
 Name:           lib%{libname}
 Version:        0.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Terminal Interface Construction Kit
 
 License:        MIT
@@ -64,6 +64,9 @@ rm -vf %{buildroot}%{_libdir}/*.{a,la}
 %check
 CFLAGS="%{__global_cflags} -D_XOPEN_SOURCE" LDFLAGS="%{__global_ldflags}" make test VERBOSE=1
 make examples
+# Clean compiled examples before packaging
+rm -rf examples/.libs
+rm -fr examples/*.o
 
 %files
 %license LICENSE
@@ -80,6 +83,10 @@ make examples
 %{_mandir}/man7/%{libname}_*.7*
 
 %changelog
+* Wed Mar 11 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.4.6-2
+- Remove .libs directory from examples
+- Remove .o files from examples
+
 * Tue Mar 10 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.4.6-1
 - 0.4.6 bump (rhbz#2446021)
 

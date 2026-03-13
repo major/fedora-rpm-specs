@@ -191,6 +191,7 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 %files
 %license LICENSE
+%doc composer.json
 %doc CREDITS
 %doc CONTRIBUTING.rst
 %doc README.rst

@@ -1546,7 +1546,7 @@ popd
 # Transform the libreoffice-*.desktop files into
 # org.libreoffice.LibreOffice.*.desktop ones:
 solenv/bin/assemble-flatpak-desktop.sh %{buildroot}%{_datadir}/applications/ \
- %{buildroot}%{_datadir}/applications/
+ %{buildroot}%{_datadir}/applications/ org.libreoffice.LibreOffice
 rm %{buildroot}%{_datadir}/applications/libreoffice-*.desktop
 %endif
 
@@ -1645,7 +1645,7 @@ export DESTDIR=%{buildroot}
 # Assemble the libreoffice-*.appdata.xml files into a single
 # org.libreoffice.LibreOffice.appdata.xml:
 solenv/bin/assemble-flatpak-appdata.sh \
- %{buildroot}%{_datadir}/metainfo/ 0
+ %{buildroot}%{_datadir}/metainfo/ 0 org.libreoffice.LibreOffice
 rm %{buildroot}%{_datadir}/metainfo/libreoffice-*.appdata.xml
 %endif
 

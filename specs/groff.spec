@@ -2,8 +2,8 @@
 
 Summary: A document formatting system
 Name: groff
-Version: 1.23.0
-Release: 12%{?dist}
+Version: 1.24.0
+Release: 1%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -53,8 +53,6 @@ Patch0: 0001-missing-groff-x11-info-message-when-gxditview-not-fo.patch
 Patch1: 0002-load-site-font-and-site-tmac-from-etc-groff.patch
 # resolves: #709413, #720058, #720057
 Patch2: 0003-various-security-fixes.patch
-# resolves: #987069
-Patch3: 0004-don-t-use-usr-bin-env-in-shebang.patch
 # allow to specify custom docdir
 Patch4: 0005-do-not-overwrite-docdir.patch
 # Revert upstream change of mapping special characters for UTF-8 devices
@@ -249,12 +247,10 @@ fi
 
 %files
 # data
-%{_datadir}/%{name}/%{version}/font/devcp1047/
 %{_datadir}/%{name}/%{version}/font/devdvi/
 %{_datadir}/%{name}/%{version}/font/devlbp/
 %{_datadir}/%{name}/%{version}/font/devlj4/
 %{_datadir}/%{name}/%{version}/oldfont/
-%{_datadir}/%{name}/%{version}/pic/
 %{_datadir}/%{name}/%{version}/tmac/62bit.tmac
 %{_datadir}/%{name}/%{version}/tmac/dvi.tmac
 %{_datadir}/%{name}/%{version}/tmac/e.tmac
@@ -272,13 +268,11 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/ms.tmac
 %{_datadir}/%{name}/%{version}/tmac/mse.tmac
 %{_datadir}/%{name}/%{version}/tmac/om.tmac
-%{_datadir}/%{name}/%{version}/tmac/pdfmark.tmac
 %{_datadir}/%{name}/%{version}/tmac/refer-me.tmac
 %{_datadir}/%{name}/%{version}/tmac/refer-mm.tmac
 %{_datadir}/%{name}/%{version}/tmac/refer-ms.tmac
 %{_datadir}/%{name}/%{version}/tmac/refer.tmac
 %{_datadir}/%{name}/%{version}/tmac/s.tmac
-%{_datadir}/%{name}/%{version}/tmac/spdf.tmac
 %{_datadir}/%{name}/%{version}/tmac/trace.tmac
 %{_datadir}/%{name}/%{version}/tmac/zh.tmac
 # programs
@@ -294,7 +288,6 @@ fi
 %{_bindir}/indxbib
 %{_bindir}/lkbib
 %{_bindir}/lookbib
-%{_bindir}/pdfroff
 %{_bindir}/pfbtops
 %{_bindir}/pic2graph
 %{_bindir}/refer
@@ -312,7 +305,6 @@ fi
 %{_mandir}/man1/indxbib.*
 %{_mandir}/man1/lkbib.*
 %{_mandir}/man1/lookbib.*
-%{_mandir}/man1/pdfroff.*
 %{_mandir}/man1/pfbtops.*
 %{_mandir}/man1/pic2graph.*
 %{_mandir}/man1/refer.*
@@ -353,7 +345,6 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/an.tmac
 %{_datadir}/%{name}/%{version}/tmac/andoc.tmac
 %{_datadir}/%{name}/%{version}/tmac/composite.tmac
-%{_datadir}/%{name}/%{version}/tmac/cp1047.tmac
 %{_datadir}/%{name}/%{version}/tmac/cs.tmac
 %{_datadir}/%{name}/%{version}/tmac/de.tmac
 %{_datadir}/%{name}/%{version}/tmac/den.tmac
@@ -374,13 +365,15 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/hyphen.sv
 %{_datadir}/%{name}/%{version}/tmac/hyphen.en
 %{_datadir}/%{name}/%{version}/tmac/hyphen.it
+%{_datadir}/%{name}/%{version}/tmac/hyphen.es
+%{_datadir}/%{name}/%{version}/tmac/hyphen.pl
+%{_datadir}/%{name}/%{version}/tmac/hyphen.ru
 %{_datadir}/%{name}/%{version}/tmac/hyphenex.cs
 %{_datadir}/%{name}/%{version}/tmac/hyphenex.en
 %{_datadir}/%{name}/%{version}/tmac/ja.tmac
 %{_datadir}/%{name}/%{version}/tmac/ptx.tmac
 %{_datadir}/%{name}/%{version}/tmac/it.tmac
 %{_datadir}/%{name}/%{version}/tmac/rfc1345.tmac
-%{_datadir}/%{name}/%{version}/tmac/sanitize.tmac
 %{_datadir}/%{name}/%{version}/tmac/sboxes.tmac
 %{_datadir}/%{name}/%{version}/tmac/latin1.tmac
 %{_datadir}/%{name}/%{version}/tmac/latin2.tmac
@@ -404,6 +397,12 @@ fi
 %{_datadir}/%{name}/%{version}/tmac/tty-char.tmac
 %{_datadir}/%{name}/%{version}/tmac/tty.tmac
 %{_datadir}/%{name}/%{version}/tmac/www.tmac
+%{_datadir}/%{name}/%{version}/tmac/ru.tmac
+%{_datadir}/%{name}/%{version}/tmac/es.tmac
+%{_datadir}/%{name}/%{version}/tmac/pl.tmac
+%{_datadir}/%{name}/%{version}/tmac/koi8-r.tmac
+%{_datadir}/%{name}/%{version}/tmac/psfig.tmac
+%{_datadir}/%{name}/%{version}/tmac/chem.pic
 # programs
 %{_bindir}/eqn
 %{_bindir}/groff
@@ -495,12 +494,15 @@ fi
 %doc %{_pkgdocdir}/*.ms
 %doc %{_pkgdocdir}/groff*
 %doc %{_pkgdocdir}/me-revisions
-%doc %{_pkgdocdir}/automake.pdf
 %doc %{_pkgdocdir}/examples/
 %doc %{_pkgdocdir}/html/
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Tue Mar 03 2026 Lukas Javorsky <ljavorsk@redhat.com> - 1.24.0-1
+- Rebase to version 1.24.0
+- pdfmark/pdfroff stopped being distributed
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

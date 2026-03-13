@@ -19,10 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+%global upstreamname rocm-smi-lib
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
-%global upstreamname rocm-smi-lib
 
 %bcond_with compat
 %if %{with compat}
@@ -49,12 +59,16 @@
 
 Name:       %{pkg_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+%if %{with preview}
+Release:    0%{?dist}
+%else
+Release:    2%{?dist}
+%endif
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
 URL:        https://github.com/ROCm/rocm-systems
-Source0:    %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 %if 0%{?rhel} || 0%{?suse_version}
 ExclusiveArch:  x86_64
@@ -165,6 +179,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-smi-lib/LICENSE.md
 %endif
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
+- Add --with preview
+
 * Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
 - Update to 7.2.0
 

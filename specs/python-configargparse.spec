@@ -1,5 +1,5 @@
 Name:           python-configargparse
-Version:        1.7.3
+Version:        1.7.5
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 
@@ -44,12 +44,20 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-configargparse yaml
 
 
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
 %check -a
 %pytest -v -rs
 
 
 %files -n python3-configargparse -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 
 %changelog

@@ -5,11 +5,11 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort f1ea709
+%define gitshort eb3ee43
 
 Name:          bcm283x-firmware
-Version:       20251217
-Release:       1.%{gitshort}%{?dist}
+Version:       20260306
+Release:       2.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -21,93 +21,124 @@ ExclusiveArch: aarch64
 
 BuildRequires: efi-filesystem
 BuildRequires: efi-srpm-macros
+BuildRequires: systemd-rpm-macros
 Requires:      efi-filesystem
 Requires:      bcm283x-overlays
 Requires:      bcm2835-firmware
 Requires:      bcm2711-firmware
+Requires:      bcm2712-firmware
 
 Source0:       %{name}-%{gitshort}.tar.xz
-Source1:       config.txt
+Source1:       bcm-dtbs-v6.12.75.tar.xz
+Source2:       config.txt
+Source3:       nortc-time.service
+Source4:       cma.dtbo
 
-# This reverts a FW DT commit that doesn't have the corresponding change in the upstream kernel
-# https://github.com/raspberrypi/linux/commit/0491a0aecb999b1a013ad4a6ad3816c535ac6e73
-Source10:      bcm2711-rpi-400.dtb
-Source11:      bcm2711-rpi-4-b.dtb
-Source12:      bcm2711-rpi-cm4.dtb
-Source13:      bcm2711-rpi-cm4-io.dtb
-Source14:      bcm2711-rpi-cm4s.dtb
 
 %description
 Firmware for the Broadcom bcm283x and bcm2711 series of systems on a chip as
 shipped in the Raspberry Pi series of devices.
 
-%package     -n bcm283x-overlays
-Summary:     HAT Overlays for the Raspberry Pi
-License:     GPL-2.0-only WITH Linux-syscall-note
+%package -n bcm283x-overlays
+Summary:       HAT Overlays for the Raspberry Pi
+License:       GPL-2.0-only WITH Linux-syscall-note
 
 %description -n bcm283x-overlays
 Hardware Attached Ontop (HATs) overlays for the Raspberry Pi series of devices.
 
-%package     -n bcm2835-firmware
-Summary:     Firmware for the Raspberry Pi 2, 3, 3+ and CM3
-Requires:    bcm283x-firmware
-Requires:    bcm283x-overlays
+%package -n bcm2835-firmware
+Summary:       Firmware for the Raspberry Pi 2, 3, 3+ and CM3
+Requires:      efi-filesystem
+Requires:      bcm283x-firmware
+Requires:      bcm283x-overlays
 
 %description -n bcm2835-firmware
 Firmware for the Raspberry Pi 3 series (3, 3+ and CM3) and Zero2W
 
-%package     -n bcm2711-firmware
-Summary:     Firmware for the Raspberry Pi 4 and CM4
-Requires:    bcm283x-firmware
-Requires:    bcm283x-overlays
+%package -n bcm2711-firmware
+Summary:       Firmware for the Raspberry Pi 4 series of devices
+Requires:      efi-filesystem
+Requires:      bcm283x-firmware
+Requires:      bcm283x-overlays
 
 %description -n bcm2711-firmware
-Firmware for the Raspberry Pi 4 and CM4
+Firmware for the Raspberry Pi 4 series of devices such as the
+Raspberry Pi 4B, 400 and CM4.
+
+%package -n bcm2712-firmware
+Summary:       Firmware for the Raspberry Pi 5 series of devices
+Requires:      efi-filesystem
+Requires:      bcm283x-firmware
+Requires:      bcm283x-overlays
+
+%description -n bcm2712-firmware
+Firmware for the Raspberry Pi 5 series of devices such as the
+Raspberry Pi 5B, 500 and CM5.
 
 
 %prep
 %setup -q -n %{name}-%{gitshort} -c %{name}-%{gitshort}
+cp %{SOURCE4} overlays
+rm -rf *dtb
+tar xf %{SOURCE1}
 
 %build
 
 %install
 mkdir -p %{buildroot}%{efi_esp_root}/overlays
-install -p %{SOURCE1} %{buildroot}%{efi_esp_root}/config.txt
+install -p %{SOURCE2} %{buildroot}%{efi_esp_root}/config.txt
+mkdir -p %{buildroot}%{_unitdir}/
+install -p %{SOURCE3} %{buildroot}%{_unitdir}/nortc-time.service
 install -p *bin %{buildroot}%{efi_esp_root}
 install -p *dat %{buildroot}%{efi_esp_root}
 install -p *elf %{buildroot}%{efi_esp_root}
 install -p bcm2710*dtb %{buildroot}%{efi_esp_root}
-# Rebuilding due to non upstream DMA40 problems with sound
-# install -p bcm2711*dtb %{buildroot}%{efi_esp_root}
+install -p bcm2711*dtb %{buildroot}%{efi_esp_root}
 install -p bcm2712*dtb %{buildroot}%{efi_esp_root}
 install -p overlays/README %{buildroot}%{efi_esp_root}/overlays
 install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 
-install -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{buildroot}%{efi_esp_root}
 
 %files
-# DT Overlays covered under Linux Kernel GPLv2
 %license LICENCE.broadcom COPYING.linux
 %config(noreplace) %{efi_esp_root}/config.txt
 %{efi_esp_root}/bootcode.bin
+%{_unitdir}/nortc-time.service
+%dir %{efi_esp_root}/overlays
+%{efi_esp_root}/overlays/cma.dtbo
 
 %files -n bcm283x-overlays
-%{efi_esp_root}/overlays
+# DT Overlays covered under Linux Kernel GPLv2
+%license COPYING.linux
+%dir %{efi_esp_root}/overlays
+%{efi_esp_root}/overlays/*
 
 %files -n bcm2835-firmware
+%license LICENCE.broadcom
 %{efi_esp_root}/bcm2710*
-%{efi_esp_root}/fixup*
-%{efi_esp_root}/start*
-%exclude %{efi_esp_root}/fixup4*
-%exclude %{efi_esp_root}/start4*
+%{efi_esp_root}/fixup[_.]*
+%{efi_esp_root}/start[_.]*
 
 %files -n bcm2711-firmware
+%license LICENCE.broadcom
 %{efi_esp_root}/bcm2711*
-%{efi_esp_root}/bcm2712*
 %{efi_esp_root}/fixup4*
 %{efi_esp_root}/start4*
 
+%files -n bcm2712-firmware
+%license LICENCE.broadcom
+%{efi_esp_root}/bcm2712*
+
 %changelog
+* Wed Mar 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260306-2.eb3ee43
+- Just rebuild all the platform DTS and be done with it!
+
+* Wed Mar 11 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260306-1.eb3ee43
+- Update to latest firmware
+- Split out RPi5 bits to a new sub-package
+- Update sub package license details
+- Initial No RTC service for no RTC systems
+
 * Thu Jan 01 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20251217-1.f1ea709
 - Update to latest firmware
 

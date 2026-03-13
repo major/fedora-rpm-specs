@@ -20,16 +20,19 @@
 # THE SOFTWARE.
 #
 
-%bcond_with gitcommit
-%if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
-%endif
-
 %global upstreamname rocthrust
+
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 7.11
+%global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
 %global rocm_patch 0
+%global pkg_src rocm-%{rocm_release}.%{rocm_patch}
+%endif
+
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -67,12 +70,11 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           rocthrust%{pkg_suffix}
-%if %{with gitcommit}
-Version:        git%{date0}.%{shortcommit0}
-Release:        2%{?dist}
-%else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        3%{?dist}
 %endif
 Summary:        ROCm Thrust library
 
@@ -97,11 +99,7 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 
 URL:            https://github.com/ROCm/rocm-libraries
 
-%if %{with gitcommit}
-Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
-%else
-Source0:        %{url}/releases/download/rocm-%{version}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -139,12 +137,7 @@ Provides:       %{name}-static = %{version}-%{release}
 The %{upstreamname} development package.
 
 %prep
-%if %{with gitcommit}
-%setup -q -n rocm-libraries-%{commit0}
-cd projects/rocthrust
-%else
 %autosetup -n %{upstreamname} -p1
-%endif
 
 #
 # The ROCMExportTargetsHeaderOnly.cmake file
@@ -153,10 +146,6 @@ cd projects/rocthrust
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR share/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
-%if %{with gitcommit}
-cd projects/rocthrust
-%endif
-
 
 %if %{with check}
 # Building all the gpu's does not make sense
@@ -183,9 +172,6 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %cmake_build
 
 %install
-%if %{with gitcommit}
-cd projects/rocthrust
-%endif
 
 %cmake_install
 
@@ -198,19 +184,16 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocthrust/LICENSE
 %endif
 
 %files devel
-%if %{with gitcommit}
-%doc projects/rocthrust/README.md
-%license projects/rocthrust/LICENSE
-%license projects/rocthrust/NOTICES.txt
-%else
 %doc README.md
 %license LICENSE
 %license NOTICES.txt
-%endif
 %{pkg_prefix}/include/thrust
 %{pkg_prefix}/share/cmake/rocthrust/
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
+- Change --with gitcommit to preview
+
 * Sun Feb 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
 - change cmake install location
 - fix whitespace

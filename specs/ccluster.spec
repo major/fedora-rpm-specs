@@ -9,6 +9,8 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/rimbach/Ccluster
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Public definition of type "number" breaks the Singular build
+Patch:          %{name}-number.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

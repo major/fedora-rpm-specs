@@ -165,7 +165,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -472,7 +472,9 @@ export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
 rm -f %{buildroot}%{pkg_prefix}/share/doc/rocblas/LICENSE.md
 
 # rocblas.x86_64: W: unstripped-binary-or-object /usr/lib64/rocblas/library/Kernels.so-000-gfx1010.hsaco
-%{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocblas/library/*.hsaco
+# The below stripping silience rpmlint but is reported to cause runtime problems
+# So do not strip
+# %{rocmllvm_bindir}/llvm-strip %{buildroot}%{pkg_prefix}/%{pkg_libdir}/rocblas/library/*.hsaco
 
 %check
 %if %{with test}
@@ -506,6 +508,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
+- Do not strip hsaco files
+
 * Sat Mar 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
 - Change --with gitcommit to preview
 - Use rocm-libraries for tensile source

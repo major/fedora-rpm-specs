@@ -422,7 +422,6 @@ exporting of your meetings or all your calendars.
 
 %prep
 %setup -q
-%patch 1 -p1 -b .thawtest
 
 %if 0%{?fedora} > 20
 %patch 11 -p1 -b.syscrypto

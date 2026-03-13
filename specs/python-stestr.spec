@@ -10,8 +10,8 @@ which enabled testr to work with any subunit emitting runner are gone. \
 stestr hard codes python-subunit-isms into how it works.
 
 Name:       python-%{pypi_name}
-Version:    4.1.0
-Release:    12%{?dist}
+Version:    4.2.1
+Release:    1%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -26,10 +26,20 @@ BuildArch:  noarch
 
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        A test runner runner similar to testrepository
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 BuildRequires:    python%{python3_pkgversion}-devel
 BuildRequires:    git-core
+# auto-dependency generation is failing
+BuildRequires:    python%{python3_pkgversion}-flit-core
+BuildRequires:    python%{python3_pkgversion}-pip
+BuildRequires:    python%{python3_pkgversion}-cliff
+BuildRequires:    python%{python3_pkgversion}-subunit
+BuildRequires:    python%{python3_pkgversion}-fixtures
+BuildRequires:    python%{python3_pkgversion}-testtools
+BuildRequires:    python%{python3_pkgversion}-voluptuous
+BuildRequires:    python%{python3_pkgversion}-tomlkit
+BuildRequires:    python%{python3_pkgversion}-pytest
+BuildRequires:    python%{python3_pkgversion}-ddt
 
 Requires:   python%{python3_pkgversion}-pbr
 Requires:   python%{python3_pkgversion}-subunit >= 1.4.0
@@ -64,27 +74,16 @@ Summary:        stestr documentation
 It contains the documentation for stestr.
 %endif
 
-%generate_buildrequires
-%pyproject_buildrequires -t %{!?with_bootstrap:-x sql}
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -S git
-sed -i '/doc8.*/d' test-requirements.txt
-sed -i '/hacking.*/d' test-requirements.txt
-sed -i '/black.*/d' test-requirements.txt
-# Replace removed SafeConfigParser with ConfigParser
-# Upstream: https://github.com/mtreinish/stestr/pull/344
-sed -i 's/SafeConfigParser/ConfigParser/' stestr/commands/run.py
+
+%generate_buildrequires
+%pyproject_buildrequires %{!?with_bootstrap:-x sql}
 
 %build
 %pyproject_wheel
 
-%if 0%{?with_doc}
-# generate html docs
-PYTHONPATH=%{pyproject_build_lib} sphinx-build doc/source doc/build/html
-# remove the sphinx-build leftovers
-rm -rf doc/build/html/.{doctrees,buildinfo}
-%endif
 
 %install
 %pyproject_install
@@ -94,7 +93,8 @@ ln -s stestr %{buildroot}/%{_bindir}/stestr-3
 ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
 
 %check
-%tox
+%pyproject_check_import -t
+%pytest -k "not test_empty_with_pretty_out"
 
 %files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
@@ -105,14 +105,17 @@ ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
 %{python3_sitelib}/%{pypi_name}/repository/sql.py
 %endif
 
+# Retaining doc package for now, though upstream docs are stale.
 %if 0%{?with_doc}
 %files -n python-%{pypi_name}-doc
 %license LICENSE
 %doc README.rst
-%doc doc/build/html
 %endif
 
 %changelog
+* Mon Mar 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
+- 4.2.1
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

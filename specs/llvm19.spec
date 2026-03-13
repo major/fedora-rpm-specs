@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -1158,7 +1158,7 @@ sed -i 's/LLDB_ENABLE_PYTHON/TRUE/' lldb/docs/CMakeLists.txt
 # TODO(kkleine): In clang we had this %ifarch s390 s390x aarch64 %ix86 ppc64le
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking.
 %global reduce_debuginfo 0
-%ifarch %ix86
+%ifarch %ix86 riscv64
 %global reduce_debuginfo 1
 %endif
 %if 0%{?rhel} == 8
@@ -1171,7 +1171,11 @@ sed -i 's/LLDB_ENABLE_PYTHON/TRUE/' lldb/docs/CMakeLists.txt
 %endif
 
 %global projects clang;clang-tools-extra;lld
-%global runtimes compiler-rt;openmp;offload
+%global runtimes compiler-rt;openmp
+# riscv64 does not support the offloading plugins.
+%ifnarch riscv64
+%global runtimes %{runtimes};offload
+%endif
 
 %if %{with lldb}
 %global projects %{projects};lldb
@@ -1221,7 +1225,7 @@ export ASMFLAGS="%{build_cflags}"
 
 # Disable dwz on aarch64, because it takes a huge amount of time to decide not to optimize things.
 # This is copied from clang.
-%ifarch aarch64
+%ifarch aarch64 riscv64
 %define _find_debuginfo_dwz_opts %{nil}
 %endif
 
@@ -1726,7 +1730,7 @@ rm -rf %{buildroot}/%{install_datadir}/gdb
 # chmod go+w %{buildroot}/%{_datarootdir}/gdb/python/ompd/ompdModule.so
 # chmod +w %{buildroot}/%{_datarootdir}/gdb/python/ompd/ompdModule.so
 
-%ifnarch %{ix86}
+%ifnarch %{ix86} riscv64
 # Remove files that we don't package, yet.
 %if %{maj_ver} >= 20
 rm %{buildroot}%{install_bindir}/llvm-offload-device-info
@@ -2833,7 +2837,7 @@ fi
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtend.o
 %endif
 
-%ifnarch %{ix86} s390x
+%ifnarch %{ix86} s390x riscv64
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
 %endif
 
@@ -2853,9 +2857,9 @@ fi
     libompd.so
     libarcher.so
 }}
-%ifnarch %{ix86}
+%ifnarch %{ix86} riscv64
 # libomptarget is not supported on 32-bit systems.
-# s390x does not support the offloading plugins.
+# riscv64 does not support the offloading plugins.
 %expand_libs libomptarget.so.%{so_suffix}
 %if %{maj_ver} >= 20
 %expand_libs libLLVMOffload.so.%{so_suffix}
@@ -2870,9 +2874,9 @@ fi
 %{_prefix}/lib/clang/%{maj_ver}/include/ompt.h
 %{_prefix}/lib/clang/%{maj_ver}/include/ompt-multiplex.h
 %expand_libs cmake/openmp
-%ifnarch %{ix86}
+%ifnarch %{ix86} riscv64
 # libomptarget is not supported on 32-bit systems.
-# s390x does not support the offloading plugins.
+# riscv64 does not support the offloading plugins.
 %expand_libs libomptarget.devicertl.a
 %if %{maj_ver} >= 20
 %expand_libs libomptarget-amdgpu*.bc
@@ -3123,6 +3127,9 @@ fi
 
 #region changelog
 %changelog
+* Mon Mar 09 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 19.1.7-17
+- Add support for riscv64 based on patch by David Abdurachmanov
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

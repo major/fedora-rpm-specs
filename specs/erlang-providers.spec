@@ -8,7 +8,7 @@ License:  Apache-2.0
 URL:      https://github.com/tsloughter/%{realname}
 VCS:      git:%{url}.git
 Source0:  %{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-BuildArch:  noarch
+BuildArch: noarch
 BuildRequires: erlang-erlware_commons
 BuildSystem: rebar3
 

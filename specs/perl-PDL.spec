@@ -2,13 +2,13 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.100
-Version:        2.100.0
-Release:        4%{?dist}
+%global cpan_version 2.103
+Version:        2.103.0
+Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
-Source0:        https://cpan.metacpan.org/modules/by-module/PDL/PDL-%{cpan_version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETJ/PDL-%{cpan_version}.tar.gz
 # Fix numbering of line in test when shebang is added
 Patch1:         PDL-2.72.0-Fix-numbering-of-line-in-test.patch
 BuildRequires:  coreutils
@@ -33,7 +33,6 @@ BuildRequires:  perl(File::Spec) >= 0.6
 BuildRequires:  perl(File::Which)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Pod::Select)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(vars)
@@ -66,7 +65,10 @@ BuildRequires:  perl(Math::Complex)
 BuildRequires:  perl(Module::Compile)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
-BuildRequires:  perl(Pod::PlainText)
+BuildRequires:  perl(Pod::Simple) >= 3.40
+BuildRequires:  perl(Pod::Simple::JustPod)
+BuildRequires:  perl(Pod::Simple::PullParser)
+BuildRequires:  perl(Pod::Text)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(SelfLoader)
@@ -110,6 +112,7 @@ Requires:       perl(Graph)
 Requires:       perl(Inline) >= 0.43
 #Requires:       perl(OpenGL) >= 0.70
 #Requires:       perl(OpenGL::GLUT) >= 0.72
+Requires:       perl(Pod::Simple) >= 3.40
 Requires:       perl(Text::Balanced) >= 2.05
 Provides:       perl(PDL::AutoLoader) = %{version}
 Provides:       perl(PDL::Config) = %{version}
@@ -222,6 +225,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.103.0-1
+- 2.103 bump (rhbz#2443721)
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.100.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

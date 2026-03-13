@@ -1,11 +1,11 @@
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %{!?tcl_sitelib: %global tcl_sitelib %{_datadir}/tcl%{tcl_version}}
 
 Summary: Widget extension to the Tcl/Tk scripting language
 Name: blt
 Version: 2.4
-Release: 74.z%{?dist}
+Release: 75.z%{?dist}
 
 License: MIT
 URL: http://sourceforge.net/projects/blt/
@@ -25,10 +25,12 @@ Patch10: blt-configure-c99.patch
 
 
 Provides: tk-blt = %{version}-%{release}
-BuildRequires: tk-devel >= 8.4.7 gcc
+# Not ready to tk/tcl9
+BuildRequires: (tk-devel >= 1:8.4.7 with tk-devel < 1:9) gcc
 BuildRequires: make
+BuildRequires: git
 
-Requires: tk >= 8.4.7
+Requires: (tk >= 1:8.4.7 with tk < 1:9)
 Requires: itcl
 Requires: tcl(abi) = 8.6
 
@@ -45,7 +47,7 @@ with Tcl/Tk versions after and including 8.3.1.
 
 %package devel
 Summary:        Development files for BLT
-Requires:       tcl-devel
+Requires:       (tk-devel >= 1:8.4.7 with tk-devel < 1:9)
 Requires:       %{name} = %{version}-%{release}
 
 %description devel
@@ -79,13 +81,17 @@ This package provides the html documentation for BLT
 %patch -P10 -p1
 
 # Fix bad interpreter path
-sed -i -e 's#/usr/local/bin/tclsh#/usr/bin/tclsh#' demos/scripts/page.tcl
+sed -i -e 's#/usr/local/bin/tclsh#/usr/bin/tclsh8#' demos/scripts/page.tcl
 
 # Rename a couple of files that conflict with other packages
 mv man/graph.mann man/bltgraph.mann
 mv man/bitmap.mann man/bltbitmap.mann
 
 %build
+# This package is not ready for C23, expeciallly for
+# C23 strict function prototype change
+%global  _pkg_extra_cflags -std=gnu17
+
 # fix RHBZ 1105266
 sed -i -e "s|SHLIB_LD_FLAGS='-rdynamic -shared -Wl,-E -Wl,-soname,\$@'|SHLIB_LD_FLAGS='-rdynamic -shared -Wl,-E -Wl,-soname,\$@ -ltk -ltcl'|" configure
 %configure --with-tcl=%{_libdir} --with-tk=%{_libdir} --with-blt=%{tcl_sitelib} --includedir=%{_includedir}/%{name}
@@ -95,9 +101,9 @@ make
 popd
 
 for file in demos/*.tcl ; do
-    sed -i -e 's#../src/bltwish#/usr/bin/wish#' $file
+    sed -i -e 's#../src/bltwish#/usr/bin/wish8#' $file
 done
-sed -i -e 's#../bltwish#/usr/bin/wish#' demos/scripts/xcolors.tcl
+sed -i -e 's#../bltwish#/usr/bin/wish8#' demos/scripts/xcolors.tcl
 
 %install
 make install INSTALL_ROOT=%{buildroot}
@@ -130,6 +136,10 @@ rm -rf %{buildroot}%{_mandir}/
 %{_includedir}/%{name}
 
 %changelog
+* Tue Mar 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4-75.z
+- Fix deps for tcl/tk8
+- Build with C17, not ready for C23
+
 * Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-74.z
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.31.0
+Version:	0.32.0
 Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
@@ -12,15 +12,8 @@ Summary:	Metakernel for Jupyter
 License:	BSD-3-Clause
 URL:		https://github.com/Calysto/metakernel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-#		Address failing tests with Python 3.13
-#		https://github.com/Calysto/metakernel/issues/279
-#		https://github.com/Calysto/metakernel/pull/280
-#		https://github.com/Calysto/metakernel/pull/342
-Patch0:		0001-Test-compatibility-with-Python-3.13.patch
-#		Fix testpaths for newer pytest versions
-#		https://github.com/pytest-dev/pytest/issues/12605
-#		https://github.com/Calysto/metakernel/pull/343
-Patch1:		0001-Fix-testpaths-for-newer-pytest-versions.patch
+#		https://github.com/Calysto/metakernel/pull/356
+Patch0:		0001-Clear-PS0-in-bash-REPL-wrapper.patch
 BuildArch:	noarch
 
 #		For testing:
@@ -66,7 +59,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	81%{?dist}
+Release:	82%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -77,7 +70,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	81%{?dist}
+Release:	82%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -89,7 +82,6 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 %prep
 %setup -q -n metakernel-%{pkgversion}
 %patch -P0 -p1
-%patch -P1 -p1
 # Allow older pytest versions
 sed -e /minversion/d -e /strict/d -i pyproject.toml
 
@@ -146,6 +138,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/metakernel_echo
 
 %changelog
+* Tue Mar 10 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.32.0-1
+- Update to version 0.32.0
+
 * Tue Mar 03 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.31.0-1
 - Update to version 0.31.0
 - Drop test package - tests are no longer installed

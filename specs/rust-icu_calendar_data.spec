@@ -20,6 +20,18 @@ Data for the icu_calendar crate.}
 
 %description %{_description}
 
+# The data in this package has been “baked” into Rust code using the
+# icu_datagen crate, which is built on top of the databake crate. For
+# guidelines compliance purpose, we consider these files to have more
+# properties of data than of generated code. For example, other than the static
+# byte buffers encoding the data, all of the Rust source code is boilerplate
+# produced by icu_datagen; it has no “original sources” outside of icu_datagen
+# in any meaningful sense, other than the original form of the Unicode data
+# itself, which is ultimately attributable to the CLDR
+# (https://github.com/unicode-org/cldr-json/) and/or the data files shipped
+# with ICU (https://github.com/unicode-org/icu/). Further details, discussion,
+# and rationale appear in https://bugzilla.redhat.com/show_bug.cgi?id=2358292.
+
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch

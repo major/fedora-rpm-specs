@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 13.07
+Version: 13.08
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 11 2026 Nick Clifton  <nickc@redhat.com> - 13.08-1
+- Annocheck: Change result of failing not-XXX tests from FAIL to MAYB.  Update documentation.
+
 * Tue Feb 24 2026 Nick Clifton  <nickc@redhat.com> - 13.07-1
 - Annocheck: Process the .ARM.attributes section.
 

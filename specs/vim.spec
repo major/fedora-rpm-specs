@@ -431,8 +431,8 @@ autoconf
 # with c23 due using `()` for callback arguments to be able to use callbacks with different number
 # of arguments in one function
 # reported upstream as https://github.com/vim/vim/issues/16575
-export CFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -std=c17"
-export CXXFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -std=c17"
+export CFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -std=c17"
+export CXXFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -std=c17"
 
 cp -f os_unix.h os_unix.h.save
 

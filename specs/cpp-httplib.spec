@@ -13,7 +13,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.37.0
+Version:        0.37.1
 %forgemeta
 Release:        %autorelease
 
@@ -22,10 +22,6 @@ License:        MIT
 URL:            https://github.com/yhirose/cpp-httplib
 VCS:            git:%{forgeurl0}
 Source0:        %forgesource
-
-# Upstream no longer supports 32 bits
-# https://github.com/yhirose/cpp-httplib/issues/2148
-ExcludeArch: %{ix86}
 
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc-c++
@@ -93,8 +89,13 @@ rm -r $RPM_BUILD_ROOT%{_licensedir}/httplib
 %if %{with online}
   %ctest --parallel 1
 %else
-  # ContentStream is unstable, https://bugzilla.redhat.com/show_bug.cgi?id=2433965
-  %ctest --parallel 1 --exclude-regex '^MaxTimeoutTest.ContentStream|_Online$'
+  %ifnarch %{ix86}
+    # ContentStream is unstable, https://bugzilla.redhat.com/show_bug.cgi?id=2433965
+    %ctest --parallel 1 --exclude-regex '^MaxTimeoutTest.ContentStream|_Online$'
+  %else
+    # https://bugzilla.redhat.com/show_bug.cgi?id=2446435
+    %ctest --parallel 1 --exclude-regex '^ETagTest.LastModifiedAndIfModifiedSince|^ETagTest.IfRangeWithDate|^WebSocketIntegrationTest.LargeMessage|^WebSocketIntegrationTest.MaxPayloadAtLimit|^MaxTimeoutTest.ContentStream|_Online$'
+  %endif
 %endif
 %endif
 

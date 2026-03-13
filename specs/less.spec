@@ -1,8 +1,10 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 692
-Release: 1%{?dist}
-License: GPL-3.0-only and BSD-2-Clause
+Release: 2%{?dist}
+# less dual license GPL-3.0-only OR BSD-2-Clause
+# lesspipe GPL-2.0-and-later
+License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-and-later
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 %global lesspipe_version 2.22
 Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
@@ -41,6 +43,8 @@ You should install less because it is a basic utility for viewing text
 files, and you'll use it frequently.
 
 %package color
+# perl files GPL-1.0-or-later, the rest GPL-2.0-or-later
+License: GPL-2.0-or-later AND GPL-1.0-or-later
 Summary: Colorizers for less
 Requires: %{name} = %{version}-%{release}
 Conflicts: less < 685-5
@@ -109,6 +113,9 @@ popd
 %{_bindir}/vimcolor
 
 %changelog
+* Wed Mar 11 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-2
+- fix license tags (rhbz#2445996)
+
 * Wed Feb 25 2026 Michal Hlavinka <mhlavink@redhat.com> - 692-1
 - updated to 692 (#2437657)
 

@@ -1,11 +1,11 @@
 %global giturl  https://github.com/4ti2/4ti2
 
 Name:           4ti2
-Version:        1.6.14
+Version:        1.6.15
 Release:        %autorelease
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
-%global relver %(tr . _ <<< %{version})
+%global relver  %{gsub %version %. _}
 
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in the PDF manual.
@@ -33,13 +33,11 @@ URL:            https://4ti2.github.io/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/releases/download/Release_%{relver}/%{name}-%{version}.tar.gz
 Source1:        4ti2.module.in
-# Do not discard const qualifiers
-Patch:          %{giturl}/pull/58.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
 
-BuildRequires:  environment(modules)
+BuildRequires:  environment-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glpk-devel

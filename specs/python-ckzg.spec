@@ -1,7 +1,7 @@
 %global pypi_name ckzg
 
 Name:          python-%{pypi_name}
-Version:       2.1.6
+Version:       2.1.7
 Release:       %autorelease
 Summary:       An implementation of the Polynomial Commitments API for EIP-4844/7594
 License:       Apache-2.0
@@ -15,7 +15,7 @@ BuildRequires: python3-pytest
 BuildSystem:   pyproject
 BuildOption(install): -l %{pypi_name}
 # https://github.com/supranational/blst
-Provides:      bundled(blst)
+Provides:      bundled(blst) = 0.3.16
 
 %description
 %{summary}.

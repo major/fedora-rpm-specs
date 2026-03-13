@@ -1,6 +1,7 @@
 %undefine __cmake_in_source_build
 %global with_lua 1
 %global with_maxminddb 1
+%global with_pytools 1
 %global plugins_version 4.6
 
 %bcond http3 %[0%{?fedora} >= 43]
@@ -8,7 +9,7 @@
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.6.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -130,8 +131,10 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
 Requires:	glibc-devel
 Requires:	glib2-devel
+%if %{with_pytools} && 0%{?fedora}
 Requires:	python3-ply
 Requires:	omniORB-devel
+%endif
 
 %description devel
 The wireshark-devel package contains the header files, developer
@@ -182,6 +185,7 @@ mkdir -p %{buildroot}%{_udevrulesdir}
 install -m 0644 %{SOURCE2}		%{buildroot}%{_udevrulesdir}
 install -Dpm 0644 %{SOURCE3}		%{buildroot}%{_sysusersdir}/%{name}.conf
 
+%if %{with_pytools} && 0%{?fedora}
 #install asn2wrs.py, idl2wrs and make-plugin-reg.py tools
 mkdir -p %{buildroot}%{_libexecdir}/wireshark/pytools
 install -m 0755 tools/asn2wrs.py %{buildroot}%{_libexecdir}/wireshark/pytools/
@@ -191,6 +195,7 @@ install -m 0755 tools/idl2wrs %{buildroot}%{_libexecdir}/wireshark/pytools/
 #install idl2wrs dependent scripts
 install -m 0644 tools/wireshark_be.py %{buildroot}%{_libexecdir}/wireshark/pytools/
 install -m 0644 tools/wireshark_gen.py %{buildroot}%{_libexecdir}/wireshark/pytools/
+%endif
 
 touch %{buildroot}%{_bindir}/%{name}
 
@@ -293,11 +298,16 @@ fi
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}/*.cmake
+%if %{with_pytools} && 0%{?fedora}
 %dir %{_libexecdir}/wireshark/pytools
 %{_libexecdir}/wireshark/pytools/*.py
 %{_libexecdir}/wireshark/pytools/idl2wrs
+%endif
 
 %changelog
+* Wed Mar 11 2026 Michal Ruprich <mruprich@redhat.com> - 1:4.6.4-2
+- Python tools should only be shipped in Fedora
+
 * Wed Mar 04 2026 Michal Ruprich <mruprich@redhat.com> - 1:4.6.4-1
 - New version 4.6.4
 

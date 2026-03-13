@@ -52,7 +52,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A language and compiler for custom Deep Learning operations
 
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
@@ -227,6 +227,7 @@ cd llvm-project-%{commit1}
        -DLLVM_ENABLE_ASSERTIONS=OFF \
        -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
        -DLLVM_ENABLE_PROJECTS=mlir \
+       -DLLVM_INCLUDE_BENCHMARKS=OFF \
        -DLLVM_INSTALL_UTILS=ON \
        -DLLVM_TARGETS_TO_BUILD="host;NVPTX;AMDGPU" \
        -DLLVM_ENABLE_TERMINFO=OFF \
@@ -293,6 +294,9 @@ cd python
 %{python3_sitearch}/%{pypi_name}*
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 3.1.0-10
+- Do no build benchmarks
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

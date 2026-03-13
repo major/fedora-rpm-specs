@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           jsoup
-Version:        1.21.1
+Version:        1.22.1
 Release:        %autorelease
 Summary:        Java library for working with real-world HTML
 License:        MIT
@@ -13,6 +13,8 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        %{name}-%{version}.tar.gz
 # The sources contain non-free scraped web pages as test data
 Source1:        generate-tarball.sh
+# re2j is not yet packaged in Fedora
+Patch:          remove-re2j.patch
 
 BuildRequires:  jurand
 %if %{with bootstrap}
@@ -46,6 +48,8 @@ tree.
 %autosetup -p1 -C
 
 %pom_remove_plugin :animal-sniffer-maven-plugin
+%pom_remove_plugin :build-helper-maven-plugin
+%pom_remove_plugin :central-publishing-maven-plugin
 %pom_remove_plugin :maven-failsafe-plugin
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin com.github.siom79.japicmp:japicmp-maven-plugin
@@ -54,6 +58,9 @@ tree.
 # using the x-internal attribute
 %pom_xpath_inject "pom:plugin[pom:artifactId='maven-bundle-plugin']/pom:configuration/pom:instructions" \
   "<_exportcontents>*.internal;x-internal:=true,*</_exportcontents>"
+
+# Remove optional re2j dependency (not yet packaged in Fedora)
+%pom_remove_dep com.google.re2j:re2j
 
 # Remove jspecify annotations which are used for static analysis only
 %pom_remove_dep :jspecify

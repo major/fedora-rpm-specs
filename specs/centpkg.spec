@@ -4,7 +4,7 @@
 %endif
 
 Name:           centpkg
-Version:        0.10.2
+Version:        0.10.3
 Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Wed Mar 11 2026 Troy Dawson <tdawson@redhat.com> - 0.10.3-1
+- Raise correct Exception in is_locked_rhel_tag : CS-3310 (sgallagh)
+
 * Thu Feb 26 2026 Troy Dawson <tdawson@redhat.com> - 0.10.2-1
 - Add support for cXs-aie-partner branches : CS-3294 (michal)
 - Determine_rhel_state: Add check for locked tags: CS-2997 (sgallagh)

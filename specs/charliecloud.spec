@@ -13,8 +13,7 @@ Name:          charliecloud
 Version:       0.43
 Release:       2%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
-License:       Apache-2.0 and fsf-unlimited
+License:       Apache-2.0
 URL:           https://%{name}.io/v%{version}
 Source0:       https://gitlab.com/charliecloud/charliecloud/-/package_files/232789969/download#/charliecloud-%{version}.tar.gz
 BuildRequires: gcc rsync bash findutils
@@ -36,7 +35,7 @@ For more information: https://charliecloud.io
 
 %package       docs
 Summary:       Charliecloud man pages
-License:       Apache-2.0, bsd-simplified, MIT, and ofi-1.1
+License:       Apache-2.0 AND BSD-2-Clause AND MIT AND OFL-1.1
 BuildArch:     noarch
 Obsoletes:     %{name}-docs < %{version}-%{release}
 BuildRequires: python%{python3_pkgversion}-sphinx

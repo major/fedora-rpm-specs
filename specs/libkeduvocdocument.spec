@@ -11,7 +11,6 @@ Summary: Library to parse, convert, and manipulate KVTML files
 Version: 25.12.3
 Release: 1%{?dist}
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/education/libkeduvocdocument/
 Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -41,7 +40,7 @@ including kvtml1, csv, etc.).
 
 %package devel
 Summary:  Development files for %{name}
-License:  GPLv2+ and LGPLv2 and BSD
+License:  GPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-or-later) AND BSD-3-Clause
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.

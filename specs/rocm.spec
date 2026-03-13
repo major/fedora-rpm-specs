@@ -19,13 +19,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.1
+%global rocm_release 7.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -161,7 +161,6 @@ Requires: kfdtest             >= %{rocm_release}
 Requires: hip-tests >= %{rocm_release}
 Requires: rccl-tests
 Requires: rocm-bandwidth-test
-Requires: rocblas-test >= %{rocm_release}
 Requires: rocm-validation-suite >= %{rocm_release}
 %endif
 
@@ -186,6 +185,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
+- Remove rocblas-test from rocm-tests
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 

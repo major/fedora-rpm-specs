@@ -135,6 +135,7 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 %files
 %license LICENSE
+%doc composer.json
 %doc CREDITS
 %doc README
 

@@ -31,7 +31,11 @@ Summary:        %{summary}
 %description -n python3-pytest-lazy-fixture %_description
 
 %prep
-%autosetup -n pytest-lazy-fixture-%{version}
+%autosetup -N -n pytest-lazy-fixture-%{version}
+
+%if 0%{?rhel} == 0 || 0%{?rhel} > 10
+%patch -P 0 -p1
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires

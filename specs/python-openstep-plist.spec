@@ -1,5 +1,5 @@
 Name:           python-openstep-plist
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        ASCII plist parser written in Cython
 

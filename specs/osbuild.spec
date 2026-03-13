@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        174
+Version:        176
 %global         osbuild_initrd_version 0.1
 
 %forgemeta
@@ -136,8 +136,8 @@ Osbuild initrd used for in-vm support.
 %package        selinux
 Summary:        SELinux policies
 Requires:       %{name} = %{version}-%{release}
-Requires:       selinux-policy-%{selinuxtype}
-Requires(post): selinux-policy-%{selinuxtype}
+Requires:       selinux-policy-%{selinuxtype} >= %{_selinux_policy_version}
+Requires(post): selinux-policy-%{selinuxtype} >= %{_selinux_policy_version}
 BuildRequires:  selinux-policy-devel
 %{?selinux_requires}
 
@@ -148,9 +148,9 @@ containers it uses to build OS artifacts.
 
 %package        container-selinux
 Summary:        SELinux container policies
-Requires:       selinux-policy-%{selinuxtype}
+Requires:       selinux-policy-%{selinuxtype} >= %{_selinux_policy_version}
 Requires:       container-selinux
-Requires(post): selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype} >= %{_selinux_policy_version}
 Requires(post): container-selinux
 BuildRequires:  selinux-policy-devel
 BuildRequires:  selinux-policy-devel
@@ -472,6 +472,35 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Mar 11 2026 Packit <hello@packit.dev> - 176-1
+Changes with 176
+----------------
+  - CI: run tests on 9.7+10.1 GA and 9.8+10.2 nightly (HMS-9794) (#2351)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  - Revert "schutzbot: update libsemanage before installing osbuild" (#2378)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - Solver: fix `repo_ids` to restrict all dependency resolution, not just top-level packages (HMS-10314) (#2379)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - Solver: implement per-transaction package excludes in the DNF5 solver (HMS-10318) (#2381)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Update images dependency ref to latest (#2383)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Tomáš Hozza
+  - Update osbuild-ci container images (#2367)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger
+  - Update snapshots to 20260308 (#2382)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - docs: shift manifest guide headings one level down (#2385)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - solver: add cost field to Repository model (#2380)
+    - Author: Mark Kemel, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - stages/rpm: add nodeps option for `rpm install --nodeps` (#2387)
+    - Author: Dusty Mabe, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - stages: add coreos.bfb for NVIDIA BlueField DPUs (#2349)
+    - Author: Sagi Zigmon, Reviewers: Nobody
+
+— Somewhere on the Internet, 2026-03-11
+
+
 * Thu Feb 19 2026 Packit <hello@packit.dev> - 174-1
 ## What's Changed
  * Fix packaging conflict in initrd directory causing downgrade failures by @thozza in https://github.com/osbuild/osbuild/pull/2347

@@ -1,6 +1,6 @@
 Name:           tomcat-native
 Epoch:          1
-Version:        2.0.8
+Version:        2.0.14
 Release:        %autorelease
 Summary:        Tomcat native library
 

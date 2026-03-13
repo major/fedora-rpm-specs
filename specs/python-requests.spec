@@ -1,7 +1,7 @@
 # When bootstrapping Python, we cannot test this yet
 # RHEL does not include the test dependencies
 %bcond tests    %{undefined rhel}
-# The extras are disabled on RHEL to avoid pysocks and deprecated requests[security]
+# The extras are disabled on RHEL to avoid pysocks, chardet, and deprecated requests[security]
 %bcond extras    %[%{undefined rhel} || %{defined eln}]
 %bcond extradeps %{undefined rhel}
 
@@ -24,6 +24,11 @@ Patch:          system-certs.patch
 # Upstream PR: https://github.com/psf/requests/pull/5953
 # This change is backported also into RHEL 9.4 (via CS)
 Patch:          support_IPv6_CIDR_in_no_proxy.patch
+
+# Increase chardet upper limit to 7
+# https://github.com/psf/requests/commit/4bd79e397304d46dfccd76f36c07f66c0295ff82
+# Backported to v2.32.5
+Patch:          0001-Increase-chardet-upper-limit-to-7.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -52,12 +57,12 @@ designed to make HTTP requests easy for developers.
 
 
 %if %{with extras}
-%pyproject_extras_subpkg -n python%{python3_pkgversion}-requests security socks
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-requests security socks use_chardet_on_py3
 %endif
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_extradeps:-x security,socks}
+%pyproject_buildrequires %{?with_extradeps:-x security,socks,use_chardet_on_py3}
 
 
 %prep

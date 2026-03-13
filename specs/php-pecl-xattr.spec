@@ -14,22 +14,27 @@
 %global pie_vend  pecl
 %global pie_proj  xattr
 %global ini_name  40-%{pecl_name}.ini
-%global sources   %{pecl_name}-%{version}
+
+# Github forge
+%global gh_vend     php
+%global gh_proj     pecl-file_system-xattr
+%global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
+%global tag         %{version}
 
 Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
 Version:        1.4.1
-Release:        2%{?dist}
+%forgemeta
+Release:        3%{?dist}
 License:        PHP-3.01
-URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{sources}.tgz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 7.2
-BuildRequires:  php-pear  >= 1.10
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -50,21 +55,14 @@ that support them.
 
 
 %prep
-%setup -q -c
+%forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
-
-cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_XATTR_VERSION/{s/.* "//;s/".*$//;p}' php_xattr.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:-%{prever}}.
    exit 1
 fi
-cd ..
 
 # Create configuration file
 cat > %{ini_name} << 'EOF'
@@ -74,8 +72,6 @@ EOF
 
 
 %build
-cd %{sources}
-
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
@@ -87,16 +83,11 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
 
 %install
-cd %{sources}
-
 : Install the extension
 %make_install
 
 : Install the config file
-install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-: Install the XML package description
-install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 : Install the Documentation
 for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
@@ -105,8 +96,6 @@ done
 
 
 %check
-cd %{sources}
-
 : Minimal load test for the extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
@@ -121,15 +110,20 @@ REPORT_EXIT_STATUS=1 \
 
 
 %files
-%license %{sources}/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%license LICENSE
+%doc composer.json
+%doc CREDITS
+%doc *.md
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
 
 %changelog
+* Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 1.4.1-3
+- drop pear/pecl dependency
+- sources from github
+
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
